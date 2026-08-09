@@ -1,2 +1,1 @@
-rank,local_id,summary,priority,critical_path,dependency_unlock_count,execution_lane,execution_mode,component,parent,dependencies,source_refs,canonical_record
-1,POST-SUBTASK-019,"[POST-SUBTASK-019] Define credential names, scopes, owners, rotation, and non-repository storage contract",P0,true,2,PROTECTED_GATE,ATOMIC_EXECUTION,data-sources,POST-STORY-007,POST-SUBTASK-015,SRCREF-02007;SRCREF-02008;SRCREF-02009;SRCREF-02010;SRCREF-02011;SRCREF-02012;SRCREF-02001;SRCREF-02002,jira/records/issues/subtasks/POST-SUBTASK-019_define_credential_names_scopes_owners_rotation_and_non_repository_storage_contra.json
+

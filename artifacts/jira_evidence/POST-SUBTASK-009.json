@@ -12,9 +12,9 @@
   "outputs": [
     {
       "path": "artifacts/benchmarks/ac038_gate_decision.json",
-      "bytes": 12283,
-      "sha256": "5dbed2ffe24f0daa92707d72279346214e4f473ab7c34d713812d22b03fb32db",
-      "canonical_payload_sha256": "1dd0cf0bd7affd50bf856493b8a871cdb615dc167e85b14c21b7b0a3215159d9",
+      "bytes": 12776,
+      "sha256": "b865ae0a247ab2500396353ff170c063093d0b31a017895ce98ac53ea6c70fb8",
+      "canonical_payload_sha256": "56ba76c12c9f0fa51bc46a7c819f69038f6a47098d0c934aae74c5d1df5c76ac",
       "schema_version": "aggie.ac038_gate_decision.v1",
       "maturity": "EMPIRICALLY_VALIDATED_BLOCK_DECISION",
       "eligibility": "BLOCKED_INPUT_DOWNSTREAM_MUST_REJECT"
@@ -57,7 +57,7 @@
       "disposition": "BLOCKED",
       "observable_result": "No accepted authoritative threshold evidence exists. Both values remain blank/TBD and observed RAM/runtime maxima are labeled non-governing rather than converted into budgets.",
       "evidence_path": "artifacts/benchmarks/ac038_gate_decision.json",
-      "evidence_sha256": "5dbed2ffe24f0daa92707d72279346214e4f473ab7c34d713812d22b03fb32db",
+      "evidence_sha256": "b865ae0a247ab2500396353ff170c063093d0b31a017895ce98ac53ea6c70fb8",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T11:27:00Z"
     },
@@ -66,7 +66,7 @@
       "disposition": "PASS",
       "observable_result": "The decision pins all four prerequisite artifact/evidence pairs, companion log, registry, reviewer, UTC timestamp, authority contradiction, observations, and block rationale.",
       "evidence_path": "artifacts/benchmarks/ac038_gate_decision.json",
-      "evidence_sha256": "5dbed2ffe24f0daa92707d72279346214e4f473ab7c34d713812d22b03fb32db",
+      "evidence_sha256": "b865ae0a247ab2500396353ff170c063093d0b31a017895ce98ac53ea6c70fb8",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T11:27:00Z"
     },
@@ -75,7 +75,7 @@
       "disposition": "PASS",
       "observable_result": "AC-038 remains blocked, TASK-163 remains BLOCKED_AC038_TARGET_HARDWARE, THR-011/012 remain blank, no override was applied, and no post-hoc headroom was invented.",
       "evidence_path": "artifacts/benchmarks/ac038_gate_decision.json",
-      "evidence_sha256": "5dbed2ffe24f0daa92707d72279346214e4f473ab7c34d713812d22b03fb32db",
+      "evidence_sha256": "b865ae0a247ab2500396353ff170c063093d0b31a017895ce98ac53ea6c70fb8",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T11:27:00Z"
     }
@@ -140,6 +140,18 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "Strict repository/security with 2,760 provenance rows and tree fingerprint 3d2a6ac490360b8df32dc9930769e136139b26709983a73d5c4795c150195ac6, dependency policy, W25, protected W17 seal, instructions, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 tests, expected strict-W23 exit 2, and the empty Ready queue all passed."
+    },
+    {
+      "command": "GitHub protected blocker-evidence integration for PR #23",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All seven required contexts passed at head 7bff996eac5d9e2f1d1b17080033845045757d2b; squash merge 2ac82f03ddb602b7dec1fe42382f9da34c38ece2 completed at 2026-08-09T11:39:05Z, and main repository-ci run 31311317447 plus security-analysis run 31311317468 passed on attempt 1. No blocker was waived."
+    },
+    {
+      "command": "Credential-free clean BAT-359 blocked-sync candidate at bf76819aa15b62d4adaf30291176c84a0315694d",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security passed with 2,760 provenance rows and tree fingerprint abff582df9c648188d2aeacf3198622f9f87a85f2ff00631dc2d3e0d2675db99; the candidate records protected PR #23 and successful main workflows while retaining the exact Blocked/Partial decision."
     }
   ],
   "external_evidence": [
@@ -234,10 +246,15 @@
   },
   "integration": {
     "branch": "codex/BAT-359-threshold-governance",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "required_checks": "PENDING_PROTECTED_PR",
+    "pull_request": 23,
+    "head_sha": "7bff996eac5d9e2f1d1b17080033845045757d2b",
+    "merge_sha": "2ac82f03ddb602b7dec1fe42382f9da34c38ece2",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T11:39:05Z",
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
+    "main_repository_ci_run_id": 31311317447,
+    "main_security_analysis_run_id": 31311317468,
+    "main_run_attempts": 1,
     "live_jira_claim_comment_id": "13312",
     "live_jira_blocker_comment_id": "13313",
     "live_jira_status": "To Do",
@@ -248,7 +265,8 @@
     "workflow_mapping": "BLOCKED maps to portable Jira status To Do",
     "pre_claim_rollback_snapshot_sha256": "63afc585be614f40a7af963e4ffd376a96afce6ed02e4d8c6938df9be15273c3",
     "pre_block_rollback_snapshot_sha256": "4b128fd5fa5a15d711327b7b8d19a8fd1728a5beddf2ed21de979ba1eb073265",
-    "post_block_state_sha256": "10ea4e6ee5d52474207bef9c04714da08c78e6ce740cc357da2e506e69057da6"
+    "post_block_state_sha256": "10ea4e6ee5d52474207bef9c04714da08c78e6ce740cc357da2e506e69057da6",
+    "state": "PROTECTED_MERGED_AND_LIVE_JIRA_BLOCKED"
   },
   "completion": {
     "achieved_maturity": "FUNCTIONAL_STARTER",

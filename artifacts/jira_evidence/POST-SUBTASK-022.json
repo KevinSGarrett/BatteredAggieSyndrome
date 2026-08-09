@@ -26,7 +26,7 @@
     "achieved_maturity": "IMPLEMENTED",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
     "remaining_issue_scope_blockers": []
   },
@@ -68,25 +68,40 @@
       "sha256": "cb05956f58cf86926bd98b79536ebe502d66b73f122b9fec86237753697c64a4"
     },
     {
-      "bytes": 16231,
+      "bytes": 16233,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.json",
-      "sha256": "6ce481bffe4e4dd46e7ffddf9106b9caa35e95f75106fb9ffe223d6dbb57efd0"
+      "sha256": "34786843322b92d7ce02b0fb8e1bea5b8a7c8bdda86045174f1eb867750e6c87"
     }
   ],
   "jira_key": "BAT-372",
   "live_jira": {
     "claim_comment_id": "13343",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
-    "maturity": "INTEGRATED",
+    "completion_comment_id": "13344",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
+    "maturity": "PRODUCTION_READY",
     "post_claim_state": {
       "bytes": 284,
       "path": "<external-runtime>/BAT-372/post-claim-jira-state.json",
       "sha256": "de03e829d8190557660a1b7c3e5b1507bc55f81290cd71f26c92345713fec4ae"
     },
-    "status": "In Progress"
+    "post_complete_state": {
+      "bytes": 277,
+      "path": "<external-runtime>/BAT-372/post-complete-jira-state.json",
+      "sha256": "59ee11828847779323c31cf36f3e6935eb7974618d108441b3a2b717ce63c048"
+    },
+    "status": "Done",
+    "updated": "2026-08-09T11:45:33.344-0500"
   },
   "local_issue_id": "POST-SUBTASK-022",
+  "local_jira_sync": {
+    "live_export": {
+      "bytes": 160,
+      "path": "<external-runtime>/BAT-372/BAT-372-live-row.csv",
+      "sha256": "ca588d705a8ab5377f32ba2f6528a87a636b402ad541534437a265d77defb893"
+    },
+    "state": "SYNCHRONIZED_PENDING_PROTECTED_COMPLETION_COMMIT"
+  },
   "observable_outcome": "A verified fail-closed registry defines 14 acquisition endpoint contracts for the only two production-ready sources, CFBD and Open-Meteo. Endpoint/version, parameter, season, pagination, cutoff, raw-content, upstream-lineage, and unknown-coverage rules are explicit.",
   "outputs": [
     {
@@ -107,8 +122,15 @@
   },
   "protected_integration": {
     "branch": "codex/BAT-372-source-acquisition-specs",
-    "merge_method": "SQUASH_REQUIRED",
-    "state": "PENDING_PROTECTED_PULL_REQUEST"
+    "head_sha": "603bff744c24ea5f4d3dab65f25a090960b7119a",
+    "merge_commit_repository_ci_run": 31324534234,
+    "merge_commit_security_analysis_run": 31324534275,
+    "merge_method": "SQUASH",
+    "merge_sha": "431dc54da2a69591790892af6a08c70f469c163b",
+    "merged_at_utc": "2026-08-09T16:43:35Z",
+    "pull_request": 60,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "security": {
@@ -116,6 +138,7 @@
     "credential_values_included": false,
     "raw_response_bodies_included": false
   },
+  "updated_at_utc": "2026-08-09T16:46:54Z",
   "validation": {
     "report": {
       "bytes": 1467,

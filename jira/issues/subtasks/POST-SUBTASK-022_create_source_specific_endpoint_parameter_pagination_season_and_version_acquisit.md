@@ -81,7 +81,7 @@
   "end_to_end_validation": "Validate that `configs/source_acquisition_registry.json` can be parsed and consumed by `POST-SUBTASK-023` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-022.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -142,18 +142,18 @@
     "sources",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-022",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24512",
-    "jira_updated_at": "2026-08-09T00:03:26.848-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T11:45:33.344-0500",
+    "last_synced_at": "2026-08-09T16:46:11.067531+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-372\\BAT-372-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -207,7 +207,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -312,7 +312,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-008: Production acquisition contracts, rate limits, fallbacks, and drift hooks.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-022.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 

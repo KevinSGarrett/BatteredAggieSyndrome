@@ -23,7 +23,7 @@
     "artifacts/implementation_preflight/credential_inventory.redacted.json",
     "artifacts/jira_evidence/POST-SUBTASK-005.json"
   ],
-  "blocked_reason": "USER_MUST_SUPPLY_PRODUCTION_CREDENTIALS_OUTSIDE_REPOSITORY",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-006"
   ],
@@ -77,7 +77,7 @@
   "end_to_end_validation": "Validate that `artifacts/implementation_preflight/credential_inventory.redacted.json`, `docs/operations/CREDENTIALS_AND_SECRETS.md` can be parsed and consumed by `POST-SUBTASK-006` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-001",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-005.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -134,7 +134,6 @@
     "actionable",
     "core-release",
     "environment",
-    "external-blocker",
     "post-wave",
     "protected-gate",
     "subtask"
@@ -146,11 +145,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24495",
-    "jira_updated_at": "2026-08-09T00:03:18.669-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "jira_updated_at": "2026-08-09T04:48:09.883-0500",
+    "last_synced_at": "2026-08-09T09:48:09.883000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -164,8 +163,7 @@
   "phase": "PHASE-4",
   "prerequisites": [
     "Dependency POST-SUBTASK-001 complete at required maturity",
-    "Dependency POST-SUBTASK-004 complete at required maturity",
-    "External condition: USER_MUST_SUPPLY_PRODUCTION_CREDENTIALS_OUTSIDE_REPOSITORY"
+    "Dependency POST-SUBTASK-004 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-01994",
@@ -258,8 +256,7 @@
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
     "Acceptance failure: the evidence cannot demonstrate that every credential is referenced by environment-variable name only.",
     "Acceptance failure: the evidence cannot demonstrate that no token, password, session cookie, or restricted URL is written to the repository or evidence logs.",
-    "Acceptance failure: the evidence cannot demonstrate that a redaction test demonstrates that representative secret values are removed from logs and exception messages.",
-    "External blocker remains unresolved: USER_MUST_SUPPLY_PRODUCTION_CREDENTIALS_OUTSIDE_REPOSITORY."
+    "Acceptance failure: the evidence cannot demonstrate that a redaction test demonstrates that representative secret values are removed from logs and exception messages."
   ],
   "risk_ids": [],
   "schema_version": 2,
@@ -315,7 +312,7 @@
     "POST-SUBTASK-009"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Provide and verify external condition: USER_MUST_SUPPLY_PRODUCTION_CREDENTIALS_OUTSIDE_REPOSITORY",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REGRESSION",
@@ -324,7 +321,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-002: Local data, artifact, and secret boundary bootstrap.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-005.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "VALIDATION"
 }
 ```
 
@@ -363,7 +360,6 @@ Execute the atomic 2 of 3 step in Story POST-STORY-002 (Local data, artifact, an
 
 - Dependency POST-SUBTASK-001 complete at required maturity
 - Dependency POST-SUBTASK-004 complete at required maturity
-- External condition: USER_MUST_SUPPLY_PRODUCTION_CREDENTIALS_OUTSIDE_REPOSITORY
 
 ## Hard Dependencies
 
@@ -498,7 +494,6 @@ Validate that `artifacts/implementation_preflight/credential_inventory.redacted.
 - Acceptance failure: the evidence cannot demonstrate that every credential is referenced by environment-variable name only.
 - Acceptance failure: the evidence cannot demonstrate that no token, password, session cookie, or restricted URL is written to the repository or evidence logs.
 - Acceptance failure: the evidence cannot demonstrate that a redaction test demonstrates that representative secret values are removed from logs and exception messages.
-- External blocker remains unresolved: USER_MUST_SUPPLY_PRODUCTION_CREDENTIALS_OUTSIDE_REPOSITORY.
 
 ## Stop Conditions
 

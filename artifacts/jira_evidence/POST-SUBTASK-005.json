@@ -1,0 +1,292 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T09:50:59Z",
+  "jira_key": "BAT-355",
+  "local_issue_id": "POST-SUBTASK-005",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "A names-only inventory records four configured credential or identity bindings and one non-secret external configuration name; read-only authentication smokes passed for three provider aliases; ten synthetic secret markers were removed from nested metadata, scalar text, JSONL output, and an exception message; and configured secret values had zero matches in tracked or candidate files.",
+  "outputs": [
+    {
+      "path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
+      "bytes": 10476,
+      "sha256": "b7456f1771554c50bb5eb9a4d5cf31847aa71cfc84b1ca837f9c6a12d065b044",
+      "canonical_payload_sha256": "2e7def7d65f314411ba461045f3b20c3f0948b54785c2916443577f8dd784745",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED",
+      "eligibility": "CREDENTIAL_INVENTORY_AND_REDACTION_EVIDENCE"
+    },
+    {
+      "path": "docs/operations/CREDENTIALS_AND_SECRETS.md",
+      "bytes": 4790,
+      "sha256": "0961e230c6b4fcc5aba2bdbdcfe0f689e630147e5c68ae3f846622a5a3694c2d",
+      "schema_version": "DOCUMENTATION_V1",
+      "maturity": "IMPLEMENTED",
+      "eligibility": "OPERATOR_AND_CONSUMER_CONTRACT"
+    }
+  ],
+  "input_identities": {
+    "git_base_commit": "b8e03ea797c09252a99a712a3fa165b77458a425",
+    "git_base_tree": "7130f57ef537ee7017fde466a90f8019d00ba211",
+    "post_subtask_001_workflow_state": "DONE",
+    "post_subtask_001_evidence_state": "VERIFIED",
+    "data_root_activation_sha256": "def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3",
+    "post_subtask_001_evidence_sha256": "e96f9de1a246daa24a6154f9357331f771363165c584158c9c7bd3ed22060afe",
+    "post_subtask_004_workflow_state": "DONE",
+    "post_subtask_004_evidence_state": "VERIFIED",
+    "local_path_contract_sha256": "8a4cd5e218d37e75a0ea03f790ff3ce86369e52b2c2e6fe40f5b632077006d58",
+    "post_subtask_004_evidence_sha256": "a9f1756ac920d1553cbe4f2ad120c10da20c2a4d3749344ba4457a26a5156cca",
+    "observability_module_sha256": "87464ca4cce8019390361d26f5914287f03b9500c226b69713ea335a393b7cad",
+    "operations_test_sha256": "9101e3242575453292763f11f3d6f735d4c653397eb4e2cbc23d8a7f0d9ec269",
+    "codex_handoff_sha256": "afce5c31809075e42c2ae6690e3c642779417ac032d692a82c5eadc114db9d14",
+    "do_not_drift_sha256": "13e3712dc3f9cb22d65e23953ac040ee2daefff16364d38d195432110a2d3404"
+  },
+  "reproducibility": {
+    "source": "Pinned prerequisite artifacts and the listed W25/W23 source documents; no provider response body retained.",
+    "data": "No source dataset or restricted payload materialized; only aggregate safe-smoke counts were retained externally.",
+    "code": "Git base commit/tree and observability/test hashes are recorded in input_identities.",
+    "config": "CFBD_API_KEY, GITHUB_TOKEN, JIRA_API_KEY, JIRA_EMAIL, and AGGIE_ANALYTICS_DATA_ROOT names only; configured values omitted.",
+    "tool": "Python 3.11.9; git 2.52.0.windows.1; Windows PowerShell 5.1.26100.8875.",
+    "runtime": "Credential checks ran from the configured local host; host identity and absolute paths are omitted.",
+    "split_cutoff": "NOT_APPLICABLE_NO_DATASET_MODEL_OR_FORECAST_EVALUATION"
+  },
+  "external_evidence": [
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-355/credential-preflight.safe.json",
+      "bytes": 1808,
+      "sha256": "1900debc71cd9eee9cf463225c9beec2859e55ae8668cfd2bc1933419de2ad5f",
+      "credential_values_included": false,
+      "identity_values_included": false,
+      "endpoints_included": false,
+      "response_bodies_included": false
+    },
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-355/consumer-contract-validation.safe.json",
+      "bytes": 1389,
+      "sha256": "5db113c24fc2be15a3a0b9b3fefa4c0e53c906467f2755ddc33c4161c35fa064",
+      "positive_contract_passed": true,
+      "mutation_count": 7,
+      "rejected_mutation_count": 7
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "Every credential is referenced by environment-variable name only.",
+      "disposition": "PASS",
+      "observable_result": "Four configured credential or identity bindings are inventoried exclusively by environment-variable name; value and identity-value inclusion flags are false.",
+      "evidence_path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
+      "evidence_sha256": "b7456f1771554c50bb5eb9a4d5cf31847aa71cfc84b1ca837f9c6a12d065b044",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T09:50:59Z"
+    },
+    {
+      "criterion": "No token, password, session cookie, or restricted URL is written to the repository or evidence logs.",
+      "disposition": "PASS",
+      "observable_result": "Three configured secret values had zero matches in 2,750 tracked files and all three candidate outputs; .env is ignored and untracked; saved reports contain no values, identities, endpoints, or bodies.",
+      "evidence_path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
+      "evidence_sha256": "b7456f1771554c50bb5eb9a4d5cf31847aa71cfc84b1ca837f9c6a12d065b044",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T09:50:59Z"
+    },
+    {
+      "criterion": "A redaction test demonstrates that representative secret values are removed from logs and exception messages.",
+      "disposition": "PASS",
+      "observable_result": "Ten synthetic markers across nested keys, bearer/assignment scalars, JSONL serialization, and exception text produced zero leaks and an observed [REDACTED] marker.",
+      "evidence_path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
+      "evidence_sha256": "b7456f1771554c50bb5eb9a4d5cf31847aa71cfc84b1ca837f9c6a12d065b044",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T09:50:59Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python EXTERNAL_DATA_ROOT/runtime/BAT-355/credential_preflight.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Four credential/identity names and the external data-root name were configured; three read-only provider smokes returned 200; ten synthetic redaction markers had zero leaks; three configured secrets had zero tracked/candidate matches."
+    },
+    {
+      "command": "python EXTERNAL_DATA_ROOT/runtime/BAT-355/validate_consumer_contract.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The positive POST-SUBTASK-006 contract passed and seven re-hashed negative mutations were rejected for schema, content hash, stale prerequisite, included value, redaction, rights, and provenance reasons."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "11 of 11 focused W23 operations tests passed in 0.454 seconds, including structured-log and nested redaction coverage."
+    },
+    {
+      "command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
+      "exit_code": 0,
+      "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED",
+      "output_summary": "W23 implementation passed while AC-038 remained unresolved and THR-011/THR-012 remained TBD."
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "2,118 source references verified with zero errors and zero relocations."
+    },
+    {
+      "command": "python -B tools/validate_repository.py in the active operator checkout",
+      "exit_code": 1,
+      "result": "EXPECTED_DIRTY_OPERATOR_CHECKOUT_FAILURE_PRESERVED",
+      "output_summary": "The strict validator reported 67 findings from the intentionally ignored .env, existing caches/archive, and unregistered candidate outputs; no deletion or secret-moving workaround was used. A credential-free clean candidate remains the authoritative repository gate."
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_pack.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All 463 canonical and derivative Jira records passed strict validation; POST-SUBTASK-005 moved to VALIDATION and 138 issues remained dependency-blocked."
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All 1,758 Jira manifest files matched their registered identities."
+    },
+    {
+      "command": "python -B jira/tools/validate_import_files.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All import derivatives for 463 issues passed with zero errors."
+    },
+    {
+      "command": "python -B jira/tools/validate_dependencies.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The 463-issue dependency graph contained zero cycles and zero errors."
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The strict second-pass contract passed for 463 issues, 229 actionable work packets, and 2,118 source anchors."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "243 of 243 warning-strict tests passed in 4.419 seconds."
+    },
+    {
+      "command": "Credential-free clean candidate gate at local implementation commit",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security and 2,751-row provenance, W25 terminal governance, protected W17 seal, strict instruction controls, 2,118 source anchors, 463 Jira records/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 warning-strict tests, W23 implementation, and all seven POST-SUBTASK-006 consumer mutations passed or failed closed as required."
+    }
+  ],
+  "credential_and_redaction_evidence": {
+    "credential_or_identity_name_count": 4,
+    "non_secret_external_configuration_name_count": 1,
+    "authenticated_provider_count": 3,
+    "configured_secret_count": 3,
+    "tracked_file_count": 2750,
+    "tracked_secret_match_count": 0,
+    "candidate_secret_match_count": 0,
+    "synthetic_marker_count": 10,
+    "synthetic_leaked_marker_count": 0,
+    "exception_redaction_tested": true,
+    "jsonl_redaction_tested": true,
+    "authoritative_for_credential_inventory": true,
+    "authoritative_for_source_rights": false,
+    "authoritative_for_scope_or_rotation_compliance": false
+  },
+  "scientific_and_model_evidence": {
+    "applicable": false,
+    "reason": "CREDENTIAL_BOUNDARY_HAS_NO_DATASET_SPLIT_MODEL_METRIC_OR_PRECOMMITTED_SCIENTIFIC_HYPOTHESIS",
+    "fabricated_metrics": false,
+    "protected_results_inspected": false
+  },
+  "negative_findings": [
+    {
+      "id": "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "finding": "Successful authentication does not establish access, retention, training, publication, redistribution, or deletion rights.",
+      "waived": false,
+      "resolution": "RETAINED_DOWNSTREAM_GATE"
+    },
+    {
+      "id": "TOKEN_SCOPE_AND_ROTATION_NOT_EVALUATED",
+      "finding": "Provider token scopes, rotation interval, and named ownership were not introspected or fabricated by this atomic inventory task.",
+      "waived": false,
+      "resolution": "OUT_OF_SCOPE_RETAINED_OPERATOR_CONTROL"
+    },
+    {
+      "id": "STORAGE_DURABILITY_NOT_EVALUATED",
+      "finding": "Storage permissions, free space, atomic writes, durability, and quarantine behavior belong to POST-SUBTASK-006.",
+      "waived": false,
+      "resolution": "OUT_OF_SCOPE_RETAINED"
+    },
+    {
+      "id": "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "finding": "No source response body, restricted payload, or historical data lake was materialized by this task.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    },
+    {
+      "id": "AC_038_AND_TARGET_THRESHOLDS_UNRESOLVED",
+      "finding": "AC-038 remains unresolved and THR-011/THR-012 remain TBD.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    }
+  ],
+  "security_and_rights": {
+    "credential_values_emitted": false,
+    "identity_values_emitted": false,
+    "restricted_urls_emitted": false,
+    "response_bodies_emitted": false,
+    "restricted_payloads_emitted": false,
+    "source_rights_approval_claimed": false,
+    "token_scope_or_rotation_claimed": false,
+    "protected_files_modified": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-006",
+    "contract_parseable": true,
+    "canonical_hash_verified": true,
+    "documentation_present": true,
+    "prerequisite_hashes_present": true,
+    "consumer_mutation_gate_passed": true,
+    "silent_downstream_unlock_allowed": false,
+    "decision": "APPROVE_CREDENTIAL_BOUNDARY_RETAIN_RIGHTS_AND_RELEASE_GATES",
+    "consumer_must_fail_closed": true
+  },
+  "integration": {
+    "branch": "codex/bat-355-credential-inventory",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "merge_method": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_claim_comment_id": "13300",
+    "live_jira_logical_state": "IN_PROGRESS",
+    "live_jira_status": "In Progress",
+    "live_jira_evidence_state": "PLANNED",
+    "live_jira_maturity": "FUNCTIONAL_STARTER",
+    "live_jira_updated_at": "2026-08-09T04:48:09.883-0500",
+    "rollback_snapshot_sha256": "67740bd51a2a7a85b38e9b859a5349a5e48f5aaf9c7cf77b974976eea3d0f064"
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "VALIDATION",
+    "local_acceptance_criteria_pass": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [
+      "PENDING_PROTECTED_PR_INTEGRATION"
+    ],
+    "remaining_program_blockers": [
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ],
+    "completion_claim": "BAT-355's names-only credential inventory and redaction contract are implemented and all three issue-specific criteria pass locally. Protected integration and final Jira synchronization remain pending; no source-rights, token-scope, rotation, storage-durability, historical-data, target-threshold, or release claim is made."
+  }
+}

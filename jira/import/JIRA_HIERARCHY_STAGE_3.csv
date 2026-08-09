@@ -173,7 +173,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-002_run_the_full_unit_and_governance_validator_suite_on_the_target_host.json",To Do,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-002,operations-security,POST-SUBTASK-002,GAP-001;HANDOFF-001,PHASE-4,READY,IMPLEMENTED,PLANNED,POST_W25,true,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-002_run_the_full_unit_and_governance_validator_suite_on_the_target_host.json",In Progress,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-002,operations-security,POST-SUBTASK-002,GAP-001;HANDOFF-001,PHASE-4,VALIDATION,IMPLEMENTED,PARTIAL,POST_W25,true,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-353,100307,[POST-SUBTASK-003] Capture the authoritative target runtime and dependency manifest,100051,"Local ID: POST-SUBTASK-003
 
 Objective

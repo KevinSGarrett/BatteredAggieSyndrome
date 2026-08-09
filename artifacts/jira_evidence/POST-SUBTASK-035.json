@@ -1,0 +1,278 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/schema_reconciliation.csv",
+      "observable_result": "All 7,296 measured source/season/domain table-field occurrences have exactly one explicit disposition and reason; raw preservation, canonical eligibility, identity joins, PIT eligibility, and target-game exclusion remain independent."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "<external-validation>/BAT-385/schema_reconciliation_validation.json",
+      "observable_result": "The deterministic CSV is pinned to BAT-384 profile canonical identity 00d7d7495d4b5fef9cf16030995876caefb98d9bfbadaad8850171964fc3aae9 and passes baseline plus 10/10 unsafe mutations."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/schema_reconciliation.csv",
+      "observable_result": "No raw acceptance is promoted to canonical population, model feature, or pregame eligibility; all such uses remain fail-closed pending normalization, entity mapping, event-known-at, target exclusion, and chronological replay."
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-385/build_schema_reconciliation.py --repo .",
+      "exit_code": 0,
+      "result": "PASS; 7,296 unique table-field decisions"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-385/validate_schema_reconciliation.py --repo .",
+      "exit_code": 0,
+      "result": "PASS baseline; 10/10 unsafe mutations rejected"
+    },
+    {
+      "command": "python -B -m unittest discover -s tests; python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "unittest 266 passed, 1 skipped; pytest 271 passed, 1 skipped, 33 subtests passed"
+    },
+    {
+      "command": "python -B tools/validate_entities.py; Jira/source/W25/acceptance/data-research; strict repository validators",
+      "exit_code": 0,
+      "result": "PASS"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "completion_claimed": false,
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "FULL_FIELD_RECONCILIATION_VALIDATED_PENDING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "protected PR integration and live/local Jira completion synchronization"
+    ]
+  },
+  "consumer_contract": {
+    "consumer": "POST-SUBTASK-036",
+    "manual_reconstruction_required": false,
+    "nonblocking_metadata": [
+      "licensing_ambiguity",
+      "redistribution_uncertainty",
+      "provider_preference",
+      "missing_upstream_authorization",
+      "terms_or_scraping_uncertainty"
+    ],
+    "reject_on": [
+      "missing_table_field_key",
+      "duplicate_table_field_key",
+      "stale_profile_identity",
+      "invalid_disposition",
+      "direct_source_id_join",
+      "durable_name_only_join",
+      "complex_or_null_only_field_not_quarantined",
+      "weakened_pit_or_target_exclusion",
+      "model_feature_promotion_from_schema_only",
+      "globalized_quality_failure"
+    ]
+  },
+  "created_at_utc": "2026-08-09T23:30:54.495359Z",
+  "decision": {
+    "every_measured_field_reconciled": true,
+    "gap_002_resolved": false,
+    "historical_pregame_population_ready": false,
+    "normalized_population_ready": false,
+    "production_model_or_scientific_result_claimed": false,
+    "schema_and_missingness_readiness_gate_opened": false
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-036": "PENDING_PROTECTED_INTEGRATION_THEN_RECOMPUTE_READY_STATE"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 11362,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-033.json",
+      "sha256": "6b466745ba8d9be28216eb07ca1344ba1b98aba83535722ac7ae4aa160dbaddd"
+    },
+    {
+      "bytes": 9080,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-034.json",
+      "sha256": "28260ef84e400797e85835898c162add36817394fb0059b8f59c528edc0bf8fc"
+    },
+    {
+      "bytes": 4676835,
+      "canonical_payload_sha256": "00d7d7495d4b5fef9cf16030995876caefb98d9bfbadaad8850171964fc3aae9",
+      "path": "artifacts/entities/population_schema_profile.json",
+      "sha256": "7e3e263e8b6d8404287b4ebc7a3a44a6941a2d80fe94d772c8b7b4d3314723fe"
+    },
+    {
+      "bytes": 4014645,
+      "path": "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+      "sha256": "5c80a38be430ef7451c76668d0f03e417be251747d57ad2e549ee528e318a4a5"
+    }
+  ],
+  "jira_key": "BAT-385",
+  "live_jira": {
+    "checkpoint_comment_id": "13412",
+    "claim_comment_id": "13411",
+    "completion_comment_id": null,
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "EMPIRICALLY_VALIDATED",
+    "status": "In Progress"
+  },
+  "local_id": "POST-SUBTASK-035",
+  "local_jira_sync": {
+    "changed_issues": 1,
+    "conflict_count": 0,
+    "export_path": "<external-runtime>/BAT-385/BAT-385-live-row.csv",
+    "result": "PASS",
+    "strict_validation": "PASS"
+  },
+  "negative_findings_and_limits": [
+    "474 table-field occurrences have no observed non-null values and remain quarantined.",
+    "439 nested/complex occurrences remain quarantined pending explicit flattening and grain contracts.",
+    "24 occurrences across four play-ID/sequence fields have integer/string drift and remain quarantined rather than being coerced without validation.",
+    "No field is marked transformed, deprecated, or rejected merely to manufacture category coverage; those zero counts are preserved.",
+    "All source identity values remain source evidence only until verified crosswalk/entity decisions exist; labels are candidate-generation evidence only.",
+    "This issue reconciles schema decisions but does not materialize normalized tables or prove historical event-known-at eligibility.",
+    "No GAP-002 resolution, production model, protected performance, Texas A&M lift, BAS, or Aggie Excess result is claimed."
+  ],
+  "observable_outcome": {
+    "canonical_contract_counts": {
+      "FOOTBALL_SEASON_NATURAL_KEY": 131,
+      "NAME_OR_LABEL_CANDIDATE_ONLY": 467,
+      "SOURCE_IDENTITY_EVIDENCE": 677,
+      "SOURCE_OBSERVATION": 5291,
+      "TEMPORAL_EVIDENCE": 730
+    },
+    "disposition_counts": {
+      "ACCEPTED": 6359,
+      "QUARANTINED": 937
+    },
+    "disposition_reason_counts": {
+      "INCOMPATIBLE_NON_NULL_TYPE_FAMILIES_ACROSS_SEASONS_REQUIRE_SOURCE_SEASON_RECONCILIATION": 24,
+      "NESTED_OR_COMPLEX_STRUCTURE_REQUIRES_EXPLICIT_FLATTENING_AND_GRAIN_CONTRACT": 439,
+      "NO_OBSERVED_NON_NULL_VALUES_IN_THIS_SOURCE_SEASON_DOMAIN_TABLE": 474,
+      "SCALAR_TYPE_ACCEPTED_FOR_VERSIONED_NORMALIZATION_INPUT": 3479,
+      "SCALAR_TYPE_ACCEPTED_WITH_EXPLICIT_NULL_STATE_PRESERVED": 2880
+    },
+    "domain_counts": {
+      "advanced_game_statistics": 200,
+      "drives": 625,
+      "player_box_scores": 32,
+      "plays": 432,
+      "plays_structured_gamebook": 2814,
+      "rankings": 100,
+      "rosters": 460,
+      "schedules_games_official_outcomes": 2142,
+      "schedules_outcomes": 120,
+      "team_box_scores": 32,
+      "teams": 325,
+      "venues": 14
+    },
+    "measured_table_field_occurrences": 7296,
+    "negative_mutations_rejected": 10,
+    "schema_drift_class_counts": {
+      "ALL_NULL_ACROSS_SEASONS": 72,
+      "COMPLEX_TYPE_PRESENT": 490,
+      "INCOMPATIBLE_SCALAR_TYPE_DRIFT": 24,
+      "NULL_ONLY_SEASON_VARIANT": 633,
+      "STABLE_TYPE_FAMILY": 6077
+    },
+    "source_counts": {
+      "SRC-001": 3042,
+      "SRC-002": 4254
+    },
+    "unique_table_field_keys": 7296
+  },
+  "outputs": [
+    {
+      "bytes": 7650226,
+      "path": "artifacts/entities/schema_reconciliation.csv",
+      "sha256": "077225f5081f6739621dbcbc8e16919eb411e9d9c7b61063149ca4aafcd2fa02"
+    },
+    {
+      "bytes": 1851,
+      "path": "<external-validation>/BAT-385/schema_reconciliation_validation.json",
+      "sha256": "b70c4b74d8d45a5b4ec0613ab129baade956ef16078b4d0ff38fdc419ba4dae7"
+    }
+  ],
+  "pit_and_target_exclusion": {
+    "all_rows_pregame_state": "REJECTED_PENDING_EVENT_KNOWN_AT_TARGET_EXCLUSION_AND_CHRONOLOGICAL_REPLAY",
+    "all_rows_target_game_exclusion": "REQUIRED_EXCLUDE_TARGET_GAME_AND_SAME_GAME_POSTGAME_FIELDS",
+    "capture_or_release_time_promoted_to_historical_event_known_at": false,
+    "protected_split_opened": false
+  },
+  "policy_and_security": {
+    "bulk_payloads_in_git": false,
+    "corruption_fabrication_malware_credentials_private_personal_information_remain_blocking_or_quarantine_conditions": true,
+    "private_research_acquisition_and_training_allowed": true,
+    "raw_third_party_publication_allowed": false,
+    "rights_licensing_terms_scraping_redistribution_or_upstream_authorization_uncertainty_blocks_private_use": false,
+    "rights_metadata_nonblocking": true,
+    "storage_boundary": "EXTERNAL_DATA_ROOT"
+  },
+  "producer": {
+    "base_commit": "a2180a462769853ffaed073fc1665d5c5b6854f1",
+    "branch": "codex/BAT-385-schema-reconciliation",
+    "external_builder": {
+      "bytes": 15142,
+      "path": "<external-runtime>/BAT-385/build_schema_reconciliation.py",
+      "sha256": "cbb80a3059b836fdf15774322080348dcd19f5f9b2c75f5570b1d7e03ae4c7cb"
+    },
+    "external_validator": {
+      "bytes": 8455,
+      "path": "<external-runtime>/BAT-385/validate_schema_reconciliation.py",
+      "sha256": "e37e48d9e4748a8be01f33fbee070b382b1c6e78696fcf7748131408397b7007"
+    },
+    "python": "3.11.9"
+  },
+  "protected_integration": {
+    "head_sha": null,
+    "merge_sha": null,
+    "pull_request": null,
+    "repository_ci_run": null,
+    "security_analysis_run": null,
+    "state": "PENDING"
+  },
+  "reconciliation_contract": {
+    "allowed_dispositions": [
+      "ACCEPTED",
+      "TRANSFORMED",
+      "QUARANTINED",
+      "DEPRECATED",
+      "REJECTED"
+    ],
+    "canonical_population_and_model_feature_eligibility_are_independent": true,
+    "key": [
+      "table_id",
+      "field"
+    ],
+    "missing_and_explicit_null_states_preserved_separately": true,
+    "name_only_durable_joins_allowed": false,
+    "no_disposition_count_is_required_to_be_nonzero": true,
+    "partial_field_failure_globally_blocks_unrelated_fields_domains_or_seasons": false,
+    "raw_storage_and_canonical_population_eligibility_are_independent": true,
+    "source_identity_and_canonical_identity_are_separate": true
+  },
+  "schema_version": "1.0.0",
+  "scientific_validation": {
+    "calibrator": null,
+    "classification": "NOT_APPLICABLE_SCHEMA_RECONCILIATION_ONLY",
+    "dataset_or_matrix": null,
+    "metrics_or_uncertainty": null,
+    "model": null,
+    "null_or_negative_results_preserved": true,
+    "protected_evaluation_status": "NOT_OPENED",
+    "sample_size": null,
+    "split": null
+  },
+  "updated_at_utc": "2026-08-09T23:30:54.495359Z",
+  "validation": {
+    "full_test_suite": "PASS",
+    "negative_mutations_rejected": 10,
+    "repository_and_jira_validators": "PASS",
+    "result": "LOCAL_IMPLEMENTATION_PASS_PENDING_PROTECTED_INTEGRATION",
+    "schema_reconciliation": "PASS"
+  }
+}

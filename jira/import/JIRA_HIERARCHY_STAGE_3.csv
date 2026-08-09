@@ -3234,7 +3234,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-042
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-035_reconcile_measured_fields_with_canonical_contracts_compatibility_policy_and_quar.json",To Do,Highest,actionable;core-release;entities;post-wave;shared-contract;subtask;local-id-post-subtask-035,entities,POST-SUBTASK-035,GAP-003;GAP-004,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-035_reconcile_measured_fields_with_canonical_contracts_compatibility_policy_and_quar.json",In Progress,Highest,actionable;core-release;entities;post-wave;shared-contract;subtask;local-id-post-subtask-035,entities,POST-SUBTASK-035,GAP-003;GAP-004,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-386,100340,[POST-SUBTASK-036] Approve or block schema and missingness readiness for entity resolution,100062,"Local ID: POST-SUBTASK-036
 
 Objective

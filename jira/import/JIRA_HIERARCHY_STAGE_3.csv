@@ -2595,7 +2595,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-028_acquire_timestamped_roster_depth_participation_injury_recruiting_transfer_coachi.json",In Progress,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-028,raw-snapshots,POST-SUBTASK-028,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,IN_PROGRESS,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-028_acquire_timestamped_roster_depth_participation_injury_recruiting_transfer_coachi.json",Done,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-028,raw-snapshots,POST-SUBTASK-028,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-379,100333,"[POST-SUBTASK-029] Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata",100060,"Local ID: POST-SUBTASK-029
 
 Objective
@@ -2689,7 +2689,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-029,raw-snapshots,POST-SUBTASK-029,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-029,raw-snapshots,POST-SUBTASK-029,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-380,100334,"[POST-SUBTASK-030] Gate domain-by-domain production, experimental, conditional, rejected, or unavailable eligibility",100060,"Local ID: POST-SUBTASK-030
 
 Objective

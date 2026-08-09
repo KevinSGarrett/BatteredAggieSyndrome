@@ -1,0 +1,234 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T08:42:11Z",
+  "jira_key": "BAT-474",
+  "local_issue_id": "POST-SUBTASK-124",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "The existing protected GitHub Actions configuration is pinned and validated as a clean Windows/Linux CI path for strict repository checks, the full repository suite, Jira mirror validation, non-mutating import readiness, deterministic packaging behavior, the isolated product adapter, CodeQL, and dependency review. A credential-free detached checkout independently passed 243 warning-strict tests and ten named gates with zero tracked mutations; the failed first local sequence remains preserved.",
+  "outputs": [
+    {
+      "path": "artifacts/operations/ci_pipeline_validation.json",
+      "bytes": 15372,
+      "sha256": "8307e35b6aa1cc3d32db53b34a1593d95063e278a34766fbf24e7fc4ceb27756",
+      "canonical_payload_sha256": "a11ad373a777ea103147c4002dff85237571d601178181557802af3f8d11e6f4",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED",
+      "eligibility": "CLEAN_ENVIRONMENT_CI_VALIDATION_RELEASE_BLOCKED"
+    }
+  ],
+  "input_identities": {
+    "git_base_commit": "de369a5615b89df4d65ebd18638a40706387d9f3",
+    "git_base_tree": "d7b5edd93975d4455bd82380300f02dc1995f406",
+    "repository_ci_sha256": "5344b04476093f9c6df1c9291993f88793e1852476f7092489e49487d0f9ff98",
+    "security_ci_sha256": "64780116ec9d1561d472ce989db627ebc6b8b5239c2ab6241207d83c4bf17351",
+    "jira_control_plane_test_sha256": "b8070518d72fc036800ddd658fb39a7da4206215979c25ad1a8a7e28452e8e13",
+    "w24_readiness_test_sha256": "6ac2c4497df06f9918e12bc521ee20e503627bc6b9d0eb9c32c94c68175532c4",
+    "repository_integrity_test_sha256": "4380f91b27b1c2145c7cca7752bc1fc10e463cc6e0ff7bf0e9c82874dbda2b14",
+    "w23_operations_test_sha256": "9101e3242575453292763f11f3d6f735d4c653397eb4e2cbc23d8a7f0d9ec269",
+    "bootstrap_readiness_sha256": "7c14c738e43943263dee3992c823061e9ea5d83456352a6add7e58a0c40c0e1d",
+    "strict_repository_validator_sha256": "6df5b3c654300a5e0be39d20cf961c5797f55d66ac9573a17d94bd3798a1fd11",
+    "post_subtask_002_workflow_state": "DONE",
+    "post_subtask_002_evidence_state": "VERIFIED",
+    "post_subtask_002_evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70"
+  },
+  "external_evidence": {
+    "credential_values_included": false,
+    "absolute_paths_included": false,
+    "records": [
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/pre-claim-jira-rollback.json",
+        "bytes": 389,
+        "sha256": "056737dce1cd96781aa246e240c3bb6715f623acfb59df00ae8c2e80906df0ef"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/clean-validation.log",
+        "bytes": 4770,
+        "sha256": "d915c221004a6520a0d5fd600d755cc908cbf31ed503903955a4529fda0a247e"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/strict-preinstall-run2.log",
+        "bytes": 194,
+        "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/install-core-run2.log",
+        "bytes": 3748,
+        "sha256": "ce5b0cdf49630bff723e76e8624848f77fd01ac6085a02197fbe4cc6480ba7a0"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/full-suite-run2.log",
+        "bytes": 66828,
+        "sha256": "d94dde174463f8981ce2f01df987c899fb226cd1fbde8321742f7a7c22adaaad"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/named-gates-results.json",
+        "bytes": 5553,
+        "sha256": "72328f5ccb77713724e20419eb4083c827caa17f901322be5fbffe8f7934f415"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/dirty-root-manifest-rejection.log",
+        "bytes": 9904,
+        "sha256": "0b09e9c12f3792c8d02c366e8c4a6e1b6e4c3b0b9f8c34da3e2feb084c6d77e2"
+      }
+    ]
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "CI runs all required suites from a clean state, preserves failure logs/evidence, and cannot skip gates through naming/retry while keeping the local workflow runnable without Kubernetes/Kafka/Redis/cloud dependency.",
+      "disposition": "PASS",
+      "observable_result": "The latest protected main commit passed the 5-job repository workflow on Windows/Linux and the pull request passed all seven exact provider-bound contexts. The credential-free replay passed strict integrity, 243 tests, and ten named gates with no service dependency or tracked mutation. Both successful and failed local logs are content-hashed.",
+      "evidence_path": "artifacts/operations/ci_pipeline_validation.json",
+      "evidence_sha256": "8307e35b6aa1cc3d32db53b34a1593d95063e278a34766fbf24e7fc4ceb27756",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T08:42:11Z"
+    },
+    {
+      "criterion": "The declared output artifacts/operations/ci_pipeline_validation.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "observable_result": "The output is parseable, content-hashed, and pins the source commit/tree, workflows, prerequisite, protected-check policy, GitHub runs/jobs/artifacts, clean local logs, and downstream rejection rules.",
+      "evidence_path": "artifacts/operations/ci_pipeline_validation.json",
+      "evidence_sha256": "8307e35b6aa1cc3d32db53b34a1593d95063e278a34766fbf24e7fc4ceb27756",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T08:42:11Z"
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "observable_result": "No data, metric, rights, target-hardware, or release claim is made. AC-038 and THR-011/THR-012 remain explicitly unresolved.",
+      "evidence_path": "artifacts/operations/ci_pipeline_validation.json",
+      "evidence_sha256": "8307e35b6aa1cc3d32db53b34a1593d95063e278a34766fbf24e7fc4ceb27756",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T08:42:11Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B tools/validate_repository.py --repo-root . --strict before installation in a pristine detached checkout",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Repository structure, manifest, governance IDs, secret scan, and forbidden-artifact scan passed."
+    },
+    {
+      "command": "python -m pip install -e . in a fresh external virtual environment",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Dependency-free core installed and imported under Python 3.11.9; no credential file or credential environment was available."
+    },
+    {
+      "command": "python -W error -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "243 of 243 tests passed in 5.880 seconds with warnings treated as errors."
+    },
+    {
+      "command": "Ten explicit gates: bootstrap import, focused W23, Jira control plane, Jira import, second pass, 2,118 source refs, W23 implementation, W25 final, W17 seal, deterministic packaging tests",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "10 of 10 named gates passed and the checkout retained zero tracked status entries."
+    },
+    {
+      "command": "GitHub Actions repository-ci run 31303749657 and security-analysis run 31303749683 at protected main de369a5615b89df4d65ebd18638a40706387d9f3",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All five repository jobs passed; CodeQL passed; the push-only dependency-review skip is retained and its required PR context passed on PR #10."
+    },
+    {
+      "command": "First local attempt with editable installation before strict repository validation",
+      "exit_code": 1,
+      "result": "FAILURE_PRESERVED",
+      "output_summary": "Five generated egg-info manifest-coverage findings were retained. The corrected run replayed the exact CI order from a second pristine checkout."
+    },
+    {
+      "command": "Strict repository validation after provenance was mistakenly generated from the live checkout",
+      "exit_code": 1,
+      "result": "FAILURE_PRESERVED",
+      "output_summary": "The clean candidate rejected 46 missing/extra entries representing local-only .env, ZIP, cache, and bytecode files; provenance is regenerated only inside the credential-free candidate."
+    }
+  ],
+  "scientific_and_model_evidence": {
+    "applicable": false,
+    "reason": "CI_PIPELINE_VALIDATION_HAS_NO_DATASET_SPLIT_MODEL_METRIC_OR_PRECOMMITTED_SCIENTIFIC_HYPOTHESIS",
+    "fabricated_metrics": false,
+    "protected_results_inspected": false
+  },
+  "negative_findings": [
+    {
+      "id": "LOCAL_INSTALL_BEFORE_INTEGRITY_SEQUENCE_FAILED",
+      "finding": "The initial local sequence placed generated packaging metadata in the checkout before strict integrity and failed with five manifest-coverage findings.",
+      "waived": false,
+      "resolution": "FAILURE_PRESERVED_EXACT_WORKFLOW_ORDER_REPLAY_PASSED"
+    },
+    {
+      "id": "LIVE_ROOT_PROVENANCE_GENERATION_REJECTED",
+      "finding": "The first provenance refresh was generated from the live checkout and included ignored local-only paths that do not exist in a clean checkout.",
+      "waived": false,
+      "resolution": "FAILURE_PRESERVED_PROVENANCE_REGENERATED_IN_CREDENTIAL_FREE_CANDIDATE"
+    },
+    {
+      "id": "DEPENDENCY_REVIEW_SKIPPED_ON_PUSH",
+      "finding": "Dependency review is pull-request-only and was skipped on the observed main push run.",
+      "waived": false,
+      "resolution": "REQUIRED_APP_BOUND_PR_CONTEXT_PASSED_BEFORE_MERGE"
+    },
+    {
+      "id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED",
+      "finding": "CI evidence does not establish target-hardware authority; THR-011/THR-012 remain TBD.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_emitted": false,
+    "credential_paths_stored_in_repository_evidence": false,
+    "user_identifying_paths_stored_in_repository_evidence": false,
+    "restricted_payloads_stored_in_repository_evidence": false,
+    "source_rights_approval_claimed": false,
+    "protected_files_modified": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-125",
+    "contract_parseable": true,
+    "canonical_hash_verified": true,
+    "prerequisite_hashes_present": true,
+    "protected_contexts_present": true,
+    "negative_results_present": true,
+    "silent_downstream_unlock_allowed": false,
+    "decision": "APPROVE_CI_PIPELINE_INPUT_RETAIN_SECURITY_AND_RELEASE_GATES",
+    "consumer_must_fail_closed": true
+  },
+  "integration": {
+    "branch": "codex/BAT-474-clean-environment-ci",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "state": "CANDIDATE_PENDING_PROTECTED_REVIEW",
+    "live_jira_claim_comment_id": "13292",
+    "live_jira_review_comment_id": "13293",
+    "live_jira_logical_state": "VALIDATION",
+    "live_jira_evidence_state": "PARTIAL",
+    "live_jira_maturity": "IMPLEMENTED",
+    "live_jira_status": "In Review",
+    "rollback_snapshot_sha256": "056737dce1cd96781aa246e240c3bb6715f623acfb59df00ae8c2e80906df0ef"
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "VALIDATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_CANDIDATE_NOT_YET_MERGED"
+    ],
+    "remaining_program_blockers": [
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ],
+    "completion_claim": "BAT-474 has a locally validated, content-hashed CI contract and all three issue-specific acceptance rows pass. Protected integration and live Jira Done/Verified synchronization are still pending; no release claim is made."
+  }
+}

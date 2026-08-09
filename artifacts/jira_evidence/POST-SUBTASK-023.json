@@ -1,0 +1,107 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Retries honor provider rate limits and bounded backoff.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/acquisition_resilience_test.json",
+      "evidence_sha256": "ae028bfe6ca3a220d4d76b2ce0a0b3a8ee1b4d8faf18ba27cb39b81ebfe7d7d4",
+      "observable_result": "Retry-After=12 was honored subject to the configured five-second bound; the attempt ledger proves one bounded sleep and a successful retry."
+    },
+    {
+      "criterion": "Cached raw responses remain immutable and are keyed by request/source identity.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/acquisition_resilience_test.json",
+      "evidence_sha256": "ae028bfe6ca3a220d4d76b2ce0a0b3a8ee1b4d8faf18ba27cb39b81ebfe7d7d4",
+      "observable_result": "The second identical request was served without transport and a different snapshot could not replace the existing request binding."
+    },
+    {
+      "criterion": "Fallbacks activate only under documented conditions and preserve source provenance.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/acquisition_resilience_test.json",
+      "evidence_sha256": "ae028bfe6ca3a220d4d76b2ce0a0b3a8ee1b4d8faf18ba27cb39b81ebfe7d7d4",
+      "observable_result": "The declared HTTP_404 substitution preserved the primary failure and selected substitute identities; the undeclared condition invoked no substitute transport."
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "completion_claimed": false,
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "IMPLEMENTATION_VALIDATED_AWAITING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_BRANCH_INTEGRATION_AND_REQUIRED_CHECKS"
+    ]
+  },
+  "created_at_utc": "2026-08-09T20:50:33Z",
+  "downstream_reevaluation": {
+    "consumers": [
+      "POST-SUBTASK-024"
+    ],
+    "decision": "REMAIN_BLOCKED_UNTIL_PROTECTED_INTEGRATION"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 2587,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
+      "sha256": "5eed0d6444d86cfd656622aa7aa249894c8fade84d8b869c4dbad0c906d76fd4"
+    },
+    {
+      "bytes": 2634,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+      "sha256": "25fe3680420f56692cf4c1ac0ba4019e303094a4d4c30c94e9eee1a1b5e1e8d2"
+    },
+    {
+      "bytes": 6379,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-022.json",
+      "sha256": "b02acd5e6f1bc1a5b4add7535366a8ee2d69aea09c19284522773af3f41ec1f8"
+    }
+  ],
+  "jira_key": "BAT-373",
+  "local_issue_id": "POST-SUBTASK-023",
+  "observable_outcome": "A standard-library resilience layer now provides credential-free deterministic request identities, immutable content-addressed cache bindings, bounded retry/backoff evidence, and condition-scoped substitute activation with full route provenance.",
+  "outputs": [
+    {
+      "bytes": 5028,
+      "eligibility": "PRODUCTION_ACQUISITION_INFRASTRUCTURE_CANDIDATE",
+      "path": "artifacts/source_governance/acquisition_resilience_test.json",
+      "sha256": "ae028bfe6ca3a220d4d76b2ce0a0b3a8ee1b4d8faf18ba27cb39b81ebfe7d7d4"
+    }
+  ],
+  "pit_and_leakage": {
+    "result": "NOT_APPLICABLE_TO_TRANSPORT_CONTROL_LAYER",
+    "statement": "The layer stores retrieval and source provenance only and does not create model features, labels, splits, or target-game records."
+  },
+  "protected_integration": {
+    "branch": "codex/BAT-373-acquisition-resilience-spec",
+    "base_sha": "e9cd9d83b8761de062b68b2ba9674567b9a48ac7",
+    "state": "PENDING_COMMIT_PUSH_PR_AND_REQUIRED_CHECKS"
+  },
+  "schema_version": "1.0.0",
+  "security": {
+    "configured_secret_value_matches": 0,
+    "credential_values_included": false,
+    "raw_response_bodies_included": false,
+    "sensitive_identity_negative_controls_passed": 2
+  },
+  "validation": {
+    "commands": [
+      {
+        "command": "$env:PYTHONPATH='src'; python -B -m pytest tests/test_acquisition_resilience.py tests/test_w19_foundation.py tests/test_data_research.py -q",
+        "exit_code": 0,
+        "result": "15 passed"
+      },
+      {
+        "command": "$env:PYTHONPATH='src'; python -B -m pytest -q",
+        "exit_code": 0,
+        "result": "270 passed, 1 skipped, 33 subtests passed"
+      },
+      {
+        "command": "python -B jira/tools/validate_source_refs.py",
+        "exit_code": 0,
+        "result": "PASS; 2118 references; 0 errors"
+      }
+    ],
+    "result": "LOCAL_IMPLEMENTATION_PASS"
+  }
+}

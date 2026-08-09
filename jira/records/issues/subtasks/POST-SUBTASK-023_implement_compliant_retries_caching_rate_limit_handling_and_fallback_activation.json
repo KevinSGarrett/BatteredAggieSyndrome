@@ -74,7 +74,7 @@
   "end_to_end_validation": "Validate that `artifacts/source_governance/acquisition_resilience_test.json` can be parsed and consumed by `POST-SUBTASK-024` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-023.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "DATA_MATERIALIZATION",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -310,5 +310,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-008: Production acquisition contracts, rate limits, fallbacks, and drift hooks.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-023.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }

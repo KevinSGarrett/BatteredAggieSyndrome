@@ -2963,7 +2963,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-032_build_the_cross_domain_acquisition_schema_quality_and_source_to_snapshot_provena.json",In Progress,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-032,raw-snapshots,POST-SUBTASK-032,GAP-002;HANDOFF-003,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-032_build_the_cross_domain_acquisition_schema_quality_and_source_to_snapshot_provena.json",Done,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-032,raw-snapshots,POST-SUBTASK-032,GAP-002;HANDOFF-003,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-383,100337,[POST-SUBTASK-033] Run and publish the national historical-lake readiness decision,100061,"Local ID: POST-SUBTASK-033
 
 Objective
@@ -3057,7 +3057,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-033_run_and_publish_the_national_historical_lake_readiness_decision.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;historical-expansion;local-id-post-subtask-033,raw-snapshots,POST-SUBTASK-033,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-033_run_and_publish_the_national_historical_lake_readiness_decision.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;historical-expansion;local-id-post-subtask-033,raw-snapshots,POST-SUBTASK-033,GAP-002;HANDOFF-003,PHASE-1,READY,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-384,100338,"[POST-SUBTASK-034] Profile every materialized table for rows, types, nulls, uniqueness, ranges, duplicates, timestamps, and partitions",100062,"Local ID: POST-SUBTASK-034
 
 Objective

@@ -12,9 +12,9 @@
   "outputs": [
     {
       "path": "artifacts/implementation_preflight/runtime_manifest.json",
-      "bytes": 17567,
-      "sha256": "2020fc546b69b8c717a2e8a92ae6832ee6003192ed26b3bf783b404dd5bac96b",
-      "canonical_payload_sha256": "fbc75b7b45886bf046a01274db067702e0d7aacbc68784a6a15c82478c99f058",
+      "bytes": 18098,
+      "sha256": "700f6c058f49f1d7dde828c01c3f4ece67e388074570d754ed914b5834765be2",
+      "canonical_payload_sha256": "f6fec2b8c630ec89d71433bfe16b640f92e6b39f0cfd14437423e76595717206",
       "schema_version": "1.0.0",
       "maturity": "INTEGRATED_CAPTURE",
       "eligibility": "AUTHORITATIVE_OBSERVED_TARGET_RUNTIME_NONCONFORMANT_PRODUCT_LOCK"
@@ -58,7 +58,7 @@
       "disposition": "PASS",
       "observable_result": "Every required runtime dimension is recorded. Storage paths use aliases; free bytes/fraction are observed without an unsupported sufficiency claim; five product-lock mismatches and four pip conflicts are explicit.",
       "evidence_path": "artifacts/implementation_preflight/runtime_manifest.json",
-      "evidence_sha256": "2020fc546b69b8c717a2e8a92ae6832ee6003192ed26b3bf783b404dd5bac96b",
+      "evidence_sha256": "700f6c058f49f1d7dde828c01c3f4ece67e388074570d754ed914b5834765be2",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T07:50:57Z"
     },
@@ -67,16 +67,16 @@
       "disposition": "PASS",
       "observable_result": "The manifest has zero matches against configured credential values, user/home/host identifiers, and absolute repository/data-root paths. Only credential names and redacted presence states are retained.",
       "evidence_path": "artifacts/implementation_preflight/runtime_manifest.json",
-      "evidence_sha256": "2020fc546b69b8c717a2e8a92ae6832ee6003192ed26b3bf783b404dd5bac96b",
+      "evidence_sha256": "700f6c058f49f1d7dde828c01c3f4ece67e388074570d754ed914b5834765be2",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T07:50:57Z"
     },
     {
       "criterion": "The manifest is content-hashed and linked to the preflight validation run.",
       "disposition": "PASS",
-      "observable_result": "Canonical payload SHA-256 fbc75b7b45886bf046a01274db067702e0d7aacbc68784a6a15c82478c99f058 verifies, and BAT-352 result/log/evidence plus PR/merge identities and blockers are pinned.",
+      "observable_result": "Canonical payload SHA-256 f6fec2b8c630ec89d71433bfe16b640f92e6b39f0cfd14437423e76595717206 verifies, and BAT-352 result/log/evidence plus BAT-353 PR/merge identities and blockers are pinned.",
       "evidence_path": "artifacts/implementation_preflight/runtime_manifest.json",
-      "evidence_sha256": "2020fc546b69b8c717a2e8a92ae6832ee6003192ed26b3bf783b404dd5bac96b",
+      "evidence_sha256": "700f6c058f49f1d7dde828c01c3f4ece67e388074570d754ed914b5834765be2",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T07:50:57Z"
     }
@@ -141,6 +141,54 @@
       "exit_code": 0,
       "result": "PASS_WITH_NEGATIVE_DEPENDENCY_STATE_PRESERVED",
       "output_summary": "Candidate gate passed with 240 of 240 tests, three of three runtime acceptance rows, zero redaction violations, verified canonical payload hash, release_authoritative=false, and the expected pip-check exit 1 preserving four conflicts."
+    },
+    {
+      "command": "GitHub protected integration for PR #7",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All required protected contexts passed; head 11328d1f6b346e47f28aa24b0eca68f83ca04a80 was squash-merged as f57513598c81a55c8687c19e839734d6a9149f70 at 2026-08-09T08:04:08Z."
+    },
+    {
+      "command": "Live Jira BAT-353 completion protocol",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "A redacted rollback snapshot was captured externally; Logical Workflow State=DONE, Implementation Maturity=INTEGRATED, Evidence State=VERIFIED, physical status=Done, and completion comment 13289 were verified live."
+    },
+    {
+      "command": "python -B jira/tools/rebuild_all_derivatives.py --help",
+      "exit_code": 1,
+      "result": "TRANSIENT_WINDOWS_FILE_WRITE_FAILURE_PRESERVED",
+      "output_summary": "The no-argument rebuild entry point executed despite --help and Windows returned OSError EINVAL while rewriting JIRA_API_CREATE_PAYLOADS.jsonl; the attempt was not counted as a pass."
+    },
+    {
+      "command": "python -B jira/tools/rebuild_all_derivatives.py (isolated retry)",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All Jira derivatives were rebuilt deterministically from canonical JSON."
+    },
+    {
+      "command": "python -B -W error -m unittest discover -s tests -p test_w23_operations.py -v without PYTHONPATH",
+      "exit_code": 1,
+      "result": "HARNESS_IMPORT_PATH_FAILURE_PRESERVED",
+      "output_summary": "The narrowed discovery command failed before test execution because aggie_analytics was not importable without the repository src path; it was not counted as a test pass."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "8 of 8 W23 operations tests passed in 0.442 seconds."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -p test_*.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "240 of 240 warning-strict repository tests passed in 4.366 seconds."
+    },
+    {
+      "command": "Clean BAT-353 Done-sync candidate: strict repository, W25/W23, protected seal, live Jira, Jira import, full warning-strict suite, runtime/evidence hashes, provenance hygiene, and expected-negative pip check",
+      "exit_code": 0,
+      "result": "PASS_WITH_NEGATIVE_DEPENDENCY_STATE_PRESERVED",
+      "output_summary": "Done-sync candidate passed with 240 of 240 tests, 2,741 provenance rows, verified runtime self/file hashes, verified live Done/DONE/INTEGRATED/VERIFIED state, and expected pip-check exit 1 preserving four conflicts."
     }
   ],
   "benchmark_and_machine_evidence": {
@@ -230,22 +278,27 @@
   },
   "integration": {
     "branch": "codex/BAT-353-runtime-manifest",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "merge_method": null,
-    "required_checks": "PENDING_PROTECTED_PR",
-    "live_jira_comment_id": "13288",
-    "live_jira_logical_state": "IN_PROGRESS",
-    "live_jira_status": "In Progress"
+    "pull_request": 7,
+    "head_sha": "11328d1f6b346e47f28aa24b0eca68f83ca04a80",
+    "merge_sha": "f57513598c81a55c8687c19e839734d6a9149f70",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T08:04:08Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "live_jira_comment_id": "13289",
+    "live_jira_logical_state": "DONE",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "INTEGRATED",
+    "live_jira_status": "Done",
+    "live_jira_updated_at": "2026-08-09T03:05:02.392-0500",
+    "rollback_snapshot_sha256": "fbdcbcd426491234941a63c4b7889d4ec959efd09bc8804bd9be594cc67fd1ee"
   },
   "completion": {
     "achieved_maturity": "INTEGRATED_CAPTURE",
-    "evidence_state": "VERIFIED_LOCAL",
-    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": ["PENDING_PROTECTED_PR_INTEGRATION"],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "PRODUCT_LOCK_MISMATCH",
       "PIP_CHECK_CONFLICTS",
@@ -253,6 +306,6 @@
       "THR-011",
       "THR-012"
     ],
-    "completion_claim": "BAT-353's runtime-capture scope is locally implemented and all three issue-specific criteria pass. The captured global Python environment is not product-lock conformant or release-authoritative; protected integration and final Jira synchronization remain pending."
+    "completion_claim": "BAT-353's atomic runtime-capture scope is protected-integrated, synchronized to live Jira, and all three issue-specific criteria pass. The captured global Python environment remains nonconformant to the product lock and non-release-authoritative; five dependency mismatches, four pip conflicts, AC-038, and THR-011/THR-012 remain explicit program blockers."
   }
 }

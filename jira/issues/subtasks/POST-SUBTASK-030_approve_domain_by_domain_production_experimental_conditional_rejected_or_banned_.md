@@ -158,11 +158,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24520",
-    "jira_updated_at": "2026-08-09T00:03:31.513-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T16:56:59.877-0500",
+    "last_synced_at": "2026-08-09T21:57:19.955857+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-380\\BAT-380-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -336,7 +336,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-010: Player, roster, recruiting, market, weather, and contextual raw domains.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-030.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

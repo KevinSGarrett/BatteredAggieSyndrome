@@ -22207,7 +22207,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-030_approve_domain_by_domain_production_experimental_conditional_rejected_or_banned_.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;historical-expansion;local-id-post-subtask-030,raw-snapshots,POST-SUBTASK-030,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,READY,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-030_approve_domain_by_domain_production_experimental_conditional_rejected_or_banned_.json",In Progress,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;historical-expansion;local-id-post-subtask-030,raw-snapshots,POST-SUBTASK-030,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,IN_PROGRESS,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
 Sub-task,BAT-381,100335,"[POST-SUBTASK-031] Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata",100061,"Local ID: POST-SUBTASK-031
 
 Objective

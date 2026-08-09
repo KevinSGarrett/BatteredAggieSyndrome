@@ -24,6 +24,7 @@ artifacts/implementation_preflight/initial_publication_reconciliation.json
 artifacts/implementation_preflight/local_path_contract.json
 artifacts/implementation_preflight/repository_identity.json
 artifacts/implementation_preflight/runtime_manifest.json
+artifacts/implementation_preflight/storage_probe.json
 artifacts/implementation_preflight/target_validation.log
 artifacts/implementation_preflight/target_validation_results.json
 artifacts/jira_evidence/POST-SUBTASK-001.json
@@ -31,6 +32,7 @@ artifacts/jira_evidence/POST-SUBTASK-002.json
 artifacts/jira_evidence/POST-SUBTASK-003.json
 artifacts/jira_evidence/POST-SUBTASK-004.json
 artifacts/jira_evidence/POST-SUBTASK-005.json
+artifacts/jira_evidence/POST-SUBTASK-006.json
 artifacts/jira_evidence/POST-SUBTASK-013.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json

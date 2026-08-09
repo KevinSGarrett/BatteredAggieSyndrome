@@ -1,0 +1,246 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "BAT-381 proves identical bytes reuse content identity; corrections create new immutable versions and preserve prior payload/manifest evidence.",
+      "evidence_sha256": "20eab17d001a293495d431d4044f42951a1156562cea3f3548fe20e8a197bf31"
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "BAT-382 links and rehashes all 990 captures (2,550,148,419 bytes), reproduces nine population counts, and retains source/request/schema/coverage/quality/policy identity.",
+      "evidence_sha256": "5c80a38be430ef7451c76668d0f03e417be251747d57ad2e549ee528e318a4a5"
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS_WITH_FINAL_READINESS_REJECTED",
+      "evidence": "Actual national immutable history exists, but normalization, entity/outcome reconciliation, event-known-at/PIT materialization, and chronological replay are incomplete; GAP-002 remains open."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "All eight prerequisite artifacts are hash pinned and every unresolved validity gate is explicit; file creation is not treated as final-readiness proof."
+    }
+  ],
+  "artifact_type": "NATIONAL_HISTORICAL_LAKE_READINESS_DECISION",
+  "consumer_contract": {
+    "nonblocking_metadata": [
+      "licensing_ambiguity",
+      "redistribution_uncertainty",
+      "provider_preference",
+      "missing_upstream_authorization",
+      "terms_or_scraping_uncertainty"
+    ],
+    "partial_failure_globally_blocks_unrelated_domains": false,
+    "reject_on": [
+      "missing",
+      "stale_hash",
+      "content_hash_mismatch",
+      "schema_incompatible",
+      "provenance_incomplete",
+      "corruption_or_fabrication",
+      "credential_or_private_personal_information",
+      "pit_or_target_leakage",
+      "domain_quality_ineligible"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "SHA-256",
+    "canonical_payload_sha256": "0b8a3b5e9634511fd910a677329512fc46c0d0060bf45558e7e4eab617ec5823",
+    "excludes": [
+      "content_hash.canonical_payload_sha256"
+    ]
+  },
+  "created_at_utc": "2026-08-09T22:47:30.188459Z",
+  "downstream_reevaluation": {
+    "POST-EPIC-004": "CONTINUE_ENTITY_AND_PIT_FOUNDATION_FROM_APPROVED_SCOPED_INPUTS",
+    "POST-STORY-012": "READY_WHEN_DEPENDENCY_GRAPH_CONFIRMS",
+    "POST-SUBTASK-034": "APPROVED_TO_CONTINUE_ENTITY_REGISTRY_WORK",
+    "POST-SUBTASK-035": "APPROVED_TO_CONTINUE_DETERMINISTIC_RESOLUTION",
+    "POST-SUBTASK-036": "APPROVED_TO_CONTINUE_RECONCILIATION_GATE",
+    "POST-SUBTASK-072": "REMAINS_GATED_BY_NORMALIZATION_PIT_AND_CHRONOLOGICAL_EVIDENCE"
+  },
+  "gap_002": {
+    "fixtures_or_file_existence_used_as_proof": false,
+    "progress": "ACTUAL_IMMUTABLE_NATIONAL_ACQUISITION_AND_PROVENANCE_FOUNDATION_COMPLETE",
+    "remaining": "NORMALIZED_RECONCILED_PIT_ELIGIBLE_CHRONOLOGICALLY_VALIDATED_POPULATION",
+    "state": "OPEN"
+  },
+  "gate_decision": {
+    "am_specialization_lift_bas_or_aggie_excess_claimed": false,
+    "decision": "PARTIAL_APPROVE_SCOPED_HISTORY_REJECT_FINAL_READINESS",
+    "final_national_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gate_control_state": "PRODUCTION_READY",
+    "historical_pregame_feature_or_protected_training_use": "REJECTED_PENDING_PIT_AND_CHRONOLOGICAL_GATES",
+    "immutable_private_raw_archive": "APPROVED",
+    "normalization_quarantine_and_reconciliation_input": "APPROVED_WITH_DOMAIN_SCOPING",
+    "production_model_or_protected_performance_claimed": false,
+    "retrospective_outcome_team_strength_elo_and_long_run_context": "CONDITIONAL_AFTER_APPLICABLE_NORMALIZATION_AND_RECONCILIATION"
+  },
+  "issue": {
+    "jira_key": "BAT-383",
+    "local_id": "POST-SUBTASK-033"
+  },
+  "negative_findings": [
+    "The 990-capture manifest is an immutable acquisition inventory, not a deduplicated normalized population.",
+    "No source has complete row-level event-known-at evidence for historical pregame use.",
+    "720 provider-specific incremental requests remain pending but do not invalidate acquired domains.",
+    "Partial and unavailable domains remain tiered and do not discard useful seasons.",
+    "The 2022-2025 tranche is not terminal history or the default protected-training population.",
+    "No final readiness, GAP-002 resolution, production model, protected performance, Texas A&M lift, BAS, or Aggie Excess result is claimed."
+  ],
+  "prerequisite_identities": [
+    {
+      "bytes": 26188,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-027.json",
+      "sha256": "a64f0cc600fc3265f907d49d825c211c9b4112341123128b81e0c0f70c5b2ef3"
+    },
+    {
+      "bytes": 12933,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-030.json",
+      "sha256": "c6b6fba3d42cdb635c09aa0c27503401d88f76c9df09224234ac48da99747a8f"
+    },
+    {
+      "bytes": 9405,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-031.json",
+      "sha256": "cef2b4128d2c938ae9efac88dc72c4b085e10b3c3126dc2aae807a64e72910a2"
+    },
+    {
+      "bytes": 11134,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-032.json",
+      "sha256": "8b22f4cc27e525f4e1f6896fd0699402333182fd790fa2681566b260d0b938b4"
+    },
+    {
+      "bytes": 29394,
+      "path": "artifacts/data_lake/historical_expansion_acquisition_manifest.json",
+      "sha256": "8ff133cbb67fb873891b04c80164a8838edfdd20f532c19e8a5240a29a499bd1"
+    },
+    {
+      "bytes": 1512110,
+      "path": "artifacts/data_lake/historical_expansion_eligibility_gate.json",
+      "sha256": "ac85cc43f0d8804f4a3279b1f6bfbbb2be2e6dd70099adc2bf89fc907ec4932b"
+    },
+    {
+      "bytes": 7882,
+      "path": "artifacts/data_lake/immutability_and_correction_test.json",
+      "sha256": "20eab17d001a293495d431d4044f42951a1156562cea3f3548fe20e8a197bf31"
+    },
+    {
+      "bytes": 4014645,
+      "path": "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+      "sha256": "5c80a38be430ef7451c76668d0f03e417be251747d57ad2e549ee528e318a4a5"
+    }
+  ],
+  "producer": {
+    "mode": "DETERMINISTIC_PROTECTED_GATE",
+    "name": "build_national_lake_readiness.py"
+  },
+  "provider_limitations": {
+    "blocks_acquired_domains": false,
+    "pending_request_count": 720,
+    "rights_or_licensing_metadata_blocks_private_acquisition": false,
+    "state": "PENDING_PROVIDER_ROUTE_INCREMENTAL_EXPANSION"
+  },
+  "readiness_dimensions": {
+    "actual_national_history_acquired": {
+      "evidence": {
+        "observed_season_range": [
+          1963,
+          2025
+        ],
+        "payload_bytes_rehashed": 2550148419,
+        "snapshot_count": 990,
+        "source_count": 2
+      },
+      "state": "PASS"
+    },
+    "capture_manifest_and_provenance": {
+      "evidence": {
+        "population_reconciliations_passed": 9,
+        "season_domain_decisions": 630,
+        "snapshot_links_complete": true
+      },
+      "state": "PASS"
+    },
+    "chronological_replay_and_target_exclusion": {
+      "blocks": [
+        "PROTECTED_MODEL_PROMOTION",
+        "PERFORMANCE_CLAIMS"
+      ],
+      "state": "FAIL_PENDING_EXECUTION"
+    },
+    "correction_lineage_and_scoped_quarantine": {
+      "evidence": {
+        "append_only": true,
+        "scoped_not_global": true
+      },
+      "state": "PASS"
+    },
+    "entity_and_official_outcome_reconciliation": {
+      "blocks": [
+        "DEDUPLICATED_CANONICAL_POPULATION",
+        "OFFICIAL_OUTCOME_MODELING"
+      ],
+      "state": "FAIL_PENDING_EXECUTION"
+    },
+    "expanded_deterministic_normalization": {
+      "blocks": [
+        "FINAL_HISTORICAL_POPULATION_READINESS",
+        "PROTECTED_TRAINING"
+      ],
+      "state": "FAIL_PENDING_EXECUTION"
+    },
+    "field_missingness_and_domain_quality_on_normalized_population": {
+      "blocks": [
+        "DOMAIN_PRODUCTION_PROMOTION"
+      ],
+      "state": "FAIL_PENDING_EXECUTION"
+    },
+    "historical_event_known_at_and_pit_materialization": {
+      "blocks": [
+        "HISTORICAL_PREGAME_FEATURES",
+        "PROTECTED_TRAINING"
+      ],
+      "state": "FAIL_CLOSED"
+    },
+    "immutable_content_and_readback": {
+      "evidence": {
+        "all_payloads_rehashed": true,
+        "content_addressed": true,
+        "unique_snapshot_ids": 990
+      },
+      "state": "PASS"
+    },
+    "independent_upstream_corroboration": {
+      "blocks": [],
+      "note": "Equivalent upstream feeds are not double-counted; absence does not discard acquired evidence.",
+      "state": "UNAVAILABLE"
+    }
+  },
+  "schema_version": "1.0.0",
+  "scientific_validation": {
+    "classification": "NOT_APPLICABLE_READINESS_CONTROL_ONLY",
+    "dataset_or_matrix": null,
+    "metrics_or_uncertainty": null,
+    "model": null,
+    "null_or_negative_results_preserved": true,
+    "protected_evaluation_status": "NOT_OPENED",
+    "split": null
+  },
+  "source_policy_metadata": {
+    "bulk_payloads_in_git": false,
+    "private_research_acquisition_and_training_allowed": true,
+    "raw_third_party_publication_allowed": false,
+    "rights_licensing_terms_scraping_redistribution_or_upstream_authorization_uncertainty_blocks_private_use": false,
+    "rights_metadata_nonblocking": true,
+    "storage_boundary": "EXTERNAL_DATA_ROOT"
+  },
+  "validation": {
+    "final_readiness_rejection_is_binding": true,
+    "partial_domains_do_not_globally_block": true,
+    "prerequisite_hashes_verified": true,
+    "result": "PASS_HONEST_PARTIAL_APPROVAL"
+  }
+}

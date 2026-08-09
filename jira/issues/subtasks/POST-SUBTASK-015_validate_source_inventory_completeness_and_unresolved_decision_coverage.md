@@ -22,7 +22,7 @@
     "artifacts/source_governance/source_inventory_validation.json",
     "artifacts/jira_evidence/POST-SUBTASK-015.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-014",
+  "blocked_reason": "",
   "blocks": [
     "POST-STORY-006",
     "POST-STORY-007",
@@ -206,7 +206,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -292,7 +292,7 @@
     "POST-SUBTASK-024"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REGRESSION",
@@ -300,7 +300,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-005: Reconcile the final source universe and authority decisions.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-015.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

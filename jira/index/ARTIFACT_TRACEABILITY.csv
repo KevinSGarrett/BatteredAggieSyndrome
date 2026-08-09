@@ -605,7 +605,7 @@ artifacts/benchmarks/storage_growth_profile.json,POST-SUBTASK-011,Subtask,true,I
 docs/operations/LOCAL_RESOURCE_ENVELOPE.md,POST-SUBTASK-011,Subtask,true,IMPLEMENTED,POST-SUBTASK-012,PLANNED
 artifacts/benchmarks/resource_stop_condition_test.json,POST-SUBTASK-012,Subtask,true,OPERATING,,PLANNED
 artifacts/source_governance/production_source_inventory.csv,POST-SUBTASK-013,Subtask,true,IMPLEMENTED,POST-SUBTASK-014;POST-SUBTASK-015,VERIFIED
-artifacts/source_governance/source_priority_decisions.json,POST-SUBTASK-014,Subtask,true,IMPLEMENTED,POST-SUBTASK-015,PLANNED
+artifacts/source_governance/source_priority_decisions.json,POST-SUBTASK-014,Subtask,true,IMPLEMENTED,POST-SUBTASK-015,VERIFIED
 artifacts/source_governance/source_inventory_validation.json,POST-SUBTASK-015,Subtask,true,CONTRACT_DEFINED,POST-STORY-006;POST-STORY-007;POST-SUBTASK-016;POST-SUBTASK-017;POST-SUBTASK-018;POST-SUBTASK-019;POST-SUBTASK-020;POST-SUBTASK-021,PLANNED
 artifacts/source_governance/tier1_rights_decisions.csv,POST-SUBTASK-016,Subtask,true,IMPLEMENTED,POST-SUBTASK-017;POST-SUBTASK-018,PLANNED
 artifacts/source_governance/supplemental_rights_decisions.csv,POST-SUBTASK-017,Subtask,true,IMPLEMENTED,POST-SUBTASK-018,PLANNED

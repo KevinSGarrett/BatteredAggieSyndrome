@@ -22295,7 +22295,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-031_enforce_content_addressed_raw_snapshots_correction_lineage_quarantine_and_source.json",To Do,Highest,actionable;core-release;post-wave;raw-data;shared-contract;subtask;historical-expansion;local-id-post-subtask-031,raw-snapshots,POST-SUBTASK-031,GAP-002;HANDOFF-003,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-031_enforce_content_addressed_raw_snapshots_correction_lineage_quarantine_and_source.json",In Progress,Highest,actionable;core-release;post-wave;raw-data;shared-contract;subtask;historical-expansion;local-id-post-subtask-031,raw-snapshots,POST-SUBTASK-031,GAP-002;HANDOFF-003,PHASE-1,IN_PROGRESS,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-382,100336,"[POST-SUBTASK-032] Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests",100061,"Local ID: POST-SUBTASK-032
 
 Objective

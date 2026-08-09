@@ -74,6 +74,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 - pyproject.toml
 - requirements/product.lock
 - tools/validate_dependency_policy.py
+- src/aggie_analytics/product/repository.py
+- tests/test_w22_product_serving.py
 
 ## Dependencies that must already be complete
 
@@ -89,7 +91,9 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 - docs/operations/CI_SECURITY_SUPPLY_CHAIN.md
 - pyproject.toml
 - requirements/product.lock
+- src/aggie_analytics/product/repository.py
 - tests/test_product_supply_chain.py
+- tests/test_w22_product_serving.py
 - tools/validate_dependency_policy.py
 - tools/validate_product_supply_chain.py
 

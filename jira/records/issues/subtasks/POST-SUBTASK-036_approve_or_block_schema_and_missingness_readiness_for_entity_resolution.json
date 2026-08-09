@@ -17,7 +17,7 @@
     "artifacts/entities/schema_readiness_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-036.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-034;POST-SUBTASK-035",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-035",
   "blocks": [
     "POST-STORY-013",
     "POST-SUBTASK-037",

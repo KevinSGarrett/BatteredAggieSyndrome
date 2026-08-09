@@ -2,31 +2,32 @@
   "schema_version": "1.1.0",
   "evidence_manifest_type": "jira_issue_blocker_evidence",
   "created_at_utc": "2026-08-09T09:24:33Z",
-  "updated_at_utc": "2026-08-09T14:33:55Z",
+  "updated_at_utc": "2026-08-09T14:46:36Z",
   "jira_key": "BAT-475",
   "local_issue_id": "POST-SUBTASK-125",
   "producer": {
     "agent": "Codex",
     "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
   },
-  "observable_outcome": "All independently actionable BAT-475 machine findings are protected-integrated: the compatible 14-package product lock has no known pip-audit findings at check time, every entry is SHA-256 bound, hash-only installation and pip consistency pass, all 14 installed distributions expose license/notice evidence, automated security fixes are enabled, and protected CI enforces hash installation, inventory, audit, and weekly update configuration. The final implementation passes 258 tests with 1 Windows privilege-dependent symlink test skipped and 33 subtests; Linux protected CI passed the symlink case. At the final check, GitHub exposed zero OPEN Dependabot, secret-scanning, and code-scanning alerts, and historical HIGH CodeQL alerts #1 and #2 were fixed without dismissal. No completion is claimed because the named human source-rights decision is absent.",
+  "observable_outcome": "The primary BAT-475 machine findings are protected-integrated: the compatible 14-package product lock has no known pip-audit findings at check time, every entry is SHA-256 bound, hash-only installation and pip consistency pass, all 14 installed distributions expose license/notice evidence, automated security fixes are enabled, and protected CI enforces hash installation, inventory, audit, and weekly update configuration. A bounded candidate also upgrades the five official CI/security action families surfaced by Dependabot to Node.js 24-compatible majors; protected integration of that follow-up is pending. The full implementation passes 258 tests with 1 Windows privilege-dependent symlink test skipped and 33 subtests; Linux protected CI passed the symlink case. At the final check, GitHub exposed zero OPEN Dependabot, secret-scanning, and code-scanning alerts, and historical HIGH CodeQL alerts #1 and #2 were fixed without dismissal. No completion is claimed because the named human source-rights decision is absent.",
   "outputs": [
     {
       "path": "artifacts/operations/security_supply_chain_report.json",
-      "bytes": 16700,
-      "sha256": "e45bca63ccf8b1c1d1cff21bb16c99f62c821b3702c80d3bf2a5baa1a8ea427f",
+      "bytes": 18638,
+      "sha256": "1aaa7151ba9ab2708d3d0dcaaacb3eb13b9a3459137b42c8180da14a5f757458",
       "schema_version": "1.1.0",
       "maturity": "FUNCTIONAL_STARTER",
       "eligibility": "BLOCKED_NOT_RELEASE_ELIGIBLE"
     }
   ],
   "input_identities": {
-    "git_base_commit": "27cedd9b1b7007ac78f18fde588555b8ae23b871",
-    "git_base_tree": "8c03772d72247a884fae5dc7af3ab423e3511509",
+    "git_base_commit": "0601b9f5c4ed44856e77e5d286ed0d21a050dec2",
+    "git_base_tree": "08c5877ed51648b8917d9d6fc7fd4ed7a85b39d6",
     "prior_report_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
     "requirements_product_lock_sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05",
     "pyproject_toml_sha256": "668b3a4bb21de54fb6260ec982f4ae5772c5fcea30e12a23741b53ecd498690b",
-    "repository_ci_sha256": "f859bc1f5fac372bee02ac2f93d1ad71c61df883530bddc321033cb8318428a0",
+    "repository_ci_sha256": "2807ba9949be2d625019b0fffdb80e2d1ac93d6f3225f1e521a95a9c9302f7f7",
+    "security_workflow_sha256": "1f5d272d34dde3d68b86b830c1b4f81fe157df89faf9147e72d0897c743c1958",
     "dependabot_config_sha256": "6f2dfe93dc093e9510fb9ed2152caa236d7f6c088da6e51b6e05365cd315bb6a",
     "dependency_policy_validator_sha256": "5fec2e80bb65b158001240c1cde1fc3543d8856d10b03ffb57a46a4066ad2418",
     "product_supply_chain_validator_sha256": "9bcd852c97dc58662cf352d54bd483b04787548a9635371c6d39217c92de1049",
@@ -50,27 +51,27 @@
       "disposition": "BLOCKED",
       "observable_result": "Machine gaps pass in protected main without credential or restricted-payload emission; the required named human rights disposition remains absent.",
       "evidence_path": "artifacts/operations/security_supply_chain_report.json",
-      "evidence_sha256": "e45bca63ccf8b1c1d1cff21bb16c99f62c821b3702c80d3bf2a5baa1a8ea427f",
+      "evidence_sha256": "1aaa7151ba9ab2708d3d0dcaaacb3eb13b9a3459137b42c8180da14a5f757458",
       "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T14:33:55Z"
+      "verified_at_utc": "2026-08-09T14:46:36Z"
     },
     {
       "criterion": "The declared report has deterministic identity, provenance, and validation metadata appropriate to this work.",
       "disposition": "PASS",
       "observable_result": "The report pins base code/tree, changed control files, lock, audit/runtime identities, external machine evidence hashes, negative findings, and downstream rejection semantics.",
       "evidence_path": "artifacts/operations/security_supply_chain_report.json",
-      "evidence_sha256": "e45bca63ccf8b1c1d1cff21bb16c99f62c821b3702c80d3bf2a5baa1a8ea427f",
+      "evidence_sha256": "1aaa7151ba9ab2708d3d0dcaaacb3eb13b9a3459137b42c8180da14a5f757458",
       "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T14:33:55Z"
+      "verified_at_utc": "2026-08-09T14:46:36Z"
     },
     {
       "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, rights approval, or completion evidence.",
       "disposition": "PASS",
       "observable_result": "Only a time-bounded zero-OPEN-alert observation is recorded; no legal approval, scientific metric, target-hardware result, production readiness, accepted risk, perpetual zero-alert state, or completion is claimed.",
       "evidence_path": "artifacts/operations/security_supply_chain_report.json",
-      "evidence_sha256": "e45bca63ccf8b1c1d1cff21bb16c99f62c821b3702c80d3bf2a5baa1a8ea427f",
+      "evidence_sha256": "1aaa7151ba9ab2708d3d0dcaaacb3eb13b9a3459137b42c8180da14a5f757458",
       "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T14:33:55Z"
+      "verified_at_utc": "2026-08-09T14:46:36Z"
     }
   ],
   "commands": [
@@ -86,6 +87,8 @@
     {"command": "python -B tools/validate_w23_operations.py", "exit_code": 2, "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED", "output_summary": "The implementation gate passed while release remains honestly blocked on AC-038 and TBD THR-011/THR-012."},
     {"command": "python -m unittest tests.test_product_supply_chain", "exit_code": 1, "result": "NEGATIVE_RESULT_PRESERVED", "output_summary": "An unrelated installed tests package shadowed the dotted import; repository discovery mode then ran and passed all seven focused tests."},
     {"command": "GitHub protected PRs #40, #46, and #47 plus main replay", "exit_code": 0, "result": "PASS", "output_summary": "All required protected contexts and main repository/security runs passed; historical CodeQL alerts #1 and #2 were fixed without dismissal."},
+    {"command": "Dependabot PRs #41-#45 protected checks", "exit_code": 1, "result": "NEGATIVE_RESULT_PRESERVED", "output_summary": "The automated workflow-only patches were correctly rejected because their changed workflow bytes were absent from project provenance manifests."},
+    {"command": "Review official action release notes and update workflow major refs", "exit_code": 0, "result": "PASS_CANDIDATE", "output_summary": "Selected actions/checkout@v7, actions/setup-python@v7, actions/upload-artifact@v7, actions/dependency-review-action@v5, and github/codeql-action@v4; protected hosted-runner validation remains pending."},
     {"command": "MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED", "exit_code": null, "result": "BLOCKED", "output_summary": "No named human reviewer or dated terms decision is available."}
   ],
   "scientific_and_model_evidence": {
@@ -101,6 +104,7 @@
     {"id": "SOURCE_RIGHTS_REVIEW_MISSING", "status": "UNRESOLVED", "waived": false, "resolution": "HUMAN_REQUIRED"},
     {"id": "GITHUB_ALERT_COUNTS_UNAVAILABLE", "status": "RESOLVED", "waived": false, "resolution": "ALERT_LIST_APIS_VISIBLE_AND_TIME_BOUND_OPEN_COUNTS_RECORDED"},
     {"id": "CODEQL_PATH_INJECTION_ALERTS_1_2", "status": "FIXED_NOT_DISMISSED", "waived": false, "resolution": "CANONICAL_CHILD_AND_NON_SYMLINK_PATH_CONTAINMENT_PROTECTED_INTEGRATED"},
+    {"id": "NODE20_GITHUB_ACTION_DEPRECATION", "status": "REMEDIATED_CANDIDATE", "waived": false, "resolution": "OFFICIAL_NODE24_ACTION_MAJORS_SELECTED_PROTECTED_INTEGRATION_PENDING"},
     {"id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED", "status": "UNRESOLVED_PROGRAM_BLOCKER", "waived": false, "resolution": "RETAINED_PROGRAM_BLOCKER"},
     {"id": "LOCAL_SOURCE_PATH_NOT_CONFIGURED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "PYTHONPATH_SRC_RERUN_PASSED_31_TESTS_1_SKIP_9_SUBTESTS"},
     {"id": "LOCAL_DOTTED_UNITTEST_IMPORT_SHADOWED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "DISCOVERY_MODE_PASSED_258_TESTS_1_SKIP_33_SUBTESTS"}
@@ -140,6 +144,14 @@
     "path_containment_pr": 47,
     "path_containment_head": "672d8f0895c0dc8f7350e19facb47d68df904ef0",
     "path_containment_merge": "27cedd9b1b7007ac78f18fde588555b8ae23b871",
+    "evidence_sync_pr": 48,
+    "evidence_sync_merge": "003927a0975de3a468cd025d62714067ce37f55a",
+    "node24_action_scope_pr": 49,
+    "node24_action_scope_merge": "0601b9f5c4ed44856e77e5d286ed0d21a050dec2",
+    "node24_action_upgrade_pr": null,
+    "node24_action_upgrade_head": null,
+    "node24_action_upgrade_merge": null,
+    "node24_action_upgrade_protected_status": "PENDING",
     "protected_pr_contexts": "PASS_ALL_REQUIRED_CONTEXTS",
     "main_replay": "PASS_RUNS_31317917725_31317917803_31318405595_31318405594",
     "jira_remediation_comment_id": "13332"

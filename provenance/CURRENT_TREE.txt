@@ -43,10 +43,12 @@ artifacts/jira_evidence/POST-SUBTASK-009.json
 artifacts/jira_evidence/POST-SUBTASK-013.json
 artifacts/jira_evidence/POST-SUBTASK-014.json
 artifacts/jira_evidence/POST-SUBTASK-015.json
+artifacts/jira_evidence/POST-SUBTASK-019.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
+artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/production_source_inventory.csv
 artifacts/source_governance/source_inventory_validation.json
 artifacts/source_governance/source_priority_decisions.json
@@ -262,6 +264,7 @@ docs/operations/CI_SECURITY_SUPPLY_CHAIN.md
 docs/operations/CREDENTIALS_AND_SECRETS.md
 docs/operations/LOCAL_RUNTIME_PATHS.md
 docs/operations/OBSERVABILITY.md
+docs/operations/SOURCE_CREDENTIAL_CONTRACT.md
 docs/operations/TARGET_HARDWARE_BENCHMARK.md
 docs/product/API_CONTRACT.md
 docs/product/FRAMEWORK_DECISION.md

@@ -1,0 +1,263 @@
+{
+  "schema_version": "aggie.ac038_gate_decision.v1",
+  "artifact_type": "protected_threshold_governance_decision",
+  "created_at_utc": "2026-08-09T11:27:00Z",
+  "issue": {
+    "jira_key": "BAT-359",
+    "local_id": "POST-SUBTASK-009",
+    "reviewer": "Codex",
+    "decision_authority": "AC-038 / THR-011 / THR-012 governance review"
+  },
+  "source_identity": {
+    "git_commit": "f80461b4d9ccc6dde03cb49c07125888479c0e90",
+    "git_tree": "7a04d1271f3139290e76f3c265648c546fc16581",
+    "branch": "codex/BAT-359-threshold-governance",
+    "w25_terminal": true,
+    "wave_26_created": false
+  },
+  "prerequisite_identities": [
+    {
+      "dependency": "POST-SUBTASK-002",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/implementation_preflight/target_validation_results.json",
+      "primary_artifact_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-002.json",
+      "evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70"
+    },
+    {
+      "dependency": "POST-SUBTASK-006",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/implementation_preflight/storage_probe.json",
+      "primary_artifact_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-006.json",
+      "evidence_sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a"
+    },
+    {
+      "dependency": "POST-SUBTASK-007",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/benchmarks/ac038_input_manifest.json",
+      "primary_artifact_sha256": "d4107ad844576c7e3e2e8ec960abb4455176d78d86f0cd859a166fe82acbe303",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-007.json",
+      "evidence_sha256": "6abdf28fd4c31d6eca53b9625cd4db6968f8445bee1fc6bc32ac3d6b3f616413"
+    },
+    {
+      "dependency": "POST-SUBTASK-008",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/benchmarks/ac038_target_benchmark.json",
+      "primary_artifact_sha256": "738fe85da1129452dfafe6acc63a623a5d3e0af046ab86e57cebcb66b5974a14",
+      "primary_artifact_canonical_sha256": "0fd572b774d86dd0a499212e74fb2d43f1db58cbbb844f2802fb60b7740f51a0",
+      "companion_log_path": "artifacts/benchmarks/ac038_target_benchmark.log",
+      "companion_log_sha256": "9d52749c762635d00d17f44cce2ead58fb0885d7edb373a8f2fcc9b7088aa2dc",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-008.json",
+      "evidence_sha256": "0127b8dec74d13495936f21d36aef9a20d7eeb3448536d4fce80c9afea628616"
+    }
+  ],
+  "threshold_registry": {
+    "path": "governance/ACCEPTANCE_THRESHOLD_REGISTRY.csv",
+    "sha256": "e6a642f661b830ff5ee7379442bc8b02b6956ed78586fdb64c137e50dd5ab8d2",
+    "thr_011_status": "TBD_BY_BENCHMARK",
+    "thr_011_value": null,
+    "thr_012_status": "TBD_BY_BENCHMARK",
+    "thr_012_value": null,
+    "values_populated": false,
+    "protected_w17_seal_preserved": true,
+    "registry_text_mutation_applied": false
+  },
+  "target_execution_evidence": {
+    "machine": {
+      "os": "Microsoft Windows 11 Home",
+      "cpu": "AMD Ryzen 7 8745HX with Radeon Graphics",
+      "ram_gib": 31.3,
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "storage_bus": "NVMe",
+      "storage_health": "Healthy",
+      "independent_target_class_match": true,
+      "substitute_host_used": false
+    },
+    "mandated_wrapper": {
+      "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/benchmark_target.ps1",
+      "profile": "representative",
+      "row_count": 100000,
+      "repetitions": 3,
+      "process_errors": 0,
+      "workload_hashes_repeat_stable": true,
+      "wall_clock_maximum_seconds": 4.240638,
+      "process_tree_rss_peak_mib": 176.941,
+      "system_ram_used_peak_gib": 26.127,
+      "system_cpu_peak_percent": 29.1,
+      "process_tree_cpu_peak_percent": 166.2,
+      "gpu_utilization_peak_percent": 0.0,
+      "disk_read_bytes_delta_maximum": 3229184,
+      "disk_write_bytes_delta_maximum": 6361600
+    },
+    "six_stage_supplement": {
+      "profile": "representative",
+      "row_count": 100000,
+      "repetitions": 3,
+      "process_errors": 0,
+      "stage_hashes_repeat_stable": true,
+      "wall_clock_maximum_seconds": 2.590045,
+      "process_tree_rss_peak_mib": 154.082,
+      "operation_sequence": [
+        "ingestion",
+        "pit_eligibility",
+        "feature",
+        "model",
+        "publication",
+        "product_read"
+      ],
+      "classification": "SYNTHETIC_RESOURCE_PROXY_NOT_MATERIAL_PRODUCTION_WORKFLOW"
+    },
+    "observed_measurements_are_thresholds": false
+  },
+  "chronological_replay_evidence": {
+    "prediction_cutoff": 99900,
+    "known_at_field": "known_at",
+    "future_same_game_postgame_protected_cases_rejected_per_run": 4,
+    "repetitions": 3,
+    "all_negative_cases_rejected": true,
+    "target_game_outcome_excluded": true,
+    "protected_split_status": "SEALED_NOT_OPENED",
+    "snapshot_readback_hash_match_each_run": true
+  },
+  "authority_evaluation": {
+    "independent_target_class_match": true,
+    "benchmark_v1_target_match": false,
+    "benchmark_v1_authoritative_for_thr_011_012": false,
+    "benchmark_v1_false_negative_cause": "platform.processor() returned an AuthenticAMD family string without the literal Ryzen token while CIM identified Ryzen 7 8745HX",
+    "override_applied": false,
+    "override_allowed_by_this_decision": false,
+    "material_production_workflow_benchmarked": false,
+    "synthetic_resource_proxy_only": true,
+    "result": "FAIL_CLOSED_NO_THRESHOLD_AUTHORITY"
+  },
+  "threshold_decisions": [
+    {
+      "threshold_id": "THR-011",
+      "name": "Target-hardware peak-RAM budget",
+      "decision": "RETAIN_TBD",
+      "value": null,
+      "unit": "MiB",
+      "non_governing_observed_maximum": 176.941,
+      "rationale": "The observed process-tree RSS is preserved, but benchmark v1 denies threshold authority and the workload is a synthetic resource proxy. Turning the observed maximum or post-hoc headroom into a hard budget would fabricate authority."
+    },
+    {
+      "threshold_id": "THR-012",
+      "name": "Target-hardware runtime budget",
+      "decision": "RETAIN_TBD",
+      "value": null,
+      "unit": "seconds",
+      "non_governing_observed_maximum": 4.240638,
+      "rationale": "The observed wrapper wall time is preserved, but benchmark v1 denies threshold authority and the workload is a synthetic resource proxy. Turning the observed maximum or post-hoc headroom into a hard budget would fabricate authority."
+    }
+  ],
+  "gate_decision": {
+    "ac_038": "BLOCKED",
+    "ac_038_passed": false,
+    "task_161": "BLOCKED_TARGET_HARDWARE_AUTHORITY",
+    "task_163": "BLOCKED_AC038_TARGET_HARDWARE",
+    "w23_local_production_gate": "RETAIN_BLOCKED",
+    "release_ready": false,
+    "threshold_relaxed_after_observed_failure": false,
+    "decision": "RETAIN_BLOCKED_NO_AUTHORITATIVE_THRESHOLD_VALUES",
+    "rationale": "Actual target-class execution is empirically verified, but the accepted benchmark contract reports non-authoritative and the supplement is synthetic-only. AC-038 requires authoritative representative/material-workflow evidence before fixed budgets are approved."
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "THR-011 and THR-012 are populated only from the authoritative benchmark evidence.",
+      "disposition": "BLOCKED",
+      "observable_result": "No accepted authoritative threshold evidence exists: benchmark v1 is non-authoritative and the supplement is a synthetic resource proxy. Both values remain null/TBD; no unauthorized population occurred."
+    },
+    {
+      "criterion": "The decision records evidence hashes, reviewer, timestamp, and pass/block rationale.",
+      "disposition": "PASS",
+      "observable_result": "This artifact pins all prerequisite artifacts/evidence, reviewer, UTC decision time, threshold registry identity, observed measurements, authority contradiction, and explicit block rationale."
+    },
+    {
+      "criterion": "TASK-163 remains blocked unless AC-038 genuinely passes; no threshold is relaxed after observing failure.",
+      "disposition": "PASS",
+      "observable_result": "AC-038 is not passed, TASK-163 remains BLOCKED_AC038_TARGET_HARDWARE, both thresholds remain blank, and no override or headroom threshold was applied."
+    }
+  ],
+  "downstream_disposition": {
+    "reevaluated": [
+      "POST-EPIC-015",
+      "POST-STORY-004",
+      "POST-STORY-041",
+      "POST-STORY-046",
+      "POST-SUBTASK-010",
+      "POST-SUBTASK-011",
+      "POST-SUBTASK-012",
+      "POST-SUBTASK-121",
+      "POST-SUBTASK-122",
+      "POST-SUBTASK-123",
+      "POST-SUBTASK-136",
+      "POST-SUBTASK-137",
+      "POST-SUBTASK-138"
+    ],
+    "decision": "RETAIN_DEPENDENCY_BLOCKS",
+    "silent_unlock_allowed": false
+  },
+  "unblock_conditions": [
+    "An accepted representative benchmark contract must classify the declared target host as authoritative without an override.",
+    "The benchmarked workload must be a material production workflow rather than only a synthetic resource proxy.",
+    "The threshold derivation and any headroom rule must be declared before evaluating pass/fail, then applied without post-failure relaxation.",
+    "THR-011/THR-012, AC-038, TASK-161, TASK-163, and the strict W23 validator must be synchronized from the protected evidence."
+  ],
+  "reproducibility": {
+    "source": "POST-SUBTASK-009 source manifest and direct AC-038/THR/W23 governance rows",
+    "data": "Pinned 100,000-row synthetic benchmark recipe and content-hashed external raw/telemetry evidence from POST-SUBTASK-008",
+    "code": "Main commit f80461b4d9ccc6dde03cb49c07125888479c0e90 plus pinned benchmark entrypoint/code hashes in POST-SUBTASK-008",
+    "config": "Representative profile, declared Windows/Ryzen 7 HX/32 GB/RTX 5060/NVMe target, three repetitions per campaign, six-stage sequence",
+    "tool": "Python 3.11.9; PowerShell 5.1.26100.8875; psutil 7.2.2; nvidia-smi telemetry",
+    "runtime": "Declared target-class Windows host; accepted v1 authority result preserved false; no override",
+    "split_cutoff": "Synthetic cutoff 99900; four prohibited chronology cases rejected per run; protected split sealed"
+  },
+  "security_and_rights": {
+    "credential_values_included": false,
+    "absolute_paths_included": false,
+    "restricted_raw_payloads_included": false,
+    "protected_outcomes_included": false,
+    "source_rights_approval_claimed": false
+  },
+  "integration": {
+    "branch": "codex/BAT-359-threshold-governance",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_claim_comment_id": "13312",
+    "live_jira_blocker_comment_id": "13313",
+    "live_jira_status": "To Do",
+    "live_jira_logical_state": "BLOCKED",
+    "live_jira_maturity": "FUNCTIONAL_STARTER",
+    "live_jira_evidence_state": "PARTIAL",
+    "live_jira_updated_at": "2026-08-09T06:31:10.644-0500",
+    "workflow_mapping": "BLOCKED maps to portable Jira status To Do",
+    "pre_claim_rollback_snapshot_sha256": "63afc585be614f40a7af963e4ffd376a96afce6ed02e4d8c6938df9be15273c3",
+    "pre_block_rollback_snapshot_sha256": "4b128fd5fa5a15d711327b7b8d19a8fd1728a5beddf2ed21de979ba1eb073265",
+    "post_block_state_sha256": "10ea4e6ee5d52474207bef9c04714da08c78e6ce740cc357da2e506e69057da6"
+  },
+  "completion": {
+    "issue_disposition": "BLOCKED",
+    "achieved_maturity": "FUNCTIONAL_STARTER",
+    "evidence_state": "PARTIAL",
+    "local_acceptance_criteria_pass": false,
+    "release_ready": false,
+    "completion_claimed": false,
+    "remaining_issue_scope_blockers": [
+      "BENCHMARK_V1_AUTHORITY_FALSE",
+      "MATERIAL_PRODUCTION_WORKFLOW_NOT_BENCHMARKED",
+      "PREDECLARED_THRESHOLD_DERIVATION_NOT_AVAILABLE"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "sha256",
+    "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
+    "value": "1dd0cf0bd7affd50bf856493b8a871cdb615dc167e85b14c21b7b0a3215159d9"
+  }
+}

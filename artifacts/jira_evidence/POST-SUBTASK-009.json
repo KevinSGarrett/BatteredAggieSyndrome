@@ -1,0 +1,267 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_blocker_evidence",
+  "created_at_utc": "2026-08-09T11:27:00Z",
+  "jira_key": "BAT-359",
+  "local_issue_id": "POST-SUBTASK-009",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "The target-class runs, resources, hashes, repeatability, and PIT rejections are verified, but threshold authority fails closed: benchmark v1 records target_match=false and authoritative_for_thr_011_012=false without override, and the supplement is a synthetic resource proxy rather than a material production workflow. THR-011/012 remain blank, AC-038 and TASK-163 remain blocked, and all thirteen downstream dependencies remain blocked.",
+  "outputs": [
+    {
+      "path": "artifacts/benchmarks/ac038_gate_decision.json",
+      "bytes": 12283,
+      "sha256": "5dbed2ffe24f0daa92707d72279346214e4f473ab7c34d713812d22b03fb32db",
+      "canonical_payload_sha256": "1dd0cf0bd7affd50bf856493b8a871cdb615dc167e85b14c21b7b0a3215159d9",
+      "schema_version": "aggie.ac038_gate_decision.v1",
+      "maturity": "EMPIRICALLY_VALIDATED_BLOCK_DECISION",
+      "eligibility": "BLOCKED_INPUT_DOWNSTREAM_MUST_REJECT"
+    },
+    {
+      "path": "governance/ACCEPTANCE_THRESHOLD_REGISTRY.csv",
+      "bytes": 2970,
+      "sha256": "e6a642f661b830ff5ee7379442bc8b02b6956ed78586fdb64c137e50dd5ab8d2",
+      "schema_version": "aggie.acceptance_threshold_registry.csv.v1",
+      "maturity": "RETAINED_TBD",
+      "eligibility": "AUTHORITATIVE_BLANK_THRESHOLDS_FAIL_CLOSED"
+    }
+  ],
+  "input_identities": {
+    "git_commit": "f80461b4d9ccc6dde03cb49c07125888479c0e90",
+    "git_tree": "7a04d1271f3139290e76f3c265648c546fc16581",
+    "post_subtask_002_artifact_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+    "post_subtask_002_evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
+    "post_subtask_006_artifact_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
+    "post_subtask_006_evidence_sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a",
+    "post_subtask_007_artifact_sha256": "d4107ad844576c7e3e2e8ec960abb4455176d78d86f0cd859a166fe82acbe303",
+    "post_subtask_007_evidence_sha256": "6abdf28fd4c31d6eca53b9625cd4db6968f8445bee1fc6bc32ac3d6b3f616413",
+    "post_subtask_008_artifact_sha256": "738fe85da1129452dfafe6acc63a623a5d3e0af046ab86e57cebcb66b5974a14",
+    "post_subtask_008_artifact_canonical_sha256": "0fd572b774d86dd0a499212e74fb2d43f1db58cbbb844f2802fb60b7740f51a0",
+    "post_subtask_008_log_sha256": "9d52749c762635d00d17f44cce2ead58fb0885d7edb373a8f2fcc9b7088aa2dc",
+    "post_subtask_008_evidence_sha256": "0127b8dec74d13495936f21d36aef9a20d7eeb3448536d4fce80c9afea628616"
+  },
+  "reproducibility": {
+    "source": "POST-SUBTASK-009 source manifest plus direct AC-038, THR-011/012, TASK-161/163, requirement, ADR, risk, and gap rows.",
+    "data": "Pinned 100,000-row synthetic benchmark recipe; POST-SUBTASK-008 preserves content hashes for six raw runs, six telemetry series, and immutable snapshots externally.",
+    "code": "Protected main f80461b4d9ccc6dde03cb49c07125888479c0e90 and pinned benchmark.py / benchmark_target.ps1 identities.",
+    "config": "Declared target class, representative profile, three repetitions per campaign, six-stage order, null threshold values, and explicit no-override policy.",
+    "tool": "Python 3.11.9; PowerShell 5.1.26100.8875; psutil 7.2.2; nvidia-smi telemetry.",
+    "runtime": "Windows target-class host independently matched; accepted benchmark-v1 authority result preserved false; no override.",
+    "split_cutoff": "Synthetic cutoff 99900; four future/same-game/postgame/protected cases rejected per repetition; SPLIT-PROTECTED remained sealed."
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "THR-011 and THR-012 are populated only from the authoritative benchmark evidence.",
+      "disposition": "BLOCKED",
+      "observable_result": "No accepted authoritative threshold evidence exists. Both values remain blank/TBD and observed RAM/runtime maxima are labeled non-governing rather than converted into budgets.",
+      "evidence_path": "artifacts/benchmarks/ac038_gate_decision.json",
+      "evidence_sha256": "5dbed2ffe24f0daa92707d72279346214e4f473ab7c34d713812d22b03fb32db",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T11:27:00Z"
+    },
+    {
+      "criterion": "The decision records evidence hashes, reviewer, timestamp, and pass/block rationale.",
+      "disposition": "PASS",
+      "observable_result": "The decision pins all four prerequisite artifact/evidence pairs, companion log, registry, reviewer, UTC timestamp, authority contradiction, observations, and block rationale.",
+      "evidence_path": "artifacts/benchmarks/ac038_gate_decision.json",
+      "evidence_sha256": "5dbed2ffe24f0daa92707d72279346214e4f473ab7c34d713812d22b03fb32db",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T11:27:00Z"
+    },
+    {
+      "criterion": "TASK-163 remains blocked unless AC-038 genuinely passes; no threshold is relaxed after observing failure.",
+      "disposition": "PASS",
+      "observable_result": "AC-038 remains blocked, TASK-163 remains BLOCKED_AC038_TARGET_HARDWARE, THR-011/012 remain blank, no override was applied, and no post-hoc headroom was invented.",
+      "evidence_path": "artifacts/benchmarks/ac038_gate_decision.json",
+      "evidence_sha256": "5dbed2ffe24f0daa92707d72279346214e4f473ab7c34d713812d22b03fb32db",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T11:27:00Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python EXTERNAL_DATA_ROOT/runtime/BAT-359/validate_ac038_gate_decision.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The retained-block decision passed its consumer contract and all 14 re-hashed mutations were rejected, including invented thresholds, authority override, false material-workflow claim, AC-038/TASK-163 clearance, downstream unlock, protected opening, and incomplete provenance."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "11 of 11 focused W23 operations tests passed in 0.410 seconds."
+    },
+    {
+      "command": "python -B tools/validate_w23_operations.py",
+      "exit_code": 2,
+      "result": "EXPECTED_RELEASE_BLOCK",
+      "output_summary": "The strict W23 validator retained AC-038, THR-011/012, TASK-161, and TASK-163 blocked exactly as required by the negative governance decision."
+    },
+    {
+      "command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
+      "exit_code": 0,
+      "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED",
+      "output_summary": "The implementation substrate passed while the target-threshold release condition remained explicit."
+    },
+    {
+      "command": "python -B tools/verify_judging_seal.py",
+      "exit_code": 0,
+      "result": "PASS_AFTER_REJECTED_MUTATION",
+      "output_summary": "The first attempt correctly failed when THR-011/012 registry text was changed. Exact sealed bytes were restored; the final protected W17 seal passed."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -q",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "243 of 243 warning-strict repository tests passed in 4.482 seconds."
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py; python -B tools/validate_instructions.py; python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "W25 terminal governance, instruction controls, protected maturity honesty, and all 2,118 source anchors passed with zero findings or relocations."
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_pack.py --strict; validate_jira_manifest.py; validate_import_files.py; validate_dependencies.py; validate_second_pass.py (isolated sequential invocations)",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All 463 issue/derivative records, 1,758 Jira-manifest files, import derivatives, dependency graph, and second-pass controls passed with 135 blocked issues and zero Ready issues."
+    },
+    {
+      "command": "python -B tools/select_next_work.py",
+      "exit_code": 0,
+      "result": "PASS_EMPTY_READY_QUEUE",
+      "output_summary": "No dependency-ready issue was silently unlocked; all thirteen BAT-359 consumers remain dependency-blocked."
+    },
+    {
+      "command": "Credential-free clean BAT-359 blocked candidate at 422680986eb0d3d6577ddb203c3ebfa9b7b79368",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security with 2,760 provenance rows and tree fingerprint 3d2a6ac490360b8df32dc9930769e136139b26709983a73d5c4795c150195ac6, dependency policy, W25, protected W17 seal, instructions, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 tests, expected strict-W23 exit 2, and the empty Ready queue all passed."
+    }
+  ],
+  "external_evidence": [
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-359/gate-decision-consumer.safe.json",
+      "bytes": 2463,
+      "sha256": "57842f3d4269f81d2e19b67190c4629e2c966ff37d5715139a4f6745ed146768",
+      "positive_contract_passed": true,
+      "mutation_count": 14,
+      "rejected_mutation_count": 14
+    }
+  ],
+  "negative_findings": [
+    {
+      "id": "BENCHMARK_V1_AUTHORITY_FALSE",
+      "finding": "All mandated-wrapper runs preserve target_match=false and authoritative_for_thr_011_012=false because the accepted v1 CPU predicate does not recognize this host's platform.processor() string.",
+      "waived": false,
+      "resolution": "RETAIN_BLOCKED_NO_OVERRIDE"
+    },
+    {
+      "id": "SYNTHETIC_RESOURCE_PROXY_NOT_MATERIAL_WORKFLOW",
+      "finding": "The six-stage supplement is deterministic and PIT-safe but explicitly synthetic and non-predictive; it is not a material production workflow.",
+      "waived": false,
+      "resolution": "RETAIN_BLOCKED_PENDING_MATERIAL_WORKFLOW_EVIDENCE"
+    },
+    {
+      "id": "NO_PREDECLARED_THRESHOLD_DERIVATION",
+      "finding": "No accepted predeclared method converts observed maxima into hard budgets or specifies headroom; doing so after observation would create unsupported precision.",
+      "waived": false,
+      "resolution": "THR_011_012_REMAIN_BLANK"
+    },
+    {
+      "id": "STRICT_W23_VALIDATOR_REMAINS_BLOCKED",
+      "finding": "The accepted strict W23 validator consumes the non-target smoke checkpoint and hard-requires TASK-161/TASK-163 blocked states; current protected scope does not authorize changing it.",
+      "waived": false,
+      "resolution": "EXPECTED_EXIT_2_RETAINED"
+    },
+    {
+      "id": "W17_SEAL_REJECTED_THRESHOLD_REGISTRY_TEXT_CHANGE",
+      "finding": "An attempted status/rationale-only rewrite of the blank THR-011/012 rows caused the protected W17 seal to fail with changed:governance/ACCEPTANCE_THRESHOLD_REGISTRY.csv.",
+      "waived": false,
+      "resolution": "EXACT_SEALED_REGISTRY_BYTES_RESTORED; BLOCK_DECISION_BINDS_THE_UNCHANGED_TBD_ROWS"
+    },
+    {
+      "id": "WINDOWS_GENERATED_FILE_REBUILD_RETRY",
+      "finding": "The first derivative rebuild encountered transient Windows OSError 22 while opening JIRA_API_CREATE_PAYLOADS.jsonl.",
+      "waived": false,
+      "resolution": "FAILED_ATTEMPT_PRESERVED; ISOLATED_SECOND_REBUILD_AND_ALL_GENERATED_FILE_VALIDATORS_PASSED"
+    }
+  ],
+  "benchmark_and_chronology_evidence": {
+    "independent_target_class_match": true,
+    "substitute_host_used": false,
+    "total_successful_process_runs": 6,
+    "process_errors": 0,
+    "wrapper_wall_clock_maximum_seconds": 4.240638,
+    "process_tree_rss_peak_mib": 176.941,
+    "gpu_utilization_peak_percent": 0.0,
+    "disk_read_bytes_delta_maximum": 3229184,
+    "disk_write_bytes_delta_maximum": 6361600,
+    "prediction_cutoff": 99900,
+    "negative_cases_rejected_each_run": 4,
+    "protected_split_status": "SEALED_NOT_OPENED",
+    "observed_measurements_are_thresholds": false
+  },
+  "security_and_rights": {
+    "credential_values_included": false,
+    "absolute_paths_included": false,
+    "restricted_raw_payloads_included": false,
+    "protected_outcomes_included": false,
+    "source_rights_approval_claimed": false,
+    "release_ready_claimed": false
+  },
+  "downstream": {
+    "reevaluated": [
+      "POST-EPIC-015",
+      "POST-STORY-004",
+      "POST-STORY-041",
+      "POST-STORY-046",
+      "POST-SUBTASK-010",
+      "POST-SUBTASK-011",
+      "POST-SUBTASK-012",
+      "POST-SUBTASK-121",
+      "POST-SUBTASK-122",
+      "POST-SUBTASK-123",
+      "POST-SUBTASK-136",
+      "POST-SUBTASK-137",
+      "POST-SUBTASK-138"
+    ],
+    "decision": "RETAIN_DEPENDENCY_BLOCKS",
+    "silent_unlock_allowed": false
+  },
+  "integration": {
+    "branch": "codex/BAT-359-threshold-governance",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_claim_comment_id": "13312",
+    "live_jira_blocker_comment_id": "13313",
+    "live_jira_status": "To Do",
+    "live_jira_logical_state": "BLOCKED",
+    "live_jira_maturity": "FUNCTIONAL_STARTER",
+    "live_jira_evidence_state": "PARTIAL",
+    "live_jira_updated_at": "2026-08-09T06:31:10.644-0500",
+    "workflow_mapping": "BLOCKED maps to portable Jira status To Do",
+    "pre_claim_rollback_snapshot_sha256": "63afc585be614f40a7af963e4ffd376a96afce6ed02e4d8c6938df9be15273c3",
+    "pre_block_rollback_snapshot_sha256": "4b128fd5fa5a15d711327b7b8d19a8fd1728a5beddf2ed21de979ba1eb073265",
+    "post_block_state_sha256": "10ea4e6ee5d52474207bef9c04714da08c78e6ce740cc357da2e506e69057da6"
+  },
+  "completion": {
+    "achieved_maturity": "FUNCTIONAL_STARTER",
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "BLOCKED",
+    "local_acceptance_criteria_pass": false,
+    "release_ready": false,
+    "completion_claimed": false,
+    "remaining_issue_scope_blockers": [
+      "BENCHMARK_V1_AUTHORITY_FALSE",
+      "MATERIAL_PRODUCTION_WORKFLOW_NOT_BENCHMARKED",
+      "PREDECLARED_THRESHOLD_DERIVATION_NOT_AVAILABLE"
+    ],
+    "completion_claim": "No completion is claimed. BAT-359 remains Blocked/Partial at FUNCTIONAL_STARTER; THR-011/012, AC-038, TASK-161, TASK-163, and all thirteen downstream dependencies remain blocked."
+  }
+}

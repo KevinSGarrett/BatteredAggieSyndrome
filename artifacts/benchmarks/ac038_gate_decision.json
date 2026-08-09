@@ -226,10 +226,18 @@
   },
   "integration": {
     "branch": "codex/BAT-359-threshold-governance",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "required_checks": "PENDING_PROTECTED_PR",
+    "pull_request": 23,
+    "head_sha": "7bff996eac5d9e2f1d1b17080033845045757d2b",
+    "merge_sha": "2ac82f03ddb602b7dec1fe42382f9da34c38ece2",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T11:39:05Z",
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
+    "main_repository_ci_run_id": 31311317447,
+    "main_repository_ci_attempt": 1,
+    "main_repository_ci_conclusion": "success",
+    "main_security_analysis_run_id": 31311317468,
+    "main_security_analysis_attempt": 1,
+    "main_security_analysis_conclusion": "success",
     "live_jira_claim_comment_id": "13312",
     "live_jira_blocker_comment_id": "13313",
     "live_jira_status": "To Do",
@@ -240,7 +248,8 @@
     "workflow_mapping": "BLOCKED maps to portable Jira status To Do",
     "pre_claim_rollback_snapshot_sha256": "63afc585be614f40a7af963e4ffd376a96afce6ed02e4d8c6938df9be15273c3",
     "pre_block_rollback_snapshot_sha256": "4b128fd5fa5a15d711327b7b8d19a8fd1728a5beddf2ed21de979ba1eb073265",
-    "post_block_state_sha256": "10ea4e6ee5d52474207bef9c04714da08c78e6ce740cc357da2e506e69057da6"
+    "post_block_state_sha256": "10ea4e6ee5d52474207bef9c04714da08c78e6ce740cc357da2e506e69057da6",
+    "state": "PROTECTED_MERGED_AND_LIVE_JIRA_BLOCKED"
   },
   "completion": {
     "issue_disposition": "BLOCKED",
@@ -258,6 +267,6 @@
   "content_hash": {
     "algorithm": "sha256",
     "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
-    "value": "1dd0cf0bd7affd50bf856493b8a871cdb615dc167e85b14c21b7b0a3215159d9"
+    "value": "56ba76c12c9f0fa51bc46a7c819f69038f6a47098d0c934aae74c5d1df5c76ac"
   }
 }

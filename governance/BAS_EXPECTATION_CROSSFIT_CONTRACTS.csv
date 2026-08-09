@@ -1,0 +1,11 @@
+contract_id,rule,protected,evidence_needed,owner_wave,w15_status
+BAS-XF-001,Expected margin is generated before kickoff at the intended prediction cutoff.,true,prediction cutoff + kickoff + expectation snapshot lineage,W15-W19,DEFINED
+BAS-XF-002,Expectation model training cutoff precedes the target prediction cutoff.,true,model training cutoff lineage,W15-W19,DEFINED
+BAS-XF-003,Target canonical game and all mirrored representations are excluded from expectation-model training/evaluation fold.,true,canonical game grouping + fold manifest,W15-W19,DEFINED
+BAS-XF-004,Future games/results after the historical cutoff cannot train the expectation model for that target game.,true,chronological train-game manifest,W15-W19,DEFINED
+BAS-XF-005,Primary BAS expectation anchor is BAS-independent and does not consume BAS labels/targets.,true,model feature/target manifest,W15-W17,DEFINED
+BAS-XF-006,Primary scientific anchor does not use an A&M-underperformance target that would absorb the effect being tested.,true,expectation-model target declaration,W15-W17,DEFINED
+BAS-XF-007,Exact expectation-model family is not selected in W15; W16/W17 compare eligible families under this contract.,true,W16 model registry + W17 protected evidence,W16-W17,DEFERRED_EMPIRICAL
+BAS-XF-008,Every label stores expectation model/version/fold/cutoff/data snapshot provenance.,true,label record schema,W15-W20,DEFINED
+BAS-XF-009,Changing expectation anchor/version creates a new BAS label version; historical labels are not overwritten.,true,immutable label-version lineage,W15-W20,DEFINED
+BAS-XF-010,Sensitivity anchors such as market or selected forecast variants remain separate analyses and cannot silently replace the primary label.,true,anchor_id in label/evaluation artifact,W16-W17,DEFINED

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "version": "w18-artifacts-v1.0",
+  "large_artifacts_in_repository": false,
+  "manifest_required": true,
+  "hash_algorithm": "sha256",
+  "prohibited_classes": [
+    "secret_or_credential"
+  ],
+  "policy_csv": "governance/EXPERIMENT_ARTIFACT_POLICY.csv"
+}

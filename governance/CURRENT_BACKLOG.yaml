@@ -1,0 +1,25 @@
+project_id: AGGIE_ANALYTICS_ENGINE
+wave: W25
+status: COMPLETE_FINAL_HANDOFF_WITH_TARGET_HARDWARE_VALIDATION_GAP
+wave_program_complete: true
+next_wave: CODEX_IMPLEMENTATION_HANDOFF
+next_ready_task: HANDOFF-001
+final_backlog: docs/final/FINAL_BACKLOG.csv
+first_72_hour_queue: docs/final/FIRST_72_HOUR_IMPLEMENTATION_QUEUE.md
+carried_blocked_tasks:
+  - TASK-161
+  - TASK-163
+conditional_research_tasks:
+  - TASK-165
+  - TASK-166
+  - TASK-167
+  - TASK-168
+deferred_live_tasks:
+  - TASK-169
+  - TASK-170
+  - TASK-171
+  - TASK-172
+notes:
+  - No Wave 26 exists.
+  - Start post-wave implementation with target benchmark/source access/real historical materialization and PIT replay.
+  - No trained production champion or empirical Aggie Excess effect is claimed.

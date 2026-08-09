@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HypothesisRecord",
+  "type": "object",
+  "required": [
+    "hypothesis_id",
+    "statement",
+    "target",
+    "comparator",
+    "disconfirming_evidence",
+    "state"
+  ],
+  "properties": {
+    "hypothesis_id": {
+      "type": "string"
+    },
+    "statement": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "mechanism": {
+      "type": "string"
+    },
+    "comparator": {
+      "type": "string"
+    },
+    "disconfirming_evidence": {
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "PROPOSED",
+        "TRIAGED",
+        "APPROVED_FOR_EXPERIMENT",
+        "TESTING",
+        "SUPPORTED_CANDIDATE",
+        "REJECTED",
+        "INCONCLUSIVE",
+        "DEFERRED"
+      ]
+    }
+  }
+}

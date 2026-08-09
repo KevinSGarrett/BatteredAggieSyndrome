@@ -1,0 +1,11 @@
+role,may_propose,may_approve,may_execute,may_read_development_metrics,may_read_protected_metrics,may_change_protected_rules,may_change_champion,notes
+research_agent,true,false,false,true,false,false,false,May propose hypotheses/configs and analyze development-only evidence; cannot approve itself or read protected scores.
+human_researcher,true,false,false,true,false,false,false,Human proposer; same judging-rule restrictions.
+research_governor,true,true,false,true,false,false,false,Approves/rejects experiments and challenger adoption; cannot modify W17 seal or champion.
+scheduler,false,false,true,false,false,false,false,Schedules approved immutable experiment specs only.
+experiment_worker,false,false,true,true,false,false,false,Runs approved experiment locally/approved remote lane; no governance mutation.
+replay_verifier,false,false,true,true,false,false,false,Replays immutable spec and verifies hashes.
+protected_evaluator,false,false,true,false,true,false,false,"Can evaluate sealed protected data but cannot tune, change rules, or champion state."
+promotion_governor,false,true,false,true,true,false,true,May change champion only via W17 versioned promotion decision interface.
+tournament_coordinator,false,false,false,true,false,false,false,Builds compatible development-only feature/model tournament comparisons; cannot promote.
+artifact_curator,false,false,false,false,false,false,false,Records hashes/locations/retention/sensitivity; cannot alter results or protected rules.

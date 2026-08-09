@@ -1,0 +1,7 @@
+cadence_id,candidate,purpose,immutable,exact_clock_time_frozen,production_selected_w14
+TAMU-SNAP-01,SUNDAY_INITIAL,Initial next-game forecast after prior-game closure when data refresh is complete.,true,false,false
+TAMU-SNAP-02,MONDAY_BASELINE,Early-week baseline after initial roster/staff/context refresh.,true,false,false
+TAMU-SNAP-03,WEDNESDAY_MIDWEEK,Midweek update after material availability/context evidence.,true,false,false
+TAMU-SNAP-04,FRIDAY_LATE_WEEK,Late-week update using latest eligible evidence.,true,false,false
+TAMU-SNAP-05,FINAL_PREGAME,Final designated pregame cutoff before kickoff.,true,false,false
+TAMU-SNAP-06,MATERIAL_EVENT_REFRESH,Optional extra immutable snapshot after materially new eligible evidence; never overwrites prior snapshots.,true,false,false

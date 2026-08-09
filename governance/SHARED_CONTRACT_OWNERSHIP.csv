@@ -1,0 +1,12 @@
+contract,primary_owner,owner_waves,mutation_policy,freeze_or_review_gate
+governance/REQ-ADR-RISK-AC ledgers,integration/governance lane,W05-W25,SERIALIZED,Every wave packaging gate
+configs/architecture_registry.json,architecture lane,W03+,SERIALIZED_ADR_REQUIRED,Architecture validator + ADR
+configs/acceptance_registry.json + protected controls,validation/governance lane,W04+,SERIALIZED_PROTECTED,Acceptance validator; protected rules may not be self-modified by research
+configs/implementation_plan.json + WBS,program/integration lane,W05+,SERIALIZED_VERSIONED,W06 replan then each adaptive review
+configs/entity_registry.json + canonical entity/source-mapping schemas,data architecture lane,W07/W19+,SERIALIZED_VERSIONED_AFTER_W07,W07 canonical gate COMPLETE; later semantic changes require ADR + entity validator
+PIT/known-at semantics,temporal architecture lane,W08+,SERIALIZED_PROTECTED,W08 PIT gate + leakage tests
+feature registry/lifecycle schema,feature lane,W09-W10+,SERIALIZED_UNTIL_FROZEN,W10 feature lifecycle gate
+model target/joint distribution schema,model architecture lane,W16+,SERIALIZED_PROTECTED,W16 target/model gate
+protected evaluation/promotion rules,validation lane,W17+,SERIALIZED_IMMUTABLE_DURING_EXPERIMENT,W17 freeze before protected results
+forecast snapshot/API schema,forecast/product lane,W20-W22+,SERIALIZED_VERSIONED,W22 snapshot-serving gate
+configs/temporal_registry.json,PIT/temporal lane,W08+,SERIALIZED_ADR_REQUIRED,Temporal validator + protected PIT controls

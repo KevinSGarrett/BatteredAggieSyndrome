@@ -1,0 +1,5 @@
+artifact_role,filename,sha256,validation
+prior_hydration,Aggie_Analytics_Engine_W07_HYDRATION(1).zip,8b829c7e8c4f9e0f7686635bd68cb24b1cf6f6312da9d51790dd544bbd492644,binding/identity PASS; W08 authorized
+prior_cumulative,Aggie_Analytics_Engine_W07_CUMULATIVE(1).zip,8d65e150ca5da67723df612ce37dc7676afa7ae5fbfd7e6c01c45a0035bedd40,exact bound SHA; safe extraction; 206 canonical files
+reconnaissance,Aggie_Analytics_Data_Reconnaissance_Pack_FINAL_v1_2(1)(1)(9).zip,341d4b97bfa89d7e8710c07d559b7dbb62b61f8ed0ac6fb1aad3a00efe4fb14a,matches original provenance; relevant temporal/leakage/snapshot policies inspected
+source_chat,Initial_Chat_Log(9).zip,454381eeff86a01668cfb2b181729683d2fc84b64ef564bd484c2bb65198868e,matches original provenance; no W08 contradiction found

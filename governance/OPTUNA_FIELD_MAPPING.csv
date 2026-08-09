@@ -1,0 +1,14 @@
+aggie_field,optuna_surface,optuna_name,rule
+study_id,study_name/user_attr,aggie.study_id,Canonical Aggie study ID
+candidate_family,user_attr,aggie.candidate_family,Search subject
+search_space_version,user_attr,aggie.search_space_version,Frozen before trials
+development_split,user_attr,aggie.development_split,Must be development-only
+objective_registry,user_attr,aggie.objective_registry,No protected objective
+judging_rule_seal_hash,user_attr,aggie.w17_seal,Protected judge version
+resource_budget_id,user_attr,aggie.resource_budget,Bounded study budget
+trial_params,trial params,native,Exported canonically after trial
+trial_value,trial values,native,Development only
+trial_state,trial state,native,Complete/pruned/failed all retained
+sampler,study metadata,aggie.sampler,Version/config is lineage
+pruner,study metadata,aggie.pruner,Version/config is lineage
+protected_metric,forbidden,N/A,Never objective/pruning input

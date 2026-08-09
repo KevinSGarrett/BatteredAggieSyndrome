@@ -1,0 +1,37 @@
+{
+  "checks": {
+    "adapter": true,
+    "bas_nested": true,
+    "entity_resolution": true,
+    "feature_construction": true,
+    "immutable_publication": true,
+    "joint_score_coherence": true,
+    "lineage_preserved": true,
+    "model_training_precedes_prediction": true,
+    "pit_future_exclusion": true,
+    "raw_snapshot": true,
+    "snapshot_only_serving": true
+  },
+  "empirical_historical_replay_completed": false,
+  "entity_decision_state": "RESOLVED",
+  "feature_snapshot_id": "state_w24-cutoff",
+  "game_id": "tamu-lsu-2026-w24",
+  "lineage_refs": [
+    "snap_fefb7f0c9b95e937862b24e5",
+    "lin_79ddb3e20100bdf60b5cc3d0",
+    "lin_a7d810d379be5b03426d3d89",
+    "lin_f6afaaf97713308076c1df11"
+  ],
+  "market_lane": "PURE_FOOTBALL",
+  "model_artifact_sha256": "3243bbd1700eeda8ce2f04a88889427c3e8097614e59d01366f25d7197934e7f",
+  "pit_observation_ids": [
+    "obs-w24-team-expectation"
+  ],
+  "pit_state_id": "state_w24-cutoff",
+  "published_snapshot_id": "w24-e2e-snapshot",
+  "raw_sha256": "fefb7f0c9b95e937862b24e56e8d9eadf40351dd9c94da348524f2fc3ccedb75",
+  "raw_snapshot_id": "snap_fefb7f0c9b95e937862b24e5",
+  "schema_version": "aggie.readiness.e2e.v1",
+  "scope": "SYNTHETIC_CONTRACT_INTEGRATION_ONLY",
+  "served_snapshot_id": "w24-e2e-snapshot"
+}

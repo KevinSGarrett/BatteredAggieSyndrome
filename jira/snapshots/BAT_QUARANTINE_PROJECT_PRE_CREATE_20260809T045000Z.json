@@ -1,0 +1,115 @@
+{
+  "captured_at": "2026-08-09T04:50:00.362613+00:00",
+  "projects_before": {
+    "isLast": true,
+    "maxResults": 100,
+    "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/search?maxResults=100&startAt=0",
+    "startAt": 0,
+    "total": 5,
+    "values": [
+      {
+        "avatarUrls": {
+          "16x16": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10405?size=xsmall",
+          "24x24": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10405?size=small",
+          "32x32": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10405?size=medium",
+          "48x48": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10405"
+        },
+        "entityId": "df40f9a3-6855-438a-b049-f6837f628cc5",
+        "expand": "description,lead,issueTypes,url,projectKeys,permissions,insight",
+        "id": "10033",
+        "isPrivate": false,
+        "key": "AS",
+        "name": "AI_Slack",
+        "projectTypeKey": "software",
+        "properties": {},
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10033",
+        "simplified": true,
+        "style": "next-gen",
+        "uuid": "df40f9a3-6855-438a-b049-f6837f628cc5"
+      },
+      {
+        "avatarUrls": {
+          "16x16": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=xsmall",
+          "24x24": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=small",
+          "32x32": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=medium",
+          "48x48": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402"
+        },
+        "entityId": "e93ec2c6-86a5-4560-bd26-fd49e7716636",
+        "expand": "description,lead,issueTypes,url,projectKeys,permissions,insight",
+        "id": "10133",
+        "isPrivate": false,
+        "key": "BAT",
+        "name": "BatteredAggieSyndrome",
+        "projectTypeKey": "software",
+        "properties": {},
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133",
+        "simplified": false,
+        "style": "classic",
+        "uuid": "e93ec2c6-86a5-4560-bd26-fd49e7716636"
+      },
+      {
+        "avatarUrls": {
+          "16x16": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10422?size=xsmall",
+          "24x24": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10422?size=small",
+          "32x32": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10422?size=medium",
+          "48x48": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10422"
+        },
+        "entityId": "20f13ec8-08dd-4619-8a70-465994039aab",
+        "expand": "description,lead,issueTypes,url,projectKeys,permissions,insight",
+        "id": "10066",
+        "isPrivate": false,
+        "key": "CU",
+        "name": "Comfy_UI",
+        "projectTypeKey": "software",
+        "properties": {},
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10066",
+        "simplified": true,
+        "style": "next-gen",
+        "uuid": "20f13ec8-08dd-4619-8a70-465994039aab"
+      },
+      {
+        "avatarUrls": {
+          "16x16": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10406?size=xsmall",
+          "24x24": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10406?size=small",
+          "32x32": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10406?size=medium",
+          "48x48": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10406"
+        },
+        "entityId": "65756f37-487c-4cbd-9d4a-f9923ccfc730",
+        "expand": "description,lead,issueTypes,url,projectKeys,permissions,insight",
+        "id": "10100",
+        "isPrivate": false,
+        "key": "CUM",
+        "name": "ComfyUI Main Autonomous Production System",
+        "projectTypeKey": "software",
+        "properties": {},
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10100",
+        "simplified": false,
+        "style": "classic",
+        "uuid": "65756f37-487c-4cbd-9d4a-f9923ccfc730"
+      },
+      {
+        "avatarUrls": {
+          "16x16": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10403?size=xsmall",
+          "24x24": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10403?size=small",
+          "32x32": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10403?size=medium",
+          "48x48": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10403"
+        },
+        "entityId": "e775f975-ed4a-4ff0-85b8-655377b52dcc",
+        "expand": "description,lead,issueTypes,url,projectKeys,permissions,insight",
+        "id": "10000",
+        "isPrivate": false,
+        "key": "SCRUM",
+        "name": "Fiverr Research System",
+        "projectTypeKey": "software",
+        "properties": {},
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10000",
+        "simplified": true,
+        "style": "next-gen",
+        "uuid": "e775f975-ed4a-4ff0-85b8-655377b52dcc"
+      }
+    ]
+  },
+  "quarantine_project_key": "BATQ",
+  "reason": "Create isolated project for exact importer duplicates because Jira Free blocks deletion grants.",
+  "schema_version": 1
+}

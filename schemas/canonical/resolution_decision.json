@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "contract": "resolution_decision",
+  "status": "DESIGN_CONTRACT_W07",
+  "fields": [
+    "resolution_decision_id",
+    "entity_type",
+    "source_entity_key",
+    "candidate_canonical_ids",
+    "selected_canonical_id",
+    "decision_state",
+    "mapping_method",
+    "evidence_capture_ids",
+    "reviewer_or_rule_id",
+    "created_at",
+    "supersedes_decision_id",
+    "notes"
+  ],
+  "states": [
+    "UNRESOLVED",
+    "CANDIDATE_GENERATED",
+    "REVIEW_REQUIRED",
+    "AUTO_ACCEPTED_VERIFIED",
+    "ACCEPTED_MANUAL",
+    "REJECTED",
+    "SUPERSEDED",
+    "MERGED_REDIRECT",
+    "SPLIT_CORRECTED"
+  ],
+  "rules": [
+    "fuzzy score alone cannot auto-accept in W07",
+    "decisions append-only",
+    "ambiguous cases remain unresolved/review-required",
+    "merge/split corrections preserve prior history"
+  ]
+}

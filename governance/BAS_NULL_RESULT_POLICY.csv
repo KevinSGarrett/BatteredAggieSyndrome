@@ -1,0 +1,7 @@
+policy_id,rule,protected,w15_status
+BAS-NULL-001,No A&M-specific excess underperformance is a valid final result.,true,ACTIVE
+BAS-NULL-002,Failure to support an excess cannot be rewritten as evidence that BAS exists.,true,ACTIVE
+BAS-NULL-003,Component/regime/peer analyses cannot rescue a failed primary claim through post-hoc cherry-picking.,true,ACTIVE
+BAS-NULL-004,THR-006 remains unset until W17 precommits the protected scientific criterion.,true,ACTIVE
+BAS-NULL-005,A null A&M excess result does not invalidate ordinary general-FBS underperformance modeling.,true,ACTIVE
+BAS-NULL-006,BAS product naming must not override scientific result or force nonzero output.,true,ACTIVE

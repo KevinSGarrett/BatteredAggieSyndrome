@@ -1,0 +1,37 @@
+issue_id,source_gap_id,area,priority,issue,resolution_path,blocking_now,status,planned_wave
+ISSUE-001,GAP-001,SportsDataverse,MEDIUM,Season roster schema column-count inconsistency,Profile actual season roster asset and freeze contract,NO,OPEN,W06-W19
+ISSUE-002,GAP-002,SportsDataverse/CFBD,HIGH,Betting spread sign/provider semantics differ,Implement canonical spread convention + provider/timestamp contract tests,NO,OPEN,W06-W19
+ISSUE-003,GAP-003,CFBD,MEDIUM,Authenticated live sample payloads not materialized in pack,Run included acquisition tool locally with environment-variable key,NO,OPEN,W06-W19
+ISSUE-004,GAP-004,Open-Meteo,LOW,Direct dynamic API JSON not materialized,Run included no-key acquisition tool locally,NO,OPEN,W06-W19
+ISSUE-005,GAP-005,EADA,MEDIUM,Raw annual federal data file not materialized,Download official annual data and profile with included strategy before production resources,NO,OPEN,W06-W19
+ISSUE-006,GAP-006,All sources,HIGH,Full-population missingness/value distributions not measured,Materialize production-era datasets and run full profiling pipeline,NO,OPEN,W06-W19
+ISSUE-007,GAP-007,All feature families,HIGH,Statistical correlations/duplication not measured on full training matrix,Run correlation clustering/ablation after point-in-time feature matrix exists,NO,OPEN,W06-W19
+ISSUE-008,GAP-008,Entity resolution,HIGH,Cross-source team/game/player/coach mappings not fully validated at scale,Build source_entity_map and contract-test sampled seasons,NO,OPEN,W06-W19
+ISSUE-009,GAP-009,Texas A&M,HIGH,Historical game-week depth/injury coverage is uneven,Acquire official game notes/depth/flip cards and assign evidence confidence,NO,OPEN,W06-W19
+ISSUE-010,GAP-010,Resources,HIGH,First-known-public timestamps for annual reports not fully materialized,Store report publication/availability timestamps; lag features appropriately,NO,OPEN,W06-W19
+ISSUE-011,GAP-011,Weather,MEDIUM,Historical forecast-run coverage must be verified for desired forecast snapshots,Use archived forecast/previous-run products where available; observed reanalysis only for observed-condition features,NO,OPEN,W06-W19
+ISSUE-012,GAP-012,PFF,NONE,Optional charting enrichment intentionally deferred,No action for v1; future add-on only if user chooses and legitimate export available,NO,OPEN,W06-W19
+ISSUE-013,GAP-013,Draft development,MEDIUM,Historical CFBD draft outcomes have not yet been fully materialized/profiled in the pack,Acquire completed draft history and validate player/team identity joins,NO,OPEN,W06-W19
+ISSUE-014,GAP-014,Preseason honors,MEDIUM,No single normalized historical national archive yet spans all conference teams/selectors/watch lists,"Build dated honor ingestion across conference offices, NCFAA, and approved selectors",NO,OPEN,W06-W19
+ISSUE-015,GAP-015,Coach role effects,HIGH,Role-conditioned coach residuals are specified but not statistically estimated,Build role episodes and hierarchical residual model after full historical data materialization,NO,OPEN,W06-W19
+ISSUE-016,GAP-016,Transfer translation,HIGH,Same-player pre/post-transfer translation model not yet trained,Build historical transfer cohort and position-specific translation models,NO,OPEN,W06-W19
+ISSUE-017,GAP-017,Availability impact,HIGH,Historical replacement-value and pregame depth snapshots remain incomplete,Materialize depth/injury snapshots and player-value models,NO,OPEN,W06-W19
+ISSUE-018,GAP-018,Home-field strength,MEDIUM,Partial-pooled venue/team home effect not yet estimated,Estimate residual home effects after controlling team/opponent/context,NO,OPEN,W06-W19
+ISSUE-019,GAP-019,Possession/tempo,MEDIUM,Expected-possession model not yet statistically estimated,Build from point-in-time PBP/drive pace after full data materialization,NO,OPEN,W06-W19
+ISSUE-020,GAP-020,Field position,MEDIUM,Hidden-yards/field-position model not yet estimated,"Derive drive-start, kick/punt and turnover field-position value",NO,OPEN,W06-W19
+ISSUE-021,GAP-021,Special teams,MEDIUM,Kicking/punting/return submodels not yet trained/calibrated,Train component models including weather and player continuity,NO,OPEN,W06-W19
+ISSUE-022,GAP-022,Fourth down/clock,LOW,Coach decision-quality and clock-management residuals not yet estimated,Derive historical state/action/outcome datasets,NO,OPEN,W06-W19
+ISSUE-023,GAP-023,Officiating,LOW,No comprehensive national historical crew-assignment dataset is materialized,Extract from official gamebooks/box scores where feasible and validate pregame assignment availability,NO,OPEN,W06-W19
+ISSUE-024,GAP-024,Rule eras,MEDIUM,Full 2005-present effective-dated NCAA rule timeline not yet materialized,Build official rule-era registry during implementation,NO,OPEN,W06-W19
+ISSUE-025,GAP-025,Market snapshots,HIGH,Historical opening/current/closing first-known timestamps are not fully verified across providers,Preserve provider/timestamp observations and enforce forecast cutoffs,NO,OPEN,W06-W19
+ISSUE-026,GAP-026,Uncertainty/OOD,MEDIUM,OOD thresholds and calibrated predictive intervals not yet learned,Fit after production feature space exists,NO,OPEN,W06-W19
+ISSUE-027,GAP-027,Live/BAS collapse,NONE,Live model and collapse threshold not yet fixed/trained,Implement after mature pregame system,NO,OPEN,W06-W19
+ISSUE-028,GAP-028,Source rights,MEDIUM,Per-source redistribution/license status has not been legally/operationally verified for every raw artifact,Verify terms before bulk redistribution/public repository inclusion,NO,OPEN,W06-W19
+ISSUE-029,,Architecture,HIGH,Final repository/package/module boundaries not yet frozen,Wave02/03 evaluate professional local-first structure and compare alternatives,NO,OPEN,W02-W03
+ISSUE-030,,Validation,HIGH,Exact protected test seasons and promotion thresholds are not yet frozen,Wave17 define based on data coverage and statistical power; protect afterward,NO,OPEN,W17
+ISSUE-031,,BAS,HIGH,Exact cross-fitting/expected-margin estimator for historical BAS labels is not yet selected,Wave15 compare leakage-safe alternatives and freeze methodology,NO,OPEN,W15
+ISSUE-032,,Modeling,MEDIUM,Exact joint-score statistical family is not yet selected,Wave16 compare coherent alternatives,NO,OPEN,W16
+ISSUE-033,,Orchestration,MEDIUM,"Prefect remains a default, not an accepted mandatory orchestrator",Wave21 benchmark operational fit before final selection,NO,OPEN,W21
+ISSUE-034,,Storage,MEDIUM,DuckDB/Polars/PostgreSQL exact division of responsibility is not frozen,Wave02/03/07 evaluate based on local constraints and canonical state needs,NO,OPEN,W02-W07
+ISSUE-035,,A&M,HIGH,Historical A&M game-week availability/depth evidence coverage may constrain player availability training,Wave06 research + Wave12 materialization confidence strategy,NO,OPEN,W06/W12
+ISSUE-036,,Research,MEDIUM,Wave06 may discover high-value sources/domains not present in reconnaissance pack,Perform fresh data-universe research and revise Waves07-25 if justified,NO,OPEN,W06

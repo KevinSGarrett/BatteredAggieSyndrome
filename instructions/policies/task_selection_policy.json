@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-TASK-SELECTION",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/05_TASK_SELECTION_AND_SEQUENCING.md",
+  "priority_order": [
+    "P0",
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "sequence": {
+    "P0": [
+      "target/source access and rights",
+      "real national historical materialization",
+      "canonical identity population",
+      "PIT historical state",
+      "leakage/replay evidence"
+    ],
+    "P1": [
+      "simple baselines",
+      "chronological protected evaluation",
+      "calibration",
+      "A&M specialization comparison",
+      "BAS/Aggie Excess validation including null result"
+    ],
+    "P2": [
+      "weekly operation",
+      "immutable publication",
+      "serving/freshness",
+      "backup/restore",
+      "observability/security/drift"
+    ],
+    "P3": [
+      "neural/sequence/graph challengers",
+      "live/in-game",
+      "complex infrastructure only after admission evidence"
+    ]
+  },
+  "selection_order": [
+    "continue valid unfinished owned work",
+    "resolve integration/review work that blocks dependents",
+    "highest priority dependency-ready live Jira item",
+    "highest blocking impact",
+    "source/input readiness",
+    "lowest shared-contract collision risk",
+    "ability to produce objective evidence",
+    "smallest coherent vertical slice"
+  ],
+  "hard_exclusions": [
+    "interesting-but-not-ready work",
+    "advanced model work before baseline/data/PIT gates",
+    "housekeeping invented to avoid blockers",
+    "duplicate issue/PR",
+    "work requiring unverified rights/credentials",
+    "Wave 26 or new wave planning"
+  ],
+  "current_repository_hint": {
+    "blocked": "HANDOFF-001 is blocked on representative target hardware in the final repository snapshot.",
+    "independent_ready": "HANDOFF-002 is marked READY in docs/final/FINAL_BACKLOG.csv, subject to live Jira and access/rights verification.",
+    "authority_warning": "Live Jira and current repository state may supersede this discovery-time hint."
+  },
+  "ticket_creation_gate": [
+    "meaningful independently trackable outcome",
+    "not already represented by Jira/internal task",
+    "separate owner/dependency/review/rollback value",
+    "clear acceptance criteria and source linkage"
+  ],
+  "micro_work_location": "Use checklist, task packet, commit, or PR description—not another Jira object."
+}

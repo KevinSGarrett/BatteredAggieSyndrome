@@ -1,0 +1,21 @@
+{
+  "schema_version": 2,
+  "audit_id": "BAS-JIRA-BAT-ACCESS-DISCOVERY-2026-08-08",
+  "audit_date_local": "2026-08-08",
+  "requested_site": "https://kevinsgarrett.atlassian.net",
+  "requested_project_key": "BAT",
+  "requested_board_url": "https://kevinsgarrett.atlassian.net/jira/software/c/projects/BAT/summary",
+  "requested_site_accessible": false,
+  "accessible_site_observed": "https://scentiment-team-ptx6nqe8.atlassian.net",
+  "substitution_forbidden": true,
+  "live_project_verified": false,
+  "live_board_verified": false,
+  "live_issue_types_verified": false,
+  "live_fields_verified": false,
+  "live_statuses_verified": false,
+  "live_transitions_verified": false,
+  "live_issues_inspected": false,
+  "writes_performed": false,
+  "authority_boundary": "No BAT issue, workflow, field, status, transition, board, or hierarchy detail may be invented from this failed access check.",
+  "required_next_action": "Connect the requested Atlassian site, run the read-only discovery and hydration procedure, validate the mirror with --require-live, and only then permit exact Jira reads or writes."
+}

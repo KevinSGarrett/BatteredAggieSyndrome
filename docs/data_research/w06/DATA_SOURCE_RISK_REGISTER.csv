@@ -1,0 +1,21 @@
+risk_id,risk,affected_source,impact,likelihood,mitigation,status
+DSR-001,Derived open repository changes upstream schema or endpoint,SRC-001,HIGH,MEDIUM,Version raw inputs/schemas; source contracts; fall back CFBD/NCAA.,OPEN_OR_CONTROLLED
+DSR-002,CFBD API tier/terms/schema change,SRC-002,HIGH,MEDIUM,"Pin endpoint/schema evidence, cache raw, track tiers/terms, fallback bulk/official sources.",OPEN_OR_CONTROLLED
+DSR-003,Public availability report coverage is conference-game/date limited,SRC-017..025,HIGH,HIGH,Explicit coverage mask; missingness is not available=healthy; school/media/licensed fallback.,OPEN_OR_CONTROLLED
+DSR-004,Nonconference and pre-report-era injury history incomplete,availability,HIGH,HIGH,Probabilistic missingness/degraded mode; do not fabricate injury states.,OPEN_OR_CONTROLLED
+DSR-005,Historical forecast archive differs by weather model/era,SRC-026..028,HIGH,HIGH,Record model/run/version/lead; choose era-valid source and uncertainty.,OPEN_OR_CONTROLLED
+DSR-006,Observed weather leaks future conditions into earlier forecast,SRC-003/SRC-029,CRITICAL,MEDIUM,Hard PIT weather control AC-013; observed data labels/verification only.,OPEN_OR_CONTROLLED
+DSR-007,Market snapshot history requires paid source or lacks older timestamps,SRC-032/033,HIGH,HIGH,Pure-football lane independent; optional paid market enrichment; missing market lane explicit.,OPEN_OR_CONTROLLED
+DSR-008,Commercial vendor lock-in/cost escalation,SRC-033..037,MEDIUM,MEDIUM,Optional adapters; no Phase1-4 core dependency without ADR/value evidence.,OPEN_OR_CONTROLLED
+DSR-009,Publicly accessible pages prohibit or constrain redistribution,multiple,HIGH,MEDIUM,Source rights matrix/manual review; keep raw local; publish acquisition scripts/derived data only when defensible.,OPEN_OR_CONTROLLED
+DSR-010,Recruiting/transfer derived sources share same upstream publisher,SRC-002/058,HIGH,MEDIUM,Track upstream lineage; do not count as independent corroboration.,OPEN_OR_CONTROLLED
+DSR-011,NCAA detailed Transfer Portal is restricted/non-public,SRC-046,MEDIUM,HIGH,No bypass; use structured public/authorized alternatives and official aggregate research.,OPEN_OR_CONTROLLED
+DSR-012,Private-school resource proxies misread as football spending,SRC-044,HIGH,MEDIUM,Keep proxy lane distinct; explicit semantic labels and missingness.,OPEN_OR_CONTROLLED
+DSR-013,Eligibility/roster/transfer regulations change feature meaning,SRC-054/055,HIGH,HIGH,Effective-dated regulatory environment and rule-era versioning.,OPEN_OR_CONTROLLED
+DSR-014,Lower-division schemas/quality differ by governing body,SRC-048..052,MEDIUM,HIGH,Normalize only required strength/translation signals with source confidence.,OPEN_OR_CONTROLLED
+DSR-015,No scalable public national historical depth-chart source,depth,HIGH,HIGH,A&M targeted official reconstruction; infer usage cautiously; commercial optional.,OPEN_OR_CONTROLLED
+DSR-016,No verified national pregame officiating assignment feed,officials,LOW_MEDIUM,HIGH,Experimental lane only; gamebooks for postgame history; suppress when unavailable.,OPEN_OR_CONTROLLED
+DSR-017,Advanced formation/coverage/tracking data is proprietary,SRC-035..037,MEDIUM,HIGH,Phase-5 research-only; do not block core system.,OPEN_OR_CONTROLLED
+DSR-018,Conference/school pages may be edited after publication,official web,HIGH,MEDIUM,Snapshot HTML/PDF with retrieval + first-known/publication timestamps and hashes.,OPEN_OR_CONTROLLED
+DSR-019,Source IDs drift across providers/transfers/name changes,all,HIGH,HIGH,W07 canonical mappings/aliases/temporal identity + unresolved review.,OPEN_OR_CONTROLLED
+DSR-020,Current source universe becomes stale,all,MEDIUM,HIGH,W24 refresh plus targeted cadence/terms monitoring.,OPEN_OR_CONTROLLED

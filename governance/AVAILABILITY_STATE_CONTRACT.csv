@@ -1,0 +1,9 @@
+contract_id,field,semantics,range_or_states,pit_required,numeric_default,notes
+AV-001,availability_probability,probability player can participate in modeled role at cutoff,"[0,1] or unknown",true,,Unknown is not coerced to 1.0.
+AV-002,effectiveness_if_active,conditional effectiveness relative to modeled healthy baseline,model-defined nonnegative/unknown,true,,No universal injury discount.
+AV-003,expected_usage_share,expected snaps/opportunities conditional on scenario,"[0,1] or role-specific share",true,,Rotation aware.
+AV-004,snap_limit_probability,probability meaningful limitation affects expected role,"[0,1] or unknown",true,,Separate from active/out.
+AV-005,availability_reason,injury/illness/suspension/targeting/personal/etc.,controlled vocabulary + unknown,true,,Reason may influence evidence interpretation but not fixed point penalty.
+AV-006,source_confidence,evidence provenance/reliability tier,tiered categorical,true,,No fixed numeric source weight in W12.
+AV-007,replacement_scenario,identity/value/usage of replacement or redistributed rotation,one or more canonical players/roles,true,,May be multiple-player redistribution.
+AV-008,uncertainty,availability/effectiveness/usage/replacement uncertainty,nonnegative components,true,,Feeds W16 uncertainty architecture.

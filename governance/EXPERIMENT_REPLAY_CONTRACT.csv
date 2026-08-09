@@ -1,0 +1,9 @@
+replay_rule_id,rule,blocking,mismatch_action
+ERP-001,Exact experiment identity/spec hash must match original,true,REJECT_ADOPTION
+ERP-002,Data/feature/code/evaluation seal hashes must resolve identically,true,REJECT_ADOPTION
+ERP-003,Seed/environment policy must be reproducible or explicitly classified nondeterministic,true,INCONCLUSIVE
+ERP-004,Material metric deviations outside declared stochastic tolerance require review,true,INCONCLUSIVE
+ERP-005,Protected metrics are not part of research replay objective,true,RESEARCH_ACCESS_DENIED
+ERP-006,Artifact manifest content hashes and sizes must match referenced evidence,true,REJECT_ADOPTION
+ERP-007,Protected judging-rule seal must verify before replay/adoption,true,STOP_GOVERNANCE_FAILURE
+ERP-008,Incompatible target/split/data/metric/market/BAS semantics cannot be used as replay comparison,true,INCOMPARABLE

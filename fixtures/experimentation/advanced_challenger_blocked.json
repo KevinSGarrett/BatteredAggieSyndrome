@@ -1,0 +1,13 @@
+{
+  "candidate_class": "SEQUENCE_TRANSFORMER",
+  "conventional_baseline_materialized": false,
+  "baseline_saturated_or_specific_gap_demonstrated": false,
+  "protected_protocol_sealed": true,
+  "development_only_plan": true,
+  "local_resource_budget_declared": true,
+  "incremental_hypothesis": "Temporal sequence may capture evolution missed by aggregate state.",
+  "complexity_rationale": "Only test after conventional baseline evidence.",
+  "required_inputs_available": false,
+  "rights_ok": true,
+  "maintenance_owner": "research"
+}

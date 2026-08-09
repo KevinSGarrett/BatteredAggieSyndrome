@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "title": "PreseasonHonorObservation",
+  "type": "object",
+  "required": [
+    "canonical_player_id",
+    "season",
+    "selector",
+    "honor_family",
+    "announced_at",
+    "source_observation_id"
+  ],
+  "properties": {
+    "canonical_player_id": {
+      "type": "string"
+    },
+    "season": {
+      "type": "integer"
+    },
+    "selector": {
+      "type": "string"
+    },
+    "honor_family": {
+      "type": "string"
+    },
+    "position": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "team_level": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "announced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "list_size": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "source_observation_id": {
+      "type": "string"
+    }
+  }
+}

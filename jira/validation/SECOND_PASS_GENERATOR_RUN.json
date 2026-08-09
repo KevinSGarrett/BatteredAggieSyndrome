@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/opt/pyvenv/bin/python",
+    "-B",
+    "jira/tools/second_pass_hardening.py",
+    "--apply",
+    "--skip-generator-patch"
+  ],
+  "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+  "finished_at": "2026-08-09T03:04:07.715978+00:00",
+  "output": "{\n  \"actionable_count\": 229,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 142,\n  \"deferred_count\": 36,\n  \"derivative_result_counts\": {\n    \"PASS\": 463\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 70,\n    \"ATOMIC_EXECUTION\": 159,\n    \"HISTORICAL_REFERENCE\": 234\n  },\n  \"forced_new_automated_on_legal_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 463,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 2,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2118\n  },\n  \"subtask_count\": 159,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 190,\n    \"EXISTING_AUTOMATED_TEST\": 1141,\n    \"INTEGRATION\": 44,\n    \"LEGAL_RIGHTS_REVIEW\": 8,\n    \"MANUAL\": 8,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 51,\n    \"OPERATIONS\": 42,\n    \"REPRODUCIBILITY\": 229,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 31,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-08\",\n  \"work_packet_count\": 229\n}\n",
+  "passed": true,
+  "returncode": 0,
+  "started_at": "2026-08-09T03:04:02.373199+00:00"
+}

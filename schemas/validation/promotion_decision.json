@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PromotionDecision",
+  "type": "object",
+  "required": [
+    "decision_id",
+    "champion_id",
+    "challenger_id",
+    "state",
+    "split_protocol_id",
+    "threshold_registry_version"
+  ],
+  "properties": {
+    "decision_id": {
+      "type": "string"
+    },
+    "champion_id": {
+      "type": "string"
+    },
+    "challenger_id": {
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "BLOCKED_PROTOCOL_UNSEALED",
+        "BLOCKED_THRESHOLD_UNSET",
+        "BLOCKED_ARTIFACT_MISSING",
+        "DEVELOPMENT_ONLY",
+        "PROTECTED_READY",
+        "REJECT",
+        "INCONCLUSIVE",
+        "SHADOW_ONLY",
+        "PROMOTE",
+        "ROLLBACK_REQUIRED"
+      ]
+    },
+    "split_protocol_id": {
+      "type": "string"
+    },
+    "threshold_registry_version": {
+      "type": "string"
+    },
+    "evidence_hashes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rationale": {
+      "type": "string"
+    }
+  }
+}

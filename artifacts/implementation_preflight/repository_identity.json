@@ -1,0 +1,239 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "repository_identity_preflight",
+  "artifact_id": "BAT-351-POST-SUBTASK-001-20260809T060526Z",
+  "created_at_utc": "2026-08-09T06:05:26.3740138Z",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c",
+    "jira_key": "BAT-351",
+    "local_issue_id": "POST-SUBTASK-001"
+  },
+  "project_identity": {
+    "project_id": "AGGIE_ANALYTICS_ENGINE",
+    "project_name": "Aggie Analytics Engine / Battered Aggie Syndrome",
+    "canonical_repository": "C:\\BatteredAggieSyndrome",
+    "current_wave": "W25",
+    "wave_program_complete": true,
+    "next_state": "CODEX_IMPLEMENTATION_HANDOFF",
+    "wave_26_allowed": false
+  },
+  "w25_cumulative": {
+    "repository_relative_archive": "BatteredAggieSyndrome.zip",
+    "archive_sha256": "a594e385d39ada121a485056e5382dee13123fd131454af43aa88786a04d38f0",
+    "archive_size_bytes": 1659630,
+    "archive_entry_count_including_directories": 929,
+    "internal_hash_ledger_rows": 861,
+    "internal_hash_ledger_failures": 0,
+    "internal_tree_fingerprint": "b03830292c09336e8eae96cc5a04518d041b13e0fb1b7587f7c7debb96e2f687",
+    "project_file_manifest_sha256": "08a2f3bfc616df75744069baf5d598fa1615f3a27600924fa48b6f15aabcb00d",
+    "project_file_hash_ledger_sha256": "b03830292c09336e8eae96cc5a04518d041b13e0fb1b7587f7c7debb96e2f687",
+    "self_excluded_provenance_files_match_archive": true,
+    "live_tree_ledgered_files_missing": 0,
+    "live_tree_ledgered_files_changed": 0,
+    "discovery_inventory_source_archive": "BatteredAggieSyndrome(3).zip",
+    "discovery_inventory_archive_size_bytes": 1659630,
+    "discovery_inventory_extracted_file_count": 863,
+    "identity_disposition": "VERIFIED_CUMULATIVE_CONTENT_SNAPSHOT"
+  },
+  "w25_hydration_binding": {
+    "status": "UNAVAILABLE_MISSING_ARTIFACT",
+    "hydration_zip_present": false,
+    "pack_binding_present": false,
+    "binding_claimed": false,
+    "searched_scopes": [
+      "C:\\BatteredAggieSyndrome",
+      "C:\\Users\\kevin\\.codex\\attachments\\91630a47-7c06-4536-9cf1-5f76a09c79a6"
+    ],
+    "finding": "The cumulative archive is internally verified, but no W25 hydration ZIP or PACK_BINDING.json was supplied. No cumulative-to-hydration SHA binding is inferred or fabricated.",
+    "unblock_condition": "Supply the authoritative W25 hydration artifact containing PACK_BINDING.json, or approve an evidence-backed controlled supersession of the missing historical binding.",
+    "affected_scope": "Original W25 pair-binding assurance remains unresolved; controlled activation reconciliation may use the independently verified cumulative snapshot, but this artifact does not claim the missing historical binding."
+  },
+  "protected_controls": {
+    "judging_seal_paths_checked": 13,
+    "judging_seal_failures": 0,
+    "instruction_manifest_entries_checked": 92,
+    "instruction_manifest_missing": 0,
+    "instruction_manifest_hash_mismatches": 0,
+    "instruction_policy_json_files_parsed": 22,
+    "instruction_policy_json_failures": 0,
+    "no_wave_26_verified": true
+  },
+  "incoming_overlay_inventory": {
+    "current_file_count_before_artifact_creation": 2721,
+    "w25_hash_ledger_rows": 861,
+    "post_w25_or_local_only_files": 1860,
+    "instruction_files": 92,
+    "jira_files": 1760,
+    "pytest_cache_files": 4,
+    "local_env_files": 1,
+    "local_zip_files": 1,
+    "self_excluded_provenance_files": 2,
+    "original_w25_files_changed": 0,
+    "original_w25_files_missing": 0
+  },
+  "preservation_checkpoint": {
+    "backup_set": "C:\\BatteredAggieSyndrome.backups\\codex-20260809T060026Z",
+    "backup_manifest_sha256": "f5334feedea44864538d040dc172ccd3b207118f3397817ed838ed261514537f",
+    "safe_archive_sha256": "32e0030f06ec793ba3cd2ee9ebb5d0834a84eab33906746c2cfd27df4398ff42",
+    "included_file_count": 2715,
+    "snapshot_hash_failures": 0,
+    "archive_hash_failures": 0,
+    "archive_path_or_case_failures": 0,
+    "secret_or_forbidden_findings": 0,
+    "excluded_local_only_classes": [
+      ".env",
+      "nested ZIPs",
+      "logs",
+      "caches",
+      "virtual environments",
+      "model binaries"
+    ],
+    "verified": true
+  },
+  "publishable_tree_stage": {
+    "stage_path": "C:\\BatteredAggieSyndrome.packaging\\BAT-351-20260809T060026Z-attempt2",
+    "source_snapshot_file_count": 2715,
+    "manifest_rows_excluding_two_self_referential_files": 2713,
+    "tree_fingerprint": "5e65045e9c804e94ce47a8f64a36e34117e1794eaebc2fa636ac1a8f856a0756",
+    "manifest_sha256": "c6f7ee7a96e74124bcae72f9e80013b0bea6a8f08ea37fe67488aa64b5b274c7",
+    "hash_ledger_sha256": "5e65045e9c804e94ce47a8f64a36e34117e1794eaebc2fa636ac1a8f856a0756",
+    "strict_repository_validation": "PASS",
+    "secret_and_forbidden_scan": "PASS"
+  },
+  "git_and_github": {
+    "local_git_metadata_present": false,
+    "approved_worktree_root_present": false,
+    "trusted_history_found_in_canonical_or_approved_worktree_locations": false,
+    "remote": "https://github.com/KevinSGarrett/BatteredAggieSyndrome",
+    "remote_observed_empty": true,
+    "remote_branches": 0,
+    "remote_pull_requests": 0,
+    "remote_issues": 0,
+    "remote_visibility": "public",
+    "remote_admin_permission": true,
+    "secret_scanning_enabled": true,
+    "push_protection_enabled": true,
+    "initial_publication_authority": "EXPLICIT_ONE_TIME_AUTHORIZATION_IN_GOAL_OBJECTIVE",
+    "initial_publication_status": "GATED_PENDING_CONTROL_TOOL_RECONCILIATION_FULL_TEST_PASS_PATH_REVIEW_AND_IMMEDIATE_REMOTE_RECHECK"
+  },
+  "jira": {
+    "site": "https://kevinsgarrett.atlassian.net",
+    "project_key": "BAT",
+    "project_id": "10133",
+    "board_id": "134",
+    "live_issue_count_at_last_local_hydration": 463,
+    "issue_key": "BAT-351",
+    "issue_id": "24491",
+    "live_status": "In Progress",
+    "live_assignment_verified": true,
+    "local_strict_second_pass": "PASS",
+    "local_sync_conflicts": 0
+  },
+  "runtime": {
+    "operating_system": "Microsoft Windows 10.0.26200",
+    "python": "3.11.9",
+    "git": "2.52.0.windows.1",
+    "powershell": "5.1.26100.8875"
+  },
+  "validation_results": [
+    {
+      "check": "W25 terminal validator",
+      "command": "python -B tools/validate_w25_final.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "check": "Jira strict second-pass validator",
+      "command": "python -B jira/tools/validate_second_pass.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "check": "Canonical root strict repository validator",
+      "command": "python -B tools/validate_repository.py --repo-root . --strict",
+      "exit_code": 1,
+      "result": "EXPECTED_ACTIVATION_RECONCILIATION_FAILURE",
+      "details": "1866 findings: 1858 manifest coverage, 7 cache-directory findings, and 1 local .env finding. No original W25 hash mismatch was found."
+    },
+    {
+      "check": "Controlled publishable-stage strict repository validator",
+      "command": "python -B tools/validate_repository.py --repo-root C:\\BatteredAggieSyndrome.packaging\\BAT-351-20260809T060026Z-attempt2 --strict",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "check": "Full unit baseline",
+      "command": "python -B -m unittest discover -s tests",
+      "exit_code": 1,
+      "result": "FAIL",
+      "details": "229 tests ran; one Windows-only cleanup error occurred because tests/test_locks_full.py registers FileLock.release after TemporaryDirectory exits."
+    },
+    {
+      "check": "Focused W23 operations regression",
+      "command": "$env:PYTHONPATH=(Resolve-Path src).Path; python -B -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "details": "8 tests passed."
+    }
+  ],
+  "configuration_findings": {
+    "required_secret_variables_present": [
+      "CFBD_API_KEY",
+      "JIRA_API_KEY",
+      "JIRA_EMAIL",
+      "GITHUB_TOKEN",
+      "AGGIE_ANALYTICS_DATA_ROOT"
+    ],
+    "secret_values_emitted": false,
+    "aggie_analytics_data_root_status": "INVALID_PLACEHOLDER_NOT_A_PATH"
+  },
+  "known_blockers": [
+    {
+      "id": "W25_HYDRATION_BINDING_UNAVAILABLE",
+      "scope": "historical pair-binding assurance",
+      "status": "BLOCKED_EXTERNAL_ARTIFACT"
+    },
+    {
+      "id": "FULL_UNIT_WINDOWS_LOCK_CLEANUP_FAILURE",
+      "scope": "clean baseline test gate",
+      "status": "REPRODUCED_DIAGNOSED_NOT_FIXED_IN_BAT_351_SCOPE"
+    },
+    {
+      "id": "ROOT_CONTROL_TOOLS_REFERENCED_BUT_MISSING",
+      "scope": "autonomous activation validator/audit/selector commands",
+      "status": "RECONCILIATION_REQUIRED"
+    },
+    {
+      "id": "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER",
+      "scope": "external data and artifact storage",
+      "status": "BLOCKED_CONFIGURATION"
+    }
+  ],
+  "consumer_contract": {
+    "consumer": "POST-SUBTASK-002",
+    "required_schema_version": "1.0.0",
+    "staleness_keys": [
+      "w25_cumulative.archive_sha256",
+      "w25_cumulative.internal_tree_fingerprint",
+      "publishable_tree_stage.tree_fingerprint",
+      "protected_controls.judging_seal_failures",
+      "project_identity.wave_26_allowed"
+    ],
+    "fail_closed_when": [
+      "schema_version is unsupported",
+      "any pinned hash changes",
+      "a W25 ledgered path is missing or changed",
+      "a protected judging seal fails",
+      "wave_26_allowed is not false",
+      "a required blocker is silently omitted"
+    ]
+  },
+  "disposition": {
+    "artifact_maturity": "IMPLEMENTED",
+    "evidence_state": "PARTIALLY_VERIFIED_WITH_EXPLICIT_BLOCKERS",
+    "normal_implementation_eligibility": "BLOCKED_PENDING_STARTUP_RECONCILIATION_GATES",
+    "controlled_activation_reconciliation": "AUTHORIZED_BY_EXPLICIT_GOAL_WITH_PRESERVATION_AND_FAIL_CLOSED_EVIDENCE",
+    "completion_claim": "Repository cumulative identity is verified; the missing W25 hydration binding is not claimed."
+  }
+}

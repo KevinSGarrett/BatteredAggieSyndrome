@@ -1,0 +1,53 @@
+{
+  "acceptance_controls_mapped": 234,
+  "acceptance_controls_total": 234,
+  "acceptance_controls_unmapped": 0,
+  "actionable_open_items": 203,
+  "blocked_items": 142,
+  "conditional_items": 13,
+  "deferred_items": 36,
+  "dependency_cycles": [],
+  "final_gaps_represented": 14,
+  "final_gaps_total": 14,
+  "generated_date": "2026-08-08",
+  "historical_completed_items": 221,
+  "historical_items_total": 234,
+  "issue_counts": {
+    "Epic": 50,
+    "Story": 53,
+    "Subtask": 159,
+    "Task": 201
+  },
+  "issues_without_acceptance_criteria": [],
+  "issues_without_definition_of_done": [],
+  "issues_without_test_or_evidence_requirement": [],
+  "jira_keys_prefilled": [],
+  "mandatory_coverage_pass": true,
+  "orphan_issues": [],
+  "priority_counts": {
+    "DEFERRED": 13,
+    "P0": 73,
+    "P1": 298,
+    "P2": 58,
+    "P3": 21
+  },
+  "ready_items": 2,
+  "repository_files_analyzed": 863,
+  "requirements_mapped": 745,
+  "requirements_total": 745,
+  "requirements_unmapped": 0,
+  "risks_represented": 310,
+  "risks_total": 310,
+  "source_references_invalid": 0,
+  "source_references_total": 2118,
+  "source_references_valid": 2118,
+  "total_issues": 463,
+  "unresolved_dependency_references": [],
+  "workflow_state_counts": {
+    "BACKLOG": 62,
+    "BLOCKED": 142,
+    "DEFERRED": 36,
+    "DONE": 221,
+    "READY": 2
+  }
+}

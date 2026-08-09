@@ -1,0 +1,12 @@
+project_id: aggie-analytics-engine
+project_name: 'Aggie Analytics Engine'
+project_version: 0.25.0-w25-final-handoff
+current_wave: W25
+wave_status: COMPLETE_FINAL_HANDOFF_WITH_TARGET_HARDWARE_VALIDATION_GAP
+next_wave: CODEX_IMPLEMENTATION_HANDOFF
+exact_wave_count: 25
+governance_version: governance-w25-v1.0
+wave_plan_revision: w25-final
+reconnaissance_edition: FINAL_v1.2_PRE_25_WAVE
+implementation_plan_version: w25-v1.0-final-handoff
+created_at_utc: '2026-08-09T00:52:00+00:00'

@@ -1,0 +1,11 @@
+compatibility_key,rule,rationale
+target,Must match exactly,Different targets cannot be directly ranked.
+split_id,Must match development split,Protected/forward results cannot enter research ranking.
+data_snapshot_id,Must match unless comparison explicitly tests data version,Avoid hidden data advantage.
+feature_version,Must match for model-only comparison,Feature changes create a different experiment dimension.
+metric_registry_version,Must match,Same metric semantics/direction required.
+lane,Must match,PURE_FOOTBALL and MARKET_AUGMENTED are separate lanes.
+bas_anchor_version,Must match for BAS,Candidate cannot redefine BAS anchor.
+tamu_baseline_version,Must match for A&M specialization,No-adjustment comparator remains fixed.
+target_schema_version,Must match,W16 output semantics remain coherent.
+judging_rule_seal_hash,Must match,Same W17 judge required.

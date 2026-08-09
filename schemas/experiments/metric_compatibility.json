@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Result Semantic Compatibility Keys",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target",
+    "split_id",
+    "data_snapshot_id",
+    "feature_version",
+    "metric_registry_version",
+    "lane"
+  ],
+  "properties": {
+    "target": {
+      "type": "string"
+    },
+    "split_id": {
+      "type": "string"
+    },
+    "data_snapshot_id": {
+      "type": "string"
+    },
+    "feature_version": {
+      "type": "string"
+    },
+    "metric_registry_version": {
+      "type": "string"
+    },
+    "lane": {
+      "type": "string"
+    },
+    "bas_anchor_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tamu_baseline_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

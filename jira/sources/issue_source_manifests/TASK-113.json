@@ -1,0 +1,67 @@
+{
+  "files_to_inspect": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "governance_traceability_gate": "",
+  "issue_id": "TASK-113",
+  "retrieval_protocol": [
+    "Verify document_sha256 against the current repository file.",
+    "Verify anchor_hash against the normalized stored excerpt and current line range.",
+    "If the file hash changed, run repair_source_refs.py to relocate the exact anchor/heading before using the reference.",
+    "Open only the referenced section plus the minimal listed implementation/prerequisite context; the Windows path is convenience metadata, not authority."
+  ],
+  "schema_version": 2,
+  "source_ids": [
+    "TASK-113"
+  ],
+  "source_refs": [
+    {
+      "anchor_excerpt": "TASK-113,PHASE-3,EPIC-020,W20,Implement BAS label/model interface starter,IMPLEMENTATION,MUST,C5,SOLO_WORKTREE,DONE,TASK-104,REQ-025;REQ-232;REQ-233,AC-028;AC-055;AC-056,BAS interface,,W06_REPLAN,NO,Completed W20 functional starter; no protected empirical winner implied.",
+      "anchor_hash": "e2296606021852e6fe2cfe256a0d070537c0e40dd8e52a2f7208f2ed6f3b2758",
+      "authority_level": "CURRENT_MACHINE_REGISTRY",
+      "document_sha256": "fc76c57360b2db7604d13af95c1945d9fe0e2432738ed7b46ae0fc4534375056",
+      "end_line": 114,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "governance/IMPLEMENTATION_WBS.csv",
+      "source_ref_id": "SRCREF-00146",
+      "source_type": "csv",
+      "start_line": 114,
+      "why_relevant": "Authoritative registry row for TASK-113",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\IMPLEMENTATION_WBS.csv"
+    },
+    {
+      "anchor_excerpt": "requirement_id,title,category,constraint_class,status,source_basis,planned_wave,description,wave_introduced REQ-001,Exactly 25 controlled waves,program,A,ACTIVE,\"master prompt §§12,64\",W01-W25,Program retains exactly 25 numbered waves unless the user explicitly changes the count.,W01 REQ-002,One wave per user turn,prog",
+      "anchor_hash": "ca31b282e8eef95edda15bd113e20a89cc4643af0f631a8892dd4ffda0bdbdb4",
+      "authority_level": "CURRENT_MACHINE_REGISTRY",
+      "document_sha256": "7d4e3915d6b097c7aca1616d026b907940be7bc9dec323e67ae3710fdc436c3a",
+      "end_line": 746,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "governance/REQUIREMENTS_INDEX.csv",
+      "source_ref_id": "SRCREF-02116",
+      "source_type": "csv",
+      "start_line": 1,
+      "why_relevant": "Canonical registry for IDs referenced by this issue",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\REQUIREMENTS_INDEX.csv"
+    },
+    {
+      "anchor_excerpt": "control_id,title,domain,evidence_mode,owner_wave,blocking_scope,release_blocking,current_status,criterion,threshold_refs AC-001,Prior-wave pair binding,program,STATIC,W01-W25,PROGRAM_GATE,True,PASS_W04,Exact cumulative SHA/next-wave/project identity verifies before mutation, AC-002,Cumulative repository integrity,packa",
+      "anchor_hash": "69c15bb79a827f7ca28f46eced57981005fc4d7278c46c7fa295d64aa59deeb8",
+      "authority_level": "CURRENT_MACHINE_REGISTRY",
+      "document_sha256": "24984771cc6b472c79c2bc89d6b0e55707ebd4748e777d41e607f0c4fd4b6699",
+      "end_line": 235,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+      "source_ref_id": "SRCREF-02117",
+      "source_type": "csv",
+      "start_line": 1,
+      "why_relevant": "Canonical registry for IDs referenced by this issue",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\ACCEPTANCE_CONTROL_CATALOG.csv"
+    }
+  ],
+  "traceability_inherited_from": []
+}

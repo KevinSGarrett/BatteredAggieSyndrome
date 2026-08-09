@@ -1,0 +1,36 @@
+{
+  "audit_csv": "jira\\validation\\HISTORICAL_DONE_EVIDENCE_AUDIT.csv",
+  "audited_at": "2026-08-09T05:36:13.808843+00:00",
+  "execution_mode_counts": {
+    "HISTORICAL_REFERENCE": 221
+  },
+  "issues_with_missing_concrete_artifacts": 97,
+  "maturity_counts": {
+    "CONTRACT_DEFINED": 162,
+    "FUNCTIONAL_STARTER": 26,
+    "INTEGRATED": 33
+  },
+  "missing_required_test_definition_paths": [],
+  "populated_completion_contract_count": 0,
+  "populated_evidence_manifest_count": 0,
+  "result": "PASS",
+  "reviewed_issue_count": 221,
+  "schema_version": 1,
+  "source_classification_counts": {
+    "HISTORICAL_SCOPED_COMPLETED": 221
+  },
+  "standard": {
+    "historical_status_rule": "Historical WBS completion is preserved as provenance but cannot by itself set the live operational Jira status to Done.",
+    "name": "EVIDENCE_BACKED_OPERATIONAL_DONE_V1",
+    "requirements": [
+      "A populated completion_evidence_contract defines the exact completion claim.",
+      "A declared, existing evidence manifest retains artifact hashes and test/acceptance results.",
+      "Every concrete required artifact reference resolves.",
+      "Every required test definition exists and its passing run is retained by the evidence manifest."
+    ]
+  },
+  "unique_required_test_paths": 36,
+  "verdict_counts": {
+    "NOT_PROVEN_DONE": 221
+  }
+}

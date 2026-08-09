@@ -1,0 +1,35 @@
+path,role,action,rationale
+.codex/README.md,Codex compatibility entrypoint,Update,Make instructions/START_HERE.md the single canonical post-W25 operating entry and prevent a competing .codex instruction system.
+.codex/TASK_PACKET_TEMPLATE.md,Legacy task-packet compatibility pointer,Update,Replace the duplicate packet body with a pointer to the canonical instructions/templates/TASK_EXECUTION_PACKET.md.
+.codex/WORKTREE_POLICY.md,Legacy worktree compatibility pointer,Update,"Align the branch/worktree convention, protected shared-contract boundaries, and cleanup safety with the canonical Git policies."
+.github/CODEOWNERS,Protected-control ownership map,Update,"Assign the repository owner to governance, instruction, Jira-control, CI, and policy surfaces so GitHub can enforce review after remote activation."
+.github/ISSUE_TEMPLATE/bug_report.yml,Repository defect intake,Update,"Reserve GitHub Issues for repository/external defects, require sanitized evidence, and prevent duplication of planned Jira BAT work."
+.github/ISSUE_TEMPLATE/config.yml,GitHub issue routing,Update,Disable unstructured blank issues and route planned internal implementation work to Jira BAT.
+.github/pull_request_template.md,PR traceability and evidence contract,Update,"Require Jira/internal IDs, requirements, ADRs, acceptance controls, source documents, PIT/security implications, tests, limitations, rollback, and maturity evidence."
+.github/workflows/ci.yml,CI enforcement workflow,Update,"Add autonomous-control, Jira-control-plane, terminal-W25, warning-strict, and repository validations while preventing Python bytecode artifacts."
+.gitignore,Local/generated artifact exclusions,Update,"Exclude secrets, caches, synchronized Jira issue payloads, worktree roots, control-plane audit outputs, and generated instruction/repository ZIP exports."
+AGENTS.md,Root autonomous-agent contract,Update,"Declare terminal W25/no-Wave-26 state, route all agents through START_HERE, and preserve protected governance and repository-safety boundaries."
+CHANGELOG.md,Repository change history,Update,Record the v2 autonomous instruction/control-plane addition and the aligned repository controls without rewriting historical wave entries.
+CONTRIBUTING.md,Contributor mutation/integration contract,Update,"Align task claims, Jira-linked branches, worktrees, commits, PR scope, progressive testing, and instruction validation with the canonical policies."
+README.md,Human/project entrypoint,Update,"State the post-W25 implementation-handoff maturity honestly, identify START_HERE, and remove stale active-wave/production-completeness implications."
+configs/backlog_policy.json,Machine-readable sequencing policy,Update,"Make W25 terminal, prohibit Wave 26, represent HANDOFF-001 as blocked, and identify HANDOFF-002 only as the conditional independent P0 lane."
+configs/repository_policy.json,Machine-readable repository integrity policy,Update,"Require instructions and Jira control-plane content, exclude only root runtime .git metadata, and continue forbidding nested repositories and unsafe artifacts."
+docs/06_GITHUB_CODEX_WORKFLOW.md,GitHub/Codex workflow guidance,Update,"Supersede historical execution details with the canonical Jira-linked branch, worktree, PR, CI, and reconciliation contracts."
+docs/11_CODEX_EXECUTION_STRATEGY.md,Autonomous execution strategy,Update,"Route post-W25 implementation through the new selection, execution, evidence, blocker, and continuation control system."
+docs/85_WORKTREE_ISOLATION.md,Worktree isolation guidance,Update,"Align historical worktree guidance with the canonical Windows worktree root, branch naming, single-writer rules, and safe cleanup gates."
+docs/final/CODEX_HANDOFF.md,Terminal implementation handoff,Update,"Add the canonical instruction entrypoint, no-Wave-26 boundary, and mandatory local Git/GitHub/Jira reconciliation before mutation."
+docs/final/FIRST_72_HOUR_IMPLEMENTATION_QUEUE.md,Initial implementation queue,Update,Correct the active sequence so blocked hardware evidence does not hide the conditional independent source-access/rights lane.
+governance/CURRENT_BACKLOG.yaml,Current terminal backlog pointer,Update,"Represent real handoff blockers/readiness without inventing empirical completion, Jira state, access, rights, or hardware evidence."
+governance/NEXT_WAVE.md,Terminal continuation pointer,Update,Replace obsolete wave-generation behavior with post-W25 implementation continuation and explicitly forbid Wave 26.
+governance/SOURCE_OF_TRUTH_MAP.md,Authority and conflict-resolution map,Update,"Add the instruction system, live Jira, local Jira mirror, Git/PR state, precedence hierarchy, and same-level conflict procedure."
+provenance/CURRENT_TREE.txt,Repository tree provenance,Regenerate,"Record the complete finalized repository tree after adding the instruction, Jira, tool, test, and alignment artifacts."
+provenance/PROJECT_FILE_HASHES.sha256,Repository hash provenance,Regenerate,Recompute SHA-256 evidence for the finalized repository while excluding permitted root runtime .git metadata.
+provenance/PROJECT_FILE_MANIFEST.csv,Repository file manifest,Regenerate,"Recompute path, size, and hash rows for the finalized repository after all control-plane changes."
+scripts/new_worktree.ps1,Policy-enforcing worktree creator,Update,"Require a BAT key and safe slug, verify canonical Git identity and branch uniqueness, use the approved external worktree root, and refuse unsafe creation."
+tests/test_repo_integrity_tools.py,Repository-integrity regression tests,Update,Prove root .git metadata is excluded from packages/manifests while nested .git repositories remain forbidden.
+tests/test_w23_operations.py,Backup-tamper test hygiene,Update,Suppress the expected duplicate-member warning only inside the intentional ZIP-tampering test so warning-strict validation remains meaningful.
+tools/packaging.py,Deterministic repository packaging,Update,Use the policy-aware repository iterator so generated archives and file counts exclude root runtime .git metadata without excluding nested repository violations.
+tools/repo_integrity.py,Repository scan/manifest core,Update,"Support real Git checkouts by excluding only root .git metadata, continue detecting nested .git, and make manifests/packages deterministic and policy-aware."
+tools/validate_repository.py,Top-level repository validator,Update,"Integrate autonomous instruction/Jira validation, use the policy-aware file iterator, and preserve external-activation warnings without treating them as fabricated success."
+tools/validate_w20_starter.py,W20 validation hygiene,Update,Context-manage the WBS CSV handle to eliminate ResourceWarning leakage during warning-strict release tests.
+tools/validate_w21_mlops.py,W21 validation hygiene,Update,Context-manage WBS and ADR CSV handles to eliminate ResourceWarning leakage during warning-strict release tests.

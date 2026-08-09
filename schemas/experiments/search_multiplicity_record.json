@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Search Multiplicity Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "search_id",
+    "parent_hypothesis_id",
+    "candidate_count",
+    "completed_count",
+    "failed_count",
+    "pruned_count",
+    "stopping_reason"
+  ],
+  "properties": {
+    "search_id": {
+      "type": "string"
+    },
+    "parent_hypothesis_id": {
+      "type": "string"
+    },
+    "candidate_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "completed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "failed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "pruned_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stopping_reason": {
+      "type": "string"
+    },
+    "search_space_version": {
+      "type": "string"
+    },
+    "development_split": {
+      "enum": [
+        "SPLIT-DEV-HIST",
+        "SPLIT-DEV-SEL"
+      ]
+    },
+    "resource_budget_id": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Joint Score Distribution",
+  "type": "object",
+  "required": [
+    "distribution_id",
+    "model_id",
+    "model_version",
+    "forecast_cutoff",
+    "outcomes"
+  ],
+  "properties": {
+    "distribution_id": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": "string"
+    },
+    "model_version": {
+      "type": "string"
+    },
+    "forecast_cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "overtime_team_win_probability": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "team_score",
+          "opponent_score",
+          "probability"
+        ],
+        "properties": {
+          "team_score": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "opponent_score": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "probability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    }
+  }
+}

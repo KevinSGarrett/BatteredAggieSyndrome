@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "project_root_name": "Aggie_Analytics_Engine",
+  "max_repository_file_bytes": 10485760,
+  "manifest_exclude": [
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "provenance/PROJECT_FILE_HASHES.sha256"
+  ],
+  "forbidden_directory_names": [
+    ".git",
+    ".venv",
+    "venv",
+    "node_modules",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".ipynb_checkpoints"
+  ],
+  "forbidden_exact_files": [
+    ".env"
+  ],
+  "forbidden_extensions": [
+    ".pt",
+    ".pth",
+    ".ckpt",
+    ".safetensors",
+    ".onnx",
+    ".joblib",
+    ".pkl"
+  ],
+  "required_root_files": [
+    "AGENTS.md",
+    "README.md",
+    "CHANGELOG.md",
+    "pyproject.toml",
+    ".python-version",
+    ".env.example",
+    ".gitignore",
+    ".gitattributes"
+  ],
+  "required_root_directories": [
+    ".codex",
+    ".github",
+    "configs",
+    "docs",
+    "governance",
+    "provenance",
+    "scripts",
+    "src",
+    "tests",
+    "tools",
+    "data",
+    "artifacts"
+  ]
+}

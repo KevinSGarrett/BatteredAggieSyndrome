@@ -1,0 +1,2 @@
+gate_id,status,contracts_frozen,empirical_player_value_selected,empirical_availability_calibration_selected,empirical_transfer_translation_selected,numeric_position_penalty_frozen,numeric_transfer_penalty_frozen,next_wave
+W12-PLAYER-INTELLIGENCE-GATE,CLEARED_W12_CONTRACT_ONLY,true,false,false,false,false,false,W13

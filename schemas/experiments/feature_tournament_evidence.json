@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Feature Tournament Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family_id",
+    "baseline_experiment_id",
+    "plus_family_experiment_id",
+    "development_split",
+    "primary_metric",
+    "target",
+    "temporal_stability_complete",
+    "subgroup_evidence_complete",
+    "replay_verified",
+    "search_multiplicity_count"
+  ],
+  "properties": {
+    "family_id": {
+      "type": "string"
+    },
+    "baseline_experiment_id": {
+      "type": "string"
+    },
+    "plus_family_experiment_id": {
+      "type": "string"
+    },
+    "minus_family_experiment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "development_split": {
+      "enum": [
+        "SPLIT-DEV-HIST",
+        "SPLIT-DEV-SEL"
+      ]
+    },
+    "primary_metric": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "temporal_stability_complete": {
+      "type": "boolean"
+    },
+    "subgroup_evidence_complete": {
+      "type": "boolean"
+    },
+    "replay_verified": {
+      "type": "boolean"
+    },
+    "search_multiplicity_count": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}

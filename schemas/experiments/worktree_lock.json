@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research Worktree Lock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lock_name",
+    "owner",
+    "pid",
+    "acquired_at",
+    "purpose"
+  ],
+  "properties": {
+    "lock_name": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "pid": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "acquired_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "purpose": {
+      "type": "string"
+    }
+  }
+}

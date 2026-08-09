@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Feature Tournament Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family_id",
+    "target",
+    "raw_field_ids",
+    "temporal_states",
+    "transformation_version",
+    "baseline_feature_set_id",
+    "feature_set_id"
+  ],
+  "properties": {
+    "family_id": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "raw_field_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "temporal_states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "transformation_version": {
+      "type": "string"
+    },
+    "baseline_feature_set_id": {
+      "type": "string"
+    },
+    "feature_set_id": {
+      "type": "string"
+    },
+    "hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "estimated_compute_class": {
+      "enum": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ]
+    }
+  }
+}

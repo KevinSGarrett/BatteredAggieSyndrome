@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "title": "AvailabilityState",
+  "type": "object",
+  "required": [
+    "canonical_player_id",
+    "game_id",
+    "cutoff",
+    "availability_status",
+    "source_confidence"
+  ],
+  "properties": {
+    "canonical_player_id": {
+      "type": "string"
+    },
+    "game_id": {
+      "type": "string"
+    },
+    "cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "availability_status": {
+      "enum": [
+        "AVAILABLE",
+        "PROBABLE",
+        "QUESTIONABLE",
+        "DOUBTFUL",
+        "OUT",
+        "LIMITED",
+        "UNKNOWN"
+      ]
+    },
+    "availability_probability": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "effectiveness_if_active": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "expected_usage_share": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "snap_limit_probability": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "availability_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_confidence": {
+      "type": "string"
+    },
+    "report_version_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "policy_covered": {
+      "type": "boolean"
+    },
+    "uncertainty": {
+      "type": "number",
+      "minimum": 0
+    }
+  }
+}

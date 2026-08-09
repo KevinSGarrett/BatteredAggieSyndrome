@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TournamentSpec",
+  "type": "object",
+  "required": [
+    "tournament_id",
+    "kind",
+    "target",
+    "development_split",
+    "metric_registry_hash",
+    "entrants",
+    "promotion_allowed"
+  ],
+  "properties": {
+    "tournament_id": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "FEATURE",
+        "MODEL"
+      ]
+    },
+    "target": {
+      "type": "string"
+    },
+    "development_split": {
+      "enum": [
+        "SPLIT-DEV-HIST",
+        "SPLIT-DEV-SEL"
+      ]
+    },
+    "metric_registry_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "baseline_entry_id": {
+      "type": "string"
+    },
+    "entrants": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string"
+      }
+    },
+    "lane": {
+      "type": "string"
+    },
+    "promotion_allowed": {
+      "const": false
+    },
+    "protected_metrics_allowed": {
+      "const": false
+    }
+  }
+}

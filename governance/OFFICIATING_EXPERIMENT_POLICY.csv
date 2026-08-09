@@ -1,0 +1,6 @@
+policy_id,rule,pregame_feature,condition
+OFF-01,historical crew observations may be stored,conditional,upcoming assignment demonstrably public before cutoff
+OFF-02,raw win rate under referee is prohibited causal feature,false,anti-bias/anti-causality
+OFF-03,prior crew tendencies require hierarchical shrinkage and team/opponent/style controls,experimental,coverage/sample sufficient
+OFF-04,missing upcoming assignment means crew-specific feature unavailable,false,fail closed
+OFF-05,penalty type/leverage preferred over raw counts,experimental,PIT-safe prior history only

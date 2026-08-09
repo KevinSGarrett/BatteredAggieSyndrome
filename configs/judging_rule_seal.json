@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "seal_id": "JRS-W17-001",
+  "created_at_utc": "2026-08-08T20:10:25+00:00",
+  "seal_digest": "c7cadb7b9e0a887fb5847299ccf5df5c2e1b48e8a38e637d46f2204ff73babdf",
+  "files": [
+    {
+      "path": "configs/validation_science_registry.json",
+      "sha256": "b9a01439c457232102b3d0f24f599a6cf852c712122574a64fb91c87d7c33c21",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+      "sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "governance/METRIC_REGISTRY.csv",
+      "sha256": "72e9834e7a372955c6491dcd433d9c5a0348ae1693f60bb39f99f62cd638e160",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "governance/EVALUATION_SCORECARD_REGISTRY.csv",
+      "sha256": "4006696063ab78171ed73fb33a237a6e9a691dc106dd829ab2cf31d2aaa4b338",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+      "sha256": "85da9ddb97eb1144914d41f1445609e3b0e1c50a3c3e9abdd97cb64d37940e0e",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "governance/PROMOTION_DECISION_STATES.csv",
+      "sha256": "e9f0f483e66c799ebf88dbbeb13fa1dc722aac5fa932bfd9bb87fb879163531b",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "governance/BAS_EVALUATION_PROTOCOL.csv",
+      "sha256": "a1dc53953f127002b31834449c72db84f9d1dd6212606f65c8907c01cbfec240",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "governance/UNCERTAINTY_OOD_MARKET_EVALUATION.csv",
+      "sha256": "bd7f5a199599b023954b949a1361c2fdfe429a10325884fc16b4ffd2ecb66a9b",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "governance/ACCEPTANCE_THRESHOLD_REGISTRY.csv",
+      "sha256": "e6a642f661b830ff5ee7379442bc8b02b6956ed78586fdb64c137e50dd5ab8d2",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "docs/56_VALIDATION_AND_PROTECTED_SPLITS.md",
+      "sha256": "c868b8d962482fca305db33d230d4338d32f1de6282476829eb62afc06bb3bf2",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "docs/57_SCORING_CALIBRATION_AND_SCORECARDS.md",
+      "sha256": "17fc5e920fd0879788ce41b7222083730af8491f53580831425be8c0c6b8a1fd",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "docs/58_MODEL_PROMOTION_AND_THRESHOLD_PRECOMMITMENT.md",
+      "sha256": "2e53f84fb0398a7fc9870e4d890a0f28346843e6467433dfb11cce564d3deff1",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    },
+    {
+      "path": "docs/59_BAS_TAMU_UNCERTAINTY_MARKET_EVALUATION.md",
+      "sha256": "057f643e092b467d666c0a0eb1d98c2b51a08822bf19aedbac406cfd1a0c487b",
+      "protection_class": "W17_JUDGING_RULE",
+      "mutation_authority": "GOVERNANCE_ONLY_NEW_SEAL;RESEARCH_AGENT_FORBIDDEN"
+    }
+  ],
+  "research_agent_may_mutate": false
+}

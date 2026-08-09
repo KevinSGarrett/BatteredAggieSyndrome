@@ -1,0 +1,16 @@
+threshold_id,name,owner_wave,status,value,rationale
+THR-001,Brier-score promotion delta,W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,Method frozen W17: paired canonical-game Brier deltas and development-only variability; numeric value awaits materialized development evidence.
+THR-002,Log-loss promotion delta,W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,Method frozen W17: paired log-loss deltas and development-only stability/tail review; numeric value awaits materialized evidence.
+THR-003,Calibration tolerance,W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,Method frozen W17: development-only calibration intercept/slope/reliability variability; protected test cannot set tolerance.
+THR-004,Score/margin error promotion tolerance,W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,Method frozen W17: paired score/margin error deltas and development-only sampling variability.
+THR-005,A&M specialization incremental-value threshold,W14-W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,"Method frozen W17: A&M paired incremental value plus national nondegradation, with no-adjustment valid; numeric value pending."
+THR-006,BAS significance/stability threshold,W15-W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,Method frozen W17: null-first BAS effect/stability/multiplicity protocol; numeric criterion pending development evidence.
+THR-007,Feature-family promotion threshold,W10-W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,Method frozen W17: development-only walk-forward family ablation/stability; protected results cannot promote features post hoc.
+THR-008,Entity-resolution auto-accept confidence threshold,W19,DEFERRED_TO_W19_LABELED_BENCHMARK,,W07 disables fuzzy auto-accept because no labeled resolution benchmark exists; W19 may set only from labeled review/error evidence.
+THR-009,Source/domain completeness quality threshold,W06-W09,TBD_BY_DOMAIN,,Domain/grain specific; global arbitrary completeness number prohibited.
+THR-010,Forecast freshness SLA,W21-W22,TBD_BY_OPERATIONS,,Set from actual update cadence/product expectations; stale state must always be visible.
+THR-011,Target-hardware peak-RAM budget,W19-W23,TBD_BY_BENCHMARK,,Measured on target 32GB environment before hard gate.
+THR-012,Target-hardware runtime budget,W19-W23,TBD_BY_BENCHMARK,,Measured for material workflows before hard gate.
+THR-013,Data-contract/quarantine tolerance,W07-W09,TBD_BY_DOMAIN,,Schema/critical-field violations may be zero-tolerance while noncritical quality thresholds are domain-specific.
+THR-014,OOD trigger threshold,W16-W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,Method frozen W17: development OOD coverage/error/false-warning tradeoff; no numeric warning cutoff yet.
+THR-015,Model-disagreement warning threshold,W16-W17,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,,Method frozen W17: development disagreement/error association and warning utility; no numeric warning cutoff yet.

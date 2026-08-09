@@ -1,0 +1,7 @@
+contract_id,concept,required_fields,pit_rule,manual_effect_allowed
+COACH-ROLE-01,ROLE_EPISODE,coach_id;institution_id;team_id;role_family;title;responsibility_scope;valid_from;valid_to;first_known_at;source_observation_id,episode evidence must be known by cutoff and valid for target date,false
+COACH-ROLE-02,PLAY_CALLER_EPISODE,coach_id;unit;play_caller_flag;valid_from;valid_to;first_known_at;source_observation_id,do not infer play caller from later biographies without contemporaneous evidence,false
+COACH-ROLE-03,COORDINATOR_RESPONSIBILITY,coach_id;unit;role_family;coordinator_scope;valid_from;valid_to;first_known_at,titles and actual responsibilities are separate evidence fields,false
+COACH-ROLE-04,POSITION_COACH_RESPONSIBILITY,coach_id;position_group;role_family;valid_from;valid_to;first_known_at,role-conditioned evidence only,false
+COACH-ROLE-05,STAFF_CONTINUITY,team_id;unit;prior_staff_ids;current_staff_ids;cutoff,derived from eligible role episodes only,false
+COACH-ROLE-06,PROMOTION_HISTORY,coach_id;prior_role_family;new_role_family;transition_date,prior role evidence remains context but is not additive bonus,false

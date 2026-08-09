@@ -1,0 +1,5 @@
+split_id,name,role,season_start,season_end,tuning_allowed,threshold_setting_allowed,protected_result_access,notes
+SPLIT-DEV-HIST,Development historical walk-forward,DEVELOPMENT,EARLIEST_QUALIFYING,2022,true,true,not_applicable,Use expanding/rolling chronological folds; source/feature coverage may shorten earliest usable season but cannot borrow from protected seasons.
+SPLIT-DEV-SEL,Development selection/calibration season,DEVELOPMENT_SELECTION,2023,2023,true,true,not_applicable,Final pre-protected model selection/calibration/threshold methodology evidence may use this season; never use 2024+.
+SPLIT-PROTECTED,Primary governance-protected holdout,PROTECTED_TEST,2024,2025,false,false,SEALED_UNTIL_PROTOCOL_AND_ARTIFACT_READY,"All canonical games, including every A&M game and mirrored row, remain protected. Outcomes are publicly historical; protection is against repository/model-development tuning."
+SPLIT-FORWARD,Forward operational shadow holdout,FORWARD_SHADOW,2026,OPEN,false,false,IMMUTABLE_FORECAST_FIRST,Evaluate only from forecasts committed before outcomes; future governance may define model-refresh windows without rewriting earlier forecasts.

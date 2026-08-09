@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExperimentArtifactManifest",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "attempt_id",
+    "artifacts"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "attempt_id": {
+      "type": "string"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "logical_name",
+          "sha256",
+          "size_bytes",
+          "artifact_class",
+          "location"
+        ],
+        "properties": {
+          "logical_name": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "artifact_class": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "sensitivity": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

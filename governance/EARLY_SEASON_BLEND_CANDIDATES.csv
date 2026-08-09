@@ -1,0 +1,6 @@
+candidate_id,name,description,state,fixed_week_schedule,numeric_parameter_frozen,selection_evidence
+EB-001,prior_only_baseline,Use prior state only before direct current-season evidence,BASELINE,false,false,chronological early-season W17/W19
+EB-002,linear_games_observed_blend,Blend as explicit function of games observed,EXPERIMENTAL,false,false,chronological early-season W17/W19
+EB-003,pseudo_count_blend,Treat prior as evidence-equivalent pseudo-count and update with current observations,EXPERIMENTAL,false,false,chronological early-season W17/W19
+EB-004,precision_weighted_blend,Blend candidate estimates using estimated uncertainty/precision,EXPERIMENTAL,false,false,chronological early-season W17/W19
+EB-005,regime_aware_dynamic_blend,Adjust prior persistence using continuity/regime and evidence quality,EXPERIMENTAL,false,false,chronological early-season W17/W19

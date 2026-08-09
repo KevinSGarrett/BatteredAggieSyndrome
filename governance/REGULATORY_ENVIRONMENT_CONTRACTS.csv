@@ -1,0 +1,6 @@
+contract_id,family,examples,required_times,feature_role
+REG-01,PLAYING_RULES,clock;overtime;targeting;kickoffs;penalties;replay,announced_at;effective_from;effective_to,definition/version flag or explicit candidate where justified
+REG-02,ROSTER_RULES,roster limits,announced_at;effective_from;effective_to,state reconstruction/versioning
+REG-03,ELIGIBILITY,eligibility model;redshirt;participation,announced_at;effective_from;effective_to,roster/player state semantics
+REG-04,TRANSFER_ENVIRONMENT,portal windows;transfer eligibility,announced_at;effective_from;effective_to,transfer/prior semantics
+REG-05,COMPENSATION_ENVIRONMENT,institutional revenue sharing where officially applicable,announced_at;effective_from;effective_to,research/context only unless empirically justified

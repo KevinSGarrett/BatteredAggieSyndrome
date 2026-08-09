@@ -1,0 +1,17 @@
+entity_type,prefix,id_strategy,identity_basis,mutable_attributes,required,notes
+team,team,OPAQUE_UUID_SURROGATE,football program/team identity independent of current name/conference/classification,name;aliases;classification;conference;branding,YES,Team is distinct from institution.
+institution,inst,OPAQUE_UUID_SURROGATE,institutional legal/operating identity,name;resource identifiers;public_private_status,YES,Explicit effective-dated team↔institution link.
+conference,conf,OPAQUE_UUID_SURROGATE,conference/league organizational identity,name;membership;classification,YES,"Membership is an episode, not team identity."
+season,season,NATURAL_FOOTBALL_SEASON_INTEGER,football season year,,YES,Do not conflate fiscal/academic year.
+game,game,OPAQUE_UUID_SURROGATE,underlying contest reconciled across schedule/source evidence,kickoff;venue;status;home_away_labels;result_annotations,YES,Reschedule can retain identity; replacement opponent creates new contest.
+venue,venue,OPAQUE_UUID_SURROGATE,physical venue/stadium identity,name;coordinates;capacity;surface;roof,YES,Venue attributes are observations.
+player,player,OPAQUE_UUID_SURROGATE,human player identity across teams/seasons/positions,name;team;position;height;weight;class;availability,YES,Transfers do not create a new player.
+coach,coach,OPAQUE_UUID_SURROGATE,human coach identity independent of role/team,name;team;role;play_caller;scheme,YES,Roles are effective-dated episodes.
+official,official,OPAQUE_UUID_SURROGATE,human game official identity when evidence is sufficient,name;crew;role;conference,YES,Uncertain name-only identities remain unresolved.
+source_system,srcsys,OPAQUE_UUID_SURROGATE,publisher/provider/source system identity,name;owner;access_method;terms,YES,"Examples are source systems, not datasets."
+source_resource,srcres,OPAQUE_UUID_SURROGATE,endpoint/dataset/report/page family within a source system,url;schema_version;access_metadata,YES,Separates provider identity from a mutable resource family.
+publication_version,pubver,OPAQUE_UUID_SURROGATE,distinct published/edited edition of a mutable resource,publication_metadata,YES,W08 defines temporal eligibility semantics.
+raw_capture,capture,OPAQUE_UUID_SURROGATE,one retrieval/capture event of exact source bytes,,YES,Same raw hash at two retrieval times may have two capture IDs.
+source_observation,obs,OPAQUE_UUID_SURROGATE,one parsed source claim/record derived from a raw capture,,YES,Links raw evidence to canonicalization.
+mapping_record,map,OPAQUE_UUID_SURROGATE,one source-key→canonical mapping decision record,,YES,Append-only; corrections supersede records.
+resolution_decision,resdec,OPAQUE_UUID_SURROGATE,one immutable resolution/review decision event,,YES,No destructive edit of earlier decisions.

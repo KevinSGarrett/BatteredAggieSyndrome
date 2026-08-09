@@ -1,0 +1,17 @@
+component_id,component,source_contract,high_resolution_role,pit_required,manual_adjustment_allowed,uncertainty_required
+TAMU-STATE-01,canonical_team_identity,W07 canonical entity,Same canonical Texas A&M team identity used nationally; specialization may not fork truth.,true,false,false
+TAMU-STATE-02,national_team_state,W11 team state,Carry national prior/underlying/available/form state into A&M overlay.,true,false,true
+TAMU-STATE-03,roster_depth_rotation,W12 player intelligence,Deeper A&M roster/depth/rotation evidence where legitimately available.,true,false,true
+TAMU-STATE-04,qb_state,W12 player intelligence,"QB identity, role, experience, availability, expected usage and replacement context.",true,false,true
+TAMU-STATE-05,offensive_line_combinations,W12 player intelligence,OL starter/combination/continuity evidence without reconstructing later outcomes backward.,true,false,true
+TAMU-STATE-06,receiver_te_continuity,W12 player intelligence,"Receiver/TE role, continuity, expected usage and availability state.",true,false,true
+TAMU-STATE-07,availability_replacement,W12 + W08,"Official/reliable A&M availability evidence, scenarios and replacement state.",true,false,true
+TAMU-STATE-08,staff_playcaller_scheme,W13 coaching,HC/OC/DC/assistants/play-caller/scheme effective-dated state.,true,false,true
+TAMU-STATE-09,offense_unit_state,W10-W13,"PIT-safe offense unit evidence and uncertainty, not a hard-coded unit bonus.",true,false,true
+TAMU-STATE-10,defense_unit_state,W10-W13,"PIT-safe defense unit evidence and uncertainty, not a hard-coded unit bonus.",true,false,true
+TAMU-STATE-11,special_teams_state,W13 mechanics,Kicking/punting/return/specialist evidence with weather/context lineage.,true,false,true
+TAMU-STATE-12,schedule_workload_travel,W13 context,"Recent workload, rest, travel and road-context state.",true,false,true
+TAMU-STATE-13,weather_venue,W13 context + W08 PIT,Issued weather run and venue context for forecast cutoff.,true,false,true
+TAMU-STATE-14,regulatory_context,W13 regulatory,Effective-dated playing/roster/eligibility/transfer regulatory state.,true,false,false
+TAMU-STATE-15,regime_state,W11 + W13,Current A&M regime/continuity representation without erasing national historical usefulness.,true,false,true
+TAMU-STATE-16,provenance_uncertainty,W06-W13,"Evidence resolution, missingness/degraded-mode and uncertainty lineage for every overlay component.",true,false,true

@@ -1,0 +1,36 @@
+{
+  "audit_date": "2026-08-08",
+  "source_archive": "BatteredAggieSyndrome(3).zip",
+  "archive_size_bytes": 1659630,
+  "extracted_file_count": 863,
+  "git_metadata_present": false,
+  "counts": {
+    "requirements": 745,
+    "adrs": 349,
+    "implementation_tasks": 201,
+    "acceptance_controls": 234,
+    "task_dependencies": 323,
+    "requirement_task_mappings": 1434,
+    "codex_work_packets": 33,
+    "shared_contracts": 11,
+    "baseline_tests": 229
+  },
+  "program_state": {
+    "current_wave": "W25",
+    "wave_program_complete": true,
+    "w26_allowed": false,
+    "next_state": "CODEX_IMPLEMENTATION_HANDOFF"
+  },
+  "key_missing_runtime_evidence": [
+    "actual C:\\BatteredAggieSyndrome .git metadata",
+    "local dirty/staged/untracked state",
+    "local branches/tags/worktrees",
+    "representative target-hardware benchmark",
+    "live BAT project workflow and issue population"
+  ],
+  "baseline_validation": [
+    "W25 final validator PASS",
+    "strict repository validator PASS",
+    "229/229 unit tests PASS"
+  ]
+}

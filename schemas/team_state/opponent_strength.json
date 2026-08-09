@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OpponentStrengthEstimate",
+  "type": "object",
+  "required": [
+    "division",
+    "strength_estimate",
+    "strength_uncertainty",
+    "translation_method"
+  ],
+  "properties": {
+    "division": {
+      "enum": [
+        "FBS",
+        "FCS",
+        "DII",
+        "DIII",
+        "NAIA",
+        "JUCO",
+        "OTHER"
+      ]
+    },
+    "strength_estimate": {
+      "type": "number"
+    },
+    "strength_uncertainty": {
+      "type": "number",
+      "minimum": 0
+    },
+    "translation_method": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

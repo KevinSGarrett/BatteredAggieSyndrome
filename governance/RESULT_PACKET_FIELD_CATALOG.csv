@@ -1,0 +1,18 @@
+field_name,group,presence,purpose
+experiment_id,identity,required,Canonical experiment ID
+result_id,identity,required,Attempt result identity
+attempt,identity,required,Operational attempt number
+execution_status,execution,required,SUCCEEDED/FAILED/BLOCKED/etc
+development_metrics,metrics,required_when_succeeded,Development-only metric registry values
+scorecard_slices,metrics,optional,Development-only predeclared slices
+data_snapshot_id,lineage,required,Input data identity
+feature_version,lineage,required,Feature-set identity
+model_config_hash,lineage,required,Model config identity
+code_state,lineage,required,Code tree/commit
+environment_hash,lineage,required,Environment identity
+judging_rule_seal_hash,governance,required,W17 seal
+artifact_manifest_hash,artifacts,required,Artifact evidence
+warnings,evidence,optional,Coverage/OOD/degraded/nondeterminism warnings
+failure_class,evidence,required_when_failed,Operational/scientific/data/governance taxonomy
+protected_metrics,forbidden,forbidden,Must not enter research-plane packet
+champion_decision,forbidden,forbidden,External promotion authority only

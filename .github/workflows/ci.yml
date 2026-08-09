@@ -1,0 +1,77 @@
+name: repository-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  core-validation:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Upgrade packaging tools
+        run: python -m pip install --upgrade pip setuptools
+      - name: Install dependency-free core
+        run: python -m pip install -e .
+      - name: Dependency policy
+        run: python tools/validate_dependency_policy.py --repo-root .
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Repository integrity
+        run: python tools/validate_repository.py --repo-root . --strict
+      - name: Runtime environment evidence
+        run: python tools/capture_runtime_manifest.py --repo-root . --output runtime-environment.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-environment-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: runtime-environment.json
+
+  product-adapter:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install locked product adapter
+        run: python -m pip install -r requirements/product.lock -e .
+      - name: Dependency consistency
+        run: python -m pip check
+      - name: Product and operations tests
+        run: python -m unittest tests.test_w22_product_serving tests.test_w23_operations -v
+      - name: W22 product boundary gate
+        run: python tools/validate_w22_product.py --repo-root .
+
+  security-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install core only
+        run: python -m pip install -e .
+      - name: Repository secret / forbidden / governance scan
+        run: python tools/validate_repository.py --repo-root . --strict
+      - name: Dependency pin/provenance policy
+        run: python tools/validate_dependency_policy.py --repo-root .

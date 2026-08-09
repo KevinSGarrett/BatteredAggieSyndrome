@@ -1,0 +1,7 @@
+component_id,name,candidate_definition,positive_means_worse,requires_joint_score_or_component_expectation,pregame_feature_allowed_same_game,production_selected_w15,notes
+BAS-COMP-000,Headline margin shortfall,expected_margin - actual_margin,true,expected_margin,false,false,Primary outcome residual; not a pregame input for same game.
+BAS-COMP-001,Offensive BAS,expected_points_for - actual_points_for,true,expected_points_for,false,false,Candidate decomposition; requires coherent score expectation.
+BAS-COMP-002,Defensive BAS,actual_points_against - expected_points_against,true,expected_points_against,false,false,Candidate decomposition; requires coherent score expectation.
+BAS-COMP-003,Special Teams BAS,expected_special_teams_value - actual_special_teams_value,true,special_teams_expectation,false,false,Experimental; avoid double counting field position/hidden yards.
+BAS-COMP-004,Coaching/Decision BAS,expected_decision_value - actual_decision_value,true,decision_model,false,false,Highly confounded; requires W13 controls and partial pooling.
+BAS-COMP-005,Collapse BAS,live-replay collapse event/residual to be specified in future live research,true,chronological live replay,false,false,Research-only; isolated from pregame BAS label and no threshold frozen W15.

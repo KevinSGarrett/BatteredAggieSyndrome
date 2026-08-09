@@ -1,0 +1,15 @@
+aggie_field,mlflow_surface,mlflow_name,rule
+experiment_id,tag,aggie.experiment_id,Canonical Aggie ID; MLflow run ID is external
+hypothesis_id,tag,aggie.hypothesis_id,Research lineage
+parent_experiment_id,tag,aggie.parent_experiment_id,Child lineage
+data_snapshot_id,tag,aggie.data_snapshot_id,Immutable input identity
+feature_set_id,tag,aggie.feature_set_id,Feature identity
+target,tag,aggie.target,Target
+lane,tag,aggie.lane,PURE_FOOTBALL etc
+development_split,tag,aggie.development_split,Protected split forbidden
+judging_rule_seal_hash,tag,aggie.w17_seal,Protected judge version
+model_family,param,model_family,Model config
+config_hash,tag,aggie.config_hash,Full canonical config stored separately
+development_metrics,metric,registry metric names,Development metrics only
+artifact_manifest,artifact/reference,manifest.json,Large artifacts subject to policy
+promotion_state,forbidden,N/A,MLflow registry state cannot promote champion

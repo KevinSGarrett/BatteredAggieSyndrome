@@ -1,0 +1,7 @@
+file,status,source,coverage,limitations
+schedules_real_row.csv,CURATED_REAL_ROW,SportsDataverse DATASETS.md real fixture examples + ESPN game verification,full 34-column schedules row,Some boolean/rank values also cross-checked against public game context; no raw source file bundled.
+linescores_real_rows.csv,CURATED_REAL_ROWS,ESPN final game linescore + SportsDataverse IDs/schema,all 8 team-quarter rows,team_abbreviation added for readability; not part of SDV linescores schema.
+team_box_real_rows.csv,CURATED_REAL_ROWS,ESPN matchup team stats mapped to SportsDataverse team_box schema,both complete 21-column team rows,Values are display strings by design.
+player_box_passing_real_rows.csv,CURATED_REAL_ROWS,ESPN box score mapped to SportsDataverse player_box passing fields,"five real passer rows, selected passing columns","athlete_id not exposed in retrieved text view, left blank; non-passing categories not included."
+betting_selected_real_fields.csv,CURATED_REAL_FIELDS,SportsDataverse DATASETS.md fixture-specific examples,core betting fields,odds_source unknown from available excerpt; intentionally blank.
+play_by_play_first_play_curated_real_fields.csv,CURATED_REAL_FIELDS,Official committed SportsDataverse final_401628455.json first enriched play,selected high-value fields from first play,not all 380 fields; full fixture acquisition URL/script included.

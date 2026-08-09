@@ -1,0 +1,21 @@
+{
+  "deterministic_contract_replay": true,
+  "empirical_historical_replay_completed": false,
+  "protected_historical_metrics_claimed": false,
+  "required_next_evidence": [
+    "materialized point-in-time historical source snapshots",
+    "protected chronological split assignments",
+    "actual target labels only after each replayed game completes",
+    "protected evaluation output generated outside training/research mutation paths"
+  ],
+  "schema_version": "aggie.readiness.replay.v1",
+  "stable_fields": [
+    "raw_sha256",
+    "pit_state_id",
+    "feature_snapshot_id",
+    "model_artifact_sha256",
+    "published_snapshot_id",
+    "market_lane"
+  ],
+  "status": "READY_FOR_MATERIALIZED_HISTORICAL_REPLAY"
+}

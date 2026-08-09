@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MechanicsState",
+  "type": "object",
+  "required": [
+    "team_id",
+    "cutoff"
+  ],
+  "properties": {
+    "team_id": {
+      "type": "string"
+    },
+    "cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expected_possessions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "tempo_state": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "field_position_state": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "special_teams_state": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "uncertainty": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    }
+  }
+}

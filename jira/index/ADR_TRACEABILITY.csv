@@ -1,0 +1,350 @@
+adr_id,title,status,wave,post_wave_issue_ids,change_required_if_violated,source_ref_id,mapped
+ADR-001,National foundation + A&M specialization,ACCEPTED,W01,POST-SUBTASK-087,true,SRCREF-01214,true
+ADR-002,Scientific BAS headline definition,ACCEPTED,W01,POST-SUBTASK-096,true,SRCREF-01215,true
+ADR-003,SportsDataverse + CFBD public foundation,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01216,true
+ADR-004,PFF deferred and non-blocking,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01217,true
+ADR-005,Point-in-time known-at architecture,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01218,true
+ADR-006,Immutable raw + dated observations,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01219,true
+ADR-007,Canonical IDs separate from source IDs,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01220,true
+ADR-008,Empirical feature lifecycle,ACCEPTED,W01,POST-SUBTASK-123,true,SRCREF-01221,true
+ADR-009,FBS/FCS/lower-division hierarchy,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01222,true
+ADR-010,Separate national history from current-team evidence,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01223,true
+ADR-011,Player/replacement availability architecture,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01224,true
+ADR-012,Role-conditioned hierarchical coaching,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01225,true
+ADR-013,Resources as conditional upstream capacity,ACCEPTED,W01,POST-SUBTASK-096,true,SRCREF-01226,true
+ADR-014,Pure-football + market-augmented lanes,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01227,true
+ADR-015,Canonical game as split unit,ACCEPTED,W01,POST-SUBTASK-105,true,SRCREF-01228,true
+ADR-016,Joint-score coherence requirement,ACCEPTED,W01,POST-SUBTASK-096,true,SRCREF-01229,true
+ADR-017,Governed autonomous research,ACCEPTED,W01,POST-SUBTASK-105,true,SRCREF-01230,true
+ADR-018,Local-first compute,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01231,true
+ADR-019,Five-phase framework,ACCEPTED,W01,POST-SUBTASK-087,true,SRCREF-01232,true
+ADR-020,No large raw data in repo packs,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01233,true
+ADR-021,Adaptive 25-wave plan,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01234,true
+ADR-022,Numerical source-log chronology,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01235,true
+ADR-023,Content-based reconnaissance identity,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01236,true
+ADR-024,Authoritative recon integrity manifest,ACCEPTED,W01,POST-SUBTASK-105,true,SRCREF-01237,true
+ADR-025,Deterministic services for deterministic work,ACCEPTED,W01,POST-SUBTASK-105,true,SRCREF-01238,true
+ADR-026,No unverified pretrained-model dependency,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01239,true
+ADR-027,Learned home-field effect,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01240,true
+ADR-028,Learned transfer translation,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01241,true
+ADR-029,Effective-dated rule-era registry,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01242,true
+ADR-030,Immutable market/prediction snapshots,ACCEPTED,W01,POST-SUBTASK-078,true,SRCREF-01243,true
+ADR-031,Minimal src-layout until Wave03,ACCEPTED,W02,POST-SUBTASK-141,true,SRCREF-01244,true
+ADR-032,Python 3.12 preferred local baseline,ACCEPTED,W02,POST-SUBTASK-123,true,SRCREF-01245,true
+ADR-033,Portable venv/pip baseline,ACCEPTED,W02,POST-SUBTASK-078,true,SRCREF-01246,true
+ADR-034,Standard-library deterministic pack tooling,ACCEPTED,W02,POST-SUBTASK-141,true,SRCREF-01247,true
+ADR-035,Machine-readable hydration allowlist,ACCEPTED,W02,POST-SUBTASK-141,true,SRCREF-01248,true
+ADR-036,Minimal cross-platform CI now; full CI Wave23,ACCEPTED,W02,POST-SUBTASK-132,true,SRCREF-01249,true
+ADR-037,Codex worktree contract without guessed external config,ACCEPTED,W02,POST-SUBTASK-141,true,SRCREF-01250,true
+ADR-038,No Docker/database/orchestrator commitment in W02,ACCEPTED,W02,POST-SUBTASK-114,true,SRCREF-01251,true
+ADR-039,Safe prior-wave verification before extraction,ACCEPTED,W02,POST-SUBTASK-132,true,SRCREF-01252,true
+ADR-040,Offline-first modular monolith,ACCEPTED,W03,POST-SUBTASK-132,true,SRCREF-01253,true
+ADR-041,Immutable snapshot serving,ACCEPTED,W03,POST-SUBTASK-123,true,SRCREF-01254,true
+ADR-042,Parquet plus DuckDB early analytical stack,ACCEPTED,W03,POST-SUBTASK-141,true,SRCREF-01255,true
+ADR-043,PostgreSQL deferred behind storage port,ACCEPTED,W03,POST-SUBTASK-141,true,SRCREF-01256,true
+ADR-044,Provider ports and canonical boundary,ACCEPTED,W03,POST-SUBTASK-078,true,SRCREF-01257,true
+ADR-045,PIT state as hard feature gateway,ACCEPTED,W03,POST-SUBTASK-060,true,SRCREF-01258,true
+ADR-046,Explicit national-to-A&M specialization contract,ACCEPTED,W03,POST-SUBTASK-087,true,SRCREF-01259,true
+ADR-047,Forecast assembly owns cross-target coherence,ACCEPTED,W03,POST-SUBTASK-096,true,SRCREF-01260,true
+ADR-048,Research plane isolated from protected production,ACCEPTED,W03,POST-SUBTASK-123,true,SRCREF-01261,true
+ADR-049,LLM assistive plane only,ACCEPTED,W03,POST-SUBTASK-105,true,SRCREF-01262,true
+ADR-050,Read-serving boundary cannot query raw/model internals,ACCEPTED,W03,POST-SUBTASK-123,true,SRCREF-01263,true
+ADR-051,Future live plane isolated,ACCEPTED,W03,POST-SUBTASK-159,true,SRCREF-01264,true
+ADR-052,Stable semantic namespaces without empty implementation sprawl,ACCEPTED,W03,POST-SUBTASK-087,true,SRCREF-01265,true
+ADR-053,No distributed infrastructure requirement for pregame v1,ACCEPTED,W03,POST-SUBTASK-123,true,SRCREF-01266,true
+ADR-054,Machine-readable architecture registry,ACCEPTED,W03,POST-SUBTASK-141,true,SRCREF-01267,true
+ADR-055,Separate requirement class/lifecycle/evidence status,ACCEPTED,W04,POST-SUBTASK-141,true,SRCREF-01268,true
+ADR-056,Machine-readable acceptance registry and full coverage,ACCEPTED,W04,POST-SUBTASK-141,true,SRCREF-01269,true
+ADR-057,No fabricated quantitative acceptance thresholds,ACCEPTED,W04,POST-SUBTASK-141,true,SRCREF-01270,true
+ADR-058,Protected temporal/leakage controls fail closed and block release,ACCEPTED,W04,POST-SUBTASK-096,true,SRCREF-01271,true
+ADR-059,Protected test seal and precommitted promotion criteria,ACCEPTED,W04,POST-SUBTASK-105,true,SRCREF-01272,true
+ADR-060,Acceptance uses multiple evidence modes,ACCEPTED,W04,POST-SUBTASK-141,true,SRCREF-01273,true
+ADR-061,Explicit trust boundary and fail-closed untrusted inputs,ACCEPTED,W04,POST-SUBTASK-132,true,SRCREF-01274,true
+ADR-062,Forecast reproducibility is lineage-replay based,ACCEPTED,W04,POST-SUBTASK-078,true,SRCREF-01275,true
+ADR-063,Performance budgets require target-hardware benchmark evidence,ACCEPTED,W04,POST-SUBTASK-141,true,SRCREF-01276,true
+ADR-064,Bidirectional acceptance traceability across REQ/ADR/RISK,ACCEPTED,W04,POST-SUBTASK-141,true,SRCREF-01277,true
+ADR-065,"Capability phases are organizational, waves remain execution authority",ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01278,true
+ADR-066,Stable epic/task IDs and machine-readable WBS,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01279,true
+ADR-067,DAG/gates instead of fabricated calendar schedule,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01280,true
+ADR-068,Critical path means dependency-critical spine,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01281,true
+ADR-069,Five complexity classes describe coupling and risk,ACCEPTED,W05,POST-SUBTASK-078,true,SRCREF-01282,true
+ADR-070,Mandatory W06 implementation replan gate,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01283,true
+ADR-071,Source-dependent tasks provisional until W06,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01284,true
+ADR-072,Codex packets are bounded implementation slices,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01285,true
+ADR-073,Serialize unfrozen shared-contract mutations,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01286,true
+ADR-074,Bounded adaptive parallelism over fixed concurrency,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01287,true
+ADR-075,Evidence gate required before DONE/integration,ACCEPTED,W05,POST-SUBTASK-141,true,SRCREF-01288,true
+ADR-076,W05 backlog is revisable evidence-controlled plan,ACCEPTED,W05,POST-SUBTASK-078,true,SRCREF-01289,true
+ADR-077,Official availability reports are primary where policy covers the game,ACCEPTED,W06,POST-SUBTASK-069,true,SRCREF-01290,true
+ADR-078,Issued weather model runs replace observed-weather proxies for historical forecast state,ACCEPTED,W06,POST-SUBTASK-078,true,SRCREF-01291,true
+ADR-079,Timestamped market providers are optional market-lane enrichment,ACCEPTED,W06,POST-SUBTASK-024,true,SRCREF-01292,true
+ADR-080,Official lower-division statistics strengthen bounded priors,ACCEPTED,W06,POST-SUBTASK-078,true,SRCREF-01293,true
+ADR-081,Rule era expands to effective-dated regulatory environment,ACCEPTED,W06,POST-SUBTASK-114,true,SRCREF-01294,true
+ADR-082,Derived data requires explicit upstream provenance,ACCEPTED,W06,POST-SUBTASK-141,true,SRCREF-01295,true
+ADR-083,Commercial advanced data remains adapter-isolated and nonblocking,ACCEPTED,W06,POST-SUBTASK-105,true,SRCREF-01296,true
+ADR-084,Private-school resource proxies remain semantically separate,ACCEPTED,W06,POST-SUBTASK-033,true,SRCREF-01297,true
+ADR-085,Current source research does not require distributed service architecture,ACCEPTED,W06,POST-SUBTASK-123,true,SRCREF-01298,true
+ADR-086,Mutable official reports require publication/version observations,ACCEPTED,W06,POST-SUBTASK-114,true,SRCREF-01299,true
+ADR-087,W06 replan clears but does not freeze future source choices forever,ACCEPTED,W06,POST-SUBTASK-141,true,SRCREF-01300,true
+ADR-088,Public access is not redistribution permission,ACCEPTED,W06,POST-SUBTASK-024,true,SRCREF-01301,true
+ADR-089,Opaque prefixed UUID surrogate is current canonical-ID representation default,ACCEPTED,W07,POST-SUBTASK-042,true,SRCREF-01302,true
+ADR-090,Source mappings are first-class append-only decision records,ACCEPTED,W07,POST-SUBTASK-141,true,SRCREF-01303,true
+ADR-091,Direct source IDs are mapping evidence only after contract validation,ACCEPTED,W07,POST-SUBTASK-105,true,SRCREF-01304,true
+ADR-092,"Fuzzy/name matching is candidate generation, not canonical truth",ACCEPTED,W07,POST-SUBTASK-141,true,SRCREF-01305,true
+ADR-093,"Human identity is separated from roles, teams and mutable attributes",ACCEPTED,W07,POST-SUBTASK-069,true,SRCREF-01306,true
+ADR-094,Identity corrections use merge/split/supersession history,ACCEPTED,W07,POST-SUBTASK-042,true,SRCREF-01307,true
+ADR-095,"Game identity represents the underlying contest, not current schedule fields",ACCEPTED,W07,POST-SUBTASK-159,true,SRCREF-01308,true
+ADR-096,Mutable source evidence uses layered identity,ACCEPTED,W07,POST-SUBTASK-114,true,SRCREF-01309,true
+ADR-097,PostgreSQL remains deferred for canonical identity workflow,ACCEPTED,W07,POST-SUBTASK-042,true,SRCREF-01310,true
+ADR-098,Review queue is a derived view over immutable candidate/decision events,ACCEPTED,W07,POST-SUBTASK-141,true,SRCREF-01311,true
+ADR-099,No graph database is required for canonical relationships,ACCEPTED,W07,POST-SUBTASK-042,true,SRCREF-01312,true
+ADR-100,W07 identity contracts are frozen for W08 but implementation benchmark remains W19,ACCEPTED,W07,POST-SUBTASK-042,true,SRCREF-01313,true
+ADR-101,Bitemporal knowledge and validity axes,ACCEPTED,W08,POST-SUBTASK-114,true,SRCREF-01314,true
+ADR-102,first_known evidence policy,ACCEPTED,W08,POST-SUBTASK-087,true,SRCREF-01315,true
+ADR-103,prediction_eligible_at is derived metadata,ACCEPTED,W08,POST-SUBTASK-141,true,SRCREF-01316,true
+ADR-104,Deterministic fail-closed as-of selector,ACCEPTED,W08,POST-SUBTASK-051,true,SRCREF-01317,true
+ADR-105,Revision replay uses as-known version,ACCEPTED,W08,POST-SUBTASK-114,true,SRCREF-01318,true
+ADR-106,Immutable cutoff object,ACCEPTED,W08,POST-SUBTASK-078,true,SRCREF-01319,true
+ADR-107,Issued weather run contract,ACCEPTED,W08,POST-SUBTASK-078,true,SRCREF-01320,true
+ADR-108,Availability policy/version contract,ACCEPTED,W08,POST-SUBTASK-069,true,SRCREF-01321,true
+ADR-109,Market labels are descriptive not temporal authority,ACCEPTED,W08,POST-SUBTASK-024,true,SRCREF-01322,true
+ADR-110,Regulatory/resource dual-time contract,ACCEPTED,W08,POST-SUBTASK-114,true,SRCREF-01323,true
+ADR-111,Retrospective evidence fail-closed,ACCEPTED,W08,POST-SUBTASK-087,true,SRCREF-01324,true
+ADR-112,Completed-game chronology for historical aggregates,ACCEPTED,W08,POST-SUBTASK-060,true,SRCREF-01325,true
+ADR-113,PIT gateway becomes protected feature boundary,ACCEPTED,W08,POST-SUBTASK-060,true,SRCREF-01326,true
+ADR-114,Synthetic PIT PASS is not production data proof,ACCEPTED,W08,POST-SUBTASK-123,true,SRCREF-01327,true
+ADR-115,Raw-field registry is metadata not production feature lifecycle,ACCEPTED,W09,POST-SUBTASK-123,true,SRCREF-01328,true
+ADR-116,Stable source-scoped raw-field IDs,ACCEPTED,W09,POST-SUBTASK-042,true,SRCREF-01329,true
+ADR-117,Recon temporal classification has precedence over scanner heuristics,ACCEPTED,W09,POST-SUBTASK-051,true,SRCREF-01330,true
+ADR-118,Unmaterialized W06 endpoint schemas remain pending,ACCEPTED,W09,POST-SUBTASK-141,true,SRCREF-01331,true
+ADR-119,Sample missingness remains non-population evidence,ACCEPTED,W09,POST-SUBTASK-033,true,SRCREF-01332,true
+ADR-120,Exact-name overlap creates review clusters only,ACCEPTED,W09,POST-SUBTASK-141,true,SRCREF-01333,true
+ADR-121,Join paths require canonical identity semantics,ACCEPTED,W09,POST-SUBTASK-042,true,SRCREF-01334,true
+ADR-122,Schema scanner separates documented and observed type,ACCEPTED,W09,POST-SUBTASK-141,true,SRCREF-01335,true
+ADR-123,Standard-library scanner core with optional Parquet plugin,ACCEPTED,W09,POST-SUBTASK-141,true,SRCREF-01336,true
+ADR-124,Nested JSON uses deterministic dotted paths,ACCEPTED,W09,POST-SUBTASK-141,true,SRCREF-01337,true
+ADR-125,W09 W10-candidate handoff remains behind W08 PIT gateway,ACCEPTED,W09,POST-SUBTASK-051,true,SRCREF-01338,true
+ADR-126,W09 feature-registry gate frozen for W10,ACCEPTED,W09,POST-SUBTASK-105,true,SRCREF-01339,true
+ADR-127,Target-specific six-state feature lifecycle,ACCEPTED,W10,POST-SUBTASK-060,true,SRCREF-01340,true
+ADR-128,No universal rolling-window default,ACCEPTED,W10,POST-SUBTASK-141,true,SRCREF-01341,true
+ADR-129,Strict-prior transform semantics,ACCEPTED,W10,POST-SUBTASK-051,true,SRCREF-01342,true
+ADR-130,Multi-method screening instead of single importance ranking,ACCEPTED,W10,POST-SUBTASK-078,true,SRCREF-01343,true
+ADR-131,Univariate association is exploratory,ACCEPTED,W10,POST-SUBTASK-123,true,SRCREF-01344,true
+ADR-132,Family ablation and temporal stability are promotion evidence,ACCEPTED,W10,POST-SUBTASK-123,true,SRCREF-01345,true
+ADR-133,Market candidate lane remains isolated,ACCEPTED,W10,POST-SUBTASK-078,true,SRCREF-01346,true
+ADR-134,Lifecycle decisions are append-only evidence records,ACCEPTED,W10,POST-SUBTASK-105,true,SRCREF-01347,true
+ADR-135,"BANNED is structural, not low importance",ACCEPTED,W10,POST-SUBTASK-078,true,SRCREF-01348,true
+ADR-136,Real feature promotion deferred to empirical owner waves,ACCEPTED,W10,POST-SUBTASK-105,true,SRCREF-01349,true
+ADR-137,Explicit interactions only; no combinatorial explosion,ACCEPTED,W10,POST-SUBTASK-141,true,SRCREF-01350,true
+ADR-138,Standard-library reference feature machinery at W10,ACCEPTED,W10,POST-SUBTASK-060,true,SRCREF-01351,true
+ADR-139,Separate prior/underlying/available/form state,ACCEPTED,W11,POST-SUBTASK-141,true,SRCREF-01352,true
+ADR-140,Team state is immutable PIT snapshot,ACCEPTED,W11,POST-SUBTASK-051,true,SRCREF-01353,true
+ADR-141,Composite Week-1 prior with no frozen component weights,ACCEPTED,W11,POST-SUBTASK-141,true,SRCREF-01354,true
+ADR-142,Early-season blend schedule remains empirical,ACCEPTED,W11,POST-SUBTASK-141,true,SRCREF-01355,true
+ADR-143,National training utility differs from current-team relevance,ACCEPTED,W11,POST-SUBTASK-042,true,SRCREF-01356,true
+ADR-144,Recency/regime/change-point representations remain candidates,ACCEPTED,W11,POST-SUBTASK-141,true,SRCREF-01357,true
+ADR-145,Change points shrink/inflate uncertainty before hard reset,ACCEPTED,W11,POST-SUBTASK-078,true,SRCREF-01358,true
+ADR-146,Bounded FBS/FCS/lower-division hierarchy,ACCEPTED,W11,POST-SUBTASK-069,true,SRCREF-01359,true
+ADR-147,Cross-division translation is data-driven with uncertainty,ACCEPTED,W11,POST-SUBTASK-078,true,SRCREF-01360,true
+ADR-148,Resources are upstream prior candidates,ACCEPTED,W11,POST-SUBTASK-114,true,SRCREF-01361,true
+ADR-149,W12 owns detailed available-strength player adjustment,ACCEPTED,W11,POST-SUBTASK-069,true,SRCREF-01362,true
+ADR-150,Team-state subsystem stays inside modular monolith,ACCEPTED,W11,POST-SUBTASK-141,true,SRCREF-01363,true
+ADR-151,"W11 gate freezes semantics, not empirical parameterization",ACCEPTED,W11,POST-SUBTASK-141,true,SRCREF-01364,true
+ADR-152,"Separate roster, depth, availability and participation state",ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01365,true
+ADR-153,Position-aware player value without manual point assignments,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01366,true
+ADR-154,"Availability uses probability, effectiveness and expected usage scenarios",ACCEPTED,W12,POST-SUBTASK-078,true,SRCREF-01367,true
+ADR-155,Replacement effect is identity/value/usage specific,ACCEPTED,W12,POST-SUBTASK-078,true,SRCREF-01368,true
+ADR-156,Sparse availability evidence remains uncertain,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01369,true
+ADR-157,Rotation is first-class player state,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01370,true
+ADR-158,Transfer preserves canonical player identity,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01371,true
+ADR-159,Transfer translation is learned from continuous context,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01372,true
+ADR-160,Freshmen/prospects use separate priors,ACCEPTED,W12,POST-SUBTASK-123,true,SRCREF-01373,true
+ADR-161,Preseason honors are external-consensus candidates,ACCEPTED,W12,POST-SUBTASK-141,true,SRCREF-01374,true
+ADR-162,Draft outcomes are lagged evidence/training targets only,ACCEPTED,W12,POST-SUBTASK-060,true,SRCREF-01375,true
+ADR-163,Official conference availability is primary when policy covers,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01376,true
+ADR-164,W12 source-registry provenance catch-up completes TASK-197,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01377,true
+ADR-165,Transfer/recruiting source use remains terms/provenance governed,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01378,true
+ADR-166,W12 available-strength handoff remains uncalibrated abstract value units,ACCEPTED,W12,POST-SUBTASK-069,true,SRCREF-01379,true
+ADR-167,"W12 gate freezes contracts, not empirical winners",ACCEPTED,W12,POST-SUBTASK-123,true,SRCREF-01380,true
+ADR-168,Coach jobs as effective-dated role episodes,ACCEPTED,W13,POST-SUBTASK-069,true,SRCREF-01381,true
+ADR-169,Coach effects use residuals with hierarchical confound controls,ACCEPTED,W13,POST-SUBTASK-069,true,SRCREF-01382,true
+ADR-170,Promotions retain evidence without additive double counting,ACCEPTED,W13,POST-SUBTASK-105,true,SRCREF-01383,true
+ADR-171,Scheme and play-caller state are effective-dated,ACCEPTED,W13,POST-SUBTASK-141,true,SRCREF-01384,true
+ADR-172,Fourth-down/clock/halftime effects remain experimental,ACCEPTED,W13,POST-SUBTASK-123,true,SRCREF-01385,true
+ADR-173,Issued forecast runs are the pregame weather lane,ACCEPTED,W13,POST-SUBTASK-078,true,SRCREF-01386,true
+ADR-174,"Travel is differential, cumulative and DST-aware",ACCEPTED,W13,POST-SUBTASK-060,true,SRCREF-01387,true
+ADR-175,Four resource lanes R0/R1/R2/R3,ACCEPTED,W13,POST-SUBTASK-141,true,SRCREF-01388,true
+ADR-176,"Home field is hierarchical residual, not raw home record",ACCEPTED,W13,POST-SUBTASK-069,true,SRCREF-01389,true
+ADR-177,Game stakes remain factual PIT context,ACCEPTED,W13,POST-SUBTASK-051,true,SRCREF-01390,true
+ADR-178,Rule era expands to regulatory environment,ACCEPTED,W13,POST-SUBTASK-069,true,SRCREF-01391,true
+ADR-179,Possession opportunity separated from scoring efficiency,ACCEPTED,W13,POST-SUBTASK-141,true,SRCREF-01392,true
+ADR-180,Field-position and special-teams component accounting,ACCEPTED,W13,POST-SUBTASK-141,true,SRCREF-01393,true
+ADR-181,Score-state/garbage-time policies remain challengers,ACCEPTED,W13,POST-SUBTASK-141,true,SRCREF-01394,true
+ADR-182,Opponent adjustment and style similarity require strict-prior evidence,ACCEPTED,W13,POST-SUBTASK-141,true,SRCREF-01395,true
+ADR-183,Schedule stress uses completed prior workload plus known current trip,ACCEPTED,W13,POST-SUBTASK-051,true,SRCREF-01396,true
+ADR-184,Officiating remains experimental and fails closed,ACCEPTED,W13,POST-SUBTASK-060,true,SRCREF-01397,true
+ADR-185,W13 is contract/reference maturity only,ACCEPTED,W13,POST-SUBTASK-069,true,SRCREF-01398,true
+ADR-186,Repair W14 dependency inversion,ACCEPTED,W13,POST-SUBTASK-141,true,SRCREF-01399,true
+ADR-187,A&M high-resolution overlay reuses national canonical truth,ACCEPTED,W14,POST-SUBTASK-141,true,SRCREF-01400,true
+ADR-188,Freeze versioned A&M state overlay contract,ACCEPTED,W14,POST-SUBTASK-078,true,SRCREF-01401,true
+ADR-189,Prioritize official A&M/SEC evidence with governed fallbacks,ACCEPTED,W14,POST-SUBTASK-141,true,SRCREF-01402,true
+ADR-190,A&M unit resolution does not imply manual unit bonuses,ACCEPTED,W14,POST-SUBTASK-069,true,SRCREF-01403,true
+ADR-191,A&M snapshot cadence remains candidate and immutable,ACCEPTED,W14,POST-SUBTASK-033,true,SRCREF-01404,true
+ADR-192,Separate peer cohorts from historical analog retrieval,ACCEPTED,W14,POST-SUBTASK-141,true,SRCREF-01405,true
+ADR-193,Peer/analog methods remain strict-prior experimental evidence,ACCEPTED,W14,POST-SUBTASK-078,true,SRCREF-01406,true
+ADR-194,Freeze national→A&M specialization semantic interface,ACCEPTED,W14,POST-SUBTASK-087,true,SRCREF-01407,true
+ADR-195,No-adjustment national forecast is mandatory A&M baseline,ACCEPTED,W14,POST-SUBTASK-078,true,SRCREF-01408,true
+ADR-196,Residual adapter remains specialization challenger,ACCEPTED,W14,POST-SUBTASK-141,true,SRCREF-01409,true
+ADR-197,Hierarchical/multi-task remains specialization challenger,ACCEPTED,W14,POST-SUBTASK-141,true,SRCREF-01410,true
+ADR-198,Partial-pooling/shrinkage is explicit specialization challenger,ACCEPTED,W14,POST-SUBTASK-141,true,SRCREF-01411,true
+ADR-199,Promotion requires shrinkage and protected incremental value,ACCEPTED,W14,POST-SUBTASK-105,true,SRCREF-01412,true
+ADR-200,Retain dual A&M and national evaluation scorecards,ACCEPTED,W14,POST-SUBTASK-105,true,SRCREF-01413,true
+ADR-201,Isolate pure-football specialization from market/BAS/narrative leakage,ACCEPTED,W14,POST-SUBTASK-096,true,SRCREF-01414,true
+ADR-202,Freeze W14 candidate set without empirical winner,ACCEPTED,W14,POST-SUBTASK-141,true,SRCREF-01415,true
+ADR-203,Freeze BAS residual sign and headline >=7 threshold,ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01416,true
+ADR-204,Require chronological OOS expected-margin labels,ACCEPTED,W15,POST-SUBTASK-141,true,SRCREF-01417,true
+ADR-205,Group mirrored rows by canonical game in BAS cross-fit/inference,ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01418,true
+ADR-206,Use BAS-independent national pregame expectation as primary scientific anchor,ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01419,true
+ADR-207,Defer exact expectation-model family to W16/W17,ACCEPTED,W15,POST-SUBTASK-078,true,SRCREF-01420,true
+ADR-208,Version BAS labels and anchors immutably,ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01421,true
+ADR-209,Use general FBS underperformance before Aggie Excess claim,ACCEPTED,W15,POST-SUBTASK-078,true,SRCREF-01422,true
+ADR-210,Treat Aggie Excess as null-first effect,ACCEPTED,W15,POST-SUBTASK-141,true,SRCREF-01423,true
+ADR-211,Freeze peers/regimes before protected outcome inspection,ACCEPTED,W15,POST-SUBTASK-141,true,SRCREF-01424,true
+ADR-212,"Require effect size, stability and multiple-testing policy",ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01425,true
+ADR-213,Keep BAS component decompositions unselected in W15,ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01426,true
+ADR-214,Isolate Collapse BAS to chronological live-replay lane,ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01427,true
+ADR-215,Do not require BAS components to add unless W16 score model guarantees coherence,ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01428,true
+ADR-216,Require nested calibrated BAS probability outputs later,ACCEPTED,W15,POST-SUBTASK-096,true,SRCREF-01429,true
+ADR-217,Keep sensitivity anchors separate from primary label,ACCEPTED,W15,POST-SUBTASK-078,true,SRCREF-01430,true
+ADR-218,Leave THR-006 blank until W17 precommitment,ACCEPTED,W15,POST-SUBTASK-141,true,SRCREF-01431,true
+ADR-219,Repair W15/W16 dependency inversion,ACCEPTED,W15,POST-SUBTASK-141,true,SRCREF-01432,true
+ADR-220,Freeze W15 contract-only maturity and W16 handoff,ACCEPTED,W15,POST-SUBTASK-141,true,SRCREF-01433,true
+ADR-221,Joint score distribution is coherence source of truth,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01434,true
+ADR-222,Explicit overtime resolution for tie mass,ACCEPTED,W16,POST-SUBTASK-141,true,SRCREF-01435,true
+ADR-223,Keep W15 BAS label semantics unchanged,ACCEPTED,W16,POST-SUBTASK-096,true,SRCREF-01436,true
+ADR-224,Retain mandatory simple baselines,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01437,true
+ADR-225,Do not select a W16 model family,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01438,true
+ADR-226,Do not freeze boosted-tree library,ACCEPTED,W16,POST-SUBTASK-141,true,SRCREF-01439,true
+ADR-227,Keep small neural architecture challenger-only,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01440,true
+ADR-228,Pure-football and market-augmented lanes remain isolated,ACCEPTED,W16,POST-SUBTASK-060,true,SRCREF-01441,true
+ADR-229,Closing market is timestamped benchmark not universal feature,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01442,true
+ADR-230,Scenario engine binds immutable baseline snapshot,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01443,true
+ADR-231,Prefer exact scenario mixtures when practical,ACCEPTED,W16,POST-SUBTASK-141,true,SRCREF-01444,true
+ADR-232,Separate uncertainty categories,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01445,true
+ADR-233,OOD is warning/uncertainty signal not directional strength rule,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01446,true
+ADR-234,Leave THR-014 and THR-015 blank,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01447,true
+ADR-235,Model disagreement is candidate evidence only,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01448,true
+ADR-236,Retain W14 no-adjustment A&M baseline,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01449,true
+ADR-237,Version model and calibration artifacts independently,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01450,true
+ADR-238,W17 freezes protocols before protected evidence,ACCEPTED,W16,POST-SUBTASK-078,true,SRCREF-01451,true
+ADR-239,Repair W17 protected-evaluation task ordering,ACCEPTED,W16,POST-SUBTASK-096,true,SRCREF-01452,true
+ADR-240,Freeze W16 contract-only gate and W17 handoff,ACCEPTED,W16,POST-SUBTASK-141,true,SRCREF-01453,true
+ADR-241,Freeze 2024-2025 as governance-protected holdout,ACCEPTED,W17,POST-SUBTASK-141,true,SRCREF-01454,true
+ADR-242,Add 2026+ forward operational shadow holdout,ACCEPTED,W17,POST-SUBTASK-078,true,SRCREF-01455,true
+ADR-243,Canonical game is W17 split and pairing unit,ACCEPTED,W17,POST-SUBTASK-051,true,SRCREF-01456,true
+ADR-244,Use chronological development and 2023 selection lane,ACCEPTED,W17,POST-SUBTASK-078,true,SRCREF-01457,true
+ADR-245,Protected holdout movement is fail-closed,ACCEPTED,W17,POST-SUBTASK-141,true,SRCREF-01458,true
+ADR-246,Brier primary and log loss required for win probabilities,ACCEPTED,W17,POST-SUBTASK-078,true,SRCREF-01459,true
+ADR-247,Use MAE primary point error and proper distribution scores,ACCEPTED,W17,POST-SUBTASK-141,true,SRCREF-01460,true
+ADR-248,ECE is diagnostic not sole calibration gate,ACCEPTED,W17,POST-SUBTASK-078,true,SRCREF-01461,true
+ADR-249,Predeclare national A&M and diagnostic scorecards,ACCEPTED,W17,POST-SUBTASK-105,true,SRCREF-01462,true
+ADR-250,Compare challengers with paired canonical-game deltas,ACCEPTED,W17,POST-SUBTASK-078,true,SRCREF-01463,true
+ADR-251,Freeze threshold methods without fabricating numeric values,ACCEPTED,W17,POST-SUBTASK-141,true,SRCREF-01464,true
+ADR-252,Unset required thresholds block promotion,ACCEPTED,W17,POST-SUBTASK-105,true,SRCREF-01465,true
+ADR-253,Retain mandatory simple baseline bar,ACCEPTED,W17,POST-SUBTASK-078,true,SRCREF-01466,true
+ADR-254,BAS evaluation is null-first and multiplicity-aware,ACCEPTED,W17,POST-SUBTASK-096,true,SRCREF-01467,true
+ADR-255,A&M specialization must beat no-adjustment baseline,ACCEPTED,W17,POST-SUBTASK-087,true,SRCREF-01468,true
+ADR-256,OOD/disagreement remain warning-quality candidates,ACCEPTED,W17,POST-SUBTASK-078,true,SRCREF-01469,true
+ADR-257,Market lanes use identical PIT evaluation cutoffs,ACCEPTED,W17,POST-SUBTASK-078,true,SRCREF-01470,true
+ADR-258,Champion/challenger gate is immutable and fail-closed,ACCEPTED,W17,POST-SUBTASK-105,true,SRCREF-01471,true
+ADR-259,Reframe W17 threshold task as methodology freeze,ACCEPTED,W17,POST-SUBTASK-141,true,SRCREF-01472,true
+ADR-260,Freeze W17 contract-only gate and W18 handoff,ACCEPTED,W17,POST-SUBTASK-105,true,SRCREF-01473,true
+ADR-261,Deterministic content-derived experiment identity,ACCEPTED,W18,POST-SUBTASK-042,true,SRCREF-01474,true
+ADR-262,Hash-seal W17 judging rules for research execution,ACCEPTED,W18,POST-SUBTASK-105,true,SRCREF-01475,true
+ADR-263,Select MLflow as replaceable tracking adapter,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01476,true
+ADR-264,Select Optuna as replaceable HPO adapter,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01477,true
+ADR-265,Keep stdlib lineage backend as mandatory reference,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01478,true
+ADR-266,Prefer local MLflow SQLite before tracking server,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01479,true
+ADR-267,Do not use shared SQLite as distributed Optuna store,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01480,true
+ADR-268,Append-only role-governed experiment queue,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01481,true
+ADR-269,Isolated worktree or immutable snapshot execution,ACCEPTED,W18,POST-SUBTASK-033,true,SRCREF-01482,true
+ADR-270,Separate research result packet from protected evaluation,ACCEPTED,W18,POST-SUBTASK-105,true,SRCREF-01483,true
+ADR-271,Replay before challenger adoption,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01484,true
+ADR-272,Retain failed and rejected experiments,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01485,true
+ADR-273,Research queue has no PROMOTE state,ACCEPTED,W18,POST-SUBTASK-123,true,SRCREF-01486,true
+ADR-274,Block expensive advanced challengers until baseline evidence,ACCEPTED,W18,POST-SUBTASK-150,true,SRCREF-01487,true
+ADR-275,LLM proposals cross same experiment governance,ACCEPTED,W18,POST-SUBTASK-105,true,SRCREF-01488,true
+ADR-276,Require explicit resource budget and approval for paid compute,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01489,true
+ADR-277,W18 completes reference governance without empirical winner,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01490,true
+ADR-278,Authorize W19 starter data/entity/feature implementation,ACCEPTED,W18,POST-SUBTASK-060,true,SRCREF-01491,true
+ADR-279,Feature tournament is explicit subsystem,ACCEPTED,W18,POST-SUBTASK-060,true,SRCREF-01492,true
+ADR-280,Feature tournament cannot directly promote,ACCEPTED,W18,POST-SUBTASK-105,true,SRCREF-01493,true
+ADR-281,Model tournament requires simple comparator ladder,ACCEPTED,W18,POST-SUBTASK-078,true,SRCREF-01494,true
+ADR-282,A&M tournament requires TAMU-SP-00,ACCEPTED,W18,POST-SUBTASK-087,true,SRCREF-01495,true
+ADR-283,Market tournament lanes remain isolated,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01496,true
+ADR-284,Version HPO search spaces before execution,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01497,true
+ADR-285,HPO remains development-only,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01498,true
+ADR-286,Use Optuna as replaceable HPO adapter,ACCEPTED,W18,POST-SUBTASK-042,true,SRCREF-01499,true
+ADR-287,Use MLflow as replaceable tracking adapter,ACCEPTED,W18,POST-SUBTASK-105,true,SRCREF-01500,true
+ADR-288,Explicit hypothesis lifecycle and deduplication,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01501,true
+ADR-289,Experiment artifact manifests externalize large binaries,ACCEPTED,W18,POST-SUBTASK-078,true,SRCREF-01502,true
+ADR-290,Replay failure is typed and nonwaivable,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01503,true
+ADR-291,Worktree/source-snapshot isolation with protected paths,ACCEPTED,W18,POST-SUBTASK-033,true,SRCREF-01504,true
+ADR-292,Bound research resources and paid compute,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01505,true
+ADR-293,Tournament comparison requires semantic compatibility,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01506,true
+ADR-294,Retain negative and dominated results,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01507,true
+ADR-295,Reject thin W18 draft and issue corrected revision,ACCEPTED,W18,POST-SUBTASK-123,true,SRCREF-01508,true
+ADR-296,Corrected W18 requires explicit master-coverage matrix,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01509,true
+ADR-297,Use transactional local SQLite experiment metadata reference store,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01510,true
+ADR-298,Queue events use append-only hash chain,ACCEPTED,W18,POST-SUBTASK-078,true,SRCREF-01511,true
+ADR-299,Separate attempt retries from scientific child experiments,ACCEPTED,W18,POST-SUBTASK-042,true,SRCREF-01512,true
+ADR-300,Resource admission is explicit and fail-closed,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01513,true
+ADR-301,Use file/worktree locks for shared mutation conflicts,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01514,true
+ADR-302,Result comparison requires semantic compatibility keys,ACCEPTED,W18,POST-SUBTASK-096,true,SRCREF-01515,true
+ADR-303,Avoid arbitrary scalar composite tournament scores,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01516,true
+ADR-304,Artifact manifests separate evidence from large bytes,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01517,true
+ADR-305,Research packets exclude protected-result feedback,ACCEPTED,W18,POST-SUBTASK-105,true,SRCREF-01518,true
+ADR-306,Replay tolerance is predeclared,ACCEPTED,W18,POST-SUBTASK-123,true,SRCREF-01519,true
+ADR-307,"Local JSONL tracker is fallback, not canonical truth",ACCEPTED,W18,POST-SUBTASK-042,true,SRCREF-01520,true
+ADR-308,MLflow remains replaceable and non-authoritative,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01521,true
+ADR-309,Optuna remains replaceable and exports canonical evidence,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01522,true
+ADR-310,Retain nested search multiplicity,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01523,true
+ADR-311,Query negative experiment history before rerun,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01524,true
+ADR-312,Operational failure never equals scientific rejection,ACCEPTED,W18,POST-SUBTASK-024,true,SRCREF-01525,true
+ADR-313,Worktree deletion follows evidence persistence,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01526,true
+ADR-314,Advanced challenger admission requires conventional baseline evidence,ACCEPTED,W18,POST-SUBTASK-150,true,SRCREF-01527,true
+ADR-315,Full W18 gate requires executable reference subsystems,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01528,true
+ADR-316,Supersede all earlier W18 draft artifacts,ACCEPTED,W18,POST-SUBTASK-141,true,SRCREF-01529,true
+ADR-317,Use content-addressed immutable files for W19 raw snapshot starter,ACCEPTED,W19,POST-SUBTASK-033,true,SRCREF-01530,true
+ADR-318,Keep entity auto-resolution exact and fail-closed in W19,ACCEPTED,W19,POST-SUBTASK-042,true,SRCREF-01531,true
+ADR-319,Make W08 PIT state the mandatory input to W19 feature factory,ACCEPTED,W19,POST-SUBTASK-060,true,SRCREF-01532,true
+ADR-320,Pull deferred W19 advanced-state dependencies into W20,ACCEPTED,W20,POST-SUBTASK-141,true,SRCREF-01533,true
+ADR-321,Use immutable content-addressed model artifact metadata,ACCEPTED,W20,POST-SUBTASK-078,true,SRCREF-01534,true
+ADR-322,Keep boosting libraries optional behind an injected adapter,ACCEPTED,W20,POST-SUBTASK-078,true,SRCREF-01535,true
+ADR-323,Derive public starter outputs from the joint score distribution,ACCEPTED,W20,POST-SUBTASK-096,true,SRCREF-01536,true
+ADR-324,Registry records evidence state but cannot promote,ACCEPTED,W20,POST-SUBTASK-105,true,SRCREF-01537,true
+ADR-325,A&M/BAS starters preserve national baseline and protected anchor,ACCEPTED,W20,POST-SUBTASK-096,true,SRCREF-01538,true
+ADR-326,Use dependency-free durable local orchestration kernel for W21,ACCEPTED,W21,POST-SUBTASK-114,true,SRCREF-01539,true
+ADR-327,Fail closed on quarantined or failed weekly steps,ACCEPTED,W21,POST-SUBTASK-114,true,SRCREF-01540,true
+ADR-328,Separate promotion evaluation from promotion application,ACCEPTED,W21,POST-SUBTASK-114,true,SRCREF-01541,true
+ADR-329,Use immutable forecast publication with content collision protection,ACCEPTED,W21,POST-SUBTASK-123,true,SRCREF-01542,true
+ADR-330,Postmortem automation is proposal-only research input,ACCEPTED,W21,POST-SUBTASK-105,true,SRCREF-01543,true
+ADR-331,Version published forecast envelope while preserving W21 readability,ACCEPTED,W22,POST-SUBTASK-123,true,SRCREF-01544,true
+ADR-332,Use optional FastAPI adapter with build-free static dashboard,ACCEPTED,W22,POST-SUBTASK-123,true,SRCREF-01545,true
+ADR-333,Do not invent a production freshness SLA,ACCEPTED,W22,POST-SUBTASK-123,true,SRCREF-01546,true
+ADR-334,Serve precomputed explanation evidence only,ACCEPTED,W22,POST-SUBTASK-078,true,SRCREF-01547,true
+ADR-335,Retain file-backed immutable product repository for W22,ACCEPTED,W22,POST-SUBTASK-123,true,SRCREF-01548,true
+ADR-336,Keep W23 operations local-first and service-light,ACCEPTED,W23,POST-SUBTASK-132,true,SRCREF-01549,true
+ADR-337,Exact-pin the optional product adapter separately from the dependency-free core,ACCEPTED,W23,POST-SUBTASK-123,true,SRCREF-01550,true
+ADR-338,Use structured redacted local telemetry as the canonical W23 observability starter,ACCEPTED,W23,POST-SUBTASK-132,true,SRCREF-01551,true
+ADR-339,Use content-manifested path-safe backup and restore,ACCEPTED,W23,POST-SUBTASK-132,true,SRCREF-01552,true
+ADR-340,Do not clear W23 operations gate without actual target-hardware evidence,ACCEPTED,W23,POST-SUBTASK-009,true,SRCREF-01553,true
+ADR-341,Execute W24 under explicit user sequencing override while carrying AC-038,ACCEPTED,W24,POST-SUBTASK-009,true,SRCREF-01554,true
+ADR-342,Use real starter boundaries for W24 synthetic readiness rather than a parallel mock architecture,ACCEPTED,W24,POST-SUBTASK-123,true,SRCREF-01555,true
+ADR-343,Add target-game identity guard to historical-game-output PIT eligibility,ACCEPTED,W24,POST-SUBTASK-078,true,SRCREF-01556,true
+ADR-344,Represent cfbfastR-cfb-raw as upstream provenance of cfbfastR-cfb-data,ACCEPTED,W24,POST-SUBTASK-141,true,SRCREF-01557,true
+ADR-345,Refine Open-Meteo access governance and add ensemble mean as optional uncertainty research,ACCEPTED,W24,POST-SUBTASK-078,true,SRCREF-01558,true
+ADR-346,Keep the learned core architecture and carry target-hardware readiness condition into W25,ACCEPTED,W24,POST-SUBTASK-009,true,SRCREF-01559,true
+ADR-347,Treat W25 as the terminal numbered wave and transition to implementation handoff,ACCEPTED,W25,POST-SUBTASK-141,true,SRCREF-01560,true
+ADR-348,Freeze final maturity taxonomy and keep target-hardware readiness conditional,ACCEPTED,W25,POST-SUBTASK-009,true,SRCREF-01561,true
+ADR-349,Prioritize materialized chronological baseline evidence before advanced challengers or live modeling,ACCEPTED,W25,POST-SUBTASK-159,true,SRCREF-01562,true

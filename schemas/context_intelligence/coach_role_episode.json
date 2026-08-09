@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CoachRoleEpisode",
+  "type": "object",
+  "required": [
+    "coach_id",
+    "role_family",
+    "valid_from",
+    "first_known_at",
+    "source_observation_id"
+  ],
+  "properties": {
+    "coach_id": {
+      "type": "string"
+    },
+    "institution_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "team_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "role_family": {
+      "type": "string"
+    },
+    "title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "responsibility_scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "valid_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "first_known_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_observation_id": {
+      "type": "string"
+    }
+  }
+}

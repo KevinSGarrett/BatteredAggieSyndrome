@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T06:21:36.3266406Z",
+  "updated_at_utc": "2026-08-09T06:25:16.882034Z",
+  "jira_key": "BAT-363",
+  "local_issue_id": "POST-SUBTASK-013",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "A 62-source production governance inventory reconciles the W06 universe, W24 refresh, current access checks, explicit upstream lineage, PIT/known-at constraints, rights posture, and fail-closed production dispositions without importing third-party code or data.",
+  "outputs": [
+    {
+      "path": "artifacts/source_governance/production_source_inventory.csv",
+      "bytes": 78290,
+      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3",
+      "rows": 62,
+      "unique_source_ids": 62,
+      "source_id_range": "SRC-001..SRC-062",
+      "maturity": "IMPLEMENTED_AND_VALIDATED",
+      "raw_payloads_in_repository": false
+    }
+  ],
+  "input_identities": [
+    {
+      "path": "docs/data_research/w06/DATA_UNIVERSE_MASTER.csv",
+      "sha256": "fe840803e0c29ac7eca712dfd10f5c775dd61c0d2a1efc5b0791a93c6425f46a"
+    },
+    {
+      "path": "docs/data_research/w06/POINT_IN_TIME_FEASIBILITY_MATRIX.csv",
+      "sha256": "796a549707fffe7621a065ba817435aaa259f9615649163a44504868cb62ca78"
+    },
+    {
+      "path": "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
+      "sha256": "1f3f2403743cf308910e4bfbc3508198489757bee1edf086e67d8c3f3f4b2752"
+    },
+    {
+      "path": "docs/data_research/w24/DATA_UNIVERSE_W24_ADDITIONS.csv",
+      "sha256": "2d7144e32a304bde6b7a5c2df2b0471a68a3b778800fdd5776dc7442d18a3271"
+    },
+    {
+      "path": "docs/data_research/w24/SOURCE_REFRESH_DELTA.csv",
+      "sha256": "26f08ebc3976ccd56e8ba2cca2ab3ec8b246b807be30eb10fb3f8444d391de25"
+    }
+  ],
+  "current_source_checks": [
+    {
+      "source_id": "SRC-002",
+      "check": "Authenticated read-only CFBD games request for 2025 regular-season week 1",
+      "checked_at_utc": "2026-08-09T06:17:03.327387Z",
+      "result": "HTTP_200_APPLICATION_JSON",
+      "record_count": 200,
+      "secret_value_emitted": false,
+      "payload_persisted": false,
+      "governance_result": "ACTIVE_BUT_TERMS_AND_TIER_GOVERNED"
+    },
+    {
+      "source_id": "SRC-001",
+      "check": "GitHub repository metadata and README lineage review",
+      "checked_at_utc": "2026-08-09T06:17:30Z",
+      "repository": "sportsdataverse/cfbfastR-cfb-data",
+      "head_commit": "9d8cc8113fa521177d1b8784828fa17fba191b48",
+      "license_spdx": "NOT_DETECTED",
+      "governance_result": "DERIVED_FROM_SRC_061_ENRICHED_FINAL_JSON;NOT_INDEPENDENT_CORROBORATION;UPSTREAM_RIGHTS_REVIEW_REQUIRED"
+    },
+    {
+      "source_id": "SRC-061",
+      "check": "GitHub repository metadata and README lineage review",
+      "checked_at_utc": "2026-08-09T06:17:30Z",
+      "repository": "sportsdataverse/cfbfastR-cfb-raw",
+      "head_commit": "8dd871259904b2213172cef9b1ced03afff08724",
+      "license_spdx": "NOT_DETECTED",
+      "governance_result": "ESPN_DERIVED_RAW_AND_ENRICHED_UPSTREAM;PROVENANCE_AND_DIAGNOSTICS_ONLY;NOT_INDEPENDENT_CORROBORATION"
+    },
+    {
+      "source_ids": ["SRC-003", "SRC-026", "SRC-062"],
+      "check": "Official Open-Meteo terms, licence, pricing, historical forecast, and ensemble documentation review",
+      "checked_at_utc": "2026-08-09T06:18:00Z",
+      "governance_result": "DATA_CC_BY_4_0_WITH_ATTRIBUTION;FREE_SERVICE_NONCOMMERCIAL;COMMERCIAL_USE_REQUIRES_ELIGIBLE_PLAN;HISTORICAL_AND_ENSEMBLE_CUSTOMER_ACCESS_REQUIRES_PROFESSIONAL_OR_HIGHER;RUN_SEMANTICS_REQUIRED"
+    }
+  ],
+  "external_reference_review": {
+    "reference": "https://github.com/zachringnight/cfbmodel",
+    "review_method": "READ_ONLY_GITHUB_API_NO_CLONE_NO_EXECUTION",
+    "checked_at_utc": "2026-08-09T06:21:08.4966402Z",
+    "default_branch_commit": "acd82b03af23d30bba7db36a9723d50f202fa4ce",
+    "github_spdx": "NOASSERTION",
+    "license": {
+      "path": "LICENSE",
+      "git_blob_sha": "06d2838601ebb005b612031a7fea33fbadd7e2ad",
+      "sha256": "307d5302ca858f7c45eaa96c966af884b7a4fe0a2c254beb28b300f58183a6a0",
+      "classification": "CUSTOM_PERSONAL_NONCOMMERCIAL_NO_REDISTRIBUTION_WITHOUT_PERMISSION",
+      "production_code_copy_allowed": false,
+      "repository_repackaging_allowed": false,
+      "data_or_model_import_allowed": false
+    },
+    "reviewed_file_identities": [
+      {"path": "config.py", "sha256": "af8ec414958107c35c8d649950fcd8ebd1580c00cba94937e5d528891848c1e0"},
+      {"path": "data_fetcher.py", "sha256": "d84f7c5b0e6288c3e56f005c5e66c6f7abe8439408263426c5dce6a85054a652"},
+      {"path": "preprocessor.py", "sha256": "381715106e783e949f278d3c904cd70d602650762318612baef4c789bc591232"},
+      {"path": "model.py", "sha256": "78990a22820d21d11d9e0c88db0a3668f718c60be0261df2f53e8e0e1febd11d"},
+      {"path": "weekly_picks_cfbd.py", "sha256": "9594121e8e73f7590c0a307ed1c67aefcfa4255af0cfd8a39c695bb5f5ff1e03"},
+      {"path": "run_predictions_with_outputs.py", "sha256": "7c2ec9427602bd6cf8f0032341230c42a35f78d7465af8c188928a575de13edc"},
+      {"path": ".github/workflows/ci.yml", "sha256": "297eac471edd38ca76d112ad5de111f7c82f8cd3d9d1618c26bdf028aa1f8ebb"},
+      {"path": ".github/workflows/run-model.yml", "sha256": "62a1dbb0f002d14e91d8260f6b77e3c3cbfe1a6b87fc87a0f952dd107403a126"},
+      {"path": "test_cfb_model.py", "sha256": "a9d8321fea5e028a8ad03aed70c4f5f945e06656fcf781ab91ceadf41ad52438"},
+      {"path": "IMPROVEMENTS.md", "sha256": "371ab86072d33a1586c191356987dc7d4b2c14d05f349584b54dbbccca9eb728"}
+    ],
+    "classification_matrix": [
+      {
+        "area": "API request validation, timeout, retry, and rate-limit handling",
+        "disposition": "ADAPT_CONCEPT_ONLY",
+        "reason": "Useful operational concepts, but implementation must be original and conform to this project's source contracts, quota ledger, immutable raw snapshots, and secret handling."
+      },
+      {
+        "area": "CFBD game, team, and talent acquisition",
+        "disposition": "ADAPT_ENDPOINT_AWARENESS_ONLY",
+        "reason": "No code or data copy; this project's canonical IDs, PIT fields, provenance, rights, and schema snapshots govern."
+      },
+      {
+        "area": "Zero-fill missing-value preprocessing",
+        "disposition": "REJECT",
+        "reason": "Undifferentiated zero fill would erase missingness semantics and violate the project's explicit missingness contracts."
+      },
+      {
+        "area": "Random train/test split and ordinary k-fold cross-validation",
+        "disposition": "REJECT",
+        "reason": "Protected evaluation requires chronological replay, embargo, target-game exclusion, and W17 judging rules."
+      },
+      {
+        "area": "Accuracy-only model selection",
+        "disposition": "REJECT",
+        "reason": "The project requires protected probabilistic metrics, including calibration-aware evidence, and forbids fabricated performance claims."
+      },
+      {
+        "area": "Elo, SRS, logistic, linear, tree, boosting, and score-baseline concepts",
+        "disposition": "ADAPT_GENERIC_CONCEPTS_ONLY_AFTER_EXISTING_GATES",
+        "reason": "These are generic modeling ideas; any implementation must be original, chronologically evaluated, and admitted only after real baseline evidence."
+      },
+      {
+        "area": "Opponent adjustment and drive-efficiency features",
+        "disposition": "DEFER_TO_EMPIRICAL_FEATURE_GATES",
+        "reason": "Potentially useful, but only with PIT-safe construction, provenance, stability, and measured incremental lift."
+      },
+      {
+        "area": "SHAP and stacked ensembles",
+        "disposition": "DEFER_OPTIONAL",
+        "reason": "Eligible only after a production backend, admitted feature set, and protected champion evidence exist."
+      },
+      {
+        "area": "Weekly automation and structured JSON/CSV outputs",
+        "disposition": "ADAPT_CONCEPT_ONLY",
+        "reason": "Operational shape is useful, but project snapshot, run-manifest, security, approval, and release contracts take precedence."
+      },
+      {
+        "area": "Serialized model files, bundled datasets, archives, workflows, and documentation",
+        "disposition": "REJECT_IMPORT_OR_EXECUTION",
+        "reason": "The custom licence prohibits production reuse/redistribution without permission, and untrusted serialized artifacts are not executed."
+      }
+    ],
+    "technical_findings": [
+      "The weekly-picks code explicitly distinguishes week-addressable Elo from hindsight-prone current FPI, SP+, and SRS usage; this reinforces the project's historical replay restrictions.",
+      "The reviewed model path uses random splitting, ordinary cross-validation, and accuracy-focused evaluation rather than protected chronological probabilistic judging.",
+      "Structured outputs exist, but no evidence was found of this project's immutable snapshot, canonical provenance, and W17 judging contracts.",
+      "The CI surface does not establish the full protected acceptance envelope required here.",
+      "The repository contains serialized model artifacts and datasets; none were downloaded, imported, deserialized, or executed."
+    ],
+    "copied_files": [],
+    "copied_code": false,
+    "downloaded_payloads": false,
+    "executed_third_party_code": false,
+    "adoption_authority": "CODEX_RETAINED"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Every prioritized source has a stable identifier, domain, upstream relationship, access method, historical depth, and PIT feasibility.",
+      "disposition": "PASS",
+      "observable_result": "All 62 canonical source IDs are unique and ordered SRC-001 through SRC-062; all required identity, lineage, access, depth, PIT, known-at, snapshot, and guardrail fields are non-empty.",
+      "evidence_path": "artifacts/source_governance/production_source_inventory.csv",
+      "evidence_sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+    },
+    {
+      "criterion": "SportsDataverse and CFBD upstream relationships are represented without false independent corroboration.",
+      "disposition": "PASS",
+      "observable_result": "SRC-001 points to SRC-061 plus ESPN upstream, SRC-061 points to ESPN upstream, both are marked non-independent siblings, and CFBD is explicitly marked as an aggregator with upstream caution.",
+      "evidence_path": "artifacts/source_governance/production_source_inventory.csv",
+      "evidence_sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+    },
+    {
+      "criterion": "Superseded or unavailable sources have explicit production dispositions.",
+      "disposition": "PASS",
+      "observable_result": "No source is silently superseded; all 62 rows explicitly say NOT_SUPERSEDED. PFF is deferred pending user reactivation, the restricted NCAA financial system is unavailable without authorized access, and every other source has a contract-, rights-, validation-, optional-, or research-gated production disposition.",
+      "evidence_path": "artifacts/source_governance/production_source_inventory.csv",
+      "evidence_sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B -m unittest discover -s tests -p test_data_research.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "2 tests passed."
+    },
+    {
+      "command": "python -B - [BAT-363 inventory structural and semantic validator]",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "62 rows, 62 unique sequential IDs, zero required-field blanks, explicit sibling lineage, no false sibling corroboration, explicit deferred/unavailable dispositions."
+    },
+    {
+      "command": "python -B - [BAT-363 pinned chronological eligibility and negative leakage contract]",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "At cutoff 2025-08-30T15:00:00Z for TARGET-GAME-001, 62 prior records were eligible; 62 future-known, 62 target-game, 62 postgame/realized, and all 30 missing-required-snapshot cases were rejected."
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_emitted": false,
+    "secret_values_stored_in_evidence": false,
+    "restricted_raw_payloads_stored": false,
+    "third_party_code_copied": false,
+    "third_party_data_copied": false,
+    "third_party_serialized_artifacts_executed": false,
+    "protected_files_modified": false,
+    "rights_decisions_are_legal_advice": false
+  },
+  "downstream_evaluation": {
+    "consumers": ["POST-SUBTASK-014", "POST-SUBTASK-015"],
+    "artifact_parseable": true,
+    "all_source_ids_unique": true,
+    "rights_review_required_before_promotion": true,
+    "pit_proof_required_before_promotion": true,
+    "raw_materialization_claimed": false,
+    "downstream_unlocked_for_governance_analysis": true,
+    "downstream_unlocked_for_production_ingestion": false
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED_AND_VALIDATED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "IN_PROGRESS_PENDING_REPOSITORY_INTEGRATION",
+    "live_jira_status": "In Progress",
+    "live_jira_logical_state": "BLOCKED",
+    "live_jira_comment_id": "13282",
+    "local_jira_reconciliation": "PASS_ONE_ROW_DRY_RUN_APPLY_REBUILD_AND_STRICT_SECOND_PASS_ZERO_CONFLICTS",
+    "local_jira_last_synced_at_utc": "2026-08-09T06:25:16.882034Z",
+    "remaining_blockers": [
+      "CANONICAL_REPOSITORY_HAS_NO_GIT_HISTORY_OR_BRANCH",
+      "GITHUB_REPOSITORY_HAS_NO_BRANCH_FOR_PR_OR_REQUIRED_CHECKS"
+    ],
+    "completion_claim": "The three issue-specific acceptance criteria and task-focused tests pass; BAT-363 is not marked Done until the canonical Git/GitHub integration path exists."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "version": "w18-hpo-v1.0",
+  "preferred_adapter": "Optuna",
+  "search_space_policy": "governance/HPO_SEARCH_SPACE_POLICY.csv",
+  "study_policy": "governance/HPO_STUDY_POLICY.csv",
+  "allowed_splits": [
+    "SPLIT-DEV-HIST",
+    "SPLIT-DEV-SEL"
+  ],
+  "forbidden_splits": [
+    "SPLIT-PROTECTED",
+    "SPLIT-FORWARD"
+  ],
+  "distributed_nfs_sqlite_allowed": false,
+  "paid_compute_default": "DISABLED",
+  "protected_metric_feedback_allowed": false
+}

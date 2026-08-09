@@ -1,0 +1,6 @@
+cohort_id,candidate,definition_inputs,outcome_conditioned,manual_adjustment_allowed,production_selected_w14
+TAMU-PEER-01,national_strength_band,strict-prior national strength;uncertainty;era,false,false,false
+TAMU-PEER-02,talent_roster_band,PIT-safe roster/recruiting/experience/depth evidence,false,false,false
+TAMU-PEER-03,resource_capacity_band,approved universal/public-enriched resource evidence;uncertainty,false,false,false
+TAMU-PEER-04,regime_transition_band,HC/OC/DC/QB/roster/scheme continuity state,false,false,false
+TAMU-PEER-05,competition_context_band,conference/division/opponent-strength context;era,false,false,false

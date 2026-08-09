@@ -1,0 +1,7 @@
+residual_id,scope,observed_measure,expected_controls,pooling,production_selected
+COACH-RES-01,QB_DEVELOPMENT,PIT-safe QB/unit performance,player_prior;OL;receivers;coordinator;play_caller;opponent;injury;continuity;scheme;game_state,hierarchical_partial_pooling_candidate,false
+COACH-RES-02,PASS_OFFENSE,PIT-safe passing unit performance,QB;OL;receivers;HC;opponent;injury;continuity;scheme;game_state,hierarchical_partial_pooling_candidate,false
+COACH-RES-03,RUN_OFFENSE,PIT-safe rushing unit performance,RB;OL;QB;HC;opponent;injury;continuity;scheme;game_state,hierarchical_partial_pooling_candidate,false
+COACH-RES-04,DEFENSE,PIT-safe defensive unit performance,player_value;co_staff;opponent;injury;continuity;scheme;game_state,hierarchical_partial_pooling_candidate,false
+COACH-RES-05,SPECIAL_TEAMS,PIT-safe special-teams performance,specialist_value;field_position;weather;opponent;continuity,hierarchical_partial_pooling_candidate,false
+COACH-RES-06,PROGRAM_EXPECTATION,team performance versus PIT-safe expectation,roster;QB;staff;opponent;schedule;availability;resources;home_field,hierarchical_partial_pooling_candidate,false

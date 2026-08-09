@@ -1,0 +1,772 @@
+{
+  "authenticated_user": {
+    "accountId": "63d5db4d28cddcc7076faad6",
+    "displayName": "GARRETT TRAINING SYSTEMS INC.",
+    "emailAddress": "kevinsgarrett@gmail.com"
+  },
+  "captured_at": "2026-08-09T04:45:39.636099+00:00",
+  "permission_scheme": {
+    "description": "Default scheme for Software projects.",
+    "expand": "permissions,user,group,projectRole,field,all",
+    "id": 10100,
+    "name": "Default software scheme",
+    "permissions": [
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11138,
+        "permission": "DELETE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11138"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11140,
+        "permission": "ARCHIVE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11140"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11142,
+        "permission": "EDIT_ALL_WORKLOGS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11142"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11144,
+        "permission": "MODIFY_REPORTER",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11144"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11146,
+        "permission": "EDIT_ALL_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11146"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11148,
+        "permission": "MANAGE_WATCHERS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11148"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11150,
+        "permission": "DELETE_ALL_ATTACHMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11150"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11152,
+        "permission": "UNARCHIVE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11152"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11154,
+        "permission": "DELETE_ALL_WORKLOGS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11154"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11156,
+        "permission": "DELETE_ALL_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11156"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10002",
+          "type": "projectRole",
+          "value": "10002"
+        },
+        "id": 11158,
+        "permission": "ADMINISTER_PROJECTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11158"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11085,
+        "permission": "EDIT_ISSUE_LAYOUT",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11085"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11086,
+        "permission": "EDIT_WORKFLOW",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11086"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11087,
+        "permission": "SET_ISSUE_SECURITY",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11087"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11088,
+        "permission": "MANAGE_VERSIONS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11088"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11089,
+        "permission": "DELETE_OWN_WORKLOGS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11089"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11091,
+        "permission": "VIEW_AGGREGATED_DATA",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11091"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11093,
+        "permission": "CREATE_ATTACHMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11093"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11095,
+        "permission": "VIEW_DEV_TOOLS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11095"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11097,
+        "permission": "CREATE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11097"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11099,
+        "permission": "DELETE_OWN_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11099"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11101,
+        "permission": "WORK_ON_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11101"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11103,
+        "permission": "EDIT_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11103"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11105,
+        "permission": "MANAGE_SPRINTS_PERMISSION",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11105"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11107,
+        "permission": "CLOSE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11107"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11109,
+        "permission": "SCHEDULE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11109"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11111,
+        "permission": "VIEW_VOTERS_AND_WATCHERS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11111"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11113,
+        "permission": "ADD_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11113"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11115,
+        "permission": "EDIT_OWN_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11115"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11117,
+        "permission": "ASSIGN_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11117"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11119,
+        "permission": "BROWSE_PROJECTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11119"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11121,
+        "permission": "RESOLVE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11121"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11123,
+        "permission": "VIEW_READONLY_WORKFLOW",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11123"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11125,
+        "permission": "MOVE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11125"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11127,
+        "permission": "DELETE_OWN_ATTACHMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11127"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11129,
+        "permission": "TRANSITION_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11129"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11131,
+        "permission": "ASSIGNABLE_USER",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11131"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11133,
+        "permission": "EDIT_OWN_WORKLOGS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11133"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11135,
+        "permission": "LINK_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11135"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11137,
+        "permission": "DELETE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11137"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11139,
+        "permission": "ARCHIVE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11139"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11141,
+        "permission": "EDIT_ALL_WORKLOGS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11141"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11143,
+        "permission": "MODIFY_REPORTER",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11143"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11145,
+        "permission": "EDIT_ALL_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11145"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11147,
+        "permission": "MANAGE_WATCHERS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11147"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11149,
+        "permission": "DELETE_ALL_ATTACHMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11149"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11151,
+        "permission": "UNARCHIVE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11151"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11153,
+        "permission": "DELETE_ALL_WORKLOGS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11153"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11155,
+        "permission": "DELETE_ALL_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11155"
+      },
+      {
+        "holder": {
+          "expand": "projectRole",
+          "parameter": "10003",
+          "type": "projectRole",
+          "value": "10003"
+        },
+        "id": 11157,
+        "permission": "ADMINISTER_PROJECTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11157"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11090,
+        "permission": "DELETE_OWN_WORKLOGS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11090"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11092,
+        "permission": "VIEW_AGGREGATED_DATA",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11092"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11094,
+        "permission": "CREATE_ATTACHMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11094"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11096,
+        "permission": "VIEW_DEV_TOOLS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11096"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11098,
+        "permission": "CREATE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11098"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11100,
+        "permission": "DELETE_OWN_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11100"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11102,
+        "permission": "WORK_ON_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11102"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11104,
+        "permission": "EDIT_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11104"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11106,
+        "permission": "MANAGE_SPRINTS_PERMISSION",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11106"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11108,
+        "permission": "CLOSE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11108"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11110,
+        "permission": "SCHEDULE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11110"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11112,
+        "permission": "VIEW_VOTERS_AND_WATCHERS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11112"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11114,
+        "permission": "ADD_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11114"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11116,
+        "permission": "EDIT_OWN_COMMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11116"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11118,
+        "permission": "ASSIGN_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11118"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11120,
+        "permission": "BROWSE_PROJECTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11120"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11122,
+        "permission": "RESOLVE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11122"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11124,
+        "permission": "VIEW_READONLY_WORKFLOW",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11124"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11126,
+        "permission": "MOVE_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11126"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11128,
+        "permission": "DELETE_OWN_ATTACHMENTS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11128"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11130,
+        "permission": "TRANSITION_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11130"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11132,
+        "permission": "ASSIGNABLE_USER",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11132"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11134,
+        "permission": "EDIT_OWN_WORKLOGS",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11134"
+      },
+      {
+        "holder": {
+          "type": "applicationRole"
+        },
+        "id": 11136,
+        "permission": "LINK_ISSUES",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100/permission/11136"
+      }
+    ],
+    "self": "https://kevinsgarrett.atlassian.net/rest/api/3/permissionscheme/10100"
+  },
+  "preexisting_delete_permission": false,
+  "projects_using_scheme": [
+    {
+      "key": "BAT",
+      "name": "BatteredAggieSyndrome"
+    },
+    {
+      "key": "CUM",
+      "name": "ComfyUI Main Autonomous Production System"
+    }
+  ],
+  "reason": "Temporary user-only DELETE_ISSUES grant required to remove verified exact importer duplicates.",
+  "schema_version": 1
+}

@@ -1,0 +1,9 @@
+control_id,control,required
+COACH-CONF-01,player/roster value,true
+COACH-CONF-02,opponent strength,true
+COACH-CONF-03,co-staff/head-coach/coordinator,true
+COACH-CONF-04,scheme/play caller,true
+COACH-CONF-05,injuries/availability,true
+COACH-CONF-06,continuity/regime,true
+COACH-CONF-07,game state/garbage-time policy,true
+COACH-CONF-08,schedule/travel/home field,true

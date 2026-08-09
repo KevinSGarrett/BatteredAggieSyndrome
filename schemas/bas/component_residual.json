@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BAS Component Residual",
+  "type": "object",
+  "required": [
+    "game_id",
+    "component_id",
+    "observed_value",
+    "expected_value",
+    "worse_than_expected_value",
+    "expectation_evidence_id",
+    "production_selected"
+  ],
+  "properties": {
+    "game_id": {
+      "type": "string"
+    },
+    "component_id": {
+      "enum": [
+        "OFFENSE",
+        "DEFENSE",
+        "SPECIAL_TEAMS",
+        "COACHING_DECISION",
+        "COLLAPSE_LIVE_RESEARCH"
+      ]
+    },
+    "observed_value": {
+      "type": "number"
+    },
+    "expected_value": {
+      "type": "number"
+    },
+    "worse_than_expected_value": {
+      "type": "number"
+    },
+    "expectation_evidence_id": {
+      "type": "string"
+    },
+    "production_selected": {
+      "const": false
+    }
+  },
+  "additionalProperties": false
+}

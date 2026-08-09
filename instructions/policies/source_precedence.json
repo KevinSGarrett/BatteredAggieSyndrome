@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-SOURCE-PRECEDENCE",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/02_SOURCE_OF_TRUTH_AND_CONFLICT_RESOLUTION.md",
+  "precedence": [
+    {
+      "rank": 1,
+      "id": "CURRENT_EXPLICIT_USER_INSTRUCTION",
+      "scope": "Current task-specific user direction that does not violate higher safety/access constraints.",
+      "examples": [
+        "the present user request",
+        "an explicit approval or prohibition in the current session"
+      ]
+    },
+    {
+      "rank": 2,
+      "id": "SECURITY_LEGAL_ACCESS",
+      "scope": "Security, privacy, licensing, terms, authorization, and access-control restrictions.",
+      "examples": [
+        "credential handling",
+        "source rights",
+        "protected data",
+        "paid-spend approval"
+      ]
+    },
+    {
+      "rank": 3,
+      "id": "AGENTS_ROOT_CONTRACT",
+      "scope": "Repository-wide agent contract in AGENTS.md."
+    },
+    {
+      "rank": 4,
+      "id": "W25_FINAL_AND_PROTECTED_GOVERNANCE",
+      "scope": "Final W25 handoff, immutable rules, protected acceptance/judging rules, and no-W26 boundary.",
+      "examples": [
+        "docs/final/CODEX_HANDOFF.md",
+        "governance/IMMUTABLE_RULES.md",
+        "governance/DO_NOT_DRIFT.md",
+        "governance/PROTECTED_ACCEPTANCE_RULES.md",
+        "governance/PROTECTED_JUDGING_RULE_SEAL.csv"
+      ]
+    },
+    {
+      "rank": 5,
+      "id": "CURRENT_OPERATIONAL_STATE",
+      "scope": "Current state, final backlog, final priorities, known gaps, critical path, and active instruction policies.",
+      "examples": [
+        "governance/CURRENT_STATE.yaml",
+        "governance/CURRENT_BACKLOG.yaml",
+        "docs/final/FINAL_BACKLOG.csv",
+        "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+        "instructions/policies/*.json"
+      ]
+    },
+    {
+      "rank": 6,
+      "id": "MACHINE_REGISTRIES",
+      "scope": "Current requirements, ADR, acceptance, task, dependency, schema, source, and shared-contract registries."
+    },
+    {
+      "rank": 7,
+      "id": "TASK_LINKED_TECHNICAL_SOURCES",
+      "scope": "Approved plans, architecture documents, schemas, interfaces, tests, and evidence explicitly applicable to the active task."
+    },
+    {
+      "rank": 8,
+      "id": "LIVE_JIRA_EXECUTION_STATE",
+      "scope": "Live BAT workflow state, assignment, issue hierarchy, dependencies, blockers, and execution metadata."
+    },
+    {
+      "rank": 9,
+      "id": "LOCAL_JIRA_INDEX",
+      "scope": "Synchronized local Jira mappings and cache; never authoritative over live mutable status."
+    },
+    {
+      "rank": 10,
+      "id": "HISTORICAL_WAVE_RECORDS",
+      "scope": "Historical planning/provenance that remains true for its time but may be operationally superseded."
+    },
+    {
+      "rank": 11,
+      "id": "AGENT_INFERENCE",
+      "scope": "Explicitly labeled inference used only when evidence does not conflict and risk is low."
+    }
+  ],
+  "authority_by_information_type": {
+    "technical_requirements": [
+      "governance/REQUIREMENTS_INDEX.csv",
+      "governance/REQUIREMENTS_TRACEABILITY.csv"
+    ],
+    "architecture_decisions": [
+      "governance/ADR_INDEX.csv",
+      "configs/architecture_registry.json",
+      "task-linked architecture documents"
+    ],
+    "acceptance_and_protected_evaluation": [
+      "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+      "governance/PROTECTED_ACCEPTANCE_RULES.md",
+      "governance/PROTECTED_JUDGING_RULE_SEAL.csv"
+    ],
+    "implementation_dependencies": [
+      "governance/IMPLEMENTATION_WBS.csv",
+      "governance/TASK_DEPENDENCIES.csv",
+      "docs/final/FINAL_BACKLOG.csv"
+    ],
+    "execution_status": [
+      "live Jira BAT"
+    ],
+    "integration_state": [
+      "Git",
+      "GitHub pull requests and checks"
+    ],
+    "scientific_results": [
+      "versioned immutable experiment/evaluation evidence generated under protected rules"
+    ],
+    "source_rights": [
+      "current authoritative source terms and recorded human/legal review"
+    ],
+    "local_jira_cache": [
+      "jira/issue_source_map.json",
+      "jira/status_map.json",
+      "jira/cache (local-only when hydrated)"
+    ]
+  },
+  "same_rank_conflict_algorithm": [
+    "Name the exact conflicting claims, dates/versions, and affected action.",
+    "Search for a more specific current canonical artifact or explicit supersession record.",
+    "Prefer current task-applicable machine registry state over stale prose when both have equal authority and no protected rule is weakened.",
+    "Preserve historical records; add a current supersession pointer instead of rewriting history.",
+    "Record the resolution in the active task/PR and the conflict register when recurring.",
+    "Block only when proceeding risks security, rights, data loss, PIT/leakage, protected evaluation, canonical identity, or integration integrity."
+  ],
+  "silent_conflict_resolution_forbidden": true,
+  "historical_rewrite_forbidden": true
+}

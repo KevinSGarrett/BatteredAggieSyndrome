@@ -1,0 +1,10 @@
+evidence_id,position_scope,evidence_family,examples,pit_required,role,manual_fixed_weight,production_selected
+PV-001,QB,passing/rushing/pressure/experience,opponent-adjusted passing efficiency; CPOE; sacks; scrambles; starts/dropbacks,true,candidate player-value evidence,,false
+PV-002,RB,rushing/receiving/protection/usage,rush efficiency; explosive runs; receiving; usage; protection where legitimate,true,candidate player-value evidence,,false
+PV-003,WR/TE,targets/routes/receiving/depth/usage,targets; routes where available; receiving efficiency; depth; YAC; catch efficiency,true,candidate player-value evidence,,false
+PV-004,OL,starts/continuity/pressure/run-block proxies,starts; combinations; pressures/sacks allowed; line-yard/run-block proxies; penalties,true,candidate player-value evidence,,false
+PV-005,DL/EDGE,pressure/run-defense/participation,pressure; sacks; havoc; run-defense; snaps/rotation,true,candidate player-value evidence,,false
+PV-006,LB,run/pass/pressure/participation,tackles; pressure; coverage proxies; run defense; role/snap evidence,true,candidate player-value evidence,,false
+PV-007,DB,coverage/explosives/tackling/participation,coverage proxies; explosives allowed; tackles/misses where obtainable; role,true,candidate player-value evidence,,false
+PV-008,K/P/RET,specialist performance/context,kick distance/probability; punts; returns; touchbacks; weather/context,true,candidate player-value evidence,,false
+PV-009,ALL,recruiting/experience/development/context,recruiting prior; age/class; experience; opponent strength; supporting cast,true,prior/context candidate,,false

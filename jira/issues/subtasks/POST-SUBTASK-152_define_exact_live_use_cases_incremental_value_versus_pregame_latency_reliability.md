@@ -1,0 +1,516 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-152_define_exact_live_use_cases_incremental_value_versus_pregame_latency_reliability.json -->
+# POST-SUBTASK-152 — [POST-SUBTASK-152] Define exact live use cases, incremental value versus pregame, latency/reliability/resource/failure targets, isolation, and no-build criteria
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.",
+    "The declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "Canonical parent Story: POST-STORY-051. Governance traceability gate: POST-SUBTASK-159. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.",
+    "Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-152.json`; inspect only the listed implementation files and prerequisite outputs.",
+    "May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.",
+    "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
+  ],
+  "allowed_modification_paths": [
+    "artifacts/live/live_value_feasibility.json",
+    "artifacts/jira_evidence/POST-SUBTASK-152.json"
+  ],
+  "blocked_reason": "DEFERRED_OR_CONDITIONAL_BY_FINAL_HANDOFF",
+  "blocks": [
+    "POST-SUBTASK-153"
+  ],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-152_define_exact_live_use_cases_incremental_value_versus_pregame_latency_reliability.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {
+    "acceptance_matrix_required": true,
+    "artifact_hashes_required": true,
+    "completion_claim_limit": "EMPIRICALLY_VALIDATED",
+    "downstream_consumer": "POST-SUBTASK-153",
+    "governance_traceability_gate": "POST-SUBTASK-159",
+    "negative_results_preserved": true,
+    "provenance_dimensions": [
+      "source",
+      "data",
+      "code",
+      "config",
+      "tool",
+      "runtime",
+      "split/cutoff when applicable"
+    ]
+  },
+  "component": "live-modeling",
+  "components_expected_to_be_touched": [
+    "live-modeling",
+    "live"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "The atomic scope in POST-SUBTASK-152 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
+    "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
+    "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
+    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
+    "The output set `artifacts/live/live_value_feasibility.json` is demonstrably consumable by POST-SUBTASK-153 without manual reconstruction or undocumented state."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-141",
+    "POST-SUBTASK-151"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 0,
+    "adr_ids": 3,
+    "gap_ids": 1,
+    "requirement_ids": 1,
+    "risk_ids": 0
+  },
+  "effective_traceability_total": 5,
+  "end_to_end_validation": "Validate that `artifacts/live/live_value_feasibility.json` can be parsed and consumed by `POST-SUBTASK-153` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "epic_id": "POST-EPIC-017",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-152.json",
+  "evidence_state": "PLANNED",
+  "execution_lane": "RESEARCH_LANE",
+  "execution_mode": "ATOMIC_EXECUTION",
+  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
+  "expected_outputs": [
+    "artifacts/live/live_value_feasibility.json"
+  ],
+  "files_expected_to_be_read": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/OPEN_ISSUES.md"
+  ],
+  "files_expected_to_be_touched": [],
+  "files_to_inspect": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/OPEN_ISSUES.md"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-152_define_exact_live_use_cases_incremental_value_versus_pregame_latency_reliability.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "POST-SUBTASK-159",
+  "historical_classification": "ACTIONABLE_POST_WAVE",
+  "import_id": 100456,
+  "in_scope": [
+    "Perform the exact action: Define exact live use cases, incremental value versus pregame, latency/reliability/resource/failure targets, isolation, and no-build criteria.",
+    "Consume only verified prerequisite outputs from `POST-SUBTASK-141`, `POST-SUBTASK-151`.",
+    "Demonstrate with saved evidence: Use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.",
+    "Demonstrate with saved evidence: The declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Produce, validate, content-hash, and register `artifacts/live/live_value_feasibility.json`.",
+    "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
+  ],
+  "issue_type": "Subtask",
+  "jira_key": "BAT-502",
+  "labels": [
+    "actionable",
+    "deferred",
+    "live",
+    "post-wave",
+    "research-lane",
+    "subtask"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "POST-SUBTASK-152",
+  "maturity_before": "DEFERRED",
+  "objective": "Define exact live use cases, incremental value versus pregame, latency/reliability/resource/failure targets, isolation, and no-build criteria",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24642",
+    "jira_updated_at": "2026-08-09T00:04:13.452-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
+    "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Work assigned to sibling subtasks: Research licensed live play/state/market feeds, authentication, terms, history, replayability, latency, reliability, cost, retention, and redistribution; Apply the separate live-scope admission gate without creating Wave 26.",
+    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.",
+    "Substituting a non-authoritative machine, estimated timing, or synthetic benchmark result for the declared target-host evidence.",
+    "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.",
+    "Treating deferred live/in-game work as admitted production scope or describing it as Wave 26."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-051",
+  "phase": "PHASE-5",
+  "prerequisites": [
+    "Dependency POST-SUBTASK-141 complete at required maturity",
+    "Dependency POST-SUBTASK-151 complete at required maturity"
+  ],
+  "primary_source_refs": [
+    "SRCREF-02112",
+    "SRCREF-02113",
+    "SRCREF-02114",
+    "SRCREF-02115"
+  ],
+  "priority": "DEFERRED",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/OPEN_ISSUES.md"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [],
+  "required_evidence": [
+    "`artifacts/live/live_value_feasibility.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
+    "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
+    "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
+    "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
+    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.",
+    "Raw benchmark samples and machine inventory, including OS/CPU/RAM/GPU/storage, workload hash, repetitions, warm/cold distinction, errors, peak resources, and authority classification.",
+    "Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status."
+  ],
+  "required_tests": [
+    {
+      "classification": "BENCHMARK",
+      "expectation": "Execute the declared workload with raw samples, repetitions, machine identity, resource telemetry, failures, and non-authoritative-environment labeling.",
+      "path": "artifacts/live/live_value_feasibility.json",
+      "validation_class": "BENCHMARK"
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "expectation": "Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.",
+      "path": "artifacts/live/live_value_feasibility.json",
+      "validation_class": "SCIENTIFIC"
+    },
+    {
+      "classification": "CALIBRATION",
+      "expectation": "Report calibration/reliability evidence on the allowed evaluation lane with sample size and uncertainty.",
+      "path": "artifacts/live/live_value_feasibility.json",
+      "validation_class": "CALIBRATION"
+    },
+    {
+      "classification": "STATIC_VALIDATION",
+      "expectation": "Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.",
+      "path": "artifacts/live/live_value_feasibility.json",
+      "validation_class": "STATIC_VALIDATION"
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "expectation": "Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.",
+      "path": "ISSUE_COMPLETION_MANIFEST",
+      "validation_class": "REPRODUCIBILITY"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-152.",
+    "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
+    "Acceptance failure: the evidence cannot demonstrate that use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.",
+    "Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Execute the atomic 2 of 3 step in Story POST-STORY-051 (Live need, source, rights, latency, cost, and value gate): Define exact live use cases, incremental value versus pregame, latency/reliability/resource/failure targets, isolation, and no-build criteria. Consume only verified prerequisite outputs from `POST-SUBTASK-141`, `POST-SUBTASK-151`. Produce `artifacts/live/live_value_feasibility.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-153.",
+  "source_ids": [
+    "GAP-014",
+    "HANDOFF-014",
+    "TASK-169",
+    "TASK-170",
+    "TASK-171",
+    "TASK-172"
+  ],
+  "source_refs": [
+    "SRCREF-02112",
+    "SRCREF-02113",
+    "SRCREF-02114",
+    "SRCREF-02115",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01900",
+    "SRCREF-01576",
+    "SRCREF-00202",
+    "SRCREF-00203",
+    "SRCREF-00204",
+    "SRCREF-00205"
+  ],
+  "specificity_fingerprint": "4ca172922c855ae4695cc7366f10f4d310893d2c45337a9f044b89267d02c20a",
+  "stop_conditions": [
+    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
+    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
+    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01900",
+    "SRCREF-01576",
+    "SRCREF-00202",
+    "SRCREF-00203",
+    "SRCREF-00204",
+    "SRCREF-00205"
+  ],
+  "title": "[POST-SUBTASK-152] Define exact live use cases, incremental value versus pregame, latency/reliability/resource/failure targets, isolation, and no-build criteria",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-159"
+  ],
+  "traceability_resolution": "INHERITED_DOMAIN_GATE",
+  "unblock_condition": "A documented admission/replanning decision must explicitly activate this work after all stated prerequisites pass.",
+  "validation_classes": [
+    "BENCHMARK",
+    "CALIBRATION",
+    "REPRODUCIBILITY",
+    "SCIENTIFIC",
+    "STATIC_VALIDATION"
+  ],
+  "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-051: Live need, source, rights, latency, cost, and value gate.",
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-152.md",
+  "workflow_state": "DEFERRED"
+}
+```
+
+## Objective
+
+Define exact live use cases, incremental value versus pregame, latency/reliability/resource/failure targets, isolation, and no-build criteria
+
+## Why This Exists
+
+This is an independently executable and verifiable work unit required by Story POST-STORY-051: Live need, source, rights, latency, cost, and value gate.
+
+## Scope
+
+Execute the atomic 2 of 3 step in Story POST-STORY-051 (Live need, source, rights, latency, cost, and value gate): Define exact live use cases, incremental value versus pregame, latency/reliability/resource/failure targets, isolation, and no-build criteria. Consume only verified prerequisite outputs from `POST-SUBTASK-141`, `POST-SUBTASK-151`. Produce `artifacts/live/live_value_feasibility.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-153.
+
+### Explicit In Scope
+
+- Perform the exact action: Define exact live use cases, incremental value versus pregame, latency/reliability/resource/failure targets, isolation, and no-build criteria.
+- Consume only verified prerequisite outputs from `POST-SUBTASK-141`, `POST-SUBTASK-151`.
+- Demonstrate with saved evidence: Use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.
+- Demonstrate with saved evidence: The declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+- Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+- Produce, validate, content-hash, and register `artifacts/live/live_value_feasibility.json`.
+- Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
+
+### Explicit Out of Scope
+
+- Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
+- Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Work assigned to sibling subtasks: Research licensed live play/state/market feeds, authentication, terms, history, replayability, latency, reliability, cost, retention, and redistribution; Apply the separate live-scope admission gate without creating Wave 26.
+- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Substituting a non-authoritative machine, estimated timing, or synthetic benchmark result for the declared target-host evidence.
+- Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
+- Treating deferred live/in-game work as admitted production scope or describing it as Wave 26.
+
+## Prerequisites
+
+- Dependency POST-SUBTASK-141 complete at required maturity
+- Dependency POST-SUBTASK-151 complete at required maturity
+
+## Hard Dependencies
+
+- POST-SUBTASK-141
+- POST-SUBTASK-151
+
+## Blocks
+
+- POST-SUBTASK-153
+
+## Read / Inspect First
+
+- governance/DO_NOT_DRIFT.md
+- docs/final/CODEX_HANDOFF.md
+- docs/final/FINAL_BACKLOG.csv
+- docs/final/FINAL_COMPONENT_MATURITY.csv
+- docs/final/FINAL_IMPLEMENTATION_PRIORITY.md
+- docs/final/FINAL_KNOWN_GAPS.csv
+- governance/IMPLEMENTATION_WBS.csv
+- governance/OPEN_ISSUES.md
+
+## Files Expected To Be Modified
+
+- None.
+
+## Components Expected To Be Touched
+
+- live-modeling
+- live
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+- configs/judging_rule_seal.json
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+
+## Expected Outputs / Artifacts
+
+- artifacts/live/live_value_feasibility.json
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-159`
+- Inherited from: POST-SUBTASK-159
+- Resolution: `INHERITED_DOMAIN_GATE`
+- Effective counts: `{"acceptance_control_ids": 0, "adr_ids": 3, "gap_ids": 1, "requirement_ids": 1, "risk_ids": 0}`
+
+## Acceptance Criteria
+
+1. Use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.
+2. The declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+
+## Definition of Done
+
+1. The atomic scope in POST-SUBTASK-152 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
+3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
+4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
+5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
+7. The output set `artifacts/live/live_value_feasibility.json` is demonstrably consumable by POST-SUBTASK-153 without manual reconstruction or undocumented state.
+
+## Required Tests / Validation
+
+- **BENCHMARK** / `BENCHMARK` — `artifacts/live/live_value_feasibility.json` — Execute the declared workload with raw samples, repetitions, machine identity, resource telemetry, failures, and non-authoritative-environment labeling.
+- **SCIENTIFIC** / `SCIENTIFIC` — `artifacts/live/live_value_feasibility.json` — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
+- **CALIBRATION** / `CALIBRATION` — `artifacts/live/live_value_feasibility.json` — Report calibration/reliability evidence on the allowed evaluation lane with sample size and uncertainty.
+- **STATIC_VALIDATION** / `STATIC_VALIDATION` — `artifacts/live/live_value_feasibility.json` — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
+- **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
+
+## Required Evidence
+
+- `artifacts/live/live_value_feasibility.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
+- Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
+- An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
+- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Raw benchmark samples and machine inventory, including OS/CPU/RAM/GPU/storage, workload hash, repetitions, warm/cold distinction, errors, peak resources, and authority classification.
+- Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
+
+## Completion Evidence Contract
+
+```json
+{
+  "acceptance_matrix_required": true,
+  "artifact_hashes_required": true,
+  "completion_claim_limit": "EMPIRICALLY_VALIDATED",
+  "downstream_consumer": "POST-SUBTASK-153",
+  "governance_traceability_gate": "POST-SUBTASK-159",
+  "negative_results_preserved": true,
+  "provenance_dimensions": [
+    "source",
+    "data",
+    "code",
+    "config",
+    "tool",
+    "runtime",
+    "split/cutoff when applicable"
+  ]
+}
+```
+
+## End-to-End Validation Requirement
+
+Validate that `artifacts/live/live_value_feasibility.json` can be parsed and consumed by `POST-SUBTASK-153` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+
+## Expected Maturity After Completion
+
+`EMPIRICALLY_VALIDATED`
+
+## Risk / Failure Conditions
+
+- The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-152.
+- A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
+- Acceptance failure: the evidence cannot demonstrate that use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.
+- Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+- Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+
+## Stop Conditions
+
+- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
+- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
+- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+
+## Source References
+
+- SRCREF-02112
+- SRCREF-02113
+- SRCREF-02114
+- SRCREF-02115
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01900
+- SRCREF-01576
+- SRCREF-00202
+- SRCREF-00203
+- SRCREF-00204
+- SRCREF-00205
+
+## AI Context Notes
+
+- Canonical parent Story: POST-STORY-051. Governance traceability gate: POST-SUBTASK-159. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.
+- Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-152.json`; inspect only the listed implementation files and prerequisite outputs.
+- May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.
+- Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient.

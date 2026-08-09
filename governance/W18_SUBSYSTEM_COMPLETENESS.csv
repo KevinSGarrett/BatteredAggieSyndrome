@@ -1,0 +1,17 @@
+subsystem_id,subsystem,status,primary_spec,reference_code,primary_test
+SUB-01,Canonical experiment identity,FULL_REFERENCE,docs/76_CANONICAL_EXPERIMENT_SPEC.md,src/aggie_analytics/experimentation/lineage.py,tests/test_lineage_full.py
+SUB-02,Local experiment store,FULL_REFERENCE,docs/77_LOCAL_EXPERIMENT_STORE.md,src/aggie_analytics/experimentation/store.py,tests/test_experiment_store_full.py
+SUB-03,Research queue/event chain,FULL_REFERENCE,docs/78_RESEARCH_QUEUE_SCHEDULER.md,src/aggie_analytics/experimentation/queue.py,tests/test_experiment_store_full.py
+SUB-04,Resource scheduler,FULL_REFERENCE,docs/90_LOCAL_RESOURCE_ORCHESTRATION.md,src/aggie_analytics/experimentation/scheduler.py,tests/test_resource_scheduler_full.py
+SUB-05,Feature tournament,FULL_REFERENCE,docs/79_FEATURE_TOURNAMENT_PROTOCOL.md,src/aggie_analytics/experimentation/feature_tournament.py,tests/test_feature_tournament_full.py
+SUB-06,Model tournament,FULL_REFERENCE,docs/80_MODEL_TOURNAMENT_PROTOCOL.md,src/aggie_analytics/experimentation/model_tournament.py,tests/test_model_tournament_full.py
+SUB-07,HPO governance/reference,FULL_REFERENCE,docs/81_HPO_STUDY_GOVERNANCE.md,src/aggie_analytics/experimentation/hpo_engine.py,tests/test_hpo_engine_full.py
+SUB-08,Result compatibility,FULL_REFERENCE,docs/83_RESULT_PACKET_AND_EVIDENCE.md,src/aggie_analytics/experimentation/comparison.py,tests/test_result_comparison_full.py
+SUB-09,Artifact policy,FULL_REFERENCE,docs/86_ARTIFACT_RETENTION.md,src/aggie_analytics/experimentation/artifacts_v2.py,tests/test_artifact_policy_full.py
+SUB-10,Replay engine,FULL_REFERENCE,docs/84_REPLAY_ENGINE.md,src/aggie_analytics/experimentation/replay_engine.py,tests/test_replay_engine_full.py
+SUB-11,Worktree locks,FULL_REFERENCE,docs/85_WORKTREE_ISOLATION.md,src/aggie_analytics/experimentation/locks.py,tests/test_locks_full.py
+SUB-12,Promotion bridge,FULL_REFERENCE,docs/88_CHALLENGER_ADOPTION.md,src/aggie_analytics/experimentation/promotion_bridge.py,tests/test_promotion_bridge_full.py
+SUB-13,Advanced challenger admission,FULL_REFERENCE,docs/91_ADVANCED_CHALLENGER_GATE.md,src/aggie_analytics/experimentation/advanced_challengers.py,tests/test_advanced_challenger_full.py
+SUB-14,MLflow adapter boundary,FULL_REFERENCE,docs/92_MLFLOW_ADAPTER.md,src/aggie_analytics/experimentation/adapters.py,tests/test_local_tracker_full.py
+SUB-15,Optuna adapter boundary,FULL_REFERENCE,docs/93_OPTUNA_ADAPTER.md,src/aggie_analytics/experimentation/hpo.py,tests/test_hpo_governance.py
+SUB-16,Full wave gate/coverage,FULL_REFERENCE,docs/94_W18_ACCEPTANCE_TRACEABILITY.md,tools/validate_w18_full_rebuild.py,tests/test_w18_full_gate.py

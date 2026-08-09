@@ -1,0 +1,7 @@
+candidate_class,admission_state,required_evidence,default_disposition
+SIMPLE_BASELINE_EXTENSION,ADMITTED_RESEARCH_ONLY,W16 baseline contract + W17 protocol seal + resource budget,Allowed development-only experiment.
+BOOSTED_TABULAR_CHALLENGER,ADMITTED_RESEARCH_ONLY,Simple comparator declared; development-only objective,Allowed development-only experiment; no production promotion.
+SMALL_NEURAL_TABULAR,BLOCKED_BASELINE_EMPIRICAL_EVIDENCE_MISSING,Materialized simple/boosted baseline evidence plus compute rationale,Design only until baseline evidence exists.
+SEQUENCE_TRANSFORMER,BLOCKED_BASELINE_EMPIRICAL_EVIDENCE_MISSING,Strong conventional baseline evidence + temporal sequence benefit hypothesis + compute rationale,Phase-5 design only.
+GRAPH_NEURAL_NETWORK,BLOCKED_BASELINE_EMPIRICAL_EVIDENCE_MISSING,Graph-specific signal hypothesis + conventional baseline evidence + compute rationale,Phase-5 design only.
+LIVE_MODEL,BLOCKED_HISTORICAL_REPLAY_IMPLEMENTATION_MISSING,Isolated live replay dataset/path and pregame contamination tests,Future live research only.

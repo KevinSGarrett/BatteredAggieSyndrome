@@ -1,0 +1,1958 @@
+{
+  "files": [
+    {
+      "archive": "AGENTS.md",
+      "source": "AGENTS.md"
+    },
+    {
+      "archive": "PROJECT_IDENTITY.yaml",
+      "source": "governance/PROJECT_IDENTITY.yaml"
+    },
+    {
+      "archive": "CURRENT_STATE.yaml",
+      "source": "governance/CURRENT_STATE.yaml"
+    },
+    {
+      "archive": "WAVE_PLAN.md",
+      "source": "governance/WAVE_PLAN.md"
+    },
+    {
+      "archive": "WAVE_LEDGER.md",
+      "source": "governance/WAVE_LEDGER.md"
+    },
+    {
+      "archive": "NEXT_WAVE.md",
+      "source": "governance/NEXT_WAVE.md"
+    },
+    {
+      "archive": "REQUIREMENTS_INDEX.csv",
+      "source": "governance/REQUIREMENTS_INDEX.csv"
+    },
+    {
+      "archive": "REQUIREMENTS_TRACEABILITY.csv",
+      "source": "governance/REQUIREMENTS_TRACEABILITY.csv"
+    },
+    {
+      "archive": "DECISION_LEDGER.md",
+      "source": "governance/DECISION_LEDGER.md"
+    },
+    {
+      "archive": "ADR_INDEX.csv",
+      "source": "governance/ADR_INDEX.csv"
+    },
+    {
+      "archive": "IMMUTABLE_RULES.md",
+      "source": "governance/IMMUTABLE_RULES.md"
+    },
+    {
+      "archive": "DO_NOT_DRIFT.md",
+      "source": "governance/DO_NOT_DRIFT.md"
+    },
+    {
+      "archive": "SOURCE_OF_TRUTH_MAP.md",
+      "source": "governance/SOURCE_OF_TRUTH_MAP.md"
+    },
+    {
+      "archive": "SUPERSEDED_DECISIONS.md",
+      "source": "governance/SUPERSEDED_DECISIONS.md"
+    },
+    {
+      "archive": "CURRENT_BACKLOG.yaml",
+      "source": "governance/CURRENT_BACKLOG.yaml"
+    },
+    {
+      "archive": "OPPORTUNITY_BACKLOG.yaml",
+      "source": "governance/OPPORTUNITY_BACKLOG.yaml"
+    },
+    {
+      "archive": "OPEN_ISSUES.md",
+      "source": "governance/OPEN_ISSUES.md"
+    },
+    {
+      "archive": "RISKS.md",
+      "source": "governance/RISKS.md"
+    },
+    {
+      "archive": "ASSUMPTIONS.md",
+      "source": "governance/ASSUMPTIONS.md"
+    },
+    {
+      "archive": "ADAPTIVE_CHANGE_LOG.md",
+      "source": "governance/ADAPTIVE_CHANGE_LOG.md"
+    },
+    {
+      "archive": "ASSUMPTION_CHALLENGE_LOG.md",
+      "source": "governance/ASSUMPTION_CHALLENGE_LOG.md"
+    },
+    {
+      "archive": "WAVE_PLAN_REVISIONS.md",
+      "source": "governance/WAVE_PLAN_REVISIONS.md"
+    },
+    {
+      "archive": "ACCEPTANCE_STATUS.json",
+      "source": "governance/ACCEPTANCE_STATUS.json"
+    },
+    {
+      "archive": "CURRENT_TREE.txt",
+      "source": "provenance/CURRENT_TREE.txt"
+    },
+    {
+      "archive": "PROJECT_FILE_MANIFEST.csv",
+      "source": "provenance/PROJECT_FILE_MANIFEST.csv"
+    },
+    {
+      "archive": "PROJECT_FILE_HASHES.sha256",
+      "source": "provenance/PROJECT_FILE_HASHES.sha256"
+    },
+    {
+      "archive": "CHANGELOG_SINCE_WAVE_01.md",
+      "source": "CHANGELOG.md"
+    },
+    {
+      "archive": "DATA_CONTEXT.md",
+      "source": "docs/context/DATA_CONTEXT.md"
+    },
+    {
+      "archive": "MODELING_CONTEXT.md",
+      "source": "docs/context/MODELING_CONTEXT.md"
+    },
+    {
+      "archive": "TAMU_SPECIALIZATION_CONTEXT.md",
+      "source": "docs/context/TAMU_SPECIALIZATION_CONTEXT.md"
+    },
+    {
+      "archive": "BAS_CONTEXT.md",
+      "source": "docs/context/BAS_CONTEXT.md"
+    },
+    {
+      "archive": "AUTONOMY_MLOPS_CONTEXT.md",
+      "source": "docs/context/AUTONOMY_MLOPS_CONTEXT.md"
+    },
+    {
+      "archive": "CURRENT_RESEARCH_FINDINGS.md",
+      "source": "docs/context/CURRENT_RESEARCH_FINDINGS.md"
+    },
+    {
+      "archive": "UNRESOLVED_DATA_CONTEXT.md",
+      "source": "docs/context/UNRESOLVED_DATA_CONTEXT.md"
+    },
+    {
+      "archive": "ADAPTIVE_ARCHITECTURE_CONTEXT.md",
+      "source": "docs/context/ADAPTIVE_ARCHITECTURE_CONTEXT.md"
+    },
+    {
+      "archive": "REPOSITORY_OPERATIONS.md",
+      "source": "docs/04_REPOSITORY_OPERATIONS.md"
+    },
+    {
+      "archive": "PACKAGING_INTEGRITY.md",
+      "source": "docs/07_PACKAGING_INTEGRITY.md"
+    },
+    {
+      "archive": "ARCHITECTURE.md",
+      "source": "docs/01_ARCHITECTURE.md"
+    },
+    {
+      "archive": "ARCHITECTURE_REGISTRY.json",
+      "source": "configs/architecture_registry.json"
+    },
+    {
+      "archive": "ARCHITECTURE_DECISION_MATRIX.csv",
+      "source": "governance/ARCHITECTURE_DECISION_MATRIX.csv"
+    },
+    {
+      "archive": "W04_ADAPTIVE_REVIEW.md",
+      "source": "governance/W04_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W04_VALIDATION_REPORT.md",
+      "source": "governance/W04_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "REQUIREMENTS_ACCEPTANCE_ARCHITECTURE.md",
+      "source": "docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md"
+    },
+    {
+      "archive": "SECURITY_REPRO_PERFORMANCE_GOVERNANCE.md",
+      "source": "docs/09_SECURITY_REPRODUCIBILITY_PERFORMANCE_GOVERNANCE.md"
+    },
+    {
+      "archive": "ACCEPTANCE_REGISTRY.json",
+      "source": "configs/acceptance_registry.json"
+    },
+    {
+      "archive": "ACCEPTANCE_CONTROL_CATALOG.csv",
+      "source": "governance/ACCEPTANCE_CONTROL_CATALOG.csv"
+    },
+    {
+      "archive": "ACCEPTANCE_THRESHOLD_REGISTRY.csv",
+      "source": "governance/ACCEPTANCE_THRESHOLD_REGISTRY.csv"
+    },
+    {
+      "archive": "REQUIREMENT_ACCEPTANCE_MATRIX.csv",
+      "source": "governance/REQUIREMENT_ACCEPTANCE_MATRIX.csv"
+    },
+    {
+      "archive": "ADR_ACCEPTANCE_TRACEABILITY.csv",
+      "source": "governance/ADR_ACCEPTANCE_TRACEABILITY.csv"
+    },
+    {
+      "archive": "RISK_ACCEPTANCE_TRACEABILITY.csv",
+      "source": "governance/RISK_ACCEPTANCE_TRACEABILITY.csv"
+    },
+    {
+      "archive": "CONSTRAINT_CLASSIFICATION_AUDIT.csv",
+      "source": "governance/CONSTRAINT_CLASSIFICATION_AUDIT.csv"
+    },
+    {
+      "archive": "PROTECTED_ACCEPTANCE_RULES.md",
+      "source": "governance/PROTECTED_ACCEPTANCE_RULES.md"
+    },
+    {
+      "archive": "ACCEPTANCE_CONTEXT.md",
+      "source": "docs/context/ACCEPTANCE_CONTEXT.md"
+    },
+    {
+      "archive": "W03_ADAPTIVE_REVIEW.md",
+      "source": "governance/W03_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W03_VALIDATION_REPORT.md",
+      "source": "governance/W03_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "IMPLEMENTATION_MASTER_PLAN.md",
+      "source": "docs/10_IMPLEMENTATION_MASTER_PLAN.md"
+    },
+    {
+      "archive": "CODEX_EXECUTION_STRATEGY.md",
+      "source": "docs/11_CODEX_EXECUTION_STRATEGY.md"
+    },
+    {
+      "archive": "SHARED_CONTRACT_WORKTREE_STRATEGY.md",
+      "source": "docs/12_SHARED_CONTRACT_AND_WORKTREE_STRATEGY.md"
+    },
+    {
+      "archive": "IMPLEMENTATION_EVIDENCE_GATES.md",
+      "source": "docs/13_IMPLEMENTATION_EVIDENCE_GATES.md"
+    },
+    {
+      "archive": "IMPLEMENTATION_CONTEXT.md",
+      "source": "docs/context/IMPLEMENTATION_CONTEXT.md"
+    },
+    {
+      "archive": "IMPLEMENTATION_PLAN.json",
+      "source": "configs/implementation_plan.json"
+    },
+    {
+      "archive": "BACKLOG_POLICY.json",
+      "source": "configs/backlog_policy.json"
+    },
+    {
+      "archive": "IMPLEMENTATION_PHASES.csv",
+      "source": "governance/IMPLEMENTATION_PHASES.csv"
+    },
+    {
+      "archive": "EPIC_CATALOG.csv",
+      "source": "governance/EPIC_CATALOG.csv"
+    },
+    {
+      "archive": "IMPLEMENTATION_WBS.csv",
+      "source": "governance/IMPLEMENTATION_WBS.csv"
+    },
+    {
+      "archive": "TASK_DEPENDENCIES.csv",
+      "source": "governance/TASK_DEPENDENCIES.csv"
+    },
+    {
+      "archive": "REQUIREMENT_TASK_TRACEABILITY.csv",
+      "source": "governance/REQUIREMENT_TASK_TRACEABILITY.csv"
+    },
+    {
+      "archive": "ACCEPTANCE_TASK_TRACEABILITY.csv",
+      "source": "governance/ACCEPTANCE_TASK_TRACEABILITY.csv"
+    },
+    {
+      "archive": "CRITICAL_PATH.csv",
+      "source": "governance/CRITICAL_PATH.csv"
+    },
+    {
+      "archive": "CRITICAL_PATH.md",
+      "source": "governance/CRITICAL_PATH.md"
+    },
+    {
+      "archive": "SHARED_CONTRACT_OWNERSHIP.csv",
+      "source": "governance/SHARED_CONTRACT_OWNERSHIP.csv"
+    },
+    {
+      "archive": "CODEX_WORK_PACKET_QUEUE.csv",
+      "source": "governance/CODEX_WORK_PACKET_QUEUE.csv"
+    },
+    {
+      "archive": "IMPLEMENTATION_COMPLEXITY_CLASSES.csv",
+      "source": "governance/IMPLEMENTATION_COMPLEXITY_CLASSES.csv"
+    },
+    {
+      "archive": "W05_ADAPTIVE_REVIEW.md",
+      "source": "governance/W05_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W05_VALIDATION_REPORT.md",
+      "source": "governance/W05_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "W06_ADAPTIVE_REVIEW.md",
+      "source": "governance/W06_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W06_VALIDATION_REPORT.md",
+      "source": "governance/W06_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "DATA_RESEARCH_METHOD.md",
+      "source": "docs/data_research/w06/DATA_RESEARCH_METHOD.md"
+    },
+    {
+      "archive": "DATA_UNIVERSE_MASTER.csv",
+      "source": "docs/data_research/w06/DATA_UNIVERSE_MASTER.csv"
+    },
+    {
+      "archive": "SOURCE_RESEARCH_LOG.csv",
+      "source": "docs/data_research/w06/SOURCE_RESEARCH_LOG.csv"
+    },
+    {
+      "archive": "DATA_DOMAIN_COVERAGE_MATRIX.csv",
+      "source": "docs/data_research/w06/DATA_DOMAIN_COVERAGE_MATRIX.csv"
+    },
+    {
+      "archive": "DATASET_ENDPOINT_COLUMN_INVENTORY.csv",
+      "source": "docs/data_research/w06/DATASET_ENDPOINT_COLUMN_INVENTORY.csv"
+    },
+    {
+      "archive": "POINT_IN_TIME_FEASIBILITY_MATRIX.csv",
+      "source": "docs/data_research/w06/POINT_IN_TIME_FEASIBILITY_MATRIX.csv"
+    },
+    {
+      "archive": "SOURCE_ACCESS_LICENSE_MATRIX.csv",
+      "source": "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv"
+    },
+    {
+      "archive": "SOURCE_REDUNDANCY_MAP.csv",
+      "source": "docs/data_research/w06/SOURCE_REDUNDANCY_MAP.csv"
+    },
+    {
+      "archive": "SOURCE_PRIORITY_DECISIONS.md",
+      "source": "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md"
+    },
+    {
+      "archive": "DATA_ACQUISITION_PLAN.md",
+      "source": "docs/data_research/w06/DATA_ACQUISITION_PLAN.md"
+    },
+    {
+      "archive": "DATA_MISSINGNESS_STRATEGY.md",
+      "source": "docs/data_research/w06/DATA_MISSINGNESS_STRATEGY.md"
+    },
+    {
+      "archive": "DATA_SOURCE_RISK_REGISTER.csv",
+      "source": "docs/data_research/w06/DATA_SOURCE_RISK_REGISTER.csv"
+    },
+    {
+      "archive": "DATA_RESEARCH_FINDINGS.md",
+      "source": "docs/data_research/w06/DATA_RESEARCH_FINDINGS.md"
+    },
+    {
+      "archive": "WAVE_06_ARCHITECTURE_IMPACT.md",
+      "source": "docs/data_research/w06/WAVE_06_ARCHITECTURE_IMPACT.md"
+    },
+    {
+      "archive": "RESEARCH_EVIDENCE_INDEX.csv",
+      "source": "docs/data_research/w06/RESEARCH_EVIDENCE_INDEX.csv"
+    },
+    {
+      "archive": "W07_ADAPTIVE_REVIEW.md",
+      "source": "governance/W07_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W07_VALIDATION_REPORT.md",
+      "source": "governance/W07_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "ENTITY_REGISTRY.json",
+      "source": "configs/entity_registry.json"
+    },
+    {
+      "archive": "CANONICAL_ENTITY_ARCHITECTURE.md",
+      "source": "docs/14_CANONICAL_ENTITY_ARCHITECTURE.md"
+    },
+    {
+      "archive": "SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md",
+      "source": "docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md"
+    },
+    {
+      "archive": "ENTITY_RESOLUTION_AND_REVIEW.md",
+      "source": "docs/16_ENTITY_RESOLUTION_AND_REVIEW.md"
+    },
+    {
+      "archive": "ENTITY_STORAGE_EVALUATION.md",
+      "source": "docs/17_ENTITY_STORAGE_EVALUATION.md"
+    },
+    {
+      "archive": "CANONICAL_ENTITY_CATALOG.csv",
+      "source": "governance/CANONICAL_ENTITY_CATALOG.csv"
+    },
+    {
+      "archive": "CANONICAL_RELATIONSHIP_CATALOG.csv",
+      "source": "governance/CANONICAL_RELATIONSHIP_CATALOG.csv"
+    },
+    {
+      "archive": "SOURCE_MAPPING_METHODS.csv",
+      "source": "governance/SOURCE_MAPPING_METHODS.csv"
+    },
+    {
+      "archive": "ENTITY_RESOLUTION_STATES.csv",
+      "source": "governance/ENTITY_RESOLUTION_STATES.csv"
+    },
+    {
+      "archive": "ENTITY_STORAGE_DECISION_MATRIX.csv",
+      "source": "governance/ENTITY_STORAGE_DECISION_MATRIX.csv"
+    },
+    {
+      "archive": "ENTITY_CONTRACTS.json",
+      "source": "schemas/canonical/entities.json"
+    },
+    {
+      "archive": "EVIDENCE_IDENTITY_CONTRACT.json",
+      "source": "schemas/canonical/evidence_identity.json"
+    },
+    {
+      "archive": "ENTITY_CONTEXT.md",
+      "source": "docs/context/ENTITY_CONTEXT.md"
+    },
+    {
+      "archive": "W08_ADAPTIVE_REVIEW.md",
+      "source": "governance/W08_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W08_VALIDATION_REPORT.md",
+      "source": "governance/W08_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "TEMPORAL_REGISTRY.json",
+      "source": "configs/temporal_registry.json"
+    },
+    {
+      "archive": "POINT_IN_TIME_DATA_ARCHITECTURE.md",
+      "source": "docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md"
+    },
+    {
+      "archive": "ASOF_QUERY_AND_CUTOFF_CONTRACT.md",
+      "source": "docs/19_ASOF_QUERY_AND_CUTOFF_CONTRACT.md"
+    },
+    {
+      "archive": "MUTABLE_DOMAIN_SNAPSHOT_POLICIES.md",
+      "source": "docs/20_MUTABLE_DOMAIN_SNAPSHOT_POLICIES.md"
+    },
+    {
+      "archive": "LEAKAGE_AND_REPLAY_TEST_SPEC.md",
+      "source": "docs/21_LEAKAGE_AND_REPLAY_TEST_SPEC.md"
+    },
+    {
+      "archive": "TEMPORAL_CONTEXT.md",
+      "source": "docs/context/TEMPORAL_CONTEXT.md"
+    },
+    {
+      "archive": "TEMPORAL_FIELD_SEMANTICS.csv",
+      "source": "governance/TEMPORAL_FIELD_SEMANTICS.csv"
+    },
+    {
+      "archive": "PIT_DOMAIN_POLICY.csv",
+      "source": "governance/PIT_DOMAIN_POLICY.csv"
+    },
+    {
+      "archive": "PIT_GATEWAY_RULES.csv",
+      "source": "governance/PIT_GATEWAY_RULES.csv"
+    },
+    {
+      "archive": "LEAKAGE_SCENARIO_CATALOG.csv",
+      "source": "governance/LEAKAGE_SCENARIO_CATALOG.csv"
+    },
+    {
+      "archive": "TEMPORAL_OBSERVATION_SCHEMA.json",
+      "source": "schemas/temporal/observation.json"
+    },
+    {
+      "archive": "FORECAST_CUTOFF_SCHEMA.json",
+      "source": "schemas/temporal/forecast_cutoff.json"
+    },
+    {
+      "archive": "AVAILABILITY_OBSERVATION_SCHEMA.json",
+      "source": "schemas/temporal/availability_observation.json"
+    },
+    {
+      "archive": "WEATHER_FORECAST_OBSERVATION_SCHEMA.json",
+      "source": "schemas/temporal/weather_forecast_observation.json"
+    },
+    {
+      "archive": "MARKET_OBSERVATION_SCHEMA_W08.json",
+      "source": "schemas/temporal/market_observation.json"
+    },
+    {
+      "archive": "REGULATORY_OBSERVATION_SCHEMA.json",
+      "source": "schemas/temporal/regulatory_observation.json"
+    },
+    {
+      "archive": "W09_ADAPTIVE_REVIEW.md",
+      "source": "governance/W09_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W09_VALIDATION_REPORT.md",
+      "source": "governance/W09_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "RAW_FEATURE_REGISTRY.json",
+      "source": "configs/raw_feature_registry.json"
+    },
+    {
+      "archive": "RAW_FEATURE_REGISTRY_ARCHITECTURE.md",
+      "source": "docs/22_RAW_FEATURE_REGISTRY_ARCHITECTURE.md"
+    },
+    {
+      "archive": "SCHEMA_DISCOVERY_AND_RECONCILIATION.md",
+      "source": "docs/23_SCHEMA_DISCOVERY_AND_RECONCILIATION.md"
+    },
+    {
+      "archive": "RAW_FIELD_TO_CANDIDATE_HANDOFF.md",
+      "source": "docs/24_RAW_FIELD_TO_CANDIDATE_HANDOFF.md"
+    },
+    {
+      "archive": "FEATURE_REGISTRY_CONTEXT.md",
+      "source": "docs/context/FEATURE_REGISTRY_CONTEXT.md"
+    },
+    {
+      "archive": "RAW_FIELD_REGISTRY.csv",
+      "source": "governance/RAW_FIELD_REGISTRY.csv"
+    },
+    {
+      "archive": "DATASET_SCHEMA_REGISTRY.csv",
+      "source": "governance/DATASET_SCHEMA_REGISTRY.csv"
+    },
+    {
+      "archive": "MISSINGNESS_EVIDENCE_REGISTRY.csv",
+      "source": "governance/MISSINGNESS_EVIDENCE_REGISTRY.csv"
+    },
+    {
+      "archive": "JOIN_PATH_REGISTRY.csv",
+      "source": "governance/JOIN_PATH_REGISTRY.csv"
+    },
+    {
+      "archive": "REDUNDANCY_CLUSTER_REGISTRY.csv",
+      "source": "governance/REDUNDANCY_CLUSTER_REGISTRY.csv"
+    },
+    {
+      "archive": "FIELD_CLASSIFICATION_RECONCILIATION.csv",
+      "source": "governance/FIELD_CLASSIFICATION_RECONCILIATION.csv"
+    },
+    {
+      "archive": "RAW_FIELD_HANDOFF_STATES.csv",
+      "source": "governance/RAW_FIELD_HANDOFF_STATES.csv"
+    },
+    {
+      "archive": "W09_SOURCE_CLASSIFICATION_HASHES.csv",
+      "source": "provenance/W09_SOURCE_CLASSIFICATION_HASHES.csv"
+    },
+    {
+      "archive": "W10_ADAPTIVE_REVIEW.md",
+      "source": "governance/W10_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W10_VALIDATION_REPORT.md",
+      "source": "governance/W10_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "FEATURE_LIFECYCLE_REGISTRY.json",
+      "source": "configs/feature_lifecycle_registry.json"
+    },
+    {
+      "archive": "FEATURE_ENGINEERING_ARCHITECTURE.md",
+      "source": "docs/25_FEATURE_ENGINEERING_ARCHITECTURE.md"
+    },
+    {
+      "archive": "FEATURE_SCREENING_AND_SELECTION.md",
+      "source": "docs/26_FEATURE_SCREENING_AND_SELECTION.md"
+    },
+    {
+      "archive": "FEATURE_LIFECYCLE_GOVERNANCE.md",
+      "source": "docs/27_FEATURE_LIFECYCLE_GOVERNANCE.md"
+    },
+    {
+      "archive": "FEATURE_ABLATION_AND_STABILITY.md",
+      "source": "docs/28_FEATURE_ABLATION_AND_STABILITY.md"
+    },
+    {
+      "archive": "FEATURE_LIFECYCLE_CONTEXT.md",
+      "source": "docs/context/FEATURE_LIFECYCLE_CONTEXT.md"
+    },
+    {
+      "archive": "FEATURE_TRANSFORMATION_CATALOG.csv",
+      "source": "governance/FEATURE_TRANSFORMATION_CATALOG.csv"
+    },
+    {
+      "archive": "FEATURE_SCREENING_METHODS.csv",
+      "source": "governance/FEATURE_SCREENING_METHODS.csv"
+    },
+    {
+      "archive": "FEATURE_LIFECYCLE_STATES.csv",
+      "source": "governance/FEATURE_LIFECYCLE_STATES.csv"
+    },
+    {
+      "archive": "FEATURE_LIFECYCLE_TRANSITIONS.csv",
+      "source": "governance/FEATURE_LIFECYCLE_TRANSITIONS.csv"
+    },
+    {
+      "archive": "FEATURE_EVIDENCE_REQUIREMENTS.csv",
+      "source": "governance/FEATURE_EVIDENCE_REQUIREMENTS.csv"
+    },
+    {
+      "archive": "FEATURE_CANDIDATE_SEEDS.csv",
+      "source": "governance/FEATURE_CANDIDATE_SEEDS.csv"
+    },
+    {
+      "archive": "FEATURE_FAMILY_EXPERIMENT_PLAN.csv",
+      "source": "governance/FEATURE_FAMILY_EXPERIMENT_PLAN.csv"
+    },
+    {
+      "archive": "TARGET_FEATURE_POLICY.csv",
+      "source": "governance/TARGET_FEATURE_POLICY.csv"
+    },
+    {
+      "archive": "FEATURE_LIFECYCLE_DECISION_LOG.csv",
+      "source": "governance/FEATURE_LIFECYCLE_DECISION_LOG.csv"
+    },
+    {
+      "archive": "FEATURE_CANDIDATE_SCHEMA.json",
+      "source": "schemas/features/feature_candidate.json"
+    },
+    {
+      "archive": "FEATURE_EVIDENCE_SCHEMA.json",
+      "source": "schemas/features/feature_evidence.json"
+    },
+    {
+      "archive": "FEATURE_LIFECYCLE_DECISION_SCHEMA.json",
+      "source": "schemas/features/lifecycle_decision.json"
+    },
+    {
+      "archive": "TEAM_STATE_CONTEXT.md",
+      "source": "docs/context/TEAM_STATE_CONTEXT.md"
+    },
+    {
+      "archive": "TEAM_STATE_REGISTRY.json",
+      "source": "configs/team_state_registry.json"
+    },
+    {
+      "archive": "TEAM_STATE_COMPONENTS.csv",
+      "source": "governance/TEAM_STATE_COMPONENTS.csv"
+    },
+    {
+      "archive": "TEAM_STATE_PRIOR_COMPONENTS.csv",
+      "source": "governance/TEAM_STATE_PRIOR_COMPONENTS.csv"
+    },
+    {
+      "archive": "HISTORICAL_WEIGHTING_CANDIDATES.csv",
+      "source": "governance/HISTORICAL_WEIGHTING_CANDIDATES.csv"
+    },
+    {
+      "archive": "REGIME_SIMILARITY_FACTORS.csv",
+      "source": "governance/REGIME_SIMILARITY_FACTORS.csv"
+    },
+    {
+      "archive": "CHANGE_POINT_CANDIDATES.csv",
+      "source": "governance/CHANGE_POINT_CANDIDATES.csv"
+    },
+    {
+      "archive": "EARLY_SEASON_BLEND_CANDIDATES.csv",
+      "source": "governance/EARLY_SEASON_BLEND_CANDIDATES.csv"
+    },
+    {
+      "archive": "OPPONENT_STRENGTH_HIERARCHY.csv",
+      "source": "governance/OPPONENT_STRENGTH_HIERARCHY.csv"
+    },
+    {
+      "archive": "LOWER_DIVISION_TRANSLATION_CONTRACTS.csv",
+      "source": "governance/LOWER_DIVISION_TRANSLATION_CONTRACTS.csv"
+    },
+    {
+      "archive": "TEAM_STATE_UNCERTAINTY_CATALOG.csv",
+      "source": "governance/TEAM_STATE_UNCERTAINTY_CATALOG.csv"
+    },
+    {
+      "archive": "TEAM_STATE_COMPARISON_PLAN.csv",
+      "source": "governance/TEAM_STATE_COMPARISON_PLAN.csv"
+    },
+    {
+      "archive": "TEAM_STATE_GATE_STATUS.csv",
+      "source": "governance/TEAM_STATE_GATE_STATUS.csv"
+    },
+    {
+      "archive": "TEAM_STATE_ARCHITECTURE.md",
+      "source": "docs/29_TEAM_STATE_ARCHITECTURE.md"
+    },
+    {
+      "archive": "EARLY_SEASON_PRIORS_AND_BLENDING.md",
+      "source": "docs/30_EARLY_SEASON_PRIORS_AND_BLENDING.md"
+    },
+    {
+      "archive": "HISTORICAL_WEIGHTING_AND_REGIME.md",
+      "source": "docs/31_HISTORICAL_WEIGHTING_AND_REGIME.md"
+    },
+    {
+      "archive": "LOWER_DIVISION_STRENGTH_AND_UNCERTAINTY.md",
+      "source": "docs/32_LOWER_DIVISION_STRENGTH_AND_UNCERTAINTY.md"
+    },
+    {
+      "archive": "TEAM_STATE_COMPARISON_AND_GATE.md",
+      "source": "docs/33_TEAM_STATE_COMPARISON_AND_GATE.md"
+    },
+    {
+      "archive": "W11_ADAPTIVE_REVIEW.md",
+      "source": "governance/W11_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W11_VALIDATION_REPORT.md",
+      "source": "governance/W11_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "PLAYER_INTELLIGENCE_REGISTRY.json",
+      "source": "configs/player_intelligence_registry.json"
+    },
+    {
+      "archive": "PLAYER_INTELLIGENCE_CONTEXT.md",
+      "source": "docs/context/PLAYER_INTELLIGENCE_CONTEXT.md"
+    },
+    {
+      "archive": "PLAYER_ROSTER_DEPTH_ARCHITECTURE.md",
+      "source": "docs/34_PLAYER_ROSTER_DEPTH_ARCHITECTURE.md"
+    },
+    {
+      "archive": "PLAYER_VALUE_REPLACEMENT_AND_AVAILABILITY.md",
+      "source": "docs/35_PLAYER_VALUE_REPLACEMENT_AND_AVAILABILITY.md"
+    },
+    {
+      "archive": "AVAILABILITY_EVIDENCE_AND_OFFICIAL_REPORTS.md",
+      "source": "docs/36_AVAILABILITY_EVIDENCE_AND_OFFICIAL_REPORTS.md"
+    },
+    {
+      "archive": "RECRUITING_TRANSFER_AND_FRESHMAN_INTELLIGENCE.md",
+      "source": "docs/37_RECRUITING_TRANSFER_AND_FRESHMAN_INTELLIGENCE.md"
+    },
+    {
+      "archive": "PRESEASON_HONORS_AND_DRAFT_DEVELOPMENT.md",
+      "source": "docs/38_PRESEASON_HONORS_AND_DRAFT_DEVELOPMENT.md"
+    },
+    {
+      "archive": "PLAYER_INTELLIGENCE_GATE_AND_HANDOFF.md",
+      "source": "docs/39_PLAYER_INTELLIGENCE_GATE_AND_HANDOFF.md"
+    },
+    {
+      "archive": "PLAYER_STATE_COMPONENTS.csv",
+      "source": "governance/PLAYER_STATE_COMPONENTS.csv"
+    },
+    {
+      "archive": "ROSTER_DEPTH_STATE_CONTRACTS.csv",
+      "source": "governance/ROSTER_DEPTH_STATE_CONTRACTS.csv"
+    },
+    {
+      "archive": "PLAYER_VALUE_EVIDENCE_CATALOG.csv",
+      "source": "governance/PLAYER_VALUE_EVIDENCE_CATALOG.csv"
+    },
+    {
+      "archive": "AVAILABILITY_STATE_CONTRACT.csv",
+      "source": "governance/AVAILABILITY_STATE_CONTRACT.csv"
+    },
+    {
+      "archive": "AVAILABILITY_EVIDENCE_CONFIDENCE.csv",
+      "source": "governance/AVAILABILITY_EVIDENCE_CONFIDENCE.csv"
+    },
+    {
+      "archive": "REPLACEMENT_VALUE_CONTRACTS.csv",
+      "source": "governance/REPLACEMENT_VALUE_CONTRACTS.csv"
+    },
+    {
+      "archive": "RECRUITING_PROSPECT_PRIOR_CATALOG.csv",
+      "source": "governance/RECRUITING_PROSPECT_PRIOR_CATALOG.csv"
+    },
+    {
+      "archive": "TRANSFER_EPISODE_CONTRACTS.csv",
+      "source": "governance/TRANSFER_EPISODE_CONTRACTS.csv"
+    },
+    {
+      "archive": "TRANSFER_TRANSLATION_EXPERIMENT_PLAN.csv",
+      "source": "governance/TRANSFER_TRANSLATION_EXPERIMENT_PLAN.csv"
+    },
+    {
+      "archive": "TRANSFER_FRESHMAN_UNCERTAINTY_CATALOG.csv",
+      "source": "governance/TRANSFER_FRESHMAN_UNCERTAINTY_CATALOG.csv"
+    },
+    {
+      "archive": "PRESEASON_HONOR_CANDIDATE_CONTRACTS.csv",
+      "source": "governance/PRESEASON_HONOR_CANDIDATE_CONTRACTS.csv"
+    },
+    {
+      "archive": "DRAFT_DEVELOPMENT_CANDIDATE_CONTRACTS.csv",
+      "source": "governance/DRAFT_DEVELOPMENT_CANDIDATE_CONTRACTS.csv"
+    },
+    {
+      "archive": "AVAILABILITY_SOURCE_LANE.csv",
+      "source": "governance/AVAILABILITY_SOURCE_LANE.csv"
+    },
+    {
+      "archive": "TRANSFER_RECRUITING_PROVENANCE_AUDIT.csv",
+      "source": "governance/TRANSFER_RECRUITING_PROVENANCE_AUDIT.csv"
+    },
+    {
+      "archive": "PLAYER_INTELLIGENCE_GATE_STATUS.csv",
+      "source": "governance/PLAYER_INTELLIGENCE_GATE_STATUS.csv"
+    },
+    {
+      "archive": "PLAYER_STATE_SCHEMA.json",
+      "source": "schemas/players/player_state.json"
+    },
+    {
+      "archive": "PLAYER_AVAILABILITY_SCHEMA.json",
+      "source": "schemas/players/availability_state.json"
+    },
+    {
+      "archive": "REPLACEMENT_STATE_SCHEMA.json",
+      "source": "schemas/players/replacement_state.json"
+    },
+    {
+      "archive": "PLAYER_VALUE_ESTIMATE_SCHEMA.json",
+      "source": "schemas/players/player_value_estimate.json"
+    },
+    {
+      "archive": "PROSPECT_PRIOR_SCHEMA.json",
+      "source": "schemas/players/prospect_prior.json"
+    },
+    {
+      "archive": "TRANSFER_EPISODE_SCHEMA.json",
+      "source": "schemas/players/transfer_episode.json"
+    },
+    {
+      "archive": "HONOR_OBSERVATION_SCHEMA.json",
+      "source": "schemas/players/honor_observation.json"
+    },
+    {
+      "archive": "W12_ADAPTIVE_REVIEW.md",
+      "source": "governance/W12_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W12_VALIDATION_REPORT.md",
+      "source": "governance/W12_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "W12_INPUT_ARTIFACTS.csv",
+      "source": "provenance/W12_INPUT_ARTIFACTS.csv"
+    },
+    {
+      "archive": "W12_FILE_CHANGES.csv",
+      "source": "provenance/W12_FILE_CHANGES.csv"
+    },
+    {
+      "archive": "CONTEXT_INTELLIGENCE_REGISTRY.json",
+      "source": "configs/context_intelligence_registry.json"
+    },
+    {
+      "archive": "COACH_ROLE_EPISODE_CONTRACTS.csv",
+      "source": "governance/COACH_ROLE_EPISODE_CONTRACTS.csv"
+    },
+    {
+      "archive": "COACH_DEVELOPMENT_RESIDUAL_CONTRACTS.csv",
+      "source": "governance/COACH_DEVELOPMENT_RESIDUAL_CONTRACTS.csv"
+    },
+    {
+      "archive": "SCHEME_PLAY_CALLER_TENDENCY_CONTRACTS.csv",
+      "source": "governance/SCHEME_PLAY_CALLER_TENDENCY_CONTRACTS.csv"
+    },
+    {
+      "archive": "COACH_DECISION_EVIDENCE_CANDIDATES.csv",
+      "source": "governance/COACH_DECISION_EVIDENCE_CANDIDATES.csv"
+    },
+    {
+      "archive": "COACH_CONFOUND_CONTROL_CATALOG.csv",
+      "source": "governance/COACH_CONFOUND_CONTROL_CATALOG.csv"
+    },
+    {
+      "archive": "WEATHER_CONTEXT_CONTRACTS.csv",
+      "source": "governance/WEATHER_CONTEXT_CONTRACTS.csv"
+    },
+    {
+      "archive": "VENUE_TRAVEL_REST_CONTRACTS.csv",
+      "source": "governance/VENUE_TRAVEL_REST_CONTRACTS.csv"
+    },
+    {
+      "archive": "PROGRAM_RESOURCE_LANES.csv",
+      "source": "governance/PROGRAM_RESOURCE_LANES.csv"
+    },
+    {
+      "archive": "HOME_FIELD_EXPERIMENT_PLAN.csv",
+      "source": "governance/HOME_FIELD_EXPERIMENT_PLAN.csv"
+    },
+    {
+      "archive": "GAME_CONTEXT_CONTRACTS.csv",
+      "source": "governance/GAME_CONTEXT_CONTRACTS.csv"
+    },
+    {
+      "archive": "REGULATORY_ENVIRONMENT_CONTRACTS.csv",
+      "source": "governance/REGULATORY_ENVIRONMENT_CONTRACTS.csv"
+    },
+    {
+      "archive": "POSSESSION_TEMPO_CONTRACTS.csv",
+      "source": "governance/POSSESSION_TEMPO_CONTRACTS.csv"
+    },
+    {
+      "archive": "FIELD_POSITION_HIDDEN_YARDS_CONTRACTS.csv",
+      "source": "governance/FIELD_POSITION_HIDDEN_YARDS_CONTRACTS.csv"
+    },
+    {
+      "archive": "SPECIAL_TEAMS_COMPONENT_CONTRACTS.csv",
+      "source": "governance/SPECIAL_TEAMS_COMPONENT_CONTRACTS.csv"
+    },
+    {
+      "archive": "SCORE_STATE_POLICY_CANDIDATES.csv",
+      "source": "governance/SCORE_STATE_POLICY_CANDIDATES.csv"
+    },
+    {
+      "archive": "MECHANICS_INTERACTION_CANDIDATES.csv",
+      "source": "governance/MECHANICS_INTERACTION_CANDIDATES.csv"
+    },
+    {
+      "archive": "OPPONENT_ADJUSTMENT_CANDIDATES.csv",
+      "source": "governance/OPPONENT_ADJUSTMENT_CANDIDATES.csv"
+    },
+    {
+      "archive": "STYLE_SIMILARITY_CANDIDATES.csv",
+      "source": "governance/STYLE_SIMILARITY_CANDIDATES.csv"
+    },
+    {
+      "archive": "SCHEDULE_STRESS_CONTRACTS.csv",
+      "source": "governance/SCHEDULE_STRESS_CONTRACTS.csv"
+    },
+    {
+      "archive": "OFFICIATING_EXPERIMENT_POLICY.csv",
+      "source": "governance/OFFICIATING_EXPERIMENT_POLICY.csv"
+    },
+    {
+      "archive": "PRIVATE_RESOURCE_PROXY_CONTRACTS.csv",
+      "source": "governance/PRIVATE_RESOURCE_PROXY_CONTRACTS.csv"
+    },
+    {
+      "archive": "COACHING_INTELLIGENCE_GATE_STATUS.csv",
+      "source": "governance/COACHING_INTELLIGENCE_GATE_STATUS.csv"
+    },
+    {
+      "archive": "CONTEXT_GATE_STATUS.csv",
+      "source": "governance/CONTEXT_GATE_STATUS.csv"
+    },
+    {
+      "archive": "MECHANICS_GATE_STATUS.csv",
+      "source": "governance/MECHANICS_GATE_STATUS.csv"
+    },
+    {
+      "archive": "MATCHUP_CONTEXT_GATE_STATUS.csv",
+      "source": "governance/MATCHUP_CONTEXT_GATE_STATUS.csv"
+    },
+    {
+      "archive": "COACHING_INTELLIGENCE_ARCHITECTURE.md",
+      "source": "docs/29_COACHING_INTELLIGENCE_ARCHITECTURE.md"
+    },
+    {
+      "archive": "ENVIRONMENT_RESOURCE_CONTEXT_ARCHITECTURE.md",
+      "source": "docs/30_ENVIRONMENT_RESOURCE_CONTEXT_ARCHITECTURE.md"
+    },
+    {
+      "archive": "REGULATORY_ENVIRONMENT_ARCHITECTURE.md",
+      "source": "docs/31_REGULATORY_ENVIRONMENT_ARCHITECTURE.md"
+    },
+    {
+      "archive": "GAME_MECHANICS_ARCHITECTURE.md",
+      "source": "docs/32_GAME_MECHANICS_ARCHITECTURE.md"
+    },
+    {
+      "archive": "OPPONENT_STYLE_SCHEDULE_OFFICIATING.md",
+      "source": "docs/33_OPPONENT_STYLE_SCHEDULE_OFFICIATING.md"
+    },
+    {
+      "archive": "W13_EXPERIMENT_BOUNDARIES.md",
+      "source": "docs/34_W13_EXPERIMENT_BOUNDARIES.md"
+    },
+    {
+      "archive": "W13_TO_W14_HANDOFF.md",
+      "source": "docs/35_W13_TO_W14_HANDOFF.md"
+    },
+    {
+      "archive": "CONTEXT_INTELLIGENCE_CONTEXT.md",
+      "source": "docs/context/CONTEXT_INTELLIGENCE_CONTEXT.md"
+    },
+    {
+      "archive": "W13_ADAPTIVE_REVIEW.md",
+      "source": "governance/W13_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W13_VALIDATION_REPORT.md",
+      "source": "governance/W13_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "W13_INPUT_ARTIFACTS.csv",
+      "source": "provenance/W13_INPUT_ARTIFACTS.csv"
+    },
+    {
+      "archive": "W13_FILE_CHANGES.csv",
+      "source": "provenance/W13_FILE_CHANGES.csv"
+    },
+    {
+      "archive": "TAMU_SPECIALIZATION_REGISTRY.json",
+      "source": "configs/tamu_specialization_registry.json"
+    },
+    {
+      "archive": "TAMU_STATE_COMPONENTS.csv",
+      "source": "governance/TAMU_STATE_COMPONENTS.csv"
+    },
+    {
+      "archive": "TAMU_EVIDENCE_RESOLUTION_LANES.csv",
+      "source": "governance/TAMU_EVIDENCE_RESOLUTION_LANES.csv"
+    },
+    {
+      "archive": "TAMU_UNIT_STATE_CONTRACTS.csv",
+      "source": "governance/TAMU_UNIT_STATE_CONTRACTS.csv"
+    },
+    {
+      "archive": "TAMU_SNAPSHOT_CADENCE_CANDIDATES.csv",
+      "source": "governance/TAMU_SNAPSHOT_CADENCE_CANDIDATES.csv"
+    },
+    {
+      "archive": "TAMU_PEER_COHORT_CONTRACTS.csv",
+      "source": "governance/TAMU_PEER_COHORT_CONTRACTS.csv"
+    },
+    {
+      "archive": "TAMU_ANALOG_CONTRACTS.csv",
+      "source": "governance/TAMU_ANALOG_CONTRACTS.csv"
+    },
+    {
+      "archive": "TAMU_SPECIALIZATION_CANDIDATES.csv",
+      "source": "governance/TAMU_SPECIALIZATION_CANDIDATES.csv"
+    },
+    {
+      "archive": "TAMU_SPECIALIZATION_OVERFIT_GUARDS.csv",
+      "source": "governance/TAMU_SPECIALIZATION_OVERFIT_GUARDS.csv"
+    },
+    {
+      "archive": "TAMU_EVALUATION_SLICES.csv",
+      "source": "governance/TAMU_EVALUATION_SLICES.csv"
+    },
+    {
+      "archive": "TAMU_STATE_GATE_STATUS.csv",
+      "source": "governance/TAMU_STATE_GATE_STATUS.csv"
+    },
+    {
+      "archive": "TAMU_SPECIALIZATION_GATE_STATUS.csv",
+      "source": "governance/TAMU_SPECIALIZATION_GATE_STATUS.csv"
+    },
+    {
+      "archive": "TEXAS_AM_SPECIALIZATION_ARCHITECTURE.md",
+      "source": "docs/40_TEXAS_AM_SPECIALIZATION_ARCHITECTURE.md"
+    },
+    {
+      "archive": "TAMU_SPECIALIZATION_CANDIDATES_AND_OVERFIT_GUARDS.md",
+      "source": "docs/43_TAMU_SPECIALIZATION_CANDIDATES_AND_OVERFIT_GUARDS.md"
+    },
+    {
+      "archive": "W14_TO_W15_HANDOFF.md",
+      "source": "docs/44_W14_TO_W15_HANDOFF.md"
+    },
+    {
+      "archive": "BAS_SCIENCE_REGISTRY.json",
+      "source": "configs/bas_science_registry.json"
+    },
+    {
+      "archive": "BAS_LABEL_CONTRACT.csv",
+      "source": "governance/BAS_LABEL_CONTRACT.csv"
+    },
+    {
+      "archive": "BAS_EXPECTATION_CROSSFIT_CONTRACTS.csv",
+      "source": "governance/BAS_EXPECTATION_CROSSFIT_CONTRACTS.csv"
+    },
+    {
+      "archive": "BAS_ANTI_CIRCULARITY_RULES.csv",
+      "source": "governance/BAS_ANTI_CIRCULARITY_RULES.csv"
+    },
+    {
+      "archive": "BAS_GENERAL_FBS_BASELINE_CONTRACTS.csv",
+      "source": "governance/BAS_GENERAL_FBS_BASELINE_CONTRACTS.csv"
+    },
+    {
+      "archive": "BAS_AGGIE_EXCESS_TEST_PLAN.csv",
+      "source": "governance/BAS_AGGIE_EXCESS_TEST_PLAN.csv"
+    },
+    {
+      "archive": "BAS_COMPONENT_CANDIDATES.csv",
+      "source": "governance/BAS_COMPONENT_CANDIDATES.csv"
+    },
+    {
+      "archive": "BAS_REGIME_STABILITY_CALIBRATION_PLAN.csv",
+      "source": "governance/BAS_REGIME_STABILITY_CALIBRATION_PLAN.csv"
+    },
+    {
+      "archive": "BAS_NULL_RESULT_POLICY.csv",
+      "source": "governance/BAS_NULL_RESULT_POLICY.csv"
+    },
+    {
+      "archive": "BAS_GATE_STATUS.csv",
+      "source": "governance/BAS_GATE_STATUS.csv"
+    },
+    {
+      "archive": "SCIENTIFIC_BAS_SPECIFICATION.md",
+      "source": "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+    },
+    {
+      "archive": "BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md",
+      "source": "docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md"
+    },
+    {
+      "archive": "BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md",
+      "source": "docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md"
+    },
+    {
+      "archive": "BAS_COMPONENTS_REGIME_STABILITY_AND_CALIBRATION.md",
+      "source": "docs/48_BAS_COMPONENTS_REGIME_STABILITY_AND_CALIBRATION.md"
+    },
+    {
+      "archive": "W15_EXPERIMENT_BOUNDARIES.md",
+      "source": "docs/49_W15_EXPERIMENT_BOUNDARIES.md"
+    },
+    {
+      "archive": "W15_TO_W16_HANDOFF.md",
+      "source": "docs/50_W15_TO_W16_HANDOFF.md"
+    },
+    {
+      "archive": "BAS_LABEL_SCHEMA.json",
+      "source": "schemas/bas/bas_label.json"
+    },
+    {
+      "archive": "BAS_EXPECTED_MARGIN_EVIDENCE_SCHEMA.json",
+      "source": "schemas/bas/expected_margin_evidence.json"
+    },
+    {
+      "archive": "BAS_COMPONENT_RESIDUAL_SCHEMA.json",
+      "source": "schemas/bas/component_residual.json"
+    },
+    {
+      "archive": "W15_ADAPTIVE_REVIEW.md",
+      "source": "governance/W15_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W15_VALIDATION_REPORT.md",
+      "source": "governance/W15_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "W15_INPUT_ARTIFACTS.csv",
+      "source": "provenance/W15_INPUT_ARTIFACTS.csv"
+    },
+    {
+      "archive": "W15_FILE_CHANGES.csv",
+      "source": "provenance/W15_FILE_CHANGES.csv"
+    },
+    {
+      "archive": "MODEL_ARCHITECTURE_REGISTRY.json",
+      "source": "configs/model_architecture_registry.json"
+    },
+    {
+      "archive": "MODEL_TARGET_CONTRACT.csv",
+      "source": "governance/MODEL_TARGET_CONTRACT.csv"
+    },
+    {
+      "archive": "MODEL_DERIVATION_CONTRACT.csv",
+      "source": "governance/MODEL_DERIVATION_CONTRACT.csv"
+    },
+    {
+      "archive": "MODEL_ARCHITECTURE_CANDIDATES.csv",
+      "source": "governance/MODEL_ARCHITECTURE_CANDIDATES.csv"
+    },
+    {
+      "archive": "JOINT_SCORE_CANDIDATES.csv",
+      "source": "governance/JOINT_SCORE_CANDIDATES.csv"
+    },
+    {
+      "archive": "BASELINE_MODEL_CANDIDATES.csv",
+      "source": "governance/BASELINE_MODEL_CANDIDATES.csv"
+    },
+    {
+      "archive": "SIMULATION_SCENARIO_CONTRACTS.csv",
+      "source": "governance/SIMULATION_SCENARIO_CONTRACTS.csv"
+    },
+    {
+      "archive": "UNCERTAINTY_COMPONENTS.csv",
+      "source": "governance/UNCERTAINTY_COMPONENTS.csv"
+    },
+    {
+      "archive": "OOD_DETECTION_CANDIDATES.csv",
+      "source": "governance/OOD_DETECTION_CANDIDATES.csv"
+    },
+    {
+      "archive": "MODEL_DISAGREEMENT_CONTRACTS.csv",
+      "source": "governance/MODEL_DISAGREEMENT_CONTRACTS.csv"
+    },
+    {
+      "archive": "FORECAST_LANES.csv",
+      "source": "governance/FORECAST_LANES.csv"
+    },
+    {
+      "archive": "MARKET_LANE_RULES.csv",
+      "source": "governance/MARKET_LANE_RULES.csv"
+    },
+    {
+      "archive": "MODEL_ARCHITECTURE_GATE_STATUS.csv",
+      "source": "governance/MODEL_ARCHITECTURE_GATE_STATUS.csv"
+    },
+    {
+      "archive": "51_MODEL_TARGETS_AND_OUTPUT_COHERENCE.md",
+      "source": "docs/51_MODEL_TARGETS_AND_OUTPUT_COHERENCE.md"
+    },
+    {
+      "archive": "52_MODEL_ARCHITECTURE_CANDIDATES.md",
+      "source": "docs/52_MODEL_ARCHITECTURE_CANDIDATES.md"
+    },
+    {
+      "archive": "53_JOINT_SCORE_AND_SIMULATION.md",
+      "source": "docs/53_JOINT_SCORE_AND_SIMULATION.md"
+    },
+    {
+      "archive": "54_UNCERTAINTY_OOD_AND_MARKET_LANES.md",
+      "source": "docs/54_UNCERTAINTY_OOD_AND_MARKET_LANES.md"
+    },
+    {
+      "archive": "55_W16_EXPERIMENT_BOUNDARIES_AND_W17_HANDOFF.md",
+      "source": "docs/55_W16_EXPERIMENT_BOUNDARIES_AND_W17_HANDOFF.md"
+    },
+    {
+      "archive": "W16_ADAPTIVE_REVIEW.md",
+      "source": "governance/W16_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W16_VALIDATION_REPORT.md",
+      "source": "governance/W16_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "W16_INPUT_ARTIFACTS.csv",
+      "source": "provenance/W16_INPUT_ARTIFACTS.csv"
+    },
+    {
+      "archive": "W16_FILE_CHANGES.csv",
+      "source": "provenance/W16_FILE_CHANGES.csv"
+    },
+    {
+      "archive": "VALIDATION_SCIENCE_REGISTRY.json",
+      "source": "configs/validation_science_registry.json"
+    },
+    {
+      "archive": "PROTECTED_SPLIT_REGISTRY.csv",
+      "source": "governance/PROTECTED_SPLIT_REGISTRY.csv"
+    },
+    {
+      "archive": "METRIC_REGISTRY.csv",
+      "source": "governance/METRIC_REGISTRY.csv"
+    },
+    {
+      "archive": "EVALUATION_SCORECARD_REGISTRY.csv",
+      "source": "governance/EVALUATION_SCORECARD_REGISTRY.csv"
+    },
+    {
+      "archive": "THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+      "source": "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv"
+    },
+    {
+      "archive": "PROMOTION_DECISION_STATES.csv",
+      "source": "governance/PROMOTION_DECISION_STATES.csv"
+    },
+    {
+      "archive": "BAS_EVALUATION_PROTOCOL.csv",
+      "source": "governance/BAS_EVALUATION_PROTOCOL.csv"
+    },
+    {
+      "archive": "UNCERTAINTY_OOD_MARKET_EVALUATION.csv",
+      "source": "governance/UNCERTAINTY_OOD_MARKET_EVALUATION.csv"
+    },
+    {
+      "archive": "56_VALIDATION_AND_PROTECTED_SPLITS.md",
+      "source": "docs/56_VALIDATION_AND_PROTECTED_SPLITS.md"
+    },
+    {
+      "archive": "57_SCORING_CALIBRATION_AND_SCORECARDS.md",
+      "source": "docs/57_SCORING_CALIBRATION_AND_SCORECARDS.md"
+    },
+    {
+      "archive": "58_MODEL_PROMOTION_AND_THRESHOLD_PRECOMMITMENT.md",
+      "source": "docs/58_MODEL_PROMOTION_AND_THRESHOLD_PRECOMMITMENT.md"
+    },
+    {
+      "archive": "59_BAS_TAMU_UNCERTAINTY_MARKET_EVALUATION.md",
+      "source": "docs/59_BAS_TAMU_UNCERTAINTY_MARKET_EVALUATION.md"
+    },
+    {
+      "archive": "60_W17_EXPERIMENT_BOUNDARIES_AND_W18_HANDOFF.md",
+      "source": "docs/60_W17_EXPERIMENT_BOUNDARIES_AND_W18_HANDOFF.md"
+    },
+    {
+      "archive": "W17_ADAPTIVE_REVIEW.md",
+      "source": "governance/W17_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W17_VALIDATION_REPORT.md",
+      "source": "governance/W17_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "W17_INPUT_ARTIFACTS.csv",
+      "source": "provenance/W17_INPUT_ARTIFACTS.csv"
+    },
+    {
+      "archive": "W17_FILE_CHANGES.csv",
+      "source": "provenance/W17_FILE_CHANGES.csv"
+    },
+    {
+      "archive": "EXPERIMENT_RESEARCH_REGISTRY.json",
+      "source": "configs/experiment_research_registry.json"
+    },
+    {
+      "archive": "JUDGING_RULE_SEAL.json",
+      "source": "configs/judging_rule_seal.json"
+    },
+    {
+      "archive": "PROTECTED_JUDGING_RULE_SEAL.csv",
+      "source": "governance/PROTECTED_JUDGING_RULE_SEAL.csv"
+    },
+    {
+      "archive": "EXPERIMENT_IDENTITY_FIELDS.csv",
+      "source": "governance/EXPERIMENT_IDENTITY_FIELDS.csv"
+    },
+    {
+      "archive": "EXPERIMENT_STATE_MACHINE.csv",
+      "source": "governance/EXPERIMENT_STATE_MACHINE.csv"
+    },
+    {
+      "archive": "RESEARCH_ROLE_CAPABILITIES.csv",
+      "source": "governance/RESEARCH_ROLE_CAPABILITIES.csv"
+    },
+    {
+      "archive": "EXPERIMENT_TOOL_DECISION_MATRIX.csv",
+      "source": "governance/EXPERIMENT_TOOL_DECISION_MATRIX.csv"
+    },
+    {
+      "archive": "EXPERIMENT_TOOL_RESEARCH_EVIDENCE.csv",
+      "source": "governance/EXPERIMENT_TOOL_RESEARCH_EVIDENCE.csv"
+    },
+    {
+      "archive": "EXPERIMENT_QUEUE_POLICY.csv",
+      "source": "governance/EXPERIMENT_QUEUE_POLICY.csv"
+    },
+    {
+      "archive": "EXPERIMENT_RESULT_EVIDENCE_CONTRACT.csv",
+      "source": "governance/EXPERIMENT_RESULT_EVIDENCE_CONTRACT.csv"
+    },
+    {
+      "archive": "EXPERIMENT_REPLAY_CONTRACT.csv",
+      "source": "governance/EXPERIMENT_REPLAY_CONTRACT.csv"
+    },
+    {
+      "archive": "ADVANCED_CHALLENGER_ADMISSION.csv",
+      "source": "governance/ADVANCED_CHALLENGER_ADMISSION.csv"
+    },
+    {
+      "archive": "EXPERIMENT_GATE_STATUS.csv",
+      "source": "governance/EXPERIMENT_GATE_STATUS.csv"
+    },
+    {
+      "archive": "61_EXPERIMENTATION_AND_AUTONOMOUS_RESEARCH_ARCHITECTURE.md",
+      "source": "docs/61_EXPERIMENTATION_AND_AUTONOMOUS_RESEARCH_ARCHITECTURE.md"
+    },
+    {
+      "archive": "62_EXPERIMENT_IDENTITY_LINEAGE_AND_REPLAY.md",
+      "source": "docs/62_EXPERIMENT_IDENTITY_LINEAGE_AND_REPLAY.md"
+    },
+    {
+      "archive": "63_AUTONOMOUS_RESEARCH_GOVERNANCE.md",
+      "source": "docs/63_AUTONOMOUS_RESEARCH_GOVERNANCE.md"
+    },
+    {
+      "archive": "64_TRACKING_HPO_AND_WORKTREE_EXECUTION.md",
+      "source": "docs/64_TRACKING_HPO_AND_WORKTREE_EXECUTION.md"
+    },
+    {
+      "archive": "W18_ADAPTIVE_REVIEW.md",
+      "source": "governance/W18_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W18_VALIDATION_REPORT.md",
+      "source": "governance/W18_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "EXPERIMENT_SPEC_SCHEMA.json",
+      "source": "schemas/experiments/experiment_spec.json"
+    },
+    {
+      "archive": "EXPERIMENT_RESULT_PACKET_SCHEMA.json",
+      "source": "schemas/experiments/result_packet.json"
+    },
+    {
+      "archive": "EXPERIMENT_QUEUE_EVENT_SCHEMA.json",
+      "source": "schemas/experiments/queue_event.json"
+    },
+    {
+      "archive": "JUDGING_RULE_SEAL_SCHEMA.json",
+      "source": "schemas/experiments/judging_rule_seal.json"
+    },
+    {
+      "archive": "W18_INPUT_ARTIFACTS.csv",
+      "source": "provenance/W18_INPUT_ARTIFACTS.csv"
+    },
+    {
+      "archive": "W18_FILE_CHANGES.csv",
+      "source": "provenance/W18_FILE_CHANGES.csv"
+    },
+    {
+      "archive": "W18_CORRECTION_AUDIT.md",
+      "source": "governance/W18_CORRECTION_AUDIT.md"
+    },
+    {
+      "archive": "W18_MASTER_REQUIREMENT_COVERAGE.csv",
+      "source": "governance/W18_MASTER_REQUIREMENT_COVERAGE.csv"
+    },
+    {
+      "archive": "FEATURE_TOURNAMENT_POLICY.csv",
+      "source": "governance/FEATURE_TOURNAMENT_POLICY.csv"
+    },
+    {
+      "archive": "MODEL_TOURNAMENT_POLICY.csv",
+      "source": "governance/MODEL_TOURNAMENT_POLICY.csv"
+    },
+    {
+      "archive": "TOURNAMENT_STAGE_CATALOG.csv",
+      "source": "governance/TOURNAMENT_STAGE_CATALOG.csv"
+    },
+    {
+      "archive": "TOURNAMENT_COMPARISON_POLICY.csv",
+      "source": "governance/TOURNAMENT_COMPARISON_POLICY.csv"
+    },
+    {
+      "archive": "HYPOTHESIS_QUEUE_POLICY.csv",
+      "source": "governance/HYPOTHESIS_QUEUE_POLICY.csv"
+    },
+    {
+      "archive": "HPO_SEARCH_SPACE_POLICY.csv",
+      "source": "governance/HPO_SEARCH_SPACE_POLICY.csv"
+    },
+    {
+      "archive": "HPO_STUDY_POLICY.csv",
+      "source": "governance/HPO_STUDY_POLICY.csv"
+    },
+    {
+      "archive": "WORKTREE_EXECUTION_POLICY.csv",
+      "source": "governance/WORKTREE_EXECUTION_POLICY.csv"
+    },
+    {
+      "archive": "EXPERIMENT_ARTIFACT_POLICY.csv",
+      "source": "governance/EXPERIMENT_ARTIFACT_POLICY.csv"
+    },
+    {
+      "archive": "REPLAY_FAILURE_POLICY.csv",
+      "source": "governance/REPLAY_FAILURE_POLICY.csv"
+    },
+    {
+      "archive": "RESULT_ADOPTION_POLICY.csv",
+      "source": "governance/RESULT_ADOPTION_POLICY.csv"
+    },
+    {
+      "archive": "RESEARCH_RESOURCE_BUDGET_POLICY.csv",
+      "source": "governance/RESEARCH_RESOURCE_BUDGET_POLICY.csv"
+    },
+    {
+      "archive": "RESEARCH_BACKEND_CAPABILITIES.csv",
+      "source": "governance/RESEARCH_BACKEND_CAPABILITIES.csv"
+    },
+    {
+      "archive": "tournament_registry.json",
+      "source": "configs/tournament_registry.json"
+    },
+    {
+      "archive": "hpo_registry.json",
+      "source": "configs/hpo_registry.json"
+    },
+    {
+      "archive": "research_execution_registry.json",
+      "source": "configs/research_execution_registry.json"
+    },
+    {
+      "archive": "experiment_artifact_policy.json",
+      "source": "configs/experiment_artifact_policy.json"
+    },
+    {
+      "archive": "65_FEATURE_TOURNAMENT.md",
+      "source": "docs/65_FEATURE_TOURNAMENT.md"
+    },
+    {
+      "archive": "66_MODEL_TOURNAMENT.md",
+      "source": "docs/66_MODEL_TOURNAMENT.md"
+    },
+    {
+      "archive": "67_HYPOTHESIS_AND_EXPERIMENT_QUEUE.md",
+      "source": "docs/67_HYPOTHESIS_AND_EXPERIMENT_QUEUE.md"
+    },
+    {
+      "archive": "68_REPLAY_RESULT_COMPARISON_AND_ADOPTION.md",
+      "source": "docs/68_REPLAY_RESULT_COMPARISON_AND_ADOPTION.md"
+    },
+    {
+      "archive": "69_WORKTREE_CONCURRENCY_AND_RESOURCE_GOVERNANCE.md",
+      "source": "docs/69_WORKTREE_CONCURRENCY_AND_RESOURCE_GOVERNANCE.md"
+    },
+    {
+      "archive": "70_MLFLOW_TRACKING_ADAPTER.md",
+      "source": "docs/70_MLFLOW_TRACKING_ADAPTER.md"
+    },
+    {
+      "archive": "71_OPTUNA_HPO_ADAPTER.md",
+      "source": "docs/71_OPTUNA_HPO_ADAPTER.md"
+    },
+    {
+      "archive": "72_ADVANCED_CHALLENGER_ADMISSION.md",
+      "source": "docs/72_ADVANCED_CHALLENGER_ADMISSION.md"
+    },
+    {
+      "archive": "73_NEGATIVE_RESULTS_FAILURES_AND_RETRY_POLICY.md",
+      "source": "docs/73_NEGATIVE_RESULTS_FAILURES_AND_RETRY_POLICY.md"
+    },
+    {
+      "archive": "74_W18_IMPLEMENTATION_AND_VALIDATION_INVENTORY.md",
+      "source": "docs/74_W18_IMPLEMENTATION_AND_VALIDATION_INVENTORY.md"
+    },
+    {
+      "archive": "75_W18_TO_W19_HANDOFF.md",
+      "source": "docs/75_W18_TO_W19_HANDOFF.md"
+    },
+    {
+      "archive": "tournament_spec.json",
+      "source": "schemas/experiments/tournament_spec.json"
+    },
+    {
+      "archive": "tournament_entry.json",
+      "source": "schemas/experiments/tournament_entry.json"
+    },
+    {
+      "archive": "hypothesis_record.json",
+      "source": "schemas/experiments/hypothesis_record.json"
+    },
+    {
+      "archive": "hpo_study.json",
+      "source": "schemas/experiments/hpo_study.json"
+    },
+    {
+      "archive": "replay_report.json",
+      "source": "schemas/experiments/replay_report.json"
+    },
+    {
+      "archive": "adoption_decision.json",
+      "source": "schemas/experiments/adoption_decision.json"
+    },
+    {
+      "archive": "artifact_manifest.json",
+      "source": "schemas/experiments/artifact_manifest.json"
+    },
+    {
+      "archive": "worktree_plan.json",
+      "source": "schemas/experiments/worktree_plan.json"
+    },
+    {
+      "archive": "W18_FULL/docs__76_CANONICAL_EXPERIMENT_SPEC.md",
+      "source": "docs/76_CANONICAL_EXPERIMENT_SPEC.md"
+    },
+    {
+      "archive": "W18_FULL/docs__77_LOCAL_EXPERIMENT_STORE.md",
+      "source": "docs/77_LOCAL_EXPERIMENT_STORE.md"
+    },
+    {
+      "archive": "W18_FULL/docs__78_RESEARCH_QUEUE_SCHEDULER.md",
+      "source": "docs/78_RESEARCH_QUEUE_SCHEDULER.md"
+    },
+    {
+      "archive": "W18_FULL/docs__79_FEATURE_TOURNAMENT_PROTOCOL.md",
+      "source": "docs/79_FEATURE_TOURNAMENT_PROTOCOL.md"
+    },
+    {
+      "archive": "W18_FULL/docs__80_MODEL_TOURNAMENT_PROTOCOL.md",
+      "source": "docs/80_MODEL_TOURNAMENT_PROTOCOL.md"
+    },
+    {
+      "archive": "W18_FULL/docs__81_HPO_STUDY_GOVERNANCE.md",
+      "source": "docs/81_HPO_STUDY_GOVERNANCE.md"
+    },
+    {
+      "archive": "W18_FULL/docs__83_RESULT_PACKET_AND_EVIDENCE.md",
+      "source": "docs/83_RESULT_PACKET_AND_EVIDENCE.md"
+    },
+    {
+      "archive": "W18_FULL/docs__84_REPLAY_ENGINE.md",
+      "source": "docs/84_REPLAY_ENGINE.md"
+    },
+    {
+      "archive": "W18_FULL/docs__85_WORKTREE_ISOLATION.md",
+      "source": "docs/85_WORKTREE_ISOLATION.md"
+    },
+    {
+      "archive": "W18_FULL/docs__86_ARTIFACT_RETENTION.md",
+      "source": "docs/86_ARTIFACT_RETENTION.md"
+    },
+    {
+      "archive": "W18_FULL/docs__87_FAILURE_AND_NEGATIVE_EVIDENCE.md",
+      "source": "docs/87_FAILURE_AND_NEGATIVE_EVIDENCE.md"
+    },
+    {
+      "archive": "W18_FULL/docs__88_CHALLENGER_ADOPTION.md",
+      "source": "docs/88_CHALLENGER_ADOPTION.md"
+    },
+    {
+      "archive": "W18_FULL/docs__89_RESEARCH_THREAT_MODEL.md",
+      "source": "docs/89_RESEARCH_THREAT_MODEL.md"
+    },
+    {
+      "archive": "W18_FULL/docs__90_LOCAL_RESOURCE_ORCHESTRATION.md",
+      "source": "docs/90_LOCAL_RESOURCE_ORCHESTRATION.md"
+    },
+    {
+      "archive": "W18_FULL/docs__91_ADVANCED_CHALLENGER_GATE.md",
+      "source": "docs/91_ADVANCED_CHALLENGER_GATE.md"
+    },
+    {
+      "archive": "W18_FULL/docs__92_MLFLOW_ADAPTER.md",
+      "source": "docs/92_MLFLOW_ADAPTER.md"
+    },
+    {
+      "archive": "W18_FULL/docs__93_OPTUNA_ADAPTER.md",
+      "source": "docs/93_OPTUNA_ADAPTER.md"
+    },
+    {
+      "archive": "W18_FULL/docs__94_W18_ACCEPTANCE_TRACEABILITY.md",
+      "source": "docs/94_W18_ACCEPTANCE_TRACEABILITY.md"
+    },
+    {
+      "archive": "W18_FULL/docs__95_W18_W19_INTEGRATION.md",
+      "source": "docs/95_W18_W19_INTEGRATION.md"
+    },
+    {
+      "archive": "W18_FULL/docs__96_W18_OPERATOR_RUNBOOK.md",
+      "source": "docs/96_W18_OPERATOR_RUNBOOK.md"
+    },
+    {
+      "archive": "W18_FULL/docs__99_FULL_REBUILD_AUDIT_METHOD.md",
+      "source": "docs/99_FULL_REBUILD_AUDIT_METHOD.md"
+    },
+    {
+      "archive": "W18_FULL/docs__100_W18_FULL_IMPLEMENTATION_INVENTORY.md",
+      "source": "docs/100_W18_FULL_IMPLEMENTATION_INVENTORY.md"
+    },
+    {
+      "archive": "W18_FULL/configs__experiment_store_policy.json",
+      "source": "configs/experiment_store_policy.json"
+    },
+    {
+      "archive": "W18_FULL/configs__research_resource_policy.json",
+      "source": "configs/research_resource_policy.json"
+    },
+    {
+      "archive": "W18_FULL/configs__result_comparison_policy.json",
+      "source": "configs/result_comparison_policy.json"
+    },
+    {
+      "archive": "W18_FULL/governance__W18_FULL_REQUIREMENT_TO_ARTIFACT_MATRIX.csv",
+      "source": "governance/W18_FULL_REQUIREMENT_TO_ARTIFACT_MATRIX.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__W18_TASK_TO_TEST_MATRIX.csv",
+      "source": "governance/W18_TASK_TO_TEST_MATRIX.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__EXPERIMENT_STORE_SCHEMA_CATALOG.csv",
+      "source": "governance/EXPERIMENT_STORE_SCHEMA_CATALOG.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__RESOURCE_ADMISSION_RULES.csv",
+      "source": "governance/RESOURCE_ADMISSION_RULES.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__FEATURE_TOURNAMENT_STAGE_MATRIX.csv",
+      "source": "governance/FEATURE_TOURNAMENT_STAGE_MATRIX.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__MODEL_TOURNAMENT_BASELINE_MATRIX.csv",
+      "source": "governance/MODEL_TOURNAMENT_BASELINE_MATRIX.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__MODEL_TOURNAMENT_COMPATIBILITY_MATRIX.csv",
+      "source": "governance/MODEL_TOURNAMENT_COMPATIBILITY_MATRIX.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__HPO_PARAMETER_TYPE_CATALOG.csv",
+      "source": "governance/HPO_PARAMETER_TYPE_CATALOG.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__HPO_PRUNING_POLICY.csv",
+      "source": "governance/HPO_PRUNING_POLICY.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__ARTIFACT_CLASS_CATALOG.csv",
+      "source": "governance/ARTIFACT_CLASS_CATALOG.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__REPLAY_CHECK_CATALOG.csv",
+      "source": "governance/REPLAY_CHECK_CATALOG.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__RESULT_PACKET_FIELD_CATALOG.csv",
+      "source": "governance/RESULT_PACKET_FIELD_CATALOG.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__RESEARCH_FAILURE_TAXONOMY.csv",
+      "source": "governance/RESEARCH_FAILURE_TAXONOMY.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__WORKTREE_LOCK_CATALOG.csv",
+      "source": "governance/WORKTREE_LOCK_CATALOG.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__MLFLOW_FIELD_MAPPING.csv",
+      "source": "governance/MLFLOW_FIELD_MAPPING.csv"
+    },
+    {
+      "archive": "W18_FULL/governance__OPTUNA_FIELD_MAPPING.csv",
+      "source": "governance/OPTUNA_FIELD_MAPPING.csv"
+    },
+    {
+      "archive": "W18_FULL/sql__experimentation__experiment_store.sql",
+      "source": "sql/experimentation/experiment_store.sql"
+    },
+    {
+      "archive": "101_W19_FOUNDATION_IMPLEMENTATION.md",
+      "source": "docs/101_W19_FOUNDATION_IMPLEMENTATION.md"
+    },
+    {
+      "archive": "102_W19_IMPLEMENTATION_INVENTORY.md",
+      "source": "docs/102_W19_IMPLEMENTATION_INVENTORY.md"
+    },
+    {
+      "archive": "W19_ADAPTIVE_REVIEW.md",
+      "source": "governance/W19_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W19_VALIDATION_REPORT.md",
+      "source": "governance/W19_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "103_W20_MODEL_CALIBRATION_BAS_IMPLEMENTATION.md",
+      "source": "docs/103_W20_MODEL_CALIBRATION_BAS_IMPLEMENTATION.md"
+    },
+    {
+      "archive": "104_W20_IMPLEMENTATION_INVENTORY.md",
+      "source": "docs/104_W20_IMPLEMENTATION_INVENTORY.md"
+    },
+    {
+      "archive": "W20_ADAPTIVE_REVIEW.md",
+      "source": "governance/W20_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W20_VALIDATION_REPORT.md",
+      "source": "governance/W20_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "105_W21_AUTONOMOUS_WEEKLY_MLOPS.md",
+      "source": "docs/105_W21_AUTONOMOUS_WEEKLY_MLOPS.md"
+    },
+    {
+      "archive": "106_W21_IMPLEMENTATION_INVENTORY.md",
+      "source": "docs/106_W21_IMPLEMENTATION_INVENTORY.md"
+    },
+    {
+      "archive": "W21_ADAPTIVE_REVIEW.md",
+      "source": "governance/W21_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W21_VALIDATION_REPORT.md",
+      "source": "governance/W21_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "PRODUCT_CONTEXT.md",
+      "source": "docs/context/PRODUCT_CONTEXT.md"
+    },
+    {
+      "archive": "W22_PRODUCT.md",
+      "source": "docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md"
+    },
+    {
+      "archive": "W22_IMPLEMENTATION_INVENTORY.md",
+      "source": "docs/108_W22_IMPLEMENTATION_INVENTORY.md"
+    },
+    {
+      "archive": "W22_ADAPTIVE_REVIEW.md",
+      "source": "governance/W22_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W22_VALIDATION_REPORT.md",
+      "source": "governance/W22_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "109_W23_LOCAL_PRODUCTION_OPERATIONS.md",
+      "source": "docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md"
+    },
+    {
+      "archive": "110_W23_IMPLEMENTATION_INVENTORY.md",
+      "source": "docs/110_W23_IMPLEMENTATION_INVENTORY.md"
+    },
+    {
+      "archive": "W23_ADAPTIVE_REVIEW.md",
+      "source": "governance/W23_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W23_NON_TARGET_BENCHMARK_SMOKE.json",
+      "source": "governance/W23_NON_TARGET_BENCHMARK_SMOKE.json"
+    },
+    {
+      "archive": "W23_VALIDATION_REPORT.md",
+      "source": "governance/W23_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "W23_BUILD_RUNTIME_MANIFEST.json",
+      "source": "governance/W23_BUILD_RUNTIME_MANIFEST.json"
+    },
+    {
+      "archive": "111_W24_END_TO_END_READINESS_AUDIT.md",
+      "source": "docs/111_W24_END_TO_END_READINESS_AUDIT.md"
+    },
+    {
+      "archive": "112_W24_IMPLEMENTATION_INVENTORY.md",
+      "source": "docs/112_W24_IMPLEMENTATION_INVENTORY.md"
+    },
+    {
+      "archive": "W24_ADAPTIVE_REVIEW.md",
+      "source": "governance/W24_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W24_VALIDATION_REPORT.md",
+      "source": "governance/W24_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "W24_SYNTHETIC_E2E_REPORT.json",
+      "source": "governance/W24_SYNTHETIC_E2E_REPORT.json"
+    },
+    {
+      "archive": "W24_REPLAY_READINESS_REPORT.json",
+      "source": "governance/W24_REPLAY_READINESS_REPORT.json"
+    },
+    {
+      "archive": "W24_LEAKAGE_BATTERY_REPORT.json",
+      "source": "governance/W24_LEAKAGE_BATTERY_REPORT.json"
+    },
+    {
+      "archive": "W24_BOOTSTRAP_READINESS_REPORT.json",
+      "source": "governance/W24_BOOTSTRAP_READINESS_REPORT.json"
+    },
+    {
+      "archive": "W24_SOURCE_REFRESH_FINDINGS.md",
+      "source": "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
+    },
+    {
+      "archive": "W24_SOURCE_REFRESH_DELTA.csv",
+      "source": "docs/data_research/w24/SOURCE_REFRESH_DELTA.csv"
+    },
+    {
+      "archive": "W24_SOURCE_RESEARCH_LOG.csv",
+      "source": "docs/data_research/w24/SOURCE_RESEARCH_LOG.csv"
+    },
+    {
+      "archive": "W24_DATA_UNIVERSE_ADDITIONS.csv",
+      "source": "docs/data_research/w24/DATA_UNIVERSE_W24_ADDITIONS.csv"
+    },
+    {
+      "archive": "W24_FINAL_ARCHITECTURE_CHALLENGE.md",
+      "source": "docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md"
+    },
+    {
+      "archive": "W24_END_TO_END_READINESS.md",
+      "source": "docs/readiness/W24_END_TO_END_READINESS.md"
+    },
+    {
+      "archive": "113_W25_FINAL_CONSOLIDATION_AND_CODEX_HANDOFF.md",
+      "source": "docs/113_W25_FINAL_CONSOLIDATION_AND_CODEX_HANDOFF.md"
+    },
+    {
+      "archive": "W25_ADAPTIVE_REVIEW.md",
+      "source": "governance/W25_ADAPTIVE_REVIEW.md"
+    },
+    {
+      "archive": "W25_VALIDATION_REPORT.md",
+      "source": "governance/W25_VALIDATION_REPORT.md"
+    },
+    {
+      "archive": "FINAL_ARCHITECTURE_RATIONALE.md",
+      "source": "docs/final/FINAL_ARCHITECTURE_RATIONALE.md"
+    },
+    {
+      "archive": "FINAL_REJECTED_ALTERNATIVES.md",
+      "source": "docs/final/FINAL_REJECTED_ALTERNATIVES.md"
+    },
+    {
+      "archive": "FINAL_IMPLEMENTATION_PRIORITY.md",
+      "source": "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md"
+    },
+    {
+      "archive": "FINAL_COMPONENT_MATURITY.csv",
+      "source": "docs/final/FINAL_COMPONENT_MATURITY.csv"
+    },
+    {
+      "archive": "FINAL_KNOWN_GAPS.md",
+      "source": "docs/final/FINAL_KNOWN_GAPS.md"
+    },
+    {
+      "archive": "FINAL_KNOWN_GAPS.csv",
+      "source": "docs/final/FINAL_KNOWN_GAPS.csv"
+    },
+    {
+      "archive": "FINAL_RISK_REGISTER.csv",
+      "source": "docs/final/FINAL_RISK_REGISTER.csv"
+    },
+    {
+      "archive": "FINAL_BACKLOG.csv",
+      "source": "docs/final/FINAL_BACKLOG.csv"
+    },
+    {
+      "archive": "FIRST_72_HOUR_IMPLEMENTATION_QUEUE.md",
+      "source": "docs/final/FIRST_72_HOUR_IMPLEMENTATION_QUEUE.md"
+    },
+    {
+      "archive": "CODEX_HANDOFF.md",
+      "source": "docs/final/CODEX_HANDOFF.md"
+    },
+    {
+      "archive": "FINAL_DATA_SOURCE_AUDIT.md",
+      "source": "docs/data_research/w25/FINAL_DATA_SOURCE_AUDIT.md"
+    },
+    {
+      "archive": "W25_FINAL_GOVERNANCE_AUDIT.json",
+      "source": "governance/W25_FINAL_GOVERNANCE_AUDIT.json"
+    },
+    {
+      "archive": "W25_FINAL_TECHNICAL_AUDIT.json",
+      "source": "governance/W25_FINAL_TECHNICAL_AUDIT.json"
+    },
+    {
+      "archive": "W25_W24_PARENT_PRESERVATION.csv",
+      "source": "governance/W25_W24_PARENT_PRESERVATION.csv"
+    }
+  ],
+  "schema_version": "1.0",
+  "version": "w25-v1.0-final-handoff"
+}

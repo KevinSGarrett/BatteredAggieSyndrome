@@ -1,0 +1,28 @@
+{
+  "logical_states": [
+    "BACKLOG",
+    "READY",
+    "IN_PROGRESS",
+    "BLOCKED",
+    "REVIEW",
+    "VALIDATION",
+    "EVIDENCE_PENDING",
+    "DONE",
+    "DEFERRED",
+    "CANCELLED"
+  ],
+  "portable_default_mapping": {
+    "BACKLOG": "To Do",
+    "BLOCKED": "To Do",
+    "CANCELLED": "Done",
+    "DEFERRED": "To Do",
+    "DONE": "Done",
+    "EVIDENCE_PENDING": "In Progress",
+    "IN_PROGRESS": "In Progress",
+    "READY": "To Do",
+    "REVIEW": "In Progress",
+    "VALIDATION": "In Progress"
+  },
+  "target_mapping_status": "VERIFIED_IN_BAT",
+  "warning": "The portable defaults use common To Do/In Progress/Done names only. Existing destination statuses must be mapped explicitly; the Logical Workflow State custom field preserves the project-specific state model."
+}

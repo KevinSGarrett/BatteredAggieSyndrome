@@ -1,0 +1,15 @@
+target_id,name,target_kind,unit,definition,source_of_truth,derivation_role,bas_anchor_required,w16_status,notes
+TGT-001,team_final_score,LABEL,points,Nonnegative integer final team score including overtime,official final game result,PRIMARY,false,FROZEN_CONTRACT,Frozen actual-game label
+TGT-002,opponent_final_score,LABEL,points,Nonnegative integer final opponent score including overtime,official final game result,PRIMARY,false,FROZEN_CONTRACT,Frozen actual-game label
+TGT-003,margin,DERIVED_LABEL,points,team_final_score - opponent_final_score,TGT-001;TGT-002,DERIVED,false,FROZEN_CONTRACT,Must equal score difference
+TGT-004,total_points,DERIVED_LABEL,points,team_final_score + opponent_final_score,TGT-001;TGT-002,DERIVED,false,FROZEN_CONTRACT,Optional target/output
+TGT-005,win,DERIVED_LABEL,boolean,margin > 0,TGT-003,DERIVED,false,FROZEN_CONTRACT,Final college game cannot end tied
+TGT-006,loss,DERIVED_LABEL,boolean,margin < 0,TGT-003,DERIVED,false,FROZEN_CONTRACT,Complement of win for completed final games
+TGT-007,joint_score_distribution,FORECAST,probability_mass,"P(team_score=s, opponent_score=o) over valid support",model output,PRIMARY_FORECAST,false,FROZEN_CONTRACT,Coherence source of truth
+TGT-008,win_probability,DERIVED_FORECAST,probability,Derived from joint score distribution plus explicit overtime/tie resolution if modeled at regulation,TGT-007,DERIVED,false,FROZEN_CONTRACT,Must agree with distribution
+TGT-009,margin_distribution,DERIVED_FORECAST,probability_mass,Distribution of team_score-opponent_score,TGT-007,DERIVED,false,FROZEN_CONTRACT,Must agree with joint distribution
+TGT-010,bas_ge_3,BAS_LABEL,boolean/probability,W15 performance residual <= -3,W15 BAS label contract,PROTECTED_BAS,true,FROZEN_CONTRACT,Label semantics unchanged
+TGT-011,bas_ge_7,BAS_LABEL,boolean/probability,W15 performance residual <= -7,W15 BAS label contract,PROTECTED_BAS,true,FROZEN_CONTRACT,Headline BAS
+TGT-012,bas_ge_14,BAS_LABEL,boolean/probability,W15 performance residual <= -14,W15 BAS label contract,PROTECTED_BAS,true,FROZEN_CONTRACT,Nested severity
+TGT-013,bas_ge_21,BAS_LABEL,boolean/probability,W15 performance residual <= -21,W15 BAS label contract,PROTECTED_BAS,true,FROZEN_CONTRACT,Nested severity
+TGT-014,spread_cover_probability,MARKET_DERIVED_FORECAST,probability,P(margin exceeds PIT-safe market spread under declared convention),TGT-009 + market observation,MARKET_AUGMENTED_ONLY,false,FROZEN_CONTRACT,Not available in pure-football lane

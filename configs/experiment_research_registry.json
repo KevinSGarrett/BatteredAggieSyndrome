@@ -1,0 +1,113 @@
+{
+  "schema_version": 2,
+  "version": "w18-v2.0-full-rebuild",
+  "generated_at_utc": "2026-08-08T20:10:25+00:00",
+  "maturity": "EXPERIMENTATION_AUTONOMOUS_RESEARCH_FULL_REFERENCE_IMPLEMENTATION",
+  "principles": [
+    "experiment_identity_is_immutable_and_result_independent",
+    "w17_judging_rules_are_hash_sealed_inputs",
+    "research_plane_has_no_protected_metric_tuning_access",
+    "hpo_uses_development_only_objectives",
+    "mlflow_and_optuna_are_replaceable_adapters_not_governance_truth",
+    "canonical_lineage_packets_remain_tool_neutral",
+    "negative_and_failed_experiments_are_retained",
+    "changed_config_creates_new_experiment_identity",
+    "isolated_worktree_or_source_snapshot_per_experiment",
+    "replay_precedes_challenger_adoption",
+    "research_queue_cannot_promote_champion",
+    "advanced_challengers_require_baseline_evidence",
+    "paid_remote_compute_requires_explicit_approval",
+    "w18_gate_is_reference_governance_not_model_performance",
+    "feature_tournament_is_target_specific_and_cannot_directly_promote",
+    "model_tournament_requires_simple_baselines_and_lane_compatibility",
+    "hpo_search_spaces_are_versioned_before_trials",
+    "hypothesis_lifecycle_is_append_only",
+    "artifact_manifests_externalize_large_binaries",
+    "replay_failures_are_explicit_and_nonwaivable",
+    "local_experiment_store_is_transactional_and_append_only_by_evidence",
+    "queue_history_is_hash_chained",
+    "operational_retry_is_distinct_from_scientific_child_experiment",
+    "resource_scheduler_is_bounded_and_paid_compute_is_fail_closed",
+    "result_comparison_requires_semantic_compatibility",
+    "nested_search_multiplicity_is_retained",
+    "protected_metrics_are_absent_from_research_result_packets",
+    "full_rebuild_requires_all_w18_owned_tasks_complete_including_task_164"
+  ],
+  "judging_rule_seal": {
+    "seal_id": "JRS-W17-001",
+    "seal_digest": "c7cadb7b9e0a887fb5847299ccf5df5c2e1b48e8a38e637d46f2204ff73babdf",
+    "file_count": 13,
+    "source": "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "protected_holdout": "2024-2025",
+    "forward_shadow_start": 2026
+  },
+  "selected_tools": {
+    "tracking": {
+      "default_adapter": "MLflow Tracking",
+      "initial_backend": "local SQLite",
+      "artifact_store": "local filesystem outside repository ZIP",
+      "server_required": false,
+      "core_dependency_required": false
+    },
+    "hpo": {
+      "default_adapter": "Optuna",
+      "objective_scope": "development_only",
+      "local_persistence": "RDB or Journal",
+      "distributed_nfs_sqlite_allowed": false,
+      "core_dependency_required": false
+    },
+    "reference_fallback": "stdlib hash-chained event/result manifests"
+  },
+  "queue": {
+    "state_registry": "governance/EXPERIMENT_STATE_MACHINE.csv",
+    "policy": "governance/EXPERIMENT_QUEUE_POLICY.csv",
+    "append_only_events": true,
+    "promotion_state_present": false
+  },
+  "roles": "governance/RESEARCH_ROLE_CAPABILITIES.csv",
+  "replay": "governance/EXPERIMENT_REPLAY_CONTRACT.csv",
+  "advanced_challengers": "governance/ADVANCED_CHALLENGER_ADMISSION.csv",
+  "protected_empirical_results_inspected_w18": false,
+  "trained_model_metrics_claimed_w18": false,
+  "advanced_challenger_empirical_winner_w18": false,
+  "next_wave": "W19",
+  "correction_revision": true,
+  "supersedes_w18_draft_sha256": "c9c690c20aa40bfe7e952b0b94a3eb0fabe27f080afc13354d66d02d2b2b7bc9",
+  "feature_tournament": "governance/FEATURE_TOURNAMENT_POLICY.csv",
+  "model_tournament": "governance/MODEL_TOURNAMENT_POLICY.csv",
+  "tournament_stages": "governance/TOURNAMENT_STAGE_CATALOG.csv",
+  "hpo_policy": "governance/HPO_STUDY_POLICY.csv",
+  "search_space_policy": "governance/HPO_SEARCH_SPACE_POLICY.csv",
+  "hypothesis_policy": "governance/HYPOTHESIS_QUEUE_POLICY.csv",
+  "worktree_policy": "governance/WORKTREE_EXECUTION_POLICY.csv",
+  "artifact_policy": "governance/EXPERIMENT_ARTIFACT_POLICY.csv",
+  "replay_failure_policy": "governance/REPLAY_FAILURE_POLICY.csv",
+  "adoption_policy": "governance/RESULT_ADOPTION_POLICY.csv",
+  "master_requirement_coverage": "governance/W18_MASTER_REQUIREMENT_COVERAGE.csv",
+  "full_rebuild_revision": 2,
+  "supersedes_w18_artifacts": {
+    "thin_draft_cumulative_sha256": "c9c690c20aa40bfe7e952b0b94a3eb0fabe27f080afc13354d66d02d2b2b7bc9",
+    "thin_draft_hydration_sha256": "5c3c8581af7a0cfe0ca0938579f00ef09ffb8e05e3b6474d13fd8e72dbd87033",
+    "corrected_draft_cumulative_sha256": "40e04b5da6a7a1c760453bfc6c8769430bbdff304ad53964cc7abcf02bae9dfb",
+    "corrected_draft_hydration_sha256": "fb64510c594a8f21b52e7e277b16c535d5899f3c0b72a60d7ba89bf108ac064f"
+  },
+  "local_reference_store": {
+    "backend": "sqlite3",
+    "schema_catalog": "governance/EXPERIMENT_STORE_SCHEMA_CATALOG.csv",
+    "distributed_coordination_allowed": false,
+    "large_artifact_bytes_in_store": false
+  },
+  "resource_scheduler": {
+    "policy": "governance/RESOURCE_ADMISSION_RULES.csv",
+    "paid_compute_default": false,
+    "owner_wave_gate": true,
+    "protected_seal_gate": true
+  },
+  "result_comparison": {
+    "compatibility": "governance/MODEL_TOURNAMENT_COMPATIBILITY_MATRIX.csv",
+    "protected_metrics_allowed": false,
+    "arbitrary_scalar_composite_required": false
+  },
+  "full_requirement_matrix": "governance/W18_FULL_REQUIREMENT_TO_ARTIFACT_MATRIX.csv",
+  "task_test_matrix": "governance/W18_TASK_TO_TEST_MATRIX.csv"
+}

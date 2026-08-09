@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/opt/pyvenv/bin/python",
+    "-B",
+    "jira/tools/run_second_pass_audit.py"
+  ],
+  "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+  "finished_at": "2026-08-09T03:04:11.331785+00:00",
+  "output": "Second-pass audit: PASS | sections=68 passed=68 errors=0\n",
+  "passed": true,
+  "returncode": 0,
+  "started_at": "2026-08-09T03:04:07.716232+00:00"
+}

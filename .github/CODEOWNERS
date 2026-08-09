@@ -1,0 +1,4 @@
+# Add the real GitHub handle/team before enabling required code-owner reviews.
+# Example only (leave commented until resolved):
+# /governance/ @your-github-handle
+# /AGENTS.md @your-github-handle

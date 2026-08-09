@@ -1,0 +1,14 @@
+{
+  "authenticated_user_account_id": "63d5db4d28cddcc7076faad6",
+  "captured_at": "2026-08-09T04:49:59.852508+00:00",
+  "project": "BAT",
+  "reason": "Jira Free blocks permission-scheme edits; use BAT-project-scoped role membership only.",
+  "role": {
+    "actors": [],
+    "description": "A project role that represents administrators in a project",
+    "id": 10002,
+    "name": "Administrators",
+    "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133/role/10002"
+  },
+  "schema_version": 1
+}

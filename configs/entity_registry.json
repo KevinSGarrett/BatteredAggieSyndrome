@@ -1,0 +1,447 @@
+{
+  "schema_version": 1,
+  "version": "w07-v1.0",
+  "maturity": "CANONICAL_IDENTITY_CONTRACTS_ONLY",
+  "principles": [
+    "canonical_identity_is_separate_from_source_identity",
+    "identity_is_separate_from_mutable_observation",
+    "canonical_ids_are_opaque_and_immutable_after_assignment",
+    "no_name_only_durable_join",
+    "source_mappings_and_resolution_decisions_are_append_only",
+    "ambiguity_is_preserved_not_silently_collapsed",
+    "fuzzy_matching_is_candidate_generation_not_truth",
+    "merge_split_corrections_preserve_history",
+    "tamu_uses_same_canonical_identity_system",
+    "publication_and_capture_identity_are_separate",
+    "postgresql_is_conditional_not_mandatory"
+  ],
+  "id_policy": {
+    "surrogate_default": "prefixed UUID4 lowercase hex",
+    "format_regex": "^(team|inst|conf|game|venue|player|coach|official|srcsys|srcres|pubver|capture|obs|map|resdec)_[0-9a-f]{32}$",
+    "season_exception": "integer football season",
+    "source_derived_ids_forbidden": true,
+    "renumber_after_assignment_forbidden": true,
+    "uuid4_is_current_level_b_default": true
+  },
+  "entity_types": [
+    {
+      "entity_type": "team",
+      "prefix": "team",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "football program/team identity independent of current name/conference/classification",
+      "mutable_attributes": "name;aliases;classification;conference;branding",
+      "required": "YES",
+      "notes": "Team is distinct from institution."
+    },
+    {
+      "entity_type": "institution",
+      "prefix": "inst",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "institutional legal/operating identity",
+      "mutable_attributes": "name;resource identifiers;public_private_status",
+      "required": "YES",
+      "notes": "Explicit effective-dated team\u2194institution link."
+    },
+    {
+      "entity_type": "conference",
+      "prefix": "conf",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "conference/league organizational identity",
+      "mutable_attributes": "name;membership;classification",
+      "required": "YES",
+      "notes": "Membership is an episode, not team identity."
+    },
+    {
+      "entity_type": "season",
+      "prefix": "season",
+      "id_strategy": "NATURAL_FOOTBALL_SEASON_INTEGER",
+      "identity_basis": "football season year",
+      "mutable_attributes": "",
+      "required": "YES",
+      "notes": "Do not conflate fiscal/academic year."
+    },
+    {
+      "entity_type": "game",
+      "prefix": "game",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "underlying contest reconciled across schedule/source evidence",
+      "mutable_attributes": "kickoff;venue;status;home_away_labels;result_annotations",
+      "required": "YES",
+      "notes": "Reschedule can retain identity; replacement opponent creates new contest."
+    },
+    {
+      "entity_type": "venue",
+      "prefix": "venue",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "physical venue/stadium identity",
+      "mutable_attributes": "name;coordinates;capacity;surface;roof",
+      "required": "YES",
+      "notes": "Venue attributes are observations."
+    },
+    {
+      "entity_type": "player",
+      "prefix": "player",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "human player identity across teams/seasons/positions",
+      "mutable_attributes": "name;team;position;height;weight;class;availability",
+      "required": "YES",
+      "notes": "Transfers do not create a new player."
+    },
+    {
+      "entity_type": "coach",
+      "prefix": "coach",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "human coach identity independent of role/team",
+      "mutable_attributes": "name;team;role;play_caller;scheme",
+      "required": "YES",
+      "notes": "Roles are effective-dated episodes."
+    },
+    {
+      "entity_type": "official",
+      "prefix": "official",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "human game official identity when evidence is sufficient",
+      "mutable_attributes": "name;crew;role;conference",
+      "required": "YES",
+      "notes": "Uncertain name-only identities remain unresolved."
+    },
+    {
+      "entity_type": "source_system",
+      "prefix": "srcsys",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "publisher/provider/source system identity",
+      "mutable_attributes": "name;owner;access_method;terms",
+      "required": "YES",
+      "notes": "Examples are source systems, not datasets."
+    },
+    {
+      "entity_type": "source_resource",
+      "prefix": "srcres",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "endpoint/dataset/report/page family within a source system",
+      "mutable_attributes": "url;schema_version;access_metadata",
+      "required": "YES",
+      "notes": "Separates provider identity from a mutable resource family."
+    },
+    {
+      "entity_type": "publication_version",
+      "prefix": "pubver",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "distinct published/edited edition of a mutable resource",
+      "mutable_attributes": "publication_metadata",
+      "required": "YES",
+      "notes": "W08 defines temporal eligibility semantics."
+    },
+    {
+      "entity_type": "raw_capture",
+      "prefix": "capture",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "one retrieval/capture event of exact source bytes",
+      "mutable_attributes": "",
+      "required": "YES",
+      "notes": "Same raw hash at two retrieval times may have two capture IDs."
+    },
+    {
+      "entity_type": "source_observation",
+      "prefix": "obs",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "one parsed source claim/record derived from a raw capture",
+      "mutable_attributes": "",
+      "required": "YES",
+      "notes": "Links raw evidence to canonicalization."
+    },
+    {
+      "entity_type": "mapping_record",
+      "prefix": "map",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "one source-key\u2192canonical mapping decision record",
+      "mutable_attributes": "",
+      "required": "YES",
+      "notes": "Append-only; corrections supersede records."
+    },
+    {
+      "entity_type": "resolution_decision",
+      "prefix": "resdec",
+      "id_strategy": "OPAQUE_UUID_SURROGATE",
+      "identity_basis": "one immutable resolution/review decision event",
+      "mutable_attributes": "",
+      "required": "YES",
+      "notes": "No destructive edit of earlier decisions."
+    }
+  ],
+  "relationship_types": [
+    {
+      "relationship_type": "team_institution_affiliation",
+      "left_entity": "team",
+      "right_entity": "institution",
+      "record_kind": "EPISODE",
+      "rule": "Team/program affiliation to institution; effective-dated."
+    },
+    {
+      "relationship_type": "team_conference_membership",
+      "left_entity": "team",
+      "right_entity": "conference",
+      "record_kind": "EPISODE",
+      "rule": "Conference/classification membership; effective-dated."
+    },
+    {
+      "relationship_type": "player_roster_membership",
+      "left_entity": "player",
+      "right_entity": "team",
+      "record_kind": "EPISODE",
+      "rule": "Roster/team membership; transfers produce new episodes, not new player identity."
+    },
+    {
+      "relationship_type": "player_alias",
+      "left_entity": "player",
+      "right_entity": "source_observation",
+      "record_kind": "EPISODE",
+      "rule": "Name/alias evidence scoped by source/time/context."
+    },
+    {
+      "relationship_type": "coach_role_episode",
+      "left_entity": "coach",
+      "right_entity": "team",
+      "record_kind": "EPISODE",
+      "rule": "Role/title/play-caller episode independent of coach identity."
+    },
+    {
+      "relationship_type": "venue_alias",
+      "left_entity": "venue",
+      "right_entity": "source_observation",
+      "record_kind": "EPISODE",
+      "rule": "Venue names/renames and source labels."
+    },
+    {
+      "relationship_type": "game_participant",
+      "left_entity": "game",
+      "right_entity": "team",
+      "record_kind": "OBSERVATION",
+      "rule": "Participant plus home/away/neutral role; orientation does not define identity."
+    },
+    {
+      "relationship_type": "game_venue_assignment",
+      "left_entity": "game",
+      "right_entity": "venue",
+      "record_kind": "OBSERVATION",
+      "rule": "Scheduled/actual venue observation; relocation does not automatically create a new game."
+    },
+    {
+      "relationship_type": "official_assignment",
+      "left_entity": "official",
+      "right_entity": "game",
+      "record_kind": "OBSERVATION",
+      "rule": "Role/crew assignment when supported by evidence."
+    },
+    {
+      "relationship_type": "source_entity_mapping",
+      "left_entity": "source_observation",
+      "right_entity": "canonical_entity",
+      "record_kind": "DECISION",
+      "rule": "Source identity/key mapping to canonical identity."
+    },
+    {
+      "relationship_type": "entity_redirect",
+      "left_entity": "canonical_entity",
+      "right_entity": "canonical_entity",
+      "record_kind": "DECISION",
+      "rule": "Deprecated duplicate redirects to surviving identity after merge decision."
+    },
+    {
+      "relationship_type": "provenance_edge",
+      "left_entity": "derived_record",
+      "right_entity": "source_observation",
+      "record_kind": "LINEAGE",
+      "rule": "Derived/canonical records retain parent evidence."
+    }
+  ],
+  "source_evidence_identity": {
+    "ordered_layers": [
+      "source_system",
+      "source_resource",
+      "publication_version",
+      "raw_capture",
+      "source_observation"
+    ],
+    "rules": [
+      "provider/source identity is not a resource/version identity",
+      "a mutable resource can have many publication versions",
+      "one publication version can have many retrieval captures",
+      "identical raw hashes at different retrieval times do not erase retrieval-event identity",
+      "source observations point to exact raw captures",
+      "W08 owns final known-at/effective-at/prediction-eligibility semantics"
+    ],
+    "required_capture_fields": [
+      "raw_capture_id",
+      "source_system_id",
+      "source_resource_id",
+      "source_uri",
+      "retrieved_at",
+      "raw_sha256",
+      "raw_storage_path",
+      "schema_version"
+    ],
+    "reserved_temporal_fields": [
+      "published_at",
+      "first_known_at",
+      "effective_at",
+      "valid_from",
+      "valid_to",
+      "prediction_eligible_at"
+    ]
+  },
+  "source_mapping": {
+    "natural_scope": [
+      "source_system_id",
+      "entity_type",
+      "source_entity_key"
+    ],
+    "record_fields": [
+      "mapping_id",
+      "source_system_id",
+      "entity_type",
+      "source_entity_key",
+      "canonical_entity_id",
+      "mapping_method",
+      "resolution_state",
+      "evidence_capture_ids",
+      "decision_id",
+      "scope_context",
+      "created_at",
+      "supersedes_mapping_id",
+      "notes"
+    ],
+    "mapping_methods": [
+      {
+        "mapping_method": "VERIFIED_EXISTING_MAPPING",
+        "default_action": "AUTO_ACCEPT_ALLOWED",
+        "rule": "Previously accepted non-superseded mapping with valid scope."
+      },
+      {
+        "mapping_method": "VERIFIED_DIRECT_SOURCE_ID",
+        "default_action": "AUTO_ACCEPT_ALLOWED",
+        "rule": "Source ID semantics validated by contract and no conflict exists."
+      },
+      {
+        "mapping_method": "VERIFIED_CROSSWALK",
+        "default_action": "AUTO_ACCEPT_ALLOWED",
+        "rule": "Authoritative/validated crosswalk links identities with no conflict."
+      },
+      {
+        "mapping_method": "EXACT_SCOPED_ALIAS",
+        "default_action": "REVIEW_BY_DEFAULT",
+        "rule": "Exact alias match with contextual scope; may become auto-accept only after labeled evidence/policy."
+      },
+      {
+        "mapping_method": "COMPOSITE_CONTEXT",
+        "default_action": "REVIEW_REQUIRED",
+        "rule": "Composite game/player/coach context produces candidate(s), not durable truth by itself."
+      },
+      {
+        "mapping_method": "FUZZY_NAME_CONTEXT",
+        "default_action": "REVIEW_REQUIRED",
+        "rule": "Fuzzy similarity may rank candidates; never auto-accepted in W07."
+      },
+      {
+        "mapping_method": "MANUAL_REVIEW",
+        "default_action": "DECISION_EVENT",
+        "rule": "Human evidence review accepts/rejects a mapping."
+      },
+      {
+        "mapping_method": "CORRECTION_MERGE_SPLIT",
+        "default_action": "DECISION_EVENT",
+        "rule": "Explicit correction supersedes prior mapping/identity relationships."
+      }
+    ],
+    "name_only_durable_join_forbidden": true,
+    "direct_id_requires_validated_contract": true
+  },
+  "resolution": {
+    "states": [
+      {
+        "state": "UNRESOLVED",
+        "meaning": "No sufficiently supported candidate/decision exists.",
+        "eligible_as_resolved": "NO"
+      },
+      {
+        "state": "CANDIDATE_GENERATED",
+        "meaning": "One or more candidates generated but not accepted.",
+        "eligible_as_resolved": "NO"
+      },
+      {
+        "state": "REVIEW_REQUIRED",
+        "meaning": "Ambiguity/conflict requires evidence review.",
+        "eligible_as_resolved": "NO"
+      },
+      {
+        "state": "AUTO_ACCEPTED_VERIFIED",
+        "meaning": "Accepted only via verified existing/direct/crosswalk rule.",
+        "eligible_as_resolved": "YES"
+      },
+      {
+        "state": "ACCEPTED_MANUAL",
+        "meaning": "Accepted by explicit review decision with evidence.",
+        "eligible_as_resolved": "YES"
+      },
+      {
+        "state": "REJECTED",
+        "meaning": "Candidate/mapping explicitly rejected.",
+        "eligible_as_resolved": "NO"
+      },
+      {
+        "state": "SUPERSEDED",
+        "meaning": "Earlier mapping/decision retained but replaced by a later decision.",
+        "eligible_as_resolved": "NO"
+      },
+      {
+        "state": "MERGED_REDIRECT",
+        "meaning": "Deprecated canonical duplicate redirects to a survivor.",
+        "eligible_as_resolved": "YES"
+      },
+      {
+        "state": "SPLIT_CORRECTED",
+        "meaning": "Prior conflation corrected through new identities/mappings.",
+        "eligible_as_resolved": "CONDITIONAL"
+      }
+    ],
+    "pipeline": [
+      "reuse verified non-superseded mapping",
+      "validate direct source ID/crosswalk semantics",
+      "normalize labels without discarding originals",
+      "generate exact scoped aliases/composite candidates",
+      "optionally rank fuzzy candidates",
+      "auto-accept only verified mapping/direct/crosswalk classes",
+      "send all other ambiguous cases to review",
+      "append immutable decision and supersede prior rows if corrected"
+    ],
+    "fuzzy_auto_accept_enabled": false,
+    "auto_accept_threshold": "TBD_BY_LABELED_EVIDENCE",
+    "threshold_registry_id": "THR-008"
+  },
+  "game_identity_rules": {
+    "reschedule_same_contest": "retain canonical_game_id when official continuity/participants establish same contest",
+    "venue_or_kickoff_change": "observation change, not identity change",
+    "canceled_game": "retain scheduled contest identity with status observation",
+    "replacement_opponent": "new canonical_game_id",
+    "forfeit_or_vacated": "result/status annotation; identity retained",
+    "home_away_neutral": "participant orientation observation, not identity key",
+    "direct_source_game_id": "mapping evidence only until equality contract validated"
+  },
+  "correction_policy": {
+    "destructive_delete_of_assigned_canonical_id": false,
+    "merge": "survivor ID retained; duplicate ID deprecated with redirect; mappings superseded; history preserved",
+    "split": "create additional canonical IDs as needed; supersede incorrect mappings; preserve original decisions and dataset versions"
+  },
+  "storage_decision": {
+    "decision": "DEFER_POSTGRESQL",
+    "current_default": "append-only/versioned Parquet datasets queried by DuckDB behind storage ports",
+    "reason": "current local single-writer batch/review scope does not demonstrate concurrent transactional mutation need",
+    "reopen_triggers": [
+      "multiple concurrent human/service writers",
+      "cross-process transactional correction requirements",
+      "external multi-user review service",
+      "measured workload showing current default unsafe or materially inadequate"
+    ],
+    "implementation_benchmark_owner": "W19"
+  }
+}

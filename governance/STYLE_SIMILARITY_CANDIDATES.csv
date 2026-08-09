@@ -1,0 +1,4 @@
+candidate_id,family,dimensions,manual_matchup_bonus,winner_selected_w13
+STYLE-01,OFFENSE_SIMILARITY,tempo;pass tendency;explosiveness;option/run concepts/personnel proxies,false,false
+STYLE-02,DEFENSE_SIMILARITY,pressure;blitz;coverage/run-defense/explosive-prevention proxies,false,false
+STYLE-03,OPPONENT_ANALOG,continuous style vectors and uncertainty,false,false

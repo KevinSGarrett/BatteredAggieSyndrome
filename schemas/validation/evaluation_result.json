@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvaluationResult",
+  "type": "object",
+  "required": [
+    "evaluation_id",
+    "split_protocol_id",
+    "artifact_id",
+    "metric_id",
+    "value",
+    "result_hash"
+  ],
+  "properties": {
+    "evaluation_id": {
+      "type": "string"
+    },
+    "split_protocol_id": {
+      "type": "string"
+    },
+    "artifact_id": {
+      "type": "string"
+    },
+    "metric_id": {
+      "type": "string"
+    },
+    "value": {
+      "type": "number"
+    },
+    "scorecard_id": {
+      "type": "string"
+    },
+    "result_hash": {
+      "type": "string"
+    },
+    "protected": {
+      "type": "boolean"
+    }
+  }
+}

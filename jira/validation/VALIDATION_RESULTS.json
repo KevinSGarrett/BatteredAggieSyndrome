@@ -1,0 +1,33 @@
+{
+  "dependency_cycles": 0,
+  "error_count": 0,
+  "errors": [],
+  "generated_at": "2026-08-09T03:03:58.186970+00:00",
+  "import_row_count": 463,
+  "issue_count": 463,
+  "issue_types": {
+    "Epic": 50,
+    "Story": 53,
+    "Subtask": 159,
+    "Task": 201
+  },
+  "priorities": {
+    "DEFERRED": 13,
+    "P0": 73,
+    "P1": 298,
+    "P2": 58,
+    "P3": 21
+  },
+  "ready_count": 2,
+  "source_reference_count": 2118,
+  "valid": true,
+  "warning_count": 0,
+  "warnings": [],
+  "workflow_states": {
+    "BACKLOG": 62,
+    "BLOCKED": 142,
+    "DEFERRED": 36,
+    "DONE": 221,
+    "READY": 2
+  }
+}

@@ -1,0 +1,9 @@
+state,terminal,allowed_next,required_actor,rule
+PROPOSED,false,TRIAGED;REJECTED;DEFERRED,research_governor,falsifiable statement required
+TRIAGED,false,APPROVED_FOR_EXPERIMENT;REJECTED;DEFERRED,research_governor,baseline and disconfirming evidence defined
+APPROVED_FOR_EXPERIMENT,false,TESTING,scheduler,immutable experiment spec exists
+TESTING,false,SUPPORTED_CANDIDATE;REJECTED;INCONCLUSIVE;DEFERRED,research_governor,development evidence only
+SUPPORTED_CANDIDATE,true,,,still requires challenger replay/promotion review
+REJECTED,true,,,reopen only through new hypothesis/version
+INCONCLUSIVE,true,,,retain evidence
+DEFERRED,true,,,retain reason/dependency

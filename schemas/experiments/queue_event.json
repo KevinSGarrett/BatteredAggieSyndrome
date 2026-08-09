@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExperimentQueueEvent",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "state",
+    "actor_role",
+    "event_index",
+    "previous_event_hash",
+    "event_hash"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "actor_role": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "event_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "previous_event_hash": {
+      "type": "string"
+    },
+    "event_hash": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

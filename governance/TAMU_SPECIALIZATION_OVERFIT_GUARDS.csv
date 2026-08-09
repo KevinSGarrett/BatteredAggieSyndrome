@@ -1,0 +1,11 @@
+guard_id,guard,criterion,numeric_threshold_frozen,protected
+TAMU-G01,mandatory_no_adjustment_baseline,Every specialization experiment must compare against the unchanged national forecast.,false,true
+TAMU-G02,chronological_protected_evaluation,Selection uses protected walk-forward A&M games; protected periods are not iterative tuning feedback.,false,true
+TAMU-G03,shrinkage_to_zero,Sparse/unstable A&M residual evidence must shrink toward zero/no-adjustment rather than force a correction.,false,true
+TAMU-G04,national_scorecard_guard,A&M specialization is evaluated alongside national performance; national behavior cannot be silently discarded.,false,true
+TAMU-G05,regime_stability,Candidate must be checked across A&M regimes/transition slices and uncertainty.,false,true
+TAMU-G06,complexity_penalty_review,More complex A&M architecture must earn incremental value relative to simpler residual/no-adjust baselines.,false,true
+TAMU-G07,no_narrative_features,"Fan narratives, Battered Aggie assumptions and manual 12th Man bonuses are not specialization inputs.",false,true
+TAMU-G08,market_lane_isolation,Pure-football specialization cannot consume market fields; market-augmented experiments remain separate.,false,true
+TAMU-G09,bas_definition_isolation,W14 specialization cannot redefine BAS labels or use postgame BAS outcomes as pregame specialization evidence.,false,true
+TAMU-G10,incremental_value_threshold_deferred,THR-005 remains blank/TBD until protected W17 evidence; W14 sets no numeric promotion cutoff.,false,true

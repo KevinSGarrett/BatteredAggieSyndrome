@@ -1,0 +1,8 @@
+parameter_type,domain,validation,lineage_rule
+categorical,finite choices,choices[] nonempty,No dynamic choices after trials begin
+int,bounded integer,low<=high; step>0,Bounds versioned
+float,bounded float,low<=high,Uniform unless log flag
+log_float,positive bounded float,0<low<=high,Log-domain sampling
+boolean,true/false,fixed two choices,May be condition parent
+conditional,any child type,parent/value condition recorded,Condition frozen in search-space version
+fixed,single value,exact one value,Useful for explicit baseline/reference

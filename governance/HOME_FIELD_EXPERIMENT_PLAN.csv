@@ -1,0 +1,5 @@
+candidate_id,level,measure,controls,partial_pooling,manual_bonus,winner_selected_w13
+HOME-01,NATIONAL,home residual versus neutral-equivalent expectation,team_strength;opponent_strength;era,true,false,false
+HOME-02,PROGRAM,program home residual,national_home;team_strength;opponent_strength;era;travel,true,false,false
+HOME-03,VENUE,venue residual,program_home;travel;weather;surface;elevation;era,true,false,false
+HOME-04,ERA,current regime/era deviation,program;venue;team_strength;opponent_strength,true,false,false

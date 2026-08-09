@@ -1,0 +1,4 @@
+candidate_id,method,description,circularity_guard,winner_selected_w13
+OPPADJ-01,ITERATIVE_RATING_RESIDUAL,residualize performance against opponent strength estimates,out-of-fold/strict-prior opponent state,false
+OPPADJ-02,HIERARCHICAL_PARTIAL_POOL,partial-pool team/unit performance conditional on opponent strength,strict-prior states,false
+OPPADJ-03,SCHEDULE_STRENGTH_CONTEXT,contextualize raw rates by prior opponent quality distribution,no future opponent outcomes,false

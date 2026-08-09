@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Model Tournament Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tournament_id",
+    "target",
+    "development_split",
+    "lane",
+    "entrants",
+    "primary_metric",
+    "metric_direction"
+  ],
+  "properties": {
+    "tournament_id": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "development_split": {
+      "enum": [
+        "SPLIT-DEV-HIST",
+        "SPLIT-DEV-SEL"
+      ]
+    },
+    "lane": {
+      "enum": [
+        "PURE_FOOTBALL",
+        "MARKET_AUGMENTED",
+        "MARKET_BENCHMARK"
+      ]
+    },
+    "entrants": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "model_entrant.json"
+      }
+    },
+    "primary_metric": {
+      "type": "string"
+    },
+    "metric_direction": {
+      "enum": [
+        "min",
+        "max"
+      ]
+    },
+    "tamu_specialization": {
+      "type": "boolean"
+    },
+    "bas_target": {
+      "type": "boolean"
+    }
+  }
+}

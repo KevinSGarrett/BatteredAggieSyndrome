@@ -1,0 +1,14 @@
+scorecard_id,name,filter_definition,primary_metrics,blocking,notes
+SC-001,National all-games,all eligible canonical games,MTR-001;MTR-006;MTR-008;MTR-010;MTR-011,true,Primary national reference scorecard.
+SC-002,Texas A&M all-games,canonical team == Texas A&M,MTR-001;MTR-006;MTR-008;MTR-010,true,Must be interpreted with national scorecard; no A&M-only optimization.
+SC-003,Early-season,first four team games in a season,MTR-001;MTR-006,false,Predeclared diagnostic for prior/early-season architecture.
+SC-004,Favorites,baseline pregame win probability > 0.5,MTR-001;MTR-006,false,Partition defined from pregame baseline only.
+SC-005,Underdogs,baseline pregame win probability < 0.5,MTR-001;MTR-006,false,Partition defined from pregame baseline only.
+SC-006,SEC/high-strength opponents,SEC opponent or predeclared high-strength band,MTR-001;MTR-006,false,"Strength-band boundary must come from development-only state, not protected outcomes."
+SC-007,FCS/lower-division opponents,opponent competition tier below FBS,MTR-001;MTR-006,false,Evaluate translation/uncertainty behavior.
+SC-008,Availability stress,W12 material availability-event flag,MTR-001;MTR-006;MTR-015,false,No postgame snap-based backfill.
+SC-009,High travel/body-clock,development-only precommitted travel-stress threshold,MTR-001;MTR-006,false,Numeric travel boundary must be frozen from development evidence before protected access.
+SC-010,Home,"home, non-neutral",MTR-001;MTR-006,false,Supports home-field evaluation.
+SC-011,Away/neutral,away or neutral,MTR-001;MTR-006,false,Paired context diagnostic.
+SC-012,Regime transition,predeclared W11/W13 regime-transition flag,MTR-001;MTR-006;MTR-015,false,Evaluates uncertainty under staff/QB/scheme transitions.
+SC-013,BAS A&M severity,A&M games with W15 BAS labels,MTR-012;MTR-013;MTR-014,true,Separate from Aggie Excess scientific-effect inference.

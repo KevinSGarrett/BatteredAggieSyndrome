@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "executed_at": "2026-08-09T05:38:28.6703333Z",
+  "scope": "All 21 distinct pytest files referenced by the 221 historical Jira issues then marked Done.",
+  "result": "PASS",
+  "passed_tests": 150,
+  "passed_subtests": 16,
+  "failed_tests": 0,
+  "warnings": 1,
+  "warning_summary": "tests/test_w23_operations.py::W23OperationsTests::test_backup_rejects_tamper emitted a duplicate ZIP member warning for payload/a.txt.",
+  "duration_seconds": 1.31,
+  "interpretation": "This corroborates the current repository governance/starter contracts but does not prove any individual historical issue Done because no issue has a completion evidence contract or retained per-issue evidence manifest."
+}

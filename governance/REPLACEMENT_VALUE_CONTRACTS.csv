@@ -1,0 +1,6 @@
+contract_id,concept,required_inputs,fixed_position_penalty,supports_multi_player_redistribution,uncertainty_required,notes
+RV-001,healthy_role_reference,healthy player value; expected healthy usage,false,true,true,Abstract value units until later model calibration.
+RV-002,direct_replacement,replacement identity; replacement value; replacement usage; role fit,false,true,true,"QB1→QB2 is one possible case, not universal architecture."
+RV-003,rotation_redistribution,multiple replacement identities/shares; position-group depth,false,true,true,Important for DL/RB/DB/WR rotations.
+RV-004,replacement_gap,healthy reference minus scenario-weighted available lineup value,false,true,true,No direct conversion to game points in W12.
+RV-005,matchup_handoff,affected role/unit; player/replacement state; uncertainty,false,true,true,W13/W16 may map into matchup/forecast models.

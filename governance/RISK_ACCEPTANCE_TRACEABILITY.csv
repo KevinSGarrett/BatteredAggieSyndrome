@@ -1,0 +1,311 @@
+risk_id,acceptance_control_ids,status,notes
+RISK-001,AC-011;AC-012,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-002,AC-014,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-003,AC-017,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-004,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-005,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-006,AC-038,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-007,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-008,AC-009;AC-020,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-009,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-010,AC-009;AC-020,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-011,AC-009;AC-020,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-012,AC-043,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-013,AC-002;AC-040,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-014,AC-002;AC-040,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-015,AC-002;AC-040,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-016,AC-005,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-017,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-018,AC-023;AC-025;AC-031,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-019,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-020,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-021,AC-023;AC-025;AC-031,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-022,AC-032,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-023,AC-038,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-024,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-025,AC-038,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-026,AC-032,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-027,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-028,AC-011;AC-012,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-029,AC-002;AC-040,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-030,AC-002;AC-040,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-031,AC-002;AC-040,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-032,AC-005,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-033,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-034,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-035,AC-004;AC-042,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-036,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-037,AC-005,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-038,AC-017,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-039,AC-037,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-040,AC-032,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-041,AC-009;AC-020,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-042,AC-023;AC-025;AC-031,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-043,AC-005,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-044,AC-011;AC-012,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-045,AC-005,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-046,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-047,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-048,AC-011;AC-012,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-049,AC-024;AC-031,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-050,AC-011;AC-012,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-051,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-052,AC-038,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-053,AC-004;AC-042,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-054,AC-007;AC-044,MAPPED,Controls mitigate/detect risk; OPEN risk may remain until owner-wave evidence passes.
+RISK-055,AC-053;AC-055,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-056,AC-051,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-057,AC-049;AC-051,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-058,AC-052,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-059,AC-054,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-060,AC-050;AC-056,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-061,AC-049;AC-055,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-062,AC-054;AC-056,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-063,AC-051;AC-052,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-064,AC-051,MAPPED,W05 controls mitigate/detect planning/autonomy risk; future runtime risk may remain open.
+RISK-065,AC-015;AC-020;AC-059,MAPPED,W06 source/data risk mapping.
+RISK-066,AC-015;AC-020,MAPPED,W06 source/data risk mapping.
+RISK-067,AC-013;AC-059,MAPPED,W06 source/data risk mapping.
+RISK-068,AC-043;AC-058,MAPPED,W06 source/data risk mapping.
+RISK-069,AC-014;AC-043,MAPPED,W06 source/data risk mapping.
+RISK-070,AC-010;AC-058,MAPPED,W06 source/data risk mapping.
+RISK-071,AC-043;AC-058,MAPPED,W06 source/data risk mapping.
+RISK-072,AC-020;AC-043,MAPPED,W06 source/data risk mapping.
+RISK-073,AC-011;AC-019,MAPPED,W06 source/data risk mapping.
+RISK-074,AC-009;AC-020,MAPPED,W06 source/data risk mapping.
+RISK-075,AC-020;AC-057,MAPPED,W06 source/data risk mapping.
+RISK-076,AC-043;AC-057,MAPPED,W06 source/data risk mapping.
+RISK-077,AC-010;AC-043;AC-059,MAPPED,W06 source/data risk mapping.
+RISK-078,AC-008;AC-011,MAPPED,W06 source/data risk mapping.
+RISK-079,AC-057;AC-058;AC-059,MAPPED,W06 source/data risk mapping.
+RISK-080,AC-062;AC-063,MAPPED,W07 entity/source identity risk mapping.
+RISK-081,AC-061;AC-064,MAPPED,W07 entity/source identity risk mapping.
+RISK-082,AC-062;AC-065,MAPPED,W07 entity/source identity risk mapping.
+RISK-083,AC-061;AC-062,MAPPED,W07 entity/source identity risk mapping.
+RISK-084,AC-061;AC-062,MAPPED,W07 entity/source identity risk mapping.
+RISK-085,AC-008;AC-065,MAPPED,W07 entity/source identity risk mapping.
+RISK-086,AC-017;AC-063,MAPPED,W07 entity/source identity risk mapping.
+RISK-087,AC-064,MAPPED,W07 entity/source identity risk mapping.
+RISK-088,AC-066,MAPPED,W07 entity/source identity risk mapping.
+RISK-089,AC-063,MAPPED,W07 entity/source identity risk mapping.
+RISK-090,AC-001;AC-002,MAPPED,W07 entity/source identity risk mapping.
+RISK-091,AC-067,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-092,AC-068;AC-075,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-093,AC-069,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-094,AC-070,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-095,AC-071;AC-013,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-096,AC-071,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-097,AC-072,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-098,AC-072,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-099,AC-073,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-100,AC-076,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-101,AC-067,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-102,AC-067,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-103,AC-011;AC-067,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-104,AC-068,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-105,AC-055,MAPPED,W08 temporal risk control mapping; real-data replay may remain pending.
+RISK-106,AC-077,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-107,AC-077,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-108,AC-078,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-109,AC-078,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-110,AC-079,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-111,AC-080,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-112,AC-080,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-113,AC-081,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-114,AC-081,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-115,AC-082,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-116,AC-083,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-117,AC-083,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-118,AC-084,MAPPED,W09 controls mitigate/detect registry/schema risks; materialized evidence may remain pending.
+RISK-119,AC-086,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-120,AC-088,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-121,AC-087;AC-088,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-122,AC-087,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-123,AC-087;AC-088,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-124,AC-087,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-125,AC-088,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-126,AC-091,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-127,AC-089,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-128,AC-090,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-129,AC-092,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-130,AC-088,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-131,AC-087,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-132,AC-090,MAPPED,W10 controls mitigate/detect; empirical risks remain open until owning-wave data.
+RISK-133,AC-096;AC-100,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-134,AC-095;AC-097,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-135,AC-095;AC-100,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-136,AC-095,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-137,AC-094;AC-097,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-138,AC-097;AC-100,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-139,AC-097,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-140,AC-099,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-141,AC-098,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-142,AC-099,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-143,AC-099,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-144,AC-096,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-145,AC-093;AC-101,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-146,AC-100;AC-101,MAPPED,W11 controls mitigate/detect; real-data empirical risks remain open until owning waves.
+RISK-147,AC-102,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-148,AC-102,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-149,AC-103;AC-112,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-150,AC-105,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-151,AC-106;AC-110,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-152,AC-104,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-153,AC-105,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-154,AC-108,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-155,AC-107,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-156,AC-111,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-157,AC-109;AC-112,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-158,AC-109,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-159,AC-110,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-160,AC-105;AC-112,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-161,AC-112,MAPPED,W12 controls mitigate/detect contract risk; empirical/materialization risks remain open until owning waves.
+RISK-162,AC-113;AC-114;AC-115,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-163,AC-113;AC-114;AC-115,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-164,AC-113;AC-114;AC-115,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-165,AC-113;AC-114;AC-115,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-166,AC-113;AC-114;AC-115,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-167,AC-116,MITIGATED_BY_W13_CONTRACT,Empirical/coverage residual risk remains where applicable.
+RISK-168,AC-116,MITIGATED_BY_W13_CONTRACT,Empirical/coverage residual risk remains where applicable.
+RISK-169,AC-117,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-170,AC-117,MITIGATED_BY_W13_CONTRACT,Empirical/coverage residual risk remains where applicable.
+RISK-171,AC-118,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-172,AC-118,MITIGATED_BY_W13_CONTRACT,Empirical/coverage residual risk remains where applicable.
+RISK-173,AC-119,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-174,AC-120;AC-121,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-175,AC-120;AC-121,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-176,AC-122,MITIGATED_BY_W13_CONTRACT,Empirical/coverage residual risk remains where applicable.
+RISK-177,AC-122,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-178,AC-123,MITIGATED_BY_W13_CONTRACT,Empirical/coverage residual risk remains where applicable.
+RISK-179,AC-124,OPEN_WITH_CONTROL,Empirical/coverage residual risk remains where applicable.
+RISK-180,AC-126,MITIGATED_BY_W13_CONTRACT,Empirical/coverage residual risk remains where applicable.
+RISK-181,AC-127,MITIGATED_BY_W14_CONTRACT,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-182,AC-135,OPEN_WITH_CONTROL,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-183,AC-128;AC-129,OPEN_WITH_CONTROL,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-184,AC-131,OPEN_WITH_CONTROL,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-185,AC-132,MITIGATED_BY_W14_CONTRACT,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-186,AC-130,OPEN_WITH_CONTROL,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-187,AC-133;AC-135,OPEN_WITH_CONTROL,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-188,AC-136,OPEN_WITH_CONTROL,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-189,AC-135;AC-136,OPEN_WITH_CONTROL,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-190,AC-137,MITIGATED_BY_W14_CONTRACT,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-191,AC-137,MITIGATED_BY_W14_CONTRACT,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-192,AC-137,MITIGATED_BY_W14_CONTRACT,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-193,AC-134;AC-135,OPEN_WITH_CONTROL,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-194,AC-138,MITIGATED_BY_W14_CONTRACT,W14 control in place; empirical/materialization residual risk remains where applicable.
+RISK-195,AC-140,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-196,AC-142,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-197,AC-140,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-198,AC-140,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-199,AC-139,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-200,AC-145,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-201,AC-145,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-202,AC-148,OPEN_WITH_CONTROL,W15 control in place; empirical residual risk remains where applicable.
+RISK-203,AC-148,OPEN_WITH_CONTROL,W15 control in place; empirical residual risk remains where applicable.
+RISK-204,AC-146,OPEN_WITH_CONTROL,W15 control in place; empirical residual risk remains where applicable.
+RISK-205,AC-146,OPEN_WITH_CONTROL,W15 control in place; empirical residual risk remains where applicable.
+RISK-206,AC-147,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-207,AC-142,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-208,AC-149,OPEN_WITH_CONTROL,W15 control in place; empirical residual risk remains where applicable.
+RISK-209,AC-144,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-210,AC-150,MITIGATED_W15_CONTRACT,W15 control in place; empirical residual risk remains where applicable.
+RISK-211,AC-151,MITIGATED_W15,W15 control in place; empirical residual risk remains where applicable.
+RISK-212,AC-153;AC-154;AC-155,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-213,AC-153;AC-154;AC-155,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-214,AC-153;AC-154;AC-155,OPEN,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-215,AC-156;AC-161,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-216,AC-159,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-217,AC-159,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-218,AC-160;AC-149,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-219,AC-160;AC-149,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-220,AC-157;AC-158,OPEN,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-221,AC-158,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-222,AC-158,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-223,AC-157;AC-158,MITIGATED_W16_CONTRACT,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-224,AC-153;AC-154;AC-155,OPEN,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-225,AC-154;AC-158,OPEN,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-226,AC-156;AC-161,MITIGATED_W16,W16 control in place where possible; residual empirical/implementation risk remains.
+RISK-227,AC-163;AC-164;AC-024,MAPPED,W17 protected-validation risk mapping.
+RISK-228,AC-164,MAPPED,W17 protected-validation risk mapping.
+RISK-229,AC-169;AC-170,MAPPED,W17 protected-validation risk mapping.
+RISK-230,AC-170;AC-175,MAPPED,W17 protected-validation risk mapping.
+RISK-231,AC-167,MAPPED,W17 protected-validation risk mapping.
+RISK-232,AC-173;AC-030,MAPPED,W17 protected-validation risk mapping.
+RISK-233,AC-172;AC-029,MAPPED,W17 protected-validation risk mapping.
+RISK-234,AC-166,MAPPED,W17 protected-validation risk mapping.
+RISK-235,AC-166;AC-025,MAPPED,W17 protected-validation risk mapping.
+RISK-236,AC-174;AC-014,MAPPED,W17 protected-validation risk mapping.
+RISK-237,AC-174;AC-027,MAPPED,W17 protected-validation risk mapping.
+RISK-238,AC-174;AC-027,MAPPED,W17 protected-validation risk mapping.
+RISK-239,AC-164;AC-020,MAPPED,W17 protected-validation risk mapping.
+RISK-240,AC-167;AC-023,MAPPED,W17 protected-validation risk mapping.
+RISK-241,AC-165;AC-175,MAPPED,W17 protected-validation risk mapping.
+RISK-242,AC-176,MAPPED,W17 protected-validation risk mapping.
+RISK-243,AC-177,MAPPED,W18 experimentation/research risk mapping.
+RISK-244,AC-178,MAPPED,W18 experimentation/research risk mapping.
+RISK-245,AC-179,MAPPED,W18 experimentation/research risk mapping.
+RISK-246,AC-180,MAPPED,W18 experimentation/research risk mapping.
+RISK-247,AC-181,MAPPED,W18 experimentation/research risk mapping.
+RISK-248,AC-182,MAPPED,W18 experimentation/research risk mapping.
+RISK-249,AC-183,MAPPED,W18 experimentation/research risk mapping.
+RISK-250,AC-184,MAPPED,W18 experimentation/research risk mapping.
+RISK-251,AC-185,MAPPED,W18 experimentation/research risk mapping.
+RISK-252,AC-186,MAPPED,W18 experimentation/research risk mapping.
+RISK-253,AC-187,MAPPED,W18 experimentation/research risk mapping.
+RISK-254,AC-188,MAPPED,W18 experimentation/research risk mapping.
+RISK-255,AC-189,MAPPED,W18 experimentation/research risk mapping.
+RISK-256,AC-190,MAPPED,W18 experimentation/research risk mapping.
+RISK-257,AC-177,MAPPED,W18 experimentation/research risk mapping.
+RISK-258,AC-178,MAPPED,W18 experimentation/research risk mapping.
+RISK-259,AC-179,MAPPED,W18 experimentation/research risk mapping.
+RISK-260,AC-180,MAPPED,W18 experimentation/research risk mapping.
+RISK-261,AC-191,MAPPED,Corrected W18 risk mapping.
+RISK-262,AC-192,MAPPED,Corrected W18 risk mapping.
+RISK-263,AC-193,MAPPED,Corrected W18 risk mapping.
+RISK-264,AC-193,MAPPED,Corrected W18 risk mapping.
+RISK-265,AC-195,MAPPED,Corrected W18 risk mapping.
+RISK-266,AC-194,MAPPED,Corrected W18 risk mapping.
+RISK-267,AC-196,MAPPED,Corrected W18 risk mapping.
+RISK-268,AC-196,MAPPED,Corrected W18 risk mapping.
+RISK-269,AC-197,MAPPED,Corrected W18 risk mapping.
+RISK-270,AC-197,MAPPED,Corrected W18 risk mapping.
+RISK-271,AC-202,MAPPED,Corrected W18 risk mapping.
+RISK-272,AC-202,MAPPED,Corrected W18 risk mapping.
+RISK-273,AC-198,MAPPED,Corrected W18 risk mapping.
+RISK-274,AC-199,MAPPED,Corrected W18 risk mapping.
+RISK-275,AC-200,MAPPED,Corrected W18 risk mapping.
+RISK-276,AC-201,MAPPED,Corrected W18 risk mapping.
+RISK-277,AC-202,MAPPED,Corrected W18 risk mapping.
+RISK-278,AC-205,MAPPED,Corrected W18 risk mapping.
+RISK-279,AC-208,MAPPED,Corrected W18 risk mapping.
+RISK-280,AC-206,MAPPED,Corrected W18 risk mapping.
+RISK-281,AC-209,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-282,AC-210,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-283,AC-211,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-284,AC-212,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-285,AC-213,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-286,AC-214,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-287,AC-215,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-288,AC-216,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-289,AC-217,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-290,AC-218,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-291,AC-219,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-292,AC-220,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-293,AC-221,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-294,AC-222,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-295,AC-223,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-296,AC-224,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-297,AC-225,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-298,AC-226,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-299,AC-227,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-300,AC-228,MITIGATED_REFERENCE_W18,Residual empirical/operational risk remains for later materialized execution.
+RISK-301,AC-037,MITIGATED_REFERENCE_W22,Functional starter proves visible unassessed/stale states; production SLA remains W23 operations evidence.
+RISK-302,AC-046,MITIGATED_REFERENCE_W22,W22 import-boundary and service tests prevent request-path access to modeling/data internals.
+RISK-303,AC-033;AC-046,MITIGATED_REFERENCE_W22,W21-style v1 payload remains readable by W22 repository parser.
+RISK-304,AC-041;AC-055,MITIGATED_REFERENCE_W23,Exact pins/policy/hosted security workflows reduce dependency drift; hosted findings remain future evidence.
+RISK-305,AC-004;AC-042,MITIGATED_REFERENCE_W23,Structured redaction tests plus repository secret scan.
+RISK-306,AC-039;AC-040,MITIGATED_REFERENCE_W23,Backup tamper/path/restore tests.
+RISK-307,AC-038;AC-055;AC-056,OPEN_BLOCKER_W23,Current benchmark is explicitly non-target and cannot clear release blocker.
+RISK-308,AC-233;AC-234;AC-038,OPEN_CARRIED_W25,W24 scope can complete but target-hardware readiness remains unresolved.
+RISK-309,AC-231;AC-009;AC-010,MITIGATED_REFERENCE_W24,Source refresh explicitly marks independent_corroboration=NO.
+RISK-310,AC-231;AC-020,MITIGATED_POLICY_W24,Ensemble mean remains research-only/optional pending evidence.

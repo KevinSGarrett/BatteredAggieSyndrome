@@ -1,0 +1,46 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-READ-BUDGET",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/START_HERE.md",
+  "tiers": {
+    "ALWAYS_READ": [
+      "AGENTS.md",
+      "instructions/START_HERE.md",
+      "governance/CURRENT_STATE.yaml",
+      "governance/CURRENT_BACKLOG.yaml"
+    ],
+    "TASK_START": [
+      "active Jira issue and parents/dependencies",
+      "instructions/05_TASK_SELECTION_AND_SEQUENCING.md",
+      "instructions/07_JIRA_OPERATING_CONTRACT.md",
+      "applicable Git policy",
+      "task-linked REQ/ADR/AC/source docs/code/tests/schemas"
+    ],
+    "WHEN_APPLICABLE": {
+      "dirty_or_diverged_git": [
+        "instructions/START_HERE.md",
+        "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "pr_ci_merge": [
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md"
+      ],
+      "data_ml_pit": [
+        "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md"
+      ],
+      "architecture_or_release": [
+        "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md"
+      ],
+      "parallel_or_handoff": [
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md"
+      ],
+      "blocker_loop": [
+        "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md"
+      ]
+    }
+  },
+  "full_repository_reread_each_session": false,
+  "targeted_retrieval_required": true
+}

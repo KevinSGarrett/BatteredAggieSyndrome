@@ -1,0 +1,7 @@
+baseline_id,estimand,population,orientation,game_clustering,comparison_role,w15_status
+BAS-FBS-001,distribution of performance_residual,all eligible FBS team-game orientations,team-perspective,canonical_game,national_reference,DESIGN_ONLY
+BAS-FBS-002,P(shortfall>=3),eligible FBS,team-perspective,canonical_game,severity_reference,DESIGN_ONLY
+BAS-FBS-003,P(shortfall>=7),eligible FBS,team-perspective,canonical_game,headline_reference,DESIGN_ONLY
+BAS-FBS-004,P(shortfall>=14),eligible FBS,team-perspective,canonical_game,tail_reference,DESIGN_ONLY
+BAS-FBS-005,P(shortfall>=21),eligible FBS,team-perspective,canonical_game,extreme_tail_reference,DESIGN_ONLY
+BAS-FBS-006,conditional residual/severity given expected margin/strength/context,eligible FBS + predeclared peers,team-perspective,canonical_game,confound_adjusted_reference,DESIGN_ONLY

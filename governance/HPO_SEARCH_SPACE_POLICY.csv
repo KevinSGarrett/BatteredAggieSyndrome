@@ -1,0 +1,7 @@
+parameter_type,required_fields,allowed,notes
+int,name;low;high;step,true,bounds versioned
+float,name;low;high,true,linear
+log_float,name;low;high,true,positive log domain
+categorical,name;choices,true,choices explicit
+conditional,name;parent;condition;domain,true,conditional relationship versioned
+unbounded_dynamic,,false,search spaces frozen before run

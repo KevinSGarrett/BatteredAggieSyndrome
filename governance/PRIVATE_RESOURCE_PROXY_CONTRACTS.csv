@@ -1,0 +1,4 @@
+proxy_id,candidate,claim,dollar_spend_estimate
+PRIV-01,universal EADA-compatible resource evidence,observed disclosure only,false
+PRIV-02,program development/retention/support proxies,latent capacity research only,false
+PRIV-03,missingness indicator/source coverage,"coverage context, not low-resource assumption",false

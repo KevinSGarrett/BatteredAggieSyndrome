@@ -1,0 +1,17 @@
+field_id,field_name,required,identity_affecting,description
+EIF-001,experiment_id,true,derived,Deterministic ID derived from canonical identity payload; results never affect the ID.
+EIF-002,hypothesis_id,true,true,Stable research hypothesis or explicit engineering question.
+EIF-003,parent_experiment_id,false,true,Parent experiment when this is a declared child/challenger.
+EIF-004,task_id,true,true,Owning implementation/research task.
+EIF-005,candidate_family,true,true,Model/feature/system candidate family.
+EIF-006,code_ref,true,true,Immutable code/worktree/commit or content-hash reference.
+EIF-007,data_snapshot_id,true,true,Immutable data/PIT snapshot reference.
+EIF-008,feature_registry_version,true,true,Feature registry/version used by the experiment.
+EIF-009,model_config_hash,true,true,Canonical hash of model/training configuration.
+EIF-010,split_protocol_id,true,true,Evaluation protocol identifier; W17 seal governs protected splits.
+EIF-011,metric_registry_hash,true,true,Hash of predeclared metric registry.
+EIF-012,threshold_method_hash,true,true,Hash of frozen threshold-method registry; numeric values may still be blank.
+EIF-013,environment_fingerprint,true,true,Python/platform/dependency/runtime fingerprint.
+EIF-014,random_seeds,true,true,All stochastic seeds or deterministic seed policy.
+EIF-015,resource_budget_id,true,true,Declared local/remote compute budget and concurrency policy.
+EIF-016,created_at_utc,true,false,Audit timestamp; excluded from deterministic experiment identity.

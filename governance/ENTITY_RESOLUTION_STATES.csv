@@ -1,0 +1,10 @@
+state,meaning,eligible_as_resolved
+UNRESOLVED,No sufficiently supported candidate/decision exists.,NO
+CANDIDATE_GENERATED,One or more candidates generated but not accepted.,NO
+REVIEW_REQUIRED,Ambiguity/conflict requires evidence review.,NO
+AUTO_ACCEPTED_VERIFIED,Accepted only via verified existing/direct/crosswalk rule.,YES
+ACCEPTED_MANUAL,Accepted by explicit review decision with evidence.,YES
+REJECTED,Candidate/mapping explicitly rejected.,NO
+SUPERSEDED,Earlier mapping/decision retained but replaced by a later decision.,NO
+MERGED_REDIRECT,Deprecated canonical duplicate redirects to a survivor.,YES
+SPLIT_CORRECTED,Prior conflation corrected through new identities/mappings.,CONDITIONAL

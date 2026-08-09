@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "version": "w18-v2",
+  "development_splits": [
+    "SPLIT-DEV-HIST",
+    "SPLIT-DEV-SEL"
+  ],
+  "protected_splits_forbidden": [
+    "SPLIT-PROTECTED",
+    "SPLIT-FORWARD"
+  ],
+  "compatibility_keys": [
+    "target",
+    "split_id",
+    "data_snapshot_id",
+    "feature_version",
+    "metric_registry_version",
+    "lane",
+    "bas_anchor_version",
+    "tamu_baseline_version"
+  ],
+  "retain_secondary_metrics": true,
+  "arbitrary_composite_required": false
+}

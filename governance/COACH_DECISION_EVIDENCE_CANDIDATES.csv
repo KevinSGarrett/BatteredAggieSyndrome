@@ -1,0 +1,4 @@
+candidate_id,domain,candidate_measure,required_controls,manual_bonus,winner_selected_w13
+COACH-DEC-01,FOURTH_DOWN,go-for-it tendency;conversion;EP/WP decision-quality residual,down;distance;field_position;score;time;timeouts;opponent,false,false
+COACH-DEC-02,CLOCK_MANAGEMENT,timeout/end-half/four-minute/two-minute decision evidence,score;time;timeouts;possession;field_position;opponent,false,false
+COACH-DEC-03,HALFTIME_ADJUSTMENT,second-half residual conditional on first-half state,opponent;score_state;possessions;injuries;weather;regression_to_mean,false,false

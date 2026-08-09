@@ -1,0 +1,20 @@
+{
+  "logical_priorities": [
+    "P0",
+    "P1",
+    "P2",
+    "P3",
+    "CONDITIONAL",
+    "DEFERRED"
+  ],
+  "portable_default_mapping": {
+    "CONDITIONAL": "Low",
+    "DEFERRED": "Low",
+    "P0": "Highest",
+    "P1": "High",
+    "P2": "Medium",
+    "P3": "Low"
+  },
+  "target_mapping_status": "VERIFIED_IN_BAT",
+  "warning": "No Jira priority ID is embedded. Map values to existing destination priorities."
+}

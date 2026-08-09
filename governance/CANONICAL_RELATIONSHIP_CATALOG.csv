@@ -1,0 +1,13 @@
+relationship_type,left_entity,right_entity,record_kind,rule
+team_institution_affiliation,team,institution,EPISODE,Team/program affiliation to institution; effective-dated.
+team_conference_membership,team,conference,EPISODE,Conference/classification membership; effective-dated.
+player_roster_membership,player,team,EPISODE,"Roster/team membership; transfers produce new episodes, not new player identity."
+player_alias,player,source_observation,EPISODE,Name/alias evidence scoped by source/time/context.
+coach_role_episode,coach,team,EPISODE,Role/title/play-caller episode independent of coach identity.
+venue_alias,venue,source_observation,EPISODE,Venue names/renames and source labels.
+game_participant,game,team,OBSERVATION,Participant plus home/away/neutral role; orientation does not define identity.
+game_venue_assignment,game,venue,OBSERVATION,Scheduled/actual venue observation; relocation does not automatically create a new game.
+official_assignment,official,game,OBSERVATION,Role/crew assignment when supported by evidence.
+source_entity_mapping,source_observation,canonical_entity,DECISION,Source identity/key mapping to canonical identity.
+entity_redirect,canonical_entity,canonical_entity,DECISION,Deprecated duplicate redirects to surviving identity after merge decision.
+provenance_edge,derived_record,source_observation,LINEAGE,Derived/canonical records retain parent evidence.

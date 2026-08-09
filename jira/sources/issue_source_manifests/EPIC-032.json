@@ -1,0 +1,51 @@
+{
+  "files_to_inspect": [
+    "governance/EPIC_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv"
+  ],
+  "governance_traceability_gate": "",
+  "issue_id": "EPIC-032",
+  "retrieval_protocol": [
+    "Verify document_sha256 against the current repository file.",
+    "Verify anchor_hash against the normalized stored excerpt and current line range.",
+    "If the file hash changed, run repair_source_refs.py to relocate the exact anchor/heading before using the reference.",
+    "Open only the referenced section plus the minimal listed implementation/prerequisite context; the Windows path is convenience metadata, not authority."
+  ],
+  "schema_version": 2,
+  "source_ids": [
+    "EPIC-032"
+  ],
+  "source_refs": [
+    {
+      "anchor_excerpt": "EPIC-032,PHASE-5,W25,Final consolidation and Codex handoff,Audit all requirements/ADRs/data/PIT/features/models/acceptance and deliver the final canonical repository and implementation priority.,MUST,W06_REPLAN,REVALIDATED_W06_PLANNED",
+      "anchor_hash": "33ba82efff7394eee0e484d1ca66b03f1501ce68a3f5ed9c369dd3a9aa197774",
+      "authority_level": "CURRENT_MACHINE_REGISTRY",
+      "document_sha256": "af67f805fef397b91903c65a04b422ef2d57f9f0eff62311609002b63e8801ea",
+      "end_line": 33,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "governance/EPIC_CATALOG.csv",
+      "source_ref_id": "SRCREF-00032",
+      "source_type": "csv",
+      "start_line": 33,
+      "why_relevant": "Authoritative registry row for EPIC-032",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\EPIC_CATALOG.csv"
+    },
+    {
+      "anchor_excerpt": "task_id,phase_id,epic_id,owner_wave,title,task_type,priority,complexity_class,execution_lane,status,depends_on,requirement_ids,acceptance_control_ids,outputs,mutation_scope,replan_gate,critical_dependency_gate,notes TASK-001,PHASE-1,EPIC-001,W06,Freeze W06 research method and stopping rules,RESEARCH_GOVERNANCE,MUST,C3,",
+      "anchor_hash": "3d7c7074d743d554ae0a76e85d29b8b2e671e57d452e4a2d903f72745369ac64",
+      "authority_level": "CURRENT_MACHINE_REGISTRY",
+      "document_sha256": "fc76c57360b2db7604d13af95c1945d9fe0e2432738ed7b46ae0fc4534375056",
+      "end_line": 202,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "governance/IMPLEMENTATION_WBS.csv",
+      "source_ref_id": "SRCREF-01992",
+      "source_type": "csv",
+      "start_line": 1,
+      "why_relevant": "Authoritative WBS children for EPIC-032",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\IMPLEMENTATION_WBS.csv"
+    }
+  ],
+  "traceability_inherited_from": []
+}

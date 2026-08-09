@@ -1,0 +1,11 @@
+gap_id,area,finding,severity,v2_correction
+V1-001,Completeness evidence,No one-to-one map from prompt sections 1-56 to files/tests.,Critical,Add prompt_compliance.json and human compliance matrix; validator requires all 56 unique sections.
+V1-002,Operational depth,Many distinct controls were compressed into 10 broad Markdown policies.,High,Split canonical procedures by startup/task/Jira/Git/PR/quality/security/ML/release/continuity/recovery.
+V1-003,Local Git discovery,No reusable local control-plane audit tool for actual C:\ repository.,High,Add audit_control_plane.py and PowerShell wrapper with redacted read-only output.
+V1-004,Jira mirror,"Only sparse placeholder JSON; no field/workflow schema, cache/retention model, or validator.",High,"Add schemas, workflow/field/sync contracts, mirror validation, and live-write preconditions."
+V1-005,Checklists,"No separate task-start, PR-ready, merge-ready, reconciliation, release or Jira source-reference checklists.",High,Add focused templates/checklists with canonical references.
+V1-006,GitHub enforcement,Recommendations were brief and not machine-mapped to priority/mode/configuration.,Medium,"Add enforcement matrix and machine policy, while leaving remote changes human-approved."
+V1-007,Validation strength,Validator primarily checked file presence/keywords and did not prove prompt coverage or every internal link/authority relationship.,Critical,"Build structural, hash, compliance, link, Jira, Git-policy, PR-template and no-W26 validation."
+V1-008,Final claims,Completion report used categorical language despite unavailable local .git and inaccessible BAT site.,Critical,Use explicit implemented/external-gap statuses and never claim live Jira/local Git verification.
+V1-009,Repository navigation,No detailed registry/code/test navigation map tied to real 745/349/201/234 control assets.,High,Add repository architecture/navigation document and audit inventory.
+V1-010,Change control,"No strong procedure ensuring human and machine policies, manifest, hashes, compliance and active root controls remain synchronized.",High,Add instruction change-control policy and validator.

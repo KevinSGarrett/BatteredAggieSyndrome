@@ -1,0 +1,7 @@
+prior_id,candidate_input,applies_to,pit_required,manual_weight,uncertainty_policy,notes
+RP-001,recruiting rating/ranking/stars,prospects/freshmen/sparse players,true,,wide until college evidence,Source and rating system version required.
+RP-002,position and physical profile,prospects/freshmen,true,,wide until college evidence,Do not infer unavailable measurements.
+RP-003,school/program development history,prospects/freshmen,true,,hierarchical/shrunk candidate,Lagged development evidence only.
+RP-004,similar historical recruit cohort,prospects/freshmen,true,,cohort dispersion required,Position-aware candidate.
+RP-005,expected role/depth competition,prospects/transfers,true,,role uncertainty explicit,Role is not guaranteed by recruiting rank.
+RP-006,prior college production,transfers only when present,true,,translation uncertainty required,Freshmen with zero college snaps do not use transfer-production model.

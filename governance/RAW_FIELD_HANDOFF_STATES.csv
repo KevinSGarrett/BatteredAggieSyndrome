@@ -1,0 +1,9 @@
+handoff_state,w10_experiment_candidate,pit_gateway_required,meaning
+BANNED_FROM_PREGAME,No,No,Postgame/future class; never direct pregame input.
+TEMPORAL_REVIEW_REQUIRED,No,No,Temporal semantics unresolved; fail closed.
+EVIDENCE_OR_METADATA_ONLY,No,No,Identity/join/evidence/structural metadata; not a predictive feature by registry status alone.
+HISTORICAL_OR_LIVE_DERIVATION_ONLY,No,Conditional,Current-game/postgame field may support later-game aggregation or isolated live research.
+PIT_HISTORICAL_AGGREGATION_INPUT,Yes,Yes,May feed W10 derived candidates only after completed prior-game/PIT aggregation.
+ASOF_RECONSTRUCTION_REQUIRED,Yes,Yes,Candidate only through W08 as-of reconstruction.
+PIT_SNAPSHOT_REQUIRED,Yes,Yes,Candidate only via effective-dated PIT snapshot.
+W10_CANDIDATE_INPUT_ONLY,Yes,Yes,May enter W10 experiment design; not promoted to production.

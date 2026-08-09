@@ -1,0 +1,9 @@
+research_id,checked_utc,question,source,source_class,conclusion,architecture_effect
+W24-R001,2026-08-09T00:30:00Z,Is CFBD still active/current for 2026?,CollegeFootballData homepage/API,nonofficial aggregator,YES; API/export/download workflows and 2026 products remain active,KEEP_PRIMARY_WITH_VERSIONED_CONTRACTS
+W24-R002,2026-08-09T00:30:00Z,Did SportsDataverse provenance become clearer?,cfbfastR-cfb-data + cfbfastR-cfb-raw,open-source derived data,YES; -data explicitly derives from -raw enriched final JSON,REVISE_PROVENANCE_GRAPH_NOT_CORE_ARCHITECTURE
+W24-R003,2026-08-09T00:30:00Z,Can historical issued weather forecasts still be reconstructed?,Open-Meteo Features/Historical Forecast/Single Runs,weather API,YES; multiple forecast-history layers remain available,KEEP_PIT_RUN_SEMANTICS
+W24-R004,2026-08-09T00:30:00Z,Are weather access assumptions sufficiently precise?,Open-Meteo Pricing/Terms,weather API,REFINE; free is non-commercial and historical/ensemble customer APIs require Professional+,REVISE_ACCESS_GOVERNANCE
+W24-R005,2026-08-09T00:30:00Z,Is there a new weather-uncertainty source?,Open-Meteo Ensemble Mean API,weather API,YES; mean/spread stored mostly since March 2026,ADD_OPTIONAL_RESEARCH_SOURCE
+W24-R006,2026-08-09T00:30:00Z,Are SEC availability reports still active?,SEC football availability reporting,official conference,YES; Fall 2026 surface active,KEEP_TAMU_PRIMARY_AVAILABILITY_LANE
+W24-R007,2026-08-09T00:30:00Z,Are ACC/Big12/CFP availability lanes still active?,ACC/Big12/CFP reporting pages,official conference/postseason,YES; reporting/archive surfaces remain current,KEEP_OFFICIAL_AVAILABILITY_ARCHITECTURE
+W24-R008,2026-08-09T00:30:00Z,Did 2026 rules materially change feature meaning?,NCAA Football Playing Rules + targeting update,official governing body,YES; 2026 targeting carryover semantics changed,KEEP_AND_POPULATE_EFFECTIVE_DATED_REGULATORY_ENVIRONMENT

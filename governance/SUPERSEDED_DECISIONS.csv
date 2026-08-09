@@ -1,0 +1,19 @@
+supersession_id,prior,status,current_resolution,source_history,governing_adr
+SUP-001,Downloadable pretrained gmalbert `.joblib` as project foundation,SUPERSEDED,Unverified in later source research; train our own final models and use currently verified external models only as benchmarks/reference.,Initial_Chat_Log_002 → Initial_Chat_Log_007,ADR-026
+SUP-002,PFF as high-priority/core source,SUPERSEDED/DEFERRED,PFF is deferred optional enrichment and cannot block v1/core architecture.,Initial_Chat_Log_005 → 007; recon FINAL,ADR-004
+SUP-003,Sports Info Solutions as potential advanced charting dependency,REJECTED,Difficult/enterprise source removed; no core dependency.,Initial_Chat_Log_005,ADR-003/004
+SUP-004,A&M-only training dataset,REJECTED,"National FBS/FCS foundation provides statistical power; A&M dominates specialization/evaluation, not historical sample.",Initial_Chat_Log_001/015,ADR-001
+SUP-005,Manual feature inclusion from football intuition,REJECTED,Feature usefulness is empirical with PIT walk-forward/ablation/stability.,Initial_Chat_Log_009/012,ADR-008
+SUP-006,Raw ~900 columns directly into model,REJECTED,Raw fields are registry/evidence inputs transformed into target-specific PIT features.,Initial_Chat_Log_009/012,ADR-008
+SUP-007,Manual/fan BAS formula,REJECTED,BAS is leakage-safe underperformance probability with scientific significance/stability tests.,Initial_Chat_Log_006/010/011,ADR-002
+SUP-008,Old A&M games directly represent current A&M,REJECTED,Old games primarily teach national structure; current-team evidence is continuity/regime/roster weighted.,Initial_Chat_Log_013,ADR-010
+SUP-009,Infinite recursive lower-division strength modeling,REJECTED,Terminate with increasingly coarse hierarchical priors + uncertainty.,Initial_Chat_Log_014,ADR-009
+SUP-010,Static team rating unaffected by injuries/replacements,REJECTED,Current available strength incorporates player-specific availability/replacement impact.,Initial_Chat_Log_010,ADR-011
+SUP-011,Single static generic coach rating,REJECTED,Use effective-dated role episodes and role-conditioned hierarchical residuals.,Initial_Chat_Log_003/004; recon v1.1,ADR-012
+SUP-012,Raw home win percentage / hard-coded 12th Man bonus,REJECTED,Learn context-adjusted partial-pooled home/venue residuals.,recon v1.1,ADR-027
+SUP-013,Fixed conference transfer penalty,REJECTED,Learn continuous-strength/contextual transfer translation.,recon v1.1,ADR-028
+SUP-014,Observed weather as replacement for historical forecast,REJECTED,Forecast snapshots and observed/reanalysis weather are separate temporal products.,recon v1/v1.1,ADR-005/006
+SUP-015,Closing line safe for earlier-week forecast,REJECTED,Only market observations known by forecast timestamp are eligible.,recon v1.2,ADR-030
+SUP-016,Large LLM/GPU as central path to accuracy,REJECTED,Core problem is structured probabilistic ML/data engineering; advanced compute is later challenger research only.,Initial_Chat_Log_018/019,ADR-018
+SUP-017,Autonomous agent may rewrite validation/promotion rules,REJECTED,Research agent cannot alter protected judging rules/ground truth.,Initial_Chat_Log_017,ADR-017
+SUP-018,One giant permanent CSV as canonical storage,REJECTED,Use immutable raw → normalized → PIT state → features → training matrices → prediction snapshots; technologies remain defaults.,master §43; source log 005,ADR-006

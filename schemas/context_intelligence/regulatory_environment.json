@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RegulatoryEnvironment",
+  "type": "object",
+  "required": [
+    "regulatory_id",
+    "family",
+    "announced_at",
+    "effective_from",
+    "source_observation_id"
+  ],
+  "properties": {
+    "regulatory_id": {
+      "type": "string"
+    },
+    "family": {
+      "type": "string"
+    },
+    "announced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_observation_id": {
+      "type": "string"
+    }
+  }
+}

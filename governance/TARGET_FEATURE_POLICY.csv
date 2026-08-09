@@ -1,0 +1,9 @@
+target_id,target,evaluation_family,market_policy,feature_state_independent,promotion_threshold,notes
+TGT-WIN,win_probability,Brier/log loss/calibration in W17,PURE_AND_MARKET_SEPARATE,true,TBD_BY_THR-007_W17_EVIDENCE,A feature may have different lifecycle states for different targets.
+TGT-MARGIN,expected_margin,MAE/RMSE/distributional score as approved in W17,PURE_AND_MARKET_SEPARATE,true,TBD_BY_THR-007_W17_EVIDENCE,A feature may have different lifecycle states for different targets.
+TGT-TEAM-SCORE,team_score,score error/likelihood as approved in W17,PURE_AND_MARKET_SEPARATE,true,TBD_BY_THR-007_W17_EVIDENCE,A feature may have different lifecycle states for different targets.
+TGT-OPP-SCORE,opponent_score,score error/likelihood as approved in W17,PURE_AND_MARKET_SEPARATE,true,TBD_BY_THR-007_W17_EVIDENCE,A feature may have different lifecycle states for different targets.
+TGT-BAS3,bas_ge_3,proper score/calibration using leakage-safe BAS labels,PURE_FOOTBALL_PRIMARY,true,TBD_BY_THR-007_W17_EVIDENCE,A feature may have different lifecycle states for different targets.
+TGT-BAS7,bas_ge_7,proper score/calibration using leakage-safe BAS labels,PURE_FOOTBALL_PRIMARY,true,TBD_BY_THR-007_W17_EVIDENCE,A feature may have different lifecycle states for different targets.
+TGT-BAS14,bas_ge_14,proper score/calibration using leakage-safe BAS labels,PURE_FOOTBALL_PRIMARY,true,TBD_BY_THR-007_W17_EVIDENCE,A feature may have different lifecycle states for different targets.
+TGT-BAS21,bas_ge_21,proper score/calibration using leakage-safe BAS labels,PURE_FOOTBALL_PRIMARY,true,TBD_BY_THR-007_W17_EVIDENCE,A feature may have different lifecycle states for different targets.

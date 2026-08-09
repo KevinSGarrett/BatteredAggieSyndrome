@@ -1,0 +1,6 @@
+candidate_id,candidate_use,temporal_rule,future_outcome_as_same_season_feature,production_selected,notes
+DD-001,lagged program draft production,only completed drafts known before forecast cutoff,false,false,Candidate 1y/3y/5y development history.
+DD-002,lagged position-group development,only completed drafts known before forecast cutoff,false,false,Control for recruiting/player inputs.
+DD-003,coach development prior input,only prior completed outcomes,false,false,Detailed coach attribution is W13.
+DD-004,retrospective player-development training target,future draft may label a historical training example only through leakage-safe model training; derived pregame estimate must use pregame inputs,false,false,Never direct future-info feature.
+DD-005,timestamped preseason draft projection,only if reproducible source existed and was published before cutoff,false,false,Optional external consensus lane; rights/history review.

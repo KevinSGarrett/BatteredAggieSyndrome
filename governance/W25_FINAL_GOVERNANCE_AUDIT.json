@@ -1,0 +1,58 @@
+{
+  "project_id": "aggie-analytics-engine",
+  "wave": "W25",
+  "status": "PASS_FINAL_HANDOFF",
+  "requirements": {
+    "count": 745,
+    "unique_ids": 745,
+    "acceptance_matrix_rows": 745,
+    "traceability_rows": 745,
+    "w25_terminal_requirement": "REQ-130 COMPLETE_W25 / VERIFIED_W25_FINAL"
+  },
+  "adrs": {
+    "count": 349,
+    "unique_ids": 349,
+    "acceptance_mappings": 349,
+    "w25_adrs": ["ADR-347", "ADR-348", "ADR-349"]
+  },
+  "risks": {
+    "canonical_rows": 310,
+    "final_register_rows": 310
+  },
+  "tasks": {
+    "count": 201,
+    "done": 191,
+    "planned_conditional_or_deferred": 8,
+    "blocked_target_hardware": 1,
+    "blocked_ac038_target_hardware": 1,
+    "w25_done": ["TASK-179", "TASK-180", "TASK-181", "TASK-182", "TASK-183", "TASK-184"],
+    "program_controls_done": ["TASK-185", "TASK-186", "TASK-187", "TASK-188", "TASK-189"]
+  },
+  "parent_preservation": {
+    "w24_parent_paths": 844,
+    "preserved": 844,
+    "missing": 0,
+    "unchanged": 813,
+    "controlled_modified_w25": 31
+  },
+  "terminal_program_state": {
+    "exact_numbered_waves": 25,
+    "wave_26_allowed": false,
+    "next_state": "CODEX_IMPLEMENTATION_HANDOFF"
+  },
+  "carried_readiness_condition": {
+    "ac_038": "UNRESOLVED_TARGET_HARDWARE",
+    "task_161": "BLOCKED_TARGET_HARDWARE",
+    "task_163": "BLOCKED_AC038_TARGET_HARDWARE",
+    "thr_011": "TBD_BY_TARGET_BENCHMARK",
+    "thr_012": "TBD_BY_TARGET_BENCHMARK"
+  },
+  "honesty": {
+    "empirical_historical_replay_completed": false,
+    "trained_production_champion_selected": false,
+    "production_feature_set_selected": false,
+    "tamu_specialization_lift_claimed": false,
+    "aggie_excess_claimed": false,
+    "bas_empirical_effect_claimed": false
+  }
+}

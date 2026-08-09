@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "version": "w13-v1.0",
+  "generated_at_utc": "2026-08-08T18:38:22+00:00",
+  "maturity": "COACHING_CONTEXT_MECHANICS_CONTRACTS_SYNTHETIC_ONLY",
+  "principles": [
+    "coach_jobs_are_effective_dated_role_episodes_not_one_static_rating",
+    "coach_effect_candidates_use_performance_relative_to_expectation_with_confound_controls",
+    "promotions_retain_prior_role_evidence_without_double_counting",
+    "scheme_play_caller_and_tendency_evidence_are_effective_dated",
+    "weather_pregame_features_use_issued_forecast_runs_not_observed_hindsight",
+    "travel_is_differential_cumulative_and_dst_aware",
+    "program_resources_use_no_resource_universal_public_enriched_and_latent_research_lanes",
+    "private_school_missing_detail_is_missing_not_zero_or_fabricated",
+    "home_field_is_learned_residual_with_partial_pooling_not_raw_home_win_rate",
+    "game_stakes_are_factual_pit_context_not_narrative_bonuses",
+    "regulatory_environment_versions_play_roster_eligibility_transfer_and_compensation_rules",
+    "expected_possessions_are_separate_from_scoring_efficiency",
+    "field_position_and_special_teams_components_require_double_count_guards",
+    "score_state_garbage_time_and_leverage_policies_are_empirical_candidates",
+    "opponent_adjustment_uses_strict_prior_opponent_state_to_avoid_circularity",
+    "officiating_is_experimental_and_crew-specific_features_fail_closed_without_pregame_assignment",
+    "w17_w19_own_real_effect_selection_and_calibration"
+  ],
+  "empirical_coach_effect_selected_w13": false,
+  "numeric_coach_bonus_frozen_w13": false,
+  "empirical_home_field_selected_w13": false,
+  "numeric_home_field_bonus_frozen_w13": false,
+  "garbage_time_policy_selected_w13": false,
+  "opponent_adjustment_winner_selected_w13": false,
+  "officiating_feature_promoted_w13": false,
+  "next_wave": "W14"
+}

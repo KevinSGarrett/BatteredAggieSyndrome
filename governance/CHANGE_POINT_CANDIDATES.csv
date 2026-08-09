@@ -1,0 +1,8 @@
+change_candidate_id,name,description,automatic_reset,threshold,threshold_status,response_policy
+CP-001,staff_change,HC/OC/DC/play-caller transition,false,,TBD_EMPIRICAL,candidate shrinkage/uncertainty expansion; hard reset requires evidence
+CP-002,qb_change,starting QB transition or role break,false,,TBD_EMPIRICAL,candidate shrinkage/uncertainty expansion; hard reset requires evidence
+CP-003,roster_turnover,large effective-dated contributor turnover,false,,TBD_EMPIRICAL,candidate shrinkage/uncertainty expansion; hard reset requires evidence
+CP-004,scheme_change,material offensive/defensive scheme transition,false,,TBD_EMPIRICAL,candidate shrinkage/uncertainty expansion; hard reset requires evidence
+CP-005,performance_shift,statistical shift in PIT-safe opponent-adjusted performance,false,,TBD_EMPIRICAL,candidate shrinkage/uncertainty expansion; hard reset requires evidence
+CP-006,regulatory_change,material rule/eligibility/roster environment change,false,,TBD_EMPIRICAL,candidate shrinkage/uncertainty expansion; hard reset requires evidence
+CP-007,data_coverage_break,source/schema coverage change that can mimic a football change,false,,TBD_EMPIRICAL,candidate shrinkage/uncertainty expansion; hard reset requires evidence

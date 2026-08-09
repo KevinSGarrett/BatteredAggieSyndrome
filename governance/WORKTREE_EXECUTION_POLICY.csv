@@ -1,0 +1,7 @@
+policy_id,rule,blocking,notes
+WT-001,Use dedicated worktree or immutable source snapshot,true,isolate experiment mutations
+WT-002,Protected judging paths read-only to experiment worker,true,seal integrity
+WT-003,Shared unfrozen contract has one mutation owner,true,avoid concurrent drift
+WT-004,Capture result/artifact/replay evidence before cleanup,true,reproducibility
+WT-005,Do not package .git/worktree metadata,true,repository hygiene
+WT-006,Idle resources do not authorize future-wave work,true,wave governance

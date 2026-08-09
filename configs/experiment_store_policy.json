@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "version": "w18-v2",
+  "backend": "sqlite3",
+  "distributed_coordination": false,
+  "tables": [
+    "experiment_specs",
+    "queue_events",
+    "result_packets",
+    "artifact_records",
+    "replay_reports"
+  ],
+  "append_only": [
+    "queue_events",
+    "result_packets",
+    "artifact_records",
+    "replay_reports"
+  ],
+  "large_artifacts_external": true,
+  "integrity_checks": [
+    "PRAGMA integrity_check",
+    "foreign_keys",
+    "queue_hash_chain",
+    "identity_collision_check"
+  ]
+}

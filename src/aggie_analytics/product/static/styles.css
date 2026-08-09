@@ -1,0 +1,22 @@
+:root { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color-scheme: dark; }
+body { margin: 0; background: #0d1117; color: #e6edf3; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 32px 20px 64px; }
+.eyebrow { letter-spacing: .14em; font-size: .8rem; opacity: .7; }
+h1 { margin: .2rem 0; font-size: clamp(2rem, 5vw, 4rem); }
+.sub { opacity: .75; }
+.controls { display: flex; gap: 14px; flex-wrap: wrap; align-items: end; padding: 18px 0 24px; }
+label { display: grid; gap: 6px; font-size: .85rem; }
+select, button { padding: 10px 12px; border-radius: 8px; border: 1px solid #30363d; background: #161b22; color: inherit; }
+button { cursor: pointer; }
+.badge { padding: 8px 10px; border: 1px solid #30363d; border-radius: 999px; font-size: .82rem; }
+.warning { border: 1px solid #8b5a00; background: #2b1d00; padding: 12px; border-radius: 8px; margin-bottom: 18px; }
+.hidden { display: none; }
+.grid { display: grid; gap: 14px; }
+.metrics { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.detail { margin-top: 14px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); }
+article, .lineage { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 18px; }
+article h2, .lineage h2 { margin-top: 0; font-size: 1rem; opacity: .85; }
+article strong { font-size: 2rem; }
+.lineage { margin-top: 14px; }
+pre { overflow-x: auto; white-space: pre-wrap; word-break: break-word; font-size: .78rem; }
+ul { padding-left: 20px; }

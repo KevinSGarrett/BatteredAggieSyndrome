@@ -1,0 +1,7 @@
+experiment_id,position_scope,candidate_inputs,candidate_outputs,fixed_conference_penalty,same_player_training,chronological_validation,winner_selected_w12
+TT-001,QB,source opponent-adjusted passing/rushing; pressure/sacks; starts; recruiting; source/destination supporting cast; continuous opponent strength; scheme; expected role,destination player value; expected usage; translation delta; uncertainty,false,true,required,false
+TT-002,RB,source rush/receiving efficiency; usage; opponent strength; line/support context; recruiting; destination role,destination value; usage; translation delta; uncertainty,false,true,required,false
+TT-003,WR/TE,targets/routes/receiving efficiency/depth; QB/offense context; opponent strength; recruiting; destination role,destination value; usage; translation delta; uncertainty,false,true,required,false
+TT-004,OL,starts/continuity/pressure proxies/experience; team/opponent strength; destination competition,destination value; role; uncertainty,false,true,required,false
+TT-005,DEFENSE,position-specific production/participation; opponent strength; recruiting; source/destination context,destination value; role; uncertainty,false,true,required,false
+TT-006,SPECIALISTS,position-specific performance; environment; experience; competition context,destination value; role; uncertainty,false,true,required,false

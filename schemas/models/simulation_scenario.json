@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Forecast Scenario",
+  "type": "object",
+  "required": [
+    "scenario_id",
+    "baseline_snapshot_id",
+    "weight",
+    "overrides",
+    "lineage"
+  ],
+  "properties": {
+    "scenario_id": {
+      "type": "string"
+    },
+    "baseline_snapshot_id": {
+      "type": "string"
+    },
+    "weight": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "overrides": {
+      "type": "object"
+    },
+    "lineage": {
+      "type": "object"
+    }
+  }
+}

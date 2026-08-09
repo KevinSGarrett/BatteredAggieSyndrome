@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aggie Analytics Model Target Contract",
+  "type": "object",
+  "required": [
+    "target_id",
+    "name",
+    "target_kind",
+    "definition",
+    "version"
+  ],
+  "properties": {
+    "target_id": {
+      "type": "string",
+      "pattern": "^TGT-[0-9]{3}$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "target_kind": {
+      "type": "string"
+    },
+    "definition": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "bas_anchor_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

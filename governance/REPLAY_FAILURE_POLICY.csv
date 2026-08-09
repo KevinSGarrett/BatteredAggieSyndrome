@@ -1,0 +1,8 @@
+failure_code,class,retry_same_identity,adoption_allowed,required_action
+HASH_MISMATCH,reproducibility,false,false,investigate changed input/artifact
+INPUT_MISSING,data,false,false,restore/reconstruct exact input
+ENVIRONMENT_UNAVAILABLE,environment,conditional,false,rebuild environment or document block
+DETERMINISTIC_OUTPUT_MISMATCH,reproducibility,false,false,reject/investigate nondeterminism
+STATISTICAL_TOLERANCE_FAILURE,reproducibility,conditional,false,review declared stochastic policy
+ARTIFACT_MANIFEST_MISMATCH,reproducibility,false,false,reject/investigate artifact drift
+RULE_SEAL_MISMATCH,governance,false,false,stop; protected rules changed

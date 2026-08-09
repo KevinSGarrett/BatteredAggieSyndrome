@@ -1,0 +1,5 @@
+lane_id,name,coverage,inputs,missingness,production_status,fabricate_private_values
+RES-R0,NO_RESOURCES_CONTROL,all,none,n/a,CONTROL_REQUIRED,false
+RES-R1,UNIVERSAL_RESOURCES,all schools where EADA-compatible evidence is available,source-specific universal resource fields,missing remains missing,EXPERIMENTAL,false
+RES-R2,PUBLIC_ENRICHED,public/releasing schools,Knight/MFRS detail,not comparable to missing private detail,EXPERIMENTAL_SUBSET,false
+RES-R3,LATENT_CAPACITY_RESEARCH,research only,universally observable downstream proxies,uncertainty-aware,RESEARCH_ONLY,false

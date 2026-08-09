@@ -1,0 +1,16 @@
+method_id,method,stage,role,evidence,promotion_use,limitations
+SCR-001,PIT_ELIGIBILITY_GATE,0,BLOCKING,W08 temporal class + cutoff replay,REQUIRED,No statistical score can override temporal unsafety.
+SCR-002,SOURCE_DATA_QUALITY,1,BLOCKING_OR_CONDITIONAL,population missingness/coverage/schema stability after materialization,REQUIRED,W09 sample profiles are not population evidence.
+SCR-003,LOW_VARIANCE_CHECK,2,SCREEN,training-fold-only variance/cardinality,SUPPORTING,Threshold must be learned/declared; no W10 numeric cutoff.
+SCR-004,EXACT_DUPLICATE_FINGERPRINT,2,SCREEN,training-fold deterministic equality/fingerprint,SUPPORTING,Same names are not duplicates; semantic review still required.
+SCR-005,PEARSON_SPEARMAN_CLUSTER,3,REDUNDANCY,training-fold pair/cluster association,SUPPORTING,Correlation does not prove substitutability or causality.
+SCR-006,MUTUAL_INFORMATION,3,EXPLORATORY,training-fold association,NEVER_ALONE,Estimator/binning can bias results; target association can be unstable.
+SCR-007,REGULARIZATION_PATH,4,CONDITIONAL_VALUE,training-fold regularized model selection/coefficient stability,SUPPORTING,Requires scaling/model choices; correlated predictors can swap.
+SCR-008,TREE_MODEL_IMPORTANCE,4,EXPLORATORY,training-fold model importance,NEVER_ALONE,Importance can favor cardinality/correlated variables.
+SCR-009,OUT_OF_FOLD_PERMUTATION,5,CONDITIONAL_VALUE,validation-fold score degradation after permutation,SUPPORTING,Correlated features can mask each other; must remain chronological.
+SCR-010,FEATURE_FAMILY_ABLATION,6,BLOCKING_FOR_PROMOTION,walk-forward full-vs-without-family delta,REQUIRED,Use target-appropriate metric and precommitted folds.
+SCR-011,TEMPORAL_STABILITY,7,BLOCKING_FOR_PROMOTION,fold/season/era sign and magnitude stability,REQUIRED,Sparse domains may justify CONDITIONAL rather than rejection.
+SCR-012,SUBGROUP_AND_AM_EVIDENCE,7,TARGET_SCOPE,"A&M, SEC, early-season, FCS, injury/travel and other declared subgroup checks",REQUIRED_WHERE_RELEVANT,Subgroup multiplicity must not become cherry-picking.
+SCR-013,CALIBRATION_IMPACT,8,TARGET_SCOPE,out-of-fold calibration/proper-score change,REQUIRED_FOR_PROBABILITY_TARGETS,W17 owns final promotion metrics/thresholds.
+SCR-014,BACKWARD_ELIMINATION,8,OPTIONAL_CHALLENGER,chronological re-evaluation after removing weak/redundant candidates,OPTIONAL,Greedy/path-dependent; never mandatory.
+SCR-015,COMPUTE_MAINTENANCE_COST,9,TIE_BREAKER,measured runtime/RAM/storage/operational burden later,SUPPORTING,Predictive validity dominates; W19-W23 own real benchmarks.

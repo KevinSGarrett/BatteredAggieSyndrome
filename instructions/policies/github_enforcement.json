@@ -1,0 +1,74 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-GITHUB-ENFORCEMENT",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md",
+  "discovery_state": {
+    "repository_exists": true,
+    "remote_empty_at_audit": true,
+    "default_branch_configured": "main",
+    "settings_unverified_until_first_commit": true
+  },
+  "recommended": [
+    {
+      "control": "Protect main",
+      "mode": "technical",
+      "priority": "P0",
+      "configuration": "Require pull request and required checks; block force pushes/deletion."
+    },
+    {
+      "control": "Required checks",
+      "mode": "technical",
+      "priority": "P0",
+      "configuration": [
+        "core-validation (Ubuntu)",
+        "core-validation (Windows)",
+        "security-policy",
+        "autonomous-control-validation"
+      ]
+    },
+    {
+      "control": "Merge methods",
+      "mode": "technical",
+      "priority": "P0",
+      "configuration": "Enable squash; disable ordinary merge commits unless history preservation is justified; rebase optional only if policy adopted."
+    },
+    {
+      "control": "Automatic branch deletion",
+      "mode": "technical",
+      "priority": "P1",
+      "configuration": "Enable after merge, subject to unique-work safeguards."
+    },
+    {
+      "control": "Secret scanning and push protection",
+      "mode": "technical",
+      "priority": "P0",
+      "configuration": "Enable when available."
+    },
+    {
+      "control": "CodeQL and dependency review",
+      "mode": "technical",
+      "priority": "P1",
+      "configuration": "Keep existing security workflow."
+    },
+    {
+      "control": "CODEOWNERS protected scopes",
+      "mode": "technical",
+      "priority": "P1",
+      "configuration": "Require owner review only for protected governance/security contracts, not every trivial path."
+    },
+    {
+      "control": "Linear history",
+      "mode": "technical",
+      "priority": "P2",
+      "configuration": "Enable if squash-only ordinary integration is adopted."
+    },
+    {
+      "control": "Jira-primary work management",
+      "mode": "documentation",
+      "priority": "P0",
+      "configuration": "Do not auto-create mirrored GitHub issues."
+    }
+  ],
+  "application_requires": "Human approval after a trusted first commit/main branch exists and settings can be verified."
+}

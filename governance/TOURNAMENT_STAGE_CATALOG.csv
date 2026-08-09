@@ -1,0 +1,9 @@
+stage_id,name,feature_tournament,model_tournament,result_kind,promotion_authority
+TST-01,ELIGIBILITY,true,true,gate,NONE
+TST-02,DEVELOPMENT_EXECUTION,true,true,development metrics,NONE
+TST-03,ABLATION_COMPARISON,true,conditional,comparison,NONE
+TST-04,STABILITY_SUBGROUP,true,true,stability evidence,NONE
+TST-05,RESOURCE_COMPLEXITY,true,true,cost evidence,NONE
+TST-06,REPLAY,true,true,replay evidence,NONE
+TST-07,RESEARCH_DECISION,true,true,challenger recommendation,NONE
+TST-08,W17_PROMOTION_REVIEW,external,external,protected promotion evidence,W17_EXTERNAL

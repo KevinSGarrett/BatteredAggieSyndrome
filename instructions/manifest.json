@@ -1,0 +1,1685 @@
+{
+  "schema_version": 2,
+  "instruction_pack_version": "2.0.0",
+  "artifact_version": "2.0.0",
+  "release_date": "2026-08-08",
+  "project": "Battered Aggie Syndrome / Aggie Analytics Engine",
+  "canonical_repository_windows": "C:\\BatteredAggieSyndrome",
+  "entrypoint": "instructions/START_HERE.md",
+  "final_numbered_wave": "W25",
+  "wave_26_allowed": false,
+  "external_activation_state": {
+    "local_git": "UNVERIFIED_IN_UPLOADED_ARCHIVE",
+    "github": "REMOTE_EMPTY_AT_DISCOVERY_RECHECK_REQUIRED",
+    "jira_bat": "TARGET_SITE_NOT_ACCESSIBLE_DURING_DISCOVERY"
+  },
+  "files": [
+    {
+      "path": "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md",
+      "purpose": "Project identity, terminal W25 state, maturity boundary, accepted invariants, and implementation order.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "FIRST_ACTIVATION_OR_CONTEXT_RECOVERY",
+      "when_to_read": "At first activation, after material context loss, or when identity/authority is disputed.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "docs/final/CODEX_HANDOFF.md",
+        "governance/CURRENT_STATE.yaml"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:01_project_identity_and_handoff",
+      "sha256": "2822cd87695e8c95f65b252d332f63ece7b80c541f070f9fa3fbe67a7801d134"
+    },
+    {
+      "path": "instructions/02_SOURCE_OF_TRUTH_AND_CONFLICT_RESOLUTION.md",
+      "purpose": "Authority precedence, authority partition, same-rank conflict algorithm, and historical-record rule.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "FIRST_ACTIVATION_OR_CONTEXT_RECOVERY",
+      "when_to_read": "At first activation, after material context loss, or when identity/authority is disputed.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "AGENTS.md",
+        "governance/SOURCE_OF_TRUTH_MAP.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:02_source_of_truth_and_conflict_resolution",
+      "sha256": "132e74bf6b1bc33511de3d56500f78ede4f1c91aaa1bd433ab75e08cc67355fb"
+    },
+    {
+      "path": "instructions/03_REPOSITORY_ARCHITECTURE_AND_NAVIGATION.md",
+      "purpose": "Task-centered repository navigation across registries, runtime code, schemas, tests, validators, and read budgets.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/catalogs/repository_navigation.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:03_repository_architecture_and_navigation",
+      "sha256": "1ff934d4d6eeca39916265fa287a5a9c4883613075be85cd1e655bbcfbfbd081"
+    },
+    {
+      "path": "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+      "purpose": "Autonomy classes, operating cycle, meaningful-progress standard, anti-overengineering gate, and stop/continue behavior.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/autonomy_permissions.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:04_autonomous_operating_contract",
+      "sha256": "03c777b593a0e71074bef48aa988d1ab0beb9c2696950eb2fac5d71c53489113"
+    },
+    {
+      "path": "instructions/05_TASK_SELECTION_AND_SEQUENCING.md",
+      "purpose": "Resume-first dependency-driven selection, P0-P3 ordering, readiness, granularity, and task claiming.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/task_selection_policy.json",
+        "docs/final/FINAL_BACKLOG.csv"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:05_task_selection_and_sequencing",
+      "sha256": "a9bea7dc8eaf77497ad6041f729264ed0e2b2d318234ef9ade1536cc5e60b3f1"
+    },
+    {
+      "path": "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md",
+      "purpose": "Task packet, smallest coherent slice, execution loop, progress checkpoints, context recovery, and handoff boundaries.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/templates/TASK_EXECUTION_PACKET.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:06_task_execution_and_meaningful_progress",
+      "sha256": "21c98f713496707050c68e8712f8b0511c1d6dd9e26ceadebad952a294d93434"
+    },
+    {
+      "path": "instructions/07_JIRA_OPERATING_CONTRACT.md",
+      "purpose": "Jira authority, issue-reading sequence, traceability, claims, statuses, updates, blockers, granularity, and synchronization.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/jira_operating_policy.json",
+        "jira/README.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:07_jira_operating_contract",
+      "sha256": "fc5fb64f72194124c8dd057d99af2a574b298dad2f5d51adf7440ceeb590dbbb"
+    },
+    {
+      "path": "instructions/08_LOCAL_JIRA_MIRROR_AND_SYNC.md",
+      "purpose": "Local Jira mirror/index authority, hydration, synchronization, drift, source-map, privacy, and write-safety contract.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "jira/README.md",
+        "jira/schemas/issue_source_map.schema.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:08_local_jira_mirror_and_sync",
+      "sha256": "7e605a62bca06c945165cc21dfc82b76b177c1dcb3b57cec5c42f5bcb4084df9"
+    },
+    {
+      "path": "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
+      "purpose": "Canonical repository preservation, dirty-state decision tree, stash limits, missing-Git and divergence recovery.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/git_policy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:09_git_repository_safety_and_recovery",
+      "sha256": "caa20e5c839a4653a3d68f2cfd9285020ed0d7f50cc2eef5095f8fe34369ca31"
+    },
+    {
+      "path": "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
+      "purpose": "Jira-linked branches, sibling worktrees, mutation ownership, explicit staging, coherent commits, and cleanup.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/git_policy.json",
+        "instructions/policies/shared_contract_policy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:10_branch_worktree_and_commit_policy",
+      "sha256": "bcac75b3e4d8c778ac02d4e3171f28200b091e07e0325b319a271de3fdc99029"
+    },
+    {
+      "path": "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+      "purpose": "One-coherent-PR lifecycle, self-review, CI/review, merge/head-SHA, Jira/GitHub authority, tags, and cleanup.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        ".github/pull_request_template.md",
+        "instructions/policies/git_policy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:11_pull_request_review_merge_and_cleanup",
+      "sha256": "57f33dc12fbf53c356cd884481f10a9f2d1da79d3d3b8d13012d23955245329e"
+    },
+    {
+      "path": "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md",
+      "purpose": "Five progressive test tiers, CI diagnosis, evidence quality, canonical Definition of Done, and conditional gates.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/test_tiers.json",
+        "instructions/policies/definition_of_done.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:12_ci_testing_evidence_and_definition_of_done",
+      "sha256": "718ed32708ef70a1bcab595b53ac8a2da12dc9ec887a2029ac3c825df3779f00"
+    },
+    {
+      "path": "instructions/13_SECURITY_SECRETS_DATA_RIGHTS_AND_DEPENDENCIES.md",
+      "purpose": "Secret handling, source rights, data protection, dependency/supply-chain controls, spend, and security-sensitive changes.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/security_policy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:13_security_secrets_data_rights_and_dependencies",
+      "sha256": "2df75422573b30bd4d7e6a8a1c3f8c0f28e9d0e5de129238c33b5e60aafdef83"
+    },
+    {
+      "path": "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md",
+      "purpose": "PIT, target exclusion, provenance, identity, feature/model promotion, protected evaluation, A&M, BAS, and resource governance.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "governance/PROTECTED_ACCEPTANCE_RULES.md",
+        "instructions/policies/protected_scope_policy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:14_data_ml_pit_provenance_and_evaluation",
+      "sha256": "e4aea33c87dec037699d2150a308c933f8eb5a714bb82c23d90a92aad4fe3b46"
+    },
+    {
+      "path": "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md",
+      "purpose": "Architecture-change classification, YAGNI, documentation, observability, backup/restore, rollback, release, and tag policy.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/release_readiness.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:15_architecture_documentation_release_and_rollback",
+      "sha256": "78619e809b56d7c39b8f06a9f6347a56b87f1b0e643f3bed4b0f721a5c911aef"
+    },
+    {
+      "path": "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md",
+      "purpose": "Durable-state hierarchy, bounded concurrency, shared-contract ownership, resources, integration order, and handoff.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/parallelism_policy.json",
+        "instructions/policies/shared_contract_policy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:16_parallelism_resources_context_and_handoff",
+      "sha256": "e5fd32e29368bc9d0d59373d562b2be5174720dbcc6cbd689ef5869fa8c72425"
+    },
+    {
+      "path": "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md",
+      "purpose": "Loop signals/retry limits, blocker taxonomy, anti-overengineering, meaningful housekeeping, and ambiguity handling.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/loop_and_retry_policy.json",
+        "instructions/policies/blocker_taxonomy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:17_blockers_loops_overengineering_and_recovery",
+      "sha256": "4f290972ec9861076355aaec0d1ff35f6aa80eae6da467d7a0b9da7c90ec3594"
+    },
+    {
+      "path": "instructions/18_OPERATIONAL_RUNBOOKS.md",
+      "purpose": "Consolidated index and concise procedures for common repository, CI, Jira, source, security, PIT, hardware, and rollback failures.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:18_operational_runbooks",
+      "sha256": "2ad93149de6ff1160ecdafcdfda1a4530f04942c8b203255f2e0681b3cc4481e"
+    },
+    {
+      "path": "instructions/19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md",
+      "purpose": "Prioritized documentation-versus-enforcement recommendations for rulesets, checks, merge methods, security, CODEOWNERS, and issues.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/github_enforcement.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:19_github_enforcement_recommendations",
+      "sha256": "700cd3ebb89e23141b7aa329c03da5f90d020ecd2e6acaa2b7c501c96ec47ae6"
+    },
+    {
+      "path": "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md",
+      "purpose": "Single-home instruction maintenance, versioning, duplication prevention, control alignment, validation, and packaging change contract.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/instruction_change_policy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:20_instruction_maintenance_and_change_control",
+      "sha256": "909dc84432aaecca7e8ddd1cf48c98eddcb78fa890da5b7e3c5e40dce2a23ce1"
+    },
+    {
+      "path": "instructions/21_PACKAGING_INTEGRITY_AND_INSTALLATION.md",
+      "purpose": "Standalone/full export, forbidden content, deterministic packaging, extraction validation, safe Windows installation, and hydration.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/packaging_policy.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:21_packaging_integrity_and_installation",
+      "sha256": "012ffaaa5f0ee265f33758cec44d0f2dfe6ad6908d1f94af41d6db394ab3fa91"
+    },
+    {
+      "path": "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md",
+      "purpose": "Human-readable 56-section compliance summary backed by a 406-item atomic machine compliance catalog.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/policies/prompt_compliance.json",
+        "instructions/catalogs/master_prompt_atomic_requirements.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:22_master_prompt_compliance_ledger",
+      "sha256": "4a780950b1bd5843089c7d03249ad76284885cf98bb92aa0c3815cf146628d4e"
+    },
+    {
+      "path": "instructions/23_ACTIVATION_AND_NEXT_SESSION.md",
+      "purpose": "Exact first-session installation, GitHub reconciliation, Jira hydration, implementation-lane activation, and launch instruction.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "FIRST_ACTIVATION_OR_CONTEXT_RECOVERY",
+      "when_to_read": "At first activation, after material context loss, or when identity/authority is disputed.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/START_HERE.md",
+        "instructions/audit/EXTERNAL_INTEGRATION_AUDIT.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:23_activation_and_next_session",
+      "sha256": "0a54557b1203e2e48aaf49c2ccbed6bd243bcb7e22acaf5ce990e1a24693eac5"
+    },
+    {
+      "path": "instructions/24_FINAL_VALIDATION_REPORT.md",
+      "purpose": "Release-time evidence report populated only from commands actually executed against the final artifact.",
+      "authority": "RELEASE_EVIDENCE",
+      "read_tier": "RELEASE",
+      "when_to_read": "Before release/export claims and after final validation commands execute.",
+      "agent_roles": [
+        "integration agent",
+        "audit agent"
+      ],
+      "dependencies": [
+        "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md",
+        "instructions/catalogs/validation_command_catalog.json"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:24_final_validation_report",
+      "sha256": "2a4ef6066edae0e9c07546f7a8aac8f3f0e0afa5bee0c8541e76953af9ab745f"
+    },
+    {
+      "path": "instructions/CHANGELOG.md",
+      "purpose": "Instruction-system version history and material policy/control changes.",
+      "authority": "CANONICAL_HUMAN_POLICY",
+      "read_tier": "TASK_START_OR_APPLICABLE",
+      "when_to_read": "At task start when the policy governs the selected work.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "human-policy:changelog",
+      "sha256": "4c672ce24e1989cf26431cc647c9f43c33d4ee53bd30b9b33083536f8538b73d"
+    },
+    {
+      "path": "instructions/FILE_HASHES.sha256",
+      "purpose": "SHA-256 ledger covering every instruction file except the ledger itself.",
+      "authority": "INTEGRITY_CONTROL",
+      "read_tier": "STARTUP_AND_RELEASE",
+      "when_to_read": "Validated at session startup and regenerated/verified at instruction-pack release.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [],
+      "version": "2.0.0",
+      "canonical_topic": "instruction-hash-ledger",
+      "sha256": null
+    },
+    {
+      "path": "instructions/START_HERE.md",
+      "purpose": "Single deterministic entrypoint, startup procedure, operating cycle, stop/continue rules, and activation boundary.",
+      "authority": "OPERATIONAL_ENTRYPOINT",
+      "read_tier": "ALWAYS",
+      "when_to_read": "At the beginning of every autonomous session before mutation.",
+      "agent_roles": [
+        "all autonomous agents"
+      ],
+      "dependencies": [
+        "AGENTS.md",
+        "governance/CURRENT_STATE.yaml"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "autonomous-entrypoint",
+      "sha256": "aed71326b2240f15da2557bb2ef8b78a768fd9c14dba624f442d61cb0883c126"
+    },
+    {
+      "path": "instructions/audit/EXTERNAL_INTEGRATION_AUDIT.md",
+      "purpose": "Audit/evidence record for EXTERNAL INTEGRATION AUDIT.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:external_integration_audit",
+      "sha256": "4468c8b73bfadcdbb809c770b5e14cbf11fbd6dc2c08ff0d393c528b4fda8294"
+    },
+    {
+      "path": "instructions/audit/MASTER_PROMPT_ATOMIC_COMPLIANCE.csv",
+      "purpose": "Audit/evidence record for MASTER PROMPT ATOMIC COMPLIANCE.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:master_prompt_atomic_compliance",
+      "sha256": "df8968b07cef2593ba3b2cf684c03f01a96f03717db76bfe4d87b9a22ff431cb"
+    },
+    {
+      "path": "instructions/audit/PREVIOUS_V1_GAP_AUDIT.md",
+      "purpose": "Audit/evidence record for PREVIOUS V1 GAP AUDIT.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:previous_v1_gap_audit",
+      "sha256": "01c4b593b5c5d2d504c52e3dca5f93484e4adc2f24d032e414b5668848718bb9"
+    },
+    {
+      "path": "instructions/audit/REPOSITORY_DISCOVERY_REPORT.md",
+      "purpose": "Audit/evidence record for REPOSITORY DISCOVERY REPORT.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:repository_discovery_report",
+      "sha256": "5d94f3d0d5032c52e4ec05a46c665b32eb4c63282dcf8ecc30bc6d36edc69f65"
+    },
+    {
+      "path": "instructions/audit/conflict_register.csv",
+      "purpose": "Audit/evidence record for conflict register.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:conflict_register",
+      "sha256": "cd783d5de03a9f4288d160d480f7d7d5c4ac46a90a1961f9d143a5ca5a177dfa"
+    },
+    {
+      "path": "instructions/audit/existing_control_alignment.csv",
+      "purpose": "Audit/evidence record for existing control alignment.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:existing_control_alignment",
+      "sha256": "4bcd3197cc21cf27893163bc83f00430375050fcdec2407ba00f2a80f7606f43"
+    },
+    {
+      "path": "instructions/audit/external_access_audit.json",
+      "purpose": "Audit/evidence record for external access audit.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:external_access_audit",
+      "sha256": "6ca8ee9c6d65f427262377c6ee0179d8fc122998a2f8ceb03642cea84e0b36aa"
+    },
+    {
+      "path": "instructions/audit/github_remote_audit.json",
+      "purpose": "Audit/evidence record for github remote audit.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:github_remote_audit",
+      "sha256": "7800fb3f4baa21cb43247b048e527dcf566da752c6fbe5bb90624605c07ca945"
+    },
+    {
+      "path": "instructions/audit/jira_access_audit.json",
+      "purpose": "Audit/evidence record for jira access audit.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:jira_access_audit",
+      "sha256": "d2f278c1f0a01d30d9c7faeaa6e631fe2127728c3e00c177b6fffa620f4e0378"
+    },
+    {
+      "path": "instructions/audit/repository_inventory.json",
+      "purpose": "Audit/evidence record for repository inventory.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:repository_inventory",
+      "sha256": "1144c19213b106fbd3bb2772dd46057ab06e42d2f5029c8d3a6b07868dc512d0"
+    },
+    {
+      "path": "instructions/audit/v1_gap_audit.csv",
+      "purpose": "Audit/evidence record for v1 gap audit.",
+      "authority": "AUDIT_EVIDENCE",
+      "read_tier": "AUDIT_OR_ACTIVATION",
+      "when_to_read": "When verifying discovery evidence, external boundaries, conflicts, or release claims.",
+      "agent_roles": [
+        "audit agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "audit:v1_gap_audit",
+      "sha256": "2cc86cf78a731faee5b2df4b3c23a204d03d9743e84c8e74a1055714fc56f3e4"
+    },
+    {
+      "path": "instructions/catalogs/master_prompt_atomic_requirements.json",
+      "purpose": "AI-readable catalog for master prompt atomic requirements.",
+      "authority": "NAVIGATION_OR_COMPLIANCE_CATALOG",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "catalog:master_prompt_atomic_requirements",
+      "sha256": "9065d89fadd1b4596e1b1188a7c9a009b69f87d7d0376171d2d8cbbc6ebb8816"
+    },
+    {
+      "path": "instructions/catalogs/protected_path_catalog.json",
+      "purpose": "AI-readable catalog for protected path catalog.",
+      "authority": "NAVIGATION_OR_COMPLIANCE_CATALOG",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "catalog:protected_path_catalog",
+      "sha256": "fd9f461cbc4b3a596c95154462f345cebdd8142f5295f5778facc396f4d5ce07"
+    },
+    {
+      "path": "instructions/catalogs/repository_navigation.json",
+      "purpose": "AI-readable catalog for repository navigation.",
+      "authority": "NAVIGATION_OR_COMPLIANCE_CATALOG",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/03_REPOSITORY_ARCHITECTURE_AND_NAVIGATION.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "catalog:repository_navigation",
+      "sha256": "951eabead8d50f08ab93cb80e3f15da057de696706d05432ff569beca448215c"
+    },
+    {
+      "path": "instructions/catalogs/validation_command_catalog.json",
+      "purpose": "AI-readable catalog for validation command catalog.",
+      "authority": "NAVIGATION_OR_COMPLIANCE_CATALOG",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "catalog:validation_command_catalog",
+      "sha256": "17e03b7ab39c2085509bf5b829232a5486af73b460759b675420a0c8d919a0b2"
+    },
+    {
+      "path": "instructions/manifest.json",
+      "purpose": "Complete instruction-file manifest with authority, read tier, dependencies, roles, topic, version, and noncircular integrity metadata.",
+      "authority": "INTEGRITY_CONTROL",
+      "read_tier": "STARTUP_AND_RELEASE",
+      "when_to_read": "Validated at session startup and regenerated/verified at instruction-pack release.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [],
+      "version": "2.0.0",
+      "canonical_topic": "instruction-manifest",
+      "sha256": null
+    },
+    {
+      "path": "instructions/policies/autonomy_permissions.json",
+      "purpose": "Machine-readable deterministic companion for 04_AUTONOMOUS_OPERATING_CONTRACT.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:autonomy_permissions",
+      "sha256": "0a675f145a2a03febd4c796230b7adf064246b7749ed8843744d16c7df3f1c75"
+    },
+    {
+      "path": "instructions/policies/blocker_taxonomy.json",
+      "purpose": "Machine-readable deterministic companion for 17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:blocker_taxonomy",
+      "sha256": "dd36b75733e9fe38e4b61f63304e9f71939cf95504116586e30a33f9ea5bbe94"
+    },
+    {
+      "path": "instructions/policies/definition_of_done.json",
+      "purpose": "Machine-readable deterministic companion for 12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:definition_of_done",
+      "sha256": "471dce2c6c23976a871d9cb86e3e396d70a11bd5b69e3ffca280b8800c13cde5"
+    },
+    {
+      "path": "instructions/policies/git_policy.json",
+      "purpose": "Machine-readable deterministic companion for 10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:git_policy",
+      "sha256": "20315e14328465a683bc0ef71ea900651254c6a3f5d1f0fbd68e23cf72679c49"
+    },
+    {
+      "path": "instructions/policies/github_enforcement.json",
+      "purpose": "Machine-readable deterministic companion for 19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:github_enforcement",
+      "sha256": "ea64c87713d612b634ea622cae09b8544346d1c73f06f045b8987c7219cf5616"
+    },
+    {
+      "path": "instructions/policies/instruction_change_policy.json",
+      "purpose": "Machine-readable deterministic companion for 20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:instruction_change_policy",
+      "sha256": "ad986619ba36e9acae80d0078549d9466525aa2d70c60795e1ac554b5ffe50af"
+    },
+    {
+      "path": "instructions/policies/instruction_manifest.schema.json",
+      "purpose": "Machine-readable deterministic companion for 20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:instruction_manifest.schema",
+      "sha256": "d662c8ccaccf1a5938d6de0f02c309a116c7aa5015b29967c78b73c25c61fea6"
+    },
+    {
+      "path": "instructions/policies/jira_operating_policy.json",
+      "purpose": "Machine-readable deterministic companion for 07_JIRA_OPERATING_CONTRACT.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/07_JIRA_OPERATING_CONTRACT.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:jira_operating_policy",
+      "sha256": "f2da35e2c0102f0a8b59ef4df5a029b4aeab6fc5ba3c0ed8377dc89ababb6920"
+    },
+    {
+      "path": "instructions/policies/jira_traceability.schema.json",
+      "purpose": "Machine-readable deterministic companion for 08_LOCAL_JIRA_MIRROR_AND_SYNC.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/08_LOCAL_JIRA_MIRROR_AND_SYNC.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:jira_traceability.schema",
+      "sha256": "8bf4469cadefb27a0d63a57642b654569c6d3b1f4ea7b05f0f7a79b9521acb56"
+    },
+    {
+      "path": "instructions/policies/loop_and_retry_policy.json",
+      "purpose": "Machine-readable deterministic companion for 17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:loop_and_retry_policy",
+      "sha256": "82873a99536bf2e7cacf72464d1034cf05eb92253b7d36d74a6c4f75f898118b"
+    },
+    {
+      "path": "instructions/policies/packaging_policy.json",
+      "purpose": "Machine-readable deterministic companion for 21_PACKAGING_INTEGRITY_AND_INSTALLATION.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/21_PACKAGING_INTEGRITY_AND_INSTALLATION.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:packaging_policy",
+      "sha256": "777d2681cd20c5610db24c2eacfc865bf39ee51d22f7b8ec56bd0701645797b9"
+    },
+    {
+      "path": "instructions/policies/parallelism_policy.json",
+      "purpose": "Machine-readable deterministic companion for 16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:parallelism_policy",
+      "sha256": "ff1ad1f6963209c870cf6bf6379127d2c2f3308ab28cb3750655b49b468215d7"
+    },
+    {
+      "path": "instructions/policies/prompt_compliance.json",
+      "purpose": "Machine-readable deterministic companion for 22_MASTER_PROMPT_COMPLIANCE_LEDGER.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:prompt_compliance",
+      "sha256": "c5127e8791daceb22e3d75f1e8747100c20a78052b668ec3f9b4fc2c8a1c460e"
+    },
+    {
+      "path": "instructions/policies/protected_scope_policy.json",
+      "purpose": "Machine-readable deterministic companion for 14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:protected_scope_policy",
+      "sha256": "f817d71f9f4c29e4926d95986c74ed97d3996faeb6616ec929fba8434e89301c"
+    },
+    {
+      "path": "instructions/policies/read_budget.json",
+      "purpose": "Machine-readable deterministic companion for 03_REPOSITORY_ARCHITECTURE_AND_NAVIGATION.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/03_REPOSITORY_ARCHITECTURE_AND_NAVIGATION.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:read_budget",
+      "sha256": "5345414e353fdf6912733e68a43a784f6b9bf614c0f05dd80b3f4b7311322054"
+    },
+    {
+      "path": "instructions/policies/release_readiness.json",
+      "purpose": "Machine-readable deterministic companion for 15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:release_readiness",
+      "sha256": "62d5dc06b2c028218552be2522a1278b84ae88eeeb6b810dfae6451c99c133f2"
+    },
+    {
+      "path": "instructions/policies/security_policy.json",
+      "purpose": "Machine-readable deterministic companion for 13_SECURITY_SECRETS_DATA_RIGHTS_AND_DEPENDENCIES.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/13_SECURITY_SECRETS_DATA_RIGHTS_AND_DEPENDENCIES.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:security_policy",
+      "sha256": "4332e19a8935953d9798a504fff393b6b6d0ebc6c20ea927bcf5b17eb7628c5d"
+    },
+    {
+      "path": "instructions/policies/shared_contract_policy.json",
+      "purpose": "Machine-readable deterministic companion for 16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:shared_contract_policy",
+      "sha256": "2b93a89bdb13fa99debc74a345a2c6f41677ade5d50befbdae3fefb06f4d9f3e"
+    },
+    {
+      "path": "instructions/policies/source_precedence.json",
+      "purpose": "Machine-readable deterministic companion for 02_SOURCE_OF_TRUTH_AND_CONFLICT_RESOLUTION.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/02_SOURCE_OF_TRUTH_AND_CONFLICT_RESOLUTION.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:source_precedence",
+      "sha256": "fb27646a50efba5a7e752593323d63c4d23ab9674634a3c362ecbf1d11c3f98d"
+    },
+    {
+      "path": "instructions/policies/task_selection_policy.json",
+      "purpose": "Machine-readable deterministic companion for 05_TASK_SELECTION_AND_SEQUENCING.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/05_TASK_SELECTION_AND_SEQUENCING.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:task_selection_policy",
+      "sha256": "c3d25b251c60bf1e9658462f3707dd2d92ecb918f2b7f7bb3dfa0d95d79b517c"
+    },
+    {
+      "path": "instructions/policies/task_state_machine.json",
+      "purpose": "Machine-readable deterministic companion for 07_JIRA_OPERATING_CONTRACT.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/07_JIRA_OPERATING_CONTRACT.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:task_state_machine",
+      "sha256": "7a6fccd42ed44ecf5fb741678caf1b71d05381b614ab14ccc41de7e473400a6a"
+    },
+    {
+      "path": "instructions/policies/test_tiers.json",
+      "purpose": "Machine-readable deterministic companion for 12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded by validators/tools or read when the active task invokes the associated policy.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool"
+      ],
+      "dependencies": [
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "machine-policy:test_tiers",
+      "sha256": "588bd1ef2b4ac3e7810800d705339830c88021b09fa8b54d946c86beda4ec9a2"
+    },
+    {
+      "path": "instructions/runbooks/AGENT_LOOP_RECOVERY.md",
+      "purpose": "Recovery procedure for agent loop recovery.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:agent_loop_recovery",
+      "sha256": "ed35487b8b5a997ba36588f894771d96f2f3aaf099f19dfc9710a0fb4b81c92f"
+    },
+    {
+      "path": "instructions/runbooks/DEPENDENCY_INSTALLATION_FAILURE.md",
+      "purpose": "Recovery procedure for dependency installation failure.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:dependency_installation_failure",
+      "sha256": "bb27e6734c3218f5afb08374c17c53556238df7e5675fce309a93504d676cd11"
+    },
+    {
+      "path": "instructions/runbooks/DIRTY_WORKTREE_RECOVERY.md",
+      "purpose": "Recovery procedure for dirty worktree recovery.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:dirty_worktree_recovery",
+      "sha256": "f0d4bba258a91ac1b27fe3434d90752306aebc600bbb665ee3c5e19614807b7e"
+    },
+    {
+      "path": "instructions/runbooks/FAILED_CI_DIAGNOSIS.md",
+      "purpose": "Recovery procedure for failed ci diagnosis.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:failed_ci_diagnosis",
+      "sha256": "68d2ef81ab11d25d8a46e382c843990b9b1d44d2020d204ffbaf4fb4a3a0bee7"
+    },
+    {
+      "path": "instructions/runbooks/INSTRUCTION_INTEGRITY_FAILURE.md",
+      "purpose": "Recovery procedure for instruction integrity failure.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:instruction_integrity_failure",
+      "sha256": "db5168823e41d3ac696b4b193968e5b0492254a17d19e14b99348e4ede9b0f92"
+    },
+    {
+      "path": "instructions/runbooks/INTERRUPTED_SESSION_RECOVERY.md",
+      "purpose": "Recovery procedure for interrupted session recovery.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:interrupted_session_recovery",
+      "sha256": "ac12ceb6aab6ed04cf4948491c7dba016061bda4c4cf6bd84a397b731b94a434"
+    },
+    {
+      "path": "instructions/runbooks/JIRA_GITHUB_DESYNCHRONIZATION.md",
+      "purpose": "Recovery procedure for jira github desynchronization.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:jira_github_desynchronization",
+      "sha256": "68954c1e95245b2ce24ac8dde15b3dba059c12a6104aaf48ea4e711e4a2c30ec"
+    },
+    {
+      "path": "instructions/runbooks/MERGE_CONFLICT_RESOLUTION.md",
+      "purpose": "Recovery procedure for merge conflict resolution.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:merge_conflict_resolution",
+      "sha256": "ee7d7c2bff100867f2a02dfa23bbf90e51b8c302b2ea0686cb68b8e8a2468ffc"
+    },
+    {
+      "path": "instructions/runbooks/MIGRATION_AND_DATA_RECOVERY.md",
+      "purpose": "Recovery procedure for migration and data recovery.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:migration_and_data_recovery",
+      "sha256": "908bcdff61aa8b6d9910081dffdf9ecfd462e2ee9528871e38d675e66cf3580d"
+    },
+    {
+      "path": "instructions/runbooks/REPOSITORY_IDENTITY_AND_REMOTE_RECONCILIATION.md",
+      "purpose": "Recovery procedure for repository identity and remote reconciliation.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:repository_identity_and_remote_reconciliation",
+      "sha256": "fe97db1149f065a15aba6e4dd9a0bdfdaa997a95acb5d84f08822ecabb9cbbf7"
+    },
+    {
+      "path": "instructions/runbooks/SECRET_OR_SENSITIVE_DATA_INCIDENT.md",
+      "purpose": "Recovery procedure for secret or sensitive data incident.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:secret_or_sensitive_data_incident",
+      "sha256": "1edc52121b3c97a8c927271b98f8f8bd02c9069048850a9f6ff0d91685b128b3"
+    },
+    {
+      "path": "instructions/runbooks/SOURCE_API_OUTAGE_AND_ACCESS_FAILURE.md",
+      "purpose": "Recovery procedure for source api outage and access failure.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:source_api_outage_and_access_failure",
+      "sha256": "7659e39b354a9ec12eb87547fb2e238dd01a11ab63a527b23b88214b0a671808"
+    },
+    {
+      "path": "instructions/runbooks/STALE_BRANCH_AND_WORKTREE.md",
+      "purpose": "Recovery procedure for stale branch and worktree.",
+      "authority": "RECOVERY_RUNBOOK",
+      "read_tier": "WHEN_FAILURE_TRIGGERED",
+      "when_to_read": "Only when the named failure or recovery condition occurs.",
+      "agent_roles": [
+        "implementation agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "runbook:stale_branch_and_worktree",
+      "sha256": "1bf637700bf9d9e48e6f3d0f15adc169deb6c960436b395e450afb2677b1fe11"
+    },
+    {
+      "path": "instructions/templates/ARCHITECTURE_CHANGE_PROPOSAL.md",
+      "purpose": "Focused execution template/checklist for Architecture Change Proposal.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:architecture_change_proposal",
+      "sha256": "677aaeb4817f8cb2c325e836c66319229017265ad2a0106351191c6e692c97eb"
+    },
+    {
+      "path": "instructions/templates/BLOCKER_RECORD.md",
+      "purpose": "Focused execution template/checklist for Blocker Record.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:blocker_record",
+      "sha256": "7aa43718391fbd388e78493dca4a133c10cc5262d9c68721259e627b1344e8ea"
+    },
+    {
+      "path": "instructions/templates/CONFLICT_RESOLUTION_RECORD.md",
+      "purpose": "Focused execution template/checklist for Conflict Resolution Record.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/02_SOURCE_OF_TRUTH_AND_CONFLICT_RESOLUTION.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:conflict_resolution_record",
+      "sha256": "17fb70925b8b53f59cb0bbfe4fc5366de5dcca135ccca92e2bf21492bb4a6553"
+    },
+    {
+      "path": "instructions/templates/EVIDENCE_PACKET.md",
+      "purpose": "Focused execution template/checklist for Evidence Packet.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:evidence_packet",
+      "sha256": "110729dd1395ffd5c62ae6d98d30d8c5aa527eb922d0f704e17feec26dfaf14a"
+    },
+    {
+      "path": "instructions/templates/GITHUB_ENFORCEMENT_ACTIVATION_CHECKLIST.md",
+      "purpose": "Focused execution template/checklist for Github Enforcement Activation Checklist.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:github_enforcement_activation_checklist",
+      "sha256": "151d62ce1e82daf384c665966dfca5d279fe0e88292f5ff8cf5903962fab9078"
+    },
+    {
+      "path": "instructions/templates/HANDOFF_RECORD.md",
+      "purpose": "Focused execution template/checklist for Handoff Record.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:handoff_record",
+      "sha256": "2e40718d813dea2c660fc346ac8e5da7847b67f613011ea05e1f94b5c3c75359"
+    },
+    {
+      "path": "instructions/templates/JIRA_SOURCE_REFERENCE_BLOCK.md",
+      "purpose": "Focused execution template/checklist for Jira Source Reference Block.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/07_JIRA_OPERATING_CONTRACT.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:jira_source_reference_block",
+      "sha256": "2229e4c9728502097d44f20f2e5d813f5bc3040410bb501fe999e416573f0f65"
+    },
+    {
+      "path": "instructions/templates/MERGE_AND_CLEANUP_CHECKLIST.md",
+      "purpose": "Focused execution template/checklist for Merge And Cleanup Checklist.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:merge_and_cleanup_checklist",
+      "sha256": "6d536a46a8e527a688a4206541eff4ee9cc3d526e0ac69141acd8a63559742ec"
+    },
+    {
+      "path": "instructions/templates/NEW_ISSUE_DECISION.md",
+      "purpose": "Focused execution template/checklist for New Issue Decision.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/07_JIRA_OPERATING_CONTRACT.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:new_issue_decision",
+      "sha256": "223f78597a429964b6ab69ea10ba92be1b4c5f93a15f4523f30dde667b67b5f0"
+    },
+    {
+      "path": "instructions/templates/PR_READY_CHECKLIST.md",
+      "purpose": "Focused execution template/checklist for Pr Ready Checklist.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:pr_ready_checklist",
+      "sha256": "7de5267460e3545247413c9ebd86a779f79ba61ef829834e2f9cf74f7e6c51d1"
+    },
+    {
+      "path": "instructions/templates/RELEASE_READINESS_CHECKLIST.md",
+      "purpose": "Focused execution template/checklist for Release Readiness Checklist.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:release_readiness_checklist",
+      "sha256": "ef624470da03fce5587ce2155a2465959a0d7589e8d35589941adc3f610de8ca"
+    },
+    {
+      "path": "instructions/templates/REPOSITORY_RECONCILIATION_RECORD.md",
+      "purpose": "Focused execution template/checklist for Repository Reconciliation Record.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:repository_reconciliation_record",
+      "sha256": "e8126d952a7019e0968ab0c886661b9c21ebe722d11438ef113e43306cf1b52d"
+    },
+    {
+      "path": "instructions/templates/TASK_EXECUTION_PACKET.md",
+      "purpose": "Focused execution template/checklist for Task Execution Packet.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:task_execution_packet",
+      "sha256": "9c3239ed8c0110fb979a0745ed0255396fe38758b9da974f839b2bc6c3fe9bad"
+    },
+    {
+      "path": "instructions/templates/TASK_START_CHECKLIST.md",
+      "purpose": "Focused execution template/checklist for Task Start Checklist.",
+      "authority": "EXECUTION_TEMPLATE",
+      "read_tier": "WHEN_TRIGGERED",
+      "when_to_read": "When the corresponding execution event occurs; do not create empty bureaucracy.",
+      "agent_roles": [
+        "implementation agent",
+        "review agent",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
+      ],
+      "version": "2.0.0",
+      "canonical_topic": "template:task_start_checklist",
+      "sha256": "ac63c78fa470ac4ab3ff3893fbc0e2ad9c895b18ad17dca22aa557ea4baecdbc"
+    }
+  ],
+  "coverage": {
+    "entrypoint_and_identity": [
+      "instructions/START_HERE.md",
+      "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md"
+    ],
+    "source_of_truth_and_navigation": [
+      "instructions/02_SOURCE_OF_TRUTH_AND_CONFLICT_RESOLUTION.md",
+      "instructions/03_REPOSITORY_ARCHITECTURE_AND_NAVIGATION.md"
+    ],
+    "task_selection_and_execution": [
+      "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+      "instructions/05_TASK_SELECTION_AND_SEQUENCING.md",
+      "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
+    ],
+    "jira": [
+      "instructions/07_JIRA_OPERATING_CONTRACT.md",
+      "instructions/08_LOCAL_JIRA_MIRROR_AND_SYNC.md",
+      "jira/README.md"
+    ],
+    "git_github": [
+      "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
+      "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
+      "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+      "instructions/19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md"
+    ],
+    "quality_security_ml": [
+      "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md",
+      "instructions/13_SECURITY_SECRETS_DATA_RIGHTS_AND_DEPENDENCIES.md",
+      "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md"
+    ],
+    "architecture_continuity_recovery": [
+      "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md",
+      "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md",
+      "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md",
+      "instructions/18_OPERATIONAL_RUNBOOKS.md"
+    ],
+    "maintenance_packaging_activation": [
+      "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md",
+      "instructions/21_PACKAGING_INTEGRITY_AND_INSTALLATION.md",
+      "instructions/23_ACTIVATION_AND_NEXT_SESSION.md"
+    ],
+    "compliance_and_validation": [
+      "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md",
+      "instructions/24_FINAL_VALIDATION_REPORT.md",
+      "instructions/catalogs/master_prompt_atomic_requirements.json"
+    ],
+    "templates_runbooks_machine_policies": [
+      "instructions/templates/",
+      "instructions/runbooks/",
+      "instructions/policies/",
+      "instructions/catalogs/",
+      "instructions/audit/"
+    ]
+  },
+  "integrity_rule": "FILE_HASHES.sha256 covers every instruction file except itself; manifest and hash-ledger entries use null embedded sha256 to avoid circular self-hashing."
+}

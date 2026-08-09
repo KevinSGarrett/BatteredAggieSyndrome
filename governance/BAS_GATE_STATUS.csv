@@ -1,0 +1,2 @@
+gate_id,status,headline_threshold_points,crossfit_contract_frozen,anti_circularity_frozen,component_winners_selected,aggie_excess_claimed,thr_006_frozen,next_owner,notes
+W15_BAS_SCIENCE_GATE,CLEARED_W15_CONTRACT_ONLY,7,true,true,false,false,false,W16 model targets + W17 protected evaluation,W15 defines labels/scientific tests only; no significance/effect/calibration result claimed.

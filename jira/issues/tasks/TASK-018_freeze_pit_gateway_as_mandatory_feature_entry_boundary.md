@@ -1,0 +1,426 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/tasks/TASK-018_freeze_pit_gateway_as_mandatory_feature_entry_boundary.json -->
+# TASK-018 — [TASK-018] Freeze PIT gateway as mandatory feature-entry boundary
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [
+    "AC-011",
+    "AC-012",
+    "AC-013",
+    "AC-014",
+    "AC-015",
+    "AC-055",
+    "AC-056",
+    "AC-067",
+    "AC-073",
+    "AC-074",
+    "AC-075",
+    "AC-076"
+  ],
+  "acceptance_criteria": [
+    "Stable ID TASK-018, parent EPIC-003, owner wave W08, and original status DONE are preserved.",
+    "Declared outputs are traceable to existing repository artifacts where resolvable, or remain recorded as historical output names without fabricating files.",
+    "Requirement, acceptance-control, and dependency references resolve to authoritative registries.",
+    "The record does not claim maturity beyond the task's original design, contract, functional-starter, synthetic-validation, or integration scope."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is historical WBS provenance. Execute the mapped post-wave issue for remaining maturity work.",
+    "Completed W08 contract + synthetic evidence"
+  ],
+  "allowed_modification_paths": [
+    "accepted PIT interface",
+    "passing protected PIT controls"
+  ],
+  "blocked_reason": "",
+  "blocks": [
+    "TASK-019",
+    "TASK-041",
+    "TASK-043",
+    "TASK-047",
+    "TASK-059",
+    "TASK-065",
+    "TASK-066",
+    "TASK-069",
+    "TASK-080",
+    "TASK-081",
+    "TASK-091",
+    "TASK-101"
+  ],
+  "canonical_record": "jira/records/issues/tasks/TASK-018_freeze_pit_gateway_as_mandatory_feature_entry_boundary.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {},
+  "component": "feature-engineering",
+  "components_expected_to_be_touched": [
+    "feature-engineering"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "The original historical scope and status are preserved with source evidence and stable identifiers.",
+    "The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.",
+    "Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work."
+  ],
+  "dependencies": [
+    "TASK-016",
+    "TASK-017"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 12,
+    "adr_ids": 0,
+    "gap_ids": 0,
+    "requirement_ids": 13,
+    "risk_ids": 0
+  },
+  "effective_traceability_total": 25,
+  "end_to_end_validation": "Historical completion remains scoped; integrated product completion is evaluated only through the post-wave release path.",
+  "epic_id": "EPIC-003",
+  "evidence_manifest_path": "",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "PROTECTED_GATE",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "CONTRACT_DEFINED",
+  "expected_outputs": [
+    "accepted PIT interface",
+    "passing protected PIT controls"
+  ],
+  "files_expected_to_be_read": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "files_expected_to_be_touched": [
+    "accepted PIT interface",
+    "passing protected PIT controls"
+  ],
+  "files_to_inspect": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/tasks/TASK-018_freeze_pit_gateway_as_mandatory_feature_entry_boundary.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "",
+  "historical_classification": "HISTORICAL_SCOPED_COMPLETED",
+  "import_id": 100121,
+  "in_scope": [
+    "Original WBS objective and outputs",
+    "Original requirements and acceptance-control mappings",
+    "Original dependency and execution-lane provenance"
+  ],
+  "issue_type": "Task",
+  "jira_key": "BAT-121",
+  "labels": [
+    "gate",
+    "historical",
+    "planning-program",
+    "w08",
+    "wave-completed"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "TASK-018",
+  "maturity_before": "DESIGN_ONLY",
+  "objective": "Freeze PIT gateway as mandatory feature-entry boundary",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24261",
+    "jira_updated_at": "2026-08-09T00:40:19.211-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Reopening completed planning solely to rename it",
+    "Treating a starter/design result as empirically validated production capability"
+  ],
+  "owner_wave": "W08",
+  "parent_id": "EPIC-003",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Historical dependency TASK-016",
+    "Historical dependency TASK-017"
+  ],
+  "primary_source_refs": [
+    "SRCREF-00051",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "priority": "P1",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [
+    "POST-SUBTASK-060"
+  ],
+  "required_evidence": [
+    "Authoritative WBS row TASK-018",
+    "Existing artifact `accepted PIT interface`",
+    "Existing artifact `passing protected PIT controls`"
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_feature_registry_governance.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_feature_lifecycle_governance.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_feature_tournament_full.py"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-039",
+    "REQ-041",
+    "REQ-042",
+    "REQ-044",
+    "REQ-059",
+    "REQ-091",
+    "REQ-156",
+    "REQ-158",
+    "REQ-191",
+    "REQ-199",
+    "REQ-232",
+    "REQ-233",
+    "REQ-307"
+  ],
+  "risk_failure_conditions": [
+    "Original DONE status may be over-interpreted",
+    "Source output path may have moved or been generated under a different canonical directory"
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Original task type GATE with mutation scope: as defined by its source documents.",
+  "source_ids": [
+    "TASK-018"
+  ],
+  "source_refs": [
+    "SRCREF-00051",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "specificity_fingerprint": "dc426e7ff178c63b6a3f164dcd325bc3a27de162f7f6e649aaab70a6ff8d3d6a",
+  "stop_conditions": [
+    "Stop if completing this record would fabricate real-data, model-metric, source-rights, target-hardware, or operating evidence."
+  ],
+  "supporting_source_refs": [],
+  "title": "[TASK-018] Freeze PIT gateway as mandatory feature-entry boundary",
+  "traceability_inherited_from": [],
+  "traceability_resolution": "DIRECT",
+  "unblock_condition": "",
+  "validation_classes": [
+    "EXISTING_AUTOMATED_TEST"
+  ],
+  "why_this_exists": "Preserve the original W08 WBS work unit, its dependencies, outputs, and scoped completion semantics as provenance for post-wave execution.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}
+```
+
+## Objective
+
+Freeze PIT gateway as mandatory feature-entry boundary
+
+## Why This Exists
+
+Preserve the original W08 WBS work unit, its dependencies, outputs, and scoped completion semantics as provenance for post-wave execution.
+
+## Scope
+
+Original task type GATE with mutation scope: as defined by its source documents.
+
+### Explicit In Scope
+
+- Original WBS objective and outputs
+- Original requirements and acceptance-control mappings
+- Original dependency and execution-lane provenance
+
+### Explicit Out of Scope
+
+- Reopening completed planning solely to rename it
+- Treating a starter/design result as empirically validated production capability
+
+## Prerequisites
+
+- Historical dependency TASK-016
+- Historical dependency TASK-017
+
+## Hard Dependencies
+
+- TASK-016
+- TASK-017
+
+## Blocks
+
+- TASK-019
+- TASK-041
+- TASK-043
+- TASK-047
+- TASK-059
+- TASK-065
+- TASK-066
+- TASK-069
+- TASK-080
+- TASK-081
+- TASK-091
+- TASK-101
+
+## Read / Inspect First
+
+- governance/ACCEPTANCE_CONTROL_CATALOG.csv
+- governance/IMPLEMENTATION_WBS.csv
+- governance/REQUIREMENTS_INDEX.csv
+
+## Files Expected To Be Modified
+
+- accepted PIT interface
+- passing protected PIT controls
+
+## Components Expected To Be Touched
+
+- feature-engineering
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+- configs/judging_rule_seal.json
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+
+## Expected Outputs / Artifacts
+
+- accepted PIT interface
+- passing protected PIT controls
+
+## Direct Requirements
+
+- REQ-039
+- REQ-041
+- REQ-042
+- REQ-044
+- REQ-059
+- REQ-091
+- REQ-156
+- REQ-158
+- REQ-191
+- REQ-199
+- REQ-232
+- REQ-233
+- REQ-307
+
+## Direct Acceptance Controls
+
+- AC-011
+- AC-012
+- AC-013
+- AC-014
+- AC-015
+- AC-055
+- AC-056
+- AC-067
+- AC-073
+- AC-074
+- AC-075
+- AC-076
+
+## Governance Traceability Inheritance
+
+- Gate: `None`
+- Inherited from: None
+- Resolution: `DIRECT`
+- Effective counts: `{"acceptance_control_ids": 12, "adr_ids": 0, "gap_ids": 0, "requirement_ids": 13, "risk_ids": 0}`
+
+## Acceptance Criteria
+
+1. Stable ID TASK-018, parent EPIC-003, owner wave W08, and original status DONE are preserved.
+2. Declared outputs are traceable to existing repository artifacts where resolvable, or remain recorded as historical output names without fabricating files.
+3. Requirement, acceptance-control, and dependency references resolve to authoritative registries.
+4. The record does not claim maturity beyond the task's original design, contract, functional-starter, synthetic-validation, or integration scope.
+
+## Definition of Done
+
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+## Required Tests / Validation
+
+- **EXISTING_AUTOMATED_TEST** / `EXISTING_AUTOMATED_TEST` — `tests/test_feature_registry_governance.py` — Run and retain the result when this issue touches the covered contract.
+- **EXISTING_AUTOMATED_TEST** / `EXISTING_AUTOMATED_TEST` — `tests/test_feature_lifecycle_governance.py` — Run and retain the result when this issue touches the covered contract.
+- **EXISTING_AUTOMATED_TEST** / `EXISTING_AUTOMATED_TEST` — `tests/test_feature_tournament_full.py` — Run and retain the result when this issue touches the covered contract.
+
+## Required Evidence
+
+- Authoritative WBS row TASK-018
+- Existing artifact `accepted PIT interface`
+- Existing artifact `passing protected PIT controls`
+
+## Completion Evidence Contract
+
+```json
+{}
+```
+
+## End-to-End Validation Requirement
+
+Historical completion remains scoped; integrated product completion is evaluated only through the post-wave release path.
+
+## Expected Maturity After Completion
+
+`CONTRACT_DEFINED`
+
+## Risk / Failure Conditions
+
+- Original DONE status may be over-interpreted
+- Source output path may have moved or been generated under a different canonical directory
+
+## Stop Conditions
+
+- Stop if completing this record would fabricate real-data, model-metric, source-rights, target-hardware, or operating evidence.
+
+## Source References
+
+- SRCREF-00051
+- SRCREF-02116
+- SRCREF-02117
+
+## AI Context Notes
+
+- This is historical WBS provenance. Execute the mapped post-wave issue for remaining maturity work.
+- Completed W08 contract + synthetic evidence

@@ -1,0 +1,161 @@
+{
+  "schema_version": 2,
+  "version": "2.0.0",
+  "source": [
+    "governance/SHARED_CONTRACT_OWNERSHIP.csv",
+    "governance/WORKTREE_LOCK_CATALOG.csv"
+  ],
+  "single_mutation_owner": true,
+  "contracts": [
+    {
+      "contract": "governance/REQ-ADR-RISK-AC ledgers",
+      "primary_owner": "integration/governance lane",
+      "owner_waves": "W05-W25",
+      "mutation_policy": "SERIALIZED",
+      "freeze_or_review_gate": "Every wave packaging gate"
+    },
+    {
+      "contract": "configs/architecture_registry.json",
+      "primary_owner": "architecture lane",
+      "owner_waves": "W03+",
+      "mutation_policy": "SERIALIZED_ADR_REQUIRED",
+      "freeze_or_review_gate": "Architecture validator + ADR"
+    },
+    {
+      "contract": "configs/acceptance_registry.json + protected controls",
+      "primary_owner": "validation/governance lane",
+      "owner_waves": "W04+",
+      "mutation_policy": "SERIALIZED_PROTECTED",
+      "freeze_or_review_gate": "Acceptance validator; protected rules may not be self-modified by research"
+    },
+    {
+      "contract": "configs/implementation_plan.json + WBS",
+      "primary_owner": "program/integration lane",
+      "owner_waves": "W05+",
+      "mutation_policy": "SERIALIZED_VERSIONED",
+      "freeze_or_review_gate": "W06 replan then each adaptive review"
+    },
+    {
+      "contract": "configs/entity_registry.json + canonical entity/source-mapping schemas",
+      "primary_owner": "data architecture lane",
+      "owner_waves": "W07/W19+",
+      "mutation_policy": "SERIALIZED_VERSIONED_AFTER_W07",
+      "freeze_or_review_gate": "W07 canonical gate COMPLETE; later semantic changes require ADR + entity validator"
+    },
+    {
+      "contract": "PIT/known-at semantics",
+      "primary_owner": "temporal architecture lane",
+      "owner_waves": "W08+",
+      "mutation_policy": "SERIALIZED_PROTECTED",
+      "freeze_or_review_gate": "W08 PIT gate + leakage tests"
+    },
+    {
+      "contract": "feature registry/lifecycle schema",
+      "primary_owner": "feature lane",
+      "owner_waves": "W09-W10+",
+      "mutation_policy": "SERIALIZED_UNTIL_FROZEN",
+      "freeze_or_review_gate": "W10 feature lifecycle gate"
+    },
+    {
+      "contract": "model target/joint distribution schema",
+      "primary_owner": "model architecture lane",
+      "owner_waves": "W16+",
+      "mutation_policy": "SERIALIZED_PROTECTED",
+      "freeze_or_review_gate": "W16 target/model gate"
+    },
+    {
+      "contract": "protected evaluation/promotion rules",
+      "primary_owner": "validation lane",
+      "owner_waves": "W17+",
+      "mutation_policy": "SERIALIZED_IMMUTABLE_DURING_EXPERIMENT",
+      "freeze_or_review_gate": "W17 freeze before protected results"
+    },
+    {
+      "contract": "forecast snapshot/API schema",
+      "primary_owner": "forecast/product lane",
+      "owner_waves": "W20-W22+",
+      "mutation_policy": "SERIALIZED_VERSIONED",
+      "freeze_or_review_gate": "W22 snapshot-serving gate"
+    },
+    {
+      "contract": "configs/temporal_registry.json",
+      "primary_owner": "PIT/temporal lane",
+      "owner_waves": "W08+",
+      "mutation_policy": "SERIALIZED_ADR_REQUIRED",
+      "freeze_or_review_gate": "Temporal validator + protected PIT controls"
+    }
+  ],
+  "worktree_locks": [
+    {
+      "lock_id": "LOCK-001",
+      "resource": "w17_protected_rules",
+      "lock_class": "PROTECTED_READ_ONLY",
+      "rule": "Never research-mutated"
+    },
+    {
+      "lock_id": "LOCK-002",
+      "resource": "w08_temporal_contract",
+      "lock_class": "SHARED_CONTRACT",
+      "rule": "Only owner-wave-approved change"
+    },
+    {
+      "lock_id": "LOCK-003",
+      "resource": "w15_bas_labels",
+      "lock_class": "PROTECTED_SHARED_CONTRACT",
+      "rule": "No experiment-local mutation"
+    },
+    {
+      "lock_id": "LOCK-004",
+      "resource": "w16_target_schema",
+      "lock_class": "SHARED_CONTRACT",
+      "rule": "Serialize approved changes"
+    },
+    {
+      "lock_id": "LOCK-005",
+      "resource": "feature_registry",
+      "lock_class": "SHARED_CONTRACT",
+      "rule": "Serialize lifecycle/schema changes"
+    },
+    {
+      "lock_id": "LOCK-006",
+      "resource": "entity_schema",
+      "lock_class": "SHARED_CONTRACT",
+      "rule": "Serialize canonical entity changes"
+    },
+    {
+      "lock_id": "LOCK-007",
+      "resource": "experiment_store",
+      "lock_class": "LOCAL_TRANSACTIONAL",
+      "rule": "SQLite transaction is reference lock boundary"
+    },
+    {
+      "lock_id": "LOCK-008",
+      "resource": "gpu_slot",
+      "lock_class": "RESOURCE",
+      "rule": "Exclusive/shared according to declared resource request"
+    },
+    {
+      "lock_id": "LOCK-009",
+      "resource": "artifact_gc",
+      "lock_class": "OPERATIONS",
+      "rule": "Prevent deletion while replay/promotion uses artifact"
+    }
+  ],
+  "claim_fields": [
+    "resource/path",
+    "owner session",
+    "Jira issue",
+    "branch/worktree",
+    "start time",
+    "expected release condition"
+  ],
+  "parallelism_denials": [
+    "same unfrozen schema",
+    "canonical ID semantics",
+    "PIT/known-at/target exclusion",
+    "protected evaluation seal/rules",
+    "migration order",
+    "same shared manifest",
+    "same integration interface"
+  ]
+}

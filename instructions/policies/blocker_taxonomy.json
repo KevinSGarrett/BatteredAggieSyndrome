@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-BLOCKER-TAXONOMY",
+  "version": "2.0.0",
+  "categories": [
+    "dependency",
+    "data_source",
+    "credential_access",
+    "rights_license",
+    "canonical_identity_pit",
+    "shared_contract",
+    "protected_governance",
+    "ci_environment",
+    "ambiguity_conflict",
+    "external_service",
+    "resource_cost",
+    "human_approval",
+    "security_privacy",
+    "migration_recovery"
+  ],
+  "required_fields": [
+    "category",
+    "exact_condition",
+    "evidence",
+    "impact",
+    "attempts",
+    "unblock_action",
+    "owner_authority",
+    "downstream",
+    "ownership_release",
+    "independent_ready_work"
+  ]
+}

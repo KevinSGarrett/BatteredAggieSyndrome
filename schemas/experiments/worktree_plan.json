@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorktreePlan",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "isolation_mode",
+    "mutation_scope",
+    "resource_budget",
+    "paid_compute_approved"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "isolation_mode": {
+      "enum": [
+        "GIT_WORKTREE",
+        "IMMUTABLE_SOURCE_SNAPSHOT"
+      ]
+    },
+    "mutation_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "protected_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resource_budget": {
+      "type": "object"
+    },
+    "paid_compute_approved": {
+      "type": "boolean"
+    }
+  }
+}

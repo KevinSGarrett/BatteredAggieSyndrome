@@ -1,0 +1,30 @@
+{
+  "project_id": "aggie-analytics-engine",
+  "wave": "W25",
+  "status": "COMPLETE_FINAL_HANDOFF_WITH_TARGET_HARDWARE_VALIDATION_GAP",
+  "checks": {
+    "prior_w24_binding_verified": true,
+    "w24_parent_paths_preserved": "844/844",
+    "requirements": "745/745 unique and acceptance-mapped",
+    "adrs": "349/349 unique and acceptance-mapped",
+    "risks": "310 canonical / 310 final register",
+    "implementation_tasks": 201,
+    "task_status": "191 DONE / 8 PLANNED conditional-deferred / 2 target-hardware blocked",
+    "unit_tests": "229/229 PASS",
+    "acceptance_governance": "PASS",
+    "backlog_dependency_dag": "PASS",
+    "architecture": "PASS",
+    "data_entity_pit_feature_player_context_tamu_bas_model_validation_experimentation": "PASS",
+    "w18_w22_preserved_gates": "PASS",
+    "w23_implementation_validation": "PASS_WITH_AC038_RELEASE_BLOCKER",
+    "w24_readiness": "PASS",
+    "w25_final_handoff": "PASS",
+    "dependency_policy": "PASS",
+    "repository_strict_validation": "PASS",
+    "target_benchmark_authoritative": false,
+    "empirical_historical_replay_completed": false,
+    "trained_production_champion_selected": false,
+    "w26_allowed": false
+  },
+  "notes": "The exactly-25-wave program is complete. Post-wave work is CODEX_IMPLEMENTATION_HANDOFF. AC-038/THR-011/THR-012 remain unresolved until representative target hardware evidence exists."
+}

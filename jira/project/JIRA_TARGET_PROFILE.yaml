@@ -1,0 +1,146 @@
+{
+  "available_components": [
+    {
+      "id": "10160",
+      "name": "advanced-challengers"
+    },
+    {
+      "id": "10161",
+      "name": "bas-science"
+    },
+    {
+      "id": "10162",
+      "name": "data-sources"
+    },
+    {
+      "id": "10163",
+      "name": "entities"
+    },
+    {
+      "id": "10164",
+      "name": "feature-engineering"
+    },
+    {
+      "id": "10165",
+      "name": "live-modeling"
+    },
+    {
+      "id": "10166",
+      "name": "mlops"
+    },
+    {
+      "id": "10167",
+      "name": "modeling"
+    },
+    {
+      "id": "10168",
+      "name": "operations-security"
+    },
+    {
+      "id": "10169",
+      "name": "pit-temporal"
+    },
+    {
+      "id": "10170",
+      "name": "player-context-intelligence"
+    },
+    {
+      "id": "10171",
+      "name": "raw-snapshots"
+    },
+    {
+      "id": "10172",
+      "name": "release-readiness"
+    },
+    {
+      "id": "10173",
+      "name": "serving-product"
+    },
+    {
+      "id": "10174",
+      "name": "tamu-specialization"
+    },
+    {
+      "id": "10175",
+      "name": "validation-promotion"
+    }
+  ],
+  "available_issue_types": [
+    {
+      "id": "10000",
+      "name": "Epic"
+    },
+    {
+      "id": "10008",
+      "name": "Story"
+    },
+    {
+      "id": "10126",
+      "name": "Task"
+    },
+    {
+      "id": "10125",
+      "name": "Sub-task"
+    }
+  ],
+  "available_link_types": [
+    "Blocks",
+    "Relates"
+  ],
+  "available_priorities": [
+    "Highest",
+    "High",
+    "Medium",
+    "Low",
+    "Lowest"
+  ],
+  "available_statuses": [
+    "To Do",
+    "In Progress",
+    "In Review",
+    "Done"
+  ],
+  "board_filter_id": "10134",
+  "board_id": "134",
+  "company_or_team_managed": "COMPANY_MANAGED",
+  "custom_field_mapping": {
+    "Critical Path": "customfield_10200",
+    "Evidence State": "customfield_10198",
+    "Execution Lane": "customfield_10201",
+    "Implementation Maturity": "customfield_10197",
+    "Local Issue ID": "customfield_10193",
+    "Logical Workflow State": "customfield_10196",
+    "Owner Historical Wave": "customfield_10199",
+    "Phase": "customfield_10195",
+    "Source IDs": "customfield_10194"
+  },
+  "discovery_required_before_api_execution": false,
+  "jira_base_url": "https://kevinsgarrett.atlassian.net",
+  "last_live_verification": "2026-08-09T05:44:19.993889+00:00",
+  "live_counts": {
+    "issues": 463,
+    "links": 1062,
+    "parents": 413
+  },
+  "notes": [
+    "BAT was discovered and configured through Jira Cloud REST v3 using returned IDs only.",
+    "The active board is post-W25 execution only; historical W01-W25 reference remains searchable.",
+    "Local canonical JSON owns specification; Jira owns operational status, assignee, sprint, rank, and comments.",
+    "There is no Wave 26. Historical Done does not claim production or empirical completion."
+  ],
+  "platform": "Jira Cloud",
+  "profile_status": "LIVE_TARGET_CONFIGURED_AND_VERIFIED",
+  "project_id": "10133",
+  "project_key": "BAT",
+  "project_name": "BatteredAggieSyndrome",
+  "project_type": "software",
+  "saved_filters": {
+    "BAT — Blocked Work": "10137",
+    "BAT — Critical Path": "10139",
+    "BAT — Deferred or Conditional Work": "10138",
+    "BAT — Historical Completion Not Proven": "10141",
+    "BAT — Historical W01-W25 Reference": "10140",
+    "BAT — Ready Atomic Work": "10136"
+  },
+  "schema_version": 1
+}

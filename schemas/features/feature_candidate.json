@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FeatureCandidate",
+  "type": "object",
+  "required": [
+    "feature_id",
+    "target_id",
+    "parent_raw_field_ids",
+    "transform_id",
+    "transform_version",
+    "parameters",
+    "pit_cutoff_id",
+    "lifecycle_state"
+  ],
+  "properties": {
+    "feature_id": {
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "parent_raw_field_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "transform_id": {
+      "type": "string"
+    },
+    "transform_version": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "pit_cutoff_id": {
+      "type": "string"
+    },
+    "lifecycle_state": {
+      "enum": [
+        "CORE",
+        "SUPPORTED",
+        "CONDITIONAL",
+        "EXPERIMENTAL",
+        "REJECTED",
+        "BANNED"
+      ]
+    },
+    "lineage_hash": {
+      "type": "string"
+    }
+  }
+}

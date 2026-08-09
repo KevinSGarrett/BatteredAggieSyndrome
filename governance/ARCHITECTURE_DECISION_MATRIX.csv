@@ -1,0 +1,16 @@
+decision_area,selected_or_retained,status,reason,alternative,alternative_disposition
+application topology,Modular monolith,ACCEPTED,Strong local simplicity; explicit module boundaries; easiest reproducibility/testing,Microservices,Deferred: no independent scaling/security/latency need yet
+pregame serving,Immutable snapshot serving,ACCEPTED,"Reproducible, low-cost, read-only serving; avoids online feature drift",Synchronous online feature/model serving,Deferred: complexity without current latency need
+analytical storage,Native raw + Parquet + DuckDB,ACCEPTED_DEFAULT,"Local columnar performance, portable artifacts, SQL analytics, no server",PostgreSQL-centric,Conditional: useful later for concurrent transactional state
+relational state,Storage port with no mandatory server,ACCEPTED,Avoids premature daemon/ops dependency,Mandatory PostgreSQL now,Rejected for current phase
+provider coupling,Ports/adapters around sources,ACCEPTED,Wave06 can change sources without rewriting domain/model code,Provider schema as domain model,Rejected: brittle and cross-source-hostile
+feature serving,PIT state + shared feature contracts,ACCEPTED,Protects temporal safety and train/inference parity,Online feature store,Deferred: no current online serving requirement
+A&M specialization,Explicit national→A&M specialization contract,ACCEPTED_INTERFACE,Preserves broad learning while allowing high-resolution A&M treatment,Independent A&M-only stack,Rejected: duplicates truth and overfits
+A&M statistical form,Residual/multitask/MoE alternatives retained,DEFERRED_SELECTION,Interface can support empirical choice later,Freeze one statistical family now,Rejected: W14/W16 evidence not available
+forecast targets,Coherent forecast-distribution assembly,ACCEPTED_INTERFACE,Prevents contradictory score/margin/win/BAS outputs,Independent unrelated output models,Rejected as final architecture
+research,Isolated research plane + protected promotion gate,ACCEPTED,Agents can experiment without rewriting judging rules,Research agent directly changes champion,Rejected: governance risk
+LLM role,Assistive optional lane,ACCEPTED,Useful for unstructured evidence/research without runtime dependency,Required forecast-time LLM,Rejected for deterministic core path
+live modeling,Isolated future-live plane,ACCEPTED,Prevents same-game leakage and protects pregame architecture,Shared live/pregame mutable feature path,Rejected
+orchestration,Framework-neutral control boundary,DEFERRED_SELECTION,W21 can choose based on real jobs/ops evidence,Prefect mandatory now,Deferred
+frontend,Snapshot-reading serving boundary,ACCEPTED_INTERFACE,W22 can choose Streamlit/React/etc without model coupling,Framework frozen in W03,Rejected
+distributed infra,None required,ACCEPTED,Local-first and snapshot serving satisfy current needs,Kafka/Redis/Kubernetes,Deferred until actual requirement

@@ -1,0 +1,6 @@
+contract_id,family,source_semantics,pit_rule,manual_bonus
+GAMECTX-01,RIVALRY,explicit documented rivalry designation,factual pregame state; no narrative emotion score,false
+GAMECTX-02,POSTSEASON_STAKES,conference/bowl/playoff eligibility state known at cutoff,no later selection/outcome,false
+GAMECTX-03,HOMECOMING_SENIOR_DAY,officially announced event,announcement must predate cutoff,false
+GAMECTX-04,LOOK_AHEAD,future scheduled opponent context,schedule known at cutoff; no future outcomes,false
+GAMECTX-05,SEASON_POSITION,opener/conference/title/postseason factual classification,known at cutoff,false

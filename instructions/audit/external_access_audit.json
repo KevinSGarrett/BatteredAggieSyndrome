@@ -1,0 +1,36 @@
+{
+  "schema_version": 2,
+  "audit_date": "2026-08-08T20:00:00-05:00",
+  "github": {
+    "repository": "KevinSGarrett/BatteredAggieSyndrome",
+    "visibility": "public",
+    "default_branch_declared": "main",
+    "permissions_observed": [
+      "admin",
+      "maintain",
+      "pull",
+      "push",
+      "triage"
+    ],
+    "observed_state": "EMPTY_REPOSITORY",
+    "branches": 0,
+    "commits": "409 empty repository",
+    "pull_requests": 0,
+    "issues": 0,
+    "mutation_performed": false
+  },
+  "jira": {
+    "requested_site": "https://kevinsgarrett.atlassian.net",
+    "project_key": "BAT",
+    "requested_site_accessible": false,
+    "accessible_site_observed": "https://scentiment-team-ptx6nqe8.atlassian.net",
+    "live_workflow_inspected": false,
+    "writes_performed": false,
+    "result": "Target BAT metadata intentionally unhydrated."
+  },
+  "local_git": {
+    "archive_contained_dot_git": false,
+    "branch_history_status_remotes_worktrees_verified": false,
+    "result": "Must be audited read-only on C:\\BatteredAggieSyndrome before mutation/publication."
+  }
+}

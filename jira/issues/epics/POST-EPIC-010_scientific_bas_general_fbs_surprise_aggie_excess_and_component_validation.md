@@ -1,0 +1,473 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/epics/POST-EPIC-010_scientific_bas_general_fbs_surprise_aggie_excess_and_component_validation.json -->
+# POST-EPIC-010 — [POST-EPIC-010] Scientific BAS, general FBS surprise, Aggie excess, and component validation
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.",
+    "The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.",
+    "All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.",
+    "A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "Select child Subtasks from READY_QUEUE.csv; do not execute an Epic directly.",
+    "Epic Done requires the final child gate and downstream-consumption evidence, not merely closed children."
+  ],
+  "allowed_modification_paths": [
+    "artifacts/jira_evidence/POST-EPIC-010.json"
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/epics/POST-EPIC-010_scientific_bas_general_fbs_surprise_aggie_excess_and_component_validation.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {
+    "governance_traceability_gate": "POST-SUBTASK-096",
+    "integrated_proof_required": true,
+    "story_gates": [
+      "POST-SUBTASK-090",
+      "POST-SUBTASK-093",
+      "POST-SUBTASK-096"
+    ]
+  },
+  "component": "bas-science",
+  "components_expected_to_be_touched": [
+    "bas-science",
+    "bas"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "Every child Story POST-STORY-030, POST-STORY-031, POST-STORY-032 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.",
+    "The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.",
+    "All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.",
+    "The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.",
+    "Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-078",
+    "POST-SUBTASK-084"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 19,
+    "adr_ids": 21,
+    "gap_ids": 1,
+    "requirement_ids": 66,
+    "risk_ids": 13
+  },
+  "effective_traceability_total": 120,
+  "end_to_end_validation": "The entire Scientific BAS, general FBS surprise, Aggie excess, and component validation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "epic_id": "",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-010.json",
+  "evidence_state": "PLANNED",
+  "execution_lane": "PROTECTED_GATE",
+  "execution_mode": "AGGREGATE_GATE",
+  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
+  "expected_outputs": [
+    "artifacts/bas/crossfit_expectation_manifest.json",
+    "artifacts/bas/bas_label_manifest.json",
+    "artifacts/bas/bas_label_gate.json",
+    "artifacts/bas/general_fbs_baseline.json",
+    "artifacts/bas/aggie_excess_components.json",
+    "artifacts/bas/aggie_excess_component_gate.json",
+    "artifacts/bas/bas_protected_scorecard.json",
+    "artifacts/bas/bas_stability_analysis.json",
+    "artifacts/bas/BAS_SCIENTIFIC_DECISION.json"
+  ],
+  "files_expected_to_be_read": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "tests/test_bas_science_governance.py",
+    "src/aggie_analytics/bas/labels.py",
+    "src/aggie_analytics/bas/runtime.py",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md",
+    "docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md"
+  ],
+  "files_expected_to_be_touched": [],
+  "files_to_inspect": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "tests/test_bas_science_governance.py",
+    "src/aggie_analytics/bas/labels.py",
+    "src/aggie_analytics/bas/runtime.py",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md",
+    "docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/epics/POST-EPIC-010_scientific_bas_general_fbs_surprise_aggie_excess_and_component_validation.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "POST-SUBTASK-096",
+  "historical_classification": "ACTIONABLE_POST_WAVE",
+  "import_id": 100043,
+  "in_scope": [
+    "Child implementation and evidence work",
+    "Cross-domain hard dependencies",
+    "Integrated end-to-end gate",
+    "Preservation of source authority and protected controls"
+  ],
+  "issue_type": "Epic",
+  "jira_key": "BAT-43",
+  "labels": [
+    "actionable",
+    "bas",
+    "core-release",
+    "post-wave"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "POST-EPIC-010",
+  "maturity_before": "FUNCTIONAL_STARTER",
+  "objective": "Validate BAS as out-of-sample A&M underperformance relative to a strictly valid pregame expectation, never as generic loss probability and never by forcing a nonzero effect.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24183",
+    "jira_updated_at": "2026-08-09T00:03:51.282-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Declaring child code sufficient without integrated evidence",
+    "Changing protected requirements or ADRs without governance review",
+    "Creating Wave 26",
+    "Redefining BAS as generic Texas A&M loss probability or selecting specifications merely to manufacture a nonzero Aggie-specific effect."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "",
+  "phase": "PHASE-3",
+  "prerequisites": [
+    "Completion of POST-SUBTASK-078",
+    "Completion of POST-SUBTASK-084"
+  ],
+  "primary_source_refs": [
+    "SRCREF-02064",
+    "SRCREF-02065",
+    "SRCREF-02066",
+    "SRCREF-02067"
+  ],
+  "priority": "P1",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "tests/test_bas_science_governance.py",
+    "src/aggie_analytics/bas/labels.py",
+    "src/aggie_analytics/bas/runtime.py",
+    "docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md",
+    "docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [],
+  "required_evidence": [
+    "Verified Story gate decisions for POST-SUBTASK-090, POST-SUBTASK-093, POST-SUBTASK-096.",
+    "Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.",
+    "A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities."
+  ],
+  "required_tests": [
+    {
+      "classification": "END_TO_END",
+      "expectation": "Story gate `POST-SUBTASK-090` must complete with verified evidence before Epic completion.",
+      "path": "POST-SUBTASK-090",
+      "validation_class": "END_TO_END"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "Story gate `POST-SUBTASK-093` must complete with verified evidence before Epic completion.",
+      "path": "POST-SUBTASK-093",
+      "validation_class": "END_TO_END"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "Story gate `POST-SUBTASK-096` must complete with verified evidence before Epic completion.",
+      "path": "POST-SUBTASK-096",
+      "validation_class": "END_TO_END"
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "expectation": "Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.",
+      "path": "EPIC_EVIDENCE_MANIFEST",
+      "validation_class": "REPRODUCIBILITY"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Children may appear complete while integration remains unproven",
+    "Upstream data/rights/hardware evidence may remain unavailable"
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "All Stories and Subtasks under this Epic for the bas domain, including its explicit integrated completion gate.",
+  "source_ids": [
+    "GAP-009",
+    "HANDOFF-009"
+  ],
+  "source_refs": [
+    "SRCREF-02064",
+    "SRCREF-02065",
+    "SRCREF-02066",
+    "SRCREF-02067",
+    "SRCREF-02068",
+    "SRCREF-02069",
+    "SRCREF-02070",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01895",
+    "SRCREF-01571"
+  ],
+  "specificity_fingerprint": "5aed313ff1e7516ff573b8fb0dbc69b0449b97d9be18b566e8af311728783a99",
+  "stop_conditions": [
+    "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.",
+    "Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02068",
+    "SRCREF-02069",
+    "SRCREF-02070",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01895",
+    "SRCREF-01571"
+  ],
+  "title": "[POST-EPIC-010] Scientific BAS, general FBS surprise, Aggie excess, and component validation",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-096"
+  ],
+  "traceability_resolution": "INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "REPRODUCIBILITY"
+  ],
+  "why_this_exists": "The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.",
+  "work_packet_path": "jira/ai/work_packets/POST-EPIC-010.md",
+  "workflow_state": "BACKLOG"
+}
+```
+
+## Objective
+
+Validate BAS as out-of-sample A&M underperformance relative to a strictly valid pregame expectation, never as generic loss probability and never by forcing a nonzero effect.
+
+## Why This Exists
+
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+## Scope
+
+All Stories and Subtasks under this Epic for the bas domain, including its explicit integrated completion gate.
+
+### Explicit In Scope
+
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+### Explicit Out of Scope
+
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+- Redefining BAS as generic Texas A&M loss probability or selecting specifications merely to manufacture a nonzero Aggie-specific effect.
+
+## Prerequisites
+
+- Completion of POST-SUBTASK-078
+- Completion of POST-SUBTASK-084
+
+## Hard Dependencies
+
+- POST-SUBTASK-078
+- POST-SUBTASK-084
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- governance/DO_NOT_DRIFT.md
+- docs/final/CODEX_HANDOFF.md
+- docs/final/FINAL_BACKLOG.csv
+- docs/final/FINAL_COMPONENT_MATURITY.csv
+- docs/final/FINAL_IMPLEMENTATION_PRIORITY.md
+- docs/final/FINAL_KNOWN_GAPS.csv
+- tests/test_bas_science_governance.py
+- src/aggie_analytics/bas/labels.py
+- src/aggie_analytics/bas/runtime.py
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+- docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md
+- docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md
+
+## Files Expected To Be Modified
+
+- None.
+
+## Components Expected To Be Touched
+
+- bas-science
+- bas
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+- configs/judging_rule_seal.json
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+
+## Expected Outputs / Artifacts
+
+- artifacts/bas/crossfit_expectation_manifest.json
+- artifacts/bas/bas_label_manifest.json
+- artifacts/bas/bas_label_gate.json
+- artifacts/bas/general_fbs_baseline.json
+- artifacts/bas/aggie_excess_components.json
+- artifacts/bas/aggie_excess_component_gate.json
+- artifacts/bas/bas_protected_scorecard.json
+- artifacts/bas/bas_stability_analysis.json
+- artifacts/bas/BAS_SCIENTIFIC_DECISION.json
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-096`
+- Inherited from: POST-SUBTASK-096
+- Resolution: `INHERITED_DOMAIN_GATE`
+- Effective counts: `{"acceptance_control_ids": 19, "adr_ids": 21, "gap_ids": 1, "requirement_ids": 66, "risk_ids": 13}`
+
+## Acceptance Criteria
+
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+4. A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct.
+
+## Definition of Done
+
+1. Every child Story POST-STORY-030, POST-STORY-031, POST-STORY-032 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+## Required Tests / Validation
+
+- **END_TO_END** / `END_TO_END` — `POST-SUBTASK-090` — Story gate `POST-SUBTASK-090` must complete with verified evidence before Epic completion.
+- **END_TO_END** / `END_TO_END` — `POST-SUBTASK-093` — Story gate `POST-SUBTASK-093` must complete with verified evidence before Epic completion.
+- **END_TO_END** / `END_TO_END` — `POST-SUBTASK-096` — Story gate `POST-SUBTASK-096` must complete with verified evidence before Epic completion.
+- **REPRODUCIBILITY** / `REPRODUCIBILITY` — `EPIC_EVIDENCE_MANIFEST` — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+## Required Evidence
+
+- Verified Story gate decisions for POST-SUBTASK-090, POST-SUBTASK-093, POST-SUBTASK-096.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+## Completion Evidence Contract
+
+```json
+{
+  "governance_traceability_gate": "POST-SUBTASK-096",
+  "integrated_proof_required": true,
+  "story_gates": [
+    "POST-SUBTASK-090",
+    "POST-SUBTASK-093",
+    "POST-SUBTASK-096"
+  ]
+}
+```
+
+## End-to-End Validation Requirement
+
+The entire Scientific BAS, general FBS surprise, Aggie excess, and component validation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+## Expected Maturity After Completion
+
+`EMPIRICALLY_VALIDATED`
+
+## Risk / Failure Conditions
+
+- Children may appear complete while integration remains unproven
+- Upstream data/rights/hardware evidence may remain unavailable
+
+## Stop Conditions
+
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+- Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result.
+
+## Source References
+
+- SRCREF-02064
+- SRCREF-02065
+- SRCREF-02066
+- SRCREF-02067
+- SRCREF-02068
+- SRCREF-02069
+- SRCREF-02070
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01895
+- SRCREF-01571
+
+## AI Context Notes
+
+- Select child Subtasks from READY_QUEUE.csv; do not execute an Epic directly.
+- Epic Done requires the final child gate and downstream-consumption evidence, not merely closed children.

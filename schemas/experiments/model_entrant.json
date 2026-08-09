@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Model Tournament Entrant",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "entrant_id",
+    "model_family",
+    "model_class",
+    "target",
+    "lane",
+    "experiment_id",
+    "complexity_class",
+    "coherent_output"
+  ],
+  "properties": {
+    "entrant_id": {
+      "type": "string"
+    },
+    "model_family": {
+      "type": "string"
+    },
+    "model_class": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "lane": {
+      "enum": [
+        "PURE_FOOTBALL",
+        "MARKET_AUGMENTED",
+        "MARKET_BENCHMARK"
+      ]
+    },
+    "experiment_id": {
+      "type": "string"
+    },
+    "complexity_class": {
+      "enum": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ]
+    },
+    "coherent_output": {
+      "type": "boolean"
+    },
+    "tamu_specialization_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bas_label_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

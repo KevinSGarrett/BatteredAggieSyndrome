@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-GIT-POLICY",
+  "version": "2.0.0",
+  "canonical_human_documents": [
+    "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
+    "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
+    "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md"
+  ],
+  "canonical_repo_windows": "C:\\BatteredAggieSyndrome",
+  "canonical_remote": "https://github.com/KevinSGarrett/BatteredAggieSyndrome",
+  "default_branch": "main",
+  "branch_pattern": "^codex/BAT-[0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*$",
+  "branch_template": "codex/BAT-123-short-description",
+  "worktree_root_windows": "C:\\BatteredAggieSyndrome.worktrees",
+  "worktree_template": "C:\\BatteredAggieSyndrome.worktrees\\BAT-123-short-description",
+  "default_merge_method": "squash",
+  "direct_push_to_main": false,
+  "force_push_protected_or_shared": false,
+  "feature_branch_force_with_lease": {
+    "allowed": true,
+    "only_own_unmerged_branch": true,
+    "requires_remote_sha_verification": true,
+    "plain_force_forbidden": true
+  },
+  "staging": {
+    "explicit_paths_only": true,
+    "forbid": [
+      "git add -A",
+      "git add --all",
+      "git add ."
+    ],
+    "require_diff_review": true
+  },
+  "commit_message_pattern": "^(feat|fix|docs|test|refactor|perf|build|ci|chore|revert)\\(BAT-[0-9]+\\): .+",
+  "pr_policy": {
+    "one_coherent_pr_per_jira_unit": true,
+    "draft_default": true,
+    "reuse_existing_pr": true,
+    "empty_pr_forbidden": true,
+    "micro_pr_forbidden": true
+  },
+  "destructive_commands_human_required": [
+    "git reset --hard",
+    "git clean -fd",
+    "git clean -fdx",
+    "git checkout -- <unknown paths>",
+    "git restore <unknown paths>",
+    "git push --force",
+    "history replacement",
+    "delete unknown branch/worktree"
+  ],
+  "cleanup_gates": [
+    "merged or explicitly abandoned",
+    "no unique required commits",
+    "no uncommitted work",
+    "no active PR/agent",
+    "integration verified"
+  ],
+  "release_tags": "Annotated, immutable, SemVer-like tags only for defined releases with release-readiness evidence; no tag for every task."
+}

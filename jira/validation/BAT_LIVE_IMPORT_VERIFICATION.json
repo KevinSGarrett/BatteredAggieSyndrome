@@ -1,0 +1,63 @@
+{
+  "actual_expected_link_count": 1062,
+  "board": {
+    "filter_id": "10134",
+    "id": "134",
+    "jql": "project = BAT AND labels = post-wave ORDER BY Rank ASC",
+    "name": "BAT board"
+  },
+  "completion_assurance_policy_count": 221,
+  "components": {
+    "advanced-challengers": "10160",
+    "bas-science": "10161",
+    "data-sources": "10162",
+    "entities": "10163",
+    "feature-engineering": "10164",
+    "live-modeling": "10165",
+    "mlops": "10166",
+    "modeling": "10167",
+    "operations-security": "10168",
+    "pit-temporal": "10169",
+    "player-context-intelligence": "10170",
+    "raw-snapshots": "10171",
+    "release-readiness": "10172",
+    "serving-product": "10173",
+    "tamu-specialization": "10174",
+    "validation-promotion": "10175"
+  },
+  "custom_fields": {
+    "Critical Path": "customfield_10200",
+    "Evidence State": "customfield_10198",
+    "Execution Lane": "customfield_10201",
+    "Implementation Maturity": "customfield_10197",
+    "Local Issue ID": "customfield_10193",
+    "Logical Workflow State": "customfield_10196",
+    "Owner Historical Wave": "customfield_10199",
+    "Phase": "customfield_10195",
+    "Source IDs": "customfield_10194"
+  },
+  "discrepancies": [],
+  "expected_link_count": 1062,
+  "issue_count": 463,
+  "issue_type_counts": {
+    "Epic": 50,
+    "Story": 53,
+    "Sub-task": 159,
+    "Task": 201
+  },
+  "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
+  "missing_link_count": 0,
+  "parent_count": 413,
+  "project": {
+    "base_url": "https://kevinsgarrett.atlassian.net",
+    "id": "10133",
+    "key": "BAT"
+  },
+  "result": "PASS",
+  "schema_version": 1,
+  "status_counts": {
+    "To Do": 463
+  },
+  "unexpected_link_count": 0,
+  "verified_at": "2026-08-09T05:44:19.993889+00:00"
+}

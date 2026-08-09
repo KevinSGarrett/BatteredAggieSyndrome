@@ -1,0 +1,7 @@
+contract_id,concept,candidate,double_count_guard
+MECH-FP-01,OWN_DRIVE_START,average/quantile field position,separate from scoring efficiency
+MECH-FP-02,OPP_DRIVE_START,opponent field position conceded,separate from defensive scoring efficiency
+MECH-FP-03,PUNT_FIELD_POSITION,net field-position value,coordinate with special teams
+MECH-FP-04,KICKOFF_FIELD_POSITION,kick/return starting position value,coordinate with special teams
+MECH-FP-05,TURNOVER_FIELD_POSITION,turnover location value,coordinate with turnover family
+MECH-FP-06,HIDDEN_YARDS,aggregate field-position value from non-offensive yardage,component accounting required before aggregation

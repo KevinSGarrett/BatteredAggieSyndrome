@@ -1,0 +1,7 @@
+artifact_class,in_repo_allowed,required_metadata,retention_rule
+small_json_csv_report,true,hash;size;producer;experiment_id,retain with evidence
+model_binary,false,hash;size;external_location;model_version,external artifact store
+large_dataset,false,hash;manifest;source_snapshot_id;location,external data store
+plot_image,conditional,hash;size;sanitization,retain only if small/useful
+log,conditional,hash;size;sensitivity,sanitize secrets/restricted data
+secret_or_credential,false,none,never persist

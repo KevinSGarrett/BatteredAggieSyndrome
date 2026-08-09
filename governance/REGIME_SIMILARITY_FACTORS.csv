@@ -1,0 +1,9 @@
+factor_id,factor,description,materialization_owner,default_weight,status
+RF-001,head_coach_continuity,effective-dated HC continuity/tenure,W13,,CANDIDATE_TBD_EVIDENCE
+RF-002,offensive_coordinator_continuity,OC/play-caller continuity,W13,,CANDIDATE_TBD_EVIDENCE
+RF-003,defensive_coordinator_continuity,DC continuity,W13,,CANDIDATE_TBD_EVIDENCE
+RF-004,starting_qb_continuity,QB continuity using PIT-safe roster/depth evidence,W12,,CANDIDATE_TBD_EVIDENCE
+RF-005,roster_continuity,returning contributors/starts/snaps where available,W12,,CANDIDATE_TBD_EVIDENCE
+RF-006,scheme_continuity,effective-dated scheme continuity,W13,,CANDIDATE_TBD_EVIDENCE
+RF-007,lineup_unit_continuity,OL/receiver/defensive unit continuity where evidence exists,W12-W13,,CANDIDATE_TBD_EVIDENCE
+RF-008,regulatory_environment,rule/eligibility/roster-era context,W13,,CANDIDATE_TBD_EVIDENCE

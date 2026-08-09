@@ -1,0 +1,107 @@
+{
+  "superseded_at": "2026-08-09T05:45:18.3778011Z",
+  "superseded_by": "jira\\validation\\BAT_HISTORICAL_DONE_REVIEW_FINAL_QUALITY_GATE.json",
+  "schema_version": 1,
+  "evaluated_at": "2026-08-09T05:10:13.1930287Z",
+  "result": "PASS",
+  "scope_basis": {
+    "current_task_file": "ABSENT",
+    "authority": "Explicit user request to transfer the complete C:\\BatteredAggieSyndrome\\jira canonical pack into Jira project BAT and finish the pursuing goal.",
+    "git_diff_review": "NOT_APPLICABLE_NO_GIT_REPOSITORY",
+    "review_boundary": "C:\\BatteredAggieSyndrome\\jira plus live Jira projects BAT and importer-only quarantine BATQ"
+  },
+  "live_jira": {
+    "project_key": "BAT",
+    "project_id": "10133",
+    "board_id": "134",
+    "board_filter_id": "10134",
+    "board_jql": "project = BAT AND labels = post-wave ORDER BY Rank ASC",
+    "issue_count": 463,
+    "unique_local_issue_ids": 463,
+    "issue_type_counts": {
+      "Epic": 50,
+      "Story": 53,
+      "Task": 201,
+      "Sub-task": 159
+    },
+    "status_counts": {
+      "Done": 221,
+      "To Do": 242
+    },
+    "parent_relationship_count": 413,
+    "canonical_link_count": 1062,
+    "canonical_direction_link_count": 1062,
+    "missing_link_count": 0,
+    "unexpected_link_count": 0,
+    "active_post_wave_count": 229,
+    "component_count": 16,
+    "custom_field_count": 9,
+    "saved_execution_filter_count": 5,
+    "field_level_discrepancy_count": 0
+  },
+  "corrective_actions": {
+    "exact_duplicates": {
+      "count": 46,
+      "resolution": "Moved to isolated BATQ because Jira Free prohibits permission-scheme and role changes needed for issue deletion.",
+      "bat_canonical_count_after_resolution": 463,
+      "quarantine_count_verified": 46
+    },
+    "link_direction": {
+      "finding": "Initial REST endpoint mapping reversed all source-to-target dependency directions.",
+      "pre_change_snapshot_verified": true,
+      "reversed_links_removed": 1062,
+      "correct_direction_links_recreated": 1062,
+      "status": "CORRECT_DIRECTION_RECREATED_VERIFIED"
+    }
+  },
+  "local_validation": {
+    "validate_jira_pack": "PASS",
+    "validate_source_refs": "PASS_REFERENCES_2118",
+    "validate_dependencies": "PASS_CYCLES_0",
+    "validate_import_files": "PASS_ISSUES_463_ERRORS_0",
+    "validate_second_pass": "PASS",
+    "validate_jira_manifest": "PASS_FILES_1751_ERRORS_0",
+    "live_reconciliation": "PASS_ROWS_463_CONFLICTS_0_STRICT_PASS"
+  },
+  "security_and_restoration": {
+    "jira_api_token_exposures_in_jira_directory": 0,
+    "delete_issues_permission_restored_absent": true,
+    "temporary_bat_administrator_role_restored_absent": true,
+    "permission_scheme_mutated": false,
+    "project_role_mutated": false
+  },
+  "rollback_evidence": [
+    {
+      "path": "jira\\snapshots\\BAT_PRE_IMPORT_20260809T043444Z.json",
+      "sha256": "7c469a047ef074978ea7d537d0974e635b950095db199738a6b75cb031d7fe35"
+    },
+    {
+      "path": "jira\\snapshots\\BAT_PERMISSION_SCHEME_PRE_REMEDIATION_20260809T044959Z.json",
+      "sha256": "9f15efa41a8cec1580a72923a7facdad8089618353a74d4800ffd6b33b798afd"
+    },
+    {
+      "path": "jira\\snapshots\\BAT_ADMIN_ROLE_PRE_REMEDIATION_20260809T044959Z.json",
+      "sha256": "4d48c932b2e3b617491d90e7a1cbb3e74655bd944adb9debc1b6ea23a9f29e3a"
+    },
+    {
+      "path": "jira\\snapshots\\BAT_QUARANTINE_PROJECT_PRE_CREATE_20260809T045000Z.json",
+      "sha256": "7c79fa6bfe239c714899567f766d2ca93460146aba0d9d55849fd1cf3a78678f"
+    },
+    {
+      "path": "jira\\snapshots\\BAT_REVERSED_LINKS_PRE_REMEDIATION_20260809T050104Z.json",
+      "sha256": "3443975ee06c28619157cb792720e5b0482d88e7ed4c19924d6fe1aff73e66a7"
+    }
+  ],
+  "honesty_boundary": {
+    "ac_038_target_hardware": "UNRESOLVED",
+    "thr_011": "TBD",
+    "thr_012": "TBD",
+    "real_historical_data_lake_in_repository": false,
+    "trained_production_champion_claimed": false,
+    "protected_performance_metric_claimed": false,
+    "production_feature_set_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "aggie_excess_effect_claimed": false,
+    "advanced_neural_graph_live_work": "CONDITIONAL_OR_DEFERRED"
+  }
+}

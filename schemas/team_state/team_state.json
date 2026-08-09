@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "aggie://schemas/team_state/team_state.json",
+  "title": "TeamStateSnapshot",
+  "type": "object",
+  "required": [
+    "team_id",
+    "cutoff",
+    "prior_strength",
+    "underlying_strength",
+    "available_strength",
+    "current_season_games",
+    "regime_id",
+    "uncertainty_components",
+    "state_version"
+  ],
+  "properties": {
+    "team_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "prior_strength": {
+      "$ref": "#/$defs/strength"
+    },
+    "underlying_strength": {
+      "$ref": "#/$defs/strength"
+    },
+    "available_strength": {
+      "$ref": "#/$defs/strength"
+    },
+    "current_form_signal": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/strength"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "opponent_strength": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/strength"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "current_season_games": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "regime_id": {
+      "type": "string"
+    },
+    "uncertainty_components": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "state_version": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "strength": {
+      "type": "object",
+      "required": [
+        "value",
+        "uncertainty"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "uncertainty": {
+          "type": "number",
+          "minimum": 0
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

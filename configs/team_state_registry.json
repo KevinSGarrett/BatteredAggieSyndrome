@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "version": "w11-v1.0",
+  "generated_at_utc": "2026-08-08T18:02:13+00:00",
+  "maturity": "TEAM_STATE_AND_EARLY_SEASON_CONTRACTS_SYNTHETIC_ONLY",
+  "principles": [
+    "underlying_strength_is_distinct_from_available_strength",
+    "team_state_is_immutable_at_forecast_cutoff",
+    "all_state_inputs_pass_w08_pit_gateway",
+    "w10_feature_candidates_remain_nonproduction_until_empirical_promotion",
+    "week1_priors_are_composite_and_empirically_weighted",
+    "prior_to_observed_blend_schedule_is_not_hard_coded",
+    "national_training_utility_is_distinct_from_current_team_relevance",
+    "recency_regime_and_change_point_methods_are_candidates_not_truth",
+    "lower_division_support_is_bounded_hierarchical_and_uncertainty_aware",
+    "cross_division_translation_is_learned_not_fixed_penalty",
+    "sparse_or_novel_state_widens_uncertainty_without_forcing_direction",
+    "w12_owns_player_specific_availability_adjustments",
+    "w17_w19_own_real_chronological_selection_evidence"
+  ],
+  "state_dimensions": [
+    "prior_strength",
+    "underlying_strength",
+    "available_strength",
+    "current_form_signal",
+    "continuity_state",
+    "regime_state",
+    "opponent_strength",
+    "uncertainty"
+  ],
+  "strength_semantics": {
+    "prior_strength": "pregame prior before current-season direct evidence is sufficient",
+    "underlying_strength": "best estimate of team quality absent short-term availability limitations",
+    "available_strength": "forecast-time usable strength after known availability/role constraints; detailed player adjustment deferred W12",
+    "current_form_signal": "PIT-safe recent-performance evidence; not itself a production rating",
+    "opponent_strength": "continuous strength estimate plus uncertainty regardless of division"
+  },
+  "weighting_candidate_families": [
+    "uniform_history_baseline",
+    "exponential_recency",
+    "regime_similarity",
+    "recency_x_regime_similarity",
+    "change_point_shrinkage",
+    "similarity_weighted_history",
+    "hierarchical_partial_pooling"
+  ],
+  "early_season_candidate_families": [
+    "prior_only_baseline",
+    "linear_games_observed_blend",
+    "pseudo_count_blend",
+    "precision_weighted_blend",
+    "regime_aware_dynamic_blend"
+  ],
+  "lower_division_policy": {
+    "FBS": "FULL",
+    "FCS": "STRONG_SECONDARY",
+    "DII": "COARSE_RATINGS_RESULTS",
+    "DIII": "COARSE_PRIOR",
+    "NAIA": "TEAM_OR_CLASS_PRIOR",
+    "JUCO": "CLASS_PRIOR",
+    "OTHER": "BOUNDARY_PRIOR"
+  },
+  "empirical_winner_selected_w11": false,
+  "numeric_decay_or_blend_parameters_frozen_w11": false,
+  "production_team_state_model_selected_w11": false,
+  "real_data_chronological_comparison": "PENDING_W17_W19",
+  "next_wave": "W12",
+  "w12_player_intelligence_interface": "configs/player_intelligence_registry.json",
+  "available_strength_w12_contract_status": "INTERFACE_FROZEN_NO_POINT_CALIBRATION"
+}

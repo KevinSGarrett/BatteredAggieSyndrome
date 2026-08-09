@@ -1,0 +1,746 @@
+requirement_id,planned_wave,current_artifact,acceptance_or_evidence,status,source_basis
+REQ-001,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-001 (CURRENTLY_VERIFIED_W04),ACTIVE,"master prompt §§12,64"
+REQ-002,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-001 (CURRENTLY_VERIFIED_W04),ACTIVE,"master prompt §§12,74"
+REQ-003,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,"master prompt §§12,67"
+REQ-004,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §13
+REQ-005,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-002;AC-007 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §14
+REQ-006,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-001 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §15
+REQ-007,W02-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-001 (CURRENTLY_VERIFIED_W04),ACTIVE,"master prompt §§13,65"
+REQ-008,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §16
+REQ-009,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-003 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §11
+REQ-010,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-006 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §62
+REQ-011,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-006 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §63
+REQ-012,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-005;AC-044 (CURRENTLY_VERIFIED_W04),ACTIVE,"master prompt §§5,70"
+REQ-013,W02-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-005 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §68
+REQ-014,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-003;AC-007;AC-044 (CURRENTLY_VERIFIED_W04),DEFAULT,master prompt §§3-4
+REQ-015,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-021 (EXPERIMENT_REQUIRED_NONBLOCKING_UNTIL_PROMOTION),HYPOTHESIS_RULE,master prompt §3
+REQ-016,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-045 (CURRENTLY_VERIFIED_W04),ACTIVE,"master prompt §§53,60"
+REQ-017,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-002;AC-003 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §61
+REQ-018,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-004;AC-042 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,"master prompt §§3,42,49,53"
+REQ-019,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,W04 acceptance mapping: AC-032 (CONTRACT_DEFINED_OWNER_PENDING);AC-178;AC-185,CONTRACT_VERIFIED_W18,master prompt §56; source log 017
+REQ-020,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-001 (CURRENTLY_VERIFIED_W04),ACTIVE,W01 adaptive hardening
+REQ-021,ALL,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §1
+REQ-022,W03+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,17"
+REQ-023,W11+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §17; source log 014
+REQ-024,W11+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §17; source log 014
+REQ-025,W14+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§17,47; source log 015"
+REQ-026,W16+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,39"
+REQ-027,W16+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,39"
+REQ-028,W16+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,39"
+REQ-029,W16+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,39-40"
+REQ-030,W16+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,40"
+REQ-031,W12-W16,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §1
+REQ-032,W22,governance/REQUIREMENTS_INDEX.csv;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING);W22 functional snapshot-serving evidence,DEFAULT,master prompt §1
+REQ-033,W16+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,38"
+REQ-034,W15+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,18,39"
+REQ-035,W21+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§1,55,57"
+REQ-036,W08+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-033 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §1
+REQ-037,W07,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-009;AC-010;AC-020 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon canonical rules; master prompt W07
+REQ-038,W07,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-009;AC-010;AC-020 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon canonical rules
+REQ-039,W08+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-008 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon CANONICAL_DATA_RULES; master prompt §28
+REQ-040,W07-W09,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-009 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon CANONICAL_DATA_RULES
+REQ-041,W08,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-011 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §§27-28; recon
+REQ-042,W08+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-011;AC-012 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §27
+REQ-043,W08+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-013 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§21,27-28; recon"
+REQ-044,W08+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-014 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§38,58; recon v1.2"
+REQ-045,W08+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-016 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §30; recon v1.1
+REQ-046,W08-W12,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-015 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§28,33; recon"
+REQ-047,W07,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-017 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon CANONICAL_DATA_RULES
+REQ-048,W07-W09,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-009 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon CANONICAL_DATA_RULES
+REQ-049,W07+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-020 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon CANONICAL_DATA_RULES
+REQ-050,W07+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-010 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon CANONICAL_DATA_RULES
+REQ-051,W09+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-010;AC-033 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon provenance requirements
+REQ-052,W09-W19,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-009;AC-020 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon FULL_DATA_PROFILING_CONTRACT
+REQ-053,W01+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-045 (CURRENTLY_VERIFIED_W04),ACTIVE,recon README/FINAL_READINESS
+REQ-054,W06+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-043 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §42; recon v1.2
+REQ-055,ALL,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-043 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §42; recon source inventory; source log 007
+REQ-056,ALL,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-040;AC-043 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,master prompt §42
+REQ-057,W06+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-043 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon source access policy
+REQ-058,W07+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-010 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon SOURCE_PROVENANCE_REQUIREMENTS
+REQ-059,W08+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-012 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§27,54; source log 011"
+REQ-060,W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-018 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §41; recon v1.2
+REQ-061,W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-018 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §41; recon v1.2
+REQ-062,W07-W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-018 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §41; recon v1.2
+REQ-063,W09,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-009;AC-021 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§26, W09"
+REQ-064,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W04 acceptance mapping: AC-021 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §26; source log 012
+REQ-065,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W04 acceptance mapping: AC-021 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §26
+REQ-066,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W04 acceptance mapping: AC-021 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §26; source log 012
+REQ-067,W10,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W04 acceptance mapping: AC-021 (EXPERIMENT_REQUIRED_NONBLOCKING_UNTIL_PROMOTION),RESEARCH,"master prompt W10; source logs 001,009"
+REQ-068,W10-W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-021 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,recon v1.2 football mechanics; source log 011
+REQ-069,W11,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"source logs 010,013; master prompt W11"
+REQ-070,W11,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,source log 013; master prompt W11
+REQ-071,W11-W14,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,"source logs 011,013; master prompt W11"
+REQ-072,W12,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-027 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt W12; source log 010
+REQ-073,W12,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023;AC-027 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §33; recon v1.1
+REQ-074,W12,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §29; recon v1.1
+REQ-075,W12,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt W12; recon v1.1
+REQ-076,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-009 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §32; recon v1.1
+REQ-077,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §32; recon v1.1
+REQ-078,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §21, W13; source log 016"
+REQ-079,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-020 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §21; recon
+REQ-080,W13-W14,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §34; recon v1.1
+REQ-081,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,"master prompt §§35, W13; recon v1.2"
+REQ-082,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §35; recon v1.2
+REQ-083,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-023 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §35; recon v1.2
+REQ-084,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-021 (EXPERIMENT_REQUIRED_NONBLOCKING_UNTIL_PROMOTION),RESEARCH,master prompt §36; recon v1.2
+REQ-085,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-021 (EXPERIMENT_REQUIRED_NONBLOCKING_UNTIL_PROMOTION),RESEARCH,master prompt §36; recon v1.2
+REQ-086,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-021 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §36; recon v1.2
+REQ-087,W08-W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-019 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §37; recon v1.2
+REQ-088,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-021 (EXPERIMENT_REQUIRED_NONBLOCKING_UNTIL_PROMOTION),RESEARCH,master prompt §21; recon v1.2
+REQ-089,W13,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-021 (EXPERIMENT_REQUIRED_NONBLOCKING_UNTIL_PROMOTION),RESEARCH,master prompt §21; recon v1.2
+REQ-090,W16,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-014;AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §38
+REQ-091,W08-W22,governance/REQUIREMENTS_INDEX.csv;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-033 (CONTRACT_DEFINED_OWNER_PENDING);W22 functional snapshot-serving evidence,ACTIVE,master prompt §58; recon v1.2
+REQ-092,W16,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §39; recon v1.2
+REQ-093,W16-W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-027 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §40; recon v1.2
+REQ-094,W16-W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-027 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §40; recon v1.2
+REQ-095,W15,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-028 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §18; source log 011
+REQ-096,W15,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-029 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §18
+REQ-097,W15-W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-029 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §18
+REQ-098,W15,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-029 (EXPERIMENT_REQUIRED_NONBLOCKING_UNTIL_PROMOTION),RESEARCH,master prompt §18
+REQ-099,W14,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-015;AC-030 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §47; source log 015
+REQ-100,W14,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-030 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §47
+REQ-101,W14-W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-030;AC-023 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §47; source log 015
+REQ-102,W14-W22,governance/REQUIREMENTS_INDEX.csv;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-033 (CONTRACT_DEFINED_OWNER_PENDING);W22 functional snapshot-serving evidence,DEFAULT,master prompt §47; source log 015
+REQ-103,W15+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-029;AC-045 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,master prompt §18
+REQ-104,W15,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-029 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,source log 013; master prompt W15
+REQ-105,ALL,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-045 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §18
+REQ-106,W16-W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-022 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §45
+REQ-107,W16,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-022;AC-023 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §45
+REQ-108,W16-W18,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-022;AC-023 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §45; source logs 018-019
+REQ-109,W16-W17,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-025;AC-031 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§45,17"
+REQ-110,W16,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-026;AC-027 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §45
+REQ-111,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,W04 acceptance mapping: AC-022;AC-031 (CONTRACT_DEFINED_OWNER_PENDING);AC-178;AC-185,CONTRACT_VERIFIED_W18,master prompt §45; source log 019
+REQ-112,W02+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-038 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §44; source log 018
+REQ-113,W02+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-038 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §44
+REQ-114,W02-W23,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-038 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §44; source logs 018-019
+REQ-115,W21,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-020;AC-036 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §55; source log 017
+REQ-116,W17-W21,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-031 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt §§55-56; source log 017
+REQ-117,W21,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-036 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,master prompt §57
+REQ-118,W03-W21,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-032 (CONTRACT_DEFINED_OWNER_PENDING),DEFAULT,source log 017; master prompt §55
+REQ-119,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,W04 acceptance mapping: AC-032 (CONTRACT_DEFINED_OWNER_PENDING);AC-178;AC-185,CONTRACT_VERIFIED_W18,master prompt §56; source log 017
+REQ-120,W18+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-024;AC-032 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,source log 017; master prompt §56
+REQ-121,W18,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,W04 acceptance mapping: AC-031 (CONTRACT_DEFINED_OWNER_PENDING);AC-178;AC-185,CONTRACT_VERIFIED_W18,"master prompt §45, W18"
+REQ-122,W22,governance/REQUIREMENTS_INDEX.csv;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-037 (CONTRACT_DEFINED_OWNER_PENDING);W22 functional snapshot-serving evidence,DEFAULT,master prompt W22
+REQ-123,W23,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-039;AC-041;AC-042 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master prompt W23
+REQ-124,W19+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-045 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §53
+REQ-125,W01+,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-004 (CURRENTLY_VERIFIED_W04),ACTIVE,"master prompt §§43,49"
+REQ-126,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-003 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §52
+REQ-127,W01-W25,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-003 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §52
+REQ-128,W06,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-043 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,"master prompt §§20-24, W06"
+REQ-129,W24,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-005;AC-043 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,master prompt W24
+REQ-130,W25,governance/REQUIREMENTS_INDEX.csv,W25 final consolidation/handoff evidence; AC-003;AC-007;AC-045,COMPLETE_W25,master prompt W25
+REQ-131,W01,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-003 (VERIFIED_HISTORICAL),COMPLETE_W01,master prompt §74 + W01 hardening
+REQ-132,W01,governance/REQUIREMENTS_INDEX.csv,W04 acceptance mapping: AC-003 (VERIFIED_HISTORICAL),COMPLETE_W01,"master prompt §§9,74"
+REQ-133,W02-W03,pyproject.toml; src/aggie_analytics/__init__.py; docs/04_REPOSITORY_OPERATIONS.md,W04 acceptance mapping: AC-002;AC-003 (VERIFIED_HISTORICAL),COMPLETE_W02,Wave02 adaptive review; master W02/W03
+REQ-134,W02+,.python-version; docs/05_LOCAL_WINDOWS_SETUP.md,W04 acceptance mapping: AC-031;AC-036;AC-039 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Wave02 local compatibility decision; REQ-112
+REQ-135,W02+,scripts/bootstrap.py; scripts/bootstrap.ps1; docs/05_LOCAL_WINDOWS_SETUP.md,W04 acceptance mapping: AC-031;AC-036;AC-039 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Wave02 simplicity/local-first rule
+REQ-136,W02+,tools/validate_repository.py; scripts/validate_repo.ps1,W04 acceptance mapping: AC-002;AC-003;AC-004 (CURRENTLY_VERIFIED_W04),ACTIVE,"master §§16,54,66; W02"
+REQ-137,W02+,tools/repo_integrity.py; provenance/MANIFEST_POLICY.md,W04 acceptance mapping: AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,REQ-008; ADR-024; W01 CHANGE-003
+REQ-138,W02+,tools/packaging.py; tests/test_repo_integrity_tools.py,W04 acceptance mapping: AC-040 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,pack integrity hardening
+REQ-139,W02+,configs/hydration_manifest.json; tools/packaging.py,W04 acceptance mapping: AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,master §14; Wave02
+REQ-140,W02-W23,.github/workflows/ci.yml; scripts/validate_repo.ps1,W04 acceptance mapping: AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,Wave02 CI parity
+REQ-141,W02+,tools/; .github/workflows/ci.yml,W04 acceptance mapping: AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,REQ-112; master §53
+REQ-142,W02+,.codex/WORKTREE_POLICY.md; scripts/new_worktree.ps1,W04 acceptance mapping: AC-003 (CURRENTLY_VERIFIED_W04),ACTIVE,master §50; source implementation planning
+REQ-143,W02+,.codex/WORKTREE_POLICY.md; CONTRIBUTING.md,W04 acceptance mapping: AC-002;AC-003 (CURRENTLY_VERIFIED_W04),ACTIVE,master §50
+REQ-144,W02,governance/W02_ADAPTIVE_REVIEW.md; docs/04_REPOSITORY_OPERATIONS.md,W04 acceptance mapping: AC-005 (VERIFIED_HISTORICAL),COMPLETE_W02,master W02/W03; adaptive review
+REQ-145,W02+,scripts/*.ps1,W04 acceptance mapping: AC-031;AC-036;AC-039 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-112; Wave02
+REQ-146,W02+,.gitattributes; .editorconfig; tools/,W04 acceptance mapping: AC-002;AC-003 (CURRENTLY_VERIFIED_W04),ACTIVE,Wave02 Windows/Linux interoperability
+REQ-147,W02+,tools/packaging.py; tests/test_repo_integrity_tools.py,W04 acceptance mapping: AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,master §§13-16; Wave02
+REQ-148,W02+,tools/validate_wave_pair.py,W04 acceptance mapping: AC-001;AC-002 (CURRENTLY_VERIFIED_W04),ACTIVE,"master §§15,66; Wave02"
+REQ-149,W02-W23,.github/workflows/ci.yml; docs/06_GITHUB_CODEX_WORKFLOW.md,W04 acceptance mapping: AC-031;AC-036;AC-039 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,master W23; no-cargo-cult rule
+REQ-150,W02+,.codex/README.md,W04 acceptance mapping: AC-002;AC-003 (CURRENTLY_VERIFIED_W04),ACTIVE,adaptive evidence rule
+REQ-151,W03+,docs/01_ARCHITECTURE.md,W04 acceptance mapping: AC-005 (CURRENTLY_VERIFIED_W04),ACTIVE,W03 architecture comparison; local-first invariant
+REQ-152,W03-W22,docs/architecture/PREDICTION_PIPELINE.md;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-046 (CURRENTLY_VERIFIED_W04);W22 functional snapshot-serving evidence,ACTIVE,W03 architecture comparison; prediction snapshot principle
+REQ-153,W03+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,W04 acceptance mapping: AC-032 (CONTRACT_DEFINED_OWNER_PENDING);AC-178;AC-185,CONTRACT_VERIFIED_W18,Research-agent governance
+REQ-154,W03+,docs/architecture/RESEARCH_AND_LLM_PLANE.md,W04 acceptance mapping: AC-032 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Source logs; deterministic services decision
+REQ-155,W03+,docs/architecture/DATAFLOW_AND_STORAGE.md,W04 acceptance mapping: AC-008;AC-033 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Recon canonical data rules; master storage principles
+REQ-156,W03-W10,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W04 acceptance mapping: AC-011 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,PIT invariant; recon temporal rules
+REQ-157,W03-W20,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W04 acceptance mapping: AC-011;AC-033 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Reproducibility/leakage requirements
+REQ-158,W03-W19,docs/architecture/SYSTEM_BOUNDARIES.md,W04 acceptance mapping: AC-009 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W03 ports/boundary review
+REQ-159,W03-W08,docs/architecture/SYSTEM_BOUNDARIES.md,W04 acceptance mapping: AC-010;AC-017 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Recon canonical identity rules
+REQ-160,W03-W16,docs/architecture/NATIONAL_TAMU_INTERFACE.md,W04 acceptance mapping: AC-047 (CURRENTLY_VERIFIED_W04),ACTIVE,National+A&M protected objective
+REQ-161,W03+,docs/architecture/NATIONAL_TAMU_INTERFACE.md,W04 acceptance mapping: AC-047 (CURRENTLY_VERIFIED_W04),ACTIVE,Recon source precedence; national/A&M invariant
+REQ-162,W14-W17,docs/architecture/NATIONAL_TAMU_INTERFACE.md,W04 acceptance mapping: AC-030;AC-047 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,Anti-overfit/scientific posture
+REQ-163,W03-W20,docs/architecture/MODEL_LAYERS.md,W04 acceptance mapping: AC-026 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Joint-score invariant
+REQ-164,W03-W20,docs/architecture/PREDICTION_PIPELINE.md,W04 acceptance mapping: AC-028 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,BAS invariant
+REQ-165,W03-W22,docs/architecture/PREDICTION_PIPELINE.md;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-014;AC-026 (CONTRACT_DEFINED_OWNER_PENDING);W22 functional snapshot-serving evidence,ACTIVE,Market architecture invariant
+REQ-166,W03-Phase5,docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md,W04 acceptance mapping: AC-048 (CURRENTLY_VERIFIED_W04),ACTIVE,Live modeling invariant
+REQ-167,W03-W19,docs/architecture/DATAFLOW_AND_STORAGE.md,W04 acceptance mapping: AC-038 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Local hardware; master storage defaults; W03 comparison
+REQ-168,W03-W07/W22,docs/architecture/DATAFLOW_AND_STORAGE.md;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-038 (CONTRACT_DEFINED_OWNER_PENDING);W22 functional snapshot-serving evidence,ACTIVE,W03 storage comparison
+REQ-169,W03-W22,docs/01_ARCHITECTURE.md;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-046 (CURRENTLY_VERIFIED_W04);W22 functional snapshot-serving evidence,ACTIVE,Simplicity/no-cargo-cult rule
+REQ-170,W03-W23,docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md,W04 acceptance mapping: AC-005 (CURRENTLY_VERIFIED_W04),ACTIVE,No-cargo-cult and local-first rules
+REQ-171,W03-W22,configs/architecture_registry.json;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-046 (CURRENTLY_VERIFIED_W04);W22 functional snapshot-serving evidence,ACTIVE,Reproducibility/product boundary
+REQ-172,W03-W18,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,W04 acceptance mapping: AC-031;AC-032 (CONTRACT_DEFINED_OWNER_PENDING);AC-178;AC-185,CONTRACT_VERIFIED_W18,Research-agent governance
+REQ-173,W03+,configs/architecture_registry.json,W04 acceptance mapping: AC-005 (CURRENTLY_VERIFIED_W04),DEFAULT,W03 adaptive improvement
+REQ-174,W03+,tools/validate_architecture.py,W04 acceptance mapping: AC-005 (CURRENTLY_VERIFIED_W04),ACTIVE,W03 adaptive improvement
+REQ-175,W03-W23,docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md,W04 acceptance mapping: AC-020;AC-036 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,Recon immutable raw/validation principles
+REQ-176,W03,docs/01_ARCHITECTURE.md,W04 acceptance mapping: AC-005 (CURRENTLY_VERIFIED_W04),ACTIVE,Adaptive wave ownership
+REQ-177,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-007 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §54; W04 hardening
+REQ-178,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-006;AC-007 (CURRENTLY_VERIFIED_W04),ACTIVE,W04 classification audit
+REQ-179,W17+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,W04 acceptance mapping: AC-032 (CONTRACT_DEFINED_OWNER_PENDING);AC-178;AC-185,CONTRACT_VERIFIED_W18,REQ-019/120; W04 hardening
+REQ-180,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-007 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §60; W04 hardening
+REQ-181,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-007 (CURRENTLY_VERIFIED_W04),ACTIVE,W04 acceptance architecture
+REQ-182,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-006 (CURRENTLY_VERIFIED_W04),DEFAULT,master prompt §§3-5; W04 audit
+REQ-183,W10+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,W04 acceptance mapping: AC-021;AC-031 (CONTRACT_DEFINED_OWNER_PENDING);AC-178;AC-185,CONTRACT_VERIFIED_W18,master prompt §3; W04 audit
+REQ-184,W06+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-040 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,W04 security hardening
+REQ-185,W07+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-009;AC-040 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,W04 security/data-governance hardening
+REQ-186,W06+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-040 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,W04 security hardening
+REQ-187,W21+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-004;AC-041 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,REQ-018; W04 hardening
+REQ-188,W23,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-041 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 supply-chain hardening
+REQ-189,W21+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-042 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 security/privacy hardening
+REQ-190,W16+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-033 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-036/091; W04 hardening
+REQ-191,W08+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W04 acceptance mapping: AC-009;AC-011 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 reproducibility hardening
+REQ-192,W20+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-034 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 reproducibility hardening
+REQ-193,W16+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-035 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 reproducibility hardening
+REQ-194,W17+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-033;AC-034 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 reproducibility hardening
+REQ-195,W07+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-020 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-115/175; W04 hardening
+REQ-196,W07+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-017 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-037/038; W04 hardening
+REQ-197,W09+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-009;AC-020 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 hardening
+REQ-198,W06+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-020 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 hardening
+REQ-199,W08+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-011;AC-012 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-042; W04 hardening
+REQ-200,W19-W23,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-038 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-112/113; W04 hardening
+REQ-201,W19-W23,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-038 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 hardening
+REQ-202,W19+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-038;AC-012 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 hardening
+REQ-203,W21-W22,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-037 (CONTRACT_DEFINED_OWNER_PENDING);W22 functional snapshot-serving evidence,ACTIVE,RISK-039; W04 hardening
+REQ-204,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-007 (CURRENTLY_VERIFIED_W04),ACTIVE,W04 hardening
+REQ-205,W08+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-012 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-042/059/095; W04 hardening
+REQ-206,W17+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W04 acceptance mapping: AC-024;AC-031 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-116/120; W04 hardening
+REQ-207,W17+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-024 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 validation hardening
+REQ-208,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-044 (CURRENTLY_VERIFIED_W04),ACTIVE,W04 hardening
+REQ-209,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-005;AC-007 (CURRENTLY_VERIFIED_W04),ACTIVE,REQ-012/173/174; W04 hardening
+REQ-210,W04,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-045;AC-007 (CURRENTLY_VERIFIED_W04),ACTIVE,master prompt §60; W04 scope
+REQ-211,W06+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-043 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,REQ-054/057; W04 hardening
+REQ-212,W22,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W04 acceptance mapping: AC-037;AC-033 (CONTRACT_DEFINED_OWNER_PENDING);W22 functional snapshot-serving evidence,ACTIVE,REQ-036/122; W04 hardening
+REQ-213,W08+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-019 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 hardening
+REQ-214,W21+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-033;AC-039 (CONTRACT_DEFINED_OWNER_PENDING),ACTIVE,W04 hardening
+REQ-215,W04+,docs/08_REQUIREMENTS_AND_ACCEPTANCE_ARCHITECTURE.md,W04 acceptance mapping: AC-043;AC-044 (PARTIAL_OR_CONTRACT_DEFINED),ACTIVE,W04 hardening
+REQ-216,W05+,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-049;AC-056,ACTIVE,master prompt W05
+REQ-217,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-055,ACTIVE,W05 hardening
+REQ-218,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-049,ACTIVE,W05 hardening
+REQ-219,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-049,ACTIVE,W05 hardening
+REQ-220,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-050,ACTIVE,master prompt W05
+REQ-221,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-056,ACTIVE,master prompt W05
+REQ-222,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-054,ACTIVE,master prompt W05
+REQ-223,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-054,ACTIVE,W05 hardening
+REQ-224,W06,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-053,ACTIVE,master prompt W05/W06
+REQ-225,W05-W06,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-053,ACTIVE,master prompt W05/W06
+REQ-226,W05+,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-051,ACTIVE,master prompt W05
+REQ-227,W05+,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-052,ACTIVE,master prompt W05
+REQ-228,W05+,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-051,ACTIVE,master prompt W05
+REQ-229,W05+,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-051;AC-056,ACTIVE,W05 hardening
+REQ-230,W18+,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-043;AC-052,ACTIVE,W05 hardening
+REQ-231,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-055,ACTIVE,W05 hardening
+REQ-232,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-049,ACTIVE,W05 hardening
+REQ-233,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-049,ACTIVE,W05 hardening
+REQ-234,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-049,ACTIVE,W05 hardening
+REQ-235,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-050,ACTIVE,W05 hardening
+REQ-236,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-056,ACTIVE,W05 hardening
+REQ-237,W05,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-001;AC-055,COMPLETE_W05,master prompt W05
+REQ-238,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-055,ACTIVE,W05 hardening
+REQ-239,W05+,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-051;AC-052,ACTIVE,W05 hardening
+REQ-240,W05-W25,docs/10_IMPLEMENTATION_MASTER_PLAN.md;governance/IMPLEMENTATION_WBS.csv,W05 implementation mapping: AC-053;AC-055,DEFAULT,W05 hardening
+REQ-241,W06,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-057,COMPLETE_W06,master W06
+REQ-242,W06,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-057,COMPLETE_W06,master W06
+REQ-243,W06-W24,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-057,ACTIVE,master W06
+REQ-244,W06+,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-058;AC-059,ACTIVE,W06 findings
+REQ-245,W08+,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-013;AC-059,ACTIVE,W06 weather research
+REQ-246,W08+,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-013;AC-059,ACTIVE,W06 weather research
+REQ-247,W08-W12,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-015;AC-059,ACTIVE,W06 availability research
+REQ-248,W08-W12,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-015;AC-020;AC-059,ACTIVE,W06 availability research
+REQ-249,W11+,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-009;AC-020;AC-058,DEFAULT,W06 lower-division research
+REQ-250,W08-W13,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-011;AC-019;AC-059,ACTIVE,W06 NCAA governance research
+REQ-251,W08-W17,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-014;AC-059,ACTIVE,W06 market research
+REQ-252,W07-W09,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-010;AC-043;AC-058;AC-059,ACTIVE,W06 redundancy research
+REQ-253,W06-W24,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-043;AC-058,DEFAULT,W06 value challenge
+REQ-254,W06+,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-043;AC-059,ACTIVE,master W06
+REQ-255,W13+,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-020;AC-043;AC-059,ACTIVE,W06 resource research
+REQ-256,W08+,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-011;AC-059,ACTIVE,W06 ranking research
+REQ-257,W24,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-057;AC-058;AC-059,ACTIVE,master W24 + W06
+REQ-258,W06,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-053;AC-060,COMPLETE_W06,W05/W06
+REQ-259,W12-W14,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-015;AC-059,ACTIVE,W06 availability research
+REQ-260,W07+,docs/data_research/w06/DATA_RESEARCH_FINDINGS.md,W06 mapping: AC-008;AC-009;AC-010;AC-059,ACTIVE,W06 acquisition plan
+REQ-261,W07+,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061,ACTIVE,W07 canonical identity design
+REQ-262,W07+,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061;AC-064,ACTIVE,W07 canonical identity design
+REQ-263,W07+,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061,ACTIVE,W07 entity registry
+REQ-264,W07+,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061,ACTIVE,Recon canonical registry; W07
+REQ-265,W07+,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-062,ACTIVE,W07 source mapping contract
+REQ-266,W07+,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-062;AC-063,ACTIVE,Recon canonical rules; W07
+REQ-267,W07-W08,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-062,ACTIVE,W07 source mapping contract
+REQ-268,W07-W12,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061;AC-062,ACTIVE,Recon A&M roster identity policy; W07
+REQ-269,W07-W13,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061;AC-062,ACTIVE,Recon canonical registry; W07
+REQ-270,W07+,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061;AC-062,ACTIVE,Recon resource join contracts; W07
+REQ-271,W07-W08,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061;AC-062,ACTIVE,Recon join contracts; master edge cases; W07
+REQ-272,W07-W13,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061;AC-062,ACTIVE,Recon canonical registry; W07
+REQ-273,W07-W08,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-061;AC-062,ACTIVE,W07 entity design
+REQ-274,W07-W13,configs/entity_registry.json;docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,W07 contract mapping: AC-063,ACTIVE,W06 officiating gap; W07
+REQ-275,W07-W08,configs/entity_registry.json;docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md,W07 contract mapping: AC-065,ACTIVE,W06 mutable-report finding; W07
+REQ-276,W07-W08,configs/entity_registry.json;docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md,W07 contract mapping: AC-065,ACTIVE,W07 evidence identity
+REQ-277,W07-W19,docs/16_ENTITY_RESOLUTION_AND_REVIEW.md;configs/entity_registry.json,W07 contract mapping: AC-063;AC-064,ACTIVE,W07 resolution policy
+REQ-278,W07-W19,docs/16_ENTITY_RESOLUTION_AND_REVIEW.md;configs/entity_registry.json,W07 contract mapping: AC-017;AC-063,ACTIVE,W07 resolution policy; THR-008
+REQ-279,W07-W19,docs/16_ENTITY_RESOLUTION_AND_REVIEW.md;configs/entity_registry.json,W07 contract mapping: AC-064,ACTIVE,W07 correction policy
+REQ-280,W07+,docs/16_ENTITY_RESOLUTION_AND_REVIEW.md;configs/entity_registry.json,W07 contract mapping: AC-063,ACTIVE,W07 review workflow
+REQ-281,W07-W19/W22,docs/17_ENTITY_STORAGE_EVALUATION.md;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W07 contract mapping: AC-066;W22 functional snapshot-serving evidence,ACTIVE,W07 storage evaluation
+REQ-282,W19,docs/16_ENTITY_RESOLUTION_AND_REVIEW.md;configs/entity_registry.json,W07 contract mapping: AC-017;AC-063,ACTIVE,W07 THR-008 deferral
+REQ-283,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-067 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 PIT architecture
+REQ-284,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-067 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 PIT architecture
+REQ-285,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-068 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 PIT architecture
+REQ-286,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-068 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Recon temporal policies; W08
+REQ-287,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-011;AC-068 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Master PIT invariant; W08
+REQ-288,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-069 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W07 evidence identity; W08
+REQ-289,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-067;AC-011 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 bitemporal design
+REQ-290,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-067;AC-072 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 bitemporal design
+REQ-291,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-075 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Recon canonical rules; W08
+REQ-292,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-073 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Master leakage rules; W08
+REQ-293,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-074 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 cutoff contract
+REQ-294,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-074 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 cutoff contract
+REQ-295,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-074 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 as-of contract
+REQ-296,W08-W17,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-014 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Recon market contract; W08
+REQ-297,W08-W17,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-014 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 market policy
+REQ-298,W08-W13,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-071 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W06 weather research; W08
+REQ-299,W08-W13,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-013;AC-071 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Recon weather safety; W08
+REQ-300,W08-W12,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-070 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W06 availability research; W08
+REQ-301,W08-W12,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-070 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W06 availability research; W08
+REQ-302,W08-W12,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-069;AC-070 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08 revision policy
+REQ-303,W08-W13,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-015;AC-067 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Recon A&M temporal policy; W08
+REQ-304,W08-W13,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-072 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W06 regulatory finding; W08
+REQ-305,W08-W13,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-072 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Recon resource temporal policy; W08
+REQ-306,W08-W17,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-016;AC-073 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Master leakage rules; W08
+REQ-307,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-011;AC-067 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,ADR-045; W08
+REQ-308,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-012 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08
+REQ-309,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-067 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08
+REQ-310,W08+,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-068 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,Recon/W08
+REQ-311,W08-W22,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md;docs/107_W22_SNAPSHOT_SERVING_PRODUCT.md;tests/test_w22_product_serving.py,W08 temporal mapping: AC-074 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING);W22 functional snapshot-serving evidence,ACTIVE,Recon prediction snapshot; W08
+REQ-312,W08-W17,configs/temporal_registry.json;docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md,W08 temporal mapping: AC-076;AC-012 (CONTRACT_SYNTHETIC_REAL_DATA_PENDING),ACTIVE,W08
+REQ-313,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-077,ACTIVE,W09
+REQ-314,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-077,ACTIVE,W09
+REQ-315,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-077,ACTIVE,W09
+REQ-316,W09-W19,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-077,ACTIVE,W09
+REQ-317,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-078,ACTIVE,W09
+REQ-318,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-078,ACTIVE,W09
+REQ-319,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-078,ACTIVE,W09
+REQ-320,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-078,ACTIVE,W09
+REQ-321,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-079,ACTIVE,W09
+REQ-322,W09-W19,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-079,DEFAULT,W09
+REQ-323,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-079,ACTIVE,W09
+REQ-324,W09-W19,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-079,ACTIVE,W09
+REQ-325,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-081,ACTIVE,W09
+REQ-326,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-081,ACTIVE,W07-W09
+REQ-327,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-082,ACTIVE,W09
+REQ-328,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-082,ACTIVE,W06-W09
+REQ-329,W09+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W09 acceptance mapping: AC-081,ACTIVE,W09
+REQ-330,W09-W10,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-083,ACTIVE,W09
+REQ-331,W09-W10,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-083,ACTIVE,W09
+REQ-332,W09-W10,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-083,ACTIVE,W08-W09
+REQ-333,W09-W10,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-083,ACTIVE,W08-W09
+REQ-334,W09-W10,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-083,ACTIVE,W08-W09
+REQ-335,W09-W10,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-083,ACTIVE,W09
+REQ-336,W09-W10,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W09 acceptance mapping: AC-082,ACTIVE,W09
+REQ-337,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-084,ACTIVE,W06-W09
+REQ-338,W09-W10,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-083,ACTIVE,W09
+REQ-339,W09+,governance/RAW_FIELD_REGISTRY.csv;configs/raw_feature_registry.json,W09 acceptance mapping: AC-083,ACTIVE,W09
+REQ-340,W09+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W09 acceptance mapping: AC-083,ACTIVE,W09
+REQ-341,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-085,ACTIVE,W08/W10 protected gateway
+REQ-342,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-086,ACTIVE,W10 strict-prior transform contract
+REQ-343,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-085;AC-090,ACTIVE,REQ-051/191; W10
+REQ-344,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-087,RESEARCH,master W10; W10 adaptive review
+REQ-345,W10-W19,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-087,ACTIVE,W09 missingness honesty; W10
+REQ-346,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-087,ACTIVE,W09 redundancy; W10
+REQ-347,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-087,ACTIVE,W10 screening design
+REQ-348,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-087,ACTIVE,W10 screening design
+REQ-349,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-087,ACTIVE,W10 screening design
+REQ-350,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-088,ACTIVE,master §26/W10
+REQ-351,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-088,ACTIVE,master §26/W10
+REQ-352,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-088,ACTIVE,master §26; A&M objective
+REQ-353,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-089,ACTIVE,REQ-066; W10
+REQ-354,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-091,ACTIVE,market architecture; W10
+REQ-355,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-090,ACTIVE,master §26; W10
+REQ-356,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-090,ACTIVE,W10 lifecycle
+REQ-357,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-090,ACTIVE,PIT/rights invariants; W10
+REQ-358,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-088,ACTIVE,REQ-206; W10
+REQ-359,W10+,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-085;AC-090,ACTIVE,REQ-051/191; W10
+REQ-360,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-092,ACTIVE,W10 maturity honesty
+REQ-361,W10-W17,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-087,ACTIVE,master W10; W10
+REQ-362,W10-W23,configs/feature_lifecycle_registry.json;governance/FEATURE_*,W10 acceptance mapping: AC-087,ACTIVE,simplicity rule; W10
+REQ-363,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,W08 PIT; W11
+REQ-364,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,source chat 010; master W11
+REQ-365,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,source chat; W11
+REQ-366,W11-W12,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,wave ownership
+REQ-367,W11-W17,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,DEFAULT,source chat 016; W11
+REQ-368,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,W08; W11
+REQ-369,W17-W19,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,empirical adoption rule; W11
+REQ-370,W11-W17,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,DEFAULT,source chat; W11
+REQ-371,W11-W17,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,DEFAULT,recon resource strategy; source chat 016
+REQ-372,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,source chat 013/015; W11
+REQ-373,W11-W17,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,RESEARCH,source chat illustrative decays; W11
+REQ-374,W11-W17,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,DEFAULT,source chat 013; W11
+REQ-375,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,controlled flexibility; W11
+REQ-376,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,data-governance; W11
+REQ-377,W11-W17,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,DEFAULT,source chat 003/013; W11
+REQ-378,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,master core architecture; recon uncertainty
+REQ-379,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,master architecture; source chat
+REQ-380,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,DEFAULT,source chat; W06
+REQ-381,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,DEFAULT,source chat; W06
+REQ-382,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,master no-recursion rule
+REQ-383,W11-W17,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,source chat; master
+REQ-384,W11+,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,transfer/opponent architecture
+REQ-385,W11-W16,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,recon uncertainty contract; W11
+REQ-386,W11-W16,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,recon uncertainty contract
+REQ-387,W11-W19,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,W11 task 034; W17
+REQ-388,W11,configs/team_state_registry.json;governance/TEAM_STATE_*;governance/HISTORICAL_WEIGHTING_CANDIDATES.csv;governance/OPPONENT_STRENGTH_HIERARCHY.csv,W11 team-state acceptance mapping,ACTIVE,honest maturity; W11
+REQ-389,W12,governance/ROSTER_DEPTH_STATE_CONTRACTS.csv;schemas/players/player_state.json,AC-102,ACTIVE,source chat; recon roster identity
+REQ-390,W12,governance/ROSTER_DEPTH_STATE_CONTRACTS.csv;schemas/players/player_state.json,AC-102,ACTIVE,recon roster/depth policy; W08
+REQ-391,W12,governance/ROSTER_DEPTH_STATE_CONTRACTS.csv,AC-102,ACTIVE,recon depth chart policy
+REQ-392,W12,governance/ROSTER_DEPTH_STATE_CONTRACTS.csv;tools/validate_player_intelligence.py,AC-102,ACTIVE,recon depth policy; W08 leakage
+REQ-393,W12,governance/PLAYER_STATE_COMPONENTS.csv;governance/REPLACEMENT_VALUE_CONTRACTS.csv,AC-102,ACTIVE,source chat 007/017
+REQ-394,W12-W17,governance/PLAYER_VALUE_EVIDENCE_CATALOG.csv;schemas/players/player_value_estimate.json,AC-103,ACTIVE,master W12; source chat; recon availability policy
+REQ-395,W12-W17,configs/player_intelligence_registry.json;governance/PLAYER_VALUE_EVIDENCE_CATALOG.csv,AC-103,ACTIVE,recon availability impact policy
+REQ-396,W12,governance/AVAILABILITY_STATE_CONTRACT.csv;schemas/players/availability_state.json,AC-104,ACTIVE,recon availability impact policy
+REQ-397,W12,governance/AVAILABILITY_STATE_CONTRACT.csv,AC-104,ACTIVE,source chat; recon availability policy
+REQ-398,W12,configs/player_intelligence_registry.json,AC-104,ACTIVE,source chat 007
+REQ-399,W12,governance/AVAILABILITY_EVIDENCE_CONFIDENCE.csv,AC-106,ACTIVE,source chat 007; recon availability policy
+REQ-400,W12,governance/AVAILABILITY_EVIDENCE_CONFIDENCE.csv;governance/AVAILABILITY_SOURCE_LANE.csv,AC-106;AC-110,ACTIVE,W06-W08 official availability policy
+REQ-401,W12,governance/REPLACEMENT_VALUE_CONTRACTS.csv;schemas/players/replacement_state.json,AC-105,ACTIVE,recon availability impact policy
+REQ-402,W12,governance/REPLACEMENT_VALUE_CONTRACTS.csv,AC-105,ACTIVE,source chat 007/017
+REQ-403,W12-W17,docs/35_PLAYER_VALUE_REPLACEMENT_AND_AVAILABILITY.md,AC-105,ACTIVE,recon availability impact anti-double-counting
+REQ-404,W12-W16,docs/39_PLAYER_INTELLIGENCE_GATE_AND_HANDOFF.md,AC-105,ACTIVE,W11 boundary; W12
+REQ-405,W12-W17,governance/RECRUITING_PROSPECT_PRIOR_CATALOG.csv;schemas/players/prospect_prior.json,AC-107,ACTIVE,recon transfer policy; source chat 007
+REQ-406,W12-W17,governance/TRANSFER_FRESHMAN_UNCERTAINTY_CATALOG.csv,AC-107,ACTIVE,source chat 007; recon transfer policy
+REQ-407,W12,governance/TRANSFER_EPISODE_CONTRACTS.csv;schemas/players/transfer_episode.json,AC-108,ACTIVE,W07 identity; recon transfer policy
+REQ-408,W12,governance/TRANSFER_EPISODE_CONTRACTS.csv;governance/TRANSFER_RECRUITING_PROVENANCE_AUDIT.csv,AC-108;AC-111,ACTIVE,W08; recon transfer policy
+REQ-409,W12-W17,governance/TRANSFER_TRANSLATION_EXPERIMENT_PLAN.csv,AC-108,ACTIVE,recon transfer policy; W11
+REQ-410,W12-W17,governance/TRANSFER_TRANSLATION_EXPERIMENT_PLAN.csv;src/aggie_analytics/player_intelligence/transfer.py,AC-108,ACTIVE,recon transfer policy
+REQ-411,W12-W17,governance/TRANSFER_TRANSLATION_EXPERIMENT_PLAN.csv,AC-108,DEFAULT,recon transfer policy
+REQ-412,W12-W17,governance/TRANSFER_TRANSLATION_EXPERIMENT_PLAN.csv;governance/TRANSFER_FRESHMAN_UNCERTAINTY_CATALOG.csv,AC-108,ACTIVE,recon transfer policy
+REQ-413,W12-W17,governance/PRESEASON_HONOR_CANDIDATE_CONTRACTS.csv,AC-109,DEFAULT,recon honors policy
+REQ-414,W12+,governance/PRESEASON_HONOR_CANDIDATE_CONTRACTS.csv,AC-109,ACTIVE,recon honors policy; W08
+REQ-415,W12+,governance/DRAFT_DEVELOPMENT_CANDIDATE_CONTRACTS.csv,AC-109,ACTIVE,recon draft policy
+REQ-416,W12-W17,governance/DRAFT_DEVELOPMENT_CANDIDATE_CONTRACTS.csv,AC-109,DEFAULT,recon draft policy
+REQ-417,W12-W19,governance/AVAILABILITY_SOURCE_LANE.csv,AC-110,ACTIVE,W06 research
+REQ-418,W12-W19,governance/AVAILABILITY_SOURCE_LANE.csv,AC-110,ACTIVE,honest maturity; W12
+REQ-419,W12+,governance/DATASET_SCHEMA_REGISTRY.csv;governance/TRANSFER_RECRUITING_PROVENANCE_AUDIT.csv,AC-111,ACTIVE,TASK-197; W06-W09
+REQ-420,W12-W17,governance/PLAYER_INTELLIGENCE_GATE_STATUS.csv,AC-112,RESEARCH,W12 adaptive review
+REQ-421,W12-W17,governance/PLAYER_INTELLIGENCE_GATE_STATUS.csv,AC-112,RESEARCH,W12 adaptive review
+REQ-422,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13 + recon coach-role policy
+REQ-423,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon coach-role policy
+REQ-424,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon coach-role policy
+REQ-425,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon coach-role policy
+REQ-426,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon coach-role policy
+REQ-427,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13
+REQ-428,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt PIT + W13
+REQ-429,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,RESEARCH_PENDING,Master prompt W13
+REQ-430,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,RESEARCH_PENDING,Master prompt W13
+REQ-431,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt uncertainty + recon policy
+REQ-432,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,W06/W08 + recon weather findings
+REQ-433,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon travel findings
+REQ-434,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon travel findings
+REQ-435,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon resource strategy
+REQ-436,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,W06 + recon resource policy
+REQ-437,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon home-field policy
+REQ-438,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon home-field policy
+REQ-439,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13
+REQ-440,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,W06 + recon rule-era policy
+REQ-441,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon rule-era policy
+REQ-442,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13
+REQ-443,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13
+REQ-444,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13
+REQ-445,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13
+REQ-446,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,RESEARCH_PENDING,Master prompt W13
+REQ-447,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13
+REQ-448,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon officiating/penalty policy
+REQ-449,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,RESEARCH_PENDING,Master prompt feature inventory
+REQ-450,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13 + PIT
+REQ-451,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,RESEARCH_PENDING,Master prompt W13
+REQ-452,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt W13
+REQ-453,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt PIT + W13
+REQ-454,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon officiating policy
+REQ-455,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon officiating policy
+REQ-456,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt honest completion
+REQ-457,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Cumulative integrity
+REQ-458,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Master prompt uncertainty
+REQ-459,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon resource findings
+REQ-460,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,Recon weather/travel findings
+REQ-461,W13,W13 coaching/context/mechanics contracts,W13 contract validator + later W17/W19 empirical evidence where applicable,DEFINED_W13,W13 adaptive review
+REQ-462,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W14 adaptive architecture
+REQ-463,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Cumulative architecture
+REQ-464,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt W14
+REQ-465,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt W14
+REQ-466,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt W14
+REQ-467,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt uncertainty
+REQ-468,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W14 adaptive review
+REQ-469,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt snapshots
+REQ-470,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W08 snapshot principle
+REQ-471,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt W14
+REQ-472,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt W14 + PIT
+REQ-473,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W14 adaptive review
+REQ-474,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt W14
+REQ-475,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt adaptive/null result
+REQ-476,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Core invariant
+REQ-477,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt W14
+REQ-478,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt W14
+REQ-479,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W14 architecture alternatives
+REQ-480,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W14 overfit guard
+REQ-481,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,THR-005 + W17 science
+REQ-482,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W14 overfit guard
+REQ-483,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Master prompt A&M priority + national foundation
+REQ-484,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,No fabricated thresholds
+REQ-485,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W11 regime + W14
+REQ-486,W14-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W04/W08 protected split
+REQ-487,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Market-lane separation
+REQ-488,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Wave ownership
+REQ-489,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W13 home-field + master prompt
+REQ-490,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,BAS scientific rule
+REQ-491,W14-W16,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,W03/W16 architecture
+REQ-492,W16-W17,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Wave ownership
+REQ-493,W14,W14 A&M specialization/state contracts,W14 contract validator + later W16/W17 protected empirical evidence where applicable,DEFINED_W14,Honest completion rule
+REQ-494,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,master prompt §18; W15
+REQ-495,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,master prompt §18
+REQ-496,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,master prompt §18
+REQ-497,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,REQ-095; W15
+REQ-498,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W08 PIT + W15
+REQ-499,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,REQ-095; mirrored-row safety
+REQ-500,W15-W20,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15 label lineage
+REQ-501,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,anti-circularity
+REQ-502,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,anti-circularity
+REQ-503,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,wave ownership
+REQ-504,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,REQ-213; W15
+REQ-505,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,master prompt §18
+REQ-506,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,mirrored-game dependence
+REQ-507,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,master prompt §18
+REQ-508,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W14 peers + W15
+REQ-509,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W11/W13 regimes
+REQ-510,W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15 science
+REQ-511,W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15 science
+REQ-512,W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,master prompt §18
+REQ-513,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W04 threshold policy
+REQ-514,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,REQ-098
+REQ-515,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15 component design
+REQ-516,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15 component design
+REQ-517,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W13 special teams + W15
+REQ-518,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W13 coaching + W15
+REQ-519,W15-W18,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,master prompt W15/live
+REQ-520,W15-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15 scientific decomposition
+REQ-521,W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15/W17
+REQ-522,W16-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,nested severity semantics
+REQ-523,W16-W17,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15 anchor policy
+REQ-524,W17+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,REQ-103; W15
+REQ-525,W15+,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,REQ-103/105
+REQ-526,W15,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,honest maturity
+REQ-527,W15,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,COMPLETE_W15,W15 adaptive review
+REQ-528,W16,W15 BAS scientific contracts + validator,W15 contract validator; W16/W17 protected/model evidence where applicable,DEFINED_W15,W15 handoff
+REQ-529,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16/master target architecture
+REQ-530,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-531,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-532,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-533,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-534,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-535,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-536,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-537,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W15/W16
+REQ-538,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-539,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W15
+REQ-540,W16-W20,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,master prompt/W16
+REQ-541,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-542,W16-W17,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-543,W16-W20,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-544,W17+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-545,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-546,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W08/W16
+REQ-547,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W08/W16
+REQ-548,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-549,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-550,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W08/W16
+REQ-551,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-552,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-553,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W12/W16
+REQ-554,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W08/W16
+REQ-555,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-556,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,master prompt/W16
+REQ-557,W17,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,THR-014
+REQ-558,W17,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,THR-015
+REQ-559,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-560,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W14/W16
+REQ-561,W16+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W14/W16
+REQ-562,W17+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W14/W16
+REQ-563,W20+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-564,W17+,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16
+REQ-565,W17,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,master W17
+REQ-566,W16,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,COMPLETE_W16,honest maturity
+REQ-567,W17,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,DEFINED_W16,W16 adaptive review
+REQ-568,W16,W16 model architecture registries + reference package + validator,W16 contract validator; W17 protected protocol/evidence where applicable,COMPLETE_W16,W16
+REQ-569,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-163;AC-024,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-570,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-163;AC-168;AC-018,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-571,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-163;AC-164;AC-024,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-572,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-163;AC-169,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-573,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-165,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-574,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-164;AC-024,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-575,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-164;AC-170,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-576,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-023;AC-163,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-577,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-166;AC-025;THR-001,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-578,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-166;AC-025;THR-002,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-579,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-166;AC-025;THR-003,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-580,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-166;THR-004,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-581,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-166;AC-026,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-582,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-166;AC-172;AC-028;THR-006,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-583,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-167;AC-173;THR-005,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-584,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-167,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-585,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-167,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-586,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-167;AC-169,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-587,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-171;AC-022;THR-001;THR-002;THR-003;THR-004,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-588,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-168,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-589,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-169;THR-001;THR-002;THR-003;THR-004;THR-005;THR-006;THR-007;THR-014;THR-015,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-590,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-169;AC-024,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-591,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-170;AC-175;THR-001;THR-002;THR-003;THR-004;THR-005;THR-006;THR-007;THR-014;THR-015,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-592,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-175,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-593,W17,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/RESEARCH_ROLE_CAPABILITIES.csv,AC-175;AC-031;AC-032;AC-178;AC-185,CONTRACT_VERIFIED_W18,W17
+REQ-594,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-172;AC-144;AC-029;THR-006,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-595,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-172;AC-148;THR-006,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-596,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-173;AC-030;THR-005,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-597,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-174;AC-014;THR-001;THR-002;THR-003;THR-004,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-598,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-174;AC-027;THR-014,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-599,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-174;AC-027;THR-015,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-600,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-174;AC-027,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-601,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-175;AC-031,CONTRACT_VERIFIED_W17_REAL_EMPIRICAL_EVIDENCE_PENDING,W17
+REQ-602,W17,configs/validation_science_registry.json;governance/PROTECTED_SPLIT_REGISTRY.csv;governance/METRIC_REGISTRY.csv,AC-176,COMPLETE_W17,W17
+REQ-603,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-177,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-604,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-178,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-605,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-179,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-606,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-180,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-607,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-181,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-608,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-182,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-609,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-183,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-610,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-184,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-611,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-185,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-612,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-186,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-613,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-187,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-614,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-188,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-615,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-189,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-616,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-190,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-617,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-177,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-618,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-178,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-619,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-179,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-620,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-180,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-621,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-181,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-622,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-182,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-623,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-183,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-624,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-184,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-625,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-185,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-626,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-186,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-627,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-187,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-628,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-188,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-629,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-189,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-630,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-190,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-631,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-177,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-632,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-178,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-633,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-179,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-634,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-180,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-635,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-181,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-636,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-182,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-637,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-183,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-638,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-184,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-639,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-185,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-640,W18+,configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/EXPERIMENT_STATE_MACHINE.csv,AC-186,CONTRACT_VERIFIED_W18_REAL_EXPERIMENT_EVIDENCE_PENDING,W18
+REQ-641,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-191,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-642,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-191,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-643,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-191,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-644,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-191,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-645,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-191,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-646,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-191,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-647,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-191,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-648,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-192,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-649,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-192,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-650,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-192,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-651,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-192,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-652,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-192,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-653,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-192,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-654,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-192,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-655,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-656,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-657,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-658,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-659,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-660,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-661,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-662,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-663,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-194,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-664,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-197,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-665,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-197,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-666,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-197,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-667,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-197,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-668,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-198,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-669,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-198,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-670,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-198,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-671,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-200,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-672,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-200,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-673,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-200,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-674,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-200,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-675,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-200,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-676,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-200,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-677,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-205,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-678,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-205,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-679,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-205,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-680,W18+,configs/experiment_research_registry.json;governance/W18_MASTER_REQUIREMENT_COVERAGE.csv,AC-205,CONTRACT_VERIFIED_W18_CORRECTED_REAL_EXPERIMENT_EVIDENCE_PENDING,Corrected W18
+REQ-681,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-209,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-682,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-210,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-683,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-211,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-684,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-212,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-685,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-213,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-686,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-214,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-687,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-215,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-688,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-216,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-689,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-217,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-690,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-218,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-691,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-219,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-692,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-220,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-693,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-221,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-694,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-222,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-695,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-223,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-696,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-224,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-697,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-225,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-698,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-226,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-699,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-227,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-700,W18+,docs/76_CANONICAL_EXPERIMENT_SPEC.md;docs/94_W18_ACCEPTANCE_TRACEABILITY.md;src/aggie_analytics/experimentation/,AC-228,COMPLETE_W18_FULL_REFERENCE,W18 full-rebuild audit and master Wave 18
+REQ-701,W19+,docs/101_W19_FOUNDATION_IMPLEMENTATION.md;src/aggie_analytics/data/snapshots.py,AC-008;AC-055;AC-056,COMPLETE_W19,W19 implementation
+REQ-702,W19+,docs/101_W19_FOUNDATION_IMPLEMENTATION.md;src/aggie_analytics/entities/resolution.py,AC-055;AC-056,COMPLETE_W19,W19 implementation
+REQ-703,W19+,docs/101_W19_FOUNDATION_IMPLEMENTATION.md;src/aggie_analytics/features/factory.py,AC-008;AC-055;AC-056,COMPLETE_W19,W19 implementation
+REQ-704,W19+,src/aggie_analytics/lineage.py;src/aggie_analytics/temporal/state.py,AC-008;AC-055;AC-056,COMPLETE_W19,W19 implementation
+REQ-705,W19,tests/test_w19_foundation.py;governance/W19_VALIDATION_REPORT.md,AC-008;AC-055;AC-056,COMPLETE_W19,W19 implementation
+REQ-706,W20+,docs/103_W20_MODEL_CALIBRATION_BAS_IMPLEMENTATION.md;src/aggie_analytics/modeling/runtime.py,AC-022;AC-055;AC-056,COMPLETE_W20,W20 implementation
+REQ-707,W20+,src/aggie_analytics/modeling/joint.py;src/aggie_analytics/modeling/forecast.py,AC-022;AC-025;AC-026;AC-055;AC-056,COMPLETE_W20,W20 implementation
+REQ-708,W20+,src/aggie_analytics/modeling/baselines.py;tests/test_w20_model_starter.py,AC-022;AC-055;AC-056,COMPLETE_W20,W20 implementation
+REQ-709,W20+,src/aggie_analytics/modeling/calibration.py;docs/103_W20_MODEL_CALIBRATION_BAS_IMPLEMENTATION.md,AC-022;AC-033;AC-034;AC-035;AC-055;AC-056,COMPLETE_W20,W20 implementation
+REQ-710,W20+,src/aggie_analytics/modeling/registry.py;tests/test_w20_model_starter.py,AC-033;AC-055;AC-056,COMPLETE_W20,W20 implementation
+REQ-711,W20+,src/aggie_analytics/tamu/runtime.py;tests/test_w20_model_starter.py,AC-028;AC-033;AC-055;AC-056,COMPLETE_W20,W20 implementation
+REQ-712,W20+,src/aggie_analytics/bas/runtime.py;src/aggie_analytics/modeling/forecast.py,AC-030;AC-033;AC-055;AC-056,COMPLETE_W20,W20 implementation
+REQ-713,W20,tests/test_w20_model_starter.py;governance/W20_VALIDATION_REPORT.md,AC-022;AC-028;AC-030;AC-033;AC-055;AC-056,COMPLETE_W20,W20 implementation
+REQ-714,W21+,src/aggie_analytics/orchestration/checkpoints.py;src/aggie_analytics/orchestration/weekly.py;tests/test_w21_weekly_mlops.py,AC-036;AC-055;AC-056,COMPLETE_W21,W21 implementation
+REQ-715,W21+,src/aggie_analytics/orchestration/weekly.py;tests/test_w21_weekly_mlops.py,AC-020;AC-036;AC-055;AC-056,COMPLETE_W21,W21 implementation
+REQ-716,W21+,docs/105_W21_AUTONOMOUS_WEEKLY_MLOPS.md;src/aggie_analytics/orchestration/weekly.py,AC-032;AC-055;AC-056,COMPLETE_W21,W21 implementation
+REQ-717,W21+,src/aggie_analytics/orchestration/promotion.py;tests/test_w21_weekly_mlops.py,AC-031;AC-055;AC-056,COMPLETE_W21,W21 implementation
+REQ-718,W21+,src/aggie_analytics/orchestration/promotion.py;tests/test_w21_weekly_mlops.py,AC-031;AC-039;AC-055;AC-056,COMPLETE_W21,W21 implementation
+REQ-719,W21+,src/aggie_analytics/orchestration/publication.py;tests/test_w21_weekly_mlops.py,AC-033;AC-037;AC-055;AC-056,COMPLETE_W21,W21 implementation
+REQ-720,W21+,src/aggie_analytics/orchestration/postmortem.py;tests/test_w21_weekly_mlops.py,AC-033;AC-039;AC-055;AC-056,COMPLETE_W21,W21 implementation
+REQ-721,W21,tools/validate_w21_mlops.py;governance/W21_VALIDATION_REPORT.md;tests/test_w21_weekly_mlops.py,AC-031;AC-033;AC-034;AC-035;AC-036;AC-037;AC-038;AC-039;AC-055;AC-056,COMPLETE_W21,W21 implementation
+REQ-722,W22+,src/aggie_analytics/product/service.py;tools/validate_w22_product.py,AC-046;AC-055;AC-056,COMPLETE_W22,W22 implementation
+REQ-723,W22+,docs/product/API_CONTRACT.md;schemas/product_forecast_response_v1.schema.json;tests/test_w22_product_serving.py,AC-033;AC-046;AC-055;AC-056,COMPLETE_W22,W22 implementation
+REQ-724,W22+,src/aggie_analytics/product/freshness.py;tests/test_w22_product_serving.py,AC-037;AC-055;AC-056,COMPLETE_W22,W22 implementation
+REQ-725,W22+,src/aggie_analytics/product/service.py;src/aggie_analytics/product/static/index.html,AC-033;AC-037;AC-055;AC-056,COMPLETE_W22,W22 implementation
+REQ-726,W22+,src/aggie_analytics/product/explainability.py;tests/test_w22_product_serving.py,AC-046;AC-055;AC-056,COMPLETE_W22,W22 implementation
+REQ-727,W22+,src/aggie_analytics/product/service.py;docs/product/API_CONTRACT.md,AC-033;AC-046;AC-055;AC-056,COMPLETE_W22,W22 implementation
+REQ-728,W22-W23,docs/product/FRAMEWORK_DECISION.md;src/aggie_analytics/api/fastapi_app.py;pyproject.toml,AC-046;AC-055;AC-056,COMPLETE_W22,W22 adaptive review
+REQ-729,W22,tools/validate_w22_product.py;tests/test_w22_product_serving.py;governance/W22_VALIDATION_REPORT.md,AC-033;AC-037;AC-046;AC-055;AC-056,COMPLETE_W22,W22 implementation
+REQ-730,W23+,.github/workflows/ci.yml;requirements/product.lock;tools/validate_dependency_policy.py,AC-002;AC-041;AC-055;AC-056,COMPLETE_W23,W23 implementation
+REQ-731,W23+,src/aggie_analytics/operations/observability.py;tests/test_w23_operations.py,AC-042;AC-055;AC-056,COMPLETE_W23,W23 implementation
+REQ-732,W23+,src/aggie_analytics/operations/environment.py;tools/capture_runtime_manifest.py,AC-034;AC-055;AC-056,COMPLETE_W23,W23 implementation
+REQ-733,W23,src/aggie_analytics/operations/benchmark.py;docs/operations/TARGET_HARDWARE_BENCHMARK.md;governance/W23_NON_TARGET_BENCHMARK_SMOKE.json,AC-038;AC-055;AC-056,BLOCKED_TARGET_HARDWARE_W23,W23 adaptive review
+REQ-734,W23+,src/aggie_analytics/operations/backup.py;tools/backup_state.py;tools/restore_state.py;tests/test_w23_operations.py,AC-039;AC-040;AC-055;AC-056,COMPLETE_W23,W23 implementation
+REQ-735,W23+,src/aggie_analytics/operations/retention.py;docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md,AC-039;AC-055;AC-056,COMPLETE_W23,W23 implementation
+REQ-736,W23,tools/validate_w23_operations.py;governance/W23_VALIDATION_REPORT.md,AC-038;AC-055;AC-056,COMPLETE_W23,W23 honesty gate
+REQ-737,W24-W25,governance/W24_ADAPTIVE_REVIEW.md;docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md,AC-233;AC-055;AC-056,COMPLETE_W24,latest explicit user instruction
+REQ-738,W24,src/aggie_analytics/readiness/e2e.py;tests/test_w24_readiness.py,AC-229;AC-055;AC-056,COMPLETE_W24,master W24
+REQ-739,W24-W25,src/aggie_analytics/readiness/e2e.py;docs/readiness/W24_END_TO_END_READINESS.md,AC-229;AC-055;AC-056,COMPLETE_W24,no-overstatement invariant
+REQ-740,W24+,src/aggie_analytics/temporal/eligibility.py;tests/test_w24_readiness.py,AC-230;AC-011;AC-012,COMPLETE_W24,PIT invariant
+REQ-741,W24,docs/data_research/w24/SOURCE_REFRESH_DELTA.csv;docs/data_research/w24/SOURCE_RESEARCH_LOG.csv,AC-231;AC-057;AC-058;AC-059,COMPLETE_W24,master W24 source refresh
+REQ-742,W24+,docs/data_research/w24/SOURCE_REFRESH_DELTA.csv;docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md,AC-231;AC-009;AC-010,COMPLETE_W24,SportsDataverse current architecture
+REQ-743,W24+,docs/data_research/w24/SOURCE_REFRESH_DELTA.csv;docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md,AC-231;AC-013;AC-059,COMPLETE_W24,Open-Meteo current access/docs
+REQ-744,W24,docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md,AC-232;AC-055;AC-056,COMPLETE_W24,master W24 architecture challenge
+REQ-745,W24-W25,docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md;governance/NEXT_WAVE.md,AC-233;AC-234;AC-038,ACTIVE_CARRIED_W25,W23 AC-038 + user W24 override

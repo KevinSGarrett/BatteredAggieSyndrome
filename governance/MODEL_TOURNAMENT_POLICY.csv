@@ -1,0 +1,7 @@
+policy_id,candidate_group,mandatory_comparators,development_evidence,allowed_decisions,protected_rule
+MT-001,RATING_LOGISTIC,empirical;Elo;logistic,Brier;logloss;calibration;runtime,REJECT;INCONCLUSIVE;ADOPT_AS_CHALLENGER,simple baselines remain
+MT-002,JOINT_SCORE_DISTRIBUTION,simple coherent score baseline,MAE;RMSE;joint likelihood;coherence,REJECT;INCONCLUSIVE;ADOPT_AS_CHALLENGER,score/margin/win coherence required
+MT-003,BOOSTED_TABULAR,logistic;simple score baseline,proper scores;calibration;subgroups;runtime,REJECT;INCONCLUSIVE;ADOPT_AS_CHALLENGER,development-only comparison
+MT-004,TAMU_SPECIALIZATION,TAMU-SP-00 no adjustment,A&M scorecard;national reference;shrinkage,REJECT;INCONCLUSIVE;ADOPT_AS_CHALLENGER,zero adjustment valid outcome
+MT-005,MARKET_AUGMENTED,pure-football;market benchmark,matched-cutoff development evidence,REJECT;INCONCLUSIVE;ADOPT_AS_CHALLENGER,market cannot contaminate pure lane
+MT-006,ADVANCED_NEURAL_SEQUENCE_GRAPH,strong conventional baseline,only after admission,BLOCKED;REJECT;INCONCLUSIVE;ADOPT_AS_CHALLENGER,admission prerequisites required

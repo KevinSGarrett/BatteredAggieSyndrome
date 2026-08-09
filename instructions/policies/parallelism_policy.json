@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-PARALLELISM",
+  "version": "2.0.0",
+  "mode": "bounded_adaptive",
+  "parallelism_optional": true,
+  "lane_identity": [
+    "jira_key",
+    "branch",
+    "worktree",
+    "owner_session",
+    "base_sha",
+    "scope",
+    "shared_contracts",
+    "evidence",
+    "integration_order",
+    "resource_admission"
+  ],
+  "single_owner_contracts": [
+    "canonical identity",
+    "PIT/known-at/target-game exclusion",
+    "protected judging/evaluation",
+    "unfrozen schemas",
+    "migrations",
+    "shared manifests/registries",
+    "source-rights decisions",
+    "model/feature targets",
+    "forecast publication schema",
+    "release/version state",
+    "same integration interface"
+  ],
+  "resource_bounds": [
+    "CPU",
+    "RAM",
+    "GPU_VRAM",
+    "disk_IO_capacity",
+    "API_rate_limit",
+    "CI_review_queue"
+  ],
+  "integration_order": "dependency and contract order, not completion time"
+}

@@ -1,0 +1,6 @@
+backend_id,tool,role,selected_status,local_first_configuration,not_authoritative_for
+BACKEND-001,MLflow Tracking,tracking,SELECTED_REPLACEABLE_ADAPTER,SQLite metadata + local artifact root,canonical experiment identity;promotion authority
+BACKEND-002,Optuna,HPO,SELECTED_REPLACEABLE_ADAPTER,RDB/Journal persistent development study,protected evaluation;promotion authority
+BACKEND-003,stdlib manifests,fallback tracking/governance,REQUIRED_CANONICAL_FALLBACK,JSON/CSV/hash files,
+BACKEND-004,Git worktree,source isolation,SELECTED_WHEN_GIT_AVAILABLE,local linked worktree,governance truth
+BACKEND-005,immutable source snapshot,source isolation fallback,SELECTED_WHEN_PACKAGED_NO_GIT,copied verified source tree,governance truth

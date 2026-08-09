@@ -1,0 +1,6 @@
+evaluation_id,topic,protected_rule,null_or_rejection_path,multiplicity_or_stability,threshold_ref
+BAS-EVAL-001,Headline BAS severity probabilities,score Brier/log loss/calibration for >=3/7/14/21 separately; enforce nesting,retain label but reject predictive component/model if criteria fail,severity-family results reported jointly,THR-006
+BAS-EVAL-002,Aggie Excess,compare A&M residual/event rates against predeclared national/peer references using canonical-game/season clustering,NO_DEFENSIBLE_AGGIE_EXCESS is valid terminal scientific result,season/regime/anchor sensitivity plus predeclared multiplicity control,THR-006
+BAS-EVAL-003,Offensive/defensive components,evaluate only when coherent score expectation exists; no forced additivity,REJECT_COMPONENT or INCONCLUSIVE,family-level multiplicity/stability review,THR-006
+BAS-EVAL-004,Special teams/coaching components,require W13 confound controls and sufficient coverage,REJECT_COMPONENT or INCONCLUSIVE,more conservative family review due confounding,THR-006
+BAS-EVAL-005,Collapse BAS,not part of W17 pregame protected test; future chronological live replay only,DEFERRED_LIVE_RESEARCH,W18+ research boundary,

@@ -1,0 +1,12 @@
+artifact_class_id,class_name,typical_size,repo_embeddable,sensitivity,purpose
+ART-CONFIG,CONFIG,Usually small,yes,INTERNAL,Experiment config/search space
+ART-LOG,LOG,Variable,no,INTERNAL,Execution logs outside cumulative unless tiny diagnostic
+ART-METRIC,METRIC_PACKET,Small,yes,INTERNAL,Development result packet
+ART-PRED,PREDICTION_PACKET,Potentially large,no,INTERNAL,Per-row predictions stored externally
+ART-MODEL,MODEL_BINARY,Large,no,INTERNAL,Model artifact outside repo
+ART-MATRIX,TRAINING_MATRIX,Large,no,RESTRICTED_OR_INTERNAL,Training matrix outside repo
+ART-PLOT,PLOT,Small/medium,conditional,INTERNAL,Derived diagnostic; commit only when useful/safe
+ART-REPORT,REPORT,Small,yes,INTERNAL,Markdown/CSV evidence report
+ART-REPLAY,REPLAY_PACKET,Small,yes,INTERNAL,Replay evidence
+ART-CKPT,CHECKPOINT,Large,no,INTERNAL,Temporary/retained external checkpoint
+ART-STORE,TRACKING_STORE,Potentially large,no,INTERNAL,MLflow/Optuna/local DB not cumulative repo

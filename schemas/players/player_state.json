@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "title": "PlayerStateObservation",
+  "type": "object",
+  "required": [
+    "canonical_player_id",
+    "team_id",
+    "state_type",
+    "first_known_at",
+    "source_observation_id"
+  ],
+  "properties": {
+    "canonical_player_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "team_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state_type": {
+      "enum": [
+        "ROSTER_MEMBERSHIP",
+        "DEPTH_ROLE",
+        "STARTER_EXPECTATION",
+        "ROTATION_EXPECTATION",
+        "PARTICIPATION_OUTCOME"
+      ]
+    },
+    "position": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "role": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "depth_rank": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "expected_usage_share": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "first_known_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_observation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inference_status": {
+      "enum": [
+        "OBSERVED",
+        "INFERRED",
+        "OUTCOME_ONLY"
+      ]
+    },
+    "confidence_tier": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "experiment_id": "EXP-demo-1",
+    "priority": "MUST",
+    "dependency_ready": true,
+    "owner_wave_active": true,
+    "protected_rule_seal_valid": true,
+    "shared_contract_conflict": false,
+    "request": {
+      "cpu_threads": 2,
+      "ram_mb": 4096,
+      "gpu_slots": 0,
+      "vram_mb": 0,
+      "disk_mb": 1024,
+      "paid_compute": false
+    },
+    "queue_index": 0
+  },
+  {
+    "experiment_id": "EXP-demo-2",
+    "priority": "RESEARCH",
+    "dependency_ready": false,
+    "owner_wave_active": true,
+    "protected_rule_seal_valid": true,
+    "shared_contract_conflict": false,
+    "request": {
+      "cpu_threads": 2,
+      "ram_mb": 4096,
+      "gpu_slots": 0,
+      "vram_mb": 0,
+      "disk_mb": 1024,
+      "paid_compute": false
+    },
+    "queue_index": 1
+  }
+]

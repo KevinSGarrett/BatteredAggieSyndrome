@@ -1,0 +1,240 @@
+[
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/build_complete_jira_pack.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:39.375806+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/build_complete_jira_pack.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:38.218531+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/build_import_files.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:40.444781+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/build_import_files.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:39.375845+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/build_indexes.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:41.460698+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/build_indexes.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:40.444812+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/jira_pack_lib.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:42.544862+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/jira_pack_lib.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:41.460729+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/rebuild_all_derivatives.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:43.596039+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/rebuild_all_derivatives.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:42.544892+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/reconcile_jira_export.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:44.639996+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/reconcile_jira_export.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:43.596073+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/repair_source_refs.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:45.654625+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/repair_source_refs.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:44.640031+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/run_second_pass_audit.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:46.712104+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/run_second_pass_audit.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:45.654655+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/second_pass_hardening.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:47.821201+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/second_pass_hardening.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:46.712138+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/snapshot_jira_state.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:48.901848+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/snapshot_jira_state.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:47.821233+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/update_ready_queue.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:50.002659+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/update_ready_queue.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:48.901877+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_dependencies.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:51.422603+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_dependencies.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:50.002691+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_import_files.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:52.544609+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_import_files.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:51.422635+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_jira_manifest.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:53.525541+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_jira_manifest.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:52.544639+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_jira_pack.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:54.583878+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_jira_pack.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:53.525573+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_second_pass.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:55.632039+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_second_pass.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:54.583915+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-c",
+      "from pathlib import Path; p=Path('/mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_source_refs.py'); compile(p.read_text(encoding='utf-8'), str(p), 'exec'); print('PASS:', p)"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:56.647725+00:00",
+    "output": "PASS: /mnt/data/BAS_JIRA_V2_FINAL/repo/jira/tools/validate_source_refs.py\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:55.632070+00:00"
+  }
+]

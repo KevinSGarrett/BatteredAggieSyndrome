@@ -1,0 +1,15 @@
+handoff_id,priority,workstream,action,status,governance_basis
+HANDOFF-001,P0,RUN_TARGET_BENCHMARK,Run authoritative AC-038 target-hardware representative benchmark and set THR-011/THR-012 only from evidence,BLOCKED_EXTERNAL_TARGET_HOST,AC-038;TASK-161;TASK-163
+HANDOFF-002,P0,SOURCE_ACCESS,Configure non-repo credentials/access and finish source-specific rights/redistribution review,READY,REQ-184;REQ-185;REQ-189
+HANDOFF-003,P0,MATERIALIZE_NATIONAL_HISTORY,Acquire immutable national historical game/PBP/team/roster/source snapshots and manifests,READY_AFTER_ACCESS,W06 source decisions; W19 adapters
+HANDOFF-004,P0,CANONICALIZE_AND_PROFILE,Resolve entities; run population schema/missingness/source-contract profiling,READY_AFTER_MATERIALIZATION,W07/W09/W19
+HANDOFF-005,P0,BUILD_PIT_REPLAY_DATASET,Build strictly pregame PIT states/features and run historical leakage/replay battery,READY_AFTER_CANONICALIZATION,W08/W10/W24
+HANDOFF-006,P1,TRAIN_SIMPLE_BASELINES,Train Elo/logistic/simple score/boosting candidates with versioned artifacts,READY_AFTER_PIT_DATASET,W16/W20
+HANDOFF-007,P1,PROTECTED_EVALUATION,Run W17 walk-forward/protected metrics/calibration and apply promotion gates,READY_AFTER_BASELINES,W17
+HANDOFF-008,P1,TAMU_SPECIALIZATION,Materialize high-resolution A&M state and compare specialization with national no-adjustment baseline,READY_AFTER_NATIONAL_BASELINE,W14/W20
+HANDOFF-009,P1,BAS_SCIENCE,Generate cross-fitted expected margins and run BAS/Aggie Excess/regime/peer/null-result science,READY_AFTER_OOS_EXPECTATIONS,W15/W20
+HANDOFF-010,P2,WEEKLY_OPERATION,Exercise W21 weekly pipeline on real 2026 snapshots; publish immutable forecasts,READY_AFTER_CHAMPION,W21
+HANDOFF-011,P2,PRODUCT_OPERATION,Serve published A&M forecasts; measure freshness and establish THR-010,READY_AFTER_PUBLICATION,W22/W23
+HANDOFF-012,P2,SOURCE_DRIFT_MONITORING,"Continuously validate source contracts, rights, rule eras and report-version chronology",READY,W06/W24
+HANDOFF-013,P3,ADVANCED_CHALLENGERS,Execute TASK-165..168 only if admission/baseline saturation evidence justifies complexity,DEFERRED_CONDITIONAL,EPIC-029
+HANDOFF-014,P3,LIVE_MODELING,Execute TASK-169..172 only after pregame system is empirically stable and source/replay evidence exists,DEFERRED,EPIC-030

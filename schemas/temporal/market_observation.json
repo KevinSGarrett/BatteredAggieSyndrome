@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "aggie://schemas/temporal/market/v1",
+  "title": "MarketObservation",
+  "type": "object",
+  "required": [
+    "market_observation_id",
+    "game_id",
+    "provider",
+    "market_type",
+    "side",
+    "retrieved_at"
+  ],
+  "properties": {
+    "market_observation_id": {
+      "type": "string"
+    },
+    "game_id": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "market_type": {
+      "type": "string"
+    },
+    "side": {
+      "type": "string"
+    },
+    "value": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "price": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "source_reported_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "first_known_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "snapshot_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "canonical_spread_convention": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,100 @@
+{
+  "authority": {
+    "jira": [
+      "status",
+      "assignee",
+      "sprint",
+      "comments",
+      "ordering",
+      "live ownership"
+    ],
+    "local": [
+      "specification",
+      "scope",
+      "source refs",
+      "acceptance",
+      "DoD",
+      "tests",
+      "dependencies",
+      "expected artifacts"
+    ]
+  },
+  "minimum_recommended_custom_fields": [
+    {
+      "jira_id": "customfield_10193",
+      "logical_name": "Local Issue ID",
+      "reason": "Stable local/Jira reconciliation key",
+      "required": true,
+      "type": "short_text"
+    },
+    {
+      "jira_id": "customfield_10194",
+      "logical_name": "Source IDs",
+      "reason": "Searchable historical/governance identifiers",
+      "required": true,
+      "type": "short_text_or_multi_text"
+    },
+    {
+      "jira_id": "customfield_10195",
+      "logical_name": "Phase",
+      "reason": "Portable initiative grouping without assuming hierarchy above Epic",
+      "required": true,
+      "type": "single_select_or_short_text"
+    },
+    {
+      "jira_id": "customfield_10196",
+      "logical_name": "Logical Workflow State",
+      "reason": "Preserves BACKLOG/READY/BLOCKED/etc. separately from target workflow",
+      "required": true,
+      "type": "single_select"
+    },
+    {
+      "jira_id": "customfield_10197",
+      "logical_name": "Implementation Maturity",
+      "reason": "Separates design/starter/integrated/validated/production/operating maturity",
+      "required": true,
+      "type": "single_select"
+    },
+    {
+      "jira_id": "customfield_10198",
+      "logical_name": "Evidence State",
+      "reason": "Prevents code completion from masquerading as verified evidence",
+      "required": true,
+      "type": "single_select"
+    },
+    {
+      "jira_id": "customfield_10199",
+      "logical_name": "Owner Historical Wave",
+      "reason": "Historical wave/post-W25 provenance",
+      "required": false,
+      "type": "short_text"
+    },
+    {
+      "jira_id": "customfield_10200",
+      "logical_name": "Critical Path",
+      "reason": "Dependency-critical filtering",
+      "required": false,
+      "type": "checkbox_or_boolean"
+    },
+    {
+      "jira_id": "customfield_10201",
+      "logical_name": "Execution Lane",
+      "reason": "Safe parallelism and protected-gate routing",
+      "required": false,
+      "type": "single_select"
+    }
+  ],
+  "principle": "Keep searchable operational metadata small; the canonical local JSON owns detailed specification and traceability.",
+  "stored_locally_not_custom_fields": [
+    "Requirement IDs",
+    "Acceptance controls",
+    "ADR IDs",
+    "Risk IDs",
+    "Gap IDs",
+    "Tests",
+    "Artifacts",
+    "Source references",
+    "Stop conditions",
+    "AI notes"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "evaluated_at": "2026-08-09T05:45:18.3778011Z",
+  "result": "PASS",
+  "scope": "Evidence review and live operational status correction for all 221 BAT issues previously marked Done.",
+  "decision_standard": "EVIDENCE_BACKED_OPERATIONAL_DONE_V1",
+  "review": {
+    "issues_reviewed": 221,
+    "proven_done": 0,
+    "not_proven_done": 221,
+    "populated_completion_evidence_contracts": 0,
+    "populated_evidence_manifests": 0,
+    "issues_with_missing_concrete_artifacts": 97,
+    "distinct_required_test_paths": 36,
+    "missing_required_test_definitions": 0,
+    "pytest_results": {
+      "passed": 150,
+      "passed_subtests": 16,
+      "failed": 0,
+      "interpretation": "Passing repository tests corroborate current contracts but do not replace missing per-issue completion contracts and evidence manifests."
+    }
+  },
+  "live_correction": {
+    "issues_corrected": 221,
+    "target_status": "To Do",
+    "target_evidence_state": "PARTIAL",
+    "labels_added": [
+      "completion-not-proven",
+      "historical-traceability-only"
+    ],
+    "historical_source_provenance_preserved": true,
+    "non_target_issue_count": 242,
+    "non_target_label_contamination": 0,
+    "jira_api_errors": 0,
+    "saved_filter": {
+      "id": "10141",
+      "name": "BAT — Historical Completion Not Proven",
+      "jql": "project = BAT AND labels = completion-not-proven ORDER BY key ASC"
+    }
+  },
+  "live_final_state": {
+    "issue_count": 463,
+    "status_counts": {
+      "To Do": 463,
+      "Done": 0
+    },
+    "completion_assurance_policy_count": 221,
+    "parent_relationship_count": 413,
+    "correct_direction_link_count": 1062,
+    "missing_link_count": 0,
+    "unexpected_link_count": 0,
+    "saved_filter_count": 6,
+    "importer_verification": "PASS",
+    "importer_discrepancy_count": 0,
+    "reconciliation": "PASS_ROWS_463_CONFLICTS_0_STRICT_PASS"
+  },
+  "idempotence": {
+    "rerun_result": "PASS",
+    "issue_mutations_on_rerun": 0,
+    "status_regressions_to_done": 0
+  },
+  "focused_validation": {
+    "validate_jira_pack": "PASS",
+    "validate_source_refs": "PASS_REFERENCES_2118",
+    "validate_dependencies": "PASS_CYCLES_0",
+    "validate_import_files": "PASS_ISSUES_463_ERRORS_0",
+    "validate_second_pass": "PASS",
+    "validate_jira_manifest_before_this_report": "PASS_FILES_1757_ERRORS_0",
+    "independent_live_audit": "PASS"
+  },
+  "security": {
+    "jira_api_token_exposures_in_jira_directory": 0,
+    "unrelated_live_issue_mutations": 0
+  },
+  "rollback": {
+    "verified": true,
+    "issue_count": 221,
+    "path": "jira\\snapshots\\BAT_HISTORICAL_DONE_PRE_REVIEW_20260809T054005Z.json",
+    "sha256": "2331bb538d708c358d80877846b9a000511ddcfaac3e6c11e6446906ab4f9f96"
+  },
+  "durable_artifacts": [
+    "jira\\validation\\HISTORICAL_DONE_EVIDENCE_AUDIT.csv",
+    "jira\\validation\\HISTORICAL_DONE_EVIDENCE_AUDIT.json",
+    "jira\\validation\\HISTORICAL_DONE_REQUIRED_TEST_RUN.json",
+    "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
+    "jira\\reconciliation\\BAT_LIVE_IMPORT_LEDGER.json",
+    "jira\\validation\\BAT_LIVE_IMPORT_VERIFICATION.json"
+  ]
+}

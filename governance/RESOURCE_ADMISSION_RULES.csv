@@ -1,0 +1,11 @@
+rule_id,dimension,condition,failure_state,blocking,rationale
+RES-001,dependency,dependency_ready=true,DEPENDENCY_BLOCKED,true,No work before predecessor gates
+RES-002,wave,owner_wave_active=true,OWNER_WAVE_INACTIVE,true,Idle capacity cannot bypass wave ownership
+RES-003,governance,judging_rule_seal_valid=true,JUDGING_RULE_SEAL_INVALID,true,Experimenter cannot run against modified judge
+RES-004,shared_contract,shared_contract_conflict=false,SHARED_CONTRACT_CONFLICT,true,Serialize shared-contract mutations
+RES-005,cpu,requested_cpu<=available_cpu,CPU_BUDGET_EXCEEDED,true,Local bounded execution
+RES-006,ram,requested_ram<=available_ram,RAM_BUDGET_EXCEEDED,true,Avoid host exhaustion
+RES-007,gpu,requested_gpu_slots<=available_gpu_slots,GPU_SLOT_BUDGET_EXCEEDED,true,Explicit accelerator slots
+RES-008,vram,requested_vram<=available_vram,VRAM_BUDGET_EXCEEDED,true,Do not overcommit RTX 5060-class VRAM
+RES-009,disk,requested_disk<=available_disk,DISK_BUDGET_EXCEEDED,true,Experiment artifacts can create storage pressure
+RES-010,paid_compute,paid_compute=false OR user_approved=true,PAID_COMPUTE_NOT_APPROVED,true,No autonomous spend

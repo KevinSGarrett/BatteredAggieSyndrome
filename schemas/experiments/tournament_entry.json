@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TournamentEntry",
+  "type": "object",
+  "required": [
+    "entry_id",
+    "experiment_id",
+    "candidate_class",
+    "development_metrics",
+    "replay_status"
+  ],
+  "properties": {
+    "entry_id": {
+      "type": "string"
+    },
+    "experiment_id": {
+      "type": "string"
+    },
+    "candidate_class": {
+      "type": "string"
+    },
+    "development_metrics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "replay_status": {
+      "type": "string"
+    },
+    "resource_cost": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

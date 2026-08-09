@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-RELEASE-READINESS",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md",
+  "gates": [
+    "scope/version/release notes fixed",
+    "all required CI and repository gates green",
+    "security/secret/dependency/source-rights checks green",
+    "data/model provenance and immutable artifact IDs complete where applicable",
+    "backup/restore and rollback validated",
+    "observability and freshness/error-budget expectations defined",
+    "target-resource evidence present for hardware-sensitive release",
+    "known limitations accepted",
+    "tag and published artifacts reproducible"
+  ],
+  "tag_policy": "Annotated immutable tag after release gate; never move or reuse a release tag.",
+  "rollback_record_required": true,
+  "production_release_human_required_by_default": true
+}

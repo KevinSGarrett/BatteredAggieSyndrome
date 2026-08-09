@@ -1,0 +1,904 @@
+{
+  "error_count": 2,
+  "errors": [
+    "Check group recon failed: Repository inventory contains 863 non-Jira files and the current repository matches all inventory hashes; baseline repository commands passed.",
+    "Check group boundary failed: All 863 non-Jira files match the reconnaissance inventory hash-for-hash; generated/remediated work remains under jira/."
+  ],
+  "failed_sections": 4,
+  "generated_at": "2026-08-09T04:13:29.688818+00:00",
+  "metrics": {
+    "aggregate_count": 70,
+    "atomic_count": 159,
+    "baseline_repository_validation_pass": true,
+    "blocked_count": 142,
+    "core_validator_error_count": 0,
+    "historical_count": 234,
+    "import": {
+      "issue_rows": 463,
+      "link_rows": 1062,
+      "modern_issue_rows": 463
+    },
+    "import_error_count": 0,
+    "issue_count": 463,
+    "issue_types": {
+      "Epic": 50,
+      "Story": 53,
+      "Subtask": 159,
+      "Task": 201
+    },
+    "manifest_error_count_at_audit_time": 0,
+    "non_jira_scope_diff": {
+      "added": [
+        ".env",
+        "BatteredAggieSyndrome.zip",
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md",
+        "instructions/02_SOURCE_OF_TRUTH_AND_CONFLICT_RESOLUTION.md",
+        "instructions/03_REPOSITORY_ARCHITECTURE_AND_NAVIGATION.md",
+        "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+        "instructions/05_TASK_SELECTION_AND_SEQUENCING.md",
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md",
+        "instructions/07_JIRA_OPERATING_CONTRACT.md",
+        "instructions/08_LOCAL_JIRA_MIRROR_AND_SYNC.md",
+        "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
+        "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md",
+        "instructions/13_SECURITY_SECRETS_DATA_RIGHTS_AND_DEPENDENCIES.md",
+        "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md",
+        "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md",
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md",
+        "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md",
+        "instructions/18_OPERATIONAL_RUNBOOKS.md",
+        "instructions/19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md",
+        "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md",
+        "instructions/21_PACKAGING_INTEGRITY_AND_INSTALLATION.md",
+        "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md",
+        "instructions/23_ACTIVATION_AND_NEXT_SESSION.md",
+        "instructions/24_FINAL_VALIDATION_REPORT.md",
+        "instructions/CHANGELOG.md",
+        "instructions/FILE_HASHES.sha256",
+        "instructions/START_HERE.md",
+        "instructions/audit/EXTERNAL_INTEGRATION_AUDIT.md",
+        "instructions/audit/MASTER_PROMPT_ATOMIC_COMPLIANCE.csv",
+        "instructions/audit/PREVIOUS_V1_GAP_AUDIT.md",
+        "instructions/audit/REPOSITORY_DISCOVERY_REPORT.md",
+        "instructions/audit/conflict_register.csv",
+        "instructions/audit/existing_control_alignment.csv",
+        "instructions/audit/external_access_audit.json",
+        "instructions/audit/github_remote_audit.json",
+        "instructions/audit/jira_access_audit.json",
+        "instructions/audit/repository_inventory.json",
+        "instructions/audit/v1_gap_audit.csv",
+        "instructions/catalogs/master_prompt_atomic_requirements.json",
+        "instructions/catalogs/protected_path_catalog.json",
+        "instructions/catalogs/repository_navigation.json",
+        "instructions/catalogs/validation_command_catalog.json",
+        "instructions/manifest.json",
+        "instructions/policies/autonomy_permissions.json",
+        "instructions/policies/blocker_taxonomy.json",
+        "instructions/policies/definition_of_done.json",
+        "instructions/policies/git_policy.json",
+        "instructions/policies/github_enforcement.json",
+        "instructions/policies/instruction_change_policy.json",
+        "instructions/policies/instruction_manifest.schema.json",
+        "instructions/policies/jira_operating_policy.json",
+        "instructions/policies/jira_traceability.schema.json",
+        "instructions/policies/loop_and_retry_policy.json",
+        "instructions/policies/packaging_policy.json",
+        "instructions/policies/parallelism_policy.json",
+        "instructions/policies/prompt_compliance.json",
+        "instructions/policies/protected_scope_policy.json",
+        "instructions/policies/read_budget.json",
+        "instructions/policies/release_readiness.json",
+        "instructions/policies/security_policy.json",
+        "instructions/policies/shared_contract_policy.json",
+        "instructions/policies/source_precedence.json",
+        "instructions/policies/task_selection_policy.json",
+        "instructions/policies/task_state_machine.json",
+        "instructions/policies/test_tiers.json",
+        "instructions/runbooks/AGENT_LOOP_RECOVERY.md",
+        "instructions/runbooks/DEPENDENCY_INSTALLATION_FAILURE.md",
+        "instructions/runbooks/DIRTY_WORKTREE_RECOVERY.md",
+        "instructions/runbooks/FAILED_CI_DIAGNOSIS.md",
+        "instructions/runbooks/INSTRUCTION_INTEGRITY_FAILURE.md",
+        "instructions/runbooks/INTERRUPTED_SESSION_RECOVERY.md",
+        "instructions/runbooks/JIRA_GITHUB_DESYNCHRONIZATION.md",
+        "instructions/runbooks/MERGE_CONFLICT_RESOLUTION.md",
+        "instructions/runbooks/MIGRATION_AND_DATA_RECOVERY.md",
+        "instructions/runbooks/REPOSITORY_IDENTITY_AND_REMOTE_RECONCILIATION.md",
+        "instructions/runbooks/SECRET_OR_SENSITIVE_DATA_INCIDENT.md",
+        "instructions/runbooks/SOURCE_API_OUTAGE_AND_ACCESS_FAILURE.md",
+        "instructions/runbooks/STALE_BRANCH_AND_WORKTREE.md",
+        "instructions/templates/ARCHITECTURE_CHANGE_PROPOSAL.md",
+        "instructions/templates/BLOCKER_RECORD.md",
+        "instructions/templates/CONFLICT_RESOLUTION_RECORD.md",
+        "instructions/templates/EVIDENCE_PACKET.md",
+        "instructions/templates/GITHUB_ENFORCEMENT_ACTIVATION_CHECKLIST.md",
+        "instructions/templates/HANDOFF_RECORD.md",
+        "instructions/templates/JIRA_SOURCE_REFERENCE_BLOCK.md",
+        "instructions/templates/MERGE_AND_CLEANUP_CHECKLIST.md",
+        "instructions/templates/NEW_ISSUE_DECISION.md",
+        "instructions/templates/PR_READY_CHECKLIST.md",
+        "instructions/templates/RELEASE_READINESS_CHECKLIST.md",
+        "instructions/templates/REPOSITORY_RECONCILIATION_RECORD.md",
+        "instructions/templates/TASK_EXECUTION_PACKET.md",
+        "instructions/templates/TASK_START_CHECKLIST.md"
+      ],
+      "changed": [],
+      "current_non_jira_files": 957,
+      "inventory_non_jira_files": 863,
+      "missing": [],
+      "pass": false
+    },
+    "post_wave_count": 229,
+    "protected_touch_overlap_count": 0,
+    "ready_count": 2,
+    "repository_inventory_count": 863,
+    "source_error_count": 0,
+    "source_reference_count": 2118,
+    "traceability_registry_counts": {
+      "adrs": 349,
+      "controls": 234,
+      "gaps": 14,
+      "requirements": 745,
+      "risks": 310
+    },
+    "work_packet_count": 229
+  },
+  "passed_sections": 64,
+  "result": "FAIL",
+  "schema_version": 2,
+  "section_count": 68,
+  "sections": [
+    {
+      "check_group": "mission",
+      "detail": "Complete canonical issue graph, local Jira system, import artifacts, AI views, and validators exist.",
+      "evidence_files": [
+        "README.md",
+        "validation/COVERAGE_REPORT.md"
+      ],
+      "section": 1,
+      "status": "PASS",
+      "title": "Role and primary mission"
+    },
+    {
+      "check_group": "recon",
+      "detail": "Repository inventory contains 863 non-Jira files and the current repository matches all inventory hashes; baseline repository commands passed.",
+      "evidence_files": [
+        "reconciliation/REPO_INVENTORY.csv",
+        "validation/NON_JIRA_SCOPE_DIFF.json",
+        "validation/BASELINE_REPOSITORY_VALIDATION.json"
+      ],
+      "section": 2,
+      "status": "FAIL",
+      "title": "Project root"
+    },
+    {
+      "check_group": "state",
+      "detail": "No issue ID or owner-wave field creates W26; post-wave namespace remains POST-*.",
+      "evidence_files": [
+        "index/ISSUE_INDEX.csv",
+        "ai/CURRENT_CONTEXT.md"
+      ],
+      "section": 3,
+      "status": "PASS",
+      "title": "Important project-state rule"
+    },
+    {
+      "check_group": "maturity",
+      "detail": "Historical DONE remains scoped by maturity/evidence and is not treated as product completion.",
+      "evidence_files": [
+        "reconciliation/HISTORICAL_STATUS_RECONCILIATION.csv",
+        "SCHEMA.md"
+      ],
+      "section": 4,
+      "status": "PASS",
+      "title": "Do not blindly trust existing DONE status"
+    },
+    {
+      "check_group": "recon",
+      "detail": "Repository inventory contains 863 non-Jira files and the current repository matches all inventory hashes; baseline repository commands passed.",
+      "evidence_files": [
+        "reconciliation/REPO_INVENTORY.csv",
+        "validation/NON_JIRA_SCOPE_DIFF.json",
+        "validation/BASELINE_REPOSITORY_VALIDATION.json"
+      ],
+      "section": 5,
+      "status": "FAIL",
+      "title": "Full repository reconnaissance"
+    },
+    {
+      "check_group": "authority",
+      "detail": "Source precedence and conflicts are explicitly represented.",
+      "evidence_files": [
+        "reconciliation/SOURCE_AUTHORITY_MAP.md",
+        "reconciliation/CONFLICT_REGISTER.csv"
+      ],
+      "section": 6,
+      "status": "PASS",
+      "title": "Establish source authority"
+    },
+    {
+      "check_group": "history",
+      "detail": "Historical Epics/Tasks retain stable source IDs and separate historical classification.",
+      "evidence_files": [
+        "index/ISSUE_INDEX.csv",
+        "reconciliation/HISTORICAL_STATUS_RECONCILIATION.csv"
+      ],
+      "section": 7,
+      "status": "PASS",
+      "title": "Reconcile the existing planning system"
+    },
+    {
+      "check_group": "gaps",
+      "detail": "Every final gap and risk has a Jira disposition.",
+      "evidence_files": [
+        "reconciliation/GAP_TO_JIRA_MAPPING.csv",
+        "reconciliation/RISK_TO_JIRA_MAPPING.csv"
+      ],
+      "section": 8,
+      "status": "PASS",
+      "title": "Full completion-gap analysis"
+    },
+    {
+      "check_group": "coverage",
+      "detail": "Coverage report and canonical count agree at 463 issues.",
+      "evidence_files": [
+        "validation/COVERAGE_REPORT.json",
+        "validation/COVERAGE_REPORT.md"
+      ],
+      "section": 9,
+      "status": "PASS",
+      "title": "Represent the entire project"
+    },
+    {
+      "check_group": "hierarchy",
+      "detail": "Parent/child types and parent existence validate across the complete graph.",
+      "evidence_files": [
+        "index/HIERARCHY_INDEX.csv",
+        "validation/HIERARCHY_VALIDATION.csv"
+      ],
+      "section": 10,
+      "status": "PASS",
+      "title": "Issue hierarchy"
+    },
+    {
+      "check_group": "hierarchy",
+      "detail": "Parent/child types and parent existence validate across the complete graph.",
+      "evidence_files": [
+        "index/HIERARCHY_INDEX.csv",
+        "validation/HIERARCHY_VALIDATION.csv"
+      ],
+      "section": 11,
+      "status": "PASS",
+      "title": "Issue types have meaning"
+    },
+    {
+      "check_group": "granularity",
+      "detail": "159 atomic Subtasks have criterion/output-specific scope; generic v1 boilerplate is absent.",
+      "evidence_files": [
+        "index/WORK_PACKET_INDEX.csv",
+        "validation/SECOND_PASS_FINDINGS_AND_REMEDIATION.md"
+      ],
+      "section": 12,
+      "status": "PASS",
+      "title": "Issue granularity"
+    },
+    {
+      "check_group": "issue_content",
+      "detail": "Every post-wave record carries the full execution/completion contract and read/touch/protected separation.",
+      "evidence_files": [
+        "records/issues/",
+        "validation/VALIDATION_REPORT.md"
+      ],
+      "section": 13,
+      "status": "PASS",
+      "title": "Required content for every actionable issue"
+    },
+    {
+      "check_group": "acceptance",
+      "detail": "Every post-wave record has explicit acceptance criteria.",
+      "evidence_files": [
+        "records/issues/",
+        "index/ACCEPTANCE_TRACEABILITY.csv"
+      ],
+      "section": 14,
+      "status": "PASS",
+      "title": "Acceptance criteria"
+    },
+    {
+      "check_group": "dod",
+      "detail": "Every post-wave record has Definition of Done separate from acceptance criteria.",
+      "evidence_files": [
+        "records/issues/",
+        "ai/AI_COMPLETION_PROTOCOL.md"
+      ],
+      "section": 15,
+      "status": "PASS",
+      "title": "Definition of Done"
+    },
+    {
+      "check_group": "tests",
+      "detail": "Test classifications and issue/test bidirectional index exist.",
+      "evidence_files": [
+        "index/TEST_TRACEABILITY.csv",
+        "validation/VALIDATION_REPORT.md"
+      ],
+      "section": 16,
+      "status": "PASS",
+      "title": "Test and evidence model"
+    },
+    {
+      "check_group": "e2e",
+      "detail": "Every post-wave record declares an issue/integration E2E requirement.",
+      "evidence_files": [
+        "records/issues/",
+        "ai/AGGREGATE_GATE_PROTOCOL.md"
+      ],
+      "section": 17,
+      "status": "PASS",
+      "title": "End-to-end completion"
+    },
+    {
+      "check_group": "state_separation",
+      "detail": "Workflow, implementation maturity, evidence state, and execution mode are distinct fields.",
+      "evidence_files": [
+        "SCHEMA.md",
+        "project/FIELD_SCHEMA.yaml"
+      ],
+      "section": 18,
+      "status": "PASS",
+      "title": "Separate workflow, maturity, and evidence"
+    },
+    {
+      "check_group": "no_fabrication",
+      "detail": "No post-wave record is falsely Done and no destination Jira key is prefilled.",
+      "evidence_files": [
+        "index/ISSUE_INDEX.csv",
+        "import/POST_IMPORT_KEY_MAP_TEMPLATE.csv"
+      ],
+      "section": 19,
+      "status": "PASS",
+      "title": "Do not fabricate completion"
+    },
+    {
+      "check_group": "source_refs",
+      "detail": "All 2118 source references validate against canonical repository paths/hashes/anchors.",
+      "evidence_files": [
+        "sources/SOURCE_ANCHOR_INDEX.csv",
+        "validation/SOURCE_REFERENCE_VALIDATION.csv"
+      ],
+      "section": 20,
+      "status": "PASS",
+      "title": "Source traceability"
+    },
+    {
+      "check_group": "source_drift",
+      "detail": "Source validator checks hash, line, excerpt, anchor hash and supports relocation-gated --repair.",
+      "evidence_files": [
+        "tools/validate_source_refs.py",
+        "sources/issue_source_manifests/"
+      ],
+      "section": 21,
+      "status": "PASS",
+      "title": "Drift-safe line references"
+    },
+    {
+      "check_group": "source_refs",
+      "detail": "All 2118 source references validate against canonical repository paths/hashes/anchors.",
+      "evidence_files": [
+        "sources/SOURCE_ANCHOR_INDEX.csv",
+        "validation/SOURCE_REFERENCE_VALIDATION.csv"
+      ],
+      "section": 22,
+      "status": "PASS",
+      "title": "Shared source documents"
+    },
+    {
+      "check_group": "dependencies",
+      "detail": "Hard dependencies exist, blocks are exact inverses, and no cycles exist.",
+      "evidence_files": [
+        "index/DEPENDENCY_INDEX.csv",
+        "validation/DEPENDENCY_CYCLE_REPORT.csv"
+      ],
+      "section": 23,
+      "status": "PASS",
+      "title": "Dependency graph"
+    },
+    {
+      "check_group": "queues",
+      "detail": "READY/BLOCKED queues are deterministic; only satisfied atomic Subtasks can be READY.",
+      "evidence_files": [
+        "index/READY_QUEUE.csv",
+        "index/BLOCKED_QUEUE.csv"
+      ],
+      "section": 24,
+      "status": "PASS",
+      "title": "Blocking logic"
+    },
+    {
+      "check_group": "critical_path",
+      "detail": "Dependency-critical gating records are explicitly indexed.",
+      "evidence_files": [
+        "index/CRITICAL_PATH.csv"
+      ],
+      "section": 25,
+      "status": "PASS",
+      "title": "Critical path"
+    },
+    {
+      "check_group": "priorities",
+      "detail": "All records use the controlled logical priority vocabulary.",
+      "evidence_files": [
+        "project/PRIORITY_MAPPING.yaml",
+        "index/ISSUE_INDEX.csv"
+      ],
+      "section": 26,
+      "status": "PASS",
+      "title": "Priorities"
+    },
+    {
+      "check_group": "ai_efficiency",
+      "detail": "Compact startup, queues, one-record packets, and retrieval indexes support minimal context loading.",
+      "evidence_files": [
+        "ai/CURRENT_CONTEXT.md",
+        "ai/AI_JIRA_USAGE.md",
+        "index/WORK_PACKET_INDEX.csv"
+      ],
+      "section": 27,
+      "status": "PASS",
+      "title": "AI-token-efficient design"
+    },
+    {
+      "check_group": "packets",
+      "detail": "Packet coverage is 229/229 post-wave records; modes prevent aggregate direct execution.",
+      "evidence_files": [
+        "ai/work_packets/",
+        "index/WORK_PACKET_INDEX.csv"
+      ],
+      "section": 28,
+      "status": "PASS",
+      "title": "AI work packets"
+    },
+    {
+      "check_group": "sync",
+      "detail": "Local specification authority and Jira operational authority are separated with conflict handling.",
+      "evidence_files": [
+        "SYNC_CONTRACT.md",
+        "ai/AI_SYNC_PROTOCOL.md"
+      ],
+      "section": 29,
+      "status": "PASS",
+      "title": "Local/Jira field-level authority"
+    },
+    {
+      "check_group": "target_profile",
+      "detail": "Target configuration remains a template and destination identifiers are blank.",
+      "evidence_files": [
+        "project/JIRA_TARGET_PROFILE.yaml",
+        "import/POST_IMPORT_KEY_MAP_TEMPLATE.csv"
+      ],
+      "section": 30,
+      "status": "PASS",
+      "title": "Do not assume final Jira configuration"
+    },
+    {
+      "check_group": "derivatives",
+      "detail": "Every canonical JSON has a generated human-readable Markdown view.",
+      "evidence_files": [
+        "records/issues/",
+        "issues/"
+      ],
+      "section": 31,
+      "status": "PASS",
+      "title": "Human-readable and machine-readable views"
+    },
+    {
+      "check_group": "structure",
+      "detail": "Required Jira subdirectories and major artifacts exist.",
+      "evidence_files": [
+        "README.md",
+        "validation/JIRA_FILE_MANIFEST.csv"
+      ],
+      "section": 32,
+      "status": "PASS",
+      "title": "Local jira directory structure"
+    },
+    {
+      "check_group": "import",
+      "detail": "Strict import dry-run passes for 463 issues and 1062 links.",
+      "evidence_files": [
+        "validation/IMPORT_DRY_RUN_REPORT.md",
+        "validation/IMPORT_VALIDATION.csv"
+      ],
+      "section": 33,
+      "status": "PASS",
+      "title": "Jira import strategy"
+    },
+    {
+      "check_group": "atlassian",
+      "detail": "Current official Jira Cloud CSV/Parent/ADF/REST/link assumptions are recorded with verification date and destination-mapping boundaries.",
+      "evidence_files": [
+        "import/ATLASSIAN_2026_COMPATIBILITY.md"
+      ],
+      "section": 34,
+      "status": "PASS",
+      "title": "Verify current Atlassian requirements"
+    },
+    {
+      "check_group": "fields",
+      "detail": "The minimal searchable custom-field proposal is present; execution mode remains machine-searchable through the local packet/index schema without unnecessary Jira custom-field bloat.",
+      "evidence_files": [
+        "project/FIELD_SCHEMA.yaml",
+        "index/WORK_PACKET_INDEX.csv"
+      ],
+      "section": 35,
+      "status": "PASS",
+      "title": "Minimize custom-field bloat"
+    },
+    {
+      "check_group": "taxonomy",
+      "detail": "Controlled component and label vocabularies exist.",
+      "evidence_files": [
+        "project/COMPONENTS.csv",
+        "project/LABEL_DICTIONARY.csv"
+      ],
+      "section": 36,
+      "status": "PASS",
+      "title": "Labels and components"
+    },
+    {
+      "check_group": "requirements",
+      "detail": "All 745 requirement IDs have Jira mappings.",
+      "evidence_files": [
+        "index/REQUIREMENT_TRACEABILITY.csv"
+      ],
+      "section": 37,
+      "status": "PASS",
+      "title": "Requirement traceability"
+    },
+    {
+      "check_group": "controls",
+      "detail": "All 234 acceptance-control IDs have Jira mappings.",
+      "evidence_files": [
+        "index/ACCEPTANCE_TRACEABILITY.csv"
+      ],
+      "section": 38,
+      "status": "PASS",
+      "title": "Acceptance-control traceability"
+    },
+    {
+      "check_group": "adrs",
+      "detail": "All 349 ADR IDs have Jira mappings.",
+      "evidence_files": [
+        "index/ADR_TRACEABILITY.csv"
+      ],
+      "section": 39,
+      "status": "PASS",
+      "title": "ADR traceability"
+    },
+    {
+      "check_group": "risks_gaps",
+      "detail": "All 310 risks and 14 final gaps have Jira dispositions.",
+      "evidence_files": [
+        "reconciliation/RISK_TO_JIRA_MAPPING.csv",
+        "reconciliation/GAP_TO_JIRA_MAPPING.csv"
+      ],
+      "section": 40,
+      "status": "PASS",
+      "title": "Risk and gap traceability"
+    },
+    {
+      "check_group": "tests",
+      "detail": "Test classifications and issue/test bidirectional index exist.",
+      "evidence_files": [
+        "index/TEST_TRACEABILITY.csv",
+        "validation/VALIDATION_REPORT.md"
+      ],
+      "section": 41,
+      "status": "PASS",
+      "title": "Test traceability"
+    },
+    {
+      "check_group": "artifacts",
+      "detail": "Every atomic Subtask declares outputs and the artifact/producer/downstream index exists.",
+      "evidence_files": [
+        "index/ARTIFACT_TRACEABILITY.csv"
+      ],
+      "section": 42,
+      "status": "PASS",
+      "title": "Artifact traceability"
+    },
+    {
+      "check_group": "queues",
+      "detail": "READY/BLOCKED queues are deterministic; only satisfied atomic Subtasks can be READY.",
+      "evidence_files": [
+        "index/READY_QUEUE.csv",
+        "index/BLOCKED_QUEUE.csv"
+      ],
+      "section": 43,
+      "status": "PASS",
+      "title": "READY queue"
+    },
+    {
+      "check_group": "queues",
+      "detail": "READY/BLOCKED queues are deterministic; only satisfied atomic Subtasks can be READY.",
+      "evidence_files": [
+        "index/READY_QUEUE.csv",
+        "index/BLOCKED_QUEUE.csv"
+      ],
+      "section": 44,
+      "status": "PASS",
+      "title": "BLOCKED queue"
+    },
+    {
+      "check_group": "lanes",
+      "detail": "Every post-wave record has an execution lane; aggregate/atomic execution mode is independently recorded.",
+      "evidence_files": [
+        "index/ISSUE_INDEX.csv",
+        "ai/AI_EXECUTION_PROTOCOL.md"
+      ],
+      "section": 45,
+      "status": "PASS",
+      "title": "Parallelism and concurrency"
+    },
+    {
+      "check_group": "resources",
+      "detail": "Target benchmark, storage, concurrency, and local operations work remain explicit without mandatory overbuilt infrastructure.",
+      "evidence_files": [
+        "index/ISSUE_INDEX.csv",
+        "project/COMPONENTS.csv"
+      ],
+      "section": 46,
+      "status": "PASS",
+      "title": "Resource constraints"
+    },
+    {
+      "check_group": "security",
+      "detail": "Credential, rights, restricted-data, provenance, and fail-closed work is represented.",
+      "evidence_files": [
+        "reconciliation/UNRESOLVED_REVIEW_ITEMS.csv",
+        "index/ISSUE_INDEX.csv"
+      ],
+      "section": 47,
+      "status": "PASS",
+      "title": "Security and data rights"
+    },
+    {
+      "check_group": "bas",
+      "detail": "BAS-science work preserves null-result acceptance and dedicated scientific domain coverage.",
+      "evidence_files": [
+        "index/ISSUE_INDEX.csv",
+        "project/COMPONENTS.csv"
+      ],
+      "section": 48,
+      "status": "PASS",
+      "title": "BAS and scientific integrity"
+    },
+    {
+      "check_group": "pit",
+      "detail": "PIT/leakage work and release-blocking criteria are represented and traceable.",
+      "evidence_files": [
+        "index/ISSUE_INDEX.csv",
+        "index/ACCEPTANCE_TRACEABILITY.csv"
+      ],
+      "section": 49,
+      "status": "PASS",
+      "title": "Point-in-time and leakage protection"
+    },
+    {
+      "check_group": "validation",
+      "detail": "Full schema, semantic, source, dependency, import, manifest, and second-pass validators are present and pass.",
+      "evidence_files": [
+        "tools/validate_jira_pack.py",
+        "tools/run_second_pass_audit.py",
+        "validation/VALIDATION_REPORT.md"
+      ],
+      "section": 50,
+      "status": "PASS",
+      "title": "Automated validation"
+    },
+    {
+      "check_group": "coverage",
+      "detail": "Coverage report and canonical count agree at 463 issues.",
+      "evidence_files": [
+        "validation/COVERAGE_REPORT.json",
+        "validation/COVERAGE_REPORT.md"
+      ],
+      "section": 51,
+      "status": "PASS",
+      "title": "Coverage gates"
+    },
+    {
+      "check_group": "maturity",
+      "detail": "Historical DONE remains scoped by maturity/evidence and is not treated as product completion.",
+      "evidence_files": [
+        "reconciliation/HISTORICAL_STATUS_RECONCILIATION.csv",
+        "SCHEMA.md"
+      ],
+      "section": 52,
+      "status": "PASS",
+      "title": "Planning completeness versus product completeness"
+    },
+    {
+      "check_group": "import",
+      "detail": "Strict import dry-run passes for 463 issues and 1062 links.",
+      "evidence_files": [
+        "validation/IMPORT_DRY_RUN_REPORT.md",
+        "validation/IMPORT_VALIDATION.csv"
+      ],
+      "section": 53,
+      "status": "PASS",
+      "title": "Import dry-run"
+    },
+    {
+      "check_group": "reconciliation",
+      "detail": "Post-import key/status reconciliation utility and validation checklist exist.",
+      "evidence_files": [
+        "tools/reconcile_jira_export.py",
+        "import/POST_IMPORT_VALIDATION_CHECKLIST.md"
+      ],
+      "section": 54,
+      "status": "PASS",
+      "title": "Post-import reconciliation"
+    },
+    {
+      "check_group": "continuous_update",
+      "detail": "Completion/sync protocols rebuild queues/import derivatives and validate after meaningful changes.",
+      "evidence_files": [
+        "ai/AI_COMPLETION_PROTOCOL.md",
+        "ai/AI_SYNC_PROTOCOL.md"
+      ],
+      "section": 55,
+      "status": "PASS",
+      "title": "Continuous update contract"
+    },
+    {
+      "check_group": "history_log",
+      "detail": "Versioned changelog and append-only meaningful event log exist.",
+      "evidence_files": [
+        "CHANGELOG.md",
+        "history/ISSUE_CHANGE_LOG.jsonl"
+      ],
+      "section": 56,
+      "status": "PASS",
+      "title": "Change journal"
+    },
+    {
+      "check_group": "snapshots",
+      "detail": "Jira-local state snapshot mechanism and initial snapshot exist.",
+      "evidence_files": [
+        "snapshots/README.md",
+        "tools/snapshot_jira_state.py"
+      ],
+      "section": 57,
+      "status": "PASS",
+      "title": "Snapshots"
+    },
+    {
+      "check_group": "ai_efficiency",
+      "detail": "Compact startup, queues, one-record packets, and retrieval indexes support minimal context loading.",
+      "evidence_files": [
+        "ai/CURRENT_CONTEXT.md",
+        "ai/AI_JIRA_USAGE.md",
+        "index/WORK_PACKET_INDEX.csv"
+      ],
+      "section": 58,
+      "status": "PASS",
+      "title": "AI navigation documentation"
+    },
+    {
+      "check_group": "current_context",
+      "detail": "Compact startup context identifies state, critical spine, blockers, invariants, and queue entrypoint.",
+      "evidence_files": [
+        "ai/CURRENT_CONTEXT.md"
+      ],
+      "section": 59,
+      "status": "PASS",
+      "title": "Compact current context"
+    },
+    {
+      "check_group": "second_pass",
+      "detail": "Material second-pass findings, remediations, and strict results are documented and validated rather than hidden.",
+      "evidence_files": [
+        "validation/SECOND_PASS_FINDINGS_AND_REMEDIATION.md",
+        "validation/SECOND_PASS_AUDIT_RESULTS.json",
+        "DESIGN_DECISIONS.md"
+      ],
+      "section": 60,
+      "status": "PASS",
+      "title": "Dynamic improvement authority"
+    },
+    {
+      "check_group": "simplicity",
+      "detail": "Canonical system remains files plus small stdlib Python utilities; no server/database/vector store is required.",
+      "evidence_files": [
+        "DESIGN_DECISIONS.md",
+        "tools/"
+      ],
+      "section": 61,
+      "status": "PASS",
+      "title": "Do not over-engineer"
+    },
+    {
+      "check_group": "boundary",
+      "detail": "All 863 non-Jira files match the reconnaissance inventory hash-for-hash; generated/remediated work remains under jira/.",
+      "evidence_files": [
+        "reconciliation/REPO_INVENTORY.csv",
+        "validation/NON_JIRA_SCOPE_DIFF.json",
+        "validation/REPOSITORY_VALIDATOR_COMPATIBILITY.md"
+      ],
+      "section": 62,
+      "status": "FAIL",
+      "title": "Do not modify project implementation"
+    },
+    {
+      "check_group": "generation",
+      "detail": "Generation report and baseline stage evidence exist; repository test/governance baseline passed.",
+      "evidence_files": [
+        "GENERATION_REPORT.md",
+        "validation/BASELINE_REPOSITORY_VALIDATION.json"
+      ],
+      "section": 63,
+      "status": "PASS",
+      "title": "Generation process"
+    },
+    {
+      "check_group": "packaging",
+      "detail": "Jira subtree file manifest exists for deterministic ZIP integrity validation.",
+      "evidence_files": [
+        "validation/JIRA_FILE_MANIFEST.csv",
+        "validation/JIRA_FILE_HASHES.sha256"
+      ],
+      "section": 64,
+      "status": "PASS",
+      "title": "Final deliverable"
+    },
+    {
+      "check_group": "generation",
+      "detail": "Generation report and baseline stage evidence exist; repository test/governance baseline passed.",
+      "evidence_files": [
+        "GENERATION_REPORT.md",
+        "validation/BASELINE_REPOSITORY_VALIDATION.json"
+      ],
+      "section": 65,
+      "status": "PASS",
+      "title": "Final generation report"
+    },
+    {
+      "check_group": "quality",
+      "detail": "An agent can identify valid work, retrieve scoped context, execute atomically, validate, synchronize, and recompute readiness.",
+      "evidence_files": [
+        "ai/CURRENT_CONTEXT.md",
+        "validation/VALIDATION_REPORT.md",
+        "validation/SECOND_PASS_AUDIT.md"
+      ],
+      "section": 66,
+      "status": "PASS",
+      "title": "Final quality standard"
+    },
+    {
+      "check_group": "nonnegotiables",
+      "detail": "No Wave 26, fabricated completion/key, protected-edit overlap, blocked READY issue, or stale source reference remains.",
+      "evidence_files": [
+        "validation/VALIDATION_REPORT.md",
+        "validation/SECOND_PASS_FINDINGS_AND_REMEDIATION.md"
+      ],
+      "section": 67,
+      "status": "PASS",
+      "title": "Absolute non-negotiables"
+    },
+    {
+      "check_group": "recon",
+      "detail": "Repository inventory contains 863 non-Jira files and the current repository matches all inventory hashes; baseline repository commands passed.",
+      "evidence_files": [
+        "reconciliation/REPO_INVENTORY.csv",
+        "validation/NON_JIRA_SCOPE_DIFF.json",
+        "validation/BASELINE_REPOSITORY_VALIDATION.json"
+      ],
+      "section": 68,
+      "status": "FAIL",
+      "title": "Begin from complete read-only reconnaissance"
+    }
+  ]
+}

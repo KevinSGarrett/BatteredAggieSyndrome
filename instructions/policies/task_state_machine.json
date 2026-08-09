@@ -1,0 +1,163 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-TASK-STATE-MACHINE",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/07_JIRA_OPERATING_CONTRACT.md",
+  "states": [
+    {
+      "id": "BACKLOG",
+      "terminal": false,
+      "definition": "Known work not yet dependency-ready or selected."
+    },
+    {
+      "id": "READY",
+      "terminal": false,
+      "definition": "Priority, dependencies, inputs, ownership, and policy permit execution."
+    },
+    {
+      "id": "IN_PROGRESS",
+      "terminal": false,
+      "definition": "Claimed by one active implementation lane with branch/worktree and coherent scope."
+    },
+    {
+      "id": "BLOCKED",
+      "terminal": false,
+      "definition": "A specific evidenced condition prevents safe progress."
+    },
+    {
+      "id": "REVIEW",
+      "terminal": false,
+      "definition": "Coherent implementation is under PR/CI/review/integration gates."
+    },
+    {
+      "id": "DONE",
+      "terminal": true,
+      "definition": "Definition of Done satisfied, integrated, and evidence recorded."
+    },
+    {
+      "id": "CANCELED",
+      "terminal": true,
+      "definition": "Intentionally rejected, duplicate, superseded, or no longer required with rationale."
+    }
+  ],
+  "transitions": [
+    {
+      "from": "BACKLOG",
+      "to": "READY",
+      "requires": [
+        "ready_predicates_true",
+        "priority_and_parent_confirmed"
+      ]
+    },
+    {
+      "from": "READY",
+      "to": "IN_PROGRESS",
+      "requires": [
+        "owner_claimed",
+        "branch_and_worktree_recorded_or_not_applicable",
+        "scope_and_shared_contract_owner_recorded"
+      ]
+    },
+    {
+      "from": "IN_PROGRESS",
+      "to": "BLOCKED",
+      "requires": [
+        "blocker_category",
+        "evidence",
+        "unblock_condition",
+        "independent_work_considered"
+      ]
+    },
+    {
+      "from": "BLOCKED",
+      "to": "READY",
+      "requires": [
+        "blocker_resolved",
+        "dependency_and_priority_rechecked"
+      ]
+    },
+    {
+      "from": "IN_PROGRESS",
+      "to": "REVIEW",
+      "requires": [
+        "coherent_change",
+        "focused_validation_passes",
+        "draft_pr_or_equivalent_review_unit"
+      ]
+    },
+    {
+      "from": "REVIEW",
+      "to": "IN_PROGRESS",
+      "requires": [
+        "review_or_ci_change_required"
+      ]
+    },
+    {
+      "from": "REVIEW",
+      "to": "BLOCKED",
+      "requires": [
+        "external_or_approval_blocker_recorded"
+      ]
+    },
+    {
+      "from": "REVIEW",
+      "to": "DONE",
+      "requires": [
+        "definition_of_done_satisfied",
+        "merge_or_accepted_integration_recorded",
+        "jira_completion_evidence_recorded"
+      ]
+    },
+    {
+      "from": "BACKLOG",
+      "to": "CANCELED",
+      "requires": [
+        "rationale",
+        "authority_or_evidence"
+      ]
+    },
+    {
+      "from": "READY",
+      "to": "CANCELED",
+      "requires": [
+        "rationale",
+        "authority_or_evidence"
+      ]
+    },
+    {
+      "from": "IN_PROGRESS",
+      "to": "CANCELED",
+      "requires": [
+        "unique_work_preserved_or_explicitly_abandoned",
+        "rationale",
+        "downstream_impact_reviewed"
+      ]
+    }
+  ],
+  "ready_predicates": [
+    "mandatory predecessors satisfied",
+    "no active shared-contract mutation conflict",
+    "required source/access/input available",
+    "protected rules permit work",
+    "coherent evidence-producing unit exists",
+    "no duplicate active Jira/PR implementation"
+  ],
+  "prohibited": [
+    "BACKLOG_TO_DONE",
+    "READY_TO_DONE",
+    "BLOCKED_TO_DONE",
+    "STATUS_CHANGE_WITHOUT_REAL_STATE_CHANGE",
+    "DONE_WITHOUT_INTEGRATION_OR_ACCEPTED_NONCODE_EVIDENCE"
+  ],
+  "claim_fields": [
+    "jira_issue_key",
+    "agent_or_session",
+    "branch",
+    "worktree",
+    "scope",
+    "shared_contract_ownership",
+    "started_at_utc",
+    "expected_integration_order"
+  ],
+  "conceptual_to_live_mapping": "jira/status_map.json must be verified against live BAT before status writes."
+}

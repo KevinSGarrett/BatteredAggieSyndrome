@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BAS Label",
+  "type": "object",
+  "required": [
+    "game_id",
+    "team_id",
+    "actual_margin",
+    "expected_margin",
+    "performance_residual",
+    "shortfall",
+    "severity",
+    "expectation_evidence_id",
+    "label_definition_version"
+  ],
+  "properties": {
+    "game_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "team_id": {
+      "const": "TAMU"
+    },
+    "actual_margin": {
+      "type": "number"
+    },
+    "expected_margin": {
+      "type": "number"
+    },
+    "performance_residual": {
+      "type": "number"
+    },
+    "shortfall": {
+      "type": "number"
+    },
+    "severity": {
+      "type": "object",
+      "required": [
+        "ge_3",
+        "ge_7",
+        "ge_14",
+        "ge_21"
+      ],
+      "properties": {
+        "ge_3": {
+          "type": "boolean"
+        },
+        "ge_7": {
+          "type": "boolean"
+        },
+        "ge_14": {
+          "type": "boolean"
+        },
+        "ge_21": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "expectation_evidence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "label_definition_version": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

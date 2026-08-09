@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExperimentResultPacket",
+  "type": "object",
+  "required": [
+    "result_id",
+    "experiment_id",
+    "attempt_id",
+    "artifact_manifest_hash",
+    "development_metrics",
+    "environment_fingerprint",
+    "replay_status",
+    "recommendation",
+    "reason",
+    "created_at_utc"
+  ],
+  "properties": {
+    "result_id": {
+      "type": "string"
+    },
+    "experiment_id": {
+      "type": "string"
+    },
+    "attempt_id": {
+      "type": "string"
+    },
+    "artifact_manifest_hash": {
+      "type": "string"
+    },
+    "development_metrics": {
+      "type": "object"
+    },
+    "protected_metrics": {
+      "type": [
+        "null"
+      ]
+    },
+    "environment_fingerprint": {
+      "type": "string"
+    },
+    "replay_status": {
+      "enum": [
+        "PENDING",
+        "VERIFIED",
+        "MISMATCH",
+        "NOT_REQUIRED"
+      ]
+    },
+    "recommendation": {
+      "enum": [
+        "REJECT",
+        "INCONCLUSIVE",
+        "ADOPT_AS_CHALLENGER",
+        "PROMOTION_REVIEW_REQUIRED"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "created_at_utc": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

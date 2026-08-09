@@ -1,0 +1,8 @@
+uncertainty_id,uncertainty_class,applies_to,directional_adjustment,numeric_calibration_w12,notes
+PFU-001,small_college_sample,transfer,false,false,Shrink toward appropriate position/cohort prior.
+PFU-002,competition_translation,transfer,false,false,Continuous strength/context translation uncertainty.
+PFU-003,scheme_supporting_cast_change,transfer,false,false,Source/destination context differs.
+PFU-004,role_competition,transfer/freshman,false,false,Expected usage/depth role uncertain.
+PFU-005,zero_college_snaps,freshman/prospect,false,false,Wide prospect prior; do not route through transfer-production translation.
+PFU-006,recruiting_measurement,freshman/prospect,false,false,Rating/source/version disagreement.
+PFU-007,position_change,transfer/freshman/returner,false,false,Role/value model may lack direct historical analogue.

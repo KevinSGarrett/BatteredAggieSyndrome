@@ -1,0 +1,10 @@
+lane_id,lane,priority,role,pit_required,fallback,separate_canonical_truth
+TAMU-E01,texas_am_official,PRIMARY_HIGH_RES,"Official athletics rosters, staff, game notes/gamebooks and other legitimate A&M-published evidence.",true,national_canonical_sources,false
+TAMU-E02,sec_official,PRIMARY_HIGH_RES,Official SEC availability/reporting and conference evidence for covered games.,true,other_eligible_evidence_or_unknown,false
+TAMU-E03,ncaa_official,PRIMARY_VALIDATION,Official NCAA schedules/statistics/rules where applicable.,true,approved_national_provider,false
+TAMU-E04,national_foundation_sources,PRIMARY_NATIONAL,Same national canonical/statistical foundation used for all teams.,true,degraded_mode,false
+TAMU-E05,recruiting_transfer_sources,ENRICHMENT,Approved recruiting/transfer evidence with rights/provenance and announcement timing.,true,broader_prior_with_uncertainty,false
+TAMU-E06,weather_venue_sources,CONTEXT,"Issued forecast runs, venue/timezone/travel context.",true,context_unknown_or_degraded,false
+TAMU-E07,market_optional,MARKET_AUGMENTED_ONLY,Timestamped market observations only for market-augmented lane.,true,pure_football_lane,false
+TAMU-E08,historical_media_guides_gamebooks,HISTORICAL_ENRICHMENT,Historical A&M evidence when provenance/timestamps are defensible.,true,national_historical_state,false
+TAMU-E09,manual_resolution_review,REVIEW_ONLY,Resolve ambiguous entity/evidence conflicts without changing canonical judging rules.,true,unknown_quarantine,false

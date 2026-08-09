@@ -1,0 +1,782 @@
+{
+  "board": {
+    "columnConfig": {
+      "columns": [
+        {
+          "name": "To Do",
+          "statuses": [
+            {
+              "id": "10153",
+              "self": "https://kevinsgarrett.atlassian.net/rest/api/2/status/10153"
+            }
+          ]
+        },
+        {
+          "name": "In Progress",
+          "statuses": [
+            {
+              "id": "3",
+              "self": "https://kevinsgarrett.atlassian.net/rest/api/2/status/3"
+            }
+          ]
+        },
+        {
+          "name": "In Review",
+          "statuses": [
+            {
+              "id": "10154",
+              "self": "https://kevinsgarrett.atlassian.net/rest/api/2/status/10154"
+            }
+          ]
+        },
+        {
+          "name": "Done",
+          "statuses": [
+            {
+              "id": "10115",
+              "self": "https://kevinsgarrett.atlassian.net/rest/api/2/status/10115"
+            }
+          ]
+        }
+      ],
+      "constraintType": "none"
+    },
+    "estimation": {
+      "field": {
+        "displayName": "Story Points",
+        "fieldId": "customfield_10035"
+      },
+      "type": "field"
+    },
+    "filter": {
+      "id": "10134",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/2/filter/10134"
+    },
+    "id": 134,
+    "location": {
+      "id": "10133",
+      "key": "BAT",
+      "name": "BatteredAggieSyndrome",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/2/project/10133",
+      "type": "project"
+    },
+    "name": "BAT board",
+    "ranking": {
+      "rankCustomFieldId": 10019
+    },
+    "self": "https://kevinsgarrett.atlassian.net/rest/agile/1.0/board/134/configuration",
+    "type": "scrum"
+  },
+  "board_filter": {
+    "approximateLastUsed": "2026-08-09T01:27:46.456+0000",
+    "editPermissions": [],
+    "favourite": false,
+    "favouritedCount": 0,
+    "id": "10134",
+    "isWritable": true,
+    "jql": "project = \"BAT\" ORDER BY Rank ASC",
+    "name": "Filter for BAT board",
+    "owner": {
+      "accountId": "63d5db4d28cddcc7076faad6",
+      "active": true,
+      "avatarUrls": {
+        "16x16": "https://secure.gravatar.com/avatar/2425bc96f2219f0d0af29521b577c06e?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FGI-2.png",
+        "24x24": "https://secure.gravatar.com/avatar/2425bc96f2219f0d0af29521b577c06e?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FGI-2.png",
+        "32x32": "https://secure.gravatar.com/avatar/2425bc96f2219f0d0af29521b577c06e?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FGI-2.png",
+        "48x48": "https://secure.gravatar.com/avatar/2425bc96f2219f0d0af29521b577c06e?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FGI-2.png"
+      },
+      "displayName": "GARRETT TRAINING SYSTEMS INC.",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/user?accountId=63d5db4d28cddcc7076faad6"
+    },
+    "searchUrl": "https://kevinsgarrett.atlassian.net/rest/api/3/search/jql?jql=project%20%3D%20%22BAT%22%20ORDER%20BY%20Rank%20ASC",
+    "self": "https://kevinsgarrett.atlassian.net/rest/api/3/filter/10134",
+    "sharePermissions": [
+      {
+        "id": 10134,
+        "project": {
+          "assigneeType": "PROJECT_LEAD",
+          "avatarUrls": {
+            "16x16": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=xsmall",
+            "24x24": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=small",
+            "32x32": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=medium",
+            "48x48": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402"
+          },
+          "entityId": "e93ec2c6-86a5-4560-bd26-fd49e7716636",
+          "id": "10133",
+          "key": "BAT",
+          "name": "BatteredAggieSyndrome",
+          "projectTypeKey": "software",
+          "properties": {},
+          "roles": {},
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133",
+          "simplified": false,
+          "style": "classic",
+          "uuid": "e93ec2c6-86a5-4560-bd26-fd49e7716636"
+        },
+        "type": "project"
+      }
+    ],
+    "sharedUsers": {
+      "end-index": 0,
+      "items": [],
+      "max-results": 1000,
+      "size": 27,
+      "start-index": 0
+    },
+    "subscriptions": {
+      "end-index": 0,
+      "items": [],
+      "max-results": 1000,
+      "size": 0,
+      "start-index": 0
+    },
+    "viewUrl": "https://kevinsgarrett.atlassian.net/issues/?filter=10134"
+  },
+  "captured_at": "2026-08-09T04:34:44.637809+00:00",
+  "components": [],
+  "issue_link_types": {
+    "issueLinkTypes": [
+      {
+        "id": "10041",
+        "inward": "is activation-gated by",
+        "name": "Activation Gate",
+        "outward": "gates activation of",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issueLinkType/10041"
+      },
+      {
+        "id": "10000",
+        "inward": "is blocked by",
+        "name": "Blocks",
+        "outward": "blocks",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issueLinkType/10000"
+      },
+      {
+        "id": "10001",
+        "inward": "is cloned by",
+        "name": "Cloners",
+        "outward": "clones",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issueLinkType/10001"
+      },
+      {
+        "id": "10038",
+        "inward": "is dependency of",
+        "name": "Depends On",
+        "outward": "depends on",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issueLinkType/10038"
+      },
+      {
+        "id": "10002",
+        "inward": "is duplicated by",
+        "name": "Duplicate",
+        "outward": "duplicates",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issueLinkType/10002"
+      },
+      {
+        "id": "10040",
+        "inward": "is implemented by",
+        "name": "Implements",
+        "outward": "implements",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issueLinkType/10040"
+      },
+      {
+        "id": "10003",
+        "inward": "relates to",
+        "name": "Relates",
+        "outward": "relates to",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issueLinkType/10003"
+      },
+      {
+        "id": "10039",
+        "inward": "is validated by",
+        "name": "Validates",
+        "outward": "validates",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issueLinkType/10039"
+      }
+    ]
+  },
+  "issues": [],
+  "priorities": [
+    {
+      "description": "This problem will block progress.",
+      "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/priorities/highest_new.svg",
+      "id": "1",
+      "name": "Highest",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/priority/1",
+      "statusColor": "#d04437"
+    },
+    {
+      "description": "Serious problem that could block progress.",
+      "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/priorities/high_new.svg",
+      "id": "2",
+      "name": "High",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/priority/2",
+      "statusColor": "#f15C75"
+    },
+    {
+      "description": "Has the potential to affect progress.",
+      "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/priorities/medium_new.svg",
+      "id": "3",
+      "name": "Medium",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/priority/3",
+      "statusColor": "#f79232"
+    },
+    {
+      "description": "Minor problem or easily worked around.",
+      "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/priorities/low_new.svg",
+      "id": "4",
+      "name": "Low",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/priority/4",
+      "statusColor": "#707070"
+    },
+    {
+      "description": "Trivial problem with little or no impact on progress.",
+      "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/priorities/lowest_new.svg",
+      "id": "5",
+      "name": "Lowest",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/priority/5",
+      "statusColor": "#999999"
+    }
+  ],
+  "project": {
+    "assigneeType": "UNASSIGNED",
+    "avatarUrls": {
+      "16x16": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=xsmall",
+      "24x24": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=small",
+      "32x32": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402?size=medium",
+      "48x48": "https://kevinsgarrett.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10402"
+    },
+    "components": [],
+    "description": "",
+    "entityId": "e93ec2c6-86a5-4560-bd26-fd49e7716636",
+    "expand": "description,lead,issueTypes,url,projectKeys,permissions,insight",
+    "id": "10133",
+    "isPrivate": false,
+    "issueTypes": [
+      {
+        "avatarId": 10316,
+        "description": "A small piece of work that's part of a larger task.",
+        "hierarchyLevel": -1,
+        "iconUrl": "https://kevinsgarrett.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+        "id": "10125",
+        "name": "Sub-task",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10125",
+        "subtask": true
+      },
+      {
+        "description": "A big user story that needs to be broken down. Created by Jira Software - do not edit or delete.",
+        "hierarchyLevel": 1,
+        "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/issuetypes/epic.svg",
+        "id": "10000",
+        "name": "Epic",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10000",
+        "subtask": false
+      },
+      {
+        "avatarId": 10318,
+        "description": "",
+        "hierarchyLevel": 0,
+        "iconUrl": "https://kevinsgarrett.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+        "id": "10126",
+        "name": "Task",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10126",
+        "subtask": false
+      },
+      {
+        "avatarId": 10300,
+        "description": "Stories track functionality or features expressed as user goals.",
+        "hierarchyLevel": 0,
+        "iconUrl": "https://kevinsgarrett.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10300?size=medium",
+        "id": "10008",
+        "name": "Story",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10008",
+        "subtask": false
+      },
+      {
+        "avatarId": 10314,
+        "description": "",
+        "hierarchyLevel": 0,
+        "iconUrl": "https://kevinsgarrett.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10314?size=medium",
+        "id": "10127",
+        "name": "Feature",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10127",
+        "subtask": false
+      },
+      {
+        "avatarId": 10303,
+        "description": "",
+        "hierarchyLevel": 0,
+        "iconUrl": "https://kevinsgarrett.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+        "id": "10128",
+        "name": "Bug",
+        "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10128",
+        "subtask": false
+      }
+    ],
+    "key": "BAT",
+    "lead": {
+      "accountId": "63d5db4d28cddcc7076faad6",
+      "active": true,
+      "avatarUrls": {
+        "16x16": "https://secure.gravatar.com/avatar/2425bc96f2219f0d0af29521b577c06e?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FGI-2.png",
+        "24x24": "https://secure.gravatar.com/avatar/2425bc96f2219f0d0af29521b577c06e?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FGI-2.png",
+        "32x32": "https://secure.gravatar.com/avatar/2425bc96f2219f0d0af29521b577c06e?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FGI-2.png",
+        "48x48": "https://secure.gravatar.com/avatar/2425bc96f2219f0d0af29521b577c06e?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FGI-2.png"
+      },
+      "displayName": "GARRETT TRAINING SYSTEMS INC.",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/user?accountId=63d5db4d28cddcc7076faad6"
+    },
+    "name": "BatteredAggieSyndrome",
+    "projectKeys": [
+      "BAT"
+    ],
+    "projectTypeKey": "software",
+    "properties": {},
+    "roles": {
+      "Administrators": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133/role/10002",
+      "CUM - AI Import Operator": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133/role/10121",
+      "CUM - Implementation Agent": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133/role/10122",
+      "CUM - Independent Reviewer Agent": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133/role/10123",
+      "CUM - Program Director Agent": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133/role/10124",
+      "atlassian-addons-project-access": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133/role/10003",
+      "jira-guest-member": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133/role/10009"
+    },
+    "self": "https://kevinsgarrett.atlassian.net/rest/api/3/project/10133",
+    "simplified": false,
+    "style": "classic",
+    "uuid": "e93ec2c6-86a5-4560-bd26-fd49e7716636",
+    "versions": []
+  },
+  "rollback": {
+    "note": "The destination was empty at capture. The exact created object IDs/keys are recorded in BAT_LIVE_IMPORT_LEDGER.json.",
+    "scope": "BAT project, board filter, project components, created custom fields, saved filters, issues, transitions, and links"
+  },
+  "schema_version": 1,
+  "source_preflight": {
+    "issues": 463,
+    "links": 1062,
+    "parents": 413,
+    "result": "PASS",
+    "source_hashes": {
+      "jira\\import\\JIRA_API_CREATE_PAYLOADS.jsonl": "78b2f68ba8c9cc1a7352f9266b198367e87d4c07753ee7f9c3ba1e5f3cc995b6",
+      "jira\\import\\JIRA_API_LINK_PAYLOADS.jsonl": "563673d6287e0cd4b43028f5a6e40c1394e395d3c5be99a609e9d47d7e36687f",
+      "jira\\import\\JIRA_ISSUES_MASTER.csv": "7a213251e7bb6586b52cef727e107abd6c2a9feea9c50804117baae75c0a6205",
+      "jira\\import\\JIRA_LINKS.csv": "01e3dc96a9f3348abfc12f5cd361a9f834970e352af60c93276833952c9f8bbc",
+      "jira\\project\\COMPONENTS.csv": "4fdd3d5cc618e90af97addc98643b4c5f41c179a1d60cbb525dbeb8a723295d4",
+      "jira\\project\\FIELD_SCHEMA.yaml": "7ef970dda691cd11233b51bcc67f4864f1bcb09a83f222768c3b47cb1fe220dd",
+      "jira\\project\\ISSUE_TYPE_MAPPING.yaml": "85b710c6d7f1b4bd99ffacf5edb67f714a7dbba6279ca5753346f76dfc2bc1d9",
+      "jira\\project\\PRIORITY_MAPPING.yaml": "7e4bc60ffbd3b662515f33601d7c88205e02167579b70d0c1c4dcc0951855496",
+      "jira\\project\\WORKFLOW_MAPPING.yaml": "2f8a3ea69629bde9dbf0bc60f1528a6d20eefba10cbd0b0dd33fcdefec8e8dd1"
+    }
+  },
+  "statuses": [
+    {
+      "id": "10125",
+      "name": "Sub-task",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10125",
+      "statuses": [
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10153",
+          "name": "To Do",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10153",
+          "statusCategory": {
+            "colorName": "blue-gray",
+            "id": 2,
+            "key": "new",
+            "name": "To Do",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/2"
+          },
+          "untranslatedName": "To Do"
+        },
+        {
+          "description": "This work item is being actively worked on at the moment by the assignee.",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/inprogress.png",
+          "id": "3",
+          "name": "In Progress",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/3",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Progress"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10154",
+          "name": "In Review",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10154",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Review"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10115",
+          "name": "Done",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10115",
+          "statusCategory": {
+            "colorName": "green",
+            "id": 3,
+            "key": "done",
+            "name": "Done",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/3"
+          },
+          "untranslatedName": "Done"
+        }
+      ],
+      "subtask": true
+    },
+    {
+      "id": "10000",
+      "name": "Epic",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10000",
+      "statuses": [
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10153",
+          "name": "To Do",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10153",
+          "statusCategory": {
+            "colorName": "blue-gray",
+            "id": 2,
+            "key": "new",
+            "name": "To Do",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/2"
+          },
+          "untranslatedName": "To Do"
+        },
+        {
+          "description": "This work item is being actively worked on at the moment by the assignee.",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/inprogress.png",
+          "id": "3",
+          "name": "In Progress",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/3",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Progress"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10154",
+          "name": "In Review",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10154",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Review"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10115",
+          "name": "Done",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10115",
+          "statusCategory": {
+            "colorName": "green",
+            "id": 3,
+            "key": "done",
+            "name": "Done",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/3"
+          },
+          "untranslatedName": "Done"
+        }
+      ],
+      "subtask": false
+    },
+    {
+      "id": "10126",
+      "name": "Task",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10126",
+      "statuses": [
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10153",
+          "name": "To Do",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10153",
+          "statusCategory": {
+            "colorName": "blue-gray",
+            "id": 2,
+            "key": "new",
+            "name": "To Do",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/2"
+          },
+          "untranslatedName": "To Do"
+        },
+        {
+          "description": "This work item is being actively worked on at the moment by the assignee.",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/inprogress.png",
+          "id": "3",
+          "name": "In Progress",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/3",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Progress"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10154",
+          "name": "In Review",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10154",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Review"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10115",
+          "name": "Done",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10115",
+          "statusCategory": {
+            "colorName": "green",
+            "id": 3,
+            "key": "done",
+            "name": "Done",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/3"
+          },
+          "untranslatedName": "Done"
+        }
+      ],
+      "subtask": false
+    },
+    {
+      "id": "10008",
+      "name": "Story",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10008",
+      "statuses": [
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10153",
+          "name": "To Do",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10153",
+          "statusCategory": {
+            "colorName": "blue-gray",
+            "id": 2,
+            "key": "new",
+            "name": "To Do",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/2"
+          },
+          "untranslatedName": "To Do"
+        },
+        {
+          "description": "This work item is being actively worked on at the moment by the assignee.",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/inprogress.png",
+          "id": "3",
+          "name": "In Progress",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/3",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Progress"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10154",
+          "name": "In Review",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10154",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Review"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10115",
+          "name": "Done",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10115",
+          "statusCategory": {
+            "colorName": "green",
+            "id": 3,
+            "key": "done",
+            "name": "Done",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/3"
+          },
+          "untranslatedName": "Done"
+        }
+      ],
+      "subtask": false
+    },
+    {
+      "id": "10127",
+      "name": "Feature",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10127",
+      "statuses": [
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10153",
+          "name": "To Do",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10153",
+          "statusCategory": {
+            "colorName": "blue-gray",
+            "id": 2,
+            "key": "new",
+            "name": "To Do",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/2"
+          },
+          "untranslatedName": "To Do"
+        },
+        {
+          "description": "This work item is being actively worked on at the moment by the assignee.",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/inprogress.png",
+          "id": "3",
+          "name": "In Progress",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/3",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Progress"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10154",
+          "name": "In Review",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10154",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Review"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10115",
+          "name": "Done",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10115",
+          "statusCategory": {
+            "colorName": "green",
+            "id": 3,
+            "key": "done",
+            "name": "Done",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/3"
+          },
+          "untranslatedName": "Done"
+        }
+      ],
+      "subtask": false
+    },
+    {
+      "id": "10128",
+      "name": "Bug",
+      "self": "https://kevinsgarrett.atlassian.net/rest/api/3/issuetype/10128",
+      "statuses": [
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10153",
+          "name": "To Do",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10153",
+          "statusCategory": {
+            "colorName": "blue-gray",
+            "id": 2,
+            "key": "new",
+            "name": "To Do",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/2"
+          },
+          "untranslatedName": "To Do"
+        },
+        {
+          "description": "This work item is being actively worked on at the moment by the assignee.",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/inprogress.png",
+          "id": "3",
+          "name": "In Progress",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/3",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Progress"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10154",
+          "name": "In Review",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10154",
+          "statusCategory": {
+            "colorName": "yellow",
+            "id": 4,
+            "key": "indeterminate",
+            "name": "In Progress",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/4"
+          },
+          "untranslatedName": "In Review"
+        },
+        {
+          "description": "",
+          "iconUrl": "https://kevinsgarrett.atlassian.net/images/icons/statuses/generic.png",
+          "id": "10115",
+          "name": "Done",
+          "self": "https://kevinsgarrett.atlassian.net/rest/api/3/status/10115",
+          "statusCategory": {
+            "colorName": "green",
+            "id": 3,
+            "key": "done",
+            "name": "Done",
+            "self": "https://kevinsgarrett.atlassian.net/rest/api/3/statuscategory/3"
+          },
+          "untranslatedName": "Done"
+        }
+      ],
+      "subtask": false
+    }
+  ],
+  "target_named_custom_fields": []
+}

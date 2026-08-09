@@ -1,0 +1,285 @@
+{
+  "schema_version": 2,
+  "version": "2.0.0",
+  "generated_at": "2026-08-08T20:00:00-05:00",
+  "registry_counts": {
+    "tasks": 201,
+    "epics": 33,
+    "dependencies": 323,
+    "requirements": 745,
+    "adrs": 349,
+    "acceptance_controls": 234
+  },
+  "components": [
+    {
+      "id": "terminal_handoff",
+      "purpose": "Terminal state, priorities, gaps and maturity",
+      "authoritative_or_design_sources": [
+        "AGENTS.md",
+        "governance/CURRENT_STATE.yaml",
+        "governance/CURRENT_BACKLOG.yaml",
+        "docs/final/CODEX_HANDOFF.md",
+        "docs/final/FINAL_BACKLOG.csv",
+        "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+        "docs/final/FINAL_KNOWN_GAPS.md"
+      ],
+      "runtime_code": [],
+      "validators": [
+        "tools/validate_backlog.py",
+        "tools/validate_w25_final.py"
+      ]
+    },
+    {
+      "id": "governance_traceability",
+      "purpose": "Requirements, ADRs, tasks, acceptance and dependencies",
+      "authoritative_or_design_sources": [
+        "governance/REQUIREMENTS_INDEX.csv",
+        "governance/REQUIREMENTS_TRACEABILITY.csv",
+        "governance/ADR_INDEX.csv",
+        "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+        "governance/IMPLEMENTATION_WBS.csv",
+        "governance/TASK_DEPENDENCIES.csv",
+        "governance/SHARED_CONTRACT_OWNERSHIP.csv"
+      ],
+      "runtime_code": [],
+      "validators": [
+        "tools/validate_acceptance.py",
+        "tools/validate_backlog.py"
+      ]
+    },
+    {
+      "id": "source_raw",
+      "purpose": "Source adapters, contracts and immutable snapshots",
+      "authoritative_or_design_sources": [
+        "docs/data_research",
+        "configs/data_research_registry.json",
+        "governance/RAW_FIELD_REGISTRY.csv"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/data/adapters.py",
+        "src/aggie_analytics/data/contracts.py",
+        "src/aggie_analytics/data/snapshots.py"
+      ],
+      "validators": [
+        "tools/validate_data_research.py",
+        "tools/validate_w19_foundation.py"
+      ]
+    },
+    {
+      "id": "canonical_entities",
+      "purpose": "Canonical IDs and entity resolution",
+      "authoritative_or_design_sources": [
+        "configs/entity_registry.json",
+        "schemas/canonical",
+        "governance/CANONICAL_ENTITY_CATALOG.csv"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/entities"
+      ],
+      "validators": [
+        "tools/validate_entities.py"
+      ]
+    },
+    {
+      "id": "temporal_pit",
+      "purpose": "Known-at/PIT state, eligibility and replay inputs",
+      "authoritative_or_design_sources": [
+        "configs/temporal_registry.json",
+        "schemas/temporal",
+        "governance/PIT_DOMAIN_POLICY.csv",
+        "governance/TARGET_FEATURE_POLICY.csv"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/temporal"
+      ],
+      "validators": [
+        "tools/validate_temporal.py",
+        "tools/verify_replay_inputs.py"
+      ]
+    },
+    {
+      "id": "features",
+      "purpose": "Feature registry, lifecycle, screening and transforms",
+      "authoritative_or_design_sources": [
+        "configs/feature_registry.json",
+        "configs/feature_lifecycle_registry.json",
+        "schemas/features"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/features"
+      ],
+      "validators": [
+        "tools/validate_feature_registry.py",
+        "tools/validate_feature_lifecycle.py"
+      ]
+    },
+    {
+      "id": "team_state",
+      "purpose": "National team-state hierarchy and priors",
+      "authoritative_or_design_sources": [
+        "configs/team_state_registry.json",
+        "schemas/team_state"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/team_state"
+      ],
+      "validators": [
+        "tools/validate_team_state.py"
+      ]
+    },
+    {
+      "id": "player_intelligence",
+      "purpose": "Roster, transfer, recruiting and availability",
+      "authoritative_or_design_sources": [
+        "configs/player_intelligence_registry.json",
+        "schemas/players"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/player_intelligence"
+      ],
+      "validators": [
+        "tools/validate_player_intelligence.py"
+      ]
+    },
+    {
+      "id": "context_intelligence",
+      "purpose": "Coaching, mechanics and game context",
+      "authoritative_or_design_sources": [
+        "configs/context_intelligence_registry.json",
+        "schemas/context_intelligence"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/context_intelligence"
+      ],
+      "validators": [
+        "tools/validate_context_intelligence.py"
+      ]
+    },
+    {
+      "id": "tamu_specialization",
+      "purpose": "High-resolution Texas A&M state and specialization",
+      "authoritative_or_design_sources": [
+        "configs/tamu_specialization_registry.json",
+        "schemas/tamu",
+        "governance/TAMU_SPECIALIZATION_GATE_STATUS.csv"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/tamu"
+      ],
+      "validators": [
+        "tools/validate_tamu_specialization.py"
+      ]
+    },
+    {
+      "id": "bas_science",
+      "purpose": "BAS labels, anti-circularity and Aggie Excess science",
+      "authoritative_or_design_sources": [
+        "configs/bas_registry.json",
+        "schemas/bas",
+        "governance/BAS_ANTI_CIRCULARITY_RULES.csv",
+        "governance/BAS_NULL_RESULT_POLICY.csv"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/bas"
+      ],
+      "validators": [
+        "tools/validate_bas_science.py"
+      ]
+    },
+    {
+      "id": "modeling",
+      "purpose": "Baselines, score distributions, calibration, ensembles and uncertainty",
+      "authoritative_or_design_sources": [
+        "configs/model_architecture_registry.json",
+        "schemas/models"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/modeling"
+      ],
+      "validators": [
+        "tools/validate_model_architecture.py",
+        "tools/validate_w20_starter.py"
+      ]
+    },
+    {
+      "id": "validation",
+      "purpose": "Chronological/protected evaluation and promotion",
+      "authoritative_or_design_sources": [
+        "configs/validation_science_registry.json",
+        "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+        "governance/PROTECTED_SPLIT_REGISTRY.csv"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/validation"
+      ],
+      "validators": [
+        "tools/verify_judging_seal.py",
+        "tools/validate_validation_science.py"
+      ]
+    },
+    {
+      "id": "experimentation",
+      "purpose": "Experiment identity, store, replay, HPO and tournaments",
+      "authoritative_or_design_sources": [
+        "configs/experiment_research_registry.json",
+        "schemas/experiments"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/experimentation"
+      ],
+      "validators": [
+        "tools/validate_experimentation.py",
+        "tools/check_advanced_challenger_admission.py"
+      ]
+    },
+    {
+      "id": "weekly_mlops",
+      "purpose": "Weekly orchestration, promotion and publication",
+      "authoritative_or_design_sources": [
+        "docs/operations",
+        "src/aggie_analytics/orchestration/contracts.py"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/orchestration"
+      ],
+      "validators": [
+        "tools/validate_w21_mlops.py"
+      ]
+    },
+    {
+      "id": "product",
+      "purpose": "Immutable snapshot repository, API, dashboard and explainability",
+      "authoritative_or_design_sources": [
+        "docs/product"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/product",
+        "src/aggie_analytics/api"
+      ],
+      "validators": [
+        "tools/validate_w22_product.py"
+      ]
+    },
+    {
+      "id": "operations_readiness",
+      "purpose": "Environment, benchmark, backup, retention and observability",
+      "authoritative_or_design_sources": [
+        "docs/readiness",
+        "scripts/benchmark_target.ps1"
+      ],
+      "runtime_code": [
+        "src/aggie_analytics/operations",
+        "src/aggie_analytics/readiness"
+      ],
+      "validators": [
+        "tools/validate_w23_operations.py",
+        "tools/validate_w24_readiness.py"
+      ]
+    }
+  ],
+  "retrieval_entrypoints": {
+    "task_context": "python -B tools/render_task_context.py --task TASK-###",
+    "handoff_context": "python -B tools/render_task_context.py --handoff HANDOFF-###",
+    "next_work": "python -B tools/select_next_work.py --repo-root ."
+  }
+}

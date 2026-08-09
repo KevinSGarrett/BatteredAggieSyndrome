@@ -1,0 +1,14 @@
+check_id,surface,criterion,on_failure
+RP-001,experiment_id,Exact canonical identity,BLOCK
+RP-002,data_snapshot,Hash/ID equal,BLOCK
+RP-003,feature_set,Version/hash equal,BLOCK
+RP-004,model_config,Canonical config equal,BLOCK
+RP-005,code_state,Commit/tree hash equal,BLOCK
+RP-006,environment,Lock/runtime identity equal or declared-compatible,BLOCK
+RP-007,judging_rule_seal,Exact W17 seal,BLOCK
+RP-008,artifact_inputs,Hashes resolve,BLOCK
+RP-009,output_schema,Schema/version equal,BLOCK
+RP-010,deterministic_outputs,Exact normalized output,BLOCK
+RP-011,stochastic_tolerance,Within predeclared tolerance,BLOCK
+RP-012,development_metrics,Within predeclared replay tolerance,BLOCK
+RP-013,protected_feedback_absence,No protected metrics in research replay packet,BLOCK

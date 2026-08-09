@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "contract": "source_entity_mapping",
+  "status": "DESIGN_CONTRACT_W07",
+  "fields": [
+    "mapping_id",
+    "source_system_id",
+    "entity_type",
+    "source_entity_key",
+    "canonical_entity_id",
+    "mapping_method",
+    "resolution_state",
+    "evidence_capture_ids",
+    "decision_id",
+    "scope_context",
+    "created_at",
+    "supersedes_mapping_id",
+    "notes"
+  ],
+  "rules": [
+    "source_system_id+entity_type+source_entity_key define source-key scope",
+    "mapping rows append-only",
+    "name-only durable join forbidden",
+    "corrections supersede prior rows"
+  ]
+}

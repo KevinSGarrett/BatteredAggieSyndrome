@@ -1,0 +1,5 @@
+disagreement_id,name,definition,threshold_ref,production_selected_w16,guard
+DIS-001,win probability spread,Range/SD among validated candidate P(win),THR-015,false,Correlated models do not constitute independent evidence
+DIS-002,expected margin spread,Dispersion in expected margin among validated models,THR-015,false,Correlated models do not constitute independent evidence
+DIS-003,distribution divergence,Pairwise JS/KL/Wasserstein-style divergence candidate,THR-015,false,Correlated models do not constitute independent evidence
+DIS-004,ranking/decision discordance,Models disagree on favorite/cover/uncertainty category,THR-015,false,Correlated models do not constitute independent evidence

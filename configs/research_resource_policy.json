@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "version": "w18-v2",
+  "local_first": true,
+  "paid_compute_default": false,
+  "dimensions": [
+    "cpu_threads",
+    "ram_mb",
+    "gpu_slots",
+    "vram_mb",
+    "disk_mb"
+  ],
+  "admission_rules": "governance/RESOURCE_ADMISSION_RULES.csv",
+  "owner_wave_required": true,
+  "judging_rule_seal_required": true,
+  "shared_contract_conflict_blocks": true
+}

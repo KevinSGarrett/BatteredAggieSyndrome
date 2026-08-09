@@ -1,0 +1,520 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.json -->
+# POST-SUBTASK-022 — [POST-SUBTASK-022] Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.",
+    "The specification records upstream lineage and avoids duplicate independent-source claims.",
+    "Unknown historical coverage remains explicit rather than backfilled by assumption."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "Canonical parent Story: POST-STORY-008. Governance traceability gate: POST-SUBTASK-024. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.",
+    "Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-022.json`; inspect only the listed implementation files and prerequisite outputs.",
+    "May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.",
+    "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
+  ],
+  "allowed_modification_paths": [
+    "configs/source_acquisition_registry.json",
+    "artifacts/jira_evidence/POST-SUBTASK-022.json"
+  ],
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-018;POST-SUBTASK-021",
+  "blocks": [
+    "POST-STORY-009",
+    "POST-SUBTASK-023",
+    "POST-SUBTASK-024",
+    "POST-SUBTASK-025",
+    "POST-SUBTASK-026",
+    "POST-SUBTASK-027"
+  ],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {
+    "acceptance_matrix_required": true,
+    "artifact_hashes_required": true,
+    "completion_claim_limit": "IMPLEMENTED",
+    "downstream_consumer": "POST-SUBTASK-023",
+    "governance_traceability_gate": "POST-SUBTASK-024",
+    "negative_results_preserved": true,
+    "provenance_dimensions": [
+      "source",
+      "data",
+      "code",
+      "config",
+      "tool",
+      "runtime",
+      "split/cutoff when applicable"
+    ]
+  },
+  "component": "data-sources",
+  "components_expected_to_be_touched": [
+    "data-sources",
+    "sources"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "The atomic scope in POST-SUBTASK-022 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
+    "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
+    "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
+    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
+    "The output set `configs/source_acquisition_registry.json` is demonstrably consumable by POST-SUBTASK-023 without manual reconstruction or undocumented state."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-018",
+    "POST-SUBTASK-021"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 1,
+    "adr_ids": 4,
+    "gap_ids": 1,
+    "requirement_ids": 9,
+    "risk_ids": 1
+  },
+  "effective_traceability_total": 16,
+  "end_to_end_validation": "Validate that `configs/source_acquisition_registry.json` can be parsed and consumed by `POST-SUBTASK-023` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "epic_id": "POST-EPIC-002",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-022.json",
+  "evidence_state": "PLANNED",
+  "execution_lane": "SHARED_CONTRACT",
+  "execution_mode": "ATOMIC_EXECUTION",
+  "expected_maturity_after_completion": "IMPLEMENTED",
+  "expected_outputs": [
+    "configs/source_acquisition_registry.json"
+  ],
+  "files_expected_to_be_read": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "src/aggie_analytics/data/adapters.py",
+    "docs/data_research/w06/DATA_ACQUISITION_PLAN.md",
+    "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
+    "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
+    "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/source_acquisition_registry.json"
+  ],
+  "files_to_inspect": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "src/aggie_analytics/data/adapters.py",
+    "docs/data_research/w06/DATA_ACQUISITION_PLAN.md",
+    "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
+    "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
+    "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "POST-SUBTASK-024",
+  "historical_classification": "ACTIONABLE_POST_WAVE",
+  "import_id": 100326,
+  "in_scope": [
+    "Perform the exact action: Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications.",
+    "Consume only verified prerequisite outputs from `POST-SUBTASK-018`, `POST-SUBTASK-021`.",
+    "Demonstrate with saved evidence: Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.",
+    "Demonstrate with saved evidence: The specification records upstream lineage and avoids duplicate independent-source claims.",
+    "Demonstrate with saved evidence: Unknown historical coverage remains explicit rather than backfilled by assumption.",
+    "Produce, validate, content-hash, and register `configs/source_acquisition_registry.json`.",
+    "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
+  ],
+  "issue_type": "Subtask",
+  "jira_key": "BAT-372",
+  "labels": [
+    "actionable",
+    "core-release",
+    "post-wave",
+    "shared-contract",
+    "sources",
+    "subtask"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "POST-SUBTASK-022",
+  "maturity_before": "CONTRACT_DEFINED",
+  "objective": "Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24512",
+    "jira_updated_at": "2026-08-09T00:03:26.848-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
+    "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Work assigned to sibling subtasks: Implement compliant retries, caching, rate-limit handling, and fallback activation; Establish source API/schema/terms drift baselines and monitoring inputs.",
+    "Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-008",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Dependency POST-SUBTASK-018 complete at required maturity",
+    "Dependency POST-SUBTASK-021 complete at required maturity"
+  ],
+  "primary_source_refs": [
+    "SRCREF-02007",
+    "SRCREF-02008",
+    "SRCREF-02009",
+    "SRCREF-02010"
+  ],
+  "priority": "P0",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "src/aggie_analytics/data/adapters.py",
+    "docs/data_research/w06/DATA_ACQUISITION_PLAN.md",
+    "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
+    "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
+    "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [],
+  "required_evidence": [
+    "`configs/source_acquisition_registry.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
+    "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
+    "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
+    "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
+    "PIT evidence showing prediction cutoff, known-at fields, rejected future/same-game/postgame records, fold/split identity, and leakage-test results."
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-022; retain command, exit code, and relevant output.",
+      "path": "tests/test_data_research.py",
+      "validation_class": "REGRESSION"
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "expectation": "Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.",
+      "path": "configs/source_acquisition_registry.json",
+      "validation_class": "CHRONOLOGICAL_REPLAY"
+    },
+    {
+      "classification": "STATIC_VALIDATION",
+      "expectation": "Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.",
+      "path": "configs/source_acquisition_registry.json",
+      "validation_class": "STATIC_VALIDATION"
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "expectation": "Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.",
+      "path": "ISSUE_COMPLETION_MANIFEST",
+      "validation_class": "REPRODUCIBILITY"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-022.",
+    "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
+    "Acceptance failure: the evidence cannot demonstrate that each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.",
+    "Acceptance failure: the evidence cannot demonstrate that the specification records upstream lineage and avoids duplicate independent-source claims.",
+    "Acceptance failure: the evidence cannot demonstrate that unknown historical coverage remains explicit rather than backfilled by assumption."
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Execute the atomic 1 of 3 step in Story POST-STORY-008 (Production acquisition contracts, rate limits, fallbacks, and drift hooks): Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications. Consume only verified prerequisite outputs from `POST-SUBTASK-018`, `POST-SUBTASK-021`. Produce `configs/source_acquisition_registry.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-023.",
+  "source_ids": [
+    "GAP-010",
+    "HANDOFF-002",
+    "HANDOFF-003",
+    "HANDOFF-012"
+  ],
+  "source_refs": [
+    "SRCREF-02007",
+    "SRCREF-02008",
+    "SRCREF-02009",
+    "SRCREF-02010",
+    "SRCREF-02011",
+    "SRCREF-02012",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01888",
+    "SRCREF-01898",
+    "SRCREF-01572",
+    "SRCREF-01889"
+  ],
+  "specificity_fingerprint": "38e88fbb0b5e1c38618338b4c18bc4dac7ec262448da5aeb2b279ac9626cc911",
+  "stop_conditions": [
+    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
+    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
+    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02011",
+    "SRCREF-02012",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01888",
+    "SRCREF-01898",
+    "SRCREF-01572",
+    "SRCREF-01889"
+  ],
+  "title": "[POST-SUBTASK-022] Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-024"
+  ],
+  "traceability_resolution": "INHERITED_DOMAIN_GATE",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "validation_classes": [
+    "CHRONOLOGICAL_REPLAY",
+    "REGRESSION",
+    "REPRODUCIBILITY",
+    "STATIC_VALIDATION"
+  ],
+  "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-008: Production acquisition contracts, rate limits, fallbacks, and drift hooks.",
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-022.md",
+  "workflow_state": "BLOCKED"
+}
+```
+
+## Objective
+
+Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications
+
+## Why This Exists
+
+This is an independently executable and verifiable work unit required by Story POST-STORY-008: Production acquisition contracts, rate limits, fallbacks, and drift hooks.
+
+## Scope
+
+Execute the atomic 1 of 3 step in Story POST-STORY-008 (Production acquisition contracts, rate limits, fallbacks, and drift hooks): Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications. Consume only verified prerequisite outputs from `POST-SUBTASK-018`, `POST-SUBTASK-021`. Produce `configs/source_acquisition_registry.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-023.
+
+### Explicit In Scope
+
+- Perform the exact action: Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications.
+- Consume only verified prerequisite outputs from `POST-SUBTASK-018`, `POST-SUBTASK-021`.
+- Demonstrate with saved evidence: Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.
+- Demonstrate with saved evidence: The specification records upstream lineage and avoids duplicate independent-source claims.
+- Demonstrate with saved evidence: Unknown historical coverage remains explicit rather than backfilled by assumption.
+- Produce, validate, content-hash, and register `configs/source_acquisition_registry.json`.
+- Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
+
+### Explicit Out of Scope
+
+- Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
+- Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Work assigned to sibling subtasks: Implement compliant retries, caching, rate-limit handling, and fallback activation; Establish source API/schema/terms drift baselines and monitoring inputs.
+- Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
+
+## Prerequisites
+
+- Dependency POST-SUBTASK-018 complete at required maturity
+- Dependency POST-SUBTASK-021 complete at required maturity
+
+## Hard Dependencies
+
+- POST-SUBTASK-018
+- POST-SUBTASK-021
+
+## Blocks
+
+- POST-STORY-009
+- POST-SUBTASK-023
+- POST-SUBTASK-024
+- POST-SUBTASK-025
+- POST-SUBTASK-026
+- POST-SUBTASK-027
+
+## Read / Inspect First
+
+- governance/DO_NOT_DRIFT.md
+- docs/final/CODEX_HANDOFF.md
+- docs/final/FINAL_BACKLOG.csv
+- docs/final/FINAL_COMPONENT_MATURITY.csv
+- docs/final/FINAL_IMPLEMENTATION_PRIORITY.md
+- docs/final/FINAL_KNOWN_GAPS.csv
+- src/aggie_analytics/data/adapters.py
+- docs/data_research/w06/DATA_ACQUISITION_PLAN.md
+- docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv
+- docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md
+- docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md
+
+## Files Expected To Be Modified
+
+- configs/source_acquisition_registry.json
+
+## Components Expected To Be Touched
+
+- data-sources
+- sources
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+- configs/judging_rule_seal.json
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+
+## Expected Outputs / Artifacts
+
+- configs/source_acquisition_registry.json
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-024`
+- Inherited from: POST-SUBTASK-024
+- Resolution: `INHERITED_DOMAIN_GATE`
+- Effective counts: `{"acceptance_control_ids": 1, "adr_ids": 4, "gap_ids": 1, "requirement_ids": 9, "risk_ids": 1}`
+
+## Acceptance Criteria
+
+1. Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.
+2. The specification records upstream lineage and avoids duplicate independent-source claims.
+3. Unknown historical coverage remains explicit rather than backfilled by assumption.
+
+## Definition of Done
+
+1. The atomic scope in POST-SUBTASK-022 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
+3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
+4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
+5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
+7. The output set `configs/source_acquisition_registry.json` is demonstrably consumable by POST-SUBTASK-023 without manual reconstruction or undocumented state.
+
+## Required Tests / Validation
+
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_data_research.py` — Run as a regression check after completing POST-SUBTASK-022; retain command, exit code, and relevant output.
+- **CHRONOLOGICAL_REPLAY** / `CHRONOLOGICAL_REPLAY` — `configs/source_acquisition_registry.json` — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
+- **STATIC_VALIDATION** / `STATIC_VALIDATION` — `configs/source_acquisition_registry.json` — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
+- **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
+
+## Required Evidence
+
+- `configs/source_acquisition_registry.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
+- Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
+- An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
+- PIT evidence showing prediction cutoff, known-at fields, rejected future/same-game/postgame records, fold/split identity, and leakage-test results.
+
+## Completion Evidence Contract
+
+```json
+{
+  "acceptance_matrix_required": true,
+  "artifact_hashes_required": true,
+  "completion_claim_limit": "IMPLEMENTED",
+  "downstream_consumer": "POST-SUBTASK-023",
+  "governance_traceability_gate": "POST-SUBTASK-024",
+  "negative_results_preserved": true,
+  "provenance_dimensions": [
+    "source",
+    "data",
+    "code",
+    "config",
+    "tool",
+    "runtime",
+    "split/cutoff when applicable"
+  ]
+}
+```
+
+## End-to-End Validation Requirement
+
+Validate that `configs/source_acquisition_registry.json` can be parsed and consumed by `POST-SUBTASK-023` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+
+## Expected Maturity After Completion
+
+`IMPLEMENTED`
+
+## Risk / Failure Conditions
+
+- The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-022.
+- A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
+- Acceptance failure: the evidence cannot demonstrate that each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.
+- Acceptance failure: the evidence cannot demonstrate that the specification records upstream lineage and avoids duplicate independent-source claims.
+- Acceptance failure: the evidence cannot demonstrate that unknown historical coverage remains explicit rather than backfilled by assumption.
+
+## Stop Conditions
+
+- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
+- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
+- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+
+## Source References
+
+- SRCREF-02007
+- SRCREF-02008
+- SRCREF-02009
+- SRCREF-02010
+- SRCREF-02011
+- SRCREF-02012
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01888
+- SRCREF-01898
+- SRCREF-01572
+- SRCREF-01889
+
+## AI Context Notes
+
+- Canonical parent Story: POST-STORY-008. Governance traceability gate: POST-SUBTASK-024. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.
+- Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-022.json`; inspect only the listed implementation files and prerequisite outputs.
+- May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.
+- Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient.

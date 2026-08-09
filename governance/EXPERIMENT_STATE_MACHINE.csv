@@ -1,0 +1,13 @@
+state,terminal,allowed_next,allowed_actor_roles,description
+PROPOSED,false,APPROVED;REJECTED,research_agent;human_researcher,Candidate exists; no execution authorization.
+APPROVED,false,QUEUED;REJECTED,research_governor,Governance-approved development-only experiment.
+QUEUED,false,RUNNING;REJECTED,scheduler;research_governor,Bound resources/worktree and immutable spec are queued.
+RUNNING,false,SUCCEEDED;FAILED,experiment_worker,Worker may write only experiment-local outputs.
+SUCCEEDED,false,REPLAY_PENDING;REJECTED,experiment_worker;research_governor,Development result packet exists; not adopted.
+FAILED,false,REPLAY_PENDING;ARCHIVED,experiment_worker;research_governor,Failure is retained; changed config requires a new experiment ID.
+REPLAY_PENDING,false,REPLAY_VERIFIED;REJECTED,research_governor,Independent replay requested.
+REPLAY_VERIFIED,false,ADOPTED_AS_CHALLENGER;REJECTED,replay_verifier;research_governor,Identity/artifact/result lineage replayed successfully.
+ADOPTED_AS_CHALLENGER,false,PROMOTION_REVIEW_REQUIRED;ARCHIVED,research_governor,Candidate may enter W17 promotion evaluation; not champion.
+PROMOTION_REVIEW_REQUIRED,false,ARCHIVED,research_governor,Only external protected promotion governor may decide PROMOTE/REJECT.
+REJECTED,true,,research_governor,Immutable rejection with reason/evidence.
+ARCHIVED,true,,research_governor,Closed experiment retained for reproducibility/negative-result history.

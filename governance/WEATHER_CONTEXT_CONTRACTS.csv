@@ -1,0 +1,4 @@
+contract_id,concept,required_time_fields,eligibility,observed_weather_allowed_pregame
+CTX-WX-01,PREGAME_FORECAST,model_init_at;model_available_at;valid_at;retrieved_at;forecast_cutoff,issued run must be knowable by cutoff,false
+CTX-WX-02,OBSERVED_REANALYSIS,observed_at;retrieved_at,retrospective/evaluation only unless actually known pregame,false
+CTX-WX-03,WEATHER_UNCERTAINTY,forecast_run;lead_time,scenario/uncertainty candidate,false

@@ -1,0 +1,11 @@
+plan_id,dimension,method_candidate,precommit_required,result_required_w15,owner_wave,notes
+BAS-STAB-001,effect size,risk difference/log-odds/residual location with interval,true,false,W17,"Report magnitude and interval, not p-value alone."
+BAS-STAB-002,game dependence,cluster/block inference by canonical game and season/regime,true,false,W17,Mirrored rows are not independent.
+BAS-STAB-003,season stability,leave-one-season-out / blocked sensitivity,true,false,W17,One season cannot define persistent Aggie effect.
+BAS-STAB-004,regime stability,effective-dated regime partial pooling,true,false,W17,Regimes cannot be outcome-selected.
+BAS-STAB-005,peer sensitivity,frozen W14 peer-cohort alternatives,true,false,W17,No cohort cherry-picking.
+BAS-STAB-006,multiple comparisons,predeclared family-wise/FDR or hierarchical testing policy,true,false,W17,Needed for severities/components/regimes.
+BAS-STAB-007,probability calibration,Brier/log loss/reliability/calibration slope or equivalent,true,false,W17,Metrics finalized before protected evaluation.
+BAS-STAB-008,severity monotonicity,P>=21 <= P>=14 <= P>=7 <= P>=3,true,false,W16-W17,Forecast outputs must be nested/coherent.
+BAS-STAB-009,expectation-anchor sensitivity,primary anchor plus explicitly labeled sensitivity anchors,true,false,W17,Sensitivity cannot silently redefine headline label.
+BAS-STAB-010,null decision,predeclared practical/statistical criterion using THR-006/protected evidence,true,false,W17,Null/no-excess result is valid.

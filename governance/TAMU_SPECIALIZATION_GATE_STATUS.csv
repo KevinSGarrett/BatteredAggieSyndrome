@@ -1,0 +1,2 @@
+gate_id,wave,status,tasks,winner_selected,no_adjustment_baseline_required,threshold_005_frozen,notes
+TAMU-SPEC-GATE,W14,CLEARED_W14_CONTRACT_ONLY,TASK-094;TASK-095;TASK-096;TASK-097;TASK-098;TASK-099,false,true,false,Candidates frozen for W16/W17 comparison; no empirical winner or nonzero A&M bonus claimed.

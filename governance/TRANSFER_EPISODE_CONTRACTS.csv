@@ -1,0 +1,8 @@
+contract_id,field_or_rule,semantics,pit_required,identity_rule,notes
+TE-001,canonical_player_id,same canonical player persists across source/destination programs,true,DO_NOT_CREATE_NEW_PLAYER_ON_TRANSFER,W07 identity is authoritative.
+TE-002,source_membership,effective-dated origin team/role state,true,EPISODE,
+TE-003,destination_membership,effective-dated destination team/role state,true,EPISODE,
+TE-004,transfer_timing,entered/committed/enrolled/known-at evidence where legitimately available,true,EVIDENCE_VERSIONED,Do not use later destination if unknown at forecast cutoff.
+TE-005,source_competition_context,continuous opponent/team strength and supporting-cast context,true,STATE,Conference label alone insufficient.
+TE-006,destination_context,expected competition/supporting cast/scheme/role context,true,STATE,Must be known at cutoff.
+TE-007,post_transfer_outcome,later same-player outcome for training/evaluation only,false,LABEL_ONLY_WHEN_CHRONOLOGICALLY_ALLOWED,Cannot leak into earlier prediction row.

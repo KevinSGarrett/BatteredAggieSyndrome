@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "aggie://schemas/temporal/weather_forecast/v1",
+  "title": "WeatherForecastObservation",
+  "type": "object",
+  "required": [
+    "weather_observation_id",
+    "provider",
+    "model",
+    "model_initialized_at",
+    "model_available_at",
+    "forecast_valid_at",
+    "retrieved_at"
+  ],
+  "properties": {
+    "weather_observation_id": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "model_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "model_initialized_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "model_available_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "forecast_valid_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lead_hours": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "first_known_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_uri": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

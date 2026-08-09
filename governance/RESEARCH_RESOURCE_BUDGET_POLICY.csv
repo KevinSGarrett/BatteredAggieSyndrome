@@ -1,0 +1,8 @@
+resource,required_before_run,default_policy,paid_or_remote_rule
+CPU,true,bounded by local scheduler,no special approval if local
+RAM,true,declare estimate/limit,no special approval if local
+GPU,true,declare model/VRAM requirement,local GPU permitted within wave
+DISK_ARTIFACTS,true,estimate and externalize large outputs,large artifacts outside repo
+TRIAL_COUNT,true,bounded per study,no unbounded HPO
+CONCURRENCY,true,adaptive to dependencies/resources,no fixed universal count
+PAID_REMOTE_COMPUTE,true,disabled by default,explicit user approval required

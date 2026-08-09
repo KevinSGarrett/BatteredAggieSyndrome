@@ -1,0 +1,11 @@
+rule_id,rule,blocking,notes
+EQR-001,Only immutable approved experiment specs may enter QUEUED.,true,Any config/data/code change creates a new experiment identity.
+EQR-002,Research/HPO may read development history/selection only; protected holdout and forward shadow are never HPO objectives.,true,Protected evaluator is separate.
+EQR-003,Each active experiment uses an isolated worktree or immutable source snapshot.,true,No direct mutation of canonical branch.
+EQR-004,Experiment-local outputs live outside repository ZIP raw-data/model-binary paths.,true,Repository stores manifests/contracts only.
+EQR-005,Failed/negative experiments are retained.,true,No survivorship-by-deletion.
+EQR-006,"Retry with changed config is a child/new experiment ID, never silent mutation.",true,Preserves search lineage.
+EQR-007,Paid/remote compute requires explicit resource-budget approval.,true,Local-first; no autonomous spend.
+EQR-008,Bounded concurrency must respect local RAM/GPU/worktree constraints.,true,Idle compute does not authorize future-wave work.
+EQR-009,Protected judging-rule seal must verify before execution and before result adoption.,true,Research cannot rewrite scoring rules.
+EQR-010,Promotion is not a research-queue state; it occurs only via external W17 promotion governor.,true,No self-promotion.

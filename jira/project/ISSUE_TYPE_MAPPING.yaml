@@ -1,0 +1,34 @@
+{
+  "hierarchy": {
+    "Bug": [
+      "Epic"
+    ],
+    "Epic": [],
+    "Story": [
+      "Epic"
+    ],
+    "Subtask": [
+      "Story",
+      "Task",
+      "Bug"
+    ],
+    "Task": [
+      "Epic"
+    ]
+  },
+  "logical_to_default_csv": {
+    "Bug": "Bug",
+    "Epic": "Epic",
+    "Story": "Story",
+    "Subtask": "Sub-task",
+    "Task": "Task"
+  },
+  "rule": "No hierarchy above Epic is assumed. Phases are represented through a custom Phase field/labels/components unless the target explicitly supports higher levels.",
+  "target_issue_type_ids": {
+    "Epic": "10000",
+    "Story": "10008",
+    "Subtask": "10125",
+    "Task": "10126"
+  },
+  "target_mapping_status": "VERIFIED_IN_BAT"
+}

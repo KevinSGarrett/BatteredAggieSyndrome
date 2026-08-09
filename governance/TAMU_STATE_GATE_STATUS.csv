@@ -1,0 +1,2 @@
+gate_id,wave,status,tasks,empirical_values_selected,notes
+TAMU-STATE-GATE,W14,CLEARED_W14_CONTRACT_ONLY,TASK-088;TASK-089;TASK-090;TASK-091;TASK-092;TASK-093,false,A&M high-resolution state/evidence/snapshot/peer/analog contracts only; real materialization remains later.

@@ -1,0 +1,21 @@
+component,final_maturity,evidence_summary,next_action
+Governance / requirements / ADR / acceptance,IMPLEMENTED_VALIDATED,"Stable IDs, protected gates, traceability, cumulative controls",Continue enforcing during implementation
+Deterministic cumulative/hydration packaging,IMPLEMENTED_VALIDATED,"Safe paths, hashes, manifests, deterministic ZIP tests",Use W25 pair as canonical handoff
+Source adapters + immutable raw snapshots,FUNCTIONAL_STARTER,"CSV/JSON adapters, content-addressed snapshots, manifests",Materialize approved historical sources
+Canonical entity resolution,FUNCTIONAL_STARTER,Exact fail-closed starter + review states,Build labeled population benchmark; calibrate fuzzy threshold if justified
+Point-in-time / known-at gateway,FUNCTIONAL_STARTER_SYNTHETIC_VALIDATED,Dual-time contracts + target-game hard guard,Run real historical source replay
+Raw/derived feature registry,CONTRACT_PLUS_FUNCTIONAL_STARTER,"1,197 raw classifications; PIT-safe feature factory",Population profiling and empirical promotion
+Team/player/availability/context intelligence,CONTRACT_REFERENCE_WITH_STARTER_BOUNDARIES,Effective-dated state contracts and advanced-state starter,Materialize historical evidence; validate candidate value
+Texas A&M specialization,DESIGNED_WITH_STARTER_ADAPTER,High-resolution state and no-adjustment reference preserved,Empirically compare specialization against national baseline
+BAS science,SPECIFIED_PLUS_FUNCTIONAL_INTERFACE,Protected cross-fit semantics and severity probabilities,Run chronological BAS/Aggie Excess significance/calibration tests
+Joint-score/model layer,FUNCTIONAL_UNTRAINED_STARTER,Constant/Elo/logistic/Poisson interfaces; optional boosting boundary,Train/evaluate on materialized PIT matrices
+Calibration / ensemble / uncertainty,FUNCTIONAL_STARTER_UNVALIDATED,Interfaces and coherence tests,Fit development-only; score protected periods
+Experimentation / research automation,IMPLEMENTED_REFERENCE,Local store/queue/tournaments/HPO/replay governance,Use only after real data and baseline evidence
+Weekly MLOps,FUNCTIONAL_STARTER,"Resumable checkpoints, quarantine, governed promotion/application",Exercise on real weekly inputs
+API / A&M dashboard,FUNCTIONAL_STARTER,Immutable snapshot-only serving; optional FastAPI/static dashboard,Serve real published snapshots; establish THR-010 operationally
+Security / observability / backup,FUNCTIONAL_STARTER_VALIDATED,"Pinned optional deps, CodeQL workflow, redacted telemetry, backup/restore",Exercise on target Windows host
+Target-hardware performance,AWAITING_TARGET_HARDWARE_VALIDATION,Harness exists; current host non-authoritative,Run AC-038 on declared target and freeze THR-011/THR-012
+Synthetic end-to-end replay,VALIDATED_REFERENCE,Real starter boundaries exercised deterministically,Do not confuse with empirical historical replay
+Empirical historical replay / protected model scorecard,AWAITING_DATA_AND_EXECUTION,Protocol exists; no claimed real metrics,Materialize data then run W17 chronology
+Advanced neural/sequence/graph challengers,DEFERRED_CONDITIONAL,Admission gate exists,Attempt only after conventional baseline saturation evidence
+Live/in-game modeling,DEFERRED,Isolation requirement defined at program level,Research only after pregame system is empirically stable

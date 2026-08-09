@@ -1,0 +1,7 @@
+decision,research_plane_allowed,production_effect,requirement
+REJECT,true,none,reason/evidence retained
+INCONCLUSIVE,true,none,reason/evidence retained
+RETAIN_RESEARCH,true,none,no champion change
+ADOPT_AS_CHALLENGER,true,none,replay verified
+PROMOTION_REVIEW_REQUIRED,true,none,external W17 reviewer only
+PROMOTE,false,forbidden,research plane cannot emit

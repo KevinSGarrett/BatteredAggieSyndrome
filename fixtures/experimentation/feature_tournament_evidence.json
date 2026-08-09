@@ -1,0 +1,13 @@
+{
+  "family_id": "FF-DEMO",
+  "baseline_experiment_id": "EXP-base",
+  "plus_family_experiment_id": "EXP-plus",
+  "minus_family_experiment_id": null,
+  "development_split": "SPLIT-DEV-SEL",
+  "primary_metric": "mae",
+  "target": "margin",
+  "temporal_stability_complete": true,
+  "subgroup_evidence_complete": true,
+  "replay_verified": true,
+  "search_multiplicity_count": 3
+}

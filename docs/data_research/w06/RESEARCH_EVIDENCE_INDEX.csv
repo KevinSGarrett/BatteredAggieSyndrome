@@ -1,0 +1,31 @@
+evidence_id,title,url,research_date,finding
+EVID-001,CFBD API current Swagger,https://api.collegefootballdata.com/,2026-08-08,"Current endpoint families including portal, recruiting, lines, ratings, draft, advanced and live."
+EVID-002,SportsDataverse cfbfastR-cfb-data,https://github.com/sportsdataverse/cfbfastR-cfb-data,2026-08-08,Current bulk dataset families and upstream-derived nature.
+EVID-003,SEC availability archive,https://www.secsports.com/fbreports-archive,2026-08-08,Official SEC availability reports; policy began 2024.
+EVID-004,Big Ten availability policy,https://bigten.org/fb/article/blt2856785fb75ee868/,2026-08-08,Official gameday availability reporting since 2023.
+EVID-005,ACC availability reporting,https://theacc.com/sports/2025/8/28/availability-reporting.aspx,2026-08-08,Official multi-report cadence/statuses from 2025.
+EVID-006,Big 12 availability reporting,https://big12sports.com/news/2025/8/13/general-big-12-conference-to-begin-player-availability-reporting-for-football-womens-and-mens-basketball.aspx,2026-08-08,Official daily reports from 2025.
+EVID-007,American availability reports,https://theamerican.org/sports/2025/8/5/fbavail.aspx,2026-08-08,Official intraconference football availability reports from 2025.
+EVID-008,Sun Belt availability policy,https://sunbeltsports.org/news/2025/8/20/sun-belt-to-institute-availability-reporting-for-2025-football-season.aspx,2026-08-08,Official reports from 2025.
+EVID-009,CUSA availability reports,https://conferenceusa.com/sports/2025/8/23/FB_0823254134.aspx,2026-08-08,Official reports from 2025.
+EVID-010,MAC availability policy,https://getsomemaction.com/news/2024/8/22/mac-to-launch-gameday-student-athlete-availability-report-for-2024-football-season.aspx,2026-08-08,Official gameday reports from 2024.
+EVID-011,CFP availability reporting,https://collegefootballplayoff.com/sports/2025/11/12/reports.aspx,2026-08-08,Official CFP reports from 2025-26.
+EVID-012,Open-Meteo Previous Runs,https://open-meteo.com/en/docs/previous-runs-api,2026-08-08,Archived lead offsets and Single Runs with run initialization.
+EVID-013,NOAA HRRR,https://rapidrefresh.noaa.gov/hrrr/,2026-08-08,Official HRRR description and cloud archives since 2014.
+EVID-014,The Odds API historical odds,https://the-odds-api.com/liveapi/guides/v4/,2026-08-08,Historical snapshots since 2020-06-06; 5-minute from Sep 2022; paid.
+EVID-015,SportsDataIO NCAA Football workflow,https://sportsdata.io/developers/workflow-guide/ncaa-football,2026-08-08,"Injuries, no CFB depth charts, timestamped betting movements."
+EVID-016,Sportradar NCAA Football,https://developer.sportradar.com/football/docs/ncaafb-ig-api-basics,2026-08-08,20 feeds; licensed live/game data; historical 2013+ in docs.
+EVID-017,NCAA football stats,https://www.ncaa.org/championships/statistics-and-records/football/,2026-08-08,Official FBS/FCS/DII/DIII stats/records.
+EVID-018,NAIA PrestoStats,https://www.naia.org/membership/resources/sports-information-directors/,2026-08-08,Official required stats platform; historical migration.
+EVID-019,NJCAA football stats,https://www.njcaa.org/sports/fball/index,2026-08-08,Official team/player stats/rankings archives.
+EVID-020,EADA,https://ope.ed.gov/athletics/,2026-08-08,Federal athletics disclosure downloads.
+EVID-021,Knight-Newhouse,https://www.knightnewhousedata.org/,2026-08-08,Current site updated through 2025 financial data.
+EVID-022,IRS public disclosure bulk,https://www.irs.gov/charities-non-profits/public-disclosure-datasets-and-downloads,2026-08-08,Official 990/TEOS bulk datasets.
+EVID-023,NCAA playing rules,https://www.ncaa.org/championships/playing-rules/football-playing-rules/,2026-08-08,Official playing-rule source.
+EVID-024,NCAA age-based eligibility,https://www.ncaa.org/division-i-adopts-age-based-eligibility-model/,2026-08-08,2026 Division I eligibility change.
+EVID-025,AP college football,https://www.ap.org/content/topics/sports/college-football/,2026-08-08,Official AP Top 25 with history back to 1936.
+EVID-026,CFP rankings,https://collegefootballplayoff.com/rankings.aspx,2026-08-08,Official weekly CFP rankings archive from 2014.
+EVID-027,IANA tzdb,https://www.iana.org/time-zones,2026-08-08,Historical timezone rules; 2026c current during research.
+EVID-028,SIS football,https://www.sportsinfosolutions.com/football/,2026-08-08,Commercial advanced college football feeds.
+EVID-029,Stats Perform NCAA,https://www.statsperform.com/ncaa-football-basketball/,2026-08-08,Commercial Opta NCAA data.
+EVID-030,Teamworks Coaching,https://teamworks.com/coaching-college-football/,2026-08-08,Commercial formation/personnel/alignment/tracking/depth analytics.

@@ -1,0 +1,53 @@
+domain_id,domain,available_source,primary_source,fallback_source,historical_depth,point_in_time_quality,confidence,remaining_gap
+DOM-001,games/schedules/scores,YES,SRC-001,SRC-002;SRC-015;SRC-042,deep modern; official archives longer,HIGH,HIGH,Stable core; preserve official reconciliation
+DOM-002,play-by-play,YES,SRC-001,SRC-002;SRC-034;SRC-033,modern; provider-dependent,HIGH,HIGH,Public derived sources sufficient baseline; advanced charting not equivalent
+DOM-003,drives,YES,SRC-001,SRC-002;SRC-034,modern,HIGH,HIGH,Derivable/available
+DOM-004,team statistics,YES,SRC-001,SRC-002;SRC-015;SRC-042,broad,HIGH,HIGH,Official validation available
+DOM-005,advanced team efficiency,YES,SRC-001,SRC-002;SRC-035,modern,HIGH,HIGH,Empirical feature promotion required
+DOM-006,player statistics,YES,SRC-001,SRC-002;SRC-015;commercial,modern; lower divisions variable,HIGH,HIGH,Position-specific detail varies
+DOM-007,play participants,YES,SRC-001,commercial,modern public-derived,MEDIUM,MEDIUM,Not full route/snap charting
+DOM-008,snap counts/participation,YES,SRC-014,SRC-001;SRC-035;SRC-037,gamebook/site dependent,MEDIUM,MEDIUM,No verified complete open national snap-count source
+DOM-009,rosters,YES,SRC-001,SRC-002;SRC-005;SRC-009;SRC-034,modern,HIGH,HIGH,A&M official receives highest resolution
+DOM-010,starters/depth charts,YES,SRC-043,school game notes;commercial,fragmentary historical,LOW_MEDIUM,LOW_MEDIUM,Major unresolved national historical gap; SportsDataIO explicitly does not provide CFB depth charts
+DOM-011,injuries/availability current,YES,SRC-017,SRC-018;SRC-019;SRC-020;SRC-021;SRC-022;SRC-023;SRC-024;SRC-025;SRC-033,conference-report era 2023/24/25+,HIGH_FOR_COVERED_GAMES,HIGH_FOR_COVERED_GAMES,Nonconference and earlier history remain gaps
+DOM-012,injuries/availability historical,YES,SRC-014,SRC-005;SRC-033;media research,sparse pre-official-report era,LOW_MEDIUM,LOW_MEDIUM,Cannot assume complete historical national injury table
+DOM-013,recruiting,YES,SRC-002,SRC-058;licensed publisher,2002/2005+ in derived datasets,MEDIUM_HIGH,MEDIUM_HIGH,Upstream rights/snapshot semantics require audit
+DOM-014,transfers,YES,SRC-002,SRC-046;SRC-047;school announcements,portal era,MEDIUM_HIGH,MEDIUM_HIGH,NCAA detailed portal not treated as public acquisition API
+DOM-015,freshman/prospect priors,YES,SRC-002,SRC-058;preseason honors,modern recruiting era,MEDIUM,MEDIUM,Requires uncertainty
+DOM-016,NFL draft outcomes,YES,SRC-038,SRC-002,modern/historical,HIGH,HIGH,Completed outcomes only; future draft info banned
+DOM-017,preseason honors/watch lists,YES,SRC-010,SRC-012;conference releases,selector-dependent,HIGH,HIGH,Dated consensus candidate
+DOM-018,head coaches/coordinators,YES,SRC-002,SRC-005;conference/media guides,historical depth variable,MEDIUM_HIGH,MEDIUM_HIGH,Assistant role episodes require official-doc enrichment
+DOM-019,assistant coaches/role histories,YES,SRC-005,SRC-043;media guides,fragmentary national,MEDIUM,MEDIUM,A&M and targeted high-value reconstruction
+DOM-020,scheme/style/tendencies,YES,derived PBP,SRC-035;SRC-037,derived modern; tracking commercial,MEDIUM,MEDIUM,Formation/coverage tracking remains paid/restricted
+DOM-021,program resources/finance,YES,SRC-007,SRC-004;SRC-008;SRC-044,annual,HIGH_PUBLIC_MEDIUM_PRIVATE,HIGH_PUBLIC_MEDIUM_PRIVATE,Private-school proxies explicitly separate from football spending
+DOM-022,NIL/revenue-sharing regulatory context,YES,SRC-056,SRC-054;official institution disclosures,2025+,MEDIUM,MEDIUM,"Use policy context, not fabricated dollar estimates"
+DOM-023,historical issued weather forecasts,YES,SRC-027,SRC-028;SRC-026,HRRR 2014+; NAM longer; Open-Meteo model-dependent,HIGH,HIGH,Major W06 improvement
+DOM-024,observed weather,YES,SRC-029,SRC-003,long historical,HIGH,HIGH,Never substitute for earlier forecast snapshot
+DOM-025,venue coordinates/elevation,YES,SRC-002,SRC-005;SRC-031,broad/current,HIGH,HIGH,Stable with effective-date changes for relocations
+DOM-026,timezone/body clock,YES,SRC-030,venue metadata,historical tz rules,VERY_HIGH,VERY_HIGH,Use IANA tzdb
+DOM-027,travel distance,YES,derived from venue coordinates,SRC-057,all mapped games,HIGH,HIGH,Flight/route complexity experimental; geodesic baseline reproducible
+DOM-028,home-field/venue effect,YES,derived historical games,venue/resources/context sources,deep,HIGH_INPUT,HIGH_INPUT,"Effect must be learned, not raw win%"
+DOM-029,possession/tempo,YES,SRC-001,SRC-002,modern PBP,HIGH,HIGH,Derive score-state adjusted measures
+DOM-030,field position/hidden yards,YES,SRC-001,SRC-002,modern PBP,HIGH,HIGH,Derivable
+DOM-031,special teams,YES,SRC-001,SRC-002;SRC-015,modern,HIGH,HIGH,Component-wise data available
+DOM-032,fourth-down decisions,YES,derived PBP,SRC-002,modern,HIGH,HIGH,Decision-quality model is derived
+DOM-033,clock management,YES,derived PBP,SRC-001;SRC-002,modern,MEDIUM_HIGH,MEDIUM_HIGH,Needs context/score-state definitions
+DOM-034,garbage time/score state,YES,derived PBP,SRC-001;SRC-002,modern,HIGH,HIGH,Policy empirically validated
+DOM-035,opponent adjustment,YES,derived,SRC-002 adjusted metrics,broad,HIGH,HIGH,No single source defines truth
+DOM-036,schedule stress/workload,YES,derived games/PBP/travel,SRC-001;SRC-002,broad,HIGH,HIGH,Look-ahead causal claims remain experimental
+DOM-037,poll rankings,YES,SRC-039,SRC-040;SRC-041;SRC-002,AP 1936+; CFP 2014+,HIGH,HIGH,Archive publication date
+DOM-038,external ratings,YES,SRC-002,public rating publishers,rating-dependent,MEDIUM_HIGH,MEDIUM_HIGH,PIT semantics per rating
+DOM-039,markets,YES,SRC-032,SRC-033;SRC-002;SRC-001,timestamped high-quality 2020+ paid; older public variable,MEDIUM_HIGH,MEDIUM_HIGH,Pure-football lane remains independent
+DOM-040,officials/crew history,YES,SRC-014,SRC-060,gamebook-dependent,MEDIUM,MEDIUM,Pregame assignment coverage remains unresolved
+DOM-041,officials upcoming assignments,YES,conference-specific if published,none verified national,current/fragmentary,LOW,LOW,Experimental; no stable national public pregame feed found
+DOM-042,playing rule era,YES,SRC-013,NCAA rule archives,historical/current,VERY_HIGH,VERY_HIGH,Effective-dated
+DOM-043,eligibility/roster/transfer regulatory era,YES,SRC-055,SRC-054;SRC-013,current changes 2025-26 + archived legislation,VERY_HIGH,VERY_HIGH,NEW W06 expansion beyond on-field rule era
+DOM-044,game stakes/CFP state,YES,SRC-041,schedule/standings/conference sources,2014+ CFP; broader derivable,HIGH,HIGH,Only data public by cutoff
+DOM-045,rivalry/homecoming/senior day,YES,SRC-005,schedule/event labels;game notes,team-dependent,MEDIUM,MEDIUM,Candidate context only
+DOM-046,FCS strength,YES,SRC-015,SRC-001;SRC-002,broad,HIGH,HIGH,Explicit strong lower-division lane
+DOM-047,DII/DIII strength,YES,SRC-048,school/conference stats,2001+ rankings + current stats,MEDIUM_HIGH,MEDIUM_HIGH,Bounded priors; do not build equal-resolution recursive system
+DOM-048,NAIA strength,YES,SRC-049,SRC-051,Presto era + migrated history,MEDIUM_HIGH,MEDIUM_HIGH,Bounded priors/transfer translation
+DOM-049,JUCO strength,YES,SRC-050,SRC-052,at least 2005-06 online,MEDIUM_HIGH,MEDIUM_HIGH,Useful transfer translation prior
+DOM-050,live/in-game,YES,SRC-059,SRC-034;SRC-033;SRC-035,current/vendor-dependent,HIGH_OPTIONAL,HIGH_OPTIONAL,Phase 5 isolated from pregame
+DOM-051,advanced formation/personnel/tracking,YES,SRC-037,SRC-035;SRC-036,commercial,LOW_OPEN_HIGH_COMMERCIAL,LOW_OPEN_HIGH_COMMERCIAL,No verified free scalable national lane
+DOM-052,licensing/redistribution metadata,YES,source-specific,manual legal/terms review,current,MEDIUM,MEDIUM,Must be refreshed; public accessibility != redistribution permission

@@ -1,0 +1,60 @@
+[
+  {
+    "observation_id": "obs_old_availability",
+    "source_observation_id": "srcobs-1",
+    "domain": "AVAILABILITY_REPORT",
+    "first_known_at": "2025-10-11T14:00:00Z",
+    "retrieved_at": "2025-10-11T14:01:00Z",
+    "valid_from": "2025-10-11T00:00:00Z",
+    "valid_to": "2025-10-12T00:00:00Z",
+    "temporal_policy_version": "w08-v1.0",
+    "report_scope_applies": true,
+    "retrospective_flag": false
+  },
+  {
+    "observation_id": "obs_late_availability",
+    "source_observation_id": "srcobs-2",
+    "domain": "AVAILABILITY_REPORT",
+    "first_known_at": "2025-10-11T16:00:00Z",
+    "retrieved_at": "2025-10-11T16:01:00Z",
+    "valid_from": "2025-10-11T00:00:00Z",
+    "valid_to": "2025-10-12T00:00:00Z",
+    "temporal_policy_version": "w08-v1.0",
+    "report_scope_applies": true,
+    "retrospective_flag": false,
+    "supersedes_observation_id": "obs_old_availability"
+  },
+  {
+    "observation_id": "obs_weather_run",
+    "source_observation_id": "srcobs-3",
+    "domain": "WEATHER_FORECAST",
+    "first_known_at": "2025-10-06T15:15:00Z",
+    "retrieved_at": "2025-10-06T15:20:00Z",
+    "forecast_valid_at": "2025-10-11T19:00:00Z",
+    "model_initialized_at": "2025-10-06T15:00:00Z",
+    "model_available_at": "2025-10-06T15:15:00Z",
+    "temporal_policy_version": "w08-v1.0",
+    "retrospective_flag": false
+  },
+  {
+    "observation_id": "obs_observed_weather",
+    "source_observation_id": "srcobs-4",
+    "domain": "WEATHER_OBSERVED",
+    "first_known_at": "2025-10-11T19:10:00Z",
+    "retrieved_at": "2025-10-11T20:00:00Z",
+    "observed_at": "2025-10-11T19:00:00Z",
+    "temporal_policy_version": "w08-v1.0",
+    "retrospective_flag": false
+  },
+  {
+    "observation_id": "obs_future_rule",
+    "source_observation_id": "srcobs-5",
+    "domain": "REGULATORY_ENVIRONMENT",
+    "first_known_at": "2026-06-01T12:00:00Z",
+    "retrieved_at": "2026-06-01T12:10:00Z",
+    "valid_from": "2026-08-01T00:00:00Z",
+    "valid_to": "2027-08-01T00:00:00Z",
+    "temporal_policy_version": "w08-v1.0",
+    "retrospective_flag": false
+  }
+]

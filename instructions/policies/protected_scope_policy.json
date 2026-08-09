@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-PROTECTED-SCOPE",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md",
+  "domains": [
+    {
+      "id": "PIT",
+      "sources": [
+        "configs/temporal_registry.json",
+        "governance/PIT_GATEWAY_RULES.csv",
+        "governance/PIT_DOMAIN_POLICY.csv",
+        "docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md",
+        "docs/19_ASOF_QUERY_AND_CUTOFF_CONTRACT.md"
+      ],
+      "rules": [
+        "separate knowledge and effective time",
+        "unknown eligibility fails closed",
+        "target-game outcome excluded",
+        "later corrections cannot rewrite earlier state"
+      ]
+    },
+    {
+      "id": "IDENTITY",
+      "sources": [
+        "configs/entity_registry.json",
+        "governance/CANONICAL_ENTITY_CATALOG.csv",
+        "governance/SHARED_CONTRACT_OWNERSHIP.csv"
+      ],
+      "rules": [
+        "one canonical truth",
+        "A&M evidence maps into same identity system",
+        "unresolved mappings remain explicit"
+      ]
+    },
+    {
+      "id": "EVALUATION",
+      "sources": [
+        "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+        "governance/PROTECTED_ACCEPTANCE_RULES.md",
+        "configs/judging_rule_seal.json"
+      ],
+      "rules": [
+        "research cannot modify judges",
+        "protected results not iterative tuning feedback",
+        "promotion gates cannot be weakened"
+      ]
+    },
+    {
+      "id": "BAS_TAMU",
+      "sources": [
+        "governance/BAS_LABEL_CONTRACT.csv",
+        "governance/BAS_EVALUATION_PROTOCOL.csv",
+        "docs/40_TEXAS_AM_SPECIALIZATION_ARCHITECTURE.md",
+        "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+      ],
+      "rules": [
+        "national foundation remains",
+        "no forced nonzero A&M adjustment",
+        "no guaranteed BAS/Aggie Excess effect",
+        "cross-fit and null-result policy required"
+      ]
+    },
+    {
+      "id": "SNAPSHOTS_PROVENANCE",
+      "sources": [
+        "docs/20_MUTABLE_DOMAIN_SNAPSHOT_POLICIES.md",
+        "governance/SOURCE_OF_TRUTH_MAP.md",
+        "provenance/"
+      ],
+      "rules": [
+        "raw and forecast snapshots immutable",
+        "complete identity and lineage",
+        "restricted source data not redistributed"
+      ]
+    }
+  ],
+  "material_change_requires_human_or_protected_authority": true
+}

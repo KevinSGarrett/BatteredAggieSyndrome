@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "title": "ReplacementState",
+  "type": "object",
+  "required": [
+    "unavailable_player_id",
+    "role_id",
+    "replacement_candidates"
+  ],
+  "properties": {
+    "unavailable_player_id": {
+      "type": "string"
+    },
+    "role_id": {
+      "type": "string"
+    },
+    "replacement_candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "player_id",
+          "expected_usage_share"
+        ],
+        "properties": {
+          "player_id": {
+            "type": "string"
+          },
+          "expected_usage_share": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "value_estimate": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "uncertainty": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

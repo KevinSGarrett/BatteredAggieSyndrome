@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "title": "ProspectPrior",
+  "type": "object",
+  "required": [
+    "canonical_player_id",
+    "cutoff",
+    "position",
+    "prior_value",
+    "uncertainty",
+    "evidence_ids"
+  ],
+  "properties": {
+    "canonical_player_id": {
+      "type": "string"
+    },
+    "cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "position": {
+      "type": "string"
+    },
+    "prior_value": {
+      "type": "number"
+    },
+    "uncertainty": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "college_snaps_known": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    }
+  }
+}

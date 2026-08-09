@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "title": "PlayerValueEstimate",
+  "type": "object",
+  "required": [
+    "canonical_player_id",
+    "cutoff",
+    "position_scope",
+    "value",
+    "uncertainty",
+    "method_id"
+  ],
+  "properties": {
+    "canonical_player_id": {
+      "type": "string"
+    },
+    "cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "position_scope": {
+      "type": "string"
+    },
+    "value": {
+      "type": "number"
+    },
+    "uncertainty": {
+      "type": "number",
+      "minimum": 0
+    },
+    "method_id": {
+      "type": "string"
+    },
+    "production_selected": {
+      "const": false
+    }
+  }
+}

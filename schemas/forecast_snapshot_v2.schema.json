@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aggie-analytics.local/schemas/forecast_snapshot_v2.schema.json",
+  "title": "Aggie Analytics Immutable Published Forecast Snapshot v2",
+  "type": "object",
+  "required": ["schema_version", "snapshot_id", "game_id", "forecast_cutoff", "published_at", "model_artifact_sha256", "feature_snapshot_id", "public_summary", "lineage_refs", "market_lane"],
+  "properties": {
+    "schema_version": {"const": "aggie.forecast.snapshot.v2"},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "game_id": {"type": "string", "minLength": 1},
+    "forecast_cutoff": {"type": "string", "format": "date-time"},
+    "published_at": {"type": "string", "format": "date-time"},
+    "model_artifact_sha256": {"type": "string", "minLength": 1},
+    "feature_snapshot_id": {"type": "string", "minLength": 1},
+    "market_lane": {"enum": ["PURE_FOOTBALL", "MARKET_AUGMENTED"]},
+    "public_summary": {"type": "object", "additionalProperties": {"type": "number"}},
+    "lineage_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "uncertainty": {"type": "array", "items": {"type": "object"}},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "availability": {"type": "array", "items": {"type": "object"}},
+    "matchup_explanation": {"type": "array", "items": {"type": "object"}},
+    "historical_analogs": {"type": "array", "items": {"type": "object"}},
+    "source_metadata": {"type": "array", "items": {"type": "object"}},
+    "model_metadata": {"type": "object"},
+    "data_snapshot_refs": {"type": "array", "items": {"type": "string"}},
+    "comparison_context": {"type": "object"},
+    "public_metadata": {"type": "object"}
+  }
+}

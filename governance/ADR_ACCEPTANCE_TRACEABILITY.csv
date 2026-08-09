@@ -1,0 +1,350 @@
+adr_id,acceptance_control_ids,status,notes
+ADR-001,AC-047;AC-030,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-002,AC-028;AC-029,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-003,AC-032,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-004,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-005,AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-006,AC-033;AC-046,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-007,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-008,AC-011;AC-012,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-009,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-010,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-011,AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-012,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-013,AC-028;AC-029,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-014,AC-014,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-015,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-016,AC-028;AC-029,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-017,AC-032,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-018,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-019,AC-032,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-020,AC-002,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-021,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-022,AC-002,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-023,AC-002,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-024,AC-002,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-025,AC-032,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-026,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-027,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-028,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-029,AC-021,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-030,AC-014,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-031,AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-032,AC-028;AC-029,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-033,AC-028;AC-029,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-034,AC-002,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-035,AC-002,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-036,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-037,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-038,AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-039,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-040,AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-041,AC-033;AC-046,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-042,AC-038,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-043,AC-038,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-044,AC-003;AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-045,AC-011;AC-012,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-046,AC-047;AC-030,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-047,AC-028;AC-029,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-048,AC-032,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-049,AC-011;AC-012,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-050,AC-011;AC-012,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-051,AC-021,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-052,AC-033;AC-046,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-053,AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-054,AC-005,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-055,AC-006;AC-007,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-056,AC-007,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-057,AC-007,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-058,AC-011;AC-012,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-059,AC-024;AC-031,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-060,AC-007,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-061,AC-032,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-062,AC-021,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-063,AC-038,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-064,AC-007,MAPPED,W04 acceptance traceability; owning-wave evidence remains separate from ADR acceptance.
+ADR-065,AC-049,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-066,AC-049;AC-055,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-067,AC-050;AC-054,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-068,AC-056,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-069,AC-054,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-070,AC-053,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-071,AC-053,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-072,AC-051,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-073,AC-052,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-074,AC-051,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-075,AC-051;AC-056,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-076,AC-053;AC-055,MAPPED,W05 backlog/implementation-plan traceability; later owner-wave evidence remains separate.
+ADR-077,AC-015;AC-059,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-078,AC-013;AC-059,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-079,AC-014;AC-043;AC-059,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-080,AC-009;AC-020;AC-058,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-081,AC-011;AC-019;AC-059,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-082,AC-010;AC-058;AC-059,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-083,AC-043;AC-058,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-084,AC-020;AC-043;AC-059,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-085,AC-005;AC-046,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-086,AC-008;AC-011;AC-015,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-087,AC-053;AC-057;AC-060,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-088,AC-043;AC-059,MAPPED,W06 source-research decision; later implementation/scientific evidence remains separate.
+ADR-089,AC-061,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-090,AC-062;AC-064,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-091,AC-062,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-092,AC-017;AC-063,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-093,AC-061;AC-062,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-094,AC-064,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-095,AC-061;AC-062,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-096,AC-065,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-097,AC-066,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-098,AC-063;AC-066,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-099,AC-066,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-100,AC-061;AC-062;AC-063;AC-064;AC-065;AC-066,MAPPED,W07 entity architecture decision; implementation/labeled evidence remains separate where specified.
+ADR-101,AC-067,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-102,AC-068,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-103,AC-067,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-104,AC-011;AC-067,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-105,AC-069,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-106,AC-074,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-107,AC-071,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-108,AC-070,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-109,AC-014,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-110,AC-072,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-111,AC-075,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-112,AC-073,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-113,AC-011;AC-067,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-114,AC-055,MAPPED,W08 temporal acceptance mapping; materialized/historical evidence remains separate where noted.
+ADR-115,AC-077,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-116,AC-077,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-117,AC-078,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-118,AC-079,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-119,AC-079,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-120,AC-080,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-121,AC-081,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-122,AC-081,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-123,AC-082,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-124,AC-083,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-125,AC-083,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-126,AC-084,MAPPED,W09 registry/schema-discovery acceptance traceability.
+ADR-127,AC-089;AC-090,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-128,AC-087,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-129,AC-085;AC-086,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-130,AC-087;AC-088,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-131,AC-087,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-132,AC-088,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-133,AC-091,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-134,AC-090,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-135,AC-090,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-136,AC-092,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-137,AC-087,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-138,AC-085,MAPPED,W10 feature-engineering/lifecycle decision; empirical evidence remains separate where applicable.
+ADR-139,AC-093,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-140,AC-094,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-141,AC-095,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-142,AC-095;AC-100,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-143,AC-096,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-144,AC-096;AC-100,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-145,AC-097,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-146,AC-098,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-147,AC-099,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-148,AC-095,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-149,AC-093,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-150,AC-005,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-151,AC-101,MAPPED,W11 team-state/early-season/lower-division decision; empirical evidence remains separate where applicable.
+ADR-152,AC-102,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-153,AC-103,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-154,AC-104,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-155,AC-105,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-156,AC-106,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-157,AC-102;AC-105,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-158,AC-108,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-159,AC-108,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-160,AC-107,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-161,AC-109,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-162,AC-109,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-163,AC-106;AC-110,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-164,AC-111,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-165,AC-111,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-166,AC-105;AC-112,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-167,AC-112,MAPPED,W12 player/roster/availability/transfer decision; empirical selection remains separate where applicable.
+ADR-168,AC-113;AC-114;AC-115,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-169,AC-113;AC-114;AC-115,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-170,AC-113;AC-114;AC-115,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-171,AC-113;AC-114;AC-115,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-172,AC-113;AC-114;AC-115,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-173,AC-116,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-174,AC-116,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-175,AC-117,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-176,AC-118,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-177,AC-123,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-178,AC-119,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-179,AC-120,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-180,AC-120,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-181,AC-121,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-182,AC-122,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-183,AC-123,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-184,AC-124,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-185,AC-125,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-186,AC-126,PASS_W13_CONTRACT,W13 contract/reference decision; empirical selection remains later where applicable.
+ADR-187,AC-127,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-188,AC-129,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-189,AC-128,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-190,AC-129,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-191,AC-130,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-192,AC-131;AC-132,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-193,AC-131;AC-132,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-194,AC-133,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-195,AC-134,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-196,AC-135,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-197,AC-135,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-198,AC-135,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-199,AC-135,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-200,AC-136,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-201,AC-137,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-202,AC-138,PASS_W14_CONTRACT,W14 contract/reference decision; empirical selection remains W16/W17 where applicable.
+ADR-203,AC-139,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-204,AC-140,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-205,AC-140,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-206,AC-142,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-207,AC-151,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-208,AC-141,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-209,AC-143,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-210,AC-144,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-211,AC-145,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-212,AC-148,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-213,AC-146,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-214,AC-147,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-215,AC-146,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-216,AC-149,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-217,AC-142,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-218,AC-150,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-219,AC-151,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-220,AC-151,PASS_W15_CONTRACT,W15 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-221,AC-153;AC-154;AC-155,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-222,AC-153;AC-154;AC-155,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-223,AC-152;AC-149,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-224,AC-156;AC-161,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-225,AC-156;AC-161,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-226,AC-156;AC-161,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-227,AC-156;AC-161,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-228,AC-159,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-229,AC-159,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-230,AC-157,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-231,AC-157,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-232,AC-158,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-233,AC-158,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-234,AC-158,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-235,AC-158,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-236,AC-160,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-237,AC-154;AC-157,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-238,AC-161;AC-162,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-239,AC-161;AC-162,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-240,AC-161;AC-162,PASS_W16_CONTRACT,W16 contract/reference decision; protected empirical selection remains later where applicable.
+ADR-241,AC-163;AC-164;AC-024,MAPPED,W17 validation/promotion protocol decision.
+ADR-242,AC-165,MAPPED,W17 validation/promotion protocol decision.
+ADR-243,AC-163;AC-168;AC-018,MAPPED,W17 validation/promotion protocol decision.
+ADR-244,AC-163;AC-169,MAPPED,W17 validation/promotion protocol decision.
+ADR-245,AC-164;AC-024,MAPPED,W17 validation/promotion protocol decision.
+ADR-246,AC-166;AC-025,MAPPED,W17 validation/promotion protocol decision.
+ADR-247,AC-166;AC-026,MAPPED,W17 validation/promotion protocol decision.
+ADR-248,AC-166;AC-025,MAPPED,W17 validation/promotion protocol decision.
+ADR-249,AC-167;AC-173,MAPPED,W17 validation/promotion protocol decision.
+ADR-250,AC-168,MAPPED,W17 validation/promotion protocol decision.
+ADR-251,AC-169,MAPPED,W17 validation/promotion protocol decision.
+ADR-252,AC-170;AC-175,MAPPED,W17 validation/promotion protocol decision.
+ADR-253,AC-171;AC-022,MAPPED,W17 validation/promotion protocol decision.
+ADR-254,AC-172;AC-029,MAPPED,W17 validation/promotion protocol decision.
+ADR-255,AC-173;AC-030,MAPPED,W17 validation/promotion protocol decision.
+ADR-256,AC-174;AC-027,MAPPED,W17 validation/promotion protocol decision.
+ADR-257,AC-174;AC-014,MAPPED,W17 validation/promotion protocol decision.
+ADR-258,AC-175;AC-031,MAPPED,W17 validation/promotion protocol decision.
+ADR-259,AC-169;AC-176,MAPPED,W17 validation/promotion protocol decision.
+ADR-260,AC-176,MAPPED,W17 validation/promotion protocol decision.
+ADR-261,AC-177,MAPPED,W18 experimentation/research governance decision.
+ADR-262,AC-178,MAPPED,W18 experimentation/research governance decision.
+ADR-263,AC-179,MAPPED,W18 experimentation/research governance decision.
+ADR-264,AC-180,MAPPED,W18 experimentation/research governance decision.
+ADR-265,AC-181,MAPPED,W18 experimentation/research governance decision.
+ADR-266,AC-182,MAPPED,W18 experimentation/research governance decision.
+ADR-267,AC-183,MAPPED,W18 experimentation/research governance decision.
+ADR-268,AC-184,MAPPED,W18 experimentation/research governance decision.
+ADR-269,AC-185,MAPPED,W18 experimentation/research governance decision.
+ADR-270,AC-186,MAPPED,W18 experimentation/research governance decision.
+ADR-271,AC-187,MAPPED,W18 experimentation/research governance decision.
+ADR-272,AC-188,MAPPED,W18 experimentation/research governance decision.
+ADR-273,AC-189,MAPPED,W18 experimentation/research governance decision.
+ADR-274,AC-190,MAPPED,W18 experimentation/research governance decision.
+ADR-275,AC-177,MAPPED,W18 experimentation/research governance decision.
+ADR-276,AC-178,MAPPED,W18 experimentation/research governance decision.
+ADR-277,AC-179,MAPPED,W18 experimentation/research governance decision.
+ADR-278,AC-180,MAPPED,W18 experimentation/research governance decision.
+ADR-279,AC-191,MAPPED,Corrected W18 decision.
+ADR-280,AC-191,MAPPED,Corrected W18 decision.
+ADR-281,AC-192,MAPPED,Corrected W18 decision.
+ADR-282,AC-193,MAPPED,Corrected W18 decision.
+ADR-283,AC-193,MAPPED,Corrected W18 decision.
+ADR-284,AC-195,MAPPED,Corrected W18 decision.
+ADR-285,AC-194,MAPPED,Corrected W18 decision.
+ADR-286,AC-204,MAPPED,Corrected W18 decision.
+ADR-287,AC-203,MAPPED,Corrected W18 decision.
+ADR-288,AC-197,MAPPED,Corrected W18 decision.
+ADR-289,AC-199,MAPPED,Corrected W18 decision.
+ADR-290,AC-200,MAPPED,Corrected W18 decision.
+ADR-291,AC-198,MAPPED,Corrected W18 decision.
+ADR-292,AC-196,MAPPED,Corrected W18 decision.
+ADR-293,AC-201,MAPPED,Corrected W18 decision.
+ADR-294,AC-202,MAPPED,Corrected W18 decision.
+ADR-295,AC-206,MAPPED,Corrected W18 decision.
+ADR-296,AC-205,MAPPED,Corrected W18 decision.
+ADR-297,AC-209,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-298,AC-210,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-299,AC-211,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-300,AC-212,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-301,AC-213,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-302,AC-214,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-303,AC-215,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-304,AC-216,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-305,AC-217,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-306,AC-218,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-307,AC-219,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-308,AC-220,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-309,AC-221,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-310,AC-222,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-311,AC-223,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-312,AC-224,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-313,AC-225,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-314,AC-226,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-315,AC-227,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-316,AC-228,PASS_W18_FULL_REFERENCE,Full-rebuild W18 decision covered by executable subsystem validation.
+ADR-317,AC-008;AC-055;AC-056,,W19 functional starter decision evidence.
+ADR-318,AC-055;AC-056,,W19 functional starter decision evidence.
+ADR-319,AC-008;AC-055;AC-056,,W19 functional starter decision evidence.
+ADR-320,AC-055;AC-056,MAPPED,W20 executable starter evidence; empirical promotion remains later evidence.
+ADR-321,AC-022;AC-055;AC-056,MAPPED,W20 executable starter evidence; empirical promotion remains later evidence.
+ADR-322,AC-022;AC-055;AC-056,MAPPED,W20 executable starter evidence; empirical promotion remains later evidence.
+ADR-323,AC-022;AC-025;AC-026,MAPPED,W20 executable starter evidence; empirical promotion remains later evidence.
+ADR-324,AC-033;AC-055;AC-056,MAPPED,W20 executable starter evidence; empirical promotion remains later evidence.
+ADR-325,AC-028;AC-030;AC-033,MAPPED,W20 executable starter evidence; empirical promotion remains later evidence.
+ADR-326,AC-032;AC-036;AC-055;AC-056,MAPPED,W21 executable weekly-MLOps starter evidence; protected empirical promotion remains external.
+ADR-327,AC-020;AC-036;AC-055;AC-056,MAPPED,W21 executable weekly-MLOps starter evidence; protected empirical promotion remains external.
+ADR-328,AC-031;AC-055;AC-056,MAPPED,W21 executable weekly-MLOps starter evidence; protected empirical promotion remains external.
+ADR-329,AC-033;AC-037;AC-055;AC-056,MAPPED,W21 executable weekly-MLOps starter evidence; protected empirical promotion remains external.
+ADR-330,AC-033;AC-039;AC-055;AC-056,MAPPED,W21 executable weekly-MLOps starter evidence; protected empirical promotion remains external.
+ADR-331,AC-033;AC-046;AC-055;AC-056,MAPPED,W22 backward-compatible snapshot/product evidence.
+ADR-332,AC-046;AC-055;AC-056,MAPPED,W22 framework decision; base runtime remains dependency-free.
+ADR-333,AC-037;AC-055;AC-056,MAPPED,W22 stale visibility tested; THR-010 remains TBD.
+ADR-334,AC-046;AC-055;AC-056,MAPPED,W22 serving-boundary/non-causal explanation evidence.
+ADR-335,AC-046;AC-055;AC-056,MAPPED,W22 file-backed product store; PostgreSQL remains conditional.
+ADR-336,AC-034;AC-038;AC-041;AC-042;AC-055;AC-056,MAPPED,W23 local-first operations decision.
+ADR-337,AC-041;AC-055;AC-056,MAPPED,W23 dependency/CI evidence.
+ADR-338,AC-034;AC-042;AC-055;AC-056,MAPPED,W23 structured telemetry/runtime evidence.
+ADR-339,AC-039;AC-040;AC-055;AC-056,MAPPED,W23 backup/restore and retention tests.
+ADR-340,AC-038;AC-055;AC-056,MAPPED,W23 target-hardware blocker preserved honestly.
+ADR-341,AC-233;AC-234;AC-055;AC-056,MAPPED,W24 sequencing override preserves W23 blocker.
+ADR-342,AC-229;AC-055;AC-056,MAPPED,Cross-layer executable readiness.
+ADR-343,AC-230;AC-011;AC-012,MAPPED,Target-game leakage guard.
+ADR-344,AC-231;AC-009;AC-010,MAPPED,SportsDataverse provenance graph.
+ADR-345,AC-231;AC-013;AC-059,MAPPED,Weather access/uncertainty source refinement.
+ADR-346,AC-232;AC-233;AC-234,MAPPED,Final architecture challenge and carried blocker.
+ADR-347,AC-002;AC-003;AC-045;AC-055;AC-056,MAPPED,W25 terminal-wave/final-handoff integrity.
+ADR-348,AC-038;AC-045;AC-055;AC-056,MAPPED,W25 maturity honesty and carried hardware condition.
+ADR-349,AC-023;AC-045;AC-055;AC-056,MAPPED,W25 evidence-first post-wave priority.

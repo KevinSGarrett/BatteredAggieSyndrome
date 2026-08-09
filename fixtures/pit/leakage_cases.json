@@ -1,0 +1,145 @@
+[
+  {
+    "scenario_id": "LEAK-001",
+    "domain": "AVAILABILITY_REPORT",
+    "first_known_at": "2025-10-11T16:00:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": false,
+    "expected_reason": "KNOWN_AFTER_CUTOFF"
+  },
+  {
+    "scenario_id": "LEAK-002",
+    "domain": "AVAILABILITY_REPORT",
+    "first_known_at": "2025-10-11T14:00:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": true,
+    "expected_reason": "ELIGIBLE"
+  },
+  {
+    "scenario_id": "LEAK-003",
+    "domain": "MARKET",
+    "first_known_at": "2025-10-11T15:55:00Z",
+    "prediction_cutoff": "2025-10-08T17:00:00Z",
+    "expected_eligible": false,
+    "expected_reason": "KNOWN_AFTER_CUTOFF"
+  },
+  {
+    "scenario_id": "LEAK-004",
+    "domain": "MARKET",
+    "first_known_at": "2025-10-08T16:55:00Z",
+    "prediction_cutoff": "2025-10-08T17:00:00Z",
+    "expected_eligible": true,
+    "expected_reason": "ELIGIBLE"
+  },
+  {
+    "scenario_id": "LEAK-005",
+    "domain": "WEATHER_OBSERVED",
+    "first_known_at": "2025-10-11T19:00:00Z",
+    "prediction_cutoff": "2025-10-06T17:00:00Z",
+    "expected_eligible": false,
+    "expected_reason": "DOMAIN_POLICY_BANNED",
+    "weather_data_class": "OBSERVED"
+  },
+  {
+    "scenario_id": "LEAK-006",
+    "domain": "WEATHER_FORECAST",
+    "first_known_at": "2025-10-06T15:15:00Z",
+    "prediction_cutoff": "2025-10-06T17:00:00Z",
+    "expected_eligible": true,
+    "expected_reason": "ELIGIBLE",
+    "weather_data_class": "FORECAST",
+    "forecast_valid_at": "2025-10-11T19:00:00Z",
+    "target_time": "2025-10-11T19:00:00Z",
+    "model_available_at": "2025-10-06T15:15:00Z"
+  },
+  {
+    "scenario_id": "LEAK-007",
+    "domain": "REGULATORY_ENVIRONMENT",
+    "first_known_at": "2026-06-01T12:00:00Z",
+    "prediction_cutoff": "2026-08-01T12:00:00Z",
+    "expected_eligible": true,
+    "expected_reason": "ELIGIBLE",
+    "valid_from": "2026-09-01T00:00:00Z",
+    "valid_to": "2027-09-01T00:00:00Z",
+    "target_time": "2026-10-01T00:00:00Z"
+  },
+  {
+    "scenario_id": "LEAK-008",
+    "domain": "REGULATORY_ENVIRONMENT",
+    "first_known_at": "2026-06-01T12:00:00Z",
+    "prediction_cutoff": "2026-08-01T12:00:00Z",
+    "expected_eligible": false,
+    "expected_reason": "TARGET_OUTSIDE_VALIDITY",
+    "valid_from": "2026-09-01T00:00:00Z",
+    "valid_to": "2027-09-01T00:00:00Z",
+    "target_time": "2026-08-20T00:00:00Z"
+  },
+  {
+    "scenario_id": "LEAK-009",
+    "domain": "RESOURCE_REPORT",
+    "first_known_at": "2025-12-01T12:00:00Z",
+    "prediction_cutoff": "2025-10-01T12:00:00Z",
+    "expected_eligible": false,
+    "expected_reason": "KNOWN_AFTER_CUTOFF"
+  },
+  {
+    "scenario_id": "LEAK-010",
+    "domain": "HISTORICAL_GAME_OUTPUT",
+    "first_known_at": "2025-10-11T22:30:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": false,
+    "expected_reason": "KNOWN_AFTER_CUTOFF",
+    "game_end_at": "2025-10-11T22:30:00Z"
+  },
+  {
+    "scenario_id": "LEAK-011",
+    "domain": "HISTORICAL_GAME_OUTPUT",
+    "first_known_at": "2025-10-04T22:30:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": true,
+    "expected_reason": "ELIGIBLE",
+    "game_end_at": "2025-10-04T22:30:00Z"
+  },
+  {
+    "scenario_id": "LEAK-012",
+    "domain": "DRAFT_POSTSEASON_OUTCOME",
+    "first_known_at": "2026-04-25T12:00:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": false,
+    "expected_reason": "KNOWN_AFTER_CUTOFF"
+  },
+  {
+    "scenario_id": "LEAK-013",
+    "domain": "RETROSPECTIVE_DOCUMENT",
+    "first_known_at": "2026-01-01T12:00:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": false,
+    "expected_reason": "RETROSPECTIVE_UNCORROBORATED",
+    "retrospective_flag": true,
+    "corroborated_for_historical_use": false
+  },
+  {
+    "scenario_id": "LEAK-014",
+    "domain": "ROSTER_STAFF_DEPTH",
+    "first_known_at": "2025-10-12T12:00:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": false,
+    "expected_reason": "KNOWN_AFTER_CUTOFF"
+  },
+  {
+    "scenario_id": "LEAK-015",
+    "domain": "GENERIC_MUTABLE",
+    "first_known_at": "2025-10-10T12:00:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": true,
+    "expected_reason": "ELIGIBLE"
+  },
+  {
+    "scenario_id": "LEAK-016",
+    "domain": "GENERIC_MUTABLE",
+    "first_known_at": "2025-10-12T12:00:00Z",
+    "prediction_cutoff": "2025-10-11T15:30:00Z",
+    "expected_eligible": false,
+    "expected_reason": "KNOWN_AFTER_CUTOFF"
+  }
+]

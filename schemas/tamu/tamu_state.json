@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TamuStateOverlay",
+  "type": "object",
+  "required": [
+    "team_id",
+    "cutoff",
+    "national_team_state_ref",
+    "canonical_pit_state_ref",
+    "component_refs",
+    "uncertainty_components"
+  ],
+  "properties": {
+    "team_id": {
+      "type": "string"
+    },
+    "cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "national_team_state_ref": {
+      "type": "string"
+    },
+    "canonical_pit_state_ref": {
+      "type": "string"
+    },
+    "component_refs": {
+      "type": "object"
+    },
+    "uncertainty_components": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "state_version": {
+      "type": "string"
+    }
+  }
+}

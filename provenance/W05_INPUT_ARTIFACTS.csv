@@ -1,0 +1,5 @@
+artifact_id,role,uploaded_name,canonical_identity,bytes,sha256,validation
+W05-IN-001,PARENT_HYDRATION,Aggie_Analytics_Engine_W04_HYDRATION(1).zip,W04 hydration bound recovery state,127147,3660379c3746d5c70671fec24009730f465b4f8caaa6a5bb1378773c080244fc,BOUND_PARENT_INPUT; hydration/cumulative binding PASS
+W05-IN-002,PARENT_CUMULATIVE,Aggie_Analytics_Engine_W04_CUMULATIVE(1).zip,W04 canonical cumulative repository,246197,8d2f9bed7045ec99205992d4e98d16eae94838229bb8a6f26cf2c9164022946a,BOUND_PARENT_INPUT; tools/verify_prior_wave.py PASS
+W05-IN-003,REATTACHED_RECON,Aggie_Analytics_Data_Reconnaissance_Pack_FINAL_v1_2(1)(1)(6).zip,FINAL_v1.2_PRE_25_WAVE,400764,341d4b97bfa89d7e8710c07d559b7dbb62b61f8ed0ac6fb1aad3a00efe4fb14a,MATCHED_W04_PROVENANCE
+W05-IN-004,REATTACHED_SOURCE_CHAT,Initial_Chat_Log(6).zip,20 sequential source chat TXT files,123823,454381eeff86a01668cfb2b181729683d2fc84b64ef564bd484c2bb65198868e,MATCHED_W04_PROVENANCE

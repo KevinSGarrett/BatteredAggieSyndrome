@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "title": "TransferEpisode",
+  "type": "object",
+  "required": [
+    "canonical_player_id",
+    "source_team_id",
+    "destination_team_id",
+    "first_known_at"
+  ],
+  "properties": {
+    "canonical_player_id": {
+      "type": "string"
+    },
+    "source_team_id": {
+      "type": "string"
+    },
+    "destination_team_id": {
+      "type": "string"
+    },
+    "entered_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "committed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "enrolled_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "first_known_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_competition_strength": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "destination_competition_strength": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "expected_role": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_observation_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

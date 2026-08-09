@@ -1,0 +1,16 @@
+cluster_id,domain,source_ids,overlap_type,decision
+RED-001,games/schedules/scores,SRC-001;SRC-002;SRC-015;SRC-042;SRC-034;SRC-033,near_duplicate,Use one canonical primary plus official reconciliation/fallback; do not store six indistinguishable copies.
+RED-002,play-by-play,SRC-001;SRC-002;SRC-034;SRC-033;SRC-035,overlap_not_identical,Public baseline from SRC-001/002; commercial only if measurable added fields/latency justify.
+RED-003,rosters,SRC-001;SRC-002;SRC-005;SRC-009;SRC-034,overlap_with_identity_differences,Canonical IDs and effective dates reconcile; A&M official takes specialization priority.
+RED-004,availability,SRC-017;SRC-018;SRC-019;SRC-020;SRC-021;SRC-022;SRC-023;SRC-024;SRC-025;SRC-033,official_primary_plus_aggregator,Official reports primary when covered; licensed aggregator fallback/media enrichment.
+RED-005,weather forecasts,SRC-026;SRC-027;SRC-028,same_physical_signal_different_model/archive,"Preserve provider/model/run; choose issued forecast by cutoff, not blend blindly."
+RED-006,observed weather,SRC-003;SRC-029,overlap,NOAA official observations/reanalysis for labels/verification; Open-Meteo convenience secondary.
+RED-007,markets,SRC-032;SRC-033;SRC-002;SRC-001,overlap_timestamp_quality_varies,Timestamped snapshot providers preferred for PIT market lane; public lines useful benchmark/fallback.
+RED-008,polls/rankings,SRC-039;SRC-040;SRC-041;SRC-002,distinct_consensus_sources,Keep source/selector separate; never collapse into one truth.
+RED-009,program finance,SRC-004;SRC-007;SRC-008;SRC-044,overlapping_different_scope,EADA/Knight athletics finance; IPEDS institution context; IRS private nonprofit proxy only.
+RED-010,recruiting,SRC-002;SRC-058,derived_overlap,Audit shared upstreams/terms; avoid false independent-source corroboration.
+RED-011,transfers,SRC-002;SRC-046;SRC-047,overlap_different_access,CFBD structured primary candidate; NCAA rules/aggregate validation; publisher pages research-only unless rights clear.
+RED-012,draft,SRC-002;SRC-038,structured_plus_official,CFBD convenient structured; NFL official validation.
+RED-013,lower division stats,SRC-015;SRC-048;SRC-049;SRC-050,division_specific,Use official body by division; normalize strength rather than forcing one schema.
+RED-014,advanced charting/tracking,SRC-035;SRC-036;SRC-037;SRC-006,commercial_overlap,Research-only tournament after baseline; cost/rights/coverage must earn adoption.
+RED-015,live feeds,SRC-059;SRC-034;SRC-033;SRC-035,commercial_or_paid_overlap,Keep Phase-5 isolated; select only if live project is activated.

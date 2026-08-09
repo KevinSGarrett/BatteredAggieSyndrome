@@ -1,0 +1,197 @@
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "The epic retains stable ID EPIC-014, owner wave W13, phase PHASE-2, and all authoritative WBS children.",
+    "The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.",
+    "Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "Do not execute this Epic as new work; select an actionable post-wave Subtask instead.",
+    "DONE means the original scoped planning/design/starter work completed, not that the final product is operating."
+  ],
+  "allowed_modification_paths": [
+    "governance/EPIC_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv"
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/epics/EPIC-014_opponent_adjustment_style_and_schedule_stress.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {},
+  "component": "release-readiness",
+  "components_expected_to_be_touched": [
+    "release-readiness"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "The original historical scope and status are preserved with source evidence and stable identifiers.",
+    "The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.",
+    "Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work."
+  ],
+  "dependencies": [],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 0,
+    "adr_ids": 0,
+    "gap_ids": 0,
+    "requirement_ids": 0,
+    "risk_ids": 0
+  },
+  "effective_traceability_total": 0,
+  "end_to_end_validation": "Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.",
+  "epic_id": "",
+  "evidence_manifest_path": "",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "SHARED_CONTRACT",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "CONTRACT_DEFINED",
+  "expected_outputs": [
+    "chronological schedule context rules",
+    "matchup adjustment baseline",
+    "officiating feasibility decision",
+    "officiating source/gap decision",
+    "opponent adjustment candidates",
+    "pregame assignment semantics evidence",
+    "schedule stress feature contract",
+    "style similarity candidates"
+  ],
+  "files_expected_to_be_read": [
+    "governance/EPIC_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv"
+  ],
+  "files_expected_to_be_touched": [
+    "governance/EPIC_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv"
+  ],
+  "files_to_inspect": [
+    "governance/EPIC_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/epics/EPIC-014_opponent_adjustment_style_and_schedule_stress.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "",
+  "historical_classification": "HISTORICAL_SCOPED_COMPLETED",
+  "import_id": 100014,
+  "in_scope": [
+    "Original planning/design/starter work",
+    "Stable source IDs and child traceability",
+    "Scoped historical completion evidence"
+  ],
+  "issue_type": "Epic",
+  "jira_key": "BAT-14",
+  "labels": [
+    "historical",
+    "planning-program",
+    "w13",
+    "wave-completed"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "EPIC-014",
+  "maturity_before": "CONTRACT_DEFINED",
+  "objective": "Normalize performance by opponent quality and represent matchup/style/workload context.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24154",
+    "jira_updated_at": "2026-08-09T00:40:12.230-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced",
+    "Creating a Wave 26"
+  ],
+  "owner_wave": "W13",
+  "parent_id": "",
+  "phase": "PHASE-2",
+  "prerequisites": [],
+  "primary_source_refs": [
+    "SRCREF-00014",
+    "SRCREF-01974"
+  ],
+  "priority": "P1",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "governance/EPIC_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [
+    "POST-SUBTASK-141"
+  ],
+  "required_evidence": [],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_w24_readiness.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_w25_final_handoff.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tools/validate_w24_readiness.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tools/validate_w25_final.py"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Historical status could be misread as product completion",
+    "Stale catalog status could outrank final handoff if source authority is ignored"
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.",
+  "source_ids": [
+    "EPIC-014"
+  ],
+  "source_refs": [
+    "SRCREF-00014",
+    "SRCREF-01974"
+  ],
+  "specificity_fingerprint": "5d49e8656596e13f95d055178bcb075650e31664ca01f3738a491c3d5b75a51d",
+  "stop_conditions": [
+    "Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance."
+  ],
+  "supporting_source_refs": [],
+  "title": "[EPIC-014] Opponent adjustment, style and schedule stress",
+  "traceability_inherited_from": [],
+  "traceability_resolution": "DIRECT",
+  "unblock_condition": "",
+  "validation_classes": [
+    "EXISTING_AUTOMATED_TEST"
+  ],
+  "why_this_exists": "Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}

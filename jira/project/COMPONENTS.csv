@@ -1,0 +1,17 @@
+component_name,description,issue_count,actionable_count,jira_component_id,target_status
+advanced-challengers,Controlled component for advanced challengers work.,19,13,10160,MAPPED_LIVE_VERIFIED
+bas-science,Controlled component for bas science work.,33,13,10161,MAPPED_LIVE_VERIFIED
+data-sources,Controlled component for data sources work.,18,17,10162,MAPPED_LIVE_VERIFIED
+entities,Controlled component for entities work.,19,13,10163,MAPPED_LIVE_VERIFIED
+feature-engineering,Controlled component for feature engineering work.,29,13,10164,MAPPED_LIVE_VERIFIED
+live-modeling,Controlled component for live modeling work.,14,13,10165,MAPPED_LIVE_VERIFIED
+mlops,Controlled component for mlops work.,22,13,10166,MAPPED_LIVE_VERIFIED
+modeling,Controlled component for modeling work.,72,13,10167,MAPPED_LIVE_VERIFIED
+operations-security,Controlled component for operations security work.,39,30,10168,MAPPED_LIVE_VERIFIED
+pit-temporal,Controlled component for pit temporal work.,20,13,10169,MAPPED_LIVE_VERIFIED
+player-context-intelligence,Controlled component for player context intelligence work.,35,13,10170,MAPPED_LIVE_VERIFIED
+raw-snapshots,Controlled component for raw snapshots work.,15,13,10171,MAPPED_LIVE_VERIFIED
+release-readiness,Controlled component for release readiness work.,44,13,10172,MAPPED_LIVE_VERIFIED
+serving-product,Controlled component for serving product work.,22,13,10173,MAPPED_LIVE_VERIFIED
+tamu-specialization,Controlled component for tamu specialization work.,17,13,10174,MAPPED_LIVE_VERIFIED
+validation-promotion,Controlled component for validation promotion work.,45,13,10175,MAPPED_LIVE_VERIFIED

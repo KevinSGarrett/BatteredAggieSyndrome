@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "aggie://schemas/temporal/regulatory/v1",
+  "title": "RegulatoryObservation",
+  "type": "object",
+  "required": [
+    "regulatory_observation_id",
+    "rule_family",
+    "retrieved_at",
+    "valid_from"
+  ],
+  "properties": {
+    "regulatory_observation_id": {
+      "type": "string"
+    },
+    "rule_family": {
+      "type": "string"
+    },
+    "division_scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "first_known_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "valid_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "definition_version": {
+      "type": "string"
+    },
+    "source_uri": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

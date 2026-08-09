@@ -1,0 +1,15 @@
+transform_id,name,category,input_semantics,strict_prior_required,parameter_policy,same_game_input_allowed,status,notes
+TR-001,ASOF_VALUE,snapshot,PIT-selected value at cutoff,false,No hidden defaults; source/PIT policy determines selection,false,SUPPORTED_TEMPLATE,Structural template; not predictive evidence.
+TR-002,LAGGED_LAST,lag,Most recent eligible prior observation strictly before target cutoff,true,Lag count/version explicit,false,SUPPORTED_TEMPLATE,No same-game output may enter pregame row.
+TR-003,ROLLING_MEAN_COUNT,rolling,Trailing N eligible prior observations,true,N is experiment parameter; no universal window,false,EXPERIMENT_TEMPLATE,Compare candidate windows chronologically.
+TR-004,ROLLING_SUM_COUNT,rolling,Trailing N eligible prior observations,true,N explicit and target/family specific,false,EXPERIMENT_TEMPLATE,
+TR-005,ROLLING_STD_COUNT,rolling,Dispersion over trailing eligible prior observations,true,N and ddof/version explicit,false,EXPERIMENT_TEMPLATE,
+TR-006,EWMA,recency,Exponentially weighted eligible prior observations,true,alpha/half-life is experiment parameter; no hard-coded universal value,false,EXPERIMENT_TEMPLATE,
+TR-007,LINEAR_TREND,trend,Slope across ordered eligible prior observations,true,window explicit; chronological order preserved,false,EXPERIMENT_TEMPLATE,"Trend is descriptive candidate, not automatic strength signal."
+TR-008,PRIOR_CHANGE,trend,Difference between latest and prior eligible observations,true,lag definition explicit,false,EXPERIMENT_TEMPLATE,
+TR-009,RATE_PER_OPPORTUNITY,normalization,Eligible numerator divided by eligible exposure/opportunity,true,denominator semantics and zero policy explicit,false,EXPERIMENT_TEMPLATE,Avoid raw-volume confounding where appropriate.
+TR-010,OPPONENT_ADJUSTED_RESIDUAL,opponent_adjustment,Observed eligible performance minus context/opponent expectation built only from prior-safe state,true,expectation model/version explicit,false,EXPERIMENT_TEMPLATE,Distinct from schedule-load features.
+TR-011,MATCHUP_DIFFERENCE,matchup,PIT-safe team strength/skill minus PIT-safe opponent counterpart,false,paired feature semantics/version explicit,false,EXPERIMENT_TEMPLATE,
+TR-012,MATCHUP_PRODUCT,interaction,Interaction of two independently PIT-safe inputs,false,interaction explicitly registered; combinatorial generation prohibited,false,EXPERIMENT_TEMPLATE,Interactions must earn value; no brute-force explosion.
+TR-013,MISSINGNESS_INDICATOR,data_quality,Indicator derived from PIT-safe missingness/coverage state,false,source policy/coverage semantics explicit,false,CONDITIONAL_TEMPLATE,Missingness may be informative but can encode source/era artifacts; must be tested.
+TR-014,HIERARCHICAL_PRIOR_BLEND,shrinkage,Blend sparse subgroup value with broader prior using PIT-safe evidence,true,weighting method learned/validated later; no fixed shrinkage constant in W10,false,EXPERIMENT_TEMPLATE,Useful for sparse teams/players but W11+ owns concrete state models.

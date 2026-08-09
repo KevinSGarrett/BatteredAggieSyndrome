@@ -1,0 +1,6 @@
+rule_id,rule,protected,w16_status
+MKT-001,Market observation must include provider/market/value/side/price and observed/retrieved/first-known time where available,true,FROZEN_CONTRACT
+MKT-002,Only observations with prediction_eligible_at <= forecast cutoff may enter MARKET_AUGMENTED lane,true,FROZEN_CONTRACT
+MKT-003,Closing line cannot be used for an earlier forecast; it may be a later-timestamp or retrospective benchmark,true,FROZEN_CONTRACT
+MKT-004,PURE_FOOTBALL lane may not use market observations or market-derived consensus features,true,FROZEN_CONTRACT
+MKT-005,Market source/provider selection remains unselected in W16; W06 source evidence informs W17/W19 implementation,true,FROZEN_CONTRACT

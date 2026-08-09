@@ -1,0 +1,39 @@
+{
+  "authoritative_for_thr_011_012": false,
+  "captured_at_utc": "2026-08-09T00:21:26+00:00",
+  "declared_target": {
+    "cpu_contains": "Ryzen",
+    "gpu_contains": "RTX 5060",
+    "min_ram_gib": 28.0,
+    "os_family": "Windows"
+  },
+  "host": {
+    "cpu": "x86_64",
+    "cpu_count": 5,
+    "gpu": null,
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "ram_gib": 5.931419372558594,
+    "system": "Linux"
+  },
+  "interpretation": "Authoritative only when representative profile runs on declared target hardware; otherwise smoke evidence only.",
+  "profile": "smoke",
+  "schema_version": "aggie.local_benchmark.v1",
+  "target_match": false,
+  "workloads": {
+    "content_hash": {
+      "python_peak_mib": 0.54,
+      "result_sha256": "43423224cc3cc07aecb001d222dee95a117fa6164eee42b6b216cf8923ad46c0",
+      "seconds": 0.040648
+    },
+    "group_aggregate": {
+      "python_peak_mib": 0.009,
+      "result_sha256": "aa1e15434bbe3dc7d387f6a6a117045ceb05e9ee880ca5f375d2f4407cd49bff",
+      "seconds": 0.014085
+    },
+    "json_roundtrip": {
+      "python_peak_mib": 1.572,
+      "result_sha256": "3cc7a75174f627c79c4f36bda709dc4609e13ef0162d5cae2797db345e9ec209",
+      "seconds": 0.060465
+    }
+  }
+}

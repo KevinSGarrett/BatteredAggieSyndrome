@@ -1,0 +1,15 @@
+gate,status,evidence
+W17_JUDGING_RULE_SEAL,PASS_W18_REFERENCE,JRS-W17-001 digest c7cadb7b9e0a887fb5847299ccf5df5c2e1b48e8a38e637d46f2204ff73babdf
+EXPERIMENT_IDENTITY,PASS_W18_REFERENCE,deterministic ExperimentSpec + schema/tests
+DEVELOPMENT_ONLY_HPO,PASS_W18_REFERENCE,role/split boundary tests; no protected metrics available to HPO
+QUEUE_WORKTREE_GOVERNANCE,PASS_W18_REFERENCE,append-only transition/role policy; isolated worktree contract
+REPLAY_ADOPTION_FLOW,PASS_W18_REFERENCE,result packet/replay contracts; no self-promotion
+ADVANCED_CHALLENGER_ADMISSION,PASS_W18_REFERENCE_BLOCKS_ADVANCED_EXECUTION,advanced candidates blocked pending materialized baseline evidence
+W18_AUTONOMOUS_RESEARCH,CLEARED_W18_FULL_REFERENCE,full rebuild; experiment store + hash-chain queue + resource scheduler + full feature/model tournaments + HPO/replay/worktree/promotion boundary + TASK-164 complete; no empirical winner
+W19_HANDOFF,READY,TASK-041 READY after TASK-139 sequence gate
+FEATURE_TOURNAMENT,PASS_W18_FULL_REFERENCE,first-class tournament engine + governance matrices + integration tests; no lifecycle promotion
+MODEL_TOURNAMENT,PASS_W18_FULL_REFERENCE,first-class tournament engine + mandatory simple/TAMU comparators + semantic compatibility + tests; no promotion
+HPO_SEARCH_SPACE,PASS_W18_FULL_REFERENCE,versioned HPO/study governance + deterministic reference engine + protected/forward split rejection
+HYPOTHESIS_LIFECYCLE,PASS_W18_FULL_REFERENCE,explicit hypothesis states + tests
+ARTIFACT_REPLAY,PASS_W18_FULL_REFERENCE,artifact policy + replay engine + typed failures + evidence/adoption blocking
+W18_MASTER_COVERAGE,PASS_W18_FULL_REFERENCE,13/13 master Wave18 design items covered

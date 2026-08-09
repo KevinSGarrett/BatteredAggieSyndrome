@@ -1,0 +1,8 @@
+candidate_id,name,description,state,numeric_parameters_frozen_w11,selection_evidence,production_selected
+HW-001,uniform_history_baseline,All eligible prior observations receive equal relevance,BASELINE,no,chronological walk-forward W17/W19,false
+HW-002,exponential_recency,Parameter-controlled exponential decay by elapsed games/time,EXPERIMENTAL,no,chronological walk-forward W17/W19,false
+HW-003,regime_similarity,Weight by explicit effective-dated regime/continuity similarity,EXPERIMENTAL,no,chronological walk-forward W17/W19,false
+HW-004,recency_x_regime_similarity,Product/combination of recency and regime similarity,EXPERIMENTAL,no,chronological walk-forward W17/W19,false
+HW-005,change_point_shrinkage,Shrink pre-change evidence after detected regime shift rather than delete automatically,EXPERIMENTAL,no,chronological walk-forward W17/W19,false
+HW-006,similarity_weighted_history,Weight historical cases by context/team-state similarity,EXPERIMENTAL,no,chronological walk-forward W17/W19,false
+HW-007,hierarchical_partial_pooling,Pool team state toward national/division/conference/program priors under sparse evidence,EXPERIMENTAL,no,chronological walk-forward W17/W19,false

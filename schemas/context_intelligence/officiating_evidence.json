@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OfficiatingEvidence",
+  "type": "object",
+  "required": [
+    "game_id",
+    "official_id",
+    "first_known_at",
+    "source_observation_id"
+  ],
+  "properties": {
+    "game_id": {
+      "type": "string"
+    },
+    "official_id": {
+      "type": "string"
+    },
+    "role": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "first_known_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "assignment_public_pregame": {
+      "type": "boolean"
+    },
+    "source_observation_id": {
+      "type": "string"
+    }
+  }
+}

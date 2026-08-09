@@ -1,0 +1,7 @@
+policy_id,method,admission,guard
+PRUNE-001,NONE,Always permitted,No early pruning
+PRUNE-002,DEVELOPMENT_MEDIAN,Development-only intermediate objective,Protected metrics forbidden
+PRUNE-003,DEVELOPMENT_SUCCESSIVE_HALVING,Development-only resource schedule,Budget fixed before study
+PRUNE-004,DEVELOPMENT_PATIENCE,No-improvement on development evidence,Patience fixed before study
+PRUNE-005,GOVERNANCE_ABORT,Seal/rights/lineage failure,Immediate blocking stop
+PRUNE-006,RESOURCE_ABORT,OOM/disk/explicit resource budget,Operational failure; not scientific reject

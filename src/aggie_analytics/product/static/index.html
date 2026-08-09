@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aggie Analytics Engine</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <p class="eyebrow">AGGIE ANALYTICS ENGINE</p>
+      <h1>Texas A&amp;M Forecast Dashboard</h1>
+      <p class="sub">Read-only views of immutable published forecast snapshots.</p>
+    </header>
+    <section class="controls">
+      <label>Game <select id="game"></select></label>
+      <label>Lane <select id="lane"><option>PURE_FOOTBALL</option><option>MARKET_AUGMENTED</option></select></label>
+      <button id="load">Load forecast</button>
+      <span id="freshness" class="badge">No snapshot loaded</span>
+    </section>
+    <section id="warningBox" class="warning hidden"></section>
+    <section class="grid metrics">
+      <article><h2>Win probability</h2><strong id="win">—</strong></article>
+      <article><h2>Loss probability</h2><strong id="loss">—</strong></article>
+      <article><h2>Expected margin</h2><strong id="margin">—</strong></article>
+      <article><h2>Projected score</h2><strong id="score">—</strong></article>
+    </section>
+    <section class="grid detail">
+      <article><h2>BAS severity</h2><div id="bas"></div></article>
+      <article><h2>Uncertainty</h2><div id="uncertainty"></div></article>
+      <article><h2>Player availability</h2><div id="availability"></div></article>
+      <article><h2>Matchup drivers</h2><div id="matchup"></div></article>
+      <article><h2>Historical analogs</h2><div id="analogs"></div></article>
+      <article><h2>National / A&amp;M comparison</h2><div id="comparison"></div></article>
+    </section>
+    <section class="lineage">
+      <h2>Forecast provenance</h2>
+      <p>Snapshot, model, feature, data and source lineage used for this published forecast.</p>
+      <pre id="lineage">—</pre>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+version: w03
+items:
+- id: OPP-001
+  classification: RESEARCH
+  target_wave: Wave06
+  description: Investigate newly available public/official college-football sources
+    beyond current reconnaissance.
+  status: RESOLVED_W06_CURRENT_RESEARCH
+- id: OPP-002
+  classification: SHOULD
+  target_wave: W12
+  description: Build normalized preseason-honor historical ingestion if source history
+    is reproducible.
+  status: OPEN
+- id: OPP-003
+  classification: RESEARCH
+  target_wave: W13
+  description: Test latent/hierarchical resource-capacity representation for public/private
+    asymmetry.
+  status: OPEN
+- id: OPP-004
+  classification: RESEARCH
+  target_wave: W14-W18
+  description: Compare separate A&M adapters vs hierarchical multi-task or mixture-of-experts
+    specialization.
+  status: OPEN
+- id: OPP-005
+  classification: RESEARCH
+  target_wave: W16-W18
+  description: Compare joint-score statistical families and simulation approaches.
+  status: OPEN
+- id: OPP-006
+  classification: COULD
+  target_wave: Phase5
+  description: Evaluate temporal networks/Transformers only after tabular champion
+    saturates.
+  status: OPEN
+- id: OPP-007
+  classification: COULD
+  target_wave: Phase5
+  description: Evaluate graph representation for players/coaches/transfers if relational
+    structure proves useful.
+  status: OPEN
+- id: OPP-008
+  classification: RESEARCH
+  target_wave: W13-W17
+  description: Test unit chemistry/lineup-combination features where snap/participation
+    coverage supports them.
+  status: OPEN
+- id: OPP-009
+  classification: RESEARCH
+  target_wave: W13-W17
+  description: Test officiating only where pregame assignment semantics can be proven.
+  status: OPEN
+- id: OPP-010
+  classification: DEFERRED
+  target_wave: Future
+  description: React frontend only if Streamlit or equivalent cannot meet product
+    needs.
+  status: OPEN
+- id: OPP-011
+  classification: DEFERRED
+  target_wave: Future
+  description: PFF adapter only if user reactivates and legitimate access/export terms
+    support it.
+  status: OPEN
+- id: OPP-012
+  classification: RESEARCH
+  target_wave: W18
+  description: Use research agent for hypothesis generation/error clustering while
+    keeping governance immutable.
+  status: RESOLVED_W18_FULL_REBUILD
+
+- id: OPP-013
+  classification: SHOULD
+  target_wave: W03
+  description: Evaluate one modular package/repository versus multiple deployable services; prefer the simplest structure that satisfies requirements.
+  status: RESOLVED_W03_MODULAR_MONOLITH
+- id: OPP-014
+  classification: DEFERRED
+  target_wave: W23
+  description: Evaluate dependency lock automation, security scanners and richer CI only after real dependency/deployment surfaces exist.
+  status: OPEN
+- id: OPP-015
+  classification: RESEARCH
+  target_wave: W03-W07
+  description: Determine whether PostgreSQL is actually needed locally or whether Parquet/DuckDB plus explicit canonical files can satisfy early phases before adding a service dependency.
+  status: PARTIALLY_RESOLVED_W03_REVISIT_W07
+
+# W06 additions
+- id: OPP-016
+  classification: SHOULD
+  target_wave: W12
+  description: Materialize multi-conference official availability-report archives with report-version/policy-scope metadata, prioritizing SEC/A&M.
+  status: OPEN
+- id: OPP-017
+  classification: SHOULD
+  target_wave: W08-W13
+  description: Benchmark NOAA archived issued forecast runs against normalized Open-Meteo previous/single-run access for PIT historical weather reconstruction.
+  status: OPEN
+- id: OPP-018
+  classification: RESEARCH
+  target_wave: W16-W17
+  description: Evaluate whether paid timestamped historical market feeds materially improve the optional market-augmented model relative to public/basic market history.
+  status: OPEN
+- id: OPP-019
+  classification: RESEARCH
+  target_wave: W18+
+  description: Evaluate commercial advanced charting/tracking only after strong tabular/public baselines saturate and rights/cost gates clear.
+  status: OPEN
+- id: OPP-020
+  classification: RESEARCH
+  target_wave: W07-W12
+  description: Explore reproducible historical game-week depth-chart reconstruction from official game notes/media guides while preserving confidence and noncoverage.
+  status: OPEN
+- id: OPP-021
+  classification: RESEARCH
+  target_wave: W13-W17
+  description: Revisit pregame officiating only if a stable assignment source with publication-time semantics is discovered; otherwise keep postgame/history-only.
+  status: OPEN
+
+# W08 additions
+- id: OPP-022
+  classification: SHOULD
+  target_wave: W19-W24
+  description: Build source-specific first-known reconstruction coverage reports and quantify how much data is lost under conservative retrieval-time fallback.
+  status: OPEN
+- id: OPP-023
+  classification: RESEARCH
+  target_wave: W13-W19
+  description: Evaluate forecast-run interpolation/lead standardization only after actual weather archive coverage is materialized; do not invent cross-era equivalence.
+  status: OPEN
+
+# W11 additions
+- id: OPP-024
+  classification: RESEARCH
+  target_wave: W17-W19
+  description: Compare recency-only, regime-only, recency×regime, change-point and hierarchical team-state representations under rolling chronology.
+  status: OPEN
+- id: OPP-025
+  classification: RESEARCH
+  target_wave: W17-W19
+  description: Evaluate whether data-driven change-point shrinkage improves early-season/current-regime forecasts without overreacting to noise.
+  status: OPEN
+- id: OPP-026
+  classification: SHOULD
+  target_wave: W19
+  description: Materialize FCS internal and FCS-vs-FBS evidence for cross-division translation/uncertainty calibration.
+  status: OPEN
+- id: OPP-027
+  classification: RESEARCH
+  target_wave: W17
+  description: Ablate resource-capacity inputs specifically in preseason/early-season prior models versus direct performance evidence later in season.
+  status: OPEN
+
+
+# W12 additions
+- id: OPP-028
+  classification: RESEARCH
+  target_wave: W17-W19
+  description: Compare player-specific availability/replacement scenarios against coarse injury counts and no-injury baselines under chronological evaluation.
+  status: OPEN
+- id: OPP-029
+  classification: RESEARCH
+  target_wave: W17-W19
+  description: Train and compare position-specific same-player transfer translation against unadjusted production and recruiting/experience priors.
+  status: OPEN
+- id: OPP-030
+  classification: SHOULD
+  target_wave: W19
+  description: Materialize official game-week depth/availability evidence with A&M/SEC priority and quantify observed/inferred/unknown coverage by era.
+  status: OPEN
+- id: OPP-031
+  classification: RESEARCH
+  target_wave: W17
+  description: Ablate preseason honors and lagged draft-development evidence after controlling recruiting, prior production and roster talent.
+  status: OPEN

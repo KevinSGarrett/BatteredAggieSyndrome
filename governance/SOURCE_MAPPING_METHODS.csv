@@ -1,0 +1,9 @@
+mapping_method,default_action,rule
+VERIFIED_EXISTING_MAPPING,AUTO_ACCEPT_ALLOWED,Previously accepted non-superseded mapping with valid scope.
+VERIFIED_DIRECT_SOURCE_ID,AUTO_ACCEPT_ALLOWED,Source ID semantics validated by contract and no conflict exists.
+VERIFIED_CROSSWALK,AUTO_ACCEPT_ALLOWED,Authoritative/validated crosswalk links identities with no conflict.
+EXACT_SCOPED_ALIAS,REVIEW_BY_DEFAULT,Exact alias match with contextual scope; may become auto-accept only after labeled evidence/policy.
+COMPOSITE_CONTEXT,REVIEW_REQUIRED,"Composite game/player/coach context produces candidate(s), not durable truth by itself."
+FUZZY_NAME_CONTEXT,REVIEW_REQUIRED,Fuzzy similarity may rank candidates; never auto-accepted in W07.
+MANUAL_REVIEW,DECISION_EVENT,Human evidence review accepts/rejects a mapping.
+CORRECTION_MERGE_SPLIT,DECISION_EVENT,Explicit correction supersedes prior mapping/identity relationships.

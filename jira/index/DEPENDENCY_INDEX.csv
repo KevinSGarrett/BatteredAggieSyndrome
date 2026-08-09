@@ -1,0 +1,1476 @@
+source_id,target_id,relationship,hard,source_basis
+EPIC-001,POST-SUBTASK-051,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-002,POST-SUBTASK-042,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-004,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-005,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-006,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-007,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-008,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-009,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-010,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-011,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-013,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-014,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-015,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-016,POST-SUBTASK-087,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-017,POST-SUBTASK-087,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-018,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-019,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-020,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-021,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-022,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-023,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-024,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-025,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-026,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-027,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-028,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-029,POST-SUBTASK-150,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-030,POST-SUBTASK-159,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-031,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-032,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-033,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+POST-SUBTASK-024,POST-EPIC-003,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-033,POST-EPIC-004,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-042,POST-EPIC-005,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-EPIC-006,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-030,POST-EPIC-007,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-EPIC-007,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-051,POST-EPIC-008,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-060,POST-EPIC-008,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-063,POST-EPIC-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-069,POST-EPIC-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-078,POST-EPIC-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-078,POST-EPIC-010,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-084,POST-EPIC-010,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-078,POST-EPIC-011,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-084,POST-EPIC-011,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-EPIC-011,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-105,POST-EPIC-012,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-111,POST-EPIC-013,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-002,POST-EPIC-014,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-024,POST-EPIC-014,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-009,POST-EPIC-015,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-114,POST-EPIC-015,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-123,POST-EPIC-015,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-132,POST-EPIC-015,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-141,POST-EPIC-016,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-141,POST-EPIC-017,BLOCKS,true,Issue dependency contract
+POST-EPIC-001,POST-STORY-001,PARENT_CHILD,false,Canonical hierarchy
+POST-EPIC-001,POST-STORY-002,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-001,POST-STORY-002,BLOCKS,true,Issue dependency contract
+POST-EPIC-001,POST-STORY-003,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-002,POST-STORY-003,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-006,POST-STORY-003,BLOCKS,true,Issue dependency contract
+POST-EPIC-001,POST-STORY-004,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-STORY-004,BLOCKS,true,Issue dependency contract
+POST-EPIC-002,POST-STORY-005,PARENT_CHILD,false,Canonical hierarchy
+POST-EPIC-002,POST-STORY-006,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-015,POST-STORY-006,BLOCKS,true,Issue dependency contract
+POST-EPIC-002,POST-STORY-007,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-015,POST-STORY-007,BLOCKS,true,Issue dependency contract
+POST-EPIC-002,POST-STORY-008,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-018,POST-STORY-008,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-021,POST-STORY-008,BLOCKS,true,Issue dependency contract
+POST-EPIC-003,POST-STORY-009,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-006,POST-STORY-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-018,POST-STORY-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-021,POST-STORY-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-022,POST-STORY-009,BLOCKS,true,Issue dependency contract
+POST-EPIC-003,POST-STORY-010,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-027,POST-STORY-010,BLOCKS,true,Issue dependency contract
+POST-EPIC-003,POST-STORY-011,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-027,POST-STORY-011,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-030,POST-STORY-011,BLOCKS,true,Issue dependency contract
+POST-EPIC-004,POST-STORY-012,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-033,POST-STORY-012,BLOCKS,true,Issue dependency contract
+POST-EPIC-004,POST-STORY-013,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-036,POST-STORY-013,BLOCKS,true,Issue dependency contract
+POST-EPIC-004,POST-STORY-014,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-039,POST-STORY-014,BLOCKS,true,Issue dependency contract
+POST-EPIC-005,POST-STORY-015,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-042,POST-STORY-015,BLOCKS,true,Issue dependency contract
+POST-EPIC-005,POST-STORY-016,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-045,POST-STORY-016,BLOCKS,true,Issue dependency contract
+POST-EPIC-005,POST-STORY-017,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-STORY-017,BLOCKS,true,Issue dependency contract
+POST-EPIC-006,POST-STORY-018,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-STORY-018,BLOCKS,true,Issue dependency contract
+POST-EPIC-006,POST-STORY-019,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-STORY-019,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-054,POST-STORY-019,BLOCKS,true,Issue dependency contract
+POST-EPIC-006,POST-STORY-020,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-057,POST-STORY-020,BLOCKS,true,Issue dependency contract
+POST-EPIC-007,POST-STORY-021,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-030,POST-STORY-021,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-STORY-021,BLOCKS,true,Issue dependency contract
+POST-EPIC-007,POST-STORY-022,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-063,POST-STORY-022,BLOCKS,true,Issue dependency contract
+POST-EPIC-007,POST-STORY-023,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-030,POST-STORY-023,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-STORY-023,BLOCKS,true,Issue dependency contract
+POST-EPIC-008,POST-STORY-024,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-STORY-024,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-060,POST-STORY-024,BLOCKS,true,Issue dependency contract
+POST-EPIC-008,POST-STORY-025,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-072,POST-STORY-025,BLOCKS,true,Issue dependency contract
+POST-EPIC-008,POST-STORY-026,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-075,POST-STORY-026,BLOCKS,true,Issue dependency contract
+POST-EPIC-009,POST-STORY-027,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-STORY-027,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-063,POST-STORY-027,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-066,POST-STORY-027,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-069,POST-STORY-027,BLOCKS,true,Issue dependency contract
+POST-EPIC-009,POST-STORY-028,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-078,POST-STORY-028,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-081,POST-STORY-028,BLOCKS,true,Issue dependency contract
+POST-EPIC-009,POST-STORY-029,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-084,POST-STORY-029,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-STORY-029,BLOCKS,true,Issue dependency contract
+POST-EPIC-010,POST-STORY-030,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-STORY-030,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-078,POST-STORY-030,BLOCKS,true,Issue dependency contract
+POST-EPIC-010,POST-STORY-031,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-084,POST-STORY-031,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-STORY-031,BLOCKS,true,Issue dependency contract
+POST-EPIC-010,POST-STORY-032,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-093,POST-STORY-032,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-STORY-032,BLOCKS,true,Issue dependency contract
+POST-EPIC-011,POST-STORY-033,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-078,POST-STORY-033,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-084,POST-STORY-033,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-STORY-033,BLOCKS,true,Issue dependency contract
+POST-EPIC-011,POST-STORY-034,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-099,POST-STORY-034,BLOCKS,true,Issue dependency contract
+POST-EPIC-011,POST-STORY-035,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-087,POST-STORY-035,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-096,POST-STORY-035,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-STORY-035,BLOCKS,true,Issue dependency contract
+POST-EPIC-012,POST-STORY-036,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-024,POST-STORY-036,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-105,POST-STORY-036,BLOCKS,true,Issue dependency contract
+POST-EPIC-012,POST-STORY-037,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-108,POST-STORY-037,BLOCKS,true,Issue dependency contract
+POST-EPIC-012,POST-STORY-038,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-111,POST-STORY-038,BLOCKS,true,Issue dependency contract
+POST-EPIC-013,POST-STORY-039,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-111,POST-STORY-039,BLOCKS,true,Issue dependency contract
+POST-EPIC-013,POST-STORY-040,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-117,POST-STORY-040,BLOCKS,true,Issue dependency contract
+POST-EPIC-013,POST-STORY-041,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-STORY-041,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-120,POST-STORY-041,BLOCKS,true,Issue dependency contract
+POST-EPIC-014,POST-STORY-042,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-002,POST-STORY-042,BLOCKS,true,Issue dependency contract
+POST-EPIC-014,POST-STORY-043,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-024,POST-STORY-043,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-126,POST-STORY-043,BLOCKS,true,Issue dependency contract
+POST-EPIC-014,POST-STORY-044,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-129,POST-STORY-044,BLOCKS,true,Issue dependency contract
+POST-EPIC-015,POST-STORY-045,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-105,POST-STORY-045,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-114,POST-STORY-045,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-123,POST-STORY-045,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-132,POST-STORY-045,BLOCKS,true,Issue dependency contract
+POST-EPIC-015,POST-STORY-046,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-STORY-046,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-135,POST-STORY-046,BLOCKS,true,Issue dependency contract
+POST-EPIC-015,POST-STORY-047,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-138,POST-STORY-047,BLOCKS,true,Issue dependency contract
+POST-EPIC-016,POST-STORY-048,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-141,POST-STORY-048,BLOCKS,true,Issue dependency contract
+POST-EPIC-016,POST-STORY-049,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-144,POST-STORY-049,BLOCKS,true,Issue dependency contract
+POST-EPIC-016,POST-STORY-050,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-147,POST-STORY-050,BLOCKS,true,Issue dependency contract
+POST-EPIC-017,POST-STORY-051,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-141,POST-STORY-051,BLOCKS,true,Issue dependency contract
+POST-EPIC-017,POST-STORY-052,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-153,POST-STORY-052,BLOCKS,true,Issue dependency contract
+POST-EPIC-017,POST-STORY-053,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-156,POST-STORY-053,BLOCKS,true,Issue dependency contract
+POST-STORY-001,POST-SUBTASK-001,PARENT_CHILD,false,Canonical hierarchy
+POST-STORY-001,POST-SUBTASK-002,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-001,POST-SUBTASK-002,BLOCKS,true,Issue dependency contract
+POST-STORY-001,POST-SUBTASK-003,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-001,POST-SUBTASK-003,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-002,POST-SUBTASK-003,BLOCKS,true,Issue dependency contract
+POST-STORY-002,POST-SUBTASK-004,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-001,POST-SUBTASK-004,BLOCKS,true,Issue dependency contract
+POST-STORY-002,POST-SUBTASK-005,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-001,POST-SUBTASK-005,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-004,POST-SUBTASK-005,BLOCKS,true,Issue dependency contract
+POST-STORY-002,POST-SUBTASK-006,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-001,POST-SUBTASK-006,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-004,POST-SUBTASK-006,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-005,POST-SUBTASK-006,BLOCKS,true,Issue dependency contract
+POST-STORY-003,POST-SUBTASK-007,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-002,POST-SUBTASK-007,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-006,POST-SUBTASK-007,BLOCKS,true,Issue dependency contract
+POST-STORY-003,POST-SUBTASK-008,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-002,POST-SUBTASK-008,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-006,POST-SUBTASK-008,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-007,POST-SUBTASK-008,BLOCKS,true,Issue dependency contract
+POST-STORY-003,POST-SUBTASK-009,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-002,POST-SUBTASK-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-006,POST-SUBTASK-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-007,POST-SUBTASK-009,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-008,POST-SUBTASK-009,BLOCKS,true,Issue dependency contract
+POST-STORY-004,POST-SUBTASK-010,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-010,BLOCKS,true,Issue dependency contract
+POST-STORY-004,POST-SUBTASK-011,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-011,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-010,POST-SUBTASK-011,BLOCKS,true,Issue dependency contract
+POST-STORY-004,POST-SUBTASK-012,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-012,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-010,POST-SUBTASK-012,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-011,POST-SUBTASK-012,BLOCKS,true,Issue dependency contract
+POST-STORY-005,POST-SUBTASK-013,PARENT_CHILD,false,Canonical hierarchy
+POST-STORY-005,POST-SUBTASK-014,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-013,POST-SUBTASK-014,BLOCKS,true,Issue dependency contract
+POST-STORY-005,POST-SUBTASK-015,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-013,POST-SUBTASK-015,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-014,POST-SUBTASK-015,BLOCKS,true,Issue dependency contract
+POST-STORY-006,POST-SUBTASK-016,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-015,POST-SUBTASK-016,BLOCKS,true,Issue dependency contract
+POST-STORY-006,POST-SUBTASK-017,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-015,POST-SUBTASK-017,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-016,POST-SUBTASK-017,BLOCKS,true,Issue dependency contract
+POST-STORY-006,POST-SUBTASK-018,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-015,POST-SUBTASK-018,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-016,POST-SUBTASK-018,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-017,POST-SUBTASK-018,BLOCKS,true,Issue dependency contract
+POST-STORY-007,POST-SUBTASK-019,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-015,POST-SUBTASK-019,BLOCKS,true,Issue dependency contract
+POST-STORY-007,POST-SUBTASK-020,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-015,POST-SUBTASK-020,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-019,POST-SUBTASK-020,BLOCKS,true,Issue dependency contract
+POST-STORY-007,POST-SUBTASK-021,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-015,POST-SUBTASK-021,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-019,POST-SUBTASK-021,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-020,POST-SUBTASK-021,BLOCKS,true,Issue dependency contract
+POST-STORY-008,POST-SUBTASK-022,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-018,POST-SUBTASK-022,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-021,POST-SUBTASK-022,BLOCKS,true,Issue dependency contract
+POST-STORY-008,POST-SUBTASK-023,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-018,POST-SUBTASK-023,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-021,POST-SUBTASK-023,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-022,POST-SUBTASK-023,BLOCKS,true,Issue dependency contract
+POST-STORY-008,POST-SUBTASK-024,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-018,POST-SUBTASK-024,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-021,POST-SUBTASK-024,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-022,POST-SUBTASK-024,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-023,POST-SUBTASK-024,BLOCKS,true,Issue dependency contract
+POST-STORY-009,POST-SUBTASK-025,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-006,POST-SUBTASK-025,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-018,POST-SUBTASK-025,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-021,POST-SUBTASK-025,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-022,POST-SUBTASK-025,BLOCKS,true,Issue dependency contract
+POST-STORY-009,POST-SUBTASK-026,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-006,POST-SUBTASK-026,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-018,POST-SUBTASK-026,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-021,POST-SUBTASK-026,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-022,POST-SUBTASK-026,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-025,POST-SUBTASK-026,BLOCKS,true,Issue dependency contract
+POST-STORY-009,POST-SUBTASK-027,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-006,POST-SUBTASK-027,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-018,POST-SUBTASK-027,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-021,POST-SUBTASK-027,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-022,POST-SUBTASK-027,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-025,POST-SUBTASK-027,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-026,POST-SUBTASK-027,BLOCKS,true,Issue dependency contract
+POST-STORY-010,POST-SUBTASK-028,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-027,POST-SUBTASK-028,BLOCKS,true,Issue dependency contract
+POST-STORY-010,POST-SUBTASK-029,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-027,POST-SUBTASK-029,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-028,POST-SUBTASK-029,BLOCKS,true,Issue dependency contract
+POST-STORY-010,POST-SUBTASK-030,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-027,POST-SUBTASK-030,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-028,POST-SUBTASK-030,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-029,POST-SUBTASK-030,BLOCKS,true,Issue dependency contract
+POST-STORY-011,POST-SUBTASK-031,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-027,POST-SUBTASK-031,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-030,POST-SUBTASK-031,BLOCKS,true,Issue dependency contract
+POST-STORY-011,POST-SUBTASK-032,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-027,POST-SUBTASK-032,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-030,POST-SUBTASK-032,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-031,POST-SUBTASK-032,BLOCKS,true,Issue dependency contract
+POST-STORY-011,POST-SUBTASK-033,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-027,POST-SUBTASK-033,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-030,POST-SUBTASK-033,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-031,POST-SUBTASK-033,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-032,POST-SUBTASK-033,BLOCKS,true,Issue dependency contract
+POST-STORY-012,POST-SUBTASK-034,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-033,POST-SUBTASK-034,BLOCKS,true,Issue dependency contract
+POST-STORY-012,POST-SUBTASK-035,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-033,POST-SUBTASK-035,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-034,POST-SUBTASK-035,BLOCKS,true,Issue dependency contract
+POST-STORY-012,POST-SUBTASK-036,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-033,POST-SUBTASK-036,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-034,POST-SUBTASK-036,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-035,POST-SUBTASK-036,BLOCKS,true,Issue dependency contract
+POST-STORY-013,POST-SUBTASK-037,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-036,POST-SUBTASK-037,BLOCKS,true,Issue dependency contract
+POST-STORY-013,POST-SUBTASK-038,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-036,POST-SUBTASK-038,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-037,POST-SUBTASK-038,BLOCKS,true,Issue dependency contract
+POST-STORY-013,POST-SUBTASK-039,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-036,POST-SUBTASK-039,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-037,POST-SUBTASK-039,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-038,POST-SUBTASK-039,BLOCKS,true,Issue dependency contract
+POST-STORY-014,POST-SUBTASK-040,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-039,POST-SUBTASK-040,BLOCKS,true,Issue dependency contract
+POST-STORY-014,POST-SUBTASK-041,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-039,POST-SUBTASK-041,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-040,POST-SUBTASK-041,BLOCKS,true,Issue dependency contract
+POST-STORY-014,POST-SUBTASK-042,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-039,POST-SUBTASK-042,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-040,POST-SUBTASK-042,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-041,POST-SUBTASK-042,BLOCKS,true,Issue dependency contract
+POST-STORY-015,POST-SUBTASK-043,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-042,POST-SUBTASK-043,BLOCKS,true,Issue dependency contract
+POST-STORY-015,POST-SUBTASK-044,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-042,POST-SUBTASK-044,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-043,POST-SUBTASK-044,BLOCKS,true,Issue dependency contract
+POST-STORY-015,POST-SUBTASK-045,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-042,POST-SUBTASK-045,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-043,POST-SUBTASK-045,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-044,POST-SUBTASK-045,BLOCKS,true,Issue dependency contract
+POST-STORY-016,POST-SUBTASK-046,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-045,POST-SUBTASK-046,BLOCKS,true,Issue dependency contract
+POST-STORY-016,POST-SUBTASK-047,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-045,POST-SUBTASK-047,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-046,POST-SUBTASK-047,BLOCKS,true,Issue dependency contract
+POST-STORY-016,POST-SUBTASK-048,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-045,POST-SUBTASK-048,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-046,POST-SUBTASK-048,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-047,POST-SUBTASK-048,BLOCKS,true,Issue dependency contract
+POST-STORY-017,POST-SUBTASK-049,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-049,BLOCKS,true,Issue dependency contract
+POST-STORY-017,POST-SUBTASK-050,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-050,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-049,POST-SUBTASK-050,BLOCKS,true,Issue dependency contract
+POST-STORY-017,POST-SUBTASK-051,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-051,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-049,POST-SUBTASK-051,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-050,POST-SUBTASK-051,BLOCKS,true,Issue dependency contract
+POST-STORY-018,POST-SUBTASK-052,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-052,BLOCKS,true,Issue dependency contract
+POST-STORY-018,POST-SUBTASK-053,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-053,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-052,POST-SUBTASK-053,BLOCKS,true,Issue dependency contract
+POST-STORY-018,POST-SUBTASK-054,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-054,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-052,POST-SUBTASK-054,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-053,POST-SUBTASK-054,BLOCKS,true,Issue dependency contract
+POST-STORY-019,POST-SUBTASK-055,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-055,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-054,POST-SUBTASK-055,BLOCKS,true,Issue dependency contract
+POST-STORY-019,POST-SUBTASK-056,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-056,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-054,POST-SUBTASK-056,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-055,POST-SUBTASK-056,BLOCKS,true,Issue dependency contract
+POST-STORY-019,POST-SUBTASK-057,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-057,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-054,POST-SUBTASK-057,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-055,POST-SUBTASK-057,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-056,POST-SUBTASK-057,BLOCKS,true,Issue dependency contract
+POST-STORY-020,POST-SUBTASK-058,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-057,POST-SUBTASK-058,BLOCKS,true,Issue dependency contract
+POST-STORY-020,POST-SUBTASK-059,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-057,POST-SUBTASK-059,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-058,POST-SUBTASK-059,BLOCKS,true,Issue dependency contract
+POST-STORY-020,POST-SUBTASK-060,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-057,POST-SUBTASK-060,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-058,POST-SUBTASK-060,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-059,POST-SUBTASK-060,BLOCKS,true,Issue dependency contract
+POST-STORY-021,POST-SUBTASK-061,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-030,POST-SUBTASK-061,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-SUBTASK-061,BLOCKS,true,Issue dependency contract
+POST-STORY-021,POST-SUBTASK-062,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-030,POST-SUBTASK-062,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-SUBTASK-062,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-061,POST-SUBTASK-062,BLOCKS,true,Issue dependency contract
+POST-STORY-021,POST-SUBTASK-063,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-030,POST-SUBTASK-063,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-SUBTASK-063,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-061,POST-SUBTASK-063,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-062,POST-SUBTASK-063,BLOCKS,true,Issue dependency contract
+POST-STORY-022,POST-SUBTASK-064,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-063,POST-SUBTASK-064,BLOCKS,true,Issue dependency contract
+POST-STORY-022,POST-SUBTASK-065,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-063,POST-SUBTASK-065,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-064,POST-SUBTASK-065,BLOCKS,true,Issue dependency contract
+POST-STORY-022,POST-SUBTASK-066,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-063,POST-SUBTASK-066,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-064,POST-SUBTASK-066,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-065,POST-SUBTASK-066,BLOCKS,true,Issue dependency contract
+POST-STORY-023,POST-SUBTASK-067,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-030,POST-SUBTASK-067,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-SUBTASK-067,BLOCKS,true,Issue dependency contract
+POST-STORY-023,POST-SUBTASK-068,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-030,POST-SUBTASK-068,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-SUBTASK-068,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-067,POST-SUBTASK-068,BLOCKS,true,Issue dependency contract
+POST-STORY-023,POST-SUBTASK-069,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-030,POST-SUBTASK-069,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-048,POST-SUBTASK-069,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-067,POST-SUBTASK-069,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-068,POST-SUBTASK-069,BLOCKS,true,Issue dependency contract
+POST-STORY-024,POST-SUBTASK-070,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-070,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-060,POST-SUBTASK-070,BLOCKS,true,Issue dependency contract
+POST-STORY-024,POST-SUBTASK-071,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-071,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-060,POST-SUBTASK-071,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-070,POST-SUBTASK-071,BLOCKS,true,Issue dependency contract
+POST-STORY-024,POST-SUBTASK-072,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-060,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-070,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-071,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
+POST-STORY-025,POST-SUBTASK-073,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-072,POST-SUBTASK-073,BLOCKS,true,Issue dependency contract
+POST-STORY-025,POST-SUBTASK-074,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-072,POST-SUBTASK-074,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-073,POST-SUBTASK-074,BLOCKS,true,Issue dependency contract
+POST-STORY-025,POST-SUBTASK-075,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-072,POST-SUBTASK-075,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-073,POST-SUBTASK-075,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-074,POST-SUBTASK-075,BLOCKS,true,Issue dependency contract
+POST-STORY-026,POST-SUBTASK-076,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-075,POST-SUBTASK-076,BLOCKS,true,Issue dependency contract
+POST-STORY-026,POST-SUBTASK-077,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-075,POST-SUBTASK-077,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-076,POST-SUBTASK-077,BLOCKS,true,Issue dependency contract
+POST-STORY-026,POST-SUBTASK-078,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-075,POST-SUBTASK-078,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-076,POST-SUBTASK-078,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-077,POST-SUBTASK-078,BLOCKS,true,Issue dependency contract
+POST-STORY-027,POST-SUBTASK-079,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-079,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-063,POST-SUBTASK-079,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-066,POST-SUBTASK-079,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-069,POST-SUBTASK-079,BLOCKS,true,Issue dependency contract
+POST-STORY-027,POST-SUBTASK-080,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-080,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-063,POST-SUBTASK-080,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-066,POST-SUBTASK-080,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-069,POST-SUBTASK-080,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-079,POST-SUBTASK-080,BLOCKS,true,Issue dependency contract
+POST-STORY-027,POST-SUBTASK-081,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-048,POST-SUBTASK-081,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-063,POST-SUBTASK-081,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-066,POST-SUBTASK-081,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-069,POST-SUBTASK-081,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-079,POST-SUBTASK-081,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-080,POST-SUBTASK-081,BLOCKS,true,Issue dependency contract
+POST-STORY-028,POST-SUBTASK-082,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-078,POST-SUBTASK-082,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-081,POST-SUBTASK-082,BLOCKS,true,Issue dependency contract
+POST-STORY-028,POST-SUBTASK-083,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-078,POST-SUBTASK-083,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-081,POST-SUBTASK-083,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-082,POST-SUBTASK-083,BLOCKS,true,Issue dependency contract
+POST-STORY-028,POST-SUBTASK-084,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-078,POST-SUBTASK-084,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-081,POST-SUBTASK-084,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-082,POST-SUBTASK-084,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-083,POST-SUBTASK-084,BLOCKS,true,Issue dependency contract
+POST-STORY-029,POST-SUBTASK-085,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-084,POST-SUBTASK-085,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-085,BLOCKS,true,Issue dependency contract
+POST-STORY-029,POST-SUBTASK-086,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-084,POST-SUBTASK-086,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-085,POST-SUBTASK-086,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-086,BLOCKS,true,Issue dependency contract
+POST-STORY-029,POST-SUBTASK-087,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-084,POST-SUBTASK-087,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-085,POST-SUBTASK-087,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-086,POST-SUBTASK-087,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-087,BLOCKS,true,Issue dependency contract
+POST-STORY-030,POST-SUBTASK-088,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-088,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-078,POST-SUBTASK-088,BLOCKS,true,Issue dependency contract
+POST-STORY-030,POST-SUBTASK-089,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-089,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-078,POST-SUBTASK-089,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-088,POST-SUBTASK-089,BLOCKS,true,Issue dependency contract
+POST-STORY-030,POST-SUBTASK-090,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-051,POST-SUBTASK-090,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-078,POST-SUBTASK-090,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-088,POST-SUBTASK-090,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-089,POST-SUBTASK-090,BLOCKS,true,Issue dependency contract
+POST-STORY-031,POST-SUBTASK-091,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-084,POST-SUBTASK-091,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-SUBTASK-091,BLOCKS,true,Issue dependency contract
+POST-STORY-031,POST-SUBTASK-092,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-084,POST-SUBTASK-092,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-SUBTASK-092,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-091,POST-SUBTASK-092,BLOCKS,true,Issue dependency contract
+POST-STORY-031,POST-SUBTASK-093,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-084,POST-SUBTASK-093,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-SUBTASK-093,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-091,POST-SUBTASK-093,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-092,POST-SUBTASK-093,BLOCKS,true,Issue dependency contract
+POST-STORY-032,POST-SUBTASK-094,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-093,POST-SUBTASK-094,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-094,BLOCKS,true,Issue dependency contract
+POST-STORY-032,POST-SUBTASK-095,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-093,POST-SUBTASK-095,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-094,POST-SUBTASK-095,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-095,BLOCKS,true,Issue dependency contract
+POST-STORY-032,POST-SUBTASK-096,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-093,POST-SUBTASK-096,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-094,POST-SUBTASK-096,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-095,POST-SUBTASK-096,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-096,BLOCKS,true,Issue dependency contract
+POST-STORY-033,POST-SUBTASK-097,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-078,POST-SUBTASK-097,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-084,POST-SUBTASK-097,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-SUBTASK-097,BLOCKS,true,Issue dependency contract
+POST-STORY-033,POST-SUBTASK-098,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-078,POST-SUBTASK-098,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-084,POST-SUBTASK-098,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-SUBTASK-098,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-097,POST-SUBTASK-098,BLOCKS,true,Issue dependency contract
+POST-STORY-033,POST-SUBTASK-099,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-078,POST-SUBTASK-099,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-084,POST-SUBTASK-099,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-090,POST-SUBTASK-099,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-097,POST-SUBTASK-099,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-098,POST-SUBTASK-099,BLOCKS,true,Issue dependency contract
+POST-STORY-034,POST-SUBTASK-100,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-099,POST-SUBTASK-100,BLOCKS,true,Issue dependency contract
+POST-STORY-034,POST-SUBTASK-101,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-099,POST-SUBTASK-101,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-100,POST-SUBTASK-101,BLOCKS,true,Issue dependency contract
+POST-STORY-034,POST-SUBTASK-102,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-099,POST-SUBTASK-102,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-100,POST-SUBTASK-102,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-101,POST-SUBTASK-102,BLOCKS,true,Issue dependency contract
+POST-STORY-035,POST-SUBTASK-103,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-087,POST-SUBTASK-103,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-096,POST-SUBTASK-103,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-103,BLOCKS,true,Issue dependency contract
+POST-STORY-035,POST-SUBTASK-104,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-087,POST-SUBTASK-104,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-096,POST-SUBTASK-104,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-104,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-103,POST-SUBTASK-104,BLOCKS,true,Issue dependency contract
+POST-STORY-035,POST-SUBTASK-105,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-087,POST-SUBTASK-105,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-096,POST-SUBTASK-105,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-102,POST-SUBTASK-105,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-103,POST-SUBTASK-105,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-104,POST-SUBTASK-105,BLOCKS,true,Issue dependency contract
+POST-STORY-036,POST-SUBTASK-106,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-024,POST-SUBTASK-106,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-105,POST-SUBTASK-106,BLOCKS,true,Issue dependency contract
+POST-STORY-036,POST-SUBTASK-107,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-024,POST-SUBTASK-107,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-105,POST-SUBTASK-107,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-106,POST-SUBTASK-107,BLOCKS,true,Issue dependency contract
+POST-STORY-036,POST-SUBTASK-108,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-024,POST-SUBTASK-108,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-105,POST-SUBTASK-108,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-106,POST-SUBTASK-108,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-107,POST-SUBTASK-108,BLOCKS,true,Issue dependency contract
+POST-STORY-037,POST-SUBTASK-109,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-108,POST-SUBTASK-109,BLOCKS,true,Issue dependency contract
+POST-STORY-037,POST-SUBTASK-110,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-108,POST-SUBTASK-110,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-109,POST-SUBTASK-110,BLOCKS,true,Issue dependency contract
+POST-STORY-037,POST-SUBTASK-111,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-108,POST-SUBTASK-111,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-109,POST-SUBTASK-111,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-110,POST-SUBTASK-111,BLOCKS,true,Issue dependency contract
+POST-STORY-038,POST-SUBTASK-112,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-111,POST-SUBTASK-112,BLOCKS,true,Issue dependency contract
+POST-STORY-038,POST-SUBTASK-113,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-111,POST-SUBTASK-113,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-112,POST-SUBTASK-113,BLOCKS,true,Issue dependency contract
+POST-STORY-038,POST-SUBTASK-114,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-111,POST-SUBTASK-114,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-112,POST-SUBTASK-114,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-113,POST-SUBTASK-114,BLOCKS,true,Issue dependency contract
+POST-STORY-039,POST-SUBTASK-115,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-111,POST-SUBTASK-115,BLOCKS,true,Issue dependency contract
+POST-STORY-039,POST-SUBTASK-116,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-111,POST-SUBTASK-116,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-115,POST-SUBTASK-116,BLOCKS,true,Issue dependency contract
+POST-STORY-039,POST-SUBTASK-117,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-111,POST-SUBTASK-117,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-115,POST-SUBTASK-117,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-116,POST-SUBTASK-117,BLOCKS,true,Issue dependency contract
+POST-STORY-040,POST-SUBTASK-118,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-117,POST-SUBTASK-118,BLOCKS,true,Issue dependency contract
+POST-STORY-040,POST-SUBTASK-119,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-117,POST-SUBTASK-119,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-118,POST-SUBTASK-119,BLOCKS,true,Issue dependency contract
+POST-STORY-040,POST-SUBTASK-120,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-117,POST-SUBTASK-120,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-118,POST-SUBTASK-120,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-119,POST-SUBTASK-120,BLOCKS,true,Issue dependency contract
+POST-STORY-041,POST-SUBTASK-121,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-121,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-120,POST-SUBTASK-121,BLOCKS,true,Issue dependency contract
+POST-STORY-041,POST-SUBTASK-122,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-122,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-120,POST-SUBTASK-122,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-121,POST-SUBTASK-122,BLOCKS,true,Issue dependency contract
+POST-STORY-041,POST-SUBTASK-123,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-123,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-120,POST-SUBTASK-123,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-121,POST-SUBTASK-123,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-122,POST-SUBTASK-123,BLOCKS,true,Issue dependency contract
+POST-STORY-042,POST-SUBTASK-124,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-002,POST-SUBTASK-124,BLOCKS,true,Issue dependency contract
+POST-STORY-042,POST-SUBTASK-125,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-002,POST-SUBTASK-125,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-124,POST-SUBTASK-125,BLOCKS,true,Issue dependency contract
+POST-STORY-042,POST-SUBTASK-126,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-002,POST-SUBTASK-126,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-124,POST-SUBTASK-126,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-125,POST-SUBTASK-126,BLOCKS,true,Issue dependency contract
+POST-STORY-043,POST-SUBTASK-127,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-024,POST-SUBTASK-127,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-126,POST-SUBTASK-127,BLOCKS,true,Issue dependency contract
+POST-STORY-043,POST-SUBTASK-128,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-024,POST-SUBTASK-128,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-126,POST-SUBTASK-128,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-127,POST-SUBTASK-128,BLOCKS,true,Issue dependency contract
+POST-STORY-043,POST-SUBTASK-129,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-024,POST-SUBTASK-129,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-126,POST-SUBTASK-129,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-127,POST-SUBTASK-129,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-128,POST-SUBTASK-129,BLOCKS,true,Issue dependency contract
+POST-STORY-044,POST-SUBTASK-130,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-129,POST-SUBTASK-130,BLOCKS,true,Issue dependency contract
+POST-STORY-044,POST-SUBTASK-131,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-129,POST-SUBTASK-131,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-130,POST-SUBTASK-131,BLOCKS,true,Issue dependency contract
+POST-STORY-044,POST-SUBTASK-132,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-129,POST-SUBTASK-132,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-130,POST-SUBTASK-132,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-131,POST-SUBTASK-132,BLOCKS,true,Issue dependency contract
+POST-STORY-045,POST-SUBTASK-133,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-105,POST-SUBTASK-133,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-114,POST-SUBTASK-133,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-123,POST-SUBTASK-133,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-132,POST-SUBTASK-133,BLOCKS,true,Issue dependency contract
+POST-STORY-045,POST-SUBTASK-134,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-105,POST-SUBTASK-134,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-114,POST-SUBTASK-134,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-123,POST-SUBTASK-134,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-132,POST-SUBTASK-134,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-133,POST-SUBTASK-134,BLOCKS,true,Issue dependency contract
+POST-STORY-045,POST-SUBTASK-135,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-105,POST-SUBTASK-135,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-114,POST-SUBTASK-135,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-123,POST-SUBTASK-135,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-132,POST-SUBTASK-135,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-133,POST-SUBTASK-135,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-134,POST-SUBTASK-135,BLOCKS,true,Issue dependency contract
+POST-STORY-046,POST-SUBTASK-136,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-136,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-135,POST-SUBTASK-136,BLOCKS,true,Issue dependency contract
+POST-STORY-046,POST-SUBTASK-137,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-137,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-135,POST-SUBTASK-137,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-136,POST-SUBTASK-137,BLOCKS,true,Issue dependency contract
+POST-STORY-046,POST-SUBTASK-138,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-009,POST-SUBTASK-138,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-135,POST-SUBTASK-138,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-136,POST-SUBTASK-138,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-137,POST-SUBTASK-138,BLOCKS,true,Issue dependency contract
+POST-STORY-047,POST-SUBTASK-139,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-138,POST-SUBTASK-139,BLOCKS,true,Issue dependency contract
+POST-STORY-047,POST-SUBTASK-140,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-138,POST-SUBTASK-140,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-139,POST-SUBTASK-140,BLOCKS,true,Issue dependency contract
+POST-STORY-047,POST-SUBTASK-141,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-138,POST-SUBTASK-141,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-139,POST-SUBTASK-141,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-140,POST-SUBTASK-141,BLOCKS,true,Issue dependency contract
+POST-STORY-048,POST-SUBTASK-142,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-141,POST-SUBTASK-142,BLOCKS,true,Issue dependency contract
+POST-STORY-048,POST-SUBTASK-143,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-141,POST-SUBTASK-143,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-142,POST-SUBTASK-143,BLOCKS,true,Issue dependency contract
+POST-STORY-048,POST-SUBTASK-144,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-141,POST-SUBTASK-144,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-142,POST-SUBTASK-144,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-143,POST-SUBTASK-144,BLOCKS,true,Issue dependency contract
+POST-STORY-049,POST-SUBTASK-145,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-144,POST-SUBTASK-145,BLOCKS,true,Issue dependency contract
+POST-STORY-049,POST-SUBTASK-146,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-144,POST-SUBTASK-146,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-145,POST-SUBTASK-146,BLOCKS,true,Issue dependency contract
+POST-STORY-049,POST-SUBTASK-147,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-144,POST-SUBTASK-147,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-145,POST-SUBTASK-147,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-146,POST-SUBTASK-147,BLOCKS,true,Issue dependency contract
+POST-STORY-050,POST-SUBTASK-148,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-147,POST-SUBTASK-148,BLOCKS,true,Issue dependency contract
+POST-STORY-050,POST-SUBTASK-149,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-147,POST-SUBTASK-149,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-148,POST-SUBTASK-149,BLOCKS,true,Issue dependency contract
+POST-STORY-050,POST-SUBTASK-150,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-147,POST-SUBTASK-150,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-148,POST-SUBTASK-150,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-149,POST-SUBTASK-150,BLOCKS,true,Issue dependency contract
+POST-STORY-051,POST-SUBTASK-151,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-141,POST-SUBTASK-151,BLOCKS,true,Issue dependency contract
+POST-STORY-051,POST-SUBTASK-152,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-141,POST-SUBTASK-152,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-151,POST-SUBTASK-152,BLOCKS,true,Issue dependency contract
+POST-STORY-051,POST-SUBTASK-153,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-141,POST-SUBTASK-153,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-151,POST-SUBTASK-153,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-152,POST-SUBTASK-153,BLOCKS,true,Issue dependency contract
+POST-STORY-052,POST-SUBTASK-154,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-153,POST-SUBTASK-154,BLOCKS,true,Issue dependency contract
+POST-STORY-052,POST-SUBTASK-155,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-153,POST-SUBTASK-155,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-154,POST-SUBTASK-155,BLOCKS,true,Issue dependency contract
+POST-STORY-052,POST-SUBTASK-156,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-153,POST-SUBTASK-156,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-154,POST-SUBTASK-156,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-155,POST-SUBTASK-156,BLOCKS,true,Issue dependency contract
+POST-STORY-053,POST-SUBTASK-157,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-156,POST-SUBTASK-157,BLOCKS,true,Issue dependency contract
+POST-STORY-053,POST-SUBTASK-158,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-156,POST-SUBTASK-158,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-157,POST-SUBTASK-158,BLOCKS,true,Issue dependency contract
+POST-STORY-053,POST-SUBTASK-159,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-156,POST-SUBTASK-159,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-157,POST-SUBTASK-159,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-158,POST-SUBTASK-159,BLOCKS,true,Issue dependency contract
+EPIC-001,TASK-001,PARENT_CHILD,false,Canonical hierarchy
+TASK-001,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-001,TASK-002,PARENT_CHILD,false,Canonical hierarchy
+TASK-001,TASK-002,BLOCKS,true,Issue dependency contract
+TASK-002,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-001,TASK-003,PARENT_CHILD,false,Canonical hierarchy
+TASK-002,TASK-003,BLOCKS,true,Issue dependency contract
+TASK-003,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-001,TASK-004,PARENT_CHILD,false,Canonical hierarchy
+TASK-002,TASK-004,BLOCKS,true,Issue dependency contract
+TASK-004,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-001,TASK-005,PARENT_CHILD,false,Canonical hierarchy
+TASK-003,TASK-005,BLOCKS,true,Issue dependency contract
+TASK-004,TASK-005,BLOCKS,true,Issue dependency contract
+TASK-005,POST-SUBTASK-033,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-001,TASK-006,PARENT_CHILD,false,Canonical hierarchy
+TASK-005,TASK-006,BLOCKS,true,Issue dependency contract
+TASK-006,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-002,TASK-007,PARENT_CHILD,false,Canonical hierarchy
+TASK-006,TASK-007,BLOCKS,true,Issue dependency contract
+TASK-007,POST-SUBTASK-042,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-002,TASK-008,PARENT_CHILD,false,Canonical hierarchy
+TASK-007,TASK-008,BLOCKS,true,Issue dependency contract
+TASK-008,POST-SUBTASK-042,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-002,TASK-009,PARENT_CHILD,false,Canonical hierarchy
+TASK-008,TASK-009,BLOCKS,true,Issue dependency contract
+TASK-009,POST-SUBTASK-042,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-002,TASK-010,PARENT_CHILD,false,Canonical hierarchy
+TASK-009,TASK-010,BLOCKS,true,Issue dependency contract
+TASK-010,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-002,TASK-011,PARENT_CHILD,false,Canonical hierarchy
+TASK-006,TASK-011,BLOCKS,true,Issue dependency contract
+TASK-007,TASK-011,BLOCKS,true,Issue dependency contract
+TASK-011,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-002,TASK-012,PARENT_CHILD,false,Canonical hierarchy
+TASK-010,TASK-012,BLOCKS,true,Issue dependency contract
+TASK-011,TASK-012,BLOCKS,true,Issue dependency contract
+TASK-012,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,TASK-013,PARENT_CHILD,false,Canonical hierarchy
+TASK-012,TASK-013,BLOCKS,true,Issue dependency contract
+TASK-013,POST-SUBTASK-051,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,TASK-014,PARENT_CHILD,false,Canonical hierarchy
+TASK-013,TASK-014,BLOCKS,true,Issue dependency contract
+TASK-014,POST-SUBTASK-051,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,TASK-015,PARENT_CHILD,false,Canonical hierarchy
+TASK-013,TASK-015,BLOCKS,true,Issue dependency contract
+TASK-015,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,TASK-016,PARENT_CHILD,false,Canonical hierarchy
+TASK-014,TASK-016,BLOCKS,true,Issue dependency contract
+TASK-015,TASK-016,BLOCKS,true,Issue dependency contract
+TASK-016,POST-SUBTASK-051,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,TASK-017,PARENT_CHILD,false,Canonical hierarchy
+TASK-014,TASK-017,BLOCKS,true,Issue dependency contract
+TASK-017,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,TASK-018,PARENT_CHILD,false,Canonical hierarchy
+TASK-016,TASK-018,BLOCKS,true,Issue dependency contract
+TASK-017,TASK-018,BLOCKS,true,Issue dependency contract
+TASK-018,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-004,TASK-019,PARENT_CHILD,false,Canonical hierarchy
+TASK-018,TASK-019,BLOCKS,true,Issue dependency contract
+TASK-019,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-004,TASK-020,PARENT_CHILD,false,Canonical hierarchy
+TASK-019,TASK-020,BLOCKS,true,Issue dependency contract
+TASK-020,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-004,TASK-021,PARENT_CHILD,false,Canonical hierarchy
+TASK-020,TASK-021,BLOCKS,true,Issue dependency contract
+TASK-021,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-004,TASK-022,PARENT_CHILD,false,Canonical hierarchy
+TASK-021,TASK-022,BLOCKS,true,Issue dependency contract
+TASK-022,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-004,TASK-023,PARENT_CHILD,false,Canonical hierarchy
+TASK-022,TASK-023,BLOCKS,true,Issue dependency contract
+TASK-023,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-005,TASK-024,PARENT_CHILD,false,Canonical hierarchy
+TASK-023,TASK-024,BLOCKS,true,Issue dependency contract
+TASK-024,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-005,TASK-025,PARENT_CHILD,false,Canonical hierarchy
+TASK-024,TASK-025,BLOCKS,true,Issue dependency contract
+TASK-025,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-005,TASK-026,PARENT_CHILD,false,Canonical hierarchy
+TASK-024,TASK-026,BLOCKS,true,Issue dependency contract
+TASK-026,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-005,TASK-027,PARENT_CHILD,false,Canonical hierarchy
+TASK-025,TASK-027,BLOCKS,true,Issue dependency contract
+TASK-026,TASK-027,BLOCKS,true,Issue dependency contract
+TASK-027,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-005,TASK-028,PARENT_CHILD,false,Canonical hierarchy
+TASK-027,TASK-028,BLOCKS,true,Issue dependency contract
+TASK-028,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-005,TASK-029,PARENT_CHILD,false,Canonical hierarchy
+TASK-028,TASK-029,BLOCKS,true,Issue dependency contract
+TASK-029,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-006,TASK-030,PARENT_CHILD,false,Canonical hierarchy
+TASK-029,TASK-030,BLOCKS,true,Issue dependency contract
+TASK-030,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-006,TASK-031,PARENT_CHILD,false,Canonical hierarchy
+TASK-030,TASK-031,BLOCKS,true,Issue dependency contract
+TASK-031,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-006,TASK-032,PARENT_CHILD,false,Canonical hierarchy
+TASK-030,TASK-032,BLOCKS,true,Issue dependency contract
+TASK-032,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-006,TASK-033,PARENT_CHILD,false,Canonical hierarchy
+TASK-030,TASK-033,BLOCKS,true,Issue dependency contract
+TASK-033,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-006,TASK-034,PARENT_CHILD,false,Canonical hierarchy
+TASK-031,TASK-034,BLOCKS,true,Issue dependency contract
+TASK-032,TASK-034,BLOCKS,true,Issue dependency contract
+TASK-033,TASK-034,BLOCKS,true,Issue dependency contract
+TASK-034,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-006,TASK-035,PARENT_CHILD,false,Canonical hierarchy
+TASK-034,TASK-035,BLOCKS,true,Issue dependency contract
+TASK-035,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-007,TASK-036,PARENT_CHILD,false,Canonical hierarchy
+TASK-035,TASK-036,BLOCKS,true,Issue dependency contract
+TASK-036,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-007,TASK-037,PARENT_CHILD,false,Canonical hierarchy
+TASK-036,TASK-037,BLOCKS,true,Issue dependency contract
+TASK-037,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-007,TASK-038,PARENT_CHILD,false,Canonical hierarchy
+TASK-036,TASK-038,BLOCKS,true,Issue dependency contract
+TASK-038,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-007,TASK-039,PARENT_CHILD,false,Canonical hierarchy
+TASK-037,TASK-039,BLOCKS,true,Issue dependency contract
+TASK-038,TASK-039,BLOCKS,true,Issue dependency contract
+TASK-129,TASK-039,BLOCKS,true,Issue dependency contract
+TASK-039,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-007,TASK-040,PARENT_CHILD,false,Canonical hierarchy
+TASK-039,TASK-040,BLOCKS,true,Issue dependency contract
+TASK-040,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-008,TASK-041,PARENT_CHILD,false,Canonical hierarchy
+TASK-006,TASK-041,BLOCKS,true,Issue dependency contract
+TASK-018,TASK-041,BLOCKS,true,Issue dependency contract
+TASK-139,TASK-041,BLOCKS,true,Issue dependency contract
+TASK-041,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-008,TASK-042,PARENT_CHILD,false,Canonical hierarchy
+TASK-012,TASK-042,BLOCKS,true,Issue dependency contract
+TASK-041,TASK-042,BLOCKS,true,Issue dependency contract
+TASK-042,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-008,TASK-043,PARENT_CHILD,false,Canonical hierarchy
+TASK-018,TASK-043,BLOCKS,true,Issue dependency contract
+TASK-042,TASK-043,BLOCKS,true,Issue dependency contract
+TASK-043,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-008,TASK-044,PARENT_CHILD,false,Canonical hierarchy
+TASK-023,TASK-044,BLOCKS,true,Issue dependency contract
+TASK-029,TASK-044,BLOCKS,true,Issue dependency contract
+TASK-043,TASK-044,BLOCKS,true,Issue dependency contract
+TASK-044,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-008,TASK-045,PARENT_CHILD,false,Canonical hierarchy
+TASK-044,TASK-045,BLOCKS,true,Issue dependency contract
+TASK-045,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-008,TASK-046,PARENT_CHILD,false,Canonical hierarchy
+TASK-045,TASK-046,BLOCKS,true,Issue dependency contract
+TASK-046,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-009,TASK-047,PARENT_CHILD,false,Canonical hierarchy
+TASK-018,TASK-047,BLOCKS,true,Issue dependency contract
+TASK-035,TASK-047,BLOCKS,true,Issue dependency contract
+TASK-047,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-009,TASK-048,PARENT_CHILD,false,Canonical hierarchy
+TASK-047,TASK-048,BLOCKS,true,Issue dependency contract
+TASK-048,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-009,TASK-049,PARENT_CHILD,false,Canonical hierarchy
+TASK-047,TASK-049,BLOCKS,true,Issue dependency contract
+TASK-049,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-009,TASK-050,PARENT_CHILD,false,Canonical hierarchy
+TASK-048,TASK-050,BLOCKS,true,Issue dependency contract
+TASK-049,TASK-050,BLOCKS,true,Issue dependency contract
+TASK-050,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-009,TASK-051,PARENT_CHILD,false,Canonical hierarchy
+TASK-049,TASK-051,BLOCKS,true,Issue dependency contract
+TASK-051,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-009,TASK-052,PARENT_CHILD,false,Canonical hierarchy
+TASK-050,TASK-052,BLOCKS,true,Issue dependency contract
+TASK-051,TASK-052,BLOCKS,true,Issue dependency contract
+TASK-052,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-010,TASK-053,PARENT_CHILD,false,Canonical hierarchy
+TASK-047,TASK-053,BLOCKS,true,Issue dependency contract
+TASK-053,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-010,TASK-054,PARENT_CHILD,false,Canonical hierarchy
+TASK-012,TASK-054,BLOCKS,true,Issue dependency contract
+TASK-047,TASK-054,BLOCKS,true,Issue dependency contract
+TASK-054,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-010,TASK-055,PARENT_CHILD,false,Canonical hierarchy
+TASK-053,TASK-055,BLOCKS,true,Issue dependency contract
+TASK-054,TASK-055,BLOCKS,true,Issue dependency contract
+TASK-055,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-010,TASK-056,PARENT_CHILD,false,Canonical hierarchy
+TASK-053,TASK-056,BLOCKS,true,Issue dependency contract
+TASK-056,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-010,TASK-057,PARENT_CHILD,false,Canonical hierarchy
+TASK-055,TASK-057,BLOCKS,true,Issue dependency contract
+TASK-056,TASK-057,BLOCKS,true,Issue dependency contract
+TASK-057,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-010,TASK-058,PARENT_CHILD,false,Canonical hierarchy
+TASK-052,TASK-058,BLOCKS,true,Issue dependency contract
+TASK-057,TASK-058,BLOCKS,true,Issue dependency contract
+TASK-058,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-011,TASK-059,PARENT_CHILD,false,Canonical hierarchy
+TASK-012,TASK-059,BLOCKS,true,Issue dependency contract
+TASK-018,TASK-059,BLOCKS,true,Issue dependency contract
+TASK-059,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-011,TASK-060,PARENT_CHILD,false,Canonical hierarchy
+TASK-052,TASK-060,BLOCKS,true,Issue dependency contract
+TASK-059,TASK-060,BLOCKS,true,Issue dependency contract
+TASK-060,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-011,TASK-061,PARENT_CHILD,false,Canonical hierarchy
+TASK-059,TASK-061,BLOCKS,true,Issue dependency contract
+TASK-061,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-011,TASK-062,PARENT_CHILD,false,Canonical hierarchy
+TASK-061,TASK-062,BLOCKS,true,Issue dependency contract
+TASK-062,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-011,TASK-063,PARENT_CHILD,false,Canonical hierarchy
+TASK-060,TASK-063,BLOCKS,true,Issue dependency contract
+TASK-062,TASK-063,BLOCKS,true,Issue dependency contract
+TASK-063,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-011,TASK-064,PARENT_CHILD,false,Canonical hierarchy
+TASK-063,TASK-064,BLOCKS,true,Issue dependency contract
+TASK-064,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,TASK-065,PARENT_CHILD,false,Canonical hierarchy
+TASK-018,TASK-065,BLOCKS,true,Issue dependency contract
+TASK-065,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,TASK-066,PARENT_CHILD,false,Canonical hierarchy
+TASK-012,TASK-066,BLOCKS,true,Issue dependency contract
+TASK-018,TASK-066,BLOCKS,true,Issue dependency contract
+TASK-066,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,TASK-067,PARENT_CHILD,false,Canonical hierarchy
+TASK-006,TASK-067,BLOCKS,true,Issue dependency contract
+TASK-067,POST-SUBTASK-033,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,TASK-068,PARENT_CHILD,false,Canonical hierarchy
+TASK-035,TASK-068,BLOCKS,true,Issue dependency contract
+TASK-066,TASK-068,BLOCKS,true,Issue dependency contract
+TASK-068,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,TASK-069,PARENT_CHILD,false,Canonical hierarchy
+TASK-018,TASK-069,BLOCKS,true,Issue dependency contract
+TASK-069,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,TASK-070,PARENT_CHILD,false,Canonical hierarchy
+TASK-065,TASK-070,BLOCKS,true,Issue dependency contract
+TASK-067,TASK-070,BLOCKS,true,Issue dependency contract
+TASK-068,TASK-070,BLOCKS,true,Issue dependency contract
+TASK-069,TASK-070,BLOCKS,true,Issue dependency contract
+TASK-070,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-013,TASK-071,PARENT_CHILD,false,Canonical hierarchy
+TASK-029,TASK-071,BLOCKS,true,Issue dependency contract
+TASK-035,TASK-071,BLOCKS,true,Issue dependency contract
+TASK-071,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-013,TASK-072,PARENT_CHILD,false,Canonical hierarchy
+TASK-071,TASK-072,BLOCKS,true,Issue dependency contract
+TASK-072,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-013,TASK-073,PARENT_CHILD,false,Canonical hierarchy
+TASK-065,TASK-073,BLOCKS,true,Issue dependency contract
+TASK-072,TASK-073,BLOCKS,true,Issue dependency contract
+TASK-073,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-013,TASK-074,PARENT_CHILD,false,Canonical hierarchy
+TASK-029,TASK-074,BLOCKS,true,Issue dependency contract
+TASK-074,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-013,TASK-075,PARENT_CHILD,false,Canonical hierarchy
+TASK-072,TASK-075,BLOCKS,true,Issue dependency contract
+TASK-074,TASK-075,BLOCKS,true,Issue dependency contract
+TASK-075,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-013,TASK-076,PARENT_CHILD,false,Canonical hierarchy
+TASK-073,TASK-076,BLOCKS,true,Issue dependency contract
+TASK-075,TASK-076,BLOCKS,true,Issue dependency contract
+TASK-076,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-014,TASK-077,PARENT_CHILD,false,Canonical hierarchy
+TASK-029,TASK-077,BLOCKS,true,Issue dependency contract
+TASK-035,TASK-077,BLOCKS,true,Issue dependency contract
+TASK-077,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-014,TASK-078,PARENT_CHILD,false,Canonical hierarchy
+TASK-061,TASK-078,BLOCKS,true,Issue dependency contract
+TASK-077,TASK-078,BLOCKS,true,Issue dependency contract
+TASK-078,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-014,TASK-079,PARENT_CHILD,false,Canonical hierarchy
+TASK-066,TASK-079,BLOCKS,true,Issue dependency contract
+TASK-071,TASK-079,BLOCKS,true,Issue dependency contract
+TASK-079,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-014,TASK-080,PARENT_CHILD,false,Canonical hierarchy
+TASK-018,TASK-080,BLOCKS,true,Issue dependency contract
+TASK-079,TASK-080,BLOCKS,true,Issue dependency contract
+TASK-080,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-014,TASK-081,PARENT_CHILD,false,Canonical hierarchy
+TASK-006,TASK-081,BLOCKS,true,Issue dependency contract
+TASK-018,TASK-081,BLOCKS,true,Issue dependency contract
+TASK-081,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-014,TASK-082,PARENT_CHILD,false,Canonical hierarchy
+TASK-077,TASK-082,BLOCKS,true,Issue dependency contract
+TASK-078,TASK-082,BLOCKS,true,Issue dependency contract
+TASK-080,TASK-082,BLOCKS,true,Issue dependency contract
+TASK-081,TASK-082,BLOCKS,true,Issue dependency contract
+TASK-082,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-015,TASK-083,PARENT_CHILD,false,Canonical hierarchy
+TASK-046,TASK-083,BLOCKS,true,Issue dependency contract
+TASK-052,TASK-083,BLOCKS,true,Issue dependency contract
+TASK-083,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-015,TASK-084,PARENT_CHILD,false,Canonical hierarchy
+TASK-046,TASK-084,BLOCKS,true,Issue dependency contract
+TASK-058,TASK-084,BLOCKS,true,Issue dependency contract
+TASK-084,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-015,TASK-085,PARENT_CHILD,false,Canonical hierarchy
+TASK-046,TASK-085,BLOCKS,true,Issue dependency contract
+TASK-064,TASK-085,BLOCKS,true,Issue dependency contract
+TASK-070,TASK-085,BLOCKS,true,Issue dependency contract
+TASK-076,TASK-085,BLOCKS,true,Issue dependency contract
+TASK-082,TASK-085,BLOCKS,true,Issue dependency contract
+TASK-085,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-015,TASK-086,PARENT_CHILD,false,Canonical hierarchy
+TASK-083,TASK-086,BLOCKS,true,Issue dependency contract
+TASK-084,TASK-086,BLOCKS,true,Issue dependency contract
+TASK-085,TASK-086,BLOCKS,true,Issue dependency contract
+TASK-086,POST-SUBTASK-051,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-015,TASK-087,PARENT_CHILD,false,Canonical hierarchy
+TASK-040,TASK-087,BLOCKS,true,Issue dependency contract
+TASK-086,TASK-087,BLOCKS,true,Issue dependency contract
+TASK-087,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-016,TASK-088,PARENT_CHILD,false,Canonical hierarchy
+TASK-058,TASK-088,BLOCKS,true,Issue dependency contract
+TASK-064,TASK-088,BLOCKS,true,Issue dependency contract
+TASK-070,TASK-088,BLOCKS,true,Issue dependency contract
+TASK-076,TASK-088,BLOCKS,true,Issue dependency contract
+TASK-082,TASK-088,BLOCKS,true,Issue dependency contract
+TASK-088,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-016,TASK-089,PARENT_CHILD,false,Canonical hierarchy
+TASK-052,TASK-089,BLOCKS,true,Issue dependency contract
+TASK-088,TASK-089,BLOCKS,true,Issue dependency contract
+TASK-089,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-016,TASK-090,PARENT_CHILD,false,Canonical hierarchy
+TASK-064,TASK-090,BLOCKS,true,Issue dependency contract
+TASK-088,TASK-090,BLOCKS,true,Issue dependency contract
+TASK-090,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-016,TASK-091,PARENT_CHILD,false,Canonical hierarchy
+TASK-018,TASK-091,BLOCKS,true,Issue dependency contract
+TASK-088,TASK-091,BLOCKS,true,Issue dependency contract
+TASK-091,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-016,TASK-092,PARENT_CHILD,false,Canonical hierarchy
+TASK-035,TASK-092,BLOCKS,true,Issue dependency contract
+TASK-088,TASK-092,BLOCKS,true,Issue dependency contract
+TASK-092,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-016,TASK-093,PARENT_CHILD,false,Canonical hierarchy
+TASK-089,TASK-093,BLOCKS,true,Issue dependency contract
+TASK-090,TASK-093,BLOCKS,true,Issue dependency contract
+TASK-091,TASK-093,BLOCKS,true,Issue dependency contract
+TASK-092,TASK-093,BLOCKS,true,Issue dependency contract
+TASK-093,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-017,TASK-094,PARENT_CHILD,false,Canonical hierarchy
+TASK-093,TASK-094,BLOCKS,true,Issue dependency contract
+TASK-094,POST-SUBTASK-087,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-017,TASK-095,PARENT_CHILD,false,Canonical hierarchy
+TASK-094,TASK-095,BLOCKS,true,Issue dependency contract
+TASK-095,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-017,TASK-096,PARENT_CHILD,false,Canonical hierarchy
+TASK-094,TASK-096,BLOCKS,true,Issue dependency contract
+TASK-096,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-017,TASK-097,PARENT_CHILD,false,Canonical hierarchy
+TASK-095,TASK-097,BLOCKS,true,Issue dependency contract
+TASK-096,TASK-097,BLOCKS,true,Issue dependency contract
+TASK-097,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-017,TASK-098,PARENT_CHILD,false,Canonical hierarchy
+TASK-094,TASK-098,BLOCKS,true,Issue dependency contract
+TASK-098,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-017,TASK-099,PARENT_CHILD,false,Canonical hierarchy
+TASK-097,TASK-099,BLOCKS,true,Issue dependency contract
+TASK-098,TASK-099,BLOCKS,true,Issue dependency contract
+TASK-099,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-018,TASK-100,PARENT_CHILD,false,Canonical hierarchy
+TASK-099,TASK-100,BLOCKS,true,Issue dependency contract
+TASK-100,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-018,TASK-101,PARENT_CHILD,false,Canonical hierarchy
+TASK-018,TASK-101,BLOCKS,true,Issue dependency contract
+TASK-100,TASK-101,BLOCKS,true,Issue dependency contract
+TASK-101,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-018,TASK-102,PARENT_CHILD,false,Canonical hierarchy
+TASK-101,TASK-102,BLOCKS,true,Issue dependency contract
+TASK-102,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-018,TASK-103,PARENT_CHILD,false,Canonical hierarchy
+TASK-101,TASK-103,BLOCKS,true,Issue dependency contract
+TASK-102,TASK-103,BLOCKS,true,Issue dependency contract
+TASK-103,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-018,TASK-104,PARENT_CHILD,false,Canonical hierarchy
+TASK-103,TASK-104,BLOCKS,true,Issue dependency contract
+TASK-104,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-019,TASK-105,PARENT_CHILD,false,Canonical hierarchy
+TASK-104,TASK-105,BLOCKS,true,Issue dependency contract
+TASK-105,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-019,TASK-106,PARENT_CHILD,false,Canonical hierarchy
+TASK-092,TASK-106,BLOCKS,true,Issue dependency contract
+TASK-105,TASK-106,BLOCKS,true,Issue dependency contract
+TASK-106,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-019,TASK-107,PARENT_CHILD,false,Canonical hierarchy
+TASK-104,TASK-107,BLOCKS,true,Issue dependency contract
+TASK-107,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-019,TASK-108,PARENT_CHILD,false,Canonical hierarchy
+TASK-106,TASK-108,BLOCKS,true,Issue dependency contract
+TASK-107,TASK-108,BLOCKS,true,Issue dependency contract
+TASK-108,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-019,TASK-109,PARENT_CHILD,false,Canonical hierarchy
+TASK-108,TASK-109,BLOCKS,true,Issue dependency contract
+TASK-128,TASK-109,BLOCKS,true,Issue dependency contract
+TASK-129,TASK-109,BLOCKS,true,Issue dependency contract
+TASK-109,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-019,TASK-110,PARENT_CHILD,false,Canonical hierarchy
+TASK-109,TASK-110,BLOCKS,true,Issue dependency contract
+TASK-110,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-020,TASK-111,PARENT_CHILD,false,Canonical hierarchy
+TASK-046,TASK-111,BLOCKS,true,Issue dependency contract
+TASK-093,TASK-111,BLOCKS,true,Issue dependency contract
+TASK-111,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-020,TASK-112,PARENT_CHILD,false,Canonical hierarchy
+TASK-099,TASK-112,BLOCKS,true,Issue dependency contract
+TASK-111,TASK-112,BLOCKS,true,Issue dependency contract
+TASK-112,POST-SUBTASK-087,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-020,TASK-113,PARENT_CHILD,false,Canonical hierarchy
+TASK-104,TASK-113,BLOCKS,true,Issue dependency contract
+TASK-113,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-020,TASK-114,PARENT_CHILD,false,Canonical hierarchy
+TASK-112,TASK-114,BLOCKS,true,Issue dependency contract
+TASK-113,TASK-114,BLOCKS,true,Issue dependency contract
+TASK-114,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-020,TASK-115,PARENT_CHILD,false,Canonical hierarchy
+TASK-110,TASK-115,BLOCKS,true,Issue dependency contract
+TASK-114,TASK-115,BLOCKS,true,Issue dependency contract
+TASK-115,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-021,TASK-116,PARENT_CHILD,false,Canonical hierarchy
+TASK-099,TASK-116,BLOCKS,true,Issue dependency contract
+TASK-104,TASK-116,BLOCKS,true,Issue dependency contract
+TASK-116,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-021,TASK-117,PARENT_CHILD,false,Canonical hierarchy
+TASK-116,TASK-117,BLOCKS,true,Issue dependency contract
+TASK-117,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-021,TASK-118,PARENT_CHILD,false,Canonical hierarchy
+TASK-117,TASK-118,BLOCKS,true,Issue dependency contract
+TASK-118,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-021,TASK-119,PARENT_CHILD,false,Canonical hierarchy
+TASK-052,TASK-119,BLOCKS,true,Issue dependency contract
+TASK-070,TASK-119,BLOCKS,true,Issue dependency contract
+TASK-118,TASK-119,BLOCKS,true,Issue dependency contract
+TASK-119,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-021,TASK-120,PARENT_CHILD,false,Canonical hierarchy
+TASK-119,TASK-120,BLOCKS,true,Issue dependency contract
+TASK-120,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-021,TASK-121,PARENT_CHILD,false,Canonical hierarchy
+TASK-118,TASK-121,BLOCKS,true,Issue dependency contract
+TASK-120,TASK-121,BLOCKS,true,Issue dependency contract
+TASK-121,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-022,TASK-122,PARENT_CHILD,false,Canonical hierarchy
+TASK-121,TASK-122,BLOCKS,true,Issue dependency contract
+TASK-122,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-022,TASK-123,PARENT_CHILD,false,Canonical hierarchy
+TASK-122,TASK-123,BLOCKS,true,Issue dependency contract
+TASK-123,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-022,TASK-124,PARENT_CHILD,false,Canonical hierarchy
+TASK-121,TASK-124,BLOCKS,true,Issue dependency contract
+TASK-124,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-022,TASK-125,PARENT_CHILD,false,Canonical hierarchy
+TASK-015,TASK-125,BLOCKS,true,Issue dependency contract
+TASK-121,TASK-125,BLOCKS,true,Issue dependency contract
+TASK-125,POST-SUBTASK-051,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-022,TASK-126,PARENT_CHILD,false,Canonical hierarchy
+TASK-123,TASK-126,BLOCKS,true,Issue dependency contract
+TASK-124,TASK-126,BLOCKS,true,Issue dependency contract
+TASK-125,TASK-126,BLOCKS,true,Issue dependency contract
+TASK-128,TASK-126,BLOCKS,true,Issue dependency contract
+TASK-129,TASK-126,BLOCKS,true,Issue dependency contract
+TASK-126,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-022,TASK-127,PARENT_CHILD,false,Canonical hierarchy
+TASK-126,TASK-127,BLOCKS,true,Issue dependency contract
+TASK-127,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-023,TASK-128,PARENT_CHILD,false,Canonical hierarchy
+TASK-121,TASK-128,BLOCKS,true,Issue dependency contract
+TASK-128,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-023,TASK-129,PARENT_CHILD,false,Canonical hierarchy
+TASK-128,TASK-129,BLOCKS,true,Issue dependency contract
+TASK-129,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-023,TASK-130,PARENT_CHILD,false,Canonical hierarchy
+TASK-128,TASK-130,BLOCKS,true,Issue dependency contract
+TASK-130,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-023,TASK-131,PARENT_CHILD,false,Canonical hierarchy
+TASK-040,TASK-131,BLOCKS,true,Issue dependency contract
+TASK-129,TASK-131,BLOCKS,true,Issue dependency contract
+TASK-130,TASK-131,BLOCKS,true,Issue dependency contract
+TASK-131,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-023,TASK-132,PARENT_CHILD,false,Canonical hierarchy
+TASK-131,TASK-132,BLOCKS,true,Issue dependency contract
+TASK-132,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-023,TASK-133,PARENT_CHILD,false,Canonical hierarchy
+TASK-110,TASK-133,BLOCKS,true,Issue dependency contract
+TASK-127,TASK-133,BLOCKS,true,Issue dependency contract
+TASK-132,TASK-133,BLOCKS,true,Issue dependency contract
+TASK-133,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-024,TASK-134,PARENT_CHILD,false,Canonical hierarchy
+TASK-133,TASK-134,BLOCKS,true,Issue dependency contract
+TASK-134,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-024,TASK-135,PARENT_CHILD,false,Canonical hierarchy
+TASK-134,TASK-135,BLOCKS,true,Issue dependency contract
+TASK-135,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-024,TASK-136,PARENT_CHILD,false,Canonical hierarchy
+TASK-134,TASK-136,BLOCKS,true,Issue dependency contract
+TASK-135,TASK-136,BLOCKS,true,Issue dependency contract
+TASK-136,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-024,TASK-137,PARENT_CHILD,false,Canonical hierarchy
+TASK-133,TASK-137,BLOCKS,true,Issue dependency contract
+TASK-136,TASK-137,BLOCKS,true,Issue dependency contract
+TASK-137,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-024,TASK-138,PARENT_CHILD,false,Canonical hierarchy
+TASK-137,TASK-138,BLOCKS,true,Issue dependency contract
+TASK-138,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-024,TASK-139,PARENT_CHILD,false,Canonical hierarchy
+TASK-138,TASK-139,BLOCKS,true,Issue dependency contract
+TASK-139,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-025,TASK-140,PARENT_CHILD,false,Canonical hierarchy
+TASK-046,TASK-140,BLOCKS,true,Issue dependency contract
+TASK-121,TASK-140,BLOCKS,true,Issue dependency contract
+TASK-133,TASK-140,BLOCKS,true,Issue dependency contract
+TASK-140,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-025,TASK-141,PARENT_CHILD,false,Canonical hierarchy
+TASK-040,TASK-141,BLOCKS,true,Issue dependency contract
+TASK-140,TASK-141,BLOCKS,true,Issue dependency contract
+TASK-141,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-025,TASK-142,PARENT_CHILD,false,Canonical hierarchy
+TASK-121,TASK-142,BLOCKS,true,Issue dependency contract
+TASK-140,TASK-142,BLOCKS,true,Issue dependency contract
+TASK-142,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-025,TASK-143,PARENT_CHILD,false,Canonical hierarchy
+TASK-127,TASK-143,BLOCKS,true,Issue dependency contract
+TASK-141,TASK-143,BLOCKS,true,Issue dependency contract
+TASK-142,TASK-143,BLOCKS,true,Issue dependency contract
+TASK-143,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-025,TASK-144,PARENT_CHILD,false,Canonical hierarchy
+TASK-133,TASK-144,BLOCKS,true,Issue dependency contract
+TASK-140,TASK-144,BLOCKS,true,Issue dependency contract
+TASK-144,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-025,TASK-145,PARENT_CHILD,false,Canonical hierarchy
+TASK-115,TASK-145,BLOCKS,true,Issue dependency contract
+TASK-143,TASK-145,BLOCKS,true,Issue dependency contract
+TASK-144,TASK-145,BLOCKS,true,Issue dependency contract
+TASK-145,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-026,TASK-146,PARENT_CHILD,false,Canonical hierarchy
+TASK-139,TASK-146,BLOCKS,true,Issue dependency contract
+TASK-145,TASK-146,BLOCKS,true,Issue dependency contract
+TASK-146,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-026,TASK-147,PARENT_CHILD,false,Canonical hierarchy
+TASK-046,TASK-147,BLOCKS,true,Issue dependency contract
+TASK-146,TASK-147,BLOCKS,true,Issue dependency contract
+TASK-147,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-026,TASK-148,PARENT_CHILD,false,Canonical hierarchy
+TASK-133,TASK-148,BLOCKS,true,Issue dependency contract
+TASK-145,TASK-148,BLOCKS,true,Issue dependency contract
+TASK-146,TASK-148,BLOCKS,true,Issue dependency contract
+TASK-148,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-026,TASK-149,PARENT_CHILD,false,Canonical hierarchy
+TASK-148,TASK-149,BLOCKS,true,Issue dependency contract
+TASK-149,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-026,TASK-150,PARENT_CHILD,false,Canonical hierarchy
+TASK-139,TASK-150,BLOCKS,true,Issue dependency contract
+TASK-149,TASK-150,BLOCKS,true,Issue dependency contract
+TASK-150,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-026,TASK-151,PARENT_CHILD,false,Canonical hierarchy
+TASK-147,TASK-151,BLOCKS,true,Issue dependency contract
+TASK-150,TASK-151,BLOCKS,true,Issue dependency contract
+TASK-151,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-027,TASK-152,PARENT_CHILD,false,Canonical hierarchy
+TASK-151,TASK-152,BLOCKS,true,Issue dependency contract
+TASK-152,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-027,TASK-153,PARENT_CHILD,false,Canonical hierarchy
+TASK-152,TASK-153,BLOCKS,true,Issue dependency contract
+TASK-153,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-027,TASK-154,PARENT_CHILD,false,Canonical hierarchy
+TASK-115,TASK-154,BLOCKS,true,Issue dependency contract
+TASK-145,TASK-154,BLOCKS,true,Issue dependency contract
+TASK-152,TASK-154,BLOCKS,true,Issue dependency contract
+TASK-153,TASK-154,BLOCKS,true,Issue dependency contract
+TASK-154,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-027,TASK-155,PARENT_CHILD,false,Canonical hierarchy
+TASK-154,TASK-155,BLOCKS,true,Issue dependency contract
+TASK-155,POST-SUBTASK-096,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-027,TASK-156,PARENT_CHILD,false,Canonical hierarchy
+TASK-152,TASK-156,BLOCKS,true,Issue dependency contract
+TASK-156,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-027,TASK-157,PARENT_CHILD,false,Canonical hierarchy
+TASK-155,TASK-157,BLOCKS,true,Issue dependency contract
+TASK-156,TASK-157,BLOCKS,true,Issue dependency contract
+TASK-157,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-028,TASK-158,PARENT_CHILD,false,Canonical hierarchy
+TASK-157,TASK-158,BLOCKS,true,Issue dependency contract
+TASK-158,POST-SUBTASK-132,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-028,TASK-159,PARENT_CHILD,false,Canonical hierarchy
+TASK-158,TASK-159,BLOCKS,true,Issue dependency contract
+TASK-159,POST-SUBTASK-132,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-028,TASK-160,PARENT_CHILD,false,Canonical hierarchy
+TASK-151,TASK-160,BLOCKS,true,Issue dependency contract
+TASK-157,TASK-160,BLOCKS,true,Issue dependency contract
+TASK-160,POST-SUBTASK-132,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-028,TASK-161,PARENT_CHILD,false,Canonical hierarchy
+TASK-145,TASK-161,BLOCKS,true,Issue dependency contract
+TASK-151,TASK-161,BLOCKS,true,Issue dependency contract
+TASK-161,POST-SUBTASK-009,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-028,TASK-162,PARENT_CHILD,false,Canonical hierarchy
+TASK-160,TASK-162,BLOCKS,true,Issue dependency contract
+TASK-162,POST-SUBTASK-132,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-028,TASK-163,PARENT_CHILD,false,Canonical hierarchy
+TASK-159,TASK-163,BLOCKS,true,Issue dependency contract
+TASK-161,TASK-163,BLOCKS,true,Issue dependency contract
+TASK-162,TASK-163,BLOCKS,true,Issue dependency contract
+TASK-163,POST-SUBTASK-123,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-029,TASK-164,PARENT_CHILD,false,Canonical hierarchy
+TASK-133,TASK-164,BLOCKS,true,Issue dependency contract
+TASK-139,TASK-164,BLOCKS,true,Issue dependency contract
+TASK-164,POST-SUBTASK-150,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-029,TASK-165,PARENT_CHILD,false,Canonical hierarchy
+TASK-164,TASK-165,BLOCKS,true,Issue dependency contract
+TASK-165,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-029,TASK-166,PARENT_CHILD,false,Canonical hierarchy
+TASK-040,TASK-166,BLOCKS,true,Issue dependency contract
+TASK-164,TASK-166,BLOCKS,true,Issue dependency contract
+TASK-166,POST-SUBTASK-150,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-029,TASK-167,PARENT_CHILD,false,Canonical hierarchy
+TASK-164,TASK-167,BLOCKS,true,Issue dependency contract
+TASK-167,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-029,TASK-168,PARENT_CHILD,false,Canonical hierarchy
+TASK-165,TASK-168,BLOCKS,true,Issue dependency contract
+TASK-166,TASK-168,BLOCKS,true,Issue dependency contract
+TASK-167,TASK-168,BLOCKS,true,Issue dependency contract
+TASK-168,POST-SUBTASK-150,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-030,TASK-169,PARENT_CHILD,false,Canonical hierarchy
+TASK-163,TASK-169,BLOCKS,true,Issue dependency contract
+TASK-169,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-030,TASK-170,PARENT_CHILD,false,Canonical hierarchy
+TASK-169,TASK-170,BLOCKS,true,Issue dependency contract
+TASK-170,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-030,TASK-171,PARENT_CHILD,false,Canonical hierarchy
+TASK-170,TASK-171,BLOCKS,true,Issue dependency contract
+TASK-171,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-030,TASK-172,PARENT_CHILD,false,Canonical hierarchy
+TASK-171,TASK-172,BLOCKS,true,Issue dependency contract
+TASK-172,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-031,TASK-173,PARENT_CHILD,false,Canonical hierarchy
+TASK-162,TASK-173,BLOCKS,true,Issue dependency contract
+TASK-173,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-031,TASK-174,PARENT_CHILD,false,Canonical hierarchy
+TASK-173,TASK-174,BLOCKS,true,Issue dependency contract
+TASK-174,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-031,TASK-175,PARENT_CHILD,false,Canonical hierarchy
+TASK-173,TASK-175,BLOCKS,true,Issue dependency contract
+TASK-175,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-031,TASK-176,PARENT_CHILD,false,Canonical hierarchy
+TASK-174,TASK-176,BLOCKS,true,Issue dependency contract
+TASK-175,TASK-176,BLOCKS,true,Issue dependency contract
+TASK-176,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-031,TASK-177,PARENT_CHILD,false,Canonical hierarchy
+TASK-176,TASK-177,BLOCKS,true,Issue dependency contract
+TASK-177,POST-SUBTASK-132,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-031,TASK-178,PARENT_CHILD,false,Canonical hierarchy
+TASK-177,TASK-178,BLOCKS,true,Issue dependency contract
+TASK-178,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-032,TASK-179,PARENT_CHILD,false,Canonical hierarchy
+TASK-178,TASK-179,BLOCKS,true,Issue dependency contract
+TASK-179,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-032,TASK-180,PARENT_CHILD,false,Canonical hierarchy
+TASK-179,TASK-180,BLOCKS,true,Issue dependency contract
+TASK-180,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-032,TASK-181,PARENT_CHILD,false,Canonical hierarchy
+TASK-180,TASK-181,BLOCKS,true,Issue dependency contract
+TASK-181,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-032,TASK-182,PARENT_CHILD,false,Canonical hierarchy
+TASK-180,TASK-182,BLOCKS,true,Issue dependency contract
+TASK-182,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-032,TASK-183,PARENT_CHILD,false,Canonical hierarchy
+TASK-181,TASK-183,BLOCKS,true,Issue dependency contract
+TASK-182,TASK-183,BLOCKS,true,Issue dependency contract
+TASK-183,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-032,TASK-184,PARENT_CHILD,false,Canonical hierarchy
+TASK-183,TASK-184,BLOCKS,true,Issue dependency contract
+TASK-184,POST-SUBTASK-132,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-033,TASK-185,PARENT_CHILD,false,Canonical hierarchy
+TASK-185,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-033,TASK-186,PARENT_CHILD,false,Canonical hierarchy
+TASK-185,TASK-186,BLOCKS,true,Issue dependency contract
+TASK-186,POST-SUBTASK-132,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-033,TASK-187,PARENT_CHILD,false,Canonical hierarchy
+TASK-185,TASK-187,BLOCKS,true,Issue dependency contract
+TASK-187,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-033,TASK-188,PARENT_CHILD,false,Canonical hierarchy
+TASK-185,TASK-188,BLOCKS,true,Issue dependency contract
+TASK-188,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-033,TASK-189,PARENT_CHILD,false,Canonical hierarchy
+TASK-187,TASK-189,BLOCKS,true,Issue dependency contract
+TASK-189,POST-SUBTASK-105,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-002,TASK-190,PARENT_CHILD,false,Canonical hierarchy
+TASK-007,TASK-190,BLOCKS,true,Issue dependency contract
+TASK-190,POST-SUBTASK-114,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,TASK-191,PARENT_CHILD,false,Canonical hierarchy
+TASK-015,TASK-191,BLOCKS,true,Issue dependency contract
+TASK-190,TASK-191,BLOCKS,true,Issue dependency contract
+TASK-191,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-003,TASK-192,PARENT_CHILD,false,Canonical hierarchy
+TASK-015,TASK-192,BLOCKS,true,Issue dependency contract
+TASK-192,POST-SUBTASK-078,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-009,TASK-193,PARENT_CHILD,false,Canonical hierarchy
+TASK-052,TASK-193,BLOCKS,true,Issue dependency contract
+TASK-191,TASK-193,BLOCKS,true,Issue dependency contract
+TASK-193,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-006,TASK-194,PARENT_CHILD,false,Canonical hierarchy
+TASK-033,TASK-194,BLOCKS,true,Issue dependency contract
+TASK-194,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,TASK-195,PARENT_CHILD,false,Canonical hierarchy
+TASK-069,TASK-195,BLOCKS,true,Issue dependency contract
+TASK-190,TASK-195,BLOCKS,true,Issue dependency contract
+TASK-195,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-022,TASK-196,PARENT_CHILD,false,Canonical hierarchy
+TASK-125,TASK-196,BLOCKS,true,Issue dependency contract
+TASK-196,POST-SUBTASK-051,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-004,TASK-197,PARENT_CHILD,false,Canonical hierarchy
+TASK-023,TASK-197,BLOCKS,true,Issue dependency contract
+TASK-190,TASK-197,BLOCKS,true,Issue dependency contract
+TASK-197,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-012,TASK-198,PARENT_CHILD,false,Canonical hierarchy
+TASK-067,TASK-198,BLOCKS,true,Issue dependency contract
+TASK-198,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-031,TASK-199,PARENT_CHILD,false,Canonical hierarchy
+TASK-175,TASK-199,BLOCKS,true,Issue dependency contract
+TASK-199,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-010,TASK-200,PARENT_CHILD,false,Canonical hierarchy
+TASK-054,TASK-200,BLOCKS,true,Issue dependency contract
+TASK-197,TASK-200,BLOCKS,true,Issue dependency contract
+TASK-200,POST-SUBTASK-069,RELATES_TO,false,Historical/post-wave reconciliation
+EPIC-014,TASK-201,PARENT_CHILD,false,Canonical hierarchy
+TASK-081,TASK-201,BLOCKS,true,Issue dependency contract
+TASK-201,POST-SUBTASK-060,RELATES_TO,false,Historical/post-wave reconciliation

@@ -1,0 +1,960 @@
+control_id,task_id,mapping_role,evidence_expectation
+AC-001,TASK-186,PRIMARY,Exact cumulative SHA/next-wave/project identity verifies before mutation
+AC-001,TASK-187,SUPPORTING,Exact cumulative SHA/next-wave/project identity verifies before mutation
+AC-002,TASK-186,PRIMARY,"Manifest/hash coverage, safe paths, no unexplained disappearance, deterministic cumulative packaging"
+AC-002,TASK-187,SUPPORTING,"Manifest/hash coverage, safe paths, no unexplained disappearance, deterministic cumulative packaging"
+AC-003,TASK-186,PRIMARY,REQ/ADR/RISK/acceptance IDs are unique and traceability coverage is exact
+AC-003,TASK-187,SUPPORTING,REQ/ADR/RISK/acceptance IDs are unique and traceability coverage is exact
+AC-004,TASK-163,PRIMARY,"Secret patterns, forbidden artifacts and oversized repository payloads yield zero unresolved blocking findings"
+AC-004,TASK-186,SUPPORTING,"Secret patterns, forbidden artifacts and oversized repository payloads yield zero unresolved blocking findings"
+AC-005,TASK-187,PRIMARY,Accepted dependency/plane/PIT/serving/live architecture rules validate
+AC-005,TASK-152,SUPPORTING,Accepted dependency/plane/PIT/serving/live architecture rules validate
+AC-006,TASK-186,PRIMARY,All requirements have explicit A/B/C class and revisions preserve stable IDs/history
+AC-006,TASK-187,SUPPORTING,All requirements have explicit A/B/C class and revisions preserve stable IDs/history
+AC-007,TASK-121,PRIMARY,Every requirement/ADR/risk maps to valid acceptance controls and threshold references
+AC-008,TASK-046,PRIMARY,Raw payloads/files are preserved unchanged with retrieval metadata/hashes
+AC-009,TASK-006,PRIMARY,Source/schema/grain/unit contracts reject or quarantine material violations
+AC-010,TASK-046,PRIMARY,Canonical records retain source IDs/evidence/transform/time/quality lineage
+AC-011,TASK-046,PRIMARY,Mutable observations are eligible only when known-at/effective/publication/retrieval rules prove availability at cutoff
+AC-012,TASK-018,PRIMARY,Protected historical replay finds no use of information unavailable at the forecast timestamp
+AC-013,TASK-018,PRIMARY,"Earlier forecasts use forecast evidence available then, not later observed weather"
+AC-014,TASK-018,PRIMARY,Market lane uses provider observations known by forecast cutoff and never leaks closing/future line
+AC-015,TASK-018,PRIMARY,Roster/depth/staff/injury observations are effective-dated and as-of safe
+AC-016,TASK-046,PRIMARY,Historical features contain no eventual draft outcomes unavailable at the historical cutoff
+AC-017,TASK-012,PRIMARY,Ambiguous entity mappings retain candidates/confidence and follow explicit auto-accept/review policy
+AC-018,TASK-121,PRIMARY,All representations of a canonical game remain within one split and edge-case policy is enforced
+AC-019,TASK-046,PRIMARY,Labels and revisions preserve version/source/cutoff semantics and cannot silently rewrite experiment history
+AC-020,TASK-046,PRIMARY,Invalid data is quarantined; missing critical sources follow explicit fallback/degraded/suppress policy
+AC-021,TASK-029,PRIMARY,"Production feature promotion requires PIT safety, data quality, walk-forward evidence, ablation/stability and target-specific value"
+AC-022,TASK-110,PRIMARY,Candidate champions are compared against declared simple/reproducible baselines
+AC-023,TASK-121,PRIMARY,Evaluation uses protected chronological folds/subgroups appropriate to intended forecast use
+AC-024,TASK-133,PRIMARY,Protected test windows and promotion criteria are fixed before result inspection and not reused as tuning feedback
+AC-025,TASK-133,PRIMARY,Probability forecasts meet evidence-backed calibration/proper-scoring criteria on protected validation
+AC-026,TASK-121,PRIMARY,"Score, margin, win, cover and BAS-related distributions are mathematically/statistically coherent"
+AC-027,TASK-121,PRIMARY,Uncertainty/OOD behavior is validated for coverage/calibration and does not inject unvalidated directional bias
+AC-028,TASK-104,PRIMARY,Historical BAS expected margin is strictly pregame/out-of-sample/cross-fitted or equivalent
+AC-029,TASK-104,PRIMARY,Aggie-specific BAS claims survive regime/peer/stability/significance/anti-circularity tests or are rejected
+AC-030,TASK-099,PRIMARY,Specialization architecture permits no-adjustment/shrinkage and must demonstrate incremental protected value before promotion
+AC-031,TASK-151,PRIMARY,No model/feature self-promotes; versioned protected criteria decide promotion/rejection/rollback
+AC-031,TASK-163,SUPPORTING,No model/feature self-promotes; versioned protected criteria decide promotion/rejection/rollback
+AC-032,TASK-139,PRIMARY,Research/LLM plane cannot mutate protected judging rules or production champion state outside promotion interface
+AC-033,TASK-151,PRIMARY,Historical published forecast can be reconstructed/explained from immutable model/config/feature/data lineage
+AC-033,TASK-163,SUPPORTING,Historical published forecast can be reconstructed/explained from immutable model/config/feature/data lineage
+AC-034,TASK-151,PRIMARY,Runtime/package/config versions required for training/evaluation/forecast are recorded
+AC-034,TASK-163,SUPPORTING,Runtime/package/config versions required for training/evaluation/forecast are recorded
+AC-035,TASK-151,PRIMARY,Seeds/sampling config/runtime version are persisted for stochastic processes; irreducible nondeterminism is declared
+AC-035,TASK-163,SUPPORTING,Seeds/sampling config/runtime version are persisted for stochastic processes; irreducible nondeterminism is declared
+AC-036,TASK-151,PRIMARY,Interrupted safe stages can resume/retry without silently duplicating or corrupting immutable state
+AC-036,TASK-163,SUPPORTING,Interrupted safe stages can resume/retry without silently duplicating or corrupting immutable state
+AC-037,TASK-187,PRIMARY,Served snapshot exposes as-of/freshness; stale snapshot is visibly stale and never mislabeled current
+AC-037,TASK-152,SUPPORTING,Served snapshot exposes as-of/freshness; stale snapshot is visibly stale and never mislabeled current
+AC-038,TASK-151,PRIMARY,Representative/full workloads are benchmarked on target hardware for RAM/runtime/storage before fixed budgets are approved
+AC-038,TASK-163,SUPPORTING,Representative/full workloads are benchmarked on target hardware for RAM/runtime/storage before fixed budgets are approved
+AC-039,TASK-151,PRIMARY,Recovery preserves immutable histories and operational backup/restore procedure is tested
+AC-039,TASK-163,SUPPORTING,Recovery preserves immutable histories and operational backup/restore procedure is tested
+AC-040,TASK-163,PRIMARY,"Archives/inputs are treated as untrusted, path-safe and contract-validated; source content is never executed as instructions/code"
+AC-040,TASK-186,SUPPORTING,"Archives/inputs are treated as untrusted, path-safe and contract-validated; source content is never executed as instructions/code"
+AC-041,TASK-163,PRIMARY,Final dependency surface has version/provenance/security/integrity checks appropriate to risk
+AC-041,TASK-186,SUPPORTING,Final dependency surface has version/provenance/security/integrity checks appropriate to risk
+AC-042,TASK-163,PRIMARY,Logs contain no secrets or prohibited restricted raw payloads and use approved redaction/structured metadata
+AC-042,TASK-186,SUPPORTING,Logs contain no secrets or prohibited restricted raw payloads and use approved redaction/structured metadata
+AC-043,TASK-006,PRIMARY,Owner/terms/license/attribution/redistribution/public-repo suitability is accepted before external publication
+AC-044,TASK-121,PRIMARY,Blocking failures identify affected controls/requirements/evidence and cannot be silently waived
+AC-045,TASK-186,PRIMARY,Designed/scaffolded/implemented/validated states and performance claims are reported exactly without fabricated evidence
+AC-045,TASK-187,SUPPORTING,Designed/scaffolded/implemented/validated states and performance claims are reported exactly without fabricated evidence
+AC-046,TASK-187,PRIMARY,Serving depends on published forecast snapshots/lineage and cannot bypass raw/PIT/model internals
+AC-046,TASK-152,SUPPORTING,Serving depends on published forecast snapshots/lineage and cannot bypass raw/PIT/model internals
+AC-047,TASK-187,PRIMARY,A&M uses shared canonical/PIT truth via explicit specialization interface and may shrink to no adjustment
+AC-047,TASK-152,SUPPORTING,A&M uses shared canonical/PIT truth via explicit specialization interface and may shrink to no adjustment
+AC-048,TASK-187,PRIMARY,Future live lane cannot feed same-game pregame features; pregame prior may flow one-way into live lane
+AC-048,TASK-152,SUPPORTING,Future live lane cannot feed same-game pregame features; pregame prior may flow one-way into live lane
+AC-049,TASK-187,PRIMARY,Every cumulative requirement maps to at least one valid task and every task uses known phase/epic IDs
+AC-050,TASK-187,PRIMARY,Task dependencies reference existing tasks and the dependency graph is acyclic
+AC-051,TASK-187,PRIMARY,Packets declare scope/dependencies/outputs/tests/stop conditions and isolated worktree policy
+AC-052,TASK-187,PRIMARY,Unfrozen shared contracts have one mutation owner at a time and parallel packets identify exclusions
+AC-053,TASK-006,PRIMARY,W06 explicitly updates source-dependent task status/dependencies/plan before W07 source-dependent tasks become READY
+AC-054,TASK-187,PRIMARY,Backlog contains no unsupported hours/dates/velocity promises; complexity semantics are non-temporal
+AC-055,TASK-187,PRIMARY,"Stable task IDs, statuses, plan version and change history preserve planned/blocked/done/superseded distinctions"
+AC-056,TASK-187,PRIMARY,Dependency-critical gates and acceptance/evidence responsibilities are explicitly represented and traceable
+AC-056,TASK-001,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-001,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-001,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-002,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-002,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-002,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-003,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-003,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-003,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-004,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-004,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-004,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-005,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-005,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-005,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-006,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-006,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-010,TASK-007,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-007,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-007,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-010,TASK-008,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-008,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-008,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-010,TASK-009,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-009,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-009,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-010,TASK-010,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-010,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-010,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-010,TASK-011,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-011,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-011,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-010,TASK-012,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-012,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-012,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-011,TASK-013,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-013,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-013,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-011,TASK-014,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-014,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-014,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-011,TASK-015,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-015,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-015,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-011,TASK-016,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-016,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-016,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-011,TASK-017,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-017,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-017,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-018,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-011,TASK-018,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-018,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-019,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-019,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-019,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-020,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-020,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-020,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-021,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-021,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-021,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-022,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-022,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-022,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-023,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-023,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-023,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-009,TASK-023,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-024,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-024,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-024,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-025,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-025,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-025,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-026,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-026,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-026,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-027,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-027,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-027,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-028,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-028,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-028,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-029,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-029,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-030,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-030,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-030,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-031,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-031,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-031,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-032,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-032,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-032,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-033,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-033,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-033,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-034,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-034,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-034,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-035,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-035,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-035,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-035,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-036,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-036,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-036,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-037,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-037,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-037,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-038,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-038,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-038,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-039,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-039,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-039,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-025,TASK-040,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-040,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-040,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-040,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-040,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-008,TASK-041,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-041,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-041,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-008,TASK-042,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-042,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-042,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-008,TASK-043,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-043,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-043,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-008,TASK-044,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-044,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-044,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-008,TASK-045,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-045,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-045,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-036,TASK-046,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-046,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-046,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-047,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-047,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-047,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-048,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-048,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-048,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-049,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-049,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-049,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-050,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-050,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-050,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-051,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-051,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-051,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-052,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-052,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-052,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-052,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-053,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-053,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-053,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-054,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-054,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-054,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-055,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-055,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-055,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-056,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-056,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-056,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-057,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-057,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-057,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-015,TASK-058,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-058,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-016,TASK-058,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-058,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-058,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-059,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-059,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-059,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-060,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-060,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-060,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-061,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-061,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-061,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-062,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-062,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-062,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-063,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-063,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-063,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-064,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-064,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-064,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-064,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-065,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-065,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-013,TASK-065,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-066,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-066,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-013,TASK-066,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-067,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-067,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-013,TASK-067,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-068,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-068,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-013,TASK-068,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-069,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-069,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-013,TASK-069,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-070,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-019,TASK-070,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-070,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-013,TASK-070,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-070,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-071,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-071,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-071,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-072,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-072,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-072,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-073,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-073,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-073,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-074,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-074,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-074,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-075,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-075,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-075,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-076,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-076,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-076,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-077,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-077,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-077,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-078,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-078,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-078,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-079,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-079,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-079,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-080,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-080,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-080,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-081,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-081,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-081,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-082,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-082,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-082,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-082,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-083,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-083,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-083,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-084,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-084,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-084,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-085,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-085,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-085,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-086,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-086,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-086,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-036,TASK-087,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-021,TASK-087,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-087,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-087,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-088,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-088,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-088,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-089,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-089,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-089,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-090,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-090,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-090,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-091,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-091,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-091,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-092,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-092,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-092,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-047,TASK-093,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-093,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-093,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-093,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-094,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-094,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-094,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-095,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-095,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-095,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-096,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-096,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-096,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-097,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-097,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-097,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-098,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-098,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-098,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-047,TASK-099,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-099,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-099,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-100,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-100,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-100,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-101,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-101,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-101,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-102,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-102,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-102,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-103,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-103,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-103,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-104,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-104,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-029,TASK-105,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-105,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-105,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-029,TASK-106,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-106,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-106,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-029,TASK-107,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-107,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-107,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-029,TASK-108,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-108,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-108,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-029,TASK-109,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-109,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-109,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-029,TASK-110,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-110,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-110,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-111,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-111,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-111,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-112,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-112,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-112,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-113,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-113,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-113,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-114,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-114,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-114,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-028,TASK-115,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-030,TASK-115,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-033,TASK-115,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-115,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-115,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-026,TASK-116,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-116,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-116,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-026,TASK-117,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-117,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-117,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-026,TASK-118,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-118,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-118,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-026,TASK-119,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-119,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-119,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-026,TASK-120,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-120,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-120,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-121,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-121,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-122,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-014,TASK-122,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-122,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-123,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-014,TASK-123,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-123,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-124,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-014,TASK-124,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-124,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-125,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-014,TASK-125,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-125,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-126,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-014,TASK-126,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-126,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-027,TASK-127,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-127,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-014,TASK-127,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-127,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-128,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-128,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-128,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-129,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-129,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-129,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-130,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-130,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-130,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-131,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-131,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-131,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-132,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-132,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-132,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-133,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-031,TASK-133,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-133,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-133,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-032,TASK-134,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-134,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-134,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-032,TASK-135,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-135,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-135,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-032,TASK-136,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-136,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-136,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-032,TASK-137,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-137,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-137,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-032,TASK-138,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-138,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-138,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-139,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-139,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-140,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-140,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-140,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-141,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-141,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-141,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-142,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-142,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-142,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-143,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-143,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-143,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-144,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-144,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-144,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-025,TASK-145,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-034,TASK-145,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-145,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-035,TASK-145,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-026,TASK-145,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-033,TASK-145,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-145,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-022,TASK-145,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-031,TASK-146,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-146,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-146,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-031,TASK-147,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-147,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-147,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-031,TASK-148,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-148,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-148,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-031,TASK-149,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-149,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-149,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-031,TASK-150,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-150,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-150,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-037,TASK-151,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-151,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-151,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-033,TASK-152,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-152,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-152,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-153,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-033,TASK-153,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-153,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-154,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-033,TASK-154,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-154,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-155,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-033,TASK-155,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-155,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-156,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-033,TASK-156,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-156,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-037,TASK-157,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-046,TASK-157,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-033,TASK-157,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-157,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-157,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-004,TASK-158,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-158,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-158,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-004,TASK-159,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-159,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-159,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-004,TASK-160,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-160,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-160,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-004,TASK-161,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-161,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-161,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-004,TASK-162,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-162,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-162,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-163,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-163,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-164,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-164,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-164,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-165,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-165,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-165,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-166,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-166,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-166,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-167,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-167,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-167,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-023,TASK-168,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-168,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-168,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-048,TASK-169,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-169,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-169,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-048,TASK-170,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-170,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-170,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-048,TASK-171,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-171,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-171,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-048,TASK-172,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-172,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-172,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-173,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-173,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-173,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-174,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-174,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-174,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-175,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-175,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-175,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-176,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-176,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-176,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-177,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-177,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-177,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-044,TASK-178,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-178,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-005,TASK-178,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-178,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-012,TASK-178,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-178,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-179,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-179,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-179,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-180,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-180,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-180,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-181,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-181,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-181,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-182,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-182,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-182,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-183,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-183,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-183,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-002,TASK-184,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-003,TASK-184,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-045,TASK-184,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-184,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-184,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-001,TASK-185,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-185,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-185,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-186,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-186,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-001,TASK-188,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-188,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-188,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-001,TASK-189,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-055,TASK-189,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-056,TASK-189,TASK_ANCHOR,Task must satisfy/update this control as applicable in its owner wave; W05 mapping is not future evidence.
+AC-057,TASK-002,PRIMARY,
+AC-057,TASK-006,SUPPORTING,
+AC-057,TASK-199,SUPPORTING,
+AC-058,TASK-004,PRIMARY,
+AC-058,TASK-005,SUPPORTING,
+AC-058,TASK-006,SUPPORTING,
+AC-059,TASK-003,PRIMARY,
+AC-059,TASK-004,SUPPORTING,
+AC-059,TASK-006,SUPPORTING,
+AC-060,TASK-006,PRIMARY,
+AC-008,TASK-190,SUPPORTING,
+AC-010,TASK-190,SUPPORTING,
+AC-059,TASK-190,SUPPORTING,
+AC-011,TASK-191,SUPPORTING,
+AC-015,TASK-191,SUPPORTING,
+AC-020,TASK-191,SUPPORTING,
+AC-011,TASK-192,SUPPORTING,
+AC-013,TASK-192,SUPPORTING,
+AC-059,TASK-192,SUPPORTING,
+AC-015,TASK-193,SUPPORTING,
+AC-020,TASK-193,SUPPORTING,
+AC-043,TASK-193,SUPPORTING,
+AC-009,TASK-194,SUPPORTING,
+AC-020,TASK-194,SUPPORTING,
+AC-058,TASK-194,SUPPORTING,
+AC-011,TASK-195,SUPPORTING,
+AC-019,TASK-195,SUPPORTING,
+AC-059,TASK-195,SUPPORTING,
+AC-014,TASK-196,SUPPORTING,
+AC-043,TASK-196,SUPPORTING,
+AC-058,TASK-196,SUPPORTING,
+AC-009,TASK-197,SUPPORTING,
+AC-010,TASK-197,SUPPORTING,
+AC-043,TASK-197,SUPPORTING,
+AC-059,TASK-197,SUPPORTING,
+AC-020,TASK-198,SUPPORTING,
+AC-043,TASK-198,SUPPORTING,
+AC-059,TASK-198,SUPPORTING,
+AC-058,TASK-199,SUPPORTING,
+AC-059,TASK-199,SUPPORTING,
+AC-009,TASK-200,SUPPORTING,
+AC-010,TASK-200,SUPPORTING,
+AC-043,TASK-200,SUPPORTING,
+AC-059,TASK-200,SUPPORTING,
+AC-020,TASK-201,SUPPORTING,
+AC-057,TASK-201,SUPPORTING,
+AC-058,TASK-201,SUPPORTING,
+AC-061,TASK-007,PRIMARY,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-061,TASK-012,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-062,TASK-008,PRIMARY,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-062,TASK-009,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-062,TASK-012,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-063,TASK-009,PRIMARY,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-063,TASK-010,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-063,TASK-012,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-064,TASK-010,PRIMARY,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-064,TASK-012,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-065,TASK-190,PRIMARY,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-065,TASK-008,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-065,TASK-012,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-066,TASK-011,PRIMARY,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-066,TASK-012,SUPPORTING,W07 design-contract validation; later integration/labeled/benchmark evidence remains pending where stated.
+AC-067,TASK-013,PRIMARY,Knowledge time and target validity are independently represented and enforced
+AC-067,TASK-018,SUPPORTING,Knowledge time and target validity are independently represented and enforced
+AC-068,TASK-013,PRIMARY,first_known evidence is provenance-backed; unknown earlier availability fails closed or uses conservative retrieval/lag
+AC-068,TASK-017,SUPPORTING,first_known evidence is provenance-backed; unknown earlier availability fails closed or uses conservative retrieval/lag
+AC-069,TASK-014,PRIMARY,Later corrections/versions never replace what was knowable at an earlier historical cutoff
+AC-069,TASK-016,SUPPORTING,Later corrections/versions never replace what was knowable at an earlier historical cutoff
+AC-070,TASK-191,PRIMARY,Availability policy scope/report versions are timestamped; noncoverage stays UNKNOWN
+AC-070,TASK-016,SUPPORTING,Availability policy scope/report versions are timestamped; noncoverage stays UNKNOWN
+AC-071,TASK-192,PRIMARY,Pregame weather uses an issued run available by cutoff and valid for target; observed truth cannot backfill earlier snapshots
+AC-071,TASK-016,SUPPORTING,Pregame weather uses an issued run available by cutoff and valid for target; observed truth cannot backfill earlier snapshots
+AC-072,TASK-015,PRIMARY,Publication/first-known and effective/reporting periods remain distinct in historical eligibility
+AC-072,TASK-016,SUPPORTING,Publication/first-known and effective/reporting periods remain distinct in historical eligibility
+AC-073,TASK-016,PRIMARY,Same/future-game outputs are excluded and prior-game outputs require completion before cutoff
+AC-073,TASK-018,SUPPORTING,Same/future-game outputs are excluded and prior-game outputs require completion before cutoff
+AC-074,TASK-017,PRIMARY,Cutoff/policy/data snapshot IDs reproduce deterministic observation selection and lineage
+AC-074,TASK-018,SUPPORTING,Cutoff/policy/data snapshot IDs reproduce deterministic observation selection and lineage
+AC-075,TASK-016,PRIMARY,Retrospective/current documents are historical-ineligible without dated corroboration
+AC-075,TASK-018,SUPPORTING,Retrospective/current documents are historical-ineligible without dated corroboration
+AC-076,TASK-017,PRIMARY,Historical training runs cannot consume labels/outcomes unavailable before their model-training cutoff
+AC-076,TASK-018,SUPPORTING,Historical training runs cannot consume labels/outcomes unavailable before their model-training cutoff
+AC-077,TASK-019,PRIMARY,W09 feature-registry acceptance evidence.
+AC-078,TASK-019,PRIMARY,W09 feature-registry acceptance evidence.
+AC-079,TASK-020,PRIMARY,W09 feature-registry acceptance evidence.
+AC-080,TASK-021,PRIMARY,W09 feature-registry acceptance evidence.
+AC-081,TASK-021,PRIMARY,W09 feature-registry acceptance evidence.
+AC-084,TASK-021,PRIMARY,W09 feature-registry acceptance evidence.
+AC-082,TASK-022,PRIMARY,W09 feature-registry acceptance evidence.
+AC-083,TASK-023,PRIMARY,W09 feature-registry acceptance evidence.
+AC-085,TASK-024,PRIMARY,W10 feature contract/reference evidence; real-data empirical evidence remains pending where criterion requires it.
+AC-086,TASK-024,PRIMARY,W10 feature contract/reference evidence; real-data empirical evidence remains pending where criterion requires it.
+AC-091,TASK-025,PRIMARY,W10 feature contract/reference evidence; real-data empirical evidence remains pending where criterion requires it.
+AC-087,TASK-026,PRIMARY,W10 feature contract/reference evidence; real-data empirical evidence remains pending where criterion requires it.
+AC-088,TASK-027,PRIMARY,W10 feature contract/reference evidence; real-data empirical evidence remains pending where criterion requires it.
+AC-089,TASK-028,PRIMARY,W10 feature contract/reference evidence; real-data empirical evidence remains pending where criterion requires it.
+AC-090,TASK-028,PRIMARY,W10 feature contract/reference evidence; real-data empirical evidence remains pending where criterion requires it.
+AC-092,TASK-029,PRIMARY,W10 feature contract/reference evidence; real-data empirical evidence remains pending where criterion requires it.
+AC-093,TASK-030,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-093,TASK-035,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-094,TASK-030,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-094,TASK-035,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-095,TASK-031,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-095,TASK-034,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-096,TASK-032,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-096,TASK-034,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-097,TASK-032,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-097,TASK-034,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-098,TASK-033,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-098,TASK-194,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-099,TASK-033,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-099,TASK-034,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-099,TASK-194,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-100,TASK-034,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-100,TASK-035,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-101,TASK-034,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-101,TASK-035,PRIMARY,W11 contract/reference evidence; real chronological/model evidence remains pending where criterion requires it.
+AC-102,TASK-047,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-102,TASK-052,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-103,TASK-048,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-103,TASK-052,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-104,TASK-049,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-104,TASK-052,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-105,TASK-050,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-105,TASK-052,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-106,TASK-051,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-106,TASK-052,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-106,TASK-193,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-107,TASK-053,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-107,TASK-057,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-107,TASK-058,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-108,TASK-054,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-108,TASK-055,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-108,TASK-057,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-108,TASK-058,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-109,TASK-056,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-109,TASK-058,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-110,TASK-193,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-111,TASK-054,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-111,TASK-197,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-111,TASK-200,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-112,TASK-048,PRIMARY,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-112,TASK-052,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-112,TASK-055,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-112,TASK-056,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-112,TASK-058,SUPPORTING,W12 contract/reference evidence; empirical player/model evidence remains pending where criterion requires it.
+AC-113,TASK-059,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-114,TASK-063,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-115,TASK-061,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-116,TASK-065,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-117,TASK-067,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-118,TASK-068,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-119,TASK-195,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-120,TASK-076,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-121,TASK-074,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-122,TASK-082,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-123,TASK-080,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-124,TASK-201,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-125,TASK-082,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-126,TASK-082,PRIMARY_W13,W13 registry/schema/reference validator; later empirical evidence when control is experimental.
+AC-127,TASK-088,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-128,TASK-088,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-129,TASK-093,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-130,TASK-091,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-131,TASK-092,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-132,TASK-092,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-133,TASK-094,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-134,TASK-097,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-135,TASK-097,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-136,TASK-098,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-137,TASK-097,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-138,TASK-099,PRIMARY_W14,W14 registry/schema/reference validator; later empirical evidence for scientific controls.
+AC-139,TASK-100,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-139,TASK-102,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-139,TASK-104,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-140,TASK-101,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-140,TASK-103,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-140,TASK-104,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-141,TASK-101,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-141,TASK-104,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-142,TASK-101,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-142,TASK-103,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-142,TASK-104,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-143,TASK-105,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-144,TASK-106,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-144,TASK-109,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-144,TASK-110,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-145,TASK-106,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-145,TASK-108,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-146,TASK-107,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-146,TASK-110,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-147,TASK-107,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-148,TASK-108,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-148,TASK-109,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-149,TASK-108,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-149,TASK-116,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-150,TASK-104,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-150,TASK-108,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-151,TASK-101,PRIMARY_W15,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-151,TASK-104,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-151,TASK-116,SUPPORTING,W15 BAS registry/schema/reference validator; later W16/W17 empirical evidence where applicable.
+AC-152,TASK-116,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-153,TASK-118,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-154,TASK-118,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-155,TASK-118,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-156,TASK-036,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-157,TASK-119,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-158,TASK-122,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-159,TASK-124,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-160,TASK-121,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-161,TASK-121,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-162,TASK-121,PRIMARY_W16,W16 model-architecture contract/reference validator; protected empirical evidence later where applicable.
+AC-163,TASK-128,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-164,TASK-128,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-165,TASK-128,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-166,TASK-129,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-167,TASK-130,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-168,TASK-129,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-169,TASK-131,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-170,TASK-132,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-171,TASK-039,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-172,TASK-109,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-173,TASK-133,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-174,TASK-126,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-175,TASK-132,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-176,TASK-133,PRIMARY,W17 protocol/reference evidence; real trained/protected results remain pending where applicable.
+AC-177,TASK-134,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-178,TASK-137,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-179,TASK-136,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-180,TASK-137,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-181,TASK-135,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-182,TASK-136,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-183,TASK-138,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-184,TASK-138,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-185,TASK-139,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-186,TASK-139,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-187,TASK-136,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-188,TASK-135,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-189,TASK-139,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-190,TASK-139,PRIMARY,W18 reference/governance evidence; real experiment/model results remain pending.
+AC-032,TASK-139,PRIMARY,W18 research plane cannot mutate protected rules/champion state.
+AC-191,TASK-138,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-192,TASK-138,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-193,TASK-138,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-194,TASK-135,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-195,TASK-135,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-196,TASK-135,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-197,TASK-136,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-198,TASK-136,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-199,TASK-138,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-200,TASK-138,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-201,TASK-138,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-202,TASK-138,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-203,TASK-135,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-204,TASK-135,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-205,TASK-139,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-206,TASK-139,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-207,TASK-139,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-208,TASK-139,PRIMARY,Corrected W18 reference/governance evidence; real empirical results remain pending.
+AC-209,TASK-134,PRIMARY,Executable reference test + validator + documented contract.
+AC-210,TASK-136,PRIMARY,Executable reference test + validator + documented contract.
+AC-211,TASK-136,PRIMARY,Executable reference test + validator + documented contract.
+AC-212,TASK-136,PRIMARY,Executable reference test + validator + documented contract.
+AC-213,TASK-136,PRIMARY,Executable reference test + validator + documented contract.
+AC-214,TASK-138,PRIMARY,Executable reference test + validator + documented contract.
+AC-215,TASK-138,PRIMARY,Executable reference test + validator + documented contract.
+AC-216,TASK-138,PRIMARY,Executable reference test + validator + documented contract.
+AC-217,TASK-137,PRIMARY,Executable reference test + validator + documented contract.
+AC-218,TASK-138,PRIMARY,Executable reference test + validator + documented contract.
+AC-219,TASK-138,PRIMARY,Executable reference test + validator + documented contract.
+AC-220,TASK-135,PRIMARY,Executable reference test + validator + documented contract.
+AC-221,TASK-135,PRIMARY,Executable reference test + validator + documented contract.
+AC-222,TASK-135,PRIMARY,Executable reference test + validator + documented contract.
+AC-223,TASK-138,PRIMARY,Executable reference test + validator + documented contract.
+AC-224,TASK-136,PRIMARY,Executable reference test + validator + documented contract.
+AC-225,TASK-138,PRIMARY,Executable reference test + validator + documented contract.
+AC-226,TASK-136,PRIMARY,Executable reference test + validator + documented contract.
+AC-227,TASK-139,PRIMARY,Executable reference test + validator + documented contract.
+AC-228,TASK-139,PRIMARY,Executable reference test + validator + documented contract.
+AC-002,TASK-158,SUPPORTING,Cross-platform CI invokes cumulative unit/integrity commands.
+AC-034,TASK-158,SUPPORTING,CI captures runtime environment manifest.
+AC-041,TASK-158,SUPPORTING,CI separates exact-pinned product adapter from dependency-free core.
+AC-040,TASK-159,SUPPORTING,Security policy preserves untrusted-input/path-safety controls.
+AC-041,TASK-159,PRIMARY,"Exact product pins, lock, dependency policy, CodeQL and dependency review configured."
+AC-042,TASK-159,SUPPORTING,Repository secret scan remains a release gate.
+AC-034,TASK-160,PRIMARY,Runtime/package/platform evidence captured by hashable manifest.
+AC-042,TASK-160,PRIMARY,Structured event sink redacts sensitive keys/credential-like values.
+AC-038,TASK-161,PRIMARY,Harness implemented; authoritative target evidence BLOCKED because current host does not match target.
+AC-039,TASK-162,PRIMARY,Backup/restore round-trip and integrity verification tested.
+AC-040,TASK-162,SUPPORTING,Restore rejects unsafe members before materialization.
+AC-229,TASK-173,PRIMARY,Synthetic source→PIT→feature→model→publication→serving and deterministic replay-readiness battery.
+AC-230,TASK-174,PRIMARY,Cross-layer leakage battery includes target-game-output identity protection.
+AC-231,TASK-175,PRIMARY,Current source-owner/official refresh delta against W06.
+AC-232,TASK-176,PRIMARY,Major architecture decisions classified KEEP/REVISE/DEFER/REJECT.
+AC-233,TASK-177,PRIMARY,User sequencing override documented while W23 target blocker remains unchanged.
+AC-234,TASK-178,PRIMARY,W24 scope gates pass and W25 handoff explicitly carries AC-038 condition.

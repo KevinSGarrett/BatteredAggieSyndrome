@@ -1,0 +1,8 @@
+contract_id,concept,semantics,pit_rule,fixed_effect
+CTX-TR-01,GREAT_CIRCLE_DISTANCE,team travel origin to venue; not blindly Kyle Field for all teams,venue and origin known by cutoff,false
+CTX-TR-02,TIMEZONE_SHIFT,IANA timezone/DST-aware local clock differential,game-date timezone rules,false
+CTX-TR-03,BODY_CLOCK,kickoff local time relative to team origin timezone,scheduled/known kickoff time only,false
+CTX-TR-04,REST,days since previous completed game,chronological prior games only,false
+CTX-TR-05,ROAD_STREAK,consecutive away/neutral context,prior schedule only,false
+CTX-TR-06,RECENT_TRAVEL_LOAD,cumulative prior travel and timezone shifts,no future itinerary,false
+CTX-TR-07,TRAVEL_DIFFERENTIAL,team minus opponent travel/rest/body-clock context,both sides PIT-safe,false

@@ -1,0 +1,6 @@
+label_id,name,definition,threshold_points,headline,orientation,expected_margin_lane,strict_pregame,oos_required,chronological_training_cutoff,versioned,w15_status
+BAS-LBL-000,performance_residual,actual_tamu_margin - expected_tamu_margin,,false,negative_is_worse_than_expected,BAS_INDEPENDENT_NATIONAL_PREGAME_EXPECTATION,true,true,true,true,CONTRACT_ONLY
+BAS-LBL-003,bas_ge_3,performance_residual <= -3,3,false,true_means_at_least_threshold_worse_than_expected,BAS_INDEPENDENT_NATIONAL_PREGAME_EXPECTATION,true,true,true,true,CONTRACT_ONLY
+BAS-LBL-007,bas_ge_7,performance_residual <= -7,7,true,true_means_at_least_threshold_worse_than_expected,BAS_INDEPENDENT_NATIONAL_PREGAME_EXPECTATION,true,true,true,true,CONTRACT_ONLY
+BAS-LBL-014,bas_ge_14,performance_residual <= -14,14,false,true_means_at_least_threshold_worse_than_expected,BAS_INDEPENDENT_NATIONAL_PREGAME_EXPECTATION,true,true,true,true,CONTRACT_ONLY
+BAS-LBL-021,bas_ge_21,performance_residual <= -21,21,false,true_means_at_least_threshold_worse_than_expected,BAS_INDEPENDENT_NATIONAL_PREGAME_EXPECTATION,true,true,true,true,CONTRACT_ONLY

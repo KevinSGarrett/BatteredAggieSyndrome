@@ -1,0 +1,11 @@
+rule_id,prohibited_pattern,reason,enforcement,w15_status
+BAS-ANTI-001,Target-game result appears in expectation-model training.,Direct target leakage.,fail_closed_validation,PROTECTED
+BAS-ANTI-002,Future games after historical forecast cutoff train the expectation model.,Historical future-information leakage.,chronological_training_cutoff,PROTECTED
+BAS-ANTI-003,Mirrored target-game row appears in another fold.,Same canonical game leaks through orientation.,canonical_game_grouping,PROTECTED
+BAS-ANTI-004,BAS label/target is an input to the expectation model used to define that label.,Label circularity.,target_manifest_check,PROTECTED
+BAS-ANTI-005,A&M-specific underperformance adapter defines the primary expectation used to test A&M excess underperformance.,Effect can be trained away/circularly encoded.,primary_anchor_lane_check,PROTECTED
+BAS-ANTI-006,Peer cohort is selected after seeing target outcomes.,Outcome-conditioned cohort cherry-picking.,peer_definition_freeze,PROTECTED
+BAS-ANTI-007,Regime boundary is chosen to maximize BAS effect after results are observed.,Post-hoc regime p-hacking.,effective_dated_regime_predefinition,PROTECTED
+BAS-ANTI-008,Fan narrative or hand-built collapse score is encoded as ground truth.,Narrative confirmation bias.,feature_label_governance,PROTECTED
+BAS-ANTI-009,Live/in-game Collapse evidence enters the pregame BAS row for the same game.,Pregame/live contamination.,W08_live_isolation,PROTECTED
+BAS-ANTI-010,Protected BAS results are repeatedly inspected while thresholds/components are tuned.,Protected-test contamination.,W17_precommitment_holdout,PROTECTED

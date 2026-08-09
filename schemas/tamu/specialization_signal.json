@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TamuSpecializationSignal",
+  "type": "object",
+  "required": [
+    "candidate_id",
+    "target_scope",
+    "raw_adjustment",
+    "shrinkage",
+    "uncertainty",
+    "production_selected"
+  ],
+  "properties": {
+    "candidate_id": {
+      "type": "string"
+    },
+    "target_scope": {
+      "type": "string"
+    },
+    "raw_adjustment": {
+      "type": "number"
+    },
+    "shrinkage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "uncertainty": {
+      "type": "number",
+      "minimum": 0
+    },
+    "production_selected": {
+      "type": "boolean"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

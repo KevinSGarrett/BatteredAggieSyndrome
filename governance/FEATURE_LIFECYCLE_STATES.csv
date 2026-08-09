@@ -1,0 +1,7 @@
+state,meaning,production_eligible,requires_empirical_evidence,notes
+CORE,"Repeatedly supported, stable, PIT-safe target-specific feature/family with strong incremental evidence and operational value.",true,true,Still demotable when evidence changes.
+SUPPORTED,Positive target-specific evidence sufficient for approved use but not universal/core status.,true,true,May be target/subgroup specific.
+CONDITIONAL,"Useful only under declared data-coverage, subgroup, model-lane, era or availability conditions.",conditional,true,Condition must be machine-readable.
+EXPERIMENTAL,Safe enough to test but not approved as a production feature.,false,false,Default W10 state for candidate seeds.
+REJECTED,Evaluated candidate did not justify use under the recorded experiment/version.,false,true,History retained; may reopen only with material new evidence/hypothesis.
+BANNED,"Structurally prohibited for the target/lane (e.g. leakage/rights/forbidden future information), not merely low predictive value.",false,false,Cannot be statistically promoted until underlying safety/governance classification is corrected.

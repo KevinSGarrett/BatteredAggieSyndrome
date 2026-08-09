@@ -1,0 +1,5 @@
+input_role,filename,sha256,status,notes
+prior_cumulative,Aggie_Analytics_Engine_W21_CUMULATIVE(1).zip,1b0d5bd26fdb788ebc7d81479bbe69f20b7e064612dacf8c8bd6466fbdb9aebe,VERIFIED_BOUND_PARENT,Exact W21 cumulative hash from hydration binding.
+prior_hydration,Aggie_Analytics_Engine_W21_HYDRATION(1).zip,d2acd7bd5f31ce48707d21e508f2ffaccd04c54225d5046ee9580e0ffa031250,VERIFIED_BOUND_PARENT,Reattached W21 hydration pack.
+source_chat,Initial_Chat_Log(20260809-000429).zip,454381eeff86a01668cfb2b181729683d2fc84b64ef564bd484c2bb65198868e,MATCHES_W01_PROVENANCE,20-message historical source set; W22 framework preference context reviewed.
+reconnaissance_pack,Aggie_Analytics_Data_Reconnaissance_Pack_FINAL_v1_2(1)(1)(20260809-000426).zip,341d4b97bfa89d7e8710c07d559b7dbb62b61f8ed0ac6fb1aad3a00efe4fb14a,MATCHES_W01_PROVENANCE,FINAL v1.2 evidence base; no new W22 data-source claim inferred.

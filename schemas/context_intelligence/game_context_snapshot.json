@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GameContextSnapshot",
+  "type": "object",
+  "required": [
+    "game_id",
+    "forecast_cutoff",
+    "venue_id",
+    "home_away_neutral"
+  ],
+  "properties": {
+    "game_id": {
+      "type": "string"
+    },
+    "forecast_cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "venue_id": {
+      "type": "string"
+    },
+    "home_away_neutral": {
+      "enum": [
+        "HOME",
+        "AWAY",
+        "NEUTRAL"
+      ]
+    },
+    "travel_distance_km": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "timezone_shift_hours": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "rest_days": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "weather_forecast_observation_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "regulatory_environment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

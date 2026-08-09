@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "version": "w18-execution-v1.0",
+  "worktree_policy": "governance/WORKTREE_EXECUTION_POLICY.csv",
+  "resource_policy": "governance/RESEARCH_RESOURCE_BUDGET_POLICY.csv",
+  "artifact_policy": "governance/EXPERIMENT_ARTIFACT_POLICY.csv",
+  "replay_failure_policy": "governance/REPLAY_FAILURE_POLICY.csv",
+  "adoption_policy": "governance/RESULT_ADOPTION_POLICY.csv",
+  "parallelism": "BOUNDED_ADAPTIVE",
+  "future_wave_work_allowed_when_idle": false
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 2,
+  "version": "2.0.0",
+  "standalone_root": "instructions/",
+  "full_repository_root": "BatteredAggieSyndrome/",
+  "exclude": [
+    ".git",
+    ".env",
+    "credentials/tokens",
+    "virtual environments",
+    "caches",
+    "worktrees",
+    "raw restricted data",
+    "generated local model/experiment artifacts",
+    "nested ZIPs"
+  ],
+  "requirements": [
+    "safe POSIX archive paths",
+    "deterministic order/timestamps",
+    "manifest/hash coverage",
+    "secret scan",
+    "CRC/open test",
+    "extract-and-revalidate",
+    "SHA-256 sidecar"
+  ],
+  "zip_name": "BatteredAggieSyndrome_Autonomous_Instructions_v2.0.0.zip"
+}

@@ -1,0 +1,9 @@
+policy_id,stage,purpose,required_inputs,allowed_outputs,protected_rule
+FT-001,ELIGIBILITY,Reject unsafe/ineligible feature candidates,W08 PIT;W09 handoff;W10 lifecycle,ELIGIBLE;REJECTED;BLOCKED,BANNED/PIT-unsafe cannot advance
+FT-002,DATA_QUALITY,Measure materialized quality/coverage,schema;missingness;variance;lineage,ADVANCE;CONDITIONAL;BLOCKED,sample stats are not population stats
+FT-003,LOW_COST_SCREEN,Generate redundancy/association evidence,development-only matrix,ADVANCE;RETAIN;REJECT,no single screening method promotes
+FT-004,BASELINE_COMPARISON,Compare candidate family with frozen baseline,development split;target;baseline features,DEVELOPMENT_EVIDENCE,protected metrics forbidden
+FT-005,ABLATION,Baseline plus/minus family comparison,common model/split,ABLATION_EVIDENCE,same protocol for both arms
+FT-006,STABILITY,Season/regime/subgroup stability,development folds,STABLE;UNSTABLE;INCONCLUSIVE,subgroups predeclared
+FT-007,COST_REVIEW,Record compute/source/maintenance cost,resource evidence,COST_PROFILE,cost cannot rescue predictive failure
+FT-008,RESEARCH_DECISION,Research-only tournament decision,all prior stages,REJECT;INCONCLUSIVE;RETAIN_EXPERIMENTAL;ADOPT_AS_CHALLENGER,cannot emit CORE/SUPPORTED/PROMOTE

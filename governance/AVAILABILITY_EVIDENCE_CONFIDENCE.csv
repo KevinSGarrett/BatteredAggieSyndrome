@@ -1,0 +1,8 @@
+tier_id,tier,examples,authority_rank,auto_healthy_if_missing,fixed_numeric_weight,revision_aware,notes
+AEC-001,OFFICIAL_CONFERENCE_REPORT,SEC/Big Ten/ACC/Big 12/American/Sun Belt/CUSA/MAC/CFP covered official report,1,false,,true,Highest recent official lane when policy covers game/report.
+AEC-002,OFFICIAL_TEAM_REPORT,official team announcement/game notes/coach-stated availability where explicit,2,false,,true,PIT publication timing required.
+AEC-003,OFFICIAL_GAME_NOTE_DEPTH,official depth chart/game note role evidence,3,false,,true,Depth role is not equivalent to health.
+AEC-004,CORROBORATED_REPUTABLE_REPORTING,multiple reputable contemporaneous reports,4,false,,true,Inference/confidence preserved.
+AEC-005,SINGLE_SECONDARY_REPORT,single contemporaneous reputable report,5,false,,true,Do not overstate certainty.
+AEC-006,SPECULATION_OR_UNVERIFIED,anonymous speculation; weak rumor; unsupported social post,6,false,,true,Normally review/uncertain rather than deterministic state.
+AEC-007,UNKNOWN,noncoverage/no usable evidence,7,false,,true,Explicit UNKNOWN.

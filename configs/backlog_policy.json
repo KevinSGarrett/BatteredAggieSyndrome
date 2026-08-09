@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "version": "w18-v1.0",
+  "task_states": [
+    "PLANNED",
+    "PLANNED_REVALIDATE_AFTER_W06",
+    "BLOCKED",
+    "READY",
+    "IN_PROGRESS",
+    "EVIDENCE_PENDING",
+    "DONE",
+    "REJECTED",
+    "SUPERSEDED"
+  ],
+  "ready_rules": [
+    "all predecessors DONE or gate accepted",
+    "owner wave active",
+    "W06_REPLAN cleared where required",
+    "no shared-contract ownership conflict",
+    "required input/source access available"
+  ],
+  "done_rules": [
+    "declared outputs exist",
+    "required tests/evidence pass",
+    "acceptance mappings updated",
+    "no forbidden artifacts/secrets",
+    "integration scope reviewed"
+  ],
+  "parallelism_policy": "bounded_adaptive_independent_worktrees",
+  "shared_contract_policy": "single_mutation_owner_until_contract_frozen",
+  "schedule_policy": "no_unverified_hours_or_calendar_estimates",
+  "w06_replan_status": "CLEARED_W06",
+  "w06_replan_evidence": "docs/data_research/w06/WAVE_06_ARCHITECTURE_IMPACT.md",
+  "w07_identity_gate_status": "CLEARED_W07",
+  "w07_identity_gate_evidence": "configs/entity_registry.json;governance/W07_ADAPTIVE_REVIEW.md",
+  "next_ready_task": "TASK-041",
+  "w08_pit_gate_status": "CLEARED_W08",
+  "w08_pit_gate_evidence": "configs/temporal_registry.json;governance/W08_VALIDATION_REPORT.md",
+  "w09_raw_registry_gate_status": "CLEARED_W09",
+  "w10_feature_lifecycle_gate_status": "CLEARED_W10",
+  "w10_feature_lifecycle_gate_evidence": "configs/feature_lifecycle_registry.json;governance/W10_VALIDATION_REPORT.md",
+  "w11_team_state_gate_status": "CLEARED_W11_CONTRACT_ONLY",
+  "w11_team_state_gate_evidence": "configs/team_state_registry.json;governance/W11_VALIDATION_REPORT.md",
+  "w18_research_governance_gate_status": "CLEARED_W18_REFERENCE_ONLY",
+  "w18_research_governance_evidence": "configs/experiment_research_registry.json;governance/PROTECTED_JUDGING_RULE_SEAL.csv;governance/W18_VALIDATION_REPORT.md"
+}

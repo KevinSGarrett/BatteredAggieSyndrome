@@ -1,0 +1,550 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json -->
+# POST-SUBTASK-021 — [POST-SUBTASK-021] Validate access readiness and generate source-specific unblock conditions
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.",
+    "Downstream materialization tasks consume this readiness file.",
+    "A source cannot become READY from a successful sample if rights review is incomplete."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "Canonical parent Story: POST-STORY-007. Governance traceability gate: POST-SUBTASK-024. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.",
+    "Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-021.json`; inspect only the listed implementation files and prerequisite outputs.",
+    "May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.",
+    "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
+  ],
+  "allowed_modification_paths": [
+    "artifacts/source_governance/source_access_readiness.csv",
+    "artifacts/jira_evidence/POST-SUBTASK-021.json"
+  ],
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-015;POST-SUBTASK-019;POST-SUBTASK-020",
+  "blocks": [
+    "POST-STORY-008",
+    "POST-STORY-009",
+    "POST-SUBTASK-022",
+    "POST-SUBTASK-023",
+    "POST-SUBTASK-024",
+    "POST-SUBTASK-025",
+    "POST-SUBTASK-026",
+    "POST-SUBTASK-027"
+  ],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {
+    "acceptance_matrix_required": true,
+    "artifact_hashes_required": true,
+    "completion_claim_limit": "INTEGRATED",
+    "downstream_consumer": "POST-STORY-007",
+    "governance_traceability_gate": "POST-SUBTASK-024",
+    "negative_results_preserved": true,
+    "provenance_dimensions": [
+      "source",
+      "data",
+      "code",
+      "config",
+      "tool",
+      "runtime",
+      "split/cutoff when applicable"
+    ]
+  },
+  "component": "data-sources",
+  "components_expected_to_be_touched": [
+    "data-sources",
+    "sources"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "The atomic scope in POST-SUBTASK-021 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
+    "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
+    "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
+    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
+    "The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-007."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-015",
+    "POST-SUBTASK-019",
+    "POST-SUBTASK-020"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 1,
+    "adr_ids": 4,
+    "gap_ids": 1,
+    "requirement_ids": 9,
+    "risk_ids": 1
+  },
+  "effective_traceability_total": 16,
+  "end_to_end_validation": "Exercise the complete Credential configuration and access smoke tests path and verify downstream consumption of pinned outputs. The gate decision must explicitly reevaluate downstream issues: POST-STORY-008, POST-STORY-009, POST-SUBTASK-022, POST-SUBTASK-023, POST-SUBTASK-024, POST-SUBTASK-025, POST-SUBTASK-026, POST-SUBTASK-027.",
+  "epic_id": "POST-EPIC-002",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+  "evidence_state": "PLANNED",
+  "execution_lane": "PROTECTED_GATE",
+  "execution_mode": "ATOMIC_EXECUTION",
+  "expected_maturity_after_completion": "INTEGRATED",
+  "expected_outputs": [
+    "artifacts/source_governance/source_access_readiness.csv"
+  ],
+  "files_expected_to_be_read": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "src/aggie_analytics/data/adapters.py",
+    "docs/data_research/w06/DATA_ACQUISITION_PLAN.md",
+    "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
+    "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
+    "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
+  ],
+  "files_expected_to_be_touched": [],
+  "files_to_inspect": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "src/aggie_analytics/data/adapters.py",
+    "docs/data_research/w06/DATA_ACQUISITION_PLAN.md",
+    "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
+    "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
+    "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "POST-SUBTASK-024",
+  "historical_classification": "ACTIONABLE_POST_WAVE",
+  "import_id": 100325,
+  "in_scope": [
+    "Perform the exact action: Validate access readiness and generate source-specific unblock conditions.",
+    "Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-019`, `POST-SUBTASK-020`.",
+    "Demonstrate with saved evidence: Every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.",
+    "Demonstrate with saved evidence: Downstream materialization tasks consume this readiness file.",
+    "Demonstrate with saved evidence: A source cannot become READY from a successful sample if rights review is incomplete.",
+    "Produce, validate, content-hash, and register `artifacts/source_governance/source_access_readiness.csv`.",
+    "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
+  ],
+  "issue_type": "Subtask",
+  "jira_key": "BAT-371",
+  "labels": [
+    "actionable",
+    "core-release",
+    "post-wave",
+    "protected-gate",
+    "sources",
+    "subtask"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "POST-SUBTASK-021",
+  "maturity_before": "CONTRACT_DEFINED",
+  "objective": "Validate access readiness and generate source-specific unblock conditions",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24511",
+    "jira_updated_at": "2026-08-09T00:03:26.154-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
+    "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Work assigned to sibling subtasks: Define credential names, scopes, owners, rotation, and non-repository storage contract; Run authenticated and no-key source access smoke tests with rate-limit capture.",
+    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.",
+    "Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-007",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Dependency POST-SUBTASK-015 complete at required maturity",
+    "Dependency POST-SUBTASK-019 complete at required maturity",
+    "Dependency POST-SUBTASK-020 complete at required maturity"
+  ],
+  "primary_source_refs": [
+    "SRCREF-02007",
+    "SRCREF-02008",
+    "SRCREF-02009",
+    "SRCREF-02010"
+  ],
+  "priority": "P0",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "src/aggie_analytics/data/adapters.py",
+    "docs/data_research/w06/DATA_ACQUISITION_PLAN.md",
+    "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
+    "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
+    "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [],
+  "required_evidence": [
+    "`artifacts/source_governance/source_access_readiness.csv` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
+    "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
+    "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
+    "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
+    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.",
+    "Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts."
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-021; retain command, exit code, and relevant output.",
+      "path": "tests/test_data_research.py",
+      "validation_class": "REGRESSION"
+    },
+    {
+      "classification": "LEGAL_RIGHTS_REVIEW",
+      "expectation": "A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.",
+      "path": "MANUAL_REVIEW_REQUIRED",
+      "validation_class": "LEGAL_RIGHTS_REVIEW"
+    },
+    {
+      "classification": "MANUAL",
+      "expectation": "Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.",
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "validation_class": "MANUAL"
+    },
+    {
+      "classification": "SECURITY",
+      "expectation": "Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.",
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "validation_class": "SECURITY"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.",
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "validation_class": "END_TO_END"
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "expectation": "Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.",
+      "path": "ISSUE_COMPLETION_MANIFEST",
+      "validation_class": "REPRODUCIBILITY"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-021.",
+    "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
+    "Acceptance failure: the evidence cannot demonstrate that every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.",
+    "Acceptance failure: the evidence cannot demonstrate that downstream materialization tasks consume this readiness file.",
+    "Acceptance failure: the evidence cannot demonstrate that a source cannot become READY from a successful sample if rights review is incomplete."
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Execute the atomic 3 of 3 step in Story POST-STORY-007 (Credential configuration and access smoke tests): Validate access readiness and generate source-specific unblock conditions. Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-019`, `POST-SUBTASK-020`. Produce `artifacts/source_governance/source_access_readiness.csv`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.",
+  "source_ids": [
+    "GAP-010",
+    "HANDOFF-002",
+    "HANDOFF-012",
+    "ISSUE-003",
+    "ISSUE-004"
+  ],
+  "source_refs": [
+    "SRCREF-02007",
+    "SRCREF-02008",
+    "SRCREF-02009",
+    "SRCREF-02010",
+    "SRCREF-02011",
+    "SRCREF-02012",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01888",
+    "SRCREF-01898",
+    "SRCREF-01572",
+    "SRCREF-01903",
+    "SRCREF-01904"
+  ],
+  "specificity_fingerprint": "2e753aa9ed43df9aa0eb9c1d373d0ef3864952cb3e0cbbecf6385188b27845c3",
+  "stop_conditions": [
+    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
+    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
+    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02011",
+    "SRCREF-02012",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01888",
+    "SRCREF-01898",
+    "SRCREF-01572",
+    "SRCREF-01903",
+    "SRCREF-01904"
+  ],
+  "title": "[POST-SUBTASK-021] Validate access readiness and generate source-specific unblock conditions",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-024"
+  ],
+  "traceability_resolution": "INHERITED_DOMAIN_GATE",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "validation_classes": [
+    "END_TO_END",
+    "LEGAL_RIGHTS_REVIEW",
+    "MANUAL",
+    "REGRESSION",
+    "REPRODUCIBILITY",
+    "SECURITY"
+  ],
+  "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-007: Credential configuration and access smoke tests.",
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-021.md",
+  "workflow_state": "BLOCKED"
+}
+```
+
+## Objective
+
+Validate access readiness and generate source-specific unblock conditions
+
+## Why This Exists
+
+This is an independently executable and verifiable work unit required by Story POST-STORY-007: Credential configuration and access smoke tests.
+
+## Scope
+
+Execute the atomic 3 of 3 step in Story POST-STORY-007 (Credential configuration and access smoke tests): Validate access readiness and generate source-specific unblock conditions. Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-019`, `POST-SUBTASK-020`. Produce `artifacts/source_governance/source_access_readiness.csv`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+
+### Explicit In Scope
+
+- Perform the exact action: Validate access readiness and generate source-specific unblock conditions.
+- Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-019`, `POST-SUBTASK-020`.
+- Demonstrate with saved evidence: Every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.
+- Demonstrate with saved evidence: Downstream materialization tasks consume this readiness file.
+- Demonstrate with saved evidence: A source cannot become READY from a successful sample if rights review is incomplete.
+- Produce, validate, content-hash, and register `artifacts/source_governance/source_access_readiness.csv`.
+- Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
+
+### Explicit Out of Scope
+
+- Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
+- Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Work assigned to sibling subtasks: Define credential names, scopes, owners, rotation, and non-repository storage contract; Run authenticated and no-key source access smoke tests with rate-limit capture.
+- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
+
+## Prerequisites
+
+- Dependency POST-SUBTASK-015 complete at required maturity
+- Dependency POST-SUBTASK-019 complete at required maturity
+- Dependency POST-SUBTASK-020 complete at required maturity
+
+## Hard Dependencies
+
+- POST-SUBTASK-015
+- POST-SUBTASK-019
+- POST-SUBTASK-020
+
+## Blocks
+
+- POST-STORY-008
+- POST-STORY-009
+- POST-SUBTASK-022
+- POST-SUBTASK-023
+- POST-SUBTASK-024
+- POST-SUBTASK-025
+- POST-SUBTASK-026
+- POST-SUBTASK-027
+
+## Read / Inspect First
+
+- governance/DO_NOT_DRIFT.md
+- docs/final/CODEX_HANDOFF.md
+- docs/final/FINAL_BACKLOG.csv
+- docs/final/FINAL_COMPONENT_MATURITY.csv
+- docs/final/FINAL_IMPLEMENTATION_PRIORITY.md
+- docs/final/FINAL_KNOWN_GAPS.csv
+- src/aggie_analytics/data/adapters.py
+- docs/data_research/w06/DATA_ACQUISITION_PLAN.md
+- docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv
+- docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md
+- docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md
+
+## Files Expected To Be Modified
+
+- None.
+
+## Components Expected To Be Touched
+
+- data-sources
+- sources
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+- configs/judging_rule_seal.json
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+
+## Expected Outputs / Artifacts
+
+- artifacts/source_governance/source_access_readiness.csv
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-024`
+- Inherited from: POST-SUBTASK-024
+- Resolution: `INHERITED_DOMAIN_GATE`
+- Effective counts: `{"acceptance_control_ids": 1, "adr_ids": 4, "gap_ids": 1, "requirement_ids": 9, "risk_ids": 1}`
+
+## Acceptance Criteria
+
+1. Every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.
+2. Downstream materialization tasks consume this readiness file.
+3. A source cannot become READY from a successful sample if rights review is incomplete.
+
+## Definition of Done
+
+1. The atomic scope in POST-SUBTASK-021 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
+3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
+4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
+5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
+7. The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-007.
+
+## Required Tests / Validation
+
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_data_research.py` — Run as a regression check after completing POST-SUBTASK-021; retain command, exit code, and relevant output.
+- **LEGAL_RIGHTS_REVIEW** / `LEGAL_RIGHTS_REVIEW` — `MANUAL_REVIEW_REQUIRED` — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
+- **MANUAL** / `MANUAL` — `artifacts/source_governance/source_access_readiness.csv` — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
+- **SECURITY** / `SECURITY` — `artifacts/source_governance/source_access_readiness.csv` — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
+- **END_TO_END** / `END_TO_END` — `artifacts/source_governance/source_access_readiness.csv` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
+- **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
+
+## Required Evidence
+
+- `artifacts/source_governance/source_access_readiness.csv` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
+- Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
+- An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
+- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts.
+
+## Completion Evidence Contract
+
+```json
+{
+  "acceptance_matrix_required": true,
+  "artifact_hashes_required": true,
+  "completion_claim_limit": "INTEGRATED",
+  "downstream_consumer": "POST-STORY-007",
+  "governance_traceability_gate": "POST-SUBTASK-024",
+  "negative_results_preserved": true,
+  "provenance_dimensions": [
+    "source",
+    "data",
+    "code",
+    "config",
+    "tool",
+    "runtime",
+    "split/cutoff when applicable"
+  ]
+}
+```
+
+## End-to-End Validation Requirement
+
+Exercise the complete Credential configuration and access smoke tests path and verify downstream consumption of pinned outputs. The gate decision must explicitly reevaluate downstream issues: POST-STORY-008, POST-STORY-009, POST-SUBTASK-022, POST-SUBTASK-023, POST-SUBTASK-024, POST-SUBTASK-025, POST-SUBTASK-026, POST-SUBTASK-027.
+
+## Expected Maturity After Completion
+
+`INTEGRATED`
+
+## Risk / Failure Conditions
+
+- The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-021.
+- A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
+- Acceptance failure: the evidence cannot demonstrate that every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.
+- Acceptance failure: the evidence cannot demonstrate that downstream materialization tasks consume this readiness file.
+- Acceptance failure: the evidence cannot demonstrate that a source cannot become READY from a successful sample if rights review is incomplete.
+
+## Stop Conditions
+
+- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
+- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
+- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+
+## Source References
+
+- SRCREF-02007
+- SRCREF-02008
+- SRCREF-02009
+- SRCREF-02010
+- SRCREF-02011
+- SRCREF-02012
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01888
+- SRCREF-01898
+- SRCREF-01572
+- SRCREF-01903
+- SRCREF-01904
+
+## AI Context Notes
+
+- Canonical parent Story: POST-STORY-007. Governance traceability gate: POST-SUBTASK-024. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.
+- Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-021.json`; inspect only the listed implementation files and prerequisite outputs.
+- May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.
+- Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient.

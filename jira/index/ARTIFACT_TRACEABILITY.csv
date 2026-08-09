@@ -1,0 +1,1005 @@
+artifact_path_or_name,producer_issue_id,issue_type,required_for_completion,expected_maturity,downstream_issue_ids,evidence_state
+SOURCE_RESEARCH_LOG.csv,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+W06 source research artifacts,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/DATASET_ENDPOINT_COLUMN_INVENTORY.csv,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/DATA_ACQUISITION_PLAN.md,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/DATA_DOMAIN_COVERAGE_MATRIX.csv,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/DATA_MISSINGNESS_STRATEGY.md,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/DATA_RESEARCH_METHOD.md,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/DATA_SOURCE_RISK_REGISTER.csv,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/DATA_UNIVERSE_MASTER.csv,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/POINT_IN_TIME_FEASIBILITY_MATRIX.csv,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/SOURCE_REDUNDANCY_MAP.csv,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/data_research/w06/WAVE_06_ARCHITECTURE_IMPACT.md,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+governance/WAVE_PLAN_REVISIONS.md,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+revalidated implementation WBS,EPIC-001,Epic,true,CONTRACT_DEFINED,,VERIFIED
+ADR-097,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+W07 canonical identity contract baseline,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+W08 handoff,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+acceptance mappings,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+configs/entity_registry.json,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/16_ENTITY_RESOLUTION_AND_REVIEW.md,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+docs/17_ENTITY_STORAGE_EVALUATION.md,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+entity validator,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+governance/CANONICAL_ENTITY_CATALOG.csv,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+governance/CANONICAL_RELATIONSHIP_CATALOG.csv,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+governance/ENTITY_RESOLUTION_STATES.csv,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+governance/ENTITY_STORAGE_DECISION_MATRIX.csv,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+governance/SOURCE_MAPPING_METHODS.csv,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+schemas/canonical/entities.json,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+schemas/canonical/evidence_identity.json,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+schemas/canonical/resolution_decision.json,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+schemas/canonical/source_mapping.json,EPIC-002,Epic,true,CONTRACT_DEFINED,,VERIFIED
+PIT observation schema and temporal semantics,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+PIT test fixtures,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+accepted PIT interface,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+as-of access API,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+availability report PIT contract + fixtures,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+cutoff lineage/replay contract,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+eligibility rules,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+leakage battery,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+passing protected PIT controls,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+snapshot policy by mutable source domain,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+weather model-run PIT contract + fixtures,EPIC-003,Epic,true,CONTRACT_DEFINED,,VERIFIED
+feature-registry contract baseline,EPIC-004,Epic,true,CONTRACT_DEFINED,,VERIFIED
+field inventory generator,EPIC-004,Epic,true,CONTRACT_DEFINED,,VERIFIED
+raw feature registry metadata,EPIC-004,Epic,true,CONTRACT_DEFINED,,VERIFIED
+reconciliation report,EPIC-004,Epic,true,CONTRACT_DEFINED,,VERIFIED
+redundancy clusters,EPIC-004,Epic,true,CONTRACT_DEFINED,,VERIFIED
+registry staging imports,EPIC-004,Epic,true,CONTRACT_DEFINED,,VERIFIED
+schema scanner,EPIC-004,Epic,true,CONTRACT_DEFINED,,VERIFIED
+source/upstream/license registry schema,EPIC-004,Epic,true,CONTRACT_DEFINED,,VERIFIED
+CORE/SUPPORTED/CONDITIONAL/EXPERIMENTAL/REJECTED/BANNED transitions,EPIC-005,Epic,true,CONTRACT_DEFINED,,VERIFIED
+approved feature lifecycle contract and evidence rules,EPIC-005,Epic,true,CONTRACT_DEFINED,,VERIFIED
+family ablation/stability evidence,EPIC-005,Epic,true,CONTRACT_DEFINED,,VERIFIED
+feature transform library/contracts,EPIC-005,Epic,true,CONTRACT_DEFINED,,VERIFIED
+opponent/matchup transform interfaces,EPIC-005,Epic,true,CONTRACT_DEFINED,,VERIFIED
+screening reports,EPIC-005,Epic,true,CONTRACT_DEFINED,,VERIFIED
+selection evidence,EPIC-005,Epic,true,CONTRACT_DEFINED,,VERIFIED
+NCAA/NAIA/NJCAA strength-source normalization design,EPIC-006,Epic,true,CONTRACT_DEFINED,,VERIFIED
+early-season prior/blending candidates,EPIC-006,Epic,true,CONTRACT_DEFINED,,VERIFIED
+historical weighting candidates,EPIC-006,Epic,true,CONTRACT_DEFINED,,VERIFIED
+opponent hierarchy and uncertainty contract,EPIC-006,Epic,true,CONTRACT_DEFINED,,VERIFIED
+team state contract,EPIC-006,Epic,true,CONTRACT_DEFINED,,VERIFIED
+team-state baseline contract,EPIC-006,Epic,true,CONTRACT_DEFINED,,VERIFIED
+team-state comparison report,EPIC-006,Epic,true,CONTRACT_DEFINED,,VERIFIED
+baseline candidate contracts + reference formulas,EPIC-007,Epic,true,CONTRACT_DEFINED,,VERIFIED
+baseline comparison decision method,EPIC-007,Epic,true,CONTRACT_DEFINED,,VERIFIED
+boosted-tree candidate interface (XGBoost/LightGBM/CatBoost alternatives),EPIC-007,Epic,true,CONTRACT_DEFINED,,VERIFIED
+mandatory comparator registry,EPIC-007,Epic,true,CONTRACT_DEFINED,,VERIFIED
+no empirical result required,EPIC-007,Epic,true,CONTRACT_DEFINED,,VERIFIED
+numeric deltas remain pending development evidence,EPIC-007,Epic,true,CONTRACT_DEFINED,,VERIFIED
+protected baseline benchmark protocol,EPIC-007,Epic,true,CONTRACT_DEFINED,,VERIFIED
+versioned calibration artifact/interface contract,EPIC-007,Epic,true,CONTRACT_DEFINED,,VERIFIED
+as-of state builder,EPIC-008,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+entity mapping/resolution starter,EPIC-008,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+feature registry/factory,EPIC-008,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+lineage artifacts,EPIC-008,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+raw snapshot writer,EPIC-008,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+source adapter starters,EPIC-008,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+synthetic source→PIT→feature replay fixture,EPIC-008,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+validated functional foundation starter,EPIC-008,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+availability state contract,EPIC-009,Epic,true,CONTRACT_DEFINED,,VERIFIED
+injury evidence confidence/missingness policy,EPIC-009,Epic,true,CONTRACT_DEFINED,,VERIFIED
+official availability adapter/materialization plan,EPIC-009,Epic,true,CONTRACT_DEFINED,,VERIFIED
+player and depth state contracts,EPIC-009,Epic,true,CONTRACT_DEFINED,,VERIFIED
+player value input/output contract,EPIC-009,Epic,true,CONTRACT_DEFINED,,VERIFIED
+player/availability interface baseline,EPIC-009,Epic,true,CONTRACT_DEFINED,,VERIFIED
+replacement value/uncertainty contract,EPIC-009,Epic,true,CONTRACT_DEFINED,,VERIFIED
+consensus/development candidate contracts,EPIC-010,Epic,true,CONTRACT_DEFINED,,VERIFIED
+position-aware translation experiment plan,EPIC-010,Epic,true,CONTRACT_DEFINED,,VERIFIED
+recruiting and freshman prior schema,EPIC-010,Epic,true,CONTRACT_DEFINED,,VERIFIED
+transfer episode schema,EPIC-010,Epic,true,CONTRACT_DEFINED,,VERIFIED
+transfer/recruiting source provenance decision,EPIC-010,Epic,true,CONTRACT_DEFINED,,VERIFIED
+transfer/recruiting/prospect interface baseline,EPIC-010,Epic,true,CONTRACT_DEFINED,,VERIFIED
+translation uncertainty/usage outputs,EPIC-010,Epic,true,CONTRACT_DEFINED,,VERIFIED
+coach development candidate model contract,EPIC-011,Epic,true,CONTRACT_DEFINED,,VERIFIED
+coach-effect evaluation specification,EPIC-011,Epic,true,CONTRACT_DEFINED,,VERIFIED
+coaching interface baseline,EPIC-011,Epic,true,CONTRACT_DEFINED,,VERIFIED
+decision-quality candidate features,EPIC-011,Epic,true,CONTRACT_DEFINED,,VERIFIED
+effective-dated coach role schema,EPIC-011,Epic,true,CONTRACT_DEFINED,,VERIFIED
+scheme/tendency feature contract,EPIC-011,Epic,true,CONTRACT_DEFINED,,VERIFIED
+context interface baseline,EPIC-012,Epic,true,CONTRACT_DEFINED,,VERIFIED
+game-context effective-dated feature contracts,EPIC-012,Epic,true,CONTRACT_DEFINED,,VERIFIED
+home-field residual experiment specification,EPIC-012,Epic,true,CONTRACT_DEFINED,,VERIFIED
+private-resource proxy semantics/experiment,EPIC-012,Epic,true,CONTRACT_DEFINED,,VERIFIED
+regulatory environment contract,EPIC-012,Epic,true,CONTRACT_DEFINED,,VERIFIED
+resource capacity evidence lanes and missingness policy,EPIC-012,Epic,true,CONTRACT_DEFINED,,VERIFIED
+venue/travel context schema,EPIC-012,Epic,true,CONTRACT_DEFINED,,VERIFIED
+weather snapshot feature contract,EPIC-012,Epic,true,CONTRACT_DEFINED,,VERIFIED
+field-position value contract,EPIC-013,Epic,true,CONTRACT_DEFINED,,VERIFIED
+mechanics interaction candidates,EPIC-013,Epic,true,CONTRACT_DEFINED,,VERIFIED
+mechanics interface baseline,EPIC-013,Epic,true,CONTRACT_DEFINED,,VERIFIED
+possession/tempo contract,EPIC-013,Epic,true,CONTRACT_DEFINED,,VERIFIED
+score-state policy candidates,EPIC-013,Epic,true,CONTRACT_DEFINED,,VERIFIED
+special teams component contracts,EPIC-013,Epic,true,CONTRACT_DEFINED,,VERIFIED
+chronological schedule context rules,EPIC-014,Epic,true,CONTRACT_DEFINED,,VERIFIED
+matchup adjustment baseline,EPIC-014,Epic,true,CONTRACT_DEFINED,,VERIFIED
+officiating feasibility decision,EPIC-014,Epic,true,CONTRACT_DEFINED,,VERIFIED
+officiating source/gap decision,EPIC-014,Epic,true,CONTRACT_DEFINED,,VERIFIED
+opponent adjustment candidates,EPIC-014,Epic,true,CONTRACT_DEFINED,,VERIFIED
+pregame assignment semantics evidence,EPIC-014,Epic,true,CONTRACT_DEFINED,,VERIFIED
+schedule stress feature contract,EPIC-014,Epic,true,CONTRACT_DEFINED,,VERIFIED
+style similarity candidates,EPIC-014,Epic,true,CONTRACT_DEFINED,,VERIFIED
+advanced PIT fixtures,EPIC-015,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+advanced intelligence implementation evidence,EPIC-015,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+context/mechanics starter modules,EPIC-015,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+player/availability starter modules,EPIC-015,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+transfer/recruiting starter modules,EPIC-015,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+A&M high-resolution state contract,EPIC-016,Epic,true,CONTRACT_DEFINED,,VERIFIED
+A&M regime/availability overlay,EPIC-016,Epic,true,CONTRACT_DEFINED,,VERIFIED
+A&M snapshot cadence proposal,EPIC-016,Epic,true,CONTRACT_DEFINED,,VERIFIED
+A&M team-state baseline,EPIC-016,Epic,true,CONTRACT_DEFINED,,VERIFIED
+A&M unit-state contracts,EPIC-016,Epic,true,CONTRACT_DEFINED,,VERIFIED
+peer/analog contract,EPIC-016,Epic,true,CONTRACT_DEFINED,,VERIFIED
+A&M evaluation slice contract,EPIC-017,Epic,true,CONTRACT_DEFINED,,VERIFIED
+hierarchical/multi-task candidates,EPIC-017,Epic,true,CONTRACT_DEFINED,,VERIFIED
+national→A&M specialization interface,EPIC-017,Epic,true,CONTRACT_DEFINED,,VERIFIED
+residual specialization candidate,EPIC-017,Epic,true,CONTRACT_DEFINED,,VERIFIED
+specialization candidate baseline,EPIC-017,Epic,true,CONTRACT_DEFINED,,VERIFIED
+specialization overfit safeguards,EPIC-017,Epic,true,CONTRACT_DEFINED,,VERIFIED
+BAS protected test battery,EPIC-018,Epic,true,CONTRACT_DEFINED,,VERIFIED
+BAS residual/threshold contract,EPIC-018,Epic,true,CONTRACT_DEFINED,,VERIFIED
+BAS severity label interface,EPIC-018,Epic,true,CONTRACT_DEFINED,,VERIFIED
+accepted BAS label baseline,EPIC-018,Epic,true,CONTRACT_DEFINED,,VERIFIED
+cross-fit label-generation contract,EPIC-018,Epic,true,CONTRACT_DEFINED,,VERIFIED
+Aggie Excess test plan,EPIC-019,Epic,true,CONTRACT_DEFINED,,VERIFIED
+BAS component candidate registry,EPIC-019,Epic,true,CONTRACT_DEFINED,,VERIFIED
+BAS significance/stability/calibration/multiplicity evaluation protocol,EPIC-019,Epic,true,CONTRACT_DEFINED,,VERIFIED
+BAS stability/calibration plan,EPIC-019,Epic,true,CONTRACT_DEFINED,,VERIFIED
+general underperformance benchmark,EPIC-019,Epic,true,CONTRACT_DEFINED,,VERIFIED
+no-excess/reject/inconclusive outcomes preserved,EPIC-019,Epic,true,CONTRACT_DEFINED,,VERIFIED
+precommitted BAS component decision rule,EPIC-019,Epic,true,CONTRACT_DEFINED,,VERIFIED
+A&M specialization model adapter,EPIC-020,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+A&M state adapter,EPIC-020,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+A&M/BAS snapshot fields + lineage,EPIC-020,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+BAS interface,EPIC-020,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+validated A&M/BAS starter,EPIC-020,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+forecast distribution interface,EPIC-021,Epic,true,CONTRACT_DEFINED,,VERIFIED
+joint-distribution candidate report,EPIC-021,Epic,true,CONTRACT_DEFINED,,VERIFIED
+model architecture baseline,EPIC-021,Epic,true,CONTRACT_DEFINED,,VERIFIED
+scenario perturbation contract,EPIC-021,Epic,true,CONTRACT_DEFINED,,VERIFIED
+simulation/scenario contract,EPIC-021,Epic,true,CONTRACT_DEFINED,,VERIFIED
+target contract,EPIC-021,Epic,true,CONTRACT_DEFINED,,VERIFIED
+OOD/disagreement candidate registry,EPIC-022,Epic,true,CONTRACT_DEFINED,,VERIFIED
+market source comparison + PIT fixture plan,EPIC-022,Epic,true,CONTRACT_DEFINED,,VERIFIED
+market-augmented path with observation cutoffs,EPIC-022,Epic,true,CONTRACT_DEFINED,,VERIFIED
+market-independent prediction path,EPIC-022,Epic,true,CONTRACT_DEFINED,,VERIFIED
+no empirical result required,EPIC-022,Epic,true,CONTRACT_DEFINED,,VERIFIED
+precommitted uncertainty/OOD/disagreement/market warning/promotion decision rules,EPIC-022,Epic,true,CONTRACT_DEFINED,,VERIFIED
+uncertainty contract,EPIC-022,Epic,true,CONTRACT_DEFINED,,VERIFIED
+uncertainty/OOD/disagreement/market benchmark protocol,EPIC-022,Epic,true,CONTRACT_DEFINED,,VERIFIED
+2024-2025 holdout,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+2026+ forward shadow,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+THR-001..007/014/015 numeric values remain blank pending development evidence,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+W18 research boundary,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+blank required threshold blocks,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+immutable decision-state contract,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+predeclared national/A&M/subgroup evaluation scorecard registry,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+proper scoring/calibration/error metric registry plus dependency-light reference metrics,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+reference promotion evaluator,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+sealed protected evaluation/promotion contract,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+sealed protected split registry,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+threshold precommitment registry,EPIC-023,Epic,true,CONTRACT_DEFINED,,VERIFIED
+MLflow/Optuna adapter decisions + HPO search-space/study policy,EPIC-024,Epic,true,CONTRACT_DEFINED,,VERIFIED
+complete W18 master coverage + W17 preservation + tournament/HPO/replay test gate + W19 handoff,EPIC-024,Epic,true,CONTRACT_DEFINED,,VERIFIED
+experiment lineage contract,EPIC-024,Epic,true,CONTRACT_DEFINED,,VERIFIED
+feature tournament + model tournament + artifact/replay/comparison/adoption reference system,EPIC-024,Epic,true,CONTRACT_DEFINED,,VERIFIED
+hypothesis lifecycle + experiment queue + worktree/resource execution reference,EPIC-024,Epic,true,CONTRACT_DEFINED,,VERIFIED
+protected evaluator separation tests + W17 hash-seal verification CLI,EPIC-024,Epic,true,CONTRACT_DEFINED,,VERIFIED
+calibration/ensemble/uncertainty adapters,EPIC-025,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+functional model starters,EPIC-025,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+functional selected model/calibration starter,EPIC-025,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+joint forecast starter,EPIC-025,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+model registry interface,EPIC-025,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+model runtime/artifact abstraction,EPIC-025,Epic,true,FUNCTIONAL_STARTER,,VERIFIED
+Prefect-or-approved choice,EPIC-026,Epic,true,INTEGRATED,,VERIFIED
+data refresh workflow,EPIC-026,Epic,true,INTEGRATED,,VERIFIED
+end-to-end resumability evidence,EPIC-026,Epic,true,INTEGRATED,,VERIFIED
+orchestrator ADR,EPIC-026,Epic,true,INTEGRATED,,VERIFIED
+postmortem/research loop,EPIC-026,Epic,true,INTEGRATED,,VERIFIED
+promotion+rollback+snapshot workflow,EPIC-026,Epic,true,INTEGRATED,,VERIFIED
+training workflow,EPIC-026,Epic,true,INTEGRATED,,VERIFIED
+A&M dashboard,EPIC-027,Epic,true,INTEGRATED,,VERIFIED
+FastAPI/Streamlit/React-or-approved ADR,EPIC-027,Epic,true,INTEGRATED,,VERIFIED
+explanation and warning surfaces,EPIC-027,Epic,true,INTEGRATED,,VERIFIED
+forecast provenance UI/API,EPIC-027,Epic,true,INTEGRATED,,VERIFIED
+product acceptance evidence,EPIC-027,Epic,true,INTEGRATED,,VERIFIED
+read-only forecast API schema,EPIC-027,Epic,true,INTEGRATED,,VERIFIED
+THR-011/012 remain TBD,EPIC-028,Epic,true,INTEGRATED,,PARTIAL
+content-verified backup/restore + protected retention policy/runbook,EPIC-028,Epic,true,INTEGRATED,,PARTIAL
+dependency pin/provenance/security gates + CodeQL/dependency-review workflows,EPIC-028,Epic,true,INTEGRATED,,PARTIAL
+expanded cross-platform core/product CI + runtime manifest artifacts,EPIC-028,Epic,true,INTEGRATED,,PARTIAL
+production gate awaits target benchmark,EPIC-028,Epic,true,INTEGRATED,,PARTIAL
+security/observability/restore evidence complete,EPIC-028,Epic,true,INTEGRATED,,PARTIAL
+structured redacted logs/metrics/runtime environment evidence,EPIC-028,Epic,true,INTEGRATED,,PARTIAL
+target-hardware benchmark harness + non-authoritative smoke evidence,EPIC-028,Epic,true,INTEGRATED,,PARTIAL
+advanced challenger admission policy,EPIC-029,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+advanced challenger promotion/rejection record,EPIC-029,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+optional graph challenger report,EPIC-029,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+optional tabular neural challenger,EPIC-029,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+optional temporal challenger report,EPIC-029,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+live isolation evidence,EPIC-030,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+live replay contract,EPIC-030,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+live source feasibility update,EPIC-030,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+optional live replay prototype,EPIC-030,Epic,true,FUNCTIONAL_STARTER,,PARTIAL
+E2E/replay readiness report,EPIC-031,Epic,true,INTEGRATED,,VERIFIED
+W24 acceptance/readiness baseline,EPIC-031,Epic,true,INTEGRATED,,VERIFIED
+W24 delta against W06 data universe,EPIC-031,Epic,true,INTEGRATED,,VERIFIED
+accepted W24 repairs/revisions,EPIC-031,Epic,true,INTEGRATED,,VERIFIED
+architecture challenge decision set,EPIC-031,Epic,true,INTEGRATED,,VERIFIED
+full acceptance battery,EPIC-031,Epic,true,INTEGRATED,,VERIFIED
+source refresh delta report,EPIC-031,Epic,true,INTEGRATED,,VERIFIED
+docs/final/FINAL_ARCHITECTURE_RATIONALE.md,EPIC-032,Epic,true,INTEGRATED,,VERIFIED
+docs/final/FINAL_IMPLEMENTATION_PRIORITY.md,EPIC-032,Epic,true,INTEGRATED,,VERIFIED
+docs/final/FINAL_REJECTED_ALTERNATIVES.md,EPIC-032,Epic,true,INTEGRATED,,VERIFIED
+final gap/risk/backlog artifacts,EPIC-032,Epic,true,INTEGRATED,,VERIFIED
+final governance audit,EPIC-032,Epic,true,INTEGRATED,,VERIFIED
+final technical readiness audit,EPIC-032,Epic,true,INTEGRATED,,VERIFIED
+final validated bound repository/hydration pair,EPIC-032,Epic,true,INTEGRATED,,VERIFIED
+first-72-hour queue,EPIC-032,Epic,true,INTEGRATED,,VERIFIED
+adaptive change/plan revision records,EPIC-033,Epic,true,CONTRACT_DEFINED,,VERIFIED
+protected governance boundary evidence,EPIC-033,Epic,true,CONTRACT_DEFINED,,VERIFIED
+updated governance ledgers and validators,EPIC-033,Epic,true,CONTRACT_DEFINED,,VERIFIED
+validated cumulative/hydration packs,EPIC-033,Epic,true,CONTRACT_DEFINED,,VERIFIED
+verified prior-wave binding evidence,EPIC-033,Epic,true,CONTRACT_DEFINED,,VERIFIED
+artifacts/implementation_preflight/repository_identity.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/implementation_preflight/target_validation_results.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/implementation_preflight/target_validation.log,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/implementation_preflight/runtime_manifest.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/implementation_preflight/local_path_contract.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+docs/operations/LOCAL_RUNTIME_PATHS.md,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/implementation_preflight/credential_inventory.redacted.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+docs/operations/CREDENTIALS_AND_SECRETS.md,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/implementation_preflight/storage_probe.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/benchmarks/ac038_input_manifest.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/benchmarks/ac038_target_benchmark.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/benchmarks/ac038_target_benchmark.log,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/benchmarks/ac038_gate_decision.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+governance/ACCEPTANCE_THRESHOLD_REGISTRY.csv,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/benchmarks/concurrency_envelope.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/benchmarks/storage_growth_profile.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+docs/operations/LOCAL_RESOURCE_ENVELOPE.md,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/benchmarks/resource_stop_condition_test.json,POST-EPIC-001,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/production_source_inventory.csv,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/source_priority_decisions.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/source_inventory_validation.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/tier1_rights_decisions.csv,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/supplemental_rights_decisions.csv,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+configs/source_rights_registry.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/source_rights_gate_test.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+docs/operations/SOURCE_CREDENTIAL_CONTRACT.md,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/credential_contract.redacted.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/source_access_smoke_results.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/source_access_readiness.csv,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+configs/source_acquisition_registry.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/acquisition_resilience_test.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/source_governance/source_drift_baseline.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+configs/source_drift_registry.json,POST-EPIC-002,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/core_acquisition_manifest.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/core_normalization_report.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/core_coverage_gate.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/context_acquisition_manifest.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/context_population_profile.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/context_eligibility_gate.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/immutability_and_correction_test.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/data_lake/national_lake_readiness.json,POST-EPIC-003,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/population_schema_profile.json,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/schema_reconciliation.csv,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/schema_readiness_gate.json,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/canonical_core_registry.csv,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/canonical_people_registry.csv,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/registry_validation.json,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/resolution_results.parquet,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/entity_decision_and_transition_log.jsonl,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json,POST-EPIC-004,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+configs/known_at_registry.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/pit/timestamp_normalization_report.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/pit/known_at_gate.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/pit/asof_state_manifest.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/pit/pregame_matrix_manifest.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/pit/matrix_gate_decision.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/pit/leakage_battery_results.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/pit/protected_replay_dry_run.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/pit/PIT_REPLAY_READINESS.json,POST-EPIC-005,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/features/production_feature_inventory.csv,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/features/feature_computability_profile.json,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+configs/production_feature_registry.json,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/features/foundation_feature_manifest.json,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/features/advanced_feature_manifest.json,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/features/feature_materialization_gate.json,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/features/feature_screening_results.json,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/features/feature_ablation_stability.json,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+configs/feature_lifecycle_registry.json,POST-EPIC-006,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/player_intelligence/player_state_manifest.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/player_intelligence/player_value_availability_report.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/player_intelligence/player_intelligence_gate.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/player_intelligence/program_event_manifest.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/context_intelligence/program_feature_manifest.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/context_intelligence/program_intelligence_gate.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/context_intelligence/game_context_state_manifest.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/context_intelligence/context_gate.json,POST-EPIC-007,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/target_dataset_manifest.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/model_split_manifest.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/model_dataset_gate.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/baseline_candidate_runs.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/joint_distribution_runs.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/baseline_joint_gate.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/calibration_ensemble_runs.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/ood_abstention_validation.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/modeling/CANDIDATE_MODEL_REGISTRY.json,POST-EPIC-008,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/tamu_source_manifest.json,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/tamu_high_resolution_state_manifest.json,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/tamu_state_gate.json,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/peer_regime_analog_registry.json,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/tamu_specialization_runs.json,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/TAMU_CANDIDATE_REGISTRY.json,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/tamu_protected_predictions.parquet,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/tamu_protected_evaluation.json,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/tamu/tamu_specialization_decision.json,POST-EPIC-009,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/crossfit_expectation_manifest.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/bas_label_manifest.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/bas_label_gate.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/general_fbs_baseline.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/aggie_excess_components.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/aggie_excess_component_gate.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/bas_protected_scorecard.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/bas_stability_analysis.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/bas/BAS_SCIENTIFIC_DECISION.json,POST-EPIC-010,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/protected_seal_verification.json,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/protected_access_protocol_test.json,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/protected_run_authorization.json,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/protected_predictions.parquet,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/protected_scorecards.json,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/protected_replay_gate.json,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/calibration_robustness_report.json,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/promotion_ranking.json,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/validation/PROMOTION_DECISION.json,POST-EPIC-011,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/mlops/weekly_pipeline_integration.json,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/mlops/checkpoint_resume_test.json,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/mlops/weekly_pipeline_gate.json,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/mlops/retraining_challenger_report.json,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/forecasts/forecast_snapshot_manifest.json,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/forecasts/publication_gate.json,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/mlops/shadow_run_ledger.jsonl,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/mlops/shadow_failure_drills.json,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/mlops/weekly_operating_readiness.json,POST-EPIC-012,Epic,true,OPERATING,,PLANNED
+artifacts/product/snapshot_repository_test.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+docs/product/OPENAPI_SNAPSHOT.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+artifacts/product/api_gate.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+artifacts/product/dashboard_contract_test.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+artifacts/product/bas_presentation_validation.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+artifacts/product/dashboard_gate.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+artifacts/product/explanation_analog_validation.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+artifacts/product/product_performance_benchmark.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+artifacts/product/PRODUCT_READINESS.json,POST-EPIC-013,Epic,true,OPERATING,,PLANNED
+artifacts/operations/ci_pipeline_validation.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+artifacts/operations/security_supply_chain_report.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+artifacts/operations/ci_security_gate.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+artifacts/operations/observability_contract_test.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+artifacts/operations/drift_alert_validation.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+artifacts/operations/drift_incident_game_day.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+configs/backup_retention_policy.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+artifacts/operations/backup_catalog_and_integrity.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+artifacts/operations/restore_drill.json,POST-EPIC-014,Epic,true,OPERATING,,PLANNED
+artifacts/release/final_traceability_audit.json,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+artifacts/release/maturity_evidence_audit.csv,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+artifacts/release/final_coverage_gate.json,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+artifacts/release/release_candidate_manifest.json,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+artifacts/release/release_candidate_e2e.json,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+artifacts/release/release_candidate_gate.json,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+docs/operations/PRODUCTION_OPERATOR_GUIDE.md,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+docs/final/PRODUCTION_SYSTEM_CARD.md,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+artifacts/release/OPERATING_AUTHORIZATION.json,POST-EPIC-015,Epic,true,OPERATING,,PLANNED
+artifacts/advanced/challenger_proposal.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/advanced/challenger_feasibility.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/advanced/challenger_admission_decision.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/advanced/challenger_build_manifest.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/advanced/challenger_tuning_scorecard.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/advanced/challenger_protected_admission.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/advanced/challenger_protected_scorecard.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/advanced/challenger_promotion_decision.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/advanced/challenger_closeout.json,POST-EPIC-016,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_source_research.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_value_feasibility.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_admission_decision.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_state_prototype.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_model_prototype.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_prototype_gate.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_protected_scorecard.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_product_validation.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/live/live_operating_decision.json,POST-EPIC-017,Epic,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/implementation_preflight/repository_identity.json,POST-STORY-001,Story,true,INTEGRATED,,PLANNED
+artifacts/implementation_preflight/target_validation_results.json,POST-STORY-001,Story,true,INTEGRATED,,PLANNED
+artifacts/implementation_preflight/target_validation.log,POST-STORY-001,Story,true,INTEGRATED,,PLANNED
+artifacts/implementation_preflight/runtime_manifest.json,POST-STORY-001,Story,true,INTEGRATED,,PLANNED
+artifacts/implementation_preflight/local_path_contract.json,POST-STORY-002,Story,true,INTEGRATED,,PLANNED
+docs/operations/LOCAL_RUNTIME_PATHS.md,POST-STORY-002,Story,true,INTEGRATED,,PLANNED
+artifacts/implementation_preflight/credential_inventory.redacted.json,POST-STORY-002,Story,true,INTEGRATED,,PLANNED
+docs/operations/CREDENTIALS_AND_SECRETS.md,POST-STORY-002,Story,true,INTEGRATED,,PLANNED
+artifacts/implementation_preflight/storage_probe.json,POST-STORY-002,Story,true,INTEGRATED,,PLANNED
+artifacts/benchmarks/ac038_input_manifest.json,POST-STORY-003,Story,true,INTEGRATED,,PLANNED
+artifacts/benchmarks/ac038_target_benchmark.json,POST-STORY-003,Story,true,INTEGRATED,,PLANNED
+artifacts/benchmarks/ac038_target_benchmark.log,POST-STORY-003,Story,true,INTEGRATED,,PLANNED
+artifacts/benchmarks/ac038_gate_decision.json,POST-STORY-003,Story,true,INTEGRATED,,PLANNED
+governance/ACCEPTANCE_THRESHOLD_REGISTRY.csv,POST-STORY-003,Story,true,INTEGRATED,,PLANNED
+artifacts/benchmarks/concurrency_envelope.json,POST-STORY-004,Story,true,INTEGRATED,,PLANNED
+artifacts/benchmarks/storage_growth_profile.json,POST-STORY-004,Story,true,INTEGRATED,,PLANNED
+docs/operations/LOCAL_RESOURCE_ENVELOPE.md,POST-STORY-004,Story,true,INTEGRATED,,PLANNED
+artifacts/benchmarks/resource_stop_condition_test.json,POST-STORY-004,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/production_source_inventory.csv,POST-STORY-005,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/source_priority_decisions.json,POST-STORY-005,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/source_inventory_validation.json,POST-STORY-005,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/tier1_rights_decisions.csv,POST-STORY-006,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/supplemental_rights_decisions.csv,POST-STORY-006,Story,true,INTEGRATED,,PLANNED
+configs/source_rights_registry.json,POST-STORY-006,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/source_rights_gate_test.json,POST-STORY-006,Story,true,INTEGRATED,,PLANNED
+docs/operations/SOURCE_CREDENTIAL_CONTRACT.md,POST-STORY-007,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/credential_contract.redacted.json,POST-STORY-007,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/source_access_smoke_results.json,POST-STORY-007,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/source_access_readiness.csv,POST-STORY-007,Story,true,INTEGRATED,,PLANNED
+configs/source_acquisition_registry.json,POST-STORY-008,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/acquisition_resilience_test.json,POST-STORY-008,Story,true,INTEGRATED,,PLANNED
+artifacts/source_governance/source_drift_baseline.json,POST-STORY-008,Story,true,INTEGRATED,,PLANNED
+configs/source_drift_registry.json,POST-STORY-008,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/core_acquisition_manifest.json,POST-STORY-009,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/core_normalization_report.json,POST-STORY-009,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/core_coverage_gate.json,POST-STORY-009,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/context_acquisition_manifest.json,POST-STORY-010,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/context_population_profile.json,POST-STORY-010,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/context_eligibility_gate.json,POST-STORY-010,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/immutability_and_correction_test.json,POST-STORY-011,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json,POST-STORY-011,Story,true,INTEGRATED,,PLANNED
+artifacts/data_lake/national_lake_readiness.json,POST-STORY-011,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/population_schema_profile.json,POST-STORY-012,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/schema_reconciliation.csv,POST-STORY-012,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/schema_readiness_gate.json,POST-STORY-012,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/canonical_core_registry.csv,POST-STORY-013,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/canonical_people_registry.csv,POST-STORY-013,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/registry_validation.json,POST-STORY-013,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/resolution_results.parquet,POST-STORY-014,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/entity_decision_and_transition_log.jsonl,POST-STORY-014,Story,true,INTEGRATED,,PLANNED
+artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json,POST-STORY-014,Story,true,INTEGRATED,,PLANNED
+configs/known_at_registry.json,POST-STORY-015,Story,true,INTEGRATED,,PLANNED
+artifacts/pit/timestamp_normalization_report.json,POST-STORY-015,Story,true,INTEGRATED,,PLANNED
+artifacts/pit/known_at_gate.json,POST-STORY-015,Story,true,INTEGRATED,,PLANNED
+artifacts/pit/asof_state_manifest.json,POST-STORY-016,Story,true,INTEGRATED,,PLANNED
+artifacts/pit/pregame_matrix_manifest.json,POST-STORY-016,Story,true,INTEGRATED,,PLANNED
+artifacts/pit/matrix_gate_decision.json,POST-STORY-016,Story,true,INTEGRATED,,PLANNED
+artifacts/pit/leakage_battery_results.json,POST-STORY-017,Story,true,INTEGRATED,,PLANNED
+artifacts/pit/protected_replay_dry_run.json,POST-STORY-017,Story,true,INTEGRATED,,PLANNED
+artifacts/pit/PIT_REPLAY_READINESS.json,POST-STORY-017,Story,true,INTEGRATED,,PLANNED
+artifacts/features/production_feature_inventory.csv,POST-STORY-018,Story,true,INTEGRATED,,PLANNED
+artifacts/features/feature_computability_profile.json,POST-STORY-018,Story,true,INTEGRATED,,PLANNED
+configs/production_feature_registry.json,POST-STORY-018,Story,true,INTEGRATED,,PLANNED
+artifacts/features/foundation_feature_manifest.json,POST-STORY-019,Story,true,INTEGRATED,,PLANNED
+artifacts/features/advanced_feature_manifest.json,POST-STORY-019,Story,true,INTEGRATED,,PLANNED
+artifacts/features/feature_materialization_gate.json,POST-STORY-019,Story,true,INTEGRATED,,PLANNED
+artifacts/features/feature_screening_results.json,POST-STORY-020,Story,true,INTEGRATED,,PLANNED
+artifacts/features/feature_ablation_stability.json,POST-STORY-020,Story,true,INTEGRATED,,PLANNED
+configs/feature_lifecycle_registry.json,POST-STORY-020,Story,true,INTEGRATED,,PLANNED
+artifacts/player_intelligence/player_state_manifest.json,POST-STORY-021,Story,true,INTEGRATED,,PLANNED
+artifacts/player_intelligence/player_value_availability_report.json,POST-STORY-021,Story,true,INTEGRATED,,PLANNED
+artifacts/player_intelligence/player_intelligence_gate.json,POST-STORY-021,Story,true,INTEGRATED,,PLANNED
+artifacts/player_intelligence/program_event_manifest.json,POST-STORY-022,Story,true,INTEGRATED,,PLANNED
+artifacts/context_intelligence/program_feature_manifest.json,POST-STORY-022,Story,true,INTEGRATED,,PLANNED
+artifacts/context_intelligence/program_intelligence_gate.json,POST-STORY-022,Story,true,INTEGRATED,,PLANNED
+artifacts/context_intelligence/game_context_state_manifest.json,POST-STORY-023,Story,true,INTEGRATED,,PLANNED
+artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json,POST-STORY-023,Story,true,INTEGRATED,,PLANNED
+artifacts/context_intelligence/context_gate.json,POST-STORY-023,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/target_dataset_manifest.json,POST-STORY-024,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/model_split_manifest.json,POST-STORY-024,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/model_dataset_gate.json,POST-STORY-024,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/baseline_candidate_runs.json,POST-STORY-025,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/joint_distribution_runs.json,POST-STORY-025,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/baseline_joint_gate.json,POST-STORY-025,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/calibration_ensemble_runs.json,POST-STORY-026,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/ood_abstention_validation.json,POST-STORY-026,Story,true,INTEGRATED,,PLANNED
+artifacts/modeling/CANDIDATE_MODEL_REGISTRY.json,POST-STORY-026,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/tamu_source_manifest.json,POST-STORY-027,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/tamu_high_resolution_state_manifest.json,POST-STORY-027,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/tamu_state_gate.json,POST-STORY-027,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/peer_regime_analog_registry.json,POST-STORY-028,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/tamu_specialization_runs.json,POST-STORY-028,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/TAMU_CANDIDATE_REGISTRY.json,POST-STORY-028,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/tamu_protected_predictions.parquet,POST-STORY-029,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/tamu_protected_evaluation.json,POST-STORY-029,Story,true,INTEGRATED,,PLANNED
+artifacts/tamu/tamu_specialization_decision.json,POST-STORY-029,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/crossfit_expectation_manifest.json,POST-STORY-030,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/bas_label_manifest.json,POST-STORY-030,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/bas_label_gate.json,POST-STORY-030,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/general_fbs_baseline.json,POST-STORY-031,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/aggie_excess_components.json,POST-STORY-031,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/aggie_excess_component_gate.json,POST-STORY-031,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/bas_protected_scorecard.json,POST-STORY-032,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/bas_stability_analysis.json,POST-STORY-032,Story,true,INTEGRATED,,PLANNED
+artifacts/bas/BAS_SCIENTIFIC_DECISION.json,POST-STORY-032,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/protected_seal_verification.json,POST-STORY-033,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/protected_access_protocol_test.json,POST-STORY-033,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/protected_run_authorization.json,POST-STORY-033,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/protected_predictions.parquet,POST-STORY-034,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/protected_scorecards.json,POST-STORY-034,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/protected_replay_gate.json,POST-STORY-034,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/calibration_robustness_report.json,POST-STORY-035,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/promotion_ranking.json,POST-STORY-035,Story,true,INTEGRATED,,PLANNED
+artifacts/validation/PROMOTION_DECISION.json,POST-STORY-035,Story,true,INTEGRATED,,PLANNED
+artifacts/mlops/weekly_pipeline_integration.json,POST-STORY-036,Story,true,INTEGRATED,,PLANNED
+artifacts/mlops/checkpoint_resume_test.json,POST-STORY-036,Story,true,INTEGRATED,,PLANNED
+artifacts/mlops/weekly_pipeline_gate.json,POST-STORY-036,Story,true,INTEGRATED,,PLANNED
+artifacts/mlops/retraining_challenger_report.json,POST-STORY-037,Story,true,INTEGRATED,,PLANNED
+artifacts/forecasts/forecast_snapshot_manifest.json,POST-STORY-037,Story,true,INTEGRATED,,PLANNED
+artifacts/forecasts/publication_gate.json,POST-STORY-037,Story,true,INTEGRATED,,PLANNED
+artifacts/mlops/shadow_run_ledger.jsonl,POST-STORY-038,Story,true,INTEGRATED,,PLANNED
+artifacts/mlops/shadow_failure_drills.json,POST-STORY-038,Story,true,INTEGRATED,,PLANNED
+artifacts/mlops/weekly_operating_readiness.json,POST-STORY-038,Story,true,INTEGRATED,,PLANNED
+artifacts/product/snapshot_repository_test.json,POST-STORY-039,Story,true,INTEGRATED,,PLANNED
+docs/product/OPENAPI_SNAPSHOT.json,POST-STORY-039,Story,true,INTEGRATED,,PLANNED
+artifacts/product/api_gate.json,POST-STORY-039,Story,true,INTEGRATED,,PLANNED
+artifacts/product/dashboard_contract_test.json,POST-STORY-040,Story,true,INTEGRATED,,PLANNED
+artifacts/product/bas_presentation_validation.json,POST-STORY-040,Story,true,INTEGRATED,,PLANNED
+artifacts/product/dashboard_gate.json,POST-STORY-040,Story,true,INTEGRATED,,PLANNED
+artifacts/product/explanation_analog_validation.json,POST-STORY-041,Story,true,INTEGRATED,,PLANNED
+artifacts/product/product_performance_benchmark.json,POST-STORY-041,Story,true,INTEGRATED,,PLANNED
+artifacts/product/PRODUCT_READINESS.json,POST-STORY-041,Story,true,INTEGRATED,,PLANNED
+artifacts/operations/ci_pipeline_validation.json,POST-STORY-042,Story,true,INTEGRATED,,PLANNED
+artifacts/operations/security_supply_chain_report.json,POST-STORY-042,Story,true,INTEGRATED,,PLANNED
+artifacts/operations/ci_security_gate.json,POST-STORY-042,Story,true,INTEGRATED,,PLANNED
+artifacts/operations/observability_contract_test.json,POST-STORY-043,Story,true,INTEGRATED,,PLANNED
+artifacts/operations/drift_alert_validation.json,POST-STORY-043,Story,true,INTEGRATED,,PLANNED
+artifacts/operations/drift_incident_game_day.json,POST-STORY-043,Story,true,INTEGRATED,,PLANNED
+configs/backup_retention_policy.json,POST-STORY-044,Story,true,INTEGRATED,,PLANNED
+artifacts/operations/backup_catalog_and_integrity.json,POST-STORY-044,Story,true,INTEGRATED,,PLANNED
+artifacts/operations/restore_drill.json,POST-STORY-044,Story,true,INTEGRATED,,PLANNED
+artifacts/release/final_traceability_audit.json,POST-STORY-045,Story,true,INTEGRATED,,PLANNED
+artifacts/release/maturity_evidence_audit.csv,POST-STORY-045,Story,true,INTEGRATED,,PLANNED
+artifacts/release/final_coverage_gate.json,POST-STORY-045,Story,true,INTEGRATED,,PLANNED
+artifacts/release/release_candidate_manifest.json,POST-STORY-046,Story,true,INTEGRATED,,PLANNED
+artifacts/release/release_candidate_e2e.json,POST-STORY-046,Story,true,INTEGRATED,,PLANNED
+artifacts/release/release_candidate_gate.json,POST-STORY-046,Story,true,INTEGRATED,,PLANNED
+docs/operations/PRODUCTION_OPERATOR_GUIDE.md,POST-STORY-047,Story,true,INTEGRATED,,PLANNED
+docs/final/PRODUCTION_SYSTEM_CARD.md,POST-STORY-047,Story,true,INTEGRATED,,PLANNED
+artifacts/release/OPERATING_AUTHORIZATION.json,POST-STORY-047,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_proposal.json,POST-STORY-048,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_feasibility.json,POST-STORY-048,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_admission_decision.json,POST-STORY-048,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_build_manifest.json,POST-STORY-049,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_tuning_scorecard.json,POST-STORY-049,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_protected_admission.json,POST-STORY-049,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_protected_scorecard.json,POST-STORY-050,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_promotion_decision.json,POST-STORY-050,Story,true,INTEGRATED,,PLANNED
+artifacts/advanced/challenger_closeout.json,POST-STORY-050,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_source_research.json,POST-STORY-051,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_value_feasibility.json,POST-STORY-051,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_admission_decision.json,POST-STORY-051,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_state_prototype.json,POST-STORY-052,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_model_prototype.json,POST-STORY-052,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_prototype_gate.json,POST-STORY-052,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_protected_scorecard.json,POST-STORY-053,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_product_validation.json,POST-STORY-053,Story,true,INTEGRATED,,PLANNED
+artifacts/live/live_operating_decision.json,POST-STORY-053,Story,true,INTEGRATED,,PLANNED
+artifacts/implementation_preflight/repository_identity.json,POST-SUBTASK-001,Subtask,true,IMPLEMENTED,POST-STORY-002;POST-SUBTASK-002;POST-SUBTASK-003;POST-SUBTASK-004;POST-SUBTASK-005;POST-SUBTASK-006,PARTIAL
+artifacts/implementation_preflight/target_validation_results.json,POST-SUBTASK-002,Subtask,true,IMPLEMENTED,POST-EPIC-014;POST-STORY-003;POST-STORY-042;POST-SUBTASK-003;POST-SUBTASK-007;POST-SUBTASK-008;POST-SUBTASK-009;POST-SUBTASK-124;POST-SUBTASK-125;POST-SUBTASK-126,PLANNED
+artifacts/implementation_preflight/target_validation.log,POST-SUBTASK-002,Subtask,true,IMPLEMENTED,POST-EPIC-014;POST-STORY-003;POST-STORY-042;POST-SUBTASK-003;POST-SUBTASK-007;POST-SUBTASK-008;POST-SUBTASK-009;POST-SUBTASK-124;POST-SUBTASK-125;POST-SUBTASK-126,PLANNED
+artifacts/implementation_preflight/runtime_manifest.json,POST-SUBTASK-003,Subtask,true,INTEGRATED,,PLANNED
+artifacts/implementation_preflight/local_path_contract.json,POST-SUBTASK-004,Subtask,true,IMPLEMENTED,POST-SUBTASK-005;POST-SUBTASK-006,PLANNED
+docs/operations/LOCAL_RUNTIME_PATHS.md,POST-SUBTASK-004,Subtask,true,IMPLEMENTED,POST-SUBTASK-005;POST-SUBTASK-006,PLANNED
+artifacts/implementation_preflight/credential_inventory.redacted.json,POST-SUBTASK-005,Subtask,true,IMPLEMENTED,POST-SUBTASK-006,PLANNED
+docs/operations/CREDENTIALS_AND_SECRETS.md,POST-SUBTASK-005,Subtask,true,IMPLEMENTED,POST-SUBTASK-006,PLANNED
+artifacts/implementation_preflight/storage_probe.json,POST-SUBTASK-006,Subtask,true,INTEGRATED,POST-STORY-003;POST-STORY-009;POST-SUBTASK-007;POST-SUBTASK-008;POST-SUBTASK-009;POST-SUBTASK-025;POST-SUBTASK-026;POST-SUBTASK-027,PLANNED
+artifacts/benchmarks/ac038_input_manifest.json,POST-SUBTASK-007,Subtask,true,IMPLEMENTED,POST-SUBTASK-008;POST-SUBTASK-009,PLANNED
+artifacts/benchmarks/ac038_target_benchmark.json,POST-SUBTASK-008,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-009,PLANNED
+artifacts/benchmarks/ac038_target_benchmark.log,POST-SUBTASK-008,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-009,PLANNED
+artifacts/benchmarks/ac038_gate_decision.json,POST-SUBTASK-009,Subtask,true,PRODUCTION_READY,POST-EPIC-015;POST-STORY-004;POST-STORY-041;POST-STORY-046;POST-SUBTASK-010;POST-SUBTASK-011;POST-SUBTASK-012;POST-SUBTASK-121;POST-SUBTASK-122;POST-SUBTASK-123;POST-SUBTASK-136;POST-SUBTASK-137;POST-SUBTASK-138,PLANNED
+governance/ACCEPTANCE_THRESHOLD_REGISTRY.csv,POST-SUBTASK-009,Subtask,true,PRODUCTION_READY,POST-EPIC-015;POST-STORY-004;POST-STORY-041;POST-STORY-046;POST-SUBTASK-010;POST-SUBTASK-011;POST-SUBTASK-012;POST-SUBTASK-121;POST-SUBTASK-122;POST-SUBTASK-123;POST-SUBTASK-136;POST-SUBTASK-137;POST-SUBTASK-138,PLANNED
+artifacts/benchmarks/concurrency_envelope.json,POST-SUBTASK-010,Subtask,true,IMPLEMENTED,POST-SUBTASK-011;POST-SUBTASK-012,PLANNED
+artifacts/benchmarks/storage_growth_profile.json,POST-SUBTASK-011,Subtask,true,IMPLEMENTED,POST-SUBTASK-012,PLANNED
+docs/operations/LOCAL_RESOURCE_ENVELOPE.md,POST-SUBTASK-011,Subtask,true,IMPLEMENTED,POST-SUBTASK-012,PLANNED
+artifacts/benchmarks/resource_stop_condition_test.json,POST-SUBTASK-012,Subtask,true,OPERATING,,PLANNED
+artifacts/source_governance/production_source_inventory.csv,POST-SUBTASK-013,Subtask,true,IMPLEMENTED,POST-SUBTASK-014;POST-SUBTASK-015,VERIFIED
+artifacts/source_governance/source_priority_decisions.json,POST-SUBTASK-014,Subtask,true,IMPLEMENTED,POST-SUBTASK-015,PLANNED
+artifacts/source_governance/source_inventory_validation.json,POST-SUBTASK-015,Subtask,true,CONTRACT_DEFINED,POST-STORY-006;POST-STORY-007;POST-SUBTASK-016;POST-SUBTASK-017;POST-SUBTASK-018;POST-SUBTASK-019;POST-SUBTASK-020;POST-SUBTASK-021,PLANNED
+artifacts/source_governance/tier1_rights_decisions.csv,POST-SUBTASK-016,Subtask,true,IMPLEMENTED,POST-SUBTASK-017;POST-SUBTASK-018,PLANNED
+artifacts/source_governance/supplemental_rights_decisions.csv,POST-SUBTASK-017,Subtask,true,IMPLEMENTED,POST-SUBTASK-018,PLANNED
+configs/source_rights_registry.json,POST-SUBTASK-018,Subtask,true,INTEGRATED,POST-STORY-008;POST-STORY-009;POST-SUBTASK-022;POST-SUBTASK-023;POST-SUBTASK-024;POST-SUBTASK-025;POST-SUBTASK-026;POST-SUBTASK-027,PLANNED
+artifacts/source_governance/source_rights_gate_test.json,POST-SUBTASK-018,Subtask,true,INTEGRATED,POST-STORY-008;POST-STORY-009;POST-SUBTASK-022;POST-SUBTASK-023;POST-SUBTASK-024;POST-SUBTASK-025;POST-SUBTASK-026;POST-SUBTASK-027,PLANNED
+docs/operations/SOURCE_CREDENTIAL_CONTRACT.md,POST-SUBTASK-019,Subtask,true,IMPLEMENTED,POST-SUBTASK-020;POST-SUBTASK-021,PLANNED
+artifacts/source_governance/credential_contract.redacted.json,POST-SUBTASK-019,Subtask,true,IMPLEMENTED,POST-SUBTASK-020;POST-SUBTASK-021,PLANNED
+artifacts/source_governance/source_access_smoke_results.json,POST-SUBTASK-020,Subtask,true,IMPLEMENTED,POST-SUBTASK-021,PLANNED
+artifacts/source_governance/source_access_readiness.csv,POST-SUBTASK-021,Subtask,true,INTEGRATED,POST-STORY-008;POST-STORY-009;POST-SUBTASK-022;POST-SUBTASK-023;POST-SUBTASK-024;POST-SUBTASK-025;POST-SUBTASK-026;POST-SUBTASK-027,PLANNED
+configs/source_acquisition_registry.json,POST-SUBTASK-022,Subtask,true,IMPLEMENTED,POST-STORY-009;POST-SUBTASK-023;POST-SUBTASK-024;POST-SUBTASK-025;POST-SUBTASK-026;POST-SUBTASK-027,PLANNED
+artifacts/source_governance/acquisition_resilience_test.json,POST-SUBTASK-023,Subtask,true,IMPLEMENTED,POST-SUBTASK-024,PLANNED
+artifacts/source_governance/source_drift_baseline.json,POST-SUBTASK-024,Subtask,true,OPERATING,POST-EPIC-003;POST-EPIC-014;POST-STORY-036;POST-STORY-043;POST-SUBTASK-106;POST-SUBTASK-107;POST-SUBTASK-108;POST-SUBTASK-127;POST-SUBTASK-128;POST-SUBTASK-129,PLANNED
+configs/source_drift_registry.json,POST-SUBTASK-024,Subtask,true,OPERATING,POST-EPIC-003;POST-EPIC-014;POST-STORY-036;POST-STORY-043;POST-SUBTASK-106;POST-SUBTASK-107;POST-SUBTASK-108;POST-SUBTASK-127;POST-SUBTASK-128;POST-SUBTASK-129,PLANNED
+artifacts/data_lake/core_acquisition_manifest.json,POST-SUBTASK-025,Subtask,true,IMPLEMENTED,POST-SUBTASK-026;POST-SUBTASK-027,PLANNED
+artifacts/data_lake/core_normalization_report.json,POST-SUBTASK-026,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-027,PLANNED
+artifacts/data_lake/core_coverage_gate.json,POST-SUBTASK-027,Subtask,true,PRODUCTION_READY,POST-STORY-010;POST-STORY-011;POST-SUBTASK-028;POST-SUBTASK-029;POST-SUBTASK-030;POST-SUBTASK-031;POST-SUBTASK-032;POST-SUBTASK-033,PLANNED
+artifacts/data_lake/context_acquisition_manifest.json,POST-SUBTASK-028,Subtask,true,IMPLEMENTED,POST-SUBTASK-029;POST-SUBTASK-030,PLANNED
+artifacts/data_lake/context_population_profile.json,POST-SUBTASK-029,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-030,PLANNED
+artifacts/data_lake/context_eligibility_gate.json,POST-SUBTASK-030,Subtask,true,PRODUCTION_READY,POST-EPIC-007;POST-STORY-011;POST-STORY-021;POST-STORY-023;POST-SUBTASK-031;POST-SUBTASK-032;POST-SUBTASK-033;POST-SUBTASK-061;POST-SUBTASK-062;POST-SUBTASK-063;POST-SUBTASK-067;POST-SUBTASK-068;POST-SUBTASK-069,PLANNED
+artifacts/data_lake/immutability_and_correction_test.json,POST-SUBTASK-031,Subtask,true,IMPLEMENTED,POST-SUBTASK-032;POST-SUBTASK-033,PLANNED
+artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json,POST-SUBTASK-032,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-033,PLANNED
+artifacts/data_lake/national_lake_readiness.json,POST-SUBTASK-033,Subtask,true,PRODUCTION_READY,POST-EPIC-004;POST-STORY-012;POST-SUBTASK-034;POST-SUBTASK-035;POST-SUBTASK-036,PLANNED
+artifacts/entities/population_schema_profile.json,POST-SUBTASK-034,Subtask,true,IMPLEMENTED,POST-SUBTASK-035;POST-SUBTASK-036,PLANNED
+artifacts/entities/schema_reconciliation.csv,POST-SUBTASK-035,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-036,PLANNED
+artifacts/entities/schema_readiness_gate.json,POST-SUBTASK-036,Subtask,true,PRODUCTION_READY,POST-STORY-013;POST-SUBTASK-037;POST-SUBTASK-038;POST-SUBTASK-039,PLANNED
+artifacts/entities/canonical_core_registry.csv,POST-SUBTASK-037,Subtask,true,IMPLEMENTED,POST-SUBTASK-038;POST-SUBTASK-039,PLANNED
+artifacts/entities/canonical_people_registry.csv,POST-SUBTASK-038,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-039,PLANNED
+artifacts/entities/registry_validation.json,POST-SUBTASK-039,Subtask,true,PRODUCTION_READY,POST-STORY-014;POST-SUBTASK-040;POST-SUBTASK-041;POST-SUBTASK-042,PLANNED
+artifacts/entities/resolution_results.parquet,POST-SUBTASK-040,Subtask,true,IMPLEMENTED,POST-SUBTASK-041;POST-SUBTASK-042,PLANNED
+artifacts/entities/entity_decision_and_transition_log.jsonl,POST-SUBTASK-041,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-042,PLANNED
+artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json,POST-SUBTASK-042,Subtask,true,PRODUCTION_READY,POST-EPIC-005;POST-STORY-015;POST-SUBTASK-043;POST-SUBTASK-044;POST-SUBTASK-045,PLANNED
+configs/known_at_registry.json,POST-SUBTASK-043,Subtask,true,IMPLEMENTED,POST-SUBTASK-044;POST-SUBTASK-045,PLANNED
+artifacts/pit/timestamp_normalization_report.json,POST-SUBTASK-044,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-045,PLANNED
+artifacts/pit/known_at_gate.json,POST-SUBTASK-045,Subtask,true,PRODUCTION_READY,POST-STORY-016;POST-SUBTASK-046;POST-SUBTASK-047;POST-SUBTASK-048,PLANNED
+artifacts/pit/asof_state_manifest.json,POST-SUBTASK-046,Subtask,true,IMPLEMENTED,POST-SUBTASK-047;POST-SUBTASK-048,PLANNED
+artifacts/pit/pregame_matrix_manifest.json,POST-SUBTASK-047,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-048,PLANNED
+artifacts/pit/matrix_gate_decision.json,POST-SUBTASK-048,Subtask,true,PRODUCTION_READY,POST-EPIC-006;POST-EPIC-007;POST-STORY-017;POST-STORY-018;POST-STORY-021;POST-STORY-023;POST-STORY-027;POST-SUBTASK-049;POST-SUBTASK-050;POST-SUBTASK-051;POST-SUBTASK-052;POST-SUBTASK-053;POST-SUBTASK-054;POST-SUBTASK-061;POST-SUBTASK-062;POST-SUBTASK-063;POST-SUBTASK-067;POST-SUBTASK-068;POST-SUBTASK-069;POST-SUBTASK-079;POST-SUBTASK-080;POST-SUBTASK-081,PLANNED
+artifacts/pit/leakage_battery_results.json,POST-SUBTASK-049,Subtask,true,IMPLEMENTED,POST-SUBTASK-050;POST-SUBTASK-051,PLANNED
+artifacts/pit/protected_replay_dry_run.json,POST-SUBTASK-050,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-051,PLANNED
+artifacts/pit/PIT_REPLAY_READINESS.json,POST-SUBTASK-051,Subtask,true,PRODUCTION_READY,POST-EPIC-008;POST-STORY-019;POST-STORY-024;POST-STORY-030;POST-SUBTASK-055;POST-SUBTASK-056;POST-SUBTASK-057;POST-SUBTASK-070;POST-SUBTASK-071;POST-SUBTASK-072;POST-SUBTASK-088;POST-SUBTASK-089;POST-SUBTASK-090,PLANNED
+artifacts/features/production_feature_inventory.csv,POST-SUBTASK-052,Subtask,true,IMPLEMENTED,POST-SUBTASK-053;POST-SUBTASK-054,PLANNED
+artifacts/features/feature_computability_profile.json,POST-SUBTASK-053,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-054,PLANNED
+configs/production_feature_registry.json,POST-SUBTASK-054,Subtask,true,PRODUCTION_READY,POST-STORY-019;POST-SUBTASK-055;POST-SUBTASK-056;POST-SUBTASK-057,PLANNED
+artifacts/features/foundation_feature_manifest.json,POST-SUBTASK-055,Subtask,true,IMPLEMENTED,POST-SUBTASK-056;POST-SUBTASK-057,PLANNED
+artifacts/features/advanced_feature_manifest.json,POST-SUBTASK-056,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-057,PLANNED
+artifacts/features/feature_materialization_gate.json,POST-SUBTASK-057,Subtask,true,PRODUCTION_READY,POST-STORY-020;POST-SUBTASK-058;POST-SUBTASK-059;POST-SUBTASK-060,PLANNED
+artifacts/features/feature_screening_results.json,POST-SUBTASK-058,Subtask,true,IMPLEMENTED,POST-SUBTASK-059;POST-SUBTASK-060,PLANNED
+artifacts/features/feature_ablation_stability.json,POST-SUBTASK-059,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-060,PLANNED
+configs/feature_lifecycle_registry.json,POST-SUBTASK-060,Subtask,true,PRODUCTION_READY,POST-EPIC-008;POST-STORY-024;POST-SUBTASK-070;POST-SUBTASK-071;POST-SUBTASK-072,PLANNED
+artifacts/player_intelligence/player_state_manifest.json,POST-SUBTASK-061,Subtask,true,IMPLEMENTED,POST-SUBTASK-062;POST-SUBTASK-063,PLANNED
+artifacts/player_intelligence/player_value_availability_report.json,POST-SUBTASK-062,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-063,PLANNED
+artifacts/player_intelligence/player_intelligence_gate.json,POST-SUBTASK-063,Subtask,true,PRODUCTION_READY,POST-EPIC-009;POST-STORY-022;POST-STORY-027;POST-SUBTASK-064;POST-SUBTASK-065;POST-SUBTASK-066;POST-SUBTASK-079;POST-SUBTASK-080;POST-SUBTASK-081,PLANNED
+artifacts/player_intelligence/program_event_manifest.json,POST-SUBTASK-064,Subtask,true,IMPLEMENTED,POST-SUBTASK-065;POST-SUBTASK-066,PLANNED
+artifacts/context_intelligence/program_feature_manifest.json,POST-SUBTASK-065,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-066,PLANNED
+artifacts/context_intelligence/program_intelligence_gate.json,POST-SUBTASK-066,Subtask,true,PRODUCTION_READY,POST-STORY-027;POST-SUBTASK-079;POST-SUBTASK-080;POST-SUBTASK-081,PLANNED
+artifacts/context_intelligence/game_context_state_manifest.json,POST-SUBTASK-067,Subtask,true,IMPLEMENTED,POST-SUBTASK-068;POST-SUBTASK-069,PLANNED
+artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json,POST-SUBTASK-068,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-069,PLANNED
+artifacts/context_intelligence/context_gate.json,POST-SUBTASK-069,Subtask,true,PRODUCTION_READY,POST-EPIC-009;POST-STORY-027;POST-SUBTASK-079;POST-SUBTASK-080;POST-SUBTASK-081,PLANNED
+artifacts/modeling/target_dataset_manifest.json,POST-SUBTASK-070,Subtask,true,IMPLEMENTED,POST-SUBTASK-071;POST-SUBTASK-072,PLANNED
+artifacts/modeling/model_split_manifest.json,POST-SUBTASK-071,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-072,PLANNED
+artifacts/modeling/model_dataset_gate.json,POST-SUBTASK-072,Subtask,true,PRODUCTION_READY,POST-STORY-025;POST-SUBTASK-073;POST-SUBTASK-074;POST-SUBTASK-075,PLANNED
+artifacts/modeling/baseline_candidate_runs.json,POST-SUBTASK-073,Subtask,true,IMPLEMENTED,POST-SUBTASK-074;POST-SUBTASK-075,PLANNED
+artifacts/modeling/joint_distribution_runs.json,POST-SUBTASK-074,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-075,PLANNED
+artifacts/modeling/baseline_joint_gate.json,POST-SUBTASK-075,Subtask,true,PRODUCTION_READY,POST-STORY-026;POST-SUBTASK-076;POST-SUBTASK-077;POST-SUBTASK-078,PLANNED
+artifacts/modeling/calibration_ensemble_runs.json,POST-SUBTASK-076,Subtask,true,IMPLEMENTED,POST-SUBTASK-077;POST-SUBTASK-078,PLANNED
+artifacts/modeling/ood_abstention_validation.json,POST-SUBTASK-077,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-078,PLANNED
+artifacts/modeling/CANDIDATE_MODEL_REGISTRY.json,POST-SUBTASK-078,Subtask,true,PRODUCTION_READY,POST-EPIC-009;POST-EPIC-010;POST-EPIC-011;POST-STORY-028;POST-STORY-030;POST-STORY-033;POST-SUBTASK-082;POST-SUBTASK-083;POST-SUBTASK-084;POST-SUBTASK-088;POST-SUBTASK-089;POST-SUBTASK-090;POST-SUBTASK-097;POST-SUBTASK-098;POST-SUBTASK-099,PLANNED
+artifacts/tamu/tamu_source_manifest.json,POST-SUBTASK-079,Subtask,true,IMPLEMENTED,POST-SUBTASK-080;POST-SUBTASK-081,PLANNED
+artifacts/tamu/tamu_high_resolution_state_manifest.json,POST-SUBTASK-080,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-081,PLANNED
+artifacts/tamu/tamu_state_gate.json,POST-SUBTASK-081,Subtask,true,PRODUCTION_READY,POST-STORY-028;POST-SUBTASK-082;POST-SUBTASK-083;POST-SUBTASK-084,PLANNED
+artifacts/tamu/peer_regime_analog_registry.json,POST-SUBTASK-082,Subtask,true,IMPLEMENTED,POST-SUBTASK-083;POST-SUBTASK-084,PLANNED
+artifacts/tamu/tamu_specialization_runs.json,POST-SUBTASK-083,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-084,PLANNED
+artifacts/tamu/TAMU_CANDIDATE_REGISTRY.json,POST-SUBTASK-084,Subtask,true,PRODUCTION_READY,POST-EPIC-010;POST-EPIC-011;POST-STORY-029;POST-STORY-031;POST-STORY-033;POST-SUBTASK-085;POST-SUBTASK-086;POST-SUBTASK-087;POST-SUBTASK-091;POST-SUBTASK-092;POST-SUBTASK-093;POST-SUBTASK-097;POST-SUBTASK-098;POST-SUBTASK-099,PLANNED
+artifacts/tamu/tamu_protected_predictions.parquet,POST-SUBTASK-085,Subtask,true,IMPLEMENTED,POST-SUBTASK-086;POST-SUBTASK-087,PLANNED
+artifacts/tamu/tamu_protected_evaluation.json,POST-SUBTASK-086,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-087,PLANNED
+artifacts/tamu/tamu_specialization_decision.json,POST-SUBTASK-087,Subtask,true,PRODUCTION_READY,POST-STORY-035;POST-SUBTASK-103;POST-SUBTASK-104;POST-SUBTASK-105,PLANNED
+artifacts/bas/crossfit_expectation_manifest.json,POST-SUBTASK-088,Subtask,true,IMPLEMENTED,POST-SUBTASK-089;POST-SUBTASK-090,PLANNED
+artifacts/bas/bas_label_manifest.json,POST-SUBTASK-089,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-090,PLANNED
+artifacts/bas/bas_label_gate.json,POST-SUBTASK-090,Subtask,true,PRODUCTION_READY,POST-EPIC-011;POST-STORY-031;POST-STORY-033;POST-SUBTASK-091;POST-SUBTASK-092;POST-SUBTASK-093;POST-SUBTASK-097;POST-SUBTASK-098;POST-SUBTASK-099,PLANNED
+artifacts/bas/general_fbs_baseline.json,POST-SUBTASK-091,Subtask,true,IMPLEMENTED,POST-SUBTASK-092;POST-SUBTASK-093,PLANNED
+artifacts/bas/aggie_excess_components.json,POST-SUBTASK-092,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-093,PLANNED
+artifacts/bas/aggie_excess_component_gate.json,POST-SUBTASK-093,Subtask,true,PRODUCTION_READY,POST-STORY-032;POST-SUBTASK-094;POST-SUBTASK-095;POST-SUBTASK-096,PLANNED
+artifacts/bas/bas_protected_scorecard.json,POST-SUBTASK-094,Subtask,true,IMPLEMENTED,POST-SUBTASK-095;POST-SUBTASK-096,PLANNED
+artifacts/bas/bas_stability_analysis.json,POST-SUBTASK-095,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-096,PLANNED
+artifacts/bas/BAS_SCIENTIFIC_DECISION.json,POST-SUBTASK-096,Subtask,true,PRODUCTION_READY,POST-STORY-035;POST-SUBTASK-103;POST-SUBTASK-104;POST-SUBTASK-105,PLANNED
+artifacts/validation/protected_seal_verification.json,POST-SUBTASK-097,Subtask,true,IMPLEMENTED,POST-SUBTASK-098;POST-SUBTASK-099,PLANNED
+artifacts/validation/protected_access_protocol_test.json,POST-SUBTASK-098,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-099,PLANNED
+artifacts/validation/protected_run_authorization.json,POST-SUBTASK-099,Subtask,true,PRODUCTION_READY,POST-STORY-034;POST-SUBTASK-100;POST-SUBTASK-101;POST-SUBTASK-102,PLANNED
+artifacts/validation/protected_predictions.parquet,POST-SUBTASK-100,Subtask,true,IMPLEMENTED,POST-SUBTASK-101;POST-SUBTASK-102,PLANNED
+artifacts/validation/protected_scorecards.json,POST-SUBTASK-101,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-102,PLANNED
+artifacts/validation/protected_replay_gate.json,POST-SUBTASK-102,Subtask,true,PRODUCTION_READY,POST-STORY-029;POST-STORY-032;POST-STORY-035;POST-SUBTASK-085;POST-SUBTASK-086;POST-SUBTASK-087;POST-SUBTASK-094;POST-SUBTASK-095;POST-SUBTASK-096;POST-SUBTASK-103;POST-SUBTASK-104;POST-SUBTASK-105,PLANNED
+artifacts/validation/calibration_robustness_report.json,POST-SUBTASK-103,Subtask,true,IMPLEMENTED,POST-SUBTASK-104;POST-SUBTASK-105,PLANNED
+artifacts/validation/promotion_ranking.json,POST-SUBTASK-104,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-105,PLANNED
+artifacts/validation/PROMOTION_DECISION.json,POST-SUBTASK-105,Subtask,true,PRODUCTION_READY,POST-EPIC-012;POST-STORY-036;POST-STORY-045;POST-SUBTASK-106;POST-SUBTASK-107;POST-SUBTASK-108;POST-SUBTASK-133;POST-SUBTASK-134;POST-SUBTASK-135,PLANNED
+artifacts/mlops/weekly_pipeline_integration.json,POST-SUBTASK-106,Subtask,true,IMPLEMENTED,POST-SUBTASK-107;POST-SUBTASK-108,PLANNED
+artifacts/mlops/checkpoint_resume_test.json,POST-SUBTASK-107,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-108,PLANNED
+artifacts/mlops/weekly_pipeline_gate.json,POST-SUBTASK-108,Subtask,true,PRODUCTION_READY,POST-STORY-037;POST-SUBTASK-109;POST-SUBTASK-110;POST-SUBTASK-111,PLANNED
+artifacts/mlops/retraining_challenger_report.json,POST-SUBTASK-109,Subtask,true,IMPLEMENTED,POST-SUBTASK-110;POST-SUBTASK-111,PLANNED
+artifacts/forecasts/forecast_snapshot_manifest.json,POST-SUBTASK-110,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-111,PLANNED
+artifacts/forecasts/publication_gate.json,POST-SUBTASK-111,Subtask,true,PRODUCTION_READY,POST-EPIC-013;POST-STORY-038;POST-STORY-039;POST-SUBTASK-112;POST-SUBTASK-113;POST-SUBTASK-114;POST-SUBTASK-115;POST-SUBTASK-116;POST-SUBTASK-117,PLANNED
+artifacts/mlops/shadow_run_ledger.jsonl,POST-SUBTASK-112,Subtask,true,IMPLEMENTED,POST-SUBTASK-113;POST-SUBTASK-114,PLANNED
+artifacts/mlops/shadow_failure_drills.json,POST-SUBTASK-113,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-114,PLANNED
+artifacts/mlops/weekly_operating_readiness.json,POST-SUBTASK-114,Subtask,true,PRODUCTION_READY,POST-EPIC-015;POST-STORY-045;POST-SUBTASK-133;POST-SUBTASK-134;POST-SUBTASK-135,PLANNED
+artifacts/product/snapshot_repository_test.json,POST-SUBTASK-115,Subtask,true,IMPLEMENTED,POST-SUBTASK-116;POST-SUBTASK-117,PLANNED
+docs/product/OPENAPI_SNAPSHOT.json,POST-SUBTASK-116,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-117,PLANNED
+artifacts/product/api_gate.json,POST-SUBTASK-117,Subtask,true,PRODUCTION_READY,POST-STORY-040;POST-SUBTASK-118;POST-SUBTASK-119;POST-SUBTASK-120,PLANNED
+artifacts/product/dashboard_contract_test.json,POST-SUBTASK-118,Subtask,true,IMPLEMENTED,POST-SUBTASK-119;POST-SUBTASK-120,PLANNED
+artifacts/product/bas_presentation_validation.json,POST-SUBTASK-119,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-120,PLANNED
+artifacts/product/dashboard_gate.json,POST-SUBTASK-120,Subtask,true,PRODUCTION_READY,POST-STORY-041;POST-SUBTASK-121;POST-SUBTASK-122;POST-SUBTASK-123,PLANNED
+artifacts/product/explanation_analog_validation.json,POST-SUBTASK-121,Subtask,true,IMPLEMENTED,POST-SUBTASK-122;POST-SUBTASK-123,PLANNED
+artifacts/product/product_performance_benchmark.json,POST-SUBTASK-122,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-123,PLANNED
+artifacts/product/PRODUCT_READINESS.json,POST-SUBTASK-123,Subtask,true,PRODUCTION_READY,POST-EPIC-015;POST-STORY-045;POST-SUBTASK-133;POST-SUBTASK-134;POST-SUBTASK-135,PLANNED
+artifacts/operations/ci_pipeline_validation.json,POST-SUBTASK-124,Subtask,true,IMPLEMENTED,POST-SUBTASK-125;POST-SUBTASK-126,PLANNED
+artifacts/operations/security_supply_chain_report.json,POST-SUBTASK-125,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-126,PLANNED
+artifacts/operations/ci_security_gate.json,POST-SUBTASK-126,Subtask,true,PRODUCTION_READY,POST-STORY-043;POST-SUBTASK-127;POST-SUBTASK-128;POST-SUBTASK-129,PLANNED
+artifacts/operations/observability_contract_test.json,POST-SUBTASK-127,Subtask,true,IMPLEMENTED,POST-SUBTASK-128;POST-SUBTASK-129,PLANNED
+artifacts/operations/drift_alert_validation.json,POST-SUBTASK-128,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-129,PLANNED
+artifacts/operations/drift_incident_game_day.json,POST-SUBTASK-129,Subtask,true,PRODUCTION_READY,POST-STORY-044;POST-SUBTASK-130;POST-SUBTASK-131;POST-SUBTASK-132,PLANNED
+configs/backup_retention_policy.json,POST-SUBTASK-130,Subtask,true,IMPLEMENTED,POST-SUBTASK-131;POST-SUBTASK-132,PLANNED
+artifacts/operations/backup_catalog_and_integrity.json,POST-SUBTASK-131,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-132,PLANNED
+artifacts/operations/restore_drill.json,POST-SUBTASK-132,Subtask,true,PRODUCTION_READY,POST-EPIC-015;POST-STORY-045;POST-SUBTASK-133;POST-SUBTASK-134;POST-SUBTASK-135,PLANNED
+artifacts/release/final_traceability_audit.json,POST-SUBTASK-133,Subtask,true,IMPLEMENTED,POST-SUBTASK-134;POST-SUBTASK-135,PLANNED
+artifacts/release/maturity_evidence_audit.csv,POST-SUBTASK-134,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-135,PLANNED
+artifacts/release/final_coverage_gate.json,POST-SUBTASK-135,Subtask,true,PRODUCTION_READY,POST-STORY-046;POST-SUBTASK-136;POST-SUBTASK-137;POST-SUBTASK-138,PLANNED
+artifacts/release/release_candidate_manifest.json,POST-SUBTASK-136,Subtask,true,IMPLEMENTED,POST-SUBTASK-137;POST-SUBTASK-138,PLANNED
+artifacts/release/release_candidate_e2e.json,POST-SUBTASK-137,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-138,PLANNED
+artifacts/release/release_candidate_gate.json,POST-SUBTASK-138,Subtask,true,PRODUCTION_READY,POST-STORY-047;POST-SUBTASK-139;POST-SUBTASK-140;POST-SUBTASK-141,PLANNED
+docs/operations/PRODUCTION_OPERATOR_GUIDE.md,POST-SUBTASK-139,Subtask,true,IMPLEMENTED,POST-SUBTASK-140;POST-SUBTASK-141,PLANNED
+docs/final/PRODUCTION_SYSTEM_CARD.md,POST-SUBTASK-140,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-141,PLANNED
+artifacts/release/OPERATING_AUTHORIZATION.json,POST-SUBTASK-141,Subtask,true,PRODUCTION_READY,POST-EPIC-016;POST-EPIC-017;POST-STORY-048;POST-STORY-051;POST-SUBTASK-142;POST-SUBTASK-143;POST-SUBTASK-144;POST-SUBTASK-151;POST-SUBTASK-152;POST-SUBTASK-153,PLANNED
+artifacts/advanced/challenger_proposal.json,POST-SUBTASK-142,Subtask,true,IMPLEMENTED,POST-SUBTASK-143;POST-SUBTASK-144,PLANNED
+artifacts/advanced/challenger_feasibility.json,POST-SUBTASK-143,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-144,PLANNED
+artifacts/advanced/challenger_admission_decision.json,POST-SUBTASK-144,Subtask,true,PRODUCTION_READY,POST-STORY-049;POST-SUBTASK-145;POST-SUBTASK-146;POST-SUBTASK-147,PLANNED
+artifacts/advanced/challenger_build_manifest.json,POST-SUBTASK-145,Subtask,true,IMPLEMENTED,POST-SUBTASK-146;POST-SUBTASK-147,PLANNED
+artifacts/advanced/challenger_tuning_scorecard.json,POST-SUBTASK-146,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-147,PLANNED
+artifacts/advanced/challenger_protected_admission.json,POST-SUBTASK-147,Subtask,true,PRODUCTION_READY,POST-STORY-050;POST-SUBTASK-148;POST-SUBTASK-149;POST-SUBTASK-150,PLANNED
+artifacts/advanced/challenger_protected_scorecard.json,POST-SUBTASK-148,Subtask,true,IMPLEMENTED,POST-SUBTASK-149;POST-SUBTASK-150,PLANNED
+artifacts/advanced/challenger_promotion_decision.json,POST-SUBTASK-149,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-150,PLANNED
+artifacts/advanced/challenger_closeout.json,POST-SUBTASK-150,Subtask,true,PRODUCTION_READY,,PLANNED
+artifacts/live/live_source_research.json,POST-SUBTASK-151,Subtask,true,IMPLEMENTED,POST-SUBTASK-152;POST-SUBTASK-153,PLANNED
+artifacts/live/live_value_feasibility.json,POST-SUBTASK-152,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-153,PLANNED
+artifacts/live/live_admission_decision.json,POST-SUBTASK-153,Subtask,true,PRODUCTION_READY,POST-STORY-052;POST-SUBTASK-154;POST-SUBTASK-155;POST-SUBTASK-156,PLANNED
+artifacts/live/live_state_prototype.json,POST-SUBTASK-154,Subtask,true,IMPLEMENTED,POST-SUBTASK-155;POST-SUBTASK-156,PLANNED
+artifacts/live/live_model_prototype.json,POST-SUBTASK-155,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-156,PLANNED
+artifacts/live/live_prototype_gate.json,POST-SUBTASK-156,Subtask,true,PRODUCTION_READY,POST-STORY-053;POST-SUBTASK-157;POST-SUBTASK-158;POST-SUBTASK-159,PLANNED
+artifacts/live/live_protected_scorecard.json,POST-SUBTASK-157,Subtask,true,IMPLEMENTED,POST-SUBTASK-158;POST-SUBTASK-159,PLANNED
+artifacts/live/live_product_validation.json,POST-SUBTASK-158,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-159,PLANNED
+artifacts/live/live_operating_decision.json,POST-SUBTASK-159,Subtask,true,PRODUCTION_READY,,PLANNED
+SOURCE_RESEARCH_LOG.csv,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED
+docs/data_research/w06/DATA_RESEARCH_METHOD.md,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED
+docs/data_research/w06/DATA_DOMAIN_COVERAGE_MATRIX.csv,TASK-002,Task,true,CONTRACT_DEFINED,TASK-003;TASK-004,VERIFIED
+docs/data_research/w06/DATA_UNIVERSE_MASTER.csv,TASK-002,Task,true,CONTRACT_DEFINED,TASK-003;TASK-004,VERIFIED
+docs/data_research/w06/POINT_IN_TIME_FEASIBILITY_MATRIX.csv,TASK-003,Task,true,CONTRACT_DEFINED,TASK-005,VERIFIED
+docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv,TASK-003,Task,true,CONTRACT_DEFINED,TASK-005,VERIFIED
+docs/data_research/w06/DATASET_ENDPOINT_COLUMN_INVENTORY.csv,TASK-004,Task,true,CONTRACT_DEFINED,TASK-005,VERIFIED
+docs/data_research/w06/DATA_SOURCE_RISK_REGISTER.csv,TASK-004,Task,true,CONTRACT_DEFINED,TASK-005,VERIFIED
+docs/data_research/w06/SOURCE_REDUNDANCY_MAP.csv,TASK-004,Task,true,CONTRACT_DEFINED,TASK-005,VERIFIED
+docs/data_research/w06/DATA_ACQUISITION_PLAN.md,TASK-005,Task,true,CONTRACT_DEFINED,TASK-006,VERIFIED
+docs/data_research/w06/DATA_MISSINGNESS_STRATEGY.md,TASK-005,Task,true,CONTRACT_DEFINED,TASK-006,VERIFIED
+docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md,TASK-005,Task,true,CONTRACT_DEFINED,TASK-006,VERIFIED
+W06 source research artifacts,TASK-006,Task,true,CONTRACT_DEFINED,TASK-007;TASK-011;TASK-041;TASK-067;TASK-081,VERIFIED
+docs/data_research/w06/WAVE_06_ARCHITECTURE_IMPACT.md,TASK-006,Task,true,CONTRACT_DEFINED,TASK-007;TASK-011;TASK-041;TASK-067;TASK-081,VERIFIED
+governance/WAVE_PLAN_REVISIONS.md,TASK-006,Task,true,CONTRACT_DEFINED,TASK-007;TASK-011;TASK-041;TASK-067;TASK-081,VERIFIED
+revalidated implementation WBS,TASK-006,Task,true,CONTRACT_DEFINED,TASK-007;TASK-011;TASK-041;TASK-067;TASK-081,VERIFIED
+configs/entity_registry.json,TASK-007,Task,true,CONTRACT_DEFINED,TASK-008;TASK-011;TASK-190,VERIFIED
+docs/14_CANONICAL_ENTITY_ARCHITECTURE.md,TASK-007,Task,true,CONTRACT_DEFINED,TASK-008;TASK-011;TASK-190,VERIFIED
+governance/CANONICAL_ENTITY_CATALOG.csv,TASK-007,Task,true,CONTRACT_DEFINED,TASK-008;TASK-011;TASK-190,VERIFIED
+governance/CANONICAL_RELATIONSHIP_CATALOG.csv,TASK-007,Task,true,CONTRACT_DEFINED,TASK-008;TASK-011;TASK-190,VERIFIED
+schemas/canonical/entities.json,TASK-007,Task,true,CONTRACT_DEFINED,TASK-008;TASK-011;TASK-190,VERIFIED
+docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md,TASK-008,Task,true,CONTRACT_DEFINED,TASK-009,VERIFIED
+governance/SOURCE_MAPPING_METHODS.csv,TASK-008,Task,true,CONTRACT_DEFINED,TASK-009,VERIFIED
+schemas/canonical/source_mapping.json,TASK-008,Task,true,CONTRACT_DEFINED,TASK-009,VERIFIED
+configs/entity_registry.json,TASK-009,Task,true,CONTRACT_DEFINED,TASK-010,VERIFIED
+docs/16_ENTITY_RESOLUTION_AND_REVIEW.md,TASK-009,Task,true,CONTRACT_DEFINED,TASK-010,VERIFIED
+governance/ENTITY_RESOLUTION_STATES.csv,TASK-009,Task,true,CONTRACT_DEFINED,TASK-010,VERIFIED
+docs/16_ENTITY_RESOLUTION_AND_REVIEW.md,TASK-010,Task,true,CONTRACT_DEFINED,TASK-012,VERIFIED
+schemas/canonical/resolution_decision.json,TASK-010,Task,true,CONTRACT_DEFINED,TASK-012,VERIFIED
+ADR-097,TASK-011,Task,true,CONTRACT_DEFINED,TASK-012,VERIFIED
+docs/17_ENTITY_STORAGE_EVALUATION.md,TASK-011,Task,true,CONTRACT_DEFINED,TASK-012,VERIFIED
+governance/ENTITY_STORAGE_DECISION_MATRIX.csv,TASK-011,Task,true,CONTRACT_DEFINED,TASK-012,VERIFIED
+W07 canonical identity contract baseline,TASK-012,Task,true,CONTRACT_DEFINED,TASK-013;TASK-042;TASK-054;TASK-059;TASK-066,VERIFIED
+W08 handoff,TASK-012,Task,true,CONTRACT_DEFINED,TASK-013;TASK-042;TASK-054;TASK-059;TASK-066,VERIFIED
+acceptance mappings,TASK-012,Task,true,CONTRACT_DEFINED,TASK-013;TASK-042;TASK-054;TASK-059;TASK-066,VERIFIED
+entity validator,TASK-012,Task,true,CONTRACT_DEFINED,TASK-013;TASK-042;TASK-054;TASK-059;TASK-066,VERIFIED
+PIT observation schema and temporal semantics,TASK-013,Task,true,CONTRACT_DEFINED,TASK-014;TASK-015,VERIFIED
+as-of access API,TASK-014,Task,true,CONTRACT_DEFINED,TASK-016;TASK-017,VERIFIED
+eligibility rules,TASK-014,Task,true,CONTRACT_DEFINED,TASK-016;TASK-017,VERIFIED
+snapshot policy by mutable source domain,TASK-015,Task,true,CONTRACT_DEFINED,TASK-016;TASK-125;TASK-191;TASK-192,VERIFIED
+PIT test fixtures,TASK-016,Task,true,CONTRACT_DEFINED,TASK-018,VERIFIED
+leakage battery,TASK-016,Task,true,CONTRACT_DEFINED,TASK-018,VERIFIED
+cutoff lineage/replay contract,TASK-017,Task,true,CONTRACT_DEFINED,TASK-018,VERIFIED
+accepted PIT interface,TASK-018,Task,true,CONTRACT_DEFINED,TASK-019;TASK-041;TASK-043;TASK-047;TASK-059;TASK-065;TASK-066;TASK-069;TASK-080;TASK-081;TASK-091;TASK-101,VERIFIED
+passing protected PIT controls,TASK-018,Task,true,CONTRACT_DEFINED,TASK-019;TASK-041;TASK-043;TASK-047;TASK-059;TASK-065;TASK-066;TASK-069;TASK-080;TASK-081;TASK-091;TASK-101,VERIFIED
+registry staging imports,TASK-019,Task,true,CONTRACT_DEFINED,TASK-020,VERIFIED
+field inventory generator,TASK-020,Task,true,CONTRACT_DEFINED,TASK-021,VERIFIED
+schema scanner,TASK-020,Task,true,CONTRACT_DEFINED,TASK-021,VERIFIED
+raw feature registry metadata,TASK-021,Task,true,CONTRACT_DEFINED,TASK-022,VERIFIED
+reconciliation report,TASK-022,Task,true,CONTRACT_DEFINED,TASK-023,VERIFIED
+redundancy clusters,TASK-022,Task,true,CONTRACT_DEFINED,TASK-023,VERIFIED
+feature-registry contract baseline,TASK-023,Task,true,CONTRACT_DEFINED,TASK-024;TASK-044;TASK-197,VERIFIED
+feature transform library/contracts,TASK-024,Task,true,CONTRACT_DEFINED,TASK-025;TASK-026,VERIFIED
+opponent/matchup transform interfaces,TASK-025,Task,true,CONTRACT_DEFINED,TASK-027,VERIFIED
+screening reports,TASK-026,Task,true,CONTRACT_DEFINED,TASK-027,VERIFIED
+selection evidence,TASK-026,Task,true,CONTRACT_DEFINED,TASK-027,VERIFIED
+family ablation/stability evidence,TASK-027,Task,true,CONTRACT_DEFINED,TASK-028,VERIFIED
+CORE/SUPPORTED/CONDITIONAL/EXPERIMENTAL/REJECTED/BANNED transitions,TASK-028,Task,true,CONTRACT_DEFINED,TASK-029,VERIFIED
+approved feature lifecycle contract and evidence rules,TASK-029,Task,true,CONTRACT_DEFINED,TASK-030;TASK-044;TASK-071;TASK-074;TASK-077,VERIFIED
+team state contract,TASK-030,Task,true,CONTRACT_DEFINED,TASK-031;TASK-032;TASK-033,VERIFIED
+early-season prior/blending candidates,TASK-031,Task,true,CONTRACT_DEFINED,TASK-034,VERIFIED
+historical weighting candidates,TASK-032,Task,true,CONTRACT_DEFINED,TASK-034,VERIFIED
+opponent hierarchy and uncertainty contract,TASK-033,Task,true,CONTRACT_DEFINED,TASK-034;TASK-194,VERIFIED
+team-state comparison report,TASK-034,Task,true,CONTRACT_DEFINED,TASK-035,VERIFIED
+team-state baseline contract,TASK-035,Task,true,CONTRACT_DEFINED,TASK-036;TASK-047;TASK-068;TASK-071;TASK-077;TASK-092,VERIFIED
+baseline candidate contracts + reference formulas,TASK-036,Task,true,CONTRACT_DEFINED,TASK-037;TASK-038,VERIFIED
+boosted-tree candidate interface (XGBoost/LightGBM/CatBoost alternatives),TASK-037,Task,true,CONTRACT_DEFINED,TASK-039,VERIFIED
+versioned calibration artifact/interface contract,TASK-038,Task,true,CONTRACT_DEFINED,TASK-039,VERIFIED
+mandatory comparator registry,TASK-039,Task,true,CONTRACT_DEFINED,TASK-040,VERIFIED
+no empirical result required,TASK-039,Task,true,CONTRACT_DEFINED,TASK-040,VERIFIED
+protected baseline benchmark protocol,TASK-039,Task,true,CONTRACT_DEFINED,TASK-040,VERIFIED
+baseline comparison decision method,TASK-040,Task,true,CONTRACT_DEFINED,TASK-087;TASK-131;TASK-141;TASK-166,VERIFIED
+numeric deltas remain pending development evidence,TASK-040,Task,true,CONTRACT_DEFINED,TASK-087;TASK-131;TASK-141;TASK-166,VERIFIED
+raw snapshot writer,TASK-041,Task,true,FUNCTIONAL_STARTER,TASK-042,VERIFIED
+source adapter starters,TASK-041,Task,true,FUNCTIONAL_STARTER,TASK-042,VERIFIED
+entity mapping/resolution starter,TASK-042,Task,true,FUNCTIONAL_STARTER,TASK-043,VERIFIED
+as-of state builder,TASK-043,Task,true,FUNCTIONAL_STARTER,TASK-044,VERIFIED
+lineage artifacts,TASK-043,Task,true,FUNCTIONAL_STARTER,TASK-044,VERIFIED
+feature registry/factory,TASK-044,Task,true,FUNCTIONAL_STARTER,TASK-045,VERIFIED
+synthetic source→PIT→feature replay fixture,TASK-045,Task,true,FUNCTIONAL_STARTER,TASK-046,VERIFIED
+validated functional foundation starter,TASK-046,Task,true,FUNCTIONAL_STARTER,TASK-083;TASK-084;TASK-085;TASK-111;TASK-140;TASK-147,VERIFIED
+player and depth state contracts,TASK-047,Task,true,CONTRACT_DEFINED,TASK-048;TASK-049;TASK-053;TASK-054,VERIFIED
+player value input/output contract,TASK-048,Task,true,CONTRACT_DEFINED,TASK-050,VERIFIED
+availability state contract,TASK-049,Task,true,CONTRACT_DEFINED,TASK-050;TASK-051,VERIFIED
+replacement value/uncertainty contract,TASK-050,Task,true,CONTRACT_DEFINED,TASK-052,VERIFIED
+injury evidence confidence/missingness policy,TASK-051,Task,true,CONTRACT_DEFINED,TASK-052,VERIFIED
+player/availability interface baseline,TASK-052,Task,true,CONTRACT_DEFINED,TASK-058;TASK-060;TASK-083;TASK-089;TASK-119;TASK-193,VERIFIED
+recruiting and freshman prior schema,TASK-053,Task,true,CONTRACT_DEFINED,TASK-055;TASK-056,VERIFIED
+transfer episode schema,TASK-054,Task,true,CONTRACT_DEFINED,TASK-055;TASK-200,VERIFIED
+position-aware translation experiment plan,TASK-055,Task,true,CONTRACT_DEFINED,TASK-057,VERIFIED
+consensus/development candidate contracts,TASK-056,Task,true,CONTRACT_DEFINED,TASK-057,VERIFIED
+translation uncertainty/usage outputs,TASK-057,Task,true,CONTRACT_DEFINED,TASK-058,VERIFIED
+transfer/recruiting/prospect interface baseline,TASK-058,Task,true,CONTRACT_DEFINED,TASK-084;TASK-088,VERIFIED
+effective-dated coach role schema,TASK-059,Task,true,CONTRACT_DEFINED,TASK-060;TASK-061,VERIFIED
+coach development candidate model contract,TASK-060,Task,true,CONTRACT_DEFINED,TASK-063,VERIFIED
+scheme/tendency feature contract,TASK-061,Task,true,CONTRACT_DEFINED,TASK-062;TASK-078,VERIFIED
+decision-quality candidate features,TASK-062,Task,true,CONTRACT_DEFINED,TASK-063,VERIFIED
+coach-effect evaluation specification,TASK-063,Task,true,CONTRACT_DEFINED,TASK-064,VERIFIED
+coaching interface baseline,TASK-064,Task,true,CONTRACT_DEFINED,TASK-085;TASK-088;TASK-090,VERIFIED
+weather snapshot feature contract,TASK-065,Task,true,CONTRACT_DEFINED,TASK-070;TASK-073,VERIFIED
+venue/travel context schema,TASK-066,Task,true,CONTRACT_DEFINED,TASK-068;TASK-079,VERIFIED
+resource capacity evidence lanes and missingness policy,TASK-067,Task,true,CONTRACT_DEFINED,TASK-070;TASK-198,VERIFIED
+home-field residual experiment specification,TASK-068,Task,true,CONTRACT_DEFINED,TASK-070,VERIFIED
+game-context effective-dated feature contracts,TASK-069,Task,true,CONTRACT_DEFINED,TASK-070;TASK-195,VERIFIED
+context interface baseline,TASK-070,Task,true,CONTRACT_DEFINED,TASK-085;TASK-088;TASK-119,VERIFIED
+possession/tempo contract,TASK-071,Task,true,CONTRACT_DEFINED,TASK-072;TASK-079,VERIFIED
+field-position value contract,TASK-072,Task,true,CONTRACT_DEFINED,TASK-073;TASK-075,VERIFIED
+special teams component contracts,TASK-073,Task,true,CONTRACT_DEFINED,TASK-076,VERIFIED
+score-state policy candidates,TASK-074,Task,true,CONTRACT_DEFINED,TASK-075,VERIFIED
+mechanics interaction candidates,TASK-075,Task,true,CONTRACT_DEFINED,TASK-076,VERIFIED
+mechanics interface baseline,TASK-076,Task,true,CONTRACT_DEFINED,TASK-085;TASK-088,VERIFIED
+opponent adjustment candidates,TASK-077,Task,true,CONTRACT_DEFINED,TASK-078;TASK-082,VERIFIED
+style similarity candidates,TASK-078,Task,true,CONTRACT_DEFINED,TASK-082,VERIFIED
+schedule stress feature contract,TASK-079,Task,true,CONTRACT_DEFINED,TASK-080,VERIFIED
+chronological schedule context rules,TASK-080,Task,true,CONTRACT_DEFINED,TASK-082,VERIFIED
+officiating feasibility decision,TASK-081,Task,true,CONTRACT_DEFINED,TASK-082;TASK-201,VERIFIED
+pregame assignment semantics evidence,TASK-081,Task,true,CONTRACT_DEFINED,TASK-082;TASK-201,VERIFIED
+matchup adjustment baseline,TASK-082,Task,true,CONTRACT_DEFINED,TASK-085;TASK-088,VERIFIED
+player/availability starter modules,TASK-083,Task,true,FUNCTIONAL_STARTER,TASK-086,VERIFIED
+transfer/recruiting starter modules,TASK-084,Task,true,FUNCTIONAL_STARTER,TASK-086,VERIFIED
+context/mechanics starter modules,TASK-085,Task,true,FUNCTIONAL_STARTER,TASK-086,VERIFIED
+advanced PIT fixtures,TASK-086,Task,true,FUNCTIONAL_STARTER,TASK-087,VERIFIED
+advanced intelligence implementation evidence,TASK-087,Task,true,FUNCTIONAL_STARTER,,VERIFIED
+A&M high-resolution state contract,TASK-088,Task,true,CONTRACT_DEFINED,TASK-089;TASK-090;TASK-091;TASK-092,VERIFIED
+A&M unit-state contracts,TASK-089,Task,true,CONTRACT_DEFINED,TASK-093,VERIFIED
+A&M regime/availability overlay,TASK-090,Task,true,CONTRACT_DEFINED,TASK-093,VERIFIED
+A&M snapshot cadence proposal,TASK-091,Task,true,CONTRACT_DEFINED,TASK-093,VERIFIED
+peer/analog contract,TASK-092,Task,true,CONTRACT_DEFINED,TASK-093;TASK-106,VERIFIED
+A&M team-state baseline,TASK-093,Task,true,CONTRACT_DEFINED,TASK-094;TASK-111,VERIFIED
+national→A&M specialization interface,TASK-094,Task,true,CONTRACT_DEFINED,TASK-095;TASK-096;TASK-098,VERIFIED
+residual specialization candidate,TASK-095,Task,true,CONTRACT_DEFINED,TASK-097,VERIFIED
+hierarchical/multi-task candidates,TASK-096,Task,true,CONTRACT_DEFINED,TASK-097,VERIFIED
+specialization overfit safeguards,TASK-097,Task,true,CONTRACT_DEFINED,TASK-099,VERIFIED
+A&M evaluation slice contract,TASK-098,Task,true,CONTRACT_DEFINED,TASK-099,VERIFIED
+specialization candidate baseline,TASK-099,Task,true,CONTRACT_DEFINED,TASK-100;TASK-112;TASK-116,VERIFIED
+BAS residual/threshold contract,TASK-100,Task,true,CONTRACT_DEFINED,TASK-101,VERIFIED
+cross-fit label-generation contract,TASK-101,Task,true,CONTRACT_DEFINED,TASK-102;TASK-103,VERIFIED
+BAS severity label interface,TASK-102,Task,true,CONTRACT_DEFINED,TASK-103,VERIFIED
+BAS protected test battery,TASK-103,Task,true,CONTRACT_DEFINED,TASK-104,VERIFIED
+accepted BAS label baseline,TASK-104,Task,true,CONTRACT_DEFINED,TASK-105;TASK-107;TASK-113;TASK-116,VERIFIED
+general underperformance benchmark,TASK-105,Task,true,CONTRACT_DEFINED,TASK-106,VERIFIED
+Aggie Excess test plan,TASK-106,Task,true,CONTRACT_DEFINED,TASK-108,VERIFIED
+BAS component candidate registry,TASK-107,Task,true,CONTRACT_DEFINED,TASK-108,VERIFIED
+BAS stability/calibration plan,TASK-108,Task,true,CONTRACT_DEFINED,TASK-109,VERIFIED
+BAS significance/stability/calibration/multiplicity evaluation protocol,TASK-109,Task,true,CONTRACT_DEFINED,TASK-110,VERIFIED
+no-excess/reject/inconclusive outcomes preserved,TASK-110,Task,true,CONTRACT_DEFINED,TASK-115;TASK-133,VERIFIED
+precommitted BAS component decision rule,TASK-110,Task,true,CONTRACT_DEFINED,TASK-115;TASK-133,VERIFIED
+A&M state adapter,TASK-111,Task,true,FUNCTIONAL_STARTER,TASK-112,VERIFIED
+A&M specialization model adapter,TASK-112,Task,true,FUNCTIONAL_STARTER,TASK-114,VERIFIED
+BAS interface,TASK-113,Task,true,FUNCTIONAL_STARTER,TASK-114,VERIFIED
+A&M/BAS snapshot fields + lineage,TASK-114,Task,true,FUNCTIONAL_STARTER,TASK-115,VERIFIED
+validated A&M/BAS starter,TASK-115,Task,true,FUNCTIONAL_STARTER,TASK-145;TASK-154,VERIFIED
+target contract,TASK-116,Task,true,CONTRACT_DEFINED,TASK-117,VERIFIED
+joint-distribution candidate report,TASK-117,Task,true,CONTRACT_DEFINED,TASK-118,VERIFIED
+forecast distribution interface,TASK-118,Task,true,CONTRACT_DEFINED,TASK-119;TASK-121,VERIFIED
+simulation/scenario contract,TASK-119,Task,true,CONTRACT_DEFINED,TASK-120,VERIFIED
+scenario perturbation contract,TASK-120,Task,true,CONTRACT_DEFINED,TASK-121,VERIFIED
+model architecture baseline,TASK-121,Task,true,CONTRACT_DEFINED,TASK-122;TASK-124;TASK-125;TASK-128;TASK-140;TASK-142,VERIFIED
+uncertainty contract,TASK-122,Task,true,CONTRACT_DEFINED,TASK-123,VERIFIED
+OOD/disagreement candidate registry,TASK-123,Task,true,CONTRACT_DEFINED,TASK-126,VERIFIED
+market-independent prediction path,TASK-124,Task,true,CONTRACT_DEFINED,TASK-126,VERIFIED
+market-augmented path with observation cutoffs,TASK-125,Task,true,CONTRACT_DEFINED,TASK-126;TASK-196,VERIFIED
+no empirical result required,TASK-126,Task,true,CONTRACT_DEFINED,TASK-127,VERIFIED
+uncertainty/OOD/disagreement/market benchmark protocol,TASK-126,Task,true,CONTRACT_DEFINED,TASK-127,VERIFIED
+precommitted uncertainty/OOD/disagreement/market warning/promotion decision rules,TASK-127,Task,true,CONTRACT_DEFINED,TASK-133;TASK-143,VERIFIED
+2024-2025 holdout,TASK-128,Task,true,CONTRACT_DEFINED,TASK-109;TASK-126;TASK-129;TASK-130,VERIFIED
+2026+ forward shadow,TASK-128,Task,true,CONTRACT_DEFINED,TASK-109;TASK-126;TASK-129;TASK-130,VERIFIED
+sealed protected split registry,TASK-128,Task,true,CONTRACT_DEFINED,TASK-109;TASK-126;TASK-129;TASK-130,VERIFIED
+proper scoring/calibration/error metric registry plus dependency-light reference metrics,TASK-129,Task,true,CONTRACT_DEFINED,TASK-039;TASK-109;TASK-126;TASK-131,VERIFIED
+predeclared national/A&M/subgroup evaluation scorecard registry,TASK-130,Task,true,CONTRACT_DEFINED,TASK-131,VERIFIED
+THR-001..007/014/015 numeric values remain blank pending development evidence,TASK-131,Task,true,CONTRACT_DEFINED,TASK-132,VERIFIED
+threshold precommitment registry,TASK-131,Task,true,CONTRACT_DEFINED,TASK-132,VERIFIED
+blank required threshold blocks,TASK-132,Task,true,CONTRACT_DEFINED,TASK-133,VERIFIED
+immutable decision-state contract,TASK-132,Task,true,CONTRACT_DEFINED,TASK-133,VERIFIED
+reference promotion evaluator,TASK-132,Task,true,CONTRACT_DEFINED,TASK-133,VERIFIED
+W18 research boundary,TASK-133,Task,true,CONTRACT_DEFINED,TASK-134;TASK-137;TASK-140;TASK-144;TASK-148;TASK-164,VERIFIED
+sealed protected evaluation/promotion contract,TASK-133,Task,true,CONTRACT_DEFINED,TASK-134;TASK-137;TASK-140;TASK-144;TASK-148;TASK-164,VERIFIED
+experiment lineage contract,TASK-134,Task,true,CONTRACT_DEFINED,TASK-135;TASK-136,VERIFIED
+MLflow/Optuna adapter decisions + HPO search-space/study policy,TASK-135,Task,true,CONTRACT_DEFINED,TASK-136,VERIFIED
+hypothesis lifecycle + experiment queue + worktree/resource execution reference,TASK-136,Task,true,CONTRACT_DEFINED,TASK-137,VERIFIED
+protected evaluator separation tests + W17 hash-seal verification CLI,TASK-137,Task,true,CONTRACT_DEFINED,TASK-138,VERIFIED
+feature tournament + model tournament + artifact/replay/comparison/adoption reference system,TASK-138,Task,true,CONTRACT_DEFINED,TASK-139,VERIFIED
+complete W18 master coverage + W17 preservation + tournament/HPO/replay test gate + W19 handoff,TASK-139,Task,true,CONTRACT_DEFINED,TASK-041;TASK-146;TASK-150;TASK-164,VERIFIED
+model runtime/artifact abstraction,TASK-140,Task,true,FUNCTIONAL_STARTER,TASK-141;TASK-142;TASK-144,VERIFIED
+functional model starters,TASK-141,Task,true,FUNCTIONAL_STARTER,TASK-143,VERIFIED
+joint forecast starter,TASK-142,Task,true,FUNCTIONAL_STARTER,TASK-143,VERIFIED
+calibration/ensemble/uncertainty adapters,TASK-143,Task,true,FUNCTIONAL_STARTER,TASK-145,VERIFIED
+model registry interface,TASK-144,Task,true,FUNCTIONAL_STARTER,TASK-145,VERIFIED
+functional selected model/calibration starter,TASK-145,Task,true,FUNCTIONAL_STARTER,TASK-146;TASK-148;TASK-154;TASK-161,VERIFIED
+Prefect-or-approved choice,TASK-146,Task,true,INTEGRATED,TASK-147;TASK-148,VERIFIED
+orchestrator ADR,TASK-146,Task,true,INTEGRATED,TASK-147;TASK-148,VERIFIED
+data refresh workflow,TASK-147,Task,true,INTEGRATED,TASK-151,VERIFIED
+training workflow,TASK-148,Task,true,INTEGRATED,TASK-149,VERIFIED
+promotion+rollback+snapshot workflow,TASK-149,Task,true,INTEGRATED,TASK-150,VERIFIED
+postmortem/research loop,TASK-150,Task,true,INTEGRATED,TASK-151,VERIFIED
+end-to-end resumability evidence,TASK-151,Task,true,INTEGRATED,TASK-152;TASK-160;TASK-161,VERIFIED
+read-only forecast API schema,TASK-152,Task,true,INTEGRATED,TASK-153;TASK-154;TASK-156,VERIFIED
+FastAPI/Streamlit/React-or-approved ADR,TASK-153,Task,true,INTEGRATED,TASK-154,VERIFIED
+A&M dashboard,TASK-154,Task,true,INTEGRATED,TASK-155,VERIFIED
+explanation and warning surfaces,TASK-155,Task,true,INTEGRATED,TASK-157,VERIFIED
+forecast provenance UI/API,TASK-156,Task,true,INTEGRATED,TASK-157,VERIFIED
+product acceptance evidence,TASK-157,Task,true,INTEGRATED,TASK-158;TASK-160,VERIFIED
+expanded cross-platform core/product CI + runtime manifest artifacts,TASK-158,Task,true,INTEGRATED,TASK-159,VERIFIED
+dependency pin/provenance/security gates + CodeQL/dependency-review workflows,TASK-159,Task,true,INTEGRATED,TASK-163,VERIFIED
+structured redacted logs/metrics/runtime environment evidence,TASK-160,Task,true,INTEGRATED,TASK-162,VERIFIED
+THR-011/012 remain TBD,TASK-161,Task,true,FUNCTIONAL_STARTER,TASK-163,BLOCKED
+target-hardware benchmark harness + non-authoritative smoke evidence,TASK-161,Task,true,FUNCTIONAL_STARTER,TASK-163,BLOCKED
+content-verified backup/restore + protected retention policy/runbook,TASK-162,Task,true,INTEGRATED,TASK-163;TASK-173,VERIFIED
+production gate awaits target benchmark,TASK-163,Task,true,FUNCTIONAL_STARTER,TASK-169,BLOCKED
+security/observability/restore evidence complete,TASK-163,Task,true,FUNCTIONAL_STARTER,TASK-169,BLOCKED
+advanced challenger admission policy,TASK-164,Task,true,CONTRACT_DEFINED,TASK-165;TASK-166;TASK-167,VERIFIED
+optional tabular neural challenger,TASK-165,Task,true,FUNCTIONAL_STARTER,TASK-168,PLANNED
+optional temporal challenger report,TASK-166,Task,true,FUNCTIONAL_STARTER,TASK-168,PLANNED
+optional graph challenger report,TASK-167,Task,true,FUNCTIONAL_STARTER,TASK-168,PLANNED
+advanced challenger promotion/rejection record,TASK-168,Task,true,FUNCTIONAL_STARTER,,PLANNED
+live replay contract,TASK-169,Task,true,DESIGN_ONLY,TASK-170,PLANNED
+live source feasibility update,TASK-170,Task,true,FUNCTIONAL_STARTER,TASK-171,PLANNED
+optional live replay prototype,TASK-171,Task,true,FUNCTIONAL_STARTER,TASK-172,PLANNED
+live isolation evidence,TASK-172,Task,true,FUNCTIONAL_STARTER,,PLANNED
+E2E/replay readiness report,TASK-173,Task,true,INTEGRATED,TASK-174;TASK-175,VERIFIED
+full acceptance battery,TASK-174,Task,true,INTEGRATED,TASK-176,VERIFIED
+source refresh delta report,TASK-175,Task,true,INTEGRATED,TASK-176;TASK-199,VERIFIED
+architecture challenge decision set,TASK-176,Task,true,INTEGRATED,TASK-177,VERIFIED
+accepted W24 repairs/revisions,TASK-177,Task,true,INTEGRATED,TASK-178,VERIFIED
+W24 acceptance/readiness baseline,TASK-178,Task,true,INTEGRATED,TASK-179,VERIFIED
+final governance audit,TASK-179,Task,true,INTEGRATED,TASK-180,VERIFIED
+final technical readiness audit,TASK-180,Task,true,INTEGRATED,TASK-181;TASK-182,VERIFIED
+final gap/risk/backlog artifacts,TASK-181,Task,true,INTEGRATED,TASK-183,VERIFIED
+docs/final/FINAL_ARCHITECTURE_RATIONALE.md,TASK-182,Task,true,INTEGRATED,TASK-183,VERIFIED
+docs/final/FINAL_REJECTED_ALTERNATIVES.md,TASK-182,Task,true,INTEGRATED,TASK-183,VERIFIED
+docs/final/FINAL_IMPLEMENTATION_PRIORITY.md,TASK-183,Task,true,INTEGRATED,TASK-184,VERIFIED
+first-72-hour queue,TASK-183,Task,true,INTEGRATED,TASK-184,VERIFIED
+final validated bound repository/hydration pair,TASK-184,Task,true,INTEGRATED,,VERIFIED
+verified prior-wave binding evidence,TASK-185,Task,true,CONTRACT_DEFINED,TASK-186;TASK-187;TASK-188,VERIFIED
+validated cumulative/hydration packs,TASK-186,Task,true,CONTRACT_DEFINED,,VERIFIED
+updated governance ledgers and validators,TASK-187,Task,true,CONTRACT_DEFINED,TASK-189,VERIFIED
+adaptive change/plan revision records,TASK-188,Task,true,CONTRACT_DEFINED,,VERIFIED
+protected governance boundary evidence,TASK-189,Task,true,CONTRACT_DEFINED,,VERIFIED
+configs/entity_registry.json,TASK-190,Task,true,CONTRACT_DEFINED,TASK-191;TASK-195;TASK-197,VERIFIED
+docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md,TASK-190,Task,true,CONTRACT_DEFINED,TASK-191;TASK-195;TASK-197,VERIFIED
+schemas/canonical/evidence_identity.json,TASK-190,Task,true,CONTRACT_DEFINED,TASK-191;TASK-195;TASK-197,VERIFIED
+availability report PIT contract + fixtures,TASK-191,Task,true,CONTRACT_DEFINED,TASK-193,VERIFIED
+weather model-run PIT contract + fixtures,TASK-192,Task,true,CONTRACT_DEFINED,,VERIFIED
+official availability adapter/materialization plan,TASK-193,Task,true,CONTRACT_DEFINED,,VERIFIED
+NCAA/NAIA/NJCAA strength-source normalization design,TASK-194,Task,true,CONTRACT_DEFINED,,VERIFIED
+regulatory environment contract,TASK-195,Task,true,CONTRACT_DEFINED,,VERIFIED
+market source comparison + PIT fixture plan,TASK-196,Task,true,CONTRACT_DEFINED,,VERIFIED
+source/upstream/license registry schema,TASK-197,Task,true,CONTRACT_DEFINED,TASK-200,VERIFIED
+private-resource proxy semantics/experiment,TASK-198,Task,true,CONTRACT_DEFINED,,VERIFIED
+W24 delta against W06 data universe,TASK-199,Task,true,INTEGRATED,,VERIFIED
+transfer/recruiting source provenance decision,TASK-200,Task,true,CONTRACT_DEFINED,,VERIFIED
+officiating source/gap decision,TASK-201,Task,true,CONTRACT_DEFINED,,VERIFIED

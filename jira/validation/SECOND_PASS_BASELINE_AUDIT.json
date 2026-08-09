@@ -1,0 +1,18 @@
+{
+  "actionable_blank_e2e_count": 4,
+  "actionable_count": 229,
+  "actionable_scope_equals_objective_count": 212,
+  "actionable_subtask_count": 159,
+  "actionable_without_direct_acceptance_control_ids": 213,
+  "actionable_without_direct_requirement_ids": 212,
+  "audited_at": "2026-08-08",
+  "audited_pack_version": "v1",
+  "derivative_rebuild_gap": "Existing update/reconciliation tools rebuilt indexes/import rows but not all Markdown, work packets, source manifests, and REST payloads.",
+  "generic_subtask_in_scope_count": 159,
+  "issue_count": 463,
+  "legal_review_subtasks_with_new_automated_test_required": 2,
+  "subtasks_with_any_generic_scope_phrase": 159,
+  "subtasks_with_identical_generic_risk_pair": 150,
+  "subtasks_with_new_automated_test_required": 159,
+  "validator_gap": "First-pass validators did not reject generic issue specifications, missing explicit traceability inheritance, derivative drift, or anchor-excerpt mismatch."
+}

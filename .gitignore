@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.build/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments / local config
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local data / artifacts: repository keeps contracts, tiny fixtures and instructions only
+data/raw/
+data/interim/
+data/processed/
+data/external/
+artifacts/models/
+artifacts/experiments/
+artifacts/predictions/
+mlruns/
+
+# Large/binary model artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.joblib
+*.pkl
+
+# Local generated packs
+*.zip
+*.zip.sha256
+Aggie_Analytics_Engine_W*_CUMULATIVE.zip
+Aggie_Analytics_Engine_W*_HYDRATION.zip
+# Local research metadata / scratch
+.aggie/
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+research_worktrees/
+optuna_journal.log

@@ -1,0 +1,81 @@
+hypothesis_id,hypothesis,domain,planned_test_wave,status,promotion_rule
+HYP-001,Referee/crew tendencies add stable signal,officiating,W13/W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-002,Program resources add value beyond talent/roster/coaching,resources,W13/W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-003,Preseason honors add incremental early-season value,players,W12/W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-004,Lagged draft-development residuals add value,players,W12/W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-005,PyTorch tabular challenger beats boosted trees,models,W16-W18,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-006,Sequence/temporal models beat strong tabular baselines,models,W18/Phase5,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-007,Graph representations improve coach/player/transfer modeling,models,W18/Phase5,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-008,Kyle Field has a persistent context-adjusted residual home effect,TAMU,W13-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-009,A&M has statistically significant excess underperformance after controls,BAS,W15-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-010,A&M excess underperformance persists across current regime,BAS,W15-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-011,Travel/body-clock burden improves forecasts,context,W13/W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-012,Look-ahead/sandwich schedule context adds stable signal,context,W13/W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-013,Clock-management residuals are stable enough to forecast,coaching,W13/W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-014,Halftime-adjustment tendencies are stable enough to forecast,coaching,W13/W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-015,Style-similarity features improve matchup prediction,features,W10-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-016,Unit chemistry/combination continuity adds value beyond individual values,players,W12-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-017,Explicit rule-era features improve over simple season effects,context,W13-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-018,Market-augmented model improves calibration without obscuring pure-football skill,models,W16-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-019,Multi-task A&M specialization beats multiple separate adapters,TAMU,W14-W18,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-020,Expected-possession modeling materially improves score distribution,mechanics,W13-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-021,Field-position/hidden-yards subsystem adds stable value,mechanics,W13-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-022,Separate special-teams submodels beat a composite rank,mechanics,W13-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-023,OOD score predicts larger forecast error/undercoverage,uncertainty,W16-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-024,Model disagreement improves uncertainty calibration,uncertainty,W16-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-025,Transfer translation is position-specific and continuous-strength based,players,W12-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-026,Resource-efficiency residual helps BAS after controlling inputs,BAS/resources,W13-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-027,Preseason/early/mature-season mixture improves early-season calibration,models,W11-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-028,A&M-specific calibration outperforms national calibration alone,TAMU,W14-W17,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-029,Historical analog retrieval adds useful explanation or predictive support,explainability,W14-W22,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-030,Live BAS Collapse can be defined reproducibly from chronological replay,BAS/live,Phase5,PENDING,Requires PIT-safe walk-forward evidence/ablation/stability; never promoted by intuition alone
+HYP-031,Player-specific value/availability/replacement representation improves forecasts beyond coarse injury counts,players/availability,W17-W19,PENDING,"Requires PIT-safe walk-forward evidence, ablation versus coarse/no-injury baselines and calibration; never promoted by intuition alone"
+HYP-032,Position-aware same-player transfer translation improves destination player estimates beyond unadjusted production/prior-only baselines,players/transfers,W17-W19,PENDING,Requires chronological same-player transfer evaluation with uncertainty and subgroup stability; no fixed conference penalty
+HYP-033,Preseason honors and lagged draft-development signals add stable value beyond recruiting/prior production,players/consensus,W17,PENDING,Requires target-specific ablation and temporal stability; never promoted by reputation alone
+HYP-034,Role-conditioned coach residuals add stable predictive value beyond player/team context.,coaching,W17-W19,PENDING,Protected chronological improvement after confound controls; nonblocking until promotion.
+HYP-035,"A learned program/venue home residual adds value beyond national home effect, team strength and travel.",context,W17-W19,PENDING,Walk-forward calibration/score evidence; nonblocking until promotion.
+HYP-036,Resource lanes add stable incremental value beyond roster/talent/coaching.,resources,W17-W19,PENDING,Ablation by coverage lane; nonblocking until promotion.
+HYP-037,Fourth-down/clock/halftime decision-quality candidates add stable coach information.,coaching,W17,PENDING,Controlled chronological evidence; nonblocking until promotion.
+HYP-038,A score-state or leverage policy improves signal versus an all-plays baseline.,mechanics,W17,PENDING,Protected policy comparison; nonblocking until promotion.
+HYP-039,Continuous style similarity improves opponent adjustment/matchup prediction.,matchup,W17-W20,PENDING,Subgroup/stability/ablation evidence; nonblocking until promotion.
+HYP-040,Pregame-known officiating crew tendencies add value after team/opponent/style controls.,officiating,W17-W24,PENDING,Only if assignment coverage and controlled evidence support it; nonblocking until promotion.
+HYP-041,Higher-resolution A&M state improves protected A&M forecast performance beyond national state alone.,tamu_specialization,W16-W17,PENDING,Promote only with protected incremental value and stability.
+HYP-042,Residual-adapter specialization improves A&M forecasts relative to no-adjustment national baseline.,tamu_specialization,W16-W17,PENDING,Protected comparison against TAMU-SP-00 and simple alternatives.
+HYP-043,Hierarchical/multi-task specialization outperforms simpler residual/partial-pooling alternatives.,tamu_specialization,W16-W17,PENDING,Complexity must earn protected value and stability.
+HYP-044,Dynamic A&M peer cohorts add useful scientific comparison signal.,tamu_peers,W15-W17,PENDING,PIT-safe cohort definitions and protected peer/Aggie comparison.
+HYP-045,Historical analog similarity adds stable explanatory or predictive value beyond existing features.,tamu_analogs,W16-W17,PENDING,Strict-prior retrieval plus ablation/stability evidence.
+HYP-046,More frequent immutable A&M snapshots materially improve forecast quality/calibration as information arrives.,tamu_snapshots,W17-W22,PENDING,Compare snapshot deltas without choosing cadence from hindsight.
+HYP-047,Texas A&M has a stable excess probability of >=7-point underperformance beyond general/peer expectation.,BAS,W17,PENDING,Protected effect-size/stability criterion using THR-006.
+HYP-048,Any A&M excess underperformance persists across multiple effective-dated regimes rather than one era.,BAS_regime,W17,PENDING,Blocked/regime stability with partial pooling.
+HYP-049,Offensive BAS adds stable explanatory/predictive value beyond headline margin residual.,BAS_component,W17,PENDING,Component ablation + stability + multiplicity control.
+HYP-050,Defensive BAS adds stable explanatory/predictive value beyond headline margin residual.,BAS_component,W17,PENDING,Component ablation + stability + multiplicity control.
+HYP-051,Special Teams BAS is identifiable without double counting field position/hidden yards.,BAS_component,W17,PENDING,Controlled component experiment + ablation.
+HYP-052,Coaching/Decision BAS is identifiable after player/talent/context controls.,BAS_component,W17,PENDING,Confound-controlled partial-pooled experiment.
+HYP-053,Live Collapse BAS provides distinct value in chronological replay without contaminating pregame BAS.,BAS_live,W18+,PENDING,Chronological live replay and isolation tests.
+HYP-054,Correlated/overdispersed joint-score models improve calibration or likelihood versus independent Poisson without unacceptable complexity.,joint_score,W17+,PENDING,Protected chronological score likelihood/calibration comparison.
+HYP-055,Possession x scoring-efficiency structure adds stable predictive value beyond direct score models.,structured_model,W17+,PENDING,Walk-forward ablation against simpler joint-score baselines.
+HYP-056,Boosted tabular models improve protected win/margin/score metrics over logistic/GLM baselines.,boosting,W17+,PENDING,Protected chronological comparison with calibration.
+HYP-057,Small neural tabular/distributional challenger adds value beyond strong boosted/simple baselines.,neural,W17+,PENDING,Protected comparison with compute/maintenance tradeoff.
+HYP-058,A calibrated ensemble improves proper scoring/calibration without hiding member correlation.,ensemble,W17+,PENDING,OOF/protected ensemble comparison and disagreement analysis.
+HYP-059,Nonzero A&M specialization improves A&M scorecard after shrinkage while not materially degrading national scorecard.,TAMU,W17+,PENDING,Protected A&M/national dual-scorecard comparison with no-adjustment baseline.
+HYP-060,OOD warning methods improve calibration/warning usefulness on sparse/novel games.,OOD,W17+,PENDING,Coverage/false-warning and subgroup evaluation before THR-014.
+HYP-061,PIT-safe market augmentation adds forecast value beyond pure-football while pure lane remains independently useful.,market,W17+,PENDING,Timestamp-matched protected comparison; no closing-line leakage.
+HYP-062,Availability/weather scenario mixtures represent uncertainty better than deterministic point assumptions.,simulation,W17+,PENDING,Chronological scenario ablation/calibration comparison.
+HYP-063,Development-only Optuna HPO provides stable incremental value over bounded deterministic/manual search under local resource budgets.,research_ops,W20+,PENDING,Compare development-only search efficiency/value; no protected feedback.
+HYP-064,Small neural/sequence/graph challengers add enough incremental value over strong conventional baselines to justify extra compute and maintenance.,advanced_models,W20+,PENDING,Admit only after conventional baseline evidence; W17 protected comparison.
+HYP-065,Replay-before-adoption materially reduces experiment drift and irreproducible challenger adoption.,reproducibility,W19-W23,PENDING,Track replay mismatch/adoption incidents after materialized experiments.
+HYP-066,Target-specific feature tournaments improve search discipline versus one global feature ranking.,feature_research,W19-W21,PENDING,Compare development search stability/retained feature decisions; protected promotion remains W17.
+HYP-067,Model tournaments with mandatory simple baselines reduce false complexity wins.,model_research,W20-W21,PENDING,Compare challenger adoption quality and complexity-adjusted development evidence.
+HYP-068,Versioned bounded HPO outperforms manual search enough to justify maintenance cost.,research_ops,W20+,PENDING,Development-only comparison of search efficiency/value; no protected feedback.
+HYP-069,Explicit replay failure taxonomy reduces irreproducible challenger adoption.,reproducibility,W19-W23,PENDING,Track replay failures/adoption incidents after materialized experiments.
+HYP-070,Negative-result retention reduces repeated dead-end experiments.,research_ops,W19-W23,PENDING,Measure duplicate/repeated failed-search incidence.
+HYP-071,Local MLflow tracking materially improves experiment discoverability without becoming governance truth.,research_ops,W20+,PENDING,Operational usability/replay evidence after adapter implementation.
+HYP-072,Optuna Journal/RDB persistence is sufficient for local-first bounded HPO without distributed infrastructure.,research_ops,W20+,PENDING,Operational persistence/concurrency evidence under real studies.
+HYP-073,Local SQLite experiment metadata store is sufficient for single-machine W19-W20 research without requiring PostgreSQL/remote service.,research_ops,W19-W23,PENDING,Measure concurrent writer contention/integrity/operational burden before changing backend.
+HYP-074,Hash-chained append-only queue events materially improve recoverability/auditability versus mutable task-state files.,research_ops,W19-W23,PENDING,Track queue-recovery/drift incidents and operational overhead.
+HYP-075,Bounded resource admission reduces failed/competing experiments on the target local workstation.,research_ops,W19-W23,PENDING,Compare OOM/disk/GPU contention before/after policy under real runs.
+HYP-076,Semantic result-compatibility gating prevents false model/feature rankings across mismatched data/split/lane versions.,validation,W19-W23,PENDING,Audit blocked incompatible comparisons and any false-ranking incidents.
+HYP-077,Retaining nested search multiplicity improves interpretation of apparent development gains.,validation,W20-W24,PENDING,Compare reported search breadth and later protected stability.
+HYP-078,Dependency-free local tracking fallback is adequate when MLflow is unavailable.,research_ops,W19-W23,PENDING,Operational usability/replay evidence; replace if materially insufficient.
+HYP-079,Experiment worktree locks and explicit shared-contract ownership reduce merge/configuration drift.,research_ops,W19-W23,PENDING,Track conflicting mutation incidents and recovery effort.
+HYP-080,One-way promotion review packets prevent protected-result feedback from contaminating research search.,governance,W19-W23,PENDING,Audit promotion/research logs for protected feedback leakage.

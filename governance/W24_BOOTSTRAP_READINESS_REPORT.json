@@ -1,0 +1,13 @@
+{
+  "base_import_error": null,
+  "base_import_ok": true,
+  "missing_required_files": [],
+  "mutated_environment": false,
+  "note": "Check-only readiness probe; package installation remains an explicit operator action.",
+  "product_dependencies": {},
+  "profile": "core",
+  "python_supported": true,
+  "python_version": "3.13.5",
+  "required_files_ok": true,
+  "schema_version": "aggie.bootstrap.readiness.v1"
+}

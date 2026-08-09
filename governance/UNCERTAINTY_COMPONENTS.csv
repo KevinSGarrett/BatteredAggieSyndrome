@@ -1,0 +1,10 @@
+component_id,name,meaning,evidence_source,guard,w16_calibrated
+UNC-001,aleatoric_game,Intrinsic outcome randomness,distribution spread/score variance,Not a lack-of-data penalty,false
+UNC-002,epistemic_model,Limited model knowledge/parameter uncertainty,ensemble/posterior/bootstrap candidate,Do not assume calibrated numeric scale W16,false
+UNC-003,data_quality,Missing/low-confidence source evidence,W06-W09 quality lineage,May widen uncertainty,false
+UNC-004,availability,Uncertain active/effectiveness/usage state,W12 scenarios,May widen/mixture,false
+UNC-005,weather,Forecast-run uncertainty,W08 issued forecast runs,May widen/mixture,false
+UNC-006,opponent_strength,Sparse FCS/lower-division estimate,W11 strength uncertainty,May widen,false
+UNC-007,regime_state,New coach/QB/scheme/roster regime,W11/W13 regime evidence,May widen,false
+UNC-008,tamu_specialization,Sparse/unstable A&M residual evidence,W14 shrinkage/no-adjustment,Must permit zero adjustment,false
+UNC-009,model_disagreement,Validated model predictions disagree,ensemble diagnostic,Warning candidate; not automatically uncertainty calibrated,false

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research Resource Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cpu_threads",
+    "ram_mb",
+    "gpu_slots",
+    "vram_mb",
+    "disk_mb",
+    "paid_compute"
+  ],
+  "properties": {
+    "cpu_threads": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ram_mb": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "gpu_slots": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "vram_mb": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "disk_mb": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "paid_compute": {
+      "type": "boolean"
+    },
+    "max_trials": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_concurrency": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "timeout_seconds": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    }
+  }
+}

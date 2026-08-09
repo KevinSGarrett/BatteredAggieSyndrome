@@ -1,0 +1,5 @@
+policy_id,name,description,numeric_threshold_frozen,production_selected
+SCOREPOL-01,NO_FILTER_BASELINE,retain all prior plays with explicit score-state features,false,false
+SCOREPOL-02,COMPETITIVE_STATE_FILTER,candidate filter based on score/time/leverage learned or predefined only after evidence review,false,false
+SCOREPOL-03,LEVERAGE_WEIGHTING,weight plays by leverage/competitive relevance,false,false
+SCOREPOL-04,SCORE_STATE_STRATIFICATION,model leading/tied/trailing contexts separately or as interactions,false,false

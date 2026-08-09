@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "version": "w09-v1.0",
+  "generated_at_utc": "2026-08-08T17:36:00+00:00",
+  "maturity": "RAW_FIELD_REGISTRY_AND_SCHEMA_DISCOVERY_CONTRACTS_ONLY",
+  "principles": [
+    "Raw-field registration is not feature promotion.",
+    "Preserve verified reconnaissance temporal classifications; scanners may enrich observed schema facts but may not downgrade safety.",
+    "Unknown or unmaterialized schemas are explicit; fields are never invented.",
+    "Sample missingness is not a population statistic.",
+    "Same-name fields are not semantic duplicates.",
+    "All predictive candidate handoffs remain behind the W08 PIT gateway and W10 empirical lifecycle."
+  ],
+  "counts": {
+    "raw_fields": 1197,
+    "dataset_endpoint_rows": 120,
+    "sample_missingness_evidence": 296,
+    "join_path_evidence": 124,
+    "redundancy_clusters": 141,
+    "reconciliation_summary_rows": 19
+  },
+  "source_imports": [
+    {
+      "artifact": "recon/cross_source/UNIFIED_TEMPORAL_FIELD_REGISTRY.csv",
+      "sha256": "c61856b9d5ec5fb61a6aa1526493681a0649d511c32d3060cc1f55cdfc46f516",
+      "rows": 1197,
+      "role": "authoritative verified raw-field temporal baseline"
+    },
+    {
+      "artifact": "recon/cross_source/SAMPLE_MISSINGNESS_PROFILE.csv",
+      "sha256": "2f0fdbc37d3c311f060a89d06f94a834a07be2d0726b229d0fc31bce8d20f263",
+      "rows": 296,
+      "role": "sample-only missingness evidence"
+    },
+    {
+      "artifact": "W06/DATASET_ENDPOINT_COLUMN_INVENTORY.csv",
+      "sha256": "9b267279c2541dfa3c135b83d50cedf6b02afb553c1a32a15b7bd8db70791e21",
+      "rows": 120,
+      "role": "current dataset/endpoint inventory"
+    },
+    {
+      "artifact": "W06/DATA_UNIVERSE_MASTER.csv",
+      "sha256": "fe840803e0c29ac7eca712dfd10f5c775dd61c0d2a1efc5b0791a93c6425f46a",
+      "rows": 60,
+      "role": "source access/license/provenance metadata"
+    }
+  ],
+  "raw_field_identity": {
+    "format": "RF-######",
+    "identity_components": [
+      "source_id",
+      "source",
+      "dataset_or_model",
+      "field_path"
+    ],
+    "rename_policy": "new raw-field identity + supersession mapping; do not silently repurpose ID"
+  },
+  "allowed_temporal_classes": [
+    "ASOF_RECONSTRUCTION_REQUIRED",
+    "CURRENT_GAME_OR_POSTGAME_NOT_DIRECT_PREGAME",
+    "DIRECT_PREGAME_CANDIDATE",
+    "HISTORICAL_AGGREGATE_ONLY",
+    "POSTGAME_OR_FUTURE_BANNED",
+    "REVIEW_REQUIRED",
+    "SAFE_ONLY_WITH_EFFECTIVE_SNAPSHOT"
+  ],
+  "handoff_states": [
+    "BANNED_FROM_PREGAME",
+    "TEMPORAL_REVIEW_REQUIRED",
+    "EVIDENCE_OR_METADATA_ONLY",
+    "HISTORICAL_OR_LIVE_DERIVATION_ONLY",
+    "PIT_HISTORICAL_AGGREGATION_INPUT",
+    "ASOF_RECONSTRUCTION_REQUIRED",
+    "PIT_SNAPSHOT_REQUIRED",
+    "W10_CANDIDATE_INPUT_ONLY"
+  ],
+  "scanner": {
+    "formats": [
+      "CSV",
+      "JSON",
+      "JSONL",
+      "PARQUET_OPTIONAL_IF_PYARROW_PRESENT"
+    ],
+    "max_default_records": 10000,
+    "executes_source_code": false,
+    "nested_json_path_separator": ".",
+    "observed_type_is_not_documented_type": true
+  },
+  "missingness": {
+    "population_default": "UNMEASURED_UNTIL_SOURCE_MATERIALIZATION",
+    "sample_profile_policy": "representative evidence only; rerun per materialized snapshot"
+  },
+  "join_policy": {
+    "name_only_durable_join": false,
+    "presence_is_not_semantic_compatibility": true,
+    "canonical_identity_required": true
+  },
+  "redundancy_policy": {
+    "exact_name_implies_duplicate": false,
+    "semantic_merge_requires_review": true
+  },
+  "w10_handoff": {
+    "production_feature_promotion_allowed_in_w09": false,
+    "candidate_experiment_requires": [
+      "non-banned handoff state",
+      "W08 PIT gateway",
+      "lineage",
+      "join path or intentional nonjoin grain",
+      "materialized data-quality evidence when available"
+    ]
+  }
+}

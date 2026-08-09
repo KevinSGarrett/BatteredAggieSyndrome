@@ -1,0 +1,10 @@
+threshold_id,method_status,development_evidence,protected_results_allowed,fail_closed_if_blank,notes
+THR-001,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,paired canonical-game Brier deltas; block/season variability,false,true,No W17 numeric value.
+THR-002,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,paired log-loss deltas; tail/sensitivity review,false,true,No W17 numeric value.
+THR-003,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,development-only calibration intercept/slope/reliability variability,false,true,No W17 numeric value.
+THR-004,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,paired margin/score error deltas and sampling variability,false,true,No W17 numeric value.
+THR-005,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,A&M paired deltas plus national nondegradation constraint on development-only data,false,true,Must permit zero/no-adjustment.
+THR-006,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,predeclared effect/stability/multiplicity procedure on development/simulation only,false,true,No Aggie Excess claim until protected evaluation.
+THR-007,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,walk-forward family ablation/stability on development only,false,true,Feature promotions remain zero in W17.
+THR-014,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,development OOD coverage/error and false-warning tradeoff,false,true,No W17 OOD cutoff.
+THR-015,METHOD_FROZEN_VALUE_PENDING_DEVELOPMENT_EVIDENCE,development disagreement/error association and warning utility,false,true,No W17 disagreement cutoff.

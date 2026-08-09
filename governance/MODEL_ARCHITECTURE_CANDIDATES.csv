@@ -1,0 +1,12 @@
+candidate_id,name,family,lane,complexity,role,mandatory_baseline,production_selected_w16,notes
+MOD-000,No-skill empirical/reference,baseline,PURE_FOOTBALL,C1,Reference prevalence/home/score baseline,true,false,Sanity floor; never a champion by declaration
+MOD-001,Elo + logistic mapping,rating/logistic,PURE_FOOTBALL,C2,Strong interpretable win baseline,true,false,National foundation baseline
+MOD-002,Logistic win + linear/GLM score/margin,generalized_linear,PURE_FOOTBALL,C2,Interpretable feature baseline,true,false,Separate baseline only; outputs checked for coherence
+MOD-003,Independent Poisson/Skellam score baseline,count,PURE_FOOTBALL,C2,Simple coherent score distribution baseline,true,false,Independence assumption explicitly testable
+MOD-004,Bivariate Poisson,correlated_count,PURE_FOOTBALL,C3,Joint count challenger with covariance,false,false,Candidate
+MOD-005,Overdispersed hierarchical count,negative_binomial_hierarchical,PURE_FOOTBALL,C4,Handle score overdispersion/team heterogeneity,false,false,Candidate
+MOD-006,Possession x efficiency hierarchical,structured_football,PURE_FOOTBALL,C4,Mechanistic joint score challenger,false,false,Candidate
+MOD-007,Gradient-boosted tabular,XGBoost_LightGBM_CatBoost_candidate,PURE_FOOTBALL,C3,Strong tabular challenger,false,false,Exact library not frozen
+MOD-008,Distributional/quantile boosting + dependence layer,distributional_boosting,PURE_FOOTBALL,C4,Flexible marginal/distribution challenger,false,false,Candidate
+MOD-009,Small PyTorch tabular model,neural_tabular,PURE_FOOTBALL,C4,Neural challenger,false,false,Complexity must earn value
+MOD-010,Calibrated ensemble/stack,ensemble,PURE_AND_MARKET_SEPARATE,C5,Combine validated members while preserving lane isolation,false,false,Requires OOF/protected evidence

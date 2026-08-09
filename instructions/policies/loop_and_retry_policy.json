@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-LOOP-RETRY",
+  "version": "2.0.0",
+  "loop_signals": [
+    "same command/equivalent inputs/same failure twice",
+    "same edit repeatedly reverted",
+    "same test rerun without changed diagnosis",
+    "repeated dependency install/Git cleanup",
+    "repeated write without read-back",
+    "repeated document review without new facts",
+    "repeated planning without implementation",
+    "cycling tasks without acceptance progress"
+  ],
+  "unchanged_transient_retry_limit": 1,
+  "materially_different_approaches_per_session": 3,
+  "states": [
+    "NORMAL",
+    "REPEAT_DETECTED",
+    "DIAGNOSE",
+    "ALTERNATE_APPROACH",
+    "REDUCE_SCOPE",
+    "BLOCKED",
+    "SWITCH_WORK",
+    "GLOBAL_STOP"
+  ],
+  "required_diagnosis": [
+    "expected",
+    "actual",
+    "evidence",
+    "failing_layer",
+    "new_hypothesis",
+    "next_different_approach",
+    "stop_condition"
+  ],
+  "no_ready_work_behavior": "concise global blocker; do not manufacture tasks"
+}

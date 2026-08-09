@@ -1,0 +1,11 @@
+stage_id,stage_name,purpose,allowed_outcomes,protected_metrics_allowed,may_promote
+FT-00,ELIGIBILITY,Validate PIT/rights/registry/target/baseline,REJECT;BLOCKED,false,false
+FT-01,BASELINE_REPLAY,Replay frozen baseline on development split,INCONCLUSIVE;CONTINUE,false,false
+FT-02,PLUS_FAMILY,Add candidate family to baseline,CONTINUE;REJECT,false,false
+FT-03,MINUS_FAMILY_ABLATION,Remove family from larger candidate where applicable,CONTINUE;INCONCLUSIVE,false,false
+FT-04,TEMPORAL_STABILITY,Compare development seasons/folds/regimes,CONTINUE;REJECT;INCONCLUSIVE,false,false
+FT-05,SUBGROUP_STABILITY,Compare declared development scorecards,CONTINUE;REJECT;INCONCLUSIVE,false,false
+FT-06,CALIBRATION_COHERENCE,Check target calibration/coherence effects,CONTINUE;REJECT,false,false
+FT-07,COST_COVERAGE_RIGHTS,Record compute/coverage/rights burden,CONTINUE;REJECT;CONDITIONAL,false,false
+FT-08,REPLAY,Fresh-worktree replay,CONTINUE;INCONCLUSIVE,false,false
+FT-09,DISPOSITION,Research-only decision,REJECT;INCONCLUSIVE;RETAIN_EXPERIMENTAL;ADOPT_AS_CHALLENGER;PROMOTION_REVIEW_REQUIRED,false,false

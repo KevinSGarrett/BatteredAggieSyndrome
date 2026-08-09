@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "version": "w10-v1.0",
+  "generated_at_utc": "2026-08-08T17:54:17+00:00",
+  "maturity": "FEATURE_ENGINEERING_AND_LIFECYCLE_CONTRACTS_SYNTHETIC_ONLY",
+  "principles": [
+    "all_candidate_inputs_enter_through_w08_pit_gateway",
+    "w09_registry_membership_is_not_predictive_evidence",
+    "no_same_game_pregame_history",
+    "no_universal_rolling_window",
+    "multiple_screening_methods_no_single_importance_gate",
+    "target_specific_feature_states",
+    "family_ablation_and_temporal_stability_required_before_promotion",
+    "synthetic_tests_do_not_promote_features",
+    "append_only_lifecycle_history",
+    "market_lane_isolated_from_pure_football"
+  ],
+  "counts": {
+    "raw_fields_preserved": 1197,
+    "candidate_seeds": 736,
+    "candidate_families": 15,
+    "transform_templates": 14,
+    "screening_methods": 15,
+    "lifecycle_states": 6,
+    "transition_rules": 15,
+    "empirical_promotion_decisions": 0
+  },
+  "lifecycle_states": [
+    "CORE",
+    "SUPPORTED",
+    "CONDITIONAL",
+    "EXPERIMENTAL",
+    "REJECTED",
+    "BANNED"
+  ],
+  "production_states": [
+    "CORE",
+    "SUPPORTED",
+    "CONDITIONAL"
+  ],
+  "nonproduction_states": [
+    "EXPERIMENTAL",
+    "REJECTED",
+    "BANNED"
+  ],
+  "threshold_policy": {
+    "feature_family_promotion_threshold_ref": "THR-007",
+    "status": "TBD_BY_EVIDENCE",
+    "w10_numeric_value_set": false
+  },
+  "promotion_contract": {
+    "required_evidence": [
+      "FE-001",
+      "FE-002",
+      "FE-003",
+      "FE-004",
+      "FE-005",
+      "FE-006",
+      "FE-008",
+      "FE-011",
+      "FE-012"
+    ],
+    "automatic_promotion": false,
+    "llm_or_expert_intuition_sufficient": false
+  },
+  "target_policy_file": "governance/TARGET_FEATURE_POLICY.csv",
+  "decision_log": "governance/FEATURE_LIFECYCLE_DECISION_LOG.csv",
+  "real_data_evidence_pending": [
+    "population_data_quality_W19",
+    "walk_forward_value_W17",
+    "family_ablation_W17",
+    "temporal_stability_W17",
+    "A&M_subgroup_W14_W17",
+    "operational_cost_W19_W23"
+  ]
+}

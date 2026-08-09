@@ -1,0 +1,3088 @@
+Issue type,Issue key,Issue ID,Summary,Parent,Description,Status,Priority,Labels,Component,Local Issue ID,Source IDs,Phase,Logical Workflow State,Implementation Maturity,Evidence State,Owner Historical Wave,Critical Path,Execution Lane,Execution Mode
+Epic,BAT-1,100001,[EPIC-001] Comprehensive data-universe research,,"Local ID: EPIC-001
+
+Objective
+Revalidate and expand the source universe, licensing/PIT feasibility, source priorities and fallbacks using fresh research.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-001, owner wave W06, phase PHASE-1, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_temporal_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_temporal.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00001
+- SRCREF-01961
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-001_comprehensive_data_universe_research.json",Done,High,historical;planning-program;w06;wave-completed;local-id-epic-001,pit-temporal,EPIC-001,EPIC-001,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W06,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-2,100002,[EPIC-002] Canonical entities and identity resolution,,"Local ID: EPIC-002
+
+Objective
+Define canonical identity, source mappings, temporal identity and unresolved-resolution workflow.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-002, owner wave W07, phase PHASE-1, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_entity_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w19_foundation.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_entities.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00002
+- SRCREF-01962
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-002_canonical_entities_and_identity_resolution.json",Done,High,historical;planning-program;w07;wave-completed;local-id-epic-002,entities,EPIC-002,EPIC-002,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W07,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-3,100003,[EPIC-003] Point-in-time state architecture,,"Local ID: EPIC-003
+
+Objective
+Implement the temporal semantics that make historical forecasts reconstructible without future information.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-003, owner wave W08, phase PHASE-1, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_model_architecture_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_model_architecture.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00003
+- SRCREF-01963
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-003_point_in_time_state_architecture.json",Done,High,historical;planning-program;w08;wave-completed;local-id-epic-003,modeling,EPIC-003,EPIC-003,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W08,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-4,100004,[EPIC-004] Raw feature registry and schema discovery,,"Local ID: EPIC-004
+
+Objective
+Build schema discovery and feature metadata so raw fields are classified before engineering/promotion.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-004, owner wave W09, phase PHASE-1, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_validation_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_validation_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00004
+- SRCREF-01964
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-004_raw_feature_registry_and_schema_discovery.json",Done,High,historical;planning-program;w09;wave-completed;local-id-epic-004,validation-promotion,EPIC-004,EPIC-004,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W09,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-5,100005,[EPIC-005] Feature engineering and lifecycle,,"Local ID: EPIC-005
+
+Objective
+Create PIT-safe transforms, screening, ablation and promotion/demotion workflow.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-005, owner wave W10, phase PHASE-1, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_validation_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_validation_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00005
+- SRCREF-01965
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-005_feature_engineering_and_lifecycle.json",Done,High,historical;planning-program;w10;wave-completed;local-id-epic-005,validation-promotion,EPIC-005,EPIC-005,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W10,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-6,100006,[EPIC-006] Team state and early-season intelligence,,"Local ID: EPIC-006
+
+Objective
+Build strength state, priors, recency, regime and lower-division hierarchy with uncertainty.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-006, owner wave W11, phase PHASE-1, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_model_architecture_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_model_architecture.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00006
+- SRCREF-01966
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-006_team_state_and_early_season_intelligence.json",Done,High,historical;planning-program;w11;wave-completed;local-id-epic-006,modeling,EPIC-006,EPIC-006,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W11,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-7,100007,[EPIC-007] Foundation baseline model capability,,"Local ID: EPIC-007
+
+Objective
+Establish simple and boosted national baselines, calibration and walk-forward benchmarks before complex challengers.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-007, owner wave W16-W17, phase PHASE-1, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_validation_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_validation_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00007
+- SRCREF-01967
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-007_foundation_baseline_model_capability.json",Done,High,historical;planning-program;w16-w17;wave-completed;local-id-epic-007,validation-promotion,EPIC-007,EPIC-007,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W16-W17,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-8,100008,[EPIC-008] Foundation implementation realization,,"Local ID: EPIC-008
+
+Objective
+Create functional starter adapters/contracts/storage/entity/PIT/feature implementations from the latest accepted designs.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-008, owner wave W19, phase PHASE-1, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_feature_registry_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_feature_lifecycle_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_feature_tournament_full.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00008
+- SRCREF-01968
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-008_foundation_implementation_realization.json",Done,High,historical;planning-program;w19;wave-completed;local-id-epic-008,feature-engineering,EPIC-008,EPIC-008,PHASE-1,DONE,FUNCTIONAL_STARTER,VERIFIED,W19,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-9,100009,"[EPIC-009] Player, roster, depth and availability state",,"Local ID: EPIC-009
+
+Objective
+Represent player value, depth, availability, usage, replacement and uncertainty at prediction time.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-009, owner wave W12, phase PHASE-2, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_model_architecture_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_model_architecture.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00009
+- SRCREF-01969
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-009_player_roster_depth_and_availability_state.json",Done,High,historical;planning-program;w12;wave-completed;local-id-epic-009,modeling,EPIC-009,EPIC-009,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W12,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-10,100010,"[EPIC-010] Transfers, recruiting and prospect priors",,"Local ID: EPIC-010
+
+Objective
+Translate incoming talent/production across competitive context without hard-coded conference penalties.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-010, owner wave W12, phase PHASE-2, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w22_product_serving.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w22_product.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00010
+- SRCREF-01970
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-010_transfers_recruiting_and_prospect_priors.json",Done,High,historical;planning-program;w12;wave-completed;local-id-epic-010,serving-product,EPIC-010,EPIC-010,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W12,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-11,100011,[EPIC-011] Coaching and staff intelligence,,"Local ID: EPIC-011
+
+Objective
+Represent effective-dated role episodes, development residuals, scheme/tendency and decision evidence with partial pooling.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-011, owner wave W13, phase PHASE-2, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_player_intelligence_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_context_intelligence_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_team_state_governance.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00011
+- SRCREF-01971
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-011_coaching_and_staff_intelligence.json",Done,High,historical;planning-program;w13;wave-completed;local-id-epic-011,player-context-intelligence,EPIC-011,EPIC-011,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-12,100012,"[EPIC-012] Environment, resources, venue and travel context",,"Local ID: EPIC-012
+
+Objective
+Represent environment and resource signals without inventing private-school values or hard-coded home bonuses.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-012, owner wave W13, phase PHASE-2, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_player_intelligence_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_context_intelligence_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_team_state_governance.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00012
+- SRCREF-01972
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-012_environment_resources_venue_and_travel_context.json",Done,High,historical;planning-program;w13;wave-completed;local-id-epic-012,player-context-intelligence,EPIC-012,EPIC-012,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-13,100013,"[EPIC-013] Possession, field position and special teams mechanics",,"Local ID: EPIC-013
+
+Objective
+Represent opportunity volume, hidden yards and specialists as separable candidate subsystems.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-013, owner wave W13, phase PHASE-2, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w25_final.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00013
+- SRCREF-01973
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-013_possession_field_position_and_special_teams_mechanics.json",Done,High,historical;planning-program;w13;wave-completed;local-id-epic-013,release-readiness,EPIC-013,EPIC-013,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-14,100014,"[EPIC-014] Opponent adjustment, style and schedule stress",,"Local ID: EPIC-014
+
+Objective
+Normalize performance by opponent quality and represent matchup/style/workload context.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-014, owner wave W13, phase PHASE-2, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w25_final.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00014
+- SRCREF-01974
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-014_opponent_adjustment_style_and_schedule_stress.json",Done,High,historical;planning-program;w13;wave-completed;local-id-epic-014,release-readiness,EPIC-014,EPIC-014,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-15,100015,[EPIC-015] Advanced intelligence implementation realization,,"Local ID: EPIC-015
+
+Objective
+Implement selected advanced state/feature components behind stable PIT-safe interfaces.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-015, owner wave W19-W20, phase PHASE-2, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_feature_registry_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_feature_lifecycle_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_feature_tournament_full.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00015
+- SRCREF-01975
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-015_advanced_intelligence_implementation_realization.json",Done,High,historical;planning-program;w19-w20;wave-completed;local-id-epic-015,feature-engineering,EPIC-015,EPIC-015,PHASE-2,DONE,FUNCTIONAL_STARTER,VERIFIED,W19-W20,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-16,100016,[EPIC-016] Texas A&M high-resolution state,,"Local ID: EPIC-016
+
+Objective
+Define deeper A&M roster/unit/regime/matchup state while preserving one canonical truth.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-016, owner wave W14, phase PHASE-3, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_tamu_specialization_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_tamu_specialization.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00016
+- SRCREF-01976
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-016_texas_a_and_m_high_resolution_state.json",Done,High,historical;planning-program;w14;wave-completed;local-id-epic-016,tamu-specialization,EPIC-016,EPIC-016,PHASE-3,DONE,CONTRACT_DEFINED,VERIFIED,W14,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-17,100017,[EPIC-017] A&M specialization architecture,,"Local ID: EPIC-017
+
+Objective
+Compare residual, hierarchical multi-task, stacking and other specialization forms without forcing a nonzero adjustment.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-017, owner wave W14, phase PHASE-3, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_tamu_specialization_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_tamu_specialization.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00017
+- SRCREF-01977
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-017_a_and_m_specialization_architecture.json",Done,High,historical;planning-program;w14;wave-completed;local-id-epic-017,tamu-specialization,EPIC-017,EPIC-017,PHASE-3,DONE,CONTRACT_DEFINED,VERIFIED,W14,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-18,100018,[EPIC-018] Scientific BAS labels and cross-fitting,,"Local ID: EPIC-018
+
+Objective
+Formalize leakage-safe performance residuals and BAS severity labels.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-018, owner wave W15, phase PHASE-3, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_bas_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_bas_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00018
+- SRCREF-01978
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-018_scientific_bas_labels_and_cross_fitting.json",Done,High,historical;planning-program;w15;wave-completed;local-id-epic-018,bas-science,EPIC-018,EPIC-018,PHASE-3,DONE,CONTRACT_DEFINED,VERIFIED,W15,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-19,100019,[EPIC-019] BAS decomposition and statistical validation,,"Local ID: EPIC-019
+
+Objective
+Evaluate Aggie Excess, peer/regime/component hypotheses without hard-coding fan narratives.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-019, owner wave W15-W17, phase PHASE-3, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_bas_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_bas_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00019
+- SRCREF-01979
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-019_bas_decomposition_and_statistical_validation.json",Done,High,historical;planning-program;w15-w17;wave-completed;local-id-epic-019,bas-science,EPIC-019,EPIC-019,PHASE-3,DONE,CONTRACT_DEFINED,VERIFIED,W15-W17,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-20,100020,[EPIC-020] A&M specialization and BAS starter implementation,,"Local ID: EPIC-020
+
+Objective
+Implement selected specialization/BAS interfaces and integrate them with coherent forecast assembly.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-020, owner wave W20, phase PHASE-3, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_bas_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_bas_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00020
+- SRCREF-01980
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-020_a_and_m_specialization_and_bas_starter_implementation.json",Done,High,historical;planning-program;w20;wave-completed;local-id-epic-020,bas-science,EPIC-020,EPIC-020,PHASE-3,DONE,FUNCTIONAL_STARTER,VERIFIED,W20,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-21,100021,"[EPIC-021] Model targets, joint score and simulation",,"Local ID: EPIC-021
+
+Objective
+Build coherent outcome-distribution architecture for win/loss/score/margin/BAS rather than disconnected point predictions.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-021, owner wave W16, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_bas_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_bas_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00021
+- SRCREF-01981
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-021_model_targets_joint_score_and_simulation.json",Done,High,historical;planning-program;w16;wave-completed;local-id-epic-021,bas-science,EPIC-021,EPIC-021,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W16,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-22,100022,"[EPIC-022] Uncertainty, OOD and market lanes",,"Local ID: EPIC-022
+
+Objective
+Separate pure-football and timestamp-safe market-augmented forecasts and expose uncertainty without unsupported directional claims.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-022, owner wave W16-W17, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_model_architecture_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_model_architecture.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00022
+- SRCREF-01982
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-022_uncertainty_ood_and_market_lanes.json",Done,High,historical;planning-program;w16-w17;wave-completed;local-id-epic-022,modeling,EPIC-022,EPIC-022,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W16-W17,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-23,100023,"[EPIC-023] Validation, benchmarking and promotion science",,"Local ID: EPIC-023
+
+Objective
+Protect chronological evaluation and promotion rules before protected results are observed.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-023, owner wave W17, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_validation_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_validation_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00023
+- SRCREF-01983
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-023_validation_benchmarking_and_promotion_science.json",Done,High,historical;planning-program;w17;wave-completed;local-id-epic-023,validation-promotion,EPIC-023,EPIC-023,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W17,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-24,100024,[EPIC-024] Experimentation and autonomous research system,,"Local ID: EPIC-024
+
+Objective
+Build a governed experiment queue that can propose/run challengers without changing its own judging rules.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-024, owner wave W18, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_validation_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_validation_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00024
+- SRCREF-01984
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-024_experimentation_and_autonomous_research_system.json",Done,High,historical;planning-program;w18;wave-completed;local-id-epic-024,validation-promotion,EPIC-024,EPIC-024,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W18,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-25,100025,"[EPIC-025] Model, calibration and forecast starter implementation",,"Local ID: EPIC-025
+
+Objective
+Implement selected baseline/boosting/score/calibration/ensemble/uncertainty interfaces without fabricated performance.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-025, owner wave W20, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_model_architecture_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_model_architecture.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00025
+- SRCREF-01985
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-025_model_calibration_and_forecast_starter_implementation.json",Done,High,historical;planning-program;w20;wave-completed;local-id-epic-025,modeling,EPIC-025,EPIC-025,PHASE-4,DONE,FUNCTIONAL_STARTER,VERIFIED,W20,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-26,100026,[EPIC-026] Autonomous weekly MLOps,,"Local ID: EPIC-026
+
+Objective
+Create resumable ingestion→QA→state→features→train→evaluate→promote→forecast→postmortem workflows.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-026, owner wave W21, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w21_weekly_mlops.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w21_mlops.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00026
+- SRCREF-01986
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-026_autonomous_weekly_mlops.json",Done,High,historical;planning-program;w21;wave-completed;local-id-epic-026,mlops,EPIC-026,EPIC-026,PHASE-4,DONE,INTEGRATED,VERIFIED,W21,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-27,100027,"[EPIC-027] API, dashboard and forecast product",,"Local ID: EPIC-027
+
+Objective
+Serve immutable forecast snapshots with lineage, explanation, uncertainty, BAS and availability context.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-027, owner wave W22, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_bas_science_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_bas_science.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00027
+- SRCREF-01987
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-027_api_dashboard_and_forecast_product.json",Done,High,historical;planning-program;w22;wave-completed;local-id-epic-027,bas-science,EPIC-027,EPIC-027,PHASE-4,DONE,INTEGRATED,VERIFIED,W22,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-28,100028,"[EPIC-028] CI/CD, security, observability and local operations",,"Local ID: EPIC-028
+
+Objective
+Harden the local production path using measured operational needs rather than cargo-cult infrastructure.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-028, owner wave W23, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w22_product_serving.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w22_product.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00028
+- SRCREF-01988
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-028_ci_cd_security_observability_and_local_operations.json",To Do,High,historical;historical-open;planning-program;w23;local-id-epic-028,serving-product,EPIC-028,EPIC-028,PHASE-4,BLOCKED,INTEGRATED,PARTIAL,W23,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-29,100029,[EPIC-029] Advanced challenger framework,,"Local ID: EPIC-029
+
+Objective
+Allow neural/sequence/graph/other challengers only after strong baselines and protected evaluation exist.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-029, owner wave W18+, phase PHASE-5, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_advanced_challenger_full.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/check_advanced_challenger_admission.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00029
+- SRCREF-01989
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-029_advanced_challenger_framework.json",To Do,Medium,historical;historical-open;planning-program;w18;local-id-epic-029,advanced-challengers,EPIC-029,EPIC-029,PHASE-5,DEFERRED,FUNCTIONAL_STARTER,PARTIAL,W18+,false,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-30,100030,[EPIC-030] Future live/in-game research lane,,"Local ID: EPIC-030
+
+Objective
+Research chronological live replay without allowing live state into the same game pregame feature row.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-030, owner wave W24+, phase PHASE-5, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW TEST REQUIRED — Create and execute the smallest deterministic validation or end-to-end gate that proves this issue without fabricating unavailable evidence.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00030
+- SRCREF-01990
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-030_future_live_in_game_research_lane.json",To Do,Low,historical;historical-open;planning-program;w24;local-id-epic-030,live-modeling,EPIC-030,EPIC-030,PHASE-5,DEFERRED,FUNCTIONAL_STARTER,PARTIAL,W24+,false,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-31,100031,[EPIC-031] End-to-end readiness and source refresh,,"Local ID: EPIC-031
+
+Objective
+Replay the integrated system, refresh source assumptions and challenge architecture before final consolidation.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-031, owner wave W24, phase PHASE-5, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w25_final.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00031
+- SRCREF-01991
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-031_end_to_end_readiness_and_source_refresh.json",Done,High,historical;planning-program;w24;wave-completed;local-id-epic-031,release-readiness,EPIC-031,EPIC-031,PHASE-5,DONE,INTEGRATED,VERIFIED,W24,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-32,100032,[EPIC-032] Final consolidation and Codex handoff,,"Local ID: EPIC-032
+
+Objective
+Audit all requirements/ADRs/data/PIT/features/models/acceptance and deliver the final canonical repository and implementation priority.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-032, owner wave W25, phase PHASE-5, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_model_architecture_governance.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w20_model_starter.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_model_architecture.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00032
+- SRCREF-01992
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-032_final_consolidation_and_codex_handoff.json",Done,High,historical;planning-program;w25;wave-completed;local-id-epic-032,modeling,EPIC-032,EPIC-032,PHASE-5,DONE,INTEGRATED,VERIFIED,W25,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-33,100033,"[EPIC-033] Program governance, packaging and adaptive control",,"Local ID: EPIC-033
+
+Objective
+Maintain cumulative integrity, stable IDs, acceptance evidence, architecture conformance and adaptive replanning across all implementation waves.
+
+Why This Exists
+Preserve the authoritative 25-wave planning/design capability and its original scoped status without claiming that empirical production maturity was achieved.
+
+Scope
+Historical epic scope exactly as represented by the authoritative Epic Catalog and its WBS children.
+
+Explicit In Scope
+- Original planning/design/starter work
+- Stable source IDs and child traceability
+- Scoped historical completion evidence
+
+Explicit Out of Scope
+- Claiming real-data, protected-evaluation, production-ready, or operating maturity unless separately evidenced
+- Creating a Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. The epic retains stable ID EPIC-033, owner wave W06-W25, phase PHASE-4, and all authoritative WBS children.
+2. The workflow state represents original scoped completion/open state only and is not interpreted as empirical product completion.
+3. Any remaining real-data, model, validation, hardware, operational, conditional, or deferred obligation is represented in post-wave issues and traceability indexes.
+
+Definition of Done
+1. The original historical scope and status are preserved with source evidence and stable identifiers.
+2. The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.
+3. Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tests/test_w25_final_handoff.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w24_readiness.py — Run and retain the result when this issue touches the covered contract.
+- EXISTING_AUTOMATED_TEST / EXISTING_AUTOMATED_TEST: tools/validate_w25_final.py — Run and retain the result when this issue touches the covered contract.
+
+Required Evidence
+
+
+End-to-End Validation
+Historical traceability is complete only when every child and every remaining maturity obligation has an explicit disposition.
+
+Stop Conditions
+- Stop if a proposed update renumbers the historical epic or rewrites its original wave provenance.
+
+Source References
+- SRCREF-00033
+- SRCREF-01993
+
+Governance Traceability Gate: 
+
+Canonical Record: jira/records/issues/epics/EPIC-033_program_governance_packaging_and_adaptive_control.json",Done,High,historical;planning-program;w06-w25;wave-completed;local-id-epic-033,release-readiness,EPIC-033,EPIC-033,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W06-W25,false,SHARED_CONTRACT,HISTORICAL_REFERENCE
+Epic,BAT-34,100034,"[POST-EPIC-001] Target environment, reproducibility, and AC-038 hardware evidence",,"Local ID: POST-EPIC-001
+
+Objective
+Establish an authoritative, reproducible local execution environment and evidence-backed resource envelope on the declared target Windows hardware.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the environment domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-001, POST-STORY-002, POST-STORY-003, POST-STORY-004 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-003 — Story gate `POST-SUBTASK-003` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-006 — Story gate `POST-SUBTASK-006` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-009 — Story gate `POST-SUBTASK-009` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-012 — Story gate `POST-SUBTASK-012` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-003, POST-SUBTASK-006, POST-SUBTASK-009, POST-SUBTASK-012.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Target environment, reproducibility, and AC-038 hardware evidence capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-01994
+- SRCREF-01995
+- SRCREF-01996
+- SRCREF-01997
+- SRCREF-01998
+- SRCREF-01999
+- SRCREF-02000
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01887
+- SRCREF-01563
+
+Governance Traceability Gate: POST-SUBTASK-009
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-001_target_environment_reproducibility_and_ac_038_hardware_evidence.json",To Do,Highest,actionable;core-release;environment;post-wave;local-id-post-epic-001,operations-security,POST-EPIC-001,GAP-001;HANDOFF-001,PHASE-4,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-35,100035,"[POST-EPIC-002] Source access, rights, credentials, and acquisition governance",,"Local ID: POST-EPIC-002
+
+Objective
+Convert the researched source universe into approved production acquisition lanes with explicit rights, credentials, rate limits, fallbacks, and redistribution rules.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the sources domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-005, POST-STORY-006, POST-STORY-007, POST-STORY-008 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-015 — Story gate `POST-SUBTASK-015` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-018 — Story gate `POST-SUBTASK-018` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-021 — Story gate `POST-SUBTASK-021` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-024 — Story gate `POST-SUBTASK-024` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-015, POST-SUBTASK-018, POST-SUBTASK-021, POST-SUBTASK-024.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Source access, rights, credentials, and acquisition governance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02007
+- SRCREF-02008
+- SRCREF-02009
+- SRCREF-02010
+- SRCREF-02011
+- SRCREF-02012
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01888
+- SRCREF-01898
+- SRCREF-01572
+
+Governance Traceability Gate: POST-SUBTASK-024
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-002_source_access_rights_credentials_and_acquisition_governance.json",To Do,Highest,actionable;core-release;post-wave;sources;local-id-post-epic-002,data-sources,POST-EPIC-002,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-36,100036,[POST-EPIC-003] Immutable national historical data materialization,,"Local ID: POST-EPIC-003
+
+Objective
+Acquire approved national history into immutable, content-addressed raw snapshots with population-level coverage, rights, and provenance evidence.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the raw-data domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-024
+- POST-SUBTASK-024
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-009, POST-STORY-010, POST-STORY-011 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-027 — Story gate `POST-SUBTASK-027` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-030 — Story gate `POST-SUBTASK-030` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-033 — Story gate `POST-SUBTASK-033` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-027, POST-SUBTASK-030, POST-SUBTASK-033.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Immutable national historical data materialization capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02015
+- SRCREF-02016
+- SRCREF-02017
+- SRCREF-02018
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-003_immutable_national_historical_data_materialization.json",To Do,Highest,actionable;core-release;post-wave;raw-data;local-id-post-epic-003,raw-snapshots,POST-EPIC-003,GAP-002;HANDOFF-003,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-37,100037,[POST-EPIC-004] Population schema profiling and canonical entity resolution,,"Local ID: POST-EPIC-004
+
+Objective
+Profile real populations and resolve teams, conferences, venues, coaches, players, games, sources, and temporal aliases at scale with auditable uncertainty.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the entities domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-033
+- POST-SUBTASK-033
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-012, POST-STORY-013, POST-STORY-014 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-036 — Story gate `POST-SUBTASK-036` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-039 — Story gate `POST-SUBTASK-039` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-042 — Story gate `POST-SUBTASK-042` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-036, POST-SUBTASK-039, POST-SUBTASK-042.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Population schema profiling and canonical entity resolution capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02019
+- SRCREF-02020
+- SRCREF-02021
+- SRCREF-02022
+- SRCREF-02023
+- SRCREF-02024
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01565
+- SRCREF-01566
+
+Governance Traceability Gate: POST-SUBTASK-042
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-004_population_schema_profiling_and_canonical_entity_resolution.json",To Do,Highest,actionable;core-release;entities;post-wave;local-id-post-epic-004,entities,POST-EPIC-004,GAP-003;GAP-004,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-38,100038,[POST-EPIC-005] Point-in-time historical state and protected replay,,"Local ID: POST-EPIC-005
+
+Objective
+Build fail-closed known-at semantics, append-only as-of state, pregame matrices, leakage batteries, and chronological replay from real history.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the pit domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-042
+- POST-SUBTASK-042
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-015, POST-STORY-016, POST-STORY-017 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-045 — Story gate `POST-SUBTASK-045` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-048 — Story gate `POST-SUBTASK-048` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-051 — Story gate `POST-SUBTASK-051` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-045, POST-SUBTASK-048, POST-SUBTASK-051.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Point-in-time historical state and protected replay capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02025
+- SRCREF-02026
+- SRCREF-02027
+- SRCREF-02028
+- SRCREF-02029
+- SRCREF-02030
+- SRCREF-02031
+- SRCREF-02032
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01890
+- SRCREF-01567
+
+Governance Traceability Gate: POST-SUBTASK-051
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-005_point_in_time_historical_state_and_protected_replay.json",To Do,Highest,actionable;core-release;pit;post-wave;local-id-post-epic-005,pit-temporal,POST-EPIC-005,GAP-005;HANDOFF-004,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-39,100039,[POST-EPIC-006] Production feature materialization and lifecycle,,"Local ID: POST-EPIC-006
+
+Objective
+Turn the broad feature universe into leakage-safe, reproducible, empirically screened production candidates without intuition-only promotion.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the features domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-048
+- POST-SUBTASK-048
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-018, POST-STORY-019, POST-STORY-020 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-054 — Story gate `POST-SUBTASK-054` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-057 — Story gate `POST-SUBTASK-057` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-060 — Story gate `POST-SUBTASK-060` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-054, POST-SUBTASK-057, POST-SUBTASK-060.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Production feature materialization and lifecycle capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02033
+- SRCREF-02034
+- SRCREF-02035
+- SRCREF-02036
+- SRCREF-02037
+- SRCREF-02038
+- SRCREF-02039
+- SRCREF-02040
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01891
+- SRCREF-01569
+
+Governance Traceability Gate: POST-SUBTASK-060
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-006_production_feature_materialization_and_lifecycle.json",To Do,High,actionable;core-release;features;post-wave;local-id-post-epic-006,feature-engineering,POST-EPIC-006,GAP-007;HANDOFF-005,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-40,100040,"[POST-EPIC-007] Player, roster, recruiting, coaching, and matchup intelligence",,"Local ID: POST-EPIC-007
+
+Objective
+Materialize higher-resolution football state required for credible availability-aware forecasts and A&M specialization while preserving uncertainty and source limits.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the advanced-football domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-030
+- Completion of POST-SUBTASK-048
+- POST-SUBTASK-030
+- POST-SUBTASK-048
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-021, POST-STORY-022, POST-STORY-023 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-063 — Story gate `POST-SUBTASK-063` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-066 — Story gate `POST-SUBTASK-066` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-069 — Story gate `POST-SUBTASK-069` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-063, POST-SUBTASK-066, POST-SUBTASK-069.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Player, roster, recruiting, coaching, and matchup intelligence capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02041
+- SRCREF-02042
+- SRCREF-02043
+- SRCREF-02044
+- SRCREF-02045
+- SRCREF-02046
+- SRCREF-02047
+- SRCREF-02048
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01894
+- SRCREF-01568
+
+Governance Traceability Gate: POST-SUBTASK-069
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-007_player_roster_recruiting_coaching_and_matchup_intelligence.json",To Do,High,actionable;advanced-football;core-release;post-wave;local-id-post-epic-007,player-context-intelligence,POST-EPIC-007,GAP-006;HANDOFF-008,PHASE-2,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-41,100041,"[POST-EPIC-008] Reproducible baseline, coherent score, probability, and uncertainty modeling",,"Local ID: POST-EPIC-008
+
+Objective
+Train credible national baselines and coherent forecast candidates on leakage-safe real matrices with reproducible artifacts and no fabricated winner.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the modeling domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-060
+- Completion of POST-SUBTASK-051
+- POST-SUBTASK-051
+- POST-SUBTASK-060
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-024, POST-STORY-025, POST-STORY-026 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-072 — Story gate `POST-SUBTASK-072` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-075 — Story gate `POST-SUBTASK-075` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-078 — Story gate `POST-SUBTASK-078` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-072, POST-SUBTASK-075, POST-SUBTASK-078.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Reproducible baseline, coherent score, probability, and uncertainty modeling capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02049
+- SRCREF-02050
+- SRCREF-02051
+- SRCREF-02052
+- SRCREF-02053
+- SRCREF-02054
+- SRCREF-02055
+- SRCREF-02056
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01892
+- SRCREF-01570
+
+Governance Traceability Gate: POST-SUBTASK-078
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-008_reproducible_baseline_coherent_score_probability_and_uncertainty_modeling.json",To Do,High,actionable;core-release;modeling;post-wave;local-id-post-epic-008,modeling,POST-EPIC-008,GAP-008;HANDOFF-006,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-42,100042,[POST-EPIC-009] Texas A&M high-resolution specialization and no-lift-safe evaluation,,"Local ID: POST-EPIC-009
+
+Objective
+Build A&M-specific state and specialization candidates while requiring protected evidence and accepting a global-only/no-adjustment result.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the tamu domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-063
+- Completion of POST-SUBTASK-069
+- Completion of POST-SUBTASK-078
+- POST-SUBTASK-063
+- POST-SUBTASK-069
+- POST-SUBTASK-078
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-027, POST-STORY-028, POST-STORY-029 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-081 — Story gate `POST-SUBTASK-081` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-084 — Story gate `POST-SUBTASK-084` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-087 — Story gate `POST-SUBTASK-087` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-081, POST-SUBTASK-084, POST-SUBTASK-087.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Texas A&M high-resolution specialization and no-lift-safe evaluation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02057
+- SRCREF-02058
+- SRCREF-02059
+- SRCREF-02060
+- SRCREF-02061
+- SRCREF-02062
+- SRCREF-02063
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01893
+- SRCREF-01571
+
+Governance Traceability Gate: POST-SUBTASK-087
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-009_texas_a_and_m_high_resolution_specialization_and_no_lift_safe_evaluation.json",To Do,High,actionable;core-release;post-wave;tamu;local-id-post-epic-009,tamu-specialization,POST-EPIC-009,GAP-009;HANDOFF-007,PHASE-3,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-43,100043,"[POST-EPIC-010] Scientific BAS, general FBS surprise, Aggie excess, and component validation",,"Local ID: POST-EPIC-010
+
+Objective
+Validate BAS as out-of-sample A&M underperformance relative to a strictly valid pregame expectation, never as generic loss probability and never by forcing a nonzero effect.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the bas domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+- Redefining BAS as generic Texas A&M loss probability or selecting specifications merely to manufacture a nonzero Aggie-specific effect.
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-078
+- Completion of POST-SUBTASK-084
+- POST-SUBTASK-078
+- POST-SUBTASK-084
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+4. A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct.
+
+Definition of Done
+1. Every child Story POST-STORY-030, POST-STORY-031, POST-STORY-032 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-090 — Story gate `POST-SUBTASK-090` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-093 — Story gate `POST-SUBTASK-093` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-096 — Story gate `POST-SUBTASK-096` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-090, POST-SUBTASK-093, POST-SUBTASK-096.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Scientific BAS, general FBS surprise, Aggie excess, and component validation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+- Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result.
+
+Source References
+- SRCREF-02064
+- SRCREF-02065
+- SRCREF-02066
+- SRCREF-02067
+- SRCREF-02068
+- SRCREF-02069
+- SRCREF-02070
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01895
+- SRCREF-01571
+
+Governance Traceability Gate: POST-SUBTASK-096
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-010_scientific_bas_general_fbs_surprise_aggie_excess_and_component_validation.json",To Do,High,actionable;bas;core-release;post-wave;local-id-post-epic-010,bas-science,POST-EPIC-010,GAP-009;HANDOFF-009,PHASE-3,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-44,100044,"[POST-EPIC-011] Protected chronological evaluation, calibration, and champion promotion",,"Local ID: POST-EPIC-011
+
+Objective
+Run the sealed real-data evaluation program and promote a champion only when all protected scientific, calibration, coherence, reproducibility, and operational gates pass.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the validation domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-078
+- Completion of POST-SUBTASK-084
+- Completion of POST-SUBTASK-090
+- POST-SUBTASK-078
+- POST-SUBTASK-084
+- POST-SUBTASK-090
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-033, POST-STORY-034, POST-STORY-035 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-099 — Story gate `POST-SUBTASK-099` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-102 — Story gate `POST-SUBTASK-102` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-105 — Story gate `POST-SUBTASK-105` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-099, POST-SUBTASK-102, POST-SUBTASK-105.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Protected chronological evaluation, calibration, and champion promotion capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02071
+- SRCREF-02072
+- SRCREF-02073
+- SRCREF-02074
+- SRCREF-02075
+- SRCREF-02076
+- SRCREF-02077
+- SRCREF-02078
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01892
+- SRCREF-01570
+- SRCREF-01571
+
+Governance Traceability Gate: POST-SUBTASK-105
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-011_protected_chronological_evaluation_calibration_and_champion_promotion.json",To Do,High,actionable;core-release;post-wave;validation;local-id-post-epic-011,validation-promotion,POST-EPIC-011,GAP-008;GAP-009;HANDOFF-006,PHASE-4,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-45,100045,[POST-EPIC-012] Autonomous weekly real-data execution and immutable forecast publication,,"Local ID: POST-EPIC-012
+
+Objective
+Operate the acquisition-to-publication chain on real weekly data with checkpoints, idempotency, governed retraining, immutable snapshots, failure drills, and operating evidence.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the mlops domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-105
+- POST-SUBTASK-105
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-036, POST-STORY-037, POST-STORY-038 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-108 — Story gate `POST-SUBTASK-108` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-111 — Story gate `POST-SUBTASK-111` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-114 — Story gate `POST-SUBTASK-114` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-108, POST-SUBTASK-111, POST-SUBTASK-114.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Autonomous weekly real-data execution and immutable forecast publication capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02079
+- SRCREF-02080
+- SRCREF-02081
+- SRCREF-02082
+- SRCREF-02083
+- SRCREF-02084
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01896
+- SRCREF-01574
+
+Governance Traceability Gate: POST-SUBTASK-114
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-012_autonomous_weekly_real_data_execution_and_immutable_forecast_publication.json",To Do,Medium,actionable;core-release;mlops;post-wave;local-id-post-epic-012,mlops,POST-EPIC-012,GAP-012;HANDOFF-010,PHASE-4,BACKLOG,OPERATING,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-46,100046,"[POST-EPIC-013] Snapshot API, dashboard, explanations, analogs, and freshness-safe product",,"Local ID: POST-EPIC-013
+
+Objective
+Serve the predictive system and witty BAS experience from immutable approved snapshots with truthful freshness, uncertainty, provenance, accessibility, and no live recomputation drift.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the product domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-111
+- POST-SUBTASK-111
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-039, POST-STORY-040, POST-STORY-041 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-117 — Story gate `POST-SUBTASK-117` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-120 — Story gate `POST-SUBTASK-120` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-123 — Story gate `POST-SUBTASK-123` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-117, POST-SUBTASK-120, POST-SUBTASK-123.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Snapshot API, dashboard, explanations, analogs, and freshness-safe product capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02085
+- SRCREF-02086
+- SRCREF-02087
+- SRCREF-02088
+- SRCREF-02089
+- SRCREF-02090
+- SRCREF-02091
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01897
+- SRCREF-01574
+
+Governance Traceability Gate: POST-SUBTASK-123
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-013_snapshot_api_dashboard_explanations_analogs_and_freshness_safe_product.json",To Do,Medium,actionable;core-release;post-wave;product;local-id-post-epic-013,serving-product,POST-EPIC-013,GAP-012;HANDOFF-011,PHASE-4,BACKLOG,OPERATING,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-47,100047,"[POST-EPIC-014] Security, observability, backup/restore, drift, and incident operations",,"Local ID: POST-EPIC-014
+
+Objective
+Provide controls required to run the local-first system safely, visibly, recoverably, and without unnecessary infrastructure.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the operations domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-002
+- Completion of POST-SUBTASK-024
+- POST-SUBTASK-002
+- POST-SUBTASK-024
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-042, POST-STORY-043, POST-STORY-044 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-126 — Story gate `POST-SUBTASK-126` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-129 — Story gate `POST-SUBTASK-129` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-132 — Story gate `POST-SUBTASK-132` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-126, POST-SUBTASK-129, POST-SUBTASK-132.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Security, observability, backup/restore, drift, and incident operations capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02092
+- SRCREF-02093
+- SRCREF-02094
+- SRCREF-02095
+- SRCREF-02096
+- SRCREF-02097
+- SRCREF-02098
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01898
+
+Governance Traceability Gate: POST-SUBTASK-132
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-014_security_observability_backup_restore_drift_and_incident_operations.json",To Do,Medium,actionable;core-release;operations;post-wave;local-id-post-epic-014,operations-security,POST-EPIC-014,HANDOFF-012,PHASE-4,BACKLOG,OPERATING,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-48,100048,[POST-EPIC-015] Full end-to-end release candidate and operating acceptance,,"Local ID: POST-EPIC-015
+
+Objective
+Close or disposition every required gap/risk/control, prove the real-data product on the target architecture, and authorize operation without confusing starter readiness with completion.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the release domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-114
+- Completion of POST-SUBTASK-123
+- Completion of POST-SUBTASK-132
+- Completion of POST-SUBTASK-009
+- POST-SUBTASK-009
+- POST-SUBTASK-114
+- POST-SUBTASK-123
+- POST-SUBTASK-132
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-045, POST-STORY-046, POST-STORY-047 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-135 — Story gate `POST-SUBTASK-135` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-138 — Story gate `POST-SUBTASK-138` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-141 — Story gate `POST-SUBTASK-141` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-135, POST-SUBTASK-138, POST-SUBTASK-141.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Full end-to-end release candidate and operating acceptance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02099
+- SRCREF-02100
+- SRCREF-02101
+- SRCREF-02102
+- SRCREF-02103
+- SRCREF-02104
+- SRCREF-02105
+- SRCREF-02106
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01899
+- SRCREF-01900
+
+Governance Traceability Gate: POST-SUBTASK-141
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-015_full_end_to_end_release_candidate_and_operating_acceptance.json",To Do,Medium,actionable;core-release;post-wave;release;local-id-post-epic-015,release-readiness,POST-EPIC-015,HANDOFF-013;HANDOFF-014,PHASE-5,BACKLOG,OPERATING,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-49,100049,[POST-EPIC-016] Conditional advanced challenger research and admission,,"Local ID: POST-EPIC-016
+
+Objective
+Preserve optional neural, Bayesian, graph, and sequence challengers behind explicit scientific value, data, compute, and promotion gates.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the advanced domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-141
+- POST-SUBTASK-141
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-048, POST-STORY-049, POST-STORY-050 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-144 — Story gate `POST-SUBTASK-144` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-147 — Story gate `POST-SUBTASK-147` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-150 — Story gate `POST-SUBTASK-150` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-144, POST-SUBTASK-147, POST-SUBTASK-150.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Conditional advanced challenger research and admission capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02107
+- SRCREF-02108
+- SRCREF-02109
+- SRCREF-02110
+- SRCREF-02111
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01899
+- SRCREF-01575
+- SRCREF-00198
+- SRCREF-00199
+- SRCREF-00200
+- SRCREF-00201
+
+Governance Traceability Gate: POST-SUBTASK-150
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-016_conditional_advanced_challenger_research_and_admission.json",To Do,Low,actionable;advanced;conditional;post-wave;local-id-post-epic-016,advanced-challengers,POST-EPIC-016,GAP-013;HANDOFF-013;TASK-165;TASK-166;TASK-167;TASK-168,PHASE-5,DEFERRED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,PROTECTED_GATE,AGGREGATE_GATE
+Epic,BAT-50,100050,[POST-EPIC-017] Deferred live and in-game modeling,,"Local ID: POST-EPIC-017
+
+Objective
+Keep live/in-game modeling explicitly deferred behind separate source-rights, latency, state, replay, evaluation, product, resource, and operating authorization.
+
+Why This Exists
+The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
+
+Scope
+All Stories and Subtasks under this Epic for the live domain, including its explicit integrated completion gate.
+
+Explicit In Scope
+- Child implementation and evidence work
+- Cross-domain hard dependencies
+- Integrated end-to-end gate
+- Preservation of source authority and protected controls
+
+Explicit Out of Scope
+- Declaring child code sufficient without integrated evidence
+- Changing protected requirements or ADRs without governance review
+- Creating Wave 26
+
+Prerequisites / Dependencies
+- Completion of POST-SUBTASK-141
+- POST-SUBTASK-141
+
+Acceptance Criteria
+1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+
+Definition of Done
+1. Every child Story POST-STORY-051, POST-STORY-052, POST-STORY-053 is completed through its explicit end-to-end gate or has an explicit accepted-risk/deferred/cancelled disposition consistent with release governance.
+2. The Epic integrated capability is demonstrated on the required real data, chronology, target host, product path, or operating path; planning, code, fixtures, or unit tests alone cannot satisfy it.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve, all release-blocking controls have current evidence, and no protected invariant is weakened.
+4. The Epic evidence manifest pins all relevant source/data/code/config/model/calibrator/split/cutoff/runtime/hardware identities and preserves failures, null results, and unresolved limitations.
+5. Canonical/derived Jira views, live operational fields when connected, links, queues, release gates, and downstream states are synchronized and pass strict validation.
+
+Required Tests / Validation
+- END_TO_END / END_TO_END: POST-SUBTASK-153 — Story gate `POST-SUBTASK-153` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-156 — Story gate `POST-SUBTASK-156` must complete with verified evidence before Epic completion.
+- END_TO_END / END_TO_END: POST-SUBTASK-159 — Story gate `POST-SUBTASK-159` must complete with verified evidence before Epic completion.
+- REPRODUCIBILITY / REPRODUCIBILITY: EPIC_EVIDENCE_MANIFEST — Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness.
+
+Required Evidence
+- Verified Story gate decisions for POST-SUBTASK-153, POST-SUBTASK-156, POST-SUBTASK-159.
+- Epic-level integrated execution/review evidence demonstrating actual downstream consumption and safe failure behavior.
+- A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
+
+End-to-End Validation
+The entire Deferred live and in-game modeling capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+
+Stop Conditions
+- Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
+
+Source References
+- SRCREF-02112
+- SRCREF-02113
+- SRCREF-02114
+- SRCREF-02115
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01900
+- SRCREF-01576
+- SRCREF-00202
+- SRCREF-00203
+- SRCREF-00204
+- SRCREF-00205
+
+Governance Traceability Gate: POST-SUBTASK-159
+
+Canonical Record: jira/records/issues/epics/POST-EPIC-017_deferred_live_and_in_game_modeling.json",To Do,Low,actionable;deferred;live;post-wave;local-id-post-epic-017,live-modeling,POST-EPIC-017,GAP-014;HANDOFF-014;TASK-169;TASK-170;TASK-171;TASK-172,PHASE-5,DEFERRED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,PROTECTED_GATE,AGGREGATE_GATE

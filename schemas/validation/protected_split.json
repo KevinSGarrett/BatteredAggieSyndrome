@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProtectedSplitProtocol",
+  "type": "object",
+  "required": [
+    "protocol_id",
+    "role",
+    "season_start",
+    "season_end",
+    "tuning_allowed",
+    "threshold_setting_allowed"
+  ],
+  "properties": {
+    "protocol_id": {
+      "type": "string"
+    },
+    "role": {
+      "enum": [
+        "DEVELOPMENT",
+        "DEVELOPMENT_SELECTION",
+        "PROTECTED_TEST",
+        "FORWARD_SHADOW"
+      ]
+    },
+    "season_start": {},
+    "season_end": {},
+    "tuning_allowed": {
+      "type": "boolean"
+    },
+    "threshold_setting_allowed": {
+      "type": "boolean"
+    },
+    "canonical_game_atomic": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

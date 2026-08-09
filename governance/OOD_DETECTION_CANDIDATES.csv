@@ -1,0 +1,9 @@
+candidate_id,name,signal,selection_owner,threshold_refs,production_selected_w16,directional_strength_effect
+OOD-001,feature-space distance,Distance from training feature support,W17,THR-014,false,NONE
+OOD-002,density/nearest-neighbor support,Low local training density,W17,THR-014,false,NONE
+OOD-003,categorical novelty,Unseen/rare categories or combinations,W17,THR-014,false,NONE
+OOD-004,missingness/coverage shift,Materially novel missingness pattern,W17,THR-014,false,NONE
+OOD-005,regime novelty,New coach/QB/scheme/roster state,W17,THR-014,false,NONE
+OOD-006,lower-division sparsity,Opponent outside well-supported FBS/FCS range,W17,THR-014,false,NONE
+OOD-007,model disagreement,Large validated ensemble divergence,W17,THR-014;THR-015,false,NONE
+OOD-008,distributional residual/support warning,Forecast distribution in sparsely validated region,W17,THR-014,false,NONE

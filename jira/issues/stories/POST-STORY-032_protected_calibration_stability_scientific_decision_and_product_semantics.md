@@ -1,0 +1,457 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/stories/POST-STORY-032_protected_calibration_stability_scientific_decision_and_product_semantics.json -->
+# POST-STORY-032 — [POST-STORY-032] Protected calibration, stability, scientific decision, and product semantics
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
+    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
+    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.",
+    "A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "Open only this Story, its selected child, and referenced source sections; do not load the entire Jira pack.",
+    "Story completion requires the gate Subtask, not only implementation children."
+  ],
+  "allowed_modification_paths": [
+    "artifacts/jira_evidence/POST-STORY-032.json"
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/stories/POST-STORY-032_protected_calibration_stability_scientific_decision_and_product_semantics.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {
+    "all_child_evidence_required": true,
+    "child_gate": "POST-SUBTASK-096",
+    "governance_traceability_gate": "POST-SUBTASK-096",
+    "integrated_proof_required": true
+  },
+  "component": "bas-science",
+  "components_expected_to_be_touched": [
+    "bas-science",
+    "bas"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "All child subtasks POST-SUBTASK-094, POST-SUBTASK-095, POST-SUBTASK-096 have verified evidence or an explicit accepted-risk/deferred/cancelled disposition consistent with the Story contract.",
+    "The final gate `POST-SUBTASK-096` completes and proves the Story end-to-end requirement; closing implementation children alone is insufficient.",
+    "All direct and inherited requirement/control/ADR/risk/gap mappings resolve through the governance context index without missing or invalid identifiers.",
+    "The Story evidence manifest pins child artifact, source/data/code/config/runtime, split/cutoff, and target-host identities where applicable and preserves failures/null results.",
+    "Canonical/derived Jira views, live operational fields when connected, dependency links, queues, and downstream states are synchronized and pass strict validation."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-093",
+    "POST-SUBTASK-102"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 19,
+    "adr_ids": 21,
+    "gap_ids": 1,
+    "requirement_ids": 66,
+    "risk_ids": 13
+  },
+  "effective_traceability_total": 120,
+  "end_to_end_validation": "Calibrated protected evidence yields a scientifically bounded BAS result and product contract that remains valid even when no persistent Aggie-specific excess exists.",
+  "epic_id": "POST-EPIC-010",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-032.json",
+  "evidence_state": "PLANNED",
+  "execution_lane": "SHARED_CONTRACT",
+  "execution_mode": "AGGREGATE_GATE",
+  "expected_maturity_after_completion": "INTEGRATED",
+  "expected_outputs": [
+    "artifacts/bas/bas_protected_scorecard.json",
+    "artifacts/bas/bas_stability_analysis.json",
+    "artifacts/bas/BAS_SCIENTIFIC_DECISION.json"
+  ],
+  "files_expected_to_be_read": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "tests/test_bas_science_governance.py",
+    "src/aggie_analytics/bas/labels.py",
+    "src/aggie_analytics/bas/runtime.py",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md",
+    "docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md"
+  ],
+  "files_expected_to_be_touched": [],
+  "files_to_inspect": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "tests/test_bas_science_governance.py",
+    "src/aggie_analytics/bas/labels.py",
+    "src/aggie_analytics/bas/runtime.py",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md",
+    "docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/stories/POST-STORY-032_protected_calibration_stability_scientific_decision_and_product_semantics.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "POST-SUBTASK-096",
+  "historical_classification": "ACTIONABLE_POST_WAVE",
+  "import_id": 100082,
+  "in_scope": [
+    "Complete and verify child `POST-SUBTASK-094` — Evaluate ≥3/7/14/21 calibration, discrimination, reliability, uncertainty, and national/A&M/peer/regime scorecards on sealed predictions.",
+    "Complete and verify child `POST-SUBTASK-095` — Run precommitted temporal, peer, regime, model, cutoff, missingness, data-quality, and specification sensitivity analyses.",
+    "Complete and verify child `POST-SUBTASK-096` — Publish the final BAS scientific decision and prediction-first product language contract.",
+    "Integrate the child outputs and execute final gate `POST-SUBTASK-096`.",
+    "Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence."
+  ],
+  "issue_type": "Story",
+  "jira_key": "BAT-82",
+  "labels": [
+    "actionable",
+    "bas",
+    "core-release",
+    "post-wave",
+    "story"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "POST-STORY-032",
+  "maturity_before": "FUNCTIONAL_STARTER",
+  "objective": "Publish only supported BAS probabilities and truthful null/inconclusive findings.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24222",
+    "jira_updated_at": "2026-08-09T00:03:57.387-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Work assigned to sibling Stories or another Epic.",
+    "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
+    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.",
+    "Redefining BAS as generic Texas A&M loss probability or selecting specifications merely to manufacture a nonzero Aggie-specific effect."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-EPIC-010",
+  "phase": "PHASE-3",
+  "prerequisites": [
+    "Hard dependency POST-SUBTASK-093",
+    "Hard dependency POST-SUBTASK-102"
+  ],
+  "primary_source_refs": [
+    "SRCREF-02064",
+    "SRCREF-02065",
+    "SRCREF-02066",
+    "SRCREF-02067"
+  ],
+  "priority": "P1",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "tests/test_bas_science_governance.py",
+    "src/aggie_analytics/bas/labels.py",
+    "src/aggie_analytics/bas/runtime.py",
+    "docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md",
+    "docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [],
+  "required_evidence": [
+    "Verified child completion/evidence manifests for POST-SUBTASK-094, POST-SUBTASK-095, POST-SUBTASK-096.",
+    "Final gate decision from `POST-SUBTASK-096` with criterion-by-criterion PASS/FAIL/BLOCKED outcomes and output hashes.",
+    "Story-level downstream-consumption evidence and an explicit list of issues unlocked, retained blocked, rejected, or deferred."
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_bas_science_governance.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_w20_model_starter.py"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The final child gate `POST-SUBTASK-096` must prove the integrated Story outcome and downstream-consumable output.",
+      "path": "POST-SUBTASK-096",
+      "validation_class": "END_TO_END"
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "expectation": "Aggregate child artifact hashes, input identities, gate decision, failures, and downstream readiness into a reproducible Story evidence manifest.",
+      "path": "STORY_EVIDENCE_MANIFEST",
+      "validation_class": "REPRODUCIBILITY"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Parallel child outputs may use inconsistent source or schema identities",
+    "Gate task may be bypassed after implementation tasks finish"
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Deliver Story POST-STORY-032 (Protected calibration, stability, scientific decision, and product semantics) as one coherent, gated capability inside Epic POST-EPIC-010. Execute child subtasks POST-SUBTASK-094, POST-SUBTASK-095, POST-SUBTASK-096 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-096` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.",
+  "source_ids": [
+    "GAP-009",
+    "HANDOFF-009"
+  ],
+  "source_refs": [
+    "SRCREF-02064",
+    "SRCREF-02065",
+    "SRCREF-02066",
+    "SRCREF-02067",
+    "SRCREF-02068",
+    "SRCREF-02069",
+    "SRCREF-02070",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01895",
+    "SRCREF-01571"
+  ],
+  "specificity_fingerprint": "95dd80765654060f35f46f5019efffa9152cae7723ac964aee984442b3892bcd",
+  "stop_conditions": [
+    "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs.",
+    "Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02068",
+    "SRCREF-02069",
+    "SRCREF-02070",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01895",
+    "SRCREF-01571"
+  ],
+  "title": "[POST-STORY-032] Protected calibration, stability, scientific decision, and product semantics",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-096"
+  ],
+  "traceability_resolution": "INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "EXISTING_AUTOMATED_TEST",
+    "REPRODUCIBILITY"
+  ],
+  "why_this_exists": "This coherent capability closes a defined portion of Scientific BAS, general FBS surprise, Aggie excess, and component validation and creates a verifiable output for the next dependency stage.",
+  "work_packet_path": "jira/ai/work_packets/POST-STORY-032.md",
+  "workflow_state": "BACKLOG"
+}
+```
+
+## Objective
+
+Publish only supported BAS probabilities and truthful null/inconclusive findings.
+
+## Why This Exists
+
+This coherent capability closes a defined portion of Scientific BAS, general FBS surprise, Aggie excess, and component validation and creates a verifiable output for the next dependency stage.
+
+## Scope
+
+Deliver Story POST-STORY-032 (Protected calibration, stability, scientific decision, and product semantics) as one coherent, gated capability inside Epic POST-EPIC-010. Execute child subtasks POST-SUBTASK-094, POST-SUBTASK-095, POST-SUBTASK-096 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-096` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
+
+### Explicit In Scope
+
+- Complete and verify child `POST-SUBTASK-094` — Evaluate ≥3/7/14/21 calibration, discrimination, reliability, uncertainty, and national/A&M/peer/regime scorecards on sealed predictions.
+- Complete and verify child `POST-SUBTASK-095` — Run precommitted temporal, peer, regime, model, cutoff, missingness, data-quality, and specification sensitivity analyses.
+- Complete and verify child `POST-SUBTASK-096` — Publish the final BAS scientific decision and prediction-first product language contract.
+- Integrate the child outputs and execute final gate `POST-SUBTASK-096`.
+- Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence.
+
+### Explicit Out of Scope
+
+- Work assigned to sibling Stories or another Epic.
+- Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
+- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Redefining BAS as generic Texas A&M loss probability or selecting specifications merely to manufacture a nonzero Aggie-specific effect.
+
+## Prerequisites
+
+- Hard dependency POST-SUBTASK-093
+- Hard dependency POST-SUBTASK-102
+
+## Hard Dependencies
+
+- POST-SUBTASK-093
+- POST-SUBTASK-102
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- governance/DO_NOT_DRIFT.md
+- docs/final/CODEX_HANDOFF.md
+- docs/final/FINAL_BACKLOG.csv
+- docs/final/FINAL_COMPONENT_MATURITY.csv
+- docs/final/FINAL_IMPLEMENTATION_PRIORITY.md
+- docs/final/FINAL_KNOWN_GAPS.csv
+- tests/test_bas_science_governance.py
+- src/aggie_analytics/bas/labels.py
+- src/aggie_analytics/bas/runtime.py
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+- docs/46_BAS_CROSSFIT_LABELING_AND_ANTI_CIRCULARITY.md
+- docs/47_BAS_GENERAL_FBS_AGGIE_EXCESS_AND_PEERS.md
+
+## Files Expected To Be Modified
+
+- None.
+
+## Components Expected To Be Touched
+
+- bas-science
+- bas
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+- configs/judging_rule_seal.json
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+
+## Expected Outputs / Artifacts
+
+- artifacts/bas/bas_protected_scorecard.json
+- artifacts/bas/bas_stability_analysis.json
+- artifacts/bas/BAS_SCIENTIFIC_DECISION.json
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-096`
+- Inherited from: POST-SUBTASK-096
+- Resolution: `INHERITED_DOMAIN_GATE`
+- Effective counts: `{"acceptance_control_ids": 19, "adr_ids": 21, "gap_ids": 1, "requirement_ids": 66, "risk_ids": 13}`
+
+## Acceptance Criteria
+
+1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
+2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
+3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+4. A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct.
+
+## Definition of Done
+
+1. All child subtasks POST-SUBTASK-094, POST-SUBTASK-095, POST-SUBTASK-096 have verified evidence or an explicit accepted-risk/deferred/cancelled disposition consistent with the Story contract.
+2. The final gate `POST-SUBTASK-096` completes and proves the Story end-to-end requirement; closing implementation children alone is insufficient.
+3. All direct and inherited requirement/control/ADR/risk/gap mappings resolve through the governance context index without missing or invalid identifiers.
+4. The Story evidence manifest pins child artifact, source/data/code/config/runtime, split/cutoff, and target-host identities where applicable and preserves failures/null results.
+5. Canonical/derived Jira views, live operational fields when connected, dependency links, queues, and downstream states are synchronized and pass strict validation.
+
+## Required Tests / Validation
+
+- **EXISTING_AUTOMATED_TEST** / `EXISTING_AUTOMATED_TEST` — `tests/test_bas_science_governance.py` — Run and retain the result when this issue touches the covered contract.
+- **EXISTING_AUTOMATED_TEST** / `EXISTING_AUTOMATED_TEST` — `tests/test_w20_model_starter.py` — Run and retain the result when this issue touches the covered contract.
+- **END_TO_END** / `END_TO_END` — `POST-SUBTASK-096` — The final child gate `POST-SUBTASK-096` must prove the integrated Story outcome and downstream-consumable output.
+- **REPRODUCIBILITY** / `REPRODUCIBILITY` — `STORY_EVIDENCE_MANIFEST` — Aggregate child artifact hashes, input identities, gate decision, failures, and downstream readiness into a reproducible Story evidence manifest.
+
+## Required Evidence
+
+- Verified child completion/evidence manifests for POST-SUBTASK-094, POST-SUBTASK-095, POST-SUBTASK-096.
+- Final gate decision from `POST-SUBTASK-096` with criterion-by-criterion PASS/FAIL/BLOCKED outcomes and output hashes.
+- Story-level downstream-consumption evidence and an explicit list of issues unlocked, retained blocked, rejected, or deferred.
+
+## Completion Evidence Contract
+
+```json
+{
+  "all_child_evidence_required": true,
+  "child_gate": "POST-SUBTASK-096",
+  "governance_traceability_gate": "POST-SUBTASK-096",
+  "integrated_proof_required": true
+}
+```
+
+## End-to-End Validation Requirement
+
+Calibrated protected evidence yields a scientifically bounded BAS result and product contract that remains valid even when no persistent Aggie-specific excess exists.
+
+## Expected Maturity After Completion
+
+`INTEGRATED`
+
+## Risk / Failure Conditions
+
+- Parallel child outputs may use inconsistent source or schema identities
+- Gate task may be bypassed after implementation tasks finish
+
+## Stop Conditions
+
+- Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs.
+- Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result.
+
+## Source References
+
+- SRCREF-02064
+- SRCREF-02065
+- SRCREF-02066
+- SRCREF-02067
+- SRCREF-02068
+- SRCREF-02069
+- SRCREF-02070
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01895
+- SRCREF-01571
+
+## AI Context Notes
+
+- Open only this Story, its selected child, and referenced source sections; do not load the entire Jira pack.
+- Story completion requires the gate Subtask, not only implementation children.

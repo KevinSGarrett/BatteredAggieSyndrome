@@ -1,0 +1,74 @@
+[
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:31.027138+00:00",
+    "output": "......................................................................................................................................................................................../mnt/data/BAS_JIRA_V2_FINAL/repo/tools/validate_w20_starter.py:16: ResourceWarning: unclosed file <_io.TextIOWrapper name='/mnt/data/BAS_JIRA_V2_FINAL/repo/governance/IMPLEMENTATION_WBS.csv' mode='r' encoding='utf-8'>\n  rows={r['task_id']:r for r in csv.DictReader((root/'governance/IMPLEMENTATION_WBS.csv').open(encoding='utf-8'))}\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n............./mnt/data/BAS_JIRA_V2_FINAL/repo/tools/validate_w21_mlops.py:17: ResourceWarning: unclosed file <_io.TextIOWrapper name='/mnt/data/BAS_JIRA_V2_FINAL/repo/governance/IMPLEMENTATION_WBS.csv' mode='r' encoding='utf-8'>\n  rows={r['task_id']:r for r in csv.DictReader((root/'governance/IMPLEMENTATION_WBS.csv').open(encoding='utf-8'))}\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n/mnt/data/BAS_JIRA_V2_FINAL/repo/tools/validate_w21_mlops.py:34: ResourceWarning: unclosed file <_io.TextIOWrapper name='/mnt/data/BAS_JIRA_V2_FINAL/repo/governance/ADR_INDEX.csv' mode='r' encoding='utf-8'>\n  adr={r['adr_id'] for r in csv.DictReader((root/'governance/ADR_INDEX.csv').open(encoding='utf-8'))}\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n./usr/lib/python3.13/zipfile/__init__.py:1642: UserWarning: Duplicate name: 'payload/a.txt'\n  return self._open_to_write(zinfo, force_zip64=force_zip64)\n...............................\n----------------------------------------------------------------------\nRan 229 tests in 0.743s\n\nOK\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:29.038479+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "tools/validate_w25_final.py"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:32.079849+00:00",
+    "output": "PASS: W25 final consolidation, terminal-wave governance, maturity honesty and Codex handoff controls\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:31.027182+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "tools/validate_acceptance.py"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:33.127386+00:00",
+    "output": "PASS: acceptance controls, thresholds, requirement/ADR/risk mappings and protected semantics\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:32.079878+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "tools/validate_backlog.py"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:34.172159+00:00",
+    "output": "PASS: five-phase WBS, stable IDs, dependency DAG, task traceability, W06 replan and Codex packet contracts\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:33.127414+00:00"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-B",
+      "tools/validate_repository.py",
+      "--strict"
+    ],
+    "cwd": "/mnt/data/BAS_JIRA_V2_FINAL/repo",
+    "finished_at": "2026-08-09T03:03:35.732120+00:00",
+    "output": "PASS: repository structure, manifests, governance IDs, secret scan and forbidden-artifact scan\n",
+    "passed": true,
+    "returncode": 0,
+    "started_at": "2026-08-09T03:03:34.172186+00:00"
+  }
+]

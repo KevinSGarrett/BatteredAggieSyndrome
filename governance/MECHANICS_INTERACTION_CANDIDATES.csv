@@ -1,0 +1,6 @@
+candidate_id,family,inputs,manual_effect
+MECH-INT-01,PENALTY_LEVERAGE,type;side;down;distance;field_position;score_state;EPA/WP consequence,false
+MECH-INT-02,TURNOVER_FIELD_POSITION,turnover type;location;score_state;opponent strength,false
+MECH-INT-03,SPECIAL_TEAMS_WEATHER,kick distance;wind;precipitation;temperature,false
+MECH-INT-04,FOURTH_DOWN_FIELD_POSITION,decision;conversion;field position;EP/WP context,false
+MECH-INT-05,TEMPO_SCORE_STATE,pace;lead/trail;time remaining,false

@@ -1,0 +1,6 @@
+representation_id,family,candidate_dimensions,effective_dated,manual_strength_bonus
+SCHEME-01,OFFENSIVE_STYLE,pass_rate;early_down_pass;tempo;shot_rate;run_concept_proxies;option_rate,true,false
+SCHEME-02,DEFENSIVE_STYLE,pressure_rate;blitz_proxy;coverage_proxy;explosive_prevention;front/run-fit proxies,true,false
+SCHEME-03,PLAY_CALLER,caller_identity;unit;responsibility_scope;continuity,true,false
+SCHEME-04,PERSONNEL_USAGE,formation/personnel proxies where source coverage supports,true,false
+SCHEME-05,TENDENCY_VECTOR,situation-conditioned prior tendencies only,true,false

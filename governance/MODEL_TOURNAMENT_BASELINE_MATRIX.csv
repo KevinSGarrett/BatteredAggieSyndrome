@@ -1,0 +1,7 @@
+baseline_id,baseline_class,scope,requirement,complexity_class
+MB-001,EMPIRICAL,All applicable targets,Mandatory sanity comparator,C1
+MB-002,ELO,Win/margin/team strength,Mandatory where rating target meaningful,C1
+MB-003,LOGISTIC_GLM,Win probability / simple tabular,Mandatory where classification target meaningful,C1
+MB-004,SIMPLE_SCORE,Team/opponent score + margin coherence,Mandatory for score-distribution tournaments,C2
+MB-005,TAMU-SP-00,A&M specialization,Mandatory no-adjustment comparator,C1
+MB-006,PURE_FOOTBALL,Market augmentation,Mandatory independent football comparator,C2

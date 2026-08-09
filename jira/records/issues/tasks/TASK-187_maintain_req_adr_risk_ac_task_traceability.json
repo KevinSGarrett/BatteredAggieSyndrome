@@ -1,0 +1,289 @@
+{
+  "acceptance_control_ids": [
+    "AC-001",
+    "AC-002",
+    "AC-003",
+    "AC-005",
+    "AC-006",
+    "AC-037",
+    "AC-045",
+    "AC-046",
+    "AC-047",
+    "AC-048",
+    "AC-049",
+    "AC-050",
+    "AC-051",
+    "AC-052",
+    "AC-054",
+    "AC-055",
+    "AC-056"
+  ],
+  "acceptance_criteria": [
+    "Stable ID TASK-187, parent EPIC-033, owner wave W06-W25, and original status DONE are preserved.",
+    "Declared outputs are traceable to existing repository artifacts where resolvable, or remain recorded as historical output names without fabricating files.",
+    "Requirement, acceptance-control, and dependency references resolve to authoritative registries.",
+    "The record does not claim maturity beyond the task's original design, contract, functional-starter, synthetic-validation, or integration scope."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is historical WBS provenance. Execute the mapped post-wave issue for remaining maturity work.",
+    "Program-wide control executed through terminal W25; final evidence frozen in W25 audit/handoff artifacts."
+  ],
+  "allowed_modification_paths": [
+    "updated governance ledgers and validators"
+  ],
+  "blocked_reason": "",
+  "blocks": [
+    "TASK-189"
+  ],
+  "canonical_record": "jira/records/issues/tasks/TASK-187_maintain_req_adr_risk_ac_task_traceability.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {},
+  "component": "release-readiness",
+  "components_expected_to_be_touched": [
+    "release-readiness"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "The original historical scope and status are preserved with source evidence and stable identifiers.",
+    "The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.",
+    "Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work."
+  ],
+  "dependencies": [
+    "TASK-185"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 17,
+    "adr_ids": 0,
+    "gap_ids": 0,
+    "requirement_ids": 66,
+    "risk_ids": 0
+  },
+  "effective_traceability_total": 83,
+  "end_to_end_validation": "Historical completion remains scoped; integrated product completion is evaluated only through the post-wave release path.",
+  "epic_id": "EPIC-033",
+  "evidence_manifest_path": "",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "SHARED_CONTRACT",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "CONTRACT_DEFINED",
+  "expected_outputs": [
+    "updated governance ledgers and validators"
+  ],
+  "files_expected_to_be_read": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "files_expected_to_be_touched": [
+    "updated governance ledgers and validators"
+  ],
+  "files_to_inspect": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/tasks/TASK-187_maintain_req_adr_risk_ac_task_traceability.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "",
+  "historical_classification": "HISTORICAL_SCOPED_COMPLETED",
+  "import_id": 100290,
+  "in_scope": [
+    "Original WBS objective and outputs",
+    "Original requirements and acceptance-control mappings",
+    "Original dependency and execution-lane provenance"
+  ],
+  "issue_type": "Task",
+  "jira_key": "BAT-316",
+  "labels": [
+    "governance",
+    "historical",
+    "planning-program",
+    "w06-w25",
+    "wave-completed"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "TASK-187",
+  "maturity_before": "DESIGN_ONLY",
+  "objective": "Maintain REQ/ADR/RISK/AC/task traceability",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24456",
+    "jira_updated_at": "2026-08-09T00:40:49.713-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Reopening completed planning solely to rename it",
+    "Treating a starter/design result as empirically validated production capability"
+  ],
+  "owner_wave": "W06-W25",
+  "parent_id": "EPIC-033",
+  "phase": "PHASE-4",
+  "prerequisites": [
+    "Historical dependency TASK-185"
+  ],
+  "primary_source_refs": [
+    "SRCREF-00220",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "priority": "P1",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [
+    "POST-SUBTASK-141"
+  ],
+  "required_evidence": [
+    "Authoritative WBS row TASK-187",
+    "Existing artifact `updated governance ledgers and validators`"
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_w24_readiness.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_w25_final_handoff.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tools/validate_w24_readiness.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tools/validate_w25_final.py"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-001",
+    "REQ-002",
+    "REQ-007",
+    "REQ-008",
+    "REQ-009",
+    "REQ-010",
+    "REQ-011",
+    "REQ-012",
+    "REQ-013",
+    "REQ-014",
+    "REQ-015",
+    "REQ-016",
+    "REQ-017",
+    "REQ-018",
+    "REQ-020",
+    "REQ-056",
+    "REQ-118",
+    "REQ-125",
+    "REQ-126",
+    "REQ-127",
+    "REQ-131",
+    "REQ-132",
+    "REQ-133",
+    "REQ-142",
+    "REQ-143",
+    "REQ-144",
+    "REQ-146",
+    "REQ-150",
+    "REQ-151",
+    "REQ-152",
+    "REQ-153",
+    "REQ-154",
+    "REQ-166",
+    "REQ-169",
+    "REQ-170",
+    "REQ-171",
+    "REQ-173",
+    "REQ-176",
+    "REQ-177",
+    "REQ-178",
+    "REQ-180",
+    "REQ-181",
+    "REQ-182",
+    "REQ-204",
+    "REQ-208",
+    "REQ-209",
+    "REQ-210",
+    "REQ-215",
+    "REQ-216",
+    "REQ-217",
+    "REQ-218",
+    "REQ-219",
+    "REQ-220",
+    "REQ-221",
+    "REQ-223",
+    "REQ-226",
+    "REQ-227",
+    "REQ-228",
+    "REQ-229",
+    "REQ-231",
+    "REQ-232",
+    "REQ-233",
+    "REQ-235",
+    "REQ-236",
+    "REQ-238",
+    "REQ-239"
+  ],
+  "risk_failure_conditions": [
+    "Original DONE status may be over-interpreted",
+    "Source output path may have moved or been generated under a different canonical directory"
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Original task type GOVERNANCE with mutation scope: as defined by its source documents.",
+  "source_ids": [
+    "TASK-187"
+  ],
+  "source_refs": [
+    "SRCREF-00220",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "specificity_fingerprint": "5596786ea6e04d957b6170a760037427764bc21579d35e9ae549a93936b32b1e",
+  "stop_conditions": [
+    "Stop if completing this record would fabricate real-data, model-metric, source-rights, target-hardware, or operating evidence."
+  ],
+  "supporting_source_refs": [],
+  "title": "[TASK-187] Maintain REQ/ADR/RISK/AC/task traceability",
+  "traceability_inherited_from": [],
+  "traceability_resolution": "DIRECT",
+  "unblock_condition": "",
+  "validation_classes": [
+    "EXISTING_AUTOMATED_TEST"
+  ],
+  "why_this_exists": "Preserve the original W06-W25 WBS work unit, its dependencies, outputs, and scoped completion semantics as provenance for post-wave execution.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}

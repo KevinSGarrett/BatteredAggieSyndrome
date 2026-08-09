@@ -1,0 +1,34 @@
+{
+  "all_expected": true,
+  "cases": {
+    "eligible_prior": {
+      "eligible": true,
+      "reason": "ELIGIBLE"
+    },
+    "known_after_cutoff": {
+      "eligible": false,
+      "reason": "KNOWN_AFTER_CUTOFF"
+    },
+    "observed_weather": {
+      "eligible": false,
+      "reason": "DOMAIN_POLICY_BANNED"
+    },
+    "other_completed_game_output": {
+      "eligible": true,
+      "reason": "ELIGIBLE"
+    },
+    "retrospective_uncorroborated": {
+      "eligible": false,
+      "reason": "RETROSPECTIVE_UNCORROBORATED"
+    },
+    "target_game_output": {
+      "eligible": false,
+      "reason": "TARGET_GAME_OUTPUT"
+    },
+    "weather_run_after_cutoff": {
+      "eligible": false,
+      "reason": "KNOWN_AFTER_CUTOFF"
+    }
+  },
+  "schema_version": "aggie.readiness.leakage.v1"
+}

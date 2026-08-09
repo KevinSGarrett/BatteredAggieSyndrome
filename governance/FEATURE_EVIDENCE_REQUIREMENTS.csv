@@ -1,0 +1,15 @@
+evidence_id,name,criterion,role,owner_wave
+FE-001,PIT_SAFETY,W08 cutoff replay proves input/transform eligibility,BLOCKING,W08/W10
+FE-002,SOURCE_DATA_QUALITY,Materialized population coverage/missingness/schema quality is measured,BLOCKING_OR_CONDITIONAL,W19
+FE-003,TRANSFORM_LINEAGE,"Feature links raw parents, transform ID/version/parameters and cutoff",BLOCKING,W10/W19
+FE-004,WALK_FORWARD_INCREMENTAL_VALUE,Target-appropriate chronological out-of-fold evidence,BLOCKING,W17
+FE-005,FAMILY_ABLATION,Full vs without-family chronological evidence,BLOCKING,W10 contract; W17 empirical
+FE-006,TEMPORAL_STABILITY,Evidence across declared folds/seasons/eras,BLOCKING,W10 contract; W17 empirical
+FE-007,REDUNDANCY_CONDITIONAL_VALUE,Candidate value assessed in context of correlated/overlapping features,SUPPORTING,W10/W17
+FE-008,TARGET_SPECIFIC_VALUE,Win/margin/score/BAS decisions are separate,BLOCKING,W10 contract; W17 empirical
+FE-009,SUBGROUP_AM_VALUE,A&M and declared critical subgroups checked where relevant,SUPPORTING_OR_BLOCKING,W14/W17
+FE-010,CALIBRATION_EFFECT,Probability targets assess calibration/proper-score impact,BLOCKING_FOR_PROBABILITY,W17
+FE-011,PROTECTED_CRITERIA_FROZEN,Promotion rule/folds fixed before protected evaluation,BLOCKING,W17
+FE-012,REPRODUCIBILITY,Evidence references immutable data/feature/model/evaluation versions,BLOCKING,W10+
+FE-013,RIGHTS_AND_ACCESS,Use/publication compatible with source rights and access policy,BLOCKING_FOR_PUBLICATION,W09/W24
+FE-014,OPERATIONAL_COST,Measured compute/storage/maintenance burden when tradeoff matters,TIE_BREAKER,W19-W23

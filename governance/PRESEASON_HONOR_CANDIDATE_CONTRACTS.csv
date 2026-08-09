@@ -1,0 +1,4 @@
+candidate_id,honor_class,source_priority,required_fields,pit_rule,manual_bonus,production_selected,notes
+PH-001,official conference preseason teams,official conference,player;season;position;selector;team level;scope;announced_at;source,usable only after announced_at,,false,Consensus candidate; overlap ablation required.
+PH-002,recognized preseason All-America,official recognized selector,player;season;position;selector;team level;scope;announced_at;source,usable only after announced_at,,false,No manual national>conference weight frozen.
+PH-003,official award/watch lists,award owner/NCFAA,player;season;position;award;scope;announced_at;list size if known;source,usable only after announced_at,,false,Broad lists may add little; empirical ablation required.

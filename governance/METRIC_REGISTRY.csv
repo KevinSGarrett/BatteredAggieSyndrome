@@ -1,0 +1,19 @@
+metric_id,scope,metric,direction,role,required,reference_implementation,notes
+MTR-001,win_probability,Brier score,lower,PRIMARY,true,yes,Primary proper score for binary win probability.
+MTR-002,win_probability,Log loss,lower,SECONDARY_PROPER,true,yes,Probability-sensitive proper score; clipping is numerical only and recorded.
+MTR-003,win_probability,Calibration intercept,target_zero,CALIBRATION,true,contract_only,Fit only on allowed evaluation data; method/version recorded.
+MTR-004,win_probability,Calibration slope,target_one,CALIBRATION,true,contract_only,Fit only on allowed evaluation data; method/version recorded.
+MTR-005,win_probability,ECE/reliability diagnostic,lower,DIAGNOSTIC,false,yes,Bin-sensitive; never a sole promotion gate.
+MTR-006,margin_point,MAE,lower,PRIMARY_POINT,true,yes,Primary point-estimate margin error.
+MTR-007,margin_point,RMSE,lower,SECONDARY_POINT,true,yes,Tail-sensitive diagnostic.
+MTR-008,team_and_opponent_score,MAE,lower,PRIMARY_POINT,true,yes,Report both team and opponent score errors.
+MTR-009,team_and_opponent_score,RMSE,lower,SECONDARY_POINT,false,yes,Tail-sensitive score diagnostic.
+MTR-010,joint_score_distribution,Joint log score / NLL,lower,PRIMARY_DISTRIBUTION,true,contract_only,Requires coherent probability assigned to realized score pair.
+MTR-011,margin_distribution,CRPS,lower,DISTRIBUTION,true,contract_only,Distribution-quality score for margin.
+MTR-012,bas_severity_probability,Brier score,lower,PRIMARY,true,yes,Compute separately for >=3/7/14/21 with nested-probability validation.
+MTR-013,bas_severity_probability,Log loss,lower,SECONDARY_PROPER,true,yes,Compute separately by BAS severity.
+MTR-014,bas_severity_probability,Calibration/nesting diagnostics,calibrated_nested,CALIBRATION,true,contract_only,P21<=P14<=P7<=P3 for every forecast.
+MTR-015,uncertainty,Coverage / interval score,calibrated,UNCERTAINTY,true,contract_only,Separate by uncertainty component where identifiable.
+MTR-016,ood,OOD-error association,higher_association_with_error,DIAGNOSTIC,true,contract_only,OOD score must predict elevated error/undercoverage without directional team-strength use.
+MTR-017,model_disagreement,Disagreement-error association,higher_association_with_error,DIAGNOSTIC,true,contract_only,Evaluate incremental error information beyond baseline uncertainty/OOD.
+MTR-018,market_augmented,Same primary metrics as pure lane,relative_to_pure_and_market_benchmark,COMPARATIVE,true,contract_only,"Score pure football, market-augmented and market benchmark separately with identical PIT cutoff."

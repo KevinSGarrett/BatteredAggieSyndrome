@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Experiment Replay Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "source_result_id",
+    "code_commit",
+    "environment_lock_hash",
+    "judging_rule_seal_hash",
+    "inputs",
+    "stochastic"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "source_result_id": {
+      "type": "string"
+    },
+    "code_commit": {
+      "type": "string"
+    },
+    "environment_lock_hash": {
+      "type": "string"
+    },
+    "judging_rule_seal_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "uri",
+          "sha256"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "stochastic": {
+      "type": "boolean"
+    },
+    "declared_tolerance": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    }
+  }
+}

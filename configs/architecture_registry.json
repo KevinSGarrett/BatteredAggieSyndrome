@@ -1,0 +1,533 @@
+{
+  "schema_version": 1,
+  "architecture_version": "w10-v1.0",
+  "style": "offline_first_modular_monolith",
+  "deployment_default": "single_local_repository_with_batch_jobs_and_snapshot_serving",
+  "principles": [
+    "point_in_time_gateway_required",
+    "immutable_raw_evidence",
+    "derived_state_is_versioned",
+    "training_inference_feature_contract_parity",
+    "research_plane_isolated_from_protected_production_governance",
+    "llm_not_required_for_core_forecast_runtime",
+    "snapshot_serving_over_synchronous_feature_model_execution",
+    "national_foundation_plus_tamu_specialization",
+    "future_live_plane_isolated_from_pregame",
+    "canonical_identity_is_separate_from_source_identity",
+    "append_only_entity_resolution_decisions"
+  ],
+  "data_zones": [
+    {
+      "id": "RAW",
+      "order": 1,
+      "mutable": false,
+      "purpose": "exact external payloads/files plus retrieval evidence"
+    },
+    {
+      "id": "QUARANTINE",
+      "order": 2,
+      "mutable": false,
+      "purpose": "invalid/ambiguous evidence awaiting resolution"
+    },
+    {
+      "id": "CANONICAL",
+      "order": 3,
+      "mutable": false,
+      "purpose": "versioned normalized entities and observations"
+    },
+    {
+      "id": "PIT_STATE",
+      "order": 4,
+      "mutable": false,
+      "purpose": "as-of eligible state snapshots"
+    },
+    {
+      "id": "FEATURES",
+      "order": 5,
+      "mutable": false,
+      "purpose": "derived point-in-time features with lineage"
+    },
+    {
+      "id": "TRAINING",
+      "order": 6,
+      "mutable": false,
+      "purpose": "versioned training/evaluation matrices and labels"
+    },
+    {
+      "id": "MODEL_ARTIFACTS",
+      "order": 7,
+      "mutable": false,
+      "purpose": "model/calibration artifacts and metadata"
+    },
+    {
+      "id": "FORECAST_SNAPSHOTS",
+      "order": 8,
+      "mutable": false,
+      "purpose": "immutable prediction products"
+    }
+  ],
+  "components": [
+    {
+      "id": "CMP-001",
+      "name": "source_adapters",
+      "plane": "evidence",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "OPTIONAL_ASSISTIVE_ONLY",
+      "production_forecast_path": true,
+      "responsibility": "provider-specific acquisition and source envelopes"
+    },
+    {
+      "id": "CMP-002",
+      "name": "raw_evidence_store",
+      "plane": "evidence",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "immutable native payload/file storage, hashes and retrieval metadata"
+    },
+    {
+      "id": "CMP-003",
+      "name": "validation_quarantine",
+      "plane": "evidence",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-002"
+      ],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "OPTIONAL_ASSISTIVE_ONLY",
+      "production_forecast_path": true,
+      "responsibility": "contract validation, findings and quarantine"
+    },
+    {
+      "id": "CMP-004",
+      "name": "canonicalization_entity_resolution",
+      "plane": "evidence",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-003"
+      ],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "OPTIONAL_ASSISTIVE_ONLY",
+      "production_forecast_path": true,
+      "responsibility": "stable canonical identities, source mappings, evidence identity hierarchy, append-only resolution decisions and effective-dated normalized observations"
+    },
+    {
+      "id": "CMP-005",
+      "name": "pit_state",
+      "plane": "state",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-004"
+      ],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "bitemporal as-of reconstruction, temporal eligibility and immutable cutoff lineage gateway",
+      "temporal_contract_ref": "configs/temporal_registry.json",
+      "protected_gateway": true
+    },
+    {
+      "id": "CMP-006",
+      "name": "feature_factory",
+      "plane": "feature_model",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-005"
+      ],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "versioned PIT-safe feature construction, screening/lifecycle lineage and target-specific feature contracts",
+      "pit_gateway_required": true,
+      "feature_contract_ref": "configs/feature_lifecycle_registry.json"
+    },
+    {
+      "id": "CMP-007",
+      "name": "national_modeling",
+      "plane": "feature_model",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-006"
+      ],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "national foundation training/inference and uncertainty representations"
+    },
+    {
+      "id": "CMP-008",
+      "name": "tamu_specialization",
+      "plane": "forecast",
+      "status": "FROZEN_W14_CONTRACT",
+      "imports": [
+        "CMP-005",
+        "CMP-006",
+        "CMP-007"
+      ],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "A&M high-resolution state overlay and empirically gated specialization relative to national foundation; no-adjustment baseline is mandatory",
+      "contract_ref": "configs/tamu_specialization_registry.json"
+    },
+    {
+      "id": "CMP-009",
+      "name": "forecast_assembly",
+      "plane": "forecast",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-007",
+        "CMP-008",
+        "CMP-012"
+      ],
+      "execution_lanes": [
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "coherent joint outcome distribution, scenarios and uncertainty assembly"
+    },
+    {
+      "id": "CMP-010",
+      "name": "bas_analytics",
+      "plane": "forecast",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-005",
+        "CMP-009"
+      ],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "scientific BAS probabilities relative to leakage-safe expected performance"
+    },
+    {
+      "id": "CMP-011",
+      "name": "evaluation_promotion",
+      "plane": "feature_model",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-006",
+        "CMP-007",
+        "CMP-008",
+        "CMP-009",
+        "CMP-010"
+      ],
+      "execution_lanes": [
+        "OFFLINE_BATCH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": false,
+      "responsibility": "protected walk-forward scoring and champion/challenger gate"
+    },
+    {
+      "id": "CMP-012",
+      "name": "model_registry",
+      "plane": "feature_model",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "immutable model artifact metadata and approved champion/rollback references"
+    },
+    {
+      "id": "CMP-013",
+      "name": "forecast_snapshot_publication",
+      "plane": "serving",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-009",
+        "CMP-010"
+      ],
+      "execution_lanes": [
+        "FORECAST_REFRESH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": true,
+      "responsibility": "immutable forecast product artifact and lineage publication"
+    },
+    {
+      "id": "CMP-014",
+      "name": "read_only_serving",
+      "plane": "serving",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-013"
+      ],
+      "execution_lanes": [
+        "SERVING_READ"
+      ],
+      "llm_policy": "OPTIONAL_EXPLANATION_ONLY",
+      "production_forecast_path": false,
+      "responsibility": "dashboard/API/report reads of immutable forecast snapshots"
+    },
+    {
+      "id": "CMP-015",
+      "name": "research_experimentation",
+      "plane": "research",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [
+        "CMP-006",
+        "CMP-011"
+      ],
+      "execution_lanes": [
+        "RESEARCH"
+      ],
+      "llm_policy": "OPTIONAL_ASSISTIVE_ONLY",
+      "production_forecast_path": false,
+      "responsibility": "isolated hypotheses, challenger artifacts and research proposals"
+    },
+    {
+      "id": "CMP-016",
+      "name": "orchestration_monitoring",
+      "plane": "ops",
+      "status": "LOGICAL_BOUNDARY",
+      "imports": [],
+      "execution_lanes": [
+        "OFFLINE_BATCH",
+        "FORECAST_REFRESH",
+        "RESEARCH"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": false,
+      "responsibility": "scheduling, retries, state observation and run lineage; framework deferred"
+    },
+    {
+      "id": "CMP-017",
+      "name": "future_live_ingame",
+      "plane": "future_live",
+      "status": "DEFERRED",
+      "imports": [
+        "CMP-007"
+      ],
+      "execution_lanes": [
+        "FUTURE_LIVE"
+      ],
+      "llm_policy": "FORBIDDEN",
+      "production_forecast_path": false,
+      "responsibility": "future chronological live replay/inference isolated from pregame inputs"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-001",
+      "name": "SourcePayloadEnvelope",
+      "owner": "CMP-001"
+    },
+    {
+      "id": "IF-002",
+      "name": "ValidationResult",
+      "owner": "CMP-003"
+    },
+    {
+      "id": "IF-003",
+      "name": "CanonicalObservationBatch",
+      "owner": "CMP-004"
+    },
+    {
+      "id": "IF-004",
+      "name": "AsOfContext",
+      "owner": "CMP-005"
+    },
+    {
+      "id": "IF-005",
+      "name": "PITStateRef",
+      "owner": "CMP-005",
+      "contract_ref": "configs/temporal_registry.json",
+      "status": "FROZEN_W08_CONTRACT"
+    },
+    {
+      "id": "IF-006",
+      "name": "FeatureMatrixRef",
+      "owner": "CMP-006"
+    },
+    {
+      "id": "IF-007",
+      "name": "ModelArtifactRef",
+      "owner": "CMP-012"
+    },
+    {
+      "id": "IF-008",
+      "name": "NationalForecast",
+      "owner": "CMP-007"
+    },
+    {
+      "id": "IF-009",
+      "name": "TamuSpecializationResult",
+      "owner": "CMP-008",
+      "status": "FROZEN_W14_CONTRACT",
+      "contract_ref": "configs/tamu_specialization_registry.json"
+    },
+    {
+      "id": "IF-010",
+      "name": "ForecastDistribution",
+      "owner": "CMP-009"
+    },
+    {
+      "id": "IF-011",
+      "name": "BASResult",
+      "owner": "CMP-010"
+    },
+    {
+      "id": "IF-012",
+      "name": "ForecastSnapshot",
+      "owner": "CMP-013"
+    },
+    {
+      "id": "IF-013",
+      "name": "ExperimentProposal",
+      "owner": "CMP-015"
+    }
+  ],
+  "storage": {
+    "preferred_early_stack": {
+      "raw": "native_files_plus_manifests",
+      "tabular": "partitioned_parquet",
+      "analytics": "duckdb",
+      "dataframe_engine": "polars_candidate",
+      "relational_server": "deferred_postgresql_adapter_on_demonstrated_concurrent_transaction_need"
+    },
+    "not_required_now": [
+      "redis",
+      "kafka",
+      "online_feature_store",
+      "distributed_object_store",
+      "kubernetes"
+    ]
+  },
+  "package_boundaries": [
+    {
+      "namespace": "aggie_analytics.core",
+      "status": "PLANNED_STABLE_BOUNDARY",
+      "owner_waves": "W07-W23"
+    },
+    {
+      "namespace": "aggie_analytics.data",
+      "status": "PLANNED_STABLE_BOUNDARY",
+      "owner_waves": "W07-W10/W19"
+    },
+    {
+      "namespace": "aggie_analytics.features",
+      "status": "PLANNED_STABLE_BOUNDARY",
+      "owner_waves": "W09-W10/W19"
+    },
+    {
+      "namespace": "aggie_analytics.models",
+      "status": "PLANNED_STABLE_BOUNDARY",
+      "owner_waves": "W16-W20"
+    },
+    {
+      "namespace": "aggie_analytics.forecasting",
+      "status": "PLANNED_STABLE_BOUNDARY",
+      "owner_waves": "W14-W22"
+    },
+    {
+      "namespace": "aggie_analytics.tamu",
+      "status": "IMPLEMENTED_W14_CONTRACTS_ONLY",
+      "owner_waves": "W14-W20"
+    },
+    {
+      "namespace": "aggie_analytics.evaluation",
+      "status": "PLANNED_STABLE_BOUNDARY",
+      "owner_waves": "W17-W20"
+    },
+    {
+      "namespace": "aggie_analytics.research",
+      "status": "PLANNED_STABLE_BOUNDARY",
+      "owner_waves": "W18+"
+    },
+    {
+      "namespace": "aggie_analytics.serving",
+      "status": "PLANNED_STABLE_BOUNDARY",
+      "owner_waves": "W22+"
+    },
+    {
+      "namespace": "aggie_analytics.architecture",
+      "status": "IMPLEMENTED_W03_CONTRACTS_ONLY",
+      "owner_waves": "W03+"
+    },
+    {
+      "namespace": "aggie_analytics.entities",
+      "status": "IMPLEMENTED_W07_CONTRACTS_ONLY",
+      "owner_waves": "W07/W19+"
+    }
+  ],
+  "protected_dependency_rules": {
+    "production_may_not_import_planes": [
+      "research",
+      "future_live"
+    ],
+    "serving_may_not_import_components": [
+      "CMP-001",
+      "CMP-002",
+      "CMP-003",
+      "CMP-004",
+      "CMP-005",
+      "CMP-006",
+      "CMP-007",
+      "CMP-008",
+      "CMP-015"
+    ],
+    "future_live_may_not_feed_pregame": true,
+    "required_pit_gateway_component": "CMP-005",
+    "llm_required_on_production_path": false,
+    "feature_factory_must_import_pit_gateway": true
+  },
+  "identity_contract": {
+    "registry": "configs/entity_registry.json",
+    "version": "w07-v1.0",
+    "fuzzy_auto_accept": false,
+    "storage_decision": "DEFER_POSTGRESQL",
+    "next_owner_wave": "W08 temporal semantics; W19 materialized implementation"
+  },
+  "temporal_contract": {
+    "registry": "configs/temporal_registry.json",
+    "gateway_component": "CMP-005",
+    "consumer_component": "CMP-006",
+    "knowledge_validity_axes_separate": true,
+    "fail_closed": true,
+    "maturity": "CONTRACT_SYNTHETIC"
+  },
+  "tamu_specialization_contract": {
+    "registry": "configs/tamu_specialization_registry.json",
+    "version": "w14-v1.0",
+    "no_adjustment_baseline_required": true,
+    "empirical_winner_selected": false,
+    "next_owner_waves": "W16-W17; W20 implementation"
+  }
+}

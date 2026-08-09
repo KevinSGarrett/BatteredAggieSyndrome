@@ -1,0 +1,8 @@
+contract_id,concept,pit_rule,future_outcomes_allowed
+SCHED-01,PREVIOUS_OPPONENT_STRENGTH,opponent state frozen at prior game cutoff/result availability,false
+SCHED-02,CUMULATIVE_OPPONENT_STRENGTH,completed prior opponents only,false
+SCHED-03,SNAP_DRIVE_WORKLOAD,completed prior games only,false
+SCHED-04,OVERTIME_LOAD,completed prior games only,false
+SCHED-05,SHORT_REST,schedule timestamps known by cutoff,false
+SCHED-06,TRAVEL_ROAD_STREAK,prior/completed travel plus known current trip,false
+SCHED-07,NEXT_OPPONENT_LOOKAHEAD,future opponent identity/schedule only; never future performance/outcome,false

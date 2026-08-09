@@ -1,0 +1,198 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-AUTONOMY-PERMISSIONS",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+  "classes": {
+    "AUTO": {
+      "description": "Reversible, scoped, low-risk operations inside an already authorized task.",
+      "operations": [
+        {
+          "id": "AUTO-001",
+          "operation": "Read repository files, Jira issues, Git/GitHub metadata, and public/authorized source documentation."
+        },
+        {
+          "id": "AUTO-002",
+          "operation": "Run non-destructive status, diff, log, validation, lint, unit-test, and repository-audit commands."
+        },
+        {
+          "id": "AUTO-003",
+          "operation": "Create or update scoped implementation files on an owned task branch/worktree."
+        },
+        {
+          "id": "AUTO-004",
+          "operation": "Create focused tests and documentation required by the active task."
+        },
+        {
+          "id": "AUTO-005",
+          "operation": "Update a Draft PR and meaningful Jira execution metadata for the claimed task when authenticated writes are already authorized."
+        },
+        {
+          "id": "AUTO-006",
+          "operation": "Move to another independent Ready item after accurately recording a blocker."
+        },
+        {
+          "id": "AUTO-007",
+          "operation": "Create a short-lived Jira-linked branch/worktree after state reconciliation and claim checks."
+        },
+        {
+          "id": "AUTO-008",
+          "operation": "Clean generated caches/artifacts that are proven task-owned, ignored, reproducible, and contain no unique work."
+        }
+      ]
+    },
+    "AUTO_WITH_GATES": {
+      "description": "Allowed only after stated evidence and safety gates pass.",
+      "operations": [
+        {
+          "id": "GATED-001",
+          "operation": "Commit scoped changes.",
+          "gates": [
+            "explicit file-by-file staging review",
+            "no unrelated changes",
+            "secret/forbidden-artifact scan",
+            "focused tests pass"
+          ]
+        },
+        {
+          "id": "GATED-002",
+          "operation": "Push an owned task branch.",
+          "gates": [
+            "commit scope verified",
+            "remote/base/head verified",
+            "no protected/shared branch force push",
+            "user or session authorization permits push"
+          ]
+        },
+        {
+          "id": "GATED-003",
+          "operation": "Create or mark a pull request Ready.",
+          "gates": [
+            "reuse check confirms no existing PR",
+            "coherent review unit exists",
+            "PR template complete",
+            "required local gates pass",
+            "base/head verified"
+          ]
+        },
+        {
+          "id": "GATED-004",
+          "operation": "Merge a pull request under repository policy.",
+          "gates": [
+            "head SHA unchanged since final review",
+            "required CI green",
+            "Definition of Done satisfied",
+            "no unresolved review/blocker",
+            "merge authorization exists"
+          ]
+        },
+        {
+          "id": "GATED-005",
+          "operation": "Delete a merged task branch or worktree.",
+          "gates": [
+            "integration verified",
+            "no unique commits or uncommitted files",
+            "no active owner/PR dependency",
+            "cleanup recorded"
+          ]
+        },
+        {
+          "id": "GATED-006",
+          "operation": "Add or upgrade a dependency.",
+          "gates": [
+            "current requirement documented",
+            "simpler standard-library/existing option inadequate",
+            "license/security/provenance reviewed",
+            "lockfile and impacted tests updated"
+          ]
+        },
+        {
+          "id": "GATED-007",
+          "operation": "Change a non-protected schema/API or architecture boundary.",
+          "gates": [
+            "compatibility assessed",
+            "ADR/change record when material",
+            "migration/rollback defined",
+            "dependents and acceptance mappings updated"
+          ]
+        },
+        {
+          "id": "GATED-008",
+          "operation": "Publish immutable forecast/model/data artifacts.",
+          "gates": [
+            "provenance complete",
+            "PIT/leakage gates pass",
+            "artifact identity/version fixed",
+            "rollback/retention policy satisfied"
+          ]
+        },
+        {
+          "id": "GATED-009",
+          "operation": "Hydrate committed Jira workflow/status/field mappings.",
+          "gates": [
+            "correct BAT site and project verified",
+            "live metadata fetched read-only",
+            "no issue content/secrets copied unnecessarily",
+            "schemas validate"
+          ]
+        },
+        {
+          "id": "GATED-010",
+          "operation": "Run moderate paid compute or external APIs.",
+          "gates": [
+            "budget/rate limit documented",
+            "credentials local-only",
+            "expected evidence justifies cost",
+            "stop threshold configured"
+          ]
+        }
+      ]
+    },
+    "HUMAN_REQUIRED": {
+      "description": "Irreversible, high-risk, authority-sensitive, or financially/security material operations.",
+      "operations": [
+        {
+          "id": "HUMAN-001",
+          "operation": "Initial publication or reconciliation when local Git history is absent and the remote is empty or has unrelated history."
+        },
+        {
+          "id": "HUMAN-002",
+          "operation": "Force push or rewrite history on main, shared, release, or protected branches."
+        },
+        {
+          "id": "HUMAN-003",
+          "operation": "Discard, delete, reset, clean, or overwrite unknown/unowned/unmerged work."
+        },
+        {
+          "id": "HUMAN-004",
+          "operation": "Weaken, replace, unseal, or tune against protected judging/evaluation/acceptance rules."
+        },
+        {
+          "id": "HUMAN-005",
+          "operation": "Destructive production data/schema migration, irreversible backfill, or deletion of valuable datasets/artifacts."
+        },
+        {
+          "id": "HUMAN-006",
+          "operation": "Change repository visibility, access controls, secrets infrastructure, branch protection, or security policy in a weakening direction."
+        },
+        {
+          "id": "HUMAN-007",
+          "operation": "Approve ambiguous source licensing/redistribution rights or bypass authentication, CAPTCHA, rate limits, or access controls."
+        },
+        {
+          "id": "HUMAN-008",
+          "operation": "Material paid-cloud spend beyond the documented autonomous budget or long-running GPU allocation."
+        },
+        {
+          "id": "HUMAN-009",
+          "operation": "Production release/rollback with external user, cost, data, or availability impact unless a separately approved automated release policy exists."
+        },
+        {
+          "id": "HUMAN-010",
+          "operation": "Delete the canonical repository, recreate it elsewhere, or replace it with a clone/copy as a recovery shortcut."
+        }
+      ]
+    }
+  },
+  "default_on_ambiguity": "Choose the more restrictive class and record the missing gate; do not manufacture approval."
+}

@@ -1,0 +1,11 @@
+slice_id,slice,definition,weight_frozen_w14,selection_use
+TAMU-EVAL-01,all_texas_am_games,All eligible A&M games in each chronological evaluation window.,false,PRIMARY_A&M_SCORECARD
+TAMU-EVAL-02,early_season,A&M games under W11 early-season state policy.,false,DIAGNOSTIC
+TAMU-EVAL-03,regime_transition,A&M games near staff/QB/roster/scheme regime changes.,false,DIAGNOSTIC
+TAMU-EVAL-04,high_availability_uncertainty,A&M games with materially uncertain player availability/depth state.,false,DIAGNOSTIC
+TAMU-EVAL-05,home,A&M home games; no manual Kyle Field bonus.,false,DIAGNOSTIC
+TAMU-EVAL-06,away_neutral,A&M away and neutral-site games.,false,DIAGNOSTIC
+TAMU-EVAL-07,sec_or_high_strength_opponents,Conference/high national-strength opponent slice defined with PIT-safe context.,false,DIAGNOSTIC
+TAMU-EVAL-08,fcs_lower_division,A&M games against FCS/lower-division opponents under W11 hierarchy.,false,DIAGNOSTIC
+TAMU-EVAL-09,high_travel_or_environment_stress,A&M games with high PIT-safe travel/environment context.,false,DIAGNOSTIC
+TAMU-EVAL-10,national_reference,National protected evaluation retained alongside A&M scorecard.,false,NATIONAL_GUARDRAIL

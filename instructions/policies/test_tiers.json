@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-TEST-TIERS",
+  "version": "2.0.0",
+  "tiers": [
+    {
+      "id": "T0",
+      "name": "static_orientation",
+      "when": "before mutation/diagnosis",
+      "scope": [
+        "existing tests",
+        "schemas",
+        "interfaces",
+        "validators",
+        "acceptance maps"
+      ]
+    },
+    {
+      "id": "T1",
+      "name": "edit_feedback",
+      "when": "during implementation",
+      "scope": [
+        "narrowest unit/static/schema/replay check"
+      ]
+    },
+    {
+      "id": "T2",
+      "name": "impacted_subsystem",
+      "when": "before meaningful commit/PR update",
+      "scope": [
+        "affected unit/integration/domain/dependency checks"
+      ]
+    },
+    {
+      "id": "T3",
+      "name": "pr_readiness",
+      "when": "before Ready",
+      "scope": [
+        "instruction",
+        "Jira mirror",
+        "W25",
+        "repository strict",
+        "full unit suite",
+        "affected domain gates"
+      ]
+    },
+    {
+      "id": "T4",
+      "name": "scientific_replay_benchmark_release",
+      "when": "evidence contract requires",
+      "scope": [
+        "chronological replay",
+        "leakage",
+        "protected evaluation",
+        "benchmark",
+        "backup/restore",
+        "end-to-end operations",
+        "security/release"
+      ]
+    }
+  ],
+  "transient_retry_limit": 1,
+  "deterministic_failure_requires_changed_diagnosis": true,
+  "test_count_inflation_forbidden": true
+}

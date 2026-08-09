@@ -1,0 +1,7 @@
+evaluation_id,lane,criterion,threshold_ref,protected_status
+UOM-001,Epistemic/aleatoric uncertainty,coverage/calibration and error stratification; no unvalidated directional bias,,PROTOCOL_FROZEN_RESULTS_PENDING
+UOM-002,OOD,higher OOD should associate with larger error/undercoverage; threshold set from development only,THR-014,PROTOCOL_FROZEN_THRESHOLD_PENDING
+UOM-003,Model disagreement,test incremental error information beyond base uncertainty/OOD; threshold set from development only,THR-015,PROTOCOL_FROZEN_THRESHOLD_PENDING
+UOM-004,Pure football,score independently with no market features,THR-001;THR-002;THR-003;THR-004,PROTOCOL_FROZEN_RESULTS_PENDING
+UOM-005,Market augmented,compare at identical PIT cutoff against pure lane and market benchmark; no closing-line leakage,THR-001;THR-002;THR-003;THR-004,PROTOCOL_FROZEN_RESULTS_PENDING
+UOM-006,Closing market benchmark,retrospective/later-time benchmark only unless closing observation was actually known at forecast cutoff,,PROTOCOL_FROZEN

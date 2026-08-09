@@ -1,0 +1,8 @@
+uncertainty_id,name,description,directional_strength_adjustment,w11_numeric_calibration,status
+UNC-TS-001,state_epistemic,Sparse/novel current-team evidence,false,false,CONTRACT_ONLY
+UNC-TS-002,historical_relevance,Uncertainty in how older evidence transfers to current regime,false,false,CONTRACT_ONLY
+UNC-TS-003,change_point,Uncertainty created by possible regime break,false,false,CONTRACT_ONLY
+UNC-TS-004,data_quality,Missingness/source/identity/PIT evidence quality,false,false,CONTRACT_ONLY
+UNC-TS-005,cross_division_translation,Uncertainty translating FCS/lower-division strength,false,false,CONTRACT_ONLY
+UNC-TS-006,availability,Known/unknown player availability; detailed construction W12,false,false,CONTRACT_ONLY
+UNC-TS-007,aleatoric_context,Inherent game randomness container; final predictive decomposition W16,false,false,CONTRACT_ONLY

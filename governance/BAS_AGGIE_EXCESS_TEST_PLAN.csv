@@ -1,0 +1,9 @@
+test_id,question,primary_effect,controls_or_matching,inference_unit,multiple_testing_family,null_result_allowed,w15_status
+BAS-EX-001,Does A&M have a different mean performance residual than comparable teams?,A&M residual mean/robust location minus peer expectation,expected margin; team strength; opponent strength; era/regime; venue/context,canonical game with season/regime blocks,primary,true,PLAN_ONLY
+BAS-EX-002,Does A&M have excess probability of shortfall>=7?,risk difference/risk ratio or hierarchical log-odds,same as primary + predeclared peer cohort,canonical game,primary,true,PLAN_ONLY
+BAS-EX-003,Are >=3/14/21 severity effects directionally/stably consistent?,severity-specific excess,predeclared same controls,canonical game,severity_secondary,true,PLAN_ONLY
+BAS-EX-004,Does any excess persist across coaching/QB/regulatory regimes?,regime-specific partial-pooled effect,effective-dated regime only,season/regime block,regime_secondary,true,PLAN_ONLY
+BAS-EX-005,Does peer definition materially change the conclusion?,sensitivity across frozen W14 peer methods,peer method fixed before protected results,canonical game,sensitivity,true,PLAN_ONLY
+BAS-EX-006,Is estimated A&M excess stable to expectation-anchor sensitivity?,effect under primary vs approved sensitivity anchors,anchor ID/version explicit,canonical game,sensitivity,true,PLAN_ONLY
+BAS-EX-007,Is observed excess practically meaningful as well as statistically distinguishable?,effect size + interval + predictive incremental value,W17 precommitted criterion,protected evaluation,primary,true,PLAN_ONLY
+BAS-EX-008,Can no stable A&M-specific effect be supported?,null/no-excess decision,same protected evidence standard,protected evaluation,primary,true,REQUIRED_OUTCOME_PATH

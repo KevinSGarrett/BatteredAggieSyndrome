@@ -1,0 +1,16 @@
+from_state,to_state,transition_class,required_basis,automatic
+EXPERIMENTAL,SUPPORTED,EMPIRICAL_PROMOTION,PIT+quality+walk-forward+ablation+stability+target evidence required,false
+EXPERIMENTAL,CONDITIONAL,EMPIRICAL_PROMOTION,Evidence supports only declared condition/subgroup/lane,false
+EXPERIMENTAL,REJECTED,EMPIRICAL_REJECTION,Recorded experiment shows insufficient/unstable value or excessive cost,false
+SUPPORTED,CORE,EMPIRICAL_PROMOTION,Repeated/stable incremental evidence and operational value,false
+SUPPORTED,CONDITIONAL,EMPIRICAL_DEMOTION,Evidence narrows valid scope,false
+SUPPORTED,EXPERIMENTAL,EVIDENCE_INVALIDATED,Prior evidence invalidated by drift/method defect,false
+SUPPORTED,REJECTED,EMPIRICAL_DEMOTION,Updated evidence no longer supports use,false
+CORE,SUPPORTED,EMPIRICAL_DEMOTION,Still useful but no longer core-strength evidence,false
+CORE,CONDITIONAL,EMPIRICAL_DEMOTION,Use restricted to conditions,false
+CORE,REJECTED,EMPIRICAL_DEMOTION,Updated evidence fails,false
+CONDITIONAL,SUPPORTED,EMPIRICAL_PROMOTION,Expanded stable evidence beyond condition,false
+CONDITIONAL,EXPERIMENTAL,EVIDENCE_INVALIDATED,Conditional evidence invalidated,false
+CONDITIONAL,REJECTED,EMPIRICAL_DEMOTION,Condition no longer supported,false
+REJECTED,EXPERIMENTAL,NEW_EVIDENCE_OR_HYPOTHESIS,Requires new experiment/version; old rejection retained,false
+BANNED,EXPERIMENTAL,GOVERNANCE_SAFETY_CORRECTION,Requires corrected PIT/rights/semantic classification and explicit decision record,false

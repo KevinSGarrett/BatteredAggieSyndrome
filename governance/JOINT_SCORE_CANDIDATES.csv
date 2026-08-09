@@ -1,0 +1,8 @@
+candidate_id,name,family,rationale,complexity,production_selected_w16
+JS-001,Independent Poisson,count,Simple score baseline; induces Skellam margin,LOW,false
+JS-002,Bivariate Poisson,correlated_count,Shared latent scoring component models covariance,MEDIUM,false
+JS-003,Hierarchical negative-binomial counts,overdispersed_count,Allows overdispersion and partial pooling,MEDIUM_HIGH,false
+JS-004,Possession x scoring-efficiency generative,structured_simulation,Explicit opportunities and per-possession scoring,HIGH,false
+JS-005,Correlated continuous latent score mapped to integer support,latent_distribution,Flexible covariance/tails with discrete final support,MEDIUM_HIGH,false
+JS-006,Marginal score distributions + copula/dependence,copula,Separates marginals from dependence,HIGH,false
+JS-007,Validated mixture/ensemble of coherent distributions,mixture,Scenario/model mixture if each member coherent,HIGH,false

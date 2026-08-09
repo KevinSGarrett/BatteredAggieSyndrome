@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-SECURITY-SECRETS-RIGHTS",
+  "version": "2.0.0",
+  "env_file": ".env",
+  "env_must_be_ignored": true,
+  "never_store": [
+    "secret values",
+    "PATs",
+    "passwords",
+    "private keys",
+    "auth headers",
+    "session cookies",
+    "production credentials",
+    "restricted raw attachments"
+  ],
+  "allowed_references": [
+    "environment variable names",
+    "secret aliases",
+    "redacted evidence"
+  ],
+  "pre_integration": [
+    "staged diff review",
+    "secret scan",
+    "forbidden artifact scan",
+    "generated artifact review",
+    "rights/privacy check"
+  ],
+  "source_rules": [
+    "least privilege",
+    "respect terms/rate limits",
+    "no CAPTCHA/paywall/access-control bypass",
+    "no unauthorized bulk redistribution",
+    "fail closed on rights ambiguity"
+  ],
+  "human_required": [
+    "credential lifecycle changes",
+    "weaken controls",
+    "accept rights risk",
+    "shared-history secret rewrite",
+    "production access changes"
+  ]
+}

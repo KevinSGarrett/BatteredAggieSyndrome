@@ -1,0 +1,6 @@
+analog_id,candidate,inputs,strict_prior_only,same_game_outcome_allowed,automatic_prediction_adjustment
+TAMU-AN-01,team_state_similarity,prior/underlying/available strength;uncertainty;regime,true,false,false
+TAMU-AN-02,matchup_style_similarity,PIT-safe offense/defense/style/opponent-adjusted state,true,false,false
+TAMU-AN-03,availability_scenario_similarity,position-group availability/replacement/usage uncertainty,true,false,false
+TAMU-AN-04,regime_transition_similarity,staff/QB/roster/scheme transition state,true,false,false
+TAMU-AN-05,environment_schedule_similarity,venue;travel;rest;weather;workload;stakes,true,false,false

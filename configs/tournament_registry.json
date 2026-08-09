@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "version": "w18-tournaments-v1.0",
+  "feature_policy": "governance/FEATURE_TOURNAMENT_POLICY.csv",
+  "model_policy": "governance/MODEL_TOURNAMENT_POLICY.csv",
+  "stages": "governance/TOURNAMENT_STAGE_CATALOG.csv",
+  "comparison_policy": "governance/TOURNAMENT_COMPARISON_POLICY.csv",
+  "development_only": true,
+  "protected_metrics_allowed": false,
+  "promotion_state_allowed": false,
+  "feature_lifecycle_direct_promotion_allowed": false,
+  "required_model_baselines": [
+    "EMPIRICAL",
+    "ELO_RATING",
+    "LOGISTIC_GLM",
+    "SIMPLE_COHERENT_SCORE"
+  ],
+  "required_tamu_baseline": "TAMU-SP-00"
+}

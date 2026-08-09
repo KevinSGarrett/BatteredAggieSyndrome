@@ -1,0 +1,214 @@
+{
+  "acceptance_control_ids": [
+    "AC-019",
+    "AC-021",
+    "AC-055",
+    "AC-056",
+    "AC-114"
+  ],
+  "acceptance_criteria": [
+    "Stable ID TASK-064, parent EPIC-011, owner wave W13, and original status DONE are preserved.",
+    "Declared outputs are traceable to existing repository artifacts where resolvable, or remain recorded as historical output names without fabricating files.",
+    "Requirement, acceptance-control, and dependency references resolve to authoritative registries.",
+    "The record does not claim maturity beyond the task's original design, contract, functional-starter, synthetic-validation, or integration scope."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is historical WBS provenance. Execute the mapped post-wave issue for remaining maturity work.",
+    "Completed W13 contract/reference scope; no empirical effect winner or numeric bonus implied."
+  ],
+  "allowed_modification_paths": [
+    "coaching interface baseline"
+  ],
+  "blocked_reason": "",
+  "blocks": [
+    "TASK-085",
+    "TASK-088",
+    "TASK-090"
+  ],
+  "canonical_record": "jira/records/issues/tasks/TASK-064_freeze_coaching_intelligence_interface.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {},
+  "component": "modeling",
+  "components_expected_to_be_touched": [
+    "modeling"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "The original historical scope and status are preserved with source evidence and stable identifiers.",
+    "The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.",
+    "Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work."
+  ],
+  "dependencies": [
+    "TASK-063"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 5,
+    "adr_ids": 0,
+    "gap_ids": 0,
+    "requirement_ids": 6,
+    "risk_ids": 0
+  },
+  "effective_traceability_total": 11,
+  "end_to_end_validation": "Historical completion remains scoped; integrated product completion is evaluated only through the post-wave release path.",
+  "epic_id": "EPIC-011",
+  "evidence_manifest_path": "",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "PROTECTED_GATE",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "CONTRACT_DEFINED",
+  "expected_outputs": [
+    "coaching interface baseline"
+  ],
+  "files_expected_to_be_read": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "files_expected_to_be_touched": [
+    "coaching interface baseline"
+  ],
+  "files_to_inspect": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/tasks/TASK-064_freeze_coaching_intelligence_interface.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "",
+  "historical_classification": "HISTORICAL_SCOPED_COMPLETED",
+  "import_id": 100167,
+  "in_scope": [
+    "Original WBS objective and outputs",
+    "Original requirements and acceptance-control mappings",
+    "Original dependency and execution-lane provenance"
+  ],
+  "issue_type": "Task",
+  "jira_key": "BAT-167",
+  "labels": [
+    "gate",
+    "historical",
+    "planning-program",
+    "w13",
+    "wave-completed"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "TASK-064",
+  "maturity_before": "DESIGN_ONLY",
+  "objective": "Freeze coaching intelligence interface",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24307",
+    "jira_updated_at": "2026-08-09T00:40:27.775-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Reopening completed planning solely to rename it",
+    "Treating a starter/design result as empirically validated production capability"
+  ],
+  "owner_wave": "W13",
+  "parent_id": "EPIC-011",
+  "phase": "PHASE-2",
+  "prerequisites": [
+    "Historical dependency TASK-063"
+  ],
+  "primary_source_refs": [
+    "SRCREF-00097",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "priority": "P1",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [
+    "POST-SUBTASK-078"
+  ],
+  "required_evidence": [
+    "Authoritative WBS row TASK-064",
+    "Existing artifact `coaching interface baseline`"
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_model_architecture_governance.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_w20_model_starter.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tools/validate_model_architecture.py"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-076",
+    "REQ-077",
+    "REQ-232",
+    "REQ-233",
+    "REQ-426",
+    "REQ-431"
+  ],
+  "risk_failure_conditions": [
+    "Original DONE status may be over-interpreted",
+    "Source output path may have moved or been generated under a different canonical directory"
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Original task type GATE with mutation scope: as defined by its source documents.",
+  "source_ids": [
+    "TASK-064"
+  ],
+  "source_refs": [
+    "SRCREF-00097",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "specificity_fingerprint": "1bd9f8daba43adb10dc7d947991e5cdcd2d51ed49f87aba4d506570ebf9e5a3e",
+  "stop_conditions": [
+    "Stop if completing this record would fabricate real-data, model-metric, source-rights, target-hardware, or operating evidence."
+  ],
+  "supporting_source_refs": [],
+  "title": "[TASK-064] Freeze coaching intelligence interface",
+  "traceability_inherited_from": [],
+  "traceability_resolution": "DIRECT",
+  "unblock_condition": "",
+  "validation_classes": [
+    "EXISTING_AUTOMATED_TEST"
+  ],
+  "why_this_exists": "Preserve the original W13 WBS work unit, its dependencies, outputs, and scoped completion semantics as provenance for post-wave execution.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}

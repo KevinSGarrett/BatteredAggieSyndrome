@@ -1,0 +1,216 @@
+requirement_id,prior_class,w04_class,prior_status,w04_status,decision,rationale
+REQ-001,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-002,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-003,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-004,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-005,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-006,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-007,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-008,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-009,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-010,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-011,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-012,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-013,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-014,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-015,C,C,HYPOTHESIS_RULE,HYPOTHESIS_RULE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-016,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-017,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-018,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-019,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-020,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-021,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-022,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-023,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-024,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-025,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-026,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-027,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-028,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-029,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-030,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-031,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-032,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-033,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-034,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-035,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-036,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-037,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-038,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-039,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-040,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-041,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-042,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-043,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-044,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-045,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-046,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-047,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-048,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-049,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-050,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-051,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-052,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-053,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-054,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-055,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-056,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-057,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-058,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-059,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-060,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-061,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-062,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-063,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-064,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-065,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-066,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-067,C,C,RESEARCH,RESEARCH,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-068,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-069,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-070,A,B,ACTIVE,DEFAULT,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-071,A,B,ACTIVE,DEFAULT,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-072,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-073,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-074,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-075,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-076,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-077,A,B,ACTIVE,DEFAULT,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-078,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-079,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-080,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-081,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-082,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-083,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-084,C,C,RESEARCH,RESEARCH,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-085,C,C,RESEARCH,RESEARCH,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-086,A,B,ACTIVE,DEFAULT,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-087,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-088,C,C,RESEARCH,RESEARCH,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-089,C,C,RESEARCH,RESEARCH,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-090,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-091,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-092,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-093,A,B,ACTIVE,DEFAULT,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-094,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-095,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-096,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-097,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-098,C,C,RESEARCH,RESEARCH,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-099,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-100,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-101,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-102,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-103,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-104,A,B,ACTIVE,DEFAULT,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-105,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-106,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-107,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-108,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-109,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-110,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-111,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-112,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-113,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-114,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-115,A,B,ACTIVE,DEFAULT,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-116,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-117,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-118,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-119,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-120,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-121,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-122,B,B,DEFAULT,DEFAULT,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-123,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-124,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-125,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-126,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-127,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-128,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-129,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-130,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-131,A,A,COMPLETE_W01,COMPLETE_W01,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-132,A,A,COMPLETE_W01,COMPLETE_W01,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-133,B,B,ACTIVE,COMPLETE_W02,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-134,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-135,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-136,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-137,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-138,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-139,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-140,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-141,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-142,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-143,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-144,A,A,COMPLETE_W02,COMPLETE_W02,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-145,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-146,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-147,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-148,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-149,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-150,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-151,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-152,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-153,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-154,A/B boundary,A,ACTIVE,ACTIVE,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-155,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-156,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-157,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-158,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-159,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-160,A/B boundary,A,ACTIVE,ACTIVE,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-161,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-162,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-163,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-164,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-165,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-166,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-167,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-168,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-169,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-170,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-171,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-172,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-173,A,B,ACTIVE,DEFAULT,REVISED_W04,W04 audit separated invariant/default/hypothesis semantics or corrected a transient/mixed-status requirement without changing its stable ID.
+REQ-174,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-175,B,B,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-176,A,A,ACTIVE,ACTIVE,CONFIRMED,Source language and accepted architecture remain consistent with the existing Level-A/B/C classification.
+REQ-177,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-178,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-179,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-180,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-181,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-182,,B,,DEFAULT,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-183,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-184,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-185,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-186,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-187,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-188,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-189,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-190,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-191,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-192,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-193,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-194,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-195,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-196,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-197,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-198,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-199,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-200,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-201,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-202,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-203,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-204,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-205,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-206,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-207,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-208,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-209,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-210,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-211,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-212,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-213,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-214,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.
+REQ-215,,A,,ACTIVE,NEW_W04,New hardening requirement introduced by W04 to make acceptance/security/reproducibility/performance/data-governance obligations explicit.

@@ -1,0 +1,144 @@
+{
+  "archive_qa_note": "Archive-level testzip, clean extraction, portable validation, and cross-archive equality are recorded in the external v2 QA artifact generated after packaging.",
+  "commands": [
+    {
+      "command": "python -B jira/tools/validate_jira_pack.py",
+      "log_sha256": "058a85e61f71f88251ed2b3f361b476ae0c809bd247d65d85e23e315b3f01b25",
+      "name": "jira_pack",
+      "output_tail": "      \"MANUAL\": 8,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 51,\n      \"OPERATIONS\": 42,\n      \"REPRODUCIBILITY\": 229,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 31,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-08\",\n    \"work_packet_count\": 229\n  }\n}",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py",
+      "log_sha256": "3f19a984eeacbb3a0836d42338b860fa9c66b6a286cfba36d55d534af1f11fd2",
+      "name": "source_refs",
+      "output_tail": "{\n  \"errors\": [],\n  \"references\": 2118,\n  \"relocated\": 0,\n  \"repair\": false,\n  \"result\": \"PASS\"\n}",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B jira/tools/validate_dependencies.py",
+      "log_sha256": "e84a76d3330c5d86501728852b8adc45cf3db35c6655b59e59890e1d2fb7b197",
+      "name": "dependencies",
+      "output_tail": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 463,\n  \"result\": \"PASS\"\n}",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B jira/tools/validate_import_files.py",
+      "log_sha256": "26702f56c693a973a76edc5532a290356840d22c032af3bc333070ba6bc20b41",
+      "name": "import_files",
+      "output_tail": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 463,\n  \"result\": \"PASS\"\n}",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "log_sha256": "9030c8d752455bc3faa6e537e9c380726e2f9aa145989ccbc88883454f47fb2a",
+      "name": "second_pass",
+      "output_tail": "    \"LEGAL_RIGHTS_REVIEW\": 8,\n    \"MANUAL\": 8,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 51,\n    \"OPERATIONS\": 42,\n    \"REPRODUCIBILITY\": 229,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 31,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-08\",\n  \"work_packet_count\": 229\n}",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B jira/tools/run_second_pass_audit.py",
+      "log_sha256": "5ab79ed0fe8ec8e1ebf443053e46ab1f1898fcfd7e9d5ef932df3718d9877466",
+      "name": "prompt_audit",
+      "output_tail": "Second-pass audit: PASS | sections=68 passed=68 errors=0",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py",
+      "log_sha256": "cee1a880d024e3444764a0d4ee3455e084a35a661f698c0dd540e516a645d6f5",
+      "name": "w25_final",
+      "output_tail": "PASS: W25 final consolidation, terminal-wave governance, maturity honesty and Codex handoff controls",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B tools/validate_acceptance.py",
+      "log_sha256": "235f0d4f40fb2a1348ce60c0adb4326279db284faeb01746f8d079082ee5ece6",
+      "name": "acceptance",
+      "output_tail": "PASS: acceptance controls, thresholds, requirement/ADR/risk mappings and protected semantics",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B tools/validate_backlog.py",
+      "log_sha256": "659c12688061d8f63efcab46daf04b814c9cdf9391273ec7daeeec92a695652e",
+      "name": "backlog",
+      "output_tail": "PASS: five-phase WBS, stable IDs, dependency DAG, task traceability, W06 replan and Codex packet contracts",
+      "result": "PASS",
+      "returncode": 0
+    },
+    {
+      "command": "python -B -m pytest -q",
+      "log_sha256": "6faccfa917d991ab5025aedb76ef1b89caec9c7427fbe26db4a9b41f7fd43c0d",
+      "name": "pytest",
+      "output_tail": "........................................................................ [ 31%]\n........................................................................ [ 62%]\n........................................................ [ 86%]\n................................                                         [100%]\n=============================== warnings summary ===============================\ntests/test_w23_operations.py::W23OperationsTests::test_backup_rejects_tamper\n  /usr/lib/python3.13/zipfile/__init__.py:1642: UserWarning: Duplicate name: 'payload/a.txt'\n    return self._open_to_write(zinfo, force_zip64=force_zip64)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n232 passed, 1 warning, 16 subtests passed in 1.26s",
+      "result": "PASS",
+      "returncode": 0
+    }
+  ],
+  "non_jira_scope": {
+    "added": [],
+    "changed": [],
+    "current_non_jira_files": 863,
+    "inventory_non_jira_files": 863,
+    "missing": [],
+    "pass": true
+  },
+  "pytest": {
+    "subtests_passed": 16,
+    "tests_passed": 232,
+    "warning_interpretation": "Expected duplicate-entry warning from the deliberate backup-tamper rejection test; no test failed.",
+    "warnings": 1
+  },
+  "registry_coverage": {
+    "acceptance_control_ids": {
+      "mapped": 234,
+      "total": 234
+    },
+    "adr_ids": {
+      "mapped": 349,
+      "total": 349
+    },
+    "gap_ids": {
+      "mapped": 14,
+      "total": 14
+    },
+    "requirement_ids": {
+      "mapped": 745,
+      "total": 745
+    },
+    "risk_ids": {
+      "mapped": 310,
+      "total": 310
+    }
+  },
+  "release": "v2-second-pass",
+  "result": "PASS",
+  "schema_version": 1,
+  "second_pass_metrics": {
+    "actionable_records": 229,
+    "aggregate_gates": 70,
+    "atomic_execution": 159,
+    "blocked": 142,
+    "deferred": 36,
+    "derivatives_consistent": 463,
+    "errors": 0,
+    "historical_reference": 234,
+    "issues": 463,
+    "prompt_sections_passed": 68,
+    "ready": 2,
+    "source_anchors": 2118,
+    "work_packets": 229
+  },
+  "tool_compile": {
+    "files_compiled": 17,
+    "result": "PASS"
+  },
+  "validated_at_utc": "2026-08-09T03:23:18.081257+00:00"
+}

@@ -1,0 +1,8 @@
+record_family,current_storage_default,current_workload,append_only,postgresql_required,notes
+canonical_entities,Parquet dataset + DuckDB query,single-writer batch,YES,NO,Immutable/versioned entity rows; current view derived.
+source_entity_mappings,Append-only Parquet dataset + DuckDB query,single-writer batch/review,YES,NO,Corrections append superseding mapping rows.
+aliases_and_membership_episodes,Parquet dataset + DuckDB query,single-writer batch,YES,NO,Effective dating finalized in W08.
+resolution_candidates,Parquet dataset,batch generation,YES,NO,"Candidates are evidence, not truth."
+resolution_decisions,Append-only decision dataset,single local reviewer/writer,YES,NO,Current status derived from latest valid decision.
+review_queue,Derived query/view over unresolved candidates,read-mostly local UI/CLI,YES,NO,Do not require mutable queue table.
+multi_user_review,PostgreSQL candidate adapter,concurrent human/service writers,NO,CONDITIONAL,Adopt only when concurrency/transaction requirements are demonstrated.

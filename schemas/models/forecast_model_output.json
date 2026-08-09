@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Forecast Model Output",
+  "type": "object",
+  "required": [
+    "forecast_id",
+    "lane",
+    "joint_distribution_id",
+    "model_artifact_id",
+    "data_snapshot_id",
+    "feature_version"
+  ],
+  "properties": {
+    "forecast_id": {
+      "type": "string"
+    },
+    "lane": {
+      "enum": [
+        "PURE_FOOTBALL",
+        "MARKET_AUGMENTED"
+      ]
+    },
+    "joint_distribution_id": {
+      "type": "string"
+    },
+    "model_artifact_id": {
+      "type": "string"
+    },
+    "calibration_artifact_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "data_snapshot_id": {
+      "type": "string"
+    },
+    "feature_version": {
+      "type": "string"
+    },
+    "bas_expectation_evidence_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

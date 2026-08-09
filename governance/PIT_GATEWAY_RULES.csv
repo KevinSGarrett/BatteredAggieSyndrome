@@ -1,0 +1,13 @@
+rule_id,title,rule,action
+PIT-001,No feature-source bypass,All feature construction must request observations through the PIT gateway/as-of interface.,BLOCK
+PIT-002,Knowledge cutoff,Observation first_known_at/policy-derived knowledge time must not exceed feature cutoff.,BLOCK
+PIT-003,Target validity,Observation must be valid/applicable for the target event/state time where the domain requires validity intervals.,BLOCK
+PIT-004,Revision replay,A revision/correction first known after the cutoff cannot replace the version that was knowable at the cutoff.,BLOCK
+PIT-005,Unknown timing fails closed,Missing/ambiguous temporal evidence cannot be guessed into PIT eligibility.,BLOCK_OR_QUARANTINE
+PIT-006,Retrospective evidence,Retrospective/current pages require dated corroboration before historical use.,BLOCK_OR_REVIEW
+PIT-007,Historical game completion,Same-game/future-game outcomes cannot enter pregame features; prior-game outputs require completion before cutoff.,BLOCK
+PIT-008,Market lane isolation,Market evidence is excluded from pure-football lane and is timestamp-gated in market-augmented lane.,BLOCK
+PIT-009,Weather run lineage,Issued weather feature requires exact model/run availability and target-valid time; observed truth cannot replace earlier forecast.,BLOCK
+PIT-010,Availability noncoverage,"No official report outside policy scope is UNKNOWN, never affirmative availability.",BLOCK_FALSE_INFERENCE
+PIT-011,Cutoff immutability,Forecast/training cutoff objects and policy version are immutable lineage records.,BLOCK_MUTATION
+PIT-012,Training chronology,Historical training replay may use labels only from games completed/known before that model-training cutoff; each example feature row still uses its own pregame cutoff.,BLOCK

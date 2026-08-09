@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReplayReport",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "attempt_id",
+    "status",
+    "checks"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "attempt_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PENDING",
+        "STRUCTURAL_VERIFIED",
+        "VERIFIED",
+        "MISMATCH",
+        "BLOCKED_INPUT_MISSING",
+        "BLOCKED_ENVIRONMENT_UNAVAILABLE",
+        "NOT_REQUIRED"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "passed"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verifier": {
+      "type": "string"
+    }
+  }
+}

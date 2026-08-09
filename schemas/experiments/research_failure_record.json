@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research Failure/Negative Evidence Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "attempt",
+    "outcome_class",
+    "reason_code",
+    "retryable",
+    "scientific_rejection",
+    "recorded_at"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "outcome_class": {
+      "enum": [
+        "SCIENTIFIC",
+        "OPERATIONAL",
+        "GOVERNANCE",
+        "DATA",
+        "RIGHTS",
+        "REPLAY"
+      ]
+    },
+    "reason_code": {
+      "type": "string"
+    },
+    "retryable": {
+      "type": "boolean"
+    },
+    "scientific_rejection": {
+      "type": "boolean"
+    },
+    "superseded_by": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "hypothesis_id": "HYP-066",
+  "task_id": "TASK-138",
+  "candidate_family": "boosted_margin",
+  "target": "margin",
+  "lane": "PURE_FOOTBALL",
+  "data_snapshot_id": "DS-SYNTH-W18",
+  "feature_set_id": "FS-SYNTH-W18",
+  "development_split": "SPLIT-DEV-SEL",
+  "metric_registry_version": "w17-v1",
+  "judging_rule_seal_id": "JRS-W17-001",
+  "model_config": {
+    "family": "gradient_boosting",
+    "depth": 4
+  },
+  "random_seeds": [
+    7
+  ],
+  "resource_budget": {
+    "cpu_threads": 2,
+    "ram_mb": 4096,
+    "gpu_slots": 0,
+    "vram_mb": 0,
+    "disk_mb": 1024,
+    "paid_compute": false
+  }
+}

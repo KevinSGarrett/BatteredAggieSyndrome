@@ -1,0 +1,582 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-150_reconcile_registries_artifacts_documentation_jira_state_operating_baseline_and_c.json -->
+# POST-SUBTASK-150 — [POST-SUBTASK-150] Reconcile registries, artifacts, documentation, Jira state, operating baseline, and close-by-disposition evidence
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [
+    "AC-186"
+  ],
+  "acceptance_criteria": [
+    "The challenger receives identical evaluation, uncertainty/calibration/robustness/resource reporting, cannot alter prior champion evidence, and incomplete runs are not selectively summarized.",
+    "Promotion requires policy-compliant protected evidence and a signed reproducible artifact; no-promotion retains current champion/negative evidence and any promoted candidate passes full serving/operations/rollback gates.",
+    "Active identities change only on successful promotion, all decisions/Jira/evidence reconcile, and GAP-013 remains conditional or closed by explicit disposition rather than a core blocker.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
+  ],
+  "adr_ids": [
+    "ADR-274",
+    "ADR-314"
+  ],
+  "ai_context_notes": [
+    "Canonical parent Story: POST-STORY-050. Governance traceability gate: POST-SUBTASK-150. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.",
+    "Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-150.json`; inspect only the listed implementation files and prerequisite outputs.",
+    "May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.",
+    "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
+  ],
+  "allowed_modification_paths": [
+    "artifacts/advanced/challenger_closeout.json",
+    "artifacts/jira_evidence/POST-SUBTASK-150.json"
+  ],
+  "blocked_reason": "DEFERRED_OR_CONDITIONAL_BY_FINAL_HANDOFF",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-150_reconcile_registries_artifacts_documentation_jira_state_operating_baseline_and_c.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {
+    "acceptance_matrix_required": true,
+    "artifact_hashes_required": true,
+    "completion_claim_limit": "PRODUCTION_READY",
+    "downstream_consumer": "POST-STORY-050",
+    "governance_traceability_gate": "POST-SUBTASK-150",
+    "negative_results_preserved": true,
+    "provenance_dimensions": [
+      "source",
+      "data",
+      "code",
+      "config",
+      "tool",
+      "runtime",
+      "split/cutoff when applicable"
+    ]
+  },
+  "component": "advanced-challengers",
+  "components_expected_to_be_touched": [
+    "advanced-challengers",
+    "advanced"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "The atomic scope in POST-SUBTASK-150 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
+    "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
+    "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
+    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
+    "The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-050."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-147",
+    "POST-SUBTASK-148",
+    "POST-SUBTASK-149"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 1,
+    "adr_ids": 2,
+    "gap_ids": 1,
+    "requirement_ids": 5,
+    "risk_ids": 1
+  },
+  "effective_traceability_total": 10,
+  "end_to_end_validation": "An optional challenger either survives the identical sealed production gate or remains preserved negative evidence without destabilizing the operating system. The gate decision must explicitly record that no downstream issue is silently unlocked.",
+  "epic_id": "POST-EPIC-016",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-150.json",
+  "evidence_state": "PLANNED",
+  "execution_lane": "OPERATIONS",
+  "execution_mode": "ATOMIC_EXECUTION",
+  "expected_maturity_after_completion": "PRODUCTION_READY",
+  "expected_outputs": [
+    "artifacts/advanced/challenger_closeout.json"
+  ],
+  "files_expected_to_be_read": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/ADR_INDEX.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv",
+    "tests/test_advanced_challenger_full.py",
+    "docs/72_ADVANCED_CHALLENGER_ADMISSION.md",
+    "docs/91_ADVANCED_CHALLENGER_GATE.md",
+    "governance/ADVANCED_CHALLENGER_ADMISSION.csv"
+  ],
+  "files_expected_to_be_touched": [],
+  "files_to_inspect": [
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/ADR_INDEX.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv",
+    "tests/test_advanced_challenger_full.py",
+    "docs/72_ADVANCED_CHALLENGER_ADMISSION.md",
+    "docs/91_ADVANCED_CHALLENGER_GATE.md",
+    "governance/ADVANCED_CHALLENGER_ADMISSION.csv"
+  ],
+  "gap_ids": [
+    "GAP-013"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-150_reconcile_registries_artifacts_documentation_jira_state_operating_baseline_and_c.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "POST-SUBTASK-150",
+  "historical_classification": "ACTIONABLE_POST_WAVE",
+  "import_id": 100454,
+  "in_scope": [
+    "Perform the exact action: Reconcile registries, artifacts, documentation, Jira state, operating baseline, and close-by-disposition evidence.",
+    "Consume only verified prerequisite outputs from `POST-SUBTASK-147`, `POST-SUBTASK-148`, `POST-SUBTASK-149`.",
+    "Demonstrate with saved evidence: The challenger receives identical evaluation, uncertainty/calibration/robustness/resource reporting, cannot alter prior champion evidence, and incomplete runs are not selectively summarized.",
+    "Demonstrate with saved evidence: Promotion requires policy-compliant protected evidence and a signed reproducible artifact; no-promotion retains current champion/negative evidence and any promoted candidate passes full serving/operations/rollback gates.",
+    "Demonstrate with saved evidence: Active identities change only on successful promotion, all decisions/Jira/evidence reconcile, and GAP-013 remains conditional or closed by explicit disposition rather than a core blocker.",
+    "Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
+    "Produce, validate, content-hash, and register `artifacts/advanced/challenger_closeout.json`.",
+    "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
+  ],
+  "issue_type": "Subtask",
+  "jira_key": "BAT-500",
+  "labels": [
+    "actionable",
+    "advanced",
+    "conditional",
+    "operations",
+    "post-wave",
+    "subtask"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "POST-SUBTASK-150",
+  "maturity_before": "CONDITIONAL",
+  "objective": "Reconcile registries, artifacts, documentation, Jira state, operating baseline, and close-by-disposition evidence",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24640",
+    "jira_updated_at": "2026-08-09T00:05:14.576-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
+    "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Work assigned to sibling subtasks: Generate challenger predictions on identical sealed protected games/cutoffs/metrics and complete scientific/resource scorecards; Apply champion/challenger promotion, reproducibility, operational-compatibility, publication, product, and rollback policy.",
+    "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-050",
+  "phase": "PHASE-5",
+  "prerequisites": [
+    "Dependency POST-SUBTASK-147 complete at required maturity",
+    "Dependency POST-SUBTASK-148 complete at required maturity",
+    "Dependency POST-SUBTASK-149 complete at required maturity"
+  ],
+  "primary_source_refs": [
+    "SRCREF-02107",
+    "SRCREF-02108",
+    "SRCREF-02109",
+    "SRCREF-02110"
+  ],
+  "priority": "P3",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "docs/final/CODEX_HANDOFF.md",
+    "docs/final/FINAL_BACKLOG.csv",
+    "docs/final/FINAL_COMPONENT_MATURITY.csv",
+    "docs/final/FINAL_IMPLEMENTATION_PRIORITY.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/ADR_INDEX.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv",
+    "tests/test_advanced_challenger_full.py",
+    "docs/72_ADVANCED_CHALLENGER_ADMISSION.md",
+    "docs/91_ADVANCED_CHALLENGER_GATE.md",
+    "governance/ADVANCED_CHALLENGER_ADMISSION.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [],
+  "required_evidence": [
+    "`artifacts/advanced/challenger_closeout.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
+    "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
+    "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
+    "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
+    "Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status."
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-150; retain command, exit code, and relevant output.",
+      "path": "tests/test_advanced_challenger_full.py",
+      "validation_class": "REGRESSION"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-150; retain command, exit code, and relevant output.",
+      "path": "tools/check_advanced_challenger_admission.py",
+      "validation_class": "REGRESSION"
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "expectation": "Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.",
+      "path": "artifacts/advanced/challenger_closeout.json",
+      "validation_class": "SCIENTIFIC"
+    },
+    {
+      "classification": "CALIBRATION",
+      "expectation": "Report calibration/reliability evidence on the allowed evaluation lane with sample size and uncertainty.",
+      "path": "artifacts/advanced/challenger_closeout.json",
+      "validation_class": "CALIBRATION"
+    },
+    {
+      "classification": "OPERATIONS",
+      "expectation": "Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.",
+      "path": "artifacts/advanced/challenger_closeout.json",
+      "validation_class": "OPERATIONS"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.",
+      "path": "artifacts/advanced/challenger_closeout.json",
+      "validation_class": "END_TO_END"
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "expectation": "Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.",
+      "path": "ISSUE_COMPLETION_MANIFEST",
+      "validation_class": "REPRODUCIBILITY"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-108",
+    "REQ-630",
+    "REQ-631",
+    "REQ-632",
+    "REQ-637"
+  ],
+  "risk_failure_conditions": [
+    "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-150.",
+    "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
+    "Acceptance failure: the evidence cannot demonstrate that the challenger receives identical evaluation, uncertainty/calibration/robustness/resource reporting, cannot alter prior champion evidence, and incomplete runs are not selectively summarized.",
+    "Acceptance failure: the evidence cannot demonstrate that promotion requires policy-compliant protected evidence and a signed reproducible artifact; no-promotion retains current champion/negative evidence and any promoted candidate passes full serving/operations/rollback gates.",
+    "Acceptance failure: the evidence cannot demonstrate that active identities change only on successful promotion, all decisions/Jira/evidence reconcile, and GAP-013 remains conditional or closed by explicit disposition rather than a core blocker.",
+    "Acceptance failure: the evidence cannot demonstrate that all prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
+  ],
+  "risk_ids": [
+    "RISK-254"
+  ],
+  "schema_version": 2,
+  "scope": "Execute the atomic 3 of 3 step in Story POST-STORY-050 (Protected comparison and production disposition): Reconcile registries, artifacts, documentation, Jira state, operating baseline, and close-by-disposition evidence. Consume only verified prerequisite outputs from `POST-SUBTASK-147`, `POST-SUBTASK-148`, `POST-SUBTASK-149`. Produce `artifacts/advanced/challenger_closeout.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.",
+  "source_ids": [
+    "GAP-013",
+    "HANDOFF-013",
+    "TASK-165",
+    "TASK-166",
+    "TASK-167",
+    "TASK-168"
+  ],
+  "source_refs": [
+    "SRCREF-02107",
+    "SRCREF-02108",
+    "SRCREF-02109",
+    "SRCREF-02110",
+    "SRCREF-02111",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01899",
+    "SRCREF-01575",
+    "SRCREF-00198",
+    "SRCREF-00199",
+    "SRCREF-00200",
+    "SRCREF-00201",
+    "SRCREF-02116",
+    "SRCREF-02117",
+    "SRCREF-02118"
+  ],
+  "specificity_fingerprint": "1ce6f650992366f6d99240ea1628413997eb4d922ed9769e8036e6acf0f364e8",
+  "stop_conditions": [
+    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
+    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
+    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02111",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-02006",
+    "SRCREF-01899",
+    "SRCREF-01575",
+    "SRCREF-00198",
+    "SRCREF-00199",
+    "SRCREF-00200",
+    "SRCREF-00201",
+    "SRCREF-02116",
+    "SRCREF-02117",
+    "SRCREF-02118"
+  ],
+  "title": "[POST-SUBTASK-150] Reconcile registries, artifacts, documentation, Jira state, operating baseline, and close-by-disposition evidence",
+  "traceability_inherited_from": [],
+  "traceability_resolution": "DIRECT_DOMAIN_GATE",
+  "unblock_condition": "A documented admission/replanning decision must explicitly activate this work after all stated prerequisites pass.",
+  "validation_classes": [
+    "CALIBRATION",
+    "END_TO_END",
+    "OPERATIONS",
+    "REGRESSION",
+    "REPRODUCIBILITY",
+    "SCIENTIFIC"
+  ],
+  "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-050: Protected comparison and production disposition.",
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-150.md",
+  "workflow_state": "DEFERRED"
+}
+```
+
+## Objective
+
+Reconcile registries, artifacts, documentation, Jira state, operating baseline, and close-by-disposition evidence
+
+## Why This Exists
+
+This is an independently executable and verifiable work unit required by Story POST-STORY-050: Protected comparison and production disposition.
+
+## Scope
+
+Execute the atomic 3 of 3 step in Story POST-STORY-050 (Protected comparison and production disposition): Reconcile registries, artifacts, documentation, Jira state, operating baseline, and close-by-disposition evidence. Consume only verified prerequisite outputs from `POST-SUBTASK-147`, `POST-SUBTASK-148`, `POST-SUBTASK-149`. Produce `artifacts/advanced/challenger_closeout.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+
+### Explicit In Scope
+
+- Perform the exact action: Reconcile registries, artifacts, documentation, Jira state, operating baseline, and close-by-disposition evidence.
+- Consume only verified prerequisite outputs from `POST-SUBTASK-147`, `POST-SUBTASK-148`, `POST-SUBTASK-149`.
+- Demonstrate with saved evidence: The challenger receives identical evaluation, uncertainty/calibration/robustness/resource reporting, cannot alter prior champion evidence, and incomplete runs are not selectively summarized.
+- Demonstrate with saved evidence: Promotion requires policy-compliant protected evidence and a signed reproducible artifact; no-promotion retains current champion/negative evidence and any promoted candidate passes full serving/operations/rollback gates.
+- Demonstrate with saved evidence: Active identities change only on successful promotion, all decisions/Jira/evidence reconcile, and GAP-013 remains conditional or closed by explicit disposition rather than a core blocker.
+- Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+- Produce, validate, content-hash, and register `artifacts/advanced/challenger_closeout.json`.
+- Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
+
+### Explicit Out of Scope
+
+- Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
+- Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Work assigned to sibling subtasks: Generate challenger predictions on identical sealed protected games/cutoffs/metrics and complete scientific/resource scorecards; Apply champion/challenger promotion, reproducibility, operational-compatibility, publication, product, and rollback policy.
+- Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
+
+## Prerequisites
+
+- Dependency POST-SUBTASK-147 complete at required maturity
+- Dependency POST-SUBTASK-148 complete at required maturity
+- Dependency POST-SUBTASK-149 complete at required maturity
+
+## Hard Dependencies
+
+- POST-SUBTASK-147
+- POST-SUBTASK-148
+- POST-SUBTASK-149
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- governance/DO_NOT_DRIFT.md
+- docs/final/CODEX_HANDOFF.md
+- docs/final/FINAL_BACKLOG.csv
+- docs/final/FINAL_COMPONENT_MATURITY.csv
+- docs/final/FINAL_IMPLEMENTATION_PRIORITY.md
+- docs/final/FINAL_KNOWN_GAPS.csv
+- governance/ACCEPTANCE_CONTROL_CATALOG.csv
+- governance/ADR_INDEX.csv
+- governance/IMPLEMENTATION_WBS.csv
+- governance/REQUIREMENTS_INDEX.csv
+- tests/test_advanced_challenger_full.py
+- docs/72_ADVANCED_CHALLENGER_ADMISSION.md
+- docs/91_ADVANCED_CHALLENGER_GATE.md
+- governance/ADVANCED_CHALLENGER_ADMISSION.csv
+
+## Files Expected To Be Modified
+
+- None.
+
+## Components Expected To Be Touched
+
+- advanced-challengers
+- advanced
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+- configs/judging_rule_seal.json
+- docs/45_SCIENTIFIC_BAS_SPECIFICATION.md
+
+## Expected Outputs / Artifacts
+
+- artifacts/advanced/challenger_closeout.json
+
+## Direct Requirements
+
+- REQ-108
+- REQ-630
+- REQ-631
+- REQ-632
+- REQ-637
+
+## Direct Acceptance Controls
+
+- AC-186
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-150`
+- Inherited from: None
+- Resolution: `DIRECT_DOMAIN_GATE`
+- Effective counts: `{"acceptance_control_ids": 1, "adr_ids": 2, "gap_ids": 1, "requirement_ids": 5, "risk_ids": 1}`
+
+## Acceptance Criteria
+
+1. The challenger receives identical evaluation, uncertainty/calibration/robustness/resource reporting, cannot alter prior champion evidence, and incomplete runs are not selectively summarized.
+2. Promotion requires policy-compliant protected evidence and a signed reproducible artifact; no-promotion retains current champion/negative evidence and any promoted candidate passes full serving/operations/rollback gates.
+3. Active identities change only on successful promotion, all decisions/Jira/evidence reconcile, and GAP-013 remains conditional or closed by explicit disposition rather than a core blocker.
+4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+
+## Definition of Done
+
+1. The atomic scope in POST-SUBTASK-150 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
+3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
+4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
+5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
+7. The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-050.
+
+## Required Tests / Validation
+
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_advanced_challenger_full.py` — Run as a regression check after completing POST-SUBTASK-150; retain command, exit code, and relevant output.
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tools/check_advanced_challenger_admission.py` — Run as a regression check after completing POST-SUBTASK-150; retain command, exit code, and relevant output.
+- **SCIENTIFIC** / `SCIENTIFIC` — `artifacts/advanced/challenger_closeout.json` — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
+- **CALIBRATION** / `CALIBRATION` — `artifacts/advanced/challenger_closeout.json` — Report calibration/reliability evidence on the allowed evaluation lane with sample size and uncertainty.
+- **OPERATIONS** / `OPERATIONS` — `artifacts/advanced/challenger_closeout.json` — Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.
+- **END_TO_END** / `END_TO_END` — `artifacts/advanced/challenger_closeout.json` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
+- **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
+
+## Required Evidence
+
+- `artifacts/advanced/challenger_closeout.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
+- Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
+- An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
+- Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
+
+## Completion Evidence Contract
+
+```json
+{
+  "acceptance_matrix_required": true,
+  "artifact_hashes_required": true,
+  "completion_claim_limit": "PRODUCTION_READY",
+  "downstream_consumer": "POST-STORY-050",
+  "governance_traceability_gate": "POST-SUBTASK-150",
+  "negative_results_preserved": true,
+  "provenance_dimensions": [
+    "source",
+    "data",
+    "code",
+    "config",
+    "tool",
+    "runtime",
+    "split/cutoff when applicable"
+  ]
+}
+```
+
+## End-to-End Validation Requirement
+
+An optional challenger either survives the identical sealed production gate or remains preserved negative evidence without destabilizing the operating system. The gate decision must explicitly record that no downstream issue is silently unlocked.
+
+## Expected Maturity After Completion
+
+`PRODUCTION_READY`
+
+## Risk / Failure Conditions
+
+- The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-150.
+- A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
+- Acceptance failure: the evidence cannot demonstrate that the challenger receives identical evaluation, uncertainty/calibration/robustness/resource reporting, cannot alter prior champion evidence, and incomplete runs are not selectively summarized.
+- Acceptance failure: the evidence cannot demonstrate that promotion requires policy-compliant protected evidence and a signed reproducible artifact; no-promotion retains current champion/negative evidence and any promoted candidate passes full serving/operations/rollback gates.
+- Acceptance failure: the evidence cannot demonstrate that active identities change only on successful promotion, all decisions/Jira/evidence reconcile, and GAP-013 remains conditional or closed by explicit disposition rather than a core blocker.
+- Acceptance failure: the evidence cannot demonstrate that all prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+
+## Stop Conditions
+
+- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
+- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
+- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+
+## Source References
+
+- SRCREF-02107
+- SRCREF-02108
+- SRCREF-02109
+- SRCREF-02110
+- SRCREF-02111
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-02006
+- SRCREF-01899
+- SRCREF-01575
+- SRCREF-00198
+- SRCREF-00199
+- SRCREF-00200
+- SRCREF-00201
+- SRCREF-02116
+- SRCREF-02117
+- SRCREF-02118
+
+## AI Context Notes
+
+- Canonical parent Story: POST-STORY-050. Governance traceability gate: POST-SUBTASK-150. Inherited traceability is resolved through `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv`.
+- Read the exact source sections in `jira/sources/issue_source_manifests/POST-SUBTASK-150.json`; inspect only the listed implementation files and prerequisite outputs.
+- May modify only the files explicitly listed in `files_expected_to_be_touched`, declared new outputs, and the Jira/evidence records required by the completion protocol. An empty file list does not authorize arbitrary repository edits.
+- Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient.

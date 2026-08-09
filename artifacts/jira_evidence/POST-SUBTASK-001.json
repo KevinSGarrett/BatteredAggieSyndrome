@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T06:05:26.3740138Z",
+  "jira_key": "BAT-351",
+  "local_issue_id": "POST-SUBTASK-001",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "A fail-closed, downstream-readable W25 repository identity preflight exists with pinned cumulative, overlay, protected-control, backup, publishable-stage, GitHub, Jira, runtime, and blocker identities.",
+  "outputs": [
+    {
+      "path": "artifacts/implementation_preflight/repository_identity.json",
+      "bytes": 9853,
+      "sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED",
+      "eligibility": "CONTROLLED_ACTIVATION_RECONCILIATION_ONLY"
+    }
+  ],
+  "input_identities": {
+    "w25_cumulative_archive_sha256": "a594e385d39ada121a485056e5382dee13123fd131454af43aa88786a04d38f0",
+    "w25_tree_fingerprint": "b03830292c09336e8eae96cc5a04518d041b13e0fb1b7587f7c7debb96e2f687",
+    "instruction_manifest_sha256": "f525841027e0de10030d3f15916b8fb221d91d79247c1db43af29002f0001033",
+    "instruction_hash_ledger_sha256": "31eea1c28b97c026693f4aa8871dcdf86eabb65000e7a976933935fe9fd8dfbd",
+    "jira_manifest_sha256": "876e8982cb1d94ce961cf58fa5420d98607c884fbd17086f940daa7acdbeb305",
+    "jira_hash_ledger_sha256": "6f2266fce212da22ee70928f5bc4e5c4b5015452831af311700423073a263b1b",
+    "publishable_stage_tree_fingerprint": "5e65045e9c804e94ce47a8f64a36e34117e1794eaebc2fa636ac1a8f856a0756",
+    "backup_archive_sha256": "32e0030f06ec793ba3cd2ee9ebb5d0834a84eab33906746c2cfd27df4398ff42"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "The recorded repository hash and project identity match the W25 handoff.",
+      "disposition": "PASS",
+      "observable_result": "The cumulative ZIP has the discovery inventory's exact size; all 861 ledgered files and both self-excluded provenance files match the live tree; W25 state is terminal and no original file is missing or changed.",
+      "evidence_path": "artifacts/implementation_preflight/repository_identity.json",
+      "evidence_sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T06:05:26.3740138Z"
+    },
+    {
+      "criterion": "The preflight explicitly records that the next state is CODEX_IMPLEMENTATION_HANDOFF and no Wave 26 is created.",
+      "disposition": "PASS",
+      "observable_result": "The artifact records current_wave W25, next_state CODEX_IMPLEMENTATION_HANDOFF, wave_program_complete true, and wave_26_allowed false.",
+      "evidence_path": "artifacts/implementation_preflight/repository_identity.json",
+      "evidence_sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T06:05:26.3740138Z"
+    },
+    {
+      "criterion": "Any manifest mismatch fails closed before mutation.",
+      "disposition": "PASS",
+      "observable_result": "No canonical repository artifact was written until the W25 ledger, instruction manifest, protected seal, verified backup, and controlled publishable-stage strict validation passed. The absent hydration binding is recorded as unavailable rather than inferred.",
+      "evidence_path": "artifacts/implementation_preflight/repository_identity.json",
+      "evidence_sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T06:05:26.3740138Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B tools/validate_w25_final.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --repo-root . --strict",
+      "exit_code": 1,
+      "result": "EXPECTED_ACTIVATION_RECONCILIATION_FAILURE",
+      "output_summary": "1866 findings: 1858 unmanifested overlay/local paths, 7 cache-directory findings, 1 local .env finding."
+    },
+    {
+      "command": "python -B tools/validate_repository.py --repo-root C:\\BatteredAggieSyndrome.packaging\\BAT-351-20260809T060026Z-attempt2 --strict",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B -m unittest discover -s tests",
+      "exit_code": 1,
+      "result": "FAIL",
+      "output_summary": "229 tests ran; tests/test_locks_full.py::test_exclusive_lock failed Windows TemporaryDirectory cleanup with WinError 32 because release is registered after the temporary-directory context exits."
+    },
+    {
+      "command": "python -B -m unittest tests.test_w23_operations -v",
+      "exit_code": 1,
+      "result": "INVALID_INVOCATION_PRESERVED",
+      "output_summary": "tests is not a Python package."
+    },
+    {
+      "command": "python -B -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 1,
+      "result": "ISOLATION_IMPORT_FAILURE_PRESERVED",
+      "output_summary": "aggie_analytics was unavailable because the focused environment did not include src."
+    },
+    {
+      "command": "$env:PYTHONPATH=(Resolve-Path src).Path; python -B -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "8 tests passed."
+    }
+  ],
+  "negative_findings": [
+    {
+      "id": "W25_HYDRATION_BINDING_UNAVAILABLE",
+      "finding": "No W25 hydration ZIP or PACK_BINDING.json was present in the canonical project or goal-attachment directory.",
+      "fabricated_or_inferred": false
+    },
+    {
+      "id": "FULL_UNIT_WINDOWS_LOCK_CLEANUP_FAILURE",
+      "finding": "The full unit suite is not clean on this Windows host because test_locks_full schedules lock release too late for TemporaryDirectory cleanup.",
+      "fabricated_or_inferred": false
+    },
+    {
+      "id": "ROOT_CONTROL_TOOLS_REFERENCED_BUT_MISSING",
+      "finding": "START_HERE references validate_autonomous_controls.py, validate_jira_control_plane.py, audit_control_plane.py, and select_next_work.py, but these root tools are absent.",
+      "fabricated_or_inferred": false
+    },
+    {
+      "id": "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER",
+      "finding": "AGGIE_ANALYTICS_DATA_ROOT is present but contains an angle-bracket placeholder rather than a parseable external path.",
+      "fabricated_or_inferred": false
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_emitted": false,
+    "secret_values_stored_in_evidence": false,
+    "restricted_payloads_stored_in_evidence": false,
+    "protected_files_modified": false,
+    "backup_secret_or_forbidden_findings": 0
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-002",
+    "artifact_parseable": true,
+    "schema_version_present": true,
+    "pinned_hashes_present": true,
+    "blockers_present": true,
+    "consumer_must_fail_closed": true,
+    "downstream_unlocked": false
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "PARTIALLY_VERIFIED_WITH_EXPLICIT_BLOCKERS",
+    "issue_disposition": "BLOCKED",
+    "live_jira_status": "In Progress",
+    "local_jira_reconciliation": "PASS_ONE_ROW_DRY_RUN_APPLY_REBUILD_AND_STRICT_SECOND_PASS",
+    "remaining_blockers": [
+      "W25_HYDRATION_BINDING_UNAVAILABLE",
+      "FULL_UNIT_WINDOWS_LOCK_CLEANUP_FAILURE",
+      "ROOT_CONTROL_TOOLS_REFERENCED_BUT_MISSING",
+      "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER"
+    ],
+    "completion_claim": "The required preflight artifact is implemented and its three issue-specific criteria pass, but BAT-351 is not Done because startup/release gates remain unresolved."
+  }
+}

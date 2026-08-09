@@ -1,0 +1,7 @@
+component_id,component,candidate_metrics,weather_interaction,unified_rating_required
+ST-01,FIELD_GOALS,attempt distance;make probability residual;blocks,candidate,false
+ST-02,PUNTS,gross/net;hang proxies;field position;touchbacks,candidate,false
+ST-03,KICKOFFS,distance;touchback;landing/starting field position,candidate,false
+ST-04,KICK_RETURNS,return efficiency;field position,candidate,false
+ST-05,PUNT_RETURNS,return efficiency;field position,candidate,false
+ST-06,SPECIALIST_CONTINUITY,kicker;punter;returner continuity/availability,candidate,false

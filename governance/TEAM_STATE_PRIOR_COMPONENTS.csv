@@ -1,0 +1,13 @@
+prior_component_id,name,description,materialization_owner,initial_state,w11_weight_frozen,pit_required
+PRIOR-001,prior_performance,Prior-season/multi-season PIT-safe team performance,W11,EXPERIMENTAL,false,true
+PRIOR-002,returning_production,PIT-safe returning-production evidence,W12,EXPERIMENTAL,false,true
+PRIOR-003,recruiting_talent,Recruiting/prospect priors known by cutoff,W12,EXPERIMENTAL,false,true
+PRIOR-004,transfer_inputs,Transfer talent/production translation known by cutoff,W12,EXPERIMENTAL,false,true
+PRIOR-005,player_experience,Roster experience/starts/snaps evidence,W12,EXPERIMENTAL,false,true
+PRIOR-006,qb_state,QB prior/state evidence,W12,EXPERIMENTAL,false,true
+PRIOR-007,coaching_continuity,HC/OC/DC/role continuity,W13,EXPERIMENTAL,false,true
+PRIOR-008,scheme_continuity,Effective-dated offensive/defensive scheme continuity,W13,EXPERIMENTAL,false,true
+PRIOR-009,program_resources,Reliable program-resource capacity variables,W13,EXPERIMENTAL,false,true
+PRIOR-010,development_history,Program/coach development evidence using only prior outcomes,W12-W13,EXPERIMENTAL,false,true
+PRIOR-011,division_strength_prior,Division/team hierarchical strength prior,W11,EXPERIMENTAL,false,true
+PRIOR-012,market_preseason_prior,Optional timestamp-safe market preseason information,W16-W17,MARKET_AUGMENTED_ONLY,false,true

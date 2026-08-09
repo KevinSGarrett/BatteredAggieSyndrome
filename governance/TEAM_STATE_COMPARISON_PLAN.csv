@@ -1,0 +1,7 @@
+representation_id,name,description,state,chronological_evaluation_required,early_season_slice,a_and_m_slice,fcs_slice,winner_selected_w11,real_data_status
+TSM-001,previous_season_static,Previous/prior state baseline,BASELINE,true,required,required_later,required,false,PENDING_W17_W19
+TSM-002,recency_only,Recency weighted current-state evidence,CANDIDATE,true,required,required_later,required,false,PENDING_W17_W19
+TSM-003,regime_only,Continuity/regime relevance weighting,CANDIDATE,true,required,required_later,required,false,PENDING_W17_W19
+TSM-004,recency_regime,Recency × regime relevance,CANDIDATE,true,required,required_later,required,false,PENDING_W17_W19
+TSM-005,change_point_shrinkage,Shrink pre-break evidence after change candidate,CANDIDATE,true,required,required_later,required,false,PENDING_W17_W19
+TSM-006,hierarchical_dynamic,Hierarchical prior + uncertainty-aware observed blend,CANDIDATE,true,required,required_later,required,false,PENDING_W17_W19

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "aggie://schemas/temporal/forecast_cutoff/v1",
+  "title": "ForecastCutoff",
+  "type": "object",
+  "required": [
+    "cutoff_id",
+    "purpose",
+    "prediction_timestamp",
+    "target_event_time",
+    "forecast_lane",
+    "temporal_policy_version",
+    "data_snapshot_id",
+    "created_at"
+  ],
+  "properties": {
+    "cutoff_id": {
+      "type": "string"
+    },
+    "purpose": {
+      "enum": [
+        "TRAINING_REPLAY",
+        "VALIDATION_REPLAY",
+        "FORECAST_SNAPSHOT",
+        "BAS_LABEL_REPLAY",
+        "LIVE_RESEARCH"
+      ]
+    },
+    "target_game_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "prediction_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "target_event_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "forecast_lane": {
+      "type": "string"
+    },
+    "temporal_policy_version": {
+      "type": "string"
+    },
+    "data_snapshot_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "parent_cutoff_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

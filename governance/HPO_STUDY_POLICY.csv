@@ -1,0 +1,9 @@
+policy_id,rule,blocking,reason
+HPO-001,Objective split must be development-only,true,protected feedback forbidden
+HPO-002,Search space version frozen before trials,true,prevents result-dependent search-space rewrite
+HPO-003,Sampler/pruner/version recorded,true,replayability
+HPO-004,Trial/resource budget declared,true,bounded local-first compute
+HPO-005,Pruned/failed trials retained,true,search-history integrity
+HPO-006,Paid compute requires explicit approval,true,cost governance
+HPO-007,Protected metrics absent from study storage,true,one-way evidence boundary
+HPO-008,SQLite not used as distributed/NFS coordination backend,true,storage/concurrency safety

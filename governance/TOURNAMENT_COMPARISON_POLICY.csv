@@ -1,0 +1,8 @@
+comparison_id,dimension,compatibility_requirement,incompatible_result
+TCP-001,target,same target/label version,INCOMPARABLE
+TCP-002,split,same approved development split,INCOMPARABLE
+TCP-003,data,compatible data snapshot family,INCOMPARABLE
+TCP-004,metric,same metric registry/direction,INCOMPARABLE
+TCP-005,lane,same pure/market lane unless explicit benchmark,INCOMPARABLE
+TCP-006,TAMU,same A&M scorecard and no-adjustment comparator,INCOMPARABLE
+TCP-007,BAS,same BAS label/anchor version,INCOMPARABLE

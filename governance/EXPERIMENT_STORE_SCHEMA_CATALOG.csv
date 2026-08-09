@@ -1,0 +1,16 @@
+table_name,field_name,type,key_role,immutability,purpose
+experiment_specs,experiment_id,TEXT,PRIMARY_KEY,IMMUTABLE,Canonical result-independent Aggie experiment ID
+experiment_specs,payload_json,TEXT,,IMMUTABLE,Canonical normalized experiment spec
+experiment_specs,spec_sha256,TEXT,,IMMUTABLE,Spec content hash
+queue_events,event_id,INTEGER,PRIMARY_KEY,APPEND_ONLY,Store-local row identity
+queue_events,experiment_id,TEXT,FOREIGN_KEY,APPEND_ONLY,Experiment link
+queue_events,event_index,INTEGER,UNIQUE_WITH_EXPERIMENT,APPEND_ONLY,Contiguous per-experiment sequence
+queue_events,event_hash,TEXT,UNIQUE,APPEND_ONLY,Hash of event payload
+queue_events,previous_event_hash,TEXT,,APPEND_ONLY,Tamper-evident chain
+result_packets,result_id,TEXT,PRIMARY_KEY,APPEND_ONLY,Canonical result packet identity
+result_packets,attempt,INTEGER,UNIQUE_WITH_EXPERIMENT,APPEND_ONLY,Operational retry attempt
+artifact_records,artifact_id,TEXT,PRIMARY_KEY,APPEND_ONLY,Artifact manifest identity
+artifact_records,sha256,TEXT,,APPEND_ONLY,Content verification
+artifact_records,sensitivity,TEXT,,APPEND_ONLY,Repository/rights handling
+replay_reports,replay_id,TEXT,PRIMARY_KEY,APPEND_ONLY,Replay evidence identity
+replay_reports,replay_status,TEXT,,APPEND_ONLY,Explicit replay outcome taxonomy

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aggie-analytics.local/schemas/product_forecast_response_v1.schema.json",
+  "title": "Aggie Analytics Forecast Product Response v1",
+  "type": "object",
+  "required": ["api_version", "serving_mode", "game", "snapshot", "forecast", "bas", "uncertainty", "freshness", "warnings", "explainability", "lineage"],
+  "properties": {
+    "api_version": {"const": "v1"},
+    "serving_mode": {"const": "IMMUTABLE_PUBLISHED_SNAPSHOT_ONLY"},
+    "game": {"type": "object"},
+    "snapshot": {"type": "object"},
+    "forecast": {"type": "object"},
+    "bas": {"type": "object"},
+    "uncertainty": {"type": "array"},
+    "freshness": {"type": "object"},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "explainability": {"type": "object"},
+    "lineage": {"type": "object"}
+  }
+}

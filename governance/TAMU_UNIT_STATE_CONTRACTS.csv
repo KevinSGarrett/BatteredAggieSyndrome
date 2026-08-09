@@ -1,0 +1,9 @@
+unit_id,unit,state_dimensions,high_resolution_priority,manual_strength_bonus,winner_selected_w14
+TAMU-U01,QB,starter_role;experience;availability;effectiveness;expected_usage;replacement,HIGHEST,false,false
+TAMU-U02,OL,starter_combinations;continuity;experience;availability;rotation,HIGHEST,false,false
+TAMU-U03,WR_TE,roles;targets/routes_if_available;continuity;availability;usage,HIGH,false,false
+TAMU-U04,RB,rotation;usage;availability;receiving;pass_protection_if_available,HIGH,false,false
+TAMU-U05,DL_EDGE,rotation;pressure/run-defense evidence;availability;workload,HIGH,false,false
+TAMU-U06,LB,roles;rotation;coverage/run-defense evidence;availability,HIGH,false,false
+TAMU-U07,DB,roles;coverage/participation evidence;availability;continuity,HIGH,false,false
+TAMU-U08,SPECIAL_TEAMS,kicker;punter;returners;continuity;weather_context,MEDIUM,false,false

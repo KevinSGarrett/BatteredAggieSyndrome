@@ -1,0 +1,11 @@
+derivation_id,output,formula_or_rule,source,status,guard
+DRV-001,margin,team_score - opponent_score,joint_score_distribution,EXACT,Must match every outcome and expectation
+DRV-002,total_points,team_score + opponent_score,joint_score_distribution,EXACT,Must match every outcome and expectation
+DRV-003,win_probability,sum P(s>o) + tie_mass * overtime_team_win_probability,joint/regulation score distribution,EXACT_WITH_EXPLICIT_OT,"If final-score PMF has no ties, tie mass is zero"
+DRV-004,loss_probability,1 - win_probability,joint score distribution,EXACT,Completed game has no tie outcome
+DRV-005,expected_team_score,E[team_score],joint_score_distribution,EXACT,No isolated point estimate may contradict distribution
+DRV-006,expected_opponent_score,E[opponent_score],joint_score_distribution,EXACT,No isolated point estimate may contradict distribution
+DRV-007,expected_margin,E[team_score-opponent_score],joint_score_distribution,EXACT,Equals E[team]-E[opponent]
+DRV-008,margin_distribution,aggregate joint mass by score difference,joint_score_distribution,EXACT,Probability mass must sum to one
+DRV-009,BAS severity probabilities,P(actual_margin <= BAS_anchor_expected_margin - threshold) or separately calibrated nested residual model,W15 BAS anchor + predictive distribution/model,CANDIDATE,Must preserve W15 anchor and nesting
+DRV-010,spread cover probability,P(margin > PIT spread under declared side convention),margin_distribution + market snapshot,MARKET_ONLY,PIT market observation mandatory

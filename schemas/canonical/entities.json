@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "contract": "canonical_entities",
+  "status": "DESIGN_CONTRACT_W07",
+  "common_fields": [
+    "canonical_entity_id",
+    "entity_type",
+    "created_decision_id",
+    "record_version",
+    "quality_flags"
+  ],
+  "rules": [
+    "IDs opaque/stable",
+    "mutable attributes stored as observations/episodes",
+    "source IDs never overwrite canonical IDs"
+  ],
+  "entity_types": [
+    "team",
+    "institution",
+    "conference",
+    "season",
+    "game",
+    "venue",
+    "player",
+    "coach",
+    "official",
+    "source_system",
+    "source_resource",
+    "publication_version",
+    "raw_capture",
+    "source_observation"
+  ]
+}

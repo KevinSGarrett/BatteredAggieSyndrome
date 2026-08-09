@@ -1,0 +1,8 @@
+scenario_contract_id,name,rule,domain,status,pit_required,production_selected_w16
+SCN-001,baseline snapshot,Use immutable PIT forecast state with no speculative override,BASE,required,true,false
+SCN-002,player availability mixture,Condition on W12 availability/effectiveness/usage/replacement scenarios,PLAYER,candidate,true,false
+SCN-003,QB-specific availability,Explicit high-impact QB state without fixed point penalty,PLAYER,candidate,true,false
+SCN-004,weather forecast ensemble,Condition on W08 issued weather-run ensemble/version evidence,WEATHER,candidate,true,false
+SCN-005,pace/possession state,Condition expected opportunities without double counting team efficiency,MECHANICS,candidate,true,false
+SCN-006,lower-division/opponent uncertainty,Propagate W11 opponent-strength uncertainty,OPPONENT,candidate,true,false
+SCN-007,scenario mixture,Mix normalized scenario distributions using declared scenario probabilities,MIXTURE,candidate,true,false

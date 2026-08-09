@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExperimentSpec",
+  "type": "object",
+  "required": [
+    "hypothesis_id",
+    "task_id",
+    "candidate_family",
+    "code_ref",
+    "data_snapshot_id",
+    "feature_registry_version",
+    "model_config",
+    "split_protocol_id",
+    "metric_registry_hash",
+    "threshold_method_hash",
+    "environment_fingerprint",
+    "random_seeds",
+    "resource_budget_id"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^EXP-[0-9a-f]{20}$"
+    },
+    "hypothesis_id": {
+      "type": "string"
+    },
+    "parent_experiment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^TASK-[0-9]{3}$"
+    },
+    "candidate_family": {
+      "type": "string"
+    },
+    "code_ref": {
+      "type": "string"
+    },
+    "data_snapshot_id": {
+      "type": "string"
+    },
+    "feature_registry_version": {
+      "type": "string"
+    },
+    "model_config": {
+      "type": "object"
+    },
+    "split_protocol_id": {
+      "type": "string"
+    },
+    "metric_registry_hash": {
+      "type": "string"
+    },
+    "threshold_method_hash": {
+      "type": "string"
+    },
+    "environment_fingerprint": {
+      "type": "string"
+    },
+    "random_seeds": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "resource_budget_id": {
+      "type": "string"
+    },
+    "created_at_utc": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

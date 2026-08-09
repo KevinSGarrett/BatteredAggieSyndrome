@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "aggie://schemas/features/raw_field/w09-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "raw_field_id",
+    "source_id",
+    "dataset_or_model",
+    "field_path",
+    "normalized_temporal_class",
+    "handoff_state",
+    "pit_gateway_required"
+  ],
+  "properties": {
+    "raw_field_id": {
+      "type": "string",
+      "pattern": "^RF-[0-9]{6}$"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "dataset_or_model": {
+      "type": "string"
+    },
+    "field_path": {
+      "type": "string"
+    },
+    "normalized_temporal_class": {
+      "type": "string",
+      "enum": [
+        "ASOF_RECONSTRUCTION_REQUIRED",
+        "CURRENT_GAME_OR_POSTGAME_NOT_DIRECT_PREGAME",
+        "DIRECT_PREGAME_CANDIDATE",
+        "HISTORICAL_AGGREGATE_ONLY",
+        "POSTGAME_OR_FUTURE_BANNED",
+        "REVIEW_REQUIRED",
+        "SAFE_ONLY_WITH_EFFECTIVE_SNAPSHOT"
+      ]
+    },
+    "handoff_state": {
+      "type": "string",
+      "enum": [
+        "BANNED_FROM_PREGAME",
+        "TEMPORAL_REVIEW_REQUIRED",
+        "EVIDENCE_OR_METADATA_ONLY",
+        "HISTORICAL_OR_LIVE_DERIVATION_ONLY",
+        "PIT_HISTORICAL_AGGREGATION_INPUT",
+        "ASOF_RECONSTRUCTION_REQUIRED",
+        "PIT_SNAPSHOT_REQUIRED",
+        "W10_CANDIDATE_INPUT_ONLY"
+      ]
+    },
+    "pit_gateway_required": {
+      "type": "boolean"
+    },
+    "documented_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observed_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "feature_family": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

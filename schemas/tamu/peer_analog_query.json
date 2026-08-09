@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TamuPeerAnalogQuery",
+  "type": "object",
+  "required": [
+    "cutoff",
+    "target_game_id",
+    "method_id",
+    "feature_refs"
+  ],
+  "properties": {
+    "cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "target_game_id": {
+      "type": "string"
+    },
+    "method_id": {
+      "type": "string"
+    },
+    "feature_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "strict_prior_only": {
+      "const": true
+    }
+  }
+}

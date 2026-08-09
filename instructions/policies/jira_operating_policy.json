@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-JIRA-OPERATING-POLICY",
+  "version": "2.0.0",
+  "canonical_human_documents": [
+    "instructions/07_JIRA_OPERATING_CONTRACT.md",
+    "instructions/08_LOCAL_JIRA_MIRROR_AND_SYNC.md"
+  ],
+  "project_key": "BAT",
+  "site_url": "https://kevinsgarrett.atlassian.net",
+  "authority": {
+    "live_jira": [
+      "workflow status",
+      "assignment",
+      "issue hierarchy",
+      "dependencies/blockers",
+      "execution metadata"
+    ],
+    "repository": [
+      "requirements",
+      "architecture",
+      "ADRs",
+      "acceptance controls",
+      "schemas",
+      "code/tests",
+      "protected governance"
+    ],
+    "local_jira_directory": [
+      "AI-readable mapping",
+      "verified workflow/field snapshot",
+      "sync metadata",
+      "non-authoritative cache"
+    ]
+  },
+  "mandatory_read_sequence": [
+    "issue",
+    "parent",
+    "epic",
+    "dependencies and blockers",
+    "internal EPIC/TASK IDs",
+    "REQ IDs",
+    "ADR IDs",
+    "AC IDs",
+    "source documents",
+    "architecture/governance/protected rules",
+    "existing code",
+    "tests",
+    "schemas/interfaces"
+  ],
+  "meaningful_update_events": [
+    "claim/start",
+    "material scope or decision change",
+    "blocker/unblock",
+    "PR ready or integration",
+    "completion"
+  ],
+  "comment_spam_forbidden": true,
+  "done_requires": "instructions/policies/definition_of_done.json",
+  "status_write_precondition": "jira/status_map.json live_workflow_verified=true and exact transition verified",
+  "new_issue_gate": "task_selection_policy.ticket_creation_gate",
+  "github_issues_role": "External/public repository defects or security routing only; no automatic Jira mirror."
+}

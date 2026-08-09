@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JudgingRuleSeal",
+  "type": "object",
+  "required": [
+    "seal_id",
+    "seal_digest",
+    "files",
+    "research_agent_may_mutate"
+  ],
+  "properties": {
+    "seal_id": {
+      "type": "string"
+    },
+    "seal_digest": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array"
+    },
+    "research_agent_may_mutate": {
+      "const": false
+    }
+  },
+  "additionalProperties": true
+}

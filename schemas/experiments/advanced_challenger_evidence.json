@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Advanced Challenger Admission Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_class",
+    "conventional_baseline_materialized",
+    "baseline_saturated_or_specific_gap_demonstrated",
+    "protected_protocol_sealed",
+    "development_only_plan",
+    "local_resource_budget_declared",
+    "incremental_hypothesis",
+    "complexity_rationale",
+    "required_inputs_available",
+    "rights_ok",
+    "maintenance_owner"
+  ],
+  "properties": {
+    "candidate_class": {
+      "enum": [
+        "SMALL_NEURAL_TABULAR",
+        "SEQUENCE_TRANSFORMER",
+        "GRAPH_NEURAL_NETWORK",
+        "OTHER_ADVANCED"
+      ]
+    },
+    "conventional_baseline_materialized": {
+      "type": "boolean"
+    },
+    "baseline_saturated_or_specific_gap_demonstrated": {
+      "type": "boolean"
+    },
+    "protected_protocol_sealed": {
+      "type": "boolean"
+    },
+    "development_only_plan": {
+      "type": "boolean"
+    },
+    "local_resource_budget_declared": {
+      "type": "boolean"
+    },
+    "incremental_hypothesis": {
+      "type": "string"
+    },
+    "complexity_rationale": {
+      "type": "string"
+    },
+    "required_inputs_available": {
+      "type": "boolean"
+    },
+    "rights_ok": {
+      "type": "boolean"
+    },
+    "maintenance_owner": {
+      "type": "string"
+    }
+  }
+}

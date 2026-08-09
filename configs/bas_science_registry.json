@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "version": "w15-v1.0",
+  "maturity": "SCIENTIFIC_BAS_CONTRACTS_SYNTHETIC_ONLY",
+  "primary_headline_definition": {
+    "performance_residual": "actual_tamu_margin - expected_tamu_margin",
+    "headline_event": "performance_residual <= -7",
+    "equivalent_shortfall": "expected_tamu_margin - actual_tamu_margin >= 7",
+    "severity_thresholds_points": [
+      3,
+      7,
+      14,
+      21
+    ],
+    "headline_threshold_points": 7
+  },
+  "primary_expectation_anchor": {
+    "lane": "BAS_INDEPENDENT_NATIONAL_PREGAME_EXPECTATION",
+    "exact_model_family_selected_w15": false,
+    "must_be_pregame": true,
+    "must_be_out_of_sample": true,
+    "must_obey_chronological_training_cutoff": true,
+    "target_game_excluded": true,
+    "bas_label_or_bas_target_inputs_allowed": false,
+    "aggie_underperformance_target_inputs_allowed": false,
+    "market_required": false,
+    "sensitivity_anchors_allowed_later": true
+  },
+  "scientific_guards": {
+    "canonical_game_is_inference_cluster": true,
+    "mirrored_rows_are_independent_samples": false,
+    "peer_cohort_outcome_conditioning_allowed": false,
+    "regime_outcome_conditioning_allowed": false,
+    "fan_narrative_features_allowed": false,
+    "future_information_allowed": false,
+    "component_candidates_promoted_w15": false,
+    "aggie_excess_claimed_w15": false,
+    "significance_claimed_w15": false,
+    "effect_size_claimed_w15": false,
+    "thr_006_value_frozen_w15": false,
+    "null_result_must_be_reportable": true
+  },
+  "component_candidates": [
+    "HEADLINE_MARGIN",
+    "OFFENSE",
+    "DEFENSE",
+    "SPECIAL_TEAMS",
+    "COACHING_DECISION",
+    "COLLAPSE_LIVE_RESEARCH"
+  ],
+  "selection_owner": "W17 protected scientific evaluation",
+  "implementation_owner": "W20 starter implementation"
+}

@@ -1,0 +1,10 @@
+lock_id,resource,lock_class,rule
+LOCK-001,w17_protected_rules,PROTECTED_READ_ONLY,Never research-mutated
+LOCK-002,w08_temporal_contract,SHARED_CONTRACT,Only owner-wave-approved change
+LOCK-003,w15_bas_labels,PROTECTED_SHARED_CONTRACT,No experiment-local mutation
+LOCK-004,w16_target_schema,SHARED_CONTRACT,Serialize approved changes
+LOCK-005,feature_registry,SHARED_CONTRACT,Serialize lifecycle/schema changes
+LOCK-006,entity_schema,SHARED_CONTRACT,Serialize canonical entity changes
+LOCK-007,experiment_store,LOCAL_TRANSACTIONAL,SQLite transaction is reference lock boundary
+LOCK-008,gpu_slot,RESOURCE,Exclusive/shared according to declared resource request
+LOCK-009,artifact_gc,OPERATIONS,Prevent deletion while replay/promotion uses artifact

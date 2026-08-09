@@ -1,0 +1,11 @@
+component_id,name,grain,role,pit_required,effective_dated,production_parameterized,owner_wave
+PS-001,roster_membership,player-team-season/effective interval,listed membership only; does not imply starter/health/usage,true,true,false,W12
+PS-002,depth_role,player-position-team-cutoff,depth rank/role observation distinct from roster membership,true,true,false,W12
+PS-003,expected_usage,player-game-cutoff,expected snap/opportunity share or role distribution,true,true,false,W12
+PS-004,healthy_player_value,player-game-cutoff,pregame value estimate if healthy/fully effective; abstract model units,true,true,false,W12-W17
+PS-005,availability_state,player-game-cutoff,availability probability + effectiveness + usage scenarios,true,true,false,W12
+PS-006,replacement_state,player-role-game-cutoff,replacement identity/value/usage/uncertainty conditional on scenario,true,true,false,W12
+PS-007,position_group_state,team-position-group-cutoff,rotation/depth distribution and aggregate available player evidence,true,true,false,W12-W16
+PS-008,prospect_prior,player-cutoff,recruiting/physical/development prior for sparse/no college production,true,true,false,W12-W17
+PS-009,transfer_state,player-transfer-episode/cutoff,source/destination context and role transition evidence,true,true,false,W12-W17
+PS-010,player_uncertainty,player-game-cutoff,data/value/availability/role/translation uncertainty,true,true,false,W12-W16

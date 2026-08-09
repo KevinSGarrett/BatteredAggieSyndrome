@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "contract": "source_evidence_identity",
+  "status": "DESIGN_CONTRACT_W07",
+  "layers": [
+    "source_system",
+    "source_resource",
+    "publication_version",
+    "raw_capture",
+    "source_observation"
+  ],
+  "required_capture_fields": [
+    "raw_capture_id",
+    "source_system_id",
+    "source_resource_id",
+    "source_uri",
+    "retrieved_at",
+    "raw_sha256",
+    "raw_storage_path",
+    "schema_version"
+  ],
+  "reserved_temporal_fields": [
+    "published_at",
+    "first_known_at",
+    "effective_at",
+    "valid_from",
+    "valid_to",
+    "prediction_eligible_at"
+  ],
+  "rules": [
+    "provider/source identity is not a resource/version identity",
+    "a mutable resource can have many publication versions",
+    "one publication version can have many retrieval captures",
+    "identical raw hashes at different retrieval times do not erase retrieval-event identity",
+    "source observations point to exact raw captures",
+    "W08 owns final known-at/effective-at/prediction-eligibility semantics"
+  ]
+}

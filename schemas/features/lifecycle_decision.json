@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FeatureLifecycleDecision",
+  "type": "object",
+  "required": [
+    "decision_id",
+    "feature_or_family_id",
+    "target_id",
+    "from_state",
+    "to_state",
+    "evidence_refs",
+    "wave"
+  ],
+  "properties": {
+    "decision_id": {
+      "type": "string"
+    },
+    "feature_or_family_id": {
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "from_state": {
+      "type": "string"
+    },
+    "to_state": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "wave": {
+      "type": "string"
+    },
+    "conditions": {
+      "type": "object"
+    }
+  }
+}

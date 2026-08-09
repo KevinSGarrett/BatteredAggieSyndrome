@@ -1,0 +1,8 @@
+hierarchy_id,division,model_depth,role,relative_uncertainty_expectation,fixed_fbs_equivalent_penalty,recursive_full_model_required
+DIV-001,FBS,FULL,National advanced statistical foundation,LOWER,false,false
+DIV-002,FCS,STRONG_SECONDARY,Internal FCS strength plus FBS/FCS cross-division translation,HIGHER_THAN_FBS,false,false
+DIV-003,DII,COARSE_RATINGS_RESULTS,Basic ratings/results where legitimate data exists,HIGH,false,false
+DIV-004,DIII,COARSE_PRIOR,Coarse team/division prior; no comprehensive advanced subsystem,VERY_HIGH,false,false
+DIV-005,NAIA,TEAM_OR_CLASS_PRIOR,"Known team prior if available, otherwise class prior",VERY_HIGH,false,false
+DIV-006,JUCO,CLASS_PRIOR,"Broad class/origin prior, primarily transfer/opponent boundary support",VERY_HIGH,false,false
+DIV-007,OTHER,BOUNDARY_PRIOR,Fallback class prior with explicit uncertainty,VERY_HIGH,false,false

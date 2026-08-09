@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AdoptionDecision",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "decision",
+    "replay_status",
+    "reason"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "REJECT",
+        "INCONCLUSIVE",
+        "RETAIN_RESEARCH",
+        "ADOPT_AS_CHALLENGER",
+        "PROMOTION_REVIEW_REQUIRED"
+      ]
+    },
+    "replay_status": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "production_champion_changed": {
+      "const": false
+    }
+  }
+}

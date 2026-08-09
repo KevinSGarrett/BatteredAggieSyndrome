@@ -1,0 +1,6 @@
+class_id,name,semantics,time_meaning
+C1,Focused,One bounded artifact/module or deterministic edit with local tests; minimal shared-contract coupling.,NONE
+C2,Bounded multi-file,Several related files/tools with clear interfaces and low uncertainty.,NONE
+C3,Cross-cutting bounded,Touches shared governance/contracts or several modules but has known semantics and finite evidence.,NONE
+C4,Evidence/data dependent,"Requires multi-domain design, source/data evidence, architecture choice or broader integration.",NONE
+C5,Protected/high-risk,"Touches PIT/leakage/promotion/BAS/shared target semantics, protected evaluation, or dependency-critical gates; requires serialized review/evidence.",NONE

@@ -1,0 +1,5 @@
+translation_id,source_level,target_scale,training_evidence,method_status,fixed_penalty,uncertainty_required
+XDIV-001,FCS,FBS_EQUIVALENT_CONTINUOUS,historical FCS-vs-FBS plus FCS internal network,CANDIDATE_EMPIRICAL,,true
+XDIV-002,DII,FBS_EQUIVALENT_CONTINUOUS,available cross-division results and hierarchical priors,CANDIDATE_EMPIRICAL,,true
+XDIV-003,DIII,FBS_EQUIVALENT_CONTINUOUS,coarse cross-division evidence/hierarchical prior,CANDIDATE_EMPIRICAL,,true
+XDIV-004,NAIA/JUCO/OTHER,FBS_EQUIVALENT_CONTINUOUS,class-level priors and sparse cross-level evidence,BOUNDARY_PRIOR,,true

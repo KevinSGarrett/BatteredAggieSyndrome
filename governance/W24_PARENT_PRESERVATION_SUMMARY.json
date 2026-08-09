@@ -1,0 +1,10 @@
+{
+  "parent_zip": "Aggie_Analytics_Engine_W23_CUMULATIVE(1).zip",
+  "parent_sha256": "057a81b5a4e60f89cfc3038b7c1e7361906b7e4c0e2c88c6b275de94780308c5",
+  "parent_file_count": 822,
+  "missing_parent_files": 0,
+  "unchanged_parent_files": 780,
+  "controlled_modified_parent_files": 39,
+  "provenance_files_regenerated_after_report": 3,
+  "note": "The three self-referential provenance control files are path-preserved and intentionally regenerated after this report before final packaging."
+}

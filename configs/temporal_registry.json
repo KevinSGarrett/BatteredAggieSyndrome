@@ -1,0 +1,389 @@
+{
+  "schema_version": 1,
+  "version": "w08-v1.0",
+  "generated_at_utc": "2026-08-08T17:30:35+00:00",
+  "maturity": "POINT_IN_TIME_CONTRACTS_AND_SYNTHETIC_TESTS_ONLY",
+  "principles": [
+    "knowledge_time_and_validity_time_are_separate_axes",
+    "temporal_eligibility_is_computed_not_assumed",
+    "unknown_temporal_evidence_fails_closed",
+    "later_revisions_do_not_rewrite_earlier_replay",
+    "feature_factory_cannot_bypass_pit_gateway",
+    "forecast_cutoffs_are_immutable_lineage",
+    "same_game_or_future_information_is_banned_from_pregame_features",
+    "synthetic_contract_tests_do_not_claim_real_dataset_leakage_freedom"
+  ],
+  "timestamp_semantics": [
+    {
+      "field": "observed_at",
+      "axis": "EVENT",
+      "requiredness": "OPTIONAL",
+      "meaning": "When the underlying event/measurement occurred or was observed.",
+      "selection_rule": "Never proves public knowability by itself.",
+      "allowed_null": "YES",
+      "notes": "Preserve source/raw timestamp separately when present."
+    },
+    {
+      "field": "published_at",
+      "axis": "KNOWLEDGE",
+      "requiredness": "OPTIONAL",
+      "meaning": "Source-asserted publication/release time for a versioned artifact.",
+      "selection_rule": "May seed first_known_at only when publication semantics are defensible.",
+      "allowed_null": "YES",
+      "notes": "Mutable pages without version history cannot inherit a guessed historic publish time."
+    },
+    {
+      "field": "source_reported_at",
+      "axis": "KNOWLEDGE",
+      "requiredness": "OPTIONAL",
+      "meaning": "Timestamp reported by the upstream provider for the observation/version.",
+      "selection_rule": "Requires source semantics and provenance; not automatically trusted as first public availability.",
+      "allowed_null": "YES",
+      "notes": "Keep original value and normalized UTC value."
+    },
+    {
+      "field": "retrieved_at",
+      "axis": "SYSTEM_KNOWLEDGE",
+      "requiredness": "REQUIRED_FOR_CAPTURE",
+      "meaning": "When this project captured/retrieved the evidence.",
+      "selection_rule": "Conservative upper bound on knowability and fallback when earlier public availability cannot be defended.",
+      "allowed_null": "NO_FOR_RAW_CAPTURE",
+      "notes": "Distinct retrievals remain distinct even for identical bytes."
+    },
+    {
+      "field": "first_known_at",
+      "axis": "KNOWLEDGE",
+      "requiredness": "REQUIRED_FOR_PIT_USE",
+      "meaning": "Earliest defensible time the exact information/version was publicly knowable.",
+      "selection_rule": "Must be <= forecast/training feature cutoff for eligibility.",
+      "allowed_null": "NO_FOR_PIT_ELIGIBLE",
+      "notes": "Derived from evidence policy; never guessed from season labels."
+    },
+    {
+      "field": "valid_from",
+      "axis": "VALIDITY",
+      "requiredness": "OPTIONAL",
+      "meaning": "Start of the real-world interval/state for which the observation applies.",
+      "selection_rule": "Target/event time must lie in interval when the domain is interval-valued.",
+      "allowed_null": "YES",
+      "notes": "Future-effective facts may be known before valid_from."
+    },
+    {
+      "field": "valid_to",
+      "axis": "VALIDITY",
+      "requiredness": "OPTIONAL",
+      "meaning": "Exclusive end of the real-world interval/state for which the observation applies.",
+      "selection_rule": "Target/event time must be < valid_to when present.",
+      "allowed_null": "YES",
+      "notes": "Open-ended intervals allowed."
+    },
+    {
+      "field": "effective_at",
+      "axis": "VALIDITY",
+      "requiredness": "OPTIONAL",
+      "meaning": "Point effective time for a rule/state/change when interval semantics begin at one instant.",
+      "selection_rule": "Applied to target/event time, not substituted for knowledge time.",
+      "allowed_null": "YES",
+      "notes": "Usually equivalent to valid_from for point changes."
+    },
+    {
+      "field": "prediction_eligible_at",
+      "axis": "DERIVED_KNOWLEDGE",
+      "requiredness": "DERIVED",
+      "meaning": "Earliest defensible knowledge time under a named PIT policy version.",
+      "selection_rule": "Cache/derived field only; query still checks target validity, domain policy, revision state and cutoff.",
+      "allowed_null": "YES",
+      "notes": "Not a raw source timestamp and never sufficient alone."
+    },
+    {
+      "field": "model_initialized_at",
+      "axis": "MODEL_RUN",
+      "requiredness": "WEATHER_ONLY",
+      "meaning": "Forecast-model initialization/run cycle time.",
+      "selection_rule": "Does not prove user-visible/public availability by itself.",
+      "allowed_null": "YES",
+      "notes": "Weather-specific."
+    },
+    {
+      "field": "model_available_at",
+      "axis": "KNOWLEDGE",
+      "requiredness": "WEATHER_ONLY",
+      "meaning": "Earliest defensible availability of the exact forecast run/product.",
+      "selection_rule": "Must be <= prediction cutoff.",
+      "allowed_null": "YES",
+      "notes": "Preferred first_known basis for issued weather runs."
+    },
+    {
+      "field": "forecast_valid_at",
+      "axis": "VALIDITY",
+      "requiredness": "WEATHER_ONLY",
+      "meaning": "Time/environment instant the weather forecast predicts.",
+      "selection_rule": "Must match/cover the game target time according to domain interpolation policy.",
+      "allowed_null": "YES",
+      "notes": "Separate from initialization and retrieval."
+    },
+    {
+      "field": "reporting_period_start",
+      "axis": "VALIDITY",
+      "requiredness": "RESOURCE_ONLY",
+      "meaning": "Beginning of financial/resource reporting period.",
+      "selection_rule": "Descriptive validity only; does not establish publication timing.",
+      "allowed_null": "YES",
+      "notes": "Resource-specific."
+    },
+    {
+      "field": "reporting_period_end",
+      "axis": "VALIDITY",
+      "requiredness": "RESOURCE_ONLY",
+      "meaning": "End of financial/resource reporting period.",
+      "selection_rule": "Descriptive validity only; does not establish publication timing.",
+      "allowed_null": "YES",
+      "notes": "Resource-specific."
+    },
+    {
+      "field": "game_end_at",
+      "axis": "EVENT",
+      "requiredness": "GAME_OUTPUT_ONLY",
+      "meaning": "When a source game was completed for purposes of historical aggregates/labels.",
+      "selection_rule": "Prior-game output cannot enter features until both game completion and source evidence knowability precede cutoff.",
+      "allowed_null": "YES",
+      "notes": "Labels may be learned only after completion in chronological training replay."
+    }
+  ],
+  "knowledge_policy": {
+    "preferred_evidence_order": [
+      "verified_first_known_at",
+      "verified_publication_time",
+      "provider_available_at",
+      "retrieved_at_conservative_fallback"
+    ],
+    "published_at_alone_is_not_universally_trusted": true,
+    "retrieved_at_is_conservative_fallback": true,
+    "unknown_timing_behavior": "INELIGIBLE_OR_REVIEW_REQUIRED",
+    "prediction_eligible_at_semantics": "derived earliest defensible knowledge time under temporal policy version; not sufficient without validity/domain checks"
+  },
+  "validity_policy": {
+    "interval_convention": "[valid_from, valid_to)",
+    "target_axis": "target event/game/state time, not prediction time",
+    "future_effective_fact_can_be_known_before_effective_date": true,
+    "effective_at_does_not_establish_knowability": true
+  },
+  "asof_query": {
+    "required_inputs": [
+      "prediction_cutoff",
+      "target_time",
+      "domain",
+      "temporal_policy_version"
+    ],
+    "filter_order": [
+      "domain prohibition",
+      "knowledge eligibility",
+      "target validity",
+      "revision/supersession as-known-at-cutoff",
+      "source/domain precedence"
+    ],
+    "selection": "latest eligible version/observation under stable deterministic tie-break",
+    "fail_closed": true
+  },
+  "domain_policies": [
+    {
+      "domain": "GENERIC_MUTABLE",
+      "required_temporal_evidence": "published/retrieved/first-known + valid interval",
+      "selection_policy": "latest eligible non-superseded version",
+      "eligibility_rule": "first_known_at<=cutoff AND target in validity interval",
+      "missing_behavior": "Unknown timing => REVIEW_REQUIRED/INELIGIBLE",
+      "notes": "Do not overwrite earlier versions."
+    },
+    {
+      "domain": "MARKET",
+      "required_temporal_evidence": "provider/market/side/source_reported/retrieved/first-known",
+      "selection_policy": "latest eligible observation per provider+market+side",
+      "eligibility_rule": "knowledge cutoff only; snapshot label such as closing is descriptive",
+      "missing_behavior": "Future/late line ineligible",
+      "notes": "Pure-football lane excludes market entirely."
+    },
+    {
+      "domain": "WEATHER_FORECAST",
+      "required_temporal_evidence": "model/init/available/valid/retrieved",
+      "selection_policy": "latest eligible run satisfying target-valid policy",
+      "eligibility_rule": "model_available_at/first_known_at<=cutoff AND forecast valid for target",
+      "missing_behavior": "Observed/reanalysis cannot substitute for earlier issued forecast",
+      "notes": "Keep model/run/lead lineage."
+    },
+    {
+      "domain": "WEATHER_OBSERVED",
+      "required_temporal_evidence": "observed/retrieved",
+      "selection_policy": "postgame truth or explicitly live-at-time use only",
+      "eligibility_rule": "not eligible for earlier pregame forecast",
+      "missing_behavior": "PRE_GAME use => BANNED",
+      "notes": "May validate forecast after game."
+    },
+    {
+      "domain": "AVAILABILITY_REPORT",
+      "required_temporal_evidence": "policy/version/report sequence/published/first-known",
+      "selection_policy": "latest eligible official report version within applicable policy/game scope",
+      "eligibility_rule": "report known by cutoff and policy applies",
+      "missing_behavior": "No report/noncoverage => UNKNOWN, never healthy",
+      "notes": "Later revision does not rewrite earlier snapshot."
+    },
+    {
+      "domain": "ROSTER_STAFF_DEPTH",
+      "required_temporal_evidence": "published/first-known + effective interval",
+      "selection_policy": "latest eligible state/version",
+      "eligibility_rule": "known by cutoff AND target in effective interval",
+      "missing_behavior": "Retrospective/current bio without historic version => REVIEW/BANNED",
+      "notes": "Identity remains W07 canonical entity."
+    },
+    {
+      "domain": "REGULATORY_ENVIRONMENT",
+      "required_temporal_evidence": "published/first-known + effective interval",
+      "selection_policy": "rule version applicable to target game",
+      "eligibility_rule": "rule publicly known by cutoff AND target game lies effective interval",
+      "missing_behavior": "Unknown publication semantics use conservative evidence policy",
+      "notes": "Known future-effective rule may be valid for future target."
+    },
+    {
+      "domain": "RESOURCE_REPORT",
+      "required_temporal_evidence": "reporting period + published/first-known",
+      "selection_policy": "latest eligible report available by cutoff",
+      "eligibility_rule": "first_known_at<=cutoff; reporting period does not imply knowability",
+      "missing_behavior": "Unknown publish date => conservative lag/review",
+      "notes": "Never align fiscal year to season by label alone."
+    },
+    {
+      "domain": "HISTORICAL_GAME_OUTPUT",
+      "required_temporal_evidence": "game_end + source first-known",
+      "selection_policy": "completed prior-game records only",
+      "eligibility_rule": "game_end_at<=cutoff AND source knowledge<=cutoff",
+      "missing_behavior": "Same/future game output => BANNED",
+      "notes": "Can feed later-game aggregates after completion."
+    },
+    {
+      "domain": "RETROSPECTIVE_DOCUMENT",
+      "required_temporal_evidence": "retrieved/published if defensible + retrospective flag",
+      "selection_policy": "corroborated historic version only",
+      "eligibility_rule": "requires dated corroboration proving the fact/version was knowable then",
+      "missing_behavior": "uncorroborated retrospective content => INELIGIBLE",
+      "notes": "Official does not equal historically knowable."
+    },
+    {
+      "domain": "DRAFT_POSTSEASON_OUTCOME",
+      "required_temporal_evidence": "event/knowledge",
+      "selection_policy": "prior completed outcomes only",
+      "eligibility_rule": "only completed outcomes that occurred before the feature cutoff may be used",
+      "missing_behavior": "eventual future outcome for current historical roster => BANNED",
+      "notes": "May be retrospective target for development models."
+    }
+  ],
+  "forecast_cutoff_contract": {
+    "fields": [
+      "cutoff_id",
+      "purpose",
+      "target_game_id",
+      "prediction_timestamp",
+      "target_event_time",
+      "forecast_lane",
+      "temporal_policy_version",
+      "data_snapshot_id",
+      "created_at",
+      "parent_cutoff_id",
+      "notes"
+    ],
+    "purpose_values": [
+      "TRAINING_REPLAY",
+      "VALIDATION_REPLAY",
+      "FORECAST_SNAPSHOT",
+      "BAS_LABEL_REPLAY",
+      "LIVE_RESEARCH"
+    ],
+    "timezone": "UTC",
+    "immutable": true,
+    "feature_rows_use_own_pregame_cutoff": true,
+    "training_labels_require_game_completed_before_training_cutoff": true
+  },
+  "gateway": {
+    "component": "CMP-005",
+    "consumer": "CMP-006",
+    "mandatory": true,
+    "rules": [
+      {
+        "rule_id": "PIT-001",
+        "title": "No feature-source bypass",
+        "rule": "All feature construction must request observations through the PIT gateway/as-of interface.",
+        "action": "BLOCK"
+      },
+      {
+        "rule_id": "PIT-002",
+        "title": "Knowledge cutoff",
+        "rule": "Observation first_known_at/policy-derived knowledge time must not exceed feature cutoff.",
+        "action": "BLOCK"
+      },
+      {
+        "rule_id": "PIT-003",
+        "title": "Target validity",
+        "rule": "Observation must be valid/applicable for the target event/state time where the domain requires validity intervals.",
+        "action": "BLOCK"
+      },
+      {
+        "rule_id": "PIT-004",
+        "title": "Revision replay",
+        "rule": "A revision/correction first known after the cutoff cannot replace the version that was knowable at the cutoff.",
+        "action": "BLOCK"
+      },
+      {
+        "rule_id": "PIT-005",
+        "title": "Unknown timing fails closed",
+        "rule": "Missing/ambiguous temporal evidence cannot be guessed into PIT eligibility.",
+        "action": "BLOCK_OR_QUARANTINE"
+      },
+      {
+        "rule_id": "PIT-006",
+        "title": "Retrospective evidence",
+        "rule": "Retrospective/current pages require dated corroboration before historical use.",
+        "action": "BLOCK_OR_REVIEW"
+      },
+      {
+        "rule_id": "PIT-007",
+        "title": "Historical game completion",
+        "rule": "Same-game/future-game outcomes cannot enter pregame features; prior-game outputs require completion before cutoff.",
+        "action": "BLOCK"
+      },
+      {
+        "rule_id": "PIT-008",
+        "title": "Market lane isolation",
+        "rule": "Market evidence is excluded from pure-football lane and is timestamp-gated in market-augmented lane.",
+        "action": "BLOCK"
+      },
+      {
+        "rule_id": "PIT-009",
+        "title": "Weather run lineage",
+        "rule": "Issued weather feature requires exact model/run availability and target-valid time; observed truth cannot replace earlier forecast.",
+        "action": "BLOCK"
+      },
+      {
+        "rule_id": "PIT-010",
+        "title": "Availability noncoverage",
+        "rule": "No official report outside policy scope is UNKNOWN, never affirmative availability.",
+        "action": "BLOCK_FALSE_INFERENCE"
+      },
+      {
+        "rule_id": "PIT-011",
+        "title": "Cutoff immutability",
+        "rule": "Forecast/training cutoff objects and policy version are immutable lineage records.",
+        "action": "BLOCK_MUTATION"
+      },
+      {
+        "rule_id": "PIT-012",
+        "title": "Training chronology",
+        "rule": "Historical training replay may use labels only from games completed/known before that model-training cutoff; each example feature row still uses its own pregame cutoff.",
+        "action": "BLOCK"
+      }
+    ]
+  },
+  "synthetic_fixture_catalog": "governance/LEAKAGE_SCENARIO_CATALOG.csv",
+  "source_basis": [
+    "W07 identity/evidence contracts",
+    "W06 availability/weather/regulatory findings",
+    "Recon canonical temporal/leakage registries and snapshot policies"
+  ]
+}

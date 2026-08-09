@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "canonical_repository_remote_reconciliation",
+  "created_at_utc": "2026-08-09T06:36:00Z",
+  "operator": "Codex",
+  "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c",
+  "expected_canonical_path": "C:\\BatteredAggieSyndrome",
+  "resolved_repository_path": "C:\\BatteredAggieSyndrome",
+  "authorization": {
+    "source": "C:\\Users\\kevin\\.codex\\attachments\\91630a47-7c06-4536-9cf1-5f76a09c79a6\\goal-objective.md",
+    "authorization_class": "EXPLICIT_ONE_TIME_INITIAL_PUBLICATION",
+    "authorized_destination": "https://github.com/KevinSGarrett/BatteredAggieSyndrome",
+    "force_push_authorized": false,
+    "overwrite_nonempty_remote_authorized": false,
+    "visibility_change_authorized": false
+  },
+  "local_identity_before_publication": {
+    "git_metadata_present": false,
+    "trusted_local_history_found": false,
+    "classification": "NO_LOCAL_GIT_HISTORY",
+    "w25_cumulative_archive_sha256": "a594e385d39ada121a485056e5382dee13123fd131454af43aa88786a04d38f0",
+    "w25_ledgered_files_verified": 861,
+    "w25_ledger_hash_failures": 0,
+    "w25_tree_fingerprint": "b03830292c09336e8eae96cc5a04518d041b13e0fb1b7587f7c7debb96e2f687",
+    "hydration_binding_status": "UNAVAILABLE_MISSING_ARTIFACT_NOT_INFERRED"
+  },
+  "remote_identity_before_publication": {
+    "repository": "KevinSGarrett/BatteredAggieSyndrome",
+    "visibility": "PUBLIC",
+    "default_branch": "main",
+    "branch_count": 0,
+    "pull_request_count": 0,
+    "issue_count": 0,
+    "repository_size_kib": 0,
+    "classification": "COMPLETELY_EMPTY_RECHECK_REQUIRED_IMMEDIATELY_BEFORE_PUSH",
+    "secret_scanning_enabled": true,
+    "push_protection_enabled": true
+  },
+  "preservation": {
+    "verified_backup_root": "C:\\BatteredAggieSyndrome.backups\\codex-20260809T060026Z",
+    "backup_archive_sha256": "32e0030f06ec793ba3cd2ee9ebb5d0834a84eab33906746c2cfd27df4398ff42",
+    "backup_manifest_sha256": "f5334feedea44864538d040dc172ccd3b207118f3397817ed838ed261514537f",
+    "backup_hash_failures": 0,
+    "backup_secret_or_forbidden_findings": 0
+  },
+  "publication_exclusions": [
+    ".git metadata",
+    ".env and secret values",
+    "BatteredAggieSyndrome.zip and all generated ZIPs/sidecars",
+    "logs and caches",
+    "virtual environments and dependency caches",
+    "local/raw/restricted datasets",
+    "databases and experiment stores",
+    "model binaries and serialized artifacts",
+    "external backup, packaging, and reconciliation directories"
+  ],
+  "options_considered": [
+    {
+      "option": "controlled initial main publication from the reviewed canonical tree",
+      "preserves_local_work": true,
+      "preserves_remote_work": true,
+      "risk": "Publication could expose forbidden material if the explicit stage and scans fail.",
+      "permission": "AUTHORIZED_BY_GOAL_OBJECTIVE",
+      "selected": true
+    },
+    {
+      "option": "leave both sides empty/unversioned",
+      "preserves_local_work": true,
+      "preserves_remote_work": true,
+      "risk": "No recoverable Git lineage, PR workflow, CI, or protected branch can exist.",
+      "permission": "AUTO",
+      "selected": false
+    },
+    {
+      "option": "force or combine unrelated history",
+      "preserves_local_work": false,
+      "preserves_remote_work": false,
+      "risk": "Destructive or ambiguous lineage.",
+      "permission": "PROHIBITED",
+      "selected": false
+    }
+  ],
+  "selected_decision": {
+    "decision": "CONTROLLED_INITIAL_PUBLICATION",
+    "rationale": "Both local and remote histories were independently verified empty, the user explicitly authorized this exact destination, a verified backup exists, and the publishable set is constructed and tested separately from local-only content.",
+    "authorized_actions": [
+      "initialize Git only in C:\\BatteredAggieSyndrome",
+      "create one clean initial main commit from the explicit reviewed path list",
+      "add exactly the authorized GitHub origin",
+      "push main only if the remote is still empty immediately before push"
+    ],
+    "prohibited_actions": [
+      "force push",
+      "allow unrelated histories",
+      "overwrite a nonempty remote",
+      "publish ignored or forbidden artifacts",
+      "change repository visibility or weaken security"
+    ]
+  },
+  "candidate": {
+    "status": "VALIDATED_READY_FOR_IMMEDIATE_REMOTE_EMPTY_RECHECK",
+    "stage_path": "C:\\BatteredAggieSyndrome.packaging\\initial-publication-20260809T063600Z",
+    "file_count": 2736,
+    "fingerprint_basis_file_count": 2732,
+    "tree_fingerprint": "6696e7886c3999b13588034f71ea2ba0e241533db3d6a036a4839fa1782284bf",
+    "fingerprint_scope": "All proposed tracked files except this reconciliation record and the three self-referential repository provenance files.",
+    "manifest_sha256": "FINALIZED_IN_STAGE_AFTER_THIS_RECORD",
+    "case_collisions": 0,
+    "secret_findings": 0,
+    "forbidden_findings": 0,
+    "strict_repository_validator": "PASS",
+    "autonomous_controls_validator": "PASS",
+    "jira_control_plane_validator": "PASS_REQUIRE_LIVE",
+    "w25_final_validator": "PASS",
+    "warning_strict_unit_tests": "PASS_237_TESTS"
+  },
+  "post_publication": {
+    "status": "PENDING",
+    "initial_commit_sha": null,
+    "remote_main_sha": null,
+    "default_branch_verified": false,
+    "branch_protection_status": "PENDING_FIRST_WORKFLOW_OBSERVATION"
+  },
+  "honesty_boundaries": {
+    "wave_26_created": false,
+    "missing_hydration_binding_fabricated": false,
+    "real_data_lake_claimed": false,
+    "production_model_or_metric_claimed": false
+  }
+}

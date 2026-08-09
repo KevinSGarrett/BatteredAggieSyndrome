@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research Queue Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "priority",
+    "dependency_ready",
+    "owner_wave_active",
+    "protected_rule_seal_valid",
+    "shared_contract_conflict",
+    "resource_request",
+    "queue_index"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "priority": {
+      "enum": [
+        "MUST",
+        "SHOULD",
+        "RESEARCH",
+        "COULD",
+        "DEFERRED"
+      ]
+    },
+    "dependency_ready": {
+      "type": "boolean"
+    },
+    "owner_wave_active": {
+      "type": "boolean"
+    },
+    "protected_rule_seal_valid": {
+      "type": "boolean"
+    },
+    "shared_contract_conflict": {
+      "type": "boolean"
+    },
+    "resource_request": {
+      "$ref": "resource_request.json"
+    },
+    "queue_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}

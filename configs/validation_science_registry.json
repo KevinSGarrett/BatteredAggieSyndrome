@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "version": "w17-v1.0",
+  "generated_at_utc": "2026-08-08T19:47:16+00:00",
+  "maturity": "PROTECTED_VALIDATION_AND_PROMOTION_PROTOCOLS_ONLY",
+  "principles": [
+    "protected_split_and_metric_protocols_are_frozen_before_protected_result_inspection",
+    "canonical_game_is_atomic_split_unit",
+    "development_tuning_and_threshold_setting_cannot_use_2024_2025_protected_holdout",
+    "2024_2025_is_governance_protected_holdout_not_claimed_to_be_world_unknown",
+    "2026_plus_is_forward_operational_shadow_holdout",
+    "protected_holdout_is_not_moved_due_to_unfavorable_results",
+    "required_numeric_thresholds_remain_blank_until_development_only_evidence_exists",
+    "unset_required_thresholds_fail_closed_and_block_promotion",
+    "strong_simple_baselines_are_mandatory_comparators",
+    "a_and_m_no_adjustment_baseline_remains_mandatory",
+    "bas_null_no_excess_outcome_remains_valid",
+    "pure_football_and_market_augmented_lanes_are_scored_separately",
+    "ood_and_disagreement_are_warning_quality_hypotheses_not_directional_strength",
+    "no_model_feature_bas_or_tamu_empirical_winner_is_selected_in_w17",
+    "protected_test_results_are_not_reused_as_tuning_feedback",
+    "all_promotion_decisions_are_versioned_and_immutable"
+  ],
+  "split_protocol": {
+    "protocol_id": "SPLIT-W17-001",
+    "seal_state": "SEALED_W17_PROTOCOL",
+    "development_history": {
+      "season_end": 2022,
+      "season_start": "EARLIEST_QUALIFYING"
+    },
+    "development_selection": {
+      "season_start": 2023,
+      "season_end": 2023
+    },
+    "protected_holdout": {
+      "season_start": 2024,
+      "season_end": 2025
+    },
+    "forward_shadow": {
+      "season_start": 2026,
+      "season_end": "OPEN"
+    },
+    "canonical_game_atomic": true,
+    "mirrored_rows_same_split": true,
+    "protected_results_for_tuning": false,
+    "coverage_failure_policy": "UNEVALUABLE_OR_PREDECLARED_ADR_CHANGE_BEFORE_RESULT_INSPECTION; NEVER_SILENTLY_MOVE_HOLDOUT",
+    "honesty_note": "2024-2025 outcomes are historical/public by W17; protection is a repository/governance rule against tuning on them, not a claim that humans cannot know those outcomes."
+  },
+  "threshold_policy": {
+    "numeric_values_frozen_w17": false,
+    "methodology_frozen_w17": true,
+    "development_only_derivation_required": true,
+    "protected_test_may_set_threshold": false,
+    "unset_required_threshold_behavior": "BLOCKED_THRESHOLD_UNSET"
+  },
+  "selected_model_family_w17": false,
+  "protected_empirical_results_inspected_w17": false,
+  "trained_model_metrics_claimed_w17": false,
+  "next_wave": "W18"
+}

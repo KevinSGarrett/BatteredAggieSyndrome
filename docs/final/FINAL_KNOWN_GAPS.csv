@@ -1,0 +1,15 @@
+gap_id,class,gap,final_state,required_action,priority
+GAP-001,BLOCKING_LOCAL_PRODUCTION,Target-hardware performance evidence,AC-038 / TASK-161 / TASK-163 remain unresolved; THR-011/THR-012 are TBD,Run representative benchmark on declared Windows/Ryzen7HX/32GB/RTX5060/NVMe target,P0
+GAP-002,BLOCKING_EMPIRICAL_MODEL_READINESS,National historical data materialization,Recon/sample evidence is not the historical data lake,Acquire/version approved national source history and population-level manifests,P0
+GAP-003,BLOCKING_EMPIRICAL_MODEL_READINESS,Protected historical replay,No real protected Brier/log-loss/calibration/score likelihood is claimed,Run chronological W17 protocol after materialization,P0
+GAP-004,EMPIRICAL,Production feature set,No raw/derived candidate is production-promoted by final wave,"Run W10/W17 screening, stability and ablation on real PIT matrices",P1
+GAP-005,EMPIRICAL,Production champion model,No trained model family/boosting backend is declared winner,Train simple baselines first; protected promotion only through W17 gate,P1
+GAP-006,EMPIRICAL,A&M specialization lift,No A&M residual/adapter effect size is claimed,Compare high-resolution specialization with mandatory no-adjustment baseline,P1
+GAP-007,EMPIRICAL,BAS / Aggie Excess validity,No persistent Aggie Excess/significance/calibration result is claimed,"Run leakage-safe cross-fit BAS tests, peer/regime stability and null-result policy",P1
+GAP-008,DATA,Historical injuries/depth/availability,Nationwide historical coverage is incomplete/asymmetric,Prioritize official snapshots and confidence/missingness; never fabricate unavailable state,P1
+GAP-009,DATA,Entity-resolution population benchmark,Exact starter exists but fuzzy auto-accept threshold remains intentionally unset,Create labeled cross-source benchmark before enabling fuzzy auto-accept,P1
+GAP-010,DATA_GOVERNANCE,Source rights/redistribution,Public accessibility does not guarantee redistribution rights,Review each production source; keep restricted raw data local,P0
+GAP-011,DATA,Officiating/private-resource/proprietary charting gaps,Universal free symmetric history remains unavailable,Keep experimental/uncertain or optional licensed; do not synthesize values,P2
+GAP-012,OPERATIONS,Forecast freshness SLA,THR-010 remains evidence-driven/TBD,Measure real weekly operations and set SLA from observed cadence/reliability,P2
+GAP-013,RESEARCH,Advanced challengers,Neural/sequence/graph candidates intentionally not executed,"Admit only after baseline saturation, data sufficiency and resource gates pass",P3
+GAP-014,RESEARCH,Live/in-game system,Live source/replay implementation remains deferred,Keep isolated from pregame system; build only after pregame maturity,P3

@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-DEFINITION-OF-DONE",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md",
+  "core_checks": [
+    {
+      "id": "DOD-001",
+      "requirement": "Active Jira acceptance criteria are satisfied or explicitly dispositioned by authorized scope change.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-002",
+      "requirement": "The smallest coherent required implementation/deliverable exists and matches the accepted design.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-003",
+      "requirement": "Focused and impacted tests pass; required repository/CI gates pass.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-004",
+      "requirement": "No protected PIT, leakage, identity, judging, or promotion rule was weakened or bypassed.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-005",
+      "requirement": "Security, secret, license, rights, and dependency policies pass.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-006",
+      "requirement": "Changed behavior/interfaces/operations/architecture have proportionate canonical documentation.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-007",
+      "requirement": "Requirements, ADR, acceptance, provenance, and Jira/PR traceability are updated where applicable.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-008",
+      "requirement": "No fabricated data, result, metric, threshold, BAS effect, A&M lift, benchmark, or maturity claim exists.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-009",
+      "requirement": "No unexplained staged/unstaged/untracked files remain in the owned worktree.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-010",
+      "requirement": "The PR links Jira/internal IDs, describes scope/risks/evidence/limitations, and has no unresolved review/CI blocker.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-011",
+      "requirement": "Integration is complete through the approved merge path or the non-code outcome has accepted evidence.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-012",
+      "requirement": "Jira reflects the real final state and includes concise completion evidence.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-013",
+      "requirement": "Branch/worktree cleanup is completed or intentionally deferred with ownership.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-014",
+      "requirement": "Known limitations and legitimate follow-up work are recorded without hiding incomplete acceptance.",
+      "mandatory": true
+    },
+    {
+      "id": "DOD-015",
+      "requirement": "Rollback/recovery implications are understood for behavior, schema, data, model, or operations changes.",
+      "mandatory": true
+    }
+  ],
+  "conditional_checks": {
+    "data_source": [
+      "Source access and rights are verified; immutable raw snapshot/manifests and provenance are recorded; no restricted raw redistribution."
+    ],
+    "pit_or_feature": [
+      "Historical known-at eligibility and target-game exclusion pass replay/leakage tests; missingness is not converted into false negative evidence."
+    ],
+    "model_or_ml": [
+      "Baseline comparison, chronological evaluation, calibration, protected promotion, reproducibility, and null-result honesty are satisfied."
+    ],
+    "tamu_or_bas": [
+      "National no-adjustment baseline remains; cross-fit/peer/regime/null-result rules are followed; no nonzero effect is presumed."
+    ],
+    "schema_or_api": [
+      "Compatibility/migration/versioning/consumer impact and rollback are validated."
+    ],
+    "operations_or_release": [
+      "Observability, backup/restore, freshness, resource benchmark, rollback, and release checklist are satisfied."
+    ]
+  },
+  "done_never_means": [
+    "code merely written",
+    "tests skipped because change looked small",
+    "Draft PR opened",
+    "Jira status changed",
+    "synthetic starter interpreted as production evidence"
+  ]
+}

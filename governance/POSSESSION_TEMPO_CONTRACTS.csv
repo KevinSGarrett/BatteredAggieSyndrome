@@ -1,0 +1,5 @@
+contract_id,concept,inputs,score_state_adjustment,fixed_formula
+MECH-POS-01,EXPECTED_POSSESSIONS,prior drives;tempo;opponent tempo;game context,candidate,false
+MECH-POS-02,PLAYS_PER_POSSESSION,prior plays/drives;pace,candidate,false
+MECH-POS-03,DRIVE_DURATION,prior drive time;tempo,candidate,false
+MECH-POS-04,PACE,seconds/play;plays/minute;drive rate,required_candidate,false

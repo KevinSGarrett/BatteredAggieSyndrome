@@ -1,0 +1,37 @@
+challenge_id,assumption,result,evidence,wave
+ASSUMPTION-CHALLENGE-001,PFF is necessary for sophisticated v1,REJECTED,Free/public SportsDataverse/CFBD plus derived features support core; PFF deferred.,W01
+ASSUMPTION-CHALLENGE-002,A currently downloadable pretrained CFB model can be foundational,REJECTED,Later source log could not verify referenced artifact; no dependency allowed.,W01
+ASSUMPTION-CHALLENGE-003,Raw 900+ fields should be fed directly to XGBoost,REJECTED,Fields span grains/IDs/leakage/postgame values; feature registry and PIT transforms required.,W01
+ASSUMPTION-CHALLENGE-004,Home winning percentage measures stadium strength,REJECTED,Confounded by team quality; use residual/partial pooling.,W01
+ASSUMPTION-CHALLENGE-005,Static coach rating is adequate,REJECTED,Role history and shared-context confounding require role-conditioned residuals.,W01
+ASSUMPTION-CHALLENGE-006,Resources can be a simple money bonus,REJECTED,Likely double counts roster/coaching/talent; use conditional upstream/resource-efficiency representations.,W01
+ASSUMPTION-CHALLENGE-007,Observed weather can stand in for earlier forecast,REJECTED,Temporal leakage; preserve forecast-vs-observed distinction.,W01
+ASSUMPTION-CHALLENGE-008,Closing line is valid for all historical forecast times,REJECTED,Later market observations cannot enter earlier forecasts.,W01
+ASSUMPTION-CHALLENGE-009,All FCS opponents can share one generic rating,REVISED,FCS needs meaningful team-specific secondary model with cross-division calibration.,W01
+ASSUMPTION-CHALLENGE-010,Large LLM or cloud GPU is required for high accuracy,REJECTED,Core is structured ML/data engineering; local-first is sufficient for baseline system.,W01
+ASSUMPTION-CHALLENGE-011,Recon pack is the complete historical data lake,REJECTED,It is evidence/schema/policy reconnaissance; bulk materialization remains future work.,W01
+ASSUMPTION-CHALLENGE-012,Recon sample profiles are population statistics,REJECTED,Pack explicitly prohibits that interpretation.,W01
+ASSUMPTION-CHALLENGE-013,Wave02 should create every future domain package/folder,REJECTED,Wave03 owns logical/system architecture; premature commitment creates churn,W02
+ASSUMPTION-CHALLENGE-014,Docker is required for Wave02 reproducibility,REJECTED_FOR_CURRENT_WAVE,Local Python tooling plus cross-platform CI is sufficient for current scope,W02
+ASSUMPTION-CHALLENGE-015,A third-party environment manager must be mandatory,REJECTED,venv/pip provides portability baseline; accelerators optional,W02
+ASSUMPTION-CHALLENGE-016,Manifest/hash files can include their own final hashes,REJECTED,Self-reference is unstable; exclude self and bind ZIP externally,W02
+ASSUMPTION-CHALLENGE-023,Every requirement must have an executable unit test in Wave04,REVISED,"Different requirements require static, integration, chronological replay, scientific, benchmark or manual evidence; W04 defines contracts without faking future implementations.",W04
+ASSUMPTION-CHALLENGE-024,Wave04 should choose numeric model/data/performance thresholds now,REJECTED,No protected model/full-data/target-hardware evidence exists yet; arbitrary numbers would be fabricated rigor.,W04
+ASSUMPTION-CHALLENGE-025,Level-A/B/C class can double as acceptance PASS/FAIL state,REJECTED,"Constraint class describes authority/revisability; evidence state independently records whether an acceptance control is defined, partial or passed.",W04
+ASSUMPTION-CHALLENGE-026,Passing repository tests means future data/model product requirements are accepted,REJECTED,W04 repository/registry tests validate governance contracts only; future owner-wave scientific/data/product evidence remains pending.,W04
+ASSUMPTION-CHALLENGE-027,W05 should estimate hours/days for every task to create a critical path,REJECTED,No measured throughput/duration evidence exists; dependencies and complexity/coordination risk are known while elapsed-time precision would be fabricated.,W05
+ASSUMPTION-CHALLENGE-028,Maximum autonomous Codex concurrency is always better,REJECTED,Shared-contract mutation and local resource constraints make indiscriminate concurrency increase semantic/merge risk.,W05
+ASSUMPTION-CHALLENGE-029,W05 can freeze source-specific W07+ implementation details before fresh W06 research,REJECTED,The master plan explicitly authorizes W06 to revise Waves07-25 after current source research.,W05
+ASSUMPTION-CHALLENGE-030,One task per requirement is the strongest traceability structure,REVISED,Exact traceability is preserved through a mapping table; coherent implementation tasks reduce duplicate/micro-handoff work.,W05
+ASSUMPTION-CHALLENGE-031,Manual entity review requires PostgreSQL immediately,REJECTED FOR CURRENT SCOPE,Current local workflow has one authoritative writer and append-only decision events; no concurrent transactional requirement is demonstrated.,W07
+ASSUMPTION-CHALLENGE-032,An exact normalized name match is sufficient durable player/coach identity,REJECTED,"Transfers, duplicate names, suffix/spelling variants and role changes make name-only durable joins unsafe; exact names generate candidates only.",W07
+ASSUMPTION-CHALLENGE-033,Identical raw SHA-256 means two retrieval events are the same evidence event,REJECTED,Retrieval time itself is evidence for what was checked/known; identical bytes can legitimately have distinct raw_capture identities.,W07
+ASSUMPTION-CHALLENGE-034,One bitemporal knowledge/validity model is sufficient for pregame PIT,CONFIRMED_AS_PREGAME_DEFAULT,Market/weather/availability/resource/regulatory synthetic cases cover current pregame temporal semantics; live lane remains separate.,W08
+ASSUMPTION-CHALLENGE-035,retrieved_at can conservatively stand in when earlier first-known cannot be proven,CONFIRMED_CONSERVATIVE,Using retrieval sacrifices coverage but does not leak earlier unavailable knowledge; archival evidence may later recover earlier knowability.,W08
+CHALLENGE-030,Texas A&M should always receive a nonzero model correction because it is the primary product target.,REJECTED,Primary product priority does not imply statistical correction; mandatory no-adjustment baseline retained.,W14
+CHALLENGE-031,A&M high-resolution data should use a separate canonical truth because it is more detailed.,REJECTED,Higher resolution remains an overlay on W07 canonical identities/PIT state.,W14
+CHALLENGE-032,The Sunday/Monday/Wednesday/Friday/pregame snapshot schedule should be frozen now.,REVISED,Cadence retained as candidates; W17/W22 evidence chooses operational value.,W14
+CHALLENGE-033,W20 can clear TASK-087 without implementing its W19-owned prerequisites.,REJECTED,Dependency graph requires TASK-083..086 evidence; W20 pulls them forward instead of falsely marking the gate.,W20
+CHALLENGE-034,A boosting library must be installed in the base environment to complete W20.,REJECTED,A tested injected adapter preserves the model boundary while empirical evidence has not selected a backend.,W20
+CHALLENGE-035,Completing the 25-wave program means the forecasting model is empirically production-ready.,REJECTED,"Real national materialization, protected historical replay, trained champion selection and AC-038 target benchmark remain uncompleted.",W25
+CHALLENGE-036,Optional advanced neural/graph/live work must be completed before final handoff.,REJECTED,Architecture and admission rules intentionally defer complexity until conventional baseline/data evidence justifies it.,W25

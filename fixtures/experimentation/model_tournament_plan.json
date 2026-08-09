@@ -1,0 +1,36 @@
+{
+  "tournament_id": "MT-DEMO",
+  "target": "margin",
+  "development_split": "SPLIT-DEV-SEL",
+  "lane": "PURE_FOOTBALL",
+  "primary_metric": "mae",
+  "metric_direction": "min",
+  "tamu_specialization": true,
+  "bas_target": false,
+  "entrants": [
+    {
+      "entrant_id": "TAMU-SP-00",
+      "model_family": "national_baseline",
+      "model_class": "ELO",
+      "target": "margin",
+      "lane": "PURE_FOOTBALL",
+      "experiment_id": "EXP-base",
+      "complexity_class": "C1",
+      "coherent_output": true,
+      "tamu_specialization_id": "TAMU-SP-00",
+      "bas_label_version": null
+    },
+    {
+      "entrant_id": "TAMU-SP-01",
+      "model_family": "residual_adapter",
+      "model_class": "BOOSTED",
+      "target": "margin",
+      "lane": "PURE_FOOTBALL",
+      "experiment_id": "EXP-chal",
+      "complexity_class": "C3",
+      "coherent_output": true,
+      "tamu_specialization_id": "TAMU-SP-01",
+      "bas_label_version": null
+    }
+  ]
+}

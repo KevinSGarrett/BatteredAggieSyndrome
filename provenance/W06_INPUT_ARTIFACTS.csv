@@ -1,0 +1,5 @@
+artifact,path_or_name,sha256,role
+W05 cumulative input,Aggie_Analytics_Engine_W05_CUMULATIVE(1).zip,08161147baf05c31585ebaa335dd0d345c1cf5e4fde62ad0d69a10ec811fc275,verified parent cumulative
+W05 hydration input,Aggie_Analytics_Engine_W05_HYDRATION(1).zip,832340650037e790eab2986b7a22acd60668025cabc0cb98271e9f8092ad8a6b,verified parent hydration
+Recon pack input,Aggie_Analytics_Data_Reconnaissance_Pack_FINAL_v1_2(1)(1)(7).zip,341d4b97bfa89d7e8710c07d559b7dbb62b61f8ed0ac6fb1aad3a00efe4fb14a,starting evidence base
+Source chat input,Initial_Chat_Log(7).zip,454381eeff86a01668cfb2b181729683d2fc84b64ef564bd484c2bb65198868e,historical project intent

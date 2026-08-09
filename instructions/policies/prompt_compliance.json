@@ -1,0 +1,730 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-MASTER-PROMPT-COMPLIANCE",
+  "version": "2.0.0",
+  "source": "Master Initial Prompt sections 1-56",
+  "section_count": 56,
+  "status_meanings": {
+    "IMPLEMENTED": "The repository contains the requested durable control and it can be validated locally.",
+    "IMPLEMENTED_WITH_EXTERNAL_DISCOVERY_GAPS": "All possible discovery was performed; unavailable local Git or external service facts remain explicitly unverified.",
+    "IMPLEMENTED_PENDING_LIVE_ACTIVATION": "The contract/schema/validator exists, but live Jira metadata must be hydrated from the authorized BAT site before writes.",
+    "IMPLEMENTED_PENDING_LIVE_RECONCILIATION": "The policy exists, but the actual local Git history/state must be reconciled before mutation.",
+    "IMPLEMENTED_PENDING_REMOTE_INITIALIZATION": "The repository-side control exists; remote GitHub enforcement/PR use depends on a nonempty reconciled repository.",
+    "IMPLEMENTED_PENDING_GITHUB_SETTING_VERIFICATION": "The selected default is documented; actual GitHub merge settings must be inspected before enforcement.",
+    "IMPLEMENTED_WITH_INSTALLATION_BOUNDARY": "The repository control and package are implemented; copying into the actual Windows canonical path and reconciling its live Git state must occur on that machine."
+  },
+  "entries": [
+    {
+      "section": 1,
+      "title": "PRIMARY MISSION",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/START_HERE.md",
+        "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
+      ],
+      "validation": [
+        "VAL-COMPLIANCE",
+        "VAL-LINKS"
+      ]
+    },
+    {
+      "section": 2,
+      "title": "OUTPUT LOCATION",
+      "status": "IMPLEMENTED_WITH_INSTALLATION_BOUNDARY",
+      "evidence": [
+        "instructions/21_PACKAGING_INTEGRITY_AND_INSTALLATION.md",
+        "tools/package_instructions.py"
+      ],
+      "validation": [
+        "VAL-PACKAGE",
+        "VAL-SECRET"
+      ]
+    },
+    {
+      "section": 3,
+      "title": "PROJECT LOCATIONS",
+      "status": "IMPLEMENTED_WITH_EXTERNAL_DISCOVERY_GAPS",
+      "evidence": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md",
+        "instructions/23_ACTIVATION_AND_NEXT_SESSION.md",
+        "instructions/audit/EXTERNAL_INTEGRATION_AUDIT.md"
+      ],
+      "validation": [
+        "VAL-CONTROL-PLANE",
+        "VAL-JIRA"
+      ]
+    },
+    {
+      "section": 4,
+      "title": "FIRST ACTION — COMPLETE REPOSITORY DISCOVERY",
+      "status": "IMPLEMENTED_WITH_EXTERNAL_DISCOVERY_GAPS",
+      "evidence": [
+        "instructions/audit/REPOSITORY_DISCOVERY_REPORT.md",
+        "instructions/audit/repository_inventory.json",
+        "instructions/audit/external_access_audit.json",
+        "tools/audit_control_plane.py"
+      ],
+      "validation": [
+        "VAL-CONTROL-PLANE",
+        "VAL-AUDIT"
+      ]
+    },
+    {
+      "section": 5,
+      "title": "EXISTING PROJECT STATE YOU MUST PRESERVE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md",
+        "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md",
+        "instructions/policies/protected_scope_policy.json"
+      ],
+      "validation": [
+        "VAL-NO-W26",
+        "VAL-PROTECTED"
+      ]
+    },
+    {
+      "section": 6,
+      "title": "SOURCE-OF-TRUTH PRECEDENCE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/02_SOURCE_OF_TRUTH_AND_CONFLICT_RESOLUTION.md",
+        "instructions/policies/source_precedence.json"
+      ],
+      "validation": [
+        "VAL-SOURCE-PRECEDENCE"
+      ]
+    },
+    {
+      "section": 7,
+      "title": "SINGLE CANONICAL INSTRUCTION SYSTEM",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/START_HERE.md",
+        "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md"
+      ],
+      "validation": [
+        "VAL-ENTRYPOINT",
+        "VAL-DUPLICATION"
+      ]
+    },
+    {
+      "section": 8,
+      "title": "REQUIRED INSTRUCTION-PACK COVERAGE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/START_HERE.md",
+        "instructions/manifest.json",
+        "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md"
+      ],
+      "validation": [
+        "VAL-MANIFEST",
+        "VAL-COMPLIANCE"
+      ]
+    },
+    {
+      "section": 9,
+      "title": "JIRA OPERATING MODEL",
+      "status": "IMPLEMENTED_PENDING_LIVE_ACTIVATION",
+      "evidence": [
+        "instructions/07_JIRA_OPERATING_CONTRACT.md",
+        "instructions/policies/jira_operating_policy.json"
+      ],
+      "validation": [
+        "VAL-JIRA"
+      ]
+    },
+    {
+      "section": 10,
+      "title": "LOCAL JIRA DIRECTORY",
+      "status": "IMPLEMENTED_PENDING_LIVE_ACTIVATION",
+      "evidence": [
+        "instructions/08_LOCAL_JIRA_MIRROR_AND_SYNC.md",
+        "jira/README.md",
+        "jira/schemas/issue_source_map.schema.json"
+      ],
+      "validation": [
+        "VAL-JIRA"
+      ]
+    },
+    {
+      "section": 11,
+      "title": "JIRA STATUS HYGIENE",
+      "status": "IMPLEMENTED_PENDING_LIVE_ACTIVATION",
+      "evidence": [
+        "instructions/07_JIRA_OPERATING_CONTRACT.md",
+        "instructions/policies/task_state_machine.json",
+        "jira/status_map.json"
+      ],
+      "validation": [
+        "VAL-JIRA"
+      ]
+    },
+    {
+      "section": 12,
+      "title": "JIRA TICKET GRANULARITY — PREVENT AI TICKET EXPLOSION",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/07_JIRA_OPERATING_CONTRACT.md",
+        "instructions/templates/NEW_ISSUE_DECISION.md"
+      ],
+      "validation": [
+        "VAL-JIRA-POLICY"
+      ]
+    },
+    {
+      "section": 13,
+      "title": "TASK SELECTION AND BUILD SEQUENCE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/05_TASK_SELECTION_AND_SEQUENCING.md",
+        "instructions/policies/task_selection_policy.json",
+        "tools/select_next_work.py"
+      ],
+      "validation": [
+        "VAL-TASK-SELECTION"
+      ]
+    },
+    {
+      "section": 14,
+      "title": "GIT/GITHUB OPERATING CONTRACT",
+      "status": "IMPLEMENTED_PENDING_LIVE_RECONCILIATION",
+      "evidence": [
+        "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
+        "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        "instructions/policies/git_policy.json"
+      ],
+      "validation": [
+        "VAL-GIT-POLICY"
+      ]
+    },
+    {
+      "section": 15,
+      "title": "CANONICAL REPOSITORY RULE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
+        "instructions/policies/git_policy.json"
+      ],
+      "validation": [
+        "VAL-CANONICAL-REPO"
+      ]
+    },
+    {
+      "section": 16,
+      "title": "DIRTY REPOSITORY DECISION TREE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
+        "instructions/runbooks/DIRTY_WORKTREE_RECOVERY.md"
+      ],
+      "validation": [
+        "VAL-GIT-POLICY"
+      ]
+    },
+    {
+      "section": 17,
+      "title": "BRANCH STRATEGY",
+      "status": "IMPLEMENTED_PENDING_LIVE_RECONCILIATION",
+      "evidence": [
+        "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
+        "instructions/policies/git_policy.json"
+      ],
+      "validation": [
+        "VAL-BRANCH-POLICY"
+      ]
+    },
+    {
+      "section": 18,
+      "title": "WORKTREE STRATEGY",
+      "status": "IMPLEMENTED_PENDING_LIVE_RECONCILIATION",
+      "evidence": [
+        "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
+        ".codex/WORKTREE_POLICY.md",
+        "scripts/new_worktree.ps1"
+      ],
+      "validation": [
+        "VAL-WORKTREE-POLICY"
+      ]
+    },
+    {
+      "section": 19,
+      "title": "COMMIT POLICY",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
+        "instructions/policies/git_policy.json"
+      ],
+      "validation": [
+        "VAL-COMMIT-POLICY"
+      ]
+    },
+    {
+      "section": 20,
+      "title": "PULL REQUEST POLICY — CRITICAL",
+      "status": "IMPLEMENTED_PENDING_REMOTE_INITIALIZATION",
+      "evidence": [
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        ".github/pull_request_template.md"
+      ],
+      "validation": [
+        "VAL-PR-TEMPLATE"
+      ]
+    },
+    {
+      "section": 21,
+      "title": "PR LIFECYCLE",
+      "status": "IMPLEMENTED_PENDING_REMOTE_INITIALIZATION",
+      "evidence": [
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        "instructions/templates/PR_READY_CHECKLIST.md",
+        "instructions/templates/MERGE_AND_CLEANUP_CHECKLIST.md"
+      ],
+      "validation": [
+        "VAL-PR-LIFECYCLE"
+      ]
+    },
+    {
+      "section": 22,
+      "title": "PULL REQUEST TEMPLATE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        ".github/pull_request_template.md",
+        "instructions/templates/PR_READY_CHECKLIST.md"
+      ],
+      "validation": [
+        "VAL-PR-TEMPLATE"
+      ]
+    },
+    {
+      "section": 23,
+      "title": "MERGE STRATEGY",
+      "status": "IMPLEMENTED_PENDING_GITHUB_SETTING_VERIFICATION",
+      "evidence": [
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        "instructions/policies/git_policy.json",
+        "instructions/19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md"
+      ],
+      "validation": [
+        "VAL-MERGE-POLICY"
+      ]
+    },
+    {
+      "section": 24,
+      "title": "BRANCH CLEANUP",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        "instructions/runbooks/STALE_BRANCH_AND_WORKTREE.md"
+      ],
+      "validation": [
+        "VAL-CLEANUP-POLICY"
+      ]
+    },
+    {
+      "section": 25,
+      "title": "GITHUB ISSUE VS JIRA AUTHORITY",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/07_JIRA_OPERATING_CONTRACT.md",
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        ".github/ISSUE_TEMPLATE/config.yml"
+      ],
+      "validation": [
+        "VAL-ISSUE-AUTHORITY"
+      ]
+    },
+    {
+      "section": 26,
+      "title": "GITHUB CI/CD",
+      "status": "IMPLEMENTED_PENDING_REMOTE_INITIALIZATION",
+      "evidence": [
+        "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md",
+        ".github/workflows/ci.yml"
+      ],
+      "validation": [
+        "VAL-CI-CONFIG"
+      ]
+    },
+    {
+      "section": 27,
+      "title": "TESTING STRATEGY — PREVENT OVERTESTING",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md",
+        "instructions/policies/test_tiers.json"
+      ],
+      "validation": [
+        "VAL-TESTING-POLICY"
+      ]
+    },
+    {
+      "section": 28,
+      "title": "DEFINITION OF DONE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md",
+        "instructions/policies/definition_of_done.json"
+      ],
+      "validation": [
+        "VAL-DOD"
+      ]
+    },
+    {
+      "section": 29,
+      "title": "AUTONOMOUS DEVELOPMENT EXECUTION LOOP",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md",
+        "instructions/START_HERE.md"
+      ],
+      "validation": [
+        "VAL-EXECUTION-LOOP"
+      ]
+    },
+    {
+      "section": 30,
+      "title": "MEANINGFUL PROGRESS RULE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md",
+        "instructions/templates/TASK_EXECUTION_PACKET.md"
+      ],
+      "validation": [
+        "VAL-MEANINGFUL-PROGRESS"
+      ]
+    },
+    {
+      "section": 31,
+      "title": "ANTI-LOOP POLICY",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md",
+        "instructions/policies/loop_and_retry_policy.json",
+        "instructions/runbooks/AGENT_LOOP_RECOVERY.md"
+      ],
+      "validation": [
+        "VAL-LOOP-POLICY"
+      ]
+    },
+    {
+      "section": 32,
+      "title": "ANTI-OVERENGINEERING POLICY",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md",
+        "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md"
+      ],
+      "validation": [
+        "VAL-OVERENGINEERING"
+      ]
+    },
+    {
+      "section": 33,
+      "title": "BASELINES BEFORE COMPLEXITY",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/05_TASK_SELECTION_AND_SEQUENCING.md",
+        "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md"
+      ],
+      "validation": [
+        "VAL-ML-GOVERNANCE"
+      ]
+    },
+    {
+      "section": 34,
+      "title": "BLOCKER MANAGEMENT",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md",
+        "instructions/policies/blocker_taxonomy.json",
+        "instructions/templates/BLOCKER_RECORD.md"
+      ],
+      "validation": [
+        "VAL-BLOCKER-POLICY"
+      ]
+    },
+    {
+      "section": 35,
+      "title": "AUTONOMY PERMISSION MATRIX",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+        "instructions/policies/autonomy_permissions.json"
+      ],
+      "validation": [
+        "VAL-AUTONOMY"
+      ]
+    },
+    {
+      "section": 36,
+      "title": "PARALLELISM AND MULTIPLE CODEX SESSIONS",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md",
+        "instructions/policies/parallelism_policy.json",
+        "instructions/policies/shared_contract_policy.json"
+      ],
+      "validation": [
+        "VAL-PARALLELISM"
+      ]
+    },
+    {
+      "section": 37,
+      "title": "SESSION STARTUP PROCEDURE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/START_HERE.md",
+        "tools/audit_control_plane.py"
+      ],
+      "validation": [
+        "VAL-ENTRYPOINT",
+        "VAL-CONTROL-PLANE"
+      ]
+    },
+    {
+      "section": 38,
+      "title": "CONTEXT MANAGEMENT",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md",
+        "instructions/policies/read_budget.json"
+      ],
+      "validation": [
+        "VAL-READ-BUDGET"
+      ]
+    },
+    {
+      "section": 39,
+      "title": "HANDOFF AND CONTINUATION",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md",
+        "instructions/templates/HANDOFF_RECORD.md"
+      ],
+      "validation": [
+        "VAL-HANDOFF"
+      ]
+    },
+    {
+      "section": 40,
+      "title": "ARCHITECTURE CHANGE POLICY",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md",
+        "instructions/templates/ARCHITECTURE_CHANGE_PROPOSAL.md"
+      ],
+      "validation": [
+        "VAL-ARCHITECTURE-CHANGE"
+      ]
+    },
+    {
+      "section": 41,
+      "title": "DOCUMENTATION POLICY",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md"
+      ],
+      "validation": [
+        "VAL-DOCUMENTATION-POLICY"
+      ]
+    },
+    {
+      "section": 42,
+      "title": "SECURITY AND SECRET HANDLING",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/13_SECURITY_SECRETS_DATA_RIGHTS_AND_DEPENDENCIES.md",
+        "instructions/policies/security_policy.json"
+      ],
+      "validation": [
+        "VAL-SECRET",
+        "VAL-SECURITY-POLICY"
+      ]
+    },
+    {
+      "section": 43,
+      "title": "DATA/ML GOVERNANCE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md",
+        "instructions/policies/protected_scope_policy.json"
+      ],
+      "validation": [
+        "VAL-PROTECTED",
+        "VAL-ML-GOVERNANCE"
+      ]
+    },
+    {
+      "section": 44,
+      "title": "RESOURCE-AWARE DEVELOPMENT",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/16_PARALLELISM_RESOURCES_CONTEXT_AND_HANDOFF.md",
+        "instructions/14_DATA_ML_PIT_PROVENANCE_AND_EVALUATION.md"
+      ],
+      "validation": [
+        "VAL-RESOURCE-POLICY"
+      ]
+    },
+    {
+      "section": 45,
+      "title": "ERROR AND RECOVERY RUNBOOKS",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/18_OPERATIONAL_RUNBOOKS.md",
+        "instructions/runbooks/DIRTY_WORKTREE_RECOVERY.md",
+        "instructions/runbooks/FAILED_CI_DIAGNOSIS.md",
+        "instructions/runbooks/JIRA_GITHUB_DESYNCHRONIZATION.md",
+        "instructions/runbooks/INTERRUPTED_SESSION_RECOVERY.md",
+        "instructions/runbooks/SOURCE_API_OUTAGE_AND_ACCESS_FAILURE.md"
+      ],
+      "validation": [
+        "VAL-RUNBOOKS"
+      ]
+    },
+    {
+      "section": 46,
+      "title": "MACHINE-READABLE POLICIES",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/policies/",
+        "tools/validate_autonomous_controls.py"
+      ],
+      "validation": [
+        "VAL-POLICIES"
+      ]
+    },
+    {
+      "section": 47,
+      "title": "INSTRUCTION-PACK MANIFEST",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/manifest.json",
+        "instructions/policies/instruction_manifest.schema.json"
+      ],
+      "validation": [
+        "VAL-MANIFEST",
+        "VAL-HASHES"
+      ]
+    },
+    {
+      "section": 48,
+      "title": "INSTRUCTION NAVIGATION / READ BUDGET",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/START_HERE.md",
+        "instructions/policies/read_budget.json",
+        "instructions/03_REPOSITORY_ARCHITECTURE_AND_NAVIGATION.md"
+      ],
+      "validation": [
+        "VAL-READ-BUDGET"
+      ]
+    },
+    {
+      "section": 49,
+      "title": "DO NOT OVERENGINEER THE INSTRUCTION PACK ITSELF",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md",
+        "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md"
+      ],
+      "validation": [
+        "VAL-DUPLICATION"
+      ]
+    },
+    {
+      "section": 50,
+      "title": "EXISTING FILE INTEGRATION",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md",
+        "instructions/audit/existing_control_alignment.csv"
+      ],
+      "validation": [
+        "VAL-ACTIVE-CONTROLS"
+      ]
+    },
+    {
+      "section": 51,
+      "title": "GITHUB ENFORCEMENT RECOMMENDATIONS",
+      "status": "IMPLEMENTED_PENDING_REMOTE_INITIALIZATION",
+      "evidence": [
+        "instructions/19_GITHUB_ENFORCEMENT_RECOMMENDATIONS.md",
+        "instructions/policies/github_enforcement.json",
+        "instructions/templates/GITHUB_ENFORCEMENT_ACTIVATION_CHECKLIST.md"
+      ],
+      "validation": [
+        "VAL-GITHUB-ENFORCEMENT"
+      ]
+    },
+    {
+      "section": 52,
+      "title": "PROFESSIONAL ENGINEERING STANDARD",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/01_PROJECT_IDENTITY_AND_HANDOFF.md",
+        "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
+      ],
+      "validation": [
+        "VAL-OPERATING-STANDARD"
+      ]
+    },
+    {
+      "section": 53,
+      "title": "FLEXIBILITY AND IMPROVEMENT AUTHORITY",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/15_ARCHITECTURE_DOCUMENTATION_RELEASE_AND_ROLLBACK.md",
+        "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md"
+      ],
+      "validation": [
+        "VAL-CHANGE-CONTROL"
+      ]
+    },
+    {
+      "section": 54,
+      "title": "REQUIRED FINAL VALIDATION",
+      "status": "IMPLEMENTED_WITH_EXTERNAL_DISCOVERY_GAPS",
+      "evidence": [
+        "instructions/24_FINAL_VALIDATION_REPORT.md",
+        "tools/validate_autonomous_controls.py",
+        "tests/test_autonomous_controls.py",
+        "tests/test_jira_control_plane.py",
+        "tests/test_instructions_pack.py"
+      ],
+      "validation": [
+        "VAL-FINAL"
+      ]
+    },
+    {
+      "section": 55,
+      "title": "REQUIRED FINAL REPORT",
+      "status": "IMPLEMENTED_WITH_EXTERNAL_DISCOVERY_GAPS",
+      "evidence": [
+        "instructions/24_FINAL_VALIDATION_REPORT.md"
+      ],
+      "validation": [
+        "VAL-FINAL-REPORT"
+      ]
+    },
+    {
+      "section": 56,
+      "title": "IMPORTANT FINAL OPERATING PRINCIPLE",
+      "status": "IMPLEMENTED",
+      "evidence": [
+        "instructions/START_HERE.md",
+        "instructions/04_AUTONOMOUS_OPERATING_CONTRACT.md",
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
+      ],
+      "validation": [
+        "VAL-OPERATING-CYCLE"
+      ]
+    }
+  ]
+}

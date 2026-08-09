@@ -1,0 +1,3712 @@
+{
+  "generated_at": "2026-08-08T00:00:00Z",
+  "issues": [
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-001",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-002",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-003",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-004",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-005",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-006",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-007",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-008",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-009",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-010",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-011",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-012",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-013",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-014",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-015",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-016",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-017",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-018",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-019",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-020",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-021",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-022",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-023",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-024",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-025",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-026",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-027",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "PARTIAL",
+      "jira_key": "",
+      "local_id": "EPIC-028",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PARTIAL",
+      "jira_key": "",
+      "local_id": "EPIC-029",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PARTIAL",
+      "jira_key": "",
+      "local_id": "EPIC-030",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-031",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-032",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "EPIC-033",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-001",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-002",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-003",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-004",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-005",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-006",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-007",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-008",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-009",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-010",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-011",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-012",
+      "maturity_after": "OPERATING",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-013",
+      "maturity_after": "OPERATING",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-014",
+      "maturity_after": "OPERATING",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-015",
+      "maturity_after": "OPERATING",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-016",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-EPIC-017",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-001",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-002",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-003",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-004",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-005",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-006",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-007",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-008",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-009",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-010",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-011",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-012",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-013",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-014",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-015",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-016",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-017",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-018",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-019",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-020",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-021",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-022",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-023",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-024",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-025",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-026",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-027",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-028",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-029",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-030",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-031",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-032",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-033",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-034",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-035",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-036",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-037",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-038",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-039",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-040",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-041",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-042",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-043",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-044",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-045",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-046",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-047",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BACKLOG"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-048",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-049",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-050",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-051",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-052",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-STORY-053",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-001",
+      "maturity_after": "IMPLEMENTED",
+      "ready": true,
+      "workflow_state": "READY"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-002",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-003",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-004",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-005",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-006",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-007",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-008",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-009",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-010",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-011",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-012",
+      "maturity_after": "OPERATING",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-013",
+      "maturity_after": "IMPLEMENTED",
+      "ready": true,
+      "workflow_state": "READY"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-014",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-015",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-016",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-017",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-018",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-019",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-020",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-021",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-022",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-023",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-024",
+      "maturity_after": "OPERATING",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-025",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-026",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-027",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-028",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-029",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-030",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-031",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-032",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-033",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-034",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-035",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-036",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-037",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-038",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-039",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-040",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-041",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-042",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-043",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-044",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-045",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-046",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-047",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-048",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-049",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-050",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-051",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-052",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-053",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-054",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-055",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-056",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-057",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-058",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-059",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-060",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-061",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-062",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-063",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-064",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-065",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-066",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-067",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-068",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-069",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-070",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-071",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-072",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-073",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-074",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-075",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-076",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-077",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-078",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-079",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-080",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-081",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-082",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-083",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-084",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-085",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-086",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-087",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-088",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-089",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-090",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-091",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-092",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-093",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-094",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-095",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-096",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-097",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-098",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-099",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-100",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-101",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-102",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-103",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-104",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-105",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-106",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-107",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-108",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-109",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-110",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-111",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-112",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-113",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-114",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-115",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-116",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-117",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-118",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-119",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-120",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-121",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-122",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-123",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-124",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-125",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-126",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-127",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-128",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-129",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-130",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-131",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-132",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-133",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-134",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-135",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-136",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-137",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-138",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-139",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-140",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-141",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-142",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-143",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-144",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-145",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-146",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-147",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-148",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-149",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-150",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-151",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-152",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-153",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-154",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-155",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-156",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-157",
+      "maturity_after": "IMPLEMENTED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-158",
+      "maturity_after": "EMPIRICALLY_VALIDATED",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "POST-SUBTASK-159",
+      "maturity_after": "PRODUCTION_READY",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-001",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-002",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-003",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-004",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-005",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-006",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-007",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-008",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-009",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-010",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-011",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-012",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-013",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-014",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-015",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-016",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-017",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-018",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-019",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-020",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-021",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-022",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-023",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-024",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-025",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-026",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-027",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-028",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-029",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-030",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-031",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-032",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-033",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-034",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-035",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-036",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-037",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-038",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-039",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-040",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-041",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-042",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-043",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-044",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-045",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-046",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-047",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-048",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-049",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-050",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-051",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-052",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-053",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-054",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-055",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-056",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-057",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-058",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-059",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-060",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-061",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-062",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-063",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-064",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-065",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-066",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-067",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-068",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-069",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-070",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-071",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-072",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-073",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-074",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-075",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-076",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-077",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-078",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-079",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-080",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-081",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-082",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-083",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-084",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-085",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-086",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-087",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-088",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-089",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-090",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-091",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-092",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-093",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-094",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-095",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-096",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-097",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-098",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-099",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-100",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-101",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-102",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-103",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-104",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-105",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-106",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-107",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-108",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-109",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-110",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-111",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-112",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-113",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-114",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-115",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-116",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-117",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-118",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-119",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-120",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-121",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-122",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-123",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-124",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-125",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-126",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-127",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-128",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-129",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-130",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-131",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-132",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-133",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-134",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-135",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-136",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-137",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-138",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-139",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-140",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-141",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-142",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-143",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-144",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-145",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-146",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-147",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-148",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-149",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-150",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-151",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-152",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-153",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-154",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-155",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-156",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-157",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-158",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-159",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-160",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "BLOCKED",
+      "jira_key": "",
+      "local_id": "TASK-161",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-162",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "BLOCKED",
+      "jira_key": "",
+      "local_id": "TASK-163",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "BLOCKED"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-164",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "TASK-165",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "TASK-166",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "TASK-167",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "TASK-168",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "TASK-169",
+      "maturity_after": "DESIGN_ONLY",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "TASK-170",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "TASK-171",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "PLANNED",
+      "jira_key": "",
+      "local_id": "TASK-172",
+      "maturity_after": "FUNCTIONAL_STARTER",
+      "ready": false,
+      "workflow_state": "DEFERRED"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-173",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-174",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-175",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-176",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-177",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-178",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-179",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-180",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-181",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-182",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-183",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-184",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-185",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-186",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-187",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-188",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-189",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-190",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-191",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-192",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-193",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-194",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-195",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-196",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-197",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-198",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-199",
+      "maturity_after": "INTEGRATED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-200",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    },
+    {
+      "evidence_state": "VERIFIED",
+      "jira_key": "",
+      "local_id": "TASK-201",
+      "maturity_after": "CONTRACT_DEFINED",
+      "ready": false,
+      "workflow_state": "DONE"
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "db80576a04eda106f060eb545fc47d165df76c054fdd9c414c8524f4aa492cdf",
+  "snapshot_id": "2026-08-08_initial"
+}

@@ -1,0 +1,5 @@
+lane_id,name,rule,role,status,market_features_allowed
+LANE-001,PURE_FOOTBALL,"No market-derived feature, line, price, consensus or market-implied target",National + optional A&M specialization,PROTECTED,false
+LANE-002,MARKET_AUGMENTED,Only market observations known at forecast cutoff; immutable provider/time/version,Separate challenger/product lane,PROTECTED,true
+LANE-003,MARKET_BENCHMARK,Market observations used as evaluation benchmark at their legitimate timestamp; closing line may be retrospective benchmark only,Evaluation only,PROTECTED,conditional
+LANE-004,BAS_SCIENTIFIC_ANCHOR,W15 BAS-independent national pregame expected-margin anchor; cannot consume BAS target,Scientific label anchor,PROTECTED,conditional

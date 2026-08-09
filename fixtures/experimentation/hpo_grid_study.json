@@ -1,0 +1,20 @@
+{
+  "study_id": "HPO-DEMO-W18",
+  "trial_budget": 4,
+  "parameters": [
+    {
+      "name": "depth",
+      "values": [
+        2,
+        4
+      ]
+    },
+    {
+      "name": "learning_rate",
+      "values": [
+        0.03,
+        0.1
+      ]
+    }
+  ]
+}

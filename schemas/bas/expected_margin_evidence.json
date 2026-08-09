@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BAS Expected Margin Evidence",
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "target_game_id",
+    "model_id",
+    "model_version",
+    "fold_id",
+    "expected_margin",
+    "prediction_cutoff",
+    "model_training_cutoff",
+    "target_game_excluded",
+    "uses_bas_target",
+    "uses_aggie_underperformance_target",
+    "anchor_lane"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string"
+    },
+    "target_game_id": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": "string"
+    },
+    "model_version": {
+      "type": "string"
+    },
+    "fold_id": {
+      "type": "string"
+    },
+    "expected_margin": {
+      "type": "number"
+    },
+    "prediction_cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "model_training_cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "target_game_excluded": {
+      "const": true
+    },
+    "uses_bas_target": {
+      "const": false
+    },
+    "uses_aggie_underperformance_target": {
+      "const": false
+    },
+    "anchor_lane": {
+      "const": "BAS_INDEPENDENT_NATIONAL_PREGAME_EXPECTATION"
+    },
+    "canonical_game_group_excluded": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

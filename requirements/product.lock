@@ -1,0 +1,15 @@
+# W23 tested product-adapter lock. Base package remains dependency-free.
+fastapi==0.128.2
+uvicorn==0.48.0
+starlette==0.50.0
+pydantic==2.13.4
+pydantic-core==2.46.4
+annotated-doc==0.0.4
+annotated-types==0.7.0
+anyio==4.13.0
+typing-extensions==4.16.0
+typing-inspection==0.4.2
+idna==3.17
+click==8.1.8
+h11==0.16.0
+colorama==0.4.6; platform_system == "Windows"

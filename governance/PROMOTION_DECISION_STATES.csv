@@ -1,0 +1,11 @@
+state,terminal,meaning,may_promote
+BLOCKED_PROTOCOL_UNSEALED,false,Required split/metric/promotion protocol is not sealed.,false
+BLOCKED_THRESHOLD_UNSET,false,Required evidence-backed threshold has no frozen value.,false
+BLOCKED_ARTIFACT_MISSING,false,Required model/data/calibration/lineage artifact is missing.,false
+DEVELOPMENT_ONLY,false,Candidate may be developed/tuned but protected gate is not open.,false
+PROTECTED_READY,false,"Protocol, artifacts and precommitted thresholds are sealed; one protected evaluation may run.",false
+REJECT,true,Candidate fails precommitted protected criteria.,false
+INCONCLUSIVE,true,Evidence is insufficient/unstable; retain champion/no-change.,false
+SHADOW_ONLY,true,Interesting but not promotion-qualified; may continue immutable shadow evaluation.,false
+PROMOTE,true,Candidate passes all precommitted protected criteria and governance checks.,true
+ROLLBACK_REQUIRED,true,Post-promotion operational/protected criteria fail; W21+ rollback path applies.,false

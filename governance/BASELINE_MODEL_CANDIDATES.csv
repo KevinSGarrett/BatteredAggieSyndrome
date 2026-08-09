@@ -1,0 +1,6 @@
+baseline_id,name,lane,requirement_level,empirically_benchmarked_w16,notes
+BASE-001,Empirical/home-rate sanity baseline,PURE_FOOTBALL,MUST,false,Minimal sanity floor
+BASE-002,Elo win baseline,PURE_FOOTBALL,MUST,false,Interpretable rating baseline
+BASE-003,Logistic/GLM feature baseline,PURE_FOOTBALL,MUST,false,Interpretable tabular baseline
+BASE-004,Simple Poisson/score-distribution baseline,PURE_FOOTBALL,MUST,false,Coherent score baseline
+BASE-005,Market benchmark at valid timestamp,MARKET_BENCHMARK,BENCHMARK_ONLY,false,Never contaminates pure-football training/features

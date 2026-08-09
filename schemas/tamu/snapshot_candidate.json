@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TamuForecastSnapshotCandidate",
+  "type": "object",
+  "required": [
+    "snapshot_id",
+    "game_id",
+    "cutoff",
+    "immutable"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string"
+    },
+    "game_id": {
+      "type": "string"
+    },
+    "cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "immutable": {
+      "const": true
+    },
+    "cadence_candidate_id": {
+      "type": "string"
+    }
+  }
+}

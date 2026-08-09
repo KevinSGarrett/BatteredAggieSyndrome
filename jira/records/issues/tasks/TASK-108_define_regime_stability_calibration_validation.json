@@ -1,0 +1,225 @@
+{
+  "acceptance_control_ids": [
+    "AC-029",
+    "AC-055",
+    "AC-056",
+    "AC-142",
+    "AC-144",
+    "AC-145",
+    "AC-148",
+    "AC-149",
+    "AC-150"
+  ],
+  "acceptance_criteria": [
+    "Stable ID TASK-108, parent EPIC-019, owner wave W15, and original status DONE are preserved.",
+    "Declared outputs are traceable to existing repository artifacts where resolvable, or remain recorded as historical output names without fabricating files.",
+    "Requirement, acceptance-control, and dependency references resolve to authoritative registries.",
+    "The record does not claim maturity beyond the task's original design, contract, functional-starter, synthetic-validation, or integration scope."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is historical WBS provenance. Execute the mapped post-wave issue for remaining maturity work.",
+    "W15 scientific BAS contract/reference task complete; protected empirical significance/calibration/component selection remains W17."
+  ],
+  "allowed_modification_paths": [
+    "BAS stability/calibration plan"
+  ],
+  "blocked_reason": "",
+  "blocks": [
+    "TASK-109"
+  ],
+  "canonical_record": "jira/records/issues/tasks/TASK-108_define_regime_stability_calibration_validation.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {},
+  "component": "bas-science",
+  "components_expected_to_be_touched": [
+    "bas-science"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "The original historical scope and status are preserved with source evidence and stable identifiers.",
+    "The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.",
+    "Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work."
+  ],
+  "dependencies": [
+    "TASK-106",
+    "TASK-107"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 9,
+    "adr_ids": 0,
+    "gap_ids": 0,
+    "requirement_ids": 13,
+    "risk_ids": 0
+  },
+  "effective_traceability_total": 22,
+  "end_to_end_validation": "Historical completion remains scoped; integrated product completion is evaluated only through the post-wave release path.",
+  "epic_id": "EPIC-019",
+  "evidence_manifest_path": "",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "PROTECTED_GATE",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "CONTRACT_DEFINED",
+  "expected_outputs": [
+    "BAS stability/calibration plan"
+  ],
+  "files_expected_to_be_read": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "files_expected_to_be_touched": [
+    "BAS stability/calibration plan"
+  ],
+  "files_to_inspect": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/tasks/TASK-108_define_regime_stability_calibration_validation.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "",
+  "historical_classification": "HISTORICAL_SCOPED_COMPLETED",
+  "import_id": 100211,
+  "in_scope": [
+    "Original WBS objective and outputs",
+    "Original requirements and acceptance-control mappings",
+    "Original dependency and execution-lane provenance"
+  ],
+  "issue_type": "Task",
+  "jira_key": "BAT-211",
+  "labels": [
+    "historical",
+    "planning-program",
+    "validation-design",
+    "w15",
+    "wave-completed"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "TASK-108",
+  "maturity_before": "DESIGN_ONLY",
+  "objective": "Define regime/stability/calibration validation",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24351",
+    "jira_updated_at": "2026-08-09T00:40:36.439-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Reopening completed planning solely to rename it",
+    "Treating a starter/design result as empirically validated production capability"
+  ],
+  "owner_wave": "W15",
+  "parent_id": "EPIC-019",
+  "phase": "PHASE-3",
+  "prerequisites": [
+    "Historical dependency TASK-106",
+    "Historical dependency TASK-107"
+  ],
+  "primary_source_refs": [
+    "SRCREF-00141",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "priority": "P1",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [
+    "POST-SUBTASK-096"
+  ],
+  "required_evidence": [
+    "Authoritative WBS row TASK-108",
+    "Existing artifact `BAS stability/calibration plan`"
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_bas_science_governance.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_w20_model_starter.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tools/validate_bas_science.py"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-097",
+    "REQ-232",
+    "REQ-233",
+    "REQ-509",
+    "REQ-510",
+    "REQ-511",
+    "REQ-512",
+    "REQ-513",
+    "REQ-521",
+    "REQ-522",
+    "REQ-523",
+    "REQ-524",
+    "REQ-526"
+  ],
+  "risk_failure_conditions": [
+    "Original DONE status may be over-interpreted",
+    "Source output path may have moved or been generated under a different canonical directory"
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Original task type VALIDATION_DESIGN with mutation scope: as defined by its source documents.",
+  "source_ids": [
+    "TASK-108"
+  ],
+  "source_refs": [
+    "SRCREF-00141",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "specificity_fingerprint": "6e12f1eb41015afda2cc9f2d252c2fafaeb92ae7eb7014dba1f89795cbb5ba44",
+  "stop_conditions": [
+    "Stop if completing this record would fabricate real-data, model-metric, source-rights, target-hardware, or operating evidence."
+  ],
+  "supporting_source_refs": [],
+  "title": "[TASK-108] Define regime/stability/calibration validation",
+  "traceability_inherited_from": [],
+  "traceability_resolution": "DIRECT",
+  "unblock_condition": "",
+  "validation_classes": [
+    "EXISTING_AUTOMATED_TEST"
+  ],
+  "why_this_exists": "Preserve the original W15 WBS work unit, its dependencies, outputs, and scoped completion semantics as provenance for post-wave execution.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}

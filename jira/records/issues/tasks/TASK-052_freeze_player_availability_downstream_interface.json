@@ -1,0 +1,241 @@
+{
+  "acceptance_control_ids": [
+    "AC-015",
+    "AC-019",
+    "AC-055",
+    "AC-056",
+    "AC-102",
+    "AC-103",
+    "AC-104",
+    "AC-105",
+    "AC-106",
+    "AC-112"
+  ],
+  "acceptance_criteria": [
+    "Stable ID TASK-052, parent EPIC-009, owner wave W12, and original status DONE are preserved.",
+    "Declared outputs are traceable to existing repository artifacts where resolvable, or remain recorded as historical output names without fabricating files.",
+    "Requirement, acceptance-control, and dependency references resolve to authoritative registries.",
+    "The record does not claim maturity beyond the task's original design, contract, functional-starter, synthetic-validation, or integration scope."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is historical WBS provenance. Execute the mapped post-wave issue for remaining maturity work.",
+    "Completed W12 contract/reference scope; no empirical winner implied."
+  ],
+  "allowed_modification_paths": [
+    "player/availability interface baseline"
+  ],
+  "blocked_reason": "",
+  "blocks": [
+    "TASK-058",
+    "TASK-060",
+    "TASK-083",
+    "TASK-089",
+    "TASK-119",
+    "TASK-193"
+  ],
+  "canonical_record": "jira/records/issues/tasks/TASK-052_freeze_player_availability_downstream_interface.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {},
+  "component": "modeling",
+  "components_expected_to_be_touched": [
+    "modeling"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "The original historical scope and status are preserved with source evidence and stable identifiers.",
+    "The record does not claim production maturity beyond the original design, contract, starter, integration, or validation scope.",
+    "Any remaining empirical, production, target-hardware, or operating obligation is represented by separate actionable post-wave work."
+  ],
+  "dependencies": [
+    "TASK-050",
+    "TASK-051"
+  ],
+  "effective_traceability_counts": {
+    "acceptance_control_ids": 10,
+    "adr_ids": 0,
+    "gap_ids": 0,
+    "requirement_ids": 23,
+    "risk_ids": 0
+  },
+  "effective_traceability_total": 33,
+  "end_to_end_validation": "Historical completion remains scoped; integrated product completion is evaluated only through the post-wave release path.",
+  "epic_id": "EPIC-009",
+  "evidence_manifest_path": "",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "PROTECTED_GATE",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "CONTRACT_DEFINED",
+  "expected_outputs": [
+    "player/availability interface baseline"
+  ],
+  "files_expected_to_be_read": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "files_expected_to_be_touched": [
+    "player/availability interface baseline"
+  ],
+  "files_to_inspect": [
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "gap_ids": [],
+  "generated_markdown": "jira/issues/tasks/TASK-052_freeze_player_availability_downstream_interface.md",
+  "governance_review_required": false,
+  "governance_traceability_gate": "",
+  "historical_classification": "HISTORICAL_SCOPED_COMPLETED",
+  "import_id": 100155,
+  "in_scope": [
+    "Original WBS objective and outputs",
+    "Original requirements and acceptance-control mappings",
+    "Original dependency and execution-lane provenance"
+  ],
+  "issue_type": "Task",
+  "jira_key": "BAT-155",
+  "labels": [
+    "gate",
+    "historical",
+    "planning-program",
+    "w12",
+    "wave-completed"
+  ],
+  "last_content_audit": "2026-08-08",
+  "local_id": "TASK-052",
+  "maturity_before": "DESIGN_ONLY",
+  "objective": "Freeze player/availability downstream interface",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24295",
+    "jira_updated_at": "2026-08-09T00:40:25.546-0500",
+    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
+  "out_of_scope": [
+    "Reopening completed planning solely to rename it",
+    "Treating a starter/design result as empirically validated production capability"
+  ],
+  "owner_wave": "W12",
+  "parent_id": "EPIC-009",
+  "phase": "PHASE-2",
+  "prerequisites": [
+    "Historical dependency TASK-050",
+    "Historical dependency TASK-051"
+  ],
+  "primary_source_refs": [
+    "SRCREF-00085",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "priority": "P1",
+  "protected_change_required": false,
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md"
+  ],
+  "read_only_context_paths": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json",
+    "docs/45_SCIENTIFIC_BAS_SPECIFICATION.md",
+    "governance/ACCEPTANCE_CONTROL_CATALOG.csv",
+    "governance/IMPLEMENTATION_WBS.csv",
+    "governance/REQUIREMENTS_INDEX.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "related_to": [
+    "POST-SUBTASK-078"
+  ],
+  "required_evidence": [
+    "Authoritative WBS row TASK-052",
+    "Existing artifact `player/availability interface baseline`"
+  ],
+  "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_model_architecture_governance.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tests/test_w20_model_starter.py"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run and retain the result when this issue touches the covered contract.",
+      "path": "tools/validate_model_architecture.py"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-031",
+    "REQ-037",
+    "REQ-045",
+    "REQ-046",
+    "REQ-047",
+    "REQ-069",
+    "REQ-071",
+    "REQ-072",
+    "REQ-073",
+    "REQ-074",
+    "REQ-075",
+    "REQ-087",
+    "REQ-110",
+    "REQ-116",
+    "REQ-232",
+    "REQ-233",
+    "REQ-389",
+    "REQ-394",
+    "REQ-396",
+    "REQ-401",
+    "REQ-403",
+    "REQ-404",
+    "REQ-420"
+  ],
+  "risk_failure_conditions": [
+    "Original DONE status may be over-interpreted",
+    "Source output path may have moved or been generated under a different canonical directory"
+  ],
+  "risk_ids": [],
+  "schema_version": 2,
+  "scope": "Original task type GATE with mutation scope: as defined by its source documents.",
+  "source_ids": [
+    "TASK-052"
+  ],
+  "source_refs": [
+    "SRCREF-00085",
+    "SRCREF-02116",
+    "SRCREF-02117"
+  ],
+  "specificity_fingerprint": "4cdd8cc764754c7f5981f1d53efa97e30ea56b67f87d1bc0f48b1c119b1bae57",
+  "stop_conditions": [
+    "Stop if completing this record would fabricate real-data, model-metric, source-rights, target-hardware, or operating evidence."
+  ],
+  "supporting_source_refs": [],
+  "title": "[TASK-052] Freeze player/availability downstream interface",
+  "traceability_inherited_from": [],
+  "traceability_resolution": "DIRECT",
+  "unblock_condition": "",
+  "validation_classes": [
+    "EXISTING_AUTOMATED_TEST"
+  ],
+  "why_this_exists": "Preserve the original W12 WBS work unit, its dependencies, outputs, and scoped completion semantics as provenance for post-wave execution.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}

@@ -1,0 +1,6 @@
+contract_id,state_type,identity_semantics,required_temporal_fields,prohibited_inference,confidence_required,notes
+RD-001,ROSTER_MEMBERSHIP,canonical player ID + team membership episode,published/observed/retrieved/first_known/effective interval as available,roster membership => starter/healthy/available,true,Official season roster is membership evidence only.
+RD-002,DEPTH_OBSERVATION,canonical player ID + position/role + depth rank,publication/first-known/cutoff/effective interval,later snaps => earlier official depth rank,true,Official depth charts preferred; inferred two-deep must be labeled inferred.
+RD-003,STARTER_EXPECTATION,canonical player ID + expected role,as-of cutoff,postgame starter/snap outcome => pregame expectation,true,Can be inferred only with provenance/confidence.
+RD-004,ROTATION_EXPECTATION,set of canonical player IDs + expected shares,as-of cutoff,starter list => full rotation,true,Supports DL/RB/DB/WR and other rotation-heavy groups.
+RD-005,PARTICIPATION_OUTCOME,canonical player ID + actual participation,postgame publication,same-game outcome => pregame feature,true,Outcome/evaluation evidence only for same game.

@@ -1,0 +1,2 @@
+gate_id,status,interface_frozen,empirical_parameterization_frozen,real_data_winner_selected,lower_division_scope_frozen,w12_player_adjustment_started,notes
+W11_TEAM_STATE_GATE,CLEARED_W11_CONTRACT_ONLY,true,false,false,true,false,W11 freezes semantic interfaces and experiment design; W17/W19 select empirical weighting/blend/translation parameters.

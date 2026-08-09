@@ -1,0 +1,28 @@
+{
+  "label_cases": [
+    {
+      "id": "exact_headline",
+      "actual_margin": 3.0,
+      "expected_margin": 10.0,
+      "ge_7": true
+    },
+    {
+      "id": "not_underperform",
+      "actual_margin": 14.0,
+      "expected_margin": 10.0,
+      "ge_7": false
+    },
+    {
+      "id": "extreme",
+      "actual_margin": -14.0,
+      "expected_margin": 10.0,
+      "ge_21": true
+    }
+  ],
+  "invalid_expectation_cases": [
+    "target_in_training",
+    "mirrored_target_in_training",
+    "bas_target_input",
+    "aggie_underperformance_target_input"
+  ]
+}

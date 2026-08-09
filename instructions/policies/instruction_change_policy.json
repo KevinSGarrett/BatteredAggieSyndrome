@@ -1,0 +1,25 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-INSTRUCTION-CHANGE-CONTROL",
+  "version": "2.0.0",
+  "canonical_human_document": "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md",
+  "single_entrypoint": "instructions/START_HERE.md",
+  "canonical_rule_home": "Each major policy has one canonical Markdown procedure and at most one machine companion named in the manifest.",
+  "change_requirements": [
+    "state why current policy fails or changed",
+    "identify affected prompt sections/policies/control files",
+    "update human and machine companions atomically",
+    "update manifest/compliance mapping/hashes",
+    "run instruction validator and relevant repository tests",
+    "record changelog"
+  ],
+  "protected_changes": [
+    "source precedence",
+    "autonomy HUMAN_REQUIRED operations",
+    "PIT/evaluation protections",
+    "canonical repository prohibition",
+    "no-Wave-26 boundary"
+  ],
+  "duplication_rule": "Pointers may summarize but must not create a second competing normative rule.",
+  "versioning": "Semantic versioning for the instruction pack; major for authority/operating-model change, minor for backward-compatible capability, patch for clarification/fix."
+}

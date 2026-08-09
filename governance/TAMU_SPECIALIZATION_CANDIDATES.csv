@@ -1,0 +1,7 @@
+candidate_id,name,family,input_contract,output_contract,required_baseline,production_selected_w14,empirical_owner,complexity
+TAMU-SP-00,NO_ADJUSTMENT_BASELINE,baseline,national forecast + A&M state allowed but ignored for correction,zero specialization signal; national forecast preserved,true,false,W16-W17,LOW
+TAMU-SP-01,RESIDUAL_ADAPTER,residual,national forecast + A&M high-resolution state,shrunk residual-location/uncertainty signal for coherent W16 assembly,false,false,W16-W17,MEDIUM
+TAMU-SP-02,HIERARCHICAL_MULTI_TASK,hierarchical_multitask,national multi-team representation + A&M task/head/state,partially pooled A&M specialization signal,false,false,W16-W17,HIGH
+TAMU-SP-03,PARTIAL_POOLING_SPECIALIZATION,hierarchical_shrinkage,national parameters + A&M deviations with priors,shrunken A&M deviations + uncertainty,false,false,W16-W17,MEDIUM
+TAMU-SP-04,CALIBRATION_ONLY_ADAPTER,calibration,national forecast probabilities/distribution + A&M historical calibration evidence,A&M calibration mapping if protected evidence supports it,false,false,W16-W17,MEDIUM
+TAMU-SP-05,MIXTURE_OR_STACKED_CHALLENGER,stacked_or_moe,approved national/A&M candidate outputs and state,combined specialization signal under protected validation,false,false,W16-W17,HIGH

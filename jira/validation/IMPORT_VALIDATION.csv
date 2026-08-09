@@ -1,0 +1,2 @@
+artifact,row_count,expected,valid
+JIRA_EXTERNAL_SYSTEM_IMPORT.csv,463,463,true

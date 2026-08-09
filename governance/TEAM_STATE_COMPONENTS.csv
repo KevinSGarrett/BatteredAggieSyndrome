@@ -1,0 +1,9 @@
+component_id,name,grain,role,pit_required,production_selected,owner_wave
+TS-001,prior_strength,team-cutoff,pregame prior before sufficient current-season evidence,true,false,W11
+TS-002,underlying_strength,team-cutoff,latent current quality abstracting short-term availability constraints,true,false,W11
+TS-003,available_strength,team-cutoff,forecast-time usable strength after W12 player/availability/replacement state; final calibration deferred,true,false,W11-W12
+TS-004,current_form_signal,team-cutoff,"recent PIT-safe performance evidence, opponent adjusted where valid",true,false,W11
+TS-005,continuity_state,team-cutoff,effective-dated continuity evidence for roster/staff/QB/scheme inputs,true,false,W11-W13
+TS-006,regime_state,team-cutoff,effective-dated regime/change evidence; no automatic hard reset,true,false,W11-W13
+TS-007,opponent_strength,team-game-cutoff,continuous opponent estimate with translation uncertainty,true,false,W11
+TS-008,uncertainty,team-cutoff,epistemic/data-quality/translation/regime/availability uncertainty container,true,false,W11-W16

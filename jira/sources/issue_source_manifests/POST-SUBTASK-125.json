@@ -14,6 +14,7 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
     "docs/operations/OBSERVABILITY.md",
     ".github/workflows/ci.yml",
+    ".github/workflows/security.yml",
     "pyproject.toml",
     "requirements/product.lock",
     "tools/validate_dependency_policy.py",

@@ -71,6 +71,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 - docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md
 - docs/operations/OBSERVABILITY.md
 - .github/workflows/ci.yml
+- .github/workflows/security.yml
 - pyproject.toml
 - requirements/product.lock
 - tools/validate_dependency_policy.py
@@ -86,6 +87,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 
 - .github/dependabot.yml
 - .github/workflows/ci.yml
+- .github/workflows/security.yml
 - artifacts/operations/security_supply_chain_report.json
 - artifacts/jira_evidence/POST-SUBTASK-125.json
 - docs/operations/CI_SECURITY_SUPPLY_CHAIN.md

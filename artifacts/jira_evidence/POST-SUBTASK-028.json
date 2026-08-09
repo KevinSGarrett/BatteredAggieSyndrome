@@ -1,0 +1,243 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "The combined manifest preserves 2022-2025 as nonterminal, records dense 2010-2025 acquisition, tiered quality-supported coverage through 1963, independent source/season/domain/schema/missingness/provenance/PIT fields, and keeps partial domains scoped rather than discarding seasons."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "The declared tracked artifact has deterministic canonical payload SHA-256 5f68f2f2948db745d6ddf2355e4ed4ecfcc5bf30daf4ffee4b69dee8e74a3554 and file SHA-256 8ff133cbb67fb873891b04c80164a8838edfdd20f532c19e8a5240a29a499bd1; all three external inputs are independently hash-pinned."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "The artifact preserves 720 provider-specific pending requests, partial play coverage, absent 2001-2003 release assets, non-independent ESPN lineage, and all protected non-claims; no availability, threshold, model, or readiness value is fabricated."
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-378/build_combined_historical_manifest.py --data-root <external-data-root> --output artifacts/data_lake/historical_expansion_acquisition_manifest.json",
+      "exit_code": 0,
+      "result": "PASS_WITH_EXPLICIT_PARTIAL_DOMAINS_AND_PROVIDER_PENDING"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-378/validate_combined_historical_manifest.py --data-root <external-data-root> --manifest <external-combined-manifest> --report <external-validation>/BAT-378/historical_expansion_combined_validation.json",
+      "exit_code": 0,
+      "result": "PASS; baseline plus 9/9 unsafe mutations rejected"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q",
+      "exit_code": 0,
+      "result": "3 passed in 0.06s"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "270 passed, 1 skipped, 33 subtests passed in 6.47s"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS; 2,118 references; 0 relocated"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "result": "PASS; 463 issues; 0 errors; 3 ready; 118 blocked; 2,118 source anchors"
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS; 1,758 files; 0 errors"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --strict (credential launcher held transactionally outside repository and restored byte-identically)",
+      "exit_code": 0,
+      "result": "PASS; 2,801 represented Git-deliverable files; repository structure, manifests, governance IDs, secret scan, and forbidden-artifact scan"
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py; validate_acceptance.py; validate_backlog.py; validate_data_research.py; validate_product_supply_chain.py",
+      "exit_code": 0,
+      "result": "All five protected governance/product/data gates PASS"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "completion_claimed": false,
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "IN_PROGRESS_PENDING_PROTECTED_INTEGRATION_AND_FINAL_JIRA_SYNC",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_BRANCH_INTEGRATION_NOT_YET_COMPLETE",
+      "FINAL_LIVE_AND_LOCAL_JIRA_RECONCILIATION_NOT_YET_COMPLETE"
+    ]
+  },
+  "cleanup": {
+    "bytes_recovered": 50150554,
+    "credential_launcher_file_restored_byte_identically": true,
+    "deleted_reconstructible": [
+      "DuckDB v1.5.5 validation executable and verified download archive",
+      "accidental untracked DuckDB database file IS",
+      "empty BAT-378 download/tool directories",
+      "pytest and Python bytecode caches created by validation"
+    ],
+    "temporary_partial_files_remaining": 0
+  },
+  "created_at_utc": "2026-08-09T21:12:40Z",
+  "decision": {
+    "acquisition_output_ready_for_domain_profile": true,
+    "disposition": "PASS_WITH_EXPLICIT_PARTIAL_DOMAINS_AND_INCREMENTAL_PROVIDER_PENDING",
+    "required_dense_2010_2025_target_acquired": true,
+    "observed_quality_supported_range": [
+      1963,
+      2025
+    ],
+    "provider_specific_pending_is_global_blocker": false,
+    "reason": "The current immutable population supports independent domain profiling. Missing older domains remain scoped and incremental; they do not invalidate acquired seasons or silently become eligible."
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 26188,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-027.json",
+      "role": "VERIFIED_PREREQUISITE",
+      "sha256": "a64f0cc600fc3265f907d49d825c211c9b4112341123128b81e0c0f70c5b2ef3"
+    },
+    {
+      "bytes": 581067,
+      "path": "artifacts/data_lake/core_acquisition_manifest.json",
+      "role": "PRESERVED_BOUNDED_2022_2025_TRANCHE",
+      "sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c"
+    },
+    {
+      "bytes": 23837,
+      "path": "configs/source_acquisition_registry.json",
+      "sha256": "f956797cff67f4cd0c4922aab9c1892a53a910c967b7f908c8d988e7dbaff5e5"
+    },
+    {
+      "bytes": 103304,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "11f944ebff0ee5f932d21bbff316da991b31f3b5f492acc31102c017019a69c4"
+    },
+    {
+      "bytes": 2270,
+      "path": "docs/operations/UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_POLICY.md",
+      "sha256": "29b60cd2fd8197ba838e4d4a820446bdac52704864772b99715597839aeab766"
+    }
+  ],
+  "jira_key": "BAT-378",
+  "live_jira": {
+    "checkpoint_comment_id": "13391",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "IMPLEMENTED",
+    "status": "In Progress",
+    "updated": "2026-08-09T16:14:07.359-0500"
+  },
+  "local_id": "POST-SUBTASK-028",
+  "local_jira_sync": {
+    "changed_issues": 1,
+    "conflict_count": 0,
+    "export_path": "<external-runtime>/BAT-378/BAT-378-live-row.csv",
+    "result": "PASS",
+    "strict_validation": "PASS"
+  },
+  "negative_findings_and_limits": [
+    "The tracked artifact is a control-plane manifest; all bulk raw and normalized payloads remain outside Git.",
+    "SportsDataverse publishes none of the nine expected 2001-2003 assets under the tested release naming contract.",
+    "SportsDataverse 2004-2009 play rows cover a partial game population relative to its schedule releases.",
+    "SportsDataverse/cfbfastR captures are ESPN-derived and are not independent confirmation of CFBD or official outcomes.",
+    "The 720 CFBD provider-specific requests remain pending and are preserved by ordered identity hash and domain/season breakdown; equivalent captures are not mislabeled as CFBD successes.",
+    "No final historical readiness, GAP-002 resolution, production feature/model promotion, protected performance, A&M lift, BAS, or Aggie Excess result is claimed."
+  ],
+  "observable_outcome": "The repository now contains a deterministic, credential-free control-plane manifest over 990 immutable source requests/assets totaling 2,550,148,419 bytes. CFBD provides 3,340,413 rows with dense all-core acquisition for 2010-2025, base/event context for 2001-2009, and outcomes through 1963. Eighteen SportsDataverse release assets add 722,711 play rows, 28,252 roster rows, and 4,650 schedule/outcome rows for 2004-2009 with measured partial coverage and missingness.",
+  "outputs": [
+    {
+      "bytes": 29394,
+      "canonical_payload_sha256": "5f68f2f2948db745d6ddf2355e4ed4ecfcc5bf30daf4ffee4b69dee8e74a3554",
+      "path": "artifacts/data_lake/historical_expansion_acquisition_manifest.json",
+      "sha256": "8ff133cbb67fb873891b04c80164a8838edfdd20f532c19e8a5240a29a499bd1"
+    },
+    {
+      "bytes": 2211,
+      "path": "<external-validation>/BAT-378/historical_expansion_combined_validation.json",
+      "sha256": "0b50ec9c89e339ed0f5eedd66c88cd665e8e6be4f1bc0b32037b5d2c37159df3"
+    }
+  ],
+  "pit_and_leakage": {
+    "acquisition_capture_time_is_not_event_time": true,
+    "future_same_game_postgame_contamination": "MUST_QUARANTINE_OR_REJECT",
+    "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_NORMALIZATION_KNOWN_AT_POLICY_AND_CHRONOLOGICAL_REPLAY",
+    "target_game_outcomes": "ALWAYS_EXCLUDED_FROM_TARGET_GAME_FEATURES"
+  },
+  "policy_and_security": {
+    "credential_values_recorded": false,
+    "licensing_or_redistribution_uncertainty_blocks_private_acquisition": false,
+    "raw_payloads_in_git_or_jira": false,
+    "raw_publication_allowed": false,
+    "rights_metadata_nonblocking": true
+  },
+  "producer": {
+    "base_commit": "b14dc5aa996fea4ec3cd72d9b37f6ac69e9be846",
+    "branch": "codex/BAT-378-historical-expansion-acquisition",
+    "external_builder": "<external-runtime>/BAT-378/build_combined_historical_manifest.py",
+    "external_validator": "<external-runtime>/BAT-378/validate_combined_historical_manifest.py"
+  },
+  "protected_integration": {
+    "state": "PENDING"
+  },
+  "schema_version": "1.0.0",
+  "validation": {
+    "external_report": {
+      "baseline": "PASS",
+      "negative_tests_passed": 9,
+      "sha256": "0b50ec9c89e339ed0f5eedd66c88cd665e8e6be4f1bc0b32037b5d2c37159df3"
+    },
+    "result": "LOCAL_PASS_PENDING_PROTECTED_INTEGRATION",
+    "unsafe_mutations_rejected": [
+      "premature_final_population_claim",
+      "premature_gap_002_resolution",
+      "target_game_outcome_leakage",
+      "superseded_rights_blocker",
+      "renamed_licensing_gate",
+      "hidden_provider_pending",
+      "stale_external_input_hash",
+      "missing_external_input",
+      "schema_incompatible"
+    ]
+  },
+  "validation_matrix": [
+    {
+      "classification": "REGRESSION",
+      "disposition": "PASS",
+      "result": "tests/test_w19_foundation.py: 3 passed"
+    },
+    {
+      "classification": "FULL_REGRESSION",
+      "disposition": "PASS",
+      "result": "270 passed, 1 skipped, 33 subtests passed"
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_GATE_FAIL_CLOSED",
+      "result": "No acquired postgame record is promoted to pregame eligibility; target outcomes remain excluded and the unsafe mutation is rejected."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE_ACQUISITION_ONLY",
+      "result": "No feature, split, model, metric, or scientific claim is evaluated by this work unit."
+    },
+    {
+      "classification": "INTEGRATION",
+      "disposition": "PASS",
+      "result": "The documented POST-SUBTASK-029 consumer contract can parse the artifact and rejects stale hash, schema, provenance, quality, privacy, corruption, and PIT failures without treating rights metadata as an acquisition gate."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "result": "Three external input files, all raw capture identities, source URLs, acquisition times, schemas, missingness, and the output canonical/file hashes are pinned without host paths or credentials."
+    }
+  ]
+}

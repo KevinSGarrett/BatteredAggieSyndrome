@@ -1,0 +1,823 @@
+{
+  "acquisition_summary": {
+    "attempt_failures": 0,
+    "captured_bytes": 2550148419,
+    "captured_source_requests_or_assets": 990,
+    "cfbd_rows": 3340413,
+    "provider_specific_pending": {
+      "breakdown": {
+        "early_dense_2001_2009": {
+          "player_box_scores": 143,
+          "plays": 143,
+          "team_box_scores": 143,
+          "total": 429
+        },
+        "foundation_1869_2000": {
+          "rankings": 65,
+          "schedules_games_official_outcomes": 94,
+          "teams": 132,
+          "total": 291
+        }
+      },
+      "count": 720,
+      "does_not_invalidate_acquired_domains": true,
+      "ordered_request_ids_sha256": "de02e3367acdc8df7a27f1de4c438a38767803d56ee0ac8822b7f6de09f6a370",
+      "provider_specific_requests_remain_explicit": true,
+      "state": "PENDING_PROVIDER_ROUTE_INCREMENTAL_EXPANSION"
+    },
+    "supplement_play_rows": 722711,
+    "supplement_roster_rows": 28252,
+    "supplement_schedule_rows": 4650
+  },
+  "artifact_type": "HISTORICAL_EXPANSION_ACQUISITION_MANIFEST",
+  "completion": {
+    "acquisition_output_materialized": true,
+    "disposition": "ACQUISITION_MANIFEST_READY_FOR_DOMAIN_PROFILE_WITH_INCREMENTAL_SOURCE_EXPANSION_REMAINING_EXPLICIT",
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "normalization_reconciliation_and_pit_complete": false,
+    "older_quality_supported_tiers_preserved": true,
+    "production_model_or_feature_promotion_allowed": false,
+    "protected_performance_or_scientific_result_claimed": false,
+    "provider_specific_requests_pending": 720,
+    "required_2010_2025_dense_target_acquired": true
+  },
+  "consumer_handoff": {
+    "consumer": "POST-SUBTASK-029",
+    "nonblocking_metadata": [
+      "licensing_ambiguity",
+      "redistribution_uncertainty",
+      "provider_preference",
+      "missing_upstream_authorization"
+    ],
+    "partial_domain_must_not_globally_reject_other_seasons_or_domains": true,
+    "reject_on": [
+      "missing",
+      "stale_hash",
+      "capture_hash_mismatch",
+      "schema_incompatible",
+      "corrupted_or_fabricated_record",
+      "credential_exposure",
+      "genuinely_private_personal_information",
+      "provenance_incomplete",
+      "pit_or_target_leakage",
+      "domain_quality_ineligible"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "SHA-256",
+    "canonical_payload_sha256": "5f68f2f2948db745d6ddf2355e4ed4ecfcc5bf30daf4ffee4b69dee8e74a3554",
+    "excludes": [
+      "content_hash"
+    ]
+  },
+  "coverage_by_source": {
+    "SRC-001": {
+      "by_season": {
+        "2004": {
+          "distinct_roster_athlete_ids": 3619,
+          "domain_state": {
+            "drives": "DERIVABLE_FROM_PLAY_ROWS_PENDING_RECONCILIATION_AND_PIT",
+            "player_box_scores": "DERIVATION_CANDIDATE_ONLY",
+            "plays": "ACQUIRED_PARTIAL_GAME_POPULATION_PENDING_RECONCILIATION_AND_PIT",
+            "rosters": "ACQUIRED_PENDING_ENTITY_RECONCILIATION_AND_PIT",
+            "schedules_games_official_outcomes": "ACQUIRED_PENDING_CROSS_SOURCE_RECONCILIATION_AND_PIT",
+            "structured_gamebook_equivalent": "ACQUIRED_PARTIAL_GAME_POPULATION_NO_RAW_PDF_CLAIM",
+            "team_box_scores": "DERIVATION_CANDIDATE_ONLY"
+          },
+          "missing_drive_id": 0,
+          "missing_epa": 0,
+          "missing_play_id": 0,
+          "missing_play_text": 17,
+          "missing_roster_athlete_id": 0,
+          "play_game_coverage_fraction_against_release_schedule": 0.650280899,
+          "play_game_ids": 463,
+          "play_rows": 83210,
+          "roster_rows": 3620,
+          "rows_with_core_player_ids": 56503,
+          "schedule_game_rows": 712,
+          "season_type": "PROVIDER_DEFINED_ALL"
+        },
+        "2005": {
+          "distinct_roster_athlete_ids": 4145,
+          "domain_state": {
+            "drives": "DERIVABLE_FROM_PLAY_ROWS_PENDING_RECONCILIATION_AND_PIT",
+            "player_box_scores": "DERIVATION_CANDIDATE_ONLY",
+            "plays": "ACQUIRED_PARTIAL_GAME_POPULATION_PENDING_RECONCILIATION_AND_PIT",
+            "rosters": "ACQUIRED_PENDING_ENTITY_RECONCILIATION_AND_PIT",
+            "schedules_games_official_outcomes": "ACQUIRED_PENDING_CROSS_SOURCE_RECONCILIATION_AND_PIT",
+            "structured_gamebook_equivalent": "ACQUIRED_PARTIAL_GAME_POPULATION_NO_RAW_PDF_CLAIM",
+            "team_box_scores": "DERIVATION_CANDIDATE_ONLY"
+          },
+          "missing_drive_id": 0,
+          "missing_epa": 3,
+          "missing_play_id": 0,
+          "missing_play_text": 24,
+          "missing_roster_athlete_id": 0,
+          "play_game_coverage_fraction_against_release_schedule": 0.818681319,
+          "play_game_ids": 596,
+          "play_rows": 110510,
+          "roster_rows": 4146,
+          "rows_with_core_player_ids": 80109,
+          "schedule_game_rows": 728,
+          "season_type": "PROVIDER_DEFINED_ALL"
+        },
+        "2006": {
+          "distinct_roster_athlete_ids": 4366,
+          "domain_state": {
+            "drives": "DERIVABLE_FROM_PLAY_ROWS_PENDING_RECONCILIATION_AND_PIT",
+            "player_box_scores": "DERIVATION_CANDIDATE_ONLY",
+            "plays": "ACQUIRED_PARTIAL_GAME_POPULATION_PENDING_RECONCILIATION_AND_PIT",
+            "rosters": "ACQUIRED_PENDING_ENTITY_RECONCILIATION_AND_PIT",
+            "schedules_games_official_outcomes": "ACQUIRED_PENDING_CROSS_SOURCE_RECONCILIATION_AND_PIT",
+            "structured_gamebook_equivalent": "ACQUIRED_PARTIAL_GAME_POPULATION_NO_RAW_PDF_CLAIM",
+            "team_box_scores": "DERIVATION_CANDIDATE_ONLY"
+          },
+          "missing_drive_id": 0,
+          "missing_epa": 38,
+          "missing_play_id": 0,
+          "missing_play_text": 0,
+          "missing_roster_athlete_id": 0,
+          "play_game_coverage_fraction_against_release_schedule": 0.866751269,
+          "play_game_ids": 683,
+          "play_rows": 114684,
+          "roster_rows": 4367,
+          "rows_with_core_player_ids": 83925,
+          "schedule_game_rows": 788,
+          "season_type": "PROVIDER_DEFINED_ALL"
+        },
+        "2007": {
+          "distinct_roster_athlete_ids": 4697,
+          "domain_state": {
+            "drives": "DERIVABLE_FROM_PLAY_ROWS_PENDING_RECONCILIATION_AND_PIT",
+            "player_box_scores": "DERIVATION_CANDIDATE_ONLY",
+            "plays": "ACQUIRED_PARTIAL_GAME_POPULATION_PENDING_RECONCILIATION_AND_PIT",
+            "rosters": "ACQUIRED_PENDING_ENTITY_RECONCILIATION_AND_PIT",
+            "schedules_games_official_outcomes": "ACQUIRED_PENDING_CROSS_SOURCE_RECONCILIATION_AND_PIT",
+            "structured_gamebook_equivalent": "ACQUIRED_PARTIAL_GAME_POPULATION_NO_RAW_PDF_CLAIM",
+            "team_box_scores": "DERIVATION_CANDIDATE_ONLY"
+          },
+          "missing_drive_id": 0,
+          "missing_epa": 126,
+          "missing_play_id": 0,
+          "missing_play_text": 26,
+          "missing_roster_athlete_id": 0,
+          "play_game_coverage_fraction_against_release_schedule": 0.88375,
+          "play_game_ids": 707,
+          "play_rows": 131343,
+          "roster_rows": 4698,
+          "rows_with_core_player_ids": 95985,
+          "schedule_game_rows": 800,
+          "season_type": "PROVIDER_DEFINED_ALL"
+        },
+        "2008": {
+          "distinct_roster_athlete_ids": 4798,
+          "domain_state": {
+            "drives": "DERIVABLE_FROM_PLAY_ROWS_PENDING_RECONCILIATION_AND_PIT",
+            "player_box_scores": "DERIVATION_CANDIDATE_ONLY",
+            "plays": "ACQUIRED_PARTIAL_GAME_POPULATION_PENDING_RECONCILIATION_AND_PIT",
+            "rosters": "ACQUIRED_PENDING_ENTITY_RECONCILIATION_AND_PIT",
+            "schedules_games_official_outcomes": "ACQUIRED_PENDING_CROSS_SOURCE_RECONCILIATION_AND_PIT",
+            "structured_gamebook_equivalent": "ACQUIRED_PARTIAL_GAME_POPULATION_NO_RAW_PDF_CLAIM",
+            "team_box_scores": "DERIVATION_CANDIDATE_ONLY"
+          },
+          "missing_drive_id": 0,
+          "missing_epa": 98,
+          "missing_play_id": 0,
+          "missing_play_text": 72,
+          "missing_roster_athlete_id": 0,
+          "play_game_coverage_fraction_against_release_schedule": 0.958128079,
+          "play_game_ids": 778,
+          "play_rows": 139096,
+          "roster_rows": 4798,
+          "rows_with_core_player_ids": 101661,
+          "schedule_game_rows": 812,
+          "season_type": "PROVIDER_DEFINED_ALL"
+        },
+        "2009": {
+          "distinct_roster_athlete_ids": 6623,
+          "domain_state": {
+            "drives": "DERIVABLE_FROM_PLAY_ROWS_PENDING_RECONCILIATION_AND_PIT",
+            "player_box_scores": "DERIVATION_CANDIDATE_ONLY",
+            "plays": "ACQUIRED_PARTIAL_GAME_POPULATION_PENDING_RECONCILIATION_AND_PIT",
+            "rosters": "ACQUIRED_PENDING_ENTITY_RECONCILIATION_AND_PIT",
+            "schedules_games_official_outcomes": "ACQUIRED_PENDING_CROSS_SOURCE_RECONCILIATION_AND_PIT",
+            "structured_gamebook_equivalent": "ACQUIRED_PARTIAL_GAME_POPULATION_NO_RAW_PDF_CLAIM",
+            "team_box_scores": "DERIVATION_CANDIDATE_ONLY"
+          },
+          "missing_drive_id": 0,
+          "missing_epa": 2133,
+          "missing_play_id": 0,
+          "missing_play_text": 69,
+          "missing_roster_athlete_id": 0,
+          "play_game_coverage_fraction_against_release_schedule": 0.977777778,
+          "play_game_ids": 792,
+          "play_rows": 143868,
+          "roster_rows": 6623,
+          "rows_with_core_player_ids": 103331,
+          "schedule_game_rows": 810,
+          "season_type": "PROVIDER_DEFINED_ALL"
+        }
+      },
+      "historical_known_at": "RELEASE_PUBLICATION_AND_ASSET_UPDATE_TIMES_CAPTURED; PREGAME_ELIGIBILITY_FAILS_CLOSED_PENDING_CHRONOLOGICAL_MATERIALIZATION",
+      "provider": "SportsDataverse / cfbfastR",
+      "release_and_asset_capture_detail": "PINNED_IN_IMMUTABLE_INPUT",
+      "schema_identities": {
+        "plays_structured_gamebook": {
+          "column_count": 469,
+          "duckdb_describe_csv_sha256": "261c69e816b8c059581a4eac54dccc928efe3f20a0163128ce549a09ad067e7f"
+        },
+        "rosters": {
+          "column_count": 18,
+          "duckdb_describe_csv_sha256": "2992fb1d0b0a103026a2df63e36d3176f653cd7227ba84883139a20e486c617b"
+        },
+        "schedules_outcomes": {
+          "column_count": 20,
+          "duckdb_describe_csv_sha256": "0ce085e6d7d6d809134421423c6b09b375ea638100fb643b1d7b21765df9c6a3"
+        }
+      },
+      "upstream_independence": "ESPN_DERIVED_NOT_INDEPENDENT_CONFIRMATION"
+    },
+    "SRC-002": {
+      "by_domain_capture_state": {
+        "advanced_game_statistics": {
+          "CAPTURED": 25
+        },
+        "drives": {
+          "CAPTURED": 25
+        },
+        "player_box_scores": {
+          "CAPTURED": 261
+        },
+        "plays": {
+          "CAPTURED": 261
+        },
+        "rankings": {
+          "CAPTURED": 25
+        },
+        "rosters": {
+          "CAPTURED": 22,
+          "CAPTURED_EMPTY": 3
+        },
+        "schedules_games_official_outcomes": {
+          "CAPTURED": 63
+        },
+        "team_box_scores": {
+          "CAPTURED": 261
+        },
+        "teams": {
+          "CAPTURED": 25
+        },
+        "venues": {
+          "CAPTURED": 1
+        }
+      },
+      "by_season_domain_rows": {
+        "1963": {
+          "schedules_games_official_outcomes": 620
+        },
+        "1964": {
+          "schedules_games_official_outcomes": 633
+        },
+        "1965": {
+          "schedules_games_official_outcomes": 640
+        },
+        "1966": {
+          "schedules_games_official_outcomes": 633
+        },
+        "1967": {
+          "schedules_games_official_outcomes": 629
+        },
+        "1968": {
+          "schedules_games_official_outcomes": 639
+        },
+        "1969": {
+          "schedules_games_official_outcomes": 657
+        },
+        "1970": {
+          "schedules_games_official_outcomes": 700
+        },
+        "1971": {
+          "schedules_games_official_outcomes": 743
+        },
+        "1972": {
+          "schedules_games_official_outcomes": 739
+        },
+        "1973": {
+          "schedules_games_official_outcomes": 757
+        },
+        "1974": {
+          "schedules_games_official_outcomes": 760
+        },
+        "1975": {
+          "schedules_games_official_outcomes": 806
+        },
+        "1976": {
+          "schedules_games_official_outcomes": 804
+        },
+        "1977": {
+          "schedules_games_official_outcomes": 867
+        },
+        "1978": {
+          "schedules_games_official_outcomes": 816
+        },
+        "1979": {
+          "schedules_games_official_outcomes": 825
+        },
+        "1980": {
+          "schedules_games_official_outcomes": 816
+        },
+        "1981": {
+          "schedules_games_official_outcomes": 804
+        },
+        "1982": {
+          "schedules_games_official_outcomes": 687
+        },
+        "1983": {
+          "schedules_games_official_outcomes": 696
+        },
+        "1984": {
+          "schedules_games_official_outcomes": 676
+        },
+        "1985": {
+          "schedules_games_official_outcomes": 673
+        },
+        "1986": {
+          "schedules_games_official_outcomes": 637
+        },
+        "1987": {
+          "schedules_games_official_outcomes": 633
+        },
+        "1988": {
+          "schedules_games_official_outcomes": 636
+        },
+        "1989": {
+          "schedules_games_official_outcomes": 632
+        },
+        "1990": {
+          "schedules_games_official_outcomes": 646
+        },
+        "1991": {
+          "schedules_games_official_outcomes": 639
+        },
+        "1992": {
+          "schedules_games_official_outcomes": 637
+        },
+        "1993": {
+          "schedules_games_official_outcomes": 632
+        },
+        "1994": {
+          "schedules_games_official_outcomes": 636
+        },
+        "1995": {
+          "schedules_games_official_outcomes": 640
+        },
+        "1996": {
+          "schedules_games_official_outcomes": 662
+        },
+        "1997": {
+          "schedules_games_official_outcomes": 666
+        },
+        "1998": {
+          "schedules_games_official_outcomes": 674
+        },
+        "1999": {
+          "schedules_games_official_outcomes": 686
+        },
+        "2000": {
+          "schedules_games_official_outcomes": 702
+        },
+        "2001": {
+          "advanced_game_statistics": 844,
+          "drives": 15991,
+          "rankings": 14,
+          "rosters": 0,
+          "schedules_games_official_outcomes": 709,
+          "teams": 117
+        },
+        "2002": {
+          "advanced_game_statistics": 62,
+          "drives": 1180,
+          "rankings": 17,
+          "rosters": 0,
+          "schedules_games_official_outcomes": 772,
+          "teams": 117
+        },
+        "2003": {
+          "advanced_game_statistics": 968,
+          "drives": 17581,
+          "rankings": 17,
+          "rosters": 0,
+          "schedules_games_official_outcomes": 771,
+          "teams": 117
+        },
+        "2004": {
+          "advanced_game_statistics": 926,
+          "drives": 16414,
+          "rankings": 16,
+          "rosters": 3306,
+          "schedules_games_official_outcomes": 721,
+          "teams": 118
+        },
+        "2005": {
+          "advanced_game_statistics": 1192,
+          "drives": 16080,
+          "rankings": 15,
+          "rosters": 3530,
+          "schedules_games_official_outcomes": 718,
+          "teams": 119
+        },
+        "2006": {
+          "advanced_game_statistics": 1364,
+          "drives": 16735,
+          "rankings": 15,
+          "rosters": 3549,
+          "schedules_games_official_outcomes": 792,
+          "teams": 119
+        },
+        "2007": {
+          "advanced_game_statistics": 1412,
+          "drives": 18916,
+          "rankings": 15,
+          "rosters": 3684,
+          "schedules_games_official_outcomes": 798,
+          "teams": 120
+        },
+        "2008": {
+          "advanced_game_statistics": 1552,
+          "drives": 19861,
+          "rankings": 16,
+          "rosters": 3742,
+          "schedules_games_official_outcomes": 805,
+          "teams": 120
+        },
+        "2009": {
+          "advanced_game_statistics": 1578,
+          "drives": 20220,
+          "rankings": 16,
+          "rosters": 12611,
+          "schedules_games_official_outcomes": 808,
+          "teams": 120
+        },
+        "2010": {
+          "advanced_game_statistics": 1572,
+          "drives": 20134,
+          "player_box_scores": 808,
+          "plays": 141506,
+          "rankings": 16,
+          "rosters": 13072,
+          "schedules_games_official_outcomes": 808,
+          "team_box_scores": 808,
+          "teams": 120
+        },
+        "2011": {
+          "advanced_game_statistics": 1606,
+          "drives": 20775,
+          "player_box_scores": 805,
+          "plays": 146789,
+          "rankings": 16,
+          "rosters": 13305,
+          "schedules_games_official_outcomes": 812,
+          "team_box_scores": 805,
+          "teams": 120
+        },
+        "2012": {
+          "advanced_game_statistics": 1650,
+          "drives": 21639,
+          "player_box_scores": 840,
+          "plays": 153966,
+          "rankings": 16,
+          "rosters": 13736,
+          "schedules_games_official_outcomes": 840,
+          "team_box_scores": 840,
+          "teams": 124
+        },
+        "2013": {
+          "advanced_game_statistics": 1710,
+          "drives": 22532,
+          "player_box_scores": 848,
+          "plays": 156393,
+          "rankings": 17,
+          "rosters": 14180,
+          "schedules_games_official_outcomes": 848,
+          "team_box_scores": 848,
+          "teams": 125
+        },
+        "2014": {
+          "advanced_game_statistics": 1698,
+          "drives": 22491,
+          "player_box_scores": 867,
+          "plays": 158315,
+          "rankings": 17,
+          "rosters": 14810,
+          "schedules_games_official_outcomes": 868,
+          "team_box_scores": 867,
+          "teams": 128
+        },
+        "2015": {
+          "advanced_game_statistics": 1726,
+          "drives": 22855,
+          "player_box_scores": 870,
+          "plays": 160180,
+          "rankings": 16,
+          "rosters": 15010,
+          "schedules_games_official_outcomes": 870,
+          "team_box_scores": 870,
+          "teams": 128
+        },
+        "2016": {
+          "advanced_game_statistics": 1714,
+          "drives": 22515,
+          "player_box_scores": 872,
+          "plays": 158518,
+          "rankings": 16,
+          "rosters": 14714,
+          "schedules_games_official_outcomes": 873,
+          "team_box_scores": 872,
+          "teams": 128
+        },
+        "2017": {
+          "advanced_game_statistics": 1738,
+          "drives": 22519,
+          "player_box_scores": 874,
+          "plays": 158574,
+          "rankings": 16,
+          "rosters": 14757,
+          "schedules_games_official_outcomes": 874,
+          "team_box_scores": 874,
+          "teams": 130
+        },
+        "2018": {
+          "advanced_game_statistics": 1762,
+          "drives": 22717,
+          "player_box_scores": 884,
+          "plays": 160512,
+          "rankings": 16,
+          "rosters": 14511,
+          "schedules_games_official_outcomes": 884,
+          "team_box_scores": 884,
+          "teams": 130
+        },
+        "2019": {
+          "advanced_game_statistics": 1774,
+          "drives": 22392,
+          "player_box_scores": 888,
+          "plays": 159915,
+          "rankings": 17,
+          "rosters": 15558,
+          "schedules_games_official_outcomes": 888,
+          "team_box_scores": 888,
+          "teams": 130
+        },
+        "2020": {
+          "advanced_game_statistics": 1138,
+          "drives": 14172,
+          "player_box_scores": 568,
+          "plays": 102809,
+          "rankings": 16,
+          "rosters": 16187,
+          "schedules_games_official_outcomes": 570,
+          "team_box_scores": 568,
+          "teams": 130
+        },
+        "2021": {
+          "advanced_game_statistics": 1774,
+          "drives": 21611,
+          "player_box_scores": 887,
+          "plays": 158498,
+          "rankings": 16,
+          "rosters": 15129,
+          "schedules_games_official_outcomes": 887,
+          "team_box_scores": 887,
+          "teams": 130
+        },
+        "2022": {
+          "advanced_game_statistics": 2918,
+          "drives": 21917,
+          "player_box_scores": 896,
+          "plays": 160282,
+          "rankings": 16,
+          "rosters": 15548,
+          "schedules_games_official_outcomes": 896,
+          "team_box_scores": 896,
+          "teams": 131
+        },
+        "2023": {
+          "advanced_game_statistics": 2984,
+          "drives": 21866,
+          "player_box_scores": 910,
+          "plays": 158995,
+          "rankings": 16,
+          "rosters": 15918,
+          "schedules_games_official_outcomes": 910,
+          "team_box_scores": 910,
+          "teams": 133
+        },
+        "2024": {
+          "advanced_game_statistics": 3212,
+          "drives": 21766,
+          "player_box_scores": 919,
+          "plays": 162751,
+          "rankings": 17,
+          "rosters": 16221,
+          "schedules_games_official_outcomes": 920,
+          "team_box_scores": 919,
+          "teams": 134
+        },
+        "2025": {
+          "advanced_game_statistics": 3316,
+          "drives": 21762,
+          "player_box_scores": 934,
+          "plays": 166236,
+          "rankings": 17,
+          "rosters": 15601,
+          "schedules_games_official_outcomes": 934,
+          "team_box_scores": 934,
+          "teams": 136
+        }
+      },
+      "endpoint_and_capture_detail": "PINNED_IN_IMMUTABLE_INPUT",
+      "historical_known_at": {
+        "capture_time_known": true,
+        "future_same_game_postgame_contamination": "MUST_FAIL_CLOSED",
+        "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_POST_SUBTASK_031",
+        "historical_source_publication_time": "UNKNOWN_UNLESS_SEPARATELY_CAPTURED",
+        "target_game_outcomes": "ALWAYS_EXCLUDED_FROM_TARGET_GAME_PREGAME_FEATURES"
+      },
+      "observed_season_max": 2025,
+      "observed_season_min": 1963,
+      "provider": "CollegeFootballData",
+      "schema_and_request_grain": "PINNED_PER_REQUEST_IN_IMMUTABLE_INPUT"
+    }
+  },
+  "created_at_utc": "2026-08-09T21:04:34Z",
+  "immutable_inputs": [
+    {
+      "bytes": 2423896,
+      "canonical_payload_sha256": "9c1c3555d4bd45fa9336582b696b4d62c28b63ab319ff97f320922f135afcc9a",
+      "capture_count": 972,
+      "captured_bytes": 2313402356,
+      "captured_rows": 3340413,
+      "endpoint_identity": "10 governed CFBD endpoints; exact requests remain in immutable input",
+      "external_relative_path": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/historical_expansion_acquisition_manifest.full.json",
+      "file_sha256": "bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7",
+      "provider": "CollegeFootballData",
+      "source_id": "SRC-002"
+    },
+    {
+      "bytes": 32600,
+      "canonical_payload_sha256": "86a9911e78f6753e503aba85632940ee25c8cb91c8ff7c193d4b3328b274c548",
+      "capture_count": 18,
+      "captured_bytes": 236746063,
+      "endpoint_identity": "GitHub release assets espn_cfb_pbp, espn_cfb_rosters, espn_cfb_schedules",
+      "external_relative_path": "manifests/acquisition/bat378-sportsdataverse-supplement-v1/sportsdataverse_supplement_manifest.full.json",
+      "file_sha256": "b8716531c152d664a36d448b4d306104c4266b3b3445a00a034235f3ce35b07e",
+      "provider": "SportsDataverse / cfbfastR release store",
+      "source_id": "SRC-001",
+      "upstream_independence": "ESPN_DERIVED_NOT_INDEPENDENT_CONFIRMATION"
+    },
+    {
+      "bytes": 7137,
+      "external_relative_path": "manifests/acquisition/bat378-sportsdataverse-supplement-v1/sportsdataverse_supplement_validation.json",
+      "file_sha256": "4f69f123672e7ef3e8c1592e74e7167c375c10d5884086c392c71caa946624fb",
+      "role": "SUPPLEMENT_SCHEMA_MISSINGNESS_AND_DOMAIN_ELIGIBILITY_VALIDATION"
+    }
+  ],
+  "issue": {
+    "jira_key": "BAT-378",
+    "local_id": "POST-SUBTASK-028"
+  },
+  "negative_findings": [
+    "The 2022-2025 tranche is preserved as nonterminal and does not resolve GAP-002.",
+    "Capture availability and nonempty rows do not prove normalized identity, completeness, reconciliation, historical publication time, or pregame eligibility.",
+    "CFBD is aggregated/derived and does not independently confirm upstream evidence.",
+    "Structured team/player box scores are the approved gamebook-equivalent lane; no raw gamebook PDF completeness is claimed.",
+    "Partial/empty older domains remain scoped evidence and do not invalidate otherwise useful game/outcome seasons.",
+    "No model, feature promotion, protected performance, A&M lift, BAS, Aggie Excess, or GAP-002 resolution is claimed.",
+    "The SportsDataverse release store publishes none of the nine planned 2001-2003 play, roster, or schedule assets under the expected release naming contract.",
+    "SportsDataverse 2004-2009 play coverage is partial relative to release schedule game counts; no completeness threshold is fabricated.",
+    "The supplemental data are ESPN-derived and do not independently reconcile CFBD or official-source claims.",
+    "The 720 pending CFBD request identities remain pinned in the immutable CFBD input; equivalent data do not pretend those provider-specific requests succeeded."
+  ],
+  "pit_and_leakage": {
+    "acquisition_capture_time_is_not_event_time": true,
+    "future_same_game_postgame_contamination": "MUST_QUARANTINE_OR_REJECT",
+    "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_NORMALIZATION_KNOWN_AT_POLICY_AND_CHRONOLOGICAL_REPLAY",
+    "protected_split_or_model_evaluation_performed": false,
+    "target_game_outcomes": "ALWAYS_EXCLUDED_FROM_TARGET_GAME_FEATURES"
+  },
+  "policy": {
+    "future_public_distribution_requires_separate_review": true,
+    "private_local_acquisition_allowed": true,
+    "raw_payloads_outside_git": true,
+    "raw_publication_allowed": false,
+    "rights_metadata_nonblocking": true,
+    "rights_or_redistribution_uncertainty_is_acquisition_blocker": false
+  },
+  "producer": {
+    "mode": "DETERMINISTIC_INPUT_HASHED_COMPOSITION",
+    "name": "build_combined_historical_manifest.py"
+  },
+  "schema_version": "1.0.0",
+  "scope": {
+    "bounded_2022_2025_tranche": {
+      "preserved": true,
+      "role": "FIRST_FULLY_VALIDATED_CONTEMPORARY_TRANCHE",
+      "terminal_history": false
+    },
+    "no_arbitrary_four_season_limit": true,
+    "observed_quality_supported_range": [
+      1963,
+      2025
+    ],
+    "partial_domain_does_not_discard_season": true,
+    "required_dense_target": [
+      2010,
+      2025
+    ],
+    "required_dense_target_acquired": true,
+    "target": "MAXIMUM_CURRENT_QUALITY_SUPPORTED_NATIONAL_HISTORY"
+  },
+  "storage": {
+    "absolute_host_paths_in_artifact": false,
+    "bulk_payloads_in_git": false,
+    "content_addressed_raw": true,
+    "root_environment_variable": "AGGIE_ANALYTICS_DATA_ROOT",
+    "temporary_partials_remaining": 0
+  },
+  "tiered_domain_eligibility": {
+    "1869_1962": {
+      "state": "PROVIDER_SPECIFIC_REQUESTS_PENDING; DOES_NOT_INVALIDATE_LATER_SEASONS",
+      "tier": "NOT_ACQUIRED_IN_CURRENT_CAPTURE_SET"
+    },
+    "1963_2000": {
+      "not_silently_promoted_domains": [
+        "plays",
+        "drives",
+        "team_box_scores",
+        "player_box_scores",
+        "rosters",
+        "advanced_game_statistics"
+      ],
+      "tier": "GAMES_AND_OFFICIAL_OUTCOMES_ONLY",
+      "uses_after_applicable_gates": [
+        "elo_or_team_strength_priors",
+        "outcome_modeling",
+        "long_run_program_context"
+      ]
+    },
+    "2001_2003": {
+      "not_eligible_without_more_evidence": [
+        "play_features",
+        "team_box_features",
+        "player_box_features",
+        "roster_features"
+      ],
+      "tier": "TEAM_OUTCOME_DRIVE_ADVANCED_CONTEXT_WITH_MISSING_EVENT_AND_ROSTER_DOMAINS",
+      "uses_after_applicable_gates": [
+        "team_strength",
+        "outcome_modeling",
+        "long_run_program_context"
+      ]
+    },
+    "2004_2009": {
+      "limitations": [
+        "SportsDataverse play/game coverage is partial against its release schedule population",
+        "team and player boxes are derivation candidates rather than complete acquired boxes",
+        "ESPN-derived releases are not independent corroboration"
+      ],
+      "tier": "MULTISOURCE_PARTIAL_EVENT_ERA",
+      "uses_after_applicable_gates": [
+        "team_strength",
+        "outcome_modeling",
+        "partial_game_play_and_drive_research",
+        "roster_context",
+        "long_run_program_context"
+      ]
+    },
+    "2010_2025": {
+      "promotion_state": "NOT_YET_PROMOTED_PENDING_NORMALIZATION_RECONCILIATION_AND_PIT",
+      "tier": "DENSE_ALL_ACQUIRED_CORE_DOMAINS",
+      "uses_after_normalization_and_pit": [
+        "team_strength",
+        "outcome_modeling",
+        "play_and_drive_features",
+        "team_and_player_box_features",
+        "long_run_program_context"
+      ]
+    }
+  },
+  "validation": {
+    "input_hashes_verified": true,
+    "manifest_consumer_contract": "VALIDATE_HASH_SCHEMA_PROVENANCE_PIT_AND_DOMAIN_QUALITY_FAIL_CLOSED",
+    "result": "PASS_WITH_EXPLICIT_PARTIAL_DOMAINS_AND_PROVIDER_PENDING",
+    "supplement_capture_validation": {
+      "captured_assets": 18,
+      "captured_bytes": 236746063,
+      "content_hash_failures": 0,
+      "missing_assets": 0,
+      "pending_assets": 0,
+      "result": "PASS"
+    }
+  }
+}

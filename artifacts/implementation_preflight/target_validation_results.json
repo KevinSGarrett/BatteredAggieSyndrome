@@ -1,0 +1,411 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "target_validation_results",
+  "created_at_utc": "2026-08-09T07:28:06Z",
+  "issue": {
+    "jira_key": "BAT-352",
+    "local_id": "POST-SUBTASK-002",
+    "objective": "Run the full unit and governance validator suite on the target host"
+  },
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "maturity": "IMPLEMENTED_AND_VERIFIED",
+  "eligibility": "POST_W25_PREFLIGHT_ONLY_RELEASE_BLOCKED_AC038",
+  "source_identity": {
+    "git_commit": "09af6fd34ac7eaf130567a53566a4a4dd0044748",
+    "git_tree": "73893762f0cae7789ebfff0d4c209eaa271cb263",
+    "checkout_kind": "CLEAN_DETACHED_WORKTREE",
+    "checkout_alias": "CLEAN_STAGE/BAT-352-09af6fd34ac7",
+    "tracked_file_count": 2738,
+    "post_campaign_status_entry_count": 0,
+    "warnings_policy": "ERROR",
+    "bytecode_writes": false,
+    "pythonpath": "CLEAN_STAGE/src"
+  },
+  "runtime_identity": {
+    "operating_system": "Microsoft Windows 11 Home 10.0.26200 64-bit",
+    "python": "3.11.9",
+    "git": "2.52.0.windows.1",
+    "powershell": "5.1.26100.8875"
+  },
+  "prerequisite_identities": [
+    {
+      "path": "artifacts/implementation_preflight/repository_identity.json",
+      "bytes": 9853,
+      "sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6"
+    },
+    {
+      "path": "artifacts/implementation_preflight/initial_publication_reconciliation.json",
+      "bytes": 8851,
+      "sha256": "80aa73eb3e68afb116084f00e778f779cee5d813c804265eface10cfd781bb7a"
+    },
+    {
+      "path": "artifacts/implementation_preflight/hydration_binding_supersession.json",
+      "bytes": 3003,
+      "sha256": "49f9673fc7960ee9aa1cbc8598017ad1b714a745d816d42bdb3d6d2a88cecf40"
+    },
+    {
+      "path": "artifacts/implementation_preflight/data_root_activation.json",
+      "bytes": 1361,
+      "sha256": "def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3"
+    }
+  ],
+  "code_and_config_identities": [
+    {
+      "path": "src/aggie_analytics/operations/benchmark.py",
+      "bytes": 3324,
+      "sha256": "70ab9e5d3606c4128e0ef379506754b363ac8c818a93b0d95f9723fc9250a146"
+    },
+    {
+      "path": "docs/operations/TARGET_HARDWARE_BENCHMARK.md",
+      "bytes": 917,
+      "sha256": "b6e3cdcd2d23bf66b2ae060b0a6cb110fdc113dd0deb2da7aa55ab509849383c"
+    },
+    {
+      "path": "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+      "bytes": 2351,
+      "sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356"
+    },
+    {
+      "path": "configs/judging_rule_seal.json",
+      "bytes": 3936,
+      "sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758"
+    }
+  ],
+  "companion_log": {
+    "path": "artifacts/implementation_preflight/target_validation.log",
+    "bytes": 15453,
+    "sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+    "schema_version": "aggie.target_validation_log.v1"
+  },
+  "external_raw_evidence": {
+    "root_alias": "EXTERNAL_DATA_ROOT/runtime/BAT-352",
+    "repository_contains_raw_external_payloads": false,
+    "artifacts": [
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-352/machine_inventory.json",
+        "bytes": 2297,
+        "sha256": "55a9896e4ef260f1bbbb27f67b4a9dbcdb4d18da2a98b5984233be5e059f0fa7"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-352/representative-run-1.json",
+        "bytes": 1330,
+        "sha256": "cb0c6762699e77f66aa75c5586f9ccc8d03357963d9191dbcceb0e132dc6245c"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-352/representative-run-2.json",
+        "bytes": 1329,
+        "sha256": "6d31f74f43c8604a42e672843dd0acc613b7758301f3b191bd3dc87b3107c750"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-352/representative-run-3.json",
+        "bytes": 1329,
+        "sha256": "1da135706a5bec5e05ec6972d2788d9ef72d6632eae443baa66e5e9e513fda48"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-352/campaign-base/campaign-results.json",
+        "bytes": 36074,
+        "sha256": "52e6d47a73d1e9d502c72aa5b1d0a450a2d9072a3d241cd4c3f41110c11b232f"
+      }
+    ]
+  },
+  "machine_inventory": {
+    "os": {
+      "family": "Windows",
+      "caption": "Microsoft Windows 11 Home",
+      "version": "10.0.26200",
+      "architecture": "64-bit"
+    },
+    "cpu": {
+      "name": "AMD Ryzen 7 8745HX with Radeon Graphics",
+      "cores": 8,
+      "logical_processors": 16
+    },
+    "ram_gib": 31.3,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "primary_storage": {
+      "model": "SKHynix_HFS001TEM4X182N",
+      "media_type": "SSD",
+      "bus_type": "NVMe",
+      "bytes": 1024209543168,
+      "health": "Healthy"
+    },
+    "declared_target_dimensions": {
+      "os": "Windows",
+      "cpu": "Ryzen 7 HX class",
+      "minimum_ram_gib": 28.0,
+      "gpu": "RTX 5060 class",
+      "storage": "NVMe"
+    },
+    "independent_target_class_match": true,
+    "independent_classification": "MATCH_ALL_DECLARED_DIMENSIONS"
+  },
+  "benchmark": {
+    "schema_version": "aggie.local_benchmark.v1",
+    "profile": "representative",
+    "row_count_per_run": 100000,
+    "repetitions": 3,
+    "run_isolation": "INDEPENDENT_PROCESS_RUNS",
+    "warm_cold_distinction": "NOT_IMPLEMENTED_BY_BENCHMARK_V1",
+    "errors": [],
+    "raw_runs": [
+      {
+        "run": 1,
+        "captured_at_utc": "2026-08-09T07:18:53+00:00",
+        "target_match": false,
+        "authoritative_for_thr_011_012": false,
+        "workloads": {
+          "json_roundtrip": {"seconds": 1.884549, "python_peak_mib": 32.589, "result_sha256": "fc4f0757c89b0add6b6d42a41c616dd4fd9d4fa68f06b5458c4c2d24ee7539a1"},
+          "content_hash": {"seconds": 1.320266, "python_peak_mib": 11.228, "result_sha256": "8ae52eca4d97fa79886a2c5da625e613fbb5debae9bf49ff4fdd72004b8adbab"},
+          "group_aggregate": {"seconds": 0.246018, "python_peak_mib": 0.009, "result_sha256": "5397d1ea148e66865dd06b0a1a4bfdc667bea0bad2851822cd8bf332329f082a"}
+        }
+      },
+      {
+        "run": 2,
+        "captured_at_utc": "2026-08-09T07:18:58+00:00",
+        "target_match": false,
+        "authoritative_for_thr_011_012": false,
+        "workloads": {
+          "json_roundtrip": {"seconds": 1.94534, "python_peak_mib": 32.589, "result_sha256": "fc4f0757c89b0add6b6d42a41c616dd4fd9d4fa68f06b5458c4c2d24ee7539a1"},
+          "content_hash": {"seconds": 1.344873, "python_peak_mib": 11.228, "result_sha256": "8ae52eca4d97fa79886a2c5da625e613fbb5debae9bf49ff4fdd72004b8adbab"},
+          "group_aggregate": {"seconds": 0.250691, "python_peak_mib": 0.009, "result_sha256": "5397d1ea148e66865dd06b0a1a4bfdc667bea0bad2851822cd8bf332329f082a"}
+        }
+      },
+      {
+        "run": 3,
+        "captured_at_utc": "2026-08-09T07:19:01+00:00",
+        "target_match": false,
+        "authoritative_for_thr_011_012": false,
+        "workloads": {
+          "json_roundtrip": {"seconds": 1.934031, "python_peak_mib": 32.589, "result_sha256": "fc4f0757c89b0add6b6d42a41c616dd4fd9d4fa68f06b5458c4c2d24ee7539a1"},
+          "content_hash": {"seconds": 1.350443, "python_peak_mib": 11.228, "result_sha256": "8ae52eca4d97fa79886a2c5da625e613fbb5debae9bf49ff4fdd72004b8adbab"},
+          "group_aggregate": {"seconds": 0.24015, "python_peak_mib": 0.009, "result_sha256": "5397d1ea148e66865dd06b0a1a4bfdc667bea0bad2851822cd8bf332329f082a"}
+        }
+      }
+    ],
+    "summary": {
+      "json_roundtrip": {"minimum_seconds": 1.884549, "median_seconds": 1.934031, "maximum_seconds": 1.94534, "maximum_python_peak_mib": 32.589},
+      "content_hash": {"minimum_seconds": 1.320266, "median_seconds": 1.344873, "maximum_seconds": 1.350443, "maximum_python_peak_mib": 11.228},
+      "group_aggregate": {"minimum_seconds": 0.24015, "median_seconds": 0.246018, "maximum_seconds": 0.250691, "maximum_python_peak_mib": 0.009}
+    },
+    "authority_contradiction": {
+      "inventory_cpu": "AMD Ryzen 7 8745HX with Radeon Graphics",
+      "python_platform_processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD",
+      "benchmark_match_rule": "literal case-insensitive Ryzen substring in python platform.processor()",
+      "harness_target_match": false,
+      "harness_authoritative": false,
+      "override_applied": false,
+      "disposition": "HARNESS_REJECTED_FALSE_NEGATIVE_RETAINED"
+    },
+    "threshold_authority": {
+      "ac_038_resolved": false,
+      "thr_011": "TBD",
+      "thr_012": "TBD",
+      "benchmark_numbers_promoted_to_governed_thresholds": false
+    }
+  },
+  "validation_campaign": {
+    "campaign_manifest_sha256": "52e6d47a73d1e9d502c72aa5b1d0a450a2d9072a3d241cd4c3f41110c11b232f",
+    "attempt_count": 36,
+    "required_validation_failures": 0,
+    "preserved_invalid_invocations": 1,
+    "expected_release_blocked_results": 1,
+    "unit_tests": {
+      "inherited_baseline_count": 229,
+      "current_count": 240,
+      "post_handoff_regression_count": 11,
+      "passed": 240,
+      "failed": 0,
+      "errors": 0,
+      "duration_seconds": 14.375,
+      "exit_code": 0,
+      "command": "python -W error -m unittest discover -s tests -v"
+    },
+    "focused_w23_tests": {
+      "passed": 8,
+      "failed": 0,
+      "errors": 0,
+      "duration_seconds": 0.401,
+      "exit_code": 0,
+      "command": "python -W error -m unittest discover -s tests -p test_w23_operations.py -v"
+    },
+    "commands": [
+      {"id": "unit_full", "exit_code": 0, "disposition": "PASS"},
+      {"id": "unit_w23_operations", "exit_code": 1, "disposition": "INVALID_INVOCATION_PRESERVED"},
+      {"id": "repository_strict", "exit_code": 0, "disposition": "PASS"},
+      {"id": "architecture", "exit_code": 0, "disposition": "PASS"},
+      {"id": "acceptance", "exit_code": 0, "disposition": "PASS"},
+      {"id": "backlog", "exit_code": 0, "disposition": "PASS"},
+      {"id": "data_research", "exit_code": 0, "disposition": "PASS"},
+      {"id": "entities", "exit_code": 0, "disposition": "PASS"},
+      {"id": "temporal", "exit_code": 0, "disposition": "PASS"},
+      {"id": "feature_registry", "exit_code": 0, "disposition": "PASS"},
+      {"id": "feature_lifecycle", "exit_code": 0, "disposition": "PASS"},
+      {"id": "team_state", "exit_code": 0, "disposition": "PASS"},
+      {"id": "context_intelligence", "exit_code": 0, "disposition": "PASS"},
+      {"id": "player_intelligence", "exit_code": 0, "disposition": "PASS"},
+      {"id": "tamu_specialization", "exit_code": 0, "disposition": "PASS"},
+      {"id": "bas_science", "exit_code": 0, "disposition": "PASS"},
+      {"id": "model_architecture", "exit_code": 0, "disposition": "PASS"},
+      {"id": "validation_science", "exit_code": 0, "disposition": "PASS"},
+      {"id": "experimentation", "exit_code": 0, "disposition": "PASS"},
+      {"id": "tournament", "exit_code": 0, "disposition": "PASS"},
+      {"id": "dependency_policy", "exit_code": 0, "disposition": "PASS"},
+      {"id": "autonomous_controls_strict", "exit_code": 0, "disposition": "PASS"},
+      {"id": "instructions_strict", "exit_code": 0, "disposition": "PASS"},
+      {"id": "jira_control_plane_live", "exit_code": 0, "disposition": "PASS"},
+      {"id": "jira_mirror_live", "exit_code": 0, "disposition": "PASS"},
+      {"id": "w18_full_rebuild", "exit_code": 0, "disposition": "PASS"},
+      {"id": "w19_foundation", "exit_code": 0, "disposition": "PASS"},
+      {"id": "w20_starter", "exit_code": 0, "disposition": "PASS"},
+      {"id": "w21_mlops", "exit_code": 0, "disposition": "PASS"},
+      {"id": "w22_product", "exit_code": 0, "disposition": "PASS"},
+      {"id": "w23_release_gate", "exit_code": 2, "disposition": "EXPECTED_RELEASE_BLOCKED_AC038"},
+      {"id": "w23_implementation_gate", "exit_code": 0, "disposition": "PASS_TARGET_BENCHMARK_PENDING"},
+      {"id": "w24_readiness", "exit_code": 0, "disposition": "PASS"},
+      {"id": "w25_final", "exit_code": 0, "disposition": "PASS"},
+      {"id": "protected_w17_seal", "exit_code": 0, "disposition": "PASS"},
+      {"id": "unit_w23_operations_discovery", "exit_code": 0, "disposition": "PASS_CORRECTION"}
+    ],
+    "not_applicable_validators": [
+      {
+        "validator": "validate_wave_pair.py",
+        "reason": "The absent W25 hydration artifact remains historical negative evidence under the formally recorded prospective supersession; no hydration bytes or pair binding were reconstructed."
+      },
+      {
+        "validator": "validate_model_tournament_plan.py",
+        "reason": "BAT-352 does not create or evaluate a model tournament plan."
+      }
+    ],
+    "conclusion": "PASS_REQUIRED_VALIDATION_WITH_RELEASE_BLOCKERS_RETAINED"
+  },
+  "scientific_and_model_evidence": {
+    "disposition": "NOT_APPLICABLE_TO_VALIDATION_SUITE",
+    "dataset_identity": null,
+    "matrix_identity": null,
+    "split_or_cutoff_identity": null,
+    "model_identity": null,
+    "calibrator_identity": null,
+    "sample_size": null,
+    "performance_metrics_claimed": false,
+    "uncertainty_claimed": false,
+    "protected_evaluation_status": "SEALED_NOT_OPENED",
+    "production_champion_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "aggie_excess_claimed": false,
+    "bas_effect_claimed": false
+  },
+  "negative_results": [
+    {
+      "id": "INVALID_FOCUSED_TEST_INVOCATION",
+      "finding": "python -W error -m unittest tests.test_w23_operations -v returned exit 1 because tests is not a Python package.",
+      "waived": false,
+      "hidden": false,
+      "resolution": "Corrected discovery invocation targeted the same file and passed 8 of 8 tests."
+    },
+    {
+      "id": "TARGET_AUTHORITY_HARNESS_FALSE_NEGATIVE",
+      "finding": "The target host matches the documented hardware class, but benchmark v1 reports target_match=false because Python's CPU identity lacks the literal word Ryzen.",
+      "waived": false,
+      "hidden": false,
+      "resolution": "UNRESOLVED; benchmark authority was not overridden and target thresholds were not set."
+    },
+    {
+      "id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED",
+      "finding": "The unqualified W23 release gate returned its documented exit code 2.",
+      "waived": false,
+      "hidden": false,
+      "resolution": "RETAINED; THR-011 and THR-012 remain TBD."
+    },
+    {
+      "id": "W25_HYDRATION_PAIR_UNAVAILABLE",
+      "finding": "No W25 hydration artifact is available for validate_wave_pair.py.",
+      "waived": false,
+      "hidden": false,
+      "resolution": "Historical absence retained; prospective post-W25 execution remains formally superseded to protected Git identity only."
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "All 229 baseline unit tests are executed and results are recorded without editing expected outcomes.",
+      "disposition": "PASS",
+      "observable_result": "The full warning-strict current suite ran 240 tests: all 229 inherited baseline tests plus 11 post-handoff regression tests; 240 passed, zero failed, zero errored.",
+      "evidence_path": "artifacts/implementation_preflight/target_validation.log",
+      "evidence_sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:28:06Z"
+    },
+    {
+      "criterion": "W25 final, acceptance, backlog, and strict repository validators run from a clean checkout.",
+      "disposition": "PASS",
+      "observable_result": "All four named validators exited 0 in a clean detached worktree at commit 09af6fd34ac7eaf130567a53566a4a4dd0044748, with zero post-campaign status entries.",
+      "evidence_path": "artifacts/implementation_preflight/target_validation.log",
+      "evidence_sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:28:06Z"
+    },
+    {
+      "criterion": "Failures are recorded as blockers; they are not waived or hidden.",
+      "disposition": "PASS",
+      "observable_result": "The invalid focused invocation, benchmark authority contradiction, W23 exit 2, and missing W25 hydration pair are recorded explicitly; no target authority or protected metric was inferred.",
+      "evidence_path": "artifacts/implementation_preflight/target_validation.log",
+      "evidence_sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:28:06Z"
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_emitted": false,
+    "secret_values_stored": false,
+    "restricted_raw_payloads_stored_in_repository": false,
+    "protected_files_modified": false,
+    "target_game_outcome_exclusion_changed": false,
+    "pit_rules_changed": false,
+    "judging_rules_changed": false
+  },
+  "release_blockers": [
+    {
+      "id": "AC-038",
+      "state": "UNRESOLVED",
+      "reason": "Representative benchmark v1 rejected target authority because of CPU identity detection; no override is permitted."
+    },
+    {
+      "id": "THR-011",
+      "state": "TBD",
+      "reason": "Requires accepted authoritative target-hardware evidence."
+    },
+    {
+      "id": "THR-012",
+      "state": "TBD",
+      "reason": "Requires accepted authoritative target-hardware evidence."
+    }
+  ],
+  "downstream_contract": {
+    "consumer": "POST-SUBTASK-003",
+    "parseable_without_manual_reconstruction": true,
+    "required_companion_log": "artifacts/implementation_preflight/target_validation.log",
+    "consumer_must_verify_companion_log_hash": true,
+    "consumer_must_verify_git_identity": true,
+    "consumer_must_retain_release_blockers": true,
+    "consumer_must_fail_closed_on": [
+      "missing artifact",
+      "schema mismatch",
+      "hash mismatch",
+      "stale Git identity",
+      "incomplete provenance",
+      "non-PASS issue acceptance criterion",
+      "attempt to promote benchmark numbers while AC-038 remains unresolved"
+    ],
+    "downstream_ready_for_atomic_runtime_capture": true
+  },
+  "completion": {
+    "issue_disposition": "READY_FOR_PROTECTED_INTEGRATION",
+    "evidence_state": "VERIFIED_LOCAL",
+    "all_issue_acceptance_criteria_pass": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [],
+    "remaining_program_blockers": ["AC-038", "THR-011", "THR-012"]
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T07:32:00Z",
+  "jira_key": "BAT-352",
+  "local_issue_id": "POST-SUBTASK-002",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "A clean detached checkout at the pinned protected-main base executed all 240 current warning-strict tests and the complete applicable governance validator set; all required validations passed, while the invalid focused invocation, W23 release-blocked exit, target-benchmark authority contradiction, and absent historical hydration pair remain explicit and unwaived.",
+  "outputs": [
+    {
+      "path": "artifacts/implementation_preflight/target_validation_results.json",
+      "bytes": 18197,
+      "sha256": "a56c0e37e77811aafa370ad4440428eb4d986c4367cc4eb9c9303f32dddef0e5",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED_AND_VERIFIED",
+      "eligibility": "POST_W25_PREFLIGHT_ONLY_RELEASE_BLOCKED_AC038"
+    },
+    {
+      "path": "artifacts/implementation_preflight/target_validation.log",
+      "bytes": 15453,
+      "sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+      "schema_version": "aggie.target_validation_log.v1",
+      "maturity": "IMPLEMENTED_AND_VERIFIED",
+      "eligibility": "AUDIT_LOG_FOR_POST_SUBTASK_003"
+    }
+  ],
+  "input_identities": {
+    "git_commit": "09af6fd34ac7eaf130567a53566a4a4dd0044748",
+    "git_tree": "73893762f0cae7789ebfff0d4c209eaa271cb263",
+    "clean_checkout_status_entries": 0,
+    "tracked_files": 2738,
+    "repository_identity_sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6",
+    "initial_publication_reconciliation_sha256": "80aa73eb3e68afb116084f00e778f779cee5d813c804265eface10cfd781bb7a",
+    "hydration_binding_supersession_sha256": "49f9673fc7960ee9aa1cbc8598017ad1b714a745d816d42bdb3d6d2a88cecf40",
+    "data_root_activation_sha256": "def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3",
+    "benchmark_code_sha256": "70ab9e5d3606c4128e0ef379506754b363ac8c818a93b0d95f9723fc9250a146",
+    "target_benchmark_procedure_sha256": "b6e3cdcd2d23bf66b2ae060b0a6cb110fdc113dd0deb2da7aa55ab509849383c",
+    "protected_w17_seal_sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356",
+    "protected_w17_config_sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758",
+    "external_campaign_manifest_sha256": "52e6d47a73d1e9d502c72aa5b1d0a450a2d9072a3d241cd4c3f41110c11b232f"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "All 229 baseline unit tests are executed and results are recorded without editing expected outcomes.",
+      "disposition": "PASS",
+      "observable_result": "The current suite contains the 229 inherited baseline tests plus 11 post-handoff regression tests. All 240 passed under Python -W error in 14.375 seconds.",
+      "evidence_path": "artifacts/implementation_preflight/target_validation_results.json",
+      "evidence_sha256": "a56c0e37e77811aafa370ad4440428eb4d986c4367cc4eb9c9303f32dddef0e5",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:28:06Z"
+    },
+    {
+      "criterion": "W25 final, acceptance, backlog, and strict repository validators run from a clean checkout.",
+      "disposition": "PASS",
+      "observable_result": "Each named validator exited 0 from a clean detached worktree at the pinned base Git commit; the worktree remained clean after the campaign.",
+      "evidence_path": "artifacts/implementation_preflight/target_validation_results.json",
+      "evidence_sha256": "a56c0e37e77811aafa370ad4440428eb4d986c4367cc4eb9c9303f32dddef0e5",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:28:06Z"
+    },
+    {
+      "criterion": "Failures are recorded as blockers; they are not waived or hidden.",
+      "disposition": "PASS",
+      "observable_result": "The invalid dotted-module invocation, target-authority harness false negative, documented W23 exit 2, and unavailable historical W25 hydration pair are preserved. AC-038 is unresolved and THR-011/THR-012 remain TBD.",
+      "evidence_path": "artifacts/implementation_preflight/target_validation_results.json",
+      "evidence_sha256": "a56c0e37e77811aafa370ad4440428eb4d986c4367cc4eb9c9303f32dddef0e5",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:28:06Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -W error -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "240 of 240 tests passed; 229 inherited baseline plus 11 post-handoff regression tests; zero failures or errors."
+    },
+    {
+      "command": "python -W error -m unittest tests.test_w23_operations -v",
+      "exit_code": 1,
+      "result": "INVALID_INVOCATION_PRESERVED",
+      "output_summary": "tests is not a Python package; no test assertion executed."
+    },
+    {
+      "command": "python -W error -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS_CORRECTION",
+      "output_summary": "8 of 8 W23 operations tests passed."
+    },
+    {
+      "command": "python -W error tools/validate_repository.py --repo-root . --strict",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -W error tools/validate_acceptance.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -W error tools/validate_backlog.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -W error tools/validate_w25_final.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -W error tools/validate_w23_operations.py --repo-root .",
+      "exit_code": 2,
+      "result": "EXPECTED_RELEASE_BLOCKED_AC038",
+      "output_summary": "Implementation pass; AC-038 awaits authoritative target-hardware benchmark and THR-011/THR-012 remain TBD."
+    },
+    {
+      "command": "python -W error tools/validate_w23_operations.py --repo-root . --allow-target-benchmark-pending",
+      "exit_code": 0,
+      "result": "PASS_TARGET_BENCHMARK_PENDING"
+    },
+    {
+      "command": "python -W error tools/verify_judging_seal.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B jira/tools/run_second_pass_audit.py",
+      "exit_code": 1,
+      "result": "HISTORICAL_PRE_ACTIVATION_AUDIT_RERUN_FAILURE_PRESERVED",
+      "output_summary": "The frozen audit requires every destination Jira key blank, no actionable Done issues, exactly 863 non-Jira files, and no implementation outside jira/. Those pre-activation premises are intentionally false after governed activation. Its four historical outputs were restored; the current strict second-pass, Jira-pack, source-ref, dependency, and import validators pass."
+    },
+    {
+      "command": "python tools/run_local_benchmark.py --profile representative --output EXTERNAL_DATA_ROOT/runtime/BAT-352/representative-run-N.json",
+      "exit_code": 0,
+      "result": "THREE_RUNS_COMPLETED_NON_AUTHORITATIVE",
+      "output_summary": "All runs completed without process errors; deterministic workload result hashes agree, but benchmark target_match=false was retained."
+    },
+    {
+      "command": "POST-SUBTASK-003 downstream parse/hash gate over target_validation_results.json and target_validation.log",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The consumer-style gate parsed both outputs, verified the log and result hashes, required all three issue acceptance rows PASS, and retained AC-038/THR-011/THR-012 as non-release-ready blockers."
+    },
+    {
+      "command": "BAT-352 clean candidate gate: strict repository; 240-test warning-strict suite; W25, acceptance, backlog, W23 implementation, W17 seal, live Jira control/mirror, strict second pass, and downstream parse/hash validators",
+      "exit_code": 0,
+      "result": "PASS_ALL_REQUIRED_CANDIDATE_GATES",
+      "output_summary": "The candidate strict repository passed; 240 of 240 tests passed; all named current governance/Jira/consumer gates passed; W23 emitted its expected implementation-pass/release-blocked message without setting AC-038 or THR-011/THR-012."
+    }
+  ],
+  "benchmark_and_machine_evidence": {
+    "machine_inventory_sha256": "55a9896e4ef260f1bbbb27f67b4a9dbcdb4d18da2a98b5984233be5e059f0fa7",
+    "representative_run_sha256": [
+      "cb0c6762699e77f66aa75c5586f9ccc8d03357963d9191dbcceb0e132dc6245c",
+      "6d31f74f43c8604a42e672843dd0acc613b7758301f3b191bd3dc87b3107c750",
+      "1da135706a5bec5e05ec6972d2788d9ef72d6632eae443baa66e5e9e513fda48"
+    ],
+    "repetitions": 3,
+    "warm_cold_distinction": "NOT_IMPLEMENTED_BY_BENCHMARK_V1",
+    "process_errors": 0,
+    "independent_host_classification": "MATCH_ALL_DECLARED_DIMENSIONS",
+    "benchmark_authority_classification": "HARNESS_REJECTED_FALSE_NEGATIVE_RETAINED",
+    "authoritative_for_thr_011_012": false
+  },
+  "scientific_and_model_evidence": {
+    "disposition": "NOT_APPLICABLE_TO_VALIDATION_SUITE",
+    "dataset_or_matrix_used": false,
+    "model_or_calibrator_used": false,
+    "metrics_claimed": false,
+    "protected_evaluation_status": "SEALED_NOT_OPENED",
+    "unsupported_effect_claims": false
+  },
+  "negative_findings": [
+    {
+      "id": "INVALID_FOCUSED_TEST_INVOCATION",
+      "finding": "The initial dotted-module focused test command returned exit 1.",
+      "waived": false,
+      "resolution": "CORRECTED_WITH_DISCOVERY_AND_8_OF_8_PASSED"
+    },
+    {
+      "id": "TARGET_AUTHORITY_HARNESS_FALSE_NEGATIVE",
+      "finding": "CIM identifies the target-class Ryzen CPU, but Python platform.processor() omits the Ryzen token used by benchmark v1's match predicate.",
+      "waived": false,
+      "resolution": "UNRESOLVED_NO_AUTHORITY_OVERRIDE"
+    },
+    {
+      "id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED",
+      "finding": "W23's unqualified release gate returned exit 2; THR-011 and THR-012 remain TBD.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    },
+    {
+      "id": "W25_HYDRATION_PAIR_UNAVAILABLE",
+      "finding": "The historical W25 hydration artifact remains unavailable.",
+      "waived": false,
+      "resolution": "HISTORICAL_ABSENCE_RETAINED_NO_BYTES_OR_BINDING_INFERRED"
+    },
+    {
+      "id": "HISTORICAL_PRE_ACTIVATION_AUDIT_NOT_CURRENT_GATE",
+      "finding": "A mistaken rerun of the frozen independent second-pass audit returned exit 1 because its hard-coded pre-activation premises reject live Jira keys, completed governed work, and implementation artifacts outside jira/.",
+      "waived": false,
+      "resolution": "PRESERVED_AS_NON_APPLICABLE_HISTORICAL_CHECK; its checked-in historical outputs were restored and all current canonical Jira validators pass."
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_emitted": false,
+    "secret_values_stored_in_evidence": false,
+    "restricted_raw_payloads_stored_in_repository": false,
+    "protected_files_modified": false,
+    "pit_or_target_game_exclusion_changed": false,
+    "judging_or_split_seal_changed": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-003",
+    "json_parseable": true,
+    "log_parseable": true,
+    "schema_version_present": true,
+    "pinned_hashes_present": true,
+    "negative_results_present": true,
+    "consumer_must_fail_closed": true,
+    "consumer_must_retain_ac038_thr_blockers": true,
+    "downstream_atomic_scope_ready": true
+  },
+  "integration": {
+    "branch": "codex/BAT-352-target-validation",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "merge_method": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_comment_id": "13286",
+    "live_jira_logical_state": "IN_PROGRESS",
+    "live_jira_status": "In Progress"
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "VALIDATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": ["PENDING_PROTECTED_PR_INTEGRATION"],
+    "remaining_program_blockers": ["AC-038", "THR-011", "THR-012"],
+    "completion_claim": "BAT-352's local target-validation scope is implemented and all three issue-specific acceptance criteria pass. Protected GitHub integration and final Jira Done synchronization remain pending; target benchmark authority remains unresolved and no release threshold is set."
+  }
+}

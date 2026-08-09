@@ -21,7 +21,10 @@ artifacts/implementation_preflight/data_root_activation.json
 artifacts/implementation_preflight/hydration_binding_supersession.json
 artifacts/implementation_preflight/initial_publication_reconciliation.json
 artifacts/implementation_preflight/repository_identity.json
+artifacts/implementation_preflight/target_validation.log
+artifacts/implementation_preflight/target_validation_results.json
 artifacts/jira_evidence/POST-SUBTASK-001.json
+artifacts/jira_evidence/POST-SUBTASK-002.json
 artifacts/jira_evidence/POST-SUBTASK-013.json
 artifacts/source_governance/production_source_inventory.csv
 configs/acceptance_registry.json

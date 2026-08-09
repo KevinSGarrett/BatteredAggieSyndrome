@@ -1,0 +1,124 @@
+Aggie Analytics Engine target validation log
+Schema: aggie.target_validation_log.v1
+Issue: BAT-352 / POST-SUBTASK-002
+Captured: 2026-08-09T07:28:06Z
+Producer: Codex session 019fe513-80e8-72f3-bc22-816e700bf74c
+
+SOURCE IDENTITY
+Git commit: 09af6fd34ac7eaf130567a53566a4a4dd0044748
+Git tree: 73893762f0cae7789ebfff0d4c209eaa271cb263
+Clean detached worktree: CLEAN_STAGE/BAT-352-09af6fd34ac7
+Tracked files: 2738
+Worktree status entries after campaign: 0
+Python: 3.11.9
+Git: 2.52.0.windows.1
+PowerShell: 5.1.26100.8875
+Warnings policy: -W error
+Bytecode writes: disabled
+PYTHONPATH: CLEAN_STAGE/src
+
+PREREQUISITE IDENTITIES
+artifacts/implementation_preflight/repository_identity.json | 9853 bytes | sha256 46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6
+artifacts/implementation_preflight/initial_publication_reconciliation.json | 8851 bytes | sha256 80aa73eb3e68afb116084f00e778f779cee5d813c804265eface10cfd781bb7a
+artifacts/implementation_preflight/hydration_binding_supersession.json | 3003 bytes | sha256 49f9673fc7960ee9aa1cbc8598017ad1b714a745d816d42bdb3d6d2a88cecf40
+artifacts/implementation_preflight/data_root_activation.json | 1361 bytes | sha256 def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3
+src/aggie_analytics/operations/benchmark.py | 3324 bytes | sha256 70ab9e5d3606c4128e0ef379506754b363ac8c818a93b0d95f9723fc9250a146
+docs/operations/TARGET_HARDWARE_BENCHMARK.md | 917 bytes | sha256 b6e3cdcd2d23bf66b2ae060b0a6cb110fdc113dd0deb2da7aa55ab509849383c
+
+TARGET HOST INVENTORY
+Operating system: Microsoft Windows 11 Home 10.0.26200, 64-bit
+CPU: AMD Ryzen 7 8745HX with Radeon Graphics; 8 cores; 16 logical processors
+Installed RAM: 31.30 GiB (32 GB marketed class)
+Discrete GPU: NVIDIA GeForce RTX 5060 Laptop GPU
+Primary storage: SKHynix_HFS001TEM4X182N; SSD; NVMe; 1,024,209,543,168 bytes; healthy
+Inventory artifact: EXTERNAL_DATA_ROOT/runtime/BAT-352/machine_inventory.json | 2297 bytes | sha256 55a9896e4ef260f1bbbb27f67b4a9dbcdb4d18da2a98b5984233be5e059f0fa7
+Independent target-class classification: MATCH (Windows, Ryzen 7 HX class, >=28 GiB, RTX 5060 class, NVMe)
+
+REPRESENTATIVE BENCHMARK
+Producer command (three independent process runs): python tools/run_local_benchmark.py --profile representative --output EXTERNAL_DATA_ROOT/runtime/BAT-352/representative-run-N.json
+Run 1: sha256 cb0c6762699e77f66aa75c5586f9ccc8d03357963d9191dbcceb0e132dc6245c; target_match=false; authoritative=false
+Run 2: sha256 6d31f74f43c8604a42e672843dd0acc613b7758301f3b191bd3dc87b3107c750; target_match=false; authoritative=false
+Run 3: sha256 1da135706a5bec5e05ec6972d2788d9ef72d6632eae443baa66e5e9e513fda48; target_match=false; authoritative=false
+json_roundtrip seconds: 1.884549, 1.945340, 1.934031; median 1.934031; max Python allocation 32.589 MiB; result sha256 fc4f0757c89b0add6b6d42a41c616dd4fd9d4fa68f06b5458c4c2d24ee7539a1
+content_hash seconds: 1.320266, 1.344873, 1.350443; median 1.344873; max Python allocation 11.228 MiB; result sha256 8ae52eca4d97fa79886a2c5da625e613fbb5debae9bf49ff4fdd72004b8adbab
+group_aggregate seconds: 0.246018, 0.250691, 0.240150; median 0.246018; max Python allocation 0.009 MiB; result sha256 5397d1ea148e66865dd06b0a1a4bfdc667bea0bad2851822cd8bf332329f082a
+Warm/cold control: not implemented by benchmark v1; runs are independent processes and are not labeled warm or cold.
+Errors: none returned by the three benchmark processes.
+Authority contradiction: CIM reports "AMD Ryzen 7 8745HX" while Python platform.processor() reports "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD". The benchmark performs a literal "Ryzen" substring test against the latter, so it returns target_match=false despite the independent inventory matching every declared target-class dimension.
+Authority disposition: HARNESS_REJECTED_FALSE_NEGATIVE_RETAINED. The benchmark's authoritative flag is not overridden. AC-038 remains unresolved and THR-011/THR-012 remain TBD.
+
+CLEAN-BASE VALIDATION CAMPAIGN
+Raw campaign manifest: EXTERNAL_DATA_ROOT/runtime/BAT-352/campaign-base/campaign-results.json | 36074 bytes | sha256 52e6d47a73d1e9d502c72aa5b1d0a450a2d9072a3d241cd4c3f41110c11b232f
+Each row is: id | exit code | expected disposition | duration seconds | stdout sha256 | stderr sha256 | exact argv
+
+unit_full | 0 | PASS | 15.180 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | 3b98c6d6777ea30d42433f26a87c0f57041f2c4a6cbd8714320f213e0bc679ae | python -W error -m unittest discover -s tests -v
+unit_w23_operations | 1 | INVALID_INVOCATION_PRESERVED | 2.012 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | 1e8f540c59d7f1f78733d121fbe01ee5a369b4c86ee307504bb8385d5ccd4a58 | python -W error -m unittest tests.test_w23_operations -v
+repository_strict | 0 | PASS | 8.028 | a264d48f5e3db12be81c475b56c1ec933e2c95b9556ab3e250520d8cc98e5c1c | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_repository.py --repo-root . --strict
+architecture | 0 | PASS | 1.013 | 3fe63a48509a30658d833770369b3b7c515d6b7a0c758b120320a881b6d719e9 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_architecture.py --registry configs/architecture_registry.json
+acceptance | 0 | PASS | 1.011 | ffe4e7fd1571edc50c035ad36723b68febeab409a68c433ff8f9c99a1813b070 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_acceptance.py --repo-root .
+backlog | 0 | PASS | 1.011 | 971255e432b2df99cefb5c3e9ac1b2cc2eddff54a0b7541b44d09a9b484cfea1 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_backlog.py --repo-root .
+data_research | 0 | PASS | 1.017 | b4674b7de8fbbe5be895f0da8ba727c23fc887315bf822e291473855fa5379f7 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_data_research.py --repo-root .
+entities | 0 | PASS | 1.016 | 21ba614ba081717fb567e974a93d1fbc6a19c4c0cf78fe0e374bb92f0a0c5d53 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_entities.py --repo-root .
+temporal | 0 | PASS | 1.159 | 396c9cb411bb92753cf406bea7aaeeb3fbc5c624006781e3722cfaf21821c290 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_temporal.py --repo-root .
+feature_registry | 0 | PASS | 2.007 | 7d84a6a109012233a708f0b996b269c2d6f51bd66b65b959b45effb2586b28c0 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_feature_registry.py --repo-root .
+feature_lifecycle | 0 | PASS | 1.011 | 088f2d3fc529b5a6ff8a7f8b8c59957895242e7ec8bb08f670416a17f2e2ca67 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_feature_lifecycle.py --repo-root .
+team_state | 0 | PASS | 1.011 | 924b44b5a283dcc7522547e079a2767c691fee3df0321ac6713eec611e750be3 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_team_state.py --repo-root .
+context_intelligence | 0 | PASS | 1.011 | 78545f7793de8c6bf330e59e0668d5d8313b362d98911f437459a382b88ca9bc | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_context_intelligence.py --repo-root .
+player_intelligence | 0 | PASS | 1.011 | 1cdcc7349e1fd10b67102df003c6a836157ed7e250e61e57ab9021791e1e5642 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_player_intelligence.py --repo-root .
+tamu_specialization | 0 | PASS | 1.011 | 03e84b27bd8bbd7bf893c2c5a98da130efa612c80bd467d6160b58f252e80411 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_tamu_specialization.py --repo-root .
+bas_science | 0 | PASS | 1.010 | f2aa04b23521f61cb280e75c7e36a3e7e0e5367229842fea858f1e7461cb7bba | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_bas_science.py --repo-root .
+model_architecture | 0 | PASS | 1.011 | eda9af275a5a4ca37c6533ac9e5748622bfb25d50efb3d77d187fe5a55e56dfa | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_model_architecture.py --repo-root .
+validation_science | 0 | PASS | 1.017 | b5dd23b76891dce2f9ebc45553fdbba865284e048f84b3c6964fe63fc1408c71 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_validation_science.py --repo-root .
+experimentation | 0 | PASS | 1.011 | 93a4801595ef27fd3b38781fd81889f9121818fc9a27900ff792d311635c1987 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_experimentation.py --repo-root .
+tournament | 0 | PASS | 1.156 | 7f9344f73a48c3d594d351e8f2a37b47ade225c379b2f32115a618275d92916e | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_tournament.py --repo-root .
+dependency_policy | 0 | PASS | 2.008 | e392f66dab977acbaf7c50d6c9ec022add708dec3cec0a004aded42461022802 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_dependency_policy.py --repo-root .
+autonomous_controls_strict | 0 | PASS | 1.011 | fe0ced82bfa4ed2cdc86e761a4ca42cab187e8954ec0bc99b5ceb0bcb1fc93d6 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_autonomous_controls.py --repo-root . --strict
+instructions_strict | 0 | PASS | 1.011 | fe0ced82bfa4ed2cdc86e761a4ca42cab187e8954ec0bc99b5ceb0bcb1fc93d6 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_instructions.py --repo-root . --strict
+jira_control_plane_live | 0 | PASS | 2.013 | b5be140c3503f91abca29da42f12d942f29588ed940516aa0c96fa4b8e6e3dda | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_jira_control_plane.py --repo-root . --strict --require-live
+jira_mirror_live | 0 | PASS | 2.013 | b5be140c3503f91abca29da42f12d942f29588ed940516aa0c96fa4b8e6e3dda | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_jira_mirror.py --repo-root . --strict --require-live
+w18_full_rebuild | 0 | PASS | 1.011 | 2dc384fa62c56fc2d01b1f40dc007d6424b14661d31d3ffefd27578a8904775d | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_w18_full_rebuild.py --repo-root .
+w19_foundation | 0 | PASS | 1.011 | 6bdfb3548572bee35dbfcad24025559632caaa04ba29c91053a18d2ef7393076 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_w19_foundation.py --repo-root .
+w20_starter | 0 | PASS | 1.011 | ff7cb023d77262353043d912fdaace6153f38c21161bcc7e8b421ba09745f9e5 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_w20_starter.py --repo-root .
+w21_mlops | 0 | PASS | 1.145 | 2891d192e7c949bd7bad6eaf20bc380618d1f222245cedc86d34c5b0421f6478 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_w21_mlops.py --repo-root .
+w22_product | 0 | PASS | 2.007 | d3f26df94092d1350e6d1e14b3d8ded5ad1bbd590dca7304a83c25592f7f3672 | 91a8e361c48f4a23ba8863d0550e420fcd4c631cd93cc7a9ec28b4ce6b6faeb5 | python -W error tools/validate_w22_product.py --repo-root .
+w23_release_gate | 2 | EXPECTED_RELEASE_BLOCKED | 1.010 | 3893437f4bc0cbee70f8e37ece560093592ca434c0b9b51169bd49f46dd36df1 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_w23_operations.py --repo-root .
+w23_implementation_gate | 0 | PASS_WITH_TARGET_BENCHMARK_PENDING | 1.011 | 3893437f4bc0cbee70f8e37ece560093592ca434c0b9b51169bd49f46dd36df1 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_w23_operations.py --repo-root . --allow-target-benchmark-pending
+w24_readiness | 0 | PASS | 1.011 | 4f34f1b9e088a741027b61f048609e613687c4db1c2c94840665990e07dd68e0 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_w24_readiness.py --repo-root .
+w25_final | 0 | PASS | 1.011 | 64f335d31aa347da1c0ebbe0b48e290c0bc7d05b122a00424b0447ee4df3c79c | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/validate_w25_final.py --repo-root .
+protected_w17_seal | 0 | PASS | 1.011 | 106dfe70c8a6fb991698dcb87c37382b6f631137959cd27b01b8bff81fb5257c | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | python -W error tools/verify_judging_seal.py --repo-root .
+unit_w23_operations_discovery | 0 | PASS_CORRECTION | duration not retained by failed summary-update wrapper | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 | d297fe479eb1ab3bf42b0138a25f8790a25bce23e39305e5d4716141978a038b | python -W error -m unittest discover -s tests -p test_w23_operations.py -v
+
+VALIDATION OUTCOME
+Inherited baseline: 229 tests.
+Current suite: 240 tests (229 inherited baseline plus 11 post-handoff regression tests).
+Full-suite result: 240 passed in 14.375 seconds; exit 0; warnings treated as errors.
+Focused W23 result: 8 passed in 0.401 seconds via discovery; exit 0.
+W25 final, acceptance, backlog, strict repository, live Jira, W18-W24, dependency, instruction, autonomous-control, tournament, and protected W17-seal validators: PASS.
+Wave-pair validator: NOT_APPLICABLE; the absent W25 hydration artifact remains historical negative evidence under the formally recorded prospective supersession. No hydration bytes or pair binding were reconstructed.
+Model-tournament-plan validator: NOT_APPLICABLE; this validation unit created no tournament plan.
+
+SCIENTIFIC/MODEL EVIDENCE
+Disposition: NOT_APPLICABLE_TO_VALIDATION_SUITE.
+Dataset: none.
+Matrix: none.
+Split/cutoff: none.
+Model/calibrator: none.
+Sample size and performance metrics: none claimed.
+Protected evaluation: sealed and not opened.
+A&M specialization lift, Aggie Excess, BAS effect, and production champion: not claimed.
+
+NEGATIVE RESULTS AND BLOCKERS
+1. INVALID_FOCUSED_TEST_INVOCATION: dotted-module invocation returned exit 1 because tests is not a Python package. Preserved; corrected with discovery against the same file and 8/8 passed.
+2. TARGET_AUTHORITY_HARNESS_FALSE_NEGATIVE: benchmark v1 reports target_match=false because its CPU source omits the word Ryzen. Preserved; authoritative flag not overridden.
+3. AC-038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED: W23 unqualified gate returned its documented code 2. THR-011/THR-012 remain TBD.
+4. W25_HYDRATION_PAIR_UNAVAILABLE: historical absence remains preserved and is not repaired or inferred.
+
+ACCEPTANCE MATRIX
+PASS | All 229 inherited baseline tests were included in the unedited current 240-test suite; all 240 passed under -W error.
+PASS | W25 final, acceptance, backlog, and strict repository validators ran from the clean detached worktree at the pinned base commit and passed.
+PASS | Every nonzero or contradictory result is recorded above; none was waived, hidden, or converted into target-threshold authority.
+
+FINAL DISPOSITION
+BAT-352 atomic scope: IMPLEMENTED_AND_VERIFIED.
+Release authority: BLOCKED_AC038_TARGET_BENCHMARK_HARNESS.
+Downstream POST-SUBTASK-003: may consume the JSON/log as preflight evidence but must retain AC-038/THR-011/THR-012 blockers and fail closed on missing hashes, stale Git identity, schema mismatch, or any non-PASS issue criterion.

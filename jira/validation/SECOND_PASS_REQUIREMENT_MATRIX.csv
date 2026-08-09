@@ -17,7 +17,7 @@ section,title,status,check_group,detail,evidence_files
 16,Test and evidence model,PASS,tests,Test classifications and issue/test bidirectional index exist.,index/TEST_TRACEABILITY.csv;validation/VALIDATION_REPORT.md
 17,End-to-end completion,PASS,e2e,Every post-wave record declares an issue/integration E2E requirement.,records/issues/;ai/AGGREGATE_GATE_PROTOCOL.md
 18,"Separate workflow, maturity, and evidence",PASS,state_separation,"Workflow, implementation maturity, evidence state, and execution mode are distinct fields.",SCHEMA.md;project/FIELD_SCHEMA.yaml
-19,Do not fabricate completion,PASS,no_fabrication,No post-wave record is falsely Done and no destination Jira key is prefilled.,index/ISSUE_INDEX.csv;import/POST_IMPORT_KEY_MAP_TEMPLATE.csv
+19,Do not fabricate completion,FAIL,no_fabrication,No post-wave record is falsely Done and no destination Jira key is prefilled.,index/ISSUE_INDEX.csv;import/POST_IMPORT_KEY_MAP_TEMPLATE.csv
 20,Source traceability,PASS,source_refs,All 2118 source references validate against canonical repository paths/hashes/anchors.,sources/SOURCE_ANCHOR_INDEX.csv;validation/SOURCE_REFERENCE_VALIDATION.csv
 21,Drift-safe line references,PASS,source_drift,"Source validator checks hash, line, excerpt, anchor hash and supports relocation-gated --repair.",tools/validate_source_refs.py;sources/issue_source_manifests/
 22,Shared source documents,PASS,source_refs,All 2118 source references validate against canonical repository paths/hashes/anchors.,sources/SOURCE_ANCHOR_INDEX.csv;validation/SOURCE_REFERENCE_VALIDATION.csv
@@ -28,7 +28,7 @@ section,title,status,check_group,detail,evidence_files
 27,AI-token-efficient design,PASS,ai_efficiency,"Compact startup, queues, one-record packets, and retrieval indexes support minimal context loading.",ai/CURRENT_CONTEXT.md;ai/AI_JIRA_USAGE.md;index/WORK_PACKET_INDEX.csv
 28,AI work packets,PASS,packets,Packet coverage is 229/229 post-wave records; modes prevent aggregate direct execution.,ai/work_packets/;index/WORK_PACKET_INDEX.csv
 29,Local/Jira field-level authority,PASS,sync,Local specification authority and Jira operational authority are separated with conflict handling.,SYNC_CONTRACT.md;ai/AI_SYNC_PROTOCOL.md
-30,Do not assume final Jira configuration,PASS,target_profile,Target configuration remains a template and destination identifiers are blank.,project/JIRA_TARGET_PROFILE.yaml;import/POST_IMPORT_KEY_MAP_TEMPLATE.csv
+30,Do not assume final Jira configuration,FAIL,target_profile,Target configuration remains a template and destination identifiers are blank.,project/JIRA_TARGET_PROFILE.yaml;import/POST_IMPORT_KEY_MAP_TEMPLATE.csv
 31,Human-readable and machine-readable views,PASS,derivatives,Every canonical JSON has a generated human-readable Markdown view.,records/issues/;issues/
 32,Local jira directory structure,PASS,structure,Required Jira subdirectories and major artifacts exist.,README.md;validation/JIRA_FILE_MANIFEST.csv
 33,Jira import strategy,PASS,import,Strict import dry-run passes for 463 issues and 1062 links.,validation/IMPORT_DRY_RUN_REPORT.md;validation/IMPORT_VALIDATION.csv
@@ -65,5 +65,5 @@ section,title,status,check_group,detail,evidence_files
 64,Final deliverable,PASS,packaging,Jira subtree file manifest exists for deterministic ZIP integrity validation.,validation/JIRA_FILE_MANIFEST.csv;validation/JIRA_FILE_HASHES.sha256
 65,Final generation report,PASS,generation,Generation report and baseline stage evidence exist; repository test/governance baseline passed.,GENERATION_REPORT.md;validation/BASELINE_REPOSITORY_VALIDATION.json
 66,Final quality standard,PASS,quality,"An agent can identify valid work, retrieve scoped context, execute atomically, validate, synchronize, and recompute readiness.",ai/CURRENT_CONTEXT.md;validation/VALIDATION_REPORT.md;validation/SECOND_PASS_AUDIT.md
-67,Absolute non-negotiables,PASS,nonnegotiables,"No Wave 26, fabricated completion/key, protected-edit overlap, blocked READY issue, or stale source reference remains.",validation/VALIDATION_REPORT.md;validation/SECOND_PASS_FINDINGS_AND_REMEDIATION.md
+67,Absolute non-negotiables,FAIL,nonnegotiables,"No Wave 26, fabricated completion/key, protected-edit overlap, blocked READY issue, or stale source reference remains.",validation/VALIDATION_REPORT.md;validation/SECOND_PASS_FINDINGS_AND_REMEDIATION.md
 68,Begin from complete read-only reconnaissance,FAIL,recon,Repository inventory contains 863 non-Jira files and the current repository matches all inventory hashes; baseline repository commands passed.,reconciliation/REPO_INVENTORY.csv;validation/NON_JIRA_SCOPE_DIFF.json;validation/BASELINE_REPOSITORY_VALIDATION.json

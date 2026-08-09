@@ -32,6 +32,7 @@ artifacts/data_lake/historical_expansion_population_profile.json
 artifacts/data_lake/immutability_and_correction_test.json
 artifacts/data_lake/national_lake_readiness.json
 artifacts/entities/population_schema_profile.json
+artifacts/entities/schema_readiness_gate.json
 artifacts/entities/schema_reconciliation.csv
 artifacts/implementation_preflight/credential_inventory.redacted.json
 artifacts/implementation_preflight/data_root_activation.json
@@ -74,6 +75,7 @@ artifacts/jira_evidence/POST-SUBTASK-032.json
 artifacts/jira_evidence/POST-SUBTASK-033.json
 artifacts/jira_evidence/POST-SUBTASK-034.json
 artifacts/jira_evidence/POST-SUBTASK-035.json
+artifacts/jira_evidence/POST-SUBTASK-036.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/operations/ci_pipeline_validation.json

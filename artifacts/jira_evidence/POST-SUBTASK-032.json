@@ -1,0 +1,246 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+      "observable_result": "All 990 immutable captures are individually linked to source contract, request/capture/content identity, parser/schema, season/domain/grain coverage, quality/PIT eligibility, and nonblocking source-policy metadata; all 2,550,148,419 external payload bytes were rehashed and source/domain/season counts reproduce.",
+      "verified_at_utc": "2026-08-09T22:36:57.760851Z",
+      "verifier": "external full-payload validator"
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "<external-validation>/BAT-382/national_data_lake_manifest_validation.json",
+      "observable_result": "The declared master manifest is canonical-hash addressed, pins five tracked prerequisites and three external immutable manifests, and passes a fresh baseline plus 10/10 unsafe mutations.",
+      "verified_at_utc": "2026-08-09T22:36:57.760851Z",
+      "verifier": "validate_national_data_lake_manifest.py"
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+      "observable_result": "The manifest explicitly remains an acquisition inventory rather than a deduplicated normalized population; historical pregame use fails closed and no historical-readiness, GAP-002, model, protected-performance, Texas A&M lift, BAS, or Aggie Excess claim is made.",
+      "verified_at_utc": "2026-08-09T22:36:57.760851Z",
+      "verifier": "external mutation validator"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-382/build_national_data_lake_manifest.py --repo-root . --data-root <external-data-root> --output artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+      "exit_code": 0,
+      "result": "PASS; 990 payloads and 2,550,148,419 bytes rehashed"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-382/validate_national_data_lake_manifest.py --repo-root . --data-root <external-data-root> --artifact artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json --report <external-validation>/BAT-382/national_data_lake_manifest_validation.json",
+      "exit_code": 0,
+      "result": "PASS baseline; 10/10 unsafe mutations rejected"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m unittest discover -s tests; python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "unittest 266 passed, 1 skipped; pytest 271 passed, 1 skipped, 33 subtests passed"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py; validate_second_pass.py; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS; 2,118 source references, 463 issues, 1,758 Jira files"
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py; validate_acceptance.py; validate_data_research.py",
+      "exit_code": 0,
+      "result": "All protected handoff, acceptance, and data-research gates PASS"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --strict",
+      "exit_code": 0,
+      "result": "PASS after final line-ending normalization, Jira/provenance rebuild, and no further tracked mutation"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "completion_claimed": false,
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "EMPIRICALLY_RECONCILED_AND_LOCALLY_VALIDATED_PENDING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "protected PR integration and live/local Jira completion synchronization"
+    ]
+  },
+  "consumer_contract": {
+    "documented_input": "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+    "downstream_issue": "POST-SUBTASK-033",
+    "manual_reconstruction_required": false,
+    "nonblocking_metadata": [
+      "licensing_ambiguity",
+      "redistribution_uncertainty",
+      "provider_preference",
+      "missing_upstream_authorization",
+      "terms_or_scraping_uncertainty"
+    ],
+    "reject_on": [
+      "missing",
+      "stale_hash",
+      "content_hash_mismatch",
+      "schema_incompatible",
+      "provenance_incomplete",
+      "corruption_or_fabrication",
+      "credential_or_private_personal_information",
+      "pit_or_target_leakage",
+      "domain_quality_ineligible"
+    ],
+    "state": "VALIDATED_PENDING_PROTECTED_INTEGRATION"
+  },
+  "created_at_utc": "2026-08-09T22:36:57.760851Z",
+  "downstream_reevaluation": {
+    "POST-STORY-011": "PENDING_POST_SUBTASK_033_GATE",
+    "POST-SUBTASK-033": "PENDING_PROTECTED_INTEGRATION_THEN_RECOMPUTE_READY_STATE"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 26188,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-027.json",
+      "sha256": "a64f0cc600fc3265f907d49d825c211c9b4112341123128b81e0c0f70c5b2ef3"
+    },
+    {
+      "bytes": 12933,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-030.json",
+      "sha256": "c6b6fba3d42cdb635c09aa0c27503401d88f76c9df09224234ac48da99747a8f"
+    },
+    {
+      "bytes": 9405,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-031.json",
+      "sha256": "cef2b4128d2c938ae9efac88dc72c4b085e10b3c3126dc2aae807a64e72910a2"
+    },
+    {
+      "bytes": 29394,
+      "path": "artifacts/data_lake/historical_expansion_acquisition_manifest.json",
+      "sha256": "8ff133cbb67fb873891b04c80164a8838edfdd20f532c19e8a5240a29a499bd1"
+    },
+    {
+      "bytes": 310733,
+      "path": "artifacts/data_lake/historical_expansion_population_profile.json",
+      "sha256": "9911886c77ddf046b848bb9ef5f83a277d2920669221d6497cb67c7c66c1e634"
+    },
+    {
+      "bytes": 1512110,
+      "path": "artifacts/data_lake/historical_expansion_eligibility_gate.json",
+      "sha256": "ac85cc43f0d8804f4a3279b1f6bfbbb2be2e6dd70099adc2bf89fc907ec4932b"
+    },
+    {
+      "bytes": 7882,
+      "path": "artifacts/data_lake/immutability_and_correction_test.json",
+      "sha256": "20eab17d001a293495d431d4044f42951a1156562cea3f3548fe20e8a197bf31"
+    }
+  ],
+  "jira_key": "BAT-382",
+  "live_jira": {
+    "checkpoint_comment_id": "13404",
+    "claim_comment_id": "13403",
+    "completion_comment_id": null,
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "EMPIRICALLY_VALIDATED",
+    "status": "In Progress",
+    "updated": "2026-08-09T17:35:12.201-0500"
+  },
+  "local_id": "POST-SUBTASK-032",
+  "local_jira_sync": {
+    "changed_issues": 1,
+    "conflict_count": 0,
+    "export_path": "<external-runtime>/BAT-382/BAT-382-live-row.csv",
+    "result": "PASS",
+    "strict_validation": "PASS"
+  },
+  "negative_findings_and_limits": [
+    "The snapshot index is an immutable acquisition inventory, not a deduplicated canonical game/player population.",
+    "No historical source family has complete row-level publication or event-known-at timestamps for pregame use.",
+    "SportsDataverse/cfbfastR and CFBD upstream evidence is not counted as independent corroboration.",
+    "Partial, empty, unavailable, and schema-uncertain domain evidence remains explicitly tiered by the prerequisite eligibility gate.",
+    "The bounded 2022-2025 tranche is preserved but is not the terminal historical lake or default protected-training population.",
+    "No final historical readiness, GAP-002 resolution, production feature/model, protected performance, Texas A&M lift, BAS, or Aggie Excess result is claimed."
+  ],
+  "observable_outcome": {
+    "cfbd_capture_count": 972,
+    "distinct_source_count": 2,
+    "external_payload_bytes_rehashed": 2550148419,
+    "manifest_bytes": 4014645,
+    "manifest_sha256": "5c80a38be430ef7451c76668d0f03e417be251747d57ad2e549ee528e318a4a5",
+    "negative_mutations_rejected": 10,
+    "population_reconciliation_checks_passed": 9,
+    "season_domain_eligibility_decisions_linked": 630,
+    "snapshot_count": 990,
+    "supplement_capture_count": 18
+  },
+  "outputs": [
+    {
+      "bytes": 4014645,
+      "canonical_payload_sha256": "4b2b59acfb3ce53e828cee3c37281109950551b72b1beee5d80b3384df455ab9",
+      "path": "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
+      "sha256": "5c80a38be430ef7451c76668d0f03e417be251747d57ad2e549ee528e318a4a5"
+    },
+    {
+      "bytes": 2434,
+      "path": "<external-validation>/BAT-382/national_data_lake_manifest_validation.json",
+      "sha256": "98caf6debe1079ad8bebe07f4600e901562b05608beb7cc8cf1e8bcc2d78ec7d"
+    }
+  ],
+  "pit_evidence": {
+    "capture_or_release_time_promoted_to_event_known_at": false,
+    "historical_pregame_features": "FAIL_CLOSED_PENDING_NORMALIZATION_ENTITY_RECONCILIATION_EVENT_KNOWN_AT_TARGET_EXCLUSION_AND_CHRONOLOGICAL_REPLAY",
+    "protected_split_or_evaluation_opened": false,
+    "target_game_outcomes": "REJECTED_TARGET_LEAKAGE"
+  },
+  "policy_and_security": {
+    "bulk_payloads_or_secrets_in_git_or_jira": false,
+    "genuinely_private_personal_information_allowed": false,
+    "private_research_acquisition_and_training_allowed": true,
+    "raw_third_party_publication_allowed": false,
+    "rights_licensing_terms_scraping_redistribution_or_upstream_authorization_uncertainty_blocks_private_use": false,
+    "rights_metadata_nonblocking": true
+  },
+  "population_semantics": {
+    "bounded_2022_2025_terminal_population": false,
+    "deduplicated_canonical_population_claimed": false,
+    "manifest_role": "IMMUTABLE_ACQUISITION_INVENTORY_AND_PROVENANCE_CONTROL",
+    "partial_domain_discards_other_seasons_or_domains": false
+  },
+  "producer": {
+    "base_commit": "3abe1943d8902d68b5e350bcc05e65784c49bade",
+    "branch": "codex/BAT-382-cross-domain-provenance",
+    "external_builder": "<external-runtime>/BAT-382/build_national_data_lake_manifest.py",
+    "external_validator": "<external-runtime>/BAT-382/validate_national_data_lake_manifest.py",
+    "python": "3.11.9"
+  },
+  "protected_integration": {
+    "head_sha": null,
+    "merge_sha": null,
+    "pull_request": null,
+    "repository_ci_run": null,
+    "security_analysis_run": null,
+    "state": "PENDING"
+  },
+  "schema_version": "1.0.0",
+  "scientific_validation": {
+    "calibrator": null,
+    "classification": "NOT_APPLICABLE_MANIFEST_RECONCILIATION_ONLY",
+    "dataset_or_matrix": null,
+    "metrics_or_uncertainty": null,
+    "model": null,
+    "null_or_negative_results_preserved": true,
+    "precommitment": "No empirical hypothesis, model, or protected evaluation is opened by manifest reconciliation.",
+    "protected_evaluation_status": "NOT_OPENED",
+    "sample_size": null,
+    "split": null
+  },
+  "updated_at_utc": "2026-08-09T22:36:57.760851Z",
+  "validation": {
+    "external_full_payload_validation": "PASS",
+    "full_test_suite": "PASS",
+    "negative_mutations_rejected": 10,
+    "repository_and_jira_validators": "PASS",
+    "result": "LOCAL_EMPIRICAL_RECONCILIATION_PASS_PENDING_PROTECTED_INTEGRATION",
+    "targeted_tests": "PASS"
+  }
+}

@@ -12,9 +12,9 @@
   "outputs": [
     {
       "path": "artifacts/implementation_preflight/local_path_contract.json",
-      "bytes": 8116,
-      "sha256": "64d67c00de2ca1c038f49125d9d209ab92997bbb4c71e2336390aa45219e937a",
-      "canonical_payload_sha256": "eb865b624ea32aee4b7a15b4049ffe461fe2c2bd9bc54767f4d58e10251f5d18",
+      "bytes": 8638,
+      "sha256": "8a4cd5e218d37e75a0ea03f790ff3ce86369e52b2c2e6fe40f5b632077006d58",
+      "canonical_payload_sha256": "60df8c28ea9b87a42ca391dab8e68f7a74aa0cda32b4b9d8a27b866e8069ac13",
       "schema_version": "1.0.0",
       "maturity": "IMPLEMENTED",
       "eligibility": "LOCAL_PATH_CONFIGURATION_AND_SAFETY_EVIDENCE"
@@ -55,7 +55,7 @@
       "disposition": "PASS",
       "observable_result": "Three of three provision probes found seven absolute, external, writable roots, and a new Python process resolved the identical seven path hashes from the configured environment.",
       "evidence_path": "artifacts/implementation_preflight/local_path_contract.json",
-      "evidence_sha256": "64d67c00de2ca1c038f49125d9d209ab92997bbb4c71e2336390aa45219e937a",
+      "evidence_sha256": "8a4cd5e218d37e75a0ea03f790ff3ce86369e52b2c2e6fe40f5b632077006d58",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T08:16:14Z"
     },
@@ -64,7 +64,7 @@
       "disposition": "PASS",
       "observable_result": "The seven required aliases resolve to seven distinct canonical path hashes; log and backup use separate runtime subdirectories.",
       "evidence_path": "artifacts/implementation_preflight/local_path_contract.json",
-      "evidence_sha256": "64d67c00de2ca1c038f49125d9d209ab92997bbb4c71e2336390aa45219e937a",
+      "evidence_sha256": "8a4cd5e218d37e75a0ea03f790ff3ce86369e52b2c2e6fe40f5b632077006d58",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T08:16:14Z"
     },
@@ -73,7 +73,7 @@
       "disposition": "PASS",
       "observable_result": "Both the focused unit test and observed negative probe rejected a repository-internal bulk-data root with UnsafeLocalRuntimePath before directory creation.",
       "evidence_path": "artifacts/implementation_preflight/local_path_contract.json",
-      "evidence_sha256": "64d67c00de2ca1c038f49125d9d209ab92997bbb4c71e2336390aa45219e937a",
+      "evidence_sha256": "8a4cd5e218d37e75a0ea03f790ff3ce86369e52b2c2e6fe40f5b632077006d58",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T08:16:14Z"
     }
@@ -144,6 +144,24 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "Candidate passed with 243 of 243 tests, 2,744 clean provenance rows, 7/7 writable external roots, verified contract/docs links, and no configured value emitted."
+    },
+    {
+      "command": "GitHub protected integration for PR #9",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All required protected contexts passed; head 199ea626ad4b17188033fdf12c92f128fda999a8 was squash-merged as 881371c13ee198e28bb72bdb0b597cbefa26aeda at 2026-08-09T08:26:30Z."
+    },
+    {
+      "command": "Live Jira BAT-354 completion protocol",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "A redacted rollback snapshot was captured externally; Logical Workflow State=DONE, Implementation Maturity=IMPLEMENTED, Evidence State=VERIFIED, physical status=Done, and completion comment 13291 were verified live."
+    },
+    {
+      "command": "Clean BAT-354 Done-sync candidate: strict repository, W25, protected seal, live Jira/import, full warning-strict suite, contract/evidence identities, and provenance",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Done-sync candidate passed with 243 of 243 tests, 2,744 provenance rows, verified contract/evidence linkage, and live Done/DONE/IMPLEMENTED/VERIFIED state."
     }
   ],
   "operations_and_benchmark_evidence": {
@@ -211,24 +229,28 @@
   },
   "integration": {
     "branch": "codex/BAT-354-external-data-root",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "merge_method": null,
-    "required_checks": "PENDING_PROTECTED_PR",
+    "pull_request": 9,
+    "head_sha": "199ea626ad4b17188033fdf12c92f128fda999a8",
+    "merge_sha": "881371c13ee198e28bb72bdb0b597cbefa26aeda",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T08:26:30Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
     "live_jira_claim_comment_id": "13290",
-    "live_jira_logical_state": "IN_PROGRESS",
-    "live_jira_status": "In Progress"
+    "live_jira_completion_comment_id": "13291",
+    "live_jira_logical_state": "DONE",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "IMPLEMENTED",
+    "live_jira_status": "Done",
+    "live_jira_updated_at": "2026-08-09T03:26:57.167-0500",
+    "rollback_snapshot_sha256": "aa622a369b25339e146bd85b6326560af3f2c65814d36544641f24a2b4077ae7"
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "evidence_state": "VERIFIED_LOCAL",
-    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": [
-      "PENDING_PROTECTED_PR_INTEGRATION"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
@@ -236,6 +258,6 @@
       "THR-011",
       "THR-012"
     ],
-    "completion_claim": "BAT-354's local path configuration is implemented and all three issue-specific criteria pass locally. Protected integration and final Jira synchronization remain pending; no source-rights, storage-durability, historical-data, target-threshold, or release claim is made."
+    "completion_claim": "BAT-354's local path configuration is protected-integrated, synchronized to live Jira, and all three issue-specific criteria pass. No source-rights, storage-durability, historical-data, target-threshold, or release claim is made."
   }
 }

@@ -16,7 +16,7 @@
     "artifacts/source_governance/source_access_readiness.csv",
     "artifacts/jira_evidence/POST-SUBTASK-021.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED: all 62 source rows have verified fail-closed readiness dispositions and zero are READY, but no named human reviewer, review date, provider/terms version, access-purpose, retention, model-training, publication, redistribution, deletion, unresolved-question, or explicit allow/block decision is recorded; successful technical smokes do not satisfy this gate.",
   "blocks": [
     "POST-STORY-008",
     "POST-STORY-009",
@@ -78,7 +78,7 @@
   "end_to_end_validation": "Exercise the complete Credential configuration and access smoke tests path and verify downstream consumption of pinned outputs. The gate decision must explicitly reevaluate downstream issues: POST-STORY-008, POST-STORY-009, POST-SUBTASK-022, POST-SUBTASK-023, POST-SUBTASK-024, POST-SUBTASK-025, POST-SUBTASK-026, POST-SUBTASK-027.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "INTEGRATED",
@@ -144,9 +144,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24511",
-    "jira_updated_at": "2026-08-09T00:03:26.154-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T08:45:31.982-0500",
+    "last_synced_at": "2026-08-09T13:45:55.191596+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-371\\BAT-371-live-row.csv",
     "sprint": "",
     "status_raw": "To Do"
   },
@@ -204,7 +204,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -316,7 +316,7 @@
     "POST-SUBTASK-024"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "A named human must record source-specific provider/terms version and date, access purpose, retention, model-training use, publication, redistribution, deletion, unresolved questions, and an explicit allow/block decision for each source; then regenerate and protect the readiness artifact, rerun credential/provider smokes where approved, and admit only rows whose rights, credential, provider, PIT, snapshot, provenance, and source-contract gates all pass.",
   "validation_classes": [
     "END_TO_END",
     "LEGAL_RIGHTS_REVIEW",
@@ -327,5 +327,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-007: Credential configuration and access smoke tests.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-021.md",
-  "workflow_state": "READY"
+  "workflow_state": "BLOCKED"
 }

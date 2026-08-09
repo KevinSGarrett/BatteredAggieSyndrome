@@ -60,6 +60,26 @@
       "bytes": 194,
       "path": "<external-runtime>/BAT-371/candidate-repository-strict.stdout.log",
       "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
+    },
+    {
+      "bytes": 172,
+      "path": "<external-runtime>/BAT-371/reconcile-dry-run.stdout.log",
+      "sha256": "31809af4ced592a40fe36f7d0ced8ca820dacc9ca455b7ebe50653ff8760dd98"
+    },
+    {
+      "bytes": 242,
+      "path": "<external-runtime>/BAT-371/reconcile-apply.stdout.log",
+      "sha256": "ede63cc31ec7205b8cbb15d53b8a430917f5f1198143d8c3de3b543f613e1f41"
+    },
+    {
+      "bytes": 114,
+      "path": "<external-runtime>/BAT-371/rebuild.stdout.log",
+      "sha256": "b404cd5e00684a6c1be33beb34bd906f97d0362eafab81e18cd354cf04c79d1c"
+    },
+    {
+      "bytes": 3096,
+      "path": "<external-runtime>/BAT-371/post-rebuild-jira-strict.stdout.log",
+      "sha256": "5c1ee213e0ce6e93ea693e215e8a6ea7d06af12074fe1fc0ed983fb26dafdf2c"
     }
   ],
   "commands": [
@@ -109,6 +129,33 @@
       "result": "PASS",
       "stdout_stderr": "<external-runtime>/BAT-371/candidate-repository-strict.stdout.log",
       "working_directory": "<external-validation-worktree>"
+    },
+    {
+      "command": "python -B jira/tools/reconcile_jira_export.py --dry-run --repo-root . <external-runtime>/BAT-371/BAT-371-live-row.csv",
+      "exit_code": 0,
+      "output_summary": "1 change; 0 conflicts",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-371/reconcile-dry-run.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/reconcile_jira_export.py --repo-root . <external-runtime>/BAT-371/BAT-371-live-row.csv",
+      "exit_code": 0,
+      "output_summary": "1 changed issue; 0 conflicts; strict validation passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-371/reconcile-apply.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/rebuild_all_derivatives.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-371/rebuild.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "output_summary": "463 issues; 130 blocked; 36 deferred; 0 ready; 0 errors",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-371/post-rebuild-jira-strict.stdout.log"
     }
   ],
   "completion": {
@@ -196,9 +243,9 @@
       "sha256": "7ea015d74c7e7020ccb964723e5c28dbb7ec66b3c9784f5332dd0c51cbc2ba97"
     },
     {
-      "bytes": 17167,
+      "bytes": 18025,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",
-      "sha256": "014c3e681410209b7f9c2e5ea94cfe537a0c437e5a0fa72ef6673dab1e0b1dfb"
+      "sha256": "1ce5c1c5595927876ab0139d02b463629435310180e47dcb35dbdff5b3af9794"
     },
     {
       "bytes": 17702,
@@ -208,18 +255,33 @@
   ],
   "jira_key": "BAT-371",
   "live_jira": {
+    "block_comment_id": "13330",
     "claim_comment_id": "13329",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
-    "maturity": "INTEGRATED",
+    "evidence_state": "PARTIAL",
+    "logical_state": "BLOCKED",
+    "maturity": "CONTRACT_DEFINED",
+    "post_block_state_sha256": "f8880f9ea9eb3bbe3dd99df19d3a2f65949eb52dbd06738e82e39145965e25d1",
     "post_claim_state_sha256": "f1b1514c8a94b74be2d10313020b4d0b2c02786e5425c9455b2bb5ce201f0ab8",
+    "pre_block_rollback_snapshot_sha256": "9cffea4b8d871f418c50e510b9d57f4a2a2cd7eecfbe07a52214f90c04ea8c99",
     "pre_claim_rollback_snapshot_sha256": "633d489fa469e798a82f7d7d5c032627d4ae12e4c8b4fa7477e7f7b66ff8b8b3",
-    "status": "In Progress",
-    "updated": "2026-08-09T08:37:24.526-0500"
+    "status": "To Do",
+    "updated": "2026-08-09T08:45:31.982-0500"
   },
   "local_issue_id": "POST-SUBTASK-021",
   "local_jira_sync": {
-    "state": "PENDING_PROTECTED_BLOCKED_STATE_SYNC"
+    "apply_changed_issues": 1,
+    "apply_conflicts": 0,
+    "dry_run_changes": 1,
+    "dry_run_conflicts": 0,
+    "rebuild_result": "PASS",
+    "source_export": "<external-runtime>/BAT-371/BAT-371-live-row.csv",
+    "source_export_sha256": "dffcc22196556261c42bd3eaa1f163a0f58fc968d234d419925932b4f1d164b2",
+    "state": "LOCAL_JIRA_BLOCKED_PARTIAL_SYNC_VERIFIED",
+    "strict_blocked_count": 130,
+    "strict_deferred_count": 36,
+    "strict_error_count": 0,
+    "strict_issue_count": 463,
+    "strict_ready_count": 0
   },
   "observable_outcome": "All 62 source rows have a concrete fail-closed readiness disposition and unblock condition: 49 BLOCKED_RIGHTS, 10 BLOCKED_CREDENTIAL, 2 BLOCKED_PROVIDER, 1 REJECTED, and 0 READY. The mandatory named human terms/rights record does not exist, so the atomic issue cannot complete and no downstream materialization is allowed.",
   "outputs": [
@@ -245,8 +307,15 @@
   "protected_integration": {
     "base_sha": "bd6189e268af18b72fd241e6a5c43d98aee91af1",
     "branch": "codex/BAT-371-source-readiness-blockers",
-    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_REQUIRED",
-    "state": "PENDING_PROTECTED_PARTIAL_DISPOSITION_INTEGRATION"
+    "head_sha": "6fa3fea0e35472aa59e4f67d27dc265832635e5b",
+    "merge_commit_repository_ci_run": 31316573280,
+    "merge_commit_security_analysis_run": 31316573276,
+    "merge_method": "SQUASH",
+    "merge_sha": "64f77e016d192868b800226df6db3df642214784",
+    "merged_at_utc": "2026-08-09T13:43:56Z",
+    "pull_request": 37,
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
+    "state": "PROTECTED_PARTIAL_DISPOSITION_MERGED_AND_LIVE_JIRA_BLOCKED"
   },
   "schema_version": "1.0.0",
   "security_and_rights": {
@@ -272,12 +341,12 @@
       "sha256": "ba3f79e62bf51a59afec8f03121c7531e9be9b9f599f30791653eb752b7c1efa"
     },
     {
-      "bytes": 14708,
+      "bytes": 16830,
       "path": "<external-runtime>/BAT-371/build_bat371_evidence.py",
-      "sha256": "7c1b651ae736dc9e54b09e55f093abb781e14dbb56bcde5bbf674c44c6fafadb"
+      "sha256": "843eb11c2f6feb8df4fc04fbce6de636a7e5b49f59e98b6302c9ddf39643dc9e"
     }
   ],
-  "updated_at_utc": "2026-08-09T13:42:05Z",
+  "updated_at_utc": "2026-08-09T13:46:56Z",
   "validation_matrix": [
     {
       "disposition": "PASS",

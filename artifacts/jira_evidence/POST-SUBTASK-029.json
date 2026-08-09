@@ -65,13 +65,11 @@
   ],
   "completion": {
     "achieved_maturity": "EMPIRICALLY_VALIDATED",
-    "completion_claimed": false,
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "PROFILE_VALIDATED_AWAITING_PROTECTED_INTEGRATION",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "PROTECTED_BRANCH_INTEGRATION_AND_FINAL_JIRA_SYNC"
-    ]
+    "remaining_issue_scope_blockers": []
   },
   "created_at_utc": "2026-08-09T21:38:47Z",
   "decision": {
@@ -79,6 +77,10 @@
     "final_domain_eligibility_decision_made": false,
     "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_EVENT_KNOWN_AT_POLICY_AND_CHRONOLOGICAL_REPLAY",
     "upstream_independent_corroboration_count": 0
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-030": "DEPENDENCY_SATISFIED_RECOMPUTE_READY_STATE",
+    "incremental_historical_source_expansion": "CONTINUES_WITHOUT_BLOCKING_TIERED_DOMAIN_ELIGIBILITY"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
   "input_identities": [
@@ -102,15 +104,16 @@
   "live_jira": {
     "claim_comment_id": "13394",
     "checkpoint_comment_id": "13395",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13396",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
     "maturity": "EMPIRICALLY_VALIDATED",
-    "status": "In Progress",
-    "updated": "2026-08-09T16:37:03.819-0500"
+    "status": "Done",
+    "updated": "2026-08-09T16:44:41.563-0500"
   },
   "local_id": "POST-SUBTASK-029",
   "local_jira_sync": {
-    "changed_issues": 1,
+    "changed_issues": 2,
     "conflict_count": 0,
     "export_path": "<external-runtime>/BAT-379/BAT-379-live-row.csv",
     "result": "PASS",
@@ -178,7 +181,16 @@
     "python_dependency": "pyarrow"
   },
   "protected_integration": {
-    "state": "PENDING"
+    "branch": "codex/BAT-379-context-population-profile",
+    "head_sha": "bf88cdf9120bfc1c0ce404157513d0e4bff47632",
+    "merge_method": "SQUASH",
+    "merge_sha": "45bddda289d90532c5728108640322940f130cd5",
+    "merged_at_utc": "2026-08-09T21:42:03Z",
+    "pull_request": 75,
+    "repository_ci_run": 31337511024,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED",
+    "security_analysis_run": 31337511043,
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "validation": {
@@ -187,7 +199,7 @@
       "negative_tests_passed": 8,
       "sha256": "109fa1a3f6fbf56a72fb8b77bb9590a99082b36d8a8186eaba4395533ca3c6e9"
     },
-    "result": "LOCAL_PASS_PENDING_PROTECTED_INTEGRATION",
+    "result": "PROTECTED_INTEGRATION_PASS",
     "unsafe_mutations_rejected": [
       "double_counted_upstream_feeds",
       "superseded_rights_gate",
@@ -199,6 +211,7 @@
       "missing_season_domain_timestamp_quality"
     ]
   },
+  "updated_at_utc": "2026-08-09T21:44:43Z",
   "validation_matrix": [
     {
       "classification": "REGRESSION",

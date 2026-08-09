@@ -1,0 +1,319 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Normalized games, scores, drives, plays, and box totals reconcile to canonical identities and official outcomes; every rejected/partial record is quarantined with reason.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/data_lake/core_normalization_report.json",
+      "evidence_sha256": "0e64926212a1060f5c83939459533d931be3a2f8a0f0c203ec3ea4f9a8c8423e",
+      "observable_result": "3,659 completed games have unique canonical IDs and complete drive, play, team-box, and player-box coverage. Official outcomes match the terminal drive/play scores for 3,595 games; the 64 mismatches in each event view and all score-overrun/orphan/partial findings are retained under seven explicit quarantine reasons. Team box points reconcile to official outcomes and the validator confirms all canonical cross-references."
+    },
+    {
+      "criterion": "The declared output artifacts/data_lake/core_normalization_report.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "evidence_path": "<external-runtime>/BAT-376/core-normalization-validation.safe.json",
+      "evidence_sha256": "b04f02ecaa3490229d1c3189d822c9b5ebe5e5fe269adeacf1576ff56b7a353d",
+      "observable_result": "The report has canonical payload SHA-256 f7703d3710d4ed0d8351e2699a6c1529edc73dcb7e4d4d258c1b26715e760209, pins its acquisition/prerequisite and producer identities, and records a full external validation pass over every normalized and quarantine row."
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/data_lake/core_normalization_report.json",
+      "evidence_sha256": "0e64926212a1060f5c83939459533d931be3a2f8a0f0c203ec3ea4f9a8c8423e",
+      "observable_result": "The report preserves source anomalies and FCS/partial identity spillover as negative findings, explicitly declines population approval and historical pregame eligibility, and makes no feature, model, protected-metric, A&M-lift, BAS, or Aggie Excess claim."
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-376/normalize_core_history.py",
+      "exit_code": 0,
+      "result": {
+        "completed_games": 3659,
+        "normalized_rows": 2555913,
+        "quarantine_rows": 9035
+      },
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output and deterministic report reconciliation"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-376/validate_core_normalization.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "<external-runtime>/BAT-376/core-normalization-validation.safe.json"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q --junitxml=<external-runtime>/BAT-376/test-w19-foundation.junit.xml",
+      "exit_code": 0,
+      "result": "3 passed",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output plus JUnit XML"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "262 passed, 1 skipped, 33 subtests passed in 5.23s",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output"
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py --repo-root . && python -B tools/validate_dependency_policy.py --repo-root .",
+      "exit_code": 0,
+      "result": "W25 final PASS; dependency policy PASS (2 direct product pins, 14 hash-locked entries)",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
+  },
+  "created_at_utc": "2026-08-09T17:31:22Z",
+  "downstream_reevaluation": {
+    "consumers": [
+      "POST-SUBTASK-027"
+    ],
+    "decision": "REEVALUATE_AFTER_PROTECTED_INTEGRATION"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 581067,
+      "path": "artifacts/data_lake/core_acquisition_manifest.json",
+      "sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c"
+    },
+    {
+      "bytes": 16582,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-006.json",
+      "sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a"
+    },
+    {
+      "bytes": 12079,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
+      "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
+    },
+    {
+      "bytes": 13130,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+      "sha256": "614ae316b167d323ef96f3dc8a523e66e0f5ac0b00ea06fc7617bd2f0e32b6a0"
+    },
+    {
+      "bytes": 6379,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-022.json",
+      "sha256": "b02acd5e6f1bc1a5b4add7535366a8ee2d69aea09c19284522773af3f41ec1f8"
+    },
+    {
+      "bytes": 18868,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-025.json",
+      "sha256": "4669f4cf4a475e949146ba020c07f860b9d7640377e8deb43310f582d5b2316e"
+    },
+    {
+      "bytes": 93881,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2"
+    },
+    {
+      "bytes": 23912,
+      "path": "configs/source_acquisition_registry.json",
+      "sha256": "7d4ab29035a0b269d84819c4468d3bf5ad4179d592103d5b4f87ddf3745461b8"
+    },
+    {
+      "bytes": 16669,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-026_normalize_and_reconcile_core_game_event_records_while_preserving_immutable_sourc.json",
+      "sha256": "e3955f7c1cd54bf18b72cf1ba1e539b7f8147884f6977ef5880d5cbdb1cd349d"
+    }
+  ],
+  "jira_key": "BAT-376",
+  "live_jira": {
+    "claim_comment_id": "13347",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "EMPIRICALLY_VALIDATED",
+    "post_claim_state": {
+      "bytes": 295,
+      "path": "<external-runtime>/BAT-376/post-claim-jira-state.json",
+      "sha256": "4dda1e4c90e73818e4971023193fa1d3c43c97a86e2ce9da1ce63720eaa8e2d2"
+    },
+    "status": "In Progress"
+  },
+  "local_issue_id": "POST-SUBTASK-026",
+  "normalization_reconciliation": {
+    "exact_duplicate_rows_deduplicated": {},
+    "games_with_drive_final_score_match": 3595,
+    "games_with_drive_records": 3659,
+    "games_with_play_final_score_match": 3595,
+    "games_with_play_records": 3659,
+    "games_with_player_box": 3659,
+    "games_with_team_box": 3659,
+    "normalized_rows": {
+      "advanced_game_stats": 7310,
+      "drives": 86891,
+      "games": 3659,
+      "player_box_scores": 1805837,
+      "plays": 644898,
+      "team_box_scores": 7318
+    },
+    "official_completed_games_normalized": 3659,
+    "quarantine_by_reason": {
+      "ADVANCED_STATS_ORPHAN_IDENTITY_OR_PARTIAL": 5120,
+      "DRIVE_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 420,
+      "GAME_DRIVE_FINAL_SCORE_MISMATCH": 64,
+      "GAME_OUTCOME_PARTIAL_OR_NOT_COMPLETED": 1,
+      "GAME_PLAY_FINAL_SCORE_MISMATCH": 64,
+      "PLAY_ORPHAN_OR_CROSS_GAME_DRIVE": 3120,
+      "PLAY_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 246
+    },
+    "quarantined_records_or_findings": 9035,
+    "source_rows_observed": {
+      "advanced_game_stats": 12430,
+      "drives": 87311,
+      "games": 3660,
+      "player_box_games": 3659,
+      "plays": 648264,
+      "team_box_games": 3659
+    }
+  },
+  "observable_outcome": "A bounded real 2022-2025 FBS core history is normalized into canonical game, team, venue, drive, play, and player identities. The run produced 2,555,913 normalized rows across 3,659 completed games; every completed game has drives, plays, two team boxes, and player-box coverage. It retained 9,035 rejected or partial records/findings in seven content-addressed quarantine datasets with source pointers and explicit reasons rather than imputing or silently dropping them.",
+  "outputs": [
+    {
+      "bytes": 13734,
+      "canonical_payload_sha256": "f7703d3710d4ed0d8351e2699a6c1529edc73dcb7e4d4d258c1b26715e760209",
+      "completed_games": 3659,
+      "eligibility": "BOUNDED_REAL_NORMALIZATION_READY_FOR_POST_SUBTASK_027; NOT_POPULATION_APPROVED",
+      "normalized_rows": 2555913,
+      "path": "artifacts/data_lake/core_normalization_report.json",
+      "quarantined_records_or_findings": 9035,
+      "seasons": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "sha256": "0e64926212a1060f5c83939459533d931be3a2f8a0f0c203ec3ea4f9a8c8423e",
+      "source_id": "SRC-002"
+    }
+  ],
+  "pit_and_leakage": {
+    "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_TEMPORAL_NORMALIZATION_AND_POSTGAME_COMPLETION_POLICY",
+    "negative_consumer_mutations_rejected": 10,
+    "target_game_outcome_exclusion": "ALWAYS"
+  },
+  "protected_integration": {
+    "branch": "codex/BAT-376-core-normalization",
+    "merge_method": "SQUASH_REQUIRED",
+    "state": "PENDING_PROTECTED_PULL_REQUEST"
+  },
+  "quarantine": {
+    "by_reason": {
+      "ADVANCED_STATS_ORPHAN_IDENTITY_OR_PARTIAL": 5120,
+      "DRIVE_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 420,
+      "GAME_DRIVE_FINAL_SCORE_MISMATCH": 64,
+      "GAME_OUTCOME_PARTIAL_OR_NOT_COMPLETED": 1,
+      "GAME_PLAY_FINAL_SCORE_MISMATCH": 64,
+      "PLAY_ORPHAN_OR_CROSS_GAME_DRIVE": 3120,
+      "PLAY_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 246
+    },
+    "raw_payloads_duplicated": false,
+    "source_resolution": "request_id + capture_id + immutable_path + raw_row_number",
+    "total_rows": 9035
+  },
+  "schema_version": "1.0.0",
+  "scientific_and_model_evidence": {
+    "calibrator_identity": null,
+    "dataset_identity": "f7703d3710d4ed0d8351e2699a6c1529edc73dcb7e4d4d258c1b26715e760209",
+    "matrix_identity": null,
+    "metrics": null,
+    "model_identity": null,
+    "null_or_negative_results": [
+      "Coverage gaps and score reconciliation mismatches are quarantined rather than imputed or silently dropped.",
+      "Name matching is limited to the participants of an already source-ID-bound game and never creates a separate durable identity.",
+      "This bounded tranche is not population coverage approval and does not establish historical pregame eligibility by itself.",
+      "No feature/model/protected metric, A&M specialization lift, or BAS/Aggie Excess effect is evaluated or claimed."
+    ],
+    "protected_evaluation_status": "NOT_OPENED_OR_EVALUATED",
+    "sample_size": {
+      "completed_games": 3659,
+      "normalized_rows_across_mixed_grains": 2555913,
+      "quarantine_rows": 9035,
+      "seasons": 4
+    },
+    "split_identity": null
+  },
+  "security_and_rights": {
+    "configured_secret_value_matches": 0,
+    "credential_or_authorization_values_recorded": false,
+    "normalized_or_quarantine_payloads_in_git_or_jira": false,
+    "source_contract": "APPROVED_CFBD_PERSONAL_NONCOMMERCIAL_LOCAL_NORMALIZATION"
+  },
+  "validation": {
+    "report": {
+      "bytes": 3027,
+      "path": "<external-runtime>/BAT-376/core-normalization-validation.safe.json",
+      "sha256": "b04f02ecaa3490229d1c3189d822c9b5ebe5e5fe269adeacf1576ff56b7a353d"
+    },
+    "result": "PASS"
+  },
+  "validation_matrix": [
+    {
+      "classification": "REGRESSION",
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q --junitxml=<external-runtime>/BAT-376/test-w19-foundation.junit.xml",
+      "disposition": "PASS",
+      "evidence": {
+        "bytes": 607,
+        "path": "<external-runtime>/BAT-376/test-w19-foundation.junit.xml",
+        "sha256": "dc3d188bb22c0b729e21fb3a0682fbe71ae8e80a7d9885ba5e03e2c235c132ad"
+      },
+      "result": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 3
+      }
+    },
+    {
+      "classification": "FULL_REGRESSION",
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "disposition": "PASS",
+      "result": {
+        "duration_seconds": 5.23,
+        "passed": 262,
+        "skipped": 1,
+        "subtests_passed": 33
+      },
+      "stdout_location": "Codex tool-call output"
+    },
+    {
+      "classification": "STATIC",
+      "disposition": "PASS",
+      "evidence": {
+        "bytes": 3027,
+        "path": "<external-runtime>/BAT-376/core-normalization-validation.safe.json",
+        "sha256": "b04f02ecaa3490229d1c3189d822c9b5ebe5e5fe269adeacf1576ff56b7a353d"
+      },
+      "observable_result": "The validator streamed 2555913 normalized rows and 9035 quarantine pointers, rehashed 2286727859 bytes, and found no configured secret value in the tracked report."
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_NORMALIZATION_BOUNDARY",
+      "observable_result": "Target-game outcomes remain ALWAYS_EXCLUDED and historical pregame eligibility fails closed until a downstream chronological consumer validates its own known-at boundary."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE_NORMALIZATION_ONLY",
+      "observable_result": "No feature/model hypothesis, split, metric, calibrator, protected score, A&M lift, or BAS effect belongs to this normalization unit; no such result is invented."
+    },
+    {
+      "classification": "INTEGRATION",
+      "disposition": "PASS",
+      "observable_result": "The POST-SUBTASK-027 consumer contract was exercised with 10 unsafe semantic mutations; all 10 were rejected."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "observable_result": "The run pins acquisition, prerequisite, source, producer, canonical dataset, quarantine, row-count, byte-count, and SHA-256 identities while keeping the 2.28 GB normalized corpus outside Git."
+    }
+  ]
+}

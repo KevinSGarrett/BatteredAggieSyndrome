@@ -1,0 +1,350 @@
+{
+  "acquisition_identity": {
+    "canonical_payload_sha256": "37e88a670fee745ef49ee096518fa25347ce418fc43dda3978f91ebadf61f84a",
+    "manifest_sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c",
+    "raw_response_bytes": 610732880,
+    "raw_rows": 823715,
+    "request_count": 223
+  },
+  "artifact_type": "CORE_NORMALIZATION_REPORT",
+  "canonical_identity_contract": {
+    "drive": "drive_cfbd_<source_drive_id>",
+    "game": "game_cfbd_<source_game_id>",
+    "name_usage": "LABEL_AND_WITHIN_GAME_PARTICIPANT_RECONCILIATION_ONLY; NEVER_DURABLE_ID",
+    "play": "play_cfbd_<source_play_id>",
+    "player": "player_cfbd_<source_player_id>",
+    "source_key_scope": "SRC-002 + entity_type + source_entity_key",
+    "team": "team_cfbd_<source_team_id>",
+    "venue": "venue_cfbd_<source_venue_id>"
+  },
+  "completion": {
+    "disposition": "PASS",
+    "remaining_blockers": []
+  },
+  "consumer_handoff": {
+    "consumer": "POST-SUBTASK-027",
+    "reject_on": [
+      "missing_or_stale_report",
+      "hash_or_path_mismatch",
+      "unresolved_record_without_quarantine",
+      "canonical_id_collision",
+      "orphan_cross_reference",
+      "rights_or_provenance_gap",
+      "unsafe_coverage_promotion",
+      "target_game_or_pit_guard_missing"
+    ],
+    "required_checks": [
+      "schema_supported",
+      "report_content_hash_valid",
+      "all_dataset_and_quarantine_hashes_match",
+      "source_and_prerequisite_hashes_match",
+      "canonical_ids_unique",
+      "cross_references_valid",
+      "quarantine_reasons_complete",
+      "target_game_and_pit_fail_closed"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "SHA-256",
+    "canonical_payload_sha256": "f7703d3710d4ed0d8351e2699a6c1529edc73dcb7e4d4d258c1b26715e760209",
+    "excludes": [
+      "content_hash"
+    ]
+  },
+  "created_at_utc": "2026-08-09T17:23:51Z",
+  "datasets": [
+    {
+      "bytes": 3907705,
+      "content_addressed": true,
+      "dataset": "games",
+      "format": "JSONL",
+      "immutable_path": "canonical/SRC-002/core/games/sha256_1d8b52e0ed409b9d7648d2a8fa89cf1bb0be1e037d5aea92642cf555378ae06a.jsonl",
+      "rows": 3659,
+      "sha256": "1d8b52e0ed409b9d7648d2a8fa89cf1bb0be1e037d5aea92642cf555378ae06a"
+    },
+    {
+      "bytes": 84056754,
+      "content_addressed": true,
+      "dataset": "drives",
+      "format": "JSONL",
+      "immutable_path": "canonical/SRC-002/core/drives/sha256_336f0e27fdece4687b0b5e0f45cde2e77b609fb6930122045932c273e8df501e.jsonl",
+      "rows": 86891,
+      "sha256": "336f0e27fdece4687b0b5e0f45cde2e77b609fb6930122045932c273e8df501e"
+    },
+    {
+      "bytes": 704947317,
+      "content_addressed": true,
+      "dataset": "plays",
+      "format": "JSONL",
+      "immutable_path": "canonical/SRC-002/core/plays/sha256_b8f6d0430b709250c88706f4066fabd5f39dd48e335a1cd77a78fa56888d164f.jsonl",
+      "rows": 644898,
+      "sha256": "b8f6d0430b709250c88706f4066fabd5f39dd48e335a1cd77a78fa56888d164f"
+    },
+    {
+      "bytes": 9530926,
+      "content_addressed": true,
+      "dataset": "team_box_scores",
+      "format": "JSONL",
+      "immutable_path": "canonical/SRC-002/core/team_box_scores/sha256_9dbf014f79f1f69104468cc204fedb843afe57f913bfcd9738b4213248e824ee.jsonl",
+      "rows": 7318,
+      "sha256": "9dbf014f79f1f69104468cc204fedb843afe57f913bfcd9738b4213248e824ee"
+    },
+    {
+      "bytes": 1459863316,
+      "content_addressed": true,
+      "dataset": "player_box_scores",
+      "format": "JSONL",
+      "immutable_path": "canonical/SRC-002/core/player_box_scores/sha256_505d67e08bfefd8271d3de9cc3ddf4e38d9d666c8c1190cbef8b01c8c96a882f.jsonl",
+      "rows": 1805837,
+      "sha256": "505d67e08bfefd8271d3de9cc3ddf4e38d9d666c8c1190cbef8b01c8c96a882f"
+    },
+    {
+      "bytes": 17772953,
+      "content_addressed": true,
+      "dataset": "advanced_game_stats",
+      "format": "JSONL",
+      "immutable_path": "canonical/SRC-002/core/advanced_game_stats/sha256_dbef2e5305d941dc96978cd6141e89b31c3be75fe5de4578a6bd1b980efde14e.jsonl",
+      "rows": 7310,
+      "sha256": "dbef2e5305d941dc96978cd6141e89b31c3be75fe5de4578a6bd1b980efde14e"
+    }
+  ],
+  "issue": {
+    "evidence_state": "PENDING_PROTECTED_INTEGRATION",
+    "jira_key": "BAT-376",
+    "local_id": "POST-SUBTASK-026",
+    "maturity": "EMPIRICALLY_VALIDATED"
+  },
+  "negative_findings": [
+    "Coverage gaps and score reconciliation mismatches are quarantined rather than imputed or silently dropped.",
+    "Name matching is limited to the participants of an already source-ID-bound game and never creates a separate durable identity.",
+    "This bounded tranche is not population coverage approval and does not establish historical pregame eligibility by itself.",
+    "No feature/model/protected metric, A&M specialization lift, or BAS/Aggie Excess effect is evaluated or claimed."
+  ],
+  "pit_and_leakage": {
+    "capture_known_at_retained": true,
+    "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_TEMPORAL_NORMALIZATION_AND_POSTGAME_COMPLETION_POLICY",
+    "serving_eligibility": "NOT_A_FORECAST_OR_FEATURE_SERVING_ARTIFACT",
+    "target_game_outcomes": "ALWAYS_EXCLUDED"
+  },
+  "prerequisite_identities": [
+    {
+      "bytes": 581067,
+      "path": "artifacts/data_lake/core_acquisition_manifest.json",
+      "sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c"
+    },
+    {
+      "bytes": 16582,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-006.json",
+      "sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a"
+    },
+    {
+      "bytes": 12079,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
+      "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
+    },
+    {
+      "bytes": 13130,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+      "sha256": "614ae316b167d323ef96f3dc8a523e66e0f5ac0b00ea06fc7617bd2f0e32b6a0"
+    },
+    {
+      "bytes": 6379,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-022.json",
+      "sha256": "b02acd5e6f1bc1a5b4add7535366a8ee2d69aea09c19284522773af3f41ec1f8"
+    },
+    {
+      "bytes": 18868,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-025.json",
+      "sha256": "4669f4cf4a475e949146ba020c07f860b9d7640377e8deb43310f582d5b2316e"
+    },
+    {
+      "bytes": 93881,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2"
+    },
+    {
+      "bytes": 23912,
+      "path": "configs/source_acquisition_registry.json",
+      "sha256": "7d4ab29035a0b269d84819c4468d3bf5ad4179d592103d5b4f87ddf3745461b8"
+    }
+  ],
+  "producer": {
+    "command": "python -B AGGIE_ANALYTICS_DATA_ROOT/runtime/BAT-376/normalize_core_history.py",
+    "python": "3.11.9",
+    "run_id": "bat376-core-normalization-2022-2025-v1",
+    "script_path": "AGGIE_ANALYTICS_DATA_ROOT/runtime/BAT-376/normalize_core_history.py",
+    "script_sha256": "df41f31f29d7087c64da4c615425cc562d8f8f58c6f0c52c2c419af3c9546beb"
+  },
+  "quarantine": {
+    "by_reason": {
+      "ADVANCED_STATS_ORPHAN_IDENTITY_OR_PARTIAL": 5120,
+      "DRIVE_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 420,
+      "GAME_DRIVE_FINAL_SCORE_MISMATCH": 64,
+      "GAME_OUTCOME_PARTIAL_OR_NOT_COMPLETED": 1,
+      "GAME_PLAY_FINAL_SCORE_MISMATCH": 64,
+      "PLAY_ORPHAN_OR_CROSS_GAME_DRIVE": 3120,
+      "PLAY_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 246
+    },
+    "datasets": [
+      {
+        "bytes": 3737148,
+        "format": "JSONL",
+        "immutable_path": "quarantine/SRC-002/core_normalization/advanced_stats_orphan_identity_or_partial/sha256_7dffc6912996d528dc2da37dea873abb679101d4f08b2834e134a2cdb1fd0784.jsonl",
+        "raw_payload_duplicated": false,
+        "reason": "ADVANCED_STATS_ORPHAN_IDENTITY_OR_PARTIAL",
+        "rows": 5120,
+        "sha256": "7dffc6912996d528dc2da37dea873abb679101d4f08b2834e134a2cdb1fd0784"
+      },
+      {
+        "bytes": 335567,
+        "format": "JSONL",
+        "immutable_path": "quarantine/SRC-002/core_normalization/drive_score_exceeds_official_outcome/sha256_247b474ef2775825e16733a05cdae740f46f043e344537001333ed49cfbe2ded.jsonl",
+        "raw_payload_duplicated": false,
+        "reason": "DRIVE_SCORE_EXCEEDS_OFFICIAL_OUTCOME",
+        "rows": 420,
+        "sha256": "247b474ef2775825e16733a05cdae740f46f043e344537001333ed49cfbe2ded"
+      },
+      {
+        "bytes": 20717,
+        "format": "JSONL",
+        "immutable_path": "quarantine/SRC-002/core_normalization/game_drive_final_score_mismatch/sha256_ff54fe1f7b70fe2cf99b29ae8f8c73fffe47409a9c0f834c7bdf66117112eea0.jsonl",
+        "raw_payload_duplicated": false,
+        "reason": "GAME_DRIVE_FINAL_SCORE_MISMATCH",
+        "rows": 64,
+        "sha256": "ff54fe1f7b70fe2cf99b29ae8f8c73fffe47409a9c0f834c7bdf66117112eea0"
+      },
+      {
+        "bytes": 772,
+        "format": "JSONL",
+        "immutable_path": "quarantine/SRC-002/core_normalization/game_outcome_partial_or_not_completed/sha256_3a6b22bd9d9f4cd9fd42291d60df4dfacc2e0bb7124a936110511cb50b5f7bad.jsonl",
+        "raw_payload_duplicated": false,
+        "reason": "GAME_OUTCOME_PARTIAL_OR_NOT_COMPLETED",
+        "rows": 1,
+        "sha256": "3a6b22bd9d9f4cd9fd42291d60df4dfacc2e0bb7124a936110511cb50b5f7bad"
+      },
+      {
+        "bytes": 20589,
+        "format": "JSONL",
+        "immutable_path": "quarantine/SRC-002/core_normalization/game_play_final_score_mismatch/sha256_eebc508ce84f4b04f80254fae50e72c7ba1341e189963d28badb992e41710685.jsonl",
+        "raw_payload_duplicated": false,
+        "reason": "GAME_PLAY_FINAL_SCORE_MISMATCH",
+        "rows": 64,
+        "sha256": "eebc508ce84f4b04f80254fae50e72c7ba1341e189963d28badb992e41710685"
+      },
+      {
+        "bytes": 2337290,
+        "format": "JSONL",
+        "immutable_path": "quarantine/SRC-002/core_normalization/play_orphan_or_cross_game_drive/sha256_05f24d26b19d41d95521d097b0f6371140e8830156bea8f25cb80e35c4f15fc8.jsonl",
+        "raw_payload_duplicated": false,
+        "reason": "PLAY_ORPHAN_OR_CROSS_GAME_DRIVE",
+        "rows": 3120,
+        "sha256": "05f24d26b19d41d95521d097b0f6371140e8830156bea8f25cb80e35c4f15fc8"
+      },
+      {
+        "bytes": 196805,
+        "format": "JSONL",
+        "immutable_path": "quarantine/SRC-002/core_normalization/play_score_exceeds_official_outcome/sha256_27e1e55fb04e7370d4779780c3a552d88d66c9e8acae1ef88029319be081a253.jsonl",
+        "raw_payload_duplicated": false,
+        "reason": "PLAY_SCORE_EXCEEDS_OFFICIAL_OUTCOME",
+        "rows": 246,
+        "sha256": "27e1e55fb04e7370d4779780c3a552d88d66c9e8acae1ef88029319be081a253"
+      }
+    ],
+    "raw_payloads_duplicated": false,
+    "raw_source_resolution": "request_id + capture_id + immutable_path + raw_row_number",
+    "reason_count": 7,
+    "total_rows": 9035
+  },
+  "reconciliation": {
+    "exact_duplicate_rows_deduplicated": {},
+    "games_with_drive_final_score_match": 3595,
+    "games_with_drive_records": 3659,
+    "games_with_play_final_score_match": 3595,
+    "games_with_play_records": 3659,
+    "games_with_player_box": 3659,
+    "games_with_team_box": 3659,
+    "normalized_rows": {
+      "advanced_game_stats": 7310,
+      "drives": 86891,
+      "games": 3659,
+      "player_box_scores": 1805837,
+      "plays": 644898,
+      "team_box_scores": 7318
+    },
+    "official_completed_games_normalized": 3659,
+    "quarantine_by_reason": {
+      "ADVANCED_STATS_ORPHAN_IDENTITY_OR_PARTIAL": 5120,
+      "DRIVE_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 420,
+      "GAME_DRIVE_FINAL_SCORE_MISMATCH": 64,
+      "GAME_OUTCOME_PARTIAL_OR_NOT_COMPLETED": 1,
+      "GAME_PLAY_FINAL_SCORE_MISMATCH": 64,
+      "PLAY_ORPHAN_OR_CROSS_GAME_DRIVE": 3120,
+      "PLAY_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 246
+    },
+    "quarantined_records_or_findings": 9035,
+    "source_rows_observed": {
+      "advanced_game_stats": 12430,
+      "drives": 87311,
+      "games": 3660,
+      "player_box_games": 3659,
+      "plays": 648264,
+      "team_box_games": 3659
+    }
+  },
+  "schema_version": "1.0.0",
+  "scope": {
+    "classification": "BOUNDED_REAL_MULTI_SEASON_NATIONAL_FBS_SLICE",
+    "normalization_scope": [
+      "games",
+      "scores",
+      "drives",
+      "plays",
+      "team_box_scores",
+      "player_box_scores",
+      "advanced_game_stats"
+    ],
+    "population_coverage_approval": "NOT_CLAIMED; POST-SUBTASK-027_OWNS_COVERAGE_GATE",
+    "seasons": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "source_id": "SRC-002"
+  },
+  "storage": {
+    "absolute_root_disclosed": false,
+    "content_addressed": true,
+    "normalized_payloads_in_git": false,
+    "quarantine_payloads_in_git": false,
+    "root_environment_variable": "AGGIE_ANALYTICS_DATA_ROOT"
+  },
+  "validation": {
+    "bytes_rehashed": 2286727859,
+    "configured_secret_value_matches": 0,
+    "consumer_unsafe_mutations_rejected": 10,
+    "dataset_rows_scanned": {
+      "advanced_game_stats": 7310,
+      "drives": 86891,
+      "games": 3659,
+      "player_box_scores": 1805837,
+      "plays": 644898,
+      "team_box_scores": 7318
+    },
+    "disposition": "PASS",
+    "quarantine_rows_scanned": {
+      "ADVANCED_STATS_ORPHAN_IDENTITY_OR_PARTIAL": 5120,
+      "DRIVE_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 420,
+      "GAME_DRIVE_FINAL_SCORE_MISMATCH": 64,
+      "GAME_OUTCOME_PARTIAL_OR_NOT_COMPLETED": 1,
+      "GAME_PLAY_FINAL_SCORE_MISMATCH": 64,
+      "PLAY_ORPHAN_OR_CROSS_GAME_DRIVE": 3120,
+      "PLAY_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 246
+    },
+    "safe_report": "AGGIE_ANALYTICS_DATA_ROOT/runtime/BAT-376/core-normalization-validation.safe.json",
+    "static_validation": "PASS",
+    "validated_at_utc": "2026-08-09T17:28:49Z",
+    "validator": "AGGIE_ANALYTICS_DATA_ROOT/runtime/BAT-376/validate_core_normalization.py",
+    "validator_sha256": "8583d45512b069631120f171a9af585ddd2630194be310c8ac8ae4070f76e96f"
+  }
+}

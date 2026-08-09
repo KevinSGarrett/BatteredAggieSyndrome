@@ -25,6 +25,7 @@ artifacts/benchmarks/ac038_target_benchmark.log
 artifacts/data_lake/core_acquisition_manifest.json
 artifacts/data_lake/core_coverage_gate.json
 artifacts/data_lake/core_normalization_report.json
+artifacts/data_lake/historical_expansion_acquisition_manifest.json
 artifacts/implementation_preflight/credential_inventory.redacted.json
 artifacts/implementation_preflight/data_root_activation.json
 artifacts/implementation_preflight/hydration_binding_supersession.json
@@ -58,6 +59,7 @@ artifacts/jira_evidence/POST-SUBTASK-023.json
 artifacts/jira_evidence/POST-SUBTASK-025.json
 artifacts/jira_evidence/POST-SUBTASK-026.json
 artifacts/jira_evidence/POST-SUBTASK-027.json
+artifacts/jira_evidence/POST-SUBTASK-028.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/operations/ci_pipeline_validation.json

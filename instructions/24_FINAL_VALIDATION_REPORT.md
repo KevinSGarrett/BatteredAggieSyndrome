@@ -229,7 +229,7 @@ The active branch convention is:
 
 The active sibling worktree root is:
 
-`C:\BatteredAggieSyndrome.worktrees`
+`C:\BatteredAggieSyndrome.data\worktrees`
 
 A permanent `dev` branch is not introduced without a documented integration need.
 

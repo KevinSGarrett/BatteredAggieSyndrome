@@ -79,6 +79,7 @@ configs/entity_registry.json
 configs/experiment_artifact_policy.json
 configs/experiment_research_registry.json
 configs/experiment_store_policy.json
+configs/external_storage_policy.json
 configs/feature_lifecycle_registry.json
 configs/hpo_registry.json
 configs/hydration_manifest.json
@@ -2681,6 +2682,7 @@ tests/test_data_research.py
 tests/test_entity_governance.py
 tests/test_experiment_store_full.py
 tests/test_experimentation_governance.py
+tests/test_external_storage_policy.py
 tests/test_feature_lifecycle_governance.py
 tests/test_feature_registry_governance.py
 tests/test_feature_tournament.py
@@ -2761,6 +2763,7 @@ tools/validate_data_research.py
 tools/validate_dependency_policy.py
 tools/validate_entities.py
 tools/validate_experimentation.py
+tools/validate_external_storage_policy.py
 tools/validate_feature_lifecycle.py
 tools/validate_feature_registry.py
 tools/validate_instructions.py

@@ -198,7 +198,7 @@
       ],
       "version": "2.0.0",
       "canonical_topic": "human-policy:10_branch_worktree_and_commit_policy",
-      "sha256": "bcac75b3e4d8c778ac02d4e3171f28200b091e07e0325b319a271de3fdc99029"
+      "sha256": "6f9036eb3201f3cd42a7bd883512a5f749bcbfb6a13090f85e1a41234c0247b8"
     },
     {
       "path": "instructions/11_PULL_REQUEST_REVIEW_MERGE_AND_CLEANUP.md",
@@ -457,7 +457,7 @@
       ],
       "version": "2.0.0",
       "canonical_topic": "human-policy:24_final_validation_report",
-      "sha256": "2a4ef6066edae0e9c07546f7a8aac8f3f0e0afa5bee0c8541e76953af9ab745f"
+      "sha256": "b4ba61ad7bc68a6a9efe49160508000f3c03fc5fb2b22a15ce845ae427ce2884"
     },
     {
       "path": "instructions/CHANGELOG.md",
@@ -507,7 +507,7 @@
       ],
       "version": "2.0.0",
       "canonical_topic": "autonomous-entrypoint",
-      "sha256": "aed71326b2240f15da2557bb2ef8b78a768fd9c14dba624f442d61cb0883c126"
+      "sha256": "4bf7e9e4fbf364136f5b36a61a95ab2a213c807a46a0dc6b746eca0ea4c5d57b"
     },
     {
       "path": "instructions/audit/EXTERNAL_INTEGRATION_AUDIT.md",
@@ -845,7 +845,7 @@
       ],
       "version": "2.0.0",
       "canonical_topic": "machine-policy:git_policy",
-      "sha256": "20315e14328465a683bc0ef71ea900651254c6a3f5d1f0fbd68e23cf72679c49"
+      "sha256": "0b654f54a5113d529f59a4259c3d6bc963a7680b5163d885acad4854523d02e9"
     },
     {
       "path": "instructions/policies/github_enforcement.json",

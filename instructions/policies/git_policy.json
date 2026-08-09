@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "policy_id": "BAS-GIT-POLICY",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "canonical_human_documents": [
     "instructions/09_GIT_REPOSITORY_SAFETY_AND_RECOVERY.md",
     "instructions/10_BRANCH_WORKTREE_AND_COMMIT_POLICY.md",
@@ -12,8 +12,8 @@
   "default_branch": "main",
   "branch_pattern": "^codex/BAT-[0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*$",
   "branch_template": "codex/BAT-123-short-description",
-  "worktree_root_windows": "C:\\BatteredAggieSyndrome.worktrees",
-  "worktree_template": "C:\\BatteredAggieSyndrome.worktrees\\BAT-123-short-description",
+  "worktree_root_windows": "C:\\BatteredAggieSyndrome.data\\worktrees",
+  "worktree_template": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-123-short-description",
   "default_merge_method": "squash",
   "direct_push_to_main": false,
   "force_push_protected_or_shared": false,

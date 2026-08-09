@@ -2,7 +2,7 @@
 
 **Instruction-pack version:** `2.0.0`  
 **Canonical repository:** `C:\BatteredAggieSyndrome`  
-**Approved worktree root:** `C:\BatteredAggieSyndrome.worktrees`  
+**Approved worktree root:** `C:\BatteredAggieSyndrome.data\worktrees`
 **GitHub repository:** `KevinSGarrett/BatteredAggieSyndrome`  
 **Expected Jira project:** `BAT` at `https://kevinsgarrett.atlassian.net`  
 **Program state:** the exactly-25-wave planning and starter-build program is complete. W25 is terminal. **There is no Wave 26.**
@@ -56,7 +56,7 @@ Get-Item .\AGENTS.md, .\instructions\START_HERE.md
 python -B tools\validate_autonomous_controls.py --repo-root . --strict
 ```
 
-Do not switch to `BatteredAggieSyndrome-clean`, `-new`, `-fixed`, `-copy`, `-final2`, or another replacement clone. A deliberately created sibling Git worktree under `C:\BatteredAggieSyndrome.worktrees` is allowed because it shares the canonical repository history.
+Do not switch to `BatteredAggieSyndrome-clean`, `-new`, `-fixed`, `-copy`, `-final2`, or another replacement clone. A deliberately created Git worktree under `C:\BatteredAggieSyndrome.data\worktrees` is allowed because it shares the canonical repository history and remains outside Git. Do not create a new project-specific sibling root.
 
 ### 3.2 Audit local Git and remote metadata read-only
 

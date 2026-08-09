@@ -14,8 +14,16 @@ LOCAL_RUNTIME_RELATIVE_PATHS = {
     "model": "model_artifacts",
     "forecast": "forecast_snapshots",
     "log": "runtime/logs",
-    "backup": "runtime/backups",
+    "backup": "backups",
     "quarantine": "quarantine",
+}
+EXTERNAL_OPERATIONAL_RELATIVE_PATHS = {
+    "backups": "backups",
+    "packaging": "packaging",
+    "reconciliation": "reconciliation",
+    "runtime": "runtime",
+    "validation": "validation",
+    "worktrees": "worktrees",
 }
 
 
@@ -54,6 +62,28 @@ def resolve_local_runtime_paths(
     roots = {name: (data_root / relative).resolve(strict=False) for name, relative in LOCAL_RUNTIME_RELATIVE_PATHS.items()}
     if len(set(roots.values())) != len(roots):
         raise UnsafeLocalRuntimePath("local runtime roots must be distinct")
+    return roots
+
+
+def resolve_external_operational_paths(
+    *, repo_root: Path, value: str | os.PathLike[str] | None = None
+) -> dict[str, Path]:
+    data_root = resolve_external_data_root(repo_root=repo_root, value=value)
+    roots = {
+        name: (data_root / relative).resolve(strict=False)
+        for name, relative in EXTERNAL_OPERATIONAL_RELATIVE_PATHS.items()
+    }
+    if len(set(roots.values())) != len(roots):
+        raise UnsafeLocalRuntimePath("external operational roots must be distinct")
+    return roots
+
+
+def provision_external_operational_paths(
+    *, repo_root: Path, value: str | os.PathLike[str] | None = None
+) -> dict[str, Path]:
+    roots = resolve_external_operational_paths(repo_root=repo_root, value=value)
+    for path in roots.values():
+        path.mkdir(parents=True, exist_ok=True)
     return roots
 
 

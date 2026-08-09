@@ -592,8 +592,8 @@ artifacts/implementation_preflight/target_validation.log,POST-SUBTASK-002,Subtas
 artifacts/implementation_preflight/runtime_manifest.json,POST-SUBTASK-003,Subtask,true,INTEGRATED,,VERIFIED
 artifacts/implementation_preflight/local_path_contract.json,POST-SUBTASK-004,Subtask,true,IMPLEMENTED,POST-SUBTASK-005;POST-SUBTASK-006,VERIFIED
 docs/operations/LOCAL_RUNTIME_PATHS.md,POST-SUBTASK-004,Subtask,true,IMPLEMENTED,POST-SUBTASK-005;POST-SUBTASK-006,VERIFIED
-artifacts/implementation_preflight/credential_inventory.redacted.json,POST-SUBTASK-005,Subtask,true,IMPLEMENTED,POST-SUBTASK-006,PARTIAL
-docs/operations/CREDENTIALS_AND_SECRETS.md,POST-SUBTASK-005,Subtask,true,IMPLEMENTED,POST-SUBTASK-006,PARTIAL
+artifacts/implementation_preflight/credential_inventory.redacted.json,POST-SUBTASK-005,Subtask,true,IMPLEMENTED,POST-SUBTASK-006,VERIFIED
+docs/operations/CREDENTIALS_AND_SECRETS.md,POST-SUBTASK-005,Subtask,true,IMPLEMENTED,POST-SUBTASK-006,VERIFIED
 artifacts/implementation_preflight/storage_probe.json,POST-SUBTASK-006,Subtask,true,INTEGRATED,POST-STORY-003;POST-STORY-009;POST-SUBTASK-007;POST-SUBTASK-008;POST-SUBTASK-009;POST-SUBTASK-025;POST-SUBTASK-026;POST-SUBTASK-027,PLANNED
 artifacts/benchmarks/ac038_input_manifest.json,POST-SUBTASK-007,Subtask,true,IMPLEMENTED,POST-SUBTASK-008;POST-SUBTASK-009,PLANNED
 artifacts/benchmarks/ac038_target_benchmark.json,POST-SUBTASK-008,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-009,PLANNED

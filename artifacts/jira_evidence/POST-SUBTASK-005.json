@@ -12,9 +12,9 @@
   "outputs": [
     {
       "path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
-      "bytes": 10476,
-      "sha256": "b7456f1771554c50bb5eb9a4d5cf31847aa71cfc84b1ca837f9c6a12d065b044",
-      "canonical_payload_sha256": "2e7def7d65f314411ba461045f3b20c3f0948b54785c2916443577f8dd784745",
+      "bytes": 10578,
+      "sha256": "52882dc1b88596cb583be3a842ca3ce86b88e37b79d0875b8b1f410a731c097d",
+      "canonical_payload_sha256": "89a2f5765d7f78c1f95535e9af0222130ef3c686b7f350e2a2c21d58a4b339fc",
       "schema_version": "1.0.0",
       "maturity": "IMPLEMENTED",
       "eligibility": "CREDENTIAL_INVENTORY_AND_REDACTION_EVIDENCE"
@@ -66,7 +66,7 @@
     {
       "path": "EXTERNAL_DATA_ROOT/runtime/BAT-355/consumer-contract-validation.safe.json",
       "bytes": 1389,
-      "sha256": "5db113c24fc2be15a3a0b9b3fefa4c0e53c906467f2755ddc33c4161c35fa064",
+      "sha256": "2ecc625362f9a63983fbb922282752248888d1c0dd3ce004835ad407fb748cec",
       "positive_contract_passed": true,
       "mutation_count": 7,
       "rejected_mutation_count": 7
@@ -78,7 +78,7 @@
       "disposition": "PASS",
       "observable_result": "Four configured credential or identity bindings are inventoried exclusively by environment-variable name; value and identity-value inclusion flags are false.",
       "evidence_path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
-      "evidence_sha256": "b7456f1771554c50bb5eb9a4d5cf31847aa71cfc84b1ca837f9c6a12d065b044",
+      "evidence_sha256": "52882dc1b88596cb583be3a842ca3ce86b88e37b79d0875b8b1f410a731c097d",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T09:50:59Z"
     },
@@ -87,7 +87,7 @@
       "disposition": "PASS",
       "observable_result": "Three configured secret values had zero matches in 2,750 tracked files and all three candidate outputs; .env is ignored and untracked; saved reports contain no values, identities, endpoints, or bodies.",
       "evidence_path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
-      "evidence_sha256": "b7456f1771554c50bb5eb9a4d5cf31847aa71cfc84b1ca837f9c6a12d065b044",
+      "evidence_sha256": "52882dc1b88596cb583be3a842ca3ce86b88e37b79d0875b8b1f410a731c097d",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T09:50:59Z"
     },
@@ -96,7 +96,7 @@
       "disposition": "PASS",
       "observable_result": "Ten synthetic markers across nested keys, bearer/assignment scalars, JSONL serialization, and exception text produced zero leaks and an observed [REDACTED] marker.",
       "evidence_path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
-      "evidence_sha256": "b7456f1771554c50bb5eb9a4d5cf31847aa71cfc84b1ca837f9c6a12d065b044",
+      "evidence_sha256": "52882dc1b88596cb583be3a842ca3ce86b88e37b79d0875b8b1f410a731c097d",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T09:50:59Z"
     }
@@ -179,6 +179,24 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "Strict repository/security and 2,751-row provenance, W25 terminal governance, protected W17 seal, strict instruction controls, 2,118 source anchors, 463 Jira records/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 warning-strict tests, W23 implementation, and all seven POST-SUBTASK-006 consumer mutations passed or failed closed as required."
+    },
+    {
+      "command": "GitHub protected integration for PR #15",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All seven required protected contexts passed; head 0e536312492ed54221d2485566ad7df56d52b7b1 was squash-merged as ec2bfb9a96438eded0c4f3f4161cf95a818b9f5c at 2026-08-09T10:02:18Z. Merge-commit repository-ci run 31307361230 and security-analysis run 31307361218 passed on attempt 1."
+    },
+    {
+      "command": "Live Jira BAT-355 completion protocol",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Logical Workflow State=DONE, Implementation Maturity=IMPLEMENTED, Evidence State=VERIFIED, physical status=Done, and completion comment 13301 were verified live."
+    },
+    {
+      "command": "Clean BAT-355 Done-sync candidate",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security with 2,751 provenance rows, W25, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 tests, W23, credential consumer checks, live Done state, and exactly one Ready issue (POST-SUBTASK-006) passed."
     }
   ],
   "credential_and_redaction_evidence": {
@@ -258,28 +276,30 @@
   },
   "integration": {
     "branch": "codex/bat-355-credential-inventory",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "merge_method": null,
-    "required_checks": "PENDING_PROTECTED_PR",
+    "pull_request": 15,
+    "head_sha": "0e536312492ed54221d2485566ad7df56d52b7b1",
+    "merge_sha": "ec2bfb9a96438eded0c4f3f4161cf95a818b9f5c",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T10:02:18Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "merge_commit_repository_ci_run": 31307361230,
+    "merge_commit_security_analysis_run": 31307361218,
     "live_jira_claim_comment_id": "13300",
-    "live_jira_logical_state": "IN_PROGRESS",
-    "live_jira_status": "In Progress",
-    "live_jira_evidence_state": "PLANNED",
-    "live_jira_maturity": "FUNCTIONAL_STARTER",
-    "live_jira_updated_at": "2026-08-09T04:48:09.883-0500",
+    "live_jira_completion_comment_id": "13301",
+    "live_jira_logical_state": "DONE",
+    "live_jira_status": "Done",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "IMPLEMENTED",
+    "live_jira_updated_at": "2026-08-09T05:03:57.456-0500",
     "rollback_snapshot_sha256": "67740bd51a2a7a85b38e9b859a5349a5e48f5aaf9c7cf77b974976eea3d0f064"
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "evidence_state": "VERIFIED_LOCAL",
-    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": [
-      "PENDING_PROTECTED_PR_INTEGRATION"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
@@ -287,6 +307,6 @@
       "THR-011",
       "THR-012"
     ],
-    "completion_claim": "BAT-355's names-only credential inventory and redaction contract are implemented and all three issue-specific criteria pass locally. Protected integration and final Jira synchronization remain pending; no source-rights, token-scope, rotation, storage-durability, historical-data, target-threshold, or release claim is made."
+    "completion_claim": "BAT-355's names-only credential inventory and redaction contract are protected-integrated, synchronized to live Jira, and all three issue-specific criteria pass. No source-rights, token-scope, rotation, storage-durability, historical-data, target-threshold, or release claim is made."
   }
 }

@@ -1,0 +1,282 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_blocker_evidence",
+  "created_at_utc": "2026-08-09T09:24:33Z",
+  "updated_at_utc": "2026-08-09T09:29:00Z",
+  "jira_key": "BAT-475",
+  "local_issue_id": "POST-SUBTASK-125",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "The BAT-475 machine audit is reproducible and redacted but not acceptable for completion. Fourteen exact-pinned product wheels were resolved and hashed, pip consistency and clean repository controls passed, license/notice metadata covered all 14 distributions, and forbidden .env/.pkl injection failed closed. Six unique current vulnerability groups, an unhashed lock, unavailable GitHub alert counts, CI enforcement gaps, and the missing named human source-rights decision remain unwaived. Live Jira and the canonical mirror are Blocked/Partial at FUNCTIONAL_STARTER.",
+  "outputs": [
+    {
+      "path": "artifacts/operations/security_supply_chain_report.json",
+      "bytes": 25020,
+      "sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
+      "canonical_payload_sha256": "038a1cb5eec6b0ce9ccc6df8917ff47da107f652cac172928a8f934890a74c37",
+      "schema_version": "1.0.0",
+      "maturity": "FUNCTIONAL_STARTER",
+      "eligibility": "BLOCKED_NOT_RELEASE_ELIGIBLE"
+    }
+  ],
+  "input_identities": {
+    "git_base_commit": "e92c53fe9f122e97ea7868dca2456d1fbb6bd166",
+    "git_base_tree": "663800be29c22ae907767dbd383c328c6fea7396",
+    "requirements_product_lock_sha256": "1619ed68a86ff3327df5244684eac1b847a83f52e4d79423a8a80736e8c62016",
+    "pyproject_toml_sha256": "26f61d495e36255f209e26defb93e62aadaf857ebea87f26f5b592784d245de7",
+    "repository_policy_sha256": "4e46a40ce4fe6d1bc8faa049c5f74aad5db1fe01eb0be2b431b9d25b41132839",
+    "dependency_policy_validator_sha256": "180632045b92985c8e687f263d687a551cf4ca224da6a19d43aab4814e7ccb44",
+    "repository_integrity_implementation_sha256": "5f6ec308d454f066e2091057bb215e4dc36043e4cb66a620df7506b64344c196",
+    "repository_ci_sha256": "5344b04476093f9c6df1c9291993f88793e1852476f7092489e49487d0f9ff98",
+    "security_ci_sha256": "64780116ec9d1561d472ce989db627ebc6b8b5239c2ab6241207d83c4bf17351",
+    "post_subtask_002_workflow_state": "DONE",
+    "post_subtask_002_evidence_state": "VERIFIED",
+    "post_subtask_002_evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
+    "post_subtask_124_workflow_state": "DONE",
+    "post_subtask_124_evidence_state": "VERIFIED",
+    "post_subtask_124_evidence_sha256": "286689e6f5e292a493be420834b07d80ad8d828e804082d773957a11f3d7911d"
+  },
+  "external_evidence": {
+    "credential_values_included": false,
+    "absolute_paths_included": false,
+    "restricted_raw_payloads_included": false,
+    "records": [
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/pre-claim-jira-rollback.json", "bytes": 399, "sha256": "a2351daac562f208c71614fa14f7c70396005bf49479a00c8a8a3cb3b002a7b5"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/vulnerability-audit-run2.json", "bytes": 10606, "sha256": "089d9363a311398a51561156c5fb00b94795a029ca7608451bb6a2bdb2aee474"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/advisory-summary.json", "bytes": 4759, "sha256": "c783fcc69530cc9d1a6f499af93d65379bd361d524a5a58471fc602c39337851"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/license-inventory.json", "bytes": 4051, "sha256": "f4ec2c9ed198a99742330c0ed6eec6a9530b52213259db50f7124938050c28dc"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/wheel-hashes.json", "bytes": 2462, "sha256": "358bb55adda5eb338c05d142e5a29ef004cd94b1b1321ce397d96bee678cb8d2"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/restricted-pattern-summary.json", "bytes": 525, "sha256": "94dbebb964d9cfc107a90b986cd8579c3cee3f6022c7667cae98f207b44e0619"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/redacted-credential-inventory.json", "bytes": 557, "sha256": "c42ffc90f6c143c8ddfb18f16df2a0607bde9a9a6d87cb408a2c4cde5bdd99cb"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/github-security-settings.json", "bytes": 687, "sha256": "24c957fd95e34d9573304d29610b65c5aa56acb2c27d0f3ecf96b7086c76b942"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/command-results.json", "bytes": 1795, "sha256": "57bcb92f36b5b316538448767ce8c0f3cb5c73c1f2b621a6ba8b6f98a2ba0c30"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/test-w23-operations.log", "bytes": 2694, "sha256": "63b4990afc77c9e16cdca548f3414b7326317a39dfdf83dae61d8b0bf9319b80"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/test-w23-operations-run2.log", "bytes": 3826, "sha256": "29e280a234f3412b5915e1a4304703354b4e4a1778a747e0578a71680a185933"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/negative-restricted-and-env.log", "bytes": 500, "sha256": "71758f422582f08ca022d65edb49d7b6038e80332f3251c1357b440a9f276da5"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/pre-block-jira-rollback.json", "bytes": 500, "sha256": "6d3b90abb514b9942ad814173a5c7059f2351e8c496cda1bc02a0d767d71815e"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/post-block-jira-state.json", "bytes": 490, "sha256": "36515af91758d72c7b1a585e098a42658c85aaf45a2aef1e5a16dfcc94251ac6"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/BAT-475-live-row.json", "bytes": 373, "sha256": "b4414632a059602dbf60b950a38ec957fe7ce68559d454812aa2d9fbc7f5e795"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-pre-validation-hashes.json", "bytes": 7259, "sha256": "ef8aa8467e02ddb199f699e6778ed26a269bd24a8c3c421f47f6ffd61634286d"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-full-suite.log", "bytes": 1020, "sha256": "1e052c1819226ef0dc378edd34ec8da1f7e90a35b0991f20391f5a0eb47cbab4"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-run2-strict-repository.log", "bytes": 194, "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-run2-full-suite.log", "bytes": 66820, "sha256": "d592b821e43324df202eeb6926f73ae5155b21a93d0346733e8df03fe9b0bf36"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-run2-jira-pack.log", "bytes": 3528, "sha256": "81dca9325de9bf5bbaf937e81f6eea5cb5ad76e6f56ce82815af8f96737ced74"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-run2-focused-w23-tests.log", "bytes": 3826, "sha256": "426d6eee265bca7dc5722effe6e802e924cfbfb18fbfedef288fa598a4f31c73"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-run2-w23-implementation.log", "bytes": 240, "sha256": "a87a3b92ace1813a88678b0784a729ef94f87af341b3f14bc65c2e3bfa73ae7a"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-run2-w25-final.log", "bytes": 206, "sha256": "c3970fbef7c98e5ab8dcbd476ec5ab1570eb8c38a48fc831326c661a91f77e2a"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/candidate-run2-w17-seal.log", "bytes": 80, "sha256": "ec1a57d603d3e4d6312ce426734bf7c5b067d8b29c3a9f31e1187c914e1cabd9"}
+    ]
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.",
+      "disposition": "BLOCKED",
+      "observable_result": "All machine results are recorded and redacted, but six unique vulnerability groups remain unwaived, the lock lacks cryptographic hash directives, and the required named human rights disposition is missing. No credential value or restricted raw payload was emitted.",
+      "evidence_path": "artifacts/operations/security_supply_chain_report.json",
+      "evidence_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T09:24:33Z"
+    },
+    {
+      "criterion": "The declared output artifacts/operations/security_supply_chain_report.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "observable_result": "The output is parseable, content-hashed, and pins source commit/tree, prerequisite evidence, lock/config/workflows, tool/runtime versions, authoritative advisory metadata, commands, negative results, and downstream rejection semantics.",
+      "evidence_path": "artifacts/operations/security_supply_chain_report.json",
+      "evidence_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T09:24:33Z"
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "observable_result": "No rights approval, zero-alert claim, data availability, scientific metric, target-hardware result, production readiness, accepted risk, or completion claim is made.",
+      "evidence_path": "artifacts/operations/security_supply_chain_report.json",
+      "evidence_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T09:24:33Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "Python 3.12 fresh environment install from requirements/product.lock followed by pip check",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Fourteen exact-pinned product packages installed consistently."
+    },
+    {
+      "command": "pip download --requirement requirements/product.lock --only-binary=:all:",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Fourteen wheel artifacts resolved; every wheel identity and SHA-256 is retained externally."
+    },
+    {
+      "command": "pip-audit 2.10.1 -r requirements/product.lock --format json",
+      "exit_code": 1,
+      "result": "NEGATIVE_RESULT_PRESERVED",
+      "output_summary": "Eight scanner records in two packages collapse to six current CVE/alias groups: three HIGH, two MEDIUM, one LOW."
+    },
+    {
+      "command": "Python metadata license/notice inventory over isolated locked environment",
+      "exit_code": 0,
+      "result": "PASS_MACHINE_INVENTORY_LEGAL_REVIEW_BLOCKED",
+      "output_summary": "All 14 distributions expose a license/notice file; ten report SPDX expressions and four use classifier/legacy metadata."
+    },
+    {
+      "command": "python -B tools/validate_repository.py --repo-root . --strict in credential-free worktree",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Structure, manifest, governance IDs, secret scan, and forbidden-artifact scan passed."
+    },
+    {
+      "command": "Strict validation of external negative worktree containing empty .env and .pkl sentinels",
+      "exit_code": 1,
+      "result": "EXPECTED_FAIL_CLOSED",
+      "output_summary": "Four findings: forbidden file, forbidden extension, and two manifest coverage violations; no credential or raw payload was used."
+    },
+    {
+      "command": "python -B -W error -m unittest tests.test_w23_operations -v with source path bound",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "11 of 11 W23 operations tests passed; the first unbound import-path failure remains preserved."
+    },
+    {
+      "command": "python -B tools/validate_w23_operations.py --repo-root .",
+      "exit_code": 2,
+      "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED",
+      "output_summary": "AC-038 and THR-011/THR-012 remain explicitly unresolved."
+    },
+    {
+      "command": "Live Jira BAT-475 blocker protocol",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Pre-block rollback captured; portable workflow mapping applied as To Do / BLOCKED / FUNCTIONAL_STARTER / PARTIAL; comments 13297 and 13298 pin the blocker and final report hash."
+    },
+    {
+      "command": "First credential-free candidate harness using a PowerShell function parameter named args",
+      "exit_code": 0,
+      "result": "INVALID_HARNESS_RESULT_PRESERVED",
+      "output_summary": "The reserved automatic variable collision launched interactive Python and produced false zero exits; log inspection rejected the run before acceptance."
+    },
+    {
+      "command": "Corrected credential-free candidate validation with a non-reserved arguments parameter",
+      "exit_code": 0,
+      "result": "PASS_WITH_EXPECTED_W23_RELEASE_BLOCKER",
+      "output_summary": "Strict integrity, 243 of 243 warning-strict tests, Jira control/pack/import/source/dependency gates, dependency policy, 11 focused W23 tests, W25 final, and W17 seal passed. The W23 implementation validator returned its documented exit 2 for unresolved AC-038/THR-011/THR-012. Twenty-seven expected candidate files remained byte-identical after validation."
+    }
+  ],
+  "scientific_and_model_evidence": {
+    "applicable": false,
+    "reason": "SECURITY_SUPPLY_CHAIN_CONTROL_EVALUATION_HAS_NO_DATASET_SPLIT_MODEL_CALIBRATOR_METRIC_OR_PRECOMMITTED_HYPOTHESIS",
+    "fabricated_metrics": false,
+    "protected_results_inspected": false
+  },
+  "negative_findings": [
+    {
+      "id": "VULNERABLE_LOCKED_PACKAGES",
+      "finding": "Six unique current advisory groups affect Starlette 0.50.0 and Click 8.1.8; three are NVD HIGH.",
+      "waived": false,
+      "resolution": "BLOCKED_PENDING_COMPATIBLE_UPGRADE_OR_NAMED_ACCEPTED_RISK"
+    },
+    {
+      "id": "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED",
+      "finding": "The exact-version lock has no --hash directives.",
+      "waived": false,
+      "resolution": "BLOCKED_PENDING_REVIEWED_CROSS_PLATFORM_HASH_LOCK"
+    },
+    {
+      "id": "SOURCE_RIGHTS_REVIEW_MISSING",
+      "finding": "The required named human provider/source terms decision is absent.",
+      "waived": false,
+      "resolution": "HUMAN_REQUIRED"
+    },
+    {
+      "id": "GITHUB_ALERT_COUNTS_UNAVAILABLE",
+      "finding": "Alert-list APIs returned HTTP 404 under the current token, so zero-alert status is not claimed.",
+      "waived": false,
+      "resolution": "REQUIRE_LEAST_PRIVILEGE_VISIBILITY_OR_REVIEWED_EXPORT"
+    },
+    {
+      "id": "CI_MACHINE_CONTROL_GAPS",
+      "finding": "Protected CI lacks pip-audit, license/notice inventory, and cryptographic hash enforcement; Dependabot security updates are disabled.",
+      "waived": false,
+      "resolution": "SEPARATELY_AUTHORIZED_REMEDIATION_AND_PROTECTED_VALIDATION_REQUIRED"
+    },
+    {
+      "id": "FIRST_W23_TEST_IMPORT_PATH_UNBOUND",
+      "finding": "The first clean W23 test command lacked the src import path.",
+      "waived": false,
+      "resolution": "FAILURE_PRESERVED_RUN2_PASSED_11_OF_11"
+    },
+    {
+      "id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED",
+      "finding": "W23 validation remains release-blocked; THR-011/THR-012 are TBD.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    },
+    {
+      "id": "FIRST_CANDIDATE_HARNESS_INVALID",
+      "finding": "The first candidate harness used PowerShell's reserved args variable and launched interactive Python instead of the named gates.",
+      "waived": false,
+      "resolution": "INVALID_RESULTS_REJECTED_LOGS_PRESERVED_CORRECTED_RUN2_PASSED"
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_emitted": false,
+    "secret_values_stored_in_evidence": false,
+    "credential_paths_stored_in_repository_evidence": false,
+    "restricted_raw_payloads_stored_in_repository": false,
+    "source_rights_approval_claimed": false,
+    "accepted_risk_claimed": false,
+    "protected_files_modified": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-126",
+    "contract_parseable": true,
+    "report_hash_verified": true,
+    "prerequisite_hashes_present": true,
+    "rights_blocked": true,
+    "vulnerability_blocked": true,
+    "silent_downstream_unlock_allowed": false,
+    "decision": "REJECT_BLOCKED_INPUT_WITHOUT_MANUAL_RECONSTRUCTION",
+    "consumer_must_fail_closed": true
+  },
+  "integration": {
+    "branch": "codex/BAT-475-security-supply-chain",
+    "live_jira_claim_comment_id": "13296",
+    "live_jira_blocker_comment_id": "13297",
+    "live_jira_final_candidate_comment_id": "13298",
+    "live_jira_status": "To Do",
+    "live_jira_logical_state": "BLOCKED",
+    "live_jira_evidence_state": "PARTIAL",
+    "live_jira_maturity": "FUNCTIONAL_STARTER",
+    "live_jira_updated_at": "2026-08-09T04:24:33.283-0500",
+    "workflow_mapping": "BLOCKED maps to portable Jira status To Do",
+    "pre_claim_rollback_snapshot_sha256": "a2351daac562f208c71614fa14f7c70396005bf49479a00c8a8a3cb3b002a7b5",
+    "pre_block_rollback_snapshot_sha256": "6d3b90abb514b9942ad814173a5c7059f2351e8c496cda1bc02a0d767d71815e",
+    "post_block_state_sha256": "36515af91758d72c7b1a585e098a42658c85aaf45a2aef1e5a16dfcc94251ac6",
+    "state": "CLEAN_CANDIDATE_VALIDATED_PROTECTED_INTEGRATION_PENDING"
+  },
+  "completion": {
+    "achieved_maturity": "FUNCTIONAL_STARTER",
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "BLOCKED",
+    "local_acceptance_criteria_pass": false,
+    "remaining_issue_scope_blockers": [
+      "SOURCE_RIGHTS_REVIEW_MISSING",
+      "VULNERABLE_LOCKED_PACKAGES",
+      "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED",
+      "GITHUB_ALERT_COUNTS_UNAVAILABLE",
+      "CI_MACHINE_CONTROL_GAPS"
+    ],
+    "remaining_program_blockers": [
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ],
+    "completion_claim": "No completion is claimed. BAT-475 remains Blocked/Partial at FUNCTIONAL_STARTER; downstream POST-SUBTASK-126 remains blocked and must reject this input."
+  }
+}

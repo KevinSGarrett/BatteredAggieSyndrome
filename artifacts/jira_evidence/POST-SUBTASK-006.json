@@ -12,9 +12,9 @@
   "outputs": [
     {
       "path": "artifacts/implementation_preflight/storage_probe.json",
-      "bytes": 11095,
-      "sha256": "fce4081c9964ce4f837be4f147c13e170311a5ccc80ca883489d568e5922f641",
-      "canonical_payload_sha256": "56f67a97773f700549b0273d5c1ff344adb2226103076280b48695a48f39b0b5",
+      "bytes": 11447,
+      "sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
+      "canonical_payload_sha256": "3a8c4e76dc523aab95b1aa21708242d271cebcae849e5dfe5de9bbc45587e216",
       "schema_version": "1.0.0",
       "maturity": "INTEGRATED",
       "eligibility": "LOCAL_STORAGE_BEHAVIOR_AND_CAPACITY_EVIDENCE"
@@ -61,7 +61,7 @@
     {
       "path": "EXTERNAL_DATA_ROOT/runtime/BAT-356/story-gate-validation.safe.json",
       "bytes": 1732,
-      "sha256": "978e9eeea3cf481bc837701ba5dc673ede0c1b9a75f5387343b89e01bdd2fefa",
+      "sha256": "bfe50d64ee79c248c8d903dfdff2915eaf85acbb67af34bf57f1561e6db75056",
       "positive_contract_passed": true,
       "mutation_count": 10,
       "rejected_mutation_count": 10
@@ -73,7 +73,7 @@
       "disposition": "PASS",
       "observable_result": "All 21 attempts across seven aliases passed exclusive create, file fsync, same-directory atomic rename, committed SHA-256 readback, quarantine move, quarantine-file fsync, post-move SHA-256 readback, and exact cleanup.",
       "evidence_path": "artifacts/implementation_preflight/storage_probe.json",
-      "evidence_sha256": "fce4081c9964ce4f837be4f147c13e170311a5ccc80ca883489d568e5922f641",
+      "evidence_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T10:17:40Z"
     },
@@ -82,7 +82,7 @@
       "disposition": "PASS",
       "observable_result": "Total, used, and free bytes were recorded for all seven aliases; the shared-volume snapshot observed 94059692032 free bytes and every minimum-threshold flag is false.",
       "evidence_path": "artifacts/implementation_preflight/storage_probe.json",
-      "evidence_sha256": "fce4081c9964ce4f837be4f147c13e170311a5ccc80ca883489d568e5922f641",
+      "evidence_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T10:17:40Z"
     },
@@ -91,7 +91,7 @@
       "disposition": "PASS",
       "observable_result": "The materialization gate rejected an operations/permission failure and separately rejected a requested-byte count greater than observed free bytes; neither case attempted allocation or invented a threshold.",
       "evidence_path": "artifacts/implementation_preflight/storage_probe.json",
-      "evidence_sha256": "fce4081c9964ce4f837be4f147c13e170311a5ccc80ca883489d568e5922f641",
+      "evidence_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T10:17:40Z"
     }
@@ -122,10 +122,10 @@
       "output_summary": "W23 implementation passed while AC-038 remained unresolved and THR-011/THR-012 remained TBD."
     },
     {
-      "command": "Strict Jira/source/import/dependency/second-pass validation after local storage implementation",
+      "command": "Strict Jira/source/import/dependency/second-pass validation after verified Done synchronization",
       "exit_code": 0,
       "result": "PASS",
-      "output_summary": "2,118 source anchors, 463 canonical/derivative records, 1,758 Jira-manifest files, all import derivatives, and the acyclic dependency graph passed; BAT-356 was VALIDATION/PARTIAL and no item was Ready during protected integration."
+      "output_summary": "2,118 source anchors, 463 canonical/derivative records, 1,758 Jira-manifest files, all import derivatives, and the acyclic dependency graph passed; BAT-356 was DONE/VERIFIED and exactly POST-SUBTASK-007 was Ready."
     },
     {
       "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -q",
@@ -138,6 +138,30 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "Strict repository/security with 2,753 provenance rows, W25, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 tests, W23, and all ten Story-gate mutations passed or failed closed as required."
+    },
+    {
+      "command": "GitHub protected integration for PR #17",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All seven required protected contexts passed; head 1bd9a56fc078ed2489c6edec78df781c92d08ce7 was squash-merged as 074fe54e7e20d9783e8290f92e65a77ed4d63516 at 2026-08-09T10:24:28Z. Merge-commit repository-ci run 31308257210 and security-analysis run 31308257215 passed on attempt 1."
+    },
+    {
+      "command": "Live Jira BAT-356 completion protocol",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Logical Workflow State=DONE, Implementation Maturity=INTEGRATED, Evidence State=VERIFIED, physical status=Done, and completion comment 13304 were verified live."
+    },
+    {
+      "command": "python -B jira/tools/rebuild_all_derivatives.py after verified Done synchronization",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All Jira derivatives were rebuilt from canonical JSON; exactly one issue became Ready: POST-SUBTASK-007. Seven other declared downstream issues remained non-ready under their canonical dependency or external-host conditions."
+    },
+    {
+      "command": "Credential-free clean BAT-356 Done-sync candidate",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security with 2,753 provenance rows, dependency policy, W25 terminal governance, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 warning-strict tests, W23 implementation, ten Story-gate mutations, live Done state, and exactly one Ready issue (POST-SUBTASK-007) passed or failed closed as required."
     }
   ],
   "storage_evidence": {
@@ -220,32 +244,86 @@
       "POST-SUBTASK-026",
       "POST-SUBTASK-027"
     ],
+    "reevaluation_results": [
+      {
+        "local_id": "POST-STORY-003",
+        "ready": false,
+        "workflow_state": "BACKLOG",
+        "reason": "PARENT_STORY_IS_NOT_AN_ATOMIC_READY_QUEUE_WORK_UNIT; BOTH_HARD_DEPENDENCIES_ARE_DONE_VERIFIED"
+      },
+      {
+        "local_id": "POST-STORY-009",
+        "ready": false,
+        "workflow_state": "BACKLOG",
+        "reason": "HARD_DEPENDENCIES_POST_SUBTASK_018_021_022_ARE_NOT_DONE_VERIFIED"
+      },
+      {
+        "local_id": "POST-SUBTASK-007",
+        "ready": true,
+        "workflow_state": "READY",
+        "reason": "POST_SUBTASK_002_AND_POST_SUBTASK_006_ARE_DONE_VERIFIED"
+      },
+      {
+        "local_id": "POST-SUBTASK-008",
+        "ready": false,
+        "workflow_state": "BLOCKED",
+        "reason": "AUTHORITATIVE_TARGET_WINDOWS_HOST_NOT_AVAILABLE_IN_THIS_SESSION_AND_POST_SUBTASK_007_NOT_DONE"
+      },
+      {
+        "local_id": "POST-SUBTASK-009",
+        "ready": false,
+        "workflow_state": "BLOCKED",
+        "reason": "POST_SUBTASK_007_AND_POST_SUBTASK_008_ARE_NOT_DONE_VERIFIED"
+      },
+      {
+        "local_id": "POST-SUBTASK-025",
+        "ready": false,
+        "workflow_state": "BLOCKED",
+        "reason": "POST_SUBTASK_018_021_022_ARE_NOT_DONE_VERIFIED"
+      },
+      {
+        "local_id": "POST-SUBTASK-026",
+        "ready": false,
+        "workflow_state": "BLOCKED",
+        "reason": "POST_SUBTASK_018_021_022_025_ARE_NOT_DONE_VERIFIED"
+      },
+      {
+        "local_id": "POST-SUBTASK-027",
+        "ready": false,
+        "workflow_state": "BLOCKED",
+        "reason": "POST_SUBTASK_018_021_022_025_026_ARE_NOT_DONE_VERIFIED"
+      }
+    ],
+    "ready_queue_count": 1,
+    "ready_queue_head": "POST-SUBTASK-007",
     "consumer_must_fail_closed": true
   },
   "integration": {
     "branch": "codex/BAT-356-storage-safety",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "merge_method": null,
-    "required_checks": "PENDING_PROTECTED_PR",
+    "pull_request": 17,
+    "head_sha": "1bd9a56fc078ed2489c6edec78df781c92d08ce7",
+    "merge_sha": "074fe54e7e20d9783e8290f92e65a77ed4d63516",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T10:24:28Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "merge_commit_repository_ci_run": 31308257210,
+    "merge_commit_security_analysis_run": 31308257215,
     "live_jira_claim_comment_id": "13303",
-    "live_jira_logical_state": "IN_PROGRESS",
-    "live_jira_status": "In Progress",
-    "live_jira_evidence_state": "PLANNED",
-    "live_jira_maturity": "FUNCTIONAL_STARTER",
-    "live_jira_updated_at": "2026-08-09T05:14:06.668-0500",
+    "live_jira_completion_comment_id": "13304",
+    "live_jira_logical_state": "DONE",
+    "live_jira_status": "Done",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "INTEGRATED",
+    "live_jira_updated_at": "2026-08-09T05:26:03.218-0500",
     "rollback_snapshot_sha256": "215d8d361f2b4d9c105f1b70f8f153ac1b001e83801f07895b8360d4e3079177"
   },
   "completion": {
     "achieved_maturity": "INTEGRATED",
-    "evidence_state": "VERIFIED_LOCAL",
-    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": [
-      "PENDING_PROTECTED_PR_INTEGRATION"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
@@ -253,6 +331,6 @@
       "THR-011",
       "THR-012"
     ],
-    "completion_claim": "BAT-356's current storage behavior and capacity contract is integrated locally and all three issue-specific criteria pass. Protected integration and final Jira synchronization remain pending; no directory-fsync, future-capacity, source-rights, historical-data, target-threshold, or release claim is made."
+    "completion_claim": "BAT-356's current storage behavior and capacity contract is protected-integrated, synchronized to live Jira, and all three issue-specific criteria pass. No directory-fsync, future-capacity, source-rights, historical-data, target-threshold, or release claim is made."
   }
 }

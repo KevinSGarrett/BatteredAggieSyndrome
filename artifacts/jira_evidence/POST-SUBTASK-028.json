@@ -65,14 +65,11 @@
   ],
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "completion_claimed": false,
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "IN_PROGRESS_PENDING_PROTECTED_INTEGRATION_AND_FINAL_JIRA_SYNC",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "PROTECTED_BRANCH_INTEGRATION_NOT_YET_COMPLETE",
-      "FINAL_LIVE_AND_LOCAL_JIRA_RECONCILIATION_NOT_YET_COMPLETE"
-    ]
+    "remaining_issue_scope_blockers": []
   },
   "cleanup": {
     "bytes_recovered": 50150554,
@@ -96,6 +93,10 @@
     ],
     "provider_specific_pending_is_global_blocker": false,
     "reason": "The current immutable population supports independent domain profiling. Missing older domains remain scoped and incremental; they do not invalidate acquired seasons or silently become eligible."
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-029": "DEPENDENCY_SATISFIED_RECOMPUTE_READY_STATE",
+    "incremental_historical_source_expansion": "CONTINUES_WITHOUT_BLOCKING_DOMAIN_PROFILE"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
   "input_identities": [
@@ -130,15 +131,16 @@
   "jira_key": "BAT-378",
   "live_jira": {
     "checkpoint_comment_id": "13391",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13393",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
     "maturity": "IMPLEMENTED",
-    "status": "In Progress",
-    "updated": "2026-08-09T16:14:07.359-0500"
+    "status": "Done",
+    "updated": "2026-08-09T16:27:39.662-0500"
   },
   "local_id": "POST-SUBTASK-028",
   "local_jira_sync": {
-    "changed_issues": 1,
+    "changed_issues": 2,
     "conflict_count": 0,
     "export_path": "<external-runtime>/BAT-378/BAT-378-live-row.csv",
     "result": "PASS",
@@ -186,7 +188,16 @@
     "external_validator": "<external-runtime>/BAT-378/validate_combined_historical_manifest.py"
   },
   "protected_integration": {
-    "state": "PENDING"
+    "branch": "codex/BAT-378-historical-expansion-acquisition",
+    "head_sha": "c209cf6835bc220d30d1064647057e18c36e3794",
+    "merge_method": "SQUASH",
+    "merge_sha": "974439fd3b20d58b0d9c4667a612296c6d54beb4",
+    "merged_at_utc": "2026-08-09T21:25:49Z",
+    "pull_request": 72,
+    "repository_ci_run": 31336807062,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED",
+    "security_analysis_run": 31336807044,
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "validation": {
@@ -195,7 +206,7 @@
       "negative_tests_passed": 9,
       "sha256": "0b50ec9c89e339ed0f5eedd66c88cd665e8e6be4f1bc0b32037b5d2c37159df3"
     },
-    "result": "LOCAL_PASS_PENDING_PROTECTED_INTEGRATION",
+    "result": "PROTECTED_INTEGRATION_PASS",
     "unsafe_mutations_rejected": [
       "premature_final_population_claim",
       "premature_gap_002_resolution",
@@ -208,6 +219,7 @@
       "schema_incompatible"
     ]
   },
+  "updated_at_utc": "2026-08-09T21:27:42Z",
   "validation_matrix": [
     {
       "classification": "REGRESSION",

@@ -40,14 +40,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-001 (Canonical handoff and ta
 
 ## Current gate state
 
-- Workflow: `VALIDATION`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `OPERATIONS`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `IMPLEMENTED`
-- Evidence state: `PARTIAL`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-009`
 
 ## Read first

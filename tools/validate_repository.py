@@ -12,6 +12,7 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from tools.repo_integrity import (
+    INTRINSIC_VCS_METADATA,
     scan_forbidden,
     scan_secrets,
     validate_manifest,
@@ -114,6 +115,8 @@ def main() -> int:
     known_adr = set(adr_ids)
     text_suffixes = {".md", ".txt", ".csv", ".yaml", ".yml", ".json", ".toml", ".py", ".ps1"}
     for path in root.rglob("*"):
+        if any(part in INTRINSIC_VCS_METADATA for part in path.relative_to(root).parts):
+            continue
         if not path.is_file() or path.suffix.lower() not in text_suffixes:
             continue
         try:

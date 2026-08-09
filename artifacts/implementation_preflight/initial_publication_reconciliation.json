@@ -104,7 +104,7 @@
     "fingerprint_basis_file_count": 2732,
     "tree_fingerprint": "6696e7886c3999b13588034f71ea2ba0e241533db3d6a036a4839fa1782284bf",
     "fingerprint_scope": "All proposed tracked files except this reconciliation record and the three self-referential repository provenance files.",
-    "manifest_sha256": "FINALIZED_IN_STAGE_AFTER_THIS_RECORD",
+    "manifest_sha256": "c8358b37158d5bbd145932f59a7d59d801345087e106fd9f49634e19921d62ee",
     "case_collisions": 0,
     "secret_findings": 0,
     "forbidden_findings": 0,
@@ -115,11 +115,51 @@
     "warning_strict_unit_tests": "PASS_237_TESTS"
   },
   "post_publication": {
-    "status": "PENDING",
-    "initial_commit_sha": null,
-    "remote_main_sha": null,
-    "default_branch_verified": false,
-    "branch_protection_status": "PENDING_FIRST_WORKFLOW_OBSERVATION"
+    "status": "PUBLISHED_ACTIVATION_REPAIR_PR_REQUIRED",
+    "remote_empty_rechecked_at_utc": "2026-08-09T06:42:11.2007561Z",
+    "remote_empty_recheck": {
+      "repository_size_kib": 0,
+      "branch_count": 0,
+      "ref_count": 0
+    },
+    "initial_commit_sha": "d64ed81d66afca6f27bd0ebdeff625f4ef6b215f",
+    "remote_main_sha": "d64ed81d66afca6f27bd0ebdeff625f4ef6b215f",
+    "push_mode": "NORMAL_NON_FORCE",
+    "default_branch_verified": true,
+    "branch_protection_status": "ENABLED_WITH_STATUS_CHECKS_DEFERRED_UNTIL_FIRST_GREEN_PR",
+    "branch_protection": {
+      "enforce_admins": true,
+      "pull_request_required": true,
+      "required_approvals": 0,
+      "dismiss_stale_reviews": true,
+      "linear_history_required": true,
+      "conversation_resolution_required": true,
+      "force_push_allowed": false,
+      "branch_deletion_allowed": false
+    },
+    "merge_policy": {
+      "squash_merge_allowed": true,
+      "merge_commit_allowed": false,
+      "rebase_merge_allowed": false,
+      "delete_branch_on_merge": true
+    },
+    "initial_workflows": [
+      {
+        "workflow": "security-analysis",
+        "run_id": 31299476320,
+        "conclusion": "SUCCESS"
+      },
+      {
+        "workflow": "repository-ci",
+        "run_id": 31299476308,
+        "conclusion": "FAILURE_PRESERVED",
+        "root_causes": [
+          "Git text normalization changed byte-sealed evidence on Linux and Windows checkouts.",
+          "The strict repository scanner classified intrinsic checkout .git metadata as repository payload."
+        ],
+        "repair_branch": "codex/BAT-351-finalize-repository-activation"
+      }
+    ]
   },
   "honesty_boundaries": {
     "wave_26_created": false,

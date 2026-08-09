@@ -16,7 +16,7 @@
     "artifacts/implementation_preflight/repository_identity.json",
     "artifacts/jira_evidence/POST-SUBTASK-001.json"
   ],
-  "blocked_reason": "STARTUP_RECONCILIATION_BLOCKERS: authoritative W25 hydration ZIP/PACK_BINDING unavailable; full Windows unit baseline has a diagnosed lock-cleanup error; root activation control tools referenced by START_HERE are absent; AGGIE_ANALYTICS_DATA_ROOT is an invalid placeholder.",
+  "blocked_reason": "STARTUP_RECONCILIATION_BLOCKERS: authoritative W25 hydration ZIP/PACK_BINDING remains unavailable and AGGIE_ANALYTICS_DATA_ROOT remains an invalid placeholder. The Windows lock regression, activation-control catalog, and canonical Git/GitHub publication are resolved and verified.",
   "blocks": [
     "POST-STORY-002",
     "POST-SUBTASK-002",
@@ -72,7 +72,7 @@
   "end_to_end_validation": "Validate that `artifacts/implementation_preflight/repository_identity.json` can be parsed and consumed by `POST-SUBTASK-002` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-001",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-001.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -282,7 +282,7 @@
     "POST-SUBTASK-009"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Supply or formally supersede the missing W25 hydration binding; fix and pass the Windows lock cleanup regression; reconcile and validate the four missing root activation tools; and configure a concrete external AGGIE_ANALYTICS_DATA_ROOT.",
+  "unblock_condition": "Supply or formally supersede the missing W25 hydration binding and configure a concrete external AGGIE_ANALYTICS_DATA_ROOT.",
   "validation_classes": [
     "END_TO_END",
     "REGRESSION",

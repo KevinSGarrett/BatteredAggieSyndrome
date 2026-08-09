@@ -19,10 +19,9 @@ import re
 import shutil
 import sys
 from collections import Counter, defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
-from zoneinfo import ZoneInfo
 
 sys.dont_write_bytecode = True
 
@@ -64,7 +63,7 @@ def repository_context_errors() -> list[str]:
         "Authoritative repository context is unavailable. Install this jira/ directory beneath the BAS repository root "
         "or rerun with --repo-root <path-to-BatteredAggieSyndrome>. Missing sentinels: " + ", ".join(missing)
     ]
-TODAY = datetime.now(ZoneInfo("America/Chicago")).date().isoformat()
+TODAY = datetime.now(timezone.utc).date().isoformat()
 CONTENT_CONTRACT_VERSION = "2.0"
 
 GENERIC_IN_SCOPE = {

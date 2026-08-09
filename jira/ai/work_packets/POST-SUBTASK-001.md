@@ -44,7 +44,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-001 (Canonical handoff and ta
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `IMPLEMENTED`
-- Evidence state: `PARTIAL`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-009`
 
 ## Read first

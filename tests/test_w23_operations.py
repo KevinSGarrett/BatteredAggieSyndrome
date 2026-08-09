@@ -1,8 +1,8 @@
 from __future__ import annotations
-import json, tempfile, unittest
+import hashlib, json, os, subprocess, sys, tempfile, unittest
 from pathlib import Path
 from aggie_analytics.operations.observability import JsonlEventSink, MetricRegistry, sanitize_metadata
-from aggie_analytics.operations.environment import collect_runtime_manifest
+from aggie_analytics.operations.environment import UnsafeLocalRuntimePath, collect_runtime_manifest, provision_local_runtime_paths, validate_local_path_contract
 from aggie_analytics.operations.backup import create_backup, restore_backup, verify_backup
 from aggie_analytics.operations.benchmark import run_benchmark
 from aggie_analytics.operations.retention import retention_rule
@@ -21,6 +21,36 @@ class W23OperationsTests(unittest.TestCase):
         p=collect_runtime_manifest(packages=['fastapi','definitely-not-installed-aggie'])
         self.assertEqual(p['schema_version'],'aggie.runtime.environment.v1'); self.assertIn('manifest_sha256',p); self.assertEqual(p['packages']['definitely-not-installed-aggie'],'NOT_INSTALLED')
         self.assertTrue(set(p['safe_environment']).issubset({'AGGIE_ENV','AGGIE_LOG_LEVEL','PYTHONHASHSEED'}))
+    def test_local_runtime_paths_are_separate_writable_and_restart_stable(self):
+        with tempfile.TemporaryDirectory() as td:
+            base=Path(td); repo=base/'repository'; data=base/'external-data'; repo.mkdir()
+            p=provision_local_runtime_paths(repo_root=repo,value=data)
+            self.assertTrue(p['all_absolute'] and p['all_outside_repository'] and p['all_distinct']); self.assertTrue(all(p['writable'].values())); self.assertEqual(len(set(p['roots'].values())),7)
+            env=os.environ.copy(); env['AGGIE_ANALYTICS_DATA_ROOT']=str(data); env['PYTHONPATH']=str(Path(__file__).resolve().parents[1]/'src')
+            code="from pathlib import Path; from aggie_analytics.operations.environment import resolve_local_runtime_paths; print('|'.join(sorted(str(x) for x in resolve_local_runtime_paths(repo_root=Path(r'%s')).values())))" % repo
+            restarted=subprocess.check_output([sys.executable,'-B','-c',code],env=env,text=True).strip().split('|')
+            self.assertEqual(restarted,sorted(str(x) for x in p['roots'].values()))
+    def test_local_runtime_path_rejects_repository_internal_bulk_root(self):
+        with tempfile.TemporaryDirectory() as td:
+            repo=Path(td)/'repository'; repo.mkdir()
+            with self.assertRaises(UnsafeLocalRuntimePath): provision_local_runtime_paths(repo_root=repo,value=repo/'bulk-data')
+    def test_local_path_contract_consumer_fails_closed(self):
+        path=Path(__file__).resolve().parents[1]/'artifacts'/'implementation_preflight'/'local_path_contract.json'; original=json.loads(path.read_text(encoding='utf-8'))
+        activation=original['prerequisite_identities']['data_root_activation_sha256']; validate_local_path_contract(original,expected_data_root_activation_sha256=activation)
+        def rehash(payload):
+            canonical=dict(payload); canonical.pop('content_hash',None); payload['content_hash']['value']=hashlib.sha256(json.dumps(canonical,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
+        mutations=[]
+        for mutate in [
+            lambda p:p.update(schema_version='0.0.0'),
+            lambda p:p['roots'][1].update(alias='raw'),
+            lambda p:p['validation']['repository_internal_negative_test'].update(rejected=False),
+            lambda p:p['security_and_rights'].update(source_rights_approval_claimed=True),
+            lambda p:p['consumer_handoff'].update(silent_unlock_allowed=True),
+        ]:
+            candidate=json.loads(json.dumps(original)); mutate(candidate); rehash(candidate); mutations.append(candidate)
+        for candidate in mutations:
+            with self.assertRaises(ValueError): validate_local_path_contract(candidate,expected_data_root_activation_sha256=activation)
+        with self.assertRaises(ValueError): validate_local_path_contract(original,expected_data_root_activation_sha256='0'*64)
     def test_backup_restore_roundtrip(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td); src=root/'src'; src.mkdir(); (src/'a.txt').write_text('alpha'); (src/'nested').mkdir(); (src/'nested'/'b.json').write_text('{"x":1}')

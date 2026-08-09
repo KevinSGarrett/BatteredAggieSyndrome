@@ -80,7 +80,7 @@
   "end_to_end_validation": "Validate that `artifacts/implementation_preflight/local_path_contract.json`, `docs/operations/LOCAL_RUNTIME_PATHS.md` can be parsed and consumed by `POST-SUBTASK-005` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-001",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-004.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "OPERATIONS",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -153,13 +153,13 @@
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Configure AGGIE_ANALYTICS_DATA_ROOT and artifact roots outside the repository",
   "operational_jira": {
-    "assignee": "",
+    "assignee": "GARRETT TRAINING SYSTEMS INC.",
     "jira_issue_id": "24494",
-    "jira_updated_at": "2026-08-09T00:03:18.602-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "jira_updated_at": "2026-08-09T03:14:30.243-0500",
+    "last_synced_at": "2026-08-09T08:14:30.243+00:00",
     "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -212,7 +212,7 @@
     "src/aggie_analytics/operations/environment.py",
     "tests/test_w23_operations.py"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -353,7 +353,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-002: Local data, artifact, and secret boundary bootstrap.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-004.md",
-  "workflow_state": "READY"
+  "workflow_state": "VALIDATION"
 }
 ```
 

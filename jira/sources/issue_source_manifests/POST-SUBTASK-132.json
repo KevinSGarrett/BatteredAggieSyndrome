@@ -119,10 +119,10 @@
       "windows_absolute_path": "C:\\BatteredAggieSyndrome\\src\\aggie_analytics\\operations\\backup.py"
     },
     {
-      "anchor_excerpt": "from __future__ import annotations import json, tempfile, unittest from pathlib import Path from aggie_analytics.operations.observability import JsonlEventSink, MetricRegistry, sanitize_metadata from aggie_analytics.operations.environment import collect_runtime_manifest from aggie_analytics.operations.backup import cre",
-      "anchor_hash": "d8f76887d94cd2cb5671b9d4e5aca188e18886c9ffd7b3e96ab4a8e7f1fa91ab",
+      "anchor_excerpt": "from __future__ import annotations import hashlib, json, os, subprocess, sys, tempfile, unittest from pathlib import Path from aggie_analytics.operations.observability import JsonlEventSink, MetricRegistry, sanitize_metadata from aggie_analytics.operations.environment import UnsafeLocalRuntimePath, collect_runtime_mani",
+      "anchor_hash": "f2b7f0b1c5174d0fab0d48a6ef92e860c205f2d6b549b3fde149e85b2013ecaa",
       "authority_level": "VALIDATION_EVIDENCE",
-      "document_sha256": "b423caea125d839bf74e924ac4d170277cc5bff60d847ea55e5b6c2d890bcd09",
+      "document_sha256": "9101e3242575453292763f11f3d6f735d4c653397eb4e2cbc23d8a7f0d9ec269",
       "end_line": 6,
       "heading": "",
       "last_verified": "2026-08-09",

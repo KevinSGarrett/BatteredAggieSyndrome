@@ -21,6 +21,7 @@
   "allowed_modification_paths": [
     "src/aggie_analytics/data/adapters.py",
     "src/aggie_analytics/data/snapshots.py",
+    "tests/test_acquisition_resilience.py",
     "artifacts/source_governance/acquisition_resilience_test.json",
     "artifacts/jira_evidence/POST-SUBTASK-023.json"
   ],
@@ -102,7 +103,8 @@
   ],
   "files_expected_to_be_touched": [
     "src/aggie_analytics/data/adapters.py",
-    "src/aggie_analytics/data/snapshots.py"
+    "src/aggie_analytics/data/snapshots.py",
+    "tests/test_acquisition_resilience.py"
   ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
@@ -116,6 +118,7 @@
     "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "src/aggie_analytics/data/snapshots.py",
+    "tests/test_acquisition_resilience.py",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
   "gap_ids": [],
@@ -375,12 +378,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-008 (Production acquisition c
 - docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv
 - docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md
 - src/aggie_analytics/data/snapshots.py
+- tests/test_acquisition_resilience.py
 - docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md
 
 ## Files Expected To Be Modified
 
 - src/aggie_analytics/data/adapters.py
 - src/aggie_analytics/data/snapshots.py
+- tests/test_acquisition_resilience.py
 
 ## Components Expected To Be Touched
 

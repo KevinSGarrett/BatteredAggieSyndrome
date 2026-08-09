@@ -11,6 +11,7 @@
     "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "src/aggie_analytics/data/snapshots.py",
+    "tests/test_acquisition_resilience.py",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
   "governance_traceability_gate": "POST-SUBTASK-024",

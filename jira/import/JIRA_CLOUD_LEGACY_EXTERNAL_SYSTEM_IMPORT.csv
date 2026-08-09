@@ -21684,7 +21684,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-027_approve_or_block_the_population_level_core_history_coverage_gate.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;local-id-post-subtask-027,raw-snapshots,POST-SUBTASK-027,GAP-002;HANDOFF-003,PHASE-1,READY,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-027_approve_or_block_the_population_level_core_history_coverage_gate.json",Done,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;local-id-post-subtask-027,raw-snapshots,POST-SUBTASK-027,GAP-002;HANDOFF-003,PHASE-1,DONE,PRODUCTION_READY,VERIFIED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-378,100332,"[POST-SUBTASK-028] Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence",100060,"Local ID: POST-SUBTASK-028
 
 Objective
@@ -21777,7 +21777,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-028_acquire_timestamped_roster_depth_participation_injury_recruiting_transfer_coachi.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-028,raw-snapshots,POST-SUBTASK-028,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-028_acquire_timestamped_roster_depth_participation_injury_recruiting_transfer_coachi.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-028,raw-snapshots,POST-SUBTASK-028,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-379,100333,"[POST-SUBTASK-029] Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class",100060,"Local ID: POST-SUBTASK-029
 
 Objective

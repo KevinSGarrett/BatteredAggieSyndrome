@@ -18,7 +18,7 @@
     "artifacts/data_lake/immutability_and_correction_test.json",
     "artifacts/jira_evidence/POST-SUBTASK-031.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-027;POST-SUBTASK-030",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-030",
   "blocks": [
     "POST-SUBTASK-032",
     "POST-SUBTASK-033"

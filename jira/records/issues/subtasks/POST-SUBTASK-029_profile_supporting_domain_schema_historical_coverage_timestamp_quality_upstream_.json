@@ -16,7 +16,7 @@
     "artifacts/data_lake/context_population_profile.json",
     "artifacts/jira_evidence/POST-SUBTASK-029.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-027;POST-SUBTASK-028",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-028",
   "blocks": [
     "POST-SUBTASK-030"
   ],

@@ -23,6 +23,28 @@ _SENSITIVE_IDENTITY_PARTS = (
     "token",
 )
 
+_DEFAULT_SOURCE_POLICY_METADATA = {
+    "private_research_use_allowed": True,
+    "raw_publication_allowed": False,
+    "rights_metadata_nonblocking": True,
+    "storage_boundary": "EXTERNAL_DATA_ROOT",
+}
+
+_QUARANTINE_REASON_CODES = frozenset(
+    {
+        "CORRUPTED_RECORD",
+        "FABRICATED_RECORD",
+        "SCHEMA_INCOMPATIBLE",
+        "MALWARE_SUSPECTED",
+        "CREDENTIAL_EXPOSURE",
+        "PRIVATE_PERSONAL_INFORMATION",
+        "PIT_LEAKAGE",
+        "TARGET_LEAKAGE",
+        "RECONCILIATION_FAILURE",
+        "MISSING_REQUIRED_PROVENANCE",
+    }
+)
+
 
 def _sha(path: Path) -> str:
     digest = hashlib.sha256()
@@ -71,6 +93,33 @@ def _validate_public_source_uri(source_uri: str) -> None:
     for key, value in parse_qsl(parsed.query, keep_blank_values=True):
         if _contains_sensitive_name(key) and value.lower() not in {"", "redacted", "<redacted>"}:
             raise ValueError(f"source_uri contains sensitive query material: {key}")
+
+
+def _validate_metadata_has_no_sensitive_keys(value: Any, path: str = "metadata") -> None:
+    if isinstance(value, Mapping):
+        for key, item in value.items():
+            key_text = str(key)
+            if _contains_sensitive_name(key_text):
+                raise ValueError(f"{path} contains sensitive key: {key_text}")
+            _validate_metadata_has_no_sensitive_keys(item, f"{path}.{key_text}")
+    elif isinstance(value, (list, tuple)):
+        for index, item in enumerate(value):
+            _validate_metadata_has_no_sensitive_keys(item, f"{path}[{index}]")
+
+
+def _source_policy_metadata(value: Mapping[str, Any] | None) -> dict[str, Any]:
+    policy = dict(_DEFAULT_SOURCE_POLICY_METADATA)
+    policy.update(dict(value or {}))
+    _validate_metadata_has_no_sensitive_keys(policy, "source_policy_metadata")
+    if policy.get("private_research_use_allowed") is not True:
+        raise ValueError("private research use must remain allowed for public factual data")
+    if policy.get("raw_publication_allowed") is not False:
+        raise ValueError("raw third-party publication must remain disabled")
+    if policy.get("rights_metadata_nonblocking") is not True:
+        raise ValueError("rights metadata must remain nonblocking for private research")
+    if policy.get("storage_boundary") != "EXTERNAL_DATA_ROOT":
+        raise ValueError("raw storage must remain under the configured external data root")
+    return policy
 
 
 def request_identity_sha256(
@@ -148,8 +197,11 @@ class RawSnapshotStore:
         row_count: int = 0,
         schema_fields=(),
         metadata: Mapping[str, Any] | None = None,
+        source_policy_metadata: Mapping[str, Any] | None = None,
     ) -> RawSnapshot:
         _validate_public_source_uri(source_uri)
+        _validate_metadata_has_no_sensitive_keys(metadata or {})
+        policy_metadata = _source_policy_metadata(source_policy_metadata)
         source_id = _safe_path_segment(source_id, "source_id")
         dataset = _safe_path_segment(dataset, "dataset")
         digest = hashlib.sha256(payload).hexdigest()
@@ -168,7 +220,10 @@ class RawSnapshotStore:
             json.dumps(capture_identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
         ).hexdigest()
         snapshot_id = f"snap_{capture_digest[:24]}"
-        relative_path = Path("raw") / source_id / dataset / f"{snapshot_id}{suffix}"
+        # Capture identity and content identity are deliberately distinct. A
+        # later retrieval of identical bytes receives its own capture manifest
+        # but reuses the exact content-addressed payload path.
+        relative_path = Path("raw") / source_id / dataset / f"{digest}{suffix}"
         destination = self.root / relative_path
         self._install_immutable(destination, payload, digest)
         record = {
@@ -182,6 +237,7 @@ class RawSnapshotStore:
             "schema_fields": list(schema_fields),
             "snapshot_id": snapshot_id,
             "source_id": source_id,
+            "source_policy_metadata": policy_metadata,
             "source_uri": source_uri,
         }
         self._write_immutable_json(
@@ -203,6 +259,7 @@ class RawSnapshotStore:
         row_count: int = 0,
         schema_fields=(),
         metadata=None,
+        source_policy_metadata: Mapping[str, Any] | None = None,
     ) -> RawSnapshot:
         return self.ingest_bytes(
             source_id,
@@ -215,7 +272,120 @@ class RawSnapshotStore:
             row_count=row_count,
             schema_fields=schema_fields,
             metadata=metadata,
+            source_policy_metadata=source_policy_metadata,
         )
+
+    def manifest_record(self, snapshot_id: str) -> dict[str, Any]:
+        snapshot_id = _safe_path_segment(snapshot_id, "snapshot_id")
+        manifest_path = self.root / "manifests" / f"{snapshot_id}.json"
+        if not manifest_path.is_file():
+            raise FileNotFoundError(f"snapshot manifest not found: {snapshot_id}")
+        record = json.loads(manifest_path.read_text(encoding="utf-8"))
+        payload_path = self.root / record["relative_path"]
+        if not payload_path.is_file() or _sha(payload_path) != record["raw_sha256"]:
+            raise RuntimeError("snapshot payload integrity failure")
+        return record
+
+    def ingest_correction(
+        self,
+        prior_snapshot_id: str,
+        payload: bytes,
+        *,
+        retrieved_at: datetime,
+        corrected_at: datetime,
+        source_uri: str,
+        correction_reason: str,
+        extension: str = ".bin",
+        publication_time: datetime | None = None,
+        row_count: int = 0,
+        schema_fields=(),
+        metadata: Mapping[str, Any] | None = None,
+        source_policy_metadata: Mapping[str, Any] | None = None,
+    ) -> tuple[RawSnapshot, dict[str, Any]]:
+        prior = self.manifest_record(prior_snapshot_id)
+        reason = correction_reason.strip()
+        if not reason:
+            raise ValueError("correction_reason must be non-empty")
+        if hashlib.sha256(payload).hexdigest() == prior["raw_sha256"]:
+            raise ValueError("correction bytes must differ from the prior immutable content identity")
+        corrected = self.ingest_bytes(
+            prior["source_id"],
+            prior["dataset"],
+            payload,
+            retrieved_at=retrieved_at,
+            source_uri=source_uri,
+            extension=extension,
+            publication_time=publication_time,
+            row_count=row_count,
+            schema_fields=schema_fields,
+            metadata=metadata,
+            source_policy_metadata=source_policy_metadata or prior.get("source_policy_metadata"),
+        )
+        corrected_manifest_path = self.root / "manifests" / f"{corrected.snapshot_id}.json"
+        prior_manifest_path = self.root / "manifests" / f"{prior_snapshot_id}.json"
+        identity = {
+            "corrected_at": _iso(corrected_at),
+            "corrected_raw_sha256": corrected.raw_sha256,
+            "corrected_snapshot_id": corrected.snapshot_id,
+            "correction_reason": reason,
+            "prior_raw_sha256": prior["raw_sha256"],
+            "prior_snapshot_id": prior_snapshot_id,
+        }
+        correction_digest = hashlib.sha256(
+            json.dumps(identity, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+        ).hexdigest()
+        correction_id = f"corr_{correction_digest[:24]}"
+        record = {
+            **identity,
+            "correction_id": correction_id,
+            "corrected_manifest_sha256": _sha(corrected_manifest_path),
+            "prior_manifest_sha256": _sha(prior_manifest_path),
+            "prior_snapshot_preserved": True,
+            "relative_path": (Path("corrections") / prior["source_id"] / prior["dataset"] / f"{correction_id}.json").as_posix(),
+            "schema_version": "1.0.0",
+            "source_id": prior["source_id"],
+            "dataset": prior["dataset"],
+        }
+        self._write_immutable_json(self.root / record["relative_path"], record, "immutable correction lineage collision")
+        return corrected, record
+
+    def quarantine_snapshot(
+        self,
+        snapshot_id: str,
+        *,
+        reason_code: str,
+        quarantined_at: datetime,
+        details: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        snapshot = self.manifest_record(snapshot_id)
+        normalized_reason = reason_code.strip().upper()
+        if normalized_reason not in _QUARANTINE_REASON_CODES:
+            raise ValueError(f"unsupported quarantine reason: {normalized_reason}")
+        safe_details = dict(details or {})
+        _validate_metadata_has_no_sensitive_keys(safe_details, "quarantine.details")
+        identity = {
+            "details": safe_details,
+            "quarantined_at": _iso(quarantined_at),
+            "raw_sha256": snapshot["raw_sha256"],
+            "reason_code": normalized_reason,
+            "snapshot_id": snapshot_id,
+        }
+        quarantine_digest = hashlib.sha256(
+            json.dumps(identity, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+        ).hexdigest()
+        quarantine_id = f"quar_{quarantine_digest[:24]}"
+        record = {
+            **identity,
+            "dataset": snapshot["dataset"],
+            "quarantine_id": quarantine_id,
+            "raw_snapshot_preserved": True,
+            "relative_path": (Path("quarantine") / snapshot["source_id"] / snapshot["dataset"] / f"{quarantine_id}.json").as_posix(),
+            "schema_version": "1.0.0",
+            "source_id": snapshot["source_id"],
+            "unrelated_domains_globally_blocked": False,
+        }
+        self._write_immutable_json(self.root / record["relative_path"], record, "immutable quarantine record collision")
+        return record
 
     def bind_request(self, request_identity: str, snapshot: RawSnapshot) -> None:
         _validate_request_identity(request_identity)
@@ -253,6 +423,9 @@ class RawSnapshotStore:
 
     @staticmethod
     def _snapshot_from_record(record: Mapping[str, Any]) -> RawSnapshot:
+        metadata = dict(record.get("metadata", {}))
+        if "source_policy_metadata" in record:
+            metadata["source_policy"] = dict(record["source_policy_metadata"])
         return RawSnapshot(
             str(record["snapshot_id"]),
             str(record["source_id"]),
@@ -264,5 +437,5 @@ class RawSnapshotStore:
             tuple(record["schema_fields"]),
             str(record["source_uri"]),
             _parse_iso(record.get("publication_time")),
-            dict(record.get("metadata", {})),
+            metadata,
         )

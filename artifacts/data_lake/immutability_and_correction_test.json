@@ -1,0 +1,209 @@
+{
+  "artifact_type": "IMMUTABILITY_CORRECTION_QUARANTINE_CONTRACT_TEST",
+  "checks": {
+    "all_negative_cases_rejected": true,
+    "corrected_bytes_new_content_identity": true,
+    "corrected_bytes_new_payload_path": true,
+    "correction_idempotent": true,
+    "correction_record_exists": true,
+    "identical_bytes_reuse_payload_path": true,
+    "identical_bytes_same_content_sha256": true,
+    "prior_and_corrected_payloads_exist": true,
+    "prior_manifest_unchanged": true,
+    "prior_payload_unchanged": true,
+    "quarantine_idempotent": true,
+    "quarantine_record_exists": true,
+    "quarantine_scoped_not_global": true,
+    "raw_publication_disabled": true,
+    "separate_retrievals_have_distinct_capture_ids": true,
+    "source_policy_preserved": true
+  },
+  "consumer_contract": {
+    "nonblocking_metadata": [
+      "licensing_ambiguity",
+      "redistribution_uncertainty",
+      "provider_preference",
+      "missing_upstream_authorization"
+    ],
+    "reject_on": [
+      "missing",
+      "stale_hash",
+      "schema_incompatible",
+      "provenance_incomplete",
+      "corruption_or_fabrication",
+      "credential_or_private_personal_information",
+      "pit_or_target_leakage"
+    ],
+    "required_fields": [
+      "checks",
+      "observations",
+      "negative_results",
+      "prerequisite_identities",
+      "content_hash"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "SHA-256",
+    "canonical_payload_sha256": "4041ac01f54b2518beb157e2bbe2b5d0f6bbc7779da824274e4f320006a7e7c7",
+    "excludes": [
+      "content_hash.canonical_payload_sha256"
+    ]
+  },
+  "created_at_utc": "2026-08-09T22:12:35Z",
+  "decision": {
+    "bulk_data_in_git": false,
+    "consumer": "POST-SUBTASK-032",
+    "external_historical_payloads_mutated": false,
+    "gap_002_resolved": false,
+    "historical_population_ready": false,
+    "implementation_maturity": "IMPLEMENTED",
+    "model_or_scientific_result_claimed": false,
+    "raw_publication_allowed": false,
+    "result": "PASS",
+    "rights_licensing_scraping_redistribution_or_upstream_authorization_uncertainty_blocks_private_use": false
+  },
+  "issue": {
+    "jira_key": "BAT-381",
+    "local_id": "POST-SUBTASK-031"
+  },
+  "negative_findings": [
+    "This is deterministic contract evidence, not proof that all external historical captures are immutable or scientifically ready.",
+    "Quarantine is scoped and append-only; it does not delete raw evidence or globally block unrelated domains.",
+    "Licensing/redistribution/scraping/terms/upstream-authorization uncertainty is not a quarantine reason for private research.",
+    "No source availability, historical completeness, threshold, model performance, operational readiness, GAP-002 resolution, A&M lift, BAS, or Aggie Excess result is claimed."
+  ],
+  "negative_results": [
+    {
+      "case": "identical_bytes_as_correction",
+      "error": "correction bytes must differ from the prior immutable content identity",
+      "rejected": true
+    },
+    {
+      "case": "licensing_as_quarantine_reason",
+      "error": "unsupported quarantine reason: LICENSING_UNCERTAINTY",
+      "rejected": true
+    },
+    {
+      "case": "raw_publication_enabled",
+      "error": "raw third-party publication must remain disabled",
+      "rejected": true
+    },
+    {
+      "case": "credential_key_in_metadata",
+      "error": "metadata contains sensitive key: api_token",
+      "rejected": true
+    },
+    {
+      "case": "rights_metadata_made_blocking",
+      "error": "rights metadata must remain nonblocking for private research",
+      "rejected": true
+    }
+  ],
+  "observations": {
+    "corrected_capture": {
+      "raw_sha256": "8de2cdb128f647124a230ecfb66ae270e25c892a9dcf4d6c79f1e8137198bf35",
+      "relative_path": "raw/SRC-TEST/games/8de2cdb128f647124a230ecfb66ae270e25c892a9dcf4d6c79f1e8137198bf35.json",
+      "snapshot_id": "snap_7ccc4a5df782ceeac9403650"
+    },
+    "correction": {
+      "corrected_at": "2026-01-03T00:05:00Z",
+      "corrected_manifest_sha256": "fcca7a3a9487a705d5301b581c808d9d900fc5832be30b56139c7139ed901728",
+      "corrected_raw_sha256": "8de2cdb128f647124a230ecfb66ae270e25c892a9dcf4d6c79f1e8137198bf35",
+      "corrected_snapshot_id": "snap_7ccc4a5df782ceeac9403650",
+      "correction_id": "corr_6a1cf44fabe164a8b7918640",
+      "correction_reason": "official score correction",
+      "dataset": "games",
+      "prior_manifest_sha256": "7bcd7e21186df5625fab31aa4d6ef932d55328c18b1bd05744ee3750bbc3d2f9",
+      "prior_raw_sha256": "ac782d6aed2a322a56bf5bf5786d6227f0de112ac63ed7f49e757d41d4559e7e",
+      "prior_snapshot_id": "snap_caceae9b8d67e90ae4984724",
+      "prior_snapshot_preserved": true,
+      "relative_path": "corrections/SRC-TEST/games/corr_6a1cf44fabe164a8b7918640.json",
+      "schema_version": "1.0.0",
+      "source_id": "SRC-TEST"
+    },
+    "filesystem_counts": {
+      "capture_manifests": 3,
+      "content_payloads": 2,
+      "correction_records": 1,
+      "quarantine_records": 1
+    },
+    "first_capture": {
+      "raw_sha256": "ac782d6aed2a322a56bf5bf5786d6227f0de112ac63ed7f49e757d41d4559e7e",
+      "relative_path": "raw/SRC-TEST/games/ac782d6aed2a322a56bf5bf5786d6227f0de112ac63ed7f49e757d41d4559e7e.json",
+      "snapshot_id": "snap_caceae9b8d67e90ae4984724"
+    },
+    "quarantine": {
+      "dataset": "games",
+      "details": {
+        "field": "score",
+        "scope": "corrected capture only"
+      },
+      "quarantine_id": "quar_7e09866765c3f9126d5eb974",
+      "quarantined_at": "2026-01-03T00:10:00Z",
+      "raw_sha256": "8de2cdb128f647124a230ecfb66ae270e25c892a9dcf4d6c79f1e8137198bf35",
+      "raw_snapshot_preserved": true,
+      "reason_code": "SCHEMA_INCOMPATIBLE",
+      "relative_path": "quarantine/SRC-TEST/games/quar_7e09866765c3f9126d5eb974.json",
+      "schema_version": "1.0.0",
+      "snapshot_id": "snap_7ccc4a5df782ceeac9403650",
+      "source_id": "SRC-TEST",
+      "unrelated_domains_globally_blocked": false
+    },
+    "repeated_capture": {
+      "raw_sha256": "ac782d6aed2a322a56bf5bf5786d6227f0de112ac63ed7f49e757d41d4559e7e",
+      "relative_path": "raw/SRC-TEST/games/ac782d6aed2a322a56bf5bf5786d6227f0de112ac63ed7f49e757d41d4559e7e.json",
+      "snapshot_id": "snap_1886591a1dcfe74e9a4b7cdc"
+    }
+  },
+  "prerequisite_identities": [
+    {
+      "bytes": 26188,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-027.json",
+      "sha256": "a64f0cc600fc3265f907d49d825c211c9b4112341123128b81e0c0f70c5b2ef3"
+    },
+    {
+      "bytes": 12933,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-030.json",
+      "sha256": "c6b6fba3d42cdb635c09aa0c27503401d88f76c9df09224234ac48da99747a8f"
+    },
+    {
+      "bytes": 18175,
+      "path": "src/aggie_analytics/data/snapshots.py",
+      "sha256": "61bbe3275d2289971dd0417bca03a5809a98b1a8ad30560cec0a70e6f1e36220"
+    },
+    {
+      "bytes": 7389,
+      "path": "tests/test_w19_foundation.py",
+      "sha256": "b0f2105f7926d9415f37af70346a049e4f81ae480dfb90c784ff4d5dbef88aea"
+    }
+  ],
+  "producer": {
+    "mode": "DETERMINISTIC_SYNTHETIC_CONTRACT_TEST",
+    "name": "build_immutability_and_correction_test.py",
+    "temporary_workspace_cleaned": true
+  },
+  "schema_version": "1.0.0",
+  "scientific_validation": {
+    "calibrator": null,
+    "classification": "NOT_APPLICABLE_CONTRACT_TEST_ONLY",
+    "dataset_or_matrix": null,
+    "metrics_or_uncertainty": null,
+    "model": null,
+    "null_or_negative_results_preserved": true,
+    "protected_evaluation_status": "NOT_OPENED",
+    "sample_size": null,
+    "split": null
+  },
+  "source_policy_metadata": {
+    "acquisition_route": "PUBLIC_HTTP_OR_CONFIGURED_PROXY",
+    "licensing_status": "METADATA_ONLY_UNCERTAIN",
+    "private_research_use_allowed": true,
+    "raw_publication_allowed": false,
+    "rights_metadata_nonblocking": true,
+    "storage_boundary": "EXTERNAL_DATA_ROOT"
+  },
+  "validation": {
+    "negative_cases_rejected": 5,
+    "result": "PASS"
+  }
+}

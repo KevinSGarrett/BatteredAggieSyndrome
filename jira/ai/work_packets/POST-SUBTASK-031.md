@@ -38,7 +38,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 ## Current gate state
 
-- Workflow: `READY`
+- Workflow: `IN_PROGRESS`
 - Ready: `true`
 - Priority: `P0`
 - Critical path: `true`

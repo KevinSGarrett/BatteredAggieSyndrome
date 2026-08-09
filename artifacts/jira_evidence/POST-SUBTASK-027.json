@@ -1,0 +1,628 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Every configured season/source request records source identity, retrieval/known-at time, request identity, response hash, immutable path, pagination, and provider failure state.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/data_lake/core_coverage_gate.json",
+      "evidence_sha256": "9b9fb36c3d25d28bdd7ebe3763a15e520d1b8172cbaad8bdf75104ba36d24c90",
+      "observable_result": "All 223 requests across 10 CFBD endpoints passed the required metadata and immutable-identity contract; all 223 raw captures were independently rehashed. The 66 expected regular/postseason season-week partitions exactly match the 66 observed partitions for plays, team boxes, and player boxes."
+    },
+    {
+      "criterion": "Normalized games, scores, drives, plays, and box totals reconcile to canonical identities and official outcomes; every rejected/partial record is quarantined with reason.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/data_lake/core_coverage_gate.json",
+      "evidence_sha256": "9b9fb36c3d25d28bdd7ebe3763a15e520d1b8172cbaad8bdf75104ba36d24c90",
+      "observable_result": "The normalized game spine exactly equals all 3,659 completed source games; drive/play/team-box/player-box game coverage is 100%, every game has exactly two team boxes, and box points match official outcomes. All 9,035 exceptions are content-addressed under seven quarantine reasons; 64 terminal-score mismatch games remain conditionally excluded from event-derived terminal-score use."
+    },
+    {
+      "criterion": "Coverage is measured by source, domain, season, team, and game; reconnaissance samples or fixtures cannot satisfy population readiness.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/data_lake/core_coverage_gate.json",
+      "evidence_sha256": "9b9fb36c3d25d28bdd7ebe3763a15e520d1b8172cbaad8bdf75104ba36d24c90",
+      "observable_result": "The denominator is every real provider-returned FBS team and every provider-returned completed classification=fbs game in 2022-2025, with zero fixture/recon rows. Season game coverage is 896/896, 910/910, 919/919, and 934/934; season FBS-team coverage is 131/131, 133/133, 134/134, and 136/136. Approval is explicitly source-defined and does not claim provider-independent universal completeness."
+    },
+    {
+      "criterion": "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
+      "disposition": "PASS",
+      "evidence_path": "<external-runtime>/BAT-377/core-coverage-validation.safe.json",
+      "evidence_sha256": "405840804d20f9e7047e952f49327159ad4241e0029b973ab9185470035b3490",
+      "observable_result": "All six prerequisite completion manifests are Done/Verified at their required maturity, and the acquisition and normalization artifacts are pinned by byte/hash identity. The validator rehashed 2,890,811,851 bytes, streamed every normalized row, and rejected 10/10 unsafe gate mutations. Historical pregame use and broader all-history completeness remain explicitly unapproved."
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-377/evaluate_core_coverage.py",
+      "exit_code": 0,
+      "result": {
+        "advanced_games": 3655,
+        "completed_games": 3659,
+        "decision": "APPROVED_BOUNDED_SOURCE_DEFINED_POPULATION",
+        "quarantine": 9035,
+        "source_games": 3660
+      },
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output and deterministic gate"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-377/validate_core_coverage_gate.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "<external-runtime>/BAT-377/core-coverage-validation.safe.json"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q --junitxml=<external-runtime>/BAT-377/test-w19-foundation.junit.xml",
+      "exit_code": 0,
+      "result": "3 passed",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output plus JUnit XML"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "262 passed, 1 skipped, 33 subtests passed in 5.16s",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output"
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py --repo-root . && python -B tools/validate_dependency_policy.py --repo-root .",
+      "exit_code": 0,
+      "result": "W25 final PASS; dependency policy PASS (2 direct product pins, 14 hash-locked entries)",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "PRODUCTION_READY",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
+  },
+  "created_at_utc": "2026-08-09T17:53:47Z",
+  "decision": {
+    "approved": true,
+    "disposition": "APPROVED_BOUNDED_SOURCE_DEFINED_POPULATION",
+    "eligibility": {
+      "advanced_game_stats": "CONDITIONAL_AUXILIARY_3655_OF_3659_GAMES; EXCLUDE_UNRESOLVED_OR_PARTIAL_ROWS",
+      "core_game_spine_and_official_outcomes": "APPROVED_FOR_CONFIGURED_2022_2025_CFBD_SCOPE",
+      "drive_and_play_event_features": "CONDITIONAL_EXCLUDE_QUARANTINED_ROWS_AND_64_TERMINAL_SCORE_MISMATCH_GAMES",
+      "historical_pregame_feature_use": "FAIL_CLOSED_PENDING_TEMPORAL_POLICY_AND_CHRONOLOGICAL_REPLAY",
+      "team_and_player_box_domains": "APPROVED_FOR_CONFIGURED_2022_2025_CFBD_SCOPE",
+      "universal_or_all_history_population": "NOT_CLAIMED"
+    },
+    "scope_boundary": "This approves the complete internally reconciled source-defined 2022-2025 CFBD population, not every college-football game ever played and not provider-independent completeness."
+  },
+  "downstream_reevaluation": {
+    "POST-STORY-010": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
+    "POST-STORY-011": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
+    "POST-SUBTASK-028": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
+    "POST-SUBTASK-029": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
+    "POST-SUBTASK-030": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
+    "POST-SUBTASK-031": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
+    "POST-SUBTASK-032": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
+    "POST-SUBTASK-033": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 16582,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-006.json",
+      "sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a"
+    },
+    {
+      "bytes": 12079,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
+      "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
+    },
+    {
+      "bytes": 13130,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+      "sha256": "614ae316b167d323ef96f3dc8a523e66e0f5ac0b00ea06fc7617bd2f0e32b6a0"
+    },
+    {
+      "bytes": 6379,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-022.json",
+      "sha256": "b02acd5e6f1bc1a5b4add7535366a8ee2d69aea09c19284522773af3f41ec1f8"
+    },
+    {
+      "bytes": 18868,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-025.json",
+      "sha256": "4669f4cf4a475e949146ba020c07f860b9d7640377e8deb43310f582d5b2316e"
+    },
+    {
+      "bytes": 15513,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-026.json",
+      "sha256": "b6459d4f6c61949bfac2597c148a9e39e67655f241bb1dfd37b75b021cbf7b9d"
+    },
+    {
+      "bytes": 581067,
+      "path": "artifacts/data_lake/core_acquisition_manifest.json",
+      "sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c"
+    },
+    {
+      "bytes": 13734,
+      "path": "artifacts/data_lake/core_normalization_report.json",
+      "sha256": "0e64926212a1060f5c83939459533d931be3a2f8a0f0c203ec3ea4f9a8c8423e"
+    },
+    {
+      "bytes": 17006,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-027_approve_or_block_the_population_level_core_history_coverage_gate.json",
+      "sha256": "e1d9ef58667de97e76b76cf6815c9f0fb9795413532b619c836c3e3064127b84"
+    }
+  ],
+  "jira_key": "BAT-377",
+  "live_jira": {
+    "claim_comment_id": "13349",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "PRODUCTION_READY",
+    "post_claim_state": {
+      "bytes": 290,
+      "path": "<external-runtime>/BAT-377/post-claim-jira-state.json",
+      "sha256": "175a4fce8c4bfdd122795b2527aff4b548818305fcd2f941d025410c4110b952"
+    },
+    "status": "In Progress"
+  },
+  "local_issue_id": "POST-SUBTASK-027",
+  "negative_findings_and_limits": [
+    "The provider does not publish an endpoint-specific historical completeness guarantee; universal NCAA population completeness is not claimed.",
+    "Only seasons 2022-2025 are in this approved gate; older history and future seasons require separately versioned acquisitions and gates.",
+    "One source game is incomplete and remains quarantined rather than normalized.",
+    "Terminal drive and play scores disagree with the official outcome for 64 games; those event-derived terminal-score uses remain excluded even though official outcomes and box points reconcile.",
+    "Advanced stats resolve for 3,655 of 3,659 completed games; the auxiliary domain is conditional and its FCS/partial spillover remains quarantined.",
+    "Historical pregame eligibility is not granted by this population gate; downstream temporal policy and chronological replay must still fail closed.",
+    "No model quality, protected metric, A&M specialization lift, BAS, or Aggie Excess effect was evaluated."
+  ],
+  "observable_outcome": "The population gate approves the exact source-defined 2022-2025 CFBD FBS scope: all 3,659 completed source games, every season-specific FBS team, and all completed-game drive, play, team-box, and player-box domains are covered. The approval is bounded rather than universal; 9,035 quarantined records/findings, 64 event-terminal-score mismatch games, four games without resolved advanced stats, one incomplete source game, and the provider's lack of an independent historical completeness guarantee remain explicit.",
+  "outputs": [
+    {
+      "bytes": 21097,
+      "canonical_payload_sha256": "6bf5e8799b397087c91d125686d1de9c20b1ebd98c3866f62c663dbea385e11c",
+      "completed_games": 3659,
+      "decision": "APPROVED_BOUNDED_SOURCE_DEFINED_POPULATION",
+      "eligibility": {
+        "advanced_game_stats": "CONDITIONAL_AUXILIARY_3655_OF_3659_GAMES; EXCLUDE_UNRESOLVED_OR_PARTIAL_ROWS",
+        "core_game_spine_and_official_outcomes": "APPROVED_FOR_CONFIGURED_2022_2025_CFBD_SCOPE",
+        "drive_and_play_event_features": "CONDITIONAL_EXCLUDE_QUARANTINED_ROWS_AND_64_TERMINAL_SCORE_MISMATCH_GAMES",
+        "historical_pregame_feature_use": "FAIL_CLOSED_PENDING_TEMPORAL_POLICY_AND_CHRONOLOGICAL_REPLAY",
+        "team_and_player_box_domains": "APPROVED_FOR_CONFIGURED_2022_2025_CFBD_SCOPE",
+        "universal_or_all_history_population": "NOT_CLAIMED"
+      },
+      "path": "artifacts/data_lake/core_coverage_gate.json",
+      "quarantined_records_or_findings": 9035,
+      "sha256": "9b9fb36c3d25d28bdd7ebe3763a15e520d1b8172cbaad8bdf75104ba36d24c90",
+      "source_game_rows": 3660
+    }
+  ],
+  "pit_and_leakage": {
+    "future_same_game_postgame_contamination": "MUST_FAIL_CLOSED",
+    "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_DOWNSTREAM_TEMPORAL_POLICY_AND_CHRONOLOGICAL_REPLAY",
+    "target_game_outcomes": "ALWAYS_EXCLUDED"
+  },
+  "population_coverage": {
+    "by_season": {
+      "2022": {
+        "completed_source_games": 896,
+        "domain_game_coverage": {
+          "advanced_game_stats": {
+            "covered": 896,
+            "expected": 896,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "drives": {
+            "covered": 896,
+            "expected": 896,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "player_box_scores": {
+            "covered": 896,
+            "expected": 896,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "plays": {
+            "covered": 896,
+            "expected": 896,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "team_box_scores": {
+            "covered": 896,
+            "expected": 896,
+            "fraction": 1.0,
+            "percent": 100.0
+          }
+        },
+        "fbs_team_registry_count": 131,
+        "fbs_teams_in_normalized_games": {
+          "covered": 131,
+          "expected": 131,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "fbs_teams_with_completed_source_game": {
+          "covered": 131,
+          "expected": 131,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "game_coverage": {
+          "covered": 896,
+          "expected": 896,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "normalized_completed_games": 896,
+        "source_game_rows": 896
+      },
+      "2023": {
+        "completed_source_games": 910,
+        "domain_game_coverage": {
+          "advanced_game_stats": {
+            "covered": 910,
+            "expected": 910,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "drives": {
+            "covered": 910,
+            "expected": 910,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "player_box_scores": {
+            "covered": 910,
+            "expected": 910,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "plays": {
+            "covered": 910,
+            "expected": 910,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "team_box_scores": {
+            "covered": 910,
+            "expected": 910,
+            "fraction": 1.0,
+            "percent": 100.0
+          }
+        },
+        "fbs_team_registry_count": 133,
+        "fbs_teams_in_normalized_games": {
+          "covered": 133,
+          "expected": 133,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "fbs_teams_with_completed_source_game": {
+          "covered": 133,
+          "expected": 133,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "game_coverage": {
+          "covered": 910,
+          "expected": 910,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "normalized_completed_games": 910,
+        "source_game_rows": 910
+      },
+      "2024": {
+        "completed_source_games": 919,
+        "domain_game_coverage": {
+          "advanced_game_stats": {
+            "covered": 915,
+            "expected": 919,
+            "fraction": 0.9956474428726877,
+            "percent": 99.564744
+          },
+          "drives": {
+            "covered": 919,
+            "expected": 919,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "player_box_scores": {
+            "covered": 919,
+            "expected": 919,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "plays": {
+            "covered": 919,
+            "expected": 919,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "team_box_scores": {
+            "covered": 919,
+            "expected": 919,
+            "fraction": 1.0,
+            "percent": 100.0
+          }
+        },
+        "fbs_team_registry_count": 134,
+        "fbs_teams_in_normalized_games": {
+          "covered": 134,
+          "expected": 134,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "fbs_teams_with_completed_source_game": {
+          "covered": 134,
+          "expected": 134,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "game_coverage": {
+          "covered": 919,
+          "expected": 919,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "normalized_completed_games": 919,
+        "source_game_rows": 920
+      },
+      "2025": {
+        "completed_source_games": 934,
+        "domain_game_coverage": {
+          "advanced_game_stats": {
+            "covered": 934,
+            "expected": 934,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "drives": {
+            "covered": 934,
+            "expected": 934,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "player_box_scores": {
+            "covered": 934,
+            "expected": 934,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "plays": {
+            "covered": 934,
+            "expected": 934,
+            "fraction": 1.0,
+            "percent": 100.0
+          },
+          "team_box_scores": {
+            "covered": 934,
+            "expected": 934,
+            "fraction": 1.0,
+            "percent": 100.0
+          }
+        },
+        "fbs_team_registry_count": 136,
+        "fbs_teams_in_normalized_games": {
+          "covered": 136,
+          "expected": 136,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "fbs_teams_with_completed_source_game": {
+          "covered": 136,
+          "expected": 136,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "game_coverage": {
+          "covered": 934,
+          "expected": 934,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "normalized_completed_games": 934,
+        "source_game_rows": 934
+      }
+    },
+    "definition": {
+      "advanced_game_stats_role": "MEASURED_CONDITIONAL_AUXILIARY_DOMAIN; NOT_REQUIRED_TO_APPROVE_THE_CORE_GAME_SPINE",
+      "classification": "REAL_BOUNDED_SOURCE_DEFINED_NATIONAL_FBS_POPULATION",
+      "domain_population": [
+        "games",
+        "scores",
+        "drives",
+        "plays",
+        "team_box_scores",
+        "player_box_scores"
+      ],
+      "fixture_or_reconnaissance_rows": 0,
+      "game_population": "Every provider-returned game from GET /games?classification=fbs&year=<season>; completed rows are the normalization denominator.",
+      "seasons": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "source_id": "SRC-002",
+      "source_provider": "CollegeFootballData",
+      "team_population": "Every provider-returned FBS team from GET /teams/fbs?year=<season>.",
+      "universal_external_completeness_claimed": false
+    },
+    "request_partitions": {
+      "CFBD-GetGamePlayerStats": {
+        "complete": true,
+        "expected_partition_count": 66,
+        "extra_partitions": [],
+        "missing_partitions": [],
+        "observed_partition_count": 66
+      },
+      "CFBD-GetGameTeamStats": {
+        "complete": true,
+        "expected_partition_count": 66,
+        "extra_partitions": [],
+        "missing_partitions": [],
+        "observed_partition_count": 66
+      },
+      "CFBD-GetPlays": {
+        "complete": true,
+        "expected_partition_count": 66,
+        "extra_partitions": [],
+        "missing_partitions": [],
+        "observed_partition_count": 66
+      }
+    },
+    "summary": {
+      "advanced_game_coverage": {
+        "covered": 3655,
+        "expected": 3659,
+        "fraction": 0.9989068051380159,
+        "percent": 99.890681
+      },
+      "completed_source_games": 3659,
+      "domain_game_coverage": {
+        "advanced_game_stats": {
+          "covered": 3655,
+          "expected": 3659,
+          "fraction": 0.9989068051380159,
+          "percent": 99.890681
+        },
+        "drives": {
+          "covered": 3659,
+          "expected": 3659,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "player_box_scores": {
+          "covered": 3659,
+          "expected": 3659,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "plays": {
+          "covered": 3659,
+          "expected": 3659,
+          "fraction": 1.0,
+          "percent": 100.0
+        },
+        "team_box_scores": {
+          "covered": 3659,
+          "expected": 3659,
+          "fraction": 1.0,
+          "percent": 100.0
+        }
+      },
+      "games_with_drive_final_score_match": {
+        "covered": 3595,
+        "expected": 3659,
+        "fraction": 0.9825088822082536,
+        "percent": 98.250888
+      },
+      "games_with_play_final_score_match": {
+        "covered": 3595,
+        "expected": 3659,
+        "fraction": 0.9825088822082536,
+        "percent": 98.250888
+      },
+      "normalized_completed_games": 3659,
+      "normalized_rows": {
+        "advanced_game_stats": 7310,
+        "drives": 86891,
+        "games": 3659,
+        "player_box_scores": 1805837,
+        "plays": 644898,
+        "team_box_scores": 7318
+      },
+      "partial_or_incomplete_source_games": 1,
+      "quarantine_by_reason": {
+        "ADVANCED_STATS_ORPHAN_IDENTITY_OR_PARTIAL": 5120,
+        "DRIVE_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 420,
+        "GAME_DRIVE_FINAL_SCORE_MISMATCH": 64,
+        "GAME_OUTCOME_PARTIAL_OR_NOT_COMPLETED": 1,
+        "GAME_PLAY_FINAL_SCORE_MISMATCH": 64,
+        "PLAY_ORPHAN_OR_CROSS_GAME_DRIVE": 3120,
+        "PLAY_SCORE_EXCEEDS_OFFICIAL_OUTCOME": 246
+      },
+      "quarantined_records_or_findings": 9035,
+      "source_game_rows": 3660
+    }
+  },
+  "protected_integration": {
+    "branch": "codex/BAT-377-core-coverage-gate",
+    "merge_method": "SQUASH_REQUIRED",
+    "state": "PENDING_PROTECTED_PULL_REQUEST"
+  },
+  "schema_version": "1.0.0",
+  "security_and_rights": {
+    "configured_secret_value_matches": 0,
+    "credential_or_authorization_values_recorded": false,
+    "raw_or_normalized_payloads_in_git_or_jira": false,
+    "source_contract": "APPROVED_CFBD_PERSONAL_NONCOMMERCIAL_LOCAL_ANALYSIS"
+  },
+  "validation": {
+    "report": {
+      "bytes": 2696,
+      "path": "<external-runtime>/BAT-377/core-coverage-validation.safe.json",
+      "sha256": "405840804d20f9e7047e952f49327159ad4241e0029b973ab9185470035b3490"
+    },
+    "result": "PASS"
+  },
+  "validation_matrix": [
+    {
+      "classification": "REGRESSION",
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q --junitxml=<external-runtime>/BAT-377/test-w19-foundation.junit.xml",
+      "disposition": "PASS",
+      "evidence": {
+        "bytes": 607,
+        "path": "<external-runtime>/BAT-377/test-w19-foundation.junit.xml",
+        "sha256": "ff13b0fe8c96b90ee1a78815e55b0b2d17d05df973a787d689af09a84ac7c8c0"
+      },
+      "result": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 3
+      }
+    },
+    {
+      "classification": "FULL_REGRESSION",
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "disposition": "PASS",
+      "result": {
+        "duration_seconds": 5.16,
+        "passed": 262,
+        "skipped": 1,
+        "subtests_passed": 33
+      },
+      "stdout_location": "Codex tool-call output"
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_GATE_FAIL_CLOSED",
+      "observable_result": "The gate does not make captured historical postgame records pregame-eligible: historical pregame use remains fail-closed pending downstream temporal policy and replay, future/same-game contamination must fail closed, and target-game outcomes remain always excluded. Validator mutations that removed either guard were rejected."
+    },
+    {
+      "classification": "END_TO_END",
+      "disposition": "PASS",
+      "evidence": {
+        "bytes": 2696,
+        "path": "<external-runtime>/BAT-377/core-coverage-validation.safe.json",
+        "sha256": "405840804d20f9e7047e952f49327159ad4241e0029b973ab9185470035b3490"
+      },
+      "observable_result": "All prerequisite evidence, 223 raw captures, six normalized datasets, every season/team/game denominator, seven quarantine reasons, bounded eligibility decisions, and eight downstream dependency contributions were evaluated in one deterministic gate."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "observable_result": "The gate pins source, season, request, prerequisite, raw/normalized aggregate, producer, runtime, validation, population-denominator, and content-hash identities without placing data payloads or credentials in Git."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE_COVERAGE_GATE_ONLY",
+      "observable_result": "No feature/model hypothesis, split, score, calibrator, protected evaluation, A&M lift, BAS, or Aggie Excess effect belongs to this population coverage decision; no metric is invented."
+    }
+  ]
+}

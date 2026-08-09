@@ -77,7 +77,7 @@
   "end_to_end_validation": "Validate that `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` can be parsed and consumed by `POST-SUBTASK-033` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-032.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA_MATERIALIZATION",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -144,11 +144,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24522",
-    "jira_updated_at": "2026-08-09T17:35:12.201-0500",
-    "last_synced_at": "2026-08-09T22:35:24.579555+00:00",
+    "jira_updated_at": "2026-08-09T17:41:11.435-0500",
+    "last_synced_at": "2026-08-09T22:41:47.234173+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-382\\BAT-382-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -203,7 +203,7 @@
     "src/aggie_analytics/data/snapshots.py",
     "docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -309,7 +309,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-011: Immutable raw store, manifests, provenance, and population audit.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-032.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

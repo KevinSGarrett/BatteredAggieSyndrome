@@ -38,14 +38,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
-- Ready: `true`
+- Workflow: `DONE`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `DATA_MATERIALIZATION`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `SCAFFOLD` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-033`
 
 ## Read first

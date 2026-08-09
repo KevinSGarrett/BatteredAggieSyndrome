@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T12:13:20Z",
+  "updated_at_utc": "2026-08-09T12:16:33.2155147Z",
+  "jira_key": "BAT-364",
+  "local_issue_id": "POST-SUBTASK-014",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "A deterministic governance artifact freezes 16 source-domain priority decisions and classifies all 62 reconciled sources without making any specific provider mandatory, fabricating a human rights decision, authorizing production ingestion, or weakening PIT and provenance gates.",
+  "outputs": [
+    {
+      "path": "artifacts/source_governance/source_priority_decisions.json",
+      "bytes": 90500,
+      "sha256": "878317510091659ffb35e7860de523fc1dc119271c6971e16a82e0372ad936be",
+      "schema_version": "1.0.0",
+      "domain_decisions": 16,
+      "source_classifications": 62,
+      "domain_referenced_unique_sources": 62,
+      "specific_proprietary_sources_mandatory_for_v1": 0,
+      "production_approved_sources": 0,
+      "maturity": "IMPLEMENTED"
+    }
+  ],
+  "input_identities": [
+    {
+      "path": "artifacts/source_governance/production_source_inventory.csv",
+      "bytes": 78290,
+      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3",
+      "producer_issue": "POST-SUBTASK-013",
+      "dependency_state": "DONE_VERIFIED_IMPLEMENTED"
+    },
+    {
+      "path": "artifacts/jira_evidence/POST-SUBTASK-013.json",
+      "bytes": 16967,
+      "sha256": "ed26006c5ca48268a71ad30fa288a23af221a18d90dfecd9472c45ea7fb58a11"
+    },
+    {
+      "path": "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
+      "sha256": "8f13dc956eee85129148e5390c018d1b4ca85fdf5c96f8a1f4751d49edc13650"
+    },
+    {
+      "path": "docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv",
+      "sha256": "1f3f2403743cf308910e4bfbc3508198489757bee1edf086e67d8c3f3f4b2752"
+    },
+    {
+      "path": "docs/data_research/w06/DATA_ACQUISITION_PLAN.md",
+      "sha256": "a658fa6a6aa448448671095be0e23b500c74088544ff11efa4782fc96466c4df"
+    },
+    {
+      "path": "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md",
+      "sha256": "2205f6a1a3fcefc077b08dd7cb2019425fca01f70aa47d1f7dda83d6bab2a09b"
+    },
+    {
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-014_freeze_source_priority_fallback_and_required_versus_optional_classifications.json",
+      "sha256": "d3e6fe26953f226b46239575b63a27bfc474218cfff409e12df27df80828e82e"
+    },
+    {
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-014.json",
+      "sha256": "f2d038233e6144c952243cbeff784a0aa2002993865d90fe3fe8e4372a38e162"
+    }
+  ],
+  "tool_identities": [
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-364\\build_source_priority_decisions.py",
+      "bytes": 21514,
+      "sha256": "4db758d58d1c4bc865c37d2755ddbfdc91971666cb341f02ef03b676fdea7c0d"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-364\\validate_source_priority_decisions.py",
+      "bytes": 12627,
+      "sha256": "530f3b04a75c246b5b598a77d94d96b41e8fcf27c42a3d7bdb451c6b05c53b86"
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.",
+      "disposition": "PASS",
+      "observable_result": "All 16 domain decisions carry an explicit unavailable/degraded behavior. Every required or degraded v1 lane has at least one primary source candidate, and each has either named fallback candidates or a fail-closed unavailable state; all 62 source IDs are referenced by at least one domain decision.",
+      "evidence_path": "artifacts/source_governance/source_priority_decisions.json",
+      "evidence_sha256": "878317510091659ffb35e7860de523fc1dc119271c6971e16a82e0372ad936be"
+    },
+    {
+      "criterion": "Optional proprietary enrichment is not made mandatory for v1.",
+      "disposition": "PASS",
+      "observable_result": "Zero specific providers are mandatory for v1. Markets are OPTIONAL_NONBLOCKING, advanced charting/tracking is DEFERRED_NOT_REQUIRED, live sources are DEFERRED_ISOLATED_FROM_PREGAME, and PFF remains DEFERRED pending explicit user reactivation and legitimate access.",
+      "evidence_path": "artifacts/source_governance/source_priority_decisions.json",
+      "evidence_sha256": "878317510091659ffb35e7860de523fc1dc119271c6971e16a82e0372ad936be"
+    },
+    {
+      "criterion": "Priority decisions preserve local-first cost and rights constraints.",
+      "disposition": "PASS",
+      "observable_result": "The artifact freezes local-first and pure-football defaults, classifies paid/restricted providers as optional, research-only, or deferred, and keeps every source production promotion blocked until contract, human rights, PIT, provenance, and empirical gates pass.",
+      "evidence_path": "artifacts/source_governance/source_priority_decisions.json",
+      "evidence_sha256": "878317510091659ffb35e7860de523fc1dc119271c6971e16a82e0372ad936be"
+    }
+  ],
+  "rights_review_boundary": {
+    "human_rights_review_required": true,
+    "human_rights_review_record_present": false,
+    "default_production_decision": "BLOCKED_PENDING_POST_SUBTASK_016_AND_017",
+    "promotion_effect": "No source may be promoted and no restricted/raw redistribution may occur until a named human records provider/terms version, purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decisions.",
+    "classification_completion_effect": "The absent human decision is preserved as an explicit downstream promotion blocker; it does not prevent completing this provider-neutral priority/fallback classification unit.",
+    "legal_advice_claimed": false
+  },
+  "consumer_validation": {
+    "consumer": "POST-SUBTASK-015",
+    "report_path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-364\\post-subtask-015-consumer.safe.json",
+    "report_bytes": 3119,
+    "report_sha256": "5705a37844d12beb59b0be4d21e5e6a5c04cdbf610a50729264785da1663d232",
+    "positive_consumer_pass": true,
+    "negative_mutations_rejected": 13,
+    "rejection_classes": [
+      "stale input identity",
+      "missing or duplicate source classification",
+      "uncovered source",
+      "required domain without primary or fallback/unavailable behavior",
+      "mandatory proprietary provider",
+      "production approval without human rights",
+      "missing rights or PIT state",
+      "false upstream independence",
+      "PFF promotion",
+      "market dependency"
+    ]
+  },
+  "commands": [
+    {
+      "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-364\\build_source_priority_decisions.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Generated one 90,500-byte artifact with 16 domain decisions, 62 source classifications, and complete 62-source domain coverage."
+    },
+    {
+      "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-364\\validate_source_priority_decisions.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "POST-SUBTASK-015 consumer accepted the positive artifact and rejected all 13 mutations."
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_emitted": false,
+    "secret_values_stored_in_evidence": false,
+    "restricted_raw_payloads_stored": false,
+    "third_party_code_copied": false,
+    "third_party_data_copied": false,
+    "production_source_approval_claimed": false,
+    "production_ingestion_authorized": false,
+    "historical_data_materialized": false,
+    "protected_files_modified": false
+  },
+  "protected_integration_candidate": {
+    "branch": "codex/BAT-364-source-priority-decisions",
+    "base_sha": "ea7a83099a6e0c2ff423752f846d3efabea78567",
+    "pull_request": 27,
+    "merge_sha": null,
+    "required_checks": "PENDING",
+    "state": "PROTECTED_REVIEW_PENDING"
+  },
+  "live_jira": {
+    "claim_comment_id": "13317",
+    "status": "In Progress",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "IMPLEMENTED",
+    "evidence_state": "PLANNED",
+    "updated": "2026-08-09T07:10:17.326-0500",
+    "pre_claim_rollback_snapshot_sha256": "cc0e8aef6c9a53380bae3b621bbcc3a8e3bd1a3a8350b842ad15f366dd7765f1"
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "IN_PROGRESS_PENDING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_PR_AND_MAIN_CHECKS_PENDING"
+    ],
+    "remaining_program_blockers": [
+      "POST-SUBTASK-015_SOURCE_INVENTORY_GATE",
+      "POST-SUBTASK-016_AND_017_HUMAN_RIGHTS_REVIEW",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC038_THRESHOLD_AUTHORITY_BLOCKER"
+    ],
+    "completion_claim": "The three BAT-364 classification criteria and downstream consumer contract pass at IMPLEMENTED maturity. BAT-364 is not marked Done until protected integration completes. No human rights approval, source promotion, production ingestion, historical data materialization, empirical feature admission, or release readiness is claimed."
+  }
+}

@@ -43,13 +43,11 @@
   ],
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "completion_claimed": false,
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "FULL_PROFILE_VALIDATED_PENDING_PROTECTED_INTEGRATION",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_PROFILE_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "protected PR integration and live/local Jira completion synchronization"
-    ]
+    "remaining_issue_scope_blockers": []
   },
   "consumer_contract": {
     "consumer": "POST-SUBTASK-035",
@@ -81,7 +79,7 @@
     "profile_materialized": true
   },
   "downstream_reevaluation": {
-    "POST-SUBTASK-035": "PENDING_PROTECTED_INTEGRATION_THEN_RECOMPUTE_READY_STATE",
+    "POST-SUBTASK-035": "RECOMPUTE_READY_STATE_AFTER_CANONICAL_JIRA_SYNC",
     "POST-SUBTASK-036": "REEVALUATED_BY_DEPENDENCY_GRAPH"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
@@ -106,15 +104,16 @@
   "live_jira": {
     "checkpoint_comment_id": "13409",
     "claim_comment_id": "13408",
-    "completion_comment_id": null,
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13410",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
     "maturity": "IMPLEMENTED",
-    "status": "In Progress"
+    "status": "Done",
+    "updated": "2026-08-09T18:17:02.268-0500"
   },
   "local_id": "POST-SUBTASK-034",
   "local_jira_sync": {
-    "changed_issues": 1,
+    "changed_issues": 2,
     "conflict_count": 0,
     "export_path": "<external-runtime>/BAT-384/BAT-384-live-row.csv",
     "result": "PASS",
@@ -206,12 +205,16 @@
     ]
   },
   "protected_integration": {
-    "head_sha": null,
-    "merge_sha": null,
-    "pull_request": null,
-    "repository_ci_run": null,
-    "security_analysis_run": null,
-    "state": "PENDING"
+    "branch": "codex/BAT-384-entity-registry",
+    "head_sha": "4b14e880e7a7a12c5bd976f1bfaa504dc7e35a83",
+    "merge_method": "SQUASH",
+    "merge_sha": "faf0396cce1186caea17dcb8385b44695c839753",
+    "merged_at_utc": "2026-08-09T23:14:33Z",
+    "pull_request": 85,
+    "repository_ci_run": 31341409659,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED",
+    "security_analysis_run": 31341409663,
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "scientific_validation": {
@@ -225,12 +228,12 @@
     "sample_size": null,
     "split": null
   },
-  "updated_at_utc": "2026-08-09T23:09:55.419132Z",
+  "updated_at_utc": "2026-08-09T23:17:10.298171Z",
   "validation": {
     "full_test_suite": "PASS",
     "negative_mutations_rejected": 10,
     "profile": "PASS",
     "repository_and_jira_validators": "PASS",
-    "result": "LOCAL_IMPLEMENTATION_PASS_PENDING_PROTECTED_INTEGRATION"
+    "result": "PROTECTED_GATE_INTEGRATION_PASS"
   }
 }

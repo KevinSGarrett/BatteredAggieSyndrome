@@ -54,6 +54,7 @@ artifacts/jira_evidence/POST-SUBTASK-019.json
 artifacts/jira_evidence/POST-SUBTASK-020.json
 artifacts/jira_evidence/POST-SUBTASK-021.json
 artifacts/jira_evidence/POST-SUBTASK-022.json
+artifacts/jira_evidence/POST-SUBTASK-023.json
 artifacts/jira_evidence/POST-SUBTASK-025.json
 artifacts/jira_evidence/POST-SUBTASK-026.json
 artifacts/jira_evidence/POST-SUBTASK-027.json
@@ -61,6 +62,7 @@ artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
+artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/private_research_policy_migration.json
 artifacts/source_governance/production_source_inventory.csv
@@ -2672,6 +2674,7 @@ src/aggie_analytics/validation/metrics.py
 src/aggie_analytics/validation/promotion.py
 src/aggie_analytics/validation/protected.py
 tests/test_acceptance_governance.py
+tests/test_acquisition_resilience.py
 tests/test_advanced_challenger_full.py
 tests/test_architecture.py
 tests/test_artifact_manifest.py

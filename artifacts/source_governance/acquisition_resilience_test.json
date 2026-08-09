@@ -1,0 +1,135 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Retries honor provider rate limits and bounded backoff.",
+      "disposition": "PASS",
+      "observable_result": "A simulated HTTP 429 with Retry-After=12 seconds was retried once using the configured 5-second maximum; the second attempt succeeded and both attempts were retained in evidence."
+    },
+    {
+      "criterion": "Cached raw responses remain immutable and are keyed by request/source identity.",
+      "disposition": "PASS",
+      "observable_result": "A repeated credential-free source/request identity returned its content-addressed snapshot without invoking transport; rebinding that identity to different bytes raised immutable request cache collision."
+    },
+    {
+      "criterion": "Fallbacks activate only under documented conditions and preserve source provenance.",
+      "disposition": "PASS",
+      "observable_result": "HTTP_404 activated the declared substitute only when explicitly listed; the undeclared case failed before substitute transport, while the admitted case retained selected source, route, failed-route chain, and attempt evidence."
+    }
+  ],
+  "consumer_contract": {
+    "cache_binding_identity": "sha256(canonical credential-free source_id, dataset, method, public source_uri, identity_components)",
+    "consumer": "POST-SUBTASK-024",
+    "fail_closed_conditions": [
+      "MISSING_SNAPSHOT_MANIFEST",
+      "PAYLOAD_HASH_MISMATCH",
+      "REQUEST_BINDING_HASH_MISMATCH",
+      "IMMUTABLE_BINDING_COLLISION",
+      "SENSITIVE_QUERY_OR_IDENTITY_MATERIAL",
+      "UNDOCUMENTED_FALLBACK_CONDITION",
+      "TRANSPORT_DEFECT"
+    ],
+    "provenance_fields": [
+      "request_identity_sha256",
+      "selected_route_id",
+      "fallback_from_route_ids",
+      "acquisition_attempts",
+      "source_id",
+      "source_uri",
+      "retrieved_at",
+      "raw_sha256"
+    ],
+    "schema_version": "1.0.0"
+  },
+  "created_at_utc": "2026-08-09T20:50:33Z",
+  "implementation": [
+    {
+      "bytes": 10208,
+      "path": "src/aggie_analytics/data/adapters.py",
+      "sha256": "eaac4ddecdaab9b17fa8beb804fce607b67ecb5db0ee04f2afc85ee4c27bbd67"
+    },
+    {
+      "bytes": 10264,
+      "path": "src/aggie_analytics/data/snapshots.py",
+      "sha256": "eaf33ec4df02446d81c3803a80694e833c3ce7692deb8130693c6ecae9b431c8"
+    },
+    {
+      "bytes": 7538,
+      "path": "tests/test_acquisition_resilience.py",
+      "sha256": "9ea8421e03dbf5f426ffe01bb4fee6decd7472c55e24e612adb85d79b402f18a"
+    }
+  ],
+  "input_identities": [
+    {
+      "bytes": 103304,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "11f944ebff0ee5f932d21bbff316da991b31f3b5f492acc31102c017019a69c4"
+    },
+    {
+      "bytes": 66945,
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "sha256": "717f785c160ef0e8903db8b6c5ca1aa50caf1cc56bb495a12a2d046839fa8488"
+    },
+    {
+      "bytes": 23837,
+      "path": "configs/source_acquisition_registry.json",
+      "sha256": "f956797cff67f4cd0c4922aab9c1892a53a910c967b7f908c8d988e7dbaff5e5"
+    },
+    {
+      "bytes": 2587,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
+      "sha256": "5eed0d6444d86cfd656622aa7aa249894c8fade84d8b869c4dbad0c906d76fd4"
+    },
+    {
+      "bytes": 2634,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+      "sha256": "25fe3680420f56692cf4c1ac0ba4019e303094a4d4c30c94e9eee1a1b5e1e8d2"
+    },
+    {
+      "bytes": 6379,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-022.json",
+      "sha256": "b02acd5e6f1bc1a5b4add7535366a8ee2d69aea09c19284522773af3f41ec1f8"
+    }
+  ],
+  "negative_controls": [
+    {
+      "control": "UNDOCUMENTED_FALLBACK",
+      "result": "PASS",
+      "observable_result": "Secondary transport invocation count remained zero."
+    },
+    {
+      "control": "IMMUTABLE_REQUEST_REBIND",
+      "result": "PASS",
+      "observable_result": "A different content digest could not replace an existing request binding."
+    },
+    {
+      "control": "CREDENTIAL_MATERIAL_IN_IDENTITY",
+      "result": "PASS",
+      "observable_result": "Sensitive query names and identity-component names were rejected before cache or evidence creation."
+    }
+  ],
+  "private_research_policy": {
+    "acquisition_rights_metadata_nonblocking": true,
+    "raw_third_party_publication_allowed": false,
+    "route_substitution_on_technical_failure": true
+  },
+  "result": "PASS",
+  "schema_version": "1.0.0",
+  "security": {
+    "credential_values_included": false,
+    "raw_response_bodies_included": false,
+    "transport_credentials_retained": false
+  },
+  "test_execution": [
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest tests/test_acquisition_resilience.py tests/test_w19_foundation.py tests/test_data_research.py -q",
+      "exit_code": 0,
+      "result": "15 passed"
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -q",
+      "exit_code": 0,
+      "result": "270 passed, 1 skipped, 33 subtests passed"
+    }
+  ],
+  "test_runtime": "Python 3.11 / Windows"
+}

@@ -21535,7 +21535,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-023_implement_compliant_retries_caching_rate_limit_handling_and_fallback_activation.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;sources;subtask;local-id-post-subtask-023,data-sources,POST-SUBTASK-023,GAP-010;HANDOFF-002;HANDOFF-003;HANDOFF-012,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,false,DATA_MATERIALIZATION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-023_implement_compliant_retries_caching_rate_limit_handling_and_fallback_activation.json",In Progress,Highest,actionable;core-release;data-materialization;post-wave;sources;subtask;local-id-post-subtask-023,data-sources,POST-SUBTASK-023,GAP-010;HANDOFF-002;HANDOFF-003;HANDOFF-012,PHASE-1,IN_PROGRESS,IMPLEMENTED,PARTIAL,POST_W25,false,DATA_MATERIALIZATION
 Sub-task,BAT-374,100328,[POST-SUBTASK-024] Establish source API/schema/terms drift baselines and monitoring inputs,100058,"Local ID: POST-SUBTASK-024
 
 Objective

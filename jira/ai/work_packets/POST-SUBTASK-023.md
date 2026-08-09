@@ -37,14 +37,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-008 (Production acquisition c
 
 ## Current gate state
 
-- Workflow: `READY`
+- Workflow: `IN_PROGRESS`
 - Ready: `true`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `DATA_MATERIALIZATION`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `CONTRACT_DEFINED` → `IMPLEMENTED`
-- Evidence state: `PLANNED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-024`
 
 ## Read first
@@ -65,6 +65,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-008 (Production acquisition c
 - docs/data_research/w06/SOURCE_ACCESS_LICENSE_MATRIX.csv
 - docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md
 - src/aggie_analytics/data/snapshots.py
+- tests/test_acquisition_resilience.py
 - docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md
 
 ## Dependencies that must already be complete
@@ -77,6 +78,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-008 (Production acquisition c
 
 - src/aggie_analytics/data/adapters.py
 - src/aggie_analytics/data/snapshots.py
+- tests/test_acquisition_resilience.py
 - artifacts/source_governance/acquisition_resilience_test.json
 - artifacts/jira_evidence/POST-SUBTASK-023.json
 

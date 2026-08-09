@@ -91,7 +91,7 @@ POST-SUBTASK-019,Subtask,false,false,8,5,3,7,6,false,11,1,true,POST-SUBTASK-024,
 POST-SUBTASK-020,Subtask,false,false,7,5,3,7,7,false,11,0,true,POST-SUBTASK-024,true,PASS
 POST-SUBTASK-021,Subtask,false,false,7,6,3,7,7,false,11,0,true,POST-SUBTASK-024,true,PASS
 POST-SUBTASK-022,Subtask,false,false,7,5,3,7,5,false,11,1,true,POST-SUBTASK-024,true,PASS
-POST-SUBTASK-023,Subtask,false,false,7,4,3,7,4,false,12,2,true,POST-SUBTASK-024,true,PASS
+POST-SUBTASK-023,Subtask,false,false,7,4,3,7,4,false,13,3,true,POST-SUBTASK-024,true,PASS
 POST-SUBTASK-024,Subtask,false,false,8,6,3,7,7,false,13,1,true,POST-SUBTASK-024,true,PASS
 POST-SUBTASK-025,Subtask,false,false,7,5,3,7,7,false,11,0,true,POST-SUBTASK-033,true,PASS
 POST-SUBTASK-026,Subtask,false,false,7,5,3,7,5,false,11,0,true,POST-SUBTASK-033,true,PASS

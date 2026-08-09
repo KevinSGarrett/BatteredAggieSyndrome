@@ -107,17 +107,17 @@
       "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\final\\FINAL_KNOWN_GAPS.csv"
     },
     {
-      "anchor_excerpt": "from __future__ import annotations from pathlib import Path import csv, json from typing import Iterable from .contracts import SourceRecord class CsvSourceAdapter: def __init__(self, source_id:str, dataset:str): self.source_id=source_id; self.dataset=dataset def read(self, path:Path)->tuple[SourceRecord,...]: with pat",
-      "anchor_hash": "bc782ca1738f4f9603fdb3359db7cb5a9bc0395c27da8607e1b1122e9598b7d8",
+      "anchor_excerpt": "class CsvSourceAdapter: def __init__(self, source_id: str, dataset: str): self.source_id = source_id self.dataset = dataset def read(self, path: Path) -> tuple[SourceRecord, ...]: with path.open(newline=\"\", encoding=\"utf-8-sig\") as handle: return tuple( SourceRecord(self.source_id, self.dataset, index, dict(row)) for i",
+      "anchor_hash": "3b744f8a63cee2661e13b3c5321099863470fbe4e73cbc622a5306c670a0b781",
       "authority_level": "IMPLEMENTATION_EVIDENCE",
-      "document_sha256": "2a1986859268f091be5d5d15e8c25e47c1f632f903301ec772638f37ec355e48",
-      "end_line": 22,
+      "document_sha256": "eaac4ddecdaab9b17fa8beb804fce607b67ecb5db0ee04f2afc85ee4c27bbd67",
+      "end_line": 39,
       "heading": "",
-      "last_verified": "2026-08-08",
+      "last_verified": "2026-08-09",
       "repo_relative_path": "src/aggie_analytics/data/adapters.py",
       "source_ref_id": "SRCREF-02012",
       "source_type": "py",
-      "start_line": 1,
+      "start_line": 14,
       "why_relevant": "Canonical sources design, implementation, test, or handoff source",
       "windows_absolute_path": "C:\\BatteredAggieSyndrome\\src\\aggie_analytics\\data\\adapters.py"
     },

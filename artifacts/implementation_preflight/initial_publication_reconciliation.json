@@ -115,7 +115,7 @@
     "warning_strict_unit_tests": "PASS_237_TESTS"
   },
   "post_publication": {
-    "status": "PUBLISHED_ACTIVATION_REPAIR_PR_REQUIRED",
+    "status": "PUBLISHED_PROTECTED_PR_ACTIVATION_COMPLETE",
     "remote_empty_rechecked_at_utc": "2026-08-09T06:42:11.2007561Z",
     "remote_empty_recheck": {
       "repository_size_kib": 0,
@@ -126,7 +126,7 @@
     "remote_main_sha": "d64ed81d66afca6f27bd0ebdeff625f4ef6b215f",
     "push_mode": "NORMAL_NON_FORCE",
     "default_branch_verified": true,
-    "branch_protection_status": "ENABLED_WITH_STATUS_CHECKS_DEFERRED_UNTIL_FIRST_GREEN_PR",
+    "branch_protection_status": "ENABLED_WITH_STRICT_OBSERVED_STATUS_CHECKS",
     "branch_protection": {
       "enforce_admins": true,
       "pull_request_required": true,
@@ -135,7 +135,16 @@
       "linear_history_required": true,
       "conversation_resolution_required": true,
       "force_push_allowed": false,
-      "branch_deletion_allowed": false
+      "branch_deletion_allowed": false,
+      "strict_status_checks": [
+        "core-validation (ubuntu-latest, 3.12)",
+        "core-validation (windows-latest, 3.12)",
+        "product-adapter (ubuntu-latest)",
+        "product-adapter (windows-latest)",
+        "security-policy",
+        "codeql",
+        "dependency-review"
+      ]
     },
     "merge_policy": {
       "squash_merge_allowed": true,
@@ -159,7 +168,47 @@
         ],
         "repair_branch": "codex/BAT-351-finalize-repository-activation"
       }
-    ]
+    ],
+    "activation_repair": {
+      "pull_request": 1,
+      "url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/1",
+      "head_sha": "0e143e5449e0b3b040ab2747fad4ce82e28e5df4",
+      "merge_sha": "642b08fad98f1f9dff7861835c00f06061fe1e42",
+      "merged_at_utc": "2026-08-09T06:57:40Z",
+      "merge_method": "SQUASH",
+      "force_push_used": false,
+      "validated_stage": "C:\\BatteredAggieSyndrome.packaging\\activation-ci-repair-20260809T065416Z",
+      "validated_manifest_sha256": "ca67b87ba04278f95238a191d938f00830f4faf1711f7110f6b6c5909517f806",
+      "validated_tree_fingerprint": "3cfc5c1cef3508377ea966e4fef3957f3f2c61d6ade1240809742abb1a928a19",
+      "warning_strict_unit_tests": "PASS_239_TESTS",
+      "protected_w17_seal": "PASS_UNCHANGED",
+      "github_runs": [
+        {
+          "workflow": "repository-ci",
+          "event": "push",
+          "run_id": 31299969079,
+          "conclusion": "SUCCESS"
+        },
+        {
+          "workflow": "repository-ci",
+          "event": "pull_request",
+          "run_id": 31299970939,
+          "conclusion": "SUCCESS"
+        },
+        {
+          "workflow": "security-analysis",
+          "event": "pull_request",
+          "run_id": 31299970941,
+          "conclusion": "SUCCESS"
+        }
+      ],
+      "dependency_graph_enabled": true,
+      "vulnerability_alerts_enabled": true,
+      "remaining_external_blockers": [
+        "W25_HYDRATION_BINDING_UNAVAILABLE",
+        "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER"
+      ]
+    }
   },
   "honesty_boundaries": {
     "wave_26_created": false,

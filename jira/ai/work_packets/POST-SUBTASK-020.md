@@ -38,8 +38,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
-- Ready: `false`
+- Workflow: `READY`
+- Ready: `true`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `DATA_MATERIALIZATION`
@@ -76,6 +76,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - artifacts/source_governance/source_access_smoke_results.json
 - artifacts/jira_evidence/POST-SUBTASK-020.json
+- tests/test_source_access_smoke_results.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -113,7 +114,7 @@ Produce and validate these outputs within this atomic work unit:
 - SECURITY / SECURITY: artifacts/source_governance/source_access_smoke_results.json — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - INTEGRATION / INTEGRATION: artifacts/source_governance/source_access_smoke_results.json — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW_TEST_REQUIRED::POST-SUBTASK-020 — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: tests/test_source_access_smoke_results.py — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Evidence to return
 

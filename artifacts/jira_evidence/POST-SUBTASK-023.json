@@ -24,20 +24,18 @@
   ],
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "completion_claimed": false,
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "IMPLEMENTATION_VALIDATED_AWAITING_PROTECTED_INTEGRATION",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "PROTECTED_BRANCH_INTEGRATION_AND_REQUIRED_CHECKS"
-    ]
+    "remaining_issue_scope_blockers": []
   },
   "created_at_utc": "2026-08-09T20:50:33Z",
   "downstream_reevaluation": {
     "consumers": [
       "POST-SUBTASK-024"
     ],
-    "decision": "REMAIN_BLOCKED_UNTIL_PROTECTED_INTEGRATION"
+    "decision": "POST-SUBTASK-024_DEPENDENCY_SATISFIED_RECOMPUTE_READY_STATE"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
   "input_identities": [
@@ -58,6 +56,21 @@
     }
   ],
   "jira_key": "BAT-373",
+  "live_jira": {
+    "completion_comment_id": "13392",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
+    "maturity": "IMPLEMENTED",
+    "status": "Done",
+    "updated": "2026-08-09T16:20:33.502-0500"
+  },
+  "local_jira_sync": {
+    "changed_issues": 1,
+    "conflict_count": 0,
+    "export_path": "<external-runtime>/BAT-373-completion/BAT-373-live-row.csv",
+    "result": "PASS",
+    "strict_validation": "PASS"
+  },
   "local_issue_id": "POST-SUBTASK-023",
   "observable_outcome": "A standard-library resilience layer now provides credential-free deterministic request identities, immutable content-addressed cache bindings, bounded retry/backoff evidence, and condition-scoped substitute activation with full route provenance.",
   "outputs": [
@@ -75,7 +88,15 @@
   "protected_integration": {
     "branch": "codex/BAT-373-acquisition-resilience-spec",
     "base_sha": "e9cd9d83b8761de062b68b2ba9674567b9a48ac7",
-    "state": "PENDING_COMMIT_PUSH_PR_AND_REQUIRED_CHECKS"
+    "head_sha": "722aed19f01432a8ae8451cda7fd5c62aac1f306",
+    "merge_method": "SQUASH",
+    "merge_sha": "b14dc5aa996fea4ec3cd72d9b37f6ac69e9be846",
+    "merged_at_utc": "2026-08-09T21:06:52Z",
+    "pull_request": 71,
+    "repository_ci_run": 31335990539,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED",
+    "security_analysis_run": 31335990570,
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "security": {
@@ -102,6 +123,7 @@
         "result": "PASS; 2118 references; 0 errors"
       }
     ],
-    "result": "LOCAL_IMPLEMENTATION_PASS"
-  }
+    "result": "PROTECTED_INTEGRATION_PASS"
+  },
+  "updated_at_utc": "2026-08-09T21:20:35Z"
 }

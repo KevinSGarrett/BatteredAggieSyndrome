@@ -17,6 +17,7 @@ CHANGELOG.md
 CONTRIBUTING.md
 README.md
 artifacts/README.md
+artifacts/benchmarks/ac038_input_manifest.json
 artifacts/implementation_preflight/credential_inventory.redacted.json
 artifacts/implementation_preflight/data_root_activation.json
 artifacts/implementation_preflight/hydration_binding_supersession.json
@@ -33,6 +34,7 @@ artifacts/jira_evidence/POST-SUBTASK-003.json
 artifacts/jira_evidence/POST-SUBTASK-004.json
 artifacts/jira_evidence/POST-SUBTASK-005.json
 artifacts/jira_evidence/POST-SUBTASK-006.json
+artifacts/jira_evidence/POST-SUBTASK-007.json
 artifacts/jira_evidence/POST-SUBTASK-013.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json

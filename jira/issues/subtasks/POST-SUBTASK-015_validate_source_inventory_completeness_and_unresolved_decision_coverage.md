@@ -83,7 +83,7 @@
   "end_to_end_validation": "Exercise the complete Reconcile the final source universe and authority decisions path and verify downstream consumption of pinned outputs. The gate decision must explicitly reevaluate downstream issues: POST-STORY-006, POST-STORY-007, POST-SUBTASK-016, POST-SUBTASK-017, POST-SUBTASK-018, POST-SUBTASK-019, POST-SUBTASK-020, POST-SUBTASK-021.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-015.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "CONTRACT_DEFINED",
@@ -149,11 +149,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24505",
-    "jira_updated_at": "2026-08-09T00:03:23.546-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T07:40:14.633-0500",
+    "last_synced_at": "2026-08-09T12:41:18.572243+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\BAT-365-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -206,7 +206,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -300,7 +300,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-005: Reconcile the final source universe and authority decisions.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-015.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 

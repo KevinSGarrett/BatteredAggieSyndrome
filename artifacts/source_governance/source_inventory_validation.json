@@ -6,7 +6,7 @@
       "disposition": "PASS",
       "evidence_pointer": "/source_reference_resolution",
       "observable": "62 unique referenced IDs resolve to the 62-row contiguous production inventory; zero missing.",
-      "verified_at_utc": "2026-08-09T12:32:57Z",
+      "verified_at_utc": "2026-08-09T12:43:10Z",
       "verifier": "BAT-365 consumer validator"
     },
     {
@@ -15,7 +15,7 @@
       "disposition": "PASS",
       "evidence_pointer": "/unresolved_decision_register",
       "observable": "All 62 source decisions map to a verified live tier-1 or supplemental rights review item and the three access-review items.",
-      "verified_at_utc": "2026-08-09T12:32:57Z",
+      "verified_at_utc": "2026-08-09T12:43:10Z",
       "verifier": "BAT-365 consumer validator"
     },
     {
@@ -24,7 +24,7 @@
       "disposition": "PASS",
       "evidence_pointer": "/required_domain_validation",
       "observable": "All 16 domains retain explicit conditional, optional, validation-only, degraded, or deferred state and an unavailable behavior; zero domains are silently complete and zero sources are production-approved.",
-      "verified_at_utc": "2026-08-09T12:32:57Z",
+      "verified_at_utc": "2026-08-09T12:43:10Z",
       "verifier": "BAT-365 consumer validator"
     }
   ],
@@ -34,54 +34,63 @@
     "source_id_binding": "Runtime source_id parameter; no adapter hardcodes an unregistered source ID."
   },
   "artifact_type": "SOURCE_INVENTORY_COMPLETENESS_AND_UNRESOLVED_DECISION_GATE",
-  "created_at_utc": "2026-08-09T12:32:57Z",
+  "created_at_utc": "2026-08-09T12:43:10Z",
   "downstream_reevaluation": [
     {
       "canonical_record_path": "jira/records/issues/stories/POST-STORY-006_per_source_license_terms_and_redistribution_decisions.json",
       "canonical_record_sha256": "3101f38e0a394551024f3709f50d7ed976ea3570f74dc92e539d9865429220fc",
-      "decision": "APPROVE_READY_AFTER_POST_SUBTASK_015_VERIFIED",
+      "decision": "BACKLOG",
+      "external_or_policy_blocker": null,
       "jira_key": "BAT-56",
       "live_state_at_validation": "BACKLOG",
       "live_status_at_validation": "To Do",
       "local_issue_id": "POST-STORY-006",
-      "remaining_dependencies": []
+      "remaining_dependencies": [],
+      "unblock_condition": null
     },
     {
       "canonical_record_path": "jira/records/issues/stories/POST-STORY-007_credential_configuration_and_access_smoke_tests.json",
       "canonical_record_sha256": "5b1fe8b6e53ac2b685da48257f75b0a5d79110f2e7198fa32e104dba4551fef2",
-      "decision": "APPROVE_READY_AFTER_POST_SUBTASK_015_VERIFIED",
+      "decision": "BACKLOG",
+      "external_or_policy_blocker": null,
       "jira_key": "BAT-57",
       "live_state_at_validation": "BACKLOG",
       "live_status_at_validation": "To Do",
       "local_issue_id": "POST-STORY-007",
-      "remaining_dependencies": []
+      "remaining_dependencies": [],
+      "unblock_condition": null
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-016_complete_rights_review_for_cfbd_sportsdataverse_open_meteo_and_official_a_and_m_.json",
       "canonical_record_sha256": "c162b941ca8c24ec6f24672639cc2422b97cbcc7dfc1f7a640c1522ecdfc0153",
-      "decision": "APPROVE_READY_AFTER_POST_SUBTASK_015_VERIFIED",
+      "decision": "BLOCKED",
+      "external_or_policy_blocker": "MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED",
       "jira_key": "BAT-366",
       "live_state_at_validation": "BLOCKED",
       "live_status_at_validation": "To Do",
       "local_issue_id": "POST-SUBTASK-016",
-      "remaining_dependencies": []
+      "remaining_dependencies": [],
+      "unblock_condition": "Provide and verify external condition: MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED"
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-017_complete_rights_review_for_recruiting_transfer_market_resources_gamebook_and_off.json",
       "canonical_record_sha256": "b968c8fb794041d9b906c2ef4ec20913d1fdbd41abb47f9748991a7ca10b8e56",
       "decision": "BLOCKED",
+      "external_or_policy_blocker": "MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED",
       "jira_key": "BAT-367",
       "live_state_at_validation": "BLOCKED",
       "live_status_at_validation": "To Do",
       "local_issue_id": "POST-SUBTASK-017",
       "remaining_dependencies": [
         "POST-SUBTASK-016"
-      ]
+      ],
+      "unblock_condition": "Provide and verify external condition: MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED"
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",
-      "canonical_record_sha256": "06aa3b671895f85a3f9c11c3e22079c84096f90874837198163ba8fb21567a1b",
+      "canonical_record_sha256": "fb45cb06bea7493eea722186c632437b3b8547a23c200c191af7594e4337eb6c",
       "decision": "BLOCKED",
+      "external_or_policy_blocker": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-016;POST-SUBTASK-017",
       "jira_key": "BAT-368",
       "live_state_at_validation": "BLOCKED",
       "live_status_at_validation": "To Do",
@@ -89,34 +98,40 @@
       "remaining_dependencies": [
         "POST-SUBTASK-016",
         "POST-SUBTASK-017"
-      ]
+      ],
+      "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence."
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-019_define_credential_names_scopes_owners_rotation_and_non_repository_storage_contra.json",
       "canonical_record_sha256": "35a95d25116a7d558c8a3a2dc25e02823ebcd2dd4462eaf3c97c1152fc3b466b",
-      "decision": "APPROVE_READY_AFTER_POST_SUBTASK_015_VERIFIED",
+      "decision": "BLOCKED",
+      "external_or_policy_blocker": "USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY",
       "jira_key": "BAT-369",
       "live_state_at_validation": "BLOCKED",
       "live_status_at_validation": "To Do",
       "local_issue_id": "POST-SUBTASK-019",
-      "remaining_dependencies": []
+      "remaining_dependencies": [],
+      "unblock_condition": "Provide and verify external condition: USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY"
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-020_run_authenticated_and_no_key_source_access_smoke_tests_with_rate_limit_capture.json",
       "canonical_record_sha256": "81864dcb290f34b3ffc88253b266f20a766c0da71d6f62a1ccacff1ab35852c2",
       "decision": "BLOCKED",
+      "external_or_policy_blocker": "PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED",
       "jira_key": "BAT-370",
       "live_state_at_validation": "BLOCKED",
       "live_status_at_validation": "To Do",
       "local_issue_id": "POST-SUBTASK-020",
       "remaining_dependencies": [
         "POST-SUBTASK-019"
-      ]
+      ],
+      "unblock_condition": "Provide and verify external condition: PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED"
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",
-      "canonical_record_sha256": "429199791d73a42a7baafeb594d077366aa22c4aa6f164979834f80c7a563eda",
+      "canonical_record_sha256": "5f008db1c69b799b5600a2957808e029a4f61b4ceaf8da47f06fe06ca501f6c1",
       "decision": "BLOCKED",
+      "external_or_policy_blocker": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-019;POST-SUBTASK-020",
       "jira_key": "BAT-371",
       "live_state_at_validation": "BLOCKED",
       "live_status_at_validation": "To Do",
@@ -124,7 +139,8 @@
       "remaining_dependencies": [
         "POST-SUBTASK-019",
         "POST-SUBTASK-020"
-      ]
+      ],
+      "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence."
     }
   ],
   "input_identities": [
@@ -167,7 +183,7 @@
     "name": "Codex BAT-365 deterministic source validation builder",
     "python_runtime": "3.11.9",
     "script_path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\build_source_inventory_validation.py",
-    "script_sha256": "bc01c99092936337ed2e5410b9c10210f61f9f50b76e19b5f11d3cc954f24ebb"
+    "script_sha256": "abdf0a320592b3b8c1dca7155f0e93ef57535f8824ec7050a5fa92e2db05f8b5"
   },
   "required_domain_summary": {
     "domain_count": 16,
@@ -648,7 +664,7 @@
   "story_gate": {
     "historical_data_materialized": false,
     "human_rights_review_record_present": false,
-    "post_story_005_gate_decision": "APPROVE_CONTROLLED_DOWNSTREAM_REVIEW_EXECUTION",
+    "post_story_005_gate_decision": "BLOCK_DOWNSTREAM_EXECUTION_PENDING_EXTERNAL_RIGHTS_AND_CREDENTIAL_EVIDENCE",
     "production_ingestion_authorized": false,
     "production_source_approval": false,
     "production_source_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",

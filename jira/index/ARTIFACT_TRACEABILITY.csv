@@ -606,7 +606,7 @@ docs/operations/LOCAL_RESOURCE_ENVELOPE.md,POST-SUBTASK-011,Subtask,true,IMPLEME
 artifacts/benchmarks/resource_stop_condition_test.json,POST-SUBTASK-012,Subtask,true,OPERATING,,PLANNED
 artifacts/source_governance/production_source_inventory.csv,POST-SUBTASK-013,Subtask,true,IMPLEMENTED,POST-SUBTASK-014;POST-SUBTASK-015,VERIFIED
 artifacts/source_governance/source_priority_decisions.json,POST-SUBTASK-014,Subtask,true,IMPLEMENTED,POST-SUBTASK-015,VERIFIED
-artifacts/source_governance/source_inventory_validation.json,POST-SUBTASK-015,Subtask,true,CONTRACT_DEFINED,POST-STORY-006;POST-STORY-007;POST-SUBTASK-016;POST-SUBTASK-017;POST-SUBTASK-018;POST-SUBTASK-019;POST-SUBTASK-020;POST-SUBTASK-021,PLANNED
+artifacts/source_governance/source_inventory_validation.json,POST-SUBTASK-015,Subtask,true,CONTRACT_DEFINED,POST-STORY-006;POST-STORY-007;POST-SUBTASK-016;POST-SUBTASK-017;POST-SUBTASK-018;POST-SUBTASK-019;POST-SUBTASK-020;POST-SUBTASK-021,VERIFIED
 artifacts/source_governance/tier1_rights_decisions.csv,POST-SUBTASK-016,Subtask,true,IMPLEMENTED,POST-SUBTASK-017;POST-SUBTASK-018,PLANNED
 artifacts/source_governance/supplemental_rights_decisions.csv,POST-SUBTASK-017,Subtask,true,IMPLEMENTED,POST-SUBTASK-018,PLANNED
 configs/source_rights_registry.json,POST-SUBTASK-018,Subtask,true,INTEGRATED,POST-STORY-008;POST-STORY-009;POST-SUBTASK-022;POST-SUBTASK-023;POST-SUBTASK-024;POST-SUBTASK-025;POST-SUBTASK-026;POST-SUBTASK-027,PLANNED

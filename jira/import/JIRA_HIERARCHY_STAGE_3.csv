@@ -1281,7 +1281,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-014_freeze_source_priority_fallback_and_required_versus_optional_classifications.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-014,data-sources,POST-SUBTASK-014,GAP-010;GAP-011;HANDOFF-002;HANDOFF-012;ISSUE-012,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-014_freeze_source_priority_fallback_and_required_versus_optional_classifications.json",Done,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-014,data-sources,POST-SUBTASK-014,GAP-010;GAP-011;HANDOFF-002;HANDOFF-012;ISSUE-012,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-365,100319,[POST-SUBTASK-015] Validate source inventory completeness and unresolved decision coverage,100055,"Local ID: POST-SUBTASK-015
 
 Objective
@@ -1366,7 +1366,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-015_validate_source_inventory_completeness_and_unresolved_decision_coverage.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;sources;subtask;local-id-post-subtask-015,data-sources,POST-SUBTASK-015,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,BLOCKED,CONTRACT_DEFINED,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-015_validate_source_inventory_completeness_and_unresolved_decision_coverage.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;sources;subtask;local-id-post-subtask-015,data-sources,POST-SUBTASK-015,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,READY,CONTRACT_DEFINED,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-366,100320,"[POST-SUBTASK-016] Complete rights review for CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA lanes",100056,"Local ID: POST-SUBTASK-016
 
 Objective

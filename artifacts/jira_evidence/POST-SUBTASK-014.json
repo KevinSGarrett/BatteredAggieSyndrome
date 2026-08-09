@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "created_at_utc": "2026-08-09T12:13:20Z",
-  "updated_at_utc": "2026-08-09T12:16:33.2155147Z",
+  "updated_at_utc": "2026-08-09T12:21:53.7835916Z",
   "jira_key": "BAT-364",
   "local_issue_id": "POST-SUBTASK-014",
   "producer": {
@@ -150,37 +150,61 @@
     "historical_data_materialized": false,
     "protected_files_modified": false
   },
-  "protected_integration_candidate": {
+  "protected_integration": {
     "branch": "codex/BAT-364-source-priority-decisions",
     "base_sha": "ea7a83099a6e0c2ff423752f846d3efabea78567",
     "pull_request": 27,
-    "merge_sha": null,
-    "required_checks": "PENDING",
-    "state": "PROTECTED_REVIEW_PENDING"
+    "head_sha": "ce247c8bc8a0f6d6871863ab0d22d6505c03746f",
+    "merge_sha": "10fc2db4430281e191f3c3b06d91077f7d3f460e",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T12:18:38Z",
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
+    "merge_commit_repository_ci_run": 31312966471,
+    "merge_commit_security_analysis_run": 31312966459,
+    "main_run_attempts": 1,
+    "state": "PROTECTED_MERGED_AND_LIVE_JIRA_DONE"
   },
   "live_jira": {
     "claim_comment_id": "13317",
-    "status": "In Progress",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13318",
+    "status": "Done",
+    "logical_state": "DONE",
     "maturity": "IMPLEMENTED",
-    "evidence_state": "PLANNED",
-    "updated": "2026-08-09T07:10:17.326-0500",
-    "pre_claim_rollback_snapshot_sha256": "cc0e8aef6c9a53380bae3b621bbcc3a8e3bd1a3a8350b842ad15f366dd7765f1"
+    "evidence_state": "VERIFIED",
+    "updated": "2026-08-09T07:20:14.078-0500",
+    "pre_claim_rollback_snapshot_sha256": "cc0e8aef6c9a53380bae3b621bbcc3a8e3bd1a3a8350b842ad15f366dd7765f1",
+    "pre_completion_rollback_snapshot_sha256": "d87a1377f1b8339504c19a7e0c7042e519c71b9b8b22654d7d018add7aa343aa",
+    "post_completion_state_sha256": "92a2c523a25085fb208fec663cbfeea4d55c97c750abb0619fa391355b2ed084"
+  },
+  "local_jira_sync": {
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-364\\BAT-364-live-row.csv",
+    "initial_apply_conflict": "DONE_REJECTED_UNTIL_LOCAL_EVIDENCE_IS_COMPLETE_OR_VERIFIED",
+    "conflict_preserved": true,
+    "resolution": "Bound protected completion evidence as VERIFIED in the canonical record, then reapplied the same live row.",
+    "verified_reapply_conflicts": 0,
+    "post_rebuild_ready_issue": "POST-SUBTASK-015",
+    "post_rebuild_ready_issue_dependency_unlock_count": 8,
+    "first_rebuild_attempt": "PRESERVED_FAILURE_WINDOWS_OSERROR_22_POST_IMPORT_KEY_MAP",
+    "isolated_rebuild_retry": "PASS",
+    "first_strict_validation_attempt": "PRESERVED_FAILURE_WINDOWS_OSERROR_22_JIRA_FILE_MANIFEST",
+    "isolated_strict_validation_retry": "PASS",
+    "strict_issue_count": 463,
+    "strict_blocked_count": 132,
+    "strict_ready_count": 1,
+    "strict_error_count": 0
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
     "evidence_state": "VERIFIED",
-    "issue_disposition": "IN_PROGRESS_PENDING_PROTECTED_INTEGRATION",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "PROTECTED_PR_AND_MAIN_CHECKS_PENDING"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "POST-SUBTASK-015_SOURCE_INVENTORY_GATE",
       "POST-SUBTASK-016_AND_017_HUMAN_RIGHTS_REVIEW",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
       "AC038_THRESHOLD_AUTHORITY_BLOCKER"
     ],
-    "completion_claim": "The three BAT-364 classification criteria and downstream consumer contract pass at IMPLEMENTED maturity. BAT-364 is not marked Done until protected integration completes. No human rights approval, source promotion, production ingestion, historical data materialization, empirical feature admission, or release readiness is claimed."
+    "completion_claim": "BAT-364's 16-domain, 62-source priority/fallback classification is protected-integrated, live-Jira Done/Verified, and hands a fail-closed artifact to ready POST-SUBTASK-015. No human rights approval, source promotion, production ingestion, historical data materialization, empirical feature admission, or release readiness is claimed."
   }
 }

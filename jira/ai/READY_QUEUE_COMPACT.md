@@ -1,3 +1,3 @@
 # Compact READY Queue
 
-1. `POST-SUBTASK-014` | P0 | CRITICAL | SHARED_CONTRACT | [POST-SUBTASK-014] Freeze source priority, fallback, and required-versus-optional classifications
+1. `POST-SUBTASK-015` | P0 | CRITICAL | PROTECTED_GATE | [POST-SUBTASK-015] Validate source inventory completeness and unresolved decision coverage

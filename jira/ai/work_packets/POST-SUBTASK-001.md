@@ -37,7 +37,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-001 (Canonical handoff and ta
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
@@ -73,6 +73,9 @@ Execute the atomic 1 of 3 step in Story POST-STORY-001 (Canonical handoff and ta
 ## Files I may modify or create
 
 - artifacts/implementation_preflight/repository_identity.json
+- artifacts/implementation_preflight/initial_publication_reconciliation.json
+- artifacts/implementation_preflight/hydration_binding_supersession.json
+- artifacts/implementation_preflight/data_root_activation.json
 - artifacts/jira_evidence/POST-SUBTASK-001.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
@@ -98,6 +101,9 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 Produce and validate these outputs within this atomic work unit:
 
 - artifacts/implementation_preflight/repository_identity.json
+- artifacts/implementation_preflight/initial_publication_reconciliation.json
+- artifacts/implementation_preflight/hydration_binding_supersession.json
+- artifacts/implementation_preflight/data_root_activation.json
 
 ## Acceptance criteria
 

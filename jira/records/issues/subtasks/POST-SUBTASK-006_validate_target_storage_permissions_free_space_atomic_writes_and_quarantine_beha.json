@@ -16,7 +16,7 @@
     "artifacts/implementation_preflight/storage_probe.json",
     "artifacts/jira_evidence/POST-SUBTASK-006.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-001;POST-SUBTASK-004;POST-SUBTASK-005",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-004;POST-SUBTASK-005",
   "blocks": [
     "POST-STORY-003",
     "POST-STORY-009",

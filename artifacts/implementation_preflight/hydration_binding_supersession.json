@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "missing_historical_hydration_binding_controlled_supersession",
+  "created_at_utc": "2026-08-09T07:05:00Z",
+  "jira_key": "BAT-351",
+  "local_issue_id": "POST-SUBTASK-001",
+  "authorization_source": "C:\\Users\\kevin\\.codex\\attachments\\91630a47-7c06-4536-9cf1-5f76a09c79a6\\goal-objective.md",
+  "historical_fact": {
+    "status": "UNAVAILABLE_MISSING_ARTIFACT_NOT_INFERRED",
+    "hydration_zip_present": false,
+    "pack_binding_present": false,
+    "searched_scopes": [
+      "C:\\BatteredAggieSyndrome",
+      "C:\\Users\\kevin\\.codex\\attachments\\91630a47-7c06-4536-9cf1-5f76a09c79a6"
+    ],
+    "source_evidence_path": "artifacts/implementation_preflight/repository_identity.json",
+    "source_evidence_sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6",
+    "missing_bytes_reconstructed": false,
+    "historical_pair_binding_claimed": false
+  },
+  "verified_cumulative_identity": {
+    "archive_sha256": "a594e385d39ada121a485056e5382dee13123fd131454af43aa88786a04d38f0",
+    "archive_size_bytes": 1659630,
+    "ledger_rows": 861,
+    "ledger_failures": 0,
+    "tree_fingerprint": "b03830292c09336e8eae96cc5a04518d041b13e0fb1b7587f7c7debb96e2f687"
+  },
+  "prospective_canonical_baseline": {
+    "repository": "https://github.com/KevinSGarrett/BatteredAggieSyndrome",
+    "protected_main_commit": "bf243657261a32ef89a9ca5933fa011b6ebb33c3",
+    "initial_commit": "d64ed81d66afca6f27bd0ebdeff625f4ef6b215f",
+    "activation_merge_commit": "642b08fad98f1f9dff7861835c00f06061fe1e42",
+    "activation_evidence_merge_commit": "bf243657261a32ef89a9ca5933fa011b6ebb33c3",
+    "project_manifest_sha256": "c73485924837b21f96fb3ac56f7417108f02afd047e977f696f1d8f5302bb815",
+    "project_hash_ledger_sha256": "88d06c4d296cdb0a05d37c780f83699cd4bdaf1ee5b5e8b610a5b7d27dec8327",
+    "current_tree_sha256": "b1394122b19364ca22158f9fde3b23e099ffb8ecf853b20630e44575ddfe8069",
+    "branch_protection": "STRICT_REQUIRED_CHECKS_PR_ONLY_NO_FORCE_NO_DELETE"
+  },
+  "decision": {
+    "status": "FORMALLY_SUPERSEDED_FOR_POST_W25_EXECUTION",
+    "scope": "Prospective post-W25 implementation may trust the protected Git baseline and current content manifests instead of a nonexistent historical hydration pair binding.",
+    "does_not_assert": [
+      "the identity or contents of the missing hydration ZIP",
+      "a cumulative-to-hydration SHA relationship",
+      "that the missing PACK_BINDING.json ever existed in the supplied materials",
+      "real-data, model, target-hardware, or release readiness"
+    ],
+    "negative_evidence_retained": true,
+    "supersession_is_not_reconstruction": true,
+    "unblock_effect": "Closes W25_HYDRATION_BINDING_UNAVAILABLE as an execution dependency while preserving it as a historical limitation."
+  },
+  "protected_boundaries": {
+    "wave_26_created": false,
+    "w17_judging_seal_modified": false,
+    "protected_split_modified": false,
+    "secret_or_restricted_payload_included": false
+  }
+}

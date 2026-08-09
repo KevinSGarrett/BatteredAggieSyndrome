@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "external_data_root_activation",
+  "created_at_utc": "2026-08-09T07:05:00Z",
+  "jira_key": "BAT-351",
+  "variable": "AGGIE_ANALYTICS_DATA_ROOT",
+  "path_alias": "EXTERNAL_DATA_ROOT",
+  "canonical_path": "C:\\BatteredAggieSyndrome.data",
+  "repository_root": "C:\\BatteredAggieSyndrome",
+  "outside_repository": true,
+  "configured_in_local_env": true,
+  "local_env_ignored": true,
+  "local_env_tracked": false,
+  "root_manifest": {
+    "path": "C:\\BatteredAggieSyndrome.data\\root_manifest.json",
+    "bytes": 901,
+    "sha256": "8bedd0a4b35aaac360c8dd498232113615b88f58f6b421587a6abec4793afd66",
+    "parseable": true
+  },
+  "zones": [
+    "raw",
+    "quarantine",
+    "canonical",
+    "pit_state",
+    "features",
+    "training",
+    "model_artifacts",
+    "forecast_snapshots",
+    "manifests",
+    "runtime"
+  ],
+  "validation": {
+    "root_exists": true,
+    "missing_zone_count": 0,
+    "placeholder_rejected": true,
+    "read_access": "PASS",
+    "write_access": "PASS_ROOT_MANIFEST_CREATED",
+    "repository_status_after_local_configuration": "CLEAN"
+  },
+  "activation_state": {
+    "status": "CONFIGURED_EMPTY_EXTERNAL_ROOT",
+    "source_data_materialized": false,
+    "model_artifacts_materialized": false,
+    "forecast_snapshots_materialized": false,
+    "production_readiness_claimed": false
+  }
+}

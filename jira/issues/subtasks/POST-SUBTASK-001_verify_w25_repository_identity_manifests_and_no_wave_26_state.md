@@ -20,9 +20,12 @@
   ],
   "allowed_modification_paths": [
     "artifacts/implementation_preflight/repository_identity.json",
+    "artifacts/implementation_preflight/initial_publication_reconciliation.json",
+    "artifacts/implementation_preflight/hydration_binding_supersession.json",
+    "artifacts/implementation_preflight/data_root_activation.json",
     "artifacts/jira_evidence/POST-SUBTASK-001.json"
   ],
-  "blocked_reason": "STARTUP_RECONCILIATION_BLOCKERS: authoritative W25 hydration ZIP/PACK_BINDING remains unavailable and AGGIE_ANALYTICS_DATA_ROOT remains an invalid placeholder. The Windows lock regression, activation-control catalog, and canonical Git/GitHub publication are resolved and verified.",
+  "blocked_reason": "",
   "blocks": [
     "POST-STORY-002",
     "POST-SUBTASK-002",
@@ -83,7 +86,10 @@
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
   "expected_outputs": [
-    "artifacts/implementation_preflight/repository_identity.json"
+    "artifacts/implementation_preflight/repository_identity.json",
+    "artifacts/implementation_preflight/initial_publication_reconciliation.json",
+    "artifacts/implementation_preflight/hydration_binding_supersession.json",
+    "artifacts/implementation_preflight/data_root_activation.json"
   ],
   "files_expected_to_be_read": [
     "AGENTS.md",
@@ -288,7 +294,7 @@
     "POST-SUBTASK-009"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Supply or formally supersede the missing W25 hydration binding and configure a concrete external AGGIE_ANALYTICS_DATA_ROOT.",
+  "unblock_condition": "SATISFIED: the missing historical hydration binding is formally superseded for prospective execution without inference, and a concrete external AGGIE_ANALYTICS_DATA_ROOT is configured and verified.",
   "validation_classes": [
     "END_TO_END",
     "REGRESSION",
@@ -296,7 +302,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-001: Canonical handoff and target-environment preflight.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-001.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "DONE"
 }
 ```
 
@@ -383,6 +389,9 @@ Execute the atomic 1 of 3 step in Story POST-STORY-001 (Canonical handoff and ta
 ## Expected Outputs / Artifacts
 
 - artifacts/implementation_preflight/repository_identity.json
+- artifacts/implementation_preflight/initial_publication_reconciliation.json
+- artifacts/implementation_preflight/hydration_binding_supersession.json
+- artifacts/implementation_preflight/data_root_activation.json
 
 ## Direct Requirements
 

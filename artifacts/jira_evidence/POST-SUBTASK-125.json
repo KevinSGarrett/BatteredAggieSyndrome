@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_blocker_evidence",
   "created_at_utc": "2026-08-09T09:24:33Z",
-  "updated_at_utc": "2026-08-09T09:29:00Z",
+  "updated_at_utc": "2026-08-09T09:36:39Z",
   "jira_key": "BAT-475",
   "local_issue_id": "POST-SUBTASK-125",
   "producer": {
@@ -164,6 +164,12 @@
       "exit_code": 0,
       "result": "PASS_WITH_EXPECTED_W23_RELEASE_BLOCKER",
       "output_summary": "Strict integrity, 243 of 243 warning-strict tests, Jira control/pack/import/source/dependency gates, dependency policy, 11 focused W23 tests, W25 final, and W17 seal passed. The W23 implementation validator returned its documented exit 2 for unresolved AC-038/THR-011/THR-012. Twenty-seven expected candidate files remained byte-identical after validation."
+    },
+    {
+      "command": "GitHub protected integration for PR #13 and merge-commit replay",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All seven exact required PR contexts passed; head 093114a9b81f19ad754ebfd4d7ed336235174b4a squash-merged as c108634443ef649e40582fc7295c3f9d79ea9914. The merge commit's five-job repository-ci run 31306223324 and CodeQL security run 31306223360 passed on attempt 1; push-only dependency review was expectedly skipped after its required PR context passed."
     }
   ],
   "scientific_and_model_evidence": {
@@ -247,16 +253,26 @@
     "live_jira_claim_comment_id": "13296",
     "live_jira_blocker_comment_id": "13297",
     "live_jira_final_candidate_comment_id": "13298",
+    "live_jira_integration_comment_id": "13299",
     "live_jira_status": "To Do",
     "live_jira_logical_state": "BLOCKED",
     "live_jira_evidence_state": "PARTIAL",
     "live_jira_maturity": "FUNCTIONAL_STARTER",
-    "live_jira_updated_at": "2026-08-09T04:24:33.283-0500",
+    "live_jira_updated_at": "2026-08-09T04:36:38.586-0500",
     "workflow_mapping": "BLOCKED maps to portable Jira status To Do",
     "pre_claim_rollback_snapshot_sha256": "a2351daac562f208c71614fa14f7c70396005bf49479a00c8a8a3cb3b002a7b5",
     "pre_block_rollback_snapshot_sha256": "6d3b90abb514b9942ad814173a5c7059f2351e8c496cda1bc02a0d767d71815e",
     "post_block_state_sha256": "36515af91758d72c7b1a585e098a42658c85aaf45a2aef1e5a16dfcc94251ac6",
-    "state": "CLEAN_CANDIDATE_VALIDATED_PROTECTED_INTEGRATION_PENDING"
+    "pull_request": 13,
+    "head_sha": "093114a9b81f19ad754ebfd4d7ed336235174b4a",
+    "merge_sha": "c108634443ef649e40582fc7295c3f9d79ea9914",
+    "merged_at_utc": "2026-08-09T09:34:04Z",
+    "merge_method": "SQUASH",
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
+    "repository_ci_main_run_id": 31306223324,
+    "security_main_run_id": 31306223360,
+    "main_run_attempts": 1,
+    "state": "PROTECTED_MERGED_AND_LIVE_JIRA_BLOCKED"
   },
   "completion": {
     "achieved_maturity": "FUNCTIONAL_STARTER",

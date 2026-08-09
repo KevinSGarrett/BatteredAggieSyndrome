@@ -23,13 +23,15 @@ Do not create branches for pure read-only analysis unless a durable repository c
 
 ## Worktree model
 
-Canonical sibling root:
+Canonical external root:
 
-`C:\BatteredAggieSyndrome.worktrees`
+`C:\BatteredAggieSyndrome.data\worktrees`
 
 Example:
 
-`C:\BatteredAggieSyndrome.worktrees\BAT-123-short-description`
+`C:\BatteredAggieSyndrome.data\worktrees\BAT-123-short-description`
+
+The configured `AGGIE_ANALYTICS_DATA_ROOT` is authoritative; the absolute Windows path above is the current-host binding. Do not create a new project-specific sibling worktree root. Historical sibling worktrees are removal or transactional-relocation candidates only after exact ownership, cleanliness, and recovery checks.
 
 Use `scripts/new_worktree.ps1` after reconciliation and claim checks.
 

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "policy_id": "BAS-EXTERNAL-STORAGE-CONSOLIDATION",
+  "version": "1.0.0",
+  "jira_key": "BAT-510",
+  "local_work_id": "POST-TASK-STORAGE-CLEANUP-001",
+  "repository_windows": "C:\\BatteredAggieSyndrome",
+  "data_root_environment_variable": "AGGIE_ANALYTICS_DATA_ROOT",
+  "current_host_data_root_windows": "C:\\BatteredAggieSyndrome.data",
+  "bulk_payloads_in_git": false,
+  "standard_operational_roots": {
+    "backups": "backups",
+    "packaging": "packaging",
+    "reconciliation": "reconciliation",
+    "runtime": "runtime",
+    "validation": "validation",
+    "worktrees": "worktrees"
+  },
+  "protected_data_domains": [
+    "raw",
+    "canonical",
+    "quarantine",
+    "manifests",
+    "features",
+    "pit_state",
+    "training",
+    "model_artifacts",
+    "forecast_snapshots"
+  ],
+  "directory_dispositions": [
+    "PRESERVE_AUTHORITATIVE",
+    "PRESERVE_RECOVERY",
+    "ACTIVE_RUNTIME",
+    "MOVE_WITH_REFERENCES",
+    "DELETE_RECONSTRUCTIBLE",
+    "MANUAL_REVIEW_REQUIRED"
+  ],
+  "worktree_removal_gates": [
+    "exact_absolute_path_resolved",
+    "canonical_project_ownership_verified",
+    "git_status_porcelain_clean",
+    "commit_or_pr_merged_remote_preserved_or_otherwise_recoverable",
+    "git_worktree_remove_exact_path",
+    "git_worktree_prune"
+  ],
+  "legacy_sibling_root_policy": "NO_NEW_PROJECT_SPECIFIC_SIBLING_ROOTS",
+  "migration_policy": "TRANSACTIONAL_REFERENCE_AND_HASH_VALIDATED_WITH_RELOCATION_RECORD",
+  "historical_manifest_policy": "PRESERVE_ORIGINAL_IDENTITY_AND_LOCATION"
+}

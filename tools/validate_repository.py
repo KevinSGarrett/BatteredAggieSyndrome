@@ -82,6 +82,12 @@ def main() -> int:
         for detail in validate_model_architecture(root):
             findings.append(type("F", (), {"kind":"model_architecture", "path":str(model_architecture_registry.relative_to(root)), "detail":detail})())
 
+    external_storage_policy = root / "configs/external_storage_policy.json"
+    if external_storage_policy.exists():
+        from tools.validate_external_storage_policy import validate as validate_external_storage_policy
+        for detail in validate_external_storage_policy(root):
+            findings.append(type("F", (), {"kind":"external_storage", "path":str(external_storage_policy.relative_to(root)), "detail":detail})())
+
     # Lightweight governance integrity checks.
     req_path = root / "governance/REQUIREMENTS_INDEX.csv"
     trace_path = root / "governance/REQUIREMENTS_TRACEABILITY.csv"

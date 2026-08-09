@@ -15,4 +15,4 @@ This creates `.venv` and installs the current package scaffold. No model/data st
 Portable baseline: normal Python `venv` + `pip`. Faster environment managers may be used locally, but the repository does not require one in Wave 02.
 
 ## Paths and large data
-Use `pathlib` and project-relative paths in code. Raw/processed historical data and model artifacts belong outside the Git repository; `AGGIE_ANALYTICS_DATA_ROOT` is reserved for later local data-root configuration.
+Use `pathlib` and project-relative paths in code. Raw/processed historical data, model artifacts, and operational output belong outside the Git repository under the configured `AGGIE_ANALYTICS_DATA_ROOT`; see `docs/operations/LOCAL_RUNTIME_PATHS.md` for the enforced layout.

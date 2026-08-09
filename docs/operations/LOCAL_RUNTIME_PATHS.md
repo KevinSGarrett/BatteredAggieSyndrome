@@ -13,8 +13,21 @@ The resolver in `aggie_analytics.operations.environment` derives seven distinct 
 | `model` | `model_artifacts` | Versioned model artifacts. |
 | `forecast` | `forecast_snapshots` | Immutable published forecast snapshots. |
 | `log` | `runtime/logs` | Local operational logs. |
-| `backup` | `runtime/backups` | Local backup artifacts. |
+| `backup` | `backups` | Local backup artifacts. |
 | `quarantine` | `quarantine` | Rejected or held inputs. |
+
+The external operational layout is also fixed below the same configured root:
+
+| Operational class | Relative location |
+| --- | --- |
+| Backups | `backups` |
+| Packaging | `packaging` |
+| Reconciliation | `reconciliation` |
+| Runtime/temporary output | `runtime` |
+| Validation | `validation` |
+| Git worktrees | `worktrees` |
+
+Do not create new project-specific sibling roots beside the repository. Existing historical sibling locations remain immutable provenance references until their contents are transactionally migrated or safely retired; do not rewrite old manifests to pretend those historical paths were different.
 
 `EXTERNAL_DATA_ROOT` is the documentation alias for the configured absolute root; it is not a literal directory name. No absolute user path or environment value is required in repository evidence.
 
@@ -30,7 +43,7 @@ paths = provision_local_runtime_paths(repo_root=Path.cwd())
 raw_root = paths["roots"]["raw"]
 ```
 
-Provisioning creates only the declared directories and performs a small create/write/delete probe in each. It does not authorize source access, assert redistribution rights, validate storage durability, test quarantine semantics, or claim production/release readiness. Those remain downstream gates.
+`provision_local_runtime_paths` creates the seven data/runtime aliases and performs a small create/write/delete probe in each. `provision_external_operational_paths` creates the six standardized operational roots without migrating existing content. Neither operation authorizes source access, rewrites historical manifests, asserts redistribution rights, validates storage durability, tests quarantine semantics, or claims production/release readiness. Those remain downstream gates.
 
 ## Evidence and consumer contract
 

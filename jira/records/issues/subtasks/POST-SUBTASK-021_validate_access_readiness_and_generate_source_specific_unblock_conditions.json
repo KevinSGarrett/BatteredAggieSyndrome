@@ -16,7 +16,7 @@
     "artifacts/source_governance/source_access_readiness.csv",
     "artifacts/jira_evidence/POST-SUBTASK-021.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-019;POST-SUBTASK-020",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-020",
   "blocks": [
     "POST-STORY-008",
     "POST-STORY-009",

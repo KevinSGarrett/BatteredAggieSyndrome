@@ -77,7 +77,7 @@
   "end_to_end_validation": "Validate that `docs/operations/SOURCE_CREDENTIAL_CONTRACT.md`, `artifacts/source_governance/credential_contract.redacted.json` can be parsed and consumed by `POST-SUBTASK-020` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-019.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -147,11 +147,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24509",
-    "jira_updated_at": "2026-08-09T00:03:25.031-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T08:06:27.128-0500",
+    "last_synced_at": "2026-08-09T13:07:09.957737+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\BAT-369-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -205,7 +205,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -321,7 +321,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-007: Credential configuration and access smoke tests.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-019.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 

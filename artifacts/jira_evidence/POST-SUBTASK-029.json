@@ -1,0 +1,234 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "Coverage is measured independently for SRC-001 and SRC-002 by season and domain, with endpoint/schema/timestamp fields and exact-identity Texas A&M row/game counts nested separately from national denominators. Upstream independence is explicitly zero rather than double-counting ESPN-derived and aggregated feeds."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "The declared profile is deterministic and input-hash-pinned with canonical payload SHA-256 2d399fd67bc29c24813030f0298a01fa692aefda21d64ebe6402d8e870bc5d7e and file SHA-256 9911886c77ddf046b848bb9ef5f83a277d2920669221d6497cb67c7c66c1e634."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "The profile preserves partial play coverage, absent 2001-2003 release assets, incomplete historical publication times, venue/entity limitations, non-independent lineage, and all protected non-claims without inventing availability, thresholds, eligibility, or results."
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-379/build_context_population_profile.py --repo-root . --data-root <external-data-root> --output artifacts/data_lake/historical_expansion_population_profile.json",
+      "exit_code": 0,
+      "result": "PASS_PROFILE_WITH_EXPLICIT_PARTIAL_AND_TIMESTAMP_LIMITS"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-379/validate_context_population_profile.py --repo-root . --data-root <external-data-root> --profile artifacts/data_lake/historical_expansion_population_profile.json --report <external-validation>/BAT-379/historical_expansion_population_profile_validation.json",
+      "exit_code": 0,
+      "result": "PASS; baseline plus 8/8 unsafe mutations rejected"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q",
+      "exit_code": 0,
+      "result": "3 passed in 0.13s"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "270 passed, 1 skipped, 33 subtests passed in 17.14s"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS; 2,118 references; 0 relocated"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "result": "PASS; 463 issues; 0 errors; 3 ready; 116 blocked; 2,118 source anchors"
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS; 1,758 files; 0 errors"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --strict",
+      "exit_code": 0,
+      "result": "PASS; 2,803 files; repository structure, manifests, governance IDs, secret scan, and forbidden-artifact scan"
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py; validate_acceptance.py; validate_data_research.py",
+      "exit_code": 0,
+      "result": "All three protected handoff, acceptance, and data-research gates PASS"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "completion_claimed": false,
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "PROFILE_VALIDATED_AWAITING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_BRANCH_INTEGRATION_AND_FINAL_JIRA_SYNC"
+    ]
+  },
+  "created_at_utc": "2026-08-09T21:38:47Z",
+  "decision": {
+    "approved_for_domain_eligibility_gate_input": true,
+    "final_domain_eligibility_decision_made": false,
+    "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_EVENT_KNOWN_AT_POLICY_AND_CHRONOLOGICAL_REPLAY",
+    "upstream_independent_corroboration_count": 0
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 26188,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-027.json",
+      "sha256": "a64f0cc600fc3265f907d49d825c211c9b4112341123128b81e0c0f70c5b2ef3"
+    },
+    {
+      "bytes": 11906,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-028.json",
+      "sha256": "d051b62085ad931a8b1e5d9889bc2226efdda6775f4af0e7e4ad9d22d6981111"
+    },
+    {
+      "bytes": 29394,
+      "path": "artifacts/data_lake/historical_expansion_acquisition_manifest.json",
+      "sha256": "8ff133cbb67fb873891b04c80164a8838edfdd20f532c19e8a5240a29a499bd1"
+    }
+  ],
+  "jira_key": "BAT-379",
+  "live_jira": {
+    "claim_comment_id": "13394",
+    "checkpoint_comment_id": "13395",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "EMPIRICALLY_VALIDATED",
+    "status": "In Progress",
+    "updated": "2026-08-09T16:37:03.819-0500"
+  },
+  "local_id": "POST-SUBTASK-029",
+  "local_jira_sync": {
+    "changed_issues": 1,
+    "conflict_count": 0,
+    "export_path": "<external-runtime>/BAT-379/BAT-379-live-row.csv",
+    "result": "PASS",
+    "strict_validation": "PASS"
+  },
+  "negative_findings_and_limits": [
+    "Historical row-level source publication/known-at timestamps are incomplete for both source families; acquisition time is not event time.",
+    "SportsDataverse is ESPN-derived and CFBD is aggregated/derived; neither is counted as independent corroboration.",
+    "SportsDataverse play data cover 71 Texas A&M game IDs while its schedules contain 74 Texas A&M games in 2004-2009; the gap remains explicit.",
+    "SportsDataverse publishes none of the tested 2001-2003 play, roster, or schedule release assets.",
+    "Venue rows lack observed team identity; zero exact A&M venue matches require entity reconciliation and do not mean A&M lacks a venue.",
+    "No final domain eligibility, final historical readiness, GAP-002 resolution, production feature/model, protected performance, A&M lift, BAS, or Aggie Excess result is claimed."
+  ],
+  "observable_outcome": {
+    "bytes_profiled": 2550148419,
+    "cfbd_raw_bytes_scanned": 2313402356,
+    "supplement_parquet_bytes_read": 236746063,
+    "texas_am": {
+      "SRC-001": {
+        "play_rows": 13292,
+        "play_game_ids": 71,
+        "roster_rows": 195,
+        "schedule_game_ids": 74
+      },
+      "SRC-002": {
+        "advanced_stat_rows": 594,
+        "advanced_stat_game_ids": 297,
+        "drive_rows": 8027,
+        "outcome_game_rows": 750,
+        "play_rows": 38131,
+        "play_game_ids": 203,
+        "player_box_game_rows": 203,
+        "ranking_poll_rows": 188,
+        "roster_rows": 2277,
+        "team_box_game_rows": 203,
+        "team_registry_rows": 25
+      }
+    }
+  },
+  "outputs": [
+    {
+      "bytes": 310733,
+      "canonical_payload_sha256": "2d399fd67bc29c24813030f0298a01fa692aefda21d64ebe6402d8e870bc5d7e",
+      "path": "artifacts/data_lake/historical_expansion_population_profile.json",
+      "sha256": "9911886c77ddf046b848bb9ef5f83a277d2920669221d6497cb67c7c66c1e634"
+    },
+    {
+      "bytes": 1694,
+      "path": "<external-validation>/BAT-379/historical_expansion_population_profile_validation.json",
+      "sha256": "109fa1a3f6fbf56a72fb8b77bb9590a99082b36d8a8186eaba4395533ca3c6e9"
+    }
+  ],
+  "policy_and_security": {
+    "credential_values_recorded": false,
+    "licensing_or_redistribution_uncertainty_blocks_private_profile_or_use": false,
+    "raw_payloads_in_git_or_jira": false,
+    "raw_publication_allowed": false,
+    "rights_metadata_nonblocking": true
+  },
+  "producer": {
+    "base_commit": "d8059d8a3fb73762ce0073529d86e2fdec791fb0",
+    "branch": "codex/BAT-379-context-population-profile",
+    "external_builder": "<external-runtime>/BAT-379/build_context_population_profile.py",
+    "external_validator": "<external-runtime>/BAT-379/validate_context_population_profile.py",
+    "python_dependency": "pyarrow"
+  },
+  "protected_integration": {
+    "state": "PENDING"
+  },
+  "schema_version": "1.0.0",
+  "validation": {
+    "external_report": {
+      "baseline": "PASS",
+      "negative_tests_passed": 8,
+      "sha256": "109fa1a3f6fbf56a72fb8b77bb9590a99082b36d8a8186eaba4395533ca3c6e9"
+    },
+    "result": "LOCAL_PASS_PENDING_PROTECTED_INTEGRATION",
+    "unsafe_mutations_rejected": [
+      "double_counted_upstream_feeds",
+      "superseded_rights_gate",
+      "renamed_licensing_gate",
+      "premature_pit_promotion",
+      "premature_domain_gate",
+      "merged_am_national_population",
+      "missing_source_profile",
+      "missing_season_domain_timestamp_quality"
+    ]
+  },
+  "validation_matrix": [
+    {
+      "classification": "REGRESSION",
+      "disposition": "PASS",
+      "result": "tests/test_w19_foundation.py: 3 passed"
+    },
+    {
+      "classification": "FULL_REGRESSION",
+      "disposition": "PASS",
+      "result": "270 passed, 1 skipped, 33 subtests passed"
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_GATE_FAIL_CLOSED",
+      "result": "The profile does not promote acquisition/release times into pregame eligibility; the mutation validator rejects premature PIT approval."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE_PROFILE_ONLY",
+      "result": "No feature, split, model, metric, threshold, or scientific effect is evaluated."
+    },
+    {
+      "classification": "STATIC_VALIDATION",
+      "disposition": "PASS",
+      "result": "Input hashes, source/season/domain/team coverage, schema identities, timestamp fields, lineage, consumer controls, and protected non-claims pass baseline plus eight mutation tests."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "result": "The profile pins the tracked prerequisite, three external acquisition/validation inputs, source schemas, exact row/game aggregates, and deterministic payload/file identities without credentials or host paths."
+    }
+  ]
+}

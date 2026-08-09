@@ -76,7 +76,7 @@
     "achieved_maturity": "PRODUCTION_READY",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
     "remaining_issue_scope_blockers": []
   },
@@ -95,14 +95,14 @@
     "scope_boundary": "This approves the complete internally reconciled source-defined 2022-2025 CFBD population, not every college-football game ever played and not provider-independent completeness."
   },
   "downstream_reevaluation": {
-    "POST-STORY-010": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
-    "POST-STORY-011": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
-    "POST-SUBTASK-028": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
-    "POST-SUBTASK-029": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
-    "POST-SUBTASK-030": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
-    "POST-SUBTASK-031": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
-    "POST-SUBTASK-032": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC",
-    "POST-SUBTASK-033": "CORE_POPULATION_DEPENDENCY_CONTRIBUTION_SATISFIED; RECOMPUTE_FULL_DEPENDENCY_GRAPH_AFTER_PROTECTED_SYNC"
+    "POST-STORY-010": "RECOMPUTED_FROM_CHILD_GRAPH",
+    "POST-STORY-011": "RECOMPUTED_FROM_CHILD_GRAPH",
+    "POST-SUBTASK-028": "READY_CRITICAL_PATH",
+    "POST-SUBTASK-029": "REMAINS_DEPENDENCY_BLOCKED_ON_POST_SUBTASK_028",
+    "POST-SUBTASK-030": "REMAINS_DEPENDENCY_BLOCKED",
+    "POST-SUBTASK-031": "REMAINS_DEPENDENCY_BLOCKED",
+    "POST-SUBTASK-032": "REMAINS_DEPENDENCY_BLOCKED",
+    "POST-SUBTASK-033": "REMAINS_DEPENDENCY_BLOCKED"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
   "input_identities": [
@@ -147,25 +147,49 @@
       "sha256": "0e64926212a1060f5c83939459533d931be3a2f8a0f0c203ec3ea4f9a8c8423e"
     },
     {
-      "bytes": 17006,
+      "bytes": 17008,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-027_approve_or_block_the_population_level_core_history_coverage_gate.json",
-      "sha256": "e1d9ef58667de97e76b76cf6815c9f0fb9795413532b619c836c3e3064127b84"
+      "sha256": "d7f726de703418a2ffbf9fa95ae4168c6b7d95a2c6fef00d023d5805bf97b0b3"
     }
   ],
   "jira_key": "BAT-377",
   "live_jira": {
     "claim_comment_id": "13349",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13350",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
     "maturity": "PRODUCTION_READY",
     "post_claim_state": {
       "bytes": 290,
       "path": "<external-runtime>/BAT-377/post-claim-jira-state.json",
       "sha256": "175a4fce8c4bfdd122795b2527aff4b548818305fcd2f941d025410c4110b952"
     },
-    "status": "In Progress"
+    "post_complete_state": {
+      "bytes": 277,
+      "path": "<external-runtime>/BAT-377/post-complete-jira-state.json",
+      "sha256": "4503251d19c4a7b08d3719ab31ef4fb6470cf6fc99ee9eace9243c7fa2c21991"
+    },
+    "status": "Done",
+    "updated": "2026-08-09T12:58:31.147-0500"
   },
   "local_issue_id": "POST-SUBTASK-027",
+  "local_jira_sync": {
+    "live_export": {
+      "bytes": 160,
+      "path": "<external-runtime>/BAT-377/BAT-377-live-row.csv",
+      "sha256": "c4d8cbd6a898dfbe7f54c47dbfb19ea11bac3cb01b32e88302feaf76b5bcd4b2"
+    },
+    "second_pass": {
+      "blocked_count": 120,
+      "deferred_count": 36,
+      "errors": 0,
+      "issue_count": 463,
+      "ready_count": 2,
+      "result": "PASS",
+      "source_anchors": 2118
+    },
+    "state": "SYNCHRONIZED_PENDING_PROTECTED_COMPLETION_COMMIT"
+  },
   "negative_findings_and_limits": [
     "The provider does not publish an endpoint-specific historical completeness guarantee; universal NCAA population completeness is not claimed.",
     "Only seasons 2022-2025 are in this approved gate; older history and future seasons require separately versioned acquisitions and gates.",
@@ -552,8 +576,15 @@
   },
   "protected_integration": {
     "branch": "codex/BAT-377-core-coverage-gate",
-    "merge_method": "SQUASH_REQUIRED",
-    "state": "PENDING_PROTECTED_PULL_REQUEST"
+    "head_sha": "56ebef8d43fa7805624e5dedbffb019e18acc56f",
+    "merge_commit_repository_ci_run": 31327743795,
+    "merge_commit_security_analysis_run": 31327743837,
+    "merge_method": "SQUASH",
+    "merge_sha": "32b74c7f5fa1d7233ea6d7ebc83501f31e707901",
+    "merged_at_utc": "2026-08-09T17:56:51Z",
+    "pull_request": 66,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "security_and_rights": {
@@ -562,6 +593,7 @@
     "raw_or_normalized_payloads_in_git_or_jira": false,
     "source_contract": "APPROVED_CFBD_PERSONAL_NONCOMMERCIAL_LOCAL_ANALYSIS"
   },
+  "updated_at_utc": "2026-08-09T17:59:45Z",
   "validation": {
     "report": {
       "bytes": 2696,

@@ -23,7 +23,7 @@
     "artifacts/data_lake/context_eligibility_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-030.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-027;POST-SUBTASK-028;POST-SUBTASK-029",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-028;POST-SUBTASK-029",
   "blocks": [
     "POST-EPIC-007",
     "POST-STORY-011",

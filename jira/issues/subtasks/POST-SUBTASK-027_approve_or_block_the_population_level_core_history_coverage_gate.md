@@ -88,7 +88,7 @@
   "end_to_end_validation": "A clean acquisition run produces immutable national game history, deterministic normalized evidence, and an honest coverage decision. The gate decision must explicitly reevaluate downstream issues: POST-STORY-010, POST-STORY-011, POST-SUBTASK-028, POST-SUBTASK-029, POST-SUBTASK-030, POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-027.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -148,18 +148,18 @@
     "raw-data",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-027",
   "maturity_before": "SCAFFOLD",
   "objective": "Approve or block the population-level core-history coverage gate",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24517",
-    "jira_updated_at": "2026-08-09T00:03:29.553-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T12:58:31.147-0500",
+    "last_synced_at": "2026-08-09T17:58:46.514690+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-377\\BAT-377-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -216,7 +216,7 @@
     "src/aggie_analytics/data/snapshots.py",
     "docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -315,7 +315,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-009: Core national game spine.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-027.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 

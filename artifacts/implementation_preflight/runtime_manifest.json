@@ -1,0 +1,426 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "authoritative_target_runtime_and_dependency_manifest",
+  "created_at_utc": "2026-08-09T07:50:57Z",
+  "issue": {
+    "jira_key": "BAT-353",
+    "local_id": "POST-SUBTASK-003",
+    "objective": "Capture the authoritative target runtime and dependency manifest"
+  },
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c",
+    "branch": "codex/BAT-353-runtime-manifest"
+  },
+  "maturity": "INTEGRATED_CAPTURE",
+  "eligibility": "AUTHORITATIVE_OBSERVED_TARGET_RUNTIME_NONCONFORMANT_PRODUCT_LOCK",
+  "authority": {
+    "observed_host_identity_authoritative": true,
+    "hardware_class_match": true,
+    "python_runtime_observation_authoritative": true,
+    "product_dependency_lock_conformant": false,
+    "pip_environment_consistent": false,
+    "benchmark_authoritative_for_thr_011_012": false,
+    "release_authoritative": false,
+    "interpretation": "This manifest is authoritative for the observed host/runtime state at capture time. It is not evidence of a lock-conformant product environment, AC-038 completion, governed target thresholds, empirical model readiness, or release readiness."
+  },
+  "source_identity": {
+    "git_commit": "02c46e94dcd47e5671715b30f79c1318c04f05d0",
+    "git_tree": "52b150f1a3fb4ded1e673414177017b9a32b1ed1",
+    "repository_root_alias": "REPOSITORY_ROOT",
+    "absolute_repository_path_included": false,
+    "w25_terminal": true,
+    "wave_26_allowed": false
+  },
+  "prerequisite_identities": [
+    {
+      "issue": "POST-SUBTASK-001",
+      "path": "artifacts/implementation_preflight/repository_identity.json",
+      "bytes": 9853,
+      "sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6",
+      "evidence_state": "VERIFIED"
+    },
+    {
+      "issue": "POST-SUBTASK-001",
+      "path": "artifacts/implementation_preflight/initial_publication_reconciliation.json",
+      "bytes": 8851,
+      "sha256": "80aa73eb3e68afb116084f00e778f779cee5d813c804265eface10cfd781bb7a",
+      "evidence_state": "VERIFIED"
+    },
+    {
+      "issue": "POST-SUBTASK-001",
+      "path": "artifacts/implementation_preflight/hydration_binding_supersession.json",
+      "bytes": 3003,
+      "sha256": "49f9673fc7960ee9aa1cbc8598017ad1b714a745d816d42bdb3d6d2a88cecf40",
+      "evidence_state": "VERIFIED_WITH_HISTORICAL_ABSENCE_RETAINED"
+    },
+    {
+      "issue": "POST-SUBTASK-001",
+      "path": "artifacts/implementation_preflight/data_root_activation.json",
+      "bytes": 1361,
+      "sha256": "def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3",
+      "evidence_state": "VERIFIED"
+    },
+    {
+      "issue": "POST-SUBTASK-002",
+      "path": "artifacts/implementation_preflight/target_validation_results.json",
+      "bytes": 18946,
+      "sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+      "evidence_state": "VERIFIED"
+    },
+    {
+      "issue": "POST-SUBTASK-002",
+      "path": "artifacts/implementation_preflight/target_validation.log",
+      "bytes": 15453,
+      "sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+      "evidence_state": "VERIFIED"
+    },
+    {
+      "issue": "POST-SUBTASK-002",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-002.json",
+      "bytes": 15433,
+      "sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
+      "evidence_state": "VERIFIED"
+    }
+  ],
+  "runtime_capture": {
+    "tool": "tools/capture_runtime_manifest.py",
+    "tool_sha256": "5ad74f2a1aeee047e6f27396889b7a44e3d00578d2573f57d884541933b919f5",
+    "producer_command": "python tools/capture_runtime_manifest.py --repo-root REPOSITORY_ROOT --output EXTERNAL_DATA_ROOT/runtime/BAT-353/raw-runtime-environment.json",
+    "raw_schema_version": "aggie.runtime.environment.v1",
+    "raw_captured_at_utc": "2026-08-09T07:50:54+00:00",
+    "raw_manifest_internal_sha256": "5550799745f008cf6e00956277fbe247d0587f319037e951c073934d919fe4cf",
+    "raw_artifact": {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-353/raw-runtime-environment.json",
+      "bytes": 9992,
+      "sha256": "9bbb8a5962390fdcc86a8a1e7c8f710b2ace769ea1d61d4405bffae786d70d62",
+      "canonical_internal_hash_verified": true
+    },
+    "installed_distribution_count": 353,
+    "safe_environment_key_count": 0,
+    "full_distribution_map_committed": false,
+    "full_distribution_map_external_and_hash_pinned": true
+  },
+  "operating_system": {
+    "family": "Windows",
+    "caption": "Microsoft Windows 11 Home",
+    "version": "10.0.26200",
+    "build": "26200",
+    "architecture": "64-bit",
+    "platform_machine": "AMD64"
+  },
+  "processor": {
+    "name": "AMD Ryzen 7 8745HX with Radeon Graphics",
+    "manufacturer": "AuthenticAMD",
+    "physical_cores": 8,
+    "logical_processors": 16,
+    "reported_max_clock_mhz": 3601
+  },
+  "memory": {
+    "installed_bytes": 33605840896,
+    "installed_gib": 31.3
+  },
+  "graphics": [
+    {
+      "name": "AMD Radeon(TM) 610M",
+      "driver_version": "32.0.21030.13004",
+      "role": "INTEGRATED"
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "driver_version": "32.0.15.9201",
+      "role": "DISCRETE_TARGET_CLASS"
+    }
+  ],
+  "python": {
+    "version": "3.11.9",
+    "implementation": "CPython",
+    "executable_name": "python.exe",
+    "absolute_executable_path_included": false,
+    "supported_by_project_constraint": true,
+    "project_constraint": ">=3.11,<3.14",
+    "pip_version": "26.1.2"
+  },
+  "dependency_controls": {
+    "base_project_dependency_policy": "DEPENDENCY_FREE_BASE_PACKAGE",
+    "optional_product_adapter_declared": [
+      "fastapi==0.128.2",
+      "uvicorn==0.48.0"
+    ],
+    "control_files": [
+      {
+        "path": "requirements/product.lock",
+        "bytes": 354,
+        "sha256": "1619ed68a86ff3327df5244684eac1b847a83f52e4d79423a8a80736e8c62016"
+      },
+      {
+        "path": "pyproject.toml",
+        "bytes": 558,
+        "sha256": "26f61d495e36255f209e26defb93e62aadaf857ebea87f26f5b592784d245de7"
+      }
+    ],
+    "product_lock_comparison": {
+      "entry_count": 14,
+      "match_count": 9,
+      "mismatch_count": 5,
+      "conformant": false,
+      "entries": [
+        {"name": "fastapi", "expected": "0.128.2", "observed": "0.140.0", "match": false},
+        {"name": "uvicorn", "expected": "0.48.0", "observed": "0.48.0", "match": true},
+        {"name": "starlette", "expected": "0.50.0", "observed": "1.1.0", "match": false},
+        {"name": "pydantic", "expected": "2.13.4", "observed": "2.13.4", "match": true},
+        {"name": "pydantic-core", "expected": "2.46.4", "observed": "2.46.4", "match": true},
+        {"name": "annotated-doc", "expected": "0.0.4", "observed": "0.0.4", "match": true},
+        {"name": "annotated-types", "expected": "0.7.0", "observed": "0.7.0", "match": true},
+        {"name": "anyio", "expected": "4.13.0", "observed": "4.13.0", "match": true},
+        {"name": "typing-extensions", "expected": "4.16.0", "observed": "4.15.0", "match": false},
+        {"name": "typing-inspection", "expected": "0.4.2", "observed": "0.4.2", "match": true},
+        {"name": "idna", "expected": "3.17", "observed": "3.16", "match": false},
+        {"name": "click", "expected": "8.1.8", "observed": "8.4.1", "match": false},
+        {"name": "h11", "expected": "0.16.0", "observed": "0.16.0", "match": true},
+        {"name": "colorama", "expected": "0.4.6", "observed": "0.4.6", "marker": "platform_system == Windows", "match": true}
+      ]
+    },
+    "pip_check": {
+      "command": "python -m pip check",
+      "exit_code": 1,
+      "consistent": false,
+      "conflict_count": 4,
+      "conflicts": [
+        "mediapipe 0.10.35 requires opencv-contrib-python, which is not installed",
+        "fiverr-research-system 0.1.0 requires pandas >=2.2,<3.0, observed pandas 3.0.3",
+        "opencv-python-headless 5.0.0.93 requires numpy >=2 on Python >=3.9, observed numpy 1.26.4",
+        "transformers 5.12.1 requires huggingface-hub >=1.5.0,<2.0, observed 0.24.7"
+      ],
+      "interpretation": "The active global Python environment is not a clean product-lock environment. No dependency mutation was performed in BAT-353."
+    }
+  },
+  "storage": {
+    "paths_redacted": true,
+    "repository_root_alias": "REPOSITORY_ROOT",
+    "external_data_root_alias": "EXTERNAL_DATA_ROOT",
+    "repository_and_external_root_same_volume": true,
+    "volume": {
+      "file_system": "NTFS",
+      "total_bytes": 1021821579264,
+      "free_bytes": 96184672256,
+      "free_gib": 89.58,
+      "free_fraction": 0.094131,
+      "free_space_state": "OBSERVED_NO_GOVERNED_MINIMUM"
+    },
+    "external_data_root": {
+      "exists": true,
+      "outside_repository": true,
+      "required_zone_count": 10,
+      "missing_zone_count": 0,
+      "root_manifest": {
+        "path": "EXTERNAL_DATA_ROOT/root_manifest.json",
+        "bytes": 901,
+        "sha256": "8bedd0a4b35aaac360c8dd498232113615b88f58f6b421587a6abec4793afd66"
+      },
+      "materialized_historical_data_claimed": false
+    },
+    "physical_disks": [
+      {
+        "model": "SKHynix_HFS001TEM4X182N",
+        "media_type": "SSD",
+        "bus_type": "NVMe",
+        "bytes": 1024209543168,
+        "health": "Healthy",
+        "role": "PRIMARY_RUNTIME_VOLUME"
+      },
+      {
+        "model": "Seagate BUP Slim BK",
+        "media_type": "UNSPECIFIED",
+        "bus_type": "USB",
+        "bytes": 2000398933504,
+        "health": "Healthy",
+        "role": "OBSERVED_EXTERNAL_DEVICE_NOT_ASSIGNED_RUNTIME_AUTHORITY"
+      }
+    ]
+  },
+  "credential_inventory": {
+    "capture": {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-353/credential-presence.json",
+      "bytes": 999,
+      "sha256": "458275b03ff0ee6404f030c1cba3c41ab34e4bcec6f45098be87a6cd2353b83a"
+    },
+    "values_included": false,
+    "user_identifying_values_included": false,
+    "entries": [
+      {"name": "AGGIE_ANALYTICS_DATA_ROOT", "status": "PRESENT_REDACTED", "smoke": "PATH_EXISTENCE_AND_ZONE_VALIDATION_PASS"},
+      {"name": "CFBD_API_KEY", "status": "PRESENT_REDACTED", "smoke": "NOT_CONSUMED_IN_THIS_SCOPE"},
+      {"name": "GITHUB_TOKEN", "status": "PRESENT_REDACTED", "smoke": "PRINCIPAL_AND_PROTECTED_PR_PATH_PREVIOUSLY_VERIFIED"},
+      {"name": "JIRA_API_KEY", "status": "PRESENT_REDACTED", "smoke": "BAT_353_READ_CLAIM_COMMENT_AND_TRANSITION_PATH_PASS"},
+      {"name": "JIRA_EMAIL", "status": "PRESENT_REDACTED", "smoke": "VALUE_NOT_EMITTED"}
+    ],
+    "local_env_file_tracked": false,
+    "credential_values_in_git": false,
+    "credential_values_in_jira": false,
+    "credential_values_in_logs": false
+  },
+  "raw_machine_inventory": {
+    "path": "EXTERNAL_DATA_ROOT/runtime/BAT-353/machine-runtime-inventory.json",
+    "bytes": 3148,
+    "sha256": "95f87b2c340986be9edff73d392732825d4ca67d60302917b91ef95882f65b9b",
+    "schema_version": "aggie.target_runtime_inventory.v1"
+  },
+  "benchmark_evidence": {
+    "source_issue": "POST-SUBTASK-002",
+    "profile": "representative",
+    "repetitions": 3,
+    "warm_cold_distinction": "NOT_IMPLEMENTED_BY_BENCHMARK_V1",
+    "process_error_count": 0,
+    "raw_run_sha256": [
+      "cb0c6762699e77f66aa75c5586f9ccc8d03357963d9191dbcceb0e132dc6245c",
+      "6d31f74f43c8604a42e672843dd0acc613b7758301f3b191bd3dc87b3107c750",
+      "1da135706a5bec5e05ec6972d2788d9ef72d6632eae443baa66e5e9e513fda48"
+    ],
+    "deterministic_workload_hashes_stable": true,
+    "independent_hardware_class_match": true,
+    "harness_target_match": false,
+    "authoritative_for_thr_011_012": false,
+    "authority_contradiction": "CIM reports AMD Ryzen 7 8745HX, while Python platform.processor() omits the Ryzen token required by benchmark v1's literal match predicate.",
+    "authority_override_applied": false
+  },
+  "preflight_link": {
+    "target_validation_results_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+    "target_validation_log_sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+    "issue_acceptance_rows_passed": 3,
+    "issue_acceptance_rows_total": 3,
+    "source_pr": 5,
+    "done_sync_pr": 6,
+    "source_merge_sha": "0700bbd90c975e1242575eb529295ccdad3b0f35",
+    "done_sync_merge_sha": "02c46e94dcd47e5671715b30f79c1318c04f05d0",
+    "release_ready": false,
+    "retained_blockers": ["AC-038", "THR-011", "THR-012"]
+  },
+  "security_redaction": {
+    "host_name_included": false,
+    "user_name_included": false,
+    "email_value_included": false,
+    "home_directory_included": false,
+    "absolute_repository_path_included": false,
+    "absolute_external_data_path_included": false,
+    "secret_value_included": false,
+    "restricted_raw_payload_included": false,
+    "storage_and_runtime_paths_use_aliases": true
+  },
+  "scientific_and_model_evidence": {
+    "disposition": "NOT_APPLICABLE_TO_RUNTIME_CAPTURE",
+    "dataset_or_matrix_used": false,
+    "split_or_cutoff_used": false,
+    "model_or_calibrator_used": false,
+    "metrics_claimed": false,
+    "protected_evaluation_status": "SEALED_NOT_OPENED",
+    "production_champion_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "aggie_excess_claimed": false,
+    "bas_effect_claimed": false
+  },
+  "negative_findings": [
+    {
+      "id": "PRODUCT_LOCK_MISMATCH",
+      "finding": "Five of fourteen product-lock entries differ from the active Python environment.",
+      "waived": false,
+      "resolution": "UNRESOLVED_REQUIRES_CLEAN_LOCKED_RUNTIME; no dependency mutation was performed in BAT-353."
+    },
+    {
+      "id": "PIP_CHECK_CONFLICTS",
+      "finding": "pip check reports four conflicts in the active global Python environment.",
+      "waived": false,
+      "resolution": "UNRESOLVED_REQUIRES_ISOLATED_RUNTIME; the manifest is non-release-authoritative."
+    },
+    {
+      "id": "TARGET_AUTHORITY_HARNESS_FALSE_NEGATIVE",
+      "finding": "The hardware inventory matches the declared target class but benchmark v1 reports target_match=false because its CPU string lacks the Ryzen token.",
+      "waived": false,
+      "resolution": "UNRESOLVED_NO_AUTHORITY_OVERRIDE"
+    },
+    {
+      "id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED",
+      "finding": "AC-038 remains unresolved and THR-011/THR-012 remain TBD.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    },
+    {
+      "id": "FREE_SPACE_THRESHOLD_UNGOVERNED",
+      "finding": "Free-space bytes and fraction are observed, but no governed minimum exists in this task.",
+      "waived": false,
+      "resolution": "OBSERVATION_RECORDED_WITHOUT_SUFFICIENCY_CLAIM"
+    },
+    {
+      "id": "W25_HYDRATION_PAIR_UNAVAILABLE",
+      "finding": "The historical W25 hydration artifact remains unavailable.",
+      "waived": false,
+      "resolution": "HISTORICAL_ABSENCE_RETAINED; no bytes or pair binding inferred."
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "The manifest records OS, CPU, RAM, GPU, Python, dependency lock hashes, storage paths, and free-space state.",
+      "disposition": "PASS",
+      "observable_result": "All required runtime dimensions are present with content identities; storage paths are represented by redacted aliases, free bytes/fraction are observed, and dependency drift is explicit.",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:50:57Z"
+    },
+    {
+      "criterion": "Secrets and user-identifying values are redacted.",
+      "disposition": "PASS",
+      "observable_result": "Only credential names and PRESENT_REDACTED/ABSENT-style states are retained; host name, user name, email value, home path, absolute repository path, absolute data-root path, and secret values are absent.",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:50:57Z"
+    },
+    {
+      "criterion": "The manifest is content-hashed and linked to the preflight validation run.",
+      "disposition": "PASS",
+      "observable_result": "The manifest embeds a canonical payload hash and pins BAT-352's final result/log/evidence identities, PRs, merge SHAs, acceptance state, and retained blockers.",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:50:57Z"
+    }
+  ],
+  "story_gate_handoff": {
+    "consumer": "POST-STORY-001",
+    "atomic_capture_complete": true,
+    "silent_downstream_unlock_allowed": false,
+    "decision": "APPROVE_CAPTURE_COMPLETE_RETAIN_RELEASE_BLOCKERS",
+    "story_release_ready": false,
+    "blocking_conditions": [
+      "PRODUCT_LOCK_MISMATCH",
+      "PIP_CHECK_CONFLICTS",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ],
+    "consumer_must_fail_closed_on": [
+      "missing manifest",
+      "schema mismatch",
+      "canonical payload hash mismatch",
+      "stale Git identity",
+      "prerequisite hash mismatch",
+      "credential value present",
+      "absolute user path present",
+      "attempt to claim release authority while dependency or benchmark blockers remain"
+    ]
+  },
+  "completion": {
+    "issue_disposition": "READY_FOR_PROTECTED_INTEGRATION",
+    "evidence_state": "VERIFIED_LOCAL",
+    "all_issue_acceptance_criteria_pass": true,
+    "capture_complete": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": ["PENDING_PROTECTED_PR_INTEGRATION"],
+    "remaining_program_blockers": [
+      "PRODUCT_LOCK_MISMATCH",
+      "PIP_CHECK_CONFLICTS",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "sha256",
+    "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
+    "value": "fbc75b7b45886bf046a01274db067702e0d7aacbc68784a6a15c82478c99f058"
+  }
+}

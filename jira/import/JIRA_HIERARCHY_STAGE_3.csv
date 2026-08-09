@@ -264,7 +264,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-003_capture_the_authoritative_target_runtime_and_dependency_manifest.json",To Do,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-003,operations-security,POST-SUBTASK-003,GAP-001;HANDOFF-001,PHASE-4,READY,INTEGRATED,PLANNED,POST_W25,true,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-003_capture_the_authoritative_target_runtime_and_dependency_manifest.json",In Progress,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-003,operations-security,POST-SUBTASK-003,GAP-001;HANDOFF-001,PHASE-4,VALIDATION,INTEGRATED,PARTIAL,POST_W25,true,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-354,100308,[POST-SUBTASK-004] Configure AGGIE_ANALYTICS_DATA_ROOT and artifact roots outside the repository,100052,"Local ID: POST-SUBTASK-004
 
 Objective

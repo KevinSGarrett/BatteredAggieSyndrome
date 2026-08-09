@@ -1,0 +1,258 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T07:50:57Z",
+  "jira_key": "BAT-353",
+  "local_issue_id": "POST-SUBTASK-003",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "A content-hashed, redacted target runtime manifest binds the protected-main and BAT-351/BAT-352 prerequisite identities to observed OS/CPU/RAM/GPU/Python, dependency controls, storage aliases/free-space state, credential-presence-only evidence, and benchmark samples. It explicitly classifies the active Python environment nonconformant to the product lock and non-release-authoritative.",
+  "outputs": [
+    {
+      "path": "artifacts/implementation_preflight/runtime_manifest.json",
+      "bytes": 17567,
+      "sha256": "2020fc546b69b8c717a2e8a92ae6832ee6003192ed26b3bf783b404dd5bac96b",
+      "canonical_payload_sha256": "fbc75b7b45886bf046a01274db067702e0d7aacbc68784a6a15c82478c99f058",
+      "schema_version": "1.0.0",
+      "maturity": "INTEGRATED_CAPTURE",
+      "eligibility": "AUTHORITATIVE_OBSERVED_TARGET_RUNTIME_NONCONFORMANT_PRODUCT_LOCK"
+    }
+  ],
+  "input_identities": {
+    "git_commit": "02c46e94dcd47e5671715b30f79c1318c04f05d0",
+    "git_tree": "52b150f1a3fb4ded1e673414177017b9a32b1ed1",
+    "repository_identity_sha256": "46695a10ddad57539cea8e005228fc0134cb7be8b0bd6b2263f112a1fdd75cc6",
+    "initial_publication_reconciliation_sha256": "80aa73eb3e68afb116084f00e778f779cee5d813c804265eface10cfd781bb7a",
+    "hydration_binding_supersession_sha256": "49f9673fc7960ee9aa1cbc8598017ad1b714a745d816d42bdb3d6d2a88cecf40",
+    "data_root_activation_sha256": "def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3",
+    "target_validation_results_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+    "target_validation_log_sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+    "post_subtask_002_evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
+    "product_lock_sha256": "1619ed68a86ff3327df5244684eac1b847a83f52e4d79423a8a80736e8c62016",
+    "pyproject_sha256": "26f61d495e36255f209e26defb93e62aadaf857ebea87f26f5b592784d245de7",
+    "runtime_capture_tool_sha256": "5ad74f2a1aeee047e6f27396889b7a44e3d00578d2573f57d884541933b919f5"
+  },
+  "external_raw_evidence": [
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-353/raw-runtime-environment.json",
+      "bytes": 9992,
+      "sha256": "9bbb8a5962390fdcc86a8a1e7c8f710b2ace769ea1d61d4405bffae786d70d62",
+      "internal_manifest_sha256": "5550799745f008cf6e00956277fbe247d0587f319037e951c073934d919fe4cf"
+    },
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-353/machine-runtime-inventory.json",
+      "bytes": 3148,
+      "sha256": "95f87b2c340986be9edff73d392732825d4ca67d60302917b91ef95882f65b9b"
+    },
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-353/credential-presence.json",
+      "bytes": 999,
+      "sha256": "458275b03ff0ee6404f030c1cba3c41ab34e4bcec6f45098be87a6cd2353b83a"
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "The manifest records OS, CPU, RAM, GPU, Python, dependency lock hashes, storage paths, and free-space state.",
+      "disposition": "PASS",
+      "observable_result": "Every required runtime dimension is recorded. Storage paths use aliases; free bytes/fraction are observed without an unsupported sufficiency claim; five product-lock mismatches and four pip conflicts are explicit.",
+      "evidence_path": "artifacts/implementation_preflight/runtime_manifest.json",
+      "evidence_sha256": "2020fc546b69b8c717a2e8a92ae6832ee6003192ed26b3bf783b404dd5bac96b",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:50:57Z"
+    },
+    {
+      "criterion": "Secrets and user-identifying values are redacted.",
+      "disposition": "PASS",
+      "observable_result": "The manifest has zero matches against configured credential values, user/home/host identifiers, and absolute repository/data-root paths. Only credential names and redacted presence states are retained.",
+      "evidence_path": "artifacts/implementation_preflight/runtime_manifest.json",
+      "evidence_sha256": "2020fc546b69b8c717a2e8a92ae6832ee6003192ed26b3bf783b404dd5bac96b",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:50:57Z"
+    },
+    {
+      "criterion": "The manifest is content-hashed and linked to the preflight validation run.",
+      "disposition": "PASS",
+      "observable_result": "Canonical payload SHA-256 fbc75b7b45886bf046a01274db067702e0d7aacbc68784a6a15c82478c99f058 verifies, and BAT-352 result/log/evidence plus PR/merge identities and blockers are pinned.",
+      "evidence_path": "artifacts/implementation_preflight/runtime_manifest.json",
+      "evidence_sha256": "2020fc546b69b8c717a2e8a92ae6832ee6003192ed26b3bf783b404dd5bac96b",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T07:50:57Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python tools/capture_runtime_manifest.py --repo-root REPOSITORY_ROOT --output EXTERNAL_DATA_ROOT/runtime/BAT-353/raw-runtime-environment.json",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "aggie.runtime.environment.v1 captured Python 3.11.9, protected-main commit, 353 distribution versions, zero safe-environment values, and a verified internal canonical hash."
+    },
+    {
+      "command": "PowerShell CIM/PhysicalDisk/DriveInfo and credential-presence-only redacted capture",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Fresh OS/CPU/RAM/GPU/disk/free-space data and five presence-only environment aliases were written outside the repository; no values or user/host paths were included."
+    },
+    {
+      "command": "Compare importlib.metadata versions against requirements/product.lock",
+      "exit_code": 0,
+      "result": "NEGATIVE_RESULT_PRESERVED",
+      "output_summary": "9 of 14 entries match and 5 differ; conformance=false."
+    },
+    {
+      "command": "python -m pip check",
+      "exit_code": 1,
+      "result": "FAILURE_PRESERVED",
+      "output_summary": "Four conflicts exist in the active global environment; no dependency was modified in BAT-353."
+    },
+    {
+      "command": "Canonical runtime-manifest hash and configured-value/user/path redaction audit",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Canonical payload hash verified, all three acceptance rows passed, and redaction violations=0."
+    },
+    {
+      "command": "python -W error -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "8 of 8 W23 operations tests passed in 0.413 seconds."
+    },
+    {
+      "command": "POST-STORY-001 consumer mutation gate over runtime_manifest.json",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The fail-closed consumer rejected schema, payload, acceptance, secret, absolute-path, release-authority, and silent-unlock mutations."
+    },
+    {
+      "command": "python -B jira/tools/validate_import_files.py --repo-root . after sequential Jira validators",
+      "exit_code": 1,
+      "result": "TRANSIENT_WINDOWS_FILE_WRITE_FAILURE_PRESERVED",
+      "output_summary": "Windows returned OSError EINVAL while a fifth sequential validator rewrote SECOND_PASS_AUDIT_RESULTS.json; the attempt was not counted as a pass."
+    },
+    {
+      "command": "python -B jira/tools/validate_import_files.py --repo-root . (isolated retry)",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "463 issues validated with zero import errors and zero total errors."
+    },
+    {
+      "command": "Clean candidate decisive gate: strict repository, W25/W23, protected seal, live Jira control/mirror/import, warning-strict full suite, runtime self-hash/redaction assertions, and expected-negative pip check",
+      "exit_code": 0,
+      "result": "PASS_WITH_NEGATIVE_DEPENDENCY_STATE_PRESERVED",
+      "output_summary": "Candidate gate passed with 240 of 240 tests, three of three runtime acceptance rows, zero redaction violations, verified canonical payload hash, release_authoritative=false, and the expected pip-check exit 1 preserving four conflicts."
+    }
+  ],
+  "benchmark_and_machine_evidence": {
+    "hardware_classification": "MATCH_ALL_DECLARED_TARGET_DIMENSIONS",
+    "benchmark_profile": "representative",
+    "repetitions": 3,
+    "warm_cold_distinction": "NOT_IMPLEMENTED_BY_BENCHMARK_V1",
+    "process_errors": 0,
+    "raw_run_sha256": [
+      "cb0c6762699e77f66aa75c5586f9ccc8d03357963d9191dbcceb0e132dc6245c",
+      "6d31f74f43c8604a42e672843dd0acc613b7758301f3b191bd3dc87b3107c750",
+      "1da135706a5bec5e05ec6972d2788d9ef72d6632eae443baa66e5e9e513fda48"
+    ],
+    "authority_classification": "HARNESS_REJECTED_FALSE_NEGATIVE_RETAINED",
+    "authoritative_for_thr_011_012": false
+  },
+  "credential_and_security_evidence": {
+    "credential_entry_count": 5,
+    "credential_values_included": false,
+    "user_identifying_values_included": false,
+    "absolute_storage_paths_included": false,
+    "restricted_payloads_included": false,
+    "local_env_tracked": false,
+    "redaction_violation_count": 0
+  },
+  "negative_findings": [
+    {
+      "id": "PRODUCT_LOCK_MISMATCH",
+      "finding": "Five of fourteen product-lock entries differ from the active Python environment.",
+      "waived": false,
+      "resolution": "UNRESOLVED_REQUIRES_CLEAN_LOCKED_RUNTIME"
+    },
+    {
+      "id": "PIP_CHECK_CONFLICTS",
+      "finding": "pip check reports four global-environment conflicts.",
+      "waived": false,
+      "resolution": "UNRESOLVED_REQUIRES_ISOLATED_RUNTIME"
+    },
+    {
+      "id": "TARGET_AUTHORITY_HARNESS_FALSE_NEGATIVE",
+      "finding": "Hardware matches the declared target class, but benchmark v1's CPU token test reports target_match=false.",
+      "waived": false,
+      "resolution": "UNRESOLVED_NO_AUTHORITY_OVERRIDE"
+    },
+    {
+      "id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED",
+      "finding": "AC-038 is unresolved and THR-011/THR-012 remain TBD.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    },
+    {
+      "id": "FREE_SPACE_THRESHOLD_UNGOVERNED",
+      "finding": "Free-space state is observed, but this issue defines no governed sufficiency threshold.",
+      "waived": false,
+      "resolution": "OBSERVATION_ONLY_NO_SUFFICIENCY_CLAIM"
+    },
+    {
+      "id": "W25_HYDRATION_PAIR_UNAVAILABLE",
+      "finding": "The historical W25 hydration artifact remains unavailable.",
+      "waived": false,
+      "resolution": "HISTORICAL_ABSENCE_RETAINED_NO_BYTES_OR_BINDING_INFERRED"
+    },
+    {
+      "id": "SEQUENTIAL_JIRA_VALIDATOR_TRANSIENT_EINVAL",
+      "finding": "The fifth rapid sequential Jira validator encountered Windows OSError EINVAL while rewriting the shared audit-results file.",
+      "waived": false,
+      "resolution": "ISOLATED_RETRY_PASSED_WITH_463_ISSUES_AND_ZERO_ERRORS"
+    }
+  ],
+  "story_gate_evaluation": {
+    "consumer": "POST-STORY-001",
+    "manifest_parseable": true,
+    "canonical_hash_verified": true,
+    "prerequisite_hashes_present": true,
+    "negative_results_present": true,
+    "silent_downstream_unlock_allowed": false,
+    "decision": "APPROVE_CAPTURE_COMPLETE_RETAIN_RELEASE_BLOCKERS",
+    "story_release_ready": false,
+    "consumer_must_fail_closed": true,
+    "blocking_conditions": [
+      "PRODUCT_LOCK_MISMATCH",
+      "PIP_CHECK_CONFLICTS",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ]
+  },
+  "integration": {
+    "branch": "codex/BAT-353-runtime-manifest",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "merge_method": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_comment_id": "13288",
+    "live_jira_logical_state": "IN_PROGRESS",
+    "live_jira_status": "In Progress"
+  },
+  "completion": {
+    "achieved_maturity": "INTEGRATED_CAPTURE",
+    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "VALIDATION",
+    "local_acceptance_criteria_pass": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": ["PENDING_PROTECTED_PR_INTEGRATION"],
+    "remaining_program_blockers": [
+      "PRODUCT_LOCK_MISMATCH",
+      "PIP_CHECK_CONFLICTS",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ],
+    "completion_claim": "BAT-353's runtime-capture scope is locally implemented and all three issue-specific criteria pass. The captured global Python environment is not product-lock conformant or release-authoritative; protected integration and final Jira synchronization remain pending."
+  }
+}

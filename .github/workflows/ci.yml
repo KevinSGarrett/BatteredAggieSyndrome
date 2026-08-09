@@ -36,7 +36,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Runtime environment evidence
         run: python tools/capture_runtime_manifest.py --repo-root . --output runtime-environment.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: runtime-environment-${{ matrix.os }}-py${{ matrix.python-version }}
           path: runtime-environment.json
@@ -65,7 +65,7 @@ jobs:
         run: python -m unittest tests.test_w22_product_serving tests.test_w23_operations -v
       - name: W22 product boundary gate
         run: python tools/validate_w22_product.py --repo-root .
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: product-supply-chain-${{ runner.os }}

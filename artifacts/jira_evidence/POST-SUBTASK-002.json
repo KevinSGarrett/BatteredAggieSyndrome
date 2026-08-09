@@ -2,6 +2,7 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "created_at_utc": "2026-08-09T07:32:00Z",
+  "updated_at_utc": "2026-08-09T07:43:48Z",
   "jira_key": "BAT-352",
   "local_issue_id": "POST-SUBTASK-002",
   "producer": {
@@ -12,8 +13,8 @@
   "outputs": [
     {
       "path": "artifacts/implementation_preflight/target_validation_results.json",
-      "bytes": 18197,
-      "sha256": "a56c0e37e77811aafa370ad4440428eb4d986c4367cc4eb9c9303f32dddef0e5",
+      "bytes": 18946,
+      "sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
       "schema_version": "1.0.0",
       "maturity": "IMPLEMENTED_AND_VERIFIED",
       "eligibility": "POST_W25_PREFLIGHT_ONLY_RELEASE_BLOCKED_AC038"
@@ -48,7 +49,7 @@
       "disposition": "PASS",
       "observable_result": "The current suite contains the 229 inherited baseline tests plus 11 post-handoff regression tests. All 240 passed under Python -W error in 14.375 seconds.",
       "evidence_path": "artifacts/implementation_preflight/target_validation_results.json",
-      "evidence_sha256": "a56c0e37e77811aafa370ad4440428eb4d986c4367cc4eb9c9303f32dddef0e5",
+      "evidence_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T07:28:06Z"
     },
@@ -57,7 +58,7 @@
       "disposition": "PASS",
       "observable_result": "Each named validator exited 0 from a clean detached worktree at the pinned base Git commit; the worktree remained clean after the campaign.",
       "evidence_path": "artifacts/implementation_preflight/target_validation_results.json",
-      "evidence_sha256": "a56c0e37e77811aafa370ad4440428eb4d986c4367cc4eb9c9303f32dddef0e5",
+      "evidence_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T07:28:06Z"
     },
@@ -66,7 +67,7 @@
       "disposition": "PASS",
       "observable_result": "The invalid dotted-module invocation, target-authority harness false negative, documented W23 exit 2, and unavailable historical W25 hydration pair are preserved. AC-038 is unresolved and THR-011/THR-012 remain TBD.",
       "evidence_path": "artifacts/implementation_preflight/target_validation_results.json",
-      "evidence_sha256": "a56c0e37e77811aafa370ad4440428eb4d986c4367cc4eb9c9303f32dddef0e5",
+      "evidence_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T07:28:06Z"
     }
@@ -149,6 +150,36 @@
       "exit_code": 0,
       "result": "PASS_ALL_REQUIRED_CANDIDATE_GATES",
       "output_summary": "The candidate strict repository passed; 240 of 240 tests passed; all named current governance/Jira/consumer gates passed; W23 emitted its expected implementation-pass/release-blocked message without setting AC-038 or THR-011/THR-012."
+    },
+    {
+      "command": "GitHub protected squash merge of PR #5 after all seven required contexts passed",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "PR #5 head 5c32fbdbd6d52ffea97eee8a65efd2e4df38cd91 merged as 0700bbd90c975e1242575eb529295ccdad3b0f35 at 2026-08-09T07:41:44Z."
+    },
+    {
+      "command": "Jira Done transition with custom fields on transition screen",
+      "exit_code": 1,
+      "result": "FAILED_CLOSED_UNSUPPORTED_TRANSITION_SCREEN_FIELDS",
+      "output_summary": "Jira returned HTTP 400 because Logical Workflow State, Implementation Maturity, and Evidence State are not on the Done transition screen. No transition or comment was applied."
+    },
+    {
+      "command": "Jira supported edit-then-transition sequence for BAT-352 plus completion comment",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "BAT-352 verified as Done / DONE / IMPLEMENTED / VERIFIED; completion comment 13287 created; redacted rollback snapshot SHA-256 a15e1d54f4cb128178ba5e97dc5a1f00e64c5f4b770c57404c17a567ffb37fbb."
+    },
+    {
+      "command": "python -B jira/tools/validate_import_files.py --repo-root .",
+      "exit_code": 1,
+      "result": "TRANSIENT_WINDOWS_FILE_WRITE_FAILURE_PRESERVED",
+      "output_summary": "The first Done-sync attempt hit Windows OSError EINVAL while rewriting SECOND_PASS_AUDIT_RESULTS.json; the command was not counted as a pass."
+    },
+    {
+      "command": "python -B jira/tools/validate_import_files.py --repo-root . (isolated retry)",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "463 issues, zero import errors and zero total errors; strict second pass also passed immediately afterward."
     }
   ],
   "benchmark_and_machine_evidence": {
@@ -203,6 +234,18 @@
       "finding": "A mistaken rerun of the frozen independent second-pass audit returned exit 1 because its hard-coded pre-activation premises reject live Jira keys, completed governed work, and implementation artifacts outside jira/.",
       "waived": false,
       "resolution": "PRESERVED_AS_NON_APPLICABLE_HISTORICAL_CHECK; its checked-in historical outputs were restored and all current canonical Jira validators pass."
+    },
+    {
+      "id": "JIRA_DONE_TRANSITION_SCREEN_FIELDS_UNAVAILABLE",
+      "finding": "The first Done transition request returned HTTP 400 because the three completion custom fields are not on Jira's transition screen.",
+      "waived": false,
+      "resolution": "RESOLVED_WITH_SUPPORTED_EDIT_THEN_TRANSITION_SEQUENCE_AND_POST_STATE_VERIFICATION"
+    },
+    {
+      "id": "DONE_SYNC_IMPORT_VALIDATOR_TRANSIENT_EINVAL",
+      "finding": "The first standalone Done-sync import validator attempt encountered Windows OSError EINVAL while rewriting its audit-results file.",
+      "waived": false,
+      "resolution": "ISOLATED_RETRY_PASSED_WITH_463_ISSUES_AND_ZERO_ERRORS; strict second pass passed afterward."
     }
   ],
   "security_and_rights": {
@@ -226,22 +269,27 @@
   },
   "integration": {
     "branch": "codex/BAT-352-target-validation",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "merge_method": null,
-    "required_checks": "PENDING_PROTECTED_PR",
-    "live_jira_comment_id": "13286",
-    "live_jira_logical_state": "IN_PROGRESS",
-    "live_jira_status": "In Progress"
+    "pull_request": 5,
+    "pull_request_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/5",
+    "head_sha": "5c32fbdbd6d52ffea97eee8a65efd2e4df38cd91",
+    "merge_sha": "0700bbd90c975e1242575eb529295ccdad3b0f35",
+    "merged_at_utc": "2026-08-09T07:41:44Z",
+    "merge_method": "SQUASH",
+    "required_checks": "PASS_ALL_STRICT_CONTEXTS",
+    "live_jira_comment_id": "13287",
+    "live_jira_logical_state": "DONE",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_status": "Done",
+    "live_jira_updated_at": "2026-08-09T02:43:48.662-0500",
+    "rollback_snapshot_sha256": "a15e1d54f4cb128178ba5e97dc5a1f00e64c5f4b770c57404c17a567ffb37fbb"
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "evidence_state": "VERIFIED_LOCAL",
-    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": ["PENDING_PROTECTED_PR_INTEGRATION"],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": ["AC-038", "THR-011", "THR-012"],
-    "completion_claim": "BAT-352's local target-validation scope is implemented and all three issue-specific acceptance criteria pass. Protected GitHub integration and final Jira Done synchronization remain pending; target benchmark authority remains unresolved and no release threshold is set."
+    "completion_claim": "BAT-352 is implemented, protected-PR integrated, and synchronized as Done/Verified in live Jira and local evidence. All three issue-specific acceptance criteria pass. Target benchmark authority remains unresolved, AC-038 remains blocked, THR-011/THR-012 remain TBD, and no release threshold is set."
   }
 }

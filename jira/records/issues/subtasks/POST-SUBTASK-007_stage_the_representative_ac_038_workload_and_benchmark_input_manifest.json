@@ -16,7 +16,7 @@
     "artifacts/benchmarks/ac038_input_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-007.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-002;POST-SUBTASK-006",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-006",
   "blocks": [
     "POST-SUBTASK-008",
     "POST-SUBTASK-009"

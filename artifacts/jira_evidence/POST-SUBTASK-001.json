@@ -103,6 +103,24 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "8 tests passed."
+    },
+    {
+      "command": "python -W error -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "238 tests passed on the Windows target host with warnings treated as errors after the lock lifecycle and file-handle repairs."
+    },
+    {
+      "command": "git push -u origin main",
+      "exit_code": 0,
+      "result": "PASS_NORMAL_NON_FORCE_INITIAL_PUBLICATION",
+      "output_summary": "The immediately preceding authenticated remote gate found size=0, branches=0, refs=0; local and remote main both resolved to d64ed81d66afca6f27bd0ebdeff625f4ef6b215f."
+    },
+    {
+      "command": "GitHub Actions repository-ci run 31299476308",
+      "exit_code": 1,
+      "result": "FAILURE_PRESERVED_REPAIR_IN_PROGRESS",
+      "output_summary": "The initial checkout exposed byte-normalization drift in sealed evidence and intrinsic .git metadata misclassification; security-analysis run 31299476320 passed."
     }
   ],
   "negative_findings": [
@@ -113,13 +131,17 @@
     },
     {
       "id": "FULL_UNIT_WINDOWS_LOCK_CLEANUP_FAILURE",
-      "finding": "The full unit suite is not clean on this Windows host because test_locks_full schedules lock release too late for TemporaryDirectory cleanup.",
-      "fabricated_or_inferred": false
+      "finding": "The initial full unit suite failed because test_locks_full scheduled lock release too late for TemporaryDirectory cleanup.",
+      "fabricated_or_inferred": false,
+      "resolution": "RESOLVED_AND_REGRESSION_VERIFIED",
+      "resolution_evidence": "The lock is now scoped inside the temporary-directory context; the warning-strict 238-test suite passes."
     },
     {
       "id": "ROOT_CONTROL_TOOLS_REFERENCED_BUT_MISSING",
-      "finding": "START_HERE references validate_autonomous_controls.py, validate_jira_control_plane.py, audit_control_plane.py, and select_next_work.py, but these root tools are absent.",
-      "fabricated_or_inferred": false
+      "finding": "START_HERE initially referenced activation control tools that were absent from the repository.",
+      "fabricated_or_inferred": false,
+      "resolution": "RESOLVED_AND_REGRESSION_VERIFIED",
+      "resolution_evidence": "All 15 cataloged activation tools, tests, and PowerShell entry point now exist; strict autonomous and Jira control validation pass."
     },
     {
       "id": "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER",
@@ -145,16 +167,14 @@
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "evidence_state": "PARTIALLY_VERIFIED_WITH_EXPLICIT_BLOCKERS",
+    "evidence_state": "VERIFIED_WITH_EXPLICIT_EXTERNAL_BLOCKERS",
     "issue_disposition": "BLOCKED",
     "live_jira_status": "In Progress",
     "local_jira_reconciliation": "PASS_ONE_ROW_DRY_RUN_APPLY_REBUILD_AND_STRICT_SECOND_PASS",
     "remaining_blockers": [
       "W25_HYDRATION_BINDING_UNAVAILABLE",
-      "FULL_UNIT_WINDOWS_LOCK_CLEANUP_FAILURE",
-      "ROOT_CONTROL_TOOLS_REFERENCED_BUT_MISSING",
       "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER"
     ],
-    "completion_claim": "The required preflight artifact is implemented and its three issue-specific criteria pass, but BAT-351 is not Done because startup/release gates remain unresolved."
+    "completion_claim": "The required preflight artifact is implemented, its three issue-specific criteria pass, the target-host suite and activation controls are clean, and the canonical GitHub history is published. BAT-351 is not Done because the authoritative hydration binding remains absent and AGGIE_ANALYTICS_DATA_ROOT remains a placeholder."
   }
 }

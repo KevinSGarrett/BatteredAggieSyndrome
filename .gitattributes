@@ -1,7 +1,7 @@
-* text=auto eol=lf
-*.ps1 text eol=crlf
-*.bat text eol=crlf
-*.cmd text eol=crlf
+# The repository contains byte-sealed provenance and protected judging inputs.
+# Store every path verbatim so checkout line-ending conversion cannot invalidate
+# those hashes on Windows or Linux.
+* -text
 *.zip binary
 *.parquet binary
 *.feather binary

@@ -81,7 +81,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-001_verify_w25_repository_identity_manifests_and_no_wave_26_state.json",To Do,Highest,actionable;core-release;environment;post-wave;protected-gate;subtask;local-id-post-subtask-001,operations-security,POST-SUBTASK-001,GAP-001;HANDOFF-001,PHASE-4,BLOCKED,IMPLEMENTED,PARTIAL,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-001_verify_w25_repository_identity_manifests_and_no_wave_26_state.json",To Do,Highest,actionable;core-release;environment;post-wave;protected-gate;subtask;local-id-post-subtask-001,operations-security,POST-SUBTASK-001,GAP-001;HANDOFF-001,PHASE-4,BLOCKED,IMPLEMENTED,VERIFIED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-352,100306,[POST-SUBTASK-002] Run the full unit and governance validator suite on the target host,100051,"Local ID: POST-SUBTASK-002
 
 Objective

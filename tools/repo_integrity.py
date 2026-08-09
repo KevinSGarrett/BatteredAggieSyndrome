@@ -12,6 +12,7 @@ from typing import Iterable
 MANIFEST_NAME = "provenance/PROJECT_FILE_MANIFEST.csv"
 HASHES_NAME = "provenance/PROJECT_FILE_HASHES.sha256"
 TREE_NAME = "provenance/CURRENT_TREE.txt"
+INTRINSIC_VCS_METADATA = {".git"}
 
 
 @dataclass(frozen=True)
@@ -34,7 +35,15 @@ def load_policy(repo_root: Path) -> dict:
 
 
 def iter_repo_files(repo_root: Path) -> list[Path]:
-    return sorted((p for p in repo_root.rglob("*") if p.is_file()), key=lambda p: p.relative_to(repo_root).as_posix())
+    return sorted(
+        (
+            p
+            for p in repo_root.rglob("*")
+            if p.is_file()
+            and not any(part in INTRINSIC_VCS_METADATA for part in p.relative_to(repo_root).parts)
+        ),
+        key=lambda p: p.relative_to(repo_root).as_posix(),
+    )
 
 
 def posix_rel(repo_root: Path, path: Path) -> str:
@@ -61,6 +70,8 @@ def scan_forbidden(repo_root: Path, policy: dict | None = None) -> list[Finding]
     findings: list[Finding] = []
 
     for path in repo_root.rglob("*"):
+        if any(part in INTRINSIC_VCS_METADATA for part in path.relative_to(repo_root).parts):
+            continue
         rel = posix_rel(repo_root, path)
         if any(part in forbidden_dirs for part in path.relative_to(repo_root).parts):
             findings.append(Finding("forbidden_directory", rel, "forbidden directory component"))

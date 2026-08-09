@@ -20871,7 +20871,7 @@ Explicit Out of Scope
 
 Prerequisites / Dependencies
 - Dependency POST-SUBTASK-015 complete at required maturity
-- External condition: USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY
+- External credential condition verified by protected POST-SUBTASK-005 redacted inventory and authenticated read-only smoke evidence
 - POST-SUBTASK-015
 
 Acceptance Criteria
@@ -20932,7 +20932,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-019_define_credential_names_scopes_owners_rotation_and_non_repository_storage_contra.json",To Do,Highest,actionable;core-release;external-blocker;post-wave;protected-gate;sources;subtask;local-id-post-subtask-019,data-sources,POST-SUBTASK-019,GAP-010;HANDOFF-002;HANDOFF-012;ISSUE-003;ISSUE-004,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-019_define_credential_names_scopes_owners_rotation_and_non_repository_storage_contra.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;sources;subtask;local-id-post-subtask-019,data-sources,POST-SUBTASK-019,GAP-010;HANDOFF-002;HANDOFF-012;ISSUE-003;ISSUE-004,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,PROTECTED_GATE
 Sub-task,BAT-370,100324,[POST-SUBTASK-020] Run authenticated and no-key source access smoke tests with rate-limit capture,100057,"Local ID: POST-SUBTASK-020
 
 Objective

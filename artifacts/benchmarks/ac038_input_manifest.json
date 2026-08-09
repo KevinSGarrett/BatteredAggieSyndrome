@@ -1,0 +1,485 @@
+{
+  "schema_version": "aggie.ac038_input_manifest.v1",
+  "artifact_type": "representative_target_benchmark_input_manifest",
+  "created_at_utc": "2026-08-09T10:38:25Z",
+  "issue": {
+    "jira_key": "BAT-357",
+    "local_id": "POST-SUBTASK-007",
+    "objective": "Stage the representative AC-038 workload and benchmark input manifest"
+  },
+  "producer": {
+    "agent": "Codex",
+    "python": "3.11.9",
+    "external_validator_sha256": "7d3ff46840e05a6b06ed4d02a0cf296214ea807519b8b6984f5c760be5e1feb4"
+  },
+  "source_identity": {
+    "git_base_commit": "a4200ff7aff1ff6933a08805f983272be55aa5e1",
+    "git_base_tree": "dea1036e5a7750e16f6eded17864c974a7e94452",
+    "repository_root_alias": "REPOSITORY_ROOT",
+    "absolute_repository_path_included": false,
+    "w25_terminal": true,
+    "wave_26_allowed": false
+  },
+  "prerequisite_identities": [
+    {
+      "dependency": "POST-SUBTASK-002",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/implementation_preflight/target_validation_results.json",
+      "primary_artifact_bytes": 18946,
+      "primary_artifact_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-002.json",
+      "evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
+      "retained_negative_state": "AC-038_UNRESOLVED_THR-011_THR-012_TBD"
+    },
+    {
+      "dependency": "POST-SUBTASK-006",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/implementation_preflight/storage_probe.json",
+      "primary_artifact_bytes": 11447,
+      "primary_artifact_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
+      "primary_artifact_canonical_sha256": "3a8c4e76dc523aab95b1aa21708242d271cebcae849e5dfe5de9bbc45587e216",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-006.json",
+      "evidence_sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a",
+      "retained_negative_state": "CAPACITY_MUST_BE_RECHECKED_AT_EXECUTION"
+    }
+  ],
+  "code_and_config_identities": [
+    {
+      "path": "src/aggie_analytics/operations/benchmark.py",
+      "bytes": 3324,
+      "sha256": "70ab9e5d3606c4128e0ef379506754b363ac8c818a93b0d95f9723fc9250a146",
+      "role": "REPRESENTATIVE_STARTER_WORKLOAD_GENERATOR_AND_PRIMITIVES"
+    },
+    {
+      "path": "scripts/benchmark_target.ps1",
+      "bytes": 235,
+      "sha256": "4ea56690d2ab62544198eff8fb2381a127acced0a9f4eff92c8b08074c4f6cde",
+      "role": "DECLARED_WINDOWS_OPERATOR_ENTRYPOINT"
+    },
+    {
+      "path": "docs/operations/TARGET_HARDWARE_BENCHMARK.md",
+      "bytes": 917,
+      "sha256": "b6e3cdcd2d23bf66b2ae060b0a6cb110fdc113dd0deb2da7aa55ab509849383c",
+      "role": "AC-038_TARGET_PROCEDURE"
+    },
+    {
+      "path": "governance/PROTECTED_SPLIT_REGISTRY.csv",
+      "bytes": 1168,
+      "sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+      "role": "PROTECTED_CHRONOLOGY_AND_HOLDOUT_BOUNDARY"
+    },
+    {
+      "path": "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+      "bytes": 2351,
+      "sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356",
+      "role": "W17_PROTECTED_JUDGING_SEAL"
+    },
+    {
+      "path": "configs/judging_rule_seal.json",
+      "bytes": 3936,
+      "sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758",
+      "role": "W17_SEAL_CONFIGURATION"
+    }
+  ],
+  "target_contract": {
+    "acceptance_control": "AC-038",
+    "profile": "representative",
+    "declared_target_class": {
+      "os_family": "Windows",
+      "cpu_class": "Ryzen 7 HX",
+      "minimum_ram_gib": 28.0,
+      "gpu_class": "RTX 5060",
+      "storage_class": "NVMe"
+    },
+    "representative_row_count": 100000,
+    "planned_repetitions": 3,
+    "warm_cold_distinction": "NOT_IMPLEMENTED_BY_BENCHMARK_V1_RETAINED_AS_LIMITATION",
+    "required_raw_execution_evidence": [
+      "machine inventory",
+      "one raw result per repetition",
+      "wall-clock samples",
+      "Python allocation peaks",
+      "process errors and stderr",
+      "workload and input-manifest hashes",
+      "target-match and authority classification",
+      "storage free-byte recheck"
+    ],
+    "benchmark_v1_target_match_false_negative_retained": true,
+    "authority_override_allowed": false
+  },
+  "input_data_contract": {
+    "classification": "SYNTHETIC_UNRESTRICTED_NO_PROTECTED_OUTCOMES",
+    "contains_real_historical_data": false,
+    "contains_restricted_source_payloads": false,
+    "contains_protected_holdout_outcomes": false,
+    "contains_target_game_outcome": false,
+    "generator_recipe": {
+      "generator": "src/aggie_analytics/operations/benchmark.py::run_benchmark",
+      "profile": "representative",
+      "row_count": 100000,
+      "row_schema": [
+        "game_id",
+        "team",
+        "value",
+        "known_at"
+      ],
+      "formula": {
+        "game_id": "g{i}",
+        "team": "i%133",
+        "value": "(i*17)%101",
+        "known_at": "i"
+      }
+    },
+    "generator_recipe_canonical_sha256": "6ccd26d56dc37336daf746cef092184d1a889fbca757714bc5ffb019b1cfb38a",
+    "input_hash_required_at_execution": true,
+    "input_hash_algorithm": "sha256",
+    "eligible_for_model_quality_claims": false,
+    "eligible_for_source_rights_inference": false
+  },
+  "workload_contract": {
+    "operation_count": 6,
+    "ordered": true,
+    "operations": [
+      {
+        "ordinal": 1,
+        "stage": "ingestion",
+        "operation": "Generate the pinned 100,000-row synthetic input and perform deterministic JSON serialization/deserialization.",
+        "proxy_binding": "benchmark.py::json_roundtrip",
+        "input_classification": "SYNTHETIC_UNRESTRICTED_NO_PROTECTED_OUTCOMES",
+        "output_classification": "SYNTHETIC_INGESTED_ROWS",
+        "required_measurements": [
+          "wall_clock_seconds",
+          "python_peak_mib",
+          "result_sha256"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "stage": "pit_eligibility",
+        "operation": "Apply a pinned prediction cutoff, reject ineligible timing classes, and exclude target-game outcomes before any aggregate or score operation.",
+        "proxy_binding": "manifest PIT gate over benchmark.py known_at field",
+        "input_classification": "SYNTHETIC_INGESTED_ROWS",
+        "output_classification": "SYNTHETIC_PREGAME_ELIGIBLE_ROWS",
+        "required_measurements": [
+          "eligible_row_count",
+          "rejected_row_count_by_reason",
+          "eligible_rows_sha256"
+        ]
+      },
+      {
+        "ordinal": 3,
+        "stage": "feature",
+        "operation": "Aggregate eligible values by team over exactly 133 team buckets without consulting mutable provider state.",
+        "proxy_binding": "benchmark.py::group_aggregate constrained to PIT-eligible rows",
+        "input_classification": "SYNTHETIC_PREGAME_ELIGIBLE_ROWS",
+        "output_classification": "SYNTHETIC_FEATURE_VECTOR",
+        "required_measurements": [
+          "wall_clock_seconds",
+          "python_peak_mib",
+          "feature_vector_sha256"
+        ]
+      },
+      {
+        "ordinal": 4,
+        "stage": "model",
+        "operation": "Apply a deterministic resource-proxy scoring transform to the synthetic feature vector; do not train, tune, calibrate, promote, or report predictive quality.",
+        "proxy_binding": "deterministic hash/aggregate scoring proxy; no production model artifact",
+        "input_classification": "SYNTHETIC_FEATURE_VECTOR",
+        "output_classification": "SYNTHETIC_NON_PREDICTIVE_SCORE_VECTOR",
+        "required_measurements": [
+          "wall_clock_seconds",
+          "python_peak_mib",
+          "score_vector_sha256"
+        ]
+      },
+      {
+        "ordinal": 5,
+        "stage": "publication",
+        "operation": "Serialize the synthetic score vector into an immutable content-addressed forecast-proxy snapshot and verify the committed hash.",
+        "proxy_binding": "benchmark.py::content_hash plus storage_probe atomic-write contract",
+        "input_classification": "SYNTHETIC_NON_PREDICTIVE_SCORE_VECTOR",
+        "output_classification": "SYNTHETIC_IMMUTABLE_FORECAST_PROXY",
+        "required_measurements": [
+          "wall_clock_seconds",
+          "python_peak_mib",
+          "snapshot_sha256",
+          "atomic_commit_result"
+        ]
+      },
+      {
+        "ordinal": 6,
+        "stage": "product_read",
+        "operation": "Read the committed forecast-proxy snapshot through a snapshot-only consumer, verify its hash, and prohibit mutable recomputation.",
+        "proxy_binding": "benchmark.py::json_roundtrip readback plus storage_probe hash verification",
+        "input_classification": "SYNTHETIC_IMMUTABLE_FORECAST_PROXY",
+        "output_classification": "SYNTHETIC_PRODUCT_READ_RESULT",
+        "required_measurements": [
+          "wall_clock_seconds",
+          "python_peak_mib",
+          "readback_sha256",
+          "hash_match"
+        ]
+      }
+    ],
+    "overall_required_measurements": [
+      "end_to_end_wall_clock_seconds",
+      "process_peak_memory_mib",
+      "free_bytes_before_and_after",
+      "failure_count",
+      "stage_result_hashes"
+    ],
+    "real_model_or_product_quality_evaluation": false
+  },
+  "pit_contract": {
+    "prediction_cutoff_required": true,
+    "known_at_field": "known_at",
+    "eligibility_rule": "known_at <= prediction_cutoff AND record is not from the target game's realized outcome path",
+    "target_game_outcome_excluded": true,
+    "same_game_live_observations_excluded": true,
+    "future_and_postgame_records_excluded": true,
+    "mutable_current_provider_state_forbidden": true,
+    "fail_closed": true,
+    "negative_cases": [
+      {
+        "case": "future",
+        "decision": "REJECT",
+        "reason": "KNOWN_AT_AFTER_PREDICTION_CUTOFF"
+      },
+      {
+        "case": "same_game",
+        "decision": "REJECT",
+        "reason": "SAME_GAME_LIVE_OR_REALIZED_INFORMATION"
+      },
+      {
+        "case": "postgame",
+        "decision": "REJECT",
+        "reason": "POSTGAME_INFORMATION"
+      },
+      {
+        "case": "protected_holdout_outcome",
+        "decision": "REJECT",
+        "reason": "SEALED_PROTECTED_OUTCOME"
+      }
+    ]
+  },
+  "protected_holdout_boundary": {
+    "split_id": "SPLIT-PROTECTED",
+    "seasons": "2024-2025",
+    "status": "SEALED_NOT_OPENED",
+    "tuning_allowed": false,
+    "threshold_setting_allowed": false,
+    "outcomes_exposed_to_benchmark": false,
+    "metadata_identity_only_allowed": true,
+    "forbidden_fields": [
+      "target_game_outcome",
+      "same_game_outcome",
+      "future_outcome",
+      "postgame_outcome",
+      "protected_score",
+      "protected_margin",
+      "protected_win_label",
+      "closing_line",
+      "realized_weather"
+    ],
+    "development_splits_allowed_for_future_non_resource_work": [
+      "SPLIT-DEV-HIST",
+      "SPLIT-DEV-SEL"
+    ],
+    "protected_result_access_condition": "SEPARATE_GOVERNED_PROTOCOL_AND_ARTIFACT_READY",
+    "benchmark_tuning_from_protected_results": false
+  },
+  "scientific_and_model_evidence": {
+    "applicable_to_resource_staging": false,
+    "reason": "RESOURCE_BENCHMARK_STAGING_USES_SYNTHETIC_NON_PREDICTIVE_PROXIES_AND_NO_DATASET_MODEL_OR_CALIBRATOR",
+    "dataset_identity": null,
+    "matrix_identity": null,
+    "model_identity": null,
+    "calibrator_identity": null,
+    "sample_size_for_predictive_evaluation": null,
+    "metrics_claimed": false,
+    "uncertainty_claimed": false,
+    "precommitted_predictive_hypothesis": null,
+    "null_negative_unstable_results_suppressed": false,
+    "protected_evaluation_status": "SEALED_NOT_OPENED",
+    "production_champion_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "aggie_excess_claimed": false,
+    "bas_effect_claimed": false
+  },
+  "execution_authority": {
+    "staging_unit_only": true,
+    "authoritative_target_run_completed": false,
+    "execution_owner": "POST-SUBTASK-008",
+    "declared_entrypoint": "scripts/benchmark_target.ps1",
+    "consumer_must_pin_this_manifest_sha256": true,
+    "consumer_must_recheck_storage_capacity": true,
+    "consumer_must_preserve_raw_samples": true,
+    "consumer_must_record_machine_inventory": true,
+    "existing_POST_SUBTASK_002_samples_may_substitute": false,
+    "reason_existing_samples_cannot_substitute": "They predate this six-stage input contract and retain benchmark-v1 authority rejection."
+  },
+  "threshold_authority": {
+    "ac_038_resolved": false,
+    "thr_011": "TBD",
+    "thr_012": "TBD",
+    "thresholds_mutated_by_this_artifact": false,
+    "benchmark_numbers_promoted_to_governance": false,
+    "governance_owner": "POST-SUBTASK-009"
+  },
+  "consumer_contract": {
+    "consumer": "POST-SUBTASK-008",
+    "parseable_without_manual_reconstruction": true,
+    "required_operation_sequence": [
+      "ingestion",
+      "pit_eligibility",
+      "feature",
+      "model",
+      "publication",
+      "product_read"
+    ],
+    "consumer_must_verify": [
+      "schema version and canonical content hash",
+      "both Done/Verified prerequisite identities",
+      "all code/config identities",
+      "synthetic input recipe and hash",
+      "six ordered operations and classifications",
+      "PIT negative cases and target-game outcome exclusion",
+      "sealed protected-holdout boundary",
+      "target class and raw-evidence requirements",
+      "AC-038 unresolved and THR-011/THR-012 TBD",
+      "complete reproducibility dimensions"
+    ],
+    "fail_closed_on": [
+      "missing or malformed manifest",
+      "canonical content hash mismatch",
+      "stale or unverified prerequisite",
+      "missing or reordered operation",
+      "unclassified input or output",
+      "protected outcome input or tuning enabled",
+      "PIT gate or target-game exclusion absent",
+      "storage capacity unavailable",
+      "target identity or raw sample evidence absent",
+      "invented target threshold or authority",
+      "incomplete provenance"
+    ],
+    "silent_unlock_allowed": false
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "The workload matches the benchmark contract and includes representative ingestion, PIT, feature, model, publication, and product-read operations.",
+      "disposition": "PASS",
+      "observable_result": "The representative 100,000-row, three-repetition target contract contains six ordered, classified operations mapped to the pinned benchmark/storage primitives; resource proxies are explicitly non-predictive and the target execution remains assigned to POST-SUBTASK-008.",
+      "verified_at_utc": "2026-08-09T10:38:25Z",
+      "verifier": "Codex"
+    },
+    {
+      "criterion": "Input hashes and data classification are recorded.",
+      "disposition": "PASS",
+      "observable_result": "Both prerequisite artifacts/evidence, six code/config inputs, the synthetic generator recipe, and every operation input/output class are pinned by path, bytes where applicable, and SHA-256; no real or restricted payload is present.",
+      "verified_at_utc": "2026-08-09T10:38:25Z",
+      "verifier": "Codex"
+    },
+    {
+      "criterion": "Protected holdout outcomes are not exposed to benchmark tuning.",
+      "disposition": "PASS",
+      "observable_result": "SPLIT-PROTECTED remains SEALED_NOT_OPENED with tuning and threshold setting disabled; the input contains no outcomes, target-game and temporal outcome fields are forbidden, and four contamination classes are explicit fail-closed rejections.",
+      "verified_at_utc": "2026-08-09T10:38:25Z",
+      "verifier": "Codex"
+    }
+  ],
+  "validation_plan": [
+    {
+      "classification": "REGRESSION",
+      "test": "tests/test_w23_operations.py",
+      "disposition": "PENDING_LOCAL_EXECUTION"
+    },
+    {
+      "classification": "REGRESSION",
+      "test": "tools/validate_w23_operations.py --allow-target-benchmark-pending",
+      "disposition": "PENDING_LOCAL_EXECUTION"
+    },
+    {
+      "classification": "BENCHMARK",
+      "test": "Execute declared six-stage workload with raw samples and machine/resource evidence",
+      "disposition": "BLOCKED_TO_POST_SUBTASK_008_BY_ATOMIC_SCOPE"
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "test": "Consumer mutation gate over PIT and protected-outcome controls",
+      "disposition": "PENDING_LOCAL_EXECUTION"
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "test": "Predictive hypothesis/metric evaluation",
+      "disposition": "NOT_APPLICABLE_SYNTHETIC_RESOURCE_STAGING_NO_MODEL_QUALITY_CLAIM"
+    },
+    {
+      "classification": "END_TO_END",
+      "test": "POST-SUBTASK-008 parse/hash/fail-closed consumer contract",
+      "disposition": "PENDING_LOCAL_EXECUTION"
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "test": "Issue completion manifest with source/data/code/config/tool/runtime/split identities",
+      "disposition": "PENDING_COMPLETION_MANIFEST"
+    }
+  ],
+  "reproducibility": {
+    "source": "Pinned W25/W23 procedure, benchmark code, protected W17 seal, and two verified prerequisite artifacts.",
+    "data": "Canonical SHA-256 of the deterministic 100,000-row synthetic recipe; no real historical, restricted, or protected outcome data.",
+    "code": "Git base commit/tree plus SHA-256 identities for benchmark.py and benchmark_target.ps1.",
+    "config": "Pinned target class, protected split registry, W17 seal, six-stage operation order, and classifications.",
+    "tool": "Python 3.11.9 and external consumer validator SHA-256; declared Windows entrypoint remains scripts/benchmark_target.ps1.",
+    "runtime": "Target execution not performed in this staging unit; POST-SUBTASK-008 must record authoritative machine and raw execution evidence.",
+    "split_cutoff": "SPLIT-PROTECTED remains sealed; known_at must be at or before the pregame cutoff and target-game/same-game/future/postgame outcomes are excluded."
+  },
+  "security_and_rights": {
+    "absolute_paths_included": false,
+    "credential_values_included": false,
+    "restricted_payloads_included": false,
+    "source_rights_approval_claimed": false,
+    "target_hardware_authority_claimed": false,
+    "protected_outcomes_included": false,
+    "production_release_claimed": false
+  },
+  "integration": {
+    "branch": "codex/BAT-357-ac038-input-manifest",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "merge_method": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_claim_comment_id": "13306",
+    "live_jira_status": "In Progress",
+    "live_jira_logical_state": "IN_PROGRESS",
+    "live_jira_evidence_state": "PLANNED",
+    "live_jira_maturity": "FUNCTIONAL_STARTER",
+    "live_jira_updated_at": "2026-08-09T05:36:50.087-0500"
+  },
+  "completion": {
+    "issue_disposition": "VALIDATION",
+    "evidence_state": "PARTIAL",
+    "all_issue_acceptance_criteria_pass": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [
+      "PENDING_CONSUMER_VALIDATION",
+      "PENDING_PROTECTED_PR_INTEGRATION"
+    ],
+    "remaining_program_blockers": [
+      "POST-SUBTASK-008_TARGET_EXECUTION",
+      "POST-SUBTASK-009_THRESHOLD_GOVERNANCE",
+      "AC-038",
+      "THR-011",
+      "THR-012",
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "sha256",
+    "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
+    "value": "b233e5afe17b05918949477546ab0975cc8edc1858a4d0fb9b1d2f6eb7d4d6e1"
+  }
+}

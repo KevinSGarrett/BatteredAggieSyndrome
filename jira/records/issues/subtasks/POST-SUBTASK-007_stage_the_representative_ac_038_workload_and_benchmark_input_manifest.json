@@ -71,7 +71,7 @@
   "end_to_end_validation": "Validate that `artifacts/benchmarks/ac038_input_manifest.json` can be parsed and consumed by `POST-SUBTASK-008` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-001",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-007.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -141,11 +141,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24497",
-    "jira_updated_at": "2026-08-09T00:03:19.929-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "jira_updated_at": "2026-08-09T05:36:50.087-0500",
+    "last_synced_at": "2026-08-09T10:36:50.087000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -202,7 +202,7 @@
     "docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md",
     "scripts/benchmark_target.ps1"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -331,5 +331,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-003: Authoritative target-hardware benchmark and threshold governance.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-007.md",
-  "workflow_state": "READY"
+  "workflow_state": "VALIDATION"
 }

@@ -1,0 +1,302 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T10:40:35Z",
+  "jira_key": "BAT-357",
+  "local_issue_id": "POST-SUBTASK-007",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "A content-hashed, six-stage representative AC-038 input contract now covers ingestion, PIT eligibility, feature aggregation, deterministic non-predictive model proxy, immutable publication proxy, and snapshot-only product read. Every input is pinned and classified; SPLIT-PROTECTED outcomes remain sealed and unavailable to benchmark tuning; the target execution and threshold decisions remain downstream and unresolved.",
+  "outputs": [
+    {
+      "path": "artifacts/benchmarks/ac038_input_manifest.json",
+      "bytes": 19585,
+      "sha256": "a854aecaae42eb4b0c14f4ff347a9aa7e9f9408bc6344f945d8e6d886c4f6659",
+      "canonical_payload_sha256": "b233e5afe17b05918949477546ab0975cc8edc1858a4d0fb9b1d2f6eb7d4d6e1",
+      "schema_version": "aggie.ac038_input_manifest.v1",
+      "maturity": "IMPLEMENTED",
+      "eligibility": "TARGET_BENCHMARK_INPUT_ONLY_EXECUTION_AND_THRESHOLDS_BLOCKED"
+    }
+  ],
+  "input_identities": {
+    "git_base_commit": "a4200ff7aff1ff6933a08805f983272be55aa5e1",
+    "git_base_tree": "dea1036e5a7750e16f6eded17864c974a7e94452",
+    "post_subtask_002_workflow_state": "DONE",
+    "post_subtask_002_evidence_state": "VERIFIED",
+    "target_validation_results_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+    "post_subtask_002_evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
+    "post_subtask_006_workflow_state": "DONE",
+    "post_subtask_006_evidence_state": "VERIFIED",
+    "storage_probe_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
+    "post_subtask_006_evidence_sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a",
+    "benchmark_code_sha256": "70ab9e5d3606c4128e0ef379506754b363ac8c818a93b0d95f9723fc9250a146",
+    "target_benchmark_procedure_sha256": "b6e3cdcd2d23bf66b2ae060b0a6cb110fdc113dd0deb2da7aa55ab509849383c",
+    "benchmark_entrypoint_sha256": "4ea56690d2ab62544198eff8fb2381a127acced0a9f4eff92c8b08074c4f6cde",
+    "protected_split_registry_sha256": "6b90ef6fb09abd89d7a82a8b5835b00615671a7742839269c7401a2d0af5f764",
+    "protected_w17_seal_sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356",
+    "protected_w17_config_sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758",
+    "synthetic_generator_recipe_canonical_sha256": "6ccd26d56dc37336daf746cef092184d1a889fbca757714bc5ffb019b1cfb38a"
+  },
+  "reproducibility": {
+    "source": "Pinned W25/W23 procedure, benchmark code, W17 protected split/seal, and Done/Verified POST-SUBTASK-002/006 artifacts.",
+    "data": "Deterministic 100,000-row synthetic recipe with canonical SHA-256; no real historical, restricted, target-game, or protected outcome data.",
+    "code": "Git base commit/tree, benchmark.py, benchmark_target.ps1, and external validator SHA-256 identities.",
+    "config": "Representative target class, three planned repetitions, six ordered stages, explicit classifications, PIT negative cases, and sealed split boundary.",
+    "tool": "Python 3.11.9; external consumer validator SHA-256 7d3ff46840e05a6b06ed4d02a0cf296214ea807519b8b6984f5c760be5e1feb4.",
+    "runtime": "No authoritative target execution in this staging unit; POST-SUBTASK-008 must pin this manifest and record raw target samples/machine/resources.",
+    "split_cutoff": "SPLIT-PROTECTED SEALED_NOT_OPENED; known_at must be no later than the pregame cutoff; target-game, same-game, future, postgame, and protected outcomes reject."
+  },
+  "external_evidence": [
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-357/ac038-manifest-validation.safe.json",
+      "bytes": 2039,
+      "sha256": "5a5a1bacd8a9c09a7c01cfc1b61383aaef66db6e0e72dc470620eb79900eeb18",
+      "positive_contract_passed": true,
+      "mutation_count": 10,
+      "rejected_mutation_count": 10,
+      "absolute_paths_included": false,
+      "credential_values_included": false,
+      "protected_outcomes_included": false
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "The workload matches the benchmark contract and includes representative ingestion, PIT, feature, model, publication, and product-read operations.",
+      "disposition": "PASS",
+      "observable_result": "The representative 100,000-row, three-repetition target input contract has six ordered and classified stages. The model stage is explicitly a deterministic resource proxy, not a predictive model or quality claim; target execution remains POST-SUBTASK-008 scope.",
+      "evidence_path": "artifacts/benchmarks/ac038_input_manifest.json",
+      "evidence_sha256": "a854aecaae42eb4b0c14f4ff347a9aa7e9f9408bc6344f945d8e6d886c4f6659",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T10:40:35Z"
+    },
+    {
+      "criterion": "Input hashes and data classification are recorded.",
+      "disposition": "PASS",
+      "observable_result": "Two prerequisite artifacts/evidence manifests, six code/config inputs, the canonical synthetic recipe, and all operation input/output classifications are pinned; the positive consumer identity gate passed.",
+      "evidence_path": "artifacts/benchmarks/ac038_input_manifest.json",
+      "evidence_sha256": "a854aecaae42eb4b0c14f4ff347a9aa7e9f9408bc6344f945d8e6d886c4f6659",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T10:40:35Z"
+    },
+    {
+      "criterion": "Protected holdout outcomes are not exposed to benchmark tuning.",
+      "disposition": "PASS",
+      "observable_result": "SPLIT-PROTECTED is pinned as SEALED_NOT_OPENED, protected tuning and threshold setting are false, the synthetic input contains no outcome fields, and contamination/tuning mutations fail closed.",
+      "evidence_path": "artifacts/benchmarks/ac038_input_manifest.json",
+      "evidence_sha256": "a854aecaae42eb4b0c14f4ff347a9aa7e9f9408bc6344f945d8e6d886c4f6659",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T10:40:35Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python EXTERNAL_DATA_ROOT/runtime/BAT-357/validate_ac038_manifest.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The positive six-stage consumer contract passed and ten independently re-hashed mutations were rejected for schema, content identity, missing operation, protected outcome input, protected tuning, prerequisite drift, missing classification, invented threshold, fabricated target authority, and incomplete provenance."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "11 of 11 focused W23 operations tests passed in 0.438 seconds."
+    },
+    {
+      "command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
+      "exit_code": 0,
+      "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED",
+      "output_summary": "W23 implementation passed while AC-038 remained unresolved and THR-011/THR-012 remained TBD."
+    },
+    {
+      "command": "python -B tools/verify_judging_seal.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The protected W17 judging-rule seal passed without mutation."
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All 2,118 source references passed with zero errors and zero relocations."
+    },
+    {
+      "command": "Strict Jira pack, manifest, import, dependency, and second-pass validation after local implementation",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All 463 canonical/derivative records, 1,758 Jira-manifest files, imports, the acyclic dependency graph, and 2,118 source anchors passed; BAT-357 was VALIDATION/PARTIAL and no issue was Ready during protected integration."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -q",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "243 of 243 warning-strict tests passed in 4.259 seconds."
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py and python -B tools/validate_instructions.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "W25 terminal governance, maturity honesty, Codex handoff controls, and instruction controls passed with zero findings."
+    },
+    {
+      "command": "Credential-free clean BAT-357 implementation candidate",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security with 2,755 provenance rows, dependency policy, W25 terminal governance, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 warning-strict tests, W23 implementation, and all ten POST-SUBTASK-008 consumer mutations passed or failed closed as required."
+    }
+  ],
+  "required_validation_dispositions": [
+    {
+      "classification": "BENCHMARK",
+      "disposition": "BLOCKED_TO_POST_SUBTASK_008_BY_ATOMIC_SCOPE",
+      "reason": "POST-SUBTASK-007 stages and validates the input contract; POST-SUBTASK-008 owns target execution, raw samples, machine/resource evidence, and authority classification. Existing POST-SUBTASK-002 samples predate this manifest and cannot substitute."
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_CONTRACT_NEGATIVE_GATE",
+      "reason": "The manifest pins cutoff/target-game exclusion and the consumer rejected protected-outcome and protected-tuning fail-open mutations; no real replay or leakage-free population claim is made."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE_SYNTHETIC_RESOURCE_STAGING",
+      "reason": "No real dataset, matrix, model, calibrator, hypothesis metric, or protected result is used; the model operation is a non-predictive resource proxy only."
+    },
+    {
+      "classification": "END_TO_END",
+      "disposition": "PASS_CONSUMER_CONTRACT",
+      "reason": "POST-SUBTASK-008 can parse, hash, classify, and fail closed on the staged manifest without manual reconstruction."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "reason": "Source/data/code/config/tool/runtime/split-cutoff identities and limitations are explicit."
+    }
+  ],
+  "workload_evidence": {
+    "operation_count": 6,
+    "operation_sequence": [
+      "ingestion",
+      "pit_eligibility",
+      "feature",
+      "model",
+      "publication",
+      "product_read"
+    ],
+    "representative_row_count": 100000,
+    "planned_repetitions": 3,
+    "warm_cold_distinction": "NOT_IMPLEMENTED_BY_BENCHMARK_V1_RETAINED_AS_LIMITATION",
+    "raw_target_samples_created_by_this_unit": false,
+    "machine_inventory_created_by_this_unit": false,
+    "target_execution_owner": "POST-SUBTASK-008",
+    "authoritative_for_thr_011_012": false,
+    "model_stage_is_resource_proxy_only": true
+  },
+  "scientific_and_model_evidence": {
+    "disposition": "NOT_APPLICABLE_TO_SYNTHETIC_RESOURCE_STAGING",
+    "dataset_or_matrix_used": false,
+    "model_or_calibrator_used": false,
+    "metrics_claimed": false,
+    "protected_evaluation_status": "SEALED_NOT_OPENED",
+    "production_champion_claimed": false,
+    "unsupported_effect_claims": false
+  },
+  "negative_findings": [
+    {
+      "id": "TARGET_EXECUTION_NOT_IN_THIS_ATOMIC_UNIT",
+      "finding": "No run of scripts/benchmark_target.ps1 against this newly pinned six-stage manifest occurred in POST-SUBTASK-007.",
+      "waived": false,
+      "resolution": "POST-SUBTASK-008_REMAINS_THE_EXCLUSIVE_EXECUTION_OWNER"
+    },
+    {
+      "id": "WARM_COLD_DISTINCTION_NOT_IMPLEMENTED",
+      "finding": "Benchmark v1 does not distinguish cold and warm samples.",
+      "waived": false,
+      "resolution": "LIMITATION_RETAINED_FOR_POST_SUBTASK_008_RAW_EVIDENCE"
+    },
+    {
+      "id": "BENCHMARK_V1_TARGET_MATCH_FALSE_NEGATIVE",
+      "finding": "The prior independent target-class inventory matched, while benchmark v1 rejected authority because platform.processor() omitted the literal Ryzen token.",
+      "waived": false,
+      "resolution": "NO_OVERRIDE_APPLIED_AND_AC_038_REMAINS_UNRESOLVED"
+    },
+    {
+      "id": "NO_REAL_HISTORICAL_OR_MODEL_QUALITY_EVIDENCE",
+      "finding": "The staged workload is synthetic and non-predictive; it cannot establish PIT quality over real data, model performance, calibration, A&M lift, Aggie Excess, or BAS effect.",
+      "waived": false,
+      "resolution": "HONEST_RESOURCE_STAGING_BOUNDARY_RETAINED"
+    },
+    {
+      "id": "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "finding": "Synthetic resource staging grants no access, retention, training, publication, redistribution, or deletion rights for external sources.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    },
+    {
+      "id": "JIRA_MANIFEST_PARALLEL_WRITE_EINVAL",
+      "finding": "A parallel validator attempt and its immediate overlapping retry encountered Windows OSError 22 while jira_pack_lib rewrote JIRA_FILE_HASHES.sha256.",
+      "waived": false,
+      "resolution": "PRESERVED_AS_FAILED_ATTEMPTS; deterministic derivatives were rebuilt and every Jira validator then passed in isolated execution"
+    }
+  ],
+  "security_and_rights": {
+    "absolute_paths_emitted": false,
+    "credential_values_emitted": false,
+    "restricted_payloads_emitted": false,
+    "protected_outcomes_emitted": false,
+    "source_rights_approval_claimed": false,
+    "target_hardware_authority_claimed": false,
+    "protected_files_modified": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-008",
+    "decision": "APPROVE_PINNED_INPUT_CONTRACT_RETAIN_TARGET_EXECUTION_BLOCKER",
+    "positive_contract_passed": true,
+    "consumer_mutation_gate_passed": true,
+    "silent_downstream_unlock_allowed": false,
+    "reevaluate_after_verified_done": [
+      "POST-SUBTASK-008",
+      "POST-SUBTASK-009"
+    ],
+    "expected_post_done_state": {
+      "POST-SUBTASK-008": "BLOCKED_AUTHORITATIVE_TARGET_WINDOWS_HOST_CONDITION_PENDING_REEVALUATION",
+      "POST-SUBTASK-009": "BLOCKED_UNTIL_POST_SUBTASK_008_DONE_VERIFIED"
+    },
+    "consumer_must_fail_closed": true
+  },
+  "integration": {
+    "branch": "codex/BAT-357-ac038-input-manifest",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "merge_method": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_claim_comment_id": "13306",
+    "live_jira_logical_state": "IN_PROGRESS",
+    "live_jira_status": "In Progress",
+    "live_jira_evidence_state": "PLANNED",
+    "live_jira_maturity": "FUNCTIONAL_STARTER",
+    "live_jira_updated_at": "2026-08-09T05:36:50.087-0500",
+    "rollback_snapshot_sha256": "7cc6ed744eeaa88c567da04d7227f336c3ccd17ef43da7e7bc23c7acb53c4995"
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "VALIDATION",
+    "local_acceptance_criteria_pass": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [
+      "PENDING_PROTECTED_PR_INTEGRATION"
+    ],
+    "remaining_program_blockers": [
+      "POST-SUBTASK-008_TARGET_EXECUTION",
+      "POST-SUBTASK-009_THRESHOLD_GOVERNANCE",
+      "AC-038",
+      "THR-011",
+      "THR-012",
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED"
+    ],
+    "completion_claim": "BAT-357's representative AC-038 input manifest is implemented locally and all three issue-specific staging criteria pass. Protected integration remains pending; no target benchmark, threshold, real-data PIT, predictive quality, protected outcome, source-rights, or release claim is made."
+  }
+}

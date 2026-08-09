@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "created_at_utc": "2026-08-09T06:21:36.3266406Z",
-  "updated_at_utc": "2026-08-09T06:25:16.882034Z",
+  "updated_at_utc": "2026-08-09T11:52:09Z",
   "jira_key": "BAT-363",
   "local_issue_id": "POST-SUBTASK-013",
   "producer": {
@@ -213,6 +213,12 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "At cutoff 2025-08-30T15:00:00Z for TARGET-GAME-001, 62 prior records were eligible; 62 future-known, 62 target-game, 62 postgame/realized, and all 30 missing-required-snapshot cases were rejected."
+    },
+    {
+      "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-363\\validate_source_inventory_consumer.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The POST-SUBTASK-014 governance consumer accepted 62 unique sequential source IDs and rejected all 9 stale, schema, identity, lineage, rights, supersession, proprietary-promotion, and restricted-source mutations. External safe report SHA-256=d81b6a9d6be6b2e187a0541a957830d00acced61faa1fe7a35dec700168c78a3."
     }
   ],
   "security_and_rights": {
@@ -233,21 +239,40 @@
     "pit_proof_required_before_promotion": true,
     "raw_materialization_claimed": false,
     "downstream_unlocked_for_governance_analysis": true,
-    "downstream_unlocked_for_production_ingestion": false
+    "downstream_unlocked_for_production_ingestion": false,
+    "consumer_revalidation": {
+      "validated_at_utc": "2026-08-09T11:52:09Z",
+      "external_report_path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-363\\post-subtask-014-consumer.safe.json",
+      "external_report_bytes": 2422,
+      "external_report_sha256": "d81b6a9d6be6b2e187a0541a957830d00acced61faa1fe7a35dec700168c78a3",
+      "positive_consumer_pass": true,
+      "negative_mutations_rejected": 9
+    }
+  },
+  "protected_integration_candidate": {
+    "branch": "codex/BAT-363-source-inventory-integration",
+    "base_sha": "6a8e2feb5d7740357626641560f77097602fb853",
+    "inventory_sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3",
+    "pull_request": null,
+    "merge_sha": null,
+    "required_checks": "PENDING",
+    "state": "CANDIDATE_NOT_YET_MERGED"
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED_AND_VALIDATED",
     "evidence_state": "VERIFIED",
-    "issue_disposition": "IN_PROGRESS_PENDING_REPOSITORY_INTEGRATION",
+    "issue_disposition": "IN_PROGRESS_PENDING_PROTECTED_INTEGRATION",
     "live_jira_status": "In Progress",
     "live_jira_logical_state": "BLOCKED",
+    "live_jira_maturity": "IMPLEMENTED",
+    "live_jira_evidence_state": "PLANNED",
     "live_jira_comment_id": "13282",
     "local_jira_reconciliation": "PASS_ONE_ROW_DRY_RUN_APPLY_REBUILD_AND_STRICT_SECOND_PASS_ZERO_CONFLICTS",
     "local_jira_last_synced_at_utc": "2026-08-09T06:25:16.882034Z",
     "remaining_blockers": [
-      "CANONICAL_REPOSITORY_HAS_NO_GIT_HISTORY_OR_BRANCH",
-      "GITHUB_REPOSITORY_HAS_NO_BRANCH_FOR_PR_OR_REQUIRED_CHECKS"
+      "PROTECTED_PR_AND_MAIN_CHECKS_PENDING"
     ],
-    "completion_claim": "The three issue-specific acceptance criteria and task-focused tests pass; BAT-363 is not marked Done until the canonical Git/GitHub integration path exists."
+    "cleared_blocker": "The canonical Git history, GitHub default branch, seven required contexts, and protected squash-only integration path now exist.",
+    "completion_claim": "The three issue-specific acceptance criteria and task-focused tests pass; BAT-363 is not marked Done until this candidate completes protected PR review, squash merge, and both main-branch workflows. No source-rights approval, production ingestion, historical data materialization, or empirical model-readiness claim is made."
   }
 }

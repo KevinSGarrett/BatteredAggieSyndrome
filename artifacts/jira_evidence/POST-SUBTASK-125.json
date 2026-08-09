@@ -2,27 +2,27 @@
   "schema_version": "1.1.0",
   "evidence_manifest_type": "jira_issue_blocker_evidence",
   "created_at_utc": "2026-08-09T09:24:33Z",
-  "updated_at_utc": "2026-08-09T14:08:34Z",
+  "updated_at_utc": "2026-08-09T14:33:55Z",
   "jira_key": "BAT-475",
   "local_issue_id": "POST-SUBTASK-125",
   "producer": {
     "agent": "Codex",
     "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
   },
-  "observable_outcome": "All independently actionable BAT-475 machine findings are remediated in a bounded candidate: the compatible 14-package product lock has no known pip-audit findings at check time, every entry is SHA-256 bound, hash-only installation and pip consistency pass, all 14 installed distributions expose license/notice evidence, and CI enforces hash install, inventory, audit, and weekly update configuration. The candidate passes 257 tests and 24 subtests plus isolated product and protected-governance gates. No completion is claimed because protected integration is pending, GitHub alert-list counts remain unavailable, and the named human source-rights decision is absent.",
+  "observable_outcome": "All independently actionable BAT-475 machine findings are protected-integrated: the compatible 14-package product lock has no known pip-audit findings at check time, every entry is SHA-256 bound, hash-only installation and pip consistency pass, all 14 installed distributions expose license/notice evidence, automated security fixes are enabled, and protected CI enforces hash installation, inventory, audit, and weekly update configuration. The final implementation passes 258 tests with 1 Windows privilege-dependent symlink test skipped and 33 subtests; Linux protected CI passed the symlink case. At the final check, GitHub exposed zero OPEN Dependabot, secret-scanning, and code-scanning alerts, and historical HIGH CodeQL alerts #1 and #2 were fixed without dismissal. No completion is claimed because the named human source-rights decision is absent.",
   "outputs": [
     {
       "path": "artifacts/operations/security_supply_chain_report.json",
-      "bytes": 14109,
-      "sha256": "43b912292c3e75e7045963f50a8566dc5aa83242bf311abbf7b5195c0182a75f",
+      "bytes": 16700,
+      "sha256": "e45bca63ccf8b1c1d1cff21bb16c99f62c821b3702c80d3bf2a5baa1a8ea427f",
       "schema_version": "1.1.0",
       "maturity": "FUNCTIONAL_STARTER",
       "eligibility": "BLOCKED_NOT_RELEASE_ELIGIBLE"
     }
   ],
   "input_identities": {
-    "git_base_commit": "8f375e2cf1ec85f4007cc8d888c5420ea0a7ebc5",
-    "git_base_tree": "074ab294610ba14114462810a6fcf34b48e644db",
+    "git_base_commit": "27cedd9b1b7007ac78f18fde588555b8ae23b871",
+    "git_base_tree": "8c03772d72247a884fae5dc7af3ab423e3511509",
     "prior_report_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
     "requirements_product_lock_sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05",
     "pyproject_toml_sha256": "668b3a4bb21de54fb6260ec982f4ae5772c5fcea30e12a23741b53ecd498690b",
@@ -30,7 +30,9 @@
     "dependabot_config_sha256": "6f2dfe93dc093e9510fb9ed2152caa236d7f6c088da6e51b6e05365cd315bb6a",
     "dependency_policy_validator_sha256": "5fec2e80bb65b158001240c1cde1fc3543d8856d10b03ffb57a46a4066ad2418",
     "product_supply_chain_validator_sha256": "9bcd852c97dc58662cf352d54bd483b04787548a9635371c6d39217c92de1049",
-    "product_supply_chain_tests_sha256": "2008534e1a5ca35dfd0070226382254bd08b880b884e87193496f7da26e66c02"
+    "product_supply_chain_tests_sha256": "2008534e1a5ca35dfd0070226382254bd08b880b884e87193496f7da26e66c02",
+    "product_repository_sha256": "f33c16972becd2f093d0c57b18f4428a331fa97c04a9519576c35ddc87c362eb",
+    "product_repository_tests_sha256": "52ee215713905821384a40210f532c977afbacae7e07709d340561e5d3e1a3ec"
   },
   "external_evidence": {
     "credential_values_included": false,
@@ -46,29 +48,29 @@
     {
       "criterion": "Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.",
       "disposition": "BLOCKED",
-      "observable_result": "Machine gaps pass in the candidate without credential or restricted-payload emission; protected integration and the required named human rights disposition remain pending.",
+      "observable_result": "Machine gaps pass in protected main without credential or restricted-payload emission; the required named human rights disposition remains absent.",
       "evidence_path": "artifacts/operations/security_supply_chain_report.json",
-      "evidence_sha256": "43b912292c3e75e7045963f50a8566dc5aa83242bf311abbf7b5195c0182a75f",
+      "evidence_sha256": "e45bca63ccf8b1c1d1cff21bb16c99f62c821b3702c80d3bf2a5baa1a8ea427f",
       "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T14:08:34Z"
+      "verified_at_utc": "2026-08-09T14:33:55Z"
     },
     {
       "criterion": "The declared report has deterministic identity, provenance, and validation metadata appropriate to this work.",
       "disposition": "PASS",
       "observable_result": "The report pins base code/tree, changed control files, lock, audit/runtime identities, external machine evidence hashes, negative findings, and downstream rejection semantics.",
       "evidence_path": "artifacts/operations/security_supply_chain_report.json",
-      "evidence_sha256": "43b912292c3e75e7045963f50a8566dc5aa83242bf311abbf7b5195c0182a75f",
+      "evidence_sha256": "e45bca63ccf8b1c1d1cff21bb16c99f62c821b3702c80d3bf2a5baa1a8ea427f",
       "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T14:08:34Z"
+      "verified_at_utc": "2026-08-09T14:33:55Z"
     },
     {
       "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, rights approval, or completion evidence.",
       "disposition": "PASS",
-      "observable_result": "No legal approval, GitHub zero-alert status, scientific metric, target-hardware result, production readiness, accepted risk, or completion is claimed.",
+      "observable_result": "Only a time-bounded zero-OPEN-alert observation is recorded; no legal approval, scientific metric, target-hardware result, production readiness, accepted risk, perpetual zero-alert state, or completion is claimed.",
       "evidence_path": "artifacts/operations/security_supply_chain_report.json",
-      "evidence_sha256": "43b912292c3e75e7045963f50a8566dc5aa83242bf311abbf7b5195c0182a75f",
+      "evidence_sha256": "e45bca63ccf8b1c1d1cff21bb16c99f62c821b3702c80d3bf2a5baa1a8ea427f",
       "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T14:08:34Z"
+      "verified_at_utc": "2026-08-09T14:33:55Z"
     }
   ],
   "commands": [
@@ -77,11 +79,13 @@
     {"command": "Python 3.12 isolated pip check", "exit_code": 0, "result": "PASS", "output_summary": "No broken requirements."},
     {"command": "validate_product_supply_chain.py --check-installed", "exit_code": 0, "result": "PASS_MACHINE_INVENTORY", "output_summary": "All 14 packages match locked versions and expose license/notice files plus observed license metadata; no legal approval is inferred."},
     {"command": "pip-audit 2.10.1 --require-hashes --disable-pip", "exit_code": 0, "result": "PASS_AT_CHECK_TIME", "output_summary": "Fourteen dependencies scanned; zero known vulnerability records returned; no GitHub zero-alert claim is inferred."},
-    {"command": "python -B -m pytest -p no:cacheprovider -q tests", "exit_code": 0, "result": "PASS", "output_summary": "257 tests and 24 subtests passed."},
+    {"command": "python -B -m pytest -p no:cacheprovider -q tests", "exit_code": 0, "result": "PASS", "output_summary": "258 tests passed, 1 Windows privilege-dependent symlink test skipped, and 33 subtests passed; Linux protected CI passed the symlink case."},
+    {"command": "python -B -m pytest focused product and operations tests without PYTHONPATH=src", "exit_code": 2, "result": "NEGATIVE_RESULT_PRESERVED", "output_summary": "The root Python 3.11 process could not import the src-layout package; rerun with the documented source path passed 31 tests, skipped 1 privilege-dependent symlink test, and passed 9 subtests."},
     {"command": "Python 3.12 W22 product plus W23 operations tests and W22 gate", "exit_code": 0, "result": "PASS", "output_summary": "Twenty-three focused tests and the W22 product boundary gate passed."},
     {"command": "validate_w25_final.py and verify_judging_seal.py", "exit_code": 0, "result": "PASS", "output_summary": "Terminal W25 honesty and protected W17 judging rule seal remain intact."},
+    {"command": "python -B tools/validate_w23_operations.py", "exit_code": 2, "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED", "output_summary": "The implementation gate passed while release remains honestly blocked on AC-038 and TBD THR-011/THR-012."},
     {"command": "python -m unittest tests.test_product_supply_chain", "exit_code": 1, "result": "NEGATIVE_RESULT_PRESERVED", "output_summary": "An unrelated installed tests package shadowed the dotted import; repository discovery mode then ran and passed all seven focused tests."},
-    {"command": "GitHub protected integration", "exit_code": null, "result": "PENDING", "output_summary": "Candidate implementation has not yet passed protected PR and main replay."},
+    {"command": "GitHub protected PRs #40, #46, and #47 plus main replay", "exit_code": 0, "result": "PASS", "output_summary": "All required protected contexts and main repository/security runs passed; historical CodeQL alerts #1 and #2 were fixed without dismissal."},
     {"command": "MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED", "exit_code": null, "result": "BLOCKED", "output_summary": "No named human reviewer or dated terms decision is available."}
   ],
   "scientific_and_model_evidence": {
@@ -91,13 +95,15 @@
     "protected_results_inspected": false
   },
   "negative_findings": [
-    {"id": "VULNERABLE_LOCKED_PACKAGES", "status": "REMEDIATED_CANDIDATE", "waived": false, "resolution": "COMPATIBLE_UPGRADE_AND_ZERO_KNOWN_PIP_AUDIT_FINDINGS_AT_CHECK_TIME"},
-    {"id": "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED", "status": "REMEDIATED_CANDIDATE", "waived": false, "resolution": "CROSS_PLATFORM_SHA256_LOCK_AND_REQUIRE_HASHES_INSTALL"},
-    {"id": "CI_MACHINE_CONTROL_GAPS", "status": "REMEDIATED_CANDIDATE_PROTECTED_INTEGRATION_PENDING", "waived": false, "resolution": "HASH_INSTALL_AUDIT_LICENSE_INVENTORY_AND_DEPENDABOT_CONFIG_ADDED"},
+    {"id": "VULNERABLE_LOCKED_PACKAGES", "status": "REMEDIATED_PROTECTED", "waived": false, "resolution": "COMPATIBLE_UPGRADE_AND_ZERO_KNOWN_PIP_AUDIT_FINDINGS_AT_CHECK_TIME"},
+    {"id": "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED", "status": "REMEDIATED_PROTECTED", "waived": false, "resolution": "CROSS_PLATFORM_SHA256_LOCK_AND_REQUIRE_HASHES_INSTALL"},
+    {"id": "CI_MACHINE_CONTROL_GAPS", "status": "REMEDIATED_PROTECTED", "waived": false, "resolution": "HASH_INSTALL_AUDIT_LICENSE_INVENTORY_AND_DEPENDABOT_CONFIG_PROTECTED_INTEGRATED"},
     {"id": "SOURCE_RIGHTS_REVIEW_MISSING", "status": "UNRESOLVED", "waived": false, "resolution": "HUMAN_REQUIRED"},
-    {"id": "GITHUB_ALERT_COUNTS_UNAVAILABLE", "status": "UNRESOLVED", "waived": false, "resolution": "REQUIRE_LEAST_PRIVILEGE_VISIBILITY_OR_REVIEWED_EXPORT"},
+    {"id": "GITHUB_ALERT_COUNTS_UNAVAILABLE", "status": "RESOLVED", "waived": false, "resolution": "ALERT_LIST_APIS_VISIBLE_AND_TIME_BOUND_OPEN_COUNTS_RECORDED"},
+    {"id": "CODEQL_PATH_INJECTION_ALERTS_1_2", "status": "FIXED_NOT_DISMISSED", "waived": false, "resolution": "CANONICAL_CHILD_AND_NON_SYMLINK_PATH_CONTAINMENT_PROTECTED_INTEGRATED"},
     {"id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED", "status": "UNRESOLVED_PROGRAM_BLOCKER", "waived": false, "resolution": "RETAINED_PROGRAM_BLOCKER"},
-    {"id": "LOCAL_DOTTED_UNITTEST_IMPORT_SHADOWED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "DISCOVERY_MODE_PASSED_257_TESTS_24_SUBTESTS"}
+    {"id": "LOCAL_SOURCE_PATH_NOT_CONFIGURED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "PYTHONPATH_SRC_RERUN_PASSED_31_TESTS_1_SKIP_9_SUBTESTS"},
+    {"id": "LOCAL_DOTTED_UNITTEST_IMPORT_SHADOWED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "DISCOVERY_MODE_PASSED_258_TESTS_1_SKIP_33_SUBTESTS"}
   ],
   "security_and_rights": {
     "secret_values_emitted": false,
@@ -116,7 +122,7 @@
     "provenance_complete_for_candidate_machine_evidence": true,
     "rights_blocked": true,
     "vulnerability_blocked": false,
-    "protected_integration_pending": true,
+    "protected_integration_pending": false,
     "silent_downstream_unlock_allowed": false,
     "decision": "REJECT_BLOCKED_INPUT_WITHOUT_MANUAL_RECONSTRUCTION",
     "consumer_must_fail_closed": true
@@ -125,12 +131,18 @@
     "controlled_specification_update_pr": 39,
     "controlled_specification_update_merge": "8f375e2cf1ec85f4007cc8d888c5420ea0a7ebc5",
     "implementation_branch": "codex/BAT-475-security-remediation",
-    "implementation_pr": null,
-    "implementation_head": null,
-    "implementation_merge": null,
-    "protected_pr_contexts": "PENDING",
-    "main_replay": "PENDING",
-    "jira_remediation_comment_id": null
+    "implementation_pr": 40,
+    "implementation_head": "a1f1270846c9b94fe4e0a1deb8de3bb1855d04f0",
+    "implementation_merge": "1a20515701345cc28f51ebd9b1e2cf4375ee9892",
+    "path_scope_pr": 46,
+    "path_scope_head": "5ed796f43cbe826f408c5cc6f7c8f01b823b338e",
+    "path_scope_merge": "250b155b83a23afb17d8cb479774a94fa4176803",
+    "path_containment_pr": 47,
+    "path_containment_head": "672d8f0895c0dc8f7350e19facb47d68df904ef0",
+    "path_containment_merge": "27cedd9b1b7007ac78f18fde588555b8ae23b871",
+    "protected_pr_contexts": "PASS_ALL_REQUIRED_CONTEXTS",
+    "main_replay": "PASS_RUNS_31317917725_31317917803_31318405595_31318405594",
+    "jira_remediation_comment_id": "13332"
   },
   "completion": {
     "achieved_maturity": "FUNCTIONAL_STARTER",
@@ -138,10 +150,7 @@
     "issue_disposition": "BLOCKED",
     "local_acceptance_criteria_pass": false,
     "remaining_issue_scope_blockers": [
-      "SOURCE_RIGHTS_REVIEW_MISSING",
-      "GITHUB_ALERT_COUNTS_UNAVAILABLE",
-      "PROTECTED_INTEGRATION_PENDING",
-      "DEPENDABOT_SECURITY_UPDATES_SETTING_PENDING"
+      "SOURCE_RIGHTS_REVIEW_MISSING"
     ],
     "remaining_program_blockers": [
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
@@ -150,6 +159,6 @@
       "THR-011",
       "THR-012"
     ],
-    "completion_claim": "No completion is claimed. BAT-475 remains Blocked/Partial at FUNCTIONAL_STARTER; downstream POST-SUBTASK-126 must reject this input until protected integration and the named human rights decision are complete."
+    "completion_claim": "No completion is claimed. BAT-475 remains Blocked/Partial at FUNCTIONAL_STARTER solely because the named human rights decision is absent; downstream POST-SUBTASK-126 must continue rejecting this input."
   }
 }

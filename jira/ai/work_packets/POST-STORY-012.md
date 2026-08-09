@@ -30,7 +30,7 @@ Deliver Story POST-STORY-012 (Population schema and missingness contracts) as on
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -99,9 +99,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Profiles are generated from pinned immutable snapshots by source/season/domain and reproduce exactly.
+2. The declared output `artifacts/entities/population_schema_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Every measured field is accepted, transformed, quarantined, deprecated, or rejected with reason; protected temporal/evidence fields are not weakened to accommodate dirty data.
+5. The declared output `artifacts/entities/schema_reconciliation.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. All entity-bearing domains have measured key quality and a declared resolution strategy; unusable partitions remain enumerated rather than silently dropped.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

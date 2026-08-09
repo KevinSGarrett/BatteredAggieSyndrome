@@ -87,7 +87,7 @@ VALIDATION_CLASSES = {
     "CALIBRATION",
     "BENCHMARK",
     "MANUAL",
-    "LEGAL_RIGHTS_REVIEW",
+    "PUBLICATION_BOUNDARY_REVIEW",
     "SECURITY",
     "OPERATIONS",
     "REPRODUCIBILITY",
@@ -142,7 +142,25 @@ def md_numbered(items: Iterable[str]) -> str:
 
 def json_dump(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+    value_text = json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    path.write_bytes(value_text.replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8"))
+
+
+def write_text_crlf(path: Path, value: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(value.replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8"))
+
+
+def normalize_jira_text_crlf() -> None:
+    """Keep byte-sealed Jira derivatives deterministic on Windows and Linux."""
+    text_suffixes = {".csv", ".json", ".jsonl", ".md", ".py", ".sha256", ".txt", ".yaml", ".yml"}
+    for path in sorted(JIRA_ROOT.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in text_suffixes:
+            continue
+        data = path.read_bytes()
+        normalized = data.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+        if normalized != data:
+            path.write_bytes(normalized)
 
 
 def jsonl_dump(path: Path, rows: Iterable[Any]) -> None:
@@ -173,7 +191,7 @@ def csv_dump(path: Path, rows: Iterable[dict[str, Any]], fields: list[str] | Non
     if fields is None:
         fields = list(rows[0]) if rows else []
     with path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
+        writer = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore", lineterminator="\r\n")
         if fields:
             writer.writeheader()
             for row in rows:
@@ -308,12 +326,12 @@ def task_specific_exclusions(task: dict[str, Any], sibling_titles: list[str]) ->
     out = [
         "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
         "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-        "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+        "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     ]
     if sibling_titles:
         out.append("Work assigned to sibling subtasks: " + "; ".join(sibling_titles) + ".")
     if any(k in text for k in ["rights", "license", "terms"]):
-        out.append("Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.")
+        out.append("Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.")
     if any(k in text for k in ["credential", "secret", "authentication"]):
         out.append("Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.")
     if any(k in text for k in ["benchmark", "target host", "latency", "runtime", "rpo", "rto"]):
@@ -346,7 +364,7 @@ def validation_profile(task: dict[str, Any], current_tests: list[dict[str, Any]]
     existing = unique(existing)[:3]
 
     classes: list[tuple[str, str, str]] = []
-    manual_legal = any(k in text for k in ["rights review", "license", "terms", "legal review"]) or "RIGHTS" in task.get("external_blocker", "") or "TERMS" in task.get("external_blocker", "")
+    publication_metadata = any(k in text for k in ["rights review", "license", "terms", "legal review", "publication boundary"]) or "RIGHTS" in task.get("external_blocker", "") or "TERMS" in task.get("external_blocker", "")
     benchmark = any(k in text for k in ["benchmark", "target host", "latency", "throughput", "runtime", "memory", "disk growth", "rpo", "rto", "concurrency"])
     pit = any(k in text for k in ["pit", "point-in-time", "as-of", "known-at", "cutoff", "chronological", "walk-forward", "leakage", "same-game", "timestamp"])
     scientific = any(k in text for k in ["bas", "aggie excess", "scientific", "hypothesis", "confidence interval", "significance", "effect", "ablation", "champion", "challenger", "model", "feature tournament"])
@@ -354,12 +372,12 @@ def validation_profile(task: dict[str, Any], current_tests: list[dict[str, Any]]
     security = any(k in text for k in ["secret", "credential", "security", "vulnerability", "supply-chain", "restricted", "authentication", "authorization"])
     operations = task["domain"] in {"mlops", "product", "operations", "release"} or any(k in text for k in ["incident", "runbook", "backup", "restore", "alert", "observability", "deploy", "rollback", "drift", "freshness", "sla"])
     gate = task["position"] == len(task["task_ids"]) - 1 or task.get("lane") == "PROTECTED_GATE" or any(k in text for k in ["approve or block", "authorization", "gate"])
-    implementation = bool(task.get("files")) or re.match(r"^(implement|build|acquire|materialize|generate|instrument|serve|enforce|configure|stage|run)", task["title"].lower()) is not None
+    implementation = bool(task.get("files")) or re.match(r"^(implement|build|acquire|expand|materialize|generate|instrument|serve|enforce|configure|stage|run)", task["title"].lower()) is not None
     documentary = re.match(r"^(define|reconcile|freeze|complete rights review|publish|finalize|audit|research|precommit|apply)", task["title"].lower()) is not None
 
-    if manual_legal:
-        classes.append(("LEGAL_RIGHTS_REVIEW", "MANUAL_REVIEW_REQUIRED", "A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence."))
-        classes.append(("MANUAL", task.get("outputs", ["ISSUE_EVIDENCE_MANIFEST"])[0], "Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions."))
+    if publication_metadata:
+        classes.append(("PUBLICATION_BOUNDARY_REVIEW", "MANUAL", "Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled."))
+        classes.append(("MANUAL", task.get("outputs", ["ISSUE_EVIDENCE_MANIFEST"])[0], "Verify the private-use decision, metadata state, technical/quality scope, and future-publication boundary."))
     if benchmark:
         classes.append(("BENCHMARK", task.get("outputs", ["AUTHORITATIVE_TARGET_HOST"])[0], "Execute the declared workload with raw samples, repetitions, machine identity, resource telemetry, failures, and non-authoritative-environment labeling."))
     if pit:
@@ -381,7 +399,7 @@ def validation_profile(task: dict[str, Any], current_tests: list[dict[str, Any]]
     classes.append(("REPRODUCIBILITY", "ISSUE_COMPLETION_MANIFEST", "Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result."))
 
     # A new automated test is required only when executable behavior is added or changed and manual/benchmark-only evidence cannot prove it.
-    needs_new_automated = implementation and not manual_legal and not (benchmark and not task.get("files")) and not documentary
+    needs_new_automated = implementation and not publication_metadata and not (benchmark and not task.get("files")) and not documentary
     if needs_new_automated:
         classes.append(("NEW_AUTOMATED_TEST_REQUIRED", f"NEW_TEST_REQUIRED::{task['local_id']}", "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test."))
 
@@ -403,7 +421,7 @@ def task_evidence(task: dict[str, Any]) -> list[str]:
         "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
     ])
     if any(k in text for k in ["rights", "license", "terms"]):
-        out.append("Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.")
+        out.append("Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.")
     if any(k in text for k in ["credential", "secret"]):
         out.append("Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts.")
     if any(k in text for k in ["benchmark", "target host", "latency", "runtime", "memory", "rpo", "rto", "concurrency"]):
@@ -419,11 +437,11 @@ def task_dod(task: dict[str, Any], record: dict[str, Any]) -> list[str]:
     next_id = task.get("next_task_id")
     outputs = task.get("outputs", [])
     return [
-        f"The atomic scope in {task['local_id']} is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+        f"The atomic scope in {task['local_id']} is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
         "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
         "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
         "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-        "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+        "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
         "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
         (f"The output set {', '.join(f'`{x}`' for x in outputs)} is demonstrably consumable by {next_id} without manual reconstruction or undocumented state." if next_id else f"The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for {record['parent_id']}.")
     ]
@@ -474,8 +492,16 @@ def apply_hardening(records: list[dict[str, Any]], maps: dict[str, Any]) -> None
                 if record.get("dependencies") else
                 "Begin from the verified repository/current-state contract and the exact source sections in this issue manifest."
             )
+            record["prerequisites"] = [
+                f"Dependency {dependency} complete at required maturity"
+                for dependency in record.get("dependencies", [])
+            ]
+            if record.get("external_blocker"):
+                record["prerequisites"].append(f"External condition: {record['external_blocker']}")
             outputs_text = ", ".join(f"`{x}`" for x in task.get("outputs", [])) or "the declared issue evidence"
+            record["title"] = f"[{record['local_id']}] {task['title']}"
             record["objective"] = task["title"]
+            record["acceptance_criteria"] = unique(task.get("checks", []))
             record["scope"] = (
                 f"Execute the atomic {task['position'] + 1} of {len(task['task_ids'])} step in Story {task['story_id']} ({task['story_title']}): {task['title']}. "
                 f"{dependency_text} Produce {outputs_text}; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to "
@@ -502,6 +528,11 @@ def apply_hardening(records: list[dict[str, Any]], maps: dict[str, Any]) -> None
             record["required_evidence"] = task_evidence(task)
             record["definition_of_done"] = task_dod(task, record)
             record["risk_failure_conditions"] = task_risks(task)
+            record["stop_conditions"] = [
+                "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+                "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+                "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.",
+            ]
             if record.get("component") == "bas-science":
                 record["acceptance_criteria"] = unique(record.get("acceptance_criteria", []) + [
                     "A scientifically valid null result—no persistent Aggie-specific excess after protected out-of-sample testing—must be preserved, reported, and accepted without changing the precommitted BAS definition, peers, thresholds, or evaluation window."
@@ -510,7 +541,7 @@ def apply_hardening(records: list[dict[str, Any]], maps: dict[str, Any]) -> None
             if task.get("next_task_id"):
                 record["end_to_end_validation"] = (
                     f"Validate that {outputs_text} can be parsed and consumed by `{task['next_task_id']}` using only documented identities and interfaces; "
-                    "the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair."
+                    "the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair."
                 )
             else:
                 story_e2e = task.get("story_e2e") or f"Exercise the complete {task['story_title']} path and verify downstream consumption of pinned outputs."
@@ -544,6 +575,13 @@ def apply_hardening(records: list[dict[str, Any]], maps: dict[str, Any]) -> None
             story = maps["stories"][record["local_id"]]
             gate_id = maps["domain_gate_ids"].get(story["domain"], "")
             final_task_id = story["task_ids"][-1]
+            record["title"] = f"[{record['local_id']}] {story['title']}"
+            record["objective"] = story["objective"]
+            record["acceptance_criteria"] = unique(
+                criterion
+                for task_id in story["task_ids"]
+                for criterion in maps["tasks"][task_id].get("checks", [])
+            )
             record["scope"] = (
                 f"Deliver Story {record['local_id']} ({story['title']}) as one coherent, gated capability inside Epic {story['epic_id']}. "
                 f"Execute child subtasks {', '.join(story['task_ids'])} in dependency order, reconcile their pinned outputs, and require the final gate `{final_task_id}` "
@@ -557,7 +595,7 @@ def apply_hardening(records: list[dict[str, Any]], maps: dict[str, Any]) -> None
             record["out_of_scope"] = unique([
                 "Work assigned to sibling Stories or another Epic.",
                 "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-                "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+                "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
             ])
             record["governance_traceability_gate"] = gate_id
             record["traceability_inherited_from"] = [] if record["local_id"] == gate_id else ([gate_id] if gate_id else [])
@@ -583,14 +621,15 @@ def apply_hardening(records: list[dict[str, Any]], maps: dict[str, Any]) -> None
                 "Story-level downstream-consumption evidence and an explicit list of issues unlocked, retained blocked, rejected, or deferred.",
             ]
             record["completion_evidence_contract"] = {"child_gate": final_task_id, "all_child_evidence_required": True, "integrated_proof_required": True, "governance_traceability_gate": gate_id}
-            if not record.get("end_to_end_validation"):
-                record["end_to_end_validation"] = story.get("e2e") or f"Exercise the complete {story['title']} path through `{final_task_id}` and verify downstream use of pinned outputs."
+            record["end_to_end_validation"] = story.get("e2e") or f"Exercise the complete {story['title']} path through `{final_task_id}` and verify downstream use of pinned outputs."
 
         elif record["local_id"] in maps["epics"]:
             epic = maps["epics"][record["local_id"]]
             child_stories = [sid for sid, s in maps["stories"].items() if s["epic_id"] == record["local_id"]]
             final_gates = [maps["stories"][sid]["task_ids"][-1] for sid in child_stories]
             gate_id = maps["domain_gate_ids"].get(epic["domain"], "")
+            record["title"] = f"[{record['local_id']}] {epic['title']}"
+            record["objective"] = epic["objective"]
             record["governance_traceability_gate"] = gate_id
             record["traceability_inherited_from"] = [] if record["local_id"] == gate_id else ([gate_id] if gate_id else [])
             record["traceability_resolution"] = "DIRECT_PLUS_INHERITED_DOMAIN_GATE" if any(record.get(k) for k in ["requirement_ids", "acceptance_control_ids", "adr_ids", "risk_ids", "gap_ids"]) else "INHERITED_DOMAIN_GATE"
@@ -614,8 +653,7 @@ def apply_hardening(records: list[dict[str, Any]], maps: dict[str, Any]) -> None
                 "A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.",
             ]
             record["completion_evidence_contract"] = {"story_gates": final_gates, "integrated_proof_required": True, "governance_traceability_gate": gate_id}
-            if not record.get("end_to_end_validation"):
-                record["end_to_end_validation"] = f"Exercise all child Story gates for {epic['title']} and prove the integrated capability is safe and consumable by its downstream Epic/release path."
+            record["end_to_end_validation"] = f"Exercise all child Story gates for {epic['title']} and prove the integrated capability is safe and consumable by its downstream Epic/release path."
 
     # Effective traceability counts are calculated after every direct mapping is available.
     by_id = {r["local_id"]: r for r in records}
@@ -1079,7 +1117,7 @@ def description_text(record: dict[str, Any]) -> str:
         f"End-to-End Validation\n{record.get('end_to_end_validation', '')}",
         "Stop Conditions\n" + "\n".join(f"- {x}" for x in record.get("stop_conditions", [])),
         "Source References\n" + source_refs,
-        f"Governance Traceability Gate: {record.get('governance_traceability_gate', '')}",
+        f"Governance Traceability Gate: {record.get('governance_traceability_gate', '')}".rstrip(),
         f"Canonical Record: {record.get('canonical_record', '')}",
     ])
 
@@ -1215,22 +1253,34 @@ def validate_source_anchors(repair: bool = False) -> tuple[list[str], list[dict[
             else:
                 normalized_full = norm_space(" ".join(lines)) if lines else ""
                 if stored_excerpt and stored_excerpt in normalized_full:
-                    # Relocate using a deterministic first-line token search when the full hash changed.
-                    first_fragment = stored_excerpt[:100]
-                    new_start = next((i for i, line in enumerate(lines, 1) if norm_space(line) and norm_space(line) in first_fragment), 0)
+                    # Search exact normalized rolling windows. Do not accept a prefix-only
+                    # candidate: it can bind a CSV row to the header immediately above it.
+                    new_start = 0
+                    best_end = 0
+                    old_span = max(1, end - start + 1)
+                    # Most registry anchors are one CSV line; index that case first.
+                    for candidate_start, line in enumerate(lines, 1):
+                        if norm_space(line)[:320] == stored_excerpt:
+                            new_start = candidate_start
+                            best_end = candidate_start
+                            break
                     if not new_start:
-                        first_words = " ".join(stored_excerpt.split()[:8])
-                        new_start = next((i for i in range(1, len(lines) + 1) if first_words in norm_space(" ".join(lines[i - 1: min(len(lines), i + 6)]))), 0)
-                    if repair and new_start:
-                        # Expand until the normalized excerpt prefix is covered, capped to the original span + 50 lines.
-                        old_span = max(1, end - start + 1)
-                        new_end = min(len(lines), new_start + old_span + 50)
-                        best_end = new_start
-                        for candidate_end in range(new_start, new_end + 1):
-                            candidate = norm_space(" ".join(x.strip() for x in lines[new_start - 1:candidate_end] if x.strip()))[:320]
-                            if candidate == stored_excerpt:
-                                best_end = candidate_end
+                        for candidate_start in range(1, len(lines) + 1):
+                            candidate_limit = min(len(lines), candidate_start + old_span + 50)
+                            chunks: list[str] = []
+                            for candidate_end in range(candidate_start, candidate_limit + 1):
+                                if lines[candidate_end - 1].strip():
+                                    chunks.append(lines[candidate_end - 1].strip())
+                                candidate = norm_space(" ".join(chunks))[:320]
+                                if candidate == stored_excerpt:
+                                    new_start = candidate_start
+                                    best_end = candidate_end
+                                    break
+                                if len(candidate) == 320 and not stored_excerpt.startswith(candidate[:80]):
+                                    break
+                            if new_start:
                                 break
+                    if repair and new_start and best_end:
                         if best_end >= new_start:
                             row["start_line"] = str(new_start)
                             row["end_line"] = str(best_end)
@@ -1274,13 +1324,13 @@ def content_specificity_rows(records: list[dict[str, Any]]) -> list[dict[str, An
             continue
         generic_scope = bool(GENERIC_IN_SCOPE & set(r.get("in_scope", [])))
         scope_equals_objective = norm_space(r.get("scope", "")).lower() == norm_space(r.get("objective", "")).lower()
-        manual_legal = any("LEGAL_RIGHTS_REVIEW" == t.get("classification") for t in r.get("required_tests", []))
-        universal_new_test_error = manual_legal and any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", []))
+        manual_publication = any("PUBLICATION_BOUNDARY_REVIEW" == t.get("classification") for t in r.get("required_tests", []))
+        universal_new_test_error = manual_publication and any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", []))
         rows.append({
             "issue_id": r["local_id"], "issue_type": r.get("issue_type", ""), "generic_scope_phrase": generic_scope,
             "scope_equals_objective": scope_equals_objective, "in_scope_count": len(r.get("in_scope", [])), "out_of_scope_count": len(r.get("out_of_scope", [])),
             "acceptance_criteria_count": len(r.get("acceptance_criteria", [])), "definition_of_done_count": len(r.get("definition_of_done", [])),
-            "validation_entry_count": len(r.get("required_tests", [])), "manual_legal_forced_new_automated_test": universal_new_test_error,
+            "validation_entry_count": len(r.get("required_tests", [])), "manual_publication_boundary_forced_new_automated_test": universal_new_test_error,
             "files_to_inspect_count": len(r.get("files_to_inspect", [])), "files_expected_to_modify_count": len(r.get("files_expected_to_be_touched", [])),
             "e2e_present": bool(norm_space(r.get("end_to_end_validation", ""))), "traceability_gate": r.get("governance_traceability_gate", ""),
             "traceability_inheritance_valid": bool(r.get("governance_traceability_gate")) and r.get("traceability_resolution") in {"DIRECT_DOMAIN_GATE", "DIRECT_PLUS_INHERITED_DOMAIN_GATE", "INHERITED_DOMAIN_GATE"},
@@ -1424,8 +1474,8 @@ def strict_validate(records: list[dict[str, Any]], write_reports: bool = True) -
                     errors.append(f"{rid}: invalid validation classification {cls}")
                 if cls == "EXISTING_AUTOMATED_TEST" and not project_path(str(test.get("path", ""))).is_file():
                     errors.append(f"{rid}: declared existing test does not exist: {test.get('path')}")
-            if any(t.get("classification") == "LEGAL_RIGHTS_REVIEW" for t in r.get("required_tests", [])) and any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", [])):
-                errors.append(f"{rid}: legal-rights-only work is incorrectly forced to add an automated test")
+            if any(t.get("classification") == "PUBLICATION_BOUNDARY_REVIEW" for t in r.get("required_tests", [])) and any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", [])):
+                errors.append(f"{rid}: publication-boundary-only work is incorrectly forced to add an automated test")
 
     for r in records:
         if not str(r.get("historical_classification", "")).startswith("ACTIONABLE"):
@@ -1555,7 +1605,7 @@ def strict_validate(records: list[dict[str, Any]], write_reports: bool = True) -
         "scope_equals_objective_count": sum(norm_space(r.get("scope", "")).lower() == norm_space(r.get("objective", "")).lower() for r in records if str(r.get("historical_classification", "")).startswith("ACTIONABLE")),
         "blank_e2e_count": sum(not norm_space(r.get("end_to_end_validation", "")) for r in records if str(r.get("historical_classification", "")).startswith("ACTIONABLE")),
         "invalid_traceability_gate_count": sum(str(r.get("historical_classification", "")).startswith("ACTIONABLE") and r.get("governance_traceability_gate") not in by_id for r in records),
-        "forced_new_automated_on_legal_count": sum(any(t.get("classification") == "LEGAL_RIGHTS_REVIEW" for t in r.get("required_tests", [])) and any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", [])) for r in records),
+        "forced_new_automated_on_publication_boundary_count": sum(any(t.get("classification") == "PUBLICATION_BOUNDARY_REVIEW" for t in r.get("required_tests", [])) and any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", [])) for r in records),
         "source_anchor_result_counts": dict(Counter(r["status"] for r in anchor_rows)),
         "derivative_result_counts": dict(Counter(r["status"] for r in derivative_rows)),
         "ready_count": sum(r.get("ready") for r in records),
@@ -1587,7 +1637,7 @@ def baseline_audit(records: list[dict[str, Any]]) -> dict[str, Any]:
         "subtasks_with_any_generic_scope_phrase": sum(bool(GENERIC_IN_SCOPE & set(r.get("in_scope", []))) for r in subtasks),
         "actionable_scope_equals_objective_count": sum(norm_space(r.get("scope", "")).lower() == norm_space(r.get("objective", "")).lower() for r in actionable),
         "subtasks_with_new_automated_test_required": sum(any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", [])) for r in subtasks),
-        "legal_review_subtasks_with_new_automated_test_required": sum(any(t.get("classification") == "LEGAL_RIGHTS_REVIEW" for t in r.get("required_tests", [])) and any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", [])) for r in subtasks),
+        "publication_boundary_subtasks_with_new_automated_test_required": sum(any(t.get("classification") == "PUBLICATION_BOUNDARY_REVIEW" for t in r.get("required_tests", [])) and any(t.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED" for t in r.get("required_tests", [])) for r in subtasks),
         "actionable_blank_e2e_count": sum(not norm_space(r.get("end_to_end_validation", "")) for r in actionable),
         "actionable_without_direct_requirement_ids": sum(not r.get("requirement_ids") for r in actionable),
         "actionable_without_direct_acceptance_control_ids": sum(not r.get("acceptance_control_ids") for r in actionable),
@@ -1653,7 +1703,7 @@ def write_master_prompt_matrix() -> None:
             "compliance_status": "PASS_STATIC_PACK_EXTERNAL_EXECUTION_EXPLICIT" if external else "PASS",
             "evidence_paths": evidence,
             "external_or_manual_boundary": (
-                "Destination Jira configuration/admin import, human rights decisions, credentials, target host, real data, or live operational execution remain external; the pack represents them as explicit blockers/templates and does not fabricate completion."
+                "Destination Jira configuration/admin import, technical credentials/routes, target host, real data, or live operational execution remain external; the pack represents them as explicit blockers/templates and does not fabricate completion. Rights metadata never blocks private acquisition or training."
                 if external else ""
             ),
             "second_pass_note": "Verified by content-aware second-pass validation, not only file-presence checks.",
@@ -1666,7 +1716,7 @@ def write_docs(records: list[dict[str, Any]], baseline: dict[str, Any], metrics:
         f"Generic executable-subtask scope specifications: {baseline['subtasks_with_any_generic_scope_phrase']} → {metrics['generic_scope_count']}",
         f"Actionable scopes that merely repeated the objective: {baseline['actionable_scope_equals_objective_count']} → {metrics['scope_equals_objective_count']}",
         f"Actionable items without end-to-end validation: {baseline['actionable_blank_e2e_count']} → {metrics['blank_e2e_count']}",
-        f"Legal-review tasks incorrectly forced to add an automated test: {baseline['legal_review_subtasks_with_new_automated_test_required']} → {metrics['forced_new_automated_on_legal_count']}",
+        f"Publication-boundary review tasks incorrectly forced to add an automated test: {baseline.get('publication_boundary_subtasks_with_new_automated_test_required', baseline.get('legal_review_subtasks_with_new_automated_test_required', 0))} → {metrics['forced_new_automated_on_publication_boundary_count']}",
         "All actionable records now declare explicit governance-traceability gates/inheritance, files to inspect versus files authorized for modification, task-appropriate validation classes, completion evidence contracts, and issue-specific risks/evidence/DoD.",
         f"AI packet coverage: {metrics.get('work_packet_count', 0)} / {metrics.get('actionable_count', 0)} actionable records ({metrics.get('execution_mode_counts', {}).get('ATOMIC_EXECUTION', 0)} atomic execution; {metrics.get('execution_mode_counts', {}).get('AGGREGATE_GATE', 0)} non-executable aggregate gates).",
         "All issue Markdown, AI work packets, source manifests, indexes, import CSVs, and REST payloads are regenerated from canonical JSON and checked for derivative consistency.",
@@ -1703,7 +1753,7 @@ The first pack was structurally strong and its original validators passed, but t
 
 ## External boundaries that are not fabricated
 
-The static Jira architecture and import pack are complete. Live Jira import, destination field/workflow configuration, human legal-rights decisions, production credentials, real-data acquisition, authoritative target-host benchmarks, empirical model/BAS results, and operating authorization remain real execution work represented by explicit blockers. Their absence is not hidden or mislabeled as pack incompleteness.
+The static Jira architecture and import pack are complete. Live Jira import, destination field/workflow configuration, technical credential or route validation, real-data acquisition, authoritative target-host benchmarks, empirical model/BAS results, and operating authorization remain real execution work. License, terms, scraping, redistribution, and upstream-authorization ambiguity is metadata only and never blocks private local acquisition or training.
 
 ## Validation metrics
 
@@ -1723,9 +1773,9 @@ The Jira pack is complete as a local architecture/import/AI-execution control sy
 
 - Destination Jira site/space/project profile, administrator permissions, work types, hierarchy, statuses, priorities, components, custom fields/options, users, and link-type mapping.
 - Live import execution, assigned Jira keys, and post-import reconciliation against the actual destination.
-- Human source-license/terms/retention/training/publication/redistribution decisions where the repository requires manual review.
-- Production credentials supplied outside Git and source-specific authenticated access.
-- Population-level approved-source acquisition and immutable historical materialization.
+- A future publication-boundary review if public distribution or commercialization is proposed; it is not a prerequisite for private research.
+- Credentials supplied outside Git and source-specific technical access validation where a public or owner-credentialed route requires them.
+- Population-level quality-supported source acquisition and immutable historical materialization.
 - Authoritative Windows/Ryzen 7 HX/32 GB/RTX 5060/NVMe benchmark evidence.
 - Protected chronological replay, model selection, calibration, A&M specialization, BAS/Aggie Excess statistical findings, and all other empirical results.
 - Production deployment, freshness/SLA evidence, backup/restore, incident exercises, release review, and operating authorization.
@@ -1982,7 +2032,7 @@ See `ATLASSIAN_2026_COMPATIBILITY.md`, `IMPORT_CONFIGURATION_NOTES.md`, `FIELD_M
 
 ## External boundary
 
-Destination Jira administration/import, human rights decisions, credentials, real-data materialization, target-host benchmarks, empirical model/BAS findings, production deployment, and operating authorization remain explicit execution work. They are not fabricated as completed outcomes and are not defects in the static Jira pack.
+Destination Jira administration/import, technical credential/route validation, real-data materialization, target-host benchmarks, empirical model/BAS findings, production deployment, and operating authorization remain explicit execution work. Rights metadata is nonblocking for private acquisition and training. These outcomes are not fabricated as completed and are not defects in the static Jira pack.
 """
     (JIRA_ROOT / "validation" / "SECOND_PASS_FINDINGS_AND_REMEDIATION.md").write_text(remediation, encoding="utf-8")
 
@@ -2071,7 +2121,7 @@ def write_conflicts(rows: list[dict[str, str]]) -> None:
     path = JIRA_ROOT / "reconciliation" / "SYNC_CONFLICTS.csv"
     fields = ["local_id", "field", "jira_value", "local_value", "resolution"]
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\r\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -2488,9 +2538,10 @@ def perform_apply(skip_generator_patch: bool = False) -> dict[str, Any]:
 
     # Update primary validation summary.
     validation_report = f"# Jira Pack Validation\n\n- Original structural validators: retained.\n- Second-pass strict result: **{metrics['result']}**.\n- Issues: **{metrics['issue_count']}**.\n- Errors: **{metrics['error_count']}**.\n- See `SECOND_PASS_AUDIT_REPORT.md` and `MASTER_PROMPT_COMPLIANCE_MATRIX.csv`.\n"
-    (JIRA_ROOT / "validation" / "VALIDATION_REPORT.md").write_text(validation_report, encoding="utf-8")
+    write_text_crlf(JIRA_ROOT / "validation" / "VALIDATION_REPORT.md", validation_report)
 
     # Final manifest after all writes. Re-running the manifest validator is done externally after this tool exits.
+    normalize_jira_text_crlf()
     lib.rebuild_file_manifest()
     return metrics
 

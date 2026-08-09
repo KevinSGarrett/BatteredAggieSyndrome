@@ -5,7 +5,7 @@
       "criterion_id": "ACCEPTANCE-1",
       "disposition": "PASS",
       "evidence_pointer": "/source_reference_resolution",
-      "observable": "62 unique referenced IDs resolve to the 62-row contiguous production inventory; zero missing.",
+      "observable": "All 62 source decisions map to the active private-research source-use registry; historical license and redistribution reviews remain nonblocking metadata.",
       "verified_at_utc": "2026-08-09T12:43:10Z",
       "verifier": "BAT-365 consumer validator"
     },
@@ -34,113 +34,125 @@
     "source_id_binding": "Runtime source_id parameter; no adapter hardcodes an unregistered source ID."
   },
   "artifact_type": "SOURCE_INVENTORY_COMPLETENESS_AND_UNRESOLVED_DECISION_GATE",
-  "created_at_utc": "2026-08-09T12:43:10Z",
+  "created_at_utc": "2026-08-09T19:40:00Z",
   "downstream_reevaluation": [
     {
       "canonical_record_path": "jira/records/issues/stories/POST-STORY-006_per_source_license_terms_and_redistribution_decisions.json",
-      "canonical_record_sha256": "3101f38e0a394551024f3709f50d7ed976ea3570f74dc92e539d9865429220fc",
-      "decision": "BACKLOG",
-      "external_or_policy_blocker": null,
+      "canonical_record_sha256": "ba5f3f494b6bc89059ede6af2044f7b7e4cd2bad7420bc5aea5d020cb8b37fc7",
+      "decision": "TECHNICAL_WORK_CONTINUES",
       "jira_key": "BAT-56",
-      "live_state_at_validation": "BACKLOG",
-      "live_status_at_validation": "To Do",
+      "live_snapshot_note": "LIVE_STATE_RECONCILED_SEPARATELY_NOT_INFERRED_FROM_LOCAL_RECORD",
+      "local_evidence_state": "PLANNED",
       "local_issue_id": "POST-STORY-006",
-      "remaining_dependencies": [],
-      "unblock_condition": null
+      "local_workflow_state": "BACKLOG",
+      "remaining_dependencies": [
+        "POST-SUBTASK-015"
+      ],
+      "rights_or_license_blocker": null
     },
     {
       "canonical_record_path": "jira/records/issues/stories/POST-STORY-007_credential_configuration_and_access_smoke_tests.json",
-      "canonical_record_sha256": "5b1fe8b6e53ac2b685da48257f75b0a5d79110f2e7198fa32e104dba4551fef2",
-      "decision": "BACKLOG",
-      "external_or_policy_blocker": null,
+      "canonical_record_sha256": "35f7106f25b01a98ef7b725ab08f5860423275dd1030769defc4aaf38f4e0adb",
+      "decision": "TECHNICAL_WORK_CONTINUES",
       "jira_key": "BAT-57",
-      "live_state_at_validation": "BACKLOG",
-      "live_status_at_validation": "To Do",
+      "live_snapshot_note": "LIVE_STATE_RECONCILED_SEPARATELY_NOT_INFERRED_FROM_LOCAL_RECORD",
+      "local_evidence_state": "PLANNED",
       "local_issue_id": "POST-STORY-007",
-      "remaining_dependencies": [],
-      "unblock_condition": null
+      "local_workflow_state": "BACKLOG",
+      "remaining_dependencies": [
+        "POST-SUBTASK-015"
+      ],
+      "rights_or_license_blocker": null
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-016_complete_rights_review_for_cfbd_sportsdataverse_open_meteo_and_official_a_and_m_.json",
-      "canonical_record_sha256": "c162b941ca8c24ec6f24672639cc2422b97cbcc7dfc1f7a640c1522ecdfc0153",
-      "decision": "BLOCKED",
-      "external_or_policy_blocker": "MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED",
+      "canonical_record_sha256": "47b440d90d2c6fe6809a78947eab9334201cc56af2b85a7f1a5b12c0d245f263",
+      "decision": "DONE_LOCAL_POLICY_EVIDENCE",
       "jira_key": "BAT-366",
-      "live_state_at_validation": "BLOCKED",
-      "live_status_at_validation": "To Do",
+      "live_snapshot_note": "LIVE_STATE_RECONCILED_SEPARATELY_NOT_INFERRED_FROM_LOCAL_RECORD",
+      "local_evidence_state": "VERIFIED",
       "local_issue_id": "POST-SUBTASK-016",
-      "remaining_dependencies": [],
-      "unblock_condition": "Provide and verify external condition: MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED"
+      "local_workflow_state": "DONE",
+      "remaining_dependencies": [
+        "POST-SUBTASK-015"
+      ],
+      "rights_or_license_blocker": null
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-017_complete_rights_review_for_recruiting_transfer_market_resources_gamebook_and_off.json",
-      "canonical_record_sha256": "b968c8fb794041d9b906c2ef4ec20913d1fdbd41abb47f9748991a7ca10b8e56",
-      "decision": "BLOCKED",
-      "external_or_policy_blocker": "MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED",
+      "canonical_record_sha256": "ad3f8543a6a345531e4d42954250f8e5ef9bea588cd55170b322349bd02fef9a",
+      "decision": "DONE_LOCAL_POLICY_EVIDENCE",
       "jira_key": "BAT-367",
-      "live_state_at_validation": "BLOCKED",
-      "live_status_at_validation": "To Do",
+      "live_snapshot_note": "LIVE_STATE_RECONCILED_SEPARATELY_NOT_INFERRED_FROM_LOCAL_RECORD",
+      "local_evidence_state": "VERIFIED",
       "local_issue_id": "POST-SUBTASK-017",
+      "local_workflow_state": "DONE",
       "remaining_dependencies": [
+        "POST-SUBTASK-015",
         "POST-SUBTASK-016"
       ],
-      "unblock_condition": "Provide and verify external condition: MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED"
+      "rights_or_license_blocker": null
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",
-      "canonical_record_sha256": "fb45cb06bea7493eea722186c632437b3b8547a23c200c191af7594e4337eb6c",
-      "decision": "BLOCKED",
-      "external_or_policy_blocker": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-016;POST-SUBTASK-017",
+      "canonical_record_sha256": "50bc0acd3f53aa782947145853daca6adebcc33f7dd7dd6aaf6f294f4f78316c",
+      "decision": "DONE_LOCAL_POLICY_EVIDENCE",
       "jira_key": "BAT-368",
-      "live_state_at_validation": "BLOCKED",
-      "live_status_at_validation": "To Do",
+      "live_snapshot_note": "LIVE_STATE_RECONCILED_SEPARATELY_NOT_INFERRED_FROM_LOCAL_RECORD",
+      "local_evidence_state": "VERIFIED",
       "local_issue_id": "POST-SUBTASK-018",
+      "local_workflow_state": "DONE",
       "remaining_dependencies": [
+        "POST-SUBTASK-015",
         "POST-SUBTASK-016",
         "POST-SUBTASK-017"
       ],
-      "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence."
+      "rights_or_license_blocker": null
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-019_define_credential_names_scopes_owners_rotation_and_non_repository_storage_contra.json",
-      "canonical_record_sha256": "35a95d25116a7d558c8a3a2dc25e02823ebcd2dd4462eaf3c97c1152fc3b466b",
-      "decision": "BLOCKED",
-      "external_or_policy_blocker": "USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY",
+      "canonical_record_sha256": "fa8a1dbbe41a5587bbe9bb4f9f9926d430fd5b2274b18696f3e85a5d3fd3f0a5",
+      "decision": "DONE_LOCAL_POLICY_EVIDENCE",
       "jira_key": "BAT-369",
-      "live_state_at_validation": "BLOCKED",
-      "live_status_at_validation": "To Do",
+      "live_snapshot_note": "LIVE_STATE_RECONCILED_SEPARATELY_NOT_INFERRED_FROM_LOCAL_RECORD",
+      "local_evidence_state": "VERIFIED",
       "local_issue_id": "POST-SUBTASK-019",
-      "remaining_dependencies": [],
-      "unblock_condition": "Provide and verify external condition: USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY"
+      "local_workflow_state": "DONE",
+      "remaining_dependencies": [
+        "POST-SUBTASK-015"
+      ],
+      "rights_or_license_blocker": null
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-020_run_authenticated_and_no_key_source_access_smoke_tests_with_rate_limit_capture.json",
-      "canonical_record_sha256": "81864dcb290f34b3ffc88253b266f20a766c0da71d6f62a1ccacff1ab35852c2",
-      "decision": "BLOCKED",
-      "external_or_policy_blocker": "PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED",
+      "canonical_record_sha256": "577cc0f4ae60b68aca7c7b02a070aaac130f43ea6899736c895dc2612e70ac4b",
+      "decision": "DONE_LOCAL_POLICY_EVIDENCE",
       "jira_key": "BAT-370",
-      "live_state_at_validation": "BLOCKED",
-      "live_status_at_validation": "To Do",
+      "live_snapshot_note": "LIVE_STATE_RECONCILED_SEPARATELY_NOT_INFERRED_FROM_LOCAL_RECORD",
+      "local_evidence_state": "VERIFIED",
       "local_issue_id": "POST-SUBTASK-020",
+      "local_workflow_state": "DONE",
       "remaining_dependencies": [
+        "POST-SUBTASK-015",
         "POST-SUBTASK-019"
       ],
-      "unblock_condition": "Provide and verify external condition: PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED"
+      "rights_or_license_blocker": null
     },
     {
       "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",
-      "canonical_record_sha256": "5f008db1c69b799b5600a2957808e029a4f61b4ceaf8da47f06fe06ca501f6c1",
-      "decision": "BLOCKED",
-      "external_or_policy_blocker": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-019;POST-SUBTASK-020",
+      "canonical_record_sha256": "0c28d044bf516b85c683527371b55c9a0a6273b714b2826c3b4502d7ab953609",
+      "decision": "DONE_LOCAL_POLICY_EVIDENCE",
       "jira_key": "BAT-371",
-      "live_state_at_validation": "BLOCKED",
-      "live_status_at_validation": "To Do",
+      "live_snapshot_note": "LIVE_STATE_RECONCILED_SEPARATELY_NOT_INFERRED_FROM_LOCAL_RECORD",
+      "local_evidence_state": "VERIFIED",
       "local_issue_id": "POST-SUBTASK-021",
+      "local_workflow_state": "DONE",
       "remaining_dependencies": [
+        "POST-SUBTASK-015",
         "POST-SUBTASK-019",
         "POST-SUBTASK-020"
       ],
-      "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence."
+      "rights_or_license_blocker": null
     }
   ],
   "input_identities": [
@@ -173,11 +185,12 @@
   "jira_key": "BAT-365",
   "local_issue_id": "POST-SUBTASK-015",
   "negative_findings": [
-    "No named human source-rights approval record exists; rights and redistribution remain fail-closed.",
+    "Historical human source-rights approval was absent; that prerequisite is superseded. Raw publication remains disabled and provenance metadata remains required.",
     "Access contracts and source smoke tests have not completed; no source is production-ready.",
     "No historical source payload, production data lake, feature admission, or trained-model evidence is claimed.",
     "Reconnaissance availability does not establish production completeness, PIT eligibility, or redistribution authority."
   ],
+  "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
   "producer": {
     "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\build_source_inventory_validation.py",
     "name": "Codex BAT-365 deterministic source validation builder",
@@ -421,7 +434,886 @@
       "v1_state": "DEFERRED_ISOLATED_FROM_PREGAME"
     }
   ],
+  "rights_blocked_sources": 0,
+  "rights_metadata_nonblocking": true,
   "schema_version": "1.0.0",
+  "source_eligibility_register": [
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-001",
+      "local_model_training": "ALLOWED",
+      "owner": "SportsDataverse / cfbfastR",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-001",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-002",
+      "local_model_training": "ALLOWED",
+      "owner": "Rad Sports Analytics / CollegeFootballData",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-002",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-003",
+      "local_model_training": "ALLOWED",
+      "owner": "Open-Meteo",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-003",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-001",
+      "local_model_training": "ALLOWED",
+      "owner": "Knight Commission / Newhouse",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-004",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-004",
+      "local_model_training": "ALLOWED",
+      "owner": "Official school athletics sites",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-005",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-002",
+      "local_model_training": "ALLOWED",
+      "owner": "PFF",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-006",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "DEFERRED"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-003",
+      "local_model_training": "ALLOWED",
+      "owner": "U.S. Department of Education",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-007",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-004",
+      "local_model_training": "ALLOWED",
+      "owner": "U.S. Department of Education / NCES",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-008",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-005",
+      "local_model_training": "ALLOWED",
+      "owner": "Texas A&M Athletics",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-009",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-005",
+      "local_model_training": "ALLOWED",
+      "owner": "National College Football Awards Association",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-010",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-006",
+      "local_model_training": "ALLOWED",
+      "owner": "Official conferences",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-011",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-006",
+      "local_model_training": "ALLOWED",
+      "owner": "Recognized preseason selectors",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-012",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-007",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-013",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-008",
+      "local_model_training": "ALLOWED",
+      "owner": "Official gamebooks/box scores",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-014",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-009",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA Statistics",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-015",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-010",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-016",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-011",
+      "local_model_training": "ALLOWED",
+      "owner": "Southeastern Conference",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-017",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-007",
+      "local_model_training": "ALLOWED",
+      "owner": "Big Ten Conference",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-018",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-008",
+      "local_model_training": "ALLOWED",
+      "owner": "Atlantic Coast Conference",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-019",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-009",
+      "local_model_training": "ALLOWED",
+      "owner": "Big 12 Conference",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-020",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-010",
+      "local_model_training": "ALLOWED",
+      "owner": "American Conference",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-021",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-011",
+      "local_model_training": "ALLOWED",
+      "owner": "Sun Belt Conference",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-022",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-012",
+      "local_model_training": "ALLOWED",
+      "owner": "Conference USA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-023",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-013",
+      "local_model_training": "ALLOWED",
+      "owner": "Mid-American Conference",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-024",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-014",
+      "local_model_training": "ALLOWED",
+      "owner": "College Football Playoff",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-025",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-012",
+      "local_model_training": "ALLOWED",
+      "owner": "Open-Meteo",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-026",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-015",
+      "local_model_training": "ALLOWED",
+      "owner": "NOAA/NCEP/GSL",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-027",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-016",
+      "local_model_training": "ALLOWED",
+      "owner": "NOAA/NCEP/ARL",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-028",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-017",
+      "local_model_training": "ALLOWED",
+      "owner": "NOAA/NCEI",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-029",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-018",
+      "local_model_training": "ALLOWED",
+      "owner": "IANA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-030",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-019",
+      "local_model_training": "ALLOWED",
+      "owner": "USGS",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-031",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-020",
+      "local_model_training": "ALLOWED",
+      "owner": "The Odds API",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-032",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "OPTIONAL_NONBLOCKING"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-021",
+      "local_model_training": "ALLOWED",
+      "owner": "SportsDataIO",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-033",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "OPTIONAL_NONBLOCKING"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-022",
+      "local_model_training": "ALLOWED",
+      "owner": "Sportradar",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-034",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "OPTIONAL_NONBLOCKING"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-023",
+      "local_model_training": "ALLOWED",
+      "owner": "Sports Info Solutions",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-035",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "RESEARCH_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-024",
+      "local_model_training": "ALLOWED",
+      "owner": "Stats Perform / Opta",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-036",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "RESEARCH_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-025",
+      "local_model_training": "ALLOWED",
+      "owner": "Teamworks",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-037",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "RESEARCH_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-026",
+      "local_model_training": "ALLOWED",
+      "owner": "NFL",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-038",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "VALIDATION_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-027",
+      "local_model_training": "ALLOWED",
+      "owner": "Associated Press",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-039",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-028",
+      "local_model_training": "ALLOWED",
+      "owner": "American Football Coaches Association",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-040",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-029",
+      "local_model_training": "ALLOWED",
+      "owner": "College Football Playoff",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-041",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-013",
+      "local_model_training": "ALLOWED",
+      "owner": "Official conference statistics pages",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-042",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "VALIDATION_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-014",
+      "local_model_training": "ALLOWED",
+      "owner": "Texas A&M / official opponents",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-043",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-030",
+      "local_model_training": "ALLOWED",
+      "owner": "IRS",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-044",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "OPTIONAL_NONBLOCKING"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-015",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-045",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "RESEARCH_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-016",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-046",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "VALIDATION_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-031",
+      "local_model_training": "ALLOWED",
+      "owner": "On3",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-047",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "RESEARCH_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-017",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA Statistics",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-048",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-032",
+      "local_model_training": "ALLOWED",
+      "owner": "NAIA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-049",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-033",
+      "local_model_training": "ALLOWED",
+      "owner": "NJCAA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-050",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-034",
+      "local_model_training": "ALLOWED",
+      "owner": "NAIA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-051",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-035",
+      "local_model_training": "ALLOWED",
+      "owner": "NJCAA",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-052",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-018",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA Statistics",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-053",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-019",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA Division I Governance",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-054",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-020",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA Division I Governance / LSDBi",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-055",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "PRIMARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-021",
+      "local_model_training": "ALLOWED",
+      "owner": "NCAA / College Sports Commission context",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-056",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "RESEARCH_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-SUP-036",
+      "local_model_training": "ALLOWED",
+      "owner": "FAA / U.S. DOT",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-057",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "OPTIONAL_NONBLOCKING"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-022",
+      "local_model_training": "ALLOWED",
+      "owner": "SportsDataverse upstream recruiting assets",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-058",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "SECONDARY_CANDIDATE"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-023",
+      "local_model_training": "ALLOWED",
+      "owner": "CollegeFootballData",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-059",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "OPTIONAL_NONBLOCKING"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-024",
+      "local_model_training": "ALLOWED",
+      "owner": "College Football Playoff",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-060",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "VALIDATION_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-025",
+      "local_model_training": "ALLOWED",
+      "owner": "SportsDataverse",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-061",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "VALIDATION_ONLY"
+    },
+    {
+      "historical_rights_decision_id": "RIGHTS-T1-026",
+      "local_model_training": "ALLOWED",
+      "owner": "Open-Meteo",
+      "private_research_acquisition": "ALLOWED",
+      "rights_metadata_state": "NONBLOCKING",
+      "source_id": "SRC-062",
+      "technical_access_review_items": [
+        "POST-SUBTASK-020",
+        "POST-SUBTASK-021"
+      ],
+      "technical_domain_promotion": "TECHNICAL_VALIDATION_PENDING",
+      "v1_classification": "RESEARCH_ONLY"
+    }
+  ],
+  "source_eligibility_summary": {
+    "historical_rights_review_items_superseded": 62,
+    "private_research_allowed_sources": 62,
+    "result": "PASS_PRIVATE_RESEARCH_POLICY_ACTIVE",
+    "rights_blocked_sources": 0,
+    "technical_domain_promotion_pending_sources": 62
+  },
   "source_reference_resolution": [
     {
       "literal_source_id_count": 0,
@@ -662,1944 +1554,11 @@
     "result": "PASS"
   },
   "story_gate": {
-    "historical_data_materialized": false,
-    "human_rights_review_record_present": false,
-    "post_story_005_gate_decision": "BLOCK_DOWNSTREAM_EXECUTION_PENDING_EXTERNAL_RIGHTS_AND_CREDENTIAL_EVIDENCE",
-    "production_ingestion_authorized": false,
-    "production_source_approval": false,
-    "production_source_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-    "raw_redistribution_authorized": false,
-    "validation_task_result": "PASS"
-  },
-  "unresolved_decision_register": [
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "SportsDataverse / cfbfastR",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-001",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Rad Sports Analytics / CollegeFootballData",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-002",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Open-Meteo",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-003",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Knight Commission / Newhouse",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-004",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Official school athletics sites",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-005",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "PFF",
-      "production_disposition": "DEFERRED_USER_REACTIVATION_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-006",
-      "unresolved_rights_state": "NOT_ADMITTED_REVIEW_REQUIRED_BEFORE_REACTIVATION",
-      "v1_classification": "DEFERRED"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "U.S. Department of Education",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-007",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "U.S. Department of Education / NCES",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-008",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Texas A&M Athletics",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-009",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "National College Football Awards Association",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-010",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Official conferences",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-011",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Recognized preseason selectors",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-012",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-013",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Official gamebooks/box scores",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-014",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA Statistics",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-015",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-016",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Southeastern Conference",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-017",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Big Ten Conference",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-018",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Atlantic Coast Conference",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-019",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Big 12 Conference",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-020",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "American Conference",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-021",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Sun Belt Conference",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-022",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Conference USA",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-023",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Mid-American Conference",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-024",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "College Football Playoff",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-025",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Open-Meteo",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-026",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NOAA/NCEP/GSL",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-027",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NOAA/NCEP/ARL",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-028",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NOAA/NCEI",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-029",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "IANA",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-030",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "USGS",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-031",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "The Odds API",
-      "production_disposition": "OPTIONAL_RIGHTS_AND_EMPIRICAL_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-032",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "OPTIONAL_NONBLOCKING"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "SportsDataIO",
-      "production_disposition": "OPTIONAL_RIGHTS_AND_EMPIRICAL_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-033",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "OPTIONAL_NONBLOCKING"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Sportradar",
-      "production_disposition": "OPTIONAL_RIGHTS_AND_EMPIRICAL_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-034",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "OPTIONAL_NONBLOCKING"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Sports Info Solutions",
-      "production_disposition": "RESEARCH_ONLY_ADMISSION_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-035",
-      "unresolved_rights_state": "NOT_ADMITTED_REVIEW_REQUIRED_BEFORE_REACTIVATION",
-      "v1_classification": "RESEARCH_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Stats Perform / Opta",
-      "production_disposition": "RESEARCH_ONLY_ADMISSION_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-036",
-      "unresolved_rights_state": "NOT_ADMITTED_REVIEW_REQUIRED_BEFORE_REACTIVATION",
-      "v1_classification": "RESEARCH_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Teamworks",
-      "production_disposition": "RESEARCH_ONLY_ADMISSION_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-037",
-      "unresolved_rights_state": "NOT_ADMITTED_REVIEW_REQUIRED_BEFORE_REACTIVATION",
-      "v1_classification": "RESEARCH_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NFL",
-      "production_disposition": "VALIDATION_ONLY_CONTRACT_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-038",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "VALIDATION_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Associated Press",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-039",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "American Football Coaches Association",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-040",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "College Football Playoff",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-041",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Official conference statistics pages",
-      "production_disposition": "VALIDATION_ONLY_CONTRACT_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-042",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "VALIDATION_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Texas A&M / official opponents",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-043",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "IRS",
-      "production_disposition": "OPTIONAL_RIGHTS_AND_EMPIRICAL_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-044",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "OPTIONAL_NONBLOCKING"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA",
-      "production_disposition": "DEFERRED_AUTHORIZED_ACCESS_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-045",
-      "unresolved_rights_state": "NOT_ADMITTED_REVIEW_REQUIRED_BEFORE_REACTIVATION",
-      "v1_classification": "RESEARCH_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA",
-      "production_disposition": "VALIDATION_ONLY_CONTRACT_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-046",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "VALIDATION_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "On3",
-      "production_disposition": "RESEARCH_ONLY_ADMISSION_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-047",
-      "unresolved_rights_state": "NOT_ADMITTED_REVIEW_REQUIRED_BEFORE_REACTIVATION",
-      "v1_classification": "RESEARCH_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA Statistics",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-048",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NAIA",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-049",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NJCAA",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-050",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NAIA",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-051",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NJCAA",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-052",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA Statistics",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-053",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA Division I Governance",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-054",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA Division I Governance / LSDBi",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-055",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "PRIMARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "NCAA / College Sports Commission context",
-      "production_disposition": "RESEARCH_ONLY_ADMISSION_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-056",
-      "unresolved_rights_state": "NOT_ADMITTED_REVIEW_REQUIRED_BEFORE_REACTIVATION",
-      "v1_classification": "RESEARCH_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "FAA / U.S. DOT",
-      "production_disposition": "OPTIONAL_RIGHTS_AND_EMPIRICAL_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24507",
-        "jira_key": "BAT-367",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-017"
-      },
-      "source_id": "SRC-057",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "OPTIONAL_NONBLOCKING"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "SportsDataverse upstream recruiting assets",
-      "production_disposition": "CANDIDATE_CONTRACT_AND_RIGHTS_REVIEW_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-058",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "SECONDARY_CANDIDATE"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "CollegeFootballData",
-      "production_disposition": "OPTIONAL_RIGHTS_AND_EMPIRICAL_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-059",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "OPTIONAL_NONBLOCKING"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "College Football Playoff",
-      "production_disposition": "VALIDATION_ONLY_CONTRACT_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-060",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "VALIDATION_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "SportsDataverse",
-      "production_disposition": "VALIDATION_ONLY_CONTRACT_REQUIRED",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-061",
-      "unresolved_rights_state": "UNRESOLVED_HUMAN_REVIEW_REQUIRED_BEFORE_PRODUCTION",
-      "v1_classification": "VALIDATION_ONLY"
-    },
-    {
-      "access_review_items": [
-        {
-          "jira_id": "24509",
-          "jira_key": "BAT-369",
-          "local_issue_id": "POST-SUBTASK-019"
-        },
-        {
-          "jira_id": "24510",
-          "jira_key": "BAT-370",
-          "local_issue_id": "POST-SUBTASK-020"
-        },
-        {
-          "jira_id": "24511",
-          "jira_key": "BAT-371",
-          "local_issue_id": "POST-SUBTASK-021"
-        }
-      ],
-      "owner": "Open-Meteo",
-      "production_disposition": "RESEARCH_ONLY_ADMISSION_GATE",
-      "production_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
-      "rights_review_item": {
-        "jira_id": "24506",
-        "jira_key": "BAT-366",
-        "live_item_verified_at_utc": "2026-08-09T12:30:31Z",
-        "local_issue_id": "POST-SUBTASK-016"
-      },
-      "source_id": "SRC-062",
-      "unresolved_rights_state": "NOT_ADMITTED_REVIEW_REQUIRED_BEFORE_REACTIVATION",
-      "v1_classification": "RESEARCH_ONLY"
-    }
-  ],
-  "unresolved_decision_summary": {
-    "human_rights_approvals_present": 0,
-    "result": "PASS",
-    "source_count": 62,
-    "sources_with_real_access_review_items": 62,
-    "sources_with_real_rights_review_item": 62
+    "post_story_005_gate_decision": "PRIVATE_RESEARCH_ACQUISITION_ALLOWED",
+    "private_research_acquisition_authorized": true,
+    "private_research_model_training_authorized": true,
+    "raw_third_party_publication_authorized": false,
+    "technical_domain_promotion": "VALIDATE_PER_SOURCE_AND_DOMAIN",
+    "validation_task_result": "PASS_PRIVATE_RESEARCH_POLICY_ACTIVE"
   }
 }

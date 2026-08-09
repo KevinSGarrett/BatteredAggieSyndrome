@@ -1,5 +1,5 @@
 <!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json -->
-# POST-SUBTASK-018 — [POST-SUBTASK-018] Publish the approved source-rights matrix and block disallowed acquisition/export paths
+# POST-SUBTASK-018 — [POST-SUBTASK-018] Publish the private-research source-use matrix and block raw third-party publication
 
 ## Canonical metadata
 
@@ -8,8 +8,8 @@
   "acceptance_control_ids": [],
   "acceptance_criteria": [
     "The registry is machine-readable and contains no credentials.",
-    "Acquisition and export code fail closed for sources without an approved decision.",
-    "The gate distinguishes access permission from redistribution permission."
+    "All registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.",
+    "Raw third-party export remains independently denied and validity/safety gates remain scoped."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -63,11 +63,11 @@
   "content_contract_version": "2.0",
   "critical_path": true,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-018 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-018 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-006."
   ],
@@ -84,7 +84,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 16,
-  "end_to_end_validation": "A production acquisition/export attempt is allowed or blocked solely by explicit current rights decisions, with no implicit public-equals-redistributable assumption. The gate decision must explicitly reevaluate downstream issues: POST-STORY-008, POST-STORY-009, POST-SUBTASK-022, POST-SUBTASK-023, POST-SUBTASK-024, POST-SUBTASK-025, POST-SUBTASK-026, POST-SUBTASK-027.",
+  "end_to_end_validation": "Private local acquisition and training succeed independently of rights ambiguity, raw third-party publication remains denied, and actual technical/quality/PIT/safety failures affect only their exact scope. The gate decision must explicitly reevaluate downstream issues: POST-STORY-008, POST-STORY-009, POST-SUBTASK-022, POST-SUBTASK-023, POST-SUBTASK-024, POST-SUBTASK-025, POST-SUBTASK-026, POST-SUBTASK-027.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
   "evidence_state": "VERIFIED",
@@ -137,11 +137,11 @@
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100322,
   "in_scope": [
-    "Perform the exact action: Publish the approved source-rights matrix and block disallowed acquisition/export paths.",
+    "Perform the exact action: Publish the private-research source-use matrix and block raw third-party publication.",
     "Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`, `POST-SUBTASK-017`.",
     "Demonstrate with saved evidence: The registry is machine-readable and contains no credentials.",
-    "Demonstrate with saved evidence: Acquisition and export code fail closed for sources without an approved decision.",
-    "Demonstrate with saved evidence: The gate distinguishes access permission from redistribution permission.",
+    "Demonstrate with saved evidence: All registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.",
+    "Demonstrate with saved evidence: Raw third-party export remains independently denied and validity/safety gates remain scoped.",
     "Produce, validate, content-hash, and register `configs/source_rights_registry.json`.",
     "Produce, validate, content-hash, and register `artifacts/source_governance/source_rights_gate_test.json`.",
     "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
@@ -159,7 +159,7 @@
   "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-018",
   "maturity_before": "CONTRACT_DEFINED",
-  "objective": "Publish the approved source-rights matrix and block disallowed acquisition/export paths",
+  "objective": "Publish the private-research source-use matrix and block raw third-party publication",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24508",
@@ -172,9 +172,9 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
-    "Work assigned to sibling subtasks: Complete rights review for CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA lanes; Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes.",
-    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
+    "Work assigned to sibling subtasks: Reissue CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA decisions under private-research policy; Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy.",
+    "Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.",
     "Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files."
   ],
   "owner_wave": "POST_W25",
@@ -234,7 +234,7 @@
     "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
     "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
     "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
-    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.",
+    "Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.",
     "Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts."
   ],
   "required_tests": [
@@ -242,6 +242,18 @@
       "classification": "EXISTING_AUTOMATED_TEST",
       "expectation": "Run as a regression check after completing POST-SUBTASK-018; retain command, exit code, and relevant output.",
       "path": "tests/test_data_research.py",
+      "validation_class": "REGRESSION"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-018; retain command, exit code, and relevant output.",
+      "path": "configs/source_rights_registry.json",
+      "validation_class": "REGRESSION"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-018; retain command, exit code, and relevant output.",
+      "path": "artifacts/source_governance/source_rights_gate_test.json",
       "validation_class": "REGRESSION"
     },
     {
@@ -268,12 +280,12 @@
     "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-018.",
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
     "Acceptance failure: the evidence cannot demonstrate that the registry is machine-readable and contains no credentials.",
-    "Acceptance failure: the evidence cannot demonstrate that acquisition and export code fail closed for sources without an approved decision.",
-    "Acceptance failure: the evidence cannot demonstrate that the gate distinguishes access permission from redistribution permission."
+    "Acceptance failure: the evidence cannot demonstrate that all registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.",
+    "Acceptance failure: the evidence cannot demonstrate that raw third-party export remains independently denied and validity/safety gates remain scoped."
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute the atomic 3 of 3 step in Story POST-STORY-006 (Per-source license, terms, and redistribution decisions): Publish the approved source-rights matrix and block disallowed acquisition/export paths. Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`, `POST-SUBTASK-017`. Produce `configs/source_rights_registry.json`, `artifacts/source_governance/source_rights_gate_test.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.",
+  "scope": "Execute the atomic 3 of 3 step in Story POST-STORY-006 (Universal private-research acquisition and future-publication boundary): Publish the private-research source-use matrix and block raw third-party publication. Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`, `POST-SUBTASK-017`. Produce `configs/source_rights_registry.json`, `artifacts/source_governance/source_rights_gate_test.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.",
   "source_ids": [
     "GAP-010",
     "HANDOFF-002",
@@ -296,11 +308,11 @@
     "SRCREF-01898",
     "SRCREF-01572"
   ],
-  "specificity_fingerprint": "6acf9637fe0115f769e138d368a02be01224d1efc2df6b22d0ceb27fdd04492b",
+  "specificity_fingerprint": "aa9a265c6cbe609267d567e31720fa2de1ccfe4c9e5850309b8973872d8ad7ff",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02011",
@@ -315,7 +327,7 @@
     "SRCREF-01898",
     "SRCREF-01572"
   ],
-  "title": "[POST-SUBTASK-018] Publish the approved source-rights matrix and block disallowed acquisition/export paths",
+  "title": "[POST-SUBTASK-018] Publish the private-research source-use matrix and block raw third-party publication",
   "traceability_inherited_from": [
     "POST-SUBTASK-024"
   ],
@@ -335,7 +347,7 @@
 
 ## Objective
 
-Publish the approved source-rights matrix and block disallowed acquisition/export paths
+Publish the private-research source-use matrix and block raw third-party publication
 
 ## Why This Exists
 
@@ -343,15 +355,15 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Scope
 
-Execute the atomic 3 of 3 step in Story POST-STORY-006 (Per-source license, terms, and redistribution decisions): Publish the approved source-rights matrix and block disallowed acquisition/export paths. Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`, `POST-SUBTASK-017`. Produce `configs/source_rights_registry.json`, `artifacts/source_governance/source_rights_gate_test.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+Execute the atomic 3 of 3 step in Story POST-STORY-006 (Universal private-research acquisition and future-publication boundary): Publish the private-research source-use matrix and block raw third-party publication. Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`, `POST-SUBTASK-017`. Produce `configs/source_rights_registry.json`, `artifacts/source_governance/source_rights_gate_test.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
 
 ### Explicit In Scope
 
-- Perform the exact action: Publish the approved source-rights matrix and block disallowed acquisition/export paths.
+- Perform the exact action: Publish the private-research source-use matrix and block raw third-party publication.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`, `POST-SUBTASK-017`.
 - Demonstrate with saved evidence: The registry is machine-readable and contains no credentials.
-- Demonstrate with saved evidence: Acquisition and export code fail closed for sources without an approved decision.
-- Demonstrate with saved evidence: The gate distinguishes access permission from redistribution permission.
+- Demonstrate with saved evidence: All registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.
+- Demonstrate with saved evidence: Raw third-party export remains independently denied and validity/safety gates remain scoped.
 - Produce, validate, content-hash, and register `configs/source_rights_registry.json`.
 - Produce, validate, content-hash, and register `artifacts/source_governance/source_rights_gate_test.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
@@ -360,9 +372,9 @@ Execute the atomic 3 of 3 step in Story POST-STORY-006 (Per-source license, term
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
-- Work assigned to sibling subtasks: Complete rights review for CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA lanes; Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
+- Work assigned to sibling subtasks: Reissue CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA decisions under private-research policy; Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 - Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
 
 ## Prerequisites
@@ -449,22 +461,24 @@ Execute the atomic 3 of 3 step in Story POST-STORY-006 (Per-source license, term
 ## Acceptance Criteria
 
 1. The registry is machine-readable and contains no credentials.
-2. Acquisition and export code fail closed for sources without an approved decision.
-3. The gate distinguishes access permission from redistribution permission.
+2. All registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.
+3. Raw third-party export remains independently denied and validity/safety gates remain scoped.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-018 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-018 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-006.
 
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_data_research.py` — Run as a regression check after completing POST-SUBTASK-018; retain command, exit code, and relevant output.
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `configs/source_rights_registry.json` — Run as a regression check after completing POST-SUBTASK-018; retain command, exit code, and relevant output.
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `artifacts/source_governance/source_rights_gate_test.json` — Run as a regression check after completing POST-SUBTASK-018; retain command, exit code, and relevant output.
 - **SECURITY** / `SECURITY` — `configs/source_rights_registry.json` — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - **END_TO_END** / `END_TO_END` — `artifacts/source_governance/source_rights_gate_test.json` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
@@ -476,7 +490,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-006 (Per-source license, term
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 - Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts.
 
 ## Completion Evidence Contract
@@ -503,7 +517,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-006 (Per-source license, term
 
 ## End-to-End Validation Requirement
 
-A production acquisition/export attempt is allowed or blocked solely by explicit current rights decisions, with no implicit public-equals-redistributable assumption. The gate decision must explicitly reevaluate downstream issues: POST-STORY-008, POST-STORY-009, POST-SUBTASK-022, POST-SUBTASK-023, POST-SUBTASK-024, POST-SUBTASK-025, POST-SUBTASK-026, POST-SUBTASK-027.
+Private local acquisition and training succeed independently of rights ambiguity, raw third-party publication remains denied, and actual technical/quality/PIT/safety failures affect only their exact scope. The gate decision must explicitly reevaluate downstream issues: POST-STORY-008, POST-STORY-009, POST-SUBTASK-022, POST-SUBTASK-023, POST-SUBTASK-024, POST-SUBTASK-025, POST-SUBTASK-026, POST-SUBTASK-027.
 
 ## Expected Maturity After Completion
 
@@ -514,14 +528,14 @@ A production acquisition/export attempt is allowed or blocked solely by explicit
 - The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-018.
 - A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
 - Acceptance failure: the evidence cannot demonstrate that the registry is machine-readable and contains no credentials.
-- Acceptance failure: the evidence cannot demonstrate that acquisition and export code fail closed for sources without an approved decision.
-- Acceptance failure: the evidence cannot demonstrate that the gate distinguishes access permission from redistribution permission.
+- Acceptance failure: the evidence cannot demonstrate that all registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.
+- Acceptance failure: the evidence cannot demonstrate that raw third-party export remains independently denied and validity/safety gates remain scoped.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

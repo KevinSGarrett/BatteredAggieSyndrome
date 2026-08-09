@@ -20,8 +20,8 @@ Deliver Story POST-STORY-046 (Clean-target real-data release candidate) as one c
 
 ### In scope
 
-- Complete and verify child `POST-SUBTASK-136` — Stage the signed release candidate, dependency/runtime, Jira pack, approved source/rights configuration, and clean external roots.
-- Complete and verify child `POST-SUBTASK-137` — Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data.
+- Complete and verify child `POST-SUBTASK-136` — Stage the signed release candidate, dependency/runtime, Jira pack, private-research source configuration, and clean external roots.
+- Complete and verify child `POST-SUBTASK-137` — Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data.
 - Complete and verify child `POST-SUBTASK-138` — Validate outputs, lineage, protected decisions, rollback, clean re-execution, target performance/resources/freshness, and all release-blocking controls.
 - Integrate the child outputs and execute final gate `POST-SUBTASK-138`.
 - Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence.
@@ -30,7 +30,7 @@ Deliver Story POST-STORY-046 (Clean-target real-data release candidate) as one c
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -101,9 +101,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. The stage pins repository/dependencies/Jira/source-rights/schema/data/entity/PIT/feature/model/product/runbook identities, keeps credentials external, enforces restrictions, and fails on dirty protected state or blockers.
+2. The declared output `artifacts/release/release_candidate_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.
+5. The declared output `artifacts/release/release_candidate_e2e.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Independent validators trace forecasts/product to the signed run and A&M/BAS/promotion decisions, rollback succeeds, clean re-run reproduces declared outputs, and AC-038/target gates use authoritative host evidence.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

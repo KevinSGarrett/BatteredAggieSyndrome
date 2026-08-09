@@ -1,5 +1,5 @@
 <!-- GENERATED VIEW. Canonical record: jira/records/issues/epics/POST-EPIC-002_source_access_rights_credentials_and_acquisition_governance.json -->
-# POST-EPIC-002 — [POST-EPIC-002] Source access, rights, credentials, and acquisition governance
+# POST-EPIC-002 — [POST-EPIC-002] Source access, credentials, private-research acquisition, and publication governance
 
 ## Canonical metadata
 
@@ -56,7 +56,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 16,
-  "end_to_end_validation": "The entire Source access, rights, credentials, and acquisition governance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Source access, credentials, private-research acquisition, and publication governance and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-002.json",
   "evidence_state": "PLANNED",
@@ -127,10 +127,10 @@
     "post-wave",
     "sources"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-002",
   "maturity_before": "CONTRACT_DEFINED",
-  "objective": "Convert the researched source universe into approved production acquisition lanes with explicit rights, credentials, rate limits, fallbacks, and redistribution rules.",
+  "objective": "Convert the researched source universe into technically operable private-research acquisition lanes with explicit credentials, provenance, rate limits, fallbacks, quality gates, and a no-raw-publication boundary.",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24175",
@@ -257,7 +257,7 @@
     "SRCREF-01898",
     "SRCREF-01572"
   ],
-  "specificity_fingerprint": "2546c31b9e03efb82052103b6acba82ffacd88d1e7dc3058472b8cf982fce482",
+  "specificity_fingerprint": "c0d04dd727e0f628ce0909817f8bfb361695776a19c6ed568438edc81edd47ad",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -274,7 +274,7 @@
     "SRCREF-01898",
     "SRCREF-01572"
   ],
-  "title": "[POST-EPIC-002] Source access, rights, credentials, and acquisition governance",
+  "title": "[POST-EPIC-002] Source access, credentials, private-research acquisition, and publication governance",
   "traceability_inherited_from": [
     "POST-SUBTASK-024"
   ],
@@ -292,7 +292,7 @@
 
 ## Objective
 
-Convert the researched source universe into approved production acquisition lanes with explicit rights, credentials, rate limits, fallbacks, and redistribution rules.
+Convert the researched source universe into technically operable private-research acquisition lanes with explicit credentials, provenance, rate limits, fallbacks, quality gates, and a no-raw-publication boundary.
 
 ## Why This Exists
 
@@ -439,7 +439,7 @@ All Stories and Subtasks under this Epic for the sources domain, including its e
 
 ## End-to-End Validation Requirement
 
-The entire Source access, rights, credentials, and acquisition governance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Source access, credentials, private-research acquisition, and publication governance and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

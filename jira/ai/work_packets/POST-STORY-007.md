@@ -8,7 +8,7 @@
 
 ## What capability or closure gate am I coordinating?
 
-Configure production source access outside the repository and prove each approved lane can be called safely.
+Configure source access outside the repository and prove each selected lane can be called safely.
 
 ## Why?
 
@@ -30,7 +30,7 @@ Deliver Story POST-STORY-007 (Credential configuration and access smoke tests) a
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -101,9 +101,15 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Credential variables are source-scoped and least-privilege where the provider supports scopes.
+2. Rotation/revocation ownership and expiry handling are documented.
+3. No credential value appears in Git-tracked files or evidence.
+4. Each selected source preserves a minimally sufficient technical response or a precise pending technical action.
+5. HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.
+6. Smoke tests do not expose secrets or fabricate unobserved results.
+7. Every source is READY, TECHNICAL_VALIDATION_PENDING, TECHNICAL_CREDENTIAL_UNAVAILABLE, or quality-quarantined with a concrete reason.
+8. Downstream materialization tasks consume this readiness file.
+9. No source is blocked by licensing, redistribution, scraping, terms, provider preference, or upstream-authorization uncertainty.
 
 ## Tests / validation
 
@@ -120,7 +126,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Exercise the complete Credential configuration and access smoke tests path and verify downstream consumption of the pinned outputs.
+Exercise the complete Credential configuration and access smoke tests path through `POST-SUBTASK-021` and verify downstream use of pinned outputs.
 
 ## Stop instead of improvising when
 

@@ -8,7 +8,7 @@
 
 ## What am I implementing?
 
-Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes
+Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy
 
 ## Why?
 
@@ -16,15 +16,15 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Atomic execution scope
 
-Execute the atomic 2 of 3 step in Story POST-STORY-006 (Per-source license, terms, and redistribution decisions): Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes. Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`. Produce `artifacts/source_governance/supplemental_rights_decisions.csv`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-018.
+Execute the atomic 2 of 3 step in Story POST-STORY-006 (Universal private-research acquisition and future-publication boundary): Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy. Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`. Produce `artifacts/source_governance/supplemental_rights_decisions.csv`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-018.
 
 ### In scope
 
-- Perform the exact action: Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes.
+- Perform the exact action: Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-016`.
-- Demonstrate with saved evidence: Every supplemental lane has an explicit production, experimental, licensed-only, or rejected disposition.
-- Demonstrate with saved evidence: No CAPTCHA, authentication, rate limit, or access control bypass is authorized.
-- Demonstrate with saved evidence: Provider-specific raw redistribution restrictions are enforced in storage/export policy.
+- Demonstrate with saved evidence: Every supplemental source is acquisition-eligible for private research; technical readiness and domain quality remain independent.
+- Demonstrate with saved evidence: Genuinely private resources needing unsupplied credentials remain technically unavailable and public substitutes are sought.
+- Demonstrate with saved evidence: Raw third-party publication is denied by project policy.
 - Produce, validate, content-hash, and register `artifacts/source_governance/supplemental_rights_decisions.csv`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
@@ -32,9 +32,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-006 (Per-source license, term
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
-- Work assigned to sibling subtasks: Complete rights review for CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA lanes; Publish the approved source-rights matrix and block disallowed acquisition/export paths.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
+- Work assigned to sibling subtasks: Reissue CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA decisions under private-research policy; Publish the private-research source-use matrix and block raw third-party publication.
 - Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
 
 ## Current gate state
@@ -104,15 +103,14 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Every supplemental lane has an explicit production, experimental, licensed-only, or rejected disposition.
-2. No CAPTCHA, authentication, rate limit, or access control bypass is authorized.
-3. Provider-specific raw redistribution restrictions are enforced in storage/export policy.
+1. Every supplemental source is acquisition-eligible for private research; technical readiness and domain quality remain independent.
+2. Genuinely private resources needing unsupplied credentials remain technically unavailable and public substitutes are sought.
+3. Raw third-party publication is denied by project policy.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_data_research.py — Run as a regression check after completing POST-SUBTASK-017; retain command, exit code, and relevant output.
-- LEGAL_RIGHTS_REVIEW / LEGAL_RIGHTS_REVIEW: MANUAL_REVIEW_REQUIRED — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
-- MANUAL / MANUAL: artifacts/source_governance/supplemental_rights_decisions.csv — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
+- EXISTING_AUTOMATED_TEST / REGRESSION: artifacts/source_governance/supplemental_rights_decisions.csv — Run as a regression check after completing POST-SUBTASK-017; retain command, exit code, and relevant output.
 - SECURITY / SECURITY: artifacts/source_governance/supplemental_rights_decisions.csv — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - END_TO_END / END_TO_END: artifacts/source_governance/supplemental_rights_decisions.csv — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
@@ -123,17 +121,17 @@ Produce and validate these outputs within this atomic work unit:
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts.
 
 ## End-to-end handoff
 
-Validate that `artifacts/source_governance/supplemental_rights_decisions.csv` can be parsed and consumed by `POST-SUBTASK-018` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/source_governance/supplemental_rights_decisions.csv` can be parsed and consumed by `POST-SUBTASK-018` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

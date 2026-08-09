@@ -20,7 +20,7 @@ Deliver Story POST-STORY-009 (Core national game spine) as one coherent, gated c
 
 ### In scope
 
-- Complete and verify child `POST-SUBTASK-025` — Acquire approved national team, schedule, game, score, drive, play, box-score, and gamebook history.
+- Complete and verify child `POST-SUBTASK-025` — Acquire quality-supported national team, schedule, game, score, drive, play, box-score, and gamebook history.
 - Complete and verify child `POST-SUBTASK-026` — Normalize and reconcile core/game-event records while preserving immutable source evidence.
 - Complete and verify child `POST-SUBTASK-027` — Approve or block the population-level core-history coverage gate.
 - Integrate the child outputs and execute final gate `POST-SUBTASK-027`.
@@ -30,7 +30,7 @@ Deliver Story POST-STORY-009 (Core national game spine) as one coherent, gated c
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -103,9 +103,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every configured season/source request records source identity, retrieval/known-at time, request identity, response hash, immutable path, pagination, and provider failure state.
+2. The declared output `artifacts/data_lake/core_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Normalized games, scores, drives, plays, and box totals reconcile to canonical identities and official outcomes; every rejected/partial record is quarantined with reason.
+5. The declared output `artifacts/data_lake/core_normalization_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Coverage is measured by source, domain, season, team, and game; reconnaissance samples or fixtures cannot satisfy population readiness.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

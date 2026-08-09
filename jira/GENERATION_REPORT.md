@@ -102,7 +102,7 @@ This Jira pack is complete as a project-management/traceability/import system. I
 - Generic executable-subtask scope specifications: 159 → 0
 - Actionable scopes that merely repeated the objective: 212 → 0
 - Actionable items without end-to-end validation: 4 → 0
-- Legal-review tasks incorrectly forced to add an automated test: 2 → 0
+- Publication-boundary review tasks incorrectly forced to add an automated test: 2 → 0
 - All actionable records now declare explicit governance-traceability gates/inheritance, files to inspect versus files authorized for modification, task-appropriate validation classes, completion evidence contracts, and issue-specific risks/evidence/DoD.
 - AI packet coverage: 229 / 229 actionable records (159 atomic execution; 70 non-executable aggregate gates).
 - All issue Markdown, AI work packets, source manifests, indexes, import CSVs, and REST payloads are regenerated from canonical JSON and checked for derivative consistency.

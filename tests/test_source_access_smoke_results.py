@@ -38,7 +38,7 @@ def _load(path: Path) -> dict:
 
 def _validation_errors(payload: dict, contract: dict) -> list[str]:
     errors: list[str] = []
-    if payload.get("schema_version") != 1:
+    if payload.get("schema_version") != 2:
         errors.append("schema-version")
     if payload.get("artifact_type") != "BOUNDED_SOURCE_ACCESS_SMOKE_RESULTS":
         errors.append("artifact-type")
@@ -73,22 +73,24 @@ def _validation_errors(payload: dict, contract: dict) -> list[str]:
         if not {"metadata_observed", "observed_safe_headers", "safe_header_allowlist", "unobserved_reason"}.issubset(rate_limit):
             errors.append(f"rate-limit-metadata:{source_id}")
         if item["attempted"]:
-            if item["disposition"] == "TECHNICAL_SMOKE_SUCCEEDED_RIGHTS_UNRESOLVED":
+            if item["disposition"] == "TECHNICAL_SMOKE_SUCCEEDED":
                 if item["http_status"] != 200 or len(item["response_schema_sha256"] or "") != SHA256_HEX_LENGTH:
                     errors.append(f"successful-probe-observations:{source_id}")
-                if item["blocker"] != "HUMAN_SOURCE_RIGHTS_REVIEW_REQUIRED_BEFORE_PRODUCTION":
-                    errors.append(f"rights-blocker:{source_id}")
+                if item["blocker"] is not None:
+                    errors.append(f"stale-blocker:{source_id}")
             elif not item["blocker"]:
                 errors.append(f"technical-blocker:{source_id}")
         else:
-            if item["disposition"] != "BLOCKED" or not item["blocker"]:
-                errors.append(f"access-blocker:{source_id}")
+            if item["disposition"] != "TECHNICAL_VALIDATION_PENDING" or not item["blocker"]:
+                errors.append(f"technical-pending:{source_id}")
             if item["http_status"] is not None or item["response_schema_sha256"] is not None:
                 errors.append(f"fabricated-observation:{source_id}")
 
     scope = payload.get("scope", {})
-    if scope.get("production_approved_source_count") != 0 or scope.get("production_access_ready_count") != 0:
-        errors.append("unsupported-production-readiness")
+    if scope.get("production_approved_source_count") != 62:
+        errors.append("private-policy-coverage")
+    if scope.get("production_access_ready_count") != 3 or scope.get("rights_blocked_source_count") != 0:
+        errors.append("technical-readiness-summary")
     if scope.get("rights_approval_claimed") is not False:
         errors.append("unsupported-rights-approval")
     if set(scope.get("representative_smoke_source_ids", [])) != {"SRC-002", "SRC-061", "SRC-062"}:
@@ -107,7 +109,7 @@ class TestSourceAccessSmokeResults(unittest.TestCase):
     def test_metadata_only_smoke_contract_is_complete(self) -> None:
         self.assertEqual(_validation_errors(self.payload, self.contract), [])
 
-    def test_three_bounded_lanes_succeeded_without_granting_rights(self) -> None:
+    def test_three_bounded_lanes_succeeded_under_private_research_policy(self) -> None:
         attempted = {item["source_id"]: item for item in self.payload["results"] if item["attempted"]}
         self.assertEqual(set(attempted), {"SRC-002", "SRC-061", "SRC-062"})
         for result in attempted.values():
@@ -116,7 +118,7 @@ class TestSourceAccessSmokeResults(unittest.TestCase):
                 self.assertTrue(result["minimally_sufficient_response"])
                 self.assertFalse(result["response_body_retained"])
                 self.assertLessEqual(result["response_bytes_observed_not_retained"], 65536)
-                self.assertEqual(result["blocker"], "HUMAN_SOURCE_RIGHTS_REVIEW_REQUIRED_BEFORE_PRODUCTION")
+                self.assertIsNone(result["blocker"])
 
     def test_downstream_consumer_rejects_invalid_or_stale_inputs(self) -> None:
         mutations = []
@@ -129,9 +131,9 @@ class TestSourceAccessSmokeResults(unittest.TestCase):
         incompatible = copy.deepcopy(self.payload)
         incompatible["schema_version"] = 99
         mutations.append(incompatible)
-        rights_weakened = copy.deepcopy(self.payload)
-        rights_weakened["results"][0]["blocker"] = None
-        mutations.append(rights_weakened)
+        technical_evidence_weakened = copy.deepcopy(self.payload)
+        technical_evidence_weakened["results"][0]["blocker"] = None
+        mutations.append(technical_evidence_weakened)
         provenance_missing = copy.deepcopy(self.payload)
         provenance_missing["producer"]["script_sha256"] = ""
         mutations.append(provenance_missing)

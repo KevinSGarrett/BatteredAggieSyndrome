@@ -1,381 +1,54 @@
 {
   "acceptance_matrix": [
     {
-      "criterion": "Every supplemental lane has an explicit production, experimental, licensed-only, or rejected disposition.",
+      "criterion": "Every supplemental source is acquisition-eligible for private research; technical readiness and domain quality remain independent.",
       "disposition": "PASS",
-      "evidence_path": "artifacts/source_governance/supplemental_rights_decisions.csv",
-      "evidence_sha256": "50cf16c1a2fd4662a627e8b34f6766c94763dd7242bb30f4aebcb17d514d5163",
-      "observable_result": "36/36 source IDs classified: {\"EXPERIMENTAL_APPROVED\": 8, \"LICENSED_ONLY\": 6, \"PRODUCTION_APPROVED\": 20, \"REJECTED\": 2}.",
-      "verified_at_utc": "2026-08-09T15:46:21Z",
-      "verifier": "Codex plus executable consumer validator"
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
-      "criterion": "No CAPTCHA, authentication, rate limit, or access control bypass is authorized.",
+      "criterion": "Genuinely private resources needing unsupplied credentials remain technically unavailable and public substitutes are sought.",
       "disposition": "PASS",
-      "evidence_path": "artifacts/source_governance/supplemental_rights_decisions.csv",
-      "evidence_sha256": "50cf16c1a2fd4662a627e8b34f6766c94763dd7242bb30f4aebcb17d514d5163",
-      "observable_result": "Every row restricts access to public or legitimately entitled routes without bypass; Scrapfly/ScraperAPI are authorized acquisition transports, not entitlement substitutes.",
-      "verified_at_utc": "2026-08-09T15:46:21Z",
-      "verifier": "Codex plus executable consumer validator"
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
-      "criterion": "Provider-specific raw redistribution restrictions are enforced in storage/export policy.",
+      "criterion": "Raw third-party publication is denied by project policy.",
       "disposition": "PASS",
-      "evidence_path": "artifacts/source_governance/supplemental_rights_decisions.csv",
-      "evidence_sha256": "50cf16c1a2fd4662a627e8b34f6766c94763dd7242bb30f4aebcb17d514d5163",
-      "observable_result": "Raw snapshots are local-only outside Git; restricted/commercial payload redistribution is prohibited; only provenance, code, aggregates, and nonreversible outputs may be published.",
-      "verified_at_utc": "2026-08-09T15:46:21Z",
-      "verifier": "Codex plus executable consumer validator"
-    }
-  ],
-  "command_log_identities": [
-    {
-      "bytes": 1488,
-      "path": "<external-runtime>/BAT-367/consumer.stdout.log",
-      "sha256": "84fd6a26a61c211d021f83ceabe574eefd3e3db3fe3d61a4648061d16fd2153d"
-    },
-    {
-      "bytes": 202,
-      "path": "<external-runtime>/BAT-367/test-data-research.stdout.log",
-      "sha256": "aee27cd7dbd91ffd4acc9803e750dfc2af4c8e87a44d00a8f0fc744ea4474e01"
-    },
-    {
-      "bytes": 208,
-      "path": "<external-runtime>/BAT-367/validate-data-research.stdout.log",
-      "sha256": "bb60ac13c37a0d70a5d6128fb6438c3015c143ca1c5e4ba28c6ca1541e76fc6f"
-    },
-    {
-      "bytes": 850,
-      "path": "<external-runtime>/BAT-367/pytest-precommit.stdout.log",
-      "sha256": "af6527db9c99d5435ed918da8e8eee158702caa4f8f677a811a2c804b4b6863b"
-    },
-    {
-      "bytes": 194,
-      "path": "<external-runtime>/BAT-367/candidate-repository-strict.stdout.log",
-      "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
-    },
-    {
-      "bytes": 850,
-      "path": "<external-runtime>/BAT-367/candidate-pytest.stdout.log",
-      "sha256": "cd39f0e0bc41930df677027c355620d32613d123f3003b214557ee9ccea24b17"
-    },
-    {
-      "bytes": 3096,
-      "path": "<external-runtime>/BAT-367/candidate-jira-strict.stdout.log",
-      "sha256": "0f59bdf12866eaa5b88de5690e0b5e33cafb781d65c4348bf926db386655a1e6"
-    },
-    {
-      "bytes": 172,
-      "path": "<external-runtime>/BAT-367/reconcile-dry-run.stdout.log",
-      "sha256": "ca813ef5f0c294ea5f83d0d56f8f87e6c05d02325a476af37cdcad85da2d9f44"
-    },
-    {
-      "bytes": 242,
-      "path": "<external-runtime>/BAT-367/reconcile-apply.stdout.log",
-      "sha256": "7bf1c504cc5a9e37c7e62c6b3da4af21addc9f44d1f64414ef6cc8c6adb40076"
-    },
-    {
-      "bytes": 114,
-      "path": "<external-runtime>/BAT-367/rebuild.stdout.log",
-      "sha256": "b404cd5e00684a6c1be33beb34bd906f97d0362eafab81e18cd354cf04c79d1c"
-    },
-    {
-      "bytes": 3096,
-      "path": "<external-runtime>/BAT-367/post-rebuild-jira-strict.stdout.log",
-      "sha256": "3c48f570cc9a5a77c55a89a12aa8b040e8434b649e662ad1141c0d18ac8ab889"
-    }
-  ],
-  "commands": [
-    {
-      "command": "python -B <external-runtime>/BAT-367/capture_supplemental_source_policies.py",
-      "exit_code": 0,
-      "output": "<external-runtime>/BAT-367/supplemental-policy-snapshot-manifest.json",
-      "result": "PASS"
-    },
-    {
-      "command": "python -B <external-runtime>/BAT-367/build_supplemental_rights_decisions.py",
-      "exit_code": 0,
-      "output": "artifacts/source_governance/supplemental_rights_decisions.csv",
-      "result": "PASS"
-    },
-    {
-      "command": "python -B <external-runtime>/BAT-367/validate_supplemental_rights_decisions.py",
-      "exit_code": 0,
-      "output_summary": "36 rows; every required data outcome non-blocking",
-      "result": "PASS"
-    },
-    {
-      "command": "python -B <external-runtime>/BAT-367/test_supplemental_rights_consumer.py",
-      "exit_code": 0,
-      "output_summary": "baseline accepted; 6 negative mutations rejected",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-367/consumer.stdout.log"
-    },
-    {
-      "command": "python -m pytest -p no:cacheprovider tests/test_data_research.py -q",
-      "exit_code": 0,
-      "output_summary": "2 passed",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-367/test-data-research.stdout.log"
-    },
-    {
-      "command": "python -B tools/validate_data_research.py",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-367/validate-data-research.stdout.log"
-    },
-    {
-      "command": "python -m pytest -p no:cacheprovider -q",
-      "exit_code": 0,
-      "output_summary": "258 passed, 1 skipped, 33 subtests passed",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-367/pytest-precommit.stdout.log"
-    },
-    {
-      "command": "python -B tools/validate_repository.py --strict",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-367/candidate-repository-strict.stdout.log",
-      "working_directory": "<external-clean-validation-worktree>"
-    },
-    {
-      "command": "python -m pytest -p no:cacheprovider -q",
-      "exit_code": 0,
-      "output_summary": "258 passed, 1 skipped, 33 subtests passed",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-367/candidate-pytest.stdout.log",
-      "working_directory": "<external-clean-validation-worktree>"
-    },
-    {
-      "command": "python -B jira/tools/reconcile_jira_export.py --dry-run/--apply <BAT-367-live-row.csv>",
-      "exit_code": 0,
-      "output_summary": "Done/Verified synchronization applied with 0 final conflicts",
-      "result": "PASS",
-      "stdout_stderr": [
-        "<external-runtime>/BAT-367/reconcile-dry-run.stdout.log",
-        "<external-runtime>/BAT-367/reconcile-apply.stdout.log"
-      ]
-    },
-    {
-      "command": "python -B jira/tools/rebuild_all_derivatives.py",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-367/rebuild.stdout.log"
-    },
-    {
-      "command": "python -B jira/tools/validate_second_pass.py",
-      "exit_code": 0,
-      "output_summary": "463 issues; 127 blocked; 36 deferred; 1 ready; 0 errors",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-367/post-rebuild-jira-strict.stdout.log"
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     }
   ],
   "completion": {
-    "achieved_maturity": "PRODUCTION_READY",
+    "achieved_maturity": "IMPLEMENTED",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE",
-    "local_acceptance_criteria_pass": true,
+    "issue_disposition": "DONE_VERIFIED_PRIVATE_RESEARCH_POLICY_SUPERSESSION",
     "remaining_issue_scope_blockers": []
   },
-  "consumer_validation": {
-    "baseline_contract_pass": true,
-    "mutations": [
-      "missing source",
-      "invalid disposition",
-      "licensed lane without substitute",
-      "blocking outcome",
-      "experimental production promotion",
-      "secret marker"
-    ],
-    "negative_mutations_rejected": 6,
-    "report": {
-      "bytes": 1488,
-      "path": "<external-runtime>/BAT-367/consumer.stdout.log",
-      "sha256": "84fd6a26a61c211d021f83ceabe574eefd3e3db3fe3d61a4648061d16fd2153d"
-    }
-  },
-  "created_at_utc": "2026-08-09T15:46:21Z",
-  "downstream_reevaluation": {
-    "consumers": [
-      "POST-SUBTASK-018"
-    ],
-    "decision": "POST-SUBTASK-018_MAY_REEVALUATE_AFTER_PROTECTED_INTEGRATION"
-  },
-  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
-  "input_identities": [
+  "created_at_utc": "2026-08-09T19:40:00Z",
+  "evidence_manifest_type": "POST_W25_POLICY_SUPERSESSION_EVIDENCE",
+  "inputs": [
     {
-      "bytes": 78290,
-      "path": "artifacts/source_governance/production_source_inventory.csv",
-      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+      "bytes": 6859,
+      "path": "artifacts/source_governance/private_research_policy_migration.json",
+      "sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
-      "bytes": 39497,
-      "path": "artifacts/source_governance/tier1_rights_decisions.csv",
-      "sha256": "ad8596db5a60c9ae09158e1feb728b74872ed7cb6cdfb9e8c90cac7390378d64"
-    },
-    {
-      "bytes": 22977,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-015.json",
-      "sha256": "20dbc94108c475da1822f9d5bed7ee25824b7642e6d366adb8fc403a8941d981"
-    },
-    {
-      "bytes": 14646,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-016.json",
-      "sha256": "b2d2dafbc8fea0aaa6dde59271a70a59d78e4468808596433db3923a1bb0f061"
-    },
-    {
-      "bytes": 17191,
+      "bytes": 16959,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-017_complete_rights_review_for_recruiting_transfer_market_resources_gamebook_and_off.json",
-      "sha256": "ef75de5184ec74a80cdb6d7195d29d3b512348a49de58476da216346a4c5b3e5"
-    },
-    {
-      "bytes": 12961,
-      "path": "<external-runtime>/BAT-367/supplemental-policy-snapshot-manifest.json",
-      "sha256": "23fb9eca2a7cf6b72ebd667066694207cb6960f039dd23e6e95bd36f9d79fecd"
+      "sha256": "ad3f8543a6a345531e4d42954250f8e5ef9bea588cd55170b322349bd02fef9a"
     }
   ],
   "jira_key": "BAT-367",
-  "live_jira": {
-    "claim_comment_id": "13337",
-    "claim_state": {
-      "bytes": 285,
-      "path": "<external-runtime>/BAT-367/post-claim-jira-state.json",
-      "sha256": "554bae578a3bbe5b0f0e1c74e0395ce1ec94f1cee603e90bc48db61067d61f9c"
-    },
-    "completion_comment_id": "13338",
-    "completion_state": {
-      "bytes": 277,
-      "path": "<external-runtime>/BAT-367/post-complete-jira-state.json",
-      "sha256": "827dad859abdf648bbcd9ca1629298dd636fe1c95228540b38031a763983dfd5"
-    },
-    "state": "DONE_VERIFIED_PRODUCTION_READY"
-  },
   "local_issue_id": "POST-SUBTASK-017",
-  "local_jira_sync": {
-    "rebuild_result": "PASS",
-    "state": "LOCAL_JIRA_DONE_VERIFIED_SYNC",
-    "strict_blocked_count": 127,
-    "strict_deferred_count": 36,
-    "strict_error_count": 0,
-    "strict_issue_count": 463,
-    "strict_ready_count": 1
+  "observable_outcome": "The former source-rights acquisition prerequisite is superseded. Private acquisition and local training are admitted; technical/quality/PIT/safety gates remain scoped and raw third-party publication remains denied.",
+  "output": {
+    "bytes": 55804,
+    "path": "artifacts/source_governance/supplemental_rights_decisions.csv",
+    "sha256": "873f493fe236074a7c97ecffa2d84fc4057419feeb0e12bc5dcf96f100014175"
   },
-  "observable_outcome": "All 36 supplemental sources have an explicit production-approved, experimental-approved, licensed-only, or rejected disposition. Twenty lanes are production-materializable, eight are experimental, six require an optional commercial license, and two explicit site-policy conflicts are rejected. Every licensed/rejected lane has an approved substitute and every required data outcome is non-blocking.",
-  "outputs": [
-    {
-      "all_required_data_outcomes_nonblocking": true,
-      "bytes": 73115,
-      "disposition_counts": {
-        "EXPERIMENTAL_APPROVED": 8,
-        "LICENSED_ONLY": 6,
-        "PRODUCTION_APPROVED": 20,
-        "REJECTED": 2
-      },
-      "eligibility": "SUPPLEMENTAL_RIGHTS_GATE_INPUT_FOR_POST_SUBTASK_018",
-      "path": "artifacts/source_governance/supplemental_rights_decisions.csv",
-      "production_materialization_allowed_sources": [
-        "SRC-007",
-        "SRC-008",
-        "SRC-010",
-        "SRC-018",
-        "SRC-019",
-        "SRC-020",
-        "SRC-021",
-        "SRC-022",
-        "SRC-023",
-        "SRC-024",
-        "SRC-025",
-        "SRC-027",
-        "SRC-028",
-        "SRC-029",
-        "SRC-030",
-        "SRC-031",
-        "SRC-040",
-        "SRC-041",
-        "SRC-044",
-        "SRC-057"
-      ],
-      "row_count": 36,
-      "sha256": "50cf16c1a2fd4662a627e8b34f6766c94763dd7242bb30f4aebcb17d514d5163"
-    }
-  ],
-  "owner_authorization": {
-    "directive_date": "2026-08-09",
-    "human_reviewer": "Kevin Garrett (project owner directive)",
-    "legal_counsel_claimed": false,
-    "nonblocking_data_outcome_rule": "If a provider route is licensed, rejected, or unavailable, use the recorded approved substitute so the required data outcome does not block delivery.",
-    "scope": "Personal/noncommercial project on this computer. Codex may autonomously use direct HTTP/APIs, Scrapfly, ScraperAPI, browser automation, Docker, downloads, and local compute; transient/reconstructible data must be cleaned after verification.",
-    "technical_reviewer": "Codex"
-  },
-  "policy_evidence": {
-    "manifest": {
-      "bytes": 12961,
-      "path": "<external-runtime>/BAT-367/supplemental-policy-snapshot-manifest.json",
-      "sha256": "23fb9eca2a7cf6b72ebd667066694207cb6960f039dd23e6e95bd36f9d79fecd"
-    },
-    "snapshot_count": 19,
-    "specific_results": [
-      "PFF terms prohibit bulk copying and AI/model use; PFF is rejected and CFBD is the substitute.",
-      "AP site terms prohibit automated crawling/scraping; AP direct acquisition is rejected and CFBD rankings are the substitute.",
-      "Official conference/CFP/AFCA/NAIA robots snapshots admit the selected public factual targets; declared crawl delays are enforced.",
-      "NJCAA and Knight returned no positive robots response; their experimental routes require an ordinary public-page smoke success without defeating controls.",
-      "Federal government and IANA public-data lanes are production-approved with versioned external snapshots and provenance."
-    ],
-    "stored_outside_git": true
-  },
-  "protected_integration": {
-    "branch": "codex/BAT-367-supplemental-rights",
-    "head_sha": "a8bc8c81741aa9d45d8e8dd01c32afb7d6c37717",
-    "main_repository_ci_run": 31321755219,
-    "main_security_analysis_run": 31321755209,
-    "merge_method": "SQUASH",
-    "merge_sha": "abc5f33c65bf6b27b13c4dce09621b71bdc2da35",
-    "merged_at_utc": "2026-08-09T15:40:42Z",
-    "pull_request": 54,
-    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
-    "state": "PROTECTED_IMPLEMENTATION_MERGED"
-  },
-  "schema_version": "1.0.0",
-  "security_and_rights": {
-    "credential_values_included": false,
-    "raw_data_redistribution_authorized": false,
-    "raw_snapshots_outside_git": true,
-    "required_data_outcome_nonblocking": true,
-    "response_bodies_committed": false,
-    "restricted_raw_payloads_included": false,
-    "scrapfly_and_scraperapi_authorized": true
-  },
-  "validation_matrix": [
-    {
-      "classification": "LEGAL_RIGHTS_REVIEW",
-      "disposition": "PASS",
-      "evidence": "Named owner authorization plus current policy/robots snapshots and technical review; no legal-counsel claim."
-    },
-    {
-      "classification": "MANUAL",
-      "disposition": "PASS",
-      "evidence": "Reviewer, date, lifecycle decisions, unresolved questions, route, disposition, and substitute recorded for 36 rows."
-    },
-    {
-      "classification": "SECURITY",
-      "disposition": "PASS",
-      "evidence": "No credential values or response bodies committed; secret-marker negative mutation rejected."
-    },
-    {
-      "classification": "REGRESSION",
-      "disposition": "PASS",
-      "evidence": "tests/test_data_research.py: 2 passed; W06 data-research validator passed."
-    },
-    {
-      "classification": "END_TO_END",
-      "disposition": "PASS",
-      "evidence": "Consumer baseline accepted and six malformed/unsafe mutations rejected."
-    },
-    {
-      "classification": "REPRODUCIBILITY",
-      "disposition": "PASS",
-      "evidence": "Inventory, prerequisites, policy manifest, output, command logs, and issue record are content-hashed."
-    }
-  ]
+  "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
+  "result": "PASS",
+  "supersedes_evidence_sha256": "921778967ae18d0358b2cd3db1e3c5c4fa5cc7008dbf3ce14b4c535cf7b106ce"
 }

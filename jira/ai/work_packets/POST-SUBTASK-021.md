@@ -22,9 +22,9 @@ Execute the atomic 3 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - Perform the exact action: Validate access readiness and generate source-specific unblock conditions.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-019`, `POST-SUBTASK-020`.
-- Demonstrate with saved evidence: Every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.
+- Demonstrate with saved evidence: Every source is READY, TECHNICAL_VALIDATION_PENDING, TECHNICAL_CREDENTIAL_UNAVAILABLE, or quality-quarantined with a concrete reason.
 - Demonstrate with saved evidence: Downstream materialization tasks consume this readiness file.
-- Demonstrate with saved evidence: A source cannot become READY from a successful sample if rights review is incomplete.
+- Demonstrate with saved evidence: No source is blocked by licensing, redistribution, scraping, terms, provider preference, or upstream-authorization uncertainty.
 - Produce, validate, content-hash, and register `artifacts/source_governance/source_access_readiness.csv`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
@@ -32,9 +32,9 @@ Execute the atomic 3 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Define credential names, scopes, owners, rotation, and non-repository storage contract; Run authenticated and no-key source access smoke tests with rate-limit capture.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 - Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
 
 ## Current gate state
@@ -105,15 +105,16 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.
+1. Every source is READY, TECHNICAL_VALIDATION_PENDING, TECHNICAL_CREDENTIAL_UNAVAILABLE, or quality-quarantined with a concrete reason.
 2. Downstream materialization tasks consume this readiness file.
-3. A source cannot become READY from a successful sample if rights review is incomplete.
+3. No source is blocked by licensing, redistribution, scraping, terms, provider preference, or upstream-authorization uncertainty.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_data_research.py — Run as a regression check after completing POST-SUBTASK-021; retain command, exit code, and relevant output.
-- LEGAL_RIGHTS_REVIEW / LEGAL_RIGHTS_REVIEW: MANUAL_REVIEW_REQUIRED — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
-- MANUAL / MANUAL: artifacts/source_governance/source_access_readiness.csv — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
+- EXISTING_AUTOMATED_TEST / REGRESSION: artifacts/source_governance/source_access_readiness.csv — Run as a regression check after completing POST-SUBTASK-021; retain command, exit code, and relevant output.
+- PUBLICATION_BOUNDARY_REVIEW / PUBLICATION_BOUNDARY_REVIEW: MANUAL — Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.
+- MANUAL / MANUAL: artifacts/source_governance/source_access_readiness.csv — Verify the private-use decision, metadata state, technical/quality scope, and future-publication boundary.
 - SECURITY / SECURITY: artifacts/source_governance/source_access_readiness.csv — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - END_TO_END / END_TO_END: artifacts/source_governance/source_access_readiness.csv — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
@@ -124,7 +125,7 @@ Produce and validate these outputs within this atomic work unit:
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 - Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts.
 
 ## End-to-end handoff
@@ -133,9 +134,9 @@ Exercise the complete Credential configuration and access smoke tests path and v
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

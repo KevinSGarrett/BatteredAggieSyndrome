@@ -13,7 +13,7 @@ The first pack was structurally strong and its original validators passed, but t
 - Generic executable-subtask scope specifications: 159 → 0
 - Actionable scopes that merely repeated the objective: 212 → 0
 - Actionable items without end-to-end validation: 4 → 0
-- Legal-review tasks incorrectly forced to add an automated test: 2 → 0
+- Publication-boundary review tasks incorrectly forced to add an automated test: 2 → 0
 - All actionable records now declare explicit governance-traceability gates/inheritance, files to inspect versus files authorized for modification, task-appropriate validation classes, completion evidence contracts, and issue-specific risks/evidence/DoD.
 - AI packet coverage: 229 / 229 actionable records (159 atomic execution; 70 non-executable aggregate gates).
 - All issue Markdown, AI work packets, source manifests, indexes, import CSVs, and REST payloads are regenerated from canonical JSON and checked for derivative consistency.
@@ -36,7 +36,7 @@ The first pack was structurally strong and its original validators passed, but t
 
 ## External boundaries that are not fabricated
 
-The static Jira architecture and import pack are complete. Live Jira import, destination field/workflow configuration, human legal-rights decisions, production credentials, real-data acquisition, authoritative target-host benchmarks, empirical model/BAS results, and operating authorization remain real execution work represented by explicit blockers. Their absence is not hidden or mislabeled as pack incompleteness.
+The static Jira architecture and import pack are complete. Live Jira import, destination field/workflow configuration, technical credential or route validation, real-data acquisition, authoritative target-host benchmarks, empirical model/BAS results, and operating authorization remain real execution work. License, terms, scraping, redistribution, and upstream-authorization ambiguity is metadata only and never blocks private local acquisition or training.
 
 ## Validation metrics
 
@@ -44,7 +44,7 @@ The static Jira architecture and import pack are complete. Live Jira import, des
 {
   "actionable_count": 229,
   "blank_e2e_count": 0,
-  "blocked_count": 142,
+  "blocked_count": 118,
   "deferred_count": 36,
   "derivative_result_counts": {
     "PASS": 463
@@ -55,12 +55,12 @@ The static Jira architecture and import pack are complete. Live Jira import, des
     "ATOMIC_EXECUTION": 159,
     "HISTORICAL_REFERENCE": 234
   },
-  "forced_new_automated_on_legal_count": 0,
+  "forced_new_automated_on_publication_boundary_count": 0,
   "generic_scope_count": 0,
   "invalid_traceability_gate_count": 0,
   "issue_count": 463,
   "master_prompt_compliance_section_count": 68,
-  "ready_count": 2,
+  "ready_count": 3,
   "registry_coverage": {
     "acceptance_control_ids": {
       "mapped": 234,
@@ -94,18 +94,18 @@ The static Jira architecture and import pack are complete. Live Jira import, des
     "CALIBRATION": 39,
     "CHRONOLOGICAL_REPLAY": 65,
     "END_TO_END": 190,
-    "EXISTING_AUTOMATED_TEST": 1142,
+    "EXISTING_AUTOMATED_TEST": 1164,
     "INTEGRATION": 44,
-    "LEGAL_RIGHTS_REVIEW": 8,
-    "MANUAL": 8,
+    "MANUAL": 7,
     "NEW_AUTOMATED_TEST_REQUIRED": 51,
     "OPERATIONS": 42,
+    "PUBLICATION_BOUNDARY_REVIEW": 7,
     "REPRODUCIBILITY": 229,
     "SCIENTIFIC": 124,
-    "SECURITY": 31,
+    "SECURITY": 30,
     "STATIC_VALIDATION": 31
   },
-  "validated_at": "2026-08-08",
+  "validated_at": "2026-08-09",
   "work_packet_count": 229
 }
 ```

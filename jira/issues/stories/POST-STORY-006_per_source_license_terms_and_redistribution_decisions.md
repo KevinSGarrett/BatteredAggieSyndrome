@@ -1,5 +1,5 @@
 <!-- GENERATED VIEW. Canonical record: jira/records/issues/stories/POST-STORY-006_per_source_license_terms_and_redistribution_decisions.json -->
-# POST-STORY-006 — [POST-STORY-006] Per-source license, terms, and redistribution decisions
+# POST-STORY-006 — [POST-STORY-006] Universal private-research acquisition and future-publication boundary
 
 ## Canonical metadata
 
@@ -7,9 +7,15 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Each decision records source URL/version, review date, local storage, local training, publication boundary, retention, and attribution metadata.",
+    "Ambiguous license, terms, scraping, redistribution, and upstream-authorization fields are explicitly nonblocking for private acquisition/training.",
+    "Bulk raw data remains local outside Git and is not published.",
+    "Every supplemental source is acquisition-eligible for private research; technical readiness and domain quality remain independent.",
+    "Genuinely private resources needing unsupplied credentials remain technically unavailable and public substitutes are sought.",
+    "Raw third-party publication is denied by project policy.",
+    "The registry is machine-readable and contains no credentials.",
+    "All registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.",
+    "Raw third-party export remains independently denied and validity/safety gates remain scoped."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -54,7 +60,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 16,
-  "end_to_end_validation": "A production acquisition/export attempt is allowed or blocked solely by explicit current rights decisions, with no implicit public-equals-redistributable assumption.",
+  "end_to_end_validation": "Private local acquisition and training succeed independently of rights ambiguity, raw third-party publication remains denied, and actual technical/quality/PIT/safety failures affect only their exact scope.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-006.json",
   "evidence_state": "PLANNED",
@@ -101,9 +107,9 @@
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100056,
   "in_scope": [
-    "Complete and verify child `POST-SUBTASK-016` — Complete rights review for CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA lanes.",
-    "Complete and verify child `POST-SUBTASK-017` — Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes.",
-    "Complete and verify child `POST-SUBTASK-018` — Publish the approved source-rights matrix and block disallowed acquisition/export paths.",
+    "Complete and verify child `POST-SUBTASK-016` — Reissue CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA decisions under private-research policy.",
+    "Complete and verify child `POST-SUBTASK-017` — Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy.",
+    "Complete and verify child `POST-SUBTASK-018` — Publish the private-research source-use matrix and block raw third-party publication.",
     "Integrate the child outputs and execute final gate `POST-SUBTASK-018`.",
     "Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence."
   ],
@@ -116,10 +122,10 @@
     "sources",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-006",
   "maturity_before": "CONTRACT_DEFINED",
-  "objective": "Establish auditable source-rights decisions before bulk acquisition or redistribution.",
+  "objective": "Apply the owner-authorized private-research policy universally while preserving license/terms/redistribution metadata and independently denying raw third-party publication.",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24196",
@@ -132,7 +138,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-002",
@@ -217,7 +223,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Deliver Story POST-STORY-006 (Per-source license, terms, and redistribution decisions) as one coherent, gated capability inside Epic POST-EPIC-002. Execute child subtasks POST-SUBTASK-016, POST-SUBTASK-017, POST-SUBTASK-018 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-018` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.",
+  "scope": "Deliver Story POST-STORY-006 (Universal private-research acquisition and future-publication boundary) as one coherent, gated capability inside Epic POST-EPIC-002. Execute child subtasks POST-SUBTASK-016, POST-SUBTASK-017, POST-SUBTASK-018 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-018` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.",
   "source_ids": [
     "GAP-010",
     "HANDOFF-002",
@@ -240,7 +246,7 @@
     "SRCREF-01898",
     "SRCREF-01572"
   ],
-  "specificity_fingerprint": "21751bc059ab3efcc4db08d7fc2718fe0050b17a61ebda1f5eb274312582acdb",
+  "specificity_fingerprint": "82ffc2c86a9f789761ef59b101bb65d49d3493c78b03cc9e03f0cf522d1e9ea0",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -257,7 +263,7 @@
     "SRCREF-01898",
     "SRCREF-01572"
   ],
-  "title": "[POST-STORY-006] Per-source license, terms, and redistribution decisions",
+  "title": "[POST-STORY-006] Universal private-research acquisition and future-publication boundary",
   "traceability_inherited_from": [
     "POST-SUBTASK-024"
   ],
@@ -276,7 +282,7 @@
 
 ## Objective
 
-Establish auditable source-rights decisions before bulk acquisition or redistribution.
+Apply the owner-authorized private-research policy universally while preserving license/terms/redistribution metadata and independently denying raw third-party publication.
 
 ## Why This Exists
 
@@ -284,13 +290,13 @@ This coherent capability closes a defined portion of Source access, rights, cred
 
 ## Scope
 
-Deliver Story POST-STORY-006 (Per-source license, terms, and redistribution decisions) as one coherent, gated capability inside Epic POST-EPIC-002. Execute child subtasks POST-SUBTASK-016, POST-SUBTASK-017, POST-SUBTASK-018 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-018` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
+Deliver Story POST-STORY-006 (Universal private-research acquisition and future-publication boundary) as one coherent, gated capability inside Epic POST-EPIC-002. Execute child subtasks POST-SUBTASK-016, POST-SUBTASK-017, POST-SUBTASK-018 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-018` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
 
 ### Explicit In Scope
 
-- Complete and verify child `POST-SUBTASK-016` — Complete rights review for CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA lanes.
-- Complete and verify child `POST-SUBTASK-017` — Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes.
-- Complete and verify child `POST-SUBTASK-018` — Publish the approved source-rights matrix and block disallowed acquisition/export paths.
+- Complete and verify child `POST-SUBTASK-016` — Reissue CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA decisions under private-research policy.
+- Complete and verify child `POST-SUBTASK-017` — Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy.
+- Complete and verify child `POST-SUBTASK-018` — Publish the private-research source-use matrix and block raw third-party publication.
 - Integrate the child outputs and execute final gate `POST-SUBTASK-018`.
 - Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence.
 
@@ -298,7 +304,7 @@ Deliver Story POST-STORY-006 (Per-source license, terms, and redistribution deci
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -370,9 +376,15 @@ Deliver Story POST-STORY-006 (Per-source license, terms, and redistribution deci
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Each decision records source URL/version, review date, local storage, local training, publication boundary, retention, and attribution metadata.
+2. Ambiguous license, terms, scraping, redistribution, and upstream-authorization fields are explicitly nonblocking for private acquisition/training.
+3. Bulk raw data remains local outside Git and is not published.
+4. Every supplemental source is acquisition-eligible for private research; technical readiness and domain quality remain independent.
+5. Genuinely private resources needing unsupplied credentials remain technically unavailable and public substitutes are sought.
+6. Raw third-party publication is denied by project policy.
+7. The registry is machine-readable and contains no credentials.
+8. All registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.
+9. Raw third-party export remains independently denied and validity/safety gates remain scoped.
 
 ## Definition of Done
 
@@ -408,7 +420,7 @@ Deliver Story POST-STORY-006 (Per-source license, terms, and redistribution deci
 
 ## End-to-End Validation Requirement
 
-A production acquisition/export attempt is allowed or blocked solely by explicit current rights decisions, with no implicit public-equals-redistributable assumption.
+Private local acquisition and training succeed independently of rights ambiguity, raw third-party publication remains denied, and actual technical/quality/PIT/safety failures affect only their exact scope.
 
 ## Expected Maturity After Completion
 

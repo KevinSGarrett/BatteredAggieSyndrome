@@ -719,7 +719,7 @@ artifacts/product/explanation_analog_validation.json,POST-SUBTASK-121,Subtask,tr
 artifacts/product/product_performance_benchmark.json,POST-SUBTASK-122,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-123,PLANNED
 artifacts/product/PRODUCT_READINESS.json,POST-SUBTASK-123,Subtask,true,PRODUCTION_READY,POST-EPIC-015;POST-STORY-045;POST-SUBTASK-133;POST-SUBTASK-134;POST-SUBTASK-135,PLANNED
 artifacts/operations/ci_pipeline_validation.json,POST-SUBTASK-124,Subtask,true,IMPLEMENTED,POST-SUBTASK-125;POST-SUBTASK-126,VERIFIED
-artifacts/operations/security_supply_chain_report.json,POST-SUBTASK-125,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-126,PARTIAL
+artifacts/operations/security_supply_chain_report.json,POST-SUBTASK-125,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-126,VERIFIED
 artifacts/operations/ci_security_gate.json,POST-SUBTASK-126,Subtask,true,PRODUCTION_READY,POST-STORY-043;POST-SUBTASK-127;POST-SUBTASK-128;POST-SUBTASK-129,PLANNED
 artifacts/operations/observability_contract_test.json,POST-SUBTASK-127,Subtask,true,IMPLEMENTED,POST-SUBTASK-128;POST-SUBTASK-129,PLANNED
 artifacts/operations/drift_alert_validation.json,POST-SUBTASK-128,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-129,PLANNED

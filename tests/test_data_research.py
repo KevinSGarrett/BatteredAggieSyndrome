@@ -27,24 +27,27 @@ class TestSourceRightsRegistry(unittest.TestCase):
         for marker in ('SCRAPFLY_API_TOKEN=','SCRAPERAPI_API_TOKEN=','GITHUB_TOKEN=','CFBD_API_KEY='):
             self.assertNotIn(marker,raw)
 
-    def test_acquisition_fails_closed_for_unknown_or_unapproved_sources(self):
-        self.assertEqual(
-            self.registry.require('SRC-002',SourceRightsAction.ACQUIRE_PRODUCTION).source_id,
-            'SRC-002',
+    def test_private_acquisition_and_training_are_not_rights_gated(self):
+        for source_id in self.registry.decisions:
+            self.registry.require(source_id,SourceRightsAction.ACQUIRE_PRODUCTION)
+            self.registry.require(source_id,SourceRightsAction.ACQUIRE_EXPERIMENTAL)
+            self.registry.require(source_id,SourceRightsAction.TRAIN_LOCAL)
+
+        unregistered=self.registry.require(
+            'SRC-PUBLIC-UNREGISTERED',
+            SourceRightsAction.ACQUIRE_PRODUCTION,
+            publicly_accessible=True,
         )
-        with self.assertRaisesRegex(SourceRightsDenied,'SOURCE_RIGHTS_SOURCE_UNKNOWN'):
-            self.registry.require('SRC-999',SourceRightsAction.ACQUIRE_PRODUCTION)
-        with self.assertRaisesRegex(SourceRightsDenied,'SOURCE_RIGHTS_DENIED:SRC-006'):
-            self.registry.require('SRC-006',SourceRightsAction.ACQUIRE_EXPERIMENTAL)
-        with self.assertRaisesRegex(SourceRightsDenied,'SOURCE_RIGHTS_DENIED:SRC-047:ACQUIRE_PRODUCTION'):
-            self.registry.require('SRC-047',SourceRightsAction.ACQUIRE_PRODUCTION)
-        self.registry.require('SRC-047',SourceRightsAction.ACQUIRE_EXPERIMENTAL)
+        self.assertEqual(unregistered.lane_disposition,'PRIVATE_RESEARCH_ALLOWED')
+        self.assertTrue(unregistered.local_model_training_allowed)
+        with self.assertRaisesRegex(SourceRightsDenied,'SOURCE_USE_PUBLIC_ACCESS_UNCONFIRMED'):
+            self.registry.require('SRC-NONPUBLIC-UNKNOWN',SourceRightsAction.ACQUIRE_PRODUCTION)
 
     def test_access_and_redistribution_are_independent(self):
         cfbd=self.registry.require('SRC-002',SourceRightsAction.ACQUIRE_PRODUCTION)
         self.assertTrue(cfbd.production_acquisition_allowed)
         self.assertFalse(cfbd.raw_export_allowed)
-        with self.assertRaisesRegex(SourceRightsDenied,'SOURCE_RIGHTS_DENIED:SRC-002:EXPORT_RAW'):
+        with self.assertRaisesRegex(SourceRightsDenied,'SOURCE_USE_DENIED:SRC-002:EXPORT_RAW'):
             self.registry.require('SRC-002',SourceRightsAction.EXPORT_RAW)
         open_meteo_payload=next(
             row for row in json.loads(self.path.read_text(encoding='utf-8'))['sources']
@@ -55,11 +58,19 @@ class TestSourceRightsRegistry(unittest.TestCase):
 
     def test_registry_rejects_unsafe_mutations(self):
         payload=json.loads(self.path.read_text(encoding='utf-8'))
-        payload['sources'][0]['lane_disposition']='EXPERIMENTAL_APPROVED'
-        payload['sources'][0]['production_acquisition_allowed']=True
+        payload['sources'][0]['raw_export_allowed']=True
         with tempfile.TemporaryDirectory() as directory:
             path=Path(directory)/'unsafe.json'
             path.write_text(json.dumps(payload),encoding='utf-8')
-            with self.assertRaisesRegex(ValueError,'SOURCE_RIGHTS_UNSAFE_PRODUCTION_PROMOTION'):
+            with self.assertRaisesRegex(ValueError,'SOURCE_RIGHTS_PROJECT_RAW_EXPORT_PROHIBITED'):
+                SourceRightsRegistry.load(path,verify_inputs=False)
+
+    def test_registry_rejects_reintroduced_rights_block(self):
+        payload=json.loads(self.path.read_text(encoding='utf-8'))
+        payload['sources'][0]['production_acquisition_allowed']=False
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'stale-rights-gate.json'
+            path.write_text(json.dumps(payload),encoding='utf-8')
+            with self.assertRaisesRegex(ValueError,'SOURCE_USE_PRIVATE_RESEARCH_ACQUISITION_REQUIRED'):
                 SourceRightsRegistry.load(path,verify_inputs=False)
 if __name__=='__main__':unittest.main()

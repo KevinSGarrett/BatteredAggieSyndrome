@@ -51,7 +51,7 @@ Source References
 - SRCREF-00001
 - SRCREF-01961
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-001_comprehensive_data_universe_research.json",Done,High,historical;planning-program;w06;wave-completed;local-id-epic-001,pit-temporal,EPIC-001,EPIC-001,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W06,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-2,100002,[EPIC-002] Canonical entities and identity resolution,,"Local ID: EPIC-002
@@ -105,7 +105,7 @@ Source References
 - SRCREF-00002
 - SRCREF-01962
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-002_canonical_entities_and_identity_resolution.json",Done,High,historical;planning-program;w07;wave-completed;local-id-epic-002,entities,EPIC-002,EPIC-002,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W07,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-3,100003,[EPIC-003] Point-in-time state architecture,,"Local ID: EPIC-003
@@ -159,7 +159,7 @@ Source References
 - SRCREF-00003
 - SRCREF-01963
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-003_point_in_time_state_architecture.json",Done,High,historical;planning-program;w08;wave-completed;local-id-epic-003,modeling,EPIC-003,EPIC-003,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W08,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-4,100004,[EPIC-004] Raw feature registry and schema discovery,,"Local ID: EPIC-004
@@ -213,7 +213,7 @@ Source References
 - SRCREF-00004
 - SRCREF-01964
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-004_raw_feature_registry_and_schema_discovery.json",Done,High,historical;planning-program;w09;wave-completed;local-id-epic-004,validation-promotion,EPIC-004,EPIC-004,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W09,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-5,100005,[EPIC-005] Feature engineering and lifecycle,,"Local ID: EPIC-005
@@ -267,7 +267,7 @@ Source References
 - SRCREF-00005
 - SRCREF-01965
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-005_feature_engineering_and_lifecycle.json",Done,High,historical;planning-program;w10;wave-completed;local-id-epic-005,validation-promotion,EPIC-005,EPIC-005,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W10,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-6,100006,[EPIC-006] Team state and early-season intelligence,,"Local ID: EPIC-006
@@ -321,7 +321,7 @@ Source References
 - SRCREF-00006
 - SRCREF-01966
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-006_team_state_and_early_season_intelligence.json",Done,High,historical;planning-program;w11;wave-completed;local-id-epic-006,modeling,EPIC-006,EPIC-006,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W11,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-7,100007,[EPIC-007] Foundation baseline model capability,,"Local ID: EPIC-007
@@ -375,7 +375,7 @@ Source References
 - SRCREF-00007
 - SRCREF-01967
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-007_foundation_baseline_model_capability.json",Done,High,historical;planning-program;w16-w17;wave-completed;local-id-epic-007,validation-promotion,EPIC-007,EPIC-007,PHASE-1,DONE,CONTRACT_DEFINED,VERIFIED,W16-W17,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-8,100008,[EPIC-008] Foundation implementation realization,,"Local ID: EPIC-008
@@ -429,7 +429,7 @@ Source References
 - SRCREF-00008
 - SRCREF-01968
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-008_foundation_implementation_realization.json",Done,High,historical;planning-program;w19;wave-completed;local-id-epic-008,feature-engineering,EPIC-008,EPIC-008,PHASE-1,DONE,FUNCTIONAL_STARTER,VERIFIED,W19,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-9,100009,"[EPIC-009] Player, roster, depth and availability state",,"Local ID: EPIC-009
@@ -483,7 +483,7 @@ Source References
 - SRCREF-00009
 - SRCREF-01969
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-009_player_roster_depth_and_availability_state.json",Done,High,historical;planning-program;w12;wave-completed;local-id-epic-009,modeling,EPIC-009,EPIC-009,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W12,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-10,100010,"[EPIC-010] Transfers, recruiting and prospect priors",,"Local ID: EPIC-010
@@ -536,7 +536,7 @@ Source References
 - SRCREF-00010
 - SRCREF-01970
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-010_transfers_recruiting_and_prospect_priors.json",Done,High,historical;planning-program;w12;wave-completed;local-id-epic-010,serving-product,EPIC-010,EPIC-010,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W12,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-11,100011,[EPIC-011] Coaching and staff intelligence,,"Local ID: EPIC-011
@@ -590,7 +590,7 @@ Source References
 - SRCREF-00011
 - SRCREF-01971
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-011_coaching_and_staff_intelligence.json",Done,High,historical;planning-program;w13;wave-completed;local-id-epic-011,player-context-intelligence,EPIC-011,EPIC-011,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-12,100012,"[EPIC-012] Environment, resources, venue and travel context",,"Local ID: EPIC-012
@@ -644,7 +644,7 @@ Source References
 - SRCREF-00012
 - SRCREF-01972
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-012_environment_resources_venue_and_travel_context.json",Done,High,historical;planning-program;w13;wave-completed;local-id-epic-012,player-context-intelligence,EPIC-012,EPIC-012,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-13,100013,"[EPIC-013] Possession, field position and special teams mechanics",,"Local ID: EPIC-013
@@ -699,7 +699,7 @@ Source References
 - SRCREF-00013
 - SRCREF-01973
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-013_possession_field_position_and_special_teams_mechanics.json",Done,High,historical;planning-program;w13;wave-completed;local-id-epic-013,release-readiness,EPIC-013,EPIC-013,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-14,100014,"[EPIC-014] Opponent adjustment, style and schedule stress",,"Local ID: EPIC-014
@@ -754,7 +754,7 @@ Source References
 - SRCREF-00014
 - SRCREF-01974
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-014_opponent_adjustment_style_and_schedule_stress.json",Done,High,historical;planning-program;w13;wave-completed;local-id-epic-014,release-readiness,EPIC-014,EPIC-014,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-15,100015,[EPIC-015] Advanced intelligence implementation realization,,"Local ID: EPIC-015
@@ -808,7 +808,7 @@ Source References
 - SRCREF-00015
 - SRCREF-01975
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-015_advanced_intelligence_implementation_realization.json",Done,High,historical;planning-program;w19-w20;wave-completed;local-id-epic-015,feature-engineering,EPIC-015,EPIC-015,PHASE-2,DONE,FUNCTIONAL_STARTER,VERIFIED,W19-W20,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-16,100016,[EPIC-016] Texas A&M high-resolution state,,"Local ID: EPIC-016
@@ -862,7 +862,7 @@ Source References
 - SRCREF-00016
 - SRCREF-01976
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-016_texas_a_and_m_high_resolution_state.json",Done,High,historical;planning-program;w14;wave-completed;local-id-epic-016,tamu-specialization,EPIC-016,EPIC-016,PHASE-3,DONE,CONTRACT_DEFINED,VERIFIED,W14,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-17,100017,[EPIC-017] A&M specialization architecture,,"Local ID: EPIC-017
@@ -916,7 +916,7 @@ Source References
 - SRCREF-00017
 - SRCREF-01977
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-017_a_and_m_specialization_architecture.json",Done,High,historical;planning-program;w14;wave-completed;local-id-epic-017,tamu-specialization,EPIC-017,EPIC-017,PHASE-3,DONE,CONTRACT_DEFINED,VERIFIED,W14,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-18,100018,[EPIC-018] Scientific BAS labels and cross-fitting,,"Local ID: EPIC-018
@@ -970,7 +970,7 @@ Source References
 - SRCREF-00018
 - SRCREF-01978
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-018_scientific_bas_labels_and_cross_fitting.json",Done,High,historical;planning-program;w15;wave-completed;local-id-epic-018,bas-science,EPIC-018,EPIC-018,PHASE-3,DONE,CONTRACT_DEFINED,VERIFIED,W15,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-19,100019,[EPIC-019] BAS decomposition and statistical validation,,"Local ID: EPIC-019
@@ -1024,7 +1024,7 @@ Source References
 - SRCREF-00019
 - SRCREF-01979
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-019_bas_decomposition_and_statistical_validation.json",Done,High,historical;planning-program;w15-w17;wave-completed;local-id-epic-019,bas-science,EPIC-019,EPIC-019,PHASE-3,DONE,CONTRACT_DEFINED,VERIFIED,W15-W17,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-20,100020,[EPIC-020] A&M specialization and BAS starter implementation,,"Local ID: EPIC-020
@@ -1078,7 +1078,7 @@ Source References
 - SRCREF-00020
 - SRCREF-01980
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-020_a_and_m_specialization_and_bas_starter_implementation.json",Done,High,historical;planning-program;w20;wave-completed;local-id-epic-020,bas-science,EPIC-020,EPIC-020,PHASE-3,DONE,FUNCTIONAL_STARTER,VERIFIED,W20,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-21,100021,"[EPIC-021] Model targets, joint score and simulation",,"Local ID: EPIC-021
@@ -1132,7 +1132,7 @@ Source References
 - SRCREF-00021
 - SRCREF-01981
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-021_model_targets_joint_score_and_simulation.json",Done,High,historical;planning-program;w16;wave-completed;local-id-epic-021,bas-science,EPIC-021,EPIC-021,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W16,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-22,100022,"[EPIC-022] Uncertainty, OOD and market lanes",,"Local ID: EPIC-022
@@ -1186,7 +1186,7 @@ Source References
 - SRCREF-00022
 - SRCREF-01982
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-022_uncertainty_ood_and_market_lanes.json",Done,High,historical;planning-program;w16-w17;wave-completed;local-id-epic-022,modeling,EPIC-022,EPIC-022,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W16-W17,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-23,100023,"[EPIC-023] Validation, benchmarking and promotion science",,"Local ID: EPIC-023
@@ -1240,7 +1240,7 @@ Source References
 - SRCREF-00023
 - SRCREF-01983
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-023_validation_benchmarking_and_promotion_science.json",Done,High,historical;planning-program;w17;wave-completed;local-id-epic-023,validation-promotion,EPIC-023,EPIC-023,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W17,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-24,100024,[EPIC-024] Experimentation and autonomous research system,,"Local ID: EPIC-024
@@ -1294,7 +1294,7 @@ Source References
 - SRCREF-00024
 - SRCREF-01984
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-024_experimentation_and_autonomous_research_system.json",Done,High,historical;planning-program;w18;wave-completed;local-id-epic-024,validation-promotion,EPIC-024,EPIC-024,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W18,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-25,100025,"[EPIC-025] Model, calibration and forecast starter implementation",,"Local ID: EPIC-025
@@ -1348,7 +1348,7 @@ Source References
 - SRCREF-00025
 - SRCREF-01985
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-025_model_calibration_and_forecast_starter_implementation.json",Done,High,historical;planning-program;w20;wave-completed;local-id-epic-025,modeling,EPIC-025,EPIC-025,PHASE-4,DONE,FUNCTIONAL_STARTER,VERIFIED,W20,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-26,100026,[EPIC-026] Autonomous weekly MLOps,,"Local ID: EPIC-026
@@ -1401,7 +1401,7 @@ Source References
 - SRCREF-00026
 - SRCREF-01986
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-026_autonomous_weekly_mlops.json",Done,High,historical;planning-program;w21;wave-completed;local-id-epic-026,mlops,EPIC-026,EPIC-026,PHASE-4,DONE,INTEGRATED,VERIFIED,W21,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-27,100027,"[EPIC-027] API, dashboard and forecast product",,"Local ID: EPIC-027
@@ -1455,7 +1455,7 @@ Source References
 - SRCREF-00027
 - SRCREF-01987
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-027_api_dashboard_and_forecast_product.json",Done,High,historical;planning-program;w22;wave-completed;local-id-epic-027,bas-science,EPIC-027,EPIC-027,PHASE-4,DONE,INTEGRATED,VERIFIED,W22,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-28,100028,"[EPIC-028] CI/CD, security, observability and local operations",,"Local ID: EPIC-028
@@ -1508,7 +1508,7 @@ Source References
 - SRCREF-00028
 - SRCREF-01988
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-028_ci_cd_security_observability_and_local_operations.json",To Do,High,historical;historical-open;planning-program;w23;local-id-epic-028,serving-product,EPIC-028,EPIC-028,PHASE-4,BLOCKED,INTEGRATED,PARTIAL,W23,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-29,100029,[EPIC-029] Advanced challenger framework,,"Local ID: EPIC-029
@@ -1561,7 +1561,7 @@ Source References
 - SRCREF-00029
 - SRCREF-01989
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-029_advanced_challenger_framework.json",To Do,Medium,historical;historical-open;planning-program;w18;local-id-epic-029,advanced-challengers,EPIC-029,EPIC-029,PHASE-5,DEFERRED,FUNCTIONAL_STARTER,PARTIAL,W18+,false,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-30,100030,[EPIC-030] Future live/in-game research lane,,"Local ID: EPIC-030
@@ -1613,7 +1613,7 @@ Source References
 - SRCREF-00030
 - SRCREF-01990
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-030_future_live_in_game_research_lane.json",To Do,Low,historical;historical-open;planning-program;w24;local-id-epic-030,live-modeling,EPIC-030,EPIC-030,PHASE-5,DEFERRED,FUNCTIONAL_STARTER,PARTIAL,W24+,false,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-31,100031,[EPIC-031] End-to-end readiness and source refresh,,"Local ID: EPIC-031
@@ -1668,7 +1668,7 @@ Source References
 - SRCREF-00031
 - SRCREF-01991
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-031_end_to_end_readiness_and_source_refresh.json",Done,High,historical;planning-program;w24;wave-completed;local-id-epic-031,release-readiness,EPIC-031,EPIC-031,PHASE-5,DONE,INTEGRATED,VERIFIED,W24,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-32,100032,[EPIC-032] Final consolidation and Codex handoff,,"Local ID: EPIC-032
@@ -1722,7 +1722,7 @@ Source References
 - SRCREF-00032
 - SRCREF-01992
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-032_final_consolidation_and_codex_handoff.json",Done,High,historical;planning-program;w25;wave-completed;local-id-epic-032,modeling,EPIC-032,EPIC-032,PHASE-5,DONE,INTEGRATED,VERIFIED,W25,true,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-33,100033,"[EPIC-033] Program governance, packaging and adaptive control",,"Local ID: EPIC-033
@@ -1777,7 +1777,7 @@ Source References
 - SRCREF-00033
 - SRCREF-01993
 
-Governance Traceability Gate: 
+Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/epics/EPIC-033_program_governance_packaging_and_adaptive_control.json",Done,High,historical;planning-program;w06-w25;wave-completed;local-id-epic-033,release-readiness,EPIC-033,EPIC-033,PHASE-4,DONE,CONTRACT_DEFINED,VERIFIED,W06-W25,false,SHARED_CONTRACT,HISTORICAL_REFERENCE
 Epic,BAT-34,100034,"[POST-EPIC-001] Target environment, reproducibility, and AC-038 hardware evidence",,"Local ID: POST-EPIC-001
@@ -1830,7 +1830,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Target environment, reproducibility, and AC-038 hardware evidence capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Target environment, reproducibility, and AC-038 hardware evidence and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -1855,10 +1855,10 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-009
 
 Canonical Record: jira/records/issues/epics/POST-EPIC-001_target_environment_reproducibility_and_ac_038_hardware_evidence.json",To Do,Highest,actionable;core-release;environment;post-wave;local-id-post-epic-001,operations-security,POST-EPIC-001,GAP-001;HANDOFF-001,PHASE-4,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,AGGREGATE_GATE
-Epic,BAT-35,100035,"[POST-EPIC-002] Source access, rights, credentials, and acquisition governance",,"Local ID: POST-EPIC-002
+Epic,BAT-35,100035,"[POST-EPIC-002] Source access, credentials, private-research acquisition, and publication governance",,"Local ID: POST-EPIC-002
 
 Objective
-Convert the researched source universe into approved production acquisition lanes with explicit rights, credentials, rate limits, fallbacks, and redistribution rules.
+Convert the researched source universe into technically operable private-research acquisition lanes with explicit credentials, provenance, rate limits, fallbacks, quality gates, and a no-raw-publication boundary.
 
 Why This Exists
 The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
@@ -1905,7 +1905,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Source access, rights, credentials, and acquisition governance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Source access, credentials, private-research acquisition, and publication governance and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -1933,7 +1933,7 @@ Canonical Record: jira/records/issues/epics/POST-EPIC-002_source_access_rights_c
 Epic,BAT-36,100036,[POST-EPIC-003] Immutable national historical data materialization,,"Local ID: POST-EPIC-003
 
 Objective
-Acquire approved national history into immutable, content-addressed raw snapshots with population-level coverage, rights, and provenance evidence.
+Acquire maximum quality-supported national history into immutable, content-addressed raw snapshots with population-level coverage and provenance evidence; source rights metadata is nonblocking for private research.
 
 Why This Exists
 The final W25 handoff identifies this capability as necessary to move from accepted design/functional starters to evidence-backed implementation, empirical validation, production readiness, or operation.
@@ -1980,7 +1980,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Immutable national historical data materialization capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Immutable national historical data materialization and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2054,7 +2054,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Population schema profiling and canonical entity resolution capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Population schema profiling and canonical entity resolution and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2128,7 +2128,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Point-in-time historical state and protected replay capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Point-in-time historical state and protected replay and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2204,7 +2204,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Production feature materialization and lifecycle capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Production feature materialization and lifecycle and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2282,7 +2282,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Player, roster, recruiting, coaching, and matchup intelligence capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Player, roster, recruiting, coaching, and matchup intelligence and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2360,7 +2360,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Reproducible baseline, coherent score, probability, and uncertainty modeling capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Reproducible baseline, coherent score, probability, and uncertainty modeling and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2440,7 +2440,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Texas A&M high-resolution specialization and no-lift-safe evaluation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Texas A&M high-resolution specialization and no-lift-safe evaluation and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2519,7 +2519,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Scientific BAS, general FBS surprise, Aggie excess, and component validation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Scientific BAS, general FBS surprise, Aggie excess, and component validation and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2599,7 +2599,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Protected chronological evaluation, calibration, and champion promotion capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Protected chronological evaluation, calibration, and champion promotion and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2676,7 +2676,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Autonomous weekly real-data execution and immutable forecast publication capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Autonomous weekly real-data execution and immutable forecast publication and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2750,7 +2750,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Snapshot API, dashboard, explanations, analogs, and freshness-safe product capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Snapshot API, dashboard, explanations, analogs, and freshness-safe product and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2827,7 +2827,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Security, observability, backup/restore, drift, and incident operations capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Security, observability, backup/restore, drift, and incident operations and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2907,7 +2907,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Full end-to-end release candidate and operating acceptance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Full end-to-end release candidate and operating acceptance and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -2983,7 +2983,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Conditional advanced challenger research and admission capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Conditional advanced challenger research and admission and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.
@@ -3060,7 +3060,7 @@ Required Evidence
 - A residual-risk/blocker disposition and maturity/evidence claim audit tied to exact artifact and runtime identities.
 
 End-to-End Validation
-The entire Deferred live and in-game modeling capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Deferred live and in-game modeling and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 Stop Conditions
 - Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.

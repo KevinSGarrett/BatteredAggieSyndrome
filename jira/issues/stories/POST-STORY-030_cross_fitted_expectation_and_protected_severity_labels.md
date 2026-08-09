@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.",
+    "Each game expectation comes from a model fit without that outcome, inside permitted chronology, with model/fold/data/feature/cutoff/calibration identities per row.",
+    "The declared output `artifacts/bas/crossfit_expectation_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Labels use actual performance versus valid expected margin with ≥7 as headline, so a win may be BAS and a loss may not; thresholds/direction are sealed before A&M results.",
+    "The declared output `artifacts/bas/bas_label_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Synthetic sign cases and real spot checks prove semantics, every label links to expectation/outcome evidence, and any implementation equating BAS with loss probability fails.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
     "A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct."
   ],
   "adr_ids": [],
@@ -119,7 +123,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-030",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Generate leakage-safe expected margins and ≥3/7/14/21 residual labels with anti-circularity.",
@@ -135,7 +139,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.",
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.",
     "Redefining BAS as generic Texas A&M loss probability or selecting specifications merely to manufacture a nonzero Aggie-specific effect."
   ],
   "owner_wave": "POST_W25",
@@ -248,7 +252,7 @@
     "SRCREF-00999",
     "SRCREF-01000"
   ],
-  "specificity_fingerprint": "e48a55616c28e584bdbe1c2eab5b0e9e3a04d2fe4bf5a2fc700c2886ee1f438b",
+  "specificity_fingerprint": "1108866aeaaa4738770561c63e1cf827406fbe0a34ebff9debd040190aa58063",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs.",
     "Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result."
@@ -309,7 +313,7 @@ Deliver Story POST-STORY-030 (Cross-fitted expectation and protected severity la
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 - Redefining BAS as generic Texas A&M loss probability or selecting specifications merely to manufacture a nonzero Aggie-specific effect.
 
 ## Prerequisites
@@ -384,10 +388,14 @@ Deliver Story POST-STORY-030 (Cross-fitted expectation and protected severity la
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
-4. A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct.
+1. Each game expectation comes from a model fit without that outcome, inside permitted chronology, with model/fold/data/feature/cutoff/calibration identities per row.
+2. The declared output `artifacts/bas/crossfit_expectation_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Labels use actual performance versus valid expected margin with ≥7 as headline, so a win may be BAS and a loss may not; thresholds/direction are sealed before A&M results.
+5. The declared output `artifacts/bas/bas_label_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Synthetic sign cases and real spot checks prove semantics, every label links to expectation/outcome evidence, and any implementation equating BAS with loss probability fails.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+8. A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct.
 
 ## Definition of Done
 

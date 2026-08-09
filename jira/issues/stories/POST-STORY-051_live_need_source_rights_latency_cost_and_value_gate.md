@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Research does not bypass CAPTCHA/authentication/rate limits/access controls, assumes no public-equals-redistributable rights, and records unavailable/unaffordable sources as blockers.",
+    "The declared output `artifacts/live/live_source_research.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.",
+    "The declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "TASK-169–172 remain deferred unless user/governance explicitly admits the separate scope; no Wave 26 exists and deferred live work is not unfinished core v1.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -109,7 +113,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-051",
   "maturity_before": "DEFERRED",
   "objective": "Decide whether live scope should ever activate without weakening the pregame product.",
@@ -125,7 +129,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-017",
@@ -224,7 +228,7 @@
     "SRCREF-00204",
     "SRCREF-00205"
   ],
-  "specificity_fingerprint": "494e02b7520f274f4480d29074b2c800ac21793b67f0d0566e1d852a933ba8ba",
+  "specificity_fingerprint": "4ce34f73fbba77261e807991a3e1443a0e29a8fd350fc8bd45413c346738b4c2",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -282,7 +286,7 @@ Deliver Story POST-STORY-051 (Live need, source, rights, latency, cost, and valu
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -350,9 +354,13 @@ Deliver Story POST-STORY-051 (Live need, source, rights, latency, cost, and valu
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Research does not bypass CAPTCHA/authentication/rate limits/access controls, assumes no public-equals-redistributable rights, and records unavailable/unaffordable sources as blockers.
+2. The declared output `artifacts/live/live_source_research.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.
+5. The declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. TASK-169–172 remain deferred unless user/governance explicitly admits the separate scope; no Wave 26 exists and deferred live work is not unfinished core v1.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

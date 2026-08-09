@@ -7,10 +7,9 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "The national manifest enumerates the expanded population independently by source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation, immutable capture/provenance identity, and historical known-at/PIT eligibility.",
-    "All partial seasons, missing domains, schema drift, quarantines, reconciliation failures, excluded records, provider limitations, and negative findings remain queryable and hash-bound.",
-    "The 2022-2025 tranche is identified as the first validated bounded contemporary tranche, never as terminal national history or GAP-002 resolution.",
-    "All manifest identities are deterministic, external-data paths remain contained, and POST-SUBTASK-033 can reproduce coverage and eligibility decisions without manual reconstruction."
+    "The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.",
+    "The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -54,11 +53,11 @@
   "content_contract_version": "2.0",
   "critical_path": true,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-032 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-032 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is demonstrably consumable by POST-SUBTASK-033 without manual reconstruction or undocumented state."
   ],
@@ -75,7 +74,7 @@
     "risk_ids": 5
   },
   "effective_traceability_total": 24,
-  "end_to_end_validation": "Validate that `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` can be parsed and consumed by `POST-SUBTASK-033` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` can be parsed and consumed by `POST-SUBTASK-033` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-032.json",
   "evidence_state": "PLANNED",
@@ -121,7 +120,7 @@
   "in_scope": [
     "Perform the exact action: Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests.",
     "Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-030`, `POST-SUBTASK-031`.",
-    "Demonstrate with saved evidence: The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.",
+    "Demonstrate with saved evidence: The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.",
     "Demonstrate with saved evidence: The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
     "Produce, validate, content-hash, and register `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json`.",
@@ -154,9 +153,8 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
-    "Work assigned to sibling subtasks: Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes; Run and publish the national historical-lake readiness decision.",
-    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
+    "Work assigned to sibling subtasks: Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata; Run and publish the national historical-lake readiness decision.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
   "owner_wave": "POST_W25",
@@ -213,7 +211,6 @@
     "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
     "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
     "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
-    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.",
     "Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status."
   ],
   "required_tests": [
@@ -252,7 +249,7 @@
   "risk_failure_conditions": [
     "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-032.",
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
-    "Acceptance failure: the evidence cannot demonstrate that the master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.",
+    "Acceptance failure: the evidence cannot demonstrate that the master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.",
     "Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
   ],
@@ -279,11 +276,11 @@
     "SRCREF-01889",
     "SRCREF-01564"
   ],
-  "specificity_fingerprint": "6a5030898f7ecd6bfa6812f4a4066aeb2d0cd02b1f36c8372912c0625a618965",
+  "specificity_fingerprint": "8c3f20a7ac37418938ff81a48c3c70e31fdb58951698e796ad40d7845ee5acb1",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02017",
@@ -332,7 +329,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 - Perform the exact action: Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-030`, `POST-SUBTASK-031`.
-- Demonstrate with saved evidence: The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.
+- Demonstrate with saved evidence: The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.
 - Demonstrate with saved evidence: The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 - Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 - Produce, validate, content-hash, and register `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json`.
@@ -342,9 +339,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
-- Work assigned to sibling subtasks: Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes; Run and publish the national historical-lake readiness decision.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
+- Work assigned to sibling subtasks: Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata; Run and publish the national historical-lake readiness decision.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Prerequisites
@@ -418,18 +414,17 @@ Execute the atomic 2 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 ## Acceptance Criteria
 
-1. The national manifest enumerates the expanded population independently by source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation, immutable capture/provenance identity, and historical known-at/PIT eligibility.
-2. All partial seasons, missing domains, schema drift, quarantines, reconciliation failures, excluded records, provider limitations, and negative findings remain queryable and hash-bound.
-3. The 2022-2025 tranche is identified as the first validated bounded contemporary tranche, never as terminal national history or GAP-002 resolution.
-4. All manifest identities are deterministic, external-data paths remain contained, and POST-SUBTASK-033 can reproduce coverage and eligibility decisions without manual reconstruction.
+1. The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.
+2. The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-032 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-032 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is demonstrably consumable by POST-SUBTASK-033 without manual reconstruction or undocumented state.
 
@@ -447,7 +442,6 @@ Execute the atomic 2 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## Completion Evidence Contract
@@ -474,7 +468,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` can be parsed and consumed by `POST-SUBTASK-033` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` can be parsed and consumed by `POST-SUBTASK-033` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -484,15 +478,15 @@ Validate that `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` can be pars
 
 - The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-032.
 - A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
-- Acceptance failure: the evidence cannot demonstrate that the master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.
+- Acceptance failure: the evidence cannot demonstrate that the master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.
 - Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 - Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

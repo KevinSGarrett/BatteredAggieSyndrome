@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "State rows retain canonical identity, effective/known-at time, source evidence, and version; corrections append and future observations do not alter prior as-of reads.",
+    "The declared output `artifacts/pit/asof_state_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Each game/cutoff row uses only eligible state, handles home/away/neutral/lower-division/cancellations deterministically, and separates structural/not-known/source/resolution/pipeline missingness.",
+    "The declared output `artifacts/pit/pregame_matrix_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Approved matrices are content-hashed, split-blind, reproducible from pinned raw/entity/state versions, and cannot pass on successful file creation alone.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -111,7 +115,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-016",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Reconstruct what was known for each game/cutoff and materialize row-level model inputs with complete lineage.",
@@ -127,7 +131,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-005",
@@ -238,7 +242,7 @@
     "SRCREF-01567",
     "SRCREF-01568"
   ],
-  "specificity_fingerprint": "4dde9f4edd143498956208fadcb205413b84e074b43c0d12ed5e9fe27a42e292",
+  "specificity_fingerprint": "68f8e98d50e9cec6952664b3fa411ff407798289d2b4d97b2bb61cc25ed91b0d",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

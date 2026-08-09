@@ -53,11 +53,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-128 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-128 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/operations/drift_alert_validation.json` is demonstrably consumable by POST-SUBTASK-129 without manual reconstruction or undocumented state."
   ],
@@ -74,7 +74,7 @@
     "risk_ids": 10
   },
   "effective_traceability_total": 67,
-  "end_to_end_validation": "Validate that `artifacts/operations/drift_alert_validation.json` can be parsed and consumed by `POST-SUBTASK-129` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/operations/drift_alert_validation.json` can be parsed and consumed by `POST-SUBTASK-129` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-128.json",
   "evidence_state": "PLANNED",
@@ -139,7 +139,7 @@
     "post-wave",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-128",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Implement source/API/terms/schema/entity/feature/data/model/concept/freshness/security/governance drift detectors plus alert severity/dedup/ack/escalation",
@@ -155,9 +155,9 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Instrument run/stage/source/snapshot/entity/matrix/feature/model/product identifiers, metrics, structured events, health, and redaction; Run outage, schema, stale forecast, disk, corrupt artifact, model, security, and governance-conflict game days through incident/rollback/substitution runbooks.",
-    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.",
+    "Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
   "owner_wave": "POST_W25",
@@ -216,7 +216,7 @@
     "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
     "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
     "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
-    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.",
+    "Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.",
     "Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status."
   ],
   "required_tests": [
@@ -233,14 +233,14 @@
       "validation_class": "REGRESSION"
     },
     {
-      "classification": "LEGAL_RIGHTS_REVIEW",
-      "expectation": "A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.",
-      "path": "MANUAL_REVIEW_REQUIRED",
-      "validation_class": "LEGAL_RIGHTS_REVIEW"
+      "classification": "PUBLICATION_BOUNDARY_REVIEW",
+      "expectation": "Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.",
+      "path": "MANUAL",
+      "validation_class": "PUBLICATION_BOUNDARY_REVIEW"
     },
     {
       "classification": "MANUAL",
-      "expectation": "Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.",
+      "expectation": "Verify the private-use decision, metadata state, technical/quality scope, and future-publication boundary.",
       "path": "artifacts/operations/drift_alert_validation.json",
       "validation_class": "MANUAL"
     },
@@ -305,11 +305,11 @@
     "SRCREF-02006",
     "SRCREF-01898"
   ],
-  "specificity_fingerprint": "2534864f2f163f748cfda5bef4577bb6c02bc1fc8481d8a0a636b476c3d82111",
+  "specificity_fingerprint": "2813eb24bbee87bfe5abb24cb83adc237b2bca0f21fa4d2bd39c4a890187b40c",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02096",
@@ -331,9 +331,9 @@
   "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "INTEGRATION",
-    "LEGAL_RIGHTS_REVIEW",
     "MANUAL",
     "OPERATIONS",
+    "PUBLICATION_BOUNDARY_REVIEW",
     "REGRESSION",
     "REPRODUCIBILITY",
     "SCIENTIFIC",
@@ -371,9 +371,9 @@ Execute the atomic 2 of 3 step in Story POST-STORY-043 (Structured observability
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Instrument run/stage/source/snapshot/entity/matrix/feature/model/product identifiers, metrics, structured events, health, and redaction; Run outage, schema, stale forecast, disk, corrupt artifact, model, security, and governance-conflict game days through incident/rollback/substitution runbooks.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Prerequisites
@@ -455,11 +455,11 @@ Execute the atomic 2 of 3 step in Story POST-STORY-043 (Structured observability
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-128 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-128 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/operations/drift_alert_validation.json` is demonstrably consumable by POST-SUBTASK-129 without manual reconstruction or undocumented state.
 
@@ -467,8 +467,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-043 (Structured observability
 
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_w23_operations.py` — Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tools/validate_w23_operations.py` — Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.
-- **LEGAL_RIGHTS_REVIEW** / `LEGAL_RIGHTS_REVIEW` — `MANUAL_REVIEW_REQUIRED` — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
-- **MANUAL** / `MANUAL` — `artifacts/operations/drift_alert_validation.json` — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
+- **PUBLICATION_BOUNDARY_REVIEW** / `PUBLICATION_BOUNDARY_REVIEW` — `MANUAL` — Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.
+- **MANUAL** / `MANUAL` — `artifacts/operations/drift_alert_validation.json` — Verify the private-use decision, metadata state, technical/quality scope, and future-publication boundary.
 - **SCIENTIFIC** / `SCIENTIFIC` — `artifacts/operations/drift_alert_validation.json` — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - **SECURITY** / `SECURITY` — `artifacts/operations/drift_alert_validation.json` — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - **OPERATIONS** / `OPERATIONS` — `artifacts/operations/drift_alert_validation.json` — Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.
@@ -481,7 +481,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-043 (Structured observability
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## Completion Evidence Contract
@@ -508,7 +508,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-043 (Structured observability
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/operations/drift_alert_validation.json` can be parsed and consumed by `POST-SUBTASK-129` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/operations/drift_alert_validation.json` can be parsed and consumed by `POST-SUBTASK-129` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -524,9 +524,9 @@ Validate that `artifacts/operations/drift_alert_validation.json` can be parsed a
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

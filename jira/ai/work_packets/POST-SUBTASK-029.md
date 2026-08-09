@@ -8,7 +8,7 @@
 
 ## What am I implementing?
 
-Measure expanded historical eligibility independently across every required coverage and provenance dimension
+Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata
 
 ## Why?
 
@@ -16,25 +16,24 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Atomic execution scope
 
-Profile the POST-SUBTASK-028 expanded acquisition population independently across source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation quality, immutable capture/provenance identity, and historical known-at/PIT eligibility. Preserve partial and negative evidence, and hand a deterministic population profile to POST-SUBTASK-030 for tiered eligibility decisions.
+Execute the atomic 2 of 3 step in Story POST-STORY-010 (Historical expansion across core and supporting domains): Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-028`. Produce `artifacts/data_lake/context_population_profile.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-030.
 
 ### In scope
 
-- Perform the exact action: Profile expanded cross-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class.
+- Perform the exact action: Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-028`.
 - Demonstrate with saved evidence: Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
-- Demonstrate with saved evidence: The declared output `artifacts/data_lake/historical_expansion_population_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+- Demonstrate with saved evidence: The declared output `artifacts/data_lake/context_population_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 - Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
-- Produce, validate, content-hash, and register `artifacts/data_lake/historical_expansion_population_profile.json`.
+- Produce, validate, content-hash, and register `artifacts/data_lake/context_population_profile.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
 ### Out of scope
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
-- Work assigned to sibling subtasks: Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence; Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
+- Work assigned to sibling subtasks: Expand immutable national core and supporting-domain history to the maximum quality-supported seasons; Gate domain-by-domain production, experimental, conditional, rejected, or unavailable eligibility.
 - Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
@@ -105,38 +104,36 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Coverage is measured independently by source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation, immutable capture/provenance identity, and historical known-at/PIT eligibility.
-2. Partial seasons, missing domains, schema drift, provider limitations, unresolved identities, reconciliation failures, and negative findings are retained rather than collapsed into a global pass/fail.
-3. The profile spans the maximum acquired quality-supported history, targets approximately 2010-2025 and earlier supported seasons, and flags any silent four-season or 2022-2025 terminal assumption as a failure.
-4. The deterministic profile is consumable by POST-SUBTASK-030 without manual reconstruction or hidden completeness assumptions.
+1. Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
+2. The declared output `artifacts/data_lake/context_population_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w19_foundation.py — Run as a regression check after completing POST-SUBTASK-029; retain command, exit code, and relevant output.
-- CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/historical_expansion_population_profile.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
-- SCIENTIFIC / SCIENTIFIC: artifacts/data_lake/historical_expansion_population_profile.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
-- STATIC_VALIDATION / STATIC_VALIDATION: artifacts/data_lake/historical_expansion_population_profile.json — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
+- CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/context_population_profile.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
+- SCIENTIFIC / SCIENTIFIC: artifacts/data_lake/context_population_profile.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
+- STATIC_VALIDATION / STATIC_VALIDATION: artifacts/data_lake/context_population_profile.json — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
 
 ## Evidence to return
 
-- `artifacts/data_lake/historical_expansion_population_profile.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- `artifacts/data_lake/context_population_profile.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
 - PIT evidence showing prediction cutoff, known-at fields, rejected future/same-game/postgame records, fold/split identity, and leakage-test results.
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## End-to-end handoff
 
-POST-SUBTASK-030 must reproduce every season/domain eligibility input from the pinned expanded acquisition and population-profile identities and reject collapsed, missing, silently truncated, or fabricated coverage evidence.
+Validate that `artifacts/data_lake/context_population_profile.json` can be parsed and consumed by `POST-SUBTASK-030` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

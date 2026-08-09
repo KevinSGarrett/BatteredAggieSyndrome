@@ -22,9 +22,9 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - Perform the exact action: Run authenticated and no-key source access smoke tests with rate-limit capture.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-019`.
-- Demonstrate with saved evidence: Each approved source returns a minimally sufficient response or a precise access blocker.
-- Demonstrate with saved evidence: HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.
-- Demonstrate with saved evidence: Smoke tests do not bulk-download data or expose secrets.
+- Demonstrate with saved evidence: Each selected source preserves a minimally sufficient technical response or a precise pending technical action.
+- Demonstrate with saved evidence: HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.
+- Demonstrate with saved evidence: Smoke tests do not expose secrets or fabricate unobserved results.
 - Produce, validate, content-hash, and register `artifacts/source_governance/source_access_smoke_results.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
@@ -32,7 +32,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Define credential names, scopes, owners, rotation, and non-repository storage contract; Validate access readiness and generate source-specific unblock conditions.
 - Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
 
@@ -76,7 +76,6 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - artifacts/source_governance/source_access_smoke_results.json
 - artifacts/jira_evidence/POST-SUBTASK-020.json
-- tests/test_source_access_smoke_results.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -104,17 +103,19 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Each approved source returns a minimally sufficient response or a precise access blocker.
-2. HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.
-3. Smoke tests do not bulk-download data or expose secrets.
+1. Each selected source preserves a minimally sufficient technical response or a precise pending technical action.
+2. HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.
+3. Smoke tests do not expose secrets or fabricate unobserved results.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_data_research.py — Run as a regression check after completing POST-SUBTASK-020; retain command, exit code, and relevant output.
+- EXISTING_AUTOMATED_TEST / REGRESSION: artifacts/source_governance/source_access_smoke_results.json — Run as a regression check after completing POST-SUBTASK-020; retain command, exit code, and relevant output.
+- EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_source_access_smoke_results.py — Run as a regression check after completing POST-SUBTASK-020; retain command, exit code, and relevant output.
 - SECURITY / SECURITY: artifacts/source_governance/source_access_smoke_results.json — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - INTEGRATION / INTEGRATION: artifacts/source_governance/source_access_smoke_results.json — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: tests/test_source_access_smoke_results.py — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW_TEST_REQUIRED::POST-SUBTASK-020 — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Evidence to return
 
@@ -126,13 +127,13 @@ Produce and validate these outputs within this atomic work unit:
 
 ## End-to-end handoff
 
-Validate that `artifacts/source_governance/source_access_smoke_results.json` can be parsed and consumed by `POST-SUBTASK-021` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/source_governance/source_access_smoke_results.json` can be parsed and consumed by `POST-SUBTASK-021` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

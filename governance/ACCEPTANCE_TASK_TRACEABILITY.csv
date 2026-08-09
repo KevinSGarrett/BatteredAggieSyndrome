@@ -958,3 +958,10 @@ AC-231,TASK-175,PRIMARY,Current source-owner/official refresh delta against W06.
 AC-232,TASK-176,PRIMARY,Major architecture decisions classified KEEP/REVISE/DEFER/REJECT.
 AC-233,TASK-177,PRIMARY,User sequencing override documented while W23 target blocker remains unchanged.
 AC-234,TASK-178,PRIMARY,W24 scope gates pass and W25 handoff explicitly carries AC-038 condition.
+AC-008,TASK-202,PRIMARY,Private acquisition outputs retain immutable identity and provenance
+AC-009,TASK-202,PRIMARY,Source registry admits private use and preserves source metadata
+AC-010,TASK-202,PRIMARY,Raw third-party publication remains denied while private acquisition is allowed
+AC-043,TASK-202,PRIMARY,No unsupported maturity or rights claim is fabricated
+AC-055,TASK-202,PRIMARY,Regression tests prove policy semantics
+AC-056,TASK-202,PRIMARY,Generated evidence and Jira derivatives remain reproducible
+AC-059,TASK-202,PRIMARY,Negative technical and quality findings remain scoped and preserved

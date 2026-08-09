@@ -17,7 +17,13 @@ class SourceRightsAction(str, Enum):
 
 
 class SourceRightsDenied(PermissionError):
-    """Raised when a source/action pair lacks an explicit current approval."""
+    """Raised only when a use is outside the private-research policy envelope.
+
+    The legacy class name is retained for API compatibility. Licensing,
+    redistribution ambiguity, provider preference, and missing upstream
+    authorization are never reasons to raise this exception for private local
+    acquisition or training.
+    """
 
 
 @dataclass(frozen=True)
@@ -55,10 +61,14 @@ class SourceRightsRegistry:
     @classmethod
     def load(cls, path: Path, *, verify_inputs: bool = True) -> "SourceRightsRegistry":
         payload = json.loads(path.read_text(encoding="utf-8"))
-        if payload.get("schema_version") != "1.0.0":
+        if payload.get("schema_version") != "2.0.0":
             raise ValueError("SOURCE_RIGHTS_SCHEMA_UNSUPPORTED")
-        if payload.get("registry_status") != "VERIFIED":
+        if payload.get("registry_status") != "ACTIVE_PRIVATE_RESEARCH_POLICY":
             raise ValueError("SOURCE_RIGHTS_REGISTRY_NOT_VERIFIED")
+        if payload.get("private_research_acquisition_default") != "ALLOW_PUBLIC_OR_OWNER_CREDENTIALED":
+            raise ValueError("SOURCE_USE_PRIVATE_RESEARCH_DEFAULT_UNSAFE")
+        if payload.get("rights_metadata_nonblocking") is not True:
+            raise ValueError("SOURCE_USE_RIGHTS_METADATA_MUST_BE_NONBLOCKING")
         if payload.get("project_raw_export_default") != "DENY":
             raise ValueError("SOURCE_RIGHTS_RAW_EXPORT_DEFAULT_UNSAFE")
         entries = payload.get("sources")
@@ -104,8 +114,14 @@ class SourceRightsRegistry:
             substitutes = entry.get("substitute_source_ids", [])
             if not isinstance(substitutes, list) or not all(isinstance(value, str) for value in substitutes):
                 raise ValueError(f"SOURCE_RIGHTS_SUBSTITUTES_INVALID:{source_id}")
-            if entry["production_acquisition_allowed"] and entry.get("lane_disposition") != "PRODUCTION_APPROVED":
-                raise ValueError(f"SOURCE_RIGHTS_UNSAFE_PRODUCTION_PROMOTION:{source_id}")
+            if not (
+                entry["production_acquisition_allowed"]
+                and entry["experimental_acquisition_allowed"]
+                and entry["local_model_training_allowed"]
+            ):
+                raise ValueError(f"SOURCE_USE_PRIVATE_RESEARCH_ACQUISITION_REQUIRED:{source_id}")
+            if entry.get("lane_disposition") != "PRIVATE_RESEARCH_ALLOWED":
+                raise ValueError(f"SOURCE_USE_STALE_RIGHTS_LANE:{source_id}")
             if entry["raw_export_allowed"] and not entry["production_acquisition_allowed"]:
                 raise ValueError(f"SOURCE_RIGHTS_UNSAFE_RAW_EXPORT:{source_id}")
             if entry["raw_export_allowed"]:
@@ -131,18 +147,44 @@ class SourceRightsRegistry:
             decisions=decisions,
         )
 
-    def require(self, source_id: str, action: SourceRightsAction | str) -> SourceRightsDecision:
+    def require(
+        self,
+        source_id: str,
+        action: SourceRightsAction | str,
+        *,
+        publicly_accessible: bool = False,
+    ) -> SourceRightsDecision:
         try:
             normalized_action = action if isinstance(action, SourceRightsAction) else SourceRightsAction(action)
         except ValueError as exc:
             raise SourceRightsDenied(f"SOURCE_RIGHTS_ACTION_UNKNOWN:{action}") from exc
         decision = self.decisions.get(source_id)
         if decision is None:
-            raise SourceRightsDenied(f"SOURCE_RIGHTS_SOURCE_UNKNOWN:{source_id}")
+            if publicly_accessible and normalized_action in {
+                SourceRightsAction.ACQUIRE_PRODUCTION,
+                SourceRightsAction.ACQUIRE_EXPERIMENTAL,
+                SourceRightsAction.TRAIN_LOCAL,
+            }:
+                return SourceRightsDecision(
+                    source_id=source_id,
+                    provider="UNREGISTERED_PUBLIC_SOURCE",
+                    dataset="UNREGISTERED_PUBLIC_FACTUAL_DATA",
+                    lane_disposition="PRIVATE_RESEARCH_ALLOWED",
+                    rights_decision="METADATA_ONLY_NONBLOCKING",
+                    authorized_acquisition_route="CALLER_DECLARED_PUBLICLY_ACCESSIBLE_ROUTE",
+                    production_acquisition_allowed=True,
+                    experimental_acquisition_allowed=True,
+                    raw_export_allowed=False,
+                    derived_export_allowed=False,
+                    local_model_training_allowed=True,
+                    substitute_source_ids=(),
+                    revalidation_trigger="PUBLIC_DISTRIBUTION_OR_COMMERCIALIZATION_PROPOSED",
+                )
+            raise SourceRightsDenied(f"SOURCE_USE_PUBLIC_ACCESS_UNCONFIRMED:{source_id}")
         if not decision.allows(normalized_action):
             substitutes = ";".join(decision.substitute_source_ids) or "NONE"
             raise SourceRightsDenied(
-                f"SOURCE_RIGHTS_DENIED:{source_id}:{normalized_action.value}:"
+                f"SOURCE_USE_DENIED:{source_id}:{normalized_action.value}:"
                 f"{decision.lane_disposition}:SUBSTITUTES={substitutes}"
             )
         return decision

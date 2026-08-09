@@ -59,7 +59,7 @@
     "risk_ids": 13
   },
   "effective_traceability_total": 120,
-  "end_to_end_validation": "The entire Scientific BAS, general FBS surprise, Aggie excess, and component validation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Scientific BAS, general FBS surprise, Aggie excess, and component validation and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-010.json",
   "evidence_state": "PLANNED",
@@ -126,7 +126,7 @@
     "core-release",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-010",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Validate BAS as out-of-sample A&M underperformance relative to a strictly valid pregame expectation, never as generic loss probability and never by forcing a nonzero effect.",
@@ -253,7 +253,7 @@
     "SRCREF-01895",
     "SRCREF-01571"
   ],
-  "specificity_fingerprint": "5aed313ff1e7516ff573b8fb0dbc69b0449b97d9be18b566e8af311728783a99",
+  "specificity_fingerprint": "ec22b60d8d8c72b5f845b1e1b671bec00e1450813d864873e16e5f54fea6ba1c",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved.",
     "Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result."
@@ -433,7 +433,7 @@ All Stories and Subtasks under this Epic for the bas domain, including its expli
 
 ## End-to-End Validation Requirement
 
-The entire Scientific BAS, general FBS surprise, Aggie excess, and component validation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Scientific BAS, general FBS surprise, Aggie excess, and component validation and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

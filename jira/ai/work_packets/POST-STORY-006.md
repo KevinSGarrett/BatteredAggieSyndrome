@@ -8,7 +8,7 @@
 
 ## What capability or closure gate am I coordinating?
 
-Establish auditable source-rights decisions before bulk acquisition or redistribution.
+Apply the owner-authorized private-research policy universally while preserving license/terms/redistribution metadata and independently denying raw third-party publication.
 
 ## Why?
 
@@ -16,13 +16,13 @@ This coherent capability closes a defined portion of Source access, rights, cred
 
 ## Aggregate integration and closure scope
 
-Deliver Story POST-STORY-006 (Per-source license, terms, and redistribution decisions) as one coherent, gated capability inside Epic POST-EPIC-002. Execute child subtasks POST-SUBTASK-016, POST-SUBTASK-017, POST-SUBTASK-018 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-018` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
+Deliver Story POST-STORY-006 (Universal private-research acquisition and future-publication boundary) as one coherent, gated capability inside Epic POST-EPIC-002. Execute child subtasks POST-SUBTASK-016, POST-SUBTASK-017, POST-SUBTASK-018 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-018` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
 
 ### In scope
 
-- Complete and verify child `POST-SUBTASK-016` — Complete rights review for CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA lanes.
-- Complete and verify child `POST-SUBTASK-017` — Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes.
-- Complete and verify child `POST-SUBTASK-018` — Publish the approved source-rights matrix and block disallowed acquisition/export paths.
+- Complete and verify child `POST-SUBTASK-016` — Reissue CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA decisions under private-research policy.
+- Complete and verify child `POST-SUBTASK-017` — Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy.
+- Complete and verify child `POST-SUBTASK-018` — Publish the private-research source-use matrix and block raw third-party publication.
 - Integrate the child outputs and execute final gate `POST-SUBTASK-018`.
 - Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence.
 
@@ -30,7 +30,7 @@ Deliver Story POST-STORY-006 (Per-source license, terms, and redistribution deci
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -100,9 +100,15 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Each decision records source URL/version, review date, local storage, local training, publication boundary, retention, and attribution metadata.
+2. Ambiguous license, terms, scraping, redistribution, and upstream-authorization fields are explicitly nonblocking for private acquisition/training.
+3. Bulk raw data remains local outside Git and is not published.
+4. Every supplemental source is acquisition-eligible for private research; technical readiness and domain quality remain independent.
+5. Genuinely private resources needing unsupplied credentials remain technically unavailable and public substitutes are sought.
+6. Raw third-party publication is denied by project policy.
+7. The registry is machine-readable and contains no credentials.
+8. All registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.
+9. Raw third-party export remains independently denied and validity/safety gates remain scoped.
 
 ## Tests / validation
 
@@ -119,7 +125,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-A production acquisition/export attempt is allowed or blocked solely by explicit current rights decisions, with no implicit public-equals-redistributable assumption.
+Private local acquisition and training succeed independently of rights ambiguity, raw third-party publication remains denied, and actual technical/quality/PIT/safety failures affect only their exact scope.
 
 ## Stop instead of improvising when
 

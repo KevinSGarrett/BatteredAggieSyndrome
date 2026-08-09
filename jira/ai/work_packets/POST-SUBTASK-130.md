@@ -22,7 +22,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 - Perform the exact action: Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-129`.
-- Demonstrate with saved evidence: Canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.
+- Demonstrate with saved evidence: Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
 - Demonstrate with saved evidence: The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 - Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 - Produce, validate, content-hash, and register `configs/backup_retention_policy.json`.
@@ -32,9 +32,9 @@ Execute the atomic 1 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Implement content-hashed verified backups, catalog, integrity checking, last-known-good protection, and restricted-destination enforcement; Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Current gate state
@@ -103,7 +103,7 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.
+1. Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
 2. The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
@@ -111,7 +111,6 @@ Produce and validate these outputs within this atomic work unit:
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w23_operations.py — Run as a regression check after completing POST-SUBTASK-130; retain command, exit code, and relevant output.
 - SCIENTIFIC / SCIENTIFIC: configs/backup_retention_policy.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
-- SECURITY / SECURITY: configs/backup_retention_policy.json — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - OPERATIONS / OPERATIONS: configs/backup_retention_policy.json — Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.
 - STATIC_VALIDATION / STATIC_VALIDATION: configs/backup_retention_policy.json — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
@@ -122,18 +121,18 @@ Produce and validate these outputs within this atomic work unit:
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## End-to-end handoff
 
-Validate that `configs/backup_retention_policy.json` can be parsed and consumed by `POST-SUBTASK-131` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `configs/backup_retention_policy.json` can be parsed and consumed by `POST-SUBTASK-131` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

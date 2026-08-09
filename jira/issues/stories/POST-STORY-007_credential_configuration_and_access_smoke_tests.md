@@ -7,9 +7,15 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Credential variables are source-scoped and least-privilege where the provider supports scopes.",
+    "Rotation/revocation ownership and expiry handling are documented.",
+    "No credential value appears in Git-tracked files or evidence.",
+    "Each selected source preserves a minimally sufficient technical response or a precise pending technical action.",
+    "HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.",
+    "Smoke tests do not expose secrets or fabricate unobserved results.",
+    "Every source is READY, TECHNICAL_VALIDATION_PENDING, TECHNICAL_CREDENTIAL_UNAVAILABLE, or quality-quarantined with a concrete reason.",
+    "Downstream materialization tasks consume this readiness file.",
+    "No source is blocked by licensing, redistribution, scraping, terms, provider preference, or upstream-authorization uncertainty."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -54,7 +60,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 16,
-  "end_to_end_validation": "Exercise the complete Credential configuration and access smoke tests path and verify downstream consumption of the pinned outputs.",
+  "end_to_end_validation": "Exercise the complete Credential configuration and access smoke tests path through `POST-SUBTASK-021` and verify downstream use of pinned outputs.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-007.json",
   "evidence_state": "PLANNED",
@@ -118,10 +124,10 @@
     "sources",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-007",
   "maturity_before": "CONTRACT_DEFINED",
-  "objective": "Configure production source access outside the repository and prove each approved lane can be called safely.",
+  "objective": "Configure source access outside the repository and prove each selected lane can be called safely.",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24197",
@@ -134,7 +140,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-002",
@@ -247,7 +253,7 @@
     "SRCREF-01903",
     "SRCREF-01904"
   ],
-  "specificity_fingerprint": "9845fad2c8deb6244cc41a4e2b7a2075b22bf0a216611e027765a17a0cab4e1f",
+  "specificity_fingerprint": "f5f54800b8578b706e0eedefbc057eecffaa431ac7a1d465f2a5b577b53d45b7",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -285,7 +291,7 @@
 
 ## Objective
 
-Configure production source access outside the repository and prove each approved lane can be called safely.
+Configure source access outside the repository and prove each selected lane can be called safely.
 
 ## Why This Exists
 
@@ -307,7 +313,7 @@ Deliver Story POST-STORY-007 (Credential configuration and access smoke tests) a
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -380,9 +386,15 @@ Deliver Story POST-STORY-007 (Credential configuration and access smoke tests) a
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Credential variables are source-scoped and least-privilege where the provider supports scopes.
+2. Rotation/revocation ownership and expiry handling are documented.
+3. No credential value appears in Git-tracked files or evidence.
+4. Each selected source preserves a minimally sufficient technical response or a precise pending technical action.
+5. HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.
+6. Smoke tests do not expose secrets or fabricate unobserved results.
+7. Every source is READY, TECHNICAL_VALIDATION_PENDING, TECHNICAL_CREDENTIAL_UNAVAILABLE, or quality-quarantined with a concrete reason.
+8. Downstream materialization tasks consume this readiness file.
+9. No source is blocked by licensing, redistribution, scraping, terms, provider preference, or upstream-authorization uncertainty.
 
 ## Definition of Done
 
@@ -418,7 +430,7 @@ Deliver Story POST-STORY-007 (Credential configuration and access smoke tests) a
 
 ## End-to-End Validation Requirement
 
-Exercise the complete Credential configuration and access smoke tests path and verify downstream consumption of the pinned outputs.
+Exercise the complete Credential configuration and access smoke tests path through `POST-SUBTASK-021` and verify downstream use of pinned outputs.
 
 ## Expected Maturity After Completion
 

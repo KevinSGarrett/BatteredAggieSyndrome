@@ -10,7 +10,7 @@ Autonomous research becomes wasteful and biased if only successful trials surviv
 
 Scientific outcomes include REJECTED, DOMINATED, NO_INCREMENTAL_VALUE, UNSTABLE, SUBGROUP_CONFLICT, CALIBRATION_WORSE, COST_NOT_JUSTIFIED, INCONCLUSIVE, and RETAIN_RESEARCH.
 
-Operational outcomes include DATA_UNAVAILABLE, RIGHTS_BLOCKED, SCHEMA_ERROR, CODE_ERROR, OOM, TIMEOUT, ARTIFACT_FAILURE, REPLAY_FAILURE, and GOVERNANCE_BLOCKED.
+Operational outcomes include DATA_UNAVAILABLE, TECHNICAL_ACCESS_UNAVAILABLE, SCHEMA_ERROR, CORRUPT_OR_FABRICATED_DATA, MALWARE_DETECTED, CREDENTIAL_EXPOSURE, PRIVATE_PERSONAL_DATA, CODE_ERROR, OOM, TIMEOUT, ARTIFACT_FAILURE, REPLAY_FAILURE, and GOVERNANCE_BLOCKED. `RIGHTS_BLOCKED` is retired: license, terms, redistribution, scraping, and upstream-authorization uncertainty are metadata-only for private local acquisition and training.
 
 ## No false inference
 

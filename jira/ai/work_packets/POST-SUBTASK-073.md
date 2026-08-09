@@ -32,7 +32,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-025 (Simple, rating, linear, 
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Train joint/separate score-distribution candidates and deterministic-seed simulations deriving margin, win, score, total, interval, and severity outputs coherently; Validate artifacts, tuning predictions, orientation, distribution tails, score-margin-win coherence, runtime, and candidate admission.
 - Substituting a non-authoritative machine, estimated timing, or synthetic benchmark result for the declared target-host evidence.
 - Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
@@ -104,10 +104,9 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. All baselines train only on the POST-SUBTASK-072 approved expanded quality-supported population and declared season/domain tiers, unless a protected, evidence-backed narrower-window decision is pinned.
-2. Naive, historical-average, home-field, rating/Elo, regularized linear, tree-boosting, market-free, and market-aware lanes are reproducible with deterministic seeds and bounded searches.
-3. Outputs remain preliminary until protected chronological evaluation; no production champion, protected performance, A&M lift, BAS, or Aggie Excess result is claimed by training completion.
-4. Sparse older-domain coverage is handled by declared eligibility/fallback/abstention behavior and never by silent unsupported promotion.
+1. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
+2. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 
@@ -132,13 +131,13 @@ Produce and validate these outputs within this atomic work unit:
 
 ## End-to-end handoff
 
-Validate that `artifacts/modeling/baseline_candidate_runs.json` can be parsed and consumed by `POST-SUBTASK-074` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/modeling/baseline_candidate_runs.json` can be parsed and consumed by `POST-SUBTASK-074` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

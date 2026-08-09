@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Protected outcomes cannot tune event handling/thresholds/model selection, all outage/delay scenarios and uncertainty are reported, and comparison includes pregame-only/simple live baselines.",
+    "The declared output `artifacts/live/live_protected_scorecard.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Live outputs expose source/state/model/timestamp and remain distinguishable from immutable pregame forecasts; stale/disconnected/corrected/final states are explicit and restricted feed data is not exposed.",
+    "The declared output `artifacts/live/live_product_validation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Authorization requires the private-research source policy, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -109,7 +113,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-053",
   "maturity_before": "DEFERRED",
   "objective": "Require a full independent release path for any live capability.",
@@ -125,7 +129,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-017",
@@ -224,7 +228,7 @@
     "SRCREF-00204",
     "SRCREF-00205"
   ],
-  "specificity_fingerprint": "6d68237c581825086578117b10b79066887987bc2ea90a04f299b34f5edad113",
+  "specificity_fingerprint": "4da5f252937ee9edc485c29c11388f4fe09c0ce861a04a1d8a5812da97dabefb",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -282,7 +286,7 @@ Deliver Story POST-STORY-053 (Separate protected evaluation, product integration
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -350,9 +354,13 @@ Deliver Story POST-STORY-053 (Separate protected evaluation, product integration
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Protected outcomes cannot tune event handling/thresholds/model selection, all outage/delay scenarios and uncertainty are reported, and comparison includes pregame-only/simple live baselines.
+2. The declared output `artifacts/live/live_protected_scorecard.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Live outputs expose source/state/model/timestamp and remain distinguishable from immutable pregame forecasts; stale/disconnected/corrected/final states are explicit and restricted feed data is not exposed.
+5. The declared output `artifacts/live/live_product_validation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Authorization requires the private-research source policy, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

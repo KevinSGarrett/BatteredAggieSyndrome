@@ -60,7 +60,7 @@
     "risk_ids": 116
   },
   "effective_traceability_total": 426,
-  "end_to_end_validation": "The entire Full end-to-end release candidate and operating acceptance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Full end-to-end release candidate and operating acceptance and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-015.json",
   "evidence_state": "PLANNED",
@@ -125,7 +125,7 @@
     "post-wave",
     "release"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-015",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Close or disposition every required gap/risk/control, prove the real-data product on the target architecture, and authorize operation without confusing starter readiness with completion.",
@@ -254,7 +254,7 @@
     "SRCREF-01899",
     "SRCREF-01900"
   ],
-  "specificity_fingerprint": "9c5c5d3d08388ae454abfaf8be7d6e2fba3579d6b2fad13f89594368d69ffc14",
+  "specificity_fingerprint": "b06073e4a6fc110291faeba8b309665404fdc8e53242f8872d15168ff3778558",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -435,7 +435,7 @@ All Stories and Subtasks under this Epic for the release domain, including its e
 
 ## End-to-End Validation Requirement
 
-The entire Full end-to-end release candidate and operating acceptance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Full end-to-end release candidate and operating acceptance and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

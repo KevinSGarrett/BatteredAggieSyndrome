@@ -98,7 +98,7 @@
     "w23",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-158",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Extend CI for real dependency/data/model surfaces",

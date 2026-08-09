@@ -33,3 +33,18 @@ Future meaningful changes must be appended; do not log trivial generated formatt
 - The reusable `POST_IMPORT_KEY_MAP_TEMPLATE.csv` remains blank by contract, while assigned live keys/IDs are stored separately in `POST_IMPORT_KEY_MAP.csv` and validated against canonical records.
 - Derivative rebuild entry points are import-safe and idempotent; importing reconciliation utilities no longer triggers an unintended rebuild.
 - BAS scientific acceptance explicitly permits and preserves a valid null Aggie-specific excess result; no nonzero BAS effect is forced.
+
+## 2026-08-09 — v2 second-pass hardening
+
+- Generic executable-subtask scope specifications: 159 → 0
+- Actionable scopes that merely repeated the objective: 212 → 0
+- Actionable items without end-to-end validation: 4 → 0
+- Legal-review tasks incorrectly forced to add an automated test: 2 → 0
+- All actionable records now declare explicit governance-traceability gates/inheritance, files to inspect versus files authorized for modification, task-appropriate validation classes, completion evidence contracts, and issue-specific risks/evidence/DoD.
+- AI packet coverage: 229 / 229 actionable records (159 atomic execution; 70 non-executable aggregate gates).
+- All issue Markdown, AI work packets, source manifests, indexes, import CSVs, and REST payloads are regenerated from canonical JSON and checked for derivative consistency.
+- Source-reference validation now fails closed on any hash/range drift until exact anchor relocation is proven with `validate_source_refs.py --repair`; invalid stored anchor hashes are never auto-repaired.
+- Jira reconciliation dry-run is now genuinely non-mutating; live reconciliation is transactional, rejects unsupported or evidence-unsafe workflow transitions, records conflicts, rolls back on strict-validation failure, and rebuilds every derivative only after a valid commit.
+- The reusable `POST_IMPORT_KEY_MAP_TEMPLATE.csv` remains blank by contract, while assigned live keys/IDs are stored separately in `POST_IMPORT_KEY_MAP.csv` and validated against canonical records.
+- Derivative rebuild entry points are import-safe and idempotent; importing reconciliation utilities no longer triggers an unintended rebuild.
+- BAS scientific acceptance explicitly permits and preserves a valid null Aggie-specific excess result; no nonzero BAS effect is forced.

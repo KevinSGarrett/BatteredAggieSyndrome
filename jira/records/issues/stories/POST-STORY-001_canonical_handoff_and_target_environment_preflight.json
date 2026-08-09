@@ -1,9 +1,15 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "The recorded repository hash and project identity match the W25 handoff.",
+    "The preflight explicitly records that the next state is CODEX_IMPLEMENTATION_HANDOFF and no Wave 26 is created.",
+    "Any manifest mismatch fails closed before mutation.",
+    "All 229 baseline unit tests are executed and results are recorded without editing expected outcomes.",
+    "W25 final, acceptance, backlog, and strict repository validators run from a clean checkout.",
+    "Failures are recorded as blockers; they are not waived or hidden.",
+    "The manifest records OS, CPU, RAM, GPU, Python, dependency lock hashes, storage paths, and free-space state.",
+    "Secrets and user-identifying values are redacted.",
+    "The manifest is content-hashed and linked to the preflight validation run."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -110,7 +116,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-001",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Prove that the W25 handoff can be reproduced on the target machine before implementation mutates project state.",
@@ -126,7 +132,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-001",
@@ -231,7 +237,7 @@
     "SRCREF-01887",
     "SRCREF-01563"
   ],
-  "specificity_fingerprint": "81d3798c4fc550197e1fc53d7f9d9421dbffe6edf943f1add0206d445e7732f9",
+  "specificity_fingerprint": "59f5bce3b7f8023b2c6636fa97941bb961445d7c7c140a5c8f55e1aaa8a07832",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

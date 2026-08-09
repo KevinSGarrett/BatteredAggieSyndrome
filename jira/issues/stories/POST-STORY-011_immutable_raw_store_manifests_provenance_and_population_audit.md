@@ -1,5 +1,5 @@
 <!-- GENERATED VIEW. Canonical record: jira/records/issues/stories/POST-STORY-011_immutable_raw_store_manifests_provenance_and_population_audit.json -->
-# POST-STORY-011 — [POST-STORY-011] Immutable expanded national lake, provenance, population audit, and readiness
+# POST-STORY-011 — [POST-STORY-011] Immutable raw store, manifests, provenance, and population audit
 
 ## Canonical metadata
 
@@ -7,10 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.",
-    "The final child gate POST-SUBTASK-033 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.",
-    "The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.",
-    "No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass."
+    "Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.",
+    "The declared output `artifacts/data_lake/immutability_and_correction_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.",
+    "The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "GAP-002 remains open unless actual national history—not fixtures, reconnaissance samples, or starter code—meets immutable, manifest, readback, and coverage requirements.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -56,7 +59,7 @@
     "risk_ids": 5
   },
   "effective_traceability_total": 24,
-  "end_to_end_validation": "A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.",
+  "end_to_end_validation": "Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, unavailable domain, correction, and technical or quality blocker.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-011.json",
   "evidence_state": "PLANNED",
@@ -104,7 +107,7 @@
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100061,
   "in_scope": [
-    "Complete and verify child `POST-SUBTASK-031` — Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes.",
+    "Complete and verify child `POST-SUBTASK-031` — Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata.",
     "Complete and verify child `POST-SUBTASK-032` — Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests.",
     "Complete and verify child `POST-SUBTASK-033` — Run and publish the national historical-lake readiness decision.",
     "Integrate the child outputs and execute final gate `POST-SUBTASK-033`.",
@@ -123,7 +126,7 @@
   "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-011",
   "maturity_before": "SCAFFOLD",
-  "objective": "Materialize and non-bypassably gate the immutable expanded national historical lake",
+  "objective": "Prove that every accepted raw domain is immutable, reproducible, source-policy-metadata-aware, and reconstructable.",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24201",
@@ -136,7 +139,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-003",
@@ -223,7 +226,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain history. Preserve content-addressed external captures, correction/quarantine lineage, complete coverage/provenance manifests, scoped tier eligibility, and an honest readiness decision that cannot resolve GAP-002 or authorize downstream science prematurely.",
+  "scope": "Deliver Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-033` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.",
   "source_ids": [
     "GAP-002",
     "HANDOFF-003"
@@ -244,7 +247,7 @@
     "SRCREF-01889",
     "SRCREF-01564"
   ],
-  "specificity_fingerprint": "a424f719411f407435ae48ff67afd3de95df06121c28ed9b36f1fe71eefac551",
+  "specificity_fingerprint": "19fefb4a84d42f8b5f1131361565a47e6a236650281631bcd53e38e760e3fab3",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -260,7 +263,7 @@
     "SRCREF-01889",
     "SRCREF-01564"
   ],
-  "title": "[POST-STORY-011] Immutable expanded national lake, provenance, population audit, and readiness",
+  "title": "[POST-STORY-011] Immutable raw store, manifests, provenance, and population audit",
   "traceability_inherited_from": [
     "POST-SUBTASK-033"
   ],
@@ -279,7 +282,7 @@
 
 ## Objective
 
-Materialize and non-bypassably gate the immutable expanded national historical lake
+Prove that every accepted raw domain is immutable, reproducible, source-policy-metadata-aware, and reconstructable.
 
 ## Why This Exists
 
@@ -287,11 +290,11 @@ This coherent capability closes a defined portion of Immutable national historic
 
 ## Scope
 
-Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain history. Preserve content-addressed external captures, correction/quarantine lineage, complete coverage/provenance manifests, scoped tier eligibility, and an honest readiness decision that cannot resolve GAP-002 or authorize downstream science prematurely.
+Deliver Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-033` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
 
 ### Explicit In Scope
 
-- Complete and verify child `POST-SUBTASK-031` — Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes.
+- Complete and verify child `POST-SUBTASK-031` — Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata.
 - Complete and verify child `POST-SUBTASK-032` — Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests.
 - Complete and verify child `POST-SUBTASK-033` — Run and publish the national historical-lake readiness decision.
 - Integrate the child outputs and execute final gate `POST-SUBTASK-033`.
@@ -301,7 +304,7 @@ Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -375,10 +378,13 @@ Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.
-2. The final child gate POST-SUBTASK-033 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.
-3. The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.
-4. No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass.
+1. Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.
+2. The declared output `artifacts/data_lake/immutability_and_correction_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.
+5. The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. GAP-002 remains open unless actual national history—not fixtures, reconnaissance samples, or starter code—meets immutable, manifest, readback, and coverage requirements.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 
@@ -414,7 +420,7 @@ Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain
 
 ## End-to-End Validation Requirement
 
-A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.
+Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, unavailable domain, correction, and technical or quality blocker.
 
 ## Expected Maturity After Completion
 

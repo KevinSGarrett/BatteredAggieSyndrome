@@ -97,7 +97,7 @@
     "w11",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-031",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Build Week-1 priors and early-season blending candidates",

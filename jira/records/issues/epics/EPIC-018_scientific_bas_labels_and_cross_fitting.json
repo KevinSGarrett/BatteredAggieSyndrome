@@ -84,7 +84,7 @@
     "w15",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-018",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Formalize leakage-safe performance residuals and BAS severity labels.",

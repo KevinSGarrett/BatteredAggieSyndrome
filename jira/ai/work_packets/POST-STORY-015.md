@@ -30,7 +30,7 @@ Deliver Story POST-STORY-015 (Known-at registry and timestamp normalization) as 
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -100,9 +100,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every candidate input field has an approved temporal class and cutoff rule; realized weather, closing markets, final participation, box scores, and outcomes are excluded from earlier snapshots.
+2. The declared output `configs/known_at_registry.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original timestamps are preserved, ambiguity/impossibility is quarantined, and retrieval time is never substituted for publication time when it would make history appear known earlier.
+5. The declared output `artifacts/pit/timestamp_normalization_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. All fields entering matrices resolve to approved rules and mutation tests reject same-game, future, postgame, or naming-convention-based eligibility.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

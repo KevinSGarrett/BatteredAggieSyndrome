@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Reads resolve only signed snapshots and exact model/run/state identities; missing/stale/corrupt/unapproved state is explicit and no request path retrains or recomputes uncontrolled features.",
+    "The declared output `artifacts/product/snapshot_repository_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Responses expose supported score/probability/distribution/uncertainty/A&M/BAS/lineage/freshness fields and mark scientifically unsupported outputs unavailable rather than defaulting values.",
+    "The declared output `docs/product/OPENAPI_SNAPSHOT.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "All endpoints for a snapshot agree on identities, handle archive/current/errors/no-champion/null decisions, and never expose credentials, restricted raw payloads, or protected outcomes.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -117,7 +121,7 @@
     "product",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-039",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Turn the serving starter into a production snapshot API with health/freshness and explicit unavailable states.",
@@ -133,7 +137,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-013",
@@ -241,7 +245,7 @@
     "SRCREF-01897",
     "SRCREF-01574"
   ],
-  "specificity_fingerprint": "8886b9bfb7b5e915632192320dfa8cfd12e1c10e3e960fd3a921a6bfd4d35f95",
+  "specificity_fingerprint": "c453c56688d6338bab81a9f0e6ea3f64f5da99325e660c1f44882a75724f3488",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -299,7 +303,7 @@ Deliver Story POST-STORY-039 (Read-only forecast repository and versioned API) a
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -371,9 +375,13 @@ Deliver Story POST-STORY-039 (Read-only forecast repository and versioned API) a
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Reads resolve only signed snapshots and exact model/run/state identities; missing/stale/corrupt/unapproved state is explicit and no request path retrains or recomputes uncontrolled features.
+2. The declared output `artifacts/product/snapshot_repository_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Responses expose supported score/probability/distribution/uncertainty/A&M/BAS/lineage/freshness fields and mark scientifically unsupported outputs unavailable rather than defaulting values.
+5. The declared output `docs/product/OPENAPI_SNAPSHOT.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. All endpoints for a snapshot agree on identities, handle archive/current/errors/no-champion/null decisions, and never expose credentials, restricted raw payloads, or protected outcomes.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

@@ -7,7 +7,7 @@ These are sequencing windows for the first implementation push, **not task-durat
 - Run full tests and `tools/validate_w25_final.py`.
 - On the declared target Windows machine, run `scripts/benchmark_target.ps1`; preserve the JSON evidence.
 - Configure `AGGIE_ANALYTICS_DATA_ROOT` and credentials locally; never commit secrets.
-- Confirm current CFBD/API access and the approved source-rights lane.
+- Confirm current technical access for CFBD and alternate public routes; apply the universal private-research policy without a source-rights approval prerequisite.
 - Materialize a narrow end-to-end historical slice (multiple teams/seasons, including Texas A&M) into immutable raw snapshots.
 - Run source-contract/schema/entity/PIT validators on that slice.
 

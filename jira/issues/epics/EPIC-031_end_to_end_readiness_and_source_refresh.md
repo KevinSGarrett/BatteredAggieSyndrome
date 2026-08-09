@@ -92,7 +92,7 @@
     "w24",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-031",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Replay the integrated system, refresh source assumptions and challenge architecture before final consolidation.",

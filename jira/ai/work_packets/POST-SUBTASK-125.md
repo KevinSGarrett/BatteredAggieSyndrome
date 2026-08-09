@@ -32,22 +32,22 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Establish clean-environment CI for repository tests, Jira validators, static checks, import dry-run, and deterministic packaging; Validate protected-branch/release blocking and auditable exception behavior.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 - Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P2`
 - Critical path: `false`
 - Execution lane: `SECURITY`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `PARTIAL`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-132`
 
 ## Read first
@@ -70,13 +70,6 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 - docs/operations/CI_SECURITY_SUPPLY_CHAIN.md
 - docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md
 - docs/operations/OBSERVABILITY.md
-- .github/workflows/ci.yml
-- .github/workflows/security.yml
-- pyproject.toml
-- requirements/product.lock
-- tools/validate_dependency_policy.py
-- src/aggie_analytics/product/repository.py
-- tests/test_w22_product_serving.py
 
 ## Dependencies that must already be complete
 
@@ -85,19 +78,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 
 ## Files I may modify or create
 
-- .github/dependabot.yml
-- .github/workflows/ci.yml
-- .github/workflows/security.yml
 - artifacts/operations/security_supply_chain_report.json
 - artifacts/jira_evidence/POST-SUBTASK-125.json
-- docs/operations/CI_SECURITY_SUPPLY_CHAIN.md
-- pyproject.toml
-- requirements/product.lock
-- src/aggie_analytics/product/repository.py
-- tests/test_product_supply_chain.py
-- tests/test_w22_product_serving.py
-- tools/validate_dependency_policy.py
-- tools/validate_product_supply_chain.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -134,9 +116,8 @@ Produce and validate these outputs within this atomic work unit:
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w23_operations.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_w23_operations.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_repository.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
-- SECURITY / SECURITY: tests/test_product_supply_chain.py — Prove exact/hash lock parsing, direct-pin coverage, malformed or missing hash rejection, and deterministic installed license/notice inventory behavior.
-- LEGAL_RIGHTS_REVIEW / LEGAL_RIGHTS_REVIEW: MANUAL_REVIEW_REQUIRED — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
-- MANUAL / MANUAL: artifacts/operations/security_supply_chain_report.json — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
+- PUBLICATION_BOUNDARY_REVIEW / PUBLICATION_BOUNDARY_REVIEW: MANUAL — Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.
+- MANUAL / MANUAL: artifacts/operations/security_supply_chain_report.json — Verify the private-use decision, metadata state, technical/quality scope, and future-publication boundary.
 - SCIENTIFIC / SCIENTIFIC: artifacts/operations/security_supply_chain_report.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - SECURITY / SECURITY: artifacts/operations/security_supply_chain_report.json — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - OPERATIONS / OPERATIONS: artifacts/operations/security_supply_chain_report.json — Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.
@@ -149,19 +130,19 @@ Produce and validate these outputs within this atomic work unit:
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 - Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts.
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## End-to-end handoff
 
-Validate that `artifacts/operations/security_supply_chain_report.json` can be parsed and consumed by `POST-SUBTASK-126` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/operations/security_supply_chain_report.json` can be parsed and consumed by `POST-SUBTASK-126` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

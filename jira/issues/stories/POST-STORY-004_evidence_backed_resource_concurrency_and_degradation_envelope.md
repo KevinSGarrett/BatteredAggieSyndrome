@@ -7,9 +7,15 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Concurrent workloads are increased only until measured resource contention or policy limits appear.",
+    "The envelope identifies mutually exclusive shared-contract and protected-gate work.",
+    "No fixed concurrency value is adopted without measurement.",
+    "Raw snapshots, matrices, model artifacts, forecasts, logs, and backups are measured separately.",
+    "Retention recommendations preserve required lineage and protected evidence.",
+    "Deletion rules never remove canonical negative results, provenance, or superseded policy evidence.",
+    "Peak-RAM, free-space, runtime, and concurrency breaches stop or defer work predictably.",
+    "The system does not silently downsample protected evaluation or omit required data.",
+    "The operator receives a clear blocker, recovery action, and preserved partial evidence."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -118,7 +124,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-004",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Translate benchmark and storage evidence into safe execution limits for autonomous local operation.",
@@ -134,7 +140,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-001",
@@ -241,7 +247,7 @@
     "SRCREF-01887",
     "SRCREF-01563"
   ],
-  "specificity_fingerprint": "e5644fb035cf49c16649d313569272c9cfe151bfb3ef1131d38f89be71364d5e",
+  "specificity_fingerprint": "913626ee90f8da6f498546a77417ea52e00e74ba57f4e844a0d9c62ed44baa46",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -299,7 +305,7 @@ Deliver Story POST-STORY-004 (Evidence-backed resource, concurrency, and degrada
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -372,9 +378,15 @@ Deliver Story POST-STORY-004 (Evidence-backed resource, concurrency, and degrada
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Concurrent workloads are increased only until measured resource contention or policy limits appear.
+2. The envelope identifies mutually exclusive shared-contract and protected-gate work.
+3. No fixed concurrency value is adopted without measurement.
+4. Raw snapshots, matrices, model artifacts, forecasts, logs, and backups are measured separately.
+5. Retention recommendations preserve required lineage and protected evidence.
+6. Deletion rules never remove canonical negative results, provenance, or superseded policy evidence.
+7. Peak-RAM, free-space, runtime, and concurrency breaches stop or defer work predictably.
+8. The system does not silently downsample protected evaluation or omit required data.
+9. The operator receives a clear blocker, recovery action, and preserved partial evidence.
 
 ## Definition of Done
 

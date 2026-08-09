@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Sealed candidates receive identical games, cutoffs, state, missingness, metrics, and no post-hoc changes; partial failures preserve evidence without feeding outcomes back to tuning.",
+    "The declared output `artifacts/tamu/tamu_protected_predictions.parquet` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Evaluation reports confidence/sample/segments and accepts null, negative, unstable, or harmful results without subgroup shopping, relabeling, or unsupported causal claims.",
+    "The declared output `artifacts/tamu/tamu_protected_evaluation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The signed decision admits only bounded supported specialization or selects global-only/no adjustment, updates model/product semantics, preserves rejected evidence, and closes GAP-009 only empirically.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -118,7 +122,7 @@
     "story",
     "tamu"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-029",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Determine whether specialization genuinely improves forecasts and preserve a no-lift result.",
@@ -134,7 +138,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-009",
@@ -243,7 +247,7 @@
     "SRCREF-01893",
     "SRCREF-01571"
   ],
-  "specificity_fingerprint": "1c4e09823bab9aeb6ed167540c781fc34fa02fa55bff35a6941070077059faa0",
+  "specificity_fingerprint": "a582f7c98a131f0ca13aec1cdb0855038e51888d19a156147d70f8a8fb22ef07",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -301,7 +305,7 @@ Deliver Story POST-STORY-029 (Protected A&M lift, calibration, stability, and in
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -375,9 +379,13 @@ Deliver Story POST-STORY-029 (Protected A&M lift, calibration, stability, and in
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Sealed candidates receive identical games, cutoffs, state, missingness, metrics, and no post-hoc changes; partial failures preserve evidence without feeding outcomes back to tuning.
+2. The declared output `artifacts/tamu/tamu_protected_predictions.parquet` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Evaluation reports confidence/sample/segments and accepts null, negative, unstable, or harmful results without subgroup shopping, relabeling, or unsupported causal claims.
+5. The declared output `artifacts/tamu/tamu_protected_evaluation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. The signed decision admits only bounded supported specialization or selects global-only/no adjustment, updates model/product semantics, preserves rejected evidence, and closes GAP-009 only empirically.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

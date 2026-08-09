@@ -7,9 +7,15 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "The workload matches the benchmark contract and includes representative ingestion, PIT, feature, model, publication, and product-read operations.",
+    "Input hashes and data classification are recorded.",
+    "Protected holdout outcomes are not exposed to benchmark tuning.",
+    "The benchmark is executed on the declared target rather than a substitute host.",
+    "Peak RAM, runtime, CPU/GPU utilization, disk usage, and workload identity are captured.",
+    "At least one repeat run verifies that the result is not a one-off artifact.",
+    "THR-011 and THR-012 are populated only from the authoritative benchmark evidence.",
+    "The decision records evidence hashes, reviewer, timestamp, and pass/block rationale.",
+    "TASK-163 remains blocked unless AC-038 genuinely passes; no threshold is relaxed after observing failure."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -120,7 +126,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-003",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Execute the existing benchmark harness on the declared target hardware and use only that evidence to resolve AC-038, THR-011, and THR-012.",
@@ -136,7 +142,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-001",
@@ -244,7 +250,7 @@
     "SRCREF-01887",
     "SRCREF-01563"
   ],
-  "specificity_fingerprint": "5304e8c3dc129219948bf481a1e6617c4ba9d38f8bfb367d0ba5c698ee96fce4",
+  "specificity_fingerprint": "b563f28d13cea8da0f845058ec4a32bfff4d3b1ab7e1efb128c4455b5e51b4b1",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -302,7 +308,7 @@ Deliver Story POST-STORY-003 (Authoritative target-hardware benchmark and thresh
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -378,9 +384,15 @@ Deliver Story POST-STORY-003 (Authoritative target-hardware benchmark and thresh
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. The workload matches the benchmark contract and includes representative ingestion, PIT, feature, model, publication, and product-read operations.
+2. Input hashes and data classification are recorded.
+3. Protected holdout outcomes are not exposed to benchmark tuning.
+4. The benchmark is executed on the declared target rather than a substitute host.
+5. Peak RAM, runtime, CPU/GPU utilization, disk usage, and workload identity are captured.
+6. At least one repeat run verifies that the result is not a one-off artifact.
+7. THR-011 and THR-012 are populated only from the authoritative benchmark evidence.
+8. The decision records evidence hashes, reviewer, timestamp, and pass/block rationale.
+9. TASK-163 remains blocked unless AC-038 genuinely passes; no threshold is relaxed after observing failure.
 
 ## Definition of Done
 

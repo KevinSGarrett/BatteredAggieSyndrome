@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Events preserve published/effective times, source scales, identity confidence, decommitments/re-rankings/portal withdrawals, interim/overlapping staff roles, and prior versions.",
+    "The declared output `artifacts/player_intelligence/program_event_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Aggregates use only prior eligible state, distinguish returning production/recruits/transfers, expose early-season uncertainty, and do not encode culture/clutch/collapse without measurable definitions.",
+    "The declared output `artifacts/context_intelligence/program_feature_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Temporal perturbation, coverage, and scale tests pass; sparse/unsupported candidates remain experimental or rejected and are not assumed predictive.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -111,7 +115,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-022",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Represent program talent inflows/outflows and staff/system continuity without hindsight or unsupported narrative labels.",
@@ -127,7 +131,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-007",
@@ -236,7 +240,7 @@
     "SRCREF-01894",
     "SRCREF-01568"
   ],
-  "specificity_fingerprint": "e8cbe86b93d6180f0cbf51e5a39aee4bedf9ced3890004537cf9a952b1a576a8",
+  "specificity_fingerprint": "e13af9308f0d48a84a4635fd472264b8403b53895559362db58c13f1724d4ee3",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

@@ -110,7 +110,7 @@
     "w06-w25",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-187",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Maintain REQ/ADR/RISK/AC/task traceability",

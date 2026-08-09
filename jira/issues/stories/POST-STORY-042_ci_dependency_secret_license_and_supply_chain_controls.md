@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "CI runs all required suites from a clean state, preserves failure logs/evidence, and cannot skip gates through naming/retry while keeping the local workflow runnable without Kubernetes/Kafka/Redis/cloud dependency.",
+    "The declared output `artifacts/operations/ci_pipeline_validation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.",
+    "The declared output `artifacts/operations/security_supply_chain_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Any release-blocking test, secret, integrity, rights, or protected-control failure stops release; manual exceptions are explicit, attributable, time-bounded, and cannot weaken science/PIT rules.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -117,7 +121,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-042",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Protect repository, Jira pack, runtime, and release changes through deterministic automated gates.",
@@ -133,7 +137,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-014",
@@ -239,7 +243,7 @@
     "SRCREF-02006",
     "SRCREF-01898"
   ],
-  "specificity_fingerprint": "0815839db628ee1ee7e3ab95c6123e0fbac27182a4f681a5c1def68c4947289b",
+  "specificity_fingerprint": "22766a4237042bfb52ccbf269c357227f0f9b3e67a985b4ab62dd1792de41d9d",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -296,7 +300,7 @@ Deliver Story POST-STORY-042 (CI, dependency, secret, license, and supply-chain 
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -368,9 +372,13 @@ Deliver Story POST-STORY-042 (CI, dependency, secret, license, and supply-chain 
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. CI runs all required suites from a clean state, preserves failure logs/evidence, and cannot skip gates through naming/retry while keeping the local workflow runnable without Kubernetes/Kafka/Redis/cloud dependency.
+2. The declared output `artifacts/operations/ci_pipeline_validation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.
+5. The declared output `artifacts/operations/security_supply_chain_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Any release-blocking test, secret, integrity, rights, or protected-control failure stops release; manual exceptions are explicit, attributable, time-bounded, and cannot weaken science/PIT rules.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

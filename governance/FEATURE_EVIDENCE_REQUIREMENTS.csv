@@ -11,5 +11,5 @@ FE-009,SUBGROUP_AM_VALUE,A&M and declared critical subgroups checked where relev
 FE-010,CALIBRATION_EFFECT,Probability targets assess calibration/proper-score impact,BLOCKING_FOR_PROBABILITY,W17
 FE-011,PROTECTED_CRITERIA_FROZEN,Promotion rule/folds fixed before protected evaluation,BLOCKING,W17
 FE-012,REPRODUCIBILITY,Evidence references immutable data/feature/model/evaluation versions,BLOCKING,W10+
-FE-013,RIGHTS_AND_ACCESS,Use/publication compatible with source rights and access policy,BLOCKING_FOR_PUBLICATION,W09/W24
+FE-013,PUBLICATION_AND_ACCESS,Private local use allowed; raw third-party publication disabled; technical access independently verified,BLOCKING_ONLY_FOR_ACTUAL_PUBLICATION_OR_TECHNICAL_ACCESS,W09/W24
 FE-014,OPERATIONAL_COST,Measured compute/storage/maintenance burden when tradeoff matters,TIE_BREAKER,W19-W23

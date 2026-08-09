@@ -7,9 +7,15 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Configured roots are absolute, writable, outside the Git repository, and survive process restart.",
+    "Raw, curated, model, forecast, log, backup, and quarantine roots are separated.",
+    "A path safety test rejects repository-internal bulk-data roots.",
+    "Every credential is referenced by environment-variable name only.",
+    "No token, password, session cookie, or restricted URL is written to the repository or evidence logs.",
+    "A redaction test demonstrates that representative secret values are removed from logs and exception messages.",
+    "The probe demonstrates atomic create/rename, fsync, readback hash verification, and quarantine moves on each configured root.",
+    "Available capacity is recorded without inventing a minimum threshold.",
+    "Insufficient permissions or capacity blocks downstream materialization."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -54,7 +60,7 @@
     "risk_ids": 2
   },
   "effective_traceability_total": 15,
-  "end_to_end_validation": "Exercise the complete Local data, artifact, and secret boundary bootstrap path and verify downstream consumption of the pinned outputs.",
+  "end_to_end_validation": "Exercise the complete Local data, artifact, and secret boundary bootstrap path through `POST-SUBTASK-006` and verify downstream use of pinned outputs.",
   "epic_id": "POST-EPIC-001",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-002.json",
   "evidence_state": "PLANNED",
@@ -119,7 +125,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-002",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Create the local-only filesystem and secret boundaries required for real source materialization without committing restricted data or credentials.",
@@ -135,7 +141,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-001",
@@ -246,7 +252,7 @@
     "SRCREF-01888",
     "SRCREF-01572"
   ],
-  "specificity_fingerprint": "21a79a8d32b5c066271cd824f90653617535ba7aa35f7a1028fa6196eaf2f01d",
+  "specificity_fingerprint": "e25ba369f1413bda95850061ac2b909bcb49ea39ec50faf350c1ae7239949b44",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -306,7 +312,7 @@ Deliver Story POST-STORY-002 (Local data, artifact, and secret boundary bootstra
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -380,9 +386,15 @@ Deliver Story POST-STORY-002 (Local data, artifact, and secret boundary bootstra
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Configured roots are absolute, writable, outside the Git repository, and survive process restart.
+2. Raw, curated, model, forecast, log, backup, and quarantine roots are separated.
+3. A path safety test rejects repository-internal bulk-data roots.
+4. Every credential is referenced by environment-variable name only.
+5. No token, password, session cookie, or restricted URL is written to the repository or evidence logs.
+6. A redaction test demonstrates that representative secret values are removed from logs and exception messages.
+7. The probe demonstrates atomic create/rename, fsync, readback hash verification, and quarantine moves on each configured root.
+8. Available capacity is recorded without inventing a minimum threshold.
+9. Insufficient permissions or capacity blocks downstream materialization.
 
 ## Definition of Done
 
@@ -418,7 +430,7 @@ Deliver Story POST-STORY-002 (Local data, artifact, and secret boundary bootstra
 
 ## End-to-End Validation Requirement
 
-Exercise the complete Local data, artifact, and secret boundary bootstrap path and verify downstream consumption of the pinned outputs.
+Exercise the complete Local data, artifact, and secret boundary bootstrap path through `POST-SUBTASK-006` and verify downstream use of pinned outputs.
 
 ## Expected Maturity After Completion
 

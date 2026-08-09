@@ -32,7 +32,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-003 (Authoritative target-har
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Run scripts/benchmark_target.ps1 on the declared Windows/Ryzen 7 HX/32 GB/RTX 5060/NVMe target; Govern THR-011 and THR-012 values and clear or retain the W23 local-production gate.
 - Substituting a non-authoritative machine, estimated timing, or synthetic benchmark result for the declared target-host evidence.
 - Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
@@ -115,6 +115,7 @@ Produce and validate these outputs within this atomic work unit:
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w23_operations.py — Run as a regression check after completing POST-SUBTASK-007; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_w23_operations.py — Run as a regression check after completing POST-SUBTASK-007; retain command, exit code, and relevant output.
+- EXISTING_AUTOMATED_TEST / REGRESSION: artifacts/benchmarks/ac038_input_manifest.json — Run as a regression check after completing POST-SUBTASK-007; retain command, exit code, and relevant output.
 - BENCHMARK / BENCHMARK: artifacts/benchmarks/ac038_input_manifest.json — Execute the declared workload with raw samples, repetitions, machine identity, resource telemetry, failures, and non-authoritative-environment labeling.
 - CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/benchmarks/ac038_input_manifest.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
 - SCIENTIFIC / SCIENTIFIC: artifacts/benchmarks/ac038_input_manifest.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
@@ -133,13 +134,13 @@ Produce and validate these outputs within this atomic work unit:
 
 ## End-to-end handoff
 
-Validate that `artifacts/benchmarks/ac038_input_manifest.json` can be parsed and consumed by `POST-SUBTASK-008` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/benchmarks/ac038_input_manifest.json` can be parsed and consumed by `POST-SUBTASK-008` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

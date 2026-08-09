@@ -53,11 +53,11 @@
   "content_contract_version": "2.0",
   "critical_path": true,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-026 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-026 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/data_lake/core_normalization_report.json` is demonstrably consumable by POST-SUBTASK-027 without manual reconstruction or undocumented state."
   ],
@@ -76,7 +76,7 @@
     "risk_ids": 5
   },
   "effective_traceability_total": 24,
-  "end_to_end_validation": "Validate that `artifacts/data_lake/core_normalization_report.json` can be parsed and consumed by `POST-SUBTASK-027` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/data_lake/core_normalization_report.json` can be parsed and consumed by `POST-SUBTASK-027` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-026.json",
   "evidence_state": "VERIFIED",
@@ -154,18 +154,18 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
-    "Work assigned to sibling subtasks: Acquire approved national team, schedule, game, score, drive, play, box-score, and gamebook history; Approve or block the population-level core-history coverage gate.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
+    "Work assigned to sibling subtasks: Acquire quality-supported national team, schedule, game, score, drive, play, box-score, and gamebook history; Approve or block the population-level core-history coverage gate.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-STORY-009",
   "phase": "PHASE-1",
   "prerequisites": [
-    "Dependency POST-SUBTASK-021 complete at required maturity",
-    "Dependency POST-SUBTASK-018 complete at required maturity",
-    "Dependency POST-SUBTASK-022 complete at required maturity",
     "Dependency POST-SUBTASK-006 complete at required maturity",
+    "Dependency POST-SUBTASK-018 complete at required maturity",
+    "Dependency POST-SUBTASK-021 complete at required maturity",
+    "Dependency POST-SUBTASK-022 complete at required maturity",
     "Dependency POST-SUBTASK-025 complete at required maturity"
   ],
   "primary_source_refs": [
@@ -224,6 +224,12 @@
       "validation_class": "REGRESSION"
     },
     {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-026; retain command, exit code, and relevant output.",
+      "path": "artifacts/data_lake/core_normalization_report.json",
+      "validation_class": "REGRESSION"
+    },
+    {
       "classification": "SCIENTIFIC",
       "expectation": "Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.",
       "path": "artifacts/data_lake/core_normalization_report.json",
@@ -273,11 +279,11 @@
     "SRCREF-01889",
     "SRCREF-01564"
   ],
-  "specificity_fingerprint": "c9c580ef2741d4a68dd1801b0fcc6ad47f22aaae9fcdf5d7a8b5d88398533305",
+  "specificity_fingerprint": "8375e53b7ea9c4b7f83b154940b59094fbe4b3591915fafd1d6c69b7fbd6796b",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02017",
@@ -335,16 +341,16 @@ Execute the atomic 2 of 3 step in Story POST-STORY-009 (Core national game spine
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
-- Work assigned to sibling subtasks: Acquire approved national team, schedule, game, score, drive, play, box-score, and gamebook history; Approve or block the population-level core-history coverage gate.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
+- Work assigned to sibling subtasks: Acquire quality-supported national team, schedule, game, score, drive, play, box-score, and gamebook history; Approve or block the population-level core-history coverage gate.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Prerequisites
 
-- Dependency POST-SUBTASK-021 complete at required maturity
-- Dependency POST-SUBTASK-018 complete at required maturity
-- Dependency POST-SUBTASK-022 complete at required maturity
 - Dependency POST-SUBTASK-006 complete at required maturity
+- Dependency POST-SUBTASK-018 complete at required maturity
+- Dependency POST-SUBTASK-021 complete at required maturity
+- Dependency POST-SUBTASK-022 complete at required maturity
 - Dependency POST-SUBTASK-025 complete at required maturity
 
 ## Hard Dependencies
@@ -420,17 +426,18 @@ Execute the atomic 2 of 3 step in Story POST-STORY-009 (Core national game spine
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-026 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-026 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/data_lake/core_normalization_report.json` is demonstrably consumable by POST-SUBTASK-027 without manual reconstruction or undocumented state.
 
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_w19_foundation.py` — Run as a regression check after completing POST-SUBTASK-026; retain command, exit code, and relevant output.
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `artifacts/data_lake/core_normalization_report.json` — Run as a regression check after completing POST-SUBTASK-026; retain command, exit code, and relevant output.
 - **SCIENTIFIC** / `SCIENTIFIC` — `artifacts/data_lake/core_normalization_report.json` — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - **STATIC_VALIDATION** / `STATIC_VALIDATION` — `artifacts/data_lake/core_normalization_report.json` — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
@@ -467,7 +474,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-009 (Core national game spine
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/data_lake/core_normalization_report.json` can be parsed and consumed by `POST-SUBTASK-027` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/data_lake/core_normalization_report.json` can be parsed and consumed by `POST-SUBTASK-027` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -483,9 +490,9 @@ Validate that `artifacts/data_lake/core_normalization_report.json` can be parsed
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

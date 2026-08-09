@@ -8,7 +8,7 @@
 
 ## What am I implementing?
 
-Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes
+Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata
 
 ## Why?
 
@@ -16,11 +16,11 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Atomic execution scope
 
-Execute the atomic 1 of 3 step in Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit): Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-030`. Produce `artifacts/data_lake/immutability_and_correction_test.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-032.
+Execute the atomic 1 of 3 step in Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit): Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-030`. Produce `artifacts/data_lake/immutability_and_correction_test.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-032.
 
 ### In scope
 
-- Perform the exact action: Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes.
+- Perform the exact action: Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-030`.
 - Demonstrate with saved evidence: Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.
 - Demonstrate with saved evidence: The declared output `artifacts/data_lake/immutability_and_correction_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
@@ -32,9 +32,8 @@ Execute the atomic 1 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests; Run and publish the national historical-lake readiness decision.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Current gate state
@@ -106,10 +105,9 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Every expanded raw and normalized capture used downstream is stored outside Git under AGGIE_ANALYTICS_DATA_ROOT with content-addressed identity, source/endpoint/request metadata, retrieval time, schema/version, season/domain scope, and correction/reconciliation lineage.
-2. Quarantine preserves partial, invalid, duplicate, drifted, conflicting, rights-restricted, and reconciliation-failed records without overwriting immutable source evidence.
-3. Reconstructible temporary files, abandoned downloads, duplicate caches, and obsolete worktrees are removed only after required immutable evidence and hashes are verified.
-4. The immutability/correction test deterministically detects mutation, missing lineage, path escape, secret exposure, and stale-artifact retention.
+1. Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.
+2. The declared output `artifacts/data_lake/immutability_and_correction_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 
@@ -125,18 +123,17 @@ Produce and validate these outputs within this atomic work unit:
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## End-to-end handoff
 
-Validate that `artifacts/data_lake/immutability_and_correction_test.json` can be parsed and consumed by `POST-SUBTASK-032` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/data_lake/immutability_and_correction_test.json` can be parsed and consumed by `POST-SUBTASK-032` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

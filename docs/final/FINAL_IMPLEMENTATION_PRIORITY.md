@@ -4,7 +4,7 @@ The wave program is complete. This is the recommended **post-wave implementation
 
 ## P0 — Make empirical work possible
 1. Run the target-hardware AC-038 benchmark; freeze THR-011/THR-012 only from that evidence.
-2. Configure source credentials outside the repository and finish source-specific rights review.
+2. Configure source credentials outside the repository, activate the universal private-research acquisition policy, and validate each selected route technically. Rights and redistribution status are metadata-only for private acquisition/training.
 3. Materialize immutable national historical source data and manifests.
 4. Canonicalize entities and measure population schema/missingness/resolution quality.
 5. Build historical PIT states/training matrices and execute the W24 leakage/replay batteries on real data.

@@ -1258,14 +1258,14 @@
     },
     {
       "control_id": "AC-084",
-      "title": "Raw-field source rights/provenance carry-forward",
+      "title": "Raw-field source policy/provenance carry-forward",
       "domain": "governance",
       "evidence_mode": "STATIC_PLUS_REVIEW",
       "owner_wave": "W09-W24",
       "blocking_scope": "DATA_PUBLICATION",
       "release_blocking": "True",
-      "current_status": "PASS_W09_CONTRACT_RIGHTS_REVIEW_PENDING",
-      "criterion": "Raw-field metadata retains source access/license/redistribution context through candidate handoff.",
+      "current_status": "PASS_PRIVATE_RESEARCH_POLICY_ACTIVE",
+      "criterion": "Raw-field metadata retains source/access/license/redistribution context as nonblocking metadata; raw third-party publication remains disabled.",
       "threshold_refs": ""
     },
     {

@@ -20,7 +20,7 @@ Deliver Story POST-STORY-027 (Official A&M evidence and high-resolution PIT stat
 
 ### In scope
 
-- Complete and verify child `POST-SUBTASK-079` — Acquire approved A&M schedules, rosters, depth, staff, media-guide, participation, availability, and official evidence.
+- Complete and verify child `POST-SUBTASK-079` — Acquire quality-supported A&M schedules, rosters, depth, staff, media-guide, participation, availability, and official evidence.
 - Complete and verify child `POST-SUBTASK-080` — Build high-resolution A&M team/player/staff/context as-of snapshots reconciled with national state.
 - Complete and verify child `POST-SUBTASK-081` — Validate A&M coverage, source conflicts, rights, identity, PIT integrity, and snapshot reproducibility.
 - Integrate the child outputs and execute final gate `POST-SUBTASK-081`.
@@ -30,7 +30,7 @@ Deliver Story POST-STORY-027 (Official A&M evidence and high-resolution PIT stat
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -103,9 +103,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every A&M record retains rights, content/source identity, published/observed/retrieved timing, and canonical links; historical gaps/conflicts preserve both evidence lanes.
+2. The declared output `artifacts/tamu/tamu_source_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. A&M detail uses the same cutoffs as national state, augments rather than silently overwrites it, retains uncertainty, and reproduces from pinned versions.
+5. The declared output `artifacts/tamu/tamu_high_resolution_state_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Future/postgame/current-page detail cannot alter earlier snapshots, restricted data is not redistributed, and unsupported fields remain absent/conditional rather than narrative-filled.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

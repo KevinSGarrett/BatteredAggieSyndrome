@@ -99,7 +99,7 @@
     "w18",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-136",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Implement hypothesis/experiment queue, isolated worktree, resource and deduplication contracts",

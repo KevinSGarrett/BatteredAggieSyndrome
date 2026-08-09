@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "A new operator can execute exact verified commands, configure external roots/credentials, inspect Jira blockers, run/recover/rollback the product, and understands every manual/legal boundary without stale Wave-26 language.",
+    "The declared output `docs/operations/PRODUCTION_OPERATOR_GUIDE.md` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Documentation reports actual coverage/metrics/calibration/uncertainty/OOD/A&M/BAS decisions/limitations/nulls and links every claim to immutable evidence with no unsupported SLA, causal, performance, or scientific claim.",
+    "The declared output `docs/final/PRODUCTION_SYSTEM_CARD.md` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Review records conflicts/residual risk/manual gates; authorization names exact release/model/data/product/Jira identities and supported modes or lists unmet evidence, never infers completion from planning or starter tests, and captures the operating baseline.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -115,7 +119,7 @@
     "release",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-047",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Make the system installable, auditable, operable, and either authorize an exact release or retain an explicit no-release decision.",
@@ -131,7 +135,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-015",
@@ -243,7 +247,7 @@
     "SRCREF-01897",
     "SRCREF-01898"
   ],
-  "specificity_fingerprint": "e6ac4a9637a9e45488484a1a76fbb284dc2682d2e7949fe3dbe52970bd44d5ae",
+  "specificity_fingerprint": "3ef00abff082f5dbd6343a9b38fd45d7a3b53ff38caf341d462676c5613d95db",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -304,7 +308,7 @@ Deliver Story POST-STORY-047 (Documentation, independent handoff, go-live review
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -375,9 +379,13 @@ Deliver Story POST-STORY-047 (Documentation, independent handoff, go-live review
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. A new operator can execute exact verified commands, configure external roots/credentials, inspect Jira blockers, run/recover/rollback the product, and understands every manual/legal boundary without stale Wave-26 language.
+2. The declared output `docs/operations/PRODUCTION_OPERATOR_GUIDE.md` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Documentation reports actual coverage/metrics/calibration/uncertainty/OOD/A&M/BAS decisions/limitations/nulls and links every claim to immutable evidence with no unsupported SLA, causal, performance, or scientific claim.
+5. The declared output `docs/final/PRODUCTION_SYSTEM_CARD.md` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Review records conflicts/residual risk/manual gates; authorization names exact release/model/data/product/Jira identities and supported modes or lists unmet evidence, never infers completion from planning or starter tests, and captures the operating baseline.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

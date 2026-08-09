@@ -56,7 +56,7 @@
     "risk_ids": 7
   },
   "effective_traceability_total": 57,
-  "end_to_end_validation": "The entire Autonomous weekly real-data execution and immutable forecast publication capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Autonomous weekly real-data execution and immutable forecast publication and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-012.json",
   "evidence_state": "PLANNED",
@@ -123,7 +123,7 @@
     "mlops",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-012",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Operate the acquisition-to-publication chain on real weekly data with checkpoints, idempotency, governed retraining, immutable snapshots, failure drills, and operating evidence.",
@@ -248,7 +248,7 @@
     "SRCREF-01896",
     "SRCREF-01574"
   ],
-  "specificity_fingerprint": "73c4f418fb5daaaa8a5e7e6213c8cd05cdaec5ff34334651fa2c40ce486192a4",
+  "specificity_fingerprint": "cf8bbcf4d15563cfc7e519747c0a53573d0d6c0192f41d54120ba7c2c9b79a6c",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -421,7 +421,7 @@ All Stories and Subtasks under this Epic for the mlops domain, including its exp
 
 ## End-to-End Validation Requirement
 
-The entire Autonomous weekly real-data execution and immutable forecast publication capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Autonomous weekly real-data execution and immutable forecast publication and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

@@ -92,7 +92,7 @@
     "w15-w17",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-019",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Evaluate Aggie Excess, peer/regime/component hypotheses without hard-coding fan narratives.",

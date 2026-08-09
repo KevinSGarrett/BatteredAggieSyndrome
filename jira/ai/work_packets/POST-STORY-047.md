@@ -30,7 +30,7 @@ Deliver Story POST-STORY-047 (Documentation, independent handoff, go-live review
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -99,9 +99,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. A new operator can execute exact verified commands, configure external roots/credentials, inspect Jira blockers, run/recover/rollback the product, and understands every manual/legal boundary without stale Wave-26 language.
+2. The declared output `docs/operations/PRODUCTION_OPERATOR_GUIDE.md` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Documentation reports actual coverage/metrics/calibration/uncertainty/OOD/A&M/BAS decisions/limitations/nulls and links every claim to immutable evidence with no unsupported SLA, causal, performance, or scientific claim.
+5. The declared output `docs/final/PRODUCTION_SYSTEM_CARD.md` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Review records conflicts/residual risk/manual gates; authorization names exact release/model/data/product/Jira identities and supported modes or lists unmet evidence, never infers completion from planning or starter tests, and captures the operating baseline.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

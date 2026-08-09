@@ -93,7 +93,7 @@
     "planning-program",
     "w23"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-028",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Harden the local production path using measured operational needs rather than cargo-cult infrastructure.",

@@ -9,7 +9,7 @@
   "acceptance_criteria": [
     "Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.",
     "Optional proprietary enrichment is not made mandatory for v1.",
-    "Priority decisions preserve local-first cost and rights constraints."
+    "Priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -53,11 +53,11 @@
   "content_contract_version": "2.0",
   "critical_path": true,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-014 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-014 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/source_governance/source_priority_decisions.json` is demonstrably consumable by POST-SUBTASK-015 without manual reconstruction or undocumented state."
   ],
@@ -72,7 +72,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 16,
-  "end_to_end_validation": "Validate that `artifacts/source_governance/source_priority_decisions.json` can be parsed and consumed by `POST-SUBTASK-015` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/source_governance/source_priority_decisions.json` can be parsed and consumed by `POST-SUBTASK-015` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-014.json",
   "evidence_state": "VERIFIED",
@@ -120,7 +120,7 @@
     "Consume only verified prerequisite outputs from `POST-SUBTASK-013`.",
     "Demonstrate with saved evidence: Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.",
     "Demonstrate with saved evidence: Optional proprietary enrichment is not made mandatory for v1.",
-    "Demonstrate with saved evidence: Priority decisions preserve local-first cost and rights constraints.",
+    "Demonstrate with saved evidence: Priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use.",
     "Produce, validate, content-hash, and register `artifacts/source_governance/source_priority_decisions.json`.",
     "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
   ],
@@ -134,7 +134,7 @@
     "sources",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-014",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Freeze source priority, fallback, and required-versus-optional classifications",
@@ -150,9 +150,9 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Reconcile W06 source inventory with W24 refresh and current handoff gaps; Validate source inventory completeness and unresolved decision coverage.",
-    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review."
+    "Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-STORY-005",
@@ -206,13 +206,19 @@
     "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
     "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
     "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
-    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision."
+    "Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision."
   ],
   "required_tests": [
     {
       "classification": "EXISTING_AUTOMATED_TEST",
       "expectation": "Run as a regression check after completing POST-SUBTASK-014; retain command, exit code, and relevant output.",
       "path": "tests/test_data_research.py",
+      "validation_class": "REGRESSION"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-014; retain command, exit code, and relevant output.",
+      "path": "artifacts/source_governance/source_priority_decisions.json",
       "validation_class": "REGRESSION"
     },
     {
@@ -234,7 +240,7 @@
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
     "Acceptance failure: the evidence cannot demonstrate that each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.",
     "Acceptance failure: the evidence cannot demonstrate that optional proprietary enrichment is not made mandatory for v1.",
-    "Acceptance failure: the evidence cannot demonstrate that priority decisions preserve local-first cost and rights constraints."
+    "Acceptance failure: the evidence cannot demonstrate that priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use."
   ],
   "risk_ids": [],
   "schema_version": 2,
@@ -265,11 +271,11 @@
     "SRCREF-01912",
     "SRCREF-01573"
   ],
-  "specificity_fingerprint": "d5b5e8545e543c3c1e8ec017918cc5f9c0a64a814adf1df3abe8b344ba0f7eec",
+  "specificity_fingerprint": "c7f1352f53be4c0d2deb603fd598982f50330151c65ad3ffd5d24287eb3df97f",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02011",
@@ -321,7 +327,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-005 (Reconcile the final sour
 - Consume only verified prerequisite outputs from `POST-SUBTASK-013`.
 - Demonstrate with saved evidence: Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.
 - Demonstrate with saved evidence: Optional proprietary enrichment is not made mandatory for v1.
-- Demonstrate with saved evidence: Priority decisions preserve local-first cost and rights constraints.
+- Demonstrate with saved evidence: Priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use.
 - Produce, validate, content-hash, and register `artifacts/source_governance/source_priority_decisions.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
@@ -329,9 +335,9 @@ Execute the atomic 2 of 3 step in Story POST-STORY-005 (Reconcile the final sour
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Reconcile W06 source inventory with W24 refresh and current handoff gaps; Validate source inventory completeness and unresolved decision coverage.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 
 ## Prerequisites
 
@@ -402,21 +408,22 @@ Execute the atomic 2 of 3 step in Story POST-STORY-005 (Reconcile the final sour
 
 1. Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.
 2. Optional proprietary enrichment is not made mandatory for v1.
-3. Priority decisions preserve local-first cost and rights constraints.
+3. Priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-014 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-014 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/source_governance/source_priority_decisions.json` is demonstrably consumable by POST-SUBTASK-015 without manual reconstruction or undocumented state.
 
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_data_research.py` — Run as a regression check after completing POST-SUBTASK-014; retain command, exit code, and relevant output.
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `artifacts/source_governance/source_priority_decisions.json` — Run as a regression check after completing POST-SUBTASK-014; retain command, exit code, and relevant output.
 - **STATIC_VALIDATION** / `STATIC_VALIDATION` — `artifacts/source_governance/source_priority_decisions.json` — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
 
@@ -426,7 +433,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-005 (Reconcile the final sour
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 
 ## Completion Evidence Contract
 
@@ -452,7 +459,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-005 (Reconcile the final sour
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/source_governance/source_priority_decisions.json` can be parsed and consumed by `POST-SUBTASK-015` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/source_governance/source_priority_decisions.json` can be parsed and consumed by `POST-SUBTASK-015` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -464,13 +471,13 @@ Validate that `artifacts/source_governance/source_priority_decisions.json` can b
 - A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
 - Acceptance failure: the evidence cannot demonstrate that each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.
 - Acceptance failure: the evidence cannot demonstrate that optional proprietary enrichment is not made mandatory for v1.
-- Acceptance failure: the evidence cannot demonstrate that priority decisions preserve local-first cost and rights constraints.
+- Acceptance failure: the evidence cannot demonstrate that priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "The challenger receives identical evaluation, uncertainty/calibration/robustness/resource reporting, cannot alter prior champion evidence, and incomplete runs are not selectively summarized.",
+    "The declared output `artifacts/advanced/challenger_protected_scorecard.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Promotion requires policy-compliant protected evidence and a signed reproducible artifact; no-promotion retains current champion/negative evidence and any promoted candidate passes full serving/operations/rollback gates.",
+    "The declared output `artifacts/advanced/challenger_promotion_decision.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Active identities change only on successful promotion, all decisions/Jira/evidence reconcile, and GAP-013 remains conditional or closed by explicit disposition rather than a core blocker.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -111,7 +115,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-050",
   "maturity_before": "CONDITIONAL",
   "objective": "Apply the same sealed evidence, operations, and rollback gates as any champion.",
@@ -127,7 +131,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-016",
@@ -241,7 +245,7 @@
     "SRCREF-00200",
     "SRCREF-00201"
   ],
-  "specificity_fingerprint": "6a2deaf741d62384607b484ee04a1fa0035ee4faea59cbeac78f5ffa8f03feb2",
+  "specificity_fingerprint": "3c026f2e06b1080baad8bff88c7ecccb410716b9ba698e6fea05fddcd1008849",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real quality-valid sources/paths and cannot omit bad weeks from reliability.",
+    "The declared output `artifacts/mlops/shadow_run_ledger.jsonl` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Each injected failure is detected, classified, stopped, alerted, recovered, and evidenced without weakening gates or deleting canonical evidence; recovery time/manual steps are measured.",
+    "The declared output `artifacts/mlops/shadow_failure_drills.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "OPERATING requires repeated successful real evidence plus freshness/recovery/resource/security/operator proof and documents residual manual gates; GAP-012 stays open otherwise.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -116,7 +120,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-038",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Accumulate actual 2026 weekly reliability evidence before claiming autonomous operation.",
@@ -132,7 +136,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-012",
@@ -241,7 +245,7 @@
     "SRCREF-01574",
     "SRCREF-01897"
   ],
-  "specificity_fingerprint": "d15985e25e4b02fa5992e8293aca7923cb2e0e844b885b503a51cc203853b6c3",
+  "specificity_fingerprint": "5b5dcb4d619c0bf7507c45dbb5845aa910432b0b9a56927e6e72e18a0ce6a0ff",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -299,7 +303,7 @@ Deliver Story POST-STORY-038 (Repeated shadow operation, failure drills, and aut
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -370,9 +374,13 @@ Deliver Story POST-STORY-038 (Repeated shadow operation, failure drills, and aut
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real quality-valid sources/paths and cannot omit bad weeks from reliability.
+2. The declared output `artifacts/mlops/shadow_run_ledger.jsonl` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Each injected failure is detected, classified, stopped, alerted, recovered, and evidenced without weakening gates or deleting canonical evidence; recovery time/manual steps are measured.
+5. The declared output `artifacts/mlops/shadow_failure_drills.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. OPERATING requires repeated successful real evidence plus freshness/recovery/resource/security/operator proof and documents residual manual gates; GAP-012 stays open otherwise.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

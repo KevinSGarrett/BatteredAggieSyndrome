@@ -27,7 +27,7 @@
 - Do not silently turn Level-C hypotheses into release-blocking requirements.
 - Do not invent numerical thresholds before their owner wave has evidence.
 - Do not waive PIT/leakage/split/BAS cross-fit failures.
-- Do not let automated tests replace manual licensing/rights review where terms are ambiguous.
+- Do not reintroduce licensing, terms, redistribution, scraping, provider-preference, or upstream-authorization gates for private local acquisition or training. Preserve that information as metadata and reserve review for an actual future distribution proposal.
 - When an ADR changes a material boundary, update acceptance mappings in the same change.
 
 ## W08 PIT anti-drift
@@ -45,7 +45,7 @@
 - Do not promote from correlation, mutual information, model importance, regularization or permutation alone.
 - Do not use market-derived features in the pure-football lane.
 - Do not erase REJECTED/BANNED/demotion history.
-- Do not let BANNED future/leakage/rights fields re-enter via strong model scores.
+- Do not let BANNED future/leakage fields re-enter via strong model scores. A field may be banned for validity, privacy, malware, credential exposure, or schema incompatibility, but not solely for private-use licensing uncertainty.
 
 
 ## W12 player-intelligence anti-drift

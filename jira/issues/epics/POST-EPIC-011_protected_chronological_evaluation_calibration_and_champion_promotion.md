@@ -59,7 +59,7 @@
     "risk_ids": 25
   },
   "effective_traceability_total": 183,
-  "end_to_end_validation": "The entire Protected chronological evaluation, calibration, and champion promotion capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Protected chronological evaluation, calibration, and champion promotion and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-011.json",
   "evidence_state": "PLANNED",
@@ -126,7 +126,7 @@
     "post-wave",
     "validation"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-011",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Run the sealed real-data evaluation program and promote a champion only when all protected scientific, calibration, coherence, reproducibility, and operational gates pass.",
@@ -255,7 +255,7 @@
     "SRCREF-01570",
     "SRCREF-01571"
   ],
-  "specificity_fingerprint": "77aed44a346659cc9887f955f9ab6d9a73b436bb8de0a3e04be02e16c933261a",
+  "specificity_fingerprint": "23bfddaa15b859ca51b8fe1a5738a9030c32d4ba7c8dc880c4a20ea7ef6e718d",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -436,7 +436,7 @@ All Stories and Subtasks under this Epic for the validation domain, including it
 
 ## End-to-End Validation Requirement
 
-The entire Protected chronological evaluation, calibration, and champion promotion capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Protected chronological evaluation, calibration, and champion promotion and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

@@ -54,11 +54,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-121 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-121 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/product/explanation_analog_validation.json` is demonstrably consumable by POST-SUBTASK-122 without manual reconstruction or undocumented state."
   ],
@@ -74,7 +74,7 @@
     "risk_ids": 12
   },
   "effective_traceability_total": 85,
-  "end_to_end_validation": "Validate that `artifacts/product/explanation_analog_validation.json` can be parsed and consumed by `POST-SUBTASK-122` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/product/explanation_analog_validation.json` can be parsed and consumed by `POST-SUBTASK-122` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-013",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-121.json",
   "evidence_state": "PLANNED",
@@ -138,7 +138,7 @@
     "solo-worktree",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-121",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Generate model-compatible global/per-game driver explanations and serve prior-only historical analog/peer/regime context",
@@ -154,7 +154,7 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Run explanation faithfulness/stability/privacy tests plus target-host cold/warm load, API, snapshot, dashboard, concurrency, memory, CPU, and disk benchmarks; Publish product readiness, freshness/cache transitions, supported envelope, and safe failure decision.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
@@ -162,8 +162,8 @@
   "parent_id": "POST-STORY-041",
   "phase": "PHASE-4",
   "prerequisites": [
-    "Dependency POST-SUBTASK-120 complete at required maturity",
-    "Dependency POST-SUBTASK-009 complete at required maturity"
+    "Dependency POST-SUBTASK-009 complete at required maturity",
+    "Dependency POST-SUBTASK-120 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02085",
@@ -298,11 +298,11 @@
     "SRCREF-01574",
     "SRCREF-01563"
   ],
-  "specificity_fingerprint": "b297f3bbd569fcc075338743093b9fa34a7ccab1b0655b09450f659b9561a75f",
+  "specificity_fingerprint": "739a5d34d192f0e6c9d4f72ee61ceb15538be03f44049f146f0678564c1d9bdc",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02089",
@@ -365,14 +365,14 @@ Execute the atomic 1 of 3 step in Story POST-STORY-041 (Faithful drivers, histor
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Run explanation faithfulness/stability/privacy tests plus target-host cold/warm load, API, snapshot, dashboard, concurrency, memory, CPU, and disk benchmarks; Publish product readiness, freshness/cache transitions, supported envelope, and safe failure decision.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Prerequisites
 
-- Dependency POST-SUBTASK-120 complete at required maturity
 - Dependency POST-SUBTASK-009 complete at required maturity
+- Dependency POST-SUBTASK-120 complete at required maturity
 
 ## Hard Dependencies
 
@@ -446,11 +446,11 @@ Execute the atomic 1 of 3 step in Story POST-STORY-041 (Faithful drivers, histor
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-121 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-121 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/product/explanation_analog_validation.json` is demonstrably consumable by POST-SUBTASK-122 without manual reconstruction or undocumented state.
 
@@ -497,7 +497,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-041 (Faithful drivers, histor
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/product/explanation_analog_validation.json` can be parsed and consumed by `POST-SUBTASK-122` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/product/explanation_analog_validation.json` can be parsed and consumed by `POST-SUBTASK-122` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -513,9 +513,9 @@ Validate that `artifacts/product/explanation_analog_validation.json` can be pars
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

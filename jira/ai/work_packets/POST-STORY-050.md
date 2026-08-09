@@ -30,7 +30,7 @@ Deliver Story POST-STORY-050 (Protected comparison and production disposition) a
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -100,9 +100,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. The challenger receives identical evaluation, uncertainty/calibration/robustness/resource reporting, cannot alter prior champion evidence, and incomplete runs are not selectively summarized.
+2. The declared output `artifacts/advanced/challenger_protected_scorecard.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Promotion requires policy-compliant protected evidence and a signed reproducible artifact; no-promotion retains current champion/negative evidence and any promoted candidate passes full serving/operations/rollback gates.
+5. The declared output `artifacts/advanced/challenger_promotion_decision.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Active identities change only on successful promotion, all decisions/Jira/evidence reconcile, and GAP-013 remains conditional or closed by explicit disposition rather than a core blocker.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

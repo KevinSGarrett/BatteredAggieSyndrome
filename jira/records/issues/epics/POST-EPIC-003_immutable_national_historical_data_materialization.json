@@ -51,7 +51,7 @@
     "risk_ids": 5
   },
   "effective_traceability_total": 24,
-  "end_to_end_validation": "The entire Immutable national historical data materialization capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Immutable national historical data materialization and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-003.json",
   "evidence_state": "PLANNED",
@@ -118,10 +118,10 @@
     "post-wave",
     "raw-data"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-003",
   "maturity_before": "SCAFFOLD",
-  "objective": "Acquire approved national history into immutable, content-addressed raw snapshots with population-level coverage, rights, and provenance evidence.",
+  "objective": "Acquire maximum quality-supported national history into immutable, content-addressed raw snapshots with population-level coverage and provenance evidence; source rights metadata is nonblocking for private research.",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24176",
@@ -243,7 +243,7 @@
     "SRCREF-01889",
     "SRCREF-01564"
   ],
-  "specificity_fingerprint": "3b93546707d67fce7f839e717a56af7fbe02e809ade02348fcdaff36f515fea1",
+  "specificity_fingerprint": "7bf97215d4766340d9a9d1c4b65bea8ead27c0c6dc8acfaf8688baa53a207654",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],

@@ -10,7 +10,7 @@
 1. Generic executable-subtask scope specifications: 159 → 0
 2. Actionable scopes that merely repeated the objective: 212 → 0
 3. Actionable items without end-to-end validation: 4 → 0
-4. Legal-review tasks incorrectly forced to add an automated test: 2 → 0
+4. Publication-boundary review tasks incorrectly forced to add an automated test: 2 → 0
 5. All actionable records now declare explicit governance-traceability gates/inheritance, files to inspect versus files authorized for modification, task-appropriate validation classes, completion evidence contracts, and issue-specific risks/evidence/DoD.
 6. AI packet coverage: 229 / 229 actionable records (159 atomic execution; 70 non-executable aggregate gates).
 7. All issue Markdown, AI work packets, source manifests, indexes, import CSVs, and REST payloads are regenerated from canonical JSON and checked for derivative consistency.
@@ -29,4 +29,4 @@
 
 ## External boundary
 
-Destination Jira administration/import, human rights decisions, credentials, real-data materialization, target-host benchmarks, empirical model/BAS findings, production deployment, and operating authorization remain explicit execution work. They are not fabricated as completed outcomes and are not defects in the static Jira pack.
+Destination Jira administration/import, technical credential/route validation, real-data materialization, target-host benchmarks, empirical model/BAS findings, production deployment, and operating authorization remain explicit execution work. Rights metadata is nonblocking for private acquisition and training. These outcomes are not fabricated as completed and are not defects in the static Jira pack.

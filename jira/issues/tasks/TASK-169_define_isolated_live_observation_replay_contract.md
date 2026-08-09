@@ -96,7 +96,7 @@
     "research-design",
     "w24"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-169",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Define isolated live observation/replay contract",

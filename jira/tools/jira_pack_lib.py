@@ -101,7 +101,8 @@ def save_record(record: dict[str, Any]) -> None:
         path = project_path(record["canonical_record"])
     payload = {key: value for key, value in record.items() if key != "__path"}
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-    Path(path).write_text(json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+    value = json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    Path(path).write_bytes(value.replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8"))
     record["__path"] = Path(path)
 
 
@@ -117,7 +118,7 @@ def write_csv(path: Path, rows: Iterable[dict[str, Any]], fields: list[str] | No
                     seen.add(key)
                     fields.append(key)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\r\n")
         writer.writeheader()
         for row in rows:
             clean: dict[str, Any] = {}
@@ -153,8 +154,8 @@ def rebuild_file_manifest() -> int:
         data = path.read_bytes()
         rows.append({"path": rel, "bytes": len(data), "sha256": sha256_bytes(data)})
     write_csv(JIRA_ROOT / "validation" / "JIRA_FILE_MANIFEST.csv", rows, ["path", "bytes", "sha256"])
-    (JIRA_ROOT / "validation" / "JIRA_FILE_HASHES.sha256").write_text(
-        "".join(f"{row['sha256']}  {row['path']}\n" for row in rows), encoding="utf-8"
+    (JIRA_ROOT / "validation" / "JIRA_FILE_HASHES.sha256").write_bytes(
+        "".join(f"{row['sha256']}  {row['path']}\r\n" for row in rows).encode("utf-8")
     )
     return len(rows)
 
@@ -756,8 +757,9 @@ def _update_source_derivatives(updated: dict[str, dict[str, str]]) -> None:
         if not index_path.exists():
             continue
         with index_path.open(encoding="utf-8", newline="") as handle:
-            rows = list(csv.DictReader(handle))
-            fields = list(handle.fieldnames or [])
+            reader = csv.DictReader(handle)
+            rows = list(reader)
+            fields = list(reader.fieldnames or [])
         changed = False
         for row in rows:
             rid = row.get("source_ref_id", "")

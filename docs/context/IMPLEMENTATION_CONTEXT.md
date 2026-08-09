@@ -2,7 +2,7 @@
 
 W18 is complete at experimentation/autonomous-research governance reference maturity. `TASK-041` is the first READY W19 task.
 
-W19 should materialize approved source adapters/raw snapshots, canonical/entity resolution, PIT state/lineage, feature registry/factory and a synthetic end-to-end foundation fixture. It may use W18 experiment identity/replay contracts for implementation experiments, but research/HPO remains development-only and cannot mutate the W17 judging-rule seal.
+W19 should materialize private-research source adapters/raw snapshots, canonical/entity resolution, PIT state/lineage, feature registry/factory and a synthetic end-to-end foundation fixture. Public factual sources require no rights approval prerequisite; technical, schema, provenance, quality, PIT, leakage, credential, malware, private-personal-data, and external-storage controls remain. It may use W18 experiment identity/replay contracts for implementation experiments, but research/HPO remains development-only and cannot mutate the W17 judging-rule seal.
 
 MLflow Tracking and Optuna are selected replaceable adapters; neither is a mandatory forecast-runtime dependency or required service. Advanced neural/sequence/graph empirical execution remains blocked until materialized conventional baseline evidence exists.
 

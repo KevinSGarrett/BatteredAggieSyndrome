@@ -1,5 +1,5 @@
 <!-- GENERATED VIEW. Canonical record: jira/records/issues/stories/POST-STORY-010_player_roster_recruiting_market_weather_and_contextual_raw_domains.json -->
-# POST-STORY-010 — [POST-STORY-010] Expanded national core and supporting-domain acquisition and tiered eligibility
+# POST-STORY-010 — [POST-STORY-010] Historical expansion across core and supporting domains
 
 ## Canonical metadata
 
@@ -7,10 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.",
-    "The final child gate POST-SUBTASK-030 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.",
-    "The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.",
-    "No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass."
+    "Preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.",
+    "The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.",
+    "The declared output `artifacts/data_lake/context_population_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -55,7 +58,7 @@
     "risk_ids": 5
   },
   "effective_traceability_total": 24,
-  "end_to_end_validation": "A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.",
+  "end_to_end_validation": "The expanded manifest is deterministic and consumable by the profiling step, preserves partial seasons and missing domains, and never treats rights metadata or the 2022-2025 tranche as a terminal-history gate.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-010.json",
   "evidence_state": "PLANNED",
@@ -103,11 +106,11 @@
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100060,
   "in_scope": [
-    "Complete and verify POST-SUBTASK-028 expanded immutable acquisition across every useful approved core and supporting domain.",
-    "Complete and verify POST-SUBTASK-029 independent population profiling across all required source/season/team/domain/schema/provenance/PIT dimensions.",
-    "Complete and verify POST-SUBTASK-030 tiered season/domain/use eligibility without global rejection of partial older seasons or unsupported promotion.",
-    "Preserve the bounded 2022-2025 tranche as nonterminal and target approximately 2010-2025 plus earlier quality-supported seasons.",
-    "Integrate child outputs through final gate POST-SUBTASK-030 with all partial, negative, and provider-limitation evidence preserved."
+    "Complete and verify child `POST-SUBTASK-028` — Expand immutable national core and supporting-domain history to the maximum quality-supported seasons.",
+    "Complete and verify child `POST-SUBTASK-029` — Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata.",
+    "Complete and verify child `POST-SUBTASK-030` — Gate domain-by-domain production, experimental, conditional, rejected, or unavailable eligibility.",
+    "Integrate the child outputs and execute final gate `POST-SUBTASK-030`.",
+    "Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence."
   ],
   "issue_type": "Story",
   "jira_key": "BAT-60",
@@ -122,7 +125,7 @@
   "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-010",
   "maturity_before": "SCAFFOLD",
-  "objective": "Acquire, profile, and assign tiered eligibility to the expanded national core and supporting-domain history",
+  "objective": "Expand the validated contemporary tranche to the maximum quality-supported national history, targeting approximately 2010-2025 and earlier seasons while preserving tiered domain eligibility.",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24200",
@@ -135,7 +138,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-003",
@@ -221,7 +224,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute POST-SUBTASK-028 through POST-SUBTASK-030 as the expanded-history acquisition/profile/eligibility chain. Target approximately 2010-2025 and earlier supported seasons, preserve the bounded 2022-2025 tranche as nonterminal, and hand explicit season/domain/use tiers plus negative evidence to immutable national-lake work.",
+  "scope": "Deliver Story POST-STORY-010 (Historical expansion across core and supporting domains) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-028, POST-SUBTASK-029, POST-SUBTASK-030 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-030` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.",
   "source_ids": [
     "GAP-002",
     "GAP-006",
@@ -250,7 +253,7 @@
     "SRCREF-01572",
     "SRCREF-01573"
   ],
-  "specificity_fingerprint": "7d010c12897542953c6317ae08891fded9857e550462b5a87b00ba0f9852cac5",
+  "specificity_fingerprint": "52c86e3543b5c834fbe184fb532cd97a43180b6f0f70fd4c248e69d5b3ebd84c",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -270,7 +273,7 @@
     "SRCREF-01572",
     "SRCREF-01573"
   ],
-  "title": "[POST-STORY-010] Expanded national core and supporting-domain acquisition and tiered eligibility",
+  "title": "[POST-STORY-010] Historical expansion across core and supporting domains",
   "traceability_inherited_from": [
     "POST-SUBTASK-033"
   ],
@@ -289,7 +292,7 @@
 
 ## Objective
 
-Acquire, profile, and assign tiered eligibility to the expanded national core and supporting-domain history
+Expand the validated contemporary tranche to the maximum quality-supported national history, targeting approximately 2010-2025 and earlier seasons while preserving tiered domain eligibility.
 
 ## Why This Exists
 
@@ -297,21 +300,21 @@ This coherent capability closes a defined portion of Immutable national historic
 
 ## Scope
 
-Execute POST-SUBTASK-028 through POST-SUBTASK-030 as the expanded-history acquisition/profile/eligibility chain. Target approximately 2010-2025 and earlier supported seasons, preserve the bounded 2022-2025 tranche as nonterminal, and hand explicit season/domain/use tiers plus negative evidence to immutable national-lake work.
+Deliver Story POST-STORY-010 (Historical expansion across core and supporting domains) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-028, POST-SUBTASK-029, POST-SUBTASK-030 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-030` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
 
 ### Explicit In Scope
 
-- Complete and verify POST-SUBTASK-028 expanded immutable acquisition across every useful approved core and supporting domain.
-- Complete and verify POST-SUBTASK-029 independent population profiling across all required source/season/team/domain/schema/provenance/PIT dimensions.
-- Complete and verify POST-SUBTASK-030 tiered season/domain/use eligibility without global rejection of partial older seasons or unsupported promotion.
-- Preserve the bounded 2022-2025 tranche as nonterminal and target approximately 2010-2025 plus earlier quality-supported seasons.
-- Integrate child outputs through final gate POST-SUBTASK-030 with all partial, negative, and provider-limitation evidence preserved.
+- Complete and verify child `POST-SUBTASK-028` — Expand immutable national core and supporting-domain history to the maximum quality-supported seasons.
+- Complete and verify child `POST-SUBTASK-029` — Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata.
+- Complete and verify child `POST-SUBTASK-030` — Gate domain-by-domain production, experimental, conditional, rejected, or unavailable eligibility.
+- Integrate the child outputs and execute final gate `POST-SUBTASK-030`.
+- Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence.
 
 ### Explicit Out of Scope
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -383,10 +386,13 @@ Execute POST-SUBTASK-028 through POST-SUBTASK-030 as the expanded-history acquis
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.
-2. The final child gate POST-SUBTASK-030 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.
-3. The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.
-4. No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass.
+1. Preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.
+2. The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
+5. The declared output `artifacts/data_lake/context_population_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 
@@ -422,7 +428,7 @@ Execute POST-SUBTASK-028 through POST-SUBTASK-030 as the expanded-history acquis
 
 ## End-to-End Validation Requirement
 
-A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.
+The expanded manifest is deterministic and consumable by the profiling step, preserves partial seasons and missing domains, and never treats rights metadata or the 2022-2025 tranche as a terminal-history gate.
 
 ## Expected Maturity After Completion
 

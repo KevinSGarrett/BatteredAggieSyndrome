@@ -100,7 +100,7 @@
     "w09",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-020",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Implement automated schema/column scanner",

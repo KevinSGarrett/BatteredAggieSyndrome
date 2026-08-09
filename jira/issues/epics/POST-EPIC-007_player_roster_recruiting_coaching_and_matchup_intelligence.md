@@ -58,7 +58,7 @@
     "risk_ids": 23
   },
   "effective_traceability_total": 116,
-  "end_to_end_validation": "The entire Player, roster, recruiting, coaching, and matchup intelligence capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Player, roster, recruiting, coaching, and matchup intelligence and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-007.json",
   "evidence_state": "PLANNED",
@@ -125,7 +125,7 @@
     "core-release",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-007",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Materialize higher-resolution football state required for credible availability-aware forecasts and A&M specialization while preserving uncertainty and source limits.",
@@ -253,7 +253,7 @@
     "SRCREF-01894",
     "SRCREF-01568"
   ],
-  "specificity_fingerprint": "98459eec36f02c8e9379e225aee6bfbba1bd43bbb240bcb9c85f7fc17299092e",
+  "specificity_fingerprint": "4441b07b529fb416c6a1690e8cd9c0c5bdd276dd5fcc23d6c7e1ad000485d639",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -431,7 +431,7 @@ All Stories and Subtasks under this Epic for the advanced-football domain, inclu
 
 ## End-to-End Validation Requirement
 
-The entire Player, roster, recruiting, coaching, and matchup intelligence capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Player, roster, recruiting, coaching, and matchup intelligence and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

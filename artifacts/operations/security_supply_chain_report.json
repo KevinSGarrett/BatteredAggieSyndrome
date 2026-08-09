@@ -1,57 +1,79 @@
 {
-  "schema_version": "1.1.0",
-  "report_type": "dependency_secret_license_restricted_data_and_artifact_integrity",
-  "created_at_utc": "2026-08-09T09:18:00Z",
-  "updated_at_utc": "2026-08-09T14:51:58Z",
-  "jira_key": "BAT-475",
-  "local_issue_id": "POST-SUBTASK-125",
-  "producer": {
-    "agent": "Codex",
-    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
-  },
-  "observable_outcome": "All independently actionable BAT-475 machine remediations are protected-integrated: all 14 product packages form a compatible Python 3.12 set with no known pip-audit findings at check time, every lock entry is bound to reviewed PyPI SHA-256 release-file identities, hashed installation and deterministic license/notice inventory are enforced, automated security fixes are enabled, and protected CI plus Dependabot controls pass. The five official CI/security action families surfaced by Dependabot now use Node.js 24-compatible majors and pass protected Linux, Windows, dependency-review, CodeQL, and main replays without the prior Node.js 20 deprecation annotations. The full implementation passes 258 tests with 1 Windows privilege-dependent symlink test skipped and 33 subtests; Linux protected CI passed the symlink case. GitHub exposed zero OPEN Dependabot, secret-scanning, and code-scanning alerts at the final check, and historical HIGH CodeQL alerts #1 and #2 were fixed without dismissal. BAT-475 remains Blocked/Partial solely because no named human source-rights decision exists.",
-  "eligibility": "BLOCKED_NOT_RELEASE_ELIGIBLE",
-  "achieved_maturity": "FUNCTIONAL_STARTER",
-  "evidence_state": "PARTIAL",
-  "issue_disposition": "BLOCKED",
-  "input_identities": {
-    "git_base_commit": "ca8089fdd4fc0c02c034ee735a7eba5f8d01718f",
-    "git_base_tree": "b3116a274c2804563949465f7166b65e5866868b",
-    "prior_report_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
-    "requirements_product_lock_sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05",
-    "pyproject_toml_sha256": "668b3a4bb21de54fb6260ec982f4ae5772c5fcea30e12a23741b53ecd498690b",
-    "repository_ci_sha256": "2807ba9949be2d625019b0fffdb80e2d1ac93d6f3225f1e521a95a9c9302f7f7",
-    "security_workflow_sha256": "1f5d272d34dde3d68b86b830c1b4f81fe157df89faf9147e72d0897c743c1958",
-    "dependabot_config_sha256": "6f2dfe93dc093e9510fb9ed2152caa236d7f6c088da6e51b6e05365cd315bb6a",
-    "dependency_policy_validator_sha256": "5fec2e80bb65b158001240c1cde1fc3543d8856d10b03ffb57a46a4066ad2418",
-    "product_supply_chain_validator_sha256": "9bcd852c97dc58662cf352d54bd483b04787548a9635371c6d39217c92de1049",
-    "product_supply_chain_tests_sha256": "2008534e1a5ca35dfd0070226382254bd08b880b884e87193496f7da26e66c02",
-    "product_repository_sha256": "f33c16972becd2f093d0c57b18f4428a331fa97c04a9519576c35ddc87c362eb",
-    "product_repository_tests_sha256": "52ee215713905821384a40210f532c977afbacae7e07709d340561e5d3e1a3ec"
-  },
-  "tool_and_runtime_identities": {
-    "python_candidate": "3.12.10",
-    "pip_audit": "2.10.1",
-    "vulnerability_service": "PyPI advisory service through pip-audit",
-    "hash_origin": "Official PyPI release JSON non-yanked file digests",
-    "lock_target": "Cross-platform Python 3.12 product adapter"
-  },
-  "dependency_lock_control": {
+  "acceptance_matrix": [
+    {
+      "criterion": "Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.",
+      "disposition": "PASS",
+      "observable_result": "All machine security gaps are protected-integrated without credential or restricted-payload emission; the former rights prerequisite is superseded and retained only as nonblocking metadata."
+    },
+    {
+      "criterion": "The declared security supply-chain report is deterministic, provenance-bound, and consumable.",
+      "disposition": "PASS",
+      "observable_result": "The report pins base code/tree, every changed control file, lock, audit tool/runtime, external machine evidence hashes, validation outcomes, unresolved blockers, and downstream rejection semantics."
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, rights approval, or completion evidence.",
+      "disposition": "PASS",
+      "observable_result": "The report makes only time-bounded security observations and does not claim scientific metrics, target-hardware results, production-model readiness, accepted risk, or a perpetual zero-alert state."
+    }
+  ],
+  "achieved_maturity": "EMPIRICALLY_VALIDATED",
+  "artifact_integrity_control": {
     "disposition": "PASS_PROTECTED",
-    "base_package_dependency_count": 0,
-    "direct_product_pin_count": 2,
-    "locked_package_count": 14,
+    "forbidden_and_secret_scan_required": true,
+    "manifest_hash_validation_required": true,
+    "negative_hash_lock_mutations": [
+      "MISSING_HASH_REJECTED",
+      "MALFORMED_HASH_REJECTED",
+      "DUPLICATE_PACKAGE_REJECTED",
+      "INTERRUPTED_CONTINUATION_REJECTED",
+      "MISSING_LICENSE_METADATA_REJECTED",
+      "MISSING_LICENSE_FILE_REJECTED"
+    ]
+  },
+  "ci_control_coverage": {
+    "codeql_in_ci": true,
+    "cryptographic_hash_enforcement_in_ci": true,
+    "dependabot_version_update_config": true,
+    "dependency_review_on_pull_requests": true,
+    "disposition": "PASS_PROTECTED_MACHINE_CONTROLS",
+    "exact_pin_policy_in_ci": true,
+    "github_dependabot_security_updates": "ENABLED",
+    "license_notice_inventory_in_ci": true,
+    "pip_audit_in_ci": true,
+    "pip_check_in_product_jobs": true,
+    "protected_pr_validation": "PASS",
+    "repository_secret_forbidden_scan_in_ci": true,
+    "source_rights_review_automatable": false
+  },
+  "completion": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "completion_claim": "BAT-475 is complete at EMPIRICALLY_VALIDATED for its security/supply-chain scope. This does not claim historical-population, target-hardware, production-model, or scientific-result readiness.",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [],
+    "remaining_program_blockers": [
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ]
+  },
+  "created_at_utc": "2026-08-09T09:18:00Z",
+  "dependency_lock_control": {
     "all_entries_exact_pinned": true,
     "all_entries_have_sha256_directives": true,
-    "duplicate_packages": 0,
-    "unsupported_markers": 0,
-    "hash_install_dry_run": "PASS_WINDOWS_PYTHON_3_11",
-    "isolated_hash_install": "PASS_WINDOWS_PYTHON_3_12_10",
-    "pip_check": "PASS",
+    "base_package_dependency_count": 0,
+    "direct_product_pin_count": 2,
     "direct_product_pins": [
       "fastapi==0.141.1",
       "uvicorn==0.52.1"
     ],
+    "disposition": "PASS_PROTECTED",
+    "duplicate_packages": 0,
+    "hash_install_dry_run": "PASS_WINDOWS_PYTHON_3_11",
+    "isolated_hash_install": "PASS_WINDOWS_PYTHON_3_12_10",
+    "locked_package_count": 14,
     "locked_versions": [
       "annotated-doc==0.0.5",
       "annotated-types==0.8.0",
@@ -67,250 +89,429 @@
       "typing-extensions==4.16.0",
       "typing-inspection==0.4.2",
       "uvicorn==0.52.1"
-    ]
-  },
-  "vulnerability_control": {
-    "disposition": "PASS_NO_KNOWN_FINDINGS_AT_CHECK_TIME",
-    "scanner_dependency_count": 14,
-    "scanner_vulnerability_count": 0,
-    "accepted_risk_count": 0,
-    "waived_finding_count": 0,
-    "prior_six_advisory_groups_remediated": true,
-    "prior_starlette_version": "0.50.0",
-    "candidate_starlette_version": "1.6.0",
-    "prior_click_version": "8.1.8",
-    "candidate_click_version": "8.4.2",
-    "zero_github_alerts_claimed": true,
-    "time_scope": "2026-08-09T14:51:58Z time-bounded final check; no perpetual zero-alert claim"
-  },
-  "license_and_notice_control": {
-    "disposition": "PASS_MACHINE_INVENTORY_HUMAN_REVIEW_REQUIRED",
-    "packages_inventoried": 14,
-    "packages_with_installed_license_or_notice_file": 14,
-    "packages_with_spdx_license_expression": 12,
-    "packages_with_classifier_license_metadata": 1,
-    "packages_with_legacy_license_metadata": 1,
-    "packages_missing_observed_license_metadata": 0,
-    "license_inventory_is_legal_approval": false,
-    "accepted_risk": false
-  },
-  "secret_control": {
-    "disposition": "PASS_WITH_TIME_BOUND_ALERT_VISIBILITY",
-    "credential_values_emitted": false,
-    "credential_value_lengths_emitted": false,
-    "repository_secret_and_forbidden_scan_required_in_ci": true,
-    "github_secret_scanning": "enabled",
-    "github_push_protection": "enabled",
-    "github_alert_list_visibility": true,
-    "github_open_alert_counts": {
-      "dependabot": 0,
-      "secret_scanning": 0,
-      "code_scanning": 0,
-      "checked_at_utc": "2026-08-09T14:51:58Z"
-    },
-    "zero_alerts_claimed": true,
-    "zero_alert_claim_scope": "OPEN alerts at the recorded check time only"
-  },
-  "restricted_data_control": {
-    "disposition": "PASS_MACHINE_PATH_BOUNDARY_RIGHTS_BLOCKED",
-    "repository_data_payload": "data/README.md only",
-    "restricted_raw_payloads_stored_in_repository": false,
-    "machine_scan_is_source_rights_approval": false
-  },
-  "artifact_integrity_control": {
-    "disposition": "PASS_PROTECTED",
-    "manifest_hash_validation_required": true,
-    "forbidden_and_secret_scan_required": true,
-    "negative_hash_lock_mutations": [
-      "MISSING_HASH_REJECTED",
-      "MALFORMED_HASH_REJECTED",
-      "DUPLICATE_PACKAGE_REJECTED",
-      "INTERRUPTED_CONTINUATION_REJECTED",
-      "MISSING_LICENSE_METADATA_REJECTED",
-      "MISSING_LICENSE_FILE_REJECTED"
-    ]
-  },
-  "ci_control_coverage": {
-    "disposition": "PASS_PROTECTED_MACHINE_CONTROLS",
-    "exact_pin_policy_in_ci": true,
-    "pip_check_in_product_jobs": true,
-    "repository_secret_forbidden_scan_in_ci": true,
-    "codeql_in_ci": true,
-    "dependency_review_on_pull_requests": true,
-    "pip_audit_in_ci": true,
-    "license_notice_inventory_in_ci": true,
-    "cryptographic_hash_enforcement_in_ci": true,
-    "dependabot_version_update_config": true,
-    "github_dependabot_security_updates": "ENABLED",
-    "source_rights_review_automatable": false,
-    "protected_pr_validation": "PASS"
-  },
-  "github_security_alert_control": {
-    "disposition": "PASS_TIME_BOUND_OPEN_ALERT_CHECK",
-    "alert_list_visibility": true,
-    "checked_at_utc": "2026-08-09T14:51:58Z",
-    "open_counts": {
-      "dependabot": 0,
-      "secret_scanning": 0,
-      "code_scanning": 0
-    },
-    "historical_code_scanning_alerts": [
-      {"number": 1, "rule": "py/path-injection", "security_severity": "high", "state": "fixed", "fixed_at_utc": "2026-08-09T14:26:38Z", "dismissed_at": null},
-      {"number": 2, "rule": "py/path-injection", "security_severity": "high", "state": "fixed", "fixed_at_utc": "2026-08-09T14:26:38Z", "dismissed_at": null}
     ],
-    "perpetual_zero_alert_claimed": false
-  },
-  "protected_integration": {
-    "disposition": "PASS",
-    "supply_chain_pr": {"number": 40, "head": "a1f1270846c9b94fe4e0a1deb8de3bb1855d04f0", "merge": "1a20515701345cc28f51ebd9b1e2cf4375ee9892", "merged_at_utc": "2026-08-09T14:14:19Z"},
-    "path_scope_pr": {"number": 46, "head": "5ed796f43cbe826f408c5cc6f7c8f01b823b338e", "merge": "250b155b83a23afb17d8cb479774a94fa4176803", "merged_at_utc": "2026-08-09T14:19:02Z"},
-    "path_containment_pr": {"number": 47, "head": "672d8f0895c0dc8f7350e19facb47d68df904ef0", "merge": "27cedd9b1b7007ac78f18fde588555b8ae23b871", "merged_at_utc": "2026-08-09T14:25:29Z"},
-    "evidence_sync_pr": {"number": 48, "head": "727259e4ed5b75f42561fea51eea0e73756347a8", "merge": "003927a0975de3a468cd025d62714067ce37f55a", "merged_at_utc": "2026-08-09T14:37:34Z"},
-    "node24_action_scope_pr": {"number": 49, "head": "7e130df9d7aea0a72d49467e561993b02014f2dc", "merge": "0601b9f5c4ed44856e77e5d286ed0d21a050dec2", "merged_at_utc": "2026-08-09T14:44:19Z"},
-    "node24_action_upgrade_pr": {"number": 50, "head": "69ae73f977d18790dc516c7ae6d111b7ac8f880e", "merge": "ca8089fdd4fc0c02c034ee735a7eba5f8d01718f", "merged_at_utc": "2026-08-09T14:50:00Z"},
-    "successful_main_runs": [31317917725, 31317917803, 31318405595, 31318405594, 31318934933, 31318934925, 31319234667, 31319234654, 31319487660, 31319487636],
-    "all_required_contexts_passed": true
-  },
-  "node24_action_upgrade": {
-    "disposition": "PASS_PROTECTED",
-    "trigger": "GitHub-hosted runner Node.js 20 deprecation warning",
-    "dependabot_pull_requests_reviewed": [41, 42, 43, 44, 45],
-    "official_action_refs": {
-      "actions/checkout": "v7",
-      "actions/setup-python": "v7",
-      "actions/upload-artifact": "v7",
-      "actions/dependency-review-action": "v5",
-      "github/codeql-action": "v4"
-    },
-    "minimum_runner_version_for_node24_action_families": "2.327.1",
-    "github_hosted_runner_validation": "PASS_PR_50_AND_MAIN_REPLAY",
-    "protected_pr_runs": [31319427957, 31319429915, 31319429931],
-    "main_replay_runs": [31319487660, 31319487636],
-    "prior_node20_deprecation_annotations_absent": true,
-    "superseded_dependabot_pull_requests_closed": [41, 42, 43, 44, 45],
-    "provenance_bypass_allowed": false
-  },
-  "human_rights_review": {
-    "required": true,
-    "status": "MISSING_BLOCKING",
-    "reviewer": null,
-    "provider_or_package": null,
-    "terms_version": null,
-    "decision_date": null,
-    "access_purpose": null,
-    "retention": null,
-    "model_training_use": null,
-    "publication": null,
-    "redistribution": null,
-    "deletion": null,
-    "allow_or_block_decision": "BLOCKED_PENDING_NAMED_HUMAN_REVIEW",
-    "unblock_condition": "A named human reviewer records source/provider/package and terms version/date, access purpose, retention, model-training use, publication, redistribution, deletion, unresolved questions, and explicit allow/block decisions."
-  },
-  "validation_results": [
-    {"class": "DEPENDENCY_POLICY", "command": "python -B tools/validate_dependency_policy.py --repo-root .", "exit_code": 0, "result": "PASS_2_DIRECT_14_HASH_LOCKED"},
-    {"class": "HASH_INSTALL", "command": "Python 3.12 isolated pip install --require-hashes plus pip check", "exit_code": 0, "result": "PASS_14_PACKAGES"},
-    {"class": "LICENSE_NOTICE", "command": "validate_product_supply_chain.py --check-installed", "exit_code": 0, "result": "PASS_14_OF_14_MACHINE_INVENTORY"},
-    {"class": "VULNERABILITY", "command": "pip-audit 2.10.1 --require-hashes --disable-pip", "exit_code": 0, "result": "PASS_14_DEPENDENCIES_0_KNOWN_FINDINGS"},
-    {"class": "AUTOMATED_TEST", "command": "pytest -p no:cacheprovider -q tests", "exit_code": 0, "result": "PASS_258_TESTS_1_WINDOWS_PRIVILEGE_SKIP_33_SUBTESTS"},
-    {"class": "NEGATIVE_RESULT", "command": "pytest focused product and operations tests without repository source path", "exit_code": 2, "result": "PRESERVED_ENVIRONMENT_ONLY_MODULE_NOT_FOUND"},
-    {"class": "PRODUCT_REGRESSION", "command": "Python 3.12 isolated W22 product plus W23 operations tests and W22 gate", "exit_code": 0, "result": "PASS_23_TESTS_AND_GATE"},
-    {"class": "OPERATIONS_RELEASE_GATE", "command": "validate_w23_operations.py", "exit_code": 2, "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED_AC_038_THR_011_012"},
-    {"class": "PROTECTED_GOVERNANCE", "command": "validate_w25_final.py and verify_judging_seal.py", "exit_code": 0, "result": "PASS_W25_AND_W17"},
-    {"class": "NEGATIVE_RESULT", "command": "python -m unittest tests.test_product_supply_chain", "exit_code": 1, "result": "PRESERVED_LOCAL_IMPORT_SHADOWING_DISCOVERY_MODE_PASSED"},
-    {"class": "LEGAL_RIGHTS_REVIEW", "command": "MANUAL_REVIEW_REQUIRED", "exit_code": null, "result": "BLOCKED_MISSING_NAMED_REVIEW"},
-    {"class": "PROTECTED_INTEGRATION", "command": "GitHub protected PRs #40, #46, and #47 plus main replay", "exit_code": 0, "result": "PASS_ALL_REQUIRED_CONTEXTS_AND_MAIN_RUNS"}
-    ,{"class": "NEGATIVE_RESULT", "command": "Dependabot PRs #41-#45 protected checks", "exit_code": 1, "result": "PRESERVED_PROVENANCE_MANIFEST_HASH_REJECTION"}
-    ,{"class": "NODE24_ACTION_INTEGRATION", "command": "Protected PR #50 and main replay with official Node.js 24-compatible action majors", "exit_code": 0, "result": "PASS_LINUX_WINDOWS_DEPENDENCY_REVIEW_CODEQL_AND_MAIN"}
-  ],
-  "acceptance_matrix": [
-    {
-      "criterion": "Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.",
-      "disposition": "BLOCKED",
-      "observable_result": "All independently actionable machine gaps are protected-integrated with no credential or restricted payload emitted; the mandatory named human rights disposition remains absent."
-    },
-    {
-      "criterion": "The declared security supply-chain report is deterministic, provenance-bound, and consumable.",
-      "disposition": "PASS",
-      "observable_result": "The report pins base code/tree, every changed control file, lock, audit tool/runtime, external machine evidence hashes, validation outcomes, unresolved blockers, and downstream rejection semantics."
-    },
-    {
-      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, rights approval, or completion evidence.",
-      "disposition": "PASS",
-      "observable_result": "The report makes only a time-bounded zero-OPEN-alert observation; no source-rights approval, scientific metric, target-hardware result, production readiness, accepted risk, perpetual zero-alert state, or completion claim is made."
-    }
-  ],
-  "external_evidence": {
-    "credential_values_included": false,
-    "absolute_paths_included": false,
-    "restricted_raw_payloads_included": false,
-    "records": [
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/pip-audit-2.10.1.json", "bytes": 829, "sha256": "4cc4a1387b3a8d8c3f1079c4f64015908897cbfe0bb1dddbcaed8638cee59b8f"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/installed-inventory-windows.json", "bytes": 3490, "sha256": "710e96b8493b8fbc27dc2ecfa3417b5636670603a085ab8864777daa1828475b"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/product-candidate.lock", "bytes": 12898, "sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05"}
-    ]
-  },
-  "negative_findings": [
-    {"id": "VULNERABLE_LOCKED_PACKAGES", "status": "REMEDIATED_PROTECTED", "waived": false, "resolution": "COMPATIBLE_UPGRADE_AND_ZERO_KNOWN_PIP_AUDIT_FINDINGS_AT_CHECK_TIME"},
-    {"id": "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED", "status": "REMEDIATED_PROTECTED", "waived": false, "resolution": "CROSS_PLATFORM_SHA256_LOCK_AND_REQUIRE_HASHES_INSTALL"},
-    {"id": "CI_MACHINE_CONTROL_GAPS", "status": "REMEDIATED_PROTECTED", "waived": false, "resolution": "HASH_INSTALL_AUDIT_LICENSE_INVENTORY_AND_DEPENDABOT_CONFIG_PROTECTED_INTEGRATED"},
-    {"id": "SOURCE_RIGHTS_REVIEW_MISSING", "status": "UNRESOLVED", "waived": false, "resolution": "HUMAN_REQUIRED"},
-    {"id": "GITHUB_ALERT_COUNTS_UNAVAILABLE", "status": "RESOLVED", "waived": false, "resolution": "ALERT_LIST_APIS_VISIBLE_AND_TIME_BOUND_OPEN_COUNTS_RECORDED"},
-    {"id": "CODEQL_PATH_INJECTION_ALERTS_1_2", "status": "FIXED_NOT_DISMISSED", "waived": false, "resolution": "CANONICAL_CHILD_AND_NON_SYMLINK_PATH_CONTAINMENT_PROTECTED_INTEGRATED"},
-    {"id": "NODE20_GITHUB_ACTION_DEPRECATION", "status": "REMEDIATED_PROTECTED", "waived": false, "resolution": "OFFICIAL_NODE24_ACTION_MAJORS_PASS_PROTECTED_PR_AND_MAIN_WITHOUT_PRIOR_ANNOTATIONS"},
-    {"id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED", "status": "UNRESOLVED_PROGRAM_BLOCKER", "waived": false, "resolution": "RETAINED_PROGRAM_BLOCKER"},
-    {"id": "LOCAL_SOURCE_PATH_NOT_CONFIGURED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "PYTHONPATH_SRC_RERUN_PASSED_31_TESTS_1_SKIP_9_SUBTESTS"},
-    {"id": "LOCAL_DOTTED_UNITTEST_IMPORT_SHADOWED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "REPOSITORY_DISCOVERY_MODE_PASSED_258_TESTS_1_SKIP_33_SUBTESTS"}
-  ],
-  "security_and_rights": {
-    "secret_values_emitted": false,
-    "secret_values_stored_in_evidence": false,
-    "credential_paths_stored_in_repository_evidence": false,
-    "restricted_raw_payloads_stored_in_repository": false,
-    "source_rights_approval_claimed": false,
-    "accepted_risk_claimed": false,
-    "pit_or_target_game_exclusion_changed": false,
-    "judging_or_split_seal_changed": false
-  },
-  "scientific_and_model_evidence": {
-    "applicable": false,
-    "reason": "SECURITY_SUPPLY_CHAIN_CONTROL_REMEDIATION_HAS_NO_DATASET_SPLIT_MODEL_CALIBRATOR_METRIC_OR_PRECOMMITTED_HYPOTHESIS",
-    "fabricated_metrics": false,
-    "protected_results_inspected": false
+    "pip_check": "PASS",
+    "unsupported_markers": 0
   },
   "downstream_evaluation": {
     "consumer": "POST-SUBTASK-126",
+    "consumer_must_fail_closed": false,
+    "consumer_must_fail_closed_on_technical_or_integrity_failure": true,
     "contract_parseable": true,
-    "rights_blocked": true,
-    "vulnerability_blocked": false,
+    "decision": "ACCEPT_VERIFIED_INPUT_AFTER_POLICY_SUPERSESSION",
     "protected_integration_pending": false,
+    "rights_blocked": false,
     "silent_downstream_unlock_allowed": false,
-    "decision": "REJECT_BLOCKED_INPUT_WITHOUT_MANUAL_RECONSTRUCTION",
-    "consumer_must_fail_closed": true
+    "vulnerability_blocked": false
   },
+  "eligibility": "VERIFIED_DOWNSTREAM_SECURITY_INPUT",
+  "evidence_state": "VERIFIED",
+  "external_evidence": {
+    "absolute_paths_included": false,
+    "credential_values_included": false,
+    "records": [
+      {
+        "bytes": 829,
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/pip-audit-2.10.1.json",
+        "sha256": "4cc4a1387b3a8d8c3f1079c4f64015908897cbfe0bb1dddbcaed8638cee59b8f"
+      },
+      {
+        "bytes": 3490,
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/installed-inventory-windows.json",
+        "sha256": "710e96b8493b8fbc27dc2ecfa3417b5636670603a085ab8864777daa1828475b"
+      },
+      {
+        "bytes": 12898,
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/product-candidate.lock",
+        "sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05"
+      }
+    ],
+    "restricted_raw_payloads_included": false
+  },
+  "github_security_alert_control": {
+    "alert_list_visibility": true,
+    "checked_at_utc": "2026-08-09T14:51:58Z",
+    "disposition": "PASS_TIME_BOUND_OPEN_ALERT_CHECK",
+    "historical_code_scanning_alerts": [
+      {
+        "dismissed_at": null,
+        "fixed_at_utc": "2026-08-09T14:26:38Z",
+        "number": 1,
+        "rule": "py/path-injection",
+        "security_severity": "high",
+        "state": "fixed"
+      },
+      {
+        "dismissed_at": null,
+        "fixed_at_utc": "2026-08-09T14:26:38Z",
+        "number": 2,
+        "rule": "py/path-injection",
+        "security_severity": "high",
+        "state": "fixed"
+      }
+    ],
+    "open_counts": {
+      "code_scanning": 0,
+      "dependabot": 0,
+      "secret_scanning": 0
+    },
+    "perpetual_zero_alert_claimed": false
+  },
+  "human_rights_review": {
+    "allow_or_block_decision": "PRIVATE_RESEARCH_POLICY_ACTIVE",
+    "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
+    "private_research_acquisition_allowed": true,
+    "raw_third_party_publication_allowed": false,
+    "required": false,
+    "reviewer": null,
+    "status": "SUPERSEDED_NONBLOCKING_METADATA",
+    "unblock_condition": null
+  },
+  "input_identities": {
+    "dependabot_config_sha256": "6f2dfe93dc093e9510fb9ed2152caa236d7f6c088da6e51b6e05365cd315bb6a",
+    "dependency_policy_validator_sha256": "5fec2e80bb65b158001240c1cde1fc3543d8856d10b03ffb57a46a4066ad2418",
+    "git_base_commit": "ca8089fdd4fc0c02c034ee735a7eba5f8d01718f",
+    "git_base_tree": "b3116a274c2804563949465f7166b65e5866868b",
+    "prior_report_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
+    "product_repository_sha256": "f33c16972becd2f093d0c57b18f4428a331fa97c04a9519576c35ddc87c362eb",
+    "product_repository_tests_sha256": "52ee215713905821384a40210f532c977afbacae7e07709d340561e5d3e1a3ec",
+    "product_supply_chain_tests_sha256": "2008534e1a5ca35dfd0070226382254bd08b880b884e87193496f7da26e66c02",
+    "product_supply_chain_validator_sha256": "9bcd852c97dc58662cf352d54bd483b04787548a9635371c6d39217c92de1049",
+    "pyproject_toml_sha256": "668b3a4bb21de54fb6260ec982f4ae5772c5fcea30e12a23741b53ecd498690b",
+    "repository_ci_sha256": "2807ba9949be2d625019b0fffdb80e2d1ac93d6f3225f1e521a95a9c9302f7f7",
+    "requirements_product_lock_sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05",
+    "security_workflow_sha256": "1f5d272d34dde3d68b86b830c1b4f81fe157df89faf9147e72d0897c743c1958"
+  },
+  "issue_disposition": "DONE",
   "jira_integration": {
-    "live_jira_status": "To Do",
-    "live_jira_logical_state": "BLOCKED",
     "live_jira_evidence_state": "PARTIAL",
+    "live_jira_logical_state": "BLOCKED",
     "live_jira_maturity": "FUNCTIONAL_STARTER",
-    "workflow_mapping": "BLOCKED maps to portable Jira status To Do",
+    "live_jira_status": "To Do",
+    "protected_integration": "PASS",
     "remediation_comment_id": "13332",
-    "protected_integration": "PASS"
+    "workflow_mapping": "BLOCKED maps to portable Jira status To Do"
   },
-  "completion": {
-    "achieved_maturity": "FUNCTIONAL_STARTER",
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "BLOCKED",
-    "local_acceptance_criteria_pass": false,
-    "remaining_issue_scope_blockers": [
-      "SOURCE_RIGHTS_REVIEW_MISSING"
+  "jira_key": "BAT-475",
+  "license_and_notice_control": {
+    "accepted_risk": false,
+    "disposition": "PASS_MACHINE_INVENTORY_HUMAN_REVIEW_REQUIRED",
+    "license_inventory_is_legal_approval": false,
+    "packages_inventoried": 14,
+    "packages_missing_observed_license_metadata": 0,
+    "packages_with_classifier_license_metadata": 1,
+    "packages_with_installed_license_or_notice_file": 14,
+    "packages_with_legacy_license_metadata": 1,
+    "packages_with_spdx_license_expression": 12
+  },
+  "local_issue_id": "POST-SUBTASK-125",
+  "negative_findings": [
+    {
+      "id": "VULNERABLE_LOCKED_PACKAGES",
+      "resolution": "COMPATIBLE_UPGRADE_AND_ZERO_KNOWN_PIP_AUDIT_FINDINGS_AT_CHECK_TIME",
+      "status": "REMEDIATED_PROTECTED",
+      "waived": false
+    },
+    {
+      "id": "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED",
+      "resolution": "CROSS_PLATFORM_SHA256_LOCK_AND_REQUIRE_HASHES_INSTALL",
+      "status": "REMEDIATED_PROTECTED",
+      "waived": false
+    },
+    {
+      "id": "CI_MACHINE_CONTROL_GAPS",
+      "resolution": "HASH_INSTALL_AUDIT_LICENSE_INVENTORY_AND_DEPENDABOT_CONFIG_PROTECTED_INTEGRATED",
+      "status": "REMEDIATED_PROTECTED",
+      "waived": false
+    },
+    {
+      "id": "FORMER_SOURCE_RIGHTS_REVIEW_REQUIREMENT",
+      "resolution": "UNIVERSAL_PRIVATE_RESEARCH_POLICY_ACTIVE",
+      "status": "SUPERSEDED_NONBLOCKING_METADATA",
+      "waived": false
+    },
+    {
+      "id": "GITHUB_ALERT_COUNTS_UNAVAILABLE",
+      "resolution": "ALERT_LIST_APIS_VISIBLE_AND_TIME_BOUND_OPEN_COUNTS_RECORDED",
+      "status": "RESOLVED",
+      "waived": false
+    },
+    {
+      "id": "CODEQL_PATH_INJECTION_ALERTS_1_2",
+      "resolution": "CANONICAL_CHILD_AND_NON_SYMLINK_PATH_CONTAINMENT_PROTECTED_INTEGRATED",
+      "status": "FIXED_NOT_DISMISSED",
+      "waived": false
+    },
+    {
+      "id": "NODE20_GITHUB_ACTION_DEPRECATION",
+      "resolution": "OFFICIAL_NODE24_ACTION_MAJORS_PASS_PROTECTED_PR_AND_MAIN_WITHOUT_PRIOR_ANNOTATIONS",
+      "status": "REMEDIATED_PROTECTED",
+      "waived": false
+    },
+    {
+      "id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED",
+      "resolution": "RETAINED_PROGRAM_BLOCKER",
+      "status": "UNRESOLVED_PROGRAM_BLOCKER",
+      "waived": false
+    },
+    {
+      "id": "LOCAL_SOURCE_PATH_NOT_CONFIGURED",
+      "resolution": "PYTHONPATH_SRC_RERUN_PASSED_31_TESTS_1_SKIP_9_SUBTESTS",
+      "status": "PRESERVED_CORRECTED",
+      "waived": false
+    },
+    {
+      "id": "LOCAL_DOTTED_UNITTEST_IMPORT_SHADOWED",
+      "resolution": "REPOSITORY_DISCOVERY_MODE_PASSED_258_TESTS_1_SKIP_33_SUBTESTS",
+      "status": "PRESERVED_CORRECTED",
+      "waived": false
+    }
+  ],
+  "node24_action_upgrade": {
+    "dependabot_pull_requests_reviewed": [
+      41,
+      42,
+      43,
+      44,
+      45
     ],
-    "remaining_program_blockers": [
-      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
-      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
-      "AC-038",
-      "THR-011",
-      "THR-012"
+    "disposition": "PASS_PROTECTED",
+    "github_hosted_runner_validation": "PASS_PR_50_AND_MAIN_REPLAY",
+    "main_replay_runs": [
+      31319487660,
+      31319487636
     ],
-    "completion_claim": "No completion is claimed. All independently actionable BAT-475 machine security gaps are protected-integrated, but BAT-475 remains Blocked/Partial until the named human rights review is supplied."
+    "minimum_runner_version_for_node24_action_families": "2.327.1",
+    "official_action_refs": {
+      "actions/checkout": "v7",
+      "actions/dependency-review-action": "v5",
+      "actions/setup-python": "v7",
+      "actions/upload-artifact": "v7",
+      "github/codeql-action": "v4"
+    },
+    "prior_node20_deprecation_annotations_absent": true,
+    "protected_pr_runs": [
+      31319427957,
+      31319429915,
+      31319429931
+    ],
+    "provenance_bypass_allowed": false,
+    "superseded_dependabot_pull_requests_closed": [
+      41,
+      42,
+      43,
+      44,
+      45
+    ],
+    "trigger": "GitHub-hosted runner Node.js 20 deprecation warning"
+  },
+  "observable_outcome": "All BAT-475 machine security and supply-chain controls are protected-integrated and verified. The former named-human source-rights prerequisite is superseded by the universal private-research policy; rights metadata remains recorded, private acquisition/training is nonblocking, and raw third-party publication remains disabled.",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "protected_integration": {
+    "all_required_contexts_passed": true,
+    "disposition": "PASS",
+    "evidence_sync_pr": {
+      "head": "727259e4ed5b75f42561fea51eea0e73756347a8",
+      "merge": "003927a0975de3a468cd025d62714067ce37f55a",
+      "merged_at_utc": "2026-08-09T14:37:34Z",
+      "number": 48
+    },
+    "node24_action_scope_pr": {
+      "head": "7e130df9d7aea0a72d49467e561993b02014f2dc",
+      "merge": "0601b9f5c4ed44856e77e5d286ed0d21a050dec2",
+      "merged_at_utc": "2026-08-09T14:44:19Z",
+      "number": 49
+    },
+    "node24_action_upgrade_pr": {
+      "head": "69ae73f977d18790dc516c7ae6d111b7ac8f880e",
+      "merge": "ca8089fdd4fc0c02c034ee735a7eba5f8d01718f",
+      "merged_at_utc": "2026-08-09T14:50:00Z",
+      "number": 50
+    },
+    "path_containment_pr": {
+      "head": "672d8f0895c0dc8f7350e19facb47d68df904ef0",
+      "merge": "27cedd9b1b7007ac78f18fde588555b8ae23b871",
+      "merged_at_utc": "2026-08-09T14:25:29Z",
+      "number": 47
+    },
+    "path_scope_pr": {
+      "head": "5ed796f43cbe826f408c5cc6f7c8f01b823b338e",
+      "merge": "250b155b83a23afb17d8cb479774a94fa4176803",
+      "merged_at_utc": "2026-08-09T14:19:02Z",
+      "number": 46
+    },
+    "successful_main_runs": [
+      31317917725,
+      31317917803,
+      31318405595,
+      31318405594,
+      31318934933,
+      31318934925,
+      31319234667,
+      31319234654,
+      31319487660,
+      31319487636
+    ],
+    "supply_chain_pr": {
+      "head": "a1f1270846c9b94fe4e0a1deb8de3bb1855d04f0",
+      "merge": "1a20515701345cc28f51ebd9b1e2cf4375ee9892",
+      "merged_at_utc": "2026-08-09T14:14:19Z",
+      "number": 40
+    }
+  },
+  "report_type": "dependency_secret_license_restricted_data_and_artifact_integrity",
+  "restricted_data_control": {
+    "disposition": "PASS_MACHINE_PATH_BOUNDARY_RIGHTS_BLOCKED",
+    "machine_scan_is_source_rights_approval": false,
+    "repository_data_payload": "data/README.md only",
+    "restricted_raw_payloads_stored_in_repository": false
+  },
+  "schema_version": "1.1.0",
+  "scientific_and_model_evidence": {
+    "applicable": false,
+    "fabricated_metrics": false,
+    "protected_results_inspected": false,
+    "reason": "SECURITY_SUPPLY_CHAIN_CONTROL_REMEDIATION_HAS_NO_DATASET_SPLIT_MODEL_CALIBRATOR_METRIC_OR_PRECOMMITTED_HYPOTHESIS"
+  },
+  "secret_control": {
+    "credential_value_lengths_emitted": false,
+    "credential_values_emitted": false,
+    "disposition": "PASS_WITH_TIME_BOUND_ALERT_VISIBILITY",
+    "github_alert_list_visibility": true,
+    "github_open_alert_counts": {
+      "checked_at_utc": "2026-08-09T14:51:58Z",
+      "code_scanning": 0,
+      "dependabot": 0,
+      "secret_scanning": 0
+    },
+    "github_push_protection": "enabled",
+    "github_secret_scanning": "enabled",
+    "repository_secret_and_forbidden_scan_required_in_ci": true,
+    "zero_alert_claim_scope": "OPEN alerts at the recorded check time only",
+    "zero_alerts_claimed": true
+  },
+  "security_and_rights": {
+    "accepted_risk_claimed": false,
+    "credential_paths_stored_in_repository_evidence": false,
+    "judging_or_split_seal_changed": false,
+    "pit_or_target_game_exclusion_changed": false,
+    "private_research_policy": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
+    "raw_third_party_publication_allowed": false,
+    "restricted_raw_payloads_stored_in_repository": false,
+    "rights_metadata_nonblocking": true,
+    "secret_values_emitted": false,
+    "secret_values_stored_in_evidence": false,
+    "source_rights_approval_claimed": false
+  },
+  "tool_and_runtime_identities": {
+    "hash_origin": "Official PyPI release JSON non-yanked file digests",
+    "lock_target": "Cross-platform Python 3.12 product adapter",
+    "pip_audit": "2.10.1",
+    "python_candidate": "3.12.10",
+    "vulnerability_service": "PyPI advisory service through pip-audit"
+  },
+  "updated_at_utc": "2026-08-09T19:40:00Z",
+  "validation_results": [
+    {
+      "class": "DEPENDENCY_POLICY",
+      "command": "python -B tools/validate_dependency_policy.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS_2_DIRECT_14_HASH_LOCKED"
+    },
+    {
+      "class": "HASH_INSTALL",
+      "command": "Python 3.12 isolated pip install --require-hashes plus pip check",
+      "exit_code": 0,
+      "result": "PASS_14_PACKAGES"
+    },
+    {
+      "class": "LICENSE_NOTICE",
+      "command": "validate_product_supply_chain.py --check-installed",
+      "exit_code": 0,
+      "result": "PASS_14_OF_14_MACHINE_INVENTORY"
+    },
+    {
+      "class": "VULNERABILITY",
+      "command": "pip-audit 2.10.1 --require-hashes --disable-pip",
+      "exit_code": 0,
+      "result": "PASS_14_DEPENDENCIES_0_KNOWN_FINDINGS"
+    },
+    {
+      "class": "AUTOMATED_TEST",
+      "command": "pytest -p no:cacheprovider -q tests",
+      "exit_code": 0,
+      "result": "PASS_258_TESTS_1_WINDOWS_PRIVILEGE_SKIP_33_SUBTESTS"
+    },
+    {
+      "class": "NEGATIVE_RESULT",
+      "command": "pytest focused product and operations tests without repository source path",
+      "exit_code": 2,
+      "result": "PRESERVED_ENVIRONMENT_ONLY_MODULE_NOT_FOUND"
+    },
+    {
+      "class": "PRODUCT_REGRESSION",
+      "command": "Python 3.12 isolated W22 product plus W23 operations tests and W22 gate",
+      "exit_code": 0,
+      "result": "PASS_23_TESTS_AND_GATE"
+    },
+    {
+      "class": "OPERATIONS_RELEASE_GATE",
+      "command": "validate_w23_operations.py",
+      "exit_code": 2,
+      "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED_AC_038_THR_011_012"
+    },
+    {
+      "class": "PROTECTED_GOVERNANCE",
+      "command": "validate_w25_final.py and verify_judging_seal.py",
+      "exit_code": 0,
+      "result": "PASS_W25_AND_W17"
+    },
+    {
+      "class": "NEGATIVE_RESULT",
+      "command": "python -m unittest tests.test_product_supply_chain",
+      "exit_code": 1,
+      "result": "PRESERVED_LOCAL_IMPORT_SHADOWING_DISCOVERY_MODE_PASSED"
+    },
+    {
+      "class": "LEGAL_RIGHTS_REVIEW",
+      "command": "MANUAL_REVIEW_REQUIRED",
+      "exit_code": null,
+      "result": "BLOCKED_MISSING_NAMED_REVIEW"
+    },
+    {
+      "class": "PROTECTED_INTEGRATION",
+      "command": "GitHub protected PRs #40, #46, and #47 plus main replay",
+      "exit_code": 0,
+      "result": "PASS_ALL_REQUIRED_CONTEXTS_AND_MAIN_RUNS"
+    },
+    {
+      "class": "NEGATIVE_RESULT",
+      "command": "Dependabot PRs #41-#45 protected checks",
+      "exit_code": 1,
+      "result": "PRESERVED_PROVENANCE_MANIFEST_HASH_REJECTION"
+    },
+    {
+      "class": "NODE24_ACTION_INTEGRATION",
+      "command": "Protected PR #50 and main replay with official Node.js 24-compatible action majors",
+      "exit_code": 0,
+      "result": "PASS_LINUX_WINDOWS_DEPENDENCY_REVIEW_CODEQL_AND_MAIN"
+    }
+  ],
+  "vulnerability_control": {
+    "accepted_risk_count": 0,
+    "candidate_click_version": "8.4.2",
+    "candidate_starlette_version": "1.6.0",
+    "disposition": "PASS_NO_KNOWN_FINDINGS_AT_CHECK_TIME",
+    "prior_click_version": "8.1.8",
+    "prior_six_advisory_groups_remediated": true,
+    "prior_starlette_version": "0.50.0",
+    "scanner_dependency_count": 14,
+    "scanner_vulnerability_count": 0,
+    "time_scope": "2026-08-09T14:51:58Z time-bounded final check; no perpetual zero-alert claim",
+    "waived_finding_count": 0,
+    "zero_github_alerts_claimed": true
   }
 }

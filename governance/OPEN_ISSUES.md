@@ -164,11 +164,11 @@ No current issue blocks completion of Wave 01. These remain explicit implementat
 - **Planned wave:** W06-W19
 - **Status:** OPEN
 
-## ISSUE-028 — Source rights (MEDIUM)
-- **Issue:** Per-source redistribution/license status has not been legally/operationally verified for every raw artifact
-- **Resolution path:** Verify terms before bulk redistribution/public repository inclusion
-- **Planned wave:** W06-W19
-- **Status:** OPEN
+## ISSUE-028 — Future source publication review (MEDIUM)
+- **Issue:** Per-source redistribution/license status has not been verified for every raw artifact; this does not constrain private local acquisition or training.
+- **Resolution path:** Keep raw payloads outside Git and review terms only if bulk redistribution, public repository inclusion, or commercialization is actually proposed.
+- **Planned wave:** EVENT_DRIVEN_FUTURE_REVIEW
+- **Status:** DEFERRED_UNTIL_DISTRIBUTION_PROPOSED
 
 ## ISSUE-029 — Architecture (HIGH)
 - **Issue:** Final football-domain/service/module boundaries were not yet frozen
@@ -281,7 +281,7 @@ No current issue blocks completion of Wave 01. These remain explicit implementat
 - **ISSUE-055 — Pregame officiating assignment history (MEDIUM):** No stable national public pregame-assignment feed with robust publication timestamps was verified. **Owner:** W13/W24. **Status:** OPEN/EXPERIMENTAL.
 - **ISSUE-056 — Open route/coverage/formation/tracking history (MEDIUM):** Deep charting/tracking exists commercially but no open national source closes the gap. **Owner:** W18+. **Status:** OPTIONAL_RESEARCH.
 - **ISSUE-057 — Older timestamped market history (MEDIUM):** High-quality modern historical snapshots exist, often paid; deeper older PIT history remains incomplete. **Owner:** W16-W17. **Status:** OPEN_OPTIONAL_LANE.
-- **ISSUE-058 — Source rights/upstream provenance (HIGH):** Derived public repositories may share ESPN/247/other upstreams and public accessibility does not settle redistribution rights. **Owner:** W09+. **Status:** OPEN_CONTROL_REQUIRED.
+- **ISSUE-058 — Shared upstream provenance (HIGH):** Derived public repositories may share ESPN/247/other upstreams and must not be counted as independent corroboration. Licensing/redistribution status is nonblocking metadata for private use. **Owner:** W09+. **Status:** PROVENANCE_CONTROL_REQUIRED_RIGHTS_GATE_SUPERSEDED.
 - **ISSUE-059 — Weather forecast era coverage (MEDIUM):** Issued forecast-run archives vary by model/variable/year; pre-archive eras require explicit fallback/uncertainty and may not support identical forecast snapshots. **Owner:** W08/W13. **Status:** OPEN.
 
 
@@ -335,10 +335,10 @@ No current issue blocks completion of Wave 01. These remain explicit implementat
 - **Resolution path:** W19 materialization then W17/W19 translation benchmark.
 - **Status:** OPEN
 
-## ISSUE-081 — Recruiting/transfer source rights and history (MEDIUM)
-- **Issue:** Source terms/historical snapshots vary and public visibility is not redistribution permission.
-- **Resolution path:** Preserve W12 provenance audit; recheck acquisition/publication rights during W19/W24.
-- **Status:** OPEN
+## ISSUE-081 — Recruiting/transfer history and provenance (MEDIUM)
+- **Issue:** Historical snapshots and upstream provenance vary; private acquisition/training is authorized, while raw publication remains disabled.
+- **Resolution path:** Preserve W12 provenance metadata, acquire the maximum quality-supported public history, and apply a separate review only to a future distribution proposal.
+- **Status:** OPEN_DATA_COVERAGE_RIGHTS_GATE_SUPERSEDED
 
 ## ISSUE-082 — Official availability report archive materialization (MEDIUM)
 - **Issue:** W12 freezes source lane but has not downloaded/versioned every historical report.
@@ -352,7 +352,7 @@ No current issue blocks completion of Wave 01. These remain explicit implementat
 
 ## ISSUE-084 — Preseason honor historical completeness (LOW)
 - **Issue:** Selector/watch-list history and announcement timestamps are not fully materialized.
-- **Resolution path:** Materialize only sources with reproducible history/rights; otherwise keep candidate coverage sparse.
+- **Resolution path:** Materialize sources with reproducible history and provenance; quarantine or keep sparse only where technical access, schema, quality, PIT, or coverage evidence is inadequate.
 - **Status:** OPEN
 
 ## W13 carry-forward issues

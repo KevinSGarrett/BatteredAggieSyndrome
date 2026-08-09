@@ -90,7 +90,7 @@
     "w20",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-020",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Implement selected specialization/BAS interfaces and integrate them with coherent forecast assembly.",

@@ -26,7 +26,7 @@ ISSUE-024,GAP-024,Rule eras,MEDIUM,Full 2005-present effective-dated NCAA rule t
 ISSUE-025,GAP-025,Market snapshots,HIGH,Historical opening/current/closing first-known timestamps are not fully verified across providers,Preserve provider/timestamp observations and enforce forecast cutoffs,NO,OPEN,W06-W19
 ISSUE-026,GAP-026,Uncertainty/OOD,MEDIUM,OOD thresholds and calibrated predictive intervals not yet learned,Fit after production feature space exists,NO,OPEN,W06-W19
 ISSUE-027,GAP-027,Live/BAS collapse,NONE,Live model and collapse threshold not yet fixed/trained,Implement after mature pregame system,NO,OPEN,W06-W19
-ISSUE-028,GAP-028,Source rights,MEDIUM,Per-source redistribution/license status has not been legally/operationally verified for every raw artifact,Verify terms before bulk redistribution/public repository inclusion,NO,OPEN,W06-W19
+ISSUE-028,GAP-028,Future source publication review,MEDIUM,Per-source redistribution/license metadata remains incomplete but does not block private use,Keep raw outside Git and review only if public distribution or commercialization is proposed,NO,DEFERRED_EVENT_DRIVEN,W06-W19_SUPERSEDED
 ISSUE-029,,Architecture,HIGH,Final repository/package/module boundaries not yet frozen,Wave02/03 evaluate professional local-first structure and compare alternatives,NO,OPEN,W02-W03
 ISSUE-030,,Validation,HIGH,Exact protected test seasons and promotion thresholds are not yet frozen,Wave17 define based on data coverage and statistical power; protect afterward,NO,OPEN,W17
 ISSUE-031,,BAS,HIGH,Exact cross-fitting/expected-margin estimator for historical BAS labels is not yet selected,Wave15 compare leakage-safe alternatives and freeze methodology,NO,OPEN,W15

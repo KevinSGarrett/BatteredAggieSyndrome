@@ -3,7 +3,7 @@
 Status: **functional starter implementation**, not production historical materialization.
 
 ## Implemented chain
-`approved source evidence -> immutable content-addressed raw snapshot -> canonical entity resolution -> W08 fail-closed PIT state -> W10-style feature factory -> explicit lineage`
+`private-research acquisition evidence -> immutable content-addressed raw snapshot -> canonical entity resolution -> W08 fail-closed PIT state -> W10-style feature factory -> explicit lineage`
 
 ### Source adapters and raw snapshots
 W19 adds dependency-free CSV/JSON adapters plus an immutable content-addressed raw snapshot store. Snapshot identity is derived from raw bytes, raw bytes are preserved unchanged, and each snapshot receives retrieval/source/schema/row-count metadata. This satisfies the starter form of REQ-058/AC-008 without pretending that all national sources have been materialized.

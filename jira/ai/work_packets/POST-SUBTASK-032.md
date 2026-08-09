@@ -105,9 +105,10 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.
-2. The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. The national manifest enumerates the expanded population independently by source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation, immutable capture/provenance identity, and historical known-at/PIT eligibility.
+2. All partial seasons, missing domains, schema drift, quarantines, reconciliation failures, excluded records, provider limitations, and negative findings remain queryable and hash-bound.
+3. The 2022-2025 tranche is identified as the first validated bounded contemporary tranche, never as terminal national history or GAP-002 resolution.
+4. All manifest identities are deterministic, external-data paths remain contained, and POST-SUBTASK-033 can reproduce coverage and eligibility decisions without manual reconstruction.
 
 ## Tests / validation
 

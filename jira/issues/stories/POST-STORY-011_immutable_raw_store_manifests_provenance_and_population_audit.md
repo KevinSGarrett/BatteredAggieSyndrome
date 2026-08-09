@@ -1,5 +1,5 @@
 <!-- GENERATED VIEW. Canonical record: jira/records/issues/stories/POST-STORY-011_immutable_raw_store_manifests_provenance_and_population_audit.json -->
-# POST-STORY-011 — [POST-STORY-011] Immutable raw store, manifests, provenance, and population audit
+# POST-STORY-011 — [POST-STORY-011] Immutable expanded national lake, provenance, population audit, and readiness
 
 ## Canonical metadata
 
@@ -7,9 +7,10 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.",
+    "The final child gate POST-SUBTASK-033 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.",
+    "The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.",
+    "No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -55,7 +56,7 @@
     "risk_ids": 5
   },
   "effective_traceability_total": 24,
-  "end_to_end_validation": "Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, restriction, correction, and blocker.",
+  "end_to_end_validation": "A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-011.json",
   "evidence_state": "PLANNED",
@@ -116,12 +117,13 @@
     "core-release",
     "post-wave",
     "raw-data",
-    "story"
+    "story",
+    "historical-expansion"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-011",
   "maturity_before": "SCAFFOLD",
-  "objective": "Prove that every accepted raw domain is immutable, reproducible, rights-aware, and reconstructable.",
+  "objective": "Materialize and non-bypassably gate the immutable expanded national historical lake",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24201",
@@ -221,7 +223,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Deliver Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-033` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.",
+  "scope": "Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain history. Preserve content-addressed external captures, correction/quarantine lineage, complete coverage/provenance manifests, scoped tier eligibility, and an honest readiness decision that cannot resolve GAP-002 or authorize downstream science prematurely.",
   "source_ids": [
     "GAP-002",
     "HANDOFF-003"
@@ -258,7 +260,7 @@
     "SRCREF-01889",
     "SRCREF-01564"
   ],
-  "title": "[POST-STORY-011] Immutable raw store, manifests, provenance, and population audit",
+  "title": "[POST-STORY-011] Immutable expanded national lake, provenance, population audit, and readiness",
   "traceability_inherited_from": [
     "POST-SUBTASK-033"
   ],
@@ -277,7 +279,7 @@
 
 ## Objective
 
-Prove that every accepted raw domain is immutable, reproducible, rights-aware, and reconstructable.
+Materialize and non-bypassably gate the immutable expanded national historical lake
 
 ## Why This Exists
 
@@ -285,7 +287,7 @@ This coherent capability closes a defined portion of Immutable national historic
 
 ## Scope
 
-Deliver Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-033` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
+Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain history. Preserve content-addressed external captures, correction/quarantine lineage, complete coverage/provenance manifests, scoped tier eligibility, and an honest readiness decision that cannot resolve GAP-002 or authorize downstream science prematurely.
 
 ### Explicit In Scope
 
@@ -373,9 +375,10 @@ Deliver Story POST-STORY-011 (Immutable raw store, manifests, provenance, and po
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.
+2. The final child gate POST-SUBTASK-033 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.
+3. The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.
+4. No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass.
 
 ## Definition of Done
 
@@ -411,7 +414,7 @@ Deliver Story POST-STORY-011 (Immutable raw store, manifests, provenance, and po
 
 ## End-to-End Validation Requirement
 
-Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, restriction, correction, and blocker.
+A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.
 
 ## Expected Maturity After Completion
 

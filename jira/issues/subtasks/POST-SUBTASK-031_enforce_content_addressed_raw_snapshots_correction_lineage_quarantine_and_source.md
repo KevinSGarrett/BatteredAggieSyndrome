@@ -7,9 +7,10 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.",
-    "The declared output `artifacts/data_lake/immutability_and_correction_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
-    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+    "Every expanded raw and normalized capture used downstream is stored outside Git under AGGIE_ANALYTICS_DATA_ROOT with content-addressed identity, source/endpoint/request metadata, retrieval time, schema/version, season/domain scope, and correction/reconciliation lineage.",
+    "Quarantine preserves partial, invalid, duplicate, drifted, conflicting, rights-restricted, and reconciliation-failed records without overwriting immutable source evidence.",
+    "Reconstructible temporary files, abandoned downloads, duplicate caches, and obsolete worktrees are removed only after required immutable evidence and hashes are verified.",
+    "The immutability/correction test deterministically detects mutation, missing lineage, path escape, secret exposure, and stale-artifact retention."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -139,9 +140,10 @@
     "post-wave",
     "raw-data",
     "shared-contract",
-    "subtask"
+    "subtask",
+    "historical-expansion"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-031",
   "maturity_before": "SCAFFOLD",
   "objective": "Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes",
@@ -420,9 +422,10 @@ Execute the atomic 1 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 ## Acceptance Criteria
 
-1. Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.
-2. The declared output `artifacts/data_lake/immutability_and_correction_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Every expanded raw and normalized capture used downstream is stored outside Git under AGGIE_ANALYTICS_DATA_ROOT with content-addressed identity, source/endpoint/request metadata, retrieval time, schema/version, season/domain scope, and correction/reconciliation lineage.
+2. Quarantine preserves partial, invalid, duplicate, drifted, conflicting, rights-restricted, and reconciliation-failed records without overwriting immutable source evidence.
+3. Reconstructible temporary files, abandoned downloads, duplicate caches, and obsolete worktrees are removed only after required immutable evidence and hashes are verified.
+4. The immutability/correction test deterministically detects mutation, missing lineage, path escape, secret exposure, and stale-artifact retention.
 
 ## Definition of Done
 

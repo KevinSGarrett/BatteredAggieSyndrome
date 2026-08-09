@@ -106,9 +106,10 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.
-2. The declared output `artifacts/data_lake/immutability_and_correction_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Every expanded raw and normalized capture used downstream is stored outside Git under AGGIE_ANALYTICS_DATA_ROOT with content-addressed identity, source/endpoint/request metadata, retrieval time, schema/version, season/domain scope, and correction/reconciliation lineage.
+2. Quarantine preserves partial, invalid, duplicate, drifted, conflicting, rights-restricted, and reconciliation-failed records without overwriting immutable source evidence.
+3. Reconstructible temporary files, abandoned downloads, duplicate caches, and obsolete worktrees are removed only after required immutable evidence and hashes are verified.
+4. The immutability/correction test deterministically detects mutation, missing lineage, path escape, secret exposure, and stale-artifact retention.
 
 ## Tests / validation
 

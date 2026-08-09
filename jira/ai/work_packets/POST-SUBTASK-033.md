@@ -16,7 +16,7 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Atomic execution scope
 
-Execute the atomic 3 of 3 step in Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit): Run and publish the national historical-lake readiness decision. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-030`, `POST-SUBTASK-031`, `POST-SUBTASK-032`. Produce `artifacts/data_lake/national_lake_readiness.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+Run the non-bypassable national historical-lake readiness decision over the expanded quality-supported population. Preserve the bounded 2022-2025 tranche as nonterminal; verify tiered season/domain eligibility, immutable provenance, missing/negative evidence, and downstream chronological/PIT obligations; keep GAP-002 unresolved unless the full applicable evidence chain passes.
 
 ### In scope
 
@@ -106,10 +106,11 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.
-2. The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.
-3. GAP-002 remains open unless actual national history—not fixtures, reconnaissance samples, or starter code—meets immutable, manifest, readback, and coverage requirements.
-4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+1. The readiness decision evaluates the maximum quality-supported expanded national population, targeting approximately 2010-2025 and earlier supported seasons, rather than treating the bounded 2022-2025 tranche as terminal.
+2. Deterministic acquisition, normalization, schema-drift, reconciliation, quarantine, tiered domain eligibility, population-coverage, immutable provenance, and historical known-at/PIT evidence are complete enough for each specifically approved use, with all negative findings preserved.
+3. GAP-002 remains unresolved unless the expanded population is integrated and this gate plus applicable downstream chronological/PIT and protected-validation gates pass; a partial approval names exact season/domain/use tiers and never implies global completeness.
+4. The gate explicitly prohibits claims of production model readiness, a trained champion, protected performance, production feature set, A&M lift, BAS, Aggie Excess, or related science from historical-lake readiness alone.
+5. The readiness artifact deterministically unlocks, retains blocked, downgrades, or rejects downstream schema/PIT/model units from pinned evidence without weakening thresholds.
 
 ## Tests / validation
 
@@ -128,7 +129,7 @@ Produce and validate these outputs within this atomic work unit:
 
 ## End-to-end handoff
 
-Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, restriction, correction, and blocker. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-004, POST-STORY-012, POST-SUBTASK-034, POST-SUBTASK-035, POST-SUBTASK-036.
+Recompute the decision from pinned acquisition/profile/eligibility/immutability/manifest inputs; reject any terminal-2022-2025 assumption, omitted negative evidence, fabricated threshold, unsupported domain promotion, provenance gap, or premature GAP-002/model/scientific readiness claim.
 
 ## Stop instead of improvising when
 

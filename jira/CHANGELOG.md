@@ -11,6 +11,14 @@
 
 Future meaningful changes must be appended; do not log trivial generated formatting churn.
 
+## 2026-08-09 — Historical Data Scope and Expansion Contract
+
+- Preserved POST-SUBTASK-025 through POST-SUBTASK-027 and their verified 2022-2025 evidence as the first bounded contemporary tranche; those completions no longer admit a terminal-history or GAP-002-resolution interpretation.
+- Strengthened POST-STORY-010 / POST-SUBTASK-028 through POST-SUBTASK-030 as the critical-path expanded acquisition, independent population profiling, and tiered season/domain/use-eligibility chain targeting approximately 2010-2025 and earlier quality-supported history.
+- Strengthened POST-STORY-011 / POST-SUBTASK-031 through POST-SUBTASK-033 as the content-addressed external-storage, provenance, negative-evidence, and non-bypassable national historical-lake readiness chain.
+- Bound POST-SUBTASK-072 and POST-SUBTASK-073 to the expanded quality-supported population; a narrower model window now requires explicit protected empirical justification.
+- Required immutable bulk storage below `AGGIE_ANALYTICS_DATA_ROOT`, independent coverage dimensions, preservation of partial/negative findings, and cleanup of reconstructible stale artifacts.
+
 ## 2026-08-08 — v2 second-pass hardening
 
 - Generic executable-subtask scope specifications: 159 → 0

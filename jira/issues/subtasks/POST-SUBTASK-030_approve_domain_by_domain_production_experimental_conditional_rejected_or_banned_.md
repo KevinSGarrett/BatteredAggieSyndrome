@@ -1,5 +1,5 @@
 <!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-030_approve_domain_by_domain_production_experimental_conditional_rejected_or_banned_.json -->
-# POST-SUBTASK-030 — [POST-SUBTASK-030] Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility
+# POST-SUBTASK-030 — [POST-SUBTASK-030] Assign tiered season/domain eligibility and approve only evidence-supported historical uses
 
 ## Canonical metadata
 
@@ -7,10 +7,11 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Every record retains source/published/observed/retrieved time and canonical identity candidates; absence or ambiguous timing is not converted to healthy, available, or known.",
-    "Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.",
-    "Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence.",
-    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
+    "Every season/domain/grain receives an explicit production, experimental, conditional, rejected, unavailable, or banned disposition tied to measured evidence and intended downstream use.",
+    "Reliable games/outcomes may be admitted for Elo, team-strength priors, outcome modeling, calibration context, and long-run program context even when roster, player, play-by-play, box-score, gamebook, or advanced-stat domains are incomplete.",
+    "No season is silently promoted into a domain whose evidence is incomplete, unreconciled, unavailable, or not historically known, and no weak domain globally discards otherwise eligible domains.",
+    "Thresholds and exceptions are evidence-based, versioned, and preserve every partial/negative finding; no threshold is invented or weakened to obtain approval.",
+    "The gate explicitly retains GAP-002 and final historical readiness as unresolved pending POST-SUBTASK-033 and later chronological/protected gates."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -20,7 +21,7 @@
     "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
   ],
   "allowed_modification_paths": [
-    "artifacts/data_lake/context_eligibility_gate.json",
+    "artifacts/data_lake/historical_expansion_eligibility_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-030.json"
   ],
   "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-028;POST-SUBTASK-029",
@@ -87,7 +88,7 @@
     "risk_ids": 5
   },
   "effective_traceability_total": 24,
-  "end_to_end_validation": "Supporting domains are acquired and classified from real historical evidence without inventing timing, coverage, rights, or certainty. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-007, POST-STORY-011, POST-STORY-021, POST-STORY-023, POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033, POST-SUBTASK-061, POST-SUBTASK-062, POST-SUBTASK-063, POST-SUBTASK-067, POST-SUBTASK-068….",
+  "end_to_end_validation": "Downstream snapshot, manifest, schema, PIT, and model-dataset consumers must reproduce the exact tier they consume and fail closed when a season/domain is missing, downgraded, rights-blocked, unreconciled, provenance-incomplete, or historically unknown.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-030.json",
   "evidence_state": "PLANNED",
@@ -95,7 +96,7 @@
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
   "expected_outputs": [
-    "artifacts/data_lake/context_eligibility_gate.json"
+    "artifacts/data_lake/historical_expansion_eligibility_gate.json"
   ],
   "files_expected_to_be_read": [
     "governance/DO_NOT_DRIFT.md",
@@ -137,7 +138,7 @@
     "Demonstrate with saved evidence: Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.",
     "Demonstrate with saved evidence: Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence.",
     "Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
-    "Produce, validate, content-hash, and register `artifacts/data_lake/context_eligibility_gate.json`.",
+    "Produce, validate, content-hash, and register `artifacts/data_lake/historical_expansion_eligibility_gate.json`.",
     "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
   ],
   "issue_type": "Subtask",
@@ -148,12 +149,13 @@
     "post-wave",
     "protected-gate",
     "raw-data",
-    "subtask"
+    "subtask",
+    "historical-expansion"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-030",
   "maturity_before": "SCAFFOLD",
-  "objective": "Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility",
+  "objective": "Assign explicit tiered eligibility by season and domain without globally discarding partial older history",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24520",
@@ -220,7 +222,7 @@
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
-    "`artifacts/data_lake/context_eligibility_gate.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
+    "`artifacts/data_lake/historical_expansion_eligibility_gate.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
     "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
     "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
     "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
@@ -236,19 +238,19 @@
     {
       "classification": "CHRONOLOGICAL_REPLAY",
       "expectation": "Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.",
-      "path": "artifacts/data_lake/context_eligibility_gate.json",
+      "path": "artifacts/data_lake/historical_expansion_eligibility_gate.json",
       "validation_class": "CHRONOLOGICAL_REPLAY"
     },
     {
       "classification": "SECURITY",
       "expectation": "Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.",
-      "path": "artifacts/data_lake/context_eligibility_gate.json",
+      "path": "artifacts/data_lake/historical_expansion_eligibility_gate.json",
       "validation_class": "SECURITY"
     },
     {
       "classification": "END_TO_END",
       "expectation": "Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.",
-      "path": "artifacts/data_lake/context_eligibility_gate.json",
+      "path": "artifacts/data_lake/historical_expansion_eligibility_gate.json",
       "validation_class": "END_TO_END"
     },
     {
@@ -269,7 +271,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute the atomic 3 of 3 step in Story POST-STORY-010 (Player, roster, recruiting, market, weather, and contextual raw domains): Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-028`, `POST-SUBTASK-029`. Produce `artifacts/data_lake/context_eligibility_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.",
+  "scope": "Consume the expanded acquisition/profile evidence and issue tiered, use-specific eligibility by source/endpoint, season/type, team/game, domain/grain, schema/version, reconciliation quality, immutable provenance, and historical known-at/PIT state. Preserve partial seasons and negative evidence; allow useful lower-tier history without promoting it into unsupported domains; hand the versioned gate to immutable-store and national-lake work.",
   "source_ids": [
     "GAP-002",
     "GAP-006",
@@ -320,7 +322,7 @@
     "SRCREF-01572",
     "SRCREF-01573"
   ],
-  "title": "[POST-SUBTASK-030] Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility",
+  "title": "[POST-SUBTASK-030] Assign tiered season/domain eligibility and approve only evidence-supported historical uses",
   "traceability_inherited_from": [
     "POST-SUBTASK-033"
   ],
@@ -341,7 +343,7 @@
 
 ## Objective
 
-Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility
+Assign explicit tiered eligibility by season and domain without globally discarding partial older history
 
 ## Why This Exists
 
@@ -349,7 +351,7 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Scope
 
-Execute the atomic 3 of 3 step in Story POST-STORY-010 (Player, roster, recruiting, market, weather, and contextual raw domains): Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-028`, `POST-SUBTASK-029`. Produce `artifacts/data_lake/context_eligibility_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+Consume the expanded acquisition/profile evidence and issue tiered, use-specific eligibility by source/endpoint, season/type, team/game, domain/grain, schema/version, reconciliation quality, immutable provenance, and historical known-at/PIT state. Preserve partial seasons and negative evidence; allow useful lower-tier history without promoting it into unsupported domains; hand the versioned gate to immutable-store and national-lake work.
 
 ### Explicit In Scope
 
@@ -359,7 +361,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-010 (Player, roster, recruiti
 - Demonstrate with saved evidence: Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
 - Demonstrate with saved evidence: Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence.
 - Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
-- Produce, validate, content-hash, and register `artifacts/data_lake/context_eligibility_gate.json`.
+- Produce, validate, content-hash, and register `artifacts/data_lake/historical_expansion_eligibility_gate.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
 ### Explicit Out of Scope
@@ -434,7 +436,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-010 (Player, roster, recruiti
 
 ## Expected Outputs / Artifacts
 
-- artifacts/data_lake/context_eligibility_gate.json
+- artifacts/data_lake/historical_expansion_eligibility_gate.json
 
 ## Direct Requirements
 
@@ -453,10 +455,11 @@ Execute the atomic 3 of 3 step in Story POST-STORY-010 (Player, roster, recruiti
 
 ## Acceptance Criteria
 
-1. Every record retains source/published/observed/retrieved time and canonical identity candidates; absence or ambiguous timing is not converted to healthy, available, or known.
-2. Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
-3. Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence.
-4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+1. Every season/domain/grain receives an explicit production, experimental, conditional, rejected, unavailable, or banned disposition tied to measured evidence and intended downstream use.
+2. Reliable games/outcomes may be admitted for Elo, team-strength priors, outcome modeling, calibration context, and long-run program context even when roster, player, play-by-play, box-score, gamebook, or advanced-stat domains are incomplete.
+3. No season is silently promoted into a domain whose evidence is incomplete, unreconciled, unavailable, or not historically known, and no weak domain globally discards otherwise eligible domains.
+4. Thresholds and exceptions are evidence-based, versioned, and preserve every partial/negative finding; no threshold is invented or weakened to obtain approval.
+5. The gate explicitly retains GAP-002 and final historical readiness as unresolved pending POST-SUBTASK-033 and later chronological/protected gates.
 
 ## Definition of Done
 
@@ -471,14 +474,14 @@ Execute the atomic 3 of 3 step in Story POST-STORY-010 (Player, roster, recruiti
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_w19_foundation.py` — Run as a regression check after completing POST-SUBTASK-030; retain command, exit code, and relevant output.
-- **CHRONOLOGICAL_REPLAY** / `CHRONOLOGICAL_REPLAY` — `artifacts/data_lake/context_eligibility_gate.json` — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
-- **SECURITY** / `SECURITY` — `artifacts/data_lake/context_eligibility_gate.json` — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
-- **END_TO_END** / `END_TO_END` — `artifacts/data_lake/context_eligibility_gate.json` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
+- **CHRONOLOGICAL_REPLAY** / `CHRONOLOGICAL_REPLAY` — `artifacts/data_lake/historical_expansion_eligibility_gate.json` — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
+- **SECURITY** / `SECURITY` — `artifacts/data_lake/historical_expansion_eligibility_gate.json` — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
+- **END_TO_END** / `END_TO_END` — `artifacts/data_lake/historical_expansion_eligibility_gate.json` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
 
 ## Required Evidence
 
-- `artifacts/data_lake/context_eligibility_gate.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- `artifacts/data_lake/historical_expansion_eligibility_gate.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
@@ -508,7 +511,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-010 (Player, roster, recruiti
 
 ## End-to-End Validation Requirement
 
-Supporting domains are acquired and classified from real historical evidence without inventing timing, coverage, rights, or certainty. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-007, POST-STORY-011, POST-STORY-021, POST-STORY-023, POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033, POST-SUBTASK-061, POST-SUBTASK-062, POST-SUBTASK-063, POST-SUBTASK-067, POST-SUBTASK-068….
+Downstream snapshot, manifest, schema, PIT, and model-dataset consumers must reproduce the exact tier they consume and fail closed when a season/domain is missing, downgraded, rights-blocked, unreconciled, provenance-incomplete, or historically unknown.
 
 ## Expected Maturity After Completion
 

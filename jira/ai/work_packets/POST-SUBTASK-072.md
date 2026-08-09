@@ -77,6 +77,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, spl
 - POST-SUBTASK-060
 - POST-SUBTASK-070
 - POST-SUBTASK-071
+- POST-SUBTASK-033
 
 ## Files I may modify or create
 
@@ -108,10 +109,10 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Targets declare cancellations, overtime, missing scores, neutral sites, lower divisions, and official outcome source; every row links to canonical game evidence.
-2. Split assignments match protected registries, prevent duplicate/rematch/season-fragment leakage, and precommit weights/shrinkage before candidate results.
-3. Pinned raw/entity/PIT/feature/target/split versions reproduce identical rows and protected labels are inaccessible to training/tuning paths.
-4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+1. The model dataset pins the expanded quality-supported historical population and exact season/domain eligibility tiers consumed; the bounded 2022-2025 tranche is not the terminal training population by default.
+2. Any narrower window is admitted only by explicit empirical evidence produced without protected-period tuning and records the tradeoff, excluded seasons/domains, and protected acceptance decision.
+3. Dataset identity, target-game exclusion, PIT eligibility, duplicate handling, feature/target separation, split assignment, and reproducibility all pass from immutable lineage.
+4. Failure of one older domain causes scoped feature/season eligibility or fallback behavior, not silent global history removal or unsupported imputation.
 
 ## Tests / validation
 

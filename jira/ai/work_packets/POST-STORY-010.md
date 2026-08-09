@@ -8,7 +8,7 @@
 
 ## What capability or closure gate am I coordinating?
 
-Materialize the supporting source domains needed for availability, specialization, matchup context, and uncertainty.
+Acquire, profile, and assign tiered eligibility to the expanded national core and supporting-domain history
 
 ## Why?
 
@@ -16,15 +16,15 @@ This coherent capability closes a defined portion of Immutable national historic
 
 ## Aggregate integration and closure scope
 
-Deliver Story POST-STORY-010 (Player, roster, recruiting, market, weather, and contextual raw domains) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-028, POST-SUBTASK-029, POST-SUBTASK-030 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-030` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
+Execute POST-SUBTASK-028 through POST-SUBTASK-030 as the expanded-history acquisition/profile/eligibility chain. Target approximately 2010-2025 and earlier supported seasons, preserve the bounded 2022-2025 tranche as nonterminal, and hand explicit season/domain/use tiers plus negative evidence to immutable national-lake work.
 
 ### In scope
 
-- Complete and verify child `POST-SUBTASK-028` — Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence.
-- Complete and verify child `POST-SUBTASK-029` — Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class.
-- Complete and verify child `POST-SUBTASK-030` — Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility.
-- Integrate the child outputs and execute final gate `POST-SUBTASK-030`.
-- Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence.
+- Complete and verify POST-SUBTASK-028 expanded immutable acquisition across every useful approved core and supporting domain.
+- Complete and verify POST-SUBTASK-029 independent population profiling across all required source/season/team/domain/schema/provenance/PIT dimensions.
+- Complete and verify POST-SUBTASK-030 tiered season/domain/use eligibility without global rejection of partial older seasons or unsupported promotion.
+- Preserve the bounded 2022-2025 tranche as nonterminal and target approximately 2010-2025 plus earlier quality-supported seasons.
+- Integrate child outputs through final gate POST-SUBTASK-030 with all partial, negative, and provider-limitation evidence preserved.
 
 ### Out of scope
 
@@ -94,15 +94,16 @@ Only aggregate evidence/Jira-state artifacts listed above may be written. Do not
 
 Review and integrate these child-produced outputs; do not recreate them directly from this aggregate packet:
 
-- artifacts/data_lake/context_acquisition_manifest.json
-- artifacts/data_lake/context_population_profile.json
-- artifacts/data_lake/context_eligibility_gate.json
+- artifacts/data_lake/historical_expansion_acquisition_manifest.json
+- artifacts/data_lake/historical_expansion_population_profile.json
+- artifacts/data_lake/historical_expansion_eligibility_gate.json
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.
+2. The final child gate POST-SUBTASK-030 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.
+3. The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.
+4. No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass.
 
 ## Tests / validation
 
@@ -119,7 +120,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Supporting domains are acquired and classified from real historical evidence without inventing timing, coverage, rights, or certainty.
+A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.
 
 ## Stop instead of improvising when
 

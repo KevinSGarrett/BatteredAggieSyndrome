@@ -1,0 +1,241 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T08:16:14Z",
+  "jira_key": "BAT-354",
+  "local_issue_id": "POST-SUBTASK-004",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "A fail-closed local path resolver derives seven distinct absolute roots from AGGIE_ANALYTICS_DATA_ROOT, rejects repository overlap before mutation, provisions and probes the configured external roots, resolves identical identities in a restarted Python process, and exposes a content-hashed consumer contract without recording the configured value.",
+  "outputs": [
+    {
+      "path": "artifacts/implementation_preflight/local_path_contract.json",
+      "bytes": 8116,
+      "sha256": "64d67c00de2ca1c038f49125d9d209ab92997bbb4c71e2336390aa45219e937a",
+      "canonical_payload_sha256": "eb865b624ea32aee4b7a15b4049ffe461fe2c2bd9bc54767f4d58e10251f5d18",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED",
+      "eligibility": "LOCAL_PATH_CONFIGURATION_AND_SAFETY_EVIDENCE"
+    },
+    {
+      "path": "docs/operations/LOCAL_RUNTIME_PATHS.md",
+      "bytes": 2736,
+      "sha256": "e8e822e5fdf6f8bd8c8d34a837c01bd669c7658c666baa2b491d42703f747ef1",
+      "schema_version": "DOCUMENTATION_V1",
+      "maturity": "IMPLEMENTED",
+      "eligibility": "OPERATOR_AND_CONSUMER_CONTRACT"
+    }
+  ],
+  "input_identities": {
+    "git_base_commit": "bc10b430ab159c5831b3c9d957989d70458b4eee",
+    "git_base_tree": "c1da97db1045860efda6c5b14649a4d0e06eda83",
+    "post_subtask_001_workflow_state": "DONE",
+    "post_subtask_001_evidence_state": "VERIFIED",
+    "data_root_activation_sha256": "def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3",
+    "post_subtask_001_evidence_sha256": "e96f9de1a246daa24a6154f9357331f771363165c584158c9c7bd3ed22060afe",
+    "environment_module_sha256": "0ea2268e9f41c83148e9de7cb128a77052bee0c304f2741ee2f65e6a74fa06ee",
+    "operations_test_sha256": "9101e3242575453292763f11f3d6f735d4c653397eb4e2cbc23d8a7f0d9ec269",
+    "codex_handoff_sha256": "afce5c31809075e42c2ae6690e3c642779417ac032d692a82c5eadc114db9d14",
+    "do_not_drift_sha256": "13e3712dc3f9cb22d65e23953ac040ee2daefff16364d38d195432110a2d3404"
+  },
+  "external_evidence": {
+    "path": "EXTERNAL_DATA_ROOT/runtime/BAT-354/path-contract-observation.json",
+    "bytes": 3303,
+    "sha256": "9635978d893d854cf0e30ce8dfefd19a20b76ac82dda03bd1df052d2b4a4d836",
+    "internal_manifest_sha256": "0fd141d6f731177ab021025fcb5b2b853fb6a2476b1ed01515f84662f6c960bc",
+    "configured_value_included": false,
+    "repository_path_included": false,
+    "external_root_path_included": false
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Configured roots are absolute, writable, outside the Git repository, and survive process restart.",
+      "disposition": "PASS",
+      "observable_result": "Three of three provision probes found seven absolute, external, writable roots, and a new Python process resolved the identical seven path hashes from the configured environment.",
+      "evidence_path": "artifacts/implementation_preflight/local_path_contract.json",
+      "evidence_sha256": "64d67c00de2ca1c038f49125d9d209ab92997bbb4c71e2336390aa45219e937a",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T08:16:14Z"
+    },
+    {
+      "criterion": "Raw, curated, model, forecast, log, backup, and quarantine roots are separated.",
+      "disposition": "PASS",
+      "observable_result": "The seven required aliases resolve to seven distinct canonical path hashes; log and backup use separate runtime subdirectories.",
+      "evidence_path": "artifacts/implementation_preflight/local_path_contract.json",
+      "evidence_sha256": "64d67c00de2ca1c038f49125d9d209ab92997bbb4c71e2336390aa45219e937a",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T08:16:14Z"
+    },
+    {
+      "criterion": "A path safety test rejects repository-internal bulk-data roots.",
+      "disposition": "PASS",
+      "observable_result": "Both the focused unit test and observed negative probe rejected a repository-internal bulk-data root with UnsafeLocalRuntimePath before directory creation.",
+      "evidence_path": "artifacts/implementation_preflight/local_path_contract.json",
+      "evidence_sha256": "64d67c00de2ca1c038f49125d9d209ab92997bbb4c71e2336390aa45219e937a",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T08:16:14Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "2,118 source references verified with zero errors and zero relocations."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -p test_w23_operations.py -v after initial path implementation",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "10 of 10 focused operations tests passed in 0.755 seconds."
+    },
+    {
+      "command": "Provision and observe the configured external path contract for three attempts plus a restarted Python resolver and repository-internal negative probe",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Three attempts each found 7/7 writable distinct external roots with zero process errors; restart hashes matched and the unsafe internal root was rejected."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -p test_w23_operations.py -v with fail-closed consumer mutations",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "11 of 11 focused operations tests passed in 0.785 seconds, including schema/hash/prerequisite/root/path-safety/rights/authority consumer rejection."
+    },
+    {
+      "command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
+      "exit_code": 0,
+      "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED",
+      "output_summary": "W23 implementation passed while AC-038 remained unresolved and THR-011/THR-012 remained TBD."
+    },
+    {
+      "command": "Initial Jira/source/full-suite integration gate after modifying tests/test_w23_operations.py",
+      "exit_code": 1,
+      "result": "SOURCE_ANCHOR_DRIFT_FAILURE_PRESERVED",
+      "output_summary": "SRCREF-02098 no longer matched the changed first-six-line import anchor; strict Jira validation failed and the two Jira-control tests failed in the 243-test suite."
+    },
+    {
+      "command": "python -B jira/tools/repair_source_refs.py --help",
+      "exit_code": 1,
+      "result": "NON_RELOCATABLE_CHANGED_ANCHOR_PRESERVED",
+      "output_summary": "The repair entry point executed and correctly refused relocation because the stored anchor text itself had changed, not merely its line range."
+    },
+    {
+      "command": "Controlled SRCREF-02098 semantic-anchor rebaseline followed by python -B jira/tools/repair_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The one changed test-file anchor was re-pinned to the current validated six-line import contract; 2,118 references then validated with zero errors."
+    },
+    {
+      "command": "python -B jira/tools/rebuild_all_derivatives.py after source-anchor repair",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All Jira derivatives were rebuilt deterministically from canonical JSON and the repaired source-reference index."
+    },
+    {
+      "command": "Strict live Jira/mirror/import/second-pass/source-reference gate plus PYTHONPATH=src warning-strict full suite and path-contract consumer validation",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "2,118 source anchors, 463 Jira records, 243 of 243 tests, three acceptance rows, canonical hash, output link, and fail-closed consumer validation passed."
+    },
+    {
+      "command": "Clean BAT-354 candidate: strict repository, W25/W23, protected seal, live Jira/mirror/import, full warning-strict suite, contract/docs/provenance identities, and actual external-root probe",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Candidate passed with 243 of 243 tests, 2,744 clean provenance rows, 7/7 writable external roots, verified contract/docs links, and no configured value emitted."
+    }
+  ],
+  "operations_and_benchmark_evidence": {
+    "attempts": 3,
+    "successful_attempts": 3,
+    "root_count": 7,
+    "writable_roots_per_attempt": 7,
+    "process_errors": 0,
+    "restart_process_executed": true,
+    "restart_hashes_match": true,
+    "authoritative_for_path_configuration": true,
+    "authoritative_for_storage_durability": false,
+    "authoritative_for_thr_011_012": false
+  },
+  "scientific_and_model_evidence": {
+    "applicable": false,
+    "reason": "PATH_CONFIGURATION_HAS_NO_DATASET_SPLIT_MODEL_METRIC_OR_PRECOMMITTED_SCIENTIFIC_HYPOTHESIS",
+    "fabricated_metrics": false,
+    "protected_results_inspected": false
+  },
+  "negative_findings": [
+    {
+      "id": "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "finding": "The path contract does not grant source access or redistribution rights.",
+      "waived": false,
+      "resolution": "RETAINED_DOWNSTREAM_GATE"
+    },
+    {
+      "id": "STORAGE_DURABILITY_AND_QUARANTINE_SEMANTICS_NOT_EVALUATED",
+      "finding": "This atomic task proves path configuration and simple writability only; durability, atomic-write, free-space, and quarantine behavior belong to sibling POST-SUBTASK-006.",
+      "waived": false,
+      "resolution": "OUT_OF_SCOPE_RETAINED"
+    },
+    {
+      "id": "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "finding": "No source payload or historical data lake was materialized by this task.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    },
+    {
+      "id": "AC_038_AND_TARGET_THRESHOLDS_UNRESOLVED",
+      "finding": "AC-038 remains unresolved and THR-011/THR-012 remain TBD.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_emitted": false,
+    "configured_path_value_stored_in_repository_evidence": false,
+    "user_identifying_paths_stored_in_repository_evidence": false,
+    "restricted_payloads_stored_in_repository_evidence": false,
+    "source_rights_approval_claimed": false,
+    "protected_files_modified": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-005",
+    "contract_parseable": true,
+    "canonical_hash_verified": true,
+    "documentation_present": true,
+    "prerequisite_hashes_present": true,
+    "consumer_mutation_gate_passed": true,
+    "silent_downstream_unlock_allowed": false,
+    "decision": "APPROVE_PATH_CONFIGURATION_RETAIN_RIGHTS_AND_RELEASE_GATES",
+    "consumer_must_fail_closed": true
+  },
+  "integration": {
+    "branch": "codex/BAT-354-external-data-root",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "merge_method": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_claim_comment_id": "13290",
+    "live_jira_logical_state": "IN_PROGRESS",
+    "live_jira_status": "In Progress"
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "VALIDATION",
+    "local_acceptance_criteria_pass": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [
+      "PENDING_PROTECTED_PR_INTEGRATION"
+    ],
+    "remaining_program_blockers": [
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ],
+    "completion_claim": "BAT-354's local path configuration is implemented and all three issue-specific criteria pass locally. Protected integration and final Jira synchronization remain pending; no source-rights, storage-durability, historical-data, target-threshold, or release claim is made."
+  }
+}

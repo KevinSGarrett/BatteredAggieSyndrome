@@ -1,0 +1,216 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "aggie.local_runtime_path_contract",
+  "created_at_utc": "2026-08-09T08:16:14Z",
+  "issue": {
+    "jira_key": "BAT-354",
+    "local_id": "POST-SUBTASK-004",
+    "objective": "Configure AGGIE_ANALYTICS_DATA_ROOT and artifact roots outside the repository"
+  },
+  "producer": {
+    "agent": "Codex",
+    "interface": "aggie_analytics.operations.environment",
+    "python": "3.11.9"
+  },
+  "source_identity": {
+    "git_base_commit": "bc10b430ab159c5831b3c9d957989d70458b4eee",
+    "git_base_tree": "c1da97db1045860efda6c5b14649a4d0e06eda83",
+    "environment_module_sha256": "0ea2268e9f41c83148e9de7cb128a77052bee0c304f2741ee2f65e6a74fa06ee",
+    "operations_test_sha256": "9101e3242575453292763f11f3d6f735d4c653397eb4e2cbc23d8a7f0d9ec269",
+    "repository_root_alias": "REPOSITORY_ROOT",
+    "absolute_repository_path_included": false
+  },
+  "prerequisite_identities": {
+    "dependency": "POST-SUBTASK-001",
+    "dependency_workflow_state": "DONE",
+    "dependency_evidence_state": "VERIFIED",
+    "data_root_activation_path": "artifacts/implementation_preflight/data_root_activation.json",
+    "data_root_activation_sha256": "def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3",
+    "post_subtask_001_evidence_sha256": "e96f9de1a246daa24a6154f9357331f771363165c584158c9c7bd3ed22060afe",
+    "external_root_manifest_bytes": 901,
+    "external_root_manifest_sha256": "8bedd0a4b35aaac360c8dd498232113615b88f58f6b421587a6abec4793afd66"
+  },
+  "configuration": {
+    "environment_variable": "AGGIE_ANALYTICS_DATA_ROOT",
+    "configured": true,
+    "configured_value_included": false,
+    "path_alias": "EXTERNAL_DATA_ROOT",
+    "root_path_sha256": "d4097a38ac3a6912fd2a51ea9af59ab7ebf2054a9615c2100b8d6197d2168965",
+    "absolute": true,
+    "outside_repository": true,
+    "repository_and_root_disjoint": true,
+    "persistence_boundary": "HOST_OR_IGNORED_LOCAL_LAUNCHER_ENVIRONMENT_RELOADED_ON_PROCESS_START"
+  },
+  "roots": [
+    {
+      "alias": "raw",
+      "relative_path": "raw",
+      "resolved_path_sha256": "9eea0277ba36ac2ddfde9de6f615177126dfee753e37d84c8e1c45802f5173ff",
+      "absolute": true,
+      "outside_repository": true,
+      "writable": true
+    },
+    {
+      "alias": "curated",
+      "relative_path": "canonical",
+      "resolved_path_sha256": "aaf82f3ee40251f51db0c63198e8f67c8207429858a730f264fb5db15b015c50",
+      "absolute": true,
+      "outside_repository": true,
+      "writable": true
+    },
+    {
+      "alias": "model",
+      "relative_path": "model_artifacts",
+      "resolved_path_sha256": "509ba58dafd6121a4f0235f1b21f23620f41f137d9e8f64bb474ccba44e2a29d",
+      "absolute": true,
+      "outside_repository": true,
+      "writable": true
+    },
+    {
+      "alias": "forecast",
+      "relative_path": "forecast_snapshots",
+      "resolved_path_sha256": "ee8cd6b2b730fde9044d27c96ad8d31f7a451d115bc3dc85882e73d5cfad436e",
+      "absolute": true,
+      "outside_repository": true,
+      "writable": true
+    },
+    {
+      "alias": "log",
+      "relative_path": "runtime/logs",
+      "resolved_path_sha256": "a507a35f6a47fba2d7e76d4a37843d9d441f5d04761261ba0e9b12ce5644a918",
+      "absolute": true,
+      "outside_repository": true,
+      "writable": true
+    },
+    {
+      "alias": "backup",
+      "relative_path": "runtime/backups",
+      "resolved_path_sha256": "36500f4bb32270c19052de7a96d2e35bf8139ef94e4df0bb7b471d8e95707cb5",
+      "absolute": true,
+      "outside_repository": true,
+      "writable": true
+    },
+    {
+      "alias": "quarantine",
+      "relative_path": "quarantine",
+      "resolved_path_sha256": "541273dbc043cdd04097c4210240c91292bc26536f8681eb51c957570eb32476",
+      "absolute": true,
+      "outside_repository": true,
+      "writable": true
+    }
+  ],
+  "validation": {
+    "root_count": 7,
+    "distinct_root_count": 7,
+    "all_absolute": true,
+    "all_outside_repository": true,
+    "all_writable": true,
+    "restart_probe": {
+      "new_python_process": true,
+      "configured_environment_reloaded": true,
+      "resolved_path_hashes_match": true
+    },
+    "repository_internal_negative_test": {
+      "input_class": "REPOSITORY_INTERNAL_BULK_ROOT",
+      "rejected": true,
+      "exception": "UnsafeLocalRuntimePath"
+    },
+    "operations_probe": {
+      "attempts": 3,
+      "successful_attempts": 3,
+      "writable_roots_per_attempt": 7,
+      "process_errors": 0,
+      "raw_evidence_path": "EXTERNAL_DATA_ROOT/runtime/BAT-354/path-contract-observation.json",
+      "raw_evidence_bytes": 3303,
+      "raw_evidence_sha256": "9635978d893d854cf0e30ce8dfefd19a20b76ac82dda03bd1df052d2b4a4d836",
+      "raw_evidence_manifest_sha256": "0fd141d6f731177ab021025fcb5b2b853fb6a2476b1ed01515f84662f6c960bc"
+    }
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Configured roots are absolute, writable, outside the Git repository, and survive process restart.",
+      "disposition": "PASS",
+      "observable_result": "Seven of seven roots were absolute, external, and writable in three probes; a new Python process resolved identical path hashes from the configured environment.",
+      "verified_at_utc": "2026-08-09T08:16:14Z",
+      "verifier": "Codex"
+    },
+    {
+      "criterion": "Raw, curated, model, forecast, log, backup, and quarantine roots are separated.",
+      "disposition": "PASS",
+      "observable_result": "All seven required aliases map to seven distinct canonical paths under the external root.",
+      "verified_at_utc": "2026-08-09T08:16:14Z",
+      "verifier": "Codex"
+    },
+    {
+      "criterion": "A path safety test rejects repository-internal bulk-data roots.",
+      "disposition": "PASS",
+      "observable_result": "The deterministic negative test rejected a repository-internal bulk root with UnsafeLocalRuntimePath before directory creation.",
+      "verified_at_utc": "2026-08-09T08:16:14Z",
+      "verifier": "Codex"
+    }
+  ],
+  "security_and_rights": {
+    "secret_values_included": false,
+    "configured_path_value_included": false,
+    "user_identifying_paths_included": false,
+    "restricted_payloads_included": false,
+    "source_rights_approval_claimed": false,
+    "bulk_data_materialized_by_this_task": false
+  },
+  "scientific_and_model_evidence": {
+    "applicable": false,
+    "reason": "PATH_CONFIGURATION_HAS_NO_DATASET_SPLIT_MODEL_METRIC_OR_PRECOMMITTED_SCIENTIFIC_HYPOTHESIS",
+    "fabricated_metrics": false,
+    "protected_results_inspected": false
+  },
+  "eligibility": {
+    "maturity": "IMPLEMENTED",
+    "classification": "LOCAL_PATH_CONFIGURATION_AND_SAFETY_EVIDENCE",
+    "production_release_authority": false,
+    "storage_durability_authority": false,
+    "source_rights_authority": false
+  },
+  "consumer_handoff": {
+    "consumer": "POST-SUBTASK-005",
+    "parseable_without_manual_reconstruction": true,
+    "silent_unlock_allowed": false,
+    "consumer_must_verify": [
+      "schema_version",
+      "canonical content hash",
+      "prerequisite identities",
+      "seven distinct external aliases",
+      "restart hash match",
+      "repository-internal rejection",
+      "retained rights and release blockers"
+    ],
+    "fail_closed_on": [
+      "missing or malformed contract",
+      "canonical content hash mismatch",
+      "stale prerequisite identity",
+      "missing or duplicate root alias",
+      "relative or repository-overlapping root",
+      "missing rights or provenance state"
+    ]
+  },
+  "completion": {
+    "issue_disposition": "READY_FOR_PROTECTED_INTEGRATION",
+    "evidence_state": "VERIFIED_LOCAL",
+    "all_issue_acceptance_criteria_pass": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [
+      "PENDING_PROTECTED_PR_INTEGRATION"
+    ],
+    "remaining_program_blockers": [
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "sha256",
+    "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
+    "value": "eb865b624ea32aee4b7a15b4049ffe461fe2c2bd9bc54767f4d58e10251f5d18"
+  }
+}

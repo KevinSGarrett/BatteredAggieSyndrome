@@ -20,6 +20,7 @@ artifacts/README.md
 artifacts/implementation_preflight/data_root_activation.json
 artifacts/implementation_preflight/hydration_binding_supersession.json
 artifacts/implementation_preflight/initial_publication_reconciliation.json
+artifacts/implementation_preflight/local_path_contract.json
 artifacts/implementation_preflight/repository_identity.json
 artifacts/implementation_preflight/runtime_manifest.json
 artifacts/implementation_preflight/target_validation.log
@@ -27,6 +28,7 @@ artifacts/implementation_preflight/target_validation_results.json
 artifacts/jira_evidence/POST-SUBTASK-001.json
 artifacts/jira_evidence/POST-SUBTASK-002.json
 artifacts/jira_evidence/POST-SUBTASK-003.json
+artifacts/jira_evidence/POST-SUBTASK-004.json
 artifacts/jira_evidence/POST-SUBTASK-013.json
 artifacts/source_governance/production_source_inventory.csv
 configs/acceptance_registry.json
@@ -238,6 +240,7 @@ docs/final/FINAL_RISK_REGISTER.csv
 docs/final/FIRST_72_HOUR_IMPLEMENTATION_QUEUE.md
 docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md
 docs/operations/CI_SECURITY_SUPPLY_CHAIN.md
+docs/operations/LOCAL_RUNTIME_PATHS.md
 docs/operations/OBSERVABILITY.md
 docs/operations/TARGET_HARDWARE_BENCHMARK.md
 docs/product/API_CONTRACT.md

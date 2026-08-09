@@ -39,14 +39,14 @@ Execute the atomic 1 of 3 step in Story POST-STORY-002 (Local data, artifact, an
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `VALIDATION`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `OPERATIONS`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `IMPLEMENTED`
-- Evidence state: `PLANNED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-009`
 
 ## Read first

@@ -70,6 +70,10 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 - docs/operations/CI_SECURITY_SUPPLY_CHAIN.md
 - docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md
 - docs/operations/OBSERVABILITY.md
+- .github/workflows/ci.yml
+- pyproject.toml
+- requirements/product.lock
+- tools/validate_dependency_policy.py
 
 ## Dependencies that must already be complete
 
@@ -78,8 +82,16 @@ Execute the atomic 2 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 
 ## Files I may modify or create
 
+- .github/dependabot.yml
+- .github/workflows/ci.yml
 - artifacts/operations/security_supply_chain_report.json
 - artifacts/jira_evidence/POST-SUBTASK-125.json
+- docs/operations/CI_SECURITY_SUPPLY_CHAIN.md
+- pyproject.toml
+- requirements/product.lock
+- tests/test_product_supply_chain.py
+- tools/validate_dependency_policy.py
+- tools/validate_product_supply_chain.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -116,6 +128,7 @@ Produce and validate these outputs within this atomic work unit:
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w23_operations.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_w23_operations.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_repository.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
+- SECURITY / SECURITY: tests/test_product_supply_chain.py — Prove exact/hash lock parsing, direct-pin coverage, malformed or missing hash rejection, and deterministic installed license/notice inventory behavior.
 - LEGAL_RIGHTS_REVIEW / LEGAL_RIGHTS_REVIEW: MANUAL_REVIEW_REQUIRED — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
 - MANUAL / MANUAL: artifacts/operations/security_supply_chain_report.json — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
 - SCIENTIFIC / SCIENTIFIC: artifacts/operations/security_supply_chain_report.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.

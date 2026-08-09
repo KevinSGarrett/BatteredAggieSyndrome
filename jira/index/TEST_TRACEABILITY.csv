@@ -1170,6 +1170,7 @@ ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-124,Subtask,Record exact 
 tests/test_w23_operations.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-125,Subtask,"Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output."
 tools/validate_w23_operations.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-125,Subtask,"Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output."
 tools/validate_repository.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-125,Subtask,"Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output."
+tests/test_product_supply_chain.py,SECURITY,POST-SUBTASK-125,Subtask,"Prove exact/hash lock parsing, direct-pin coverage, malformed or missing hash rejection, and deterministic installed license/notice inventory behavior."
 MANUAL_REVIEW_REQUIRED,LEGAL_RIGHTS_REVIEW,POST-SUBTASK-125,Subtask,"A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence."
 artifacts/operations/security_supply_chain_report.json,MANUAL,POST-SUBTASK-125,Subtask,"Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions."
 artifacts/operations/security_supply_chain_report.json,SCIENTIFIC,POST-SUBTASK-125,Subtask,"Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results."

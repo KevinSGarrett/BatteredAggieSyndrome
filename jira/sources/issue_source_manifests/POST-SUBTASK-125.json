@@ -12,7 +12,11 @@
     "docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md",
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md",
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
-    "docs/operations/OBSERVABILITY.md"
+    "docs/operations/OBSERVABILITY.md",
+    ".github/workflows/ci.yml",
+    "pyproject.toml",
+    "requirements/product.lock",
+    "tools/validate_dependency_policy.py"
   ],
   "governance_traceability_gate": "POST-SUBTASK-132",
   "issue_id": "POST-SUBTASK-125",

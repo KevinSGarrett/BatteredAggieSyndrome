@@ -11853,6 +11853,7 @@ Required Tests / Validation
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w23_operations.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_w23_operations.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_repository.py — Run as a regression check after completing POST-SUBTASK-125; retain command, exit code, and relevant output.
+- SECURITY / SECURITY: tests/test_product_supply_chain.py — Prove exact/hash lock parsing, direct-pin coverage, malformed or missing hash rejection, and deterministic installed license/notice inventory behavior.
 - LEGAL_RIGHTS_REVIEW / LEGAL_RIGHTS_REVIEW: MANUAL_REVIEW_REQUIRED — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
 - MANUAL / MANUAL: artifacts/operations/security_supply_chain_report.json — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
 - SCIENTIFIC / SCIENTIFIC: artifacts/operations/security_supply_chain_report.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.

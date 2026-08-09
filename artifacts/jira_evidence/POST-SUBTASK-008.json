@@ -12,9 +12,9 @@
   "outputs": [
     {
       "path": "artifacts/benchmarks/ac038_target_benchmark.json",
-      "bytes": 20683,
-      "sha256": "421f2090479969fbc76e70aefdb5b5e2ad8b6ed6706c13b1b6906f5bcfb82ccf",
-      "canonical_payload_sha256": "adfda5fc9bfee91a2eeeb29ac107055ed05cf1a63ee398bc787b7d87ad2314f7",
+      "bytes": 20992,
+      "sha256": "738fe85da1129452dfafe6acc63a623a5d3e0af046ab86e57cebcb66b5974a14",
+      "canonical_payload_sha256": "0fd572b774d86dd0a499212e74fb2d43f1db58cbbb844f2802fb60b7740f51a0",
       "schema_version": "aggie.ac038_target_benchmark.v1",
       "maturity": "EMPIRICALLY_VALIDATED",
       "eligibility": "TARGET_CLASS_EXECUTION_EVIDENCE_GOVERNANCE_DECISION_PENDING"
@@ -99,7 +99,7 @@
       "disposition": "PASS",
       "observable_result": "Live and campaign inventory observed Windows 11, AMD Ryzen 7 8745HX, 31.3 GiB RAM, RTX 5060 Laptop GPU, and healthy NVMe. The independent target-class predicate passed and the prior host-availability condition was evidence-cleared before execution.",
       "evidence_path": "artifacts/benchmarks/ac038_target_benchmark.json",
-      "evidence_sha256": "421f2090479969fbc76e70aefdb5b5e2ad8b6ed6706c13b1b6906f5bcfb82ccf",
+      "evidence_sha256": "738fe85da1129452dfafe6acc63a623a5d3e0af046ab86e57cebcb66b5974a14",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T11:01:40Z"
     },
@@ -108,7 +108,7 @@
       "disposition": "PASS",
       "observable_result": "Six raw run identities and six telemetry identities capture wall time, process/system RAM, process/system CPU, GPU utilization/memory/power, disk deltas, free bytes, legacy workload hashes, all six declared stage hashes, and snapshot/readback identity.",
       "evidence_path": "artifacts/benchmarks/ac038_target_benchmark.json",
-      "evidence_sha256": "421f2090479969fbc76e70aefdb5b5e2ad8b6ed6706c13b1b6906f5bcfb82ccf",
+      "evidence_sha256": "738fe85da1129452dfafe6acc63a623a5d3e0af046ab86e57cebcb66b5974a14",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T11:01:40Z"
     },
@@ -117,7 +117,7 @@
       "disposition": "PASS",
       "observable_result": "Three independent mandated-wrapper runs and three independent six-stage runs completed with zero process errors; all legacy workload hashes, all six stage hashes, and the immutable snapshot hash matched across repetitions.",
       "evidence_path": "artifacts/benchmarks/ac038_target_benchmark.json",
-      "evidence_sha256": "421f2090479969fbc76e70aefdb5b5e2ad8b6ed6706c13b1b6906f5bcfb82ccf",
+      "evidence_sha256": "738fe85da1129452dfafe6acc63a623a5d3e0af046ab86e57cebcb66b5974a14",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T11:01:40Z"
     }
@@ -188,6 +188,24 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "Strict repository/security with 2,758 provenance rows and tree fingerprint 9e19e9b8956c9f5ceb9e39f04bbd782f21d779312dee5ddd075dbd44ec430526, dependency policy, W25 terminal governance, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 warning-strict tests, and the W23 implementation gate passed; release remained explicitly blocked for POST-SUBTASK-009 governance."
+    },
+    {
+      "command": "GitHub protected integration for PR #21",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All seven required contexts passed at head 75936e78f142876f7d36a16e5c6866971b909c81; squash merge 27c9b496ac1d863714c6cf00046da28977a7ea08 completed at 2026-08-09T11:12:55Z, and main repository-ci run 31310237557 plus security-analysis run 31310237556 both completed successfully on attempt 1."
+    },
+    {
+      "command": "Live Jira BAT-358 completion protocol",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "BAT-358 transitioned to Done / DONE / VERIFIED / EMPIRICALLY_VALIDATED with completion comment 13310 and Jira updated timestamp 2026-08-09T06:14:45.675-0500."
+    },
+    {
+      "command": "Credential-free clean BAT-358 Done-sync candidate at 82511a8947e224417334699bcdd73271f5639f87",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security with 2,758 provenance rows and tree fingerprint 558c4c7991e763805bf1008f7d845a3964c68cb346bcb70849d233e28a5ab32f, dependency policy, W25, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 tests, verified live Done state, and POST-SUBTASK-009 as the sole Ready issue all passed."
     }
   ],
   "benchmark_evidence": {
@@ -291,29 +309,31 @@
   },
   "integration": {
     "branch": "codex/BAT-358-target-benchmark",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "merge_method": null,
-    "required_checks": "PENDING_PROTECTED_PR",
+    "pull_request": 21,
+    "head_sha": "75936e78f142876f7d36a16e5c6866971b909c81",
+    "merge_sha": "27c9b496ac1d863714c6cf00046da28977a7ea08",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T11:12:55Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "merge_commit_repository_ci_run": 31310237557,
+    "merge_commit_security_analysis_run": 31310237556,
     "live_jira_claim_comment_id": "13309",
-    "live_jira_logical_state": "IN_PROGRESS",
-    "live_jira_status": "In Progress",
-    "live_jira_evidence_state": "PLANNED",
-    "live_jira_maturity": "FUNCTIONAL_STARTER",
-    "live_jira_updated_at": "2026-08-09T05:57:07.239-0500",
+    "live_jira_completion_comment_id": "13310",
+    "live_jira_logical_state": "DONE",
+    "live_jira_status": "Done",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "EMPIRICALLY_VALIDATED",
+    "live_jira_updated_at": "2026-08-09T06:14:45.675-0500",
     "rollback_snapshot_sha256": "2a10d9476b6fb69fcff76e1c756c64fa593b188365eed918f72e57658694da31"
   },
   "completion": {
     "achieved_maturity": "EMPIRICALLY_VALIDATED",
-    "evidence_state": "VERIFIED_LOCAL",
-    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
     "target_execution_complete": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": [
-      "PENDING_PROTECTED_PR_INTEGRATION"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "POST-SUBTASK-009_THRESHOLD_GOVERNANCE",
       "AC-038_GOVERNANCE_DECISION_PENDING",
@@ -322,6 +342,6 @@
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED"
     ],
-    "completion_claim": "BAT-358 has empirically validated the declared target-class execution locally and all three issue-specific criteria pass. Protected integration and explicit POST-SUBTASK-009 governance remain pending; no threshold, release, protected-result, predictive-quality, or source-rights claim is made."
+    "completion_claim": "BAT-358's declared-target benchmark evidence is protected-integrated, synchronized to live Jira, and all three issue-specific criteria pass at EMPIRICALLY_VALIDATED maturity. Explicit POST-SUBTASK-009 governance remains pending; no threshold, release, protected-result, predictive-quality, or source-rights claim is made."
   }
 }

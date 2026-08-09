@@ -22,7 +22,7 @@
     "artifacts/data_lake/core_normalization_report.json",
     "artifacts/jira_evidence/POST-SUBTASK-026.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-021;POST-SUBTASK-022;POST-SUBTASK-025",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-022;POST-SUBTASK-025",
   "blocks": [
     "POST-SUBTASK-027"
   ],

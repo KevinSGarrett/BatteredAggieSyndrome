@@ -1926,7 +1926,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;sources;subtask;local-id-post-subtask-021,data-sources,POST-SUBTASK-021,GAP-010;HANDOFF-002;HANDOFF-012;ISSUE-003;ISSUE-004,PHASE-1,BLOCKED,INTEGRATED,PARTIAL,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",Done,Highest,actionable;core-release;post-wave;protected-gate;sources;subtask;local-id-post-subtask-021,data-sources,POST-SUBTASK-021,GAP-010;HANDOFF-002;HANDOFF-012;ISSUE-003;ISSUE-004,PHASE-1,DONE,INTEGRATED,VERIFIED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-372,100326,"[POST-SUBTASK-022] Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications",100058,"Local ID: POST-SUBTASK-022
 
 Objective
@@ -2015,7 +2015,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-022,data-sources,POST-SUBTASK-022,GAP-010;HANDOFF-002;HANDOFF-003;HANDOFF-012,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-022,data-sources,POST-SUBTASK-022,GAP-010;HANDOFF-002;HANDOFF-003;HANDOFF-012,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-373,100327,"[POST-SUBTASK-023] Implement compliant retries, caching, rate-limit handling, and fallback activation",100058,"Local ID: POST-SUBTASK-023
 
 Objective

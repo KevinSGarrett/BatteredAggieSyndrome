@@ -2015,7 +2015,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-022,data-sources,POST-SUBTASK-022,GAP-010;HANDOFF-002;HANDOFF-003;HANDOFF-012,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.json",Done,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-022,data-sources,POST-SUBTASK-022,GAP-010;HANDOFF-002;HANDOFF-003;HANDOFF-012,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-373,100327,"[POST-SUBTASK-023] Implement compliant retries, caching, rate-limit handling, and fallback activation",100058,"Local ID: POST-SUBTASK-023
 
 Objective
@@ -2104,7 +2104,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-023_implement_compliant_retries_caching_rate_limit_handling_and_fallback_activation.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;sources;subtask;local-id-post-subtask-023,data-sources,POST-SUBTASK-023,GAP-010;HANDOFF-002;HANDOFF-003;HANDOFF-012,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,false,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-023_implement_compliant_retries_caching_rate_limit_handling_and_fallback_activation.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;sources;subtask;local-id-post-subtask-023,data-sources,POST-SUBTASK-023,GAP-010;HANDOFF-002;HANDOFF-003;HANDOFF-012,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,false,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-374,100328,[POST-SUBTASK-024] Establish source API/schema/terms drift baselines and monitoring inputs,100058,"Local ID: POST-SUBTASK-024
 
 Objective
@@ -2302,7 +2302,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-025_acquire_approved_national_team_schedule_game_score_drive_play_box_score_and_game.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-025,raw-snapshots,POST-SUBTASK-025,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-025_acquire_approved_national_team_schedule_game_score_drive_play_box_score_and_game.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-025,raw-snapshots,POST-SUBTASK-025,GAP-002;HANDOFF-003,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-376,100330,[POST-SUBTASK-026] Normalize and reconcile core/game-event records while preserving immutable source evidence,100059,"Local ID: POST-SUBTASK-026
 
 Objective

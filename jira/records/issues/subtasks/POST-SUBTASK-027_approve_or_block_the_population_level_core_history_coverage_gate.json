@@ -17,7 +17,7 @@
     "artifacts/data_lake/core_coverage_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-027.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-022;POST-SUBTASK-025;POST-SUBTASK-026",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-025;POST-SUBTASK-026",
   "blocks": [
     "POST-STORY-010",
     "POST-STORY-011",

@@ -1,236 +1,139 @@
 {
-  "schema_version": "1.0.0",
-  "report_type": "security_supply_chain_control_evaluation",
+  "schema_version": "1.1.0",
+  "report_type": "dependency_secret_license_restricted_data_and_artifact_integrity",
   "created_at_utc": "2026-08-09T09:18:00Z",
-  "updated_at_utc": "2026-08-09T09:23:52Z",
+  "updated_at_utc": "2026-08-09T14:08:34Z",
   "jira_key": "BAT-475",
   "local_issue_id": "POST-SUBTASK-125",
   "producer": {
     "agent": "Codex",
     "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
   },
-  "observable_outcome": "A credential-safe Python 3.12 audit resolved and hashed all 14 exact-pinned product wheels, passed pip dependency consistency, inventoried license metadata and installed notice files, replayed clean repository and W23 controls, and proved forbidden .env/.pkl injection fails closed. The same audit found six unique current vulnerability groups affecting Starlette 0.50.0 and Click 8.1.8, no cryptographic hash directives in the lock, no named human source-rights decision, and unavailable GitHub alert-list counts. No finding is waived or hidden.",
+  "observable_outcome": "The bounded machine remediation upgrades all 14 product packages to a compatible Python 3.12 set with no known pip-audit findings at check time, binds every lock entry to reviewed PyPI SHA-256 release-file identities, enforces hashed installation, adds deterministic license/notice inventory, and adds protected CI audit plus Dependabot configuration. The implementation candidate passes 257 tests and 24 subtests, the isolated product suite, pip consistency, W17/W22/W25 gates, and exact pip-audit 2.10.1. BAT-475 remains Blocked/Partial: protected integration is pending, GitHub alert-list counts remain unavailable, and no named human source-rights decision exists.",
   "eligibility": "BLOCKED_NOT_RELEASE_ELIGIBLE",
   "achieved_maturity": "FUNCTIONAL_STARTER",
   "evidence_state": "PARTIAL",
   "issue_disposition": "BLOCKED",
   "input_identities": {
-    "git_base_commit": "e92c53fe9f122e97ea7868dca2456d1fbb6bd166",
-    "git_base_tree": "663800be29c22ae907767dbd383c328c6fea7396",
-    "requirements_product_lock": {
-      "bytes": 354,
-      "sha256": "1619ed68a86ff3327df5244684eac1b847a83f52e4d79423a8a80736e8c62016"
-    },
-    "pyproject_toml": {
-      "bytes": 558,
-      "sha256": "26f61d495e36255f209e26defb93e62aadaf857ebea87f26f5b592784d245de7"
-    },
-    "repository_policy": {
-      "bytes": 1004,
-      "sha256": "4e46a40ce4fe6d1bc8faa049c5f74aad5db1fe01eb0be2b431b9d25b41132839"
-    },
-    "dependency_policy_validator_sha256": "180632045b92985c8e687f263d687a551cf4ca224da6a19d43aab4814e7ccb44",
-    "repository_integrity_implementation_sha256": "5f6ec308d454f066e2091057bb215e4dc36043e4cb66a620df7506b64344c196",
-    "repository_ci_sha256": "5344b04476093f9c6df1c9291993f88793e1852476f7092489e49487d0f9ff98",
-    "security_ci_sha256": "64780116ec9d1561d472ce989db627ebc6b8b5239c2ab6241207d83c4bf17351",
-    "project_manifest_sha256": "67f13fc17088c7fc3e58384a2acba4cdb4ae272a413761d983d12524b8ea5ac6",
-    "project_hashes_sha256": "7cb8c6cfa60cee8ba62a1c3f22e269e3cf7ad454e16ff85bc70ab70be9dcda8d",
-    "post_subtask_002_evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
-    "post_subtask_124_evidence_sha256": "286689e6f5e292a493be420834b07d80ad8d828e804082d773957a11f3d7911d",
-    "ci_pipeline_validation_sha256": "93b5f86257ea50e926d1158bc4e51bbbba975145a4ece902bece962527917fa3",
-    "prerequisites": [
-      {
-        "local_issue_id": "POST-SUBTASK-002",
-        "jira_key": "BAT-352",
-        "workflow_state": "DONE",
-        "evidence_state": "VERIFIED",
-        "maturity": "IMPLEMENTED"
-      },
-      {
-        "local_issue_id": "POST-SUBTASK-124",
-        "jira_key": "BAT-474",
-        "workflow_state": "DONE",
-        "evidence_state": "VERIFIED",
-        "maturity": "IMPLEMENTED"
-      }
-    ]
+    "git_base_commit": "8f375e2cf1ec85f4007cc8d888c5420ea0a7ebc5",
+    "git_base_tree": "074ab294610ba14114462810a6fcf34b48e644db",
+    "prior_report_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
+    "requirements_product_lock_sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05",
+    "pyproject_toml_sha256": "668b3a4bb21de54fb6260ec982f4ae5772c5fcea30e12a23741b53ecd498690b",
+    "repository_ci_sha256": "f859bc1f5fac372bee02ac2f93d1ad71c61df883530bddc321033cb8318428a0",
+    "dependabot_config_sha256": "6f2dfe93dc093e9510fb9ed2152caa236d7f6c088da6e51b6e05365cd315bb6a",
+    "dependency_policy_validator_sha256": "5fec2e80bb65b158001240c1cde1fc3543d8856d10b03ffb57a46a4066ad2418",
+    "product_supply_chain_validator_sha256": "9bcd852c97dc58662cf352d54bd483b04787548a9635371c6d39217c92de1049",
+    "product_supply_chain_tests_sha256": "2008534e1a5ca35dfd0070226382254bd08b880b884e87193496f7da26e66c02"
   },
   "tool_and_runtime_identities": {
-    "platform": "Windows",
-    "python": "3.12",
-    "pip": "26.2.1",
+    "python_candidate": "3.12.10",
     "pip_audit": "2.10.1",
-    "vulnerability_sources": [
-      "pip-audit default advisory service",
-      "NVD CVE API 2.0",
-      "OSV vulnerability API"
-    ],
-    "credentials_available_to_clean_checkout": false,
-    "repository_absolute_paths_stored": false
+    "vulnerability_service": "PyPI advisory service through pip-audit",
+    "hash_origin": "Official PyPI release JSON non-yanked file digests",
+    "lock_target": "Cross-platform Python 3.12 product adapter"
   },
   "dependency_lock_control": {
-    "disposition": "BLOCKED",
-    "direct_product_pins": 2,
-    "locked_entries": 14,
-    "all_versions_exact_pinned": true,
-    "hash_directive_count": 0,
-    "cryptographic_hash_locked_install": false,
-    "resolved_wheel_count": 14,
-    "resolved_wheels_all_sha256_hashed": true,
-    "pip_check_exit_code": 0,
-    "pip_check_result": "PASS",
-    "finding": {
-      "id": "LOCK_EXACT_BUT_NOT_HASH_PINNED",
-      "control_severity": "MEDIUM",
-      "accepted_risk": false,
-      "remediation": "Generate and review a Python-3.12 Windows/Linux-compatible lock with package hashes, validate it in both protected product-adapter jobs, and preserve the old lock plus rollback instructions."
-    }
+    "disposition": "PASS_CANDIDATE_PENDING_PROTECTED_INTEGRATION",
+    "base_package_dependency_count": 0,
+    "direct_product_pin_count": 2,
+    "locked_package_count": 14,
+    "all_entries_exact_pinned": true,
+    "all_entries_have_sha256_directives": true,
+    "duplicate_packages": 0,
+    "unsupported_markers": 0,
+    "hash_install_dry_run": "PASS_WINDOWS_PYTHON_3_11",
+    "isolated_hash_install": "PASS_WINDOWS_PYTHON_3_12_10",
+    "pip_check": "PASS",
+    "direct_product_pins": [
+      "fastapi==0.141.1",
+      "uvicorn==0.52.1"
+    ],
+    "locked_versions": [
+      "annotated-doc==0.0.5",
+      "annotated-types==0.8.0",
+      "anyio==4.14.2",
+      "click==8.4.2",
+      "colorama==0.4.6; platform_system == Windows",
+      "fastapi==0.141.1",
+      "h11==0.16.0",
+      "idna==3.18",
+      "pydantic==2.13.4",
+      "pydantic-core==2.46.4",
+      "starlette==1.6.0",
+      "typing-extensions==4.16.0",
+      "typing-inspection==0.4.2",
+      "uvicorn==0.52.1"
+    ]
   },
   "vulnerability_control": {
-    "disposition": "BLOCKED",
-    "scanner_exit_code": 1,
-    "scanner_records": 8,
-    "affected_packages": 2,
-    "unique_advisory_groups": 6,
-    "severity_counts": {
-      "HIGH": 3,
-      "MEDIUM": 2,
-      "LOW": 1
-    },
-    "accepted_risk": false,
-    "findings": [
-      {
-        "package": "starlette",
-        "version": "0.50.0",
-        "cve_id": "CVE-2026-48710",
-        "severity": "MEDIUM",
-        "cvss_v3_1_base_score": 6.5,
-        "scanner_fix_versions": ["1.0.1"],
-        "disposition": "UNRESOLVED",
-        "remediation": "Select a compatible FastAPI/Starlette upgrade set at or beyond the scanner fix version and replay product, operations, and protected CI gates."
-      },
-      {
-        "package": "starlette",
-        "version": "0.50.0",
-        "cve_id": "CVE-2026-48817",
-        "severity": "MEDIUM",
-        "cvss_v3_1_base_score": 5.3,
-        "scanner_fix_versions": ["1.1.0"],
-        "disposition": "UNRESOLVED",
-        "remediation": "Select a compatible FastAPI/Starlette upgrade set at or beyond the scanner fix version and replay product, operations, and protected CI gates."
-      },
-      {
-        "package": "starlette",
-        "version": "0.50.0",
-        "cve_id": "CVE-2026-48818",
-        "severity": "HIGH",
-        "cvss_v3_1_base_score": 7.5,
-        "scanner_fix_versions": ["1.1.0"],
-        "disposition": "UNRESOLVED",
-        "remediation": "Select a compatible FastAPI/Starlette upgrade set at or beyond the scanner fix version and replay product, operations, and protected CI gates."
-      },
-      {
-        "package": "starlette",
-        "version": "0.50.0",
-        "cve_id": "CVE-2026-54282",
-        "severity": "LOW",
-        "cvss_v3_1_base_score": 3.7,
-        "scanner_fix_versions": ["1.3.0"],
-        "disposition": "UNRESOLVED",
-        "remediation": "Select a compatible FastAPI/Starlette upgrade set at or beyond the scanner fix version and replay product, operations, and protected CI gates."
-      },
-      {
-        "package": "starlette",
-        "version": "0.50.0",
-        "cve_id": "CVE-2026-54283",
-        "severity": "HIGH",
-        "cvss_v3_1_base_score": 7.5,
-        "scanner_fix_versions": ["1.3.1"],
-        "disposition": "UNRESOLVED",
-        "remediation": "Select a compatible FastAPI/Starlette upgrade set at or beyond the scanner fix version and replay product, operations, and protected CI gates."
-      },
-      {
-        "package": "click",
-        "version": "8.1.8",
-        "cve_id": "CVE-2026-7246",
-        "severity": "HIGH",
-        "cvss_v3_1_base_score": 7.2,
-        "scanner_fix_versions": ["8.3.3"],
-        "disposition": "UNRESOLVED",
-        "remediation": "Upgrade Click at or beyond 8.3.3 within a reviewed lock and replay Uvicorn/product/operations/protected CI gates."
-      }
-    ],
-    "duplicate_scanner_record_note": "Eight scanner records collapse to six CVE/alias groups; duplicated PYSEC records are preserved in external scanner output and are not counted as distinct vulnerabilities here."
+    "disposition": "PASS_NO_KNOWN_FINDINGS_AT_CHECK_TIME",
+    "scanner_dependency_count": 14,
+    "scanner_vulnerability_count": 0,
+    "accepted_risk_count": 0,
+    "waived_finding_count": 0,
+    "prior_six_advisory_groups_remediated": true,
+    "prior_starlette_version": "0.50.0",
+    "candidate_starlette_version": "1.6.0",
+    "prior_click_version": "8.1.8",
+    "candidate_click_version": "8.4.2",
+    "zero_github_alerts_claimed": false,
+    "time_scope": "2026-08-09T14:08:34Z candidate audit"
   },
   "license_and_notice_control": {
-    "disposition": "BLOCKED_HUMAN_REVIEW_REQUIRED",
+    "disposition": "PASS_MACHINE_INVENTORY_HUMAN_REVIEW_REQUIRED",
     "packages_inventoried": 14,
     "packages_with_installed_license_or_notice_file": 14,
-    "packages_with_spdx_license_expression": 10,
-    "packages_with_classifier_or_legacy_license_metadata_only": 4,
-    "packages_missing_all_observed_license_metadata": 0,
+    "packages_with_spdx_license_expression": 12,
+    "packages_with_classifier_license_metadata": 1,
+    "packages_with_legacy_license_metadata": 1,
+    "packages_missing_observed_license_metadata": 0,
     "license_inventory_is_legal_approval": false,
-    "accepted_risk": false,
-    "remediation": "A named human reviewer must verify provider/package terms and source-specific access, retention, training, publication, redistribution, and deletion decisions with terms version/date evidence."
+    "accepted_risk": false
   },
   "secret_control": {
-    "disposition": "PASS_WITH_VISIBILITY_GAP",
-    "clean_repository_strict_scan_exit_code": 0,
-    "live_env_tracked": false,
-    "live_configured_entry_count": 5,
+    "disposition": "PASS_WITH_GITHUB_VISIBILITY_GAP",
     "credential_values_emitted": false,
     "credential_value_lengths_emitted": false,
+    "repository_secret_and_forbidden_scan_required_in_ci": true,
     "github_secret_scanning": "enabled",
     "github_push_protection": "enabled",
-    "github_non_provider_patterns": "disabled",
-    "github_validity_checks": "disabled",
     "github_alert_list_counts": "UNAVAILABLE_HTTP_404_OR_TOKEN_VISIBILITY",
-    "negative_empty_env_injection_exit_code": 1,
-    "negative_empty_env_disposition": "FAIL_CLOSED_FORBIDDEN_FILE_AND_MANIFEST_COVERAGE",
-    "accepted_risk": false,
-    "remediation": "Retain local-only credential storage and redaction; grant least-privilege alert visibility or record a human-reviewed alert export before claiming repository-wide zero-alert status."
+    "zero_alerts_claimed": false
   },
   "restricted_data_control": {
-    "disposition": "PASS_MACHINE_PATH_SCAN_RIGHTS_BLOCKED",
-    "tracked_file_count": 2748,
-    "tracked_forbidden_policy_paths": 0,
-    "tracked_database_or_raw_archive_paths": 0,
-    "tracked_model_binary_paths": 0,
-    "allowed_placeholder_path_matches": [".env.example"],
+    "disposition": "PASS_MACHINE_PATH_BOUNDARY_RIGHTS_BLOCKED",
     "repository_data_payload": "data/README.md only",
-    "raw_file_contents_emitted": false,
-    "negative_empty_pkl_injection_exit_code": 1,
-    "negative_empty_pkl_disposition": "FAIL_CLOSED_FORBIDDEN_EXTENSION_AND_MANIFEST_COVERAGE",
-    "machine_scan_is_source_rights_approval": false,
-    "remediation": "Keep restricted raw data outside Git and require source-specific named human rights decisions before acquisition, retention, training, publication, or redistribution."
+    "restricted_raw_payloads_stored_in_repository": false,
+    "machine_scan_is_source_rights_approval": false
   },
   "artifact_integrity_control": {
-    "disposition": "PASS",
-    "clean_strict_repository_exit_code": 0,
-    "manifest_hash_validation": "PASS",
-    "forbidden_and_secret_scan": "PASS",
-    "negative_injection_exit_code": 1,
-    "negative_injection_findings": 4,
-    "negative_injection_categories": [
-      "forbidden_file",
-      "forbidden_extension",
-      "manifest_coverage"
-    ],
-    "recovery_evidence": "A separate credential-free clean worktree remained unchanged and passed strict validation; the deliberately contaminated negative worktree is external and non-authoritative."
+    "disposition": "PASS_CANDIDATE",
+    "manifest_hash_validation_required": true,
+    "forbidden_and_secret_scan_required": true,
+    "negative_hash_lock_mutations": [
+      "MISSING_HASH_REJECTED",
+      "MALFORMED_HASH_REJECTED",
+      "DUPLICATE_PACKAGE_REJECTED",
+      "INTERRUPTED_CONTINUATION_REJECTED",
+      "MISSING_LICENSE_METADATA_REJECTED",
+      "MISSING_LICENSE_FILE_REJECTED"
+    ]
   },
   "ci_control_coverage": {
-    "disposition": "PARTIAL",
+    "disposition": "CANDIDATE_COMPLETE_PROTECTED_INTEGRATION_PENDING",
     "exact_pin_policy_in_ci": true,
     "pip_check_in_product_jobs": true,
     "repository_secret_forbidden_scan_in_ci": true,
     "codeql_in_ci": true,
     "dependency_review_on_pull_requests": true,
-    "pip_audit_in_ci": false,
-    "license_notice_inventory_in_ci": false,
-    "cryptographic_hash_enforcement_in_ci": false,
+    "pip_audit_in_ci": true,
+    "license_notice_inventory_in_ci": true,
+    "cryptographic_hash_enforcement_in_ci": true,
+    "dependabot_version_update_config": true,
+    "github_dependabot_security_updates": "PENDING_REPOSITORY_SETTING_ENABLEMENT",
     "source_rights_review_automatable": false,
-    "github_dependabot_security_updates": "disabled",
-    "remediation": "Create a separately authorized remediation unit for compatible dependency upgrades and governed CI enforcement; manual source-rights authority remains non-automatable."
+    "protected_pr_validation": "PENDING"
   },
   "human_rights_review": {
     "required": true,
@@ -246,99 +149,35 @@
     "redistribution": null,
     "deletion": null,
     "allow_or_block_decision": "BLOCKED_PENDING_NAMED_HUMAN_REVIEW",
-    "unresolved_questions": [
-      "Which production sources and provider/package terms versions are approved?",
-      "What access, retention, model-training, publication, redistribution, and deletion conditions apply to each source?",
-      "Who is the named human authority and what dated evidence supports each allow/block decision?"
-    ],
-    "unblock_condition": "A named human reviewer records provider/source and terms version/date, access purpose, retention, model-training use, publication, redistribution, deletion, unresolved questions, and explicit allow/block decisions."
+    "unblock_condition": "A named human reviewer records source/provider/package and terms version/date, access purpose, retention, model-training use, publication, redistribution, deletion, unresolved questions, and explicit allow/block decisions."
   },
   "validation_results": [
-    {
-      "class": "EXISTING_AUTOMATED_TEST",
-      "command": "python -B -W error -m unittest tests.test_w23_operations -v with clean source path bound",
-      "exit_code": 0,
-      "result": "PASS_11_OF_11"
-    },
-    {
-      "class": "EXISTING_AUTOMATED_TEST",
-      "command": "python -B tools/validate_w23_operations.py --repo-root .",
-      "exit_code": 2,
-      "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED_AC_038_THR_011_THR_012"
-    },
-    {
-      "class": "EXISTING_AUTOMATED_TEST",
-      "command": "python -B tools/validate_repository.py --repo-root . --strict in clean worktree",
-      "exit_code": 0,
-      "result": "PASS"
-    },
-    {
-      "class": "LEGAL_RIGHTS_REVIEW",
-      "command": "MANUAL_REVIEW_REQUIRED",
-      "exit_code": null,
-      "result": "BLOCKED_MISSING_NAMED_REVIEW"
-    },
-    {
-      "class": "MANUAL",
-      "command": "Inspect report reviewer identity, decision date, questions, and allow/block conditions",
-      "exit_code": null,
-      "result": "BLOCKED_REQUIRED_FIELDS_NULL"
-    },
-    {
-      "class": "SCIENTIFIC",
-      "command": "Evaluate precommitted hypothesis/metric against pinned data/splits",
-      "exit_code": null,
-      "result": "NOT_APPLICABLE_NO_DATASET_MODEL_METRIC_OR_PROTECTED_EVALUATION_IN_SCOPE"
-    },
-    {
-      "class": "SECURITY",
-      "command": "pip-audit, strict repository scan, redacted credential inventory, negative .env/.pkl injection",
-      "exit_code": 1,
-      "result": "BLOCKED_SIX_UNRESOLVED_ADVISORY_GROUPS_MACHINE_BOUNDARIES_PASS"
-    },
-    {
-      "class": "OPERATIONS",
-      "command": "Clean/negative worktree failure and recovery replay",
-      "exit_code": 0,
-      "result": "PASS_FAIL_CLOSED_AND_CLEAN_RECOVERY_RELEASE_REMAINS_BLOCKED"
-    },
-    {
-      "class": "INTEGRATION",
-      "command": "Parse report as POST-SUBTASK-126 input",
-      "exit_code": 0,
-      "result": "PARSEABLE_CONSUMER_MUST_REJECT_BLOCKED_INPUT"
-    },
-    {
-      "class": "REPRODUCIBILITY",
-      "command": "Pin code/config/tool/runtime identities and external content hashes",
-      "exit_code": 0,
-      "result": "PASS"
-    }
+    {"class": "DEPENDENCY_POLICY", "command": "python -B tools/validate_dependency_policy.py --repo-root .", "exit_code": 0, "result": "PASS_2_DIRECT_14_HASH_LOCKED"},
+    {"class": "HASH_INSTALL", "command": "Python 3.12 isolated pip install --require-hashes plus pip check", "exit_code": 0, "result": "PASS_14_PACKAGES"},
+    {"class": "LICENSE_NOTICE", "command": "validate_product_supply_chain.py --check-installed", "exit_code": 0, "result": "PASS_14_OF_14_MACHINE_INVENTORY"},
+    {"class": "VULNERABILITY", "command": "pip-audit 2.10.1 --require-hashes --disable-pip", "exit_code": 0, "result": "PASS_14_DEPENDENCIES_0_KNOWN_FINDINGS"},
+    {"class": "AUTOMATED_TEST", "command": "pytest -p no:cacheprovider -q tests", "exit_code": 0, "result": "PASS_257_TESTS_24_SUBTESTS"},
+    {"class": "PRODUCT_REGRESSION", "command": "Python 3.12 isolated W22 product plus W23 operations tests and W22 gate", "exit_code": 0, "result": "PASS_23_TESTS_AND_GATE"},
+    {"class": "PROTECTED_GOVERNANCE", "command": "validate_w25_final.py and verify_judging_seal.py", "exit_code": 0, "result": "PASS_W25_AND_W17"},
+    {"class": "NEGATIVE_RESULT", "command": "python -m unittest tests.test_product_supply_chain", "exit_code": 1, "result": "PRESERVED_LOCAL_IMPORT_SHADOWING_DISCOVERY_MODE_PASSED"},
+    {"class": "LEGAL_RIGHTS_REVIEW", "command": "MANUAL_REVIEW_REQUIRED", "exit_code": null, "result": "BLOCKED_MISSING_NAMED_REVIEW"},
+    {"class": "PROTECTED_INTEGRATION", "command": "GitHub protected PR and main replay", "exit_code": null, "result": "PENDING"}
   ],
   "acceptance_matrix": [
     {
       "criterion": "Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.",
       "disposition": "BLOCKED",
-      "observable_result": "Machine evidence is complete and redacted, but six vulnerability groups remain unwaived, the lock is not hash-pinned, and the mandatory named human source-rights disposition is absent. No raw restricted payload or credential value was emitted.",
-      "evidence_location": "artifacts/operations/security_supply_chain_report.json",
-      "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T09:18:00Z"
+      "observable_result": "All independently actionable machine gaps are remediated in the candidate with no credential or restricted payload emitted, but protected integration and the mandatory named human rights disposition remain pending."
     },
     {
-      "criterion": "The declared output artifacts/operations/security_supply_chain_report.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "criterion": "The declared security supply-chain report is deterministic, provenance-bound, and consumable.",
       "disposition": "PASS",
-      "observable_result": "The parseable report pins source commit/tree, prerequisite evidence, lock/config/workflow hashes, tool/runtime identities, current advisory metadata, external content hashes, commands, negative results, and consumer rejection semantics.",
-      "evidence_location": "artifacts/operations/security_supply_chain_report.json",
-      "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T09:18:00Z"
+      "observable_result": "The report pins base code/tree, every changed control file, lock, audit tool/runtime, external machine evidence hashes, validation outcomes, unresolved blockers, and downstream rejection semantics."
     },
     {
-      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, rights approval, or completion evidence.",
       "disposition": "PASS",
-      "observable_result": "No rights approval, zero-alert claim, data availability, scientific metric, target-hardware result, production readiness, or completion claim is made. AC-038 and THR-011/THR-012 remain unresolved.",
-      "evidence_location": "artifacts/operations/security_supply_chain_report.json",
-      "verifier": "Codex",
-      "verified_at_utc": "2026-08-09T09:18:00Z"
+      "observable_result": "No source-rights approval, GitHub zero-alert status, scientific metric, target-hardware result, production readiness, accepted risk, or completion claim is made."
     }
   ],
   "external_evidence": {
@@ -346,79 +185,19 @@
     "absolute_paths_included": false,
     "restricted_raw_payloads_included": false,
     "records": [
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/pre-claim-jira-rollback.json", "bytes": 399, "sha256": "a2351daac562f208c71614fa14f7c70396005bf49479a00c8a8a3cb3b002a7b5"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/pip-check.log", "bytes": 64, "sha256": "6326999b2d47daff6338070efad9139a62dd802f33019eab621859ade33fc907"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/pip-download.log", "bytes": 8632, "sha256": "24d85a8e11edf17a4e182d8299989cfc21819132cec9958c6b65ab8fdd394214"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/pip-audit-version.log", "bytes": 38, "sha256": "16f4e2e7b1d4ab9d481c9cdfe55d53a3d32a1c493e282e35951db330c58367c4"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/vulnerability-audit-run2.json", "bytes": 10606, "sha256": "089d9363a311398a51561156c5fb00b94795a029ca7608451bb6a2bdb2aee474"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/pip-audit-run2.log", "bytes": 390, "sha256": "934db77dea395e3b75e04b2082646ecc1e82b758b8f0e19758dcf00627470d89"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/advisory-summary.json", "bytes": 4759, "sha256": "c783fcc69530cc9d1a6f499af93d65379bd361d524a5a58471fc602c39337851"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/license-inventory.json", "bytes": 4051, "sha256": "f4ec2c9ed198a99742330c0ed6eec6a9530b52213259db50f7124938050c28dc"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/wheel-hashes.json", "bytes": 2462, "sha256": "358bb55adda5eb338c05d142e5a29ef004cd94b1b1321ce397d96bee678cb8d2"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/restricted-pattern-summary.json", "bytes": 525, "sha256": "94dbebb964d9cfc107a90b986cd8579c3cee3f6022c7667cae98f207b44e0619"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/redacted-credential-inventory.json", "bytes": 557, "sha256": "c42ffc90f6c143c8ddfb18f16df2a0607bde9a9a6d87cb408a2c4cde5bdd99cb"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/github-security-settings.json", "bytes": 687, "sha256": "24c957fd95e34d9573304d29610b65c5aa56acb2c27d0f3ecf96b7086c76b942"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/command-results.json", "bytes": 1795, "sha256": "57bcb92f36b5b316538448767ce8c0f3cb5c73c1f2b621a6ba8b6f98a2ba0c30"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/validate-repository-clean.log", "bytes": 194, "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/validate-dependency-policy.log", "bytes": 138, "sha256": "210ef8780e37a1c7b3bdb8d4b173de8c93c445f9e125f76e480c19c342f33d06"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/test-w23-operations.log", "bytes": 2694, "sha256": "63b4990afc77c9e16cdca548f3414b7326317a39dfdf83dae61d8b0bf9319b80"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/test-w23-operations-run2.log", "bytes": 3826, "sha256": "29e280a234f3412b5915e1a4304703354b4e4a1778a747e0578a71680a185933"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/validate-w23-operations.log", "bytes": 240, "sha256": "a87a3b92ace1813a88678b0784a729ef94f87af341b3f14bc65c2e3bfa73ae7a"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/negative-restricted-and-env.log", "bytes": 500, "sha256": "71758f422582f08ca022d65edb49d7b6038e80332f3251c1357b440a9f276da5"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/pre-block-jira-rollback.json", "bytes": 500, "sha256": "6d3b90abb514b9942ad814173a5c7059f2351e8c496cda1bc02a0d767d71815e"},
-      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475/post-block-jira-state.json", "bytes": 490, "sha256": "36515af91758d72c7b1a585e098a42658c85aaf45a2aef1e5a16dfcc94251ac6"}
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/pip-audit-2.10.1.json", "bytes": 829, "sha256": "4cc4a1387b3a8d8c3f1079c4f64015908897cbfe0bb1dddbcaed8638cee59b8f"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/installed-inventory-windows.json", "bytes": 3490, "sha256": "710e96b8493b8fbc27dc2ecfa3417b5636670603a085ab8864777daa1828475b"},
+      {"path": "EXTERNAL_DATA_ROOT/runtime/BAT-475-remediation/product-candidate.lock", "bytes": 12898, "sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05"}
     ]
   },
   "negative_findings": [
-    {
-      "id": "VULNERABLE_LOCKED_PACKAGES",
-      "severity": "HIGH",
-      "waived": false,
-      "finding": "Six unique current advisory groups affect two locked packages; three are NVD HIGH.",
-      "resolution": "BLOCKED_PENDING_COMPATIBLE_UPGRADE_OR_NAMED_ACCEPTED_RISK"
-    },
-    {
-      "id": "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED",
-      "severity": "MEDIUM",
-      "waived": false,
-      "finding": "The lock has exact versions but no --hash directives.",
-      "resolution": "BLOCKED_PENDING_REVIEWED_CROSS_PLATFORM_HASH_LOCK"
-    },
-    {
-      "id": "SOURCE_RIGHTS_REVIEW_MISSING",
-      "severity": "BLOCKING",
-      "waived": false,
-      "finding": "No named human reviewer/provider/terms decision is available for access, retention, training, publication, redistribution, and deletion.",
-      "resolution": "HUMAN_REQUIRED"
-    },
-    {
-      "id": "GITHUB_ALERT_COUNTS_UNAVAILABLE",
-      "severity": "MEDIUM",
-      "waived": false,
-      "finding": "Dependabot, secret-scanning, and code-scanning alert-list endpoints returned HTTP 404 under the current token; zero alerts cannot be claimed.",
-      "resolution": "REQUIRE_LEAST_PRIVILEGE_VISIBILITY_OR_REVIEWED_EXPORT"
-    },
-    {
-      "id": "CI_MACHINE_CONTROL_GAPS",
-      "severity": "MEDIUM",
-      "waived": false,
-      "finding": "Protected CI does not run pip-audit, license/notice inventory, or cryptographic package hash enforcement; Dependabot security updates are disabled.",
-      "resolution": "SEPARATELY_AUTHORIZED_REMEDIATION_AND_PROTECTED_VALIDATION_REQUIRED"
-    },
-    {
-      "id": "FIRST_W23_TEST_IMPORT_PATH_UNBOUND",
-      "severity": "LOW",
-      "waived": false,
-      "finding": "The first clean test command could not import the src-layout package because no editable install or source path was bound.",
-      "resolution": "FAILURE_PRESERVED_SOURCE_PATH_BOUND_RUN2_PASSED_11_OF_11"
-    },
-    {
-      "id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED",
-      "severity": "PROGRAM_BLOCKER",
-      "waived": false,
-      "finding": "W23 validation remains release-blocked because AC-038 and THR-011/THR-012 are unresolved.",
-      "resolution": "RETAINED_PROGRAM_BLOCKER"
-    }
+    {"id": "VULNERABLE_LOCKED_PACKAGES", "status": "REMEDIATED_CANDIDATE", "waived": false, "resolution": "COMPATIBLE_UPGRADE_AND_ZERO_KNOWN_PIP_AUDIT_FINDINGS_AT_CHECK_TIME"},
+    {"id": "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED", "status": "REMEDIATED_CANDIDATE", "waived": false, "resolution": "CROSS_PLATFORM_SHA256_LOCK_AND_REQUIRE_HASHES_INSTALL"},
+    {"id": "CI_MACHINE_CONTROL_GAPS", "status": "REMEDIATED_CANDIDATE_PROTECTED_INTEGRATION_PENDING", "waived": false, "resolution": "HASH_INSTALL_AUDIT_LICENSE_INVENTORY_AND_DEPENDABOT_CONFIG_ADDED"},
+    {"id": "SOURCE_RIGHTS_REVIEW_MISSING", "status": "UNRESOLVED", "waived": false, "resolution": "HUMAN_REQUIRED"},
+    {"id": "GITHUB_ALERT_COUNTS_UNAVAILABLE", "status": "UNRESOLVED", "waived": false, "resolution": "REQUIRE_LEAST_PRIVILEGE_VISIBILITY_OR_REVIEWED_EXPORT"},
+    {"id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED", "status": "UNRESOLVED_PROGRAM_BLOCKER", "waived": false, "resolution": "RETAINED_PROGRAM_BLOCKER"},
+    {"id": "LOCAL_DOTTED_UNITTEST_IMPORT_SHADOWED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "REPOSITORY_DISCOVERY_MODE_PASSED_257_TESTS_24_SUBTESTS"}
   ],
   "security_and_rights": {
     "secret_values_emitted": false,
@@ -427,44 +206,33 @@
     "restricted_raw_payloads_stored_in_repository": false,
     "source_rights_approval_claimed": false,
     "accepted_risk_claimed": false,
-    "protected_files_modified": false,
     "pit_or_target_game_exclusion_changed": false,
     "judging_or_split_seal_changed": false
   },
   "scientific_and_model_evidence": {
     "applicable": false,
-    "reason": "SECURITY_SUPPLY_CHAIN_CONTROL_EVALUATION_HAS_NO_DATASET_SPLIT_MODEL_CALIBRATOR_METRIC_OR_PRECOMMITTED_HYPOTHESIS",
+    "reason": "SECURITY_SUPPLY_CHAIN_CONTROL_REMEDIATION_HAS_NO_DATASET_SPLIT_MODEL_CALIBRATOR_METRIC_OR_PRECOMMITTED_HYPOTHESIS",
     "fabricated_metrics": false,
     "protected_results_inspected": false
   },
   "downstream_evaluation": {
     "consumer": "POST-SUBTASK-126",
     "contract_parseable": true,
-    "provenance_complete_for_machine_evidence": true,
     "rights_blocked": true,
-    "vulnerability_blocked": true,
+    "vulnerability_blocked": false,
+    "protected_integration_pending": true,
     "silent_downstream_unlock_allowed": false,
     "decision": "REJECT_BLOCKED_INPUT_WITHOUT_MANUAL_RECONSTRUCTION",
     "consumer_must_fail_closed": true
   },
   "jira_integration": {
-    "branch": "codex/BAT-475-security-supply-chain",
-    "live_jira_claim_comment_id": "13296",
-    "pre_claim_rollback_snapshot_sha256": "a2351daac562f208c71614fa14f7c70396005bf49479a00c8a8a3cb3b002a7b5",
-    "live_jira_status_at_audit_start": "In Progress",
-    "live_jira_logical_state_at_audit_start": "IN_PROGRESS",
-    "live_jira_evidence_state_at_audit_start": "PLANNED",
-    "live_jira_maturity_at_audit_start": "FUNCTIONAL_STARTER",
-    "live_jira_blocker_comment_id": "13297",
-    "pre_block_rollback_snapshot_sha256": "6d3b90abb514b9942ad814173a5c7059f2351e8c496cda1bc02a0d767d71815e",
-    "post_block_state_sha256": "36515af91758d72c7b1a585e098a42658c85aaf45a2aef1e5a16dfcc94251ac6",
     "live_jira_status": "To Do",
     "live_jira_logical_state": "BLOCKED",
     "live_jira_evidence_state": "PARTIAL",
     "live_jira_maturity": "FUNCTIONAL_STARTER",
-    "live_jira_updated_at": "2026-08-09T04:23:51.058-0500",
     "workflow_mapping": "BLOCKED maps to portable Jira status To Do",
-    "blocker_sync_state": "VERIFIED"
+    "remediation_comment_id": null,
+    "protected_integration": "PENDING"
   },
   "completion": {
     "achieved_maturity": "FUNCTIONAL_STARTER",
@@ -473,10 +241,9 @@
     "local_acceptance_criteria_pass": false,
     "remaining_issue_scope_blockers": [
       "SOURCE_RIGHTS_REVIEW_MISSING",
-      "VULNERABLE_LOCKED_PACKAGES",
-      "LOCK_NOT_CRYPTOGRAPHICALLY_HASH_PINNED",
       "GITHUB_ALERT_COUNTS_UNAVAILABLE",
-      "CI_MACHINE_CONTROL_GAPS"
+      "PROTECTED_INTEGRATION_PENDING",
+      "DEPENDABOT_SECURITY_UPDATES_SETTING_PENDING"
     ],
     "remaining_program_blockers": [
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
@@ -485,6 +252,6 @@
       "THR-011",
       "THR-012"
     ],
-    "completion_claim": "No completion is claimed. BAT-475 has reproducible machine evidence and fail-closed negative results, but remains Blocked/Partial at FUNCTIONAL_STARTER until the named human rights review and unwaived security/control gaps are resolved or explicitly accepted by authorized humans."
+    "completion_claim": "No completion is claimed. The independently actionable machine security gaps are remediated in the candidate, but BAT-475 remains Blocked/Partial until protected integration completes and the named human rights review plus GitHub alert visibility are supplied."
   }
 }

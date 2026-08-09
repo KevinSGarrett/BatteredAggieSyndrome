@@ -54,13 +54,23 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install locked product adapter
-        run: python -m pip install -r requirements/product.lock -e .
+        run: python -m pip install --require-hashes -r requirements/product.lock
+      - name: Install local package without dependency resolution
+        run: python -m pip install --no-deps -e .
       - name: Dependency consistency
         run: python -m pip check
+      - name: Product license and notice inventory
+        run: python tools/validate_product_supply_chain.py --repo-root . --check-installed --output product-supply-chain.json
       - name: Product and operations tests
         run: python -m unittest tests.test_w22_product_serving tests.test_w23_operations -v
       - name: W22 product boundary gate
         run: python tools/validate_w22_product.py --repo-root .
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: product-supply-chain-${{ runner.os }}
+          path: product-supply-chain.json
+          if-no-files-found: error
 
   security-policy:
     runs-on: ubuntu-latest
@@ -75,3 +85,7 @@ jobs:
         run: python -m pip install -e .
       - name: Dependency pin/provenance policy
         run: python tools/validate_dependency_policy.py --repo-root .
+      - name: Install pinned vulnerability auditor
+        run: python -m pip install pip-audit==2.10.1
+      - name: Audit hash-locked product dependencies
+        run: python -m pip_audit -r requirements/product.lock --require-hashes --disable-pip --progress-spinner off

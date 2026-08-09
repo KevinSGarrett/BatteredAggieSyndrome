@@ -76,17 +76,17 @@
       "windows_absolute_path": "C:\\BatteredAggieSyndrome\\src\\aggie_analytics\\data\\adapters.py"
     },
     {
-      "anchor_excerpt": "from __future__ import annotations from dataclasses import dataclass, field from datetime import datetime from typing import Any @dataclass(frozen=True) class SourceRecord: source_id: str dataset: str row_number: int payload: dict[str, Any] @dataclass(frozen=True) class RawSnapshot: snapshot_id: str source_id: str data",
-      "anchor_hash": "9e185aeae2a80423d1354cb5a8071836eb5ce530da05463d11dcd033a93bbf66",
+      "anchor_excerpt": "@dataclass(frozen=True) class SourceRecord: source_id: str dataset: str row_number: int payload: dict[str, Any] @dataclass(frozen=True) class RawSnapshot: snapshot_id: str source_id: str dataset: str retrieved_at: datetime raw_sha256: str relative_path: str row_count: int schema_fields: tuple[str,...] source_uri: str p",
+      "anchor_hash": "a1c7a331cff15578b9676d292b9bd4f1420c112b6d719a6869e3978408c6039b",
       "authority_level": "IMPLEMENTATION_EVIDENCE",
-      "document_sha256": "d7e3b6b717914c0347793d626910291bad91121d4424164248b3ac32d363386f",
-      "end_line": 30,
+      "document_sha256": "8c46925480243a3e29533a79960e525f32037b72ee68e76c76646da6925d7174",
+      "end_line": 174,
       "heading": "",
-      "last_verified": "2026-08-08",
+      "last_verified": "2026-08-09",
       "repo_relative_path": "src/aggie_analytics/data/contracts.py",
       "source_ref_id": "SRCREF-02016",
       "source_type": "py",
-      "start_line": 1,
+      "start_line": 150,
       "why_relevant": "Canonical raw-data design, implementation, test, or handoff source",
       "windows_absolute_path": "C:\\BatteredAggieSyndrome\\src\\aggie_analytics\\data\\contracts.py"
     },

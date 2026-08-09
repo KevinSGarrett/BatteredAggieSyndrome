@@ -1,7 +1,7 @@
 {
   "actionable_count": 229,
   "blank_e2e_count": 0,
-  "blocked_count": 138,
+  "blocked_count": 139,
   "deferred_count": 36,
   "derivative_result_counts": {
     "PASS": 463
@@ -18,7 +18,7 @@
   "invalid_traceability_gate_count": 0,
   "issue_count": 463,
   "master_prompt_compliance_section_count": 68,
-  "ready_count": 1,
+  "ready_count": 0,
   "registry_coverage": {
     "acceptance_control_ids": {
       "mapped": 234,

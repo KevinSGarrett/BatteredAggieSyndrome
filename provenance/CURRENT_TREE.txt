@@ -31,7 +31,9 @@ artifacts/jira_evidence/POST-SUBTASK-003.json
 artifacts/jira_evidence/POST-SUBTASK-004.json
 artifacts/jira_evidence/POST-SUBTASK-013.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
+artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/operations/ci_pipeline_validation.json
+artifacts/operations/security_supply_chain_report.json
 artifacts/source_governance/production_source_inventory.csv
 configs/acceptance_registry.json
 configs/architecture_registry.json

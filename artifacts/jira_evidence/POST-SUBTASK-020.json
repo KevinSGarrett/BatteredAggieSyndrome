@@ -1,0 +1,259 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Each approved source returns a minimally sufficient response or a precise access blocker.",
+      "criterion_id": "ACCEPTANCE-1",
+      "disposition": "PASS",
+      "evidence_artifact_sha256": "236db30afc8030e2c8842cc44d1b650d5014a5a1847a9440f0a39b0cfa59526e",
+      "evidence_pointer": "/results",
+      "observable": "All 62 inventory sources have a result; zero sources are production-approved pending human rights review; three representative candidate lanes were bounded-smoked and every other lane has a precise blocker.",
+      "verified_at_utc": "2026-08-09T13:21:44Z",
+      "verifier": "BAT-370 deterministic consumer validator"
+    },
+    {
+      "criterion": "HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.",
+      "criterion_id": "ACCEPTANCE-2",
+      "disposition": "PASS",
+      "evidence_artifact_sha256": "236db30afc8030e2c8842cc44d1b650d5014a5a1847a9440f0a39b0cfa59526e",
+      "evidence_pointer": "/results",
+      "observable": "Every source result contains the fields; attempted probes record observations and blocked sources preserve explicit nulls with not-observed reasons.",
+      "verified_at_utc": "2026-08-09T13:21:44Z",
+      "verifier": "BAT-370 deterministic consumer validator"
+    },
+    {
+      "criterion": "Smoke tests do not bulk-download data or expose secrets.",
+      "criterion_id": "ACCEPTANCE-3",
+      "disposition": "PASS",
+      "evidence_artifact_sha256": "236db30afc8030e2c8842cc44d1b650d5014a5a1847a9440f0a39b0cfa59526e",
+      "evidence_pointer": "/security_and_minimization",
+      "observable": "Three GETs were capped at 65,536 bytes with no retries; bodies, URLs, general headers, credential values, and restricted raw data were not retained.",
+      "verified_at_utc": "2026-08-09T13:21:44Z",
+      "verifier": "BAT-370 deterministic consumer validator"
+    }
+  ],
+  "command_log_identities": [
+    {
+      "bytes": 474,
+      "path": "<external-runtime>/BAT-370/smoke-run.stdout.log",
+      "sha256": "4f5f61a7c93f513317a203fd99e4bc0a784782bf0db641fed72e4d307f31d472"
+    },
+    {
+      "bytes": 400,
+      "path": "<external-runtime>/BAT-370/consumer.stdout.log",
+      "sha256": "68bc3269d89b8e30ed0755daf2b7b8b270bd312ce81a4806663ff1fc31cefa88"
+    },
+    {
+      "bytes": 224,
+      "path": "<external-runtime>/BAT-370/test-source-access-smoke.stdout.log",
+      "sha256": "a732a9d69022bfb5f5045ee89912431372112d73307d8d63a56aa5645cbd118d"
+    },
+    {
+      "bytes": 202,
+      "path": "<external-runtime>/BAT-370/test-data-research.stdout.log",
+      "sha256": "d0b54f04fa2a63cf0cc57e145a01979d0f8428bc24204c1bcaaffc232884be8f"
+    },
+    {
+      "bytes": 684,
+      "path": "<external-runtime>/BAT-370/pytest-full.stdout.log",
+      "sha256": "49ac9d1f23c0a8fdc0fda976f53c72eed5b08aeab87bf40892fd5cc9eac6633b"
+    },
+    {
+      "bytes": 208,
+      "path": "<external-runtime>/BAT-370/validate-data-research.stdout.log",
+      "sha256": "bb60ac13c37a0d70a5d6128fb6438c3015c143ca1c5e4ba28c6ca1541e76fc6f"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-370/run_source_access_smokes.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/smoke-run.stdout.log"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-370/validate_source_access_smoke_results.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/consumer.stdout.log"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider tests/test_source_access_smoke_results.py -q",
+      "exit_code": 0,
+      "output_summary": "4 passed, 8 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/test-source-access-smoke.stdout.log"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider tests/test_data_research.py -q",
+      "exit_code": 0,
+      "output_summary": "2 passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/test-data-research.stdout.log"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "output_summary": "250 passed, 24 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/pytest-full.stdout.log"
+    },
+    {
+      "command": "python -B tools/validate_data_research.py",
+      "exit_code": 0,
+      "output_summary": "W06 source universe, A-J research method, PIT/access matrices, evidence breadth and replan gate",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/validate-data-research.stdout.log"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "completion_claim": "BAT-370 has implemented bounded metadata-only authenticated/no-key source smokes and deterministic consumer validation. Jira completion and downstream readiness remain pending protected merge and main workflow validation.",
+    "evidence_state": "PLANNED_PENDING_PROTECTED_INTEGRATION",
+    "issue_disposition": "IMPLEMENTED_PENDING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_INTEGRATION_AND_MAIN_WORKFLOW_VALIDATION"
+    ],
+    "remaining_program_blockers": [
+      "POST_SUBTASK_016_AND_017_HUMAN_RIGHTS_REVIEW",
+      "POST_SUBTASK_021_SOURCE_SPECIFIC_ACCESS_READINESS_GATE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC038_THRESHOLD_AUTHORITY_BLOCKER"
+    ]
+  },
+  "consumer_validation": {
+    "configured_secret_value_matches": 0,
+    "consumer": "POST-SUBTASK-021",
+    "negative_mutations_rejected": 5,
+    "positive_consumer_pass": true,
+    "rejection_classes": [
+      "MISSING_SOURCE_RESULT",
+      "STALE_INPUT_IDENTITY",
+      "SCHEMA_INCOMPATIBLE",
+      "RIGHTS_BLOCKER_REMOVED",
+      "PROVENANCE_INCOMPLETE"
+    ],
+    "report": {
+      "bytes": 1739,
+      "path": "<external-runtime>/BAT-370/consumer-validation.safe.json",
+      "sha256": "60cf79b61f92b9dad5cde4bc404238b7adbb564d1b54491b45dc7c2650689e7b"
+    },
+    "values_or_lengths_included": false
+  },
+  "created_at_utc": "2026-08-09T13:24:29Z",
+  "downstream_reevaluation": {
+    "consumer_jira_key": "BAT-371",
+    "consumer_local_issue_id": "POST-SUBTASK-021",
+    "current_disposition": "PENDING_BAT_370_PROTECTED_INTEGRATION",
+    "required_handoff": "Parse results with pinned input identities; preserve source-specific rights, credential, provider, and entitlement blockers without promoting technical smoke success to production readiness."
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 85497,
+      "path": "artifacts/source_governance/source_inventory_validation.json",
+      "sha256": "da81d4b9def2fd6f65fb514c3ff542a1b754bdc2ead679fde5f06eb097b402cf"
+    },
+    {
+      "bytes": 22977,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-015.json",
+      "sha256": "20dbc94108c475da1822f9d5bed7ee25824b7642e6d366adb8fc403a8941d981"
+    },
+    {
+      "bytes": 60201,
+      "path": "artifacts/source_governance/credential_contract.redacted.json",
+      "sha256": "882764a80873cd0b97a530e1af375113a75b4c875259e6b4ea149bbe79c26507"
+    },
+    {
+      "bytes": 16345,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-019.json",
+      "sha256": "15c6810fca9cac5dc4569076cc1cfa95c495394649e489b9104a0170b4f2f169"
+    },
+    {
+      "bytes": 16741,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-020_run_authenticated_and_no_key_source_access_smoke_tests_with_rate_limit_capture.json",
+      "sha256": "c907cfa92004e52385ce45e536523c6911bc5af65ad26a6c36e07a69be830961"
+    },
+    {
+      "bytes": 17702,
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-020.json",
+      "sha256": "d314ff91eeadc90a07257aedecbce0ff820f22e43e1395f44336e7afbd3dd830"
+    }
+  ],
+  "jira_key": "BAT-370",
+  "live_jira": {
+    "claim_comment_id": "13326",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "IMPLEMENTED",
+    "post_claim_state_sha256": "9febebda282cc1649ceca738ccf37df32b995af38b5f2f5b572fb915e0a788db",
+    "pre_claim_rollback_snapshot_sha256": "e1561bcfdba28eb65aac4ad1edd759eb8697180e3d8b6a501ddf448a6d18a72c",
+    "status": "In Progress",
+    "updated": "2026-08-09T08:20:09.547-0500"
+  },
+  "local_issue_id": "POST-SUBTASK-020",
+  "local_jira_sync": {
+    "state": "PENDING_POST_MERGE_DONE_SYNC"
+  },
+  "negative_findings": [
+    "ZERO_SOURCES_HAVE_HUMAN_APPROVED_PRODUCTION_RIGHTS",
+    "SRC_059_OPTIONAL_TIER_ENTITLEMENT_UNVERIFIED_AND_NOT_PROBED",
+    "TWELVE_SOURCES_HAVE_UNDEFINED_CREDENTIALS_PENDING_LICENSE_AND_RIGHTS",
+    "FIFTY_NINE_SOURCES_REMAIN_BLOCKED_OR_RIGHTS_UNRESOLVED_DESPITE_THREE_TECHNICAL_SMOKE_SUCCESSES",
+    "CFBD_AND_OPEN_METEO_RETURNED_NO_ALLOWLISTED_RATE_LIMIT_HEADERS"
+  ],
+  "observable_outcome": "Three representative bounded read-only probes returned HTTP 200 (one configured authenticated lane and two no-key lanes); only schema-shape hashes and safe rate-limit metadata were retained. All 62 sources are represented, production approval remains zero, and every unprobed or technically successful lane retains a precise rights/credential/entitlement blocker.",
+  "outputs": [
+    {
+      "bytes": 94417,
+      "path": "artifacts/source_governance/source_access_smoke_results.json",
+      "sha256": "236db30afc8030e2c8842cc44d1b650d5014a5a1847a9440f0a39b0cfa59526e"
+    },
+    {
+      "bytes": 6987,
+      "path": "tests/test_source_access_smoke_results.py",
+      "sha256": "560951cd36c07035ecf8ed4e40d0902d7167f55e576be7dbe5c8591d9bbdc8f9"
+    }
+  ],
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "protected_integration": {
+    "base_sha": "a7199299b60e7d3716c009d76a18a0e140e03ce5",
+    "branch": "codex/BAT-370-source-access-smokes",
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_REQUIRED",
+    "state": "PENDING_PROTECTED_PULL_REQUEST_AND_MAIN_VALIDATION"
+  },
+  "schema_version": "1.0.0",
+  "security_and_rights": {
+    "bulk_download_performed": false,
+    "configured_secret_matching_occurrences": 0,
+    "credential_values_included": false,
+    "production_access_ready_claimed": false,
+    "protected_files_modified": false,
+    "request_urls_or_headers_included": false,
+    "response_bodies_included": false,
+    "restricted_raw_payloads_included": false,
+    "source_rights_approval_claimed": false,
+    "src_059_entitlement_exercised": false
+  },
+  "tool_identities": [
+    {
+      "bytes": 16420,
+      "path": "<external-runtime>/BAT-370/run_source_access_smokes.py",
+      "sha256": "496615be31579dd2e3bc6a5f0e7c93df684b262d1730f77874340873d152c5cf"
+    },
+    {
+      "bytes": 5258,
+      "path": "<external-runtime>/BAT-370/validate_source_access_smoke_results.py",
+      "sha256": "e3717a112bb64e17229a24d7e4788ff523461b0a849b89803c9285912d6fbac9"
+    },
+    {
+      "bytes": 13478,
+      "path": "<external-runtime>/BAT-370/build_bat370_evidence.py",
+      "sha256": "1006e5963d9d3725f28ae493912001d7f462ce4d62153570dd790fafb7619704"
+    }
+  ],
+  "updated_at_utc": "2026-08-09T13:26:00Z"
+}

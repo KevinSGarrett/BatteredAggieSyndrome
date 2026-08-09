@@ -44,12 +44,14 @@ artifacts/jira_evidence/POST-SUBTASK-013.json
 artifacts/jira_evidence/POST-SUBTASK-014.json
 artifacts/jira_evidence/POST-SUBTASK-015.json
 artifacts/jira_evidence/POST-SUBTASK-019.json
+artifacts/jira_evidence/POST-SUBTASK-020.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/production_source_inventory.csv
+artifacts/source_governance/source_access_smoke_results.json
 artifacts/source_governance/source_inventory_validation.json
 artifacts/source_governance/source_priority_decisions.json
 configs/acceptance_registry.json
@@ -2684,6 +2686,7 @@ tests/test_replay_engine_full.py
 tests/test_repo_integrity_tools.py
 tests/test_resource_scheduler_full.py
 tests/test_result_comparison_full.py
+tests/test_source_access_smoke_results.py
 tests/test_tamu_specialization_governance.py
 tests/test_team_state_governance.py
 tests/test_temporal_governance.py

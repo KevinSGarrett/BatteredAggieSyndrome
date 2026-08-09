@@ -22,7 +22,7 @@
     "artifacts/implementation_preflight/storage_probe.json",
     "artifacts/jira_evidence/POST-SUBTASK-006.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-005",
+  "blocked_reason": "",
   "blocks": [
     "POST-STORY-003",
     "POST-STORY-009",
@@ -207,7 +207,7 @@
     "docs/operations/TARGET_HARDWARE_BENCHMARK.md",
     "scripts/benchmark_target.ps1"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -298,7 +298,7 @@
     "POST-SUBTASK-009"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REGRESSION",
@@ -306,7 +306,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-002: Local data, artifact, and secret boundary bootstrap.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-006.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

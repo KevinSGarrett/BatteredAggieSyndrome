@@ -19647,7 +19647,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-005_define_and_validate_the_non_repository_credential_inventory_and_redaction_rules.json",In Progress,Highest,actionable;core-release;environment;post-wave;protected-gate;subtask;local-id-post-subtask-005,operations-security,POST-SUBTASK-005,GAP-001;GAP-010;HANDOFF-001;HANDOFF-002,PHASE-4,VALIDATION,IMPLEMENTED,PARTIAL,POST_W25,false,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-005_define_and_validate_the_non_repository_credential_inventory_and_redaction_rules.json",Done,Highest,actionable;core-release;environment;post-wave;protected-gate;subtask;local-id-post-subtask-005,operations-security,POST-SUBTASK-005,GAP-001;GAP-010;HANDOFF-001;HANDOFF-002,PHASE-4,DONE,IMPLEMENTED,VERIFIED,POST_W25,false,PROTECTED_GATE
 Sub-task,BAT-356,100310,"[POST-SUBTASK-006] Validate target storage permissions, free space, atomic writes, and quarantine behavior",100052,"Local ID: POST-SUBTASK-006
 
 Objective
@@ -19736,7 +19736,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-006_validate_target_storage_permissions_free_space_atomic_writes_and_quarantine_beha.json",To Do,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-006,operations-security,POST-SUBTASK-006,GAP-001;GAP-010;HANDOFF-001;HANDOFF-002,PHASE-4,BLOCKED,INTEGRATED,PLANNED,POST_W25,false,OPERATIONS
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-006_validate_target_storage_permissions_free_space_atomic_writes_and_quarantine_beha.json",To Do,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-006,operations-security,POST-SUBTASK-006,GAP-001;GAP-010;HANDOFF-001;HANDOFF-002,PHASE-4,READY,INTEGRATED,PLANNED,POST_W25,false,OPERATIONS
 Sub-task,BAT-357,100311,[POST-SUBTASK-007] Stage the representative AC-038 workload and benchmark input manifest,100053,"Local ID: POST-SUBTASK-007
 
 Objective

@@ -16,7 +16,7 @@
     "configs/source_acquisition_registry.json",
     "artifacts/jira_evidence/POST-SUBTASK-022.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-021",
+  "blocked_reason": "",
   "blocks": [
     "POST-STORY-009",
     "POST-SUBTASK-023",
@@ -201,7 +201,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -297,7 +297,7 @@
     "POST-SUBTASK-024"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "REGRESSION",
@@ -306,5 +306,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-008: Production acquisition contracts, rate limits, fallbacks, and drift hooks.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-022.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }

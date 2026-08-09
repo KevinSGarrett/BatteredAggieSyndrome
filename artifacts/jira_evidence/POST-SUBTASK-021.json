@@ -99,7 +99,7 @@
     "completion_claim": "The source-specific access-readiness gate is complete at INTEGRATED maturity; only registry-admitted READY sources may proceed and all other source routes remain fail-closed.",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
     "remaining_issue_scope_blockers": []
   },
@@ -177,9 +177,9 @@
       "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
     },
     {
-      "bytes": 18025,
+      "bytes": 17169,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",
-      "sha256": "1ce5c1c5595927876ab0139d02b463629435310180e47dcb35dbdff5b3af9794"
+      "sha256": "5e24b8ef765eb538ced06ff50e3abd843b9a4c8f8fc83dc23a2051bbec2446de"
     },
     {
       "bytes": 17702,
@@ -194,17 +194,32 @@
   ],
   "jira_key": "BAT-371",
   "live_jira": {
-    "evidence_state": "PARTIAL",
-    "logical_state": "IN_PROGRESS",
-    "maturity": "INTEGRATED",
-    "post_resume_state_sha256": "6b3b6902e53db20a30a26a3248a36c0ea8d1c342c949b87427df7dd42a9c4414",
+    "completion_comment_id": "13342",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
+    "maturity": "PRODUCTION_READY",
+    "post_complete_state": {
+      "bytes": 277,
+      "path": "<external-runtime>/BAT-371/post-complete-jira-state.json",
+      "sha256": "1fa8bb2b75b6e8d70f351dfcd7e59c39af9a68bcc17d7e8ec015b678ae5f85b3"
+    },
+    "post_resume_state": {
+      "bytes": 284,
+      "path": "<external-runtime>/BAT-371/post-resume-jira-state.json",
+      "sha256": "6b3b6902e53db20a30a26a3248a36c0ea8d1c342c949b87427df7dd42a9c4414"
+    },
     "resume_comment_id": "13341",
-    "status": "In Progress",
-    "updated": "2026-08-09T11:21:33.732-0500"
+    "status": "Done",
+    "updated": "2026-08-09T11:30:01.062-0500"
   },
   "local_issue_id": "POST-SUBTASK-021",
   "local_jira_sync": {
-    "state": "PENDING_PROTECTED_COMPLETION_SYNC"
+    "live_export": {
+      "bytes": 160,
+      "path": "<external-runtime>/BAT-371/BAT-371-live-row.csv",
+      "sha256": "c0cec5aefd3d820cae501747164535da9918f644d1421cae3405e3cc555fce68"
+    },
+    "state": "SYNCHRONIZED_PENDING_PROTECTED_COMPLETION_COMMIT"
   },
   "observable_outcome": "All 62 sources are bound to Kevin Garrett's project-owner review and the verified machine rights registry. 2 production lanes pass rights, credential/provider, and technical-smoke gates; every other route remains source-specifically blocked or rejected with a nonblocking substitute/unblock condition.",
   "outputs": [
@@ -241,10 +256,16 @@
     "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
   },
   "protected_integration": {
-    "base_sha": "7749d7064cd2ce3f6dbe40b57d47e8083f50803d",
     "branch": "codex/BAT-371-owner-rights-readiness",
-    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_REQUIRED",
-    "state": "PENDING_PROTECTED_OWNER_REVIEW_INTEGRATION"
+    "head_sha": "2a6b323d23d9d5383d892cbe86cf99f0e93420ad",
+    "merge_commit_repository_ci_run": 31323844565,
+    "merge_commit_security_analysis_run": 31323844562,
+    "merge_method": "SQUASH",
+    "merge_sha": "b5032d4928b4d0cb9ac56a1f6e4d66a8456cafb4",
+    "merged_at_utc": "2026-08-09T16:27:36Z",
+    "pull_request": 58,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "security_and_rights": {
@@ -275,7 +296,7 @@
       "sha256": "bebb046924efac8bc4709cd95a7bdddfc9776a0096b8d85972f5133d041e3486"
     }
   ],
-  "updated_at_utc": "2026-08-09T16:25:10Z",
+  "updated_at_utc": "2026-08-09T16:31:21Z",
   "validation_matrix": [
     {
       "disposition": "PASS",

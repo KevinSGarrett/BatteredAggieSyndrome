@@ -1,0 +1,391 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "All source IDs referenced by adapters, registries, and acquisition plans resolve to the production inventory.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/source_inventory_validation.json",
+      "evidence_pointer": "/source_reference_resolution",
+      "evidence_sha256": "82ee6d80e6840140fc53cceee6d639c09265312281233c77d8f8f9a03fc012b1",
+      "observable_result": "62 unique referenced IDs resolve to the 62-row contiguous production inventory; zero missing."
+    },
+    {
+      "criterion": "Every unresolved source decision has a Jira blocker/review item.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/source_inventory_validation.json",
+      "evidence_pointer": "/unresolved_decision_register",
+      "evidence_sha256": "82ee6d80e6840140fc53cceee6d639c09265312281233c77d8f8f9a03fc012b1",
+      "observable_result": "All 62 source decisions map to a verified live tier-1 or supplemental rights review item and the three access-review items."
+    },
+    {
+      "criterion": "No required domain is silently marked complete when only reconnaissance samples exist.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/source_inventory_validation.json",
+      "evidence_pointer": "/required_domain_validation",
+      "evidence_sha256": "82ee6d80e6840140fc53cceee6d639c09265312281233c77d8f8f9a03fc012b1",
+      "observable_result": "All 16 domains retain explicit conditional, optional, validation-only, degraded, or deferred state and an unavailable behavior; zero domains are silently complete and zero sources are production-approved."
+    }
+  ],
+  "command_log_identities": [
+    {
+      "bytes": 400,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\build.stdout.log",
+      "sha256": "16fa28114263f5cc01fd4e7ff5648931b0192058ed19331d5503eae23d07374b"
+    },
+    {
+      "bytes": 5218,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\consumer.stdout.log",
+      "sha256": "30fd41fde1922b0b80a57404df6031b460b787f209fcf204053325e1e7fc2000"
+    },
+    {
+      "bytes": 202,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\test_data_research.stdout.log",
+      "sha256": "aee27cd7dbd91ffd4acc9803e750dfc2af4c8e87a44d00a8f0fc744ea4474e01"
+    },
+    {
+      "bytes": 700,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\pytest-full.stdout.log",
+      "sha256": "d9a2cc38415bbe7291195d39b6532f90b1014f80e4f09e13f05463e8e9614517"
+    },
+    {
+      "bytes": 194,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\repository-strict.stdout.log",
+      "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
+    },
+    {
+      "bytes": 700,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\candidate-pytest.stdout.log",
+      "sha256": "7ea04e502f8f82516a32f7d124b151633f2fdf31d6ec7ca1a5f3146f95d20b03"
+    },
+    {
+      "bytes": 3096,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\candidate-jira-strict.stdout.log",
+      "sha256": "5f16d22f54a2e115482b1753d18e70f261d453c11fbcdd1085ae60e0ec393add"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\capture_downstream_jira.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\downstream-jira-review-items.safe.json"
+    },
+    {
+      "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\build_source_inventory_validation.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\build.stdout.log"
+    },
+    {
+      "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\validate_source_inventory_validation.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\consumer.stdout.log"
+    },
+    {
+      "command": "python -m pytest tests/test_data_research.py -q",
+      "exit_code": 0,
+      "output_summary": "2 passed",
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\test_data_research.stdout.log"
+    },
+    {
+      "command": "python -m pytest -q",
+      "exit_code": 0,
+      "output_summary": "246 passed, 16 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\pytest-full.stdout.log"
+    },
+    {
+      "command": "python tools/validate_repository.py --repo-root . --strict",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\repository-strict.stdout.log",
+      "working_directory": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-365-candidate"
+    },
+    {
+      "command": "python -m pytest -q",
+      "exit_code": 0,
+      "output_summary": "246 passed, 16 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\candidate-pytest.stdout.log",
+      "working_directory": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-365-candidate"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "output_summary": "463 issues; 132 blocked; 36 deferred; 1 ready; 0 errors",
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\candidate-jira-strict.stdout.log",
+      "working_directory": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-365-candidate"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "CONTRACT_DEFINED",
+    "completion_claim": "BAT-365 local validation passes all three acceptance criteria and hands an explicit downstream decision to the dependency graph. Production source readiness remains BLOCKED_PENDING_RIGHTS_AND_ACCESS; no rights, credential, ingestion, materialization, empirical, or release-readiness claim is made.",
+    "evidence_state": "COMPLETE_PENDING_PROTECTED_INTEGRATION",
+    "issue_disposition": "IN_PROGRESS",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_INTEGRATION",
+      "LIVE_JIRA_COMPLETION",
+      "LOCAL_JIRA_DONE_SYNC"
+    ],
+    "remaining_program_blockers": [
+      "POST_SUBTASK_016_AND_017_HUMAN_RIGHTS_REVIEW",
+      "POST_SUBTASK_019_TO_021_ACCESS_READINESS",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC038_THRESHOLD_AUTHORITY_BLOCKER"
+    ]
+  },
+  "consumer_validation": {
+    "consumer": "POST-SUBTASK-016",
+    "negative_mutations_rejected": 14,
+    "positive_consumer_pass": true,
+    "rejection_classes": [
+      "INPUT_HASH_MISMATCH:artifacts/source_governance/production_source_inventory.csv",
+      "REFERENCE_UNION_NOT_CONTIGUOUS_001_062",
+      "UNRESOLVED_SOURCE_REFERENCE:src/aggie_analytics/data/adapters.py",
+      "UNRESOLVED_DECISION_REGISTER_COVERAGE_MISMATCH",
+      "RIGHTS_REVIEW_ITEM_INVALID:SRC-001",
+      "ACCESS_REVIEW_ITEM_INVALID:SRC-001:POST-SUBTASK-019",
+      "SOURCE_INCORRECTLY_READY:SRC-001",
+      "DOMAIN_SILENTLY_COMPLETE:DOMDEC-001",
+      "DOMAIN_UNAVAILABLE_STATE_MISSING:DOMDEC-001",
+      "ACCEPTANCE_MATRIX_NOT_ALL_PASS",
+      "HONESTY_BOUNDARY_VIOLATED:human_rights_review_record_present",
+      "PRODUCTION_READINESS_NOT_BLOCKED",
+      "DOWNSTREAM_REEVALUATION_COVERAGE_MISMATCH",
+      "DOWNSTREAM_READY_SET_MISMATCH"
+    ],
+    "report": {
+      "bytes": 3093,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\post-subtask-016-consumer.safe.json",
+      "sha256": "f789aaec13f12bc3b8a062c40ece1669194552f52255178110443823ba86466e"
+    }
+  },
+  "created_at_utc": "2026-08-09T12:36:30Z",
+  "downstream_reevaluation": [
+    {
+      "canonical_record_path": "jira/records/issues/stories/POST-STORY-006_per_source_license_terms_and_redistribution_decisions.json",
+      "canonical_record_sha256": "3101f38e0a394551024f3709f50d7ed976ea3570f74dc92e539d9865429220fc",
+      "decision": "APPROVE_READY_AFTER_POST_SUBTASK_015_VERIFIED",
+      "jira_key": "BAT-56",
+      "live_state_at_validation": "BACKLOG",
+      "live_status_at_validation": "To Do",
+      "local_issue_id": "POST-STORY-006",
+      "remaining_dependencies": []
+    },
+    {
+      "canonical_record_path": "jira/records/issues/stories/POST-STORY-007_credential_configuration_and_access_smoke_tests.json",
+      "canonical_record_sha256": "5b1fe8b6e53ac2b685da48257f75b0a5d79110f2e7198fa32e104dba4551fef2",
+      "decision": "APPROVE_READY_AFTER_POST_SUBTASK_015_VERIFIED",
+      "jira_key": "BAT-57",
+      "live_state_at_validation": "BACKLOG",
+      "live_status_at_validation": "To Do",
+      "local_issue_id": "POST-STORY-007",
+      "remaining_dependencies": []
+    },
+    {
+      "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-016_complete_rights_review_for_cfbd_sportsdataverse_open_meteo_and_official_a_and_m_.json",
+      "canonical_record_sha256": "c162b941ca8c24ec6f24672639cc2422b97cbcc7dfc1f7a640c1522ecdfc0153",
+      "decision": "APPROVE_READY_AFTER_POST_SUBTASK_015_VERIFIED",
+      "jira_key": "BAT-366",
+      "live_state_at_validation": "BLOCKED",
+      "live_status_at_validation": "To Do",
+      "local_issue_id": "POST-SUBTASK-016",
+      "remaining_dependencies": []
+    },
+    {
+      "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-017_complete_rights_review_for_recruiting_transfer_market_resources_gamebook_and_off.json",
+      "canonical_record_sha256": "b968c8fb794041d9b906c2ef4ec20913d1fdbd41abb47f9748991a7ca10b8e56",
+      "decision": "BLOCKED",
+      "jira_key": "BAT-367",
+      "live_state_at_validation": "BLOCKED",
+      "live_status_at_validation": "To Do",
+      "local_issue_id": "POST-SUBTASK-017",
+      "remaining_dependencies": [
+        "POST-SUBTASK-016"
+      ]
+    },
+    {
+      "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",
+      "canonical_record_sha256": "06aa3b671895f85a3f9c11c3e22079c84096f90874837198163ba8fb21567a1b",
+      "decision": "BLOCKED",
+      "jira_key": "BAT-368",
+      "live_state_at_validation": "BLOCKED",
+      "live_status_at_validation": "To Do",
+      "local_issue_id": "POST-SUBTASK-018",
+      "remaining_dependencies": [
+        "POST-SUBTASK-016",
+        "POST-SUBTASK-017"
+      ]
+    },
+    {
+      "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-019_define_credential_names_scopes_owners_rotation_and_non_repository_storage_contra.json",
+      "canonical_record_sha256": "35a95d25116a7d558c8a3a2dc25e02823ebcd2dd4462eaf3c97c1152fc3b466b",
+      "decision": "APPROVE_READY_AFTER_POST_SUBTASK_015_VERIFIED",
+      "jira_key": "BAT-369",
+      "live_state_at_validation": "BLOCKED",
+      "live_status_at_validation": "To Do",
+      "local_issue_id": "POST-SUBTASK-019",
+      "remaining_dependencies": []
+    },
+    {
+      "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-020_run_authenticated_and_no_key_source_access_smoke_tests_with_rate_limit_capture.json",
+      "canonical_record_sha256": "81864dcb290f34b3ffc88253b266f20a766c0da71d6f62a1ccacff1ab35852c2",
+      "decision": "BLOCKED",
+      "jira_key": "BAT-370",
+      "live_state_at_validation": "BLOCKED",
+      "live_status_at_validation": "To Do",
+      "local_issue_id": "POST-SUBTASK-020",
+      "remaining_dependencies": [
+        "POST-SUBTASK-019"
+      ]
+    },
+    {
+      "canonical_record_path": "jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",
+      "canonical_record_sha256": "429199791d73a42a7baafeb594d077366aa22c4aa6f164979834f80c7a563eda",
+      "decision": "BLOCKED",
+      "jira_key": "BAT-371",
+      "live_state_at_validation": "BLOCKED",
+      "live_status_at_validation": "To Do",
+      "local_issue_id": "POST-SUBTASK-021",
+      "remaining_dependencies": [
+        "POST-SUBTASK-019",
+        "POST-SUBTASK-020"
+      ]
+    }
+  ],
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "input_identities": [
+    {
+      "bytes": 78290,
+      "dependency_state": "DONE_VERIFIED_IMPLEMENTED",
+      "path": "artifacts/source_governance/production_source_inventory.csv",
+      "producer_issue": "POST-SUBTASK-013",
+      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+    },
+    {
+      "bytes": 90500,
+      "dependency_state": "DONE_VERIFIED_IMPLEMENTED",
+      "path": "artifacts/source_governance/source_priority_decisions.json",
+      "producer_issue": "POST-SUBTASK-014",
+      "sha256": "878317510091659ffb35e7860de523fc1dc119271c6971e16a82e0372ad936be"
+    },
+    {
+      "bytes": 16967,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-013.json",
+      "sha256": "ed26006c5ca48268a71ad30fa288a23af221a18d90dfecd9472c45ea7fb58a11"
+    },
+    {
+      "bytes": 10590,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-014.json",
+      "sha256": "2d2bcc2b57dd3b771d144555a62b3fee65be8695640d0106b698dc017592172a"
+    },
+    {
+      "bytes": 15370,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-015_validate_source_inventory_completeness_and_unresolved_decision_coverage.json",
+      "sha256": "1bcf88585907adf7f9fa264c82bafce68f110ed85988a81aa3d5068630b3682e"
+    },
+    {
+      "bytes": 16271,
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-015.json",
+      "sha256": "5fdd8e5874db96fb55b15c5ac72c91868ac882afb56dca724ce5381775b51844"
+    },
+    {
+      "bytes": 2380,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\downstream-jira-review-items.safe.json",
+      "sha256": "a22bc9c96f6457dc937674c6f8930746d7b96ca11222264462a930f39516bf1d"
+    }
+  ],
+  "jira_key": "BAT-365",
+  "live_jira": {
+    "claim_comment_id": "13320",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "CONTRACT_DEFINED",
+    "post_claim_state_sha256": "ab2f7f7e94b7c8c2583b773121c69dc5d2e82d6dcb014e5748295552147c94f3",
+    "pre_claim_rollback_snapshot_sha256": "28741baa040701ce5ed324596c13e1f106a07eb336bddbec43754b7d574916dc",
+    "status": "In Progress"
+  },
+  "local_issue_id": "POST-SUBTASK-015",
+  "local_jira_sync": {
+    "state": "PENDING_PROTECTED_INTEGRATION_AND_LIVE_JIRA_COMPLETION"
+  },
+  "observable_outcome": "A deterministic gate resolves all 62 referenced source IDs, binds all 62 unresolved source decisions to live Jira rights/access review items, and proves all 16 domains remain explicitly conditional, optional, validation-only, degraded, or deferred. BAT-365 passes while production source readiness stays blocked pending human rights and access evidence.",
+  "outputs": [
+    {
+      "acceptance_pass_count": 3,
+      "bytes": 84291,
+      "domain_count": 16,
+      "maturity": "CONTRACT_DEFINED",
+      "path": "artifacts/source_governance/source_inventory_validation.json",
+      "production_source_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
+      "schema_version": "1.0.0",
+      "sha256": "82ee6d80e6840140fc53cceee6d639c09265312281233c77d8f8f9a03fc012b1",
+      "source_reference_count": 62,
+      "unresolved_decision_count": 62
+    }
+  ],
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "protected_integration": {
+    "base_sha": "2dda862282f8ec55d416bf9b0bda68ad7f8f4805",
+    "branch": "codex/BAT-365-source-inventory-validation",
+    "head_sha": null,
+    "merge_method": "SQUASH_REQUIRED",
+    "merge_sha": null,
+    "pull_request": null,
+    "required_checks": "PENDING",
+    "state": "PENDING_PROTECTED_INTEGRATION"
+  },
+  "schema_version": "1.0.0",
+  "security_and_rights": {
+    "historical_data_materialized": false,
+    "human_rights_review_record_present": false,
+    "production_ingestion_authorized": false,
+    "production_source_approval_claimed": false,
+    "protected_files_modified": false,
+    "raw_redistribution_authorized": false,
+    "restricted_raw_payloads_stored": false,
+    "secret_values_emitted": false,
+    "secret_values_stored_in_evidence": false,
+    "third_party_code_copied": false,
+    "third_party_data_copied": false
+  },
+  "story_gate": {
+    "historical_data_materialized": false,
+    "human_rights_review_record_present": false,
+    "post_story_005_gate_decision": "APPROVE_CONTROLLED_DOWNSTREAM_REVIEW_EXECUTION",
+    "production_ingestion_authorized": false,
+    "production_source_approval": false,
+    "production_source_readiness": "BLOCKED_PENDING_RIGHTS_AND_ACCESS",
+    "raw_redistribution_authorized": false,
+    "validation_task_result": "PASS"
+  },
+  "tool_identities": [
+    {
+      "bytes": 2707,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\capture_downstream_jira.py",
+      "sha256": "62e8f722badb45a1de169c7a549a93483df1a63f37c99756cd12a67253f05afa"
+    },
+    {
+      "bytes": 13137,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\build_source_inventory_validation.py",
+      "sha256": "bc01c99092936337ed2e5410b9c10210f61f9f50b76e19b5f11d3cc954f24ebb"
+    },
+    {
+      "bytes": 11665,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\validate_source_inventory_validation.py",
+      "sha256": "dbfa0cec4ed54d03ebff0c00759be5659c87061519315819314f506a77de6bb5"
+    },
+    {
+      "bytes": 9820,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-365\\build_bat365_evidence.py",
+      "sha256": "6a29863414a436403803c2f3426ba8846293b6320fcfb1fe0d663543a076f2e4"
+    }
+  ],
+  "updated_at_utc": "2026-08-09T12:36:30Z"
+}

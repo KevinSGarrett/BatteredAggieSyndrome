@@ -42,11 +42,13 @@ artifacts/jira_evidence/POST-SUBTASK-008.json
 artifacts/jira_evidence/POST-SUBTASK-009.json
 artifacts/jira_evidence/POST-SUBTASK-013.json
 artifacts/jira_evidence/POST-SUBTASK-014.json
+artifacts/jira_evidence/POST-SUBTASK-015.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/source_governance/production_source_inventory.csv
+artifacts/source_governance/source_inventory_validation.json
 artifacts/source_governance/source_priority_decisions.json
 configs/acceptance_registry.json
 configs/architecture_registry.json

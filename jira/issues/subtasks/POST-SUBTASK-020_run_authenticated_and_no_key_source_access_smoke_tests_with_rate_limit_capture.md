@@ -20,9 +20,10 @@
   ],
   "allowed_modification_paths": [
     "artifacts/source_governance/source_access_smoke_results.json",
-    "artifacts/jira_evidence/POST-SUBTASK-020.json"
+    "artifacts/jira_evidence/POST-SUBTASK-020.json",
+    "tests/test_source_access_smoke_results.py"
   ],
-  "blocked_reason": "PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-021"
   ],
@@ -96,7 +97,9 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "files_expected_to_be_touched": [],
+  "files_expected_to_be_touched": [
+    "tests/test_source_access_smoke_results.py"
+  ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
     "docs/final/CODEX_HANDOFF.md",
@@ -131,7 +134,6 @@
     "actionable",
     "core-release",
     "data-materialization",
-    "external-blocker",
     "post-wave",
     "sources",
     "subtask"
@@ -162,7 +164,7 @@
   "prerequisites": [
     "Dependency POST-SUBTASK-015 complete at required maturity",
     "Dependency POST-SUBTASK-019 complete at required maturity",
-    "External condition: PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED"
+    "External credential condition verified by protected POST-SUBTASK-019 source credential contract; unconfigured optional/provider lanes remain explicit blockers"
   ],
   "primary_source_refs": [
     "SRCREF-02007",
@@ -202,7 +204,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -240,7 +242,7 @@
     {
       "classification": "NEW_AUTOMATED_TEST_REQUIRED",
       "expectation": "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.",
-      "path": "NEW_TEST_REQUIRED::POST-SUBTASK-020",
+      "path": "tests/test_source_access_smoke_results.py",
       "validation_class": "NEW_AUTOMATED_TEST_REQUIRED"
     }
   ],
@@ -251,7 +253,7 @@
     "Acceptance failure: the evidence cannot demonstrate that each approved source returns a minimally sufficient response or a precise access blocker.",
     "Acceptance failure: the evidence cannot demonstrate that hTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.",
     "Acceptance failure: the evidence cannot demonstrate that smoke tests do not bulk-download data or expose secrets.",
-    "External blocker remains unresolved: PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED."
+    "The verified credential contract must remain value-free and fail closed; optional/provider lanes without configured approved credentials must emit precise blockers rather than be skipped or improvised."
   ],
   "risk_ids": [],
   "schema_version": 2,
@@ -308,7 +310,7 @@
     "POST-SUBTASK-024"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Provide and verify external condition: PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED",
+  "unblock_condition": "",
   "validation_classes": [
     "INTEGRATION",
     "NEW_AUTOMATED_TEST_REQUIRED",
@@ -318,7 +320,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-007: Credential configuration and access smoke tests.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-020.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 
@@ -356,7 +358,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - Dependency POST-SUBTASK-015 complete at required maturity
 - Dependency POST-SUBTASK-019 complete at required maturity
-- External condition: PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED
+- External credential condition verified by protected POST-SUBTASK-019 source credential contract; unconfigured optional/provider lanes remain explicit blockers
 
 ## Hard Dependencies
 
@@ -383,7 +385,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 ## Files Expected To Be Modified
 
-- None.
+- tests/test_source_access_smoke_results.py
 
 ## Components Expected To Be Touched
 
@@ -442,7 +444,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 - **SECURITY** / `SECURITY` — `artifacts/source_governance/source_access_smoke_results.json` — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - **INTEGRATION** / `INTEGRATION` — `artifacts/source_governance/source_access_smoke_results.json` — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `NEW_TEST_REQUIRED::POST-SUBTASK-020` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `tests/test_source_access_smoke_results.py` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Required Evidence
 
@@ -489,7 +491,7 @@ Validate that `artifacts/source_governance/source_access_smoke_results.json` can
 - Acceptance failure: the evidence cannot demonstrate that each approved source returns a minimally sufficient response or a precise access blocker.
 - Acceptance failure: the evidence cannot demonstrate that hTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.
 - Acceptance failure: the evidence cannot demonstrate that smoke tests do not bulk-download data or expose secrets.
-- External blocker remains unresolved: PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED.
+- The verified credential contract must remain value-free and fail closed; optional/provider lanes without configured approved credentials must emit precise blockers rather than be skipped or improvised.
 
 ## Stop Conditions
 

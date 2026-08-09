@@ -1769,7 +1769,7 @@ Explicit Out of Scope
 Prerequisites / Dependencies
 - Dependency POST-SUBTASK-015 complete at required maturity
 - Dependency POST-SUBTASK-019 complete at required maturity
-- External condition: PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED
+- External credential condition verified by protected POST-SUBTASK-019 source credential contract; unconfigured optional/provider lanes remain explicit blockers
 - POST-SUBTASK-015
 - POST-SUBTASK-019
 
@@ -1792,7 +1792,7 @@ Required Tests / Validation
 - SECURITY / SECURITY: artifacts/source_governance/source_access_smoke_results.json — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - INTEGRATION / INTEGRATION: artifacts/source_governance/source_access_smoke_results.json — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW_TEST_REQUIRED::POST-SUBTASK-020 — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: tests/test_source_access_smoke_results.py — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 Required Evidence
 - `artifacts/source_governance/source_access_smoke_results.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
@@ -1830,7 +1830,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-020_run_authenticated_and_no_key_source_access_smoke_tests_with_rate_limit_capture.json",To Do,Highest,actionable;core-release;data-materialization;external-blocker;post-wave;sources;subtask;local-id-post-subtask-020,data-sources,POST-SUBTASK-020,GAP-010;HANDOFF-002;HANDOFF-012;ISSUE-003;ISSUE-004,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-020_run_authenticated_and_no_key_source_access_smoke_tests_with_rate_limit_capture.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;sources;subtask;local-id-post-subtask-020,data-sources,POST-SUBTASK-020,GAP-010;HANDOFF-002;HANDOFF-012;ISSUE-003;ISSUE-004,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-371,100325,[POST-SUBTASK-021] Validate access readiness and generate source-specific unblock conditions,100057,"Local ID: POST-SUBTASK-021
 
 Objective

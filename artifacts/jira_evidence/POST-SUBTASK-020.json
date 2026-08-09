@@ -61,6 +61,51 @@
       "bytes": 208,
       "path": "<external-runtime>/BAT-370/validate-data-research.stdout.log",
       "sha256": "bb60ac13c37a0d70a5d6128fb6438c3015c143ca1c5e4ba28c6ca1541e76fc6f"
+    },
+    {
+      "bytes": 684,
+      "path": "<external-runtime>/BAT-370/candidate-pytest.stdout.log",
+      "sha256": "0fd7c401dae5d1f8bfd1d6b29d8c396c5762e9f5c519b0e007e3ba6ec0a6ef20"
+    },
+    {
+      "bytes": 194,
+      "path": "<external-runtime>/BAT-370/candidate-repository-strict.stdout.log",
+      "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
+    },
+    {
+      "bytes": 622,
+      "path": "<external-runtime>/BAT-370/reconcile-dry-run.stdout.log",
+      "sha256": "98498fb580a5272a7e53f5d580a0d3ad5857335160d184a16c9c84cf1c7121b4"
+    },
+    {
+      "bytes": 242,
+      "path": "<external-runtime>/BAT-370/reconcile-apply.stdout.log",
+      "sha256": "f0f9a3860f39cb1130bcc154964a926b583bc2a7bdfdbdc015e9753204ee429b"
+    },
+    {
+      "bytes": 172,
+      "path": "<external-runtime>/BAT-370/reconcile-dry-run-verified.stdout.log",
+      "sha256": "ca813ef5f0c294ea5f83d0d56f8f87e6c05d02325a476af37cdcad85da2d9f44"
+    },
+    {
+      "bytes": 242,
+      "path": "<external-runtime>/BAT-370/reconcile-apply-verified.stdout.log",
+      "sha256": "7bf1c504cc5a9e37c7e62c6b3da4af21addc9f44d1f64414ef6cc8c6adb40076"
+    },
+    {
+      "bytes": 114,
+      "path": "<external-runtime>/BAT-370/rebuild.stdout.log",
+      "sha256": "b404cd5e00684a6c1be33beb34bd906f97d0362eafab81e18cd354cf04c79d1c"
+    },
+    {
+      "bytes": 3242,
+      "path": "<external-runtime>/BAT-370/post-rebuild-jira-strict.stdout.log",
+      "sha256": "0c37461703f778329adbeb78192f51ef168791830c3558ee711cbff94a5dc90f"
+    },
+    {
+      "bytes": 3096,
+      "path": "<external-runtime>/BAT-370/post-rebuild-jira-strict-retry.stdout.log",
+      "sha256": "25ba4ddbcfbc922635a7a3ad4e06ca49ba21bb1cea28e8a127dd20e22a08020c"
     }
   ],
   "commands": [
@@ -103,17 +148,78 @@
       "output_summary": "W06 source universe, A-J research method, PIT/access matrices, evidence breadth and replan gate",
       "result": "PASS",
       "stdout_stderr": "<external-runtime>/BAT-370/validate-data-research.stdout.log"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "output_summary": "250 passed, 24 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/candidate-pytest.stdout.log",
+      "working_directory": "<external-validation-worktree>"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --strict",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/candidate-repository-strict.stdout.log",
+      "working_directory": "<external-validation-worktree>"
+    },
+    {
+      "command": "python -B jira/tools/reconcile_jira_export.py --dry-run --repo-root . <external-runtime>/BAT-370/BAT-370-live-row.csv",
+      "exit_code": 0,
+      "output_summary": "1 change; 1 conflict; Done rejected while local evidence remained PLANNED",
+      "result": "PASS_WITH_EXPECTED_FAIL_CLOSED_CONFLICT",
+      "stdout_stderr": "<external-runtime>/BAT-370/reconcile-dry-run.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/reconcile_jira_export.py --repo-root . <external-runtime>/BAT-370/BAT-370-live-row.csv",
+      "exit_code": 0,
+      "output_summary": "1 changed issue; 1 conflict; strict validation passed",
+      "result": "PASS_WITH_PRESERVED_CONFLICT",
+      "stdout_stderr": "<external-runtime>/BAT-370/reconcile-apply.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/reconcile_jira_export.py --dry-run --repo-root . <external-runtime>/BAT-370/BAT-370-live-row.csv",
+      "exit_code": 0,
+      "output_summary": "2 changes; 0 conflicts after explicit local evidence VERIFIED transition",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/reconcile-dry-run-verified.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/reconcile_jira_export.py --repo-root . <external-runtime>/BAT-370/BAT-370-live-row.csv",
+      "exit_code": 0,
+      "output_summary": "2 changed issue fields; 0 conflicts; strict validation passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/reconcile-apply-verified.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/rebuild_all_derivatives.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/rebuild.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 1,
+      "output_summary": "OSError 22 while replacing generated audit report; failure preserved and isolated retry required",
+      "result": "EXPECTED_TRANSIENT_WINDOWS_RETRY",
+      "stdout_stderr": "<external-runtime>/BAT-370/post-rebuild-jira-strict.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "output_summary": "463 issues; 129 blocked; 36 deferred; 1 ready; 0 errors",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-370/post-rebuild-jira-strict-retry.stdout.log"
     }
   ],
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "completion_claim": "BAT-370 has implemented bounded metadata-only authenticated/no-key source smokes and deterministic consumer validation. Jira completion and downstream readiness remain pending protected merge and main workflow validation.",
-    "evidence_state": "PLANNED_PENDING_PROTECTED_INTEGRATION",
-    "issue_disposition": "IMPLEMENTED_PENDING_PROTECTED_INTEGRATION",
+    "completion_claim": "BAT-370 completed bounded metadata-only authenticated/no-key source access smokes, precise 62-source blocker coverage, and deterministic downstream rejection tests. Technical reachability does not approve rights or production access.",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "PROTECTED_INTEGRATION_AND_MAIN_WORKFLOW_VALIDATION"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "POST_SUBTASK_016_AND_017_HUMAN_RIGHTS_REVIEW",
       "POST_SUBTASK_021_SOURCE_SPECIFIC_ACCESS_READINESS_GATE",
@@ -144,7 +250,7 @@
   "downstream_reevaluation": {
     "consumer_jira_key": "BAT-371",
     "consumer_local_issue_id": "POST-SUBTASK-021",
-    "current_disposition": "PENDING_BAT_370_PROTECTED_INTEGRATION",
+    "current_disposition": "REEVALUATE_FROM_VERIFIED_SOURCE_SPECIFIC_RESULTS",
     "required_handoff": "Parse results with pinned input identities; preserve source-specific rights, credential, provider, and entitlement blockers without promoting technical smoke success to production readiness."
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
@@ -170,9 +276,9 @@
       "sha256": "15c6810fca9cac5dc4569076cc1cfa95c495394649e489b9104a0170b4f2f169"
     },
     {
-      "bytes": 16741,
+      "bytes": 16743,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-020_run_authenticated_and_no_key_source_access_smoke_tests_with_rate_limit_capture.json",
-      "sha256": "c907cfa92004e52385ce45e536523c6911bc5af65ad26a6c36e07a69be830961"
+      "sha256": "0035e5f086a17842607495573c08c9bf7328d4bb2d9fefed3d87aeef7b21b11b"
     },
     {
       "bytes": 17702,
@@ -183,17 +289,37 @@
   "jira_key": "BAT-370",
   "live_jira": {
     "claim_comment_id": "13326",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13327",
+    "evidence_state": "VERIFIED",
+    "integration_comment_id": null,
+    "logical_state": "DONE",
     "maturity": "IMPLEMENTED",
     "post_claim_state_sha256": "9febebda282cc1649ceca738ccf37df32b995af38b5f2f5b572fb915e0a788db",
+    "post_completion_state_sha256": "f7af445f0c8d7bf2f618e0f4d35c85150b125cbc2ef0a736f19fbbc92006513b",
     "pre_claim_rollback_snapshot_sha256": "e1561bcfdba28eb65aac4ad1edd759eb8697180e3d8b6a501ddf448a6d18a72c",
-    "status": "In Progress",
-    "updated": "2026-08-09T08:20:09.547-0500"
+    "pre_completion_rollback_snapshot_sha256": "941b47df3adf1e386fbdc9f1a356fa01de700b2cd58773331152ca8ff9979b3a",
+    "status": "Done",
+    "updated": "2026-08-09T08:29:29.962-0500"
   },
   "local_issue_id": "POST-SUBTASK-020",
   "local_jira_sync": {
-    "state": "PENDING_POST_MERGE_DONE_SYNC"
+    "initial_fail_closed_conflicts": 1,
+    "ready_issue": "POST-SUBTASK-021",
+    "rebuild_result": "PASS",
+    "source_export": "<external-runtime>/BAT-370/BAT-370-live-row.csv",
+    "source_export_sha256": "1152ba12a642da4a9a6d3a7f4043f99248154fffa45e48e53296fed796a02f43",
+    "state": "LOCAL_JIRA_DONE_SYNC_VERIFIED",
+    "strict_blocked_count": 129,
+    "strict_deferred_count": 36,
+    "strict_error_count": 0,
+    "strict_first_attempt": "EXPECTED_TRANSIENT_WINDOWS_OSERROR_22_PRESERVED",
+    "strict_issue_count": 463,
+    "strict_ready_count": 1,
+    "strict_retry_result": "PASS",
+    "verified_apply_changed_fields": 2,
+    "verified_apply_conflicts": 0,
+    "verified_dry_run_changes": 2,
+    "verified_dry_run_conflicts": 0
   },
   "negative_findings": [
     "ZERO_SOURCES_HAVE_HUMAN_APPROVED_PRODUCTION_RIGHTS",
@@ -222,8 +348,15 @@
   "protected_integration": {
     "base_sha": "a7199299b60e7d3716c009d76a18a0e140e03ce5",
     "branch": "codex/BAT-370-source-access-smokes",
-    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_REQUIRED",
-    "state": "PENDING_PROTECTED_PULL_REQUEST_AND_MAIN_VALIDATION"
+    "head_sha": "ae574fb4b1753966159d997ac13201f4e03df1cd",
+    "merge_commit_repository_ci_run": 31315871805,
+    "merge_commit_security_analysis_run": 31315871800,
+    "merge_method": "SQUASH",
+    "merge_sha": "18a1ea6b5965dc90c4e8b745d39cff2ae5c78ce6",
+    "merged_at_utc": "2026-08-09T13:27:49Z",
+    "pull_request": 35,
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
+    "state": "PROTECTED_MERGED_AND_LIVE_JIRA_DONE"
   },
   "schema_version": "1.0.0",
   "security_and_rights": {
@@ -250,10 +383,10 @@
       "sha256": "e3717a112bb64e17229a24d7e4788ff523461b0a849b89803c9285912d6fbac9"
     },
     {
-      "bytes": 13478,
+      "bytes": 17833,
       "path": "<external-runtime>/BAT-370/build_bat370_evidence.py",
-      "sha256": "1006e5963d9d3725f28ae493912001d7f462ce4d62153570dd790fafb7619704"
+      "sha256": "43343bb14b8d7561df86b0a66f3149e65d56104d8b33a012d2df08954945b5ab"
     }
   ],
-  "updated_at_utc": "2026-08-09T13:26:00Z"
+  "updated_at_utc": "2026-08-09T13:32:20Z"
 }

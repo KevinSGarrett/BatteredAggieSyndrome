@@ -38,14 +38,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `DONE`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `DATA_MATERIALIZATION`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `CONTRACT_DEFINED` → `IMPLEMENTED`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-024`
 
 ## Read first

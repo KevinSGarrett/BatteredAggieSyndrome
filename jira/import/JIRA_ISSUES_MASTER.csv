@@ -30994,7 +30994,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-124_establish_clean_environment_ci_for_repository_tests_jira_validators_static_check.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-124,operations-security,POST-SUBTASK-124,HANDOFF-012,PHASE-4,READY,IMPLEMENTED,PLANNED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-124_establish_clean_environment_ci_for_repository_tests_jira_validators_static_check.json",In Progress,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-124,operations-security,POST-SUBTASK-124,HANDOFF-012,PHASE-4,VALIDATION,IMPLEMENTED,PARTIAL,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-475,100429,"[POST-SUBTASK-125] Implement dependency-lock, vulnerability, secret, license/notice, restricted-data pattern, and artifact-integrity checks",100092,"Local ID: POST-SUBTASK-125
 
 Objective

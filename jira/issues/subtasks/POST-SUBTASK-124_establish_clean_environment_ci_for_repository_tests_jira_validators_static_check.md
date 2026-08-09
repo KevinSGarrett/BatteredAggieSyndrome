@@ -76,7 +76,7 @@
   "end_to_end_validation": "Validate that `artifacts/operations/ci_pipeline_validation.json` can be parsed and consumed by `POST-SUBTASK-125` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-124.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "OPERATIONS",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -141,13 +141,13 @@
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Establish clean-environment CI for repository tests, Jira validators, static checks, import dry-run, and deterministic packaging",
   "operational_jira": {
-    "assignee": "",
+    "assignee": "GARRETT TRAINING SYSTEMS INC.",
     "jira_issue_id": "24614",
-    "jira_updated_at": "2026-08-09T00:04:05.713-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "jira_updated_at": "2026-08-09T03:45:13.212-0500",
+    "last_synced_at": "2026-08-09T08:45:13.212000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Review"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -201,8 +201,8 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md"
   ],
-  "ready": true,
-  "record_revision": "2.0",
+  "ready": false,
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/operations/ci_pipeline_validation.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -318,7 +318,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-042: CI, dependency, secret, license, and supply-chain controls.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-124.md",
-  "workflow_state": "READY"
+  "workflow_state": "VALIDATION"
 }
 ```
 

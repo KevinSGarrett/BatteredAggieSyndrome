@@ -1,0 +1,354 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "aggie.ci_pipeline_validation",
+  "created_at_utc": "2026-08-09T08:42:11Z",
+  "issue": {
+    "jira_key": "BAT-474",
+    "local_id": "POST-SUBTASK-124",
+    "objective": "Establish clean-environment CI for repository tests, Jira validators, static checks, import dry-run, and deterministic packaging"
+  },
+  "producer": {
+    "agent": "Codex",
+    "workflow_provider": "GitHub Actions",
+    "local_python": "3.11.9",
+    "protected_ci_python": "3.12"
+  },
+  "source_identity": {
+    "git_base_commit": "de369a5615b89df4d65ebd18638a40706387d9f3",
+    "git_base_tree": "d7b5edd93975d4455bd82380300f02dc1995f406",
+    "repository_ci_path": ".github/workflows/ci.yml",
+    "repository_ci_sha256": "5344b04476093f9c6df1c9291993f88793e1852476f7092489e49487d0f9ff98",
+    "security_ci_path": ".github/workflows/security.yml",
+    "security_ci_sha256": "64780116ec9d1561d472ce989db627ebc6b8b5239c2ab6241207d83c4bf17351",
+    "ci_contract_sha256": "08fd1cd08b6b6e7640577201cd5e9998be6cc2800ce3d483751c381bf0beac7a",
+    "w23_operations_contract_sha256": "620aca9a055f436140ecd7f34da1662a4328856ff726f14a3f2eae0f90cc9978",
+    "absolute_repository_path_included": false
+  },
+  "prerequisite_identity": {
+    "dependency": "POST-SUBTASK-002",
+    "jira_key": "BAT-352",
+    "workflow_state": "DONE",
+    "implementation_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED",
+    "target_validation_results_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+    "target_validation_log_sha256": "8fd2abe37452437cd2a3e73692de2701fb3455c7d2bd1107f9a006f63545fe80",
+    "dependency_evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70"
+  },
+  "workflow_contract": {
+    "clean_checkout_first": true,
+    "events": [
+      "push",
+      "pull_request"
+    ],
+    "core_matrix": {
+      "operating_systems": [
+        "ubuntu-latest",
+        "windows-latest"
+      ],
+      "python_versions": [
+        "3.12"
+      ],
+      "fail_fast": false
+    },
+    "dependency_free_local_execution": true,
+    "external_services_required": [],
+    "external_services_explicitly_not_required": [
+      "Kubernetes",
+      "Kafka",
+      "Redis",
+      "cloud runtime"
+    ],
+    "gate_coverage": [
+      {
+        "gate": "repository static and governance integrity",
+        "ci_enforcement": "core-validation and security-policy run tools/validate_repository.py --strict before package installation",
+        "direct_local_validation": "PASS"
+      },
+      {
+        "gate": "repository test suite",
+        "ci_enforcement": "core-validation runs unittest discovery across tests",
+        "direct_local_validation": "243_OF_243_PASS_WARNING_STRICT"
+      },
+      {
+        "gate": "Jira validators",
+        "ci_enforcement": "the full suite runs tests/test_jira_control_plane.py, which invokes strict second-pass mirror validation and verified live-target metadata checks",
+        "direct_local_validation": "CONTROL_PLANE_IMPORT_SECOND_PASS_AND_2118_SOURCE_REFS_PASS"
+      },
+      {
+        "gate": "import dry-run",
+        "ci_enforcement": "the full suite executes the non-mutating bootstrap readiness check and asserts base_import_ok",
+        "direct_local_validation": "BOOTSTRAP_CORE_IMPORT_PASS_MUTATED_ENVIRONMENT_FALSE"
+      },
+      {
+        "gate": "deterministic packaging",
+        "ci_enforcement": "the full suite compares independent deterministic ZIP bytes/hashes and rejects unsafe archive members",
+        "direct_local_validation": "FOCUSED_PACKAGING_TESTS_PASS"
+      },
+      {
+        "gate": "optional product adapter",
+        "ci_enforcement": "separate locked Windows/Linux product-adapter jobs run pip check, focused product/operations tests, and the W22 boundary gate",
+        "direct_local_validation": "PROTECTED_MAIN_JOBS_PASS"
+      }
+    ]
+  },
+  "protected_branch_enforcement": {
+    "branch": "main",
+    "strict_up_to_date_required": true,
+    "required_checks_bound_to_github_actions_app_id": 15368,
+    "required_contexts": [
+      "core-validation (ubuntu-latest, 3.12)",
+      "core-validation (windows-latest, 3.12)",
+      "product-adapter (ubuntu-latest)",
+      "product-adapter (windows-latest)",
+      "security-policy",
+      "codeql",
+      "dependency-review"
+    ],
+    "required_context_count": 7,
+    "admin_enforcement": true,
+    "conversation_resolution_required": true,
+    "linear_history_required": true,
+    "force_push_allowed": false,
+    "branch_deletion_allowed": false,
+    "naming_skip_control": "Required names are exact and provider-bound; a differently named or non-GitHub-Actions status cannot satisfy the configured check identity.",
+    "retry_control": "GitHub retains run_attempt identity and run/job logs. A rerun must itself conclude successfully; failed local attempts remain separately content-hashed and are not reclassified as passes."
+  },
+  "github_observation": {
+    "observed_main_commit": "de369a5615b89df4d65ebd18638a40706387d9f3",
+    "repository_ci_run": {
+      "run_id": 31303749657,
+      "run_number": 33,
+      "run_attempt": 1,
+      "event": "push",
+      "conclusion": "success",
+      "created_at_utc": "2026-08-09T08:32:02Z",
+      "updated_at_utc": "2026-08-09T08:32:53Z",
+      "logs_url": "https://api.github.com/repos/KevinSGarrett/BatteredAggieSyndrome/actions/runs/31303749657/logs",
+      "html_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/31303749657",
+      "jobs": {
+        "total": 5,
+        "successful": 5,
+        "failed": 0,
+        "cancelled": 0
+      }
+    },
+    "security_ci_run": {
+      "run_id": 31303749683,
+      "run_number": 22,
+      "run_attempt": 1,
+      "event": "push",
+      "conclusion": "success",
+      "created_at_utc": "2026-08-09T08:32:02Z",
+      "updated_at_utc": "2026-08-09T08:33:31Z",
+      "logs_url": "https://api.github.com/repos/KevinSGarrett/BatteredAggieSyndrome/actions/runs/31303749683/logs",
+      "html_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/runs/31303749683",
+      "codeql": "success",
+      "dependency_review": "skipped_on_push_event_required_on_pull_request"
+    },
+    "pull_request_observation": {
+      "pull_request": 10,
+      "head_sha": "599267a8bcb7423c7bda1b109c8b847eb5b8b0c8",
+      "merge_sha": "de369a5615b89df4d65ebd18638a40706387d9f3",
+      "repository_ci_pull_request_run_id": 31303694193,
+      "security_pull_request_run_id": 31303694204,
+      "run_attempts": 1,
+      "all_seven_required_contexts_successful": true,
+      "dependency_review_conclusion": "success",
+      "merged_at_utc": "2026-08-09T08:32:00Z"
+    },
+    "runtime_artifacts": [
+      {
+        "artifact_id": 9035296146,
+        "name": "runtime-environment-windows-latest-py3.12",
+        "bytes": 620,
+        "expired": false,
+        "expires_at_utc": "2026-11-07T08:32:02Z"
+      },
+      {
+        "artifact_id": 9035291285,
+        "name": "runtime-environment-ubuntu-latest-py3.12",
+        "bytes": 535,
+        "expired": false,
+        "expires_at_utc": "2026-11-07T08:32:02Z"
+      }
+    ]
+  },
+  "clean_local_observation": {
+    "checkout": "DETACHED_EXTERNAL_WORKTREE",
+    "base_commit": "de369a5615b89df4d65ebd18638a40706387d9f3",
+    "base_tree": "d7b5edd93975d4455bd82380300f02dc1995f406",
+    "credential_file_present": false,
+    "credential_environment_present": false,
+    "tracked_status_entries_after_validation": 0,
+    "python_version": "3.11.9",
+    "full_suite": {
+      "tests_run": 243,
+      "failures": 0,
+      "errors": 0,
+      "warnings_as_errors": true,
+      "duration_seconds": 5.880,
+      "log_path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/full-suite-run2.log",
+      "log_bytes": 66828,
+      "log_sha256": "d94dde174463f8981ce2f01df987c899fb226cd1fbde8321742f7a7c22adaaad"
+    },
+    "named_gate_manifest": {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/named-gates-results.json",
+      "bytes": 5553,
+      "sha256": "72328f5ccb77713724e20419eb4083c827caa17f901322be5fbffe8f7934f415",
+      "gate_count": 10,
+      "passed": 10,
+      "failed": 0
+    },
+    "strict_preinstall_log": {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/strict-preinstall-run2.log",
+      "bytes": 194,
+      "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
+    },
+    "install_log": {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/install-core-run2.log",
+      "bytes": 3748,
+      "sha256": "ce5b0cdf49630bff723e76e8624848f77fd01ac6085a02197fbe4cc6480ba7a0"
+    },
+    "dirty_root_manifest_rejection_log": {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/dirty-root-manifest-rejection.log",
+      "bytes": 9904,
+      "sha256": "0b09e9c12f3792c8d02c366e8c4a6e1b6e4c3b0b9f8c34da3e2feb084c6d77e2",
+      "finding_count": 46,
+      "exit_code": 1
+    }
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "CI runs all required suites from a clean state, preserves failure logs/evidence, and cannot skip gates through naming/retry while keeping the local workflow runnable without Kubernetes/Kafka/Redis/cloud dependency.",
+      "disposition": "PASS",
+      "observable_result": "Protected main passed the exact seven provider-bound contexts on Windows and Linux. A credential-free detached checkout passed strict pre-install integrity, 243 warning-strict tests, and ten named gates with zero tracked mutations. GitHub logs and runtime artifacts are retained, and the failed first local sequence remains content-hashed.",
+      "verified_at_utc": "2026-08-09T08:42:11Z",
+      "verifier": "Codex"
+    },
+    {
+      "criterion": "The declared output artifacts/operations/ci_pipeline_validation.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "observable_result": "This parseable contract pins the Git commit/tree, workflow and test hashes, prerequisite hashes, GitHub run/job/artifact identities, clean local logs, protected-check policy, and a canonical payload hash.",
+      "verified_at_utc": "2026-08-09T08:42:11Z",
+      "verifier": "Codex"
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "observable_result": "The evidence is limited to CI mechanics and observed check results. AC-038 remains unresolved, THR-011/THR-012 remain TBD, no historical data or protected metric is claimed, and production release authority is false.",
+      "verified_at_utc": "2026-08-09T08:42:11Z",
+      "verifier": "Codex"
+    }
+  ],
+  "negative_findings": [
+    {
+      "id": "LOCAL_INSTALL_BEFORE_INTEGRITY_SEQUENCE_FAILED",
+      "finding": "The first local attempt installed the editable package before strict repository validation. Generated ignored egg-info produced five manifest-coverage findings and the strict gate exited 1.",
+      "waived": false,
+      "resolution": "PRESERVED_AND_CORRECTED_BY_REPLAYING_THE_EXACT_CI_ORDER_FROM_A_SECOND_PRISTINE_CHECKOUT",
+      "evidence_path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/clean-validation.log",
+      "evidence_bytes": 4770,
+      "evidence_sha256": "d915c221004a6520a0d5fd600d755cc908cbf31ed503903955a4529fda0a247e"
+    },
+    {
+      "id": "LIVE_ROOT_PROVENANCE_GENERATION_REJECTED",
+      "finding": "Generating repository provenance from the live checkout included ignored local-only .env, ZIP, cache, and bytecode paths; the credential-free candidate rejected 46 missing/extra manifest entries.",
+      "waived": false,
+      "resolution": "PRESERVED_AND_REGENERATED_ONLY_INSIDE_THE_CREDENTIAL_FREE_CANDIDATE",
+      "evidence_path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/dirty-root-manifest-rejection.log",
+      "evidence_bytes": 9904,
+      "evidence_sha256": "0b09e9c12f3792c8d02c366e8c4a6e1b6e4c3b0b9f8c34da3e2feb084c6d77e2"
+    },
+    {
+      "id": "DEPENDENCY_REVIEW_NOT_APPLICABLE_TO_PUSH_EVENT",
+      "finding": "GitHub marks dependency-review skipped on push because that action is pull-request-only.",
+      "waived": false,
+      "resolution": "REQUIRED_PROVIDER_BOUND_PULL_REQUEST_CONTEXT_PASSED_BEFORE_MERGE"
+    },
+    {
+      "id": "AC_038_AND_TARGET_THRESHOLDS_UNRESOLVED",
+      "finding": "CI implementation evidence does not resolve target-hardware acceptance or set THR-011/THR-012.",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_BLOCKER"
+    }
+  ],
+  "scientific_and_model_evidence": {
+    "applicable": false,
+    "reason": "CI_PIPELINE_VALIDATION_HAS_NO_DATASET_SPLIT_MODEL_METRIC_OR_PRECOMMITTED_SCIENTIFIC_HYPOTHESIS",
+    "fabricated_metrics": false,
+    "protected_results_inspected": false
+  },
+  "security_and_rights": {
+    "secret_values_included": false,
+    "credential_paths_included": false,
+    "user_identifying_paths_included": false,
+    "restricted_payloads_included": false,
+    "source_rights_approval_claimed": false,
+    "protected_files_modified": false
+  },
+  "consumer_handoff": {
+    "consumer": "POST-SUBTASK-125",
+    "parseable_without_manual_reconstruction": true,
+    "silent_unlock_allowed": false,
+    "consumer_must_verify": [
+      "schema_version and canonical content hash",
+      "Git base and workflow identities",
+      "POST-SUBTASK-002 prerequisite identities",
+      "three PASS acceptance rows",
+      "seven exact provider-bound protected contexts",
+      "successful protected pull-request run identities",
+      "credential-free clean-checkout evidence and retained negative result"
+    ],
+    "fail_closed_on": [
+      "missing or malformed artifact",
+      "canonical hash mismatch",
+      "stale prerequisite or workflow identity",
+      "missing or renamed protected context",
+      "non-successful or missing pull-request run",
+      "missing failure-log provenance",
+      "credential or restricted-payload disclosure"
+    ]
+  },
+  "eligibility": {
+    "maturity": "IMPLEMENTED",
+    "classification": "CLEAN_ENVIRONMENT_CI_VALIDATION",
+    "production_release_authority": false,
+    "target_hardware_authority": false,
+    "empirical_model_authority": false
+  },
+  "integration": {
+    "branch": "codex/BAT-474-clean-environment-ci",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "state": "CANDIDATE_PENDING_PROTECTED_REVIEW",
+    "live_jira_claim_comment_id": "13292",
+    "live_jira_review_comment_id": "13293",
+    "live_jira_status": "In Review",
+    "live_jira_logical_state": "VALIDATION",
+    "live_jira_evidence_state": "PARTIAL",
+    "rollback_snapshot_sha256": "056737dce1cd96781aa246e240c3bb6715f623acfb59df00ae8c2e80906df0ef"
+  },
+  "completion": {
+    "issue_disposition": "VALIDATION",
+    "evidence_state": "PARTIAL",
+    "all_issue_acceptance_criteria_pass": true,
+    "protected_candidate_integrated": false,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_CANDIDATE_NOT_YET_MERGED"
+    ],
+    "remaining_program_blockers": [
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC-038",
+      "THR-011",
+      "THR-012"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "sha256",
+    "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
+    "value": "a11ad373a777ea103147c4002dff85237571d601178181557802af3f8d11e6f4"
+  }
+}

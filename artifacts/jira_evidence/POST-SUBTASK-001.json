@@ -228,13 +228,24 @@
     "consumer_must_fail_closed": true,
     "downstream_unlocked": true
   },
+  "integration": {
+    "pull_request": 3,
+    "head_sha": "8adc9052b1de1dba39262d550c5d34c46881ceb4",
+    "merge_sha": "96c679615acd2ffdbc87af917ecb778fa108820c",
+    "merged_at_utc": "2026-08-09T07:10:19Z",
+    "merge_method": "SQUASH",
+    "required_checks": "PASS_ALL_STRICT_CONTEXTS",
+    "live_jira_comment_id": "13285",
+    "live_jira_logical_state": "DONE",
+    "live_jira_status": "Done"
+  },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
     "evidence_state": "VERIFIED",
     "issue_disposition": "DONE",
-    "live_jira_status": "PENDING_VERIFIED_DONE_TRANSITION",
+    "live_jira_status": "Done",
     "local_jira_reconciliation": "PASS_ONE_ROW_DRY_RUN_APPLY_REBUILD_AND_STRICT_SECOND_PASS",
     "remaining_blockers": [],
-    "completion_claim": "The required preflight and activation artifacts are implemented; all three issue-specific criteria pass; the 239-test target-host suite, control plane, protected GitHub path, external data root, and non-fabricating hydration supersession are verified. BAT-351 is eligible for Done."
+    "completion_claim": "The required preflight and activation artifacts are implemented and integrated; all three issue-specific criteria pass; the 240-test target-host suite, control plane, protected GitHub path, external data root, and non-fabricating hydration supersession are verified. BAT-351 is Done in live Jira and local canonical state."
   }
 }

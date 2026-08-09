@@ -1,0 +1,301 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Credential variables are source-scoped and least-privilege where the provider supports scopes.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/credential_contract.redacted.json",
+      "evidence_sha256": "882764a80873cd0b97a530e1af375113a75b4c875259e6b4ea149bbe79c26507",
+      "observable_result": "Exactly one actual source variable is defined, bound only to CollegeFootballData SRC-002/SRC-059; no cross-provider reuse or scope-introspection claim is made, and use is limited to documented read operations/minimum approved tier."
+    },
+    {
+      "criterion": "Rotation/revocation ownership and expiry handling are documented.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/credential_contract.redacted.json",
+      "evidence_sha256": "882764a80873cd0b97a530e1af375113a75b4c875259e6b4ea149bbe79c26507",
+      "observable_result": "Four accountable external roles, a 90-day project review cadence, provider/event-driven rotation, revocation triggers, deletion, readiness invalidation, and BLOCKED_CREDENTIAL expiry behavior are explicit."
+    },
+    {
+      "criterion": "No credential value appears in Git-tracked files or evidence.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/credential_contract.redacted.json",
+      "evidence_sha256": "882764a80873cd0b97a530e1af375113a75b4c875259e6b4ea149bbe79c26507",
+      "observable_result": "The contract contains names/states only, all value flags are false, and it consumes protected POST-SUBTASK-005 evidence with zero tracked-secret matches."
+    }
+  ],
+  "command_log_identities": [
+    {
+      "bytes": 570,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\build.stdout.log",
+      "sha256": "e11b33d8327795a3186d0613dd6c66e0c6792d211c461426cade272e1919b8cf"
+    },
+    {
+      "bytes": 5914,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\consumer.stdout.log",
+      "sha256": "6b33123fd0d95360c0ef44690f6ac09b3925da590ddda6636f6045b06e54fe75"
+    },
+    {
+      "bytes": 202,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\test_data_research.stdout.log",
+      "sha256": "aee27cd7dbd91ffd4acc9803e750dfc2af4c8e87a44d00a8f0fc744ea4474e01"
+    },
+    {
+      "bytes": 702,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\pytest-full.stdout.log",
+      "sha256": "8343d263e7cbfe7c40821b003381ac77aaa282a8b6b083818856aeb544ce2570"
+    },
+    {
+      "bytes": 194,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\repository-strict.stdout.log",
+      "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
+    },
+    {
+      "bytes": 700,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\candidate-pytest.stdout.log",
+      "sha256": "fe3d313a0ba54f9b31e07a49024064c62453155d5d83c7a5b62e2923c13102e8"
+    },
+    {
+      "bytes": 3096,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\candidate-jira-strict.stdout.log",
+      "sha256": "7155a1eba40054fb5874634a1ac959b4763e311e79a86dd13ed6e0c215c21cab"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\build_credential_contract.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\build.stdout.log"
+    },
+    {
+      "command": "python -B C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\validate_credential_contract.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\consumer.stdout.log"
+    },
+    {
+      "command": "python -m pytest tests/test_data_research.py -q",
+      "exit_code": 0,
+      "output_summary": "2 passed",
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\test_data_research.stdout.log"
+    },
+    {
+      "command": "python -m pytest -q",
+      "exit_code": 0,
+      "output_summary": "246 passed, 16 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\pytest-full.stdout.log"
+    },
+    {
+      "command": "python tools/validate_repository.py --repo-root . --strict",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\repository-strict.stdout.log",
+      "working_directory": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-365-candidate"
+    },
+    {
+      "command": "python -m pytest -q -p no:cacheprovider",
+      "exit_code": 0,
+      "output_summary": "246 passed, 16 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\candidate-pytest.stdout.log",
+      "working_directory": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-365-candidate"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "output_summary": "463 issues; 131 blocked; 36 deferred; 1 ready; 0 errors",
+      "result": "PASS",
+      "stdout_stderr": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\candidate-jira-strict.stdout.log",
+      "working_directory": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-365-candidate"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "completion_claim": "BAT-369 defines and validates source credential names, roles, lifecycle, storage, and fail-closed consumer behavior. It contains no values and does not complete access smokes, source rights, production readiness, historical materialization, empirical admission, or release readiness.",
+    "evidence_state": "COMPLETE_PENDING_PROTECTED_INTEGRATION",
+    "issue_disposition": "IN_PROGRESS",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_INTEGRATION",
+      "LIVE_JIRA_COMPLETION",
+      "LOCAL_JIRA_DONE_SYNC"
+    ],
+    "remaining_program_blockers": [
+      "POST_SUBTASK_016_AND_017_HUMAN_RIGHTS_REVIEW",
+      "POST_SUBTASK_020_AND_021_ACCESS_SMOKES_AND_READINESS",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC038_THRESHOLD_AUTHORITY_BLOCKER"
+    ]
+  },
+  "consumer_validation": {
+    "consumer": "POST-SUBTASK-020",
+    "leakage_scan": {
+      "candidate_file_count": 2768,
+      "configured_identity_name_count": 1,
+      "configured_secret_name_count": 3,
+      "output_identity_matching_occurrence_count": 0,
+      "passed": true,
+      "secret_matching_file_count": 0,
+      "secret_matching_occurrence_count": 0,
+      "values_included": false
+    },
+    "negative_mutations_rejected": 14,
+    "positive_consumer_pass": true,
+    "rejection_classes": [
+      "INPUT_HASH_MISMATCH:artifacts/source_governance/source_inventory_validation.json",
+      "SOURCE_BINDING_COVERAGE_MISMATCH",
+      "DEFINED_CREDENTIAL_SET_MISMATCH",
+      "UNAUTHORIZED_OR_INVENTED_CREDENTIAL_NAME:SRC-001",
+      "CFBD_BINDING_OR_REDACTION_INVALID",
+      "CFBD_BINDING_OR_REDACTION_INVALID",
+      "CFBD_OPTIONAL_ENTITLEMENT_FALSE_CLAIM",
+      "VALUE_OR_PRODUCTION_READY_VIOLATION:SRC-002",
+      "OWNER_ROLE_COVERAGE_INVALID:SRC-002",
+      "LIFECYCLE_FAIL_CLOSED_CONTRACT_INVALID",
+      "LIFECYCLE_FAIL_CLOSED_CONTRACT_INVALID",
+      "UNDEFINED_OR_PORTAL_CREDENTIAL_POLICY_UNSAFE",
+      "ELIGIBILITY_HONESTY_BOUNDARY_VIOLATED:source_rights_approved",
+      "STORAGE_BOUNDARY_VIOLATED:absolute_local_paths_included"
+    ],
+    "report": {
+      "bytes": 3491,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\post-subtask-020-consumer.safe.json",
+      "sha256": "8fcb50e16f88d1548a9bb9371b4e696cada6ca1259624710c69de49c87e1e740"
+    }
+  },
+  "created_at_utc": "2026-08-09T13:03:04Z",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "external_condition_activation": {
+    "activation_head_sha": "6e3945084eeff134be784eb95e696d631b25b3c1",
+    "activation_merge_sha": "45145ac874163033557b9591b6b926a6c83ba2e2",
+    "activation_merged_at_utc": "2026-08-09T12:53:56Z",
+    "activation_pull_request": 31,
+    "activation_repository_ci_run": 31314432263,
+    "activation_security_analysis_run": 31314432278,
+    "condition": "USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY",
+    "credential_values_included": false,
+    "result": "VERIFIED_FROM_PROTECTED_REDACTED_EVIDENCE"
+  },
+  "input_identities": [
+    {
+      "bytes": 85497,
+      "path": "artifacts/source_governance/source_inventory_validation.json",
+      "sha256": "da81d4b9def2fd6f65fb514c3ff542a1b754bdc2ead679fde5f06eb097b402cf"
+    },
+    {
+      "bytes": 22977,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-015.json",
+      "sha256": "20dbc94108c475da1822f9d5bed7ee25824b7642e6d366adb8fc403a8941d981"
+    },
+    {
+      "bytes": 78290,
+      "path": "artifacts/source_governance/production_source_inventory.csv",
+      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+    },
+    {
+      "bytes": 90500,
+      "path": "artifacts/source_governance/source_priority_decisions.json",
+      "sha256": "878317510091659ffb35e7860de523fc1dc119271c6971e16a82e0372ad936be"
+    },
+    {
+      "bytes": 10578,
+      "path": "artifacts/implementation_preflight/credential_inventory.redacted.json",
+      "sha256": "52882dc1b88596cb583be3a842ca3ce86b88e37b79d0875b8b1f410a731c097d"
+    },
+    {
+      "bytes": 15976,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-005.json",
+      "sha256": "ab4cdd6c9e148b960952c23e7d5b4dca1a96214b578c7ccb94f6e84443dd0ee5"
+    },
+    {
+      "bytes": 16879,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-019_define_credential_names_scopes_owners_rotation_and_non_repository_storage_contra.json",
+      "sha256": "4d90b6b1b1cf5b9d4910ed39b3dac2d88eb3ea5377edf7edbf46c1bfacee87ae"
+    },
+    {
+      "bytes": 17702,
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-019.json",
+      "sha256": "14a435e9fa51c5e7eadf0b51731a8ae4830703c8c1c8524a30baa55639ae32a2"
+    }
+  ],
+  "jira_key": "BAT-369",
+  "live_jira": {
+    "claim_comment_id": "13323",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "IMPLEMENTED",
+    "post_claim_state_sha256": "8ae073442f08b8531a1c5a8d862fb6e5ebf6004a132ca5d5583bed436f63d981",
+    "pre_claim_rollback_snapshot_sha256": "b3a9fbf529ae1dd6817773feb4a6eabd8919e37d9624aeba16f38ba674d9df9d",
+    "status": "In Progress"
+  },
+  "local_issue_id": "POST-SUBTASK-019",
+  "local_jira_sync": {
+    "state": "PENDING_PROTECTED_INTEGRATION_AND_LIVE_JIRA_COMPLETION"
+  },
+  "observable_outcome": "A human-readable and machine-readable source credential contract binds the one actual source credential name to CollegeFootballData only, covers all 62 source inventory rows with explicit no-key or undefined-pending-license states, documents owner roles and fail-closed lifecycle handling, and preserves zero credential values and zero production-ready sources.",
+  "outputs": [
+    {
+      "bytes": 7152,
+      "maturity": "IMPLEMENTED",
+      "path": "docs/operations/SOURCE_CREDENTIAL_CONTRACT.md",
+      "sha256": "eb8fff63a16a075cf194c2c6d82cba9f234df434d9ae9c416776b001dee4d168"
+    },
+    {
+      "bytes": 60201,
+      "content_hash": "4087ac7c5f7c21e4efd8c86f8adb1cf422de16948c5a7fd9d0a8bc494768d4a6",
+      "credential_values": 0,
+      "defined_credential_variables": 1,
+      "maturity": "IMPLEMENTED",
+      "path": "artifacts/source_governance/credential_contract.redacted.json",
+      "production_access_ready_sources": 0,
+      "schema_version": "1.0.0",
+      "sha256": "882764a80873cd0b97a530e1af375113a75b4c875259e6b4ea149bbe79c26507",
+      "source_bindings": 62
+    }
+  ],
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "protected_integration": {
+    "base_sha": "45145ac874163033557b9591b6b926a6c83ba2e2",
+    "branch": "codex/BAT-369-source-credential-contract",
+    "head_sha": null,
+    "merge_method": "SQUASH_REQUIRED",
+    "merge_sha": null,
+    "pull_request": null,
+    "required_checks": "PENDING",
+    "state": "PENDING_PROTECTED_INTEGRATION"
+  },
+  "schema_version": "1.0.0",
+  "security_and_rights": {
+    "credential_values_included": false,
+    "historical_data_materialized": false,
+    "identity_values_in_outputs": false,
+    "post_subtask_020_access_smokes_claimed": false,
+    "production_access_ready_claimed": false,
+    "protected_files_modified": false,
+    "restricted_raw_payloads_included": false,
+    "source_rights_approval_claimed": false,
+    "tracked_secret_matching_occurrences": 0
+  },
+  "tool_identities": [
+    {
+      "bytes": 12192,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\build_credential_contract.py",
+      "sha256": "7439a54a9b3fc8017a7dfcda4dbc117eb9cbaeb825f291715a31b8d4335f7fb8"
+    },
+    {
+      "bytes": 14001,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\validate_credential_contract.py",
+      "sha256": "2f2c3a4fd573187cb09aae5511383b984e57ec4c6768c8a4daf964c11c4a5736"
+    },
+    {
+      "bytes": 9413,
+      "path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-369\\build_bat369_evidence.py",
+      "sha256": "fcff4b97b5a3c78a82cf1c2671b881b5a5ea5b3a9db49c6d45c6040a124ff206"
+    }
+  ],
+  "updated_at_utc": "2026-08-09T13:03:04Z"
+}

@@ -17,7 +17,7 @@
     "artifacts/operations/ci_security_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-126.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-124;POST-SUBTASK-125",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-125",
   "blocks": [
     "POST-STORY-043",
     "POST-SUBTASK-127",

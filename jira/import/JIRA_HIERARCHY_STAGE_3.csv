@@ -2395,7 +2395,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-026_normalize_and_reconcile_core_game_event_records_while_preserving_immutable_sourc.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-026,raw-snapshots,POST-SUBTASK-026,GAP-002;HANDOFF-003,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-026_normalize_and_reconcile_core_game_event_records_while_preserving_immutable_sourc.json",Done,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-026,raw-snapshots,POST-SUBTASK-026,GAP-002;HANDOFF-003,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-377,100331,[POST-SUBTASK-027] Approve or block the population-level core-history coverage gate,100059,"Local ID: POST-SUBTASK-027
 
 Objective
@@ -2490,7 +2490,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-027_approve_or_block_the_population_level_core_history_coverage_gate.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;local-id-post-subtask-027,raw-snapshots,POST-SUBTASK-027,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-027_approve_or_block_the_population_level_core_history_coverage_gate.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;local-id-post-subtask-027,raw-snapshots,POST-SUBTASK-027,GAP-002;HANDOFF-003,PHASE-1,READY,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-378,100332,"[POST-SUBTASK-028] Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence",100060,"Local ID: POST-SUBTASK-028
 
 Objective

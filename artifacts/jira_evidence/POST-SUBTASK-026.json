@@ -67,7 +67,7 @@
     "achieved_maturity": "EMPIRICALLY_VALIDATED",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
     "remaining_issue_scope_blockers": []
   },
@@ -76,7 +76,7 @@
     "consumers": [
       "POST-SUBTASK-027"
     ],
-    "decision": "REEVALUATE_AFTER_PROTECTED_INTEGRATION"
+    "decision": "POST-SUBTASK-027_READY_FOR_POPULATION_COVERAGE_GATE"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
   "input_identities": [
@@ -121,25 +121,49 @@
       "sha256": "7d4ab29035a0b269d84819c4468d3bf5ad4179d592103d5b4f87ddf3745461b8"
     },
     {
-      "bytes": 16669,
+      "bytes": 16671,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-026_normalize_and_reconcile_core_game_event_records_while_preserving_immutable_sourc.json",
-      "sha256": "e3955f7c1cd54bf18b72cf1ba1e539b7f8147884f6977ef5880d5cbdb1cd349d"
+      "sha256": "b9a149d72d7cdc3d30df27e241bb50757aaf60e4bea6de90f2531adf1a5c793e"
     }
   ],
   "jira_key": "BAT-376",
   "live_jira": {
     "claim_comment_id": "13347",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13348",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
     "maturity": "EMPIRICALLY_VALIDATED",
     "post_claim_state": {
       "bytes": 295,
       "path": "<external-runtime>/BAT-376/post-claim-jira-state.json",
       "sha256": "4dda1e4c90e73818e4971023193fa1d3c43c97a86e2ce9da1ce63720eaa8e2d2"
     },
-    "status": "In Progress"
+    "post_complete_state": {
+      "bytes": 282,
+      "path": "<external-runtime>/BAT-376/post-complete-jira-state.json",
+      "sha256": "8cb0126b963d58ad7da394dd49726bc9ba896704c853f6f7968ac5379ca4f9b0"
+    },
+    "status": "Done",
+    "updated": "2026-08-09T12:39:04.259-0500"
   },
   "local_issue_id": "POST-SUBTASK-026",
+  "local_jira_sync": {
+    "live_export": {
+      "bytes": 160,
+      "path": "<external-runtime>/BAT-376/BAT-376-live-row.csv",
+      "sha256": "dd6e49b7859f7c888e289742dccf8a3f19d7a068964b28000509ddebb5ed75dc"
+    },
+    "second_pass": {
+      "blocked_count": 121,
+      "deferred_count": 36,
+      "errors": 0,
+      "issue_count": 463,
+      "ready_count": 2,
+      "result": "PASS",
+      "source_anchors": 2118
+    },
+    "state": "SYNCHRONIZED_PENDING_PROTECTED_COMPLETION_COMMIT"
+  },
   "normalization_reconciliation": {
     "exact_duplicate_rows_deduplicated": {},
     "games_with_drive_final_score_match": 3595,
@@ -203,8 +227,15 @@
   },
   "protected_integration": {
     "branch": "codex/BAT-376-core-normalization",
-    "merge_method": "SQUASH_REQUIRED",
-    "state": "PENDING_PROTECTED_PULL_REQUEST"
+    "head_sha": "bcd5f28b8a395a4e27c77b424c1e320b6bf89de1",
+    "merge_commit_repository_ci_run": 31326886713,
+    "merge_commit_security_analysis_run": 31326886718,
+    "merge_method": "SQUASH",
+    "merge_sha": "0f3c6f217d4036c4c47efc0a553b8108b0c55a21",
+    "merged_at_utc": "2026-08-09T17:37:19Z",
+    "pull_request": 64,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "quarantine": {
     "by_reason": {
@@ -248,6 +279,7 @@
     "normalized_or_quarantine_payloads_in_git_or_jira": false,
     "source_contract": "APPROVED_CFBD_PERSONAL_NONCOMMERCIAL_LOCAL_NORMALIZATION"
   },
+  "updated_at_utc": "2026-08-09T17:40:59Z",
   "validation": {
     "report": {
       "bytes": 3027,

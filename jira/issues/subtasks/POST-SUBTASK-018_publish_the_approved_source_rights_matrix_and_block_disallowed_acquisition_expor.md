@@ -87,7 +87,7 @@
   "end_to_end_validation": "A production acquisition/export attempt is allowed or blocked solely by explicit current rights decisions, with no implicit public-equals-redistributable assumption. The gate decision must explicitly reevaluate downstream issues: POST-STORY-008, POST-STORY-009, POST-SUBTASK-022, POST-SUBTASK-023, POST-SUBTASK-024, POST-SUBTASK-025, POST-SUBTASK-026, POST-SUBTASK-027.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "INTEGRATED",
@@ -156,18 +156,18 @@
     "sources",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-018",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Publish the approved source-rights matrix and block disallowed acquisition/export paths",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24508",
-    "jira_updated_at": "2026-08-09T00:03:24.954-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T11:11:21.115-0500",
+    "last_synced_at": "2026-08-09T16:13:42.847078+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-368\\BAT-368-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -225,7 +225,7 @@
     "tests/test_data_research.py",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -329,7 +329,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-006: Per-source license, terms, and redistribution decisions.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-018.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 

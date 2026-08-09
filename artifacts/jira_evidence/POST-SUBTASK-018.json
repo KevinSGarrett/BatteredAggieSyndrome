@@ -6,7 +6,7 @@
       "evidence_path": "artifacts/source_governance/source_rights_gate_test.json",
       "evidence_sha256": "348c424f28b715c2eb77504ca23bc1b18d921586eca53ab211b153759787429c",
       "observable_result": "62 unique source decisions loaded from content-pinned tier-1 and supplemental inputs; configured secret-value matches=0.",
-      "verified_at_utc": "2026-08-09T16:02:28Z",
+      "verified_at_utc": "2026-08-09T16:14:28Z",
       "verifier": "SourceRightsRegistry plus executable gate evaluator"
     },
     {
@@ -15,7 +15,7 @@
       "evidence_path": "artifacts/source_governance/source_rights_gate_test.json",
       "evidence_sha256": "348c424f28b715c2eb77504ca23bc1b18d921586eca53ab211b153759787429c",
       "observable_result": "310 source/action assertions passed; unknown source, PFF, unapproved production promotion, stale input identity, duplicate source, invalid schema/status/count, and unsafe raw export were denied.",
-      "verified_at_utc": "2026-08-09T16:02:28Z",
+      "verified_at_utc": "2026-08-09T16:14:28Z",
       "verifier": "SourceRightsRegistry plus executable gate evaluator"
     },
     {
@@ -24,7 +24,7 @@
       "evidence_path": "artifacts/source_governance/source_rights_gate_test.json",
       "evidence_sha256": "348c424f28b715c2eb77504ca23bc1b18d921586eca53ab211b153759787429c",
       "observable_result": "CFBD/Open-Meteo production acquisition is approved while raw export is independently denied; derived export and local model training are separate explicit actions.",
-      "verified_at_utc": "2026-08-09T16:02:28Z",
+      "verified_at_utc": "2026-08-09T16:14:28Z",
       "verifier": "SourceRightsRegistry plus executable gate evaluator"
     }
   ],
@@ -135,11 +135,11 @@
     "achieved_maturity": "INTEGRATED",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
     "remaining_issue_scope_blockers": []
   },
-  "created_at_utc": "2026-08-09T16:02:28Z",
+  "created_at_utc": "2026-08-09T16:14:28Z",
   "downstream_reevaluation": {
     "consumers": [
       "POST-STORY-008",
@@ -151,7 +151,7 @@
       "POST-SUBTASK-026",
       "POST-SUBTASK-027"
     ],
-    "decision": "REEVALUATE_AFTER_PROTECTED_INTEGRATION"
+    "decision": "REEVALUATED_BY_CANONICAL_JIRA_DERIVATIVE_REBUILD"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
   "gate_results": {
@@ -212,9 +212,9 @@
       "sha256": "26e29a0df0eafa8282bab427933ae83022c8f87c85fd25a1e7e741a56c0cddab"
     },
     {
-      "bytes": 17227,
+      "bytes": 17229,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",
-      "sha256": "a48653164f80c5a6638a839ae633fa692a2ee1490fdcd868324da74bacdfe548"
+      "sha256": "bbe44ab17413dfa8b2a84eaa5322099a8531a77866888034711114f1bcbf4398"
     }
   ],
   "jira_key": "BAT-368",
@@ -225,7 +225,13 @@
       "path": "<external-runtime>/BAT-368/post-claim-jira-state.json",
       "sha256": "c6e9f709516562eb431c19743a1565086903ee2af9b43447c5f5af598b8cc562"
     },
-    "state": "IN_PROGRESS_INTEGRATED_PENDING_PROTECTED_INTEGRATION"
+    "completion_comment_id": "13340",
+    "completion_state": {
+      "bytes": 277,
+      "path": "<external-runtime>/BAT-368/post-complete-jira-state.json",
+      "sha256": "8a4ebf341fd4361c53017f62332dc92ff194ca01b4328f054b6e6e95b85b4b31"
+    },
+    "state": "DONE_PRODUCTION_READY_VERIFIED"
   },
   "local_issue_id": "POST-SUBTASK-018",
   "observable_outcome": "One verified 62-source machine registry now drives fail-closed acquisition, export, and local-training authorization. Unknown, rejected, stale, malformed, and unapproved source/action pairs are denied; access approval does not imply raw redistribution approval.",
@@ -250,8 +256,21 @@
   ],
   "protected_integration": {
     "branch": "codex/BAT-368-source-rights-gate",
-    "merge_method": "SQUASH_REQUIRED",
-    "state": "PENDING_PROTECTED_PULL_REQUEST"
+    "head_commit": "79aca41d5f33eec6478a58b661ed8c422fb01ff0",
+    "main_repository_ci": {
+      "result": "PASS",
+      "run_id": 31322896938
+    },
+    "main_security_analysis": {
+      "result": "PASS",
+      "run_id": 31322896894
+    },
+    "merge_commit": "fcfcdb5db6224d0e0264a896e0c53c6ab8b5d829",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T16:06:05Z",
+    "protected_contexts": "PASS",
+    "pull_request": 56,
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "security_and_rights": {

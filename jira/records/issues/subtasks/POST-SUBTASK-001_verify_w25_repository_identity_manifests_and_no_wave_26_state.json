@@ -144,11 +144,11 @@
   "operational_jira": {
     "assignee": "GARRETT TRAINING SYSTEMS INC.",
     "jira_issue_id": "24491",
-    "jira_updated_at": "2026-08-09T01:59:10.471-0500",
-    "last_synced_at": "2026-08-09T06:59:10.471000+00:00",
+    "jira_updated_at": "2026-08-09T02:10:35.712-0500",
+    "last_synced_at": "2026-08-09T07:10:35.712000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.reconciliation\\BAT-351-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",

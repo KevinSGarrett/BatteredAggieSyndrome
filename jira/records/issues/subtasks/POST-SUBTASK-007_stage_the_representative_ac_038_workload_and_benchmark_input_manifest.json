@@ -16,7 +16,7 @@
     "artifacts/benchmarks/ac038_input_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-007.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-006",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-008",
     "POST-SUBTASK-009"
@@ -202,7 +202,7 @@
     "docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md",
     "scripts/benchmark_target.ps1"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -320,7 +320,7 @@
     "POST-SUBTASK-009"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "BENCHMARK",
     "CHRONOLOGICAL_REPLAY",
@@ -331,5 +331,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-003: Authoritative target-hardware benchmark and threshold governance.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-007.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }

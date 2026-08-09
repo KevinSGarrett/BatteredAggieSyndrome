@@ -26,7 +26,7 @@
     "artifacts/benchmarks/ac038_gate_decision.json",
     "artifacts/jira_evidence/POST-SUBTASK-009.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-006;POST-SUBTASK-007;POST-SUBTASK-008",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-007;POST-SUBTASK-008",
   "blocks": [
     "POST-EPIC-015",
     "POST-STORY-004",

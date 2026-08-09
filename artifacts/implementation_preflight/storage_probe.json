@@ -257,26 +257,32 @@
   },
   "integration": {
     "branch": "codex/BAT-356-storage-safety",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "merge_method": null,
-    "required_checks": "PENDING_PROTECTED_PR",
+    "pull_request": 17,
+    "head_sha": "1bd9a56fc078ed2489c6edec78df781c92d08ce7",
+    "merge_sha": "074fe54e7e20d9783e8290f92e65a77ed4d63516",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T10:24:28Z",
+    "required_checks": "PASSED",
+    "main_repository_ci_run_id": 31308257210,
+    "main_repository_ci_attempt": 1,
+    "main_repository_ci_conclusion": "success",
+    "main_security_analysis_run_id": 31308257215,
+    "main_security_analysis_attempt": 1,
+    "main_security_analysis_conclusion": "success",
     "live_jira_claim_comment_id": "13303",
-    "live_jira_status": "In Progress",
-    "live_jira_logical_state": "IN_PROGRESS",
-    "live_jira_evidence_state": "PLANNED",
-    "live_jira_maturity": "FUNCTIONAL_STARTER",
-    "live_jira_updated_at": "2026-08-09T05:14:06.668-0500"
+    "live_jira_completion_comment_id": "13304",
+    "live_jira_status": "Done",
+    "live_jira_logical_state": "DONE",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "INTEGRATED",
+    "live_jira_updated_at": "2026-08-09T05:26:03.218-0500"
   },
   "completion": {
-    "issue_disposition": "VALIDATION",
-    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "DONE",
+    "evidence_state": "VERIFIED",
     "all_issue_acceptance_criteria_pass": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": [
-      "PENDING_PROTECTED_PR_INTEGRATION"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
@@ -288,6 +294,6 @@
   "content_hash": {
     "algorithm": "sha256",
     "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
-    "value": "56f67a97773f700549b0273d5c1ff344adb2226103076280b48695a48f39b0b5"
+    "value": "3a8c4e76dc523aab95b1aa21708242d271cebcae849e5dfe5de9bbc45587e216"
   }
 }

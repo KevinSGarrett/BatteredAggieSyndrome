@@ -542,7 +542,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-006_validate_target_storage_permissions_free_space_atomic_writes_and_quarantine_beha.json",In Progress,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-006,operations-security,POST-SUBTASK-006,GAP-001;GAP-010;HANDOFF-001;HANDOFF-002,PHASE-4,VALIDATION,INTEGRATED,PARTIAL,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-006_validate_target_storage_permissions_free_space_atomic_writes_and_quarantine_beha.json",Done,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-006,operations-security,POST-SUBTASK-006,GAP-001;GAP-010;HANDOFF-001;HANDOFF-002,PHASE-4,DONE,INTEGRATED,VERIFIED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-357,100311,[POST-SUBTASK-007] Stage the representative AC-038 workload and benchmark input manifest,100053,"Local ID: POST-SUBTASK-007
 
 Objective
@@ -639,7 +639,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-007_stage_the_representative_ac_038_workload_and_benchmark_input_manifest.json",To Do,Highest,actionable;core-release;environment;post-wave;protected-gate;subtask;local-id-post-subtask-007,operations-security,POST-SUBTASK-007,AC-038;GAP-001;HANDOFF-001;TASK-161,PHASE-4,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-007_stage_the_representative_ac_038_workload_and_benchmark_input_manifest.json",To Do,Highest,actionable;core-release;environment;post-wave;protected-gate;subtask;local-id-post-subtask-007,operations-security,POST-SUBTASK-007,AC-038;GAP-001;HANDOFF-001;TASK-161,PHASE-4,READY,IMPLEMENTED,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-358,100312,[POST-SUBTASK-008] Run scripts/benchmark_target.ps1 on the declared Windows/Ryzen 7 HX/32 GB/RTX 5060/NVMe target,100053,"Local ID: POST-SUBTASK-008
 
 Objective

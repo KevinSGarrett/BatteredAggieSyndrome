@@ -11800,7 +11800,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-124_establish_clean_environment_ci_for_repository_tests_jira_validators_static_check.json",In Progress,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-124,operations-security,POST-SUBTASK-124,HANDOFF-012,PHASE-4,VALIDATION,IMPLEMENTED,PARTIAL,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-124_establish_clean_environment_ci_for_repository_tests_jira_validators_static_check.json",Done,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-124,operations-security,POST-SUBTASK-124,HANDOFF-012,PHASE-4,DONE,IMPLEMENTED,VERIFIED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-475,100429,"[POST-SUBTASK-125] Implement dependency-lock, vulnerability, secret, license/notice, restricted-data pattern, and artifact-integrity checks",100092,"Local ID: POST-SUBTASK-125
 
 Objective
@@ -11897,7 +11897,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-125_implement_dependency_lock_vulnerability_secret_license_notice_restricted_data_pa.json",To Do,Medium,actionable;core-release;operations;post-wave;security;subtask;local-id-post-subtask-125,operations-security,POST-SUBTASK-125,HANDOFF-012,PHASE-4,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,SECURITY,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-125_implement_dependency_lock_vulnerability_secret_license_notice_restricted_data_pa.json",To Do,Medium,actionable;core-release;operations;post-wave;security;subtask;local-id-post-subtask-125,operations-security,POST-SUBTASK-125,HANDOFF-012,PHASE-4,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,SECURITY,ATOMIC_EXECUTION
 Sub-task,BAT-476,100430,[POST-SUBTASK-126] Validate protected-branch/release blocking and auditable exception behavior,100092,"Local ID: POST-SUBTASK-126
 
 Objective

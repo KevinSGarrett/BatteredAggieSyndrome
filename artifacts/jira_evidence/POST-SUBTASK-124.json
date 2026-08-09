@@ -2,6 +2,7 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "created_at_utc": "2026-08-09T08:42:11Z",
+  "updated_at_utc": "2026-08-09T08:57:31Z",
   "jira_key": "BAT-474",
   "local_issue_id": "POST-SUBTASK-124",
   "producer": {
@@ -12,9 +13,9 @@
   "outputs": [
     {
       "path": "artifacts/operations/ci_pipeline_validation.json",
-      "bytes": 15372,
-      "sha256": "8307e35b6aa1cc3d32db53b34a1593d95063e278a34766fbf24e7fc4ceb27756",
-      "canonical_payload_sha256": "a11ad373a777ea103147c4002dff85237571d601178181557802af3f8d11e6f4",
+      "bytes": 18079,
+      "sha256": "93b5f86257ea50e926d1158bc4e51bbbba975145a4ece902bece962527917fa3",
+      "canonical_payload_sha256": "70f71251b4715d9d0c93787a84258558742c70634d74d38f6284fa74624774d9",
       "schema_version": "1.0.0",
       "maturity": "IMPLEMENTED",
       "eligibility": "CLEAN_ENVIRONMENT_CI_VALIDATION_RELEASE_BLOCKED"
@@ -73,6 +74,16 @@
         "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/dirty-root-manifest-rejection.log",
         "bytes": 9904,
         "sha256": "0b09e9c12f3792c8d02c366e8c4a6e1b6e4c3b0b9f8c34da3e2feb084c6d77e2"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/candidate-final-full-suite.log",
+        "bytes": 66828,
+        "sha256": "d7716352e49e681f469b06b4b695e945a5ebec0792ddda6d87b7277f4a94640b"
+      },
+      {
+        "path": "EXTERNAL_DATA_ROOT/runtime/BAT-474/pre-completion-jira-rollback.json",
+        "bytes": 418,
+        "sha256": "058b64c53787f1fd27adde8667b92145507844f24bcb49cca4a4dbfa02f4cf52"
       }
     ]
   },
@@ -82,7 +93,7 @@
       "disposition": "PASS",
       "observable_result": "The latest protected main commit passed the 5-job repository workflow on Windows/Linux and the pull request passed all seven exact provider-bound contexts. The credential-free replay passed strict integrity, 243 tests, and ten named gates with no service dependency or tracked mutation. Both successful and failed local logs are content-hashed.",
       "evidence_path": "artifacts/operations/ci_pipeline_validation.json",
-      "evidence_sha256": "8307e35b6aa1cc3d32db53b34a1593d95063e278a34766fbf24e7fc4ceb27756",
+      "evidence_sha256": "93b5f86257ea50e926d1158bc4e51bbbba975145a4ece902bece962527917fa3",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T08:42:11Z"
     },
@@ -91,7 +102,7 @@
       "disposition": "PASS",
       "observable_result": "The output is parseable, content-hashed, and pins the source commit/tree, workflows, prerequisite, protected-check policy, GitHub runs/jobs/artifacts, clean local logs, and downstream rejection rules.",
       "evidence_path": "artifacts/operations/ci_pipeline_validation.json",
-      "evidence_sha256": "8307e35b6aa1cc3d32db53b34a1593d95063e278a34766fbf24e7fc4ceb27756",
+      "evidence_sha256": "93b5f86257ea50e926d1158bc4e51bbbba975145a4ece902bece962527917fa3",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T08:42:11Z"
     },
@@ -100,7 +111,7 @@
       "disposition": "PASS",
       "observable_result": "No data, metric, rights, target-hardware, or release claim is made. AC-038 and THR-011/THR-012 remain explicitly unresolved.",
       "evidence_path": "artifacts/operations/ci_pipeline_validation.json",
-      "evidence_sha256": "8307e35b6aa1cc3d32db53b34a1593d95063e278a34766fbf24e7fc4ceb27756",
+      "evidence_sha256": "93b5f86257ea50e926d1158bc4e51bbbba975145a4ece902bece962527917fa3",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T08:42:11Z"
     }
@@ -147,6 +158,24 @@
       "exit_code": 1,
       "result": "FAILURE_PRESERVED",
       "output_summary": "The clean candidate rejected 46 missing/extra entries representing local-only .env, ZIP, cache, and bytecode files; provenance is regenerated only inside the credential-free candidate."
+    },
+    {
+      "command": "Final credential-free implementation candidate gate",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "2,746 clean provenance rows, 243 of 243 warning-strict tests, all named Jira/W23/W25/W17/consumer gates, and 27 of 27 expected candidate file hashes passed with zero post-validation content mismatches."
+    },
+    {
+      "command": "GitHub protected integration for PR #11 and merge-commit replay",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All seven required PR contexts passed on attempt 1; head 911a0e69bfec7f1477afd6b09eb71753a433f725 squash-merged as 584af513673ab9ba3144e66567d2663e7c927471, whose repository-ci and security-analysis push runs also passed on attempt 1."
+    },
+    {
+      "command": "Live Jira BAT-474 completion protocol",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "A redacted pre-completion rollback snapshot was captured externally; BAT-474 verified as Done / DONE / IMPLEMENTED / VERIFIED with completion comment 13295."
     }
   ],
   "scientific_and_model_evidence": {
@@ -202,26 +231,34 @@
   },
   "integration": {
     "branch": "codex/BAT-474-clean-environment-ci",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "state": "CANDIDATE_PENDING_PROTECTED_REVIEW",
+    "pull_request": 11,
+    "head_sha": "911a0e69bfec7f1477afd6b09eb71753a433f725",
+    "merge_sha": "584af513673ab9ba3144e66567d2663e7c927471",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T08:55:28Z",
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
+    "repository_ci_main_run_id": 31304674450,
+    "security_main_run_id": 31304674437,
+    "main_run_attempts": 1,
+    "state": "PROTECTED_MERGED_AND_LIVE_JIRA_VERIFIED",
     "live_jira_claim_comment_id": "13292",
     "live_jira_review_comment_id": "13293",
-    "live_jira_logical_state": "VALIDATION",
-    "live_jira_evidence_state": "PARTIAL",
+    "live_jira_final_candidate_comment_id": "13294",
+    "live_jira_completion_comment_id": "13295",
+    "live_jira_logical_state": "DONE",
+    "live_jira_evidence_state": "VERIFIED",
     "live_jira_maturity": "IMPLEMENTED",
-    "live_jira_status": "In Review",
-    "rollback_snapshot_sha256": "056737dce1cd96781aa246e240c3bb6715f623acfb59df00ae8c2e80906df0ef"
+    "live_jira_status": "Done",
+    "live_jira_updated_at": "2026-08-09T03:57:31.672-0500",
+    "pre_claim_rollback_snapshot_sha256": "056737dce1cd96781aa246e240c3bb6715f623acfb59df00ae8c2e80906df0ef",
+    "pre_completion_rollback_snapshot_sha256": "058b64c53787f1fd27adde8667b92145507844f24bcb49cca4a4dbfa02f4cf52"
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "PROTECTED_CANDIDATE_NOT_YET_MERGED"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
@@ -229,6 +266,6 @@
       "THR-011",
       "THR-012"
     ],
-    "completion_claim": "BAT-474 has a locally validated, content-hashed CI contract and all three issue-specific acceptance rows pass. Protected integration and live Jira Done/Verified synchronization are still pending; no release claim is made."
+    "completion_claim": "BAT-474's clean-environment CI contract is content-hashed, protected-integrated, verified on the merge commit, and synchronized as Done/Verified in live Jira and canonical evidence. All three issue-specific criteria pass; no rights, data, model-performance, target-hardware, or release claim is made."
   }
 }

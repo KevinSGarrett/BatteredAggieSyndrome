@@ -1,0 +1,461 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/schema_readiness_gate.json",
+      "evidence_sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2",
+      "observable_result": "All 990 immutable captures are represented by 255 source/season/domain profiles pinned to verified BAT-383/BAT-384 identities; the gate recomputes from those exact bytes.",
+      "verified_at_utc": "2026-08-09T23:54:38.003189Z",
+      "verifier": "<external-runtime>/BAT-386/validate_schema_readiness_gate.py"
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/schema_readiness_gate.json",
+      "evidence_sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2",
+      "observable_result": "All 7,296 measured table-field occurrences have exactly one allowed disposition and reason ({'ACCEPTED': 6359, 'QUARANTINED': 937}); temporal, target-exclusion, raw-storage, and model eligibility remain fail-closed and independent.",
+      "verified_at_utc": "2026-08-09T23:54:38.003189Z",
+      "verifier": "<external-runtime>/BAT-386/validate_schema_readiness_gate.py"
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/schema_readiness_gate.json",
+      "evidence_sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2",
+      "observable_result": "All 12 entity-bearing domains have measured key-quality counts and a declared strategy; 60 unusable partitions are enumerated and quarantined while 195 usable partitions remain eligible for scoped resolution.",
+      "verified_at_utc": "2026-08-09T23:54:38.003189Z",
+      "verifier": "<external-runtime>/BAT-386/validate_schema_readiness_gate.py"
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/schema_readiness_gate.json",
+      "evidence_sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2",
+      "observable_result": "All three prerequisite issue manifests and both primary artifacts are byte-hash pinned; unresolved normalization, flattening, mapping, PIT, target-exclusion, chronological, and final-readiness requirements remain explicit.",
+      "verified_at_utc": "2026-08-09T23:54:38.003189Z",
+      "verifier": "<external-runtime>/BAT-386/validate_schema_readiness_gate.py"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-386/build_schema_readiness_gate.py --repo . --created-at 2026-08-09T23:51:50.9855939Z",
+      "exit_code": 0,
+      "result": "PASS; 195 ready and 60 quarantined partitions across 255 total"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-386/validate_schema_readiness_gate.py --repo .",
+      "exit_code": 0,
+      "result": "PASS baseline; 10/10 unsafe mutations rejected"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m unittest tests.test_entity_governance",
+      "exit_code": 1,
+      "result": "PRESERVED_DIAGNOSTIC_FAILURE: tests is not an import package; corrected to discovery by filename"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m unittest discover -s tests -p test_entity_governance.py; python -B tools/validate_entities.py",
+      "exit_code": 0,
+      "result": "PASS; 4 focused tests and entity validator"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m unittest discover -s tests; python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "unittest 266 passed, 1 skipped; pytest 271 passed, 1 skipped, 33 subtests passed"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py; validate_second_pass.py; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "PRODUCTION_READY",
+    "completion_claimed": false,
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "SCOPED_READINESS_GATE_VALIDATED_PENDING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "protected PR integration and live/local Jira completion synchronization"
+    ]
+  },
+  "created_at_utc": "2026-08-09T23:54:38.003189Z",
+  "decision": {
+    "all_domains_or_partitions_ready": false,
+    "gap_002_resolved": false,
+    "gate_disposition": "PASS_SCOPED_ENTITY_RESOLUTION_INPUTS_APPROVED_FINAL_POPULATION_READINESS_REJECTED",
+    "historical_pregame_population_ready": false,
+    "normalized_population_ready": false,
+    "partial_domain_failure_globally_blocks_unrelated_work": false,
+    "production_model_or_scientific_result_claimed": false,
+    "schema_and_missingness_contract_ready": true,
+    "scoped_entity_resolution_may_begin": true,
+    "unusable_partitions_enumerated": true
+  },
+  "domain_decisions": [
+    {
+      "accepted_source_identity_field_occurrences": 25,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "advanced_game_statistics",
+      "domain_state": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "field_occurrence_count": 200,
+      "name_candidate_field_occurrences": 25,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 25,
+      "partition_count": 25,
+      "quarantined_field_occurrences": 50,
+      "quarantined_partition_count": 0,
+      "ready_partition_count": 25,
+      "resolution_strategy": "Resolve source gameId through the verified game crosswalk; generate team candidates from normalized labels and accept only corroborated source/team mappings.",
+      "source_identity_field_occurrences": 25
+    },
+    {
+      "accepted_source_identity_field_occurrences": 50,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "drives",
+      "domain_state": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "field_occurrence_count": 625,
+      "name_candidate_field_occurrences": 0,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 0,
+      "partition_count": 25,
+      "quarantined_field_occurrences": 75,
+      "quarantined_partition_count": 0,
+      "ready_partition_count": 25,
+      "resolution_strategy": "Resolve source gameId first, then treat drive id as source-scoped within the verified game; never join a source id directly to a canonical id.",
+      "source_identity_field_occurrences": 50
+    },
+    {
+      "accepted_source_identity_field_occurrences": 16,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "player_box_scores",
+      "domain_state": "QUARANTINED_PENDING_DECLARED_TRANSFORM",
+      "field_occurrence_count": 32,
+      "name_candidate_field_occurrences": 0,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 0,
+      "partition_count": 16,
+      "quarantined_field_occurrences": 16,
+      "quarantined_partition_count": 16,
+      "ready_partition_count": 0,
+      "resolution_strategy": "Flatten the nested teams payload to game/team/category/player/stat grain; resolve root game id, then verified team and athlete crosswalks before registry use.",
+      "source_identity_field_occurrences": 16
+    },
+    {
+      "accepted_source_identity_field_occurrences": 48,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "plays",
+      "domain_state": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "field_occurrence_count": 432,
+      "name_candidate_field_occurrences": 0,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 0,
+      "partition_count": 16,
+      "quarantined_field_occurrences": 30,
+      "quarantined_partition_count": 0,
+      "ready_partition_count": 16,
+      "resolution_strategy": "Resolve gameId and driveId through verified parent mappings, then retain play id as source-scoped event identity with chronological event ordering.",
+      "source_identity_field_occurrences": 48
+    },
+    {
+      "accepted_source_identity_field_occurrences": 146,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "plays_structured_gamebook",
+      "domain_state": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "field_occurrence_count": 2814,
+      "name_candidate_field_occurrences": 270,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 6,
+      "partition_count": 6,
+      "quarantined_field_occurrences": 134,
+      "quarantined_partition_count": 0,
+      "ready_partition_count": 6,
+      "resolution_strategy": "Resolve game/team source ids through verified crosswalks, use names only for candidate generation, and quarantine field/season drift without discarding usable play partitions.",
+      "source_identity_field_occurrences": 198
+    },
+    {
+      "accepted_source_identity_field_occurrences": 0,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "rankings",
+      "domain_state": "QUARANTINED_PENDING_DECLARED_TRANSFORM",
+      "field_occurrence_count": 100,
+      "name_candidate_field_occurrences": 0,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 25,
+      "partition_count": 25,
+      "quarantined_field_occurrences": 25,
+      "quarantined_partition_count": 25,
+      "ready_partition_count": 0,
+      "resolution_strategy": "Flatten polls and ranked-team entries to poll/week/team grain, then resolve team labels or ids through verified team mappings; season/week alone cannot identify ranked teams.",
+      "source_identity_field_occurrences": 0
+    },
+    {
+      "accepted_source_identity_field_occurrences": 28,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "rosters",
+      "domain_state": "PARTIALLY_READY_WITH_ENUMERATED_QUARANTINE",
+      "field_occurrence_count": 460,
+      "name_candidate_field_occurrences": 40,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 6,
+      "partition_count": 31,
+      "quarantined_field_occurrences": 29,
+      "quarantined_partition_count": 3,
+      "ready_partition_count": 28,
+      "resolution_strategy": "Resolve team and athlete source ids in season scope; use first/last/team labels only as candidate evidence and preserve roster membership effective dates.",
+      "source_identity_field_occurrences": 28
+    },
+    {
+      "accepted_source_identity_field_occurrences": 214,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "schedules_games_official_outcomes",
+      "domain_state": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "field_occurrence_count": 2142,
+      "name_candidate_field_occurrences": 63,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 63,
+      "partition_count": 63,
+      "quarantined_field_occurrences": 487,
+      "quarantined_partition_count": 0,
+      "ready_partition_count": 63,
+      "resolution_strategy": "Resolve game, home team, away team, and venue source ids through verified crosswalks; use season and schedule context as corroborating natural-key evidence.",
+      "source_identity_field_occurrences": 252
+    },
+    {
+      "accepted_source_identity_field_occurrences": 18,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "schedules_outcomes",
+      "domain_state": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "field_occurrence_count": 120,
+      "name_candidate_field_occurrences": 18,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 6,
+      "partition_count": 6,
+      "quarantined_field_occurrences": 0,
+      "quarantined_partition_count": 0,
+      "ready_partition_count": 6,
+      "resolution_strategy": "Resolve game/home/away source ids through verified crosswalks and corroborate with team labels, season, date, and official outcome context.",
+      "source_identity_field_occurrences": 18
+    },
+    {
+      "accepted_source_identity_field_occurrences": 16,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "team_box_scores",
+      "domain_state": "QUARANTINED_PENDING_DECLARED_TRANSFORM",
+      "field_occurrence_count": 32,
+      "name_candidate_field_occurrences": 0,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 0,
+      "partition_count": 16,
+      "quarantined_field_occurrences": 16,
+      "quarantined_partition_count": 16,
+      "ready_partition_count": 0,
+      "resolution_strategy": "Flatten the nested teams payload to game/team/category/stat grain; resolve root game id and verified team mappings before registry use.",
+      "source_identity_field_occurrences": 16
+    },
+    {
+      "accepted_source_identity_field_occurrences": 25,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "teams",
+      "domain_state": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "field_occurrence_count": 325,
+      "name_candidate_field_occurrences": 50,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 0,
+      "partition_count": 25,
+      "quarantined_field_occurrences": 75,
+      "quarantined_partition_count": 0,
+      "ready_partition_count": 25,
+      "resolution_strategy": "Create source-scoped team mappings from source id; use school and conference labels only for candidate generation and effective-dated corroboration.",
+      "source_identity_field_occurrences": 25
+    },
+    {
+      "accepted_source_identity_field_occurrences": 1,
+      "direct_source_id_to_canonical_id_join_allowed": false,
+      "domain": "venues",
+      "domain_state": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "field_occurrence_count": 14,
+      "name_candidate_field_occurrences": 1,
+      "name_only_durable_join_allowed": false,
+      "natural_key_field_occurrences": 0,
+      "partition_count": 1,
+      "quarantined_field_occurrences": 0,
+      "quarantined_partition_count": 0,
+      "ready_partition_count": 1,
+      "resolution_strategy": "Create source-scoped venue mappings from source id and corroborate with normalized name and location attributes before canonical acceptance.",
+      "source_identity_field_occurrences": 1
+    }
+  ],
+  "downstream_reevaluation": {
+    "POST-STORY-013": "ENTRY_SEQUENCE_OPENED_FOR_SCOPED_CANONICAL_REGISTRY_WORK",
+    "POST-SUBTASK-037": "READY_AFTER_CANONICAL_JIRA_COMPLETION_SYNC",
+    "POST-SUBTASK-038": "REMAINS_DEPENDENT_ON_POST-SUBTASK-037; ROSTER_PARTITIONS_ARE_SCOPED_READY",
+    "POST-SUBTASK-039": "REMAINS_DEPENDENT_ON_POST-SUBTASK-037_AND_POST-SUBTASK-038"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 11362,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-033.json",
+      "sha256": "6b466745ba8d9be28216eb07ca1344ba1b98aba83535722ac7ae4aa160dbaddd"
+    },
+    {
+      "bytes": 9080,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-034.json",
+      "sha256": "28260ef84e400797e85835898c162add36817394fb0059b8f59c528edc0bf8fc"
+    },
+    {
+      "bytes": 11282,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-035.json",
+      "sha256": "be9da0ce2698c81303d35bd23cd1d80f81a673581f071be189d07832aa9c5341"
+    },
+    {
+      "bytes": 4676835,
+      "canonical_payload_sha256": "00d7d7495d4b5fef9cf16030995876caefb98d9bfbadaad8850171964fc3aae9",
+      "path": "artifacts/entities/population_schema_profile.json",
+      "sha256": "7e3e263e8b6d8404287b4ebc7a3a44a6941a2d80fe94d772c8b7b4d3314723fe"
+    },
+    {
+      "bytes": 7650226,
+      "path": "artifacts/entities/schema_reconciliation.csv",
+      "sha256": "077225f5081f6739621dbcbc8e16919eb411e9d9c7b61063149ca4aafcd2fa02"
+    }
+  ],
+  "jira_key": "BAT-386",
+  "live_jira": {
+    "checkpoint_comment_id": "13415",
+    "claim_comment_id": "13414",
+    "completion_comment_id": null,
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "PRODUCTION_READY",
+    "status": "In Progress"
+  },
+  "local_id": "POST-SUBTASK-036",
+  "local_jira_sync": {
+    "changed_issues": 1,
+    "conflict_count": 0,
+    "export_path": "<external-runtime>/BAT-386/BAT-386-live-row.csv",
+    "result": "PASS",
+    "strict_validation": "PASS"
+  },
+  "negative_findings_and_limits": [
+    "Three 2001-2003 roster captures have zero rows and zero fields; they are immutable evidence but remain unusable for entity resolution.",
+    "All 25 rankings partitions retain nested polls payloads and require explicit poll/week/team flattening before team resolution.",
+    "All 16 team-box and 16 player-box partitions retain nested teams payloads and require declared grain-specific flattening before contained entity resolution.",
+    "Field-level reconciliation retains 937 quarantined occurrences, including 474 null-only, 439 complex, and 24 incompatible scalar-drift occurrences.",
+    "The 195 ready partitions are inputs to scoped entity resolution only; direct source-ID-to-canonical-ID and durable name-only joins remain prohibited.",
+    "No normalized population, historical pregame/PIT eligibility, chronological replay, GAP-002 resolution, production model, protected performance, Texas A&M lift, BAS, or Aggie Excess result is claimed."
+  ],
+  "observable_outcome": {
+    "domain_states": {
+      "advanced_game_statistics": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "drives": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "player_box_scores": "QUARANTINED_PENDING_DECLARED_TRANSFORM",
+      "plays": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "plays_structured_gamebook": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "rankings": "QUARANTINED_PENDING_DECLARED_TRANSFORM",
+      "rosters": "PARTIALLY_READY_WITH_ENUMERATED_QUARANTINE",
+      "schedules_games_official_outcomes": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "schedules_outcomes": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "team_box_scores": "QUARANTINED_PENDING_DECLARED_TRANSFORM",
+      "teams": "READY_FOR_SCOPED_ENTITY_RESOLUTION",
+      "venues": "READY_FOR_SCOPED_ENTITY_RESOLUTION"
+    },
+    "gate_disposition": "PASS_SCOPED_ENTITY_RESOLUTION_INPUTS_APPROVED_FINAL_POPULATION_READINESS_REJECTED",
+    "measured_table_field_occurrences": 7296,
+    "negative_mutations_rejected": 10,
+    "quarantined_partition_count": 60,
+    "ready_partition_count": 195,
+    "season_range": [
+      1963,
+      2025
+    ],
+    "snapshot_count": 990,
+    "source_count": 2,
+    "table_partition_count": 255
+  },
+  "outputs": [
+    {
+      "bytes": 285550,
+      "canonical_payload_sha256": "e587cdee0c9bfe8ad3ecaa8284bb5cd14f432c1a679945a235a88525ffdc2e83",
+      "path": "artifacts/entities/schema_readiness_gate.json",
+      "sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2"
+    },
+    {
+      "bytes": 2662,
+      "path": "<external-validation>/BAT-386/schema_readiness_gate_validation.json",
+      "sha256": "ee82fa65fb833857c4086b6cd777f907f3ffa3d3b570f903ea79ed5bc1f84b24"
+    }
+  ],
+  "policy_and_security": {
+    "bulk_payloads_in_git": false,
+    "private_research_acquisition_and_local_training_allowed": true,
+    "quality_or_schema_failures_scoped_to_affected_field_partition_or_domain": true,
+    "raw_third_party_publication_allowed": false,
+    "rights_licensing_terms_scraping_redistribution_or_upstream_authorization_uncertainty_blocks_private_use": false,
+    "rights_metadata_nonblocking": true,
+    "storage_boundary": "EXTERNAL_DATA_ROOT"
+  },
+  "producer": {
+    "base_commit": "67ec7f1b42a3670232d881995c2c194b0311fcd3",
+    "branch": "codex/BAT-386-schema-readiness",
+    "external_builder": {
+      "bytes": 19695,
+      "path": "<external-runtime>/BAT-386/build_schema_readiness_gate.py",
+      "sha256": "447105d6c03346f43e3b0302f03577fc2ee4c4277d6853ea7bb1ffffa242580c"
+    },
+    "external_validator": {
+      "bytes": 6539,
+      "path": "<external-runtime>/BAT-386/validate_schema_readiness_gate.py",
+      "sha256": "d268a019fa4802ba2288886f94e81e297f301ab814e3d83ed2015bc2efb43314"
+    },
+    "python": "3.11.9",
+    "rollback_checkpoint": {
+      "bundle_sha256": "36a0d9a7ac7c1c3ff895b7d6dbd0c03c70fad9242dd968adaa0ef9ed25fd5fd9",
+      "integrity": "PASS",
+      "path": "<external-backups>/BAT-386/20260809T234644Z"
+    }
+  },
+  "protected_integration": {
+    "head_sha": null,
+    "merge_sha": null,
+    "pull_request": null,
+    "repository_ci_run": null,
+    "security_analysis_run": null,
+    "state": "PENDING"
+  },
+  "schema_version": "1.0.0",
+  "scientific_validation": {
+    "classification": "NOT_APPLICABLE_READINESS_CONTROL_ONLY",
+    "dataset_or_matrix": null,
+    "metrics_or_uncertainty": null,
+    "model": null,
+    "null_or_negative_results_preserved": true,
+    "protected_evaluation_status": "NOT_OPENED"
+  },
+  "unusable_partition_summary": {
+    "complete_enumeration": "artifacts/entities/schema_readiness_gate.json#/unusable_partitions",
+    "count": 60,
+    "domains": [
+      "player_box_scores",
+      "rankings",
+      "rosters",
+      "team_box_scores"
+    ],
+    "states": [
+      "QUARANTINED_NO_USABLE_ENTITY_EVIDENCE",
+      "QUARANTINED_PENDING_EXPLICIT_FLATTENING_AND_GRAIN_CONTRACT"
+    ]
+  },
+  "updated_at_utc": "2026-08-09T23:54:38.003189Z",
+  "validation": {
+    "focused_tests": "PASS",
+    "full_test_suite": "PASS",
+    "jira_validators": "PASS",
+    "negative_mutations_rejected": 10,
+    "repository_and_provenance_validators": "PASS",
+    "result": "LOCAL_IMPLEMENTATION_PASS_PENDING_PROTECTED_INTEGRATION",
+    "schema_readiness_gate": "PASS"
+  }
+}

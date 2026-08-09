@@ -23,7 +23,7 @@
     "artifacts/benchmarks/ac038_target_benchmark.log",
     "artifacts/jira_evidence/POST-SUBTASK-008.json"
   ],
-  "blocked_reason": "AUTHORITATIVE_TARGET_WINDOWS_HOST_NOT_AVAILABLE_IN_THIS_SESSION",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-009"
   ],
@@ -78,7 +78,7 @@
   "end_to_end_validation": "Validate that `artifacts/benchmarks/ac038_target_benchmark.json`, `artifacts/benchmarks/ac038_target_benchmark.log` can be parsed and consumed by `POST-SUBTASK-009` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-001",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-008.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -151,11 +151,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24498",
-    "jira_updated_at": "2026-08-09T00:03:20.135-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "jira_updated_at": "2026-08-09T05:57:07.239-0500",
+    "last_synced_at": "2026-08-09T10:57:07.239000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -314,7 +314,7 @@
     "POST-SUBTASK-009"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Provide and verify external condition: AUTHORITATIVE_TARGET_WINDOWS_HOST_NOT_AVAILABLE_IN_THIS_SESSION",
+  "unblock_condition": "",
   "validation_classes": [
     "BENCHMARK",
     "END_TO_END",
@@ -323,7 +323,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-003: Authoritative target-hardware benchmark and threshold governance.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-008.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "VALIDATION"
 }
 ```
 

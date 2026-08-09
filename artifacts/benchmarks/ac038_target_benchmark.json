@@ -1,0 +1,446 @@
+{
+  "schema_version": "aggie.ac038_target_benchmark.v1",
+  "artifact_type": "authoritative_target_class_execution_evidence",
+  "created_at_utc": "2026-08-09T11:00:49Z",
+  "issue": {
+    "jira_key": "BAT-358",
+    "local_id": "POST-SUBTASK-008",
+    "objective": "Run scripts/benchmark_target.ps1 on the declared Windows/Ryzen 7 HX/32 GB/RTX 5060/NVMe target"
+  },
+  "producer": {
+    "agent": "Codex",
+    "python": "3.11.9",
+    "powershell": "5.1.26100.8875",
+    "psutil": "7.2.2",
+    "wrapper_campaign_script_sha256": "eefb63f12b9db19ad2ea0827f6ee3f535735cf530cefca851bf6646978d03304",
+    "six_stage_executor_sha256": "acd9dd92dd7cb9df8654f5b062dafe77732ba9efe0506ab1e40e6edecfc2906c",
+    "six_stage_campaign_script_sha256": "03c3781aacd13825bb0ab416b68ab8085ab603712c35aa64570d9033205eb2ca"
+  },
+  "source_identity": {
+    "git_commit": "c1ec5cabf4ae2501ffe6c2c1990f256c95e0da29",
+    "git_tree": "82ecab35ed349b526c1d027fcc41a786d6599663",
+    "checkout_kind": "CLEAN_DETACHED_EXTERNAL_WORKTREE",
+    "worktree_status_before_entries": 0,
+    "worktree_status_after_entries": 0,
+    "repository_root_alias": "REPOSITORY_ROOT",
+    "absolute_repository_path_included": false
+  },
+  "prerequisite_identities": [
+    {
+      "dependency": "POST-SUBTASK-002",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/implementation_preflight/target_validation_results.json",
+      "primary_artifact_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-002.json",
+      "evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70"
+    },
+    {
+      "dependency": "POST-SUBTASK-006",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/implementation_preflight/storage_probe.json",
+      "primary_artifact_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-006.json",
+      "evidence_sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a"
+    },
+    {
+      "dependency": "POST-SUBTASK-007",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "primary_artifact_path": "artifacts/benchmarks/ac038_input_manifest.json",
+      "primary_artifact_bytes": 19908,
+      "primary_artifact_sha256": "d4107ad844576c7e3e2e8ec960abb4455176d78d86f0cd859a166fe82acbe303",
+      "primary_artifact_canonical_sha256": "8ddbc0069fff75144e8c6cdc34e0f72d7aad6ba0c5855529a623ce23cd9dbc5b",
+      "evidence_path": "artifacts/jira_evidence/POST-SUBTASK-007.json",
+      "evidence_sha256": "6abdf28fd4c31d6eca53b9625cd4db6968f8445bee1fc6bc32ac3d6b3f616413"
+    }
+  ],
+  "code_and_config_identities": [
+    {
+      "path": "src/aggie_analytics/operations/benchmark.py",
+      "bytes": 3324,
+      "sha256": "70ab9e5d3606c4128e0ef379506754b363ac8c818a93b0d95f9723fc9250a146"
+    },
+    {
+      "path": "scripts/benchmark_target.ps1",
+      "bytes": 235,
+      "sha256": "4ea56690d2ab62544198eff8fb2381a127acced0a9f4eff92c8b08074c4f6cde"
+    },
+    {
+      "path": "docs/operations/TARGET_HARDWARE_BENCHMARK.md",
+      "bytes": 917,
+      "sha256": "b6e3cdcd2d23bf66b2ae060b0a6cb110fdc113dd0deb2da7aa55ab509849383c"
+    },
+    {
+      "path": "artifacts/benchmarks/ac038_target_benchmark.log",
+      "bytes": 5114,
+      "sha256": "9d52749c762635d00d17f44cce2ead58fb0885d7edb373a8f2fcc9b7088aa2dc"
+    }
+  ],
+  "host_precondition": {
+    "external_condition": "AUTHORITATIVE_TARGET_WINDOWS_HOST_NOT_AVAILABLE_IN_THIS_SESSION",
+    "condition_satisfied": true,
+    "evidence_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/host-precondition.safe.json",
+    "evidence_bytes": 967,
+    "evidence_sha256": "34f3d7bc6488c158499de843a914b9c913328cf6a19c240dc2dbd1466630f7f6",
+    "cleared_before_execution": true
+  },
+  "machine_inventory": {
+    "os_family": "Windows",
+    "os_caption": "Microsoft Windows 11 Home",
+    "os_version": "10.0.26200",
+    "architecture": "64-bit",
+    "cpu": "AMD Ryzen 7 8745HX with Radeon Graphics",
+    "cores": 8,
+    "logical_processors": 16,
+    "ram_gib": 31.3,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "storage_media": "SSD",
+    "storage_bus": "NVMe",
+    "storage_health": "Healthy",
+    "declared_target_class_match": true,
+    "substitute_host_used": false,
+    "device_serials_included": false
+  },
+  "mandated_wrapper_campaign": {
+    "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/benchmark_target.ps1",
+    "profile": "representative",
+    "row_count": 100000,
+    "repetitions": 3,
+    "run_isolation": "INDEPENDENT_PROCESS_RUNS",
+    "warm_cold_distinction": "INDEPENDENT_PROCESS_REPETITIONS; OS_CACHE_STATE_NOT_CONTROLLED",
+    "process_errors": 0,
+    "workload_hashes_repeat_stable": true,
+    "external_campaign_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/target-campaign.safe.json",
+    "external_campaign_bytes": 10233,
+    "external_campaign_sha256": "624e19e3583d4e962c5307a7507e28b1044e5068fcb4507eebe4ddc70d4f033d",
+    "external_log_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/target-campaign.safe.log",
+    "external_log_bytes": 1065,
+    "external_log_sha256": "6a790a5a1f0a80724dcfe5b10b4b3549fbb3b94f10d994a4855851c0b859faf0",
+    "wall_clock_summary_seconds": {
+      "minimum": 4.097733,
+      "median": 4.213658,
+      "maximum": 4.240638
+    },
+    "workload_result_sha256": {
+      "json_roundtrip": "fc4f0757c89b0add6b6d42a41c616dd4fd9d4fa68f06b5458c4c2d24ee7539a1",
+      "content_hash": "8ae52eca4d97fa79886a2c5da625e613fbb5debae9bf49ff4fdd72004b8adbab",
+      "group_aggregate": "5397d1ea148e66865dd06b0a1a4bfdc667bea0bad2851822cd8bf332329f082a"
+    },
+    "runs": [
+      {
+        "run": 1,
+        "wall_clock_seconds": 4.213658,
+        "raw_result_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/raw-run-1.json",
+        "raw_result_bytes": 1330,
+        "raw_result_sha256": "cd02beb4cea320c5e78d19ed2b19d9f60e625bcc3144e2c0ed3d18021aa2c92c",
+        "telemetry_samples_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/telemetry-run-1.json",
+        "telemetry_samples_bytes": 9389,
+        "telemetry_samples_sha256": "0291ea2d374d1bf273fb341088c963f1f2274f1d1d31d0a1048255d4dd153ae1",
+        "system_cpu_peak_percent": 27.9,
+        "process_tree_cpu_peak_percent": 118.1,
+        "process_tree_rss_peak_mib": 174.059,
+        "system_ram_used_peak_gib": 26.112,
+        "system_ram_available_minimum_gib": 5.186,
+        "gpu_utilization_peak_percent": 0.0,
+        "gpu_memory_used_peak_mib": 1512.0,
+        "gpu_power_draw_peak_watts": 3.52,
+        "disk_read_bytes_delta": 3229184,
+        "disk_write_bytes_delta": 6361600,
+        "volume_free_bytes_before": 93594251264,
+        "volume_free_bytes_after": 93593784320
+      },
+      {
+        "run": 2,
+        "wall_clock_seconds": 4.240638,
+        "raw_result_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/raw-run-2.json",
+        "raw_result_bytes": 1330,
+        "raw_result_sha256": "54cf6e4745c8aff7489c112cbf5076a26a3208671a7804a00b5d391415ad699e",
+        "telemetry_samples_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/telemetry-run-2.json",
+        "telemetry_samples_bytes": 9392,
+        "telemetry_samples_sha256": "67c8373e52e7af5354e88d1d06e7a8891580580ae9c91c1f1d2576527690f8e7",
+        "system_cpu_peak_percent": 29.1,
+        "process_tree_cpu_peak_percent": 166.2,
+        "process_tree_rss_peak_mib": 176.941,
+        "system_ram_used_peak_gib": 26.123,
+        "system_ram_available_minimum_gib": 5.175,
+        "gpu_utilization_peak_percent": 0.0,
+        "gpu_memory_used_peak_mib": 1512.0,
+        "gpu_power_draw_peak_watts": 3.53,
+        "disk_read_bytes_delta": 2589696,
+        "disk_write_bytes_delta": 1433600,
+        "volume_free_bytes_before": 93593776128,
+        "volume_free_bytes_after": 93593616384
+      },
+      {
+        "run": 3,
+        "wall_clock_seconds": 4.097733,
+        "raw_result_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/raw-run-3.json",
+        "raw_result_bytes": 1329,
+        "raw_result_sha256": "f89e7ab8436c9dfd75e1f0dbaa7fe8ef5b07ac098f56e395677cedc7e65f739b",
+        "telemetry_samples_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/telemetry-run-3.json",
+        "telemetry_samples_bytes": 9057,
+        "telemetry_samples_sha256": "6bfaac6bc7b32f10aa0e73a139ff0366139164af52ce264fea67f4dc80dcac63",
+        "system_cpu_peak_percent": 29.1,
+        "process_tree_cpu_peak_percent": 99.5,
+        "process_tree_rss_peak_mib": 175.648,
+        "system_ram_used_peak_gib": 26.127,
+        "system_ram_available_minimum_gib": 5.171,
+        "gpu_utilization_peak_percent": 0.0,
+        "gpu_memory_used_peak_mib": 1512.0,
+        "gpu_power_draw_peak_watts": 3.53,
+        "disk_read_bytes_delta": 2512384,
+        "disk_write_bytes_delta": 1810944,
+        "volume_free_bytes_before": 93593608192,
+        "volume_free_bytes_after": 93593534464
+      }
+    ]
+  },
+  "declared_six_stage_campaign": {
+    "operation_sequence": [
+      "ingestion",
+      "pit_eligibility",
+      "feature",
+      "model",
+      "publication",
+      "product_read"
+    ],
+    "profile": "representative",
+    "row_count": 100000,
+    "prediction_cutoff": 99900,
+    "repetitions": 3,
+    "process_errors": 0,
+    "stage_hashes_repeat_stable": true,
+    "negative_cases_rejected_per_run": 4,
+    "product_read_hash_match_each_run": true,
+    "external_campaign_path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/six-stage-campaign.safe.json",
+    "external_campaign_bytes": 8275,
+    "external_campaign_sha256": "c73c37a8602c8c01249cc8edfa4d9b15893fa9b92dcf812ad8abbca0a7408293",
+    "wall_clock_summary_seconds": {
+      "minimum": 2.583025,
+      "median": 2.583617,
+      "maximum": 2.590045
+    },
+    "stable_stage_result_sha256": {
+      "ingestion": "0462555b07b9bab7a8d2e1de65cdf5d519d10df652baa05dd6cef1fe33abdd7f",
+      "pit_eligibility": "e5e1755bb6fbfa4d083632f88e1aca8842c127f01384008c400b94229acb31b0",
+      "feature": "15011316b642d3a85b04c4de95ba2ef45c70dbad62ad89f67717dd001c07db61",
+      "model": "f536defb01692979241fdcc33d3ea68a34486156204cdf4f79e9426d12507476",
+      "publication": "c93a35bbebe30057ac19ff45f4ef9ab0c1298cb103e0abddc11aa0c5a383c41e",
+      "product_read": "c93a35bbebe30057ac19ff45f4ef9ab0c1298cb103e0abddc11aa0c5a383c41e"
+    },
+    "runs": [
+      {
+        "run": 1,
+        "wall_clock_seconds": 2.583025,
+        "raw_result_bytes": 2516,
+        "raw_result_sha256": "fccc568c29b42686b077f55a965070d2bfd4690b7671506a6b17a8c4f53b885b",
+        "snapshot_bytes": 3280,
+        "snapshot_sha256": "c93a35bbebe30057ac19ff45f4ef9ab0c1298cb103e0abddc11aa0c5a383c41e",
+        "telemetry_samples_bytes": 5060,
+        "telemetry_samples_sha256": "76d4af3c3bdd82c02ac13649031b116ea13d7ba83d4fe682d99e6c39018f501d",
+        "system_cpu_peak_percent": 25.0,
+        "process_tree_cpu_peak_percent": 111.6,
+        "process_tree_rss_peak_mib": 153.809,
+        "system_ram_used_peak_gib": 26.162,
+        "gpu_utilization_peak_percent": 0.0,
+        "gpu_memory_used_peak_mib": 1512.0,
+        "disk_read_bytes_delta": 2309632,
+        "disk_write_bytes_delta": 3588608
+      },
+      {
+        "run": 2,
+        "wall_clock_seconds": 2.590045,
+        "raw_result_bytes": 2515,
+        "raw_result_sha256": "2cb40abbd9b4d4d83f10df26ba70206e3b1b7930d15b6786d27b3d1c1a298f1f",
+        "snapshot_bytes": 3280,
+        "snapshot_sha256": "c93a35bbebe30057ac19ff45f4ef9ab0c1298cb103e0abddc11aa0c5a383c41e",
+        "telemetry_samples_bytes": 5049,
+        "telemetry_samples_sha256": "91ceac149e573c23d5b0138ffac57095e795dee4d75556456a5da8c851e1d39e",
+        "system_cpu_peak_percent": 20.4,
+        "process_tree_cpu_peak_percent": 110.8,
+        "process_tree_rss_peak_mib": 154.082,
+        "system_ram_used_peak_gib": 26.182,
+        "gpu_utilization_peak_percent": 0.0,
+        "gpu_memory_used_peak_mib": 1512.0,
+        "disk_read_bytes_delta": 2360320,
+        "disk_write_bytes_delta": 2588672
+      },
+      {
+        "run": 3,
+        "wall_clock_seconds": 2.583617,
+        "raw_result_bytes": 2515,
+        "raw_result_sha256": "e6c371b3de97ad08431e3acdfd9a5dac79e8684ac5fca733b9cad1ab5242dc07",
+        "snapshot_bytes": 3280,
+        "snapshot_sha256": "c93a35bbebe30057ac19ff45f4ef9ab0c1298cb103e0abddc11aa0c5a383c41e",
+        "telemetry_samples_bytes": 5052,
+        "telemetry_samples_sha256": "6d1bb517a072f98116dc816f44c9032d79582c1731b2183ac0270d28021fe148",
+        "system_cpu_peak_percent": 26.1,
+        "process_tree_cpu_peak_percent": 111.6,
+        "process_tree_rss_peak_mib": 153.305,
+        "system_ram_used_peak_gib": 26.181,
+        "gpu_utilization_peak_percent": 0.0,
+        "gpu_memory_used_peak_mib": 1512.0,
+        "disk_read_bytes_delta": 397824,
+        "disk_write_bytes_delta": 1303040
+      }
+    ]
+  },
+  "aggregate_resource_observations": {
+    "wrapper_wall_clock_maximum_seconds": 4.240638,
+    "six_stage_wall_clock_maximum_seconds": 2.590045,
+    "system_cpu_peak_percent": 29.1,
+    "process_tree_cpu_peak_percent": 166.2,
+    "process_tree_rss_peak_mib": 176.941,
+    "system_ram_used_peak_gib": 26.182,
+    "system_ram_available_minimum_gib": 5.171,
+    "gpu_utilization_peak_percent": 0.0,
+    "gpu_memory_used_peak_mib": 1512.0,
+    "gpu_power_draw_peak_watts": 3.53,
+    "disk_read_bytes_delta_maximum": 3229184,
+    "disk_write_bytes_delta_maximum": 6361600,
+    "volume_free_bytes_minimum_observed": 93593534464,
+    "interpretation": "GPU telemetry was captured and remained at 0 percent because both declared synthetic resource workloads are CPU-bound; this is not a GPU model-performance benchmark."
+  },
+  "authority_contradiction": {
+    "independent_target_class_match": true,
+    "benchmark_v1_target_match": false,
+    "benchmark_v1_authoritative_for_thr_011_012": false,
+    "cause": "benchmark.py requires the literal token Ryzen in platform.processor(); this Windows host reports an AuthenticAMD family string there while CIM identifies AMD Ryzen 7 8745HX.",
+    "override_applied": false,
+    "negative_result_preserved": true,
+    "governance_disposition_owner": "POST-SUBTASK-009"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "The benchmark is executed on the declared target rather than a substitute host.",
+      "disposition": "PASS",
+      "observable_result": "Live CIM inventory and both campaigns identify Windows 11, AMD Ryzen 7 8745HX, 31.3 GiB RAM, RTX 5060 Laptop GPU, and healthy NVMe; the independent target-class predicate passed and no substitute host was used.",
+      "verified_at_utc": "2026-08-09T11:00:49Z",
+      "verifier": "Codex"
+    },
+    {
+      "criterion": "Peak RAM, runtime, CPU/GPU utilization, disk usage, and workload identity are captured.",
+      "disposition": "PASS",
+      "observable_result": "Per-run raw and telemetry hashes record wall time, process/system RAM, process/system CPU, GPU utilization/memory/power, disk read/write deltas, volume free bytes, wrapper workload hashes, and all six declared stage hashes.",
+      "verified_at_utc": "2026-08-09T11:00:49Z",
+      "verifier": "Codex"
+    },
+    {
+      "criterion": "At least one repeat run verifies that the result is not a one-off artifact.",
+      "disposition": "PASS",
+      "observable_result": "Three independent wrapper runs and three independent six-stage runs completed with zero process errors; wrapper workload hashes and all six stage/snapshot hashes were identical across repetitions.",
+      "verified_at_utc": "2026-08-09T11:00:49Z",
+      "verifier": "Codex"
+    }
+  ],
+  "scientific_and_model_evidence": {
+    "applicable": false,
+    "reason": "SYNTHETIC_RESOURCE_BENCHMARK_WITH_DETERMINISTIC_NON_PREDICTIVE_MODEL_PROXY",
+    "real_dataset_or_matrix_used": false,
+    "production_model_or_calibrator_used": false,
+    "predictive_metrics_claimed": false,
+    "protected_evaluation_status": "SEALED_NOT_OPENED",
+    "tamu_specialization_lift_claimed": false,
+    "aggie_excess_claimed": false,
+    "bas_effect_claimed": false
+  },
+  "threshold_authority": {
+    "target_execution_complete": true,
+    "ac_038_governance_decision": "PENDING_POST_SUBTASK_009",
+    "ac_038_resolved_by_this_issue": false,
+    "thr_011": "TBD",
+    "thr_012": "TBD",
+    "thresholds_set": false,
+    "release_gate_cleared": false,
+    "reason": "POST-SUBTASK-009 must govern the preserved benchmark-v1 authority contradiction and set or retain-blocked thresholds explicitly."
+  },
+  "consumer_contract": {
+    "consumer": "POST-SUBTASK-009",
+    "parseable_without_manual_reconstruction": true,
+    "required_companion_log": "artifacts/benchmarks/ac038_target_benchmark.log",
+    "companion_log_sha256": "9d52749c762635d00d17f44cce2ead58fb0885d7edb373a8f2fcc9b7088aa2dc",
+    "consumer_must_verify": [
+      "canonical content hash and companion log hash",
+      "three Done/Verified prerequisite identities",
+      "declared target-class inventory and external host-condition evidence",
+      "three wrapper and three six-stage raw/telemetry identities",
+      "repeat-stable workload and stage hashes",
+      "zero process errors",
+      "benchmark-v1 authority contradiction with no override",
+      "protected outcomes unopened and no predictive-quality claim",
+      "THR-011/012 still TBD and release gate not cleared"
+    ],
+    "fail_closed_on": [
+      "missing or malformed JSON/log",
+      "content or companion-log hash mismatch",
+      "stale or unverified prerequisite",
+      "substitute or nonmatching target host",
+      "missing raw sample or resource telemetry identity",
+      "fewer than two successful repetitions",
+      "unstable workload/stage hashes",
+      "process error omitted",
+      "benchmark-v1 contradiction omitted or overridden",
+      "protected outcome or predictive metric introduced",
+      "threshold or release claim made before governance decision",
+      "incomplete provenance"
+    ]
+  },
+  "reproducibility": {
+    "source": "Pinned POST-SUBTASK-002/006/007 artifacts and the accepted W23 benchmark procedure/code/entrypoint.",
+    "data": "Deterministic 100,000-row synthetic recipe only; raw wrapper/six-stage samples and snapshots are content-hashed outside the repository.",
+    "code": "Protected main commit/tree plus hashes for benchmark.py, benchmark_target.ps1, telemetry orchestrators, and six-stage executor.",
+    "config": "Declared Windows/Ryzen 7 HX/31.3 GiB/RTX 5060/NVMe target, representative profile, three repetitions, six-stage operation order, and PIT negative cases.",
+    "tool": "Python 3.11.9, PowerShell 5.1.26100.8875, psutil 7.2.2, nvidia-smi telemetry.",
+    "runtime": "Clean detached worktree on the independently matching declared target class; each campaign used independent process repetitions and exact output cleanup.",
+    "split_cutoff": "Synthetic cutoff 99900 for resource-only PIT gating; four future/same-game/postgame/protected-outcome cases rejected each run; SPLIT-PROTECTED remained sealed."
+  },
+  "security_and_rights": {
+    "absolute_paths_included": false,
+    "device_serials_included": false,
+    "credential_values_included": false,
+    "restricted_payloads_included": false,
+    "protected_outcomes_included": false,
+    "source_rights_approval_claimed": false,
+    "production_release_claimed": false
+  },
+  "integration": {
+    "branch": "codex/BAT-358-target-benchmark",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "merge_method": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_claim_comment_id": "13309",
+    "live_jira_status": "In Progress",
+    "live_jira_logical_state": "IN_PROGRESS",
+    "live_jira_evidence_state": "PLANNED",
+    "live_jira_maturity": "FUNCTIONAL_STARTER",
+    "live_jira_updated_at": "2026-08-09T05:57:07.239-0500"
+  },
+  "completion": {
+    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED_LOCAL",
+    "all_issue_acceptance_criteria_pass": true,
+    "target_execution_complete": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [
+      "PENDING_POST_SUBTASK_009_CONSUMER_VALIDATION",
+      "PENDING_PROTECTED_PR_INTEGRATION"
+    ],
+    "remaining_program_blockers": [
+      "POST-SUBTASK-009_THRESHOLD_GOVERNANCE",
+      "AC-038_GOVERNANCE_DECISION_PENDING",
+      "THR-011",
+      "THR-012",
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED"
+    ]
+  },
+  "content_hash": {
+    "algorithm": "sha256",
+    "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
+    "value": "adfda5fc9bfee91a2eeeb29ac107055ed05cf1a63ee398bc787b7d87ad2314f7"
+  }
+}

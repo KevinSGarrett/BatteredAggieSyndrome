@@ -1,0 +1,327 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-09T11:01:40Z",
+  "jira_key": "BAT-358",
+  "local_issue_id": "POST-SUBTASK-008",
+  "producer": {
+    "agent": "Codex",
+    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
+  },
+  "observable_outcome": "The declared target class was re-verified live, the mandated PowerShell wrapper completed three independent representative runs, and BAT-357's six-stage workload completed three independent target runs with raw/telemetry identities, zero process errors, stable result hashes, PIT negative-case rejection, immutable publication, and product readback. The benchmark-v1 target-match false negative remains explicit and unoverridden; POST-SUBTASK-009 still owns AC-038 and THR-011/012 governance.",
+  "outputs": [
+    {
+      "path": "artifacts/benchmarks/ac038_target_benchmark.json",
+      "bytes": 20683,
+      "sha256": "421f2090479969fbc76e70aefdb5b5e2ad8b6ed6706c13b1b6906f5bcfb82ccf",
+      "canonical_payload_sha256": "adfda5fc9bfee91a2eeeb29ac107055ed05cf1a63ee398bc787b7d87ad2314f7",
+      "schema_version": "aggie.ac038_target_benchmark.v1",
+      "maturity": "EMPIRICALLY_VALIDATED",
+      "eligibility": "TARGET_CLASS_EXECUTION_EVIDENCE_GOVERNANCE_DECISION_PENDING"
+    },
+    {
+      "path": "artifacts/benchmarks/ac038_target_benchmark.log",
+      "bytes": 5114,
+      "sha256": "9d52749c762635d00d17f44cce2ead58fb0885d7edb373a8f2fcc9b7088aa2dc",
+      "schema_version": "aggie.ac038_target_benchmark_log.v1",
+      "maturity": "EMPIRICALLY_VALIDATED",
+      "eligibility": "AUDIT_LOG_FOR_POST_SUBTASK_009"
+    }
+  ],
+  "input_identities": {
+    "git_commit": "c1ec5cabf4ae2501ffe6c2c1990f256c95e0da29",
+    "git_tree": "82ecab35ed349b526c1d027fcc41a786d6599663",
+    "post_subtask_002_workflow_state": "DONE",
+    "post_subtask_002_evidence_state": "VERIFIED",
+    "target_validation_results_sha256": "04676350cffb73fd321d2853322b976dd547e0c5258f7db946167fd0359691bb",
+    "post_subtask_002_evidence_sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
+    "post_subtask_006_workflow_state": "DONE",
+    "post_subtask_006_evidence_state": "VERIFIED",
+    "storage_probe_sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882",
+    "post_subtask_006_evidence_sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a",
+    "post_subtask_007_workflow_state": "DONE",
+    "post_subtask_007_evidence_state": "VERIFIED",
+    "ac038_input_manifest_sha256": "d4107ad844576c7e3e2e8ec960abb4455176d78d86f0cd859a166fe82acbe303",
+    "post_subtask_007_evidence_sha256": "6abdf28fd4c31d6eca53b9625cd4db6968f8445bee1fc6bc32ac3d6b3f616413",
+    "benchmark_code_sha256": "70ab9e5d3606c4128e0ef379506754b363ac8c818a93b0d95f9723fc9250a146",
+    "benchmark_entrypoint_sha256": "4ea56690d2ab62544198eff8fb2381a127acced0a9f4eff92c8b08074c4f6cde"
+  },
+  "reproducibility": {
+    "source": "Pinned Done/Verified POST-SUBTASK-002/006/007 artifacts and accepted W23 target procedure/code/entrypoint.",
+    "data": "Deterministic 100,000-row synthetic inputs only; raw wrapper, six-stage, snapshot, and telemetry files are content-hashed outside the repository.",
+    "code": "Protected main commit/tree plus SHA-256 identities for benchmark.py, benchmark_target.ps1, telemetry orchestrators, and the six-stage executor.",
+    "config": "Declared Windows/Ryzen 7 HX/31.3 GiB/RTX 5060/NVMe target, representative profile, three repetitions per campaign, six-stage order, and PIT negative cases.",
+    "tool": "Python 3.11.9; PowerShell 5.1.26100.8875; psutil 7.2.2; nvidia-smi telemetry.",
+    "runtime": "Clean detached external worktree on the independently matching target class; independent process repetitions and exact generated-file cleanup.",
+    "split_cutoff": "Synthetic cutoff 99900; four future/same-game/postgame/protected-outcome cases rejected per run; SPLIT-PROTECTED remained SEALED_NOT_OPENED."
+  },
+  "external_evidence": [
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/host-precondition.safe.json",
+      "bytes": 967,
+      "sha256": "34f3d7bc6488c158499de843a914b9c913328cf6a19c240dc2dbd1466630f7f6",
+      "target_class_match": true
+    },
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/target-campaign.safe.json",
+      "bytes": 10233,
+      "sha256": "624e19e3583d4e962c5307a7507e28b1044e5068fcb4507eebe4ddc70d4f033d",
+      "repetitions": 3,
+      "process_errors": 0,
+      "repeat_stable": true
+    },
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/target-campaign.safe.log",
+      "bytes": 1065,
+      "sha256": "6a790a5a1f0a80724dcfe5b10b4b3549fbb3b94f10d994a4855851c0b859faf0"
+    },
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/six-stage-campaign.safe.json",
+      "bytes": 8275,
+      "sha256": "c73c37a8602c8c01249cc8edfa4d9b15893fa9b92dcf812ad8abbca0a7408293",
+      "repetitions": 3,
+      "process_errors": 0,
+      "repeat_stable": true,
+      "operation_count": 6
+    },
+    {
+      "path": "EXTERNAL_DATA_ROOT/runtime/BAT-358/post-subtask-009-consumer.safe.json",
+      "bytes": 1833,
+      "sha256": "0ef4475caf57ee285af9238c01f5c19b51eb46ac5201c8f41b83ec0dbcf6dba4",
+      "positive_contract_passed": true,
+      "mutation_count": 10,
+      "rejected_mutation_count": 10
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "The benchmark is executed on the declared target rather than a substitute host.",
+      "disposition": "PASS",
+      "observable_result": "Live and campaign inventory observed Windows 11, AMD Ryzen 7 8745HX, 31.3 GiB RAM, RTX 5060 Laptop GPU, and healthy NVMe. The independent target-class predicate passed and the prior host-availability condition was evidence-cleared before execution.",
+      "evidence_path": "artifacts/benchmarks/ac038_target_benchmark.json",
+      "evidence_sha256": "421f2090479969fbc76e70aefdb5b5e2ad8b6ed6706c13b1b6906f5bcfb82ccf",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T11:01:40Z"
+    },
+    {
+      "criterion": "Peak RAM, runtime, CPU/GPU utilization, disk usage, and workload identity are captured.",
+      "disposition": "PASS",
+      "observable_result": "Six raw run identities and six telemetry identities capture wall time, process/system RAM, process/system CPU, GPU utilization/memory/power, disk deltas, free bytes, legacy workload hashes, all six declared stage hashes, and snapshot/readback identity.",
+      "evidence_path": "artifacts/benchmarks/ac038_target_benchmark.json",
+      "evidence_sha256": "421f2090479969fbc76e70aefdb5b5e2ad8b6ed6706c13b1b6906f5bcfb82ccf",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T11:01:40Z"
+    },
+    {
+      "criterion": "At least one repeat run verifies that the result is not a one-off artifact.",
+      "disposition": "PASS",
+      "observable_result": "Three independent mandated-wrapper runs and three independent six-stage runs completed with zero process errors; all legacy workload hashes, all six stage hashes, and the immutable snapshot hash matched across repetitions.",
+      "evidence_path": "artifacts/benchmarks/ac038_target_benchmark.json",
+      "evidence_sha256": "421f2090479969fbc76e70aefdb5b5e2ad8b6ed6706c13b1b6906f5bcfb82ccf",
+      "verifier": "Codex",
+      "verified_at_utc": "2026-08-09T11:01:40Z"
+    }
+  ],
+  "commands": [
+    {
+      "command": "Live CIM/Get-PhysicalDisk target-class precondition verification",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Windows 11 / Ryzen 7 8745HX / 31.3 GiB / RTX 5060 Laptop GPU / healthy NVMe matched all declared dimensions; canonical POST-SUBTASK-008 became the sole Ready item."
+    },
+    {
+      "command": "python EXTERNAL_DATA_ROOT/runtime/BAT-358/run_ac038_target_campaign.py",
+      "exit_code": 0,
+      "result": "PASS_WITH_AUTHORITY_CONTRADICTION_RETAINED",
+      "output_summary": "Three independent invocations of scripts/benchmark_target.ps1 completed on the declared target with zero errors, stable legacy workload hashes, raw outputs, and CPU/GPU/RAM/disk telemetry. Benchmark v1 reported target_match=false on all runs because platform.processor() lacks the literal Ryzen token; no override was applied."
+    },
+    {
+      "command": "python EXTERNAL_DATA_ROOT/runtime/BAT-358/run_six_stage_campaign.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Three independent ingestion/PIT/feature/model-proxy/publication/product-read runs completed on the declared target with zero errors, identical stage/snapshot hashes, four of four negative PIT cases rejected each run, and snapshot readback hashes matching."
+    },
+    {
+      "command": "python EXTERNAL_DATA_ROOT/runtime/BAT-358/validate_post_subtask_009_consumer.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The positive POST-SUBTASK-009 contract passed and ten re-hashed mutations were rejected for schema, content identity, prerequisite drift, substitute host, one-off execution, missing stage, authority override, invented threshold, protected opening, and incomplete provenance."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -p test_w23_operations.py -v",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "11 of 11 focused W23 operations tests passed in 0.446 seconds."
+    },
+    {
+      "command": "python -B tools/validate_w23_operations.py --allow-target-benchmark-pending",
+      "exit_code": 0,
+      "result": "IMPLEMENTATION_PASS_RELEASE_BLOCKED",
+      "output_summary": "The current W23 gate still retained AC-038 and THR-011/012 pending because POST-SUBTASK-009 has not governed this new evidence."
+    },
+    {
+      "command": "python -B tools/verify_judging_seal.py and python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "The protected W17 judging seal and all 2,118 source anchors passed without mutation or relocation."
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_pack.py --strict; python -B jira/tools/validate_jira_manifest.py; python -B jira/tools/validate_import_files.py; python -B jira/tools/validate_dependencies.py; python -B jira/tools/validate_second_pass.py (isolated sequential invocations)",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All 463 canonical/derivative records, 1,758 Jira-manifest files, import derivatives, the acyclic dependency graph, and second-pass controls passed with zero errors; BAT-358 is VALIDATION/PARTIAL and the Ready queue is empty during protected integration."
+    },
+    {
+      "command": "PYTHONPATH=src python -B -W error -m unittest discover -s tests -q",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "243 of 243 warning-strict repository tests passed in 4.586 seconds."
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py and python -B tools/validate_instructions.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "W25 terminal-wave, maturity-honesty, Codex-handoff, and autonomous instruction controls passed with zero findings."
+    },
+    {
+      "command": "Credential-free clean BAT-358 implementation candidate at db96d0350542458dbb4217a71f91bdac9c46a2bf",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security with 2,758 provenance rows and tree fingerprint 9e19e9b8956c9f5ceb9e39f04bbd782f21d779312dee5ddd075dbd44ec430526, dependency policy, W25 terminal governance, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 warning-strict tests, and the W23 implementation gate passed; release remained explicitly blocked for POST-SUBTASK-009 governance."
+    }
+  ],
+  "benchmark_evidence": {
+    "independent_target_class_match": true,
+    "substitute_host_used": false,
+    "mandated_wrapper_repetitions": 3,
+    "six_stage_repetitions": 3,
+    "total_successful_process_runs": 6,
+    "process_errors": 0,
+    "legacy_workload_hashes_repeat_stable": true,
+    "six_stage_hashes_repeat_stable": true,
+    "wrapper_wall_clock_maximum_seconds": 4.240638,
+    "six_stage_wall_clock_maximum_seconds": 2.590045,
+    "system_cpu_peak_percent": 29.1,
+    "process_tree_cpu_peak_percent": 166.2,
+    "process_tree_rss_peak_mib": 176.941,
+    "system_ram_used_peak_gib": 26.182,
+    "system_ram_available_minimum_gib": 5.171,
+    "gpu_utilization_peak_percent": 0.0,
+    "gpu_memory_used_peak_mib": 1512.0,
+    "gpu_power_draw_peak_watts": 3.53,
+    "disk_read_bytes_delta_maximum": 3229184,
+    "disk_write_bytes_delta_maximum": 6361600,
+    "volume_free_bytes_minimum_observed": 93593534464,
+    "warm_cold_distinction": "INDEPENDENT_PROCESS_REPETITIONS; OS_CACHE_STATE_NOT_CONTROLLED",
+    "authoritative_target_execution_observed": true,
+    "authoritative_for_thr_011_012_per_benchmark_v1": false
+  },
+  "scientific_and_model_evidence": {
+    "disposition": "NOT_APPLICABLE_TO_SYNTHETIC_RESOURCE_BENCHMARK",
+    "real_dataset_or_matrix_used": false,
+    "production_model_or_calibrator_used": false,
+    "predictive_metrics_claimed": false,
+    "protected_evaluation_status": "SEALED_NOT_OPENED",
+    "unsupported_effect_claims": false
+  },
+  "negative_findings": [
+    {
+      "id": "BENCHMARK_V1_TARGET_MATCH_FALSE_NEGATIVE",
+      "finding": "All three mandated-wrapper runs report target_match=false because platform.processor() returns an AuthenticAMD family string without the literal token Ryzen, while live CIM identifies Ryzen 7 8745HX and all independent target dimensions match.",
+      "waived": false,
+      "resolution": "NO_OVERRIDE_APPLIED; POST-SUBTASK-009_MUST_GOVERN_THE_CONTRADICTION"
+    },
+    {
+      "id": "LEGACY_WRAPPER_DOES_NOT_EXECUTE_SIX_STAGE_CONTRACT",
+      "finding": "scripts/benchmark_target.ps1 executes the v1 JSON/hash/aggregate starter harness and does not consume BAT-357's six-stage manifest directly.",
+      "waived": false,
+      "resolution": "SUPPLEMENTED_WITH_THREE_SEPARATE_PINNED_SIX_STAGE_TARGET_RUNS; BOTH_EVIDENCE_SETS_PRESERVED"
+    },
+    {
+      "id": "GPU_UTILIZATION_ZERO_FOR_CPU_BOUND_SYNTHETIC_WORKLOAD",
+      "finding": "GPU telemetry was present but peak utilization remained 0 percent; the declared synthetic resource workloads do not execute a GPU model.",
+      "waived": false,
+      "resolution": "HONEST_RESOURCE_PROFILE_RETAINED_NO_GPU_MODEL_PERFORMANCE_CLAIM"
+    },
+    {
+      "id": "OS_CACHE_STATE_NOT_CONTROLLED",
+      "finding": "Repetitions used independent processes, but operating-system cache state was not forcibly reset; no cold/warm label is inferred.",
+      "waived": false,
+      "resolution": "LIMITATION_RETAINED"
+    },
+    {
+      "id": "SYNTHETIC_RESOURCE_EVIDENCE_ONLY",
+      "finding": "The campaigns contain no real historical data, trained production model, calibration, protected metric, A&M lift, Aggie Excess, or BAS evidence.",
+      "waived": false,
+      "resolution": "EMPIRICAL_RESOURCE_EVIDENCE_ONLY"
+    },
+    {
+      "id": "THRESHOLD_GOVERNANCE_PENDING",
+      "finding": "AC-038 governance remains pending and THR-011/THR-012 remain TBD; the W23 release gate is not cleared by this issue.",
+      "waived": false,
+      "resolution": "POST-SUBTASK-009_EXCLUSIVE_AUTHORITY"
+    },
+    {
+      "id": "JIRA_MANIFEST_WRITE_EINVAL_DURING_UNBLOCK_REBUILD",
+      "finding": "The combined post-unblock validation command encountered Windows OSError 22 while validate_jira_pack rewrote JIRA_FILE_HASHES.sha256; rebuild and second-pass validation succeeded.",
+      "waived": false,
+      "resolution": "FAILED_ATTEMPT_PRESERVED; ISOLATED_STRICT_VALIDATION_REQUIRED_BEFORE_INTEGRATION"
+    }
+  ],
+  "security_and_rights": {
+    "absolute_paths_emitted": false,
+    "device_serials_emitted": false,
+    "credential_values_emitted": false,
+    "restricted_payloads_emitted": false,
+    "protected_outcomes_emitted": false,
+    "source_rights_approval_claimed": false,
+    "protected_files_modified": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-009",
+    "decision": "APPROVE_GOVERNANCE_REVIEW_RETAIN_AUTHORITY_CONTRADICTION",
+    "positive_contract_passed": true,
+    "consumer_mutation_gate_passed": true,
+    "silent_downstream_unlock_allowed": false,
+    "reevaluate_after_verified_done": [
+      "POST-SUBTASK-009"
+    ],
+    "expected_post_done_state": "POST-SUBTASK-009_READY_FOR_EXPLICIT_AC038_THR_GOVERNANCE",
+    "consumer_must_fail_closed": true
+  },
+  "integration": {
+    "branch": "codex/BAT-358-target-benchmark",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "merge_method": null,
+    "required_checks": "PENDING_PROTECTED_PR",
+    "live_jira_claim_comment_id": "13309",
+    "live_jira_logical_state": "IN_PROGRESS",
+    "live_jira_status": "In Progress",
+    "live_jira_evidence_state": "PLANNED",
+    "live_jira_maturity": "FUNCTIONAL_STARTER",
+    "live_jira_updated_at": "2026-08-09T05:57:07.239-0500",
+    "rollback_snapshot_sha256": "2a10d9476b6fb69fcff76e1c756c64fa593b188365eed918f72e57658694da31"
+  },
+  "completion": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "VALIDATION",
+    "local_acceptance_criteria_pass": true,
+    "target_execution_complete": true,
+    "release_ready": false,
+    "remaining_issue_scope_blockers": [
+      "PENDING_PROTECTED_PR_INTEGRATION"
+    ],
+    "remaining_program_blockers": [
+      "POST-SUBTASK-009_THRESHOLD_GOVERNANCE",
+      "AC-038_GOVERNANCE_DECISION_PENDING",
+      "THR-011",
+      "THR-012",
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED"
+    ],
+    "completion_claim": "BAT-358 has empirically validated the declared target-class execution locally and all three issue-specific criteria pass. Protected integration and explicit POST-SUBTASK-009 governance remain pending; no threshold, release, protected-result, predictive-quality, or source-rights claim is made."
+  }
+}

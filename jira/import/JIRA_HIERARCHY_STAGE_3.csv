@@ -734,7 +734,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-008_run_scripts_benchmark_target_ps1_on_the_declared_windows_ryzen_7_hx_32_gb_rtx_50.json",To Do,Highest,actionable;core-release;environment;external-blocker;post-wave;protected-gate;subtask;local-id-post-subtask-008,operations-security,POST-SUBTASK-008,AC-038;GAP-001;HANDOFF-001;TASK-161;THR-011;THR-012,PHASE-4,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-008_run_scripts_benchmark_target_ps1_on_the_declared_windows_ryzen_7_hx_32_gb_rtx_50.json",In Progress,Highest,actionable;core-release;environment;external-blocker;post-wave;protected-gate;subtask;local-id-post-subtask-008,operations-security,POST-SUBTASK-008,AC-038;GAP-001;HANDOFF-001;TASK-161;THR-011;THR-012,PHASE-4,VALIDATION,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-359,100313,[POST-SUBTASK-009] Govern THR-011 and THR-012 values and clear or retain the W23 local-production gate,100053,"Local ID: POST-SUBTASK-009
 
 Objective

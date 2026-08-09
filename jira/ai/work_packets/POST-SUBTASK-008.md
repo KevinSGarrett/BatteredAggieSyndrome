@@ -39,14 +39,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-003 (Authoritative target-har
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `VALIDATION`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `PLANNED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-009`
 
 ## Read first

@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Events expose correlation/timing/count/status/blocker identities and distinguish expected missingness from defects while redacting secrets and restricted payloads.",
+    "The declared output `artifacts/operations/observability_contract_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Versioned baselines and evidence-derived thresholds identify affected scope, block unsafe downstream training/publication, and route alerts without claiming resolution until evidence changes.",
+    "The declared output `artifacts/operations/drift_alert_validation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Representative incidents are detected, stopped/degraded, alerted, evidenced, recovered/rolled back, and source substitutions rerun rights/PIT/schema/coverage gates rather than masquerading as equivalent.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -118,7 +122,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-043",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Detect unsafe source/data/model/product/governance changes and route evidence-backed recovery.",
@@ -134,7 +138,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-014",
@@ -241,7 +245,7 @@
     "SRCREF-02006",
     "SRCREF-01898"
   ],
-  "specificity_fingerprint": "f21f607383d6ecb3cd356b2e4554b397972f290f905d5c1363c8ab391381a001",
+  "specificity_fingerprint": "a2c66def9e8b749f6826ba3374fd3f706f202373edb06e7f2094034a46800e38",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -298,7 +302,7 @@ Deliver Story POST-STORY-043 (Structured observability, alerts, drift, and incid
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -372,9 +376,13 @@ Deliver Story POST-STORY-043 (Structured observability, alerts, drift, and incid
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Events expose correlation/timing/count/status/blocker identities and distinguish expected missingness from defects while redacting secrets and restricted payloads.
+2. The declared output `artifacts/operations/observability_contract_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Versioned baselines and evidence-derived thresholds identify affected scope, block unsafe downstream training/publication, and route alerts without claiming resolution until evidence changes.
+5. The declared output `artifacts/operations/drift_alert_validation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Representative incidents are detected, stopped/degraded, alerted, evidenced, recovered/rolled back, and source substitutions rerun rights/PIT/schema/coverage gates rather than masquerading as equivalent.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

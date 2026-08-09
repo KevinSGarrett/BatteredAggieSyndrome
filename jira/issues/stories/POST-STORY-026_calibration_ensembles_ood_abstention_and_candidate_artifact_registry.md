@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Calibrators and ensemble weights are fit only on allowed tuning data, retain member/diversity/failure identities, and cannot use protected outcomes for selection.",
+    "The declared output `artifacts/modeling/calibration_ensemble_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Evidence-derived tuning thresholds identify unsupported conditions and return wider uncertainty/abstention reasons rather than confident defaults when required inputs are unavailable.",
+    "The declared output `artifacts/modeling/ood_abstention_validation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Every admitted candidate pins data/feature/split/code/dependency/model/calibrator/seed identities, supported modes, OOD policy, resource envelope, and caveats; GAP-008 remains open pending protected replay.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -116,7 +120,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-026",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Represent uncertainty and seal all admitted candidate identities before protected evaluation.",
@@ -132,7 +136,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-008",
@@ -241,7 +245,7 @@
     "SRCREF-01892",
     "SRCREF-01570"
   ],
-  "specificity_fingerprint": "e2bc1b3c5eeac1a28e71550b1f10fad70ff59e83346acbc0fac67732d813af4e",
+  "specificity_fingerprint": "beab620b6ab609f50ca4b95ebf8c77265698fc0c63b48c5f55bc3967493fad17",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -300,7 +304,7 @@ Deliver Story POST-STORY-026 (Calibration, ensembles, OOD, abstention, and candi
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -371,9 +375,13 @@ Deliver Story POST-STORY-026 (Calibration, ensembles, OOD, abstention, and candi
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Calibrators and ensemble weights are fit only on allowed tuning data, retain member/diversity/failure identities, and cannot use protected outcomes for selection.
+2. The declared output `artifacts/modeling/calibration_ensemble_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Evidence-derived tuning thresholds identify unsupported conditions and return wider uncertainty/abstention reasons rather than confident defaults when required inputs are unavailable.
+5. The declared output `artifacts/modeling/ood_abstention_validation.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Every admitted candidate pins data/feature/split/code/dependency/model/calibrator/seed identities, supported modes, OOD policy, resource envelope, and caveats; GAP-008 remains open pending protected replay.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

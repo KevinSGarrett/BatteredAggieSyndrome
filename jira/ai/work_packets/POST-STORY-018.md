@@ -30,7 +30,7 @@ Deliver Story POST-STORY-018 (Population feature registry and computability) as 
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -100,9 +100,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every feature maps to source, transformation, temporal class, owner, tests, lineage, and CORE/SUPPORTED/CONDITIONAL/EXPERIMENTAL/REJECTED/BANNED state; design presence is not promotion evidence.
+2. The declared output `artifacts/features/production_feature_inventory.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Computability distinguishes not-known, source-missing, resolver-missing, structural, and implementation failure, and recent/A&M coverage cannot conceal national historical sparsity.
+5. The declared output `artifacts/features/feature_computability_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Every experiment-eligible feature passes identity, PIT, lineage, implementation, and computability checks and the registry hash is pinned in downstream runs.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

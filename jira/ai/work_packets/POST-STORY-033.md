@@ -30,7 +30,7 @@ Deliver Story POST-STORY-033 (Protected split, judging rule, threshold, candidat
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -102,9 +102,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
+2. The declared output `artifacts/validation/protected_seal_verification.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
+5. The declared output `artifacts/validation/protected_access_protocol_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Authorization names exact candidates/tasks/cutoffs/lanes/splits/metrics/thresholds/evidence destinations and verifies all PIT/feature/model/A&M/BAS prerequisites or remains blocked.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

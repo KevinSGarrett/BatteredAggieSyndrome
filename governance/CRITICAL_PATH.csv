@@ -21,3 +21,4 @@ sequence,task_id,owner_wave,title,meaning,not_a_duration_estimate
 20,TASK-163,W23,Pass local production operations gate,Dependency-critical gate spine; not a duration schedule.,true
 21,TASK-178,W24,Pass W24 end-to-end readiness gate,Dependency-critical gate spine; not a duration schedule.,true
 22,TASK-184,W25,Freeze final cumulative/hydration Codex handoff,Dependency-critical gate spine; not a duration schedule.,true
+23,TASK-202,W25,Apply universal private-research acquisition policy and resume rights-unblocked sources,Owner-amended dependency-critical gate; not a duration schedule.,true

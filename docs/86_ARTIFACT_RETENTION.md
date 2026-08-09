@@ -20,4 +20,4 @@ Caches are rebuildable and not authoritative evidence. Evidence artifacts needed
 
 ## Sensitivity
 
-Restricted/licensed source derivatives and secrets cannot be committed. Secret-like content is prohibited from artifact manifests. Public-repository suitability follows source rights and derived-data policy.
+Raw and normalized third-party bulk payloads and secrets cannot be committed. Secret-like content is prohibited from artifact manifests. License and redistribution metadata does not constrain private local retention or training; public-repository suitability receives a separate review only when publication is actually proposed.

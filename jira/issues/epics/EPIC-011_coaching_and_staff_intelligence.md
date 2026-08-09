@@ -91,7 +91,7 @@
     "w13",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-011",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Represent effective-dated role episodes, development residuals, scheme/tendency and decision evidence with partial pooling.",

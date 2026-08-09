@@ -96,7 +96,7 @@
     "w25",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-184",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Freeze final cumulative/hydration Codex handoff",

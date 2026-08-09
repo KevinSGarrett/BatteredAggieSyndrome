@@ -8,7 +8,7 @@
 
 ## What capability or closure gate am I coordinating?
 
-Acquire approved national history into immutable, content-addressed raw snapshots with population-level coverage, rights, and provenance evidence.
+Acquire maximum quality-supported national history into immutable, content-addressed raw snapshots with population-level coverage and provenance evidence; source rights metadata is nonblocking for private research.
 
 ## Why?
 
@@ -124,7 +124,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-The entire Immutable national historical data materialization capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Immutable national historical data materialization and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Stop instead of improvising when
 

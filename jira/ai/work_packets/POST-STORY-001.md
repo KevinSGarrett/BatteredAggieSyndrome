@@ -30,7 +30,7 @@ Deliver Story POST-STORY-001 (Canonical handoff and target-environment preflight
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -101,9 +101,15 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. The recorded repository hash and project identity match the W25 handoff.
+2. The preflight explicitly records that the next state is CODEX_IMPLEMENTATION_HANDOFF and no Wave 26 is created.
+3. Any manifest mismatch fails closed before mutation.
+4. All 229 baseline unit tests are executed and results are recorded without editing expected outcomes.
+5. W25 final, acceptance, backlog, and strict repository validators run from a clean checkout.
+6. Failures are recorded as blockers; they are not waived or hidden.
+7. The manifest records OS, CPU, RAM, GPU, Python, dependency lock hashes, storage paths, and free-space state.
+8. Secrets and user-identifying values are redacted.
+9. The manifest is content-hashed and linked to the preflight validation run.
 
 ## Tests / validation
 

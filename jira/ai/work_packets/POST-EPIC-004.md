@@ -123,7 +123,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-The entire Population schema profiling and canonical entity resolution capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Population schema profiling and canonical entity resolution and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Stop instead of improvising when
 

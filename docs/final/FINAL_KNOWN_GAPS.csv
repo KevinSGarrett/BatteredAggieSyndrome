@@ -8,7 +8,7 @@ GAP-006,EMPIRICAL,A&M specialization lift,No A&M residual/adapter effect size is
 GAP-007,EMPIRICAL,BAS / Aggie Excess validity,No persistent Aggie Excess/significance/calibration result is claimed,"Run leakage-safe cross-fit BAS tests, peer/regime stability and null-result policy",P1
 GAP-008,DATA,Historical injuries/depth/availability,Nationwide historical coverage is incomplete/asymmetric,Prioritize official snapshots and confidence/missingness; never fabricate unavailable state,P1
 GAP-009,DATA,Entity-resolution population benchmark,Exact starter exists but fuzzy auto-accept threshold remains intentionally unset,Create labeled cross-source benchmark before enabling fuzzy auto-accept,P1
-GAP-010,DATA_GOVERNANCE,Source rights/redistribution,Public accessibility does not guarantee redistribution rights,Review each production source; keep restricted raw data local,P0
+GAP-010,DATA_GOVERNANCE,Future public distribution review,Private local acquisition/training authorized; raw third-party publication disabled,Keep bulk payloads outside Git; review only if distribution or commercialization is proposed,DEFERRED_EVENT_DRIVEN
 GAP-011,DATA,Officiating/private-resource/proprietary charting gaps,Universal free symmetric history remains unavailable,Keep experimental/uncertain or optional licensed; do not synthesize values,P2
 GAP-012,OPERATIONS,Forecast freshness SLA,THR-010 remains evidence-driven/TBD,Measure real weekly operations and set SLA from observed cadence/reliability,P2
 GAP-013,RESEARCH,Advanced challengers,Neural/sequence/graph candidates intentionally not executed,"Admit only after baseline saturation, data sufficiency and resource gates pass",P3

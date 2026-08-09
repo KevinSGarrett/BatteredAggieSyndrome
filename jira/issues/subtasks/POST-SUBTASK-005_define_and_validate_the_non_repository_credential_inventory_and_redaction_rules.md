@@ -54,11 +54,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-005 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-005 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/implementation_preflight/credential_inventory.redacted.json`, `docs/operations/CREDENTIALS_AND_SECRETS.md` is demonstrably consumable by POST-SUBTASK-006 without manual reconstruction or undocumented state."
   ],
@@ -74,7 +74,7 @@
     "risk_ids": 2
   },
   "effective_traceability_total": 15,
-  "end_to_end_validation": "Validate that `artifacts/implementation_preflight/credential_inventory.redacted.json`, `docs/operations/CREDENTIALS_AND_SECRETS.md` can be parsed and consumed by `POST-SUBTASK-006` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/implementation_preflight/credential_inventory.redacted.json`, `docs/operations/CREDENTIALS_AND_SECRETS.md` can be parsed and consumed by `POST-SUBTASK-006` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-001",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-005.json",
   "evidence_state": "VERIFIED",
@@ -138,7 +138,7 @@
     "protected-gate",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-005",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Define and validate the non-repository credential inventory and redaction rules",
@@ -154,7 +154,7 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Configure AGGIE_ANALYTICS_DATA_ROOT and artifact roots outside the repository; Validate target storage permissions, free space, atomic writes, and quarantine behavior.",
     "Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files."
   ],
@@ -256,7 +256,8 @@
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
     "Acceptance failure: the evidence cannot demonstrate that every credential is referenced by environment-variable name only.",
     "Acceptance failure: the evidence cannot demonstrate that no token, password, session cookie, or restricted URL is written to the repository or evidence logs.",
-    "Acceptance failure: the evidence cannot demonstrate that a redaction test demonstrates that representative secret values are removed from logs and exception messages."
+    "Acceptance failure: the evidence cannot demonstrate that a redaction test demonstrates that representative secret values are removed from logs and exception messages.",
+    "External blocker remains unresolved: USER_MUST_SUPPLY_PRODUCTION_CREDENTIALS_OUTSIDE_REPOSITORY."
   ],
   "risk_ids": [],
   "schema_version": 2,
@@ -286,11 +287,11 @@
     "SRCREF-01888",
     "SRCREF-01572"
   ],
-  "specificity_fingerprint": "f9ffa14717f7c5488a6b98d86ff9c488120da9992115c53123fbc1686442adf3",
+  "specificity_fingerprint": "f957d01603ea7a6b92e3f56e06c5f2a947dece0b2562c9371013d182c5c057de",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-01998",
@@ -352,7 +353,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-002 (Local data, artifact, an
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Configure AGGIE_ANALYTICS_DATA_ROOT and artifact roots outside the repository; Validate target storage permissions, free space, atomic writes, and quarantine behavior.
 - Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
 
@@ -431,11 +432,11 @@ Execute the atomic 2 of 3 step in Story POST-STORY-002 (Local data, artifact, an
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-005 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-005 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/implementation_preflight/credential_inventory.redacted.json`, `docs/operations/CREDENTIALS_AND_SECRETS.md` is demonstrably consumable by POST-SUBTASK-006 without manual reconstruction or undocumented state.
 
@@ -481,7 +482,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-002 (Local data, artifact, an
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/implementation_preflight/credential_inventory.redacted.json`, `docs/operations/CREDENTIALS_AND_SECRETS.md` can be parsed and consumed by `POST-SUBTASK-006` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/implementation_preflight/credential_inventory.redacted.json`, `docs/operations/CREDENTIALS_AND_SECRETS.md` can be parsed and consumed by `POST-SUBTASK-006` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -494,12 +495,13 @@ Validate that `artifacts/implementation_preflight/credential_inventory.redacted.
 - Acceptance failure: the evidence cannot demonstrate that every credential is referenced by environment-variable name only.
 - Acceptance failure: the evidence cannot demonstrate that no token, password, session cookie, or restricted URL is written to the repository or evidence logs.
 - Acceptance failure: the evidence cannot demonstrate that a redaction test demonstrates that representative secret values are removed from logs and exception messages.
+- External blocker remains unresolved: USER_MUST_SUPPLY_PRODUCTION_CREDENTIALS_OUTSIDE_REPOSITORY.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

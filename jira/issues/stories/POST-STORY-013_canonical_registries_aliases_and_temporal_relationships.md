@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Canonical IDs are deterministic, stable, source-independent, and do not depend on row order or mutable display names; realignment, neutral-site, rename, and cancellation history is represented.",
+    "The declared output `artifacts/entities/canonical_core_registry.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Person mappings preserve source IDs, name/team/season/position evidence, transfers, duplicate names, suffixes, and uncertainty; low-confidence cases enter review instead of forced name-only merges.",
+    "The declared output `artifacts/entities/canonical_people_registry.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "No incompatible active aliases, duplicate canonical identities, impossible intervals, or accepted normalized record without a resolution/review disposition remain hidden.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -116,7 +120,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-013",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Create stable source-independent identities and effective-dated aliases for every entity class.",
@@ -132,7 +136,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-004",
@@ -241,7 +245,7 @@
     "SRCREF-01566",
     "SRCREF-01568"
   ],
-  "specificity_fingerprint": "c61d1dc5ea278274ce859489faa77bb739a685a28594b6c3014849270789d736",
+  "specificity_fingerprint": "a1f46ada2480f640f4dc65d8bad212745bfbd283ae2186750317e96413201b6b",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -299,7 +303,7 @@ Deliver Story POST-STORY-013 (Canonical registries, aliases, and temporal relati
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -370,9 +374,13 @@ Deliver Story POST-STORY-013 (Canonical registries, aliases, and temporal relati
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Canonical IDs are deterministic, stable, source-independent, and do not depend on row order or mutable display names; realignment, neutral-site, rename, and cancellation history is represented.
+2. The declared output `artifacts/entities/canonical_core_registry.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Person mappings preserve source IDs, name/team/season/position evidence, transfers, duplicate names, suffixes, and uncertainty; low-confidence cases enter review instead of forced name-only merges.
+5. The declared output `artifacts/entities/canonical_people_registry.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. No incompatible active aliases, duplicate canonical identities, impossible intervals, or accepted normalized record without a resolution/review disposition remain hidden.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

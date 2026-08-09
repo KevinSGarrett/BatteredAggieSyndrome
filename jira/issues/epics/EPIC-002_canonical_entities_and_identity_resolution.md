@@ -104,7 +104,7 @@
     "w07",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-002",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Define canonical identity, source mappings, temporal identity and unresolved-resolution workflow.",

@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.",
+    "General rates/probabilities are cross-fitted and calibrated with uncertainty; sparse regimes and team effects are not smuggled into a universal baseline.",
+    "The declared output `artifacts/bas/general_fbs_baseline.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "A&M analyses use sealed expectations/peers, report effect/sample/sensitivity uncertainty, accept zero/negative/unstable excess, and make components unavailable when granular evidence is absent.",
+    "The declared output `artifacts/bas/aggie_excess_components.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "No post-hoc peer/time/threshold subgroup is elevated for a preferred effect, components do not replace the ≥7 headline or imply additive causality, and product claims are bounded to evidence.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
     "A null, non-significant, unstable, or directionally unsupported Aggie-specific excess result is accepted and reported without forcing a nonzero BAS effect; general FBS surprise and Texas A&M-specific excess remain distinct."
   ],
   "adr_ids": [],
@@ -113,7 +117,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-031",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Separate ordinary football surprise from any incremental A&M effect and decompose outcomes without changing the headline.",
@@ -129,7 +133,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.",
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.",
     "Redefining BAS as generic Texas A&M loss probability or selecting specifications merely to manufacture a nonzero Aggie-specific effect."
   ],
   "owner_wave": "POST_W25",
@@ -238,7 +242,7 @@
     "SRCREF-01895",
     "SRCREF-01571"
   ],
-  "specificity_fingerprint": "4611ba23ab786779720d6bb928b92b622055bc2b530dd23235eb6ba12ddb7abe",
+  "specificity_fingerprint": "674acc2804a5836b124036fc9f03db2b8634ce3e823e7c5ca19b807ff8442d10",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs.",
     "Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result."

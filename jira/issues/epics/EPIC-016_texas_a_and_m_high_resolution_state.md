@@ -91,7 +91,7 @@
     "w14",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-016",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Define deeper A&M roster/unit/regime/matchup state while preserving one canonical truth.",

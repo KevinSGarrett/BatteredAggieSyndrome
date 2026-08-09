@@ -115,7 +115,7 @@ RISK-113,Unknown W06 schemas filled with invented fields,HIGH,MEDIUM,SCHEMA_PEND
 RISK-114,Nested JSON paths collide or drift,MEDIUM,MEDIUM,versioned dotted-path convention + drift tests,MITIGATED_CONTRACT_REAL_DATA_PENDING,W09-W19
 RISK-115,Optional Parquet support becomes accidental hard dependency,MEDIUM,MEDIUM,optional import + no pyarrow project dependency,MITIGATED_W09,W09-W19
 RISK-116,Raw-field IDs change across registry rebuild,HIGH,LOW,stable import ordering/identity policy + validator,MITIGATED_W09,W09+
-RISK-117,Source license/access context lost during feature handoff,HIGH,MEDIUM,license/access fields retained in registry,MITIGATED_CONTRACT_PUBLICATION_REVIEW_PENDING,W09-W24
+RISK-117,Source license/access context lost during feature handoff,HIGH,MEDIUM,Retain license/access as nonblocking metadata and preserve provenance; review only future publication,MITIGATED_PRIVATE_RESEARCH_POLICY,W09-W24
 RISK-118,W09 candidate permission bypasses W08 PIT gateway,CRITICAL,LOW,pit_gateway_required=true + protected validator,MITIGATED_W09,W09+
 RISK-119,Rolling/trend feature accidentally includes target game,CRITICAL,MEDIUM,Strict-prior transform implementation + synthetic tests,MITIGATED_W10_CONTRACT,W10-W19
 RISK-120,Window/decay hyperparameters overfit historical seasons,HIGH,HIGH,Treat windows as experiment parameters; chronological protected evaluation,OPEN_EMPIRICAL,W10-W17
@@ -154,7 +154,7 @@ RISK-152,Questionable/limited players are forced into active/out binary,HIGH,HIG
 RISK-153,Backup identity/value is wrong when role redistributes across rotation,HIGH,MEDIUM,Multi-player replacement/usage distribution and uncertainty,OPEN,W12-W19
 RISK-154,Transfer model applies fixed conference penalty and misprices individual context,HIGH,HIGH,Continuous-strength same-player translation design; fixed penalties prohibited,MITIGATED_CONTRACT_W12,W12-W17
 RISK-155,Freshmen with zero college snaps are passed through transfer-production model,HIGH,MEDIUM,Separate prospect-prior eligibility contract,MITIGATED_CONTRACT_W12,W12-W17
-RISK-156,Recruiting/transfer upstream rights are assumed from public visibility,HIGH,MEDIUM,Source registry provenance/access/license augmentation and audit,MITIGATED_GOVERNANCE_W12,W12-W24
+RISK-156,Recruiting/transfer upstream lineage is mistaken for independent corroboration,HIGH,MEDIUM,Source registry provenance/access/license metadata and upstream identity audit,MITIGATED_GOVERNANCE_W12_PRIVATE_POLICY,W12-W24
 RISK-157,Preseason honors double-count recruiting/production/reputation,MEDIUM,HIGH,Candidate-only status and later family ablation,OPEN,W12-W17
 RISK-158,Future NFL draft results leak talent into historical games,CRITICAL,HIGH,Explicit ban and W08 PIT controls,MITIGATED_CONTRACT_W12,W12-W19
 RISK-159,Official availability archive coverage is overstated,HIGH,HIGH,W12 marks materialization PLAN_ONLY; W19 reconstructs and measures coverage,OPEN,W12-W19

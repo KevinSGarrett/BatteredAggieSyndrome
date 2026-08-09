@@ -58,7 +58,7 @@
     "risk_ids": 10
   },
   "effective_traceability_total": 67,
-  "end_to_end_validation": "The entire Security, observability, backup/restore, drift, and incident operations capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Security, observability, backup/restore, drift, and incident operations and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-014.json",
   "evidence_state": "PLANNED",
@@ -125,7 +125,7 @@
     "operations",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-014",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Provide controls required to run the local-first system safely, visibly, recoverably, and without unnecessary infrastructure.",
@@ -250,7 +250,7 @@
     "SRCREF-02006",
     "SRCREF-01898"
   ],
-  "specificity_fingerprint": "fa6663d4fd54324eb574918e71fbec7efd9e86f5d720f528f6dadb36ab787b53",
+  "specificity_fingerprint": "d4c8799dbc7bc7df46e94cac578a0a91021f49b74c624dd04f69228d9e1e8116",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -426,7 +426,7 @@ All Stories and Subtasks under this Epic for the operations domain, including it
 
 ## End-to-End Validation Requirement
 
-The entire Security, observability, backup/restore, drift, and incident operations capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Security, observability, backup/restore, drift, and incident operations and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

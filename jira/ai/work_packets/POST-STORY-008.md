@@ -8,7 +8,7 @@
 
 ## What capability or closure gate am I coordinating?
 
-Turn approved source lanes into deterministic acquisition specifications suitable for immutable historical materialization.
+Turn selected source lanes into deterministic acquisition specifications suitable for immutable historical materialization.
 
 ## Why?
 
@@ -30,7 +30,7 @@ Deliver Story POST-STORY-008 (Production acquisition contracts, rate limits, fal
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -101,9 +101,15 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.
+2. The specification records upstream lineage and avoids duplicate independent-source claims.
+3. Unknown historical coverage remains explicit rather than backfilled by assumption.
+4. Retries honor provider rate limits and bounded backoff.
+5. Cached raw responses remain immutable and are keyed by request/source identity.
+6. Fallbacks activate only under documented conditions and preserve source provenance.
+7. Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.
+8. A changed contract cannot silently overwrite the prior baseline.
+9. Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.
 
 ## Tests / validation
 
@@ -120,7 +126,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Exercise the complete Production acquisition contracts, rate limits, fallbacks, and drift hooks path and verify downstream consumption of the pinned outputs.
+Exercise the complete Production acquisition contracts, rate limits, fallbacks, and drift hooks path through `POST-SUBTASK-024` and verify downstream use of pinned outputs.
 
 ## Stop instead of improvising when
 

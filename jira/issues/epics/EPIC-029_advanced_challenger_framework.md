@@ -90,7 +90,7 @@
     "planning-program",
     "w18"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-029",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Allow neural/sequence/graph/other challengers only after strong baselines and protected evaluation exist.",

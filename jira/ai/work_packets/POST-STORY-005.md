@@ -30,7 +30,7 @@ Deliver Story POST-STORY-005 (Reconcile the final source universe and authority 
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -99,9 +99,15 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every prioritized source has a stable source ID, domain, upstream relationship, access method, historical depth, and PIT feasibility.
+2. SportsDataverse/CFBD upstream relationships are represented without false independent-corroboration claims.
+3. Superseded or unavailable sources retain explicit dispositions.
+4. Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.
+5. Optional proprietary enrichment is not made mandatory for v1.
+6. Priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use.
+7. All source IDs referenced by adapters, registries, and acquisition plans resolve to the production inventory.
+8. Every unresolved technical or quality decision has a Jira action or scoped quarantine.
+9. No required domain is silently marked complete when only reconnaissance samples exist.
 
 ## Tests / validation
 
@@ -118,7 +124,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Exercise the complete Reconcile the final source universe and authority decisions path and verify downstream consumption of the pinned outputs.
+Exercise the complete Reconcile the final source universe and authority decisions path through `POST-SUBTASK-015` and verify downstream use of pinned outputs.
 
 ## Stop instead of improvising when
 

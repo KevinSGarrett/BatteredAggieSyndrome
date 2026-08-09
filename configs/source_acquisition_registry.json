@@ -1,26 +1,17 @@
 {
-  "generated_at_utc": "2026-08-09T16:39:29Z",
-  "non_ready_source_default": "DENY",
+  "generated_at_utc": "2026-08-09T19:40:00Z",
+  "non_ready_source_default": "ALLOW_PRIVATE_RESEARCH_REQUIRE_TECHNICAL_ROUTE_DESCRIPTOR",
+  "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
   "prerequisite_identities": [
     {
-      "bytes": 93881,
+      "bytes": 103304,
       "path": "configs/source_rights_registry.json",
-      "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2"
+      "sha256": "11f944ebff0ee5f932d21bbff316da991b31f3b5f492acc31102c017019a69c4"
     },
     {
-      "bytes": 72732,
+      "bytes": 66945,
       "path": "artifacts/source_governance/source_access_readiness.csv",
-      "sha256": "452d8796a42fc770fa775919676af04bcb0927a691ad863adef1ed891a37cb6b"
-    },
-    {
-      "bytes": 12079,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
-      "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
-    },
-    {
-      "bytes": 13130,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
-      "sha256": "614ae316b167d323ef96f3dc8a523e66e0f5ac0b00ea06fc7617bd2f0e32b6a0"
+      "sha256": "717f785c160ef0e8903db8b6c5ca1aa50caf1cc56bb495a12a2d046839fa8488"
     },
     {
       "bytes": 14917,
@@ -29,6 +20,7 @@
     }
   ],
   "registry_status": "VERIFIED",
+  "rights_metadata_nonblocking": true,
   "schema_version": "1.0.0",
   "source_count": 2,
   "sources": [
@@ -672,5 +664,6 @@
       "source_id": "SRC-003"
     }
   ],
+  "unknown_public_source_policy": "ALLOW_PRIVATE_LOCAL_ACQUISITION_WITH_SOURCE_URL_TIMESTAMP_HASH_AND_EXTERNAL_STORAGE",
   "unknown_source_default": "DENY"
 }

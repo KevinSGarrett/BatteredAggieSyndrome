@@ -59,7 +59,7 @@
     "risk_ids": 7
   },
   "effective_traceability_total": 68,
-  "end_to_end_validation": "The entire Texas A&M high-resolution specialization and no-lift-safe evaluation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Texas A&M high-resolution specialization and no-lift-safe evaluation and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-009.json",
   "evidence_state": "PLANNED",
@@ -126,7 +126,7 @@
     "post-wave",
     "tamu"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-009",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Build A&M-specific state and specialization candidates while requiring protected evidence and accepting a global-only/no-adjustment result.",
@@ -254,7 +254,7 @@
     "SRCREF-01893",
     "SRCREF-01571"
   ],
-  "specificity_fingerprint": "7b42e0a785bfe3e29499e2c1e2b9738c21631b2e7e8456bfdc5e1b9621db5cf8",
+  "specificity_fingerprint": "c8a027eb32ab1307b9f189cb8d2dc354de8878cc2fe0c3884d7a0708b9ed6a72",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -433,7 +433,7 @@ All Stories and Subtasks under this Epic for the tamu domain, including its expl
 
 ## End-to-End Validation Requirement
 
-The entire Texas A&M high-resolution specialization and no-lift-safe evaluation capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Texas A&M high-resolution specialization and no-lift-safe evaluation and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

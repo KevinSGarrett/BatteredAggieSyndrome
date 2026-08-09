@@ -1,5 +1,5 @@
 <!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-137_execute_approved_source_acquisition_through_immutable_raw_entities_pit_features_.json -->
-# POST-SUBTASK-137 — [POST-SUBTASK-137] Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data
+# POST-SUBTASK-137 — [POST-SUBTASK-137] Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data
 
 ## Canonical metadata
 
@@ -7,7 +7,7 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Every production stage uses real approved data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
+    "Every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
     "The declared output `artifacts/release/release_candidate_e2e.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
   ],
@@ -53,11 +53,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-137 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-137 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/release/release_candidate_e2e.json` is demonstrably consumable by POST-SUBTASK-138 without manual reconstruction or undocumented state."
   ],
@@ -74,7 +74,7 @@
     "risk_ids": 116
   },
   "effective_traceability_total": 426,
-  "end_to_end_validation": "Validate that `artifacts/release/release_candidate_e2e.json` can be parsed and consumed by `POST-SUBTASK-138` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/release/release_candidate_e2e.json` can be parsed and consumed by `POST-SUBTASK-138` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-015",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-137.json",
   "evidence_state": "PLANNED",
@@ -120,9 +120,9 @@
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100441,
   "in_scope": [
-    "Perform the exact action: Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data.",
+    "Perform the exact action: Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data.",
     "Consume only verified prerequisite outputs from `POST-SUBTASK-009`, `POST-SUBTASK-135`, `POST-SUBTASK-136`.",
-    "Demonstrate with saved evidence: Every production stage uses real approved data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
+    "Demonstrate with saved evidence: Every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
     "Demonstrate with saved evidence: The declared output `artifacts/release/release_candidate_e2e.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
     "Produce, validate, content-hash, and register `artifacts/release/release_candidate_e2e.json`.",
@@ -139,10 +139,10 @@
     "release",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-137",
   "maturity_before": "DESIGN_ONLY",
-  "objective": "Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data",
+  "objective": "Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24627",
@@ -155,8 +155,8 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
-    "Work assigned to sibling subtasks: Stage the signed release candidate, dependency/runtime, Jira pack, approved source/rights configuration, and clean external roots; Validate outputs, lineage, protected decisions, rollback, clean re-execution, target performance/resources/freshness, and all release-blocking controls.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
+    "Work assigned to sibling subtasks: Stage the signed release candidate, dependency/runtime, Jira pack, private-research source configuration, and clean external roots; Validate outputs, lineage, protected decisions, rollback, clean re-execution, target performance/resources/freshness, and all release-blocking controls.",
     "Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
@@ -164,10 +164,9 @@
   "parent_id": "POST-STORY-046",
   "phase": "PHASE-5",
   "prerequisites": [
-    "Dependency POST-SUBTASK-135 complete at required maturity",
     "Dependency POST-SUBTASK-009 complete at required maturity",
-    "Dependency POST-SUBTASK-136 complete at required maturity",
-    "External condition: AUTHORITATIVE_TARGET_HOST_AND_PRODUCTION_SOURCE_ACCESS_REQUIRED"
+    "Dependency POST-SUBTASK-135 complete at required maturity",
+    "Dependency POST-SUBTASK-136 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02099",
@@ -273,14 +272,14 @@
   "risk_failure_conditions": [
     "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-137.",
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
-    "Acceptance failure: the evidence cannot demonstrate that every production stage uses real approved data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
+    "Acceptance failure: the evidence cannot demonstrate that every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
     "Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/release/release_candidate_e2e.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
     "External blocker remains unresolved: AUTHORITATIVE_TARGET_HOST_AND_PRODUCTION_SOURCE_ACCESS_REQUIRED."
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute the atomic 2 of 3 step in Story POST-STORY-046 (Clean-target real-data release candidate): Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data. Consume only verified prerequisite outputs from `POST-SUBTASK-009`, `POST-SUBTASK-135`, `POST-SUBTASK-136`. Produce `artifacts/release/release_candidate_e2e.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-138.",
+  "scope": "Execute the atomic 2 of 3 step in Story POST-STORY-046 (Clean-target real-data release candidate): Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data. Consume only verified prerequisite outputs from `POST-SUBTASK-009`, `POST-SUBTASK-135`, `POST-SUBTASK-136`. Produce `artifacts/release/release_candidate_e2e.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-138.",
   "source_ids": [
     "AC-038",
     "GAP-001",
@@ -309,11 +308,11 @@
     "SRCREF-01574",
     "SRCREF-01017"
   ],
-  "specificity_fingerprint": "f1fc4c8d2c24a90f5e34149231b08723180d0a4651677c0b99ca85196df5798e",
+  "specificity_fingerprint": "bd845aa1cf0f626d23247d842261997b59fbca5cac0bd4a09f75b8e8797ed534",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02103",
@@ -332,7 +331,7 @@
     "SRCREF-01574",
     "SRCREF-01017"
   ],
-  "title": "[POST-SUBTASK-137] Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data",
+  "title": "[POST-SUBTASK-137] Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data",
   "traceability_inherited_from": [
     "POST-SUBTASK-141"
   ],
@@ -354,7 +353,7 @@
 
 ## Objective
 
-Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data
+Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data
 
 ## Why This Exists
 
@@ -362,13 +361,13 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Scope
 
-Execute the atomic 2 of 3 step in Story POST-STORY-046 (Clean-target real-data release candidate): Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data. Consume only verified prerequisite outputs from `POST-SUBTASK-009`, `POST-SUBTASK-135`, `POST-SUBTASK-136`. Produce `artifacts/release/release_candidate_e2e.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-138.
+Execute the atomic 2 of 3 step in Story POST-STORY-046 (Clean-target real-data release candidate): Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data. Consume only verified prerequisite outputs from `POST-SUBTASK-009`, `POST-SUBTASK-135`, `POST-SUBTASK-136`. Produce `artifacts/release/release_candidate_e2e.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-138.
 
 ### Explicit In Scope
 
-- Perform the exact action: Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data.
+- Perform the exact action: Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-009`, `POST-SUBTASK-135`, `POST-SUBTASK-136`.
-- Demonstrate with saved evidence: Every production stage uses real approved data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.
+- Demonstrate with saved evidence: Every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.
 - Demonstrate with saved evidence: The declared output `artifacts/release/release_candidate_e2e.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 - Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 - Produce, validate, content-hash, and register `artifacts/release/release_candidate_e2e.json`.
@@ -378,17 +377,16 @@ Execute the atomic 2 of 3 step in Story POST-STORY-046 (Clean-target real-data r
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
-- Work assigned to sibling subtasks: Stage the signed release candidate, dependency/runtime, Jira pack, approved source/rights configuration, and clean external roots; Validate outputs, lineage, protected decisions, rollback, clean re-execution, target performance/resources/freshness, and all release-blocking controls.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
+- Work assigned to sibling subtasks: Stage the signed release candidate, dependency/runtime, Jira pack, private-research source configuration, and clean external roots; Validate outputs, lineage, protected decisions, rollback, clean re-execution, target performance/resources/freshness, and all release-blocking controls.
 - Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Prerequisites
 
-- Dependency POST-SUBTASK-135 complete at required maturity
 - Dependency POST-SUBTASK-009 complete at required maturity
+- Dependency POST-SUBTASK-135 complete at required maturity
 - Dependency POST-SUBTASK-136 complete at required maturity
-- External condition: AUTHORITATIVE_TARGET_HOST_AND_PRODUCTION_SOURCE_ACCESS_REQUIRED
 
 ## Hard Dependencies
 
@@ -456,17 +454,17 @@ Execute the atomic 2 of 3 step in Story POST-STORY-046 (Clean-target real-data r
 
 ## Acceptance Criteria
 
-1. Every production stage uses real approved data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.
+1. Every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.
 2. The declared output `artifacts/release/release_candidate_e2e.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-137 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-137 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/release/release_candidate_e2e.json` is demonstrably consumable by POST-SUBTASK-138 without manual reconstruction or undocumented state.
 
@@ -514,7 +512,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-046 (Clean-target real-data r
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/release/release_candidate_e2e.json` can be parsed and consumed by `POST-SUBTASK-138` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/release/release_candidate_e2e.json` can be parsed and consumed by `POST-SUBTASK-138` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -524,16 +522,16 @@ Validate that `artifacts/release/release_candidate_e2e.json` can be parsed and c
 
 - The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-137.
 - A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
-- Acceptance failure: the evidence cannot demonstrate that every production stage uses real approved data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.
+- Acceptance failure: the evidence cannot demonstrate that every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.
 - Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/release/release_candidate_e2e.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 - Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 - External blocker remains unresolved: AUTHORITATIVE_TARGET_HOST_AND_PRODUCTION_SOURCE_ACCESS_REQUIRED.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

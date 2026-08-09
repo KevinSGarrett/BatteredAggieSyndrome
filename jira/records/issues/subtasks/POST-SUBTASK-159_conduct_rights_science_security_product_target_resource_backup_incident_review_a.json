@@ -3,7 +3,7 @@
   "acceptance_criteria": [
     "Protected outcomes cannot tune event handling/thresholds/model selection, all outage/delay scenarios and uncertainty are reported, and comparison includes pregame-only/simple live baselines.",
     "Live outputs expose source/state/model/timestamp and remain distinguishable from immutable pregame forecasts; stale/disconnected/corrected/final states are explicit and restricted feed data is not exposed.",
-    "Authorization requires approved rights, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition.",
+    "Authorization requires the private-research source policy, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition.",
     "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [
@@ -50,11 +50,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-159 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-159 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-053."
   ],
@@ -119,7 +119,7 @@
     "Consume only verified prerequisite outputs from `POST-SUBTASK-156`, `POST-SUBTASK-157`, `POST-SUBTASK-158`.",
     "Demonstrate with saved evidence: Protected outcomes cannot tune event handling/thresholds/model selection, all outage/delay scenarios and uncertainty are reported, and comparison includes pregame-only/simple live baselines.",
     "Demonstrate with saved evidence: Live outputs expose source/state/model/timestamp and remain distinguishable from immutable pregame forecasts; stale/disconnected/corrected/final states are explicit and restricted feed data is not exposed.",
-    "Demonstrate with saved evidence: Authorization requires approved rights, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition.",
+    "Demonstrate with saved evidence: Authorization requires the private-research source policy, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition.",
     "Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
     "Produce, validate, content-hash, and register `artifacts/live/live_operating_decision.json`.",
     "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
@@ -134,7 +134,7 @@
     "protected-gate",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-159",
   "maturity_before": "DEFERRED",
   "objective": "Conduct rights/science/security/product/target-resource/backup/incident review and authorize or reject live operation separately",
@@ -150,9 +150,9 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Run sealed event-time chronological evaluation with precommitted accuracy/calibration/latency/reliability/outage metrics and simple/pregame baselines; Implement timestamped live snapshot/stream API and UI states for stale, disconnected, corrected, suspended, halftime, final, replay, and restricted data.",
-    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.",
+    "Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.",
     "Substituting a non-authoritative machine, estimated timing, or synthetic benchmark result for the declared target-host evidence.",
     "Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.",
@@ -211,7 +211,7 @@
     "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
     "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
     "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
-    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.",
+    "Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.",
     "Raw benchmark samples and machine inventory, including OS/CPU/RAM/GPU/storage, workload hash, repetitions, warm/cold distinction, errors, peak resources, and authority classification.",
     "PIT evidence showing prediction cutoff, known-at fields, rejected future/same-game/postgame records, fold/split identity, and leakage-test results.",
     "Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status."
@@ -274,7 +274,7 @@
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
     "Acceptance failure: the evidence cannot demonstrate that protected outcomes cannot tune event handling/thresholds/model selection, all outage/delay scenarios and uncertainty are reported, and comparison includes pregame-only/simple live baselines.",
     "Acceptance failure: the evidence cannot demonstrate that live outputs expose source/state/model/timestamp and remain distinguishable from immutable pregame forecasts; stale/disconnected/corrected/final states are explicit and restricted feed data is not exposed.",
-    "Acceptance failure: the evidence cannot demonstrate that authorization requires approved rights, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition.",
+    "Acceptance failure: the evidence cannot demonstrate that authorization requires the private-research source policy, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition.",
     "Acceptance failure: the evidence cannot demonstrate that all prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "risk_ids": [],
@@ -308,11 +308,11 @@
     "SRCREF-02116",
     "SRCREF-02118"
   ],
-  "specificity_fingerprint": "4532e724e3c0556005aa73fd47f0b443536cb7c30775c7009e77aadc06bb2eb0",
+  "specificity_fingerprint": "6e74dd3c77333e6346cd661eb075755bb9374a160cc36db3c6cafc71551fbc57",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02001",

@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Every resolution records resolver version, candidate set, evidence, confidence, decision rule, and deterministic replay; probability never substitutes for proof.",
+    "The declared output `artifacts/entities/resolution_results.parquet` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Manual decisions are append-only and attributable, transitions have known-at/effective intervals, and adding future aliases cannot change prior accepted identities without an explicit correction event.",
+    "The declared output `artifacts/entities/entity_decision_and_transition_log.jsonl` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Coverage/ambiguity/collision/orphan metrics are reported by domain/source/season/entity class; high-impact unresolved identities block affected work and GAP-004 closes only on population evidence.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -116,7 +120,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-014",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Resolve the full population deterministically and publish a pinned entity snapshot for PIT use.",
@@ -132,7 +136,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-004",
@@ -239,7 +243,7 @@
     "SRCREF-01565",
     "SRCREF-01566"
   ],
-  "specificity_fingerprint": "2fcfdf4d4fa982f0e89907cf2281345b5ffea2ef1c95c2603554b8b6b2ec6e8c",
+  "specificity_fingerprint": "dccbd90582e784c0f9640338c6904f854016a5ac81efd334a907980e5f849f2c",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -296,7 +300,7 @@ Deliver Story POST-STORY-014 (Population resolution, review workflow, transition
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -367,9 +371,13 @@ Deliver Story POST-STORY-014 (Population resolution, review workflow, transition
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every resolution records resolver version, candidate set, evidence, confidence, decision rule, and deterministic replay; probability never substitutes for proof.
+2. The declared output `artifacts/entities/resolution_results.parquet` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Manual decisions are append-only and attributable, transitions have known-at/effective intervals, and adding future aliases cannot change prior accepted identities without an explicit correction event.
+5. The declared output `artifacts/entities/entity_decision_and_transition_log.jsonl` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Coverage/ambiguity/collision/orphan metrics are reported by domain/source/season/entity class; high-impact unresolved identities block affected work and GAP-004 closes only on population evidence.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

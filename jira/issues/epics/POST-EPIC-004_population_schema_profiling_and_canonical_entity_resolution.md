@@ -56,7 +56,7 @@
     "risk_ids": 9
   },
   "effective_traceability_total": 56,
-  "end_to_end_validation": "The entire Population schema profiling and canonical entity resolution capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Population schema profiling and canonical entity resolution and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-004.json",
   "evidence_state": "PLANNED",
@@ -123,7 +123,7 @@
     "entities",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-004",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Profile real populations and resolve teams, conferences, venues, coaches, players, games, sources, and temporal aliases at scale with auditable uncertainty.",
@@ -248,7 +248,7 @@
     "SRCREF-01565",
     "SRCREF-01566"
   ],
-  "specificity_fingerprint": "aff990cd5c1b75d2406d32152b9766a09ee74c5abdd73f4a7e08b3fa1dde3537",
+  "specificity_fingerprint": "359320a3602907898ebf989d57a1ef921e50198af2f9d81d0175de87f0c13604",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -421,7 +421,7 @@ All Stories and Subtasks under this Epic for the entities domain, including its 
 
 ## End-to-End Validation Requirement
 
-The entire Population schema profiling and canonical entity resolution capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Population schema profiling and canonical entity resolution and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

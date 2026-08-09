@@ -3,7 +3,7 @@
 W19 may begin only from the bound **Wave 18 v0.18.2 full-rebuild** cumulative/hydration pair. Both earlier W18 pairs are rejected and must never be used as a W19 parent.
 
 ## First task
-`TASK-041` remains the first W19 implementation task: approved source-adapter/raw-snapshot starters.
+`TASK-041` remains the first W19 implementation task: private-research source-adapter/raw-snapshot starters. The former source-rights approval prerequisite is superseded; technical, quality, schema, PIT, leakage, credential, and safety gates remain.
 
 ## W18 assets W19 should use
 - canonical experiment/study IDs and immutable lineage;

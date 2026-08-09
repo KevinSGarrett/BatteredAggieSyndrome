@@ -33,7 +33,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-017 (Leakage battery and chro
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Run static, future-append, value-mutation, same-game, normalization, entity-correction, weather, market, roster, and label leakage tests on real matrices; Implement deterministic walk-forward replay with frozen train/tune/protected boundaries, fold-local transforms, checkpoint/resume, and evidence identities.
 - Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
 
@@ -136,9 +136,9 @@ A sealed chronological run can rebuild every pregame matrix and demonstrate futu
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Triggers predeclare evidence/budget/freeze/skip reasons, cannot repeatedly tune on protected outcomes, preserve all failed/no-improvement challengers, and never corrupt the active champion.",
+    "The declared output `artifacts/mlops/retraining_challenger_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Snapshot rows derive only from signed run artifacts, follow protected A&M/BAS null/admission decisions, mark unsupported outputs unavailable, and are immutable/idempotent.",
+    "The declared output `artifacts/forecasts/forecast_snapshot_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Only complete signed non-stale snapshots activate atomically, rollback restores a verified prior pointer, product reads never see partial state, and no SLA is claimed without observed evidence.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -110,7 +114,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-037",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Retrain only when policy permits and publish signed snapshots atomically.",
@@ -126,7 +130,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-012",
@@ -233,7 +237,7 @@
     "SRCREF-01896",
     "SRCREF-01574"
   ],
-  "specificity_fingerprint": "33d3c52b0bee1efccdd812b7b976890ea03d4c849e12c403469333dc8246eac6",
+  "specificity_fingerprint": "295f2014699860ac606b0c80c290384c029979e3e5f35f9c9bf53dd55a75c86d",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

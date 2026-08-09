@@ -54,11 +54,11 @@
 - **Required action:** Create labeled cross-source benchmark before enabling fuzzy auto-accept
 - **Priority:** P1
 
-## GAP-010 — Source rights/redistribution
+## GAP-010 — Future public distribution review
 - **Class:** DATA_GOVERNANCE
-- **State:** Public accessibility does not guarantee redistribution rights
-- **Required action:** Review each production source; keep restricted raw data local
-- **Priority:** P0
+- **State:** Private local acquisition and training are authorized; raw third-party publication remains intentionally disabled
+- **Required action:** Keep bulk payloads outside Git. Conduct a separate source-specific review only if public distribution, third-party payload repository inclusion, or commercialization is later proposed.
+- **Priority:** DEFERRED_UNTIL_DISTRIBUTION_PROPOSED
 
 ## GAP-011 — Officiating/private-resource/proprietary charting gaps
 - **Class:** DATA
@@ -83,4 +83,3 @@
 - **State:** Live source/replay implementation remains deferred
 - **Required action:** Keep isolated from pregame system; build only after pregame maturity
 - **Priority:** P3
-

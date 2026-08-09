@@ -7,10 +7,10 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "The model dataset pins the expanded quality-supported historical population and exact season/domain eligibility tiers consumed; the bounded 2022-2025 tranche is not the terminal training population by default.",
-    "Any narrower window is admitted only by explicit empirical evidence produced without protected-period tuning and records the tradeoff, excluded seasons/domains, and protected acceptance decision.",
-    "Dataset identity, target-game exclusion, PIT eligibility, duplicate handling, feature/target separation, split assignment, and reproducibility all pass from immutable lineage.",
-    "Failure of one older domain causes scoped feature/season eligibility or fallback behavior, not silent global history removal or unsupported imputation."
+    "Targets declare cancellations, overtime, missing scores, neutral sites, lower divisions, and official outcome source; every row links to canonical game evidence.",
+    "Split assignments match protected registries, prevent duplicate/rematch/season-fragment leakage, and precommit weights/shrinkage before candidate results.",
+    "Pinned raw/entity/PIT/feature/target/split versions reproduce identical rows and protected labels are inaccessible to training/tuning paths.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -56,11 +56,11 @@
   "content_contract_version": "2.0",
   "critical_path": true,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-072 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-072 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-024."
   ],
@@ -128,7 +128,7 @@
   "import_id": 100376,
   "in_scope": [
     "Perform the exact action: Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility.",
-    "Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`.",
+    "Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`, `POST-SUBTASK-033`.",
     "Demonstrate with saved evidence: Targets declare cancellations, overtime, missing scores, neutral sites, lower divisions, and official outcome source; every row links to canonical game evidence.",
     "Demonstrate with saved evidence: Split assignments match protected registries, prevent duplicate/rematch/season-fragment leakage, and precommit weights/shrinkage before candidate results.",
     "Demonstrate with saved evidence: Pinned raw/entity/PIT/feature/target/split versions reproduce identical rows and protected labels are inaccessible to training/tuning paths.",
@@ -163,7 +163,7 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Materialize official score, margin, win, distribution, market-lane, and BAS-support target tables with game lineage; Materialize chronological train/tune/protected assignments, sample weights, cold-start rules, and feature/target separation.",
     "Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
@@ -172,11 +172,11 @@
   "parent_id": "POST-STORY-024",
   "phase": "PHASE-1",
   "prerequisites": [
-    "Dependency POST-SUBTASK-060 complete at required maturity",
     "Dependency POST-SUBTASK-051 complete at required maturity",
+    "Dependency POST-SUBTASK-060 complete at required maturity",
     "Dependency POST-SUBTASK-070 complete at required maturity",
     "Dependency POST-SUBTASK-071 complete at required maturity",
-    "Hard dependency POST-SUBTASK-033"
+    "Dependency POST-SUBTASK-033 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02049",
@@ -284,7 +284,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, splits, weights, and datasets): Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility. Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`. Produce `artifacts/modeling/model_dataset_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.",
+  "scope": "Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, splits, weights, and datasets): Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility. Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`, `POST-SUBTASK-033`. Produce `artifacts/modeling/model_dataset_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.",
   "source_ids": [
     "AC-013",
     "AC-015",
@@ -311,11 +311,11 @@
     "SRCREF-00992",
     "SRCREF-00994"
   ],
-  "specificity_fingerprint": "224a2272e82b0747653b304c87267ee01e84e2a714bd100e22cb8dd22535e216",
+  "specificity_fingerprint": "b4ebcff921a4efef2a1d137916c4b860aeaefcd906dde04865f2bfee052f43ff",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02053",
@@ -362,12 +362,12 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Scope
 
-Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, splits, weights, and datasets): Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility. Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`. Produce `artifacts/modeling/model_dataset_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, splits, weights, and datasets): Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility. Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`, `POST-SUBTASK-033`. Produce `artifacts/modeling/model_dataset_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
 
 ### Explicit In Scope
 
 - Perform the exact action: Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility.
-- Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`.
+- Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`, `POST-SUBTASK-033`.
 - Demonstrate with saved evidence: Targets declare cancellations, overtime, missing scores, neutral sites, lower divisions, and official outcome source; every row links to canonical game evidence.
 - Demonstrate with saved evidence: Split assignments match protected registries, prevent duplicate/rematch/season-fragment leakage, and precommit weights/shrinkage before candidate results.
 - Demonstrate with saved evidence: Pinned raw/entity/PIT/feature/target/split versions reproduce identical rows and protected labels are inaccessible to training/tuning paths.
@@ -379,18 +379,18 @@ Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, spl
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Materialize official score, margin, win, distribution, market-lane, and BAS-support target tables with game lineage; Materialize chronological train/tune/protected assignments, sample weights, cold-start rules, and feature/target separation.
 - Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Prerequisites
 
-- Dependency POST-SUBTASK-060 complete at required maturity
 - Dependency POST-SUBTASK-051 complete at required maturity
+- Dependency POST-SUBTASK-060 complete at required maturity
 - Dependency POST-SUBTASK-070 complete at required maturity
 - Dependency POST-SUBTASK-071 complete at required maturity
-- Hard dependency POST-SUBTASK-033
+- Dependency POST-SUBTASK-033 complete at required maturity
 
 ## Hard Dependencies
 
@@ -463,18 +463,18 @@ Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, spl
 
 ## Acceptance Criteria
 
-1. The model dataset pins the expanded quality-supported historical population and exact season/domain eligibility tiers consumed; the bounded 2022-2025 tranche is not the terminal training population by default.
-2. Any narrower window is admitted only by explicit empirical evidence produced without protected-period tuning and records the tradeoff, excluded seasons/domains, and protected acceptance decision.
-3. Dataset identity, target-game exclusion, PIT eligibility, duplicate handling, feature/target separation, split assignment, and reproducibility all pass from immutable lineage.
-4. Failure of one older domain causes scoped feature/season eligibility or fallback behavior, not silent global history removal or unsupported imputation.
+1. Targets declare cancellations, overtime, missing scores, neutral sites, lower divisions, and official outcome source; every row links to canonical game evidence.
+2. Split assignments match protected registries, prevent duplicate/rematch/season-fragment leakage, and precommit weights/shrinkage before candidate results.
+3. Pinned raw/entity/PIT/feature/target/split versions reproduce identical rows and protected labels are inaccessible to training/tuning paths.
+4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-072 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-072 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-024.
 
@@ -538,9 +538,9 @@ The same pinned identities always produce the same model-ready rows, targets, we
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

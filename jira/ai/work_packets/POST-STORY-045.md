@@ -30,7 +30,7 @@ Deliver Story POST-STORY-045 (Final traceability, maturity, gap, risk, and evide
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -102,9 +102,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every active obligation/release-blocking control maps to current evidence and Jira; all 14 final gaps and 310 final risks have actionable, accepted/deferred, N-A, or verified-closed dispositions, with historical-only mappings flagged.
+2. The declared output `artifacts/release/final_traceability_audit.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Synthetic validation is not real empirical validation, functional starters are not production-ready, and every DESIGN_ONLY→OPERATING claim cites verifiable evidence or remains blocked/conflicted/manual.
+5. The declared output `artifacts/release/maturity_evidence_audit.csv` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Coverage reports unmapped/invalid/orphan/cycle/missing-AC/DoD/test/evidence/source issues and zero blockers only when supported; conditional advanced and deferred live work are excluded only explicitly.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

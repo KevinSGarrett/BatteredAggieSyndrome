@@ -123,7 +123,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-The entire Autonomous weekly real-data execution and immutable forecast publication capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Autonomous weekly real-data execution and immutable forecast publication and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Stop instead of improvising when
 

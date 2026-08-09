@@ -8,7 +8,7 @@ W19 receives a protected research plane ready to consume **real materialized dat
 
 ## First W19 task
 
-`TASK-041` remains the first ready W19 task: implement approved source-adapter/raw-snapshot starters. W18 does not execute that work early.
+`TASK-041` remains the first ready W19 task: implement private-research source-adapter/raw-snapshot starters. Source licensing and redistribution metadata do not gate private local acquisition or training. W18 does not execute that work early.
 
 ## Experiment hooks
 

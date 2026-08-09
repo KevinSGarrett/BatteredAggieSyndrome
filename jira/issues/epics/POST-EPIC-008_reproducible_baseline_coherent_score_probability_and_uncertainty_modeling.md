@@ -57,7 +57,7 @@
     "risk_ids": 53
   },
   "effective_traceability_total": 286,
-  "end_to_end_validation": "The entire Reproducible baseline, coherent score, probability, and uncertainty modeling capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Reproducible baseline, coherent score, probability, and uncertainty modeling and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-008.json",
   "evidence_state": "PLANNED",
@@ -124,7 +124,7 @@
     "modeling",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-008",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Train credible national baselines and coherent forecast candidates on leakage-safe real matrices with reproducible artifacts and no fabricated winner.",
@@ -252,7 +252,7 @@
     "SRCREF-01892",
     "SRCREF-01570"
   ],
-  "specificity_fingerprint": "a0970b09339d40cbb32d29f40d41f1dfc58f80914f5017b2119b78e87baa1bbe",
+  "specificity_fingerprint": "e6211743166ddb01f00fbe09ec65e35c5f3805129e6838ed8c078fc767e95967",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -429,7 +429,7 @@ All Stories and Subtasks under this Epic for the modeling domain, including its 
 
 ## End-to-End Validation Requirement
 
-The entire Reproducible baseline, coherent score, probability, and uncertainty modeling capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Reproducible baseline, coherent score, probability, and uncertainty modeling and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

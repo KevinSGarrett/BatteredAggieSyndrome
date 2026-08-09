@@ -57,7 +57,7 @@
     "risk_ids": 19
   },
   "effective_traceability_total": 87,
-  "end_to_end_validation": "The entire Production feature materialization and lifecycle capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Production feature materialization and lifecycle and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-006.json",
   "evidence_state": "PLANNED",
@@ -124,7 +124,7 @@
     "features",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-006",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Turn the broad feature universe into leakage-safe, reproducible, empirically screened production candidates without intuition-only promotion.",
@@ -251,7 +251,7 @@
     "SRCREF-01891",
     "SRCREF-01569"
   ],
-  "specificity_fingerprint": "22e0de851691c9b419afcce32bf13d046f6e9488942445cb66dd8b9c9062990c",
+  "specificity_fingerprint": "fc7a3b0da88d23dd4ca37b084878e7510635989fcec78446d898444103828db1",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -427,7 +427,7 @@ All Stories and Subtasks under this Epic for the features domain, including its 
 
 ## End-to-End Validation Requirement
 
-The entire Production feature materialization and lifecycle capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Production feature materialization and lifecycle and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

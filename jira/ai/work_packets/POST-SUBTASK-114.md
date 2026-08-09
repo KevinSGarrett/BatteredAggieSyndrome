@@ -22,7 +22,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-038 (Repeated shadow operatio
 
 - Perform the exact action: Approve or retain-blocked the autonomous weekly operating maturity decision.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-111`, `POST-SUBTASK-112`, `POST-SUBTASK-113`.
-- Demonstrate with saved evidence: Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real approved sources/paths and cannot omit bad weeks from reliability.
+- Demonstrate with saved evidence: Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real quality-valid sources/paths and cannot omit bad weeks from reliability.
 - Demonstrate with saved evidence: Each injected failure is detected, classified, stopped, alerted, recovered, and evidenced without weakening gates or deleting canonical evidence; recovery time/manual steps are measured.
 - Demonstrate with saved evidence: OPERATING requires repeated successful real evidence plus freshness/recovery/resource/security/operator proof and documents residual manual gates; GAP-012 stays open otherwise.
 - Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
@@ -33,7 +33,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-038 (Repeated shadow operatio
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Execute repeated real-source shadow weekly runs with timeliness, freshness, resource, coverage, intervention, and failure ledger; Run source outage, schema drift, disk pressure, corrupt artifact, stale forecast, interrupted run, and rollback drills.
 
 ## Current gate state
@@ -104,7 +104,7 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real approved sources/paths and cannot omit bad weeks from reliability.
+1. Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real quality-valid sources/paths and cannot omit bad weeks from reliability.
 2. Each injected failure is detected, classified, stopped, alerted, recovered, and evidenced without weakening gates or deleting canonical evidence; recovery time/manual steps are measured.
 3. OPERATING requires repeated successful real evidence plus freshness/recovery/resource/security/operator proof and documents residual manual gates; GAP-012 stays open otherwise.
 4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
@@ -132,9 +132,9 @@ Repeated real weekly runs publish immutable forecasts, survive representative fa
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

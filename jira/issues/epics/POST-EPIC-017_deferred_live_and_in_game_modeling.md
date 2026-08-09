@@ -57,7 +57,7 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 5,
-  "end_to_end_validation": "The entire Deferred live and in-game modeling capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Deferred live and in-game modeling and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-017.json",
   "evidence_state": "PLANNED",
@@ -116,7 +116,7 @@
     "live",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-017",
   "maturity_before": "DEFERRED",
   "objective": "Keep live/in-game modeling explicitly deferred behind separate source-rights, latency, state, replay, evaluation, product, resource, and operating authorization.",
@@ -243,7 +243,7 @@
     "SRCREF-00204",
     "SRCREF-00205"
   ],
-  "specificity_fingerprint": "5c3069e5ebdb6ee1f1e82ef09e76bbdb9f967922bc58116247c161d9c5514a04",
+  "specificity_fingerprint": "853a69cec467f0bfc3ff0ff52a58442d5ca0e60cd579dcd58696815db5b32b4e",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -415,7 +415,7 @@ All Stories and Subtasks under this Epic for the live domain, including its expl
 
 ## End-to-End Validation Requirement
 
-The entire Deferred live and in-game modeling capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Deferred live and in-game modeling and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

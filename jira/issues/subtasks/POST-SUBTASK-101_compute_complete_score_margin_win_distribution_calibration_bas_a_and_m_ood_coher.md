@@ -53,11 +53,11 @@
   "content_contract_version": "2.0",
   "critical_path": true,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-101 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-101 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/validation/protected_scorecards.json` is demonstrably consumable by POST-SUBTASK-102 without manual reconstruction or undocumented state."
   ],
@@ -73,7 +73,7 @@
     "risk_ids": 25
   },
   "effective_traceability_total": 183,
-  "end_to_end_validation": "Validate that `artifacts/validation/protected_scorecards.json` can be parsed and consumed by `POST-SUBTASK-102` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/validation/protected_scorecards.json` can be parsed and consumed by `POST-SUBTASK-102` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-011",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-101.json",
   "evidence_state": "PLANNED",
@@ -139,7 +139,7 @@
     "subtask",
     "validation"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-101",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Compute complete score, margin, win, distribution, calibration, BAS, A&M, OOD, coherence, robustness, market-lane, and segment scorecards",
@@ -155,7 +155,7 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Execute the sealed national, A&M-candidate, and BAS-support chronological replay once; Validate prediction coverage, scorecard completeness, hashes, ordering, no-early-access, and independent reproducibility.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
@@ -287,11 +287,11 @@
     "SRCREF-01570",
     "SRCREF-01571"
   ],
-  "specificity_fingerprint": "c9b47efaffdac1665b3a04c0ee2665b9b88dc6f36b2b51b5f91d2a775a0b6048",
+  "specificity_fingerprint": "a660c7d8f2e23a18a0c50ac68fbf5ca3c5e0734acf1e2143dcc7037d6c7bd38e",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02075",
@@ -353,7 +353,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-034 (Sealed walk-forward pred
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Execute the sealed national, A&M-candidate, and BAS-support chronological replay once; Validate prediction coverage, scorecard completeness, hashes, ordering, no-early-access, and independent reproducibility.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
@@ -434,11 +434,11 @@ Execute the atomic 2 of 3 step in Story POST-STORY-034 (Sealed walk-forward pred
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-101 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-101 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/validation/protected_scorecards.json` is demonstrably consumable by POST-SUBTASK-102 without manual reconstruction or undocumented state.
 
@@ -483,7 +483,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-034 (Sealed walk-forward pred
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/validation/protected_scorecards.json` can be parsed and consumed by `POST-SUBTASK-102` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/validation/protected_scorecards.json` can be parsed and consumed by `POST-SUBTASK-102` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -499,9 +499,9 @@ Validate that `artifacts/validation/protected_scorecards.json` can be parsed and
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

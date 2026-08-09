@@ -40,7 +40,7 @@ def write_conflicts(rows: list[dict[str, str]]) -> None:
     path = JIRA_ROOT / "reconciliation" / "SYNC_CONFLICTS.csv"
     fields = ["local_id", "field", "jira_value", "local_value", "resolution"]
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\r\n")
         writer.writeheader()
         writer.writerows(rows)
 

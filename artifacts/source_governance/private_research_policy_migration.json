@@ -1,0 +1,169 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "No registered source is blocked solely by license, terms, scraping, redistribution, provider preference, or upstream authorization.",
+      "disposition": "PASS",
+      "observable_result": "62 of 62 registered sources allow private acquisition and local training; rights-blocked count=0."
+    },
+    {
+      "criterion": "Unknown publicly accessible factual sources can be admitted without a prior rights record.",
+      "disposition": "PASS",
+      "observable_result": "Executable regression test admits caller-declared public sources and rejects only unconfirmed non-public access."
+    },
+    {
+      "criterion": "Raw third-party publication remains denied independently of private acquisition.",
+      "disposition": "PASS",
+      "observable_result": "Registry raw-export allowed count=0 and unsafe raw-export mutations are rejected."
+    },
+    {
+      "criterion": "Current source decisions, access readiness, credential metadata, Jira specifications, and implementation plan use the superseding policy.",
+      "disposition": "PASS",
+      "observable_result": "62 current readiness rows carry rights_metadata_nonblocking=true; Jira second-pass validation passes all 463 records and 2,118 source anchors."
+    }
+  ],
+  "commands": [
+    {
+      "command": "python tools/apply_private_research_acquisition_policy.py --repo-root . --generated-at-utc 2026-08-09T19:40:00Z",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_data_research.py -v",
+      "exit_code": 0,
+      "result": "PASS_7_TESTS"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_*source* -v",
+      "exit_code": 0,
+      "result": "PASS_10_TESTS"
+    },
+    {
+      "command": "python -B jira/tools/second_pass_hardening.py --apply --skip-generator-patch",
+      "exit_code": 0,
+      "result": "PASS_463_ISSUES_2118_SOURCE_ANCHORS_0_ERRORS"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS_265_TESTS_1_SKIPPED_33_SUBTESTS"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider tests/test_lineage_full.py -q",
+      "exit_code": 0,
+      "result": "PASS_3_PROVENANCE_LINEAGE_TESTS"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --strict",
+      "exit_code": 1,
+      "result": "EXPECTED_FAIL_IMMUTABLE_W25_MANIFEST_BOUNDARY_FOR_POST_W25_POLICY_CHANGE"
+    }
+  ],
+  "completion_claim_boundary": {
+    "historical_population_ready": false,
+    "policy_migration_complete": true,
+    "production_model_ready": false,
+    "raw_third_party_publication_allowed": false
+  },
+  "created_at_utc": "2026-08-09T19:40:00Z",
+  "credential_contract": {
+    "configured_names_redacted": [
+      "CFBD_API_KEY",
+      "SCRAPFLY_API_TOKEN",
+      "SCRAPFLY_MCP_URL",
+      "SCRAPERAPI_API_TOKEN"
+    ],
+    "credential_values_included": false
+  },
+  "evidence_type": "UNIVERSAL_PRIVATE_RESEARCH_POLICY_MIGRATION",
+  "input_and_output_identities": [
+    {
+      "bytes": 38203,
+      "path": "artifacts/source_governance/tier1_rights_decisions.csv",
+      "sha256": "20a3051b5836538fafea6455c16abe372a3fd1e9175a7cd882e1de7cd6541a83"
+    },
+    {
+      "bytes": 55804,
+      "path": "artifacts/source_governance/supplemental_rights_decisions.csv",
+      "sha256": "873f493fe236074a7c97ecffa2d84fc4057419feeb0e12bc5dcf96f100014175"
+    },
+    {
+      "bytes": 103304,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "11f944ebff0ee5f932d21bbff316da991b31f3b5f492acc31102c017019a69c4"
+    },
+    {
+      "bytes": 1916,
+      "path": "artifacts/source_governance/source_rights_gate_test.json",
+      "sha256": "a363fe1588927b6c79b2dfb80a25c7622ae2053d75fb5e59dd8406edcc9b96db"
+    },
+    {
+      "bytes": 66945,
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "sha256": "717f785c160ef0e8903db8b6c5ca1aa50caf1cc56bb495a12a2d046839fa8488"
+    },
+    {
+      "bytes": 94998,
+      "path": "artifacts/source_governance/source_access_smoke_results.json",
+      "sha256": "20456a44356fafabf542cca6f7984c00da3e396641ea91fda7434f43ec573124"
+    },
+    {
+      "bytes": 58472,
+      "path": "artifacts/source_governance/credential_contract.redacted.json",
+      "sha256": "0f01e8d8bc23468289b13170a5261388389f1f08f23b4dcc14d69e2c28e4b0f7"
+    },
+    {
+      "bytes": 23837,
+      "path": "configs/source_acquisition_registry.json",
+      "sha256": "f956797cff67f4cd0c4922aab9c1892a53a910c967b7f908c8d988e7dbaff5e5"
+    },
+    {
+      "bytes": 9878,
+      "path": "src/aggie_analytics/data/contracts.py",
+      "sha256": "1b74a538f4ec1e45618ffdff9133d5b9dbe173db234db5d020c2d6a9bfa986ca"
+    },
+    {
+      "bytes": 4139,
+      "path": "tests/test_data_research.py",
+      "sha256": "8b9e7ca9729924a2eeadc02d75f21b0932039ea3fe7645c9dba96d28a47a8819"
+    },
+    {
+      "bytes": 7030,
+      "path": "tests/test_source_access_smoke_results.py",
+      "sha256": "bff366271383af121090922a75b68db85fbdc6b2a559cd40056e90168b45f62e"
+    },
+    {
+      "bytes": 2270,
+      "path": "docs/operations/UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_POLICY.md",
+      "sha256": "29b60cd2fd8197ba838e4d4a820446bdac52704864772b99715597839aeab766"
+    },
+    {
+      "bytes": 185371,
+      "path": "configs/implementation_plan.json",
+      "sha256": "76842bc603d1fce69847a13dbc9d9a178795add2ff75426b4d16223214742546"
+    },
+    {
+      "bytes": 1570,
+      "path": "jira/validation/SECOND_PASS_AUDIT_RESULTS.json",
+      "sha256": "5f960311c2d2dee384a59d8b6fc0966c727d7b2b5dd80ce26cad0cd98f261567"
+    }
+  ],
+  "negative_findings": [
+    "Only three historical bounded smoke probes currently contain successful HTTP/schema observations; unprobed routes remain TECHNICAL_VALIDATION_PENDING, not rights-blocked.",
+    "The cumulative repository manifest is refreshed for this amendment while the protected W25 handoff and W17 judging seals remain unchanged; W25, acceptance, backlog, Jira manifest, Jira second-pass, source-anchor, import, data-research, supply-chain, lineage, and full test gates pass.",
+    "This policy change does not claim expanded historical normalization, protected model readiness, performance, A&M lift, BAS, or Aggie Excess results."
+  ],
+  "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
+  "readiness_summary": {
+    "ready": 3,
+    "rights_blocked": 0,
+    "technical_validation_pending": 59,
+    "total": 62
+  },
+  "result": "PASS",
+  "rollback_evidence": {
+    "directory": "C:/BatteredAggieSyndrome.data/backups/PRIVATE-RESEARCH-POLICY/20260809T192246Z",
+    "goal_sha256": "34a82c2e90e2500d75f70532c88430730fbef1528e52e3c50a55aca6528cb4c9",
+    "repository_bundle_sha256": "0d30aad958e518239dc3716ab1202f1e214c7e7986a282960d3087d3b8602498"
+  },
+  "schema_version": "2.0.0"
+}

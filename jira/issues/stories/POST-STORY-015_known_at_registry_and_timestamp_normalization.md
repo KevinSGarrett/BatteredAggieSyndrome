@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Every candidate input field has an approved temporal class and cutoff rule; realized weather, closing markets, final participation, box scores, and outcomes are excluded from earlier snapshots.",
+    "The declared output `configs/known_at_registry.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Original timestamps are preserved, ambiguity/impossibility is quarantined, and retrieval time is never substituted for publication time when it would make history appear known earlier.",
+    "The declared output `artifacts/pit/timestamp_normalization_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "All fields entering matrices resolve to approved rules and mutation tests reject same-game, future, postgame, or naming-convention-based eligibility.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -117,7 +121,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-015",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Define exactly when each source field may enter each pregame horizon.",
@@ -133,7 +137,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-005",
@@ -250,7 +254,7 @@
     "SRCREF-00990",
     "SRCREF-00991"
   ],
-  "specificity_fingerprint": "c639d1e05d5f645e691217bfcb939498076b66d1423875e3d452443009ff6c32",
+  "specificity_fingerprint": "b9e5ccec93442fe1b3d11f64f8bc7d7adeab83288f12d8f509da790f2ecf9f2c",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -313,7 +317,7 @@ Deliver Story POST-STORY-015 (Known-at registry and timestamp normalization) as 
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -385,9 +389,13 @@ Deliver Story POST-STORY-015 (Known-at registry and timestamp normalization) as 
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every candidate input field has an approved temporal class and cutoff rule; realized weather, closing markets, final participation, box scores, and outcomes are excluded from earlier snapshots.
+2. The declared output `configs/known_at_registry.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Original timestamps are preserved, ambiguity/impossibility is quarantined, and retrieval time is never substituted for publication time when it would make history appear known earlier.
+5. The declared output `artifacts/pit/timestamp_normalization_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. All fields entering matrices resolve to approved rules and mutation tests reject same-game, future, postgame, or naming-convention-based eligibility.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

@@ -1,348 +1,54 @@
 {
   "acceptance_matrix": [
     {
-      "criterion": "Each decision records terms URL/version, review date, allowed access, local storage, derived use, redistribution, retention, and attribution.",
+      "criterion": "Each decision records source URL/version, review date, local storage, local training, publication boundary, retention, and attribution metadata.",
       "disposition": "PASS",
-      "evidence_path": "<external-runtime>/BAT-366/tier1-rights-consumer.safe.json",
-      "evidence_sha256": "ba0699723cfc72ade06147613240559c5cf331b8e5e6f2c23a827637ea01b371",
-      "observable_result": "All 26 rows contain the named human/technical review, terms snapshot hash, and every required use/lifecycle field; the consumer accepted the baseline and rejected six negative mutations."
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
-      "criterion": "Ambiguous legal terms remain MANUAL_REVIEW_REQUIRED rather than assumed permissive.",
+      "criterion": "Ambiguous license, terms, scraping, redistribution, and upstream-authorization fields are explicitly nonblocking for private acquisition/training.",
       "disposition": "PASS",
-      "evidence_path": "artifacts/source_governance/tier1_rights_decisions.csv",
-      "evidence_sha256": "ad8596db5a60c9ae09158e1feb728b74872ed7cb6cdfb9e8c90cac7390378d64",
-      "observable_result": "Only CFBD REST, Open-Meteo historical lanes, and exact Texas A&M public factual pages whose current robots policy allows all agents permit materialization. Other official-site content is source-specific/reference-only; SportsDataverse/upstream, robots-disallowed NCAA directory/statistics paths, restricted NCAA, explicit SEC automation prohibitions, and unverified GraphQL lanes remain blocked. No ambiguous lane is promoted."
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
-      "criterion": "Restricted bulk raw data is classified local-only.",
+      "criterion": "Bulk raw data remains local outside Git and is not published.",
       "disposition": "PASS",
-      "evidence_path": "artifacts/source_governance/tier1_rights_decisions.csv",
-      "evidence_sha256": "ad8596db5a60c9ae09158e1feb728b74872ed7cb6cdfb9e8c90cac7390378d64",
-      "observable_result": "All admitted raw snapshots are local-only outside Git; CFBD redistribution is prohibited, Open-Meteo is handled more restrictively than CC-BY permits, and restricted/unlicensed bulk lanes are blocked."
-    }
-  ],
-  "command_log_identities": [
-    {
-      "bytes": 448,
-      "path": "<external-runtime>/BAT-366/consumer.stdout.log",
-      "sha256": "4d552f90e2e6d6db93baff253b97a815155b36d34b6d34cf9b55e7bd513adf11"
-    },
-    {
-      "bytes": 202,
-      "path": "<external-runtime>/BAT-366/test-data-research.stdout.log",
-      "sha256": "aee27cd7dbd91ffd4acc9803e750dfc2af4c8e87a44d00a8f0fc744ea4474e01"
-    },
-    {
-      "bytes": 208,
-      "path": "<external-runtime>/BAT-366/validate-data-research.stdout.log",
-      "sha256": "bb60ac13c37a0d70a5d6128fb6438c3015c143ca1c5e4ba28c6ca1541e76fc6f"
-    },
-    {
-      "bytes": 194,
-      "path": "<external-runtime>/BAT-366/candidate-repository-strict.stdout.log",
-      "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
-    },
-    {
-      "bytes": 850,
-      "path": "<external-runtime>/BAT-366/candidate-pytest.stdout.log",
-      "sha256": "c0e5cfdeda40f7933d020e0abf7d066759aff1bf8cf43f83ac2fce3cd4a70d14"
-    },
-    {
-      "bytes": 626,
-      "path": "<external-runtime>/BAT-366/reconcile-dry-run.stdout.log",
-      "sha256": "fcba8b61dc239e85e84500d676357f7e221b1b44d8196ba09450972e1337961b"
-    },
-    {
-      "bytes": 242,
-      "path": "<external-runtime>/BAT-366/reconcile-apply.stdout.log",
-      "sha256": "f0f9a3860f39cb1130bcc154964a926b583bc2a7bdfdbdc015e9753204ee429b"
-    },
-    {
-      "bytes": 114,
-      "path": "<external-runtime>/BAT-366/rebuild.stdout.log",
-      "sha256": "b404cd5e00684a6c1be33beb34bd906f97d0362eafab81e18cd354cf04c79d1c"
-    },
-    {
-      "bytes": 3096,
-      "path": "<external-runtime>/BAT-366/post-rebuild-jira-strict.stdout.log",
-      "sha256": "0f59bdf12866eaa5b88de5690e0b5e33cafb781d65c4348bf926db386655a1e6"
-    },
-    {
-      "bytes": 194,
-      "path": "<external-runtime>/BAT-366/sync-candidate-repository-strict.stdout.log",
-      "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
-    },
-    {
-      "bytes": 850,
-      "path": "<external-runtime>/BAT-366/sync-candidate-pytest.stdout.log",
-      "sha256": "782ec12b91130843abb94d27375b8c6ea33a6c4c3a105cb22dd0594426d9356f"
-    },
-    {
-      "bytes": 3096,
-      "path": "<external-runtime>/BAT-366/sync-candidate-jira-strict.stdout.log",
-      "sha256": "0f59bdf12866eaa5b88de5690e0b5e33cafb781d65c4348bf926db386655a1e6"
-    }
-  ],
-  "commands": [
-    {
-      "command": "python -B <external-runtime>/BAT-366/capture_terms_snapshots.py",
-      "exit_code": 0,
-      "output": "<external-runtime>/BAT-366/terms-snapshot-manifest.json",
-      "result": "PASS"
-    },
-    {
-      "command": "python -B <external-runtime>/BAT-366/build_tier1_rights_decisions.py",
-      "exit_code": 0,
-      "output": "artifacts/source_governance/tier1_rights_decisions.csv",
-      "result": "PASS"
-    },
-    {
-      "command": "python -B <external-runtime>/BAT-366/validate_tier1_rights_decisions.py",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-366/consumer.stdout.log"
-    },
-    {
-      "command": "python -m pytest -p no:cacheprovider tests/test_data_research.py -q",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-366/test-data-research.stdout.log"
-    },
-    {
-      "command": "python -B tools/validate_data_research.py",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-366/validate-data-research.stdout.log"
-    },
-    {
-      "command": "python -B tools/validate_repository.py --strict",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-366/candidate-repository-strict.stdout.log",
-      "working_directory": "<external-clean-validation-worktree>"
-    },
-    {
-      "command": "python -m pytest -p no:cacheprovider -q",
-      "exit_code": 0,
-      "output_summary": "258 passed, 1 skipped, 33 subtests passed",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-366/candidate-pytest.stdout.log",
-      "working_directory": "<external-clean-validation-worktree>"
-    },
-    {
-      "command": "python -B jira/tools/reconcile_jira_export.py --dry-run/--apply <BAT-366-live-row.csv>",
-      "exit_code": 0,
-      "result": "PASS_WITH_EXPECTED_PRE_LOCAL_COMPLETION_CONFLICT_THEN_CANONICAL_EVIDENCE_SYNC",
-      "stdout_stderr": [
-        "<external-runtime>/BAT-366/reconcile-dry-run.stdout.log",
-        "<external-runtime>/BAT-366/reconcile-apply.stdout.log"
-      ]
-    },
-    {
-      "command": "python -B jira/tools/rebuild_all_derivatives.py",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-366/rebuild.stdout.log"
-    },
-    {
-      "command": "python -B jira/tools/validate_second_pass.py",
-      "exit_code": 0,
-      "output_summary": "463 issues; 129 blocked; 36 deferred; 0 ready; 0 errors",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-366/post-rebuild-jira-strict.stdout.log"
-    },
-    {
-      "command": "final clean-candidate strict repository + full pytest + Jira strict",
-      "exit_code": 0,
-      "output_summary": "strict PASS; 258 passed, 1 skipped, 33 subtests; Jira 463/129/36/0/0",
-      "result": "PASS",
-      "stdout_stderr": [
-        "<external-runtime>/BAT-366/sync-candidate-repository-strict.stdout.log",
-        "<external-runtime>/BAT-366/sync-candidate-pytest.stdout.log",
-        "<external-runtime>/BAT-366/sync-candidate-jira-strict.stdout.log"
-      ],
-      "working_directory": "<external-clean-validation-worktree>"
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     }
   ],
   "completion": {
-    "achieved_maturity": "PRODUCTION_READY",
+    "achieved_maturity": "IMPLEMENTED",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE",
-    "local_acceptance_criteria_pass": true,
+    "issue_disposition": "DONE_VERIFIED_PRIVATE_RESEARCH_POLICY_SUPERSESSION",
     "remaining_issue_scope_blockers": []
   },
-  "consumer_validation": {
-    "baseline_contract_pass": true,
-    "configured_secret_value_matches": 0,
-    "negative_mutations_rejected": 6,
-    "report": {
-      "bytes": 2131,
-      "path": "<external-runtime>/BAT-366/tier1-rights-consumer.safe.json",
-      "sha256": "ba0699723cfc72ade06147613240559c5cf331b8e5e6f2c23a827637ea01b371"
-    }
-  },
-  "created_at_utc": "2026-08-09T15:27:21Z",
-  "downstream_reevaluation": {
-    "consumers": [
-      "POST-SUBTASK-017",
-      "POST-SUBTASK-018"
-    ],
-    "decision": "POST-SUBTASK-017_MAY_REEVALUATE_AFTER_PROTECTED_INTEGRATION"
-  },
-  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
-  "input_identities": [
+  "created_at_utc": "2026-08-09T19:40:00Z",
+  "evidence_manifest_type": "POST_W25_POLICY_SUPERSESSION_EVIDENCE",
+  "inputs": [
     {
-      "bytes": 78290,
-      "path": "artifacts/source_governance/production_source_inventory.csv",
-      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+      "bytes": 6859,
+      "path": "artifacts/source_governance/private_research_policy_migration.json",
+      "sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
-      "bytes": 85497,
-      "path": "artifacts/source_governance/source_inventory_validation.json",
-      "sha256": "da81d4b9def2fd6f65fb514c3ff542a1b754bdc2ead679fde5f06eb097b402cf"
-    },
-    {
-      "bytes": 22977,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-015.json",
-      "sha256": "20dbc94108c475da1822f9d5bed7ee25824b7642e6d366adb8fc403a8941d981"
-    },
-    {
-      "bytes": 16699,
+      "bytes": 17533,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-016_complete_rights_review_for_cfbd_sportsdataverse_open_meteo_and_official_a_and_m_.json",
-      "sha256": "9b77440b7888e9b19d284e321d0426330a5ab99d7ef51884c8fb498bdc9dd3d2"
-    },
-    {
-      "bytes": 7525,
-      "path": "<external-runtime>/BAT-366/terms-snapshot-manifest.json",
-      "sha256": "0655afcde327f50f4cb9402798fe81bf831d28c725d8da17b7e15892f6b50c5b"
+      "sha256": "47b440d90d2c6fe6809a78947eab9334201cc56af2b85a7f1a5b12c0d245f263"
     }
   ],
   "jira_key": "BAT-366",
-  "live_jira": {
-    "claim_comment_id": "13335",
-    "claim_state": {
-      "bytes": 285,
-      "path": "<external-runtime>/BAT-366/post-claim-jira-state.json",
-      "sha256": "b528ed1b74e91440c5806e1b49d8bf8f15ab168ca44404c17c6e299f2a2cce62"
-    },
-    "completion_comment_id": "13336",
-    "completion_state": {
-      "bytes": 277,
-      "path": "<external-runtime>/BAT-366/post-complete-jira-state.json",
-      "sha256": "0c54cf4e13cefb7f42021a6d0e45a0af81f56b0e48045d217a5e366ccee92af0"
-    },
-    "state": "DONE_VERIFIED"
-  },
   "local_issue_id": "POST-SUBTASK-016",
-  "local_jira_sync": {
-    "rebuild_result": "PASS",
-    "state": "LOCAL_JIRA_DONE_VERIFIED_SYNC",
-    "strict_blocked_count": 129,
-    "strict_deferred_count": 36,
-    "strict_error_count": 0,
-    "strict_issue_count": 463,
-    "strict_ready_count": 0
+  "observable_outcome": "The former source-rights acquisition prerequisite is superseded. Private acquisition and local training are admitted; technical/quality/PIT/safety gates remain scoped and raw third-party publication remains denied.",
+  "output": {
+    "bytes": 38203,
+    "path": "artifacts/source_governance/tier1_rights_decisions.csv",
+    "sha256": "20a3051b5836538fafea6455c16abe372a3fd1e9175a7cd882e1de7cd6541a83"
   },
-  "observable_outcome": "A named project-owner decision and current official-terms/robots review classify all 26 tier-1 sources. CFBD REST, two Open-Meteo historical lanes, and two exact Texas A&M public factual lanes are admitted for bounded personal/noncommercial local materialization; ambiguous, restricted, optional, prohibited, and upstream-derived lanes remain reference-only or blocked.",
-  "outputs": [
-    {
-      "bytes": 39497,
-      "decision_counts": {
-        "ALLOW_WITH_CONDITIONS": 6,
-        "BLOCK": 5,
-        "REFERENCE_ONLY": 15
-      },
-      "eligibility": "PRODUCTION_RIGHTS_GATE_INPUT",
-      "path": "artifacts/source_governance/tier1_rights_decisions.csv",
-      "production_materialization_allowed_sources": [
-        "SRC-002",
-        "SRC-003",
-        "SRC-009",
-        "SRC-026",
-        "SRC-043"
-      ],
-      "row_count": 26,
-      "sha256": "ad8596db5a60c9ae09158e1feb728b74872ed7cb6cdfb9e8c90cac7390378d64"
-    }
-  ],
-  "owner_authorization": {
-    "directive_date": "2026-08-09",
-    "human_reviewer": "Kevin Garrett (project owner directive)",
-    "legal_counsel_claimed": false,
-    "scope": "Personal project on this computer; Codex authorized to choose and execute the best source/data strategy, including Scrapfly, ScraperAPI, direct APIs/HTTP, downloads, and local models, with cleanup and disk stewardship.",
-    "technical_reviewer": "Codex"
-  },
-  "protected_integration": {
-    "branch": "codex/BAT-366-tier1-rights",
-    "head_sha": "f9ad801b506f313cc66d298263efebe1fb434e33",
-    "main_repository_ci_run": 31320780594,
-    "main_security_analysis_run": 31320780556,
-    "merge_method": "SQUASH",
-    "merge_sha": "2e8e8f146d18b494c5d455d1fd733c3924fba18b",
-    "merged_at_utc": "2026-08-09T15:19:00Z",
-    "pull_request": 52,
-    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
-    "state": "PROTECTED_IMPLEMENTATION_MERGED"
-  },
-  "schema_version": "1.0.0",
-  "security_and_rights": {
-    "credential_values_included": false,
-    "production_materialization_source_count": 5,
-    "raw_data_redistribution_authorized": false,
-    "response_bodies_committed": false,
-    "restricted_raw_payloads_included": false,
-    "source_rights_approval_scope": "PERSONAL_NONCOMMERCIAL_BOUNDED_LOCAL_USE_ONLY",
-    "terms_snapshots_committed": false
-  },
-  "terms_evidence": {
-    "current_official_terms_reviewed": [
-      "CollegeFootballData terms effective 2025-07-01",
-      "Open-Meteo noncommercial/CC-BY 4.0 terms accessed 2026-08-09",
-      "Texas A&M robots policy allows all agents as accessed 2026-08-09; bounded public factual collection is approved",
-      "Disney/SEC terms last updated 2024-05-24 prohibit automated extraction and AI training; the lane remains manual/reference-only",
-      "NCAA and Texas A&M official all-rights-reserved surfaces accessed 2026-08-09",
-      "SportsDataverse repository metadata and absence of an explicit data license accessed 2026-08-09"
-    ],
-    "manifest": {
-      "entry_count": 14,
-      "path": "<external-runtime>/BAT-366/terms-snapshot-manifest.json",
-      "sha256": "0655afcde327f50f4cb9402798fe81bf831d28c725d8da17b7e15892f6b50c5b"
-    },
-    "snapshot_count": 14,
-    "stored_outside_git": true
-  },
-  "validation_matrix": [
-    {
-      "classification": "LEGAL_RIGHTS_REVIEW",
-      "disposition": "PASS",
-      "evidence": "Named project-owner directive plus current official-terms snapshots and conservative technical review; not legal advice."
-    },
-    {
-      "classification": "MANUAL",
-      "disposition": "PASS",
-      "evidence": "Reviewer, date, unresolved questions, explicit allow/reference/block decisions recorded for 26 rows."
-    },
-    {
-      "classification": "SECURITY",
-      "disposition": "PASS",
-      "evidence": "Configured secret-value matches=0; no response bodies or credentials are committed."
-    },
-    {
-      "classification": "REGRESSION",
-      "disposition": "PASS",
-      "evidence": "tests/test_data_research.py: 2 passed."
-    },
-    {
-      "classification": "END_TO_END",
-      "disposition": "PASS",
-      "evidence": "Consumer baseline passed; 6 negative mutations rejected."
-    },
-    {
-      "classification": "REPRODUCIBILITY",
-      "disposition": "PASS",
-      "evidence": "Inventory, prerequisite, terms manifest, output, validator, and command-log identities are pinned."
-    }
-  ]
+  "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
+  "result": "PASS",
+  "supersedes_evidence_sha256": "b2d2dafbc8fea0aaa6dde59271a70a59d78e4468808596433db3923a1bb0f061"
 }

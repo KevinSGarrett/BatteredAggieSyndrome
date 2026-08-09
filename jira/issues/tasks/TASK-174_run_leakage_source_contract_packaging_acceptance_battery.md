@@ -97,7 +97,7 @@
     "w24",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-174",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Run leakage/source-contract/packaging acceptance battery",

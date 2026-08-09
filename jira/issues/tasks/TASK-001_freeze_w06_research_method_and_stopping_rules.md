@@ -97,7 +97,7 @@
     "w06",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-001",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Freeze W06 research method and stopping rules",

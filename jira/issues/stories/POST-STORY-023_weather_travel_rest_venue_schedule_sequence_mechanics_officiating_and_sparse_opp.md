@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Weather uses forecast snapshots available at each cutoff; travel/rest/sequence derive from canonical schedules/venues and update for postponements/neutral sites with unknown coordinates left uncertain.",
+    "The declared output `artifacts/context_intelligence/game_context_state_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Mechanics/officiating/resource data are used only where rights/depth/timing support them, and lower-division opponents receive explicit decreasing-information priors rather than zero strength or dropped games.",
+    "The declared output `artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Source spot checks, orientation, timing, sparse-opponent uncertainty, and unsupported-lane isolation pass before the context state is production eligible.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -118,7 +122,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-023",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Build robust matchup context and special handling for low-information opponents.",
@@ -134,7 +138,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-007",
@@ -244,7 +248,7 @@
     "SRCREF-01894",
     "SRCREF-01568"
   ],
-  "specificity_fingerprint": "433c186008b3540c428d761faf1851214f73dd8178508dd8a5330da0189cb007",
+  "specificity_fingerprint": "f131c3c1e3a3264cb85e76fbec14c57389dabd33372ea712eac7450e5f653a3c",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -303,7 +307,7 @@ Deliver Story POST-STORY-023 (Weather, travel, rest, venue, schedule sequence, m
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -377,9 +381,13 @@ Deliver Story POST-STORY-023 (Weather, travel, rest, venue, schedule sequence, m
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Weather uses forecast snapshots available at each cutoff; travel/rest/sequence derive from canonical schedules/venues and update for postponements/neutral sites with unknown coordinates left uncertain.
+2. The declared output `artifacts/context_intelligence/game_context_state_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Mechanics/officiating/resource data are used only where rights/depth/timing support them, and lower-division opponents receive explicit decreasing-information priors rather than zero strength or dropped games.
+5. The declared output `artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Source spot checks, orientation, timing, sparse-opponent uncertainty, and unsupported-lane isolation pass before the context state is production eligible.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

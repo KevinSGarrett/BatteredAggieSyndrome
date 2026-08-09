@@ -9,9 +9,9 @@
     "AC-225"
   ],
   "acceptance_criteria": [
-    "Baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.",
+    "Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.",
     "A changed contract cannot silently overwrite the prior baseline.",
-    "Detected drift produces a blocked/review state before downstream training."
+    "Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use."
   ],
   "adr_ids": [
     "ADR-079",
@@ -70,11 +70,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-024 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-024 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-008."
   ],
@@ -147,9 +147,9 @@
   "in_scope": [
     "Perform the exact action: Establish source API/schema/terms drift baselines and monitoring inputs.",
     "Consume only verified prerequisite outputs from `POST-SUBTASK-018`, `POST-SUBTASK-021`, `POST-SUBTASK-022`, `POST-SUBTASK-023`.",
-    "Demonstrate with saved evidence: Baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.",
+    "Demonstrate with saved evidence: Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.",
     "Demonstrate with saved evidence: A changed contract cannot silently overwrite the prior baseline.",
-    "Demonstrate with saved evidence: Detected drift produces a blocked/review state before downstream training.",
+    "Demonstrate with saved evidence: Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.",
     "Produce, validate, content-hash, and register `artifacts/source_governance/source_drift_baseline.json`.",
     "Produce, validate, content-hash, and register `configs/source_drift_registry.json`.",
     "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
@@ -164,7 +164,7 @@
     "sources",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-024",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Establish source API/schema/terms drift baselines and monitoring inputs",
@@ -180,9 +180,9 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications; Implement compliant retries, caching, rate-limit handling, and fallback activation.",
-    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.",
+    "Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
   "owner_wave": "POST_W25",
@@ -243,7 +243,7 @@
     "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
     "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
     "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
-    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.",
+    "Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.",
     "Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status."
   ],
   "required_tests": [
@@ -254,14 +254,14 @@
       "validation_class": "REGRESSION"
     },
     {
-      "classification": "LEGAL_RIGHTS_REVIEW",
-      "expectation": "A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.",
-      "path": "MANUAL_REVIEW_REQUIRED",
-      "validation_class": "LEGAL_RIGHTS_REVIEW"
+      "classification": "PUBLICATION_BOUNDARY_REVIEW",
+      "expectation": "Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.",
+      "path": "MANUAL",
+      "validation_class": "PUBLICATION_BOUNDARY_REVIEW"
     },
     {
       "classification": "MANUAL",
-      "expectation": "Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.",
+      "expectation": "Verify the private-use decision, metadata state, technical/quality scope, and future-publication boundary.",
       "path": "artifacts/source_governance/source_drift_baseline.json",
       "validation_class": "MANUAL"
     },
@@ -304,9 +304,9 @@
   "risk_failure_conditions": [
     "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-024.",
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
-    "Acceptance failure: the evidence cannot demonstrate that baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.",
+    "Acceptance failure: the evidence cannot demonstrate that baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.",
     "Acceptance failure: the evidence cannot demonstrate that a changed contract cannot silently overwrite the prior baseline.",
-    "Acceptance failure: the evidence cannot demonstrate that detected drift produces a blocked/review state before downstream training."
+    "Acceptance failure: the evidence cannot demonstrate that detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use."
   ],
   "risk_ids": [
     "RISK-054"
@@ -344,11 +344,11 @@
     "SRCREF-02117",
     "SRCREF-02118"
   ],
-  "specificity_fingerprint": "4ae64883025979f05fbae3aa18f4321f8d474fcfea1bdabe21f11e0f7411b0fe",
+  "specificity_fingerprint": "d18062f9ba8a1d145c62f72003eaf3b4e9ea299e0b115b58831a1b267e84c1a8",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02011",
@@ -375,9 +375,9 @@
   "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
-    "LEGAL_RIGHTS_REVIEW",
     "MANUAL",
     "OPERATIONS",
+    "PUBLICATION_BOUNDARY_REVIEW",
     "REGRESSION",
     "REPRODUCIBILITY",
     "SCIENTIFIC"
@@ -404,9 +404,9 @@ Execute the atomic 3 of 3 step in Story POST-STORY-008 (Production acquisition c
 
 - Perform the exact action: Establish source API/schema/terms drift baselines and monitoring inputs.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-018`, `POST-SUBTASK-021`, `POST-SUBTASK-022`, `POST-SUBTASK-023`.
-- Demonstrate with saved evidence: Baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.
+- Demonstrate with saved evidence: Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.
 - Demonstrate with saved evidence: A changed contract cannot silently overwrite the prior baseline.
-- Demonstrate with saved evidence: Detected drift produces a blocked/review state before downstream training.
+- Demonstrate with saved evidence: Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.
 - Produce, validate, content-hash, and register `artifacts/source_governance/source_drift_baseline.json`.
 - Produce, validate, content-hash, and register `configs/source_drift_registry.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
@@ -415,9 +415,9 @@ Execute the atomic 3 of 3 step in Story POST-STORY-008 (Production acquisition c
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications; Implement compliant retries, caching, rate-limit handling, and fallback activation.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Prerequisites
@@ -513,25 +513,25 @@ Execute the atomic 3 of 3 step in Story POST-STORY-008 (Production acquisition c
 
 ## Acceptance Criteria
 
-1. Baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.
+1. Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.
 2. A changed contract cannot silently overwrite the prior baseline.
-3. Detected drift produces a blocked/review state before downstream training.
+3. Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-024 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-024 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-008.
 
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_data_research.py` — Run as a regression check after completing POST-SUBTASK-024; retain command, exit code, and relevant output.
-- **LEGAL_RIGHTS_REVIEW** / `LEGAL_RIGHTS_REVIEW` — `MANUAL_REVIEW_REQUIRED` — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
-- **MANUAL** / `MANUAL` — `artifacts/source_governance/source_drift_baseline.json` — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
+- **PUBLICATION_BOUNDARY_REVIEW** / `PUBLICATION_BOUNDARY_REVIEW` — `MANUAL` — Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.
+- **MANUAL** / `MANUAL` — `artifacts/source_governance/source_drift_baseline.json` — Verify the private-use decision, metadata state, technical/quality scope, and future-publication boundary.
 - **SCIENTIFIC** / `SCIENTIFIC` — `artifacts/source_governance/source_drift_baseline.json` — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - **OPERATIONS** / `OPERATIONS` — `artifacts/source_governance/source_drift_baseline.json` — Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.
 - **END_TO_END** / `END_TO_END` — `configs/source_drift_registry.json` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
@@ -544,7 +544,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-008 (Production acquisition c
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## Completion Evidence Contract
@@ -581,15 +581,15 @@ Exercise the complete Production acquisition contracts, rate limits, fallbacks, 
 
 - The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-024.
 - A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
-- Acceptance failure: the evidence cannot demonstrate that baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.
+- Acceptance failure: the evidence cannot demonstrate that baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.
 - Acceptance failure: the evidence cannot demonstrate that a changed contract cannot silently overwrite the prior baseline.
-- Acceptance failure: the evidence cannot demonstrate that detected drift produces a blocked/review state before downstream training.
+- Acceptance failure: the evidence cannot demonstrate that detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

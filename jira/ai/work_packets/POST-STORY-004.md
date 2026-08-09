@@ -30,7 +30,7 @@ Deliver Story POST-STORY-004 (Evidence-backed resource, concurrency, and degrada
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -101,9 +101,15 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Concurrent workloads are increased only until measured resource contention or policy limits appear.
+2. The envelope identifies mutually exclusive shared-contract and protected-gate work.
+3. No fixed concurrency value is adopted without measurement.
+4. Raw snapshots, matrices, model artifacts, forecasts, logs, and backups are measured separately.
+5. Retention recommendations preserve required lineage and protected evidence.
+6. Deletion rules never remove canonical negative results, provenance, or superseded policy evidence.
+7. Peak-RAM, free-space, runtime, and concurrency breaches stop or defer work predictably.
+8. The system does not silently downsample protected evaluation or omit required data.
+9. The operator receives a clear blocker, recovery action, and preserved partial evidence.
 
 ## Tests / validation
 

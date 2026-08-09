@@ -19,7 +19,7 @@
     "AC-219"
   ],
   "acceptance_criteria": [
-    "Canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.",
+    "Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.",
     "Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.",
     "A clean restore passes hash/schema/reference/lineage validation, identifies external credentials/rights reconfiguration, measures recovery, and success is not inferred from backup creation alone.",
     "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
@@ -78,11 +78,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-132 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-132 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-044."
   ],
@@ -151,7 +151,7 @@
   "in_scope": [
     "Perform the exact action: Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps.",
     "Consume only verified prerequisite outputs from `POST-SUBTASK-129`, `POST-SUBTASK-130`, `POST-SUBTASK-131`.",
-    "Demonstrate with saved evidence: Canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.",
+    "Demonstrate with saved evidence: Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.",
     "Demonstrate with saved evidence: Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.",
     "Demonstrate with saved evidence: A clean restore passes hash/schema/reference/lineage validation, identifies external credentials/rights reconfiguration, measures recovery, and success is not inferred from backup creation alone.",
     "Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
@@ -168,7 +168,7 @@
     "protected-gate",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-132",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps",
@@ -184,9 +184,9 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata; Implement content-hashed verified backups, catalog, integrity checking, last-known-good protection, and restricted-destination enforcement.",
-    "Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.",
+    "Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.",
     "Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.",
     "Substituting a non-authoritative machine, estimated timing, or synthetic benchmark result for the declared target-host evidence."
   ],
@@ -247,7 +247,7 @@
     "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
     "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
     "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
-    "Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.",
+    "Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.",
     "Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts.",
     "Raw benchmark samples and machine inventory, including OS/CPU/RAM/GPU/storage, workload hash, repetitions, warm/cold distinction, errors, peak resources, and authority classification."
   ],
@@ -339,7 +339,7 @@
   "risk_failure_conditions": [
     "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-132.",
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
-    "Acceptance failure: the evidence cannot demonstrate that canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.",
+    "Acceptance failure: the evidence cannot demonstrate that canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.",
     "Acceptance failure: the evidence cannot demonstrate that backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.",
     "Acceptance failure: the evidence cannot demonstrate that a clean restore passes hash/schema/reference/lineage validation, identifies external credentials/rights reconfiguration, measures recovery, and success is not inferred from backup creation alone.",
     "Acceptance failure: the evidence cannot demonstrate that all prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
@@ -380,11 +380,11 @@
     "SRCREF-02117",
     "SRCREF-02118"
   ],
-  "specificity_fingerprint": "fd52b5a711a0fdfeca200dcd5871d414fdaa05574f1aa4768fa195f3e553a068",
+  "specificity_fingerprint": "be1def5e2c45f6d26bc9579778188207b6332daebef85e9ddc3659843ab17172",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02096",
@@ -435,7 +435,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 - Perform the exact action: Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-129`, `POST-SUBTASK-130`, `POST-SUBTASK-131`.
-- Demonstrate with saved evidence: Canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.
+- Demonstrate with saved evidence: Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
 - Demonstrate with saved evidence: Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.
 - Demonstrate with saved evidence: A clean restore passes hash/schema/reference/lineage validation, identifies external credentials/rights reconfiguration, measures recovery, and success is not inferred from backup creation alone.
 - Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
@@ -446,9 +446,9 @@ Execute the atomic 3 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata; Implement content-hashed verified backups, catalog, integrity checking, last-known-good protection, and restricted-destination enforcement.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 - Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
 - Substituting a non-authoritative machine, estimated timing, or synthetic benchmark result for the declared target-host evidence.
 
@@ -578,18 +578,18 @@ Execute the atomic 3 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 ## Acceptance Criteria
 
-1. Canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.
+1. Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
 2. Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.
 3. A clean restore passes hash/schema/reference/lineage validation, identifies external credentials/rights reconfiguration, measures recovery, and success is not inferred from backup creation alone.
 4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-132 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-132 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The Story gate consumes the complete prerequisite evidence set and issues an explicit downstream approval/block/reject/defer decision for POST-STORY-044.
 
@@ -609,7 +609,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 - Redacted credential-inventory/smoke evidence proving values remained outside Git, Jira, logs, screenshots, and generated artifacts.
 - Raw benchmark samples and machine inventory, including OS/CPU/RAM/GPU/storage, workload hash, repetitions, warm/cold distinction, errors, peak resources, and authority classification.
 
@@ -647,16 +647,16 @@ A verified backup can restore selected canonical lineage and Jira execution stat
 
 - The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-132.
 - A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
-- Acceptance failure: the evidence cannot demonstrate that canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.
+- Acceptance failure: the evidence cannot demonstrate that canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
 - Acceptance failure: the evidence cannot demonstrate that backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.
 - Acceptance failure: the evidence cannot demonstrate that a clean restore passes hash/schema/reference/lineage validation, identifies external credentials/rights reconfiguration, measures recovery, and success is not inferred from backup creation alone.
 - Acceptance failure: the evidence cannot demonstrate that all prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

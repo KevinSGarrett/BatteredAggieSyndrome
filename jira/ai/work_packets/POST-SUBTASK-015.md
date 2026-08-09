@@ -23,7 +23,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-005 (Reconcile the final sour
 - Perform the exact action: Validate source inventory completeness and unresolved decision coverage.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-013`, `POST-SUBTASK-014`.
 - Demonstrate with saved evidence: All source IDs referenced by adapters, registries, and acquisition plans resolve to the production inventory.
-- Demonstrate with saved evidence: Every unresolved source decision has a Jira blocker/review item.
+- Demonstrate with saved evidence: Every unresolved technical or quality decision has a Jira action or scoped quarantine.
 - Demonstrate with saved evidence: No required domain is silently marked complete when only reconnaissance samples exist.
 - Produce, validate, content-hash, and register `artifacts/source_governance/source_inventory_validation.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
@@ -32,7 +32,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-005 (Reconcile the final sour
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Reconcile W06 source inventory with W24 refresh and current handoff gaps; Freeze source priority, fallback, and required-versus-optional classifications.
 
 ## Current gate state
@@ -103,12 +103,13 @@ Produce and validate these outputs within this atomic work unit:
 ## Acceptance criteria
 
 1. All source IDs referenced by adapters, registries, and acquisition plans resolve to the production inventory.
-2. Every unresolved source decision has a Jira blocker/review item.
+2. Every unresolved technical or quality decision has a Jira action or scoped quarantine.
 3. No required domain is silently marked complete when only reconnaissance samples exist.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_data_research.py — Run as a regression check after completing POST-SUBTASK-015; retain command, exit code, and relevant output.
+- EXISTING_AUTOMATED_TEST / REGRESSION: artifacts/source_governance/source_inventory_validation.json — Run as a regression check after completing POST-SUBTASK-015; retain command, exit code, and relevant output.
 - END_TO_END / END_TO_END: artifacts/source_governance/source_inventory_validation.json — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
 
@@ -125,9 +126,9 @@ Exercise the complete Reconcile the final source universe and authority decision
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

@@ -1,7 +1,7 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real approved sources/paths and cannot omit bad weeks from reliability.",
+    "Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real quality-valid sources/paths and cannot omit bad weeks from reliability.",
     "The declared output `artifacts/mlops/shadow_run_ledger.jsonl` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
   ],
@@ -47,11 +47,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-112 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-112 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/mlops/shadow_run_ledger.jsonl` is demonstrably consumable by POST-SUBTASK-113 without manual reconstruction or undocumented state."
   ],
@@ -66,7 +66,7 @@
     "risk_ids": 7
   },
   "effective_traceability_total": 57,
-  "end_to_end_validation": "Validate that `artifacts/mlops/shadow_run_ledger.jsonl` can be parsed and consumed by `POST-SUBTASK-113` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/mlops/shadow_run_ledger.jsonl` can be parsed and consumed by `POST-SUBTASK-113` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-012",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-112.json",
   "evidence_state": "PLANNED",
@@ -114,7 +114,7 @@
   "in_scope": [
     "Perform the exact action: Execute repeated real-source shadow weekly runs with timeliness, freshness, resource, coverage, intervention, and failure ledger.",
     "Consume only verified prerequisite outputs from `POST-SUBTASK-111`.",
-    "Demonstrate with saved evidence: Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real approved sources/paths and cannot omit bad weeks from reliability.",
+    "Demonstrate with saved evidence: Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real quality-valid sources/paths and cannot omit bad weeks from reliability.",
     "Demonstrate with saved evidence: The declared output `artifacts/mlops/shadow_run_ledger.jsonl` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
     "Produce, validate, content-hash, and register `artifacts/mlops/shadow_run_ledger.jsonl`.",
@@ -130,7 +130,7 @@
     "post-wave",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-112",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Execute repeated real-source shadow weekly runs with timeliness, freshness, resource, coverage, intervention, and failure ledger",
@@ -146,7 +146,7 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Run source outage, schema drift, disk pressure, corrupt artifact, stale forecast, interrupted run, and rollback drills; Approve or retain-blocked the autonomous weekly operating maturity decision.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
@@ -253,7 +253,7 @@
   "risk_failure_conditions": [
     "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-112.",
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
-    "Acceptance failure: the evidence cannot demonstrate that every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real approved sources/paths and cannot omit bad weeks from reliability.",
+    "Acceptance failure: the evidence cannot demonstrate that every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real quality-valid sources/paths and cannot omit bad weeks from reliability.",
     "Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/mlops/shadow_run_ledger.jsonl` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
   ],
@@ -282,11 +282,11 @@
     "SRCREF-01574",
     "SRCREF-01897"
   ],
-  "specificity_fingerprint": "570dcfb2fc043d2160b72b01c6e0f2d5707b3dbe629a1e4580abe2b280d9b4be",
+  "specificity_fingerprint": "9d470dc34e8a44f3488c64477dc5defb001a31b3854d048190148c06255b52c2",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02083",

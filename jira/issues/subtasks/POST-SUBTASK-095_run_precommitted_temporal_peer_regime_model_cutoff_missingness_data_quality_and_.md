@@ -55,11 +55,11 @@
   "content_contract_version": "2.0",
   "critical_path": false,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-095 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-095 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/bas/bas_stability_analysis.json` is demonstrably consumable by POST-SUBTASK-096 without manual reconstruction or undocumented state."
   ],
@@ -76,7 +76,7 @@
     "risk_ids": 13
   },
   "effective_traceability_total": 120,
-  "end_to_end_validation": "Validate that `artifacts/bas/bas_stability_analysis.json` can be parsed and consumed by `POST-SUBTASK-096` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/bas/bas_stability_analysis.json` can be parsed and consumed by `POST-SUBTASK-096` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-010",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-095.json",
   "evidence_state": "PLANNED",
@@ -142,7 +142,7 @@
     "scientific",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-095",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Run precommitted temporal, peer, regime, model, cutoff, missingness, data-quality, and specification sensitivity analyses",
@@ -158,7 +158,7 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Evaluate ≥3/7/14/21 calibration, discrimination, reliability, uncertainty, and national/A&M/peer/regime scorecards on sealed predictions; Publish the final BAS scientific decision and prediction-first product language contract.",
     "Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.",
     "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.",
@@ -169,8 +169,8 @@
   "phase": "PHASE-3",
   "prerequisites": [
     "Dependency POST-SUBTASK-093 complete at required maturity",
-    "Dependency POST-SUBTASK-102 complete at required maturity",
-    "Dependency POST-SUBTASK-094 complete at required maturity"
+    "Dependency POST-SUBTASK-094 complete at required maturity",
+    "Dependency POST-SUBTASK-102 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02064",
@@ -310,11 +310,11 @@
     "SRCREF-01895",
     "SRCREF-01571"
   ],
-  "specificity_fingerprint": "17e16e0460e918dc0c07f97c54b0e9824de2a381eab267ca9cca63ddf0db0619",
+  "specificity_fingerprint": "15aa3d20995559df381af8ef885bdeedd84eeb5d71f1dbeac0222d64e56c6655",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.",
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.",
     "Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result."
   ],
   "supporting_source_refs": [
@@ -377,7 +377,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-032 (Protected calibration, s
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Evaluate ≥3/7/14/21 calibration, discrimination, reliability, uncertainty, and national/A&M/peer/regime scorecards on sealed predictions; Publish the final BAS scientific decision and prediction-first product language contract.
 - Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
@@ -386,8 +386,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-032 (Protected calibration, s
 ## Prerequisites
 
 - Dependency POST-SUBTASK-093 complete at required maturity
-- Dependency POST-SUBTASK-102 complete at required maturity
 - Dependency POST-SUBTASK-094 complete at required maturity
+- Dependency POST-SUBTASK-102 complete at required maturity
 
 ## Hard Dependencies
 
@@ -464,11 +464,11 @@ Execute the atomic 2 of 3 step in Story POST-STORY-032 (Protected calibration, s
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-095 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-095 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/bas/bas_stability_analysis.json` is demonstrably consumable by POST-SUBTASK-096 without manual reconstruction or undocumented state.
 
@@ -517,7 +517,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-032 (Protected calibration, s
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/bas/bas_stability_analysis.json` can be parsed and consumed by `POST-SUBTASK-096` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/bas/bas_stability_analysis.json` can be parsed and consumed by `POST-SUBTASK-096` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -533,9 +533,9 @@ Validate that `artifacts/bas/bas_stability_analysis.json` can be parsed and cons
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 - Stop if the proposed method, threshold, peer set, fold construction, or product wording would conceal, reject, or overwrite a valid null/no-effect result.
 
 ## Source References

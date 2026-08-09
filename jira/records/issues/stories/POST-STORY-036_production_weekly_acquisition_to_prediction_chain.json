@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Each stage pins source/raw/entity/state/matrix/feature/model/cutoff/config identities, consumes only passed prerequisites, and fails on rights/drift/PIT/model blockers without synthetic shortcuts.",
+    "The declared output `artifacts/mlops/weekly_pipeline_integration.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Identical inputs produce the same run identity/outcomes, resume starts at the last verified checkpoint, duplicates are prevented, and quarantine/failed gates cannot be skipped.",
+    "The declared output `artifacts/mlops/checkpoint_resume_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "A real representative run emits complete timing/resource/test/evidence lineage and injected source/schema/disk/model/publication failures stop and recover at the correct boundary.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -111,7 +115,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-036",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Convert the W21 starter into a real, resumable, fail-closed weekly workflow.",
@@ -127,7 +131,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-012",
@@ -235,7 +239,7 @@
     "SRCREF-01896",
     "SRCREF-01574"
   ],
-  "specificity_fingerprint": "7f7aa58f00dba10afc40d5b7c2bc42b95e8e1d16f6cadcefc422e3d8f152cdf6",
+  "specificity_fingerprint": "547d2f94be89976f1bbf132f9ab845e0308385d9e40aa81ed37678e909c6a546",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

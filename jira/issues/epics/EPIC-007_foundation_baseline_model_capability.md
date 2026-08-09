@@ -93,7 +93,7 @@
     "w16-w17",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-007",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Establish simple and boosted national baselines, calibration and walk-forward benchmarks before complex challengers.",

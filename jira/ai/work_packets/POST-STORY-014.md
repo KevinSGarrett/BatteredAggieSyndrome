@@ -30,7 +30,7 @@ Deliver Story POST-STORY-014 (Population resolution, review workflow, transition
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -99,9 +99,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every resolution records resolver version, candidate set, evidence, confidence, decision rule, and deterministic replay; probability never substitutes for proof.
+2. The declared output `artifacts/entities/resolution_results.parquet` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Manual decisions are append-only and attributable, transitions have known-at/effective intervals, and adding future aliases cannot change prior accepted identities without an explicit correction event.
+5. The declared output `artifacts/entities/entity_decision_and_transition_log.jsonl` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Coverage/ambiguity/collision/orphan metrics are reported by domain/source/season/entity class; high-impact unresolved identities block affected work and GAP-004 closes only on population evidence.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

@@ -57,7 +57,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 10,
-  "end_to_end_validation": "The entire Conditional advanced challenger research and admission capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Conditional advanced challenger research and admission and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-016.json",
   "evidence_state": "PLANNED",
@@ -124,7 +124,7 @@
     "conditional",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-016",
   "maturity_before": "CONDITIONAL",
   "objective": "Preserve optional neural, Bayesian, graph, and sequence challengers behind explicit scientific value, data, compute, and promotion gates.",
@@ -256,7 +256,7 @@
     "SRCREF-00200",
     "SRCREF-00201"
   ],
-  "specificity_fingerprint": "ae0958ff1f603a4539c9d4174d1641e0ebb8a7dd44f1705f926c06a0b59dd98c",
+  "specificity_fingerprint": "c6e3b532b837fe92f8fb0fe8072330dee17b88ff09190df6410a5cd87cf184a3",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -433,7 +433,7 @@ All Stories and Subtasks under this Epic for the advanced domain, including its 
 
 ## End-to-End Validation Requirement
 
-The entire Conditional advanced challenger research and admission capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Conditional advanced challenger research and admission and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

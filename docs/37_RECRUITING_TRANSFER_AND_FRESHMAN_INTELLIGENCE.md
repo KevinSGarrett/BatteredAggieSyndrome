@@ -30,5 +30,5 @@ Players with zero college production use a separate prospect prior rather than a
 
 Uncertainty should begin wide and shrink as PIT-safe college evidence accumulates.
 
-## Recruiting/transfer source rights
-W12 completes the missing upstream provenance/access-license augmentation and audits the W06 recruiting/transfer source lanes. Public visibility is not treated as permission to repackage data. Raw snapshots must preserve retrieval/provenance/terms context.
+## Recruiting/transfer source policy
+W12 provenance/access/license metadata remains useful, but its former rights-gating conclusion is superseded. Publicly accessible factual recruiting and transfer data may be acquired and used locally for private research and training. Raw snapshots remain outside Git and preserve retrieval/provenance/terms context; they are not republished.

@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "The stage pins repository/dependencies/Jira/source-rights/schema/data/entity/PIT/feature/model/product/runbook identities, keeps credentials external, enforces restrictions, and fails on dirty protected state or blockers.",
+    "The declared output `artifacts/release/release_candidate_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
+    "The declared output `artifacts/release/release_candidate_e2e.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Independent validators trace forecasts/product to the signed run and A&M/BAS/promotion decisions, rollback succeeds, clean re-run reproduces declared outputs, and AC-038/target gates use authoritative host evidence.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -97,8 +101,8 @@
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100096,
   "in_scope": [
-    "Complete and verify child `POST-SUBTASK-136` — Stage the signed release candidate, dependency/runtime, Jira pack, approved source/rights configuration, and clean external roots.",
-    "Complete and verify child `POST-SUBTASK-137` — Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data.",
+    "Complete and verify child `POST-SUBTASK-136` — Stage the signed release candidate, dependency/runtime, Jira pack, private-research source configuration, and clean external roots.",
+    "Complete and verify child `POST-SUBTASK-137` — Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data.",
     "Complete and verify child `POST-SUBTASK-138` — Validate outputs, lineage, protected decisions, rollback, clean re-execution, target performance/resources/freshness, and all release-blocking controls.",
     "Integrate the child outputs and execute final gate `POST-SUBTASK-138`.",
     "Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence."
@@ -112,7 +116,7 @@
     "release",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-046",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Execute the complete production chain and product consumption from a clean target-machine checkout.",
@@ -128,7 +132,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-015",
@@ -244,7 +248,7 @@
     "SRCREF-01574",
     "SRCREF-01017"
   ],
-  "specificity_fingerprint": "96950ec87e32ca2ef67ba1a9d9a2ced80c209fb9061dfaa551d804e92b4e6d0c",
+  "specificity_fingerprint": "2c4af8cf9c5575d974fd77ca0feca01f455980585c0850a312690f7ba91fb1e8",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

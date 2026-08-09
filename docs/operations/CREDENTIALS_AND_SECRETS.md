@@ -6,7 +6,10 @@ Credential values belong outside Git. Runtime and authorized control-plane proce
 
 | Environment variable | Classification | Authorized purpose |
 | --- | --- | --- |
-| `CFBD_API_KEY` | Secret API credential | Read-only College Football Data retrieval after the applicable source-rights gate passes. |
+| `CFBD_API_KEY` | Secret API credential | Read-only College Football Data retrieval for private research. |
+| `SCRAPFLY_API_TOKEN` | Secret acquisition credential | Read-only retrieval of publicly accessible factual data. |
+| `SCRAPFLY_MCP_URL` | Secret-bearing integration configuration | Optional Scrapfly MCP retrieval route. |
+| `SCRAPERAPI_API_TOKEN` | Secret acquisition credential | Read-only retrieval of publicly accessible factual data. |
 | `GITHUB_TOKEN` | Secret control-plane credential | Authorized protected-repository operations with only the permissions required for the operation. |
 | `JIRA_API_KEY` | Secret control-plane credential | Authorized project issue synchronization with only the permissions required for the operation. |
 | `JIRA_EMAIL` | Sensitive identity binding | Bind `JIRA_API_KEY` to the Jira account; do not log or persist the configured identity value. |
@@ -22,7 +25,7 @@ The machine-readable inventory is `artifacts/implementation_preflight/credential
 - Load values only in the process performing the authorized operation. Do not copy them into application configuration artifacts, forecast snapshots, provenance records, test fixtures, Jira, or GitHub content.
 - Use the least privilege needed for the authorized operation. Authentication success does not establish that a token's scope or rotation policy is compliant; those properties require separate operator or provider evidence.
 - Rotate or revoke a credential according to provider policy and immediately after suspected disclosure. No rotation interval or named secret owner is fabricated by this contract.
-- A successful API authentication check does not grant source access, training, publication, redistribution, retention, or deletion rights. Source-rights decisions remain separate, explicit gates.
+- A successful API authentication check proves only technical authentication. The universal private-research policy already authorizes local acquisition, retention, analysis, and training; schema, quality, PIT, leakage, malware, privacy, and raw-publication controls remain separate.
 
 ## Redaction before serialization
 
@@ -34,6 +37,6 @@ Representative synthetic tests cover nested sensitive keys, bearer and assignmen
 
 ## Consumer gate
 
-`POST-SUBTASK-006` must parse the machine-readable inventory and verify its schema, canonical content hash, prerequisite artifact identities, configured-name-only inventory, authentication dispositions, zero tracked-secret matches, redaction pass, and retained rights/release blockers. It must fail closed for missing or malformed input, hash or prerequisite drift, any included value or identity, an unconfigured required name, a failed smoke/redaction/leakage check, or missing provenance/rights state.
+`POST-SUBTASK-006` must parse the machine-readable inventory and verify its schema, canonical content hash, prerequisite artifact identities, configured-name-only inventory, authentication dispositions, zero tracked-secret matches, and redaction pass. It must fail closed for missing or malformed input, hash or prerequisite drift, any included value or identity, an unconfigured required name, a failed smoke/redaction/leakage check, or missing provenance state. Licensing and redistribution ambiguity are not private-use failures.
 
-This contract proves only the non-repository credential inventory and redaction boundary. It does not claim source-rights approval, storage durability, historical-data materialization, production release readiness, a trained model, protected performance, AC-038, THR-011, or THR-012.
+This contract proves only the non-repository credential inventory and redaction boundary. It does not claim storage durability, historical-data materialization, production release readiness, a trained model, protected performance, AC-038, THR-011, or THR-012. Private-research acquisition authorization comes from the owner policy, not this credential evidence.

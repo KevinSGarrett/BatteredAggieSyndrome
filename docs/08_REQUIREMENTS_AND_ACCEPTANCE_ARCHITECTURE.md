@@ -16,10 +16,10 @@ A mandatory future requirement is not a W04 PASS merely because the requirement 
 - **Feature/model science gates:** feature lifecycle, baselines, walk-forward, protected tests, calibration, coherence, uncertainty.
 - **A&M/BAS gates:** null/shrinkage allowed, cross-fit BAS label, peer/stability/anti-circularity evidence.
 - **Reproducibility/operations gates:** lineage replay, environment capture, stochastic config, freshness, benchmark, backup/restore.
-- **Security/rights gates:** untrusted-input validation, dependency integrity, safe logging, license/redistribution review.
+- **Security/source gates:** untrusted-input and malware validation, dependency integrity, safe logging, credentials, private-personal-data exclusion, schema compatibility, provenance, PIT, and leakage. License/redistribution status is metadata-only for private use.
 
 ## Evidence modes
-Acceptance is intentionally multi-modal. `STATIC` is appropriate for repository or dependency rules; `UNIT`/`INTEGRATION` for deterministic software contracts; `TEMPORAL_REPLAY` for PIT correctness; `SCIENTIFIC` for predictive claims; `BENCHMARK` for performance; and `MANUAL_REVIEW` for licensing or ambiguous semantic decisions.
+Acceptance is intentionally multi-modal. `STATIC` is appropriate for repository or dependency rules; `UNIT`/`INTEGRATION` for deterministic software contracts; `TEMPORAL_REPLAY` for PIT correctness; `SCIENTIFIC` for predictive claims; `BENCHMARK` for performance; and `MANUAL_REVIEW` for ambiguous semantic or future-publication decisions. Licensing ambiguity never blocks private local acquisition or training.
 
 Forcing every requirement into a unit test would create fake automation. Conversely, manual judgment cannot silently waive a protected deterministic/scientific control.
 

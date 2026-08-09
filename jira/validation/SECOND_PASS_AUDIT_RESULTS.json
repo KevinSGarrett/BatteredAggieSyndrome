@@ -1,7 +1,7 @@
 {
   "actionable_count": 229,
   "blank_e2e_count": 0,
-  "blocked_count": 120,
+  "blocked_count": 118,
   "deferred_count": 36,
   "derivative_result_counts": {
     "PASS": 463
@@ -13,12 +13,12 @@
     "ATOMIC_EXECUTION": 159,
     "HISTORICAL_REFERENCE": 234
   },
-  "forced_new_automated_on_legal_count": 0,
+  "forced_new_automated_on_publication_boundary_count": 0,
   "generic_scope_count": 0,
   "invalid_traceability_gate_count": 0,
   "issue_count": 463,
   "master_prompt_compliance_section_count": 68,
-  "ready_count": 2,
+  "ready_count": 3,
   "registry_coverage": {
     "acceptance_control_ids": {
       "mapped": 234,
@@ -52,15 +52,15 @@
     "CALIBRATION": 39,
     "CHRONOLOGICAL_REPLAY": 65,
     "END_TO_END": 190,
-    "EXISTING_AUTOMATED_TEST": 1142,
+    "EXISTING_AUTOMATED_TEST": 1164,
     "INTEGRATION": 44,
-    "LEGAL_RIGHTS_REVIEW": 8,
-    "MANUAL": 8,
+    "MANUAL": 7,
     "NEW_AUTOMATED_TEST_REQUIRED": 51,
     "OPERATIONS": 42,
+    "PUBLICATION_BOUNDARY_REVIEW": 7,
     "REPRODUCIBILITY": 229,
     "SCIENTIFIC": 124,
-    "SECURITY": 32,
+    "SECURITY": 30,
     "STATIC_VALIDATION": 31
   },
   "validated_at": "2026-08-09",

@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "The hypothesis is registered before results and is not novelty/idle-compute seeking; it names the task/metric/segment and prevents post-hoc success redefinition.",
+    "The declared output `artifacts/advanced/challenger_proposal.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Feasibility cannot require unapproved cloud fleets/proprietary data/protected leakage, measures actual resource/sample/sequence/graph quality, and canonically records infeasible outcomes.",
+    "The declared output `artifacts/advanced/challenger_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "TASK-165–168 remain conditional unless policy/value/feasibility pass, no simpler unresolved baseline work remains, and no-admission is complete evidence.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -111,7 +115,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-048",
   "maturity_before": "CONDITIONAL",
   "objective": "Admit a challenger only for a falsifiable task-specific shortfall that simpler work cannot address.",
@@ -127,7 +131,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-016",
@@ -241,7 +245,7 @@
     "SRCREF-00200",
     "SRCREF-00201"
   ],
-  "specificity_fingerprint": "2e09f34ef1be06132fd4ee35c5707c59fce1a2d02f58bd97b915215b0ae3a27e",
+  "specificity_fingerprint": "49cf0edb500fa635c792762b91be685f9036c17f9071a5175a612adac4e70840",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

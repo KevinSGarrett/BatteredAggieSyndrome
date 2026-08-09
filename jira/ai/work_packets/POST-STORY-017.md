@@ -30,7 +30,7 @@ Deliver Story POST-STORY-017 (Leakage battery and chronological replay infrastru
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -100,9 +100,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Future/postgame injections or appended records cannot change earlier eligible matrix hashes/predictions; every failure names exact source, field, row, transformation, and remediation.
+2. The declared output `artifacts/pit/leakage_battery_results.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Replay advances chronologically, fits only on permitted history, pins all identities, never returns protected outcomes to tuning code, and resumes without future-fitted state.
+5. The declared output `artifacts/pit/protected_replay_dry_run.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. GAP-005 remains open until real historical replay—not fixture or synthetic replay—passes with approved matrix, split, seal, entity, source, and runner hashes.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

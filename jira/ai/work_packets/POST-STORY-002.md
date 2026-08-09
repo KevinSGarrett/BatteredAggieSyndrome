@@ -30,7 +30,7 @@ Deliver Story POST-STORY-002 (Local data, artifact, and secret boundary bootstra
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -102,9 +102,15 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Configured roots are absolute, writable, outside the Git repository, and survive process restart.
+2. Raw, curated, model, forecast, log, backup, and quarantine roots are separated.
+3. A path safety test rejects repository-internal bulk-data roots.
+4. Every credential is referenced by environment-variable name only.
+5. No token, password, session cookie, or restricted URL is written to the repository or evidence logs.
+6. A redaction test demonstrates that representative secret values are removed from logs and exception messages.
+7. The probe demonstrates atomic create/rename, fsync, readback hash verification, and quarantine moves on each configured root.
+8. Available capacity is recorded without inventing a minimum threshold.
+9. Insufficient permissions or capacity blocks downstream materialization.
 
 ## Tests / validation
 
@@ -121,7 +127,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Exercise the complete Local data, artifact, and secret boundary bootstrap path and verify downstream consumption of the pinned outputs.
+Exercise the complete Local data, artifact, and secret boundary bootstrap path through `POST-SUBTASK-006` and verify downstream use of pinned outputs.
 
 ## Stop instead of improvising when
 

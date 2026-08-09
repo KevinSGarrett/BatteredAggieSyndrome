@@ -30,7 +30,7 @@ Deliver Story POST-STORY-051 (Live need, source, rights, latency, cost, and valu
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Current gate state
 
@@ -96,9 +96,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Research does not bypass CAPTCHA/authentication/rate limits/access controls, assumes no public-equals-redistributable rights, and records unavailable/unaffordable sources as blockers.
+2. The declared output `artifacts/live/live_source_research.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Use cases distinguish in-game from pregame updates, targets are evidence-backed, pregame operation remains isolated, and no-build is valid when rights/history/cost/value/resources are inadequate.
+5. The declared output `artifacts/live/live_value_feasibility.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. TASK-169–172 remain deferred unless user/governance explicitly admits the separate scope; no Wave 26 exists and deferred live work is not unfinished core v1.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

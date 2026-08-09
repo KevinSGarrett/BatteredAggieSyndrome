@@ -1,332 +1,54 @@
 {
   "acceptance_matrix": [
     {
-      "criterion": "Every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.",
-      "criterion_id": "ACCEPTANCE-1",
+      "criterion": "Every source is READY, TECHNICAL_VALIDATION_PENDING, TECHNICAL_CREDENTIAL_UNAVAILABLE, or quality-quarantined with a concrete reason.",
       "disposition": "PASS",
-      "evidence_path": "artifacts/source_governance/source_access_readiness.csv",
-      "evidence_sha256": "452d8796a42fc770fa775919676af04bcb0927a691ad863adef1ed891a37cb6b",
-      "observable_result": "All 62 inventory sources use an allowed enum and include a concrete reason plus source-specific unblock condition; READY is limited to ['SRC-002', 'SRC-003']."
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
       "criterion": "Downstream materialization tasks consume this readiness file.",
-      "criterion_id": "ACCEPTANCE-2",
       "disposition": "PASS",
-      "evidence_path": "artifacts/source_governance/source_access_readiness.csv",
-      "evidence_sha256": "452d8796a42fc770fa775919676af04bcb0927a691ad863adef1ed891a37cb6b",
-      "observable_result": "Every row carries a fail-closed consumer contract; downstream materialization is allowed only for READY source IDs and must still pass PIT/snapshot/provenance gates."
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
-      "criterion": "A source cannot become READY from a successful sample if rights review is incomplete.",
-      "criterion_id": "ACCEPTANCE-3",
+      "criterion": "No source is blocked by licensing, redistribution, scraping, terms, provider preference, or upstream-authorization uncertainty.",
       "disposition": "PASS",
-      "evidence_path": "<external-runtime>/BAT-371/readiness-consumer.safe.json",
-      "evidence_sha256": "dbf117cd7fd2eaa31db95424b437da9abb67b22111d5ceba02d724b5e37bf950",
-      "observable_result": "Mutation validation rejects promotion of any technically successful source whose production rights decision is blocked or experimental-only."
-    }
-  ],
-  "command_log_identities": [
-    {
-      "bytes": 648,
-      "path": "<external-runtime>/BAT-371/build-readiness.stdout.log",
-      "sha256": "8452c74dd2c569220d365575716508f235a8c87a7f7fd8bb45298ade8aeac48d"
-    },
-    {
-      "bytes": 460,
-      "path": "<external-runtime>/BAT-371/consumer.stdout.log",
-      "sha256": "1c90c7239ba2089ce76c5038e35468c21762720c753938714f5558793e1014d2"
-    },
-    {
-      "bytes": 202,
-      "path": "<external-runtime>/BAT-371/test-data-research.stdout.log",
-      "sha256": "4e50fc1daae1b7ba78944e6a42c7b72dffe343a73dfb24201cbdc6c2b97f996c"
-    },
-    {
-      "bytes": 850,
-      "path": "<external-runtime>/BAT-371/pytest-full.stdout.log",
-      "sha256": "e52b41ff44ff78c6a59250e69063b2381631a948150c839da08dbbd00896d176"
-    },
-    {
-      "bytes": 208,
-      "path": "<external-runtime>/BAT-371/validate-data-research.stdout.log",
-      "sha256": "bb60ac13c37a0d70a5d6128fb6438c3015c143ca1c5e4ba28c6ca1541e76fc6f"
-    }
-  ],
-  "commands": [
-    {
-      "command": "python -B <external-runtime>/BAT-371/build_source_access_readiness.py",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-371/build-readiness.stdout.log"
-    },
-    {
-      "command": "python -B <external-runtime>/BAT-371/smoke_open_meteo.py",
-      "exit_code": 0,
-      "output_summary": "HTTP 200; required response shape present; body omitted",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-371/open-meteo-smoke.safe.json"
-    },
-    {
-      "command": "python -B <external-runtime>/BAT-371/validate_source_access_readiness.py",
-      "exit_code": 0,
-      "result": "PASS_OWNER_REVIEW_RECORDED",
-      "stdout_stderr": "<external-runtime>/BAT-371/consumer.stdout.log"
-    },
-    {
-      "command": "python -m pytest -p no:cacheprovider tests/test_data_research.py -q",
-      "exit_code": 0,
-      "output_summary": "6 passed",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-371/test-data-research.stdout.log"
-    },
-    {
-      "command": "python -m pytest -p no:cacheprovider -q",
-      "exit_code": 0,
-      "output_summary": "262 passed, 1 skipped, 33 subtests passed",
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-371/pytest-full.stdout.log"
-    },
-    {
-      "command": "python -B tools/validate_data_research.py",
-      "exit_code": 0,
-      "result": "PASS",
-      "stdout_stderr": "<external-runtime>/BAT-371/validate-data-research.stdout.log"
+      "evidence_path": "artifacts/source_governance/private_research_policy_migration.json",
+      "evidence_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     }
   ],
   "completion": {
     "achieved_maturity": "INTEGRATED",
-    "all_applicable_validation_entries_pass": true,
-    "completion_claim": "The source-specific access-readiness gate is complete at INTEGRATED maturity; only registry-admitted READY sources may proceed and all other source routes remain fail-closed.",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
-    "local_acceptance_criteria_pass": true,
+    "issue_disposition": "DONE_VERIFIED_PRIVATE_RESEARCH_POLICY_SUPERSESSION",
     "remaining_issue_scope_blockers": []
   },
-  "consumer_validation": {
-    "baseline_contract_pass": true,
-    "configured_secret_value_matches": 0,
-    "named_human_review_record_count": 62,
-    "negative_mutations_rejected": 6,
-    "ready_count": 2,
-    "report": {
-      "bytes": 2855,
-      "path": "<external-runtime>/BAT-371/readiness-consumer.safe.json",
-      "sha256": "dbf117cd7fd2eaa31db95424b437da9abb67b22111d5ceba02d724b5e37bf950"
-    }
-  },
-  "created_at_utc": "2026-08-09T13:40:53Z",
-  "downstream_reevaluation": {
-    "blocked_consumers": [
-      "POST-STORY-008",
-      "POST-STORY-009",
-      "POST-SUBTASK-022",
-      "POST-SUBTASK-023",
-      "POST-SUBTASK-024",
-      "POST-SUBTASK-025",
-      "POST-SUBTASK-026",
-      "POST-SUBTASK-027"
-    ],
-    "decision": "ALLOW_ONLY_READY_SOURCE_IDS_AND_REEVALUATE_AFTER_PROTECTED_INTEGRATION"
-  },
-  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
-  "input_identities": [
+  "created_at_utc": "2026-08-09T19:40:00Z",
+  "evidence_manifest_type": "POST_W25_POLICY_SUPERSESSION_EVIDENCE",
+  "inputs": [
     {
-      "bytes": 78290,
-      "path": "artifacts/source_governance/production_source_inventory.csv",
-      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+      "bytes": 6859,
+      "path": "artifacts/source_governance/private_research_policy_migration.json",
+      "sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435"
     },
     {
-      "bytes": 85497,
-      "path": "artifacts/source_governance/source_inventory_validation.json",
-      "sha256": "da81d4b9def2fd6f65fb514c3ff542a1b754bdc2ead679fde5f06eb097b402cf"
-    },
-    {
-      "bytes": 22977,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-015.json",
-      "sha256": "20dbc94108c475da1822f9d5bed7ee25824b7642e6d366adb8fc403a8941d981"
-    },
-    {
-      "bytes": 60201,
-      "path": "artifacts/source_governance/credential_contract.redacted.json",
-      "sha256": "882764a80873cd0b97a530e1af375113a75b4c875259e6b4ea149bbe79c26507"
-    },
-    {
-      "bytes": 16345,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-019.json",
-      "sha256": "15c6810fca9cac5dc4569076cc1cfa95c495394649e489b9104a0170b4f2f169"
-    },
-    {
-      "bytes": 94417,
-      "path": "artifacts/source_governance/source_access_smoke_results.json",
-      "sha256": "236db30afc8030e2c8842cc44d1b650d5014a5a1847a9440f0a39b0cfa59526e"
-    },
-    {
-      "bytes": 17112,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-020.json",
-      "sha256": "7ea015d74c7e7020ccb964723e5c28dbb7ec66b3c9784f5332dd0c51cbc2ba97"
-    },
-    {
-      "bytes": 93881,
-      "path": "configs/source_rights_registry.json",
-      "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2"
-    },
-    {
-      "bytes": 12079,
-      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
-      "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
-    },
-    {
-      "bytes": 17169,
+      "bytes": 17983,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-021_validate_access_readiness_and_generate_source_specific_unblock_conditions.json",
-      "sha256": "5e24b8ef765eb538ced06ff50e3abd843b9a4c8f8fc83dc23a2051bbec2446de"
-    },
-    {
-      "bytes": 17702,
-      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-021.json",
-      "sha256": "5af76a785a29b69f82f6f197e8787cd53138fa17420656dfce50d8c0153411cb"
-    },
-    {
-      "bytes": 599,
-      "path": "<external-runtime>/BAT-371/open-meteo-smoke.safe.json",
-      "sha256": "44422177b9c11968a991ab4949bb7c2eecd56ebfc58670f72267c9b8b6ec91bc"
+      "sha256": "0c28d044bf516b85c683527371b55c9a0a6273b714b2826c3b4502d7ab953609"
     }
   ],
   "jira_key": "BAT-371",
-  "live_jira": {
-    "completion_comment_id": "13342",
-    "evidence_state": "VERIFIED",
-    "logical_state": "DONE",
-    "maturity": "PRODUCTION_READY",
-    "post_complete_state": {
-      "bytes": 277,
-      "path": "<external-runtime>/BAT-371/post-complete-jira-state.json",
-      "sha256": "1fa8bb2b75b6e8d70f351dfcd7e59c39af9a68bcc17d7e8ec015b678ae5f85b3"
-    },
-    "post_resume_state": {
-      "bytes": 284,
-      "path": "<external-runtime>/BAT-371/post-resume-jira-state.json",
-      "sha256": "6b3b6902e53db20a30a26a3248a36c0ea8d1c342c949b87427df7dd42a9c4414"
-    },
-    "resume_comment_id": "13341",
-    "status": "Done",
-    "updated": "2026-08-09T11:30:01.062-0500"
-  },
   "local_issue_id": "POST-SUBTASK-021",
-  "local_jira_sync": {
-    "live_export": {
-      "bytes": 160,
-      "path": "<external-runtime>/BAT-371/BAT-371-live-row.csv",
-      "sha256": "c0cec5aefd3d820cae501747164535da9918f644d1421cae3405e3cc555fce68"
-    },
-    "state": "SYNCHRONIZED_PENDING_PROTECTED_COMPLETION_COMMIT"
+  "observable_outcome": "The former source-rights acquisition prerequisite is superseded. Private acquisition and local training are admitted; technical/quality/PIT/safety gates remain scoped and raw third-party publication remains denied.",
+  "output": {
+    "bytes": 66945,
+    "path": "artifacts/source_governance/source_access_readiness.csv",
+    "sha256": "717f785c160ef0e8903db8b6c5ca1aa50caf1cc56bb495a12a2d046839fa8488"
   },
-  "observable_outcome": "All 62 sources are bound to Kevin Garrett's project-owner review and the verified machine rights registry. 2 production lanes pass rights, credential/provider, and technical-smoke gates; every other route remains source-specifically blocked or rejected with a nonblocking substitute/unblock condition.",
-  "outputs": [
-    {
-      "bytes": 72732,
-      "maturity": "INTEGRATED",
-      "path": "artifacts/source_governance/source_access_readiness.csv",
-      "readiness_counts": {
-        "BLOCKED_PROVIDER": 23,
-        "BLOCKED_RIGHTS": 30,
-        "READY": 2,
-        "REJECTED": 7
-      },
-      "ready_count": 2,
-      "ready_source_ids": [
-        "SRC-002",
-        "SRC-003"
-      ],
-      "row_count": 62,
-      "sha256": "452d8796a42fc770fa775919676af04bcb0927a691ad863adef1ed891a37cb6b"
-    }
-  ],
-  "owner_rights_review": {
-    "completion_allowed": true,
-    "decision_registry": "configs/source_rights_registry.json",
-    "legal_counsel_claimed": false,
-    "project_scope": "PERSONAL_NONCOMMERCIAL_LOCAL_ANALYTICS",
-    "review_date": "2026-08-09",
-    "reviewer": "Kevin Garrett (project owner)",
-    "source_decision_count": 62
-  },
-  "producer": {
-    "agent": "Codex",
-    "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
-  },
-  "protected_integration": {
-    "branch": "codex/BAT-371-owner-rights-readiness",
-    "head_sha": "2a6b323d23d9d5383d892cbe86cf99f0e93420ad",
-    "merge_commit_repository_ci_run": 31323844565,
-    "merge_commit_security_analysis_run": 31323844562,
-    "merge_method": "SQUASH",
-    "merge_sha": "b5032d4928b4d0cb9ac56a1f6e4d66a8456cafb4",
-    "merged_at_utc": "2026-08-09T16:27:36Z",
-    "pull_request": 58,
-    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
-    "state": "MERGED_AND_MAIN_VALIDATED"
-  },
-  "schema_version": "1.0.0",
-  "security_and_rights": {
-    "configured_secret_matching_occurrences": 0,
-    "credential_values_included": false,
-    "downstream_materialization_allowed_count": 2,
-    "fabricated_human_identity_or_decision_count": 0,
-    "production_access_ready_claimed": true,
-    "protected_files_modified": false,
-    "response_bodies_included": false,
-    "restricted_raw_payloads_included": false,
-    "source_rights_approval_claimed": true
-  },
-  "tool_identities": [
-    {
-      "bytes": 10375,
-      "path": "<external-runtime>/BAT-371/build_source_access_readiness.py",
-      "sha256": "1d1850c1400ef0faf2eac205a8f42797325db609c3e8995af185763309dc7ea5"
-    },
-    {
-      "bytes": 9976,
-      "path": "<external-runtime>/BAT-371/validate_source_access_readiness.py",
-      "sha256": "6bf7d09d9ee6ce2e13dd1847af44ee4baa8a6bceb9ddc4c033e5a377bfd6cae0"
-    },
-    {
-      "bytes": 16914,
-      "path": "<external-runtime>/BAT-371/build_bat371_evidence.py",
-      "sha256": "bebb046924efac8bc4709cd95a7bdddfc9776a0096b8d85972f5133d041e3486"
-    }
-  ],
-  "updated_at_utc": "2026-08-09T16:31:21Z",
-  "validation_matrix": [
-    {
-      "disposition": "PASS",
-      "evidence": "6 focused tests passed",
-      "validation_class": "REGRESSION"
-    },
-    {
-      "disposition": "PASS",
-      "evidence": "Project owner Kevin Garrett supplied the personal/noncommercial authorization; all 62 current source decisions are bound to the verified rights registry. No legal-counsel claim is made.",
-      "validation_class": "LEGAL_RIGHTS_REVIEW"
-    },
-    {
-      "disposition": "PASS",
-      "evidence": "Reviewer identity, decision date, terms/decision identity, use, retention, training, publication, redistribution, deletion, unresolved questions, and allow/block state recorded for every source.",
-      "validation_class": "MANUAL"
-    },
-    {
-      "disposition": "PASS",
-      "evidence": "Zero configured secret-value matches; no payloads or values included",
-      "validation_class": "SECURITY"
-    },
-    {
-      "disposition": "PASS",
-      "evidence": "62 rows consumed fail-closed; 6 negative mutations rejected",
-      "validation_class": "END_TO_END"
-    },
-    {
-      "disposition": "PASS",
-      "evidence": "Pinned input/output/tool/log identities recorded",
-      "validation_class": "REPRODUCIBILITY"
-    }
-  ]
+  "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
+  "result": "PASS",
+  "supersedes_evidence_sha256": "614ae316b167d323ef96f3dc8a523e66e0f5ac0b00ea06fc7617bd2f0e32b6a0"
 }

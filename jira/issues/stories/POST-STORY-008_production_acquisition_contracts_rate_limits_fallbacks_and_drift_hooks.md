@@ -7,9 +7,15 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.",
+    "The specification records upstream lineage and avoids duplicate independent-source claims.",
+    "Unknown historical coverage remains explicit rather than backfilled by assumption.",
+    "Retries honor provider rate limits and bounded backoff.",
+    "Cached raw responses remain immutable and are keyed by request/source identity.",
+    "Fallbacks activate only under documented conditions and preserve source provenance.",
+    "Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.",
+    "A changed contract cannot silently overwrite the prior baseline.",
+    "Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -55,7 +61,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 16,
-  "end_to_end_validation": "Exercise the complete Production acquisition contracts, rate limits, fallbacks, and drift hooks path and verify downstream consumption of the pinned outputs.",
+  "end_to_end_validation": "Exercise the complete Production acquisition contracts, rate limits, fallbacks, and drift hooks path through `POST-SUBTASK-024` and verify downstream use of pinned outputs.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-008.json",
   "evidence_state": "PLANNED",
@@ -117,10 +123,10 @@
     "sources",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-008",
   "maturity_before": "CONTRACT_DEFINED",
-  "objective": "Turn approved source lanes into deterministic acquisition specifications suitable for immutable historical materialization.",
+  "objective": "Turn selected source lanes into deterministic acquisition specifications suitable for immutable historical materialization.",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24198",
@@ -133,7 +139,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-002",
@@ -244,7 +250,7 @@
     "SRCREF-01572",
     "SRCREF-01889"
   ],
-  "specificity_fingerprint": "538f12eb059a64bc53db5e6e6422ce668dc135dd930d12bcc74c8b2bc9d65805",
+  "specificity_fingerprint": "a5b383bc6e47b3b230929002602d4ee31fc5d2b8cee3d6766b6e3db8455e8e8f",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -281,7 +287,7 @@
 
 ## Objective
 
-Turn approved source lanes into deterministic acquisition specifications suitable for immutable historical materialization.
+Turn selected source lanes into deterministic acquisition specifications suitable for immutable historical materialization.
 
 ## Why This Exists
 
@@ -303,7 +309,7 @@ Deliver Story POST-STORY-008 (Production acquisition contracts, rate limits, fal
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -377,9 +383,15 @@ Deliver Story POST-STORY-008 (Production acquisition contracts, rate limits, fal
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.
+2. The specification records upstream lineage and avoids duplicate independent-source claims.
+3. Unknown historical coverage remains explicit rather than backfilled by assumption.
+4. Retries honor provider rate limits and bounded backoff.
+5. Cached raw responses remain immutable and are keyed by request/source identity.
+6. Fallbacks activate only under documented conditions and preserve source provenance.
+7. Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.
+8. A changed contract cannot silently overwrite the prior baseline.
+9. Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.
 
 ## Definition of Done
 
@@ -415,7 +427,7 @@ Deliver Story POST-STORY-008 (Production acquisition contracts, rate limits, fal
 
 ## End-to-End Validation Requirement
 
-Exercise the complete Production acquisition contracts, rate limits, fallbacks, and drift hooks path and verify downstream consumption of the pinned outputs.
+Exercise the complete Production acquisition contracts, rate limits, fallbacks, and drift hooks path through `POST-SUBTASK-024` and verify downstream use of pinned outputs.
 
 ## Expected Maturity After Completion
 

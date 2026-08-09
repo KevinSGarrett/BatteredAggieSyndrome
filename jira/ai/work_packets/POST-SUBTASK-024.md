@@ -22,9 +22,9 @@ Execute the atomic 3 of 3 step in Story POST-STORY-008 (Production acquisition c
 
 - Perform the exact action: Establish source API/schema/terms drift baselines and monitoring inputs.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-018`, `POST-SUBTASK-021`, `POST-SUBTASK-022`, `POST-SUBTASK-023`.
-- Demonstrate with saved evidence: Baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.
+- Demonstrate with saved evidence: Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.
 - Demonstrate with saved evidence: A changed contract cannot silently overwrite the prior baseline.
-- Demonstrate with saved evidence: Detected drift produces a blocked/review state before downstream training.
+- Demonstrate with saved evidence: Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.
 - Produce, validate, content-hash, and register `artifacts/source_governance/source_drift_baseline.json`.
 - Produce, validate, content-hash, and register `configs/source_drift_registry.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
@@ -33,9 +33,9 @@ Execute the atomic 3 of 3 step in Story POST-STORY-008 (Production acquisition c
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications; Implement compliant retries, caching, rate-limit handling, and fallback activation.
-- Automatically granting legal approval, assuming public accessibility permits retention/redistribution, or bypassing human terms review.
+- Reintroducing a license/terms/redistribution gate for private acquisition or training, or publishing raw third-party payloads without a separate future review.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Current gate state
@@ -111,15 +111,15 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.
+1. Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.
 2. A changed contract cannot silently overwrite the prior baseline.
-3. Detected drift produces a blocked/review state before downstream training.
+3. Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_data_research.py — Run as a regression check after completing POST-SUBTASK-024; retain command, exit code, and relevant output.
-- LEGAL_RIGHTS_REVIEW / LEGAL_RIGHTS_REVIEW: MANUAL_REVIEW_REQUIRED — A named human reviewer records source-specific access, retention, training, publication, and redistribution decisions with terms/version/date evidence.
-- MANUAL / MANUAL: artifacts/source_governance/source_drift_baseline.json — Verify reviewer identity, decision date, unresolved questions, and explicit allow/block conditions.
+- PUBLICATION_BOUNDARY_REVIEW / PUBLICATION_BOUNDARY_REVIEW: MANUAL — Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.
+- MANUAL / MANUAL: artifacts/source_governance/source_drift_baseline.json — Verify the private-use decision, metadata state, technical/quality scope, and future-publication boundary.
 - SCIENTIFIC / SCIENTIFIC: artifacts/source_governance/source_drift_baseline.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - OPERATIONS / OPERATIONS: artifacts/source_governance/source_drift_baseline.json — Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.
 - END_TO_END / END_TO_END: configs/source_drift_registry.json — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
@@ -132,7 +132,7 @@ Produce and validate these outputs within this atomic work unit:
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
+- Nonblocking source-policy metadata recording provider/terms version, access purpose, retention, model-training use, publication boundary, redistribution metadata, source URL, acquisition time, and private-research allow decision.
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## End-to-end handoff
@@ -141,9 +141,9 @@ Exercise the complete Production acquisition contracts, rate limits, fallbacks, 
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

@@ -50,7 +50,7 @@
     "risk_ids": 2
   },
   "effective_traceability_total": 15,
-  "end_to_end_validation": "The entire Target environment, reproducibility, and AC-038 hardware evidence capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Target environment, reproducibility, and AC-038 hardware evidence and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-001.json",
   "evidence_state": "PLANNED",
@@ -126,7 +126,7 @@
     "environment",
     "post-wave"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-001",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Establish an authoritative, reproducible local execution environment and evidence-backed resource envelope on the declared target Windows hardware.",
@@ -255,7 +255,7 @@
     "SRCREF-01887",
     "SRCREF-01563"
   ],
-  "specificity_fingerprint": "bb9b8c525a384a80c69f0e9e3425dc61460970ff614ec37cbcc0ab44db490a14",
+  "specificity_fingerprint": "cb9e1318e3fe1cae67729b4f2459df05c0790f563a40128807e07e9cf5f83fb6",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],

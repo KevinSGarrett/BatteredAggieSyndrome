@@ -100,7 +100,7 @@
     "w12",
     "wave-completed"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "TASK-054",
   "maturity_before": "DESIGN_ONLY",
   "objective": "Define transfer episode and same-player identity contract",

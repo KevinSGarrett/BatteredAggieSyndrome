@@ -7,9 +7,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Player-team-position-depth relationships retain source and known-at/effective time; current rosters cannot retroactively populate history and ambiguous identities remain reviewable.",
+    "The declared output `artifacts/player_intelligence/player_state_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Value fits permitted history, sparse roles use transparent shrinkage, replacement reflects actual depth, availability remains probabilistic, and team impact is starter value minus plausible replacement without double counting.",
+    "The declared output `artifacts/player_intelligence/player_value_availability_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Coverage is measured by season/team/position/source and missing reports are uncertainty—not healthy/absent certainty; unsupported periods remain conditional.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -118,7 +122,7 @@
     "post-wave",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-021",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Build PIT player intelligence that represents who was expected to play and the value at risk.",
@@ -134,7 +138,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-007",
@@ -244,7 +248,7 @@
     "SRCREF-01894",
     "SRCREF-01568"
   ],
-  "specificity_fingerprint": "b27a2debd34a20549301edb6e8b7e9f9e393d30c2957ed5ccb7a7f0db86964a8",
+  "specificity_fingerprint": "eb1d2f720e7ae78e6eed01ef31da448b616a002415c440e3df623c8b5b815f9e",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -303,7 +307,7 @@ Deliver Story POST-STORY-021 (Historical player, roster, depth, value, replaceme
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -377,9 +381,13 @@ Deliver Story POST-STORY-021 (Historical player, roster, depth, value, replaceme
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Player-team-position-depth relationships retain source and known-at/effective time; current rosters cannot retroactively populate history and ambiguous identities remain reviewable.
+2. The declared output `artifacts/player_intelligence/player_state_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+4. Value fits permitted history, sparse roles use transparent shrinkage, replacement reflects actual depth, availability remains probabilistic, and team impact is starter value minus plausible replacement without double counting.
+5. The declared output `artifacts/player_intelligence/player_value_availability_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. Coverage is measured by season/team/position/source and missing reports are uncertainty—not healthy/absent certainty; unsupported periods remain conditional.
+7. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Definition of Done
 

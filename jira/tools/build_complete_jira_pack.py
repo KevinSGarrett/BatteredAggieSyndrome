@@ -69,7 +69,7 @@ def write_csv(path: Path, rows: Iterable[dict[str, Any]], fields: list[str] | No
                     seen.add(key)
                     fields.append(key)
     with path.open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
+        w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore", lineterminator="\r\n")
         w.writeheader()
         for row in rows:
             clean = {}
@@ -89,7 +89,8 @@ def write_csv(path: Path, rows: Iterable[dict[str, Any]], fields: list[str] | No
 
 def write_json(path: Path, obj: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+    value = json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    path.write_bytes(value.replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8"))
 
 
 def write_jsonl(path: Path, rows: Iterable[Any]) -> None:
@@ -101,7 +102,20 @@ def write_jsonl(path: Path, rows: Iterable[Any]) -> None:
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text.rstrip() + "\n", encoding="utf-8")
+    value = text.rstrip() + "\n"
+    path.write_bytes(value.replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8"))
+
+
+def normalize_jira_text_crlf(jira_root: Path) -> None:
+    """Keep byte-sealed generated text deterministic across operating systems."""
+    text_suffixes = {".csv", ".json", ".jsonl", ".md", ".py", ".sha256", ".txt", ".yaml", ".yml"}
+    for path in sorted(jira_root.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in text_suffixes:
+            continue
+        data = path.read_bytes()
+        normalized = data.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+        if normalized != data:
+            path.write_bytes(normalized)
 
 
 def md_list(items: Iterable[str]) -> str:
@@ -689,7 +703,7 @@ POST_BLUEPRINT: list[dict[str, Any]] = [
               lane="OPERATIONS"),
             T("env.envelope.retention", "Measure disk growth and define evidence-backed artifact retention budgets",
               ["artifacts/benchmarks/storage_growth_profile.json", "docs/operations/LOCAL_RESOURCE_ENVELOPE.md"],
-              ["Raw snapshots, matrices, model artifacts, forecasts, logs, and backups are measured separately.", "Retention recommendations preserve required lineage and protected evidence.", "Deletion rules never remove canonical negative results or source-rights evidence."],
+              ["Raw snapshots, matrices, model artifacts, forecasts, logs, and backups are measured separately.", "Retention recommendations preserve required lineage and protected evidence.", "Deletion rules never remove canonical negative results, provenance, or superseded policy evidence."],
               lane="OPERATIONS"),
             T("env.envelope.fallback", "Implement and test resource stop conditions and graceful degradation",
               ["artifacts/benchmarks/resource_stop_condition_test.json"],
@@ -698,8 +712,8 @@ POST_BLUEPRINT: list[dict[str, Any]] = [
           ], source_ids=["GAP-001"], e2e="Autonomous work respects measured CPU/RAM/disk/concurrency limits and fails safely without corrupting state or weakening evaluation."),
       ], source_ids=["HANDOFF-001", "GAP-001"], state="READY"),
 
-    E("sources", "Source access, rights, credentials, and acquisition governance", "PHASE-1", "P0", "sources",
-      "Convert the researched source universe into approved production acquisition lanes with explicit rights, credentials, rate limits, fallbacks, and redistribution rules.", [
+    E("sources", "Source access, credentials, private-research acquisition, and publication governance", "PHASE-1", "P0", "sources",
+      "Convert the researched source universe into technically operable private-research acquisition lanes with explicit credentials, provenance, rate limits, fallbacks, quality gates, and a no-raw-publication boundary.", [
         S("sources.reconcile", "Reconcile the final source universe and authority decisions",
           "Turn W06/W24 research into a current source-by-source production decision register.", [
             T("sources.reconcile.inventory", "Reconcile W06 source inventory with W24 refresh and current handoff gaps",
@@ -708,45 +722,45 @@ POST_BLUEPRINT: list[dict[str, Any]] = [
               source_ids=["HANDOFF-002", "GAP-010"], lane="RESEARCH_LANE"),
             T("sources.reconcile.priority", "Freeze source priority, fallback, and required-versus-optional classifications",
               ["artifacts/source_governance/source_priority_decisions.json"],
-              ["Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.", "Optional proprietary enrichment is not made mandatory for v1.", "Priority decisions preserve local-first cost and rights constraints."],
+              ["Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.", "Optional proprietary enrichment is not made mandatory for v1.", "Priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use."],
               source_ids=["ISSUE-012", "GAP-011"], lane="SHARED_CONTRACT"),
             T("sources.reconcile.gate", "Validate source inventory completeness and unresolved decision coverage",
               ["artifacts/source_governance/source_inventory_validation.json"],
-              ["All source IDs referenced by adapters, registries, and acquisition plans resolve to the production inventory.", "Every unresolved source decision has a Jira blocker/review item.", "No required domain is silently marked complete when only reconnaissance samples exist."],
+             ["All source IDs referenced by adapters, registries, and acquisition plans resolve to the production inventory.", "Every unresolved technical or quality decision has a Jira action or scoped quarantine.", "No required domain is silently marked complete when only reconnaissance samples exist."],
               lane="PROTECTED_GATE", maturity_after="CONTRACT_DEFINED"),
           ], source_ids=["HANDOFF-002", "HANDOFF-012", "GAP-010"]),
-        S("sources.rights", "Per-source license, terms, and redistribution decisions",
-          "Establish auditable source-rights decisions before bulk acquisition or redistribution.", [
-            T("sources.rights.tier1", "Complete rights review for CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA lanes",
+        S("sources.rights", "Universal private-research acquisition and future-publication boundary",
+          "Apply the owner-authorized private-research policy universally while preserving license/terms/redistribution metadata and independently denying raw third-party publication.", [
+            T("sources.rights.tier1", "Reissue CFBD, SportsDataverse, Open-Meteo, and official A&M/SEC/NCAA decisions under private-research policy",
               ["artifacts/source_governance/tier1_rights_decisions.csv"],
-              ["Each decision records terms URL/version, review date, allowed access, local storage, derived use, redistribution, retention, and attribution.", "Ambiguous legal terms remain MANUAL_REVIEW_REQUIRED rather than assumed permissive.", "Restricted bulk raw data is classified local-only."],
-              source_ids=["ISSUE-028", "GAP-010"], external_blocker="MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED", lane="PROTECTED_GATE"),
-            T("sources.rights.supplemental", "Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes",
+              ["Each decision records source URL/version, review date, local storage, local training, publication boundary, retention, and attribution metadata.", "Ambiguous license, terms, scraping, redistribution, and upstream-authorization fields are explicitly nonblocking for private acquisition/training.", "Bulk raw data remains local outside Git and is not published."],
+              source_ids=["ISSUE-028", "GAP-010"], lane="PROTECTED_GATE"),
+            T("sources.rights.supplemental", "Reissue recruiting, transfer, market, resources, gamebook, and officiating decisions under private-research policy",
               ["artifacts/source_governance/supplemental_rights_decisions.csv"],
-              ["Every supplemental lane has an explicit production, experimental, licensed-only, or rejected disposition.", "No CAPTCHA, authentication, rate limit, or access control bypass is authorized.", "Provider-specific raw redistribution restrictions are enforced in storage/export policy."],
-              source_ids=["ISSUE-023", "ISSUE-025", "ISSUE-081", "GAP-011"], external_blocker="MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED", lane="PROTECTED_GATE"),
-            T("sources.rights.gate", "Publish the approved source-rights matrix and block disallowed acquisition/export paths",
+              ["Every supplemental source is acquisition-eligible for private research; technical readiness and domain quality remain independent.", "Genuinely private resources needing unsupplied credentials remain technically unavailable and public substitutes are sought.", "Raw third-party publication is denied by project policy."],
+              source_ids=["ISSUE-023", "ISSUE-025", "ISSUE-081", "GAP-011"], lane="PROTECTED_GATE"),
+            T("sources.rights.gate", "Publish the private-research source-use matrix and block raw third-party publication",
               ["configs/source_rights_registry.json", "artifacts/source_governance/source_rights_gate_test.json"],
-              ["The registry is machine-readable and contains no credentials.", "Acquisition and export code fail closed for sources without an approved decision.", "The gate distinguishes access permission from redistribution permission."],
+              ["The registry is machine-readable and contains no credentials.", "All registered sources and caller-declared public sources admit private acquisition and local training without a rights prerequisite.", "Raw third-party export remains independently denied and validity/safety gates remain scoped."],
               files=["src/aggie_analytics/data/contracts.py", "tests/test_data_research.py"], lane="SHARED_CONTRACT", maturity_after="INTEGRATED"),
-          ], source_ids=["HANDOFF-002", "GAP-010"], e2e="A production acquisition/export attempt is allowed or blocked solely by explicit current rights decisions, with no implicit public-equals-redistributable assumption."),
+          ], source_ids=["HANDOFF-002", "GAP-010"], e2e="Private local acquisition and training succeed independently of rights ambiguity, raw third-party publication remains denied, and actual technical/quality/PIT/safety failures affect only their exact scope."),
         S("sources.credentials", "Credential configuration and access smoke tests",
-          "Configure production source access outside the repository and prove each approved lane can be called safely.", [
+          "Configure source access outside the repository and prove each selected lane can be called safely.", [
             T("sources.credentials.contract", "Define credential names, scopes, owners, rotation, and non-repository storage contract",
               ["docs/operations/SOURCE_CREDENTIAL_CONTRACT.md", "artifacts/source_governance/credential_contract.redacted.json"],
               ["Credential variables are source-scoped and least-privilege where the provider supports scopes.", "Rotation/revocation ownership and expiry handling are documented.", "No credential value appears in Git-tracked files or evidence."],
-              external_blocker="USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY", lane="PROTECTED_GATE"),
+              lane="PROTECTED_GATE"),
             T("sources.credentials.smoke", "Run authenticated and no-key source access smoke tests with rate-limit capture",
               ["artifacts/source_governance/source_access_smoke_results.json"],
-              ["Each approved source returns a minimally sufficient response or a precise access blocker.", "HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.", "Smoke tests do not bulk-download data or expose secrets."],
-              source_ids=["ISSUE-003", "ISSUE-004"], external_blocker="PRODUCTION_CREDENTIALS_MAY_BE_REQUIRED", lane="DATA_MATERIALIZATION"),
+              ["Each selected source preserves a minimally sufficient technical response or a precise pending technical action.", "HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.", "Smoke tests do not expose secrets or fabricate unobserved results."],
+              source_ids=["ISSUE-003", "ISSUE-004"], lane="DATA_MATERIALIZATION"),
             T("sources.credentials.gate", "Validate access readiness and generate source-specific unblock conditions",
               ["artifacts/source_governance/source_access_readiness.csv"],
-              ["Every required source is READY, BLOCKED_CREDENTIAL, BLOCKED_RIGHTS, BLOCKED_PROVIDER, or REJECTED with a concrete reason.", "Downstream materialization tasks consume this readiness file.", "A source cannot become READY from a successful sample if rights review is incomplete."],
+              ["Every source is READY, TECHNICAL_VALIDATION_PENDING, TECHNICAL_CREDENTIAL_UNAVAILABLE, or quality-quarantined with a concrete reason.", "Downstream materialization tasks consume this readiness file.", "No source is blocked by licensing, redistribution, scraping, terms, provider preference, or upstream-authorization uncertainty."],
               lane="PROTECTED_GATE", maturity_after="INTEGRATED"),
           ], source_ids=["HANDOFF-002", "ISSUE-003", "ISSUE-004"]),
         S("sources.acquisition", "Production acquisition contracts, rate limits, fallbacks, and drift hooks",
-          "Turn approved source lanes into deterministic acquisition specifications suitable for immutable historical materialization.", [
+          "Turn selected source lanes into deterministic acquisition specifications suitable for immutable historical materialization.", [
             T("sources.acquisition.specs", "Create source-specific endpoint, parameter, pagination, season, and version acquisition specifications",
               ["configs/source_acquisition_registry.json"],
               ["Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.", "The specification records upstream lineage and avoids duplicate independent-source claims.", "Unknown historical coverage remains explicit rather than backfilled by assumption."],
@@ -757,7 +771,7 @@ POST_BLUEPRINT: list[dict[str, Any]] = [
               files=["src/aggie_analytics/data/adapters.py", "src/aggie_analytics/data/snapshots.py"], lane="DATA_MATERIALIZATION"),
             T("sources.acquisition.drift", "Establish source API/schema/terms drift baselines and monitoring inputs",
               ["artifacts/source_governance/source_drift_baseline.json", "configs/source_drift_registry.json"],
-              ["Baseline captures endpoint/version, schema hash, terms version, expected freshness, and upstream dependencies.", "A changed contract cannot silently overwrite the prior baseline.", "Detected drift produces a blocked/review state before downstream training."],
+              ["Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.", "A changed contract cannot silently overwrite the prior baseline.", "Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use."],
               source_ids=["HANDOFF-012"], lane="OPERATIONS", maturity_after="OPERATING"),
           ], source_ids=["HANDOFF-003", "HANDOFF-012"]),
       ], source_ids=["HANDOFF-002", "HANDOFF-012", "GAP-010"], state="READY"),
@@ -798,9 +812,9 @@ def story3(alias: str, title: str, objective: str, task_titles: list[str], outpu
 
 POST_BLUEPRINT.extend([
     E("raw", "Immutable national historical data materialization", "PHASE-1", "P0", "raw-data",
-      "Acquire approved national history into immutable, content-addressed raw snapshots with population-level coverage, rights, and provenance evidence.", [
+      "Acquire maximum quality-supported national history into immutable, content-addressed raw snapshots with population-level coverage and provenance evidence; source rights metadata is nonblocking for private research.", [
         story3("raw.core", "Core national game spine", "Materialize teams, conferences, venues, schedules, games, outcomes, drives, plays, and official game evidence.",
-          ["Acquire approved national team, schedule, game, score, drive, play, box-score, and gamebook history",
+          ["Acquire quality-supported national team, schedule, game, score, drive, play, box-score, and gamebook history",
            "Normalize and reconcile core/game-event records while preserving immutable source evidence",
            "Approve or block the population-level core-history coverage gate"],
           ["artifacts/data_lake/core_acquisition_manifest.json", "artifacts/data_lake/core_normalization_report.json", "artifacts/data_lake/core_coverage_gate.json"],
@@ -810,26 +824,26 @@ POST_BLUEPRINT.extend([
           source_ids=["HANDOFF-003", "GAP-002"], entry_deps=["sources.credentials.gate", "sources.rights.gate", "sources.acquisition.specs", "env.localroots.storage"],
           lanes=["DATA_MATERIALIZATION", "DATA_MATERIALIZATION", "PROTECTED_GATE"],
           e2e="A clean acquisition run produces immutable national game history, deterministic normalized evidence, and an honest coverage decision."),
-        story3("raw.context", "Player, roster, recruiting, market, weather, and contextual raw domains", "Materialize the supporting source domains needed for availability, specialization, matchup context, and uncertainty.",
-          ["Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence",
-           "Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class",
-           "Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility"],
-          ["artifacts/data_lake/context_acquisition_manifest.json", "artifacts/data_lake/context_population_profile.json", "artifacts/data_lake/context_eligibility_gate.json"],
-          ["Every record retains source/published/observed/retrieved time and canonical identity candidates; absence or ambiguous timing is not converted to healthy, available, or known.",
+        story3("raw.context", "Historical expansion across core and supporting domains", "Expand the validated contemporary tranche to the maximum quality-supported national history, targeting approximately 2010-2025 and earlier seasons while preserving tiered domain eligibility.",
+          ["Expand immutable national core and supporting-domain history to the maximum quality-supported seasons",
+           "Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata",
+           "Gate domain-by-domain production, experimental, conditional, rejected, or unavailable eligibility"],
+          ["artifacts/data_lake/historical_expansion_acquisition_manifest.json", "artifacts/data_lake/context_population_profile.json", "artifacts/data_lake/context_eligibility_gate.json"],
+          ["Preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.",
            "Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.",
            "Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence."],
-          source_ids=["HANDOFF-008", "GAP-006", "GAP-010", "GAP-011"], entry_deps=["raw.core.gate"], lanes=["DATA_MATERIALIZATION", "DATA_MATERIALIZATION", "PROTECTED_GATE"],
-          e2e="Supporting domains are acquired and classified from real historical evidence without inventing timing, coverage, rights, or certainty."),
-        story3("raw.store", "Immutable raw store, manifests, provenance, and population audit", "Prove that every accepted raw domain is immutable, reproducible, rights-aware, and reconstructable.",
-          ["Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes",
+          source_ids=["HANDOFF-003", "HANDOFF-008", "GAP-002", "GAP-006", "GAP-010", "GAP-011"], entry_deps=["raw.core.gate"], lanes=["DATA_MATERIALIZATION", "DATA_MATERIALIZATION", "PROTECTED_GATE"],
+          e2e="The expanded manifest is deterministic and consumable by the profiling step, preserves partial seasons and missing domains, and never treats rights metadata or the 2022-2025 tranche as a terminal-history gate."),
+        story3("raw.store", "Immutable raw store, manifests, provenance, and population audit", "Prove that every accepted raw domain is immutable, reproducible, source-policy-metadata-aware, and reconstructable.",
+          ["Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-policy storage metadata",
            "Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests",
            "Run and publish the national historical-lake readiness decision"],
           ["artifacts/data_lake/immutability_and_correction_test.json", "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json", "artifacts/data_lake/national_lake_readiness.json"],
           ["Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.",
-           "The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.",
+           "The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and nonblocking source-policy metadata and reproduces population counts.",
            "GAP-002 remains open unless actual national history—not fixtures, reconnaissance samples, or starter code—meets immutable, manifest, readback, and coverage requirements."],
           source_ids=["HANDOFF-003", "GAP-002"], entry_deps=["raw.core.gate", "raw.context.gate"], lanes=["SHARED_CONTRACT", "DATA_MATERIALIZATION", "PROTECTED_GATE"],
-          e2e="Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, restriction, correction, and blocker."),
+          e2e="Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, unavailable domain, correction, and technical or quality blocker."),
       ], source_ids=["HANDOFF-003", "GAP-002"], depends_on=["sources.acquisition.drift"], state="BACKLOG"),
 
     E("entities", "Population schema profiling and canonical entity resolution", "PHASE-1", "P0", "entities",
@@ -1004,7 +1018,7 @@ POST_BLUEPRINT.extend([
     E("tamu", "Texas A&M high-resolution specialization and no-lift-safe evaluation", "PHASE-3", "P1", "tamu",
       "Build A&M-specific state and specialization candidates while requiring protected evidence and accepting a global-only/no-adjustment result.", [
         story3("tamu.state", "Official A&M evidence and high-resolution PIT state", "Materialize the highest supported A&M resolution without violating national PIT, identity, rights, or provenance contracts.",
-          ["Acquire approved A&M schedules, rosters, depth, staff, media-guide, participation, availability, and official evidence",
+          ["Acquire quality-supported A&M schedules, rosters, depth, staff, media-guide, participation, availability, and official evidence",
            "Build high-resolution A&M team/player/staff/context as-of snapshots reconciled with national state",
            "Validate A&M coverage, source conflicts, rights, identity, PIT integrity, and snapshot reproducibility"],
           ["artifacts/tamu/tamu_source_manifest.json", "artifacts/tamu/tamu_high_resolution_state_manifest.json", "artifacts/tamu/tamu_state_gate.json"],
@@ -1129,7 +1143,7 @@ POST_BLUEPRINT.extend([
            "Run source outage, schema drift, disk pressure, corrupt artifact, stale forecast, interrupted run, and rollback drills",
            "Approve or retain-blocked the autonomous weekly operating maturity decision"],
           ["artifacts/mlops/shadow_run_ledger.jsonl", "artifacts/mlops/shadow_failure_drills.json", "artifacts/mlops/weekly_operating_readiness.json"],
-          ["Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real approved sources/paths and cannot omit bad weeks from reliability.",
+          ["Every scheduled success, miss, blocker, intervention, stale output, and resource result stays in the ledger; shadow uses real quality-valid sources/paths and cannot omit bad weeks from reliability.",
            "Each injected failure is detected, classified, stopped, alerted, recovered, and evidenced without weakening gates or deleting canonical evidence; recovery time/manual steps are measured.",
            "OPERATING requires repeated successful real evidence plus freshness/recovery/resource/security/operator proof and documents residual manual gates; GAP-012 stays open otherwise."],
           source_ids=["HANDOFF-010", "HANDOFF-011", "GAP-012"], entry_deps=["mlops.train-publish.gate"], lanes=["OPERATIONS", "OPERATIONS", "PROTECTED_GATE"],
@@ -1197,7 +1211,7 @@ POST_BLUEPRINT.extend([
            "Implement content-hashed verified backups, catalog, integrity checking, last-known-good protection, and restricted-destination enforcement",
            "Execute clean-location restore of representative raw-to-forecast lineage and Jira metadata with measured RPO/RTO/manual steps"],
           ["configs/backup_retention_policy.json", "artifacts/operations/backup_catalog_and_integrity.json", "artifacts/operations/restore_drill.json"],
-          ["Canonical protected evidence, negative results, rights decisions, and issue history retain required immutability while restricted raw data never copies to unapproved destinations.",
+          ["Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.",
            "Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.",
            "A clean restore passes hash/schema/reference/lineage validation, identifies external credentials/rights reconfiguration, measures recovery, and success is not inferred from backup creation alone."],
           source_ids=["HANDOFF-012"], entry_deps=["operations.observe.gate"], lanes=["SHARED_CONTRACT", "OPERATIONS", "PROTECTED_GATE"],
@@ -1217,12 +1231,12 @@ POST_BLUEPRINT.extend([
           source_ids=["HANDOFF-013", "HANDOFF-014"], entry_deps=["validation.promotion.gate", "mlops.shadow.gate", "product.explain.gate", "operations.backup.gate"], lanes=["PROTECTED_GATE", "PROTECTED_GATE", "PROTECTED_GATE"],
           e2e="Every release claim and exclusion can be traced to concrete current evidence, with no gap, risk, requirement, or control disappearing behind historical Done labels."),
         story3("release.e2e", "Clean-target real-data release candidate", "Execute the complete production chain and product consumption from a clean target-machine checkout.",
-          ["Stage the signed release candidate, dependency/runtime, Jira pack, approved source/rights configuration, and clean external roots",
-           "Execute approved-source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data",
+          ["Stage the signed release candidate, dependency/runtime, Jira pack, private-research source configuration, and clean external roots",
+           "Execute quality-valid source acquisition through immutable raw, entities, PIT, features, champion/no-champion handling, predictions, publication, API, and dashboard on representative real weekly data",
            "Validate outputs, lineage, protected decisions, rollback, clean re-execution, target performance/resources/freshness, and all release-blocking controls"],
           ["artifacts/release/release_candidate_manifest.json", "artifacts/release/release_candidate_e2e.json", "artifacts/release/release_candidate_gate.json"],
           ["The stage pins repository/dependencies/Jira/source-rights/schema/data/entity/PIT/feature/model/product/runbook identities, keeps credentials external, enforces restrictions, and fails on dirty protected state or blockers.",
-           "Every production stage uses real approved data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
+           "Every production stage uses real quality-valid data/code/paths and emits complete lineage/tests/resources/freshness/failure evidence; fixtures, samples, fabricated metrics, or manual file swaps cannot claim success.",
            "Independent validators trace forecasts/product to the signed run and A&M/BAS/promotion decisions, rollback succeeds, clean re-run reproduces declared outputs, and AC-038/target gates use authoritative host evidence."],
           source_ids=["GAP-001", "GAP-012", "AC-038"], entry_deps=["release.coverage.gate", "env.benchmark.gate"], lanes=["PROTECTED_GATE", "PROTECTED_GATE", "PROTECTED_GATE"],
           external_blockers=["AUTHORITATIVE_TARGET_HOST_AND_PRODUCTION_SOURCE_ACCESS_REQUIRED", "AUTHORITATIVE_TARGET_HOST_AND_PRODUCTION_SOURCE_ACCESS_REQUIRED", ""],
@@ -1302,7 +1316,7 @@ POST_BLUEPRINT.extend([
           ["artifacts/live/live_protected_scorecard.json", "artifacts/live/live_product_validation.json", "artifacts/live/live_operating_decision.json"],
           ["Protected outcomes cannot tune event handling/thresholds/model selection, all outage/delay scenarios and uncertainty are reported, and comparison includes pregame-only/simple live baselines.",
            "Live outputs expose source/state/model/timestamp and remain distinguishable from immutable pregame forecasts; stale/disconnected/corrected/final states are explicit and restricted feed data is not exposed.",
-           "Authorization requires approved rights, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition."],
+           "Authorization requires the private-research source policy, protected evidence, latency/reliability/security/product/resources/backup/incidents; rejection leaves pregame valid and GAP-014 deferred/closed-by-disposition."],
           source_ids=["HANDOFF-014", "GAP-014"], entry_deps=["live.prototype.gate"], lanes=["PROTECTED_GATE", "SHARED_CONTRACT", "PROTECTED_GATE"],
           e2e="Any live capability independently earns operating authorization from licensed replayable evidence; rejection has no effect on the completed pregame system."),
       ], source_ids=["HANDOFF-014", "GAP-014", "TASK-169", "TASK-170", "TASK-171", "TASK-172"], depends_on=["release.accept.gate"], state="DEFERRED"),
@@ -1587,7 +1601,7 @@ def default_dod(issue: Issue) -> list[str]:
         "The implementation or scoped work is complete and every declared output exists at the documented path with stable identity/provenance.",
         "All issue-specific acceptance criteria pass; failures, blocked evidence, and negative results are preserved rather than hidden.",
         "All existing applicable tests pass and every declared NEW TEST REQUIRED has been implemented and executed with evidence.",
-        "Applicable PIT/leakage, source-rights, security, reproducibility, and protected-governance controls remain intact; no secret or restricted payload is committed.",
+        "Applicable PIT/leakage, source-policy, security, reproducibility, and protected-governance controls remain intact; no secret or raw third-party payload is committed.",
         "Required evidence is saved, linked to exact source/data/code/config identities, and supports the claimed maturity rather than merely showing that code was written.",
         "Documentation, canonical local issue record, live Jira operational fields when connected, indexes, READY/BLOCKED queues, and downstream dependency state are updated.",
     ]
@@ -1610,7 +1624,7 @@ def default_tests(repo: RepoIndex, domain: str, issue_type: str, external_blocke
     if issue_type in {"Story", "Subtask"}:
         out.append({"classification": "NEW_AUTOMATED_TEST_REQUIRED", "path": "NEW TEST REQUIRED", "expectation": "Add the smallest automated unit/integration/E2E/replay test that directly proves the issue-specific criteria."})
     if "RIGHTS" in external_blocker or "TERMS" in external_blocker:
-        out.append({"classification": "LEGAL_RIGHTS_REVIEW", "path": "MANUAL REVIEW REQUIRED", "expectation": "A human records the source-specific terms, rights, retention, and redistribution decision."})
+        out.append({"classification": "PUBLICATION_BOUNDARY_REVIEW", "path": "MANUAL REVIEW", "expectation": "Verify rights metadata remains nonblocking for private acquisition/training and raw third-party publication remains disabled."})
     if "TARGET" in external_blocker:
         out.append({"classification": "BENCHMARK", "path": "AUTHORITATIVE TARGET HOST", "expectation": "Execute on the declared target hardware and preserve the raw benchmark evidence."})
     if not out:
@@ -2599,10 +2613,10 @@ Workflow state, implementation maturity, and evidence state are separate. Histor
 
     unresolved = [
         {"review_id": "REVIEW-001", "topic": "Destination Jira configuration discovery", "blocking_scope": "IMPORT", "state": "OPEN_MANUAL", "required_action": "Populate JIRA_TARGET_PROFILE.yaml and confirm issue types, hierarchy, statuses, priorities, components, fields, screens, and link types.", "owner": "Jira admin", "jira_issue": ""},
-        {"review_id": "REVIEW-002", "topic": "Production source terms/rights and raw redistribution", "blocking_scope": "SOURCE_ACQUISITION_AND_EXPORT", "state": "OPEN_MANUAL", "required_action": "Complete per-source terms/license review; keep restricted raw data local and fail closed.", "owner": "Human operator/legal review", "jira_issue": trace["gap_post"].get("GAP-010", "")},
-        {"review_id": "REVIEW-003", "topic": "Production credentials", "blocking_scope": "SOURCE_ACCESS", "state": "OPEN_EXTERNAL", "required_action": "Provide approved credentials outside the repository and run redacted access smoke tests.", "owner": "Human operator", "jira_issue": trace["handoff_post"].get("HANDOFF-002", "")},
+        {"review_id": "REVIEW-002", "topic": "Future public distribution or commercialization rights review", "blocking_scope": "PUBLICATION_ONLY", "state": "NOT_TRIGGERED", "required_action": "Review publication rights only if public distribution or commercialization is proposed; never block private local acquisition or training.", "owner": "Project publication policy", "jira_issue": trace["gap_post"].get("GAP-010", "")},
+        {"review_id": "REVIEW-003", "topic": "Technical credential and route validation", "blocking_scope": "AFFECTED_SOURCE_ROUTE_ONLY", "state": "OPEN_IMPLEMENTATION", "required_action": "Use configured credentials outside Git, run redacted technical smokes, and substitute an equivalent public route when one route is unavailable.", "owner": "Codex implementation", "jira_issue": trace["handoff_post"].get("HANDOFF-002", "")},
         {"review_id": "REVIEW-004", "topic": "Authoritative target hardware", "blocking_scope": "AC-038_AND_RELEASE", "state": "OPEN_EXTERNAL", "required_action": "Run representative benchmark on the declared Windows/Ryzen 7 HX/32GB/RTX 5060/NVMe target and set thresholds only from evidence.", "owner": "Human operator/target host", "jira_issue": trace["gap_post"].get("GAP-001", "")},
-        {"review_id": "REVIEW-005", "topic": "Real historical data and empirical results", "blocking_scope": "MODEL_AND_RELEASE", "state": "OPEN_IMPLEMENTATION", "required_action": "Materialize approved history and execute PIT/protected evaluation. No metrics or winner are prefilled.", "owner": "Implementation agents", "jira_issue": trace["gap_post"].get("GAP-002", "")},
+        {"review_id": "REVIEW-005", "topic": "Real historical data and empirical results", "blocking_scope": "MODEL_AND_RELEASE", "state": "OPEN_IMPLEMENTATION", "required_action": "Materialize maximum quality-supported history and execute PIT/protected evaluation. No metrics or winner are prefilled.", "owner": "Implementation agents", "jira_issue": trace["gap_post"].get("GAP-002", "")},
     ]
     write_csv(rec / "UNRESOLVED_REVIEW_ITEMS.csv", unresolved)
 
@@ -3173,7 +3187,7 @@ def write_csv(path: Path, rows: Iterable[dict[str, Any]], fields: list[str] | No
                 if key not in seen:
                     seen.add(key); fields.append(key)
     with path.open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
+        w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore", lineterminator="\r\n")
         w.writeheader()
         for row in rows:
             clean = {}
@@ -3201,7 +3215,9 @@ def rebuild_file_manifest() -> int:
         data=p.read_bytes()
         rows.append({"path":rel,"bytes":len(data),"sha256":sha256_bytes(data)})
     write_csv(JIRA_ROOT/"validation"/"JIRA_FILE_MANIFEST.csv",rows,["path","bytes","sha256"])
-    (JIRA_ROOT/"validation"/"JIRA_FILE_HASHES.sha256").write_text("".join(f"{r['sha256']}  {r['path']}\n" for r in rows),encoding="utf-8")
+    (JIRA_ROOT/"validation"/"JIRA_FILE_HASHES.sha256").write_bytes(
+        "".join(f"{r['sha256']}  {r['path']}\r\n" for r in rows).encode("utf-8")
+    )
     return len(rows)
 
 
@@ -4125,6 +4141,7 @@ def build_complete_jira_pack(repo_root: Path, output_zip: Path | None = None, fu
 
     # BUILD_RESULT and the validation note changed after the first manifest; freeze the final manifest now.
     remove_bytecode_artifacts(jira_root)
+    normalize_jira_text_crlf(jira_root)
     manifest_rows = write_jira_file_manifest(jira_root)
     final_manifest_errors = validate_jira_file_manifest(jira_root)
     manifest_run = run_command([sys.executable, "-B", "jira/tools/validate_jira_manifest.py"], repo_root, 300)

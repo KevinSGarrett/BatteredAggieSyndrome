@@ -322,3 +322,4 @@ TASK-054,TASK-200,HARD,Declared WBS dependency
 TASK-197,TASK-200,HARD,Declared WBS dependency
 TASK-081,TASK-201,HARD,Declared WBS dependency
 TASK-139,TASK-041,PROGRAM_SEQUENCE,W18 research-governance gate completes before W19 implementation begins
+TASK-197,TASK-202,HARD,Private-research policy supersedes the prior source registry only after its provenance fields exist

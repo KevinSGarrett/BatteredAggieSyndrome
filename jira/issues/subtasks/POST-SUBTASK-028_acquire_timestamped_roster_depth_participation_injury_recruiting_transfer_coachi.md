@@ -7,11 +7,9 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "The bounded 2022-2025 population remains identified as the first validated contemporary tranche and is not represented as terminal history, the complete lake, or GAP-002 resolution.",
-    "The acquisition targets at least approximately 2010-2025, extends earlier where source/domain quality supports it, and records every attempted source/endpoint/season/type/domain outcome without discarding an otherwise useful season because another domain is incomplete.",
-    "Every capture or failed attempt records source and endpoint, request identity, season and season type, team/game scope where applicable, domain and grain, schema/version, retrieval and known-at state, content hash and immutable external path, pagination, rights class, and provider limitation.",
-    "The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is deterministic, provenance-complete, stored without bulk raw data in Git, and consumable by POST-SUBTASK-029.",
-    "No source availability, completeness threshold, empirical result, model readiness, A&M lift, BAS, Aggie Excess, or GAP-002 closure is fabricated or implied."
+    "Preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.",
+    "The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -56,11 +54,11 @@
   "content_contract_version": "2.0",
   "critical_path": true,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-028 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-028 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is demonstrably consumable by POST-SUBTASK-029 without manual reconstruction or undocumented state."
   ],
@@ -75,7 +73,7 @@
     "risk_ids": 5
   },
   "effective_traceability_total": 24,
-  "end_to_end_validation": "Validate that the expanded acquisition manifest independently enumerates source/endpoint, season/type, team/game, domain/grain, schema/version, missing/failure, immutable provenance, and historical known-at/PIT state, and that POST-SUBTASK-029 rejects missing, stale, hash-invalid, rights-blocked, or silently terminal-2022-2025 inputs.",
+  "end_to_end_validation": "Validate that `artifacts/data_lake/historical_expansion_acquisition_manifest.json` can be parsed and consumed by `POST-SUBTASK-029` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-028.json",
   "evidence_state": "PLANNED",
@@ -119,12 +117,13 @@
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100332,
   "in_scope": [
-    "Preserve the validated 2022-2025 tranche unchanged as a bounded input and expand beyond it.",
-    "Acquire every useful approved domain available per season: teams, schedules, games, official outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced game statistics, structured gamebook equivalents, and useful approved supporting context.",
-    "Use approved direct APIs/downloads and permitted Scrapfly, ScraperAPI, browser, Docker, or equivalent routes autonomously; substitute sources when a preferred route fails.",
-    "Write bulk raw and normalized payloads only below AGGIE_ANALYTICS_DATA_ROOT as immutable content-addressed captures.",
-    "Record partial seasons, missing domains, schema drift, failed endpoints, reconciliation candidates, and historical known-at/PIT limitations as evidence.",
-    "Produce and validate `artifacts/data_lake/historical_expansion_acquisition_manifest.json` and hand it to POST-SUBTASK-029."
+    "Perform the exact action: Expand immutable national core and supporting-domain history to the maximum quality-supported seasons.",
+    "Consume only verified prerequisite outputs from `POST-SUBTASK-027`.",
+    "Demonstrate with saved evidence: Preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.",
+    "Demonstrate with saved evidence: The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "Produce, validate, content-hash, and register `artifacts/data_lake/historical_expansion_acquisition_manifest.json`.",
+    "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
   ],
   "issue_type": "Subtask",
   "jira_key": "BAT-378",
@@ -140,7 +139,7 @@
   "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-028",
   "maturity_before": "SCAFFOLD",
-  "objective": "Acquire immutable expanded national core and supporting-domain history, targeting approximately 2010-2025 and earlier quality-supported seasons",
+  "objective": "Expand immutable national core and supporting-domain history to the maximum quality-supported seasons",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24518",
@@ -151,11 +150,12 @@
     "status_raw": "To Do"
   },
   "out_of_scope": [
-    "Claiming that the bounded 2022-2025 tranche is terminal national history or the default final training population.",
-    "Discarding an otherwise useful season solely because player, roster, play-by-play, gamebook, box-score, or advanced-stat coverage is incomplete.",
-    "Promoting incomplete evidence into an unsupported domain, fabricating completeness thresholds, or weakening protected PIT/target-game rules.",
-    "Committing bulk raw/normalized source data, credentials, or restricted payloads to Git, Jira, logs, screenshots, or model prompts.",
-    "Claiming production model readiness, champion performance, A&M lift, BAS, Aggie Excess, or GAP-002 resolution."
+    "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
+    "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
+    "Work assigned to sibling subtasks: Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata; Gate domain-by-domain production, experimental, conditional, rejected, or unavailable eligibility.",
+    "Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.",
+    "Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-STORY-010",
@@ -205,10 +205,12 @@
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
-    "`artifacts/data_lake/historical_expansion_acquisition_manifest.json` with SHA-256, producer command/version, source/endpoint request identities, season/type and domain/grain coverage, schema versions, immutable external paths/hashes, known-at/PIT state, provider failures, and negative findings.",
-    "An acceptance matrix proving the bounded 2022-2025 tranche is nonterminal and every attempted acquisition has a PASS, FAIL, PARTIAL, UNAVAILABLE, or BLOCKED disposition without fabricated completeness.",
-    "Disk/cleanup evidence showing bulk data remained under AGGIE_ANALYTICS_DATA_ROOT and reconstructible temporary or abandoned payloads were removed after validation.",
-    "Exact commands/tool versions, exit codes, redacted credential checks, and downstream POST-SUBTASK-029 consumer validation."
+    "`artifacts/data_lake/historical_expansion_acquisition_manifest.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
+    "An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.",
+    "Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.",
+    "An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.",
+    "PIT evidence showing prediction cutoff, known-at fields, rejected future/same-game/postgame records, fold/split identity, and leakage-test results.",
+    "Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status."
   ],
   "required_tests": [
     {
@@ -250,15 +252,15 @@
   ],
   "requirement_ids": [],
   "risk_failure_conditions": [
-    "The 2022-2025 tranche is silently treated as terminal history or a convenience window replaces the approximately 2010-2025 expansion target.",
-    "A weak domain causes an otherwise useful season to be globally discarded or incomplete evidence is promoted into an unsupported domain.",
-    "An attempted source/endpoint/season/domain, provider limitation, partial response, schema version, or negative finding is omitted from the manifest.",
-    "Bulk data escapes the external root, immutable identity is missing, credentials are exposed, or reconstructible temporary artifacts are retained after validation.",
-    "The manifest cannot be deterministically consumed and fail-closed validated by POST-SUBTASK-029."
+    "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-028.",
+    "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
+    "Acceptance failure: the evidence cannot demonstrate that preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.",
+    "Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute the critical-path historical-expansion acquisition entrypoint after the validated bounded 2022-2025 tranche. Inventory and acquire the maximum quality-supported national history, targeting approximately 2010-2025 and extending earlier where supported, across teams, schedules, games, official outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced game statistics, structured gamebook-equivalent data, and useful supporting context. Preserve source/endpoint, request, season/type, team/game, domain/grain, schema/version, immutable hash/path, retrieval/known-at, provider-failure, and rights identities; hand the deterministic manifest to POST-SUBTASK-029.",
+  "scope": "Execute the atomic 1 of 3 step in Story POST-STORY-010 (Historical expansion across core and supporting domains): Expand immutable national core and supporting-domain history to the maximum quality-supported seasons. Consume only verified prerequisite outputs from `POST-SUBTASK-027`. Produce `artifacts/data_lake/historical_expansion_acquisition_manifest.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-029.",
   "source_ids": [
     "GAP-002",
     "GAP-006",
@@ -287,11 +289,11 @@
     "SRCREF-01572",
     "SRCREF-01573"
   ],
-  "specificity_fingerprint": "a3c1d54fce4be726396a79aaf5305e07c026355305d357424e0984ca18518f2a",
+  "specificity_fingerprint": "1b9093b6181ae82e5eee637c5bb96c8a60098741235daa8203e01afa0bff8484",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02017",
@@ -331,7 +333,7 @@
 
 ## Objective
 
-Acquire immutable expanded national core and supporting-domain history, targeting approximately 2010-2025 and earlier quality-supported seasons
+Expand immutable national core and supporting-domain history to the maximum quality-supported seasons
 
 ## Why This Exists
 
@@ -339,24 +341,26 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Scope
 
-Execute the critical-path historical-expansion acquisition entrypoint after the validated bounded 2022-2025 tranche. Inventory and acquire the maximum quality-supported national history, targeting approximately 2010-2025 and extending earlier where supported, across teams, schedules, games, official outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced game statistics, structured gamebook-equivalent data, and useful supporting context. Preserve source/endpoint, request, season/type, team/game, domain/grain, schema/version, immutable hash/path, retrieval/known-at, provider-failure, and rights identities; hand the deterministic manifest to POST-SUBTASK-029.
+Execute the atomic 1 of 3 step in Story POST-STORY-010 (Historical expansion across core and supporting domains): Expand immutable national core and supporting-domain history to the maximum quality-supported seasons. Consume only verified prerequisite outputs from `POST-SUBTASK-027`. Produce `artifacts/data_lake/historical_expansion_acquisition_manifest.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-029.
 
 ### Explicit In Scope
 
-- Preserve the validated 2022-2025 tranche unchanged as a bounded input and expand beyond it.
-- Acquire every useful approved domain available per season: teams, schedules, games, official outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced game statistics, structured gamebook equivalents, and useful approved supporting context.
-- Use approved direct APIs/downloads and permitted Scrapfly, ScraperAPI, browser, Docker, or equivalent routes autonomously; substitute sources when a preferred route fails.
-- Write bulk raw and normalized payloads only below AGGIE_ANALYTICS_DATA_ROOT as immutable content-addressed captures.
-- Record partial seasons, missing domains, schema drift, failed endpoints, reconciliation candidates, and historical known-at/PIT limitations as evidence.
-- Produce and validate `artifacts/data_lake/historical_expansion_acquisition_manifest.json` and hand it to POST-SUBTASK-029.
+- Perform the exact action: Expand immutable national core and supporting-domain history to the maximum quality-supported seasons.
+- Consume only verified prerequisite outputs from `POST-SUBTASK-027`.
+- Demonstrate with saved evidence: Preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.
+- Demonstrate with saved evidence: The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+- Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+- Produce, validate, content-hash, and register `artifacts/data_lake/historical_expansion_acquisition_manifest.json`.
+- Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
 ### Explicit Out of Scope
 
-- Claiming that the bounded 2022-2025 tranche is terminal national history or the default final training population.
-- Discarding an otherwise useful season solely because player, roster, play-by-play, gamebook, box-score, or advanced-stat coverage is incomplete.
-- Promoting incomplete evidence into an unsupported domain, fabricating completeness thresholds, or weakening protected PIT/target-game rules.
-- Committing bulk raw/normalized source data, credentials, or restricted payloads to Git, Jira, logs, screenshots, or model prompts.
-- Claiming production model readiness, champion performance, A&M lift, BAS, Aggie Excess, or GAP-002 resolution.
+- Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
+- Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
+- Work assigned to sibling subtasks: Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and nonblocking source-policy metadata; Gate domain-by-domain production, experimental, conditional, rejected, or unavailable eligibility.
+- Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
+- Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
 ## Prerequisites
 
@@ -426,19 +430,17 @@ Execute the critical-path historical-expansion acquisition entrypoint after the 
 
 ## Acceptance Criteria
 
-1. The bounded 2022-2025 population remains identified as the first validated contemporary tranche and is not represented as terminal history, the complete lake, or GAP-002 resolution.
-2. The acquisition targets at least approximately 2010-2025, extends earlier where source/domain quality supports it, and records every attempted source/endpoint/season/type/domain outcome without discarding an otherwise useful season because another domain is incomplete.
-3. Every capture or failed attempt records source and endpoint, request identity, season and season type, team/game scope where applicable, domain and grain, schema/version, retrieval and known-at state, content hash and immutable external path, pagination, rights class, and provider limitation.
-4. The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is deterministic, provenance-complete, stored without bulk raw data in Git, and consumable by POST-SUBTASK-029.
-5. No source availability, completeness threshold, empirical result, model readiness, A&M lift, BAS, Aggie Excess, or GAP-002 closure is fabricated or implied.
+1. Preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.
+2. The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-028 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-028 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is demonstrably consumable by POST-SUBTASK-029 without manual reconstruction or undocumented state.
 
@@ -453,10 +455,12 @@ Execute the critical-path historical-expansion acquisition entrypoint after the 
 
 ## Required Evidence
 
-- `artifacts/data_lake/historical_expansion_acquisition_manifest.json` with SHA-256, producer command/version, source/endpoint request identities, season/type and domain/grain coverage, schema versions, immutable external paths/hashes, known-at/PIT state, provider failures, and negative findings.
-- An acceptance matrix proving the bounded 2022-2025 tranche is nonterminal and every attempted acquisition has a PASS, FAIL, PARTIAL, UNAVAILABLE, or BLOCKED disposition without fabricated completeness.
-- Disk/cleanup evidence showing bulk data remained under AGGIE_ANALYTICS_DATA_ROOT and reconstructible temporary or abandoned payloads were removed after validation.
-- Exact commands/tool versions, exit codes, redacted credential checks, and downstream POST-SUBTASK-029 consumer validation.
+- `artifacts/data_lake/historical_expansion_acquisition_manifest.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
+- Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
+- An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
+- PIT evidence showing prediction cutoff, known-at fields, rejected future/same-game/postgame records, fold/split identity, and leakage-test results.
+- Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 ## Completion Evidence Contract
 
@@ -482,7 +486,7 @@ Execute the critical-path historical-expansion acquisition entrypoint after the 
 
 ## End-to-End Validation Requirement
 
-Validate that the expanded acquisition manifest independently enumerates source/endpoint, season/type, team/game, domain/grain, schema/version, missing/failure, immutable provenance, and historical known-at/PIT state, and that POST-SUBTASK-029 rejects missing, stale, hash-invalid, rights-blocked, or silently terminal-2022-2025 inputs.
+Validate that `artifacts/data_lake/historical_expansion_acquisition_manifest.json` can be parsed and consumed by `POST-SUBTASK-029` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -490,17 +494,17 @@ Validate that the expanded acquisition manifest independently enumerates source/
 
 ## Risk / Failure Conditions
 
-- The 2022-2025 tranche is silently treated as terminal history or a convenience window replaces the approximately 2010-2025 expansion target.
-- A weak domain causes an otherwise useful season to be globally discarded or incomplete evidence is promoted into an unsupported domain.
-- An attempted source/endpoint/season/domain, provider limitation, partial response, schema version, or negative finding is omitted from the manifest.
-- Bulk data escapes the external root, immutable identity is missing, credentials are exposed, or reconstructible temporary artifacts are retained after validation.
-- The manifest cannot be deterministically consumed and fail-closed validated by POST-SUBTASK-029.
+- The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-028.
+- A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
+- Acceptance failure: the evidence cannot demonstrate that preserve 2022-2025 as a bounded nonterminal tranche; target approximately 2010-2025 and earlier quality-supported seasons across teams, schedules, games, outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced statistics, structured gamebook equivalents, and useful context. Record source/endpoint, season/type, team/game, domain/grain, schema/version, immutable identity, missingness, provider failures, and historical known-at/PIT state without discarding a useful season because another domain is incomplete.
+- Acceptance failure: the evidence cannot demonstrate that the declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+- Acceptance failure: the evidence cannot demonstrate that the work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

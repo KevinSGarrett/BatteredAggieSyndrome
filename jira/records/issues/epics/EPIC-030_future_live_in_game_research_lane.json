@@ -83,7 +83,7 @@
     "planning-program",
     "w24"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "EPIC-030",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Research chronological live replay without allowing live state into the same game pregame feature row.",

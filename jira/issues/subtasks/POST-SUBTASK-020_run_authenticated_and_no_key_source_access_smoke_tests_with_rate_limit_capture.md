@@ -7,9 +7,9 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Each approved source returns a minimally sufficient response or a precise access blocker.",
-    "HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.",
-    "Smoke tests do not bulk-download data or expose secrets."
+    "Each selected source preserves a minimally sufficient technical response or a precise pending technical action.",
+    "HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.",
+    "Smoke tests do not expose secrets or fabricate unobserved results."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -20,8 +20,7 @@
   ],
   "allowed_modification_paths": [
     "artifacts/source_governance/source_access_smoke_results.json",
-    "artifacts/jira_evidence/POST-SUBTASK-020.json",
-    "tests/test_source_access_smoke_results.py"
+    "artifacts/jira_evidence/POST-SUBTASK-020.json"
   ],
   "blocked_reason": "",
   "blocks": [
@@ -54,11 +53,11 @@
   "content_contract_version": "2.0",
   "critical_path": true,
   "definition_of_done": [
-    "The atomic scope in POST-SUBTASK-020 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.",
+    "The atomic scope in POST-SUBTASK-020 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.",
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.",
     "Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.",
     "Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.",
-    "No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.",
+    "No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.",
     "The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.",
     "The output set `artifacts/source_governance/source_access_smoke_results.json` is demonstrably consumable by POST-SUBTASK-021 without manual reconstruction or undocumented state."
   ],
@@ -74,7 +73,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 16,
-  "end_to_end_validation": "Validate that `artifacts/source_governance/source_access_smoke_results.json` can be parsed and consumed by `POST-SUBTASK-021` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
+  "end_to_end_validation": "Validate that `artifacts/source_governance/source_access_smoke_results.json` can be parsed and consumed by `POST-SUBTASK-021` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-020.json",
   "evidence_state": "VERIFIED",
@@ -97,9 +96,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "files_expected_to_be_touched": [
-    "tests/test_source_access_smoke_results.py"
-  ],
+  "files_expected_to_be_touched": [],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
     "docs/final/CODEX_HANDOFF.md",
@@ -122,9 +119,9 @@
   "in_scope": [
     "Perform the exact action: Run authenticated and no-key source access smoke tests with rate-limit capture.",
     "Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-019`.",
-    "Demonstrate with saved evidence: Each approved source returns a minimally sufficient response or a precise access blocker.",
-    "Demonstrate with saved evidence: HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.",
-    "Demonstrate with saved evidence: Smoke tests do not bulk-download data or expose secrets.",
+    "Demonstrate with saved evidence: Each selected source preserves a minimally sufficient technical response or a precise pending technical action.",
+    "Demonstrate with saved evidence: HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.",
+    "Demonstrate with saved evidence: Smoke tests do not expose secrets or fabricate unobserved results.",
     "Produce, validate, content-hash, and register `artifacts/source_governance/source_access_smoke_results.json`.",
     "Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence."
   ],
@@ -138,7 +135,7 @@
     "sources",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-020",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Run authenticated and no-key source access smoke tests with rate-limit capture",
@@ -154,7 +151,7 @@
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
     "Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.",
-    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.",
+    "Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.",
     "Work assigned to sibling subtasks: Define credential names, scopes, owners, rotation, and non-repository storage contract; Validate access readiness and generate source-specific unblock conditions.",
     "Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files."
   ],
@@ -163,8 +160,7 @@
   "phase": "PHASE-1",
   "prerequisites": [
     "Dependency POST-SUBTASK-015 complete at required maturity",
-    "Dependency POST-SUBTASK-019 complete at required maturity",
-    "External credential condition verified by protected POST-SUBTASK-019 source credential contract; unconfigured optional/provider lanes remain explicit blockers"
+    "Dependency POST-SUBTASK-019 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02007",
@@ -222,6 +218,18 @@
       "validation_class": "REGRESSION"
     },
     {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-020; retain command, exit code, and relevant output.",
+      "path": "artifacts/source_governance/source_access_smoke_results.json",
+      "validation_class": "REGRESSION"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "Run as a regression check after completing POST-SUBTASK-020; retain command, exit code, and relevant output.",
+      "path": "tests/test_source_access_smoke_results.py",
+      "validation_class": "REGRESSION"
+    },
+    {
       "classification": "SECURITY",
       "expectation": "Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.",
       "path": "artifacts/source_governance/source_access_smoke_results.json",
@@ -242,7 +250,7 @@
     {
       "classification": "NEW_AUTOMATED_TEST_REQUIRED",
       "expectation": "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.",
-      "path": "tests/test_source_access_smoke_results.py",
+      "path": "NEW_TEST_REQUIRED::POST-SUBTASK-020",
       "validation_class": "NEW_AUTOMATED_TEST_REQUIRED"
     }
   ],
@@ -250,10 +258,9 @@
   "risk_failure_conditions": [
     "The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-020.",
     "A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.",
-    "Acceptance failure: the evidence cannot demonstrate that each approved source returns a minimally sufficient response or a precise access blocker.",
-    "Acceptance failure: the evidence cannot demonstrate that hTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.",
-    "Acceptance failure: the evidence cannot demonstrate that smoke tests do not bulk-download data or expose secrets.",
-    "The verified credential contract must remain value-free and fail closed; optional/provider lanes without configured approved credentials must emit precise blockers rather than be skipped or improvised."
+    "Acceptance failure: the evidence cannot demonstrate that each selected source preserves a minimally sufficient technical response or a precise pending technical action.",
+    "Acceptance failure: the evidence cannot demonstrate that hTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.",
+    "Acceptance failure: the evidence cannot demonstrate that smoke tests do not expose secrets or fabricate unobserved results."
   ],
   "risk_ids": [],
   "schema_version": 2,
@@ -284,11 +291,11 @@
     "SRCREF-01903",
     "SRCREF-01904"
   ],
-  "specificity_fingerprint": "a3c6f404cbd2f90fd5d5029c859bafa42fc1263c1b221ba19f47d32d798f5e0f",
+  "specificity_fingerprint": "fabc9d272c3e920a846a25aa6544388325a1f3d0f0bfb30c34741676bafd5f3a",
   "stop_conditions": [
-    "Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.",
-    "Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.",
-    "Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence."
+    "Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.",
+    "Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.",
+    "Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity."
   ],
   "supporting_source_refs": [
     "SRCREF-02011",
@@ -340,9 +347,9 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - Perform the exact action: Run authenticated and no-key source access smoke tests with rate-limit capture.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-015`, `POST-SUBTASK-019`.
-- Demonstrate with saved evidence: Each approved source returns a minimally sufficient response or a precise access blocker.
-- Demonstrate with saved evidence: HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.
-- Demonstrate with saved evidence: Smoke tests do not bulk-download data or expose secrets.
+- Demonstrate with saved evidence: Each selected source preserves a minimally sufficient technical response or a precise pending technical action.
+- Demonstrate with saved evidence: HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.
+- Demonstrate with saved evidence: Smoke tests do not expose secrets or fabricate unobserved results.
 - Produce, validate, content-hash, and register `artifacts/source_governance/source_access_smoke_results.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
@@ -350,7 +357,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Define credential names, scopes, owners, rotation, and non-repository storage contract; Validate access readiness and generate source-specific unblock conditions.
 - Placing credential values in Git, logs, screenshots, Jira descriptions, evidence payloads, or generated import files.
 
@@ -358,7 +365,6 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 - Dependency POST-SUBTASK-015 complete at required maturity
 - Dependency POST-SUBTASK-019 complete at required maturity
-- External credential condition verified by protected POST-SUBTASK-019 source credential contract; unconfigured optional/provider lanes remain explicit blockers
 
 ## Hard Dependencies
 
@@ -385,7 +391,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 ## Files Expected To Be Modified
 
-- tests/test_source_access_smoke_results.py
+- None.
 
 ## Components Expected To Be Touched
 
@@ -424,27 +430,29 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 ## Acceptance Criteria
 
-1. Each approved source returns a minimally sufficient response or a precise access blocker.
-2. HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.
-3. Smoke tests do not bulk-download data or expose secrets.
+1. Each selected source preserves a minimally sufficient technical response or a precise pending technical action.
+2. HTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.
+3. Smoke tests do not expose secrets or fabricate unobserved results.
 
 ## Definition of Done
 
-1. The atomic scope in POST-SUBTASK-020 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
+1. The atomic scope in POST-SUBTASK-020 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
 2. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row; only all applicable PASS results permit completion, and negative results remain preserved.
 3. Every declared output exists at its documented location with content hash, schema/version, provenance, input identities, and an explicit production/experimental/conditional/rejected eligibility state where applicable.
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
-5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
+5. No secrets, genuinely private personal information, raw third-party publication payloads, fabricated data, fabricated metrics, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
 7. The output set `artifacts/source_governance/source_access_smoke_results.json` is demonstrably consumable by POST-SUBTASK-021 without manual reconstruction or undocumented state.
 
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_data_research.py` — Run as a regression check after completing POST-SUBTASK-020; retain command, exit code, and relevant output.
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `artifacts/source_governance/source_access_smoke_results.json` — Run as a regression check after completing POST-SUBTASK-020; retain command, exit code, and relevant output.
+- **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_source_access_smoke_results.py` — Run as a regression check after completing POST-SUBTASK-020; retain command, exit code, and relevant output.
 - **SECURITY** / `SECURITY` — `artifacts/source_governance/source_access_smoke_results.json` — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
 - **INTEGRATION** / `INTEGRATION` — `artifacts/source_governance/source_access_smoke_results.json` — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `tests/test_source_access_smoke_results.py` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `NEW_TEST_REQUIRED::POST-SUBTASK-020` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Required Evidence
 
@@ -478,7 +486,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-007 (Credential configuration
 
 ## End-to-End Validation Requirement
 
-Validate that `artifacts/source_governance/source_access_smoke_results.json` can be parsed and consumed by `POST-SUBTASK-021` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/source_governance/source_access_smoke_results.json` can be parsed and consumed by `POST-SUBTASK-021` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Expected Maturity After Completion
 
@@ -488,16 +496,15 @@ Validate that `artifacts/source_governance/source_access_smoke_results.json` can
 
 - The work would be invalid if any prerequisite artifact, source/data/code/config identity, or declared maturity differs from the pinned issue contract for POST-SUBTASK-020.
 - A command may exit successfully while producing stale, partial, synthetic-only, leakage-contaminated, non-reproducible, or legally unusable evidence.
-- Acceptance failure: the evidence cannot demonstrate that each approved source returns a minimally sufficient response or a precise access blocker.
-- Acceptance failure: the evidence cannot demonstrate that hTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded.
-- Acceptance failure: the evidence cannot demonstrate that smoke tests do not bulk-download data or expose secrets.
-- The verified credential contract must remain value-free and fail closed; optional/provider lanes without configured approved credentials must emit precise blockers rather than be skipped or improvised.
+- Acceptance failure: the evidence cannot demonstrate that each selected source preserves a minimally sufficient technical response or a precise pending technical action.
+- Acceptance failure: the evidence cannot demonstrate that hTTP status, API version, rate-limit metadata, response schema hash, and retrieval time are recorded when observed.
+- Acceptance failure: the evidence cannot demonstrate that smoke tests do not expose secrets or fabricate unobserved results.
 
 ## Stop Conditions
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Source References
 

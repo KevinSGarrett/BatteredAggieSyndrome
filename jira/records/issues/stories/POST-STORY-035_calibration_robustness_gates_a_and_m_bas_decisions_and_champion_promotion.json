@@ -1,9 +1,13 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Calibration failures cannot hide behind aggregate accuracy, unsupported conditions abstain/degrade, closing-market skill is separated, and every release-blocking control receives evidence-backed PASS/FAIL/BLOCKED/N-A/INCONCLUSIVE.",
+    "The declared output `artifacts/validation/calibration_robustness_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+    "No new metric/weight/threshold/candidate/segment is created after protected results; ties/inconclusive outcomes follow the sealed simpler/incumbent/no-promotion rule and null A&M/BAS findings remain valid.",
+    "The declared output `artifacts/validation/promotion_ranking.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+    "A signed artifact pins data/features/code/dependencies/splits/model/calibrators/A&M/BAS/OOD/scorecards and reproduces predictions, or no champion is written; GAP-008 closes only through genuine protected evidence.",
+    "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -113,7 +117,7 @@
     "story",
     "validation"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-035",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Apply every release-blocking gate and sign a champion only when protected evidence supports one.",
@@ -129,7 +133,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-011",
@@ -240,7 +244,7 @@
     "SRCREF-01570",
     "SRCREF-01571"
   ],
-  "specificity_fingerprint": "83ed1e115c68e17a3ecab7a13efd9321003bcf2001d5989504b925495e423c49",
+  "specificity_fingerprint": "05283b23b8b94ee927e10c23ee6c7b9e5b5b7e6552fd6681d09d582b47727c99",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],

@@ -57,7 +57,7 @@
     "risk_ids": 12
   },
   "effective_traceability_total": 85,
-  "end_to_end_validation": "The entire Snapshot API, dashboard, explanations, analogs, and freshness-safe product capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.",
+  "end_to_end_validation": "Exercise all child Story gates for Snapshot API, dashboard, explanations, analogs, and freshness-safe product and prove the integrated capability is safe and consumable by its downstream Epic/release path.",
   "epic_id": "",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-EPIC-013.json",
   "evidence_state": "PLANNED",
@@ -124,7 +124,7 @@
     "post-wave",
     "product"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-EPIC-013",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Serve the predictive system and witty BAS experience from immutable approved snapshots with truthful freshness, uncertainty, provenance, accessibility, and no live recomputation drift.",
@@ -250,7 +250,7 @@
     "SRCREF-01897",
     "SRCREF-01574"
   ],
-  "specificity_fingerprint": "1de37c3212fa7e3923eac6939e5e5a96a0a0302e58dcc33308ba387122884094",
+  "specificity_fingerprint": "88c1712bfc7e1d9e5864a32df07dfd84b365194eeb187632021c354de4b9ef7a",
   "stop_conditions": [
     "Stop before execution if any hard dependency, protected gate, source-rights decision, or target-resource precondition is unresolved."
   ],
@@ -425,7 +425,7 @@ All Stories and Subtasks under this Epic for the product domain, including its e
 
 ## End-to-End Validation Requirement
 
-The entire Snapshot API, dashboard, explanations, analogs, and freshness-safe product capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Snapshot API, dashboard, explanations, analogs, and freshness-safe product and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Expected Maturity After Completion
 

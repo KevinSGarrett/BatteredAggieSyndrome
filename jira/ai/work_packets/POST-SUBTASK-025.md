@@ -8,7 +8,7 @@
 
 ## What am I implementing?
 
-Acquire approved national team, schedule, game, score, drive, play, box-score, and gamebook history
+Acquire quality-supported national team, schedule, game, score, drive, play, box-score, and gamebook history
 
 ## Why?
 
@@ -16,11 +16,11 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Atomic execution scope
 
-Execute the atomic 1 of 3 step in Story POST-STORY-009 (Core national game spine): Acquire approved national team, schedule, game, score, drive, play, box-score, and gamebook history. Consume only verified prerequisite outputs from `POST-SUBTASK-006`, `POST-SUBTASK-018`, `POST-SUBTASK-021`, `POST-SUBTASK-022`. Produce `artifacts/data_lake/core_acquisition_manifest.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-026.
+Execute the atomic 1 of 3 step in Story POST-STORY-009 (Core national game spine): Acquire quality-supported national team, schedule, game, score, drive, play, box-score, and gamebook history. Consume only verified prerequisite outputs from `POST-SUBTASK-006`, `POST-SUBTASK-018`, `POST-SUBTASK-021`, `POST-SUBTASK-022`. Produce `artifacts/data_lake/core_acquisition_manifest.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-026.
 
 ### In scope
 
-- Perform the exact action: Acquire approved national team, schedule, game, score, drive, play, box-score, and gamebook history.
+- Perform the exact action: Acquire quality-supported national team, schedule, game, score, drive, play, box-score, and gamebook history.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-006`, `POST-SUBTASK-018`, `POST-SUBTASK-021`, `POST-SUBTASK-022`.
 - Demonstrate with saved evidence: Every configured season/source request records source identity, retrieval/known-at time, request identity, response hash, immutable path, pagination, and provider failure state.
 - Demonstrate with saved evidence: The declared output `artifacts/data_lake/core_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
@@ -32,7 +32,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-009 (Core national game spine
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Normalize and reconcile core/game-event records while preserving immutable source evidence; Approve or block the population-level core-history coverage gate.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
 
@@ -112,6 +112,7 @@ Produce and validate these outputs within this atomic work unit:
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w19_foundation.py — Run as a regression check after completing POST-SUBTASK-025; retain command, exit code, and relevant output.
+- EXISTING_AUTOMATED_TEST / REGRESSION: artifacts/data_lake/core_acquisition_manifest.json — Run as a regression check after completing POST-SUBTASK-025; retain command, exit code, and relevant output.
 - CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/core_acquisition_manifest.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
 - SCIENTIFIC / SCIENTIFIC: artifacts/data_lake/core_acquisition_manifest.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - INTEGRATION / INTEGRATION: artifacts/data_lake/core_acquisition_manifest.json — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
@@ -128,13 +129,13 @@ Produce and validate these outputs within this atomic work unit:
 
 ## End-to-end handoff
 
-Validate that `artifacts/data_lake/core_acquisition_manifest.json` can be parsed and consumed by `POST-SUBTASK-026` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that `artifacts/data_lake/core_acquisition_manifest.json` can be parsed and consumed by `POST-SUBTASK-026` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

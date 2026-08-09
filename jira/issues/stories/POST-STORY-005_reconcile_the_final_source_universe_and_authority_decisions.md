@@ -7,9 +7,15 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "All child Subtasks satisfy their issue-specific observable checks and save their required evidence.",
-    "The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.",
-    "No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing."
+    "Every prioritized source has a stable source ID, domain, upstream relationship, access method, historical depth, and PIT feasibility.",
+    "SportsDataverse/CFBD upstream relationships are represented without false independent-corroboration claims.",
+    "Superseded or unavailable sources retain explicit dispositions.",
+    "Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.",
+    "Optional proprietary enrichment is not made mandatory for v1.",
+    "Priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use.",
+    "All source IDs referenced by adapters, registries, and acquisition plans resolve to the production inventory.",
+    "Every unresolved technical or quality decision has a Jira action or scoped quarantine.",
+    "No required domain is silently marked complete when only reconnaissance samples exist."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -52,7 +58,7 @@
     "risk_ids": 1
   },
   "effective_traceability_total": 16,
-  "end_to_end_validation": "Exercise the complete Reconcile the final source universe and authority decisions path and verify downstream consumption of the pinned outputs.",
+  "end_to_end_validation": "Exercise the complete Reconcile the final source universe and authority decisions path through `POST-SUBTASK-015` and verify downstream use of pinned outputs.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-005.json",
   "evidence_state": "PLANNED",
@@ -113,7 +119,7 @@
     "sources",
     "story"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-STORY-005",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Turn W06/W24 research into a current source-by-source production decision register.",
@@ -129,7 +135,7 @@
   "out_of_scope": [
     "Work assigned to sibling Stories or another Epic.",
     "Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.",
-    "Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
+    "Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-EPIC-002",
@@ -235,7 +241,7 @@
     "SRCREF-01898",
     "SRCREF-01572"
   ],
-  "specificity_fingerprint": "6ac38982d7e8336d9cc73f6fd02f481e978e370c8203ba8196358c6c465d9d02",
+  "specificity_fingerprint": "fd5acb0321107f7e69a694ba0ac384b9dfdb6b4b178dd3e105fd06203f4821a1",
   "stop_conditions": [
     "Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs."
   ],
@@ -293,7 +299,7 @@ Deliver Story POST-STORY-005 (Reconcile the final source universe and authority 
 
 - Work assigned to sibling Stories or another Epic.
 - Closing the Story because implementation files exist while the final gate or downstream-consumption proof is incomplete.
-- Weakening protected requirements, PIT/rights/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
+- Weakening protected requirements, PIT/source-policy/security controls, accepted ADRs, or evidence thresholds to obtain a passing gate.
 
 ## Prerequisites
 
@@ -364,9 +370,15 @@ Deliver Story POST-STORY-005 (Reconcile the final source universe and authority 
 
 ## Acceptance Criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. Every prioritized source has a stable source ID, domain, upstream relationship, access method, historical depth, and PIT feasibility.
+2. SportsDataverse/CFBD upstream relationships are represented without false independent-corroboration claims.
+3. Superseded or unavailable sources retain explicit dispositions.
+4. Each production domain has a primary lane and evidence-backed fallback or an explicit unavailable state.
+5. Optional proprietary enrichment is not made mandatory for v1.
+6. Priority decisions preserve local-first cost and technical/quality constraints; rights metadata is nonblocking for private use.
+7. All source IDs referenced by adapters, registries, and acquisition plans resolve to the production inventory.
+8. Every unresolved technical or quality decision has a Jira action or scoped quarantine.
+9. No required domain is silently marked complete when only reconnaissance samples exist.
 
 ## Definition of Done
 
@@ -402,7 +414,7 @@ Deliver Story POST-STORY-005 (Reconcile the final source universe and authority 
 
 ## End-to-End Validation Requirement
 
-Exercise the complete Reconcile the final source universe and authority decisions path and verify downstream consumption of the pinned outputs.
+Exercise the complete Reconcile the final source universe and authority decisions path through `POST-SUBTASK-015` and verify downstream use of pinned outputs.
 
 ## Expected Maturity After Completion
 

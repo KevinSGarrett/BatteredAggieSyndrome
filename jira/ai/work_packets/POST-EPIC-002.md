@@ -8,7 +8,7 @@
 
 ## What capability or closure gate am I coordinating?
 
-Convert the researched source universe into approved production acquisition lanes with explicit rights, credentials, rate limits, fallbacks, and redistribution rules.
+Convert the researched source universe into technically operable private-research acquisition lanes with explicit credentials, provenance, rate limits, fallbacks, quality gates, and a no-raw-publication boundary.
 
 ## Why?
 
@@ -130,7 +130,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-The entire Source access, rights, credentials, and acquisition governance capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Source access, credentials, private-research acquisition, and publication governance and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Stop instead of improvising when
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "version": "w25-v1.0-final-handoff",
-  "generated_at_utc": "2026-08-09T00:45:00Z",
+  "version": "w25-v1.1-private-research-acquisition",
+  "generated_at_utc": "2026-08-09T19:40:00Z",
   "principles": [
     "exactly_25_waves_remain_execution_authority",
     "five_phases_are_capability_organization_not_extra_waves",
@@ -21,7 +21,11 @@
     "w18_research_plane_verifies_w17_judging_rule_seal",
     "w18_hpo_is_development_only",
     "w18_research_queue_cannot_self_promote",
-    "w18_advanced_challengers_require_baseline_evidence"
+    "w18_advanced_challengers_require_baseline_evidence",
+    "public_factual_data_private_acquisition_and_local_training_are_not_rights_gated",
+    "license_terms_redistribution_and_upstream_authorization_are_nonblocking_metadata",
+    "raw_third_party_payloads_remain_outside_git_and_are_not_published",
+    "quality_schema_pit_leakage_malware_credentials_private_personal_data_and_actual_access_remain_gated"
   ],
   "complexity_classes": [
     {
@@ -1240,7 +1244,7 @@
       "phase_id": "PHASE-1",
       "epic_id": "EPIC-008",
       "owner_wave": "W19",
-      "title": "Implement approved source-adapter and raw snapshot starters",
+      "title": "Implement private-research source-adapter and raw snapshot starters",
       "task_type": "IMPLEMENTATION",
       "priority": "MUST",
       "complexity_class": "C4",
@@ -1253,7 +1257,7 @@
       "mutation_scope": "",
       "replan_gate": "W06_REPLAN",
       "critical_dependency_gate": "NO",
-      "notes": "First READY W19 task after W18 governance gate; owner-wave sequencing still applies. Completed W19 functional starter; no empirical model/feature claims."
+      "notes": "Completed W19 functional starter. The former source-rights approval prerequisite is superseded; technical, quality, schema, PIT, leakage, credential, malware, private-personal-data, and external-storage gates remain. No empirical model/feature claims."
     },
     {
       "task_id": "TASK-042",
@@ -4433,7 +4437,7 @@
       "mutation_scope": "transfer/recruiting",
       "replan_gate": "W06_REPLAN",
       "critical_dependency_gate": "NO",
-      "notes": "W12 source-rights/snapshot audit completed after TASK-197 provenance catch-up; no legal advice or raw-data redistribution claim."
+      "notes": "Historical W12 source-rights/snapshot audit completed after TASK-197. Its licensing/redistribution blocking semantics are superseded by TASK-202; provenance and snapshot findings remain useful metadata."
     },
     {
       "task_id": "TASK-201",
@@ -4454,10 +4458,31 @@
       "replan_gate": "W06_REPLAN",
       "critical_dependency_gate": "NO",
       "notes": "W06-added after source research Completed W13 contract/reference scope; no empirical effect winner or numeric bonus implied."
+    },
+    {
+      "task_id": "TASK-202",
+      "phase_id": "PHASE-1",
+      "epic_id": "EPIC-001",
+      "owner_wave": "W25",
+      "title": "Apply universal private-research acquisition policy and resume rights-unblocked sources",
+      "task_type": "DATA_GOVERNANCE_IMPLEMENTATION",
+      "priority": "MUST",
+      "complexity_class": "C5",
+      "execution_lane": "SHARED_CONTRACT",
+      "status": "IN_PROGRESS",
+      "depends_on": "TASK-197",
+      "requirement_ids": "REQ-058;REQ-252;REQ-254;REQ-742",
+      "acceptance_control_ids": "AC-008;AC-009;AC-010;AC-043;AC-055;AC-056;AC-059",
+      "outputs": "private-research source-use registry; superseding source decisions; access-readiness reinterpretation; regression tests; Jira/PR evidence; resumed historical source acquisition",
+      "mutation_scope": "source governance, acquisition policy, source registries, validators, implementation plan, current status and Jira derivatives",
+      "replan_gate": "OWNER_POLICY_2026-08-09",
+      "critical_dependency_gate": "YES",
+      "notes": "No source may be blocked solely by license, terms, scraping, redistribution, provider preference, or upstream-authorization uncertainty. Raw third-party payload publication remains denied; technical, quality, schema, PIT, leakage, malware, credentials, and genuinely private personal data remain gated at exact scope."
     }
   ],
   "critical_dependency_spine": [
     "TASK-006",
+    "TASK-202",
     "TASK-012",
     "TASK-018",
     "TASK-023",

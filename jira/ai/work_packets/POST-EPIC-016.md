@@ -124,7 +124,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-The entire Conditional advanced challenger research and admission capability must be exercised through its final gate and produce reproducible evidence consumable by its downstream Epic.
+Exercise all child Story gates for Conditional advanced challenger research and admission and prove the integrated capability is safe and consumable by its downstream Epic/release path.
 
 ## Stop instead of improvising when
 

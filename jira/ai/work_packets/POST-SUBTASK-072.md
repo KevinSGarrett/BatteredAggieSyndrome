@@ -16,12 +16,12 @@ This is an independently executable and verifiable work unit required by Story P
 
 ## Atomic execution scope
 
-Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, splits, weights, and datasets): Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility. Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`. Produce `artifacts/modeling/model_dataset_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, splits, weights, and datasets): Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility. Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`, `POST-SUBTASK-033`. Produce `artifacts/modeling/model_dataset_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
 
 ### In scope
 
 - Perform the exact action: Approve model dataset identity, leakage isolation, duplicate handling, and reproducibility.
-- Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`.
+- Consume only verified prerequisite outputs from `POST-SUBTASK-051`, `POST-SUBTASK-060`, `POST-SUBTASK-070`, `POST-SUBTASK-071`, `POST-SUBTASK-033`.
 - Demonstrate with saved evidence: Targets declare cancellations, overtime, missing scores, neutral sites, lower divisions, and official outcome source; every row links to canonical game evidence.
 - Demonstrate with saved evidence: Split assignments match protected registries, prevent duplicate/rematch/season-fragment leakage, and precommit weights/shrinkage before candidate results.
 - Demonstrate with saved evidence: Pinned raw/entity/PIT/feature/target/split versions reproduce identical rows and protected labels are inaccessible to training/tuning paths.
@@ -33,7 +33,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-024 (Model-ready targets, spl
 
 - Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
 - Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
+- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, technical-source, or operating readiness.
 - Work assigned to sibling subtasks: Materialize official score, margin, win, distribution, market-lane, and BAS-support target tables with game lineage; Materialize chronological train/tune/protected assignments, sample weights, cold-start rules, and feature/target separation.
 - Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
 - Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
@@ -109,10 +109,10 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. The model dataset pins the expanded quality-supported historical population and exact season/domain eligibility tiers consumed; the bounded 2022-2025 tranche is not the terminal training population by default.
-2. Any narrower window is admitted only by explicit empirical evidence produced without protected-period tuning and records the tradeoff, excluded seasons/domains, and protected acceptance decision.
-3. Dataset identity, target-game exclusion, PIT eligibility, duplicate handling, feature/target separation, split assignment, and reproducibility all pass from immutable lineage.
-4. Failure of one older domain causes scoped feature/season eligibility or fallback behavior, not silent global history removal or unsupported imputation.
+1. Targets declare cancellations, overtime, missing scores, neutral sites, lower divisions, and official outcome source; every row links to canonical game evidence.
+2. Split assignments match protected registries, prevent duplicate/rematch/season-fragment leakage, and precommit weights/shrinkage before candidate results.
+3. Pinned raw/entity/PIT/feature/target/split versions reproduce identical rows and protected labels are inaccessible to training/tuning paths.
+4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 
@@ -139,9 +139,9 @@ The same pinned identities always produce the same model-ready rows, targets, we
 
 ## Stop instead of improvising when
 
-- Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
-- Stop if the work would require weakening an acceptance control, changing a sealed judging rule, using future/same-game information, committing a secret, or bypassing provider controls.
-- Stop and create/update a blocker if the observable acceptance criteria cannot be evaluated from saved evidence.
+- Stop only the affected route or domain if a required resource is technically inaccessible and no equivalent public route is found after documented attempts, or if a required schema, PIT/provenance artifact, target host, or protected split is unavailable.
+- Quarantine affected records or domains on corruption, fabrication, incompatible schema, PIT or target leakage, malware, exposed credentials, or genuinely private personal information; do not globally block unrelated acquisition or analysis.
+- Stop and preserve evidence if an observable acceptance criterion cannot be evaluated without fabricating data, metrics, provenance, availability, or maturity.
 
 ## Completion protocol
 

@@ -1433,3 +1433,7 @@ REQ-742,TASK-175,PRIMARY,SportsDataverse provenance refinement.
 REQ-743,TASK-175,PRIMARY,Weather access/ensemble refinement.
 REQ-744,TASK-176,PRIMARY,Final architecture challenge.
 REQ-745,TASK-178,PRIMARY,W24 gate carries AC-038 into W25.
+REQ-058,TASK-202,PRIMARY,Universal private-research acquisition policy and external immutable capture boundary
+REQ-252,TASK-202,PRIMARY,Preserve upstream provenance while making rights metadata nonblocking
+REQ-254,TASK-202,PRIMARY,Preserve access and license metadata without a private-use approval gate
+REQ-742,TASK-202,PRIMARY,Retain upstream identity and avoid false independent corroboration

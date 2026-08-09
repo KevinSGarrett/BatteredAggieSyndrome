@@ -16,7 +16,7 @@
     "artifacts/player_intelligence/player_value_availability_report.json",
     "artifacts/jira_evidence/POST-SUBTASK-062.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-030;POST-SUBTASK-048;POST-SUBTASK-061",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-048;POST-SUBTASK-061",
   "blocks": [
     "POST-SUBTASK-063"
   ],

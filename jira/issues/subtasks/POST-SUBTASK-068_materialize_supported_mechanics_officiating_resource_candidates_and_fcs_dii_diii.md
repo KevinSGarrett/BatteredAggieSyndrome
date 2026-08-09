@@ -22,7 +22,7 @@
     "artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-068.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-030;POST-SUBTASK-048;POST-SUBTASK-067",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-048;POST-SUBTASK-067",
   "blocks": [
     "POST-SUBTASK-069"
   ],

@@ -23,7 +23,7 @@
     "artifacts/player_intelligence/player_intelligence_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-063.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-030;POST-SUBTASK-048;POST-SUBTASK-061;POST-SUBTASK-062",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-048;POST-SUBTASK-061;POST-SUBTASK-062",
   "blocks": [
     "POST-EPIC-009",
     "POST-STORY-022",

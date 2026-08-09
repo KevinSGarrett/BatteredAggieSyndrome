@@ -69,7 +69,7 @@
   "end_to_end_validation": "Validate that `artifacts/entities/schema_reconciliation.csv` can be parsed and consumed by `POST-SUBTASK-036` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-035.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -135,11 +135,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24525",
-    "jira_updated_at": "2026-08-09T18:24:39.353-0500",
-    "last_synced_at": "2026-08-09T23:24:48.019937+00:00",
+    "jira_updated_at": "2026-08-09T18:34:22.383-0500",
+    "last_synced_at": "2026-08-09T23:35:05.017597+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-385\\BAT-385-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -193,7 +193,7 @@
     "docs/16_ENTITY_RESOLUTION_AND_REVIEW.md",
     "governance/ENTITY_RESOLUTION_STATES.csv"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -298,5 +298,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-012: Population schema and missingness contracts.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-035.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

@@ -1,0 +1,127 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Each source specification declares endpoint/version, allowed seasons, required parameters, pagination, cutoff semantics, and raw content type.",
+      "disposition": "PASS",
+      "evidence_path": "configs/source_acquisition_registry.json",
+      "evidence_sha256": "7d4ab29035a0b269d84819c4468d3bf5ad4179d592103d5b4f87ddf3745461b8",
+      "observable_result": "14 endpoint contracts across two READY sources contain all required fields; validator baseline has zero errors."
+    },
+    {
+      "criterion": "The specification records upstream lineage and avoids duplicate independent-source claims.",
+      "disposition": "PASS",
+      "evidence_path": "configs/source_acquisition_registry.json",
+      "evidence_sha256": "7d4ab29035a0b269d84819c4468d3bf5ad4179d592103d5b4f87ddf3745461b8",
+      "observable_result": "Every CFBD/Open-Meteo endpoint is marked aggregated or derived and is not counted as independent from its upstream source/model provider."
+    },
+    {
+      "criterion": "Unknown historical coverage remains explicit rather than backfilled by assumption.",
+      "disposition": "PASS",
+      "evidence_path": "<external-runtime>/BAT-372/source-acquisition-registry-validation.safe.json",
+      "evidence_sha256": "54613a079c7c8c0ada2ef6f88b6730be4819fe7aba127929d5a271db2578380d",
+      "observable_result": "Endpoint/model/variable coverage is UNKNOWN where not documented and must be discovered in run evidence; an assumed-complete mutation is rejected."
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
+  },
+  "created_at_utc": "2026-08-09T16:40:38Z",
+  "downstream_reevaluation": {
+    "consumers": [
+      "POST-SUBTASK-023",
+      "POST-SUBTASK-025",
+      "POST-SUBTASK-026",
+      "POST-SUBTASK-027"
+    ],
+    "decision": "REEVALUATE_AFTER_PROTECTED_INTEGRATION"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 93881,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2"
+    },
+    {
+      "bytes": 72732,
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "sha256": "452d8796a42fc770fa775919676af04bcb0927a691ad863adef1ed891a37cb6b"
+    },
+    {
+      "bytes": 12079,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
+      "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
+    },
+    {
+      "bytes": 13130,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+      "sha256": "614ae316b167d323ef96f3dc8a523e66e0f5ac0b00ea06fc7617bd2f0e32b6a0"
+    },
+    {
+      "bytes": 14917,
+      "path": "<external-runtime>/BAT-372/cfbd-openapi-core.safe.json",
+      "sha256": "cb05956f58cf86926bd98b79536ebe502d66b73f122b9fec86237753697c64a4"
+    },
+    {
+      "bytes": 16231,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-022_create_source_specific_endpoint_parameter_pagination_season_and_version_acquisit.json",
+      "sha256": "6ce481bffe4e4dd46e7ffddf9106b9caa35e95f75106fb9ffe223d6dbb57efd0"
+    }
+  ],
+  "jira_key": "BAT-372",
+  "live_jira": {
+    "claim_comment_id": "13343",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "INTEGRATED",
+    "post_claim_state": {
+      "bytes": 284,
+      "path": "<external-runtime>/BAT-372/post-claim-jira-state.json",
+      "sha256": "de03e829d8190557660a1b7c3e5b1507bc55f81290cd71f26c92345713fec4ae"
+    },
+    "status": "In Progress"
+  },
+  "local_issue_id": "POST-SUBTASK-022",
+  "observable_outcome": "A verified fail-closed registry defines 14 acquisition endpoint contracts for the only two production-ready sources, CFBD and Open-Meteo. Endpoint/version, parameter, season, pagination, cutoff, raw-content, upstream-lineage, and unknown-coverage rules are explicit.",
+  "outputs": [
+    {
+      "bytes": 23912,
+      "eligibility": "PRODUCTION_ACQUISITION_CONTRACT",
+      "endpoint_count": 14,
+      "path": "configs/source_acquisition_registry.json",
+      "sha256": "7d4ab29035a0b269d84819c4468d3bf5ad4179d592103d5b4f87ddf3745461b8",
+      "source_count": 2
+    }
+  ],
+  "pit_and_leakage": {
+    "historical_event_cutoff": "source_game_start_utc < target_game_prediction_cutoff_utc AND source_game_id != target_game_id",
+    "issued_forecast_cutoff": "issued_at_utc <= target_game_prediction_cutoff_utc",
+    "negative_mutations_rejected": 6,
+    "realized_weather_pregame_exclusion": "ALWAYS",
+    "target_game_outcome_exclusion": "ALWAYS"
+  },
+  "protected_integration": {
+    "branch": "codex/BAT-372-source-acquisition-specs",
+    "merge_method": "SQUASH_REQUIRED",
+    "state": "PENDING_PROTECTED_PULL_REQUEST"
+  },
+  "schema_version": "1.0.0",
+  "security": {
+    "configured_secret_value_matches": 0,
+    "credential_values_included": false,
+    "raw_response_bodies_included": false
+  },
+  "validation": {
+    "report": {
+      "bytes": 1467,
+      "path": "<external-runtime>/BAT-372/source-acquisition-registry-validation.safe.json",
+      "sha256": "54613a079c7c8c0ada2ef6f88b6730be4819fe7aba127929d5a271db2578380d"
+    },
+    "result": "PASS"
+  }
+}

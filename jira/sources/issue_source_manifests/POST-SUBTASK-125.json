@@ -16,7 +16,9 @@
     ".github/workflows/ci.yml",
     "pyproject.toml",
     "requirements/product.lock",
-    "tools/validate_dependency_policy.py"
+    "tools/validate_dependency_policy.py",
+    "src/aggie_analytics/product/repository.py",
+    "tests/test_w22_product_serving.py"
   ],
   "governance_traceability_gate": "POST-SUBTASK-132",
   "issue_id": "POST-SUBTASK-125",

@@ -1,0 +1,395 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Every configured season/source request records source identity, retrieval/known-at time, request identity, response hash, immutable path, pagination, and provider failure state.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/data_lake/core_acquisition_manifest.json",
+      "evidence_sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c",
+      "observable_result": "All 223 accepted requests contain the required identity, chronology, content, path, pagination/partition, and failure-state fields; 223 raw files and capture manifests were independently rehashed. Eight superseded HTTP 400 discovery requests are separately preserved with provider failure state and corrective partition disposition."
+    },
+    {
+      "criterion": "The declared output artifacts/data_lake/core_acquisition_manifest.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "evidence_path": "<external-runtime>/BAT-375/core-acquisition-validation.safe.json",
+      "evidence_sha256": "30242dc884cc51fde0882043c0830b4b334e710c80722e86cd215ef20927ad23",
+      "observable_result": "The manifest has canonical payload SHA-256 37e88a670fee745ef49ee096518fa25347ce418fc43dda3978f91ebadf61f84a, pins eight prerequisite identities plus source/API/run/tool identities, and records an external validator PASS over every capture."
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/data_lake/core_acquisition_manifest.json",
+      "evidence_sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c",
+      "observable_result": "The manifest is explicitly bounded and not population-approved, retains CFBD upstream-dependence and live contract-drift negatives, fails closed for historical pregame eligibility pending normalization, and makes no feature/model/protected-metric/A&M-lift/BAS claim."
+    }
+  ],
+  "acquisition_discovery": {
+    "contract_drift_followup": "Record as a live validation refinement for POST-SUBTASK-023/024; no protected registry claim is silently rewritten in this unit.",
+    "live_provider_constraint": "GET /games/teams and GET /games/players require at least one of week, team, or conference; the final plan partitions both endpoints by captured season/week/seasonType.",
+    "superseded_request_count": 8,
+    "superseded_requests": [
+      {
+        "attempts": 1,
+        "disposition": "SUPERSEDED_BY_OBSERVED_PROVIDER_REQUIRED_WEEK_PARTITION",
+        "endpoint_id": "CFBD-GetGameTeamStats",
+        "failure_manifest_path": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/failures/req_26466db40f5996cb022eb4d2_2026-08-09T165749Z.json",
+        "parameters": {
+          "classification": "fbs",
+          "year": "2022"
+        },
+        "provider_failure_state": "HTTP_400",
+        "request_id": "req_26466db40f5996cb022eb4d2",
+        "result": "FAILED",
+        "source_id": "SRC-002"
+      },
+      {
+        "attempts": 1,
+        "disposition": "SUPERSEDED_BY_OBSERVED_PROVIDER_REQUIRED_WEEK_PARTITION",
+        "endpoint_id": "CFBD-GetGamePlayerStats",
+        "failure_manifest_path": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/failures/req_442f04fcfb5fd6bad88b5853_2026-08-09T165813Z.json",
+        "parameters": {
+          "classification": "fbs",
+          "year": "2024"
+        },
+        "provider_failure_state": "HTTP_400",
+        "request_id": "req_442f04fcfb5fd6bad88b5853",
+        "result": "FAILED",
+        "source_id": "SRC-002"
+      },
+      {
+        "attempts": 1,
+        "disposition": "SUPERSEDED_BY_OBSERVED_PROVIDER_REQUIRED_WEEK_PARTITION",
+        "endpoint_id": "CFBD-GetGameTeamStats",
+        "failure_manifest_path": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/failures/req_4afbaa5b9312e47e83c81ea8_2026-08-09T165813Z.json",
+        "parameters": {
+          "classification": "fbs",
+          "year": "2024"
+        },
+        "provider_failure_state": "HTTP_400",
+        "request_id": "req_4afbaa5b9312e47e83c81ea8",
+        "result": "FAILED",
+        "source_id": "SRC-002"
+      },
+      {
+        "attempts": 1,
+        "disposition": "SUPERSEDED_BY_OBSERVED_PROVIDER_REQUIRED_WEEK_PARTITION",
+        "endpoint_id": "CFBD-GetGamePlayerStats",
+        "failure_manifest_path": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/failures/req_52d3f0ba0be55a6d0d66d5ef_2026-08-09T165749Z.json",
+        "parameters": {
+          "classification": "fbs",
+          "year": "2022"
+        },
+        "provider_failure_state": "HTTP_400",
+        "request_id": "req_52d3f0ba0be55a6d0d66d5ef",
+        "result": "FAILED",
+        "source_id": "SRC-002"
+      },
+      {
+        "attempts": 1,
+        "disposition": "SUPERSEDED_BY_OBSERVED_PROVIDER_REQUIRED_WEEK_PARTITION",
+        "endpoint_id": "CFBD-GetGamePlayerStats",
+        "failure_manifest_path": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/failures/req_5d2f84cca5b644cc5b766ab3_2026-08-09T165824Z.json",
+        "parameters": {
+          "classification": "fbs",
+          "year": "2025"
+        },
+        "provider_failure_state": "HTTP_400",
+        "request_id": "req_5d2f84cca5b644cc5b766ab3",
+        "result": "FAILED",
+        "source_id": "SRC-002"
+      },
+      {
+        "attempts": 1,
+        "disposition": "SUPERSEDED_BY_OBSERVED_PROVIDER_REQUIRED_WEEK_PARTITION",
+        "endpoint_id": "CFBD-GetGamePlayerStats",
+        "failure_manifest_path": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/failures/req_6d9165752d8689a819d08bde_2026-08-09T165801Z.json",
+        "parameters": {
+          "classification": "fbs",
+          "year": "2023"
+        },
+        "provider_failure_state": "HTTP_400",
+        "request_id": "req_6d9165752d8689a819d08bde",
+        "result": "FAILED",
+        "source_id": "SRC-002"
+      },
+      {
+        "attempts": 1,
+        "disposition": "SUPERSEDED_BY_OBSERVED_PROVIDER_REQUIRED_WEEK_PARTITION",
+        "endpoint_id": "CFBD-GetGameTeamStats",
+        "failure_manifest_path": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/failures/req_6fd525b98a4405853f9b8cc3_2026-08-09T165801Z.json",
+        "parameters": {
+          "classification": "fbs",
+          "year": "2023"
+        },
+        "provider_failure_state": "HTTP_400",
+        "request_id": "req_6fd525b98a4405853f9b8cc3",
+        "result": "FAILED",
+        "source_id": "SRC-002"
+      },
+      {
+        "attempts": 1,
+        "disposition": "SUPERSEDED_BY_OBSERVED_PROVIDER_REQUIRED_WEEK_PARTITION",
+        "endpoint_id": "CFBD-GetGameTeamStats",
+        "failure_manifest_path": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/failures/req_b3a6e950b8bf52eb8f9db11b_2026-08-09T165824Z.json",
+        "parameters": {
+          "classification": "fbs",
+          "year": "2025"
+        },
+        "provider_failure_state": "HTTP_400",
+        "request_id": "req_b3a6e950b8bf52eb8f9db11b",
+        "result": "FAILED",
+        "source_id": "SRC-002"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-375/acquire_cfbd_core.py run",
+      "exit_code": 0,
+      "result": {
+        "bytes": 610732880,
+        "failures": 0,
+        "requests": 223,
+        "rows": 823715,
+        "texas_am_all_seasons": true
+      },
+      "stderr_location": "Codex tool-call output (empty on successful corrected run)",
+      "stdout_location": "Codex tool-call output; deterministic summary repeated in manifest request_summary"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-375/validate_core_acquisition_manifest.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "<external-runtime>/BAT-375/core-acquisition-validation.safe.json"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q --junitxml=<external-runtime>/BAT-375/test-w19-foundation.junit.xml",
+      "exit_code": 0,
+      "result": "3 passed",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output plus JUnit XML"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "262 passed, 1 skipped, 33 subtests passed in 5.53s",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output"
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py --repo-root . && python -B tools/validate_dependency_policy.py --repo-root .",
+      "exit_code": 0,
+      "result": "W25 final PASS; dependency policy PASS (2 direct product pins, 14 hash-locked entries)",
+      "stderr_location": "Codex tool-call output (empty)",
+      "stdout_location": "Codex tool-call output"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
+  },
+  "created_at_utc": "2026-08-09T17:07:14Z",
+  "downstream_reevaluation": {
+    "consumers": [
+      "POST-SUBTASK-026",
+      "POST-SUBTASK-027"
+    ],
+    "decision": "REEVALUATE_AFTER_PROTECTED_INTEGRATION"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 11447,
+      "path": "artifacts/implementation_preflight/storage_probe.json",
+      "sha256": "41cf7306041f20a865e3bc8008800a7aa5be81cb08318a17a1cbf0c2f7e34882"
+    },
+    {
+      "bytes": 93881,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2"
+    },
+    {
+      "bytes": 72732,
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "sha256": "452d8796a42fc770fa775919676af04bcb0927a691ad863adef1ed891a37cb6b"
+    },
+    {
+      "bytes": 23912,
+      "path": "configs/source_acquisition_registry.json",
+      "sha256": "7d4ab29035a0b269d84819c4468d3bf5ad4179d592103d5b4f87ddf3745461b8"
+    },
+    {
+      "bytes": 16582,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-006.json",
+      "sha256": "7ec43ee51097dfd4f89ff1d92059a1a387fe8496666e8c7587aa12b340d2bd5a"
+    },
+    {
+      "bytes": 12079,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
+      "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
+    },
+    {
+      "bytes": 13130,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+      "sha256": "614ae316b167d323ef96f3dc8a523e66e0f5ac0b00ea06fc7617bd2f0e32b6a0"
+    },
+    {
+      "bytes": 6379,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-022.json",
+      "sha256": "b02acd5e6f1bc1a5b4add7535366a8ee2d69aea09c19284522773af3f41ec1f8"
+    },
+    {
+      "bytes": 17377,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-025_acquire_approved_national_team_schedule_game_score_drive_play_box_score_and_game.json",
+      "sha256": "61bfe030b4fe4ded5085f942093e07227f54f960e5fb522b5e693cc6206d0cdd"
+    }
+  ],
+  "jira_key": "BAT-375",
+  "live_jira": {
+    "claim_comment_id": "13345",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "IMPLEMENTED",
+    "post_claim_state": {
+      "bytes": 285,
+      "path": "<external-runtime>/BAT-375/post-claim-jira-state.json",
+      "sha256": "dd75696545ed4f415ed7115d1af0ef9de07750b02f60e142b1540b1c104bcd94"
+    },
+    "status": "In Progress"
+  },
+  "local_issue_id": "POST-SUBTASK-025",
+  "observable_outcome": "A real, bounded 2022-2025 national FBS acquisition is stored as 223 immutable CFBD captures outside Git. The manifest records 823,715 observed rows and 610,732,880 response bytes across teams, schedules/games/scores, drives, plays, team/player box scores, rankings, rosters, venues, and advanced game summaries; Texas A&M is present in game and roster captures in all four seasons.",
+  "outputs": [
+    {
+      "bytes": 581067,
+      "canonical_payload_sha256": "37e88a670fee745ef49ee096518fa25347ce418fc43dda3978f91ebadf61f84a",
+      "eligibility": "BOUNDED_REAL_ACQUISITION_SLICE; READY_FOR_POST_SUBTASK_026_NORMALIZATION; NOT_POPULATION_COVERAGE_APPROVED",
+      "external_raw_bytes": 610732880,
+      "failure_count": 0,
+      "observed_rows": 823715,
+      "path": "artifacts/data_lake/core_acquisition_manifest.json",
+      "request_count": 223,
+      "season_count": 4,
+      "seasons": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c",
+      "source_id": "SRC-002",
+      "success_count": 223
+    }
+  ],
+  "pit_and_leakage": {
+    "capture_known_at": "retrieved_at_utc",
+    "historical_pregame_eligibility": "FAIL_CLOSED_PENDING_POST_SUBTASK_026",
+    "negative_consumer_mutations_rejected": 10,
+    "target_game_outcome_exclusion": "ALWAYS"
+  },
+  "protected_integration": {
+    "branch": "codex/BAT-375-core-acquisition",
+    "merge_method": "SQUASH_REQUIRED",
+    "state": "PENDING_PROTECTED_PULL_REQUEST"
+  },
+  "schema_version": "1.0.0",
+  "scientific_and_model_evidence": {
+    "calibrator_identity": null,
+    "dataset_identity": "37e88a670fee745ef49ee096518fa25347ce418fc43dda3978f91ebadf61f84a",
+    "matrix_identity": null,
+    "metrics": null,
+    "model_identity": null,
+    "null_or_negative_results": [
+      "Eight annual box-score discovery requests failed HTTP 400 and were superseded by provider-required weekly partitions.",
+      "Population completeness and historical PIT eligibility are not claimed.",
+      "No model or A&M/BAS effect was evaluated."
+    ],
+    "protected_evaluation_status": "NOT_OPENED_OR_EVALUATED",
+    "sample_size": {
+      "observed_rows_across_mixed_grains": 823715,
+      "requests": 223,
+      "seasons": 4
+    },
+    "split_identity": null
+  },
+  "security_and_rights": {
+    "configured_secret_value_matches": 0,
+    "credential_or_authorization_values_recorded": false,
+    "local_model_training": "APPROVED",
+    "production_acquisition": "APPROVED_CFBD_PERSONAL_NONCOMMERCIAL",
+    "raw_export": "DENIED",
+    "raw_payloads_in_git_or_jira": false
+  },
+  "validation": {
+    "report": {
+      "bytes": 3483,
+      "path": "<external-runtime>/BAT-375/core-acquisition-validation.safe.json",
+      "sha256": "30242dc884cc51fde0882043c0830b4b334e710c80722e86cd215ef20927ad23"
+    },
+    "result": "PASS"
+  },
+  "validation_matrix": [
+    {
+      "classification": "REGRESSION",
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q --junitxml=<external-runtime>/BAT-375/test-w19-foundation.junit.xml",
+      "disposition": "PASS",
+      "evidence": {
+        "bytes": 607,
+        "path": "<external-runtime>/BAT-375/test-w19-foundation.junit.xml",
+        "sha256": "cc5c5b56fa933f059e4faabd159bdb6f44778d2a877ce5aaf09d2946892330b2"
+      },
+      "result": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 3
+      }
+    },
+    {
+      "classification": "FULL_REGRESSION",
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "disposition": "PASS",
+      "result": {
+        "duration_seconds": 5.53,
+        "passed": 262,
+        "skipped": 1,
+        "subtests_passed": 33
+      },
+      "stdout_location": "Codex tool-call output"
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_ACQUISITION_BOUNDARY",
+      "observable_result": "Every capture known-at equals its retrieval time; historical pregame eligibility is fail-closed pending POST-SUBTASK-026, target-game outcomes are ALWAYS_EXCLUDED, and removal of that guard is rejected by the consumer validator."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE_ACQUISITION_ONLY",
+      "observable_result": "No precommitted feature/model hypothesis, split, metric, calibrator, or protected score belongs to this raw-acquisition unit; no result is invented. Population coverage and empirical testing remain owned by downstream gates."
+    },
+    {
+      "classification": "INTEGRATION",
+      "disposition": "PASS",
+      "observable_result": "The POST-SUBTASK-026 consumer contract was exercised with 10 unsafe mutations; all 10 missing/stale/unsafe rights, provenance, hash/path, target-game, A&M, and promotion states were rejected."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "observable_result": "The run pins request, response, capture, source contract, prerequisite, producer script/runtime, season, endpoint, partition, and external path identities without storing credentials or raw bytes in Git."
+    },
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "disposition": "PASS",
+      "evidence": {
+        "bytes": 3483,
+        "path": "<external-runtime>/BAT-375/core-acquisition-validation.safe.json",
+        "sha256": "30242dc884cc51fde0882043c0830b4b334e710c80722e86cd215ef20927ad23"
+      },
+      "observable_result": "The external deterministic manifest validator rehashed 223 raw files totaling 610,732,880 bytes and rejected 10 unsafe consumer mutations with zero validation errors."
+    }
+  ]
+}

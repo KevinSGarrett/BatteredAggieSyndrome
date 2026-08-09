@@ -1,0 +1,289 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "The registry is machine-readable and contains no credentials.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/source_rights_gate_test.json",
+      "evidence_sha256": "348c424f28b715c2eb77504ca23bc1b18d921586eca53ab211b153759787429c",
+      "observable_result": "62 unique source decisions loaded from content-pinned tier-1 and supplemental inputs; configured secret-value matches=0.",
+      "verified_at_utc": "2026-08-09T16:02:28Z",
+      "verifier": "SourceRightsRegistry plus executable gate evaluator"
+    },
+    {
+      "criterion": "Acquisition and export code fail closed for sources without an approved decision.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/source_rights_gate_test.json",
+      "evidence_sha256": "348c424f28b715c2eb77504ca23bc1b18d921586eca53ab211b153759787429c",
+      "observable_result": "310 source/action assertions passed; unknown source, PFF, unapproved production promotion, stale input identity, duplicate source, invalid schema/status/count, and unsafe raw export were denied.",
+      "verified_at_utc": "2026-08-09T16:02:28Z",
+      "verifier": "SourceRightsRegistry plus executable gate evaluator"
+    },
+    {
+      "criterion": "The gate distinguishes access permission from redistribution permission.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/source_rights_gate_test.json",
+      "evidence_sha256": "348c424f28b715c2eb77504ca23bc1b18d921586eca53ab211b153759787429c",
+      "observable_result": "CFBD/Open-Meteo production acquisition is approved while raw export is independently denied; derived export and local model training are separate explicit actions.",
+      "verified_at_utc": "2026-08-09T16:02:28Z",
+      "verifier": "SourceRightsRegistry plus executable gate evaluator"
+    }
+  ],
+  "command_log_identities": [
+    {
+      "bytes": 370,
+      "path": "<external-runtime>/BAT-368/build-registry.stdout.log",
+      "sha256": "7c6750a2eb8c51ff1f5eb86f57d6bc2d01ddf699d2ee61ce0d1d32a15b8cbfec"
+    },
+    {
+      "bytes": 420,
+      "path": "<external-runtime>/BAT-368/gate-evaluation.stdout.log",
+      "sha256": "8b32b2cc235fb3ff417912e9a5915c61453f28b3f687fc5f926b706ce5882c06"
+    },
+    {
+      "bytes": 202,
+      "path": "<external-runtime>/BAT-368/test-data-research.stdout.log",
+      "sha256": "f9b734ee6a9a38dbb4fae7ba0e9295ae0ef5a8c30924ecf807abed16c6612da4"
+    },
+    {
+      "bytes": 208,
+      "path": "<external-runtime>/BAT-368/validate-data-research.stdout.log",
+      "sha256": "bb60ac13c37a0d70a5d6128fb6438c3015c143ca1c5e4ba28c6ca1541e76fc6f"
+    },
+    {
+      "bytes": 8258,
+      "path": "<external-runtime>/BAT-368/pytest-precommit.stdout.log",
+      "sha256": "47bcb2a5f57c5798ab7cd5671890b595a5d9700222a94beeb46a326adc2531f4"
+    },
+    {
+      "bytes": 114,
+      "path": "<external-runtime>/BAT-368/rebuild.stdout.log",
+      "sha256": "b404cd5e00684a6c1be33beb34bd906f97d0362eafab81e18cd354cf04c79d1c"
+    },
+    {
+      "bytes": 3096,
+      "path": "<external-runtime>/BAT-368/jira-strict.stdout.log",
+      "sha256": "3c48f570cc9a5a77c55a89a12aa8b040e8434b649e662ad1141c0d18ac8ab889"
+    },
+    {
+      "bytes": 850,
+      "path": "<external-runtime>/BAT-368/pytest-final.stdout.log",
+      "sha256": "3a5c6f8c4560788eee72847e498387c7ee92864abbd007696c492e023a26adb8"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-368/build_source_rights_registry.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-368/build-registry.stdout.log"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-368/evaluate_source_rights_gate.py",
+      "exit_code": 0,
+      "output_summary": "310 source/action assertions; 8 negative mutations rejected",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-368/gate-evaluation.stdout.log"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider tests/test_data_research.py -q",
+      "exit_code": 0,
+      "output_summary": "6 passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-368/test-data-research.stdout.log"
+    },
+    {
+      "command": "python -B tools/validate_data_research.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-368/validate-data-research.stdout.log"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider -q (initial integration run)",
+      "exit_code": 1,
+      "output_summary": "2 Jira control-plane tests detected the stale contracts.py source anchor",
+      "result": "EXPECTED_REMEDIATED_FAILURE",
+      "stdout_stderr": "<external-runtime>/BAT-368/pytest-precommit.stdout.log"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-368/refresh_contracts_source_anchor.py",
+      "exit_code": 0,
+      "output_summary": "SRCREF-02016 refreshed to lines 150-174",
+      "result": "PASS"
+    },
+    {
+      "command": "python -B jira/tools/rebuild_all_derivatives.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-368/rebuild.stdout.log"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "output_summary": "463 issues; 127 blocked; 36 deferred; 1 ready; 0 errors",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-368/jira-strict.stdout.log"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider -q (final)",
+      "exit_code": 0,
+      "output_summary": "262 passed, 1 skipped, 33 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-368/pytest-final.stdout.log"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "INTEGRATED",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
+  },
+  "created_at_utc": "2026-08-09T16:02:28Z",
+  "downstream_reevaluation": {
+    "consumers": [
+      "POST-STORY-008",
+      "POST-STORY-009",
+      "POST-SUBTASK-022",
+      "POST-SUBTASK-023",
+      "POST-SUBTASK-024",
+      "POST-SUBTASK-025",
+      "POST-SUBTASK-026",
+      "POST-SUBTASK-027"
+    ],
+    "decision": "REEVALUATE_AFTER_PROTECTED_INTEGRATION"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "gate_results": {
+    "action_assertions": 310,
+    "all_required_data_outcomes_nonblocking": true,
+    "derived_export_allowed": 34,
+    "experimental_acquisition_allowed": 34,
+    "local_model_training_allowed": 34,
+    "negative_mutations_rejected": 8,
+    "production_acquisition_allowed": 25,
+    "raw_export_allowed": 0,
+    "source_count": 62
+  },
+  "input_identities": [
+    {
+      "bytes": 78290,
+      "path": "artifacts/source_governance/production_source_inventory.csv",
+      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+    },
+    {
+      "bytes": 39497,
+      "path": "artifacts/source_governance/tier1_rights_decisions.csv",
+      "sha256": "ad8596db5a60c9ae09158e1feb728b74872ed7cb6cdfb9e8c90cac7390378d64"
+    },
+    {
+      "bytes": 73115,
+      "path": "artifacts/source_governance/supplemental_rights_decisions.csv",
+      "sha256": "50cf16c1a2fd4662a627e8b34f6766c94763dd7242bb30f4aebcb17d514d5163"
+    },
+    {
+      "bytes": 22977,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-015.json",
+      "sha256": "20dbc94108c475da1822f9d5bed7ee25824b7642e6d366adb8fc403a8941d981"
+    },
+    {
+      "bytes": 14646,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-016.json",
+      "sha256": "b2d2dafbc8fea0aaa6dde59271a70a59d78e4468808596433db3923a1bb0f061"
+    },
+    {
+      "bytes": 15661,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-017.json",
+      "sha256": "921778967ae18d0358b2cd3db1e3c5c4fa5cc7008dbf3ce14b4c535cf7b106ce"
+    },
+    {
+      "bytes": 7828,
+      "path": "src/aggie_analytics/data/contracts.py",
+      "sha256": "8c46925480243a3e29533a79960e525f32037b72ee68e76c76646da6925d7174"
+    },
+    {
+      "bytes": 3626,
+      "path": "tests/test_data_research.py",
+      "sha256": "f0191495830b74d4032041c891f86ecdb19203b6196ea01a8e73c91ebe0ab51d"
+    },
+    {
+      "bytes": 1177386,
+      "path": "jira/sources/SOURCE_ANCHOR_INDEX.csv",
+      "sha256": "26e29a0df0eafa8282bab427933ae83022c8f87c85fd25a1e7e741a56c0cddab"
+    },
+    {
+      "bytes": 17227,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",
+      "sha256": "a48653164f80c5a6638a839ae633fa692a2ee1490fdcd868324da74bacdfe548"
+    }
+  ],
+  "jira_key": "BAT-368",
+  "live_jira": {
+    "claim_comment_id": "13339",
+    "claim_state": {
+      "bytes": 284,
+      "path": "<external-runtime>/BAT-368/post-claim-jira-state.json",
+      "sha256": "c6e9f709516562eb431c19743a1565086903ee2af9b43447c5f5af598b8cc562"
+    },
+    "state": "IN_PROGRESS_INTEGRATED_PENDING_PROTECTED_INTEGRATION"
+  },
+  "local_issue_id": "POST-SUBTASK-018",
+  "observable_outcome": "One verified 62-source machine registry now drives fail-closed acquisition, export, and local-training authorization. Unknown, rejected, stale, malformed, and unapproved source/action pairs are denied; access approval does not imply raw redistribution approval.",
+  "outputs": [
+    {
+      "bytes": 93881,
+      "eligibility": "PRODUCTION_SOURCE_RIGHTS_REGISTRY",
+      "path": "configs/source_rights_registry.json",
+      "registry_status": "VERIFIED",
+      "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2",
+      "source_count": 62
+    },
+    {
+      "action_assertions": 310,
+      "bytes": 3099,
+      "eligibility": "SOURCE_RIGHTS_GATE_ACCEPTANCE_EVIDENCE",
+      "negative_mutations_rejected": 8,
+      "path": "artifacts/source_governance/source_rights_gate_test.json",
+      "result": "PASS",
+      "sha256": "348c424f28b715c2eb77504ca23bc1b18d921586eca53ab211b153759787429c"
+    }
+  ],
+  "protected_integration": {
+    "branch": "codex/BAT-368-source-rights-gate",
+    "merge_method": "SQUASH_REQUIRED",
+    "state": "PENDING_PROTECTED_PULL_REQUEST"
+  },
+  "schema_version": "1.0.0",
+  "security_and_rights": {
+    "access_and_redistribution_independent": true,
+    "configured_secret_value_matches": 0,
+    "configured_secret_values_checked": 5,
+    "credential_values_included": false,
+    "raw_export_default": "DENY",
+    "response_bodies_included": false,
+    "restricted_raw_payloads_included": false,
+    "unknown_source_default": "DENY"
+  },
+  "validation_matrix": [
+    {
+      "classification": "SECURITY",
+      "disposition": "PASS",
+      "evidence": "No configured secret value or raw provider payload appears in the registry/artifact."
+    },
+    {
+      "classification": "REGRESSION",
+      "disposition": "PASS",
+      "evidence": "tests/test_data_research.py: 6 passed; W06 validator passed."
+    },
+    {
+      "classification": "END_TO_END",
+      "disposition": "PASS",
+      "evidence": "All 62 decisions exercised across five actions; eight unsafe mutations rejected."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "evidence": "Decision CSVs, registry, contract, tests, gate report, prerequisites, and logs are content-hashed."
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "The registry is machine-readable and contains no credentials.",
+      "disposition": "PASS",
+      "observable_result": "62 unique source decisions loaded; configured secret-value matches=0."
+    },
+    {
+      "criterion": "Acquisition and export code fail closed for sources without an approved decision.",
+      "disposition": "PASS",
+      "observable_result": "310 source/action assertions passed; unknown, rejected, and stale identities denied; 8 unsafe mutations rejected."
+    },
+    {
+      "criterion": "The gate distinguishes access permission from redistribution permission.",
+      "disposition": "PASS",
+      "observable_result": "CFBD/Open-Meteo acquisition can be approved while raw export remains independently denied; derived export and local training are separate actions."
+    }
+  ],
+  "access_vs_redistribution_proof": {
+    "production_acquisition_allowed": true,
+    "project_raw_export_allowed": false,
+    "provider_raw_redistribution_permission": "PERMITTED_WITH_ATTRIBUTION",
+    "raw_export_gate_result": "DENIED_BY_PROJECT_POLICY",
+    "source_id": "SRC-003"
+  },
+  "configured_secret_value_matches": 0,
+  "configured_secret_values_checked": 5,
+  "contract": {
+    "path": "src/aggie_analytics/data/contracts.py",
+    "sha256": "8c46925480243a3e29533a79960e525f32037b72ee68e76c76646da6925d7174"
+  },
+  "coverage": {
+    "action_assertions": 310,
+    "all_required_data_outcomes_nonblocking": true,
+    "derived_export_allowed": 34,
+    "experimental_acquisition_allowed": 34,
+    "local_model_training_allowed": 34,
+    "production_acquisition_allowed": 25,
+    "raw_export_allowed": 0,
+    "unknown_source_rejected": true
+  },
+  "created_at_utc": "2026-08-09T15:52:00Z",
+  "negative_mutations": [
+    {
+      "expected_error": "SOURCE_RIGHTS_SCHEMA_UNSUPPORTED",
+      "mutation": "schema",
+      "rejected": true
+    },
+    {
+      "expected_error": "SOURCE_RIGHTS_REGISTRY_NOT_VERIFIED",
+      "mutation": "status",
+      "rejected": true
+    },
+    {
+      "expected_error": "SOURCE_RIGHTS_SOURCE_COUNT_MISMATCH",
+      "mutation": "count",
+      "rejected": true
+    },
+    {
+      "expected_error": "SOURCE_RIGHTS_BOOLEAN_INVALID",
+      "mutation": "missing-boolean",
+      "rejected": true
+    },
+    {
+      "expected_error": "SOURCE_RIGHTS_UNSAFE_PRODUCTION_PROMOTION",
+      "mutation": "unsafe-production",
+      "rejected": true
+    },
+    {
+      "expected_error": "SOURCE_RIGHTS_PROJECT_RAW_EXPORT_PROHIBITED",
+      "mutation": "raw-export",
+      "rejected": true
+    },
+    {
+      "expected_error": "SOURCE_RIGHTS_DUPLICATE",
+      "mutation": "duplicate",
+      "rejected": true
+    },
+    {
+      "expected_error": "SOURCE_RIGHTS_INPUT_IDENTITY_MISMATCH",
+      "mutation": "stale-input-identity",
+      "rejected": true
+    }
+  ],
+  "negative_mutations_rejected": 8,
+  "registry": {
+    "path": "configs/source_rights_registry.json",
+    "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2",
+    "source_count": 62
+  },
+  "result": "PASS",
+  "schema_version": "1.0.0"
+}

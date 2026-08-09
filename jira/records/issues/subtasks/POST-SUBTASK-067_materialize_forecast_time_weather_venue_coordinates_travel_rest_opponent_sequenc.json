@@ -16,7 +16,7 @@
     "artifacts/context_intelligence/game_context_state_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-067.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-030;POST-SUBTASK-048",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-048",
   "blocks": [
     "POST-SUBTASK-068",
     "POST-SUBTASK-069"

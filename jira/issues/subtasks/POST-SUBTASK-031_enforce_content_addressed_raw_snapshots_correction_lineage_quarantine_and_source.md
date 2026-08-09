@@ -24,7 +24,7 @@
     "artifacts/data_lake/immutability_and_correction_test.json",
     "artifacts/jira_evidence/POST-SUBTASK-031.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-030",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-032",
     "POST-SUBTASK-033"
@@ -207,7 +207,7 @@
     "src/aggie_analytics/data/snapshots.py",
     "docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -303,7 +303,7 @@
     "POST-SUBTASK-033"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "INTEGRATION",
     "NEW_AUTOMATED_TEST_REQUIRED",
@@ -313,7 +313,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-011: Immutable raw store, manifests, provenance, and population audit.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-031.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

@@ -51,7 +51,7 @@
     "artifacts/context_intelligence/context_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-069.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-030;POST-SUBTASK-048;POST-SUBTASK-067;POST-SUBTASK-068",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-048;POST-SUBTASK-067;POST-SUBTASK-068",
   "blocks": [
     "POST-EPIC-009",
     "POST-STORY-027",

@@ -22,7 +22,7 @@
     "artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json",
     "artifacts/jira_evidence/POST-SUBTASK-032.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-030;POST-SUBTASK-031",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-031",
   "blocks": [
     "POST-SUBTASK-033"
   ],

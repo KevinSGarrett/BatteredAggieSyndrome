@@ -75,13 +75,11 @@
   ],
   "completion": {
     "achieved_maturity": "PRODUCTION_READY",
-    "completion_claimed": false,
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "GATE_VALIDATED_AWAITING_PROTECTED_INTEGRATION",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "PROTECTED_BRANCH_INTEGRATION_AND_FINAL_JIRA_SYNC"
-    ]
+    "remaining_issue_scope_blockers": []
   },
   "created_at_utc": "2026-08-09T21:57:13Z",
   "decision": {
@@ -95,19 +93,19 @@
     "partial_event_player_roster_ranking_and_context_domains": "EXPERIMENTAL_OR_UNAVAILABLE_BY_SEASON_DOMAIN"
   },
   "downstream_reevaluation": {
-    "POST-EPIC-007": "PENDING_PROTECTED_INTEGRATION",
-    "POST-STORY-011": "PENDING_PROTECTED_INTEGRATION",
-    "POST-STORY-021": "PENDING_PROTECTED_INTEGRATION",
-    "POST-STORY-023": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-031": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-032": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-033": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-061": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-062": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-063": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-067": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-068": "PENDING_PROTECTED_INTEGRATION",
-    "POST-SUBTASK-069": "PENDING_PROTECTED_INTEGRATION"
+    "POST-EPIC-007": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-STORY-011": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-STORY-021": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-STORY-023": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-SUBTASK-031": "DEPENDENCY_SATISFIED_RECOMPUTE_READY_STATE",
+    "POST-SUBTASK-032": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-SUBTASK-033": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-SUBTASK-061": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-SUBTASK-062": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-SUBTASK-063": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-SUBTASK-067": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-SUBTASK-068": "REEVALUATED_BY_DEPENDENCY_GRAPH",
+    "POST-SUBTASK-069": "REEVALUATED_BY_DEPENDENCY_GRAPH"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
   "input_identities": [
@@ -141,15 +139,16 @@
   "live_jira": {
     "checkpoint_comment_id": "13398",
     "claim_comment_id": "13397",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13399",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
     "maturity": "PRODUCTION_READY",
-    "status": "In Progress",
-    "updated": "2026-08-09T16:56:59.877-0500"
+    "status": "Done",
+    "updated": "2026-08-09T17:03:13.469-0500"
   },
   "local_id": "POST-SUBTASK-030",
   "local_jira_sync": {
-    "changed_issues": 1,
+    "changed_issues": 2,
     "conflict_count": 0,
     "export_path": "<external-runtime>/BAT-380/BAT-380-live-row.csv",
     "result": "PASS",
@@ -272,13 +271,23 @@
     "python": "3.11.9"
   },
   "protected_integration": {
-    "state": "PENDING"
+    "branch": "codex/BAT-380-historical-eligibility",
+    "head_sha": "27121364e9812206f52032f5261901d897df364d",
+    "merge_method": "SQUASH",
+    "merge_sha": "f4eea8c79579badee934fef70d5e76ebfb4ff313",
+    "merged_at_utc": "2026-08-09T22:01:23Z",
+    "pull_request": 77,
+    "repository_ci_run": 31338331704,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED",
+    "security_analysis_run": 31338331730,
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "validation": {
     "chronological_negative_probe": "PASS",
     "external_gate_validation": "PASS",
     "negative_mutations_rejected": 10,
-    "result": "LOCAL_PASS_PENDING_PROTECTED_INTEGRATION"
-  }
+    "result": "PROTECTED_INTEGRATION_PASS"
+  },
+  "updated_at_utc": "2026-08-09T22:03:15Z"
 }

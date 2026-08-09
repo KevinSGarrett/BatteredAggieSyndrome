@@ -77,7 +77,7 @@
   "end_to_end_validation": "Validate that `artifacts/source_governance/source_access_smoke_results.json` can be parsed and consumed by `POST-SUBTASK-021` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-020.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA_MATERIALIZATION",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -145,11 +145,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24510",
-    "jira_updated_at": "2026-08-09T00:03:25.188-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T08:29:29.962-0500",
+    "last_synced_at": "2026-08-09T13:30:41.240508+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-370\\BAT-370-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -204,7 +204,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -320,7 +320,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-007: Credential configuration and access smoke tests.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-020.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 

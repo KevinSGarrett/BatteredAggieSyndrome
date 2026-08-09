@@ -1,4 +1,5 @@
 local_id,issue_type,execution_mode,workflow_state,ready,packet_path,directly_executable,aggregate_gate_only,parent_id,governance_traceability_gate
+POST-SUBTASK-014,Subtask,ATOMIC_EXECUTION,READY,true,jira/ai/work_packets/POST-SUBTASK-014.md,true,false,POST-STORY-005,POST-SUBTASK-024
 POST-EPIC-001,Epic,AGGREGATE_GATE,BACKLOG,false,jira/ai/work_packets/POST-EPIC-001.md,false,true,,POST-SUBTASK-009
 POST-EPIC-002,Epic,AGGREGATE_GATE,BACKLOG,false,jira/ai/work_packets/POST-EPIC-002.md,false,true,,POST-SUBTASK-024
 POST-EPIC-003,Epic,AGGREGATE_GATE,BACKLOG,false,jira/ai/work_packets/POST-EPIC-003.md,false,true,,POST-SUBTASK-033
@@ -81,8 +82,7 @@ POST-SUBTASK-009,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POS
 POST-SUBTASK-010,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POST-SUBTASK-010.md,true,false,POST-STORY-004,POST-SUBTASK-009
 POST-SUBTASK-011,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POST-SUBTASK-011.md,true,false,POST-STORY-004,POST-SUBTASK-009
 POST-SUBTASK-012,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POST-SUBTASK-012.md,true,false,POST-STORY-004,POST-SUBTASK-009
-POST-SUBTASK-013,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POST-SUBTASK-013.md,true,false,POST-STORY-005,POST-SUBTASK-024
-POST-SUBTASK-014,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POST-SUBTASK-014.md,true,false,POST-STORY-005,POST-SUBTASK-024
+POST-SUBTASK-013,Subtask,ATOMIC_EXECUTION,DONE,false,jira/ai/work_packets/POST-SUBTASK-013.md,true,false,POST-STORY-005,POST-SUBTASK-024
 POST-SUBTASK-015,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POST-SUBTASK-015.md,true,false,POST-STORY-005,POST-SUBTASK-024
 POST-SUBTASK-016,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POST-SUBTASK-016.md,true,false,POST-STORY-006,POST-SUBTASK-024
 POST-SUBTASK-017,Subtask,ATOMIC_EXECUTION,BLOCKED,false,jira/ai/work_packets/POST-SUBTASK-017.md,true,false,POST-STORY-006,POST-SUBTASK-024

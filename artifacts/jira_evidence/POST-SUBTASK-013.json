@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "created_at_utc": "2026-08-09T06:21:36.3266406Z",
-  "updated_at_utc": "2026-08-09T11:54:04Z",
+  "updated_at_utc": "2026-08-09T12:03:05.9048302Z",
   "jira_key": "BAT-363",
   "local_issue_id": "POST-SUBTASK-013",
   "producer": {
@@ -249,30 +249,59 @@
       "negative_mutations_rejected": 9
     }
   },
-  "protected_integration_candidate": {
+  "protected_integration": {
     "branch": "codex/BAT-363-source-inventory-integration",
     "base_sha": "6a8e2feb5d7740357626641560f77097602fb853",
     "inventory_sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3",
     "pull_request": 25,
-    "merge_sha": null,
-    "required_checks": "PENDING",
-    "state": "PROTECTED_REVIEW_PENDING"
+    "head_sha": "8131780666c7c499cd701571002f25c707498b90",
+    "merge_sha": "76bdeb93419eb1113ec118cd4cf1f5e07e3d1f33",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T11:57:03Z",
+    "required_checks": "ALL_SEVEN_PROTECTED_CONTEXTS_PASSED",
+    "merge_commit_repository_ci_run": 31312058862,
+    "merge_commit_security_analysis_run": 31312058834,
+    "main_run_attempts": 1,
+    "live_jira_claim_comment_id": "13282",
+    "live_jira_completion_comment_id": "13315",
+    "live_jira_status": "Done",
+    "live_jira_logical_state": "DONE",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "IMPLEMENTED",
+    "live_jira_updated_at": "2026-08-09T06:58:45.081-0500",
+    "pre_completion_rollback_snapshot_sha256": "c24a9a1190bb425605fcaf59de544302a1b32d51dfb64036b96ac33a7a733569",
+    "local_sync": {
+      "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-363\\BAT-363-live-row.csv",
+      "reconciliation_conflicts": 0,
+      "post_rebuild_ready_issue": "POST-SUBTASK-014",
+      "first_rebuild_attempt": "PRESERVED_FAILURE_WINDOWS_OSERROR_22_POST_IMPORT_KEY_MAP",
+      "isolated_rebuild_retry": "PASS",
+      "strict_validation_transient_failures": 2,
+      "strict_validation_failure_signature": "PRESERVED_WINDOWS_OSERROR_22_JIRA_FILE_HASHES",
+      "isolated_strict_validation_retry": "PASS"
+    },
+    "state": "PROTECTED_MERGED_AND_LIVE_JIRA_DONE"
   },
   "completion": {
-    "achieved_maturity": "IMPLEMENTED_AND_VALIDATED",
+    "achieved_maturity": "IMPLEMENTED",
     "evidence_state": "VERIFIED",
-    "issue_disposition": "IN_PROGRESS_PENDING_PROTECTED_INTEGRATION",
-    "live_jira_status": "In Progress",
-    "live_jira_logical_state": "BLOCKED",
+    "issue_disposition": "DONE",
+    "live_jira_status": "Done",
+    "live_jira_logical_state": "DONE",
     "live_jira_maturity": "IMPLEMENTED",
-    "live_jira_evidence_state": "PLANNED",
-    "live_jira_comment_id": "13282",
-    "local_jira_reconciliation": "PASS_ONE_ROW_DRY_RUN_APPLY_REBUILD_AND_STRICT_SECOND_PASS_ZERO_CONFLICTS",
-    "local_jira_last_synced_at_utc": "2026-08-09T06:25:16.882034Z",
-    "remaining_blockers": [
-      "PROTECTED_PR_AND_MAIN_CHECKS_PENDING"
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_comment_id": "13315",
+    "local_jira_reconciliation": "PASS_ONE_ROW_APPLY_REBUILD_AND_STRICT_RETRY_ZERO_CONFLICTS",
+    "local_jira_last_synced_at_utc": "2026-08-09T12:00:32.902972+00:00",
+    "remaining_issue_scope_blockers": [],
+    "remaining_program_blockers": [
+      "POST-SUBTASK-014_SOURCE_PRIORITY_DECISIONS",
+      "POST-SUBTASK-015_SOURCE_INVENTORY_GATE",
+      "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+      "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
+      "AC038_THRESHOLD_AUTHORITY_BLOCKER"
     ],
     "cleared_blocker": "The canonical Git history, GitHub default branch, seven required contexts, and protected squash-only integration path now exist.",
-    "completion_claim": "The three issue-specific acceptance criteria and task-focused tests pass; BAT-363 is not marked Done until this candidate completes protected PR review, squash merge, and both main-branch workflows. No source-rights approval, production ingestion, historical data materialization, or empirical model-readiness claim is made."
+    "completion_claim": "BAT-363's verified 62-source governance inventory is protected-integrated and synchronized to live Jira at IMPLEMENTED maturity; all three issue criteria pass and POST-SUBTASK-014 is dependency-ready. No source-rights approval, production ingestion, historical data materialization, empirical model readiness, or release readiness is claimed."
   }
 }

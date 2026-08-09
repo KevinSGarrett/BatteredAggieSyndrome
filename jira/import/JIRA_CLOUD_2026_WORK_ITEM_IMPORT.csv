@@ -20388,7 +20388,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-013_reconcile_w06_source_inventory_with_w24_refresh_and_current_handoff_gaps.json",To Do,Highest,actionable;core-release;post-wave;research-lane;sources;subtask;local-id-post-subtask-013,data-sources,POST-SUBTASK-013,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,BLOCKED,IMPLEMENTED,VERIFIED,POST_W25,true,RESEARCH_LANE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-013_reconcile_w06_source_inventory_with_w24_refresh_and_current_handoff_gaps.json",Done,Highest,actionable;core-release;post-wave;research-lane;sources;subtask;local-id-post-subtask-013,data-sources,POST-SUBTASK-013,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,RESEARCH_LANE
 Sub-task,BAT-364,100318,"[POST-SUBTASK-014] Freeze source priority, fallback, and required-versus-optional classifications",100055,"Local ID: POST-SUBTASK-014
 
 Objective
@@ -20475,7 +20475,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-014_freeze_source_priority_fallback_and_required_versus_optional_classifications.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-014,data-sources,POST-SUBTASK-014,GAP-010;GAP-011;HANDOFF-002;HANDOFF-012;ISSUE-012,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-014_freeze_source_priority_fallback_and_required_versus_optional_classifications.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-014,data-sources,POST-SUBTASK-014,GAP-010;GAP-011;HANDOFF-002;HANDOFF-012;ISSUE-012,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT
 Sub-task,BAT-365,100319,[POST-SUBTASK-015] Validate source inventory completeness and unresolved decision coverage,100055,"Local ID: POST-SUBTASK-015
 
 Objective

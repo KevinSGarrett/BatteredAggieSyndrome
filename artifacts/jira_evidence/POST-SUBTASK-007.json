@@ -12,9 +12,9 @@
   "outputs": [
     {
       "path": "artifacts/benchmarks/ac038_input_manifest.json",
-      "bytes": 19585,
-      "sha256": "a854aecaae42eb4b0c14f4ff347a9aa7e9f9408bc6344f945d8e6d886c4f6659",
-      "canonical_payload_sha256": "b233e5afe17b05918949477546ab0975cc8edc1858a4d0fb9b1d2f6eb7d4d6e1",
+      "bytes": 19908,
+      "sha256": "d4107ad844576c7e3e2e8ec960abb4455176d78d86f0cd859a166fe82acbe303",
+      "canonical_payload_sha256": "8ddbc0069fff75144e8c6cdc34e0f72d7aad6ba0c5855529a623ce23cd9dbc5b",
       "schema_version": "aggie.ac038_input_manifest.v1",
       "maturity": "IMPLEMENTED",
       "eligibility": "TARGET_BENCHMARK_INPUT_ONLY_EXECUTION_AND_THRESHOLDS_BLOCKED"
@@ -52,7 +52,7 @@
     {
       "path": "EXTERNAL_DATA_ROOT/runtime/BAT-357/ac038-manifest-validation.safe.json",
       "bytes": 2039,
-      "sha256": "5a5a1bacd8a9c09a7c01cfc1b61383aaef66db6e0e72dc470620eb79900eeb18",
+      "sha256": "9ba5803f4b537dcfd6c650f106f06781b94892b9e40e82ab352be4282ca39805",
       "positive_contract_passed": true,
       "mutation_count": 10,
       "rejected_mutation_count": 10,
@@ -67,7 +67,7 @@
       "disposition": "PASS",
       "observable_result": "The representative 100,000-row, three-repetition target input contract has six ordered and classified stages. The model stage is explicitly a deterministic resource proxy, not a predictive model or quality claim; target execution remains POST-SUBTASK-008 scope.",
       "evidence_path": "artifacts/benchmarks/ac038_input_manifest.json",
-      "evidence_sha256": "a854aecaae42eb4b0c14f4ff347a9aa7e9f9408bc6344f945d8e6d886c4f6659",
+      "evidence_sha256": "d4107ad844576c7e3e2e8ec960abb4455176d78d86f0cd859a166fe82acbe303",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T10:40:35Z"
     },
@@ -76,7 +76,7 @@
       "disposition": "PASS",
       "observable_result": "Two prerequisite artifacts/evidence manifests, six code/config inputs, the canonical synthetic recipe, and all operation input/output classifications are pinned; the positive consumer identity gate passed.",
       "evidence_path": "artifacts/benchmarks/ac038_input_manifest.json",
-      "evidence_sha256": "a854aecaae42eb4b0c14f4ff347a9aa7e9f9408bc6344f945d8e6d886c4f6659",
+      "evidence_sha256": "d4107ad844576c7e3e2e8ec960abb4455176d78d86f0cd859a166fe82acbe303",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T10:40:35Z"
     },
@@ -85,7 +85,7 @@
       "disposition": "PASS",
       "observable_result": "SPLIT-PROTECTED is pinned as SEALED_NOT_OPENED, protected tuning and threshold setting are false, the synthetic input contains no outcome fields, and contamination/tuning mutations fail closed.",
       "evidence_path": "artifacts/benchmarks/ac038_input_manifest.json",
-      "evidence_sha256": "a854aecaae42eb4b0c14f4ff347a9aa7e9f9408bc6344f945d8e6d886c4f6659",
+      "evidence_sha256": "d4107ad844576c7e3e2e8ec960abb4455176d78d86f0cd859a166fe82acbe303",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-09T10:40:35Z"
     }
@@ -144,6 +144,30 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "Strict repository/security with 2,755 provenance rows, dependency policy, W25 terminal governance, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 warning-strict tests, W23 implementation, and all ten POST-SUBTASK-008 consumer mutations passed or failed closed as required."
+    },
+    {
+      "command": "GitHub protected integration for PR #19",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All seven required protected contexts passed; head 2cc8c5ab9a62c0e765814d623aa16589290d70d7 was squash-merged as fd7bddf01fbdb06761e4b0f2e8f95739d737b580 at 2026-08-09T10:46:29Z. Merge-commit repository-ci run 31309152826 and security-analysis run 31309152831 passed on attempt 1."
+    },
+    {
+      "command": "Live Jira BAT-357 completion protocol",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Logical Workflow State=DONE, Implementation Maturity=IMPLEMENTED, Evidence State=VERIFIED, physical status=Done, and completion comment 13307 were verified live."
+    },
+    {
+      "command": "python -B jira/tools/rebuild_all_derivatives.py after verified Done synchronization",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "All Jira derivatives rebuilt from canonical JSON. POST-SUBTASK-008 remained blocked by its explicit authoritative-target-host condition; POST-SUBTASK-009 remained blocked on POST-SUBTASK-008; the Ready queue was empty."
+    },
+    {
+      "command": "Credential-free clean BAT-357 Done-sync candidate",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "Strict repository/security with 2,755 provenance rows, dependency policy, W25, protected W17 seal, instruction controls, 2,118 source anchors, 463 Jira/import/dependency/second-pass checks, 1,758 Jira-manifest files, 243 of 243 tests, W23, pinned consumer evidence, live Done state, and the explicit empty Ready queue passed."
     }
   ],
   "required_validation_dispositions": [
@@ -258,36 +282,49 @@
       "POST-SUBTASK-008",
       "POST-SUBTASK-009"
     ],
-    "expected_post_done_state": {
-      "POST-SUBTASK-008": "BLOCKED_AUTHORITATIVE_TARGET_WINDOWS_HOST_CONDITION_PENDING_REEVALUATION",
-      "POST-SUBTASK-009": "BLOCKED_UNTIL_POST_SUBTASK_008_DONE_VERIFIED"
-    },
+    "post_done_reevaluation_results": [
+      {
+        "local_id": "POST-SUBTASK-008",
+        "ready": false,
+        "workflow_state": "BLOCKED",
+        "reason": "AUTHORITATIVE_TARGET_WINDOWS_HOST_NOT_AVAILABLE_IN_THIS_SESSION"
+      },
+      {
+        "local_id": "POST-SUBTASK-009",
+        "ready": false,
+        "workflow_state": "BLOCKED",
+        "reason": "POST_SUBTASK_008_IS_NOT_DONE_VERIFIED"
+      }
+    ],
+    "ready_queue_count": 0,
     "consumer_must_fail_closed": true
   },
   "integration": {
     "branch": "codex/BAT-357-ac038-input-manifest",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "merge_method": null,
-    "required_checks": "PENDING_PROTECTED_PR",
+    "pull_request": 19,
+    "head_sha": "2cc8c5ab9a62c0e765814d623aa16589290d70d7",
+    "merge_sha": "fd7bddf01fbdb06761e4b0f2e8f95739d737b580",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T10:46:29Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "merge_commit_repository_ci_run": 31309152826,
+    "merge_commit_security_analysis_run": 31309152831,
     "live_jira_claim_comment_id": "13306",
-    "live_jira_logical_state": "IN_PROGRESS",
-    "live_jira_status": "In Progress",
-    "live_jira_evidence_state": "PLANNED",
-    "live_jira_maturity": "FUNCTIONAL_STARTER",
-    "live_jira_updated_at": "2026-08-09T05:36:50.087-0500",
+    "live_jira_completion_comment_id": "13307",
+    "live_jira_logical_state": "DONE",
+    "live_jira_status": "Done",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "IMPLEMENTED",
+    "live_jira_updated_at": "2026-08-09T05:48:09.631-0500",
     "rollback_snapshot_sha256": "7cc6ed744eeaa88c567da04d7227f336c3ccd17ef43da7e7bc23c7acb53c4995"
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "evidence_state": "VERIFIED_LOCAL",
-    "issue_disposition": "VALIDATION",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
     "local_acceptance_criteria_pass": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": [
-      "PENDING_PROTECTED_PR_INTEGRATION"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "POST-SUBTASK-008_TARGET_EXECUTION",
       "POST-SUBTASK-009_THRESHOLD_GOVERNANCE",
@@ -297,6 +334,6 @@
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED"
     ],
-    "completion_claim": "BAT-357's representative AC-038 input manifest is implemented locally and all three issue-specific staging criteria pass. Protected integration remains pending; no target benchmark, threshold, real-data PIT, predictive quality, protected outcome, source-rights, or release claim is made."
+    "completion_claim": "BAT-357's representative AC-038 input manifest is protected-integrated, synchronized to live Jira, and all three issue-specific staging criteria pass. No target benchmark, threshold, real-data PIT, predictive quality, protected outcome, source-rights, or release claim is made."
   }
 }

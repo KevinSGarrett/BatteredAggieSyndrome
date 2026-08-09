@@ -12,6 +12,11 @@ from tools.validate_jira_control_plane import validate
 
 
 class JiraControlPlaneTests(unittest.TestCase):
+    def test_second_pass_date_is_dependency_free_utc(self):
+        source = (ROOT / "jira/tools/second_pass_hardening.py").read_text(encoding="utf-8")
+        self.assertIn("datetime.now(timezone.utc)", source)
+        self.assertNotIn("ZoneInfo(", source)
+
     def test_local_mirror_strict_validation(self):
         self.assertEqual(validate(ROOT), [])
 

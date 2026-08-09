@@ -50,6 +50,7 @@ artifacts/jira_evidence/POST-SUBTASK-018.json
 artifacts/jira_evidence/POST-SUBTASK-019.json
 artifacts/jira_evidence/POST-SUBTASK-020.json
 artifacts/jira_evidence/POST-SUBTASK-021.json
+artifacts/jira_evidence/POST-SUBTASK-022.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/operations/ci_pipeline_validation.json
@@ -84,6 +85,7 @@ configs/repository_policy.json
 configs/research_execution_registry.json
 configs/research_resource_policy.json
 configs/result_comparison_policy.json
+configs/source_acquisition_registry.json
 configs/source_rights_registry.json
 configs/tamu_specialization_registry.json
 configs/team_state_registry.json

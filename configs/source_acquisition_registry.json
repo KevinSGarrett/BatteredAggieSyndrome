@@ -1,0 +1,676 @@
+{
+  "generated_at_utc": "2026-08-09T16:39:29Z",
+  "non_ready_source_default": "DENY",
+  "prerequisite_identities": [
+    {
+      "bytes": 93881,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "73e7769fec670931d6e72fbba41574aaf8aa954123b7e92864179b01f30961a2"
+    },
+    {
+      "bytes": 72732,
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "sha256": "452d8796a42fc770fa775919676af04bcb0927a691ad863adef1ed891a37cb6b"
+    },
+    {
+      "bytes": 12079,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-018.json",
+      "sha256": "f62381e6b8e8189fc3552c48169097fa55c80b0cc2871062416a958842cf7cd4"
+    },
+    {
+      "bytes": 13130,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-021.json",
+      "sha256": "614ae316b167d323ef96f3dc8a523e66e0f5ac0b00ea06fc7617bd2f0e32b6a0"
+    },
+    {
+      "bytes": 14917,
+      "path": "<external-runtime>/BAT-372/cfbd-openapi-core.safe.json",
+      "sha256": "cb05956f58cf86926bd98b79536ebe502d66b73f122b9fec86237753697c64a4"
+    }
+  ],
+  "registry_status": "VERIFIED",
+  "schema_version": "1.0.0",
+  "source_count": 2,
+  "sources": [
+    {
+      "api_version": {
+        "captured_at_utc": "2026-08-09T16:38:25Z",
+        "contract_sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "contract_source": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js",
+        "openapi": "3.0.0",
+        "path_version": "UNVERSIONED"
+      },
+      "authentication": {
+        "credential_value_in_registry": false,
+        "environment_variable": "CFBD_API_KEY",
+        "mode": "BEARER"
+      },
+      "base_url": "https://api.collegefootballdata.com/",
+      "cutoff_semantics": {
+        "future_record_rule": "source_game_start_utc < target_game_prediction_cutoff_utc",
+        "postgame_known_at": "first immutable snapshot after provider marks the source game complete",
+        "prediction_cutoff_field": "target_game_prediction_cutoff_utc",
+        "snapshot_requirement": "retrieved_at_utc <= target_game_prediction_cutoff_utc for pregame fields",
+        "target_game_exclusion": "source_game_id != target_game_id for outcomes, drives, plays, box scores, and postgame statistics",
+        "target_game_outcome_fields": "ALWAYS_EXCLUDED"
+      },
+      "endpoints": [
+        {
+          "allowed_parameters": [
+            "year",
+            "seasonType",
+            "week",
+            "team",
+            "offense",
+            "defense",
+            "conference",
+            "offenseConference",
+            "defenseConference",
+            "classification"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetDrives",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetDrives",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/drives",
+          "purpose": "drive sequence keyed to CFBD game identity",
+          "raw_content_type": "application/json",
+          "required_parameters": [
+            "year"
+          ],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [
+            "year",
+            "week",
+            "seasonType",
+            "classification",
+            "team",
+            "home",
+            "away",
+            "conference",
+            "id",
+            "competition",
+            "round"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetGames",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetGames",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/games",
+          "purpose": "canonical schedule, game identity, participants, venue link, status, and completed outcome",
+          "raw_content_type": "application/json",
+          "required_parameters": [],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [
+            "year",
+            "week",
+            "team",
+            "conference",
+            "classification",
+            "seasonType",
+            "category",
+            "id"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetGamePlayerStats",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetGamePlayerStats",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/games/players",
+          "purpose": "player box-score statistics keyed to CFBD game identity",
+          "raw_content_type": "application/json",
+          "required_parameters": [],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [
+            "year",
+            "week",
+            "team",
+            "conference",
+            "classification",
+            "seasonType",
+            "id"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetGameTeamStats",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetGameTeamStats",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/games/teams",
+          "purpose": "team box-score statistics keyed to CFBD game identity",
+          "raw_content_type": "application/json",
+          "required_parameters": [],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [
+            "year",
+            "week",
+            "team",
+            "offense",
+            "defense",
+            "offenseConference",
+            "defenseConference",
+            "conference",
+            "playType",
+            "seasonType",
+            "classification"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetPlays",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetPlays",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/plays",
+          "purpose": "play sequence keyed to CFBD game and drive identity",
+          "raw_content_type": "application/json",
+          "required_parameters": [
+            "year",
+            "week"
+          ],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [
+            "year",
+            "seasonType",
+            "week",
+            "poll",
+            "latest",
+            "final"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetRankings",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetRankings",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/rankings",
+          "purpose": "dated poll snapshots; snapshot timing remains required for PIT use",
+          "raw_content_type": "application/json",
+          "required_parameters": [
+            "year"
+          ],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [
+            "team",
+            "year",
+            "classification"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetRoster",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetRoster",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/roster",
+          "purpose": "season/team roster identity context",
+          "raw_content_type": "application/json",
+          "required_parameters": [],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [
+            "year",
+            "team",
+            "week",
+            "opponent",
+            "excludeGarbageTime",
+            "seasonType"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetAdvancedGameStats",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetAdvancedGameStats",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/stats/game/advanced",
+          "purpose": "CFBD-computed advanced game summaries; derived from game/play inputs and not independent evidence",
+          "raw_content_type": "application/json",
+          "required_parameters": [],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [
+            "year"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetFBSTeams",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetFBSTeams",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/teams/fbs",
+          "purpose": "season-specific FBS team identity and conference context",
+          "raw_content_type": "application/json",
+          "required_parameters": [],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        },
+        {
+          "allowed_parameters": [],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum": 1869,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CFBD-GetVenues",
+          "historical_coverage": {
+            "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+            "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+          },
+          "method": "GET",
+          "operation_id": "GetVenues",
+          "pagination": {
+            "mode": "NONE_DOCUMENTED",
+            "partition_strategy": [
+              "year",
+              "week",
+              "team when supported"
+            ]
+          },
+          "path": "/venues",
+          "purpose": "venue identity, coordinates, timezone, and facility context",
+          "raw_content_type": "application/json",
+          "required_parameters": [],
+          "upstream_lineage": "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+        }
+      ],
+      "provider": "CollegeFootballData",
+      "readiness_required": "READY",
+      "source_id": "SRC-002"
+    },
+    {
+      "api_version": {
+        "documentation_checked_at_utc": "2026-08-09T16:39:29Z",
+        "path_version": "v1",
+        "schema_policy": "SNAPSHOT_RESPONSE_SCHEMA_PER_RUN"
+      },
+      "authentication": {
+        "credential_value_in_registry": false,
+        "mode": "NONE_FOR_APPROVED_PERSONAL_NONCOMMERCIAL_FREE_LANE"
+      },
+      "cutoff_semantics": {
+        "issued_forecast_requirement": "issued_at_utc <= target_game_prediction_cutoff_utc",
+        "prediction_cutoff_field": "target_game_prediction_cutoff_utc",
+        "realized_weather": "LABEL_OR_REFERENCE_ONLY",
+        "target_game_realized_weather": "ALWAYS_EXCLUDED_FROM_PREGAME_FEATURES"
+      },
+      "endpoints": [
+        {
+          "allowed_hourly_variables": [
+            "temperature_2m",
+            "relative_humidity_2m",
+            "dew_point_2m",
+            "precipitation",
+            "weather_code",
+            "surface_pressure",
+            "cloud_cover",
+            "wind_speed_10m",
+            "wind_direction_10m",
+            "wind_gusts_10m"
+          ],
+          "allowed_parameters": [
+            "latitude",
+            "longitude",
+            "start_date",
+            "end_date",
+            "hourly",
+            "models",
+            "timezone",
+            "temperature_unit",
+            "wind_speed_unit",
+            "precipitation_unit",
+            "timeformat"
+          ],
+          "allowed_seasons": {
+            "maximum": "CURRENT_UTC_YEAR",
+            "minimum_documented_approximate": 2021,
+            "status": "VARIABLE_AND_MODEL_SPECIFIC_UNKNOWN_MUST_DISCOVER"
+          },
+          "cutoff_semantics": "Use only values demonstrably issued before the target cutoff; stitched latest-run history without issue identity is not accepted as a pregame feature.",
+          "endpoint_id": "OPENMETEO-HISTORICAL-FORECAST",
+          "method": "GET",
+          "pagination": {
+            "mode": "NONE",
+            "partition_strategy": [
+              "venue coordinate",
+              "calendar date chunk",
+              "model/run identity"
+            ]
+          },
+          "raw_content_type": "application/json",
+          "required_parameters": [
+            "latitude",
+            "longitude",
+            "start_date",
+            "end_date",
+            "hourly"
+          ],
+          "upstream_lineage": "OPEN_METEO_AGGREGATES_NUMERICAL_WEATHER_MODELS; MODEL_PROVIDER_AND_RUN_IDENTITY_MUST_BE_RETAINED; DO_NOT_COUNT_AS_INDEPENDENT_FROM_THE_UPSTREAM_MODEL_PROVIDER",
+          "url": "https://historical-forecast-api.open-meteo.com/v1/forecast",
+          "version": "v1-unversioned-schema-captured-per-run"
+        },
+        {
+          "additional_parameters": [
+            "*_previous_day0",
+            "*_previous_day1",
+            "*_previous_day2",
+            "*_previous_day3",
+            "*_previous_day4",
+            "*_previous_day5",
+            "*_previous_day6",
+            "*_previous_day7"
+          ],
+          "allowed_hourly_variables": [
+            "temperature_2m",
+            "relative_humidity_2m",
+            "dew_point_2m",
+            "precipitation",
+            "weather_code",
+            "surface_pressure",
+            "cloud_cover",
+            "wind_speed_10m",
+            "wind_direction_10m",
+            "wind_gusts_10m"
+          ],
+          "allowed_parameters": [
+            "latitude",
+            "longitude",
+            "start_date",
+            "end_date",
+            "hourly",
+            "models",
+            "timezone",
+            "temperature_unit",
+            "wind_speed_unit",
+            "precipitation_unit",
+            "timeformat"
+          ],
+          "allowed_seasons": {
+            "exceptions": {
+              "GFS_temperature_2m": 2021,
+              "JMA_GSM_MSM": 2018
+            },
+            "general_minimum_documented": 2024,
+            "status": "MODEL_VARIABLE_SPECIFIC_UNKNOWN_MUST_DISCOVER"
+          },
+          "cutoff_semantics": "Derive issued_at_utc from valid_time minus the requested previous_day lead; require issued_at_utc <= target_game_prediction_cutoff_utc.",
+          "endpoint_id": "OPENMETEO-PREVIOUS-RUNS",
+          "method": "GET",
+          "pagination": {
+            "mode": "NONE",
+            "partition_strategy": [
+              "venue coordinate",
+              "calendar date chunk",
+              "model/run identity"
+            ]
+          },
+          "raw_content_type": "application/json",
+          "required_parameters": [
+            "latitude",
+            "longitude",
+            "start_date",
+            "end_date",
+            "hourly"
+          ],
+          "upstream_lineage": "OPEN_METEO_AGGREGATES_NUMERICAL_WEATHER_MODELS; MODEL_PROVIDER_AND_RUN_IDENTITY_MUST_BE_RETAINED; DO_NOT_COUNT_AS_INDEPENDENT_FROM_THE_UPSTREAM_MODEL_PROVIDER",
+          "url": "https://previous-runs-api.open-meteo.com/v1/forecast",
+          "version": "v1-fixed-lead-offsets"
+        },
+        {
+          "allowed_hourly_variables": [
+            "temperature_2m",
+            "relative_humidity_2m",
+            "dew_point_2m",
+            "precipitation",
+            "weather_code",
+            "surface_pressure",
+            "cloud_cover",
+            "wind_speed_10m",
+            "wind_direction_10m",
+            "wind_gusts_10m"
+          ],
+          "allowed_parameters": [
+            "latitude",
+            "longitude",
+            "start_date",
+            "end_date",
+            "hourly",
+            "models",
+            "timezone",
+            "temperature_unit",
+            "wind_speed_unit",
+            "precipitation_unit",
+            "timeformat",
+            "run"
+          ],
+          "allowed_seasons": {
+            "IFS_HRES_minimum_documented": "2024-03",
+            "other_models_minimum_documented": "2026-04-02",
+            "status": "MODEL_SPECIFIC_UNKNOWN_MUST_DISCOVER"
+          },
+          "cutoff_semantics": "Require run initialisation timestamp <= target_game_prediction_cutoff_utc and preserve the exact model/run identity.",
+          "endpoint_id": "OPENMETEO-SINGLE-RUNS",
+          "method": "GET",
+          "pagination": {
+            "mode": "NONE",
+            "partition_strategy": [
+              "venue coordinate",
+              "calendar date chunk",
+              "model/run identity"
+            ]
+          },
+          "raw_content_type": "application/json",
+          "required_parameters": [
+            "latitude",
+            "longitude",
+            "run",
+            "hourly"
+          ],
+          "upstream_lineage": "OPEN_METEO_AGGREGATES_NUMERICAL_WEATHER_MODELS; MODEL_PROVIDER_AND_RUN_IDENTITY_MUST_BE_RETAINED; DO_NOT_COUNT_AS_INDEPENDENT_FROM_THE_UPSTREAM_MODEL_PROVIDER",
+          "url": "https://single-runs-api.open-meteo.com/v1/forecast",
+          "version": "v1-run-initialisation"
+        },
+        {
+          "allowed_hourly_variables": [
+            "temperature_2m",
+            "relative_humidity_2m",
+            "dew_point_2m",
+            "precipitation",
+            "weather_code",
+            "surface_pressure",
+            "cloud_cover",
+            "wind_speed_10m",
+            "wind_direction_10m",
+            "wind_gusts_10m"
+          ],
+          "allowed_parameters": [
+            "latitude",
+            "longitude",
+            "start_date",
+            "end_date",
+            "hourly",
+            "models",
+            "timezone",
+            "temperature_unit",
+            "wind_speed_unit",
+            "precipitation_unit",
+            "timeformat"
+          ],
+          "allowed_seasons": {
+            "ERA5_Land_minimum": 1950,
+            "ERA5_minimum": 1940,
+            "IFS_minimum": 2017,
+            "status": "DATASET_SPECIFIC"
+          },
+          "cutoff_semantics": "REALIZED_OR_REANALYSIS_WEATHER_IS LABEL_OR_REFERENCE_ONLY AND MUST NEVER ENTER A PREGAME FEATURE ROW.",
+          "endpoint_id": "OPENMETEO-HISTORICAL-WEATHER-LABELS-ONLY",
+          "method": "GET",
+          "pagination": {
+            "mode": "NONE",
+            "partition_strategy": [
+              "venue coordinate",
+              "calendar date chunk",
+              "model/run identity"
+            ]
+          },
+          "raw_content_type": "application/json",
+          "required_parameters": [
+            "latitude",
+            "longitude",
+            "start_date",
+            "end_date",
+            "hourly"
+          ],
+          "upstream_lineage": "OPEN_METEO_AGGREGATES_NUMERICAL_WEATHER_MODELS; MODEL_PROVIDER_AND_RUN_IDENTITY_MUST_BE_RETAINED; DO_NOT_COUNT_AS_INDEPENDENT_FROM_THE_UPSTREAM_MODEL_PROVIDER",
+          "url": "https://archive-api.open-meteo.com/v1/archive",
+          "version": "v1-reanalysis"
+        }
+      ],
+      "provider": "Open-Meteo",
+      "readiness_required": "READY",
+      "source_id": "SRC-003"
+    }
+  ],
+  "unknown_source_default": "DENY"
+}

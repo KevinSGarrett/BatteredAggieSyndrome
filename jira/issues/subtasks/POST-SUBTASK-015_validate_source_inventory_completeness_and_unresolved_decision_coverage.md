@@ -22,7 +22,7 @@
     "artifacts/source_governance/source_inventory_validation.json",
     "artifacts/jira_evidence/POST-SUBTASK-015.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-013;POST-SUBTASK-014",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-014",
   "blocks": [
     "POST-STORY-006",
     "POST-STORY-007",

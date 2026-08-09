@@ -22,7 +22,7 @@
     "artifacts/entities/schema_reconciliation.csv",
     "artifacts/jira_evidence/POST-SUBTASK-035.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-033;POST-SUBTASK-034",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-034",
   "blocks": [
     "POST-SUBTASK-036"
   ],

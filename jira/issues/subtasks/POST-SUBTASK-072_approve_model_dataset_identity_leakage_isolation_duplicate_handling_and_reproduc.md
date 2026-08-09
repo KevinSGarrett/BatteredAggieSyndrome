@@ -23,7 +23,7 @@
     "artifacts/modeling/model_dataset_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-072.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-060;POST-SUBTASK-070;POST-SUBTASK-071;POST-SUBTASK-033",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-051;POST-SUBTASK-060;POST-SUBTASK-070;POST-SUBTASK-071",
   "blocks": [
     "POST-STORY-025",
     "POST-SUBTASK-073",

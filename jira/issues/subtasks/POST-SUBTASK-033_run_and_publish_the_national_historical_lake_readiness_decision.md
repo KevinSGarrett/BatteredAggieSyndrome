@@ -35,7 +35,7 @@
     "artifacts/data_lake/national_lake_readiness.json",
     "artifacts/jira_evidence/POST-SUBTASK-033.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-031;POST-SUBTASK-032",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-032",
   "blocks": [
     "POST-EPIC-004",
     "POST-STORY-012",

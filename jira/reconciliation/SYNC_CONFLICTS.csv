@@ -1,1 +1,2 @@
 local_id,field,jira_value,local_value,resolution
+POST-SUBTASK-016,Status,Done,BLOCKED,DONE_REJECTED_UNTIL_LOCAL_EVIDENCE_IS_COMPLETE_OR_VERIFIED

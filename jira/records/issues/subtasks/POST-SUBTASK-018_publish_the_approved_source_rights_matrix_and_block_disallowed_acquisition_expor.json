@@ -19,7 +19,7 @@
     "artifacts/source_governance/source_rights_gate_test.json",
     "artifacts/jira_evidence/POST-SUBTASK-018.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-016;POST-SUBTASK-017",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-017",
   "blocks": [
     "POST-STORY-008",
     "POST-STORY-009",

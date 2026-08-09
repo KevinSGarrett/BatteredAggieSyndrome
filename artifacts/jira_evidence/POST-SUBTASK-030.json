@@ -1,0 +1,284 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "The gate records 630 source/season/domain decisions for 1963-2025, preserves the bounded nonterminal 2022-2025 tranche, admits all measured outcome seasons conditionally, and never discards a season because another domain is missing."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "Every decision retains source observations, endpoints, season types, schema hashes, timestamp quality, national row evidence, and separate exact-identity Texas A&M evidence; independent corroboration count remains zero."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "Closing market, realized weather, final participation, target-game outcomes, future/postgame values, late corrections, and genuinely private personal information are explicitly rejected or quarantined as applicable without blocking unrelated core outcomes."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "All five prerequisite artifacts are content-hash pinned; provider pending requests and partial/empty/unavailable domains remain explicit; the external baseline and 10/10 negative mutations plus chronological probe pass."
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-380/build_historical_eligibility_gate.py --repo-root . --output artifacts/data_lake/historical_expansion_eligibility_gate.json --created-at 2026-08-09T21:52:29Z",
+      "exit_code": 0,
+      "result": "630 tiered season-domain decisions"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-380/validate_historical_eligibility_gate.py --repo-root . --gate artifacts/data_lake/historical_expansion_eligibility_gate.json --report <external-validation>/BAT-380/historical_expansion_eligibility_validation.json",
+      "exit_code": 0,
+      "result": "PASS baseline; 10/10 unsafe mutations rejected"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-380/run_chronological_gate_probe.py --repo-root . --gate artifacts/data_lake/historical_expansion_eligibility_gate.json --report <external-validation>/BAT-380/historical_expansion_chronological_probe.json",
+      "exit_code": 0,
+      "result": "PASS; only prior completed outcome eligible in synthetic contract probe"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider tests/test_w19_foundation.py -q",
+      "exit_code": 0,
+      "result": "3 passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "270 passed, 1 skipped, 33 subtests passed"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS; 2,118 references; 0 relocated"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "result": "PASS; 463 issues; 0 errors; 3 ready; 115 blocked"
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS; 1,758 files"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --strict",
+      "exit_code": 0,
+      "result": "PASS; 2,805 files; structure, manifests, governance IDs, secrets, forbidden artifacts"
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py; validate_acceptance.py; validate_data_research.py",
+      "exit_code": 0,
+      "result": "All protected handoff, acceptance, and data-research gates PASS"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "PRODUCTION_READY",
+    "completion_claimed": false,
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "GATE_VALIDATED_AWAITING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "PROTECTED_BRANCH_INTEGRATION_AND_FINAL_JIRA_SYNC"
+    ]
+  },
+  "created_at_utc": "2026-08-09T21:57:13Z",
+  "decision": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gate_artifact_state": "PRODUCTION_READY_TIERED_DECISION_CONTROL",
+    "historical_pregame_features": "REJECTED_PENDING_NORMALIZATION_ENTITY_RECONCILIATION_EVENT_KNOWN_AT_TARGET_EXCLUSION_AND_CHRONOLOGICAL_REPLAY",
+    "immutable_private_raw_archive_for_nonempty_captures": "PRODUCTION",
+    "normalization_and_quarantine_input_for_nonempty_captures": "CONDITIONAL",
+    "older_outcome_history": "CONDITIONAL_FOR_ELO_TEAM_STRENGTH_OUTCOME_MODELING_AND_LONG_RUN_CONTEXT_AFTER_APPLICABLE_GATES",
+    "partial_event_player_roster_ranking_and_context_domains": "EXPERIMENTAL_OR_UNAVAILABLE_BY_SEASON_DOMAIN"
+  },
+  "downstream_reevaluation": {
+    "POST-EPIC-007": "PENDING_PROTECTED_INTEGRATION",
+    "POST-STORY-011": "PENDING_PROTECTED_INTEGRATION",
+    "POST-STORY-021": "PENDING_PROTECTED_INTEGRATION",
+    "POST-STORY-023": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-031": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-032": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-033": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-061": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-062": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-063": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-067": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-068": "PENDING_PROTECTED_INTEGRATION",
+    "POST-SUBTASK-069": "PENDING_PROTECTED_INTEGRATION"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 26188,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-027.json",
+      "sha256": "a64f0cc600fc3265f907d49d825c211c9b4112341123128b81e0c0f70c5b2ef3"
+    },
+    {
+      "bytes": 11906,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-028.json",
+      "sha256": "d051b62085ad931a8b1e5d9889bc2226efdda6775f4af0e7e4ad9d22d6981111"
+    },
+    {
+      "bytes": 10594,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-029.json",
+      "sha256": "762d2bfac1f7446e78d07cc36da73a1fd13a18320024b18dd5829609056e2100"
+    },
+    {
+      "bytes": 29394,
+      "path": "artifacts/data_lake/historical_expansion_acquisition_manifest.json",
+      "sha256": "8ff133cbb67fb873891b04c80164a8838edfdd20f532c19e8a5240a29a499bd1"
+    },
+    {
+      "bytes": 310733,
+      "path": "artifacts/data_lake/historical_expansion_population_profile.json",
+      "sha256": "9911886c77ddf046b848bb9ef5f83a277d2920669221d6497cb67c7c66c1e634"
+    }
+  ],
+  "jira_key": "BAT-380",
+  "live_jira": {
+    "checkpoint_comment_id": "13398",
+    "claim_comment_id": "13397",
+    "evidence_state": "PLANNED",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "PRODUCTION_READY",
+    "status": "In Progress",
+    "updated": "2026-08-09T16:56:59.877-0500"
+  },
+  "local_id": "POST-SUBTASK-030",
+  "local_jira_sync": {
+    "changed_issues": 1,
+    "conflict_count": 0,
+    "export_path": "<external-runtime>/BAT-380/BAT-380-live-row.csv",
+    "result": "PASS",
+    "strict_validation": "PASS"
+  },
+  "negative_findings_and_limits": [
+    "No historical source family has complete row-level publication/known-at timestamps; every pregame feature lane remains fail-closed.",
+    "1963-2000 are outcome-only seasons and are not promoted into plays, drives, boxes, rosters, rankings, teams, advanced statistics, or structured gamebook domains.",
+    "2001-2003 have no acquired play or box-score population and observed CFBD roster captures are empty.",
+    "2004-2009 supplemental play coverage is partial against release schedules and is not independent corroboration of ESPN-derived upstream data.",
+    "Venue evidence is a non-season-versioned global registry snapshot and requires team/venue/effective-date reconciliation.",
+    "Rankings and every other thin or schema-uncertain context stay experimental until normalized coverage and chronology validate them.",
+    "The 2022-2025 tranche is preserved but is not the terminal historical lake or default protected-training population.",
+    "No final historical readiness, GAP-002 resolution, production feature/model, protected performance, A&M lift, BAS, or Aggie Excess result is claimed."
+  ],
+  "observable_outcome": {
+    "canonical_domain_count": 10,
+    "dense_target_acquired": true,
+    "dense_target_seasons": [
+      2010,
+      2025
+    ],
+    "independent_corroborating_upstream_feeds": 0,
+    "negative_mutations_rejected": 10,
+    "observed_quality_supported_seasons": [
+      1963,
+      2025
+    ],
+    "outcome_seasons_conditionally_admitted": 63,
+    "season_count": 63,
+    "season_domain_decision_count": 630
+  },
+  "outputs": [
+    {
+      "bytes": 1512110,
+      "canonical_payload_sha256": "231d424054c75d3e92f8fa5499e9d1f79d920453eaf90c310e4c16727936f9ab",
+      "path": "artifacts/data_lake/historical_expansion_eligibility_gate.json",
+      "sha256": "ac85cc43f0d8804f4a3279b1f6bfbbb2be2e6dd70099adc2bf89fc907ec4932b"
+    },
+    {
+      "bytes": 2048,
+      "path": "<external-validation>/BAT-380/historical_expansion_eligibility_validation.json",
+      "sha256": "de00c11f2c7a815dc0deee3d0a2bc304fc4be32da65dadb183562c74a3e640e5"
+    },
+    {
+      "bytes": 2147,
+      "path": "<external-validation>/BAT-380/historical_expansion_chronological_probe.json",
+      "sha256": "1f9057065e4533bd2affe5b5d65f27604b8a9c8c37eb73ae13344b3f6e946fd8"
+    }
+  ],
+  "pit_evidence": {
+    "acquisition_or_release_time_promoted_to_event_known_at": false,
+    "eligible_observation_ids": [
+      "prior-outcome"
+    ],
+    "fold_or_split_identity": "NOT_APPLICABLE_SYNTHETIC_CONTRACT_NEGATIVE_PROBE",
+    "prediction_cutoff": "2025-09-06T16:00:00Z",
+    "real_historical_pregame_eligibility": "FAIL_CLOSED_PENDING_POST_SUBTASK_031_CHRONOLOGICAL_POLICY_AND_MATERIALIZATION",
+    "rejected_observations": [
+      {
+        "domain": "HISTORICAL_GAME_OUTPUT",
+        "eligible": false,
+        "first_known_at": "2025-09-01T00:00:00Z",
+        "observation_id": "target-outcome",
+        "reason": "TARGET_GAME_OUTPUT"
+      },
+      {
+        "domain": "HISTORICAL_GAME_OUTPUT",
+        "eligible": false,
+        "first_known_at": "2025-09-01T00:00:00Z",
+        "observation_id": "future-outcome",
+        "reason": "GAME_NOT_COMPLETE_BY_CUTOFF"
+      },
+      {
+        "domain": "MARKET",
+        "eligible": false,
+        "first_known_at": "2025-09-06T22:55:00Z",
+        "observation_id": "closing-market",
+        "reason": "KNOWN_AFTER_CUTOFF"
+      },
+      {
+        "domain": "WEATHER_OBSERVED",
+        "eligible": false,
+        "first_known_at": "2025-09-07T00:00:00Z",
+        "observation_id": "realized-weather",
+        "reason": "DOMAIN_POLICY_BANNED"
+      },
+      {
+        "domain": "PARTICIPATION_FINAL",
+        "eligible": false,
+        "first_known_at": "2025-09-07T04:00:00Z",
+        "observation_id": "final-participation",
+        "reason": "KNOWN_AFTER_CUTOFF"
+      },
+      {
+        "domain": "ROSTER",
+        "eligible": false,
+        "first_known_at": "2025-09-01T00:00:00Z",
+        "observation_id": "uncorroborated-retrospective",
+        "reason": "RETROSPECTIVE_UNCORROBORATED"
+      }
+    ],
+    "synthetic_contract_probe_only": true,
+    "target_event_time": "2025-09-06T23:00:00Z",
+    "target_game_id": "target-game-2025-09-06"
+  },
+  "policy_and_security": {
+    "bulk_payloads_or_secrets_in_git_or_jira": false,
+    "genuinely_private_personal_information_allowed": false,
+    "raw_third_party_publication_allowed": false,
+    "rights_licensing_terms_scraping_redistribution_or_upstream_authorization_uncertainty_blocks_private_use": false,
+    "rights_metadata_nonblocking": true
+  },
+  "producer": {
+    "base_commit": "c7c06206126887c6cf818e445d4de1e543e5c915",
+    "branch": "codex/BAT-380-historical-eligibility",
+    "external_builder": "<external-runtime>/BAT-380/build_historical_eligibility_gate.py",
+    "external_chronological_probe": "<external-runtime>/BAT-380/run_chronological_gate_probe.py",
+    "external_validator": "<external-runtime>/BAT-380/validate_historical_eligibility_gate.py",
+    "python": "3.11.9"
+  },
+  "protected_integration": {
+    "state": "PENDING"
+  },
+  "schema_version": "1.0.0",
+  "validation": {
+    "chronological_negative_probe": "PASS",
+    "external_gate_validation": "PASS",
+    "negative_mutations_rejected": 10,
+    "result": "LOCAL_PASS_PENDING_PROTECTED_INTEGRATION"
+  }
+}

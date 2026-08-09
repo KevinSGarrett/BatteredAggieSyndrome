@@ -2,25 +2,26 @@
   "schema_version": "1.1.0",
   "report_type": "dependency_secret_license_restricted_data_and_artifact_integrity",
   "created_at_utc": "2026-08-09T09:18:00Z",
-  "updated_at_utc": "2026-08-09T14:33:55Z",
+  "updated_at_utc": "2026-08-09T14:46:36Z",
   "jira_key": "BAT-475",
   "local_issue_id": "POST-SUBTASK-125",
   "producer": {
     "agent": "Codex",
     "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
   },
-  "observable_outcome": "The bounded machine remediation is protected-integrated: all 14 product packages form a compatible Python 3.12 set with no known pip-audit findings at check time, every lock entry is bound to reviewed PyPI SHA-256 release-file identities, hashed installation and deterministic license/notice inventory are enforced, automated security fixes are enabled, and protected CI plus Dependabot controls pass. The final implementation passes 258 tests with 1 Windows privilege-dependent symlink test skipped and 33 subtests; Linux protected CI passed the symlink case. GitHub exposed zero OPEN Dependabot, secret-scanning, and code-scanning alerts at the final check, and historical HIGH CodeQL alerts #1 and #2 were fixed without dismissal. BAT-475 remains Blocked/Partial solely because no named human source-rights decision exists.",
+  "observable_outcome": "The primary bounded machine remediation is protected-integrated: all 14 product packages form a compatible Python 3.12 set with no known pip-audit findings at check time, every lock entry is bound to reviewed PyPI SHA-256 release-file identities, hashed installation and deterministic license/notice inventory are enforced, automated security fixes are enabled, and protected CI plus Dependabot controls pass. A bounded candidate also upgrades the five official CI/security action families surfaced by Dependabot from Node.js 20-targeted majors to Node.js 24-compatible majors; protected integration of that follow-up is pending. The full implementation passes 258 tests with 1 Windows privilege-dependent symlink test skipped and 33 subtests; Linux protected CI passed the symlink case. GitHub exposed zero OPEN Dependabot, secret-scanning, and code-scanning alerts at the final check, and historical HIGH CodeQL alerts #1 and #2 were fixed without dismissal. BAT-475 remains Blocked/Partial solely because no named human source-rights decision exists.",
   "eligibility": "BLOCKED_NOT_RELEASE_ELIGIBLE",
   "achieved_maturity": "FUNCTIONAL_STARTER",
   "evidence_state": "PARTIAL",
   "issue_disposition": "BLOCKED",
   "input_identities": {
-    "git_base_commit": "27cedd9b1b7007ac78f18fde588555b8ae23b871",
-    "git_base_tree": "8c03772d72247a884fae5dc7af3ab423e3511509",
+    "git_base_commit": "0601b9f5c4ed44856e77e5d286ed0d21a050dec2",
+    "git_base_tree": "08c5877ed51648b8917d9d6fc7fd4ed7a85b39d6",
     "prior_report_sha256": "ac9b16ec625052cca5192c72a65b61d8a3f024297395b8bf0ab4a1c4fc9a2f16",
     "requirements_product_lock_sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05",
     "pyproject_toml_sha256": "668b3a4bb21de54fb6260ec982f4ae5772c5fcea30e12a23741b53ecd498690b",
-    "repository_ci_sha256": "f859bc1f5fac372bee02ac2f93d1ad71c61df883530bddc321033cb8318428a0",
+    "repository_ci_sha256": "2807ba9949be2d625019b0fffdb80e2d1ac93d6f3225f1e521a95a9c9302f7f7",
+    "security_workflow_sha256": "1f5d272d34dde3d68b86b830c1b4f81fe157df89faf9147e72d0897c743c1958",
     "dependabot_config_sha256": "6f2dfe93dc093e9510fb9ed2152caa236d7f6c088da6e51b6e05365cd315bb6a",
     "dependency_policy_validator_sha256": "5fec2e80bb65b158001240c1cde1fc3543d8856d10b03ffb57a46a4066ad2418",
     "product_supply_chain_validator_sha256": "9bcd852c97dc58662cf352d54bd483b04787548a9635371c6d39217c92de1049",
@@ -164,8 +165,25 @@
     "supply_chain_pr": {"number": 40, "head": "a1f1270846c9b94fe4e0a1deb8de3bb1855d04f0", "merge": "1a20515701345cc28f51ebd9b1e2cf4375ee9892", "merged_at_utc": "2026-08-09T14:14:19Z"},
     "path_scope_pr": {"number": 46, "head": "5ed796f43cbe826f408c5cc6f7c8f01b823b338e", "merge": "250b155b83a23afb17d8cb479774a94fa4176803", "merged_at_utc": "2026-08-09T14:19:02Z"},
     "path_containment_pr": {"number": 47, "head": "672d8f0895c0dc8f7350e19facb47d68df904ef0", "merge": "27cedd9b1b7007ac78f18fde588555b8ae23b871", "merged_at_utc": "2026-08-09T14:25:29Z"},
-    "successful_main_runs": [31317917725, 31317917803, 31318405595, 31318405594],
+    "evidence_sync_pr": {"number": 48, "head": "727259e4ed5b75f42561fea51eea0e73756347a8", "merge": "003927a0975de3a468cd025d62714067ce37f55a", "merged_at_utc": "2026-08-09T14:37:34Z"},
+    "node24_action_scope_pr": {"number": 49, "head": "7e130df9d7aea0a72d49467e561993b02014f2dc", "merge": "0601b9f5c4ed44856e77e5d286ed0d21a050dec2", "merged_at_utc": "2026-08-09T14:44:19Z"},
+    "successful_main_runs": [31317917725, 31317917803, 31318405595, 31318405594, 31318934933, 31318934925, 31319234667, 31319234654],
     "all_required_contexts_passed": true
+  },
+  "node24_action_upgrade": {
+    "disposition": "PASS_CANDIDATE_PENDING_PROTECTED_INTEGRATION",
+    "trigger": "GitHub-hosted runner Node.js 20 deprecation warning",
+    "dependabot_pull_requests_reviewed": [41, 42, 43, 44, 45],
+    "official_action_refs": {
+      "actions/checkout": "v7",
+      "actions/setup-python": "v7",
+      "actions/upload-artifact": "v7",
+      "actions/dependency-review-action": "v5",
+      "github/codeql-action": "v4"
+    },
+    "minimum_runner_version_for_node24_action_families": "2.327.1",
+    "github_hosted_runner_validation": "PENDING_PROTECTED_PR",
+    "provenance_bypass_allowed": false
   },
   "human_rights_review": {
     "required": true,
@@ -196,6 +214,8 @@
     {"class": "NEGATIVE_RESULT", "command": "python -m unittest tests.test_product_supply_chain", "exit_code": 1, "result": "PRESERVED_LOCAL_IMPORT_SHADOWING_DISCOVERY_MODE_PASSED"},
     {"class": "LEGAL_RIGHTS_REVIEW", "command": "MANUAL_REVIEW_REQUIRED", "exit_code": null, "result": "BLOCKED_MISSING_NAMED_REVIEW"},
     {"class": "PROTECTED_INTEGRATION", "command": "GitHub protected PRs #40, #46, and #47 plus main replay", "exit_code": 0, "result": "PASS_ALL_REQUIRED_CONTEXTS_AND_MAIN_RUNS"}
+    ,{"class": "NEGATIVE_RESULT", "command": "Dependabot PRs #41-#45 protected checks", "exit_code": 1, "result": "PRESERVED_PROVENANCE_MANIFEST_HASH_REJECTION"}
+    ,{"class": "NODE24_ACTION_CANDIDATE", "command": "Review official action release notes and update workflow major refs", "exit_code": 0, "result": "PASS_LOCAL_IDENTITY_PROTECTED_INTEGRATION_PENDING"}
   ],
   "acceptance_matrix": [
     {
@@ -231,6 +251,7 @@
     {"id": "SOURCE_RIGHTS_REVIEW_MISSING", "status": "UNRESOLVED", "waived": false, "resolution": "HUMAN_REQUIRED"},
     {"id": "GITHUB_ALERT_COUNTS_UNAVAILABLE", "status": "RESOLVED", "waived": false, "resolution": "ALERT_LIST_APIS_VISIBLE_AND_TIME_BOUND_OPEN_COUNTS_RECORDED"},
     {"id": "CODEQL_PATH_INJECTION_ALERTS_1_2", "status": "FIXED_NOT_DISMISSED", "waived": false, "resolution": "CANONICAL_CHILD_AND_NON_SYMLINK_PATH_CONTAINMENT_PROTECTED_INTEGRATED"},
+    {"id": "NODE20_GITHUB_ACTION_DEPRECATION", "status": "REMEDIATED_CANDIDATE", "waived": false, "resolution": "OFFICIAL_NODE24_ACTION_MAJORS_SELECTED_PROTECTED_INTEGRATION_PENDING"},
     {"id": "AC_038_TARGET_HARDWARE_EVIDENCE_UNRESOLVED", "status": "UNRESOLVED_PROGRAM_BLOCKER", "waived": false, "resolution": "RETAINED_PROGRAM_BLOCKER"},
     {"id": "LOCAL_SOURCE_PATH_NOT_CONFIGURED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "PYTHONPATH_SRC_RERUN_PASSED_31_TESTS_1_SKIP_9_SUBTESTS"},
     {"id": "LOCAL_DOTTED_UNITTEST_IMPORT_SHADOWED", "status": "PRESERVED_CORRECTED", "waived": false, "resolution": "REPOSITORY_DISCOVERY_MODE_PASSED_258_TESTS_1_SKIP_33_SUBTESTS"}

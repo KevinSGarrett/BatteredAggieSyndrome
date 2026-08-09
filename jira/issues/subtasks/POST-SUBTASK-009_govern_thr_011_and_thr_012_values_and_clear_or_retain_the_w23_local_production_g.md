@@ -32,7 +32,7 @@
     "artifacts/benchmarks/ac038_gate_decision.json",
     "artifacts/jira_evidence/POST-SUBTASK-009.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "AC038_THRESHOLD_AUTHORITY_BLOCKER: accepted benchmark v1 preserves target_match=false and authoritative_for_thr_011_012=false without override; the six-stage supplement is a synthetic resource proxy, not a material production workflow; no predeclared threshold-derivation/headroom method exists. THR-011/012 remain blank and AC-038/TASK-163 remain blocked.",
   "blocks": [
     "POST-EPIC-015",
     "POST-STORY-004",
@@ -100,7 +100,7 @@
   "end_to_end_validation": "The target host produces authoritative benchmark evidence and the governance layer deterministically resolves or retains AC-038 without fabricated thresholds. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-015, POST-STORY-004, POST-STORY-041, POST-STORY-046, POST-SUBTASK-010, POST-SUBTASK-011, POST-SUBTASK-012, POST-SUBTASK-121, POST-SUBTASK-122, POST-SUBTASK-123, POST-SUBTASK-136, POST-SUBTASK-137….",
   "epic_id": "POST-EPIC-001",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-009.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -178,8 +178,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24499",
-    "jira_updated_at": "2026-08-09T00:05:13.871-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
+    "jira_updated_at": "2026-08-09T06:31:10.644-0500",
+    "last_synced_at": "2026-08-09T11:31:12.000000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
@@ -241,7 +241,7 @@
     "scripts/benchmark_target.ps1",
     "src/aggie_analytics/operations/benchmark.py"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -377,7 +377,7 @@
   "title": "[POST-SUBTASK-009] Govern THR-011 and THR-012 values and clear or retain the W23 local-production gate",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Provide an accepted representative material-workflow benchmark whose declared target authority passes without override, with a threshold derivation/headroom method declared before pass/fail evaluation; then synchronize THR-011/012, AC-038, TASK-161/TASK-163, and the strict W23 validator from protected evidence without relaxing an observed failure.",
   "validation_classes": [
     "BENCHMARK",
     "CHRONOLOGICAL_REPLAY",
@@ -387,7 +387,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-003: Authoritative target-hardware benchmark and threshold governance.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-009.md",
-  "workflow_state": "READY"
+  "workflow_state": "BLOCKED"
 }
 ```
 

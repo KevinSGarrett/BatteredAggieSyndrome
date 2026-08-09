@@ -40,14 +40,14 @@ Execute the atomic 3 of 3 step in Story POST-STORY-006 (Per-source license, term
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `DONE`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `SHARED_CONTRACT`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `CONTRACT_DEFINED` → `INTEGRATED`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-024`
 
 ## Read first

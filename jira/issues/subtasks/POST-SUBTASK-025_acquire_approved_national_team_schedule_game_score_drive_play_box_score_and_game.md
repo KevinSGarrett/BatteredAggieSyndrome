@@ -22,7 +22,7 @@
     "artifacts/data_lake/core_acquisition_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-025.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-018;POST-SUBTASK-021;POST-SUBTASK-022",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-021;POST-SUBTASK-022",
   "blocks": [
     "POST-SUBTASK-026",
     "POST-SUBTASK-027"

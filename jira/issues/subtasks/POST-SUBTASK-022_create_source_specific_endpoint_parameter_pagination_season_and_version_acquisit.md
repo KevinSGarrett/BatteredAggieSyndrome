@@ -22,7 +22,7 @@
     "configs/source_acquisition_registry.json",
     "artifacts/jira_evidence/POST-SUBTASK-022.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-018;POST-SUBTASK-021",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-021",
   "blocks": [
     "POST-STORY-009",
     "POST-SUBTASK-023",

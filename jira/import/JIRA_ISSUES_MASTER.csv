@@ -20840,7 +20840,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-018,data-sources,POST-SUBTASK-018,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,READY,INTEGRATED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",Done,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-018,data-sources,POST-SUBTASK-018,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,DONE,INTEGRATED,VERIFIED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-369,100323,"[POST-SUBTASK-019] Define credential names, scopes, owners, rotation, and non-repository storage contract",100057,"Local ID: POST-SUBTASK-019
 
 Objective

@@ -133,11 +133,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24524",
-    "jira_updated_at": "2026-08-09T00:03:32.722-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T17:59:07.064-0500",
+    "last_synced_at": "2026-08-09T23:09:58.852569+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-384\\BAT-384-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -303,5 +303,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-012: Population schema and missingness contracts.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-034.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }

@@ -23,7 +23,7 @@
     "artifacts/source_governance/credential_contract.redacted.json",
     "artifacts/jira_evidence/POST-SUBTASK-019.json"
   ],
-  "blocked_reason": "USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-020",
     "POST-SUBTASK-021"
@@ -135,7 +135,6 @@
   "labels": [
     "actionable",
     "core-release",
-    "external-blocker",
     "post-wave",
     "protected-gate",
     "sources",
@@ -166,7 +165,7 @@
   "phase": "PHASE-1",
   "prerequisites": [
     "Dependency POST-SUBTASK-015 complete at required maturity",
-    "External condition: USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY"
+    "External credential condition verified by protected POST-SUBTASK-005 redacted inventory and authenticated read-only smoke evidence"
   ],
   "primary_source_refs": [
     "SRCREF-02007",
@@ -206,7 +205,7 @@
     "docs/data_research/w06/SOURCE_PRIORITY_DECISIONS.md",
     "docs/data_research/w24/SOURCE_REFRESH_FINDINGS.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -256,7 +255,7 @@
     "Acceptance failure: the evidence cannot demonstrate that credential variables are source-scoped and least-privilege where the provider supports scopes.",
     "Acceptance failure: the evidence cannot demonstrate that rotation/revocation ownership and expiry handling are documented.",
     "Acceptance failure: the evidence cannot demonstrate that no credential value appears in Git-tracked files or evidence.",
-    "External blocker remains unresolved: USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY."
+    "The verified external credential condition must remain value-free, non-repository, source-scoped, and fail closed if its protected evidence identity drifts."
   ],
   "risk_ids": [],
   "schema_version": 2,
@@ -313,7 +312,7 @@
     "POST-SUBTASK-024"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Provide and verify external condition: USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REGRESSION",
@@ -322,7 +321,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-007: Credential configuration and access smoke tests.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-019.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 
@@ -360,7 +359,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-007 (Credential configuration
 ## Prerequisites
 
 - Dependency POST-SUBTASK-015 complete at required maturity
-- External condition: USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY
+- External credential condition verified by protected POST-SUBTASK-005 redacted inventory and authenticated read-only smoke evidence
 
 ## Hard Dependencies
 
@@ -495,7 +494,7 @@ Validate that `docs/operations/SOURCE_CREDENTIAL_CONTRACT.md`, `artifacts/source
 - Acceptance failure: the evidence cannot demonstrate that credential variables are source-scoped and least-privilege where the provider supports scopes.
 - Acceptance failure: the evidence cannot demonstrate that rotation/revocation ownership and expiry handling are documented.
 - Acceptance failure: the evidence cannot demonstrate that no credential value appears in Git-tracked files or evidence.
-- External blocker remains unresolved: USER_MUST_SUPPLY_CREDENTIALS_OUTSIDE_REPOSITORY.
+- The verified external credential condition must remain value-free, non-repository, source-scoped, and fail closed if its protected evidence identity drifts.
 
 ## Stop Conditions
 

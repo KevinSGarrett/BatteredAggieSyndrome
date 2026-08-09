@@ -7,9 +7,10 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.",
-    "The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
-    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+    "The national manifest enumerates the expanded population independently by source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation, immutable capture/provenance identity, and historical known-at/PIT eligibility.",
+    "All partial seasons, missing domains, schema drift, quarantines, reconciliation failures, excluded records, provider limitations, and negative findings remain queryable and hash-bound.",
+    "The 2022-2025 tranche is identified as the first validated bounded contemporary tranche, never as terminal national history or GAP-002 resolution.",
+    "All manifest identities are deterministic, external-data paths remain contained, and POST-SUBTASK-033 can reproduce coverage and eligibility decisions without manual reconstruction."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -134,9 +135,10 @@
     "data-materialization",
     "post-wave",
     "raw-data",
-    "subtask"
+    "subtask",
+    "historical-expansion"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-032",
   "maturity_before": "SCAFFOLD",
   "objective": "Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests",
@@ -416,9 +418,10 @@ Execute the atomic 2 of 3 step in Story POST-STORY-011 (Immutable raw store, man
 
 ## Acceptance Criteria
 
-1. The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.
-2. The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. The national manifest enumerates the expanded population independently by source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation, immutable capture/provenance identity, and historical known-at/PIT eligibility.
+2. All partial seasons, missing domains, schema drift, quarantines, reconciliation failures, excluded records, provider limitations, and negative findings remain queryable and hash-bound.
+3. The 2022-2025 tranche is identified as the first validated bounded contemporary tranche, never as terminal national history or GAP-002 resolution.
+4. All manifest identities are deterministic, external-data paths remain contained, and POST-SUBTASK-033 can reproduce coverage and eligibility decisions without manual reconstruction.
 
 ## Definition of Done
 

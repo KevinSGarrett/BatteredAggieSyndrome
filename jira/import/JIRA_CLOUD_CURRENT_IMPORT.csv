@@ -3782,23 +3782,23 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/stories/POST-STORY-009_core_national_game_spine.json",To Do,Highest,actionable;core-release;post-wave;raw-data;story;local-id-post-story-009,raw-snapshots,POST-STORY-009,GAP-002;HANDOFF-003,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,true,SHARED_CONTRACT
-Story,BAT-60,100060,"[POST-STORY-010] Player, roster, recruiting, market, weather, and contextual raw domains",100036,"Local ID: POST-STORY-010
+Story,BAT-60,100060,[POST-STORY-010] Expanded national core and supporting-domain acquisition and tiered eligibility,100036,"Local ID: POST-STORY-010
 
 Objective
-Materialize the supporting source domains needed for availability, specialization, matchup context, and uncertainty.
+Acquire, profile, and assign tiered eligibility to the expanded national core and supporting-domain history
 
 Why This Exists
 This coherent capability closes a defined portion of Immutable national historical data materialization and creates a verifiable output for the next dependency stage.
 
 Scope
-Deliver Story POST-STORY-010 (Player, roster, recruiting, market, weather, and contextual raw domains) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-028, POST-SUBTASK-029, POST-SUBTASK-030 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-030` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
+Execute POST-SUBTASK-028 through POST-SUBTASK-030 as the expanded-history acquisition/profile/eligibility chain. Target approximately 2010-2025 and earlier supported seasons, preserve the bounded 2022-2025 tranche as nonterminal, and hand explicit season/domain/use tiers plus negative evidence to immutable national-lake work.
 
 Explicit In Scope
-- Complete and verify child `POST-SUBTASK-028` — Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence.
-- Complete and verify child `POST-SUBTASK-029` — Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class.
-- Complete and verify child `POST-SUBTASK-030` — Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility.
-- Integrate the child outputs and execute final gate `POST-SUBTASK-030`.
-- Preserve exact source/data/code/config/runtime identities, failures, unresolved blockers, and downstream-consumption evidence.
+- Complete and verify POST-SUBTASK-028 expanded immutable acquisition across every useful approved core and supporting domain.
+- Complete and verify POST-SUBTASK-029 independent population profiling across all required source/season/team/domain/schema/provenance/PIT dimensions.
+- Complete and verify POST-SUBTASK-030 tiered season/domain/use eligibility without global rejection of partial older seasons or unsupported promotion.
+- Preserve the bounded 2022-2025 tranche as nonterminal and target approximately 2010-2025 plus earlier quality-supported seasons.
+- Integrate child outputs through final gate POST-SUBTASK-030 with all partial, negative, and provider-limitation evidence preserved.
 
 Explicit Out of Scope
 - Work assigned to sibling Stories or another Epic.
@@ -3810,9 +3810,10 @@ Prerequisites / Dependencies
 - POST-SUBTASK-027
 
 Acceptance Criteria
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.
+2. The final child gate POST-SUBTASK-030 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.
+3. The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.
+4. No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass.
 
 Definition of Done
 1. All child subtasks POST-SUBTASK-028, POST-SUBTASK-029, POST-SUBTASK-030 have verified evidence or an explicit accepted-risk/deferred/cancelled disposition consistent with the Story contract.
@@ -3833,7 +3834,7 @@ Required Evidence
 - Story-level downstream-consumption evidence and an explicit list of issues unlocked, retained blocked, rejected, or deferred.
 
 End-to-End Validation
-Supporting domains are acquired and classified from real historical evidence without inventing timing, coverage, rights, or certainty.
+A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.
 
 Stop Conditions
 - Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs.
@@ -3860,17 +3861,17 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/stories/POST-STORY-010_player_roster_recruiting_market_weather_and_contextual_raw_domains.json",To Do,Highest,actionable;core-release;post-wave;raw-data;story;local-id-post-story-010,raw-snapshots,POST-STORY-010,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,true,SHARED_CONTRACT
-Story,BAT-61,100061,"[POST-STORY-011] Immutable raw store, manifests, provenance, and population audit",100036,"Local ID: POST-STORY-011
+Canonical Record: jira/records/issues/stories/POST-STORY-010_player_roster_recruiting_market_weather_and_contextual_raw_domains.json",To Do,Highest,actionable;core-release;post-wave;raw-data;story;historical-expansion;local-id-post-story-010,raw-snapshots,POST-STORY-010,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,true,SHARED_CONTRACT
+Story,BAT-61,100061,"[POST-STORY-011] Immutable expanded national lake, provenance, population audit, and readiness",100036,"Local ID: POST-STORY-011
 
 Objective
-Prove that every accepted raw domain is immutable, reproducible, rights-aware, and reconstructable.
+Materialize and non-bypassably gate the immutable expanded national historical lake
 
 Why This Exists
 This coherent capability closes a defined portion of Immutable national historical data materialization and creates a verifiable output for the next dependency stage.
 
 Scope
-Deliver Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-033` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
+Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain history. Preserve content-addressed external captures, correction/quarantine lineage, complete coverage/provenance manifests, scoped tier eligibility, and an honest readiness decision that cannot resolve GAP-002 or authorize downstream science prematurely.
 
 Explicit In Scope
 - Complete and verify child `POST-SUBTASK-031` — Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes.
@@ -3891,9 +3892,10 @@ Prerequisites / Dependencies
 - POST-SUBTASK-030
 
 Acceptance Criteria
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.
+2. The final child gate POST-SUBTASK-033 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.
+3. The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.
+4. No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass.
 
 Definition of Done
 1. All child subtasks POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033 have verified evidence or an explicit accepted-risk/deferred/cancelled disposition consistent with the Story contract.
@@ -3914,7 +3916,7 @@ Required Evidence
 - Story-level downstream-consumption evidence and an explicit list of issues unlocked, retained blocked, rejected, or deferred.
 
 End-to-End Validation
-Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, restriction, correction, and blocker.
+A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.
 
 Stop Conditions
 - Stop if entry dependencies are not complete at required maturity or if the gate cannot evaluate the combined outputs.
@@ -3937,7 +3939,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/stories/POST-STORY-011_immutable_raw_store_manifests_provenance_and_population_audit.json",To Do,Highest,actionable;core-release;post-wave;raw-data;story;local-id-post-story-011,raw-snapshots,POST-STORY-011,GAP-002;HANDOFF-003,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,true,SHARED_CONTRACT
+Canonical Record: jira/records/issues/stories/POST-STORY-011_immutable_raw_store_manifests_provenance_and_population_audit.json",To Do,Highest,actionable;core-release;post-wave;raw-data;story;historical-expansion;local-id-post-story-011,raw-snapshots,POST-STORY-011,GAP-002;HANDOFF-003,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,true,SHARED_CONTRACT
 Story,BAT-62,100062,[POST-STORY-012] Population schema and missingness contracts,100037,"Local ID: POST-STORY-012
 
 Objective
@@ -21685,42 +21687,42 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-027_approve_or_block_the_population_level_core_history_coverage_gate.json",Done,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;local-id-post-subtask-027,raw-snapshots,POST-SUBTASK-027,GAP-002;HANDOFF-003,PHASE-1,DONE,PRODUCTION_READY,VERIFIED,POST_W25,true,PROTECTED_GATE
-Sub-task,BAT-378,100332,"[POST-SUBTASK-028] Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence",100060,"Local ID: POST-SUBTASK-028
+Sub-task,BAT-378,100332,[POST-SUBTASK-028] Expand immutable national core and supporting-domain history to the maximum quality-supported seasons,100060,"Local ID: POST-SUBTASK-028
 
 Objective
-Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence
+Acquire immutable expanded national core and supporting-domain history, targeting approximately 2010-2025 and earlier quality-supported seasons
 
 Why This Exists
 This is an independently executable and verifiable work unit required by Story POST-STORY-010: Player, roster, recruiting, market, weather, and contextual raw domains.
 
 Scope
-Execute the atomic 1 of 3 step in Story POST-STORY-010 (Player, roster, recruiting, market, weather, and contextual raw domains): Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence. Consume only verified prerequisite outputs from `POST-SUBTASK-027`. Produce `artifacts/data_lake/context_acquisition_manifest.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-029.
+Execute the critical-path historical-expansion acquisition entrypoint after the validated bounded 2022-2025 tranche. Inventory and acquire the maximum quality-supported national history, targeting approximately 2010-2025 and extending earlier where supported, across teams, schedules, games, official outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced game statistics, structured gamebook-equivalent data, and useful supporting context. Preserve source/endpoint, request, season/type, team/game, domain/grain, schema/version, immutable hash/path, retrieval/known-at, provider-failure, and rights identities; hand the deterministic manifest to POST-SUBTASK-029.
 
 Explicit In Scope
-- Perform the exact action: Acquire timestamped roster, depth, participation, injury, recruiting, transfer, coaching, weather, venue, travel, market, resource, and mechanics evidence.
-- Consume only verified prerequisite outputs from `POST-SUBTASK-027`.
-- Demonstrate with saved evidence: Every record retains source/published/observed/retrieved time and canonical identity candidates; absence or ambiguous timing is not converted to healthy, available, or known.
-- Demonstrate with saved evidence: The declared output `artifacts/data_lake/context_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-- Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
-- Produce, validate, content-hash, and register `artifacts/data_lake/context_acquisition_manifest.json`.
-- Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
+- Preserve the validated 2022-2025 tranche unchanged as a bounded input and expand beyond it.
+- Acquire every useful approved domain available per season: teams, schedules, games, official outcomes, drives, plays, team/player box scores, rosters, rankings, venues, advanced game statistics, structured gamebook equivalents, and useful approved supporting context.
+- Use approved direct APIs/downloads and permitted Scrapfly, ScraperAPI, browser, Docker, or equivalent routes autonomously; substitute sources when a preferred route fails.
+- Write bulk raw and normalized payloads only below AGGIE_ANALYTICS_DATA_ROOT as immutable content-addressed captures.
+- Record partial seasons, missing domains, schema drift, failed endpoints, reconciliation candidates, and historical known-at/PIT limitations as evidence.
+- Produce and validate `artifacts/data_lake/historical_expansion_acquisition_manifest.json` and hand it to POST-SUBTASK-029.
 
 Explicit Out of Scope
-- Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.
-- Changing protected requirements, judging rules, split seals, PIT cutoffs, or accepted ADRs merely to obtain a passing result.
-- Treating synthetic fixtures, file existence, or a successful command as proof of real-data, empirical, target-hardware, legal-rights, or operating readiness.
-- Work assigned to sibling subtasks: Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class; Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility.
-- Using same-game, future, postgame, closing-line, realized-weather, corrected-late, or globally fitted information in a pregame path.
-- Forcing a nonzero A&M/BAS effect, unsealing protected evaluation early, cherry-picking a winner, or suppressing null/negative results.
+- Claiming that the bounded 2022-2025 tranche is terminal national history or the default final training population.
+- Discarding an otherwise useful season solely because player, roster, play-by-play, gamebook, box-score, or advanced-stat coverage is incomplete.
+- Promoting incomplete evidence into an unsupported domain, fabricating completeness thresholds, or weakening protected PIT/target-game rules.
+- Committing bulk raw/normalized source data, credentials, or restricted payloads to Git, Jira, logs, screenshots, or model prompts.
+- Claiming production model readiness, champion performance, A&M lift, BAS, Aggie Excess, or GAP-002 resolution.
 
 Prerequisites / Dependencies
 - Dependency POST-SUBTASK-027 complete at required maturity
 - POST-SUBTASK-027
 
 Acceptance Criteria
-1. Every record retains source/published/observed/retrieved time and canonical identity candidates; absence or ambiguous timing is not converted to healthy, available, or known.
-2. The declared output `artifacts/data_lake/context_acquisition_manifest.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. The bounded 2022-2025 population remains identified as the first validated contemporary tranche and is not represented as terminal history, the complete lake, or GAP-002 resolution.
+2. The acquisition targets at least approximately 2010-2025, extends earlier where source/domain quality supports it, and records every attempted source/endpoint/season/type/domain outcome without discarding an otherwise useful season because another domain is incomplete.
+3. Every capture or failed attempt records source and endpoint, request identity, season and season type, team/game scope where applicable, domain and grain, schema/version, retrieval and known-at state, content hash and immutable external path, pagination, rights class, and provider limitation.
+4. The declared output `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is deterministic, provenance-complete, stored without bulk raw data in Git, and consumable by POST-SUBTASK-029.
+5. No source availability, completeness threshold, empirical result, model readiness, A&M lift, BAS, Aggie Excess, or GAP-002 closure is fabricated or implied.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-028 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
@@ -21729,26 +21731,24 @@ Definition of Done
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
 5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
-7. The output set `artifacts/data_lake/context_acquisition_manifest.json` is demonstrably consumable by POST-SUBTASK-029 without manual reconstruction or undocumented state.
+7. The output set `artifacts/data_lake/historical_expansion_acquisition_manifest.json` is demonstrably consumable by POST-SUBTASK-029 without manual reconstruction or undocumented state.
 
 Required Tests / Validation
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w19_foundation.py — Run as a regression check after completing POST-SUBTASK-028; retain command, exit code, and relevant output.
-- CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/context_acquisition_manifest.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
-- SCIENTIFIC / SCIENTIFIC: artifacts/data_lake/context_acquisition_manifest.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
-- INTEGRATION / INTEGRATION: artifacts/data_lake/context_acquisition_manifest.json — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
+- CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/historical_expansion_acquisition_manifest.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
+- SCIENTIFIC / SCIENTIFIC: artifacts/data_lake/historical_expansion_acquisition_manifest.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
+- INTEGRATION / INTEGRATION: artifacts/data_lake/historical_expansion_acquisition_manifest.json — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
 - NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW_TEST_REQUIRED::POST-SUBTASK-028 — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 Required Evidence
-- `artifacts/data_lake/context_acquisition_manifest.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
-- An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
-- Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
-- An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
-- PIT evidence showing prediction cutoff, known-at fields, rejected future/same-game/postgame records, fold/split identity, and leakage-test results.
-- Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
+- `artifacts/data_lake/historical_expansion_acquisition_manifest.json` with SHA-256, producer command/version, source/endpoint request identities, season/type and domain/grain coverage, schema versions, immutable external paths/hashes, known-at/PIT state, provider failures, and negative findings.
+- An acceptance matrix proving the bounded 2022-2025 tranche is nonterminal and every attempted acquisition has a PASS, FAIL, PARTIAL, UNAVAILABLE, or BLOCKED disposition without fabricated completeness.
+- Disk/cleanup evidence showing bulk data remained under AGGIE_ANALYTICS_DATA_ROOT and reconstructible temporary or abandoned payloads were removed after validation.
+- Exact commands/tool versions, exit codes, redacted credential checks, and downstream POST-SUBTASK-029 consumer validation.
 
 End-to-End Validation
-Validate that `artifacts/data_lake/context_acquisition_manifest.json` can be parsed and consumed by `POST-SUBTASK-029` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+Validate that the expanded acquisition manifest independently enumerates source/endpoint, season/type, team/game, domain/grain, schema/version, missing/failure, immutable provenance, and historical known-at/PIT state, and that POST-SUBTASK-029 rejects missing, stale, hash-invalid, rights-blocked, or silently terminal-2022-2025 inputs.
 
 Stop Conditions
 - Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
@@ -21777,25 +21777,25 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-028_acquire_timestamped_roster_depth_participation_injury_recruiting_transfer_coachi.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-028,raw-snapshots,POST-SUBTASK-028,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
-Sub-task,BAT-379,100333,"[POST-SUBTASK-029] Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class",100060,"Local ID: POST-SUBTASK-029
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-028_acquire_timestamped_roster_depth_participation_injury_recruiting_transfer_coachi.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-028,raw-snapshots,POST-SUBTASK-028,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
+Sub-task,BAT-379,100333,"[POST-SUBTASK-029] Profile expanded history by source, season, team/game, domain/grain, schema, reconciliation, provenance, and PIT eligibility",100060,"Local ID: POST-SUBTASK-029
 
 Objective
-Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class
+Measure expanded historical eligibility independently across every required coverage and provenance dimension
 
 Why This Exists
 This is an independently executable and verifiable work unit required by Story POST-STORY-010: Player, roster, recruiting, market, weather, and contextual raw domains.
 
 Scope
-Execute the atomic 2 of 3 step in Story POST-STORY-010 (Player, roster, recruiting, market, weather, and contextual raw domains): Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-028`. Produce `artifacts/data_lake/context_population_profile.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to POST-SUBTASK-030.
+Profile the POST-SUBTASK-028 expanded acquisition population independently across source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation quality, immutable capture/provenance identity, and historical known-at/PIT eligibility. Preserve partial and negative evidence, and hand a deterministic population profile to POST-SUBTASK-030 for tiered eligibility decisions.
 
 Explicit In Scope
-- Perform the exact action: Profile supporting-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class.
+- Perform the exact action: Profile expanded cross-domain schema, historical coverage, timestamp quality, upstream lineage, and rights class.
 - Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-028`.
 - Demonstrate with saved evidence: Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
-- Demonstrate with saved evidence: The declared output `artifacts/data_lake/context_population_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+- Demonstrate with saved evidence: The declared output `artifacts/data_lake/historical_expansion_population_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
 - Demonstrate with saved evidence: The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
-- Produce, validate, content-hash, and register `artifacts/data_lake/context_population_profile.json`.
+- Produce, validate, content-hash, and register `artifacts/data_lake/historical_expansion_population_profile.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
 Explicit Out of Scope
@@ -21814,9 +21814,10 @@ Prerequisites / Dependencies
 - POST-SUBTASK-028
 
 Acceptance Criteria
-1. Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
-2. The declared output `artifacts/data_lake/context_population_profile.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Coverage is measured independently by source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation, immutable capture/provenance identity, and historical known-at/PIT eligibility.
+2. Partial seasons, missing domains, schema drift, provider limitations, unresolved identities, reconciliation failures, and negative findings are retained rather than collapsed into a global pass/fail.
+3. The profile spans the maximum acquired quality-supported history, targets approximately 2010-2025 and earlier supported seasons, and flags any silent four-season or 2022-2025 terminal assumption as a failure.
+4. The deterministic profile is consumable by POST-SUBTASK-030 without manual reconstruction or hidden completeness assumptions.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-029 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
@@ -21825,17 +21826,17 @@ Definition of Done
 4. Every required validation entry is executed or explicitly blocked with reason; NEW_AUTOMATED_TEST_REQUIRED entries are implemented and run before completion.
 5. No secrets, restricted raw payloads, fabricated data, fabricated metrics, fabricated rights approvals, or unsupported maturity claims are committed or imported into Jira.
 6. The canonical record, generated Markdown, AI work packet, source manifest, indexes, import derivatives, change log, live Jira operational fields when connected, and READY/BLOCKED queues are synchronized and pass strict validation.
-7. The output set `artifacts/data_lake/context_population_profile.json` is demonstrably consumable by POST-SUBTASK-030 without manual reconstruction or undocumented state.
+7. The output set `artifacts/data_lake/historical_expansion_population_profile.json` is demonstrably consumable by POST-SUBTASK-030 without manual reconstruction or undocumented state.
 
 Required Tests / Validation
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w19_foundation.py — Run as a regression check after completing POST-SUBTASK-029; retain command, exit code, and relevant output.
-- CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/context_population_profile.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
-- SCIENTIFIC / SCIENTIFIC: artifacts/data_lake/context_population_profile.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
-- STATIC_VALIDATION / STATIC_VALIDATION: artifacts/data_lake/context_population_profile.json — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
+- CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/historical_expansion_population_profile.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
+- SCIENTIFIC / SCIENTIFIC: artifacts/data_lake/historical_expansion_population_profile.json — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
+- STATIC_VALIDATION / STATIC_VALIDATION: artifacts/data_lake/historical_expansion_population_profile.json — Validate schema, required fields, unique identifiers, cross-references, provenance, and explicit unresolved states.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
 
 Required Evidence
-- `artifacts/data_lake/context_population_profile.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- `artifacts/data_lake/historical_expansion_population_profile.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
@@ -21844,7 +21845,7 @@ Required Evidence
 - Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status.
 
 End-to-End Validation
-Validate that `artifacts/data_lake/context_population_profile.json` can be parsed and consumed by `POST-SUBTASK-030` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.
+POST-SUBTASK-030 must reproduce every season/domain eligibility input from the pinned expanded acquisition and population-profile identities and reject collapsed, missing, silently truncated, or fabricated coverage evidence.
 
 Stop Conditions
 - Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
@@ -21873,17 +21874,17 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-029,raw-snapshots,POST-SUBTASK-029,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
-Sub-task,BAT-380,100334,"[POST-SUBTASK-030] Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility",100060,"Local ID: POST-SUBTASK-030
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-029,raw-snapshots,POST-SUBTASK-029,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
+Sub-task,BAT-380,100334,[POST-SUBTASK-030] Assign tiered season/domain eligibility and approve only evidence-supported historical uses,100060,"Local ID: POST-SUBTASK-030
 
 Objective
-Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility
+Assign explicit tiered eligibility by season and domain without globally discarding partial older history
 
 Why This Exists
 This is an independently executable and verifiable work unit required by Story POST-STORY-010: Player, roster, recruiting, market, weather, and contextual raw domains.
 
 Scope
-Execute the atomic 3 of 3 step in Story POST-STORY-010 (Player, roster, recruiting, market, weather, and contextual raw domains): Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-028`, `POST-SUBTASK-029`. Produce `artifacts/data_lake/context_eligibility_gate.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+Consume the expanded acquisition/profile evidence and issue tiered, use-specific eligibility by source/endpoint, season/type, team/game, domain/grain, schema/version, reconciliation quality, immutable provenance, and historical known-at/PIT state. Preserve partial seasons and negative evidence; allow useful lower-tier history without promoting it into unsupported domains; hand the versioned gate to immutable-store and national-lake work.
 
 Explicit In Scope
 - Perform the exact action: Approve domain-by-domain production, experimental, conditional, rejected, or banned eligibility.
@@ -21892,7 +21893,7 @@ Explicit In Scope
 - Demonstrate with saved evidence: Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
 - Demonstrate with saved evidence: Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence.
 - Demonstrate with saved evidence: All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
-- Produce, validate, content-hash, and register `artifacts/data_lake/context_eligibility_gate.json`.
+- Produce, validate, content-hash, and register `artifacts/data_lake/historical_expansion_eligibility_gate.json`.
 - Record explicit PASS/FAIL/BLOCKED dispositions and update downstream readiness only from verified evidence.
 
 Explicit Out of Scope
@@ -21911,10 +21912,11 @@ Prerequisites / Dependencies
 - POST-SUBTASK-029
 
 Acceptance Criteria
-1. Every record retains source/published/observed/retrieved time and canonical identity candidates; absence or ambiguous timing is not converted to healthy, available, or known.
-2. Coverage and timestamp quality are measured by season/team/source/domain, with A&M detail reported separately and upstream-equivalent feeds not miscounted as independent corroboration.
-3. Closing market, realized weather, final participation, restricted, thin, or unsupported domains cannot enter earlier production cutoffs or block the core v1 without explicit evidence.
-4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+1. Every season/domain/grain receives an explicit production, experimental, conditional, rejected, unavailable, or banned disposition tied to measured evidence and intended downstream use.
+2. Reliable games/outcomes may be admitted for Elo, team-strength priors, outcome modeling, calibration context, and long-run program context even when roster, player, play-by-play, box-score, gamebook, or advanced-stat domains are incomplete.
+3. No season is silently promoted into a domain whose evidence is incomplete, unreconciled, unavailable, or not historically known, and no weak domain globally discards otherwise eligible domains.
+4. Thresholds and exceptions are evidence-based, versioned, and preserve every partial/negative finding; no threshold is invented or weakened to obtain approval.
+5. The gate explicitly retains GAP-002 and final historical readiness as unresolved pending POST-SUBTASK-033 and later chronological/protected gates.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-030 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
@@ -21927,20 +21929,20 @@ Definition of Done
 
 Required Tests / Validation
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w19_foundation.py — Run as a regression check after completing POST-SUBTASK-030; retain command, exit code, and relevant output.
-- CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/context_eligibility_gate.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
-- SECURITY / SECURITY: artifacts/data_lake/context_eligibility_gate.json — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
-- END_TO_END / END_TO_END: artifacts/data_lake/context_eligibility_gate.json — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
+- CHRONOLOGICAL_REPLAY / CHRONOLOGICAL_REPLAY: artifacts/data_lake/historical_expansion_eligibility_gate.json — Demonstrate cutoff eligibility and negative leakage behavior using pinned chronology; future/same-game/postgame contamination must fail closed.
+- SECURITY / SECURITY: artifacts/data_lake/historical_expansion_eligibility_gate.json — Verify no secret/restricted payload leakage, least-privilege handling, redaction, and fail-closed behavior.
+- END_TO_END / END_TO_END: artifacts/data_lake/historical_expansion_eligibility_gate.json — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
 
 Required Evidence
-- `artifacts/data_lake/context_eligibility_gate.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
+- `artifacts/data_lake/historical_expansion_eligibility_gate.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.
 - An acceptance-evidence matrix with one row per criterion, observable result, evidence location/hash, verifier, timestamp, and PASS/FAIL/BLOCKED disposition.
 - Exact commands/tool versions, exit codes, stdout/stderr locations, and negative/failure results; narrative completion alone is not evidence.
 - An issue completion manifest recording achieved maturity, evidence state, remaining blockers, downstream issues reevaluated, and Jira/local synchronization result.
 - PIT evidence showing prediction cutoff, known-at fields, rejected future/same-game/postgame records, fold/split identity, and leakage-test results.
 
 End-to-End Validation
-Supporting domains are acquired and classified from real historical evidence without inventing timing, coverage, rights, or certainty. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-007, POST-STORY-011, POST-STORY-021, POST-STORY-023, POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033, POST-SUBTASK-061, POST-SUBTASK-062, POST-SUBTASK-063, POST-SUBTASK-067, POST-SUBTASK-068….
+Downstream snapshot, manifest, schema, PIT, and model-dataset consumers must reproduce the exact tier they consume and fail closed when a season/domain is missing, downgraded, rights-blocked, unreconciled, provenance-incomplete, or historically unknown.
 
 Stop Conditions
 - Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
@@ -21969,7 +21971,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-030_approve_domain_by_domain_production_experimental_conditional_rejected_or_banned_.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;local-id-post-subtask-030,raw-snapshots,POST-SUBTASK-030,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-030_approve_domain_by_domain_production_experimental_conditional_rejected_or_banned_.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;historical-expansion;local-id-post-subtask-030,raw-snapshots,POST-SUBTASK-030,GAP-002;GAP-006;GAP-010;GAP-011;HANDOFF-003;HANDOFF-008,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
 Sub-task,BAT-381,100335,"[POST-SUBTASK-031] Enforce content-addressed raw snapshots, correction lineage, quarantine, and source-rights storage classes",100061,"Local ID: POST-SUBTASK-031
 
 Objective
@@ -22005,9 +22007,10 @@ Prerequisites / Dependencies
 - POST-SUBTASK-030
 
 Acceptance Criteria
-1. Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.
-2. The declared output `artifacts/data_lake/immutability_and_correction_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Every expanded raw and normalized capture used downstream is stored outside Git under AGGIE_ANALYTICS_DATA_ROOT with content-addressed identity, source/endpoint/request metadata, retrieval time, schema/version, season/domain scope, and correction/reconciliation lineage.
+2. Quarantine preserves partial, invalid, duplicate, drifted, conflicting, rights-restricted, and reconciliation-failed records without overwriting immutable source evidence.
+3. Reconstructible temporary files, abandoned downloads, duplicate caches, and obsolete worktrees are removed only after required immutable evidence and hashes are verified.
+4. The immutability/correction test deterministically detects mutation, missing lineage, path escape, secret exposure, and stale-artifact retention.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-031 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
@@ -22059,7 +22062,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-031_enforce_content_addressed_raw_snapshots_correction_lineage_quarantine_and_source.json",To Do,Highest,actionable;core-release;post-wave;raw-data;shared-contract;subtask;local-id-post-subtask-031,raw-snapshots,POST-SUBTASK-031,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-031_enforce_content_addressed_raw_snapshots_correction_lineage_quarantine_and_source.json",To Do,Highest,actionable;core-release;post-wave;raw-data;shared-contract;subtask;historical-expansion;local-id-post-subtask-031,raw-snapshots,POST-SUBTASK-031,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT
 Sub-task,BAT-382,100336,"[POST-SUBTASK-032] Build the cross-domain acquisition, schema, quality, and source-to-snapshot provenance manifests",100061,"Local ID: POST-SUBTASK-032
 
 Objective
@@ -22097,9 +22100,10 @@ Prerequisites / Dependencies
 - POST-SUBTASK-031
 
 Acceptance Criteria
-1. The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.
-2. The declared output `artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. The national manifest enumerates the expanded population independently by source/endpoint, season/type, team/game, domain/grain, schema/version, missingness/reconciliation, immutable capture/provenance identity, and historical known-at/PIT eligibility.
+2. All partial seasons, missing domains, schema drift, quarantines, reconciliation failures, excluded records, provider limitations, and negative findings remain queryable and hash-bound.
+3. The 2022-2025 tranche is identified as the first validated bounded contemporary tranche, never as terminal national history or GAP-002 resolution.
+4. All manifest identities are deterministic, external-data paths remain contained, and POST-SUBTASK-033 can reproduce coverage and eligibility decisions without manual reconstruction.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-032 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
@@ -22151,7 +22155,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-032_build_the_cross_domain_acquisition_schema_quality_and_source_to_snapshot_provena.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;local-id-post-subtask-032,raw-snapshots,POST-SUBTASK-032,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-032_build_the_cross_domain_acquisition_schema_quality_and_source_to_snapshot_provena.json",To Do,Highest,actionable;core-release;data-materialization;post-wave;raw-data;subtask;historical-expansion;local-id-post-subtask-032,raw-snapshots,POST-SUBTASK-032,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
 Sub-task,BAT-383,100337,[POST-SUBTASK-033] Run and publish the national historical-lake readiness decision,100061,"Local ID: POST-SUBTASK-033
 
 Objective
@@ -22161,7 +22165,7 @@ Why This Exists
 This is an independently executable and verifiable work unit required by Story POST-STORY-011: Immutable raw store, manifests, provenance, and population audit.
 
 Scope
-Execute the atomic 3 of 3 step in Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit): Run and publish the national historical-lake readiness decision. Consume only verified prerequisite outputs from `POST-SUBTASK-027`, `POST-SUBTASK-030`, `POST-SUBTASK-031`, `POST-SUBTASK-032`. Produce `artifacts/data_lake/national_lake_readiness.json`; evaluate every issue-specific acceptance condition; preserve negative results; and hand the pinned output to the Story gate/downstream dependency graph.
+Run the non-bypassable national historical-lake readiness decision over the expanded quality-supported population. Preserve the bounded 2022-2025 tranche as nonterminal; verify tiered season/domain eligibility, immutable provenance, missing/negative evidence, and downstream chronological/PIT obligations; keep GAP-002 unresolved unless the full applicable evidence chain passes.
 
 Explicit In Scope
 - Perform the exact action: Run and publish the national historical-lake readiness decision.
@@ -22191,10 +22195,11 @@ Prerequisites / Dependencies
 - POST-SUBTASK-032
 
 Acceptance Criteria
-1. Repeated identical bytes resolve to the same content identity while changed/corrected bytes create a new immutable version without rewriting prior evidence.
-2. The master manifest links every accepted snapshot to source contract, request, hash, parser/schema version, coverage, quality, and rights decision and reproduces population counts.
-3. GAP-002 remains open unless actual national history—not fixtures, reconnaissance samples, or starter code—meets immutable, manifest, readback, and coverage requirements.
-4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+1. The readiness decision evaluates the maximum quality-supported expanded national population, targeting approximately 2010-2025 and earlier supported seasons, rather than treating the bounded 2022-2025 tranche as terminal.
+2. Deterministic acquisition, normalization, schema-drift, reconciliation, quarantine, tiered domain eligibility, population-coverage, immutable provenance, and historical known-at/PIT evidence are complete enough for each specifically approved use, with all negative findings preserved.
+3. GAP-002 remains unresolved unless the expanded population is integrated and this gate plus applicable downstream chronological/PIT and protected-validation gates pass; a partial approval names exact season/domain/use tiers and never implies global completeness.
+4. The gate explicitly prohibits claims of production model readiness, a trained champion, protected performance, production feature set, A&M lift, BAS, Aggie Excess, or related science from historical-lake readiness alone.
+5. The readiness artifact deterministically unlocks, retains blocked, downgrades, or rejects downstream schema/PIT/model units from pinned evidence without weakening thresholds.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-033 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
@@ -22219,7 +22224,7 @@ Required Evidence
 - Human rights-review record containing reviewer, provider/terms version, access purpose, retention, model-training use, publication, redistribution, deletion, and allow/block decision.
 
 End-to-End Validation
-Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, restriction, correction, and blocker. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-004, POST-STORY-012, POST-SUBTASK-034, POST-SUBTASK-035, POST-SUBTASK-036.
+Recompute the decision from pinned acquisition/profile/eligibility/immutability/manifest inputs; reject any terminal-2022-2025 assumption, omitted negative evidence, fabricated threshold, unsupported domain promotion, provenance gap, or premature GAP-002/model/scientific readiness claim.
 
 Stop Conditions
 - Stop rather than improvise if a required source, credential, rights decision, schema, authoritative target host, protected split, or upstream artifact is unavailable.
@@ -22247,7 +22252,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-033_run_and_publish_the_national_historical_lake_readiness_decision.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;local-id-post-subtask-033,raw-snapshots,POST-SUBTASK-033,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-033_run_and_publish_the_national_historical_lake_readiness_decision.json",To Do,Highest,actionable;core-release;post-wave;protected-gate;raw-data;subtask;historical-expansion;local-id-post-subtask-033,raw-snapshots,POST-SUBTASK-033,GAP-002;HANDOFF-003,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
 Sub-task,BAT-384,100338,"[POST-SUBTASK-034] Profile every materialized table for rows, types, nulls, uniqueness, ranges, duplicates, timestamps, and partitions",100062,"Local ID: POST-SUBTASK-034
 
 Objective
@@ -25886,16 +25891,18 @@ Prerequisites / Dependencies
 - Dependency POST-SUBTASK-051 complete at required maturity
 - Dependency POST-SUBTASK-070 complete at required maturity
 - Dependency POST-SUBTASK-071 complete at required maturity
+- Hard dependency POST-SUBTASK-033
 - POST-SUBTASK-051
 - POST-SUBTASK-060
 - POST-SUBTASK-070
 - POST-SUBTASK-071
+- POST-SUBTASK-033
 
 Acceptance Criteria
-1. Targets declare cancellations, overtime, missing scores, neutral sites, lower divisions, and official outcome source; every row links to canonical game evidence.
-2. Split assignments match protected registries, prevent duplicate/rematch/season-fragment leakage, and precommit weights/shrinkage before candidate results.
-3. Pinned raw/entity/PIT/feature/target/split versions reproduce identical rows and protected labels are inaccessible to training/tuning paths.
-4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+1. The model dataset pins the expanded quality-supported historical population and exact season/domain eligibility tiers consumed; the bounded 2022-2025 tranche is not the terminal training population by default.
+2. Any narrower window is admitted only by explicit empirical evidence produced without protected-period tuning and records the tradeoff, excluded seasons/domains, and protected acceptance decision.
+3. Dataset identity, target-game exclusion, PIT eligibility, duplicate handling, feature/target separation, split assignment, and reproducibility all pass from immutable lineage.
+4. Failure of one older domain causes scoped feature/season eligibility or fallback behavior, not silent global history removal or unsupported imputation.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-072 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
@@ -25953,7 +25960,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-078
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-072_approve_model_dataset_identity_leakage_isolation_duplicate_handling_and_reproduc.json",To Do,High,actionable;core-release;modeling;post-wave;protected-gate;subtask;local-id-post-subtask-072,modeling,POST-SUBTASK-072,AC-013;AC-015;GAP-008;HANDOFF-006,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-072_approve_model_dataset_identity_leakage_isolation_duplicate_handling_and_reproduc.json",To Do,High,actionable;core-release;modeling;post-wave;protected-gate;subtask;historical-expansion;local-id-post-subtask-072,modeling,POST-SUBTASK-072,AC-013;AC-015;GAP-008;HANDOFF-006,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
 Sub-task,BAT-423,100377,"[POST-SUBTASK-073] Train naive, historical-average, home-field, rating, regularized linear, tree-boosting, market-free, and market-aware baselines with bounded searches",100075,"Local ID: POST-SUBTASK-073
 
 Objective
@@ -25988,9 +25995,10 @@ Prerequisites / Dependencies
 - POST-SUBTASK-072
 
 Acceptance Criteria
-1. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
-2. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. All baselines train only on the POST-SUBTASK-072 approved expanded quality-supported population and declared season/domain tiers, unless a protected, evidence-backed narrower-window decision is pinned.
+2. Naive, historical-average, home-field, rating/Elo, regularized linear, tree-boosting, market-free, and market-aware lanes are reproducible with deterministic seeds and bounded searches.
+3. Outputs remain preliminary until protected chronological evaluation; no production champion, protected performance, A&M lift, BAS, or Aggie Excess result is claimed by training completion.
+4. Sparse older-domain coverage is handled by declared eligibility/fallback/abstention behavior and never by silent unsupported promotion.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-073 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, rights decision, or security boundary.
@@ -26048,7 +26056,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-078
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-073_train_naive_historical_average_home_field_rating_regularized_linear_tree_boostin.json",To Do,High,actionable;core-release;modeling;post-wave;research-lane;subtask;local-id-post-subtask-073,modeling,POST-SUBTASK-073,GAP-008;HANDOFF-006,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,false,RESEARCH_LANE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-073_train_naive_historical_average_home_field_rating_regularized_linear_tree_boostin.json",To Do,High,actionable;core-release;modeling;post-wave;research-lane;subtask;historical-expansion;local-id-post-subtask-073,modeling,POST-SUBTASK-073,GAP-008;HANDOFF-006,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,false,RESEARCH_LANE
 Sub-task,BAT-424,100378,"[POST-SUBTASK-074] Train joint/separate score-distribution candidates and deterministic-seed simulations deriving margin, win, score, total, interval, and severity outputs coherently",100075,"Local ID: POST-SUBTASK-074
 
 Objective

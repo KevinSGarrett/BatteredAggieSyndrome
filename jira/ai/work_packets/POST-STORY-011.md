@@ -8,7 +8,7 @@
 
 ## What capability or closure gate am I coordinating?
 
-Prove that every accepted raw domain is immutable, reproducible, rights-aware, and reconstructable.
+Materialize and non-bypassably gate the immutable expanded national historical lake
 
 ## Why?
 
@@ -16,7 +16,7 @@ This coherent capability closes a defined portion of Immutable national historic
 
 ## Aggregate integration and closure scope
 
-Deliver Story POST-STORY-011 (Immutable raw store, manifests, provenance, and population audit) as one coherent, gated capability inside Epic POST-EPIC-003. Execute child subtasks POST-SUBTASK-031, POST-SUBTASK-032, POST-SUBTASK-033 in dependency order, reconcile their pinned outputs, and require the final gate `POST-SUBTASK-033` to issue an evidence-backed approve/block/reject/defer decision before any downstream use.
+Execute POST-SUBTASK-031 through POST-SUBTASK-033 over the expanded cross-domain history. Preserve content-addressed external captures, correction/quarantine lineage, complete coverage/provenance manifests, scoped tier eligibility, and an honest readiness decision that cannot resolve GAP-002 or authorize downstream science prematurely.
 
 ### In scope
 
@@ -101,9 +101,10 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. All child Subtasks satisfy their issue-specific observable checks and save their required evidence.
-2. The final child gate verifies the combined output and explicitly approves, blocks, rejects, or defers downstream use.
-3. No child completion is accepted if a hard prerequisite, PIT/right/security/protected-control requirement, or evidence identity is missing.
+1. All child Subtasks satisfy their expanded-history issue-specific observable checks and preserve required positive, partial, and negative evidence.
+2. The final child gate POST-SUBTASK-033 verifies the combined output and explicitly approves, partially approves by tier, blocks, rejects, or defers downstream use.
+3. The bounded 2022-2025 tranche is preserved as nonterminal, no incomplete domain globally discards otherwise useful history, and no unsupported domain is silently promoted.
+4. No child or aggregate completion resolves GAP-002 or authorizes model/scientific claims before all applicable downstream chronological/PIT and protected gates pass.
 
 ## Tests / validation
 
@@ -120,7 +121,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Pinned manifests reconstruct the accepted raw lake from immutable bytes while preserving every missing season, restriction, correction, and blocker.
+A clean expanded-history run produces immutable captures, deterministic cross-domain profile and tiered eligibility, preserved negative evidence, and a non-bypassable downstream readiness decision.
 
 ## Stop instead of improvising when
 

@@ -431,6 +431,7 @@ POST-SUBTASK-051,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-060,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-070,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-071,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-033,POST-SUBTASK-072,BLOCKS,true,Issue dependency contract
 POST-STORY-025,POST-SUBTASK-073,PARENT_CHILD,false,Canonical hierarchy
 POST-SUBTASK-072,POST-SUBTASK-073,BLOCKS,true,Issue dependency contract
 POST-STORY-025,POST-SUBTASK-074,PARENT_CHILD,false,Canonical hierarchy

@@ -7,9 +7,10 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.",
-    "The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
-    "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
+    "All baselines train only on the POST-SUBTASK-072 approved expanded quality-supported population and declared season/domain tiers, unless a protected, evidence-backed narrower-window decision is pinned.",
+    "Naive, historical-average, home-field, rating/Elo, regularized linear, tree-boosting, market-free, and market-aware lanes are reproducible with deterministic seeds and bounded searches.",
+    "Outputs remain preliminary until protected chronological evaluation; no production champion, protected performance, A&M lift, BAS, or Aggie Excess result is claimed by training completion.",
+    "Sparse older-domain coverage is handled by declared eligibility/fallback/abstention behavior and never by silent unsupported promotion."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -134,9 +135,10 @@
     "modeling",
     "post-wave",
     "research-lane",
-    "subtask"
+    "subtask",
+    "historical-expansion"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-073",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Train naive, historical-average, home-field, rating, regularized linear, tree-boosting, market-free, and market-aware baselines with bounded searches",
@@ -438,9 +440,10 @@ Execute the atomic 1 of 3 step in Story POST-STORY-025 (Simple, rating, linear, 
 
 ## Acceptance Criteria
 
-1. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
-2. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. All baselines train only on the POST-SUBTASK-072 approved expanded quality-supported population and declared season/domain tiers, unless a protected, evidence-backed narrower-window decision is pinned.
+2. Naive, historical-average, home-field, rating/Elo, regularized linear, tree-boosting, market-free, and market-aware lanes are reproducible with deterministic seeds and bounded searches.
+3. Outputs remain preliminary until protected chronological evaluation; no production champion, protected performance, A&M lift, BAS, or Aggie Excess result is claimed by training completion.
+4. Sparse older-domain coverage is handled by declared eligibility/fallback/abstention behavior and never by silent unsupported promotion.
 
 ## Definition of Done
 

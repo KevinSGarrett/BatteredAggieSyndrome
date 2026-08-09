@@ -104,9 +104,10 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
-2. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. All baselines train only on the POST-SUBTASK-072 approved expanded quality-supported population and declared season/domain tiers, unless a protected, evidence-backed narrower-window decision is pinned.
+2. Naive, historical-average, home-field, rating/Elo, regularized linear, tree-boosting, market-free, and market-aware lanes are reproducible with deterministic seeds and bounded searches.
+3. Outputs remain preliminary until protected chronological evaluation; no production champion, protected performance, A&M lift, BAS, or Aggie Excess result is claimed by training completion.
+4. Sparse older-domain coverage is handled by declared eligibility/fallback/abstention behavior and never by silent unsupported promotion.
 
 ## Tests / validation
 

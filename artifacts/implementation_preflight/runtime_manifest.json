@@ -403,13 +403,28 @@
       "attempt to claim release authority while dependency or benchmark blockers remain"
     ]
   },
+  "integration": {
+    "branch": "codex/BAT-353-runtime-manifest",
+    "pull_request": 7,
+    "head_sha": "11328d1f6b346e47f28aa24b0eca68f83ca04a80",
+    "merge_sha": "f57513598c81a55c8687c19e839734d6a9149f70",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T08:04:08Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "live_jira_comment_id": "13289",
+    "live_jira_status": "Done",
+    "live_jira_logical_state": "DONE",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "INTEGRATED",
+    "live_jira_updated_at": "2026-08-09T03:05:02.392-0500"
+  },
   "completion": {
-    "issue_disposition": "READY_FOR_PROTECTED_INTEGRATION",
-    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "DONE",
+    "evidence_state": "VERIFIED",
     "all_issue_acceptance_criteria_pass": true,
     "capture_complete": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": ["PENDING_PROTECTED_PR_INTEGRATION"],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "PRODUCT_LOCK_MISMATCH",
       "PIP_CHECK_CONFLICTS",
@@ -421,6 +436,6 @@
   "content_hash": {
     "algorithm": "sha256",
     "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
-    "value": "fbc75b7b45886bf046a01274db067702e0d7aacbc68784a6a15c82478c99f058"
+    "value": "f6fec2b8c630ec89d71433bfe16b640f92e6b39f0cfd14437423e76595717206"
   }
 }

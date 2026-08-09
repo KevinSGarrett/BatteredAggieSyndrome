@@ -17,6 +17,8 @@ CHANGELOG.md
 CONTRIBUTING.md
 README.md
 artifacts/README.md
+artifacts/implementation_preflight/data_root_activation.json
+artifacts/implementation_preflight/hydration_binding_supersession.json
 artifacts/implementation_preflight/initial_publication_reconciliation.json
 artifacts/implementation_preflight/repository_identity.json
 artifacts/jira_evidence/POST-SUBTASK-001.json

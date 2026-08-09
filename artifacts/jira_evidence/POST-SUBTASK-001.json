@@ -25,6 +25,22 @@
       "schema_version": "1.0.0",
       "maturity": "IMPLEMENTED_AND_PROTECTED_PR_VERIFIED",
       "eligibility": "CANONICAL_GIT_GITHUB_ACTIVATION_EVIDENCE"
+    },
+    {
+      "path": "artifacts/implementation_preflight/hydration_binding_supersession.json",
+      "bytes": 3003,
+      "sha256": "49f9673fc7960ee9aa1cbc8598017ad1b714a745d816d42bdb3d6d2a88cecf40",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED_AND_VERIFIED",
+      "eligibility": "PROSPECTIVE_POST_W25_TRUST_ANCHOR_ONLY"
+    },
+    {
+      "path": "artifacts/implementation_preflight/data_root_activation.json",
+      "bytes": 1361,
+      "sha256": "def92df3013701d6a592be7f0bdedaddecde670ba4e2ae7ea217ba218e59b7b3",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED_AND_VERIFIED",
+      "eligibility": "EMPTY_EXTERNAL_DATA_ARTIFACT_ROOT"
     }
   ],
   "input_identities": {
@@ -147,13 +163,28 @@
       "exit_code": 0,
       "result": "PASS",
       "output_summary": "PR #1 merged at 2026-08-09T06:57:40Z; remote main and the merge record both resolve to 642b08fad98f1f9dff7861835c00f06061fe1e42."
+    },
+    {
+      "command": "Resolve and validate AGGIE_ANALYTICS_DATA_ROOT without emitting its configured value",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "A concrete ignored/untracked path outside the repository exists with 10 required zones and a parseable 901-byte root manifest at SHA-256 8bedd0a4b35aaac360c8dd498232113615b88f58f6b421587a6abec4793afd66."
+    },
+    {
+      "command": "Validate controlled hydration-binding supersession artifact",
+      "exit_code": 0,
+      "result": "PASS_NO_HISTORICAL_BINDING_INFERRED",
+      "output_summary": "The missing hydration ZIP/PACK_BINDING remains explicitly absent; prospective post-W25 execution is anchored to protected main bf243657261a32ef89a9ca5933fa011b6ebb33c3 and its pinned manifests without reconstructing missing bytes."
     }
   ],
   "negative_findings": [
     {
       "id": "W25_HYDRATION_BINDING_UNAVAILABLE",
       "finding": "No W25 hydration ZIP or PACK_BINDING.json was present in the canonical project or goal-attachment directory.",
-      "fabricated_or_inferred": false
+      "fabricated_or_inferred": false,
+      "resolution": "FORMALLY_SUPERSEDED_FOR_POST_W25_EXECUTION",
+      "resolution_evidence": "artifacts/implementation_preflight/hydration_binding_supersession.json",
+      "historical_absence_retained": true
     },
     {
       "id": "FULL_UNIT_WINDOWS_LOCK_CLEANUP_FAILURE",
@@ -171,8 +202,10 @@
     },
     {
       "id": "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER",
-      "finding": "AGGIE_ANALYTICS_DATA_ROOT is present but contains an angle-bracket placeholder rather than a parseable external path.",
-      "fabricated_or_inferred": false
+      "finding": "AGGIE_ANALYTICS_DATA_ROOT initially contained an angle-bracket placeholder rather than a parseable external path.",
+      "fabricated_or_inferred": false,
+      "resolution": "RESOLVED_CONFIGURED_EMPTY_EXTERNAL_ROOT",
+      "resolution_evidence": "artifacts/implementation_preflight/data_root_activation.json"
     }
   ],
   "security_and_rights": {
@@ -193,18 +226,15 @@
     "pinned_hashes_present": true,
     "blockers_present": true,
     "consumer_must_fail_closed": true,
-    "downstream_unlocked": false
+    "downstream_unlocked": true
   },
   "completion": {
     "achieved_maturity": "IMPLEMENTED",
-    "evidence_state": "VERIFIED_WITH_EXPLICIT_EXTERNAL_BLOCKERS",
-    "issue_disposition": "BLOCKED",
-    "live_jira_status": "In Progress",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
+    "live_jira_status": "PENDING_VERIFIED_DONE_TRANSITION",
     "local_jira_reconciliation": "PASS_ONE_ROW_DRY_RUN_APPLY_REBUILD_AND_STRICT_SECOND_PASS",
-    "remaining_blockers": [
-      "W25_HYDRATION_BINDING_UNAVAILABLE",
-      "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER"
-    ],
-    "completion_claim": "The required preflight artifact is implemented, its three issue-specific criteria pass, the 239-test target-host suite and activation controls are clean, and canonical GitHub history is published through a verified protected PR path. BAT-351 is not Done because the authoritative hydration binding remains absent and AGGIE_ANALYTICS_DATA_ROOT remains a placeholder."
+    "remaining_blockers": [],
+    "completion_claim": "The required preflight and activation artifacts are implemented; all three issue-specific criteria pass; the 239-test target-host suite, control plane, protected GitHub path, external data root, and non-fabricating hydration supersession are verified. BAT-351 is eligible for Done."
   }
 }

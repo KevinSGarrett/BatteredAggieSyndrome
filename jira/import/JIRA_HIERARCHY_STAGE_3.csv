@@ -81,7 +81,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-001_verify_w25_repository_identity_manifests_and_no_wave_26_state.json",To Do,Highest,actionable;core-release;environment;post-wave;protected-gate;subtask;local-id-post-subtask-001,operations-security,POST-SUBTASK-001,GAP-001;HANDOFF-001,PHASE-4,BLOCKED,IMPLEMENTED,VERIFIED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-001_verify_w25_repository_identity_manifests_and_no_wave_26_state.json",Done,Highest,actionable;core-release;environment;post-wave;protected-gate;subtask;local-id-post-subtask-001,operations-security,POST-SUBTASK-001,GAP-001;HANDOFF-001,PHASE-4,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-352,100306,[POST-SUBTASK-002] Run the full unit and governance validator suite on the target host,100051,"Local ID: POST-SUBTASK-002
 
 Objective
@@ -173,7 +173,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-002_run_the_full_unit_and_governance_validator_suite_on_the_target_host.json",To Do,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-002,operations-security,POST-SUBTASK-002,GAP-001;HANDOFF-001,PHASE-4,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-002_run_the_full_unit_and_governance_validator_suite_on_the_target_host.json",To Do,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-002,operations-security,POST-SUBTASK-002,GAP-001;HANDOFF-001,PHASE-4,READY,IMPLEMENTED,PLANNED,POST_W25,true,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-353,100307,[POST-SUBTASK-003] Capture the authoritative target runtime and dependency manifest,100051,"Local ID: POST-SUBTASK-003
 
 Objective
@@ -359,7 +359,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-009
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-004_configure_aggie_analytics_data_root_and_artifact_roots_outside_the_repository.json",To Do,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-004,operations-security,POST-SUBTASK-004,GAP-001;GAP-010;HANDOFF-001;HANDOFF-002,PHASE-4,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-004_configure_aggie_analytics_data_root_and_artifact_roots_outside_the_repository.json",To Do,Highest,actionable;core-release;environment;operations;post-wave;subtask;local-id-post-subtask-004,operations-security,POST-SUBTASK-004,GAP-001;GAP-010;HANDOFF-001;HANDOFF-002,PHASE-4,READY,IMPLEMENTED,PLANNED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-355,100309,[POST-SUBTASK-005] Define and validate the non-repository credential inventory and redaction rules,100052,"Local ID: POST-SUBTASK-005
 
 Objective

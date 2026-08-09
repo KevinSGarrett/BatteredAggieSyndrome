@@ -16,7 +16,7 @@
     "artifacts/implementation_preflight/runtime_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-003.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-001;POST-SUBTASK-002",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-002",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-003_capture_the_authoritative_target_runtime_and_dependency_manifest.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",

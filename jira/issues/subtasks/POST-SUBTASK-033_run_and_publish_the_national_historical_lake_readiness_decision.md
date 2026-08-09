@@ -166,11 +166,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24523",
-    "jira_updated_at": "2026-08-09T00:05:02.328-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T17:46:25.995-0500",
+    "last_synced_at": "2026-08-09T22:48:35.780349+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-383\\BAT-383-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -343,7 +343,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-011: Immutable raw store, manifests, provenance, and population audit.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-033.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

@@ -1,0 +1,254 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": "Each decision records terms URL/version, review date, allowed access, local storage, derived use, redistribution, retention, and attribution.",
+      "disposition": "PASS",
+      "evidence_path": "<external-runtime>/BAT-366/tier1-rights-consumer.safe.json",
+      "evidence_sha256": "10ab47e72da0bb80d65ce332c4f2561a24ae7aa74abafff1c8395027c3810edc",
+      "observable_result": "All 26 rows contain the named human/technical review, terms snapshot hash, and every required use/lifecycle field; the consumer accepted the baseline and rejected six negative mutations."
+    },
+    {
+      "criterion": "Ambiguous legal terms remain MANUAL_REVIEW_REQUIRED rather than assumed permissive.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/tier1_rights_decisions.csv",
+      "evidence_sha256": "dae79b076806fbbf8e67396d73a42348d91c4b2a8a8672eeb63665ca43392c56",
+      "observable_result": "Only CFBD REST and Open-Meteo historical lanes permit materialization. Official-site content is reference-only; SportsDataverse/upstream, restricted NCAA, and unverified GraphQL lanes are blocked. No ambiguous lane is promoted."
+    },
+    {
+      "criterion": "Restricted bulk raw data is classified local-only.",
+      "disposition": "PASS",
+      "evidence_path": "artifacts/source_governance/tier1_rights_decisions.csv",
+      "evidence_sha256": "dae79b076806fbbf8e67396d73a42348d91c4b2a8a8672eeb63665ca43392c56",
+      "observable_result": "All admitted raw snapshots are local-only outside Git; CFBD redistribution is prohibited, Open-Meteo is handled more restrictively than CC-BY permits, and restricted/unlicensed bulk lanes are blocked."
+    }
+  ],
+  "command_log_identities": [
+    {
+      "bytes": 404,
+      "path": "<external-runtime>/BAT-366/consumer.stdout.log",
+      "sha256": "04c36eac598f7aef44964e91141b8e45f3118538c5352fecd5d17f8656a6ad1d"
+    },
+    {
+      "bytes": 202,
+      "path": "<external-runtime>/BAT-366/test-data-research.stdout.log",
+      "sha256": "aee27cd7dbd91ffd4acc9803e750dfc2af4c8e87a44d00a8f0fc744ea4474e01"
+    },
+    {
+      "bytes": 208,
+      "path": "<external-runtime>/BAT-366/validate-data-research.stdout.log",
+      "sha256": "bb60ac13c37a0d70a5d6128fb6438c3015c143ca1c5e4ba28c6ca1541e76fc6f"
+    },
+    {
+      "bytes": 194,
+      "path": "<external-runtime>/BAT-366/candidate-repository-strict.stdout.log",
+      "sha256": "c1eeaaeebc8b3b11304d04fc58c35699eb39fd8792e6f5154e5e73f42679a697"
+    },
+    {
+      "bytes": 850,
+      "path": "<external-runtime>/BAT-366/candidate-pytest.stdout.log",
+      "sha256": "c0e5cfdeda40f7933d020e0abf7d066759aff1bf8cf43f83ac2fce3cd4a70d14"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python -B <external-runtime>/BAT-366/capture_terms_snapshots.py",
+      "exit_code": 0,
+      "output": "<external-runtime>/BAT-366/terms-snapshot-manifest.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-366/build_tier1_rights_decisions.py",
+      "exit_code": 0,
+      "output": "artifacts/source_governance/tier1_rights_decisions.csv",
+      "result": "PASS"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-366/validate_tier1_rights_decisions.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-366/consumer.stdout.log"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider tests/test_data_research.py -q",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-366/test-data-research.stdout.log"
+    },
+    {
+      "command": "python -B tools/validate_data_research.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-366/validate-data-research.stdout.log"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --strict",
+      "exit_code": 0,
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-366/candidate-repository-strict.stdout.log",
+      "working_directory": "<external-clean-validation-worktree>"
+    },
+    {
+      "command": "python -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "output_summary": "258 passed, 1 skipped, 33 subtests passed",
+      "result": "PASS",
+      "stdout_stderr": "<external-runtime>/BAT-366/candidate-pytest.stdout.log",
+      "working_directory": "<external-clean-validation-worktree>"
+    }
+  ],
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED",
+    "completion_claimed": false,
+    "evidence_state": "PLANNED",
+    "issue_disposition": "IN_PROGRESS",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
+  },
+  "consumer_validation": {
+    "baseline_contract_pass": true,
+    "configured_secret_value_matches": 0,
+    "negative_mutations_rejected": 6,
+    "report": {
+      "bytes": 2100,
+      "path": "<external-runtime>/BAT-366/tier1-rights-consumer.safe.json",
+      "sha256": "10ab47e72da0bb80d65ce332c4f2561a24ae7aa74abafff1c8395027c3810edc"
+    }
+  },
+  "created_at_utc": "2026-08-09T15:16:46Z",
+  "downstream_reevaluation": {
+    "consumers": [
+      "POST-SUBTASK-017",
+      "POST-SUBTASK-018"
+    ],
+    "decision": "WAIT_FOR_PROTECTED_INTEGRATION"
+  },
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
+  "input_identities": [
+    {
+      "bytes": 78290,
+      "path": "artifacts/source_governance/production_source_inventory.csv",
+      "sha256": "bd9fa8438e690272ed1b22caa33cf0932c4a7d6c998083210d9beb91992956e3"
+    },
+    {
+      "bytes": 85497,
+      "path": "artifacts/source_governance/source_inventory_validation.json",
+      "sha256": "da81d4b9def2fd6f65fb514c3ff542a1b754bdc2ead679fde5f06eb097b402cf"
+    },
+    {
+      "bytes": 22977,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-015.json",
+      "sha256": "20dbc94108c475da1822f9d5bed7ee25824b7642e6d366adb8fc403a8941d981"
+    },
+    {
+      "bytes": 16842,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-016_complete_rights_review_for_cfbd_sportsdataverse_open_meteo_and_official_a_and_m_.json",
+      "sha256": "c162b941ca8c24ec6f24672639cc2422b97cbcc7dfc1f7a640c1522ecdfc0153"
+    },
+    {
+      "bytes": 4978,
+      "path": "<external-runtime>/BAT-366/terms-snapshot-manifest.json",
+      "sha256": "2a03508fd2bc22aa3dd979d9576e4475d3c908370c87cef076f9450d7c58113d"
+    }
+  ],
+  "jira_key": "BAT-366",
+  "live_jira": {
+    "claim_comment_id": "13335",
+    "claim_state": {
+      "bytes": 285,
+      "path": "<external-runtime>/BAT-366/post-claim-jira-state.json",
+      "sha256": "b528ed1b74e91440c5806e1b49d8bf8f15ab168ca44404c17c6e299f2a2cce62"
+    },
+    "completion_comment_id": null,
+    "state": "IN_PROGRESS_PLANNED"
+  },
+  "local_issue_id": "POST-SUBTASK-016",
+  "observable_outcome": "A named project-owner decision and current official-terms review classify all 26 tier-1 sources. CFBD REST and two Open-Meteo historical lanes are admitted for bounded personal/noncommercial local materialization; ambiguous, restricted, optional, and upstream-derived lanes remain reference-only or blocked.",
+  "outputs": [
+    {
+      "bytes": 34233,
+      "decision_counts": {
+        "ALLOW_WITH_CONDITIONS": 4,
+        "BLOCK": 5,
+        "REFERENCE_ONLY": 17
+      },
+      "eligibility": "PRODUCTION_RIGHTS_GATE_INPUT",
+      "path": "artifacts/source_governance/tier1_rights_decisions.csv",
+      "production_materialization_allowed_sources": [
+        "SRC-002",
+        "SRC-003",
+        "SRC-026"
+      ],
+      "row_count": 26,
+      "sha256": "dae79b076806fbbf8e67396d73a42348d91c4b2a8a8672eeb63665ca43392c56"
+    }
+  ],
+  "owner_authorization": {
+    "directive_date": "2026-08-09",
+    "human_reviewer": "Kevin Garrett (project owner directive)",
+    "legal_counsel_claimed": false,
+    "scope": "Personal project on this computer; Codex authorized to choose and execute the best source/data strategy, including downloads and local models, with cleanup and disk stewardship.",
+    "technical_reviewer": "Codex"
+  },
+  "protected_integration": {
+    "branch": "codex/BAT-366-tier1-rights",
+    "state": "PENDING_PROTECTED_INTEGRATION"
+  },
+  "schema_version": "1.0.0",
+  "security_and_rights": {
+    "credential_values_included": false,
+    "production_materialization_source_count": 3,
+    "raw_data_redistribution_authorized": false,
+    "response_bodies_committed": false,
+    "restricted_raw_payloads_included": false,
+    "source_rights_approval_scope": "PERSONAL_NONCOMMERCIAL_BOUNDED_LOCAL_USE_ONLY",
+    "terms_snapshots_committed": false
+  },
+  "terms_evidence": {
+    "current_official_terms_reviewed": [
+      "CollegeFootballData terms effective 2025-07-01",
+      "Open-Meteo noncommercial/CC-BY 4.0 terms accessed 2026-08-09",
+      "Disney/SEC terms last updated 2024-05-24",
+      "NCAA and Texas A&M official all-rights-reserved surfaces accessed 2026-08-09",
+      "SportsDataverse repository metadata and absence of an explicit data license accessed 2026-08-09"
+    ],
+    "manifest": {
+      "entry_count": 9,
+      "path": "<external-runtime>/BAT-366/terms-snapshot-manifest.json",
+      "sha256": "2a03508fd2bc22aa3dd979d9576e4475d3c908370c87cef076f9450d7c58113d"
+    },
+    "snapshot_count": 9,
+    "stored_outside_git": true
+  },
+  "validation_matrix": [
+    {
+      "classification": "LEGAL_RIGHTS_REVIEW",
+      "disposition": "PASS",
+      "evidence": "Named project-owner directive plus current official-terms snapshots and conservative technical review; not legal advice."
+    },
+    {
+      "classification": "MANUAL",
+      "disposition": "PASS",
+      "evidence": "Reviewer, date, unresolved questions, explicit allow/reference/block decisions recorded for 26 rows."
+    },
+    {
+      "classification": "SECURITY",
+      "disposition": "PASS",
+      "evidence": "Configured secret-value matches=0; no response bodies or credentials are committed."
+    },
+    {
+      "classification": "REGRESSION",
+      "disposition": "PASS",
+      "evidence": "tests/test_data_research.py: 2 passed."
+    },
+    {
+      "classification": "END_TO_END",
+      "disposition": "PASS",
+      "evidence": "Consumer baseline passed; 6 negative mutations rejected."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "evidence": "Inventory, prerequisite, terms manifest, output, validator, and command-log identities are pinned."
+    }
+  ]
+}

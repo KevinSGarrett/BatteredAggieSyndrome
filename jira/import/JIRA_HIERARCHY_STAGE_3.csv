@@ -1552,7 +1552,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-017_complete_rights_review_for_recruiting_transfer_market_resources_gamebook_and_off.json",To Do,Highest,actionable;core-release;external-blocker;post-wave;protected-gate;sources;subtask;local-id-post-subtask-017,data-sources,POST-SUBTASK-017,GAP-010;GAP-011;HANDOFF-002;HANDOFF-012;ISSUE-023;ISSUE-025;ISSUE-081,PHASE-1,BLOCKED,IMPLEMENTED,PLANNED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-017_complete_rights_review_for_recruiting_transfer_market_resources_gamebook_and_off.json",Done,Highest,actionable;core-release;post-wave;protected-gate;sources;subtask;local-id-post-subtask-017,data-sources,POST-SUBTASK-017,GAP-010;GAP-011;HANDOFF-002;HANDOFF-012;ISSUE-023;ISSUE-025;ISSUE-081,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-368,100322,[POST-SUBTASK-018] Publish the approved source-rights matrix and block disallowed acquisition/export paths,100056,"Local ID: POST-SUBTASK-018
 
 Objective
@@ -1646,7 +1646,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-024
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-018,data-sources,POST-SUBTASK-018,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,BLOCKED,INTEGRATED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-018_publish_the_approved_source_rights_matrix_and_block_disallowed_acquisition_expor.json",To Do,Highest,actionable;core-release;post-wave;shared-contract;sources;subtask;local-id-post-subtask-018,data-sources,POST-SUBTASK-018,GAP-010;HANDOFF-002;HANDOFF-012,PHASE-1,READY,INTEGRATED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-369,100323,"[POST-SUBTASK-019] Define credential names, scopes, owners, rotation, and non-repository storage contract",100057,"Local ID: POST-SUBTASK-019
 
 Objective

@@ -39,14 +39,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-006 (Per-source license, term
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `CONTRACT_DEFINED` → `IMPLEMENTED`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-024`
 
 ## Read first

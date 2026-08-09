@@ -22,7 +22,7 @@
     "artifacts/source_governance/supplemental_rights_decisions.csv",
     "artifacts/jira_evidence/POST-SUBTASK-017.json"
   ],
-  "blocked_reason": "MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-018"
   ],
@@ -76,7 +76,7 @@
   "end_to_end_validation": "Validate that `artifacts/source_governance/supplemental_rights_decisions.csv` can be parsed and consumed by `POST-SUBTASK-018` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, rights-blocked, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-002",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-017.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -130,24 +130,23 @@
   "labels": [
     "actionable",
     "core-release",
-    "external-blocker",
     "post-wave",
     "protected-gate",
     "sources",
     "subtask"
   ],
-  "last_content_audit": "2026-08-08",
+  "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-017",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Complete rights review for recruiting, transfer, market, resources, gamebook, and officiating lanes",
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24507",
-    "jira_updated_at": "2026-08-09T00:03:23.814-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T10:42:29.933-0500",
+    "last_synced_at": "2026-08-09T15:45:17.321327+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-367\\BAT-367-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -321,7 +320,7 @@
     "POST-SUBTASK-024"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Provide and verify external condition: MANUAL_TERMS_AND_RIGHTS_REVIEW_REQUIRED",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "LEGAL_RIGHTS_REVIEW",
@@ -332,7 +331,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-006: Per-source license, terms, and redistribution decisions.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-017.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "DONE"
 }
 ```
 

@@ -138,8 +138,8 @@
   "operational_jira": {
     "assignee": "GARRETT TRAINING SYSTEMS INC.",
     "jira_issue_id": "24491",
-    "jira_updated_at": "2026-08-09T01:08:39.385-0500",
-    "last_synced_at": "2026-08-09T06:11:10.760890+00:00",
+    "jira_updated_at": "2026-08-09T01:59:10.471-0500",
+    "last_synced_at": "2026-08-09T06:59:10.471000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.reconciliation\\BAT-351-live-row.csv",
     "sprint": "",
     "status_raw": "In Progress"

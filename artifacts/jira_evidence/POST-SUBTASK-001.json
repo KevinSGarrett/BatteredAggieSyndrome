@@ -17,6 +17,14 @@
       "schema_version": "1.0.0",
       "maturity": "IMPLEMENTED",
       "eligibility": "CONTROLLED_ACTIVATION_RECONCILIATION_ONLY"
+    },
+    {
+      "path": "artifacts/implementation_preflight/initial_publication_reconciliation.json",
+      "bytes": 8851,
+      "sha256": "80aa73eb3e68afb116084f00e778f779cee5d813c804265eface10cfd781bb7a",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED_AND_PROTECTED_PR_VERIFIED",
+      "eligibility": "CANONICAL_GIT_GITHUB_ACTIVATION_EVIDENCE"
     }
   ],
   "input_identities": {
@@ -121,6 +129,24 @@
       "exit_code": 1,
       "result": "FAILURE_PRESERVED_REPAIR_IN_PROGRESS",
       "output_summary": "The initial checkout exposed byte-normalization drift in sealed evidence and intrinsic .git metadata misclassification; security-analysis run 31299476320 passed."
+    },
+    {
+      "command": "GitHub Actions runs 31299969079, 31299970939, and 31299970941",
+      "exit_code": 0,
+      "result": "PASS_ALL_OBSERVED_CONTEXTS",
+      "output_summary": "Push and pull-request repository-ci runs passed on Ubuntu and Windows; CodeQL and dependency review also passed at head 0e143e5449e0b3b040ab2747fad4ce82e28e5df4."
+    },
+    {
+      "command": "GitHub branch protection update for main",
+      "exit_code": 0,
+      "result": "PASS_STRICT_REQUIRED_CHECKS_ENABLED",
+      "output_summary": "Seven observed contexts are strict requirements; PR, linear history, conversation resolution, and admin enforcement are enabled; force pushes and branch deletion are disabled."
+    },
+    {
+      "command": "GitHub protected squash merge of PR #1",
+      "exit_code": 0,
+      "result": "PASS",
+      "output_summary": "PR #1 merged at 2026-08-09T06:57:40Z; remote main and the merge record both resolve to 642b08fad98f1f9dff7861835c00f06061fe1e42."
     }
   ],
   "negative_findings": [
@@ -154,7 +180,11 @@
     "secret_values_stored_in_evidence": false,
     "restricted_payloads_stored_in_evidence": false,
     "protected_files_modified": false,
-    "backup_secret_or_forbidden_findings": 0
+    "backup_secret_or_forbidden_findings": 0,
+    "github_dependency_graph_enabled": true,
+    "github_vulnerability_alerts_enabled": true,
+    "github_secret_scanning_enabled": true,
+    "github_push_protection_enabled": true
   },
   "downstream_evaluation": {
     "consumer": "POST-SUBTASK-002",
@@ -175,6 +205,6 @@
       "W25_HYDRATION_BINDING_UNAVAILABLE",
       "AGGIE_ANALYTICS_DATA_ROOT_PLACEHOLDER"
     ],
-    "completion_claim": "The required preflight artifact is implemented, its three issue-specific criteria pass, the target-host suite and activation controls are clean, and the canonical GitHub history is published. BAT-351 is not Done because the authoritative hydration binding remains absent and AGGIE_ANALYTICS_DATA_ROOT remains a placeholder."
+    "completion_claim": "The required preflight artifact is implemented, its three issue-specific criteria pass, the 239-test target-host suite and activation controls are clean, and canonical GitHub history is published through a verified protected PR path. BAT-351 is not Done because the authoritative hydration binding remains absent and AGGIE_ANALYTICS_DATA_ROOT remains a placeholder."
   }
 }

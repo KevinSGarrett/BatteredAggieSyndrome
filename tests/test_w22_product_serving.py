@@ -91,6 +91,32 @@ class W22ProductServingTests(unittest.TestCase):
             self.assertEqual("fri", repo.latest("tamu-lsu-2026", as_of=PUBLISHED + timedelta(hours=1)).snapshot_id)
             self.assertEqual("mon", repo.latest("tamu-lsu-2026", as_of=PUBLISHED - timedelta(days=2)).snapshot_id)
 
+    def test_repository_rejects_untrusted_game_paths(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            write_payload(root, payload())
+            repo = PublishedSnapshotRepository(root)
+            for game_id in ("", ".", "..", "../outside", "..\\outside", "/outside", "C:", "bad name", "x" * 129):
+                with self.subTest(game_id=game_id), self.assertRaises(ValueError):
+                    repo.list_snapshots(game_id)
+            self.assertEqual((), repo.list_snapshots("missing-safe-id"))
+
+    def test_repository_rejects_symlinked_game_directory(self):
+        with tempfile.TemporaryDirectory() as td:
+            base = Path(td)
+            root = base / "published"
+            outside = base / "outside"
+            root.mkdir()
+            write_payload(outside, payload())
+            link = root / "tamu-lsu-2026"
+            try:
+                link.symlink_to(outside / "tamu-lsu-2026", target_is_directory=True)
+            except OSError as exc:
+                self.skipTest(f"directory symlinks unavailable: {exc}")
+            repo = PublishedSnapshotRepository(root)
+            with self.assertRaisesRegex(ValueError, "unsafe game repository entry"):
+                repo.list_snapshots("tamu-lsu-2026")
+
     def test_pure_and_market_lanes_remain_separate(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)

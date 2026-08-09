@@ -38,8 +38,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-009 (Core national game spine
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
-- Ready: `false`
+- Workflow: `READY`
+- Ready: `true`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `DATA_MATERIALIZATION`

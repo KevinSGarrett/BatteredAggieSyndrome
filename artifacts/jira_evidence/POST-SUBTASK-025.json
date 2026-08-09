@@ -188,7 +188,7 @@
     "achieved_maturity": "IMPLEMENTED",
     "completion_claimed": true,
     "evidence_state": "VERIFIED",
-    "issue_disposition": "DONE_PENDING_PROTECTED_INTEGRATION_AND_JIRA_SYNC",
+    "issue_disposition": "DONE_VERIFIED_PROTECTED_INTEGRATION_COMPLETE",
     "local_acceptance_criteria_pass": true,
     "remaining_issue_scope_blockers": []
   },
@@ -198,7 +198,7 @@
       "POST-SUBTASK-026",
       "POST-SUBTASK-027"
     ],
-    "decision": "REEVALUATE_AFTER_PROTECTED_INTEGRATION"
+    "decision": "POST-SUBTASK-026_READY; POST-SUBTASK-027_REMAINS_DEPENDENCY_BLOCKED"
   },
   "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_COMPLETION_EVIDENCE",
   "input_identities": [
@@ -243,25 +243,49 @@
       "sha256": "b02acd5e6f1bc1a5b4add7535366a8ee2d69aea09c19284522773af3f41ec1f8"
     },
     {
-      "bytes": 17377,
+      "bytes": 17379,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-025_acquire_approved_national_team_schedule_game_score_drive_play_box_score_and_game.json",
-      "sha256": "61bfe030b4fe4ded5085f942093e07227f54f960e5fb522b5e693cc6206d0cdd"
+      "sha256": "2fef39b567def44acb238f8fd1b28a8cfcaaa437c14bbc73996cb9cd61738333"
     }
   ],
   "jira_key": "BAT-375",
   "live_jira": {
     "claim_comment_id": "13345",
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13346",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
     "maturity": "IMPLEMENTED",
     "post_claim_state": {
       "bytes": 285,
       "path": "<external-runtime>/BAT-375/post-claim-jira-state.json",
       "sha256": "dd75696545ed4f415ed7115d1af0ef9de07750b02f60e142b1540b1c104bcd94"
     },
-    "status": "In Progress"
+    "post_complete_state": {
+      "bytes": 272,
+      "path": "<external-runtime>/BAT-375/post-complete-jira-state.json",
+      "sha256": "044918b76dea392deea17eb5aaab2944027f3279a25528a797bf266d83b54ca5"
+    },
+    "status": "Done",
+    "updated": "2026-08-09T12:12:01.078-0500"
   },
   "local_issue_id": "POST-SUBTASK-025",
+  "local_jira_sync": {
+    "live_export": {
+      "bytes": 160,
+      "path": "<external-runtime>/BAT-375/BAT-375-live-row.csv",
+      "sha256": "1ca1c29e2bf877a9fa00730664071688df8adb605b59497f4400ee98231a9582"
+    },
+    "second_pass": {
+      "blocked_count": 122,
+      "deferred_count": 36,
+      "errors": 0,
+      "issue_count": 463,
+      "ready_count": 2,
+      "result": "PASS",
+      "source_anchors": 2118
+    },
+    "state": "SYNCHRONIZED_PENDING_PROTECTED_COMPLETION_COMMIT"
+  },
   "observable_outcome": "A real, bounded 2022-2025 national FBS acquisition is stored as 223 immutable CFBD captures outside Git. The manifest records 823,715 observed rows and 610,732,880 response bytes across teams, schedules/games/scores, drives, plays, team/player box scores, rankings, rosters, venues, and advanced game summaries; Texas A&M is present in game and roster captures in all four seasons.",
   "outputs": [
     {
@@ -293,8 +317,15 @@
   },
   "protected_integration": {
     "branch": "codex/BAT-375-core-acquisition",
-    "merge_method": "SQUASH_REQUIRED",
-    "state": "PENDING_PROTECTED_PULL_REQUEST"
+    "head_sha": "9b355b2be4968d8f70639da6f82af68fd98f0385",
+    "merge_commit_repository_ci_run": 31325704139,
+    "merge_commit_security_analysis_run": 31325704119,
+    "merge_method": "SQUASH",
+    "merge_sha": "180649fb7035553c6dcfacd166c5db77029f6c8c",
+    "merged_at_utc": "2026-08-09T17:10:24Z",
+    "pull_request": 62,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "scientific_and_model_evidence": {
@@ -324,6 +355,7 @@
     "raw_export": "DENIED",
     "raw_payloads_in_git_or_jira": false
   },
+  "updated_at_utc": "2026-08-09T17:14:02Z",
   "validation": {
     "report": {
       "bytes": 3483,

@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "created_at_utc": "2026-08-09T12:13:20Z",
-  "updated_at_utc": "2026-08-09T12:13:20Z",
+  "updated_at_utc": "2026-08-09T12:16:33.2155147Z",
   "jira_key": "BAT-364",
   "local_issue_id": "POST-SUBTASK-014",
   "producer": {
@@ -153,10 +153,10 @@
   "protected_integration_candidate": {
     "branch": "codex/BAT-364-source-priority-decisions",
     "base_sha": "ea7a83099a6e0c2ff423752f846d3efabea78567",
-    "pull_request": null,
+    "pull_request": 27,
     "merge_sha": null,
     "required_checks": "PENDING",
-    "state": "CANDIDATE_NOT_YET_MERGED"
+    "state": "PROTECTED_REVIEW_PENDING"
   },
   "live_jira": {
     "claim_comment_id": "13317",

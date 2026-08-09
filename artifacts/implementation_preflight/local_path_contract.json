@@ -192,14 +192,27 @@
       "missing rights or provenance state"
     ]
   },
+  "integration": {
+    "branch": "codex/BAT-354-external-data-root",
+    "pull_request": 9,
+    "head_sha": "199ea626ad4b17188033fdf12c92f128fda999a8",
+    "merge_sha": "881371c13ee198e28bb72bdb0b597cbefa26aeda",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-09T08:26:30Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_PASSED",
+    "live_jira_comment_id": "13291",
+    "live_jira_status": "Done",
+    "live_jira_logical_state": "DONE",
+    "live_jira_evidence_state": "VERIFIED",
+    "live_jira_maturity": "IMPLEMENTED",
+    "live_jira_updated_at": "2026-08-09T03:26:57.167-0500"
+  },
   "completion": {
-    "issue_disposition": "READY_FOR_PROTECTED_INTEGRATION",
-    "evidence_state": "VERIFIED_LOCAL",
+    "issue_disposition": "DONE",
+    "evidence_state": "VERIFIED",
     "all_issue_acceptance_criteria_pass": true,
     "release_ready": false,
-    "remaining_issue_scope_blockers": [
-      "PENDING_PROTECTED_PR_INTEGRATION"
-    ],
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
       "REAL_HISTORICAL_DATA_NOT_MATERIALIZED",
@@ -211,6 +224,6 @@
   "content_hash": {
     "algorithm": "sha256",
     "canonicalization": "UTF-8 JSON sorted keys compact separators with content_hash field excluded",
-    "value": "eb865b624ea32aee4b7a15b4049ffe461fe2c2bd9bc54767f4d58e10251f5d18"
+    "value": "60df8c28ea9b87a42ca391dab8e68f7a74aa0cda32b4b9d8a27b866e8069ac13"
   }
 }

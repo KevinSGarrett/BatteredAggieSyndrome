@@ -46,7 +46,8 @@
     "POST-SUBTASK-069",
     "POST-SUBTASK-079",
     "POST-SUBTASK-080",
-    "POST-SUBTASK-081"
+    "POST-SUBTASK-081",
+    "POST-SUBTASK-169"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-048_approve_or_block_immutable_matrix_versions_for_feature_model_experimentation.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -416,6 +417,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-016 (Append-only as-of state 
 - POST-SUBTASK-079
 - POST-SUBTASK-080
 - POST-SUBTASK-081
+- POST-SUBTASK-169
 
 ## Read / Inspect First
 

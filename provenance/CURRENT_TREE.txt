@@ -107,6 +107,7 @@ artifacts/jira_evidence/POST-SUBTASK-164.json
 artifacts/jira_evidence/POST-SUBTASK-166.json
 artifacts/jira_evidence/POST-SUBTASK-167.json
 artifacts/jira_evidence/POST-SUBTASK-168.json
+artifacts/jira_evidence/POST-SUBTASK-169.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -175,6 +176,7 @@ configs/openai_gamebook_pilot.json
 configs/openai_quarantine_schema_pilot.json
 configs/openai_task_registry.json
 configs/player_intelligence_registry.json
+configs/preliminary_unprotected_baseline_contract.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
 configs/research_execution_registry.json
@@ -1327,6 +1329,7 @@ jira/issues/subtasks/POST-SUBTASK-165_pilot_timestamped_injury_depth_chart_pract
 jira/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.md
 jira/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.md
 jira/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.md
+jira/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1825,6 +1828,7 @@ jira/records/issues/subtasks/POST-SUBTASK-165_pilot_timestamped_injury_depth_cha
 jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json
 jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.json
 jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json
+jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2315,6 +2319,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-165.json
 jira/sources/issue_source_manifests/POST-SUBTASK-166.json
 jira/sources/issue_source_manifests/POST-SUBTASK-167.json
 jira/sources/issue_source_manifests/POST-SUBTASK-168.json
+jira/sources/issue_source_manifests/POST-SUBTASK-169.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2784,6 +2789,7 @@ src/aggie_analytics/modeling/contracts.py
 src/aggie_analytics/modeling/ensemble.py
 src/aggie_analytics/modeling/forecast.py
 src/aggie_analytics/modeling/joint.py
+src/aggie_analytics/modeling/preliminary.py
 src/aggie_analytics/modeling/registry.py
 src/aggie_analytics/modeling/runtime.py
 src/aggie_analytics/modeling/simulation.py
@@ -2887,6 +2893,7 @@ tests/test_openai_assist.py
 tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
+tests/test_preliminary_unprotected_baselines.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
 tests/test_replay_adoption.py
@@ -2948,6 +2955,7 @@ tools/run_openai_depth_chart_pilot.py
 tools/run_openai_entity_review_pilot.py
 tools/run_openai_gamebook_pilot.py
 tools/run_openai_quarantine_pilot.py
+tools/run_preliminary_unprotected_baselines.py
 tools/run_product.py
 tools/run_reference_feature_tournament.py
 tools/run_reference_hpo_grid.py
@@ -2976,6 +2984,7 @@ tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_openai_assist.py
 tools/validate_player_intelligence.py
+tools/validate_preliminary_unprotected_baselines.py
 tools/validate_product_supply_chain.py
 tools/validate_repository.py
 tools/validate_tamu_availability_evidence_pages.py

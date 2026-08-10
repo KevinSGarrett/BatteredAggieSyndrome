@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-activation",
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "jira_key": "BAT-523",
+  "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
+  "issued_at_utc": "2026-08-10T12:08:00Z",
+  "disposition": "ACTIVATED_IN_PROGRESS",
+  "live_jira": {
+    "issue_id": "24663",
+    "status": "In Progress",
+    "logical_workflow_state": "IN_PROGRESS",
+    "implementation_maturity": "CONTRACT_DEFINED",
+    "evidence_state": "PLANNED",
+    "parent": "BAT-32",
+    "blocks": ["BAT-399"],
+    "relates_to": ["BAT-398"]
+  },
+  "trigger_evidence": [
+    {
+      "path": "artifacts/pit/known_at_gate.json",
+      "sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
+      "bytes": 1650075,
+      "finding": "Zero source-known-at rows admitted."
+    },
+    {
+      "path": "artifacts/pit/asof_state_manifest.json",
+      "sha256": "be659759a1fcf02f360ba2a2948096d61b63cca51c90d8ccd6cfbc80c3f5ec51",
+      "bytes": 8235,
+      "finding": "All 313,712 temporal candidates remain quarantined."
+    },
+    {
+      "path": "artifacts/pit/pregame_matrix_manifest.json",
+      "sha256": "dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0",
+      "bytes": 7277,
+      "finding": "Matrix has zero rows and zero cells."
+    },
+    {
+      "path": "artifacts/pit/matrix_gate_decision.json",
+      "sha256": "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a1208",
+      "bytes": 6351,
+      "finding": "BAT-398 explicitly blocks matrix approval and BAT-399."
+    }
+  ],
+  "contract": {
+    "path": "configs/historical_known_at_recovery_contract.json",
+    "required_reexecution_order": ["BAT-395", "BAT-396", "BAT-397", "BAT-398"],
+    "fabricated_known_at_permitted": false,
+    "domain_scoped_eligibility_required": true,
+    "independent_work_may_continue": true
+  },
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-known-at-recovery-contract/20260810T121058Z",
+    "bundle_sha256": "99527d0f9f0ae85731982b7e88c7bddc1c68f73589e9cc69531266913978a34c",
+    "bundle_bytes": 17858977
+  },
+  "completion_claim": {
+    "workstream_activated": true,
+    "historical_known_at_recovered": false,
+    "nonempty_pit_state_materialized": false,
+    "matrix_approved": false,
+    "scientific_result": "NOT_CLAIMED"
+  }
+}

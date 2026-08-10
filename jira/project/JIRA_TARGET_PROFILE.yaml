@@ -116,9 +116,9 @@
   },
   "discovery_required_before_api_execution": false,
   "jira_base_url": "https://kevinsgarrett.atlassian.net",
-  "last_live_verification": "2026-08-10T04:24:32.735442+00:00",
+  "last_live_verification": "2026-08-10T12:08:00+00:00",
   "live_counts": {
-    "issues": 476,
+    "issues": 477,
     "links": 1081,
     "parents": 423
   },

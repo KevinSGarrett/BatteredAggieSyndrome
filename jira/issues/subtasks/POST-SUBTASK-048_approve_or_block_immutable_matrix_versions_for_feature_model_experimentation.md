@@ -23,7 +23,7 @@
     "artifacts/pit/matrix_gate_decision.json",
     "artifacts/jira_evidence/POST-SUBTASK-048.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-046;POST-SUBTASK-047",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-047",
   "blocks": [
     "POST-EPIC-006",
     "POST-EPIC-007",

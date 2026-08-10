@@ -261,6 +261,54 @@
     "source_export": "<external-data-root>/runtime/BAT-396/BAT-396-claim-live-row.csv",
     "reconciliation": "DRY_RUN_PASS_THEN_PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS"
   },
+  "integration": {
+    "implementation_pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/130",
+    "implementation_pr_state": "MERGED",
+    "implementation_merge_commit": "101486f021ebf2732ae66c9e7b869f1ff6a1fe01",
+    "implementation_merged_at_utc": "2026-08-10T10:47:59Z",
+    "pull_request_checks": "PASS_LINUX_WINDOWS_PRODUCT_SECURITY_DEPENDENCY_REVIEW_CODEQL",
+    "merge_commit_repository_ci": "PASS",
+    "merge_commit_security_analysis": "PASS",
+    "live_jira": {
+      "issue_key": "BAT-396",
+      "issue_id": "24536",
+      "status": "Done",
+      "logical_workflow_state": "DONE",
+      "implementation_maturity": "IMPLEMENTED",
+      "evidence_state": "VERIFIED",
+      "claim_comment_id": "13452",
+      "completion_comment_id": "13453",
+      "updated": "2026-08-10T05:50:26.009-0500"
+    },
+    "completion_reconciliation": {
+      "source_export": "<external-data-root>/runtime/BAT-396/BAT-396-completion-live-rows.csv",
+      "dry_run": "PASS",
+      "actual": "PASS",
+      "rows": 2,
+      "changed_issues": 2,
+      "conflicts": 0,
+      "strict_validation": "PASS",
+      "local_bat_396_state": "DONE_VERIFIED",
+      "local_bat_397_state": "READY"
+    },
+    "downstream_activation": {
+      "jira_key": "BAT-397",
+      "issue_id": "24537",
+      "status": "To Do",
+      "logical_workflow_state": "READY",
+      "implementation_maturity": "FUNCTIONAL_STARTER",
+      "evidence_state": "PLANNED",
+      "activation_comment_id": "13454",
+      "updated": "2026-08-10T05:50:26.888-0500"
+    },
+    "post_sync_validation": {
+      "report": "<external-data-root>/validation/BAT-396/asof-state/validation-report-post-sync.json",
+      "report_sha256": "33329c7ade03e0c34e084bf36ff2ff199df824a712fcddc0792f29588dd1f55a",
+      "report_bytes": 2725,
+      "findings": 0,
+      "unsafe_mutations_rejected": 12
+    }
+  },
   "downstream_reevaluation": {
     "POST-STORY-016": "STATE_STORE_MATERIALIZED_BUT_STORY_REMAINS_INCOMPLETE",
     "POST-SUBTASK-047": "READY_AFTER_VERIFIED_BAT396_COMPLETION_SYNC; MUST EMIT EMPTY OR BLOCKED MATRIX UNTIL ACCEPTED STATE EXISTS",

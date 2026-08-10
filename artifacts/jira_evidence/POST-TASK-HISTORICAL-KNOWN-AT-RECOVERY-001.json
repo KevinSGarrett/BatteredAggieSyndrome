@@ -1,11 +1,11 @@
 {
-  "schema_version": "1.4.0",
-  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-advanced-game-candidate",
+  "schema_version": "1.5.0",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-venue-assignment-candidate",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
   "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-  "issued_at_utc": "2026-08-10T17:25:00Z",
-  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_AND_EVENT_ROSTER_RANKINGS_TEAM_BOX_ADVANCED_GAME_CANDIDATE_LAYERS_VALIDATED",
+  "issued_at_utc": "2026-08-10T17:50:00Z",
+  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_AND_EVENT_ROSTER_RANKINGS_TEAM_BOX_ADVANCED_GAME_VENUE_ASSIGNMENT_CANDIDATE_LAYERS_VALIDATED",
   "live_jira": {
     "issue_id": "24663",
     "status": "In Progress",
@@ -470,6 +470,39 @@
     "admission_state": "CANDIDATE_NOT_ADMITTED",
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
   },
+  "validated_venue_assignment_candidate": {
+    "gate_artifact": "artifacts/pit/historical_venue_assignment_reconciliation_gate.json",
+    "dataset_identity": "34b682b25cff6f98e86bbc2e8f64528edd92ee8bcef09cef4729c301adf8cbee",
+    "manifest_sha256": "a14375ed94ba93604b1e09c89f8828eba453d6dcff7f5639ef827d5dcf37dac0",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/34b682b25cff6f98e86bbc2e8f64528edd92ee8bcef09cef4729c301adf8cbee/venue_assignment_history_reconciliation.json",
+    "source_season_min": 1963,
+    "source_season_max": 2025,
+    "source_games": 46954,
+    "venue_catalog_rows": 844,
+    "games_with_venue_id_and_label": 19669,
+    "catalog_id_linked_games": 19669,
+    "games_without_venue_evidence": 27285,
+    "current_canonical_overlap_games": 3659,
+    "current_capture_venue_exact_match_games": 3659,
+    "payload_bytes": 6418853,
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/venue_assignment_history_1963_2025_validation.json",
+      "sha256": "6f6de33080babc683db361f1b887d3d99663c5d6f031d3a60ad89c47b909029e",
+      "checks_passed": 31,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/venue_assignment_history_1963_2025_rebuild_validation.json",
+      "sha256": "6bad429280c05d5ebd9ff9e656c9e212c030bb3a5e9964b4a4ab36051002bf1a",
+      "status": "PASS",
+      "manifest_and_63_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "UNKNOWN_FOR_GAME_VENUE_ASSIGNMENT_AND_CATALOG_ATTRIBUTES_CAPTURE_TIME_ONLY",
+    "catalog_effective_time": "CURRENT_2026_SNAPSHOT_NOT_HISTORICALLY_BACKFILLED",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_HISTORICAL_EFFECTIVE_TIME_CANONICAL_PIT_FEATURE_AND_RELOCATION_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -521,6 +554,12 @@
     "bundle_bytes": 17705619,
     "base_commit": "fc7a1d49f3ba03ef9de30e8f50f521e49d912e6e"
   },
+  "venue_assignment_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-venue-history/20260810T175000Z/BAT-523-venue-history.bundle",
+    "bundle_sha256": "f1970966bbba8eabfb38ca681138d563fe2adce751ccb5e47c90e0cfbc2cabb4",
+    "bundle_bytes": 17966844,
+    "base_commit": "9b934632080936074450b0fd637b87d45df855b0"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -547,6 +586,8 @@
     "advanced_game_candidate_layer_validated": true,
     "advanced_game_canonical_pit_feature_or_protected_use_admission": false,
     "structured_advanced_game_candidate_materialized": true,
+    "venue_assignment_candidate_layer_validated": true,
+    "venue_assignment_canonical_pit_feature_or_relocation_admission": false,
     "historical_venue_materialized": false,
     "official_player_box_scores_materialized": false,
     "other_domain_expansion_continues": true,

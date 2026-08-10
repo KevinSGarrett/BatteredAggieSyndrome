@@ -45,6 +45,11 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        cls.venue_assignment_gate = json.loads(
+            (ROOT / "artifacts" / "pit" / "historical_venue_assignment_reconciliation_gate.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -405,6 +410,47 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(self.advanced_game_gate["candidate_layer"]["offense_defense_reciprocal_games"], 21095)
         self.assertFalse(self.advanced_game_gate["historical_known_at_gate"]["pit_state_admission"])
         self.assertFalse(self.advanced_game_gate["scientific_nonclaims"]["gap_002_resolved"])
+
+    def test_venue_assignment_history_preserves_early_absence_and_current_catalog_boundary(self) -> None:
+        venue = self.contract["latest_validated_venue_assignment_candidate"]
+        self.assertEqual(
+            venue["dataset_identity"],
+            "34b682b25cff6f98e86bbc2e8f64528edd92ee8bcef09cef4729c301adf8cbee",
+        )
+        self.assertEqual(venue["source_season_min"], 1963)
+        self.assertEqual(venue["source_season_max"], 2025)
+        self.assertEqual(venue["source_seasons"], 63)
+        self.assertEqual(venue["source_games"], 46954)
+        self.assertEqual(venue["venue_catalog_rows"], 844)
+        self.assertEqual(venue["games_with_venue_id"], 19669)
+        self.assertEqual(venue["catalog_id_linked_games"], 19669)
+        self.assertEqual(venue["games_without_venue_evidence"], 27285)
+        self.assertEqual(venue["current_capture_venue_exact_match_games"], 3659)
+        self.assertEqual(venue["current_capture_venue_conflict_games"], 0)
+        self.assertEqual(venue["validation_checks_passed"], 31)
+        self.assertEqual(venue["mutation_controls_passed"], 14)
+        self.assertEqual(venue["deterministic_payloads_compared"], 63)
+        self.assertIn("UNKNOWN", venue["historical_known_at_basis"])
+        self.assertIn("NOT_HISTORICALLY_BACKFILLED", venue["catalog_effective_time"])
+        self.assertIn("27285", venue["pre_2001_finding"])
+        self.assertEqual(venue["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertTrue(self.evidence["completion_claim"]["venue_assignment_candidate_layer_validated"])
+        self.assertFalse(
+            self.evidence["completion_claim"]["venue_assignment_canonical_pit_feature_or_relocation_admission"]
+        )
+        self.assertFalse(self.evidence["completion_claim"]["historical_venue_materialized"])
+        checkpoint = self.gate["parallel_venue_assignment_checkpoint"]
+        self.assertFalse(checkpoint["historical_catalog_effective_time_established"])
+        self.assertFalse(checkpoint["canonical_venue_assignment_admission"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["training_feature_admission"])
+        self.assertFalse(checkpoint["relocation_history_admission"])
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+        self.assertEqual(self.venue_assignment_gate["coverage"]["season_1963_2000_games_with_venue_evidence"], 0)
+        self.assertFalse(
+            self.venue_assignment_gate["historical_known_at_gate"]["current_catalog_historical_backfill_allowed"]
+        )
+        self.assertFalse(self.venue_assignment_gate["scientific_nonclaims"]["gap_002_resolved"])
 
 
 if __name__ == "__main__":

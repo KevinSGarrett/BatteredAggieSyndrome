@@ -122,6 +122,7 @@ artifacts/pit/historical_advanced_game_reconciliation_gate.json
 artifacts/pit/historical_known_at_replay_gate.json
 artifacts/pit/historical_rankings_reconciliation_gate.json
 artifacts/pit/historical_team_box_reconciliation_gate.json
+artifacts/pit/historical_venue_assignment_reconciliation_gate.json
 artifacts/pit/known_at_gate.json
 artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json

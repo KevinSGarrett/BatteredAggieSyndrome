@@ -24,7 +24,7 @@
     "artifacts/mlops/checkpoint_resume_test.json",
     "artifacts/jira_evidence/POST-SUBTASK-107.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-024;POST-SUBTASK-105;POST-SUBTASK-106",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-105;POST-SUBTASK-106",
   "blocks": [
     "POST-SUBTASK-108"
   ],

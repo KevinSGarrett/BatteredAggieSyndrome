@@ -24,7 +24,7 @@
     "artifacts/operations/observability_contract_test.json",
     "artifacts/jira_evidence/POST-SUBTASK-127.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-024;POST-SUBTASK-126",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-126",
   "blocks": [
     "POST-SUBTASK-128",
     "POST-SUBTASK-129"

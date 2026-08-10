@@ -40,14 +40,14 @@ Execute the atomic 3 of 3 step in Story POST-STORY-008 (Production acquisition c
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
-- Ready: `true`
+- Workflow: `DONE`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `OPERATIONS`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `CONTRACT_DEFINED` → `OPERATING`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-024`
 
 ## Read first

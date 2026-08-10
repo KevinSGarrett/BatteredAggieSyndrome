@@ -16,7 +16,7 @@
     "artifacts/operations/drift_alert_validation.json",
     "artifacts/jira_evidence/POST-SUBTASK-128.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-024;POST-SUBTASK-126;POST-SUBTASK-127",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-126;POST-SUBTASK-127",
   "blocks": [
     "POST-SUBTASK-129"
   ],

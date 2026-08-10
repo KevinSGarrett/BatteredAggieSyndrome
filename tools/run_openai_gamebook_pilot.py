@@ -44,13 +44,17 @@ def main() -> int:
         raise SystemExit(f"bounded pilot job count {job_count} is outside 1..{args.max_jobs}")
 
     rows: list[dict[str, Any]] = []
-    failures: list[dict[str, str]] = []
+    failures: list[dict[str, Any]] = []
     costs: Counter[str] = Counter()
     schema_path = ROOT / config["output_schema"]
     for route in routes:
         for case in gold:
             fields = [fact["field"] for fact in case["expected_facts"]]
-            prompt = f"{prompt_base}\n\nExtract exactly these fields: {json.dumps(fields, separators=(',', ':'))}."
+            prompt = (
+                f"{prompt_base}\n\nCase instruction: {case['instruction']}\n"
+                f"Extract exactly these fields: {json.dumps(fields, separators=(',', ':'))}."
+            )
+            max_output_tokens = min(3072, max(1536, 512 + 192 * len(fields)))
             job = AssistiveJob(
                 task_name=config["task_name"],
                 jira_unit=config["jira_unit"],
@@ -65,7 +69,7 @@ def main() -> int:
                 reasoning_effort=route["reasoning_effort"],
                 allocation="PROBE_PROMPT_EVAL",
                 destination="CANDIDATE",
-                max_output_tokens=1024,
+                max_output_tokens=max_output_tokens,
                 priority=Priority.NORMAL,
             )
             try:
@@ -73,7 +77,15 @@ def main() -> int:
                 candidate = result.candidate
                 costs[route["model"]] += Decimal(result.actual_cost_usd)
                 if candidate is None:
-                    failures.append({"model": route["model"], "case_id": case["case_id"], "error": "NO_CANDIDATE"})
+                    failures.append(
+                        {
+                            "model": route["model"],
+                            "case_id": case["case_id"],
+                            "error": "NO_CANDIDATE",
+                            "disposition": result.disposition,
+                            "validation_errors": list(result.validation_errors),
+                        }
+                    )
                     continue
                 rows.append({"case_id": case["case_id"], "model": route["model"], "reasoning_effort": route["reasoning_effort"], "actual_cost_usd": result.actual_cost_usd, "review_time_saved_seconds": 0, "disposition": result.disposition, "validation_errors": list(result.validation_errors), "entity_merge": candidate.get("entity_merge"), "entity_top_k": candidate.get("entity_top_k", []), "candidate": candidate})
             except Exception as exc:

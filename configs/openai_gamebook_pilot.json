@@ -46,9 +46,9 @@
     }
   },
   "prompt": {
-    "path": "prompts/openai_assist/gamebook_domain_v2.txt",
-    "version": "gamebook-domain-v2",
-    "sha256": "e1508aedc12a2ec1934daba3f529d67a5b818978c754bd0a0ad730de8818d159"
+    "path": "prompts/openai_assist/gamebook_domain_v3.txt",
+    "version": "gamebook-domain-v3",
+    "sha256": "a498f4614a879283752371ec02d75f3adca75ec6f9bfeb040b9292ddfeec9642"
   },
   "output_schema": "schemas/openai/assistive_evaluation.schema.json",
   "routes": [
@@ -61,6 +61,7 @@
       "case_id": "play-2424102590305",
       "category": "pass_completion",
       "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
       "source": "plays_2004",
       "extractor": {"type": "parquet_play", "play_id": 2424102590305},
       "facts": [
@@ -75,6 +76,7 @@
       "case_id": "play-2424102590102",
       "category": "rush",
       "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
       "source": "plays_2004",
       "extractor": {"type": "parquet_play", "play_id": 2424102590102},
       "facts": [
@@ -87,6 +89,7 @@
       "case_id": "play-2424102590109",
       "category": "punt_return",
       "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
       "source": "plays_2004",
       "extractor": {"type": "parquet_play", "play_id": 2424102590109},
       "facts": [
@@ -99,6 +102,7 @@
       "case_id": "play-2424626284801",
       "category": "blocked_field_goal",
       "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
       "source": "plays_2004",
       "extractor": {"type": "parquet_play", "play_id": 2424626284801},
       "facts": [
@@ -111,6 +115,7 @@
       "case_id": "play-2424600091501",
       "category": "interception_return_touchdown",
       "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
       "source": "plays_2004",
       "extractor": {"type": "parquet_play", "play_id": 2424600091501},
       "facts": [
@@ -124,6 +129,7 @@
       "case_id": "game-401628348-game-info",
       "category": "game_information",
       "domains": ["venue", "officials", "weather", "attendance"],
+      "instruction": "Extract the game-information fields for the McNeese at Texas A&M game from every supplied line.",
       "source": "official_gamebook_pdf",
       "extractor": {"type": "pdf_page_lines", "page": 1, "start_line": 4, "end_line": 10},
       "facts": [
@@ -145,6 +151,7 @@
       "case_id": "game-401628348-drive",
       "category": "drive_summary",
       "domains": ["drives"],
+      "instruction": "Extract the first Texas A&M drive row, the row beginning 1st A&M25 15:00.",
       "source": "official_gamebook_pdf",
       "extractor": {"type": "pdf_page_lines", "page": 6, "start_line": 15, "end_line": 17},
       "facts": [
@@ -162,6 +169,7 @@
       "case_id": "game-401628348-team-box",
       "category": "team_box_score",
       "domains": ["team_box_scores"],
+      "instruction": "Extract Texas A&M team statistics only; A&M is the second numeric column and means Texas A&M.",
       "source": "official_gamebook_pdf",
       "extractor": {"type": "pdf_page_lines", "page": 2, "start_line": 0, "end_line": 20},
       "facts": [
@@ -177,6 +185,7 @@
       "case_id": "game-401628348-player-box",
       "category": "player_box_score",
       "domains": ["player_box_scores"],
+      "instruction": "Extract the Texas A&M passing row for Weigman,Conner only.",
       "source": "official_gamebook_pdf",
       "extractor": {"type": "pdf_page_lines", "page": 3, "start_line": 2, "end_line": 10},
       "facts": [
@@ -193,6 +202,7 @@
       "case_id": "game-401628348-roster-starter",
       "category": "roster_starter",
       "domains": ["roster_starter_facts"],
+      "instruction": "Extract the Texas A&M starter Weigman,Conner only; A&M means Texas A&M.",
       "source": "official_boxscore_html",
       "extractor": {"type": "html_text_range", "start": "Starters\nMCN\n#", "end": "Player Participation"},
       "facts": [
@@ -207,6 +217,7 @@
       "case_id": "game-401628348-source-metadata",
       "category": "source_metadata",
       "domains": ["source_metadata"],
+      "instruction": "Normalize source_uri to source_url and retrieved_at to acquired_at_utc; copy the other requested manifest fields directly.",
       "source": "official_boxscore_manifest",
       "extractor": {"type": "json_fields", "fields": ["dataset", "metadata.game_id", "raw_sha256", "retrieved_at", "snapshot_id", "source_id", "source_uri"]},
       "facts": [

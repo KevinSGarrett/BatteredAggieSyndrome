@@ -201,6 +201,7 @@ def main() -> int:
                 "case_id": sample["case_id"],
                 "category": sample["category"],
                 "domains": domains,
+                "instruction": sample["instruction"],
                 "source_key": sample["source"],
                 "source_url": source["source_url"],
                 "source_payload_sha256": source["sha256"],

@@ -94,6 +94,7 @@ artifacts/jira_evidence/POST-SUBTASK-043.json
 artifacts/jira_evidence/POST-SUBTASK-044.json
 artifacts/jira_evidence/POST-SUBTASK-045.json
 artifacts/jira_evidence/POST-SUBTASK-046.json
+artifacts/jira_evidence/POST-SUBTASK-047.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
@@ -115,6 +116,7 @@ artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
 artifacts/pit/known_at_gate.json
+artifacts/pit/pregame_matrix_manifest.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json

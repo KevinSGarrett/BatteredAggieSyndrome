@@ -147,11 +147,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24537",
-    "jira_updated_at": "2026-08-10T05:50:26.888-0500",
-    "last_synced_at": "2026-08-10T10:51:33.465261+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-396\\BAT-396-completion-live-rows.csv",
+    "jira_updated_at": "2026-08-10T05:59:28.002-0500",
+    "last_synced_at": "2026-08-10T11:01:05.967750+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-397\\BAT-397-claim-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -340,7 +340,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-016: Append-only as-of state and pregame matrices.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-047.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

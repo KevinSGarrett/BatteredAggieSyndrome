@@ -1,0 +1,231 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-160",
+  "jira_key": "BAT-516",
+  "created_at_utc": "2026-08-10T04:30:00Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "src/aggie_analytics/openai_assist/controller.py",
+      "evidence_sha256": "3799fa3bb75077cf4e048e11c23041dabcaaf21004b56f331559716de0ea8669",
+      "observable_result": "One optional controller exclusively owns Responses and Batch operations, model/effort routing, credential resolution, exact configured-secret rejection, store:false, strict schemas, conservative cost estimation, admission, idempotency, retries, caching, external content addressing, provenance, validation, reporting, remote-file cleanup, and local temporary cleanup. No forecast-critical package imports this optional plane."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "configs/openai_assist_policy.json",
+      "evidence_sha256": "86f235de21cbf8423f0f5ba6cfe347e671ca8313efa05d94f9e7e68d5c164401",
+      "observable_result": "The local reservation/settlement ledger enforces the exact USD 100 envelope, allocation caps, $25/$50/$75/$90 threshold events, the $90 low-priority stop, restricted contingency release reasons, and an absolute committed-cost hard stop. Doctor and usage both report settled USD 0.00, reserved USD 0.00, and remaining USD 100.00."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "governance/OPENAI_ASSISTIVE_PLANE.md",
+      "evidence_sha256": "2f68c4cdbdade1728fd4ca4870b22d28f8d8b968ac58aff571419d91a8e02eef",
+      "observable_result": "The authoritative key was verified nonempty without displaying or copying it. Operational storage is external at <external-data-root>/openai with the required subdirectories. The strict secret scan passed; no .env, credential value, raw response, source excerpt, embedding, provider usage payload, or bulk API artifact entered Git."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "tests/test_openai_assist.py",
+      "evidence_sha256": "3159816348d45c93ec6a8ba8c98747db89844ca9c5c4376004b3820e09d1f141",
+      "observable_result": "Twelve focused tests cover strict schema closure, evidence rejection, key/header/env and exact-configured-secret rejection, budget settlement/hard stop, store:false, Responses Batch payloads, candidate-only caching, repository-relative Batch schema durability, failed-submission reservation release and remote-file deletion, and the representative local evaluation corpus. The final full suite passed 303 tests with two Windows privilege-dependent symlink skips."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "POLICY_AND_BUDGET",
+      "path": "configs/openai_assist_policy.json",
+      "sha256": "86f235de21cbf8423f0f5ba6cfe347e671ca8313efa05d94f9e7e68d5c164401",
+      "bytes": 3467
+    },
+    {
+      "role": "TASK_REGISTRY",
+      "path": "configs/openai_task_registry.json",
+      "sha256": "fcf0e1ffe8b45758270c0b5159ce9d93e533074fb697c739439d9afeb2583c12",
+      "bytes": 1107
+    },
+    {
+      "role": "STRICT_CANDIDATE_SCHEMA",
+      "path": "schemas/openai/assistive_candidate.schema.json",
+      "sha256": "1da98a7235f66476af4e2205a347b6811640d241ad4214f878374e4aab0e8be4",
+      "bytes": 1736
+    },
+    {
+      "role": "HASH_LOCKED_OPTIONAL_DEPENDENCIES",
+      "path": "requirements/openai-assist.lock",
+      "sha256": "feef242f92fd7dd04d8805e929b4956587b4dfcea635889697c7eeb69628f1b0",
+      "bytes": 22175,
+      "packages": 17,
+      "openai_sdk": "2.53.0"
+    },
+    {
+      "role": "GOVERNED_CONTROLLER",
+      "path": "src/aggie_analytics/openai_assist/controller.py",
+      "sha256": "3799fa3bb75077cf4e048e11c23041dabcaaf21004b56f331559716de0ea8669",
+      "bytes": 28092
+    },
+    {
+      "role": "LOCAL_EVALUATION_HARNESS",
+      "path": "src/aggie_analytics/openai_assist/evals.py",
+      "sha256": "0c64dc10c4c4ec6de3f3c9d26376773c7a31a4cce40d3cebfa4038d91ea7a3b9",
+      "bytes": 5111
+    },
+    {
+      "role": "REPRESENTATIVE_GOLD_CORPUS",
+      "path": "fixtures/openai_assist/eval_gold.jsonl",
+      "sha256": "a81785566a7004736591c1c4cb8a71b685c3a2c8b8ad0c7375d87f3e328a6819",
+      "bytes": 2985,
+      "cases": 8
+    },
+    {
+      "role": "VERIFIED_LIVE_JIRA_GRAPH",
+      "path": "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
+      "sha256": "99d8ce04836849d393b46cd15455bbfd0aede9aee1f051db076348d7fcb1794b",
+      "bytes": 1907,
+      "canonical_issues": 474,
+      "auxiliary_issues": 2,
+      "canonical_links": 1081,
+      "parents": 423
+    }
+  ],
+  "evaluation": {
+    "classification": "LOCAL_HARNESS_AND_GOLD_PREDICTION_SELF_CHECK_ONLY",
+    "cases": 8,
+    "strict_schema_rate": 1.0,
+    "field_precision": 1.0,
+    "field_recall": 1.0,
+    "evidence_accuracy": 1.0,
+    "correct_abstention_rate": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "entity_top_k_recall": 1.0,
+    "false_merge_rate": 0.0,
+    "repeated_run_consistency": 1.0,
+    "quarantine_rate": 0.125,
+    "empirical_cross_model_comparison_claimed": false
+  },
+  "usage": {
+    "synchronous_jobs": 0,
+    "batch_jobs": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "settled_usd": "0.000000",
+    "reserved_usd": "0.000000",
+    "remaining_usd": "100.000000"
+  },
+  "commands": [
+    {
+      "command": "PYTHONPATH=src python -B -m unittest discover -s tests -p test_*.py -q",
+      "exit_code": 0,
+      "result": "PASS: 303 tests, 2 Windows privilege-dependent symlink skips"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m unittest discover -s tests -p test_openai_assist.py -v",
+      "exit_code": 0,
+      "result": "PASS: 12 focused tests"
+    },
+    {
+      "command": "python -B tools/validate_openai_assist.py; python -B tools/validate_repository.py --repo-root . --strict; python -B tools/validate_w25_final.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS: OpenAI policy/schema/dependency/authority/isolation, strict repository/provenance/secret, and W25 honesty gates"
+    },
+    {
+      "command": "python -B tools/validate_jira_control_plane.py --repo-root . --strict; python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "result": "PASS: 474 canonical Jira records, 1,081 dependency/relationship links, 2,119 source references, zero validation findings"
+    },
+    {
+      "command": "python -B tools/openai_assist.py doctor; usage; eval --predictions fixtures/openai_assist/eval_predictions.jsonl",
+      "exit_code": 0,
+      "result": "PASS: key nonempty without value exposure, store:false, external storage, zero usage, local harness self-check"
+    }
+  ],
+  "protected_integration": {
+    "implementation_pr": 100,
+    "implementation_head": "cfa7bbc2287ec6d6308241972a72ed45f841ceca",
+    "implementation_merge": "4bfec929872b547d5eaffcbd8ac6b83a5bc70554",
+    "implementation_merged_at_utc": "2026-08-10T04:04:09Z",
+    "jira_sync_pr": 105,
+    "jira_sync_head": "12261f562ba41fd4abdb05f412763bac2e9d9c73",
+    "jira_sync_merge": "3cb1c5bc620b775fa0ac4e13f3c4d68ef3f073d1",
+    "jira_sync_merged_at_utc": "2026-08-10T04:28:06Z",
+    "required_checks": "ALL_PROTECTED_LINUX_WINDOWS_SECURITY_DEPENDENCY_AND_CODEQL_CONTEXTS_PASSED"
+  },
+  "live_jira": {
+    "jira_key": "BAT-516",
+    "status": "In Progress",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "NOT_STARTED",
+    "evidence_state": "PLANNED",
+    "completion_transition_pending_protected_evidence_merge": true
+  },
+  "external_evidence": {
+    "canonical_jira_spec_sync_backup": {
+      "path": "<external-data-root>/reconciliation/jira/canonical-spec-sync/20260810T042352Z/pre-update.json",
+      "sha256": "217f890f68f9d642226198b55a75ffc919c3975d46471e6252b31c390ed33d0c",
+      "bytes": 11507979,
+      "issues": 218
+    },
+    "prechange_repository_backup": {
+      "path": "<external-data-root>/backups/OPENAI-ASSIST/20260810T033400Z-prechange",
+      "manifest_sha256": "a23d4cad8b2cede8d26f4a5a807fa71f68d99140bc9729d90cbd946add0f98a9",
+      "integrity": "PASS"
+    }
+  },
+  "negative_findings": [
+    {
+      "finding": "The repository worktree helper used a .NET Path API unavailable on this host.",
+      "disposition": "PRESERVED_AND_BYPASSED_SAFELY: verified external Git worktrees were created with native Git after exact path and cleanliness checks."
+    },
+    {
+      "finding": "The first protected Linux run treated the configured Windows external root as relative.",
+      "disposition": "PRESERVED_AND_FIXED_IN_PR_100: policy validation now recognizes absolute Windows roots cross-platform while operational use remains bound to the current Windows host."
+    },
+    {
+      "finding": "Live Jira initially contained BAT-510 and BAT-511 outside the generated import corpus.",
+      "disposition": "PRESERVED_AND_RECONCILED: both are exact-key auxiliary units; their identities and governed fields are now registered, verified, and preserved."
+    },
+    {
+      "finding": "Live Jira contained one exact reversed canonical dependency and one legitimate auxiliary cleanup relationship.",
+      "disposition": "PRESERVED_AND_REMEDIATED: the reversed duplicate was snapshotted and removed; the auxiliary relationship was preserved; all 1,081 canonical links now verify."
+    },
+    {
+      "finding": "Live Jira had 218 stale canonical-spec field sets after protected historical-expansion amendments.",
+      "disposition": "PRESERVED_AND_TRANSACTIONALLY_SYNCHRONIZED: external 11,507,979-byte rollback snapshot verified; all 218 updates completed with zero errors and zero reconciliation conflicts."
+    },
+    {
+      "finding": "The legacy independent second-pass audit hardcodes the original 463-issue planning snapshot.",
+      "disposition": "PRESERVED_LEGACY_NEGATIVE: the maintained dynamic second-pass, strict control-plane, source, dependency, import, repository, and full-suite gates all pass at 474 canonical issues."
+    }
+  ],
+  "cleanup": {
+    "removed_reconstructible_tmp_files": 1,
+    "removed_reconstructible_tmp_bytes": 341964,
+    "merged_clean_worktrees_removed": 5,
+    "preserved": "Active external OpenAI SDK runtime, content-addressed evidence, rollback snapshots, and the current evidence worktree."
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-161": "READY_AFTER_BAT_516_PROTECTED_EVIDENCE_MERGE_AND_LIVE_DONE_TRANSITION",
+    "POST-SUBTASK-162": "REMAINS_DEPENDENT_ON_POST-SUBTASK-161_EMPIRICAL_MODEL_COMPARISON",
+    "historical_expansion": "CONTINUES_INDEPENDENTLY_AND_IS_NOT_BLOCKED_BY_OPTIONAL_OPENAI_WORK"
+  },
+  "completion": {
+    "completion_claimed": true,
+    "achieved_maturity": "INTEGRATED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_GOVERNED_OPTIONAL_FOUNDATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
+  },
+  "honesty_boundary": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "openai_pilot_result_claimed": false
+  }
+}

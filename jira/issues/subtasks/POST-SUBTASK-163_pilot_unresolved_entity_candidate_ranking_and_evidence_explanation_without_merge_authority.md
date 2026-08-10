@@ -157,7 +157,7 @@
   "primary_source_refs": [
     "SRCREF-02119"
   ],
-  "priority": "MUST",
+  "priority": "P0",
   "protected_change_required": false,
   "protected_files_and_interfaces": [
     "AGENTS.md",

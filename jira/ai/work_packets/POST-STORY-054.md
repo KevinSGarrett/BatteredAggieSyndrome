@@ -35,7 +35,7 @@ Execute POST-STORY-054 within the optional OpenAI assistive plane. Consume `POST
 
 - Workflow: `BACKLOG`
 - Ready: `false`
-- Priority: `MUST`
+- Priority: `P0`
 - Critical path: `false`
 - Execution lane: `SHARED_CONTRACT`
 - Execution mode: `AGGREGATE_GATE`

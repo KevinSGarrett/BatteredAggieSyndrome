@@ -760,10 +760,10 @@ artifacts/live/live_prototype_gate.json,POST-SUBTASK-156,Subtask,true,PRODUCTION
 artifacts/live/live_protected_scorecard.json,POST-SUBTASK-157,Subtask,true,IMPLEMENTED,POST-SUBTASK-158;POST-SUBTASK-159,PLANNED
 artifacts/live/live_product_validation.json,POST-SUBTASK-158,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-159,PLANNED
 artifacts/live/live_operating_decision.json,POST-SUBTASK-159,Subtask,true,PRODUCTION_READY,,PLANNED
-configs/openai_assist_policy.json,POST-SUBTASK-160,Subtask,true,INTEGRATED,POST-SUBTASK-161,PLANNED
-requirements/openai-assist.lock,POST-SUBTASK-160,Subtask,true,INTEGRATED,POST-SUBTASK-161,PLANNED
-src/aggie_analytics/openai_assist/controller.py,POST-SUBTASK-160,Subtask,true,INTEGRATED,POST-SUBTASK-161,PLANNED
-artifacts/jira_evidence/POST-SUBTASK-160.json,POST-SUBTASK-160,Subtask,true,INTEGRATED,POST-SUBTASK-161,PLANNED
+configs/openai_assist_policy.json,POST-SUBTASK-160,Subtask,true,INTEGRATED,POST-SUBTASK-161,VERIFIED
+requirements/openai-assist.lock,POST-SUBTASK-160,Subtask,true,INTEGRATED,POST-SUBTASK-161,VERIFIED
+src/aggie_analytics/openai_assist/controller.py,POST-SUBTASK-160,Subtask,true,INTEGRATED,POST-SUBTASK-161,VERIFIED
+artifacts/jira_evidence/POST-SUBTASK-160.json,POST-SUBTASK-160,Subtask,true,INTEGRATED,POST-SUBTASK-161,VERIFIED
 fixtures/openai_assist/eval_gold.jsonl,POST-SUBTASK-161,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-055;POST-SUBTASK-162;POST-SUBTASK-163;POST-SUBTASK-164;POST-SUBTASK-165,PLANNED
 artifacts/openai_assist/model_comparison.json,POST-SUBTASK-161,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-055;POST-SUBTASK-162;POST-SUBTASK-163;POST-SUBTASK-164;POST-SUBTASK-165,PLANNED
 artifacts/jira_evidence/POST-SUBTASK-161.json,POST-SUBTASK-161,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-055;POST-SUBTASK-162;POST-SUBTASK-163;POST-SUBTASK-164;POST-SUBTASK-165,PLANNED

@@ -16396,7 +16396,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-040
 
-Canonical Record: jira/records/issues/stories/POST-STORY-054_governance_storage_budget_controller_and_local_evaluation_foundation.json",To Do,Medium,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-054,operations-security,POST-STORY-054,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,false,SHARED_CONTRACT,AGGREGATE_GATE
+Canonical Record: jira/records/issues/stories/POST-STORY-054_governance_storage_budget_controller_and_local_evaluation_foundation.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-054,operations-security,POST-STORY-054,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,false,SHARED_CONTRACT,AGGREGATE_GATE
 Story,BAT-514,100466,"[POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",100464,"Local ID: POST-STORY-055
 
 Objective
@@ -16459,7 +16459,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-161
 
-Canonical Record: jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json",To Do,Medium,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-055,data-sources,POST-STORY-055,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
+Canonical Record: jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-055,data-sources,POST-STORY-055,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
 Story,BAT-515,100467,"[POST-STORY-056] Empirical OpenAI scale-out, usage accounting, cleanup, and handoff",100464,"Local ID: POST-STORY-056
 
 Objective
@@ -16526,4 +16526,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-164
 
-Canonical Record: jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.json",To Do,Medium,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-056,release-readiness,POST-STORY-056,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,PROTECTED_GATE,AGGREGATE_GATE
+Canonical Record: jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-056,release-readiness,POST-STORY-056,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,PROTECTED_GATE,AGGREGATE_GATE

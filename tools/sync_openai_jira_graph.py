@@ -115,7 +115,7 @@ def make(
         "phase": "PHASE-1",
         "workflow_state": "DEFERRED" if conditional else ("IN_PROGRESS" if local_id == "POST-SUBTASK-160" else "BACKLOG"),
         "historical_classification": "ACTIONABLE_POST_WAVE",
-        "priority": "SHOULD" if conditional else "MUST",
+        "priority": "P1" if conditional else "P0",
         "critical_path": False,
         "owner_wave": "POST_W25",
         "source_ids": ["OPENAI-ASSIST-PLAN"],

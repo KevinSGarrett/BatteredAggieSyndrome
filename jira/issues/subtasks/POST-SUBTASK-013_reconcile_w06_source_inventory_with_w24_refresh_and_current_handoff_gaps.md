@@ -138,11 +138,11 @@
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Reconcile W06 source inventory with W24 refresh and current handoff gaps",
   "operational_jira": {
-    "assignee": "GARRETT TRAINING SYSTEMS INC.",
+    "assignee": "kevinsgarrett@gmail.com",
     "jira_issue_id": "24503",
-    "jira_updated_at": "2026-08-09T06:58:45.081-0500",
-    "last_synced_at": "2026-08-09T12:00:32.902972+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-363\\BAT-363-live-row.csv",
+    "jira_updated_at": "2026-08-09T23:24:01.062-0500",
+    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

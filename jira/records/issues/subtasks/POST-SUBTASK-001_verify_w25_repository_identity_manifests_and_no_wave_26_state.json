@@ -142,11 +142,11 @@
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Verify W25 repository identity, manifests, and no-Wave-26 state",
   "operational_jira": {
-    "assignee": "GARRETT TRAINING SYSTEMS INC.",
+    "assignee": "kevinsgarrett@gmail.com",
     "jira_issue_id": "24491",
-    "jira_updated_at": "2026-08-09T02:10:35.712-0500",
-    "last_synced_at": "2026-08-09T07:10:35.712000+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.reconciliation\\BAT-351-live-row.csv",
+    "jira_updated_at": "2026-08-09T23:23:59.632-0500",
+    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

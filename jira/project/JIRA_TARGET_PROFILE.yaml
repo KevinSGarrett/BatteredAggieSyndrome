@@ -116,11 +116,11 @@
   },
   "discovery_required_before_api_execution": false,
   "jira_base_url": "https://kevinsgarrett.atlassian.net",
-  "last_live_verification": "2026-08-09T05:44:19.993889+00:00",
+  "last_live_verification": "2026-08-10T04:24:32.735442+00:00",
   "live_counts": {
-    "issues": 463,
-    "links": 1062,
-    "parents": 413
+    "issues": 476,
+    "links": 1081,
+    "parents": 423
   },
   "notes": [
     "BAT was discovered and configured through Jira Cloud REST v3 using returned IDs only.",

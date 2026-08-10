@@ -25,7 +25,13 @@ class JiraControlPlaneTests(unittest.TestCase):
         profile = json.loads((ROOT / "jira/project/JIRA_TARGET_PROFILE.yaml").read_text(encoding="utf-8"))
         self.assertEqual(profile["project_key"], "BAT")
         self.assertEqual(profile["profile_status"], "LIVE_TARGET_CONFIGURED_AND_VERIFIED")
-        self.assertEqual(profile["live_counts"]["issues"], 463)
+        canonical_count = len(list((ROOT / "jira" / "records" / "issues").rglob("*.json")))
+        auxiliary = json.loads(
+            (ROOT / "jira" / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(profile["live_counts"]["issues"], canonical_count + len(auxiliary["issues"]))
 
 
 if __name__ == "__main__":

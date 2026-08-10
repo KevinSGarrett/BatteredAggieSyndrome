@@ -299,6 +299,52 @@
     ],
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
   },
+  "validated_play_enrichment_candidate": {
+    "domain": "play_player_position_and_derived_metric_enrichment",
+    "grain": "SOURCE_PLAY_EVENT",
+    "dataset_identity": "7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0/play_enrichment_reconciliation.json",
+      "sha256": "b27a23337c5e6f3c1ffc37180823645c6ecec75376cf64af4d697dac9885d444"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0/play_enrichment",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/play_enrichment_2014_2022_validation.json",
+      "sha256": "ac747a222f0168f1e331be91b87a84a438fe321d8417dea1fd573b9cb17ac6f5",
+      "checks_passed": 23,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/play_enrichment_2014_2022_rebuild_validation.json",
+      "sha256": "5e7bfabbc07379d0e716b8d6105fad29e7573bc6fcfb5bb366db46d992fb0a3a",
+      "status": "PASS",
+      "manifest_and_9_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      "repository_rows": 1426487,
+      "rows_with_any_position": 915021,
+      "rows_with_any_source_player_id": 921613,
+      "exact_validated_play_link_candidates": 1176564,
+      "canonical_game_play_unreconciled_candidates": 139932,
+      "source_level_only_candidates": 83654,
+      "quarantined_rows": 26337,
+      "unknown_position_cells": 19924,
+      "raw_capture_bytes": 719655075,
+      "payload_bytes": 336493768
+    },
+    "source_and_route_findings": [
+      "Nine immutable enriched-play files span 2014-2022 and are bound to the public repository commit time 2023-05-05T03:50:21Z.",
+      "Exact game plus sequence plus normalized play-text linkage validates 1,176,564 candidate enrichments against the prerequisite play layer.",
+      "The 2020 prerequisite play payload is absent; 2020 remains canonical-game or source-level candidate evidence and receives no exact-play promotion.",
+      "All 26,337 duplicate-key, text-conflict, invalid-core, ambiguous-base, or non-candidate-base rows remain quarantined.",
+      "The source literal '?' is preserved as UNKNOWN in 19,924 position cells and cannot be treated as a position category.",
+      "Source EPA/WPA revisions remain alongside earlier values and deltas; no revision silently overwrites the prerequisite evidence.",
+      "Source player IDs, names, and positions do not authorize canonical player merges, roster/starter inference, PIT state, features, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_CANONICAL_FEATURE_AND_PLAYER_IDENTITY_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -345,6 +391,8 @@
     "roster_canonical_pit_or_availability_admission": false,
     "player_event_metric_candidate_layer_validated": true,
     "player_event_metric_canonical_or_pit_admission": false,
+    "play_enrichment_candidate_layer_validated": true,
+    "play_enrichment_canonical_pit_feature_or_player_identity_admission": false,
     "official_player_box_scores_materialized": false,
     "other_domain_expansion_continues": true,
     "full_historical_population_ready": false,

@@ -1,32 +1,69 @@
 {
-  "schema_version": 1,
-  "pilot_id": "openai-gamebook-play-pilot-v1",
+  "schema_version": 2,
+  "pilot_id": "openai-gamebook-equivalent-pilot-v2",
   "jira_unit": "POST-SUBTASK-162",
   "task_name": "gamebook_extraction",
   "authority": "SHADOW_CANDIDATE_ONLY",
-  "source": {
-    "source_id": "SRC-001",
-    "year": 2004,
-    "external_relative_path": "raw/SRC-001/sportsdataverse-release/plays_structured_gamebook/2004/4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af.parquet",
-    "sha256": "4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af",
-    "source_url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_pbp/play_by_play_2004.parquet",
-    "acquired_at_utc": "2026-08-09T21:01:29.630588Z"
+  "sources": {
+    "plays_2004": {
+      "source_id": "SRC-001",
+      "provider": "SportsDataverse/cfbfastR ESPN-derived release",
+      "season": 2004,
+      "external_relative_path": "raw/SRC-001/sportsdataverse-release/plays_structured_gamebook/2004/4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af.parquet",
+      "sha256": "4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af",
+      "source_url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_pbp/play_by_play_2004.parquet",
+      "acquired_at_utc": "2026-08-09T21:01:29.630588Z"
+    },
+    "official_gamebook_pdf": {
+      "source_id": "SRC-014",
+      "provider": "McNeese State University Athletics / SIDEARM",
+      "season": 2024,
+      "game_id": "401628348",
+      "external_relative_path": "raw/SRC-014/official_gamebooks/1130329951f413a24eb32f61a31692fdf255ac09b430f41401d38322fe21ee13.pdf",
+      "sha256": "1130329951f413a24eb32f61a31692fdf255ac09b430f41401d38322fe21ee13",
+      "source_url": "https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/mcneese.sidearmsports.com/stats/football/2024/pdf/20240908084639-36446.pdf",
+      "acquired_at_utc": "2026-08-10T05:21:19.329479Z"
+    },
+    "official_boxscore_html": {
+      "source_id": "SRC-014",
+      "provider": "McNeese State University Athletics / SIDEARM",
+      "season": 2024,
+      "game_id": "401628348",
+      "external_relative_path": "raw/SRC-014/official_boxscores/d308ffa7d5a2467ba45bcdfa86ba999708002604ea607cefaaa9b99f0af4b5c4.html",
+      "sha256": "d308ffa7d5a2467ba45bcdfa86ba999708002604ea607cefaaa9b99f0af4b5c4",
+      "source_url": "https://mcneesesports.com/sports/football/stats/2024/texas-am/boxscore/12584",
+      "acquired_at_utc": "2026-08-10T05:22:49.777954Z"
+    },
+    "official_boxscore_manifest": {
+      "source_id": "SRC-014",
+      "provider": "Aggie Analytics immutable capture manifest",
+      "season": 2024,
+      "game_id": "401628348",
+      "external_relative_path": "manifests/snap_93cf2acc2432296af806c97d.json",
+      "sha256": "8d7c09e59fa8379d45338c77084ee6339d33e57cb02e11457aaa47acfc6b7ce0",
+      "source_url": "https://mcneesesports.com/sports/football/stats/2024/texas-am/boxscore/12584",
+      "acquired_at_utc": "2026-08-10T05:22:49.777954Z"
+    }
   },
   "prompt": {
-    "path": "prompts/openai_assist/gamebook_play_v1.txt",
-    "version": "gamebook-play-v1",
-    "sha256": "ded7ce4e037c4ccded47c145da6e0d25d650d3d02e03d7c4084cb9adf7c2e47f"
+    "path": "prompts/openai_assist/gamebook_domain_v4.txt",
+    "version": "gamebook-domain-v4",
+    "sha256": "0c2df1af40a48ff7410a537e4b54a12b0f179284b160a17f4c78a111d2130286"
   },
   "output_schema": "schemas/openai/assistive_evaluation.schema.json",
   "routes": [
     {"model": "gpt-5.6-luna", "reasoning_effort": "none", "role": "CHEAP_COMPARISON"},
-    {"model": "gpt-5.6-terra", "reasoning_effort": "medium", "role": "COMPLEX_EXTRACTION_COMPARISON"},
+    {"model": "gpt-5.6-terra", "reasoning_effort": "low", "role": "COMPLEX_EXTRACTION_COMPARISON"},
     {"model": "gpt-5.6-sol", "reasoning_effort": "medium", "role": "CAPABLE_REFERENCE"}
   ],
   "samples": [
     {
-      "play_id": 2424102590305,
+      "case_id": "play-2424102590305",
       "category": "pass_completion",
+      "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
+      "source": "plays_2004",
+      "extractor": {"type": "parquet_play", "play_id": 2424102590305},
       "facts": [
         {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
         {"field": "passer", "column": "passer_player_name"},
@@ -36,8 +73,12 @@
       ]
     },
     {
-      "play_id": 2424102590102,
+      "case_id": "play-2424102590102",
       "category": "rush",
+      "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
+      "source": "plays_2004",
+      "extractor": {"type": "parquet_play", "play_id": 2424102590102},
       "facts": [
         {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
         {"field": "rusher", "column": "rusher_player_name"},
@@ -45,8 +86,12 @@
       ]
     },
     {
-      "play_id": 2424102590109,
+      "case_id": "play-2424102590109",
       "category": "punt_return",
+      "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
+      "source": "plays_2004",
+      "extractor": {"type": "parquet_play", "play_id": 2424102590109},
       "facts": [
         {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
         {"field": "punter", "column": "punter_player_name"},
@@ -54,8 +99,12 @@
       ]
     },
     {
-      "play_id": 2424626284801,
+      "case_id": "play-2424626284801",
       "category": "blocked_field_goal",
+      "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
+      "source": "plays_2004",
+      "extractor": {"type": "parquet_play", "play_id": 2424626284801},
       "facts": [
         {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
         {"field": "field_goal_distance", "column": "yds_fg"},
@@ -63,16 +112,126 @@
       ]
     },
     {
-      "play_id": 2424600091501,
+      "case_id": "play-2424600091501",
       "category": "interception_return_touchdown",
+      "domains": ["plays"],
+      "instruction": "Extract the single play and normalize it using the exact play codes and player-name rule in the base prompt.",
+      "source": "plays_2004",
+      "extractor": {"type": "parquet_play", "play_id": 2424600091501},
       "facts": [
         {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
         {"field": "passer", "column": "passer_player_name"},
         {"field": "return_yards", "column": "yds_int_return"},
         {"field": "scoring_play", "column": "scoring_play"}
       ]
+    },
+    {
+      "case_id": "game-401628348-game-info",
+      "category": "game_information",
+      "domains": ["venue", "officials", "weather", "attendance"],
+      "instruction": "Extract the game-information fields for the McNeese at Texas A&M game from every supplied line. For venue, return only the stadium name inside the Site line parentheses: Kyle Field.",
+      "source": "official_gamebook_pdf",
+      "extractor": {"type": "pdf_page_lines", "page": 1, "start_line": 4, "end_line": 10},
+      "facts": [
+        {"field": "venue", "regex": "Site: .* \\(([^)]+)\\)"},
+        {"field": "attendance", "regex": "Attendance: ([0-9,]+)", "transform": "INT_COMMAS"},
+        {"field": "temperature_f", "regex": "Temperature: ([0-9]+)", "transform": "INT"},
+        {"field": "wind", "regex": "Wind: (.*?)   Weather:"},
+        {"field": "weather", "regex": "Weather: ([^\\n]+)"},
+        {"field": "referee", "regex": "Referee: (.*?)   Line Judge:"},
+        {"field": "line_judge", "regex": "Line Judge: (.*?)   Side Judge:"},
+        {"field": "side_judge", "regex": "Side Judge: (.*?)   Umpire:"},
+        {"field": "umpire", "regex": "Umpire: ([^\\n]+)"},
+        {"field": "back_judge", "regex": "Back Judge: (.*?)   Score Keeper:"},
+        {"field": "linesman", "regex": "Linesman: (.*?)   Field Judge:"},
+        {"field": "field_judge", "regex": "Field Judge: ([^\\n]+)"}
+      ]
+    },
+    {
+      "case_id": "game-401628348-drive",
+      "category": "drive_summary",
+      "domains": ["drives"],
+      "instruction": "Extract the first Texas A&M drive row, the row beginning 1st A&M25 15:00.",
+      "source": "official_gamebook_pdf",
+      "extractor": {"type": "pdf_page_lines", "page": 6, "start_line": 15, "end_line": 17},
+      "facts": [
+        {"field": "quarter", "regex": "^(1st) A&M25", "transform": "STRING"},
+        {"field": "start_spot", "regex": "^1st (A&M25)"},
+        {"field": "start_clock", "regex": "^1st A&M25 ([0-9:]+)"},
+        {"field": "end_spot", "regex": "^1st A&M25 [0-9:]+ KO ([A-Z&0-9]+)"},
+        {"field": "result", "regex": "^1st A&M25 [0-9:]+ KO [A-Z&0-9]+ [0-9:]+ ([A-Z]+)"},
+        {"field": "plays", "regex": " ([0-9]+)-75 ", "transform": "INT"},
+        {"field": "yards", "regex": " 5-([0-9]+) ", "transform": "INT"},
+        {"field": "elapsed", "regex": " ([0-9]{2}:[0-9]{2})$"}
+      ]
+    },
+    {
+      "case_id": "game-401628348-team-box",
+      "category": "team_box_score",
+      "domains": ["team_box_scores"],
+      "instruction": "Extract Texas A&M team statistics only; A&M is the second numeric column. Return the team value normalized exactly as Texas A&M, never A&M.",
+      "source": "official_gamebook_pdf",
+      "extractor": {"type": "pdf_page_lines", "page": 2, "start_line": 0, "end_line": 20},
+      "facts": [
+        {"field": "team", "value": "Texas A&M", "require_regex": "Team Statistics MCN A&M"},
+        {"field": "first_downs", "regex": "FIRST DOWNS [0-9]+ ([0-9]+)", "transform": "INT"},
+        {"field": "rushing_yards", "regex": "NET YARDS RUSHING [0-9]+ ([0-9]+)", "transform": "INT"},
+        {"field": "passing_yards", "regex": "NET YARDS Passing [0-9]+ ([0-9]+)", "transform": "INT"},
+        {"field": "total_yards", "regex": "TOTAL OFFENSE YARDS [0-9]+ ([0-9]+)", "transform": "INT"},
+        {"field": "offensive_plays", "regex": "Plays [0-9]+ ([0-9]+)", "transform": "INT"}
+      ]
+    },
+    {
+      "case_id": "game-401628348-player-box",
+      "category": "player_box_score",
+      "domains": ["player_box_scores"],
+      "instruction": "Extract the Texas A&M passing row for Weigman,Conner only.",
+      "source": "official_gamebook_pdf",
+      "extractor": {"type": "pdf_page_lines", "page": 3, "start_line": 2, "end_line": 10},
+      "facts": [
+        {"field": "team", "value": "Texas A&M", "require_regex": "McNeese Texas A&M"},
+        {"field": "player", "regex": "(Weigman,Conner) [0-9]"},
+        {"field": "completions", "regex": "Weigman,Conner ([0-9]+)", "transform": "INT"},
+        {"field": "attempts", "regex": "Weigman,Conner [0-9]+ ([0-9]+)", "transform": "INT"},
+        {"field": "passing_yards", "regex": "Weigman,Conner [0-9]+ [0-9]+ ([0-9]+)", "transform": "INT"},
+        {"field": "passing_touchdowns", "regex": "Weigman,Conner [0-9]+ [0-9]+ [0-9]+ ([0-9]+)", "transform": "INT"},
+        {"field": "interceptions", "regex": "Weigman,Conner [0-9]+ [0-9]+ [0-9]+ [0-9]+ ([0-9]+)", "transform": "INT"}
+      ]
+    },
+    {
+      "case_id": "game-401628348-roster-starter",
+      "category": "roster_starter",
+      "domains": ["roster_starter_facts"],
+      "instruction": "Extract the Texas A&M starter Weigman,Conner only. Return the team value normalized exactly as Texas A&M, never A&M.",
+      "source": "official_boxscore_html",
+      "extractor": {"type": "html_text_range", "start": "Starters\nMCN\n#", "end": "Player Participation"},
+      "facts": [
+        {"field": "team", "value": "Texas A&M", "require_regex": "A&M\\n#\\nPlayer\\nPos\\."},
+        {"field": "player", "regex": "\\n15\\n(Weigman,Conner)\\nQB\\n"},
+        {"field": "jersey", "regex": "\\n(15)\\nWeigman,Conner\\nQB\\n", "transform": "INT"},
+        {"field": "position", "regex": "\\n15\\nWeigman,Conner\\n(QB)\\n"},
+        {"field": "starter_status", "value": true, "require_regex": "Starters[\\s\\S]*Weigman,Conner"}
+      ]
+    },
+    {
+      "case_id": "game-401628348-source-metadata",
+      "category": "source_metadata",
+      "domains": ["source_metadata"],
+      "instruction": "Normalize source_uri to source_url and retrieved_at to acquired_at_utc; copy the other requested manifest fields directly.",
+      "source": "official_boxscore_manifest",
+      "extractor": {"type": "json_fields", "fields": ["dataset", "metadata.game_id", "raw_sha256", "retrieved_at", "snapshot_id", "source_id", "source_uri"]},
+      "facts": [
+        {"field": "source_id", "json_path": "source_id"},
+        {"field": "dataset", "json_path": "dataset"},
+        {"field": "game_id", "json_path": "metadata.game_id"},
+        {"field": "source_url", "json_path": "source_uri"},
+        {"field": "acquired_at_utc", "json_path": "retrieved_at"},
+        {"field": "raw_sha256", "json_path": "raw_sha256"},
+        {"field": "snapshot_id", "json_path": "snapshot_id"}
+      ]
     }
   ],
+  "required_domains": ["drives", "plays", "team_box_scores", "player_box_scores", "roster_starter_facts", "venue", "officials", "weather", "attendance", "source_metadata"],
   "acceptance": {
     "strict_schema_rate_min": 1.0,
     "field_precision_min": 0.95,

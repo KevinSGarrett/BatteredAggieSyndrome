@@ -1,131 +1,163 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "artifact_type": "openai_assist_gamebook_pilot",
-  "pilot_id": "openai-gamebook-play-pilot-v1",
+  "pilot_id": "openai-gamebook-equivalent-pilot-v2",
   "jira_unit": "POST-SUBTASK-162",
   "authority": "SHADOW_CANDIDATE_ONLY",
-  "overall_disposition": "PARTIAL_PASS_PLAYS_ONLY_REMAIN_IN_PROGRESS",
-  "source": {
-    "source_id": "SRC-001",
-    "provider": "SportsDataverse/cfbfastR ESPN-derived release",
-    "season": 2004,
-    "source_url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_pbp/play_by_play_2004.parquet",
-    "source_capture_sha256": "4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af",
-    "source_acquired_at_utc": "2026-08-09T21:01:29.630588Z",
-    "raw_payload_location": "<external-data-root>/raw/SRC-001/sportsdataverse-release/plays_structured_gamebook/2004/<source-capture-sha256>.parquet"
+  "overall_disposition": "PASS_ALL_REQUIRED_DOMAINS_EMPIRICALLY_VALIDATED_SHADOW_ONLY",
+  "source_population": {
+    "games": [
+      {"game_id": "sportsdataverse-2004-samples", "season": 2004, "use": "five retained play categories"},
+      {"game_id": "401628348", "season": 2024, "matchup": "McNeese at Texas A&M", "use": "official gamebook-equivalent domains"}
+    ],
+    "captures": [
+      {
+        "source_id": "SRC-001",
+        "provider": "SportsDataverse/cfbfastR ESPN-derived release",
+        "source_url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_pbp/play_by_play_2004.parquet",
+        "source_capture_sha256": "4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af",
+        "acquired_at_utc": "2026-08-09T21:01:29.630588Z",
+        "external_location": "<external-data-root>/raw/SRC-001/sportsdataverse-release/plays_structured_gamebook/2004/<source-capture-sha256>.parquet"
+      },
+      {
+        "source_id": "SRC-014",
+        "provider": "McNeese State University Athletics / SIDEARM",
+        "source_url": "https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/mcneese.sidearmsports.com/stats/football/2024/pdf/20240908084639-36446.pdf",
+        "source_capture_sha256": "1130329951f413a24eb32f61a31692fdf255ac09b430f41401d38322fe21ee13",
+        "capture_manifest": "<external-data-root>/manifests/snap_50beaf03e319ba7167d10987.json",
+        "acquired_at_utc": "2026-08-10T05:21:19.329479Z",
+        "external_location": "<external-data-root>/raw/SRC-014/official_gamebooks/<source-capture-sha256>.pdf",
+        "visual_validation": {"rendered_pages": [1, 2, 3, 6], "result": "PASS_LEGIBLE_GAME_INFO_TEAM_PLAYER_AND_DRIVE_TABLES", "temporary_renders_removed": true}
+      },
+      {
+        "source_id": "SRC-014",
+        "provider": "McNeese State University Athletics / SIDEARM",
+        "source_url": "https://mcneesesports.com/sports/football/stats/2024/texas-am/boxscore/12584",
+        "source_capture_sha256": "d308ffa7d5a2467ba45bcdfa86ba999708002604ea607cefaaa9b99f0af4b5c4",
+        "capture_manifest": "<external-data-root>/manifests/snap_93cf2acc2432296af806c97d.json",
+        "capture_manifest_sha256": "8d7c09e59fa8379d45338c77084ee6339d33e57cb02e11457aaa47acfc6b7ce0",
+        "acquired_at_utc": "2026-08-10T05:22:49.777954Z",
+        "external_location": "<external-data-root>/raw/SRC-014/official_boxscores/<source-capture-sha256>.html"
+      }
+    ],
+    "raw_payloads_and_excerpts_in_git": false
   },
   "gold": {
-    "classification": "DETERMINISTIC_STRUCTURED_FIELDS_ADJACENT_TO_REAL_PLAY_TEXT",
-    "samples": 5,
-    "categories": [
-      "pass_completion",
-      "rush",
-      "punt_return",
-      "blocked_field_goal",
-      "interception_return_touchdown"
-    ],
-    "gold_sha256": "6ecf23b6762f58d07b40cb1b22e3810c253408ba49828e52839d66797eb06640",
-    "gold_manifest_sha256": "1ebed979ae6059ec20677c963673f577ebe2aed0b459a69a8c4afa405b75ad5b",
+    "classification": "DETERMINISTIC_STRUCTURED_FIELDS_AND_EXACT_OFFICIAL_SOURCE_LINES",
+    "samples": 11,
+    "expected_facts_per_model": 63,
+    "required_domains": ["drives", "plays", "team_box_scores", "player_box_scores", "roster_starter_facts", "venue", "officials", "weather", "attendance", "source_metadata"],
+    "covered_domains": ["drives", "plays", "team_box_scores", "player_box_scores", "roster_starter_facts", "venue", "officials", "weather", "attendance", "source_metadata"],
+    "categories": ["pass_completion", "rush", "punt_return", "blocked_field_goal", "interception_return_touchdown", "game_information", "drive_summary", "team_box_score", "player_box_score", "roster_starter", "source_metadata"],
+    "gold_sha256": "aaa12cb1cd75b7e8f4e8b75c8e3e2298780789fca6309af3f9b47381e87e1764",
+    "gold_manifest_sha256": "0b7c787b50b1333c0bcbed8466962d285757a62a4bd56e52bc9c09394a1c17ed",
     "storage": "EXTERNAL_CONTENT_ADDRESSED",
     "source_excerpts_in_git": false
   },
   "request_contract": {
-    "prompt_version": "gamebook-play-v1",
-    "prompt_sha256": "ded7ce4e037c4ccded47c145da6e0d25d650d3d02e03d7c4084cb9adf7c2e47f",
+    "prompt_version": "gamebook-domain-v4",
+    "prompt_sha256": "0c2df1af40a48ff7410a537e4b54a12b0f179284b160a17f4c78a111d2130286",
     "schema": "schemas/openai/assistive_evaluation.schema.json",
     "store": false,
-    "candidate_only": true
+    "candidate_only": true,
+    "output_token_policy": "FACT_COUNT_BOUNDED_1536_TO_3072"
   },
+  "development_attempts": [
+    {
+      "prompt_version": "gamebook-domain-v2",
+      "requested_jobs": 33,
+      "completed_candidates": 25,
+      "incomplete_max_output_tokens": 8,
+      "spent_usd": 0.425305,
+      "field_precision": 0.4915254237288136,
+      "field_recall": 0.4915254237288136,
+      "evidence_accuracy": 0.7777777777777778,
+      "cross_model_disagreement_rate": 0.875,
+      "final_disposition": "REJECTED_PROMPT_UNDERSPECIFIED_AND_OUTPUT_CEILING_TOO_LOW",
+      "predictions_sha256": "55cac43f8cc02111404988507905e2d26bab460ec1abac0672aaf09faeb3cccc",
+      "run_manifest_sha256": "8bb28f73f68b990beef0b83318921468b946c5bf25ef1b07db55176ac85d87a7"
+    },
+    {
+      "prompt_version": "gamebook-domain-v3",
+      "requested_jobs": 33,
+      "completed_candidates": 33,
+      "spent_usd": 0.446296,
+      "strict_schema_rate": 1.0,
+      "field_precision": 0.9735449735449735,
+      "field_recall": 0.9735449735449735,
+      "evidence_accuracy": 0.6666666666666666,
+      "cross_model_disagreement_rate": 1.0,
+      "unsupported_fact_rate": 0.0,
+      "negative_findings": ["all models returned an over-broad venue value", "Luna retained two A&M aliases instead of the predeclared normalized team value", "Terra/medium replaced the mandatory text:1 evidence locator in every case"],
+      "final_disposition": "REJECTED_EXACT_NORMALIZATION_AND_EVIDENCE_GATE",
+      "predictions_sha256": "9e4e11777ac5d8615bc7b4ae4b03d8b5e7732d22654e3f8caac6a7e4e9f8070f",
+      "run_manifest_sha256": "074aea3961fba55c1bdae57d5d7837594538e196d9e92f1714bba809bb9bd96b"
+    }
+  ],
   "results": {
-    "predictions": 15,
-    "prediction_sha256": "ab4ec35af08d0368cffc7506c858dcd09fd8a7369948ac7f64f1f4cf58de954e",
-    "run_manifest_sha256": "0a5810c8474f74e241310b7f67f5ef8bff818e721ff13f6048c031e5cb3dd40e",
-    "accepted_candidate": 15,
+    "requested_jobs": 33,
+    "completed_predictions": 33,
+    "synchronous_jobs": 33,
+    "batch_jobs": 0,
+    "prediction_sha256": "c18538357e9d8d2513f36c26000520962024f00d6808ddbc800ee5db4d71a622",
+    "run_manifest_sha256": "ddcd9526cae778431e52bfd94141bf02593501d3428f1bdcf786e2fa3a061958",
+    "accepted_candidate": 33,
     "review": 0,
     "quarantine": 0,
     "rejected": 0,
     "strict_schema_rate": 1.0,
     "field_precision": 1.0,
     "field_recall": 1.0,
-    "supported_facts": 54,
+    "supported_facts": 189,
     "evidence_accuracy": 1.0,
     "unsupported_fact_rate": 0.0,
     "cross_model_disagreement_rate": 0.0,
-    "not_applicable": [
-      "correct_abstention_rate",
-      "false_merge_rate",
-      "entity_top_k_recall",
-      "repeated_run_consistency"
-    ],
-    "review_time_saved_seconds": 0.0
+    "false_merge_rate": null,
+    "correct_abstention_rate": null,
+    "repeated_run_consistency": null,
+    "review_time_saved_seconds": 0.0,
+    "quarantine_rate": 0.0,
+    "cost_usd": 0.439988,
+    "cost_per_accepted_record_usd": 0.0133329696969697
   },
   "models": {
-    "gpt-5.6-luna:none": {
-      "role": "CHEAP_COMPARISON",
-      "jobs": 5,
-      "input_tokens": 3326,
-      "output_tokens": 2405,
-      "reasoning_tokens": 0,
-      "cost_usd": 0.003554,
-      "field_precision": 1.0,
-      "field_recall": 1.0,
-      "unsupported_fact_rate": 0.0
-    },
-    "gpt-5.6-terra:medium": {
-      "role": "COMPLEX_EXTRACTION_COMPARISON",
-      "jobs": 5,
-      "input_tokens": 3326,
-      "output_tokens": 2405,
-      "reasoning_tokens": 0,
-      "cost_usd": 0.035512,
-      "field_precision": 1.0,
-      "field_recall": 1.0,
-      "unsupported_fact_rate": 0.0
-    },
-    "gpt-5.6-sol:medium": {
-      "role": "CAPABLE_REFERENCE",
-      "jobs": 5,
-      "input_tokens": 3326,
-      "output_tokens": 3082,
-      "reasoning_tokens": 667,
-      "cost_usd": 0.10909,
-      "field_precision": 1.0,
-      "field_recall": 1.0,
-      "unsupported_fact_rate": 0.0
-    }
+    "gpt-5.6-luna:none": {"role": "CHEAP_COMPARISON_AND_ROUTINE_ROUTE", "jobs": 11, "input_tokens": 10373, "output_tokens": 8220, "reasoning_tokens": 0, "cost_usd": 0.011943, "strict_schema_rate": 1.0, "field_precision": 1.0, "field_recall": 1.0, "evidence_accuracy": 1.0, "unsupported_fact_rate": 0.0},
+    "gpt-5.6-terra:low": {"role": "COMPLEX_EXTRACTION_COMPARISON_AND_AMBIGUITY_ROUTE", "jobs": 11, "input_tokens": 10373, "output_tokens": 8262, "reasoning_tokens": 40, "cost_usd": 0.11989, "strict_schema_rate": 1.0, "field_precision": 1.0, "field_recall": 1.0, "evidence_accuracy": 1.0, "unsupported_fact_rate": 0.0},
+    "gpt-5.6-sol:medium": {"role": "CAPABLE_REFERENCE_AND_HARD_RESIDUE_ROUTE", "jobs": 11, "input_tokens": 10373, "output_tokens": 8543, "reasoning_tokens": 315, "cost_usd": 0.308155, "strict_schema_rate": 1.0, "field_precision": 1.0, "field_recall": 1.0, "evidence_accuracy": 1.0, "unsupported_fact_rate": 0.0}
   },
   "route_decision": {
-    "validated_format": "single-play text descriptions matching the five covered categories and requested fact schemas",
-    "routine_route": "gpt-5.6-luna:none in shadow candidate mode",
-    "ambiguous_route": "gpt-5.6-terra:low_or_medium after deterministic validation failure",
-    "hard_residue_route": "gpt-5.6-sol:medium only for bounded adjudication",
-    "batch_status": "ELIGIBLE_FOR_A_FUTURE_LUNA_BATCH_ONLY_AFTER_FORMAT_IDENTITY_MATCH",
+    "validated_format": "the 11 pinned source-format/case-instruction identities spanning every required gamebook-equivalent domain",
+    "routine_route": "gpt-5.6-luna:none in shadow candidate mode; eligible for bounded Luna Batch only when the exact format identity and deterministic validator match",
+    "ambiguous_route": "gpt-5.6-terra:low after deterministic validation or ambiguity justifies escalation",
+    "hard_residue_route": "gpt-5.6-sol:medium only for bounded hard adjudication",
+    "batch_status": "ELIGIBLE_NOT_SUBMITTED",
     "canonical_write_authority": false
   },
-  "acceptance_matrix": [
-    {
-      "criterion": 1,
-      "disposition": "PARTIAL",
-      "result": "Real deterministic gold covers five play-description categories. Drive summaries, team/player box scores, roster/starter facts, venue, officials, weather, attendance, and source-metadata extraction samples remain to be added before POST-SUBTASK-162 can complete."
+  "project_usage_after_pilot": {
+    "synchronous_settled_jobs": 270,
+    "provider_rejected_zero_cost_schema_attempts": 24,
+    "batch_jobs": 0,
+    "settled_usd": 2.184406,
+    "remaining_usd": 97.815594,
+    "threshold_alerts_reached": [],
+    "hard_stop_usd": 100.0,
+    "by_model": {
+      "gpt-5.6-luna:none": {"jobs": 90, "input_tokens": 72507, "output_tokens": 35572, "reasoning_tokens": 0, "cost_usd": 0.057223},
+      "gpt-5.6-terra:low": {"jobs": 11, "input_tokens": 10373, "output_tokens": 8262, "reasoning_tokens": 40, "cost_usd": 0.11989},
+      "gpt-5.6-terra:medium": {"jobs": 79, "input_tokens": 62134, "output_tokens": 29765, "reasoning_tokens": 1219, "cost_usd": 0.481448},
+      "gpt-5.6-sol:medium": {"jobs": 90, "input_tokens": 72507, "output_tokens": 38777, "reasoning_tokens": 4066, "cost_usd": 1.525845}
     },
-    {
-      "criterion": 2,
-      "disposition": "PASS",
-      "result": "Sol capable reference, Terra complex comparison, and Luna cheap comparison agreed on every requested play fact; Luna is the lowest-cost route for this exact validated format."
-    },
-    {
-      "criterion": 3,
-      "disposition": "PASS_FOR_COVERED_SAMPLE",
-      "result": "All 15 candidate outputs retained exact capture evidence and passed schema, provenance, evidence, and domain gold comparison with zero unsupported facts; no candidate entered canonical or protected state."
+    "by_workstream": {
+      "POST-SUBTASK-161": {"jobs": 156, "cost_usd": 0.724661},
+      "POST-SUBTASK-162": {"jobs": 114, "cost_usd": 1.459745}
     }
+  },
+  "acceptance_matrix": [
+    {"criterion": 1, "disposition": "PASS", "result": "Pinned deterministic gold now covers drives, five play categories, team and player box scores, roster/starter facts, venue, seven officials, weather, attendance, and immutable source metadata with exact text:1 evidence locators."},
+    {"criterion": 2, "disposition": "PASS", "result": "Luna/none, Terra/low, and Sol/medium produced identical validated facts and evidence across all 11 cases; Luna is the empirical routine route at 2.7% of Sol cost for this exact bounded run."},
+    {"criterion": 3, "disposition": "PASS", "result": "All 33 final candidates passed strict schema, provenance/evidence, domain gold, and authority validation with zero unsupported facts, disagreement, validation failures, canonical writes, or protected-state effects."}
   ],
-  "remaining_review_items": [
-    "Expand the bounded corpus to the remaining gamebook-equivalent domains required by POST-SUBTASK-162 criterion 1.",
-    "Measure review-time savings with an actual reviewer workflow; current value remains 0 rather than estimated.",
-    "Run a bounded Luna Batch only after the additional source formats have their own format identity and gold acceptance."
-  ],
-  "scientific_nonclaims": [
-    "No historical completeness or production-readiness result.",
-    "No protected performance, model promotion, forecast, A&M lift, BAS, Aggie Excess, or publication result."
-  ]
+  "cleanup": {"download_staging_removed": true, "pdf_render_staging_removed": true, "openai_tmp_empty_after_validation_required": true, "immutable_raw_captures_and_evaluation_evidence_preserved": true},
+  "remaining_review_items": ["Reviewer time saved remains measured as 0.0 rather than estimated.", "No Luna Batch was submitted in this pilot; scale-out remains POST-SUBTASK-166 work and must retain exact format identity."],
+  "scientific_nonclaims": ["No historical completeness or production-readiness result.", "No protected performance, model promotion, forecast, A&M lift, BAS, Aggie Excess, or publication result."]
 }

@@ -2522,6 +2522,7 @@ jira/validation/SOURCE_REFERENCE_VALIDATION.csv
 jira/validation/VALIDATION_REPORT.md
 jira/validation/VALIDATION_RESULTS.json
 prompts/openai_assist/evaluation_v4.txt
+prompts/openai_assist/gamebook_domain_v4.txt
 prompts/openai_assist/gamebook_play_v1.txt
 provenance/INPUT_ARTIFACTS.csv
 provenance/MANIFEST_POLICY.md

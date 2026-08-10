@@ -72,8 +72,33 @@ def validate(root: Path) -> list[str]:
         errors.append("OpenAI gamebook pilot prompt hash disagrees with policy")
     if gamebook_policy["authority"] != "SHADOW_CANDIDATE_ONLY":
         errors.append("OpenAI gamebook pilot must remain shadow candidate only")
-    if len(gamebook_policy["samples"]) != 5:
+    play_samples = [
+        sample
+        for sample in gamebook_policy["samples"]
+        if sample.get("extractor", {}).get("type") == "parquet_play"
+    ]
+    if len(play_samples) != 5:
         errors.append("OpenAI gamebook pilot must retain the predeclared five-play gold sample")
+    required_gamebook_domains = {
+        "drives",
+        "plays",
+        "team_box_scores",
+        "player_box_scores",
+        "roster_starter_facts",
+        "venue",
+        "officials",
+        "weather",
+        "attendance",
+        "source_metadata",
+    }
+    declared_domains = set(gamebook_policy.get("required_domains", []))
+    covered_domains = {
+        domain for sample in gamebook_policy["samples"] for domain in sample.get("domains", [])
+    }
+    if declared_domains != required_gamebook_domains:
+        errors.append("OpenAI gamebook pilot required-domain contract is incomplete or expanded without review")
+    if covered_domains != required_gamebook_domains:
+        errors.append("OpenAI gamebook pilot gold configuration does not cover every required domain")
     if gamebook_policy["acceptance"]["unsupported_fact_rate_max"] != 0.0:
         errors.append("OpenAI gamebook pilot must require zero unsupported facts")
 

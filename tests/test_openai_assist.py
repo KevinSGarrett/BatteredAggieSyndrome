@@ -395,8 +395,18 @@ class OpenAIAssistTests(unittest.TestCase):
             )
         )
         self.assertEqual(0.0, pilot["results"]["unsupported_fact_rate"])
+        self.assertEqual(1.0, pilot["results"]["strict_schema_rate"])
+        self.assertEqual(1.0, pilot["results"]["field_precision"])
+        self.assertEqual(1.0, pilot["results"]["field_recall"])
+        self.assertEqual(1.0, pilot["results"]["evidence_accuracy"])
+        self.assertEqual(0.0, pilot["results"]["cross_model_disagreement_rate"])
         self.assertFalse(pilot["route_decision"]["canonical_write_authority"])
-        self.assertEqual("PARTIAL", pilot["acceptance_matrix"][0]["disposition"])
+        self.assertEqual("PASS", pilot["acceptance_matrix"][0]["disposition"])
+        self.assertEqual(
+            set(pilot["gold"]["required_domains"]), set(pilot["gold"]["covered_domains"])
+        )
+        self.assertEqual("ELIGIBLE_NOT_SUBMITTED", pilot["route_decision"]["batch_status"])
+        self.assertEqual(97.815594, pilot["project_usage_after_pilot"]["remaining_usd"])
 
 
 if __name__ == "__main__":

@@ -4261,7 +4261,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-046_materialize_append_only_game_team_conference_venue_player_roster_staff_availabil.json",In Progress,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-046,pit-temporal,POST-SUBTASK-046,GAP-005;GAP-006;HANDOFF-004,PHASE-1,IN_PROGRESS,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-046_materialize_append_only_game_team_conference_venue_player_roster_staff_availabil.json",Done,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-046,pit-temporal,POST-SUBTASK-046,GAP-005;GAP-006;HANDOFF-004,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-397,100351,"[POST-SUBTASK-047] Build national pregame matrices at configured cutoffs with row/cell lineage, missingness class, fallback, and pinned versions",100066,"Local ID: POST-SUBTASK-047
 
 Objective
@@ -4357,7 +4357,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-047_build_national_pregame_matrices_at_configured_cutoffs_with_row_cell_lineage_miss.json",To Do,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-047,pit-temporal,POST-SUBTASK-047,GAP-005;GAP-006;HANDOFF-004,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-047_build_national_pregame_matrices_at_configured_cutoffs_with_row_cell_lineage_miss.json",To Do,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-047,pit-temporal,POST-SUBTASK-047,GAP-005;GAP-006;HANDOFF-004,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-398,100352,[POST-SUBTASK-048] Approve or block immutable matrix versions for feature/model experimentation,100066,"Local ID: POST-SUBTASK-048
 
 Objective

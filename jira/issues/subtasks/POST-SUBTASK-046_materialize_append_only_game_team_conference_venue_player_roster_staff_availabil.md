@@ -76,7 +76,7 @@
   "end_to_end_validation": "Validate that `artifacts/pit/asof_state_manifest.json` can be parsed and consumed by `POST-SUBTASK-047` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-005",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-046.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA_MATERIALIZATION",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -146,11 +146,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24536",
-    "jira_updated_at": "2026-08-10T05:34:24.729-0500",
-    "last_synced_at": "2026-08-10T10:35:09.961288+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-396\\BAT-396-claim-live-row.csv",
+    "jira_updated_at": "2026-08-10T05:50:26.009-0500",
+    "last_synced_at": "2026-08-10T10:51:33.465261+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-396\\BAT-396-completion-live-rows.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -206,7 +206,7 @@
     "docs/19_ASOF_QUERY_AND_CUTOFF_CONTRACT.md",
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -339,7 +339,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-016: Append-only as-of state and pregame matrices.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-046.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

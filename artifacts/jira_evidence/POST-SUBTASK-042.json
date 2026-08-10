@@ -1,0 +1,283 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-042",
+  "jira_key": "BAT-392",
+  "created_at_utc": "2026-08-10T08:28:02Z",
+  "updated_at_utc": "2026-08-10T08:31:00Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
+      "evidence_sha256": "9edbbb8bf3b52e61b1791330b8d508c5394f8ca111023159dea350f12abed93e",
+      "observable_result": "All 646,053 resolution decisions are covered by 425 domain/source/season/entity-class/state metric groups and retain prerequisite resolver, candidate-vector, evidence-class, confidence-semantics, decision-rule, and deterministic-replay identities. Exactly 641,384 remain proof-selected; probability-based identity proof, target-outcome identity use, and candidate-set truncation are all zero."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "<external-data-root>/validation/BAT-392/entity-snapshot/strict-validation-report.json",
+      "evidence_sha256": "86f3e2e0c707984000c18d23a960a0c18a9b3021a1bf75b6d84537267d72aeed",
+      "observable_result": "All 313,712 temporal events are attributable and have effective intervals. No evidence-supported manual acceptance, correction, merge, or split event exists, so all corresponding counts remain zero. The append-only consumer contract rejects retroactive rewriting and the BAT-391 ledger preserves explicit supersession requirements."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
+      "evidence_sha256": "9edbbb8bf3b52e61b1791330b8d508c5394f8ca111023159dea350f12abed93e",
+      "observable_result": "Coverage and ambiguity are reported through 425 resolution and 246 transition groups by domain, source, season, entity class, state, and event type. The snapshot preserves 2,964 candidate-generated, 991 review-required, 714 unresolved, 708 no-supported-candidate decisions, 7 alias-collision groups, 13,621 duplicate normalized-name groups, and 232 multi-team season scopes. Affected joins are blocked without globally blocking verified source-scoped identities. GAP-004 remains OPEN because no feature screening, stability, or ablation evidence exists."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "artifacts/jira_evidence/POST-SUBTASK-042.json",
+      "evidence_sha256": "SELF_RECORDED_BY_REPOSITORY_PROVENANCE_MANIFEST",
+      "observable_result": "POST-SUBTASK-039, POST-SUBTASK-040, and POST-SUBTASK-041 evidence and payload identities are pinned. The snapshot explicitly approves BAT-393 only to build source-known-at rules while historical PIT consumption remains blocked; BAT-394 and BAT-395 remain dependency-blocked. GAP-003, GAP-004, and GAP-009 all remain open."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "CANONICAL_ENTITY_SNAPSHOT_AND_GATE",
+      "path": "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
+      "sha256": "9edbbb8bf3b52e61b1791330b8d508c5394f8ca111023159dea350f12abed93e",
+      "bytes": 221948,
+      "resolution_metric_groups": 425,
+      "transition_metric_groups": 246,
+      "format": "JSON"
+    },
+    {
+      "role": "DETERMINISTIC_BUILD_REPORT_RUN_1",
+      "path": "<external-data-root>/validation/BAT-392/entity-snapshot/build-report-run-1.json",
+      "sha256": "a4031ca6980dd2131cd2dd91983aae77ed0a59373737ff61817a5ad6e319e7da",
+      "bytes": 621
+    },
+    {
+      "role": "DETERMINISTIC_BUILD_REPORT_RUN_2",
+      "path": "<external-data-root>/validation/BAT-392/entity-snapshot/build-report-run-2.json",
+      "sha256": "a4031ca6980dd2131cd2dd91983aae77ed0a59373737ff61817a5ad6e319e7da",
+      "bytes": 621
+    },
+    {
+      "role": "STRICT_SNAPSHOT_PIT_AND_MUTATION_VALIDATION",
+      "path": "<external-data-root>/validation/BAT-392/entity-snapshot/strict-validation-report.json",
+      "sha256": "86f3e2e0c707984000c18d23a960a0c18a9b3021a1bf75b6d84537267d72aeed",
+      "bytes": 807,
+      "finding_count": 0,
+      "unsafe_mutations_rejected": 10
+    },
+    {
+      "role": "EXTERNAL_DETERMINISTIC_BUILDER",
+      "path": "<external-data-root>/runtime/BAT-392/build_canonical_entity_snapshot.py",
+      "sha256": "9559ca1f649f0db340443417a1b46e99f639738953d8aff4fa8920ae9059f2ef",
+      "bytes": 18168
+    },
+    {
+      "role": "EXTERNAL_STRICT_VALIDATOR_AND_NEW_AUTOMATED_TEST",
+      "path": "<external-data-root>/runtime/BAT-392/validate_canonical_entity_snapshot.py",
+      "sha256": "5f16f89d3150d981b61f750d5fb6f7ccb7ac2483860dc7c695245f4d2b2abe9e",
+      "bytes": 10146
+    }
+  ],
+  "prerequisite_evidence": [
+    {
+      "decision_unit": "POST-SUBTASK-039",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-039.json",
+      "sha256": "d770e80c05a761b07bc526cd333cfac6447b7a53b2a8901c7dccc8192bb800e5",
+      "bytes": 16530,
+      "primary_artifact_sha256": "03ad365e351e15e935442ed42dd58a20d0ca96e788ec6410a53ba2038aa051fa",
+      "disposition": "VERIFIED"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-040",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-040.json",
+      "sha256": "65d1d37e5fb56d59e134aa881f55f1891d898599b179e568032bf87102bcb669",
+      "bytes": 13182,
+      "primary_artifact_sha256": "d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c",
+      "disposition": "VERIFIED"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-041",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-041.json",
+      "sha256": "a1632b04ea023aec2e3829ff1b096e49b05a8dfae05dcd37bfc48f405c42709d",
+      "bytes": 14856,
+      "primary_artifact_sha256": "285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb",
+      "disposition": "VERIFIED"
+    }
+  ],
+  "population_and_quality_metrics": {
+    "core_registry_rows": 56676,
+    "core_canonical_entities": 48262,
+    "people_registry_rows": 589377,
+    "canonical_people": 118505,
+    "resolution_decisions": 646053,
+    "selected_resolution_decisions": 641384,
+    "candidate_generated_decisions": 2964,
+    "review_required_decisions": 991,
+    "unresolved_decisions": 714,
+    "no_supported_candidate_decisions": 708,
+    "temporal_transitions": 313712,
+    "source_known_at_present_transitions": 0,
+    "historical_pit_eligible_transitions": 0,
+    "resolution_metric_groups": 425,
+    "transition_metric_groups": 246,
+    "alias_collision_groups": 7,
+    "duplicate_normalized_person_name_groups": 13621,
+    "player_season_multi_team_scopes": 231,
+    "coach_season_multi_team_scopes": 1,
+    "name_only_auto_promotions": 0,
+    "probability_based_auto_promotions": 0,
+    "target_outcome_identity_uses": 0,
+    "candidate_set_truncations": 0
+  },
+  "gate_decisions": {
+    "canonical_entity_snapshot": "PASS_PRODUCTION_READY_WITH_SCOPED_QUARANTINES",
+    "historical_pit_consumption": "BLOCKED_SOURCE_KNOWN_AT_ABSENT",
+    "identity_only_non_pit_use": "APPROVED_FOR_AUTO_ACCEPTED_VERIFIED_ROWS_WITH_SCOPED_QUARANTINES",
+    "candidate_review_artifacts": "CANDIDATE_ONLY_NOT_CANONICAL_TRUTH",
+    "high_impact_unresolved": "BLOCK_AFFECTED_JOIN_OR_DOMAIN_ONLY",
+    "manual_merge_split_correction": "NO_SUPPORTED_EVENTS_PRESENT_NO_ACTION_TAKEN"
+  },
+  "downstream_reevaluation": {
+    "POST-EPIC-005": "ACTIVATE_WORKSTREAM_BUT_KEEP_PIT_CONSUMPTION_BLOCKED_UNTIL_POST_SUBTASK_045",
+    "POST-STORY-015": "ACTIVATE_KNOWN_AT_REGISTRY_WORK_NOT_MODEL_CONSUMPTION",
+    "POST-SUBTASK-043": "APPROVE_EXECUTION_TO_BUILD_SOURCE_KNOWN_AT_RULES",
+    "POST-SUBTASK-044": "REMAIN_DEPENDENCY_BLOCKED_ON_POST_SUBTASK_043",
+    "POST-SUBTASK-045": "REMAIN_DEPENDENCY_BLOCKED_ON_POST_SUBTASK_043_AND_044"
+  },
+  "gap_dispositions": {
+    "GAP-003": "OPEN_PROTECTED_HISTORICAL_REPLAY_NOT_RUN",
+    "GAP-004": "OPEN_NO_PRODUCTION_FEATURE_SCREENING_STABILITY_OR_ABLATION_EVIDENCE",
+    "GAP-009": "OPEN_LABELED_CROSS_SOURCE_BENCHMARK_AND_FUZZY_THRESHOLD_NOT_ESTABLISHED"
+  },
+  "test_matrix": [
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_FAIL_CLOSED_REJECTION_ONLY",
+      "observable_result": "All 313,712 temporal rows were evaluated; all lack source-known-at and all remain historical-PIT-ineligible. Effective time is explicitly forbidden as a substitute for known-at. Future, same-game, and postgame evidence is rejected fail-closed."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE",
+      "observable_result": "No hypothesis, target, model, protected split, or scientific metric is created or evaluated by this entity-governance gate."
+    },
+    {
+      "classification": "CALIBRATION",
+      "disposition": "NOT_APPLICABLE",
+      "observable_result": "No probabilistic predictions exist in this gate; calibration or reliability statistics would be fabricated."
+    },
+    {
+      "classification": "END_TO_END",
+      "disposition": "PASS",
+      "observable_result": "Pinned BAT-389/BAT-390/BAT-391 identities resolve into a deterministic snapshot, explicit scoped quarantines, an identity-only approval, a historical-PIT block, and issue-specific downstream decisions."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "observable_result": "Two independent builds with pinned source/data/code/runtime identities produced byte-identical snapshots and build reports."
+    }
+  ],
+  "commands": [
+    {
+      "command": "run build_canonical_entity_snapshot.py twice with fixed created-at and pinned BAT-389/BAT-390/BAT-391 inputs",
+      "exit_code": 0,
+      "result": "PASS: byte-identical snapshot SHA-256 9edbbb8bf3b52e61b1791330b8d508c5394f8ca111023159dea350f12abed93e and report SHA-256 a4031ca6980dd2131cd2dd91983aae77ed0a59373737ff61817a5ad6e319e7da"
+    },
+    {
+      "command": "run validate_canonical_entity_snapshot.py over the snapshot and full BAT-390/BAT-391 external payloads",
+      "exit_code": 0,
+      "result": "PASS: zero findings, all 646,053 decisions and 313,712 transitions reconciled, 10 unsafe mutations rejected"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q tests/test_entity_governance.py",
+      "exit_code": 0,
+      "result": "PASS: 4 passed"
+    },
+    {
+      "command": "PYTHONPATH=src python -B tools/validate_entities.py",
+      "exit_code": 0,
+      "result": "PASS: canonical IDs, entity/evidence hierarchy, mapping/review/correction rules and W07 storage decision"
+    },
+    {
+      "command": "python -B tools/validate_autonomous_controls.py; validate_w25_final.py --repo-root .; validate_repository.py --repo-root . --strict",
+      "exit_code": 0,
+      "result": "PASS: autonomous controls, W25 final governance, strict repository/provenance, secret scan, and forbidden-artifact scan"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py; second_pass_hardening.py --validate-only; validate_jira_control_plane.py --strict; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS: 2,119 source references, 474 Jira derivatives, strict Jira control plane, and 1,804-file Jira manifest"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS: 316 passed, 2 skipped, 79 subtests"
+    }
+  ],
+  "new_automated_test": {
+    "path": "<external-data-root>/runtime/BAT-392/validate_canonical_entity_snapshot.py",
+    "scope": "Prerequisite identity, full-population aggregate reconciliation, dimensional coverage, ambiguity preservation, PIT fail-closed policy, gap honesty, downstream routing, and unsafe mutation validation.",
+    "unsafe_mutations_rejected": [
+      "probability_as_proof",
+      "target_outcome_identity_use",
+      "erase_ambiguity",
+      "approve_pit_without_known_at",
+      "promote_pit_rows",
+      "effective_time_as_known_at",
+      "close_gap_004",
+      "close_gap_009",
+      "remove_known_at_route",
+      "remove_dimension_metrics"
+    ]
+  },
+  "negative_findings": [
+    {
+      "finding": "Historical PIT consumption cannot be approved because none of the 313,712 temporal events carries independent source-known-at evidence.",
+      "disposition": "BLOCKED_FOR_HISTORICAL_PIT; BAT-393 is approved to build source-specific known-at rules. Identity-only verified use remains available."
+    },
+    {
+      "finding": "4,669 identity decisions remain candidate-generated, review-required, or unresolved; 708 have no supported candidate.",
+      "disposition": "PRESERVED_UNPROMOTED; affected joins remain blocked without globally blocking verified identities."
+    },
+    {
+      "finding": "Seven venue alias collision groups, 13,621 duplicate normalized-person-name groups, and 232 multi-team season scopes remain.",
+      "disposition": "PRESERVED_SCOPED_QUARANTINES; alias-only/name-only/exclusive-team-at-season-grain inference remains forbidden where affected."
+    },
+    {
+      "finding": "No manual evidence package supports an identity acceptance, merge, split, or correction.",
+      "disposition": "ZERO such events; no result was fabricated to create apparent closure."
+    },
+    {
+      "finding": "GAP-003, GAP-004, and GAP-009 lack their required replay, feature-screening, and labeled-benchmark evidence.",
+      "disposition": "ALL REMAIN OPEN."
+    },
+    {
+      "finding": "The first builder invocation failed because prerequisite evidence filenames were not zero-padded.",
+      "disposition": "NO SNAPSHOT WAS WRITTEN; the deterministic builder was corrected and rerun."
+    },
+    {
+      "finding": "The first successful snapshot draft recorded volatile absolute input paths.",
+      "disposition": "REJECTED BEFORE EVIDENCE; replaced with repository-relative and <external-data-root>-relative identities, then rebuilt and replayed byte-for-byte."
+    }
+  ],
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-392-entity-snapshot/20260810T082141Z",
+    "bundle_sha256": "df5226ecf968cb8fb69aeee14f0851c36c330acb7208cc9b20f6802573c73291",
+    "bundle_bytes": 16523526,
+    "manifest_sha256": "03e457a7c3c54520d24a518e53f71c3f7281ab3ce6032e57d61f9375491a6f91",
+    "sha256sums_sha256": "50c97808d43d6842ef191d7c394d3fec2f1dd2bbf36122ce71da6d082f481447",
+    "bundle_verify": "PASS"
+  },
+  "eligibility": {
+    "artifact_maturity": "PRODUCTION_READY_ENTITY_GOVERNANCE_ARTIFACT",
+    "historical_pit_consumption": "BLOCKED",
+    "identity_only_non_pit_consumption": "APPROVED_WITH_SCOPED_QUARANTINES",
+    "model_or_feature_promotion": "NOT_EVALUATED_OR_AUTHORIZED",
+    "downstream_execution": "BAT-393_APPROVED_FOR_KNOWN_AT_REMEDIATION_ONLY"
+  },
+  "honesty_boundary": [
+    "This gate does not establish final national historical completeness, GAP-002 resolution, a PIT training matrix, or production model readiness.",
+    "It does not claim a trained production champion, protected Brier/log-loss/calibration/score likelihood, A&M specialization lift, BAS, Aggie Excess, or any scientific result.",
+    "Production-ready refers only to the governed canonical entity snapshot artifact and its scoped identity-consumption contract.",
+    "Historical PIT consumption remains blocked until source-known-at rules and cutoff rejection pass POST-SUBTASK-043 through POST-SUBTASK-045."
+  ]
+}

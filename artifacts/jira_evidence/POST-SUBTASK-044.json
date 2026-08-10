@@ -1,0 +1,278 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-044",
+  "jira_key": "BAT-394",
+  "created_at_utc": "2026-08-10T09:49:10Z",
+  "updated_at_utc": "2026-08-10T09:49:10Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/pit/timestamp_normalization_report.json",
+      "evidence_sha256": "efbcce861f8f25cf2283b19947a58bc76ccc2939f1fb7d626c50b7d3acc743c8",
+      "verifier": "<external-data-root>/runtime/BAT-394/validate_timestamp_normalization_report.py",
+      "verified_at_utc": "2026-08-10T09:49:10Z",
+      "observable_result": "All manifest timestamp strings and source field profiles remain preserved while normalized UTC values are additive. The report keeps publication, retrieval, asset-update, capture-known-at, event/effective, and correction candidates separate; it records zero retrieval-as-publication substitutions, quarantines all six unverified correction-field profiles, and marks 69 capture/event combinations as prohibited from historical backdating."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/pit/timestamp_normalization_report.json",
+      "evidence_sha256": "efbcce861f8f25cf2283b19947a58bc76ccc2939f1fb7d626c50b7d3acc743c8",
+      "verifier": "independent strict validator plus deterministic double build",
+      "verified_at_utc": "2026-08-10T09:49:10Z",
+      "observable_result": "The 6,241,696-byte LF-normalized report has internal content hash 6ccadf62af291381a9182f53ca7108dd91200b53727c0532e4872c93db5f762e, pinned repository/external input identities, source-specific precedence, 990 capture decisions, 7,296 field decisions, 774,315 observed timestamp-value checks, a byte-identical second build, zero validation findings, and eight rejected unsafe mutations."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/jira_evidence/POST-SUBTASK-044.json",
+      "evidence_sha256": "SELF_RECORDED_BY_REPOSITORY_PROVENANCE_MANIFEST",
+      "verifier": "acceptance evidence and explicit honesty boundary",
+      "verified_at_utc": "2026-08-10T09:49:10Z",
+      "observable_result": "No missing availability timestamp is fabricated. All 959,765 BAT-391 source_known_at_utc values remain blank, all 972 SRC-002 captures remain retrieval-only prospective evidence, SRC-001 timestamps establish exact asset-version availability only, and no cutoff eligibility, model, metric, threshold, historical-completeness, readiness, or scientific claim is made."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "CANONICAL_TIMESTAMP_NORMALIZATION_REPORT",
+      "path": "artifacts/pit/timestamp_normalization_report.json",
+      "sha256": "efbcce861f8f25cf2283b19947a58bc76ccc2939f1fb7d626c50b7d3acc743c8",
+      "content_hash": "6ccadf62af291381a9182f53ca7108dd91200b53727c0532e4872c93db5f762e",
+      "bytes": 6241696,
+      "report_id": "BAT394_TIMESTAMP_NORMALIZATION_V1",
+      "format": "JSON"
+    },
+    {
+      "role": "DETERMINISTIC_SECOND_BUILD",
+      "path": "<external-data-root>/validation/BAT-394/timestamp-normalization/timestamp_normalization_report.run-2.json",
+      "sha256": "efbcce861f8f25cf2283b19947a58bc76ccc2939f1fb7d626c50b7d3acc743c8",
+      "bytes": 6241696,
+      "comparison": "BYTE_IDENTICAL_TO_CANONICAL_REPORT"
+    },
+    {
+      "role": "STRICT_PROVENANCE_CHRONOLOGY_AND_MUTATION_VALIDATION",
+      "path": "<external-data-root>/validation/BAT-394/timestamp-normalization/validation-report-run-1.json",
+      "sha256": "b51787d13a501480a7f80b6a2e967af5dd7061a8505b2dbf6c864eb7ada683bb",
+      "bytes": 2973,
+      "finding_count": 0,
+      "chronology_probes": 5,
+      "unsafe_mutations_rejected": 8
+    },
+    {
+      "role": "EXTERNAL_DETERMINISTIC_BUILDER",
+      "path": "<external-data-root>/runtime/BAT-394/build_timestamp_normalization_report.py",
+      "sha256": "b347e8214eb1e2e8f524c56c508d227b60c55255ceaca64604aeaab0e1902ba8",
+      "bytes": 23683
+    },
+    {
+      "role": "EXTERNAL_STRICT_VALIDATOR_AND_NEW_AUTOMATED_TEST",
+      "path": "<external-data-root>/runtime/BAT-394/validate_timestamp_normalization_report.py",
+      "sha256": "f41bc913c7307656149bc3ab3ee2b85a5f0e4efb697f9a6f15eb2663423ac2de",
+      "bytes": 14622
+    }
+  ],
+  "prerequisite_evidence": [
+    {
+      "decision_unit": "POST-SUBTASK-042",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-042.json",
+      "sha256": "ce4fe081e19e0812d4997141749fa31422a740859a08474d1d5888ab8d2baf67",
+      "bytes": 16526,
+      "primary_artifact": "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
+      "primary_artifact_sha256": "9edbbb8bf3b52e61b1791330b8d508c5394f8ca111023159dea350f12abed93e",
+      "disposition": "VERIFIED"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-043",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-043.json",
+      "sha256": "f29fb69c599d93366c0b82971ca685d82eff047b0508a54ad6c3f367371f0667",
+      "bytes": 18218,
+      "primary_artifact": "configs/known_at_registry.json",
+      "primary_artifact_sha256": "e8a89a709ad331991bdb0123850485aba759fb828a7f0f6ce04da9f50baf9d41",
+      "disposition": "VERIFIED"
+    }
+  ],
+  "coverage_and_normalization_metrics": {
+    "materialized_snapshots": 990,
+    "materialized_tables": 255,
+    "source_domain_field_profiles": 7296,
+    "unique_materialized_source_domain_fields": 652,
+    "profile_linked_rows": 4096026,
+    "observed_temporal_values_scanned": 774315,
+    "explicit_offset_values_normalized": 774315,
+    "invalid_or_ambiguous_values": 0,
+    "capture_parse_failures": 0,
+    "exact_version_availability_captures": 18,
+    "retrieval_only_prospective_captures": 972,
+    "historical_backdating_prohibited_capture_event_pairs": 69,
+    "retrieval_substituted_for_publication": 0,
+    "event_effective_field_profiles": 69,
+    "correction_candidate_field_profiles_quarantined": 6,
+    "period_label_field_profiles_not_promoted": 437,
+    "game_clock_or_state_field_profiles_not_promoted": 932,
+    "bat391_entity_ledger_rows": 959765,
+    "bat391_source_known_at_populated_rows": 0
+  },
+  "gate_decisions": {
+    "timestamp_normalization": "PASS_EMPIRICALLY_VALIDATED",
+    "original_timestamp_preservation": "PASS",
+    "retrieval_as_publication": "PROHIBITED_ZERO_OCCURRENCES",
+    "ambiguous_correction_semantics": "QUARANTINED_FIELD_SCOPED",
+    "historical_pit_consumption": "BLOCKED_PENDING_POST_SUBTASK_045",
+    "protected_model_or_scientific_claim": "NOT_APPLICABLE"
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-045": "READY_AFTER_BAT_394_VERIFIED_COMPLETION_SYNC",
+    "POST-STORY-015": "IN_PROGRESS_TIMESTAMP_NORMALIZATION_IMPLEMENTED_CUTOFF_VALIDATION_PENDING",
+    "POST-EPIC-005": "IN_PROGRESS_HISTORICAL_PIT_CONSUMPTION_REMAINS_BLOCKED"
+  },
+  "test_matrix": [
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_FAIL_CLOSED_NORMALIZATION_PROBES",
+      "observable_result": "Five chronology probes passed and eight unsafe mutations were rejected, including retrieval-as-publication, event-time-as-knowledge, unquarantined correction semantics, naive timestamp promotion, false source-known-at population, and wrong source precedence. This is timestamp-normalization validation, not BAT-395 cutoff eligibility."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE",
+      "observable_result": "No hypothesis, target, feature matrix, split, model, calibrator, protected evaluation, or performance metric is created or evaluated by this timestamp-normalization unit."
+    },
+    {
+      "classification": "STATIC_VALIDATION",
+      "disposition": "PASS",
+      "observable_result": "All pinned input and external payload hashes, source-specific timestamp keys, capture/field identities, original values, precedence decisions, quarantine rules, and maturity boundaries validated with zero findings."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "observable_result": "Two builds from pinned repository/external identities produced byte-identical 6,241,696-byte LF-normalized reports with SHA-256 efbcce861f8f25cf2283b19947a58bc76ccc2939f1fb7d626c50b7d3acc743c8."
+    }
+  ],
+  "commands": [
+    {
+      "command": "run build_timestamp_normalization_report.py twice with fixed issued-at and pinned repository/external data inputs",
+      "exit_code": 0,
+      "result": "PASS: byte-identical report SHA-256 efbcce861f8f25cf2283b19947a58bc76ccc2939f1fb7d626c50b7d3acc743c8"
+    },
+    {
+      "command": "run validate_timestamp_normalization_report.py over the report, all 990 external payloads, profile, registry, and BAT-391 ledger",
+      "exit_code": 0,
+      "result": "PASS: zero findings, 990 captures, 7,296 field profiles, 774,315 actual temporal values, five chronology probes, and eight unsafe mutations rejected"
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q tests/test_temporal_governance.py tests/test_w24_readiness.py",
+      "exit_code": 0,
+      "result": "PASS: 13 tests and 16 subtests"
+    },
+    {
+      "command": "python -B tools/validate_temporal.py --repo-root .; python -B tools/validate_w24_readiness.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS: bitemporal/PIT/leakage contracts and W24 synthetic readiness"
+    },
+    {
+      "command": "write canonical provenance manifest; validate_repository.py --strict; validate_autonomous_controls.py; validate_w25_final.py; validate_source_refs.py; second_pass_hardening.py --validate-only; validate_jira_control_plane.py --strict; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS: repository/provenance/security, autonomous controls, W25 final binding, 2,119 source references, all 474 Jira derivatives, strict Jira control plane, and 1,804-file Jira manifest"
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS: 316 passed, 2 skipped, 79 subtests"
+    }
+  ],
+  "new_automated_test": {
+    "path": "<external-data-root>/runtime/BAT-394/validate_timestamp_normalization_report.py",
+    "scope": "Pinned input identities, all external payload hashes, source-specific original timestamp preservation, explicit-offset normalization, precedence, field semantics, capture/event backdating, BAT-391 source-known-at honesty, decision boundaries, and unsafe mutation rejection.",
+    "unsafe_mutations_rejected": [
+      "remove_capture",
+      "duplicate_field_identity",
+      "retrieval_as_publication",
+      "event_time_as_knowledge",
+      "correction_without_quarantine",
+      "naive_normalized_timestamp",
+      "false_bat391_known_at_count",
+      "wrong_source_precedence"
+    ]
+  },
+  "negative_findings": [
+    {
+      "finding": "All 959,765 BAT-391 source_known_at_utc values are blank/unpopulated.",
+      "disposition": "PRESERVED; normalized capture evidence is handed to BAT-395, which must independently validate each cutoff and fail closed."
+    },
+    {
+      "finding": "The 972 SRC-002 historical endpoint captures were retrieved in 2026 and do not establish publication at historical pregame cutoffs.",
+      "disposition": "PRESERVED_AS_RETRIEVAL_ONLY_PROSPECTIVE_UPPER_BOUND; retrieval is never relabeled as publication."
+    },
+    {
+      "finding": "The 18 SRC-001 capture versions have release and asset-update evidence, but their exact-version availability is later than the represented 2004-2009 events.",
+      "disposition": "EXACT_VERSION_IDENTITY_PRESERVED; historical backdating remains prohibited even though the payloads remain useful for non-PIT retrospective and prior-game-derived contexts."
+    },
+    {
+      "finding": "Six SRC-001 modified-field profiles contain 722,711 parseable UTC values but publication/correction semantics are unverified.",
+      "disposition": "FIELD-SCOPED QUARANTINE FOR KNOWN-AT USE; unrelated fields, domains, and seasons remain available."
+    },
+    {
+      "finding": "The first builder attempt used an incorrect manually transcribed BAT-391 content-address directory.",
+      "disposition": "FAILED CLOSED BEFORE OUTPUT; corrected to the verified immutable directory and rerun."
+    },
+    {
+      "finding": "The next builder attempt used an unavailable PyArrow Array.count API.",
+      "disposition": "FAILED CLOSED BEFORE OUTPUT; replaced with explicit populated-value counting."
+    },
+    {
+      "finding": "BAT-391 encodes absent source_known_at_utc as blank strings rather than null values.",
+      "disposition": "PRESERVED_SCHEMA_DRIFT; validator counts nonblank populated values and independently confirms zero."
+    },
+    {
+      "finding": "An intermediate review found SRC-002 uses retrieved_at_utc and capture_known_at_utc instead of the SRC-001 acquired_at_utc key.",
+      "disposition": "SOURCE-SPECIFIC NORMALIZATION FIXED BEFORE ACCEPTANCE; report rebuilt, double-build identity and independent validation rerun."
+    },
+    {
+      "finding": "The first combined Jira validation command referenced validate_jira_control_plane.py under jira/tools rather than its actual tools path.",
+      "disposition": "COMMAND-PATH FAILURE ONLY AFTER ALL PRECEDING VALIDATORS PASSED; the correct strict control-plane and Jira-manifest commands were run separately and passed."
+    }
+  ],
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-394-timestamp-normalization/20260810T093325Z",
+    "bundle_sha256": "cfc251236cace4f69565159a3233a8f19d82e710e7fb7ad2abd3ae5f9919e5e5",
+    "bundle_bytes": 16706967,
+    "manifest_sha256": "5c670ddf73a9e0d7e13d0db3c5cb7149fe52f617e12c911457e51a1fac11c652",
+    "sha256sums_sha256": "279d8a9f098733b51f1bbc5b7bc3b1c698b583ca7eb936346bf5f1c031037655",
+    "bundle_verify": "PASS"
+  },
+  "integration": {
+    "implementation_pr_state": "PENDING_VALIDATION_AND_REVIEW",
+    "live_jira": {
+      "issue_key": "BAT-394",
+      "issue_id": "24534",
+      "status": "In Progress",
+      "logical_workflow_state": "IN_PROGRESS",
+      "implementation_maturity": "FUNCTIONAL_STARTER",
+      "evidence_state": "PARTIAL",
+      "claim_comment_id": "13446",
+      "updated": "2026-08-10T04:39:28.115-0500"
+    },
+    "claim_reconciliation": {
+      "source_export": "<external-data-root>/runtime/BAT-394/BAT-394-claim-live-row.csv",
+      "dry_run": "PASS",
+      "actual": "PASS",
+      "rows": 1,
+      "changed_issues": 1,
+      "conflicts": 0,
+      "strict_validation": "PASS"
+    }
+  },
+  "eligibility": {
+    "artifact_maturity": "EMPIRICALLY_VALIDATED_TIMESTAMP_NORMALIZATION",
+    "historical_pit_consumption": "BLOCKED_PENDING_BAT_395",
+    "downstream_consumer_handoff": "BAT_395_READY_ONLY_AFTER_VERIFIED_BAT_394_COMPLETION_SYNC",
+    "model_or_feature_promotion": "NOT_EVALUATED_OR_AUTHORIZED"
+  },
+  "honesty_boundary": [
+    "BAT-394 normalizes and classifies timestamp evidence; it does not manufacture historical source availability or establish cutoff eligibility.",
+    "It does not establish final national historical completeness, GAP-002 or GAP-003 resolution, a PIT training matrix, production model readiness, or protected performance.",
+    "It does not claim a trained production champion, A&M specialization lift, BAS, Aggie Excess, calibration, score likelihood, or any scientific result.",
+    "Historical PIT consumption remains fail-closed until BAT-395 validates source/version/record eligibility against exact prediction cutoffs."
+  ]
+}

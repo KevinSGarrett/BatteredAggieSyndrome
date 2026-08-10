@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from decimal import Decimal
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any
 
 from .contracts import CostEstimate, ProcessingMode, TokenEstimate
@@ -39,14 +39,18 @@ class AssistivePolicy:
             raise PolicyError("unsupported OpenAI assist policy schema")
         if self.payload.get("api", {}).get("store") is not False:
             raise PolicyError("Responses storage must be disabled")
-        if not self.storage_root.is_absolute():
+        configured_storage = str(self.payload["storage"]["root"])
+        native_absolute = self.storage_root.is_absolute()
+        windows_absolute = PureWindowsPath(configured_storage).is_absolute()
+        if not native_absolute and not windows_absolute:
             raise PolicyError("OpenAI storage root must be absolute")
-        try:
-            self.storage_root.relative_to(self.root.resolve())
-        except ValueError:
-            pass
-        else:
-            raise PolicyError("OpenAI operational storage must remain outside Git")
+        if native_absolute:
+            try:
+                self.storage_root.relative_to(self.root.resolve())
+            except ValueError:
+                pass
+            else:
+                raise PolicyError("OpenAI operational storage must remain outside Git")
         allocations = self.payload["budget"]["allocations"]
         if sum(Decimal(value) for value in allocations.values()) != self.budget_limit:
             raise PolicyError("budget allocations must sum to the absolute limit")

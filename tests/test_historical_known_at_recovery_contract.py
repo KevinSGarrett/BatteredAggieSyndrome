@@ -30,6 +30,11 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        cls.rankings_gate = json.loads(
+            (ROOT / "artifacts" / "pit" / "historical_rankings_reconciliation_gate.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -67,6 +72,8 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(storage["data_root"], "<external-data-root>")
         self.assertFalse(storage["bulk_payloads_in_git"])
         self.assertTrue(storage["content_addressed_captures_required"])
+        self.assertEqual(storage["rankings_raw"], "raw/SRC-063/college_poll_archive/ap/sha256")
+        self.assertEqual(storage["rankings_candidate_payloads"], "quarantine/historical_rankings/sha256")
         self.assertFalse(self.contract["openai_assistance"]["direct_canonical_or_pit_authority"])
 
     def test_expanded_scoped_replay_is_validated_and_not_full_history(self) -> None:
@@ -256,6 +263,58 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["canonical_or_pit_admission"])
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
+
+    def test_rankings_history_is_broad_validated_and_candidate_only(self) -> None:
+        rankings = self.contract["latest_validated_rankings_candidate"]
+        self.assertEqual(
+            rankings["normalization_identity"],
+            "acad9e20ba70ab7f371fa210431e4adc66243138154683f9a1b71961e0630220",
+        )
+        self.assertEqual(
+            rankings["reconciliation_identity"],
+            "28668e9138f9267a0dbe00c60f7cedd8f1fc37b051e2b3c61dde4fd240fb3570",
+        )
+        self.assertEqual(rankings["source_season_min"], 1936)
+        self.assertEqual(rankings["source_season_max"], 2025)
+        self.assertEqual(rankings["source_seasons"], 90)
+        self.assertEqual(rankings["poll_snapshots"], 1267)
+        self.assertEqual(rankings["normalized_rows"], 37064)
+        self.assertEqual(rankings["numeric_ranked_rows"], 27611)
+        self.assertEqual(rankings["receiving_votes_rows"], 5307)
+        self.assertEqual(rankings["not_ranked_rows"], 4146)
+        self.assertEqual(rankings["explicit_date_poll_snapshots"], 1101)
+        self.assertEqual(rankings["unknown_date_poll_snapshots"], 166)
+        self.assertEqual(rankings["exact_high_coverage_unique_reconciliations"], 395)
+        self.assertEqual(rankings["low_agreement_quarantined_reconciliations"], 12)
+        self.assertEqual(rankings["pre_2001_source_only_polls"], 856)
+        self.assertEqual(rankings["validation_checks_passed"], 28)
+        self.assertEqual(rankings["mutation_controls_passed"], 14)
+        self.assertEqual(rankings["deterministic_payloads_compared"], 92)
+        self.assertEqual(rankings["admission_state"], "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED")
+        self.assertTrue(self.evidence["completion_claim"]["rankings_candidate_layer_validated"])
+        self.assertFalse(self.evidence["completion_claim"]["rankings_canonical_or_pit_admission"])
+        checkpoint = self.gate["parallel_rankings_checkpoint"]
+        self.assertFalse(checkpoint["canonical_team_admission"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["training_feature_admission"])
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+        self.assertFalse(self.rankings_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertFalse(self.rankings_gate["scientific_nonclaims"]["gap_002_resolved"])
+
+    def test_college_poll_archive_is_registered_under_private_research_policy(self) -> None:
+        acquisition = json.loads(
+            (ROOT / "configs" / "source_acquisition_registry.json").read_text(encoding="utf-8")
+        )
+        rights = json.loads((ROOT / "configs" / "source_rights_registry.json").read_text(encoding="utf-8"))
+        source = next(item for item in acquisition["sources"] if item["source_id"] == "SRC-063")
+        decision = next(item for item in rights["sources"] if item["source_id"] == "SRC-063")
+        self.assertEqual(acquisition["source_count"], len(acquisition["sources"]))
+        self.assertEqual(rights["source_count"], len(rights["sources"]))
+        self.assertEqual(source["readiness_required"], "READY_PUBLIC_DIRECT_CAPTURE_VALIDATED")
+        self.assertEqual(len(source["endpoints"]), 2)
+        self.assertEqual(decision["lane_disposition"], "PRIVATE_RESEARCH_ALLOWED")
+        self.assertTrue(decision["required_data_outcome_nonblocking"])
+        self.assertFalse(decision["raw_export_allowed"])
 
 
 if __name__ == "__main__":

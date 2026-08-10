@@ -213,6 +213,23 @@
     "admission_state": "CANDIDATE_NOT_ADMITTED",
     "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_PIT_AND_VENUE_ADMISSION_PENDING"
   },
+  "parallel_rankings_checkpoint": {
+    "gate_artifact": "artifacts/pit/historical_rankings_reconciliation_gate.json",
+    "normalization_identity": "acad9e20ba70ab7f371fa210431e4adc66243138154683f9a1b71961e0630220",
+    "reconciliation_identity": "28668e9138f9267a0dbe00c60f7cedd8f1fc37b051e2b3c61dde4fd240fb3570",
+    "source_seasons": 90,
+    "poll_snapshots": 1267,
+    "normalized_rows": 37064,
+    "explicit_date_poll_snapshots": 1101,
+    "unknown_date_poll_snapshots": 166,
+    "exact_high_coverage_unique_reconciliations": 395,
+    "low_agreement_quarantined_reconciliations": 12,
+    "canonical_team_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED",
+    "gate_disposition": "PENDING_RELEASE_WEEK_TARGET_CUTOFF_CANONICAL_AND_PIT_VALIDATION"
+  },
   "coverage": {
     "source_candidate_rows": 12047,
     "accepted_strict_game_outcomes": 10593,

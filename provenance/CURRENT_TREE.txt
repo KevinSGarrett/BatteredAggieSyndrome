@@ -119,6 +119,7 @@ artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
 artifacts/pit/historical_known_at_replay_gate.json
+artifacts/pit/historical_rankings_reconciliation_gate.json
 artifacts/pit/known_at_gate.json
 artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json

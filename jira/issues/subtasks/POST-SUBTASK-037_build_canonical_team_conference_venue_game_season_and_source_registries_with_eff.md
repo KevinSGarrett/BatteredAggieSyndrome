@@ -19,6 +19,7 @@
     "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
   ],
   "allowed_modification_paths": [
+    "src/aggie_analytics/entities/__init__.py",
     "src/aggie_analytics/entities/resolution.py",
     "src/aggie_analytics/entities/registry_artifacts.py",
     "artifacts/entities/canonical_core_registry.csv",

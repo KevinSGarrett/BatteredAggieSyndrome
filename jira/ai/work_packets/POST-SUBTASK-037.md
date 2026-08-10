@@ -73,6 +73,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-013 (Canonical registries, al
 
 ## Files I may modify or create
 
+- src/aggie_analytics/entities/__init__.py
 - src/aggie_analytics/entities/resolution.py
 - src/aggie_analytics/entities/registry_artifacts.py
 - artifacts/entities/canonical_core_registry.csv

@@ -652,7 +652,12 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(depth["mutation_controls_passed"], 12)
         self.assertTrue(depth["byte_identical_rebuild"])
         self.assertEqual(depth["openai_planned_requests"], 28)
-        self.assertEqual(depth["openai_live_api_calls"], 0)
+        self.assertEqual(depth["openai_live_api_calls"], 56)
+        self.assertEqual(
+            depth["openai_corrected_evaluation_sha256"],
+            "c9b0c4956003a31da3c4ccf8a987b593bf45af730e5d71e319282494411eb866",
+        )
+        self.assertIn("LUNA_CHEAPEST_PASSING", depth["openai_route_decision"])
         self.assertEqual(depth["historical_publication_time_state"], "UNKNOWN")
         self.assertFalse(depth["chart_appearance_means_available"])
         self.assertFalse(depth["canonical_player_identity_admission"])
@@ -668,11 +673,15 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("gpt-5.6-sol", checkpoint["openai_models"])
         self.assertFalse(checkpoint["chart_appearance_means_available"])
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
-        self.assertIn("PENDING", checkpoint["gate_disposition"])
+        self.assertIn("REMAIN_INELIGIBLE", checkpoint["gate_disposition"])
         self.assertEqual(self.tamu_depth_chart_gate["candidate"]["checks_passed"], 21)
         self.assertEqual(self.tamu_depth_chart_gate["candidate"]["mutation_controls_passed"], 12)
         self.assertEqual(self.tamu_depth_chart_gate["openai_shadow_extension"]["planned_requests"], 28)
-        self.assertEqual(self.tamu_depth_chart_gate["openai_shadow_extension"]["live_api_calls"], 0)
+        self.assertEqual(self.tamu_depth_chart_gate["openai_shadow_extension"]["live_api_calls"], 56)
+        self.assertEqual(
+            self.tamu_depth_chart_gate["openai_shadow_extension"]["luna_gate"],
+            "PASS_CHEAPEST_PASSING_SHADOW_ROUTE",
+        )
         self.assertFalse(
             self.tamu_depth_chart_gate["historical_known_at_gate"]["chart_appearance_promoted_to_availability"]
         )

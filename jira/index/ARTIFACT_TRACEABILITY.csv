@@ -778,9 +778,9 @@ artifacts/openai_assist/availability_pilot.json,POST-SUBTASK-165,Subtask,true,EM
 artifacts/jira_evidence/POST-SUBTASK-165.json,POST-SUBTASK-165,Subtask,true,EMPIRICALLY_VALIDATED,,PLANNED
 artifacts/openai_assist/final_handoff.json,POST-SUBTASK-166,Subtask,true,OPERATING,,VERIFIED
 artifacts/jira_evidence/POST-SUBTASK-166.json,POST-SUBTASK-166,Subtask,true,OPERATING,,VERIFIED
-artifacts/openai_assist/depth_chart_pilot.json,POST-SUBTASK-167,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,PLANNED
-artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json,POST-SUBTASK-167,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,PLANNED
-artifacts/jira_evidence/POST-SUBTASK-167.json,POST-SUBTASK-167,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,PLANNED
+artifacts/openai_assist/depth_chart_pilot.json,POST-SUBTASK-167,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,VERIFIED
+artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json,POST-SUBTASK-167,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,VERIFIED
+artifacts/jira_evidence/POST-SUBTASK-167.json,POST-SUBTASK-167,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,VERIFIED
 artifacts/openai_assist/continuous_operations.json,POST-SUBTASK-168,Subtask,true,OPERATING,POST-STORY-056,PLANNED
 artifacts/jira_evidence/POST-SUBTASK-168.json,POST-SUBTASK-168,Subtask,true,OPERATING,POST-STORY-056,PLANNED
 SOURCE_RESEARCH_LOG.csv,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED

@@ -399,7 +399,9 @@
     "openai_gold_cases": 7,
     "openai_preflight_requests": 28,
     "openai_models": ["gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"],
-    "openai_live_api_calls": 0,
+    "openai_live_api_calls": 56,
+    "openai_corrected_evaluation_sha256": "c9b0c4956003a31da3c4ccf8a987b593bf45af730e5d71e319282494411eb866",
+    "openai_route_decision": "LUNA_CHEAPEST_PASSING_SHADOW_ROUTE_NANO_REJECTED_TERRA_AMBIGUITY_ONLY_SOL_HARD_REVIEW_ONLY",
     "historical_publication_time_state": "UNKNOWN",
     "chart_appearance_means_available": false,
     "canonical_depth_chart_admission": false,
@@ -408,7 +410,7 @@
     "training_feature_admission": false,
     "protected_evaluation_admission": false,
     "admission_state": "CANDIDATE_NOT_ADMITTED",
-    "gate_disposition": "VALIDATED_OFFICIAL_PAGE_TEXT_CANDIDATE_AND_GOVERNED_GOLD_PREFLIGHT_HISTORICAL_TIME_IDENTITY_LIVE_MODEL_COMPARISON_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_PENDING"
+    "gate_disposition": "VALIDATED_OFFICIAL_PAGE_TEXT_CANDIDATE_AND_GOVERNED_SHADOW_MODEL_COMPARISON_HISTORICAL_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_REMAIN_INELIGIBLE"
   },
   "coverage": {
     "source_candidate_rows": 12047,

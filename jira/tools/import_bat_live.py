@@ -1134,6 +1134,160 @@ def create_issues(
     return key_map
 
 
+def synchronize_canonical_spec_fields(
+    client: JiraClient,
+    ledger: dict[str, Any],
+    rows: list[dict[str, str]],
+    payloads: list[dict[str, Any]],
+    key_map: dict[str, str],
+    field_ids: dict[str, str],
+    component_ids: dict[str, str],
+) -> None:
+    completion_policy = load_completion_policy()
+    completion_override_ids = set(completion_policy.get("local_issue_ids", []))
+    completion_override = completion_policy.get("jira_operational_override", {})
+    requested = [
+        "summary", "description", "labels", "components", "priority", "updated", *field_ids.values()
+    ]
+    live = {issue["key"]: issue for issue in search_issues(client, requested)}
+    payload_by_id = {item["local_id"]: item for item in payloads}
+    pending: list[dict[str, Any]] = []
+    backup_issues: list[dict[str, Any]] = []
+    for row in rows:
+        local_id = row["Local Issue ID"]
+        key = key_map[local_id]
+        fields = live[key]["fields"]
+        template = payload_by_id[local_id]
+        expected = template["payload_template"]["fields"]
+        updates: dict[str, Any] = {}
+        if fields.get("summary") != row["Summary"]:
+            updates["summary"] = row["Summary"]
+        if fields.get("description") != expected["description"]:
+            updates["description"] = expected["description"]
+        expected_labels = set(expected.get("labels", []))
+        if local_id in completion_override_ids:
+            expected_labels |= set(completion_override.get("add_labels", []))
+        if set(fields.get("labels", [])) != expected_labels:
+            updates["labels"] = sorted(expected_labels)
+        if fields.get("priority", {}).get("name") != row["Priority"]:
+            updates["priority"] = {"name": row["Priority"]}
+        if {item["name"] for item in fields.get("components", [])} != {row["Component"]}:
+            updates["components"] = [{"id": component_ids[row["Component"]]}]
+        logical = template["logical_fields_requiring_target_custom_field_ids"]
+        for field_name, field_id in field_ids.items():
+            value = logical.get(field_name, row.get(field_name, ""))
+            if not value and field_name == "Owner Historical Wave":
+                value = row["Owner Historical Wave"]
+            if field_name == "Critical Path":
+                value = row["Critical Path"].lower()
+            if field_name == "Evidence State" and local_id in completion_override_ids:
+                value = completion_override.get("evidence_state", "PARTIAL")
+            value = str(value)
+            if normalize_custom(fields.get(field_id)) != value:
+                updates[field_id] = custom_value(field_name, value)
+        if updates:
+            pending.append({"key": key, "local_id": local_id, "fields": updates})
+            backup_issues.append(
+                {
+                    "key": key,
+                    "local_id": local_id,
+                    "updated": fields.get("updated"),
+                    "fields": {name: fields.get(name) for name in updates},
+                }
+            )
+    if not pending:
+        ledger["canonical_spec_sync"] = {
+            "status": "EXACT_NO_UPDATES_REQUIRED",
+            "changed_issues": 0,
+            "verified_at": utc_now(),
+        }
+        ledger["updated_at"] = utc_now()
+        write_json_atomic(LEDGER_PATH, ledger)
+        return
+    policy = json.loads((ROOT / "configs" / "external_storage_policy.json").read_text(encoding="utf-8"))
+    data_root = Path(policy["current_host_data_root_windows"]).resolve()
+    try:
+        data_root.relative_to(ROOT.resolve())
+    except ValueError:
+        pass
+    else:
+        raise RuntimeError("Canonical Jira sync backup root must remain outside Git")
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    backup_path = data_root / "reconciliation" / "jira" / "canonical-spec-sync" / stamp / "pre-update.json"
+    snapshot = {
+        "schema_version": 1,
+        "captured_at": utc_now(),
+        "reason": "Transactional backup before synchronizing current canonical Jira specification fields to live BAT.",
+        "issue_count": len(backup_issues),
+        "issues": backup_issues,
+    }
+    write_json_atomic(backup_path, snapshot)
+    digest = sha256_file(backup_path)
+    if json.loads(backup_path.read_text(encoding="utf-8")) != snapshot or sha256_file(backup_path) != digest:
+        raise RuntimeError("Canonical Jira sync backup reread/hash verification failed")
+    progress = {
+        "status": "IN_PROGRESS",
+        "backup": {
+            "path": str(backup_path.relative_to(data_root)).replace("\\", "/"),
+            "sha256": digest,
+            "bytes": backup_path.stat().st_size,
+            "issue_count": len(backup_issues),
+            "storage_root": "EXTERNAL_DATA_ROOT",
+        },
+        "completed_local_ids": [],
+        "started_at": utc_now(),
+    }
+    ledger["canonical_spec_sync"] = progress
+    ledger["updated_at"] = utc_now()
+    write_json_atomic(LEDGER_PATH, ledger)
+    completed: set[str] = set()
+    errors: list[str] = []
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {
+            executor.submit(client.put, f"/rest/api/3/issue/{item['key']}", {"fields": item["fields"]}): item
+            for item in pending
+        }
+        for index, future in enumerate(as_completed(futures), start=1):
+            item = futures[future]
+            try:
+                future.result()
+                completed.add(item["local_id"])
+            except Exception as exc:
+                errors.append(f"{item['local_id']}: {exc}")
+            if index % 25 == 0 or index == len(pending):
+                progress["completed_local_ids"] = sorted(completed)
+                progress["errors"] = errors
+                ledger["updated_at"] = utc_now()
+                write_json_atomic(LEDGER_PATH, ledger)
+                print(
+                    f"CANONICAL SPEC SYNC: processed={index}/{len(pending)} completed={len(completed)} errors={len(errors)}",
+                    flush=True,
+                )
+    if errors:
+        raise RuntimeError("Canonical Jira spec synchronization failures: " + "; ".join(errors[:20]))
+    progress.update({"status": "COMPLETE", "changed_issues": len(completed), "completed_at": utc_now()})
+    ledger["updated_at"] = utc_now()
+    write_json_atomic(LEDGER_PATH, ledger)
+
+
+def transition_declared_active_statuses(
+    client: JiraClient,
+    rows: list[dict[str, str]],
+    key_map: dict[str, str],
+) -> None:
+    active_rows = [row for row in rows if row["Status"] not in {"To Do", "Done"}]
+    for row in active_rows:
+        key = key_map[row["Local Issue ID"]]
+        issue = client.get(f"/rest/api/3/issue/{key}?fields=status")
+        if issue["fields"]["status"]["name"] == row["Status"]:
+            continue
+        transitions = client.get(f"/rest/api/3/issue/{key}/transitions").get("transitions", [])
+        transition = next((item for item in transitions if item.get("to", {}).get("name") == row["Status"]), None)
+        if transition is None:
+            raise RuntimeError(f"No transition to {row['Status']} is available for {key}")
+        client.post(f"/rest/api/3/issue/{key}/transitions", {"transition": {"id": str(transition["id"])}})
+
+
 def poll_bulk_task(client: JiraClient, task_id: str) -> None:
     for _ in range(240):
         result = client.get(f"/rest/api/3/bulk/queue/{urllib.parse.quote(task_id)}")
@@ -2059,8 +2213,10 @@ def main() -> int:
     reconcile_auxiliary_issues(client, ledger, fields)
     remove_exact_importer_duplicates(client, ledger, rows, fields["Local Issue ID"])
     key_map = create_issues(client, ledger, rows, payloads, fields, components)
+    synchronize_canonical_spec_fields(client, ledger, rows, payloads, key_map, fields, components)
     make_completion_assurance_backup(client, ledger, fields)
     transition_historical_done(client, ledger, rows, key_map, fields["Local Issue ID"])
+    transition_declared_active_statuses(client, rows, key_map)
     enforce_completion_assurance_policy(client, ledger, key_map, fields)
     remediate_reversed_importer_links(client, ledger, link_payloads, key_map, fields["Local Issue ID"])
     create_links(client, ledger, link_payloads, key_map, fields["Local Issue ID"])

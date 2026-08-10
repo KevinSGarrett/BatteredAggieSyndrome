@@ -16,13 +16,15 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Atomic execution scope
 
-Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-161`; produce `artifacts/openai_assist/quarantine_schema_pilot.json`, `artifacts/jira_evidence/POST-SUBTASK-164.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt governing plan SHA-256 651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523 across the controller, staged budget, router, validators, documentation, and Jira graph without rewriting historical settled usage. Then consume `POST-SUBTASK-161`; compare Nano and any justified 4o Mini/Luna route with meaningful Terra/Sol hard cases; produce `artifacts/openai_assist/quarantine_schema_pilot.json`, `artifacts/jira_evidence/POST-SUBTASK-164.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 ### In scope
 
 - Perform the exact action: Pilot quarantine and schema-drift classification with deterministic remediation routing.
 - Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
 - Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+- Adopt the superseding balanced Nano-to-Sol router and budget policy before any BAT-520 paid call, without rewriting settled historical usage.
+- Give Terra and Sol meaningful complex/hard/high-risk evidence-backed cases while measuring whether they improve hard-case acceptance, review savings, or risk reduction.
 
 ### Out of scope
 
@@ -33,14 +35,14 @@ Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. Consume `PO
 
 ## Current gate state
 
-- Workflow: `READY`
+- Workflow: `IN_PROGRESS`
 - Ready: `true`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `PLANNED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-164`
 
 ## Read first
@@ -62,7 +64,17 @@ Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. Consume `PO
 
 ## Files I may modify or create
 
+- configs/openai_assist_policy.json
 - configs/openai_task_registry.json
+- src/aggie_analytics/openai_assist/budget.py
+- src/aggie_analytics/openai_assist/policy.py
+- src/aggie_analytics/openai_assist/controller.py
+- tools/openai_assist.py
+- tools/validate_openai_assist.py
+- governance/OPENAI_ASSISTIVE_PLANE.md
+- docs/architecture/OPENAI_ASSISTIVE_PLANE.md
+- docs/operations/OPENAI_ASSISTIVE_PLANE.md
+- artifacts/openai_assist/router_rebalance.json
 - artifacts/openai_assist/quarantine_schema_pilot.json
 - tests/test_openai_assist.py
 - artifacts/jira_evidence/POST-SUBTASK-164.json
@@ -89,6 +101,7 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 
 Produce and validate these outputs within this atomic work unit:
 
+- artifacts/openai_assist/router_rebalance.json
 - artifacts/openai_assist/quarantine_schema_pilot.json
 - artifacts/jira_evidence/POST-SUBTASK-164.json
 
@@ -96,7 +109,8 @@ Produce and validate these outputs within this atomic work unit:
 
 1. Representative corruption, missingness, schema drift, incompatible mapping, evidence absence, conflict, PIT risk, and target-leakage cases are classified without changing source truth.
 2. Every remediation route is deterministic-reviewable and affected records/domains remain quarantined until authoritative validators accept them.
-3. Routine validated classifications may use Luna Batch; ambiguity escalates only when measured validation failure justifies it.
+3. Validated routine classifications begin with GPT-5 Nano Batch; 4o Mini or Luna is used only for a task-specific measured need, complex ambiguity routes to Terra, and only a hard/high-risk residue routes to Sol.
+4. The pilot includes meaningful Terra and Sol hard cases, records accepted evidence-verified results per dollar, and enforces the verified 651bbf...aa523 staged budget and $15/$10 base plus $25/$17 maximum Terra/Sol caps.
 
 ## Tests / validation
 
@@ -108,6 +122,7 @@ Produce and validate these outputs within this atomic work unit:
 
 - `artifacts/jira_evidence/POST-SUBTASK-164.json` with one evidence row per acceptance criterion and exact artifact hashes.
 - Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Plan-hash, stage-release, allocation/model-cap, historical-usage mapping, Nano/4o Mini/Luna/Terra/Sol comparison, and Terra/Sol hard-case value evidence.
 - Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
 

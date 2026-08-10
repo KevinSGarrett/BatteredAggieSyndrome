@@ -7,7 +7,7 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Only empirically validated routine formats scale to Luna Batch, with ambiguity routed to Terra and a small hard residue to Sol.",
+    "Only empirically validated routine formats scale to GPT-5 Nano Batch, with task-specific 4o Mini/Luna use measured, complex ambiguity routed to Terra, and a small hard/high-risk residue routed to Sol under staged and model-cap admission.",
     "Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews."
   ],
   "adr_ids": [],
@@ -327,7 +327,7 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 
 ## Acceptance Criteria
 
-1. Only empirically validated routine formats scale to Luna Batch, with ambiguity routed to Terra and a small hard residue to Sol.
+1. Only empirically validated routine formats scale to GPT-5 Nano Batch, with task-specific 4o Mini/Luna use measured, complex ambiguity routed to Terra, and a small hard/high-risk residue routed to Sol under staged and model-cap admission.
 2. Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews.
 
 ## Definition of Done

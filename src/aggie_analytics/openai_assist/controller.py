@@ -43,6 +43,7 @@ class AssistiveJob:
     max_output_tokens: int = 2048
     priority: Priority = Priority.NORMAL
     release_reason: str | None = None
+    admission_review_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -162,6 +163,12 @@ class AssistiveController:
         task = self._task(job)
         self._schema_reference(job.schema_path)
         self.policy.validate_route(job.model, job.reasoning_effort)
+        if job.model not in set(task.get("allowed_models", [])):
+            raise ControllerError("job model is outside the task-specific router")
+        allocation_by_model = task.get("allocation_by_model", {})
+        expected_allocation = allocation_by_model.get(job.model)
+        if expected_allocation != job.allocation and job.allocation != "VALUE_GATED_RESERVE":
+            raise ControllerError("job allocation disagrees with the task/model router")
         allowed = set(self.policy.payload["authority"]["allowed_destinations"])
         if job.destination not in allowed:
             raise ControllerError("job destination is outside the candidate-only authority boundary")
@@ -225,7 +232,6 @@ class AssistiveController:
                     ],
                 },
             ],
-            "reasoning": {"effort": job.reasoning_effort},
             "max_output_tokens": job.max_output_tokens,
             "store": False,
             "text": {
@@ -239,6 +245,8 @@ class AssistiveController:
         }
         if body["store"] is not False:
             raise ControllerError("Responses storage must remain disabled")
+        if self.policy.model(job.model).get("reasoning_parameter", True):
+            body["reasoning"] = {"effort": job.reasoning_effort}
         return body
 
     def prepare(self, job: AssistiveJob, mode: ProcessingMode) -> dict[str, Any]:
@@ -390,10 +398,12 @@ class AssistiveController:
         reservation = self.ledger.reserve(
             request_id=request_id,
             allocation=job.allocation,
+            model=job.model,
             estimated_max_usd=estimate.amount_usd,
             priority=job.priority.value,
             jira_unit=job.jira_unit,
             release_reason=job.release_reason,
+            admission_review_id=job.admission_review_id,
         )
         response_received = False
         try:
@@ -485,10 +495,12 @@ class AssistiveController:
                     self.ledger.reserve(
                         request_id=item["request_id"],
                         allocation=job.allocation,
+                        model=job.model,
                         estimated_max_usd=item["estimate"].amount_usd,
                         priority=job.priority.value,
                         jira_unit=job.jira_unit,
                         release_reason=job.release_reason,
+                        admission_review_id=job.admission_review_id,
                     )
                 )
             artifact = self.store.put_bytes("batches", payload, suffix=".jsonl")
@@ -586,7 +598,8 @@ class AssistiveController:
             job_data["priority"] = Priority(job_data["priority"])
             job = AssistiveJob(**job_data)
             reservation = Reservation(
-                item["reservation_id"], item["request_id"], item["allocation"], Decimal(item["estimated_max_usd"])
+                item["reservation_id"], item["request_id"], item["allocation"], job.model,
+                Decimal(item["estimated_max_usd"])
             )
             line = results_by_id.get(item["request_id"])
             if not line or line.get("error"):

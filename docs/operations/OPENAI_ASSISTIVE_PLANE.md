@@ -22,6 +22,14 @@ single-route scorecard. Repeat `--predictions` to score independently
 content-addressed primary and repeat artifacts together. A missing repeat or cross-model comparison group is
 reported as `null`, never as an invented perfect score.
 
+Budget stages are append-only ledger events. Release them only with the exact evidence reason required by policy, for example after the already-verified BAT-518/BAT-519 pilots:
+
+```powershell
+python -B tools/openai_assist.py budget-release --stage-usd 30.00 --evidence-id BAT-518,BAT-519 --reason PASSING_PILOT
+```
+
+The router starts validated bulk work on GPT-5 Nano Batch, uses 4o Mini only for a measured task-specific A/B win, sends Nano failures to Luna, complex ambiguity to Terra, and only the hardest/high-risk residue to Sol. Terra and Sol remain mandatory representative comparison routes; their base caps are $15 and $10, and measured value-gated reserve release can raise their absolute caps only to $25 and $17. Never hand-edit or rewrite settled ledger events when a policy revision remaps their historical allocation.
+
 Every paid operation requires a registered task, Jira identity, source capture SHA-256, strict schema, bounded output tokens, allocation, priority, and candidate destination. The CLI never accepts an API key argument. It discovers only `OPENAI_API_KEY` from the authoritative root `.env` and reports a boolean presence check.
 
 Operational artifacts are under `C:\BatteredAggieSyndrome.data\openai`. Delete reconstructible files in `tmp`; preserve accepted request/response/manifests, ledger events, evaluation evidence, and quarantines according to the project retention contract.

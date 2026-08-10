@@ -11,7 +11,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from aggie_analytics.openai_assist.budget import BudgetError, UsageLedger
-from aggie_analytics.openai_assist.contracts import Priority, ProcessingMode
+from aggie_analytics.openai_assist.contracts import Priority, ProcessingMode, TokenEstimate
 from aggie_analytics.openai_assist.controller import AssistiveController, AssistiveJob, ControllerError
 from aggie_analytics.openai_assist.evals import evaluate
 from aggie_analytics.openai_assist.policy import AssistivePolicy, PolicyError
@@ -120,7 +120,7 @@ class OpenAIAssistTests(unittest.TestCase):
             schema_version="1",
             model="gpt-5.6-terra",
             reasoning_effort="medium",
-            allocation="PROBE_PROMPT_EVAL",
+            allocation="TERRA_COMPLEX",
             destination="CANDIDATE",
             max_output_tokens=256,
             priority=Priority.NORMAL,
@@ -132,11 +132,73 @@ class OpenAIAssistTests(unittest.TestCase):
     def test_policy_budget_is_exact_and_model_effort_is_bounded(self):
         policy = AssistivePolicy.load(ROOT)
         self.assertEqual(Decimal("100.00"), policy.budget_limit)
+        policy.validate_route("gpt-5-nano", "minimal")
+        policy.validate_route("gpt-4o-mini", "none")
         policy.validate_route("gpt-5.6-luna", "none")
         with self.assertRaises(PolicyError):
             policy.validate_route("gpt-5.6-luna", "high")
         with self.assertRaises(PolicyError):
             policy.validate_route("gpt-5.6-sol", "none")
+
+    def test_rebalanced_caps_and_long_context_pricing_are_enforced(self):
+        policy = AssistivePolicy.load(ROOT)
+        budget = policy.payload["budget"]
+        self.assertEqual("15.00", budget["model_caps"]["gpt-5.6-terra"]["base_usd"])
+        self.assertEqual("25.00", budget["model_caps"]["gpt-5.6-terra"]["reserve_max_usd"])
+        self.assertEqual("10.00", budget["model_caps"]["gpt-5.6-sol"]["base_usd"])
+        self.assertEqual("17.00", budget["model_caps"]["gpt-5.6-sol"]["reserve_max_usd"])
+        estimate = policy.estimate_cost(
+            "gpt-5.6-terra",
+            ProcessingMode.SYNCHRONOUS,
+            TokenEstimate(300_000, 0, 1_000),
+        )
+        self.assertEqual(Decimal("1.218"), estimate.amount_usd)
+
+    def test_budget_stages_and_model_caps_fail_closed(self):
+        with tempfile.TemporaryDirectory() as raw:
+            policy = AssistivePolicy.load(ROOT)
+            ledger = UsageLedger(policy, Path(raw))
+            self.assertEqual("10.000000", ledger.summary()["stage_limit_usd"])
+            with self.assertRaises(BudgetError):
+                ledger.reserve(
+                    request_id="stage-overrun",
+                    allocation="NANO_BATCH",
+                    model="gpt-5-nano",
+                    estimated_max_usd=Decimal("10.01"),
+                    priority="NORMAL",
+                    jira_unit="POST-SUBTASK-164",
+                    admission_review_id="review-1",
+                )
+            ledger.release_stage(
+                Decimal("30.00"), evidence_id="BAT-518/BAT-519", reason="PASSING_PILOT"
+            )
+            self.assertEqual("30.000000", ledger.summary()["stage_limit_usd"])
+            with self.assertRaisesRegex(BudgetError, "model cap exceeded"):
+                ledger.reserve(
+                    request_id="terra-base-overrun",
+                    allocation="TERRA_COMPLEX",
+                    model="gpt-5.6-terra",
+                    estimated_max_usd=Decimal("14.50"),
+                    priority="HIGH",
+                    jira_unit="POST-SUBTASK-164",
+                    admission_review_id="review-2",
+                )
+
+    def test_non_reasoning_route_omits_reasoning_parameter(self):
+        with tempfile.TemporaryDirectory() as raw:
+            repo = self._temporary_repo(Path(raw))
+            controller = _TestController(repo, _FakeClient({}))
+            base = self._job(repo)
+            job = AssistiveJob(
+                **{
+                    **base.__dict__,
+                    "model": "gpt-4o-mini",
+                    "reasoning_effort": "none",
+                    "allocation": "FOUR_O_MINI_AB",
+                }
+            )
+            prepared = controller.prepare(job, ProcessingMode.SYNCHRONOUS)
+            self.assertNotIn("reasoning", prepared["body"])
 
     def test_strict_schema_requires_all_properties_and_closed_objects(self):
         validate_strict_output_schema(self._schema())
@@ -185,7 +247,8 @@ class OpenAIAssistTests(unittest.TestCase):
             ledger = UsageLedger(policy, root)
             reservation = ledger.reserve(
                 request_id="r1",
-                allocation="PROBE_PROMPT_EVAL",
+                allocation="CONTROLLER_SETUP",
+                model="gpt-5-nano",
                 estimated_max_usd=Decimal("1.00"),
                 priority="NORMAL",
                 jira_unit="POST-SUBTASK-162",
@@ -196,7 +259,8 @@ class OpenAIAssistTests(unittest.TestCase):
             with self.assertRaises(BudgetError):
                 ledger.reserve(
                     request_id="too-large",
-                    allocation="PROBE_PROMPT_EVAL",
+                    allocation="CONTROLLER_SETUP",
+                    model="gpt-5-nano",
                     estimated_max_usd=Decimal("10.00"),
                     priority="NORMAL",
                     jira_unit="POST-SUBTASK-162",
@@ -371,7 +435,7 @@ class OpenAIAssistTests(unittest.TestCase):
             schema_version="1",
             model="gpt-5.6-luna",
             reasoning_effort="none",
-            allocation="PROBE_PROMPT_EVAL",
+            allocation="CROSS_MODEL_QA",
             destination="CANDIDATE",
         )
         response = {"output": [{"type": "message", "content": [{"type": "output_text", "text": json.dumps(candidate)}]}]}

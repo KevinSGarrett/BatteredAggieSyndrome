@@ -8,6 +8,7 @@
   "acceptance_control_ids": [],
   "acceptance_criteria": [
     "Only pilot formats meeting predeclared empirical rules scale; failed, uneconomic, unsupported, unstable, or high-review formats remain shadow/quarantined/rejected.",
+    "Routine scale-out is GPT-5 Nano Batch first; 4o Mini/Luna, Terra, and Sol are admitted only for empirically justified roles, with Terra/Sol reserve increases backed by measured hard-case acceptance, review savings, or risk reduction.",
     "Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, threshold alert, remaining budget, disposition, improvement, and unresolved review.",
     "Remote Batch files are removed after verified local preservation where practical; abandoned local tmp/partial files are removed; immutable accepted evidence remains content-addressed.",
     "All downstream Jira, PR, repository, provenance, secret, PIT/leakage/identity, and full-suite gates pass without any scientific-readiness overclaim."
@@ -340,9 +341,10 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 ## Acceptance Criteria
 
 1. Only pilot formats meeting predeclared empirical rules scale; failed, uneconomic, unsupported, unstable, or high-review formats remain shadow/quarantined/rejected.
-2. Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, threshold alert, remaining budget, disposition, improvement, and unresolved review.
-3. Remote Batch files are removed after verified local preservation where practical; abandoned local tmp/partial files are removed; immutable accepted evidence remains content-addressed.
-4. All downstream Jira, PR, repository, provenance, secret, PIT/leakage/identity, and full-suite gates pass without any scientific-readiness overclaim.
+2. Routine scale-out is GPT-5 Nano Batch first; 4o Mini/Luna, Terra, and Sol are admitted only for empirically justified roles, with Terra/Sol reserve increases backed by measured hard-case acceptance, review savings, or risk reduction.
+3. Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, threshold alert, remaining budget, disposition, improvement, and unresolved review.
+4. Remote Batch files are removed after verified local preservation where practical; abandoned local tmp/partial files are removed; immutable accepted evidence remains content-addressed.
+5. All downstream Jira, PR, repository, provenance, secret, PIT/leakage/identity, and full-suite gates pass without any scientific-readiness overclaim.
 
 ## Definition of Done
 

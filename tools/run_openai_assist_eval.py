@@ -99,7 +99,7 @@ def main() -> int:
                 schema_version="1",
                 model=model,
                 reasoning_effort=effort,
-                allocation="PROBE_PROMPT_EVAL",
+                allocation=controller.registry["tasks"]["assistive_model_evaluation"]["allocation_by_model"][model],
                 destination="CANDIDATE",
                 max_output_tokens=1024,
                 priority=Priority.NORMAL,

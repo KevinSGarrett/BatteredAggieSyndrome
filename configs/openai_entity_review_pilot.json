@@ -44,8 +44,8 @@
   },
   "output_schema": "schemas/openai/assistive_evaluation.schema.json",
   "routes": [
-    {"model": "gpt-5.6-luna", "reasoning_effort": "none", "allocation": "PROBE_PROMPT_EVAL", "role": "CHEAP_COMPARISON"},
-    {"model": "gpt-5.6-terra", "reasoning_effort": "low", "allocation": "TERRA_BATCH", "role": "AMBIGUITY_REFERENCE"},
+    {"model": "gpt-5.6-luna", "reasoning_effort": "none", "allocation": "LUNA_HARD_VOLUME", "role": "CHEAP_COMPARISON"},
+    {"model": "gpt-5.6-terra", "reasoning_effort": "low", "allocation": "TERRA_COMPLEX", "role": "AMBIGUITY_REFERENCE"},
     {"model": "gpt-5.6-sol", "reasoning_effort": "medium", "allocation": "SOL_GOLD_HARD", "role": "CAPABLE_REFERENCE"}
   ],
   "predeclared_acceptance": {

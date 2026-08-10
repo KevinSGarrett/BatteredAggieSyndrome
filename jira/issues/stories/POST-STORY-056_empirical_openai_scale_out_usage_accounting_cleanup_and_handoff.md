@@ -61,7 +61,8 @@
   "dependencies": [
     "POST-SUBTASK-162",
     "POST-SUBTASK-163",
-    "POST-SUBTASK-164"
+    "POST-SUBTASK-164",
+    "POST-SUBTASK-167"
   ],
   "effective_traceability_counts": {
     "acceptance_control_ids": 0,
@@ -71,7 +72,7 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.",
+  "end_to_end_validation": "Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-056.json",
   "evidence_state": "PLANNED",
@@ -99,7 +100,7 @@
   "gap_ids": [],
   "generated_markdown": "jira/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.md",
   "governance_review_required": false,
-  "governance_traceability_gate": "POST-SUBTASK-164",
+  "governance_traceability_gate": "POST-SUBTASK-167",
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100467,
   "in_scope": [
@@ -108,26 +109,17 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Story",
-  "jira_key": "BAT-515",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
     "post-wave",
     "aggregate-gate"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-STORY-056",
   "maturity_before": "NOT_STARTED",
   "objective": "Empirical OpenAI scale-out, usage accounting, cleanup, and handoff",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24655",
-    "jira_updated_at": "2026-08-09T23:18:51.364-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
-    "sprint": "",
-    "status_raw": "To Do"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -140,7 +132,8 @@
   "prerequisites": [
     "Dependency POST-SUBTASK-162 complete at required maturity",
     "Dependency POST-SUBTASK-163 complete at required maturity",
-    "Dependency POST-SUBTASK-164 complete at required maturity"
+    "Dependency POST-SUBTASK-164 complete at required maturity",
+    "Dependency POST-SUBTASK-167 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02119"
@@ -189,7 +182,7 @@
     },
     {
       "classification": "END_TO_END",
-      "expectation": "Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.",
+      "expectation": "Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.",
       "path": "artifacts/jira_evidence/POST-STORY-056.json",
       "validation_class": "END_TO_END"
     },
@@ -209,7 +202,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
+  "scope": "Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
   "source_ids": [
     "OPENAI-ASSIST-PLAN"
   ],
@@ -247,7 +240,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 ### Explicit In Scope
 
@@ -267,12 +260,14 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 - Dependency POST-SUBTASK-162 complete at required maturity
 - Dependency POST-SUBTASK-163 complete at required maturity
 - Dependency POST-SUBTASK-164 complete at required maturity
+- Dependency POST-SUBTASK-167 complete at required maturity
 
 ## Hard Dependencies
 
 - POST-SUBTASK-162
 - POST-SUBTASK-163
 - POST-SUBTASK-164
+- POST-SUBTASK-167
 
 ## Blocks
 
@@ -320,7 +315,7 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 
 ## Governance Traceability Inheritance
 
-- Gate: `POST-SUBTASK-164`
+- Gate: `POST-SUBTASK-167`
 - Inherited from: None
 - Resolution: `DIRECT_DOMAIN_GATE`
 - Effective counts: `{"acceptance_control_ids": 0, "adr_ids": 0, "gap_ids": 0, "requirement_ids": 0, "risk_ids": 0}`
@@ -342,7 +337,7 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `SECURITY` — `tests/test_openai_assist.py` — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-STORY-056.json` — Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-STORY-056.json` — Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Required Evidence
@@ -379,7 +374,7 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 
 ## End-to-End Validation Requirement
 
-Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.
+Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
 
 ## Expected Maturity After Completion
 

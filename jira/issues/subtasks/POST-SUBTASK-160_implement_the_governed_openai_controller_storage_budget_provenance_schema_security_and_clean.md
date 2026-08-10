@@ -88,7 +88,7 @@
   "end_to_end_validation": "Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-160.json",
-  "evidence_state": "VERIFIED",
+  "evidence_state": "PLANNED",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "INTEGRATED",
@@ -138,7 +138,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-516",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
@@ -147,19 +147,10 @@
     "controller",
     "security"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-160",
   "maturity_before": "NOT_STARTED",
   "objective": "Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24656",
-    "jira_updated_at": "2026-08-09T23:34:25.658-0500",
-    "last_synced_at": "2026-08-10T04:34:47.463555+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-516-live-row.csv",
-    "sprint": "",
-    "status_raw": "Done"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -263,7 +254,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-160.md",
-  "workflow_state": "DONE"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

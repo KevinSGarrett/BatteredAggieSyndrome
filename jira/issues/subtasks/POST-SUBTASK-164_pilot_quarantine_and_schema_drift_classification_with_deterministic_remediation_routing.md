@@ -9,8 +9,8 @@
   "acceptance_criteria": [
     "Representative corruption, missingness, schema drift, incompatible mapping, evidence absence, conflict, PIT risk, and target-leakage cases are classified without changing source truth.",
     "Every remediation route is deterministic-reviewable and affected records/domains remain quarantined until authoritative validators accept them.",
-    "Validated routine classifications begin with GPT-5 Nano Batch; 4o Mini or Luna is used only for a task-specific measured need, complex ambiguity routes to Terra, and only a hard/high-risk residue routes to Sol.",
-    "The pilot includes meaningful Terra and Sol hard cases, records accepted evidence-verified results per dollar, and enforces the verified 651bbf...aa523 staged budget and $15/$10 base plus $25/$17 maximum Terra/Sol caps."
+    "Validated routine classifications begin with GPT-5 Nano Batch; 4o Mini or Luna is used only for a measured task need, complex ambiguity routes to Terra, and only a hard/high-risk residue routes to Sol.",
+    "Meaningful Terra/Sol hard cases and the verified 651bbf...aa523 staged/base/reserve budget are evidenced before completion."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -22,24 +22,22 @@
     "configs/openai_assist_policy.json",
     "configs/openai_task_registry.json",
     "configs/openai_quarantine_schema_pilot.json",
-    "src/aggie_analytics/openai_assist/budget.py",
-    "src/aggie_analytics/openai_assist/policy.py",
-    "src/aggie_analytics/openai_assist/controller.py",
+    "src/aggie_analytics/openai_assist",
     "tools/openai_assist.py",
-    "tools/validate_openai_assist.py",
-    "governance/OPENAI_ASSISTIVE_PLANE.md",
-    "docs/architecture/OPENAI_ASSISTIVE_PLANE.md",
-    "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
-    "prompts/openai_assist/quarantine_schema_v1.txt",
     "tools/prepare_openai_quarantine_pilot.py",
     "tools/run_openai_quarantine_pilot.py",
     "tools/run_openai_gamebook_pilot.py",
+    "tools/validate_openai_assist.py",
+    "prompts/openai_assist/quarantine_schema_v1.txt",
+    "governance/OPENAI_ASSISTIVE_PLANE.md",
+    "docs/architecture/OPENAI_ASSISTIVE_PLANE.md",
+    "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
     "artifacts/openai_assist/router_rebalance.json",
     "artifacts/openai_assist/quarantine_schema_pilot.json",
     "tests/test_openai_assist.py",
     "artifacts/jira_evidence/POST-SUBTASK-164.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-161",
   "blocks": [
     "POST-STORY-056",
     "POST-SUBTASK-166"
@@ -79,8 +77,7 @@
     "OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.",
     "Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.",
     "Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.",
-    "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.",
-    "The balanced router, staged releases, historical-usage mapping, $15/$10 Terra/Sol base envelopes, $25/$17 measured reserve maxima, and mandatory representative Terra/Sol calls match governing plan SHA-256 651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523."
+    "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
   ],
   "dependencies": [
     "POST-SUBTASK-161"
@@ -93,10 +90,10 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Classify a pinned quarantine/schema-drift sample, compare deterministic and model routes, and prove outputs only prioritize remediation while authoritative quarantine remains unchanged.",
+  "end_to_end_validation": "Adopt the revised router, then classify a pinned quarantine/schema-drift sample across Nano and justified higher tiers, preserving candidate-only authority and measuring evidence-verified acceptance per dollar.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-164.json",
-  "evidence_state": "VERIFIED",
+  "evidence_state": "PLANNED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -109,25 +106,23 @@
     "governance/OPENAI_ASSISTIVE_PLANE.md",
     "configs/openai_assist_policy.json",
     "configs/openai_task_registry.json",
-    "configs/openai_quarantine_schema_pilot.json",
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
   "files_expected_to_be_touched": [
     "configs/openai_assist_policy.json",
     "configs/openai_task_registry.json",
-    "src/aggie_analytics/openai_assist/budget.py",
-    "src/aggie_analytics/openai_assist/policy.py",
-    "src/aggie_analytics/openai_assist/controller.py",
+    "configs/openai_quarantine_schema_pilot.json",
+    "src/aggie_analytics/openai_assist",
     "tools/openai_assist.py",
-    "tools/validate_openai_assist.py",
-    "governance/OPENAI_ASSISTIVE_PLANE.md",
-    "docs/architecture/OPENAI_ASSISTIVE_PLANE.md",
-    "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
-    "prompts/openai_assist/quarantine_schema_v1.txt",
     "tools/prepare_openai_quarantine_pilot.py",
     "tools/run_openai_quarantine_pilot.py",
     "tools/run_openai_gamebook_pilot.py",
+    "tools/validate_openai_assist.py",
+    "prompts/openai_assist/quarantine_schema_v1.txt",
+    "governance/OPENAI_ASSISTIVE_PLANE.md",
+    "docs/architecture/OPENAI_ASSISTIVE_PLANE.md",
+    "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
     "artifacts/openai_assist/router_rebalance.json",
     "artifacts/openai_assist/quarantine_schema_pilot.json",
     "tests/test_openai_assist.py"
@@ -148,12 +143,10 @@
   "in_scope": [
     "Perform the exact action: Pilot quarantine and schema-drift classification with deterministic remediation routing.",
     "Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.",
-    "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.",
-    "Adopt the superseding balanced Nano-to-Sol router and budget policy before any BAT-520 paid call, without rewriting settled historical usage.",
-    "Give Terra and Sol meaningful complex/hard/high-risk evidence-backed cases while measuring whether they improve hard-case acceptance, review savings, or risk reduction."
+    "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-520",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
@@ -162,19 +155,10 @@
     "pilot-c",
     "quarantine"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-164",
   "maturity_before": "NOT_STARTED",
   "objective": "Pilot quarantine and schema-drift classification with deterministic remediation routing",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24660",
-    "jira_updated_at": "2026-08-10T02:04:19.513-0500",
-    "last_synced_at": "2026-08-10T07:05:58.209931+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-520-completion-live-row.csv",
-    "sprint": "",
-    "status_raw": "Done"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -218,11 +202,10 @@
     "docs/final/CODEX_HANDOFF.md"
   ],
   "ready": false,
-  "record_revision": "2.1",
+  "record_revision": "2.0",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-164.json` with one evidence row per acceptance criterion and exact artifact hashes.",
     "Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.",
-    "Plan-hash, stage-release, allocation/model-cap, historical-usage mapping, Nano/4o Mini/Luna/Terra/Sol comparison, and Terra/Sol hard-case value evidence.",
     "Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.",
     "Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes."
   ],
@@ -235,7 +218,7 @@
     },
     {
       "classification": "END_TO_END",
-      "expectation": "Classify a pinned quarantine/schema-drift sample, compare deterministic and model routes, and prove outputs only prioritize remediation while authoritative quarantine remains unchanged.",
+      "expectation": "Adopt the revised router, then classify a pinned quarantine/schema-drift sample across Nano and justified higher tiers, preserving candidate-only authority and measuring evidence-verified acceptance per dollar.",
       "path": "artifacts/jira_evidence/POST-SUBTASK-164.json",
       "validation_class": "END_TO_END"
     },
@@ -251,12 +234,11 @@
     "A successful API response is not evidence if schema, evidence, provenance, PIT/leakage, identity, cost, or candidate-authority validation fails.",
     "The unit fails if any unsupported fact enters canonical data or any name-only/model-only merge is approved.",
     "The unit fails if cost is admitted beyond an allocation or the absolute USD 100 committed-cost hard stop.",
-    "The unit fails if a cumulative stage, Terra/Sol base or reserve maximum, the locked USD 5 completion reserve, or the above-USD-1 admission-review gate is bypassed.",
     "The unit fails if credentials, .env content, private personal information, or unnecessary protected evidence is exposed."
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt governing plan SHA-256 651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523 across the controller, staged budget, router, validators, documentation, and Jira graph without rewriting historical settled usage. Then consume `POST-SUBTASK-161`; compare Nano and any justified 4o Mini/Luna route with meaningful Terra/Sol hard cases; produce `artifacts/openai_assist/quarantine_schema_pilot.json`, `artifacts/jira_evidence/POST-SUBTASK-164.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
+  "scope": "Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-161`; produce `artifacts/openai_assist/router_rebalance.json`, `artifacts/openai_assist/quarantine_schema_pilot.json`, `artifacts/jira_evidence/POST-SUBTASK-164.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
   "source_ids": [
     "OPENAI-ASSIST-PLAN"
   ],
@@ -272,7 +254,7 @@
   "title": "[POST-SUBTASK-164] Pilot quarantine and schema-drift classification with deterministic remediation routing",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -280,7 +262,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-164.md",
-  "workflow_state": "DONE"
+  "workflow_state": "BLOCKED"
 }
 ```
 
@@ -294,15 +276,13 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt governing plan SHA-256 651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523 across the controller, staged budget, router, validators, documentation, and Jira graph without rewriting historical settled usage. Then consume `POST-SUBTASK-161`; compare Nano and any justified 4o Mini/Luna route with meaningful Terra/Sol hard cases; produce `artifacts/openai_assist/quarantine_schema_pilot.json`, `artifacts/jira_evidence/POST-SUBTASK-164.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-161`; produce `artifacts/openai_assist/router_rebalance.json`, `artifacts/openai_assist/quarantine_schema_pilot.json`, `artifacts/jira_evidence/POST-SUBTASK-164.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 ### Explicit In Scope
 
 - Perform the exact action: Pilot quarantine and schema-drift classification with deterministic remediation routing.
 - Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
 - Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
-- Adopt the superseding balanced Nano-to-Sol router and budget policy before any BAT-520 paid call, without rewriting settled historical usage.
-- Give Terra and Sol meaningful complex/hard/high-risk evidence-backed cases while measuring whether they improve hard-case acceptance, review savings, or risk reduction.
 
 ### Explicit Out of Scope
 
@@ -336,18 +316,17 @@ Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt
 
 - configs/openai_assist_policy.json
 - configs/openai_task_registry.json
-- src/aggie_analytics/openai_assist/budget.py
-- src/aggie_analytics/openai_assist/policy.py
-- src/aggie_analytics/openai_assist/controller.py
+- configs/openai_quarantine_schema_pilot.json
+- src/aggie_analytics/openai_assist
 - tools/openai_assist.py
-- tools/validate_openai_assist.py
-- governance/OPENAI_ASSISTIVE_PLANE.md
-- docs/architecture/OPENAI_ASSISTIVE_PLANE.md
-- docs/operations/OPENAI_ASSISTIVE_PLANE.md
-- prompts/openai_assist/quarantine_schema_v1.txt
 - tools/prepare_openai_quarantine_pilot.py
 - tools/run_openai_quarantine_pilot.py
 - tools/run_openai_gamebook_pilot.py
+- tools/validate_openai_assist.py
+- prompts/openai_assist/quarantine_schema_v1.txt
+- governance/OPENAI_ASSISTIVE_PLANE.md
+- docs/architecture/OPENAI_ASSISTIVE_PLANE.md
+- docs/operations/OPENAI_ASSISTIVE_PLANE.md
 - artifacts/openai_assist/router_rebalance.json
 - artifacts/openai_assist/quarantine_schema_pilot.json
 - tests/test_openai_assist.py
@@ -393,8 +372,8 @@ Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt
 
 1. Representative corruption, missingness, schema drift, incompatible mapping, evidence absence, conflict, PIT risk, and target-leakage cases are classified without changing source truth.
 2. Every remediation route is deterministic-reviewable and affected records/domains remain quarantined until authoritative validators accept them.
-3. Validated routine classifications begin with GPT-5 Nano Batch; 4o Mini or Luna is used only for a task-specific measured need, complex ambiguity routes to Terra, and only a hard/high-risk residue routes to Sol.
-4. The pilot includes meaningful Terra and Sol hard cases, records accepted evidence-verified results per dollar, and enforces the verified 651bbf...aa523 staged budget and $15/$10 base plus $25/$17 maximum Terra/Sol caps.
+3. Validated routine classifications begin with GPT-5 Nano Batch; 4o Mini or Luna is used only for a measured task need, complex ambiguity routes to Terra, and only a hard/high-risk residue routes to Sol.
+4. Meaningful Terra/Sol hard cases and the verified 651bbf...aa523 staged/base/reserve budget are evidenced before completion.
 
 ## Definition of Done
 
@@ -404,19 +383,17 @@ Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt
 4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
 5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
 6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
-7. The balanced router, staged releases, historical-usage mapping, $15/$10 Terra/Sol base envelopes, $25/$17 measured reserve maxima, and mandatory representative Terra/Sol calls match governing plan SHA-256 651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523.
 
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `SECURITY` — `tests/test_openai_assist.py` — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-164.json` — Classify a pinned quarantine/schema-drift sample, compare deterministic and model routes, and prove outputs only prioritize remediation while authoritative quarantine remains unchanged.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-164.json` — Adopt the revised router, then classify a pinned quarantine/schema-drift sample across Nano and justified higher tiers, preserving candidate-only authority and measuring evidence-verified acceptance per dollar.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Required Evidence
 
 - `artifacts/jira_evidence/POST-SUBTASK-164.json` with one evidence row per acceptance criterion and exact artifact hashes.
 - Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
-- Plan-hash, stage-release, allocation/model-cap, historical-usage mapping, Nano/4o Mini/Luna/Terra/Sol comparison, and Terra/Sol hard-case value evidence.
 - Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
 
@@ -447,7 +424,7 @@ Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt
 
 ## End-to-End Validation Requirement
 
-Classify a pinned quarantine/schema-drift sample, compare deterministic and model routes, and prove outputs only prioritize remediation while authoritative quarantine remains unchanged.
+Adopt the revised router, then classify a pinned quarantine/schema-drift sample across Nano and justified higher tiers, preserving candidate-only authority and measuring evidence-verified acceptance per dollar.
 
 ## Expected Maturity After Completion
 
@@ -458,7 +435,6 @@ Classify a pinned quarantine/schema-drift sample, compare deterministic and mode
 - A successful API response is not evidence if schema, evidence, provenance, PIT/leakage, identity, cost, or candidate-authority validation fails.
 - The unit fails if any unsupported fact enters canonical data or any name-only/model-only merge is approved.
 - The unit fails if cost is admitted beyond an allocation or the absolute USD 100 committed-cost hard stop.
-- The unit fails if a cumulative stage, Terra/Sol base or reserve maximum, the locked USD 5 completion reserve, or the above-USD-1 admission-review gate is bypassed.
 - The unit fails if credentials, .env content, private personal information, or unnecessary protected evidence is exposed.
 
 ## Stop Conditions

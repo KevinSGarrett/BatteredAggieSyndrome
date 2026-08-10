@@ -40,6 +40,20 @@ def validate(repo_root: Path, *, require_live: bool = False) -> list[str]:
             or int(profile.get("live_counts", {}).get("issues", 0)) <= 0
         ):
             findings.append("live_profile_not_verified")
+        pending_ids = profile.get("local_sync", {}).get("pending_issue_ids", [])
+        if not isinstance(pending_ids, list) or any(not isinstance(item, str) or not item for item in pending_ids):
+            findings.append("pending_local_sync_invalid")
+        elif pending_ids:
+            canonical_by_id = {}
+            for record_path in (repo / "jira" / "records" / "issues").rglob("*.json"):
+                record = json.loads(record_path.read_text(encoding="utf-8"))
+                canonical_by_id[record.get("local_id")] = record
+            for local_id in pending_ids:
+                record = canonical_by_id.get(local_id)
+                if record is None:
+                    findings.append(f"pending_local_sync_missing:{local_id}")
+                elif record.get("jira_key"):
+                    findings.append(f"pending_local_sync_already_bound:{local_id}")
     validator = repo / "jira/tools/validate_second_pass.py"
     if validator.is_file():
         completed = subprocess.run(

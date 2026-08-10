@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "artifact_type": "openai_tamu_official_depth_chart_document_pilot_checkpoint",
+  "pilot_id": "openai-tamu-official-depth-chart-document-pilot-v1",
+  "jira_unit": "POST-SUBTASK-167",
+  "status": "DETERMINISTIC_GOLD_AND_28_REQUEST_PREFLIGHT_PASS_LIVE_ATTEMPT_FAILED_CLOSED_ON_AUTHORITATIVE_ENV",
+  "authority": "SHADOW_DOCUMENT_CANDIDATE_ONLY_NO_PIT_OR_AVAILABILITY_ADMISSION",
+  "source": {
+    "source_id": "SRC-014",
+    "provider": "Texas A&M Athletics / SIDEARM official weekly game notes",
+    "acquisition_identity": "13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956",
+    "acquisition_manifest_sha256": "ad4b834f33581452db0be71770118347237621efff97bb18bde8d7ff204d506d",
+    "candidate_identity": "ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4",
+    "candidate_manifest_sha256": "618de5e4646c2750e4bb65faa6c8cf6bda285d5ed08f5514606a98cfc45005b3",
+    "candidate_payload_sha256": "2a6af9e113de27790a51efa694fd441bee5593d82d2cd2983e748f10e035c4e0",
+    "candidate_validation_report_sha256": "3091edfffa4a62b356238d86fc58fa3ac5446153dba001883055874fd866f279",
+    "candidate_rows": 168,
+    "documents_scanned": 191,
+    "documents_with_candidate_pages": 166,
+    "documents_without_candidate_pages": 25,
+    "noncoverage_by_season": {"2022": 12, "2023": 13}
+  },
+  "gold": {
+    "external_sha256": "c35eb126988713fd65c47d7ace632c23afdb8270aea7a00a5fee106def6cad54",
+    "external_manifest_sha256": "9b7f27692107e1e275d8cfb7e135d8185de65338a48d41c5624795f3423d5e53",
+    "samples": 7,
+    "seasons": [2011, 2012, 2013, 2016, 2020, 2024, 2025],
+    "coverage": [
+      "columnar_layout_drift",
+      "literal_or_chains",
+      "multiple_same_position_groups",
+      "capitalization_preservation",
+      "apostrophe_preservation",
+      "supported_page_facts",
+      "not_present_injury_status",
+      "unknown_historical_publication_time"
+    ],
+    "bulk_source_and_excerpts_in_git": false
+  },
+  "comparison_plan": {
+    "preflight_manifest_sha256": "09a5a6ae2d84e6cd4f7449935005e3a967fd24425c40097d80d18ebc47e8678b",
+    "request_count": 28,
+    "request_id_count": 28,
+    "routes": [
+      {"model": "gpt-5-nano", "reasoning_effort": "minimal", "role": "BULK_VOLUME_BASELINE", "estimated_cost_usd": "0.006289"},
+      {"model": "gpt-5.6-luna", "reasoning_effort": "none", "role": "HARD_VOLUME_COMPARISON", "estimated_cost_usd": "0.020111"},
+      {"model": "gpt-5.6-terra", "reasoning_effort": "low", "role": "COMPLEX_LAYOUT_RECONCILIATION", "estimated_cost_usd": "0.201112"},
+      {"model": "gpt-5.6-sol", "reasoning_effort": "medium", "role": "GOLD_HARD_CASE_REFERENCE", "estimated_cost_usd": "0.502780"}
+    ],
+    "total_estimated_cost_usd": "0.730292",
+    "preflight_result": "PASS",
+    "live_api_calls": 0,
+    "actual_cost_usd": "0.000000"
+  },
+  "execution_attempt": {
+    "run_manifest_sha256": "9c950248d4b042696d0a9a3429430130f6ecd8598606746dcbca1a1cde12bd4c",
+    "requested_jobs": 28,
+    "completed_predictions": 0,
+    "failure_count": 1,
+    "fatal_provider_error": "CredentialError",
+    "failure_route": "gpt-5-nano",
+    "terra_calls": 0,
+    "sol_calls": 0,
+    "actual_cost_usd": "0.000000",
+    "disposition": "FAILED_CLOSED_BEFORE_PROVIDER_SUBMISSION"
+  },
+  "budget": {
+    "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+    "absolute_limit_usd": "100.00",
+    "settled_before_checkpoint_usd": "2.751147",
+    "remaining_before_checkpoint_usd": "97.248853",
+    "terra_base_usd": "15.00",
+    "terra_reserve_cap_usd": "25.00",
+    "sol_base_usd": "10.00",
+    "sol_reserve_cap_usd": "17.00",
+    "value_gated_reserve_usd": "22.00"
+  },
+  "implementation": {
+    "config_sha256": "2dc8bdbd6268c4140b25cc8c5724b75cd67b1c92f933ff83c715c26a1edc48b6",
+    "prompt_sha256": "25e10a0a799cb24e4a51111685f9333316d9a766b0e06e03af37a2cb85dee249",
+    "prepare_tool_sha256": "94e7cb3f594d59ae8b6bdb43ff4ba0ee1d18620c51000884d6a840b9ed892ffc",
+    "run_tool_sha256": "5d7e09ab7dd982e6ed3023e36afeac0266696312d045b6b9654d65cfb72ab5bc",
+    "api_endpoint": "/v1/responses",
+    "structured_outputs_strict": true,
+    "store": false,
+    "single_governed_controller": true
+  },
+  "credential_checkpoint": {
+    "openai_api_key_nonempty": false,
+    "process_environment_key_nonempty": true,
+    "process_environment_key_used": false,
+    "reason": "AUTHORITATIVE_PROJECT_ENV_FILE_ABSENT_AFTER_RECORDED_CLEANUP_INCIDENT",
+    "live_comparison_blocked_only": true,
+    "independent_historical_and_deterministic_work_continues": true
+  },
+  "admission": {
+    "document_extraction_candidate": true,
+    "canonical_player_identity": false,
+    "availability_or_injury_truth": false,
+    "historical_publication_time": false,
+    "pit_state": false,
+    "training_features": false,
+    "protected_evaluation": false,
+    "forecast_or_publication": false
+  },
+  "next_required_action": "Restore the authoritative project .env without exposing it, verify OPENAI_API_KEY is nonempty through the governed loader, rerun the 28 preflighted requests including representative Terra and Sol calls, evaluate identical predictions, and record accepted/review/quarantine/reject counts, tokens, dollars, disagreement, review savings, and cleanup.",
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

@@ -498,6 +498,38 @@ class OpenAIAssistTests(unittest.TestCase):
         self.assertEqual(97.334148, pilot["project_usage_after_pilot"]["remaining_usd"])
         self.assertEqual("PASS", pilot["acceptance_matrix"][0]["disposition"])
 
+    def test_depth_chart_pilot_preflight_includes_meaningful_terra_and_sol_without_pit_authority(self):
+        config = json.loads(
+            (ROOT / "configs" / "openai_depth_chart_pilot.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(7, len(config["samples"]))
+        routes = {route["model"]: route for route in config["routes"]}
+        self.assertEqual(
+            {"gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"},
+            set(routes),
+        )
+        self.assertEqual("low", routes["gpt-5.6-terra"]["reasoning_effort"])
+        self.assertEqual("medium", routes["gpt-5.6-sol"]["reasoning_effort"])
+        self.assertEqual("UNKNOWN", config["source_candidate"]["historical_publication_time_state"])
+        self.assertFalse(config["source_candidate"]["canonical_or_pit_admission"])
+        prompt_path = ROOT / config["prompt"]["path"]
+        self.assertEqual(config["prompt"]["sha256"], hashlib.sha256(prompt_path.read_bytes()).hexdigest())
+        report = json.loads(
+            (ROOT / "artifacts" / "openai_assist" / "depth_chart_pilot.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual("PASS", report["comparison_plan"]["preflight_result"])
+        self.assertEqual(28, report["comparison_plan"]["request_count"])
+        self.assertEqual(28, report["comparison_plan"]["request_id_count"])
+        self.assertEqual(0, report["comparison_plan"]["live_api_calls"])
+        self.assertEqual("0.000000", report["comparison_plan"]["actual_cost_usd"])
+        self.assertFalse(report["admission"]["availability_or_injury_truth"])
+        self.assertFalse(report["admission"]["historical_publication_time"])
+        self.assertFalse(report["admission"]["pit_state"])
+        self.assertFalse(report["admission"]["training_features"])
+        self.assertFalse(report["admission"]["protected_evaluation"])
+
 
 if __name__ == "__main__":
     unittest.main()

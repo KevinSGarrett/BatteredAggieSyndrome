@@ -1,5 +1,5 @@
-<!-- GENERATED VIEW. Canonical record: jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json -->
-# POST-STORY-055 — [POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.json -->
+# POST-SUBTASK-167 — [POST-SUBTASK-167] Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol
 
 ## Canonical metadata
 
@@ -7,21 +7,37 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Pilots A-C and the official depth-chart document extension receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.",
-    "Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates."
+    "A deterministic external gold corpus spans representative official 2011-2025 depth-chart layouts, explicit OR chains, name typography, supported fields, NOT_PRESENT injury status, and UNKNOWN historical publication time.",
+    "The same pinned cases receive meaningful Nano-minimal, Luna-none, Terra-low, and Sol-medium work through the single governed Responses/Structured-Outputs controller, with exact request, evidence, token, cost, validation, and disposition identities.",
+    "No chart appearance is promoted to injury, availability, canonical identity, historical-known-at, PIT, training, protected, or forecast truth; 2022-2023 chart-page noncoverage and every model failure remain explicit.",
+    "Any later routine route is selected only from measured strict-schema, precision/recall, evidence, abstention, unsupported-fact, disagreement, review-savings, and cost-per-accepted-record evidence; Terra/Sol reserve use remains value-gated."
   ],
   "adr_ids": [],
   "ai_context_notes": [
-    "Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-STORY-055.json` before execution.",
+    "Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-SUBTASK-167.json` before execution.",
     "Never include an API key, .env content, cookie, authorization header, or whole data lake in prompts, artifacts, logs, worktrees, commits, or Jira.",
     "OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision."
   ],
   "allowed_modification_paths": [
-    "artifacts/jira_evidence/POST-STORY-055.json"
+    "configs/openai_depth_chart_pilot.json",
+    "configs/openai_task_registry.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "prompts/openai_assist/depth_chart_document_v1.txt",
+    "tools/prepare_openai_depth_chart_pilot.py",
+    "tools/run_openai_depth_chart_pilot.py",
+    "artifacts/openai_assist/depth_chart_pilot.json",
+    "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "tests/test_openai_assist.py",
+    "tests/test_historical_known_at_recovery_contract.py",
+    "artifacts/jira_evidence/POST-SUBTASK-167.json"
   ],
-  "blocked_reason": "",
-  "blocks": [],
-  "canonical_record": "jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-162",
+  "blocks": [
+    "POST-STORY-056",
+    "POST-SUBTASK-166"
+  ],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "completion_evidence_contract": {
     "acceptance_matrix_required": true,
@@ -43,9 +59,9 @@
       "cost"
     ]
   },
-  "component": "data-sources",
+  "component": "player-context-intelligence",
   "components_expected_to_be_touched": [
-    "data-sources",
+    "player-context-intelligence",
     "openai-assist"
   ],
   "content_contract_version": "2.0",
@@ -59,7 +75,8 @@
     "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
   ],
   "dependencies": [
-    "POST-SUBTASK-161"
+    "POST-SUBTASK-162",
+    "POST-SUBTASK-028"
   ],
   "effective_traceability_counts": {
     "acceptance_control_ids": 0,
@@ -69,15 +86,17 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.",
+  "end_to_end_validation": "Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.",
   "epic_id": "POST-EPIC-018",
-  "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-055.json",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-167.json",
   "evidence_state": "PLANNED",
   "execution_lane": "RESEARCH_LANE",
-  "execution_mode": "AGGREGATE_GATE",
+  "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
   "expected_outputs": [
-    "artifacts/jira_evidence/POST-STORY-055.json"
+    "artifacts/openai_assist/depth_chart_pilot.json",
+    "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-167.json"
   ],
   "files_expected_to_be_read": [
     "governance/OPENAI_ASSISTIVE_PLANE.md",
@@ -86,7 +105,19 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "files_expected_to_be_touched": [],
+  "files_expected_to_be_touched": [
+    "configs/openai_depth_chart_pilot.json",
+    "configs/openai_task_registry.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "prompts/openai_assist/depth_chart_document_v1.txt",
+    "tools/prepare_openai_depth_chart_pilot.py",
+    "tools/run_openai_depth_chart_pilot.py",
+    "artifacts/openai_assist/depth_chart_pilot.json",
+    "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "tests/test_openai_assist.py",
+    "tests/test_historical_known_at_recovery_contract.py"
+  ],
   "files_to_inspect": [
     "governance/OPENAI_ASSISTIVE_PLANE.md",
     "configs/openai_assist_policy.json",
@@ -95,28 +126,31 @@
     "docs/final/CODEX_HANDOFF.md"
   ],
   "gap_ids": [],
-  "generated_markdown": "jira/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.md",
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.md",
   "governance_review_required": false,
-  "governance_traceability_gate": "POST-SUBTASK-161",
+  "governance_traceability_gate": "POST-SUBTASK-167",
   "historical_classification": "ACTIONABLE_POST_WAVE",
-  "import_id": 100466,
+  "import_id": 100475,
   "in_scope": [
-    "Perform the exact action: Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots.",
+    "Perform the exact action: Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol.",
     "Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.",
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
-  "issue_type": "Story",
+  "issue_type": "Subtask",
   "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
     "post-wave",
-    "aggregate-gate"
+    "subtask",
+    "pilot-a-extension",
+    "depth-chart",
+    "terra-sol-comparison"
   ],
   "last_content_audit": "2026-08-10",
-  "local_id": "POST-STORY-055",
+  "local_id": "POST-SUBTASK-167",
   "maturity_before": "NOT_STARTED",
-  "objective": "Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",
+  "objective": "Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol",
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -124,10 +158,11 @@
     "Blocking historical expansion or deterministic/local work when the optional provider is unavailable."
   ],
   "owner_wave": "POST_W25",
-  "parent_id": "POST-EPIC-018",
+  "parent_id": "POST-STORY-055",
   "phase": "PHASE-1",
   "prerequisites": [
-    "Dependency POST-SUBTASK-161 complete at required maturity"
+    "Dependency POST-SUBTASK-162 complete at required maturity",
+    "Dependency POST-SUBTASK-028 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02119"
@@ -162,7 +197,7 @@
   "ready": false,
   "record_revision": "2.0",
   "required_evidence": [
-    "`artifacts/jira_evidence/POST-STORY-055.json` with one evidence row per acceptance criterion and exact artifact hashes.",
+    "`artifacts/jira_evidence/POST-SUBTASK-167.json` with one evidence row per acceptance criterion and exact artifact hashes.",
     "Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.",
     "Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.",
     "Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes."
@@ -176,8 +211,8 @@
     },
     {
       "classification": "END_TO_END",
-      "expectation": "Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.",
-      "path": "artifacts/jira_evidence/POST-STORY-055.json",
+      "expectation": "Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-167.json",
       "validation_class": "END_TO_END"
     },
     {
@@ -196,7 +231,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-161`; produce `artifacts/jira_evidence/POST-STORY-055.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
+  "scope": "Execute POST-SUBTASK-167 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-028`; produce `artifacts/openai_assist/depth_chart_pilot.json`, `artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json`, `artifacts/jira_evidence/POST-SUBTASK-167.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
   "source_ids": [
     "OPENAI-ASSIST-PLAN"
   ],
@@ -209,24 +244,24 @@
     "Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity."
   ],
   "supporting_source_refs": [],
-  "title": "[POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",
+  "title": "[POST-SUBTASK-167] Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
     "SECURITY"
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
-  "work_packet_path": "jira/ai/work_packets/POST-STORY-055.md",
-  "workflow_state": "BACKLOG"
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-167.md",
+  "workflow_state": "BLOCKED"
 }
 ```
 
 ## Objective
 
-Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots
+Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol
 
 ## Why This Exists
 
@@ -234,11 +269,11 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-161`; produce `artifacts/jira_evidence/POST-STORY-055.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-SUBTASK-167 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-028`; produce `artifacts/openai_assist/depth_chart_pilot.json`, `artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json`, `artifacts/jira_evidence/POST-SUBTASK-167.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 ### Explicit In Scope
 
-- Perform the exact action: Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots.
+- Perform the exact action: Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol.
 - Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
 - Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
 
@@ -251,15 +286,18 @@ Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST
 
 ## Prerequisites
 
-- Dependency POST-SUBTASK-161 complete at required maturity
+- Dependency POST-SUBTASK-162 complete at required maturity
+- Dependency POST-SUBTASK-028 complete at required maturity
 
 ## Hard Dependencies
 
-- POST-SUBTASK-161
+- POST-SUBTASK-162
+- POST-SUBTASK-028
 
 ## Blocks
 
-- None.
+- POST-STORY-056
+- POST-SUBTASK-166
 
 ## Read / Inspect First
 
@@ -271,11 +309,21 @@ Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST
 
 ## Files Expected To Be Modified
 
-- None.
+- configs/openai_depth_chart_pilot.json
+- configs/openai_task_registry.json
+- configs/historical_known_at_recovery_contract.json
+- prompts/openai_assist/depth_chart_document_v1.txt
+- tools/prepare_openai_depth_chart_pilot.py
+- tools/run_openai_depth_chart_pilot.py
+- artifacts/openai_assist/depth_chart_pilot.json
+- artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
+- artifacts/pit/historical_known_at_replay_gate.json
+- tests/test_openai_assist.py
+- tests/test_historical_known_at_recovery_contract.py
 
 ## Components Expected To Be Touched
 
-- data-sources
+- player-context-intelligence
 - openai-assist
 
 ## Protected Files / Interfaces
@@ -291,7 +339,9 @@ Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST
 
 ## Expected Outputs / Artifacts
 
-- artifacts/jira_evidence/POST-STORY-055.json
+- artifacts/openai_assist/depth_chart_pilot.json
+- artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-167.json
 
 ## Direct Requirements
 
@@ -303,15 +353,17 @@ Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST
 
 ## Governance Traceability Inheritance
 
-- Gate: `POST-SUBTASK-161`
+- Gate: `POST-SUBTASK-167`
 - Inherited from: None
 - Resolution: `DIRECT_DOMAIN_GATE`
 - Effective counts: `{"acceptance_control_ids": 0, "adr_ids": 0, "gap_ids": 0, "requirement_ids": 0, "risk_ids": 0}`
 
 ## Acceptance Criteria
 
-1. Pilots A-C and the official depth-chart document extension receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
-2. Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates.
+1. A deterministic external gold corpus spans representative official 2011-2025 depth-chart layouts, explicit OR chains, name typography, supported fields, NOT_PRESENT injury status, and UNKNOWN historical publication time.
+2. The same pinned cases receive meaningful Nano-minimal, Luna-none, Terra-low, and Sol-medium work through the single governed Responses/Structured-Outputs controller, with exact request, evidence, token, cost, validation, and disposition identities.
+3. No chart appearance is promoted to injury, availability, canonical identity, historical-known-at, PIT, training, protected, or forecast truth; 2022-2023 chart-page noncoverage and every model failure remain explicit.
+4. Any later routine route is selected only from measured strict-schema, precision/recall, evidence, abstention, unsupported-fact, disagreement, review-savings, and cost-per-accepted-record evidence; Terra/Sol reserve use remains value-gated.
 
 ## Definition of Done
 
@@ -325,12 +377,12 @@ Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `SECURITY` — `tests/test_openai_assist.py` — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-STORY-055.json` — Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-167.json` — Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Required Evidence
 
-- `artifacts/jira_evidence/POST-STORY-055.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- `artifacts/jira_evidence/POST-SUBTASK-167.json` with one evidence row per acceptance criterion and exact artifact hashes.
 - Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
 - Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
@@ -362,7 +414,7 @@ Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST
 
 ## End-to-End Validation Requirement
 
-Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.
+Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.
 
 ## Expected Maturity After Completion
 
@@ -387,6 +439,6 @@ Compare all bounded pilot evidence, preserve failures and abstentions, and decid
 
 ## AI Context Notes
 
-- Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-STORY-055.json` before execution.
+- Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-SUBTASK-167.json` before execution.
 - Never include an API key, .env content, cookie, authorization header, or whole data lake in prompts, artifacts, logs, worktrees, commits, or Jira.
 - OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision.

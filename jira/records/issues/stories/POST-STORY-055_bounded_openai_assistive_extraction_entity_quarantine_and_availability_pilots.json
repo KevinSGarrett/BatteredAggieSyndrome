@@ -1,7 +1,7 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Pilots A-C receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.",
+    "Pilots A-C and the official depth-chart document extension receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.",
     "Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates."
   ],
   "adr_ids": [],
@@ -100,26 +100,17 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Story",
-  "jira_key": "BAT-514",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
     "post-wave",
     "aggregate-gate"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-STORY-055",
   "maturity_before": "NOT_STARTED",
   "objective": "Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24654",
-    "jira_updated_at": "2026-08-09T23:18:50.318-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
-    "sprint": "",
-    "status_raw": "To Do"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -179,7 +170,7 @@
     },
     {
       "classification": "END_TO_END",
-      "expectation": "Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified.",
+      "expectation": "Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.",
       "path": "artifacts/jira_evidence/POST-STORY-055.json",
       "validation_class": "END_TO_END"
     },

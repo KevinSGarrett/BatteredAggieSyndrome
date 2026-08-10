@@ -9,7 +9,7 @@
   "acceptance_criteria": [
     "Only pilot formats meeting predeclared empirical rules scale; failed, uneconomic, unsupported, unstable, or high-review formats remain shadow/quarantined/rejected.",
     "Routine scale-out is GPT-5 Nano Batch first; 4o Mini/Luna, Terra, and Sol are admitted only for empirically justified roles, with Terra/Sol reserve increases backed by measured hard-case acceptance, review savings, or risk reduction.",
-    "Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, threshold alert, remaining budget, disposition, improvement, and unresolved review.",
+    "Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, stage/model-cap event, threshold alert, remaining budget, disposition, improvement, and unresolved review.",
     "Remote Batch files are removed after verified local preservation where practical; abandoned local tmp/partial files are removed; immutable accepted evidence remains content-addressed.",
     "All downstream Jira, PR, repository, provenance, secret, PIT/leakage/identity, and full-suite gates pass without any scientific-readiness overclaim."
   ],
@@ -24,7 +24,7 @@
     "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
     "artifacts/jira_evidence/POST-SUBTASK-166.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-162;POST-SUBTASK-163;POST-SUBTASK-164;POST-SUBTASK-167",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -66,7 +66,8 @@
   "dependencies": [
     "POST-SUBTASK-162",
     "POST-SUBTASK-163",
-    "POST-SUBTASK-164"
+    "POST-SUBTASK-164",
+    "POST-SUBTASK-167"
   ],
   "effective_traceability_counts": {
     "acceptance_control_ids": 0,
@@ -76,10 +77,10 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Run the validated scale-out and final reconciliation, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.",
+  "end_to_end_validation": "Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-166.json",
-  "evidence_state": "VERIFIED",
+  "evidence_state": "PLANNED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "OPERATING",
@@ -117,7 +118,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-522",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
@@ -126,19 +127,10 @@
     "scale-out",
     "handoff"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-166",
   "maturity_before": "NOT_STARTED",
   "objective": "Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24662",
-    "jira_updated_at": "2026-08-10T02:40:50.742-0500",
-    "last_synced_at": "2026-08-10T07:42:19.923670+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-522-completion-live-row.csv",
-    "sprint": "",
-    "status_raw": "Done"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -151,7 +143,8 @@
   "prerequisites": [
     "Dependency POST-SUBTASK-162 complete at required maturity",
     "Dependency POST-SUBTASK-163 complete at required maturity",
-    "Dependency POST-SUBTASK-164 complete at required maturity"
+    "Dependency POST-SUBTASK-164 complete at required maturity",
+    "Dependency POST-SUBTASK-167 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02119"
@@ -200,7 +193,7 @@
     },
     {
       "classification": "END_TO_END",
-      "expectation": "Run the validated scale-out and final reconciliation, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.",
+      "expectation": "Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.",
       "path": "artifacts/jira_evidence/POST-SUBTASK-166.json",
       "validation_class": "END_TO_END"
     },
@@ -220,7 +213,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`; produce `artifacts/openai_assist/final_handoff.json`, `artifacts/jira_evidence/POST-SUBTASK-166.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
+  "scope": "Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/openai_assist/final_handoff.json`, `artifacts/jira_evidence/POST-SUBTASK-166.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
   "source_ids": [
     "OPENAI-ASSIST-PLAN"
   ],
@@ -236,7 +229,7 @@
   "title": "[POST-SUBTASK-166] Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -244,7 +237,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-166.md",
-  "workflow_state": "DONE"
+  "workflow_state": "BLOCKED"
 }
 ```
 
@@ -258,7 +251,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`; produce `artifacts/openai_assist/final_handoff.json`, `artifacts/jira_evidence/POST-SUBTASK-166.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/openai_assist/final_handoff.json`, `artifacts/jira_evidence/POST-SUBTASK-166.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 ### Explicit In Scope
 
@@ -278,12 +271,14 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 - Dependency POST-SUBTASK-162 complete at required maturity
 - Dependency POST-SUBTASK-163 complete at required maturity
 - Dependency POST-SUBTASK-164 complete at required maturity
+- Dependency POST-SUBTASK-167 complete at required maturity
 
 ## Hard Dependencies
 
 - POST-SUBTASK-162
 - POST-SUBTASK-163
 - POST-SUBTASK-164
+- POST-SUBTASK-167
 
 ## Blocks
 
@@ -342,7 +337,7 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 
 1. Only pilot formats meeting predeclared empirical rules scale; failed, uneconomic, unsupported, unstable, or high-review formats remain shadow/quarantined/rejected.
 2. Routine scale-out is GPT-5 Nano Batch first; 4o Mini/Luna, Terra, and Sol are admitted only for empirically justified roles, with Terra/Sol reserve increases backed by measured hard-case acceptance, review savings, or risk reduction.
-3. Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, threshold alert, remaining budget, disposition, improvement, and unresolved review.
+3. Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, stage/model-cap event, threshold alert, remaining budget, disposition, improvement, and unresolved review.
 4. Remote Batch files are removed after verified local preservation where practical; abandoned local tmp/partial files are removed; immutable accepted evidence remains content-addressed.
 5. All downstream Jira, PR, repository, provenance, secret, PIT/leakage/identity, and full-suite gates pass without any scientific-readiness overclaim.
 
@@ -358,7 +353,7 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 ## Required Tests / Validation
 
 - **EXISTING_AUTOMATED_TEST** / `SECURITY` — `tests/test_openai_assist.py` — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-166.json` — Run the validated scale-out and final reconciliation, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-166.json` — Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Required Evidence
@@ -395,7 +390,7 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 
 ## End-to-End Validation Requirement
 
-Run the validated scale-out and final reconciliation, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
+Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
 
 ## Expected Maturity After Completion
 

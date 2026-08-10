@@ -122,6 +122,13 @@
     "links": 1081,
     "parents": 423
   },
+  "local_sync": {
+    "pending_issue_ids": [
+      "POST-SUBTASK-167"
+    ],
+    "pending_reason": "JIRA_CREDENTIAL_UNAVAILABLE",
+    "state": "PENDING_EXTERNAL_CREDENTIAL_RESTORATION"
+  },
   "notes": [
     "BAT was discovered and configured through Jira Cloud REST v3 using returned IDs only.",
     "The active board is post-W25 execution only; historical W01-W25 reference remains searchable.",

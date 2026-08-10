@@ -116,7 +116,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-521",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
@@ -126,19 +126,10 @@
     "conditional",
     "availability"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-165",
   "maturity_before": "NOT_STARTED",
   "objective": "Pilot timestamped injury, depth-chart, practice, and availability extraction when evidence is ready",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24661",
-    "jira_updated_at": "2026-08-09T23:18:50.878-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
-    "sprint": "",
-    "status_raw": "To Do"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",

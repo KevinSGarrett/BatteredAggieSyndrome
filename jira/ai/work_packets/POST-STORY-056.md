@@ -16,7 +16,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Aggregate integration and closure scope
 
-Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 ### In scope
 
@@ -41,7 +41,7 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 - Execution mode: `AGGREGATE_GATE`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
 - Evidence state: `PLANNED`
-- Governance traceability gate: `POST-SUBTASK-164`
+- Governance traceability gate: `POST-SUBTASK-167`
 
 ## Read first
 
@@ -61,6 +61,7 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 - POST-SUBTASK-162
 - POST-SUBTASK-163
 - POST-SUBTASK-164
+- POST-SUBTASK-167
 
 ## Aggregate packet modification authority
 
@@ -98,7 +99,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Evidence to return
@@ -110,7 +111,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.
+Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
 
 ## Stop instead of improvising when
 

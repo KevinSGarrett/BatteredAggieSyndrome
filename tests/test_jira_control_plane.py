@@ -31,7 +31,12 @@ class JiraControlPlaneTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        self.assertEqual(profile["live_counts"]["issues"], canonical_count + len(auxiliary["issues"]))
+        pending = profile.get("local_sync", {}).get("pending_issue_ids", [])
+        self.assertEqual(
+            profile["live_counts"]["issues"] + len(pending),
+            canonical_count + len(auxiliary["issues"]),
+        )
+        self.assertEqual(pending, ["POST-SUBTASK-167"])
 
 
 if __name__ == "__main__":

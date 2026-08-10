@@ -24,7 +24,7 @@
     "tests/test_openai_assist.py",
     "artifacts/jira_evidence/POST-SUBTASK-161.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-160",
   "blocks": [
     "POST-STORY-055",
     "POST-SUBTASK-162",
@@ -83,7 +83,7 @@
   "end_to_end_validation": "Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-161.json",
-  "evidence_state": "VERIFIED",
+  "evidence_state": "PLANNED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -124,7 +124,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-517",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
@@ -133,19 +133,10 @@
     "evaluation",
     "gold-set"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-161",
   "maturity_before": "NOT_STARTED",
   "objective": "Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24657",
-    "jira_updated_at": "2026-08-10T00:10:40.674-0500",
-    "last_synced_at": "2026-08-10T05:11:37.378382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-517-518-live-row.csv",
-    "sprint": "",
-    "status_raw": "Done"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -241,7 +232,7 @@
   "title": "[POST-SUBTASK-161] Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -249,7 +240,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-161.md",
-  "workflow_state": "DONE"
+  "workflow_state": "BLOCKED"
 }
 ```
 

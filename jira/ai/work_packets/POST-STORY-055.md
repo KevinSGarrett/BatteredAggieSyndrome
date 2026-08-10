@@ -90,13 +90,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. Pilots A-C receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
+1. Pilots A-C and the official depth-chart document extension receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
 2. Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-055.json — Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-055.json — Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Evidence to return

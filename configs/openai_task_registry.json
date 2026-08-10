@@ -18,6 +18,21 @@
       "pilot": "FOUNDATION_EVALUATION",
       "requires_representative_models": ["gpt-5.6-terra", "gpt-5.6-sol"]
     },
+    "depth_chart_document_extraction": {
+      "allocation_by_model": {
+        "gpt-5-nano": "NANO_BATCH",
+        "gpt-5.6-luna": "LUNA_HARD_VOLUME",
+        "gpt-5.6-terra": "TERRA_COMPLEX",
+        "gpt-5.6-sol": "SOL_GOLD_HARD"
+      },
+      "allowed_models": ["gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"],
+      "candidate_destination": "CANDIDATE",
+      "default_model": "gpt-5-nano",
+      "default_reasoning_effort": "minimal",
+      "jira_unit": "POST-SUBTASK-167",
+      "pilot": "A_DEPTH_CHART_EXTENSION",
+      "requires_representative_models": ["gpt-5.6-terra", "gpt-5.6-sol"]
+    },
     "entity_review": {
       "allocation_by_model": {
         "gpt-5-nano": "NANO_BATCH",

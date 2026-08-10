@@ -1,0 +1,230 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-041",
+  "jira_key": "BAT-391",
+  "created_at_utc": "2026-08-10T08:01:26Z",
+  "updated_at_utc": "2026-08-10T08:10:00Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "<external-data-root>/canonical/BAT-391/sha256/285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb/entity_decision_and_transition_events.parquet",
+      "evidence_sha256": "285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb",
+      "observable_result": "The append-only ledger preserves all 646,053 POST-SUBTASK-040 decisions and materializes 313,712 interval-backed team, conference, staff, roster, coach, and player-transfer transition events. Every event is attributable and decision-known-at; every temporal event carries an effective interval. Zero manual acceptances and zero correction, merge, or split events were created because no independent evidence package supported them. The strict validator rejected retroactive alias rewriting without an explicit correction and superseded-event identity."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/entity_decision_and_transition_log.jsonl",
+      "evidence_sha256": "6c09b07f611e6025bb45897c1a91a4912f857e7ccb1fd14bc166be672741a803",
+      "observable_result": "The declared output is a 3,724-byte four-record JSONL control log that pins the 190,729,009-byte external Parquet payload, 959,765 rows, 50 columns, schema identity, prerequisite identities, append-only correction rules, negative findings, and POST-SUBTASK-042 fail-closed consumer requirements. Two independent deterministic builds produced the same payload and byte-identical build reports."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "<external-data-root>/validation/BAT-391/entity-review-transitions/strict-validation-report.json",
+      "evidence_sha256": "9685270aae7831b55005094aa1a6dd67e75ed37fb43e6f3b28d770609826ad85",
+      "observable_result": "The work preserves 5,817 candidate-generated, 1,941 review-required, and 1,404 unresolved ledger events without promotion. Historical source-known-at timestamps are absent in the prerequisites, so all temporal events remain fail-closed for historical PIT use. No source availability, calibrated confidence, model readiness, protected performance, A&M lift, BAS, Aggie Excess, or operational readiness is claimed."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "REPOSITORY_CONTROL_LOG",
+      "path": "artifacts/entities/entity_decision_and_transition_log.jsonl",
+      "sha256": "6c09b07f611e6025bb45897c1a91a4912f857e7ccb1fd14bc166be672741a803",
+      "bytes": 3724,
+      "rows": 4,
+      "format": "JSONL_EXTERNAL_PAYLOAD_CONTROL"
+    },
+    {
+      "role": "FULL_DECISION_AND_TRANSITION_PAYLOAD",
+      "path": "<external-data-root>/canonical/BAT-391/sha256/285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb/entity_decision_and_transition_events.parquet",
+      "sha256": "285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb",
+      "bytes": 190729009,
+      "rows": 959765,
+      "columns": 50,
+      "schema_sha256": "7eb6ab1aee04e7d36313b2874bdccb48ff4788789f80b1ccbb628c163ec8b422"
+    },
+    {
+      "role": "DETERMINISTIC_BUILD_REPORT_RUN_1",
+      "path": "<external-data-root>/validation/BAT-391/entity-review-transitions/build-report-run-1.json",
+      "sha256": "d11704acf6b8167eb94b36add1b07b634bcf659e4c68b577b5b155f88d314526",
+      "bytes": 3635
+    },
+    {
+      "role": "DETERMINISTIC_BUILD_REPORT_RUN_2",
+      "path": "<external-data-root>/validation/BAT-391/entity-review-transitions/build-report-run-2.json",
+      "sha256": "d11704acf6b8167eb94b36add1b07b634bcf659e4c68b577b5b155f88d314526",
+      "bytes": 3635
+    },
+    {
+      "role": "STRICT_CONSUMER_ROW_AND_MUTATION_VALIDATION_REPORT",
+      "path": "<external-data-root>/validation/BAT-391/entity-review-transitions/strict-validation-report.json",
+      "sha256": "9685270aae7831b55005094aa1a6dd67e75ed37fb43e6f3b28d770609826ad85",
+      "bytes": 873,
+      "finding_count": 0,
+      "unsafe_mutations_rejected": 7
+    },
+    {
+      "role": "EXTERNAL_DETERMINISTIC_BUILDER",
+      "path": "<external-data-root>/runtime/BAT-391/build_entity_decision_transition_log.py",
+      "sha256": "21852f37156268b4a096625ad1df2e98b10f6c758a68ac55370fec5abd6cdbfd",
+      "bytes": 19462
+    },
+    {
+      "role": "EXTERNAL_STRICT_CONSUMER_VALIDATOR_AND_NEW_AUTOMATED_TEST",
+      "path": "<external-data-root>/runtime/BAT-391/validate_entity_decision_transition_log.py",
+      "sha256": "eb55abad25d7ecdb59eaf9c6e4eb9438ca23baf548ef29614e9a534afde048f6",
+      "bytes": 10321
+    }
+  ],
+  "prerequisite_evidence": [
+    {
+      "decision_unit": "POST-SUBTASK-039",
+      "role": "CORE_CANONICAL_REGISTRY",
+      "path": "<external-data-root>/canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+      "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+      "bytes": 42502985,
+      "rows": 56676
+    },
+    {
+      "decision_unit": "POST-SUBTASK-039",
+      "role": "PEOPLE_CANONICAL_REGISTRY",
+      "path": "<external-data-root>/canonical/BAT-388/sha256/0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d/canonical_people_registry.csv",
+      "sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d",
+      "bytes": 420562884,
+      "rows": 589377
+    },
+    {
+      "decision_unit": "POST-SUBTASK-040",
+      "role": "FULL_POPULATION_RESOLUTION",
+      "path": "<external-data-root>/canonical/BAT-390/sha256/d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c/resolution_results.parquet",
+      "sha256": "d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c",
+      "bytes": 171445108,
+      "rows": 646053
+    }
+  ],
+  "population_counts": {
+    "identity_decisions": 646053,
+    "temporal_transitions": 313712,
+    "total_ledger_events": 959765,
+    "unique_event_ids": 959765,
+    "auto_accepted_verified_events": 950603,
+    "candidate_generated_events": 5817,
+    "review_required_events": 1941,
+    "unresolved_events": 1404,
+    "transition_types": {
+      "ALIAS": 1431,
+      "RELATIONSHIP": 874,
+      "ROSTER_MEMBERSHIP": 296931,
+      "COACH_ROLE_EPISODE": 2251,
+      "STAFF_ROLE_OBSERVATION": 2382,
+      "TRANSFER_EPISODE": 9843
+    },
+    "manual_review_acceptances": 0,
+    "correction_events": 0,
+    "merge_events": 0,
+    "split_events": 0
+  },
+  "commands": [
+    {
+      "command": "run build_entity_decision_transition_log.py twice with fixed decision-known-at and pinned BAT-387/BAT-388/BAT-390 inputs",
+      "exit_code": 0,
+      "result": "PASS: both builds produced payload SHA-256 285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb and byte-identical report SHA-256 d11704acf6b8167eb94b36add1b07b634bcf659e4c68b577b5b155f88d314526"
+    },
+    {
+      "command": "run validate_entity_decision_transition_log.py over repository JSONL control log and complete external Parquet payload",
+      "exit_code": 0,
+      "result": "PASS: 959,765 unique event IDs and row hashes validated; 0 findings; 7 unsafe mutations rejected"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q tests/test_entity_governance.py",
+      "exit_code": 0,
+      "result": "PASS: 4 passed"
+    },
+    {
+      "command": "PYTHONPATH=src python -B tools/validate_entities.py",
+      "exit_code": 0,
+      "result": "PASS: canonical IDs, entity/evidence hierarchy, mapping/review/correction rules and W07 storage decision"
+    },
+    {
+      "command": "python -B tools/validate_autonomous_controls.py; validate_w25_final.py --repo-root .; validate_repository.py --repo-root . --strict",
+      "exit_code": 0,
+      "result": "PASS: autonomous controls, W25 final governance, strict repository structure, provenance manifest, secret scan, and forbidden-artifact scan"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py; second_pass_hardening.py --validate-only; validate_jira_control_plane.py --strict; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS: 2,119 source references, 474 Jira derivatives, strict Jira control plane, and 1,804-file Jira manifest"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS: 316 passed, 2 skipped, 79 subtests"
+    }
+  ],
+  "new_automated_test": {
+    "path": "<external-data-root>/runtime/BAT-391/validate_entity_decision_transition_log.py",
+    "scope": "Complete payload row/hash/uniqueness, attribution, interval, known-at/PIT, append-only correction, fail-closed pointer, deterministic replay, and unsafe mutation validation.",
+    "unsafe_mutations_rejected": [
+      "missing_actor",
+      "missing_interval",
+      "missing_supersession",
+      "fabricated_source_known_at",
+      "unsafe_pit_promotion",
+      "future_alias_without_correction",
+      "pointer_hash_mismatch"
+    ]
+  },
+  "negative_findings": [
+    {
+      "finding": "4,669 prerequisite identity decisions remain candidate-generated, review-required, or unresolved; the expanded ledger contains 9,162 such decision and transition events because temporal rows preserve the same scoped ambiguity.",
+      "disposition": "PRESERVED_UNPROMOTED; review candidates remain available without becoming accepted identity truth."
+    },
+    {
+      "finding": "No attributable manual evidence package supported an acceptance, merge, split, or correction.",
+      "disposition": "ZERO manual acceptances, merge events, split events, and correction events; no result was fabricated merely to make the review appear active."
+    },
+    {
+      "finding": "Historical source-known-at timestamps are absent from the prerequisite registry and resolution rows.",
+      "disposition": "All temporal transitions remain historical-PIT-ineligible. Their effective intervals are preserved but are never treated as known-at timestamps."
+    },
+    {
+      "finding": "844 venue aliases and 20 game-status point observations lack complete effective intervals or fall outside the required temporal subject scope.",
+      "disposition": "They remain represented in the complete identity-decision population and were not fabricated as temporal transitions."
+    },
+    {
+      "finding": "The strict repository validator run immediately after live Jira claim reconciliation reported 31 expected manifest mismatches caused by the claim-generated Jira derivative bytes.",
+      "disposition": "Preserved as pre-implementation negative evidence. Provenance regeneration and all strict validators are required after the artifact set stabilizes."
+    }
+  ],
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-391-entity-review-transitions/20260810T074903Z",
+    "bundle_sha256": "b6c11ae1e7cf4ae323de4110103ac150ec9c3a65253a8b459d2756a646226600",
+    "manifest_sha256": "edf45f01e975c6081cb77a8f85851f375059ae4030a8da2b60a9b656a59139af",
+    "sha256sums_sha256": "e7b2d985fb12bb46be004cb888cdc9b97b6403bd9691614f2ecddda31767cc26",
+    "bundle_verify": "PASS"
+  },
+  "eligibility": {
+    "artifact_maturity": "EMPIRICALLY_VALIDATED",
+    "identity_decisions": "ACCEPTED_OR_UNPROMOTED_EXACTLY_AS_POST_SUBTASK_040",
+    "temporal_transitions": "STATE_SCOPED_WITH_EFFECTIVE_INTERVALS; HISTORICAL_PIT_INELIGIBLE_WITHOUT_SOURCE_KNOWN_AT",
+    "downstream_use": "POST-SUBTASK-042_FAIL_CLOSED_VALIDATION_ONLY",
+    "production_model_readiness": "NOT_CLAIMED"
+  },
+  "honesty_boundary": [
+    "This unit does not establish historical source-known-at eligibility, final national historical completeness, GAP-002 resolution, or production model readiness.",
+    "It does not claim a trained production champion, protected performance, A&M specialization lift, BAS, Aggie Excess, or any scientific result.",
+    "Effective intervals describe when a relationship or role applies; they are not fabricated or substituted historical known-at timestamps.",
+    "Candidate, review-required, and unresolved records remain unpromoted until a future attributable evidence-backed append-only decision is validated."
+  ],
+  "downstream_consumer_contract": {
+    "consumer": "POST-SUBTASK-042",
+    "control_log": "artifacts/entities/entity_decision_and_transition_log.jsonl",
+    "required_payload_sha256": "285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb",
+    "fail_closed": true,
+    "historical_pit_eligibility_requires_independent_source_known_at": true,
+    "manual_reconstruction_required": false
+  }
+}

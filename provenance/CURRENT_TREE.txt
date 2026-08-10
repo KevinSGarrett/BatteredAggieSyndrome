@@ -35,6 +35,7 @@ artifacts/entities/canonical_core_registry.csv
 artifacts/entities/canonical_core_registry_manifest.json
 artifacts/entities/canonical_people_registry.csv
 artifacts/entities/canonical_people_registry_manifest.json
+artifacts/entities/entity_decision_and_transition_log.jsonl
 artifacts/entities/population_schema_profile.json
 artifacts/entities/registry_validation.json
 artifacts/entities/resolution_results.parquet
@@ -86,6 +87,7 @@ artifacts/jira_evidence/POST-SUBTASK-037.json
 artifacts/jira_evidence/POST-SUBTASK-038.json
 artifacts/jira_evidence/POST-SUBTASK-039.json
 artifacts/jira_evidence/POST-SUBTASK-040.json
+artifacts/jira_evidence/POST-SUBTASK-041.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-160.json

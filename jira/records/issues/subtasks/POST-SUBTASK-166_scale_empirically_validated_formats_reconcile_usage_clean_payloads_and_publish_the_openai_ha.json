@@ -73,7 +73,7 @@
   "end_to_end_validation": "Run the validated scale-out and final reconciliation, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-166.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "OPERATING",
@@ -127,11 +127,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24662",
-    "jira_updated_at": "2026-08-10T02:16:11.059-0500",
-    "last_synced_at": "2026-08-10T07:16:29.195545+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-522-claim-live-row.csv",
+    "jira_updated_at": "2026-08-10T02:40:50.742-0500",
+    "last_synced_at": "2026-08-10T07:42:19.923670+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-522-completion-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -177,7 +177,7 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-166.json` with one evidence row per acceptance criterion and exact artifact hashes.",
@@ -238,5 +238,5 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-166.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

@@ -776,8 +776,8 @@ artifacts/openai_assist/quarantine_schema_pilot.json,POST-SUBTASK-164,Subtask,tr
 artifacts/jira_evidence/POST-SUBTASK-164.json,POST-SUBTASK-164,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,VERIFIED
 artifacts/openai_assist/availability_pilot.json,POST-SUBTASK-165,Subtask,true,EMPIRICALLY_VALIDATED,,PLANNED
 artifacts/jira_evidence/POST-SUBTASK-165.json,POST-SUBTASK-165,Subtask,true,EMPIRICALLY_VALIDATED,,PLANNED
-artifacts/openai_assist/final_handoff.json,POST-SUBTASK-166,Subtask,true,OPERATING,,PLANNED
-artifacts/jira_evidence/POST-SUBTASK-166.json,POST-SUBTASK-166,Subtask,true,OPERATING,,PLANNED
+artifacts/openai_assist/final_handoff.json,POST-SUBTASK-166,Subtask,true,OPERATING,,VERIFIED
+artifacts/jira_evidence/POST-SUBTASK-166.json,POST-SUBTASK-166,Subtask,true,OPERATING,,VERIFIED
 SOURCE_RESEARCH_LOG.csv,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED
 docs/data_research/w06/DATA_RESEARCH_METHOD.md,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED
 docs/data_research/w06/DATA_DOMAIN_COVERAGE_MATRIX.csv,TASK-002,Task,true,CONTRACT_DEFINED,TASK-003;TASK-004,VERIFIED

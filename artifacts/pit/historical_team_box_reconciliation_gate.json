@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_TEAM_BOX_CANDIDATE_AND_RECONCILIATION_GATE",
+  "decision_id": "bat523-team-box-history-2010-2025-v1",
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "jira_key": "BAT-523",
+  "issued_at_utc": "2026-08-10T17:10:00Z",
+  "source_capture": {
+    "source_id": "SRC-002",
+    "provider": "CollegeFootballData",
+    "endpoint": "CFBD-GetGameTeamStats",
+    "season_min": 2010,
+    "season_max": 2025,
+    "seasons": 16,
+    "captured_partitions": 261,
+    "distinct_source_games": 13670,
+    "candidate_team_rows": 27340,
+    "stat_cells": 812533,
+    "raw_bytes": 36394032,
+    "bulk_payloads_in_git": false
+  },
+  "candidate_layer": {
+    "dataset_identity": "3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b",
+    "manifest_sha256": "7ca71666e49787cf09bee955102192b169a36d226d3772f94958b2a7f41540d5",
+    "payloads": 16,
+    "payload_bytes": 6163040,
+    "games_with_exactly_two_team_rows": 13670,
+    "duplicate_game_team_side_rows": 0,
+    "source_level_only_rows": 642,
+    "admission_state": "CANDIDATE_NOT_ADMITTED"
+  },
+  "reconciliation": {
+    "historical_outcome_overlap_rows": 21168,
+    "historical_game_side_point_match_rows": 21168,
+    "historical_game_side_point_conflict_rows": 0,
+    "historical_side_swap_reconciled_games": 9,
+    "historical_side_swap_reconciled_rows": 18,
+    "current_canonical_overlap_rows": 7318,
+    "current_capture_exact_match_rows": 7318,
+    "current_capture_conflict_rows": 0,
+    "current_overlap_independence": "SAME_PROVIDER_CAPTURE_ROUTE_NOT_INDEPENDENT",
+    "cross_route_scope": "EXACT_GAME_SIDE_AND_POINT_RECONCILIATION_DOES_NOT_VALIDATE_EVERY_STAT"
+  },
+  "validation": {
+    "independent_report_sha256": "2231ab9471b569867b2963e3e56f4c29589662f811e7b27429e7492f74d8395b",
+    "checks_passed": 47,
+    "checks_failed": 0,
+    "mutation_controls_passed": 14,
+    "deterministic_rebuild_report_sha256": "45c2cc490018e0f5867431f9336c886ba8dfee3c46e57ecf72a32a9f4952842b",
+    "deterministic_rebuild_checks_passed": 8,
+    "deterministic_payloads_compared": 16
+  },
+  "historical_known_at_gate": {
+    "team_box_stat_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "game_date_as_publication_time_allowed": false,
+    "canonical_team_box_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "official_primary_source_admission": false
+  },
+  "preserved_negative_findings": [
+    "The immutable 2010-2025 CFBD captures were acquired in 2026 and do not prove a historical publication timestamp for each team-box statistic.",
+    "The 2022-2025 canonical overlap is the same provider/capture route and is not independent factual confirmation.",
+    "Cross-route outcomes validate exact game, team-side alignment, and points candidates but not every stat value.",
+    "Nine exact source-game matches use opposite home/away labels across routes; distinct final-score vectors reconcile their team rows while preserving the designation conflict.",
+    "The 2020 population is materially smaller than adjacent seasons and remains explicitly partial.",
+    "Stat-category coverage drifts by season; absent categories remain missing rather than zero-filled.",
+    "Pre-validation identities 4897cc09aea268dbc8291194d7fc2fa6954b64a58deb60e062edc6fdd9f3ccfa and 1a9f2cc9ffbcac73ed9546563615b9c7aeda322c29d0b2f7cb4ab88ac968db34 are superseded reconstructible artifacts, not authoritative identities."
+  ],
+  "decision": "VALIDATED_CANDIDATE_LAYER_CONTINUE_DOMAIN_SPECIFIC_KNOWN_AT_CANONICAL_AND_PIT_GATING",
+  "scientific_nonclaims": {
+    "official_team_box_history_complete": false,
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

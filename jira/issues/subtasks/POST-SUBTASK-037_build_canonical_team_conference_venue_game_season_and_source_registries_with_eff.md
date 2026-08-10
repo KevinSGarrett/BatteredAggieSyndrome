@@ -20,7 +20,10 @@
   ],
   "allowed_modification_paths": [
     "src/aggie_analytics/entities/resolution.py",
+    "src/aggie_analytics/entities/registry_artifacts.py",
     "artifacts/entities/canonical_core_registry.csv",
+    "artifacts/entities/canonical_core_registry_manifest.json",
+    "tests/test_core_registry.py",
     "artifacts/jira_evidence/POST-SUBTASK-037.json"
   ],
   "blocked_reason": "",
@@ -81,7 +84,8 @@
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
   "expected_outputs": [
-    "artifacts/entities/canonical_core_registry.csv"
+    "artifacts/entities/canonical_core_registry.csv",
+    "artifacts/entities/canonical_core_registry_manifest.json"
   ],
   "files_expected_to_be_read": [
     "governance/DO_NOT_DRIFT.md",
@@ -144,11 +148,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24527",
-    "jira_updated_at": "2026-08-09T00:03:33.629-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T19:08:22.519-0500",
+    "last_synced_at": "2026-08-10T00:08:32.209960+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-387\\BAT-387-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -245,7 +249,7 @@
     {
       "classification": "NEW_AUTOMATED_TEST_REQUIRED",
       "expectation": "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.",
-      "path": "NEW_TEST_REQUIRED::POST-SUBTASK-037",
+      "path": "tests/test_core_registry.py",
       "validation_class": "NEW_AUTOMATED_TEST_REQUIRED"
     }
   ],
@@ -316,7 +320,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-013: Canonical registries, aliases, and temporal relationships.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-037.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 
@@ -399,6 +403,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-013 (Canonical registries, al
 ## Expected Outputs / Artifacts
 
 - artifacts/entities/canonical_core_registry.csv
+- artifacts/entities/canonical_core_registry_manifest.json
 
 ## Direct Requirements
 
@@ -438,7 +443,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-013 (Canonical registries, al
 - **SCIENTIFIC** / `SCIENTIFIC` — `artifacts/entities/canonical_core_registry.csv` — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - **INTEGRATION** / `INTEGRATION` — `artifacts/entities/canonical_core_registry.csv` — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `NEW_TEST_REQUIRED::POST-SUBTASK-037` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `tests/test_core_registry.py` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Required Evidence
 

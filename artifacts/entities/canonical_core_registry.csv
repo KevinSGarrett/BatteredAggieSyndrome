@@ -1,0 +1,2 @@
+schema_version,dataset_version,record_type,data_root_env,external_relative_path,sha256,bytes,rows,columns,eligibility
+1.0.0,bat387-core-registry-v1,EXTERNAL_CANONICAL_PAYLOAD_MANIFEST,AGGIE_ANALYTICS_DATA_ROOT,canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv,10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac,42502985,56676,36,CORE_REGISTRY

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_version": "bat387-core-registry-v1",
+  "decision_unit": "BAT-387",
+  "storage_boundary": "EXTERNAL_CANONICAL_PAYLOAD",
+  "payload": {
+    "data_root_environment_variable": "AGGIE_ANALYTICS_DATA_ROOT",
+    "external_relative_path": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+    "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "bytes": 42502985,
+    "rows": 56676,
+    "columns": 36,
+    "content_type": "text/csv"
+  },
+  "build": {
+    "builder_path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-387\\build_canonical_core_registry.py",
+    "builder_sha256": "7dc0250290a903113a79550e83706aa39843170b269de8c1b24cce47b53af6b5",
+    "builder_bytes": 41792,
+    "verified_raw_payloads": 95,
+    "verified_raw_bytes": 39528133,
+    "deterministic_reproduction_runs": 2,
+    "deterministic_reproduction_match": true
+  },
+  "prerequisite": {
+    "path": "artifacts/entities/schema_readiness_gate.json",
+    "sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2",
+    "canonical_payload_sha256": "e587cdee0c9bfe8ad3ecaa8284bb5cd14f432c1a679945a235a88525ffdc2e83"
+  },
+  "counts": {
+    "record_types": {
+      "ALIAS": 2532,
+      "ENTITY": 48262,
+      "RELATIONSHIP": 874,
+      "SOURCE_MAPPING": 4855,
+      "STATUS_OBSERVATION": 20,
+      "UNRESOLVED_OBSERVATION": 133
+    },
+    "entities": {
+      "conference": 41,
+      "game": 46960,
+      "season": 63,
+      "source_resource": 4,
+      "source_system": 2,
+      "team": 348,
+      "venue": 844
+    },
+    "resolution_states": {
+      "AUTO_ACCEPTED_VERIFIED": 55559,
+      "CANDIDATE_GENERATED": 111,
+      "REVIEW_REQUIRED": 984,
+      "UNRESOLVED": 22
+    },
+    "cross_source_game_mappings": {
+      "alternate_id": 2,
+      "exact_id": 4624,
+      "reschedule": 18,
+      "source_only": 6
+    },
+    "cross_source_team_mappings": 205,
+    "neutral_site_games": 1970,
+    "postponed_status_observations": 18,
+    "canceled_games": 2,
+    "renamed_teams": 210,
+    "realigned_teams": 164,
+    "unresolved_venue_observations": 133
+  },
+  "eligibility": {
+    "core_registry": "IMPLEMENTED",
+    "review_required_records_auto_promoted": false,
+    "unresolved_records_auto_promoted": false,
+    "protected_model_readiness_claimed": false
+  },
+  "relocation_evidence": {
+    "path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-387\\relocation\\core-registry-relocation-report.json",
+    "sha256": "ffea7e265ffcf6712ace60fa4ba0843fe4dc6a17f4806b32a266afb5e93f9868",
+    "reconstructible_repository_duplicate_deleted": true
+  },
+  "negative_findings": [
+    {
+      "finding": "The first strict validator pass treated 63 four-digit season natural keys as opaque W07 entity-ID violations.",
+      "disposition": "Season identity is a stable natural year key with quality state VERIFIED_NATURAL_KEY, not a provider-derived entity identifier. The validator was scoped accordingly; no payload record was altered or suppressed."
+    }
+  ]
+}

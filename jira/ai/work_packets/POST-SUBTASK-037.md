@@ -38,7 +38,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-013 (Canonical registries, al
 
 ## Current gate state
 
-- Workflow: `READY`
+- Workflow: `IN_PROGRESS`
 - Ready: `true`
 - Priority: `P0`
 - Critical path: `true`
@@ -74,7 +74,10 @@ Execute the atomic 1 of 3 step in Story POST-STORY-013 (Canonical registries, al
 ## Files I may modify or create
 
 - src/aggie_analytics/entities/resolution.py
+- src/aggie_analytics/entities/registry_artifacts.py
 - artifacts/entities/canonical_core_registry.csv
+- artifacts/entities/canonical_core_registry_manifest.json
+- tests/test_core_registry.py
 - artifacts/jira_evidence/POST-SUBTASK-037.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
@@ -99,6 +102,7 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 Produce and validate these outputs within this atomic work unit:
 
 - artifacts/entities/canonical_core_registry.csv
+- artifacts/entities/canonical_core_registry_manifest.json
 
 ## Acceptance criteria
 
@@ -113,7 +117,7 @@ Produce and validate these outputs within this atomic work unit:
 - SCIENTIFIC / SCIENTIFIC: artifacts/entities/canonical_core_registry.csv — Evaluate the precommitted hypothesis/metric against pinned data and splits; preserve null, negative, unstable, and failed results.
 - INTEGRATION / INTEGRATION: artifacts/entities/canonical_core_registry.csv — Prove the produced artifact can be parsed and consumed by the next declared task without manual reconstruction or hidden state.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW_TEST_REQUIRED::POST-SUBTASK-037 — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: tests/test_core_registry.py — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Evidence to return
 

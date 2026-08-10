@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "OPENAI_CONTINUING_OPERATIONS_CHECKPOINT",
+  "decision_unit": "POST-SUBTASK-168",
+  "created_at_utc": "2026-08-10T22:44:13Z",
+  "overall_disposition": "IN_PROGRESS_VALIDATED_CANDIDATE_ONLY_CHECKPOINT",
+  "governance": {
+    "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+    "bulk_or_canonical_promotion_separate_from_candidate_assistance": true,
+    "bat_522_terminal_end_of_api_use": false,
+    "store_false": true,
+    "credential_source": "INHERITED_PROCESS_ENVIRONMENT",
+    "credential_value_logged_or_copied": false,
+    "candidate_only_authority": true,
+    "deterministic_forecast_runtime_dependency": false
+  },
+  "source_foundation": {
+    "official_documents": 204,
+    "weekly_game_note_documents": 191,
+    "source_pages": 8185,
+    "availability_evidence_pages": 929,
+    "source_candidate_identity": "b7a0798dbe91efb7b3d96b7eb7cdca3e971d088b15b4b23d8e3cf4c9a32f9441",
+    "source_candidate_manifest_sha256": "4521b8ef5e8c7652bbf75e8b8750e0db00e9184f92ad273a48444f4cc7b0ccb8",
+    "source_candidate_validation_sha256": "678558dd7411fd73306037421fd748570c1c3d736473aed9248449cb1aefd351",
+    "source_selection_sample_identity": "5068b3d23f0ce4145c1fcf0b02c807b3e82b81571adfb37172f083ec22c854fd",
+    "source_selection_manifest_sha256": "8153ddcbde1861e1aa4ae774f47ed733ad113bdba0f4eed2245209316d585f67",
+    "source_selection_payload_sha256": "1d4b505c3ffdd9d5ced7b53535180fd1ce33466cdb3beedccefa59fb503ac564",
+    "source_selection_validation_sha256": "1fd6366c01ab45dd9c3e97684bfd0e96d3f56b3e4dbbf6714ae4a41932bbe5a4",
+    "sample_cases": 16,
+    "seasons": [2011, 2012, 2013, 2014, 2015, 2019, 2021, 2022, 2024, 2025],
+    "historical_publication_time_state": "UNKNOWN",
+    "canonical_or_pit_admission": false
+  },
+  "availability_source_triage_checkpoint": {
+    "task": "availability_source_triage",
+    "processing_mode": "SYNCHRONOUS",
+    "requested_jobs": 64,
+    "provider_calls": 64,
+    "cached_results": 0,
+    "completed_predictions": 64,
+    "batch_jobs": 0,
+    "batch_reason": "NOT_ADMITTED_NEW_FORMAT_LACKS_FACT_GOLD_AND_PIT_ELIGIBILITY",
+    "models": {
+      "gpt-5-nano": {
+        "reasoning_effort": "minimal",
+        "calls": 16,
+        "input_tokens": 17409,
+        "output_tokens": 11424,
+        "reasoning_tokens": 0,
+        "cost_usd": "0.005448",
+        "accepted_review_candidates": 0,
+        "quarantined": 16
+      },
+      "gpt-5.6-luna": {
+        "reasoning_effort": "none",
+        "calls": 16,
+        "input_tokens": 17409,
+        "output_tokens": 10368,
+        "reasoning_tokens": 0,
+        "cost_usd": "0.015930",
+        "accepted_review_candidates": 6,
+        "quarantined": 10
+      },
+      "gpt-5.6-terra": {
+        "reasoning_effort": "low",
+        "calls": 16,
+        "input_tokens": 17409,
+        "output_tokens": 13159,
+        "reasoning_tokens": 2860,
+        "cost_usd": "0.192726",
+        "accepted_review_candidates": 11,
+        "quarantined": 5
+      },
+      "gpt-5.6-sol": {
+        "reasoning_effort": "medium",
+        "calls": 16,
+        "input_tokens": 17409,
+        "output_tokens": 14277,
+        "reasoning_tokens": 3977,
+        "cost_usd": "0.515355",
+        "accepted_review_candidates": 11,
+        "quarantined": 5
+      }
+    },
+    "calls_cost_usd": "0.729459",
+    "dispositions": {
+      "accepted_review_candidate": 28,
+      "review_pending": 28,
+      "quarantine": 36,
+      "rejected": 0,
+      "canonical_writes": 0,
+      "protected_truth_writes": 0
+    },
+    "cross_model_disagreement_fields": 65,
+    "external_predictions_sha256": "ebf5f4745f82080712ebe198124343a0d0a9be739bb7979d85ea6c3c50ff4cb8",
+    "external_run_manifest_sha256": "5c31f0bea821ad5c4450e483131a3f8048c7fa847bf3140dc7ebac3d0ca59ae3",
+    "last_successful_api_use_utc": "2026-08-10T22:44:13.123191+00:00"
+  },
+  "negative_findings": {
+    "original_dispositions_preserved": true,
+    "deterministic_source_selection_echo_mismatches": 27,
+    "nano_historical_timestamp_or_abstention_violations": 4,
+    "diagnostic_semantic_clean_when_only_redundant_deterministic_echo_is_ignored": {
+      "authority": "DIAGNOSTIC_ONLY_DOES_NOT_CHANGE_ORIGINAL_DISPOSITION",
+      "gpt-5-nano": "0/16",
+      "gpt-5.6-luna": "15/16",
+      "gpt-5.6-terra": "16/16",
+      "gpt-5.6-sol": "16/16"
+    },
+    "interpretation": "The deterministic scanner class should be bound as provenance rather than delegated as a semantic fact. No result is retroactively promoted; a new prompt version must predeclare that separation before reuse."
+  },
+  "budget": {
+    "calls_before_checkpoint": 332,
+    "calls_this_checkpoint": 64,
+    "cumulative_calls": 396,
+    "settled_before_usd": "2.751147",
+    "settled_this_checkpoint_usd": "0.729459",
+    "settled_usd": "3.480606",
+    "reserved_usd": "0.000000",
+    "remaining_usd": "96.519394",
+    "released_stage_usd": "30.000000",
+    "hard_stop_usd": "100.000000",
+    "terra_reserve_released": false,
+    "sol_reserve_released": false
+  },
+  "cleanup": {
+    "tmp_files_removed": 0,
+    "tmp_bytes_removed": 0,
+    "tmp_files_remaining": 0,
+    "batch_files_remaining": 0,
+    "remote_batch_cleanup": "NOT_APPLICABLE_NO_BATCH_SUBMITTED",
+    "superseded_immutable_evaluation_evidence_preserved": true,
+    "authoritative_repository_root_mutated_by_runtime": false
+  },
+  "next_api_eligible_workload": {
+    "task": "availability_source_triage_v2",
+    "decision": "PREDECLARE_DETERMINISTIC_SELECTION_CLASS_AS_BOUND_METADATA_AND_EVALUATE_ONLY_SEMANTIC_TEAM_TEMPORAL_CONTEXT",
+    "nano": "FAILED_CURRENT_FORMAT_DO_NOT_SCALE",
+    "luna": "CHEAPEST_PROMISING_FULL_SAMPLE_ROUTE",
+    "terra": "AMBIGUITY_ESCALATION",
+    "sol": "SMALL_HARD_CASE_CHALLENGE_ONLY",
+    "batch": "NOT_YET_JUSTIFIED"
+  },
+  "completion": {
+    "completion_claimed": false,
+    "continuing_operations_active": true,
+    "jira_live_sync_pending": true,
+    "global_project_complete": false
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

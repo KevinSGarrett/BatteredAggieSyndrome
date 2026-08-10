@@ -201,6 +201,7 @@ POST-SUBTASK-162,POST-STORY-056,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-163,POST-STORY-056,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-164,POST-STORY-056,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-167,POST-STORY-056,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-168,POST-STORY-056,BLOCKS,true,Issue dependency contract
 POST-STORY-001,POST-SUBTASK-001,PARENT_CHILD,false,Canonical hierarchy
 POST-STORY-001,POST-SUBTASK-002,PARENT_CHILD,false,Canonical hierarchy
 POST-SUBTASK-001,POST-SUBTASK-002,BLOCKS,true,Issue dependency contract
@@ -783,6 +784,8 @@ POST-SUBTASK-167,POST-SUBTASK-166,BLOCKS,true,Issue dependency contract
 POST-STORY-055,POST-SUBTASK-167,PARENT_CHILD,false,Canonical hierarchy
 POST-SUBTASK-162,POST-SUBTASK-167,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-028,POST-SUBTASK-167,BLOCKS,true,Issue dependency contract
+POST-STORY-056,POST-SUBTASK-168,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-160,POST-SUBTASK-168,BLOCKS,true,Issue dependency contract
 EPIC-001,TASK-001,PARENT_CHILD,false,Canonical hierarchy
 TASK-001,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
 EPIC-001,TASK-002,PARENT_CHILD,false,Canonical hierarchy

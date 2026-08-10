@@ -33,14 +33,14 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
-- Maturity before → after: `NOT_STARTED` → `OPERATING`
-- Evidence state: `PLANNED`
+- Maturity before → after: `OPERATING` → `OPERATING`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-166`
 
 ## Read first

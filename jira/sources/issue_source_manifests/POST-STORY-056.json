@@ -6,7 +6,7 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "governance_traceability_gate": "POST-SUBTASK-167",
+  "governance_traceability_gate": "POST-SUBTASK-168",
   "issue_id": "POST-STORY-056",
   "retrieval_protocol": [
     "Verify document_sha256 against the current repository file.",
@@ -23,8 +23,8 @@
       "anchor_excerpt": "# OpenAI API Assistive Research and Data Engineering Contract Status: active optional research plane. Governing plan: SHA-256 `651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523`. Budget authority: USD 100 absolute maximum. All earlier model-routing and allocation tables are superseded. ## Authority bound",
       "anchor_hash": "b5dbf8f5e9780c17a83177695441de3e30e7d20c463643b3c3d9b7fdceb998c7",
       "authority_level": "GOVERNANCE_DETAIL",
-      "document_sha256": "954dae5a2ae12aa11da960c9d6a882ffad2eb13ae4e0b1768990b92614723e00",
-      "end_line": 37,
+      "document_sha256": "87bb13e771f58607598902141d6f77be063f3c68069fe452ed03fcd45ba15c74",
+      "end_line": 39,
       "heading": "OpenAI API Assistive Research and Data Engineering Contract",
       "last_verified": "2026-08-10",
       "repo_relative_path": "governance/OPENAI_ASSISTIVE_PLANE.md",

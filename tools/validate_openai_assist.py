@@ -154,6 +154,48 @@ def validate(root: Path) -> list[str]:
     if depth_acceptance.get("historical_timestamp_fabrication_max") != 0:
         errors.append("OpenAI depth-chart pilot must require zero fabricated timestamps")
 
+    availability_policy = json.loads(
+        (root / "configs" / "openai_availability_source_triage.json").read_text(encoding="utf-8")
+    )
+    availability_prompt = availability_policy["prompt"]
+    availability_prompt_path = root / availability_prompt["path"]
+    if hashlib.sha256(availability_prompt_path.read_bytes()).hexdigest() != availability_prompt["sha256"]:
+        errors.append("availability source-triage prompt hash disagrees with policy")
+    availability_task = registry["tasks"].get("availability_source_triage", {})
+    if availability_task.get("jira_unit") != "POST-SUBTASK-168":
+        errors.append("continuing availability source triage is not bound to POST-SUBTASK-168")
+    if availability_task.get("candidate_destination") != "REVIEW":
+        errors.append("availability source triage must remain review-only")
+    availability_routes = {route["model"]: route for route in availability_policy.get("routes", [])}
+    if set(availability_routes) != {"gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"}:
+        errors.append("availability source triage must compare Nano, Luna, Terra, and Sol")
+    if availability_policy["source_sample"].get("historical_publication_time_state") != "UNKNOWN":
+        errors.append("availability source triage must preserve unknown historical publication time")
+    if availability_policy["source_sample"].get("canonical_or_pit_admission") is not False:
+        errors.append("availability source triage cannot have canonical/PIT authority")
+    if availability_policy["acceptance"].get("unsupported_fact_rate_max") != 0.0:
+        errors.append("availability source triage must require zero unsupported facts")
+    if availability_policy["acceptance"].get("historical_timestamp_fabrication_max") != 0:
+        errors.append("availability source triage must require zero fabricated timestamps")
+
+    continuous_report = json.loads(
+        (root / "artifacts" / "openai_assist" / "continuous_operations.json").read_text(encoding="utf-8")
+    )
+    if continuous_report.get("decision_unit") != "POST-SUBTASK-168":
+        errors.append("continuing OpenAI report has the wrong Jira identity")
+    checkpoint = continuous_report.get("availability_source_triage_checkpoint", {})
+    if checkpoint.get("provider_calls") != 64 or checkpoint.get("batch_jobs") != 0:
+        errors.append("continuing OpenAI report has unexpected job counts")
+    if not {"gpt-5.6-terra", "gpt-5.6-sol"}.issubset(set(checkpoint.get("models", {}))):
+        errors.append("continuing OpenAI report lacks representative Terra/Sol work")
+    dispositions = checkpoint.get("dispositions", {})
+    if dispositions.get("canonical_writes") != 0 or dispositions.get("rejected") != 0:
+        errors.append("continuing OpenAI report crossed authority or lost provider results")
+    if continuous_report.get("budget", {}).get("remaining_usd") != "96.519394":
+        errors.append("continuing OpenAI report does not reconcile the usage ledger")
+    if continuous_report.get("completion", {}).get("continuing_operations_active") is not True:
+        errors.append("BAT-522 was incorrectly treated as terminal API use")
+
     entity_policy = json.loads(
         (root / "configs" / "openai_entity_review_pilot.json").read_text(encoding="utf-8")
     )

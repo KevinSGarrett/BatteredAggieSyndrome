@@ -14,7 +14,7 @@ from typing import Any, Callable
 
 from .budget import BudgetError, Reservation, UsageLedger
 from .contracts import Priority, ProcessingMode, TokenEstimate, canonical_json_bytes, money, sha256_value
-from .credentials import configured_secret_values, key_is_nonempty, load_openai_api_key
+from .credentials import credential_source, configured_secret_values, key_is_nonempty, load_openai_api_key
 from .policy import AssistivePolicy, PolicyError
 from .redaction import assert_prompt_safe
 from .schemas import evidence_errors, validate_instance, validate_strict_output_schema
@@ -123,6 +123,7 @@ class AssistiveController:
         return {
             "result": "PASS",
             "api_key_nonempty": key_is_nonempty(self.repo_root),
+            "credential_source": credential_source(self.repo_root),
             "policy_id": self.policy.payload["policy_id"],
             "storage_root": str(self.store.root),
             "storage_outside_git": True,

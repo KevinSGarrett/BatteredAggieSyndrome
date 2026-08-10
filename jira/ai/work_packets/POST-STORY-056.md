@@ -8,7 +8,7 @@
 
 ## What capability or closure gate am I coordinating?
 
-Empirical OpenAI scale-out, usage accounting, cleanup, and handoff
+Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff
 
 ## Why?
 
@@ -16,11 +16,11 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Aggregate integration and closure scope
 
-Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`, `POST-SUBTASK-168`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 ### In scope
 
-- Perform the exact action: Empirical OpenAI scale-out, usage accounting, cleanup, and handoff.
+- Perform the exact action: Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff.
 - Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
 - Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
 
@@ -41,11 +41,11 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 - Execution mode: `AGGREGATE_GATE`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
 - Evidence state: `PLANNED`
-- Governance traceability gate: `POST-SUBTASK-167`
+- Governance traceability gate: `POST-SUBTASK-168`
 
 ## Read first
 
-1. `jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.json`
+1. `jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_continuing_operations_usage_accounting_cleanup_and_handoff.json`
 2. `jira/sources/issue_source_manifests/POST-STORY-056.json`
 3. `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv` row for `POST-STORY-056`.
 4. Only these additional files/sections, plus verified prerequisite outputs:
@@ -62,6 +62,7 @@ Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST
 - POST-SUBTASK-163
 - POST-SUBTASK-164
 - POST-SUBTASK-167
+- POST-SUBTASK-168
 
 ## Aggregate packet modification authority
 
@@ -94,12 +95,13 @@ Review and integrate these child-produced outputs; do not recreate them directly
 ## Acceptance criteria
 
 1. Only empirically validated routine formats scale to GPT-5 Nano Batch, with task-specific 4o Mini/Luna use measured, complex ambiguity routed to Terra, and a small hard/high-risk residue routed to Sol under staged and model-cap admission.
-2. Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews.
+2. BAT-522 is a completed scale-out decision, not the terminal end of API use; bounded candidate-only assistance continues whenever the admission contract is satisfied.
+3. Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out and continuing candidate-only operations remain inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Evidence to return
@@ -111,7 +113,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
+Prove scale-out and continuing candidate-only operations remain inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
 
 ## Stop instead of improvising when
 

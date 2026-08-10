@@ -1,21 +1,35 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Only empirically validated routine formats scale to GPT-5 Nano Batch, with task-specific 4o Mini/Luna use measured, complex ambiguity routed to Terra, and a small hard/high-risk residue routed to Sol under staged and model-cap admission.",
-    "Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews."
+    "Bulk/canonical promotion authority remains separate from candidate-only assistance: a failed Nano or exact-format Batch gate never blocks bounded Luna, Terra, or Sol candidate analysis when task admission passes.",
+    "Dependency-ready historical documents, entity ambiguities, quarantine/schema drift, reconciliation findings, and timestamped availability evidence receive value-selected governed assistance while deterministic/local work continues first where sufficient.",
+    "Every request uses the single controller, store:false, strict Structured Outputs, minimized cited evidence, content-addressed external storage, budget admission, deterministic validation, and candidate/review/quarantine-only disposition.",
+    "Each handoff reports calls and spend by model, cumulative and remaining budget, last successful use, active assisted tasks, dispositions, Batch count or exact no-Batch reason, next eligible workload, and cleanup."
   ],
   "adr_ids": [],
   "ai_context_notes": [
-    "Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-STORY-056.json` before execution.",
+    "Canonical contract source is `SRCREF-02119`. Read `jira/sources/issue_source_manifests/POST-SUBTASK-168.json` before execution.",
     "Never include an API key, .env content, cookie, authorization header, or whole data lake in prompts, artifacts, logs, worktrees, commits, or Jira.",
     "OpenAI output is candidate evidence only; deterministic project authority retains every acceptance, canonicalization, PIT, scientific, promotion, forecast, and publication decision."
   ],
   "allowed_modification_paths": [
-    "artifacts/jira_evidence/POST-STORY-056.json"
+    "configs/openai_task_registry.json",
+    "configs/openai_availability_source_triage.json",
+    "configs/tamu_availability_source_sample.json",
+    "prompts/openai_assist/availability_source_triage_v1.txt",
+    "src/aggie_analytics/openai_assist/credentials.py",
+    "tools/prepare_tamu_availability_source_sample.py",
+    "tools/validate_tamu_availability_source_sample.py",
+    "tools/run_openai_availability_source_triage.py",
+    "artifacts/openai_assist/continuous_operations.json",
+    "tests/test_openai_assist.py",
+    "artifacts/jira_evidence/POST-SUBTASK-168.json"
   ],
   "blocked_reason": "",
-  "blocks": [],
-  "canonical_record": "jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.json",
+  "blocks": [
+    "POST-STORY-056"
+  ],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "completion_evidence_contract": {
     "acceptance_matrix_required": true,
@@ -37,9 +51,9 @@
       "cost"
     ]
   },
-  "component": "release-readiness",
+  "component": "data-sources",
   "components_expected_to_be_touched": [
-    "release-readiness",
+    "data-sources",
     "openai-assist"
   ],
   "content_contract_version": "2.0",
@@ -53,10 +67,7 @@
     "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
   ],
   "dependencies": [
-    "POST-SUBTASK-162",
-    "POST-SUBTASK-163",
-    "POST-SUBTASK-164",
-    "POST-SUBTASK-167"
+    "POST-SUBTASK-160"
   ],
   "effective_traceability_counts": {
     "acceptance_control_ids": 0,
@@ -66,15 +77,16 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.",
+  "end_to_end_validation": "Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and Sol after deterministic source selection, validate every output without canonical/PIT authority, reconcile exact usage, and leave the continuing lane active for the next eligible workload.",
   "epic_id": "POST-EPIC-018",
-  "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-056.json",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-168.json",
   "evidence_state": "PLANNED",
-  "execution_lane": "PROTECTED_GATE",
-  "execution_mode": "AGGREGATE_GATE",
-  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
+  "execution_lane": "RESEARCH_LANE",
+  "execution_mode": "ATOMIC_EXECUTION",
+  "expected_maturity_after_completion": "OPERATING",
   "expected_outputs": [
-    "artifacts/jira_evidence/POST-STORY-056.json"
+    "artifacts/openai_assist/continuous_operations.json",
+    "artifacts/jira_evidence/POST-SUBTASK-168.json"
   ],
   "files_expected_to_be_read": [
     "governance/OPENAI_ASSISTIVE_PLANE.md",
@@ -83,7 +95,18 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "files_expected_to_be_touched": [],
+  "files_expected_to_be_touched": [
+    "configs/openai_task_registry.json",
+    "configs/openai_availability_source_triage.json",
+    "configs/tamu_availability_source_sample.json",
+    "prompts/openai_assist/availability_source_triage_v1.txt",
+    "src/aggie_analytics/openai_assist/credentials.py",
+    "tools/prepare_tamu_availability_source_sample.py",
+    "tools/validate_tamu_availability_source_sample.py",
+    "tools/run_openai_availability_source_triage.py",
+    "artifacts/openai_assist/continuous_operations.json",
+    "tests/test_openai_assist.py"
+  ],
   "files_to_inspect": [
     "governance/OPENAI_ASSISTIVE_PLANE.md",
     "configs/openai_assist_policy.json",
@@ -92,28 +115,31 @@
     "docs/final/CODEX_HANDOFF.md"
   ],
   "gap_ids": [],
-  "generated_markdown": "jira/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.md",
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.md",
   "governance_review_required": false,
-  "governance_traceability_gate": "POST-SUBTASK-167",
+  "governance_traceability_gate": "POST-SUBTASK-168",
   "historical_classification": "ACTIONABLE_POST_WAVE",
-  "import_id": 100467,
+  "import_id": 100476,
   "in_scope": [
-    "Perform the exact action: Empirical OpenAI scale-out, usage accounting, cleanup, and handoff.",
+    "Perform the exact action: Operate continuing governed OpenAI candidate assistance on dependency-ready real project work.",
     "Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.",
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
-  "issue_type": "Story",
+  "issue_type": "Subtask",
   "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
     "post-wave",
-    "aggregate-gate"
+    "subtask",
+    "continuous-operations",
+    "candidate-assistance",
+    "terra-sol-comparison"
   ],
   "last_content_audit": "2026-08-10",
-  "local_id": "POST-STORY-056",
+  "local_id": "POST-SUBTASK-168",
   "maturity_before": "NOT_STARTED",
-  "objective": "Empirical OpenAI scale-out, usage accounting, cleanup, and handoff",
+  "objective": "Operate continuing governed OpenAI candidate assistance on dependency-ready real project work",
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -121,13 +147,10 @@
     "Blocking historical expansion or deterministic/local work when the optional provider is unavailable."
   ],
   "owner_wave": "POST_W25",
-  "parent_id": "POST-EPIC-018",
+  "parent_id": "POST-STORY-056",
   "phase": "PHASE-1",
   "prerequisites": [
-    "Dependency POST-SUBTASK-162 complete at required maturity",
-    "Dependency POST-SUBTASK-163 complete at required maturity",
-    "Dependency POST-SUBTASK-164 complete at required maturity",
-    "Dependency POST-SUBTASK-167 complete at required maturity"
+    "Dependency POST-SUBTASK-160 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02119"
@@ -162,7 +185,7 @@
   "ready": false,
   "record_revision": "2.0",
   "required_evidence": [
-    "`artifacts/jira_evidence/POST-STORY-056.json` with one evidence row per acceptance criterion and exact artifact hashes.",
+    "`artifacts/jira_evidence/POST-SUBTASK-168.json` with one evidence row per acceptance criterion and exact artifact hashes.",
     "Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.",
     "Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.",
     "Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes."
@@ -176,8 +199,8 @@
     },
     {
       "classification": "END_TO_END",
-      "expectation": "Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.",
-      "path": "artifacts/jira_evidence/POST-STORY-056.json",
+      "expectation": "Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and Sol after deterministic source selection, validate every output without canonical/PIT authority, reconcile exact usage, and leave the continuing lane active for the next eligible workload.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-168.json",
       "validation_class": "END_TO_END"
     },
     {
@@ -196,7 +219,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
+  "scope": "Execute POST-SUBTASK-168 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-160`; produce `artifacts/openai_assist/continuous_operations.json`, `artifacts/jira_evidence/POST-SUBTASK-168.json`; preserve the deterministic forecast path and candidate-only authority boundary.",
   "source_ids": [
     "OPENAI-ASSIST-PLAN"
   ],
@@ -209,7 +232,7 @@
     "Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity."
   ],
   "supporting_source_refs": [],
-  "title": "[POST-STORY-056] Empirical OpenAI scale-out, usage accounting, cleanup, and handoff",
+  "title": "[POST-SUBTASK-168] Operate continuing governed OpenAI candidate assistance on dependency-ready real project work",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
   "unblock_condition": "",
@@ -219,6 +242,6 @@
     "SECURITY"
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
-  "work_packet_path": "jira/ai/work_packets/POST-STORY-056.md",
-  "workflow_state": "BACKLOG"
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-168.md",
+  "workflow_state": "IN_PROGRESS"
 }

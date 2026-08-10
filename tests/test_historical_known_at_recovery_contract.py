@@ -195,6 +195,40 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["official_box_score_materialization"])
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
 
+    def test_play_enrichment_is_validated_candidate_only_without_player_or_feature_promotion(self) -> None:
+        enrichment = self.contract["latest_validated_play_enrichment_candidate"]
+        self.assertEqual(
+            enrichment["dataset_identity"],
+            "7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0",
+        )
+        self.assertEqual(enrichment["repository_seasons"], list(range(2014, 2023)))
+        self.assertEqual(enrichment["repository_rows"], 1426487)
+        self.assertEqual(enrichment["rows_with_any_position"], 915021)
+        self.assertEqual(enrichment["rows_with_any_source_player_id"], 921613)
+        self.assertEqual(enrichment["exact_validated_play_link_candidates"], 1176564)
+        self.assertEqual(enrichment["canonical_game_play_unreconciled_candidates"], 139932)
+        self.assertEqual(enrichment["versioned_repository_source_level_only_candidates"], 83654)
+        self.assertEqual(enrichment["quarantined_rows"], 26337)
+        self.assertEqual(enrichment["unknown_position_cells"], 19924)
+        self.assertEqual(enrichment["validation_checks_passed"], 23)
+        self.assertEqual(enrichment["mutation_controls_passed"], 9)
+        self.assertEqual(enrichment["deterministic_payloads_compared"], 9)
+        self.assertIn("NOT_OFFICIAL_BOX_SCORE", enrichment["metric_authority"])
+        self.assertIn("NO_NAME_ONLY", enrichment["player_identity_contract"])
+        self.assertEqual(enrichment["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertTrue(self.evidence["completion_claim"]["play_enrichment_candidate_layer_validated"])
+        self.assertFalse(
+            self.evidence["completion_claim"][
+                "play_enrichment_canonical_pit_feature_or_player_identity_admission"
+            ]
+        )
+        checkpoint = self.gate["parallel_play_enrichment_checkpoint"]
+        self.assertEqual(checkpoint["quarantined_rows"], 26337)
+        self.assertFalse(checkpoint["canonical_player_identity_promotion"])
+        self.assertFalse(checkpoint["feature_or_pit_admission"])
+        self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+
 
 if __name__ == "__main__":
     unittest.main()

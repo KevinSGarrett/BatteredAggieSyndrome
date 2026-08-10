@@ -4,7 +4,7 @@
   "decision_unit": "POST-SUBTASK-042",
   "jira_key": "BAT-392",
   "created_at_utc": "2026-08-10T08:28:02Z",
-  "updated_at_utc": "2026-08-10T08:31:00Z",
+  "updated_at_utc": "2026-08-10T08:36:10Z",
   "acceptance_matrix": [
     {
       "criterion": 1,
@@ -266,6 +266,42 @@
     "manifest_sha256": "03e457a7c3c54520d24a518e53f71c3f7281ab3ce6032e57d61f9375491a6f91",
     "sha256sums_sha256": "50c97808d43d6842ef191d7c394d3fec2f1dd2bbf36122ce71da6d082f481447",
     "bundle_verify": "PASS"
+  },
+  "integration": {
+    "implementation_pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/122",
+    "implementation_pr_state": "MERGED",
+    "implementation_merge_commit": "7b60bfb0215dc161917dfc655dd5bead15ad4318",
+    "implementation_merged_at_utc": "2026-08-10T08:35:20Z",
+    "github_checks": "PASS",
+    "live_jira": {
+      "issue_key": "BAT-392",
+      "issue_id": "24532",
+      "status": "Done",
+      "logical_workflow_state": "DONE",
+      "implementation_maturity": "PRODUCTION_READY",
+      "evidence_state": "VERIFIED",
+      "completion_comment_id": "13442",
+      "updated": "2026-08-10T03:35:44.464-0500"
+    },
+    "completion_reconciliation": {
+      "source_export": "<external-data-root>/runtime/BAT-392/BAT-392-completion-live-row.csv",
+      "dry_run": "PASS",
+      "actual": "PASS",
+      "conflicts": 0,
+      "strict_validation": "PASS"
+    },
+    "post_sync_validation": {
+      "strict_repository_and_provenance": "PASS",
+      "source_references": 2119,
+      "jira_derivatives": 474,
+      "jira_manifest_files": 1804,
+      "jira_second_pass": "PASS",
+      "w25_final": "PASS",
+      "tests_passed": 316,
+      "tests_skipped": 2,
+      "subtests_passed": 79,
+      "bat_393_state": "READY"
+    }
   },
   "eligibility": {
     "artifact_maturity": "PRODUCTION_READY_ENTITY_GOVERNANCE_ARTIFACT",

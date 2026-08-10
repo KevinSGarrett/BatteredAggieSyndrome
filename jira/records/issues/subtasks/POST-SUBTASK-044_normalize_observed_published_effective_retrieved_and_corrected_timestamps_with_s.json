@@ -16,7 +16,7 @@
     "artifacts/pit/timestamp_normalization_report.json",
     "artifacts/jira_evidence/POST-SUBTASK-044.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-042;POST-SUBTASK-043",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-043",
   "blocks": [
     "POST-SUBTASK-045"
   ],

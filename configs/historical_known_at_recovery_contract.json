@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAS-HISTORICAL-KNOWN-AT-RECOVERY-V1",
+  "jira_key": "BAT-523",
+  "local_work_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "status": "ACTIVE_CANDIDATE_RECOVERY",
+  "purpose": "Recover independently evidenced historical knowledge times and rematerialize a nonempty point-in-time state and matrix without inventing source publication facts.",
+  "trigger": {
+    "bat_398_decision": "BLOCK",
+    "matrix_identity": "7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1",
+    "matrix_rows": 0,
+    "matrix_cells": 0,
+    "temporal_candidates_quarantined": 313712,
+    "accepted_source_known_at_rows": 0
+  },
+  "dependency_contract": {
+    "relates_to": ["BAT-398"],
+    "blocks": ["BAT-399"],
+    "required_reexecution_order": ["BAT-395", "BAT-396", "BAT-397", "BAT-398"],
+    "unrelated_work_may_continue": true
+  },
+  "evidence_routes": [
+    "provider_published_at_or_version_history",
+    "immutable_repository_commit_or_release_time",
+    "dated_official_artifact_or_gamebook",
+    "web_archive_capture_time",
+    "evidence_backed_game_finalization_time",
+    "content_addressed_equivalent_public_capture"
+  ],
+  "prohibited_substitutions": [
+    "retrieval_time_as_historical_known_at",
+    "event_or_game_time_as_publication_time_without_source_semantics",
+    "season_or_year_boundary_as_publication_time",
+    "current_record_state_as_historical_version",
+    "model_generated_timestamp",
+    "confidence_only_admission"
+  ],
+  "eligibility_dimensions": [
+    "source_and_endpoint",
+    "season_and_season_type",
+    "team_and_game",
+    "domain_and_data_grain",
+    "schema_and_version",
+    "missingness_and_reconciliation_quality",
+    "immutable_capture_and_provenance_identity",
+    "historical_known_at_and_point_in_time_eligibility"
+  ],
+  "domain_tiers": {
+    "TEAM_OUTCOME_CONTEXT": "May admit reliable games, schedules, official outcomes, teams, rankings, and venues for Elo, team-strength priors, outcome modeling, and long-run program context.",
+    "EVENT_DETAIL": "Drives, plays, gamebook-equivalent facts, team/player box scores, and advanced game statistics require domain-specific evidence and may remain partial independently.",
+    "ROSTER_AVAILABILITY": "Rosters, starters, injuries, depth charts, practice, and availability require evidence for identity, effective time, and historical knowledge time; no name-only merge is permitted.",
+    "WEATHER_MARKET_CONTEXT": "Weather, market, and other context require source-specific forecast/vintage or archived evidence appropriate to the prediction cutoff."
+  },
+  "execution_phases": [
+    {
+      "phase": "01_CANDIDATE_INVENTORY",
+      "required_output": "Content-addressed inventory of all quarantined candidates grouped by every eligibility dimension and evidence route."
+    },
+    {
+      "phase": "02_EVIDENCE_ACQUISITION",
+      "required_output": "Immutable external captures with source URL, acquisition time, content hash, version identity, and route-specific historical-time evidence."
+    },
+    {
+      "phase": "03_RECONCILIATION_AND_QUARANTINE",
+      "required_output": "Deterministic candidate-to-evidence joins, conflict findings, abstentions, schema drift, and domain-scoped quarantine."
+    },
+    {
+      "phase": "04_PIT_REEXECUTION",
+      "required_output": "New content-addressed BAT-395 through BAT-398 candidate artifacts with deterministic rebuild and chronological replay."
+    },
+    {
+      "phase": "05_PROTECTED_GATE",
+      "required_output": "Explicit matrix approval or block decision; file creation and row count alone cannot pass."
+    }
+  ],
+  "acceptance_criteria": [
+    "Every admitted row has source-record evidence, immutable capture identity, and a defensible historical known-at timestamp.",
+    "At least one real game and prediction cutoff can be chronologically replayed without target-game outcome or future-state leakage.",
+    "The accepted state and matrix are nonempty, content-addressed, deterministic, and independently validated.",
+    "Partial or failed domains remain explicit and do not silently inherit eligibility from another domain.",
+    "All negative findings, provider limitations, schema drift, missingness, conflicts, and quarantined records are preserved.",
+    "BAT-398 is re-executed and explicitly approves the new matrix before BAT-399 becomes eligible."
+  ],
+  "external_storage": {
+    "data_root": "<external-data-root>",
+    "raw": "raw/historical_known_at",
+    "manifests": "manifests/historical_known_at",
+    "quarantine": "quarantine/historical_known_at",
+    "pit_state": "pit_state/historical_known_at",
+    "features": "features/historical_known_at",
+    "runtime": "runtime/BAT-523",
+    "validation": "validation/BAT-523",
+    "bulk_payloads_in_git": false,
+    "content_addressed_captures_required": true
+  },
+  "openai_assistance": {
+    "eligible": true,
+    "role": "CANDIDATE_EXTRACTION_RECONCILIATION_AND_REVIEW_ONLY",
+    "direct_canonical_or_pit_authority": false,
+    "strict_schema_and_evidence_required": true,
+    "budget_controller_required": true
+  },
+  "honesty_boundary": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

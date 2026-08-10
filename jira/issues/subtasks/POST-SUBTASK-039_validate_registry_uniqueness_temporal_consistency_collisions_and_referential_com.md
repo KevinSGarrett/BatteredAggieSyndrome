@@ -23,7 +23,7 @@
     "artifacts/entities/registry_validation.json",
     "artifacts/jira_evidence/POST-SUBTASK-039.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-038",
+  "blocked_reason": "",
   "blocks": [
     "POST-STORY-014",
     "POST-SUBTASK-040",
@@ -205,8 +205,8 @@
     "docs/16_ENTITY_RESOLUTION_AND_REVIEW.md",
     "governance/ENTITY_RESOLUTION_STATES.csv"
   ],
-  "ready": false,
-  "record_revision": "2.0",
+  "ready": true,
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/entities/registry_validation.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -298,7 +298,7 @@
     "POST-SUBTASK-042"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REGRESSION",
@@ -306,7 +306,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-013: Canonical registries, aliases, and temporal relationships.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-039.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

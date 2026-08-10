@@ -118,10 +118,10 @@
     "deterministic_reproduction_runs": 2,
     "deterministic_reproduction_match": true,
     "split_or_cutoff": "NOT_APPLICABLE_REGISTRY_CONSTRUCTION_NO_MODEL_FIT_OR_TARGET_EVALUATION",
-    "runtime": "CPython 3.11 local validation; protected CI pending"
+    "runtime": "CPython 3.11 local validation; CPython 3.12 protected Linux and Windows CI"
   },
   "validation": {
-    "result": "PASS_EMPIRICALLY_VALIDATED_PEOPLE_REGISTRY_PENDING_PROTECTED_INTEGRATION",
+    "result": "PASS_EMPIRICALLY_VALIDATED_PEOPLE_REGISTRY",
     "commands": [
       {
         "command": "python -B <external-runtime>/BAT-388/build_canonical_people_registry.py",
@@ -173,20 +173,33 @@
     }
   },
   "protected_integration": {
-    "state": "PENDING_BRANCH_PR_REQUIRED_CHECKS_AND_MERGE",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "repository_ci_run": null,
-    "security_analysis_run": null
+    "state": "MERGED_AND_MAIN_VALIDATED",
+    "pull_request": 94,
+    "head_sha": "06b106492050ecfb70eba60e0bb83767c775e813",
+    "merge_sha": "44b2b702dc66dd4872083a0633e2dcceda104338",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-10T02:20:48Z",
+    "repository_ci_run": 31349544994,
+    "security_analysis_run": 31349545035,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED"
   },
   "live_jira": {
-    "status": "In Progress",
-    "logical_state": "IN_PROGRESS",
+    "status": "Done",
+    "logical_state": "DONE",
     "maturity": "EMPIRICALLY_VALIDATED",
-    "evidence_state": "PLANNED",
+    "evidence_state": "VERIFIED",
     "claim_comment_id": "13420",
-    "checkpoint_comment_id": "13421"
+    "checkpoint_comment_id": "13421",
+    "completion_comment_id": "13422",
+    "updated": "2026-08-09T21:22:57.878-0500"
+  },
+  "local_jira_sync": {
+    "changed_issues": 2,
+    "conflict_count": 0,
+    "export_path": "<external-data-root>/runtime/BAT-388/BAT-388-live-row.csv",
+    "live_issue_id": "24528",
+    "result": "PASS_AFTER_VERIFIED_EVIDENCE_COMPLETION",
+    "strict_validation": "PASS"
   },
   "negative_findings": [
     {
@@ -211,13 +224,12 @@
     }
   ],
   "completion": {
-    "completion_claimed": false,
-    "achieved_maturity": "EMPIRICALLY_VALIDATED_LOCAL",
-    "evidence_state": "PLANNED_PENDING_PROTECTED_INTEGRATION",
+    "completion_claimed": true,
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_CANONICAL_PEOPLE_REGISTRY_IMPLEMENTED",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "Protected branch/PR required checks, merge, merge-commit validation, live Jira completion, and final local reconciliation"
-    ]
+    "remaining_issue_scope_blockers": []
   },
   "honesty_boundary": {
     "people_registry_locally_validated": true,
@@ -232,6 +244,6 @@
     "bas_or_aggie_excess_result_claimed": false
   },
   "downstream_reevaluation": {
-    "POST-SUBTASK-039": "REMAINS_DEPENDENT_ON_PROTECTED_BAT-388_COMPLETION; PINNED LOCAL PAYLOAD AND VALIDATION ARE AVAILABLE"
+    "POST-SUBTASK-039": "DEPENDENCY_SATISFIED_AFTER_VERIFIED_BAT-388_COMPLETION_SYNC; REGISTRY_GATE_MAY_BECOME_READY"
   }
 }

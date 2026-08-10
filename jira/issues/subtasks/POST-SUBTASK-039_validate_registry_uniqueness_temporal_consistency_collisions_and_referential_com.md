@@ -23,7 +23,7 @@
     "artifacts/entities/registry_validation.json",
     "artifacts/jira_evidence/POST-SUBTASK-039.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-037;POST-SUBTASK-038",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-038",
   "blocks": [
     "POST-STORY-014",
     "POST-SUBTASK-040",

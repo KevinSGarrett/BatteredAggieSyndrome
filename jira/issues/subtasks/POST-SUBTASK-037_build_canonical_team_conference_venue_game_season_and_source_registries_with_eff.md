@@ -80,7 +80,7 @@
   "end_to_end_validation": "Validate that `artifacts/entities/canonical_core_registry.csv` can be parsed and consumed by `POST-SUBTASK-038` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-037.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -149,11 +149,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24527",
-    "jira_updated_at": "2026-08-09T19:08:22.519-0500",
-    "last_synced_at": "2026-08-10T00:08:32.209960+00:00",
+    "jira_updated_at": "2026-08-09T20:36:46.824-0500",
+    "last_synced_at": "2026-08-10T01:37:57.668247+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-387\\BAT-387-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -206,7 +206,7 @@
     "docs/16_ENTITY_RESOLUTION_AND_REVIEW.md",
     "governance/ENTITY_RESOLUTION_STATES.csv"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -321,7 +321,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-013: Canonical registries, aliases, and temporal relationships.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-037.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

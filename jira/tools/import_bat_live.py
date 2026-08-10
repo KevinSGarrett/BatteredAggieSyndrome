@@ -261,6 +261,43 @@ def read_env_token(path: Path) -> str:
     raise RuntimeError("JIRA_API_KEY is missing or blank in .env")
 
 
+def authoritative_env_path() -> Path:
+    run = subprocess.run(
+        ["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+        cwd=ROOT,
+        text=True,
+        encoding="utf-8",
+        capture_output=True,
+        check=False,
+    )
+    if run.returncode != 0:
+        raise RuntimeError("Unable to resolve the authoritative Git common directory for .env")
+    path = Path(run.stdout.strip()).resolve().parent / ".env"
+    if not path.is_file():
+        raise RuntimeError("Authoritative project .env is unavailable")
+    return path
+
+
+def canonical_expected_counts() -> dict[str, int]:
+    records = [
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in sorted((JIRA_ROOT / "records" / "issues").rglob("*.json"))
+    ]
+    link_signatures: set[tuple[str, str, str]] = set()
+    for record in records:
+        local_id = record["local_id"]
+        for dependency in record.get("dependencies", []):
+            link_signatures.add((dependency, "BLOCKS", local_id))
+        for related in record.get("related_to", []):
+            link_signatures.add((local_id, "RELATES_TO", related))
+    return {
+        "issues": len(records),
+        "links": len(link_signatures),
+        "parents": sum(bool(record.get("parent_id")) for record in records),
+        "active_post_wave": sum(record.get("historical_classification") == "ACTIONABLE_POST_WAVE" for record in records),
+    }
+
+
 def load_inputs() -> tuple[list[dict[str, str]], list[dict[str, Any]], list[dict[str, str]], list[dict[str, Any]]]:
     with ISSUES_CSV.open(encoding="utf-8-sig", newline="") as handle:
         rows = list(csv.DictReader(handle))
@@ -278,10 +315,11 @@ def validate_inputs(
     link_payloads: list[dict[str, Any]],
 ) -> dict[str, Any]:
     errors: list[str] = []
-    if len(rows) != 463 or len(payloads) != 463:
-        errors.append(f"expected 463 issues/payloads, got {len(rows)}/{len(payloads)}")
-    if len(links) != 1062 or len(link_payloads) != 1062:
-        errors.append(f"expected 1062 links/payloads, got {len(links)}/{len(link_payloads)}")
+    expected = canonical_expected_counts()
+    if len(rows) != expected["issues"] or len(payloads) != expected["issues"]:
+        errors.append(f"expected {expected['issues']} issues/payloads, got {len(rows)}/{len(payloads)}")
+    if len(links) != expected["links"] or len(link_payloads) != expected["links"]:
+        errors.append(f"expected {expected['links']} links/payloads, got {len(links)}/{len(link_payloads)}")
     local_ids: set[str] = set()
     import_to_local: dict[str, str] = {}
     for row in rows:
@@ -1016,11 +1054,11 @@ def create_issues(
             ledger["updated_at"] = utc_now()
             write_json_atomic(LEDGER_PATH, ledger)
             print(
-                f"ISSUE BATCH CREATED: stage={stage_name} batch={batch_number} batch_size={len(batch)} total={len(key_map)}/463",
+                f"ISSUE BATCH CREATED: stage={stage_name} batch={batch_number} batch_size={len(batch)} total={len(key_map)}/{len(rows)}",
                 flush=True,
             )
-    if len(key_map) != 463:
-        raise RuntimeError(f"Expected 463 mapped Jira issues after creation, got {len(key_map)}")
+    if len(key_map) != len(rows):
+        raise RuntimeError(f"Expected {len(rows)} mapped Jira issues after creation, got {len(key_map)}")
     return key_map
 
 
@@ -1499,7 +1537,7 @@ def create_links(
                     ledger["link_errors"] = errors
                     ledger["updated_at"] = utc_now()
                     write_json_atomic(LEDGER_PATH, ledger)
-                    print(f"LINK PROGRESS: processed={index}/{len(pending)} completed={len(completed)}/1062 errors={len(errors)}", flush=True)
+                    print(f"LINK PROGRESS: processed={index}/{len(pending)} completed={len(completed)}/{len(link_payloads)} errors={len(errors)}", flush=True)
         if errors:
             raise RuntimeError("Link creation failures: " + "; ".join(errors[:20]))
     ledger["links_completed"] = sorted(completed)
@@ -1573,8 +1611,8 @@ def verify_live(
     by_key = {issue["key"]: issue for issue in issues}
     payload_by_id = {item["local_id"]: item for item in payloads}
     discrepancies: list[str] = []
-    if len(issues) != 463:
-        discrepancies.append(f"issue count {len(issues)} != 463")
+    if len(issues) != len(rows):
+        discrepancies.append(f"issue count {len(issues)} != {len(rows)}")
     type_counts: dict[str, int] = {}
     status_counts: dict[str, int] = {}
     for row in rows:
@@ -1833,7 +1871,7 @@ def main() -> int:
         print(json.dumps(preflight, indent=2, sort_keys=True))
         return 0
 
-    token = read_env_token(ROOT / ".env")
+    token = read_env_token(authoritative_env_path())
     client = JiraClient(BASE_URL, EMAIL, token)
     user = client.get("/rest/api/3/myself")
     if user.get("emailAddress") != EMAIL or not user.get("active"):
@@ -1891,10 +1929,12 @@ def main() -> int:
     ledger["updated_at"] = ledger["completed_at"]
     write_json_atomic(LEDGER_PATH, ledger)
     rebuild_manifest()
+    expected = canonical_expected_counts()
     print(
         "BAT LIVE IMPORT COMPLETE: "
-        f"issues=463 parents=413 links=1062 operational_done={verification['status_counts'].get('Done', 0)} "
-        "active_post_wave=229",
+        f"issues={expected['issues']} parents={expected['parents']} links={expected['links']} "
+        f"operational_done={verification['status_counts'].get('Done', 0)} "
+        f"active_post_wave={expected['active_post_wave']}",
         flush=True,
     )
     return 0

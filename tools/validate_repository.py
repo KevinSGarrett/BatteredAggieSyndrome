@@ -88,6 +88,12 @@ def main() -> int:
         for detail in validate_external_storage_policy(root):
             findings.append(type("F", (), {"kind":"external_storage", "path":str(external_storage_policy.relative_to(root)), "detail":detail})())
 
+    openai_assist_policy = root / "configs/openai_assist_policy.json"
+    if openai_assist_policy.exists():
+        from tools.validate_openai_assist import validate as validate_openai_assist
+        for detail in validate_openai_assist(root):
+            findings.append(type("F", (), {"kind":"openai_assist", "path":str(openai_assist_policy.relative_to(root)), "detail":detail})())
+
     # Lightweight governance integrity checks.
     req_path = root / "governance/REQUIREMENTS_INDEX.csv"
     trace_path = root / "governance/REQUIREMENTS_TRACEABILITY.csv"

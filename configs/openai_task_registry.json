@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "tasks": {
+    "entity_review": {
+      "allocation": "TERRA_BATCH",
+      "candidate_destination": "REVIEW",
+      "default_model": "gpt-5.6-terra",
+      "default_reasoning_effort": "low",
+      "jira_unit": "POST-SUBTASK-163",
+      "pilot": "B"
+    },
+    "gamebook_extraction": {
+      "allocation": "PROBE_PROMPT_EVAL",
+      "candidate_destination": "CANDIDATE",
+      "default_model": "gpt-5.6-terra",
+      "default_reasoning_effort": "medium",
+      "jira_unit": "POST-SUBTASK-162",
+      "pilot": "A"
+    },
+    "injury_availability_extraction": {
+      "allocation": "TERRA_BATCH",
+      "candidate_destination": "REVIEW",
+      "conditional": true,
+      "default_model": "gpt-5.6-terra",
+      "default_reasoning_effort": "low",
+      "jira_unit": "POST-SUBTASK-165",
+      "pilot": "D"
+    },
+    "quarantine_schema_classification": {
+      "allocation": "LUNA_BATCH",
+      "candidate_destination": "QUARANTINE",
+      "default_model": "gpt-5.6-luna",
+      "default_reasoning_effort": "none",
+      "jira_unit": "POST-SUBTASK-164",
+      "pilot": "C"
+    }
+  }
+}

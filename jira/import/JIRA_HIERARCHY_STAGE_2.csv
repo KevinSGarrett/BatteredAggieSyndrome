@@ -16334,3 +16334,196 @@ Source References
 Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/tasks/TASK-201_resolve_officiating_assignment_gap_fallback_policy_before_feature_experiments.json",Done,Medium,historical;planning-program;research-design;w13;wave-completed;local-id-task-201,feature-engineering,TASK-201,TASK-201,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,false,RESEARCH_LANE,HISTORICAL_REFERENCE
+Story,,100465,"[POST-STORY-054] Governance, storage, budget, controller, and local evaluation foundation",100464,"Local ID: POST-STORY-054
+
+Objective
+Governance, storage, budget, controller, and local evaluation foundation
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+Execute POST-STORY-054 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-040`; produce `artifacts/jira_evidence/POST-STORY-054.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+
+Explicit In Scope
+- Perform the exact action: Governance, storage, budget, controller, and local evaluation foundation.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-040 complete at required maturity
+- POST-SUBTASK-040
+
+Acceptance Criteria
+1. The single controller and local evaluation harness satisfy the complete Section 16 authority, storage, schema, budget, provenance, isolation, and cleanup contract.
+2. No paid call occurs until foundation validation and normal review integration pass.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-054.json — Integrate POST-SUBTASK-160 and POST-SUBTASK-161 and prove every later API job is forced through their controller, ledger, schema, validation, and evaluation boundaries.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-STORY-054.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Integrate POST-SUBTASK-160 and POST-SUBTASK-161 and prove every later API job is forced through their controller, ledger, schema, validation, and evaluation boundaries.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02119
+
+Governance Traceability Gate: POST-SUBTASK-040
+
+Canonical Record: jira/records/issues/stories/POST-STORY-054_governance_storage_budget_controller_and_local_evaluation_foundation.json",To Do,Medium,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-054,operations-security,POST-STORY-054,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,false,SHARED_CONTRACT,AGGREGATE_GATE
+Story,,100466,"[POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",100464,"Local ID: POST-STORY-055
+
+Objective
+Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-161`; produce `artifacts/jira_evidence/POST-STORY-055.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+
+Explicit In Scope
+- Perform the exact action: Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-161 complete at required maturity
+- POST-SUBTASK-161
+
+Acceptance Criteria
+1. Pilots A-C receive empirical gold/reference/cheaper-model comparisons and candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
+2. Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-055.json — Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-STORY-055.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02119
+
+Governance Traceability Gate: POST-SUBTASK-161
+
+Canonical Record: jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json",To Do,Medium,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-055,data-sources,POST-STORY-055,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
+Story,,100467,"[POST-STORY-056] Empirical OpenAI scale-out, usage accounting, cleanup, and handoff",100464,"Local ID: POST-STORY-056
+
+Objective
+Empirical OpenAI scale-out, usage accounting, cleanup, and handoff
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+
+Explicit In Scope
+- Perform the exact action: Empirical OpenAI scale-out, usage accounting, cleanup, and handoff.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-162 complete at required maturity
+- Dependency POST-SUBTASK-163 complete at required maturity
+- Dependency POST-SUBTASK-164 complete at required maturity
+- POST-SUBTASK-162
+- POST-SUBTASK-163
+- POST-SUBTASK-164
+
+Acceptance Criteria
+1. Only empirically validated routine formats scale to Luna Batch, with ambiguity routed to Terra and a small hard residue to Sol.
+2. Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-STORY-056.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02119
+
+Governance Traceability Gate: POST-SUBTASK-164
+
+Canonical Record: jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.json",To Do,Medium,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-056,release-readiness,POST-STORY-056,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,PROTECTED_GATE,AGGREGATE_GATE

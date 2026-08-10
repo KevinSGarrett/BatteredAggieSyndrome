@@ -35354,4 +35354,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-166
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",In Progress,Highest,actionable;openai-assist;post-wave;subtask;scale-out;handoff;local-id-post-subtask-166,release-readiness,POST-SUBTASK-166,OPENAI-ASSIST-PLAN,PHASE-1,IN_PROGRESS,OPERATING,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",Done,Highest,actionable;openai-assist;post-wave;subtask;scale-out;handoff;local-id-post-subtask-166,release-readiness,POST-SUBTASK-166,OPENAI-ASSIST-PLAN,PHASE-1,DONE,OPERATING,VERIFIED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION

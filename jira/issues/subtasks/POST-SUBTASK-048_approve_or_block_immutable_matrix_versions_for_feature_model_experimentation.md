@@ -23,7 +23,7 @@
     "artifacts/pit/matrix_gate_decision.json",
     "artifacts/jira_evidence/POST-SUBTASK-048.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-047",
+  "blocked_reason": "",
   "blocks": [
     "POST-EPIC-006",
     "POST-EPIC-007",
@@ -168,9 +168,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24538",
-    "jira_updated_at": "2026-08-09T23:24:04.078-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-10T06:16:26.716-0500",
+    "last_synced_at": "2026-08-10T11:18:49.905996+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-397\\BAT-397-completion-live-rows.csv",
     "sprint": "",
     "status_raw": "To Do"
   },
@@ -229,7 +229,7 @@
     "docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md",
     "docs/19_ASOF_QUERY_AND_CUTOFF_CONTRACT.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -334,7 +334,7 @@
     "POST-SUBTASK-051"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",
@@ -344,7 +344,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-016: Append-only as-of state and pregame matrices.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-048.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

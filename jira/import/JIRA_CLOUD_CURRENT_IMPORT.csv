@@ -23779,7 +23779,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-047_build_national_pregame_matrices_at_configured_cutoffs_with_row_cell_lineage_miss.json",In Progress,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-047,pit-temporal,POST-SUBTASK-047,GAP-005;GAP-006;HANDOFF-004,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-047_build_national_pregame_matrices_at_configured_cutoffs_with_row_cell_lineage_miss.json",Done,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-047,pit-temporal,POST-SUBTASK-047,GAP-005;GAP-006;HANDOFF-004,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,true,DATA_MATERIALIZATION
 Sub-task,BAT-398,100352,[POST-SUBTASK-048] Approve or block immutable matrix versions for feature/model experimentation,100066,"Local ID: POST-SUBTASK-048
 
 Objective
@@ -23876,7 +23876,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-048_approve_or_block_immutable_matrix_versions_for_feature_model_experimentation.json",To Do,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-048,pit-temporal,POST-SUBTASK-048,GAP-005;GAP-006;HANDOFF-004,PHASE-1,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-048_approve_or_block_immutable_matrix_versions_for_feature_model_experimentation.json",To Do,Highest,actionable;core-release;pit;post-wave;protected-gate;subtask;local-id-post-subtask-048,pit-temporal,POST-SUBTASK-048,GAP-005;GAP-006;HANDOFF-004,PHASE-1,READY,PRODUCTION_READY,PLANNED,POST_W25,true,PROTECTED_GATE
 Sub-task,BAT-399,100353,"[POST-SUBTASK-049] Run static, future-append, value-mutation, same-game, normalization, entity-correction, weather, market, roster, and label leakage tests on real matrices",100067,"Local ID: POST-SUBTASK-049
 
 Objective

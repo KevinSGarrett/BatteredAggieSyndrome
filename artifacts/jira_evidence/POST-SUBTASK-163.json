@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_COMPLETION_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-163",
+  "jira_key": "BAT-519",
+  "created_at_utc": "2026-08-10T06:11:51Z",
+  "overall_disposition": "DONE_VERIFIED",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/entity_review_pilot.json",
+      "evidence_sha256": "c527c51692beac4fc85d21ae98de86407824ca69efe997d2dbfc55d751509c98",
+      "observable_result": "Six pinned BAT-390 same-name positives and six real ambiguous negatives were ranked or abstained through the governed controller with exact source evidence; all 36 outputs remained REVIEW-only and entity_merge=false."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/entity_review_pilot.json",
+      "evidence_sha256": "c527c51692beac4fc85d21ae98de86407824ca69efe997d2dbfc55d751509c98",
+      "observable_result": "Luna/none, Terra/low, and Sol/medium each achieved top-k recall 1.0 and false-merge rate 0.0 with exact candidate-set preservation; no name-only or model-only identity promotion was possible."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/entity_review_pilot.json",
+      "evidence_sha256": "c527c51692beac4fc85d21ae98de86407824ca69efe997d2dbfc55d751509c98",
+      "observable_result": "Every ambiguous case returned ABSTAIN_UNRESOLVED and selected_candidate_id UNKNOWN with zero unsupported facts, false merges, candidate-set errors, quarantines, canonical writes, or protected-state effects."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "COMPLETED_PILOT_REPORT",
+      "path": "artifacts/openai_assist/entity_review_pilot.json",
+      "sha256": "c527c51692beac4fc85d21ae98de86407824ca69efe997d2dbfc55d751509c98",
+      "bytes": 8898
+    },
+    {
+      "role": "PILOT_CONFIG",
+      "path": "configs/openai_entity_review_pilot.json",
+      "sha256": "b90f27a5a5b2a84747c29cc8d7b3cf48fdb183ee3d969975f8305b8a73429879",
+      "bytes": 2766
+    },
+    {
+      "role": "PINNED_PROMPT",
+      "path": "prompts/openai_assist/entity_review_v1.txt",
+      "sha256": "75c8b8b009dd1cd70c53b87ea30a6f7c354ce6f50c8355c01da81d0aa24d5ac2",
+      "bytes": 1686
+    },
+    {
+      "role": "GOLD_PREPARER",
+      "path": "tools/prepare_openai_entity_review_pilot.py",
+      "sha256": "b003f4306d1591eb2c9085071a6e38bcb3c00c8007c848c6c935b2ef4670c4f8",
+      "bytes": 13077
+    },
+    {
+      "role": "PILOT_RUNNER",
+      "path": "tools/run_openai_entity_review_pilot.py",
+      "sha256": "6299e0b83e078bea7bb018f47f3cd2248219ecdd227acc84c652c45f4f6483ea",
+      "bytes": 7182
+    },
+    {
+      "role": "ASSISTIVE_VALIDATOR",
+      "path": "tools/validate_openai_assist.py",
+      "sha256": "1129485965ce7e32860ac590841021b1c30a65020ace19ec90e1922cbf967c01",
+      "bytes": 9774
+    }
+  ],
+  "external_evidence": {
+    "gold_sha256": "bd13b55c320405df3a3ad9af01463673644678b546b6d90b49b187d7dc613433",
+    "gold_manifest_sha256": "5b91d11ba1946c61c5b4896fc8cad53d5b92f00b53eab387ce52467f997718e3",
+    "predictions_sha256": "8f64d6f78cd6e077be5c0367d1a2766754113aede531127b30a98bf533d9a84a",
+    "run_manifest_sha256": "137c4956f0de95882734e19bc9b32967a07c0e1f6a0f4d5255c7d8895042922a",
+    "bat390_resolution_sha256": "d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c",
+    "bat388_people_registry_sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d",
+    "bat387_core_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+  },
+  "usage": {
+    "pilot_synchronous_jobs": 36,
+    "pilot_batch_jobs": 0,
+    "pilot_settled_usd": 0.481446,
+    "project_synchronous_settled_jobs": 306,
+    "project_provider_rejected_zero_cost_schema_attempts": 24,
+    "project_batch_jobs": 0,
+    "project_settled_usd": 2.665852,
+    "project_remaining_usd": 97.334148,
+    "threshold_alerts_reached": []
+  },
+  "candidate_dispositions": {
+    "accepted_review_candidates": 36,
+    "review_destination": 36,
+    "quarantine": 0,
+    "rejected": 0
+  },
+  "negative_findings": [
+    {
+      "resolution_id": "resolution_4a00b6fa61e1ff9870ef197c4a66e310",
+      "disposition": "EXCLUDED_FROM_GOLD",
+      "reason": "The proposed positive did not have exactly one independently matching source-scoped mapping; the proof gate was not weakened."
+    }
+  ],
+  "route_decision": {
+    "routine": "gpt-5.6-luna:none for the exact validated format in shadow review mode",
+    "ambiguity": "gpt-5.6-terra:low only when deterministic validation identifies out-of-format ambiguity",
+    "hard_residue": "gpt-5.6-sol:medium only for bounded gold development or hard adjudication",
+    "batch": "ELIGIBLE_NOT_SUBMITTED",
+    "merge_authority": false,
+    "canonical_authority": false
+  },
+  "cleanup": {
+    "backup_before_change": "C:/BatteredAggieSyndrome.data/backups/BAT-519-openai-entity/20260810T060104Z",
+    "reconstructible_python_caches_removed": true,
+    "openai_tmp_empty_after_validation_required": true,
+    "immutable_sources_and_api_evidence_preserved": true,
+    "remote_batch_cleanup": "NOT_APPLICABLE_NO_BATCH_SUBMITTED"
+  },
+  "remaining_review_items": [
+    "Reviewer time saved remains measured at 0.0 rather than estimated.",
+    "Luna Batch scale-out belongs to POST-SUBTASK-166 and must retain the exact validated format identity.",
+    "BAT-391 retains every deterministic merge/split/review decision."
+  ],
+  "completion": {
+    "completion_claimed": true,
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
+    "global_project_complete": false
+  },
+  "honesty_boundary": {
+    "canonical_records_modified": false,
+    "identity_merges_approved": false,
+    "historical_population_ready": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

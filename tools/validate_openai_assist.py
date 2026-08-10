@@ -102,6 +102,57 @@ def validate(root: Path) -> list[str]:
     if gamebook_policy["acceptance"]["unsupported_fact_rate_max"] != 0.0:
         errors.append("OpenAI gamebook pilot must require zero unsupported facts")
 
+    entity_policy = json.loads(
+        (root / "configs" / "openai_entity_review_pilot.json").read_text(encoding="utf-8")
+    )
+    entity_prompt = entity_policy["prompt"]
+    entity_prompt_path = root / entity_prompt["path"]
+    if hashlib.sha256(entity_prompt_path.read_bytes()).hexdigest() != entity_prompt["sha256"]:
+        errors.append("OpenAI entity-review pilot prompt hash disagrees with policy")
+    if entity_policy["authority"] != "SHADOW_REVIEW_ONLY_NO_MERGE_AUTHORITY":
+        errors.append("OpenAI entity-review pilot must remain shadow review only")
+    positive_ids = entity_policy.get("positive_resolution_ids", [])
+    ambiguous_ids = entity_policy.get("ambiguous_resolution_ids", [])
+    if len(positive_ids) != 6 or len(set(positive_ids)) != 6:
+        errors.append("OpenAI entity-review pilot must retain six unique positive gold cases")
+    if len(ambiguous_ids) != 6 or len(set(ambiguous_ids)) != 6:
+        errors.append("OpenAI entity-review pilot must retain six unique ambiguous gold cases")
+    acceptance = entity_policy.get("predeclared_acceptance", {})
+    for metric in [
+        "strict_schema_rate", "field_precision", "field_recall", "evidence_accuracy",
+        "correct_abstention_rate", "entity_top_k_recall",
+    ]:
+        if acceptance.get(metric) != 1.0:
+            errors.append(f"OpenAI entity-review pilot must require {metric}=1.0")
+    for metric in [
+        "unsupported_fact_rate", "false_merge_rate", "candidate_set_error_rate", "canonical_writes",
+    ]:
+        if acceptance.get(metric) != 0.0:
+            errors.append(f"OpenAI entity-review pilot must require {metric}=0.0")
+
+    entity_report = json.loads(
+        (root / "artifacts" / "openai_assist" / "entity_review_pilot.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    if entity_report["authority"] != "SHADOW_REVIEW_ONLY_NO_MERGE_AUTHORITY":
+        errors.append("OpenAI entity-review report grants unsafe authority")
+    for metric in [
+        "strict_schema_rate", "field_precision", "field_recall", "evidence_accuracy",
+        "correct_abstention_rate", "entity_top_k_recall",
+    ]:
+        if entity_report["results"].get(metric) != 1.0:
+            errors.append(f"OpenAI entity-review report failed {metric}")
+    for metric in [
+        "unsupported_fact_rate", "false_merge_rate", "candidate_set_error_rate", "canonical_writes",
+    ]:
+        if entity_report["results"].get(metric) != 0.0:
+            errors.append(f"OpenAI entity-review report failed {metric}")
+    if entity_report["route_decision"].get("merge_authority") is not False:
+        errors.append("OpenAI entity-review route decision must deny merge authority")
+    if entity_report["results"].get("completed_predictions") != 36:
+        errors.append("OpenAI entity-review report must retain all 36 bounded predictions")
+
     project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     direct = project["project"].get("optional-dependencies", {}).get("openai-assist", [])
     if direct != ["openai==2.53.0"]:

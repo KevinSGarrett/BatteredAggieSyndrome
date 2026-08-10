@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "pilot_id": "openai-entity-review-pilot-v1",
+  "jira_unit": "POST-SUBTASK-163",
+  "task_name": "entity_review",
+  "authority": "SHADOW_REVIEW_ONLY_NO_MERGE_AUTHORITY",
+  "sources": {
+    "resolution_results": {
+      "external_relative_path": "canonical/BAT-390/sha256/d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c/resolution_results.parquet",
+      "sha256": "d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c",
+      "bytes": 171445108
+    },
+    "people_registry": {
+      "external_relative_path": "canonical/BAT-388/sha256/0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d/canonical_people_registry.csv",
+      "sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d",
+      "bytes": 420562884
+    },
+    "core_registry": {
+      "external_relative_path": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+      "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+      "bytes": 42502985
+    }
+  },
+  "positive_resolution_ids": [
+    "resolution_e653655abbb17f90ef2e8acca786c90b",
+    "resolution_3b5baa5629fe0ec41aebc54e5a6f4fc5",
+    "resolution_e458039e3fab4a14b2a5e70d9ffdbb0d",
+    "resolution_0113039cbc5ac820cd7964fab979b1a6",
+    "resolution_e2d48514a8e7722503289925598f76cf",
+    "resolution_bf6aa62771f4b5a68606125145f78eb4"
+  ],
+  "ambiguous_resolution_ids": [
+    "resolution_486dcfdd3b434b5f21294c3bad31d70e",
+    "resolution_18289e134ee05d65ff215b5c2fa7bbe3",
+    "resolution_7020f06ebed66f0fce1bb2b963ea3f6c",
+    "resolution_7c06ab93ba5f1808ea5f27eb6d699fda",
+    "resolution_37586bb843ab90a9d78641aaa9120f39",
+    "resolution_3c47d5b33a70beb1965093987ad1b42d"
+  ],
+  "prompt": {
+    "path": "prompts/openai_assist/entity_review_v1.txt",
+    "version": "entity-review-v1",
+    "sha256": "75c8b8b009dd1cd70c53b87ea30a6f7c354ce6f50c8355c01da81d0aa24d5ac2"
+  },
+  "output_schema": "schemas/openai/assistive_evaluation.schema.json",
+  "routes": [
+    {"model": "gpt-5.6-luna", "reasoning_effort": "none", "allocation": "PROBE_PROMPT_EVAL", "role": "CHEAP_COMPARISON"},
+    {"model": "gpt-5.6-terra", "reasoning_effort": "low", "allocation": "TERRA_BATCH", "role": "AMBIGUITY_REFERENCE"},
+    {"model": "gpt-5.6-sol", "reasoning_effort": "medium", "allocation": "SOL_GOLD_HARD", "role": "CAPABLE_REFERENCE"}
+  ],
+  "predeclared_acceptance": {
+    "strict_schema_rate": 1.0,
+    "field_precision": 1.0,
+    "field_recall": 1.0,
+    "evidence_accuracy": 1.0,
+    "correct_abstention_rate": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "entity_top_k_recall": 1.0,
+    "false_merge_rate": 0.0,
+    "candidate_set_error_rate": 0.0,
+    "canonical_writes": 0
+  }
+}

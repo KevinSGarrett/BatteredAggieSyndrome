@@ -187,6 +187,67 @@ def validate(root: Path) -> list[str]:
     if not {"gpt-5.6-terra", "gpt-5.6-sol"}.issubset(gamebook_models):
         errors.append("gamebook pilot did not include representative Terra and Sol calls")
 
+    quarantine_policy = json.loads(
+        (root / "configs" / "openai_quarantine_schema_pilot.json").read_text(encoding="utf-8")
+    )
+    quarantine_prompt = quarantine_policy["prompt"]
+    quarantine_prompt_path = root / quarantine_prompt["path"]
+    if hashlib.sha256(quarantine_prompt_path.read_bytes()).hexdigest() != quarantine_prompt["sha256"]:
+        errors.append("OpenAI quarantine/schema pilot prompt hash disagrees with policy")
+    expected_categories = {
+        "CORRUPTION", "MISSINGNESS", "SCHEMA_DRIFT", "INCOMPATIBLE_MAPPING",
+        "EVIDENCE_ABSENT", "CROSS_SOURCE_CONFLICT", "PIT_RISK", "TARGET_LEAKAGE",
+    }
+    if {case["classification_code"] for case in quarantine_policy["cases"]} != expected_categories:
+        errors.append("OpenAI quarantine/schema pilot does not cover every required risk category")
+    quarantine_routes = {route["model"]: route for route in quarantine_policy["routes"]}
+    if set(quarantine_routes) != {"gpt-5-nano", "gpt-5.6-terra", "gpt-5.6-sol"}:
+        errors.append("OpenAI quarantine/schema pilot must compare Nano, Terra, and Sol")
+    expected_case_counts = {"gpt-5-nano": 8, "gpt-5.6-terra": 4, "gpt-5.6-sol": 2}
+    for model, expected_count in expected_case_counts.items():
+        if len(quarantine_routes.get(model, {}).get("case_ids", [])) != expected_count:
+            errors.append(f"OpenAI quarantine/schema pilot route count disagrees for {model}")
+    quarantine_acceptance = quarantine_policy["predeclared_acceptance"]
+    for metric in [
+        "strict_schema_rate", "exact_classification_rate", "evidence_accuracy",
+        "deterministic_route_accuracy", "canonical_authority_none_rate",
+        "quarantine_preservation_rate",
+    ]:
+        if quarantine_acceptance.get(metric) != 1.0:
+            errors.append(f"OpenAI quarantine/schema pilot must require {metric}=1.0")
+    for metric in ["unsupported_fact_rate", "canonical_writes", "protected_truth_writes"]:
+        if quarantine_acceptance.get(metric) != 0.0 and quarantine_acceptance.get(metric) != 0:
+            errors.append(f"OpenAI quarantine/schema pilot must require {metric}=0")
+    quarantine_report = json.loads(
+        (root / "artifacts" / "openai_assist" / "quarantine_schema_pilot.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    if quarantine_report.get("governing_plan_sha256") != policy.payload.get(
+        "governing_plan_sha256"
+    ):
+        errors.append("OpenAI quarantine/schema report is not bound to the active plan")
+    if quarantine_report.get("status") != "COMPLETE_NEGATIVE_PROMOTION_RESULT":
+        errors.append("OpenAI quarantine/schema negative promotion result was not preserved")
+    execution = quarantine_report.get("execution", {})
+    if execution.get("synchronous_jobs") != 14 or execution.get("batch_jobs") != 0:
+        errors.append("OpenAI quarantine/schema report has unexpected job counts")
+    report_models = execution.get("models", {})
+    if set(report_models) != {"gpt-5-nano", "gpt-5.6-terra", "gpt-5.6-sol"}:
+        errors.append("OpenAI quarantine/schema report lacks the required model comparison")
+    observed = quarantine_report.get("observed", {})
+    if observed.get("canonical_writes") != 0 or observed.get("protected_truth_writes") != 0:
+        errors.append("OpenAI quarantine/schema report crossed its candidate-only authority boundary")
+    if observed.get("quarantine_preservation_rate") != 1.0:
+        errors.append("OpenAI quarantine/schema report did not preserve every quarantine")
+    decision = quarantine_report.get("promotion_decision", {})
+    if decision.get("predeclared_gate_passed") is not False:
+        errors.append("OpenAI quarantine/schema failed gate must not be rewritten as passing")
+    if any(decision.get(key) is not False for key in [
+        "nano_batch_promoted", "terra_reserve_released", "sol_reserve_released",
+    ]):
+        errors.append("OpenAI quarantine/schema report grants an unsupported promotion or reserve release")
+
     rebalance_report = json.loads(
         (root / "artifacts" / "openai_assist" / "router_rebalance.json").read_text(
             encoding="utf-8"

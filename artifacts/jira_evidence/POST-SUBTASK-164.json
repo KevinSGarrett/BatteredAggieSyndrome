@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_COMPLETION_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-164",
+  "jira_key": "BAT-520",
+  "created_at_utc": "2026-08-10T06:58:40Z",
+  "overall_disposition": "DONE_VERIFIED_NEGATIVE_PROMOTION_RESULT",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/quarantine_schema_pilot.json",
+      "evidence_sha256": "560a48189998b2548867842554cba290d6958ed1d1a9dafee7a6681b769cc023",
+      "observable_result": "Eight pinned cases cover corruption, missingness, schema drift, incompatible mapping, evidence absence, conflict, PIT risk, and target leakage using four verified real quarantine records and four explicitly synthetic adversarial fixtures; source truth was unchanged."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/quarantine_schema_pilot.json",
+      "evidence_sha256": "560a48189998b2548867842554cba290d6958ed1d1a9dafee7a6681b769cc023",
+      "observable_result": "All 14 results retained QUARANTINE disposition, deterministic route comparison remained authoritative, and zero quarantine records were released or written to canonical/PIT/protected state."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS_WITH_NEGATIVE_PROMOTION_RESULT",
+      "evidence": "artifacts/openai_assist/quarantine_schema_pilot.json",
+      "evidence_sha256": "560a48189998b2548867842554cba290d6958ed1d1a9dafee7a6681b769cc023",
+      "observable_result": "Nano/minimal was tested on all eight cases but passed 0/8 exact gold gates, so no Nano Batch scale-out was admitted; Terra remained bounded shadow assistance and Sol remained a high-risk reference."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/quarantine_schema_pilot.json",
+      "evidence_sha256": "560a48189998b2548867842554cba290d6958ed1d1a9dafee7a6681b769cc023",
+      "observable_result": "Terra/low handled four complex cases at 3/4 exact and Sol/medium handled two high-risk cases at 2/2 exact under the verified $30 stage, $15/$10 base envelopes, $25/$17 absolute maxima, and unchanged $22 value-gated reserve."
+    }
+  ],
+  "artifacts": [
+    {"role": "COMPLETED_PILOT_REPORT", "path": "artifacts/openai_assist/quarantine_schema_pilot.json", "sha256": "560a48189998b2548867842554cba290d6958ed1d1a9dafee7a6681b769cc023", "bytes": 4979},
+    {"role": "PILOT_CONFIG", "path": "configs/openai_quarantine_schema_pilot.json", "sha256": "8d5b4cc5b3cbe800dedb8e77d8ed00ab5376528b1312383d08ab78ab900ba287", "bytes": 5259},
+    {"role": "PINNED_PROMPT", "path": "prompts/openai_assist/quarantine_schema_v1.txt", "sha256": "41f53473f716eef48ecd1d40d6fabd70480bd1ea7fab3421144f30b48f3030f5", "bytes": 2105},
+    {"role": "GOLD_PREPARER", "path": "tools/prepare_openai_quarantine_pilot.py", "sha256": "4a982528b81b4c7ac59bb785b4dfadd72f0a9718baeebcb7180a5d6efa350020", "bytes": 4846},
+    {"role": "PILOT_RUNNER", "path": "tools/run_openai_quarantine_pilot.py", "sha256": "6b933bced89dc7b8036041ecb57fefe5f21fcfa1078ea4353df026885faeff7e", "bytes": 11746},
+    {"role": "GAMEBOOK_RUNNER_BUGFIX", "path": "tools/run_openai_gamebook_pilot.py", "sha256": "4471c1a130e9b32339e509e26b9702b0306e0225eea77f380aa5faee34137b67", "bytes": 6106},
+    {"role": "ASSISTIVE_VALIDATOR", "path": "tools/validate_openai_assist.py", "sha256": "779da9148324e8b63529f2310332bca1b715c547bcf962ca4f7e6e003386b9a6", "bytes": 17359}
+  ],
+  "external_evidence": {
+    "gold_sha256": "0ca9684ea9b2b39a5d4794da4003f35be28c09b154dca3b437594704e74fb23e",
+    "gold_manifest_sha256": "1bf53724b3b161e1914a7de46652872b785a71410d902c5246e62500d9bc512e",
+    "predictions_sha256": "9f8e43674620b02960354ab4280baabf29f355eeccf79de000e529d7156271a3",
+    "run_manifest_sha256": "800f8fd0db5809e93033414cf58d85a6c8e9157f4bac99c5e05b6f8c425c3197",
+    "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523"
+  },
+  "usage": {
+    "pilot_synchronous_jobs": 14,
+    "pilot_batch_jobs": 0,
+    "pilot_settled_usd": 0.081413,
+    "project_synchronous_settled_jobs": 320,
+    "project_provider_rejected_zero_cost_schema_attempts": 24,
+    "project_batch_jobs": 0,
+    "project_settled_usd": 2.747265,
+    "project_remaining_usd": 97.252735,
+    "released_stage_usd": 30.0,
+    "threshold_alerts_reached": []
+  },
+  "candidate_dispositions": {
+    "gold_exact_shadow_candidates": 5,
+    "gold_failed_shadow_candidates": 9,
+    "quarantine_destination": 14,
+    "source_records_released": 0,
+    "canonical_writes": 0,
+    "protected_truth_writes": 0
+  },
+  "negative_findings": [
+    {"model": "gpt-5-nano", "result": "0_OF_8_EXACT", "disposition": "NO_BATCH_PROMOTION"},
+    {"model": "gpt-5.6-terra", "result": "3_OF_4_EXACT", "disposition": "BOUNDED_SHADOW_ONLY"},
+    {"model": "gpt-5.6-sol", "result": "2_OF_2_HIGH_RISK_EXACT", "disposition": "INSUFFICIENT_FOR_BROAD_PROMOTION_OR_RESERVE_RELEASE"},
+    {"finding": "CROSS_SOURCE_CONFLICT_VS_INCOMPATIBLE_MAPPING_BOUNDARY", "disposition": "DETERMINISTIC_REVIEW_REMAINS_REQUIRED"}
+  ],
+  "route_decision": {
+    "routine": "DO_NOT_SCALE_CURRENT_FORMAT_TO_NANO_BATCH",
+    "complex": "TERRA_LOW_REMAINS_BOUNDED_SHADOW_ASSISTANCE_ONLY",
+    "hard_residue": "SOL_MEDIUM_REMAINS_BOUNDED_HIGH_RISK_REFERENCE_ONLY",
+    "terra_reserve_released": false,
+    "sol_reserve_released": false,
+    "deterministic_authority": true,
+    "canonical_authority": false
+  },
+  "cleanup": {
+    "reconstructible_python_caches_removed": true,
+    "openai_tmp_empty_after_validation_required": true,
+    "immutable_sources_and_api_evidence_preserved": true,
+    "remote_batch_cleanup": "NOT_APPLICABLE_NO_BATCH_SUBMITTED",
+    "reporter_retry_reused_cache_without_duplicate_calls": true
+  },
+  "remaining_review_items": [
+    "A future prompt/schema revision requires a new versioned gold gate; the failed v1 gate must remain immutable.",
+    "The conflict-versus-incompatible-mapping boundary needs deterministic clarification before another language-model comparison.",
+    "Review time saved remains unmeasured rather than estimated, so the value-gated reserve stays locked."
+  ],
+  "completion": {
+    "completion_claimed": true,
+    "achieved_maturity": "EMPIRICALLY_VALIDATED_NEGATIVE_PROMOTION_RESULT",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
+    "global_project_complete": false
+  },
+  "honesty_boundary": {
+    "canonical_records_modified": false,
+    "quarantines_released": false,
+    "historical_population_ready": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

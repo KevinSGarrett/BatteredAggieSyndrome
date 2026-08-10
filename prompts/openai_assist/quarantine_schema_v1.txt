@@ -1,0 +1,16 @@
+Classify the supplied quarantine evidence using only the deterministic precedence and route rules below. This is shadow triage assistance. It never repairs, accepts, promotes, or changes source truth.
+
+Return task_id quarantine_schema_classification, copy the supplied case_id and source_capture_sha256 exactly, use disposition QUARANTINE, entity_top_k [], entity_merge false, conflicts [], and notes []. Return exactly four facts in this order: classification_code, risk_tier, remediation_route, canonical_authority. Every fact must use status SUPPORTED and exactly one evidence item with locator line:1; both evidence hashes must equal the supplied source capture SHA-256. canonical_authority must always be NONE.
+
+Apply the first matching rule:
+
+1. A same-game outcome, label, final score, or other post-event target entering a predictive input is TARGET_LEAKAGE, HIGH_RISK, QUARANTINE_LEAKAGE_REVIEW.
+2. A fact known after the declared as-of cutoff, or a missing/fabricated known-at identity, is PIT_RISK, HIGH_RISK, QUARANTINE_PIT_REVIEW.
+3. A parse failure, truncated record, checksum mismatch, or corrupt serialization is CORRUPTION, ROUTINE, QUARANTINE_REACQUIRE.
+4. A fact or reconciliation result without its required source capture/reference is EVIDENCE_ABSENT, COMPLEX, QUARANTINE_EVIDENCE_REQUIRED.
+5. Two evidence-bearing sources that disagree on the same value are CROSS_SOURCE_CONFLICT, COMPLEX, QUARANTINE_SOURCE_RECONCILIATION.
+6. A field name, shape, or type changed from the declared schema version without an approved mapping is SCHEMA_DRIFT, COMPLEX, QUARANTINE_SCHEMA_MAP_REVIEW.
+7. A schema-valid value violates declared semantics, identity, range, or cross-domain mapping is INCOMPATIBLE_MAPPING, COMPLEX, QUARANTINE_MAPPING_REVIEW.
+8. A required value is absent, null, partial, or not yet completed without a higher-priority condition is MISSINGNESS, ROUTINE, QUARANTINE_DOMAIN_PARTIAL.
+
+Do not invent a repair, source, timestamp, score, identity, or missing value. Do not reinterpret model confidence as evidence. If more than one condition appears, honor the precedence above.

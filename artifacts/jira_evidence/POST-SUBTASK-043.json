@@ -4,7 +4,7 @@
   "decision_unit": "POST-SUBTASK-043",
   "jira_key": "BAT-393",
   "created_at_utc": "2026-08-10T08:59:44Z",
-  "updated_at_utc": "2026-08-10T09:16:48Z",
+  "updated_at_utc": "2026-08-10T09:26:47Z",
   "acceptance_matrix": [
     {
       "criterion": 1,
@@ -256,6 +256,14 @@
     {
       "finding": "The first deterministic registry serialization used platform-default CRLF newlines, causing git diff --check to reject every generated line as trailing whitespace.",
       "disposition": "REJECTED_BEFORE_COMMIT; the external builder now forces LF, both copies were rebuilt byte-identically, the validator was rerun, and the superseded CRLF artifacts were overwritten."
+    },
+    {
+      "finding": "The first live Jira completion transition attempted to set custom evidence fields on the transition screen and Jira rejected the request atomically because those fields are editable only through the issue endpoint.",
+      "disposition": "NO STATUS CHANGE OCCURRED; the fields were updated through the issue endpoint, the bare Done transition then succeeded, and exact live readback passed."
+    },
+    {
+      "finding": "The legacy run_second_pass_audit.py replay passed 55 of 68 sections but failed ten frozen pre-import/bootstrap check groups that require exactly 463 issues, exactly 863 non-Jira files, no populated Jira keys, no completed post-wave work, and a blank target profile.",
+      "disposition": "PRESERVED_AS_SUPERSEDED_BASELINE_NEGATIVE; those bootstrap invariants are intentionally false in the live 474-issue post-W25 system. Diagnostic output mutations were discarded, while current second_pass_hardening, validate_second_pass, strict Jira control-plane, source-reference, and Jira-manifest validators remain mandatory and pass."
     }
   ],
   "rollback_checkpoint": {
@@ -267,18 +275,62 @@
     "bundle_verify": "PASS"
   },
   "integration": {
-    "implementation_pr": "PENDING_PROTECTED_PR",
-    "implementation_pr_state": "PENDING",
-    "github_checks": "PENDING",
+    "implementation_pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/124",
+    "implementation_pr_state": "MERGED",
+    "implementation_merge_commit": "2562c1f48eb9f8d76b0fefb13ebdcca462553f0e",
+    "implementation_merged_at_utc": "2026-08-10T09:19:51Z",
+    "github_checks": "PASS",
     "live_jira": {
       "issue_key": "BAT-393",
-      "status": "In Progress",
-      "logical_workflow_state": "IN_PROGRESS",
+      "issue_id": "24533",
+      "status": "Done",
+      "logical_workflow_state": "DONE",
       "implementation_maturity": "IMPLEMENTED",
-      "evidence_state": "PARTIAL",
-      "claim_comment_id": "13443"
+      "evidence_state": "VERIFIED",
+      "claim_comment_id": "13443",
+      "completion_comment_id": "13444",
+      "updated": "2026-08-10T04:22:21.380-0500"
     },
-    "completion_reconciliation": "PENDING_POST_MERGE_ATOMIC_SYNC"
+    "downstream_activation": {
+      "jira_key": "BAT-394",
+      "issue_id": "24534",
+      "status": "To Do",
+      "logical_workflow_state": "READY",
+      "evidence_state": "PLANNED",
+      "activation_comment_id": "13445",
+      "updated": "2026-08-10T04:22:22.405-0500"
+    },
+    "completion_reconciliation": {
+      "source_export": "<external-data-root>/runtime/BAT-393/BAT-393-completion-live-rows.csv",
+      "dry_run": "PASS",
+      "actual": "PASS",
+      "rows": 2,
+      "changed_issues": 2,
+      "conflicts": 0,
+      "strict_validation": "PASS",
+      "local_bat_393_state": "DONE_VERIFIED",
+      "local_bat_394_state": "READY"
+    },
+    "post_sync_validation": {
+      "known_at_report": "<external-data-root>/validation/BAT-393/known-at-registry/validation-report-post-sync.json",
+      "known_at_report_sha256": "c899f613cd449a9debfb5ce5de0959dcd6c4be9287d26889bed61c6e86300902",
+      "known_at_report_bytes": 8644,
+      "known_at_findings": 0,
+      "chronological_probes": 13,
+      "unsafe_mutations_rejected": 7,
+      "strict_repository_and_provenance": "PASS",
+      "w25_final": "PASS",
+      "autonomous_controls": "PASS",
+      "source_references": 2119,
+      "jira_derivatives": 474,
+      "jira_manifest_files": 1804,
+      "jira_second_pass": "PASS",
+      "jira_live_control_plane": "PASS",
+      "tests_passed": 316,
+      "tests_skipped": 2,
+      "subtests_passed": 79,
+      "bat_394_state": "READY"
+    }
   },
   "eligibility": {
     "artifact_maturity": "IMPLEMENTED_RULE_REGISTRY_REAL_SCHEMA_RECONCILED",

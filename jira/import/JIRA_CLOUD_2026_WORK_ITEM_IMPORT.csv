@@ -23389,7 +23389,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-043_reconcile_field_temporal_classes_source_known_at_rules_cutoffs_correction_polici.json",In Progress,Highest,actionable;core-release;pit;post-wave;shared-contract;subtask;local-id-post-subtask-043,pit-temporal,POST-SUBTASK-043,AC-011;AC-012;GAP-005;HANDOFF-004;RISK-001;RISK-002,PHASE-1,IN_PROGRESS,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-043_reconcile_field_temporal_classes_source_known_at_rules_cutoffs_correction_polici.json",Done,Highest,actionable;core-release;pit;post-wave;shared-contract;subtask;local-id-post-subtask-043,pit-temporal,POST-SUBTASK-043,AC-011;AC-012;GAP-005;HANDOFF-004;RISK-001;RISK-002,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,SHARED_CONTRACT
 Sub-task,BAT-394,100348,"[POST-SUBTASK-044] Normalize observed, published, effective, retrieved, and corrected timestamps with source-specific precedence and timezone rules",100065,"Local ID: POST-SUBTASK-044
 
 Objective
@@ -23487,7 +23487,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-044_normalize_observed_published_effective_retrieved_and_corrected_timestamps_with_s.json",To Do,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-044,pit-temporal,POST-SUBTASK-044,AC-011;AC-012;GAP-005;HANDOFF-004;RISK-001;RISK-002,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-044_normalize_observed_published_effective_retrieved_and_corrected_timestamps_with_s.json",To Do,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-044,pit-temporal,POST-SUBTASK-044,AC-011;AC-012;GAP-005;HANDOFF-004;RISK-001;RISK-002,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,DATA_MATERIALIZATION
 Sub-task,BAT-395,100349,[POST-SUBTASK-045] Validate fail-closed cutoff eligibility and deliberate future/same-game/postgame rejection,100065,"Local ID: POST-SUBTASK-045
 
 Objective

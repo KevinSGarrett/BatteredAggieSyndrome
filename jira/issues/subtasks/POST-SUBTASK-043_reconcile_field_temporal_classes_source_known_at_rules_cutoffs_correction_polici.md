@@ -76,7 +76,7 @@
   "end_to_end_validation": "Validate that `configs/known_at_registry.json` can be parsed and consumed by `POST-SUBTASK-044` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-005",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-043.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -150,11 +150,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24533",
-    "jira_updated_at": "2026-08-10T03:54:03.292-0500",
-    "last_synced_at": "2026-08-10T08:54:50.643404+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-393\\BAT-393-claim-live-row.csv",
+    "jira_updated_at": "2026-08-10T04:22:21.380-0500",
+    "last_synced_at": "2026-08-10T09:23:43.318586+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-393\\BAT-393-completion-live-rows.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -211,7 +211,7 @@
     "src/aggie_analytics/temporal/eligibility.py",
     "src/aggie_analytics/temporal/state.py"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -346,7 +346,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-015: Known-at registry and timestamp normalization.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-043.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

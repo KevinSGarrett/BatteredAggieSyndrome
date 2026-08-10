@@ -15275,7 +15275,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-160
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-160_implement_the_governed_openai_controller_storage_budget_provenance_schema_security_and_clean.json",In Progress,Medium,actionable;openai-assist;post-wave;subtask;controller;security;local-id-post-subtask-160,operations-security,POST-SUBTASK-160,OPENAI-ASSIST-PLAN,PHASE-1,IN_PROGRESS,INTEGRATED,PLANNED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-160_implement_the_governed_openai_controller_storage_budget_provenance_schema_security_and_clean.json",Done,Highest,actionable;openai-assist;post-wave;subtask;controller;security;local-id-post-subtask-160,operations-security,POST-SUBTASK-160,OPENAI-ASSIST-PLAN,PHASE-1,DONE,INTEGRATED,VERIFIED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-517,100469,"[POST-SUBTASK-161] Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol",100465,"Local ID: POST-SUBTASK-161
 
 Objective
@@ -15339,7 +15339,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-161
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-161_build_the_local_gold_corpus_and_evaluation_harness_and_compare_luna_terra_and_sol.json",To Do,Medium,actionable;openai-assist;post-wave;subtask;evaluation;gold-set;local-id-post-subtask-161,validation-promotion,POST-SUBTASK-161,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-161_build_the_local_gold_corpus_and_evaluation_harness_and_compare_luna_terra_and_sol.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;evaluation;gold-set;local-id-post-subtask-161,validation-promotion,POST-SUBTASK-161,OPENAI-ASSIST-PLAN,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-518,100470,[POST-SUBTASK-162] Pilot historical gamebook-equivalent extraction in shadow candidate mode,100466,"Local ID: POST-SUBTASK-162
 
 Objective
@@ -15405,7 +15405,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-162
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-162_pilot_historical_gamebook_equivalent_extraction_in_shadow_candidate_mode.json",To Do,Medium,actionable;openai-assist;post-wave;subtask;pilot-a;gamebook;local-id-post-subtask-162,data-sources,POST-SUBTASK-162,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-162_pilot_historical_gamebook_equivalent_extraction_in_shadow_candidate_mode.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;pilot-a;gamebook;local-id-post-subtask-162,data-sources,POST-SUBTASK-162,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-519,100471,[POST-SUBTASK-163] Pilot unresolved entity candidate ranking and evidence explanation without merge authority,100466,"Local ID: POST-SUBTASK-163
 
 Objective
@@ -15471,7 +15471,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-163
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-163_pilot_unresolved_entity_candidate_ranking_and_evidence_explanation_without_merge_authority.json",To Do,Medium,actionable;openai-assist;post-wave;subtask;pilot-b;entity-resolution;local-id-post-subtask-163,entities,POST-SUBTASK-163,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-163_pilot_unresolved_entity_candidate_ranking_and_evidence_explanation_without_merge_authority.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;pilot-b;entity-resolution;local-id-post-subtask-163,entities,POST-SUBTASK-163,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-520,100472,[POST-SUBTASK-164] Pilot quarantine and schema-drift classification with deterministic remediation routing,100466,"Local ID: POST-SUBTASK-164
 
 Objective
@@ -15535,7 +15535,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-164
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_classification_with_deterministic_remediation_routing.json",To Do,Medium,actionable;openai-assist;post-wave;subtask;pilot-c;quarantine;local-id-post-subtask-164,validation-promotion,POST-SUBTASK-164,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_classification_with_deterministic_remediation_routing.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;pilot-c;quarantine;local-id-post-subtask-164,validation-promotion,POST-SUBTASK-164,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-521,100473,"[POST-SUBTASK-165] Pilot timestamped injury, depth-chart, practice, and availability extraction when evidence is ready",100466,"Local ID: POST-SUBTASK-165
 
 Objective
@@ -15601,7 +15601,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-165
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-165_pilot_timestamped_injury_depth_chart_practice_and_availability_extraction_when_evidence_is_r.json",To Do,Medium,actionable;openai-assist;post-wave;subtask;pilot-d;conditional;availability;local-id-post-subtask-165,player-context-intelligence,POST-SUBTASK-165,OPENAI-ASSIST-PLAN,PHASE-1,DEFERRED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-165_pilot_timestamped_injury_depth_chart_practice_and_availability_extraction_when_evidence_is_r.json",To Do,High,actionable;openai-assist;post-wave;subtask;pilot-d;conditional;availability;local-id-post-subtask-165,player-context-intelligence,POST-SUBTASK-165,OPENAI-ASSIST-PLAN,PHASE-1,DEFERRED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-522,100474,"[POST-SUBTASK-166] Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",100467,"Local ID: POST-SUBTASK-166
 
 Objective
@@ -15670,4 +15670,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-166
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",To Do,Medium,actionable;openai-assist;post-wave;subtask;scale-out;handoff;local-id-post-subtask-166,release-readiness,POST-SUBTASK-166,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,OPERATING,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;scale-out;handoff;local-id-post-subtask-166,release-readiness,POST-SUBTASK-166,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,OPERATING,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION

@@ -24,7 +24,7 @@
     "tests/test_openai_assist.py",
     "artifacts/jira_evidence/POST-SUBTASK-161.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-160",
+  "blocked_reason": "",
   "blocks": [
     "POST-STORY-055",
     "POST-SUBTASK-162",
@@ -161,7 +161,7 @@
   "primary_source_refs": [
     "SRCREF-02119"
   ],
-  "priority": "MUST",
+  "priority": "P0",
   "protected_change_required": false,
   "protected_files_and_interfaces": [
     "AGENTS.md",
@@ -188,7 +188,7 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-161.json` with one evidence row per acceptance criterion and exact artifact hashes.",
@@ -241,7 +241,7 @@
   "title": "[POST-SUBTASK-161] Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -249,7 +249,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-161.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

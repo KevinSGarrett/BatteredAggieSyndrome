@@ -35,7 +35,7 @@ Execute POST-SUBTASK-165 within the optional OpenAI assistive plane. Consume `PO
 
 - Workflow: `DEFERRED`
 - Ready: `false`
-- Priority: `SHOULD`
+- Priority: `P1`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`

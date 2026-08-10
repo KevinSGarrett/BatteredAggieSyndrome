@@ -138,11 +138,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24534",
-    "jira_updated_at": "2026-08-10T04:22:22.405-0500",
-    "last_synced_at": "2026-08-10T09:23:43.318586+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-393\\BAT-393-completion-live-rows.csv",
+    "jira_updated_at": "2026-08-10T04:39:28.115-0500",
+    "last_synced_at": "2026-08-10T09:39:50.512238+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-394\\BAT-394-claim-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -333,5 +333,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-015: Known-at registry and timestamp normalization.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-044.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }

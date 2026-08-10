@@ -1,0 +1,3862 @@
+{
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "observable_result": "Every core canonical definition and append-only assignment is unique and reproducible from its opaque slot; row/provenance hashes and references validate. Rename, realignment, neutral-site, postponement, and cancellation history remains represented. Seven nonunique venue alias labels are explicitly quarantined from alias-only joins."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "observable_result": "Every person definition, source-scoped ID mapping, append-only assignment, record/provenance hash, candidate, and team reference validates. Duplicate names, suffix evidence, transfers, review uncertainty, and 232 season-grain multi-team scopes remain explicit; name-only auto-promotions are zero."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "observable_result": "Duplicate record/entity definitions, impossible intervals, missing references, accepted source-ID collisions, accepted relationship conflicts, and invalid resolution dispositions are zero. Ambiguous aliases and exclusive membership scopes are enumerated and scoped-ineligible rather than hidden."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "observable_result": "All three prerequisite evidence manifests and both external content-addressed payloads are hash-pinned. Candidate/review/unresolved records, direct-capture limitations on derived rows, provider limitations, and downstream conditions remain explicit."
+    }
+  ],
+  "core_registry_validation": {
+    "accepted_overlapping_relationship_collisions": [],
+    "accepted_source_mapping_collisions": [],
+    "accepted_source_mapping_count": 4855,
+    "assignment_checks": {
+      "conference": {
+        "append_only_expansion_preserved_existing": true,
+        "identity_count": 41,
+        "reversed_input_with_accepted_ledger_preserved": true
+      },
+      "game": {
+        "append_only_expansion_preserved_existing": true,
+        "identity_count": 46960,
+        "reversed_input_with_accepted_ledger_preserved": true
+      },
+      "source_resource": {
+        "append_only_expansion_preserved_existing": true,
+        "identity_count": 4,
+        "reversed_input_with_accepted_ledger_preserved": true
+      },
+      "source_system": {
+        "append_only_expansion_preserved_existing": true,
+        "identity_count": 2,
+        "reversed_input_with_accepted_ledger_preserved": true
+      },
+      "team": {
+        "append_only_expansion_preserved_existing": true,
+        "identity_count": 348,
+        "reversed_input_with_accepted_ledger_preserved": true
+      },
+      "venue": {
+        "append_only_expansion_preserved_existing": true,
+        "identity_count": 844,
+        "reversed_input_with_accepted_ledger_preserved": true
+      }
+    },
+    "canonical_entity_definition_count": 48262,
+    "column_count": 36,
+    "entity_type_record_counts": {
+      "conference": 110,
+      "game": 51630,
+      "season": 63,
+      "source_resource": 4,
+      "source_system": 2,
+      "team": 2789,
+      "venue": 2078
+    },
+    "hard_error_counts": {},
+    "history_evidence": {
+      "canceled_games": 2,
+      "neutral_site_games": 1970,
+      "postponed_status_observations": 18,
+      "realigned_teams": 164,
+      "renamed_teams": 210
+    },
+    "record_type_counts": {
+      "ALIAS": 2532,
+      "ENTITY": 48262,
+      "RELATIONSHIP": 874,
+      "SOURCE_MAPPING": 4855,
+      "STATUS_OBSERVATION": 20,
+      "UNRESOLVED_OBSERVATION": 133
+    },
+    "resolution_state_counts": {
+      "AUTO_ACCEPTED_VERIFIED": 55559,
+      "CANDIDATE_GENERATED": 111,
+      "REVIEW_REQUIRED": 984,
+      "UNRESOLVED": 22
+    },
+    "row_count": 56676
+  },
+  "created_at_utc": "2026-08-10T02:41:00Z",
+  "dataset_version": "bat389-registry-validation-v1",
+  "decision_unit": "BAT-389",
+  "downstream_reevaluation": {
+    "POST-STORY-014": "HARD_DEPENDENCY_SATISFIED_AFTER_VERIFIED_JIRA_SYNC",
+    "POST-SUBTASK-040": "READY_AFTER_VERIFIED_JIRA_SYNC",
+    "POST-SUBTASK-041": "REMAINS_DEPENDENT_ON_POST-SUBTASK-040",
+    "POST-SUBTASK-042": "REMAINS_DEPENDENT_ON_POST-SUBTASK-040_AND_POST-SUBTASK-041"
+  },
+  "eligibility": {
+    "alias_only_join": "QUARANTINED_WHERE_COLLIDING_REQUIRE_SOURCE_OR_CONTEXT",
+    "canonical_identity_and_source_mapping": "PRODUCTION_READY",
+    "exclusive_person_team_at_season_grain": "QUARANTINED_FOR_ENUMERATED_MULTI_TEAM_SCOPES",
+    "historical_population_final_readiness": "NOT_CLAIMED",
+    "pit_or_chronological_model_use": "NOT_EVALUATED_BY_THIS_GATE",
+    "unresolved_or_review_records": "INELIGIBLE_FOR_UNSUPPORTED_JOIN"
+  },
+  "gate_disposition": "PASS_PRODUCTION_READY_REGISTRY_GATE_WITH_SCOPED_QUARANTINES",
+  "honesty_boundary": {
+    "bas_or_aggie_excess_result_claimed": false,
+    "gap_002_resolved": false,
+    "historical_population_ready": false,
+    "pit_or_chronological_gate_passed": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "registry_validation_gate_complete": true,
+    "tamu_specialization_lift_claimed": false
+  },
+  "input_identities": {
+    "external": [
+      {
+        "bytes": 42502985,
+        "columns": 36,
+        "path": "<external-data-root>/canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+        "role": "CORE_CANONICAL_PAYLOAD",
+        "rows": 56676,
+        "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+      },
+      {
+        "bytes": 420562884,
+        "columns": 47,
+        "path": "<external-data-root>/canonical/BAT-388/sha256/0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d/canonical_people_registry.csv",
+        "role": "PEOPLE_CANONICAL_PAYLOAD",
+        "rows": 589377,
+        "sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d"
+      }
+    ],
+    "prerequisites": [
+      {
+        "achieved_maturity": "PRODUCTION_READY",
+        "bytes": 21676,
+        "evidence_state": "VERIFIED",
+        "jira_key": "BAT-386",
+        "local_id": "POST-SUBTASK-036",
+        "path": "artifacts/jira_evidence/POST-SUBTASK-036.json",
+        "sha256": "587a7dd4a307e7e251e2c00b41a77df9e2ac9ef1c77cf39b2bfefce4d091db71"
+      },
+      {
+        "achieved_maturity": "IMPLEMENTED",
+        "bytes": 9859,
+        "evidence_state": "VERIFIED",
+        "jira_key": "BAT-387",
+        "local_id": "POST-SUBTASK-037",
+        "path": "artifacts/jira_evidence/POST-SUBTASK-037.json",
+        "sha256": "84ff27affd99dd109e2d6ed47b70deb586463ab2506ffc3a59fa0a1f1555ad61"
+      },
+      {
+        "achieved_maturity": "EMPIRICALLY_VALIDATED",
+        "bytes": 11470,
+        "evidence_state": "VERIFIED",
+        "jira_key": "BAT-388",
+        "local_id": "POST-SUBTASK-038",
+        "path": "artifacts/jira_evidence/POST-SUBTASK-038.json",
+        "sha256": "38f3bc9f97a98c90ee70cd89559aec1b4dd04f40871e717726782f1cb82af4df"
+      }
+    ],
+    "repository": [
+      {
+        "bytes": 425,
+        "path": "artifacts/entities/canonical_core_registry.csv",
+        "role": "CORE_POINTER",
+        "sha256": "ac19373f5866d09a6ff53bb1832f7d3c4458f579920632fa902da1323f5a9854"
+      },
+      {
+        "bytes": 3069,
+        "path": "artifacts/entities/canonical_core_registry_manifest.json",
+        "role": "CORE_MANIFEST",
+        "sha256": "6293b25d58afb394d9fe37ded6da1e05aaf584302c582205d13603e9659ab6e7"
+      },
+      {
+        "bytes": 433,
+        "path": "artifacts/entities/canonical_people_registry.csv",
+        "role": "PEOPLE_POINTER",
+        "sha256": "8b7e6a564b12966de9d21f184116dd0826ad8592d7bcd5acbf39fb5e06db35f9"
+      },
+      {
+        "bytes": 3768,
+        "path": "artifacts/entities/canonical_people_registry_manifest.json",
+        "role": "PEOPLE_MANIFEST",
+        "sha256": "2e03ea2c65c26e3eab7e14a3d5efb4a516faaa5f05942008c20af5599768df35"
+      },
+      {
+        "bytes": 285550,
+        "path": "artifacts/entities/schema_readiness_gate.json",
+        "role": "SCHEMA_READINESS_GATE",
+        "sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2"
+      },
+      {
+        "bytes": 16533,
+        "path": "configs/entity_registry.json",
+        "role": "ENTITY_CONFIG",
+        "sha256": "66f4c69f830e34c23745b42bbcbc98b482bf141c3cb8a0e49bfd32c7fc99c647"
+      },
+      {
+        "bytes": 705,
+        "path": "governance/ENTITY_RESOLUTION_STATES.csv",
+        "role": "RESOLUTION_STATES",
+        "sha256": "b0c0ac7009e4cb0eefcb4b751b2ffd9dd8d3bddb267a0084b05f184adbfc1ef1"
+      },
+      {
+        "bytes": 16200,
+        "path": "jira/sources/issue_source_manifests/POST-SUBTASK-039.json",
+        "role": "SOURCE_MANIFEST",
+        "sha256": "1aad1f7b5c4cb63ad2dcc4a5829423d989be95d4b5017d3616bd9f9ae9a2b805"
+      },
+      {
+        "bytes": 3936,
+        "path": "configs/judging_rule_seal.json",
+        "role": "PROTECTED_JUDGING_SEAL",
+        "sha256": "8e1cb61d850babc5e80bd156aa79f6bbd5575d461df0d83ec6f6eed2a71fe758"
+      }
+    ]
+  },
+  "local_id": "POST-SUBTASK-039",
+  "negative_findings": [
+    {
+      "disposition": "PRESERVED_SCOPED_QUARANTINE; alias-only resolution is forbidden for those labels, while source-ID/location-context mappings remain valid.",
+      "finding": "7 accepted venue alias labels overlap across distinct venue identities."
+    },
+    {
+      "disposition": "PRESERVED_SCOPED_QUARANTINE; identity and observations remain valid, but exclusive team-at-time inference requires finer-grain evidence.",
+      "finding": "231 player-season and 1 coach-season scopes contain multiple team observations at season grain."
+    },
+    {
+      "disposition": "EXPECTED_AMBIGUITY_PRESERVED; source-scoped IDs remain collision-free and name-only auto-promotion remains disabled.",
+      "finding": "13621 normalized names map to multiple canonical people."
+    },
+    {
+      "disposition": "PRESERVED_PROVENANCE_LIMIT; they remain tied to immutable registry payload identity, verified person/roster evidence, builder identity, and row/provenance hashes and are not treated as independent raw observations.",
+      "finding": "Derived source-mapping and transfer rows do not repeat direct capture IDs in every row."
+    },
+    {
+      "disposition": "PRESERVED_NOT_AUTO_PROMOTED; affected joins remain ineligible without additional evidence and do not globally block unrelated verified identities.",
+      "finding": "Core and people registries retain candidate, review-required, and unresolved observations."
+    }
+  ],
+  "people_registry_validation": {
+    "accepted_source_mapping_collisions": [],
+    "accepted_source_mapping_count": 131370,
+    "assignment_checks": {
+      "coach": {
+        "append_only_expansion_preserved_existing": true,
+        "identity_count": 483,
+        "reversed_input_with_accepted_ledger_preserved": true
+      },
+      "player": {
+        "append_only_expansion_preserved_existing": true,
+        "identity_count": 118022,
+        "reversed_input_with_accepted_ledger_preserved": true
+      }
+    },
+    "canonical_people_with_recorded_suffix": 0,
+    "canonical_person_definition_count": 118505,
+    "column_count": 47,
+    "direct_capture_fields_missing_by_derived_record_type": {
+      "DOMAIN_LIMITATION": 2,
+      "SOURCE_MAPPING": 131370,
+      "TRANSFER_EPISODE": 9843
+    },
+    "duplicate_normalized_name_examples": [
+      {
+        "canonical_ids": [
+          "coach_582b948a327a5a1da2fc47da44d18111",
+          "coach_c8bbfd26e87b56318f42da503a99aeeb"
+        ],
+        "display_name_normalized": "curtis johnson",
+        "person_type": "coach"
+      },
+      {
+        "canonical_ids": [
+          "player_799c1f053cb55eb19fd560f911c4ce2b",
+          "player_7beaedb46a5259789e79dec5dc0c7f86"
+        ],
+        "display_name_normalized": "1a",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_87828ec848785d5d9c775b3770afa2e6",
+          "player_974ede2c68a757aaa5fe632c2ec2fe6b",
+          "player_b8928e2e38485bf1b79d19dd871cc0b6",
+          "player_c9c6d992821e5d15bed9bfc925610267"
+        ],
+        "display_name_normalized": "1b",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_271057aba23f5efa8a4256a85aec4d12",
+          "player_bc3115bce77e51688d648866276f7f2a"
+        ],
+        "display_name_normalized": "1c",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_1e49e5c9ecb15e53bf0acb1272d14237",
+          "player_58368b1031955c0a9c1c768d0f44bf72"
+        ],
+        "display_name_normalized": "1n",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_6c4c4f03c7bf54df9ef19aa105a8691f",
+          "player_b5e2a8b60fa55ed1a2abe4773b83c039"
+        ],
+        "display_name_normalized": "1q",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_4c3cd1c1e545526b94693f840c1f5221",
+          "player_75513dd40e845023bd899b096606d263"
+        ],
+        "display_name_normalized": "3r",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_b98eb809c84b57e69d1bbe2da86a30f1",
+          "player_bedea6c76b7251cb9803b8c77a764f5c"
+        ],
+        "display_name_normalized": "5",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_5ce1b2326bd75336819befeb62116ce1",
+          "player_8ade1dd0e5075c79bcd6405b76e4ea03"
+        ],
+        "display_name_normalized": "5b",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_6b207edb52f25b9b8a0e3ead9d8aa646",
+          "player_7c35c4ded280599186e08279b0c4a354",
+          "player_d19822faef4f55938b7620350f53f678"
+        ],
+        "display_name_normalized": "87",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_8eb4a731213950b0a0951ee046d9d316",
+          "player_e364b4a2513d5c73aad3e48ab30148b7"
+        ],
+        "display_name_normalized": "8p",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_b603fa211d0355e9b1ac4a4c03b173dd",
+          "player_fb78b254f67a51cc857756ba95043bcd"
+        ],
+        "display_name_normalized": "96",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_3cf52b32a6185d3283aa14f1846a77e8",
+          "player_92679f5410105296b523661e9f073043"
+        ],
+        "display_name_normalized": "a d miller",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_201dfa20a8545856af702aaa4617d0e9",
+          "player_fe49324e86055244862c6d8aab8e3257"
+        ],
+        "display_name_normalized": "a j abbott",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_0840c2d77d9059cb8b9198dbeeaa9058",
+          "player_391462901fe15449843c46f3ee83094a",
+          "player_f07e503e658b5797aeb9d83151a32cc6"
+        ],
+        "display_name_normalized": "a j alexander",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_8382968dff6a5082b2b4a80e3123beb4",
+          "player_de296b8a641c5215accb10de41d8632f"
+        ],
+        "display_name_normalized": "a j allen",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_ea3b4f7336a057d99d4c23c77ee67f2d",
+          "player_fcb12b43c72c508ab1279291aae3f164"
+        ],
+        "display_name_normalized": "a j brooks",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_17c255b9093e5bb78301086d08b5510c",
+          "player_83aa233dd49c509e98756203958ad88c"
+        ],
+        "display_name_normalized": "a j brown",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_479f7b275fc15c4e9e96e19bc764e8d4",
+          "player_be3c85e7d87f5d888f874bd8646fffb9"
+        ],
+        "display_name_normalized": "a j carter",
+        "person_type": "player"
+      },
+      {
+        "canonical_ids": [
+          "player_2c39db22a53f564ea09951ffa697c323",
+          "player_b727fd9f95a758acbbd74834566372c9"
+        ],
+        "display_name_normalized": "a j carty",
+        "person_type": "player"
+      }
+    ],
+    "duplicate_normalized_name_group_count": 13621,
+    "duplicate_normalized_name_index_sha256": "5e80cbb5e9e0e2df02287857a64e3e8b89cb01182b1194b776ec40ae0b0bdfa4",
+    "hard_error_counts": {},
+    "name_only_auto_promotions": 0,
+    "person_type_record_counts": {
+      "coach": 3217,
+      "player": 583777,
+      "staff": 2383
+    },
+    "record_type_counts": {
+      "COACH_ROLE_EPISODE": 2251,
+      "DOMAIN_LIMITATION": 2,
+      "PERSON": 118505,
+      "RECRUITING_OBSERVATION": 28093,
+      "ROSTER_MEMBERSHIP": 296931,
+      "SOURCE_MAPPING": 131370,
+      "STAFF_ROLE_OBSERVATION": 2382,
+      "TRANSFER_EPISODE": 9843
+    },
+    "resolution_state_counts": {
+      "AUTO_ACCEPTED_VERIFIED": 585825,
+      "CANDIDATE_GENERATED": 2853,
+      "REVIEW_REQUIRED": 7,
+      "UNRESOLVED": 692
+    },
+    "row_count": 589377
+  },
+  "producer": {
+    "base_commit": "5d12c5a075efaa900f4b8deaa66520ad342ff5a3",
+    "python": "3.11.9",
+    "rollback_checkpoint": {
+      "bundle_sha256": "89e556d71d95115d2ee5d4feba105d32d7fb1cf069c78ea6a61327e279ae5315",
+      "integrity": "PASS",
+      "manifest_sha256": "64e3dd952df8a04e24d821bc9846281deb478d779d35946af6b833a8df1140ea",
+      "path": "<external-data-root>/backups/BAT-389/20260810T023422Z-prechange"
+    },
+    "runtime": "Windows-10-10.0.26200-SP0",
+    "split_or_cutoff": "NOT_APPLICABLE_REGISTRY_VALIDATION_NO_MODEL_FIT_OR_TARGET_EVALUATION",
+    "validator_path": "<external-data-root>/runtime/BAT-389/build_registry_validation.py",
+    "validator_sha256": "b62aa42fe3e66ab0d74280f8f1dcbbf92e26128df590eaf7c4f5d729f8783692"
+  },
+  "schema_version": "1.0.0",
+  "scoped_quarantines": {
+    "counts": {
+      "alias_collision_groups": 7,
+      "coach_season_multi_team_scopes": 1,
+      "player_season_multi_team_scopes": 231
+    },
+    "overlapping_nonunique_alias_groups": [
+      {
+        "alias_normalized": "aggie stadium",
+        "canonical_ids": [
+          "venue_17f0b4ccfbb854c0afa5d53261bfa6ff",
+          "venue_ceed2ec3233c54b1b3057c7ee4326e89"
+        ],
+        "disposition": "QUARANTINE_ALIAS_ONLY_JOIN_REQUIRE_SOURCE_ID_OR_LOCATION_CONTEXT",
+        "entity_type": "venue",
+        "record_ids": [
+          "obs_0fcb0fad9af35bd895b8717b733c13e7",
+          "obs_e9522ae3e5e15ef3abb31234f521bd1d"
+        ],
+        "source_system_id": "SRC-002"
+      },
+      {
+        "alias_normalized": "hornet stadium",
+        "canonical_ids": [
+          "venue_0ed057e892525fb6a9ec2ac1e729c777",
+          "venue_f0fcc6242d6d526a9f23bf0b702d62e7"
+        ],
+        "disposition": "QUARANTINE_ALIAS_ONLY_JOIN_REQUIRE_SOURCE_ID_OR_LOCATION_CONTEXT",
+        "entity_type": "venue",
+        "record_ids": [
+          "obs_08853993f25656ed89c2e1d5b4a42647",
+          "obs_a275e9fc4727581a9b0b643618172cef"
+        ],
+        "source_system_id": "SRC-002"
+      },
+      {
+        "alias_normalized": "husky stadium",
+        "canonical_ids": [
+          "venue_223444623b1a5c9c80d710c5d3e99144",
+          "venue_691729f399c05e57b8d6c7cb672a0316",
+          "venue_93a2c1523a795effb866cbfa4d3ed577"
+        ],
+        "disposition": "QUARANTINE_ALIAS_ONLY_JOIN_REQUIRE_SOURCE_ID_OR_LOCATION_CONTEXT",
+        "entity_type": "venue",
+        "record_ids": [
+          "obs_07c0d9323dc3587abfbf086488ee273e",
+          "obs_3f76bd53808d55849368b9fe926bac84",
+          "obs_c74e6172dace5a98b0fcf4efbff97eb7",
+          "obs_ca5502a668a25770a3cc7c300dff5fc4"
+        ],
+        "source_system_id": "SRC-002"
+      },
+      {
+        "alias_normalized": "memorial stadium",
+        "canonical_ids": [
+          "venue_7620b3c94d875d10a3bbfc5173dccf54",
+          "venue_dd9efacf54fc59dbb929ce232caf7df2",
+          "venue_eb10476bcacf5ab48a10086a7f1d46f5"
+        ],
+        "disposition": "QUARANTINE_ALIAS_ONLY_JOIN_REQUIRE_SOURCE_ID_OR_LOCATION_CONTEXT",
+        "entity_type": "venue",
+        "record_ids": [
+          "obs_32c623ef98335eb8b890eb0ce2c95d7c",
+          "obs_507d627a2ca65ea182a392d355329b9d",
+          "obs_60936725adc85b628470c1654044d269",
+          "obs_a5a880d7bd1a5b9fa929c7b8de705950",
+          "obs_c42d04ff8321519c8861636477c9a443",
+          "obs_d61ed8944c71531ab21e6344e134f883"
+        ],
+        "source_system_id": "SRC-002"
+      },
+      {
+        "alias_normalized": "municipal stadium",
+        "canonical_ids": [
+          "venue_6cef2db1d8a95c4a985200aeed0966f4",
+          "venue_a4c0661605915372855bc831e9475c64"
+        ],
+        "disposition": "QUARANTINE_ALIAS_ONLY_JOIN_REQUIRE_SOURCE_ID_OR_LOCATION_CONTEXT",
+        "entity_type": "venue",
+        "record_ids": [
+          "obs_1c95239996b05da28f97f29ffb2cac85",
+          "obs_579ad013cc825c8588849776026db3c4",
+          "obs_c66fce69ea745a66b17231a6da5dd687"
+        ],
+        "source_system_id": "SRC-002"
+      },
+      {
+        "alias_normalized": "ryan field",
+        "canonical_ids": [
+          "venue_45e72c81121e50be8e765b05ad4b33a9",
+          "venue_f0a702f6af1456729cbde5f911f79851"
+        ],
+        "disposition": "QUARANTINE_ALIAS_ONLY_JOIN_REQUIRE_SOURCE_ID_OR_LOCATION_CONTEXT",
+        "entity_type": "venue",
+        "record_ids": [
+          "obs_00b6f3abe1e75152a7e42570618f9d52",
+          "obs_09ddef825e8457d0a407a284e719f498",
+          "obs_d2463778e5535ddf97c4438ebce42414"
+        ],
+        "source_system_id": "SRC-002"
+      },
+      {
+        "alias_normalized": "toyota stadium",
+        "canonical_ids": [
+          "venue_69acda0de43b54eeb38513db39d05cc7",
+          "venue_c1097ef2b0f35010a5dc42578f6d7fa4"
+        ],
+        "disposition": "QUARANTINE_ALIAS_ONLY_JOIN_REQUIRE_SOURCE_ID_OR_LOCATION_CONTEXT",
+        "entity_type": "venue",
+        "record_ids": [
+          "obs_b71f88bc017e52b98e6fc40c050178e9",
+          "obs_de4b51d992ba5266bbfc6e4782a44f8e",
+          "obs_f5b06dcbd603588b87d50d19473d6029"
+        ],
+        "source_system_id": "SRC-002"
+      }
+    ],
+    "same_season_multi_team_person_scopes": [
+      {
+        "canonical_id": "coach_b0773bc0d18e5ec4a031092489094c60",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_77e228b187375d1e9bcbac544dd2c945",
+          "obs_d2022c74aed65775bfa88320e7f393ba"
+        ],
+        "scope_type": "coach_role",
+        "season": 2022,
+        "team_canonical_ids": [
+          "team_45ce38c12d405f8aae01bdf9110825d1",
+          "team_96b66ae4e6af5620a3c14ba51d0cbb75"
+        ]
+      },
+      {
+        "canonical_id": "player_06dde09f3a5b5e87bc2c26a6d573c07c",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4c194047960755c78ffb0db38823b958",
+          "obs_e9f6e0b257dd53fabc3a9d3bf20e221c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_5900333e48af55bda4aa63f56b519bf0"
+        ]
+      },
+      {
+        "canonical_id": "player_095f9ebd54185ee8be05ef658572d713",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3fdad85b5c9a5fe3ae9cc2f3ec68a69f",
+          "obs_cc88255f14c458679713b9d4da65f1a4"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_79e61df228905a92957def50f4667c95",
+          "team_8597c826e0dd5c0e83d80a80f445eb80"
+        ]
+      },
+      {
+        "canonical_id": "player_09b6c6c1280b54e8aab05bdf094e4563",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_554d08172ed55604802f8f2fcdcfa13c",
+          "obs_6a87c5b26311544dac848acbfc6388a3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_077037b5eb3450c6ac5e9f4d0986d186",
+          "team_23dec6e315ec5263b8c46d8db8eeea80"
+        ]
+      },
+      {
+        "canonical_id": "player_09cd2989dc2054f790d542ac26c9ae8e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_04d3a5c16dd1547f8fe68454173dce74",
+          "obs_0b09390a569a5ef4a5392c5333e65fb0"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_b71cee1acc20511ba9f46c538305bcaa",
+          "team_b7b87dbf0f3959078ff44242071c2354"
+        ]
+      },
+      {
+        "canonical_id": "player_0a5d4a389cca5ec4b8f4f300ffeb0931",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0aac5b1f93cd5739a2e6895319fe21b5",
+          "obs_340466b48e2b53f9a585924005adfbe1"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_d0aff8aacd805801ab3d3d8293f3b298",
+          "team_ebd65f32a4c158f480f0d529decf9be3"
+        ]
+      },
+      {
+        "canonical_id": "player_0b7620757de0515090b47e93a374d9fa",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7b45d1f2e0c55f0983abe12a0ca91004",
+          "obs_e1540d4ef8c7570381780dd13dc81349"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_380a5fdb9bd95d538f62cb3499a62ff2",
+          "team_8be2181a00bb5feba119eabc605eda0b"
+        ]
+      },
+      {
+        "canonical_id": "player_0c1e2a68182f53669fc599fa683bdf78",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4ff3b1128ba9584cbd7a4123118214fe",
+          "obs_6c82c76ad42953059f1630e2555d752e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_5da3303809225bb787d0cee7a6accb4c",
+          "team_5ef4e6ce2dfe50a8b9221d11d6bc06fe"
+        ]
+      },
+      {
+        "canonical_id": "player_0ed61b534652592fb42a309833cf16cd",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_85eabcffbfcd5a538521801fa9235215",
+          "obs_e5c747b8a494546b8d768ab81c44347e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2012,
+        "team_canonical_ids": [
+          "team_7c89d8ead4805b77830acf184984f61e",
+          "team_8037927a83bd5bc1b4a48edf150c1feb"
+        ]
+      },
+      {
+        "canonical_id": "player_0f9aa26f46b15b23966d8b00ea909513",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_24613f28487552e58f3842d0f32c8075",
+          "obs_d686ffbea1025710a6f10ad36a6fa6eb"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_26198efed0e45153935e1932a5dfdd74",
+          "team_5aee52a97c345432b59a8268e55853c7"
+        ]
+      },
+      {
+        "canonical_id": "player_1275290235d15288b8f7cc70734124ca",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3bb83a1c59ad51c784d9b2eb58503abe",
+          "obs_51a11617365855a7b60008250b8059b8"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_23dec6e315ec5263b8c46d8db8eeea80",
+          "team_d054aeb7e00e5a46bdd4815b6203acf9"
+        ]
+      },
+      {
+        "canonical_id": "player_14e04a9269a65b56b28aa43211b37224",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5a1c22a823a15b169f20636bfe1d56dd",
+          "obs_b1ec2d9959005106b7d07db8dd132781"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_7a230bf21ed655899be7a03eb5748587",
+          "team_fa64b0d44ffd51cca599699351bdaac3"
+        ]
+      },
+      {
+        "canonical_id": "player_14f0ba36400155ee8aed770b9063c39d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0927bcf67b2151da92d504c565e58538",
+          "obs_36757b5d37515ab69beb16890d30fc32"
+        ],
+        "scope_type": "player_roster",
+        "season": 2016,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_ebd65f32a4c158f480f0d529decf9be3"
+        ]
+      },
+      {
+        "canonical_id": "player_14f0ba36400155ee8aed770b9063c39d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_83366c16d967580e82acdcee01f81043",
+          "obs_bc3f9c67b80252b284d2f91ded47265d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2017,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_ebd65f32a4c158f480f0d529decf9be3"
+        ]
+      },
+      {
+        "canonical_id": "player_14f0ba36400155ee8aed770b9063c39d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_db1d566a576753068925e2a696dfa21b",
+          "obs_f990a39eb45858938445ad4d73685bbf"
+        ],
+        "scope_type": "player_roster",
+        "season": 2018,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_ebd65f32a4c158f480f0d529decf9be3"
+        ]
+      },
+      {
+        "canonical_id": "player_163e0b67d00d5c68bd7f819ecc4177bf",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_074470f49cb95c7eaed180eb377e250e",
+          "obs_7196c7fbca2a57d4bbb467c5cf2a3f4d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6de07326d6065f21b6f5b669c4678f17",
+          "team_818f17b4044f540c963619976874ec3b"
+        ]
+      },
+      {
+        "canonical_id": "player_17db24fde67d5fac819b289bda0eb0f9",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_35a56ae0fa1b507480f49b8ae2ccc9af",
+          "obs_459c7aad738753e4967de64f5b37a532"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_28d33e09278d5cd1b864aa01be1f850a",
+          "team_ae973288d2fc54fd9b1f57aea6036d64"
+        ]
+      },
+      {
+        "canonical_id": "player_18e57e0a9131527da5b62bb677255cb4",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_10b52d219fc35c69915d87d2433e0b4a",
+          "obs_cc17df3209735a7fb841aa9ddd6a55f8"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_8d983efbfdd45416b95584a17058078c",
+          "team_e4d86bffd8c05407b72c1534ebaaac7f"
+        ]
+      },
+      {
+        "canonical_id": "player_197df533b11a58b99991b20cea2fe266",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0aa7e5a9cf1c5bdfa09c8b4bc0db706d",
+          "obs_a511706bbf9751b7920e5726cb626b09"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_3a0ed9fbf02650ae83da201b7e4f8c85",
+          "team_f2031aa72225528c85999f4ca2cc89af"
+        ]
+      },
+      {
+        "canonical_id": "player_1ad08424159052a7b56c96c4eb67303e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_13adf8721adf53e587c9aa8628caee5f",
+          "obs_e6f5a4c3480d5a8fb5252bfdd8ec4c13"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0e68c4598b6550298d193121095a64cf",
+          "team_7c89d8ead4805b77830acf184984f61e"
+        ]
+      },
+      {
+        "canonical_id": "player_1aef4a32ba3a570c83bbed2d7b677eb2",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2d29b78a9e7752608989f8126ea1c960",
+          "obs_c81adba86cc551f3a1376f13b526c931"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_329135b009e15b5fb7beaf8dd6505e58",
+          "team_c94e5349d0dc5760b8e814bf6b724e66"
+        ]
+      },
+      {
+        "canonical_id": "player_1bd24bfa540f5ab3a97005d14078eceb",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_a903651f7e085fd2b017b072edec6487",
+          "obs_b752e353d364549ebc76e3b152df728c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_37f96b017f4d5ba89985618c987402da",
+          "team_cb79f7fe919a5fddbae8ab09c265b357"
+        ]
+      },
+      {
+        "canonical_id": "player_1c42fa7298925be3bd8c69173a21d468",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4062f262635a59d1a9afc7b0a9232718",
+          "obs_e9fe73d96c525c54a3de5614da5e2584"
+        ],
+        "scope_type": "player_roster",
+        "season": 2018,
+        "team_canonical_ids": [
+          "team_e8838435e78b5912af8cd18a5681bfa9",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_1cade01feccf56dfa58e280d47a7a8d4",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0dd61a7fcbe9561e9171269b84929a8d",
+          "obs_212954e304c5588aa913243848571e7e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2014,
+        "team_canonical_ids": [
+          "team_26198efed0e45153935e1932a5dfdd74",
+          "team_8d983efbfdd45416b95584a17058078c"
+        ]
+      },
+      {
+        "canonical_id": "player_1dc97cd8cda05d7291ecd186bd61fc72",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2922737a0b2551df84bc3bc692e62319",
+          "obs_978cfb9f63a5599cb8178ab22ba17941"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_09c55a4f2fcb544c9314ec481053df56",
+          "team_c94e5349d0dc5760b8e814bf6b724e66"
+        ]
+      },
+      {
+        "canonical_id": "player_1eb3d50d163e55c1b45c05359f99614e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_14e902dcb6075c46bc0ce340ce8fdbc7",
+          "obs_a3a48e2ee08a590899fe3bb48018a6ab"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_0a49a51cdbbf523a8234880b00b7bd31",
+          "team_0e9c98a6b19252a7a3a996bd9f40c5f8"
+        ]
+      },
+      {
+        "canonical_id": "player_1ecbc68572485e3ba8aba96923d314f8",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2281bb9c609553d7b9f3c26d1c62c565",
+          "obs_5777ace7c73551cd8e6f91a4c192eaaf"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0a49a51cdbbf523a8234880b00b7bd31",
+          "team_7c48f48bc9e656b2a97b8fa38c296b52"
+        ]
+      },
+      {
+        "canonical_id": "player_1f354873ea4b5386a99a1540c906c8ae",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_37cd860662ed50658fe2bc9ed7e10130",
+          "obs_8b822e8be1305174a1f3281ee8d41920"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_164fa39e15ee59d1b50a447ce78d93e3",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_20834daf72195ee68d982c3b70fdbfc2",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4a73b46c93445ccfa8d48cb3fefee461",
+          "obs_6a8a471ac09759cba049795faebc19df"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6bc621fc07ad57f9ba818c13b95e3df9",
+          "team_d0aff8aacd805801ab3d3d8293f3b298"
+        ]
+      },
+      {
+        "canonical_id": "player_209bc668d89154d395dcaea903e9fc9b",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1eab49b1ee355c3692869760c4715a37",
+          "obs_f679d797b28154c5b9fecacfb6a24f65"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_4f3bf4bacb655520ad0049a58f1112df",
+          "team_8597c826e0dd5c0e83d80a80f445eb80"
+        ]
+      },
+      {
+        "canonical_id": "player_20afe91ec95f59da9923b470ef488d37",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3bfb9fc564325500a279856df50b5518",
+          "obs_3e1a95c49a3959a89c9efa5e4d9cabae",
+          "obs_978ba38b2c1656cbbf7037cae751682a",
+          "obs_a39dbffc8dcc5f1aae04da5f7d9430c8"
+        ],
+        "scope_type": "player_roster",
+        "season": 2005,
+        "team_canonical_ids": [
+          "team_380a5fdb9bd95d538f62cb3499a62ff2",
+          "team_ddfce989d65d559784e5b4f352c7cfcc"
+        ]
+      },
+      {
+        "canonical_id": "player_22d68aa374865007a15d334ecf11223b",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6df8e19b12525755a37d4c0db71a0752",
+          "obs_990cb3d84fef5b0582eb53a4e5fe6b92"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_c7bfd56d27775efca59596927d00fec6",
+          "team_c94e5349d0dc5760b8e814bf6b724e66"
+        ]
+      },
+      {
+        "canonical_id": "player_231cd9ef72685bbb811d1d106f5a7225",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6e2cc6af618b5f71be874972878e5c81",
+          "obs_8ab11fc067675c80bcc5b4c66dc6431b"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6c12ef73fcbf54aa9a54f045abb74073",
+          "team_ed621f809f0a5f8ab9fc7828222fe091"
+        ]
+      },
+      {
+        "canonical_id": "player_24036f75238b599b8cf2c35b750a8a9c",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_38b92d6ac6685cbb80f428079eb78c8c",
+          "obs_8b4292bd88215d678b90a54d9c0b83bc"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_1066c3adb9ed5bc99c5f368a74d2e383",
+          "team_8597c826e0dd5c0e83d80a80f445eb80"
+        ]
+      },
+      {
+        "canonical_id": "player_244799968fdc5e77a96e4f7f8444d512",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3c57e8b621a85dfa83c89078d03b8768",
+          "obs_69206c890ef35a0597f790df25801b31"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_47c43b49fd5e503db148627cd9e96290",
+          "team_ed621f809f0a5f8ab9fc7828222fe091"
+        ]
+      },
+      {
+        "canonical_id": "player_2644e7e9f9a2542e891399d9500c9817",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_90111ded2b755ebc9473a2f7bae7c190",
+          "obs_f47ed9b211b1515b86dfe57bde8592ff"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_2e297478f7435e4b86477041163bb701",
+          "team_380a5fdb9bd95d538f62cb3499a62ff2"
+        ]
+      },
+      {
+        "canonical_id": "player_27112492afbc56b685719e4d0c6f187b",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_9579f0c14faf50edb060f5968b7314e6",
+          "obs_e52b94e117a45b929f8d4147536d5bcc"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_077037b5eb3450c6ac5e9f4d0986d186",
+          "team_79e61df228905a92957def50f4667c95"
+        ]
+      },
+      {
+        "canonical_id": "player_2741defa44af530ba0cfee4fcad67e11",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_58398f402c425027a4d4465cbae3230d",
+          "obs_5870379eb6855d96ade503ab7040079b"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_5da3303809225bb787d0cee7a6accb4c",
+          "team_818f17b4044f540c963619976874ec3b"
+        ]
+      },
+      {
+        "canonical_id": "player_2753d6fb68005116879a9cf8ef781832",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_073d04ee49ed5261b0ddcd590166685d",
+          "obs_7e0b6db393ce514d9c61f3159826d5b1"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_45ce38c12d405f8aae01bdf9110825d1",
+          "team_61e8df19a2ae5646b0b11d0f9ab46c27"
+        ]
+      },
+      {
+        "canonical_id": "player_27f1bd2ec0745b528058b8bcf16ea3f2",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_41e8143b22cc5fd09c5436a33cc92980",
+          "obs_f796aa98f29a532585fc761bbe0a544c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_23dec6e315ec5263b8c46d8db8eeea80",
+          "team_2db452f417ba5577bbe320cd69238c0e"
+        ]
+      },
+      {
+        "canonical_id": "player_29fb2c4d5f4c569cb66521a9afa5dd6a",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_631d7268077c589cb316d47b7d4af900",
+          "obs_bb41efde287253b5b2d723f02a57830d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2018,
+        "team_canonical_ids": [
+          "team_5aee52a97c345432b59a8268e55853c7",
+          "team_d0aff8aacd805801ab3d3d8293f3b298"
+        ]
+      },
+      {
+        "canonical_id": "player_2c06d305a5fb5e3f806296dc2b6516d9",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4e8dc411b8c356f49d111e9382505f64",
+          "obs_b2069d8eb99b5fbead96cedc6a6b00b0"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_54dc12503472505e9334e25ce8c0de18",
+          "team_ab2c4e98b8795a5d85e393dd78fc5221"
+        ]
+      },
+      {
+        "canonical_id": "player_2ca9e62f070a51bfb71c5cccf1605e75",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_8cc433411c3a5af186a9ca091e712192",
+          "obs_8ff61b19fe4956c780b589c0b2ef7cba"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_47c43b49fd5e503db148627cd9e96290",
+          "team_a0acb1e0a0e353c69fe12d56a172ca77"
+        ]
+      },
+      {
+        "canonical_id": "player_2ce5b23a91145676abd4f1f147712295",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_61f69245a5335d1aaea174984998e0c9",
+          "obs_f27ce32387c956cf896bb8151d575576"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_45ce38c12d405f8aae01bdf9110825d1",
+          "team_a4cca84112405f6b9f6b92e27ec85b78"
+        ]
+      },
+      {
+        "canonical_id": "player_2f882945e50e577da580de1c3f81fd38",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_43cb17fe9c0d580d8bc7b609f85f87f7",
+          "obs_672502e89bf95feaaa57d8c330b7bc50"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_5c2ba17b6da85e9ca505d394bbe8a7c3",
+          "team_a0acb1e0a0e353c69fe12d56a172ca77"
+        ]
+      },
+      {
+        "canonical_id": "player_300778c58aaf554db4ad29831ee6ce01",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_8407c8870f98543aba4e2ae945564cc7",
+          "obs_acdd426a21465e82808a7650bcd55bb1"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_ae623fe704c754a2a36eb9b1bf978df6",
+          "team_e50fd5b04ea05cdfab1b3e76cf452f21"
+        ]
+      },
+      {
+        "canonical_id": "player_3193b0eae7435879ad642989fcb44041",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_35b97d3d9f3f52b2bba1ecfc414c885c",
+          "obs_98c462e70a6553c494b1508c11a6993b"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_38e3f3ec27ad54fdbe578ae6717f0fe0"
+        ]
+      },
+      {
+        "canonical_id": "player_31d1a145ab66522c8279a5cdc61297f0",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_30a748f3f30c53f085f4c92f4248f5c2",
+          "obs_60470f577e1d577986e141c3fa684475"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_ebe61b7ec1e05e6e8293890923866289",
+          "team_f99d5e07ad1c57cb9f51bf2790ef6b59"
+        ]
+      },
+      {
+        "canonical_id": "player_35b729e181975121aab7bfaa2ffe0625",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_37bac59cac625b6f83d01c96070626c6",
+          "obs_d156c66ec3295a2b95c40d605e820b16"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_a0acb1e0a0e353c69fe12d56a172ca77",
+          "team_fcc56004dcc058f393c1450c262798d6"
+        ]
+      },
+      {
+        "canonical_id": "player_35f55bdc01425e4fac00be6d9937414c",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_091a2cd8b0ad5f3cb63b455b827565e0",
+          "obs_b0a63a7223ed5069b1aa2debaf246fa3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2018,
+        "team_canonical_ids": [
+          "team_9f1828fb6a02570c98b1df2e83ed4459",
+          "team_f8932e8237535a47b37e3d41d3201510"
+        ]
+      },
+      {
+        "canonical_id": "player_37828df01a475151848596e931f76ce2",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7ac4772dc539568f8c9f5e1987f7d99f",
+          "obs_cddeafe5445b589cbafb71916b4529c9"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_c820778a615c50bf956a2639f47c95ee",
+          "team_ed70da553547512a8ad4be3cb1e9f8c4"
+        ]
+      },
+      {
+        "canonical_id": "player_37d6dcde074d5d05afed006f33771486",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_62a3e36c767d50b887fe73165dad83ce",
+          "obs_a28a46f462195aabb4ff6ea3074032e9"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_2a2c429aeff35976833e55f2386397de",
+          "team_cb79f7fe919a5fddbae8ab09c265b357"
+        ]
+      },
+      {
+        "canonical_id": "player_38156ae391c055aa9f1447f78cb28c9d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1d6809c8deeb5065914806fbbfe3367d",
+          "obs_889a578c30bb5310a85135a296e41d21"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_34c50b208b0d579fa8a60b7df041acbd",
+          "team_4f3bf4bacb655520ad0049a58f1112df"
+        ]
+      },
+      {
+        "canonical_id": "player_3930f670ad0f58d5b90d81a2a4a572fc",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_29d59cd95a9c5ed7b6fc83f0c92a6998",
+          "obs_8059d1464da659d1a06d958b7a30c297"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0a49a51cdbbf523a8234880b00b7bd31",
+          "team_8be2181a00bb5feba119eabc605eda0b"
+        ]
+      },
+      {
+        "canonical_id": "player_39d127b95de05cf2aedda4db7b398b78",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_87775ff7508350219660ba1c4b279be0",
+          "obs_e0d39dcfd5735de0952a3d0b2bbcf5f3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_b71cee1acc20511ba9f46c538305bcaa",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_3ab6c80a687f54c7aaa1b1c5b2d13c65",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_75f2efd7c2ee576f8ca7d47e0009e89d",
+          "obs_d4f8a136eb1c58fda516db9c54ec9164"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_164fa39e15ee59d1b50a447ce78d93e3",
+          "team_539395566d3c5db6994572d4f99aade4"
+        ]
+      },
+      {
+        "canonical_id": "player_3acd22bd1cfb59f7aa22ae20c9ef546f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_19ce112cea4c5509b299d1c153ac5b3a",
+          "obs_e19bdb75bb6352b28bac0e75c58c661e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_5aee52a97c345432b59a8268e55853c7",
+          "team_b71cee1acc20511ba9f46c538305bcaa"
+        ]
+      },
+      {
+        "canonical_id": "player_3add5aae937d5c00a14e23338b89073e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_96cfc56546285539a43466cfb8eaff95",
+          "obs_9ccc2401be285a759572cac03a4eb5d3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_2e297478f7435e4b86477041163bb701",
+          "team_8037927a83bd5bc1b4a48edf150c1feb"
+        ]
+      },
+      {
+        "canonical_id": "player_3b6bee6ea7635271928dc9f64f841944",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7b888503047652d085f2d4ea4528202e",
+          "obs_e93941fa13a3580aaed2596dc9a609c5",
+          "obs_ea90e1102f5551eda566cffb6c2a5c0f"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6a9f9cc2aa095ac99c5fd77a5aea9cd7",
+          "team_8597c826e0dd5c0e83d80a80f445eb80",
+          "team_92f03e70b2d65f4b982b952f3081f11e"
+        ]
+      },
+      {
+        "canonical_id": "player_3d69d121992b5424952d9298dd379248",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_27cd76aee19b54868fa618f472e003a1",
+          "obs_e25a57e77fd1589ea81bfce2b564052f"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_5ef4e6ce2dfe50a8b9221d11d6bc06fe",
+          "team_c820778a615c50bf956a2639f47c95ee"
+        ]
+      },
+      {
+        "canonical_id": "player_3dfd992daab159f0b59fe185f4f8e29f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_9ac7ce8551d350ea89acb531a8927195",
+          "obs_f8e97c6601fe5565a40974d5d95e8d3e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_ed70da553547512a8ad4be3cb1e9f8c4",
+          "team_f99d5e07ad1c57cb9f51bf2790ef6b59"
+        ]
+      },
+      {
+        "canonical_id": "player_3f90285bd2cb55ffab94d46dcf557f9d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_a64c00f985ec52a892f05083503d6dc0",
+          "obs_ddda2ac360515620a4f39abc2aa895ee"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_28d33e09278d5cd1b864aa01be1f850a",
+          "team_d4dec74b9c9b5c5695346a86de79f7de"
+        ]
+      },
+      {
+        "canonical_id": "player_3fb53f328fc558339de6860d20902746",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_b3e4b0d682b1535081b5743ef4b31c75",
+          "obs_e1199ad83be258cabf770c84d98c831b"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_f3d5a677a5385d78ac6b30fe72ab50c0"
+        ]
+      },
+      {
+        "canonical_id": "player_41c40995193e59fd94143cc56d0b8e15",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0862f80de9f05311a1e5d8da83c83507",
+          "obs_ae5bda89ff48515eb8550dd23412a81c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6f0233e02e2a57cf9cf2b7a51feb0503",
+          "team_d054aeb7e00e5a46bdd4815b6203acf9"
+        ]
+      },
+      {
+        "canonical_id": "player_4215bea314b45e87a30adea1297b582f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3a310cf177ac52b1b724d46ca8ae8bc1",
+          "obs_47edaf3dfa8d5d14b35969f9d1c47f5e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0c3a680fdfa657a4b6dce1d5b3ba411b",
+          "team_e4d86bffd8c05407b72c1534ebaaac7f"
+        ]
+      },
+      {
+        "canonical_id": "player_429a624879595b438f0872c3dbae1e55",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_64c867344a945c92be338fabc5100a9c",
+          "obs_c5634d72524a516688803e32e0c46217"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_7a230bf21ed655899be7a03eb5748587",
+          "team_f2031aa72225528c85999f4ca2cc89af"
+        ]
+      },
+      {
+        "canonical_id": "player_429ccb435431540796c4530d9c381a77",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_76050a1891435b96b947b4b6c4f4b1e1",
+          "obs_8d091b25455f51ca8b7aaa847e7c7845"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6a2487ed9a07575db3bdf88cdfc96c47",
+          "team_ab2c4e98b8795a5d85e393dd78fc5221"
+        ]
+      },
+      {
+        "canonical_id": "player_42b1083c782057d281d185a6da42c2f4",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_18521230abef5d59803f18358413a23b",
+          "obs_cae568d41b975d8e916d60a0f1410be5"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_44893d1d96bf53839c8c7ed2f89142d3",
+          "team_5c2ba17b6da85e9ca505d394bbe8a7c3"
+        ]
+      },
+      {
+        "canonical_id": "player_4777b16a353b50608fd28361e6652630",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_30017747b983558499868cf48d921e4b",
+          "obs_c864cf3098ca505a9203b77a36c71e75"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_23dec6e315ec5263b8c46d8db8eeea80",
+          "team_38e3f3ec27ad54fdbe578ae6717f0fe0"
+        ]
+      },
+      {
+        "canonical_id": "player_47a640924dea5bfa849eb1a3cb9abd4d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_243e97de5fda5637a188ab2f7a674b9c",
+          "obs_669d09c6a3515e07b565db4061b975b0",
+          "obs_6d4e540024ba5dd4a209e8f2e6fd33d9",
+          "obs_c8c93f724b175ffcabf7add3287a852c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2004,
+        "team_canonical_ids": [
+          "team_69c14054e0fd590cb203ff2045796fbb",
+          "team_fcc56004dcc058f393c1450c262798d6"
+        ]
+      },
+      {
+        "canonical_id": "player_47e115bcfffb58b38b612737e972e4bb",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5e50f6cb32b55454be7f15784a02def1",
+          "obs_62ff5af710ec565cb6091f68a63c428d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_cb79f7fe919a5fddbae8ab09c265b357",
+          "team_fa64b0d44ffd51cca599699351bdaac3"
+        ]
+      },
+      {
+        "canonical_id": "player_4b76305792a859499f157f8c33f4ffa7",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6858f073c3b6554aaa4ad84e89e44d8a",
+          "obs_b33b47488cef506c8d6addd5d7f0b119"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_b8a5048e8892567d951cbcede585d7ba",
+          "team_c7bfd56d27775efca59596927d00fec6"
+        ]
+      },
+      {
+        "canonical_id": "player_4cbc3e63ec3a5a86b5be76aa18baeb24",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3bfd09cac4185597a6c9d0baf6f25499",
+          "obs_a203c09cadfe52108f736c0ee67a7839"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_5900333e48af55bda4aa63f56b519bf0",
+          "team_5ef4e6ce2dfe50a8b9221d11d6bc06fe"
+        ]
+      },
+      {
+        "canonical_id": "player_4e861350bc915f0cacb7ab6da9365f83",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2e6cc5bb8c8b5d7d959f36fb7f8f7d5d",
+          "obs_8eec2ef61b4356ff8582f2da1bc18c1e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_7a230bf21ed655899be7a03eb5748587",
+          "team_9f1828fb6a02570c98b1df2e83ed4459"
+        ]
+      },
+      {
+        "canonical_id": "player_4e861350bc915f0cacb7ab6da9365f83",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_62eb389f18fb51c6a3c52966d0af71fc",
+          "obs_b99da9f611995f61b342c028317700be"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_7a230bf21ed655899be7a03eb5748587",
+          "team_9f1828fb6a02570c98b1df2e83ed4459"
+        ]
+      },
+      {
+        "canonical_id": "player_4ef46b377ada56c1992b306e61ecfb85",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_eecaacf7ae685cc3849542f747e3d3de",
+          "obs_ef8f0f73b29d5a1aa347815250f68327"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_ab2c4e98b8795a5d85e393dd78fc5221",
+          "team_dc449000a071505ba7fa5c8a8d33406a"
+        ]
+      },
+      {
+        "canonical_id": "player_4f8a943fc658544c9595bb8190e1f4c7",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7e900d0fd6ea51fd8d131de74ef78dca",
+          "obs_c36fc68424ce55d3aef9a61b571a080c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_53adbfd31f5e535cbe2954c411c4f20c",
+          "team_7a230bf21ed655899be7a03eb5748587"
+        ]
+      },
+      {
+        "canonical_id": "player_5103c5a859645491a6d0a1937c1b55fd",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_b22b34e5efad5687980a669ae1b46d78",
+          "obs_e7c4ebc7b0815b58ad44bac894612499"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_34c50b208b0d579fa8a60b7df041acbd",
+          "team_4ff43e2914195c4e8c1a6bd847e92809"
+        ]
+      },
+      {
+        "canonical_id": "player_521911d234625e5faca839244eb92072",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_074178c3cf2250a49bfe34e9e591e2eb",
+          "obs_42e9c4be18a05b9597b5a325c9ef2517"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_79e61df228905a92957def50f4667c95",
+          "team_8d983efbfdd45416b95584a17058078c"
+        ]
+      },
+      {
+        "canonical_id": "player_52808cccd29d584d82c23383b332c9ea",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_549c39dea82e5a028fa7402fa6eeb2f1",
+          "obs_7afa568e8d9d533d878f80cadd5ba05f"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_9c93c3e32b5555ffa7f42d8c761b09ef",
+          "team_fcc56004dcc058f393c1450c262798d6"
+        ]
+      },
+      {
+        "canonical_id": "player_532b842d08515203b874ab2becfe54bc",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1f46140a7cf35e91a155d553e09407b4",
+          "obs_c04caf9c100059e8a7f47bc3f0914f39"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_3d7c94809f6c543b9f5626adbc63a619"
+        ]
+      },
+      {
+        "canonical_id": "player_5883e578dc64519cb575655ca2ca46df",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_dbda3cb6a5f75854b7c7e382cbc409fb",
+          "obs_f7c9b76cbb435dc8a99a7d585dd7e54b"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_23dec6e315ec5263b8c46d8db8eeea80",
+          "team_3a02b1247a925fc989e4db6f5a71d791"
+        ]
+      },
+      {
+        "canonical_id": "player_59c998ced67856d4834971d7b8033cbd",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1eee74bf6ab95ec1b695e32abd3b5d60",
+          "obs_be3113bfde1e5fa491e1004e20780e95"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_63956061dce55809883b08fe9ecb6fe1",
+          "team_7eb264837b8a5cffa653952a6803899b"
+        ]
+      },
+      {
+        "canonical_id": "player_5a62c8123f3059e5bc0449f9f45fc367",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_b4e7858e435a5af7bfbf1c8bfe229cf2",
+          "obs_caa97f8edf2553f3804e20f5e9831b1a"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_3d7c94809f6c543b9f5626adbc63a619",
+          "team_47c43b49fd5e503db148627cd9e96290"
+        ]
+      },
+      {
+        "canonical_id": "player_5bd7b8e84b125fdda0f096689453c69a",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_63900616254b500a8e718d1207e7c7a9",
+          "obs_ac69066f7d3c5aaa8c47f71f12b6ec71"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_d054aeb7e00e5a46bdd4815b6203acf9",
+          "team_fbb298a830e45e1b83b043c5a2342f41"
+        ]
+      },
+      {
+        "canonical_id": "player_5cbf702883d351b6a423b406e2d7bc34",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_281c6f061e085da4a5be971b76db9d71",
+          "obs_9c477ffbbfa758e58179397751e78096"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_3b0b73fd125e52ef9de26da837ddef0b",
+          "team_79e61df228905a92957def50f4667c95"
+        ]
+      },
+      {
+        "canonical_id": "player_603e52d7797950f8858248cdec77883d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_c46d62cd6a8a520191f3bc950e6f4e90",
+          "obs_d8e76f6e54ec567c80e65ebce7f44c24"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0f4f9d8fa26c5b2d941c96ec48fec82a",
+          "team_3b0b73fd125e52ef9de26da837ddef0b"
+        ]
+      },
+      {
+        "canonical_id": "player_61567e65d7535fdab326ff62501199b8",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0dc0a1f2ead15248995fe11e9b13496d",
+          "obs_b8cbe4175e3359da8cda897a3dc0bad3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_2f67646e361059a5a2eceac3e190c383",
+          "team_c9035d4143e25bc8ab2caa4080e88087"
+        ]
+      },
+      {
+        "canonical_id": "player_61e4933eb864518e9587d7b0f53887fd",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_77b98170f22b537ea2fb1ef9c46a7a89",
+          "obs_ce973c321a875c2e870af6db198c063a"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_1b934873dcc55658b2c0fc877a2eaa82",
+          "team_e1f51b8174f3584a984722c1502fcd70"
+        ]
+      },
+      {
+        "canonical_id": "player_6325c685916d548cbd6dcd84a7938a00",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_e7889a494e8358a2b897dcf56f0e8322",
+          "obs_fd19c50d247c5717b33b6998e6c4fa92"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_12085866af875238aa331228f60e3932",
+          "team_5bf4de3c42615140b2e90550ee31eb4c"
+        ]
+      },
+      {
+        "canonical_id": "player_6491ce83466e5240b9708c31f923890c",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_57e6f4d1dbeb5185bcda9edcc0132df0",
+          "obs_eb90621ad44157bbba6cfaaedacccc70"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_34c50b208b0d579fa8a60b7df041acbd",
+          "team_e1f51b8174f3584a984722c1502fcd70"
+        ]
+      },
+      {
+        "canonical_id": "player_6492d4cf1090593e9a10b0723fa08c63",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_49c48ae1861a54bd8895bf4bacf01e4d",
+          "obs_c42668331c1154719a3929ada1c0d7c9"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_61e8df19a2ae5646b0b11d0f9ab46c27",
+          "team_8037927a83bd5bc1b4a48edf150c1feb"
+        ]
+      },
+      {
+        "canonical_id": "player_66a7f69c45ab5697b8226992959897ec",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0b7d90ce94b65ba1886b98cb32ea6ae9",
+          "obs_aca9c99cdd835e72b3b4c10be8300531"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_525637a57fad51ff92a355624d2d30ea",
+          "team_818f17b4044f540c963619976874ec3b"
+        ]
+      },
+      {
+        "canonical_id": "player_67d20ad0fac45d5f9d92d9b1adfb390d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_29e2abb54d725c9f9bf567d6bceece03",
+          "obs_bd33d065c12c529b85e2d5837d2eaa69"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_818f17b4044f540c963619976874ec3b",
+          "team_c94e5349d0dc5760b8e814bf6b724e66"
+        ]
+      },
+      {
+        "canonical_id": "player_69b5c9a801c35190bdb96a7479a82855",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1df6b29319d95c11813db6b184d555fb",
+          "obs_3abf4386d02d559da8e2a29ca718558d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_014bc1dd435c5a5ab2a2eb7ffaeded7b",
+          "team_fead18db4dab535a8f83aa9198d2010f"
+        ]
+      },
+      {
+        "canonical_id": "player_6adb5c05fea654d982fbbf0ed9a13f30",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2dab9f9e7a555b0fb4015a024f55f3ca",
+          "obs_b6583c5b78935cf58bfa277848238687"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_380a5fdb9bd95d538f62cb3499a62ff2",
+          "team_f8932e8237535a47b37e3d41d3201510"
+        ]
+      },
+      {
+        "canonical_id": "player_6b77529828935798b8c7fc501ae7d113",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0e318c786e0e5557bf6517f8422e80cb",
+          "obs_0ffe5306730a53828f782fff98e3b8a4"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_37f96b017f4d5ba89985618c987402da",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_6c5e8ffb6e8e54d385124c32000162a8",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_ad3ec51ab020598c9400ba314de618af",
+          "obs_c125ce96438d51d5b3f8edbeab1df526"
+        ],
+        "scope_type": "player_roster",
+        "season": 2015,
+        "team_canonical_ids": [
+          "team_6a2487ed9a07575db3bdf88cdfc96c47",
+          "team_7d1cc55d825a5dddaf261ae093332f88"
+        ]
+      },
+      {
+        "canonical_id": "player_6c5e8ffb6e8e54d385124c32000162a8",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6d6ad04a685851538c729645ddacb732",
+          "obs_fb8f57b535385b6c94f888d0dfd4a2bb"
+        ],
+        "scope_type": "player_roster",
+        "season": 2016,
+        "team_canonical_ids": [
+          "team_6a2487ed9a07575db3bdf88cdfc96c47",
+          "team_7d1cc55d825a5dddaf261ae093332f88"
+        ]
+      },
+      {
+        "canonical_id": "player_6c5e8ffb6e8e54d385124c32000162a8",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1fd7afbd31d95bfd8b296e9eae43ae03",
+          "obs_f77c968e5930570e9f7fa0f6a30f2f71"
+        ],
+        "scope_type": "player_roster",
+        "season": 2017,
+        "team_canonical_ids": [
+          "team_6a2487ed9a07575db3bdf88cdfc96c47",
+          "team_7d1cc55d825a5dddaf261ae093332f88"
+        ]
+      },
+      {
+        "canonical_id": "player_6c7a23d04b805602bf26c98b90a7c43b",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_50a24763cb905c6e8df9147a641f1229",
+          "obs_6a49044bce70554d8f308905c27c6030"
+        ],
+        "scope_type": "player_roster",
+        "season": 2017,
+        "team_canonical_ids": [
+          "team_63956061dce55809883b08fe9ecb6fe1",
+          "team_dc449000a071505ba7fa5c8a8d33406a"
+        ]
+      },
+      {
+        "canonical_id": "player_6e3fd18eef6b58648cce3069892216ec",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_55c28c078de15be9a5db61f5a7639041",
+          "obs_b7cf2078afa85b24a2ea34724e27f508"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6bc621fc07ad57f9ba818c13b95e3df9",
+          "team_f5c6ea8086a1576b80ddb0e6c1a46820"
+        ]
+      },
+      {
+        "canonical_id": "player_6ec9beabca435df583fec97f7ba377d5",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_105b0e6b9c9f50f3a89e7bb117985850",
+          "obs_9653aa2bf62d505d9278e2f943fa3a27"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_2f67646e361059a5a2eceac3e190c383",
+          "team_e4d86bffd8c05407b72c1534ebaaac7f"
+        ]
+      },
+      {
+        "canonical_id": "player_7051fbfe018a50129b44edf98682d691",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_98ac6530c9015643b1bdb5b2a2e99110",
+          "obs_e09a67c4424d5dfc8831fc4aff82e4bf"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_09c55a4f2fcb544c9314ec481053df56",
+          "team_2f67646e361059a5a2eceac3e190c383"
+        ]
+      },
+      {
+        "canonical_id": "player_717ac535f7855ace9a490d80858261ee",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_08ad220009e359b2b5bbda04f400e2bf",
+          "obs_145cca1a3ed65fb192806914362cac3e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_09c55a4f2fcb544c9314ec481053df56",
+          "team_d4dec74b9c9b5c5695346a86de79f7de"
+        ]
+      },
+      {
+        "canonical_id": "player_73c0bffba5825b9dbb4800815ee6c36a",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_72f2db8323a55919a6e1128161728ebf",
+          "obs_952e342f00d458ff84955f5ebe617de6"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_7a230bf21ed655899be7a03eb5748587",
+          "team_ed70da553547512a8ad4be3cb1e9f8c4"
+        ]
+      },
+      {
+        "canonical_id": "player_77941192e47d5c7aa964f29381e4bb70",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1557838145f95618a6c8392b29a8aefb",
+          "obs_6615632969535c71b5664b38e3649519"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_47c43b49fd5e503db148627cd9e96290",
+          "team_f2031aa72225528c85999f4ca2cc89af"
+        ]
+      },
+      {
+        "canonical_id": "player_7b6019228c115aa79d4b70bb82c4d299",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_61f89cd50f205f04875fb24827057473",
+          "obs_c46ada7c2b345c899a8f7b22e1801200"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_d4dec74b9c9b5c5695346a86de79f7de",
+          "team_f99d5e07ad1c57cb9f51bf2790ef6b59"
+        ]
+      },
+      {
+        "canonical_id": "player_7c1ee2dc64f458f9921d4cef574b2a17",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_16be9db2f5e356459170af94016a3ac4",
+          "obs_f5da2e54e53e56a9b4d35ecd3300e2e2"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0c3a680fdfa657a4b6dce1d5b3ba411b",
+          "team_3b55fecba50f599dae0d69413503ed42"
+        ]
+      },
+      {
+        "canonical_id": "player_7e0f3d4db0175af791e7c5eac6434c57",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1c086ff9d5a15dc8b2852b2f260523c8",
+          "obs_8759f8f938db5d88af714d644b364826"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_c820778a615c50bf956a2639f47c95ee",
+          "team_d0aff8aacd805801ab3d3d8293f3b298"
+        ]
+      },
+      {
+        "canonical_id": "player_7e8403afbb1d53329e546799f6a26385",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3da6e1a5b01458d78de73a6ac6c7ab85",
+          "obs_bd255d601d005377a75fe8c987580a9c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_1898b5a734be5bcc90172e4a4766c054",
+          "team_6f0233e02e2a57cf9cf2b7a51feb0503"
+        ]
+      },
+      {
+        "canonical_id": "player_7eba94a38023527aad686ef68c1ee30a",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_c7eccbd4885952998198cc22d46101bd",
+          "obs_cc620e791dac53ee98055b7fe1a79dab"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_61e8df19a2ae5646b0b11d0f9ab46c27",
+          "team_dc449000a071505ba7fa5c8a8d33406a"
+        ]
+      },
+      {
+        "canonical_id": "player_7f8d482585685d8d89c4bd014fc17c19",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5890a7d1fbdb5c9a87401b329cc3488d",
+          "obs_e9e425ad89595387bddd4a15cb26de7c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0a49a51cdbbf523a8234880b00b7bd31",
+          "team_7a230bf21ed655899be7a03eb5748587"
+        ]
+      },
+      {
+        "canonical_id": "player_807cbc64edd45a4aa4297f1f05b452a1",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6cf60f69c43c5bd18189cbf730104e24",
+          "obs_9f5386d730f2572a8dd767db9b8d8195"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_380a5fdb9bd95d538f62cb3499a62ff2",
+          "team_7a230bf21ed655899be7a03eb5748587"
+        ]
+      },
+      {
+        "canonical_id": "player_8082521db5e35b1591a26702046e2a39",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_778842fb85bf59f6af71df736d6a5c36",
+          "obs_b0795c267b865cc3aedaf2b9962ef497"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_164fa39e15ee59d1b50a447ce78d93e3",
+          "team_45ce38c12d405f8aae01bdf9110825d1"
+        ]
+      },
+      {
+        "canonical_id": "player_8102584617e75cad9d91405199e6e284",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_712674621ffa52339ab32a15a5fec286",
+          "obs_92709837662f5095b66307a3c476cfee"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_1b934873dcc55658b2c0fc877a2eaa82",
+          "team_e1f51b8174f3584a984722c1502fcd70"
+        ]
+      },
+      {
+        "canonical_id": "player_829ce6acbbd550e98850976c8f2e8f73",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_77994bef7f0c5180884d78cbc9a13e6c",
+          "obs_c0456c7135295b21bc192cd9b8085ad0"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_09c55a4f2fcb544c9314ec481053df56",
+          "team_23dec6e315ec5263b8c46d8db8eeea80"
+        ]
+      },
+      {
+        "canonical_id": "player_82c9d4e00c6e55478d2650b9e3478049",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_340c2c06a2ea59caad693ecb4a765418",
+          "obs_a6618e3e850552ea8e525ac8d2083796"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_a0acb1e0a0e353c69fe12d56a172ca77",
+          "team_fcc56004dcc058f393c1450c262798d6"
+        ]
+      },
+      {
+        "canonical_id": "player_8301e44e091a5d1ebfad5a78ef064885",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5d5e089bfb5d505ab605456b61b801c0",
+          "obs_b030a2edfbed5fd791cacb06e5bd7fc3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6de07326d6065f21b6f5b669c4678f17",
+          "team_818f17b4044f540c963619976874ec3b"
+        ]
+      },
+      {
+        "canonical_id": "player_838230fa21f658dabb25446ca0e0eca7",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_a7e9278b9c4350b09dc77368d68074db",
+          "obs_d9d8718dc5f556e1a813e45b63f4daba"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_60099942fb75528ca4cf4491ca3b555b",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_83e55aae2f8653bba40dc7b8e718ed2f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2819764aa6f1540db570fcf82f6ea1cb",
+          "obs_5a5f5b69e8a55b62ae94cb1a6e0d7e72"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_9a09ea1ac93d56a5b550d813cca3a47c",
+          "team_d054aeb7e00e5a46bdd4815b6203acf9"
+        ]
+      },
+      {
+        "canonical_id": "player_86f1d83c08a65df197658bb5c66ca243",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1f74bcfb184857629ee36e95db38edd1",
+          "obs_d2313fecd0ee51a89ca2975f5d111872"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_1898b5a734be5bcc90172e4a4766c054",
+          "team_dc449000a071505ba7fa5c8a8d33406a"
+        ]
+      },
+      {
+        "canonical_id": "player_892a764c8f255c9ba59ec33f0e7084f0",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_ae4f11bdceb554d69528563adfd29b69",
+          "obs_cd7abb1d06495dd0972471a9d6fd876d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_92f03e70b2d65f4b982b952f3081f11e",
+          "team_d0aff8aacd805801ab3d3d8293f3b298"
+        ]
+      },
+      {
+        "canonical_id": "player_8a1e7e36b1975e7a89a158e6e887c667",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_20d9c7cfd3c454a8b5316a2d8670bc97",
+          "obs_ff9ee4d15ae45259b37c54d7a581824c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_014bc1dd435c5a5ab2a2eb7ffaeded7b",
+          "team_fcc56004dcc058f393c1450c262798d6"
+        ]
+      },
+      {
+        "canonical_id": "player_8abd9b11d2aa5ec989696e42e0b6226d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_28deb93c0d52559eb48f4b05e7dae444",
+          "obs_c323096e0b285ce7a55078d97f601619"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_44893d1d96bf53839c8c7ed2f89142d3",
+          "team_5aee52a97c345432b59a8268e55853c7"
+        ]
+      },
+      {
+        "canonical_id": "player_8cdb27aceada55768391c5b8e26f1e5e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6e0132c560205b7f94c4c432956061b5",
+          "obs_dba89e2edcd35a13972e886c68f01056"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_094a7146f3525f63bf65b42a429972bc",
+          "team_5bf4de3c42615140b2e90550ee31eb4c"
+        ]
+      },
+      {
+        "canonical_id": "player_8d290c692fc65298a7b1be55a0a461be",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4fc6d771466e5a2aa267daff3f344e32",
+          "obs_66c5b06ce94e5296b515a0ebd5864a2e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_1898b5a734be5bcc90172e4a4766c054",
+          "team_7c48f48bc9e656b2a97b8fa38c296b52"
+        ]
+      },
+      {
+        "canonical_id": "player_8ef555db026a5120b681a94d7474a29c",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_150a12f9c37b5e75b0931299358ad0d4",
+          "obs_f8120ef054be58038fa54ca114be7936"
+        ],
+        "scope_type": "player_roster",
+        "season": 2024,
+        "team_canonical_ids": [
+          "team_e4d86bffd8c05407b72c1534ebaaac7f",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_8f3cab11ee2f50af9752ca47f39e5fd2",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_207e4083beae567ca5c61e27ef530ecb",
+          "obs_77c8d0d4742c57e2aae19dcb00554698"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_23dec6e315ec5263b8c46d8db8eeea80",
+          "team_44893d1d96bf53839c8c7ed2f89142d3"
+        ]
+      },
+      {
+        "canonical_id": "player_9106ea543078526abad19cb74eeb9556",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_61705aabfb9e5dbf88376e99f17d068c",
+          "obs_c3ea1bb8599c5187820763663df5c4a2"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_014bc1dd435c5a5ab2a2eb7ffaeded7b",
+          "team_341dfcd8e3c95086b8a647c87a3b68f2"
+        ]
+      },
+      {
+        "canonical_id": "player_91d023cbcc175a11b892328b83cbe6c3",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_05eb102088e759dd8a829ad9710fe628",
+          "obs_d782e9a326d75253b6cf4bc27fe67d8d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_4ff43e2914195c4e8c1a6bd847e92809",
+          "team_ae973288d2fc54fd9b1f57aea6036d64"
+        ]
+      },
+      {
+        "canonical_id": "player_93362e43ba7b55f0a8fcf34ae35e4c44",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_656bb5b134435d5cbd282a213275fc04",
+          "obs_8eb25c9a15b65b88ae560260d34cd53f"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0c3a680fdfa657a4b6dce1d5b3ba411b",
+          "team_3b55fecba50f599dae0d69413503ed42"
+        ]
+      },
+      {
+        "canonical_id": "player_950403bb4bde527c971edf476e0a8fb7",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5be98d2202795624af72b52d82440871",
+          "obs_d345fc7c6e4751fcad674f53e51500d4"
+        ],
+        "scope_type": "player_roster",
+        "season": 2017,
+        "team_canonical_ids": [
+          "team_7c89d8ead4805b77830acf184984f61e",
+          "team_e8838435e78b5912af8cd18a5681bfa9"
+        ]
+      },
+      {
+        "canonical_id": "player_954417a72a82500bb9caeb97960f80f8",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_b5e055daec03551f8ca172d3bcbf02bb",
+          "obs_c4f0b9c3db055d07bc844a4d14231e4f"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_077037b5eb3450c6ac5e9f4d0986d186",
+          "team_79e61df228905a92957def50f4667c95"
+        ]
+      },
+      {
+        "canonical_id": "player_95ff09cf07df5ec4b10f4b997ea4f0a4",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7271629509ea5df198b8bcffaf47eb9f",
+          "obs_9190de69d3f3514b93ce0ccab6953f6e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0e9c98a6b19252a7a3a996bd9f40c5f8",
+          "team_e8838435e78b5912af8cd18a5681bfa9"
+        ]
+      },
+      {
+        "canonical_id": "player_9679431ee6cb5f7b802c976dde22a03e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_25a27ccf4ec35fe6823eb61bcef85874",
+          "obs_5e5c3dc39c5c5c57bce3820a38559212"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_6de07326d6065f21b6f5b669c4678f17",
+          "team_7a230bf21ed655899be7a03eb5748587"
+        ]
+      },
+      {
+        "canonical_id": "player_96e6730946515e1b84cef4ff141d996e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_467a5161767c5436900b1188ae73ab58",
+          "obs_fba47fe6ad1e5f1682c1334f46f0bf2d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_3b55fecba50f599dae0d69413503ed42",
+          "team_ab2c4e98b8795a5d85e393dd78fc5221"
+        ]
+      },
+      {
+        "canonical_id": "player_980a010c3ed055fd86cce3e0e43700aa",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_49a1d8032ff358f8b937e067f1b30b0c",
+          "obs_5d72ffc194495792a6953562b3fee7ee"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_e7a6073a36e55d1e87c2131487274717",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_981a23dbb02753efbbd00d562794e84e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_c201836b4465514eb4360e4447a65df5",
+          "obs_e6900157bb5652bea2391f8e9f32d6fc"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_7a230bf21ed655899be7a03eb5748587",
+          "team_9f1828fb6a02570c98b1df2e83ed4459"
+        ]
+      },
+      {
+        "canonical_id": "player_9872f369690353cc874202fdeb777951",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_8887ff52640c5794ae32669fbe613c29",
+          "obs_a0c0541014ae534fa5d2c309b29eacda",
+          "obs_d2c0f289b9ee50f4b56f79e7083156b6"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6bc621fc07ad57f9ba818c13b95e3df9",
+          "team_7a230bf21ed655899be7a03eb5748587",
+          "team_96b66ae4e6af5620a3c14ba51d0cbb75"
+        ]
+      },
+      {
+        "canonical_id": "player_99e24f7db28f597f8d49502fb63ffe66",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_18851cbff3695ced961bb2c8ab085a12",
+          "obs_192a29424172572bbb102f7cf9e15cb8"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_341dfcd8e3c95086b8a647c87a3b68f2",
+          "team_c7bfd56d27775efca59596927d00fec6"
+        ]
+      },
+      {
+        "canonical_id": "player_9b2c54e79fe954eca4db2150801c14c4",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3fb959f4a3ab57dfbdb8d450b63c1ffc",
+          "obs_a3f0ca873b51560b8d77c6738e4db29c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_47c43b49fd5e503db148627cd9e96290",
+          "team_8037927a83bd5bc1b4a48edf150c1feb"
+        ]
+      },
+      {
+        "canonical_id": "player_9c818ad1612b5720b8f7dbb6880542ec",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_99006fdd2b605456bf8da4bd415cbd8a",
+          "obs_cde8261eb5ad53b790b0e475de1fd550"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_34c50b208b0d579fa8a60b7df041acbd",
+          "team_cb79f7fe919a5fddbae8ab09c265b357"
+        ]
+      },
+      {
+        "canonical_id": "player_9d86637bd0bf5357ab946993b0a711a2",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_330f61af374b55acb0a7c26bcda368d8",
+          "obs_93dcb815495a57d094ced72a814a72e9"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_6f880baeef695dfa8db91b26211d197b",
+          "team_ae623fe704c754a2a36eb9b1bf978df6"
+        ]
+      },
+      {
+        "canonical_id": "player_9eecb48cd35e5820a768791af988f29f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_52bcc62a039756078cf3ef27ffd701e7",
+          "obs_a6719efacb855e238d1ffdf34b219141"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_61e8df19a2ae5646b0b11d0f9ab46c27",
+          "team_d9a34410248c53d89fd653e42963bdac"
+        ]
+      },
+      {
+        "canonical_id": "player_a15d71b0f4405dd28dd5609e082168c0",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_42f24389b44751829c60bb18e9153378",
+          "obs_d8793e1afea65405accbb4062efb1598"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_094a7146f3525f63bf65b42a429972bc",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_a1bc6881ba0d55f7848370d70aa3f6fb",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_b2fd5a40c24c551dad2342397c857bf2",
+          "obs_d15629509f2358a2b9ff4d99ffad5153"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_1898b5a734be5bcc90172e4a4766c054",
+          "team_7a230bf21ed655899be7a03eb5748587"
+        ]
+      },
+      {
+        "canonical_id": "player_a1bc6881ba0d55f7848370d70aa3f6fb",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_bb8553c85b9d5a25a1be45aa0d7ea84a",
+          "obs_ec4754c10a3b514a8eb28d66aa6fd1a6"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_1898b5a734be5bcc90172e4a4766c054",
+          "team_7a230bf21ed655899be7a03eb5748587"
+        ]
+      },
+      {
+        "canonical_id": "player_a274b20232a65760afeeb04f8928763c",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0d9da57130cb51339961a3b4ee31fd21",
+          "obs_4ecf14e5a25554069d07078e092d95ad"
+        ],
+        "scope_type": "player_roster",
+        "season": 2018,
+        "team_canonical_ids": [
+          "team_2966c00ea8b15e65bb4f35c70fff511d",
+          "team_6de07326d6065f21b6f5b669c4678f17"
+        ]
+      },
+      {
+        "canonical_id": "player_a37957ea13be51d3bf9299cc15369c91",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_837a5e982c71503abb16175f94a7fb38",
+          "obs_b16c71e55a8752548cc9e9f15cd8ee98"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_4ff43e2914195c4e8c1a6bd847e92809",
+          "team_ae973288d2fc54fd9b1f57aea6036d64"
+        ]
+      },
+      {
+        "canonical_id": "player_a4e0f7d7624e5ab7ac28c32ca5e40f0b",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_844bbef3b6275488b0a82854eaaac6d6",
+          "obs_ff9794ec527f5f13bef4a11d4994ba83"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_34c50b208b0d579fa8a60b7df041acbd",
+          "team_61e8df19a2ae5646b0b11d0f9ab46c27"
+        ]
+      },
+      {
+        "canonical_id": "player_a551e16cc5b458279a7e0c42a6fabfe5",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_94f3e70fb9bc5339ab649933c2ea09ee",
+          "obs_bf9f207a4ceb5744be8c3bb105c61194"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_12085866af875238aa331228f60e3932",
+          "team_61e8df19a2ae5646b0b11d0f9ab46c27"
+        ]
+      },
+      {
+        "canonical_id": "player_a9a75177ab00509da2b119568124884f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_71c43f7ab5295559b0fabfd308e7ed1e",
+          "obs_bb815e5f13f450cb965078dc98cd270e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_077037b5eb3450c6ac5e9f4d0986d186",
+          "team_3d49dc7e7a0e566b8e10f3182ce68fc3"
+        ]
+      },
+      {
+        "canonical_id": "player_a9cd63a893005f3c96c500874a47647f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_458c04b937c851408e1dec019364fe97",
+          "obs_67fb1b6e9f3f54728fef7b9d8cb24cc5"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_53adbfd31f5e535cbe2954c411c4f20c",
+          "team_ed621f809f0a5f8ab9fc7828222fe091"
+        ]
+      },
+      {
+        "canonical_id": "player_a9cd63a893005f3c96c500874a47647f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1c7be48e7a1e57328b9873cba4adba11",
+          "obs_2a2020b53fc65eb9b5e1dddbbb2a8561"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_53adbfd31f5e535cbe2954c411c4f20c",
+          "team_ed621f809f0a5f8ab9fc7828222fe091"
+        ]
+      },
+      {
+        "canonical_id": "player_add6e873bcc25fe2be7637e0445939c9",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_01bf4c3a0dc2588abce45ab0359bf581",
+          "obs_2f5516f3a3ba5808aec230406b8aa552"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6f0233e02e2a57cf9cf2b7a51feb0503",
+          "team_818f17b4044f540c963619976874ec3b"
+        ]
+      },
+      {
+        "canonical_id": "player_b1226acf09e657b5aa40b264bf4836f3",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_522903c9e0fc5b2fa6d84054e27d23e1",
+          "obs_e655e8121aee593697dd4c880e0503a3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2012,
+        "team_canonical_ids": [
+          "team_ae623fe704c754a2a36eb9b1bf978df6",
+          "team_c7bfd56d27775efca59596927d00fec6"
+        ]
+      },
+      {
+        "canonical_id": "player_b1226acf09e657b5aa40b264bf4836f3",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0f7c0962404f559b8283077e2b2259d8",
+          "obs_d20af087b5d75e17b1b755410804fca1"
+        ],
+        "scope_type": "player_roster",
+        "season": 2013,
+        "team_canonical_ids": [
+          "team_ae623fe704c754a2a36eb9b1bf978df6",
+          "team_c7bfd56d27775efca59596927d00fec6"
+        ]
+      },
+      {
+        "canonical_id": "player_b182f8f758775bf8b16d8598fceeab6d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_58d0f24fd2cb5508a6921441965dd72d",
+          "obs_7358e8c7e2ae54ff81ffa9c16712d921"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_0f4f9d8fa26c5b2d941c96ec48fec82a",
+          "team_d9a34410248c53d89fd653e42963bdac"
+        ]
+      },
+      {
+        "canonical_id": "player_b2bee288219358faaab83c8375be4962",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6204b5857f7b5080b8fe88bfce419f2e",
+          "obs_8fb55d5463d2501e9bede7251699d3d2"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_5ef4e6ce2dfe50a8b9221d11d6bc06fe",
+          "team_9c93c3e32b5555ffa7f42d8c761b09ef"
+        ]
+      },
+      {
+        "canonical_id": "player_b2e21614613f53839097a259e4a6c3cf",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_a1c1d5e4b6f055c2814c185dd4384130",
+          "obs_d03415b8aa605c58879f890f84a4ea86"
+        ],
+        "scope_type": "player_roster",
+        "season": 2016,
+        "team_canonical_ids": [
+          "team_525637a57fad51ff92a355624d2d30ea",
+          "team_63956061dce55809883b08fe9ecb6fe1"
+        ]
+      },
+      {
+        "canonical_id": "player_b714440c1b105bf5a9b3f7a654722e15",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_04ac9cd150a85917bf3f8aaa06a5470d",
+          "obs_b30392fd0c195af1bd0c8928ec82e47e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_61e8df19a2ae5646b0b11d0f9ab46c27",
+          "team_cb79f7fe919a5fddbae8ab09c265b357"
+        ]
+      },
+      {
+        "canonical_id": "player_b83f377866b552229adf6e9a5d1d28f0",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_24070dadf0e2508c815636fca8a8282d",
+          "obs_3d0de1bf0b94556b90fa8ed1e415da5c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2016,
+        "team_canonical_ids": [
+          "team_164fa39e15ee59d1b50a447ce78d93e3",
+          "team_818f17b4044f540c963619976874ec3b"
+        ]
+      },
+      {
+        "canonical_id": "player_b8b15e66f2ba5880a72e9adcdf3cbe8f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7fdee44ecc2558a79475f998428f5c88",
+          "obs_ffd6e53670d0544185d0bc833366dc40"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0c3a680fdfa657a4b6dce1d5b3ba411b",
+          "team_c94e5349d0dc5760b8e814bf6b724e66"
+        ]
+      },
+      {
+        "canonical_id": "player_b8be2090fe3b5c55b9545a6d9ccf4229",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_72af53b1d6515ea09f4d3cd1de49ae78",
+          "obs_b06ee2310e735778884b5cb163e1f900"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_60099942fb75528ca4cf4491ca3b555b",
+          "team_e9d8e83601a15fc7b7038a35eed76944"
+        ]
+      },
+      {
+        "canonical_id": "player_b9a5bd0884835c7c8f0971cecdce9748",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_19e1350d01e255e4beaf09b3eff84d31",
+          "obs_fd03bcfdb8ba55c29e06ab270f645a10"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_dc449000a071505ba7fa5c8a8d33406a",
+          "team_fbb298a830e45e1b83b043c5a2342f41"
+        ]
+      },
+      {
+        "canonical_id": "player_bd3893f5d4815075a7bb542488f49405",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_d158cb9c116f561ebcf9a320cc8f9570",
+          "obs_f8dfd41ee9b9566ca45d2d0806df0eb7"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_96b66ae4e6af5620a3c14ba51d0cbb75",
+          "team_ebe61b7ec1e05e6e8293890923866289"
+        ]
+      },
+      {
+        "canonical_id": "player_be1cc9f6da8357f9959405142de8c208",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_79b22174ab0b5669aa75f1e955bc6ff7",
+          "obs_7ba604927da65d2995d1f1aec91f539c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2015,
+        "team_canonical_ids": [
+          "team_8c775e775d6752e7be8a59d456a2a94c",
+          "team_ebe61b7ec1e05e6e8293890923866289"
+        ]
+      },
+      {
+        "canonical_id": "player_be1cc9f6da8357f9959405142de8c208",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_43869a5187a55e398758ead7f00353cd",
+          "obs_83f15684fcd65c5fb9f88eb3f41d21c4"
+        ],
+        "scope_type": "player_roster",
+        "season": 2016,
+        "team_canonical_ids": [
+          "team_8c775e775d6752e7be8a59d456a2a94c",
+          "team_ebe61b7ec1e05e6e8293890923866289"
+        ]
+      },
+      {
+        "canonical_id": "player_be817b18248c51ff896f7e3e7e71ac24",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_994f6aa157bf54fd891da9d8ce9c44be",
+          "obs_a1ce8e77d5ab526d94f1fed8ffb1901a"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_d0aff8aacd805801ab3d3d8293f3b298",
+          "team_e1f51b8174f3584a984722c1502fcd70"
+        ]
+      },
+      {
+        "canonical_id": "player_c0cc195f90d755268542cbfc125e2ca3",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_9a03cec0ec625297af45ef2c4b1a2f1b",
+          "obs_d5d700d7356a54c7ad13875870c24a24"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_23dec6e315ec5263b8c46d8db8eeea80",
+          "team_a4cca84112405f6b9f6b92e27ec85b78"
+        ]
+      },
+      {
+        "canonical_id": "player_c0efed6008d9534285d4ef291c3a3715",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_00fd7d79570f5b73b6d6d4424e897223",
+          "obs_7043de21a87d510bbf870a92a49ce836"
+        ],
+        "scope_type": "player_roster",
+        "season": 2014,
+        "team_canonical_ids": [
+          "team_26198efed0e45153935e1932a5dfdd74",
+          "team_8d983efbfdd45416b95584a17058078c"
+        ]
+      },
+      {
+        "canonical_id": "player_c24d31718a535d29b1827f45efe90c39",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5d72e433598a5309b595f2bec01699c9",
+          "obs_c691b25ef0095601abe1c4714468e212"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_ed70da553547512a8ad4be3cb1e9f8c4",
+          "team_f99d5e07ad1c57cb9f51bf2790ef6b59"
+        ]
+      },
+      {
+        "canonical_id": "player_c37df17470915199a74ed0950e3f424d",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2d8bd22b21d5562fb634891d1e8cb42b",
+          "obs_7f9d7b676cbe5c658117b4bbcb632b77"
+        ],
+        "scope_type": "player_roster",
+        "season": 2024,
+        "team_canonical_ids": [
+          "team_79e61df228905a92957def50f4667c95",
+          "team_ae973288d2fc54fd9b1f57aea6036d64"
+        ]
+      },
+      {
+        "canonical_id": "player_c4fb9d8ad0555abc92b142f45dcc5a78",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4018345c02215fe28c02aeb95595a2d6",
+          "obs_57b7d674f5b5562ca97081a53cfade06"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_34c50b208b0d579fa8a60b7df041acbd",
+          "team_e50fd5b04ea05cdfab1b3e76cf452f21"
+        ]
+      },
+      {
+        "canonical_id": "player_c6c246f2af045581b2e1c669d319f808",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_73f637437c8358538823e3c9678a8c41",
+          "obs_8710afaf55ac52fbbb922e19f7b9882a"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_69c14054e0fd590cb203ff2045796fbb"
+        ]
+      },
+      {
+        "canonical_id": "player_c998e58f883a5d07ab5be13bc0355ea2",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7c158bfe2a6f5d4885560cd41cfcc248",
+          "obs_952ce7b604875a5ca3538b30c83b39e7"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_bc641446c25b541f9047070f22e8bd01",
+          "team_f8932e8237535a47b37e3d41d3201510"
+        ]
+      },
+      {
+        "canonical_id": "player_ca0d3911cf64564eb8253ca1c0cca794",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1d5c633162d157d5b9610d9988dff89a",
+          "obs_fdf366cb885e5e42906d78448ad5e5f5"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0e68c4598b6550298d193121095a64cf",
+          "team_b8a5048e8892567d951cbcede585d7ba"
+        ]
+      },
+      {
+        "canonical_id": "player_ccd5bb0952f357d79e3f77d783a3b1d4",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_70376a028c1651f790ae68151156fa51",
+          "obs_d4840da291665f9ebfefa05807dff66d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_4ff43e2914195c4e8c1a6bd847e92809",
+          "team_5c2ba17b6da85e9ca505d394bbe8a7c3"
+        ]
+      },
+      {
+        "canonical_id": "player_cd7757a821fc5f5b9e049216a366a344",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2c7f1e66878c5ac38d1d99fe40af3dea",
+          "obs_502579a6e76b555fb821232bb8871fbc",
+          "obs_9b103d2d45e75e3eb92cd70edda345d1",
+          "obs_d1df6c7829dd5e499e44913c04863bca"
+        ],
+        "scope_type": "player_roster",
+        "season": 2006,
+        "team_canonical_ids": [
+          "team_3b55fecba50f599dae0d69413503ed42",
+          "team_bc641446c25b541f9047070f22e8bd01"
+        ]
+      },
+      {
+        "canonical_id": "player_cde3a0afa35e53e08c662e95ec883908",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_51e68c53573e5b3fa173d8b57d0bc93b",
+          "obs_eb55f17d5c475b98b151c31d7f9bf8af"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_261379ea0d2c58f1916898c64075cbea",
+          "team_f99d5e07ad1c57cb9f51bf2790ef6b59"
+        ]
+      },
+      {
+        "canonical_id": "player_cf9656e1be7351b1877f41ef15f16f76",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0182dadf51fb5fd287eda1db90e4479a",
+          "obs_1b2acde8036252b4b3fad2457bcc7ae0"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_329135b009e15b5fb7beaf8dd6505e58",
+          "team_63956061dce55809883b08fe9ecb6fe1"
+        ]
+      },
+      {
+        "canonical_id": "player_d0809c070c075ace879f62e8270e291a",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5301f430326a56a1b601b3f68ae996f7",
+          "obs_8d97cdb649585b3f93eda6400e311984"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_261379ea0d2c58f1916898c64075cbea",
+          "team_c820778a615c50bf956a2639f47c95ee"
+        ]
+      },
+      {
+        "canonical_id": "player_d281c1ecc0cb50f8ac562e4aa6a17dc0",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2ee086e7404a51dfbc64a18300297c5e",
+          "obs_a24a6a9a4da35c118b367217f666ee6b"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_341dfcd8e3c95086b8a647c87a3b68f2",
+          "team_5900333e48af55bda4aa63f56b519bf0"
+        ]
+      },
+      {
+        "canonical_id": "player_d316a4f6696b566f98611573b9facace",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7f757dda560b5a3fb4fd8e01e6bbcfca",
+          "obs_9d1b02d53eaf5bb196f985736089816a"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_79e61df228905a92957def50f4667c95",
+          "team_e1f51b8174f3584a984722c1502fcd70"
+        ]
+      },
+      {
+        "canonical_id": "player_d3ee855daa5c576491a5fdf1bc667725",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5b1136e5120450b5aa22422516184eb2",
+          "obs_9eb879c30fca50ba98a11a8f8ff91aca"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_2db452f417ba5577bbe320cd69238c0e",
+          "team_818f17b4044f540c963619976874ec3b"
+        ]
+      },
+      {
+        "canonical_id": "player_d44192993b5d503196679974dcb9b652",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_c8349d9fd92e5fc4895b0713d45bd2c2",
+          "obs_d0492522b901563fb374b85db105f6c7"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_4b9af74e92f057ecb4a4eb2bfd646e0e",
+          "team_fa64b0d44ffd51cca599699351bdaac3"
+        ]
+      },
+      {
+        "canonical_id": "player_d464fa713b4150a8b0c31573bae13726",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0db796e9d00953f3abea8560e69e955a",
+          "obs_3e04961c15ff5d2ebf0aece6ad46b174"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_1b934873dcc55658b2c0fc877a2eaa82",
+          "team_fbb298a830e45e1b83b043c5a2342f41"
+        ]
+      },
+      {
+        "canonical_id": "player_d47ef68e72645459ae9f9dfa70a1be3e",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_76c7efe930915ab48ca15a0904716340",
+          "obs_e3573593a01157bdbf8b0e8287cb508e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0f4f9d8fa26c5b2d941c96ec48fec82a",
+          "team_380a5fdb9bd95d538f62cb3499a62ff2"
+        ]
+      },
+      {
+        "canonical_id": "player_d4c6d92243a6598b8f753cbba0f15618",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_8e32fc2de71e5e7893defc9e237f7090",
+          "obs_dcac4d1ac49953559427dde89b2f4b37"
+        ],
+        "scope_type": "player_roster",
+        "season": 2016,
+        "team_canonical_ids": [
+          "team_3b0b73fd125e52ef9de26da837ddef0b",
+          "team_9f1828fb6a02570c98b1df2e83ed4459"
+        ]
+      },
+      {
+        "canonical_id": "player_d4c6d92243a6598b8f753cbba0f15618",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_878cdfdc37135a67979c46f30e47a33b",
+          "obs_9642cca1f3f758c59e23dc6ad37c32a6"
+        ],
+        "scope_type": "player_roster",
+        "season": 2017,
+        "team_canonical_ids": [
+          "team_3b0b73fd125e52ef9de26da837ddef0b",
+          "team_9f1828fb6a02570c98b1df2e83ed4459"
+        ]
+      },
+      {
+        "canonical_id": "player_d4c6d92243a6598b8f753cbba0f15618",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_070c7f5588c954f59b8b1649e5719e8c",
+          "obs_902440594b2f56ac9fb735098c705130"
+        ],
+        "scope_type": "player_roster",
+        "season": 2018,
+        "team_canonical_ids": [
+          "team_3b0b73fd125e52ef9de26da837ddef0b",
+          "team_9f1828fb6a02570c98b1df2e83ed4459"
+        ]
+      },
+      {
+        "canonical_id": "player_d594d33aa592563096b69a4b35778153",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_545c2fadfe8a52e39d18c549ec49bfcc",
+          "obs_f5a42e163d905ac9ac1994e5c7c48ea9"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_6de07326d6065f21b6f5b669c4678f17",
+          "team_c7bfd56d27775efca59596927d00fec6"
+        ]
+      },
+      {
+        "canonical_id": "player_d5a06f448875527eb11bb20c2add9e0a",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_67b19c8b7d1c59f7ad24954d1ddf8462",
+          "obs_7e61a0325fa756cb95354d7c18dd1ded"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_63956061dce55809883b08fe9ecb6fe1",
+          "team_6f0233e02e2a57cf9cf2b7a51feb0503"
+        ]
+      },
+      {
+        "canonical_id": "player_d730be331f4d57f097887bbdd5806925",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1087356f10c250c6859475f921d03cb7",
+          "obs_683ec8a5f45559168a4e0952e2aaeb00"
+        ],
+        "scope_type": "player_roster",
+        "season": 2016,
+        "team_canonical_ids": [
+          "team_4ff43e2914195c4e8c1a6bd847e92809",
+          "team_7d1cc55d825a5dddaf261ae093332f88"
+        ]
+      },
+      {
+        "canonical_id": "player_d730be331f4d57f097887bbdd5806925",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_29ce62ca1c1d530b95dee106a40bddac",
+          "obs_ed1c7596083f5a839b0187f7c0bafb2e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2017,
+        "team_canonical_ids": [
+          "team_4ff43e2914195c4e8c1a6bd847e92809",
+          "team_7d1cc55d825a5dddaf261ae093332f88"
+        ]
+      },
+      {
+        "canonical_id": "player_d8ce2b02eca05d1d877d194873656a44",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_c1e5831843f85bbca22573642e64e086",
+          "obs_cecbec222b8152afb21fffd869f33e95"
+        ],
+        "scope_type": "player_roster",
+        "season": 2025,
+        "team_canonical_ids": [
+          "team_341dfcd8e3c95086b8a647c87a3b68f2",
+          "team_3b55fecba50f599dae0d69413503ed42"
+        ]
+      },
+      {
+        "canonical_id": "player_d95819e1f66656f6ba7fd48fe507e5ef",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_199d13d1e94555a9a7a6fff7e2b7fec5",
+          "obs_f76b083b83ba5e1e941fefaa5a3e19c3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0e9c98a6b19252a7a3a996bd9f40c5f8",
+          "team_f99d5e07ad1c57cb9f51bf2790ef6b59"
+        ]
+      },
+      {
+        "canonical_id": "player_daa0d60ddd9e5419b2f55a655a6f77b3",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4dcd312b2fa75cfe8496d1ea3518d681",
+          "obs_51c9c56809d25910ab9d69d935316477"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_23dec6e315ec5263b8c46d8db8eeea80",
+          "team_6f880baeef695dfa8db91b26211d197b"
+        ]
+      },
+      {
+        "canonical_id": "player_db0279b13edf5e079008e3060d46c6f2",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_4c30d76734ae5650b12912e0158d687c",
+          "obs_cea3a634fb32521c862d66188bafd4cd"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_a0acb1e0a0e353c69fe12d56a172ca77",
+          "team_b7b87dbf0f3959078ff44242071c2354"
+        ]
+      },
+      {
+        "canonical_id": "player_dc67653996a85a2581aa2de09ae92c17",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1964d441e0cf5330bde5efcb94532108",
+          "obs_2aa76d61ba2c56ceb1d2cbdc1d893426"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_47c43b49fd5e503db148627cd9e96290",
+          "team_53adbfd31f5e535cbe2954c411c4f20c"
+        ]
+      },
+      {
+        "canonical_id": "player_dcc90276389551deb67464c9bdf084b5",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_886f9570d628502faa490056d1ce8ef5",
+          "obs_b4b93bc7398752048ee4e8510ca6c0a4"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_2f67646e361059a5a2eceac3e190c383",
+          "team_5ef4e6ce2dfe50a8b9221d11d6bc06fe"
+        ]
+      },
+      {
+        "canonical_id": "player_dd9808c5de975ead99355c34aeb2f0a7",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3568025931645e97b208eceda46615c0",
+          "obs_7194fcb35a1c564b87e704ad972e5995"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_2db452f417ba5577bbe320cd69238c0e",
+          "team_341dfcd8e3c95086b8a647c87a3b68f2"
+        ]
+      },
+      {
+        "canonical_id": "player_ddea93a1ef395f65bfcf54f90cd4c675",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_c41b82ca5bde54c88c3a953f6b4de73d",
+          "obs_dbbadc574522563a80aaf445dc283144"
+        ],
+        "scope_type": "player_roster",
+        "season": 2017,
+        "team_canonical_ids": [
+          "team_9c93c3e32b5555ffa7f42d8c761b09ef",
+          "team_c820778a615c50bf956a2639f47c95ee"
+        ]
+      },
+      {
+        "canonical_id": "player_e2691392127650f0ae2e740e2b3d043c",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_271a145348d2510494805a91521ba83b",
+          "obs_bb0f1cb633555a4da55c9e271865780d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_2f67646e361059a5a2eceac3e190c383",
+          "team_47c43b49fd5e503db148627cd9e96290"
+        ]
+      },
+      {
+        "canonical_id": "player_e4df8153ddc65578a1213c062be4a439",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6c48b2e70d1951a8901da5b5250371e4",
+          "obs_e5ffb6d94a5f5ec6afb4bceedcf996dd"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_539395566d3c5db6994572d4f99aade4",
+          "team_7d1cc55d825a5dddaf261ae093332f88"
+        ]
+      },
+      {
+        "canonical_id": "player_e586a8109421568c8f31972bf827ff19",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3f5b4b3ccf5750fda82032190422dbc6",
+          "obs_803a5bfb841752b3890b98a6db4646aa"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_60099942fb75528ca4cf4491ca3b555b",
+          "team_7c48f48bc9e656b2a97b8fa38c296b52"
+        ]
+      },
+      {
+        "canonical_id": "player_e660f7503b1159309a65dce37ca6e1f4",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_cc36eed78172526b91e118a5bf8430bc",
+          "obs_f6243229e8dc5c66980d5e15c972f966"
+        ],
+        "scope_type": "player_roster",
+        "season": 2024,
+        "team_canonical_ids": [
+          "team_1b934873dcc55658b2c0fc877a2eaa82",
+          "team_525637a57fad51ff92a355624d2d30ea"
+        ]
+      },
+      {
+        "canonical_id": "player_e737611de0595fe18a2164b87d133115",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_5b05bcf1ba0d5a18b46ad54f93ab72ae",
+          "obs_90f4bc634e9d547e8c28492d6ad385e8"
+        ],
+        "scope_type": "player_roster",
+        "season": 2018,
+        "team_canonical_ids": [
+          "team_341dfcd8e3c95086b8a647c87a3b68f2",
+          "team_8d983efbfdd45416b95584a17058078c"
+        ]
+      },
+      {
+        "canonical_id": "player_e737611de0595fe18a2164b87d133115",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_51060db59f835be59b2fb6369d7fc45d",
+          "obs_8243f15a57655c23b01a763c76302913"
+        ],
+        "scope_type": "player_roster",
+        "season": 2019,
+        "team_canonical_ids": [
+          "team_341dfcd8e3c95086b8a647c87a3b68f2",
+          "team_8d983efbfdd45416b95584a17058078c"
+        ]
+      },
+      {
+        "canonical_id": "player_e78838d21c5551ec891fe4346286d597",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_9ecdfb03b21a5f59bf3075b4a0956fdf",
+          "obs_af0b401d926750eda9b15c96ef2df1e4"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_5ef4e6ce2dfe50a8b9221d11d6bc06fe",
+          "team_ae973288d2fc54fd9b1f57aea6036d64"
+        ]
+      },
+      {
+        "canonical_id": "player_e8352dff978c5d8ca5323d1847517e1f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_18e20f884cc855f9871ac699e01379d7",
+          "obs_4c0acdb024885e12b44d6318187e6f34",
+          "obs_c0380455b8455950892f651956ba9041",
+          "obs_c417681cc1ce5f1ca9052d16dd7202cb"
+        ],
+        "scope_type": "player_roster",
+        "season": 2007,
+        "team_canonical_ids": [
+          "team_0e68c4598b6550298d193121095a64cf",
+          "team_6a9f9cc2aa095ac99c5fd77a5aea9cd7"
+        ]
+      },
+      {
+        "canonical_id": "player_e8799355052758c09935ba495e6a2f6f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_65ff07e6ff50554186e5a584514ff38f",
+          "obs_ae923a7f6a365bb4964019a31d96a4a8"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_4b9af74e92f057ecb4a4eb2bfd646e0e",
+          "team_96b66ae4e6af5620a3c14ba51d0cbb75"
+        ]
+      },
+      {
+        "canonical_id": "player_ea14f965a5e6528386cadb51787ba0ee",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_3307fe321ebb581c95c11b7397d415f2",
+          "obs_dd2e5a8b37cb5f0ea580fd8266e4d861"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_9c93c3e32b5555ffa7f42d8c761b09ef",
+          "team_b7b87dbf0f3959078ff44242071c2354"
+        ]
+      },
+      {
+        "canonical_id": "player_eac250c7f73b5e00b98a36120b1f7b33",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_63968220298958eca5ec8865c51f49a9",
+          "obs_c0a4028596d75030aff70b9453b32ad5"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_79e61df228905a92957def50f4667c95",
+          "team_8597c826e0dd5c0e83d80a80f445eb80"
+        ]
+      },
+      {
+        "canonical_id": "player_ec5b1103856055b8b06dadf632e63208",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2473ed18379a50f797d6a94b8757a4d5",
+          "obs_5b5827e9727f56e1900e74d5c4fbee1c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0018fd83bc7a5a9c8ef483b6097d4115",
+          "team_b7b87dbf0f3959078ff44242071c2354"
+        ]
+      },
+      {
+        "canonical_id": "player_ecf0be584b6351e6b137ec5bfb5e2b4b",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_a933b518cedb52f5ac121fd4bb51055c",
+          "obs_eb1380cb2f1f5bffa5888efa708884be"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_1b934873dcc55658b2c0fc877a2eaa82",
+          "team_8d983efbfdd45416b95584a17058078c"
+        ]
+      },
+      {
+        "canonical_id": "player_f06030d7603658bbb566016f3942b6da",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_90d2ceb28ca8581d91c173885427c4a9",
+          "obs_b31e99343f08500ebc74f54f81051bf3"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_34c50b208b0d579fa8a60b7df041acbd",
+          "team_44893d1d96bf53839c8c7ed2f89142d3"
+        ]
+      },
+      {
+        "canonical_id": "player_f074696d54b757cc97daa90d7c71c4b0",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_1b0a7951e0e1577da704ec2dd0633058",
+          "obs_30ff3442d0175675a769148b48eb0fff"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_fa64b0d44ffd51cca599699351bdaac3",
+          "team_fbb298a830e45e1b83b043c5a2342f41"
+        ]
+      },
+      {
+        "canonical_id": "player_f2bf532f93565e09bfb1125df5afcbd8",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_307057edcc6356e6a58f5a4568e9d158",
+          "obs_cd3783e55b0a5633878f2625501af34b"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_23628f8b6c5150e683e0f5f20a8109e0",
+          "team_96b66ae4e6af5620a3c14ba51d0cbb75"
+        ]
+      },
+      {
+        "canonical_id": "player_f4971524f43f5c81a50fd38fc49249d9",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_0d04c49c858559968984500562aaae7f",
+          "obs_1356258ae0185cfa8746f37e6510aea2"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_a0acb1e0a0e353c69fe12d56a172ca77",
+          "team_fead18db4dab535a8f83aa9198d2010f"
+        ]
+      },
+      {
+        "canonical_id": "player_f4dfb23a35875a4da8aa3d5ea5975196",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2e58fbfbf2d657ed8248e73f81e7efd7",
+          "obs_adebf643b86a5906b27db4a75f56b319"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_b71cee1acc20511ba9f46c538305bcaa",
+          "team_f5c6ea8086a1576b80ddb0e6c1a46820"
+        ]
+      },
+      {
+        "canonical_id": "player_f52bec2917d4581bae2deb4d78cbec2a",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6f5d4483adb15d3e8b217c44a461aed7",
+          "obs_b833e297e7115ec1a5f97b1fab68560f"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_69c14054e0fd590cb203ff2045796fbb",
+          "team_f2031aa72225528c85999f4ca2cc89af"
+        ]
+      },
+      {
+        "canonical_id": "player_f70b4359694a5783b6bb34c5f01248aa",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7b18666a02f95a798a7e174bc355fde3",
+          "obs_cc3cef7924be529780e3c764ebd3404b"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_014bc1dd435c5a5ab2a2eb7ffaeded7b",
+          "team_4ff43e2914195c4e8c1a6bd847e92809"
+        ]
+      },
+      {
+        "canonical_id": "player_f7864fd5b417591ebf1c2cbe86668126",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_596caaccf1c754c6851e5938dcf8800d",
+          "obs_7305a086ae38502191ed4f16deccde43"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_8037927a83bd5bc1b4a48edf150c1feb",
+          "team_e4d86bffd8c05407b72c1534ebaaac7f"
+        ]
+      },
+      {
+        "canonical_id": "player_f9a5cff8329954a0806f3a545bf2d5b1",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_7420b2cb21cd5ed7a23bf0bc94f26570",
+          "obs_ec6a3d4929f05279bf54ffe65821f919"
+        ],
+        "scope_type": "player_roster",
+        "season": 2020,
+        "team_canonical_ids": [
+          "team_56e9308b981c5feb8b9505999115329f",
+          "team_c9035d4143e25bc8ab2caa4080e88087"
+        ]
+      },
+      {
+        "canonical_id": "player_fd0e1b6a4a2d5ae595cabc6555dfe2ad",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_600245845c0e5a209725ccd7e27d95b6",
+          "obs_ffd70acc7d1656e2bb85468cf8c3d68e"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_014bc1dd435c5a5ab2a2eb7ffaeded7b",
+          "team_ebe61b7ec1e05e6e8293890923866289"
+        ]
+      },
+      {
+        "canonical_id": "player_fd86cddb545950198957bed856920686",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_6c3fc02ebf7059abb5c91c1dd0f79deb",
+          "obs_f89f0b3d5ada5c308da9086c5dec871c"
+        ],
+        "scope_type": "player_roster",
+        "season": 2025,
+        "team_canonical_ids": [
+          "team_077037b5eb3450c6ac5e9f4d0986d186",
+          "team_539395566d3c5db6994572d4f99aade4"
+        ]
+      },
+      {
+        "canonical_id": "player_fea56e3e3c5e5be6a7bd1a525114842f",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_ede52f619ffe57b3a40d5ba6e466ee28",
+          "obs_f212a3e0cc235379a8afd6e83b7fc5be"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_d0aff8aacd805801ab3d3d8293f3b298",
+          "team_e4d86bffd8c05407b72c1534ebaaac7f"
+        ]
+      },
+      {
+        "canonical_id": "player_feabb232822f56bea9d38790bd4ef3af",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2bac31387d035b75943207bb45c96114",
+          "obs_3a5bf4b4ec2a5e66b8330244dc8d42cf"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_0c3a680fdfa657a4b6dce1d5b3ba411b",
+          "team_7eb264837b8a5cffa653952a6803899b"
+        ]
+      },
+      {
+        "canonical_id": "player_ff62671ea5ef5947a9a43c6ee002acad",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_74d1a019d36850fda2c792d22b8f9edf",
+          "obs_b17a562f56ea5478ae16d80aef213d9d"
+        ],
+        "scope_type": "player_roster",
+        "season": 2013,
+        "team_canonical_ids": [
+          "team_6f0233e02e2a57cf9cf2b7a51feb0503",
+          "team_d4dec74b9c9b5c5695346a86de79f7de"
+        ]
+      },
+      {
+        "canonical_id": "player_ffc22f77eed45d3f8e197426ec6efef1",
+        "disposition": "QUARANTINE_EXCLUSIVE_TEAM_AT_TIME_INFERENCE_PENDING_FINER_GRAIN_EVIDENCE",
+        "record_ids": [
+          "obs_2e261f5e1d5d5a81b8b1357b310782d1",
+          "obs_5f9c467d5c335a249699e42132bcf0e7"
+        ],
+        "scope_type": "player_roster",
+        "season": 2021,
+        "team_canonical_ids": [
+          "team_b05aa727e5af54c59388762707e65ab7",
+          "team_ebd65f32a4c158f480f0d529decf9be3"
+        ]
+      }
+    ]
+  }
+}

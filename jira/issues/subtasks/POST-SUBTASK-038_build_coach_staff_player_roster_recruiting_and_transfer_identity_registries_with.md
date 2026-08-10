@@ -80,7 +80,7 @@
   "end_to_end_validation": "Validate that `artifacts/entities/canonical_people_registry.csv` can be parsed and consumed by `POST-SUBTASK-039` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-038.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -147,11 +147,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24528",
-    "jira_updated_at": "2026-08-09T20:43:26.608-0500",
-    "last_synced_at": "2026-08-10T01:43:33.989385+00:00",
+    "jira_updated_at": "2026-08-09T21:22:57.878-0500",
+    "last_synced_at": "2026-08-10T02:24:10.230921+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-388\\BAT-388-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -205,8 +205,8 @@
     "docs/16_ENTITY_RESOLUTION_AND_REVIEW.md",
     "governance/ENTITY_RESOLUTION_STATES.csv"
   ],
-  "ready": true,
-  "record_revision": "2.1",
+  "ready": false,
+  "record_revision": "2.2",
   "related_to": [],
   "required_evidence": [
     "`artifacts/entities/canonical_people_registry.csv` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -320,7 +320,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-013: Canonical registries, aliases, and temporal relationships.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-038.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

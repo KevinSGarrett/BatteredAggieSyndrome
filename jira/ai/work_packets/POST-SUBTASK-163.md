@@ -33,8 +33,8 @@ Execute POST-SUBTASK-163 within the optional OpenAI assistive plane. Consume `PO
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
-- Ready: `false`
+- Workflow: `READY`
+- Ready: `true`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`

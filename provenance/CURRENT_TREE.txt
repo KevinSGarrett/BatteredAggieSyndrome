@@ -78,6 +78,7 @@ artifacts/jira_evidence/POST-SUBTASK-033.json
 artifacts/jira_evidence/POST-SUBTASK-034.json
 artifacts/jira_evidence/POST-SUBTASK-035.json
 artifacts/jira_evidence/POST-SUBTASK-036.json
+artifacts/jira_evidence/POST-SUBTASK-037.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/open_source/integration_negative_findings.json

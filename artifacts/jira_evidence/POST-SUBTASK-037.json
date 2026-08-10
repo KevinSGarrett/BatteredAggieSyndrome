@@ -1,0 +1,234 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-037",
+  "jira_key": "BAT-387",
+  "created_at_utc": "2026-08-10T01:35:45.035938Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/canonical_core_registry_manifest.json",
+      "evidence_sha256": "6293b25d58afb394d9fe37ded6da1e05aaf584302c582205d13603e9659ab6e7",
+      "observable_result": "The accepted population contains 48,262 core entities, 2,532 aliases, 874 effective relationships, 4,855 source mappings, 20 status observations, and 133 unresolved venue observations. Opaque IDs derive only from append-only internal assignment slots; order independence and append-only stability are tested. Rename, realignment, neutral-site, postponement, and cancellation evidence is retained."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/canonical_core_registry.csv",
+      "evidence_sha256": "ac19373f5866d09a6ff53bb1832f7d3c4458f579920632fa902da1323f5a9854",
+      "observable_result": "The repository pointer binds the external 56,676-row, 36-column canonical CSV by exact content-addressed path, SHA-256, byte size, schema version, dataset version, and eligibility. Two independent builds produced the identical payload hash."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/canonical_core_registry_manifest.json",
+      "evidence_sha256": "6293b25d58afb394d9fe37ded6da1e05aaf584302c582205d13603e9659ab6e7",
+      "observable_result": "All review-required, unresolved, source-only, and validator-scope findings remain explicit. The artifact claims only IMPLEMENTED core-registry eligibility and explicitly rejects protected model, PIT, GAP-002, historical-population, and scientific-result readiness."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "REPOSITORY_POINTER",
+      "path": "artifacts/entities/canonical_core_registry.csv",
+      "sha256": "ac19373f5866d09a6ff53bb1832f7d3c4458f579920632fa902da1323f5a9854",
+      "bytes": 425
+    },
+    {
+      "role": "CANONICAL_MANIFEST",
+      "path": "artifacts/entities/canonical_core_registry_manifest.json",
+      "sha256": "6293b25d58afb394d9fe37ded6da1e05aaf584302c582205d13603e9659ab6e7",
+      "bytes": 3069
+    },
+    {
+      "role": "EXTERNAL_CANONICAL_PAYLOAD",
+      "path": "<external-data-root>/canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+      "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+      "bytes": 42502985,
+      "rows": 56676,
+      "columns": 36
+    },
+    {
+      "role": "STRICT_VALIDATION_REPORT",
+      "path": "<external-data-root>/validation/BAT-387/core_registry/core-registry-validation-report.json",
+      "sha256": "e1a2b7ce6202343ecfc0ce038bc3633d088fd69a37e2933761e77553fed2705f",
+      "bytes": 1699,
+      "finding_count": 0
+    },
+    {
+      "role": "RELOCATION_REPORT",
+      "path": "<external-data-root>/validation/BAT-387/relocation/core-registry-relocation-report.json",
+      "sha256": "ffea7e265ffcf6712ace60fa4ba0843fe4dc6a17f4806b32a266afb5e93f9868"
+    },
+    {
+      "role": "BUILDER",
+      "path": "<external-data-root>/runtime/BAT-387/build_canonical_core_registry.py",
+      "sha256": "7dc0250290a903113a79550e83706aa39843170b269de8c1b24cce47b53af6b5",
+      "bytes": 41792
+    },
+    {
+      "role": "VALIDATOR",
+      "path": "<external-data-root>/runtime/BAT-387/validate_core_registry.py",
+      "sha256": "66ac972b753abd681a7e8662a9497124dcabf92fa0f8cded9b243e55fdf89d34",
+      "bytes": 7133
+    }
+  ],
+  "population": {
+    "record_count": 56676,
+    "entity_count": 48262,
+    "record_type_counts": {
+      "ALIAS": 2532,
+      "ENTITY": 48262,
+      "RELATIONSHIP": 874,
+      "SOURCE_MAPPING": 4855,
+      "STATUS_OBSERVATION": 20,
+      "UNRESOLVED_OBSERVATION": 133
+    },
+    "entity_counts": {
+      "conference": 41,
+      "game": 46960,
+      "season": 63,
+      "source_resource": 4,
+      "source_system": 2,
+      "team": 348,
+      "venue": 844
+    },
+    "resolution_state_counts": {
+      "AUTO_ACCEPTED_VERIFIED": 55559,
+      "CANDIDATE_GENERATED": 111,
+      "REVIEW_REQUIRED": 984,
+      "UNRESOLVED": 22
+    },
+    "history_counts": {
+      "canceled_games": 2,
+      "neutral_site_games": 1970,
+      "postponed_status_observations": 18,
+      "realigned_teams": 164,
+      "renamed_teams": 210,
+      "unresolved_venue_observations": 133
+    }
+  },
+  "provenance": {
+    "prerequisite_artifact": "artifacts/entities/schema_readiness_gate.json",
+    "prerequisite_sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2",
+    "prerequisite_canonical_payload_sha256": "e587cdee0c9bfe8ad3ecaa8284bb5cd14f432c1a679945a235a88525ffdc2e83",
+    "verified_raw_payloads": 95,
+    "verified_raw_bytes": 39528133,
+    "deterministic_reproduction_runs": 2,
+    "deterministic_reproduction_match": true,
+    "split_or_cutoff": "NOT_APPLICABLE_REGISTRY_CONSTRUCTION_NO_MODEL_FIT_OR_TARGET_EVALUATION",
+    "runtime": "CPython 3.11 local validation; CPython 3.12 protected Linux and Windows CI"
+  },
+  "validation": {
+    "result": "PASS_IMPLEMENTED_CORE_REGISTRY",
+    "commands": [
+      {
+        "command": "python -B <external-runtime>/BAT-387/build_canonical_core_registry.py",
+        "exit_code": 0,
+        "result": "PASS; two from-scratch builds matched SHA-256, bytes, rows, and schema exactly"
+      },
+      {
+        "command": "python -B <external-runtime>/BAT-387/validate_core_registry.py",
+        "exit_code": 0,
+        "result": "PASS; 56,676 records, zero findings"
+      },
+      {
+        "command": "PYTHONPATH=src python -B -m pytest -q",
+        "exit_code": 0,
+        "result": "289 passed, 2 skipped, 79 subtests passed"
+      },
+      {
+        "command": "PYTHONPATH=src python -B -m unittest discover -s tests -p test_core_registry.py -v",
+        "exit_code": 0,
+        "result": "7/7 focused tests passed on Windows after portable filesystem-identity correction"
+      },
+      {
+        "command": "python -B tools/validate_entities.py",
+        "exit_code": 0,
+        "result": "PASS"
+      },
+      {
+        "command": "python -B jira/tools/second_pass_hardening.py --validate-only; python -B jira/tools/validate_jira_manifest.py",
+        "exit_code": 0,
+        "result": "PASS; 2,118 source anchors and 1,758 Jira files"
+      },
+      {
+        "command": "python -B tools/validate_repository.py --strict",
+        "exit_code": 0,
+        "result": "PASS; repository structure, provenance, governance IDs, secret scan, and forbidden-artifact scan"
+      }
+    ],
+    "required_classes": {
+      "REGRESSION": "PASS",
+      "SCIENTIFIC": "PASS_NO_MODEL_OR_SCIENTIFIC_EFFECT_EVALUATED_OR_CLAIMED",
+      "INTEGRATION": "PASS_MANIFEST_CONSUMER_VERIFIES_EXTERNAL_PAYLOAD_WITHOUT_MANUAL_RECONSTRUCTION",
+      "REPRODUCIBILITY": "PASS",
+      "NEW_AUTOMATED_TEST_REQUIRED": "PASS"
+    }
+  },
+  "protected_integration": {
+    "state": "MERGED_AND_MAIN_VALIDATED",
+    "pull_request": 92,
+    "head_sha": "d132d3e777b84a697a8f40325252523d22de2610",
+    "merge_sha": "1baf1c3dbabfc8ec5b6bc5b3fbda00904f29ce22",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-10T01:33:35Z",
+    "repository_ci_run": 31347409764,
+    "security_analysis_run": 31347409754,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED"
+  },
+  "live_jira": {
+    "status": "Done",
+    "logical_state": "DONE",
+    "maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED",
+    "claim_comment_id": "13417",
+    "checkpoint_comment_id": null,
+    "completion_comment_id": "13419",
+    "updated": "2026-08-09T20:36:46.824-0500"
+  },
+  "local_jira_sync": {
+    "changed_issues": 2,
+    "conflict_count": 0,
+    "export_path": "<external-data-root>/runtime/BAT-387/BAT-387-live-row.csv",
+    "live_issue_id": "24527",
+    "result": "PASS_AFTER_VERIFIED_EVIDENCE_COMPLETION",
+    "strict_validation": "PASS"
+  },
+  "negative_findings": [
+    {
+      "finding": "The first strict validator pass treated 63 four-digit season natural keys as opaque W07 entity-ID violations.",
+      "disposition": "PRESERVED_AND_SCOPED; season is a stable VERIFIED_NATURAL_KEY and no payload record was altered or suppressed."
+    },
+    {
+      "finding": "984 records require review, 22 remain unresolved, and 133 venue observations lack an accepted canonical venue.",
+      "disposition": "PRESERVED_NOT_AUTO_PROMOTED; these records remain available as evidence but are ineligible for unsupported joins."
+    },
+    {
+      "finding": "The machine-wide Python environment has unrelated dependency conflicts.",
+      "disposition": "NON_PROJECT_RUNTIME_DIAGNOSTIC; BAT-387 adds no dependency and all isolated GitHub dependency/security checks passed."
+    }
+  ],
+  "completion": {
+    "completion_claimed": true,
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_CANONICAL_CORE_REGISTRY_IMPLEMENTED",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
+  },
+  "honesty_boundary": {
+    "core_registry_implemented": true,
+    "player_or_roster_registry_complete": false,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "pit_or_chronological_gate_passed": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-038": "DEPENDENCY_SATISFIED_AFTER_VERIFIED_COMPLETION_SYNC; PLAYER_ROSTER_REGISTRY_WORK_MAY_BECOME_READY",
+    "POST-SUBTASK-039": "REMAINS_DEPENDENT_ON_POST-SUBTASK-038; CORE_REGISTRY_VALIDATION_EVIDENCE_IS_AVAILABLE"
+  }
+}

@@ -22833,7 +22833,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-042
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-037_build_canonical_team_conference_venue_game_season_and_source_registries_with_eff.json",In Progress,Highest,actionable;core-release;entities;post-wave;shared-contract;subtask;local-id-post-subtask-037,entities,POST-SUBTASK-037,GAP-003;GAP-004;GAP-006,PHASE-1,IN_PROGRESS,IMPLEMENTED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-037_build_canonical_team_conference_venue_game_season_and_source_registries_with_eff.json",Done,Highest,actionable;core-release;entities;post-wave;shared-contract;subtask;local-id-post-subtask-037,entities,POST-SUBTASK-037,GAP-003;GAP-004;GAP-006,PHASE-1,DONE,IMPLEMENTED,VERIFIED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-388,100342,"[POST-SUBTASK-038] Build coach, staff, player, roster, recruiting, and transfer identity registries with confidence and review state",100063,"Local ID: POST-SUBTASK-038
 
 Objective
@@ -22923,7 +22923,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-042
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-038_build_coach_staff_player_roster_recruiting_and_transfer_identity_registries_with.json",To Do,Highest,actionable;core-release;entities;post-wave;shared-contract;subtask;local-id-post-subtask-038,entities,POST-SUBTASK-038,GAP-003;GAP-004;GAP-006,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-038_build_coach_staff_player_roster_recruiting_and_transfer_identity_registries_with.json",To Do,Highest,actionable;core-release;entities;post-wave;shared-contract;subtask;local-id-post-subtask-038,entities,POST-SUBTASK-038,GAP-003;GAP-004;GAP-006,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-389,100343,"[POST-SUBTASK-039] Validate registry uniqueness, temporal consistency, collisions, and referential completeness",100063,"Local ID: POST-SUBTASK-039
 
 Objective

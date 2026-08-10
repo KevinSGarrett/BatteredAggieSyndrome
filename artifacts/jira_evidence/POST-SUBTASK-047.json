@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "POST-SUBTASK-047-bat397-national-pregame-matrix",
+  "decision_unit": "POST-SUBTASK-047",
+  "jira_key": "BAT-397",
+  "title": "Build national pregame matrices at configured cutoffs with row/cell lineage, missingness class, fallback, and pinned versions",
+  "issued_at_utc": "2026-08-10T11:15:00Z",
+  "scope": "Atomic BAT-397 matrix construction only. The real population is intentionally empty because BAT-396 admitted no PIT state and supplied no evidence-backed game/cutoff rows. Synthetic cases validate code behavior only and never enter the real matrix.",
+  "primary_artifact": {
+    "path": "artifacts/pit/pregame_matrix_manifest.json",
+    "sha256": "dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0",
+    "bytes": 7277,
+    "content_hash": "2c4f4a009b937e88cb4be215617865f8e9ff6e683f43d3970c129e81c33ff3c0",
+    "schema_version": "1.0.0",
+    "dataset_version": "bat397-national-pregame-matrix-v1",
+    "disposition": "PASS_VALIDATED_EMPTY_MATRIX_PACKAGE"
+  },
+  "prerequisite_identities": [
+    {
+      "decision_unit": "POST-SUBTASK-046",
+      "path": "artifacts/pit/asof_state_manifest.json",
+      "sha256": "be659759a1fcf02f360ba2a2948096d61b63cca51c90d8ccd6cfbc80c3f5ec51",
+      "bytes": 8235,
+      "role": "BAT396_ASOF_STATE_MANIFEST"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-046",
+      "path": "<external-data-root>/pit_state/BAT-396/sha256/62f251fb5887fa75ce253a6c5ae4713f5079229ec1102f1939bdeaf923af0f19/external_manifest.json",
+      "sha256": "cb78726fef01d867d0e1b77c2be69e24e49939be3f2455c46183a7c6d7488e20",
+      "bytes": 96817,
+      "role": "BAT396_EXTERNAL_ASOF_MANIFEST"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-046",
+      "path": "<external-data-root>/pit_state/BAT-396/sha256/62f251fb5887fa75ce253a6c5ae4713f5079229ec1102f1939bdeaf923af0f19/accepted_state_events.parquet",
+      "sha256": "311a22a946c9d35026fd782ebe501a688dd4edaa82b99c78880bfb8b0601d296",
+      "bytes": 7392,
+      "rows": 0,
+      "role": "BAT396_ACCEPTED_ASOF_STATE"
+    }
+  ],
+  "external_dataset": {
+    "dataset_identity": "7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1",
+    "logical_root": "<external-data-root>/features/BAT-397/sha256/7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1",
+    "external_manifest": {
+      "path": "<external-data-root>/features/BAT-397/sha256/7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1/external_manifest.json",
+      "sha256": "648f377fca19326e0195ac87722905890e7ba44c748d0cfd813679d36b3c9d8b",
+      "bytes": 2046
+    },
+    "row_payload": {
+      "path": "<external-data-root>/features/BAT-397/sha256/7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1/pregame_matrix_rows.parquet",
+      "sha256": "aa3c0b3239658a72b9f8a8165d43660c0e463a458758828c90af402f6be47b19",
+      "bytes": 1225,
+      "rows": 0
+    },
+    "cell_lineage_payload": {
+      "path": "<external-data-root>/features/BAT-397/sha256/7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1/pregame_matrix_cell_lineage.parquet",
+      "sha256": "84f5a76c1bdba443787a933e14a8b2e4d93b56d49f4ae510eec5ca36104479b4",
+      "bytes": 954,
+      "rows": 0
+    }
+  },
+  "population": {
+    "accepted_pit_state_rows": 0,
+    "quarantined_pit_state_rows": 313712,
+    "target_games": 0,
+    "configured_cutoffs": 0,
+    "matrix_rows": 0,
+    "matrix_cells": 0,
+    "real_population_disposition": "BLOCKED_NO_ACCEPTED_PIT_STATE_AND_NO_EVIDENCE_BACKED_CUTOFF_ROWS"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Each game/cutoff row uses only eligible state, handles home/away/neutral/lower-division/cancellations deterministically, and separates structural/not-known/source/resolution/pipeline missingness.",
+      "disposition": "PASS_CONTRACT_WITH_EMPTY_REAL_POPULATION",
+      "observable_result": "No real row was admitted without eligible state. Sixteen deterministic synthetic assertions prove eligible-only selection, future and target-game output rejection, declared eligible fallback, home/away/neutral classification, lower-division flagging, cancelled-row exclusion, five distinct missingness classes, and deterministic row/cell lineage.",
+      "evidence": "<external-data-root>/validation/BAT-397/pregame-matrix/validation-report-run-1.json"
+    },
+    {
+      "criterion": "The declared output artifacts/pit/pregame_matrix_manifest.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "observable_result": "Two independent builds produced the same 7,277-byte manifest SHA-256 dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0. Source, code, external-manifest, row-payload, and cell-lineage identities validate independently.",
+      "evidence": "artifacts/pit/pregame_matrix_manifest.json"
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "observable_result": "The real matrix remains zero rows/cells and experimentation-ineligible. No cutoff, target, feature value, label, split, model, forecast, metric, BAS, Aggie Excess, or readiness claim was fabricated; twelve unsafe manifest mutations were rejected.",
+      "evidence": "<external-data-root>/validation/BAT-397/pregame-matrix/validation-report-run-1.json"
+    }
+  ],
+  "test_matrix": [
+    {
+      "classification": "REGRESSION",
+      "disposition": "PASS",
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q tests/test_temporal_governance.py tests/test_w24_readiness.py",
+      "result": "13 passed, 16 subtests passed"
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS",
+      "result": "Synthetic replay rejects future and same-target-game output observations while selecting the latest eligible observation and only an independently eligible fallback. The real population has no supported cutoff rows and remains empty."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE",
+      "result": "No hypothesis, target, nonempty feature matrix, split, model, calibrator, prediction, or protected evaluation exists in this matrix-construction unit."
+    },
+    {
+      "classification": "INTEGRATION",
+      "disposition": "PASS_CONSUMABLE_BLOCK_DECISION",
+      "result": "POST-SUBTASK-048 can resolve the repository manifest, external manifest, empty Parquet schemas, exact hashes, and explicit experimentation-ineligible disposition without manual reconstruction."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "result": "Pinned prerequisite, implementation, producer, tool, runtime, payload, and content identities plus byte-identical rebuild are recorded."
+    },
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "disposition": "PASS",
+      "path": "<external-data-root>/runtime/BAT-397/validate_pregame_matrix.py",
+      "result": "Independent identity/schema/population validation, 16 synthetic contract assertions, and 12 mutation probes passed with zero findings."
+    }
+  ],
+  "validation_artifacts": {
+    "run_1": {
+      "path": "<external-data-root>/validation/BAT-397/pregame-matrix/validation-report-run-1.json",
+      "sha256": "f4703b7a92ac53c5ef5d964c8c17c4a304961033c1ed6d5afd7022238fd3bda1",
+      "result": "PASS",
+      "findings": 0,
+      "synthetic_assertions_passed": 16,
+      "unsafe_mutations_rejected": 12
+    },
+    "deterministic_rebuild": {
+      "canonical_manifest_sha256_run_1": "dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0",
+      "canonical_manifest_sha256_run_2": "dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0",
+      "byte_identical": true
+    }
+  },
+  "producer": {
+    "base_commit": "da9730de075039f1dd2f42d36c70bd164244ea53",
+    "implementation": "src/aggie_analytics/temporal/state.py",
+    "implementation_sha256": "360f476a7f926452b98eb2a662d5f5be11b033260d4cbae2fce6d9fd29532568",
+    "builder": "<external-data-root>/runtime/BAT-397/build_pregame_matrix.py",
+    "builder_sha256": "1f9eee76c7936a476084b8de1e46d7ca8ce5ef7ccc25c6aab478a1e57f0840a8",
+    "validator": "<external-data-root>/runtime/BAT-397/validate_pregame_matrix.py",
+    "validator_sha256": "8d69da346a1df45bb9c86e13d27cc71c745f702f9ecff19a8a74c9f05305afca",
+    "python": "3.11.9",
+    "polars": "1.42.1",
+    "openai_api_calls": 0,
+    "openai_cost_usd": 0.0
+  },
+  "commands": [
+    {
+      "command": "run build_pregame_matrix.py twice with pinned BAT-396 inputs and issued-at timestamp",
+      "exit_code": 0,
+      "result": "PASS: byte-identical manifest and immutable dataset identity 7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1"
+    },
+    {
+      "command": "run validate_pregame_matrix.py over repository manifest, external manifest, empty row/cell Parquet payloads, synthetic contract, and mutation probes",
+      "exit_code": 0,
+      "result": "PASS: zero findings, 16 assertions passed, and 12 unsafe mutations rejected"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py --repair then strict validation",
+      "exit_code": 0,
+      "result": "PASS: SRCREF-02030 deterministically relocated and all 2,119 source references validate"
+    },
+    {
+      "command": "python -B tools/validate_temporal.py --repo-root . and python -B tools/validate_w24_readiness.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS: PIT, leakage, replay, and W24 synthetic E2E controls"
+    },
+    {
+      "command": "write canonical repository provenance manifest; validate_repository.py --strict; validate_autonomous_controls.py; validate_w25_final.py; validate_source_refs.py; second_pass_hardening.py --validate-only; validate_jira_control_plane.py --strict; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS: repository/provenance/security, autonomous controls, W25 final binding, 2,119 source references, all 474 Jira derivatives, strict Jira control plane, and 1,804-file Jira manifest"
+    },
+    {
+      "command": "$env:PYTHONDONTWRITEBYTECODE='1'; $env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS: 316 passed, 2 skipped, 79 subtests"
+    }
+  ],
+  "repository_validation": {
+    "strict_repository_and_provenance": "PASS",
+    "repository_manifest_files": 2954,
+    "repository_manifest_fingerprint_before_evidence_finalization": "48c0da46ff49e4cf9498c603e8dd1a93b83c8d884534eea87c1c9ecf66d06606",
+    "autonomous_controls": "PASS",
+    "w25_final": "PASS",
+    "source_references": 2119,
+    "source_references_relocated": 1,
+    "jira_derivatives": 474,
+    "jira_manifest_files": 1804,
+    "jira_second_pass": "PASS",
+    "jira_control_plane": "PASS",
+    "tests_passed": 316,
+    "tests_skipped": 2,
+    "subtests_passed": 79
+  },
+  "negative_findings": [
+    {
+      "finding": "BAT-396 accepted state is empty and its 313,712 temporal candidates remain quarantined.",
+      "disposition": "NO MATRIX ROW OR CELL IS MATERIALIZED; domain-specific nonadmission is preserved."
+    },
+    {
+      "finding": "The pinned prerequisite contains no evidence-backed target-game/cutoff catalog.",
+      "disposition": "NO CUTOFF OR TARGET ID IS INVENTED; THE REAL MATRIX REMAINS EMPTY."
+    },
+    {
+      "finding": "Synthetic validation demonstrates behavior but is not real empirical population evidence.",
+      "disposition": "SYNTHETIC ROWS ARE NEVER STORED IN THE EXTERNAL MATRIX AND CANNOT SUPPORT SCIENTIFIC OR READINESS CLAIMS."
+    }
+  ],
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-397-pregame-matrix/20260810T110000Z",
+    "bundle_sha256": "7265a6e113163c7293f234ef96df383c607e4acc04055cc586d1dc543bfc24c9",
+    "bundle_bytes": 17648382,
+    "manifest_sha256": "989ab05d5256dca67708c4438fa8af1841361dc37c122bc38fdabafddb8948be",
+    "sha256sums_sha256": "39584c080f754f165f317158af77be1d61fb2aa133ada57a96d9b71adbbfed33",
+    "bundle_verify": "PASS_COMPLETE_HISTORY"
+  },
+  "jira_claim": {
+    "issue_id": "24537",
+    "status": "In Progress",
+    "logical_workflow_state": "IN_PROGRESS",
+    "implementation_maturity": "FUNCTIONAL_STARTER",
+    "evidence_state": "PLANNED",
+    "claim_comment_id": "13455",
+    "updated": "2026-08-10T05:59:28.002-0500",
+    "source_export": "<external-data-root>/runtime/BAT-397/BAT-397-claim-live-row.csv",
+    "reconciliation": "DRY_RUN_PASS_THEN_PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS"
+  },
+  "downstream_reevaluation": {
+    "POST-STORY-016": "MATRIX_INTERFACE_IMPLEMENTED_BUT_NO_ACCEPTED_REAL_MATRIX_EXISTS",
+    "POST-SUBTASK-048": "READY_TO_EXECUTE_FORMAL_APPROVE_OR_BLOCK_DECISION; MUST_BLOCK CURRENT MATRIX FROM EXPERIMENTATION",
+    "POST-SUBTASK-049": "REMAINS_BLOCKED_NO_APPROVED_MATRIX"
+  },
+  "completion_claim": {
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "evidence_state": "IMPLEMENTATION_EVIDENCE_COMPLETE_PENDING_PROTECTED_INTEGRATION_AND_LIVE_SYNC",
+    "atomic_work_unit": "PASS_VALIDATED_EMPTY_MATRIX_PACKAGE",
+    "historical_population_readiness": "NOT_ESTABLISHED",
+    "matrix_approval": "NOT_APPROVED_INELIGIBLE_EMPTY_MATRIX"
+  },
+  "honesty_boundary": [
+    "BAT-397 implements and validates the deterministic matrix contract; it does not make unsupported historical rows eligible.",
+    "It does not establish final national historical completeness, GAP-002 or GAP-003 resolution, an approved training matrix, production model readiness, or protected performance.",
+    "It does not claim a trained production champion, A&M specialization lift, BAS, Aggie Excess, calibration, score likelihood, or any scientific result."
+  ]
+}

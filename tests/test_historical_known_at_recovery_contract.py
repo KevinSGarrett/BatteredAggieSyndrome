@@ -50,6 +50,11 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        cls.player_box_gate = json.loads(
+            (ROOT / "artifacts" / "pit" / "historical_player_box_reconciliation_gate.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -451,6 +456,52 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
             self.venue_assignment_gate["historical_known_at_gate"]["current_catalog_historical_backfill_allowed"]
         )
         self.assertFalse(self.venue_assignment_gate["scientific_nonclaims"]["gap_002_resolved"])
+
+    def test_player_box_history_is_validated_at_cell_grain_without_identity_or_pit_promotion(self) -> None:
+        player_box = self.contract["latest_validated_player_box_candidate"]
+        self.assertEqual(
+            player_box["dataset_identity"],
+            "d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d",
+        )
+        self.assertEqual(player_box["source_season_min"], 2010)
+        self.assertEqual(player_box["source_season_max"], 2025)
+        self.assertEqual(player_box["source_seasons"], 16)
+        self.assertEqual(player_box["source_games"], 13670)
+        self.assertEqual(player_box["source_stat_cells"], 5279775)
+        self.assertEqual(player_box["distinct_source_player_ids"], 63407)
+        self.assertEqual(player_box["missing_player_name_cells"], 246)
+        self.assertEqual(player_box["player_label_whitespace_drift_cells"], 47446)
+        self.assertEqual(player_box["player_event_metric_exact_cells"], 258886)
+        self.assertEqual(player_box["player_event_metric_conflict_cells"], 34006)
+        self.assertEqual(player_box["current_game_multiset_exact_games"], 3659)
+        self.assertEqual(player_box["current_game_multiset_conflict_games"], 0)
+        self.assertEqual(player_box["validation_checks_passed"], 54)
+        self.assertEqual(player_box["mutation_controls_passed"], 14)
+        self.assertEqual(player_box["deterministic_payloads_compared"], 16)
+        self.assertIn("UNKNOWN", player_box["historical_known_at_basis"])
+        self.assertIn("NO_NAME_ONLY", player_box["player_identity_basis"])
+        self.assertIn("THREE_ONE_TEAM_GAMES", player_box["partial_and_drift_findings"])
+        self.assertEqual(player_box["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertTrue(self.evidence["completion_claim"]["player_box_candidate_layer_validated"])
+        self.assertTrue(self.evidence["completion_claim"]["structured_player_box_candidate_materialized"])
+        self.assertFalse(
+            self.evidence["completion_claim"][
+                "player_box_canonical_pit_feature_identity_official_source_or_protected_use_admission"
+            ]
+        )
+        self.assertFalse(self.evidence["completion_claim"]["official_player_box_scores_materialized"])
+        checkpoint = self.gate["parallel_player_box_checkpoint"]
+        self.assertFalse(checkpoint["canonical_player_identity_established"])
+        self.assertFalse(checkpoint["official_primary_gamebook_status_established"])
+        self.assertFalse(checkpoint["canonical_player_box_admission"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["training_feature_admission"])
+        self.assertFalse(checkpoint["protected_evaluation_admission"])
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+        self.assertEqual(self.player_box_gate["coverage"]["games_without_exactly_two_team_rows"], 3)
+        self.assertEqual(self.player_box_gate["reconciliation"]["player_event_metric_conflict_cells"], 34006)
+        self.assertFalse(self.player_box_gate["historical_known_at_gate"]["name_only_player_identity_merge_allowed"])
+        self.assertFalse(self.player_box_gate["scientific_nonclaims"]["gap_002_resolved"])
 
 
 if __name__ == "__main__":

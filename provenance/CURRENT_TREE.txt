@@ -120,6 +120,7 @@ artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
 artifacts/pit/historical_advanced_game_reconciliation_gate.json
 artifacts/pit/historical_known_at_replay_gate.json
+artifacts/pit/historical_player_box_reconciliation_gate.json
 artifacts/pit/historical_rankings_reconciliation_gate.json
 artifacts/pit/historical_team_box_reconciliation_gate.json
 artifacts/pit/historical_venue_assignment_reconciliation_gate.json

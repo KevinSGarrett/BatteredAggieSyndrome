@@ -35,6 +35,11 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        cls.team_box_gate = json.loads(
+            (ROOT / "artifacts" / "pit" / "historical_team_box_reconciliation_gate.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -315,6 +320,44 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(decision["lane_disposition"], "PRIVATE_RESEARCH_ALLOWED")
         self.assertTrue(decision["required_data_outcome_nonblocking"])
         self.assertFalse(decision["raw_export_allowed"])
+
+    def test_team_box_history_is_validated_candidate_only_with_partial_and_side_drift_preserved(self) -> None:
+        team_box = self.contract["latest_validated_team_box_candidate"]
+        self.assertEqual(
+            team_box["dataset_identity"],
+            "3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b",
+        )
+        self.assertEqual(team_box["source_seasons"], list(range(2010, 2026)))
+        self.assertEqual(team_box["captured_partitions"], 261)
+        self.assertEqual(team_box["distinct_source_games"], 13670)
+        self.assertEqual(team_box["candidate_team_rows"], 27340)
+        self.assertEqual(team_box["stat_cells"], 812533)
+        self.assertEqual(team_box["cross_route_game_side_point_reconciled_rows"], 21168)
+        self.assertEqual(team_box["cross_route_side_swap_reconciled_games"], 9)
+        self.assertEqual(team_box["cross_route_side_swap_reconciled_rows"], 18)
+        self.assertEqual(team_box["current_canonical_capture_exact_match_rows"], 7318)
+        self.assertEqual(team_box["current_canonical_capture_conflict_rows"], 0)
+        self.assertEqual(team_box["source_level_only_rows"], 642)
+        self.assertEqual(team_box["validation_checks_passed"], 47)
+        self.assertEqual(team_box["mutation_controls_passed"], 14)
+        self.assertEqual(team_box["deterministic_payloads_compared"], 16)
+        self.assertIn("UNKNOWN", team_box["historical_known_at_basis"])
+        self.assertIn("2020", team_box["partial_season_finding"])
+        self.assertEqual(team_box["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertTrue(self.evidence["completion_claim"]["team_box_candidate_layer_validated"])
+        self.assertTrue(self.evidence["completion_claim"]["structured_team_box_candidate_materialized"])
+        self.assertFalse(
+            self.evidence["completion_claim"]["team_box_canonical_pit_feature_or_official_source_admission"]
+        )
+        self.assertFalse(self.evidence["completion_claim"]["official_team_box_scores_materialized"])
+        checkpoint = self.gate["parallel_team_box_checkpoint"]
+        self.assertFalse(checkpoint["canonical_team_box_admission"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["training_feature_admission"])
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+        self.assertEqual(self.team_box_gate["reconciliation"]["historical_side_swap_reconciled_games"], 9)
+        self.assertFalse(self.team_box_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertFalse(self.team_box_gate["scientific_nonclaims"]["gap_002_resolved"])
 
 
 if __name__ == "__main__":

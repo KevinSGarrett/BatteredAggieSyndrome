@@ -408,6 +408,30 @@
     "deterministic_payloads_compared": 92,
     "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED"
   },
+  "validated_team_box_candidate": {
+    "gate_artifact": "artifacts/pit/historical_team_box_reconciliation_gate.json",
+    "dataset_identity": "3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b",
+    "manifest_sha256": "7ca71666e49787cf09bee955102192b169a36d226d3772f94958b2a7f41540d5",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "captured_partitions": 261,
+    "captured_raw_bytes": 36394032,
+    "distinct_source_games": 13670,
+    "candidate_team_rows": 27340,
+    "stat_cells": 812533,
+    "cross_route_game_side_point_reconciled_rows": 21168,
+    "cross_route_side_swap_reconciled_games": 9,
+    "cross_route_side_swap_reconciled_rows": 18,
+    "current_canonical_capture_exact_match_rows": 7318,
+    "current_canonical_capture_conflict_rows": 0,
+    "source_level_only_rows": 642,
+    "payload_bytes": 6163040,
+    "validation_checks_passed": 47,
+    "mutation_controls_passed": 14,
+    "deterministic_payloads_compared": 16,
+    "historical_known_at_state": "UNKNOWN_FOR_TEAM_BOX_STATS_CAPTURE_TIME_ONLY",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_CANONICAL_PIT_FEATURE_AND_OFFICIAL_SOURCE_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -447,6 +471,12 @@
     "bundle_bytes": 18072101,
     "base_commit": "a012fee744a7501489f324151a41f82bb89c76fb"
   },
+  "team_box_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-team-box-history/20260810T170000Z/BAT-523-team-box-history.bundle",
+    "bundle_sha256": "2ce1eb308d02e9a9f7f11d706e4fed8c5b9af8912fa43b1db213b8cf90097e61",
+    "bundle_bytes": 17853826,
+    "base_commit": "1687dc6179a227c79e1228d3993ff08bb938e44e"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -466,6 +496,10 @@
     "team_membership_canonical_or_pit_admission": false,
     "rankings_candidate_layer_validated": true,
     "rankings_canonical_or_pit_admission": false,
+    "team_box_candidate_layer_validated": true,
+    "team_box_canonical_pit_feature_or_official_source_admission": false,
+    "structured_team_box_candidate_materialized": true,
+    "official_team_box_scores_materialized": false,
     "historical_venue_materialized": false,
     "official_player_box_scores_materialized": false,
     "other_domain_expansion_continues": true,

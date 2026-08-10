@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_KNOWN_AT_SCOPED_REPLAY_GATE",
+  "decision_id": "bat523-known-at-replay-gate-v1",
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "jira_key": "BAT-523",
+  "issued_at_utc": "2026-08-10T12:50:00Z",
+  "supersedes": "NONE_PRESERVES_ORIGINAL_BAT395_THROUGH_BAT398_ZERO_STATE_EVIDENCE",
+  "input_identities": [
+    {
+      "role": "BAT523_SCHEDULE_OUTCOME_RECONCILIATION",
+      "dataset_identity": "b429c9cc1e92a3c78f6a160b719a96369456bcc13534281de7e79a92b8acac0b",
+      "manifest_sha256": "580f8a76d7583be2acc5c2cb7e275ee978cde4be1d643c98a6a7da09cb73385a"
+    },
+    {
+      "role": "BAT523_KNOWN_AT_REPLAY",
+      "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
+      "manifest_sha256": "5680240f6d35a10f65e5befa837f0b09a440cd590cd1e931daf820e15a63e468"
+    },
+    {
+      "role": "BAT523_INDEPENDENT_VALIDATION",
+      "sha256": "e67e173eae4125b2f09f79a17d540d205d7de0dcec8ea58b563e2dd0d74d4639",
+      "checks_passed": 36,
+      "checks_failed": 0
+    },
+    {
+      "role": "BAT523_DETERMINISTIC_REBUILD",
+      "sha256": "312530078216bbeebbf1000a62d59a4725f01ab4b846644cdd4341e5609ed844",
+      "status": "PASS"
+    }
+  ],
+  "gate_reexecution": {
+    "BAT-395": {
+      "decision": "PASS_STRICT_CROSS_SOURCE_TEAM_OUTCOME_CONTEXT",
+      "accepted_game_rows": 894,
+      "held_single_source_rows": 884,
+      "quarantined_rows": 19
+    },
+    "BAT-396": {
+      "decision": "PASS_NONEMPTY_APPEND_ONLY_SCOPED_STATE",
+      "accepted_team_observations": 1788
+    },
+    "BAT-397": {
+      "decision": "PASS_NONEMPTY_SCOPED_PREGAME_MATRIX",
+      "target_games": 2764,
+      "matrix_rows": 5528,
+      "matrix_cells": 22112,
+      "rows_with_priors": 5493,
+      "rows_source_missing": 35,
+      "target_game_outcome_used_rows": 0
+    },
+    "BAT-398": {
+      "decision": "APPROVE_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+      "feature_model_experimentation": "ELIGIBLE_FOR_UNPROTECTED_PRELIMINARY_BASELINES_ONLY",
+      "production_matrix_approval": "NOT_APPROVED",
+      "final_historical_population_readiness": "BLOCKED_EXPANSION_INCOMPLETE",
+      "protected_model_promotion": "BLOCKED_EXPANSION_AND_PROTECTED_VALIDATION_INCOMPLETE"
+    }
+  },
+  "chronological_replay": {
+    "source_domain": "TEAM_OUTCOME_CONTEXT",
+    "source_seasons": [2022],
+    "target_seasons": [2023, 2024, 2025],
+    "prediction_cutoff": "TARGET_START_UTC_MINUS_24_HOURS",
+    "source_known_at_rule": "SOURCE_KNOWN_AT_UTC_LESS_THAN_OR_EQUAL_TO_PREDICTION_CUTOFF",
+    "completion_rule": "COMPLETED_TRUE_IN_VERSIONED_FILE_BY_SOURCE_KNOWN_AT_UTC",
+    "target_game_rule": "SOURCE_CANONICAL_GAME_ID_NOT_EQUAL_TARGET_CANONICAL_GAME_ID",
+    "target_labels_used": false,
+    "status": "PASS_SCOPED_REAL_REPLAY"
+  },
+  "approval_scope": {
+    "allowed": [
+      "pipeline_integration",
+      "deterministic_chronological_replay",
+      "preliminary_unprotected_baselines",
+      "team_strength_prior_research"
+    ],
+    "not_allowed": [
+      "final_historical_population_claim",
+      "GAP-002_resolution",
+      "GAP-003_resolution",
+      "production_feature_set_claim",
+      "protected_model_promotion",
+      "production_model_readiness",
+      "trained_production_champion_claim",
+      "protected_performance_claim",
+      "TAMU_specialization_lift_claim",
+      "BAS_or_Aggie_Excess_scientific_claim"
+    ]
+  },
+  "negative_findings": [
+    "The admitted source season is 2022 only and is not the required maximum quality-supported national history.",
+    "The 884 repository-versioned 2021 single-source outcomes remain held outside automatic admission.",
+    "Nineteen reconciliation failures remain quarantined.",
+    "Thirty-five target-team rows have explicit SOURCE_MISSING priors.",
+    "Event-detail, roster/availability, weather/market, and other domain tiers remain independently unresolved."
+  ],
+  "downstream_reevaluation": {
+    "BAT-399": "ELIGIBLE_FOR_SCOPED_PIPELINE_INTEGRATION_AND_PRELIMINARY_BASELINE_WORK_ONLY",
+    "historical_expansion": "REMAINS_CRITICAL_PATH_ACTIVE",
+    "protected_model_promotion": "REMAINS_BLOCKED",
+    "production_readiness": "REMAINS_BLOCKED"
+  }
+}

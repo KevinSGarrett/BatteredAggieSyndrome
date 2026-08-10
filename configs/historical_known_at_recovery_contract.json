@@ -3,7 +3,7 @@
   "contract_id": "BAS-HISTORICAL-KNOWN-AT-RECOVERY-V1",
   "jira_key": "BAT-523",
   "local_work_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-  "status": "ACTIVE_CANDIDATE_RECOVERY",
+  "status": "SCOPED_TEAM_OUTCOME_REPLAY_VALIDATED_EXPANSION_CONTINUES",
   "purpose": "Recover independently evidenced historical knowledge times and rematerialize a nonempty point-in-time state and matrix without inventing source publication facts.",
   "trigger": {
     "bat_398_decision": "BLOCK",
@@ -81,6 +81,27 @@
     "All negative findings, provider limitations, schema drift, missingness, conflicts, and quarantined records are preserved.",
     "BAT-398 is re-executed and explicitly approves the new matrix before BAT-399 becomes eligible."
   ],
+  "latest_validated_replay": {
+    "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
+    "manifest_sha256": "5680240f6d35a10f65e5befa837f0b09a440cd590cd1e931daf820e15a63e468",
+    "validation_report_sha256": "e67e173eae4125b2f09f79a17d540d205d7de0dcec8ea58b563e2dd0d74d4639",
+    "deterministic_rebuild_report_sha256": "312530078216bbeebbf1000a62d59a4725f01ab4b846644cdd4341e5609ed844",
+    "source_domain": "TEAM_OUTCOME_CONTEXT",
+    "source_season": 2022,
+    "target_seasons": [2023, 2024, 2025],
+    "accepted_game_outcomes": 894,
+    "accepted_team_observations": 1788,
+    "target_games": 2764,
+    "matrix_rows": 5528,
+    "matrix_cells": 22112,
+    "rows_with_priors": 5493,
+    "rows_source_missing": 35,
+    "target_game_outcome_used_rows": 0,
+    "gate_disposition": "APPROVE_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+    "full_historical_population_disposition": "BLOCKED_EXPANSION_INCOMPLETE",
+    "held_repository_versioned_single_source_rows": 884,
+    "quarantined_reconciliation_rows": 19
+  },
   "external_storage": {
     "data_root": "<external-data-root>",
     "raw": "raw/historical_known_at",

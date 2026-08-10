@@ -126,6 +126,26 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
+    def test_drive_history_is_validated_candidate_only(self) -> None:
+        drive = self.contract["latest_validated_drive_detail_candidate"]
+        self.assertEqual(
+            drive["dataset_identity"],
+            "342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0",
+        )
+        self.assertEqual(drive["repository_drive_rows"], 351990)
+        self.assertEqual(drive["source_play_rows"], 2432416)
+        self.assertEqual(drive["source_play_rows_without_drive_id"], 1148)
+        self.assertEqual(drive["cross_route_exact_canonical_game_candidates"], 336506)
+        self.assertEqual(drive["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertEqual(drive["validation_checks_passed"], 30)
+        self.assertEqual(drive["mutation_controls_passed"], 9)
+        self.assertEqual(drive["deterministic_payloads_compared"], 17)
+        self.assertFalse(self.evidence["completion_claim"]["drive_detail_canonical_or_pit_admission"])
+        checkpoint = self.gate["parallel_drive_detail_checkpoint"]
+        self.assertEqual(checkpoint["quarantined_rows"], 3815)
+        self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -144,6 +144,31 @@
       "stop_reason": "PROVIDER_RATE_LIMIT"
     }
   },
+  "latest_validated_drive_detail_candidate": {
+    "dataset_identity": "342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0",
+    "manifest_sha256": "ad08719246b144fa2983a2ba54aa20a2b7f56959a9028c04ad413d53eac6f639",
+    "validation_report_sha256": "5b231aab5f24692a7f22a4666fd45b0ffaa657a7610c9157411644515545b4ed",
+    "deterministic_rebuild_report_sha256": "c0f37b6e300eb0baf4b644b173a23a22789a5480f4d0988cf9d01c7478430418",
+    "domain": "DRIVES",
+    "grain": "DRIVE",
+    "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+    "absent_repository_seasons": [2011, 2020],
+    "repository_drive_rows": 351990,
+    "source_play_rows": 2432416,
+    "source_play_rows_without_drive_id": 1148,
+    "cross_route_exact_canonical_game_candidates": 336506,
+    "versioned_repository_outside_current_cfbd_scope_candidates": 11669,
+    "quarantined_current_drive_id_misses": 328,
+    "quarantined_drive_result_missing_or_conflict": 3487,
+    "payload_bytes": 71748255,
+    "validation_checks_passed": 30,
+    "mutation_controls_passed": 9,
+    "deterministic_payloads_compared": 17,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "historical_known_at_basis": "INHERITED_FROM_VALIDATED_VERSIONED_PLAY_CAPTURE_BYTES_AND_COMMITTER_TIME",
+    "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
+    "domain_gate_disposition": "CANDIDATE_LAYER_VALIDATED_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
+  },
   "external_storage": {
     "data_root": "<external-data-root>",
     "raw": "raw/historical_known_at",

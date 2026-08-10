@@ -25,6 +25,11 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json"
             ).read_text(encoding="utf-8")
         )
+        cls.gate = json.loads(
+            (ROOT / "artifacts" / "pit" / "historical_known_at_replay_gate.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -64,26 +69,43 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertTrue(storage["content_addressed_captures_required"])
         self.assertFalse(self.contract["openai_assistance"]["direct_canonical_or_pit_authority"])
 
-    def test_scoped_replay_is_nonempty_validated_and_not_full_history(self) -> None:
+    def test_expanded_scoped_replay_is_validated_and_not_full_history(self) -> None:
         replay = self.contract["latest_validated_replay"]
         self.assertEqual(
             replay["dataset_identity"],
-            "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
+            "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
         )
-        self.assertEqual(replay["accepted_game_outcomes"], 894)
+        self.assertEqual(replay["source_seasons"], list(range(2010, 2023)))
+        self.assertEqual(replay["accepted_game_outcomes"], 10593)
+        self.assertEqual(replay["accepted_team_observations"], 21186)
         self.assertEqual(replay["matrix_rows"], 5528)
         self.assertEqual(replay["matrix_cells"], 22112)
+        self.assertEqual(replay["rows_source_missing"], 14)
         self.assertEqual(replay["target_game_outcome_used_rows"], 0)
         self.assertEqual(
             replay["gate_disposition"],
-            "APPROVE_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+            "APPROVE_EXPANDED_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
         )
         self.assertEqual(
             replay["full_historical_population_disposition"],
-            "BLOCKED_EXPANSION_INCOMPLETE",
+            "BLOCKED_OTHER_DOMAINS_AND_COVERAGE_GATES_INCOMPLETE",
+        )
+        self.assertEqual(
+            replay["preserved_prior_replay"]["dataset_identity"],
+            "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
         )
         self.assertFalse(self.evidence["completion_claim"]["full_historical_population_ready"])
         self.assertFalse(self.evidence["completion_claim"]["protected_model_promotion_eligible"])
+
+    def test_reexecuted_gate_preserves_quarantine_and_scoped_authority(self) -> None:
+        gate = self.gate
+        self.assertEqual(gate["gate_reexecution"]["BAT-395"]["accepted_game_rows"], 10593)
+        self.assertEqual(gate["gate_reexecution"]["BAT-395"]["quarantined_rows"], 570)
+        self.assertEqual(gate["gate_reexecution"]["BAT-397"]["rows_source_missing"], 14)
+        self.assertEqual(gate["chronological_replay"]["source_seasons"], list(range(2010, 2023)))
+        self.assertFalse(gate["chronological_replay"]["target_labels_used"])
+        self.assertIn("production_matrix_approval", gate["gate_reexecution"]["BAT-398"])
+        self.assertEqual(gate["gate_reexecution"]["BAT-398"]["production_matrix_approval"], "NOT_APPROVED")
 
 
 if __name__ == "__main__":

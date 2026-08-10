@@ -3,7 +3,7 @@
   "contract_id": "BAS-HISTORICAL-KNOWN-AT-RECOVERY-V1",
   "jira_key": "BAT-523",
   "local_work_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-  "status": "SCOPED_TEAM_OUTCOME_REPLAY_VALIDATED_EXPANSION_CONTINUES",
+  "status": "EXPANDED_2010_2022_TEAM_OUTCOME_REPLAY_VALIDATED_OTHER_DOMAIN_EXPANSION_CONTINUES",
   "purpose": "Recover independently evidenced historical knowledge times and rematerialize a nonempty point-in-time state and matrix without inventing source publication facts.",
   "trigger": {
     "bat_398_decision": "BLOCK",
@@ -82,25 +82,38 @@
     "BAT-398 is re-executed and explicitly approves the new matrix before BAT-399 becomes eligible."
   ],
   "latest_validated_replay": {
-    "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
-    "manifest_sha256": "5680240f6d35a10f65e5befa837f0b09a440cd590cd1e931daf820e15a63e468",
-    "validation_report_sha256": "e67e173eae4125b2f09f79a17d540d205d7de0dcec8ea58b563e2dd0d74d4639",
-    "deterministic_rebuild_report_sha256": "312530078216bbeebbf1000a62d59a4725f01ab4b846644cdd4341e5609ed844",
+    "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "manifest_sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888",
+    "validation_report_sha256": "0d77513834a87900eea33c811a7d22c6926c0bc8ecc5f767aff9de70906e6ee1",
+    "deterministic_rebuild_report_sha256": "f75374116989e98e5fca53c9bcbf254e101c0a823af94011679bc84e10cfdfee",
     "source_domain": "TEAM_OUTCOME_CONTEXT",
-    "source_season": 2022,
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
     "target_seasons": [2023, 2024, 2025],
-    "accepted_game_outcomes": 894,
-    "accepted_team_observations": 1788,
+    "accepted_game_outcomes": 10593,
+    "accepted_team_observations": 21186,
     "target_games": 2764,
     "matrix_rows": 5528,
     "matrix_cells": 22112,
-    "rows_with_priors": 5493,
-    "rows_source_missing": 35,
+    "rows_with_priors": 5514,
+    "rows_source_missing": 14,
     "target_game_outcome_used_rows": 0,
-    "gate_disposition": "APPROVE_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
-    "full_historical_population_disposition": "BLOCKED_EXPANSION_INCOMPLETE",
+    "gate_disposition": "APPROVE_EXPANDED_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+    "full_historical_population_disposition": "BLOCKED_OTHER_DOMAINS_AND_COVERAGE_GATES_INCOMPLETE",
     "held_repository_versioned_single_source_rows": 884,
-    "quarantined_reconciliation_rows": 19
+    "quarantined_reconciliation_rows": 570,
+    "reconciliation_2010_2021": {
+      "dataset_identity": "cbe37a861eccdaaefee060fda1fd05bb30b449bfa1163f740ec3726cc6278c2d",
+      "manifest_sha256": "7b46433cf101aa4acea5ae0725735da75c5f030a8d89d02be652214910f2feed",
+      "validation_report_sha256": "87f9faf5180d8c80fadef3f9e646efa53bf6e85c124383475419ca09a084dfe9",
+      "deterministic_rebuild_report_sha256": "522e23a3af399a271bf86c08e888a813526e930309af0b142c7fbbcd1321fc12",
+      "source_rows": 10250,
+      "accepted_exact_rows": 9699,
+      "quarantined_rows": 551
+    },
+    "preserved_prior_replay": {
+      "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
+      "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_PRESERVED_IMMUTABLY"
+    }
   },
   "external_storage": {
     "data_root": "<external-data-root>",

@@ -39,7 +39,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-016 (Append-only as-of state 
 
 ## Current gate state
 
-- Workflow: `READY`
+- Workflow: `IN_PROGRESS`
 - Ready: `true`
 - Priority: `P0`
 - Critical path: `true`

@@ -93,6 +93,7 @@ artifacts/jira_evidence/POST-SUBTASK-042.json
 artifacts/jira_evidence/POST-SUBTASK-043.json
 artifacts/jira_evidence/POST-SUBTASK-044.json
 artifacts/jira_evidence/POST-SUBTASK-045.json
+artifacts/jira_evidence/POST-SUBTASK-046.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
@@ -112,6 +113,7 @@ artifacts/openai_assist/quarantine_schema_pilot.json
 artifacts/openai_assist/router_rebalance.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
+artifacts/pit/asof_state_manifest.json
 artifacts/pit/known_at_gate.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/source_governance/acquisition_resilience_test.json

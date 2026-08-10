@@ -1,0 +1,281 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "POST-SUBTASK-046-bat396-append-only-asof-state",
+  "decision_unit": "POST-SUBTASK-046",
+  "jira_key": "BAT-396",
+  "title": "Materialize append-only game, team, conference, venue, player, roster, staff, availability, weather, market, and context as-of state",
+  "issued_at_utc": "2026-08-10T10:36:00Z",
+  "scope": "Atomic BAT-396 materialization only. Bulk state payloads remain outside Git; this evidence does not build a feature matrix or claim historical, model, forecast, or scientific readiness.",
+  "primary_artifact": {
+    "path": "artifacts/pit/asof_state_manifest.json",
+    "sha256": "be659759a1fcf02f360ba2a2948096d61b63cca51c90d8ccd6cfbc80c3f5ec51",
+    "bytes": 8235,
+    "content_hash": "bf2fdd2dc413e6ce0de1390dd5636d4b6021f7485d83dd4f33a78c99922a9245",
+    "schema_version": "1.0.0",
+    "dataset_version": "bat396-append-only-asof-state-v1",
+    "disposition": "IMPLEMENTED_PASS_WITH_QUARANTINED_REAL_POPULATION"
+  },
+  "prerequisite_identities": [
+    {
+      "decision_unit": "POST-SUBTASK-042",
+      "path": "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
+      "sha256": "9edbbb8bf3b52e61b1791330b8d508c5394f8ca111023159dea350f12abed93e",
+      "role": "BAT392_CANONICAL_ENTITY_SNAPSHOT"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-044",
+      "path": "artifacts/pit/timestamp_normalization_report.json",
+      "sha256": "efbcce861f8f25cf2283b19947a58bc76ccc2939f1fb7d626c50b7d3acc743c8",
+      "role": "BAT394_TIMESTAMP_NORMALIZATION"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-045",
+      "path": "artifacts/pit/known_at_gate.json",
+      "sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
+      "role": "BAT395_KNOWN_AT_GATE"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-041",
+      "path": "<external-data-root>/canonical/BAT-391/sha256/285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb/entity_decision_and_transition_events.parquet",
+      "sha256": "285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb",
+      "bytes": 190729009,
+      "role": "BAT391_EVENT_LEDGER"
+    }
+  ],
+  "external_dataset": {
+    "dataset_identity": "62f251fb5887fa75ce253a6c5ae4713f5079229ec1102f1939bdeaf923af0f19",
+    "logical_root": "<external-data-root>/pit_state/BAT-396/sha256/62f251fb5887fa75ce253a6c5ae4713f5079229ec1102f1939bdeaf923af0f19",
+    "external_manifest": {
+      "path": "<external-data-root>/pit_state/BAT-396/sha256/62f251fb5887fa75ce253a6c5ae4713f5079229ec1102f1939bdeaf923af0f19/external_manifest.json",
+      "sha256": "cb78726fef01d867d0e1b77c2be69e24e49939be3f2455c46183a7c6d7488e20",
+      "bytes": 96817
+    },
+    "accepted_state_payload": {
+      "path": "<external-data-root>/pit_state/BAT-396/sha256/62f251fb5887fa75ce253a6c5ae4713f5079229ec1102f1939bdeaf923af0f19/accepted_state_events.parquet",
+      "sha256": "311a22a946c9d35026fd782ebe501a688dd4edaa82b99c78880bfb8b0601d296",
+      "bytes": 7392,
+      "rows": 0
+    },
+    "quarantined_state_payload": {
+      "path": "<external-data-root>/pit_state/BAT-396/sha256/62f251fb5887fa75ce253a6c5ae4713f5079229ec1102f1939bdeaf923af0f19/quarantined_state_events.parquet",
+      "sha256": "a89cc9f8146641887f3ec0eee62bf7424b7499bc55fb4bff1600739f3133e9d2",
+      "bytes": 106045319,
+      "rows": 313712
+    }
+  },
+  "population": {
+    "source_ledger_rows": 959765,
+    "non_state_identity_decision_rows": 646053,
+    "state_candidate_rows": 313712,
+    "accepted_state_rows": 0,
+    "quarantined_state_rows": 313712,
+    "unique_state_records": 313712,
+    "unique_state_versions": 313712,
+    "canonical_identity_present_rows": 313015,
+    "canonical_identity_missing_rows": 697,
+    "effective_time_present_rows": 313712,
+    "known_at_populated_rows": 0,
+    "source_evidence_present_rows": 313712,
+    "target_game_outcome_used_rows": 0,
+    "source_correction_or_supersession_events": 0
+  },
+  "domain_dispositions": [
+    {"domain": "game", "state_candidates": 0, "accepted": 0, "quarantined": 0, "disposition": "NO_STATE_CANDIDATE_PAYLOAD"},
+    {"domain": "team", "state_candidates": 2236, "accepted": 0, "quarantined": 2236, "disposition": "QUARANTINED_MISSING_SOURCE_KNOWN_AT"},
+    {"domain": "conference", "state_candidates": 69, "accepted": 0, "quarantined": 69, "disposition": "QUARANTINED_MISSING_SOURCE_KNOWN_AT"},
+    {"domain": "venue", "state_candidates": 0, "accepted": 0, "quarantined": 0, "disposition": "NO_STATE_CANDIDATE_PAYLOAD"},
+    {"domain": "player", "state_candidates": 9843, "accepted": 0, "quarantined": 9843, "disposition": "QUARANTINED_MISSING_SOURCE_KNOWN_AT"},
+    {"domain": "roster", "state_candidates": 296931, "accepted": 0, "quarantined": 296931, "disposition": "QUARANTINED_MISSING_SOURCE_KNOWN_AT"},
+    {"domain": "staff", "state_candidates": 4633, "accepted": 0, "quarantined": 4633, "disposition": "QUARANTINED_MISSING_SOURCE_KNOWN_AT"},
+    {"domain": "availability", "state_candidates": 0, "accepted": 0, "quarantined": 0, "disposition": "NO_STATE_CANDIDATE_PAYLOAD"},
+    {"domain": "weather", "state_candidates": 0, "accepted": 0, "quarantined": 0, "disposition": "NO_STATE_CANDIDATE_PAYLOAD"},
+    {"domain": "market", "state_candidates": 0, "accepted": 0, "quarantined": 0, "disposition": "NO_STATE_CANDIDATE_PAYLOAD"},
+    {"domain": "context", "state_candidates": 0, "accepted": 0, "quarantined": 0, "disposition": "NO_STATE_CANDIDATE_PAYLOAD"}
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "State rows retain canonical identity, effective/known-at time, source evidence, and version; corrections append and future observations do not alter prior as-of reads.",
+      "disposition": "PASS_WITH_SCOPED_QUARANTINE",
+      "observable_result": "All 313,712 state candidates retain source identity, effective-time, evidence, version, event identity, and supersession fields. 313,015 have a defensible canonical identity; the 697 missing an identity and every row missing known-at remain quarantined. The accepted view is empty. A three-version append-only replay selected v1 at the early cutoff, v2 at the middle cutoff, v3 only at the late cutoff, and appending v3 changed no prior read.",
+      "evidence": "<external-data-root>/validation/BAT-396/asof-state/validation-report-run-1.json"
+    },
+    {
+      "criterion": "The declared output artifacts/pit/asof_state_manifest.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "observable_result": "Two independent builds produced byte-identical 8,235-byte manifests with SHA-256 be659759a1fcf02f360ba2a2948096d61b63cca51c90d8ccd6cfbc80c3f5ec51. The external dataset and every payload are content-addressed and independently hashed.",
+      "evidence": "artifacts/pit/asof_state_manifest.json"
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "observable_result": "No source-known-at timestamp was substituted; accepted rows remain zero; no cutoff snapshot, matrix, split, model, forecast, metric, BAS, Aggie Excess, or readiness claim was produced. Twelve unsafe manifest mutations were rejected.",
+      "evidence": "<external-data-root>/validation/BAT-396/asof-state/validation-report-run-1.json"
+    }
+  ],
+  "test_matrix": [
+    {
+      "classification": "REGRESSION",
+      "disposition": "PASS",
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q tests/test_temporal_governance.py tests/test_w24_readiness.py",
+      "result": "13 passed, 16 subtests passed"
+    },
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS",
+      "result": "Pinned BAT-395 rejection is preserved, all target-game outcome identity flags remain false, and synthetic append-only v1/v2/v3 replay proves future versions do not change prior reads."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE",
+      "result": "No hypothesis, target, feature matrix, split, model, calibrator, prediction, or protected evaluation is created by this state-store unit."
+    },
+    {
+      "classification": "INTEGRATION",
+      "disposition": "PASS_CONSUMABLE_EMPTY_STATE_CONTRACT",
+      "result": "POST-SUBTASK-047 can resolve the manifest, external manifest, accepted and quarantined payload hashes, schema, domain dispositions, and empty-state decision without manual reconstruction; it must preserve an empty or blocked matrix until accepted state exists."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "result": "Pinned source/data/code/tool/runtime identities and byte-identical rebuild are recorded."
+    },
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "disposition": "PASS",
+      "path": "<external-data-root>/runtime/BAT-396/validate_asof_state.py",
+      "result": "Independent schema, identity, payload, coverage, append-only replay, honesty, downstream, and 12-mutation validation passed with zero findings."
+    }
+  ],
+  "validation_artifacts": {
+    "run_1": {
+      "path": "<external-data-root>/validation/BAT-396/asof-state/validation-report-run-1.json",
+      "sha256": "33329c7ade03e0c34e084bf36ff2ff199df824a712fcddc0792f29588dd1f55a",
+      "bytes": 2725,
+      "result": "PASS",
+      "findings": 0,
+      "unsafe_mutations_rejected": 12
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-396/asof-state/asof_state_manifest.run-2.json",
+      "sha256": "be659759a1fcf02f360ba2a2948096d61b63cca51c90d8ccd6cfbc80c3f5ec51",
+      "bytes": 8235,
+      "byte_identical_to_canonical": true
+    }
+  },
+  "producer": {
+    "base_commit": "e1302218960339d214f573060da777d75389804d",
+    "builder": "<external-data-root>/runtime/BAT-396/build_asof_state.py",
+    "builder_sha256": "ff1b2aa333f2151589c66b51498009a4ca9315b2261e77c5c3c7d3f106c25af6",
+    "validator": "<external-data-root>/runtime/BAT-396/validate_asof_state.py",
+    "validator_sha256": "3d6a6c1551a97421d814ac574edb3187925104524823202c09c1c52d824e812c",
+    "python": "3.11.9",
+    "polars": "1.42.1",
+    "openai_api_calls": 0,
+    "openai_cost_usd": 0.0
+  },
+  "commands": [
+    {
+      "command": "run build_asof_state.py twice with pinned inputs and issued-at timestamp",
+      "exit_code": 0,
+      "result": "PASS: byte-identical manifest and immutable external dataset identity 62f251fb5887fa75ce253a6c5ae4713f5079229ec1102f1939bdeaf923af0f19"
+    },
+    {
+      "command": "run validate_asof_state.py over repository manifest, external manifest, both Parquet payloads, detailed coverage, append-only replay, and mutation probes",
+      "exit_code": 0,
+      "result": "PASS: zero findings and 12 unsafe mutations rejected"
+    },
+    {
+      "command": "python -B tools/validate_temporal.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS: bitemporal semantics, domain PIT policies, protected gateway and synthetic leakage replay"
+    },
+    {
+      "command": "python -B tools/validate_w24_readiness.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS: W24 synthetic E2E/replay readiness and leakage controls"
+    },
+    {
+      "command": "write canonical repository provenance manifest; validate_repository.py --strict; validate_autonomous_controls.py; validate_w25_final.py; validate_source_refs.py; second_pass_hardening.py --validate-only; validate_jira_control_plane.py --strict; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS: repository/provenance/security, autonomous controls, W25 final binding, 2,119 source references, all 474 Jira derivatives, strict Jira control plane, and 1,804-file Jira manifest"
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS: 316 passed, 2 skipped, 79 subtests"
+    }
+  ],
+  "repository_validation": {
+    "strict_repository_and_provenance": "PASS",
+    "repository_manifest_files": 2952,
+    "repository_manifest_fingerprint_before_evidence_finalization": "3807b2de9d6721d2b68fc0b5f990752f071d5a53a93445125e968f8e9d54fced",
+    "autonomous_controls": "PASS",
+    "w25_final": "PASS",
+    "source_references": 2119,
+    "jira_derivatives": 474,
+    "jira_manifest_files": 1804,
+    "jira_second_pass": "PASS",
+    "jira_control_plane": "PASS",
+    "tests_passed": 316,
+    "tests_skipped": 2,
+    "subtests_passed": 79
+  },
+  "negative_findings": [
+    {
+      "finding": "All 313,712 real temporal transition candidates have blank source_known_at_utc.",
+      "disposition": "ALL REMAIN QUARANTINED_MISSING_SOURCE_KNOWN_AT; effective, event, season, decision, and retrieval times are not substituted."
+    },
+    {
+      "finding": "697 state candidates lack a defensible canonical_identity_id.",
+      "disposition": "ROWS REMAIN QUARANTINED; no name-only or unsupported identity is manufactured."
+    },
+    {
+      "finding": "Game, venue, availability, weather, market, and context have no temporal state candidate payload in this bounded ledger.",
+      "disposition": "DOMAIN ABSENCE IS RECORDED INDEPENDENTLY; populated team/conference/player/roster/staff domains are preserved rather than globally discarded."
+    },
+    {
+      "finding": "The source ledger contains zero correction or supersession events.",
+      "disposition": "NO CORRECTION HISTORY IS FABRICATED; the append-only correction interface is proven with deterministic synthetic replay only."
+    },
+    {
+      "finding": "The first pre-acceptance builder revision produced a superseded content-addressed dataset before the no-rewrite optimization was applied.",
+      "disposition": "THE UNREFERENCED RECONSTRUCTIBLE 106,149,528-BYTE DATASET WAS VERIFIED WITHIN THE BAT-396 SHA ROOT AND REMOVED; only the final dataset identity remains."
+    }
+  ],
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-396-asof-state/20260810T103300Z",
+    "bundle_sha256": "a52dc38c0365aefc91cb4aaaf260dbbad0a85ae4fbad389c9e99353041eaec75",
+    "bundle_bytes": 17451261,
+    "manifest_sha256": "ff04772a959c1718aa8fd1fdd3851bed55fbd6f687d9f588fd94013c9a068c3e",
+    "sha256sums_sha256": "f45456dac75dfbc9767b679d3cf677125a01c096870a5fed1c70b24e1a052ce4",
+    "bundle_verify": "PASS_COMPLETE_HISTORY"
+  },
+  "jira_claim": {
+    "issue_id": "24536",
+    "status": "In Progress",
+    "logical_workflow_state": "IN_PROGRESS",
+    "implementation_maturity": "FUNCTIONAL_STARTER",
+    "evidence_state": "PLANNED",
+    "claim_comment_id": "13452",
+    "updated": "2026-08-10T05:34:24.729-0500",
+    "source_export": "<external-data-root>/runtime/BAT-396/BAT-396-claim-live-row.csv",
+    "reconciliation": "DRY_RUN_PASS_THEN_PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS"
+  },
+  "downstream_reevaluation": {
+    "POST-STORY-016": "STATE_STORE_MATERIALIZED_BUT_STORY_REMAINS_INCOMPLETE",
+    "POST-SUBTASK-047": "READY_AFTER_VERIFIED_BAT396_COMPLETION_SYNC; MUST EMIT EMPTY OR BLOCKED MATRIX UNTIL ACCEPTED STATE EXISTS",
+    "POST-SUBTASK-048": "BLOCKED_ON_POST_SUBTASK_047_AND_NO_ACCEPTED_MATRIX"
+  },
+  "completion_claim": {
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED_AFTER_PROTECTED_INTEGRATION_AND_LIVE_SYNC",
+    "atomic_work_unit": "PASS_WITH_QUARANTINED_REAL_POPULATION",
+    "historical_population_readiness": "NOT_ESTABLISHED",
+    "matrix_approval": "BLOCKED_NO_MATERIALIZED_ACCEPTED_MATRIX"
+  },
+  "honesty_boundary": [
+    "BAT-396 implements an immutable append-only state-store and quarantine interface; it does not make unsupported historical rows eligible.",
+    "It does not establish final national historical completeness, GAP-002 or GAP-003 resolution, an accepted PIT training matrix, production model readiness, or protected performance.",
+    "It does not claim a trained production champion, A&M specialization lift, BAS, Aggie Excess, calibration, score likelihood, or any scientific result."
+  ]
+}

@@ -4261,7 +4261,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-051
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-046_materialize_append_only_game_team_conference_venue_player_roster_staff_availabil.json",To Do,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-046,pit-temporal,POST-SUBTASK-046,GAP-005;GAP-006;HANDOFF-004,PHASE-1,READY,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-046_materialize_append_only_game_team_conference_venue_player_roster_staff_availabil.json",In Progress,Highest,actionable;core-release;data-materialization;pit;post-wave;subtask;local-id-post-subtask-046,pit-temporal,POST-SUBTASK-046,GAP-005;GAP-006;HANDOFF-004,PHASE-1,IN_PROGRESS,IMPLEMENTED,PLANNED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
 Sub-task,BAT-397,100351,"[POST-SUBTASK-047] Build national pregame matrices at configured cutoffs with row/cell lineage, missingness class, fallback, and pinned versions",100066,"Local ID: POST-SUBTASK-047
 
 Objective

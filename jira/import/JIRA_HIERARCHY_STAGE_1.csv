@@ -3086,7 +3086,7 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-159
 
 Canonical Record: jira/records/issues/epics/POST-EPIC-017_deferred_live_and_in_game_modeling.json",To Do,Low,actionable;deferred;live;post-wave;local-id-post-epic-017,live-modeling,POST-EPIC-017,GAP-014;HANDOFF-014;TASK-169;TASK-170;TASK-171;TASK-172,PHASE-5,DEFERRED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,PROTECTED_GATE,AGGREGATE_GATE
-Epic,BAT-512,100464,[POST-EPIC-018] Governed optional OpenAI assistive research and data engineering plane,,"Local ID: POST-EPIC-018
+Epic,,100464,[POST-EPIC-018] Governed optional OpenAI assistive research and data engineering plane,,"Local ID: POST-EPIC-018
 
 Objective
 Governed optional OpenAI assistive research and data engineering plane

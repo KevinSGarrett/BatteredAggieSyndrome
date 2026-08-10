@@ -33,14 +33,14 @@ Execute POST-SUBTASK-161 within the optional OpenAI assistive plane. Consume `PO
 
 ## Current gate state
 
-- Workflow: `DONE`
+- Workflow: `BLOCKED`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `VERIFIED`
+- Evidence state: `PLANNED`
 - Governance traceability gate: `POST-SUBTASK-161`
 
 ## Read first

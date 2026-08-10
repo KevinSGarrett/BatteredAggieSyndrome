@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "pilot_id": "openai-tamu-official-depth-chart-document-pilot-v1",
+  "jira_unit": "POST-SUBTASK-167",
+  "task_name": "depth_chart_document_extraction",
+  "authority": "SHADOW_DOCUMENT_CANDIDATE_ONLY_NO_PIT_OR_AVAILABILITY_ADMISSION",
+  "source_candidate": {
+    "source_id": "SRC-014",
+    "provider": "Texas A&M Athletics / SIDEARM official weekly game notes",
+    "acquisition_identity": "13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956",
+    "acquisition_manifest_sha256": "ad4b834f33581452db0be71770118347237621efff97bb18bde8d7ff204d506d",
+    "candidate_identity": "ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4",
+    "candidate_manifest_sha256": "618de5e4646c2750e4bb65faa6c8cf6bda285d5ed08f5514606a98cfc45005b3",
+    "candidate_payload_sha256": "2a6af9e113de27790a51efa694fd441bee5593d82d2cd2983e748f10e035c4e0",
+    "candidate_validation_report_sha256": "3091edfffa4a62b356238d86fc58fa3ac5446153dba001883055874fd866f279",
+    "external_relative_path": "quarantine/historical_known_at/sha256/ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4/tamu_depth_chart_evidence_pages/depth_chart_evidence_pages.parquet",
+    "candidate_manifest_relative_path": "manifests/historical_known_at/sha256/ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4/tamu_depth_chart_evidence_pages_manifest.json",
+    "candidate_validation_relative_path": "validation/BAT-523/tamu_depth_chart_evidence_pages_ebc7c1c0_validation.json",
+    "source_season_min": 2011,
+    "source_season_max": 2025,
+    "candidate_rows": 168,
+    "historical_publication_time_state": "UNKNOWN",
+    "canonical_or_pit_admission": false
+  },
+  "prompt": {
+    "path": "prompts/openai_assist/depth_chart_document_v1.txt",
+    "version": "depth-chart-document-v1",
+    "sha256": "25e10a0a799cb24e4a51111685f9333316d9a766b0e06e03af37a2cb85dee249"
+  },
+  "output_schema": "schemas/openai/assistive_evaluation.schema.json",
+  "routes": [
+    {"model": "gpt-5-nano", "reasoning_effort": "minimal", "role": "BULK_VOLUME_BASELINE"},
+    {"model": "gpt-5.6-luna", "reasoning_effort": "none", "role": "HARD_VOLUME_COMPARISON"},
+    {"model": "gpt-5.6-terra", "reasoning_effort": "low", "role": "COMPLEX_LAYOUT_RECONCILIATION"},
+    {"model": "gpt-5.6-sol", "reasoning_effort": "medium", "role": "GOLD_HARD_CASE_REFERENCE"}
+  ],
+  "samples": [
+    {
+      "case_id": "tamu-depth-2011-smu-qb",
+      "evidence_page_id": "dcp_bff3625b42e33e1521f6532d",
+      "season": 2011,
+      "document_label": "SMU",
+      "position_group": "QB",
+      "instruction": "Extract the 2011 SMU-notes QB group in printed order, including the two explicit OR alternatives. Do not infer availability or publication time.",
+      "facts": [
+        {"field": "starter_player", "regex": "QB\\s+17\\s+(Ryan Tannehill)\\s+6-4"},
+        {"field": "starter_jersey", "regex": "QB\\s+(17)\\s+Ryan Tannehill", "transform": "INT"},
+        {"field": "backup_player", "regex": "QB[\\s\\S]*?\\s3\\s+(Jameill Showers)\\s+6-1"},
+        {"field": "backup_jersey", "regex": "QB[\\s\\S]*?\\s(3)\\s+Jameill Showers", "transform": "INT"},
+        {"field": "alternate_player_1", "regex": "QB[\\s\\S]*?or\\s+16\\s+(Matt Joeckel)\\s+6-4"},
+        {"field": "alternate_player_2", "regex": "QB[\\s\\S]*?or\\s+15\\s+(Johnny Manziel)\\s+6-1"},
+        {"field": "injury_status", "status": "NOT_PRESENT", "forbid_regex": "(?i)\\b(injury|injured|questionable|doubtful|probable|unavailable)\\b"},
+        {"field": "historical_publication_time_utc", "status": "UNKNOWN", "metadata_field": "historical_publication_time_state", "metadata_value": "UNKNOWN"}
+      ]
+    },
+    {
+      "case_id": "tamu-depth-2012-lsu-qb",
+      "evidence_page_id": "dcp_0b20eda12c6568d23bc2a7f8",
+      "season": 2012,
+      "document_label": "LSU",
+      "position_group": "QB",
+      "instruction": "Extract the 2012 LSU-notes QB group in printed order and preserve the explicit OR relationship. Do not infer availability or publication time.",
+      "facts": [
+        {"field": "starter_player", "regex": "QB\\s+2\\s+(Johnny Manziel)\\s+6-1"},
+        {"field": "starter_jersey", "regex": "QB\\s+(2)\\s+Johnny Manziel", "transform": "INT"},
+        {"field": "backup_player", "regex": "QB[\\s\\S]*?\\s16\\s+(Matt Joeckel)\\s+6-4"},
+        {"field": "alternate_player_1", "regex": "QB[\\s\\S]*?or\\s+3\\s+(Jameill Showers)\\s+6-1"},
+        {"field": "injury_status", "status": "NOT_PRESENT", "forbid_regex": "(?i)\\b(injury|injured|questionable|doubtful|probable|unavailable)\\b"},
+        {"field": "historical_publication_time_utc", "status": "UNKNOWN", "metadata_field": "historical_publication_time_state", "metadata_value": "UNKNOWN"}
+      ]
+    },
+    {
+      "case_id": "tamu-depth-2013-missouri-tb",
+      "evidence_page_id": "dcp_fc549903abbd9360de177f28",
+      "season": 2013,
+      "document_label": "Missouri",
+      "position_group": "TB",
+      "instruction": "Extract the 2013 Missouri-notes TB group in printed order across the columnar line breaks, including both explicit OR alternatives. Do not infer availability or publication time.",
+      "facts": [
+        {"field": "starter_player", "regex": "TB\\s+1\\s+(Ben Malena)\\s+5-9"},
+        {"field": "starter_jersey", "regex": "TB\\s+(1)\\s+Ben Malena", "transform": "INT"},
+        {"field": "backup_player", "regex": "TB[\\s\\S]*?\\s5\\s+(Brandon Williams)\\s+6-0"},
+        {"field": "alternate_player_1", "regex": "TB[\\s\\S]*?or\\s+21\\s+(Tra Carson)\\s+6-0"},
+        {"field": "alternate_player_2", "regex": "TB[\\s\\S]*?or\\s+3\\s+(Trey Williams)\\s+5-8"},
+        {"field": "injury_status", "status": "NOT_PRESENT", "forbid_regex": "(?i)\\b(injury|injured|questionable|doubtful|probable|unavailable)\\b"},
+        {"field": "historical_publication_time_utc", "status": "UNKNOWN", "metadata_field": "historical_publication_time_state", "metadata_value": "UNKNOWN"}
+      ]
+    },
+    {
+      "case_id": "tamu-depth-2016-kansas-state-wr",
+      "evidence_page_id": "dcp_728e1024637cf8c11a9e311e",
+      "season": 2016,
+      "document_label": "Kansas State (Texas Bowl)",
+      "position_group": "WR-11",
+      "instruction": "Extract only the 2016 Kansas State-notes WR group led by jersey 11, preserving printed capitalization and the explicit OR alternative. Do not select either earlier WR group and do not infer availability or publication time.",
+      "facts": [
+        {"field": "starter_player", "regex": "WR\\s+11\\s+(JOSH REYNOLDS),\\s+6-4"},
+        {"field": "starter_jersey", "regex": "WR\\s+(11)\\s+JOSH REYNOLDS", "transform": "INT"},
+        {"field": "backup_player", "regex": "WR[\\s\\S]*?\\s18\\s+(Edward Pope),\\s+6-4"},
+        {"field": "alternate_player_1", "regex": "WR[\\s\\S]*?or\\s+16\\s+(Kemah Siverand),\\s+6-1"},
+        {"field": "injury_status", "status": "NOT_PRESENT", "forbid_regex": "(?i)\\b(injury|injured|questionable|doubtful|probable|unavailable)\\b"},
+        {"field": "historical_publication_time_utc", "status": "UNKNOWN", "metadata_field": "historical_publication_time_state", "metadata_value": "UNKNOWN"}
+      ]
+    },
+    {
+      "case_id": "tamu-depth-2020-weekly-wr",
+      "evidence_page_id": "dcp_e135f413877c269e620a4ebd",
+      "season": 2020,
+      "document_label": "PDF Notes",
+      "position_group": "WR-18",
+      "instruction": "Extract only the 2020 WR group led by jersey 18 and preserve all three literal <or> alternatives in printed order. Do not infer availability or publication time.",
+      "facts": [
+        {"field": "starter_player", "regex": "WR\\s+18\\s+(Kam Brown),\\s+6-1"},
+        {"field": "starter_jersey", "regex": "WR\\s+(18)\\s+Kam Brown", "transform": "INT"},
+        {"field": "alternate_player_1", "regex": "WR[\\s\\S]*?<or>\\s+2\\s+(Chase Lane),\\s+6-0"},
+        {"field": "alternate_player_2", "regex": "WR[\\s\\S]*?<or>\\s+7\\s+(Moose Muhammad III),\\s+6-1"},
+        {"field": "alternate_player_3", "regex": "WR[\\s\\S]*?<or>\\s+3\\s+(Devin Price),\\s+6-3"},
+        {"field": "injury_status", "status": "NOT_PRESENT", "forbid_regex": "(?i)\\b(injury|injured|questionable|doubtful|probable|unavailable)\\b"},
+        {"field": "historical_publication_time_utc", "status": "UNKNOWN", "metadata_field": "historical_publication_time_state", "metadata_value": "UNKNOWN"}
+      ]
+    },
+    {
+      "case_id": "tamu-depth-2024-weekly-lg",
+      "evidence_page_id": "dcp_e5c984d6296aa6ce188f8a14",
+      "season": 2024,
+      "document_label": "PDF Notes",
+      "position_group": "LG",
+      "instruction": "Extract the 2024 LG group, including the OR alternative printed on a separate line. Preserve the apostrophe and capitalization exactly. Do not infer availability or publication time.",
+      "facts": [
+        {"field": "starter_player", "regex": "LG\\s+71\\s+(Chase Bisontis),\\s+6-6"},
+        {"field": "starter_jersey", "regex": "LG\\s+(71)\\s+Chase Bisontis", "transform": "INT"},
+        {"field": "backup_player", "regex": "LG[\\s\\S]*?\\s75\\s+(Kam Dewberry),\\s+6-4"},
+        {"field": "alternate_player_1", "regex": "LG[\\s\\S]*?<OR>\\s+74\\s+(Aki Ogunbiyi),\\s+6-4"},
+        {"field": "injury_status", "status": "NOT_PRESENT", "forbid_regex": "(?i)\\b(injury|injured|questionable|doubtful|probable|unavailable)\\b"},
+        {"field": "historical_publication_time_utc", "status": "UNKNOWN", "metadata_field": "historical_publication_time_state", "metadata_value": "UNKNOWN"}
+      ]
+    },
+    {
+      "case_id": "tamu-depth-2025-weekly-qb",
+      "evidence_page_id": "dcp_d68068ef95db3ee634beb189",
+      "season": 2025,
+      "document_label": "PDF Notes",
+      "position_group": "QB",
+      "instruction": "Extract the 2025 QB group in printed order, including the explicit OR alternative and the apostrophe in O'Neill. Do not infer availability or publication time.",
+      "facts": [
+        {"field": "starter_player", "regex": "QB\\s+10\\s+(Marcel Reed)\\s+\\(6-1"},
+        {"field": "starter_jersey", "regex": "QB\\s+(10)\\s+Marcel Reed", "transform": "INT"},
+        {"field": "backup_player", "regex": "QB[\\s\\S]*?\\s16\\s+(Miles O'Neill)\\s+\\(6-5"},
+        {"field": "third_player", "regex": "QB[\\s\\S]*?\\s13\\s+(Brady Hart)\\s+\\(6-4"},
+        {"field": "alternate_player_1", "regex": "QB[\\s\\S]*?<OR>\\s+9\\s+(Jacob Zeno)\\s+\\(6-2"},
+        {"field": "injury_status", "status": "NOT_PRESENT", "forbid_regex": "(?i)\\b(injury|injured|questionable|doubtful|probable|unavailable)\\b"},
+        {"field": "historical_publication_time_utc", "status": "UNKNOWN", "metadata_field": "historical_publication_time_state", "metadata_value": "UNKNOWN"}
+      ]
+    }
+  ],
+  "acceptance": {
+    "strict_schema_rate_min": 1.0,
+    "field_precision_min": 0.95,
+    "field_recall_min": 0.95,
+    "evidence_accuracy_min": 1.0,
+    "correct_abstention_rate_min": 1.0,
+    "unsupported_fact_rate_max": 0.0,
+    "false_merge_rate_max": 0.0,
+    "historical_timestamp_fabrication_max": 0,
+    "authority": "SHADOW_ONLY_UNTIL_ALL_THRESHOLDS_PASS"
+  }
+}

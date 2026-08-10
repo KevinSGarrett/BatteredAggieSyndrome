@@ -17,7 +17,7 @@
     "tests/test_openai_assist.py",
     "artifacts/jira_evidence/POST-SUBTASK-163.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-161",
   "blocks": [
     "POST-STORY-056",
     "POST-SUBTASK-166"
@@ -74,7 +74,7 @@
   "end_to_end_validation": "Run bounded candidate ranking against pinned unresolved identities, compare deterministic ranking and model tiers, and demonstrate useful top-k assistance with zero model-approved merges.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-163.json",
-  "evidence_state": "VERIFIED",
+  "evidence_state": "PLANNED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -113,7 +113,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-519",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
@@ -122,19 +122,10 @@
     "pilot-b",
     "entity-resolution"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-163",
   "maturity_before": "NOT_STARTED",
   "objective": "Pilot unresolved entity candidate ranking and evidence explanation without merge authority",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24659",
-    "jira_updated_at": "2026-08-10T01:16:12.978-0500",
-    "last_synced_at": "2026-08-10T06:17:41.132260+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-519\\jira-live-completion.csv",
-    "sprint": "",
-    "status_raw": "Done"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -231,7 +222,7 @@
   "title": "[POST-SUBTASK-163] Pilot unresolved entity candidate ranking and evidence explanation without merge authority",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -239,5 +230,5 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-163.md",
-  "workflow_state": "DONE"
+  "workflow_state": "BLOCKED"
 }

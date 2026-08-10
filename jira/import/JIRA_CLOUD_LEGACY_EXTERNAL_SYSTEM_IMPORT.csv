@@ -34633,7 +34633,7 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-159
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-159_conduct_rights_science_security_product_target_resource_backup_incident_review_a.json",To Do,Low,actionable;deferred;live;post-wave;protected-gate;subtask;local-id-post-subtask-159,live-modeling,POST-SUBTASK-159,GAP-014;HANDOFF-014;TASK-169;TASK-170;TASK-171;TASK-172,PHASE-5,DEFERRED,PRODUCTION_READY,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
-Epic,BAT-512,100464,[POST-EPIC-018] Governed optional OpenAI assistive research and data engineering plane,,"Local ID: POST-EPIC-018
+Epic,,100464,[POST-EPIC-018] Governed optional OpenAI assistive research and data engineering plane,,"Local ID: POST-EPIC-018
 
 Objective
 Governed optional OpenAI assistive research and data engineering plane
@@ -34696,7 +34696,7 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-166
 
 Canonical Record: jira/records/issues/epics/POST-EPIC-018_governed_optional_openai_assistive_research_and_data_engineering_plane.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-epic-018,data-sources,POST-EPIC-018,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,SHARED_CONTRACT,AGGREGATE_GATE
-Story,BAT-513,100465,"[POST-STORY-054] Governance, storage, budget, controller, and local evaluation foundation",100464,"Local ID: POST-STORY-054
+Story,,100465,"[POST-STORY-054] Governance, storage, budget, controller, and local evaluation foundation",100464,"Local ID: POST-STORY-054
 
 Objective
 Governance, storage, budget, controller, and local evaluation foundation
@@ -34759,7 +34759,7 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-040
 
 Canonical Record: jira/records/issues/stories/POST-STORY-054_governance_storage_budget_controller_and_local_evaluation_foundation.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-054,operations-security,POST-STORY-054,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,false,SHARED_CONTRACT,AGGREGATE_GATE
-Story,BAT-514,100466,"[POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",100464,"Local ID: POST-STORY-055
+Story,,100466,"[POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",100464,"Local ID: POST-STORY-055
 
 Objective
 Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots
@@ -34786,7 +34786,7 @@ Prerequisites / Dependencies
 - POST-SUBTASK-161
 
 Acceptance Criteria
-1. Pilots A-C receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
+1. Pilots A-C and the official depth-chart document extension receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
 2. Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates.
 
 Definition of Done
@@ -34799,7 +34799,7 @@ Definition of Done
 
 Required Tests / Validation
 - EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-055.json — Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-055.json — Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 Required Evidence
@@ -34822,7 +34822,7 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-161
 
 Canonical Record: jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-055,data-sources,POST-STORY-055,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
-Story,BAT-515,100467,"[POST-STORY-056] Empirical OpenAI scale-out, usage accounting, cleanup, and handoff",100464,"Local ID: POST-STORY-056
+Story,,100467,"[POST-STORY-056] Empirical OpenAI scale-out, usage accounting, cleanup, and handoff",100464,"Local ID: POST-STORY-056
 
 Objective
 Empirical OpenAI scale-out, usage accounting, cleanup, and handoff
@@ -34831,7 +34831,7 @@ Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
 
 Scope
-Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-STORY-056 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/jira_evidence/POST-STORY-056.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 Explicit In Scope
 - Perform the exact action: Empirical OpenAI scale-out, usage accounting, cleanup, and handoff.
@@ -34848,9 +34848,11 @@ Prerequisites / Dependencies
 - Dependency POST-SUBTASK-162 complete at required maturity
 - Dependency POST-SUBTASK-163 complete at required maturity
 - Dependency POST-SUBTASK-164 complete at required maturity
+- Dependency POST-SUBTASK-167 complete at required maturity
 - POST-SUBTASK-162
 - POST-SUBTASK-163
 - POST-SUBTASK-164
+- POST-SUBTASK-167
 
 Acceptance Criteria
 1. Only empirically validated routine formats scale to GPT-5 Nano Batch, with task-specific 4o Mini/Luna use measured, complex ambiguity routed to Terra, and a small hard/high-risk residue routed to Sol under staged and model-cap admission.
@@ -34866,7 +34868,7 @@ Definition of Done
 
 Required Tests / Validation
 - EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 Required Evidence
@@ -34876,7 +34878,7 @@ Required Evidence
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
 
 End-to-End Validation
-Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries.
+Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
 
 Stop Conditions
 - Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
@@ -34886,10 +34888,10 @@ Stop Conditions
 Source References
 - SRCREF-02119
 
-Governance Traceability Gate: POST-SUBTASK-164
+Governance Traceability Gate: POST-SUBTASK-167
 
 Canonical Record: jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-056,release-readiness,POST-STORY-056,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,PROTECTED_GATE,AGGREGATE_GATE
-Sub-task,BAT-516,100468,"[POST-SUBTASK-160] Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation",100465,"Local ID: POST-SUBTASK-160
+Sub-task,,100468,"[POST-SUBTASK-160] Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation",100465,"Local ID: POST-SUBTASK-160
 
 Objective
 Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation
@@ -34953,8 +34955,8 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-160
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-160_implement_the_governed_openai_controller_storage_budget_provenance_schema_security_and_clean.json",Done,Highest,actionable;openai-assist;post-wave;subtask;controller;security;local-id-post-subtask-160,operations-security,POST-SUBTASK-160,OPENAI-ASSIST-PLAN,PHASE-1,DONE,INTEGRATED,VERIFIED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
-Sub-task,BAT-517,100469,"[POST-SUBTASK-161] Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol",100465,"Local ID: POST-SUBTASK-161
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-160_implement_the_governed_openai_controller_storage_budget_provenance_schema_security_and_clean.json",In Progress,Highest,actionable;openai-assist;post-wave;subtask;controller;security;local-id-post-subtask-160,operations-security,POST-SUBTASK-160,OPENAI-ASSIST-PLAN,PHASE-1,IN_PROGRESS,INTEGRATED,PLANNED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
+Sub-task,,100469,"[POST-SUBTASK-161] Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol",100465,"Local ID: POST-SUBTASK-161
 
 Objective
 Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol
@@ -35017,8 +35019,8 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-161
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-161_build_the_local_gold_corpus_and_evaluation_harness_and_compare_luna_terra_and_sol.json",Done,Highest,actionable;openai-assist;post-wave;subtask;evaluation;gold-set;local-id-post-subtask-161,validation-promotion,POST-SUBTASK-161,OPENAI-ASSIST-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
-Sub-task,BAT-518,100470,[POST-SUBTASK-162] Pilot historical gamebook-equivalent extraction in shadow candidate mode,100466,"Local ID: POST-SUBTASK-162
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-161_build_the_local_gold_corpus_and_evaluation_harness_and_compare_luna_terra_and_sol.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;evaluation;gold-set;local-id-post-subtask-161,validation-promotion,POST-SUBTASK-161,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Sub-task,,100470,[POST-SUBTASK-162] Pilot historical gamebook-equivalent extraction in shadow candidate mode,100466,"Local ID: POST-SUBTASK-162
 
 Objective
 Pilot historical gamebook-equivalent extraction in shadow candidate mode
@@ -35083,8 +35085,8 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-162
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-162_pilot_historical_gamebook_equivalent_extraction_in_shadow_candidate_mode.json",Done,Highest,actionable;openai-assist;post-wave;subtask;pilot-a;gamebook;local-id-post-subtask-162,data-sources,POST-SUBTASK-162,OPENAI-ASSIST-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
-Sub-task,BAT-519,100471,[POST-SUBTASK-163] Pilot unresolved entity candidate ranking and evidence explanation without merge authority,100466,"Local ID: POST-SUBTASK-163
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-162_pilot_historical_gamebook_equivalent_extraction_in_shadow_candidate_mode.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;pilot-a;gamebook;local-id-post-subtask-162,data-sources,POST-SUBTASK-162,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Sub-task,,100471,[POST-SUBTASK-163] Pilot unresolved entity candidate ranking and evidence explanation without merge authority,100466,"Local ID: POST-SUBTASK-163
 
 Objective
 Pilot unresolved entity candidate ranking and evidence explanation without merge authority
@@ -35149,8 +35151,8 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-163
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-163_pilot_unresolved_entity_candidate_ranking_and_evidence_explanation_without_merge_authority.json",Done,Highest,actionable;openai-assist;post-wave;subtask;pilot-b;entity-resolution;local-id-post-subtask-163,entities,POST-SUBTASK-163,OPENAI-ASSIST-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
-Sub-task,BAT-520,100472,[POST-SUBTASK-164] Pilot quarantine and schema-drift classification with deterministic remediation routing,100466,"Local ID: POST-SUBTASK-164
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-163_pilot_unresolved_entity_candidate_ranking_and_evidence_explanation_without_merge_authority.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;pilot-b;entity-resolution;local-id-post-subtask-163,entities,POST-SUBTASK-163,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Sub-task,,100472,[POST-SUBTASK-164] Pilot quarantine and schema-drift classification with deterministic remediation routing,100466,"Local ID: POST-SUBTASK-164
 
 Objective
 Pilot quarantine and schema-drift classification with deterministic remediation routing
@@ -35159,14 +35161,12 @@ Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
 
 Scope
-Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt governing plan SHA-256 651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523 across the controller, staged budget, router, validators, documentation, and Jira graph without rewriting historical settled usage. Then consume `POST-SUBTASK-161`; compare Nano and any justified 4o Mini/Luna route with meaningful Terra/Sol hard cases; produce `artifacts/openai_assist/quarantine_schema_pilot.json`, `artifacts/jira_evidence/POST-SUBTASK-164.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-161`; produce `artifacts/openai_assist/router_rebalance.json`, `artifacts/openai_assist/quarantine_schema_pilot.json`, `artifacts/jira_evidence/POST-SUBTASK-164.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 Explicit In Scope
 - Perform the exact action: Pilot quarantine and schema-drift classification with deterministic remediation routing.
 - Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
 - Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
-- Adopt the superseding balanced Nano-to-Sol router and budget policy before any BAT-520 paid call, without rewriting settled historical usage.
-- Give Terra and Sol meaningful complex/hard/high-risk evidence-backed cases while measuring whether they improve hard-case acceptance, review savings, or risk reduction.
 
 Explicit Out of Scope
 - Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
@@ -35181,8 +35181,8 @@ Prerequisites / Dependencies
 Acceptance Criteria
 1. Representative corruption, missingness, schema drift, incompatible mapping, evidence absence, conflict, PIT risk, and target-leakage cases are classified without changing source truth.
 2. Every remediation route is deterministic-reviewable and affected records/domains remain quarantined until authoritative validators accept them.
-3. Validated routine classifications begin with GPT-5 Nano Batch; 4o Mini or Luna is used only for a task-specific measured need, complex ambiguity routes to Terra, and only a hard/high-risk residue routes to Sol.
-4. The pilot includes meaningful Terra and Sol hard cases, records accepted evidence-verified results per dollar, and enforces the verified 651bbf...aa523 staged budget and $15/$10 base plus $25/$17 maximum Terra/Sol caps.
+3. Validated routine classifications begin with GPT-5 Nano Batch; 4o Mini or Luna is used only for a measured task need, complex ambiguity routes to Terra, and only a hard/high-risk residue routes to Sol.
+4. Meaningful Terra/Sol hard cases and the verified 651bbf...aa523 staged/base/reserve budget are evidenced before completion.
 
 Definition of Done
 1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
@@ -35191,22 +35191,20 @@ Definition of Done
 4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
 5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
 6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
-7. The balanced router, staged releases, historical-usage mapping, $15/$10 Terra/Sol base envelopes, $25/$17 measured reserve maxima, and mandatory representative Terra/Sol calls match governing plan SHA-256 651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523.
 
 Required Tests / Validation
 - EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-164.json — Classify a pinned quarantine/schema-drift sample, compare deterministic and model routes, and prove outputs only prioritize remediation while authoritative quarantine remains unchanged.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-164.json — Adopt the revised router, then classify a pinned quarantine/schema-drift sample across Nano and justified higher tiers, preserving candidate-only authority and measuring evidence-verified acceptance per dollar.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 Required Evidence
 - `artifacts/jira_evidence/POST-SUBTASK-164.json` with one evidence row per acceptance criterion and exact artifact hashes.
 - Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
-- Plan-hash, stage-release, allocation/model-cap, historical-usage mapping, Nano/4o Mini/Luna/Terra/Sol comparison, and Terra/Sol hard-case value evidence.
 - Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
 
 End-to-End Validation
-Classify a pinned quarantine/schema-drift sample, compare deterministic and model routes, and prove outputs only prioritize remediation while authoritative quarantine remains unchanged.
+Adopt the revised router, then classify a pinned quarantine/schema-drift sample across Nano and justified higher tiers, preserving candidate-only authority and measuring evidence-verified acceptance per dollar.
 
 Stop Conditions
 - Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
@@ -35218,8 +35216,8 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-164
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_classification_with_deterministic_remediation_routing.json",Done,Highest,actionable;openai-assist;post-wave;subtask;pilot-c;quarantine;local-id-post-subtask-164,validation-promotion,POST-SUBTASK-164,OPENAI-ASSIST-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
-Sub-task,BAT-521,100473,"[POST-SUBTASK-165] Pilot timestamped injury, depth-chart, practice, and availability extraction when evidence is ready",100466,"Local ID: POST-SUBTASK-165
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_classification_with_deterministic_remediation_routing.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;pilot-c;quarantine;local-id-post-subtask-164,validation-promotion,POST-SUBTASK-164,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Sub-task,,100473,"[POST-SUBTASK-165] Pilot timestamped injury, depth-chart, practice, and availability extraction when evidence is ready",100466,"Local ID: POST-SUBTASK-165
 
 Objective
 Pilot timestamped injury, depth-chart, practice, and availability extraction when evidence is ready
@@ -35285,7 +35283,7 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-165
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-165_pilot_timestamped_injury_depth_chart_practice_and_availability_extraction_when_evidence_is_r.json",To Do,High,actionable;openai-assist;post-wave;subtask;pilot-d;conditional;availability;local-id-post-subtask-165,player-context-intelligence,POST-SUBTASK-165,OPENAI-ASSIST-PLAN,PHASE-1,DEFERRED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
-Sub-task,BAT-522,100474,"[POST-SUBTASK-166] Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",100467,"Local ID: POST-SUBTASK-166
+Sub-task,,100474,"[POST-SUBTASK-166] Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",100467,"Local ID: POST-SUBTASK-166
 
 Objective
 Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff
@@ -35294,7 +35292,7 @@ Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
 
 Scope
-Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`; produce `artifacts/openai_assist/final_handoff.json`, `artifacts/jira_evidence/POST-SUBTASK-166.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/openai_assist/final_handoff.json`, `artifacts/jira_evidence/POST-SUBTASK-166.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 Explicit In Scope
 - Perform the exact action: Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff.
@@ -35311,14 +35309,16 @@ Prerequisites / Dependencies
 - Dependency POST-SUBTASK-162 complete at required maturity
 - Dependency POST-SUBTASK-163 complete at required maturity
 - Dependency POST-SUBTASK-164 complete at required maturity
+- Dependency POST-SUBTASK-167 complete at required maturity
 - POST-SUBTASK-162
 - POST-SUBTASK-163
 - POST-SUBTASK-164
+- POST-SUBTASK-167
 
 Acceptance Criteria
 1. Only pilot formats meeting predeclared empirical rules scale; failed, uneconomic, unsupported, unstable, or high-review formats remain shadow/quarantined/rejected.
 2. Routine scale-out is GPT-5 Nano Batch first; 4o Mini/Luna, Terra, and Sol are admitted only for empirically justified roles, with Terra/Sol reserve increases backed by measured hard-case acceptance, review savings, or risk reduction.
-3. Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, threshold alert, remaining budget, disposition, improvement, and unresolved review.
+3. Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, stage/model-cap event, threshold alert, remaining budget, disposition, improvement, and unresolved review.
 4. Remote Batch files are removed after verified local preservation where practical; abandoned local tmp/partial files are removed; immutable accepted evidence remains content-addressed.
 5. All downstream Jira, PR, repository, provenance, secret, PIT/leakage/identity, and full-suite gates pass without any scientific-readiness overclaim.
 
@@ -35332,7 +35332,7 @@ Definition of Done
 
 Required Tests / Validation
 - EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-166.json — Run the validated scale-out and final reconciliation, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-166.json — Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 Required Evidence
@@ -35342,7 +35342,7 @@ Required Evidence
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
 
 End-to-End Validation
-Run the validated scale-out and final reconciliation, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
+Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
 
 Stop Conditions
 - Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
@@ -35354,4 +35354,71 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-166
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",Done,Highest,actionable;openai-assist;post-wave;subtask;scale-out;handoff;local-id-post-subtask-166,release-readiness,POST-SUBTASK-166,OPENAI-ASSIST-PLAN,PHASE-1,DONE,OPERATING,VERIFIED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;scale-out;handoff;local-id-post-subtask-166,release-readiness,POST-SUBTASK-166,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,OPERATING,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Sub-task,,100475,"[POST-SUBTASK-167] Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol",100466,"Local ID: POST-SUBTASK-167
+
+Objective
+Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+Execute POST-SUBTASK-167 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-028`; produce `artifacts/openai_assist/depth_chart_pilot.json`, `artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json`, `artifacts/jira_evidence/POST-SUBTASK-167.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+
+Explicit In Scope
+- Perform the exact action: Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-162 complete at required maturity
+- Dependency POST-SUBTASK-028 complete at required maturity
+- POST-SUBTASK-162
+- POST-SUBTASK-028
+
+Acceptance Criteria
+1. A deterministic external gold corpus spans representative official 2011-2025 depth-chart layouts, explicit OR chains, name typography, supported fields, NOT_PRESENT injury status, and UNKNOWN historical publication time.
+2. The same pinned cases receive meaningful Nano-minimal, Luna-none, Terra-low, and Sol-medium work through the single governed Responses/Structured-Outputs controller, with exact request, evidence, token, cost, validation, and disposition identities.
+3. No chart appearance is promoted to injury, availability, canonical identity, historical-known-at, PIT, training, protected, or forecast truth; 2022-2023 chart-page noncoverage and every model failure remain explicit.
+4. Any later routine route is selected only from measured strict-schema, precision/recall, evidence, abstention, unsupported-fact, disagreement, review-savings, and cost-per-accepted-record evidence; Terra/Sol reserve use remains value-gated.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-167.json — Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-SUBTASK-167.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02119
+
+Governance Traceability Gate: POST-SUBTASK-167
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;pilot-a-extension;depth-chart;terra-sol-comparison;local-id-post-subtask-167,player-context-intelligence,POST-SUBTASK-167,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION

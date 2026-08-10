@@ -1,4 +1,4 @@
-# AI Work Packet — POST-SUBTASK-166
+# AI Work Packet — POST-SUBTASK-167
 
 ## Packet mode
 
@@ -8,7 +8,7 @@
 
 ## What am I implementing?
 
-Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff
+Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol
 
 ## Why?
 
@@ -16,11 +16,11 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Atomic execution scope
 
-Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-163`, `POST-SUBTASK-164`, `POST-SUBTASK-167`; produce `artifacts/openai_assist/final_handoff.json`, `artifacts/jira_evidence/POST-SUBTASK-166.json`; preserve the deterministic forecast path and candidate-only authority boundary.
+Execute POST-SUBTASK-167 within the optional OpenAI assistive plane. Consume `POST-SUBTASK-162`, `POST-SUBTASK-028`; produce `artifacts/openai_assist/depth_chart_pilot.json`, `artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json`, `artifacts/jira_evidence/POST-SUBTASK-167.json`; preserve the deterministic forecast path and candidate-only authority boundary.
 
 ### In scope
 
-- Perform the exact action: Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff.
+- Perform the exact action: Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol.
 - Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
 - Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
 
@@ -37,17 +37,17 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
-- Execution lane: `PROTECTED_GATE`
+- Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`
-- Maturity before → after: `NOT_STARTED` → `OPERATING`
+- Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
 - Evidence state: `PLANNED`
-- Governance traceability gate: `POST-SUBTASK-166`
+- Governance traceability gate: `POST-SUBTASK-167`
 
 ## Read first
 
-1. `jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json`
-2. `jira/sources/issue_source_manifests/POST-SUBTASK-166.json`
-3. `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv` row for `POST-SUBTASK-166`.
+1. `jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.json`
+2. `jira/sources/issue_source_manifests/POST-SUBTASK-167.json`
+3. `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv` row for `POST-SUBTASK-167`.
 4. Only these additional files/sections, plus verified prerequisite outputs:
 
 - governance/OPENAI_ASSISTIVE_PLANE.md
@@ -59,21 +59,28 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 ## Dependencies that must already be complete
 
 - POST-SUBTASK-162
-- POST-SUBTASK-163
-- POST-SUBTASK-164
-- POST-SUBTASK-167
+- POST-SUBTASK-028
 
 ## Files I may modify or create
 
-- artifacts/openai_assist/final_handoff.json
-- docs/operations/OPENAI_ASSISTIVE_PLANE.md
-- artifacts/jira_evidence/POST-SUBTASK-166.json
+- configs/openai_depth_chart_pilot.json
+- configs/openai_task_registry.json
+- configs/historical_known_at_recovery_contract.json
+- prompts/openai_assist/depth_chart_document_v1.txt
+- tools/prepare_openai_depth_chart_pilot.py
+- tools/run_openai_depth_chart_pilot.py
+- artifacts/openai_assist/depth_chart_pilot.json
+- artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
+- artifacts/pit/historical_known_at_replay_gate.json
+- tests/test_openai_assist.py
+- tests/test_historical_known_at_recovery_contract.py
+- artifacts/jira_evidence/POST-SUBTASK-167.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
 ## Components in scope
 
-- release-readiness
+- player-context-intelligence
 - openai-assist
 
 ## What I must not modify or weaken
@@ -91,33 +98,33 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 
 Produce and validate these outputs within this atomic work unit:
 
-- artifacts/openai_assist/final_handoff.json
-- artifacts/jira_evidence/POST-SUBTASK-166.json
+- artifacts/openai_assist/depth_chart_pilot.json
+- artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-167.json
 
 ## Acceptance criteria
 
-1. Only pilot formats meeting predeclared empirical rules scale; failed, uneconomic, unsupported, unstable, or high-review formats remain shadow/quarantined/rejected.
-2. Routine scale-out is GPT-5 Nano Batch first; 4o Mini/Luna, Terra, and Sol are admitted only for empirically justified roles, with Terra/Sol reserve increases backed by measured hard-case acceptance, review savings, or risk reduction.
-3. Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, stage/model-cap event, threshold alert, remaining budget, disposition, improvement, and unresolved review.
-4. Remote Batch files are removed after verified local preservation where practical; abandoned local tmp/partial files are removed; immutable accepted evidence remains content-addressed.
-5. All downstream Jira, PR, repository, provenance, secret, PIT/leakage/identity, and full-suite gates pass without any scientific-readiness overclaim.
+1. A deterministic external gold corpus spans representative official 2011-2025 depth-chart layouts, explicit OR chains, name typography, supported fields, NOT_PRESENT injury status, and UNKNOWN historical publication time.
+2. The same pinned cases receive meaningful Nano-minimal, Luna-none, Terra-low, and Sol-medium work through the single governed Responses/Structured-Outputs controller, with exact request, evidence, token, cost, validation, and disposition identities.
+3. No chart appearance is promoted to injury, availability, canonical identity, historical-known-at, PIT, training, protected, or forecast truth; 2022-2023 chart-page noncoverage and every model failure remain explicit.
+4. Any later routine route is selected only from measured strict-schema, precision/recall, evidence, abstention, unsupported-fact, disagreement, review-savings, and cost-per-accepted-record evidence; Terra/Sol reserve use remains value-gated.
 
 ## Tests / validation
 
 - EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-166.json — Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-167.json — Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Evidence to return
 
-- `artifacts/jira_evidence/POST-SUBTASK-166.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- `artifacts/jira_evidence/POST-SUBTASK-167.json` with one evidence row per acceptance criterion and exact artifact hashes.
 - Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
 - Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
 
 ## End-to-end handoff
 
-Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.
+Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.
 
 ## Stop instead of improvising when
 

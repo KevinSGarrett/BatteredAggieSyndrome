@@ -54,7 +54,7 @@ def validate(root: Path) -> list[str]:
     registry = json.loads((root / "configs" / "openai_task_registry.json").read_text(encoding="utf-8"))
     if registry.get("routing_objective") != "ACCEPTED_EVIDENCE_VERIFIED_RECORDS_PER_DOLLAR":
         errors.append("router objective is not accepted evidence-verified records per dollar")
-    for task_name in ["gamebook_extraction", "entity_review", "quarantine_schema_classification"]:
+    for task_name in ["gamebook_extraction", "depth_chart_document_extraction", "entity_review", "quarantine_schema_classification"]:
         task = registry["tasks"][task_name]
         if task.get("default_model") != "gpt-5-nano":
             errors.append(f"{task_name} must default validated bulk work to GPT-5 Nano")
@@ -126,6 +126,34 @@ def validate(root: Path) -> list[str]:
     if gamebook_policy["acceptance"]["unsupported_fact_rate_max"] != 0.0:
         errors.append("OpenAI gamebook pilot must require zero unsupported facts")
 
+    depth_policy = json.loads(
+        (root / "configs" / "openai_depth_chart_pilot.json").read_text(encoding="utf-8")
+    )
+    depth_prompt = depth_policy["prompt"]
+    depth_prompt_path = root / depth_prompt["path"]
+    if hashlib.sha256(depth_prompt_path.read_bytes()).hexdigest() != depth_prompt["sha256"]:
+        errors.append("OpenAI depth-chart pilot prompt hash disagrees with policy")
+    if depth_policy["authority"] != "SHADOW_DOCUMENT_CANDIDATE_ONLY_NO_PIT_OR_AVAILABILITY_ADMISSION":
+        errors.append("OpenAI depth-chart pilot grants unsafe authority")
+    if len(depth_policy.get("samples", [])) != 7:
+        errors.append("OpenAI depth-chart pilot must retain seven representative official pages")
+    depth_routes = {route["model"]: route for route in depth_policy.get("routes", [])}
+    if set(depth_routes) != {"gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"}:
+        errors.append("OpenAI depth-chart pilot must compare Nano, Luna, Terra, and Sol")
+    if depth_routes.get("gpt-5.6-terra", {}).get("reasoning_effort") != "low":
+        errors.append("OpenAI depth-chart pilot must give Terra explicit low reasoning")
+    if depth_routes.get("gpt-5.6-sol", {}).get("reasoning_effort") != "medium":
+        errors.append("OpenAI depth-chart pilot must give Sol explicit medium reasoning")
+    if depth_policy["source_candidate"].get("historical_publication_time_state") != "UNKNOWN":
+        errors.append("OpenAI depth-chart pilot must preserve unknown historical publication time")
+    if depth_policy["source_candidate"].get("canonical_or_pit_admission") is not False:
+        errors.append("OpenAI depth-chart pilot source cannot be canonically or PIT admitted")
+    depth_acceptance = depth_policy.get("acceptance", {})
+    if depth_acceptance.get("unsupported_fact_rate_max") != 0.0:
+        errors.append("OpenAI depth-chart pilot must require zero unsupported facts")
+    if depth_acceptance.get("historical_timestamp_fabrication_max") != 0:
+        errors.append("OpenAI depth-chart pilot must require zero fabricated timestamps")
+
     entity_policy = json.loads(
         (root / "configs" / "openai_entity_review_pilot.json").read_text(encoding="utf-8")
     )
@@ -186,6 +214,31 @@ def validate(root: Path) -> list[str]:
     gamebook_models = {key.split(":", 1)[0] for key in gamebook_report.get("models", {})}
     if not {"gpt-5.6-terra", "gpt-5.6-sol"}.issubset(gamebook_models):
         errors.append("gamebook pilot did not include representative Terra and Sol calls")
+
+    depth_report = json.loads(
+        (root / "artifacts" / "openai_assist" / "depth_chart_pilot.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    if depth_report.get("authority") != depth_policy["authority"]:
+        errors.append("OpenAI depth-chart report disagrees with its candidate-only authority")
+    comparison = depth_report.get("comparison_plan", {})
+    if comparison.get("request_count") != 28 or comparison.get("request_id_count") != 28:
+        errors.append("OpenAI depth-chart preflight must retain all 28 governed request identities")
+    depth_report_models = {route.get("model") for route in comparison.get("routes", [])}
+    if not {"gpt-5.6-terra", "gpt-5.6-sol"}.issubset(depth_report_models):
+        errors.append("OpenAI depth-chart preflight lacks meaningful Terra and Sol routes")
+    if comparison.get("preflight_result") != "PASS":
+        errors.append("OpenAI depth-chart request preflight did not pass")
+    if comparison.get("live_api_calls") != 0 or comparison.get("actual_cost_usd") != "0.000000":
+        errors.append("OpenAI depth-chart checkpoint must not claim unexecuted live spend")
+    admission = depth_report.get("admission", {})
+    for key in [
+        "canonical_player_identity", "availability_or_injury_truth", "historical_publication_time",
+        "pit_state", "training_features", "protected_evaluation", "forecast_or_publication",
+    ]:
+        if admission.get(key) is not False:
+            errors.append(f"OpenAI depth-chart report grants unsafe {key} admission")
 
     quarantine_policy = json.loads(
         (root / "configs" / "openai_quarantine_schema_pilot.json").read_text(encoding="utf-8")

@@ -7,7 +7,7 @@
     "docs/final/CODEX_HANDOFF.md"
   ],
   "governance_traceability_gate": "POST-SUBTASK-167",
-  "issue_id": "POST-STORY-056",
+  "issue_id": "POST-SUBTASK-167",
   "retrieval_protocol": [
     "Verify document_sha256 against the current repository file.",
     "Verify anchor_hash against the normalized stored excerpt and current line range.",

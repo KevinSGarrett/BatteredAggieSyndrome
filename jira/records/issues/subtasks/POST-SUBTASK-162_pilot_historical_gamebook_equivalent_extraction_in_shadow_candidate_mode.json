@@ -17,10 +17,11 @@
     "tests/test_openai_assist.py",
     "artifacts/jira_evidence/POST-SUBTASK-162.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-161",
   "blocks": [
     "POST-STORY-056",
-    "POST-SUBTASK-166"
+    "POST-SUBTASK-166",
+    "POST-SUBTASK-167"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-162_pilot_historical_gamebook_equivalent_extraction_in_shadow_candidate_mode.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -74,7 +75,7 @@
   "end_to_end_validation": "Extract a bounded real historical gamebook sample through the controller, validate every fact against exact source evidence, and measure accepted records, review time, quarantines, cost, and unsupported-fact rate without canonical mutation.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-162.json",
-  "evidence_state": "VERIFIED",
+  "evidence_state": "PLANNED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -113,7 +114,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-518",
+  "jira_key": "",
   "labels": [
     "actionable",
     "openai-assist",
@@ -122,19 +123,10 @@
     "pilot-a",
     "gamebook"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-162",
   "maturity_before": "NOT_STARTED",
   "objective": "Pilot historical gamebook-equivalent extraction in shadow candidate mode",
-  "operational_jira": {
-    "assignee": "",
-    "jira_issue_id": "24658",
-    "jira_updated_at": "2026-08-10T00:55:40.104-0500",
-    "last_synced_at": "2026-08-10T05:56:14.045525+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-518-done-live-row.csv",
-    "sprint": "",
-    "status_raw": "Done"
-  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
@@ -239,5 +231,5 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-162.md",
-  "workflow_state": "DONE"
+  "workflow_state": "BLOCKED"
 }

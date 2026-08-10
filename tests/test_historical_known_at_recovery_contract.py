@@ -71,6 +71,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "historical_tamu_official_gamebook_reconciliation_gate.json"
             ).read_text(encoding="utf-8")
         )
+        cls.tamu_depth_chart_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_tamu_official_depth_chart_evidence_gate.json"
+            ).read_text(encoding="utf-8")
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -625,6 +633,50 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(claim["tamu_official_gamebook_canonical_pit_feature_or_protected_use_admission"])
         self.assertFalse(claim["tamu_official_gamebook_history_complete"])
         self.assertFalse(claim["national_gamebook_population_complete"])
+
+    def test_tamu_official_depth_chart_document_candidate_is_validated_without_availability_or_pit_promotion(self) -> None:
+        depth = self.contract["latest_validated_tamu_official_depth_chart_evidence_candidate"]
+        self.assertEqual(
+            depth["dataset_identity"],
+            "ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4",
+        )
+        self.assertEqual(depth["source_season_min"], 2011)
+        self.assertEqual(depth["source_season_max"], 2025)
+        self.assertEqual(depth["official_weekly_game_notes"], 191)
+        self.assertEqual(depth["source_pages_replayed"], 8185)
+        self.assertEqual(depth["candidate_page_rows"], 168)
+        self.assertEqual(depth["documents_with_candidate_pages"], 166)
+        self.assertEqual(depth["documents_without_candidate_pages"], 25)
+        self.assertEqual(depth["noncoverage_by_season"], {"2022": 12, "2023": 13})
+        self.assertEqual(depth["validation_checks_passed"], 21)
+        self.assertEqual(depth["mutation_controls_passed"], 12)
+        self.assertTrue(depth["byte_identical_rebuild"])
+        self.assertEqual(depth["openai_planned_requests"], 28)
+        self.assertEqual(depth["openai_live_api_calls"], 0)
+        self.assertEqual(depth["historical_publication_time_state"], "UNKNOWN")
+        self.assertFalse(depth["chart_appearance_means_available"])
+        self.assertFalse(depth["canonical_player_identity_admission"])
+        self.assertFalse(depth["canonical_depth_chart_admission"])
+        self.assertFalse(depth["pit_state_admission"])
+        self.assertFalse(depth["training_feature_admission"])
+        self.assertFalse(depth["protected_evaluation_admission"])
+        self.assertEqual(depth["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        checkpoint = self.gate["parallel_tamu_official_depth_chart_evidence_checkpoint"]
+        self.assertEqual(checkpoint["openai_gold_cases"], 7)
+        self.assertEqual(checkpoint["openai_preflight_requests"], 28)
+        self.assertIn("gpt-5.6-terra", checkpoint["openai_models"])
+        self.assertIn("gpt-5.6-sol", checkpoint["openai_models"])
+        self.assertFalse(checkpoint["chart_appearance_means_available"])
+        self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+        self.assertEqual(self.tamu_depth_chart_gate["candidate"]["checks_passed"], 21)
+        self.assertEqual(self.tamu_depth_chart_gate["candidate"]["mutation_controls_passed"], 12)
+        self.assertEqual(self.tamu_depth_chart_gate["openai_shadow_extension"]["planned_requests"], 28)
+        self.assertEqual(self.tamu_depth_chart_gate["openai_shadow_extension"]["live_api_calls"], 0)
+        self.assertFalse(
+            self.tamu_depth_chart_gate["historical_known_at_gate"]["chart_appearance_promoted_to_availability"]
+        )
+        self.assertFalse(self.tamu_depth_chart_gate["historical_known_at_gate"]["pit_state_admission"])
 
 
 if __name__ == "__main__":

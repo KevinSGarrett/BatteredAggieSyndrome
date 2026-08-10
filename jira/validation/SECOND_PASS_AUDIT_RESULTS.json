@@ -1,7 +1,7 @@
 {
   "actionable_count": 240,
   "blank_e2e_count": 0,
-  "blocked_count": 100,
+  "blocked_count": 99,
   "deferred_count": 37,
   "derivative_result_counts": {
     "PASS": 474

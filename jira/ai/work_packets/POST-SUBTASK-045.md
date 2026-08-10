@@ -40,14 +40,14 @@ Execute the atomic 3 of 3 step in Story POST-STORY-015 (Known-at registry and ti
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
-- Ready: `true`
+- Workflow: `DONE`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `PRODUCTION_READY`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-051`
 
 ## Read first

@@ -4,7 +4,7 @@
   "decision_unit": "POST-SUBTASK-045",
   "jira_key": "BAT-395",
   "created_at_utc": "2026-08-10T10:10:00Z",
-  "updated_at_utc": "2026-08-10T10:10:00Z",
+  "updated_at_utc": "2026-08-10T10:19:00Z",
   "acceptance_matrix": [
     {
       "criterion": 1,
@@ -238,6 +238,10 @@
     {
       "finding": "The first strict-validator run exposed that removing one hard-case result was not rejected because declared count fields were checked without comparing list cardinality.",
       "disposition": "VALIDATOR DEFECT FIXED BEFORE ACCEPTANCE; exact result-list cardinality is now enforced and all 12 mutations reject."
+    },
+    {
+      "finding": "The first Jira completion/activation orchestration applied the intended BAT-395 and BAT-396 states but its final BAT-396 comment call omitted the issue-key argument and raised a local TypeError.",
+      "disposition": "LIVE STATES WERE READ BACK AS CORRECT; the missing activation comment was added separately as comment 13451 and both issue states were reverified."
     }
   ],
   "rollback_checkpoint": {
@@ -249,16 +253,21 @@
     "bundle_verify": "PASS"
   },
   "integration": {
-    "implementation_pr_state": "PENDING_VALIDATION_AND_REVIEW",
+    "implementation_pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/128",
+    "implementation_pr_state": "MERGED",
+    "implementation_merge_commit": "cf68fc4f755131c4f16ee391508f4d2563a521ad",
+    "implementation_merged_at_utc": "2026-08-10T10:17:28Z",
+    "github_checks": "PASS",
     "live_jira": {
       "issue_key": "BAT-395",
       "issue_id": "24535",
-      "status": "In Progress",
-      "logical_workflow_state": "IN_PROGRESS",
-      "implementation_maturity": "FUNCTIONAL_STARTER",
-      "evidence_state": "PARTIAL",
+      "status": "Done",
+      "logical_workflow_state": "DONE",
+      "implementation_maturity": "PRODUCTION_READY",
+      "evidence_state": "VERIFIED",
       "claim_comment_id": "13449",
-      "updated": "2026-08-10T05:04:55.670-0500"
+      "completion_comment_id": "13450",
+      "updated": "2026-08-10T05:18:12.709-0500"
     },
     "claim_reconciliation": {
       "source_export": "<external-data-root>/runtime/BAT-395/BAT-395-claim-live-row.csv",
@@ -268,6 +277,48 @@
       "changed_issues": 1,
       "conflicts": 0,
       "strict_validation": "PASS"
+    },
+    "downstream_activation": {
+      "jira_key": "BAT-396",
+      "issue_id": "24536",
+      "status": "To Do",
+      "logical_workflow_state": "READY",
+      "implementation_maturity": "FUNCTIONAL_STARTER",
+      "evidence_state": "PLANNED",
+      "activation_comment_id": "13451",
+      "updated": "2026-08-10T05:18:28.541-0500"
+    },
+    "completion_reconciliation": {
+      "source_export": "<external-data-root>/runtime/BAT-395/BAT-395-completion-live-rows.csv",
+      "dry_run": "PASS",
+      "actual": "PASS",
+      "rows": 2,
+      "changed_issues": 2,
+      "conflicts": 0,
+      "strict_validation": "PASS",
+      "local_bat_395_state": "DONE_VERIFIED",
+      "local_bat_396_state": "READY"
+    },
+    "post_sync_validation": {
+      "gate_report": "<external-data-root>/validation/BAT-395/known-at-gate/validation-report-post-sync.json",
+      "gate_report_sha256": "7c16667ef80841742fef837e2b0c85fc0b60650c207aa24ed5e4491e959f9b2f",
+      "gate_report_bytes": 2769,
+      "gate_findings": 0,
+      "unsafe_mutations_rejected": 12,
+      "strict_repository_and_provenance": "PASS",
+      "autonomous_controls": "PASS",
+      "w25_final": "PASS",
+      "source_references": 2119,
+      "jira_derivatives": 474,
+      "jira_manifest_files": 1804,
+      "jira_second_pass": "PASS",
+      "jira_live_control_plane": "PASS",
+      "tests_passed": 316,
+      "tests_skipped": 2,
+      "subtests_passed": 79,
+      "bat_396_state": "READY",
+      "merge_commit_repository_ci": "PASS",
+      "merge_commit_security_analysis": "PASS"
     }
   },
   "eligibility": {

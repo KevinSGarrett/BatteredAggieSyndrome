@@ -1,5 +1,33 @@
 {
   "approval": "Explicit user approval received in Codex task before production execution.",
+  "auxiliary_issue_reconciliation": [
+    {
+      "jira_key": "BAT-510",
+      "local_id": "POST-TASK-STORAGE-CLEANUP-001",
+      "updated_fields": [
+        "customfield_10195",
+        "customfield_10199",
+        "customfield_10200",
+        "customfield_10201"
+      ],
+      "verified_at": "2026-08-10T04:10:25.590509+00:00"
+    },
+    {
+      "jira_key": "BAT-511",
+      "local_id": "POST-TASK-REPO-REVIEW-001",
+      "updated_fields": [
+        "customfield_10193",
+        "customfield_10195",
+        "customfield_10196",
+        "customfield_10197",
+        "customfield_10198",
+        "customfield_10199",
+        "customfield_10200",
+        "customfield_10201"
+      ],
+      "verified_at": "2026-08-10T04:10:26.313468+00:00"
+    }
+  ],
   "backup": {
     "path": "jira\\snapshots\\BAT_PRE_IMPORT_20260809T043444Z.json",
     "sha256": "7c469a047ef074978ea7d537d0974e635b950095db199738a6b75cb031d7fe35",
@@ -18,8 +46,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-09T05:44:07.618841+00:00",
-    "verified_at": "2026-08-09T05:44:09.010626+00:00",
+    "updated_at": "2026-08-10T04:10:52.573168+00:00",
+    "verified_at": "2026-08-10T04:10:54.157712+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -416,7 +444,7 @@
     }
   ],
   "historical_done_operationally_overridden": 221,
-  "historical_done_requested": 0,
+  "historical_done_requested": 37,
   "issues": {
     "EPIC-001": "BAT-1",
     "EPIC-002": "BAT-2",
@@ -468,6 +496,7 @@
     "POST-EPIC-015": "BAT-48",
     "POST-EPIC-016": "BAT-49",
     "POST-EPIC-017": "BAT-50",
+    "POST-EPIC-018": "BAT-512",
     "POST-STORY-001": "BAT-51",
     "POST-STORY-002": "BAT-52",
     "POST-STORY-003": "BAT-53",
@@ -521,6 +550,9 @@
     "POST-STORY-051": "BAT-101",
     "POST-STORY-052": "BAT-102",
     "POST-STORY-053": "BAT-103",
+    "POST-STORY-054": "BAT-513",
+    "POST-STORY-055": "BAT-514",
+    "POST-STORY-056": "BAT-515",
     "POST-SUBTASK-001": "BAT-351",
     "POST-SUBTASK-002": "BAT-352",
     "POST-SUBTASK-003": "BAT-353",
@@ -680,6 +712,13 @@
     "POST-SUBTASK-157": "BAT-507",
     "POST-SUBTASK-158": "BAT-508",
     "POST-SUBTASK-159": "BAT-509",
+    "POST-SUBTASK-160": "BAT-516",
+    "POST-SUBTASK-161": "BAT-517",
+    "POST-SUBTASK-162": "BAT-518",
+    "POST-SUBTASK-163": "BAT-519",
+    "POST-SUBTASK-164": "BAT-520",
+    "POST-SUBTASK-165": "BAT-521",
+    "POST-SUBTASK-166": "BAT-522",
     "TASK-001": "BAT-104",
     "TASK-002": "BAT-105",
     "TASK-003": "BAT-106",
@@ -882,7 +921,7 @@
     "TASK-200": "BAT-349",
     "TASK-201": "BAT-350"
   },
-  "last_error": "BAT contains issues outside the canonical import set: BAT-510:POST-TASK-STORAGE-CLEANUP-001, BAT-511:NO_LOCAL_ID",
+  "last_error": "Live Jira links are neither the exact canonical set nor the exact/recoverable reversed importer set; refusing automated link deletion",
   "link_direction_remediation": {
     "backup": {
       "path": "jira\\snapshots\\BAT_REVERSED_LINKS_PRE_REMEDIATION_20260809T050104Z.json",
@@ -3088,6 +3127,12 @@
     ],
     "result": "PASS"
   },
+  "negative_findings": [
+    {
+      "finding": "BAT contains issues outside the canonical import set: BAT-510:POST-TASK-STORAGE-CLEANUP-001, BAT-511:NO_LOCAL_ID",
+      "recorded_at": "2026-08-10T04:04:45.303591+00:00"
+    }
+  ],
   "permission_remediation": {
     "account_id": "63d5db4d28cddcc7076faad6",
     "backup": {
@@ -3163,7 +3208,7 @@
   },
   "started_at": "2026-08-09T04:34:44.229661+00:00",
   "status": "FAILED_RESUMABLE",
-  "updated_at": "2026-08-10T04:04:45.303591+00:00",
+  "updated_at": "2026-08-10T04:10:56.280983+00:00",
   "verification": {
     "actual_expected_link_count": 1062,
     "board": {

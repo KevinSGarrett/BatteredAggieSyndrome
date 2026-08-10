@@ -1477,6 +1477,16 @@ def remediate_reversed_importer_links(
     }
     if actual == expected:
         return
+    if actual <= expected:
+        ledger["link_direction_remediation"] = {
+            "status": "CANONICAL_SUBSET_NO_DELETION_REQUIRED",
+            "existing_canonical_links": len(actual),
+            "missing_canonical_links": len(expected - actual),
+            "verified_at": utc_now(),
+        }
+        ledger["updated_at"] = utc_now()
+        write_json_atomic(LEDGER_PATH, ledger)
+        return
     reverse_expected = {(link_type, target, source) for link_type, source, target in expected}
     remediation = ledger.get("link_direction_remediation", {})
     recoverable_partial = (

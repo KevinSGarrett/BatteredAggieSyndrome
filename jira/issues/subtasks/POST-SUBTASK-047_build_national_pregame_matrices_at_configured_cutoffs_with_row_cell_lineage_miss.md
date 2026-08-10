@@ -23,7 +23,7 @@
     "artifacts/pit/pregame_matrix_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-047.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-045;POST-SUBTASK-046",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-046",
   "blocks": [
     "POST-SUBTASK-048"
   ],

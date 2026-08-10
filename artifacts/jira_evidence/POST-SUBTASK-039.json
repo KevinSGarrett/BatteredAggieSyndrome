@@ -4,6 +4,7 @@
   "decision_unit": "POST-SUBTASK-039",
   "jira_key": "BAT-389",
   "created_at_utc": "2026-08-10T02:47:27Z",
+  "updated_at_utc": "2026-08-10T02:58:42Z",
   "acceptance_matrix": [
     {
       "criterion": 1,
@@ -192,10 +193,30 @@
       "command": "python -B jira/tools/validate_jira_manifest.py",
       "exit_code": 0,
       "result": "PASS; 1,758 Jira files"
+    },
+    {
+      "command": "GitHub protected PR #96 required checks and squash merge",
+      "exit_code": 0,
+      "result": "PASS; all Linux, Windows, product, security-policy, dependency-review, and CodeQL contexts passed; merged at 11378ea83179c75e15921f05e40947966ebce378"
+    },
+    {
+      "command": "GitHub merge-commit repository-ci run 31351061976 and security-analysis run 31351061965",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B jira/tools/reconcile_jira_export.py <external-runtime>/BAT-389/BAT-389-live-row.csv --repo-root .",
+      "exit_code": 0,
+      "result": "PRESERVED_FAIL_CLOSED_FIRST_PASS; live Done was rejected while local evidence remained PLANNED, producing one explicit conflict"
+    },
+    {
+      "command": "mark local completion evidence VERIFIED, then rerun reconcile_jira_export.py and regenerate derivatives",
+      "exit_code": 0,
+      "result": "PASS; 2 changed issues, zero conflicts, strict validation PASS; BAT-389 DONE/VERIFIED and BAT-390 READY"
     }
   ],
   "validation": {
-    "result": "PASS_PRODUCTION_READY_REGISTRY_GATE_PENDING_PROTECTED_INTEGRATION",
+    "result": "PASS_PRODUCTION_READY_REGISTRY_GATE_PROTECTED_INTEGRATION_COMPLETE",
     "deterministic_reproduction_runs": 2,
     "deterministic_reproduction_match": true,
     "strict_finding_count": 0,
@@ -231,11 +252,15 @@
     {
       "finding": "Both registries retain candidate, review-required, and unresolved observations.",
       "disposition": "PRESERVED_NOT_AUTO_PROMOTED; affected joins remain ineligible without further evidence and do not block unrelated verified identities."
+    },
+    {
+      "finding": "The first live Jira reconciliation rejected Done because local evidence was still PLANNED.",
+      "disposition": "PRESERVED_FAIL_CLOSED_CONTROL; after protected merge and merge-commit validation, local evidence was explicitly set VERIFIED and the second reconciliation completed with zero conflicts."
     }
   ],
   "downstream_reevaluation": {
-    "POST-STORY-014": "HARD_DEPENDENCY_SATISFIED_AFTER_VERIFIED_JIRA_SYNC",
-    "POST-SUBTASK-040": "READY_AFTER_VERIFIED_JIRA_SYNC",
+    "POST-STORY-014": "HARD_DEPENDENCY_SATISFIED; CHILD_EXECUTION_SEQUENCE_OPENED",
+    "POST-SUBTASK-040": "READY",
     "POST-SUBTASK-041": "REMAINS_DEPENDENT_ON_POST-SUBTASK-040",
     "POST-SUBTASK-042": "REMAINS_DEPENDENT_ON_POST-SUBTASK-040_AND_POST-SUBTASK-041"
   },
@@ -261,34 +286,53 @@
       "bundle_sha256": "89e556d71d95115d2ee5d4feba105d32d7fb1cf069c78ea6a61327e279ae5315",
       "integrity": "PASS"
     },
-    "runtime": "CPython 3.11 local validation; CPython 3.12 protected Linux and Windows CI required before completion",
+    "completion_sync_rollback_checkpoint": {
+      "path": "<external-data-root>/backups/BAT-389/20260810T025648Z-completion-sync",
+      "manifest_sha256": "1500acd467659757cfb3059cdd22e810799c5f7ca4fd878a2fd68ef3a057d042",
+      "bundle_sha256": "7f4d0634417b9651ea5bc07aaa760c9cc0ee1f99a6d0d6c974e9c0f2084812cd",
+      "integrity": "PASS"
+    },
+    "runtime": "CPython 3.11 local validation; CPython 3.12 protected Linux and Windows CI passed",
     "split_or_cutoff": "NOT_APPLICABLE_REGISTRY_VALIDATION_NO_MODEL_FIT_OR_TARGET_EVALUATION"
   },
   "protected_integration": {
-    "state": "PENDING_BRANCH_PR_REQUIRED_CHECKS_AND_MERGE",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "repository_ci_run": null,
-    "security_analysis_run": null
+    "state": "MERGED_AND_MAIN_VALIDATED",
+    "branch": "codex/BAT-389-registry-validation",
+    "pull_request": 96,
+    "head_sha": "a9a4c55a5cc22be09d618aba211eb3e3f816f931",
+    "merge_sha": "11378ea83179c75e15921f05e40947966ebce378",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-10T02:54:20Z",
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED",
+    "repository_ci_run": 31351061976,
+    "security_analysis_run": 31351061965
   },
   "live_jira": {
-    "status": "In Progress",
-    "logical_state": "IN_PROGRESS",
+    "status": "Done",
+    "logical_state": "DONE",
     "maturity": "PRODUCTION_READY",
-    "evidence_state": "PLANNED",
+    "evidence_state": "VERIFIED",
     "claim_comment_id": "13423",
-    "checkpoint_comment_id": "13424"
+    "checkpoint_comment_id": "13424",
+    "completion_comment_id": "13425",
+    "updated": "2026-08-09T21:56:06.598-0500"
+  },
+  "local_jira_sync": {
+    "changed_issues": 2,
+    "conflict_count": 0,
+    "export_path": "<external-data-root>/runtime/BAT-389/BAT-389-live-row.csv",
+    "live_issue_id": "24529",
+    "result": "PASS_AFTER_VERIFIED_EVIDENCE_COMPLETION",
+    "strict_validation": "PASS",
+    "downstream_ready_issue": "POST-SUBTASK-040"
   },
   "completion": {
-    "completion_claimed": false,
-    "achieved_maturity": "PRODUCTION_READY_LOCAL",
-    "evidence_state": "PLANNED_PENDING_PROTECTED_INTEGRATION",
-    "issue_disposition": "IMPLEMENTATION_VALIDATED_AWAITING_PROTECTED_INTEGRATION",
+    "completion_claimed": true,
+    "achieved_maturity": "PRODUCTION_READY",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_REGISTRY_VALIDATION_GATE_COMPLETE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "Protected branch/PR checks, merge, merge-commit validation, live Jira completion, and final local reconciliation"
-    ]
+    "remaining_issue_scope_blockers": []
   },
   "honesty_boundary": {
     "registry_validation_locally_passed": true,

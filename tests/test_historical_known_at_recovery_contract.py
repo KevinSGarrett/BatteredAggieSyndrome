@@ -40,6 +40,11 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        cls.advanced_game_gate = json.loads(
+            (ROOT / "artifacts" / "pit" / "historical_advanced_game_reconciliation_gate.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -358,6 +363,48 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(self.team_box_gate["reconciliation"]["historical_side_swap_reconciled_games"], 9)
         self.assertFalse(self.team_box_gate["historical_known_at_gate"]["pit_state_admission"])
         self.assertFalse(self.team_box_gate["scientific_nonclaims"]["gap_002_resolved"])
+
+    def test_advanced_game_history_is_reciprocal_validated_and_candidate_only(self) -> None:
+        advanced = self.contract["latest_validated_advanced_game_candidate"]
+        self.assertEqual(
+            advanced["dataset_identity"],
+            "8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc",
+        )
+        self.assertEqual(advanced["source_seasons"], list(range(2001, 2026)))
+        self.assertEqual(advanced["captured_partitions"], 25)
+        self.assertEqual(advanced["source_rows"], 42190)
+        self.assertEqual(advanced["distinct_source_games"], 21095)
+        self.assertEqual(advanced["games_with_exactly_two_team_rows"], 21095)
+        self.assertEqual(advanced["offense_defense_reciprocal_games"], 21095)
+        self.assertEqual(advanced["advanced_leaf_paths"], 56)
+        self.assertEqual(advanced["advanced_leaf_cells"], 2362640)
+        self.assertEqual(advanced["missing_leaf_cells"], 0)
+        self.assertEqual(advanced["team_box_cross_route_outcome_match_rows"], 20996)
+        self.assertEqual(advanced["current_canonical_capture_exact_match_rows"], 7310)
+        self.assertEqual(advanced["current_canonical_capture_conflict_rows"], 0)
+        self.assertEqual(advanced["source_level_only_rows"], 15048)
+        self.assertEqual(advanced["validation_checks_passed"], 48)
+        self.assertEqual(advanced["mutation_controls_passed"], 14)
+        self.assertEqual(advanced["deterministic_payloads_compared"], 25)
+        self.assertIn("UNKNOWN", advanced["historical_known_at_basis"])
+        self.assertIn("2002", advanced["partial_season_finding"])
+        self.assertEqual(advanced["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertTrue(self.evidence["completion_claim"]["advanced_game_candidate_layer_validated"])
+        self.assertTrue(self.evidence["completion_claim"]["structured_advanced_game_candidate_materialized"])
+        self.assertFalse(
+            self.evidence["completion_claim"][
+                "advanced_game_canonical_pit_feature_or_protected_use_admission"
+            ]
+        )
+        checkpoint = self.gate["parallel_advanced_game_checkpoint"]
+        self.assertFalse(checkpoint["canonical_advanced_stat_admission"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["training_feature_admission"])
+        self.assertFalse(checkpoint["protected_evaluation_admission"])
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+        self.assertEqual(self.advanced_game_gate["candidate_layer"]["offense_defense_reciprocal_games"], 21095)
+        self.assertFalse(self.advanced_game_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertFalse(self.advanced_game_gate["scientific_nonclaims"]["gap_002_resolved"])
 
 
 if __name__ == "__main__":

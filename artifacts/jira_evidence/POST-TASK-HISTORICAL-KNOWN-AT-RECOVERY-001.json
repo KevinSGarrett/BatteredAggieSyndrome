@@ -1,11 +1,11 @@
 {
-  "schema_version": "1.3.0",
-  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-player-event-metric-candidate",
+  "schema_version": "1.4.0",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-advanced-game-candidate",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
   "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-  "issued_at_utc": "2026-08-10T15:15:00Z",
-  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_VALIDATED_PLAY_DRIVE_ROSTER_AND_PLAYER_METRIC_CANDIDATE_LAYERS_VALIDATED",
+  "issued_at_utc": "2026-08-10T17:25:00Z",
+  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_AND_EVENT_ROSTER_RANKINGS_TEAM_BOX_ADVANCED_GAME_CANDIDATE_LAYERS_VALIDATED",
   "live_jira": {
     "issue_id": "24663",
     "status": "In Progress",
@@ -432,6 +432,44 @@
     "admission_state": "CANDIDATE_NOT_ADMITTED",
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_CANONICAL_PIT_FEATURE_AND_OFFICIAL_SOURCE_ADMISSION_NOT_APPROVED"
   },
+  "validated_advanced_game_candidate": {
+    "gate_artifact": "artifacts/pit/historical_advanced_game_reconciliation_gate.json",
+    "dataset_identity": "8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc",
+    "manifest_sha256": "fd47fe331173946912fb5a2ed262e2d06a648b14fb83db82c89176e5ee5dc62b",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc/advanced_game_history_reconciliation.json",
+    "source_seasons": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "captured_partitions": 25,
+    "captured_raw_bytes": 78113625,
+    "source_rows": 42190,
+    "distinct_source_games": 21095,
+    "games_with_exactly_two_team_rows": 21095,
+    "offense_defense_reciprocal_games": 21095,
+    "advanced_leaf_paths": 56,
+    "advanced_leaf_cells": 2362640,
+    "missing_leaf_cells": 0,
+    "team_box_game_team_link_rows": 27142,
+    "team_box_cross_route_outcome_match_rows": 20996,
+    "current_canonical_capture_exact_match_rows": 7310,
+    "current_canonical_capture_conflict_rows": 0,
+    "source_level_only_rows": 15048,
+    "payload_bytes": 24683692,
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/advanced_game_history_2001_2025_validation.json",
+      "sha256": "0c42e11c145006d77a5b1eca7d4c3e5f0dcc36c1a83acce74d6df1030f952052",
+      "checks_passed": 48,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/advanced_game_history_2001_2025_rebuild_validation.json",
+      "sha256": "0db599c0027e9472fe3567c42e9a4eeaeaa6dcd9cafb6d0a9667122fb5c07116",
+      "status": "PASS",
+      "manifest_and_25_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "UNKNOWN_FOR_ADVANCED_STATS_CAPTURE_TIME_ONLY",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -477,6 +515,12 @@
     "bundle_bytes": 17853826,
     "base_commit": "1687dc6179a227c79e1228d3993ff08bb938e44e"
   },
+  "advanced_game_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-advanced-game-history/20260810T172500Z/BAT-523-advanced-game-history.bundle",
+    "bundle_sha256": "7780d37be4ad011a5768a0e3974d248bb9370d3545a21649dcec810c57b96f6a",
+    "bundle_bytes": 17705619,
+    "base_commit": "fc7a1d49f3ba03ef9de30e8f50f521e49d912e6e"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -500,6 +544,9 @@
     "team_box_canonical_pit_feature_or_official_source_admission": false,
     "structured_team_box_candidate_materialized": true,
     "official_team_box_scores_materialized": false,
+    "advanced_game_candidate_layer_validated": true,
+    "advanced_game_canonical_pit_feature_or_protected_use_admission": false,
+    "structured_advanced_game_candidate_materialized": true,
     "historical_venue_materialized": false,
     "official_player_box_scores_materialized": false,
     "other_domain_expansion_continues": true,

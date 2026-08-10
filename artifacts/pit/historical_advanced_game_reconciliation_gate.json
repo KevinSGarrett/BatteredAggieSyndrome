@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_ADVANCED_GAME_CANDIDATE_AND_RECONCILIATION_GATE",
+  "decision_id": "bat523-advanced-game-history-2001-2025-v1",
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "jira_key": "BAT-523",
+  "issued_at_utc": "2026-08-10T17:25:00Z",
+  "source_capture": {
+    "source_id": "SRC-002",
+    "provider": "CollegeFootballData",
+    "endpoint": "CFBD-GetAdvancedBoxScore",
+    "season_min": 2001,
+    "season_max": 2025,
+    "seasons": 25,
+    "captured_partitions": 25,
+    "source_rows": 42190,
+    "distinct_source_games": 21095,
+    "raw_bytes": 78113625,
+    "bulk_payloads_in_git": false
+  },
+  "candidate_layer": {
+    "dataset_identity": "8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc",
+    "manifest_sha256": "fd47fe331173946912fb5a2ed262e2d06a648b14fb83db82c89176e5ee5dc62b",
+    "payloads": 25,
+    "payload_bytes": 24683692,
+    "games_with_exactly_two_team_rows": 21095,
+    "offense_defense_reciprocal_games": 21095,
+    "duplicate_game_team_label_rows": 0,
+    "advanced_leaf_paths": 56,
+    "advanced_leaf_cells": 2362640,
+    "missing_leaf_cells": 0,
+    "source_level_only_rows": 15048,
+    "admission_state": "CANDIDATE_NOT_ADMITTED"
+  },
+  "reconciliation": {
+    "team_box_game_team_link_rows": 27142,
+    "team_box_cross_route_outcome_match_rows": 20996,
+    "current_game_team_link_rows": 7310,
+    "current_canonical_overlap_rows": 7310,
+    "current_capture_exact_match_rows": 7310,
+    "current_capture_conflict_rows": 0,
+    "current_overlap_independence": "SAME_PROVIDER_CAPTURE_ROUTE_NOT_INDEPENDENT",
+    "cross_route_scope": "TEAM_BOX_AND_OUTCOME_LINKS_VALIDATE_GAME_TEAM_AND_SIDE_ONLY_NOT_ADVANCED_STAT_VALUES"
+  },
+  "validation": {
+    "independent_report_sha256": "0c42e11c145006d77a5b1eca7d4c3e5f0dcc36c1a83acce74d6df1030f952052",
+    "checks_passed": 48,
+    "checks_failed": 0,
+    "mutation_controls_passed": 14,
+    "deterministic_rebuild_report_sha256": "0db599c0027e9472fe3567c42e9a4eeaeaa6dcd9cafb6d0a9667122fb5c07116",
+    "deterministic_rebuild_checks_passed": 9,
+    "deterministic_payloads_compared": 25
+  },
+  "historical_known_at_gate": {
+    "advanced_stat_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "game_date_as_publication_time_allowed": false,
+    "canonical_advanced_stat_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false
+  },
+  "preserved_negative_findings": [
+    "The immutable 2001-2025 CFBD captures were acquired in 2026 and do not prove a historical publication timestamp for each advanced statistic.",
+    "The 2022-2025 canonical overlap is the same provider/capture route and is reproducibility evidence, not independent factual confirmation.",
+    "Team-box and cross-route outcome links establish game, team, and side candidates only; they do not independently confirm PPA, success, explosiveness, or line-yard values.",
+    "The 2002 population has only 62 team rows, 2001 is sparse, and 2020 is materially smaller than adjacent seasons; all remain explicit partial seasons.",
+    "The 2022 population boundary expands sharply relative to 2021 and remains a scope shift requiring downstream cohort gating.",
+    "All 56 leaf paths have zero missing cells in captured rows, but absent games and sparse seasons remain missing rather than fabricated.",
+    "Pre-validation identities 285ac7284e6033465742a91b09b818dd6e1494d3362150663f036a2a85a63e64 and eae37fab7dcb76bbf1e1d1480448bf820df17116d928b2a2d67d174b78fdef05 are superseded reconstructible artifacts, not authoritative identities.",
+    "The first rebuild report failed because its Windows path exceeded legacy stat limits; the shorter-path rerun is the authoritative byte-identical rebuild report and the path-limit failure remains preserved."
+  ],
+  "decision": "VALIDATED_CANDIDATE_LAYER_CONTINUE_DOMAIN_SPECIFIC_KNOWN_AT_CANONICAL_AND_PIT_GATING",
+  "scientific_nonclaims": {
+    "advanced_game_history_complete": false,
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

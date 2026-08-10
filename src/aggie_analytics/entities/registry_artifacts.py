@@ -126,3 +126,52 @@ class CoreRegistryArtifactManifest:
         path = self.verify_payload(data_root)
         with path.open("r", encoding="utf-8", newline="") as handle:
             yield from csv.DictReader(handle)
+
+
+@dataclass(frozen=True)
+class PeopleRegistryArtifactManifest(CoreRegistryArtifactManifest):
+    """Fail-closed manifest contract for the external canonical people registry."""
+
+    @classmethod
+    def load(cls, path: Path) -> "PeopleRegistryArtifactManifest":
+        value = json.loads(path.read_text(encoding="utf-8"))
+        if value.get("schema_version") != "1.0.0":
+            raise RegistryArtifactError("PEOPLE_REGISTRY_MANIFEST_SCHEMA_UNSUPPORTED")
+        if value.get("storage_boundary") != "EXTERNAL_CANONICAL_PAYLOAD":
+            raise RegistryArtifactError("PEOPLE_REGISTRY_STORAGE_BOUNDARY_UNSAFE")
+        payload = value.get("payload")
+        if not isinstance(payload, Mapping):
+            raise RegistryArtifactError("PEOPLE_REGISTRY_PAYLOAD_IDENTITY_MISSING")
+        relative = payload.get("external_relative_path")
+        digest = payload.get("sha256")
+        integers = tuple(payload.get(key) for key in ("bytes", "rows", "columns"))
+        if not isinstance(relative, str) or not relative:
+            raise RegistryArtifactError("PEOPLE_REGISTRY_RELATIVE_PATH_MISSING")
+        if not isinstance(digest, str) or len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
+            raise RegistryArtifactError("PEOPLE_REGISTRY_SHA256_INVALID")
+        if any(type(item) is not int or item <= 0 for item in integers):
+            raise RegistryArtifactError("PEOPLE_REGISTRY_DIMENSIONS_INVALID")
+        relative_path = PurePosixPath(relative)
+        if "\\" in relative or ":" in relative or relative_path.is_absolute() or ".." in relative_path.parts or relative_path.as_posix() != relative:
+            raise RegistryArtifactError("PEOPLE_REGISTRY_RELATIVE_PATH_UNSAFE")
+        if digest not in relative_path.parts:
+            raise RegistryArtifactError("PEOPLE_REGISTRY_PATH_NOT_CONTENT_ADDRESSED")
+        return cls(value["schema_version"], str(value.get("dataset_version", "")), relative, digest, *integers)
+
+    def verify_pointer(self, pointer_path: Path) -> None:
+        with pointer_path.open("r", encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        expected = {
+            "schema_version": self.schema_version,
+            "dataset_version": self.dataset_version,
+            "record_type": "EXTERNAL_CANONICAL_PAYLOAD_MANIFEST",
+            "data_root_env": "AGGIE_ANALYTICS_DATA_ROOT",
+            "external_relative_path": self.external_relative_path,
+            "sha256": self.sha256,
+            "bytes": str(self.bytes),
+            "rows": str(self.rows),
+            "columns": str(self.columns),
+            "eligibility": "PEOPLE_REGISTRY",
+        }
+        if rows != [expected]:
+            raise RegistryArtifactError("PEOPLE_REGISTRY_POINTER_IDENTITY_MISMATCH")

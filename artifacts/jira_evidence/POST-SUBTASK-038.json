@@ -1,0 +1,237 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-038",
+  "jira_key": "BAT-388",
+  "created_at_utc": "2026-08-10T02:14:04Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/canonical_people_registry_manifest.json",
+      "evidence_sha256": "2e03ea2c65c26e3eab7e14a3d5efb4a516faaa5f05942008c20af5599768df35",
+      "observable_result": "The registry preserves direct source IDs, names, team/season/position/class/role observations, recruiting evidence, stable-ID roster team changes, duplicate and ambiguous cases, and source-defined limitations. Person IDs derive only from append-only internal slots. Name-only staff evidence remains candidate/review/unresolved and never becomes a durable mapping."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/canonical_people_registry.csv",
+      "evidence_sha256": "8b7e6a564b12966de9d21f184116dd0826ad8592d7bcd5acbf39fb5e06db35f9",
+      "observable_result": "The repository pointer binds a content-addressed external 589,377-row, 47-column CSV by exact SHA-256, size, schema, dataset version, and eligibility. Two independent builds reproduced SHA-256 0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/canonical_people_registry_manifest.json",
+      "evidence_sha256": "2e03ea2c65c26e3eab7e14a3d5efb4a516faaa5f05942008c20af5599768df35",
+      "observable_result": "Provider quota, empty portal partitions, partial assistant-staff history, unresolved team aliases, candidate matches, and all 699 review/unresolved outcomes remain explicit. No player-value, PIT, model, protected-performance, A&M-lift, BAS, Aggie Excess, or final historical-readiness result is claimed."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "REPOSITORY_POINTER",
+      "path": "artifacts/entities/canonical_people_registry.csv",
+      "sha256": "8b7e6a564b12966de9d21f184116dd0826ad8592d7bcd5acbf39fb5e06db35f9",
+      "bytes": 433
+    },
+    {
+      "role": "CANONICAL_MANIFEST",
+      "path": "artifacts/entities/canonical_people_registry_manifest.json",
+      "sha256": "2e03ea2c65c26e3eab7e14a3d5efb4a516faaa5f05942008c20af5599768df35",
+      "bytes": 3768
+    },
+    {
+      "role": "EXTERNAL_CANONICAL_PAYLOAD",
+      "path": "<external-data-root>/canonical/BAT-388/sha256/0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d/canonical_people_registry.csv",
+      "sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d",
+      "bytes": 420562884,
+      "rows": 589377,
+      "columns": 47
+    },
+    {
+      "role": "STRICT_VALIDATION_REPORT",
+      "path": "<external-data-root>/validation/BAT-388/people_registry/people-registry-validation-report.json",
+      "sha256": "83be1c9eaf53da73813627cb9989fa22a2e01925731380bfcffb772615194d3a",
+      "bytes": 1618,
+      "finding_count": 0
+    },
+    {
+      "role": "BUILDER",
+      "path": "<external-data-root>/runtime/BAT-388/build_canonical_people_registry.py",
+      "sha256": "d0c070f68b0deff129fd2674e83d00fd21e0e1409c90e0b91aedded94c418cd4",
+      "bytes": 33275
+    },
+    {
+      "role": "VALIDATOR",
+      "path": "<external-data-root>/runtime/BAT-388/validate_canonical_people_registry.py",
+      "sha256": "506435a07b670bac25eac03ab17019d03adeb415549c03d1d1dd247b9ea8122e",
+      "bytes": 8016
+    },
+    {
+      "role": "PARTIAL_CFBD_ACQUISITION_MANIFEST",
+      "path": "<external-data-root>/manifests/acquisition/bat388-people-sources-v1/people_source_acquisition_manifest.json",
+      "sha256": "fe2bfa3754fd29510a2f438f4f534b823871233a0bf0ac6c32202faad9a6cbee",
+      "bytes": 35106
+    },
+    {
+      "role": "COACH_ACQUISITION_MANIFEST",
+      "path": "<external-data-root>/manifests/acquisition/bat388-sports-reference-coaches-v1/coach_source_acquisition_manifest.json",
+      "sha256": "4ff7fa9e467a873601ae8731d6ca1ab6a6f15821f2cf5cd7e00f7419028114f7",
+      "bytes": 24253
+    }
+  ],
+  "population": {
+    "record_count": 589377,
+    "canonical_person_count": 118505,
+    "record_type_counts": {
+      "COACH_ROLE_EPISODE": 2251,
+      "DOMAIN_LIMITATION": 2,
+      "PERSON": 118505,
+      "RECRUITING_OBSERVATION": 28093,
+      "ROSTER_MEMBERSHIP": 296931,
+      "SOURCE_MAPPING": 131370,
+      "STAFF_ROLE_OBSERVATION": 2382,
+      "TRANSFER_EPISODE": 9843
+    },
+    "resolution_state_counts": {
+      "AUTO_ACCEPTED_VERIFIED": 585825,
+      "CANDIDATE_GENERATED": 2853,
+      "REVIEW_REQUIRED": 7,
+      "UNRESOLVED": 692
+    },
+    "coverage": {
+      "rosters": "2004-2025",
+      "recruiting_verified": "2010-2017",
+      "portal_verified_empty": "2010-2016",
+      "roster_derived_transfers": "through 2025",
+      "head_coaches": "2010-2025",
+      "assistant_staff_source_defined": "through 2015; review-only"
+    }
+  },
+  "provenance": {
+    "prerequisite_core_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "prerequisite_schema_gate_sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2",
+    "cfbd_roster_capture_count": 22,
+    "sportsdataverse_roster_partition_count": 6,
+    "cfbd_people_capture_count": 15,
+    "sports_reference_coach_capture_count": 16,
+    "cfb_data_staff_capture_count": 1,
+    "deterministic_reproduction_runs": 2,
+    "deterministic_reproduction_match": true,
+    "split_or_cutoff": "NOT_APPLICABLE_REGISTRY_CONSTRUCTION_NO_MODEL_FIT_OR_TARGET_EVALUATION",
+    "runtime": "CPython 3.11 local validation; protected CI pending"
+  },
+  "validation": {
+    "result": "PASS_EMPIRICALLY_VALIDATED_PEOPLE_REGISTRY_PENDING_PROTECTED_INTEGRATION",
+    "commands": [
+      {
+        "command": "python -B <external-runtime>/BAT-388/build_canonical_people_registry.py",
+        "exit_code": 0,
+        "result": "PASS; two independent builds matched SHA-256, bytes, rows, and schema exactly"
+      },
+      {
+        "command": "python -B <external-runtime>/BAT-388/validate_canonical_people_registry.py",
+        "exit_code": 0,
+        "result": "PASS; 589,377 records and zero final findings"
+      },
+      {
+        "command": "PYTHONPATH=src python -B -m pytest -q",
+        "exit_code": 0,
+        "result": "295 passed, 2 skipped, 79 subtests passed"
+      },
+      {
+        "command": "PYTHONPATH=src python -m unittest discover -s tests -p test_people_registry.py",
+        "exit_code": 0,
+        "result": "6/6 focused tests passed"
+      },
+      {
+        "command": "python -B tools/validate_entities.py",
+        "exit_code": 0,
+        "result": "PASS"
+      },
+      {
+        "command": "PeopleRegistryArtifactManifest.verify_payload(<external-data-root>)",
+        "exit_code": 0,
+        "result": "PASS; exact external payload verified without manual reconstruction"
+      },
+      {
+        "command": "python -B jira/tools/second_pass_hardening.py --validate-only; python -B tools/validate_jira_control_plane.py --repo-root . --strict; python -B jira/tools/validate_jira_manifest.py",
+        "exit_code": 0,
+        "result": "PASS; 463 derivatives, 2,118 source anchors, zero strict control-plane findings, and 1,758 Jira files"
+      },
+      {
+        "command": "python -B tools/validate_repository.py --strict",
+        "exit_code": 0,
+        "result": "PASS; repository structure, provenance, governance IDs, secret scan, and forbidden-artifact scan"
+      }
+    ],
+    "required_classes": {
+      "REGRESSION": "PASS",
+      "SCIENTIFIC": "PASS_NO_MODEL_OR_SCIENTIFIC_EFFECT_EVALUATED_OR_CLAIMED",
+      "INTEGRATION": "PASS_MANIFEST_CONSUMER_VERIFIES_EXTERNAL_PAYLOAD_WITHOUT_MANUAL_RECONSTRUCTION",
+      "REPRODUCIBILITY": "PASS",
+      "NEW_AUTOMATED_TEST_REQUIRED": "PASS"
+    }
+  },
+  "protected_integration": {
+    "state": "PENDING_BRANCH_PR_REQUIRED_CHECKS_AND_MERGE",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "repository_ci_run": null,
+    "security_analysis_run": null
+  },
+  "live_jira": {
+    "status": "In Progress",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "EMPIRICALLY_VALIDATED",
+    "evidence_state": "PLANNED",
+    "claim_comment_id": "13420",
+    "checkpoint_comment_id": "13421"
+  },
+  "negative_findings": [
+    {
+      "finding": "The CFBD monthly request quota was exhausted after 15 preserved recruiting/portal captures.",
+      "disposition": "PRESERVED_NONBLOCKING_TECHNICAL_LIMITATION; the registry uses the verified partitions and alternative public routes without claiming missing-domain completeness."
+    },
+    {
+      "finding": "All verified CFBD transfer-portal partitions for 2010-2016 are empty.",
+      "disposition": "PRESERVED; 9,843 transfer episodes are derived only from stable person IDs changing roster teams, with consecutive-season timing distinguished from gap uncertainty."
+    },
+    {
+      "finding": "Historical assistant/coordinator tenure records lack durable source person IDs and end in 2015.",
+      "disposition": "PRESERVED_REVIEW_ONLY; 2,382 observations remain candidate/review/unresolved and are never canonicalized by name."
+    },
+    {
+      "finding": "The first strict validation pass over-broadly classified exact cross-source ID plus normalized-name corroboration as name-only promotion.",
+      "disposition": "VALIDATOR_CORRECTED_AND_RERUN; the strong exact-ID method remains accepted and the final strict report has zero findings."
+    },
+    {
+      "finding": "The legacy run_second_pass_audit.py command returned six failures because it asserts the frozen 863-file W25 reconnaissance boundary against the intentionally evolved post-W25 repository.",
+      "disposition": "PRESERVED_AS_AN_OBSOLETE_BASELINE_DIAGNOSTIC; its generated failure derivatives were removed, while the canonical second_pass_hardening --validate-only, strict Jira control-plane validator, and Jira manifest validator all pass. No baseline threshold was weakened."
+    }
+  ],
+  "completion": {
+    "completion_claimed": false,
+    "achieved_maturity": "EMPIRICALLY_VALIDATED_LOCAL",
+    "evidence_state": "PLANNED_PENDING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "Protected branch/PR required checks, merge, merge-commit validation, live Jira completion, and final local reconciliation"
+    ]
+  },
+  "honesty_boundary": {
+    "people_registry_locally_validated": true,
+    "staff_history_complete": false,
+    "recruiting_or_portal_history_complete": false,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "pit_or_chronological_gate_passed": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-039": "REMAINS_DEPENDENT_ON_PROTECTED_BAT-388_COMPLETION; PINNED LOCAL PAYLOAD AND VALIDATION ARE AVAILABLE"
+  }
+}

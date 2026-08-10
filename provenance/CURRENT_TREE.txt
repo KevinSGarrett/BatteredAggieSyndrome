@@ -33,6 +33,8 @@ artifacts/data_lake/immutability_and_correction_test.json
 artifacts/data_lake/national_lake_readiness.json
 artifacts/entities/canonical_core_registry.csv
 artifacts/entities/canonical_core_registry_manifest.json
+artifacts/entities/canonical_people_registry.csv
+artifacts/entities/canonical_people_registry_manifest.json
 artifacts/entities/population_schema_profile.json
 artifacts/entities/schema_readiness_gate.json
 artifacts/entities/schema_reconciliation.csv
@@ -79,6 +81,7 @@ artifacts/jira_evidence/POST-SUBTASK-034.json
 artifacts/jira_evidence/POST-SUBTASK-035.json
 artifacts/jira_evidence/POST-SUBTASK-036.json
 artifacts/jira_evidence/POST-SUBTASK-037.json
+artifacts/jira_evidence/POST-SUBTASK-038.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/open_source/integration_negative_findings.json
@@ -2608,6 +2611,7 @@ src/aggie_analytics/entities/__init__.py
 src/aggie_analytics/entities/candidates.py
 src/aggie_analytics/entities/contracts.py
 src/aggie_analytics/entities/ids.py
+src/aggie_analytics/entities/people_registry.py
 src/aggie_analytics/entities/registry_artifacts.py
 src/aggie_analytics/entities/resolution.py
 src/aggie_analytics/experimentation/__init__.py
@@ -2737,6 +2741,7 @@ tests/test_open_source_adapters.py
 tests/test_open_source_integration_registry.py
 tests/test_open_source_properties.py
 tests/test_package_scaffold.py
+tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py

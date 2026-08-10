@@ -12,6 +12,43 @@ dependencies = []
 
 [project.optional-dependencies]
 product = ["fastapi==0.141.1", "uvicorn==0.52.1"]
+data = [
+  "duckdb==1.5.5",
+  "polars==1.43.2",
+  "pandera[polars]==0.32.1",
+]
+entity-resolution = [
+  "rapidfuzz==3.14.5",
+  "splink==4.0.16",
+]
+source-clients = [
+  "cfbd==5.23.0",
+  "openmeteo-requests==1.7.5",
+]
+sportsdataverse = [
+  "sportsdataverse==0.0.75",
+  "xgboost==3.2.0",
+  "scikit-learn==1.9.0",
+  "polars==1.43.2",
+  "rapidfuzz==3.14.5",
+]
+modeling = [
+  "scikit-learn==1.9.0",
+  "statsmodels==0.14.6",
+  "xgboost==3.2.0",
+  "ngboost==0.5.11",
+  "interpret==0.7.8",
+]
+evaluation = [
+  "mapie==1.5.0",
+  "scoringrules==0.10.0",
+  "shap==0.51.0",
+]
+experimentation = [
+  "mlflow-skinny==3.15.1",
+  "optuna==4.9.0",
+]
+test = ["hypothesis==6.165.2"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

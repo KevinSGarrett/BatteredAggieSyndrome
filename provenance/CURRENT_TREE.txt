@@ -78,6 +78,9 @@ artifacts/jira_evidence/POST-SUBTASK-035.json
 artifacts/jira_evidence/POST-SUBTASK-036.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
+artifacts/open_source/integration_negative_findings.json
+artifacts/open_source/integration_validation_manifest.json
+artifacts/open_source/repository_review_decisions.csv
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/source_governance/acquisition_resilience_test.json
@@ -107,6 +110,7 @@ configs/hydration_manifest.json
 configs/implementation_plan.json
 configs/judging_rule_seal.json
 configs/model_architecture_registry.json
+configs/open_source_integration_registry.json
 configs/player_intelligence_registry.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
@@ -244,6 +248,7 @@ docs/96_W18_OPERATOR_RUNBOOK.md
 docs/97_EXPERIMENT_EXAMPLES.md
 docs/98_RESEARCH_PROVENANCE.md
 docs/99_FULL_REBUILD_AUDIT_METHOD.md
+docs/OPEN_SOURCE_INTEGRATION_STRATEGY.md
 docs/architecture/DATAFLOW_AND_STORAGE.md
 docs/architecture/DEPLOYMENT_AND_EXECUTION_LANES.md
 docs/architecture/INTERFACE_CONTRACTS.md
@@ -2594,8 +2599,10 @@ src/aggie_analytics/context_intelligence/mechanics.py
 src/aggie_analytics/data/__init__.py
 src/aggie_analytics/data/adapters.py
 src/aggie_analytics/data/contracts.py
+src/aggie_analytics/data/open_source.py
 src/aggie_analytics/data/snapshots.py
 src/aggie_analytics/entities/__init__.py
+src/aggie_analytics/entities/candidates.py
 src/aggie_analytics/entities/contracts.py
 src/aggie_analytics/entities/ids.py
 src/aggie_analytics/entities/resolution.py
@@ -2721,6 +2728,9 @@ tests/test_locks_full.py
 tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
+tests/test_open_source_adapters.py
+tests/test_open_source_integration_registry.py
+tests/test_open_source_properties.py
 tests/test_package_scaffold.py
 tests/test_player_intelligence_governance.py
 tests/test_product_supply_chain.py

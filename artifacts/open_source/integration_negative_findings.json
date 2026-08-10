@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "OWNER_REPO_CORPUS_REVIEW",
+  "findings": [
+    {
+      "finding_id": "OSR-NEG-001",
+      "condition": "DUCKDB_ABSENT_FROM_SPORTSDATAVERSE_ENVIRONMENT",
+      "observed_result": "AnalyticalRuntime.read_only_duckdb raised OptionalDependencyUnavailable in the isolated SportsDataverse environment.",
+      "disposition": "EXPECTED_ISOLATION_BOUNDARY",
+      "remediation": "Validate acquisition serialization in the SportsDataverse environment and analytical SQL in the lean core environment against the same immutable capture. Do not add DuckDB to the 1 GB source-client runtime."
+    },
+    {
+      "finding_id": "OSR-NEG-002",
+      "condition": "POLARS_TO_DUCKDB_IN_MEMORY_TRANSFER_REQUIRES_PYARROW",
+      "observed_result": "DuckDB attempted Polars to Arrow conversion and raised ModuleNotFoundError for pyarrow.",
+      "disposition": "AVOIDED_OPTIONAL_DEPENDENCY",
+      "remediation": "Have DuckDB and Polars read the same immutable external NDJSON/Parquet capture independently. Cross-engine row agreement passed without PyArrow."
+    },
+    {
+      "finding_id": "OSR-NEG-003",
+      "condition": "PANDERA_POLARS_NAMESPACE_NOT_REEXPORTED",
+      "observed_result": "Pandera 0.32.1 does not expose the Polars API as pandera.polars from the top-level module.",
+      "disposition": "CODE_FIXED_AND_RETESTED",
+      "remediation": "Lazy-load pandera.polars directly; the real analytical-runtime validation then passed."
+    },
+    {
+      "finding_id": "OSR-NEG-004",
+      "condition": "LATEST_RELEASES_EXCEED_PYTHON_3_11_SUPPORT",
+      "observed_result": "Current XGBoost 3.4.0, SHAP 0.52.0, PyMC 6.2.0, and scoringrules 0.11.0 require a newer Python than the project's 3.11.9 runtime.",
+      "disposition": "COMPATIBLE_RELEASES_PINNED_OR_DEFERRED",
+      "remediation": "Pin XGBoost 3.2.0, SHAP 0.51.0, scoringrules 0.10.0, and retain PyMC as conditional at 5.28.5 if its empirical gate later opens."
+    },
+    {
+      "finding_id": "OSR-NEG-005",
+      "condition": "INITIAL_CORE_AUDIT_FOUND_STALE_BOOTSTRAP_SETUPTOOLS",
+      "observed_result": "The newly created core virtual environment inherited setuptools 65.5.0 findings before candidate evaluation.",
+      "disposition": "REMEDIATED_AND_REAUDITED",
+      "remediation": "Upgrade the bootstrap tool to setuptools 84.0.0; the preserved remediated audit reports zero known vulnerabilities."
+    }
+  ]
+}

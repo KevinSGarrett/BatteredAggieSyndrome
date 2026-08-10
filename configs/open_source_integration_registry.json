@@ -1,0 +1,2366 @@
+{
+  "candidate_count": 42,
+  "corpus": [
+    {
+      "path": "C:\\BatteredAggieSyndrome\\.aggie\\repo_reviews\\repohelp_001.txt",
+      "sha256": "782f10caf48d76650d8d29ee5cbf471bad722e064a319f6346228794cbaed9e8"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome\\.aggie\\repo_reviews\\repohelp_002.txt",
+      "sha256": "c82a3d985a7b0509870b67269f2560bbe72abacd9f7d1c994799d182c9a52e47"
+    }
+  ],
+  "decision_counts": {
+    "ADAPT_AT_DEPENDENCY": 2,
+    "ADAPT_NOW": 4,
+    "ADOPT_AT_DEPENDENCY": 8,
+    "ADOPT_NOW": 7,
+    "DEFER_CONDITIONAL": 6,
+    "REFERENCE_ONLY": 4,
+    "REJECT_NOT_FIT": 11
+  },
+  "evidence_indexes": [
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\upstream\\upstream_evidence_index.json",
+      "sha256": "03b10e0882d59444bad93f45b86b5cbe44bf8dfcfaec4d4a33ce583617d1d901"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\upstream\\tree_evidence_index.json",
+      "sha256": "224702c057d921a87a5ae4a441bceadb34fdcb80e0ac81337211ce33f9ef22b7"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\upstream\\representative_file_evidence_index.json",
+      "sha256": "f5d29572e24035fe3cf2f73714e31e4d8cbf4150ddf03644ef5d999e176f5128"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\packages\\pypi_evidence_index.json",
+      "sha256": "a73821f941b3a71434e370f558e77d76a531bb0533f706b451eaa397a747d30e"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\packages\\core_candidate_audit_remediated.json",
+      "sha256": "e280b12f6d02ae8868a9a3c6fbd5c8e0966b949769c10424db4c8c49d8c9e76d"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\packages\\sportsdataverse_candidate_audit.json",
+      "sha256": "d5206eacd4669c14a0eb0d22b95f7de0bc5e0e3dd7a11aea1fd3b73320191438"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\repo_corpus_review\\sportsdataverse\\sportsdataverse-smoke-report.json",
+      "sha256": "c8716e408700596136053a52342a128c693d5f19d1a920128d4dec34c6f73a12"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\repo_corpus_review\\core_stack\\core-integration-smoke-report.json",
+      "sha256": "b0a4a6fd466be898f724faa14dd0e0694e84eb8c49f86253169af2fedc6fdbb9"
+    }
+  ],
+  "global_constraints": [
+    "Existing Aggie canonical identity, immutable snapshots, PIT state, W17 judging, protected promotion, BAS and publication controls remain authoritative.",
+    "Optional open-source engines are replaceable implementations, not governance or evidence authority.",
+    "Licensing metadata never blocks private local acquisition or evaluation; raw third-party payloads remain outside Git and are not published.",
+    "Dependency-ready implementation follows the recorded phase and empirical gate; deferred tools are not installed merely to claim adoption."
+  ],
+  "records": [
+    {
+      "archived": false,
+      "candidate_id": "OSR-001",
+      "canonical_repository": "sportsdataverse/sportsdataverse-py",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Implement an optional SportsDataverse CFB adapter and keep the 1 GB toolchain outside the base runtime.",
+      "decision": "ADAPT_NOW",
+      "domain": "acquisition",
+      "empirical_admission_gate": "A bounded real-game smoke must preserve raw/normalized separation, row/schema identities, and cross-source reconciliation before each domain is admitted.",
+      "integration_boundary": "SourceAdapter + isolated pinned acquisition environment",
+      "integration_phase": "IMMEDIATE_ACQUISITION",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "0.0.75",
+        "mandatory_dependencies": [
+          "attrs",
+          "beautifulsoup4",
+          "inflection",
+          "lxml",
+          "matplotlib",
+          "numpy",
+          "pandas",
+          "polars",
+          "pyarrow",
+          "pyjanitor",
+          "rapidfuzz",
+          "requests",
+          "scikit-learn",
+          "scipy",
+          "tqdm",
+          "tzdata",
+          "xgboost"
+        ],
+        "name": "sportsdataverse",
+        "optional_dependency_count": 25,
+        "requires_python": ">=3.9"
+      },
+      "rationale": "Broad CFB ESPN/NCAA/stats.ncaa.org/Fox/Yahoo parsers, release loaders, crosswalks, rosters and enrichment eliminate substantial custom parser work.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 3,
+        "docs_path_count": 3481,
+        "license_paths": [
+          "LICENSE",
+          "NOTICE"
+        ],
+        "representative_doc_paths": [
+          "docs/docs/cfb/index.md",
+          "docs/docs/cfb/_category_.json"
+        ],
+        "representative_files_captured": 9,
+        "representative_source_paths": [
+          "sportsdataverse/cfb/on3.py",
+          "sportsdataverse/cfb/pff.py",
+          "sportsdataverse/parsed/cfb.py"
+        ],
+        "representative_test_paths": [
+          "tests/cfb/__init__.py",
+          "tests/test_espn_live.py"
+        ],
+        "test_path_count": 1582,
+        "tree_entries": 7131,
+        "workflow_count": 8
+      },
+      "repository_url": "https://github.com/sportsdataverse/sportsdataverse-py",
+      "requested_repository": "sportsdataverse/sportsdataverse-py",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "357fd18788680f3442dd22f86befbc33e52fb013",
+      "reviewed_commit_date": "2026-08-08T02:56:29Z",
+      "reviewed_release": "v0.0.75",
+      "risk_and_constraint": "Large mandatory dependency surface including XGBoost; upstream data remains noncanonical and output timestamps do not automatically prove PIT eligibility."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-002",
+      "canonical_repository": "sportsdataverse/cfbfastR-cfb-data",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Retain as the bulk historical foundation and formalize release-index acquisition rather than rebuilding its rectangularization pipeline.",
+      "decision": "ADOPT_NOW",
+      "domain": "historical_data",
+      "empirical_admission_gate": "Release asset hash, season/domain coverage, schema drift, source lineage, and PIT eligibility must pass independently.",
+      "integration_boundary": "Immutable release capture -> RawSnapshotStore -> canonical normalization",
+      "integration_phase": "IMMEDIATE_HISTORICAL_DATA",
+      "license_metadata": "NO_ASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Nineteen rectangular CFB datasets and approximately 928 documented columns already provide the historical lake bootstrap used by the project.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 3,
+        "docs_path_count": 58,
+        "license_paths": [
+          null
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 5,
+        "representative_source_paths": [
+          "DATASETS.md",
+          "R/espn_cfb_16_model_pbp.R",
+          "python/cfb_model_pbp/cli.py"
+        ],
+        "representative_test_paths": [
+          "tests/testthat/test-pbp.R",
+          "tests/testthat/test-advbox.R"
+        ],
+        "test_path_count": 168,
+        "tree_entries": 620,
+        "workflow_count": 9
+      },
+      "repository_url": "https://github.com/sportsdataverse/cfbfastR-cfb-data",
+      "requested_repository": "sportsdataverse/cfbfastR-cfb-data",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "9d8cc8113fa521177d1b8784828fa17fba191b48",
+      "reviewed_commit_date": "2026-08-07T18:16:28Z",
+      "reviewed_release": "espn_cfb_team_box",
+      "risk_and_constraint": "Derived ESPN/raw lineage is not independent corroboration; release tags are dataset-specific and coverage varies by season."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-003",
+      "canonical_repository": "sportsdataverse/sportsdataverse-data",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Use its release conventions in the acquisition registry; do not add the R package to production.",
+      "decision": "ADAPT_NOW",
+      "domain": "historical_data",
+      "empirical_admission_gate": "Resolved asset tag, URL, byte size, and content hash must match the captured manifest.",
+      "integration_boundary": "Release catalog resolver only; no canonical schema authority",
+      "integration_phase": "IMMEDIATE_HISTORICAL_DATA",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Central release-store metadata shortens discovery and refresh checks for SportsDataverse assets.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 0,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 1,
+        "representative_source_paths": [
+          null
+        ],
+        "representative_test_paths": [
+          null
+        ],
+        "test_path_count": 0,
+        "tree_entries": 22,
+        "workflow_count": 1
+      },
+      "repository_url": "https://github.com/sportsdataverse/sportsdataverse-data",
+      "requested_repository": "sportsdataverse/sportsdataverse-data",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "b8631fe13186a4e12285ce9f14eb8e8dced3b10d",
+      "reviewed_commit_date": "2026-06-24T03:13:35Z",
+      "reviewed_release": "nfl_ratings_weekly",
+      "risk_and_constraint": "The repository is an index/release host, not proof that every release is current, complete, or PIT-safe."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-004",
+      "canonical_repository": "CFBD/cfbd-python",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Add an optional source-client extra and typed serialization adapter while retaining direct HTTP as the immutable raw route.",
+      "decision": "ADAPT_NOW",
+      "domain": "acquisition",
+      "empirical_admission_gate": "Typed output must reconcile byte-for-byte field semantics against preserved direct HTTP JSON for representative endpoints.",
+      "integration_boundary": "Optional typed client behind existing credential-free acquisition evidence boundary",
+      "integration_phase": "IMMEDIATE_ACQUISITION",
+      "license_metadata": "NO_ASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "5.23.0",
+        "mandatory_dependencies": [
+          "aenum",
+          "pydantic",
+          "python-dateutil",
+          "urllib3"
+        ],
+        "name": "cfbd",
+        "optional_dependency_count": 0,
+        "requires_python": null
+      },
+      "rationale": "Generated endpoint models cover games, plays, teams, venues, recruiting, rankings and advanced metrics and reduce client maintenance.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 4,
+        "docs_path_count": 211,
+        "license_paths": [
+          null
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 5,
+        "representative_source_paths": [
+          "cfbd/rest.py",
+          "cfbd/__init__.py",
+          "cfbd/api_client.py"
+        ],
+        "representative_test_paths": [
+          "test/test_games_api.py",
+          "test/test_plays_api.py"
+        ],
+        "test_path_count": 212,
+        "tree_entries": 661,
+        "workflow_count": 1
+      },
+      "repository_url": "https://github.com/CFBD/cfbd-python",
+      "requested_repository": "CFBD/cfbd-python",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "f9125f31fc6fdf2faa21e829529ac2055dd2f510",
+      "reviewed_commit_date": "2026-08-08T02:57:18Z",
+      "reviewed_release": null,
+      "risk_and_constraint": "Generated client is not raw-evidence authority, has no GitHub release tag/license assertion in API metadata, and must not log bearer configuration."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-005",
+      "canonical_repository": "duckdb/duckdb",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin the Python client and implement the analytical runtime boundary.",
+      "decision": "ADOPT_NOW",
+      "domain": "analytical_storage",
+      "empirical_admission_gate": "Row counts, join cardinality, chronology and output hashes must match independent Polars/reference computations.",
+      "integration_boundary": "Read-only analytical engine over external Parquet/JSON with no server",
+      "integration_phase": "IMMEDIATE_DATA_ENGINE",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "1.5.5",
+        "mandatory_dependencies": [],
+        "name": "duckdb",
+        "optional_dependency_count": 6,
+        "requires_python": ">=3.10.0"
+      },
+      "rationale": "Direct Parquet SQL, joins, window functions and local portability fit the external historical lake and PIT assembly workload.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 239,
+        "docs_path_count": 0,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 6,
+        "representative_source_paths": [
+          "src/main/relation.cpp",
+          "scripts/python_helpers.py",
+          "src/main/capi/arrow-c.cpp"
+        ],
+        "representative_test_paths": [
+          "test/api/test_relation_api.cpp",
+          "test/arrow/arrow_roundtrip.cpp"
+        ],
+        "test_path_count": 6369,
+        "tree_entries": 16495,
+        "workflow_count": 27
+      },
+      "repository_url": "https://github.com/duckdb/duckdb",
+      "requested_repository": "duckdb/duckdb",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "e500d77864fe565f90e68f06d729c25b11e775c5",
+      "reviewed_commit_date": "2026-08-07T13:50:28Z",
+      "reviewed_release": "v1.5.5",
+      "risk_and_constraint": "SQL must remain read-only for evidence inputs; extension loading and arbitrary path access require explicit control."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-006",
+      "canonical_repository": "pola-rs/polars",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin Polars and make it the default dataframe engine behind project interfaces.",
+      "decision": "ADOPT_NOW",
+      "domain": "dataframe_engine",
+      "empirical_admission_gate": "Materialized outputs must match schema, count, missingness and hash contracts against independent validation.",
+      "integration_boundary": "Lazy transformation engine over immutable external tables",
+      "integration_phase": "IMMEDIATE_DATA_ENGINE",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "1.43.2",
+        "mandatory_dependencies": [
+          "polars-runtime-32"
+        ],
+        "name": "polars",
+        "optional_dependency_count": 26,
+        "requires_python": ">=3.10"
+      },
+      "rationale": "Lazy scans, streaming, Arrow interoperability and deterministic expressions fit normalization and feature computation.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 54,
+        "docs_path_count": 391,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/source/user-guide/io/parquet.md",
+          "docs/source/src/rust/user-guide/io/parquet.rs"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "crates/polars-parquet/Cargo.toml",
+          "crates/polars-parquet/src/lib.rs",
+          "crates/polars-io/src/scan_lines.rs"
+        ],
+        "representative_test_paths": [
+          "crates/polars/tests/it/joins.rs",
+          "crates/polars/tests/it/core/joins.rs"
+        ],
+        "test_path_count": 780,
+        "tree_entries": 3915,
+        "workflow_count": 20
+      },
+      "repository_url": "https://github.com/pola-rs/polars",
+      "requested_repository": "pola-rs/polars",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "35d93c51c58a5bb7420871432d109ce8f0e478cc",
+      "reviewed_commit_date": "2026-08-07T19:54:48Z",
+      "reviewed_release": "rs-0.55.2",
+      "risk_and_constraint": "Lazy plans do not supply PIT correctness by themselves; version drift can change schemas or expressions."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-007",
+      "canonical_repository": "unionai-oss/pandera",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin the Polars extra and add contract helpers to the data boundary.",
+      "decision": "ADOPT_NOW",
+      "domain": "data_contracts",
+      "empirical_admission_gate": "Positive and adversarial fixtures must prove nullability, range, uniqueness and schema-drift failures.",
+      "integration_boundary": "Boundary schemas for Polars/pandas frames",
+      "integration_phase": "IMMEDIATE_DATA_VALIDATION",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "0.32.1",
+        "mandatory_dependencies": [
+          "packaging",
+          "pydantic",
+          "typeguard",
+          "typing_extensions",
+          "typing_inspect"
+        ],
+        "name": "pandera",
+        "optional_dependency_count": 22,
+        "requires_python": ">=3.10"
+      },
+      "rationale": "Executable dataframe contracts reduce custom validation code at raw-to-canonical, canonical-to-PIT and training boundaries.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 4,
+        "docs_path_count": 89,
+        "license_paths": [
+          null
+        ],
+        "representative_doc_paths": [
+          "docs/source/checks.md",
+          "docs/source/polars.md"
+        ],
+        "representative_files_captured": 7,
+        "representative_source_paths": [
+          "pandera/polars.py",
+          "pandera/api/checks.py",
+          "pandera/io/_check_io.py"
+        ],
+        "representative_test_paths": [
+          "tests/polars/__init__.py",
+          "tests/polars/conftest.py"
+        ],
+        "test_path_count": 216,
+        "tree_entries": 601,
+        "workflow_count": 2
+      },
+      "repository_url": "https://github.com/unionai-oss/pandera",
+      "requested_repository": "unionai-oss/pandera",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "22010db8df9418c40418dfe7136e985c899575b8",
+      "reviewed_commit_date": "2026-08-07T19:30:28Z",
+      "reviewed_release": "v0.32.1",
+      "risk_and_constraint": "Pandera complements rather than replaces provenance, population coverage or chronological gates."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-008",
+      "canonical_repository": "scikit-learn/scikit-learn",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 1.9.0 when model-ready matrices are approved; keep current prediction contracts authoritative.",
+      "decision": "ADOPT_AT_DEPENDENCY",
+      "domain": "classical_ml",
+      "empirical_admission_gate": "Chronological development replay must beat or match the sealed simple baseline without leakage before promotion.",
+      "integration_boundary": "Estimator/pipeline adapter beneath ModelArtifact and protected evaluation",
+      "integration_phase": "BASELINE_MODELING",
+      "license_metadata": "BSD-3-Clause",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "1.9.0",
+        "mandatory_dependencies": [
+          "joblib",
+          "narwhals",
+          "numpy",
+          "scipy",
+          "threadpoolctl"
+        ],
+        "name": "scikit-learn",
+        "optional_dependency_count": 35,
+        "requires_python": ">=3.11"
+      },
+      "rationale": "Mature pipelines, logistic models, calibration and metrics replace fragile homegrown training code.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 3,
+        "docs_path_count": 461,
+        "license_paths": [
+          "COPYING"
+        ],
+        "representative_doc_paths": [
+          "doc/model_selection.rst",
+          "doc/modules/pipeline.rst"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "sklearn/pipeline.py",
+          "sklearn/calibration.py",
+          "sklearn/model_selection/_plot.py"
+        ],
+        "representative_test_paths": [
+          "sklearn/tests/test_pipeline.py",
+          "sklearn/tests/test_calibration.py"
+        ],
+        "test_path_count": 455,
+        "tree_entries": 2052,
+        "workflow_count": 23
+      },
+      "repository_url": "https://github.com/scikit-learn/scikit-learn",
+      "requested_repository": "scikit-learn/scikit-learn",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "c74a434d91c6c7aa4e05a18a7a8ff3c9d9745eb5",
+      "reviewed_commit_date": "2026-08-07T16:08:15Z",
+      "reviewed_release": "1.9.0",
+      "risk_and_constraint": "Random train/test examples are forbidden; estimator serialization and version identity must be pinned."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-009",
+      "canonical_repository": "statsmodels/statsmodels",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 0.14.6 for regularized/statistical baselines after model dataset approval.",
+      "decision": "ADOPT_AT_DEPENDENCY",
+      "domain": "statistical_models",
+      "empirical_admission_gate": "Convergence, dispersion, residual and chronological stability diagnostics must pass on real training matrices.",
+      "integration_boundary": "GLM/count-model adapter beneath canonical model artifacts",
+      "integration_phase": "BASELINE_MODELING",
+      "license_metadata": "BSD-3-Clause",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "0.14.6",
+        "mandatory_dependencies": [
+          "numpy",
+          "packaging",
+          "pandas",
+          "patsy",
+          "scipy"
+        ],
+        "name": "statsmodels",
+        "optional_dependency_count": 20,
+        "requires_python": ">=3.9"
+      },
+      "rationale": "Logistic, Poisson, generalized Poisson, negative-binomial and mixed GLM implementations directly cover planned baselines.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 5,
+        "docs_path_count": 308,
+        "license_paths": [
+          null
+        ],
+        "representative_doc_paths": [
+          "docs/source/glm.rst",
+          "examples/python/glm.py"
+        ],
+        "representative_files_captured": 7,
+        "representative_source_paths": [
+          "statsmodels/genmod/bayes_mixed_glm.py",
+          "statsmodels/discrete/discrete_model.py",
+          "statsmodels/genmod/generalized_linear_model.py"
+        ],
+        "representative_test_paths": [
+          "statsmodels/genmod/tests/test_glm.py",
+          "statsmodels/genmod/tests/test_gee_glm.py"
+        ],
+        "test_path_count": 1029,
+        "tree_entries": 2494,
+        "workflow_count": 6
+      },
+      "repository_url": "https://github.com/statsmodels/statsmodels",
+      "requested_repository": "statsmodels/statsmodels",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "ce2ee53f2dcefa7be9d57835842e7a1eca2ffd13",
+      "reviewed_commit_date": "2026-08-09T23:15:05Z",
+      "reviewed_release": "v0.14.6",
+      "risk_and_constraint": "Inference assumptions and formula processing can leak if time-varying inputs are assembled incorrectly."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-010",
+      "canonical_repository": "dmlc/xgboost",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 3.2.0 for Python 3.11 and implement only when POST-SUBTASK-073 inputs are ready.",
+      "decision": "ADOPT_AT_DEPENDENCY",
+      "domain": "boosting",
+      "empirical_admission_gate": "Must earn protected chronological lift, calibration, stability and resource value over GLM/sklearn baselines.",
+      "integration_boundary": "Optional boosting backend behind BoostingAdapterSpec",
+      "integration_phase": "BOOSTING_CHALLENGER",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "3.4.0",
+        "mandatory_dependencies": [
+          "numpy",
+          "nvidia-nccl-cu13",
+          "scipy"
+        ],
+        "name": "xgboost",
+        "optional_dependency_count": 8,
+        "requires_python": ">=3.12"
+      },
+      "rationale": "Strong tabular challenger with stable sklearn integration and efficient CPU execution.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 20,
+        "docs_path_count": 113,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "doc/python/sklearn_estimator.rst"
+        ],
+        "representative_files_captured": 7,
+        "representative_source_paths": [
+          "demo/dask/cpu_training.py",
+          "demo/dask/gpu_training.py",
+          "demo/dask/sklearn_cpu_training.py"
+        ],
+        "representative_test_paths": [
+          "tests/python/test_with_sklearn.py",
+          "tests/python-gpu/test_gpu_with_sklearn.py"
+        ],
+        "test_path_count": 487,
+        "tree_entries": 1646,
+        "workflow_count": 17
+      },
+      "repository_url": "https://github.com/dmlc/xgboost",
+      "requested_repository": "dmlc/xgboost",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "68faee0f291f23f2a1c35416a22c98758958784b",
+      "reviewed_commit_date": "2026-08-09T08:07:02Z",
+      "reviewed_release": "v3.4.0",
+      "risk_and_constraint": "Latest 3.4.0 requires Python 3.12; current host must pin 3.2.0 and control threads/seeds."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-011",
+      "canonical_repository": "lightgbm-org/LightGBM",
+      "corpus_scope": "NAMED_ALTERNATIVE",
+      "current_action": "Keep a pinned candidate specification; do not install yet.",
+      "decision": "DEFER_CONDITIONAL",
+      "domain": "boosting",
+      "empirical_admission_gate": "Run only after XGBoost baseline; admit only on incremental protected value or material resource advantage.",
+      "integration_boundary": "Existing optional boosting interface",
+      "integration_phase": "BOOSTING_CHALLENGER",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "4.7.0",
+        "mandatory_dependencies": [
+          "narwhals",
+          "numpy",
+          "scipy"
+        ],
+        "name": "lightgbm",
+        "optional_dependency_count": 8,
+        "requires_python": ">=3.10"
+      },
+      "rationale": "Efficient alternative if XGBoost establishes that boosted trees add meaningful value or memory becomes limiting.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 5,
+        "docs_path_count": 63,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "examples/python-guide/sklearn_example.py"
+        ],
+        "representative_files_captured": 5,
+        "representative_source_paths": [
+          "python-package/lightgbm/sklearn.py",
+          "R-package/demo/efficient_many_training.R"
+        ],
+        "representative_test_paths": [
+          "tests/python_package_test/test_sklearn.py"
+        ],
+        "test_path_count": 61,
+        "tree_entries": 637,
+        "workflow_count": 14
+      },
+      "repository_url": "https://github.com/lightgbm-org/LightGBM",
+      "requested_repository": "lightgbm-org/LightGBM",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "18d59591ad024ac883f8fe051f581d06b40a4306",
+      "reviewed_commit_date": "2026-08-04T14:18:10Z",
+      "reviewed_release": "v4.7.0",
+      "risk_and_constraint": "Adding parallel tree stacks multiplies tuning and supply-chain surface without current evidence."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-012",
+      "canonical_repository": "catboost/catboost",
+      "corpus_scope": "NAMED_ALTERNATIVE",
+      "current_action": "Retain as challenger candidate, not an immediate dependency.",
+      "decision": "DEFER_CONDITIONAL",
+      "domain": "boosting",
+      "empirical_admission_gate": "Admit after XGBoost only when categorical treatment produces development lift with controlled compute.",
+      "integration_boundary": "Existing optional boosting interface",
+      "integration_phase": "BOOSTING_CHALLENGER",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "1.2.10",
+        "mandatory_dependencies": [
+          "graphviz",
+          "matplotlib",
+          "numpy",
+          "pandas",
+          "plotly",
+          "scipy",
+          "six"
+        ],
+        "name": "catboost",
+        "optional_dependency_count": 3,
+        "requires_python": null
+      },
+      "rationale": "Native categorical handling may help only if approved model matrices retain useful categorical structure.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 475,
+        "docs_path_count": 1160,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "catboost/docs/en/features/training.md",
+          "catboost/docs/en/features/training-on-gpu.md"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "catboost/libs/model/target_classifier.h",
+          "catboost/benchmarks/training_speed/run.py",
+          "catboost/benchmarks/training_speed/plot.py"
+        ],
+        "representative_test_paths": [
+          "catboost/spark/catboost4j-spark/core/src/test/python/catboost_regressor_test.py",
+          "catboost/spark/catboost4j-spark/core/src/test/python/catboost_classifier_test.py"
+        ],
+        "test_path_count": 222,
+        "tree_entries": 35365,
+        "workflow_count": 12
+      },
+      "repository_url": "https://github.com/catboost/catboost",
+      "requested_repository": "catboost/catboost",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "e10520bb8ce6b13b1264baa902fef2c021697232",
+      "reviewed_commit_date": "2026-08-09T10:10:31Z",
+      "reviewed_release": "v1.2.10",
+      "risk_and_constraint": "Large repository/runtime and duplicated tree-stack complexity; no present empirical need."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-013",
+      "canonical_repository": "mlflow/mlflow",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Use mlflow-skinny 3.15.1 only when experiment execution starts.",
+      "decision": "ADAPT_AT_DEPENDENCY",
+      "domain": "experiment_tracking",
+      "empirical_admission_gate": "Round-trip export must reproduce canonical experiment IDs, inputs, metrics and artifacts without altering promotion state.",
+      "integration_boundary": "mlflow-skinny local tracking mirror; canonical manifests remain authority",
+      "integration_phase": "EXPERIMENTATION",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "3.15.1",
+        "mandatory_dependencies": [
+          "aiohttp",
+          "alembic",
+          "cryptography",
+          "docker",
+          "Flask",
+          "Flask-CORS",
+          "graphene",
+          "gunicorn",
+          "huey",
+          "matplotlib",
+          "mlflow-skinny",
+          "mlflow-tracing",
+          "numpy",
+          "pandas",
+          "pyarrow",
+          "scikit-learn",
+          "scipy",
+          "skops",
+          "sqlalchemy",
+          "waitress"
+        ],
+        "name": "mlflow",
+        "optional_dependency_count": 28,
+        "requires_python": ">=3.10"
+      },
+      "rationale": "Experiment search and visualization can accelerate tournaments already designed around an MLflow adapter.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 44,
+        "docs_path_count": 1426,
+        "license_paths": [
+          null
+        ],
+        "representative_doc_paths": [
+          "examples/mlflow_artifacts/README.md",
+          "examples/mlflow_artifacts/example.py"
+        ],
+        "representative_files_captured": 7,
+        "representative_source_paths": [
+          "mlflow/experiments.py",
+          "mlflow/tracking/client.py",
+          "mlflow/tracking/fluent.py"
+        ],
+        "representative_test_paths": [
+          "tests/tracking/__init__.py",
+          "tests/tracking/conftest.py"
+        ],
+        "test_path_count": 1612,
+        "tree_entries": 10678,
+        "workflow_count": 64
+      },
+      "repository_url": "https://github.com/mlflow/mlflow",
+      "requested_repository": "mlflow/mlflow",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "79163356ec58a1966524b8eafb5cccbefde925f8",
+      "reviewed_commit_date": "2026-08-09T11:13:37Z",
+      "reviewed_release": "v3.15.1",
+      "risk_and_constraint": "Full MLflow has 20 mandatory dependencies and increasingly broad LLM/server scope; remote service is unnecessary."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-014",
+      "canonical_repository": "optuna/optuna",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 4.9.0 and integrate at the declared HPO work unit.",
+      "decision": "ADOPT_AT_DEPENDENCY",
+      "domain": "hpo",
+      "empirical_admission_gate": "Studies must be bounded, reproducible, chronological and unable to observe protected metrics.",
+      "integration_boundary": "Development-only HPO adapter with sealed objective isolation",
+      "integration_phase": "EXPERIMENTATION",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "4.9.0",
+        "mandatory_dependencies": [
+          "alembic",
+          "colorlog",
+          "numpy",
+          "packaging",
+          "PyYAML",
+          "sqlalchemy",
+          "tqdm"
+        ],
+        "name": "optuna",
+        "optional_dependency_count": 24,
+        "requires_python": ">=3.9"
+      },
+      "rationale": "Mature samplers and pruning replace custom search while fitting existing HPO contracts.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 77,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/source/reference/study.rst",
+          "docs/source/reference/trial.rst"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "optuna/study/_tell.py",
+          "optuna/study/study.py",
+          "optuna/trial/_base.py"
+        ],
+        "representative_test_paths": [
+          "tests/study_tests/__init__.py",
+          "tests/trial_tests/__init__.py"
+        ],
+        "test_path_count": 150,
+        "tree_entries": 545,
+        "workflow_count": 12
+      },
+      "repository_url": "https://github.com/optuna/optuna",
+      "requested_repository": "optuna/optuna",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "d02dad591b16ad2993ebfdd1735336d2ba56b00c",
+      "reviewed_commit_date": "2026-08-07T07:15:10Z",
+      "reviewed_release": "v4.9.0",
+      "risk_and_constraint": "Default random-split examples are inapplicable and persistent studies can become hidden authority."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-015",
+      "canonical_repository": "shap/shap",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 0.51.0 only after a tree challenger is admitted.",
+      "decision": "ADOPT_AT_DEPENDENCY",
+      "domain": "explainability",
+      "empirical_admission_gate": "Attribution stability and output consistency must pass on the admitted champion; no causal claims.",
+      "integration_boundary": "Offline explanation generator; serving renders precomputed evidence only",
+      "integration_phase": "EXPLAINABILITY",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "0.52.0",
+        "mandatory_dependencies": [
+          "cloudpickle",
+          "llvmlite",
+          "numba",
+          "numpy",
+          "packaging",
+          "pandas",
+          "scikit-learn",
+          "scipy",
+          "slicer",
+          "tqdm"
+        ],
+        "name": "shap",
+        "optional_dependency_count": 43,
+        "requires_python": ">=3.12"
+      },
+      "rationale": "Fast tree explanations support XGBoost/LightGBM/CatBoost/sklearn and improve forecast accountability.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 5,
+        "docs_path_count": 154,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 6,
+        "representative_source_paths": [
+          "shap/cext/tree_shap.h",
+          "shap/cext/gpu_treeshap.h",
+          "shap/explainers/_tree.py"
+        ],
+        "representative_test_paths": [
+          "tests/explainers/common.py",
+          "tests/gpu_tree_tests.ipynb"
+        ],
+        "test_path_count": 167,
+        "tree_entries": 689,
+        "workflow_count": 8
+      },
+      "repository_url": "https://github.com/shap/shap",
+      "requested_repository": "shap/shap",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "5410d4ee4b98fdf31667f55805d6af3d0236d9b7",
+      "reviewed_commit_date": "2026-08-09T21:04:50Z",
+      "reviewed_release": "v0.52.0",
+      "risk_and_constraint": "Latest 0.52.0 requires Python 3.12; current host must pin 0.51.0."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-016",
+      "canonical_repository": "scikit-learn-contrib/MAPIE",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 1.5.0 for a development-only challenger after calibrated baselines exist.",
+      "decision": "ADAPT_AT_DEPENDENCY",
+      "domain": "uncertainty",
+      "empirical_admission_gate": "Exchangeability diagnostics, rolling calibration and regime coverage must pass; random calibration splits are forbidden.",
+      "integration_boundary": "Chronological conformal/risk-control challenger",
+      "integration_phase": "UNCERTAINTY",
+      "license_metadata": "BSD-3-Clause",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "1.5.0",
+        "mandatory_dependencies": [
+          "numpy",
+          "scikit-learn",
+          "scipy"
+        ],
+        "name": "mapie",
+        "optional_dependency_count": 39,
+        "requires_python": ">=3.10"
+      },
+      "rationale": "Prediction intervals and sets can improve uncertainty reporting and coverage evaluation.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 79,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "examples/regression/README.md",
+          "examples/calibration/README.md"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "mapie/calibration.py",
+          "mapie/classification.py",
+          "mapie/metrics/regression.py"
+        ],
+        "representative_test_paths": [
+          "mapie/tests/test_regression.py",
+          "mapie/tests/test_calibration.py"
+        ],
+        "test_path_count": 36,
+        "tree_entries": 353,
+        "workflow_count": 5
+      },
+      "repository_url": "https://github.com/scikit-learn-contrib/MAPIE",
+      "requested_repository": "scikit-learn-contrib/MAPIE",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "60031ac78aa6b46142c29d6ed6bad33dc081802e",
+      "reviewed_commit_date": "2026-08-05T13:18:04Z",
+      "reviewed_release": "v1.5.0",
+      "risk_and_constraint": "Football seasons are nonexchangeable and adaptive methods can still miscover under regime shift."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-017",
+      "canonical_repository": "evidentlyai/evidently",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Retain as an operations candidate; do not install in the current critical path.",
+      "decision": "DEFER_CONDITIONAL",
+      "domain": "monitoring",
+      "empirical_admission_gate": "Must add actionable signal beyond existing schema/missingness/residual monitors with acceptable runtime cost.",
+      "integration_boundary": "Optional offline report exporter behind monitoring contracts",
+      "integration_phase": "WEEKLY_OPERATIONS",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "0.7.21",
+        "mandatory_dependencies": [
+          "certifi",
+          "cryptography",
+          "deprecation",
+          "dynaconf",
+          "fsspec",
+          "iterative-telemetry",
+          "litestar",
+          "nltk",
+          "numpy",
+          "opentelemetry-proto",
+          "pandas",
+          "plotly",
+          "pydantic",
+          "pyyaml",
+          "requests",
+          "rich",
+          "scikit-learn",
+          "scipy",
+          "statsmodels",
+          "typer",
+          "typing-inspect",
+          "ujson",
+          "urllib3",
+          "uuid6",
+          "uvicorn",
+          "watchdog"
+        ],
+        "name": "evidently",
+        "optional_dependency_count": 34,
+        "requires_python": ">=3.10"
+      },
+      "rationale": "Broad drift/quality metrics and reports could accelerate weekly monitoring once a champion operates.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 10,
+        "docs_path_count": 0,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "examples/cookbook/metrics.ipynb",
+          "examples/cookbook/recsys_metrics.ipynb"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "src/evidently/cli/report.py",
+          "src/evidently/core/report.py",
+          "src/evidently/future/report.py"
+        ],
+        "representative_test_paths": [
+          "tests/report/__init__.py",
+          "tests/metrics/__init__.py"
+        ],
+        "test_path_count": 280,
+        "tree_entries": 1528,
+        "workflow_count": 5
+      },
+      "repository_url": "https://github.com/evidentlyai/evidently",
+      "requested_repository": "evidentlyai/evidently",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "a4aa4c2b37fe7a4344cc5031f566deccf3d69e4f",
+      "reviewed_commit_date": "2026-05-02T13:00:57Z",
+      "reviewed_release": "v0.7.21",
+      "risk_and_constraint": "Twenty-six mandatory dependencies and service/UI scope are excessive before weekly production exists."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-018",
+      "canonical_repository": "sportsdataverse/cfb4th",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Extract hypotheses and parity fixtures only; do not embed R in production.",
+      "decision": "REFERENCE_ONLY",
+      "domain": "football_features",
+      "empirical_admission_gate": "Python implementation must match pinned fixtures and then earn incremental chronological value.",
+      "integration_boundary": "Formula and decision-policy parity reference",
+      "integration_phase": "FEATURE_RESEARCH",
+      "license_metadata": "NOASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Provides a concrete fourth-down expected-value feature family.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 2,
+        "license_paths": [
+          "LICENSE",
+          "LICENSE.md"
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 3,
+        "representative_source_paths": [
+          "data-raw/_go_for_it_cfb_mod.R"
+        ],
+        "representative_test_paths": [
+          null
+        ],
+        "test_path_count": 5,
+        "tree_entries": 68,
+        "workflow_count": 2
+      },
+      "repository_url": "https://github.com/sportsdataverse/cfb4th",
+      "requested_repository": "sportsdataverse/cfb4th",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "a71ff01aa02504a8ea9cfad8100d873f7721baa9",
+      "reviewed_commit_date": "2026-06-24T03:13:21Z",
+      "reviewed_release": null,
+      "risk_and_constraint": "Experimental R package with simplifying assumptions and post-play inputs that can leak into pregame features."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-019",
+      "canonical_repository": "pymc-devs/pymc",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Retain 5.28.5 as the compatible candidate pin; do not install now.",
+      "decision": "DEFER_CONDITIONAL",
+      "domain": "bayesian_models",
+      "empirical_admission_gate": "Admit only after simpler shrinkage baselines reveal a specific unmet uncertainty or pooling need.",
+      "integration_boundary": "Isolated Bayesian research runtime",
+      "integration_phase": "HIERARCHICAL_RESEARCH",
+      "license_metadata": "NOASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "6.2.0",
+        "mandatory_dependencies": [
+          "arviz",
+          "cachetools",
+          "cloudpickle",
+          "numpy",
+          "pandas",
+          "pytensor",
+          "rich",
+          "scipy",
+          "threadpoolctl",
+          "typing-extensions"
+        ],
+        "name": "pymc",
+        "optional_dependency_count": 1,
+        "requires_python": ">=3.12"
+      },
+      "rationale": "Could support hierarchical A&M/team effects and uncertainty when sparse-history evidence warrants it.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 9,
+        "docs_path_count": 117,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/source/api/model.rst",
+          "docs/source/api/dims/model.rst"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "pymc/dims/model.py",
+          "pymc/model/core.py",
+          "pymc/model_graph.py"
+        ],
+        "representative_test_paths": [
+          "tests/models.py",
+          "tests/model/__init__.py"
+        ],
+        "test_path_count": 139,
+        "tree_entries": 478,
+        "workflow_count": 10
+      },
+      "repository_url": "https://github.com/pymc-devs/pymc",
+      "requested_repository": "pymc-devs/pymc",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "1ad7ad2ed91078dd9f62323f72a916bed321bca7",
+      "reviewed_commit_date": "2026-08-09T20:24:53Z",
+      "reviewed_release": "v6.2.0",
+      "risk_and_constraint": "Heavy probabilistic runtime; latest 6.2.0 needs Python 3.12, so Python 3.11 would require 5.28.5."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-020",
+      "canonical_repository": "nflverse/nflfastR",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Use as a design comparator for releases, EP/WP and incremental enrichment.",
+      "decision": "REFERENCE_ONLY",
+      "domain": "architecture_reference",
+      "empirical_admission_gate": "CFB implementation must match only transferable definitions on pinned fixtures and remain source-specific.",
+      "integration_boundary": "Architecture and feature parity fixtures",
+      "integration_phase": "FOOTBALL_PARITY",
+      "license_metadata": "NOASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Mature EP/WP/data-release/update patterns are valuable independent implementation references.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 6,
+        "license_paths": [
+          "LICENSE",
+          "LICENSE.md"
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 7,
+        "representative_source_paths": [
+          "R/report.R",
+          "R/build_playstats.R",
+          "R/helper_add_ep_wp.R"
+        ],
+        "representative_test_paths": [
+          "tests/testthat/test-ep_wp_calculators.R",
+          "tests/testthat/test-calculate_series_conversion_rates.R"
+        ],
+        "test_path_count": 22,
+        "tree_entries": 175,
+        "workflow_count": 5
+      },
+      "repository_url": "https://github.com/nflverse/nflfastR",
+      "requested_repository": "nflverse/nflfastR",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "0326e2e67694bc835e2b55a3b72c7a8e01ccd6ea",
+      "reviewed_commit_date": "2026-08-06T20:20:13Z",
+      "reviewed_release": "v5.2.0",
+      "risk_and_constraint": "NFL rules/population differ; R runtime and NFL data are not production dependencies."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-021",
+      "canonical_repository": "drewddudney/TAMU_KyleField",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Add hypotheses to the A&M research queue; copy no conclusions or runtime code.",
+      "decision": "REFERENCE_ONLY",
+      "domain": "tamu_research",
+      "empirical_admission_gate": "Every hypothesis must be rebuilt from canonical PIT-safe data with national/SEC comparators and multiple-testing controls.",
+      "integration_boundary": "A&M hypothesis definitions only",
+      "integration_phase": "TAMU_HYPOTHESIS_QUEUE",
+      "license_metadata": "NO_ASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Surfaces testable Kyle Field, home/road, attendance, penalty, turnover and opponent-strength questions.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 0,
+        "license_paths": [
+          null
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 3,
+        "representative_source_paths": [
+          "README.md",
+          "KyleField_HomeField.ipynb",
+          ".ipynb_checkpoints/KyleField_HomeField-checkpoint.ipynb"
+        ],
+        "representative_test_paths": [
+          null
+        ],
+        "test_path_count": 0,
+        "tree_entries": 15,
+        "workflow_count": 0
+      },
+      "repository_url": "https://github.com/drewddudney/TAMU_KyleField",
+      "requested_repository": "drewddudney/TAMU_KyleField",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "ce3b0fd6d8c58b816ab4c0a48a49d15208330bdd",
+      "reviewed_commit_date": "2025-02-17T19:59:24Z",
+      "reviewed_release": null,
+      "risk_and_constraint": "No license/tests, notebook-only analysis, post-outcome variables and observational conclusions cannot be imported as results."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-022",
+      "canonical_repository": "chrispm15/AggieFYI",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Do not adopt code or RAG architecture; retain the negative finding.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "tamu_acquisition",
+      "empirical_admission_gate": "None; the candidate adds no distinct capability.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "NO_ASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Inspection found only direct CFBD schedule/roster calls already covered more robustly by project sources; no unique A&M acquisition path was present.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 0,
+        "license_paths": [
+          null
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 3,
+        "representative_source_paths": [
+          "ingest.py",
+          "backend.py",
+          "embedder.py"
+        ],
+        "representative_test_paths": [
+          null
+        ],
+        "test_path_count": 0,
+        "tree_entries": 11,
+        "workflow_count": 0
+      },
+      "repository_url": "https://github.com/chrispm15/AggieFYI",
+      "requested_repository": "chrispm15/AggieFYI",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "241e3c985ea8bee6e365dd79f7e2357a3f5d2f06",
+      "reviewed_commit_date": "2025-10-17T14:29:16Z",
+      "reviewed_release": null,
+      "risk_and_constraint": "No license/tests, hard-coded years/facts, OpenAI 0.28.1/Chroma coupling, broad exception swallowing, and a UTC conversion defect."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-023",
+      "canonical_repository": "moj-analytical-services/splink",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 4.0.16 and add a settings builder, but prohibit automatic canonical promotion until BAT-388 validation.",
+      "decision": "ADAPT_NOW",
+      "domain": "entity_resolution",
+      "empirical_admission_gate": "Labeled cross-source pairs must establish precision/recall and thresholds; unresolved/ambiguous cases remain quarantined.",
+      "integration_boundary": "Multi-field probabilistic linkage after deterministic/RapidFuzz candidate generation",
+      "integration_phase": "ENTITY_RESOLUTION",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "4.0.16",
+        "mandatory_dependencies": [
+          "altair",
+          "duckdb",
+          "igraph",
+          "jinja2",
+          "numpy",
+          "pandas",
+          "sqlglot"
+        ],
+        "name": "splink",
+        "optional_dependency_count": 4,
+        "requires_python": "<4.0.0,>=3.9.0"
+      },
+      "rationale": "Fellegi-Sunter linkage on DuckDB fits player/coach records with multiple partially reliable attributes.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 4,
+        "docs_path_count": 309,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/api_docs/blocking.md",
+          "docs/api_docs/blocking_analysis.md"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "splink/backends/duckdb.py",
+          "splink/internals/linker.py",
+          "splink/blocking_analysis.py"
+        ],
+        "representative_test_paths": [
+          "tests/test_blocking.py",
+          "tests/test_comparison_lib.py"
+        ],
+        "test_path_count": 89,
+        "tree_entries": 637,
+        "workflow_count": 15
+      },
+      "repository_url": "https://github.com/moj-analytical-services/splink",
+      "requested_repository": "moj-analytical-services/splink",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "e22dacdda967988fe701368d5bc21a54eebba0cf",
+      "reviewed_commit_date": "2026-08-06T14:48:20Z",
+      "reviewed_release": "v4.0.16",
+      "risk_and_constraint": "Not suitable for single-name linking; correlation and sparse fields can produce overconfident matches."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-024",
+      "canonical_repository": "rapidfuzz/RapidFuzz",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 3.14.5 and implement a bounded candidate generator immediately.",
+      "decision": "ADOPT_NOW",
+      "domain": "entity_resolution",
+      "empirical_admission_gate": "Adversarial aliases and labeled pairs must prove recall; scores never auto-accept an identity.",
+      "integration_boundary": "Candidate generation only before deterministic/probabilistic review",
+      "integration_phase": "ENTITY_RESOLUTION",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "3.14.5",
+        "mandatory_dependencies": [],
+        "name": "rapidfuzz",
+        "optional_dependency_count": 1,
+        "requires_python": ">=3.10"
+      },
+      "rationale": "Fast zero-runtime-dependency similarity metrics materially reduce manual candidate search.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 6,
+        "docs_path_count": 52,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/Usage/process.rst"
+        ],
+        "representative_files_captured": 6,
+        "representative_source_paths": [
+          "src/rapidfuzz/process.py",
+          "src/rapidfuzz/process_py.py",
+          "src/rapidfuzz/process_cpp.py"
+        ],
+        "representative_test_paths": [
+          "tests/test_process.py"
+        ],
+        "test_path_count": 26,
+        "tree_entries": 216,
+        "workflow_count": 5
+      },
+      "repository_url": "https://github.com/rapidfuzz/RapidFuzz",
+      "requested_repository": "rapidfuzz/RapidFuzz",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "03a5137851aab675b430389235d73bb18873dafe",
+      "reviewed_commit_date": "2026-08-03T08:59:06Z",
+      "reviewed_release": "v3.14.5",
+      "risk_and_constraint": "RapidFuzz 3 does no preprocessing by default, so project normalization must remain explicit."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-025",
+      "canonical_repository": "sportsdataverse/cfbfastR",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Use for EPA/WPA/play taxonomy parity tests, not as a runtime dependency.",
+      "decision": "REFERENCE_ONLY",
+      "domain": "football_reference",
+      "empirical_admission_gate": "Python outputs must match pinned cases with documented semantic differences and chronology.",
+      "integration_boundary": "Pinned R reference outputs and taxonomy only",
+      "integration_phase": "FOOTBALL_PARITY",
+      "license_metadata": "NOASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Established CFB play processing and EP/WP interfaces provide independent parity targets.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 22,
+        "license_paths": [
+          "LICENSE",
+          "LICENSE.md"
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 7,
+        "representative_source_paths": [
+          "R/cfbd_play.R",
+          "R/create_epa.R",
+          "R/cfbd_players.R"
+        ],
+        "representative_test_paths": [
+          "tests/testthat/test-pbp_taxonomy.R",
+          "tests/testthat/test-cfbd_pbp_data.R"
+        ],
+        "test_path_count": 140,
+        "tree_entries": 442,
+        "workflow_count": 3
+      },
+      "repository_url": "https://github.com/sportsdataverse/cfbfastR",
+      "requested_repository": "sportsdataverse/cfbfastR",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "746ed353278cfe68051fb5bfee7b76eff9ce45ef",
+      "reviewed_commit_date": "2026-08-07T18:16:18Z",
+      "reviewed_release": "v2.0.0",
+      "risk_and_constraint": "R runtime would duplicate production and CFBD wrappers; derived metrics are not independent truth."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-026",
+      "canonical_repository": "frazane/scoringrules",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 0.10.0 and implement at probabilistic evaluation readiness.",
+      "decision": "ADOPT_AT_DEPENDENCY",
+      "domain": "probabilistic_evaluation",
+      "empirical_admission_gate": "Orientation, sample weighting, tail thresholds and reference calculations must pass before protected use.",
+      "integration_boundary": "Protected evaluator beneath metric registry",
+      "integration_phase": "PROBABILISTIC_EVALUATION",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "0.11.0",
+        "mandatory_dependencies": [
+          "numpy",
+          "scipy"
+        ],
+        "name": "scoringrules",
+        "optional_dependency_count": 3,
+        "requires_python": ">=3.12"
+      },
+      "rationale": "Brier, log, CRPS, energy and threshold-weighted scores directly cover forecast distributions and BAS tails.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 3,
+        "docs_path_count": 24,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/crps_estimators.md",
+          "docs/weighted_scores.md"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "scoringrules/_crps.py",
+          "scoringrules/_logs.py",
+          "scoringrules/_brier.py"
+        ],
+        "representative_test_paths": [
+          "tests/test_crps.py",
+          "tests/test_logs.py"
+        ],
+        "test_path_count": 19,
+        "tree_entries": 131,
+        "workflow_count": 3
+      },
+      "repository_url": "https://github.com/frazane/scoringrules",
+      "requested_repository": "frazane/scoringrules",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "e48aa74fdbf2d916ade569e1b7516286dbc8b303",
+      "reviewed_commit_date": "2026-06-20T19:53:41Z",
+      "reviewed_release": "0.11.0",
+      "risk_and_constraint": "Latest 0.11.0 requires Python 3.12; current host must pin 0.10.0."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-027",
+      "canonical_repository": "stanfordmlgroup/ngboost",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 0.5.11 for the model tournament after baseline approval.",
+      "decision": "ADOPT_AT_DEPENDENCY",
+      "domain": "probabilistic_models",
+      "empirical_admission_gate": "Must beat point-model-plus-calibration baselines on chronological NLL/CRPS/calibration and resource cost.",
+      "integration_boundary": "Optional distributional model behind model contracts",
+      "integration_phase": "PROBABILISTIC_CHALLENGER",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "0.5.11",
+        "mandatory_dependencies": [
+          "lifelines",
+          "matplotlib",
+          "numpy",
+          "scikit-learn",
+          "scipy",
+          "sympy",
+          "tqdm"
+        ],
+        "name": "ngboost",
+        "optional_dependency_count": 0,
+        "requires_python": "<3.15,>=3.9"
+      },
+      "rationale": "Direct predictive distributions align with score, margin and BAS-tail outputs.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 4,
+        "docs_path_count": 77,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/sympy_distributions.md"
+        ],
+        "representative_files_captured": 7,
+        "representative_source_paths": [
+          "ngboost/api.py",
+          "ngboost/scores.py",
+          "ngboost/helpers.py"
+        ],
+        "representative_test_paths": [
+          "tests/test_score.py",
+          "tests/test_distns.py"
+        ],
+        "test_path_count": 11,
+        "tree_entries": 439,
+        "workflow_count": 1
+      },
+      "repository_url": "https://github.com/stanfordmlgroup/ngboost",
+      "requested_repository": "stanfordmlgroup/ngboost",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "672034041fc05d9d4b7a80c1e6163ea102579752",
+      "reviewed_commit_date": "2026-07-01T01:46:14Z",
+      "reviewed_release": "v0.5.11",
+      "risk_and_constraint": "Examples use random splits; distributional misspecification can create misleading tails."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-028",
+      "canonical_repository": "interpretml/interpret",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 0.7.8 and evaluate EBM in the model tournament.",
+      "decision": "ADOPT_AT_DEPENDENCY",
+      "domain": "interpretable_ml",
+      "empirical_admission_gate": "Must earn chronological lift and stable explanations relative to GLM/XGBoost.",
+      "integration_boundary": "EBM candidate behind model and explanation contracts",
+      "integration_phase": "INTERPRETABLE_CHALLENGER",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "0.7.8",
+        "mandatory_dependencies": [
+          "interpret-core"
+        ],
+        "name": "interpret",
+        "optional_dependency_count": 0,
+        "requires_python": null
+      },
+      "rationale": "Provides nonlinear glass-box behavior between GLM and black-box boosted trees.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 8,
+        "docs_path_count": 120,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/interpret/ebm.ipynb",
+          "docs/interpret/dpebm.ipynb"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "R/R/ebm.R",
+          "R/R/booster.R",
+          "shared/libebm/pch.hpp"
+        ],
+        "representative_test_paths": [
+          "shared/libebm/tests/pch_test.cpp",
+          "shared/libebm/tests/pch_test.hpp"
+        ],
+        "test_path_count": 95,
+        "tree_entries": 577,
+        "workflow_count": 4
+      },
+      "repository_url": "https://github.com/interpretml/interpret",
+      "requested_repository": "interpretml/interpret",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "2ed5ecb72f63ad120f445a3401b6b4040f61cad2",
+      "reviewed_commit_date": "2026-05-29T06:18:07Z",
+      "reviewed_release": "v0.7.8",
+      "risk_and_constraint": "Native extension footprint and interaction search require deterministic resource controls."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-029",
+      "canonical_repository": "HypothesisWorks/hypothesis",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 6.165.2 and add entity/PIT invariants immediately.",
+      "decision": "ADOPT_NOW",
+      "domain": "property_testing",
+      "empirical_admission_gate": "Deterministic profiles must reproduce minimal failures and never access protected outcomes.",
+      "integration_boundary": "Development/test dependency only",
+      "integration_phase": "TESTING",
+      "license_metadata": "NOASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "6.165.2",
+        "mandatory_dependencies": [
+          "exceptiongroup",
+          "sortedcontainers"
+        ],
+        "name": "hypothesis",
+        "optional_dependency_count": 17,
+        "requires_python": ">=3.10"
+      },
+      "rationale": "Property-based generation directly targets PIT boundaries, identity stability, probability coherence and temporal edge cases.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 5,
+        "docs_path_count": 51,
+        "license_paths": [
+          null
+        ],
+        "representative_doc_paths": [
+          "hypothesis/docs/stateful.rst",
+          "hypothesis/docs/reference/strategies.rst"
+        ],
+        "representative_files_captured": 7,
+        "representative_source_paths": [
+          "guides/strategies-that-shrink.rst",
+          "hypothesis/src/hypothesis/stateful.py",
+          "hypothesis/src/hypothesis/strategies/__init__.py"
+        ],
+        "representative_test_paths": [
+          "hypothesis/tests/common/strategies.py",
+          "hypothesis/tests/conjecture/common.py"
+        ],
+        "test_path_count": 415,
+        "tree_entries": 794,
+        "workflow_count": 6
+      },
+      "repository_url": "https://github.com/HypothesisWorks/hypothesis",
+      "requested_repository": "HypothesisWorks/hypothesis",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "d139e32f8c64334b2aea6480181e771d095bb850",
+      "reviewed_commit_date": "2026-08-07T13:08:00Z",
+      "reviewed_release": "v6.165.2",
+      "risk_and_constraint": "Generated cases complement but cannot replace real-data population validation."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-030",
+      "canonical_repository": "open-meteo/python-requests",
+      "corpus_scope": "CORE_HEADING",
+      "current_action": "Pin 1.7.5 and add a weather decoder adapter while direct HTTP remains the raw-evidence route.",
+      "decision": "ADOPT_NOW",
+      "domain": "weather_acquisition",
+      "empirical_admission_gate": "Forecast-run identity and initialization must be preserved; realized archive weather is explicitly non-PIT for pregame forecasts.",
+      "integration_boundary": "Optional decoder/client after immutable HTTP capture",
+      "integration_phase": "WEATHER_ACQUISITION",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": {
+        "latest_version": "1.7.5",
+        "mandatory_dependencies": [
+          "niquests",
+          "openmeteo-sdk"
+        ],
+        "name": "openmeteo-requests",
+        "optional_dependency_count": 0,
+        "requires_python": ">=3.9"
+      },
+      "rationale": "Efficient FlatBuffers and NumPy/Polars access reduce historical weather parsing work.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 2,
+        "docs_path_count": 0,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 3,
+        "representative_source_paths": [
+          "openmeteo_requests/Client.py"
+        ],
+        "representative_test_paths": [
+          "tests/test_clients.py"
+        ],
+        "test_path_count": 4,
+        "tree_entries": 25,
+        "workflow_count": 3
+      },
+      "repository_url": "https://github.com/open-meteo/python-requests",
+      "requested_repository": "open-meteo/python-requests",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "762a91c94dbb9ca5489fcf72bcf3ef1f15e47815",
+      "reviewed_commit_date": "2026-07-20T13:09:55Z",
+      "reviewed_release": "v1.7.5",
+      "risk_and_constraint": "Uses niquests/openmeteo-sdk; decoded arrays are not substitutes for immutable raw response identity."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-031",
+      "canonical_repository": "feast-dev/feast",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "feature_store",
+      "empirical_admission_gate": "Reconsider only if a measured online serving requirement appears.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "An online feature store is unnecessary for the local weekly batch product and duplicates the feature/PIT registries.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 16,
+        "docs_path_count": 776,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/README.md",
+          "docs/roadmap.md"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "AGENTS.md",
+          "CLAUDE.md",
+          "README.md"
+        ],
+        "representative_test_paths": [
+          "sdk/python/tests/README.md",
+          "sdk/python/tests/__init__.py"
+        ],
+        "test_path_count": 560,
+        "tree_entries": 3597,
+        "workflow_count": 30
+      },
+      "repository_url": "https://github.com/feast-dev/feast",
+      "requested_repository": "feast-dev/feast",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "037c4cd1cea75167d32a2a025f28e65085d97da0",
+      "reviewed_commit_date": "2026-08-09T23:38:51Z",
+      "reviewed_release": "v0.65.0",
+      "risk_and_constraint": "Service and dependency complexity exceed present value."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-032",
+      "canonical_repository": "apache/airflow",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "orchestration",
+      "empirical_admission_gate": "Reconsider only for a demonstrated multi-worker scheduling gap.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Existing local scheduler and Jira DAG already cover required orchestration.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 171,
+        "docs_path_count": 2865,
+        "license_paths": [
+          "LICENSE",
+          "NOTICE"
+        ],
+        "representative_doc_paths": [
+          "docs/README.md",
+          "chart/docs/conf.py"
+        ],
+        "representative_files_captured": 9,
+        "representative_source_paths": [
+          ".asf.yaml",
+          "AGENTS.md",
+          "CLAUDE.md"
+        ],
+        "representative_test_paths": [
+          "chart/tests/conftest.py",
+          "scripts/tests/__init__.py"
+        ],
+        "test_path_count": 5570,
+        "tree_entries": 17275,
+        "workflow_count": 50
+      },
+      "repository_url": "https://github.com/apache/airflow",
+      "requested_repository": "apache/airflow",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "9ec73bab050c524627f12abcf6bbc1d0b30f70a9",
+      "reviewed_commit_date": "2026-08-09T08:39:23Z",
+      "reviewed_release": "3.3.0",
+      "risk_and_constraint": "Large service/database operational burden."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-033",
+      "canonical_repository": "dagster-io/dagster",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "orchestration",
+      "empirical_admission_gate": "Reconsider only after a measured orchestration reliability gap.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Asset orchestration duplicates existing manifests, DAG and scheduler contracts.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 359,
+        "docs_path_count": 2193,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/CLAUDE.md",
+          "docs/README.md"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "TODO.md",
+          ".mcp.json",
+          "CLAUDE.md"
+        ],
+        "representative_test_paths": [
+          "docs/docs/guides/test/index.md",
+          "docs/docs/guides/test/asset-checks.md"
+        ],
+        "test_path_count": 217,
+        "tree_entries": 17509,
+        "workflow_count": 5
+      },
+      "repository_url": "https://github.com/dagster-io/dagster",
+      "requested_repository": "dagster-io/dagster",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "6542eff83164cbb1b544225d0890a38c6aeb75c9",
+      "reviewed_commit_date": "2026-08-06T21:22:51Z",
+      "reviewed_release": "1.13.17",
+      "risk_and_constraint": "Adds daemon/UI/storage surface."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-034",
+      "canonical_repository": "PrefectHQ/prefect",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "orchestration",
+      "empirical_admission_gate": "Reconsider only for a measured remote orchestration need.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Current local-first scheduling does not need a second workflow control plane.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 28,
+        "docs_path_count": 1419,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/AGENTS.md",
+          "docs/docs.json"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "AGENTS.md",
+          "README.md",
+          "SECURITY.md"
+        ],
+        "representative_test_paths": [
+          "tests/AGENTS.md",
+          "tests/README.md"
+        ],
+        "test_path_count": 970,
+        "tree_entries": 6136,
+        "workflow_count": 43
+      },
+      "repository_url": "https://github.com/PrefectHQ/prefect",
+      "requested_repository": "PrefectHQ/prefect",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "40a34ba1f53d46a791358459eb96d9cd006f4628",
+      "reviewed_commit_date": "2026-08-09T14:46:16Z",
+      "reviewed_release": "3.8.2",
+      "risk_and_constraint": "Adds server/cloud semantics and dependency surface."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-035",
+      "canonical_repository": "apache/spark",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "distributed_compute",
+      "empirical_admission_gate": "Reconsider only when measured workloads exceed the local resource envelope.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Current national history fits local DuckDB/Polars and has no distributed-compute evidence.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 64,
+        "docs_path_count": 509,
+        "license_paths": [
+          "LICENSE",
+          "NOTICE"
+        ],
+        "representative_doc_paths": [
+          "docs/404.md",
+          "docs/index.md"
+        ],
+        "representative_files_captured": 9,
+        "representative_source_paths": [
+          ".asf.yaml",
+          "AGENTS.md",
+          "CLAUDE.md"
+        ],
+        "representative_test_paths": [
+          "R/pkg/tests/run-all.R",
+          "sql/core/src/test/README.md"
+        ],
+        "test_path_count": 22692,
+        "tree_entries": 30632,
+        "workflow_count": 46
+      },
+      "repository_url": "https://github.com/apache/spark",
+      "requested_repository": "apache/spark",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "9a20f8b3693c527485e432a57d3fcac6df8eda86",
+      "reviewed_commit_date": "2026-08-09T20:52:43Z",
+      "reviewed_release": null,
+      "risk_and_constraint": "JVM/cluster complexity and duplicated dataframe semantics."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-036",
+      "canonical_repository": "ray-project/ray",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "distributed_compute",
+      "empirical_admission_gate": "Reconsider only after bounded local parallelism fails measured targets.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "No workload currently justifies a distributed Python runtime.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 44,
+        "docs_path_count": 1879,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "doc/README.md",
+          "doc/rtd_doctor.py"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "AGENTS.md",
+          ".fossa.yml",
+          "README.rst"
+        ],
+        "representative_test_paths": [
+          "bazel/tests/cpp/example.h",
+          "bazel/tests/cpp/example.cc"
+        ],
+        "test_path_count": 2997,
+        "tree_entries": 11809,
+        "workflow_count": 4
+      },
+      "repository_url": "https://github.com/ray-project/ray",
+      "requested_repository": "ray-project/ray",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "ceb4d22a2d05b3b2a476cfc857b975ad44e3b536",
+      "reviewed_commit_date": "2026-08-09T15:30:19Z",
+      "reviewed_release": "ray-2.56.1",
+      "risk_and_constraint": "Scheduler/process complexity and reproducibility risk."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-037",
+      "canonical_repository": "kubernetes/kubernetes",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "orchestration",
+      "empirical_admission_gate": "Reconsider only if deployment topology changes explicitly.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "The project operates on one authorized local computer and has no cluster product requirement.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 41,
+        "docs_path_count": 23,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "staging/src/k8s.io/client-go/examples/README.md",
+          "staging/src/k8s.io/kubectl/docs/roadmap/template.md"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "AGENTS.md",
+          "README.md",
+          "SUPPORT.md"
+        ],
+        "representative_test_paths": [
+          "test/cmd/README.md",
+          "test/e2e/README.md"
+        ],
+        "test_path_count": 9548,
+        "tree_entries": 37392,
+        "workflow_count": 0
+      },
+      "repository_url": "https://github.com/kubernetes/kubernetes",
+      "requested_repository": "kubernetes/kubernetes",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "94c136764292cc5fac976c0de6587daaea56410f",
+      "reviewed_commit_date": "2026-08-08T20:19:58Z",
+      "reviewed_release": "v1.36.3",
+      "risk_and_constraint": "Extreme operational mismatch."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-038",
+      "canonical_repository": "treeverse/dvc",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add; retain project manifests.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "data_versioning",
+      "empirical_admission_gate": "Reconsider only if an unserved remote artifact-sharing requirement appears.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Content-addressed raw captures, manifests and external storage already provide project-specific data versioning.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 1,
+        "docs_path_count": 0,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          null
+        ],
+        "representative_files_captured": 6,
+        "representative_source_paths": [
+          "dvc/env.py",
+          "dvc/log.py",
+          "dvc/scm.py"
+        ],
+        "representative_test_paths": [
+          "tests/scripts.py",
+          "tests/__init__.py"
+        ],
+        "test_path_count": 300,
+        "tree_entries": 665,
+        "workflow_count": 5
+      },
+      "repository_url": "https://github.com/treeverse/dvc",
+      "requested_repository": "iterative/dvc",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "56e59829512ff134aa269099a2099587b810b4dd",
+      "reviewed_commit_date": "2026-08-06T04:17:40Z",
+      "reviewed_release": "3.67.1",
+      "risk_and_constraint": "Would create competing identity and retention authorities."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-039",
+      "canonical_repository": "fivetran/great_expectations",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "data_quality",
+      "empirical_admission_gate": "Reconsider only if Pandera cannot express a measured production requirement.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Pandera provides the needed lightweight dataframe contract layer while existing validators cover provenance and coverage.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 56,
+        "docs_path_count": 1955,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "docs/README.md",
+          "docs/ruff.toml"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "CLA.md",
+          "setup.py",
+          "tasks.py"
+        ],
+        "representative_test_paths": [
+          "tests/ruff.toml",
+          "tests/__init__.py"
+        ],
+        "test_path_count": 931,
+        "tree_entries": 4447,
+        "workflow_count": 11
+      },
+      "repository_url": "https://github.com/fivetran/great_expectations",
+      "requested_repository": "great-expectations/great_expectations",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "8aff5b69d371da2f23cea801b001a9e03a635600",
+      "reviewed_commit_date": "2026-08-07T14:22:40Z",
+      "reviewed_release": "1.20.0",
+      "risk_and_constraint": "Larger duplicate quality framework; upstream repository now redirects to Fivetran ownership."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-040",
+      "canonical_repository": "pytorch/pytorch",
+      "corpus_scope": "EXPLICIT_DO_NOT_ADD_YET",
+      "current_action": "Retain as conditional P3; do not install now.",
+      "decision": "DEFER_CONDITIONAL",
+      "domain": "deep_learning",
+      "empirical_admission_gate": "Protected admission requires incremental chronological lift, calibration, stability and resource value.",
+      "integration_boundary": "Isolated advanced-model runtime",
+      "integration_phase": "P3_ADVANCED_MODEL",
+      "license_metadata": "NOASSERTION",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Neural sequence models remain plausible only after conventional baselines expose a specific gap.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 93,
+        "docs_path_count": 505,
+        "license_paths": [
+          "LICENSE",
+          "NOTICE"
+        ],
+        "representative_doc_paths": [
+          "docs/README.md",
+          "docs/libtorch.rst"
+        ],
+        "representative_files_captured": 9,
+        "representative_source_paths": [
+          "setup.py",
+          "AGENTS.md",
+          "CLAUDE.md"
+        ],
+        "representative_test_paths": [
+          "test/linear.py",
+          "test/test_fx.py"
+        ],
+        "test_path_count": 11933,
+        "tree_entries": 22991,
+        "workflow_count": 146
+      },
+      "repository_url": "https://github.com/pytorch/pytorch",
+      "requested_repository": "pytorch/pytorch",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "b436d55518f347a24df0887569a59aba2095728b",
+      "reviewed_commit_date": "2026-08-10T00:27:31Z",
+      "reviewed_release": "v2.13.0",
+      "risk_and_constraint": "Large binary/runtime, nondeterminism and overfitting risk for sparse seasonal data."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-041",
+      "canonical_repository": "pyg-team/pytorch_geometric",
+      "corpus_scope": "MODEL_FAMILY_REFERENCE",
+      "current_action": "Retain as conditional P3; do not install now.",
+      "decision": "DEFER_CONDITIONAL",
+      "domain": "graph_neural_networks",
+      "empirical_admission_gate": "Require an explicit graph hypothesis, leakage-safe edges and lift over tabular baselines.",
+      "integration_boundary": "Isolated graph challenger",
+      "integration_phase": "P3_GRAPH_MODEL",
+      "license_metadata": "MIT",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "Graph structure may eventually model schedules/teams/players if simpler relational features saturate.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 4,
+        "docs_path_count": 134,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "examples/graph_gps.py",
+          "examples/graphland.py"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "graphgym/main.py",
+          "graphgym/agg_batch.py",
+          "graphgym/configs_gen.py"
+        ],
+        "representative_test_paths": [
+          "test/loader/test_cache.py",
+          "test/loader/test_mixin.py"
+        ],
+        "test_path_count": 485,
+        "tree_entries": 1729,
+        "workflow_count": 10
+      },
+      "repository_url": "https://github.com/pyg-team/pytorch_geometric",
+      "requested_repository": "pyg-team/pytorch_geometric",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "cc678a392255a1467872f54582724b8dce434603",
+      "reviewed_commit_date": "2026-07-31T05:51:26Z",
+      "reviewed_release": "2.8.0",
+      "risk_and_constraint": "Depends on PyTorch and adds complex graph construction/leakage risk."
+    },
+    {
+      "archived": false,
+      "candidate_id": "OSR-042",
+      "canonical_repository": "chroma-core/chroma",
+      "corpus_scope": "ASSOCIATED_ARCHITECTURE_REFERENCE",
+      "current_action": "Do not add.",
+      "decision": "REJECT_NOT_FIT",
+      "domain": "rag_vector_store",
+      "empirical_admission_gate": "Reconsider only for a separately approved document-retrieval product.",
+      "integration_boundary": "No integration",
+      "integration_phase": "NONE",
+      "license_metadata": "Apache-2.0",
+      "private_research_acquisition": "ALLOWED",
+      "python_package": null,
+      "rationale": "The forecasting engine has no RAG/vector-store requirement, and AggieFYI supplied no unique acquisition value.",
+      "raw_third_party_publication": "DENIED",
+      "repository_evidence": {
+        "dependency_manifest_count": 89,
+        "docs_path_count": 241,
+        "license_paths": [
+          "LICENSE"
+        ],
+        "representative_doc_paths": [
+          "rust/chroma/examples/embeddings.rs",
+          "rust/chroma/examples/collection_search.rs"
+        ],
+        "representative_files_captured": 8,
+        "representative_source_paths": [
+          "chromadb/api/segment.py",
+          "rust/segment/Cargo.toml",
+          "rust/segment/src/lib.rs"
+        ],
+        "representative_test_paths": [
+          "chromadb/test/api/test_collection.py",
+          "rust/frontend/tests/test_collection.rs"
+        ],
+        "test_path_count": 333,
+        "tree_entries": 2604,
+        "workflow_count": 22
+      },
+      "repository_url": "https://github.com/chroma-core/chroma",
+      "requested_repository": "chroma-core/chroma",
+      "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+      "reviewed_commit": "65c7d1e9096dc92e87ed80409d0ce5f537b0563d",
+      "reviewed_commit_date": "2026-08-04T03:10:56Z",
+      "reviewed_release": "1.5.9",
+      "risk_and_constraint": "Unrelated service/storage authority and dependency surface."
+    }
+  ],
+  "registry_id": "OWNER_REPO_CORPUS_REVIEW_2026-08-10",
+  "reviewed_at_utc": "2026-08-10T01:02:11.000223+00:00",
+  "schema_version": "1.0.0"
+}

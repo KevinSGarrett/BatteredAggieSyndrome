@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "artifact_type": "HISTORICAL_KNOWN_AT_EXPANDED_SCOPED_REPLAY_GATE",
   "decision_id": "bat523-known-at-replay-gate-2010-2022-v2",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
@@ -96,6 +96,23 @@
     "target_game_rule": "SOURCE_CANONICAL_GAME_ID_NOT_EQUAL_TARGET_CANONICAL_GAME_ID",
     "target_labels_used": false,
     "status": "PASS_EXPANDED_SCOPED_REAL_REPLAY"
+  },
+  "parallel_event_detail_checkpoint": {
+    "domain": "plays",
+    "grain": "PLAY",
+    "dataset_identity": "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+    "manifest_sha256": "9fc257b86c496ed91115ed7f97fff34ffbda3e8beb2ff712aa12f0e60d812cf6",
+    "validation_report_sha256": "f7eb7e60e314a015fbd0a7bb8a8f8c721fc4ec5538cd7390a93057bcadf8d772",
+    "deterministic_rebuild_report_sha256": "faff1394ec89a66e1a3d511d00e1bc3e06894dafbca6ec9e35461ddd27c82f4f",
+    "repository_rows": 2432416,
+    "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+    "absent_repository_seasons": [2011, 2020],
+    "cross_route_exact_canonical_game_candidates": 1606094,
+    "source_level_only_candidates": 748514,
+    "quarantined_rows": 19222,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
+    "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_AND_PIT_ADMISSION_PENDING"
   },
   "coverage": {
     "source_candidate_rows": 12047,

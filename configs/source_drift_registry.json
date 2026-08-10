@@ -1,0 +1,81 @@
+{
+  "active_baseline_path": "artifacts/source_governance/source_drift_baseline.json",
+  "baseline_management": {
+    "comparison_policy": "COMPARE_TO_EXACT_PRIOR_BASELINE_IDENTITY_OR_REPORT_NO_PRIOR",
+    "identity": "SHA256_CANONICAL_JSON_EXCLUDING_CONTENT_HASH",
+    "overwrite_policy": "REJECT_SAME_IDENTITY_DIFFERENT_CONTENT",
+    "prior_baselines": "IMMUTABLE_CONTENT_ADDRESSED_EXTERNAL_CAPTURE_AND_VERSIONED_GIT_SUMMARY"
+  },
+  "content_hash": "0b6ca4f400ee455e02b6cb1a743434617fcc3939927123491b3120c277aa80a4",
+  "detectors": {
+    "cfbd_openapi": "CANONICAL_OPERATION_PLUS_REFERENCED_SCHEMA_SHA256",
+    "open_meteo": "DECLARED_ENDPOINT_CONTRACT_SHA256_PLUS_IMMUTABLE_OFFICIAL_DOC_CAPTURE_SHA256",
+    "quality": "ROW_DOMAIN_GRAIN_SCHEMA_MISSINGNESS_AND_RECONCILIATION_METRICS",
+    "terms": "IMMUTABLE_OFFICIAL_TERMS_CAPTURE_SHA256_METADATA_ONLY"
+  },
+  "drift_classes": {
+    "CREDENTIAL_OR_PRIVATE_DATA": {
+      "blocking_scope": "AFFECTED_SECRET_OR_PRIVATE_DATA_SCOPE",
+      "effect": "REJECT_AND_QUARANTINE"
+    },
+    "ENDPOINT_CONTRACT": {
+      "blocking_scope": "AFFECTED_ENDPOINT_AND_DEPENDENT_DOMAINS",
+      "effect": "QUARANTINE_ENDPOINT_ONLY"
+    },
+    "FRESHNESS": {
+      "blocking_scope": "AFFECTED_SOURCE_ENDPOINT_WINDOW",
+      "effect": "STALE_OR_QUARANTINE_AFFECTED_CAPTURE"
+    },
+    "QUALITY": {
+      "blocking_scope": "OBSERVED_BAD_SCOPE_ONLY",
+      "effect": "QUARANTINE_AFFECTED_ROWS_OR_DOMAIN"
+    },
+    "RIGHTS_METADATA": {
+      "blocking_scope": "NONE_FOR_PRIVATE_RESEARCH",
+      "effect": "RECORD_NONBLOCKING_METADATA"
+    },
+    "SCHEMA": {
+      "blocking_scope": "AFFECTED_SOURCE_ENDPOINT_SCHEMA",
+      "effect": "QUARANTINE_SCHEMA_VERSION_ONLY"
+    },
+    "TERMS_METADATA": {
+      "blocking_scope": "NONE_FOR_PRIVATE_RESEARCH",
+      "effect": "RECORD_NONBLOCKING_METADATA"
+    }
+  },
+  "generated_at_utc": "2026-08-10T11:50:33.265731Z",
+  "private_research_policy": {
+    "acquisition_and_local_training": "ALLOWED",
+    "raw_third_party_publication": "DISABLED",
+    "route_substitution_on_technical_failure": "REQUIRED_WHEN_EQUIVALENT_PUBLIC_ROUTE_EXISTS",
+    "terms_or_rights_ambiguity": "METADATA_ONLY_NONBLOCKING"
+  },
+  "registry_id": "AGGIE_SOURCE_DRIFT_REGISTRY_V1",
+  "required_baseline_fields": [
+    "source_id",
+    "endpoint_id",
+    "endpoint_or_url",
+    "api_or_contract_version",
+    "schema_hash",
+    "terms_metadata",
+    "expected_freshness",
+    "upstream_dependencies",
+    "capture_identity",
+    "disposition"
+  ],
+  "schema_version": "1.0.0",
+  "source_policies": [
+    {
+      "expected_freshness_default": "CAPTURE_OPENAPI_BEFORE_EACH_ACQUISITION_CAMPAIGN_AND_RECHECK_DAILY_DURING_ACTIVE_INGESTION",
+      "provider": "CollegeFootballData",
+      "source_id": "SRC-002",
+      "terms_capture_id": "CFBD_API_TIERS"
+    },
+    {
+      "expected_freshness_default": "CAPTURE_DOCS_BEFORE_EACH_WEATHER_BACKFILL_AND_RECHECK_MODEL_UPDATES_DAILY_DURING_ACTIVE_INGESTION",
+      "provider": "Open-Meteo",
+      "source_id": "SRC-003",
+      "terms_capture_id": "OPENMETEO_TERMS"
+    }
+  ]
+}

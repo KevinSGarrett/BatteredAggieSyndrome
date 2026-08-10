@@ -171,11 +171,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24514",
-    "jira_updated_at": "2026-08-09T23:24:01.566-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-10T06:49:27.482-0500",
+    "last_synced_at": "2026-08-10T11:49:37.696096+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-374\\BAT-374-claim-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -384,7 +384,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-008: Production acquisition contracts, rate limits, fallbacks, and drift hooks.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-024.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

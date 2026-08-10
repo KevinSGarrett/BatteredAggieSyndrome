@@ -72,6 +72,7 @@ artifacts/jira_evidence/POST-SUBTASK-020.json
 artifacts/jira_evidence/POST-SUBTASK-021.json
 artifacts/jira_evidence/POST-SUBTASK-022.json
 artifacts/jira_evidence/POST-SUBTASK-023.json
+artifacts/jira_evidence/POST-SUBTASK-024.json
 artifacts/jira_evidence/POST-SUBTASK-025.json
 artifacts/jira_evidence/POST-SUBTASK-026.json
 artifacts/jira_evidence/POST-SUBTASK-027.json
@@ -126,6 +127,7 @@ artifacts/source_governance/private_research_policy_migration.json
 artifacts/source_governance/production_source_inventory.csv
 artifacts/source_governance/source_access_readiness.csv
 artifacts/source_governance/source_access_smoke_results.json
+artifacts/source_governance/source_drift_baseline.json
 artifacts/source_governance/source_inventory_validation.json
 artifacts/source_governance/source_priority_decisions.json
 artifacts/source_governance/source_rights_gate_test.json
@@ -162,6 +164,7 @@ configs/research_execution_registry.json
 configs/research_resource_policy.json
 configs/result_comparison_policy.json
 configs/source_acquisition_registry.json
+configs/source_drift_registry.json
 configs/source_rights_registry.json
 configs/tamu_specialization_registry.json
 configs/team_state_registry.json

@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "POST-SUBTASK-024-bat374-source-drift-baseline",
+  "decision_unit": "POST-SUBTASK-024",
+  "jira_key": "BAT-374",
+  "title": "Establish source API/schema/terms drift baselines and monitoring inputs",
+  "issued_at_utc": "2026-08-10T11:54:00Z",
+  "scope": "Atomic source-drift baseline and monitoring-input unit for the two production-ready acquisition sources and their fourteen registered endpoints.",
+  "outputs": [
+    {
+      "path": "artifacts/source_governance/source_drift_baseline.json",
+      "sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+      "bytes": 28628,
+      "content_hash": "61fffeccc781e18d908f031bf46db7e0e456b6e2c9d535b1e057076c7bb92732",
+      "eligibility": "OPERATING_INITIAL_BASELINE"
+    },
+    {
+      "path": "configs/source_drift_registry.json",
+      "sha256": "0623fbe685e40d144f5d9a4528dbb27e0a106edad2a7f087f939eb20ded18515",
+      "bytes": 3065,
+      "content_hash": "0b6ca4f400ee455e02b6cb1a743434617fcc3939927123491b3120c277aa80a4",
+      "eligibility": "OPERATING_DRIFT_POLICY"
+    }
+  ],
+  "prerequisite_identities": [
+    {"path": "configs/source_rights_registry.json", "sha256": "11f944ebff0ee5f932d21bbff316da991b31f3b5f492acc31102c017019a69c4", "bytes": 103304},
+    {"path": "artifacts/source_governance/source_access_readiness.csv", "sha256": "717f785c160ef0e8903db8b6c5ca1aa50caf1cc56bb495a12a2d046839fa8488", "bytes": 66945},
+    {"path": "configs/source_acquisition_registry.json", "sha256": "f956797cff67f4cd0c4922aab9c1892a53a910c967b7f908c8d988e7dbaff5e5", "bytes": 23837},
+    {"path": "artifacts/source_governance/acquisition_resilience_test.json", "sha256": "ae028bfe6ca3a220d4d76b2ce0a0b3a8ee1b4d8faf18ba27cb39b81ebfe7d7d4", "bytes": 5028},
+    {"path": "artifacts/jira_evidence/POST-SUBTASK-018.json", "sha256": "5eed0d6444d86cfd656622aa7aa249894c8fade84d8b869c4dbad0c906d76fd4", "bytes": 2587},
+    {"path": "artifacts/jira_evidence/POST-SUBTASK-021.json", "sha256": "25fe3680420f56692cf4c1ac0ba4019e303094a4d4c30c94e9eee1a1b5e1e8d2", "bytes": 2634},
+    {"path": "artifacts/jira_evidence/POST-SUBTASK-022.json", "sha256": "b02acd5e6f1bc1a5b4add7535366a8ee2d69aea09c19284522773af3f41ec1f8", "bytes": 6379},
+    {"path": "artifacts/jira_evidence/POST-SUBTASK-023.json", "sha256": "f0d4b18882fb3454c10ded75efd5730e25aebbbbc77179603e5ea9d6a86f645b", "bytes": 5432}
+  ],
+  "official_contract_captures": {
+    "manifest_path": "<external-data-root>/manifests/source_drift/BAT-374-contract-captures.json",
+    "manifest_sha256": "441086d560e8282eece923171b1675f70503a7a4419369754fdf710ecc08f8ff",
+    "manifest_bytes": 5029,
+    "capture_count": 8,
+    "sources": [
+      "https://api.collegefootballdata.com/swagger/swagger-ui-init.js",
+      "https://collegefootballdata.com/api-tiers",
+      "https://open-meteo.com/en/docs/historical-forecast-api",
+      "https://open-meteo.com/en/docs/previous-runs-api",
+      "https://open-meteo.com/en/docs/single-runs-api",
+      "https://open-meteo.com/en/docs/historical-weather-api",
+      "https://open-meteo.com/en/terms",
+      "https://open-meteo.com/en/docs/model-updates"
+    ],
+    "raw_payload_storage": "CONTENT_ADDRESSED_OUTSIDE_GIT",
+    "credential_values_included": false
+  },
+  "observed_contract_state": {
+    "source_count": 2,
+    "endpoint_count": 14,
+    "cfbd_openapi_version": "5.23.0",
+    "cfbd_openapi_sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+    "cfbd_pinned_capture_comparison": "UNCHANGED",
+    "open_meteo_prior_official_capture_identity": "NOT_PRESENT_INITIAL_BASELINE",
+    "private_research_terms_blockers": 0,
+    "raw_third_party_publication": "DISABLED"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Baseline captures endpoint/version, schema hash, terms metadata, expected freshness, and upstream dependencies.",
+      "disposition": "PASS",
+      "observable_result": "All fourteen endpoint rows contain the complete required field set, endpoint or URL, semantic/contract version, declared contract hash, source-specific schema hash, immutable official capture identity, terms metadata, freshness expectation, upstream lineage, and scoped disposition."
+    },
+    {
+      "criterion": "A changed contract cannot silently overwrite the prior baseline.",
+      "disposition": "PASS",
+      "observable_result": "The registry uses canonical content identities, rejects same-identity/different-content replacement, requires exact prior-baseline identity for comparison, and the validator proves endpoint and schema mutations create new identities. No prior canonical baseline existed, so the result truthfully records an initial baseline rather than fabricating historical stability."
+    },
+    {
+      "criterion": "Detected technical/schema/quality drift quarantines only the affected scope before downstream training; terms drift is metadata-only for private use.",
+      "disposition": "PASS",
+      "observable_result": "The policy distinguishes endpoint, schema, quality, freshness, terms, rights, credential, and private-data drift. Technical/schema/quality effects are limited to affected endpoint/schema/rows/domain; terms and rights metadata have no private-research blocking scope; unrelated sources continue."
+    }
+  ],
+  "validation": {
+    "external_report": {
+      "path": "<external-data-root>/validation/BAT-374/source-drift/validation-report.json",
+      "sha256": "64a844ddb06aafb6de18c84247d40af0f5d2202a2b6f84546c15197d8aa2d74b",
+      "result": "PASS",
+      "checks_passed": 128,
+      "findings": 0,
+      "mutation_controls_passed": 10
+    },
+    "deterministic_rebuild": "PASS_BYTE_IDENTICAL_BOTH_OUTPUTS",
+    "targeted_tests": "16 passed",
+    "full_suite": "316 passed, 2 skipped, 79 subtests",
+    "data_research_validator": "PASS",
+    "external_storage_validator": "PASS",
+    "autonomous_controls_validator": "PASS",
+    "strict_repository_and_provenance": "PASS",
+    "w25_final": "PASS",
+    "jira_pack_source_dependency_import_second_pass_control_plane_manifest": "PASS",
+    "repository_manifest_files_before_final_evidence_refresh": 2959,
+    "repository_manifest_fingerprint_before_final_evidence_refresh": "82beebccbb196b71c7e2e992d46936a4b788a1efc039664990f7ee55b12b587b"
+  },
+  "runtime": {
+    "capture_script": {"path": "<external-data-root>/runtime/BAT-374/capture_source_contracts.py", "sha256": "a8ff911c7be74e01a7697d1bc37c3bec7590e57a1833e98a4d09660880a9ed8b"},
+    "builder": {"path": "<external-data-root>/runtime/BAT-374/build_source_drift_baseline.py", "sha256": "9f8897af63e63426eca712528f552ed095694d7e4dfc8bdb8822aa85d0bcc07f"},
+    "validator": {"path": "<external-data-root>/runtime/BAT-374/validate_source_drift_baseline.py", "sha256": "451e244b6e9d3b9aa10d92b58f92107928904c1b0f5ac154a5cc6ae05fbcf80d"},
+    "python": "3.11.9",
+    "openai_api_calls": 0,
+    "openai_cost_usd": 0.0
+  },
+  "live_jira_claim": {
+    "status": "In Progress",
+    "logical_workflow_state": "IN_PROGRESS",
+    "implementation_maturity": "CONTRACT_DEFINED",
+    "evidence_state": "PLANNED",
+    "comment_id": "13461",
+    "updated": "2026-08-10T06:49:27.482-0500",
+    "source_export": "<external-data-root>/runtime/BAT-374/BAT-374-claim-live-row.csv",
+    "reconciliation": "DRY_RUN_PASS_THEN_PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS"
+  },
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-374-source-drift/20260810T114839Z",
+    "bundle_sha256": "9f537e4dbfe7f703a7d3e5a65234174ad93bf1a08dc7acb1dc0b9aacf290af13",
+    "bundle_bytes": 17727872,
+    "manifest_sha256": "db7c3d996de32be2d1791dda9de58959134c101b0b68eb4be7bbfbbc7833ec1d",
+    "sha256sums_sha256": "e46fbeb21cfd7d7331f812ce5cbe1b951eba54ee2c3b3531aecf75b86a1a831c"
+  },
+  "negative_findings": [
+    "No prior canonical drift-baseline artifact existed, so a historical no-drift result is not claimed.",
+    "Open-Meteo documentation pages are interactive HTML rather than a formal versioned OpenAPI schema; their immutable raw capture hashes are paired with normalized declared endpoint-contract hashes to avoid silently treating page rendering as schema truth.",
+    "Terms and tier pages may change and are recorded as nonblocking metadata for private research, while raw third-party publication remains disabled.",
+    "This unit establishes monitoring inputs; it does not claim nationwide historical coverage, source population completeness, PIT readiness, or model readiness."
+  ],
+  "completion_claim": {
+    "achieved_maturity": "OPERATING_BASELINE_INPUTS",
+    "evidence_state": "IMPLEMENTATION_EVIDENCE_COMPLETE_PENDING_PROTECTED_INTEGRATION_AND_LIVE_COMPLETION_SYNC",
+    "atomic_work_unit": "PASS",
+    "scientific_result": "NOT_APPLICABLE"
+  },
+  "honesty_boundary": [
+    "BAT-374 does not establish final historical completeness, resolve GAP-002/GAP-003, approve a training matrix, establish production-model readiness or protected performance, or claim a champion, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ]
+}

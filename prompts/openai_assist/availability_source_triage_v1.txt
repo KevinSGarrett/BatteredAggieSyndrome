@@ -1,0 +1,13 @@
+Classify only the supplied excerpt from an official Texas A&M weekly game-notes document. This is candidate-only source triage, not a player-status extraction. Never use outside football knowledge, infer a player identity, infer health or availability, infer that a missing signal means available, or invent a historical publication timestamp.
+
+Return exactly six facts in this order:
+1. source_selection_class: EXPLICIT_CONTEXT_SIGNAL_PAGE, INJURY_MENTION_REVIEW_PAGE, or NO_SIGNAL_NEGATIVE_PAGE.
+2. team_scope: TAMU, OPPONENT, BOTH, or UNKNOWN.
+3. temporal_scope: CURRENT_PREGAME, HISTORICAL_RECAP, POSTGAME, MIXED, or UNKNOWN.
+4. availability_context: EXPLICIT_CURRENT, EXPLICIT_HISTORICAL, POSTGAME_PARTICIPATION, GENERIC_INJURY_MENTION, NO_SIGNAL, or UNKNOWN.
+5. subject_text: the exact player or group text only when directly and unambiguously present; otherwise null with UNKNOWN or NOT_PRESENT.
+6. historical_publication_time_utc: always null with UNKNOWN because the excerpt does not establish an archived publication timestamp.
+
+For facts 1-4, use SUPPORTED with the fixed evidence locator text:1 and copy the supplied source capture SHA-256 into both evidence SHA-256 fields. For fact 5, use SUPPORTED with the same evidence only when its value is an exact substring of the excerpt; otherwise use null, UNKNOWN or NOT_PRESENT, and empty evidence. Fact 6 must have empty evidence. If the excerpt is contradictory, use CONFLICT and empty evidence for the affected fact.
+
+Use task_id availability_source_triage. Copy case_id and source_capture_sha256 exactly. Use disposition REVIEW, entity_top_k [], entity_merge null, conflicts [] unless a real value/entity contradiction exists, and notes ["PIT_TARGET_EXCLUDED"]. These outputs can only prioritize deterministic review. They have no canonical, identity-merge, historical-known-at, PIT, training, protected-evaluation, forecast, availability-truth, or publication authority.

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "pilot_id": "openai-tamu-official-availability-source-triage-v1",
+  "jira_unit": "POST-SUBTASK-168",
+  "task_name": "availability_source_triage",
+  "authority": "CANDIDATE_REVIEW_ONLY_NO_FACT_GOLD_CANONICAL_OR_PIT_ADMISSION",
+  "source_sample": {
+    "sample_identity": "5068b3d23f0ce4145c1fcf0b02c807b3e82b81571adfb37172f083ec22c854fd",
+    "manifest_sha256": "8153ddcbde1861e1aa4ae774f47ed733ad113bdba0f4eed2245209316d585f67",
+    "payload_sha256": "1d4b505c3ffdd9d5ced7b53535180fd1ce33466cdb3beedccefa59fb503ac564",
+    "validation_report_sha256": "1fd6366c01ab45dd9c3e97684bfd0e96d3f56b3e4dbbf6714ae4a41932bbe5a4",
+    "manifest_relative_path": "openai/evals/sha256/5068b3d23f0ce4145c1fcf0b02c807b3e82b81571adfb37172f083ec22c854fd/tamu_availability_source_sample/manifest.json",
+    "payload_relative_path": "openai/evals/sha256/5068b3d23f0ce4145c1fcf0b02c807b3e82b81571adfb37172f083ec22c854fd/tamu_availability_source_sample/source_selection_sample.jsonl",
+    "validation_relative_path": "validation/BAT-523/tamu_availability_source_sample_5068b3d2_validation.json",
+    "sample_count": 16,
+    "historical_publication_time_state": "UNKNOWN",
+    "canonical_or_pit_admission": false
+  },
+  "prompt": {
+    "path": "prompts/openai_assist/availability_source_triage_v1.txt",
+    "version": "availability-source-triage-v1",
+    "sha256": "0b9c336ec44c45389b77102a73f160a118bffac73e50084b10166f75b262409d"
+  },
+  "output_schema": "schemas/openai/assistive_evaluation.schema.json",
+  "routes": [
+    {"model": "gpt-5-nano", "reasoning_effort": "minimal", "role": "INEXPENSIVE_SOURCE_TRIAGE_BASELINE"},
+    {"model": "gpt-5.6-luna", "reasoning_effort": "none", "role": "HARD_VOLUME_SOURCE_TRIAGE"},
+    {"model": "gpt-5.6-terra", "reasoning_effort": "low", "role": "TEMPORAL_AND_TEAM_SCOPE_AMBIGUITY"},
+    {"model": "gpt-5.6-sol", "reasoning_effort": "medium", "role": "HARD_CASE_AND_GOLD_CHALLENGE_REVIEW"}
+  ],
+  "acceptance": {
+    "strict_schema_rate_min": 1.0,
+    "unsupported_fact_rate_max": 0.0,
+    "historical_timestamp_fabrication_max": 0,
+    "false_merge_rate_max": 0.0,
+    "source_selection_accuracy": "MEASURE_AND_REPORT_NO_BULK_OR_CANONICAL_PROMOTION_GATE",
+    "batch_scaleout": "NOT_ADMITTED_NEW_FORMAT_LACKS_FACT_GOLD_AND_PIT_ELIGIBILITY",
+    "authority": "CANDIDATE_REVIEW_ONLY"
+  }
+}

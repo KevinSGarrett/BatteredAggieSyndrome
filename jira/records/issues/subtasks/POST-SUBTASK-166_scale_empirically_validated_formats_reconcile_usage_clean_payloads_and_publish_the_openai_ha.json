@@ -18,7 +18,7 @@
     "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
     "artifacts/jira_evidence/POST-SUBTASK-166.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-162;POST-SUBTASK-163;POST-SUBTASK-164;POST-SUBTASK-167",
+  "blocked_reason": "",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -42,6 +42,7 @@
       "cost"
     ]
   },
+  "completion_evidence_manifest_sha256": "fa6cd9f50e7e49edd411b2287fd72c4b923223a041ed2441a090e9c00622ecc7",
   "component": "release-readiness",
   "components_expected_to_be_touched": [
     "release-readiness",
@@ -74,7 +75,7 @@
   "end_to_end_validation": "Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-166.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "OPERATING",
@@ -123,7 +124,7 @@
   ],
   "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-166",
-  "maturity_before": "NOT_STARTED",
+  "maturity_before": "OPERATING",
   "objective": "Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -223,7 +224,7 @@
   "title": "[POST-SUBTASK-166] Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -231,5 +232,5 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-166.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "DONE"
 }

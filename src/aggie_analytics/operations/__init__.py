@@ -8,6 +8,7 @@ from .environment import (
 )
 from .backup import create_backup, restore_backup, verify_backup
 from .benchmark import run_benchmark, TargetProfile
+from .cleanup import UnsafeRecursiveDelete, safe_remove_tree, validate_recursive_delete_target
 
 __all__ = [
     "JsonlEventSink", "MetricRegistry", "sanitize_metadata",
@@ -15,4 +16,5 @@ __all__ = [
     "resolve_external_operational_paths", "provision_external_operational_paths",
     "create_backup", "restore_backup", "verify_backup",
     "run_benchmark", "TargetProfile",
+    "UnsafeRecursiveDelete", "safe_remove_tree", "validate_recursive_delete_target",
 ]

@@ -106,10 +106,12 @@ artifacts/jira_evidence/POST-SUBTASK-163.json
 artifacts/jira_evidence/POST-SUBTASK-164.json
 artifacts/jira_evidence/POST-SUBTASK-166.json
 artifacts/jira_evidence/POST-SUBTASK-167.json
+artifacts/jira_evidence/POST-SUBTASK-168.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
 artifacts/open_source/repository_review_decisions.csv
+artifacts/openai_assist/continuous_operations.json
 artifacts/openai_assist/depth_chart_pilot.json
 artifacts/openai_assist/entity_review_pilot.json
 artifacts/openai_assist/final_handoff.json
@@ -165,6 +167,7 @@ configs/known_at_registry.json
 configs/model_architecture_registry.json
 configs/open_source_integration_registry.json
 configs/openai_assist_policy.json
+configs/openai_availability_source_triage.json
 configs/openai_depth_chart_pilot.json
 configs/openai_entity_review_pilot.json
 configs/openai_evaluation_policy.json
@@ -180,6 +183,7 @@ configs/result_comparison_policy.json
 configs/source_acquisition_registry.json
 configs/source_drift_registry.json
 configs/source_rights_registry.json
+configs/tamu_availability_source_sample.json
 configs/tamu_specialization_registry.json
 configs/team_state_registry.json
 configs/temporal_registry.json
@@ -1010,6 +1014,7 @@ jira/ai/work_packets/POST-SUBTASK-164.md
 jira/ai/work_packets/POST-SUBTASK-165.md
 jira/ai/work_packets/POST-SUBTASK-166.md
 jira/ai/work_packets/POST-SUBTASK-167.md
+jira/ai/work_packets/POST-SUBTASK-168.md
 jira/history/ISSUE_CHANGE_LOG.jsonl
 jira/import/ATLASSIAN_2026_COMPATIBILITY.md
 jira/import/FIELD_MAPPING_GUIDE.md
@@ -1152,6 +1157,7 @@ jira/issues/stories/POST-STORY-052_isolated_event_state_features_models_replay_a
 jira/issues/stories/POST-STORY-053_separate_protected_evaluation_product_integration_and_operating_authorization.md
 jira/issues/stories/POST-STORY-054_governance_storage_budget_controller_and_local_evaluation_foundation.md
 jira/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.md
+jira/issues/stories/POST-STORY-056_empirical_openai_scale_out_continuing_operations_usage_accounting_cleanup_and_handoff.md
 jira/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.md
 jira/issues/subtasks/POST-SUBTASK-001_verify_w25_repository_identity_manifests_and_no_wave_26_state.md
 jira/issues/subtasks/POST-SUBTASK-002_run_the_full_unit_and_governance_validator_suite_on_the_target_host.md
@@ -1320,6 +1326,7 @@ jira/issues/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_classifi
 jira/issues/subtasks/POST-SUBTASK-165_pilot_timestamped_injury_depth_chart_practice_and_availability_extraction_when_evidence_is_r.md
 jira/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.md
 jira/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.md
+jira/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1649,7 +1656,7 @@ jira/records/issues/stories/POST-STORY-052_isolated_event_state_features_models_
 jira/records/issues/stories/POST-STORY-053_separate_protected_evaluation_product_integration_and_operating_authorization.json
 jira/records/issues/stories/POST-STORY-054_governance_storage_budget_controller_and_local_evaluation_foundation.json
 jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json
-jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.json
+jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_continuing_operations_usage_accounting_cleanup_and_handoff.json
 jira/records/issues/subtasks/POST-SUBTASK-001_verify_w25_repository_identity_manifests_and_no_wave_26_state.json
 jira/records/issues/subtasks/POST-SUBTASK-002_run_the_full_unit_and_governance_validator_suite_on_the_target_host.json
 jira/records/issues/subtasks/POST-SUBTASK-003_capture_the_authoritative_target_runtime_and_dependency_manifest.json
@@ -1817,6 +1824,7 @@ jira/records/issues/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_
 jira/records/issues/subtasks/POST-SUBTASK-165_pilot_timestamped_injury_depth_chart_practice_and_availability_extraction_when_evidence_is_r.json
 jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json
 jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.json
+jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2306,6 +2314,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-164.json
 jira/sources/issue_source_manifests/POST-SUBTASK-165.json
 jira/sources/issue_source_manifests/POST-SUBTASK-166.json
 jira/sources/issue_source_manifests/POST-SUBTASK-167.json
+jira/sources/issue_source_manifests/POST-SUBTASK-168.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2567,6 +2576,7 @@ jira/validation/SOURCE_ANCHOR_VALIDATION.csv
 jira/validation/SOURCE_REFERENCE_VALIDATION.csv
 jira/validation/VALIDATION_REPORT.md
 jira/validation/VALIDATION_RESULTS.json
+prompts/openai_assist/availability_source_triage_v1.txt
 prompts/openai_assist/depth_chart_document_v1.txt
 prompts/openai_assist/entity_review_v1.txt
 prompts/openai_assist/evaluation_v4.txt
@@ -2791,6 +2801,7 @@ src/aggie_analytics/openai_assist/storage.py
 src/aggie_analytics/operations/__init__.py
 src/aggie_analytics/operations/backup.py
 src/aggie_analytics/operations/benchmark.py
+src/aggie_analytics/operations/cleanup.py
 src/aggie_analytics/operations/environment.py
 src/aggie_analytics/operations/observability.py
 src/aggie_analytics/operations/retention.py
@@ -2905,6 +2916,7 @@ tools/backup_state.py
 tools/bootstrap_readiness.py
 tools/build_artifact_record.py
 tools/build_jira_control_plane.py
+tools/build_tamu_availability_evidence_pages.py
 tools/capture_runtime_manifest.py
 tools/check_advanced_challenger_admission.py
 tools/compare_development_results.py
@@ -2924,12 +2936,14 @@ tools/prepare_openai_depth_chart_pilot.py
 tools/prepare_openai_entity_review_pilot.py
 tools/prepare_openai_gamebook_pilot.py
 tools/prepare_openai_quarantine_pilot.py
+tools/prepare_tamu_availability_source_sample.py
 tools/refresh_openai_assist_lock.py
 tools/render_task_context.py
 tools/repo_integrity.py
 tools/restore_state.py
 tools/run_local_benchmark.py
 tools/run_openai_assist_eval.py
+tools/run_openai_availability_source_triage.py
 tools/run_openai_depth_chart_pilot.py
 tools/run_openai_entity_review_pilot.py
 tools/run_openai_gamebook_pilot.py
@@ -2964,6 +2978,8 @@ tools/validate_openai_assist.py
 tools/validate_player_intelligence.py
 tools/validate_product_supply_chain.py
 tools/validate_repository.py
+tools/validate_tamu_availability_evidence_pages.py
+tools/validate_tamu_availability_source_sample.py
 tools/validate_tamu_specialization.py
 tools/validate_team_state.py
 tools/validate_temporal.py

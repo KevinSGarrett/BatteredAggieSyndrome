@@ -24,7 +24,7 @@
     "tests/test_openai_assist.py",
     "artifacts/jira_evidence/POST-SUBTASK-161.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-160",
+  "blocked_reason": "",
   "blocks": [
     "POST-STORY-055",
     "POST-SUBTASK-162",
@@ -54,6 +54,7 @@
       "cost"
     ]
   },
+  "completion_evidence_manifest_sha256": "e543ea6ba2db155c37aad9df85c551bdbc345c86109d34c17057496fbe673e52",
   "component": "validation-promotion",
   "components_expected_to_be_touched": [
     "validation-promotion",
@@ -83,7 +84,7 @@
   "end_to_end_validation": "Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-161.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -135,7 +136,7 @@
   ],
   "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-161",
-  "maturity_before": "NOT_STARTED",
+  "maturity_before": "EMPIRICALLY_VALIDATED",
   "objective": "Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol",
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -232,7 +233,7 @@
   "title": "[POST-SUBTASK-161] Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -240,7 +241,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-161.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "DONE"
 }
 ```
 

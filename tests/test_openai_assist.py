@@ -6,6 +6,7 @@ import json
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
@@ -14,6 +15,7 @@ from aggie_analytics.openai_assist.budget import BudgetError, UsageLedger
 from aggie_analytics.openai_assist.contracts import Priority, ProcessingMode, TokenEstimate
 from aggie_analytics.openai_assist.controller import AssistiveController, AssistiveJob, ControllerError
 from aggie_analytics.openai_assist.evals import evaluate
+from aggie_analytics.openai_assist.credentials import CredentialError, credential_source, load_openai_api_key
 from aggie_analytics.openai_assist.policy import AssistivePolicy, PolicyError
 from aggie_analytics.openai_assist.redaction import RedactionError, assert_prompt_safe
 from aggie_analytics.openai_assist.schemas import (
@@ -129,6 +131,26 @@ class OpenAIAssistTests(unittest.TestCase):
     def test_repository_contract_validator_passes(self):
         self.assertEqual([], validate_openai_assist(ROOT))
 
+    def test_continuing_candidate_operations_preserve_negative_findings_and_budget(self):
+        config = json.loads(
+            (ROOT / "configs" / "openai_availability_source_triage.json").read_text(encoding="utf-8")
+        )
+        report = json.loads(
+            (ROOT / "artifacts" / "openai_assist" / "continuous_operations.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual("POST-SUBTASK-168", config["jira_unit"])
+        self.assertFalse(config["source_sample"]["canonical_or_pit_admission"])
+        checkpoint = report["availability_source_triage_checkpoint"]
+        self.assertEqual(64, checkpoint["provider_calls"])
+        self.assertEqual(0, checkpoint["batch_jobs"])
+        self.assertEqual(28, checkpoint["dispositions"]["accepted_review_candidate"])
+        self.assertEqual(36, checkpoint["dispositions"]["quarantine"])
+        self.assertEqual(0, checkpoint["dispositions"]["canonical_writes"])
+        self.assertEqual({"gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"}, set(checkpoint["models"]))
+        self.assertEqual("96.519394", report["budget"]["remaining_usd"])
+        self.assertTrue(report["completion"]["continuing_operations_active"])
+        self.assertFalse(report["completion"]["completion_claimed"])
+
     def test_policy_budget_is_exact_and_model_effort_is_bounded(self):
         policy = AssistivePolicy.load(ROOT)
         self.assertEqual(Decimal("100.00"), policy.budget_limit)
@@ -227,6 +249,48 @@ class OpenAIAssistTests(unittest.TestCase):
         ]:
             with self.assertRaises(RedactionError):
                 assert_prompt_safe(payload)
+
+    def test_process_injected_key_is_supported_without_copying_env_file(self):
+        with tempfile.TemporaryDirectory() as raw:
+            repo = Path(raw) / "not-a-git-repository"
+            repo.mkdir()
+            with patch.dict(
+                "os.environ",
+                {"OPENAI_API_KEY": "PROCESS_INJECTED_PLACEHOLDER_SECRET", "AGGIE_AUTHORITATIVE_ENV_PATH": ""},
+                clear=False,
+            ):
+                self.assertEqual("PROCESS_INJECTED_PLACEHOLDER_SECRET", load_openai_api_key(repo))
+                self.assertEqual("INHERITED_PROCESS_ENVIRONMENT", credential_source(repo))
+                self.assertFalse((repo / ".env").exists())
+
+    def test_authoritative_env_file_precedes_process_injection(self):
+        with tempfile.TemporaryDirectory() as raw:
+            repo = Path(raw) / "repo"
+            repo.mkdir()
+            env_path = Path(raw) / "authoritative.env"
+            env_path.write_text("OPENAI_API_KEY=FILE_PLACEHOLDER_SECRET\n", encoding="utf-8")
+            with patch.dict(
+                "os.environ",
+                {
+                    "OPENAI_API_KEY": "PROCESS_PLACEHOLDER_SECRET",
+                    "AGGIE_AUTHORITATIVE_ENV_PATH": str(env_path),
+                },
+                clear=False,
+            ):
+                self.assertEqual("FILE_PLACEHOLDER_SECRET", load_openai_api_key(repo))
+                self.assertEqual("AUTHORITATIVE_ENV_FILE", credential_source(repo))
+
+    def test_missing_file_and_process_key_fails_closed(self):
+        with tempfile.TemporaryDirectory() as raw:
+            repo = Path(raw) / "not-a-git-repository"
+            repo.mkdir()
+            with patch.dict(
+                "os.environ",
+                {"OPENAI_API_KEY": "", "AGGIE_AUTHORITATIVE_ENV_PATH": ""},
+                clear=False,
+            ):
+                with self.assertRaises(CredentialError):
+                    load_openai_api_key(repo)
 
     def test_exact_configured_secret_is_rejected_before_api_call(self):
         with tempfile.TemporaryDirectory() as raw:

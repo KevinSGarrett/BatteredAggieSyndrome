@@ -34,29 +34,62 @@ def authoritative_env_path(repo_root: Path) -> Path:
 
 
 def load_openai_api_key(repo_root: Path) -> str:
-    path = authoritative_env_path(repo_root)
-    for raw in path.read_text(encoding="utf-8-sig").splitlines():
-        if raw.startswith("OPENAI_API_KEY="):
-            value = raw.split("=", 1)[1].strip().strip('"').strip("'")
-            if value:
-                return value
-            break
-    raise CredentialError("OPENAI_API_KEY is missing or blank in the authoritative project .env")
+    try:
+        path = authoritative_env_path(repo_root)
+    except CredentialError:
+        path = None
+    if path is not None:
+        for raw in path.read_text(encoding="utf-8-sig").splitlines():
+            if raw.startswith("OPENAI_API_KEY="):
+                value = raw.split("=", 1)[1].strip().strip('"').strip("'")
+                if value:
+                    return value
+                break
+    injected = os.environ.get("OPENAI_API_KEY", "").strip()
+    if injected:
+        return injected
+    raise CredentialError(
+        "OPENAI_API_KEY is missing or blank in both the authoritative project .env "
+        "and the inherited process environment"
+    )
 
 
 def configured_secret_values(repo_root: Path) -> tuple[str, ...]:
     """Load secret values for exact request-material rejection without exposing names or values."""
     secret_name = re.compile(r"(?:KEY|TOKEN|SECRET|PASSWORD|COOKIE|AUTH)", re.IGNORECASE)
     values: set[str] = set()
-    for raw in authoritative_env_path(repo_root).read_text(encoding="utf-8-sig").splitlines():
-        stripped = raw.strip()
-        if not stripped or stripped.startswith("#") or "=" not in stripped:
-            continue
-        name, value = stripped.split("=", 1)
-        value = value.strip().strip('"').strip("'")
-        if secret_name.search(name) and len(value) >= 8:
-            values.add(value)
+    try:
+        path = authoritative_env_path(repo_root)
+    except CredentialError:
+        path = None
+    if path is not None:
+        for raw in path.read_text(encoding="utf-8-sig").splitlines():
+            stripped = raw.strip()
+            if not stripped or stripped.startswith("#") or "=" not in stripped:
+                continue
+            name, value = stripped.split("=", 1)
+            value = value.strip().strip('"').strip("'")
+            if secret_name.search(name) and len(value) >= 8:
+                values.add(value)
+    injected = os.environ.get("OPENAI_API_KEY", "").strip()
+    if len(injected) >= 8:
+        values.add(injected)
     return tuple(sorted(values))
+
+
+def credential_source(repo_root: Path) -> str:
+    """Report only the credential channel; never the value or a secret-bearing path."""
+    try:
+        path = authoritative_env_path(repo_root)
+    except CredentialError:
+        path = None
+    if path is not None:
+        for raw in path.read_text(encoding="utf-8-sig").splitlines():
+            if raw.startswith("OPENAI_API_KEY=") and raw.split("=", 1)[1].strip().strip('"').strip("'"):
+                return "AUTHORITATIVE_ENV_FILE"
+    if os.environ.get("OPENAI_API_KEY", "").strip():
+        return "INHERITED_PROCESS_ENVIRONMENT"
+    return "UNAVAILABLE"
 
 
 def key_is_nonempty(repo_root: Path) -> bool:

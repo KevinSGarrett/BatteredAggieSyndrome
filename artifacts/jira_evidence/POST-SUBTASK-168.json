@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_IN_PROGRESS_ATOMIC_CHECKPOINT_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-168",
+  "jira_key": "",
+  "created_at_utc": "2026-08-10T22:44:13Z",
+  "overall_disposition": "IN_PROGRESS_VALIDATED_CONTINUING_OPERATIONS_CHECKPOINT",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/continuous_operations.json",
+      "evidence_sha256": "f816e9cdb37c97095752460b16217fb38f1653756672e4ae4b8db11557c0a140",
+      "observable_result": "BAT-522 remains the exact-format automatic Batch/canonical promotion decision, while POST-SUBTASK-168 separately admitted 64 bounded candidate-only synchronous calls. Nano failure did not prohibit value-backed Luna, Terra, or Sol comparison."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/continuous_operations.json",
+      "evidence_sha256": "f816e9cdb37c97095752460b16217fb38f1653756672e4ae4b8db11557c0a140",
+      "observable_result": "A validated 16-case official 2011-2025 availability source sample received 16 calls each on Nano, Luna, Terra, and Sol. Deterministic scanning and source binding ran first, and all factual/PIT/canonical authority remained false."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "tools/run_openai_availability_source_triage.py",
+      "evidence_sha256": "c3c4c0bed8d32fe2d1a5ae65d84aa5d549f69ce264c4c29a8eceb9958f942c2d",
+      "observable_result": "All 64 calls used the governed Responses controller, store:false, a strict schema, minimized official excerpts, content-addressed external storage, budget admission, deterministic validation, and review/quarantine-only disposition. Zero provider failures, canonical writes, protected writes, or Batch jobs occurred."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/continuous_operations.json",
+      "evidence_sha256": "f816e9cdb37c97095752460b16217fb38f1653756672e4ae4b8db11557c0a140",
+      "observable_result": "The checkpoint reports calls, tokens, dollars, cumulative and remaining budget, last successful timestamp, model roles, 28 accepted review candidates, 36 quarantines, zero rejects, the exact no-Batch reason, cleanup, negative findings, and the next API-eligible prompt-correction workload."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "CONTINUING_OPERATIONS_CHECKPOINT",
+      "path": "artifacts/openai_assist/continuous_operations.json",
+      "sha256": "f816e9cdb37c97095752460b16217fb38f1653756672e4ae4b8db11557c0a140",
+      "bytes": 6261
+    },
+    {
+      "role": "SOURCE_TRIAGE_CONFIG",
+      "path": "configs/openai_availability_source_triage.json",
+      "sha256": "8083cbde3ae61d38f57695ee539b65158efe7808368a30c59315bc023af43acb",
+      "bytes": 2335
+    },
+    {
+      "role": "PINNED_PROMPT",
+      "path": "prompts/openai_assist/availability_source_triage_v1.txt",
+      "sha256": "0b9c336ec44c45389b77102a73f160a118bffac73e50084b10166f75b262409d",
+      "bytes": 1935
+    },
+    {
+      "role": "SOURCE_SAMPLE_CONFIG",
+      "path": "configs/tamu_availability_source_sample.json",
+      "sha256": "701bb996b565e41d497a84256ef360f5cccc465e53550ff81a80c3fc697e6ebc",
+      "bytes": 6066
+    },
+    {
+      "role": "PROCESS_CREDENTIAL_AND_REDACTION_CONTROLLER",
+      "path": "src/aggie_analytics/openai_assist/credentials.py",
+      "sha256": "9f67d2a016d45f886151b584c6c4b17563797c8e4287d502f760dbe472401c51",
+      "bytes": 3532
+    }
+  ],
+  "external_evidence": {
+    "source_sample_identity": "5068b3d23f0ce4145c1fcf0b02c807b3e82b81571adfb37172f083ec22c854fd",
+    "source_sample_manifest_sha256": "8153ddcbde1861e1aa4ae774f47ed733ad113bdba0f4eed2245209316d585f67",
+    "source_sample_validation_sha256": "1fd6366c01ab45dd9c3e97684bfd0e96d3f56b3e4dbbf6714ae4a41932bbe5a4",
+    "preflight_manifest_sha256": "ade29fb3a1bcad29a6d70abbf5c9f07f3205199ec683720d29eb4f87b60c8826",
+    "predictions_sha256": "ebf5f4745f82080712ebe198124343a0d0a9be739bb7979d85ea6c3c50ff4cb8",
+    "run_manifest_sha256": "5c31f0bea821ad5c4450e483131a3f8048c7fa847bf3140dc7ebac3d0ca59ae3"
+  },
+  "usage": {
+    "synchronous_jobs": 64,
+    "batch_jobs": 0,
+    "settled_this_checkpoint_usd": "0.729459",
+    "cumulative_settled_usd": "3.480606",
+    "remaining_usd": "96.519394",
+    "outstanding_reservations": 0,
+    "last_successful_api_use_utc": "2026-08-10T22:44:13.123191+00:00"
+  },
+  "negative_findings": [
+    {
+      "finding": "Nano produced zero validator-clean review candidates and violated required timestamp/abstention behavior on four cases.",
+      "disposition": "PRESERVED_QUARANTINE_DO_NOT_SCALE_CURRENT_FORMAT"
+    },
+    {
+      "finding": "Twenty-seven quarantines were caused only by asking a language model to reproduce a deterministic scanner class.",
+      "disposition": "PRESERVED_ORIGINAL_DISPOSITIONS; PREDECLARE_SELECTION_CLASS_AS_BOUND_METADATA_IN_A_NEW_PROMPT_VERSION"
+    },
+    {
+      "finding": "No factual gold or historical/PIT eligibility exists for this source-triage format.",
+      "disposition": "NO_BATCH_AND_NO_CANONICAL_PROMOTION"
+    }
+  ],
+  "cleanup": {
+    "tmp_files_removed": 0,
+    "tmp_files_remaining": 0,
+    "batch_files_remaining": 0,
+    "remote_batch_cleanup": "NOT_APPLICABLE_NO_BATCH_SUBMITTED",
+    "immutable_external_evidence_preserved": true
+  },
+  "completion": {
+    "completion_claimed": false,
+    "continuing_operations_active": true,
+    "local_checkpoint_verified": true,
+    "live_jira_sync_pending": true,
+    "global_project_complete": false
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

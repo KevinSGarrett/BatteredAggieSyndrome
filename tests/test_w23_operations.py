@@ -6,6 +6,7 @@ from aggie_analytics.operations.environment import UnsafeLocalRuntimePath, colle
 from aggie_analytics.operations.backup import create_backup, restore_backup, verify_backup
 from aggie_analytics.operations.benchmark import run_benchmark
 from aggie_analytics.operations.retention import retention_rule
+from aggie_analytics.operations.cleanup import UnsafeRecursiveDelete, safe_remove_tree, validate_recursive_delete_target
 
 class W23OperationsTests(unittest.TestCase):
     def test_secret_safe_structured_log(self):
@@ -68,5 +69,41 @@ class W23OperationsTests(unittest.TestCase):
         self.assertFalse(retention_rule('PUBLISHED_FORECAST').automatic_delete_allowed); self.assertFalse(retention_rule('CHAMPION_HISTORY').automatic_delete_allowed); self.assertTrue(retention_rule('TRANSIENT_CACHE').automatic_delete_allowed)
     def test_sanitize_nested(self):
         p=sanitize_metadata({'safe':{'api_key':'abcdefghijklmnop','value':2}}); self.assertEqual(p['safe']['api_key'],'[REDACTED]'); self.assertEqual(p['safe']['value'],2)
+
+    def test_recursive_cleanup_rejects_path_default_and_repository(self):
+        with tempfile.TemporaryDirectory() as td:
+            base=Path(td).resolve(); external=base/'external'; worktrees=external/'worktrees'; repo=worktrees/'repository'
+            repo.mkdir(parents=True)
+            with self.assertRaises(UnsafeRecursiveDelete):
+                validate_recursive_delete_target(Path(),allowed_root=external,repo_root=repo)
+            with self.assertRaises(UnsafeRecursiveDelete):
+                validate_recursive_delete_target(repo,allowed_root=repo,repo_root=repo)
+            with self.assertRaises(UnsafeRecursiveDelete):
+                validate_recursive_delete_target(worktrees,allowed_root=external,repo_root=repo)
+            with self.assertRaises(UnsafeRecursiveDelete):
+                validate_recursive_delete_target(external/'runtime',allowed_root=Path(base.anchor),repo_root=repo)
+            self.assertTrue(repo.exists())
+
+    def test_recursive_cleanup_rejects_symlink_or_junction_alias(self):
+        with tempfile.TemporaryDirectory() as td:
+            base=Path(td).resolve(); repo=base/'repository'; external=base/'external'; real=external/'runtime'/'real'; alias=external/'runtime'/'alias'
+            repo.mkdir(); real.mkdir(parents=True)
+            try:
+                alias.symlink_to(real, target_is_directory=True)
+            except OSError as exc:
+                self.skipTest(f'directory symlink unavailable: {exc}')
+            with self.assertRaises(UnsafeRecursiveDelete):
+                validate_recursive_delete_target(alias,allowed_root=external,repo_root=repo)
+            self.assertTrue(real.exists())
+
+    def test_recursive_cleanup_only_removes_strict_external_descendant(self):
+        with tempfile.TemporaryDirectory() as td:
+            base=Path(td).resolve(); repo=base/'repository'; external=base/'external'; target=external/'runtime'/'task-1'
+            repo.mkdir(); target.mkdir(parents=True); (target/'result.tmp').write_text('reconstructible')
+            self.assertTrue(safe_remove_tree(target,allowed_root=external,repo_root=repo))
+            self.assertFalse(target.exists()); self.assertTrue(external.exists()); self.assertTrue(repo.exists())
+            self.assertFalse(safe_remove_tree(target,allowed_root=external,repo_root=repo))
+            with self.assertRaises(UnsafeRecursiveDelete):
+                safe_remove_tree(external,allowed_root=external,repo_root=repo)
 
 if __name__=='__main__': unittest.main()

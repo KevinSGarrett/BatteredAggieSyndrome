@@ -16,6 +16,15 @@ JIRA = ROOT / "jira"
 SOURCE_REF = "SRCREF-02119"
 CONTRACT = ROOT / "governance" / "OPENAI_ASSISTIVE_PLANE.md"
 
+COMPLETED_EVIDENCE = {
+    "POST-SUBTASK-160": "INTEGRATED",
+    "POST-SUBTASK-161": "EMPIRICALLY_VALIDATED",
+    "POST-SUBTASK-162": "EMPIRICALLY_VALIDATED",
+    "POST-SUBTASK-163": "EMPIRICALLY_VALIDATED",
+    "POST-SUBTASK-164": "EMPIRICALLY_VALIDATED",
+    "POST-SUBTASK-166": "OPERATING",
+}
+
 
 def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")[:92]
@@ -113,7 +122,7 @@ def make(
         "parent_id": parent_id,
         "epic_id": epic_id,
         "phase": "PHASE-1",
-        "workflow_state": "DEFERRED" if conditional else ("IN_PROGRESS" if local_id == "POST-SUBTASK-160" else "BACKLOG"),
+        "workflow_state": "DEFERRED" if conditional else ("IN_PROGRESS" if local_id == "POST-SUBTASK-168" else "BACKLOG"),
         "historical_classification": "ACTIONABLE_POST_WAVE",
         "priority": "P1" if conditional else "P0",
         "critical_path": False,
@@ -218,6 +227,16 @@ def make(
         record["governance_traceability_gate"] = dependencies[-1] if dependencies else "POST-SUBTASK-166"
     else:
         record["governance_traceability_gate"] = local_id
+    if local_id in COMPLETED_EVIDENCE:
+        evidence_path = ROOT / artifact(local_id)
+        if not evidence_path.is_file():
+            raise RuntimeError(f"completion evidence is absent for {local_id}: {evidence_path}")
+        record["workflow_state"] = "DONE"
+        record["evidence_state"] = "VERIFIED"
+        record["maturity_before"] = COMPLETED_EVIDENCE[local_id]
+        record["ready"] = False
+        record["blocked_reason"] = ""
+        record["completion_evidence_manifest_sha256"] = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
     return record
 
 
@@ -226,7 +245,7 @@ def specs() -> list[dict[str, Any]]:
         make(local_id="POST-EPIC-018", import_id=100464, issue_type="Epic", objective="Governed optional OpenAI assistive research and data engineering plane", parent_id="", epic_id="", dependencies=["POST-SUBTASK-040"], component="data-sources", lane="SHARED_CONTRACT", outputs=[artifact("POST-EPIC-018")], touched=[], acceptance=["Every child foundation, evaluation, pilot, conditional, scale-out, budget, provenance, and cleanup unit has an evidence-backed disposition.", "The optional plane demonstrably improves at least one bounded workflow without entering the deterministic forecast-critical path."], end_to_end="Aggregate the foundation, evaluation, bounded-pilot, scale-out, budget, cleanup, and authority evidence and prove the optional plane remains safe and useful.", maturity="EMPIRICALLY_VALIDATED", labels=["aggregate-gate"]),
         make(local_id="POST-STORY-054", import_id=100465, issue_type="Story", objective="Governance, storage, budget, controller, and local evaluation foundation", parent_id="POST-EPIC-018", epic_id="POST-EPIC-018", dependencies=["POST-SUBTASK-040"], component="operations-security", lane="SHARED_CONTRACT", outputs=[artifact("POST-STORY-054")], touched=[], acceptance=["The single controller and local evaluation harness satisfy the complete Section 16 authority, storage, schema, budget, provenance, isolation, and cleanup contract.", "No paid call occurs until foundation validation and normal review integration pass."], end_to_end="Integrate POST-SUBTASK-160 and POST-SUBTASK-161 and prove every later API job is forced through their controller, ledger, schema, validation, and evaluation boundaries.", maturity="INTEGRATED", labels=["aggregate-gate"]),
         make(local_id="POST-STORY-055", import_id=100466, issue_type="Story", objective="Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots", parent_id="POST-EPIC-018", epic_id="POST-EPIC-018", dependencies=["POST-SUBTASK-161"], component="data-sources", lane="RESEARCH_LANE", outputs=[artifact("POST-STORY-055")], touched=[], acceptance=["Pilots A-C and the official depth-chart document extension receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.", "Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates."], end_to_end="Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.", maturity="EMPIRICALLY_VALIDATED", labels=["aggregate-gate"]),
-        make(local_id="POST-STORY-056", import_id=100467, issue_type="Story", objective="Empirical OpenAI scale-out, usage accounting, cleanup, and handoff", parent_id="POST-EPIC-018", epic_id="POST-EPIC-018", dependencies=["POST-SUBTASK-162", "POST-SUBTASK-163", "POST-SUBTASK-164", "POST-SUBTASK-167"], component="release-readiness", lane="PROTECTED_GATE", outputs=[artifact("POST-STORY-056")], touched=[], acceptance=["Only empirically validated routine formats scale to GPT-5 Nano Batch, with task-specific 4o Mini/Luna use measured, complex ambiguity routed to Terra, and a small hard/high-risk residue routed to Sol under staged and model-cap admission.", "Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews."], end_to_end="Prove scale-out remains inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.", maturity="EMPIRICALLY_VALIDATED", labels=["aggregate-gate"]),
+        make(local_id="POST-STORY-056", import_id=100467, issue_type="Story", objective="Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff", parent_id="POST-EPIC-018", epic_id="POST-EPIC-018", dependencies=["POST-SUBTASK-162", "POST-SUBTASK-163", "POST-SUBTASK-164", "POST-SUBTASK-167", "POST-SUBTASK-168"], component="release-readiness", lane="PROTECTED_GATE", outputs=[artifact("POST-STORY-056")], touched=[], acceptance=["Only empirically validated routine formats scale to GPT-5 Nano Batch, with task-specific 4o Mini/Luna use measured, complex ambiguity routed to Terra, and a small hard/high-risk residue routed to Sol under staged and model-cap admission.", "BAT-522 is a completed scale-out decision, not the terminal end of API use; bounded candidate-only assistance continues whenever the admission contract is satisfied.", "Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews."], end_to_end="Prove scale-out and continuing candidate-only operations remain inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.", maturity="EMPIRICALLY_VALIDATED", labels=["aggregate-gate"]),
         make(local_id="POST-SUBTASK-160", import_id=100468, issue_type="Subtask", objective="Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation", parent_id="POST-STORY-054", epic_id="POST-EPIC-018", dependencies=["POST-SUBTASK-040"], component="operations-security", lane="SHARED_CONTRACT", outputs=["configs/openai_assist_policy.json", "requirements/openai-assist.lock", "src/aggie_analytics/openai_assist/controller.py", artifact("POST-SUBTASK-160")], touched=["pyproject.toml", "requirements/openai-assist.lock", "configs/openai_assist_policy.json", "configs/openai_task_registry.json", "schemas/openai/assistive_candidate.schema.json", "src/aggie_analytics/openai_assist", "tools/openai_assist.py", "tools/validate_openai_assist.py", "tests/test_openai_assist.py", "governance/OPENAI_ASSISTIVE_PLANE.md", "docs/architecture/OPENAI_ASSISTIVE_PLANE.md", "docs/operations/OPENAI_ASSISTIVE_PLANE.md"], acceptance=["One optional controller exclusively owns Responses and Batch calls, model/effort routing, credential loading/redaction, store:false, strict schemas, token/cost estimation, admission, idempotency, retries, caching, provenance, validation, reporting, and cleanup.", "Settled plus outstanding reservations hard-stop at USD 100; allocation caps and $25/$50/$75/$90 alerts are locally enforced; low-priority admission stops at $90.", "All operational payloads stay under the external OpenAI root; the key is nonempty but never printed, copied, committed, serialized, or prompt-visible.", "Fake-client, mutation, secret, isolation, dependency-lock, strict repository, provenance, Jira, and full-suite validation pass before any paid call."], end_to_end="Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth.", maturity="INTEGRATED", labels=["controller", "security"]),
         make(local_id="POST-SUBTASK-161", import_id=100469, issue_type="Subtask", objective="Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol", parent_id="POST-STORY-054", epic_id="POST-EPIC-018", dependencies=["POST-SUBTASK-160"], component="validation-promotion", lane="RESEARCH_LANE", outputs=["fixtures/openai_assist/eval_gold.jsonl", "artifacts/openai_assist/model_comparison.json", artifact("POST-SUBTASK-161")], touched=["fixtures/openai_assist", "src/aggie_analytics/openai_assist/evals.py", "artifacts/openai_assist/model_comparison.json", "tests/test_openai_assist.py"], acceptance=["The corpus covers positive, negative, ambiguous, conflicting, schema-drift, PIT-sensitive, target-leakage, abstention, evidence, and entity-merge cases.", "Luna, Terra, and Sol run at explicit allowed efforts on identical pinned cases and report schema validity, precision/recall, evidence accuracy, abstention, unsupported facts, top-k recall, false merges, repeat consistency, disagreement, cost, review time, and quarantine.", "Task-specific acceptance rules are predeclared from empirical distributions; no threshold is invented merely to approve a model."], end_to_end="Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.", maturity="EMPIRICALLY_VALIDATED", labels=["evaluation", "gold-set"]),
         make(local_id="POST-SUBTASK-162", import_id=100470, issue_type="Subtask", objective="Pilot historical gamebook-equivalent extraction in shadow candidate mode", parent_id="POST-STORY-055", epic_id="POST-EPIC-018", dependencies=["POST-SUBTASK-161", "POST-SUBTASK-028"], component="data-sources", lane="RESEARCH_LANE", outputs=["artifacts/openai_assist/gamebook_pilot.json", artifact("POST-SUBTASK-162")], touched=["configs/openai_task_registry.json", "artifacts/openai_assist/gamebook_pilot.json", "tests/test_openai_assist.py"], acceptance=["A pinned human/deterministic gold sample covers drives, plays, box scores, roster/starter facts, venue, officials, weather, attendance, and source metadata with exact evidence locators.", "Terra capable reference is compared with Luna; only empirically validated routine formats may be proposed for Luna Batch and only ambiguous residue may reach Terra/Sol.", "Accepted candidates retain exact source/capture evidence and pass deterministic schema, provenance, identity, PIT, leakage, and domain validation with zero unsupported facts."], end_to_end="Extract a bounded real historical gamebook sample through the controller, validate every fact against exact source evidence, and measure accepted records, review time, quarantines, cost, and unsupported-fact rate without canonical mutation.", maturity="EMPIRICALLY_VALIDATED", labels=["pilot-a", "gamebook"]),
@@ -292,6 +311,28 @@ def specs() -> list[dict[str, Any]]:
             maturity="EMPIRICALLY_VALIDATED",
             labels=["pilot-a-extension", "depth-chart", "terra-sol-comparison"],
         ),
+        make(
+            local_id="POST-SUBTASK-168",
+            import_id=100476,
+            issue_type="Subtask",
+            objective="Operate continuing governed OpenAI candidate assistance on dependency-ready real project work",
+            parent_id="POST-STORY-056",
+            epic_id="POST-EPIC-018",
+            dependencies=["POST-SUBTASK-160"],
+            component="data-sources",
+            lane="RESEARCH_LANE",
+            outputs=["artifacts/openai_assist/continuous_operations.json", artifact("POST-SUBTASK-168")],
+            touched=["configs/openai_task_registry.json", "configs/openai_availability_source_triage.json", "configs/tamu_availability_source_sample.json", "prompts/openai_assist/availability_source_triage_v1.txt", "src/aggie_analytics/openai_assist/credentials.py", "tools/prepare_tamu_availability_source_sample.py", "tools/validate_tamu_availability_source_sample.py", "tools/run_openai_availability_source_triage.py", "artifacts/openai_assist/continuous_operations.json", "tests/test_openai_assist.py"],
+            acceptance=[
+                "Bulk/canonical promotion authority remains separate from candidate-only assistance: a failed Nano or exact-format Batch gate never blocks bounded Luna, Terra, or Sol candidate analysis when task admission passes.",
+                "Dependency-ready historical documents, entity ambiguities, quarantine/schema drift, reconciliation findings, and timestamped availability evidence receive value-selected governed assistance while deterministic/local work continues first where sufficient.",
+                "Every request uses the single controller, store:false, strict Structured Outputs, minimized cited evidence, content-addressed external storage, budget admission, deterministic validation, and candidate/review/quarantine-only disposition.",
+                "Each handoff reports calls and spend by model, cumulative and remaining budget, last successful use, active assisted tasks, dispositions, Batch count or exact no-Batch reason, next eligible workload, and cleanup.",
+            ],
+            end_to_end="Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and Sol after deterministic source selection, validate every output without canonical/PIT authority, reconcile exact usage, and leave the continuing lane active for the next eligible workload.",
+            maturity="OPERATING",
+            labels=["continuous-operations", "candidate-assistance", "terra-sol-comparison"],
+        ),
         make(local_id="POST-SUBTASK-166", import_id=100474, issue_type="Subtask", objective="Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff", parent_id="POST-STORY-056", epic_id="POST-EPIC-018", dependencies=["POST-SUBTASK-162", "POST-SUBTASK-163", "POST-SUBTASK-164", "POST-SUBTASK-167"], component="release-readiness", lane="PROTECTED_GATE", outputs=["artifacts/openai_assist/final_handoff.json", artifact("POST-SUBTASK-166")], touched=["artifacts/openai_assist/final_handoff.json", "docs/operations/OPENAI_ASSISTIVE_PLANE.md"], acceptance=["Only pilot formats meeting predeclared empirical rules scale; failed, uneconomic, unsupported, unstable, or high-review formats remain shadow/quarantined/rejected.", "Routine scale-out is GPT-5 Nano Batch first; 4o Mini/Luna, Terra, and Sol are admitted only for empirically justified roles, with Terra/Sol reserve increases backed by measured hard-case acceptance, review savings, or risk reduction.", "Usage reconciles every reservation, synchronous/Batch job, model/effort, token, dollar, allocation, stage/model-cap event, threshold alert, remaining budget, disposition, improvement, and unresolved review.", "Remote Batch files are removed after verified local preservation where practical; abandoned local tmp/partial files are removed; immutable accepted evidence remains content-addressed.", "All downstream Jira, PR, repository, provenance, secret, PIT/leakage/identity, and full-suite gates pass without any scientific-readiness overclaim."], end_to_end="Run the validated Nano-first scale-out and final reconciliation under staged/model-cap budget enforcement, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget.", maturity="OPERATING", labels=["scale-out", "handoff"]),
     ]
 
@@ -346,7 +387,7 @@ def main() -> int:
         else:
             path.unlink()
     all_import_ids = [int(record.get("import_id", 0)) for record in existing]
-    if any(value in set(range(100464, 100476)) for value in all_import_ids):
+    if any(value in set(range(100464, 100477)) for value in all_import_ids):
         raise RuntimeError("OpenAI Jira import ID range collides with an existing issue")
     for record in new_records:
         path = ROOT / record["canonical_record"]

@@ -32,7 +32,7 @@ The router starts validated bulk work on GPT-5 Nano Batch, uses 4o Mini only for
 
 Pilot C is deliberately non-promoting: Nano/minimal passed 0/8 exact cases, Terra/low passed 3/4, and Sol/medium passed 2/2, while the overall strict gate failed. Keep this format synchronous/shadow only, preserve deterministic triage, submit no Nano Batch scale-out, and release no Terra/Sol reserve until a new versioned prompt/schema and independent evidence pass a fresh predeclared gate.
 
-Every paid operation requires a registered task, Jira identity, source capture SHA-256, strict schema, bounded output tokens, allocation, priority, and candidate destination. The CLI never accepts an API key argument. It discovers only `OPENAI_API_KEY` from the authoritative root `.env` and reports a boolean presence check.
+Every paid operation requires a registered task, Jira identity, source capture SHA-256, strict schema, bounded output tokens, allocation, priority, and candidate destination. The CLI never accepts an API key argument. It uses a nonempty `OPENAI_API_KEY` from the authoritative root `.env` first, or an already-injected inherited process value when the file is unavailable. It reports only the credential channel and boolean presence, never the value, and never writes the process value back to disk.
 
 Operational artifacts are under `C:\BatteredAggieSyndrome.data\openai`. Delete reconstructible files in `tmp`; preserve accepted request/response/manifests, ledger events, evaluation evidence, and quarantines according to the project retention contract.
 
@@ -57,3 +57,10 @@ payloads remain content-addressed outside Git; `tmp` and `batches` are empty.
 The deterministic forecast path, canonical identity, PIT state, protected
 evaluation, promotion, forecasts, BAS, Aggie Excess, and publication state were
 not modified.
+
+BAT-522 is not the terminal OpenAI work unit. Its exact-format no-Batch result
+continues to govern automatic scale-out, while `POST-SUBTASK-168` owns bounded
+candidate-only assistance on new dependency-ready evidence. A failed Nano gate
+does not prevent a value-backed Luna/Terra/Sol review call. New formats remain
+synchronous or bounded until a separately versioned gold/schema/evidence/PIT
+gate qualifies them for Batch and any canonical acceptance path.

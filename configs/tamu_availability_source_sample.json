@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "sample_id": "tamu-official-availability-source-selection-v1",
+  "jira_unit": "POST-SUBTASK-168",
+  "authority": "CANDIDATE_ONLY_OPENAI_SOURCE_TRIAGE_ELIGIBLE_FACT_GOLD_NOT_ADJUDICATED",
+  "source_candidate": {
+    "source_id": "SRC-014",
+    "provider": "Texas A&M Athletics / SIDEARM official weekly game notes",
+    "acquisition_identity": "13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956",
+    "acquisition_manifest_sha256": "ad4b834f33581452db0be71770118347237621efff97bb18bde8d7ff204d506d",
+    "candidate_identity": "b7a0798dbe91efb7b3d96b7eb7cdca3e971d088b15b4b23d8e3cf4c9a32f9441",
+    "candidate_manifest_sha256": "4521b8ef5e8c7652bbf75e8b8750e0db00e9184f92ad273a48444f4cc7b0ccb8",
+    "candidate_validation_report_sha256": "678558dd7411fd73306037421fd748570c1c3d736473aed9248449cb1aefd351",
+    "candidate_manifest_relative_path": "manifests/historical_known_at/sha256/b7a0798dbe91efb7b3d96b7eb7cdca3e971d088b15b4b23d8e3cf4c9a32f9441/tamu_availability_evidence_pages_manifest.json",
+    "candidate_validation_relative_path": "validation/BAT-523/tamu_availability_pages_b7a0798d_validation.json",
+    "page_payload_relative_path": "quarantine/historical_known_at/sha256/b7a0798dbe91efb7b3d96b7eb7cdca3e971d088b15b4b23d8e3cf4c9a32f9441/tamu_availability_evidence_pages/official_game_note_pages.parquet",
+    "page_payload_sha256": "24c11a155c1b60e2211be7678446a086fb9ee4087656cb00d94ed7214ee78a96",
+    "evidence_payload_relative_path": "quarantine/historical_known_at/sha256/b7a0798dbe91efb7b3d96b7eb7cdca3e971d088b15b4b23d8e3cf4c9a32f9441/tamu_availability_evidence_pages/availability_evidence_pages.parquet",
+    "evidence_payload_sha256": "b73e67ce3ed6e79ad521e9be90aefe700d8219eee96050cc8d1b90bac1ce328b"
+  },
+  "excerpt_policy": {
+    "candidate_basis": "MATCHED_CONTEXTS_ONLY",
+    "negative_basis": "NORMALIZED_PAGE_PREFIX",
+    "negative_max_characters": 2000,
+    "whole_page_or_whole_data_lake_sent_to_provider": false
+  },
+  "cases": [
+    {"case_id": "availability-source-2012-smu-return", "row_id": "avp_1145847d863b5f037095ed46", "season": 2012, "document_label": "SMU", "page_number": 9, "expected_selection_class": "EXPLICIT_CONTEXT_SIGNAL_PAGE"},
+    {"case_id": "availability-source-2013-vanderbilt-postgame", "row_id": "avp_dfc17dd72d2c6f28edbfbd64", "season": 2013, "document_label": "Vanderbilt", "page_number": 37, "expected_selection_class": "EXPLICIT_CONTEXT_SIGNAL_PAGE"},
+    {"case_id": "availability-source-2014-south-carolina-missing", "row_id": "avp_b4b78ff7ec6575bbdbcac845", "season": 2014, "document_label": "South Carolina", "page_number": 3, "expected_selection_class": "EXPLICIT_CONTEXT_SIGNAL_PAGE"},
+    {"case_id": "availability-source-2014-lsu-ruled-out-postgame", "row_id": "avp_8828674e0b57f1855bd9fbf8", "season": 2014, "document_label": "LSU", "page_number": 2, "expected_selection_class": "EXPLICIT_CONTEXT_SIGNAL_PAGE"},
+    {"case_id": "availability-source-2019-ole-miss-missed-game", "row_id": "avp_bdc6ba107dfb26313910f3bc", "season": 2019, "document_label": "Ole Miss", "page_number": 18, "expected_selection_class": "EXPLICIT_CONTEXT_SIGNAL_PAGE"},
+    {"case_id": "availability-source-2022-king-history", "row_id": "avp_9a5778f85cd8b0c28628dc53", "season": 2022, "document_label": "PDF Notes", "page_number": 21, "expected_selection_class": "EXPLICIT_CONTEXT_SIGNAL_PAGE"},
+    {"case_id": "availability-source-2024-weigman-sidelined", "row_id": "avp_220eff8e68cc5e1e6ff53158", "season": 2024, "document_label": "PDF Notes", "page_number": 2, "expected_selection_class": "EXPLICIT_CONTEXT_SIGNAL_PAGE"},
+    {"case_id": "availability-source-2025-season-ending", "row_id": "avp_f751db0988b496966140046a", "season": 2025, "document_label": "PDF Notes", "page_number": 1, "expected_selection_class": "EXPLICIT_CONTEXT_SIGNAL_PAGE"},
+    {"case_id": "availability-review-2013-alabama-injury", "row_id": "avp_9b38c86a10c77a6d60548da9", "season": 2013, "document_label": "Alabama", "page_number": 4, "expected_selection_class": "INJURY_MENTION_REVIEW_PAGE"},
+    {"case_id": "availability-review-2015-arizona-state-injury", "row_id": "avp_5356efb1547faf3ddf7f32a8", "season": 2015, "document_label": "Arizona State", "page_number": 4, "expected_selection_class": "INJURY_MENTION_REVIEW_PAGE"},
+    {"case_id": "availability-review-2021-nfl-roster-scope", "row_id": "avp_bffcd9318a905b6c4b519969", "season": 2021, "document_label": "PDF Notes", "page_number": 8, "expected_selection_class": "INJURY_MENTION_REVIEW_PAGE"},
+    {"case_id": "availability-review-2024-weigman-history", "row_id": "avp_aabe59d742a0424e0f6e2e29", "season": 2024, "document_label": "PDF Notes", "page_number": 1, "expected_selection_class": "INJURY_MENTION_REVIEW_PAGE"},
+    {"case_id": "availability-negative-2011-idaho", "row_id": "gnp_6286ef9dfc9d4d7cee95e61c", "season": 2011, "document_label": "Idaho", "page_number": 2, "expected_selection_class": "NO_SIGNAL_NEGATIVE_PAGE"},
+    {"case_id": "availability-negative-2012-louisiana-tech", "row_id": "gnp_19d1819b835efb775d325b14", "season": 2012, "document_label": "Louisiana Tech", "page_number": 2, "expected_selection_class": "NO_SIGNAL_NEGATIVE_PAGE"},
+    {"case_id": "availability-negative-2013-rice", "row_id": "gnp_c36c163524facc00c280abc3", "season": 2013, "document_label": "Rice", "page_number": 2, "expected_selection_class": "NO_SIGNAL_NEGATIVE_PAGE"},
+    {"case_id": "availability-negative-2013-sam-houston", "row_id": "gnp_3cfeb22e288a1b1be3b50b56", "season": 2013, "document_label": "Sam Houston", "page_number": 2, "expected_selection_class": "NO_SIGNAL_NEGATIVE_PAGE"}
+  ],
+  "authority_invariants": {
+    "fact_gold_adjudicated": false,
+    "player_status_fact_extracted": false,
+    "team_scope_resolved": false,
+    "temporal_scope_resolved": false,
+    "player_identity_resolved": false,
+    "historical_publication_time_known": false,
+    "target_game_cutoff_eligible": false,
+    "canonical_or_pit_admission": false,
+    "training_or_protected_use_admission": false,
+    "openai_execution_admitted": true
+  }
+}

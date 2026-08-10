@@ -22,7 +22,7 @@
     "configs/known_at_registry.json",
     "artifacts/jira_evidence/POST-SUBTASK-043.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-042",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-044",
     "POST-SUBTASK-045"
@@ -211,7 +211,7 @@
     "src/aggie_analytics/temporal/eligibility.py",
     "src/aggie_analytics/temporal/state.py"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -336,7 +336,7 @@
     "POST-SUBTASK-051"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "REGRESSION",
@@ -346,7 +346,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-015: Known-at registry and timestamp normalization.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-043.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

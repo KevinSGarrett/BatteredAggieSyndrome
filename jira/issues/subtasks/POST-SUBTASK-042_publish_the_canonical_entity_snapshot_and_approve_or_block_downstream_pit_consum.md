@@ -107,7 +107,7 @@
   "end_to_end_validation": "Pinned source/schema inputs resolve through auditable canonical identities and temporal transitions into a reproducible entity snapshot with no silent merges or orphans. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-005, POST-STORY-015, POST-SUBTASK-043, POST-SUBTASK-044, POST-SUBTASK-045.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-042.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -182,11 +182,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24532",
-    "jira_updated_at": "2026-08-10T03:22:40.345-0500",
-    "last_synced_at": "2026-08-10T08:23:00.508878+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-392\\BAT-392-claim-live-row.csv",
+    "jira_updated_at": "2026-08-10T03:35:44.464-0500",
+    "last_synced_at": "2026-08-10T08:36:09.386967+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-392\\BAT-392-completion-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -244,7 +244,7 @@
     "governance/ENTITY_RESOLUTION_STATES.csv",
     "src/aggie_analytics/entities/resolution.py"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -413,7 +413,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-014: Population resolution, review workflow, transitions, and entity gate.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-042.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

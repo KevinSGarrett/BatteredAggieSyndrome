@@ -22,7 +22,7 @@ class TestSourceRightsRegistry(unittest.TestCase):
         cls.registry=SourceRightsRegistry.load(cls.path)
 
     def test_registry_is_complete_machine_readable_and_secret_free(self):
-        self.assertEqual(len(self.registry.decisions),62)
+        self.assertEqual(len(self.registry.decisions),63)
         raw=self.path.read_text(encoding='utf-8')
         for marker in ('SCRAPFLY_API_TOKEN=','SCRAPERAPI_API_TOKEN=','GITHUB_TOKEN=','CFBD_API_KEY='):
             self.assertNotIn(marker,raw)

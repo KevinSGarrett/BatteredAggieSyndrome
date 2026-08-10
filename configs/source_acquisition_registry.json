@@ -4,9 +4,9 @@
   "policy_version": "UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_2026-08-09",
   "prerequisite_identities": [
     {
-      "bytes": 103304,
+      "bytes": 104973,
       "path": "configs/source_rights_registry.json",
-      "sha256": "11f944ebff0ee5f932d21bbff316da991b31f3b5f492acc31102c017019a69c4"
+      "sha256": "3dc291c9daa8949b873151f4f488e252882ea2ab024154d1d3d7b7fc40138d7a"
     },
     {
       "bytes": 66945,
@@ -22,7 +22,7 @@
   "registry_status": "VERIFIED",
   "rights_metadata_nonblocking": true,
   "schema_version": "1.0.0",
-  "source_count": 2,
+  "source_count": 3,
   "sources": [
     {
       "api_version": {
@@ -662,6 +662,82 @@
       "provider": "Open-Meteo",
       "readiness_required": "READY",
       "source_id": "SRC-003"
+    },
+    {
+      "authentication": {
+        "credential_value_in_registry": false,
+        "mode": "NONE_PUBLIC_HTTPS"
+      },
+      "base_url": "https://www.collegepollarchive.com/football/ap/seasons.cfm",
+      "cutoff_semantics": {
+        "capture_time_rule": "retrieved_at_utc identifies the immutable local capture only and must not be backdated",
+        "dated_poll_rule": "An explicit archive heading date is a date-precision historical-known-at candidate requiring independent release/week and target-cutoff validation before PIT admission",
+        "final_and_preseason_rule": "Undated Final and Preseason poll pages remain UNKNOWN and are not PIT eligible",
+        "target_game_exclusion": "Rankings may be used only when the validated poll release precedes the target prediction cutoff; target-game or later outcomes may not leak through poll alignment"
+      },
+      "endpoints": [
+        {
+          "allowed_parameters": [
+            "seasonid"
+          ],
+          "allowed_seasons": {
+            "maximum_validated": 2025,
+            "minimum_validated": 1936,
+            "request_policy": "EXPLICIT_FINITE_RANGE_IN_RUN_MANIFEST"
+          },
+          "endpoint_id": "CPA-AP-SEASON-LANDING",
+          "historical_coverage": {
+            "poll_snapshots_discovered": 1267,
+            "seasons": 90,
+            "status": "CAPTURED_AND_SCHEMA_VALIDATED"
+          },
+          "method": "GET",
+          "pagination": {
+            "mode": "SEASON_PARTITION",
+            "partition_strategy": [
+              "seasonid"
+            ]
+          },
+          "purpose": "Enumerate stable AP poll IDs and source display labels by season",
+          "raw_content_type": "text/html",
+          "required_parameters": [
+            "seasonid"
+          ],
+          "upstream_lineage": "COLLEGE_POLL_ARCHIVE_REPUBLISHES_AP_POLL_FACTS; DISTINCT_ACQUISITION_ROUTE_BUT NOT_AN_INDEPENDENT_POLL_OBSERVATION"
+        },
+        {
+          "allowed_parameters": [
+            "appollid"
+          ],
+          "allowed_seasons": {
+            "maximum_validated": 2025,
+            "minimum_validated": 1936,
+            "request_policy": "POLL_IDS_MUST_BE_ENUMERATED_FROM_CAPTURED_SEASON_LANDING_PAGES"
+          },
+          "endpoint_id": "CPA-AP-POLL-PAGE",
+          "historical_coverage": {
+            "explicit_date_poll_snapshots": 1101,
+            "undated_preseason_or_final_snapshots": 166,
+            "status": "CAPTURED_NORMALIZED_AND_CANDIDATE_GATED"
+          },
+          "method": "GET",
+          "pagination": {
+            "mode": "ENUMERATED_POLL_ID",
+            "partition_strategy": [
+              "appollid"
+            ]
+          },
+          "purpose": "Capture AP rank, receiving-votes context, school, conference, record, points, first-place votes, comparison ranks, and last-week result",
+          "raw_content_type": "text/html",
+          "required_parameters": [
+            "appollid"
+          ],
+          "upstream_lineage": "COLLEGE_POLL_ARCHIVE_REPUBLISHES_AP_POLL_FACTS; DISTINCT_ACQUISITION_ROUTE_BUT NOT_AN_INDEPENDENT_POLL_OBSERVATION"
+        }
+      ],
+      "provider": "College Poll Archive",
+      "readiness_required": "READY_PUBLIC_DIRECT_CAPTURE_VALIDATED",
+      "source_id": "SRC-063"
     }
   ],
   "unknown_public_source_policy": "ALLOW_PRIVATE_LOCAL_ACQUISITION_WITH_SOURCE_URL_TIMESTAMP_HASH_AND_EXTERNAL_STORAGE",

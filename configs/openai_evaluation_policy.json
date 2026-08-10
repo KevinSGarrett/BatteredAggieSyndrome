@@ -7,10 +7,10 @@
   "gold_corpus_change": "The ambiguous starter example was revised because v1 explicitly stated absence while expecting UNKNOWN, contradicting the frozen status semantics.",
   "output_schema": "schemas/openai/assistive_evaluation.schema.json",
   "prompt": {
-    "path": "prompts/openai_assist/evaluation_v3.txt",
-    "version": "bat517-evaluation-v3",
-    "sha256": "fb64cafe0c88d70f67d16959612b6cf57cdff62b528b25c5a64fb4611544292f",
-    "change": "Canonical conflict/note codes and explicit Candidate A/B IDs remove free-text nondeterminism exposed by the v2 repeat run."
+    "path": "prompts/openai_assist/evaluation_v4.txt",
+    "version": "bat517-evaluation-v4",
+    "sha256": "69f8dfc99860bbe86f81683f8828ed455e6dcb1eae5c276e64fd86b73b0a6251",
+    "change": "The non-entity null/empty rule is explicit after Luna v3 emitted entity candidates for an unrelated ambiguous-starter case."
   },
   "reference_route": {
     "model": "gpt-5.6-sol",

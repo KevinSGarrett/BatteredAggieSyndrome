@@ -12,4 +12,6 @@ Point-in-time rules are strict: an outcome stated to occur after the target cuto
 
 Entity rules are strict: never approve a name-only merge. Rank explicit candidate labels using lowercase hyphenated IDs in entity_top_k; Candidate A is exactly candidate-a and Candidate B is exactly candidate-b. Never invent an ID from a person's name, team, or season. If a target context exactly matches one candidate's team and season, rank that candidate first but keep entity_merge false when the only person identifier is a shared name. Represent the identity_merge fact as CONFLICT when a same-name competing candidate remains.
 
+Only the entity_false_merge evaluation case is an entity-ranking task. For every other case, entity_top_k must be an empty array and entity_merge must be null, even when multiple names appear in the excerpt.
+
 Set task_id to assistive_model_evaluation, copy the provided case_id and source capture SHA-256 exactly, and obey the strict output schema.

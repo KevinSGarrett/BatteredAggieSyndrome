@@ -63,6 +63,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "historical_weather_previous_runs_reconciliation_gate.json"
             ).read_text(encoding="utf-8")
         )
+        cls.tamu_gamebook_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_tamu_official_gamebook_reconciliation_gate.json"
+            ).read_text(encoding="utf-8")
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -560,6 +568,63 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(self.weather_gate["historical_known_at_gate"]["pit_state_admission"])
         self.assertFalse(self.weather_gate["scientific_nonclaims"]["historical_weather_complete"])
         self.assertFalse(self.weather_gate["scientific_nonclaims"]["gap_002_resolved"])
+
+    def test_tamu_official_gamebook_candidate_is_tiered_and_not_admitted(self) -> None:
+        gamebook = self.contract["latest_validated_tamu_official_gamebook_candidate"]
+        self.assertEqual(
+            gamebook["dataset_identity"],
+            "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+        )
+        self.assertEqual(gamebook["source_season_min"], 2010)
+        self.assertEqual(gamebook["source_season_max"], 2025)
+        self.assertEqual(gamebook["official_schedule_seasons_captured"], 16)
+        self.assertEqual(gamebook["seasons_with_gamebook_targets"], 14)
+        self.assertEqual(gamebook["source_evidence_gap_seasons"], [2010, 2011])
+        self.assertEqual(gamebook["target_games"], 177)
+        self.assertEqual(gamebook["captured_games"], 177)
+        self.assertEqual(gamebook["technical_route_gap_games"], 0)
+        self.assertEqual(gamebook["rich_structured_games"], 164)
+        self.assertEqual(gamebook["metadata_only_games"], 13)
+        self.assertEqual(gamebook["candidate_rows"], 212737)
+        self.assertEqual(gamebook["domain_rows"]["actions"], 147381)
+        self.assertEqual(gamebook["domain_rows"]["players"], 18497)
+        self.assertEqual(gamebook["domain_rows"]["plays"], 41453)
+        self.assertEqual(gamebook["domain_rows"]["drives"], 4167)
+        self.assertEqual(gamebook["domain_rows"]["penalties"], 0)
+        self.assertEqual(gamebook["domain_rows"]["availability"], 0)
+        self.assertEqual(gamebook["validation_checks_passed"], 19)
+        self.assertEqual(gamebook["mutation_controls_passed"], 14)
+        self.assertEqual(gamebook["deterministic_rebuild_checks_passed"], 9)
+        self.assertIn("UNKNOWN", gamebook["historical_known_at_basis"])
+        self.assertEqual(gamebook["admission_state"], "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED")
+
+        checkpoint = self.gate["parallel_tamu_official_gamebook_checkpoint"]
+        self.assertFalse(checkpoint["exact_historical_publication_time_established"])
+        self.assertFalse(checkpoint["target_game_outcome_exclusion_validated_for_training_use"])
+        self.assertFalse(checkpoint["canonical_gamebook_admission"])
+        self.assertFalse(checkpoint["canonical_player_identity_admission"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["training_feature_admission"])
+        self.assertFalse(checkpoint["protected_evaluation_admission"])
+
+        coverage = self.tamu_gamebook_gate["coverage_by_domain"]
+        self.assertEqual(coverage["game"]["games_with_rows"], 177)
+        self.assertEqual(coverage["players"]["games_with_rows"], 164)
+        self.assertEqual(coverage["actions"]["games_with_rows"], 159)
+        self.assertEqual(coverage["plays"]["games_with_rows"], 109)
+        self.assertEqual(coverage["drives"]["games_with_rows"], 159)
+        self.assertEqual(coverage["penalties"]["eligibility"], "NOT_PRESENT_AT_TOP_LEVEL")
+        self.assertEqual(coverage["availability"]["eligibility"], "NOT_PROVIDED_BY_ROUTE")
+        self.assertFalse(self.tamu_gamebook_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertFalse(self.tamu_gamebook_gate["scientific_nonclaims"]["tamu_gamebook_history_complete"])
+        self.assertFalse(self.tamu_gamebook_gate["scientific_nonclaims"]["national_gamebook_population_complete"])
+
+        claim = self.evidence["completion_claim"]
+        self.assertTrue(claim["tamu_official_gamebook_candidate_layer_validated"])
+        self.assertTrue(claim["tamu_official_gamebook_technical_route_complete_for_exposed_targets"])
+        self.assertFalse(claim["tamu_official_gamebook_canonical_pit_feature_or_protected_use_admission"])
+        self.assertFalse(claim["tamu_official_gamebook_history_complete"])
+        self.assertFalse(claim["national_gamebook_population_complete"])
 
 
 if __name__ == "__main__":

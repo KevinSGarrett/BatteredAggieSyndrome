@@ -1,11 +1,11 @@
 {
-  "schema_version": "1.6.0",
-  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-player-box-candidate",
+  "schema_version": "1.7.0",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-tamu-official-gamebook-candidate",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
   "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-  "issued_at_utc": "2026-08-10T18:20:00Z",
-  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_AND_EVENT_ROSTER_RANKINGS_TEAM_BOX_PLAYER_BOX_ADVANCED_GAME_VENUE_ASSIGNMENT_CANDIDATE_LAYERS_VALIDATED",
+  "issued_at_utc": "2026-08-10T20:40:00Z",
+  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_AND_EVENT_ROSTER_RANKINGS_TEAM_BOX_PLAYER_BOX_ADVANCED_GAME_VENUE_WEATHER_AND_TAMU_OFFICIAL_GAMEBOOK_CANDIDATE_LAYERS_VALIDATED",
   "live_jira": {
     "issue_id": "24663",
     "status": "In Progress",
@@ -584,6 +584,63 @@
     "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED",
     "domain_gate_disposition": "VALIDATED_COMPLETE_TECHNICAL_CANDIDATE_LAYER_ONLY_SOURCE_GAPS_EXACT_RUN_AVAILABILITY_VENUE_EFFECTIVE_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
   },
+  "validated_tamu_official_gamebook_candidate": {
+    "gate_artifact": "artifacts/pit/historical_tamu_official_gamebook_reconciliation_gate.json",
+    "source_id": "SRC-014",
+    "provider": "Texas A&M Athletics / WMT",
+    "route": "12thman_schedule_boxscore_and_wmt_statistics",
+    "acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "acquisition_manifest_sha256": "ff55fbeb2c29820ae2212ab34c9a0aa864fc71f296d3b3f557365e2e83ddf4d2",
+    "dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "manifest_sha256": "9cd644376253e278fc833b6b58c717ea4889b6243671c15bc078623ba822da0e",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebook_reconciliation.json",
+    "source_season_min": 2010,
+    "source_season_max": 2025,
+    "official_schedule_seasons_captured": 16,
+    "seasons_with_gamebook_targets": 14,
+    "source_evidence_gap_seasons": [2010, 2011],
+    "target_games": 177,
+    "captured_games": 177,
+    "technical_route_gap_games": 0,
+    "rich_structured_games": 164,
+    "metadata_only_games": 13,
+    "raw_capture_bytes": 486942225,
+    "normalized_wmt_raw_bytes": 425888393,
+    "candidate_rows": 212737,
+    "payload_files": 9,
+    "payload_bytes": 31935836,
+    "domain_rows": {
+      "game": 177,
+      "competitors": 354,
+      "schools": 354,
+      "teams": 354,
+      "actions": 147381,
+      "players": 18497,
+      "plays": 41453,
+      "drives": 4167,
+      "penalties": 0,
+      "availability": 0
+    },
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/tamu_official_gamebooks_76c3b366_validation.json",
+      "sha256": "696c2c35651a8cc3e4d468e41a895d727e662f0a5a6be223539ad408ce7d9a35",
+      "checks_passed": 19,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/tamu_official_gamebooks_76c3b366_rebuild.json",
+      "sha256": "10de6993ca2612e26c9d3e67231940c1024207b850b91f15921a96b8babe7fcd",
+      "status": "PASS",
+      "checks_passed": 9,
+      "manifest_and_9_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "UNKNOWN_EXACT_PUBLICATION_TIME_CAPTURE_TIME_ONLY",
+    "official_source_state": "OFFICIAL_PRIMARY_STRUCTURED_CANDIDATE",
+    "player_identity_state": "PROVIDER_ID_CANDIDATE_ONLY_NO_NAME_ONLY_CANONICAL_MERGE",
+    "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_OFFICIAL_PRIMARY_CANDIDATE_LAYER_ONLY_DOMAIN_COVERAGE_PLAYER_IDENTITY_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -659,6 +716,12 @@
     "bundle_bytes": 16461314,
     "base_commit": "0110524c4ddc01e555ece6f6c0da64af3e5613c3"
   },
+  "tamu_official_gamebook_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-tamu-official-gamebooks/before-tamu-gamebooks-746e77d.bundle",
+    "bundle_sha256": "7766ccb5d662913b3318b9b93d6cbbf8826e9e6c860d761105389dc4fff2f218",
+    "bundle_bytes": 16465859,
+    "base_commit": "746e77d6b49d910540d224d29a9bcc31d0a42c0f"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -697,6 +760,11 @@
     "weather_acquisition_complete": true,
     "weather_canonical_pit_feature_or_protected_use_admission": false,
     "observed_weather_substitution_used": false,
+    "tamu_official_gamebook_candidate_layer_validated": true,
+    "tamu_official_gamebook_technical_route_complete_for_exposed_targets": true,
+    "tamu_official_gamebook_canonical_pit_feature_or_protected_use_admission": false,
+    "tamu_official_gamebook_history_complete": false,
+    "national_gamebook_population_complete": false,
     "other_domain_expansion_continues": true,
     "full_historical_population_ready": false,
     "gap_002_resolved": false,

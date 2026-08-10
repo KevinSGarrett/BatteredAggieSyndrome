@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "gate_id": "BAT523-TAMU-OFFICIAL-GAMEBOOK-EQUIVALENT-2010-2025",
+  "jira_key": "BAT-523",
+  "source_id": "SRC-014",
+  "provider": "Texas A&M Athletics / WMT",
+  "route": "12thman_schedule_boxscore_and_wmt_statistics",
+  "candidate_layer": {
+    "acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "acquisition_manifest_sha256": "ff55fbeb2c29820ae2212ab34c9a0aa864fc71f296d3b3f557365e2e83ddf4d2",
+    "dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "manifest_sha256": "9cd644376253e278fc833b6b58c717ea4889b6243671c15bc078623ba822da0e",
+    "source_season_min": 2010,
+    "source_season_max": 2025,
+    "official_schedule_seasons_captured": 16,
+    "seasons_with_gamebook_targets": 14,
+    "source_evidence_gap_seasons": [2010, 2011],
+    "target_games": 177,
+    "captured_games": 177,
+    "technical_route_gap_games": 0,
+    "rich_structured_games": 164,
+    "metadata_only_games": 13,
+    "raw_capture_bytes": 486942225,
+    "normalized_wmt_raw_bytes": 425888393,
+    "candidate_rows": 212737,
+    "payload_files": 9,
+    "payload_bytes": 31935836,
+    "validation_checks_passed": 19,
+    "mutation_controls_passed": 14,
+    "deterministic_rebuild_checks_passed": 9,
+    "deterministic_payloads_compared": 9
+  },
+  "coverage_by_domain": {
+    "game": {"rows": 177, "games_with_rows": 177, "eligibility": "OFFICIAL_METADATA_CANDIDATE"},
+    "competitors": {"rows": 354, "games_with_rows": 177, "eligibility": "OFFICIAL_CANDIDATE"},
+    "schools": {"rows": 354, "games_with_rows": 177, "eligibility": "OFFICIAL_CANDIDATE"},
+    "teams": {"rows": 354, "games_with_rows": 177, "eligibility": "OFFICIAL_CANDIDATE"},
+    "actions": {"rows": 147381, "games_with_rows": 159, "eligibility": "OFFICIAL_PARTIAL_CANDIDATE"},
+    "players": {"rows": 18497, "games_with_rows": 164, "eligibility": "OFFICIAL_PARTIAL_CANDIDATE_IDENTITY_NOT_CANONICAL"},
+    "plays": {"rows": 41453, "games_with_rows": 109, "eligibility": "OFFICIAL_PARTIAL_CANDIDATE"},
+    "drives": {"rows": 4167, "games_with_rows": 159, "eligibility": "OFFICIAL_PARTIAL_CANDIDATE"},
+    "penalties": {"rows": 0, "games_with_rows": 0, "eligibility": "NOT_PRESENT_AT_TOP_LEVEL"},
+    "availability": {"rows": 0, "games_with_rows": 0, "eligibility": "NOT_PROVIDED_BY_ROUTE"}
+  },
+  "tiered_season_eligibility": {
+    "2010_2011": "OFFICIAL_SCHEDULE_CAPTURE_ONLY_NO_GAMEBOOK_TARGETS_EXPOSED",
+    "2012": "OFFICIAL_GAME_METADATA_ONLY_FOR_13_GAMES",
+    "2013_2025": "DOMAIN_SPECIFIC_CANDIDATE_ELIGIBILITY_REQUIRES_PER_GAME_COVERAGE_CHECK"
+  },
+  "historical_known_at_gate": {
+    "capture_identity_preserved": true,
+    "source_urls_and_acquisition_times_preserved": true,
+    "exact_historical_publication_time_established": false,
+    "retrieval_time_used_as_historical_publication_time": false,
+    "target_game_outcome_exclusion_validated_for_training_use": false,
+    "canonical_gamebook_admission": false,
+    "canonical_player_identity_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED"
+  },
+  "negative_findings": [
+    "The official 2010 and 2011 schedule pages expose no per-game box-score or gamebook targets; those seasons remain source-evidence gaps for this route rather than being discarded globally.",
+    "All 13 captured 2012 games are metadata-only in the WMT statistics response.",
+    "Rich structured evidence is domain-specific: player rows cover 164 games, actions and drives cover 159, and plays cover 109.",
+    "The top-level penalties collection contains zero rows and availability is not provided by this route.",
+    "Provider player identifiers remain candidate identities and are not sufficient for a model-only or name-only canonical merge.",
+    "Exact historical publication timestamps are absent; current capture time is not substituted for historical known-at time."
+  ],
+  "gate_disposition": "VALIDATED_OFFICIAL_PRIMARY_CANDIDATE_LAYER_ONLY_DOMAIN_COVERAGE_PLAYER_IDENTITY_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_VALIDATION_PENDING",
+  "scientific_nonclaims": {
+    "national_gamebook_population_complete": false,
+    "tamu_gamebook_history_complete": false,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

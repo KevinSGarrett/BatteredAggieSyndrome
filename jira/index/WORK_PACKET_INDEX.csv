@@ -2,7 +2,7 @@ local_id,issue_type,execution_mode,workflow_state,ready,packet_path,directly_exe
 POST-SUBTASK-024,Subtask,ATOMIC_EXECUTION,READY,true,jira/ai/work_packets/POST-SUBTASK-024.md,true,false,POST-STORY-008,POST-SUBTASK-024
 POST-SUBTASK-041,Subtask,ATOMIC_EXECUTION,READY,true,jira/ai/work_packets/POST-SUBTASK-041.md,true,false,POST-STORY-014,POST-SUBTASK-042
 POST-SUBTASK-126,Subtask,ATOMIC_EXECUTION,READY,true,jira/ai/work_packets/POST-SUBTASK-126.md,true,false,POST-STORY-042,POST-SUBTASK-132
-POST-SUBTASK-166,Subtask,ATOMIC_EXECUTION,READY,true,jira/ai/work_packets/POST-SUBTASK-166.md,true,false,POST-STORY-056,POST-SUBTASK-166
+POST-SUBTASK-166,Subtask,ATOMIC_EXECUTION,IN_PROGRESS,true,jira/ai/work_packets/POST-SUBTASK-166.md,true,false,POST-STORY-056,POST-SUBTASK-166
 POST-EPIC-001,Epic,AGGREGATE_GATE,BACKLOG,false,jira/ai/work_packets/POST-EPIC-001.md,false,true,,POST-SUBTASK-009
 POST-EPIC-002,Epic,AGGREGATE_GATE,BACKLOG,false,jira/ai/work_packets/POST-EPIC-002.md,false,true,,POST-SUBTASK-024
 POST-EPIC-003,Epic,AGGREGATE_GATE,BACKLOG,false,jira/ai/work_packets/POST-EPIC-003.md,false,true,,POST-SUBTASK-033

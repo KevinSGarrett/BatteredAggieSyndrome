@@ -1,7 +1,7 @@
 {
   "actionable_count": 229,
   "blank_e2e_count": 0,
-  "blocked_count": 109,
+  "blocked_count": 108,
   "deferred_count": 36,
   "derivative_result_counts": {
     "PASS": 463
@@ -63,6 +63,6 @@
     "SECURITY": 30,
     "STATIC_VALIDATION": 31
   },
-  "validated_at": "2026-08-09",
+  "validated_at": "2026-08-10",
   "work_packet_count": 229
 }

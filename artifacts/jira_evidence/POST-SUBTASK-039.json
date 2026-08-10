@@ -1,0 +1,303 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-039",
+  "jira_key": "BAT-389",
+  "created_at_utc": "2026-08-10T02:47:27Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/registry_validation.json",
+      "evidence_sha256": "03ad365e351e15e935442ed42dd58a20d0ca96e788ec6410a53ba2038aa051fa",
+      "observable_result": "All 48,262 canonical core entity definitions, their opaque append-only assignment ledgers, 56,676 record/provenance hashes, and all canonical references validate. No duplicate entity definitions, source-ID mapping collisions, impossible intervals, or accepted relationship conflicts exist. Rename, realignment, neutral-site, postponement, and cancellation evidence is retained; seven overlapping nonunique venue alias labels are explicitly quarantined from alias-only joins."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/registry_validation.json",
+      "evidence_sha256": "03ad365e351e15e935442ed42dd58a20d0ca96e788ec6410a53ba2038aa051fa",
+      "observable_result": "All 118,505 canonical people, 131,370 accepted source-scoped mappings, 589,377 record/provenance hashes, candidates, and core-team references validate with zero accepted source-ID collisions and zero name-only auto-promotions. Duplicate names, suffix evidence, transfers, review uncertainty, and 231 player-season plus one coach-season multi-team scopes remain explicit; exclusive team-at-time inference is quarantined only for those scopes."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/registry_validation.json",
+      "evidence_sha256": "03ad365e351e15e935442ed42dd58a20d0ca96e788ec6410a53ba2038aa051fa",
+      "observable_result": "Duplicate record IDs/hashes, duplicate canonical definitions, assignment collisions, invalid resolution states, invalid effective intervals, missing canonical/candidate/team references, accepted source-ID collisions, and accepted relationship conflicts are all zero. Alias and membership ambiguities are completely enumerated with scoped ineligibility rather than hidden or globally blocking unrelated evidence."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/registry_validation.json",
+      "evidence_sha256": "03ad365e351e15e935442ed42dd58a20d0ca96e788ec6410a53ba2038aa051fa",
+      "observable_result": "Verified POST-SUBTASK-036, POST-SUBTASK-037, and POST-SUBTASK-038 evidence, both content-addressed external payloads, both manifests/pointers, the schema gate, source-reference manifest, protected seal, external builder/validator, runtime, and rollback identities are hash-pinned. Candidate/review/unresolved records and row-level direct-capture limitations on derived records remain explicit."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "REGISTRY_VALIDATION_GATE",
+      "path": "artifacts/entities/registry_validation.json",
+      "sha256": "03ad365e351e15e935442ed42dd58a20d0ca96e788ec6410a53ba2038aa051fa",
+      "bytes": 144245,
+      "schema_version": "1.0.0",
+      "dataset_version": "bat389-registry-validation-v1"
+    },
+    {
+      "role": "DETERMINISTIC_EXTERNAL_REPRODUCTION",
+      "path": "<external-data-root>/validation/BAT-389/registry_validation/registry-validation-report.json",
+      "sha256": "03ad365e351e15e935442ed42dd58a20d0ca96e788ec6410a53ba2038aa051fa",
+      "bytes": 144245
+    },
+    {
+      "role": "STRICT_VALIDATION_REPORT",
+      "path": "<external-data-root>/validation/BAT-389/registry_validation/strict-validation-report.json",
+      "sha256": "b2ad1cc89e1ccfa8b0735c91992e9c6023ce432746d32a45bc7de0d8f7ea489d",
+      "bytes": 1359,
+      "finding_count": 0,
+      "negative_mutations_rejected": 10
+    },
+    {
+      "role": "EXTERNAL_BUILDER",
+      "path": "<external-data-root>/runtime/BAT-389/build_registry_validation.py",
+      "sha256": "b62aa42fe3e66ab0d74280f8f1dcbbf92e26128df590eaf7c4f5d729f8783692",
+      "bytes": 37810
+    },
+    {
+      "role": "EXTERNAL_VALIDATOR",
+      "path": "<external-data-root>/runtime/BAT-389/validate_registry_validation.py",
+      "sha256": "c7d048dfa0d12a40f77f058e22dbc8faf1a8d6b5c897dbdb2290a6aba779eb3a",
+      "bytes": 9291
+    },
+    {
+      "role": "CORE_REGISTRY_MANIFEST",
+      "path": "artifacts/entities/canonical_core_registry_manifest.json",
+      "sha256": "6293b25d58afb394d9fe37ded6da1e05aaf584302c582205d13603e9659ab6e7",
+      "bytes": 3069,
+      "payload_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+    },
+    {
+      "role": "PEOPLE_REGISTRY_MANIFEST",
+      "path": "artifacts/entities/canonical_people_registry_manifest.json",
+      "sha256": "2e03ea2c65c26e3eab7e14a3d5efb4a516faaa5f05942008c20af5599768df35",
+      "bytes": 3768,
+      "payload_sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d"
+    }
+  ],
+  "prerequisite_evidence": [
+    {
+      "local_id": "POST-SUBTASK-036",
+      "jira_key": "BAT-386",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-036.json",
+      "sha256": "587a7dd4a307e7e251e2c00b41a77df9e2ac9ef1c77cf39b2bfefce4d091db71",
+      "bytes": 21676,
+      "evidence_state": "VERIFIED"
+    },
+    {
+      "local_id": "POST-SUBTASK-037",
+      "jira_key": "BAT-387",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-037.json",
+      "sha256": "84ff27affd99dd109e2d6ed47b70deb586463ab2506ffc3a59fa0a1f1555ad61",
+      "bytes": 9859,
+      "evidence_state": "VERIFIED"
+    },
+    {
+      "local_id": "POST-SUBTASK-038",
+      "jira_key": "BAT-388",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-038.json",
+      "sha256": "38f3bc9f97a98c90ee70cd89559aec1b4dd04f40871e717726782f1cb82af4df",
+      "bytes": 11470,
+      "evidence_state": "VERIFIED"
+    }
+  ],
+  "observable_outcome": {
+    "gate_disposition": "PASS_PRODUCTION_READY_REGISTRY_GATE_WITH_SCOPED_QUARANTINES",
+    "core_rows": 56676,
+    "core_entity_definitions": 48262,
+    "people_rows": 589377,
+    "canonical_people": 118505,
+    "core_accepted_source_mapping_collisions": 0,
+    "people_accepted_source_mapping_collisions": 0,
+    "accepted_relationship_collisions": 0,
+    "name_only_auto_promotions": 0,
+    "alias_collision_groups_quarantined": 7,
+    "player_season_multi_team_scopes_quarantined": 231,
+    "coach_season_multi_team_scopes_quarantined": 1,
+    "duplicate_normalized_name_groups_preserved": 13621,
+    "core_hard_findings": 0,
+    "people_hard_findings": 0
+  },
+  "commands": [
+    {
+      "command": "python -B tools/validate_w25_final.py",
+      "exit_code": 0,
+      "result": "PASS: W25 final consolidation, terminal-wave governance, maturity honesty and Codex handoff controls"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-389/build_registry_validation.py --repo . --data-root <external-data-root> --output artifacts/entities/registry_validation.json --created-at 2026-08-10T02:41:00Z",
+      "exit_code": 0,
+      "result": "PASS; 56,676 core rows and 589,377 people rows validated"
+    },
+    {
+      "command": "repeat builder to <external-validation>/BAT-389/registry_validation/registry-validation-report.json with identical inputs/timestamp",
+      "exit_code": 0,
+      "result": "PASS; exact SHA-256/byte reproduction match"
+    },
+    {
+      "command": "python -B <external-runtime>/BAT-389/validate_registry_validation.py --repo . --data-root <external-data-root> --artifact artifacts/entities/registry_validation.json --report <external-validation>/BAT-389/registry_validation/strict-validation-report.json",
+      "exit_code": 0,
+      "result": "PASS; zero findings and 10/10 unsafe mutations rejected"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m unittest discover -s tests -p test_entity_governance.py -v",
+      "exit_code": 0,
+      "result": "PASS; 4/4 focused tests"
+    },
+    {
+      "command": "python -B tools/validate_entities.py",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B jira/tools/validate_source_refs.py",
+      "exit_code": 0,
+      "result": "PASS; 2,118 references, zero errors"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "295 passed, 2 skipped, 79 subtests passed"
+    },
+    {
+      "command": "python -B -c 'from tools.repo_integrity import write_manifest; write_manifest(repo)'",
+      "exit_code": 0,
+      "result": "PASS; 2,839 repository files registered after adding the two declared outputs"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --strict",
+      "exit_code": 0,
+      "result": "PASS; repository structure, manifests, governance IDs, secret scan, and forbidden-artifact scan"
+    },
+    {
+      "command": "python -B jira/tools/second_pass_hardening.py --validate-only",
+      "exit_code": 0,
+      "result": "PASS; 463 derivatives and 2,118 source anchors"
+    },
+    {
+      "command": "python -B tools/validate_jira_control_plane.py --repo-root . --strict",
+      "exit_code": 0,
+      "result": "PASS; zero strict control-plane findings"
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS; 1,758 Jira files"
+    }
+  ],
+  "validation": {
+    "result": "PASS_PRODUCTION_READY_REGISTRY_GATE_PENDING_PROTECTED_INTEGRATION",
+    "deterministic_reproduction_runs": 2,
+    "deterministic_reproduction_match": true,
+    "strict_finding_count": 0,
+    "negative_mutations_rejected": 10,
+    "strict_repository_validation": "PASS",
+    "jira_second_pass_validation": "PASS",
+    "jira_control_plane_validation": "PASS",
+    "jira_file_manifest_validation": "PASS",
+    "required_classes": {
+      "REGRESSION": "PASS",
+      "END_TO_END": "PASS_WITH_EXPLICIT_SCOPED_QUARANTINES",
+      "REPRODUCIBILITY": "PASS",
+      "SCIENTIFIC": "NOT_APPLICABLE_NO_MODEL_OR_SCIENTIFIC_EFFECT_EVALUATED"
+    }
+  },
+  "negative_findings": [
+    {
+      "finding": "Seven accepted venue alias labels overlap across distinct venue identities.",
+      "disposition": "PRESERVED_SCOPED_QUARANTINE; alias-only resolution is forbidden for those labels, while source-ID and location-context evidence remains usable."
+    },
+    {
+      "finding": "231 player-season and one coach-season scopes contain multiple team observations at season grain.",
+      "disposition": "PRESERVED_SCOPED_QUARANTINE; identity and observation evidence remains valid, but exclusive team-at-time inference requires finer-grain evidence."
+    },
+    {
+      "finding": "13,621 normalized names belong to multiple canonical people.",
+      "disposition": "EXPECTED_AMBIGUITY_PRESERVED; source-scoped IDs remain collision-free and name-only auto-promotion remains disabled."
+    },
+    {
+      "finding": "Derived source-mapping and transfer rows do not repeat direct capture IDs in every row.",
+      "disposition": "PRESERVED_PROVENANCE_LIMIT; they remain tied to immutable registry payload identity, verified person/roster evidence, builder identity, and exact row/provenance hashes."
+    },
+    {
+      "finding": "Both registries retain candidate, review-required, and unresolved observations.",
+      "disposition": "PRESERVED_NOT_AUTO_PROMOTED; affected joins remain ineligible without further evidence and do not block unrelated verified identities."
+    }
+  ],
+  "downstream_reevaluation": {
+    "POST-STORY-014": "HARD_DEPENDENCY_SATISFIED_AFTER_VERIFIED_JIRA_SYNC",
+    "POST-SUBTASK-040": "READY_AFTER_VERIFIED_JIRA_SYNC",
+    "POST-SUBTASK-041": "REMAINS_DEPENDENT_ON_POST-SUBTASK-040",
+    "POST-SUBTASK-042": "REMAINS_DEPENDENT_ON_POST-SUBTASK-040_AND_POST-SUBTASK-041"
+  },
+  "policy_and_security": {
+    "bulk_payloads_in_git": false,
+    "external_data_lake_boundary_preserved": true,
+    "raw_third_party_publication_allowed": false,
+    "private_research_acquisition_and_local_training_allowed": true,
+    "rights_metadata_nonblocking": true,
+    "credentials_exposed": false
+  },
+  "producer": {
+    "base_commit": "5d12c5a075efaa900f4b8deaa66520ad342ff5a3",
+    "branch": "codex/BAT-389-registry-validation",
+    "source_manifest": {
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-039.json",
+      "sha256": "1aad1f7b5c4cb63ad2dcc4a5829423d989be95d4b5017d3616bd9f9ae9a2b805",
+      "bytes": 16200
+    },
+    "rollback_checkpoint": {
+      "path": "<external-data-root>/backups/BAT-389/20260810T023422Z-prechange",
+      "manifest_sha256": "64e3dd952df8a04e24d821bc9846281deb478d779d35946af6b833a8df1140ea",
+      "bundle_sha256": "89e556d71d95115d2ee5d4feba105d32d7fb1cf069c78ea6a61327e279ae5315",
+      "integrity": "PASS"
+    },
+    "runtime": "CPython 3.11 local validation; CPython 3.12 protected Linux and Windows CI required before completion",
+    "split_or_cutoff": "NOT_APPLICABLE_REGISTRY_VALIDATION_NO_MODEL_FIT_OR_TARGET_EVALUATION"
+  },
+  "protected_integration": {
+    "state": "PENDING_BRANCH_PR_REQUIRED_CHECKS_AND_MERGE",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "repository_ci_run": null,
+    "security_analysis_run": null
+  },
+  "live_jira": {
+    "status": "In Progress",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "PRODUCTION_READY",
+    "evidence_state": "PLANNED",
+    "claim_comment_id": "13423",
+    "checkpoint_comment_id": "13424"
+  },
+  "completion": {
+    "completion_claimed": false,
+    "achieved_maturity": "PRODUCTION_READY_LOCAL",
+    "evidence_state": "PLANNED_PENDING_PROTECTED_INTEGRATION",
+    "issue_disposition": "IMPLEMENTATION_VALIDATED_AWAITING_PROTECTED_INTEGRATION",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [
+      "Protected branch/PR checks, merge, merge-commit validation, live Jira completion, and final local reconciliation"
+    ]
+  },
+  "honesty_boundary": {
+    "registry_validation_locally_passed": true,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "pit_or_chronological_gate_passed": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

@@ -4,7 +4,7 @@
   "decision_unit": "POST-SUBTASK-041",
   "jira_key": "BAT-391",
   "created_at_utc": "2026-08-10T08:01:26Z",
-  "updated_at_utc": "2026-08-10T08:10:00Z",
+  "updated_at_utc": "2026-08-10T08:15:05Z",
   "acceptance_matrix": [
     {
       "criterion": 1,
@@ -197,6 +197,14 @@
     {
       "finding": "The strict repository validator run immediately after live Jira claim reconciliation reported 31 expected manifest mismatches caused by the claim-generated Jira derivative bytes.",
       "disposition": "Preserved as pre-implementation negative evidence. Provenance regeneration and all strict validators are required after the artifact set stabilizes."
+    },
+    {
+      "finding": "The first Jira completion transition request attempted to set custom fields on the transition screen and Jira rejected the complete request with HTTP 400 because those fields are not available on that screen.",
+      "disposition": "No partial transition occurred. The operation was recovered through the supported issue-edit, evidence-comment, and status-transition endpoints, followed by exact read-back verification."
+    },
+    {
+      "finding": "The first local completion reconciliation correctly rejected live Done while the canonical evidence_state was still PLANNED.",
+      "disposition": "The evidence_state was changed to VERIFIED only after the merged evidence artifact and live completion read-back existed; the second dry-run and actual reconciliation then completed with zero conflicts."
     }
   ],
   "rollback_checkpoint": {
@@ -205,6 +213,41 @@
     "manifest_sha256": "edf45f01e975c6081cb77a8f85851f375059ae4030a8da2b60a9b656a59139af",
     "sha256sums_sha256": "e7b2d985fb12bb46be004cb888cdc9b97b6403bd9691614f2ecddda31767cc26",
     "bundle_verify": "PASS"
+  },
+  "integration": {
+    "implementation_pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/120",
+    "implementation_pr_state": "MERGED",
+    "implementation_merge_commit": "23f26c05ff369640f1b79621f570a2023b5865d8",
+    "implementation_merged_at_utc": "2026-08-10T08:12:37Z",
+    "github_checks": "PASS",
+    "live_jira": {
+      "issue_key": "BAT-391",
+      "issue_id": "24531",
+      "status": "Done",
+      "logical_workflow_state": "DONE",
+      "implementation_maturity": "EMPIRICALLY_VALIDATED",
+      "evidence_state": "VERIFIED",
+      "completion_comment_id": "13440",
+      "updated": "2026-08-10T03:13:43.855-0500"
+    },
+    "completion_reconciliation": {
+      "source_export": "<external-data-root>/runtime/BAT-391/BAT-391-completion-live-row.csv",
+      "dry_run": "PASS",
+      "actual": "PASS",
+      "conflicts": 0,
+      "strict_validation": "PASS"
+    },
+    "post_sync_validation": {
+      "strict_repository_and_provenance": "PASS",
+      "source_references": 2119,
+      "jira_derivatives": 474,
+      "jira_manifest_files": 1804,
+      "jira_second_pass": "PASS",
+      "w25_final": "PASS",
+      "tests_passed": 316,
+      "tests_skipped": 2,
+      "subtests_passed": 79
+    }
   },
   "eligibility": {
     "artifact_maturity": "EMPIRICALLY_VALIDATED",

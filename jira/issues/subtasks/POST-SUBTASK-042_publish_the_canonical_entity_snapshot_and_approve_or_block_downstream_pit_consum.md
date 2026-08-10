@@ -49,7 +49,7 @@
     "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
     "artifacts/jira_evidence/POST-SUBTASK-042.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-041",
+  "blocked_reason": "",
   "blocks": [
     "POST-EPIC-005",
     "POST-STORY-015",
@@ -244,7 +244,7 @@
     "governance/ENTITY_RESOLUTION_STATES.csv",
     "src/aggie_analytics/entities/resolution.py"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -402,7 +402,7 @@
   "title": "[POST-SUBTASK-042] Publish the canonical entity snapshot and approve or block downstream PIT consumption",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "CALIBRATION",
     "CHRONOLOGICAL_REPLAY",
@@ -413,7 +413,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-014: Population resolution, review workflow, transitions, and entity gate.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-042.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

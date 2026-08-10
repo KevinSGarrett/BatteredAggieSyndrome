@@ -1471,9 +1471,14 @@ def remediate_reversed_importer_links(
                 "source_local_id": key_to_local.get(source_key, source_key),
                 "target_local_id": key_to_local.get(target_key, target_key),
             }
+    canonical_physical = {
+        link_id: item
+        for link_id, item in physical.items()
+        if item["source_key"] in key_to_local and item["target_key"] in key_to_local
+    }
     actual = {
         (item["type"], item["source_local_id"], item["target_local_id"])
-        for item in physical.values()
+        for item in canonical_physical.values()
     }
     if actual == expected:
         return
@@ -1482,12 +1487,72 @@ def remediate_reversed_importer_links(
             "status": "CANONICAL_SUBSET_NO_DELETION_REQUIRED",
             "existing_canonical_links": len(actual),
             "missing_canonical_links": len(expected - actual),
+            "preserved_auxiliary_links": len(physical) - len(canonical_physical),
             "verified_at": utc_now(),
         }
         ledger["updated_at"] = utc_now()
         write_json_atomic(LEDGER_PATH, ledger)
         return
     reverse_expected = {(link_type, target, source) for link_type, source, target in expected}
+    unexpected = actual - expected
+    if unexpected and unexpected <= reverse_expected:
+        targeted = ledger.get("targeted_link_direction_remediation", {})
+        candidate_links = {
+            link_id: item
+            for link_id, item in canonical_physical.items()
+            if (item["type"], item["source_local_id"], item["target_local_id"]) in unexpected
+        }
+        if not targeted:
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            snapshot_path = JIRA_ROOT / "snapshots" / f"BAT_TARGETED_REVERSED_LINKS_{stamp}.json"
+            snapshot = {
+                "schema_version": 1,
+                "captured_at": utc_now(),
+                "reason": "Remove only exact reverse-direction duplicates of canonical generated dependencies; preserve every unrelated or auxiliary relationship.",
+                "canonical_expected_count": len(expected),
+                "canonical_actual_count": len(actual),
+                "preserved_auxiliary_link_count": len(physical) - len(canonical_physical),
+                "links": sorted(candidate_links.values(), key=lambda item: int(item["id"])),
+            }
+            write_json_atomic(snapshot_path, snapshot)
+            digest = sha256_file(snapshot_path)
+            if json.loads(snapshot_path.read_text(encoding="utf-8")) != snapshot or sha256_file(snapshot_path) != digest:
+                raise RuntimeError("Targeted reversed-link snapshot reread/hash verification failed")
+            targeted = {
+                "status": "DELETE_EXACT_REVERSED_DUPLICATES_IN_PROGRESS",
+                "backup": {"path": str(snapshot_path.relative_to(ROOT)), "sha256": digest},
+                "candidate_link_ids": sorted(candidate_links, key=int),
+                "deleted_link_ids": [],
+                "started_at": utc_now(),
+            }
+            ledger["targeted_link_direction_remediation"] = targeted
+            ledger["updated_at"] = utc_now()
+            write_json_atomic(LEDGER_PATH, ledger)
+        candidate_ids = set(targeted["candidate_link_ids"])
+        current_ids = set(candidate_links)
+        if current_ids - candidate_ids:
+            raise RuntimeError("Targeted reversed-link set changed after its immutable snapshot")
+        deleted = set(targeted.get("deleted_link_ids", []))
+        for link_id in sorted(current_ids - deleted, key=int):
+            client.delete(f"/rest/api/3/issueLink/{link_id}")
+            deleted.add(link_id)
+            targeted["deleted_link_ids"] = sorted(deleted, key=int)
+            ledger["updated_at"] = utc_now()
+            write_json_atomic(LEDGER_PATH, ledger)
+        for _ in range(60):
+            remaining_issues = search_issues(client, ["issuelinks", local_field_id])
+            remaining_ids = {
+                str(link["id"])
+                for issue in remaining_issues
+                for link in issue.get("fields", {}).get("issuelinks", []) or []
+            }
+            if not (candidate_ids & remaining_ids):
+                targeted.update({"status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED", "removed_at": utc_now()})
+                ledger["updated_at"] = utc_now()
+                write_json_atomic(LEDGER_PATH, ledger)
+                return
+            time.sleep(2)
+        raise RuntimeError("Jira search index did not settle after targeted reversed-link cleanup")
     remediation = ledger.get("link_direction_remediation", {})
     recoverable_partial = (
         remediation.get("status") == "DELETE_REVERSED_LINKS_IN_PROGRESS"

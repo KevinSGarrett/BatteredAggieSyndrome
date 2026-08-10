@@ -22,7 +22,7 @@
     "artifacts/entities/entity_decision_and_transition_log.jsonl",
     "artifacts/jira_evidence/POST-SUBTASK-041.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-039;POST-SUBTASK-040",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-040",
   "blocks": [
     "POST-SUBTASK-042"
   ],

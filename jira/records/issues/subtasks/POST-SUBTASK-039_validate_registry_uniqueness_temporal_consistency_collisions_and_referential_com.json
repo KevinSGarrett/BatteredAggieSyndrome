@@ -74,7 +74,7 @@
   "end_to_end_validation": "Versioned canonical registries reproduce historical identity membership and retain every ambiguity rather than silently applying current mappings. The gate decision must explicitly reevaluate downstream issues: POST-STORY-014, POST-SUBTASK-040, POST-SUBTASK-041, POST-SUBTASK-042.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-039.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -141,11 +141,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24529",
-    "jira_updated_at": "2026-08-09T00:03:34.084-0500",
-    "last_synced_at": "2026-08-09T05:44:21.584799+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T21:56:06.598-0500",
+    "last_synced_at": "2026-08-10T02:58:42.704385+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-389\\BAT-389-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -199,8 +199,8 @@
     "docs/16_ENTITY_RESOLUTION_AND_REVIEW.md",
     "governance/ENTITY_RESOLUTION_STATES.csv"
   ],
-  "ready": true,
-  "record_revision": "2.1",
+  "ready": false,
+  "record_revision": "2.2",
   "related_to": [],
   "required_evidence": [
     "`artifacts/entities/registry_validation.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -300,5 +300,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-013: Canonical registries, aliases, and temporal relationships.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-039.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }

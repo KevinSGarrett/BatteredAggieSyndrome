@@ -635,7 +635,7 @@ artifacts/entities/canonical_core_registry.csv,POST-SUBTASK-037,Subtask,true,IMP
 artifacts/entities/canonical_core_registry_manifest.json,POST-SUBTASK-037,Subtask,true,IMPLEMENTED,POST-SUBTASK-038;POST-SUBTASK-039,VERIFIED
 artifacts/entities/canonical_people_registry.csv,POST-SUBTASK-038,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-039,VERIFIED
 artifacts/entities/canonical_people_registry_manifest.json,POST-SUBTASK-038,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-039,VERIFIED
-artifacts/entities/registry_validation.json,POST-SUBTASK-039,Subtask,true,PRODUCTION_READY,POST-STORY-014;POST-SUBTASK-040;POST-SUBTASK-041;POST-SUBTASK-042,PLANNED
+artifacts/entities/registry_validation.json,POST-SUBTASK-039,Subtask,true,PRODUCTION_READY,POST-STORY-014;POST-SUBTASK-040;POST-SUBTASK-041;POST-SUBTASK-042,VERIFIED
 artifacts/entities/resolution_results.parquet,POST-SUBTASK-040,Subtask,true,IMPLEMENTED,POST-SUBTASK-041;POST-SUBTASK-042,PLANNED
 artifacts/entities/entity_decision_and_transition_log.jsonl,POST-SUBTASK-041,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-042,PLANNED
 artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json,POST-SUBTASK-042,Subtask,true,PRODUCTION_READY,POST-EPIC-005;POST-STORY-015;POST-SUBTASK-043;POST-SUBTASK-044;POST-SUBTASK-045,PLANNED

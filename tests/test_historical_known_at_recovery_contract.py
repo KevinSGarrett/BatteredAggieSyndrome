@@ -55,6 +55,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        cls.weather_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_weather_previous_runs_reconciliation_gate.json"
+            ).read_text(encoding="utf-8")
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -502,6 +510,52 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(self.player_box_gate["reconciliation"]["player_event_metric_conflict_cells"], 34006)
         self.assertFalse(self.player_box_gate["historical_known_at_gate"]["name_only_player_identity_merge_allowed"])
         self.assertFalse(self.player_box_gate["scientific_nonclaims"]["gap_002_resolved"])
+
+    def test_weather_previous_runs_preserve_partial_route_and_unknown_pit_boundaries(self) -> None:
+        weather = self.contract["latest_validated_weather_previous_runs_candidate"]
+        self.assertEqual(
+            weather["dataset_identity"],
+            "511246db0195b09bba97647dbdb25fb2fcaf464f9899142c7e33b2479796c1cc",
+        )
+        self.assertEqual(weather["source_season_min"], 2021)
+        self.assertEqual(weather["source_season_max"], 2025)
+        self.assertEqual(weather["target_games_with_kickoff_and_coordinates"], 4545)
+        self.assertEqual(weather["captured_games"], 3346)
+        self.assertEqual(weather["source_evidence_gap_games"], 2)
+        self.assertEqual(weather["technical_route_gap_games"], 1199)
+        self.assertEqual(weather["captured_requests"], 385)
+        self.assertEqual(weather["technical_route_gap_requests"], 168)
+        self.assertEqual(weather["candidate_cells"], 100380)
+        self.assertEqual(weather["non_null_cells"], 29527)
+        self.assertEqual(weather["archive_variable_unavailable_cells"], 70853)
+        self.assertEqual(weather["validation_checks_passed"], 23)
+        self.assertEqual(weather["mutation_controls_passed"], 14)
+        self.assertEqual(weather["deterministic_rebuild_checks_passed"], 8)
+        self.assertEqual(weather["deterministic_payloads_compared"], 5)
+        self.assertIn("UNKNOWN", weather["historical_known_at_basis"])
+        self.assertIn("1199", weather["partial_route_finding"])
+        self.assertEqual(weather["observed_weather_substitution"], "PROHIBITED")
+        self.assertEqual(weather["admission_state"], "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED")
+        claim = self.evidence["completion_claim"]
+        self.assertTrue(claim["weather_previous_runs_partial_candidate_layer_validated"])
+        self.assertFalse(claim["weather_acquisition_complete"])
+        self.assertFalse(claim["weather_canonical_pit_feature_or_protected_use_admission"])
+        self.assertFalse(claim["observed_weather_substitution_used"])
+        checkpoint = self.gate["parallel_weather_previous_runs_checkpoint"]
+        self.assertFalse(checkpoint["exact_historical_model_run_initialization_established"])
+        self.assertFalse(checkpoint["exact_historical_api_availability_established"])
+        self.assertFalse(checkpoint["historical_venue_coordinate_effective_time_established"])
+        self.assertFalse(checkpoint["observed_or_reanalysis_weather_substitution_allowed"])
+        self.assertFalse(checkpoint["canonical_weather_admission"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["training_feature_admission"])
+        self.assertFalse(checkpoint["protected_evaluation_admission"])
+        self.assertIn("PARTIAL_ROUTE", checkpoint["gate_disposition"])
+        self.assertEqual(self.weather_gate["candidate_layer"]["captured_games"], 3346)
+        self.assertEqual(self.weather_gate["candidate_layer"]["technical_route_gap_games"], 1199)
+        self.assertFalse(self.weather_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertFalse(self.weather_gate["scientific_nonclaims"]["historical_weather_complete"])
+        self.assertFalse(self.weather_gate["scientific_nonclaims"]["gap_002_resolved"])
 
 
 if __name__ == "__main__":

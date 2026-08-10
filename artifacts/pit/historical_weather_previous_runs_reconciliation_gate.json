@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "gate_id": "BAT523-HISTORICAL-WEATHER-PREVIOUS-RUNS-2021-2025",
+  "jira_key": "BAT-523",
+  "source_id": "SRC-026",
+  "provider": "Open-Meteo",
+  "route": "previous_runs_gfs_game_weather",
+  "model": "gfs_seamless",
+  "candidate_layer": {
+    "acquisition_identity": "3560961504c4a1f05ca81f1f2fbe34af8ba3291c449c23a67dc01a0dddf193e6",
+    "acquisition_manifest_sha256": "e8be712fbfe5a6928f8359413cda1dd3b22fa35af83e7a018039d8c7a416c394",
+    "dataset_identity": "511246db0195b09bba97647dbdb25fb2fcaf464f9899142c7e33b2479796c1cc",
+    "manifest_sha256": "76126f95a4b7088d65f9cf144b5d69a2eb79acb5b1f752a0105f3ffb88f3f26c",
+    "source_seasons": [2021, 2022, 2023, 2024, 2025],
+    "target_games_with_kickoff_and_coordinates": 4545,
+    "captured_games": 3346,
+    "source_evidence_gap_games": 2,
+    "technical_route_gap_games": 1199,
+    "target_requests": 553,
+    "captured_requests": 385,
+    "technical_route_gap_requests": 168,
+    "raw_capture_bytes": 21302920,
+    "candidate_cells": 100380,
+    "non_null_cells": 29527,
+    "archive_variable_unavailable_cells": 70853,
+    "payload_bytes": 9199224,
+    "validation_checks_passed": 23,
+    "mutation_controls_passed": 14,
+    "deterministic_rebuild_checks_passed": 8,
+    "deterministic_payloads_compared": 5
+  },
+  "coverage_by_season": [
+    {"season": 2021, "captured_games": 887, "candidate_cells": 26610, "non_null_cells": 2661, "archive_variable_unavailable_cells": 23949},
+    {"season": 2022, "captured_games": 894, "candidate_cells": 26820, "non_null_cells": 2682, "archive_variable_unavailable_cells": 24138},
+    {"season": 2023, "captured_games": 762, "candidate_cells": 22860, "non_null_cells": 2253, "archive_variable_unavailable_cells": 20607},
+    {"season": 2024, "captured_games": 767, "candidate_cells": 23010, "non_null_cells": 20851, "archive_variable_unavailable_cells": 2159},
+    {"season": 2025, "captured_games": 36, "candidate_cells": 1080, "non_null_cells": 1080, "archive_variable_unavailable_cells": 0}
+  ],
+  "historical_known_at_gate": {
+    "fixed_lead_offset_evidence_preserved": true,
+    "exact_historical_model_run_initialization_established": false,
+    "exact_historical_api_availability_established": false,
+    "historical_venue_coordinate_effective_time_established": false,
+    "observed_or_reanalysis_weather_substitution_allowed": false,
+    "canonical_weather_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED"
+  },
+  "negative_findings": [
+    "The provider rate hold left 168 stable request identities and 1,199 otherwise eligible games uncaptured; the checkpoint is partial and resumable.",
+    "Two additional 2025 games lack kickoff or venue-coordinate source evidence and remain distinct source-evidence gaps.",
+    "The archive is temperature-only for almost all captured 2021-2023 games; broader variables become materially available in 2024.",
+    "Exact historical model-run initialization and exact API availability timestamps are absent from the fixed-offset response and remain UNKNOWN.",
+    "Venue coordinates come from the current 2026 catalog; historical coordinate effective time is not established.",
+    "No observed or reanalysis weather is substituted for an issued pregame forecast."
+  ],
+  "gate_disposition": "VALIDATED_PARTIAL_CANDIDATE_LAYER_ONLY_ACQUISITION_COMPLETION_EXACT_RUN_AVAILABILITY_VENUE_EFFECTIVE_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_VALIDATION_PENDING",
+  "scientific_nonclaims": {
+    "historical_weather_complete": false,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

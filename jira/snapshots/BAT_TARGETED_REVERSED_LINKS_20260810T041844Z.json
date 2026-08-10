@@ -1,0 +1,18 @@
+{
+  "canonical_actual_count": 1063,
+  "canonical_expected_count": 1081,
+  "captured_at": "2026-08-10T04:18:44.441016+00:00",
+  "links": [
+    {
+      "id": "17385",
+      "source_key": "BAT-422",
+      "source_local_id": "POST-SUBTASK-072",
+      "target_key": "BAT-383",
+      "target_local_id": "POST-SUBTASK-033",
+      "type": "Blocks"
+    }
+  ],
+  "preserved_auxiliary_link_count": 1,
+  "reason": "Remove only exact reverse-direction duplicates of canonical generated dependencies; preserve every unrelated or auxiliary relationship.",
+  "schema_version": 1
+}

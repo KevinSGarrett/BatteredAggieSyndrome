@@ -1,17 +1,17 @@
 {
-  "schema_version": "1.0.0",
-  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-activation",
+  "schema_version": "1.1.0",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-2010-2022",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
   "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-  "issued_at_utc": "2026-08-10T12:50:00Z",
-  "disposition": "SCOPED_TEAM_OUTCOME_REPLAY_VALIDATED_EXPANSION_IN_PROGRESS",
+  "issued_at_utc": "2026-08-10T13:45:00Z",
+  "disposition": "EXPANDED_2010_2022_TEAM_OUTCOME_REPLAY_VALIDATED_OTHER_DOMAIN_EXPANSION_IN_PROGRESS",
   "live_jira": {
     "issue_id": "24663",
     "status": "In Progress",
     "logical_workflow_state": "IN_PROGRESS",
-    "implementation_maturity": "CONTRACT_DEFINED",
-    "evidence_state": "PLANNED",
+    "implementation_maturity": "SCOPED_IMPLEMENTED_EXPANSION_CONTINUES",
+    "evidence_state": "VERIFIED_SCOPED",
     "parent": "BAT-32",
     "blocks": ["BAT-399"],
     "relates_to": ["BAT-398"]
@@ -21,25 +21,25 @@
       "path": "artifacts/pit/known_at_gate.json",
       "sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
       "bytes": 1650075,
-      "finding": "Zero source-known-at rows admitted."
+      "finding": "Original BAT-395 zero-state admitted no source-known-at rows."
     },
     {
       "path": "artifacts/pit/asof_state_manifest.json",
       "sha256": "be659759a1fcf02f360ba2a2948096d61b63cca51c90d8ccd6cfbc80c3f5ec51",
       "bytes": 8235,
-      "finding": "All 313,712 temporal candidates remain quarantined."
+      "finding": "Original BAT-396 zero-state quarantined all 313,712 temporal candidates."
     },
     {
       "path": "artifacts/pit/pregame_matrix_manifest.json",
       "sha256": "dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0",
       "bytes": 7277,
-      "finding": "Matrix has zero rows and zero cells."
+      "finding": "Original BAT-397 matrix had zero rows and zero cells."
     },
     {
       "path": "artifacts/pit/matrix_gate_decision.json",
       "sha256": "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a1208",
       "bytes": 6351,
-      "finding": "BAT-398 explicitly blocks matrix approval and BAT-399."
+      "finding": "Original BAT-398 decision remains preserved and is superseded only for the explicitly re-executed scoped team-outcome lane."
     }
   ],
   "contract": {
@@ -49,57 +49,98 @@
     "domain_scoped_eligibility_required": true,
     "independent_work_may_continue": true
   },
-  "validated_replay": {
-    "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
-    "repository_gate": {
-      "path": "artifacts/pit/historical_known_at_replay_gate.json",
-      "sha256": "80247826294d29b07e9e2e3aa6462de67acbeeebee2b2b68ca77764fd209fc7d",
-      "bytes": 4215
-    },
+  "validated_reconciliation_2010_2021": {
+    "dataset_identity": "cbe37a861eccdaaefee060fda1fd05bb30b449bfa1163f740ec3726cc6278c2d",
     "manifest": {
-      "path": "<external-data-root>/manifests/historical_known_at/sha256/c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a/known_at_replay_manifest.json",
-      "sha256": "5680240f6d35a10f65e5befa837f0b09a440cd590cd1e931daf820e15a63e468"
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/cbe37a861eccdaaefee060fda1fd05bb30b449bfa1163f740ec3726cc6278c2d/schedule_outcome_reconciliation.json",
+      "sha256": "7b46433cf101aa4acea5ae0725735da75c5f030a8d89d02be652214910f2feed"
     },
     "independent_validation": {
-      "path": "<external-data-root>/validation/BAT-523/known-at-replay/c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a/validation-report.json",
-      "sha256": "e67e173eae4125b2f09f79a17d540d205d7de0dcec8ea58b563e2dd0d74d4639",
-      "checks_passed": 36,
-      "checks_failed": 0
+      "path": "<external-data-root>/validation/BAT-523/history-2010-2021/schedule_outcome_reconciliation_validation.json",
+      "sha256": "87f9faf5180d8c80fadef3f9e646efa53bf6e85c124383475419ca09a084dfe9",
+      "checks_passed": 30,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
     },
     "deterministic_rebuild": {
-      "path": "<external-data-root>/validation/BAT-523/known-at-replay/c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a/deterministic-rebuild-report.json",
-      "sha256": "312530078216bbeebbf1000a62d59a4725f01ab4b846644cdd4341e5609ed844",
+      "path": "<external-data-root>/validation/BAT-523/history-2010-2021/cbe37a861eccdaaefee060fda1fd05bb30b449bfa1163f740ec3726cc6278c2d/deterministic-rebuild-report.json",
+      "sha256": "522e23a3af399a271bf86c08e888a813526e930309af0b142c7fbbcd1321fc12",
       "status": "PASS"
     },
     "population": {
-      "accepted_strict_game_outcomes": 894,
-      "accepted_team_observations": 1788,
+      "repository_rows": 10250,
+      "accepted_cross_source_exact": 9699,
+      "quarantined": 551,
+      "seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    "quarantine": {
+      "independent_cfbd_game_not_found": 546,
+      "outcome_reconciliation_conflict": 2,
+      "team_identity_or_mapping_drift": 3
+    }
+  },
+  "validated_replay": {
+    "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "repository_gate": {
+      "path": "artifacts/pit/historical_known_at_replay_gate.json",
+      "sha256": "6b986beffaa078aa7151c836d387a501871c53d3b43732a3473444724c28f0b8",
+      "bytes": 6702
+    },
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/known_at_replay_manifest.json",
+      "sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888"
+    },
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/known-at-replay/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/validation-report.json",
+      "sha256": "0d77513834a87900eea33c811a7d22c6926c0bc8ecc5f767aff9de70906e6ee1",
+      "checks_passed": 76,
+      "checks_failed": 0
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/known-at-replay/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/deterministic-rebuild-report.json",
+      "sha256": "f75374116989e98e5fca53c9bcbf254e101c0a823af94011679bc84e10cfdfee",
+      "status": "PASS"
+    },
+    "population": {
+      "source_candidate_rows": 12047,
+      "accepted_strict_game_outcomes": 10593,
+      "accepted_team_observations": 21186,
+      "held_repository_versioned_single_source": 884,
+      "quarantined_reconciliation_rows": 570,
       "target_games": 2764,
       "matrix_rows": 5528,
       "matrix_cells": 22112,
-      "rows_with_priors": 5493,
-      "rows_source_missing": 35,
-      "target_game_outcome_used_rows": 0
+      "rows_with_priors": 5514,
+      "rows_source_missing": 14,
+      "target_game_outcome_used_rows": 0,
+      "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      "target_seasons": [2023, 2024, 2025]
     },
-    "gate_disposition": "APPROVE_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
-    "full_historical_population_disposition": "BLOCKED_EXPANSION_INCOMPLETE",
+    "gate_disposition": "APPROVE_EXPANDED_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+    "full_historical_population_disposition": "BLOCKED_OTHER_DOMAINS_AND_COVERAGE_GATES_INCOMPLETE",
     "negative_findings": [
-      "The strict replay admits only 894 exact cross-source 2022 outcomes.",
-      "The 884 repository-versioned single-source 2021 outcomes remain held outside automatic admission.",
-      "Nineteen reconciliation failures remain quarantined.",
-      "The scoped replay does not establish full historical readiness, a production feature set, protected performance, or any scientific result."
+      "The validated team-outcome lane spans 2010-2022 but does not establish completeness for other historical domains.",
+      "The 884 repository-versioned single-source candidates remain held outside automatic admission.",
+      "All 570 reconciliation failures remain preserved in quarantine.",
+      "Fourteen target-team rows retain explicit SOURCE_MISSING priors.",
+      "The expanded scoped replay does not establish final historical readiness, production model readiness, protected performance, or any scientific result."
     ]
   },
+  "preserved_prior_replay": {
+    "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
+    "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
+  },
   "rollback_checkpoint": {
-    "path": "<external-data-root>/backups/BAT-523-known-at-recovery-contract/20260810T121058Z",
-    "bundle_sha256": "99527d0f9f0ae85731982b7e88c7bddc1c68f73589e9cc69531266913978a34c",
-    "bundle_bytes": 17858977
+    "path": "<external-data-root>/backups/BAT-523-history-2010-2022/20260810T133700Z",
+    "bundle_sha256": "07d577c3703042b697d80fd84c71a661deab155963a95fc383a1d6116c411d2e",
+    "bundle_bytes": 17922454
   },
   "completion_claim": {
     "workstream_activated": true,
-    "historical_known_at_recovered": "SCOPED_2022_TEAM_OUTCOME_CONTEXT_ONLY",
+    "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
     "nonempty_pit_state_materialized": true,
-    "matrix_approved": "SCOPED_PIPELINE_INTEGRATION_ONLY",
+    "matrix_approved": "EXPANDED_SCOPED_PIPELINE_INTEGRATION_ONLY",
+    "other_domain_expansion_continues": true,
     "full_historical_population_ready": false,
     "gap_002_resolved": false,
     "protected_model_promotion_eligible": false,

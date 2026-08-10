@@ -90,6 +90,7 @@ artifacts/jira_evidence/POST-SUBTASK-039.json
 artifacts/jira_evidence/POST-SUBTASK-040.json
 artifacts/jira_evidence/POST-SUBTASK-041.json
 artifacts/jira_evidence/POST-SUBTASK-042.json
+artifacts/jira_evidence/POST-SUBTASK-043.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
@@ -135,6 +136,7 @@ configs/hpo_registry.json
 configs/hydration_manifest.json
 configs/implementation_plan.json
 configs/judging_rule_seal.json
+configs/known_at_registry.json
 configs/model_architecture_registry.json
 configs/open_source_integration_registry.json
 configs/openai_assist_policy.json

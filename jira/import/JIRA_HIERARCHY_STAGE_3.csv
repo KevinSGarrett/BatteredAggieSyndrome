@@ -15405,7 +15405,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-162
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-162_pilot_historical_gamebook_equivalent_extraction_in_shadow_candidate_mode.json",In Progress,Highest,actionable;openai-assist;post-wave;subtask;pilot-a;gamebook;local-id-post-subtask-162,data-sources,POST-SUBTASK-162,OPENAI-ASSIST-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-162_pilot_historical_gamebook_equivalent_extraction_in_shadow_candidate_mode.json",Done,Highest,actionable;openai-assist;post-wave;subtask;pilot-a;gamebook;local-id-post-subtask-162,data-sources,POST-SUBTASK-162,OPENAI-ASSIST-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-519,100471,[POST-SUBTASK-163] Pilot unresolved entity candidate ranking and evidence explanation without merge authority,100466,"Local ID: POST-SUBTASK-163
 
 Objective

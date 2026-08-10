@@ -23,7 +23,7 @@
     "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
     "artifacts/jira_evidence/POST-SUBTASK-166.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-162;POST-SUBTASK-163;POST-SUBTASK-164",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-163;POST-SUBTASK-164",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",

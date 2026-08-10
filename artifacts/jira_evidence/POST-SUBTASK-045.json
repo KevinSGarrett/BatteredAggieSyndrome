@@ -1,0 +1,286 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-045",
+  "jira_key": "BAT-395",
+  "created_at_utc": "2026-08-10T10:10:00Z",
+  "updated_at_utc": "2026-08-10T10:10:00Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "artifacts/pit/known_at_gate.json",
+      "evidence_sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
+      "verifier": "<external-data-root>/runtime/BAT-395/validate_known_at_gate.py",
+      "verified_at_utc": "2026-08-10T10:10:00Z",
+      "observable_result": "All 1,197 registered fields and all 736 W10 candidate-input fields resolve to an explicit temporal class, source-known-at rule, cutoff rule, correction policy, and prohibited-use contract. Realized weather, closing-market leakage, final participation, target-game box scores/outcomes, same-game/future events, late corrections, unresolved rules, and name-only eligibility all fail closed."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/pit/known_at_gate.json",
+      "evidence_sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
+      "verifier": "BAT-394 timestamp identity handoff plus BAT-395 strict validator",
+      "verified_at_utc": "2026-08-10T10:10:00Z",
+      "observable_result": "All 990 capture/version timestamp decisions preserve source-specific publication, version, and retrieval semantics. Capture identity alone admits no matrix value, every pre-candidate cutoff rejects, retrieval is never publication, event/effective time is never knowledge time, and ambiguous or later correction evidence remains scoped to quarantine."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/pit/known_at_gate.json",
+      "evidence_sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
+      "verifier": "32 deterministic chronology cases and 12 unsafe artifact mutations",
+      "verified_at_utc": "2026-08-10T10:10:00Z",
+      "observable_result": "All 16 governed project leakage fixtures and 16 added hard cases passed. The hard cases include valid prior-game evidence and deliberate rejection of missing/late/naive known-at, target-game identity, future events, unknown completion, realized weather, closing markets, final participation, target-game box/outcome evidence, late correction, retrieval-as-publication, name-only admission, and unresolved field rules."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS",
+      "evidence": "artifacts/jira_evidence/POST-SUBTASK-045.json",
+      "evidence_sha256": "SELF_RECORDED_BY_REPOSITORY_PROVENANCE_MANIFEST",
+      "verifier": "pinned prerequisite identities, population evaluation, and explicit negative downstream decision",
+      "verified_at_utc": "2026-08-10T10:10:00Z",
+      "observable_result": "BAT-392, BAT-393, and BAT-394 evidence is pinned. All 959,765 BAT-391 rows remain rejected because source_known_at_utc is blank, zero accepted PIT matrix values exist, and no feature/PIT/training files exist under the external operational roots. The gate implementation is production-ready while historical row-level PIT and matrix approval remain explicitly blocked; BAT-396 is the next atomic materialization unit."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "CANONICAL_KNOWN_AT_CUTOFF_GATE",
+      "path": "artifacts/pit/known_at_gate.json",
+      "sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
+      "content_hash": "10f25ea475155efc0a238481bb1bf85227b991b0780fb3b5ba1934fa076ec994",
+      "bytes": 1650075,
+      "gate_id": "BAT395_KNOWN_AT_GATE_V1",
+      "format": "JSON"
+    },
+    {
+      "role": "DETERMINISTIC_SECOND_BUILD",
+      "path": "<external-data-root>/validation/BAT-395/known-at-gate/known_at_gate.run-2.json",
+      "sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a",
+      "bytes": 1650075,
+      "comparison": "BYTE_IDENTICAL_TO_CANONICAL_GATE"
+    },
+    {
+      "role": "STRICT_POPULATION_CHRONOLOGY_AND_MUTATION_VALIDATION",
+      "path": "<external-data-root>/validation/BAT-395/known-at-gate/validation-report-run-1.json",
+      "sha256": "c95b7d79ae28ba53d905efef0bb42743e09a4fab9b6dfd4dbc15e49c6ba15a1c",
+      "bytes": 2772,
+      "finding_count": 0,
+      "project_chronology_cases": 16,
+      "hard_chronology_cases": 16,
+      "unsafe_mutations_rejected": 12
+    },
+    {
+      "role": "EXTERNAL_DETERMINISTIC_BUILDER",
+      "path": "<external-data-root>/runtime/BAT-395/build_known_at_gate.py",
+      "sha256": "1e7918c12d666f87d9340c75ff6398e7a78cb2e1063afc10ed3dc6b0572b1424",
+      "bytes": 24604
+    },
+    {
+      "role": "EXTERNAL_STRICT_VALIDATOR_AND_NEW_AUTOMATED_TEST",
+      "path": "<external-data-root>/runtime/BAT-395/validate_known_at_gate.py",
+      "sha256": "ecbfee1b020d0ea5cdb8a893528fd9569010125ff6f9ca6a9d8a3882d2c01f7f",
+      "bytes": 14975
+    }
+  ],
+  "prerequisite_evidence": [
+    {
+      "decision_unit": "POST-SUBTASK-042",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-042.json",
+      "sha256": "ce4fe081e19e0812d4997141749fa31422a740859a08474d1d5888ab8d2baf67",
+      "bytes": 16526,
+      "primary_artifact_sha256": "9edbbb8bf3b52e61b1791330b8d508c5394f8ca111023159dea350f12abed93e",
+      "disposition": "VERIFIED"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-043",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-043.json",
+      "sha256": "f29fb69c599d93366c0b82971ca685d82eff047b0508a54ad6c3f367371f0667",
+      "bytes": 18218,
+      "primary_artifact": "configs/known_at_registry.json",
+      "primary_artifact_sha256": "e8a89a709ad331991bdb0123850485aba759fb828a7f0f6ce04da9f50baf9d41",
+      "disposition": "VERIFIED"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-044",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-044.json",
+      "sha256": "383453a5af50f4e8fee9360144f64290cacd3b4661a80dab828f33f621ab0724",
+      "bytes": 18539,
+      "primary_artifact": "artifacts/pit/timestamp_normalization_report.json",
+      "primary_artifact_sha256": "efbcce861f8f25cf2283b19947a58bc76ccc2939f1fb7d626c50b7d3acc743c8",
+      "disposition": "VERIFIED"
+    }
+  ],
+  "coverage_and_gate_metrics": {
+    "registered_raw_fields": 1197,
+    "resolved_field_rules": 1197,
+    "unresolved_field_rules": 0,
+    "w10_candidate_input_fields": 736,
+    "w10_candidate_fields_with_resolved_rules": 736,
+    "field_scoped_quarantine_rules": 130,
+    "runtime_asof_validity_required_rules": 130,
+    "runtime_prior_completed_non_target_required_rules": 828,
+    "runtime_source_known_at_cutoff_required_rules": 109,
+    "capture_versions": 990,
+    "materialized_tables": 255,
+    "unique_materialized_source_domain_fields": 652,
+    "profile_linked_rows": 4096026,
+    "bat391_rows_evaluated": 959765,
+    "bat391_source_known_at_populated_rows": 0,
+    "bat391_rows_accepted": 0,
+    "bat391_rows_rejected_missing_source_known_at": 959765,
+    "target_game_outcome_used_rows": 0,
+    "accepted_pit_matrix_values": 0,
+    "external_feature_pit_training_files": 0,
+    "project_fixture_cases_passed": 16,
+    "hard_chronology_cases_passed": 16
+  },
+  "gate_decisions": {
+    "gate_implementation": "PRODUCTION_READY",
+    "atomic_work_unit": "PASS_WITH_NEGATIVE_POPULATION_DECISION",
+    "field_contract_resolution": "PASS",
+    "historical_row_level_pit": "BLOCKED_NO_POPULATED_SOURCE_KNOWN_AT",
+    "matrix_approval": "BLOCKED_NO_MATERIALIZED_ACCEPTED_MATRIX",
+    "historical_population_readiness": "NOT_ESTABLISHED",
+    "protected_model_or_scientific_claim": "NOT_APPLICABLE"
+  },
+  "downstream_reevaluation": {
+    "POST-STORY-016": "DEPENDENCY_GATE_COMPLETE_BUT_STORY_REMAINS_INCOMPLETE",
+    "POST-SUBTASK-046": "READY_TO_MATERIALIZE_APPEND_ONLY_ASOF_STATE_WITH_FAIL_CLOSED_EMPTY_OR_QUARANTINED_DOMAINS",
+    "POST-SUBTASK-047": "BLOCKED_ON_POST_SUBTASK_046_AND_NO_ACCEPTED_MATRIX",
+    "POST-SUBTASK-048": "BLOCKED_ON_POST_SUBTASK_046_POST_SUBTASK_047_AND_NO_ACCEPTED_MATRIX"
+  },
+  "test_matrix": [
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_FAIL_CLOSED_WITH_NEGATIVE_REAL_POPULATION_DECISION",
+      "observable_result": "All 16 governed leakage fixtures and 16 additional hard cases passed. The 959,765 real entity rows independently evaluated to zero admissions because source-known-at is blank; this negative result is preserved rather than weakened."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE",
+      "observable_result": "No hypothesis, target, feature matrix, split, model, calibrator, protected evaluation, or performance metric is created or evaluated by this validity gate."
+    },
+    {
+      "classification": "END_TO_END",
+      "disposition": "PASS_GATE_CONSUMER_CONTRACT_WITH_BLOCKED_MATRIX",
+      "observable_result": "BAT-392/BAT-393/BAT-394 identities feed a deterministic gate that resolves every field contract, evaluates every BAT-391 row, rejects unsupported population admission, and gives BAT-396 an explicit append-only materialization interface without manual reinterpretation."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "observable_result": "Two builds from pinned repository/external identities produced byte-identical 1,650,075-byte LF-normalized gates with SHA-256 9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a."
+    }
+  ],
+  "commands": [
+    {
+      "command": "run build_known_at_gate.py twice with fixed issued-at and pinned repository/external inputs",
+      "exit_code": 0,
+      "result": "PASS: byte-identical gate SHA-256 9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a"
+    },
+    {
+      "command": "run validate_known_at_gate.py over the gate, registries, normalized captures, all 959,765 BAT-391 rows, fixtures, external matrix roots, and mutation probes",
+      "exit_code": 0,
+      "result": "PASS: zero findings, 32 chronology cases passed, and 12 unsafe mutations rejected"
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q tests/test_temporal_governance.py tests/test_w24_readiness.py",
+      "exit_code": 0,
+      "result": "PASS: 13 tests and 16 subtests"
+    },
+    {
+      "command": "python -B tools/validate_temporal.py --repo-root .; python -B tools/validate_w24_readiness.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS: bitemporal/PIT/leakage contracts and W24 synthetic readiness"
+    },
+    {
+      "command": "write canonical provenance manifest; validate_repository.py --strict; validate_autonomous_controls.py; validate_w25_final.py; validate_source_refs.py; second_pass_hardening.py --validate-only; validate_jira_control_plane.py --strict; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS: repository/provenance/security, autonomous controls, W25 final binding, 2,119 source references, all 474 Jira derivatives, strict Jira control plane, and 1,804-file Jira manifest"
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS: 316 passed, 2 skipped, 79 subtests"
+    }
+  ],
+  "new_automated_test": {
+    "path": "<external-data-root>/runtime/BAT-395/validate_known_at_gate.py",
+    "scope": "Pinned input identities; complete field/capture lineage; real ledger row decisions; external matrix inventory; gate invariants; project fixture replay; hard-case results; decision and downstream boundaries; unsafe mutation rejection.",
+    "unsafe_mutations_rejected": [
+      "remove_field_rule",
+      "unresolved_field_rule",
+      "field_runtime_bypass",
+      "capture_identity_bypass",
+      "remove_target_identity_guard",
+      "allow_retrieval_as_publication",
+      "fabricate_accepted_ledger_row",
+      "fabricate_matrix_value",
+      "approve_missing_matrix",
+      "promote_downstream_without_matrix",
+      "remove_hard_negative_case",
+      "claim_historical_readiness"
+    ]
+  },
+  "negative_findings": [
+    {
+      "finding": "All 959,765 BAT-391 entity decision/transition rows have blank source_known_at_utc.",
+      "disposition": "EVERY ROW REJECTED WITH MISSING_SOURCE_KNOWN_AT; no decision_known_at, season label, event/effective time, or current capture is substituted."
+    },
+    {
+      "finding": "No accepted feature, PIT-state, training, or matrix payload exists under the configured external roots.",
+      "disposition": "MATRIX APPROVAL REMAINS BLOCKED; rule coverage and file creation cannot fabricate an accepted matrix."
+    },
+    {
+      "finding": "Capture/version identity constrains earliest possible eligibility but cannot independently establish row-level field, target, game-completion, validity, or correction eligibility.",
+      "disposition": "ALL 990 CAPTURE IDENTITIES ARE CONDITIONAL INPUTS ONLY; capture-only matrix bypass is prohibited."
+    },
+    {
+      "finding": "The first strict-validator run exposed that removing one hard-case result was not rejected because declared count fields were checked without comparing list cardinality.",
+      "disposition": "VALIDATOR DEFECT FIXED BEFORE ACCEPTANCE; exact result-list cardinality is now enforced and all 12 mutations reject."
+    }
+  ],
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-395-cutoff-eligibility/20260810T100500Z",
+    "bundle_sha256": "3042ce0b3f953285dd96c61607457fd6d8f518dc7c5d0ac1a2d65d3ea8a5d059",
+    "bundle_bytes": 17021330,
+    "manifest_sha256": "6c0c35e99f54e946d3589fdabcbb53700ed8eaa0d9d560259ece018be53406cb",
+    "sha256sums_sha256": "df74165c4f87448eb83abef0c4b5dbea54033ab56ac6cee04be6c1825f10f0a1",
+    "bundle_verify": "PASS"
+  },
+  "integration": {
+    "implementation_pr_state": "PENDING_VALIDATION_AND_REVIEW",
+    "live_jira": {
+      "issue_key": "BAT-395",
+      "issue_id": "24535",
+      "status": "In Progress",
+      "logical_workflow_state": "IN_PROGRESS",
+      "implementation_maturity": "FUNCTIONAL_STARTER",
+      "evidence_state": "PARTIAL",
+      "claim_comment_id": "13449",
+      "updated": "2026-08-10T05:04:55.670-0500"
+    },
+    "claim_reconciliation": {
+      "source_export": "<external-data-root>/runtime/BAT-395/BAT-395-claim-live-row.csv",
+      "dry_run": "PASS",
+      "actual": "PASS",
+      "rows": 1,
+      "changed_issues": 1,
+      "conflicts": 0,
+      "strict_validation": "PASS"
+    }
+  },
+  "eligibility": {
+    "gate_maturity": "PRODUCTION_READY",
+    "historical_row_level_pit": "BLOCKED_NO_POPULATED_SOURCE_KNOWN_AT",
+    "matrix_approval": "BLOCKED_NO_MATERIALIZED_ACCEPTED_MATRIX",
+    "next_atomic_consumer": "POST-SUBTASK-046_AFTER_VERIFIED_BAT_395_COMPLETION_SYNC",
+    "model_or_feature_promotion": "NOT_EVALUATED_OR_AUTHORIZED"
+  },
+  "honesty_boundary": [
+    "BAT-395 establishes a production-ready fail-closed decision gate; it does not manufacture source-known-at evidence or admit the current historical population.",
+    "It does not establish final national historical completeness, GAP-002 or GAP-003 resolution, an accepted PIT training matrix, production model readiness, or protected performance.",
+    "It does not claim a trained production champion, A&M specialization lift, BAS, Aggie Excess, calibration, score likelihood, or any scientific result.",
+    "BAT-396 may materialize append-only as-of state only through this gate and must preserve empty or quarantined domains without global promotion."
+  ]
+}

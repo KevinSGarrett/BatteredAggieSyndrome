@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_COMPLETION_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-166",
+  "jira_key": "BAT-522",
+  "created_at_utc": "2026-08-10T07:26:52Z",
+  "overall_disposition": "DONE_VERIFIED_NO_BATCH_PROMOTION_GATES_ENFORCED",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS_WITH_NEGATIVE_SCALEOUT_RESULT",
+      "evidence": "artifacts/openai_assist/final_handoff.json",
+      "evidence_sha256": "56d7d9bf63dbf51ac83a51a437a97d9a279530f44d2e0c63b9bfcc7d05eb0cab",
+      "observable_result": "Pilot A remained shadow because Nano was not validated on its exact format; Pilot C remained unpromoted after its failed gate; and the new exact Pilot B Nano comparison quarantined 2/12 cases, so no failed, unsupported, or unstable format was scaled."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/final_handoff.json",
+      "evidence_sha256": "56d7d9bf63dbf51ac83a51a437a97d9a279530f44d2e0c63b9bfcc7d05eb0cab",
+      "observable_result": "The initial comparison was not inexpensive-model-only: Terra completed 106 low/medium jobs and Sol completed 104 medium jobs, including meaningful complex-gamebook, entity-ambiguity, gold-set, schema-risk, and hard-evidence work. Nano then received the required first scale-out opportunity on the pinned entity-review format and failed its all-pass gate; no reserve release or Batch submission was admitted merely to spend budget."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/final_handoff.json",
+      "evidence_sha256": "56d7d9bf63dbf51ac83a51a437a97d9a279530f44d2e0c63b9bfcc7d05eb0cab",
+      "observable_result": "The append-only ledger reconciles 356 reservations, 332 settled synchronous jobs, 24 released zero-cost jobs, zero outstanding reservations, every returned model/reasoning/token/cost/workstream/disposition, $2.751147 settled, $0 reserved, and $97.248853 remaining."
+    },
+    {
+      "criterion": 4,
+      "disposition": "PASS_NOT_APPLICABLE_REMOTE_BATCH",
+      "evidence": "artifacts/openai_assist/final_handoff.json",
+      "evidence_sha256": "56d7d9bf63dbf51ac83a51a437a97d9a279530f44d2e0c63b9bfcc7d05eb0cab",
+      "observable_result": "No Batch was submitted and no remote Batch files exist; controller cleanup removed zero files because tmp was already empty, and recursive checks found zero tmp, partial, part, upload, Batch, or abandoned JSONL-temporary payloads while immutable content-addressed evidence remained preserved."
+    },
+    {
+      "criterion": 5,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/final_handoff.json",
+      "evidence_sha256": "56d7d9bf63dbf51ac83a51a437a97d9a279530f44d2e0c63b9bfcc7d05eb0cab",
+      "observable_result": "Strict instruction, W25, Jira, OpenAI, repository/provenance/secret, dependency, storage, and full-suite gates pass; zero canonical/protected writes and every prohibited scientific-readiness claim remain false."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "FINAL_OPENAI_HANDOFF",
+      "path": "artifacts/openai_assist/final_handoff.json",
+      "sha256": "56d7d9bf63dbf51ac83a51a437a97d9a279530f44d2e0c63b9bfcc7d05eb0cab",
+      "bytes": 12113
+    },
+    {
+      "role": "OPERATOR_HANDOFF",
+      "path": "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
+      "sha256": "8943683dfb6d35aefb46940113538067c71e22bb014cd4f2b660b820c3188d5a",
+      "bytes": 4114
+    },
+    {
+      "role": "CONTROLLER_POLICY",
+      "path": "configs/openai_assist_policy.json",
+      "sha256": "6f67648938aef8f03e26e007652561827a56339e1f6a7bc449e070329a318483",
+      "bytes": 6787
+    },
+    {
+      "role": "TASK_ROUTER",
+      "path": "configs/openai_task_registry.json",
+      "sha256": "8afa526101190c00350fc0e57c2cc4adce1b205dd9ed8f6fef7d5c3e9b9131fd",
+      "bytes": 3101
+    },
+    {
+      "role": "PILOT_A_REPORT",
+      "path": "artifacts/openai_assist/gamebook_pilot.json",
+      "sha256": "34415d372ceabec324b835787205768ba00579088a83d22e60417f32761cd641",
+      "bytes": 10537
+    },
+    {
+      "role": "PILOT_B_REPORT",
+      "path": "artifacts/openai_assist/entity_review_pilot.json",
+      "sha256": "c527c51692beac4fc85d21ae98de86407824ca69efe997d2dbfc55d751509c98",
+      "bytes": 8898
+    },
+    {
+      "role": "PILOT_C_REPORT",
+      "path": "artifacts/openai_assist/quarantine_schema_pilot.json",
+      "sha256": "560a48189998b2548867842554cba290d6958ed1d1a9dafee7a6681b769cc023",
+      "bytes": 4979
+    }
+  ],
+  "external_evidence": {
+    "usage_ledger_sha256": "0651139165b357a72b45bf8db558610ac0528bd6320f3ca6682fd473fda13242",
+    "usage_ledger_bytes": 278773,
+    "final_usage_reconciliation_sha256": "d4dcf61b9ab7025c0ed297e9a8c212f528561d5f12e1c7a5a2c6ae3e92e05dee",
+    "final_usage_reconciliation_bytes": 8946,
+    "bat522_nano_gold_sha256": "bd13b55c320405df3a3ad9af01463673644678b546b6d90b49b187d7dc613433",
+    "bat522_nano_predictions_sha256": "0c775635703cc49cd91b1076ba5a6fc722f08d845900fb181cfc9e145c44565e",
+    "bat522_nano_run_manifest_sha256": "e6923f69bfb91bafc86a9b8acf0f4708759ddfef5c9c2f0bbdb334a6cd902022",
+    "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+    "rollback_bundle_sha256": "5e153a9fc17dc84509260fc6ab55d04eac1201d15333f33bbc85c58234047b47"
+  },
+  "usage": {
+    "synchronous_settled_jobs": 332,
+    "batch_jobs": 0,
+    "provider_rejected_zero_cost_jobs": 24,
+    "settled_usd": 2.751147,
+    "reserved_usd": 0.0,
+    "remaining_usd": 97.248853,
+    "released_stage_usd": 30.0,
+    "threshold_alerts_reached": []
+  },
+  "terra_sol_budget_rebalance": {
+    "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+    "terra_base_usd": 15.0,
+    "terra_reserve_max_usd": 25.0,
+    "sol_base_usd": 10.0,
+    "sol_reserve_max_usd": 17.0,
+    "value_gated_reserve_usd": 22.0,
+    "terra_jobs": 106,
+    "sol_jobs": 104,
+    "representative_initial_comparison_passed": true,
+    "reserve_released_usd": 0.0,
+    "reserve_release_evidence_available": false
+  },
+  "candidate_dispositions": {
+    "candidate": 199,
+    "review": 46,
+    "quarantine": 87,
+    "rejected_result_manifests": 0,
+    "provider_rejected_zero_cost": 24,
+    "canonical_writes": 0,
+    "protected_truth_writes": 0
+  },
+  "negative_findings": [
+    {
+      "finding": "PILOT_B_NANO_EXACT_FORMAT_GATE_FAILED",
+      "result": "10_ACCEPTED_2_QUARANTINED_STRICT_SCHEMA_0.8333_EVIDENCE_ACCURACY_0.0",
+      "disposition": "NO_NANO_BATCH"
+    },
+    {
+      "finding": "PILOT_A_NANO_EXACT_FORMAT_NOT_EVALUATED",
+      "disposition": "NO_GAMEBOOK_BATCH"
+    },
+    {
+      "finding": "PILOT_C_PREDECLARED_GATE_FAILED",
+      "disposition": "NO_QUARANTINE_CLASSIFICATION_BATCH"
+    },
+    {
+      "finding": "REVIEW_TIME_SAVED_UNMEASURED",
+      "measured_seconds": 0.0,
+      "disposition": "NO_VALUE_RESERVE_RELEASE"
+    }
+  ],
+  "route_decision": {
+    "routine": "NO_BATCH_FORMAT_CURRENTLY_ADMITTED",
+    "complex": "TERRA_REMAINS_BOUNDED_SHADOW_ONLY",
+    "hard_residue": "SOL_REMAINS_BOUNDED_REFERENCE_ONLY",
+    "terra_reserve_released": false,
+    "sol_reserve_released": false,
+    "deterministic_authority": true,
+    "canonical_authority": false
+  },
+  "cleanup": {
+    "tmp_files_after_cleanup": 0,
+    "batch_files_after_cleanup": 0,
+    "abandoned_partial_files_after_cleanup": 0,
+    "remote_batch_cleanup": "NOT_APPLICABLE_NO_BATCH_SUBMITTED",
+    "immutable_api_and_eval_evidence_preserved": true,
+    "rollback_checkpoint": "C:/BatteredAggieSyndrome.data/backups/BAT-522-openai-handoff/20260810T071222Z"
+  },
+  "completion": {
+    "completion_claimed": true,
+    "achieved_maturity": "OPERATING",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
+    "global_project_complete": false
+  },
+  "honesty_boundary": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "publication_state_changed": false
+  }
+}

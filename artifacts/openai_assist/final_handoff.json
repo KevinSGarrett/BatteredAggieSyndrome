@@ -1,0 +1,281 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "OPENAI_ASSISTIVE_PLANE_FINAL_HANDOFF",
+  "decision_unit": "POST-SUBTASK-166",
+  "jira_key": "BAT-522",
+  "created_at_utc": "2026-08-10T07:26:52Z",
+  "overall_disposition": "COMPLETE_NO_BATCH_PROMOTION_GATES_ENFORCED",
+  "governance": {
+    "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+    "goal_objective_sha256": "beca553b8ad92a085ef42388b610b9669ff474cf4556f47d9bc4701e47d4c2d1",
+    "repository_base_commit": "4d16905a76693e48c6793942ec7ac9881fc82c62",
+    "optional_runtime_dependency": true,
+    "deterministic_forecast_path_requires_openai": false,
+    "candidate_only_authority": true,
+    "store_false": true,
+    "absolute_budget_hard_stop_usd": "100.000000",
+    "terra_base_envelope_usd": "15.000000",
+    "terra_reserve_maximum_usd": "25.000000",
+    "sol_base_envelope_usd": "10.000000",
+    "sol_reserve_maximum_usd": "17.000000",
+    "value_gated_reserve_usd": "22.000000"
+  },
+  "terra_sol_rebalance_evidence": {
+    "supersedes_all_earlier_plan_hashes_and_allocations": true,
+    "initial_pilot_required_both_models": true,
+    "inexpensive_models_exclusively_before_comparison": false,
+    "terra_total_jobs": 106,
+    "terra_low_jobs": 27,
+    "terra_medium_jobs": 79,
+    "sol_total_jobs": 104,
+    "sol_medium_jobs": 104,
+    "representative_comparisons": {
+      "pilot_a_gamebook": {
+        "terra_low_jobs": 11,
+        "sol_medium_jobs": 11,
+        "role": "COMPLEX_GAMEBOOK_EXTRACTION_AND_CAPABLE_HARD_RESIDUE_REFERENCE"
+      },
+      "pilot_b_entity_review": {
+        "terra_low_jobs": 12,
+        "sol_medium_jobs": 12,
+        "role": "ENTITY_AMBIGUITY_AND_GOLD_SET_HARD_ADJUDICATION"
+      },
+      "pilot_c_quarantine_schema": {
+        "terra_low_jobs": 4,
+        "sol_medium_jobs": 2,
+        "role": "SCHEMA_DRIFT_RISK_REVIEW_AND_HARDEST_EVIDENCE_BACKED_CASES"
+      }
+    },
+    "reserve_release_requires": [
+      "MEASURED_HARD_CASE_ACCEPTANCE",
+      "MEASURED_REVIEW_SAVINGS",
+      "MEASURED_RISK_REDUCTION"
+    ],
+    "reserve_released": false,
+    "reserve_disposition": "LOCKED_NO_MEASURED_REVIEW_SAVINGS_AND_NO_FORMAT_PASSED_SCALEOUT_GATE"
+  },
+  "scaleout_decision": {
+    "batch_submitted": false,
+    "batch_jobs": 0,
+    "decision": "NO_EXACT_FORMAT_PASSED_THE_REQUIRED_NANO_FIRST_GATE",
+    "pilot_a_gamebook": "NO_SCALE_NANO_NOT_EMPIRICALLY_VALIDATED_ON_THE_EXACT_FORMAT",
+    "pilot_b_entity_review": "NO_SCALE_NANO_EXACT_FORMAT_GATE_FAILED",
+    "pilot_c_quarantine_schema": "NO_SCALE_PREDECLARED_PROMOTION_GATE_FAILED",
+    "luna_batch_submitted": false,
+    "terra_reserve_released": false,
+    "sol_reserve_released": false,
+    "deterministic_fallback_preserved": true,
+    "reason": "The contract requires Nano-first routine scale-out only after the exact prompt, schema, source format, candidate set, and deterministic validator pass their predeclared gold gate. Spending more or substituting Luna after Nano failed would weaken that gate."
+  },
+  "bat522_nano_entity_gate": {
+    "authority": "SHADOW_REVIEW_ONLY_NO_MERGE_AUTHORITY",
+    "model_requested": "gpt-5-nano",
+    "model_returned": "gpt-5-nano-2025-08-07",
+    "reasoning_effort": "minimal",
+    "synchronous_jobs": 12,
+    "cost_usd": "0.003882",
+    "input_tokens": 20325,
+    "cached_input_tokens": 0,
+    "output_tokens": 7148,
+    "reasoning_tokens": 0,
+    "strict_schema_rate": 0.8333333333333334,
+    "field_precision": 0.9375,
+    "field_recall": 0.9375,
+    "evidence_accuracy": 0.0,
+    "correct_abstention_rate": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "entity_top_k_recall": 1.0,
+    "false_merge_rate": 0.0,
+    "candidate_set_error_rate": 0.16666666666666666,
+    "accepted_review_candidates": 10,
+    "quarantined_candidates": 2,
+    "canonical_merges": 0,
+    "predeclared_gate_passed": false,
+    "negative_cases": [
+      {
+        "case_id": "entity-ambiguous-7c06ab93ba5f1808ea5f27eb6d699fda",
+        "finding": "Invalid non-null UNKNOWN values plus candidate-set/order mismatch",
+        "disposition": "QUARANTINE"
+      },
+      {
+        "case_id": "entity-ambiguous-3c47d5b33a70beb1965093987ad1b42d",
+        "finding": "Invalid non-null UNKNOWN value plus candidate-set/order mismatch",
+        "disposition": "QUARANTINE"
+      }
+    ],
+    "gold_sha256": "bd13b55c320405df3a3ad9af01463673644678b546b6d90b49b187d7dc613433",
+    "predictions_sha256": "0c775635703cc49cd91b1076ba5a6fc722f08d845900fb181cfc9e145c44565e",
+    "run_manifest_sha256": "e6923f69bfb91bafc86a9b8acf0f4708759ddfef5c9c2f0bbdb334a6cd902022"
+  },
+  "pilot_results": {
+    "foundation_evaluation": {
+      "settled_jobs": 156,
+      "cost_usd": "0.724661",
+      "disposition": "PASS_SHADOW_COMPARISON_WITH_NEGATIVE_DEVELOPMENT_FINDINGS_PRESERVED"
+    },
+    "pilot_a_gamebook": {
+      "settled_jobs_including_development_attempts": 114,
+      "cost_usd": "1.459745",
+      "final_gold_jobs": 33,
+      "final_schema_evidence_field_rates": 1.0,
+      "final_accepted_candidates": 33,
+      "disposition": "PASS_EXACT_LUNA_TERRA_SOL_FORMAT_SHADOW_ONLY"
+    },
+    "pilot_b_entity_review": {
+      "settled_jobs_including_bat522_nano_gate": 48,
+      "cost_usd": "0.485328",
+      "review_candidates": 46,
+      "quarantined_candidates": 2,
+      "false_merges": 0,
+      "disposition": "PASS_ORIGINAL_LUNA_TERRA_SOL_FORMAT_BUT_NANO_SCALEOUT_GATE_FAILED"
+    },
+    "pilot_c_quarantine_schema": {
+      "settled_jobs": 14,
+      "cost_usd": "0.081413",
+      "quarantine_candidates": 14,
+      "source_records_released": 0,
+      "disposition": "COMPLETE_NEGATIVE_PROMOTION_RESULT"
+    },
+    "pilot_d_injury_availability": {
+      "jobs": 0,
+      "disposition": "CONDITIONAL_NOT_EXECUTED",
+      "condition": "Suitable timestamped source evidence must be pinned first"
+    }
+  },
+  "usage_reconciliation": {
+    "ledger_sha256": "0651139165b357a72b45bf8db558610ac0528bd6320f3ca6682fd473fda13242",
+    "ledger_bytes": 278773,
+    "ledger_rows": 713,
+    "reservation_events": 356,
+    "settled_events": 332,
+    "released_events": 24,
+    "stage_release_events": 1,
+    "outstanding_reservations": 0,
+    "provider_rejected_zero_cost_jobs": 24,
+    "provider_rejected_reason": "NO_RESPONSE_RECEIVED",
+    "synchronous_settled_jobs": 332,
+    "batch_jobs": 0,
+    "request_payloads": 356,
+    "response_payloads": 332,
+    "request_manifests": 332,
+    "candidate_results": 199,
+    "review_results": 46,
+    "quarantine_results": 87,
+    "rejected_result_manifests": 0,
+    "schema_valid_jobs": 259,
+    "validation_error_jobs": 73,
+    "canonical_writes": 0,
+    "protected_truth_writes": 0,
+    "review_time_saved_seconds": 0.0,
+    "usage_by_model": {
+      "gpt-5-nano": {
+        "returned_identity": "gpt-5-nano-2025-08-07",
+        "reasoning_effort": "minimal",
+        "jobs": 20,
+        "input_tokens": 28940,
+        "cached_input_tokens": 0,
+        "output_tokens": 11245,
+        "reasoning_tokens": 0,
+        "cost_usd": "0.005955"
+      },
+      "gpt-5.6-luna": {
+        "reasoning_effort": "none",
+        "jobs": 102,
+        "input_tokens": 92832,
+        "cached_input_tokens": 0,
+        "output_tokens": 43138,
+        "reasoning_tokens": 0,
+        "cost_usd": "0.070372"
+      },
+      "gpt-5.6-terra": {
+        "jobs": 106,
+        "low_jobs": 27,
+        "medium_jobs": 79,
+        "input_tokens": 97049,
+        "cached_input_tokens": 0,
+        "output_tokens": 48271,
+        "reasoning_tokens": 1727,
+        "cost_usd": "0.773350"
+      },
+      "gpt-5.6-sol": {
+        "reasoning_effort": "medium",
+        "jobs": 104,
+        "input_tokens": 94766,
+        "cached_input_tokens": 0,
+        "output_tokens": 47588,
+        "reasoning_tokens": 4189,
+        "cost_usd": "1.901470"
+      }
+    }
+  },
+  "budget": {
+    "settled_usd": "2.751147",
+    "reserved_usd": "0.000000",
+    "remaining_usd": "97.248853",
+    "released_stage_usd": "30.000000",
+    "current_mapped_allocation_spend_usd": {
+      "CROSS_MODEL_QA": "2.197555",
+      "NANO_BATCH": "0.005955",
+      "TERRA_COMPLEX": "0.172012",
+      "SOL_GOLD_HARD": "0.375625"
+    },
+    "threshold_alerts_reached": [],
+    "low_priority_stop_active": false,
+    "value_gated_reserve_released_usd": "0.000000",
+    "completion_contingency_preserved": true,
+    "single_job_over_one_dollar_admitted": false,
+    "hard_stop_respected": true
+  },
+  "content_addressed_external_evidence": {
+    "final_usage_reconciliation_sha256": "d4dcf61b9ab7025c0ed297e9a8c212f528561d5f12e1c7a5a2c6ae3e92e05dee",
+    "final_usage_reconciliation_bytes": 8946,
+    "requests_inventory_sha256": "6c77a5d17010f97047871448678934fabe7c218dc23c56389b5f0338b11c58f9",
+    "responses_inventory_sha256": "897b125489bd050f4a2e4481d0d8010cde795deda953e327c20eb9f545c5b575",
+    "manifests_inventory_before_final_reconciliation_records_sha256": "09f82471ef040c2d08e46be11cff11c6b66c62c1b7ab99623cc96be35b1f5018",
+    "evals_inventory_sha256": "9b681e2ce7ddac1b70d6e35d1cd9304201bc855b37c5a560007b708187a630f2"
+  },
+  "cleanup": {
+    "cleanup_tmp_removed_files": 0,
+    "cleanup_tmp_removed_bytes": 0,
+    "tmp_files_after_cleanup": 0,
+    "batch_files_after_cleanup": 0,
+    "partial_part_upload_files_after_cleanup": 0,
+    "remote_batch_cleanup": "NOT_APPLICABLE_NO_BATCH_SUBMITTED",
+    "immutable_requests_responses_manifests_and_evals_preserved": true,
+    "backup_path": "C:/BatteredAggieSyndrome.data/backups/BAT-522-openai-handoff/20260810T071222Z",
+    "backup_bundle_sha256": "5e153a9fc17dc84509260fc6ab55d04eac1201d15333f33bbc85c58234047b47"
+  },
+  "project_improvements": [
+    "One governed optional controller now enforces redaction, strict Structured Outputs, content-addressed provenance, cache-first execution, staged/model-cap budget admission, candidate authority, and deterministic validation.",
+    "Pilot A demonstrated exact evidence-backed shadow extraction across drives, plays, team/player box scores, starters, venue, officials, weather, attendance, and source metadata.",
+    "Pilot B demonstrated exact source-scoped entity candidate ranking and required abstention with zero model-only merges on Luna, Terra, and Sol.",
+    "Pilot C and the BAT-522 Nano gate prevented unsafe bulk promotion and preserved deterministic quarantine and identity authority.",
+    "The append-only local ledger now has a complete zero-outstanding-reservation reconciliation independent of the provider dashboard."
+  ],
+  "remaining_review_items": [
+    "Review time saved remains measured at 0.0 rather than estimated.",
+    "Nano failed the Pilot B exact-format gate; no entity-review Batch is admitted.",
+    "Pilot A lacks a Nano exact-format comparison; no gamebook Batch is admitted.",
+    "Pilot C failed its predeclared gate; deterministic quarantine classification remains authoritative.",
+    "Pilot D remains conditional on suitable timestamped injury/availability evidence.",
+    "Any future scale-out requires a new exact-format gold gate and new admission decision; this handoff does not authorize automatic spending."
+  ],
+  "validation": [
+    {"command": "python -B tools/validate_autonomous_controls.py --repo-root . --strict", "exit_code": 0, "result": "PASS"},
+    {"command": "python -B tools/validate_jira_control_plane.py --repo-root . --strict", "exit_code": 0, "result": "PASS"},
+    {"command": "python -B tools/validate_w25_final.py --repo-root .", "exit_code": 0, "result": "PASS"},
+    {"command": "python -B tools/validate_openai_assist.py", "exit_code": 0, "result": "PASS"},
+    {"command": "python -B tools/validate_repository.py --repo-root . --strict", "exit_code": 0, "result": "PASS"},
+    {"command": "python -B -m unittest discover -s tests -v", "exit_code": 0, "result": "PASS_312_TESTS_2_EXPECTED_SKIPS"}
+  ],
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "publication_state_changed": false
+  }
+}

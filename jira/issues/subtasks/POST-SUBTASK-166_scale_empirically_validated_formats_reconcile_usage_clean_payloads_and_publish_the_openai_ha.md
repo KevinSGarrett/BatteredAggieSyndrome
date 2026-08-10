@@ -133,11 +133,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24662",
-    "jira_updated_at": "2026-08-09T23:18:51.527-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-10T02:16:11.059-0500",
+    "last_synced_at": "2026-08-10T07:16:29.195545+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-522-claim-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -244,7 +244,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-166.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

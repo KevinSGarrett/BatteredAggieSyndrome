@@ -35,3 +35,25 @@ Pilot C is deliberately non-promoting: Nano/minimal passed 0/8 exact cases, Terr
 Every paid operation requires a registered task, Jira identity, source capture SHA-256, strict schema, bounded output tokens, allocation, priority, and candidate destination. The CLI never accepts an API key argument. It discovers only `OPENAI_API_KEY` from the authoritative root `.env` and reports a boolean presence check.
 
 Operational artifacts are under `C:\BatteredAggieSyndrome.data\openai`. Delete reconstructible files in `tmp`; preserve accepted request/response/manifests, ledger events, evaluation evidence, and quarantines according to the project retention contract.
+
+## BAT-522 final scale-out disposition
+
+The assistive plane completed its governed handoff without admitting a Batch
+scale-out. This is an empirical no-scale decision, not a provider or budget
+failure. Pilot A's gamebook format was not compared with Nano, Pilot C failed
+its predeclared promotion gate, and the final bounded Nano/minimal comparison on
+Pilot B's exact 12-case entity-review format accepted 10 cases but quarantined
+two. Its strict-schema rate was `0.8333`, field precision/recall were `0.9375`,
+and evidence-locator accuracy was `0.0`; therefore it did not satisfy the exact
+format's required all-pass rules. Do not submit Nano, Luna, Terra, or Sol Batch
+work for those formats without a new versioned gold gate and admission record.
+
+The final ledger reconciliation is recorded in
+`artifacts/openai_assist/final_handoff.json`. It reports 332 settled synchronous
+jobs, 24 released zero-cost provider rejections, zero Batch jobs, zero
+outstanding reservations, `$2.751147` settled, and `$97.248853` remaining under
+the unchanged `$100` hard stop. No Terra/Sol reserve was released. Operational
+payloads remain content-addressed outside Git; `tmp` and `batches` are empty.
+The deterministic forecast path, canonical identity, PIT state, protected
+evaluation, promotion, forecasts, BAS, Aggie Excess, and publication state were
+not modified.

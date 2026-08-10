@@ -33,7 +33,7 @@ Execute POST-SUBTASK-166 within the optional OpenAI assistive plane. Consume `PO
 
 ## Current gate state
 
-- Workflow: `READY`
+- Workflow: `IN_PROGRESS`
 - Ready: `true`
 - Priority: `P0`
 - Critical path: `false`

@@ -84,7 +84,7 @@ class CoreRegistryTests(unittest.TestCase):
                 encoding="utf-8",
             )
             manifest = CoreRegistryArtifactManifest.load(manifest_path)
-            self.assertEqual(addressed, manifest.verify_payload(data_root))
+            self.assertTrue(addressed.samefile(manifest.verify_payload(data_root)))
             addressed.write_text("id,name\n1,Tampered\n", encoding="utf-8")
             with self.assertRaisesRegex(RegistryArtifactError, "SIZE_MISMATCH|HASH_MISMATCH"):
                 manifest.verify_payload(data_root)

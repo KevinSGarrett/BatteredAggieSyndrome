@@ -644,7 +644,7 @@ artifacts/entities/resolution_results.parquet,POST-SUBTASK-040,Subtask,true,IMPL
 artifacts/entities/entity_decision_and_transition_log.jsonl,POST-SUBTASK-041,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-042,VERIFIED
 artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json,POST-SUBTASK-042,Subtask,true,PRODUCTION_READY,POST-EPIC-005;POST-STORY-015;POST-SUBTASK-043;POST-SUBTASK-044;POST-SUBTASK-045,VERIFIED
 configs/known_at_registry.json,POST-SUBTASK-043,Subtask,true,IMPLEMENTED,POST-SUBTASK-044;POST-SUBTASK-045,VERIFIED
-artifacts/pit/timestamp_normalization_report.json,POST-SUBTASK-044,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-045,PLANNED
+artifacts/pit/timestamp_normalization_report.json,POST-SUBTASK-044,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-045,VERIFIED
 artifacts/pit/known_at_gate.json,POST-SUBTASK-045,Subtask,true,PRODUCTION_READY,POST-STORY-016;POST-SUBTASK-046;POST-SUBTASK-047;POST-SUBTASK-048,PLANNED
 artifacts/pit/asof_state_manifest.json,POST-SUBTASK-046,Subtask,true,IMPLEMENTED,POST-SUBTASK-047;POST-SUBTASK-048,PLANNED
 artifacts/pit/pregame_matrix_manifest.json,POST-SUBTASK-047,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-048,PLANNED

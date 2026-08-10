@@ -40,8 +40,8 @@ Execute the atomic 3 of 3 step in Story POST-STORY-015 (Known-at registry and ti
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
-- Ready: `false`
+- Workflow: `READY`
+- Ready: `true`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `PROTECTED_GATE`

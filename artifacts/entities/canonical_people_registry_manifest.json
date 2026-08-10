@@ -1,0 +1,94 @@
+{
+  "build": {
+    "builder_bytes": 33275,
+    "builder_path": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-388\\build_canonical_people_registry.py",
+    "builder_sha256": "d0c070f68b0deff129fd2674e83d00fd21e0e1409c90e0b91aedded94c418cd4",
+    "deterministic_reproduction_match": true,
+    "deterministic_reproduction_runs": 2
+  },
+  "counts": {
+    "person_types": {
+      "coach": 3217,
+      "player": 583777,
+      "staff": 2383
+    },
+    "record_types": {
+      "COACH_ROLE_EPISODE": 2251,
+      "DOMAIN_LIMITATION": 2,
+      "PERSON": 118505,
+      "RECRUITING_OBSERVATION": 28093,
+      "ROSTER_MEMBERSHIP": 296931,
+      "SOURCE_MAPPING": 131370,
+      "STAFF_ROLE_OBSERVATION": 2382,
+      "TRANSFER_EPISODE": 9843
+    },
+    "resolution_states": {
+      "AUTO_ACCEPTED_VERIFIED": 585825,
+      "CANDIDATE_GENERATED": 2853,
+      "REVIEW_REQUIRED": 7,
+      "UNRESOLVED": 692
+    }
+  },
+  "coverage": {
+    "assistant_staff_coverage_complete": false,
+    "assistant_staff_source_defined_max": 2015,
+    "head_coach_season_max": 2025,
+    "head_coach_season_min": 2010,
+    "portal_verified_empty_season_max": 2016,
+    "portal_verified_empty_season_min": 2010,
+    "recruiting_verified_season_max": 2017,
+    "recruiting_verified_season_min": 2010,
+    "roster_derived_transfer_season_max": 2025,
+    "roster_season_max": 2025,
+    "roster_season_min": 2004
+  },
+  "created_at_utc": "2026-08-10T02:12:00Z",
+  "dataset_version": "bat388-people-registry-v1",
+  "decision_unit": "BAT-388",
+  "eligibility": {
+    "assistant_staff_domain": "UNAVAILABLE_NOT_FABRICATED",
+    "people_registry": "IMPLEMENTED",
+    "protected_model_readiness_claimed": false
+  },
+  "identity_contract": {
+    "fuzzy_auto_promotion": false,
+    "mutable_state_defines_identity": false,
+    "name_only_auto_promotion": false,
+    "opaque_append_only_assignment": true,
+    "transfers_are_episodes": true
+  },
+  "negative_findings": [
+    "CFBD monthly call quota ended the new recruiting/portal route after the preserved source-defined partitions; no missing rows were fabricated.",
+    "The verified 2010-2016 CFBD portal partitions are empty; transfer episodes therefore use stable roster-ID team changes and do not claim portal completeness.",
+    "Historical assistant/coordinator tenure evidence is name-only and source-defined through 2015, so it remains review context and is not promoted to canonical identity.",
+    "Team alias ambiguity remains scoped to affected episodes and does not discard otherwise valid person identities."
+  ],
+  "payload": {
+    "bytes": 420562884,
+    "columns": 47,
+    "content_type": "text/csv",
+    "data_root_environment_variable": "AGGIE_ANALYTICS_DATA_ROOT",
+    "external_relative_path": "canonical/BAT-388/sha256/0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d/canonical_people_registry.csv",
+    "rows": 589377,
+    "sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d"
+  },
+  "prerequisites": {
+    "core_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "schema_readiness_gate_sha256": "4cf59009cd0751267e751bb51f0c3452dea1f08474a3a1b40bb90fafeaf80ae2"
+  },
+  "schema_version": "1.0.0",
+  "source_evidence": {
+    "cfb_data_staff_capture_count": 1,
+    "cfbd_people_capture_counts": {
+      "coach_seasons": 0,
+      "coaches": 0,
+      "recruiting_players": 8,
+      "transfer_portal": 7
+    },
+    "cfbd_roster_capture_count": 22,
+    "source_urls_and_acquisition_timestamps_preserved_outside_git": true,
+    "sports_reference_coach_capture_count": 16,
+    "sportsdataverse_roster_partition_count": 6
+  },
+  "storage_boundary": "EXTERNAL_CANONICAL_PAYLOAD"
+}

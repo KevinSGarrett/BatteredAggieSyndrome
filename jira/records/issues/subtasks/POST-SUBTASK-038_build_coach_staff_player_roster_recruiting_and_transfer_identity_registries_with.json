@@ -16,7 +16,7 @@
     "artifacts/entities/canonical_people_registry.csv",
     "artifacts/jira_evidence/POST-SUBTASK-038.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-036;POST-SUBTASK-037",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-037",
   "blocks": [
     "POST-SUBTASK-039"
   ],

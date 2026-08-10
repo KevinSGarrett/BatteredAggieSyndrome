@@ -74,7 +74,7 @@
   "end_to_end_validation": "Real raw populations produce versioned schema/missingness contracts and an explicit readiness decision for resolution. The gate decision must explicitly reevaluate downstream issues: POST-STORY-013, POST-SUBTASK-037, POST-SUBTASK-038, POST-SUBTASK-039.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-036.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -141,11 +141,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24526",
-    "jira_updated_at": "2026-08-09T18:47:50.712-0500",
-    "last_synced_at": "2026-08-09T23:48:02.692991+00:00",
+    "jira_updated_at": "2026-08-09T18:59:17.105-0500",
+    "last_synced_at": "2026-08-10T00:01:00.901163+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-386\\BAT-386-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -199,7 +199,7 @@
     "docs/16_ENTITY_RESOLUTION_AND_REVIEW.md",
     "governance/ENTITY_RESOLUTION_STATES.csv"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -297,5 +297,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-012: Population schema and missingness contracts.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-036.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

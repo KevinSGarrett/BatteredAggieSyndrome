@@ -71,13 +71,11 @@
   ],
   "completion": {
     "achieved_maturity": "PRODUCTION_READY",
-    "completion_claimed": false,
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "SCOPED_READINESS_GATE_VALIDATED_PENDING_PROTECTED_INTEGRATION",
+    "completion_claimed": true,
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_SCOPED_SCHEMA_READINESS_GATE_COMPLETE",
     "local_acceptance_criteria_pass": true,
-    "remaining_issue_scope_blockers": [
-      "protected PR integration and live/local Jira completion synchronization"
-    ]
+    "remaining_issue_scope_blockers": []
   },
   "created_at_utc": "2026-08-09T23:54:38.003189Z",
   "decision": {
@@ -288,7 +286,7 @@
   ],
   "downstream_reevaluation": {
     "POST-STORY-013": "ENTRY_SEQUENCE_OPENED_FOR_SCOPED_CANONICAL_REGISTRY_WORK",
-    "POST-SUBTASK-037": "READY_AFTER_CANONICAL_JIRA_COMPLETION_SYNC",
+    "POST-SUBTASK-037": "RECOMPUTE_READY_STATE_AFTER_CANONICAL_JIRA_SYNC",
     "POST-SUBTASK-038": "REMAINS_DEPENDENT_ON_POST-SUBTASK-037; ROSTER_PARTITIONS_ARE_SCOPED_READY",
     "POST-SUBTASK-039": "REMAINS_DEPENDENT_ON_POST-SUBTASK-037_AND_POST-SUBTASK-038"
   },
@@ -325,15 +323,16 @@
   "live_jira": {
     "checkpoint_comment_id": "13415",
     "claim_comment_id": "13414",
-    "completion_comment_id": null,
-    "evidence_state": "PLANNED",
-    "logical_state": "IN_PROGRESS",
+    "completion_comment_id": "13416",
+    "evidence_state": "VERIFIED",
+    "logical_state": "DONE",
     "maturity": "PRODUCTION_READY",
-    "status": "In Progress"
+    "status": "Done",
+    "updated": "2026-08-09T18:59:17.105-0500"
   },
   "local_id": "POST-SUBTASK-036",
   "local_jira_sync": {
-    "changed_issues": 1,
+    "changed_issues": 2,
     "conflict_count": 0,
     "export_path": "<external-runtime>/BAT-386/BAT-386-live-row.csv",
     "result": "PASS",
@@ -418,12 +417,16 @@
     }
   },
   "protected_integration": {
-    "head_sha": null,
-    "merge_sha": null,
-    "pull_request": null,
-    "repository_ci_run": null,
-    "security_analysis_run": null,
-    "state": "PENDING"
+    "branch": "codex/BAT-386-schema-readiness",
+    "head_sha": "e372770308ffb43e397af041c9968d1e88aef37f",
+    "merge_method": "SQUASH",
+    "merge_sha": "975b599b6913b94a686bf1f92058a08d12ce26f2",
+    "merged_at_utc": "2026-08-09T23:57:42Z",
+    "pull_request": 89,
+    "repository_ci_run": 31343174202,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED",
+    "security_analysis_run": 31343174211,
+    "state": "MERGED_AND_MAIN_VALIDATED"
   },
   "schema_version": "1.0.0",
   "scientific_validation": {
@@ -448,14 +451,14 @@
       "QUARANTINED_PENDING_EXPLICIT_FLATTENING_AND_GRAIN_CONTRACT"
     ]
   },
-  "updated_at_utc": "2026-08-09T23:54:38.003189Z",
+  "updated_at_utc": "2026-08-10T00:00:21.431689Z",
   "validation": {
     "focused_tests": "PASS",
     "full_test_suite": "PASS",
     "jira_validators": "PASS",
     "negative_mutations_rejected": 10,
     "repository_and_provenance_validators": "PASS",
-    "result": "LOCAL_IMPLEMENTATION_PASS_PENDING_PROTECTED_INTEGRATION",
+    "result": "PROTECTED_GATE_INTEGRATION_PASS",
     "schema_readiness_gate": "PASS"
   }
 }

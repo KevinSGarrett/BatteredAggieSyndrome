@@ -18,7 +18,8 @@ python -B tools/openai_assist.py eval --predictions fixtures/openai_assist/eval_
 Paid model comparisons use the versioned prompt and predeclared thresholds in
 `configs/openai_evaluation_policy.json`. For the strict evaluation corpus, pass
 `--schema schemas/openai/assistive_evaluation.schema.json`; `--model` produces a
-single-route scorecard. A missing repeat or cross-model comparison group is
+single-route scorecard. Repeat `--predictions` to score independently
+content-addressed primary and repeat artifacts together. A missing repeat or cross-model comparison group is
 reported as `null`, never as an invented perfect score.
 
 Every paid operation requires a registered task, Jira identity, source capture SHA-256, strict schema, bounded output tokens, allocation, priority, and candidate destination. The CLI never accepts an API key argument. It discovers only `OPENAI_API_KEY` from the authoritative root `.env` and reports a boolean presence check.

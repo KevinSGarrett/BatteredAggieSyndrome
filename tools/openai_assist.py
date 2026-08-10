@@ -41,7 +41,7 @@ def main() -> int:
     evaluation.add_argument(
         "--gold", type=Path, default=ROOT / "fixtures" / "openai_assist" / "eval_gold.jsonl"
     )
-    evaluation.add_argument("--predictions", type=Path, required=True)
+    evaluation.add_argument("--predictions", type=Path, action="append", required=True)
     evaluation.add_argument(
         "--schema",
         type=Path,

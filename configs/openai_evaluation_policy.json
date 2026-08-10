@@ -7,9 +7,10 @@
   "gold_corpus_change": "The ambiguous starter example was revised because v1 explicitly stated absence while expecting UNKNOWN, contradicting the frozen status semantics.",
   "output_schema": "schemas/openai/assistive_evaluation.schema.json",
   "prompt": {
-    "path": "prompts/openai_assist/evaluation_v2.txt",
-    "version": "bat517-evaluation-v2",
-    "sha256": "b868050ab6697a18de0e70eed2681251bc4abd909b8861372531a2a4da345acb"
+    "path": "prompts/openai_assist/evaluation_v3.txt",
+    "version": "bat517-evaluation-v3",
+    "sha256": "fb64cafe0c88d70f67d16959612b6cf57cdff62b528b25c5a64fb4611544292f",
+    "change": "Canonical conflict/note codes and explicit Candidate A/B IDs remove free-text nondeterminism exposed by the v2 repeat run."
   },
   "reference_route": {
     "model": "gpt-5.6-sol",

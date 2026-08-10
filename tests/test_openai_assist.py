@@ -316,6 +316,16 @@ class OpenAIAssistTests(unittest.TestCase):
             self.assertLess(report.field_precision, 1.0)
             self.assertLess(report.field_recall, 1.0)
 
+    def test_evaluation_measures_repeated_runs_across_prediction_artifacts(self):
+        predictions = ROOT / "fixtures" / "openai_assist" / "eval_predictions.jsonl"
+        report = evaluate(
+            ROOT / "fixtures" / "openai_assist" / "eval_gold.jsonl",
+            [predictions, predictions],
+            self._schema(),
+        )
+        self.assertEqual(8, report.repeated_run_groups)
+        self.assertEqual(1.0, report.repeated_run_consistency)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -4,6 +4,7 @@ import json
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
+from collections.abc import Sequence
 from typing import Any
 
 from .schemas import evidence_errors, validate_instance
@@ -41,13 +42,14 @@ def _jsonl(path: Path) -> list[dict[str, Any]]:
 
 def evaluate(
     gold_path: Path,
-    predictions_path: Path,
+    predictions_path: Path | Sequence[Path],
     schema: dict[str, Any],
     *,
     model: str | None = None,
 ) -> EvaluationReport:
     gold_rows = _jsonl(gold_path)
-    predictions = _jsonl(predictions_path)
+    prediction_paths = [predictions_path] if isinstance(predictions_path, Path) else list(predictions_path)
+    predictions = [row for path in prediction_paths for row in _jsonl(path)]
     if model is not None:
         predictions = [row for row in predictions if row.get("model") == model]
     gold = {row["case_id"]: row for row in gold_rows}

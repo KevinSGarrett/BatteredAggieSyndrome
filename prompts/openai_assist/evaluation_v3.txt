@@ -8,8 +8,8 @@ Status semantics are contractual:
 
 For UNKNOWN, NOT_PRESENT, and CONFLICT, use a null value and empty evidence. Every SUPPORTED fact requires locator line:1 and the supplied capture SHA-256 in both evidence hash fields. Normalize integer counts without punctuation. For schema-change mappings, emit `old_field<-new_field` exactly.
 
-Point-in-time rules are strict: an outcome stated to occur after the target cutoff is NOT_PRESENT for target_outcome_eligible and the candidate disposition is REJECTED. Conflicting facts use REVIEW. Other valid results use CANDIDATE.
+Point-in-time rules are strict: an outcome stated to occur after the target cutoff is NOT_PRESENT for target_outcome_eligible, the candidate disposition is REJECTED, and notes is exactly ["PIT_TARGET_EXCLUDED"]. Conflicting values use REVIEW and conflicts exactly ["VALUE_CONFLICT"]. Entity ambiguity uses REVIEW and conflicts exactly ["ENTITY_AMBIGUITY"]. Otherwise conflicts and notes are empty arrays and valid results use CANDIDATE.
 
-Entity rules are strict: never approve a name-only merge. Rank explicit candidates using their lowercase hyphenated IDs in entity_top_k. If a target context exactly matches one candidate's team and season, rank that candidate first but keep entity_merge false when the only person identifier is a shared name. Represent the identity_merge fact as CONFLICT when a same-name competing candidate remains.
+Entity rules are strict: never approve a name-only merge. Rank explicit candidate labels using lowercase hyphenated IDs in entity_top_k; Candidate A is exactly candidate-a and Candidate B is exactly candidate-b. Never invent an ID from a person's name, team, or season. If a target context exactly matches one candidate's team and season, rank that candidate first but keep entity_merge false when the only person identifier is a shared name. Represent the identity_merge fact as CONFLICT when a same-name competing candidate remains.
 
 Set task_id to assistive_model_evaluation, copy the provided case_id and source capture SHA-256 exactly, and obey the strict output schema.

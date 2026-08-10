@@ -23,7 +23,7 @@
     "artifacts/pit/known_at_gate.json",
     "artifacts/jira_evidence/POST-SUBTASK-045.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-043;POST-SUBTASK-044",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-044",
   "blocks": [
     "POST-STORY-016",
     "POST-SUBTASK-046",

@@ -22,7 +22,7 @@
     "artifacts/pit/timestamp_normalization_report.json",
     "artifacts/jira_evidence/POST-SUBTASK-044.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-043",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-045"
   ],
@@ -144,9 +144,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24534",
-    "jira_updated_at": "2026-08-09T23:24:03.629-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-10T04:22:22.405-0500",
+    "last_synced_at": "2026-08-10T09:23:43.318586+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-393\\BAT-393-completion-live-rows.csv",
     "sprint": "",
     "status_raw": "To Do"
   },
@@ -204,7 +204,7 @@
     "docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md",
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -329,7 +329,7 @@
     "POST-SUBTASK-051"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "REGRESSION",
@@ -339,7 +339,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-015: Known-at registry and timestamp normalization.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-044.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

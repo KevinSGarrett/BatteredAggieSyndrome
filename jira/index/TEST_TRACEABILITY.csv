@@ -167,6 +167,9 @@ POST-SUBTASK-153,END_TO_END,POST-EPIC-017,Epic,Story gate `POST-SUBTASK-153` mus
 POST-SUBTASK-156,END_TO_END,POST-EPIC-017,Epic,Story gate `POST-SUBTASK-156` must complete with verified evidence before Epic completion.
 POST-SUBTASK-159,END_TO_END,POST-EPIC-017,Epic,Story gate `POST-SUBTASK-159` must complete with verified evidence before Epic completion.
 EPIC_EVIDENCE_MANIFEST,REPRODUCIBILITY,POST-EPIC-017,Epic,"Aggregate all Story gates, artifact identities, residual blockers, accepted risks, and downstream readiness."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-EPIC-018,Epic,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-EPIC-018.json,END_TO_END,POST-EPIC-018,Epic,"Aggregate the foundation, evaluation, bounded-pilot, scale-out, budget, cleanup, and authority evidence and prove the optional plane remains safe and useful."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-EPIC-018,Epic,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
 tests/test_w23_operations.py,EXISTING_AUTOMATED_TEST,POST-STORY-001,Story,Run and retain the result when this issue touches the covered contract.
 tools/validate_w23_operations.py,EXISTING_AUTOMATED_TEST,POST-STORY-001,Story,Run and retain the result when this issue touches the covered contract.
 POST-SUBTASK-003,END_TO_END,POST-STORY-001,Story,The final child gate `POST-SUBTASK-003` must prove the integrated Story outcome and downstream-consumable output.
@@ -373,6 +376,15 @@ POST-SUBTASK-156,END_TO_END,POST-STORY-052,Story,The final child gate `POST-SUBT
 STORY_EVIDENCE_MANIFEST,REPRODUCIBILITY,POST-STORY-052,Story,"Aggregate child artifact hashes, input identities, gate decision, failures, and downstream readiness into a reproducible Story evidence manifest."
 POST-SUBTASK-159,END_TO_END,POST-STORY-053,Story,The final child gate `POST-SUBTASK-159` must prove the integrated Story outcome and downstream-consumable output.
 STORY_EVIDENCE_MANIFEST,REPRODUCIBILITY,POST-STORY-053,Story,"Aggregate child artifact hashes, input identities, gate decision, failures, and downstream readiness into a reproducible Story evidence manifest."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-STORY-054,Story,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-STORY-054.json,END_TO_END,POST-STORY-054,Story,"Integrate POST-SUBTASK-160 and POST-SUBTASK-161 and prove every later API job is forced through their controller, ledger, schema, validation, and evaluation boundaries."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-STORY-054,Story,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-STORY-055,Story,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-STORY-055.json,END_TO_END,POST-STORY-055,Story,"Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-STORY-055,Story,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-STORY-056,Story,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-STORY-056.json,END_TO_END,POST-STORY-056,Story,"Prove scale-out remains inside empirical acceptance, candidate authority, budget, storage, cleanup, and protected-nonclaim boundaries."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-STORY-056,Story,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
 tests/test_w23_operations.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-001,Subtask,"Run as a regression check after completing POST-SUBTASK-001; retain command, exit code, and relevant output."
 tools/validate_repository.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-001,Subtask,"Run as a regression check after completing POST-SUBTASK-001; retain command, exit code, and relevant output."
 artifacts/implementation_preflight/repository_identity.json,EXISTING_AUTOMATED_TEST,POST-SUBTASK-001,Subtask,"Run as a regression check after completing POST-SUBTASK-001; retain command, exit code, and relevant output."
@@ -1432,6 +1444,27 @@ artifacts/live/live_operating_decision.json,SECURITY,POST-SUBTASK-159,Subtask,"V
 artifacts/live/live_operating_decision.json,OPERATIONS,POST-SUBTASK-159,Subtask,"Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions."
 artifacts/live/live_operating_decision.json,END_TO_END,POST-SUBTASK-159,Subtask,Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-159,Subtask,Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-160,Subtask,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-SUBTASK-160.json,END_TO_END,POST-SUBTASK-160,Subtask,"Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-160,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-161,Subtask,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-SUBTASK-161.json,END_TO_END,POST-SUBTASK-161,Subtask,"Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-161,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-162,Subtask,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-SUBTASK-162.json,END_TO_END,POST-SUBTASK-162,Subtask,"Extract a bounded real historical gamebook sample through the controller, validate every fact against exact source evidence, and measure accepted records, review time, quarantines, cost, and unsupported-fact rate without canonical mutation."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-162,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-163,Subtask,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-SUBTASK-163.json,END_TO_END,POST-SUBTASK-163,Subtask,"Run bounded candidate ranking against pinned unresolved identities, compare deterministic ranking and model tiers, and demonstrate useful top-k assistance with zero model-approved merges."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-163,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-164,Subtask,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-SUBTASK-164.json,END_TO_END,POST-SUBTASK-164,Subtask,"Classify a pinned quarantine/schema-drift sample, compare deterministic and model routes, and prove outputs only prioritize remediation while authoritative quarantine remains unchanged."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-164,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-165,Subtask,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-SUBTASK-165.json,END_TO_END,POST-SUBTASK-165,Subtask,"When timestamped evidence is ready, run a bounded shadow extraction and prove every accepted availability fact is evidence-backed and cutoff-eligible; otherwise retain the exact deferred finding."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-165,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-166,Subtask,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
+artifacts/jira_evidence/POST-SUBTASK-166.json,END_TO_END,POST-SUBTASK-166,Subtask,"Run the validated scale-out and final reconciliation, demonstrate deterministic fallback on provider failure, clean reconstructible artifacts, and publish an exact resumable handoff with remaining budget."
+ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-166,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

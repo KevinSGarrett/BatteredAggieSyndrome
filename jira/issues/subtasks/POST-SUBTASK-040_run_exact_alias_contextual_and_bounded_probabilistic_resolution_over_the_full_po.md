@@ -24,8 +24,12 @@
   ],
   "blocked_reason": "",
   "blocks": [
+    "POST-EPIC-018",
+    "POST-STORY-054",
     "POST-SUBTASK-041",
-    "POST-SUBTASK-042"
+    "POST-SUBTASK-042",
+    "POST-SUBTASK-160",
+    "POST-SUBTASK-163"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-040_run_exact_alias_contextual_and_bounded_probabilistic_resolution_over_the_full_po.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -364,8 +368,12 @@ Execute the atomic 1 of 3 step in Story POST-STORY-014 (Population resolution, r
 
 ## Blocks
 
+- POST-EPIC-018
+- POST-STORY-054
 - POST-SUBTASK-041
 - POST-SUBTASK-042
+- POST-SUBTASK-160
+- POST-SUBTASK-163
 
 ## Read / Inspect First
 

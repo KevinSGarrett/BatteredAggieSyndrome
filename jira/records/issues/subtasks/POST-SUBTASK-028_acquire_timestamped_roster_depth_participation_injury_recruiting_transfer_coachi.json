@@ -19,7 +19,9 @@
   "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-029",
-    "POST-SUBTASK-030"
+    "POST-SUBTASK-030",
+    "POST-SUBTASK-162",
+    "POST-SUBTASK-165"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-028_acquire_timestamped_roster_depth_participation_injury_recruiting_transfer_coachi.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",

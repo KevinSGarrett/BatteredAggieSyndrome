@@ -12,6 +12,7 @@ dependencies = []
 
 [project.optional-dependencies]
 product = ["fastapi==0.141.1", "uvicorn==0.52.1"]
+openai-assist = ["openai==2.53.0"]
 data = [
   "duckdb==1.5.5",
   "polars==1.43.2",

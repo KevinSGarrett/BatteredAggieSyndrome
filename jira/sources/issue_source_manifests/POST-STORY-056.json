@@ -1,0 +1,39 @@
+{
+  "files_to_inspect": [
+    "governance/OPENAI_ASSISTIVE_PLANE.md",
+    "configs/openai_assist_policy.json",
+    "configs/openai_task_registry.json",
+    "schemas/openai/assistive_candidate.schema.json",
+    "docs/final/CODEX_HANDOFF.md"
+  ],
+  "governance_traceability_gate": "POST-SUBTASK-164",
+  "issue_id": "POST-STORY-056",
+  "retrieval_protocol": [
+    "Verify document_sha256 against the current repository file.",
+    "Verify anchor_hash against the normalized stored excerpt and current line range.",
+    "If the file hash changed, run repair_source_refs.py to relocate the exact anchor/heading before using the reference.",
+    "Open only the referenced section plus the minimal listed implementation/prerequisite context; the Windows path is convenience metadata, not authority."
+  ],
+  "schema_version": 2,
+  "source_ids": [
+    "OPENAI-ASSIST-PLAN"
+  ],
+  "source_refs": [
+    {
+      "anchor_excerpt": "# OpenAI API Assistive Research and Data Engineering Contract Status: active optional research plane. Budget authority: USD 100 absolute maximum. ## Authority boundary The OpenAI API may accelerate evidence-backed extraction, entity candidate ranking, schema interpretation, quarantine classification, conflict reconcili",
+      "anchor_hash": "bf03b3bbee13851efcc510756aa87c206a8b2900c1380fedd02a6d049a92cda3",
+      "authority_level": "GOVERNANCE_DETAIL",
+      "document_sha256": "2f68c4cdbdade1728fd4ca4870b22d28f8d8b968ac58aff571419d91a8e02eef",
+      "end_line": 35,
+      "heading": "OpenAI API Assistive Research and Data Engineering Contract",
+      "last_verified": "2026-08-09",
+      "repo_relative_path": "governance/OPENAI_ASSISTIVE_PLANE.md",
+      "source_ref_id": "SRCREF-02119",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Mandatory local OpenAI assistive-plane authority, budget, safety, evaluation, storage, and completion contract",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\OPENAI_ASSISTIVE_PLANE.md"
+    }
+  ],
+  "traceability_inherited_from": []
+}

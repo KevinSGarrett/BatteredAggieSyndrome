@@ -1,0 +1,120 @@
+from __future__ import annotations
+
+import json
+from collections import defaultdict
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+from .schemas import evidence_errors, validate_instance
+
+
+@dataclass(frozen=True)
+class EvaluationReport:
+    cases: int
+    strict_schema_rate: float
+    field_precision: float
+    field_recall: float
+    evidence_accuracy: float
+    correct_abstention_rate: float
+    unsupported_fact_rate: float
+    false_merge_rate: float
+    entity_top_k_recall: float
+    repeated_run_consistency: float
+    quarantine_rate: float
+
+    def as_dict(self) -> dict[str, Any]:
+        return {"schema_version": 1, **self.__dict__}
+
+
+def _jsonl(path: Path) -> list[dict[str, Any]]:
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) -> EvaluationReport:
+    gold_rows = _jsonl(gold_path)
+    predictions = _jsonl(predictions_path)
+    gold = {row["case_id"]: row for row in gold_rows}
+    if len(gold) != len(gold_rows):
+        raise ValueError("duplicate gold case identity")
+    if not predictions:
+        raise ValueError("evaluation predictions are empty")
+
+    schema_valid = quarantined = 0
+    true_positive = false_positive = false_negative = 0
+    evidence_correct = evidence_total = 0
+    abstention_correct = abstention_total = 0
+    unsupported = supported_total = 0
+    false_merges = merge_decisions = 0
+    top_k_hits = top_k_cases = 0
+    fingerprints: dict[tuple[str, str, str], list[str]] = defaultdict(list)
+
+    for row in predictions:
+        case_id = row["case_id"]
+        if case_id not in gold:
+            raise ValueError(f"prediction references unknown case: {case_id}")
+        case = gold[case_id]
+        candidate = row["candidate"]
+        errors = validate_instance(candidate, schema)
+        errors.extend(evidence_errors(candidate, capture_sha256=case["source_capture_sha256"]))
+        schema_valid += int(not errors)
+        quarantined += int(bool(errors) or candidate.get("disposition") == "QUARANTINE")
+
+        expected = {item["field"]: item for item in case["expected_facts"]}
+        actual = {item["field"]: item for item in candidate.get("facts", [])}
+        for field, fact in actual.items():
+            exp = expected.get(field)
+            if exp is not None and fact.get("status") == exp["status"] and fact.get("value") == exp["value"]:
+                true_positive += 1
+            else:
+                false_positive += 1
+            if fact.get("status") == "SUPPORTED":
+                supported_total += 1
+                locators = {item.get("locator") for item in fact.get("evidence", [])}
+                wanted = set((exp or {}).get("evidence_locators", []))
+                evidence_total += 1
+                evidence_correct += int(bool(wanted) and wanted <= locators)
+                if exp is None or exp.get("status") != "SUPPORTED":
+                    unsupported += 1
+        false_negative += len(set(expected) - set(actual))
+
+        for field, exp in expected.items():
+            if exp["status"] in {"UNKNOWN", "NOT_PRESENT", "CONFLICT"}:
+                abstention_total += 1
+                actual_fact = actual.get(field)
+                abstention_correct += int(
+                    actual_fact is not None
+                    and actual_fact.get("status") == exp["status"]
+                    and actual_fact.get("value") is None
+                )
+
+        if case.get("entity_merge_expected") is not None:
+            merge_decisions += 1
+            proposed = row.get("entity_merge", False)
+            false_merges += int(bool(proposed) and not bool(case["entity_merge_expected"]))
+        if case.get("entity_expected_id"):
+            top_k_cases += 1
+            top_k_hits += int(case["entity_expected_id"] in row.get("entity_top_k", []))
+
+        fingerprint = json.dumps(candidate, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        fingerprints[(case_id, row.get("model", ""), row.get("reasoning_effort", ""))].append(fingerprint)
+
+    repeat_groups = [values for values in fingerprints.values() if len(values) > 1]
+    repeat_consistency = (
+        sum(len(set(values)) == 1 for values in repeat_groups) / len(repeat_groups)
+        if repeat_groups
+        else 1.0
+    )
+    return EvaluationReport(
+        cases=len(predictions),
+        strict_schema_rate=schema_valid / len(predictions),
+        field_precision=true_positive / max(1, true_positive + false_positive),
+        field_recall=true_positive / max(1, true_positive + false_negative),
+        evidence_accuracy=evidence_correct / max(1, evidence_total),
+        correct_abstention_rate=abstention_correct / max(1, abstention_total),
+        unsupported_fact_rate=unsupported / max(1, supported_total),
+        false_merge_rate=false_merges / max(1, merge_decisions),
+        entity_top_k_recall=top_k_hits / max(1, top_k_cases),
+        repeated_run_consistency=repeat_consistency,
+        quarantine_rate=quarantined / len(predictions),
+    )

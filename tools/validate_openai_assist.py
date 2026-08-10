@@ -36,6 +36,30 @@ def validate(root: Path) -> list[str]:
         policy = AssistivePolicy.load(root)
     except Exception as exc:
         return [f"policy: {exc}"]
+    budget = policy.payload["budget"]
+    if policy.payload.get("governing_plan_sha256") != "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523":
+        errors.append("OpenAI policy is not bound to the superseding Terra/Sol plan")
+    if budget["allocations"].get("TERRA_COMPLEX") != "15.00":
+        errors.append("Terra base budget must be USD 15")
+    if budget["allocations"].get("SOL_GOLD_HARD") != "10.00":
+        errors.append("Sol base budget must be USD 10")
+    if budget["allocations"].get("VALUE_GATED_RESERVE") != "22.00":
+        errors.append("value-gated reserve must be USD 22")
+    if budget["model_caps"].get("gpt-5.6-terra", {}).get("reserve_max_usd") != "25.00":
+        errors.append("Terra reserve maximum must be USD 25")
+    if budget["model_caps"].get("gpt-5.6-sol", {}).get("reserve_max_usd") != "17.00":
+        errors.append("Sol reserve maximum must be USD 17")
+    if budget.get("initial_pilot_required_models") != ["gpt-5.6-terra", "gpt-5.6-sol"]:
+        errors.append("initial pilot must require representative Terra and Sol calls")
+    registry = json.loads((root / "configs" / "openai_task_registry.json").read_text(encoding="utf-8"))
+    if registry.get("routing_objective") != "ACCEPTED_EVIDENCE_VERIFIED_RECORDS_PER_DOLLAR":
+        errors.append("router objective is not accepted evidence-verified records per dollar")
+    for task_name in ["gamebook_extraction", "entity_review", "quarantine_schema_classification"]:
+        task = registry["tasks"][task_name]
+        if task.get("default_model") != "gpt-5-nano":
+            errors.append(f"{task_name} must default validated bulk work to GPT-5 Nano")
+        if not {"gpt-5.6-terra", "gpt-5.6-sol"}.issubset(set(task.get("allowed_models", []))):
+            errors.append(f"{task_name} must preserve meaningful Terra/Sol escalation routes")
     for schema_name in ["assistive_candidate.schema.json", "assistive_evaluation.schema.json"]:
         try:
             schema = json.loads(
@@ -152,6 +176,36 @@ def validate(root: Path) -> list[str]:
         errors.append("OpenAI entity-review route decision must deny merge authority")
     if entity_report["results"].get("completed_predictions") != 36:
         errors.append("OpenAI entity-review report must retain all 36 bounded predictions")
+    entity_models = {key.split(":", 1)[0] for key in entity_report.get("models", {})}
+    if not {"gpt-5.6-terra", "gpt-5.6-sol"}.issubset(entity_models):
+        errors.append("entity-review pilot did not include representative Terra and Sol calls")
+
+    gamebook_report = json.loads(
+        (root / "artifacts" / "openai_assist" / "gamebook_pilot.json").read_text(encoding="utf-8")
+    )
+    gamebook_models = {key.split(":", 1)[0] for key in gamebook_report.get("models", {})}
+    if not {"gpt-5.6-terra", "gpt-5.6-sol"}.issubset(gamebook_models):
+        errors.append("gamebook pilot did not include representative Terra and Sol calls")
+
+    rebalance_report = json.loads(
+        (root / "artifacts" / "openai_assist" / "router_rebalance.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    if rebalance_report.get("governing_plan", {}).get("sha256") != policy.payload.get(
+        "governing_plan_sha256"
+    ):
+        errors.append("router-rebalance evidence is not bound to the active governing plan")
+    rebalance_usage = rebalance_report.get("usage_at_rebalance", {})
+    if rebalance_usage.get("settled_usd") != "2.665852":
+        errors.append("router-rebalance evidence does not preserve the pre-migration settled usage")
+    if rebalance_usage.get("new_api_calls_for_rebalance") != 0:
+        errors.append("router policy migration must not consume OpenAI credits")
+    rebalance_authority = rebalance_report.get("authority", {})
+    if rebalance_authority.get("canonical_writes") != 0:
+        errors.append("router-rebalance evidence reports canonical writes")
+    if rebalance_authority.get("protected_truth_writes") != 0:
+        errors.append("router-rebalance evidence reports protected-truth writes")
 
     project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     direct = project["project"].get("optional-dependencies", {}).get("openai-assist", [])

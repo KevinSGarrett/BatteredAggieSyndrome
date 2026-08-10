@@ -67,7 +67,7 @@ def main() -> int:
                 schema_version="1",
                 model=route["model"],
                 reasoning_effort=route["reasoning_effort"],
-                allocation="PROBE_PROMPT_EVAL",
+                allocation=controller.registry["tasks"]["gamebook_extraction"]["allocation_by_model"][model],
                 destination="CANDIDATE",
                 max_output_tokens=max_output_tokens,
                 priority=Priority.NORMAL,

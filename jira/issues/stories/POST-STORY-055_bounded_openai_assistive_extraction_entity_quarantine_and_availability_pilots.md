@@ -7,7 +7,7 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Pilots A-C receive empirical gold/reference/cheaper-model comparisons and candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.",
+    "Pilots A-C receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.",
     "Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates."
   ],
   "adr_ids": [],
@@ -69,7 +69,7 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified.",
+  "end_to_end_validation": "Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-STORY-055.json",
   "evidence_state": "PLANNED",
@@ -319,7 +319,7 @@ Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST
 
 ## Acceptance Criteria
 
-1. Pilots A-C receive empirical gold/reference/cheaper-model comparisons and candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
+1. Pilots A-C receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
 2. Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates.
 
 ## Definition of Done
@@ -371,7 +371,7 @@ Execute POST-STORY-055 within the optional OpenAI assistive plane. Consume `POST
 
 ## End-to-End Validation Requirement
 
-Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified.
+Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.
 
 ## Expected Maturity After Completion
 

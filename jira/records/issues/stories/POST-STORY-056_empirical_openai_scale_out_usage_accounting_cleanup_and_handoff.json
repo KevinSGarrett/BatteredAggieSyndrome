@@ -1,7 +1,7 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Only empirically validated routine formats scale to Luna Batch, with ambiguity routed to Terra and a small hard residue to Sol.",
+    "Only empirically validated routine formats scale to GPT-5 Nano Batch, with task-specific 4o Mini/Luna use measured, complex ambiguity routed to Terra, and a small hard/high-risk residue routed to Sol under staged and model-cap admission.",
     "Handoff reports exact jobs, models, efforts, tokens, dollars, remaining budget, dispositions, improvements, cleanup, and unresolved reviews."
   ],
   "adr_ids": [],

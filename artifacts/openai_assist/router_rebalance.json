@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "artifact_type": "OPENAI_BALANCED_ROUTER_AND_BUDGET_REBALANCE",
+  "jira_unit": "POST-SUBTASK-164",
+  "jira_key": "BAT-520",
+  "status": "INTEGRATED_POLICY_PENDING_EMPIRICAL_PILOT_C",
+  "governing_plan": {
+    "path": "C:\\Users\\kevin\\.codex\\attachments\\91630a47-7c06-4536-9cf1-5f76a09c79a6\\openai-api-assistive-plane-plan.md",
+    "read_completely": true,
+    "sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+    "supersedes_all_prior_plan_hashes_and_allocations": true
+  },
+  "official_documentation_checked": [
+    "https://developers.openai.com/api/docs/guides/migrate-to-responses",
+    "https://developers.openai.com/api/docs/guides/structured-outputs",
+    "https://developers.openai.com/api/docs/guides/batch",
+    "https://developers.openai.com/api/docs/guides/your-data",
+    "https://developers.openai.com/api/docs/pricing",
+    "https://developers.openai.com/api/docs/models/gpt-5-nano",
+    "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+    "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+    "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+    "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+  ],
+  "confirmed_api_contract": {
+    "synchronous_endpoint": "/v1/responses",
+    "responses_store": false,
+    "strict_structured_outputs_field": "text.format",
+    "batch_completion_window": "24h",
+    "batch_discount": "STANDARD_TOKEN_RATES_HALVED",
+    "long_context_pricing_threshold_tokens_for_gpt_5_6": 272000,
+    "gpt_5_6_max_input_tokens": 922000,
+    "gpt_5_nano_max_input_tokens": 272000,
+    "gpt_4o_mini_context_window_tokens": 128000
+  },
+  "router": {
+    "objective": "ACCEPTED_EVIDENCE_VERIFIED_RECORDS_PER_DOLLAR",
+    "sequence": [
+      "DETERMINISTIC_OR_CACHE",
+      "GPT_5_NANO_BATCH",
+      "TASK_SPECIFIC_GPT_4O_MINI_OR_GPT_5_6_LUNA",
+      "GPT_5_6_TERRA_COMPLEX_AMBIGUITY",
+      "GPT_5_6_SOL_HARD_OR_HIGH_RISK_RESIDUE",
+      "QUARANTINE_IF_STILL_UNSUPPORTED_OR_CONFLICTING"
+    ],
+    "initial_pilot_required_models": ["gpt-5.6-terra", "gpt-5.6-sol"],
+    "existing_representative_evidence": [
+      "artifacts/openai_assist/model_comparison.json",
+      "artifacts/openai_assist/gamebook_pilot.json",
+      "artifacts/openai_assist/entity_review_pilot.json"
+    ],
+    "pilot_c_requirement": "Repeat meaningful Terra/Sol complex and high-risk cases while adding Nano and any empirically justified 4o Mini route."
+  },
+  "budget": {
+    "absolute_usd": "100.00",
+    "base_allocations_usd": {
+      "CONTROLLER_SETUP": "3.00",
+      "NANO_BATCH": "22.00",
+      "FOUR_O_MINI_AB": "4.00",
+      "LUNA_HARD_VOLUME": "12.00",
+      "TERRA_COMPLEX": "15.00",
+      "SOL_GOLD_HARD": "10.00",
+      "EMBEDDINGS_RETRIEVAL": "2.00",
+      "CROSS_MODEL_QA": "10.00",
+      "VALUE_GATED_RESERVE": "22.00"
+    },
+    "staged_cumulative_limits_usd": ["10.00", "30.00", "60.00", "90.00", "100.00"],
+    "terra_base_usd": "15.00",
+    "terra_reserve_max_usd": "25.00",
+    "sol_base_usd": "10.00",
+    "sol_reserve_max_usd": "17.00",
+    "completion_contingency_minimum_usd": "5.00",
+    "reserve_value_tests": ["HARD_CASE_ACCEPTANCE", "REVIEW_TIME_SAVED", "RISK_REDUCTION"]
+  },
+  "usage_at_rebalance": {
+    "settled_usd": "2.665852",
+    "reserved_usd": "0.000000",
+    "remaining_usd": "97.334148",
+    "released_stage_usd": "10.000000",
+    "by_model_usd": {
+      "gpt-5.6-luna": "0.070372",
+      "gpt-5.6-terra": "0.737220",
+      "gpt-5.6-sol": "1.858260"
+    },
+    "historical_ledger_rewritten": false,
+    "historical_allocations_mapped_by_policy": true,
+    "new_api_calls_for_rebalance": 0
+  },
+  "authority": {
+    "output_destinations": ["CANDIDATE", "REVIEW", "QUARANTINE", "REJECTED"],
+    "canonical_writes": 0,
+    "protected_truth_writes": 0,
+    "forecast_runtime_dependency": false
+  },
+  "next_empirical_action": "Run the bounded BAT-520 quarantine/schema-drift pilot in shadow/quarantine mode after normal PR integration, using Nano plus meaningful Terra/Sol hard cases and any justified 4o Mini/Luna route.",
+  "scientific_nonclaims": [
+    "No final historical completeness claim.",
+    "No production model readiness or protected performance claim.",
+    "No A&M specialization lift, BAS, Aggie Excess, or other scientific result claim."
+  ]
+}

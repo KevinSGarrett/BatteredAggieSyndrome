@@ -90,7 +90,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. Pilots A-C receive empirical gold/reference/cheaper-model comparisons and candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
+1. Pilots A-C receive empirical gold/reference/cheaper-model comparisons, including meaningful Terra/Sol references and Nano/task-specific inexpensive routes, with candidate-only dispositions; Pilot D remains conditional until timestamped evidence exists.
 2. Unsupported facts, false merges, leakage, and fabricated timestamps/statistics remain zero for accepted candidates.
 
 ## Tests / validation
@@ -108,7 +108,7 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## End-to-end handoff
 
-Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Luna Batch, Terra review, Sol residue, deterministic-only, or rejection is justified.
+Compare all bounded pilot evidence, preserve failures and abstentions, and decide per format whether Nano Batch, a measured 4o Mini/Luna route, Terra complex review, Sol hard residue, deterministic-only, or rejection is justified by accepted evidence-verified records per dollar.
 
 ## Stop instead of improvising when
 

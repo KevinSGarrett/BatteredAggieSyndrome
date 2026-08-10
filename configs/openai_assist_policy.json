@@ -1,7 +1,8 @@
 {
-  "schema_version": 1,
-  "policy_id": "openai-assistive-plane-2026-08-09",
-  "official_docs_checked_at": "2026-08-09",
+  "schema_version": 2,
+  "policy_id": "openai-assistive-plane-2026-08-10-balanced-router-v2",
+  "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+  "official_docs_checked_at": "2026-08-10",
   "api": {
     "batch_completion_window": "24h",
     "max_transient_attempts": 3,
@@ -13,7 +14,7 @@
     "batch": "https://developers.openai.com/api/docs/guides/batch",
     "data_controls": "https://developers.openai.com/api/docs/guides/your-data",
     "evaluation": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
-    "model_guidance": "https://developers.openai.com/api/docs/guides/model-guidance?model=gpt-5.6",
+    "model_guidance": "https://developers.openai.com/api/docs/guides/upgrading-to-gpt-5p6-sol",
     "pricing": "https://developers.openai.com/api/docs/pricing",
     "responses": "https://developers.openai.com/api/docs/guides/migrate-to-responses",
     "structured_outputs": "https://developers.openai.com/api/docs/guides/structured-outputs"
@@ -37,47 +38,114 @@
   "budget": {
     "absolute_usd": "100.00",
     "allocations": {
-      "AUTONOMOUS_HIGH_VALUE": "8.00",
-      "CONTINGENCY_COMPLETION": "10.00",
-      "DISAGREEMENT_RERUN_ADVERSARIAL": "10.00",
-      "EMBEDDINGS_RETRIEVAL": "5.00",
-      "LUNA_BATCH": "25.00",
-      "PROBE_PROMPT_EVAL": "10.00",
-      "SOL_GOLD_HARD": "12.00",
-      "TERRA_BATCH": "20.00"
+      "CONTROLLER_SETUP": "3.00",
+      "NANO_BATCH": "22.00",
+      "FOUR_O_MINI_AB": "4.00",
+      "LUNA_HARD_VOLUME": "12.00",
+      "TERRA_COMPLEX": "15.00",
+      "SOL_GOLD_HARD": "10.00",
+      "EMBEDDINGS_RETRIEVAL": "2.00",
+      "CROSS_MODEL_QA": "10.00",
+      "VALUE_GATED_RESERVE": "22.00"
     },
-    "alert_thresholds_usd": ["25.00", "50.00", "75.00", "90.00"],
+    "legacy_allocation_map": {
+      "AUTONOMOUS_HIGH_VALUE": "VALUE_GATED_RESERVE",
+      "CONTINGENCY_COMPLETION": "VALUE_GATED_RESERVE",
+      "DISAGREEMENT_RERUN_ADVERSARIAL": "CROSS_MODEL_QA",
+      "EMBEDDINGS_RETRIEVAL": "EMBEDDINGS_RETRIEVAL",
+      "LUNA_BATCH": "NANO_BATCH",
+      "PROBE_PROMPT_EVAL": "CROSS_MODEL_QA",
+      "SOL_GOLD_HARD": "SOL_GOLD_HARD",
+      "TERRA_BATCH": "TERRA_COMPLEX"
+    },
+    "historical_model_spend_usd": {
+      "gpt-5.6-luna": "0.070372",
+      "gpt-5.6-terra": "0.737220",
+      "gpt-5.6-sol": "1.858260"
+    },
+    "alert_thresholds_usd": ["10.00", "25.00", "50.00", "75.00", "90.00"],
     "low_priority_stop_usd": "90.00",
+    "initial_stage_limit_usd": "10.00",
+    "stage_limits_usd": ["10.00", "30.00", "60.00", "90.00", "100.00"],
+    "stage_release_requires": {
+      "30.00": "PASSING_PILOT",
+      "60.00": "MEASURED_ACCEPTED_RECORD_VALUE",
+      "90.00": "SECOND_VALUE_REVIEW",
+      "100.00": "COMPLETION_OR_CONTINGENCY"
+    },
+    "single_job_review_usd": "1.00",
+    "completion_contingency_minimum_usd": "5.00",
+    "model_caps": {
+      "gpt-5.6-terra": {"base_usd": "15.00", "reserve_max_usd": "25.00"},
+      "gpt-5.6-sol": {"base_usd": "10.00", "reserve_max_usd": "17.00"}
+    },
     "reserve_release_requires": [
-      "VALIDATED_HIGH_VALUE",
-      "NECESSARY_RETRY",
-      "USEFUL_IN_FLIGHT_COMPLETION"
-    ]
+      "HARD_CASE_ACCEPTANCE",
+      "REVIEW_TIME_SAVED",
+      "RISK_REDUCTION"
+    ],
+    "initial_pilot_required_models": ["gpt-5.6-terra", "gpt-5.6-sol"]
   },
   "models": {
+    "gpt-5-nano": {
+      "allowed_efforts": ["minimal", "low"],
+      "default_effort": "minimal",
+      "max_input_tokens": 272000,
+      "reasoning_parameter": true,
+      "roles": ["bulk_classification", "concise_extraction", "document_tagging", "missingness_codes", "first_pass_candidates"],
+      "standard_usd_per_million": {"cached_input": "0.005", "input": "0.05", "output": "0.40"},
+      "batch_usd_per_million": {"cached_input": "0.0025", "input": "0.025", "output": "0.20"}
+    },
+    "gpt-4o-mini": {
+      "allowed_efforts": ["none"],
+      "default_effort": "none",
+      "max_input_tokens": 128000,
+      "reasoning_parameter": false,
+      "roles": ["bounded_non_reasoning_ab", "visual_layout_ab"],
+      "standard_usd_per_million": {"cached_input": "0.075", "input": "0.15", "output": "0.60"},
+      "batch_usd_per_million": {"cached_input": "0.075", "input": "0.075", "output": "0.30"}
+    },
     "gpt-5.6-luna": {
       "allowed_efforts": ["none", "low"],
-      "context_tokens": 272000,
       "default_effort": "none",
-      "roles": ["routine_extraction", "classification", "document_tagging", "straightforward_normalization"],
+      "max_input_tokens": 922000,
+      "long_context_threshold_tokens": 272000,
+      "reasoning_parameter": true,
+      "roles": ["harder_high_volume_extraction", "long_context_image_cases", "schema_interpretation", "nano_validator_failures"],
       "standard_usd_per_million": {"cached_input": "0.02", "input": "0.20", "output": "1.20"},
-      "batch_usd_per_million": {"cached_input": "0.01", "input": "0.10", "output": "0.60"}
+      "batch_usd_per_million": {"cached_input": "0.01", "input": "0.10", "output": "0.60"},
+      "long_context_standard_usd_per_million": {"cached_input": "0.04", "input": "0.40", "output": "1.80"},
+      "long_context_batch_usd_per_million": {"cached_input": "0.02", "input": "0.20", "output": "0.90"}
     },
     "gpt-5.6-terra": {
       "allowed_efforts": ["low", "medium"],
-      "context_tokens": 272000,
       "default_effort": "low",
-      "roles": ["ambiguous_entity_resolution", "schema_reasoning", "conflict_reconciliation", "complex_gamebook_extraction"],
+      "max_input_tokens": 922000,
+      "long_context_threshold_tokens": 272000,
+      "reasoning_parameter": true,
+      "roles": ["ambiguous_entity_resolution", "conflicting_evidence", "complex_gamebooks", "multi_step_reconciliation"],
       "standard_usd_per_million": {"cached_input": "0.20", "input": "2.00", "output": "12.00"},
-      "batch_usd_per_million": {"cached_input": "0.10", "input": "1.00", "output": "6.00"}
+      "batch_usd_per_million": {"cached_input": "0.10", "input": "1.00", "output": "6.00"},
+      "long_context_standard_usd_per_million": {"cached_input": "0.40", "input": "4.00", "output": "18.00"},
+      "long_context_batch_usd_per_million": {"cached_input": "0.20", "input": "2.00", "output": "9.00"}
     },
     "gpt-5.6-sol": {
       "allowed_efforts": ["medium", "high"],
-      "context_tokens": 272000,
       "default_effort": "medium",
-      "roles": ["gold_prompt_development", "hard_adjudication", "bounded_independent_review", "difficult_scientific_architecture"],
+      "max_input_tokens": 922000,
+      "long_context_threshold_tokens": 272000,
+      "reasoning_parameter": true,
+      "roles": ["gold_set_challenge", "hardest_adjudication", "high_risk_independent_review", "difficult_scientific_architecture"],
       "standard_usd_per_million": {"cached_input": "0.50", "input": "5.00", "output": "30.00"},
-      "batch_usd_per_million": {"cached_input": "0.25", "input": "2.50", "output": "15.00"}
+      "batch_usd_per_million": {"cached_input": "0.25", "input": "2.50", "output": "15.00"},
+      "long_context_standard_usd_per_million": {"cached_input": "1.00", "input": "10.00", "output": "45.00"},
+      "long_context_batch_usd_per_million": {"cached_input": "0.50", "input": "5.00", "output": "22.50"}
+    }
+  },
+  "retrieval_models": {
+    "text-embedding-3-small": {
+      "input_usd_per_million": "0.02",
+      "admission": "MEASURED_SUPERIORITY_OVER_LEXICAL_ENTITY_METHODS"
     }
   },
   "storage": {

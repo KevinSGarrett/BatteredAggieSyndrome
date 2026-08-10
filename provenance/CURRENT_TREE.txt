@@ -98,6 +98,7 @@ artifacts/open_source/repository_review_decisions.csv
 artifacts/openai_assist/entity_review_pilot.json
 artifacts/openai_assist/gamebook_pilot.json
 artifacts/openai_assist/model_comparison.json
+artifacts/openai_assist/router_rebalance.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/source_governance/acquisition_resilience_test.json

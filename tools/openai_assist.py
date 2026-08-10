@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from decimal import Decimal
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -28,6 +29,10 @@ def main() -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("doctor")
     sub.add_parser("usage")
+    release = sub.add_parser("budget-release")
+    release.add_argument("--stage-usd", required=True)
+    release.add_argument("--evidence-id", required=True)
+    release.add_argument("--reason", required=True)
     estimate = sub.add_parser("estimate")
     estimate.add_argument("--job", type=Path, required=True)
     sync = sub.add_parser("sync")
@@ -55,6 +60,11 @@ def main() -> int:
     if args.command == "doctor":
         value = controller.doctor()
     elif args.command == "usage":
+        value = controller.ledger.summary()
+    elif args.command == "budget-release":
+        controller.ledger.release_stage(
+            Decimal(args.stage_usd), evidence_id=args.evidence_id, reason=args.reason
+        )
         value = controller.ledger.summary()
     elif args.command == "estimate":
         item = controller.prepare(_job(args.job), mode=ProcessingMode.SYNCHRONOUS)

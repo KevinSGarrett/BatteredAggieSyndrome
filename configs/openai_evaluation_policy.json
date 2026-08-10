@@ -17,6 +17,8 @@
     "reasoning_effort": "medium"
   },
   "comparison_routes": [
+    {"model": "gpt-5-nano", "reasoning_effort": "minimal"},
+    {"model": "gpt-4o-mini", "reasoning_effort": "none"},
     {"model": "gpt-5.6-luna", "reasoning_effort": "none"},
     {"model": "gpt-5.6-terra", "reasoning_effort": "medium"}
   ],

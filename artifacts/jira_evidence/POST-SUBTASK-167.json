@@ -4,46 +4,48 @@
   "decision_unit": "POST-SUBTASK-167",
   "jira_key": "",
   "related_project_jira_key": "BAT-523",
-  "created_at_utc": "2026-08-10T22:05:00Z",
-  "overall_disposition": "IN_PROGRESS_DETERMINISTIC_GOLD_AND_PREFLIGHT_PASS_LIVE_COMPARISON_PENDING_CREDENTIAL_RESTORATION",
+  "created_at_utc": "2026-08-10T23:22:00Z",
+  "overall_disposition": "COMPLETE_EMPIRICAL_SHADOW_COMPARISON_LUNA_CHEAPEST_PASSING_ROUTE_NANO_REJECTED",
   "acceptance_matrix": [
     {
       "criterion": 1,
       "disposition": "PASS",
       "evidence": "artifacts/openai_assist/depth_chart_pilot.json",
-      "evidence_sha256": "2fe0aed7de26757aa76518de16f7f0b3841feb8dd797178709b74e3e8d2573a6",
+      "evidence_sha256": "61243c1ff1a0e2f1ffe4db9016c3e0fdecfaf6b0186464d8cc166973c40d7261",
       "observable_result": "Seven deterministic official-page cases span 2011, 2012, 2013, 2016, 2020, 2024, and 2025 layout drift, OR chains, name typography, supported fields, NOT_PRESENT injury status, and UNKNOWN publication time."
     },
     {
       "criterion": 2,
-      "disposition": "PENDING_EXTERNAL_CREDENTIAL_RESTORATION",
+      "disposition": "PASS",
       "evidence": "artifacts/openai_assist/depth_chart_pilot.json",
-      "evidence_sha256": "2fe0aed7de26757aa76518de16f7f0b3841feb8dd797178709b74e3e8d2573a6",
-      "observable_result": "All 28 Nano-minimal, Luna-none, Terra-low, and Sol-medium request identities passed the single-controller Responses/strict-Structured-Outputs preflight at an estimated USD 0.730292. A governed live attempt then failed closed at credential loading before provider submission: 0 completed predictions, 0 Terra/Sol calls, and USD 0.000000 actual cost; external run manifest SHA-256 9c950248d4b042696d0a9a3429430130f6ecd8598606746dcbca1a1cde12bd4c."
+      "evidence_sha256": "61243c1ff1a0e2f1ffe4db9016c3e0fdecfaf6b0186464d8cc166973c40d7261",
+      "observable_result": "Two immutable 28-request comparisons executed through the single governed Responses/strict-Structured-Outputs controller: 14 calls each to Nano-minimal, Luna-none, Terra-low, and Sol-medium, 56 completed predictions, zero provider failures, and USD 0.727244 total. The first run preserved a prompt-status defect; the corrected run is independently evaluated at SHA-256 c9b0c4956003a31da3c4ccf8a987b593bf45af730e5d71e319282494411eb866."
     },
     {
       "criterion": 3,
       "disposition": "PASS",
       "evidence": "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
-      "evidence_sha256": "4ce5315ca46d2a4066dffdfd0115cadbcf366bc60628d8a993bd074f9035d648",
+      "evidence_sha256": "4036708b48a195aa77e2a38dad615b8d062055108906cec3a29f21e3d969a785",
       "observable_result": "The gate explicitly denies availability inference, historical-time fabrication, canonical player/depth-chart admission, PIT, training, protected evaluation, forecast, and publication authority; 25 noncovered documents remain explicit in 2022-2023."
     },
     {
       "criterion": 4,
-      "disposition": "PENDING_EMPIRICAL_LIVE_RESULTS",
+      "disposition": "PASS",
       "evidence": "artifacts/openai_assist/depth_chart_pilot.json",
-      "evidence_sha256": "2fe0aed7de26757aa76518de16f7f0b3841feb8dd797178709b74e3e8d2573a6",
-      "observable_result": "The predeclared metrics and Terra/Sol value gate are fixed, but no route or reserve release is claimed before identical live results establish acceptance, review savings, risk reduction, disagreement, and cost per accepted record."
+      "evidence_sha256": "61243c1ff1a0e2f1ffe4db9016c3e0fdecfaf6b0186464d8cc166973c40d7261",
+      "observable_result": "On the corrected identical seven-case comparison, Luna, Terra, and Sol each passed every predeclared schema, precision, recall, evidence, abstention, and unsupported-fact gate. Nano failed schema and extraction gates. Luna is the cheapest passing shadow route at USD 0.001423571 per accepted case; Terra remains ambiguity-only, Sol remains hard-review-only, no Batch is submitted, and no reserve is released."
     }
   ],
   "artifacts": [
-    {"role": "PILOT_CHECKPOINT", "path": "artifacts/openai_assist/depth_chart_pilot.json", "sha256": "2fe0aed7de26757aa76518de16f7f0b3841feb8dd797178709b74e3e8d2573a6", "bytes": 5613},
-    {"role": "HISTORICAL_DOMAIN_GATE", "path": "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json", "sha256": "4ce5315ca46d2a4066dffdfd0115cadbcf366bc60628d8a993bd074f9035d648", "bytes": 3645},
-    {"role": "PILOT_CONFIG", "path": "configs/openai_depth_chart_pilot.json", "sha256": "2dc8bdbd6268c4140b25cc8c5724b75cd67b1c92f933ff83c715c26a1edc48b6", "bytes": 11025},
-    {"role": "PINNED_PROMPT", "path": "prompts/openai_assist/depth_chart_document_v1.txt", "sha256": "25e10a0a799cb24e4a51111685f9333316d9a766b0e06e03af37a2cb85dee249", "bytes": 1650},
+    {"role": "PILOT_CHECKPOINT", "path": "artifacts/openai_assist/depth_chart_pilot.json", "sha256": "61243c1ff1a0e2f1ffe4db9016c3e0fdecfaf6b0186464d8cc166973c40d7261", "bytes": 8673},
+    {"role": "HISTORICAL_DOMAIN_GATE", "path": "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json", "sha256": "4036708b48a195aa77e2a38dad615b8d062055108906cec3a29f21e3d969a785", "bytes": 4141},
+    {"role": "PILOT_CONFIG", "path": "configs/openai_depth_chart_pilot.json", "sha256": "ab0aa9f36285ef0978c6f1ea3f47c20cfda6664665510a5f564594e3d6635bff", "bytes": 11049},
+    {"role": "PINNED_PROMPT", "path": "prompts/openai_assist/depth_chart_document_v1.txt", "sha256": "3f1acafdb3bd9a9527d6c368bd3aa9aca225f5f2a3b527747008aab439ccccc1", "bytes": 2068},
     {"role": "GOLD_PREPARER", "path": "tools/prepare_openai_depth_chart_pilot.py", "sha256": "94e7cb3f594d59ae8b6bdb43ff4ba0ee1d18620c51000884d6a840b9ed892ffc", "bytes": 9313},
-    {"role": "PILOT_RUNNER", "path": "tools/run_openai_depth_chart_pilot.py", "sha256": "5d7e09ab7dd982e6ed3023e36afeac0266696312d045b6b9654d65cfb72ab5bc", "bytes": 9554},
-    {"role": "ASSISTIVE_VALIDATOR", "path": "tools/validate_openai_assist.py", "sha256": "3eb363bc090e5c67b85e388bd28b0e00f1778377125bb7bb22d6a12297cb8764", "bytes": 21017}
+    {"role": "PILOT_RUNNER", "path": "tools/run_openai_depth_chart_pilot.py", "sha256": "aaeddcfe2d72908791cf0b8924af23b0a29d44632b634be1eea1c3917398a78b", "bytes": 11089},
+    {"role": "ASSISTIVE_VALIDATOR", "path": "tools/validate_openai_assist.py", "sha256": "3eb363bc090e5c67b85e388bd28b0e00f1778377125bb7bb22d6a12297cb8764", "bytes": 21017},
+    {"role": "HISTORICAL_RECOVERY_CONTRACT", "path": "configs/historical_known_at_recovery_contract.json", "sha256": "107de8feb3af9399238745cbc04116b3e309bddf5f03fe212985e0b240c623cd", "bytes": 36888},
+    {"role": "HISTORICAL_REPLAY_GATE", "path": "artifacts/pit/historical_known_at_replay_gate.json", "sha256": "17c517b5e08dc0df17a9674eb2ccd85223007676771a4ca945927413c7e3f4b4", "bytes": 25647}
   ],
   "external_evidence": {
     "source_acquisition_identity": "13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956",
@@ -53,23 +55,30 @@
     "gold_manifest_sha256": "9b7f27692107e1e275d8cfb7e135d8185de65338a48d41c5624795f3423d5e53",
     "preflight_manifest_sha256": "09a5a6ae2d84e6cd4f7449935005e3a967fd24425c40097d80d18ebc47e8678b",
     "failed_live_attempt_manifest_sha256": "9c950248d4b042696d0a9a3429430130f6ecd8598606746dcbca1a1cde12bd4c",
+    "first_live_run_manifest_sha256": "e7549cc507b694a8ce1df4e4294d9f8042c6c2afd78f8552b31e64203896ab53",
+    "first_live_predictions_sha256": "b19eba231f5d20ec3d22346b557613eeffc3d20e8848131cee05030542b164ea",
+    "first_live_evaluation_sha256": "d26854f291582572191759f43f2b30af2c2f0e23ef10400dbd0f7dc117ad4122",
+    "corrected_preflight_manifest_sha256": "4396997ce0f0367536d5eb6346325fa4d1b52f13aebd8294a858af11df3ffab5",
+    "corrected_live_run_manifest_sha256": "5cef7547671ea043db38333308feed44b61265f5ecd6bfe19dc74a6596ccf996",
+    "corrected_predictions_sha256": "9eab7e7d47d736aa58548eb74b2da69b94e66a6447ac62d429d0f5d728f54924",
+    "corrected_evaluation_sha256": "c9b0c4956003a31da3c4ccf8a987b593bf45af730e5d71e319282494411eb866",
     "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523"
   },
   "usage": {
-    "pilot_synchronous_jobs": 0,
+    "pilot_synchronous_jobs": 56,
     "pilot_batch_jobs": 0,
-    "pilot_settled_usd": "0.000000",
+    "pilot_settled_usd": "0.727244",
     "preflight_requests": 28,
     "preflight_estimated_usd": "0.730292",
-    "project_settled_usd": "2.751147",
-    "project_remaining_usd": "97.248853",
+    "project_settled_usd": "4.207850",
+    "project_remaining_usd": "95.792150",
     "threshold_alerts_reached": []
   },
   "completion": {
-    "completion_claimed": false,
-    "achieved_maturity": "DETERMINISTIC_GOLD_AND_REQUEST_PREFLIGHT_VALIDATED",
-    "evidence_state": "PARTIAL_VERIFIED",
-    "issue_disposition": "IN_PROGRESS",
+    "completion_claimed": true,
+    "achieved_maturity": "EMPIRICALLY_VALIDATED_SHADOW_ROUTING",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_LOCAL_LIVE_JIRA_SYNC_PENDING_CREDENTIAL",
     "global_project_complete": false
   },
   "honesty_boundary": {

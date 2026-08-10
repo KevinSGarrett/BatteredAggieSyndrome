@@ -59,6 +59,7 @@
       "cost"
     ]
   },
+  "completion_evidence_manifest_sha256": "1c0176c532a27031fe260410fc30e1cede19e1f73f18182a72e39e333550145f",
   "component": "player-context-intelligence",
   "components_expected_to_be_touched": [
     "player-context-intelligence",
@@ -89,7 +90,7 @@
   "end_to_end_validation": "Prepare and independently bind a seven-case official depth-chart gold corpus, preflight all 28 governed model requests, execute them only when the configured credential is restored, and evaluate identical predictions without any protected or canonical mutation.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-167.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -149,7 +150,7 @@
   ],
   "last_content_audit": "2026-08-10",
   "local_id": "POST-SUBTASK-167",
-  "maturity_before": "NOT_STARTED",
+  "maturity_before": "EMPIRICALLY_VALIDATED",
   "objective": "Compare governed extraction of official Texas A&M depth-chart document evidence across Nano, Luna, Terra, and Sol",
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -194,7 +195,7 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-167.json` with one evidence row per acceptance criterion and exact artifact hashes.",
@@ -255,7 +256,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-167.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 

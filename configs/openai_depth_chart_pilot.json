@@ -24,8 +24,8 @@
   },
   "prompt": {
     "path": "prompts/openai_assist/depth_chart_document_v1.txt",
-    "version": "depth-chart-document-v1",
-    "sha256": "25e10a0a799cb24e4a51111685f9333316d9a766b0e06e03af37a2cb85dee249"
+    "version": "depth-chart-document-v2-explicit-known-at-state",
+    "sha256": "3f1acafdb3bd9a9527d6c368bd3aa9aca225f5f2a3b527747008aab439ccccc1"
   },
   "output_schema": "schemas/openai/assistive_evaluation.schema.json",
   "routes": [

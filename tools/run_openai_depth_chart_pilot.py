@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.openai_assist.contracts import Priority, ProcessingMode  # noqa: E402
 from aggie_analytics.openai_assist.controller import AssistiveController, AssistiveJob  # noqa: E402
+from aggie_analytics.openai_assist.evals import evaluate  # noqa: E402
 
 
 def _jsonl(path: Path) -> list[dict[str, Any]]:
@@ -181,6 +182,32 @@ def main() -> int:
         json.dumps(row, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n" for row in rows
     ).encode("utf-8")
     predictions = controller.store.put_bytes("evals", prediction_payload, suffix=".tamu-depth-chart-predictions.jsonl")
+    evaluation_payload: dict[str, Any] | None = None
+    evaluation_artifact = None
+    if rows:
+        evaluation_schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        evaluation_payload = {
+            "schema_version": 1,
+            "artifact_type": "openai_tamu_depth_chart_pilot_evaluation",
+            "pilot_id": config["pilot_id"],
+            "jira_unit": config["jira_unit"],
+            "authority": config["authority"],
+            "gold_sha256": hashlib.sha256(gold_path.read_bytes()).hexdigest(),
+            "predictions_sha256": predictions.sha256,
+            "overall": evaluate(gold_path, predictions.path, evaluation_schema).as_dict(),
+            "by_model": {
+                route["model"]: evaluate(
+                    gold_path,
+                    predictions.path,
+                    evaluation_schema,
+                    model=route["model"],
+                ).as_dict()
+                for route in routes
+            },
+            "acceptance": config["acceptance"],
+            "final_disposition": "SHADOW_EVALUATION_ONLY",
+        }
+        evaluation_artifact = controller.store.put_json("evals", evaluation_payload)
     manifest = controller.store.put_json(
         "evals",
         {
@@ -196,6 +223,7 @@ def main() -> int:
             "fatal_provider_error": fatal_provider_error,
             "predictions_sha256": predictions.sha256,
             "predictions_bytes": predictions.bytes,
+            "evaluation_sha256": evaluation_artifact.sha256 if evaluation_artifact else None,
             "cost_usd_by_model": {key: f"{value:.6f}" for key, value in sorted(costs.items())},
             "historical_publication_time_state": "UNKNOWN",
             "canonical_or_pit_admission": False,
@@ -210,6 +238,8 @@ def main() -> int:
                 "failure_count": len(failures),
                 "predictions_path": str(predictions.path),
                 "predictions_sha256": predictions.sha256,
+                "evaluation_path": str(evaluation_artifact.path) if evaluation_artifact else None,
+                "evaluation_sha256": evaluation_artifact.sha256 if evaluation_artifact else None,
                 "manifest_path": str(manifest.path),
                 "manifest_sha256": manifest.sha256,
                 "cost_usd_by_model": {key: f"{value:.6f}" for key, value in sorted(costs.items())},

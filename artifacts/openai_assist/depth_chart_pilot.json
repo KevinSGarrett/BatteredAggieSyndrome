@@ -3,7 +3,7 @@
   "artifact_type": "openai_tamu_official_depth_chart_document_pilot_checkpoint",
   "pilot_id": "openai-tamu-official-depth-chart-document-pilot-v1",
   "jira_unit": "POST-SUBTASK-167",
-  "status": "DETERMINISTIC_GOLD_AND_28_REQUEST_PREFLIGHT_PASS_LIVE_ATTEMPT_FAILED_CLOSED_ON_AUTHORITATIVE_ENV",
+  "status": "LIVE_COMPARISON_COMPLETE_LUNA_TERRA_SOL_PASS_NANO_REJECTED_SHADOW_ONLY",
   "authority": "SHADOW_DOCUMENT_CANDIDATE_ONLY_NO_PIT_OR_AVAILABILITY_ADMISSION",
   "source": {
     "source_id": "SRC-014",
@@ -50,25 +50,55 @@
     "total_estimated_cost_usd": "0.730292",
     "preflight_result": "PASS",
     "live_api_calls": 0,
-    "actual_cost_usd": "0.000000"
+    "actual_cost_usd": "0.000000",
+    "corrected_prompt_preflight_manifest_sha256": "4396997ce0f0367536d5eb6346325fa4d1b52f13aebd8294a858af11df3ffab5",
+    "corrected_prompt_estimated_cost_usd": "0.737367"
   },
   "execution_attempt": {
-    "run_manifest_sha256": "9c950248d4b042696d0a9a3429430130f6ecd8598606746dcbca1a1cde12bd4c",
-    "requested_jobs": 28,
-    "completed_predictions": 0,
-    "failure_count": 1,
-    "fatal_provider_error": "CredentialError",
-    "failure_route": "gpt-5-nano",
-    "terra_calls": 0,
-    "sol_calls": 0,
-    "actual_cost_usd": "0.000000",
-    "disposition": "FAILED_CLOSED_BEFORE_PROVIDER_SUBMISSION"
+    "initial_failed_credential_manifest_sha256": "9c950248d4b042696d0a9a3429430130f6ecd8598606746dcbca1a1cde12bd4c",
+    "first_live_run_manifest_sha256": "e7549cc507b694a8ce1df4e4294d9f8042c6c2afd78f8552b31e64203896ab53",
+    "first_live_predictions_sha256": "b19eba231f5d20ec3d22346b557613eeffc3d20e8848131cee05030542b164ea",
+    "first_live_evaluation_sha256": "d26854f291582572191759f43f2b30af2c2f0e23ef10400dbd0f7dc117ad4122",
+    "first_live_prompt_defect": "ALL_ROUTES_RETURNED_NOT_PRESENT_INSTEAD_OF_EXTERNALLY_VERIFIED_UNKNOWN_FOR_HISTORICAL_PUBLICATION_TIME",
+    "corrected_live_run_manifest_sha256": "5cef7547671ea043db38333308feed44b61265f5ecd6bfe19dc74a6596ccf996",
+    "corrected_predictions_sha256": "9eab7e7d47d736aa58548eb74b2da69b94e66a6447ac62d429d0f5d728f54924",
+    "corrected_evaluation_sha256": "c9b0c4956003a31da3c4ccf8a987b593bf45af730e5d71e319282494411eb866",
+    "requested_jobs": 56,
+    "completed_predictions": 56,
+    "failure_count": 0,
+    "nano_calls": 14,
+    "luna_calls": 14,
+    "terra_calls": 14,
+    "sol_calls": 14,
+    "actual_cost_usd": "0.727244",
+    "last_successful_api_use_utc": "2026-08-10T23:20:38.228919+00:00",
+    "disposition": "TWO_IMMUTABLE_SHADOW_COMPARISONS_FIRST_NEGATIVE_PROMPT_FINDING_CORRECTED_RUN_EVALUATED"
+  },
+  "empirical_comparison": {
+    "corrected_run_jobs": 28,
+    "accepted_review_candidates": 27,
+    "quarantine_candidates": 1,
+    "rejected_candidates": 0,
+    "canonical_or_protected_writes": 0,
+    "cross_model_disagreement_rate": 1.0,
+    "routes": {
+      "gpt-5-nano:minimal": {"calls": 7, "cost_usd": "0.002717", "strict_schema_rate": 0.8571428571428571, "field_precision": 0.723404255319149, "field_recall": 0.723404255319149, "evidence_accuracy": 0.0, "correct_abstention_rate": 1.0, "unsupported_fact_rate": 0.0, "quarantine_rate": 0.14285714285714285, "cost_per_accepted_record_usd": 0.0004528333333333333, "gate": "FAIL"},
+      "gpt-5.6-luna:none": {"calls": 7, "cost_usd": "0.009965", "strict_schema_rate": 1.0, "field_precision": 1.0, "field_recall": 1.0, "evidence_accuracy": 1.0, "correct_abstention_rate": 1.0, "unsupported_fact_rate": 0.0, "quarantine_rate": 0.0, "cost_per_accepted_record_usd": 0.0014235714285714288, "gate": "PASS"},
+      "gpt-5.6-terra:low": {"calls": 7, "cost_usd": "0.099626", "strict_schema_rate": 1.0, "field_precision": 1.0, "field_recall": 1.0, "evidence_accuracy": 1.0, "correct_abstention_rate": 1.0, "unsupported_fact_rate": 0.0, "quarantine_rate": 0.0, "cost_per_accepted_record_usd": 0.014232285714285713, "gate": "PASS"},
+      "gpt-5.6-sol:medium": {"calls": 7, "cost_usd": "0.249545", "strict_schema_rate": 1.0, "field_precision": 1.0, "field_recall": 1.0, "evidence_accuracy": 1.0, "correct_abstention_rate": 1.0, "unsupported_fact_rate": 0.0, "quarantine_rate": 0.0, "cost_per_accepted_record_usd": 0.03564928571428572, "gate": "PASS"}
+    },
+    "route_decision": "LUNA_CHEAPEST_PASSING_SHADOW_ROUTE_NANO_NOT_ELIGIBLE_FOR_THIS_FORMAT_TERRA_AMBIGUITY_ONLY_SOL_HARD_REVIEW_ONLY",
+    "batch_status": "NOT_SUBMITTED_FORMAT_SPECIFIC_NANO_GATE_FAILED_AND_NO_PIT_CANONICAL_ADMISSION",
+    "reserve_release": "NOT_JUSTIFIED"
   },
   "budget": {
     "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
     "absolute_limit_usd": "100.00",
     "settled_before_checkpoint_usd": "2.751147",
-    "remaining_before_checkpoint_usd": "97.248853",
+    "remaining_before_checkpoint_usd": "96.519394",
+    "settled_after_checkpoint_usd": "4.207850",
+    "remaining_after_checkpoint_usd": "95.792150",
+    "stage_limit_usd": "30.000000",
     "terra_base_usd": "15.00",
     "terra_reserve_cap_usd": "25.00",
     "sol_base_usd": "10.00",
@@ -76,21 +106,21 @@
     "value_gated_reserve_usd": "22.00"
   },
   "implementation": {
-    "config_sha256": "2dc8bdbd6268c4140b25cc8c5724b75cd67b1c92f933ff83c715c26a1edc48b6",
-    "prompt_sha256": "25e10a0a799cb24e4a51111685f9333316d9a766b0e06e03af37a2cb85dee249",
+    "config_sha256": "ab0aa9f36285ef0978c6f1ea3f47c20cfda6664665510a5f564594e3d6635bff",
+    "prompt_sha256": "3f1acafdb3bd9a9527d6c368bd3aa9aca225f5f2a3b527747008aab439ccccc1",
     "prepare_tool_sha256": "94e7cb3f594d59ae8b6bdb43ff4ba0ee1d18620c51000884d6a840b9ed892ffc",
-    "run_tool_sha256": "5d7e09ab7dd982e6ed3023e36afeac0266696312d045b6b9654d65cfb72ab5bc",
+    "run_tool_sha256": "aaeddcfe2d72908791cf0b8924af23b0a29d44632b634be1eea1c3917398a78b",
     "api_endpoint": "/v1/responses",
     "structured_outputs_strict": true,
     "store": false,
     "single_governed_controller": true
   },
   "credential_checkpoint": {
-    "openai_api_key_nonempty": false,
+    "openai_api_key_nonempty": true,
     "process_environment_key_nonempty": true,
-    "process_environment_key_used": false,
-    "reason": "AUTHORITATIVE_PROJECT_ENV_FILE_ABSENT_AFTER_RECORDED_CLEANUP_INCIDENT",
-    "live_comparison_blocked_only": true,
+    "process_environment_key_used": true,
+    "reason": "FILE_FIRST_LOADER_USED_EXPLICIT_IN_MEMORY_INHERITED_PROCESS_FALLBACK_WITHOUT_RECONSTRUCTING_ENV_FILE",
+    "live_comparison_blocked_only": false,
     "independent_historical_and_deterministic_work_continues": true
   },
   "admission": {
@@ -103,7 +133,7 @@
     "protected_evaluation": false,
     "forecast_or_publication": false
   },
-  "next_required_action": "Restore the authoritative project .env without exposing it, verify OPENAI_API_KEY is nonempty through the governed loader, rerun the 28 preflighted requests including representative Terra and Sol calls, evaluate identical predictions, and record accepted/review/quarantine/reject counts, tokens, dollars, disagreement, review savings, and cleanup.",
+  "next_required_action": "Retain Luna as the cheapest passing shadow route for this exact format, keep Nano blocked for this format, route only ambiguity to Terra and the hard review residue to Sol, add repeated-run and review-time evidence before any routine scale-out, and preserve canonical/PIT admission as false until independent historical-known-at gates pass.",
   "scientific_nonclaims": {
     "historical_population_ready": false,
     "gap_002_resolved": false,

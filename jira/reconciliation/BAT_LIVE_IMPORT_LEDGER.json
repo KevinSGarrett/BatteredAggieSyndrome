@@ -4,28 +4,14 @@
     {
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
-      "updated_fields": [
-        "customfield_10195",
-        "customfield_10199",
-        "customfield_10200",
-        "customfield_10201"
-      ],
-      "verified_at": "2026-08-10T04:10:25.590509+00:00"
+      "updated_fields": [],
+      "verified_at": "2026-08-10T04:14:21.897332+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
-      "updated_fields": [
-        "customfield_10193",
-        "customfield_10195",
-        "customfield_10196",
-        "customfield_10197",
-        "customfield_10198",
-        "customfield_10199",
-        "customfield_10200",
-        "customfield_10201"
-      ],
-      "verified_at": "2026-08-10T04:10:26.313468+00:00"
+      "updated_fields": [],
+      "verified_at": "2026-08-10T04:14:22.077925+00:00"
     }
   ],
   "backup": {
@@ -46,8 +32,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-10T04:10:52.573168+00:00",
-    "verified_at": "2026-08-10T04:10:54.157712+00:00",
+    "updated_at": "2026-08-10T04:14:31.768384+00:00",
+    "verified_at": "2026-08-10T04:14:33.317468+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -3131,6 +3117,10 @@
     {
       "finding": "BAT contains issues outside the canonical import set: BAT-510:POST-TASK-STORAGE-CLEANUP-001, BAT-511:NO_LOCAL_ID",
       "recorded_at": "2026-08-10T04:04:45.303591+00:00"
+    },
+    {
+      "finding": "Live Jira links are neither the exact canonical set nor the exact/recoverable reversed importer set; refusing automated link deletion",
+      "recorded_at": "2026-08-10T04:10:56.280983+00:00"
     }
   ],
   "permission_remediation": {
@@ -3208,7 +3198,7 @@
   },
   "started_at": "2026-08-09T04:34:44.229661+00:00",
   "status": "FAILED_RESUMABLE",
-  "updated_at": "2026-08-10T04:10:56.280983+00:00",
+  "updated_at": "2026-08-10T04:14:35.569324+00:00",
   "verification": {
     "actual_expected_link_count": 1062,
     "board": {

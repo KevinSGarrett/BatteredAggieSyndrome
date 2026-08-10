@@ -116,7 +116,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "",
+  "jira_key": "BAT-522",
   "labels": [
     "actionable",
     "openai-assist",
@@ -129,6 +129,15 @@
   "local_id": "POST-SUBTASK-166",
   "maturity_before": "NOT_STARTED",
   "objective": "Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24662",
+    "jira_updated_at": "2026-08-09T23:18:51.527-0500",
+    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",

@@ -143,9 +143,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24527",
-    "jira_updated_at": "2026-08-09T20:36:46.824-0500",
-    "last_synced_at": "2026-08-10T01:37:57.668247+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-387\\BAT-387-live-row.csv",
+    "jira_updated_at": "2026-08-09T23:24:02.860-0500",
+    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

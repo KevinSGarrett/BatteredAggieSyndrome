@@ -135,11 +135,11 @@
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Establish clean-environment CI for repository tests, Jira validators, static checks, import dry-run, and deterministic packaging",
   "operational_jira": {
-    "assignee": "GARRETT TRAINING SYSTEMS INC.",
+    "assignee": "kevinsgarrett@gmail.com",
     "jira_issue_id": "24614",
-    "jira_updated_at": "2026-08-09T03:57:31.672-0500",
-    "last_synced_at": "2026-08-09T08:57:31.672000+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T23:24:12.291-0500",
+    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

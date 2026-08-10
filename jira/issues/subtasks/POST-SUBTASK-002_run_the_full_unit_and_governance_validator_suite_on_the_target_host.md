@@ -151,11 +151,11 @@
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Run the full unit and governance validator suite on the target host",
   "operational_jira": {
-    "assignee": "GARRETT TRAINING SYSTEMS INC.",
+    "assignee": "kevinsgarrett@gmail.com",
     "jira_issue_id": "24492",
-    "jira_updated_at": "2026-08-09T02:43:48.662-0500",
-    "last_synced_at": "2026-08-09T07:43:48+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T23:23:59.707-0500",
+    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

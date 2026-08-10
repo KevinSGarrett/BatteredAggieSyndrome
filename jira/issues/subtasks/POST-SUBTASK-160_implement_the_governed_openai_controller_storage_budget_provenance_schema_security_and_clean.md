@@ -138,7 +138,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "",
+  "jira_key": "BAT-516",
   "labels": [
     "actionable",
     "openai-assist",
@@ -151,6 +151,15 @@
   "local_id": "POST-SUBTASK-160",
   "maturity_before": "NOT_STARTED",
   "objective": "Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24656",
+    "jira_updated_at": "2026-08-09T23:24:18.147-0500",
+    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",

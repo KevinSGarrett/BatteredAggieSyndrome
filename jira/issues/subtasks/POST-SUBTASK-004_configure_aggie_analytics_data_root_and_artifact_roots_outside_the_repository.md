@@ -153,11 +153,11 @@
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Configure AGGIE_ANALYTICS_DATA_ROOT and artifact roots outside the repository",
   "operational_jira": {
-    "assignee": "GARRETT TRAINING SYSTEMS INC.",
+    "assignee": "kevinsgarrett@gmail.com",
     "jira_issue_id": "24494",
-    "jira_updated_at": "2026-08-09T03:26:57.167-0500",
-    "last_synced_at": "2026-08-09T08:26:57.167+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T23:23:59.941-0500",
+    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

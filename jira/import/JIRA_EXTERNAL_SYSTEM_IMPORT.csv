@@ -35218,7 +35218,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-164
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_classification_with_deterministic_remediation_routing.json",In Progress,Highest,actionable;openai-assist;post-wave;subtask;pilot-c;quarantine;local-id-post-subtask-164,validation-promotion,POST-SUBTASK-164,OPENAI-ASSIST-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-164_pilot_quarantine_and_schema_drift_classification_with_deterministic_remediation_routing.json",Done,Highest,actionable;openai-assist;post-wave;subtask;pilot-c;quarantine;local-id-post-subtask-164,validation-promotion,POST-SUBTASK-164,OPENAI-ASSIST-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-521,100473,"[POST-SUBTASK-165] Pilot timestamped injury, depth-chart, practice, and availability extraction when evidence is ready",100466,"Local ID: POST-SUBTASK-165
 
 Objective
@@ -35354,4 +35354,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-166
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;scale-out;handoff;local-id-post-subtask-166,release-readiness,POST-SUBTASK-166,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,OPERATING,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;scale-out;handoff;local-id-post-subtask-166,release-readiness,POST-SUBTASK-166,OPENAI-ASSIST-PLAN,PHASE-1,READY,OPERATING,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION

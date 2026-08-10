@@ -1478,6 +1478,7 @@ jira/project/JIRA_TARGET_PROFILE.yaml
 jira/project/LABEL_DICTIONARY.csv
 jira/project/PRIORITY_MAPPING.yaml
 jira/project/WORKFLOW_MAPPING.yaml
+jira/reconciliation/BAT_AUXILIARY_ISSUE_REGISTRY.json
 jira/reconciliation/BAT_JIRA_EXPORT.csv
 jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json
 jira/reconciliation/CONFLICT_REGISTER.csv

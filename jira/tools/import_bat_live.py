@@ -34,6 +34,7 @@ LEDGER_PATH = JIRA_ROOT / "reconciliation" / "BAT_LIVE_IMPORT_LEDGER.json"
 EXPORT_PATH = JIRA_ROOT / "reconciliation" / "BAT_JIRA_EXPORT.csv"
 VERIFY_PATH = JIRA_ROOT / "validation" / "BAT_LIVE_IMPORT_VERIFICATION.json"
 COMPLETION_POLICY_PATH = JIRA_ROOT / "project" / "HISTORICAL_COMPLETION_ASSURANCE_POLICY.json"
+AUXILIARY_ISSUES_PATH = JIRA_ROOT / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
 
 ISSUES_CSV = JIRA_ROOT / "import" / "JIRA_ISSUES_MASTER.csv"
 CREATE_PAYLOADS = JIRA_ROOT / "import" / "JIRA_API_CREATE_PAYLOADS.jsonl"
@@ -51,6 +52,7 @@ SOURCE_FILES = [
     JIRA_ROOT / "project" / "ISSUE_TYPE_MAPPING.yaml",
     JIRA_ROOT / "project" / "PRIORITY_MAPPING.yaml",
     JIRA_ROOT / "project" / "WORKFLOW_MAPPING.yaml",
+    AUXILIARY_ISSUES_PATH,
 ]
 
 FIELD_SPECS = [
@@ -250,6 +252,21 @@ def load_completion_policy() -> dict[str, Any]:
     if len(ids) != len(set(ids)) or int(policy.get("issue_count", -1)) != len(ids):
         raise RuntimeError("Historical completion assurance policy has invalid issue identity cardinality")
     return policy
+
+
+def load_auxiliary_issues() -> dict[str, dict[str, Any]]:
+    registry = load_json(AUXILIARY_ISSUES_PATH, {})
+    if registry.get("schema_version") != 1:
+        raise RuntimeError("Auxiliary Jira issue registry has an unsupported schema")
+    issues = registry.get("issues", [])
+    by_key = {item["jira_key"]: item for item in issues}
+    local_ids = [item["local_id"] for item in issues]
+    if len(by_key) != len(issues) or len(set(local_ids)) != len(local_ids):
+        raise RuntimeError("Auxiliary Jira issue identities must be unique")
+    for key, item in by_key.items():
+        if not re.fullmatch(r"BAT-\d+", key) or not item["local_id"] or not item["summary"]:
+            raise RuntimeError(f"Invalid auxiliary Jira issue identity: {key}")
+    return by_key
 
 
 def read_env_token(path: Path) -> str:
@@ -568,12 +585,20 @@ def map_existing_issues(
     issues = search_issues(client, wanted)
     mapping: dict[str, str] = {}
     unknown: list[str] = []
+    auxiliary = load_auxiliary_issues()
     for issue in issues:
         raw = issue.get("fields", {}).get(local_field_id)
         local_id = raw.strip() if isinstance(raw, str) else ""
         if not local_id:
             match = re.match(r"^\[([A-Z]+(?:-[A-Z]+)*-\d{3})\]", issue.get("fields", {}).get("summary", ""))
             local_id = match.group(1) if match else ""
+        auxiliary_item = auxiliary.get(issue.get("key", ""))
+        if auxiliary_item is not None:
+            if local_id and local_id != auxiliary_item["local_id"]:
+                raise RuntimeError(f"Auxiliary Jira issue {issue['key']} has an unexpected Local Issue ID")
+            if issue.get("fields", {}).get("summary") != auxiliary_item["summary"]:
+                raise RuntimeError(f"Auxiliary Jira issue {issue['key']} has an unexpected summary")
+            continue
         if local_id not in allowed_ids:
             unknown.append(f"{issue.get('key')}:{local_id or 'NO_LOCAL_ID'}")
             continue
@@ -583,6 +608,53 @@ def map_existing_issues(
     if unknown:
         raise RuntimeError("BAT contains issues outside the canonical import set: " + ", ".join(unknown[:30]))
     return mapping, issues
+
+
+def reconcile_auxiliary_issues(
+    client: JiraClient,
+    ledger: dict[str, Any],
+    field_ids: dict[str, str],
+) -> None:
+    reconciled: list[dict[str, Any]] = []
+    for key, item in sorted(load_auxiliary_issues().items()):
+        issue = client.get(
+            f"/rest/api/3/issue/{key}?fields=summary,status,issuetype,{','.join(field_ids.values())}"
+        )
+        fields = issue.get("fields", {})
+        if fields.get("summary") != item["summary"]:
+            raise RuntimeError(f"Auxiliary Jira issue {key} summary drifted")
+        if fields.get("issuetype", {}).get("name") != item["issue_type"]:
+            raise RuntimeError(f"Auxiliary Jira issue {key} type drifted")
+        if fields.get("status", {}).get("name") != item["status"]:
+            raise RuntimeError(f"Auxiliary Jira issue {key} status drifted")
+        desired = {
+            "Local Issue ID": item["local_id"],
+            "Logical Workflow State": item["logical_state"],
+            "Implementation Maturity": item["maturity"],
+            "Evidence State": item["evidence_state"],
+            "Owner Historical Wave": item["owner_wave"],
+            "Phase": item["phase"],
+            "Critical Path": str(item["critical_path"]).lower(),
+            "Execution Lane": item["execution_lane"],
+        }
+        updates: dict[str, Any] = {}
+        for name, value in desired.items():
+            field_id = field_ids[name]
+            if normalize_custom(fields.get(field_id)) != value:
+                updates[field_id] = custom_value(name, value)
+        if updates:
+            client.put(f"/rest/api/3/issue/{key}", {"fields": updates})
+        reconciled.append(
+            {
+                "jira_key": key,
+                "local_id": item["local_id"],
+                "updated_fields": sorted(updates),
+                "verified_at": utc_now(),
+            }
+        )
+    ledger["auxiliary_issue_reconciliation"] = reconciled
+    ledger["updated_at"] = utc_now()
+    write_json_atomic(LEDGER_PATH, ledger)
 
 
 def remove_exact_importer_duplicates(
@@ -1611,8 +1683,9 @@ def verify_live(
     by_key = {issue["key"]: issue for issue in issues}
     payload_by_id = {item["local_id"]: item for item in payloads}
     discrepancies: list[str] = []
-    if len(issues) != len(rows):
-        discrepancies.append(f"issue count {len(issues)} != {len(rows)}")
+    canonical_live_count = sum(key in by_key for key in key_map.values())
+    if canonical_live_count != len(rows):
+        discrepancies.append(f"canonical issue count {canonical_live_count} != {len(rows)}")
     type_counts: dict[str, int] = {}
     status_counts: dict[str, int] = {}
     for row in rows:
@@ -1864,9 +1937,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Idempotently import the canonical BAS Jira pack into live BAT Jira Cloud.")
     parser.add_argument("--execute", action="store_true", help="Perform the authorized production writes.")
     args = parser.parse_args()
+    auxiliary = load_auxiliary_issues()
     rows, payloads, links, link_payloads = load_inputs()
     preflight = validate_inputs(rows, payloads, links, link_payloads)
-    print(f"LOCAL PREFLIGHT: {preflight['result']} issues={preflight['issues']} links={preflight['links']}", flush=True)
+    print(
+        f"LOCAL PREFLIGHT: {preflight['result']} issues={preflight['issues']} "
+        f"links={preflight['links']} auxiliary={len(auxiliary)}",
+        flush=True,
+    )
     if not args.execute:
         print(json.dumps(preflight, indent=2, sort_keys=True))
         return 0
@@ -1892,6 +1970,10 @@ def main() -> int:
         },
     )
     ledger["status"] = "IN_PROGRESS"
+    if ledger.get("last_error"):
+        ledger.setdefault("negative_findings", []).append(
+            {"recorded_at": ledger.get("updated_at", utc_now()), "finding": ledger["last_error"]}
+        )
     ledger.pop("last_error", None)
     ledger["updated_at"] = utc_now()
     write_json_atomic(LEDGER_PATH, ledger)
@@ -1899,6 +1981,7 @@ def main() -> int:
     make_backup(client, ledger, preflight)
     components = ensure_components(client, ledger)
     fields = ensure_fields(client, ledger)
+    reconcile_auxiliary_issues(client, ledger, fields)
     remove_exact_importer_duplicates(client, ledger, rows, fields["Local Issue ID"])
     key_map = create_issues(client, ledger, rows, payloads, fields, components)
     make_completion_assurance_backup(client, ledger, fields)

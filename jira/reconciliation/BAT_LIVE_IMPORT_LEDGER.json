@@ -882,6 +882,7 @@
     "TASK-200": "BAT-349",
     "TASK-201": "BAT-350"
   },
+  "last_error": "BAT contains issues outside the canonical import set: BAT-510:POST-TASK-STORAGE-CLEANUP-001, BAT-511:NO_LOCAL_ID",
   "link_direction_remediation": {
     "backup": {
       "path": "jira\\snapshots\\BAT_REVERSED_LINKS_PRE_REMEDIATION_20260809T050104Z.json",
@@ -3161,8 +3162,8 @@
     }
   },
   "started_at": "2026-08-09T04:34:44.229661+00:00",
-  "status": "COMPLETE_VERIFIED",
-  "updated_at": "2026-08-09T05:44:46.313509+00:00",
+  "status": "FAILED_RESUMABLE",
+  "updated_at": "2026-08-10T04:04:45.303591+00:00",
   "verification": {
     "actual_expected_link_count": 1062,
     "board": {

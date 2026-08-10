@@ -80,7 +80,7 @@
   "end_to_end_validation": "Extract a bounded real historical gamebook sample through the controller, validate every fact against exact source evidence, and measure accepted records, review time, quarantines, cost, and unsupported-fact rate without canonical mutation.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-162.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -135,11 +135,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24658",
-    "jira_updated_at": "2026-08-10T00:10:42.177-0500",
-    "last_synced_at": "2026-08-10T05:11:37.378382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-517-518-live-row.csv",
+    "jira_updated_at": "2026-08-10T00:55:40.104-0500",
+    "last_synced_at": "2026-08-10T05:56:14.045525+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-518-done-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -245,7 +245,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-162.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

@@ -1,0 +1,584 @@
+{
+  "baseline_id": "BAT-374-SOURCE-DRIFT-BASELINE-2026-08-10",
+  "capture_manifest": {
+    "capture_count": 8,
+    "path": "<external-data-root>/manifests/source_drift/BAT-374-contract-captures.json",
+    "raw_payloads_outside_git": true,
+    "sha256": "441086d560e8282eece923171b1675f70503a7a4419369754fdf710ecc08f8ff"
+  },
+  "content_hash": "61fffeccc781e18d908f031bf46db7e0e456b6e2c9d535b1e057076c7bb92732",
+  "created_at_utc": "2026-08-10T11:50:33.265731Z",
+  "gate_policy": {
+    "corrupted_fabricated_leaking_or_credential_content": "REJECT_OR_QUARANTINE_AFFECTED_SCOPE",
+    "technical_schema_quality_drift": "QUARANTINE_ONLY_AFFECTED_ENDPOINT_SCHEMA_ROWS_OR_DOMAIN",
+    "terms_or_rights_drift": "METADATA_ONLY_NONBLOCKING_FOR_PRIVATE_RESEARCH",
+    "unrelated_sources_continue": true
+  },
+  "inputs": [
+    {
+      "bytes": 23837,
+      "path": "configs/source_acquisition_registry.json",
+      "sha256": "f956797cff67f4cd0c4922aab9c1892a53a910c967b7f908c8d988e7dbaff5e5"
+    },
+    {
+      "bytes": 103304,
+      "path": "configs/source_rights_registry.json",
+      "sha256": "11f944ebff0ee5f932d21bbff316da991b31f3b5f492acc31102c017019a69c4"
+    },
+    {
+      "bytes": 66945,
+      "path": "artifacts/source_governance/source_access_readiness.csv",
+      "sha256": "717f785c160ef0e8903db8b6c5ca1aa50caf1cc56bb495a12a2d046839fa8488"
+    },
+    {
+      "bytes": 5028,
+      "path": "artifacts/source_governance/acquisition_resilience_test.json",
+      "sha256": "ae028bfe6ca3a220d4d76b2ce0a0b3a8ee1b4d8faf18ba27cb39b81ebfe7d7d4"
+    },
+    {
+      "bytes": 3065,
+      "path": "configs/source_drift_registry.json",
+      "sha256": "0623fbe685e40d144f5d9a4528dbb27e0a106edad2a7f087f939eb20ded18515"
+    },
+    {
+      "bytes": 5029,
+      "path": "<external-data-root>/manifests/source_drift/BAT-374-contract-captures.json",
+      "sha256": "441086d560e8282eece923171b1675f70503a7a4419369754fdf710ecc08f8ff"
+    }
+  ],
+  "observations": [
+    {
+      "code": "CFBD_OPENAPI_CAPTURE_UNCHANGED_FROM_PINNED_CONTRACT",
+      "detail": "Current official OpenAPI capture is 5.23.0 and retains the pinned SHA-256 59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94.",
+      "disposition": "PASS"
+    },
+    {
+      "code": "OPENMETEO_OFFICIAL_DOC_CAPTURE_BASELINE_CREATED",
+      "detail": "Four endpoint documents, terms, and model-update surfaces are immutably captured; future comparisons must use these exact identities.",
+      "disposition": "PASS"
+    },
+    {
+      "code": "NO_PRIOR_CANONICAL_DRIFT_BASELINE",
+      "detail": "This unit establishes the first canonical drift baseline and therefore does not fabricate a historical no-drift claim.",
+      "disposition": "EXPECTED_INITIAL_STATE"
+    }
+  ],
+  "prior_baseline": {
+    "comparison": "NOT_APPLICABLE_FIRST_BASELINE",
+    "overwrite_attempted": false,
+    "status": "NOT_PRESENT"
+  },
+  "result": "PASS_INITIAL_BASELINE",
+  "schema_version": "1.0.0",
+  "scientific_result": "NOT_APPLICABLE_NO_MODEL_FEATURE_LABEL_SPLIT_OR_METRIC",
+  "sources": [
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "63fe8ef4062a8842075b3c7cf1ffacbb468662b6c841b1efd3a6224eacc0dd52",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetDrives",
+      "endpoint_or_url": "https://api.collegefootballdata.com/drives",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetDrives",
+      "schema_hash": "d1c82c0f4d8ca5724a87a01914a2baa2e7da1a3e9a081e94471e5185c3a0fd87",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "ff5a4ec5a2e207cbf0ae9b2e13c1fbe07fb8d82c8bc672e231e4c4990646fe78",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetGames",
+      "endpoint_or_url": "https://api.collegefootballdata.com/games",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetGames",
+      "schema_hash": "79f4e48f4e5548f169e51b71aa9ab95dda4604191f6e37370e2bf1f939057358",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "aeb40bddb960d38ab67c6a6eee0e360addaede8b228ce58b092a0be855e9f7ea",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetGamePlayerStats",
+      "endpoint_or_url": "https://api.collegefootballdata.com/games/players",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetGamePlayerStats",
+      "schema_hash": "60a173ace42102717b686f4a9047b66892df7e6bd9387488a168d0ca5a70a6fa",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "03126cc640b6798f694a0ef69bdc9fafe86601d6c0a6330e19e880d606fc30b5",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetGameTeamStats",
+      "endpoint_or_url": "https://api.collegefootballdata.com/games/teams",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetGameTeamStats",
+      "schema_hash": "2ab11068e3451c410be47517f5f6feca1fee7f9732bcb9d8f7e030dbf18a4faa",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "d4a5445c0d2c44a5ee091e0b9f92de67f8bb0a98ac907c0ee5595b0e6841ea83",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetPlays",
+      "endpoint_or_url": "https://api.collegefootballdata.com/plays",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetPlays",
+      "schema_hash": "c1fcc68418e2a502ae7a18c2a50831e5b2ce206008946dcb8c9b5ce64b06952a",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "700ecc6c0a672b407eb921b270e7fa9ff4b19d07af7905ae48345d001562e7d5",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetRankings",
+      "endpoint_or_url": "https://api.collegefootballdata.com/rankings",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetRankings",
+      "schema_hash": "e470d658dabe3e30c39a15b94fa167d818f95f1d1ccab449d1df331fe2314a65",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "5c4715cdb63db382e321fc1928a7421a3c7463f0e170d624ac0c0f0c6030b5ad",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetRoster",
+      "endpoint_or_url": "https://api.collegefootballdata.com/roster",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetRoster",
+      "schema_hash": "6a9141df838fd3d4901e655de2a2a84f48759ab8a133bd9efdaa557c15dd65fe",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "5801febc49007ee2431beec5a90b4a9c9f202b6112dae85479a97d841e31d7e6",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetAdvancedGameStats",
+      "endpoint_or_url": "https://api.collegefootballdata.com/stats/game/advanced",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetAdvancedGameStats",
+      "schema_hash": "7bf5ded161081a93966f1a747e5f36166b4265f36cee137d57046c37d8d0e30b",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "3b97542100ca961d0fd23a1a5deb2cd4e9b9e7ab7d7b6a699d1b3b2a65fa0cee",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetFBSTeams",
+      "endpoint_or_url": "https://api.collegefootballdata.com/teams/fbs",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetFBSTeams",
+      "schema_hash": "c6c810c7beccfa5641f68cf60da6ad351523e8f39496718b76d768cf279cc8f0",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "5.23.0",
+      "capture_identity": {
+        "bytes": 373000,
+        "capture_id": "CFBD_SWAGGER_INIT",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "59ac42091a2d477460df018259622b8ad3e982c193598eeb68747b14b79ebd94",
+        "source_url": "https://api.collegefootballdata.com/swagger/swagger-ui-init.js"
+      },
+      "declared_contract_hash": "c7f3de21dac646ebc2f32351a4b073260d1be45639295a00eada5400905ed446",
+      "disposition": "NO_PROVIDER_SCHEMA_DRIFT_FROM_PINNED_CAPTURE",
+      "endpoint_id": "CFBD-GetVenues",
+      "endpoint_or_url": "https://api.collegefootballdata.com/venues",
+      "expected_freshness": "POSTGAME_DATA_AFTER_PROVIDER_FINALIZATION; STATIC_REFERENCE_ENDPOINTS_RECHECK_EACH_CAMPAIGN",
+      "historical_coverage": {
+        "policy": "DISCOVER_AND_RECORD_OBSERVED_MIN_MAX_AND_GAPS; NEVER BACKFILL BY ASSUMPTION",
+        "status": "UNKNOWN_ENDPOINT_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "CollegeFootballData",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-002:CFBD-GetVenues",
+      "schema_hash": "2baff362d91d9484b4de45eb24c4f93b04d32cd66a9d6fccae5a67208afd63e4",
+      "source_id": "SRC-002",
+      "terms_metadata": {
+        "capture_id": "CFBD_API_TIERS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "3c378ab751a1f9d517fde07eb3325c7289533aeee8327b6f5c9b4de0f96a9eeb"
+      },
+      "upstream_dependencies": [
+        "CFBD_AGGREGATED_OR_DERIVED_RECORD; NOT_AN_INDEPENDENT_CONFIRMATION_OF_ITS_UPSTREAM_SOURCE"
+      ]
+    },
+    {
+      "api_or_contract_version": "v1-unversioned-schema-captured-per-run",
+      "capture_identity": {
+        "bytes": 489914,
+        "capture_id": "OPENMETEO_HISTORICAL_FORECAST_DOCS",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "d0987d3a06af10ba5f8fd3ccda93e8c3726de0ec96dd664b66ef327e37d336c3",
+        "source_url": "https://open-meteo.com/en/docs/historical-forecast-api"
+      },
+      "declared_contract_hash": "b38b909c25fec9d65f7e99f70b8c13bd6a0f8d95d8d104d39427776312baaf46",
+      "disposition": "INITIAL_OFFICIAL_DOC_BASELINE_NO_PRIOR_CAPTURE_IDENTITY",
+      "endpoint_id": "OPENMETEO-HISTORICAL-FORECAST",
+      "endpoint_or_url": "https://historical-forecast-api.open-meteo.com/v1/forecast",
+      "expected_freshness": "MODEL_RUN_OR_DOCUMENTATION_SPECIFIC; MODEL_UPDATE_STATUS_RECHECK_DAILY_DURING_ACTIVE_BACKFILL",
+      "historical_coverage": {
+        "maximum": "CURRENT_UTC_YEAR",
+        "minimum_documented_approximate": 2021,
+        "status": "VARIABLE_AND_MODEL_SPECIFIC_UNKNOWN_MUST_DISCOVER"
+      },
+      "method": "GET",
+      "provider": "Open-Meteo",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-003:OPENMETEO-HISTORICAL-FORECAST",
+      "schema_hash": "b38b909c25fec9d65f7e99f70b8c13bd6a0f8d95d8d104d39427776312baaf46",
+      "source_id": "SRC-003",
+      "terms_metadata": {
+        "capture_id": "OPENMETEO_TERMS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "4e361e641eb6faa690479959caa5d537dfc6cb3990bdc478ad36d995a0ccb0d6"
+      },
+      "upstream_dependencies": [
+        "OPEN_METEO_AGGREGATES_NUMERICAL_WEATHER_MODELS; MODEL_PROVIDER_AND_RUN_IDENTITY_MUST_BE_RETAINED; DO_NOT_COUNT_AS_INDEPENDENT_FROM_THE_UPSTREAM_MODEL_PROVIDER"
+      ]
+    },
+    {
+      "api_or_contract_version": "v1-fixed-lead-offsets",
+      "capture_identity": {
+        "bytes": 585807,
+        "capture_id": "OPENMETEO_PREVIOUS_RUNS_DOCS",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "380fd6fae107c38194cd27cb24b594ecf7da491ba084f390e8e0383f7853f8cc",
+        "source_url": "https://open-meteo.com/en/docs/previous-runs-api"
+      },
+      "declared_contract_hash": "42c95a537c725a98789c69160a3b13454292ee3864c294cfd1aeff72ec06bfe4",
+      "disposition": "INITIAL_OFFICIAL_DOC_BASELINE_NO_PRIOR_CAPTURE_IDENTITY",
+      "endpoint_id": "OPENMETEO-PREVIOUS-RUNS",
+      "endpoint_or_url": "https://previous-runs-api.open-meteo.com/v1/forecast",
+      "expected_freshness": "MODEL_RUN_OR_DOCUMENTATION_SPECIFIC; MODEL_UPDATE_STATUS_RECHECK_DAILY_DURING_ACTIVE_BACKFILL",
+      "historical_coverage": {
+        "exceptions": {
+          "GFS_temperature_2m": 2021,
+          "JMA_GSM_MSM": 2018
+        },
+        "general_minimum_documented": 2024,
+        "status": "MODEL_VARIABLE_SPECIFIC_UNKNOWN_MUST_DISCOVER"
+      },
+      "method": "GET",
+      "provider": "Open-Meteo",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-003:OPENMETEO-PREVIOUS-RUNS",
+      "schema_hash": "42c95a537c725a98789c69160a3b13454292ee3864c294cfd1aeff72ec06bfe4",
+      "source_id": "SRC-003",
+      "terms_metadata": {
+        "capture_id": "OPENMETEO_TERMS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "4e361e641eb6faa690479959caa5d537dfc6cb3990bdc478ad36d995a0ccb0d6"
+      },
+      "upstream_dependencies": [
+        "OPEN_METEO_AGGREGATES_NUMERICAL_WEATHER_MODELS; MODEL_PROVIDER_AND_RUN_IDENTITY_MUST_BE_RETAINED; DO_NOT_COUNT_AS_INDEPENDENT_FROM_THE_UPSTREAM_MODEL_PROVIDER"
+      ]
+    },
+    {
+      "api_or_contract_version": "v1-run-initialisation",
+      "capture_identity": {
+        "bytes": 473329,
+        "capture_id": "OPENMETEO_SINGLE_RUNS_DOCS",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "4e5a9e9beffedd8d1ed59679b1eae92ab3b3eac76a2e958d519cbcb4f14efc30",
+        "source_url": "https://open-meteo.com/en/docs/single-runs-api"
+      },
+      "declared_contract_hash": "cdc7cdf152e6cd5aa11e4741ea0d6943889f0305e81ee84ff7cec66b0cd1ce97",
+      "disposition": "INITIAL_OFFICIAL_DOC_BASELINE_NO_PRIOR_CAPTURE_IDENTITY",
+      "endpoint_id": "OPENMETEO-SINGLE-RUNS",
+      "endpoint_or_url": "https://single-runs-api.open-meteo.com/v1/forecast",
+      "expected_freshness": "MODEL_RUN_OR_DOCUMENTATION_SPECIFIC; MODEL_UPDATE_STATUS_RECHECK_DAILY_DURING_ACTIVE_BACKFILL",
+      "historical_coverage": {
+        "IFS_HRES_minimum_documented": "2024-03",
+        "other_models_minimum_documented": "2026-04-02",
+        "status": "MODEL_SPECIFIC_UNKNOWN_MUST_DISCOVER"
+      },
+      "method": "GET",
+      "provider": "Open-Meteo",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-003:OPENMETEO-SINGLE-RUNS",
+      "schema_hash": "cdc7cdf152e6cd5aa11e4741ea0d6943889f0305e81ee84ff7cec66b0cd1ce97",
+      "source_id": "SRC-003",
+      "terms_metadata": {
+        "capture_id": "OPENMETEO_TERMS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "4e361e641eb6faa690479959caa5d537dfc6cb3990bdc478ad36d995a0ccb0d6"
+      },
+      "upstream_dependencies": [
+        "OPEN_METEO_AGGREGATES_NUMERICAL_WEATHER_MODELS; MODEL_PROVIDER_AND_RUN_IDENTITY_MUST_BE_RETAINED; DO_NOT_COUNT_AS_INDEPENDENT_FROM_THE_UPSTREAM_MODEL_PROVIDER"
+      ]
+    },
+    {
+      "api_or_contract_version": "v1-reanalysis",
+      "capture_identity": {
+        "bytes": 340326,
+        "capture_id": "OPENMETEO_HISTORICAL_WEATHER_DOCS",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "sha256": "0f4592e014aa377fddd51e25aaa6a6ff53db757c52c913ee898bf6973203cf74",
+        "source_url": "https://open-meteo.com/en/docs/historical-weather-api"
+      },
+      "declared_contract_hash": "60955ce448d6fd999c7fa04d07711026f5b6d6d2d85c5e993c09804454bc670b",
+      "disposition": "INITIAL_OFFICIAL_DOC_BASELINE_NO_PRIOR_CAPTURE_IDENTITY",
+      "endpoint_id": "OPENMETEO-HISTORICAL-WEATHER-LABELS-ONLY",
+      "endpoint_or_url": "https://archive-api.open-meteo.com/v1/archive",
+      "expected_freshness": "MODEL_RUN_OR_DOCUMENTATION_SPECIFIC; MODEL_UPDATE_STATUS_RECHECK_DAILY_DURING_ACTIVE_BACKFILL",
+      "historical_coverage": {
+        "ERA5_Land_minimum": 1950,
+        "ERA5_minimum": 1940,
+        "IFS_minimum": 2017,
+        "status": "DATASET_SPECIFIC"
+      },
+      "method": "GET",
+      "provider": "Open-Meteo",
+      "quarantine_scope_on_technical_schema_or_quality_drift": "SRC-003:OPENMETEO-HISTORICAL-WEATHER-LABELS-ONLY",
+      "schema_hash": "60955ce448d6fd999c7fa04d07711026f5b6d6d2d85c5e993c09804454bc670b",
+      "source_id": "SRC-003",
+      "terms_metadata": {
+        "capture_id": "OPENMETEO_TERMS",
+        "private_research_acquisition": "ALLOWED",
+        "raw_publication": "DISABLED",
+        "retrieved_at_utc": "2026-08-10T11:50:33.265731Z",
+        "rights_decision": "METADATA_ONLY_NONBLOCKING",
+        "sha256": "4e361e641eb6faa690479959caa5d537dfc6cb3990bdc478ad36d995a0ccb0d6"
+      },
+      "upstream_dependencies": [
+        "OPEN_METEO_AGGREGATES_NUMERICAL_WEATHER_MODELS; MODEL_PROVIDER_AND_RUN_IDENTITY_MUST_BE_RETAINED; DO_NOT_COUNT_AS_INDEPENDENT_FROM_THE_UPSTREAM_MODEL_PROVIDER"
+      ]
+    }
+  ],
+  "status": "INITIAL_BASELINE_ESTABLISHED",
+  "summary": {
+    "credential_values_included": false,
+    "endpoint_count": 14,
+    "endpoint_quarantine_scopes": 14,
+    "official_capture_count": 8,
+    "private_research_terms_blockers": 0,
+    "raw_response_bodies_included": false,
+    "source_count": 2
+  }
+}

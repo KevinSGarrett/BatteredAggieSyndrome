@@ -1,11 +1,11 @@
 {
-  "schema_version": "1.5.0",
-  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-venue-assignment-candidate",
+  "schema_version": "1.6.0",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-player-box-candidate",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
   "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-  "issued_at_utc": "2026-08-10T17:50:00Z",
-  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_AND_EVENT_ROSTER_RANKINGS_TEAM_BOX_ADVANCED_GAME_VENUE_ASSIGNMENT_CANDIDATE_LAYERS_VALIDATED",
+  "issued_at_utc": "2026-08-10T18:20:00Z",
+  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_AND_EVENT_ROSTER_RANKINGS_TEAM_BOX_PLAYER_BOX_ADVANCED_GAME_VENUE_ASSIGNMENT_CANDIDATE_LAYERS_VALIDATED",
   "live_jira": {
     "issue_id": "24663",
     "status": "In Progress",
@@ -503,6 +503,42 @@
     "admission_state": "CANDIDATE_NOT_ADMITTED",
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_HISTORICAL_EFFECTIVE_TIME_CANONICAL_PIT_FEATURE_AND_RELOCATION_ADMISSION_NOT_APPROVED"
   },
+  "validated_player_box_candidate": {
+    "gate_artifact": "artifacts/pit/historical_player_box_reconciliation_gate.json",
+    "dataset_identity": "d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d",
+    "manifest_sha256": "bcc3ef592d3a586934cab141e772c2f74843964533bd23fa8765eacad9206ca4",
+    "manifest_path": "<external-data-root>/manifests/historical_known_at/sha256/d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d/player_box_history_reconciliation.json",
+    "source_season_min": 2010,
+    "source_season_max": 2025,
+    "source_games": 13670,
+    "source_stat_cells": 5279775,
+    "distinct_source_player_ids": 63407,
+    "missing_player_name_cells": 246,
+    "player_label_whitespace_drift_cells": 47446,
+    "player_event_metric_exact_cells": 258886,
+    "player_event_metric_conflict_cells": 34006,
+    "current_game_multiset_exact_games": 3659,
+    "current_game_multiset_conflict_games": 0,
+    "payload_bytes": 498389686,
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/player_box_history_2010_2025_validation.json",
+      "sha256": "65cafa6753e5f8811b210a4f0b9e2f830dfa9846b16be0e064fb2e0f7aefc327",
+      "checks_passed": 54,
+      "checks_failed": 0,
+      "mutation_controls_passed": 14
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/player_box_history_2010_2025_rebuild_validation.json",
+      "sha256": "f869b8bd69d589147ecb5242a24539c6f5f9bef121f878798fa17ed70fa293a8",
+      "status": "PASS",
+      "manifest_and_16_payloads_byte_identical": true
+    },
+    "historical_known_at_state": "UNKNOWN_FOR_PLAYER_BOX_STATS_CAPTURE_TIME_ONLY",
+    "official_gamebook_status": "STRUCTURED_AGGREGATOR_CANDIDATE_NOT_OFFICIAL_PRIMARY_GAMEBOOK",
+    "player_identity_state": "PROVIDER_ID_CANDIDATE_ONLY_NO_NAME_ONLY_CANONICAL_MERGE",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PLAYER_IDENTITY_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_OFFICIAL_SOURCE_AND_PROTECTED_USE_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -560,6 +596,12 @@
     "bundle_bytes": 17966844,
     "base_commit": "9b934632080936074450b0fd637b87d45df855b0"
   },
+  "player_box_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-player-box-history/20260810T182645Z/BAT-523-player-box-history.bundle",
+    "bundle_sha256": "62c5b2a81d9406616c39281473b623349912f70a9b4bb82c499025b928e2af40",
+    "bundle_bytes": 16603215,
+    "base_commit": "e5cc91887f7221736e3cdf3b64fbb9fe1c81c03d"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -589,6 +631,9 @@
     "venue_assignment_candidate_layer_validated": true,
     "venue_assignment_canonical_pit_feature_or_relocation_admission": false,
     "historical_venue_materialized": false,
+    "player_box_candidate_layer_validated": true,
+    "player_box_canonical_pit_feature_identity_official_source_or_protected_use_admission": false,
+    "structured_player_box_candidate_materialized": true,
     "official_player_box_scores_materialized": false,
     "other_domain_expansion_continues": true,
     "full_historical_population_ready": false,

@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_PLAYER_BOX_SCORE_CANDIDATE_AND_RECONCILIATION_GATE",
+  "decision_id": "bat523-player-box-history-2010-2025-v1",
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "jira_key": "BAT-523",
+  "issued_at_utc": "2026-08-10T18:20:00Z",
+  "source_capture": {
+    "source_id": "SRC-002",
+    "provider": "CollegeFootballData",
+    "endpoint": "CFBD-GetPlayerGameStats",
+    "season_min": 2010,
+    "season_max": 2025,
+    "captured_partitions": 261,
+    "captured_raw_bytes": 312994266,
+    "source_games": 13670,
+    "source_team_rows": 27337,
+    "source_stat_cells": 5279775,
+    "bulk_payloads_in_git": false
+  },
+  "candidate_layer": {
+    "dataset_identity": "d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d",
+    "manifest_sha256": "bcc3ef592d3a586934cab141e772c2f74843964533bd23fa8765eacad9206ca4",
+    "payloads": 16,
+    "payload_bytes": 498389686,
+    "distinct_source_player_ids": 63407,
+    "missing_player_id_cells": 0,
+    "missing_player_name_cells": 246,
+    "missing_stat_value_cells": 0,
+    "player_label_whitespace_drift_cells": 47446,
+    "admission_state": "CANDIDATE_NOT_ADMITTED"
+  },
+  "reconciliation": {
+    "team_box_game_team_linked_cells": 5279775,
+    "player_event_metric_link_cells": 292892,
+    "player_event_metric_exact_cells": 258886,
+    "player_event_metric_conflict_cells": 34006,
+    "player_event_metric_ambiguous_cells": 0,
+    "current_canonical_rows": 1805837,
+    "current_overlap_games": 3659,
+    "current_game_multiset_exact_games": 3659,
+    "current_game_multiset_conflict_games": 0,
+    "current_canonical_only_games": 0,
+    "current_overlap_independence": "SAME_PROVIDER_CAPTURE_ROUTE_NOT_INDEPENDENT",
+    "name_only_player_merge_allowed": false
+  },
+  "coverage": {
+    "games_with_exactly_two_team_rows": 13667,
+    "games_without_exactly_two_team_rows": 3,
+    "missing_expected_team_rows": 3,
+    "season_2020_games": 568,
+    "season_2020_stat_cells": 275704,
+    "season_2015_stat_cells": 170723,
+    "season_2016_stat_cells": 441459,
+    "partial_and_schema_drift_disposition": "PRESERVED_DOMAIN_SCOPED_NOT_FABRICATED_AND_NOT_GLOBAL_BLOCKER"
+  },
+  "validation": {
+    "independent_report_sha256": "65cafa6753e5f8811b210a4f0b9e2f830dfa9846b16be0e064fb2e0f7aefc327",
+    "checks_passed": 54,
+    "checks_failed": 0,
+    "mutation_controls_passed": 14,
+    "deterministic_rebuild_report_sha256": "f869b8bd69d589147ecb5242a24539c6f5f9bef121f878798fa17ed70fa293a8",
+    "deterministic_rebuild_checks_passed": 10,
+    "deterministic_payloads_compared": 16,
+    "manifest_and_payloads_byte_identical": true
+  },
+  "historical_known_at_gate": {
+    "player_box_stat_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "game_date_as_publication_time_allowed": false,
+    "provider_player_id_as_canonical_identity_allowed": false,
+    "name_only_player_identity_merge_allowed": false,
+    "canonical_player_box_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false
+  },
+  "preserved_negative_findings": [
+    "The structured CFBD player-box route is aggregator evidence and is not represented as an official primary gamebook.",
+    "Historical publication time for each player statistic is unknown; the 2026 capture time is not backdated.",
+    "The 3,659 current canonical game overlaps prove deterministic same-provider reproducibility, not independent factual truth.",
+    "Only six bounded play-derived metrics for 2014-2022 are cross-linked; 34,006 value conflicts remain quarantined at stat-cell grain.",
+    "Three games contain one team object, 246 cells lack a player name, and 47,446 cells preserve raw-versus-normalized whitespace drift.",
+    "The 2020 partial season and the 2015-to-2016 stat-cell scope jump remain explicit coverage facts.",
+    "Provider player IDs are candidates only; no name-only or model-only canonical identity merge is authorized."
+  ],
+  "decision": "VALIDATED_CANDIDATE_LAYER_CONTINUE_PLAYER_IDENTITY_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_OFFICIAL_SOURCE_AND_PROTECTED_USE_GATING",
+  "scientific_nonclaims": {
+    "official_player_box_history_complete": false,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

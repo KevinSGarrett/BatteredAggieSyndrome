@@ -1,76 +1,73 @@
 {
   "schema_version": "1.0.0",
-  "evidence_manifest_type": "POST_W25_IN_PROGRESS_ISSUE_VALIDATION_EVIDENCE",
+  "evidence_manifest_type": "POST_W25_COMPLETION_VALIDATION_EVIDENCE",
   "decision_unit": "POST-SUBTASK-162",
   "jira_key": "BAT-518",
-  "created_at_utc": "2026-08-10T05:06:55Z",
-  "overall_disposition": "IN_PROGRESS_PARTIAL_PASS",
+  "created_at_utc": "2026-08-10T05:47:28Z",
+  "overall_disposition": "DONE_VERIFIED",
   "acceptance_matrix": [
     {
       "criterion": 1,
-      "disposition": "PARTIAL",
+      "disposition": "PASS",
       "evidence": "artifacts/openai_assist/gamebook_pilot.json",
-      "evidence_sha256": "251a5cfe7ded9d6574e90c27b750baad31efaaade8e0b4b801c51cd0468711fd",
-      "observable_result": "Five real play categories have deterministic structured gold. Drive, box-score, roster/starter, venue, officials, weather, attendance, and source-metadata samples remain required."
+      "evidence_sha256": "34415d372ceabec324b835787205768ba00579088a83d22e60417f32761cd641",
+      "observable_result": "Eleven deterministic gold cases cover drives, plays, team/player boxes, roster/starter facts, venue, officials, weather, attendance, and source metadata with exact text:1 evidence locators."
     },
     {
       "criterion": 2,
-      "disposition": "PASS_FOR_COVERED_FORMAT",
+      "disposition": "PASS",
       "evidence": "artifacts/openai_assist/gamebook_pilot.json",
-      "evidence_sha256": "251a5cfe7ded9d6574e90c27b750baad31efaaade8e0b4b801c51cd0468711fd",
-      "observable_result": "Luna/none, Terra/medium, and Sol/medium agreed on all 54 facts. Luna cost USD 0.003554 versus Terra 0.035512 and Sol 0.109090 and is eligible only for this exact shadow format."
+      "evidence_sha256": "34415d372ceabec324b835787205768ba00579088a83d22e60417f32761cd641",
+      "observable_result": "Luna/none, Terra/low, and Sol/medium each passed all 11 cases. Luna cost USD 0.011943 versus Terra USD 0.119890 and Sol USD 0.308155 and is the empirical routine route for the exact validated formats."
     },
     {
       "criterion": 3,
-      "disposition": "PASS_FOR_COVERED_SAMPLE",
+      "disposition": "PASS",
       "evidence": "artifacts/openai_assist/gamebook_pilot.json",
-      "evidence_sha256": "251a5cfe7ded9d6574e90c27b750baad31efaaade8e0b4b801c51cd0468711fd",
-      "observable_result": "All 15 outputs retained capture evidence and achieved 100% schema, precision, recall, and evidence accuracy with zero unsupported facts, disagreement, validation failures, or canonical writes."
+      "evidence_sha256": "34415d372ceabec324b835787205768ba00579088a83d22e60417f32761cd641",
+      "observable_result": "All 33 final candidates achieved 100% strict schema, fact precision/recall, evidence accuracy, and cross-model agreement with zero unsupported facts, validation failures, canonical writes, or protected-state effects."
     }
   ],
   "artifacts": [
-    {"role": "PARTIAL_PILOT_REPORT", "path": "artifacts/openai_assist/gamebook_pilot.json", "sha256": "251a5cfe7ded9d6574e90c27b750baad31efaaade8e0b4b801c51cd0468711fd", "bytes": 5351},
-    {"role": "PILOT_CONFIG", "path": "configs/openai_gamebook_pilot.json", "sha256": "3eaaba0981a59be3a4c33b3b711a204d196b9dab9691041d30c19853a182328e", "bytes": 3299},
-    {"role": "PINNED_PROMPT", "path": "prompts/openai_assist/gamebook_play_v1.txt", "sha256": "ded7ce4e037c4ccded47c145da6e0d25d650d3d02e03d7c4084cb9adf7c2e47f", "bytes": 999},
-    {"role": "GOLD_PREPARER", "path": "tools/prepare_openai_gamebook_pilot.py", "sha256": "0859caff19562e7d71e1f62fca9e65419c3218c112c3944cb4cbedeab1f75c94", "bytes": 4002},
-    {"role": "PILOT_RUNNER", "path": "tools/run_openai_gamebook_pilot.py", "sha256": "0d40490fb425d824a4928a6962ef4b8f1d8c6c2cd1788c3789381277c61425b7", "bytes": 5511}
+    {"role": "COMPLETED_PILOT_REPORT", "path": "artifacts/openai_assist/gamebook_pilot.json", "sha256": "34415d372ceabec324b835787205768ba00579088a83d22e60417f32761cd641", "bytes": 10537},
+    {"role": "PILOT_CONFIG", "path": "configs/openai_gamebook_pilot.json", "sha256": "c2f037c40370d25ceaf0891a51680b1e0041c44e22483fbccafe2aa0586c5b77", "bytes": 12901},
+    {"role": "PINNED_PROMPT", "path": "prompts/openai_assist/gamebook_domain_v4.txt", "sha256": "0c2df1af40a48ff7410a537e4b54a12b0f179284b160a17f4c78a111d2130286", "bytes": 1760},
+    {"role": "GOLD_PREPARER", "path": "tools/prepare_openai_gamebook_pilot.py", "sha256": "57c29d9867279159de7482e283e8c6106b0dade167593b36cbcd21caef20f576", "bytes": 10786},
+    {"role": "PILOT_RUNNER", "path": "tools/run_openai_gamebook_pilot.py", "sha256": "74c71fc47edf00a400e5fa104de707526fde589502b192f01b3d95852a8ce102", "bytes": 6035},
+    {"role": "ASSISTIVE_VALIDATOR", "path": "tools/validate_openai_assist.py", "sha256": "b1146a40e07d9774eecde15fff6ce54e5555c229db9334724a2d0c1349d7f5bb", "bytes": 6933}
   ],
   "external_evidence": {
-    "source_capture_sha256": "4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af",
-    "gold_sha256": "6ecf23b6762f58d07b40cb1b22e3810c253408ba49828e52839d66797eb06640",
-    "gold_manifest_sha256": "1ebed979ae6059ec20677c963673f577ebe2aed0b459a69a8c4afa405b75ad5b",
-    "predictions_sha256": "ab4ec35af08d0368cffc7506c858dcd09fd8a7369948ac7f64f1f4cf58de954e",
-    "run_manifest_sha256": "0a5810c8474f74e241310b7f67f5ef8bff818e721ff13f6048c031e5cb3dd40e"
+    "gold_sha256": "aaa12cb1cd75b7e8f4e8b75c8e3e2298780789fca6309af3f9b47381e87e1764",
+    "gold_manifest_sha256": "0b7c787b50b1333c0bcbed8466962d285757a62a4bd56e52bc9c09394a1c17ed",
+    "predictions_sha256": "c18538357e9d8d2513f36c26000520962024f00d6808ddbc800ee5db4d71a622",
+    "run_manifest_sha256": "ddcd9526cae778431e52bfd94141bf02593501d3428f1bdcf786e2fa3a061958",
+    "official_gamebook_pdf_sha256": "1130329951f413a24eb32f61a31692fdf255ac09b430f41401d38322fe21ee13",
+    "official_boxscore_html_sha256": "d308ffa7d5a2467ba45bcdfa86ba999708002604ea607cefaaa9b99f0af4b5c4",
+    "official_boxscore_capture_manifest_sha256": "8d7c09e59fa8379d45338c77084ee6339d33e57cb02e11457aaa47acfc6b7ce0",
+    "rejected_v2_predictions_sha256": "55cac43f8cc02111404988507905e2d26bab460ec1abac0672aaf09faeb3cccc",
+    "rejected_v3_predictions_sha256": "9e4e11777ac5d8615bc7b4ae4b03d8b5e7732d22654e3f8caac6a7e4e9f8070f"
   },
   "usage": {
-    "synchronous_jobs": 15,
-    "batch_jobs": 0,
-    "input_tokens": 9978,
-    "output_tokens": 7892,
-    "reasoning_tokens_within_output": 667,
-    "settled_usd": "0.148156",
-    "project_settled_usd": "0.872817",
-    "project_remaining_usd": "99.127183"
+    "pilot_synchronous_jobs": 114,
+    "pilot_batch_jobs": 0,
+    "pilot_settled_usd": 1.459745,
+    "project_synchronous_settled_jobs": 270,
+    "project_provider_rejected_zero_cost_schema_attempts": 24,
+    "project_batch_jobs": 0,
+    "project_settled_usd": 2.184406,
+    "project_remaining_usd": 97.815594,
+    "threshold_alerts_reached": []
   },
-  "candidate_dispositions": {"accepted_candidate": 15, "review": 0, "quarantine": 0, "rejected": 0},
-  "remaining_review_items": [
-    "Add real gold samples for drives, team/player box scores, roster/starter, venue, officials, weather, attendance, and source metadata.",
-    "Measure reviewer time saved; current value remains 0 rather than estimated.",
-    "Do not submit Luna Batch until each additional format passes its own shadow gold gate."
-  ],
-  "completion": {
-    "completion_claimed": false,
-    "achieved_maturity": "PARTIALLY_EMPIRICALLY_VALIDATED",
-    "evidence_state": "PARTIAL_VERIFIED",
-    "issue_disposition": "IN_PROGRESS",
-    "blocking_scope": "ONLY_UNCOVERED_PILOT_DOMAINS_NOT_GLOBAL_PROJECT"
+  "final_candidate_dispositions": {"accepted_candidate": 33, "review": 0, "quarantine": 0, "rejected": 0},
+  "development_negative_dispositions": {"v2_completed_candidates_rejected": 25, "v2_incomplete_rejected": 8, "v3_candidates_rejected": 33},
+  "route_decision": {"routine": "gpt-5.6-luna:none", "ambiguity": "gpt-5.6-terra:low", "hard_residue": "gpt-5.6-sol:medium", "batch": "ELIGIBLE_NOT_SUBMITTED", "canonical_authority": false},
+  "cleanup": {
+    "backup_before_change": "C:/BatteredAggieSyndrome.data/backups/BAT-518-openai-gamebook/20260810T051630Z",
+    "download_staging_removed": true,
+    "pdf_render_staging_removed": true,
+    "immutable_sources_and_api_evidence_preserved": true
   },
-  "honesty_boundary": {
-    "canonical_records_modified": false,
-    "historical_population_ready": false,
-    "production_model_ready": false,
-    "protected_performance_claimed": false,
-    "tamu_specialization_lift_claimed": false,
-    "bas_or_aggie_excess_result_claimed": false
-  }
+  "remaining_review_items": ["Reviewer time saved remains measured at 0.0 rather than estimated.", "Batch scale-out belongs to POST-SUBTASK-166 and must retain exact validated format identity."],
+  "completion": {"completion_claimed": true, "achieved_maturity": "EMPIRICALLY_VALIDATED", "evidence_state": "VERIFIED", "issue_disposition": "DONE", "global_project_complete": false},
+  "honesty_boundary": {"canonical_records_modified": false, "historical_population_ready": false, "production_model_ready": false, "protected_performance_claimed": false, "tamu_specialization_lift_claimed": false, "bas_or_aggie_excess_result_claimed": false}
 }

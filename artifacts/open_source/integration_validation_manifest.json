@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "OWNER_REPO_CORPUS_REVIEW",
+  "status": "IMPLEMENTED_AND_VALIDATED_NOT_MODEL_PROMOTED",
+  "scope": {
+    "owner_documents": 2,
+    "repository_candidates": 42,
+    "repositories_reachable": 42,
+    "repositories_omitted": 0,
+    "decision_counts": {
+      "ADOPT_NOW": 7,
+      "ADAPT_NOW": 4,
+      "ADOPT_AT_DEPENDENCY": 8,
+      "ADAPT_AT_DEPENDENCY": 2,
+      "DEFER_CONDITIONAL": 6,
+      "REFERENCE_ONLY": 4,
+      "REJECT_NOT_FIT": 11
+    }
+  },
+  "versioned_outputs": [
+    {
+      "path": "configs/open_source_integration_registry.json",
+      "sha256": "fe3deb098627ba784ea11dcfbd71d26d4aa93308d69b0b4f812f60df445fc501"
+    },
+    {
+      "path": "artifacts/open_source/repository_review_decisions.csv",
+      "sha256": "115b443c25c618e96ad2beb3186bbfb33f60f3d1c4f72714d6ccfc32186157f5"
+    },
+    {
+      "path": "artifacts/open_source/integration_negative_findings.json",
+      "sha256": "bb6034d0bb80e50b91e2942f2305e79e7332c3d72af5f734986fabdce27da039"
+    },
+    {
+      "path": "docs/OPEN_SOURCE_INTEGRATION_STRATEGY.md",
+      "sha256": "9787a779c99f7d8103fc4d75503e8f4544f3ecd5a0933ecc2b6431e6b1ef2321"
+    }
+  ],
+  "external_evidence": [
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\upstream\\upstream_evidence_index.json",
+      "sha256": "03b10e0882d59444bad93f45b86b5cbe44bf8dfcfaec4d4a33ce583617d1d901"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\upstream\\tree_evidence_index.json",
+      "sha256": "224702c057d921a87a5ae4a441bceadb34fdcb80e0ac81337211ce33f9ef22b7"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\upstream\\representative_file_evidence_index.json",
+      "sha256": "f5d29572e24035fe3cf2f73714e31e4d8cbf4150ddf03644ef5d999e176f5128"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\packages\\pypi_evidence_index.json",
+      "sha256": "a73821f941b3a71434e370f558e77d76a531bb0533f706b451eaa397a747d30e"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\packages\\core_candidate_audit_remediated.json",
+      "sha256": "e280b12f6d02ae8868a9a3c6fbd5c8e0966b949769c10424db4c8c49d8c9e76d"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\packages\\sportsdataverse_candidate_audit.json",
+      "sha256": "d5206eacd4669c14a0eb0d22b95f7de0bc5e0e3dd7a11aea1fd3b73320191438"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\repo_corpus_review\\sportsdataverse\\sportsdataverse-smoke-report.json",
+      "sha256": "c8716e408700596136053a52342a128c693d5f19d1a920128d4dec34c6f73a12"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\repo_corpus_review\\core_stack\\core-integration-smoke-report.json",
+      "sha256": "b0a4a6fd466be898f724faa14dd0e0694e84eb8c49f86253169af2fedc6fdbb9"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\repo_corpus_review\\integrated_adapters\\integrated-adapters-report.json",
+      "sha256": "963156560472a5406a0a7e6257015bf91ff57086c90aa9fa0ba7a20382704e4d"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\repo_corpus_review\\analytical_runtime\\analytical-runtime-report.json",
+      "sha256": "143263abe9915a1bc38eea72eeb4c409599fd247ed61074e49fedce21cb4dba0"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\validation\\repo_corpus_review\\repository_tests\\repository-test-report.json",
+      "sha256": "48bdf94b8342f9320cd8353c757f71be3a60b606f70461e03add830af74aeee0"
+    },
+    {
+      "path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\repo_corpus_review\\jira\\jira-work-unit-sync.json",
+      "sha256": "af344dd6062521b42ef935d76ccaa9250f482630b796cd190cee40566d2af6bc"
+    }
+  ],
+  "implemented_boundaries": [
+    "PINNED_OPTIONAL_DEPENDENCY_GROUPS",
+    "DETERMINISTIC_CREDENTIAL_FREE_STRUCTURED_CLIENT_TRANSPORT",
+    "ISOLATED_SPORTSDATAVERSE_ACQUISITION_RUNTIME",
+    "LAZY_DUCKDB_POLARS_PANDERA_ANALYTICAL_RUNTIME",
+    "RAPIDFUZZ_CANDIDATE_ONLY_ENTITY_MATCHING",
+    "SPLINK_MULTI_FIELD_NO_AUTO_ACCEPT_SETTINGS",
+    "HYPOTHESIS_TEMPORAL_AND_IDENTITY_PROPERTY_TEST_ENTRYPOINT"
+  ],
+  "protected_claims": {
+    "production_model_promoted": false,
+    "protected_performance_claimed": false,
+    "a_and_m_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  },
+  "jira_relationships": {
+    "canonical_owner_amendment_work_unit": "BAT-511",
+    "source_universe_work_unit": "BAT-363 / POST-SUBTASK-013",
+    "immediate_consumer_work_unit": "BAT-387 / POST-SUBTASK-037",
+    "dependency_supply_chain_work_unit": "BAT-475 / POST-SUBTASK-125"
+  }
+}

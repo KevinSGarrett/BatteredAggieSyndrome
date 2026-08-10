@@ -1,11 +1,19 @@
-"""Canonical entity contract surface (Wave 07).
+"""Canonical entity and conservative resolution contract surface."""
 
-This is a contract-level starter, not the full W19 entity resolver.
-"""
+from .candidates import FuzzyAliasCandidateGenerator
+from .contracts import ResolutionCandidate, ResolutionDecision, SourceEntityKey
 from .ids import CanonicalEntityType, new_canonical_id, validate_canonical_id
-from .contracts import SourceEntityKey, ResolutionCandidate, ResolutionDecision
+from .resolution import AliasRecord, EntityResolver, normalize_name
 
 __all__ = [
-    "CanonicalEntityType", "new_canonical_id", "validate_canonical_id",
-    "SourceEntityKey", "ResolutionCandidate", "ResolutionDecision",
+    "AliasRecord",
+    "CanonicalEntityType",
+    "EntityResolver",
+    "FuzzyAliasCandidateGenerator",
+    "ResolutionCandidate",
+    "ResolutionDecision",
+    "SourceEntityKey",
+    "new_canonical_id",
+    "normalize_name",
+    "validate_canonical_id",
 ]

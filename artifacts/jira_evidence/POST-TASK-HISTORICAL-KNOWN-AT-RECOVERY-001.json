@@ -1,11 +1,11 @@
 {
-  "schema_version": "1.2.0",
-  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-event-detail-candidate",
+  "schema_version": "1.3.0",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-drive-candidate",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
   "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-  "issued_at_utc": "2026-08-10T14:25:00Z",
-  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_VALIDATED_EVENT_DETAIL_PLAY_CANDIDATE_LAYER_VALIDATED",
+  "issued_at_utc": "2026-08-10T14:30:00Z",
+  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_VALIDATED_PLAY_AND_DRIVE_CANDIDATE_LAYERS_VALIDATED",
   "live_jira": {
     "issue_id": "24663",
     "status": "In Progress",
@@ -83,8 +83,8 @@
     "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
     "repository_gate": {
       "path": "artifacts/pit/historical_known_at_replay_gate.json",
-      "sha256": "ecf653f2f322e0d7f2f0ae564352510a6f7b0a816d8d173af368d409b6b2279c",
-      "bytes": 7749
+      "sha256": "d7bddb915fcdf410cb14452cebac5ec9d2f700b3cadd5d57bf0f20039cbef006",
+      "bytes": 8860
     },
     "manifest": {
       "path": "<external-data-root>/manifests/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/known_at_replay_manifest.json",
@@ -167,6 +167,48 @@
     ],
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
   },
+  "validated_drive_detail_candidate": {
+    "domain": "drives",
+    "grain": "DRIVE",
+    "dataset_identity": "342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0/drive_history_reconciliation.json",
+      "sha256": "ad08719246b144fa2983a2ba54aa20a2b7f56959a9028c04ad413d53eac6f639"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0/drives",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/drive_history_2004_2022_validation.json",
+      "sha256": "5b231aab5f24692a7f22a4666fd45b0ffaa657a7610c9157411644515545b4ed",
+      "checks_passed": 30,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/drive_history_2004_2022_rebuild_validation.json",
+      "sha256": "c0f37b6e300eb0baf4b644b173a23a22789a5480f4d0988cf9d01c7478430418",
+      "status": "PASS",
+      "manifest_and_17_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+      "absent_repository_seasons": [2011, 2020],
+      "repository_drive_rows": 351990,
+      "versioned_play_rows": 2432416,
+      "versioned_play_rows_without_drive_id": 1148,
+      "cross_route_exact_canonical_game_candidates": 336506,
+      "outside_current_cfbd_fbs_scope_candidates": 11669,
+      "quarantined_current_drive_id_misses": 328,
+      "quarantined_drive_result_missing_or_conflict": 3487,
+      "payload_bytes": 71748255
+    },
+    "source_and_route_findings": [
+      "The drive population is deterministically derived from exact versioned play-file bytes and therefore is not independent of the play route.",
+      "The versioned repository has no play-derived drive population for 2011 or 2020.",
+      "Cross-route exact agreement does not establish upstream independence because both routes may derive from ESPN records.",
+      "Every drive remains candidate or quarantine data outside Git; none is admitted to canonical data, PIT state, training features, labels, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -182,6 +224,12 @@
     "bundle_bytes": 17767806,
     "base_commit": "a72239af74ce08bb9fef17c266e9813bf88542d8"
   },
+  "drive_detail_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-drive-history/20260810T143000Z/BAT-523-drive-history.bundle",
+    "bundle_sha256": "b9a5f83501cffd9453d27d943bec94f2fd20b4897da62def62f3f609ba49a91e",
+    "bundle_bytes": 17824580,
+    "base_commit": "9b3de8c60132247ed7def9e9af1b97487cb82313"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -189,6 +237,8 @@
     "matrix_approved": "EXPANDED_SCOPED_PIPELINE_INTEGRATION_ONLY",
     "event_detail_candidate_layer_validated": true,
     "event_detail_canonical_or_pit_admission": false,
+    "drive_detail_candidate_layer_validated": true,
+    "drive_detail_canonical_or_pit_admission": false,
     "other_domain_expansion_continues": true,
     "full_historical_population_ready": false,
     "gap_002_resolved": false,

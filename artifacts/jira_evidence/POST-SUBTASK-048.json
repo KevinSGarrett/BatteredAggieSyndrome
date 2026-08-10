@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "POST-SUBTASK-048-bat398-matrix-gate-decision",
+  "decision_unit": "POST-SUBTASK-048",
+  "jira_key": "BAT-398",
+  "title": "Approve or block immutable matrix versions for feature/model experimentation",
+  "issued_at_utc": "2026-08-10T11:28:00Z",
+  "scope": "Atomic matrix-admission decision only. This gate evaluates the exact BAT-397 content-addressed matrix and does not create, repair, or widen its real population.",
+  "primary_artifact": {
+    "path": "artifacts/pit/matrix_gate_decision.json",
+    "sha256": "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a1208",
+    "bytes": 6351,
+    "content_hash": "a7ec13ed0d7115b202bedc3f128c0e5e8448ac1d7bded464279b19aeee66997a",
+    "schema_version": "1.0.0",
+    "decision": "BLOCK",
+    "feature_model_experimentation": "INELIGIBLE"
+  },
+  "matrix_identity": {
+    "dataset_identity": "7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1",
+    "manifest_sha256": "dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0",
+    "rows": 0,
+    "cells": 0,
+    "production_matrix_approval": "NOT_APPROVED"
+  },
+  "prerequisite_identities": [
+    {"decision_unit": "POST-SUBTASK-045", "path": "artifacts/pit/known_at_gate.json", "sha256": "9ac8d8b6539027b51c1fe0006cc7855ec8ca22e537a996b8c9db5ece1f2ec04a", "bytes": 1650075},
+    {"decision_unit": "POST-SUBTASK-046", "path": "artifacts/pit/asof_state_manifest.json", "sha256": "be659759a1fcf02f360ba2a2948096d61b63cca51c90d8ccd6cfbc80c3f5ec51", "bytes": 8235},
+    {"decision_unit": "POST-SUBTASK-047", "path": "artifacts/pit/pregame_matrix_manifest.json", "sha256": "dbf6a30e1745d969e4f21cf507d7b2a240bfd5f5d36a0c22f9db035d0e9bf3b0", "bytes": 7277},
+    {"decision_unit": "POST-SUBTASK-045", "path": "artifacts/jira_evidence/POST-SUBTASK-045.json", "sha256": "520f8c04f01b00426bbbae0ae4f66c2d0cfe97f01eb091f9d6fb3cb5db31fc42", "bytes": 17752},
+    {"decision_unit": "POST-SUBTASK-046", "path": "artifacts/jira_evidence/POST-SUBTASK-046.json", "sha256": "9c6e7794503aa611cfbe150657d7d25153dc7fcbefd223f43d18c683cfda5919", "bytes": 17910},
+    {"decision_unit": "POST-SUBTASK-047", "path": "artifacts/jira_evidence/POST-SUBTASK-047.json", "sha256": "7a9961a372ab9a7d4a5a492b07bac85cffa2a4adc9b51da72d81155c610b2524", "bytes": 15895}
+  ],
+  "gate_result": {
+    "decision": "BLOCK",
+    "reason_codes": ["NO_ACCEPTED_PIT_STATE", "NO_EVIDENCE_BACKED_GAME_CUTOFF_ROWS", "ZERO_MATRIX_ROWS", "ZERO_MATRIX_CELLS", "NO_REPLAYABLE_REAL_PREGAME_ROW", "NO_APPLICABLE_SPLIT_IDENTITY"],
+    "reconsideration": "REQUIRES_NEW_CONTENT_ADDRESSED_NONEMPTY_MATRIX_VERSION_AND_FULL_GATE_REEXECUTION"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "State rows retain canonical identity, effective/known-at time, source evidence, and version; corrections append and future observations do not alter prior as-of reads.",
+      "disposition": "PASS_IMPLEMENTATION_WITH_QUARANTINED_REAL_POPULATION",
+      "observable_result": "BAT-396 preserved all 313,712 temporal candidates and their evidence/version fields, admitted zero without source-known-at evidence, and passed append-only correction replay without promoting synthetic evidence."
+    },
+    {
+      "criterion": "Each game/cutoff row uses only eligible state and deterministically preserves site, lower-division, cancellation, fallback, missingness, and lineage rules.",
+      "disposition": "PASS_IMPLEMENTATION_EMPTY_REAL_POPULATION",
+      "observable_result": "BAT-397 passed sixteen deterministic contract assertions, but the real matrix contains zero game/cutoff rows and zero cells."
+    },
+    {
+      "criterion": "Approved matrices are content-hashed, split-blind, reproducible from pinned versions, and cannot pass on successful file creation alone.",
+      "disposition": "BLOCKED",
+      "observable_result": "The immutable matrix is content-addressed and reproducible, but has no accepted row, real cutoff replay, or applicable split identity. File creation is insufficient; approval is denied."
+    },
+    {
+      "criterion": "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
+      "disposition": "PASS",
+      "observable_result": "All six prerequisite artifacts/evidence manifests are pinned and validated, the six admission blockers are explicit, and 23 downstream units remain blocked from consuming this matrix."
+    }
+  ],
+  "validation_artifacts": {
+    "run_1": {
+      "path": "<external-data-root>/validation/BAT-398/matrix-gate/validation-report-run-1.json",
+      "sha256": "473fbc36d26ce2c8088ff91d4a30c568315c53fafe52f076a97f78f84aa782a6",
+      "bytes": 2027,
+      "result": "PASS",
+      "findings": 0,
+      "prerequisite_identities_passed": 6,
+      "empty_payload_checks_passed": 2,
+      "unsafe_mutations_rejected": 12
+    },
+    "deterministic_rebuild": {
+      "decision_sha256_run_1": "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a1208",
+      "decision_sha256_run_2": "9f1755bba326678dee2e4daac92a693d8dc98ed9124805d5c53c88d12c5a1208",
+      "byte_identical": true
+    }
+  },
+  "test_matrix": [
+    {"classification": "REGRESSION", "disposition": "PASS", "result": "Temporal regression: 4 passed and 16 subtests; full repository suite: 316 passed, 2 skipped, 79 subtests."},
+    {"classification": "CHRONOLOGICAL_REPLAY", "disposition": "BLOCKED_REAL_REPLAY", "result": "No evidence-backed real game/cutoff row exists; synthetic prerequisite replay remains PASS but cannot establish real readiness."},
+    {"classification": "SCIENTIFIC", "disposition": "NOT_APPLICABLE", "result": "No nonempty matrix, target, split, model, prediction, or protected evaluation exists."},
+    {"classification": "END_TO_END", "disposition": "PASS_BLOCK_DECISION", "result": "The exact prerequisite chain resolves to a deterministic downstream-consumable BLOCK decision with no manual reconstruction."},
+    {"classification": "REPRODUCIBILITY", "disposition": "PASS", "result": "Six prerequisite identities, producer/runtime identity, byte-identical rebuild, and independent mutation validation are recorded."}
+  ],
+  "producer": {
+    "base_commit": "30037bfda56702928228423e4ba909504b5ee687",
+    "builder": "<external-data-root>/runtime/BAT-398/build_matrix_gate_decision.py",
+    "builder_sha256": "ba951ad9e1ae2978281b618bab18b0dc6540627a1c00027d8a07ac77f13c0e86",
+    "validator": "<external-data-root>/runtime/BAT-398/validate_matrix_gate_decision.py",
+    "validator_sha256": "29cd48cf22c20e1b97744ed9c04d9af1921189725bf5600e50c9d68097f9c608",
+    "python": "3.11.9",
+    "polars": "1.42.1",
+    "openai_api_calls": 0,
+    "openai_cost_usd": 0.0
+  },
+  "commands": [
+    {"command": "run build_matrix_gate_decision.py twice against the six pinned prerequisite identities", "exit_code": 0, "result": "PASS: byte-identical 6,351-byte BLOCK decision"},
+    {"command": "run validate_matrix_gate_decision.py against decision, six prerequisite identities, two external matrix payloads, and 12 mutation probes", "exit_code": 0, "result": "PASS: zero findings; both payloads confirmed empty; all unsafe mutations rejected"},
+    {"command": "python -B tools/validate_temporal.py --repo-root . and python -B tools/validate_w24_readiness.py --repo-root .", "exit_code": 0, "result": "PASS: PIT/leakage and synthetic E2E/replay controls"},
+    {"command": "write provenance; strict repository, autonomous, W25, Jira pack/source/dependency/import/second-pass/control-plane/manifest validation", "exit_code": 0, "result": "PASS: 2,119 source references, 474 Jira derivatives, 1,804 Jira manifest files"},
+    {"command": "$env:PYTHONDONTWRITEBYTECODE='1'; $env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q", "exit_code": 0, "result": "PASS: 316 passed, 2 skipped, 79 subtests"}
+  ],
+  "repository_validation": {
+    "strict_repository_and_provenance": "PASS",
+    "repository_manifest_files": 2956,
+    "repository_manifest_fingerprint_before_evidence_finalization": "3692eb3198035e8e4f727bef063e46cd48ce20c7a51b519ab194b19071a81540",
+    "autonomous_controls": "PASS",
+    "w25_final": "PASS",
+    "source_references": 2119,
+    "jira_derivatives": 474,
+    "jira_manifest_files": 1804,
+    "jira_second_pass": "PASS",
+    "jira_control_plane": "PASS",
+    "tests_passed": 316,
+    "tests_skipped": 2,
+    "subtests_passed": 79
+  },
+  "jira_claim": {
+    "issue_id": "24538",
+    "status": "In Progress",
+    "logical_workflow_state": "IN_PROGRESS",
+    "implementation_maturity": "FUNCTIONAL_STARTER",
+    "evidence_state": "PLANNED",
+    "claim_comment_id": "13458",
+    "updated": "2026-08-10T06:24:50.669-0500",
+    "source_export": "<external-data-root>/runtime/BAT-398/BAT-398-claim-live-row.csv",
+    "reconciliation": "DRY_RUN_PASS_THEN_PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS"
+  },
+  "downstream_reevaluation": {
+    "count": 23,
+    "disposition": "ALL_BLOCKED_NO_APPROVED_NONEMPTY_PIT_MATRIX",
+    "story": "POST-STORY-016_REMAINS_BLOCKED_BY_NEGATIVE_GATE_OUTCOME",
+    "first_model_consumer": "POST-SUBTASK-049_REMAINS_BLOCKED"
+  },
+  "negative_findings": [
+    "The 959,765-row known-at evaluation admitted zero records.",
+    "All 313,712 temporal candidates remain quarantined and accepted as-of state is empty.",
+    "No real game/cutoff catalog, matrix row, matrix cell, chronological replay, or split identity exists.",
+    "Content addressing and synthetic validation do not compensate for an empty empirical population."
+  ],
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-398-matrix-admission/20260810T112500Z",
+    "bundle_sha256": "1e3ecd014ed0e0c3309856e6b0bf32250aa6129f13066eb3b9c9e1889dfd7977",
+    "bundle_bytes": 17510568,
+    "manifest_sha256": "c243ab5de8d90b64409feabde046b5e1261be41c4f3a8ddf165a5e7654fc2b0f",
+    "sha256sums_sha256": "88b65fa6a54a880415685f6938122065286b6ea5cb6a4d56c00b62b525141a20",
+    "bundle_verify": "PASS_COMPLETE_HISTORY"
+  },
+  "completion_claim": {
+    "achieved_maturity": "PRODUCTION_READY_GATE_IMPLEMENTATION",
+    "evidence_state": "IMPLEMENTATION_EVIDENCE_COMPLETE_PENDING_PROTECTED_INTEGRATION_AND_LIVE_SYNC",
+    "atomic_work_unit": "PASS_VALIDATED_BLOCK_DECISION",
+    "matrix_approval": "BLOCKED_NOT_APPROVED",
+    "historical_population_readiness": "NOT_ESTABLISHED"
+  },
+  "honesty_boundary": [
+    "The admission gate itself can be production-ready while correctly returning BLOCK for an ineligible matrix.",
+    "BAT-398 does not establish historical completeness, GAP-002/GAP-003 resolution, an approved training matrix, production-model readiness, protected performance, a champion, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ]
+}

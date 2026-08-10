@@ -99,7 +99,7 @@
   "end_to_end_validation": "A pinned cutoff reconstructs the exact state and matrix row that was legitimately knowable before a historical game. The gate decision must explicitly reevaluate downstream issues: POST-EPIC-006, POST-EPIC-007, POST-STORY-017, POST-STORY-018, POST-STORY-021, POST-STORY-023, POST-STORY-027, POST-SUBTASK-049, POST-SUBTASK-050, POST-SUBTASK-051, POST-SUBTASK-052, POST-SUBTASK-053….",
   "epic_id": "POST-EPIC-005",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-048.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -168,11 +168,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24538",
-    "jira_updated_at": "2026-08-10T06:24:50.669-0500",
-    "last_synced_at": "2026-08-10T11:24:56.751868+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-398\\BAT-398-claim-live-row.csv",
+    "jira_updated_at": "2026-08-10T06:35:46.241-0500",
+    "last_synced_at": "2026-08-10T11:38:15.636804+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-398\\BAT-398-completion-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -229,8 +229,8 @@
     "docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md",
     "docs/19_ASOF_QUERY_AND_CUTOFF_CONTRACT.md"
   ],
-  "ready": true,
-  "record_revision": "2.0",
+  "ready": false,
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/pit/matrix_gate_decision.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -344,7 +344,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-016: Append-only as-of state and pregame matrices.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-048.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

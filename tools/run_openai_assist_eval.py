@@ -52,6 +52,8 @@ def main() -> int:
         raise SystemExit("evaluation prompt hash does not match policy")
     base_prompt = prompt_bytes.decode("utf-8")
     gold_path = ROOT / policy["gold_corpus"]
+    if hashlib.sha256(gold_path.read_bytes()).hexdigest() != policy["gold_corpus_sha256"]:
+        raise SystemExit("evaluation gold-corpus hash does not match policy")
     gold = _jsonl(gold_path)
     selected_cases = set(args.cases or [case["case_id"] for case in gold])
     unknown_cases = selected_cases - {case["case_id"] for case in gold}
@@ -141,6 +143,8 @@ def main() -> int:
             "policy_id": policy["policy_id"],
             "prompt_version": f"{prompt_spec['version']}-{args.run_label}",
             "prompt_sha256": prompt_spec["sha256"],
+            "gold_corpus_version": policy["gold_corpus_version"],
+            "gold_corpus_sha256": policy["gold_corpus_sha256"],
             "jira_unit": "POST-SUBTASK-161",
             "authority": policy["authority"],
             "requested_jobs": job_count,

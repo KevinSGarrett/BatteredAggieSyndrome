@@ -2,6 +2,9 @@
   "schema_version": 1,
   "policy_id": "openai-assist-evaluation-2026-08-10",
   "gold_corpus": "fixtures/openai_assist/eval_gold.jsonl",
+  "gold_corpus_version": "bat517-gold-v2",
+  "gold_corpus_sha256": "01cde467fed17c4a069ccfbf1bdf4d86561fea260e17806e9d30a1bf231c7ff1",
+  "gold_corpus_change": "The ambiguous starter example was revised because v1 explicitly stated absence while expecting UNKNOWN, contradicting the frozen status semantics.",
   "output_schema": "schemas/openai/assistive_evaluation.schema.json",
   "prompt": {
     "path": "prompts/openai_assist/evaluation_v2.txt",

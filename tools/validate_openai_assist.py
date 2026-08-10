@@ -40,6 +40,9 @@ def validate(root: Path) -> list[str]:
     prompt_sha256 = hashlib.sha256(prompt_path.read_bytes()).hexdigest()
     if prompt_sha256 != prompt["sha256"]:
         errors.append("OpenAI evaluation prompt hash disagrees with policy")
+    gold_path = root / evaluation_policy["gold_corpus"]
+    if hashlib.sha256(gold_path.read_bytes()).hexdigest() != evaluation_policy["gold_corpus_sha256"]:
+        errors.append("OpenAI evaluation gold-corpus hash disagrees with policy")
     if evaluation_policy["acceptance"]["unsupported_fact_rate_max"] != 0.0:
         errors.append("OpenAI evaluation must require zero unsupported facts")
     if evaluation_policy["acceptance"]["false_merge_rate_max"] != 0.0:

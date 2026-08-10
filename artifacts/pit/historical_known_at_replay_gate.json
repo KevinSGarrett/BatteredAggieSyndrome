@@ -275,6 +275,27 @@
     "admission_state": "CANDIDATE_NOT_ADMITTED",
     "gate_disposition": "PENDING_DOMAIN_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_VALIDATION"
   },
+  "parallel_venue_assignment_checkpoint": {
+    "gate_artifact": "artifacts/pit/historical_venue_assignment_reconciliation_gate.json",
+    "dataset_identity": "34b682b25cff6f98e86bbc2e8f64528edd92ee8bcef09cef4729c301adf8cbee",
+    "manifest_sha256": "a14375ed94ba93604b1e09c89f8828eba453d6dcff7f5639ef827d5dcf37dac0",
+    "validation_report_sha256": "6f6de33080babc683db361f1b887d3d99663c5d6f031d3a60ad89c47b909029e",
+    "deterministic_rebuild_report_sha256": "6bad429280c05d5ebd9ff9e656c9e212c030bb3a5e9964b4a4ab36051002bf1a",
+    "source_season_min": 1963,
+    "source_season_max": 2025,
+    "source_games": 46954,
+    "catalog_id_linked_games": 19669,
+    "games_without_venue_evidence": 27285,
+    "current_capture_venue_exact_match_games": 3659,
+    "historical_known_at_state": "UNKNOWN_FOR_GAME_VENUE_ASSIGNMENT_AND_CATALOG_ATTRIBUTES_CAPTURE_TIME_ONLY",
+    "historical_catalog_effective_time_established": false,
+    "canonical_venue_assignment_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "relocation_history_admission": false,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "gate_disposition": "PENDING_HISTORICAL_EFFECTIVE_TIME_CANONICAL_PIT_FEATURE_AND_RELOCATION_VALIDATION"
+  },
   "coverage": {
     "source_candidate_rows": 12047,
     "accepted_strict_game_outcomes": 10593,

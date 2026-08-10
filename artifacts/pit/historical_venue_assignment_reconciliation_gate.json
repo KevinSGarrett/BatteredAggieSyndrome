@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_GAME_VENUE_ASSIGNMENT_CANDIDATE_AND_RECONCILIATION_GATE",
+  "decision_id": "bat523-game-venue-assignment-history-1963-2025-v1",
+  "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
+  "jira_key": "BAT-523",
+  "issued_at_utc": "2026-08-10T17:50:00Z",
+  "source_capture": {
+    "source_id": "SRC-002",
+    "provider": "CollegeFootballData",
+    "schedule_endpoint": "CFBD-GetGames",
+    "venue_endpoint": "CFBD-GetVenues",
+    "season_min": 1963,
+    "season_max": 2025,
+    "schedule_partitions": 63,
+    "schedule_games": 46954,
+    "schedule_raw_bytes": 34560451,
+    "venue_catalog_rows": 844,
+    "venue_catalog_raw_bytes": 219397,
+    "bulk_payloads_in_git": false
+  },
+  "candidate_layer": {
+    "dataset_identity": "34b682b25cff6f98e86bbc2e8f64528edd92ee8bcef09cef4729c301adf8cbee",
+    "manifest_sha256": "a14375ed94ba93604b1e09c89f8828eba453d6dcff7f5639ef827d5dcf37dac0",
+    "payloads": 63,
+    "payload_bytes": 6418853,
+    "games_with_venue_id_and_label": 19669,
+    "catalog_id_linked_games": 19669,
+    "catalog_name_exact_match_games": 19669,
+    "catalog_name_drift_games": 0,
+    "games_without_venue_evidence": 27285,
+    "admission_state": "CANDIDATE_NOT_ADMITTED"
+  },
+  "reconciliation": {
+    "current_canonical_overlap_games": 3659,
+    "current_capture_venue_exact_match_games": 3659,
+    "current_capture_venue_conflict_games": 0,
+    "historical_venue_ids_with_multiple_labels": 0,
+    "numeric_provider_venue_id_only_automatic_join": true,
+    "name_only_canonical_merge_allowed": false,
+    "current_overlap_independence": "SAME_PROVIDER_CAPTURE_ROUTE_NOT_INDEPENDENT"
+  },
+  "coverage": {
+    "season_1963_2000_games": 27285,
+    "season_1963_2000_games_with_venue_evidence": 0,
+    "season_2001_2025_games_with_venue_evidence": 19669,
+    "early_missingness_disposition": "PRESERVED_DOMAIN_SCOPED_NOT_FABRICATED_AND_NOT_GLOBAL_BLOCKER"
+  },
+  "validation": {
+    "independent_report_sha256": "6f6de33080babc683db361f1b887d3d99663c5d6f031d3a60ad89c47b909029e",
+    "checks_passed": 31,
+    "checks_failed": 0,
+    "mutation_controls_passed": 14,
+    "deterministic_rebuild_report_sha256": "6bad429280c05d5ebd9ff9e656c9e212c030bb3a5e9964b4a4ab36051002bf1a",
+    "deterministic_rebuild_checks_passed": 9,
+    "deterministic_payloads_compared": 63
+  },
+  "historical_known_at_gate": {
+    "game_venue_assignment_known_at": "UNKNOWN_CAPTURE_TIME_ONLY",
+    "catalog_attribute_effective_time": "UNKNOWN_CURRENT_2026_SNAPSHOT_ONLY",
+    "game_date_as_publication_time_allowed": false,
+    "current_catalog_historical_backfill_allowed": false,
+    "canonical_venue_assignment_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "relocation_history_admission": false
+  },
+  "preserved_negative_findings": [
+    "All 27,285 captured schedule games from 1963 through 2000 lack both venue ID and venue label; no historical venue is inferred from home team, current stadium, or game location assumptions.",
+    "The 844-row venue catalog is a current 2026 capture and does not establish historical effective dates for name, capacity, construction year, surface, dome, coordinates, elevation, or timezone.",
+    "Historical schedule captures establish candidate game-to-venue assignments but do not prove when those assignments became public before each target cutoff.",
+    "The 3,659 current canonical overlaps are same-provider reproducibility checks, not independent factual confirmation.",
+    "Pre-validation identity eb8ae5e1692de3139214686b8da76a12bd136c944c903f96fd21424bb4f6b568 inferred Null types for all-null early-season venue columns and is superseded by the stable-schema identity."
+  ],
+  "decision": "VALIDATED_CANDIDATE_LAYER_CONTINUE_HISTORICAL_EFFECTIVE_TIME_CANONICAL_PIT_AND_RELOCATION_GATING",
+  "scientific_nonclaims": {
+    "historical_venue_history_complete": false,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

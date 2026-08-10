@@ -4,8 +4,8 @@
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
   "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-  "issued_at_utc": "2026-08-10T12:08:00Z",
-  "disposition": "ACTIVATED_IN_PROGRESS",
+  "issued_at_utc": "2026-08-10T12:50:00Z",
+  "disposition": "SCOPED_TEAM_OUTCOME_REPLAY_VALIDATED_EXPANSION_IN_PROGRESS",
   "live_jira": {
     "issue_id": "24663",
     "status": "In Progress",
@@ -49,6 +49,47 @@
     "domain_scoped_eligibility_required": true,
     "independent_work_may_continue": true
   },
+  "validated_replay": {
+    "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
+    "repository_gate": {
+      "path": "artifacts/pit/historical_known_at_replay_gate.json",
+      "sha256": "80247826294d29b07e9e2e3aa6462de67acbeeebee2b2b68ca77764fd209fc7d",
+      "bytes": 4215
+    },
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a/known_at_replay_manifest.json",
+      "sha256": "5680240f6d35a10f65e5befa837f0b09a440cd590cd1e931daf820e15a63e468"
+    },
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/known-at-replay/c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a/validation-report.json",
+      "sha256": "e67e173eae4125b2f09f79a17d540d205d7de0dcec8ea58b563e2dd0d74d4639",
+      "checks_passed": 36,
+      "checks_failed": 0
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/known-at-replay/c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a/deterministic-rebuild-report.json",
+      "sha256": "312530078216bbeebbf1000a62d59a4725f01ab4b846644cdd4341e5609ed844",
+      "status": "PASS"
+    },
+    "population": {
+      "accepted_strict_game_outcomes": 894,
+      "accepted_team_observations": 1788,
+      "target_games": 2764,
+      "matrix_rows": 5528,
+      "matrix_cells": 22112,
+      "rows_with_priors": 5493,
+      "rows_source_missing": 35,
+      "target_game_outcome_used_rows": 0
+    },
+    "gate_disposition": "APPROVE_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+    "full_historical_population_disposition": "BLOCKED_EXPANSION_INCOMPLETE",
+    "negative_findings": [
+      "The strict replay admits only 894 exact cross-source 2022 outcomes.",
+      "The 884 repository-versioned single-source 2021 outcomes remain held outside automatic admission.",
+      "Nineteen reconciliation failures remain quarantined.",
+      "The scoped replay does not establish full historical readiness, a production feature set, protected performance, or any scientific result."
+    ]
+  },
   "rollback_checkpoint": {
     "path": "<external-data-root>/backups/BAT-523-known-at-recovery-contract/20260810T121058Z",
     "bundle_sha256": "99527d0f9f0ae85731982b7e88c7bddc1c68f73589e9cc69531266913978a34c",
@@ -56,9 +97,12 @@
   },
   "completion_claim": {
     "workstream_activated": true,
-    "historical_known_at_recovered": false,
-    "nonempty_pit_state_materialized": false,
-    "matrix_approved": false,
+    "historical_known_at_recovered": "SCOPED_2022_TEAM_OUTCOME_CONTEXT_ONLY",
+    "nonempty_pit_state_materialized": true,
+    "matrix_approved": "SCOPED_PIPELINE_INTEGRATION_ONLY",
+    "full_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "protected_model_promotion_eligible": false,
     "scientific_result": "NOT_CLAIMED"
   }
 }

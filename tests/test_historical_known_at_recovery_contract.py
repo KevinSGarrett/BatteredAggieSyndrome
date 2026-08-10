@@ -64,6 +64,27 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertTrue(storage["content_addressed_captures_required"])
         self.assertFalse(self.contract["openai_assistance"]["direct_canonical_or_pit_authority"])
 
+    def test_scoped_replay_is_nonempty_validated_and_not_full_history(self) -> None:
+        replay = self.contract["latest_validated_replay"]
+        self.assertEqual(
+            replay["dataset_identity"],
+            "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
+        )
+        self.assertEqual(replay["accepted_game_outcomes"], 894)
+        self.assertEqual(replay["matrix_rows"], 5528)
+        self.assertEqual(replay["matrix_cells"], 22112)
+        self.assertEqual(replay["target_game_outcome_used_rows"], 0)
+        self.assertEqual(
+            replay["gate_disposition"],
+            "APPROVE_SCOPED_TEAM_OUTCOME_CONTEXT_FOR_PIPELINE_INTEGRATION",
+        )
+        self.assertEqual(
+            replay["full_historical_population_disposition"],
+            "BLOCKED_EXPANSION_INCOMPLETE",
+        )
+        self.assertFalse(self.evidence["completion_claim"]["full_historical_population_ready"])
+        self.assertFalse(self.evidence["completion_claim"]["protected_model_promotion_eligible"])
+
 
 if __name__ == "__main__":
     unittest.main()

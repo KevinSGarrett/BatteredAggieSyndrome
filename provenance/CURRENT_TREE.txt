@@ -118,6 +118,7 @@ artifacts/openai_assist/router_rebalance.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
+artifacts/pit/historical_known_at_replay_gate.json
 artifacts/pit/known_at_gate.json
 artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json
@@ -2813,6 +2814,7 @@ src/aggie_analytics/team_state/weighting.py
 src/aggie_analytics/temporal/__init__.py
 src/aggie_analytics/temporal/contracts.py
 src/aggie_analytics/temporal/eligibility.py
+src/aggie_analytics/temporal/historical_recovery.py
 src/aggie_analytics/temporal/state.py
 src/aggie_analytics/validation/__init__.py
 src/aggie_analytics/validation/metrics.py
@@ -2839,6 +2841,7 @@ tests/test_feature_registry_governance.py
 tests/test_feature_tournament.py
 tests/test_feature_tournament_full.py
 tests/test_historical_known_at_recovery_contract.py
+tests/test_historical_known_at_replay.py
 tests/test_hpo_engine_full.py
 tests/test_hpo_governance.py
 tests/test_hypothesis_queue.py

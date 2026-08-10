@@ -132,6 +132,26 @@
     "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
     "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_AND_PIT_ADMISSION_PENDING"
   },
+  "parallel_roster_checkpoint": {
+    "domain": "rosters",
+    "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",
+    "dataset_identity": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
+    "manifest_sha256": "453c4863577d3ad3e8e54396d54194024390d1bef1af9eab324c9577a5a7160f",
+    "validation_report_sha256": "e509f47aec6c341f7be5c0add7faf4b0014d384a1193fc449419bed32fc1313f",
+    "deterministic_rebuild_report_sha256": "3dad0ef5adcd468cadab78bc53e8b3c1c180ad7201a48c43a563e8407ed550c1",
+    "repository_rows": 206773,
+    "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "cross_route_exact_canonical_membership_candidates": 154387,
+    "source_level_only_candidates": 44637,
+    "quarantined_rows": 7749,
+    "historical_attribute_drift_rows": 29313,
+    "multi_option_canonical_membership_keys": 231,
+    "identity_rule": "ATHLETE_ID_AND_NORMALIZED_NAME_REQUIRED; HISTORICAL_TEAM_LABEL_SELECTS_CANONICAL_MEMBERSHIP; NO_NAME_ONLY_MERGE",
+    "availability_inference": false,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
+    "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_PIT_AND_AVAILABILITY_ADMISSION_PENDING"
+  },
   "coverage": {
     "source_candidate_rows": 12047,
     "accepted_strict_game_outcomes": 10593,
@@ -176,7 +196,7 @@
       "quarantined": 19
     },
     "findings": [
-      "Team-outcome context now spans 2010-2022, but this does not establish completeness in plays, drives, rosters, player box scores, gamebook-equivalent facts, or advanced statistics.",
+      "Team-outcome context now spans 2010-2022 and roster candidates span 2004-2022, but this does not establish completeness or admission in plays, drives, rosters, player box scores, gamebook-equivalent facts, or advanced statistics.",
       "The 884 repository-versioned single-source candidates remain held; the independently corroborated 2021 rows were admitted through the new strict cross-source lane instead.",
       "All 570 quarantined rows remain preserved and independently visible; no completeness threshold was weakened to admit them.",
       "Fourteen target-team rows retain explicit SOURCE_MISSING priors.",

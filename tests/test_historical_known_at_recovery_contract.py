@@ -146,6 +146,30 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
+    def test_roster_history_is_validated_candidate_only_without_availability_inference(self) -> None:
+        roster = self.contract["latest_validated_roster_candidate"]
+        self.assertEqual(
+            roster["dataset_identity"],
+            "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
+        )
+        self.assertEqual(roster["grain"], "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP")
+        self.assertEqual(roster["repository_seasons"], list(range(2004, 2023)))
+        self.assertEqual(roster["repository_rows"], 206773)
+        self.assertEqual(roster["cross_route_exact_canonical_membership_candidates"], 154387)
+        self.assertEqual(roster["historical_attribute_drift_rows"], 29313)
+        self.assertEqual(roster["validation_checks_passed"], 34)
+        self.assertEqual(roster["mutation_controls_passed"], 9)
+        self.assertEqual(roster["deterministic_payloads_compared"], 19)
+        self.assertIn("NO_NAME_ONLY_MERGE", roster["identity_contract"])
+        self.assertEqual(roster["availability_inference"], "NOT_PERMITTED_FROM_ROSTER_MEMBERSHIP_ALONE")
+        self.assertEqual(roster["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertFalse(self.evidence["completion_claim"]["roster_canonical_pit_or_availability_admission"])
+        checkpoint = self.gate["parallel_roster_checkpoint"]
+        self.assertEqual(checkpoint["quarantined_rows"], 7749)
+        self.assertFalse(checkpoint["availability_inference"])
+        self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+
 
 if __name__ == "__main__":
     unittest.main()

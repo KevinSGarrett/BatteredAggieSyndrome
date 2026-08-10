@@ -1,11 +1,11 @@
 {
   "schema_version": "1.3.0",
-  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-drive-candidate",
+  "evidence_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001-expanded-roster-candidate",
   "decision_unit": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
   "jira_key": "BAT-523",
   "title": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-  "issued_at_utc": "2026-08-10T14:30:00Z",
-  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_VALIDATED_PLAY_AND_DRIVE_CANDIDATE_LAYERS_VALIDATED",
+  "issued_at_utc": "2026-08-10T14:50:00Z",
+  "disposition": "EXPANDED_TEAM_OUTCOME_REPLAY_VALIDATED_PLAY_DRIVE_AND_ROSTER_CANDIDATE_LAYERS_VALIDATED",
   "live_jira": {
     "issue_id": "24663",
     "status": "In Progress",
@@ -83,8 +83,8 @@
     "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
     "repository_gate": {
       "path": "artifacts/pit/historical_known_at_replay_gate.json",
-      "sha256": "d7bddb915fcdf410cb14452cebac5ec9d2f700b3cadd5d57bf0f20039cbef006",
-      "bytes": 8860
+      "sha256": "2280b0430187917e4c8def064e4df58c9134d9811a6fb073758fa9d323f0adf1",
+      "bytes": 10235
     },
     "manifest": {
       "path": "<external-data-root>/manifests/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/known_at_replay_manifest.json",
@@ -209,6 +209,50 @@
     ],
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
   },
+  "validated_roster_candidate": {
+    "domain": "rosters",
+    "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",
+    "dataset_identity": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda/roster_history_reconciliation.json",
+      "sha256": "453c4863577d3ad3e8e54396d54194024390d1bef1af9eab324c9577a5a7160f"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda/rosters",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/roster_history_2004_2022_validation.json",
+      "sha256": "e509f47aec6c341f7be5c0add7faf4b0014d384a1193fc449419bed32fc1313f",
+      "checks_passed": 34,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/roster_history_2004_2022_rebuild_validation.json",
+      "sha256": "3dad0ef5adcd468cadab78bc53e8b3c1c180ad7201a48c43a563e8407ed550c1",
+      "status": "PASS",
+      "manifest_and_19_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      "repository_rows": 206773,
+      "cross_route_exact_canonical_membership_candidates": 154387,
+      "source_level_only_candidates": 44637,
+      "quarantined_canonical_membership_ambiguity": 6462,
+      "quarantined_current_name_conflicts": 1214,
+      "quarantined_current_match_ambiguity": 24,
+      "quarantined_invalid_core_rows": 49,
+      "historical_attribute_drift_rows": 29313,
+      "payload_bytes": 32280054
+    },
+    "source_and_route_findings": [
+      "The public versioned repository provides one immutable roster file for every season from 2004 through 2022 at the captured commit.",
+      "Multiple teams for one athlete in one season are preserved as distinct player-team-season associations rather than mislabeled as duplicate players.",
+      "Canonical membership requires athlete ID, normalized first and last name, and an exact historical team-label option; 6,462 unresolved membership rows remain quarantined and no name-only merge is permitted.",
+      "Current roster attributes are reconciliation evidence only; 29,313 rows retain versioned-versus-current attribute drift instead of being overwritten.",
+      "Roster membership alone does not establish starter, injury, depth-chart, practice, or availability status.",
+      "Every roster row remains candidate or quarantine data outside Git; none is admitted to canonical data, PIT state, training features, availability state, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_CANONICAL_AND_AVAILABILITY_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -230,6 +274,12 @@
     "bundle_bytes": 17824580,
     "base_commit": "9b3de8c60132247ed7def9e9af1b97487cb82313"
   },
+  "roster_detail_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-roster-history/20260810T144500Z/BAT-523-roster-history.bundle",
+    "bundle_sha256": "0edcfb606086cf571db30ad044f8bc5b0ba2a3d22424375854974aec4991677e",
+    "bundle_bytes": 17830888,
+    "base_commit": "bd6bc55a1261acf4f79fab50f78b544164c19fbd"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -239,6 +289,8 @@
     "event_detail_canonical_or_pit_admission": false,
     "drive_detail_candidate_layer_validated": true,
     "drive_detail_canonical_or_pit_admission": false,
+    "roster_candidate_layer_validated": true,
+    "roster_canonical_pit_or_availability_admission": false,
     "other_domain_expansion_continues": true,
     "full_historical_population_ready": false,
     "gap_002_resolved": false,

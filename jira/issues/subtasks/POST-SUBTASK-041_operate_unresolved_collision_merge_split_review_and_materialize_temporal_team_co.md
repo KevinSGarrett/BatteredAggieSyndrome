@@ -22,7 +22,7 @@
     "artifacts/entities/entity_decision_and_transition_log.jsonl",
     "artifacts/jira_evidence/POST-SUBTASK-041.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-040",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-042"
   ],
@@ -202,7 +202,7 @@
     "docs/17_ENTITY_STORAGE_EVALUATION.md",
     "governance/ENTITY_RESOLUTION_STATES.csv"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -304,7 +304,7 @@
     "POST-SUBTASK-042"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",
@@ -314,7 +314,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-014: Population resolution, review workflow, transitions, and entity gate.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-041.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

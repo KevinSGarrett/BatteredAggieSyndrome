@@ -4,6 +4,7 @@
   "decision_unit": "POST-SUBTASK-040",
   "jira_key": "BAT-390",
   "created_at_utc": "2026-08-10T03:14:00Z",
+  "updated_at_utc": "2026-08-10T03:23:01Z",
   "acceptance_matrix": [
     {
       "criterion": 1,
@@ -198,7 +199,7 @@
     "preserved": "accepted external content-addressed payload, deterministic build reports, strict validation report, runtime builder/validator, and rollback bundle"
   },
   "downstream_reevaluation": {
-    "POST-SUBTASK-041": "READY_ONLY_AFTER_PROTECTED_INTEGRATION_AND_VERIFIED_JIRA_SYNC",
+    "POST-SUBTASK-041": "READY_AFTER_PROTECTED_INTEGRATION_AND_VERIFIED_JIRA_SYNC",
     "POST-SUBTASK-042": "REMAINS_DEPENDENT_ON_POST-SUBTASK-040_AND_POST-SUBTASK-041"
   },
   "producer": {
@@ -218,24 +219,43 @@
     "split_or_cutoff": "NOT_APPLICABLE_IDENTITY_RESOLUTION_ONLY; TARGET_GAME_OUTCOME_USE_ZERO"
   },
   "protected_integration": {
-    "state": "PENDING_PROTECTED_PULL_REQUEST",
-    "branch": "codex/BAT-390-population-resolution"
+    "state": "MERGED_AND_MAIN_VALIDATED",
+    "branch": "codex/BAT-390-population-resolution",
+    "pull_request": 98,
+    "head_sha": "ee34767aa65ffdf6f0f9931927a0c5a7fd5903a2",
+    "merge_sha": "a72a8bd8d7ed0eaf5abca6dac6fcabd72b5aea56",
+    "merge_method": "SQUASH",
+    "merged_at_utc": "2026-08-10T03:21:28Z",
+    "repository_ci_run": 31352375687,
+    "security_analysis_run": 31352375703,
+    "required_checks": "ALL_PROTECTED_CONTEXTS_AND_MERGE_COMMIT_RUNS_PASSED"
   },
   "live_jira": {
-    "status": "In Progress",
-    "logical_state": "IN_PROGRESS",
+    "status": "Done",
+    "logical_state": "DONE",
     "maturity": "IMPLEMENTED",
-    "evidence_state": "PLANNED",
-    "claim_comment_id": "13426"
+    "evidence_state": "VERIFIED",
+    "claim_comment_id": "13426",
+    "checkpoint_comment_id": "13427",
+    "completion_comment_id": "13428",
+    "updated": "2026-08-09T22:23:00.657-0500"
+  },
+  "local_jira_sync": {
+    "result": "PASS_AFTER_VERIFIED_EVIDENCE_COMPLETION",
+    "export_path": "<external-data-root>/runtime/BAT-390/BAT-390-live-row.csv",
+    "live_issue_id": "24530",
+    "changed_issues": 2,
+    "conflict_count": 0,
+    "strict_validation": "PASS",
+    "downstream_ready_issue": "POST-SUBTASK-041"
   },
   "completion": {
-    "completion_claimed": false,
-    "achieved_maturity": "IMPLEMENTED_PENDING_PROTECTED_INTEGRATION",
-    "evidence_state": "PRODUCED_AND_VALIDATED",
-    "remaining_issue_scope_blockers": [
-      "protected pull request and merge-commit validation",
-      "live/local Jira verified completion synchronization"
-    ]
+    "completion_claimed": true,
+    "achieved_maturity": "IMPLEMENTED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_FULL_POPULATION_RESOLUTION_COMPLETE",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": []
   },
   "honesty_boundary": {
     "historical_population_ready": false,

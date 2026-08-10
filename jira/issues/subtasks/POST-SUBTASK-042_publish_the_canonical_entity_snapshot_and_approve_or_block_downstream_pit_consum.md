@@ -49,7 +49,7 @@
     "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
     "artifacts/jira_evidence/POST-SUBTASK-042.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-040;POST-SUBTASK-041",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-041",
   "blocks": [
     "POST-EPIC-005",
     "POST-STORY-015",

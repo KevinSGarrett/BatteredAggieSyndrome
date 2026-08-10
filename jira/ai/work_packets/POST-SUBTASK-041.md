@@ -38,8 +38,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-014 (Population resolution, r
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
-- Ready: `false`
+- Workflow: `READY`
+- Ready: `true`
 - Priority: `P0`
 - Critical path: `true`
 - Execution lane: `PROTECTED_GATE`

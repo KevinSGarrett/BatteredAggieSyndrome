@@ -116,6 +116,39 @@
     "source_export": "<external-data-root>/runtime/BAT-374/BAT-374-claim-live-row.csv",
     "reconciliation": "DRY_RUN_PASS_THEN_PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS"
   },
+  "protected_integration": {
+    "implementation_commit": "8dfea4a",
+    "pull_request": 136,
+    "merge_commit": "ccee1538356d498b61657c7670701e522d994f9d",
+    "merged_at_utc": "2026-08-10T11:57:59Z",
+    "pull_request_checks": "PASS",
+    "main_merge_repository_ci_run": 31385837713,
+    "main_merge_security_analysis_run": 31385837714,
+    "main_merge_checks": "PASS"
+  },
+  "live_jira_completion": {
+    "status": "Done",
+    "logical_workflow_state": "DONE",
+    "implementation_maturity": "OPERATING",
+    "evidence_state": "VERIFIED",
+    "completion_comment_id": "13462",
+    "updated": "2026-08-10T06:59:59.559-0500",
+    "source_export": "<external-data-root>/runtime/BAT-374/BAT-374-completion-live-row.csv"
+  },
+  "completion_sync": {
+    "dry_run": "PASS_ZERO_CONFLICTS",
+    "reconciliation": "PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS",
+    "canonical_state": "DONE_OPERATING_VERIFIED",
+    "downstream_reevaluation": {
+      "POST-SUBTASK-106": "REMAINS_BLOCKED_BY_POST-SUBTASK-105",
+      "POST-SUBTASK-107": "REMAINS_BLOCKED_BY_POST-SUBTASK-105_AND_POST-SUBTASK-106",
+      "POST-SUBTASK-108": "REMAINS_BLOCKED_BY_POST-SUBTASK-105_THROUGH_107",
+      "POST-SUBTASK-127": "REMAINS_BLOCKED_BY_POST-SUBTASK-126",
+      "POST-SUBTASK-128": "REMAINS_BLOCKED_BY_POST-SUBTASK-126_AND_127",
+      "POST-SUBTASK-129": "REMAINS_BLOCKED_BY_POST-SUBTASK-126_THROUGH_128"
+    },
+    "new_atomic_consumers_readied": 0
+  },
   "rollback_checkpoint": {
     "path": "<external-data-root>/backups/BAT-374-source-drift/20260810T114839Z",
     "bundle_sha256": "9f537e4dbfe7f703a7d3e5a65234174ad93bf1a08dc7acb1dc0b9aacf290af13",
@@ -131,7 +164,7 @@
   ],
   "completion_claim": {
     "achieved_maturity": "OPERATING_BASELINE_INPUTS",
-    "evidence_state": "IMPLEMENTATION_EVIDENCE_COMPLETE_PENDING_PROTECTED_INTEGRATION_AND_LIVE_COMPLETION_SYNC",
+    "evidence_state": "VERIFIED",
     "atomic_work_unit": "PASS",
     "scientific_result": "NOT_APPLICABLE"
   },

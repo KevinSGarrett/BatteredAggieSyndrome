@@ -17,7 +17,7 @@
     "artifacts/operations/drift_incident_game_day.json",
     "artifacts/jira_evidence/POST-SUBTASK-129.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-024;POST-SUBTASK-126;POST-SUBTASK-127;POST-SUBTASK-128",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-126;POST-SUBTASK-127;POST-SUBTASK-128",
   "blocks": [
     "POST-STORY-044",
     "POST-SUBTASK-130",

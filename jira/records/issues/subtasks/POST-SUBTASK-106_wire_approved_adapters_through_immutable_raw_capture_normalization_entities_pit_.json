@@ -16,7 +16,7 @@
     "artifacts/mlops/weekly_pipeline_integration.json",
     "artifacts/jira_evidence/POST-SUBTASK-106.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-024;POST-SUBTASK-105",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-105",
   "blocks": [
     "POST-SUBTASK-107",
     "POST-SUBTASK-108"

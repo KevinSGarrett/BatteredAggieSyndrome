@@ -1,0 +1,295 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-043",
+  "jira_key": "BAT-393",
+  "created_at_utc": "2026-08-10T08:59:44Z",
+  "updated_at_utc": "2026-08-10T09:16:48Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "configs/known_at_registry.json",
+      "evidence_sha256": "e8a89a709ad331991bdb0123850485aba759fb828a7f0f6ce04da9f50baf9d41",
+      "verifier": "<external-data-root>/runtime/BAT-393/validate_known_at_registry.py",
+      "verified_at_utc": "2026-08-10T08:59:44Z",
+      "observable_result": "All 1,197 registered raw fields, including all 736 W10 candidate-input fields, have an explicit temporal class, source-known-at rule, cutoff rule, correction policy, and prohibited-use contract. Realized weather, closing or post-cutoff markets, final participation, target-game box scores, outcomes, same-game events, future games, late corrections, current-page retrojection, effective-time substitution, and period-label substitution all reject earlier-cutoff use."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "configs/known_at_registry.json",
+      "evidence_sha256": "e8a89a709ad331991bdb0123850485aba759fb828a7f0f6ce04da9f50baf9d41",
+      "verifier": "deterministic double build plus strict content/input/provenance validation",
+      "verified_at_utc": "2026-08-10T08:59:44Z",
+      "observable_result": "The 2,375,629-byte LF-normalized registry has registry identity BAT-393-KNOWN-AT-v1, internal content hash 7a073beb2e45fddf67f9e64be9036cae6d04eedbbe1af8918aa4472df146fe46, pinned prerequisite/source identities, deterministic producer metadata, explicit maturity and gate decisions, and a byte-identical second build."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "artifacts/jira_evidence/POST-SUBTASK-043.json",
+      "evidence_sha256": "SELF_RECORDED_BY_REPOSITORY_PROVENANCE_MANIFEST",
+      "verifier": "acceptance evidence and strict mutation validator",
+      "verified_at_utc": "2026-08-10T08:59:44Z",
+      "observable_result": "No source-known-at timestamp is fabricated. All 959,765 BAT-391 ledger rows remain historically PIT-ineligible because source_known_at_utc is absent, current 2026 captures are not backdated, 130 REVIEW_REQUIRED fields remain unpromoted, schema-name matches remain linkage hints only, and no model, metric, threshold, readiness, historical-completeness, or scientific claim is made."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "CANONICAL_KNOWN_AT_RULE_REGISTRY",
+      "path": "configs/known_at_registry.json",
+      "sha256": "e8a89a709ad331991bdb0123850485aba759fb828a7f0f6ce04da9f50baf9d41",
+      "content_hash": "7a073beb2e45fddf67f9e64be9036cae6d04eedbbe1af8918aa4472df146fe46",
+      "bytes": 2375629,
+      "registry_id": "BAT-393-KNOWN-AT-v1",
+      "format": "JSON"
+    },
+    {
+      "role": "DETERMINISTIC_SECOND_BUILD",
+      "path": "<external-data-root>/validation/BAT-393/known-at-registry/known_at_registry.run-2.json",
+      "sha256": "e8a89a709ad331991bdb0123850485aba759fb828a7f0f6ce04da9f50baf9d41",
+      "bytes": 2375629,
+      "comparison": "BYTE_IDENTICAL_TO_CANONICAL_REGISTRY"
+    },
+    {
+      "role": "STRICT_CHRONOLOGICAL_AND_MUTATION_VALIDATION",
+      "path": "<external-data-root>/validation/BAT-393/known-at-registry/validation-report-run-1.json",
+      "sha256": "d058cb20c0a548657b55e2844e5df478afbab7bd247b34764171fbc7e1a5bb08",
+      "bytes": 8643,
+      "finding_count": 0,
+      "chronological_probes": 13,
+      "unsafe_mutations_rejected": 7
+    },
+    {
+      "role": "EXTERNAL_DETERMINISTIC_BUILDER",
+      "path": "<external-data-root>/runtime/BAT-393/build_known_at_registry.py",
+      "sha256": "f7e35eab46483ddca13018f1e16336fc4461b9485439a94276d047801af3c1fc",
+      "bytes": 32301
+    },
+    {
+      "role": "EXTERNAL_STRICT_VALIDATOR_AND_NEW_AUTOMATED_TEST",
+      "path": "<external-data-root>/runtime/BAT-393/validate_known_at_registry.py",
+      "sha256": "f8b38ecde3b4bfbd8b9ead28cf5d9d51ec425769bbfc02119a893347c9b348eb",
+      "bytes": 17904
+    }
+  ],
+  "prerequisite_evidence": [
+    {
+      "decision_unit": "POST-SUBTASK-042",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-042.json",
+      "sha256": "ce4fe081e19e0812d4997141749fa31422a740859a08474d1d5888ab8d2baf67",
+      "bytes": 16526,
+      "primary_artifact": "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
+      "primary_artifact_sha256": "9edbbb8bf3b52e61b1791330b8d508c5394f8ca111023159dea350f12abed93e",
+      "disposition": "VERIFIED"
+    },
+    {
+      "decision_unit": "POST-SUBTASK-041",
+      "path": "<external-data-root>/canonical/BAT-391/sha256/285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb/entity_decision_and_transition_events.parquet",
+      "sha256": "285e7bfd23436deca837330cf7d5dd7f3737b8717c757e0a37023f0ad974fadb",
+      "bytes": 190729009,
+      "rows": 959765,
+      "columns": 50,
+      "disposition": "VERIFIED_INPUT_WITH_SOURCE_KNOWN_AT_GAP_PRESERVED"
+    }
+  ],
+  "coverage_and_rule_metrics": {
+    "registered_raw_fields": 1197,
+    "w10_candidate_input_fields": 736,
+    "fields_with_approved_temporal_class": 1197,
+    "fields_with_source_known_at_rule": 1197,
+    "fields_with_cutoff_rule": 1197,
+    "fields_with_correction_policy": 1197,
+    "fields_with_prohibited_use_contract": 1197,
+    "fields_linked_to_materialized_schema_by_name": 682,
+    "materialized_snapshots_profiled": 990,
+    "materialized_tables_profiled": 255,
+    "unique_materialized_source_domain_fields": 652,
+    "entity_ledger_columns": 50,
+    "entity_ledger_rows": 959765,
+    "entity_resolution_decisions": 646053,
+    "entity_temporal_transitions": 313712,
+    "source_known_at_nonempty_rows": 0,
+    "source_known_at_absent_rows": 959765,
+    "temporal_class_counts": {
+      "ASOF_RECONSTRUCTION_REQUIRED": 117,
+      "CURRENT_GAME_OR_POSTGAME_NOT_DIRECT_PREGAME": 73,
+      "DIRECT_PREGAME_CANDIDATE": 109,
+      "HISTORICAL_AGGREGATE_ONLY": 743,
+      "POSTGAME_OR_FUTURE_BANNED": 12,
+      "REVIEW_REQUIRED": 130,
+      "SAFE_ONLY_WITH_EFFECTIVE_SNAPSHOT": 13
+    }
+  },
+  "gate_decisions": {
+    "registry_implementation": "PASS",
+    "candidate_field_rule_coverage": "PASS",
+    "materialized_schema_rule_coverage": "PASS_WITH_FAIL_CLOSED_UNLINKED_FIELDS",
+    "historical_pit_consumption": "BLOCKED_PENDING_POST_SUBTASK_044_AND_045",
+    "raw_or_current_capture_backdating": "PROHIBITED",
+    "protected_model_or_scientific_claim": "NOT_APPLICABLE"
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-044": "READY_AFTER_BAT_393_VERIFIED_COMPLETION_SYNC",
+    "POST-SUBTASK-045": "REMAIN_DEPENDENCY_BLOCKED_ON_POST_SUBTASK_044",
+    "POST-STORY-015": "IN_PROGRESS_REGISTRY_IMPLEMENTED_TIMESTAMP_NORMALIZATION_AND_CUTOFF_VALIDATION_PENDING",
+    "POST-EPIC-005": "IN_PROGRESS_HISTORICAL_PIT_CONSUMPTION_REMAINS_BLOCKED"
+  },
+  "test_matrix": [
+    {
+      "classification": "CHRONOLOGICAL_REPLAY",
+      "disposition": "PASS_FAIL_CLOSED_RULE_PROBES",
+      "observable_result": "Thirteen pinned probes passed: eleven unsafe or unavailable cases rejected with exact reason codes and two valid prior-evidence cases admitted. This is rule-level chronology validation, not historical PIT matrix materialization."
+    },
+    {
+      "classification": "SCIENTIFIC",
+      "disposition": "NOT_APPLICABLE",
+      "observable_result": "No hypothesis, target, model, calibrator, protected split, or scientific metric is created or evaluated by this rule-registry unit."
+    },
+    {
+      "classification": "STATIC_VALIDATION",
+      "disposition": "PASS",
+      "observable_result": "All pinned input identities, required rule catalogs, field coverage, schema links, entity-ledger contracts, maturity boundaries, and fail-closed dispositions validate with zero findings."
+    },
+    {
+      "classification": "REPRODUCIBILITY",
+      "disposition": "PASS",
+      "observable_result": "Two builds from pinned repository and external data identities produced byte-identical 2,375,629-byte LF-normalized registries with SHA-256 e8a89a709ad331991bdb0123850485aba759fb828a7f0f6ce04da9f50baf9d41."
+    }
+  ],
+  "commands": [
+    {
+      "command": "run build_known_at_registry.py twice with fixed issued-at and pinned repository/entity-ledger inputs",
+      "exit_code": 0,
+      "result": "PASS: byte-identical LF-normalized registry SHA-256 e8a89a709ad331991bdb0123850485aba759fb828a7f0f6ce04da9f50baf9d41"
+    },
+    {
+      "command": "run validate_known_at_registry.py over the registry and pinned repository/external inputs",
+      "exit_code": 0,
+      "result": "PASS: zero findings, 1,197 raw fields, 652 materialized fields, 50 entity-ledger fields, 13 chronological probes, and 7 unsafe mutations rejected"
+    },
+    {
+      "command": "python -B -m unittest tests/test_temporal_governance.py",
+      "exit_code": 1,
+      "result": "EXPECTED INVOCATION FAILURE: unittest path/module syntax was invalid; no project artifact was changed. Required regressions were then run with the repository's pytest runner."
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q tests/test_temporal_governance.py",
+      "exit_code": 0,
+      "result": "PASS: 4 passed"
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q tests/test_w24_readiness.py",
+      "exit_code": 0,
+      "result": "PASS: 9 passed"
+    },
+    {
+      "command": "python -B tools/validate_temporal.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS: temporal registry, field semantics, PIT store, eligibility, correction and cutoff contracts"
+    },
+    {
+      "command": "python -B -c \"from pathlib import Path; from tools.repo_integrity import write_manifest; write_manifest(Path('.').resolve())\"; python -B tools/validate_repository.py --repo-root . --strict",
+      "exit_code": 0,
+      "result": "PASS: repository structure, canonical provenance manifest, governance IDs, secret scan, and forbidden-artifact scan"
+    },
+    {
+      "command": "python -B tools/validate_autonomous_controls.py; validate_w25_final.py --repo-root .; jira validate_source_refs.py; second_pass_hardening.py --validate-only; validate_jira_control_plane.py --strict; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS: autonomous controls, W25 final binding, 2,119 source references, all 474 Jira derivatives, strict Jira control plane, and 1,804-file Jira manifest"
+    },
+    {
+      "command": "$env:PYTHONPATH='src'; python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS: 316 passed, 2 skipped, 79 subtests"
+    }
+  ],
+  "new_automated_test": {
+    "path": "<external-data-root>/runtime/BAT-393/validate_known_at_registry.py",
+    "scope": "Pinned input identities, full field/schema coverage, rule-catalog integrity, temporal-class and cutoff contracts, entity-ledger PIT honesty, chronological eligibility, scientific non-applicability, and unsafe mutation rejection.",
+    "chronological_probes": [
+      "missing_known_at",
+      "known_after_cutoff",
+      "realized_weather",
+      "closing_market",
+      "final_participation",
+      "target_game_output",
+      "future_game",
+      "late_correction",
+      "current_page_retrojection",
+      "effective_as_known",
+      "period_label_as_known",
+      "prior_completed_game",
+      "archived_effective_roster"
+    ],
+    "unsafe_mutations_rejected": [
+      "fabrication_authority",
+      "unknown_cutoff",
+      "fabricated_source_known_at",
+      "unsafe_entity_pit",
+      "unsafe_global_pit",
+      "same_game_guard_removed",
+      "unsupported_model_claim"
+    ]
+  },
+  "negative_findings": [
+    {
+      "finding": "None of the 959,765 BAT-391 ledger rows has independent source_known_at_utc evidence; decision_known_at_utc is nonempty but is not source timing.",
+      "disposition": "PRESERVED; historical PIT consumption remains blocked pending timestamp materialization and cutoff validation in BAT-394/BAT-395."
+    },
+    {
+      "finding": "The 990 materialized population captures were acquired in 2026 and therefore do not prove what was known at 2004-2025 pregame cutoffs.",
+      "disposition": "CURRENT_CAPTURE_BACKDATING_PROHIBITED; independently archived or versioned evidence is required."
+    },
+    {
+      "finding": "One hundred thirty raw fields are classified REVIEW_REQUIRED.",
+      "disposition": "PRESERVED_INELIGIBLE; complete rule coverage does not silently promote ambiguous fields."
+    },
+    {
+      "finding": "Schema-name matches can link registry fields to observed materializations but cannot alone prove semantic identity or historical availability.",
+      "disposition": "PRESERVED_AS_LINKAGE_HINTS; unresolved fields fail closed without globally blocking other domains."
+    },
+    {
+      "finding": "The first attempted regression command used invalid unittest path/module syntax.",
+      "disposition": "PRESERVED_NEGATIVE_COMMAND; corrected pytest invocations passed all required focused regressions."
+    },
+    {
+      "finding": "The first deterministic registry serialization used platform-default CRLF newlines, causing git diff --check to reject every generated line as trailing whitespace.",
+      "disposition": "REJECTED_BEFORE_COMMIT; the external builder now forces LF, both copies were rebuilt byte-identically, the validator was rerun, and the superseded CRLF artifacts were overwritten."
+    }
+  ],
+  "rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-393-known-at-rules/20260810T084215Z",
+    "bundle_sha256": "3db22ae29897dc04824e10cc247f5e65cd455f0a57eeed423b2722dc6024f1a5",
+    "bundle_bytes": 16583164,
+    "manifest_sha256": "4b74defeb0147e6f9b513d0a15abe8d3dde5b2ec752e4d3b60997344a367c0a3",
+    "sha256sums_sha256": "9df3cdff5d71ab0297d0bdec8c54f47ced58011553ee56ff3f0f625bbf863c52",
+    "bundle_verify": "PASS"
+  },
+  "integration": {
+    "implementation_pr": "PENDING_PROTECTED_PR",
+    "implementation_pr_state": "PENDING",
+    "github_checks": "PENDING",
+    "live_jira": {
+      "issue_key": "BAT-393",
+      "status": "In Progress",
+      "logical_workflow_state": "IN_PROGRESS",
+      "implementation_maturity": "IMPLEMENTED",
+      "evidence_state": "PARTIAL",
+      "claim_comment_id": "13443"
+    },
+    "completion_reconciliation": "PENDING_POST_MERGE_ATOMIC_SYNC"
+  },
+  "eligibility": {
+    "artifact_maturity": "IMPLEMENTED_RULE_REGISTRY_REAL_SCHEMA_RECONCILED",
+    "historical_pit_consumption": "BLOCKED_PENDING_BAT_394_AND_BAT_395",
+    "rule_level_consumer_handoff": "BAT_394_APPROVED_AFTER_VERIFIED_BAT_393_COMPLETION_SYNC",
+    "model_or_feature_promotion": "NOT_EVALUATED_OR_AUTHORIZED"
+  },
+  "honesty_boundary": [
+    "This registry establishes deterministic rule coverage; it does not manufacture source-known-at evidence or historical PIT eligibility.",
+    "It does not establish final national historical completeness, GAP-002 or GAP-003 resolution, a PIT training matrix, production model readiness, or protected performance.",
+    "It does not claim a trained production champion, A&M specialization lift, BAS, Aggie Excess, calibration, score likelihood, or any scientific result.",
+    "Historical PIT consumption remains blocked until BAT-394 materializes normalized timestamps and BAT-395 validates fail-closed chronological eligibility."
+  ]
+}

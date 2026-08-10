@@ -118,6 +118,7 @@ artifacts/openai_assist/router_rebalance.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
+artifacts/pit/historical_advanced_game_reconciliation_gate.json
 artifacts/pit/historical_known_at_replay_gate.json
 artifacts/pit/historical_rankings_reconciliation_gate.json
 artifacts/pit/historical_team_box_reconciliation_gate.json

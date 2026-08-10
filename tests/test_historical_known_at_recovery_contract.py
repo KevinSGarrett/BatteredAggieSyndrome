@@ -170,6 +170,31 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
+    def test_player_event_metrics_are_bounded_validated_candidates_not_official_box_scores(self) -> None:
+        metrics = self.contract["latest_validated_player_event_metric_candidate"]
+        self.assertEqual(
+            metrics["dataset_identity"],
+            "869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10",
+        )
+        self.assertEqual(metrics["repository_seasons"], list(range(2014, 2023)))
+        self.assertEqual(metrics["repository_source_rows"], 921136)
+        self.assertEqual(metrics["derived_metric_rows"], 354082)
+        self.assertEqual(metrics["cross_route_exact_canonical_game_player_team_candidates"], 289897)
+        self.assertEqual(metrics["signed_yardage_rows_preserved"], 5595)
+        self.assertEqual(metrics["current_reconciliation_captures"], 146)
+        self.assertEqual(metrics["validation_checks_passed"], 44)
+        self.assertEqual(metrics["mutation_controls_passed"], 9)
+        self.assertEqual(metrics["deterministic_payloads_compared"], 9)
+        self.assertEqual(len(metrics["metric_scope"]), 6)
+        self.assertIn("NOT_CLAIMED", metrics["official_box_score_status"])
+        self.assertEqual(metrics["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertFalse(self.evidence["completion_claim"]["player_event_metric_canonical_or_pit_admission"])
+        self.assertFalse(self.evidence["completion_claim"]["official_player_box_scores_materialized"])
+        checkpoint = self.gate["parallel_player_event_metric_checkpoint"]
+        self.assertEqual(checkpoint["quarantined_rows"], 43305)
+        self.assertFalse(checkpoint["official_box_score_materialization"])
+        self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
+
 
 if __name__ == "__main__":
     unittest.main()

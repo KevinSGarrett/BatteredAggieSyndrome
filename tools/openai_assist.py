@@ -41,7 +41,13 @@ def main() -> int:
     evaluation.add_argument(
         "--gold", type=Path, default=ROOT / "fixtures" / "openai_assist" / "eval_gold.jsonl"
     )
-    evaluation.add_argument("--predictions", type=Path, required=True)
+    evaluation.add_argument("--predictions", type=Path, action="append", required=True)
+    evaluation.add_argument(
+        "--schema",
+        type=Path,
+        default=ROOT / "schemas" / "openai" / "assistive_candidate.schema.json",
+    )
+    evaluation.add_argument("--model")
     sub.add_parser("cleanup-tmp")
     args = parser.parse_args()
 
@@ -60,10 +66,8 @@ def main() -> int:
     elif args.command == "batch-collect":
         value = controller.collect_batch(args.batch_id, delete_remote=not args.keep_remote)
     elif args.command == "eval":
-        schema = json.loads(
-            (ROOT / "schemas" / "openai" / "assistive_candidate.schema.json").read_text(encoding="utf-8")
-        )
-        value = evaluate(args.gold, args.predictions, schema).as_dict()
+        schema = json.loads(args.schema.resolve().read_text(encoding="utf-8"))
+        value = evaluate(args.gold, args.predictions, schema, model=args.model).as_dict()
     elif args.command == "cleanup-tmp":
         value = controller.store.cleanup_tmp()
     else:

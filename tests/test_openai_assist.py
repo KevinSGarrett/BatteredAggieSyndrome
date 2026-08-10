@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from decimal import Decimal
 from pathlib import Path
+from types import SimpleNamespace
 
 from aggie_analytics.openai_assist.budget import BudgetError, UsageLedger
 from aggie_analytics.openai_assist.contracts import Priority, ProcessingMode
@@ -21,7 +22,10 @@ from aggie_analytics.openai_assist.schemas import (
     validate_instance,
     validate_strict_output_schema,
 )
-from tools.validate_openai_assist import validate as validate_openai_assist
+from tools.validate_openai_assist import (
+    _unsupported_structured_output_keywords,
+    validate as validate_openai_assist,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -293,6 +297,106 @@ class OpenAIAssistTests(unittest.TestCase):
         self.assertEqual(1.0, report.strict_schema_rate)
         self.assertEqual(0.0, report.unsupported_fact_rate)
         self.assertEqual(0.0, report.false_merge_rate)
+        self.assertEqual(0, report.repeated_run_groups)
+        self.assertIsNone(report.repeated_run_consistency)
+        self.assertEqual(0, report.cross_model_groups)
+        self.assertIsNone(report.cross_model_disagreement_rate)
+        self.assertGreater(report.abstention_facts, 0)
+        self.assertGreater(report.merge_decisions, 0)
+        self.assertGreater(report.entity_top_k_cases, 0)
+
+    def test_evaluation_counts_wrong_expected_fact_as_false_negative(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            predictions = Path(tmp) / "predictions.jsonl"
+            row = json.loads(
+                (ROOT / "fixtures" / "openai_assist" / "eval_predictions.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()[0]
+            )
+            row["candidate"]["facts"][0]["value"] = 1
+            predictions.write_text(json.dumps(row) + "\n", encoding="utf-8")
+            report = evaluate(
+                ROOT / "fixtures" / "openai_assist" / "eval_gold.jsonl",
+                predictions,
+                self._schema(),
+            )
+            self.assertLess(report.field_precision, 1.0)
+            self.assertLess(report.field_recall, 1.0)
+
+    def test_evaluation_measures_repeated_runs_across_prediction_artifacts(self):
+        predictions = ROOT / "fixtures" / "openai_assist" / "eval_predictions.jsonl"
+        report = evaluate(
+            ROOT / "fixtures" / "openai_assist" / "eval_gold.jsonl",
+            [predictions, predictions],
+            self._schema(),
+        )
+        self.assertEqual(8, report.repeated_run_groups)
+        self.assertEqual(1.0, report.repeated_run_consistency)
+
+    def test_provider_unsupported_array_keywords_are_rejected_locally(self):
+        self.assertEqual(
+            ["$.properties.items.maxItems"],
+            _unsupported_structured_output_keywords(
+                {"properties": {"items": {"type": "array", "maxItems": 1}}}
+            ),
+        )
+
+    def test_candidate_review_disposition_is_valid_for_candidate_job(self):
+        capture = "a" * 64
+        candidate = {
+            "task_id": "assistive_model_evaluation",
+            "source_capture_sha256": capture,
+            "disposition": "REVIEW",
+            "facts": [],
+            "conflicts": [],
+            "notes": [],
+        }
+        controller = object.__new__(AssistiveController)
+        controller.policy = SimpleNamespace(
+            payload={
+                "authority": {
+                    "allowed_destinations": ["CANDIDATE", "REVIEW", "QUARANTINE", "REJECTED"]
+                }
+            }
+        )
+        job = AssistiveJob(
+            task_name="assistive_model_evaluation",
+            jira_unit="POST-SUBTASK-161",
+            source_url="file:test",
+            source_capture_sha256=capture,
+            source_excerpt="test",
+            prompt="test",
+            prompt_version="test",
+            schema_path=SCHEMA_PATH,
+            schema_version="1",
+            model="gpt-5.6-luna",
+            reasoning_effort="none",
+            allocation="PROBE_PROMPT_EVAL",
+            destination="CANDIDATE",
+        )
+        response = {"output": [{"type": "message", "content": [{"type": "output_text", "text": json.dumps(candidate)}]}]}
+        parsed, errors = controller._validate_candidate(response, self._schema(), job)
+        self.assertEqual("REVIEW", parsed["disposition"])
+        self.assertEqual([], errors)
+
+    def test_empirical_comparison_and_gamebook_pilot_preserve_authority_boundaries(self):
+        comparison = json.loads(
+            (ROOT / "artifacts" / "openai_assist" / "model_comparison.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(0.0, comparison["combined_final_metrics"]["unsupported_fact_rate"])
+        self.assertEqual(0.0, comparison["combined_final_metrics"]["false_merge_rate"])
+        self.assertEqual(1.0, comparison["combined_final_metrics"]["repeated_run_consistency"])
+        self.assertEqual("SHADOW_CANDIDATE_ONLY", comparison["authority"])
+        pilot = json.loads(
+            (ROOT / "artifacts" / "openai_assist" / "gamebook_pilot.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(0.0, pilot["results"]["unsupported_fact_rate"])
+        self.assertFalse(pilot["route_decision"]["canonical_write_authority"])
+        self.assertEqual("PARTIAL", pilot["acceptance_matrix"][0]["disposition"])
 
 
 if __name__ == "__main__":

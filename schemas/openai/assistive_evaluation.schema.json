@@ -38,7 +38,13 @@
     },
     "entity_top_k": {"type": "array", "items": {"type": "string"}},
     "entity_merge": {"type": ["boolean", "null"]},
-    "conflicts": {"type": "array", "items": {"type": "string"}},
-    "notes": {"type": "array", "items": {"type": "string"}}
+    "conflicts": {
+      "type": "array",
+      "items": {"type": "string", "enum": ["VALUE_CONFLICT", "ENTITY_AMBIGUITY"]}
+    },
+    "notes": {
+      "type": "array",
+      "items": {"type": "string", "enum": ["PIT_TARGET_EXCLUDED"]}
+    }
   }
 }

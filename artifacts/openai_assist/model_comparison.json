@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "openai_assist_model_comparison",
+  "jira_unit": "POST-SUBTASK-161",
+  "authority": "SHADOW_CANDIDATE_ONLY",
+  "evaluation_policy": {
+    "policy_id": "openai-assist-evaluation-2026-08-10",
+    "prompt_version": "bat517-evaluation-v4",
+    "prompt_sha256": "69f8dfc99860bbe86f81683f8828ed455e6dcb1eae5c276e64fd86b73b0a6251",
+    "gold_corpus_version": "bat517-gold-v2",
+    "gold_corpus_sha256": "01cde467fed17c4a069ccfbf1bdf4d86561fea260e17806e9d30a1bf231c7ff1",
+    "output_schema": "schemas/openai/assistive_evaluation.schema.json"
+  },
+  "final_run": {
+    "primary_predictions_sha256": "cb9bfb7b2318ca41238c27ddb8b6c4582c1d9c84e94de83851c528d81446f6ef",
+    "primary_manifest_sha256": "294d09bb22cc22b4fd5ca1dbb35e38baf1a835e190847120531bd53be4f155ca",
+    "repeat_predictions_sha256": "f6bae6ebfef50af67147d6ea0dd2edbaae235f8fbce578bd51c4d7342c6f8bf9",
+    "repeat_manifest_sha256": "4d4847d06a32447cfefeafdbbc3e6a2f789c3fff422fcb82c55b48d92bf7a986",
+    "cases": 8,
+    "prediction_runs": 36,
+    "repeated_run_groups": 12,
+    "cross_model_groups": 8,
+    "candidate_dispositions": {
+      "accepted_candidate": 18,
+      "review": 12,
+      "quarantine": 0,
+      "rejected": 6
+    }
+  },
+  "metrics_by_model": {
+    "gpt-5.6-luna:none": {
+      "prediction_runs": 12,
+      "strict_schema_rate": 1.0,
+      "field_precision": 1.0,
+      "field_recall": 1.0,
+      "evidence_accuracy": 1.0,
+      "correct_abstention_rate": 1.0,
+      "unsupported_fact_rate": 0.0,
+      "false_merge_rate": 0.0,
+      "entity_top_k_recall": 1.0,
+      "repeated_run_consistency": 1.0,
+      "total_cost_usd": 0.004549,
+      "cost_per_accepted_record_usd": 0.0004549
+    },
+    "gpt-5.6-terra:medium": {
+      "prediction_runs": 12,
+      "strict_schema_rate": 1.0,
+      "field_precision": 1.0,
+      "field_recall": 1.0,
+      "evidence_accuracy": 1.0,
+      "correct_abstention_rate": 1.0,
+      "unsupported_fact_rate": 0.0,
+      "false_merge_rate": 0.0,
+      "entity_top_k_recall": 1.0,
+      "repeated_run_consistency": 1.0,
+      "total_cost_usd": 0.046462,
+      "cost_per_accepted_record_usd": 0.0046462
+    },
+    "gpt-5.6-sol:medium": {
+      "prediction_runs": 12,
+      "strict_schema_rate": 1.0,
+      "field_precision": 1.0,
+      "field_recall": 1.0,
+      "evidence_accuracy": 1.0,
+      "correct_abstention_rate": 1.0,
+      "unsupported_fact_rate": 0.0,
+      "false_merge_rate": 0.0,
+      "entity_top_k_recall": 1.0,
+      "repeated_run_consistency": 1.0,
+      "total_cost_usd": 0.115765,
+      "cost_per_accepted_record_usd": 0.0115765
+    }
+  },
+  "combined_final_metrics": {
+    "strict_schema_rate": 1.0,
+    "field_precision": 1.0,
+    "field_recall": 1.0,
+    "evidence_accuracy": 1.0,
+    "correct_abstention_rate": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "false_merge_rate": 0.0,
+    "entity_top_k_recall": 1.0,
+    "repeated_run_consistency": 1.0,
+    "cross_model_disagreement_rate": 0.0,
+    "quarantine_rate": 0.0,
+    "review_time_saved_seconds": 0.0,
+    "total_cost_usd": 0.166776
+  },
+  "route_decision": {
+    "gpt-5.6-luna": "ELIGIBLE_FOR_SHADOW_BATCH_ON_THIS_EXACT_VALIDATED_FORMAT",
+    "gpt-5.6-terra": "AMBIGUOUS_FAILURE_AND_RECONCILIATION_FALLBACK",
+    "gpt-5.6-sol": "GOLD_REFERENCE_AND_HARD_RESIDUE_ONLY",
+    "scope_limit": "Every new source format and task schema requires its own gold sample and shadow acceptance before routine use. No route may directly alter protected truth."
+  },
+  "all_probe_usage": {
+    "synchronous_attempts": 180,
+    "completed_request_manifests": 156,
+    "provider_rejected_schema_attempts": 24,
+    "batch_jobs": 0,
+    "input_tokens": 120660,
+    "cached_input_tokens": 0,
+    "output_tokens": 29153,
+    "reasoning_tokens_within_output": 1370,
+    "cost_usd": 0.724661,
+    "remaining_project_budget_usd": 99.275339,
+    "by_model": {
+      "gpt-5.6-luna": {"jobs": 52, "input_tokens": 40220, "output_tokens": 9131, "reasoning_tokens": 0, "cost_usd": 0.019023},
+      "gpt-5.6-terra": {"jobs": 52, "input_tokens": 40220, "output_tokens": 9809, "reasoning_tokens": 487, "cost_usd": 0.198148},
+      "gpt-5.6-sol": {"jobs": 52, "input_tokens": 40220, "output_tokens": 10213, "reasoning_tokens": 883, "cost_usd": 0.50749}
+    }
+  },
+  "preserved_negative_findings": [
+    "v1 under-specified UNKNOWN, NOT_PRESENT, CONFLICT, normalization, entity, and PIT semantics.",
+    "The first ambiguous-starter gold case contradicted its expected UNKNOWN status and was replaced with a genuinely ambiguous excerpt under a new capture identity.",
+    "Free-text conflict explanations caused exact-repeat instability and were replaced by canonical machine codes.",
+    "The provider rejected maxItems and uniqueItems in the Structured Outputs schema; the zero-cost failure is preserved and the local validator now blocks those keywords.",
+    "The controller previously quarantined valid REVIEW and REJECTED model dispositions when the registered job destination was CANDIDATE; the controller now preserves every policy-allowed candidate disposition."
+  ],
+  "scientific_nonclaims": [
+    "No historical completeness result.",
+    "No production-model readiness or protected-performance result.",
+    "No A&M specialization lift, BAS, Aggie Excess, forecast, champion, or publication result."
+  ]
+}

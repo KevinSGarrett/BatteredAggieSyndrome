@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_IN_PROGRESS_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-162",
+  "jira_key": "BAT-518",
+  "created_at_utc": "2026-08-10T05:06:55Z",
+  "overall_disposition": "IN_PROGRESS_PARTIAL_PASS",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PARTIAL",
+      "evidence": "artifacts/openai_assist/gamebook_pilot.json",
+      "evidence_sha256": "251a5cfe7ded9d6574e90c27b750baad31efaaade8e0b4b801c51cd0468711fd",
+      "observable_result": "Five real play categories have deterministic structured gold. Drive, box-score, roster/starter, venue, officials, weather, attendance, and source-metadata samples remain required."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS_FOR_COVERED_FORMAT",
+      "evidence": "artifacts/openai_assist/gamebook_pilot.json",
+      "evidence_sha256": "251a5cfe7ded9d6574e90c27b750baad31efaaade8e0b4b801c51cd0468711fd",
+      "observable_result": "Luna/none, Terra/medium, and Sol/medium agreed on all 54 facts. Luna cost USD 0.003554 versus Terra 0.035512 and Sol 0.109090 and is eligible only for this exact shadow format."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS_FOR_COVERED_SAMPLE",
+      "evidence": "artifacts/openai_assist/gamebook_pilot.json",
+      "evidence_sha256": "251a5cfe7ded9d6574e90c27b750baad31efaaade8e0b4b801c51cd0468711fd",
+      "observable_result": "All 15 outputs retained capture evidence and achieved 100% schema, precision, recall, and evidence accuracy with zero unsupported facts, disagreement, validation failures, or canonical writes."
+    }
+  ],
+  "artifacts": [
+    {"role": "PARTIAL_PILOT_REPORT", "path": "artifacts/openai_assist/gamebook_pilot.json", "sha256": "251a5cfe7ded9d6574e90c27b750baad31efaaade8e0b4b801c51cd0468711fd", "bytes": 5351},
+    {"role": "PILOT_CONFIG", "path": "configs/openai_gamebook_pilot.json", "sha256": "3eaaba0981a59be3a4c33b3b711a204d196b9dab9691041d30c19853a182328e", "bytes": 3299},
+    {"role": "PINNED_PROMPT", "path": "prompts/openai_assist/gamebook_play_v1.txt", "sha256": "ded7ce4e037c4ccded47c145da6e0d25d650d3d02e03d7c4084cb9adf7c2e47f", "bytes": 999},
+    {"role": "GOLD_PREPARER", "path": "tools/prepare_openai_gamebook_pilot.py", "sha256": "0859caff19562e7d71e1f62fca9e65419c3218c112c3944cb4cbedeab1f75c94", "bytes": 4002},
+    {"role": "PILOT_RUNNER", "path": "tools/run_openai_gamebook_pilot.py", "sha256": "0d40490fb425d824a4928a6962ef4b8f1d8c6c2cd1788c3789381277c61425b7", "bytes": 5511}
+  ],
+  "external_evidence": {
+    "source_capture_sha256": "4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af",
+    "gold_sha256": "6ecf23b6762f58d07b40cb1b22e3810c253408ba49828e52839d66797eb06640",
+    "gold_manifest_sha256": "1ebed979ae6059ec20677c963673f577ebe2aed0b459a69a8c4afa405b75ad5b",
+    "predictions_sha256": "ab4ec35af08d0368cffc7506c858dcd09fd8a7369948ac7f64f1f4cf58de954e",
+    "run_manifest_sha256": "0a5810c8474f74e241310b7f67f5ef8bff818e721ff13f6048c031e5cb3dd40e"
+  },
+  "usage": {
+    "synchronous_jobs": 15,
+    "batch_jobs": 0,
+    "input_tokens": 9978,
+    "output_tokens": 7892,
+    "reasoning_tokens_within_output": 667,
+    "settled_usd": "0.148156",
+    "project_settled_usd": "0.872817",
+    "project_remaining_usd": "99.127183"
+  },
+  "candidate_dispositions": {"accepted_candidate": 15, "review": 0, "quarantine": 0, "rejected": 0},
+  "remaining_review_items": [
+    "Add real gold samples for drives, team/player box scores, roster/starter, venue, officials, weather, attendance, and source metadata.",
+    "Measure reviewer time saved; current value remains 0 rather than estimated.",
+    "Do not submit Luna Batch until each additional format passes its own shadow gold gate."
+  ],
+  "completion": {
+    "completion_claimed": false,
+    "achieved_maturity": "PARTIALLY_EMPIRICALLY_VALIDATED",
+    "evidence_state": "PARTIAL_VERIFIED",
+    "issue_disposition": "IN_PROGRESS",
+    "blocking_scope": "ONLY_UNCOVERED_PILOT_DOMAINS_NOT_GLOBAL_PROJECT"
+  },
+  "honesty_boundary": {
+    "canonical_records_modified": false,
+    "historical_population_ready": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

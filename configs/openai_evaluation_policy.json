@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "policy_id": "openai-assist-evaluation-2026-08-10",
+  "gold_corpus": "fixtures/openai_assist/eval_gold.jsonl",
+  "gold_corpus_version": "bat517-gold-v2",
+  "gold_corpus_sha256": "01cde467fed17c4a069ccfbf1bdf4d86561fea260e17806e9d30a1bf231c7ff1",
+  "gold_corpus_change": "The ambiguous starter example was revised because v1 explicitly stated absence while expecting UNKNOWN, contradicting the frozen status semantics.",
+  "output_schema": "schemas/openai/assistive_evaluation.schema.json",
+  "prompt": {
+    "path": "prompts/openai_assist/evaluation_v4.txt",
+    "version": "bat517-evaluation-v4",
+    "sha256": "69f8dfc99860bbe86f81683f8828ed455e6dcb1eae5c276e64fd86b73b0a6251",
+    "change": "The non-entity null/empty rule is explicit after Luna v3 emitted entity candidates for an unrelated ambiguous-starter case."
+  },
+  "reference_route": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "medium"
+  },
+  "comparison_routes": [
+    {"model": "gpt-5.6-luna", "reasoning_effort": "none"},
+    {"model": "gpt-5.6-terra", "reasoning_effort": "medium"}
+  ],
+  "acceptance": {
+    "strict_schema_rate_min": 1.0,
+    "field_precision_min": 0.95,
+    "field_recall_min": 0.95,
+    "evidence_accuracy_min": 1.0,
+    "correct_abstention_rate_min": 0.95,
+    "unsupported_fact_rate_max": 0.0,
+    "false_merge_rate_max": 0.0,
+    "entity_top_k_recall_min": 1.0,
+    "repeated_run_consistency_min": 0.9,
+    "cross_model_disagreement": "DIAGNOSTIC_NO_PASS_THRESHOLD",
+    "routine_route_rule": "A cheaper route must satisfy every safety and quality threshold on the gold corpus; failures remain candidate/quarantine and escalate only the failing residue."
+  },
+  "repeat_cases": [
+    "ambiguous_starter",
+    "conflicting_weather",
+    "entity_false_merge",
+    "pit_target_leakage"
+  ],
+  "authority": "SHADOW_CANDIDATE_ONLY"
+}

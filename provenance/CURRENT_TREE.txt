@@ -89,9 +89,13 @@ artifacts/jira_evidence/POST-SUBTASK-040.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
+artifacts/jira_evidence/POST-SUBTASK-161.json
+artifacts/jira_evidence/POST-SUBTASK-162.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
 artifacts/open_source/repository_review_decisions.csv
+artifacts/openai_assist/gamebook_pilot.json
+artifacts/openai_assist/model_comparison.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/source_governance/acquisition_resilience_test.json
@@ -123,6 +127,8 @@ configs/judging_rule_seal.json
 configs/model_architecture_registry.json
 configs/open_source_integration_registry.json
 configs/openai_assist_policy.json
+configs/openai_evaluation_policy.json
+configs/openai_gamebook_pilot.json
 configs/openai_task_registry.json
 configs/player_intelligence_registry.json
 configs/raw_feature_registry.json
@@ -2515,6 +2521,8 @@ jira/validation/SOURCE_ANCHOR_VALIDATION.csv
 jira/validation/SOURCE_REFERENCE_VALIDATION.csv
 jira/validation/VALIDATION_REPORT.md
 jira/validation/VALIDATION_RESULTS.json
+prompts/openai_assist/evaluation_v4.txt
+prompts/openai_assist/gamebook_play_v1.txt
 provenance/INPUT_ARTIFACTS.csv
 provenance/MANIFEST_POLICY.md
 provenance/PROJECT_FILE_HASHES.sha256
@@ -2859,11 +2867,14 @@ tools/package_instructions.py
 tools/package_repository_export.py
 tools/package_wave.py
 tools/packaging.py
+tools/prepare_openai_gamebook_pilot.py
 tools/refresh_openai_assist_lock.py
 tools/render_task_context.py
 tools/repo_integrity.py
 tools/restore_state.py
 tools/run_local_benchmark.py
+tools/run_openai_assist_eval.py
+tools/run_openai_gamebook_pilot.py
 tools/run_product.py
 tools/run_reference_feature_tournament.py
 tools/run_reference_hpo_grid.py

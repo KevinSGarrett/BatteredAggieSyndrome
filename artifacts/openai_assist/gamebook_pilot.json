@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "openai_assist_gamebook_pilot",
+  "pilot_id": "openai-gamebook-play-pilot-v1",
+  "jira_unit": "POST-SUBTASK-162",
+  "authority": "SHADOW_CANDIDATE_ONLY",
+  "overall_disposition": "PARTIAL_PASS_PLAYS_ONLY_REMAIN_IN_PROGRESS",
+  "source": {
+    "source_id": "SRC-001",
+    "provider": "SportsDataverse/cfbfastR ESPN-derived release",
+    "season": 2004,
+    "source_url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_pbp/play_by_play_2004.parquet",
+    "source_capture_sha256": "4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af",
+    "source_acquired_at_utc": "2026-08-09T21:01:29.630588Z",
+    "raw_payload_location": "<external-data-root>/raw/SRC-001/sportsdataverse-release/plays_structured_gamebook/2004/<source-capture-sha256>.parquet"
+  },
+  "gold": {
+    "classification": "DETERMINISTIC_STRUCTURED_FIELDS_ADJACENT_TO_REAL_PLAY_TEXT",
+    "samples": 5,
+    "categories": [
+      "pass_completion",
+      "rush",
+      "punt_return",
+      "blocked_field_goal",
+      "interception_return_touchdown"
+    ],
+    "gold_sha256": "6ecf23b6762f58d07b40cb1b22e3810c253408ba49828e52839d66797eb06640",
+    "gold_manifest_sha256": "1ebed979ae6059ec20677c963673f577ebe2aed0b459a69a8c4afa405b75ad5b",
+    "storage": "EXTERNAL_CONTENT_ADDRESSED",
+    "source_excerpts_in_git": false
+  },
+  "request_contract": {
+    "prompt_version": "gamebook-play-v1",
+    "prompt_sha256": "ded7ce4e037c4ccded47c145da6e0d25d650d3d02e03d7c4084cb9adf7c2e47f",
+    "schema": "schemas/openai/assistive_evaluation.schema.json",
+    "store": false,
+    "candidate_only": true
+  },
+  "results": {
+    "predictions": 15,
+    "prediction_sha256": "ab4ec35af08d0368cffc7506c858dcd09fd8a7369948ac7f64f1f4cf58de954e",
+    "run_manifest_sha256": "0a5810c8474f74e241310b7f67f5ef8bff818e721ff13f6048c031e5cb3dd40e",
+    "accepted_candidate": 15,
+    "review": 0,
+    "quarantine": 0,
+    "rejected": 0,
+    "strict_schema_rate": 1.0,
+    "field_precision": 1.0,
+    "field_recall": 1.0,
+    "supported_facts": 54,
+    "evidence_accuracy": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "cross_model_disagreement_rate": 0.0,
+    "not_applicable": [
+      "correct_abstention_rate",
+      "false_merge_rate",
+      "entity_top_k_recall",
+      "repeated_run_consistency"
+    ],
+    "review_time_saved_seconds": 0.0
+  },
+  "models": {
+    "gpt-5.6-luna:none": {
+      "role": "CHEAP_COMPARISON",
+      "jobs": 5,
+      "input_tokens": 3326,
+      "output_tokens": 2405,
+      "reasoning_tokens": 0,
+      "cost_usd": 0.003554,
+      "field_precision": 1.0,
+      "field_recall": 1.0,
+      "unsupported_fact_rate": 0.0
+    },
+    "gpt-5.6-terra:medium": {
+      "role": "COMPLEX_EXTRACTION_COMPARISON",
+      "jobs": 5,
+      "input_tokens": 3326,
+      "output_tokens": 2405,
+      "reasoning_tokens": 0,
+      "cost_usd": 0.035512,
+      "field_precision": 1.0,
+      "field_recall": 1.0,
+      "unsupported_fact_rate": 0.0
+    },
+    "gpt-5.6-sol:medium": {
+      "role": "CAPABLE_REFERENCE",
+      "jobs": 5,
+      "input_tokens": 3326,
+      "output_tokens": 3082,
+      "reasoning_tokens": 667,
+      "cost_usd": 0.10909,
+      "field_precision": 1.0,
+      "field_recall": 1.0,
+      "unsupported_fact_rate": 0.0
+    }
+  },
+  "route_decision": {
+    "validated_format": "single-play text descriptions matching the five covered categories and requested fact schemas",
+    "routine_route": "gpt-5.6-luna:none in shadow candidate mode",
+    "ambiguous_route": "gpt-5.6-terra:low_or_medium after deterministic validation failure",
+    "hard_residue_route": "gpt-5.6-sol:medium only for bounded adjudication",
+    "batch_status": "ELIGIBLE_FOR_A_FUTURE_LUNA_BATCH_ONLY_AFTER_FORMAT_IDENTITY_MATCH",
+    "canonical_write_authority": false
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PARTIAL",
+      "result": "Real deterministic gold covers five play-description categories. Drive summaries, team/player box scores, roster/starter facts, venue, officials, weather, attendance, and source-metadata extraction samples remain to be added before POST-SUBTASK-162 can complete."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "result": "Sol capable reference, Terra complex comparison, and Luna cheap comparison agreed on every requested play fact; Luna is the lowest-cost route for this exact validated format."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS_FOR_COVERED_SAMPLE",
+      "result": "All 15 candidate outputs retained exact capture evidence and passed schema, provenance, evidence, and domain gold comparison with zero unsupported facts; no candidate entered canonical or protected state."
+    }
+  ],
+  "remaining_review_items": [
+    "Expand the bounded corpus to the remaining gamebook-equivalent domains required by POST-SUBTASK-162 criterion 1.",
+    "Measure review-time savings with an actual reviewer workflow; current value remains 0 rather than estimated.",
+    "Run a bounded Luna Batch only after the additional source formats have their own format identity and gold acceptance."
+  ],
+  "scientific_nonclaims": [
+    "No historical completeness or production-readiness result.",
+    "No protected performance, model promotion, forecast, A&M lift, BAS, Aggie Excess, or publication result."
+  ]
+}

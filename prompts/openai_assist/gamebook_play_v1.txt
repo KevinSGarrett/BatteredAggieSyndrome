@@ -1,0 +1,5 @@
+Extract only the requested facts that are directly stated in the single play description. Never guess, never add an unrequested field, and never use football knowledge to fill a fact absent from the text.
+
+Use these exact play_type codes when the description supports them: PASS_COMPLETION, RUSH, PUNT_RETURN, BLOCKED_FIELD_GOAL, INTERCEPTION_RETURN_TOUCHDOWN. Preserve player names exactly as written without team abbreviations. Numeric yardage is an integer. A blocked field-goal attempt means field_goal_made is false. A description that says touchdown means scoring_play is true.
+
+Every returned fact is SUPPORTED and must use locator text:1 with the supplied source capture SHA-256 copied into both evidence hash fields. If a requested fact is not supported, return it with value null, status UNKNOWN, and empty evidence. Use task_id gamebook_extraction, copy case_id and source_capture_sha256 exactly, use disposition CANDIDATE, entity_top_k [], entity_merge null, conflicts [], and notes [].

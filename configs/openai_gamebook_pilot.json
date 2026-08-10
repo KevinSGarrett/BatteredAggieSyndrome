@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "pilot_id": "openai-gamebook-play-pilot-v1",
+  "jira_unit": "POST-SUBTASK-162",
+  "task_name": "gamebook_extraction",
+  "authority": "SHADOW_CANDIDATE_ONLY",
+  "source": {
+    "source_id": "SRC-001",
+    "year": 2004,
+    "external_relative_path": "raw/SRC-001/sportsdataverse-release/plays_structured_gamebook/2004/4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af.parquet",
+    "sha256": "4bd5890bb815cdeebd7a67fe112572caf75948e508d9802ae125fbb6763668af",
+    "source_url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_pbp/play_by_play_2004.parquet",
+    "acquired_at_utc": "2026-08-09T21:01:29.630588Z"
+  },
+  "prompt": {
+    "path": "prompts/openai_assist/gamebook_play_v1.txt",
+    "version": "gamebook-play-v1",
+    "sha256": "ded7ce4e037c4ccded47c145da6e0d25d650d3d02e03d7c4084cb9adf7c2e47f"
+  },
+  "output_schema": "schemas/openai/assistive_evaluation.schema.json",
+  "routes": [
+    {"model": "gpt-5.6-luna", "reasoning_effort": "none", "role": "CHEAP_COMPARISON"},
+    {"model": "gpt-5.6-terra", "reasoning_effort": "medium", "role": "COMPLEX_EXTRACTION_COMPARISON"},
+    {"model": "gpt-5.6-sol", "reasoning_effort": "medium", "role": "CAPABLE_REFERENCE"}
+  ],
+  "samples": [
+    {
+      "play_id": 2424102590305,
+      "category": "pass_completion",
+      "facts": [
+        {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
+        {"field": "passer", "column": "passer_player_name"},
+        {"field": "receiver", "column": "receiver_player_name"},
+        {"field": "yards", "column": "yds_receiving"},
+        {"field": "completion", "column": "completion"}
+      ]
+    },
+    {
+      "play_id": 2424102590102,
+      "category": "rush",
+      "facts": [
+        {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
+        {"field": "rusher", "column": "rusher_player_name"},
+        {"field": "yards", "column": "yds_rushed"}
+      ]
+    },
+    {
+      "play_id": 2424102590109,
+      "category": "punt_return",
+      "facts": [
+        {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
+        {"field": "punter", "column": "punter_player_name"},
+        {"field": "return_yards", "column": "yds_punt_return"}
+      ]
+    },
+    {
+      "play_id": 2424626284801,
+      "category": "blocked_field_goal",
+      "facts": [
+        {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
+        {"field": "field_goal_distance", "column": "yds_fg"},
+        {"field": "field_goal_made", "column": "fg_made"}
+      ]
+    },
+    {
+      "play_id": 2424600091501,
+      "category": "interception_return_touchdown",
+      "facts": [
+        {"field": "play_type", "column": "type.text", "transform": "PLAY_TYPE_CODE"},
+        {"field": "passer", "column": "passer_player_name"},
+        {"field": "return_yards", "column": "yds_int_return"},
+        {"field": "scoring_play", "column": "scoring_play"}
+      ]
+    }
+  ],
+  "acceptance": {
+    "strict_schema_rate_min": 1.0,
+    "field_precision_min": 0.95,
+    "field_recall_min": 0.95,
+    "evidence_accuracy_min": 1.0,
+    "unsupported_fact_rate_max": 0.0,
+    "false_merge_rate_max": 0.0,
+    "authority": "SHADOW_ONLY_UNTIL_ALL_THRESHOLDS_PASS"
+  }
+}

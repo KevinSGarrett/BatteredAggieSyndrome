@@ -375,8 +375,9 @@ class AssistiveController:
             return None, [str(exc)]
         errors = validate_instance(candidate, schema)
         errors.extend(evidence_errors(candidate, capture_sha256=job.source_capture_sha256))
-        if candidate.get("disposition") != job.destination:
-            errors.append("candidate disposition disagrees with the governed destination")
+        allowed_dispositions = set(self.policy.payload["authority"]["allowed_destinations"])
+        if candidate.get("disposition") not in allowed_dispositions:
+            errors.append("candidate disposition is outside the candidate-only authority boundary")
         return candidate, errors
 
     def run_sync(self, job: AssistiveJob) -> AssistiveResult:
@@ -405,7 +406,7 @@ class AssistiveController:
             actual_cost = self._actual_cost(job, ProcessingMode.SYNCHRONOUS, usage)
             self.ledger.settle(reservation, actual_usd=actual_cost, usage=usage)
             candidate, errors = self._validate_candidate(response, prepared["schema"], job)
-            disposition = job.destination if not errors else "QUARANTINE"
+            disposition = candidate.get("disposition", job.destination) if candidate and not errors else "QUARANTINE"
             manifest = {
                 "schema_version": 1,
                 "status": "COMPLETE",
@@ -604,7 +605,7 @@ class AssistiveController:
             self.ledger.settle(reservation, actual_usd=actual, usage=usage)
             schema = self._load_schema(job.schema_path)
             candidate, errors = self._validate_candidate(response_body, schema, job)
-            disposition = job.destination if not errors else "QUARANTINE"
+            disposition = candidate.get("disposition", job.destination) if candidate and not errors else "QUARANTINE"
             quarantined += int(bool(errors))
             completed += 1
             request_manifest = {

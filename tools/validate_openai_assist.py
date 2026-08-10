@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 import tomllib
@@ -16,6 +17,19 @@ from aggie_analytics.openai_assist.schemas import validate_strict_output_schema 
 from validate_product_supply_chain import lock_policy_errors, normalize_name  # noqa: E402
 
 
+def _unsupported_structured_output_keywords(value: object, path: str = "$") -> list[str]:
+    errors: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key in {"maxItems", "minItems", "uniqueItems"}:
+                errors.append(f"{path}.{key}")
+            errors.extend(_unsupported_structured_output_keywords(child, f"{path}.{key}"))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            errors.extend(_unsupported_structured_output_keywords(child, f"{path}[{index}]"))
+    return errors
+
+
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
     try:
@@ -28,8 +42,40 @@ def validate(root: Path) -> list[str]:
                 (root / "schemas" / "openai" / schema_name).read_text(encoding="utf-8")
             )
             validate_strict_output_schema(schema)
+            for keyword_path in _unsupported_structured_output_keywords(schema):
+                errors.append(f"unsupported Structured Outputs keyword: {schema_name}:{keyword_path}")
         except Exception as exc:
             errors.append(f"strict schema {schema_name}: {exc}")
+
+    evaluation_policy = json.loads(
+        (root / "configs" / "openai_evaluation_policy.json").read_text(encoding="utf-8")
+    )
+    prompt = evaluation_policy["prompt"]
+    prompt_path = root / prompt["path"]
+    prompt_sha256 = hashlib.sha256(prompt_path.read_bytes()).hexdigest()
+    if prompt_sha256 != prompt["sha256"]:
+        errors.append("OpenAI evaluation prompt hash disagrees with policy")
+    gold_path = root / evaluation_policy["gold_corpus"]
+    if hashlib.sha256(gold_path.read_bytes()).hexdigest() != evaluation_policy["gold_corpus_sha256"]:
+        errors.append("OpenAI evaluation gold-corpus hash disagrees with policy")
+    if evaluation_policy["acceptance"]["unsupported_fact_rate_max"] != 0.0:
+        errors.append("OpenAI evaluation must require zero unsupported facts")
+    if evaluation_policy["acceptance"]["false_merge_rate_max"] != 0.0:
+        errors.append("OpenAI evaluation must require zero false merges")
+
+    gamebook_policy = json.loads(
+        (root / "configs" / "openai_gamebook_pilot.json").read_text(encoding="utf-8")
+    )
+    gamebook_prompt = gamebook_policy["prompt"]
+    gamebook_prompt_path = root / gamebook_prompt["path"]
+    if hashlib.sha256(gamebook_prompt_path.read_bytes()).hexdigest() != gamebook_prompt["sha256"]:
+        errors.append("OpenAI gamebook pilot prompt hash disagrees with policy")
+    if gamebook_policy["authority"] != "SHADOW_CANDIDATE_ONLY":
+        errors.append("OpenAI gamebook pilot must remain shadow candidate only")
+    if len(gamebook_policy["samples"]) != 5:
+        errors.append("OpenAI gamebook pilot must retain the predeclared five-play gold sample")
+    if gamebook_policy["acceptance"]["unsupported_fact_rate_max"] != 0.0:
+        errors.append("OpenAI gamebook pilot must require zero unsupported facts")
 
     project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     direct = project["project"].get("optional-dependencies", {}).get("openai-assist", [])

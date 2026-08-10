@@ -229,6 +229,34 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
+    def test_team_membership_history_is_validated_candidate_only_without_venue_or_pit_promotion(self) -> None:
+        membership = self.contract["latest_validated_team_membership_candidate"]
+        self.assertEqual(
+            membership["dataset_identity"],
+            "964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024",
+        )
+        self.assertEqual(membership["grain"], "TEAM_SEASON")
+        self.assertEqual(membership["repository_seasons"], list(range(2001, 2021)))
+        self.assertEqual(membership["repository_rows"], 2462)
+        self.assertEqual(membership["exact_source_id_canonical_team_candidates"], 2462)
+        self.assertEqual(membership["conference_or_division_transitions"], 158)
+        self.assertEqual(membership["identical_source_payload_groups"], 4)
+        self.assertEqual(membership["validation_checks_passed"], 29)
+        self.assertEqual(membership["mutation_controls_passed"], 9)
+        self.assertEqual(membership["deterministic_payloads_compared"], 20)
+        self.assertIn("NOT_CLAIMED", membership["venue_history_status"])
+        self.assertEqual(membership["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertTrue(self.evidence["completion_claim"]["team_membership_candidate_layer_validated"])
+        self.assertFalse(self.evidence["completion_claim"]["team_membership_canonical_or_pit_admission"])
+        self.assertFalse(self.evidence["completion_claim"]["historical_venue_materialized"])
+        checkpoint = self.gate["parallel_team_membership_checkpoint"]
+        self.assertEqual(checkpoint["repository_rows"], 2462)
+        self.assertEqual(checkpoint["conference_or_division_transitions"], 158)
+        self.assertFalse(checkpoint["venue_history_claimed"])
+        self.assertFalse(checkpoint["canonical_or_pit_admission"])
+        self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+
 
 if __name__ == "__main__":
     unittest.main()

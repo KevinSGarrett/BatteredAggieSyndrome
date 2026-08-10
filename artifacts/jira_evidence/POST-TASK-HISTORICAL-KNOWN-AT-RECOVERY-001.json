@@ -345,6 +345,48 @@
     ],
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_CANONICAL_FEATURE_AND_PLAYER_IDENTITY_ADMISSION_NOT_APPROVED"
   },
+  "validated_team_membership_candidate": {
+    "domain": "team_season_membership",
+    "grain": "TEAM_SEASON",
+    "dataset_identity": "964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024/team_membership_reconciliation.json",
+      "sha256": "a5571a60f79206bef1de0643188a8317ec3a25cb96875f628e893c74b3b07810"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024/team_membership",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/BAT-523/team_membership_2001_2020_validation.json",
+      "sha256": "b0bb2ab3e512d595efd73e65d41014ab94f3a6a0be4bf30b5e0ec2c96596f88e",
+      "checks_passed": 29,
+      "checks_failed": 0,
+      "mutation_controls_passed": 9
+    },
+    "deterministic_rebuild": {
+      "path": "<external-data-root>/validation/BAT-523/team_membership_2001_2020_rebuild_validation.json",
+      "sha256": "6fe9842ff953f74a03ced762c6fea542a0b44b5099974727095da7b3b090375f",
+      "status": "PASS",
+      "manifest_and_20_payloads_byte_identical": true
+    },
+    "population": {
+      "repository_seasons": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "repository_rows": 2462,
+      "exact_source_id_canonical_team_candidates": 2462,
+      "conference_or_division_transitions": 158,
+      "identical_source_payload_groups": 4,
+      "raw_capture_bytes": 306117,
+      "payload_bytes": 839951
+    },
+    "source_and_route_findings": [
+      "Twenty immutable team_info files span 2001-2020 and are bound to public repository commit time 2023-05-05T03:50:21Z.",
+      "Every one of the 2,462 team-season rows maps to exactly one canonical team through the exact SRC-002 provider team ID; no name-only merge is used.",
+      "The tranche preserves 158 conference or division transitions, including Texas A&M Big 12 through 2011 and SEC beginning in 2012.",
+      "Four groups of byte-identical adjacent-season source files are recorded explicitly rather than misrepresented as independent updates.",
+      "The larger cfb_team_info_YEAR series is rejected for historical venue, capacity, conference, and division claims because it repeats current-looking metadata across historical seasons.",
+      "Mascot, aliases, abbreviation, colors, and logos are not promoted as season-effective historical facts; this tranche is membership, conference, and division candidate evidence only.",
+      "Repository commit time does not establish availability at earlier game cutoffs. Every row remains candidate-only outside Git and receives no canonical, PIT, feature, label, protected-evaluation, forecast, or publication authority."
+    ],
+    "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_CANONICAL_AND_VENUE_ADMISSION_NOT_APPROVED"
+  },
   "preserved_prior_replay": {
     "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
     "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_REMAINS_IMMUTABLE"
@@ -378,6 +420,12 @@
     "bundle_bytes": 17667962,
     "base_commit": "cfea368c644178eb1aa72db68a2e5bae1879d3bf"
   },
+  "team_membership_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/BAT-523-team-membership/20260810T155412Z/BAT-523-team-membership.bundle",
+    "bundle_sha256": "da6016a0b3e7ee3c12e0a141b82813760bceb7dbd3858346dcf5a2e004d600a0",
+    "bundle_bytes": 18072101,
+    "base_commit": "a012fee744a7501489f324151a41f82bb89c76fb"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -393,6 +441,9 @@
     "player_event_metric_canonical_or_pit_admission": false,
     "play_enrichment_candidate_layer_validated": true,
     "play_enrichment_canonical_pit_feature_or_player_identity_admission": false,
+    "team_membership_candidate_layer_validated": true,
+    "team_membership_canonical_or_pit_admission": false,
+    "historical_venue_materialized": false,
     "official_player_box_scores_materialized": false,
     "other_domain_expansion_continues": true,
     "full_historical_population_ready": false,

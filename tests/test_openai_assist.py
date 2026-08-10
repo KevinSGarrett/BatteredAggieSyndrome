@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from decimal import Decimal
 from pathlib import Path
+from types import SimpleNamespace
 
 from aggie_analytics.openai_assist.budget import BudgetError, UsageLedger
 from aggie_analytics.openai_assist.contracts import Priority, ProcessingMode
@@ -336,6 +337,44 @@ class OpenAIAssistTests(unittest.TestCase):
                 {"properties": {"items": {"type": "array", "maxItems": 1}}}
             ),
         )
+
+    def test_candidate_review_disposition_is_valid_for_candidate_job(self):
+        capture = "a" * 64
+        candidate = {
+            "task_id": "assistive_model_evaluation",
+            "source_capture_sha256": capture,
+            "disposition": "REVIEW",
+            "facts": [],
+            "conflicts": [],
+            "notes": [],
+        }
+        controller = object.__new__(AssistiveController)
+        controller.policy = SimpleNamespace(
+            payload={
+                "authority": {
+                    "allowed_destinations": ["CANDIDATE", "REVIEW", "QUARANTINE", "REJECTED"]
+                }
+            }
+        )
+        job = AssistiveJob(
+            task_name="assistive_model_evaluation",
+            jira_unit="POST-SUBTASK-161",
+            source_url="file:test",
+            source_capture_sha256=capture,
+            source_excerpt="test",
+            prompt="test",
+            prompt_version="test",
+            schema_path=SCHEMA_PATH,
+            schema_version="1",
+            model="gpt-5.6-luna",
+            reasoning_effort="none",
+            allocation="PROBE_PROMPT_EVAL",
+            destination="CANDIDATE",
+        )
+        response = {"output": [{"type": "message", "content": [{"type": "output_text", "text": json.dumps(candidate)}]}]}
+        parsed, errors = controller._validate_candidate(response, self._schema(), job)
+        self.assertEqual("REVIEW", parsed["disposition"])
+        self.assertEqual([], errors)
 
 
 if __name__ == "__main__":

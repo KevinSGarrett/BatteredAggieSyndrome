@@ -63,6 +63,20 @@ def validate(root: Path) -> list[str]:
     if evaluation_policy["acceptance"]["false_merge_rate_max"] != 0.0:
         errors.append("OpenAI evaluation must require zero false merges")
 
+    gamebook_policy = json.loads(
+        (root / "configs" / "openai_gamebook_pilot.json").read_text(encoding="utf-8")
+    )
+    gamebook_prompt = gamebook_policy["prompt"]
+    gamebook_prompt_path = root / gamebook_prompt["path"]
+    if hashlib.sha256(gamebook_prompt_path.read_bytes()).hexdigest() != gamebook_prompt["sha256"]:
+        errors.append("OpenAI gamebook pilot prompt hash disagrees with policy")
+    if gamebook_policy["authority"] != "SHADOW_CANDIDATE_ONLY":
+        errors.append("OpenAI gamebook pilot must remain shadow candidate only")
+    if len(gamebook_policy["samples"]) != 5:
+        errors.append("OpenAI gamebook pilot must retain the predeclared five-play gold sample")
+    if gamebook_policy["acceptance"]["unsupported_fact_rate_max"] != 0.0:
+        errors.append("OpenAI gamebook pilot must require zero unsupported facts")
+
     project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     direct = project["project"].get("optional-dependencies", {}).get("openai-assist", [])
     if direct != ["openai==2.53.0"]:

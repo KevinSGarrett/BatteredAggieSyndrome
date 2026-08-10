@@ -17,6 +17,19 @@ from aggie_analytics.openai_assist.schemas import validate_strict_output_schema 
 from validate_product_supply_chain import lock_policy_errors, normalize_name  # noqa: E402
 
 
+def _unsupported_structured_output_keywords(value: object, path: str = "$") -> list[str]:
+    errors: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key in {"maxItems", "minItems", "uniqueItems"}:
+                errors.append(f"{path}.{key}")
+            errors.extend(_unsupported_structured_output_keywords(child, f"{path}.{key}"))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            errors.extend(_unsupported_structured_output_keywords(child, f"{path}[{index}]"))
+    return errors
+
+
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
     try:
@@ -29,6 +42,8 @@ def validate(root: Path) -> list[str]:
                 (root / "schemas" / "openai" / schema_name).read_text(encoding="utf-8")
             )
             validate_strict_output_schema(schema)
+            for keyword_path in _unsupported_structured_output_keywords(schema):
+                errors.append(f"unsupported Structured Outputs keyword: {schema_name}:{keyword_path}")
         except Exception as exc:
             errors.append(f"strict schema {schema_name}: {exc}")
 

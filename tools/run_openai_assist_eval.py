@@ -76,6 +76,7 @@ def main() -> int:
     schema_path = ROOT / policy["output_schema"]
     rows: list[dict[str, Any]] = []
     failures: list[dict[str, str]] = []
+    fatal_provider_error: str | None = None
     token_totals: Counter[str] = Counter()
     cost_totals: Counter[str] = Counter()
     for route in routes:
@@ -132,6 +133,11 @@ def main() -> int:
                 failures.append(
                     {"model": model, "case_id": case["case_id"], "error": type(exc).__name__}
                 )
+                if type(exc).__name__ in {"AuthenticationError", "BadRequestError", "PermissionDeniedError"}:
+                    fatal_provider_error = type(exc).__name__
+                    break
+        if fatal_provider_error is not None:
+            break
 
     payload = "".join(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n" for row in rows).encode("utf-8")
     predictions = controller.store.put_bytes("evals", payload, suffix=".predictions.jsonl")
@@ -150,6 +156,7 @@ def main() -> int:
             "requested_jobs": job_count,
             "completed_predictions": len(rows),
             "failures": failures,
+            "fatal_provider_error": fatal_provider_error,
             "models": [route["model"] for route in routes],
             "reasoning_efforts": {route["model"]: route["reasoning_effort"] for route in routes},
             "cases": [case["case_id"] for case in gold],

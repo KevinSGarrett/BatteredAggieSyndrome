@@ -21,7 +21,10 @@ from aggie_analytics.openai_assist.schemas import (
     validate_instance,
     validate_strict_output_schema,
 )
-from tools.validate_openai_assist import validate as validate_openai_assist
+from tools.validate_openai_assist import (
+    _unsupported_structured_output_keywords,
+    validate as validate_openai_assist,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -325,6 +328,14 @@ class OpenAIAssistTests(unittest.TestCase):
         )
         self.assertEqual(8, report.repeated_run_groups)
         self.assertEqual(1.0, report.repeated_run_consistency)
+
+    def test_provider_unsupported_array_keywords_are_rejected_locally(self):
+        self.assertEqual(
+            ["$.properties.items.maxItems"],
+            _unsupported_structured_output_keywords(
+                {"properties": {"items": {"type": "array", "maxItems": 1}}}
+            ),
+        )
 
 
 if __name__ == "__main__":

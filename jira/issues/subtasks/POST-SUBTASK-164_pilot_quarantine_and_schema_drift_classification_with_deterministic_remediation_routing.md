@@ -96,7 +96,7 @@
   "end_to_end_validation": "Classify a pinned quarantine/schema-drift sample, compare deterministic and model routes, and prove outputs only prioritize remediation while authoritative quarantine remains unchanged.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-164.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -169,11 +169,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24660",
-    "jira_updated_at": "2026-08-10T01:32:09.896-0500",
-    "last_synced_at": "2026-08-10T06:36:03.652913+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-520-router-rebalance-live-row.csv",
+    "jira_updated_at": "2026-08-10T02:04:19.513-0500",
+    "last_synced_at": "2026-08-10T07:05:58.209931+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-520-completion-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -217,7 +217,7 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.1",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-164.json` with one evidence row per acceptance criterion and exact artifact hashes.",
@@ -280,7 +280,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-164.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

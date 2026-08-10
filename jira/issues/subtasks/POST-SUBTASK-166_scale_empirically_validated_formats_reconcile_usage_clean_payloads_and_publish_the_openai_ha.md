@@ -24,7 +24,7 @@
     "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
     "artifacts/jira_evidence/POST-SUBTASK-166.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-164",
+  "blocked_reason": "",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-166_scale_empirically_validated_formats_reconcile_usage_clean_payloads_and_publish_the_openai_ha.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -183,7 +183,7 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-166.json` with one evidence row per acceptance criterion and exact artifact hashes.",
@@ -236,7 +236,7 @@
   "title": "[POST-SUBTASK-166] Scale empirically validated formats, reconcile usage, clean payloads, and publish the OpenAI handoff",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -244,7 +244,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-166.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }
 ```
 

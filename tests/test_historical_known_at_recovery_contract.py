@@ -107,6 +107,25 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertIn("production_matrix_approval", gate["gate_reexecution"]["BAT-398"])
         self.assertEqual(gate["gate_reexecution"]["BAT-398"]["production_matrix_approval"], "NOT_APPROVED")
 
+    def test_event_detail_play_history_is_validated_candidate_only(self) -> None:
+        event = self.contract["latest_validated_event_detail_candidate"]
+        self.assertEqual(
+            event["dataset_identity"],
+            "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+        )
+        self.assertEqual(event["repository_rows"], 2432416)
+        self.assertEqual(event["repository_seasons"], [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022])
+        self.assertEqual(event["absent_repository_seasons"], [2011, 2020])
+        self.assertEqual(event["cross_route_exact_canonical_game_candidates"], 1606094)
+        self.assertEqual(event["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertEqual(event["validation_checks_passed"], 29)
+        self.assertEqual(event["mutation_controls_passed"], 9)
+        self.assertEqual(event["deterministic_payloads_compared"], 17)
+        self.assertFalse(self.evidence["completion_claim"]["event_detail_canonical_or_pit_admission"])
+        checkpoint = self.gate["parallel_event_detail_checkpoint"]
+        self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+
 
 if __name__ == "__main__":
     unittest.main()

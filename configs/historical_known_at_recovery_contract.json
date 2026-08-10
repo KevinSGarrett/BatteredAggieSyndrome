@@ -3,7 +3,7 @@
   "contract_id": "BAS-HISTORICAL-KNOWN-AT-RECOVERY-V1",
   "jira_key": "BAT-523",
   "local_work_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
-  "status": "EXPANDED_2010_2022_TEAM_OUTCOME_REPLAY_VALIDATED_OTHER_DOMAIN_EXPANSION_CONTINUES",
+  "status": "EXPANDED_TEAM_OUTCOME_REPLAY_VALIDATED_EVENT_DETAIL_CANDIDATE_RECONCILIATION_VALIDATED",
   "purpose": "Recover independently evidenced historical knowledge times and rematerialize a nonempty point-in-time state and matrix without inventing source publication facts.",
   "trigger": {
     "bat_398_decision": "BLOCK",
@@ -113,6 +113,35 @@
     "preserved_prior_replay": {
       "dataset_identity": "c8e7cd7bdc7fd0fb68af85756969c35c43ec61fa7cf1aa11f9d83b0a833fe93a",
       "disposition": "FIRST_NONEMPTY_2022_SCOPED_REPLAY_PRESERVED_IMMUTABLY"
+    }
+  },
+  "latest_validated_event_detail_candidate": {
+    "dataset_identity": "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+    "manifest_sha256": "9fc257b86c496ed91115ed7f97fff34ffbda3e8beb2ff712aa12f0e60d812cf6",
+    "validation_report_sha256": "f7eb7e60e314a015fbd0a7bb8a8f8c721fc4ec5538cd7390a93057bcadf8d772",
+    "deterministic_rebuild_report_sha256": "faff1394ec89a66e1a3d511d00e1bc3e06894dafbca6ec9e35461ddd27c82f4f",
+    "domain": "PLAYS",
+    "grain": "PLAY",
+    "repository_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+    "absent_repository_seasons": [2011, 2020],
+    "repository_rows": 2432416,
+    "cross_route_exact_canonical_game_candidates": 1606094,
+    "versioned_repository_outside_current_cfbd_scope_candidates": 58586,
+    "versioned_repository_source_level_only_candidates": 748514,
+    "quarantined_current_reconciliation_misses": 17704,
+    "quarantined_invalid_core_rows": 1518,
+    "payload_bytes": 302347155,
+    "validation_checks_passed": 29,
+    "mutation_controls_passed": 9,
+    "deterministic_payloads_compared": 17,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "historical_known_at_basis": "PUBLIC_REPOSITORY_COMMITTER_TIME_BOUND_TO_EXACT_FILE_BYTES",
+    "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
+    "domain_gate_disposition": "CANDIDATE_LAYER_VALIDATED_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED",
+    "cfbd_2004_2009_alternate_route": {
+      "manifest_sha256": "a1ab6b2ef34baf82a6e72bbb6272c2fd846ac1e8c404562448f6956f0d7cacf",
+      "successful_captures": 0,
+      "stop_reason": "PROVIDER_RATE_LIMIT"
     }
   },
   "external_storage": {

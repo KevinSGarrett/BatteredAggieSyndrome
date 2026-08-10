@@ -1,0 +1,249 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-040",
+  "jira_key": "BAT-390",
+  "created_at_utc": "2026-08-10T03:14:00Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "<external-data-root>/canonical/BAT-390/sha256/d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c/resolution_results.parquet",
+      "evidence_sha256": "d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c",
+      "observable_result": "All 646,053 core and people registry records have a resolver version, complete bounded candidate vectors, evidence classes, confidence semantics, explicit decision rule, input and output states, and deterministic replay identity. Exactly 641,384 proof-backed decisions remain selected. Alias, name, context, and bounded fuzzy evidence rank candidates only; name-only and probability-based promotions are both zero."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/entities/resolution_results.parquet",
+      "evidence_sha256": "21896ae2dec13894506cdf545e7eca605ce99b54dbabd98d3a51205990e4e75d",
+      "observable_result": "The declared repository output is a 5,995-byte Parquet pointer to the complete 171,445,108-byte content-addressed external Parquet payload. The pointer pins SHA-256, byte count, 646,053 rows, 38 columns, schema identity, eligibility, and a fail-closed consumer contract. Independent validation parsed every row, recomputed every resolution-record hash, and rejected all seven unsafe pointer mutations."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "<external-data-root>/validation/BAT-390/resolution/strict-validation-report.json",
+      "evidence_sha256": "cf956c9d24a038a9297c8fc5a26bf54fd9fa187de9f07af06b51f3b5aa752516",
+      "observable_result": "The work preserves 2,964 candidate-generated, 991 review-required, and 714 unresolved decisions; 708 records have no supported candidate. It makes no source-availability, calibrated-confidence, PIT, model, protected-performance, or operational-readiness claim, uses no target-game outcomes, and preserves the failed first schema-identity validation as a negative finding."
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "RESOLUTION_PAYLOAD_POINTER",
+      "path": "artifacts/entities/resolution_results.parquet",
+      "sha256": "21896ae2dec13894506cdf545e7eca605ce99b54dbabd98d3a51205990e4e75d",
+      "bytes": 5995,
+      "rows": 1,
+      "format": "PARQUET_EXTERNAL_PAYLOAD_POINTER"
+    },
+    {
+      "role": "FULL_POPULATION_RESOLUTION_PAYLOAD",
+      "path": "<external-data-root>/canonical/BAT-390/sha256/d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c/resolution_results.parquet",
+      "sha256": "d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c",
+      "bytes": 171445108,
+      "rows": 646053,
+      "columns": 38,
+      "schema_sha256": "a6b23442441ecb5444221ef890ce826a44992c27da092797110d398489f61787"
+    },
+    {
+      "role": "DETERMINISTIC_BUILD_REPORT_RUN_1",
+      "path": "<external-data-root>/validation/BAT-390/resolution/build-report-3.json",
+      "sha256": "b8ff42b06566a12649f3952adf0795110aa8a653a70dbdff1d136c80936ec33c",
+      "bytes": 2852
+    },
+    {
+      "role": "DETERMINISTIC_BUILD_REPORT_RUN_2",
+      "path": "<external-data-root>/validation/BAT-390/resolution/build-report-4.json",
+      "sha256": "b8ff42b06566a12649f3952adf0795110aa8a653a70dbdff1d136c80936ec33c",
+      "bytes": 2852
+    },
+    {
+      "role": "STRICT_CONSUMER_AND_ROW_VALIDATION_REPORT",
+      "path": "<external-data-root>/validation/BAT-390/resolution/strict-validation-report.json",
+      "sha256": "cf956c9d24a038a9297c8fc5a26bf54fd9fa187de9f07af06b51f3b5aa752516",
+      "bytes": 3011,
+      "finding_count": 0,
+      "unsafe_mutations_rejected": 7
+    },
+    {
+      "role": "EXTERNAL_DETERMINISTIC_BUILDER",
+      "path": "<external-data-root>/runtime/BAT-390/build_population_resolution.py",
+      "sha256": "426c196ab8bd75ecf494afbf4fb1100207135ec8645dfc34fce2234f4d205fcb"
+    },
+    {
+      "role": "EXTERNAL_CONSUMER_VALIDATOR_AND_NEW_AUTOMATED_TEST",
+      "path": "<external-data-root>/runtime/BAT-390/validate_population_resolution.py",
+      "sha256": "523992293c546f29722d2f9294295b4eca9214fe63cb0e1e0972f8c5c5d61b3e"
+    }
+  ],
+  "prerequisite_evidence": [
+    {
+      "local_id": "POST-SUBTASK-039",
+      "jira_key": "BAT-389",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-039.json",
+      "sha256": "d770e80c05a761b07bc526cd333cfac6447b7a53b2a8901c7dccc8192bb800e5",
+      "bytes": 16530,
+      "evidence_state": "VERIFIED"
+    },
+    {
+      "role": "CORE_REGISTRY_PAYLOAD",
+      "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+      "rows": 56676
+    },
+    {
+      "role": "PEOPLE_REGISTRY_PAYLOAD",
+      "sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d",
+      "rows": 589377
+    },
+    {
+      "role": "REGISTRY_VALIDATION_GATE",
+      "path": "artifacts/entities/registry_validation.json",
+      "sha256": "03ad365e351e15e935442ed42dd58a20d0ca96e788ec6410a53ba2038aa051fa"
+    }
+  ],
+  "observable_outcome": {
+    "total_population_rows": 646053,
+    "core_rows": 56676,
+    "people_rows": 589377,
+    "proof_selected": 641384,
+    "candidate_generated": 2964,
+    "review_required": 991,
+    "unresolved": 714,
+    "records_without_supported_candidate": 708,
+    "bounded_probabilistic_rankings": 11,
+    "exact_alias_contextual_rankings": 3950,
+    "name_only_auto_promotions": 0,
+    "probability_auto_promotions": 0,
+    "target_game_outcome_uses": 0,
+    "candidate_sets_truncated": 0
+  },
+  "commands": [
+    {
+      "command": "python -B tools/validate_w25_final.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS: W25 final consolidation, terminal-wave governance, maturity honesty and Codex handoff controls"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -q",
+      "exit_code": 0,
+      "result": "BASELINE PASS: 295 passed, 2 skipped, 79 subtests; the generated .pytest_cache was removed and the strict repository validator then passed"
+    },
+    {
+      "command": "run build_population_resolution.py twice against pinned BAT-387/BAT-388 payloads",
+      "exit_code": 0,
+      "result": "PASS: both accepted runs produced SHA-256 d42bff8a61b317765e7ad39c369eeee78b15c72de86d9ae1d351c9728e5dec8c and identical build reports"
+    },
+    {
+      "command": "run validate_population_resolution.py over the repository pointer and complete external payload",
+      "exit_code": 0,
+      "result": "PASS: 646,053/646,053 rows validated; zero findings; missing, escaping, stale-hash, byte, row, column, and schema mutations all rejected"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q tests/test_entity_governance.py",
+      "exit_code": 0,
+      "result": "PASS: 4 focused entity-governance tests"
+    },
+    {
+      "command": "PYTHONPATH=src python -B tools/validate_entities.py",
+      "exit_code": 0,
+      "result": "PASS: canonical IDs, entity/evidence hierarchy, mapping/review/correction rules and W07 storage decision"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS: 295 passed, 2 skipped, 79 subtests"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --repo-root . --strict; validate_source_refs.py; second_pass_hardening.py --validate-only; validate_jira_control_plane.py --strict; validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS: strict repository/provenance, 2,118 source references, 463 Jira derivatives, strict Jira control plane, and 1,758-file Jira manifest"
+    }
+  ],
+  "validation": {
+    "result": "PASS_FULL_POPULATION_RESOLUTION_WITH_UNSUPPORTED_DECISIONS_RETAINED",
+    "deterministic_reproduction_runs": 2,
+    "deterministic_reproduction_match": true,
+    "strict_finding_count": 0,
+    "unsafe_mutations_rejected": 7,
+    "required_classes": {
+      "REGRESSION": "PASS_FOCUSED_AND_FULL_FINAL_VALIDATION",
+      "SCIENTIFIC": "NOT_APPLICABLE_NO_HYPOTHESIS_MODEL_OR_EFFECT_EVALUATED",
+      "CALIBRATION": "NOT_CLAIMED_RETRIEVAL_SCORES_EXPLICITLY_NOT_CALIBRATED_PROBABILITIES",
+      "INTEGRATION": "PASS_FAIL_CLOSED_POST_SUBTASK_041_CONSUMER_POINTER",
+      "REPRODUCIBILITY": "PASS_EXACT_TWO_RUN_PAYLOAD_AND_REPORT_MATCH",
+      "NEW_AUTOMATED_TEST_REQUIRED": "PASS_EXTERNAL_CONTENT_ADDRESSED_CONSUMER_VALIDATOR_WITH_SEVEN_NEGATIVE_MUTATIONS"
+    }
+  },
+  "negative_findings": [
+    {
+      "finding": "The first independent consumer validation found that Arrow's list child label changes from item to element after Parquet round-trip, making the initial schema identity representation unstable.",
+      "disposition": "PRESERVED_AND_CORRECTED: schema identity now canonicalizes nested list value types independent of incidental child labels; the obsolete rejected payload was removed after the corrected payload passed exact reproduction and full validation."
+    },
+    {
+      "finding": "4,669 population records remain candidate-generated, review-required, or unresolved; 708 have no supported candidate.",
+      "disposition": "PRESERVED_NOT_AUTO_PROMOTED: these records flow to POST-SUBTASK-041 review and transition handling without blocking unrelated proof-backed identities."
+    },
+    {
+      "finding": "Eleven rows received bounded fuzzy retrieval candidates.",
+      "disposition": "CANDIDATE_ONLY: every such output remains unselected; retrieval score is explicitly not an identity probability or proof."
+    },
+    {
+      "finding": "The atomic packet requests scientific and calibration evidence although this unit performs identity resolution and no model or precommitted empirical hypothesis.",
+      "disposition": "HONEST_NOT_APPLICABLE: no metric, calibration, PIT eligibility, protected performance, or scientific effect was fabricated."
+    }
+  ],
+  "cleanup": {
+    "reconstructible_bytes_removed": 857229443,
+    "removed": "four reproduction scratch Parquet files and one obsolete rejected content-addressed payload",
+    "preserved": "accepted external content-addressed payload, deterministic build reports, strict validation report, runtime builder/validator, and rollback bundle"
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-041": "READY_ONLY_AFTER_PROTECTED_INTEGRATION_AND_VERIFIED_JIRA_SYNC",
+    "POST-SUBTASK-042": "REMAINS_DEPENDENT_ON_POST-SUBTASK-040_AND_POST-SUBTASK-041"
+  },
+  "producer": {
+    "base_commit": "17082485a3a06be09043fa227272f9f08d19a2e3",
+    "branch": "codex/BAT-390-population-resolution",
+    "source_manifest": {
+      "path": "jira/sources/issue_source_manifests/POST-SUBTASK-040.json",
+      "sha256": "0932ca5b4903c495c94a3c4ba8dfa6efc8c121eabf893a3add24b26377d59874",
+      "bytes": 15346
+    },
+    "rollback_checkpoint": {
+      "path": "<external-data-root>/backups/BAT-390/20260809T222000Z-prechange",
+      "bundle_sha256": "63bb90b2339ceda8c95929c5ff60854b3ab43977e0de4cef6883c089b450e81f",
+      "integrity": "PASS"
+    },
+    "runtime": "CPython 3.11.9; PyArrow 24.0.0; Polars local deterministic build",
+    "split_or_cutoff": "NOT_APPLICABLE_IDENTITY_RESOLUTION_ONLY; TARGET_GAME_OUTCOME_USE_ZERO"
+  },
+  "protected_integration": {
+    "state": "PENDING_PROTECTED_PULL_REQUEST",
+    "branch": "codex/BAT-390-population-resolution"
+  },
+  "live_jira": {
+    "status": "In Progress",
+    "logical_state": "IN_PROGRESS",
+    "maturity": "IMPLEMENTED",
+    "evidence_state": "PLANNED",
+    "claim_comment_id": "13426"
+  },
+  "completion": {
+    "completion_claimed": false,
+    "achieved_maturity": "IMPLEMENTED_PENDING_PROTECTED_INTEGRATION",
+    "evidence_state": "PRODUCED_AND_VALIDATED",
+    "remaining_issue_scope_blockers": [
+      "protected pull request and merge-commit validation",
+      "live/local Jira verified completion synchronization"
+    ]
+  },
+  "honesty_boundary": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "pit_or_chronological_gate_passed": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

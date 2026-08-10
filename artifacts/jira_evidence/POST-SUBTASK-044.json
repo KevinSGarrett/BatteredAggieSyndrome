@@ -4,7 +4,7 @@
   "decision_unit": "POST-SUBTASK-044",
   "jira_key": "BAT-394",
   "created_at_utc": "2026-08-10T09:49:10Z",
-  "updated_at_utc": "2026-08-10T09:49:10Z",
+  "updated_at_utc": "2026-08-10T09:57:20Z",
   "acceptance_matrix": [
     {
       "criterion": 1,
@@ -231,6 +231,18 @@
     {
       "finding": "The first combined Jira validation command referenced validate_jira_control_plane.py under jira/tools rather than its actual tools path.",
       "disposition": "COMMAND-PATH FAILURE ONLY AFTER ALL PRECEDING VALIDATORS PASSED; the correct strict control-plane and Jira-manifest commands were run separately and passed."
+    },
+    {
+      "finding": "The first GitHub merge command requested a merge commit, but repository policy disallows merge commits.",
+      "disposition": "NO MERGE OCCURRED; PR #126 was then squash-merged through the permitted policy after all checks passed."
+    },
+    {
+      "finding": "The first Jira completion/activation orchestration applied the intended field and status updates but its final BAT-395 comment call omitted the issue-key argument and raised a local TypeError.",
+      "disposition": "LIVE STATES WERE READ BACK AS CORRECT; the missing activation comment was added separately as comment 13448 and both issue states were reverified."
+    },
+    {
+      "finding": "The first completion reconciliation correctly refused local DONE and downstream READY because the canonical evidence state had not yet been synchronized to VERIFIED.",
+      "disposition": "FAIL-CLOSED SAFETY GATE PRESERVED; the merged evidence and canonical VERIFIED state were written first, then dry-run and actual reconciliation passed with zero conflicts."
     }
   ],
   "rollback_checkpoint": {
@@ -242,16 +254,21 @@
     "bundle_verify": "PASS"
   },
   "integration": {
-    "implementation_pr_state": "PENDING_VALIDATION_AND_REVIEW",
+    "implementation_pr": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/126",
+    "implementation_pr_state": "MERGED",
+    "implementation_merge_commit": "4f8901eaf94e51b8562f9d6cd2857df2891af88b",
+    "implementation_merged_at_utc": "2026-08-10T09:53:59Z",
+    "github_checks": "PASS",
     "live_jira": {
       "issue_key": "BAT-394",
       "issue_id": "24534",
-      "status": "In Progress",
-      "logical_workflow_state": "IN_PROGRESS",
-      "implementation_maturity": "FUNCTIONAL_STARTER",
-      "evidence_state": "PARTIAL",
+      "status": "Done",
+      "logical_workflow_state": "DONE",
+      "implementation_maturity": "EMPIRICALLY_VALIDATED",
+      "evidence_state": "VERIFIED",
       "claim_comment_id": "13446",
-      "updated": "2026-08-10T04:39:28.115-0500"
+      "completion_comment_id": "13447",
+      "updated": "2026-08-10T04:55:05.148-0500"
     },
     "claim_reconciliation": {
       "source_export": "<external-data-root>/runtime/BAT-394/BAT-394-claim-live-row.csv",
@@ -261,6 +278,49 @@
       "changed_issues": 1,
       "conflicts": 0,
       "strict_validation": "PASS"
+    },
+    "downstream_activation": {
+      "jira_key": "BAT-395",
+      "issue_id": "24535",
+      "status": "To Do",
+      "logical_workflow_state": "READY",
+      "implementation_maturity": "FUNCTIONAL_STARTER",
+      "evidence_state": "PLANNED",
+      "activation_comment_id": "13448",
+      "updated": "2026-08-10T04:55:24.354-0500"
+    },
+    "completion_reconciliation": {
+      "source_export": "<external-data-root>/runtime/BAT-394/BAT-394-completion-live-rows.csv",
+      "first_attempt": "PASS_WITH_2_EXPECTED_FAIL_CLOSED_CONFLICTS_BEFORE_LOCAL_EVIDENCE_SYNC",
+      "final_dry_run": "PASS",
+      "final_actual": "PASS",
+      "rows": 2,
+      "changed_issues": 2,
+      "conflicts": 0,
+      "strict_validation": "PASS",
+      "local_bat_394_state": "DONE_VERIFIED",
+      "local_bat_395_state": "READY"
+    },
+    "post_sync_validation": {
+      "timestamp_report": "<external-data-root>/validation/BAT-394/timestamp-normalization/validation-report-post-sync.json",
+      "timestamp_report_sha256": "801f81d21789254673b5b0ef017d5d43906c635e51c60e4375f600c64ef004e3",
+      "timestamp_report_bytes": 2965,
+      "timestamp_findings": 0,
+      "unsafe_mutations_rejected": 8,
+      "strict_repository_and_provenance": "PASS",
+      "autonomous_controls": "PASS",
+      "w25_final": "PASS",
+      "source_references": 2119,
+      "jira_derivatives": 474,
+      "jira_manifest_files": 1804,
+      "jira_second_pass": "PASS",
+      "jira_live_control_plane": "PASS",
+      "tests_passed": 316,
+      "tests_skipped": 2,
+      "subtests_passed": 79,
+      "bat_395_state": "READY",
+      "merge_commit_repository_ci": "PASS",
+      "merge_commit_security_analysis": "PASS"
     }
   },
   "eligibility": {

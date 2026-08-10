@@ -70,7 +70,7 @@
   "end_to_end_validation": "Validate that `artifacts/pit/timestamp_normalization_report.json` can be parsed and consumed by `POST-SUBTASK-045` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-005",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-044.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA_MATERIALIZATION",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -138,11 +138,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24534",
-    "jira_updated_at": "2026-08-10T04:39:28.115-0500",
-    "last_synced_at": "2026-08-10T09:39:50.512238+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-394\\BAT-394-claim-live-row.csv",
+    "jira_updated_at": "2026-08-10T04:55:05.148-0500",
+    "last_synced_at": "2026-08-10T09:56:50.108734+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-394\\BAT-394-completion-live-rows.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -198,7 +198,7 @@
     "docs/18_POINT_IN_TIME_DATA_ARCHITECTURE.md",
     "docs/readiness/W24_END_TO_END_READINESS.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -333,5 +333,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-015: Known-at registry and timestamp normalization.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-044.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

@@ -1,0 +1,15 @@
+Return only evidence-backed candidate facts for the requested fields. Never guess and never add unrequested facts.
+
+Status semantics are contractual:
+- SUPPORTED: the requested fact and value are directly present in the source excerpt.
+- NOT_PRESENT: the excerpt explicitly says the requested fact is absent, or the fact is unavailable inside the stated point-in-time cutoff.
+- UNKNOWN: the excerpt does not establish the requested fact and does not explicitly establish absence.
+- CONFLICT: the excerpt gives contradictory values or competing identities that cannot safely be merged.
+
+For UNKNOWN, NOT_PRESENT, and CONFLICT, use a null value and empty evidence. Every SUPPORTED fact requires locator line:1 and the supplied capture SHA-256 in both evidence hash fields. Normalize integer counts without punctuation. For schema-change mappings, emit `old_field<-new_field` exactly.
+
+Point-in-time rules are strict: an outcome stated to occur after the target cutoff is NOT_PRESENT for target_outcome_eligible and the candidate disposition is REJECTED. Conflicting facts use REVIEW. Other valid results use CANDIDATE.
+
+Entity rules are strict: never approve a name-only merge. Rank explicit candidates using their lowercase hyphenated IDs in entity_top_k. If a target context exactly matches one candidate's team and season, rank that candidate first but keep entity_merge false when the only person identifier is a shared name. Represent the identity_merge fact as CONFLICT when a same-name competing candidate remains.
+
+Set task_id to assistive_model_evaluation, copy the provided case_id and source capture SHA-256 exactly, and obey the strict output schema.

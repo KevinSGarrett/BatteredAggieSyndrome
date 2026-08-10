@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 import tomllib
@@ -30,6 +31,19 @@ def validate(root: Path) -> list[str]:
             validate_strict_output_schema(schema)
         except Exception as exc:
             errors.append(f"strict schema {schema_name}: {exc}")
+
+    evaluation_policy = json.loads(
+        (root / "configs" / "openai_evaluation_policy.json").read_text(encoding="utf-8")
+    )
+    prompt = evaluation_policy["prompt"]
+    prompt_path = root / prompt["path"]
+    prompt_sha256 = hashlib.sha256(prompt_path.read_bytes()).hexdigest()
+    if prompt_sha256 != prompt["sha256"]:
+        errors.append("OpenAI evaluation prompt hash disagrees with policy")
+    if evaluation_policy["acceptance"]["unsupported_fact_rate_max"] != 0.0:
+        errors.append("OpenAI evaluation must require zero unsupported facts")
+    if evaluation_policy["acceptance"]["false_merge_rate_max"] != 0.0:
+        errors.append("OpenAI evaluation must require zero false merges")
 
     project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     direct = project["project"].get("optional-dependencies", {}).get("openai-assist", [])

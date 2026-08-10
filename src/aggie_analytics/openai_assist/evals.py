@@ -21,10 +21,13 @@ class EvaluationReport:
     unsupported_fact_rate: float
     false_merge_rate: float
     entity_top_k_recall: float
-    repeated_run_consistency: float
-    cross_model_disagreement_rate: float
+    repeated_run_groups: int
+    repeated_run_consistency: float | None
+    cross_model_groups: int
+    cross_model_disagreement_rate: float | None
     total_cost_usd: float
-    cost_per_accepted_record_usd: float
+    accepted_records: int
+    cost_per_accepted_record_usd: float | None
     review_time_saved_seconds: float
     quarantine_rate: float
 
@@ -36,9 +39,17 @@ def _jsonl(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) -> EvaluationReport:
+def evaluate(
+    gold_path: Path,
+    predictions_path: Path,
+    schema: dict[str, Any],
+    *,
+    model: str | None = None,
+) -> EvaluationReport:
     gold_rows = _jsonl(gold_path)
     predictions = _jsonl(predictions_path)
+    if model is not None:
+        predictions = [row for row in predictions if row.get("model") == model]
     gold = {row["case_id"]: row for row in gold_rows}
     if len(gold) != len(gold_rows):
         raise ValueError("duplicate gold case identity")
@@ -88,7 +99,10 @@ def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) ->
                 evidence_correct += int(bool(wanted) and wanted <= locators)
                 if exp is None or exp.get("status") != "SUPPORTED":
                     unsupported += 1
-        false_negative += len(set(expected) - set(actual))
+        for field, exp in expected.items():
+            fact = actual.get(field)
+            if fact is None or fact.get("status") != exp["status"] or fact.get("value") != exp["value"]:
+                false_negative += 1
 
         for field, exp in expected.items():
             if exp["status"] in {"UNKNOWN", "NOT_PRESENT", "CONFLICT"}:
@@ -116,13 +130,13 @@ def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) ->
     repeat_consistency = (
         sum(len(set(values)) == 1 for values in repeat_groups) / len(repeat_groups)
         if repeat_groups
-        else 1.0
+        else None
     )
     disagreement_groups = [values for values in case_fingerprints.values() if len(values) > 1]
     disagreement_rate = (
         sum(len(set(values.values())) > 1 for values in disagreement_groups) / len(disagreement_groups)
         if disagreement_groups
-        else 0.0
+        else None
     )
     return EvaluationReport(
         cases=len(gold),
@@ -135,10 +149,13 @@ def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) ->
         unsupported_fact_rate=unsupported / max(1, supported_total),
         false_merge_rate=false_merges / max(1, merge_decisions),
         entity_top_k_recall=top_k_hits / max(1, top_k_cases),
+        repeated_run_groups=len(repeat_groups),
         repeated_run_consistency=repeat_consistency,
+        cross_model_groups=len(disagreement_groups),
         cross_model_disagreement_rate=disagreement_rate,
         total_cost_usd=total_cost,
-        cost_per_accepted_record_usd=total_cost / max(1, accepted_records),
+        accepted_records=accepted_records,
+        cost_per_accepted_record_usd=(total_cost / accepted_records if accepted_records else None),
         review_time_saved_seconds=review_time_saved,
         quarantine_rate=quarantined / len(predictions),
     )

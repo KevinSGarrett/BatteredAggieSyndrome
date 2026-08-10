@@ -293,6 +293,28 @@ class OpenAIAssistTests(unittest.TestCase):
         self.assertEqual(1.0, report.strict_schema_rate)
         self.assertEqual(0.0, report.unsupported_fact_rate)
         self.assertEqual(0.0, report.false_merge_rate)
+        self.assertEqual(0, report.repeated_run_groups)
+        self.assertIsNone(report.repeated_run_consistency)
+        self.assertEqual(0, report.cross_model_groups)
+        self.assertIsNone(report.cross_model_disagreement_rate)
+
+    def test_evaluation_counts_wrong_expected_fact_as_false_negative(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            predictions = Path(tmp) / "predictions.jsonl"
+            row = json.loads(
+                (ROOT / "fixtures" / "openai_assist" / "eval_predictions.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()[0]
+            )
+            row["candidate"]["facts"][0]["value"] = 1
+            predictions.write_text(json.dumps(row) + "\n", encoding="utf-8")
+            report = evaluate(
+                ROOT / "fixtures" / "openai_assist" / "eval_gold.jsonl",
+                predictions,
+                self._schema(),
+            )
+            self.assertLess(report.field_precision, 1.0)
+            self.assertLess(report.field_recall, 1.0)
 
 
 if __name__ == "__main__":

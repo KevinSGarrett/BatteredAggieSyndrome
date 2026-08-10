@@ -22,7 +22,7 @@
     "artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json",
     "artifacts/jira_evidence/POST-SUBTASK-068.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-048;POST-SUBTASK-067",
+  "blocked_reason": "QUALITY_GATE_BLOCKED_MATRIX_IDENTITY: 7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1; BAT-398 decision BLOCK; zero accepted rows/cells",
   "blocks": [
     "POST-SUBTASK-069"
   ],
@@ -207,7 +207,7 @@
     "docs/34_PLAYER_ROSTER_DEPTH_ARCHITECTURE.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/context_intelligence/mechanics_sparse_opponent_manifest.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -313,7 +313,7 @@
     "POST-SUBTASK-069"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "Produce a new nonempty content-addressed national pregame matrix with evidence-backed game/cutoff rows, then rerun BAT-398 and obtain an explicit APPROVE decision.",
   "validation_classes": [
     "INTEGRATION",
     "NEW_AUTOMATED_TEST_REQUIRED",

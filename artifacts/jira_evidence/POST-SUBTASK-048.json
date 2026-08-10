@@ -103,6 +103,7 @@
     "strict_repository_and_provenance": "PASS",
     "repository_manifest_files": 2956,
     "repository_manifest_fingerprint_before_evidence_finalization": "3692eb3198035e8e4f727bef063e46cd48ce20c7a51b519ab194b19071a81540",
+    "completion_sync_manifest_fingerprint_before_final_evidence_hash_refresh": "2c04093b8ca9c4e1400d0a58b3132ea757e7662051c07497485608073f613a36",
     "autonomous_controls": "PASS",
     "w25_final": "PASS",
     "source_references": 2119,
@@ -124,6 +125,40 @@
     "updated": "2026-08-10T06:24:50.669-0500",
     "source_export": "<external-data-root>/runtime/BAT-398/BAT-398-claim-live-row.csv",
     "reconciliation": "DRY_RUN_PASS_THEN_PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS"
+  },
+  "protected_integration": {
+    "implementation_commit": "343379b8220ec7acee339ce8089b95251acc783a",
+    "pull_request": 134,
+    "merge_commit": "c0331f0d865a5d918c7e5a6a274500ae03382d7b",
+    "merged_at_utc": "2026-08-10T11:32:32Z",
+    "pull_request_checks": "PASS",
+    "main_merge_repository_ci": "PASS",
+    "main_merge_security_analysis": "PASS"
+  },
+  "live_jira_completion": {
+    "status": "Done",
+    "logical_workflow_state": "DONE",
+    "implementation_maturity": "PRODUCTION_READY",
+    "evidence_state": "VERIFIED",
+    "completion_comment_id": "13459",
+    "downstream_block_comment_id": "13460",
+    "updated": "2026-08-10T06:35:46.241-0500",
+    "source_export": "<external-data-root>/runtime/BAT-398/BAT-398-completion-live-row.csv"
+  },
+  "completion_sync": {
+    "initial_reconciliation": "PASS_WITH_EXPECTED_DONE_CONFLICT_WHILE_CANONICAL_EVIDENCE_WAS_PLANNED",
+    "canonical_evidence_promotion": "VERIFIED",
+    "final_dry_run": "PASS_ZERO_CONFLICTS",
+    "final_reconciliation": "PASS_ZERO_CONFLICTS_STRICT_VALIDATION_PASS",
+    "post_sync_matrix_gate_validation": {
+      "path": "<external-data-root>/validation/BAT-398/matrix-gate/validation-report-post-sync.json",
+      "sha256": "473fbc36d26ce2c8088ff91d4a30c568315c53fafe52f076a97f78f84aa782a6",
+      "result": "PASS",
+      "findings": 0,
+      "unsafe_mutations_rejected": 12
+    },
+    "atomic_consumers_quality_blocked": 15,
+    "aggregate_consumers_not_promoted": 7
   },
   "downstream_reevaluation": {
     "count": 23,
@@ -147,7 +182,7 @@
   },
   "completion_claim": {
     "achieved_maturity": "PRODUCTION_READY_GATE_IMPLEMENTATION",
-    "evidence_state": "IMPLEMENTATION_EVIDENCE_COMPLETE_PENDING_PROTECTED_INTEGRATION_AND_LIVE_SYNC",
+    "evidence_state": "VERIFIED",
     "atomic_work_unit": "PASS_VALIDATED_BLOCK_DECISION",
     "matrix_approval": "BLOCKED_NOT_APPROVED",
     "historical_population_readiness": "NOT_ESTABLISHED"

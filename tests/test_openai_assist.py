@@ -289,6 +289,7 @@ class OpenAIAssistTests(unittest.TestCase):
             self._schema(),
         )
         self.assertEqual(8, report.cases)
+        self.assertEqual(8, report.prediction_runs)
         self.assertEqual(1.0, report.strict_schema_rate)
         self.assertEqual(0.0, report.unsupported_fact_rate)
         self.assertEqual(0.0, report.false_merge_rate)

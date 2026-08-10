@@ -2611,6 +2611,7 @@ schemas/models/joint_score_distribution.json
 schemas/models/model_target.json
 schemas/models/simulation_scenario.json
 schemas/openai/assistive_candidate.schema.json
+schemas/openai/assistive_evaluation.schema.json
 schemas/players/availability_state.json
 schemas/players/honor_observation.json
 schemas/players/player_state.json

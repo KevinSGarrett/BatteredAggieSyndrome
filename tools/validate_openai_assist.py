@@ -22,13 +22,14 @@ def validate(root: Path) -> list[str]:
         policy = AssistivePolicy.load(root)
     except Exception as exc:
         return [f"policy: {exc}"]
-    try:
-        schema = json.loads(
-            (root / "schemas" / "openai" / "assistive_candidate.schema.json").read_text(encoding="utf-8")
-        )
-        validate_strict_output_schema(schema)
-    except Exception as exc:
-        errors.append(f"strict schema: {exc}")
+    for schema_name in ["assistive_candidate.schema.json", "assistive_evaluation.schema.json"]:
+        try:
+            schema = json.loads(
+                (root / "schemas" / "openai" / schema_name).read_text(encoding="utf-8")
+            )
+            validate_strict_output_schema(schema)
+        except Exception as exc:
+            errors.append(f"strict schema {schema_name}: {exc}")
 
     project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     direct = project["project"].get("optional-dependencies", {}).get("openai-assist", [])

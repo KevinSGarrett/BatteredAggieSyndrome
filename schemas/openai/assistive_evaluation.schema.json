@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://batteredaggiesyndrome.local/schemas/openai/assistive_evaluation.schema.json",
+  "title": "OpenAI assistive evaluation candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "case_id", "source_capture_sha256", "disposition", "facts", "entity_top_k", "entity_merge", "conflicts", "notes"],
+  "properties": {
+    "task_id": {"type": "string", "minLength": 1},
+    "case_id": {"type": "string", "minLength": 1},
+    "source_capture_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "disposition": {"type": "string", "enum": ["CANDIDATE", "REVIEW", "QUARANTINE", "REJECTED"]},
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field", "value", "status", "evidence"],
+        "properties": {
+          "field": {"type": "string", "minLength": 1},
+          "value": {"type": ["string", "number", "integer", "boolean", "null"]},
+          "status": {"type": "string", "enum": ["SUPPORTED", "UNKNOWN", "NOT_PRESENT", "CONFLICT"]},
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["source_capture_sha256", "locator", "excerpt_sha256"],
+              "properties": {
+                "source_capture_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+                "locator": {"type": "string", "minLength": 1},
+                "excerpt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "entity_top_k": {"type": "array", "items": {"type": "string"}},
+    "entity_merge": {"type": ["boolean", "null"]},
+    "conflicts": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

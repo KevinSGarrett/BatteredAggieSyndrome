@@ -408,6 +408,32 @@ class OpenAIAssistTests(unittest.TestCase):
         self.assertEqual("ELIGIBLE_NOT_SUBMITTED", pilot["route_decision"]["batch_status"])
         self.assertEqual(97.815594, pilot["project_usage_after_pilot"]["remaining_usd"])
 
+    def test_entity_review_pilot_preserves_abstention_and_no_merge_authority(self):
+        pilot = json.loads(
+            (ROOT / "artifacts" / "openai_assist" / "entity_review_pilot.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual("SHADOW_REVIEW_ONLY_NO_MERGE_AUTHORITY", pilot["authority"])
+        self.assertEqual(36, pilot["results"]["completed_predictions"])
+        self.assertEqual(36, pilot["results"]["review_destination"])
+        self.assertEqual(1.0, pilot["results"]["strict_schema_rate"])
+        self.assertEqual(1.0, pilot["results"]["field_precision"])
+        self.assertEqual(1.0, pilot["results"]["field_recall"])
+        self.assertEqual(1.0, pilot["results"]["evidence_accuracy"])
+        self.assertEqual(1.0, pilot["results"]["correct_abstention_rate"])
+        self.assertEqual(1.0, pilot["results"]["entity_top_k_recall"])
+        self.assertEqual(0.0, pilot["results"]["unsupported_fact_rate"])
+        self.assertEqual(0.0, pilot["results"]["false_merge_rate"])
+        self.assertEqual(0.0, pilot["results"]["candidate_set_error_rate"])
+        self.assertEqual(0, pilot["results"]["canonical_writes"])
+        self.assertEqual(0.0, pilot["results"]["review_time_saved_seconds"])
+        self.assertFalse(pilot["route_decision"]["merge_authority"])
+        self.assertFalse(pilot["route_decision"]["terra_or_sol_incremental_accuracy_in_this_pilot"])
+        self.assertEqual("ELIGIBLE_NOT_SUBMITTED", pilot["route_decision"]["batch_status"])
+        self.assertEqual(97.334148, pilot["project_usage_after_pilot"]["remaining_usd"])
+        self.assertEqual("PASS", pilot["acceptance_matrix"][0]["disposition"])
+
 
 if __name__ == "__main__":
     unittest.main()

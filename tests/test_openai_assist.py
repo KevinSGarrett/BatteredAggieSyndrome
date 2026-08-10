@@ -301,6 +301,9 @@ class OpenAIAssistTests(unittest.TestCase):
         self.assertIsNone(report.repeated_run_consistency)
         self.assertEqual(0, report.cross_model_groups)
         self.assertIsNone(report.cross_model_disagreement_rate)
+        self.assertGreater(report.abstention_facts, 0)
+        self.assertGreater(report.merge_decisions, 0)
+        self.assertGreater(report.entity_top_k_cases, 0)
 
     def test_evaluation_counts_wrong_expected_fact_as_false_negative(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -375,6 +378,25 @@ class OpenAIAssistTests(unittest.TestCase):
         parsed, errors = controller._validate_candidate(response, self._schema(), job)
         self.assertEqual("REVIEW", parsed["disposition"])
         self.assertEqual([], errors)
+
+    def test_empirical_comparison_and_gamebook_pilot_preserve_authority_boundaries(self):
+        comparison = json.loads(
+            (ROOT / "artifacts" / "openai_assist" / "model_comparison.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(0.0, comparison["combined_final_metrics"]["unsupported_fact_rate"])
+        self.assertEqual(0.0, comparison["combined_final_metrics"]["false_merge_rate"])
+        self.assertEqual(1.0, comparison["combined_final_metrics"]["repeated_run_consistency"])
+        self.assertEqual("SHADOW_CANDIDATE_ONLY", comparison["authority"])
+        pilot = json.loads(
+            (ROOT / "artifacts" / "openai_assist" / "gamebook_pilot.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(0.0, pilot["results"]["unsupported_fact_rate"])
+        self.assertFalse(pilot["route_decision"]["canonical_write_authority"])
+        self.assertEqual("PARTIAL", pilot["acceptance_matrix"][0]["disposition"])
 
 
 if __name__ == "__main__":

@@ -17,11 +17,15 @@ class EvaluationReport:
     strict_schema_rate: float
     field_precision: float
     field_recall: float
-    evidence_accuracy: float
-    correct_abstention_rate: float
-    unsupported_fact_rate: float
-    false_merge_rate: float
-    entity_top_k_recall: float
+    supported_facts: int
+    evidence_accuracy: float | None
+    abstention_facts: int
+    correct_abstention_rate: float | None
+    unsupported_fact_rate: float | None
+    merge_decisions: int
+    false_merge_rate: float | None
+    entity_top_k_cases: int
+    entity_top_k_recall: float | None
     repeated_run_groups: int
     repeated_run_consistency: float | None
     cross_model_groups: int
@@ -146,11 +150,15 @@ def evaluate(
         strict_schema_rate=schema_valid / len(predictions),
         field_precision=true_positive / max(1, true_positive + false_positive),
         field_recall=true_positive / max(1, true_positive + false_negative),
-        evidence_accuracy=evidence_correct / max(1, evidence_total),
-        correct_abstention_rate=abstention_correct / max(1, abstention_total),
-        unsupported_fact_rate=unsupported / max(1, supported_total),
-        false_merge_rate=false_merges / max(1, merge_decisions),
-        entity_top_k_recall=top_k_hits / max(1, top_k_cases),
+        supported_facts=supported_total,
+        evidence_accuracy=(evidence_correct / evidence_total if evidence_total else None),
+        abstention_facts=abstention_total,
+        correct_abstention_rate=(abstention_correct / abstention_total if abstention_total else None),
+        unsupported_fact_rate=(unsupported / supported_total if supported_total else None),
+        merge_decisions=merge_decisions,
+        false_merge_rate=(false_merges / merge_decisions if merge_decisions else None),
+        entity_top_k_cases=top_k_cases,
+        entity_top_k_recall=(top_k_hits / top_k_cases if top_k_cases else None),
         repeated_run_groups=len(repeat_groups),
         repeated_run_consistency=repeat_consistency,
         cross_model_groups=len(disagreement_groups),

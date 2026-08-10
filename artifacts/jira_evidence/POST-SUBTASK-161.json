@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "POST_W25_ATOMIC_ISSUE_VALIDATION_EVIDENCE",
+  "decision_unit": "POST-SUBTASK-161",
+  "jira_key": "BAT-517",
+  "created_at_utc": "2026-08-10T05:06:55Z",
+  "acceptance_matrix": [
+    {
+      "criterion": 1,
+      "disposition": "PASS",
+      "evidence": "fixtures/openai_assist/eval_gold.jsonl",
+      "evidence_sha256": "01cde467fed17c4a069ccfbf1bdf4d86561fea260e17806e9d30a1bf231c7ff1",
+      "observable_result": "Eight pinned cases cover positive, negative, ambiguous, conflicting, schema drift, PIT target leakage, abstention, evidence, entity ranking, and false-merge protection. A contradictory ambiguous case was replaced under a new capture identity and the negative finding remains preserved."
+    },
+    {
+      "criterion": 2,
+      "disposition": "PASS",
+      "evidence": "artifacts/openai_assist/model_comparison.json",
+      "evidence_sha256": "dc253f7fadef16e5df233f2b967501a251de799b4b71082121435e683fd18e4c",
+      "observable_result": "Luna/none, Terra/medium, and Sol/medium ran on identical cases plus four repeated cases each. Final v4 results are 100% strict schema, precision, recall, evidence, abstention, top-k recall, and repeat consistency; zero unsupported facts, false merges, quarantine, and cross-model disagreement. Cost and N/A-aware review metrics are explicit."
+    },
+    {
+      "criterion": 3,
+      "disposition": "PASS",
+      "evidence": "configs/openai_evaluation_policy.json",
+      "evidence_sha256": "9430994d7ce9243070fff548f38aef46bd007e1ded3a1bd959fa6421527b052c",
+      "observable_result": "Safety and quality thresholds were versioned before the accepted run. v1-v3 failures were retained and used to correct semantic, gold, schema-subset, exact-repeat, and non-entity isolation defects; no failed result or post-hoc threshold relaxation approved a route."
+    }
+  ],
+  "artifacts": [
+    {"role": "EMPIRICAL_COMPARISON", "path": "artifacts/openai_assist/model_comparison.json", "sha256": "dc253f7fadef16e5df233f2b967501a251de799b4b71082121435e683fd18e4c", "bytes": 5316},
+    {"role": "EVALUATION_POLICY", "path": "configs/openai_evaluation_policy.json", "sha256": "9430994d7ce9243070fff548f38aef46bd007e1ded3a1bd959fa6421527b052c", "bytes": 1856},
+    {"role": "PINNED_PROMPT", "path": "prompts/openai_assist/evaluation_v4.txt", "sha256": "69f8dfc99860bbe86f81683f8828ed455e6dcb1eae5c276e64fd86b73b0a6251", "bytes": 2206},
+    {"role": "PINNED_GOLD_CORPUS", "path": "fixtures/openai_assist/eval_gold.jsonl", "sha256": "01cde467fed17c4a069ccfbf1bdf4d86561fea260e17806e9d30a1bf231c7ff1", "bytes": 3046, "cases": 8},
+    {"role": "STRICT_EVALUATION_SCHEMA", "path": "schemas/openai/assistive_evaluation.schema.json", "sha256": "d7d6ff74cb1080fe70eaff37b0709cfc43a440322d83ede1c15611e20c3f783f", "bytes": 2078},
+    {"role": "LOCAL_EVALUATOR", "path": "src/aggie_analytics/openai_assist/evals.py", "sha256": "4f8f861e5e397be890c5f504a94e2a52462d50772d1b8eeaf03d71ed477376f5", "bytes": 7478},
+    {"role": "BOUNDED_RUNNER", "path": "tools/run_openai_assist_eval.py", "sha256": "d7c6ef622b736fdd799c85c9f59350ebb3fca2e0466d996d720a40d336c73d27", "bytes": 8901}
+  ],
+  "external_evidence": {
+    "final_primary_predictions_sha256": "cb9bfb7b2318ca41238c27ddb8b6c4582c1d9c84e94de83851c528d81446f6ef",
+    "final_primary_manifest_sha256": "294d09bb22cc22b4fd5ca1dbb35e38baf1a835e190847120531bd53be4f155ca",
+    "final_repeat_predictions_sha256": "f6bae6ebfef50af67147d6ea0dd2edbaae235f8fbce578bd51c4d7342c6f8bf9",
+    "final_repeat_manifest_sha256": "4d4847d06a32447cfefeafdbbc3e6a2f789c3fff422fcb82c55b48d92bf7a986",
+    "storage": "<external-data-root>/openai/evals/sha256",
+    "content_addressed": true
+  },
+  "usage": {
+    "synchronous_attempts": 180,
+    "completed_request_manifests": 156,
+    "provider_rejected_zero_cost_schema_attempts": 24,
+    "batch_jobs": 0,
+    "input_tokens": 120660,
+    "output_tokens": 29153,
+    "reasoning_tokens_within_output": 1370,
+    "settled_usd": "0.724661",
+    "remaining_project_budget_after_unit_usd": "99.275339"
+  },
+  "candidate_dispositions": {
+    "final_v4": {"accepted_candidate": 18, "review": 12, "quarantine": 0, "rejected": 6},
+    "all_completed_payloads": {"candidate": 93, "review": 42, "quarantine": 0, "rejected": 21},
+    "legacy_controller_envelope_note": "Sixty-three valid REVIEW/REJECTED payloads in earlier runs were conservatively labeled QUARANTINE by an exact-destination bug; immutable history is preserved and future controller behavior is fixed and tested."
+  },
+  "negative_findings": [
+    "v1 status/normalization/entity/PIT semantics were under-specified.",
+    "The original ambiguous gold case contradicted its expected UNKNOWN status.",
+    "Free-text conflicts caused exact-repeat instability.",
+    "Structured Outputs rejected maxItems/uniqueItems; the zero-cost failure is preserved and now blocked locally.",
+    "Luna v3 emitted entity fields on one non-entity case; v4 made the null/empty rule explicit.",
+    "The controller exact-destination check quarantined valid REVIEW/REJECTED candidate outcomes and is corrected for future jobs."
+  ],
+  "commands": [
+    {"command": "python -B tools/run_openai_assist_eval.py (versioned primary/repeat runs)", "exit_code": 0, "result": "PASS: final 36 predictions; earlier negative runs preserved"},
+    {"command": "python -B tools/openai_assist.py eval --predictions <primary> --predictions <repeat> --schema <evaluation> --model <route>", "exit_code": 0, "result": "PASS: every final predeclared route threshold"},
+    {"command": "PYTHONPATH=src python -B -m unittest discover -s tests -p test_*.py -q", "exit_code": 0, "result": "PASS: 308 tests, 2 Windows privilege-dependent symlink skips"}
+  ],
+  "cleanup": {
+    "remote_batch_files": "NOT_APPLICABLE_NO_BATCH_JOBS",
+    "verified_reconstructible_python_and_pytest_caches_removed": true,
+    "raw_requests_responses_and_usage_preserved_external": true,
+    "credentials_exposed": false
+  },
+  "completion": {
+    "completion_claimed": true,
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE_VERIFIED_LOCAL_MODEL_COMPARISON",
+    "remaining_issue_scope_blockers": []
+  },
+  "downstream_reevaluation": {
+    "POST-SUBTASK-162": "READY_AND_STARTED_IN_SHADOW_MODE",
+    "POST-SUBTASK-163": "READY",
+    "POST-SUBTASK-164": "READY",
+    "POST-SUBTASK-165": "CONDITIONAL_ON_SUITABLE_SOURCE_EVIDENCE"
+  },
+  "honesty_boundary": {
+    "historical_population_ready": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false,
+    "model_outputs_control_canonical_or_protected_truth": false
+  }
+}

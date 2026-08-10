@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "purpose": "Fail-closed identities for explicitly authorized live BAT maintenance and owner-amendment units that are outside the generated 474-issue canonical import corpus.",
+  "issues": [
+    {
+      "jira_key": "BAT-510",
+      "local_id": "POST-TASK-STORAGE-CLEANUP-001",
+      "summary": "External storage consolidation, cleanup, and future-path enforcement",
+      "issue_type": "Task",
+      "status": "Done",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "VERIFIED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "critical_path": false,
+      "execution_lane": "OPERATIONS",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    },
+    {
+      "jira_key": "BAT-511",
+      "local_id": "POST-TASK-REPO-REVIEW-001",
+      "summary": "Review and integrate owner-supplied open-source repository corpus",
+      "issue_type": "Task",
+      "status": "Done",
+      "logical_state": "DONE",
+      "maturity": "IMPLEMENTED",
+      "evidence_state": "VERIFIED",
+      "owner_wave": "POST_W25",
+      "phase": "PHASE-1",
+      "critical_path": true,
+      "execution_lane": "SHARED_CONTRACT",
+      "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ from .schemas import evidence_errors, validate_instance
 @dataclass(frozen=True)
 class EvaluationReport:
     cases: int
+    prediction_runs: int
     strict_schema_rate: float
     field_precision: float
     field_recall: float
@@ -21,6 +22,10 @@ class EvaluationReport:
     false_merge_rate: float
     entity_top_k_recall: float
     repeated_run_consistency: float
+    cross_model_disagreement_rate: float
+    total_cost_usd: float
+    cost_per_accepted_record_usd: float
+    review_time_saved_seconds: float
     quarantine_rate: float
 
     def as_dict(self) -> dict[str, Any]:
@@ -48,6 +53,10 @@ def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) ->
     false_merges = merge_decisions = 0
     top_k_hits = top_k_cases = 0
     fingerprints: dict[tuple[str, str, str], list[str]] = defaultdict(list)
+    case_fingerprints: dict[str, dict[str, str]] = defaultdict(dict)
+    total_cost = 0.0
+    accepted_records = 0
+    review_time_saved = 0.0
 
     for row in predictions:
         case_id = row["case_id"]
@@ -59,6 +68,9 @@ def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) ->
         errors.extend(evidence_errors(candidate, capture_sha256=case["source_capture_sha256"]))
         schema_valid += int(not errors)
         quarantined += int(bool(errors) or candidate.get("disposition") == "QUARANTINE")
+        accepted_records += int(not errors and candidate.get("disposition") in {"CANDIDATE", "REVIEW"})
+        total_cost += float(row.get("actual_cost_usd", 0.0))
+        review_time_saved += float(row.get("review_time_saved_seconds", 0.0))
 
         expected = {item["field"]: item for item in case["expected_facts"]}
         actual = {item["field"]: item for item in candidate.get("facts", [])}
@@ -98,6 +110,7 @@ def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) ->
 
         fingerprint = json.dumps(candidate, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         fingerprints[(case_id, row.get("model", ""), row.get("reasoning_effort", ""))].append(fingerprint)
+        case_fingerprints[case_id][row.get("model", "")] = fingerprint
 
     repeat_groups = [values for values in fingerprints.values() if len(values) > 1]
     repeat_consistency = (
@@ -105,8 +118,15 @@ def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) ->
         if repeat_groups
         else 1.0
     )
+    disagreement_groups = [values for values in case_fingerprints.values() if len(values) > 1]
+    disagreement_rate = (
+        sum(len(set(values.values())) > 1 for values in disagreement_groups) / len(disagreement_groups)
+        if disagreement_groups
+        else 0.0
+    )
     return EvaluationReport(
-        cases=len(predictions),
+        cases=len(gold),
+        prediction_runs=len(predictions),
         strict_schema_rate=schema_valid / len(predictions),
         field_precision=true_positive / max(1, true_positive + false_positive),
         field_recall=true_positive / max(1, true_positive + false_negative),
@@ -116,5 +136,9 @@ def evaluate(gold_path: Path, predictions_path: Path, schema: dict[str, Any]) ->
         false_merge_rate=false_merges / max(1, merge_decisions),
         entity_top_k_recall=top_k_hits / max(1, top_k_cases),
         repeated_run_consistency=repeat_consistency,
+        cross_model_disagreement_rate=disagreement_rate,
+        total_cost_usd=total_cost,
+        cost_per_accepted_record_usd=total_cost / max(1, accepted_records),
+        review_time_saved_seconds=review_time_saved,
         quarantine_rate=quarantined / len(predictions),
     )

@@ -152,6 +152,27 @@
     "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
     "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_PIT_AND_AVAILABILITY_ADMISSION_PENDING"
   },
+  "parallel_player_event_metric_checkpoint": {
+    "domain": "player_event_metrics",
+    "grain": "GAME_PLAYER_CATEGORY_STAT_DERIVED_FROM_VERSIONED_PLAY_EVENTS",
+    "dataset_identity": "869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10",
+    "manifest_sha256": "4e20e5a285a14cca40a5dc0a57ce4628edb5d76653d037ffe3add793f8b3dede",
+    "validation_report_sha256": "3d2cbc21a82f4323c257a1ef9be60d7c8f42beaa45056a679e3613c77eeaae3e",
+    "deterministic_rebuild_report_sha256": "a24d9b086288d2c45fc930c1e4629d4f3c9b0394630762b05b099b4f257e3250",
+    "repository_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "repository_source_rows": 921136,
+    "derived_metric_rows": 354082,
+    "cross_route_exact_canonical_game_player_team_candidates": 289897,
+    "cross_route_exact_identity_or_membership_pending": 14138,
+    "source_level_only_candidates": 6742,
+    "quarantined_rows": 43305,
+    "signed_yardage_rows_preserved": 5595,
+    "metric_scope": ["passing:YDS", "rushing:CAR", "rushing:YDS", "receiving:REC", "receiving:YDS", "interceptions:INT"],
+    "official_box_score_materialization": false,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
+    "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_AND_PIT_ADMISSION_PENDING"
+  },
   "coverage": {
     "source_candidate_rows": 12047,
     "accepted_strict_game_outcomes": 10593,

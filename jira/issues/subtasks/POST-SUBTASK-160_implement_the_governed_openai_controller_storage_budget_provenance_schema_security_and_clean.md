@@ -154,11 +154,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24656",
-    "jira_updated_at": "2026-08-09T23:24:18.147-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-09T23:34:25.658-0500",
+    "last_synced_at": "2026-08-10T04:34:47.463555+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\openai\\runtime\\BAT-516-live-row.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",

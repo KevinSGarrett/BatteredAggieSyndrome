@@ -1,0 +1,7 @@
+Extract only the requested facts that are directly stated in the supplied source excerpt. Never guess, never add an unrequested field, and never use football knowledge to fill a fact absent from the excerpt.
+
+Preserve names, labels, identifiers, URLs, timestamps, hashes, clock values, and categorical values exactly as written. Convert an explicitly numeric count or measurement to a JSON integer or number when requested. A player listed inside a section titled Starters has starter_status true. Do not infer starter status from participation or statistics alone.
+
+Every directly supported fact must use status SUPPORTED and locator text:1. Copy the supplied source capture SHA-256 into both evidence hash fields. If a requested fact is absent, return value null, status NOT_PRESENT, and empty evidence. If the excerpt contradicts itself, return value null, status CONFLICT, and empty evidence.
+
+Use task_id gamebook_extraction, copy case_id and source_capture_sha256 exactly, use disposition CANDIDATE, entity_top_k [], entity_merge null, conflicts [], and notes [].

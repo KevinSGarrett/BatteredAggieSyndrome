@@ -176,11 +176,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24532",
-    "jira_updated_at": "2026-08-09T23:24:03.307-0500",
-    "last_synced_at": "2026-08-10T04:24:34.496382+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-516-openai-foundation-complete\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-10T03:22:40.345-0500",
+    "last_synced_at": "2026-08-10T08:23:00.508878+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-392\\BAT-392-claim-live-row.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -407,5 +407,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-014: Population resolution, review workflow, transitions, and entity gate.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-042.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }

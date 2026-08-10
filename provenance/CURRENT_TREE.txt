@@ -31,6 +31,7 @@ artifacts/data_lake/historical_expansion_eligibility_gate.json
 artifacts/data_lake/historical_expansion_population_profile.json
 artifacts/data_lake/immutability_and_correction_test.json
 artifacts/data_lake/national_lake_readiness.json
+artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
 artifacts/entities/canonical_core_registry.csv
 artifacts/entities/canonical_core_registry_manifest.json
 artifacts/entities/canonical_people_registry.csv
@@ -88,6 +89,7 @@ artifacts/jira_evidence/POST-SUBTASK-038.json
 artifacts/jira_evidence/POST-SUBTASK-039.json
 artifacts/jira_evidence/POST-SUBTASK-040.json
 artifacts/jira_evidence/POST-SUBTASK-041.json
+artifacts/jira_evidence/POST-SUBTASK-042.json
 artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-160.json

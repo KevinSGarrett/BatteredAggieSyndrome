@@ -92,12 +92,14 @@ artifacts/jira_evidence/POST-SUBTASK-160.json
 artifacts/jira_evidence/POST-SUBTASK-161.json
 artifacts/jira_evidence/POST-SUBTASK-162.json
 artifacts/jira_evidence/POST-SUBTASK-163.json
+artifacts/jira_evidence/POST-SUBTASK-164.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
 artifacts/open_source/repository_review_decisions.csv
 artifacts/openai_assist/entity_review_pilot.json
 artifacts/openai_assist/gamebook_pilot.json
 artifacts/openai_assist/model_comparison.json
+artifacts/openai_assist/quarantine_schema_pilot.json
 artifacts/openai_assist/router_rebalance.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
@@ -133,6 +135,7 @@ configs/openai_assist_policy.json
 configs/openai_entity_review_pilot.json
 configs/openai_evaluation_policy.json
 configs/openai_gamebook_pilot.json
+configs/openai_quarantine_schema_pilot.json
 configs/openai_task_registry.json
 configs/player_intelligence_registry.json
 configs/raw_feature_registry.json
@@ -2529,6 +2532,7 @@ prompts/openai_assist/entity_review_v1.txt
 prompts/openai_assist/evaluation_v4.txt
 prompts/openai_assist/gamebook_domain_v4.txt
 prompts/openai_assist/gamebook_play_v1.txt
+prompts/openai_assist/quarantine_schema_v1.txt
 provenance/INPUT_ARTIFACTS.csv
 provenance/MANIFEST_POLICY.md
 provenance/PROJECT_FILE_HASHES.sha256
@@ -2875,6 +2879,7 @@ tools/package_wave.py
 tools/packaging.py
 tools/prepare_openai_entity_review_pilot.py
 tools/prepare_openai_gamebook_pilot.py
+tools/prepare_openai_quarantine_pilot.py
 tools/refresh_openai_assist_lock.py
 tools/render_task_context.py
 tools/repo_integrity.py
@@ -2883,6 +2888,7 @@ tools/run_local_benchmark.py
 tools/run_openai_assist_eval.py
 tools/run_openai_entity_review_pilot.py
 tools/run_openai_gamebook_pilot.py
+tools/run_openai_quarantine_pilot.py
 tools/run_product.py
 tools/run_reference_feature_tournament.py
 tools/run_reference_hpo_grid.py

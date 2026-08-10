@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "artifact_type": "OPENAI_QUARANTINE_SCHEMA_PILOT_RESULT",
+  "pilot_id": "openai-quarantine-schema-pilot-v1",
+  "jira_unit": "POST-SUBTASK-164",
+  "jira_key": "BAT-520",
+  "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+  "status": "COMPLETE_NEGATIVE_PROMOTION_RESULT",
+  "authority": "SHADOW_QUARANTINE_ONLY_NO_REPAIR_OR_ACCEPTANCE_AUTHORITY",
+  "sample": {
+    "case_count": 8,
+    "real_quarantine_cases": 4,
+    "synthetic_adversarial_cases": 4,
+    "categories": ["CORRUPTION", "MISSINGNESS", "SCHEMA_DRIFT", "INCOMPATIBLE_MAPPING", "EVIDENCE_ABSENT", "CROSS_SOURCE_CONFLICT", "PIT_RISK", "TARGET_LEAKAGE"],
+    "gold_sha256": "0ca9684ea9b2b39a5d4794da4003f35be28c09b154dca3b437594704e74fb23e",
+    "gold_manifest_sha256": "1bf53724b3b161e1914a7de46652872b785a71410d902c5246e62500d9bc512e"
+  },
+  "execution": {
+    "synchronous_jobs": 14,
+    "batch_jobs": 0,
+    "completed_predictions": 14,
+    "provider_failures": 0,
+    "models": {
+      "gpt-5-nano": {"reasoning_effort": "minimal", "jobs": 8, "tokens": {"input": 8615, "cached_input": 0, "output": 4097, "reasoning": 0}, "cost_usd": "0.002073"},
+      "gpt-5.6-terra": {"reasoning_effort": "low", "jobs": 4, "tokens": {"input": 4217, "cached_input": 0, "output": 2308, "reasoning": 114}, "cost_usd": "0.036130"},
+      "gpt-5.6-sol": {"reasoning_effort": "medium", "jobs": 2, "tokens": {"input": 1934, "cached_input": 0, "output": 1118, "reasoning": 0}, "cost_usd": "0.043210"}
+    },
+    "pilot_cost_usd": "0.081413",
+    "predictions_sha256": "9f8e43674620b02960354ab4280baabf29f355eeccf79de000e529d7156271a3",
+    "run_manifest_sha256": "800f8fd0db5809e93033414cf58d85a6c8e9157f4bac99c5e05b6f8c425c3197",
+    "reporter_retry_used_cache": true,
+    "duplicate_api_calls_or_cost": 0
+  },
+  "predeclared_acceptance": {
+    "strict_schema_rate": 1.0,
+    "exact_classification_rate": 1.0,
+    "evidence_accuracy": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "deterministic_route_accuracy": 1.0,
+    "canonical_authority_none_rate": 1.0,
+    "quarantine_preservation_rate": 1.0,
+    "canonical_writes": 0,
+    "protected_truth_writes": 0
+  },
+  "observed": {
+    "strict_schema_rate": 1.0,
+    "exact_classification_rate": 0.35714285714285715,
+    "evidence_accuracy": 0.56,
+    "unsupported_fact_rate": 0.3,
+    "deterministic_route_accuracy": 0.35714285714285715,
+    "canonical_authority_none_rate": 0.8571428571428571,
+    "quarantine_preservation_rate": 1.0,
+    "cross_model_disagreement_rate": 1.0,
+    "gold_exact_shadow_candidates": 5,
+    "gold_failed_shadow_candidates": 9,
+    "canonical_writes": 0,
+    "protected_truth_writes": 0,
+    "quarantined_source_records_released": 0,
+    "review_time_saved_seconds": null,
+    "review_savings_measured": false
+  },
+  "by_model": {
+    "gpt-5-nano": {"exact": 0, "runs": 8, "exact_classification_rate": 0.0},
+    "gpt-5.6-terra": {"exact": 3, "runs": 4, "exact_classification_rate": 0.75},
+    "gpt-5.6-sol": {"exact": 2, "runs": 2, "exact_classification_rate": 1.0}
+  },
+  "promotion_decision": {
+    "predeclared_gate_passed": false,
+    "nano_batch_promoted": false,
+    "terra_reserve_released": false,
+    "sol_reserve_released": false,
+    "deterministic_classifier_remains_authoritative": true,
+    "routine_disposition": "DO_NOT_SCALE_CURRENT_FORMAT_TO_NANO_BATCH",
+    "complex_disposition": "TERRA_REMAINS_BOUNDED_SHADOW_ASSISTANCE_ONLY",
+    "high_risk_disposition": "SOL_PASSED_TWO_PINNED_HIGH_RISK_CASES_BUT_SAMPLE_IS_TOO_SMALL_FOR_BROAD_PROMOTION_OR_RESERVE_RELEASE"
+  },
+  "negative_findings": [
+    "Nano produced zero exact gold matches and invented or mismatched controlled evidence/route values; it is not eligible for this format.",
+    "Terra low passed three of four complex cases; the score-conflict case exposed an ambiguous conflict-versus-incompatible-mapping boundary that remains deterministic-review work.",
+    "Sol medium passed both high-risk PIT/target-leakage cases, but no review-time saving or broad risk-reduction estimate was measured.",
+    "The overall pilot failed its predeclared promotion gate and that failure is preserved rather than threshold-adjusted."
+  ],
+  "budget_after_run": {
+    "released_stage_usd": "30.000000",
+    "settled_usd": "2.747265",
+    "reserved_usd": "0.000000",
+    "remaining_usd": "97.252735",
+    "model_spend_usd": {"gpt-5-nano": "0.002073", "gpt-5.6-luna": "0.070372", "gpt-5.6-terra": "0.773350", "gpt-5.6-sol": "1.901470"}
+  },
+  "cleanup_and_storage": {
+    "operational_payloads_outside_git": true,
+    "remote_batch_files": "NOT_APPLICABLE_NO_BATCH_SUBMITTED",
+    "abandoned_local_tmp_files": 0,
+    "source_quarantine_preserved": true,
+    "credentials_exposed": false
+  },
+  "scientific_nonclaims": [
+    "No final historical completeness claim.",
+    "No production model readiness or protected performance claim.",
+    "No A&M specialization lift, BAS, Aggie Excess, or other scientific result claim."
+  ]
+}

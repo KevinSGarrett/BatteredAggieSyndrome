@@ -66,6 +66,7 @@ Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt
 
 - configs/openai_assist_policy.json
 - configs/openai_task_registry.json
+- configs/openai_quarantine_schema_pilot.json
 - src/aggie_analytics/openai_assist/budget.py
 - src/aggie_analytics/openai_assist/policy.py
 - src/aggie_analytics/openai_assist/controller.py
@@ -74,6 +75,10 @@ Execute POST-SUBTASK-164 within the optional OpenAI assistive plane. First adopt
 - governance/OPENAI_ASSISTIVE_PLANE.md
 - docs/architecture/OPENAI_ASSISTIVE_PLANE.md
 - docs/operations/OPENAI_ASSISTIVE_PLANE.md
+- prompts/openai_assist/quarantine_schema_v1.txt
+- tools/prepare_openai_quarantine_pilot.py
+- tools/run_openai_quarantine_pilot.py
+- tools/run_openai_gamebook_pilot.py
 - artifacts/openai_assist/router_rebalance.json
 - artifacts/openai_assist/quarantine_schema_pilot.json
 - tests/test_openai_assist.py

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "pilot_id": "openai-quarantine-schema-pilot-v1",
+  "jira_unit": "POST-SUBTASK-164",
+  "task_name": "quarantine_schema_classification",
+  "authority": "SHADOW_QUARANTINE_ONLY_NO_REPAIR_OR_ACCEPTANCE_AUTHORITY",
+  "prompt": {
+    "path": "prompts/openai_assist/quarantine_schema_v1.txt",
+    "version": "quarantine-schema-v1",
+    "sha256": "41f53473f716eef48ecd1d40d6fabd70480bd1ea7fab3421144f30b48f3030f5"
+  },
+  "output_schema": "schemas/openai/assistive_evaluation.schema.json",
+  "external_sources": {
+    "missingness": {
+      "relative_path": "quarantine/SRC-002/core_normalization/game_outcome_partial_or_not_completed/sha256_3a6b22bd9d9f4cd9fd42291d60df4dfacc2e0bb7124a936110511cb50b5f7bad.jsonl",
+      "sha256": "3a6b22bd9d9f4cd9fd42291d60df4dfacc2e0bb7124a936110511cb50b5f7bad",
+      "line_number": 1
+    },
+    "incompatible_mapping": {
+      "relative_path": "quarantine/SRC-002/core_normalization/play_score_exceeds_official_outcome/sha256_27e1e55fb04e7370d4779780c3a552d88d66c9e8acae1ef88029319be081a253.jsonl",
+      "sha256": "27e1e55fb04e7370d4779780c3a552d88d66c9e8acae1ef88029319be081a253",
+      "line_number": 1
+    },
+    "evidence_absent": {
+      "relative_path": "quarantine/SRC-002/core_normalization/game_drive_final_score_mismatch/sha256_ff54fe1f7b70fe2cf99b29ae8f8c73fffe47409a9c0f834c7bdf66117112eea0.jsonl",
+      "sha256": "ff54fe1f7b70fe2cf99b29ae8f8c73fffe47409a9c0f834c7bdf66117112eea0",
+      "line_number": 1
+    },
+    "cross_source_conflict": {
+      "relative_path": "quarantine/SRC-002/core_normalization/drive_score_exceeds_official_outcome/sha256_247b474ef2775825e16733a05cdae740f46f043e344537001333ed49cfbe2ded.jsonl",
+      "sha256": "247b474ef2775825e16733a05cdae740f46f043e344537001333ed49cfbe2ded",
+      "line_number": 1
+    }
+  },
+  "synthetic_adversarial_cases": {
+    "corruption": "SYNTHETIC_VALIDATION_FIXTURE parse_status=FAILED checksum_status=MISMATCH serialization=TRUNCATED_JSON; no source fact is asserted.",
+    "schema_drift": "SYNTHETIC_VALIDATION_FIXTURE declared_schema=v1 expected_field=home_points expected_type=integer observed_schema=v2 observed_field=homeScore observed_type=string observed_value=37 approved_mapping=ABSENT.",
+    "pit_risk": "SYNTHETIC_VALIDATION_FIXTURE target_as_of_utc=2025-09-06T18:00:00Z target_kickoff_utc=2025-09-06T19:00:00Z evidence_known_at_utc=2025-09-07T03:00:00Z candidate_fact=player_available.",
+    "target_leakage": "SYNTHETIC_VALIDATION_FIXTURE predictive_target_game_id=401000001 candidate_feature=target_game_final_score feature_known_at=POST_FINAL intended_use=PREGAME_PREDICTION_SAME_GAME."
+  },
+  "cases": [
+    {"case_id": "qc_corruption", "source": "synthetic:corruption", "classification_code": "CORRUPTION", "risk_tier": "ROUTINE", "remediation_route": "QUARANTINE_REACQUIRE"},
+    {"case_id": "qc_missingness", "source": "external:missingness", "classification_code": "MISSINGNESS", "risk_tier": "ROUTINE", "remediation_route": "QUARANTINE_DOMAIN_PARTIAL"},
+    {"case_id": "qc_schema_drift", "source": "synthetic:schema_drift", "classification_code": "SCHEMA_DRIFT", "risk_tier": "COMPLEX", "remediation_route": "QUARANTINE_SCHEMA_MAP_REVIEW"},
+    {"case_id": "qc_incompatible_mapping", "source": "external:incompatible_mapping", "classification_code": "INCOMPATIBLE_MAPPING", "risk_tier": "COMPLEX", "remediation_route": "QUARANTINE_MAPPING_REVIEW"},
+    {"case_id": "qc_evidence_absent", "source": "external:evidence_absent", "classification_code": "EVIDENCE_ABSENT", "risk_tier": "COMPLEX", "remediation_route": "QUARANTINE_EVIDENCE_REQUIRED"},
+    {"case_id": "qc_cross_source_conflict", "source": "external:cross_source_conflict", "classification_code": "CROSS_SOURCE_CONFLICT", "risk_tier": "COMPLEX", "remediation_route": "QUARANTINE_SOURCE_RECONCILIATION"},
+    {"case_id": "qc_pit_risk", "source": "synthetic:pit_risk", "classification_code": "PIT_RISK", "risk_tier": "HIGH_RISK", "remediation_route": "QUARANTINE_PIT_REVIEW"},
+    {"case_id": "qc_target_leakage", "source": "synthetic:target_leakage", "classification_code": "TARGET_LEAKAGE", "risk_tier": "HIGH_RISK", "remediation_route": "QUARANTINE_LEAKAGE_REVIEW"}
+  ],
+  "routes": [
+    {
+      "model": "gpt-5-nano",
+      "reasoning_effort": "minimal",
+      "role": "ROUTINE_FIRST_PASS",
+      "case_ids": ["qc_corruption", "qc_missingness", "qc_schema_drift", "qc_incompatible_mapping", "qc_evidence_absent", "qc_cross_source_conflict", "qc_pit_risk", "qc_target_leakage"]
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "reasoning_effort": "low",
+      "role": "COMPLEX_RECONCILIATION_REFERENCE",
+      "case_ids": ["qc_schema_drift", "qc_evidence_absent", "qc_cross_source_conflict", "qc_pit_risk"]
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "medium",
+      "role": "HIGH_RISK_GOLD_CHALLENGE",
+      "case_ids": ["qc_pit_risk", "qc_target_leakage"]
+    }
+  ],
+  "predeclared_acceptance": {
+    "strict_schema_rate": 1.0,
+    "exact_classification_rate": 1.0,
+    "evidence_accuracy": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "deterministic_route_accuracy": 1.0,
+    "canonical_authority_none_rate": 1.0,
+    "quarantine_preservation_rate": 1.0,
+    "canonical_writes": 0,
+    "protected_truth_writes": 0
+  }
+}

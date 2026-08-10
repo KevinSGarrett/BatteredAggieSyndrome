@@ -196,6 +196,23 @@
     "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
     "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_PIT_FEATURE_AND_PLAYER_IDENTITY_ADMISSION_PENDING"
   },
+  "parallel_team_membership_checkpoint": {
+    "domain": "team_season_membership",
+    "grain": "TEAM_SEASON",
+    "dataset_identity": "964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024",
+    "manifest_sha256": "a5571a60f79206bef1de0643188a8317ec3a25cb96875f628e893c74b3b07810",
+    "validation_report_sha256": "b0bb2ab3e512d595efd73e65d41014ab94f3a6a0be4bf30b5e0ec2c96596f88e",
+    "deterministic_rebuild_report_sha256": "6fe9842ff953f74a03ced762c6fea542a0b44b5099974727095da7b3b090375f",
+    "repository_seasons": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+    "repository_rows": 2462,
+    "exact_source_id_canonical_team_candidates": 2462,
+    "conference_or_division_transitions": 158,
+    "historical_attribute_scope": "TEAM_MEMBERSHIP_CONFERENCE_DIVISION_ONLY",
+    "venue_history_claimed": false,
+    "canonical_or_pit_admission": false,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_PIT_AND_VENUE_ADMISSION_PENDING"
+  },
   "coverage": {
     "source_candidate_rows": 12047,
     "accepted_strict_game_outcomes": 10593,

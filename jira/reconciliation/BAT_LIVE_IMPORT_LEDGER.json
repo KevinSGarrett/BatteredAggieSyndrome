@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T15:01:04.318276+00:00"
+      "verified_at": "2026-08-11T15:15:00.485244+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T15:01:04.506443+00:00"
+      "verified_at": "2026-08-11T15:15:00.771743+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T15:01:04.709277+00:00"
+      "verified_at": "2026-08-11T15:15:00.960520+00:00"
     }
   ],
   "backup": {
@@ -32,22 +32,22 @@
   },
   "canonical_spec_sync": {
     "backup": {
-      "bytes": 588,
+      "bytes": 592,
       "issue_count": 1,
-      "path": "reconciliation/jira/canonical-spec-sync/20260811T150115Z/pre-update.json",
-      "sha256": "ed8ea1d1cf2f8600a3c14156d6836f4eeada0b214c803883f906aee1deab83aa",
+      "path": "reconciliation/jira/canonical-spec-sync/20260811T151512Z/pre-update.json",
+      "sha256": "60d3b1a59024d3d01b198025354821d70f4c398425b11b06fa71c5b2e77a5feb",
       "storage_root": "EXTERNAL_DATA_ROOT"
     },
     "changed_issues": 1,
-    "completed_at": "2026-08-11T15:01:16.092147+00:00",
+    "completed_at": "2026-08-11T15:15:12.646824+00:00",
     "completed_local_ids": [
       "POST-SUBTASK-186"
     ],
     "errors": [],
-    "started_at": "2026-08-11T15:01:15.418179+00:00",
+    "started_at": "2026-08-11T15:15:12.010258+00:00",
     "status": "COMPLETE"
   },
-  "completed_at": "2026-08-11T15:01:58.834768+00:00",
+  "completed_at": "2026-08-11T15:15:56.374552+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -55,8 +55,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-11T15:01:20.333513+00:00",
-    "verified_at": "2026-08-11T15:01:22.095042+00:00",
+    "updated_at": "2026-08-11T15:15:16.795533+00:00",
+    "verified_at": "2026-08-11T15:15:18.784035+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -453,7 +453,7 @@
     }
   ],
   "historical_done_operationally_overridden": 221,
-  "historical_done_requested": 70,
+  "historical_done_requested": 71,
   "issues": {
     "EPIC-001": "BAT-1",
     "EPIC-002": "BAT-2",
@@ -956,7 +956,7 @@
     "missing_canonical_links": 2,
     "preserved_auxiliary_links": 0,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-11T15:01:36.215689+00:00"
+    "verified_at": "2026-08-11T15:15:31.838335+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2087,9 +2087,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2099,9 +2099,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2111,7 +2111,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2121,9 +2121,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2133,9 +2133,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-play-enrichment-pit"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-186-completion"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2308,7 +2308,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-11T15:01:58.834768+00:00",
+  "updated_at": "2026-08-11T15:15:56.374552+00:00",
   "verification": {
     "actual_expected_link_count": 1120,
     "board": {
@@ -2367,11 +2367,11 @@
     "result": "PASS",
     "schema_version": 1,
     "status_counts": {
-      "Done": 70,
-      "In Progress": 2,
+      "Done": 71,
+      "In Progress": 1,
       "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-11T15:01:36.215689+00:00"
+    "verified_at": "2026-08-11T15:15:31.838335+00:00"
   }
 }

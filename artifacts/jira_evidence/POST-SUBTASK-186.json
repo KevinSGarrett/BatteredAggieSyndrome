@@ -4,7 +4,7 @@
   "local_issue_id": "POST-SUBTASK-186",
   "jira_import_id": 100494,
   "jira_key": "BAT-543",
-  "status": "VALIDATED_PREINTEGRATION",
+  "status": "DONE_VERIFIED_ON_INTEGRATION",
   "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_EXACT_PLAY_ENRICHMENT",
   "objective": "Admit only exact base-play-linked and verified-team-mapped version-bound play enrichment into development PIT and preliminary-unprotected feature research.",
   "input_identities": {
@@ -95,7 +95,9 @@
     "jira_second_pass": "PASS_AT_LIVE_ACTIVATION_494_ISSUES_1120_LINKS",
     "jira_file_manifest": "PASS",
     "jira_live_control_plane_and_mirror": "PASS",
-    "hosted_pull_request_checks": "PENDING_PREINTEGRATION"
+    "hosted_pull_request_checks": "PASS_PR_186_ALL_REQUIRED_CHECKS",
+    "postmerge_repository_ci": "PASS_RUN_31505343342",
+    "postmerge_security_analysis": "PASS_RUN_31505343096"
   },
   "external_locations": {
     "state": "<external-data-root>/pit_state/historical_known_at/sha256/ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb/play_enrichment.parquet",
@@ -118,14 +120,30 @@
   },
   "live_jira": {
     "authentication": "HTTP_200",
-    "status": "In Progress",
+    "status": "Done",
     "created_issue": "BAT-543",
     "preintegration_evidence_comment_id": "13654",
+    "integration_comment_id": "13655",
     "dependencies": ["BAT-379 BLOCKS BAT-543", "BAT-533 BLOCKS BAT-543"],
     "canonical_mirror_issue_count": 494,
     "canonical_mirror_link_count": 1120,
+    "last_successful_sync_utc": "2026-08-11T15:15:32.233932Z",
+    "completion_sync_live_spec_updates": 1,
+    "completion_sync_local_live_state_changes": 1,
+    "canonical_mirror_status_counts": {"Done": 71, "In Progress": 1, "To Do": 422},
     "duplicate_matches_before_create": 0,
     "live_sync_conflicts": 0
+  },
+  "integration": {
+    "branch": "codex/BAT-543-play-enrichment-pit",
+    "base_commit": "3ebce36d7dd1d9320c129babecb0125903edef5c",
+    "implementation_commit": "dd1849e0b4f5a9be3eca5d403921a24620657647",
+    "pull_request": 186,
+    "merge_commit": "bc8f22a99c7885597d2316fa2a413e19d6874ca4",
+    "merged_at_utc": "2026-08-11T15:07:37Z",
+    "postmerge_repository_ci_run": 31505343342,
+    "postmerge_security_analysis_run": 31505343096,
+    "postmerge_checks_passed": true
   },
   "recovery": {
     "checkpoint": "<external-data-root>/backups/POST-SUBTASK-186-PRECHANGE-20260811T143930Z",

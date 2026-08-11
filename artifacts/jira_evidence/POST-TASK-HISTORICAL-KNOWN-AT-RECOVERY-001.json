@@ -83,8 +83,8 @@
     "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
     "repository_gate": {
       "path": "artifacts/pit/historical_known_at_replay_gate.json",
-      "sha256": "473d13e6be79e5a076bb78f35132e565d27c9ac3bf9b0da19d321c9f62ba909a",
-      "bytes": 11592
+      "sha256": "3367c7bf409435b22c15739aa186378bc69121e4235fd866d3301194b42ded60",
+      "bytes": 31507
     },
     "manifest": {
       "path": "<external-data-root>/manifests/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/known_at_replay_manifest.json",
@@ -881,6 +881,9 @@
     "action_derived_play_summary_candidate_layer_validated": true,
     "action_derived_play_summary_native_play_equivalence": false,
     "action_derived_play_summary_canonical_pit_feature_training_protected_forecast_or_publication_admission": false,
+    "play_drive_pit_aggregate_development_admitted": true,
+    "play_drive_pit_aggregate_preliminary_unprotected_training_candidate": true,
+    "play_drive_pit_aggregate_protected_training_or_evaluation_admission": false,
     "roster_candidate_layer_validated": true,
     "roster_canonical_pit_or_availability_admission": false,
     "player_event_metric_candidate_layer_validated": true,

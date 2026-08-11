@@ -79,6 +79,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "historical_action_derived_play_summary_gate.json"
             ).read_text(encoding="utf-8")
         )
+        cls.play_drive_pit_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_play_drive_pit_aggregate_gate.json"
+            ).read_text(encoding="utf-8")
+        )
         cls.tamu_depth_chart_gate = json.loads(
             (
                 ROOT
@@ -288,6 +296,32 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["availability_inference"])
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
+
+    def test_play_drive_aggregate_is_development_pit_only(self) -> None:
+        aggregate = self.contract["latest_validated_play_drive_pit_aggregate"]
+        self.assertEqual(
+            aggregate["dataset_identity"],
+            "b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06",
+        )
+        self.assertEqual(aggregate["missing_source_seasons"], [2011, 2020])
+        self.assertEqual(aggregate["exact_play_rows"], 1606094)
+        self.assertEqual(aggregate["exact_drive_rows"], 230004)
+        self.assertEqual(aggregate["target_game_team_rows"], 5528)
+        self.assertEqual(aggregate["cold_start_rows"], 14)
+        self.assertEqual(aggregate["target_game_overlap"], 0)
+        self.assertTrue(aggregate["pit_state_admission"])
+        self.assertTrue(aggregate["development_feature_admission"])
+        self.assertFalse(aggregate["protected_training_admission"])
+        self.assertFalse(aggregate["protected_evaluation_admission"])
+        checkpoint = self.gate["parallel_play_drive_pit_aggregate_checkpoint"]
+        self.assertEqual(checkpoint["target_game_overlap"], 0)
+        self.assertTrue(checkpoint["preliminary_unprotected_training_candidate"])
+        self.assertFalse(checkpoint["protected_training_admission"])
+        admitted = self.play_drive_pit_gate["admitted_layer"]
+        self.assertEqual(admitted["validation_checks_passed"], 32)
+        self.assertEqual(admitted["mutation_controls_passed"], 5)
+        self.assertEqual(admitted["deterministic_payloads_compared"], 3)
+        self.assertTrue(admitted["byte_identical_rebuild"])
 
     def test_player_event_metrics_are_bounded_validated_candidates_not_official_box_scores(self) -> None:
         metrics = self.contract["latest_validated_player_event_metric_candidate"]

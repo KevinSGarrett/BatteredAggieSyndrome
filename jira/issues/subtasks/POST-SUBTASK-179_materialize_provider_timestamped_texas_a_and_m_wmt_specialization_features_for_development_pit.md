@@ -20,7 +20,9 @@
     "Partial source seasons and domains remain explicit and do not globally block historical expansion or preliminary modeling."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-180"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "pit-temporal",
@@ -269,7 +271,7 @@ Convert only exact Texas A&M-attributed, provider-timestamped WMT records alread
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-180
 
 ## Read / Inspect First
 

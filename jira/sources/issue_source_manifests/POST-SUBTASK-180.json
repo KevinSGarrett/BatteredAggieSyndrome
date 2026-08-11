@@ -1,0 +1,83 @@
+{
+  "files_to_inspect": [],
+  "governance_traceability_gate": "TASK-036",
+  "issue_id": "POST-SUBTASK-180",
+  "retrieval_protocol": [
+    "Verify document_sha256 against the current repository file.",
+    "Verify anchor_hash against the normalized stored excerpt and current line range.",
+    "If the file hash changed, run repair_source_refs.py to relocate the exact anchor/heading before using the reference.",
+    "Open only the referenced section plus the minimal listed implementation/prerequisite context; the Windows path is convenience metadata, not authority."
+  ],
+  "schema_version": 2,
+  "source_ids": [
+    "TASK-036",
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "source_refs": [
+    {
+      "anchor_excerpt": "# Source Mapping & Evidence Identity — Wave 07 ## Why these are separate A source provider, a dataset/report family, an edited publication, a retrieval event and an individual parsed claim are not the same object. W07 therefore freezes the hierarchy: `SOURCE_SYSTEM -> SOURCE_RESOURCE -> PUBLICATION_VERSION -> RAW_CAPTU",
+      "anchor_hash": "1e8c619ef64d9b19d7e8f3229d2ed1695757c0d22c0678d295602ee62ee27ded",
+      "authority_level": "ACCEPTED_DESIGN",
+      "document_sha256": "9fbf23d76009407c25ac28070668325e1df0739d655ccfc5d90ef5f53e9de71d",
+      "end_line": 43,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md",
+      "source_ref_id": "SRCREF-02013",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Canonical raw-data design, implementation, test, or handoff source",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md"
+    },
+    {
+      "anchor_excerpt": "# W16 Model Targets and Output Coherence Wave 16 freezes **semantics**, not empirical winners. ## Source-of-truth output The preferred forecasting contract is a coherent predictive distribution over the two teams' scores. Margin, total, win/loss probabilities, and other compatible probabilities must derive from that di",
+      "anchor_hash": "1378a411827d92de20fe8f3a22dd4e5be8534b95424e440059618a4ff1b982e5",
+      "authority_level": "ACCEPTED_DESIGN",
+      "document_sha256": "0a9ef5d0cc74649cb829719c389f4d9941d40bd4b9eab83870c931b3a16d861d",
+      "end_line": 27,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/51_MODEL_TARGETS_AND_OUTPUT_COHERENCE.md",
+      "source_ref_id": "SRCREF-02049",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Canonical modeling design, implementation, test, or handoff source",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\51_MODEL_TARGETS_AND_OUTPUT_COHERENCE.md"
+    },
+    {
+      "anchor_excerpt": "# W16 Model Architecture Candidates The architecture keeps strong simple baselines and increasingly expressive challengers. ## Mandatory baselines - empirical/home-rate sanity reference; - Elo with probability mapping; - logistic/GLM feature baseline; - simple coherent score-distribution baseline such as Poisson/Skella",
+      "anchor_hash": "22aac5180ff9fdad1724a78994d3b15aec1897946c3df46a90ff85ae1790c1cf",
+      "authority_level": "ACCEPTED_DESIGN",
+      "document_sha256": "99be1aaa01490817a06f76e778fb6d098b8fdf6e3a596ee1a453bc85d0402925",
+      "end_line": 23,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/52_MODEL_ARCHITECTURE_CANDIDATES.md",
+      "source_ref_id": "SRCREF-02050",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Canonical modeling design, implementation, test, or handoff source",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\52_MODEL_ARCHITECTURE_CANDIDATES.md"
+    },
+    {
+      "anchor_excerpt": "HANDOFF-003,P0,MATERIALIZE_NATIONAL_HISTORY,Acquire immutable national historical game/PBP/team/roster/source snapshots and manifests,READY_AFTER_ACCESS,W06 source decisions; W19 adapters",
+      "anchor_hash": "77e0baff69e6d647b33df48cbc29357e2e01dd20b7ea45a685d2447fce7c3914",
+      "authority_level": "FINAL_CURRENT",
+      "document_sha256": "e8571f8876cfd157ddb70890e028d8c506c5279458679826949dc6e81ab9003f",
+      "end_line": 4,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/final/FINAL_BACKLOG.csv",
+      "source_ref_id": "SRCREF-01889",
+      "source_type": "csv",
+      "start_line": 4,
+      "why_relevant": "Authoritative registry row for HANDOFF-003",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\final\\FINAL_BACKLOG.csv"
+    }
+  ],
+  "traceability_inherited_from": [
+    "TASK-036"
+  ]
+}

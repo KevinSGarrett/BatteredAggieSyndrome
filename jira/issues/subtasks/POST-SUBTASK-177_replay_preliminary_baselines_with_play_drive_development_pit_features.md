@@ -21,7 +21,9 @@
     "No OpenAI output or model-generated fact may enter features, labels, splits, known-at time, fitting data, or acceptance."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-180"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "modeling",
@@ -250,7 +252,7 @@ Build and independently validate one separately lineaged preliminary-unprotected
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-180
 
 ## Read / Inspect First
 

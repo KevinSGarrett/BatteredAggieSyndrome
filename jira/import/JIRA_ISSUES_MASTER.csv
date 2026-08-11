@@ -36268,3 +36268,72 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;tamu-specialization;gamebook;wmt;pit;preliminary-unprotected;provenance;local-id-post-subtask-179,pit-temporal,POST-SUBTASK-179,GAP-002;GAP-003;GAP-005;HANDOFF-003,PHASE-1,DONE,DEVELOPMENT_ONLY_PIT_ADMITTED,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Sub-task,BAT-537,100488,Replay A&M specialization shadow candidates with exact provider-timestamped WMT features,100075,"Local ID: POST-SUBTASK-180
+
+Objective
+Replay A&M specialization shadow candidates with the exact provider-timestamped WMT feature identity without opening protected promotion or overstating a 39-game result.
+
+Why This Exists
+POST-SUBTASK-179 deliberately stopped at a feature candidate. This separate replay measures its incremental value honestly against the national reference without mutating either source identity or opening protected promotion.
+
+Scope
+Build and independently validate one exact 39-game A&M shadow replay from the pinned WMT development-PIT feature candidate and frozen national reference.
+
+Explicit In Scope
+- Exact canonical game/team/opponent joins for the 39-game 2023-2025 WMT A&M target-cutoff population.
+- Chronological low-dimensional logistic and ridge-margin shadow fitting against the exact frozen national reference.
+- Immutable external matrices/models/predictions/manifests, calibration and error diagnostics, negative-result preservation, deterministic replay, provenance, and cleanup.
+
+Explicit Out of Scope
+- Broadening the exact 39-game WMT population, using non-pinned source records, adding opponent gamebook facts, or rewriting POST-SUBTASK-177/179 artifacts.
+- Tree boosting, neural models, broad HPO, post-hoc feature selection, or favorable-threshold fabrication on the short A&M horizon.
+- Protected evaluation, champion or production promotion, forecast publication, final historical readiness, A&M specialization lift, BAS, Aggie Excess, or any scientific claim.
+
+Prerequisites / Dependencies
+- POST-SUBTASK-177 exact frozen national reference predictions and immutable identities.
+- POST-SUBTASK-179 exact provider-timestamped WMT A&M target-cutoff feature identity and independent validation.
+- Configured standardized external data root and successful live Jira authentication.
+- POST-SUBTASK-177
+- POST-SUBTASK-179
+
+Acceptance Criteria
+1. The exact POST-SUBTASK-177 national reference run and POST-SUBTASK-179 WMT feature identity remain immutable pinned inputs and are not silently broadened.
+2. Exactly 39 canonical Texas A&M games, thirteen per 2023-2025 season, join by exact game/team/opponent identity with no name-only mapping, missing target fabrication, or protected input.
+3. Chronology is fixed: 2023 is an exact frozen fallback, 2024 fits only 2023 A&M outcomes, and 2025 fits only 2023-2024 A&M outcomes; no target-game, same-season, or future outcome enters fit.
+4. Only the four predeclared low-dimensional WMT signals and corresponding frozen national prediction enter strongly regularized logistic and ridge-margin shadow candidates; tree boosting is not admitted.
+5. All datasets, models, predictions, metrics, and conclusions remain PRELIMINARY_UNPROTECTED and cannot open protected evaluation, champion/production promotion, forecast publication, A&M lift, BAS, Aggie Excess, or scientific authority.
+6. Independent validation and isolated deterministic rebuild reproduce every content-addressed payload, model replay, identity, metric, disposition, and cleanup finding.
+
+Definition of Done
+1. A new immutable external training-dataset identity separately materializes feature, target, split, and joined training payloads without rewriting either source input.
+2. The complete shadow pipeline executes canonical joining, chronological assignments, fit-only transformation, strong regularization, prediction, probability/calibration and margin diagnostics, artifact serialization, replay, and provenance verification.
+3. The same-row frozen comparison reports positive, mixed, negative, or unstable results without post-hoc threshold changes; nonadoption is preserved when the candidate degrades the reference.
+4. All external payloads pass identity, schema, source cutoff, PIT, target-leakage, model replay, immutable hash, and deterministic rebuild validation; reconstructible staging and rebuild output are removed.
+5. Protected promotion remains closed and the approximately 2010-2025 historical expansion continues independently.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_preliminary_wmt_tamu_shadow.py — Exact game/team orientation, cutoff ordering, walk-forward fit windows, feature precommitment, protected nonauthority, and metric behavior remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-180.json — External matrices, models, predictions, metrics, manifest, hashes, serialization replay, chronology, deterministic rebuild, cleanup, and protected closure pass independent validation.
+
+Required Evidence
+- Exact POST-SUBTASK-177 and POST-SUBTASK-179 input hashes plus new dataset, feature, target, split, model, forecast, run, code, config, validation, and rollback identities.
+- Seasons, games, rows, feature count, exclusions, missingness, chronological cutoffs, fit windows, leakage checks, and probability/calibration/margin metrics by season.
+- Frozen-reference deltas, empirical disposition, serialized model replay, byte-identical isolated rebuild summary, cleanup, and explicit protected nonclaims.
+
+End-to-End Validation
+Re-read exact POST-SUBTASK-177 reference predictions and POST-SUBTASK-179 WMT target-cutoff features; rebuild the 39-game feature/target/split population, chronological estimators, predictions, metrics, frozen comparisons, model artifacts, manifest, and identities; verify strict cutoff ordering, target exclusion, serialization replay, protected closure, byte-identical summary, and cleanup.
+
+Stop Conditions
+- Stop the affected artifact on input hash, identity, source cutoff, target overlap, chronology, schema, model replay, metric, immutable destination, or deterministic rebuild failure.
+- Quarantine only affected rows or families and continue independently valid historical acquisition, baseline research, and OpenAI candidate assistance.
+- Do not weaken feature scope, regularization, chronology, comparison, validation, or scientific boundaries to obtain apparent improvement.
+
+Source References
+- SRCREF-02013
+- SRCREF-02049
+- SRCREF-02050
+- SRCREF-01889
+
+Governance Traceability Gate: TASK-036
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.json",In Progress,Highest,actionable;post-wave;subtask;preliminary-unprotected;tamu-specialization;wmt;baseline-modeling;pit;provenance;local-id-post-subtask-180,modeling,POST-SUBTASK-180,TASK-036;GAP-002;GAP-003;GAP-005,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED_NEGATIVE_RESULT,IMPLEMENTED_VALIDATED_PENDING_INTEGRATION,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE

@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "POST180-PRELIMINARY-WMT-TAMU-SHADOW-V1",
+  "decision_unit": "POST-SUBTASK-180",
+  "jira_key": "BAT-537",
+  "classification": "PRELIMINARY_UNPROTECTED_WMT_TAMU_SHADOW",
+  "authorized_inputs": {
+    "national_reference_run_identity": "8cc415cec979666f23ba616fea4cdc677566c16eaab254f1698bbfeb67906e56",
+    "national_reference_manifest_sha256": "a028bb55d11724ff09e88e21c5de4c3768d3d67c342b2519cf8ebd628c49a729",
+    "national_reference_dataset_identity": "8e68a17d7c9a1c021830606e8badce52281d2e4470fecd0b46bd9d1fbb9e5245",
+    "national_reference_feature_identity": "22c576832f223046d2de36efbe8846c4c1c085014c27c68bd5d7d63f47e41182",
+    "national_reference_target_identity": "89d23c72386f6f3f788819b037d635b46708802112203adea43fe950b5237123",
+    "national_reference_split_identity": "9acd6d86cb0b9cd2169b22f9bf918b43232df3c5b6503a9a031ea25281debed6",
+    "national_reference_forecast_identity": "520e10ef999935f55e18d36125c76397496ea76cf49110ae0eea9b2de554bbe5",
+    "national_reference_prediction_sha256": "8f385062fbe265d2c65abee637cfb14e6b1cb21afcd87b1d31a32c57b09b9646",
+    "wmt_feature_identity": "337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815",
+    "wmt_feature_manifest_sha256": "3871454fe643abd013d7c4fb2aa622a00bf933a4407fe220e44d667c4bbeedb5",
+    "wmt_feature_payload_sha256": "f0724f25c849ea24c819cf002eb274a328f293c13d93dac2635d58d899e3f214",
+    "canonical_tamu_team_id": "team_d0aff8aacd805801ab3d3d8293f3b298",
+    "eligible_target_seasons": [2023, 2024, 2025],
+    "expected_target_games": 39,
+    "eligibility": "DEVELOPMENT_AND_PRELIMINARY_UNPROTECTED_ONLY"
+  },
+  "feature_policy": {
+    "predeclared_wmt_columns": [
+      "action_penalty_rate",
+      "play_scoring_rate",
+      "drive_turnover_rate",
+      "player_starter_rate"
+    ],
+    "selection_reason": "ONE_LOW_DIMENSIONAL_PREDECLARED_SIGNAL_PER_WMT_DOMAIN_WITH_NATIONAL_REFERENCE_AS_THE_PRIMARY_STRENGTH_BASELINE",
+    "orientation": "A_AND_M_PERSPECTIVE_THEN_CONVERT_BACK_TO_HOME_TEAM_OUTPUTS",
+    "missingness": "FIT_ONLY_MEDIAN_WITH_EXPLICIT_INDICATORS_NO_FACTUAL_VALUE_INVENTED",
+    "target_or_future_fields_allowed": false,
+    "name_only_identity_allowed": false,
+    "protected_feature_allowed": false
+  },
+  "chronology_policy": {
+    "2023": "EXACT_FROZEN_NATIONAL_REFERENCE_FALLBACK_NO_A_AND_M_MODEL_FIT",
+    "2024": "FIT_ONLY_2023_A_AND_M_OUTCOMES",
+    "2025": "FIT_ONLY_2023_AND_2024_A_AND_M_OUTCOMES",
+    "target_game_and_future_outcomes_excluded": true,
+    "same_season_outcomes_excluded": true,
+    "protected_split_opened": false
+  },
+  "model_policy": {
+    "families": [
+      "wmt_tamu_logistic_shadow_stacker",
+      "wmt_tamu_ridge_margin_shadow_stacker"
+    ],
+    "logistic_c": 0.01,
+    "ridge_alpha": 1000.0,
+    "standardization": "FIT_ONLY_STANDARD_SCALER",
+    "random_state": 20260811,
+    "tree_boosting": "NOT_ADMITTED_FOR_39_GAME_SHORT_HORIZON",
+    "promotion_authority": "NONE_PRELIMINARY_SHADOW_ONLY"
+  },
+  "acceptance": {
+    "exact_target_games": 39,
+    "exact_games_per_season": 13,
+    "exact_reference_rows_per_game": 2,
+    "identity_mismatches_allowed": 0,
+    "post_cutoff_feature_rows_allowed": 0,
+    "target_or_future_outcomes_in_fit_allowed": 0,
+    "unsupported_or_fabricated_values_allowed": 0,
+    "serialization_replay_required": true,
+    "byte_identical_rebuild_summary_required": true,
+    "negative_or_unstable_findings_preserved": true
+  },
+  "authority": {
+    "pipeline_integration": true,
+    "preliminary_unprotected_research": true,
+    "protected_training": false,
+    "protected_evaluation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "tamu_specialization_lift_claim": false,
+    "bas_or_aggie_excess_claim": false
+  },
+  "external_storage": {
+    "training": "training/preliminary_wmt_tamu_shadow/sha256/<dataset_identity>",
+    "models": "model_artifacts/preliminary_wmt_tamu_shadow/sha256/<model_identity>",
+    "forecast": "forecast_snapshots/preliminary_wmt_tamu_shadow/sha256/<forecast_identity>",
+    "manifest": "manifests/preliminary_wmt_tamu_shadow/sha256/<run_identity>/run_manifest.json",
+    "validation": "validation/POST-SUBTASK-180",
+    "tmp": "runtime/POST-SUBTASK-180",
+    "payloads_in_git": false
+  },
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

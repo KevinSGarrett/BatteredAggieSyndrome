@@ -45,7 +45,7 @@
   "end_to_end_validation": "Re-read the exact pinned reconciliation manifest and source payloads; independently rebuild admitted player-event metrics, canonical team profiles, and target-cutoff features; verify identity, reconciliation disposition, chronology, target exclusion, schemas, counts, quarantines, hashes, authority, and byte identity; then remove reconstructible rebuild output.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-185.json",
-  "evidence_state": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "DEVELOPMENT_ONLY_PIT_ADMITTED",
@@ -109,11 +109,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24933",
-    "jira_updated_at": "2026-08-11T08:55:25.855-0500",
-    "last_synced_at": "2026-08-11T13:55:35.375534+00:00",
+    "jira_updated_at": "2026-08-11T09:23:13.997-0500",
+    "last_synced_at": "2026-08-11T14:23:34.476418+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Promoting rows with unresolved canonical identity, membership, source-only disposition, or cross-route value/name conflict.",
@@ -215,7 +215,7 @@
   ],
   "why_this_exists": "The exact 2014-2022 repository player-stat evidence was publicly committed before every 2023-2025 target cutoff, allowing its reconciled sparse player-event metrics to advance development PIT without inventing completeness or protected authority.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

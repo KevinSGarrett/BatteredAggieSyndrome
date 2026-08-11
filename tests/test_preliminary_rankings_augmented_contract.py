@@ -4,7 +4,12 @@ import json
 from pathlib import Path
 import unittest
 
-from aggie_analytics.modeling.preliminary_rankings import augment_with_rankings
+try:
+    from aggie_analytics.modeling.preliminary_rankings import augment_with_rankings
+except ModuleNotFoundError as exc:
+    if exc.name != "numpy":
+        raise
+    augment_with_rankings = None
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -47,6 +52,9 @@ class PreliminaryRankingsAugmentedContractTests(unittest.TestCase):
         )
         self.assertFalse(any(self.contract["protected_nonclaims"].values()))
 
+    @unittest.skipIf(
+        augment_with_rankings is None, "optional modeling dependencies unavailable"
+    )
     def test_rankings_join_preserves_missing_numeric_rank(self) -> None:
         feature = {
             "target_game_id": "g1", "season": 2025,
@@ -68,6 +76,9 @@ class PreliminaryRankingsAugmentedContractTests(unittest.TestCase):
         self.assertEqual(augmented[0]["away_ap_rank_observed"], 0.0)
         self.assertEqual(coverage["rank_diff_missing"], 1)
 
+    @unittest.skipIf(
+        augment_with_rankings is None, "optional modeling dependencies unavailable"
+    )
     def test_future_rankings_evidence_fails_closed(self) -> None:
         feature = {"target_game_id": "g1", "season": 2025, "home_team_id": "h", "away_team_id": "a", "cutoff_utc": "2025-09-01T00:00:00Z"}
         rows = [

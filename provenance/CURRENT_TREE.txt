@@ -2865,6 +2865,11 @@ src/aggie_analytics/validation/__init__.py
 src/aggie_analytics/validation/metrics.py
 src/aggie_analytics/validation/promotion.py
 src/aggie_analytics/validation/protected.py
+src/aggie_analytics_engine.egg-info/PKG-INFO
+src/aggie_analytics_engine.egg-info/SOURCES.txt
+src/aggie_analytics_engine.egg-info/dependency_links.txt
+src/aggie_analytics_engine.egg-info/requires.txt
+src/aggie_analytics_engine.egg-info/top_level.txt
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
 tests/test_advanced_challenger_full.py

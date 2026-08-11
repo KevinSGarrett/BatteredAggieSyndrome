@@ -57,7 +57,7 @@
   "end_to_end_validation": "Re-read and hash the BAT-378 CFBD acquisition manifest, 47 game payloads and capture manifests, the SportsDataverse supplement manifest and six schedule payloads, and the BAT-387 canonical registry; rebuild in an isolated external root; verify exact source, canonical-union, completed-outcome, canceled-schedule, alias, per-season, natural-key, field-allowlist, authority, mutation, and byte identities; then remove only reconstructible rebuild output after success.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-195.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
@@ -115,11 +115,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24945",
-    "jira_updated_at": "2026-08-11T17:04:27.272-0500",
-    "last_synced_at": "2026-08-11T22:04:38.502338+00:00",
+    "jira_updated_at": "2026-08-11T17:31:18.585-0500",
+    "last_synced_at": "2026-08-11T22:31:41.657762+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Player, roster, play-by-play, drive, box-score, advanced-stat, weather, injury, depth-chart, availability, or exact publication-time completion for these seasons.",
@@ -133,7 +133,9 @@
     "BAT-378 immutable CFBD acquisition manifest SHA-256 bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7 and raw game aggregate SHA-256 663cf655124cb87184c0f03f17c350ea27cb3064a4c4831e63bc89124924cb69.",
     "BAT-387 canonical registry identity 10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac with exact provider-ID game mappings.",
     "Read-only population profile: 33,272 unique completed CFBD games, 33,278 canonical schedule union, 33,276 completed outcome candidates, and explicit SportsDataverse alias/supplement dispositions.",
-    "Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-195-PRECHANGE-20260811T215652Z."
+    "Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-195-PRECHANGE-20260811T215652Z.",
+    "Integrated dataset identity 8e639d010b4808fe279e97e5ff79adf31a2b04cd8ee1ece1dcf2f09ec7343296 and immutable validation report SHA-256 d946e0e2972c5f5ffff0cf923faa708e33dcf1e8867b8a8e38015252d16868a4.",
+    "Implementation PR 207 merged as dca218f81d316c4ccffb786fc184670eaf166d80 after all hosted repository and security checks passed."
   ],
   "primary_source_refs": [
     "SRCREF-02013",
@@ -149,7 +151,7 @@
     "governance/PROTECTED_SPLIT_REGISTRY.csv"
   ],
   "ready": false,
-  "record_revision": "1.0",
+  "record_revision": "1.1",
   "related_to": [
     "POST-SUBTASK-169",
     "POST-SUBTASK-172"
@@ -259,5 +261,5 @@
   "unblock_condition": "",
   "why_this_exists": "BAT-378 acquired a complete 1963-2009 CFBD game/outcome tranche and BAT-387 reconciled provider game identities, but no dedicated immutable artifact currently exposes the long national outcome history with completed, canceled, postponed, duplicate, supplement-only, field, chronology, and authority boundaries enforced for downstream consumers.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

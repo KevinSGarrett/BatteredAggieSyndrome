@@ -2,11 +2,12 @@
   "schema_version": "1.0.0",
   "local_id": "POST-SUBTASK-195",
   "jira_key": "BAT-552",
-  "evidence_state": "VERIFIED_PREINTEGRATION_CANDIDATE",
+  "evidence_state": "VERIFIED_INTEGRATED",
   "classification": "HISTORICAL_GAME_OUTCOME_REFERENCE_CANDIDATE_ONLY",
   "dataset_identity": "8e639d010b4808fe279e97e5ff79adf31a2b04cd8ee1ece1dcf2f09ec7343296",
   "manifest_sha256": "77d75bbb07f66f4315684da37987faf08f70e72e3a8d52cb9b5cf6e93bb05132",
-  "validation_report_sha256": "78e659f358945e4293bcb95f71a79a76e39c9dcad5b2a2aea1d05b6fbe42ae09",
+  "validation_report_relative_path": "validation/POST-SUBTASK-195/8e639d010b4808fe279e97e5ff79adf31a2b04cd8ee1ece1dcf2f09ec7343296/runs/d946e0e2972c5f5ffff0cf923faa708e33dcf1e8867b8a8e38015252d16868a4/historical_game_outcome_spine_validation.json",
+  "validation_report_sha256": "d946e0e2972c5f5ffff0cf923faa708e33dcf1e8867b8a8e38015252d16868a4",
   "gate_relative_path": "artifacts/data/historical_game_outcome_spine_gate.json",
   "source_identities": {
     "cfbd_acquisition_manifest_sha256": "bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7",
@@ -19,7 +20,7 @@
     "contract_sha256": "ad5dfe1e1c14781ebda32e733bcbf77f39b8b46cdf2747f1520223d5c7f0f1f5",
     "core_sha256": "b9087fea386d7226b3d4d961c248f7ba02c0a73fe1dbc3048cff5b827f834ee7",
     "builder_sha256": "9322d9857b6ad93f7f1db27ed5e8badde3816703127a8e72616088e4d2a47fb2",
-    "validator_sha256": "93e40a36cd00988ae2b93e61a7e8c451074d8d3b2188e868ec87fef2e783e30b",
+    "validator_sha256": "98739f6222a53ffdf832b4e401fb5c0b6aa6e48beef1948ca41eaaaa232450f4",
     "tests_sha256": "dac421cfd00f109519815979789c5ab5991efb016972cb794be9a13978f3b445"
   },
   "population": {
@@ -49,9 +50,11 @@
   },
   "live_jira": {
     "issue_id": "24945",
-    "status": "In Progress",
+    "status": "Done",
     "activation_synced_at_utc": "2026-08-11T22:04:38.502338+00:00",
     "implementation_checkpoint_comment_id": "13698",
+    "completion_comment_id": "13701",
+    "cleanup_finalization_comment_id": "13702",
     "parent": "POST-STORY-010",
     "dependencies": [
       "POST-SUBTASK-028",
@@ -70,11 +73,25 @@
     "production_or_champion_promotion": false,
     "forecast_publication": false
   },
-  "open_integration_evidence": {
-    "implementation_commit": "PENDING",
-    "pull_request": "PENDING",
-    "merge_commit": "PENDING",
-    "hosted_checks": "PENDING",
-    "cleanup_report": "PENDING"
+  "integration_evidence": {
+    "implementation_commit": "cf4a61f9ec9e7d5c736051c944dace44a6d22970",
+    "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/207",
+    "merge_commit": "dca218f81d316c4ccffb786fc184670eaf166d80",
+    "hosted_checks": {
+      "repository_ci_push_run": "31542327673",
+      "repository_ci_pull_request_run": "31542328401",
+      "security_analysis_run": "31542327674",
+      "result": "PASS"
+    },
+    "exact_merged_main_validation": "PASS",
+    "completion_pull_request": "PENDING",
+    "cleanup_report": {
+      "path": "C:/BatteredAggieSyndrome.data/reconciliation/cleanup/BAT-552-CLEANUP-FINAL-20260811T223402Z.json",
+      "sha256": "899791fca953537da95a6f9a3648302f899a4093e16f120e62d423c79d2ffe18",
+      "removed_targets": 8,
+      "removed_files": 29,
+      "removed_observed_bytes": 83810689,
+      "measured_free_disk_delta_bytes": 74166272
+    }
   }
 }

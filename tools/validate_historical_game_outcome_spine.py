@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -337,16 +338,29 @@ def main() -> int:
     }
     report_root = data_root / "validation" / "POST-SUBTASK-195" / identity
     report_root.mkdir(parents=True, exist_ok=True)
+    report_bytes = canonical_json_bytes(report) + b"\n"
+    report_sha256 = hashlib.sha256(report_bytes).hexdigest()
+    immutable_report_path = (
+        report_root
+        / "runs"
+        / report_sha256
+        / "historical_game_outcome_spine_validation.json"
+    )
+    immutable_report_path.parent.mkdir(parents=True, exist_ok=True)
+    if immutable_report_path.exists() and immutable_report_path.read_bytes() != report_bytes:
+        raise ValueError("immutable validation report hash collision")
+    immutable_report_path.write_bytes(report_bytes)
     report_path = report_root / "historical_game_outcome_spine_validation.json"
-    report_path.write_bytes(canonical_json_bytes(report) + b"\n")
+    report_path.write_bytes(report_bytes)
     print(
         json.dumps(
             {
                 "result": "PASS",
                 "checks": len(checks),
                 "mutation_controls": len(mutations),
-                "report_path": str(report_path),
-                "report_sha256": sha256_file(report_path),
+                "report_path": str(immutable_report_path),
+                "canonical_report_path": str(report_path),
+                "report_sha256": report_sha256,
             },
             indent=2,
             sort_keys=True,

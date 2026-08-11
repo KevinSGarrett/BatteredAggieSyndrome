@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T22:03:55.603759+00:00"
+      "verified_at": "2026-08-11T22:31:03.476001+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T22:03:55.854050+00:00"
+      "verified_at": "2026-08-11T22:31:03.685061+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T22:03:56.086521+00:00"
+      "verified_at": "2026-08-11T22:31:03.889055+00:00"
     }
   ],
   "backup": {
@@ -31,11 +31,23 @@
     "id": "134"
   },
   "canonical_spec_sync": {
-    "changed_issues": 0,
-    "status": "EXACT_NO_UPDATES_REQUIRED",
-    "verified_at": "2026-08-11T22:04:15.227008+00:00"
+    "backup": {
+      "bytes": 51266,
+      "issue_count": 1,
+      "path": "reconciliation/jira/canonical-spec-sync/20260811T223116Z/pre-update.json",
+      "sha256": "cc57e3d870bab783bbcd187b2dc9937791175ca7eea599e0480e5497ae26c824",
+      "storage_root": "EXTERNAL_DATA_ROOT"
+    },
+    "changed_issues": 1,
+    "completed_at": "2026-08-11T22:31:17.356091+00:00",
+    "completed_local_ids": [
+      "POST-SUBTASK-195"
+    ],
+    "errors": [],
+    "started_at": "2026-08-11T22:31:16.545236+00:00",
+    "status": "COMPLETE"
   },
-  "completed_at": "2026-08-11T22:05:03.225583+00:00",
+  "completed_at": "2026-08-11T22:32:07.669291+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -43,8 +55,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-11T22:04:20.114901+00:00",
-    "verified_at": "2026-08-11T22:04:22.054830+00:00",
+    "updated_at": "2026-08-11T22:31:24.781601+00:00",
+    "verified_at": "2026-08-11T22:31:26.765656+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -441,7 +453,7 @@
     }
   ],
   "historical_done_operationally_overridden": 221,
-  "historical_done_requested": 79,
+  "historical_done_requested": 80,
   "issues": {
     "EPIC-001": "BAT-1",
     "EPIC-002": "BAT-2",
@@ -953,7 +965,7 @@
     "missing_canonical_links": 6,
     "preserved_auxiliary_links": 0,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-11T22:04:38.041724+00:00"
+    "verified_at": "2026-08-11T22:31:41.210410+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2319,13 +2331,13 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 8,
+      "changes": 1,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
       "rows": 503
     },
     "live": {
-      "changed_issues": 8,
+      "changed_issues": 1,
       "conflict_count": 0,
       "result": "PASS",
       "rows": 503,
@@ -2375,7 +2387,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-11T22:05:03.225583+00:00",
+  "updated_at": "2026-08-11T22:32:07.669291+00:00",
   "verification": {
     "actual_expected_link_count": 1166,
     "board": {
@@ -2434,11 +2446,11 @@
     "result": "PASS",
     "schema_version": 1,
     "status_counts": {
-      "Done": 79,
-      "In Progress": 2,
+      "Done": 80,
+      "In Progress": 1,
       "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-11T22:04:38.041724+00:00"
+    "verified_at": "2026-08-11T22:31:41.210410+00:00"
   }
 }

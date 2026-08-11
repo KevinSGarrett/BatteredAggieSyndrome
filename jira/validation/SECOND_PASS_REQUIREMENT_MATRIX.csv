@@ -7,7 +7,7 @@ section,title,status,check_group,detail,evidence_files
 6,Establish source authority,PASS,authority,Source precedence and conflicts are explicitly represented.,reconciliation/SOURCE_AUTHORITY_MAP.md;reconciliation/CONFLICT_REGISTER.csv
 7,Reconcile the existing planning system,PASS,history,Historical Epics/Tasks retain stable source IDs and separate historical classification.,index/ISSUE_INDEX.csv;reconciliation/HISTORICAL_STATUS_RECONCILIATION.csv
 8,Full completion-gap analysis,PASS,gaps,Every final gap and risk has a Jira disposition.,reconciliation/GAP_TO_JIRA_MAPPING.csv;reconciliation/RISK_TO_JIRA_MAPPING.csv
-9,Represent the entire project,PASS,coverage,Current strict coverage and derivative validation agree at 484 canonical issues.,validation/SECOND_PASS_AUDIT_RESULTS.json;validation/DERIVATIVE_CONSISTENCY_REPORT.csv
+9,Represent the entire project,PASS,coverage,Current strict coverage and derivative validation agree at 485 canonical issues.,validation/SECOND_PASS_AUDIT_RESULTS.json;validation/DERIVATIVE_CONSISTENCY_REPORT.csv
 10,Issue hierarchy,PASS,hierarchy,Parent/child types and parent existence validate across the complete graph.,index/HIERARCHY_INDEX.csv;validation/HIERARCHY_VALIDATION.csv
 11,Issue types have meaning,PASS,hierarchy,Parent/child types and parent existence validate across the complete graph.,index/HIERARCHY_INDEX.csv;validation/HIERARCHY_VALIDATION.csv
 12,Issue granularity,PASS,granularity,All 168 atomic Subtasks have criterion/output-specific scope; generic v1 boilerplate is absent.,index/WORK_PACKET_INDEX.csv;validation/SECOND_PASS_FINDINGS_AND_REMEDIATION.md
@@ -31,7 +31,7 @@ section,title,status,check_group,detail,evidence_files
 30,Do not assume final Jira configuration,PASS,target_profile,Target configuration is either an unbound template with blank keys or an explicitly verified live target with valid mapped keys.,project/JIRA_TARGET_PROFILE.yaml;import/POST_IMPORT_KEY_MAP.csv
 31,Human-readable and machine-readable views,PASS,derivatives,Every canonical JSON has a generated human-readable Markdown view.,records/issues/;issues/
 32,Local jira directory structure,PASS,structure,Required Jira subdirectories and major artifacts exist.,README.md;validation/JIRA_FILE_MANIFEST.csv
-33,Jira import strategy,PASS,import,Strict import dry-run passes for 484 issues and 1100 links.,validation/IMPORT_DRY_RUN_REPORT.md;validation/IMPORT_VALIDATION.csv
+33,Jira import strategy,PASS,import,Strict import dry-run passes for 485 issues and 1102 links.,validation/IMPORT_DRY_RUN_REPORT.md;validation/IMPORT_VALIDATION.csv
 34,Verify current Atlassian requirements,PASS,atlassian,Current official Jira Cloud CSV/Parent/ADF/REST/link assumptions are recorded with verification date and destination-mapping boundaries.,import/ATLASSIAN_2026_COMPATIBILITY.md
 35,Minimize custom-field bloat,PASS,fields,The minimal searchable custom-field proposal is present; execution mode remains machine-searchable through the local packet/index schema without unnecessary Jira custom-field bloat.,project/FIELD_SCHEMA.yaml;index/WORK_PACKET_INDEX.csv
 36,Labels and components,PASS,taxonomy,Controlled component and label vocabularies exist.,project/COMPONENTS.csv;project/LABEL_DICTIONARY.csv
@@ -49,9 +49,9 @@ section,title,status,check_group,detail,evidence_files
 48,BAS and scientific integrity,PASS,bas,BAS-science work preserves null-result acceptance and dedicated scientific domain coverage.,index/ISSUE_INDEX.csv;project/COMPONENTS.csv
 49,Point-in-time and leakage protection,PASS,pit,PIT/leakage work and release-blocking criteria are represented and traceable.,index/ISSUE_INDEX.csv;index/ACCEPTANCE_TRACEABILITY.csv
 50,Automated validation,PASS,validation,"Full schema, semantic, source, dependency, import, manifest, and second-pass validators are present and pass.",tools/validate_jira_pack.py;tools/run_second_pass_audit.py;validation/VALIDATION_REPORT.md
-51,Coverage gates,PASS,coverage,Current strict coverage and derivative validation agree at 484 canonical issues.,validation/SECOND_PASS_AUDIT_RESULTS.json;validation/DERIVATIVE_CONSISTENCY_REPORT.csv
+51,Coverage gates,PASS,coverage,Current strict coverage and derivative validation agree at 485 canonical issues.,validation/SECOND_PASS_AUDIT_RESULTS.json;validation/DERIVATIVE_CONSISTENCY_REPORT.csv
 52,Planning completeness versus product completeness,PASS,maturity,Historical DONE remains scoped by maturity/evidence and is not treated as product completion.,reconciliation/HISTORICAL_STATUS_RECONCILIATION.csv;SCHEMA.md
-53,Import dry-run,PASS,import,Strict import dry-run passes for 484 issues and 1100 links.,validation/IMPORT_DRY_RUN_REPORT.md;validation/IMPORT_VALIDATION.csv
+53,Import dry-run,PASS,import,Strict import dry-run passes for 485 issues and 1102 links.,validation/IMPORT_DRY_RUN_REPORT.md;validation/IMPORT_VALIDATION.csv
 54,Post-import reconciliation,PASS,reconciliation,Post-import key/status reconciliation utility and validation checklist exist.,tools/reconcile_jira_export.py;import/POST_IMPORT_VALIDATION_CHECKLIST.md
 55,Continuous update contract,PASS,continuous_update,Completion/sync protocols rebuild queues/import derivatives and validate after meaningful changes.,ai/AI_COMPLETION_PROTOCOL.md;ai/AI_SYNC_PROTOCOL.md
 56,Change journal,PASS,history_log,Versioned changelog and append-only meaningful event log exist.,CHANGELOG.md;history/ISSUE_CHANGE_LOG.jsonl

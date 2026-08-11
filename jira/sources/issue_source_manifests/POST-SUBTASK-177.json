@@ -1,0 +1,68 @@
+{
+  "files_to_inspect": [],
+  "governance_traceability_gate": "TASK-036",
+  "issue_id": "POST-SUBTASK-177",
+  "retrieval_protocol": [
+    "Verify document_sha256 against the current repository file.",
+    "Verify anchor_hash against the normalized stored excerpt and current line range.",
+    "If the file hash changed, run repair_source_refs.py to relocate the exact anchor/heading before using the reference.",
+    "Open only the referenced section plus the minimal listed implementation/prerequisite context; the Windows path is convenience metadata, not authority."
+  ],
+  "schema_version": 2,
+  "source_ids": [
+    "TASK-036",
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "source_refs": [
+    {
+      "anchor_excerpt": "TASK-036,PHASE-1,EPIC-007,W16,Define Elo/logistic/simple score baseline contracts,DESIGN,MUST,C3,SOLO_WORKTREE,DONE,TASK-035,REQ-106;REQ-232;REQ-233,AC-022;AC-055;AC-056,baseline candidate contracts + reference formulas,,W06_REPLAN,NO,W16 contract/reference only; actual trained implementation/results are not claimed.",
+      "anchor_hash": "a52dc34f334399dfa62175aafd53cd73850a076304987dfc1471a2c80863ab61",
+      "authority_level": "CURRENT_MACHINE_REGISTRY",
+      "document_sha256": "2d12a13e74b4519e8b1494566846eff25c88e2794197a99241fd2933daad626e",
+      "end_line": 37,
+      "heading": "",
+      "last_verified": "2026-08-09",
+      "repo_relative_path": "governance/IMPLEMENTATION_WBS.csv",
+      "source_ref_id": "SRCREF-00069",
+      "source_type": "csv",
+      "start_line": 37,
+      "why_relevant": "Authoritative registry row for TASK-036",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\IMPLEMENTATION_WBS.csv"
+    },
+    {
+      "anchor_excerpt": "# W16 Model Targets and Output Coherence Wave 16 freezes **semantics**, not empirical winners. ## Source-of-truth output The preferred forecasting contract is a coherent predictive distribution over the two teams' scores. Margin, total, win/loss probabilities, and other compatible probabilities must derive from that di",
+      "anchor_hash": "1378a411827d92de20fe8f3a22dd4e5be8534b95424e440059618a4ff1b982e5",
+      "authority_level": "ACCEPTED_DESIGN",
+      "document_sha256": "0a9ef5d0cc74649cb829719c389f4d9941d40bd4b9eab83870c931b3a16d861d",
+      "end_line": 27,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/51_MODEL_TARGETS_AND_OUTPUT_COHERENCE.md",
+      "source_ref_id": "SRCREF-02049",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Canonical modeling design, implementation, test, or handoff source",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\51_MODEL_TARGETS_AND_OUTPUT_COHERENCE.md"
+    },
+    {
+      "anchor_excerpt": "# W16 Model Architecture Candidates The architecture keeps strong simple baselines and increasingly expressive challengers. ## Mandatory baselines - empirical/home-rate sanity reference; - Elo with probability mapping; - logistic/GLM feature baseline; - simple coherent score-distribution baseline such as Poisson/Skella",
+      "anchor_hash": "22aac5180ff9fdad1724a78994d3b15aec1897946c3df46a90ff85ae1790c1cf",
+      "authority_level": "ACCEPTED_DESIGN",
+      "document_sha256": "99be1aaa01490817a06f76e778fb6d098b8fdf6e3a596ee1a453bc85d0402925",
+      "end_line": 23,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/52_MODEL_ARCHITECTURE_CANDIDATES.md",
+      "source_ref_id": "SRCREF-02050",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Canonical modeling design, implementation, test, or handoff source",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\52_MODEL_ARCHITECTURE_CANDIDATES.md"
+    }
+  ],
+  "traceability_inherited_from": [
+    "TASK-036"
+  ]
+}

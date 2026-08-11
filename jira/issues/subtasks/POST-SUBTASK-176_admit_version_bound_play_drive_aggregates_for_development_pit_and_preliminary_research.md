@@ -20,7 +20,9 @@
     "POST-SUBTASK-172 remains the immutable preliminary baseline; this feature layer is an eligible input for a separately identified superseding preliminary experiment."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-177"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "pit-temporal",
@@ -110,9 +112,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24673",
-    "jira_updated_at": "2026-08-11T01:07:01.900-0500",
-    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T01:29:53.933-0500",
+    "last_synced_at": "2026-08-11T06:30:01.758065+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -257,7 +259,7 @@ Convert only exact, version-bound, pre-cutoff historical play and drive evidence
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-177
 
 ## Read / Inspect First
 

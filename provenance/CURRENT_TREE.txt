@@ -115,6 +115,7 @@ artifacts/jira_evidence/POST-SUBTASK-173.json
 artifacts/jira_evidence/POST-SUBTASK-174.json
 artifacts/jira_evidence/POST-SUBTASK-175.json
 artifacts/jira_evidence/POST-SUBTASK-176.json
+artifacts/jira_evidence/POST-SUBTASK-177.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -144,6 +145,7 @@ artifacts/pit/historical_weather_previous_runs_reconciliation_gate.json
 artifacts/pit/known_at_gate.json
 artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json
+artifacts/pit/preliminary_play_drive_augmented_gate.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json
@@ -191,6 +193,7 @@ configs/openai_gamebook_schema_mapping.json
 configs/openai_quarantine_schema_pilot.json
 configs/openai_task_registry.json
 configs/player_intelligence_registry.json
+configs/preliminary_play_drive_augmented_contract.json
 configs/preliminary_rankings_augmented_contract.json
 configs/preliminary_unprotected_baseline_contract.json
 configs/raw_feature_registry.json
@@ -1355,6 +1358,7 @@ jira/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2
 jira/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.md
 jira/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.md
 jira/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.md
+jira/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1861,6 +1865,7 @@ jira/records/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gat
 jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.json
 jira/records/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.json
 jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.json
+jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2359,6 +2364,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-173.json
 jira/sources/issue_source_manifests/POST-SUBTASK-174.json
 jira/sources/issue_source_manifests/POST-SUBTASK-175.json
 jira/sources/issue_source_manifests/POST-SUBTASK-176.json
+jira/sources/issue_source_manifests/POST-SUBTASK-177.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2834,6 +2840,7 @@ src/aggie_analytics/modeling/contracts.py
 src/aggie_analytics/modeling/ensemble.py
 src/aggie_analytics/modeling/forecast.py
 src/aggie_analytics/modeling/joint.py
+src/aggie_analytics/modeling/play_drive_augmented.py
 src/aggie_analytics/modeling/preliminary.py
 src/aggie_analytics/modeling/preliminary_rankings.py
 src/aggie_analytics/modeling/registry.py
@@ -2947,6 +2954,7 @@ tests/test_openai_assist.py
 tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
+tests/test_preliminary_play_drive_augmented.py
 tests/test_preliminary_rankings_augmented_contract.py
 tests/test_preliminary_unprotected_baselines.py
 tests/test_product_supply_chain.py
@@ -3021,6 +3029,7 @@ tools/run_openai_entity_review_pilot.py
 tools/run_openai_gamebook_pilot.py
 tools/run_openai_gamebook_schema_mapping.py
 tools/run_openai_quarantine_pilot.py
+tools/run_preliminary_play_drive_augmented.py
 tools/run_preliminary_rankings_augmented_baselines.py
 tools/run_preliminary_unprotected_baselines.py
 tools/run_product.py
@@ -3057,6 +3066,7 @@ tools/validate_openai_assist.py
 tools/validate_openai_gamebook_schema_mapping.py
 tools/validate_player_intelligence.py
 tools/validate_post2022_roster_candidate.py
+tools/validate_preliminary_play_drive_augmented.py
 tools/validate_preliminary_rankings_augmented_baselines.py
 tools/validate_preliminary_unprotected_baselines.py
 tools/validate_product_supply_chain.py

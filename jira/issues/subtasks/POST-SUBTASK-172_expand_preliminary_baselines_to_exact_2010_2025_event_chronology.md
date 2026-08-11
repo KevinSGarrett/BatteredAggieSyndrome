@@ -20,7 +20,9 @@
     "Historical acquisition remains a separate active critical-path lane and does not depend on this unit."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-177"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "modeling",
@@ -106,9 +108,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24669",
-    "jira_updated_at": "2026-08-11T01:07:03.514-0500",
-    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T01:29:53.823-0500",
+    "last_synced_at": "2026-08-11T06:30:01.758065+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -248,7 +250,7 @@ Combine the exact validated historical and contemporary outcome labels, build a 
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-177
 
 ## Read / Inspect First
 

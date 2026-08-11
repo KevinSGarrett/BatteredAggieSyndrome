@@ -1,0 +1,207 @@
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "The immutable POST-SUBTASK-172 run, dataset, feature, target, split, forecast, and model identities remain unchanged and are consumed only as pinned inputs and comparison evidence.",
+    "Only the exact POST-SUBTASK-176 target-game/team feature payload under identity b78d577d is joined, using canonical game and team IDs with exactly two team rows per eligible target game and no name-only mapping.",
+    "The replay preserves chronology: play/drive features are not used to fit 2010-2022 outcomes because their exact known-at time is May 2023; any learned augmentation for 2024 uses 2023 outcomes only and any 2025 evaluation uses 2023-2024 outcomes only.",
+    "Cold starts, null feature cells, 2011/2020 source-season absence, and the static 2023-2025 profile limitation remain explicit under versioned fit-only imputation and indicator rules; no factual value or timestamp is invented.",
+    "All datasets, models, predictions, metrics, and conclusions are independently identified PRELIMINARY_UNPROTECTED_PLAY_DRIVE_AUGMENTED and have no protected, champion, production, forecast-publication, A&M-lift, BAS, Aggie Excess, or scientific authority.",
+    "An independent validator and isolated deterministic rebuild reproduce every accepted payload, model artifact, manifest, metric, and disposition byte-for-byte."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is a superseding preliminary experiment, not a mutation of POST-SUBTASK-172.",
+    "The POST-SUBTASK-176 profile summarizes only exact 2010-2022 source evidence and is known before 2023-2025 target cutoffs, but it cannot be backcast as known before its May 2023 repository publication time.",
+    "No OpenAI output or model-generated fact may enter features, labels, splits, known-at time, fitting data, or acceptance."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "modeling",
+  "components_expected_to_be_touched": [
+    "modeling",
+    "pit-temporal",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "A new immutable external training-dataset identity joins the exact POST-SUBTASK-172 target/split population to the exact POST-SUBTASK-176 play/drive development-PIT feature identity without rewriting either input.",
+    "The complete low-cost baseline/replay pipeline runs with explicit chronological eligibility, fit-only imputation, cold-start handling, serialization, prediction replay, calibration diagnostics, metrics by season and relevant slice, and provenance verification.",
+    "The experiment reports whether the added features improve, degrade, or cannot yet support each model family; null or negative results are preserved and no empirical threshold is changed to force adoption.",
+    "All external payloads pass schema, identity, chronology, PIT, target-leakage, deterministic replay, and byte-identity validation, and reconstructible staging output is cleaned.",
+    "Protected promotion remains closed and Lane A approximately 2010-2025 historical expansion continues independently."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-172",
+    "POST-SUBTASK-176"
+  ],
+  "end_to_end_validation": "Re-read the exact POST-SUBTASK-172 manifest and payloads plus the exact POST-SUBTASK-176 manifest and feature payload; rebuild the joined game-level matrix, chronological online assignments, imputation state, model artifacts, predictions, calibration and metrics; verify hashes, target exclusion, source known-at eligibility, serialization, replay equality, and protected closure; then remove the reconstructible rebuild.",
+  "epic_id": "POST-EPIC-008",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-177.json",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "MODEL_RESEARCH",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+  "expected_outputs": [
+    "configs/preliminary_play_drive_augmented_contract.json",
+    "src/aggie_analytics/modeling/play_drive_augmented.py",
+    "tools/run_preliminary_play_drive_augmented.py",
+    "tools/validate_preliminary_play_drive_augmented.py",
+    "artifacts/pit/preliminary_play_drive_augmented_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-177.json",
+    "<external-data-root>/training/preliminary_play_drive_augmented/sha256/<dataset_identity>",
+    "<external-data-root>/model_artifacts/preliminary_play_drive_augmented/sha256/<model_identity>",
+    "<external-data-root>/forecast_snapshots/preliminary_play_drive_augmented/sha256/<forecast_identity>",
+    "<external-data-root>/manifests/preliminary_play_drive_augmented/sha256/<run_identity>/run_manifest.json",
+    "<external-data-root>/validation/POST-SUBTASK-177"
+  ],
+  "files_expected_to_be_read": [
+    "configs/expanded_event_chronology_preliminary_contract.json",
+    "configs/historical_play_drive_pit_aggregate_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-172.json",
+    "artifacts/jira_evidence/POST-SUBTASK-176.json"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/preliminary_play_drive_augmented_contract.json",
+    "src/aggie_analytics/modeling/play_drive_augmented.py",
+    "tools/run_preliminary_play_drive_augmented.py",
+    "tools/validate_preliminary_play_drive_augmented.py",
+    "tests/test_preliminary_play_drive_augmented.py",
+    "tests/test_jira_control_plane.py",
+    "artifacts/pit/preliminary_play_drive_augmented_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-177.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml"
+  ],
+  "gap_ids": [
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.md",
+  "governance_traceability_gate": "TASK-036",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100485,
+  "in_scope": [
+    "Exact canonical-ID game/team join for the 2023-2025 POST-SUBTASK-176 feature population.",
+    "Chronological online learning and evaluation that never backcasts the May 2023 feature publication time.",
+    "Low-cost simple baseline comparison, calibration diagnostics, artifact serialization, replay, provenance, and negative-result preservation."
+  ],
+  "issue_type": "Subtask",
+  "jira_key": "BAT-534",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "preliminary-unprotected",
+    "baseline-modeling",
+    "play-drive",
+    "pit"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-177",
+  "maturity_before": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+  "objective": "Replay the preliminary model pipeline with the exact POST-SUBTASK-176 play/drive development-PIT features without mutating POST-SUBTASK-172 or opening protected promotion.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24674",
+    "jira_updated_at": "2026-08-11T01:29:53.962-0500",
+    "last_synced_at": "2026-08-11T06:30:01.758065+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
+  "out_of_scope": [
+    "Backcasting POST-SUBTASK-176 features into 2010-2022 training rows or fabricating an earlier known-at timestamp.",
+    "Changing the immutable POST-SUBTASK-172 datasets, models, predictions, splits, metrics, or conclusions.",
+    "Protected evaluation, champion or production promotion, forecast publication, A&M specialization lift, BAS, Aggie Excess, or any scientific claim."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-025",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "POST-SUBTASK-172 exact preliminary event-chronology run and immutable payload identities.",
+    "POST-SUBTASK-176 exact development-only PIT play/drive feature identity and independent validation.",
+    "Configured standardized external data root with immutable content-addressed training, model, forecast, manifest, validation, and backup roots."
+  ],
+  "primary_source_refs": [
+    "SRCREF-00069",
+    "SRCREF-02049",
+    "SRCREF-02050"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "required_evidence": [
+    "Exact POST-SUBTASK-172 and POST-SUBTASK-176 input hashes plus new dataset, feature, target, split, imputation, model, prediction, metric, forecast, run, code, config, runtime, and validation identities.",
+    "Rows, games, seasons, feature counts, cold starts, missingness, exclusions, chronological cutoffs, training windows, leakage checks, and metrics by season/slice.",
+    "Deterministic rebuild and serialization replay evidence, all negative findings, cleanup, and explicit protected nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Canonical game/team pivoting, known-at chronology, online fit windows, fit-only imputation, cold starts, target exclusion, and protected nonauthority remain deterministic.",
+      "path": "tests/test_preliminary_play_drive_augmented.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "External joined dataset, model artifacts, predictions, metrics, manifest, hashes, serialization replay, chronology, and protected closure pass independent validation and byte-identical rebuild.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-177.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any POST-SUBTASK-176 feature is represented as known before its exact source publication time or is used to fit an earlier target outcome.",
+    "Any target outcome, target-game event, future row, name-only identity mapping, or fabricated value enters the feature matrix.",
+    "Any result is represented as protected, champion, production, forecast-publication, A&M-lift, BAS, Aggie Excess, or scientific authority."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241",
+    "RISK-242"
+  ],
+  "schema_version": "2.0",
+  "scope": "Build and independently validate one separately lineaged preliminary-unprotected replay using only the exact POST-SUBTASK-176 development-PIT feature population at its defensible known-at horizon.",
+  "source_ids": [
+    "TASK-036",
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "source_refs": [
+    "SRCREF-00069",
+    "SRCREF-02049",
+    "SRCREF-02050"
+  ],
+  "stop_conditions": [
+    "Stop the affected artifact on input hash, game/team identity, chronology, target overlap, schema, missingness, model serialization, prediction replay, metric, or deterministic rebuild failure.",
+    "Quarantine only affected rows or model families and continue independently valid historical acquisition and baseline work.",
+    "Do not weaken splits, chronology, imputation, validation, or scientific gates merely to obtain apparent improvement."
+  ],
+  "supporting_source_refs": [],
+  "title": "Replay preliminary baselines with play/drive development-PIT features",
+  "traceability_inherited_from": [
+    "TASK-036"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "PIT_LEAKAGE",
+    "PROVENANCE",
+    "REPRODUCIBILITY"
+  ],
+  "why_this_exists": "The exact POST-SUBTASK-176 features are eligible for preliminary research but cannot be silently inserted into the older fixed baseline. A separately identified chronological replay is required to measure their value honestly and exercise the full pipeline without protected overclaim.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}

@@ -1,0 +1,389 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-187_replay_preliminary_baselines_with_exact_play_enrichment_pit_features.json -->
+# POST-SUBTASK-187 — [POST-SUBTASK-187] Replay preliminary baselines with exact play-enrichment PIT features
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Consume the immutable POST-SUBTASK-169 baseline and POST-SUBTASK-184 comparison only through their pinned run, manifest, dataset, target, split, feature, model, and forecast identities; no predecessor is rewritten.",
+    "Join only exact POST-SUBTASK-186 development-PIT feature identity ce9564bd to the unchanged 2023-2025 target population by canonical game and team identity; exclude any unmatched feature game rather than fabricate a label.",
+    "Preserve the BAT-543 source-model candidate boundary: EPA, WPA, success, PPA, inferred positions, and source player IDs remain non-official and noncanonical evidence, with literal '?' retained as UNKNOWN.",
+    "Chronology remains closed to backcasting: 2023 is the frozen baseline fallback, 2024 fits only 2023 outcomes, and 2025 fits only 2023-2024 outcomes; target-game and future outcomes never enter feature evidence or fit.",
+    "Cold starts and null feature cells remain explicit under fit-only median imputation with indicators; no missing statistic, identity, timestamp, feature, or label is invented or silently zero-filled.",
+    "New immutable external artifacts preserve improvement, degradation, mixed results, and quarantine dispositions and remain PRELIMINARY_UNPROTECTED with no protected, champion, production, publication, or scientific authority.",
+    "The dataset, models, forecasts, manifest, metrics, and dispositions pass schema, provenance, PIT, leakage, numerical replay, mutation, and byte-identical deterministic rebuild validation."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is a deterministic statistical replay; OpenAI must not generate features, labels, timestamps, identities, metrics, or promotion decisions.",
+    "Source-model play enrichment is candidate evidence rather than official football statistics or canonical player truth."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-187_replay_preliminary_baselines_with_exact_play_enrichment_pit_features.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "modeling",
+  "components_expected_to_be_touched": [
+    "modeling",
+    "pit-temporal",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "A new immutable external dataset identity joins exact POST-SUBTASK-169 targets/splits and exact POST-SUBTASK-186 development-PIT play-enrichment features without rewriting either predecessor.",
+    "The complete frozen baseline remains pinned and the logistic and ridge play-enrichment stackers run with chronological fit windows, fit-only imputation, cold-start handling, serialization, prediction replay, calibration diagnostics, and per-season/slice metrics.",
+    "Paired comparisons against the frozen baseline and POST-SUBTASK-184 preserve improvement, degradation, and mixed results without changing thresholds or selecting a champion.",
+    "Independent validation proves input hashes, target and feature identities, row/game/team coverage, exclusions, missingness, source known-at ordering, target exclusion, deterministic identities, byte-identical rebuild, and numerical model replay.",
+    "Canonical/live Jira, Git, protected PR checks, exact-main post-merge checks, governing goal, cleanup, and scientific nonclaims agree before Done.",
+    "Historical acquisition and other independently useful preliminary work continue without declaring final historical-population or production readiness."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-169",
+    "POST-SUBTASK-184",
+    "POST-SUBTASK-186"
+  ],
+  "end_to_end_validation": "Re-read exact baseline, prior-replay, target, split, and play-enrichment manifests and payloads; rebuild the canonical game/team join, chronological stackers, predictions, metrics, comparisons, serialized models, and content-addressed manifest in an isolated external root; verify population, missingness, chronology, target exclusion, hashes, mutation controls, numerical replay, byte identity, authority, and cleanup.",
+  "epic_id": "POST-EPIC-008",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-187.json",
+  "evidence_state": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "execution_lane": "MODEL_RESEARCH",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+  "expected_outputs": [
+    "configs/preliminary_play_enrichment_replay_contract.json",
+    "src/aggie_analytics/modeling/play_enrichment_augmented.py",
+    "tools/run_preliminary_play_drive_augmented.py",
+    "tools/validate_preliminary_play_drive_augmented.py",
+    "tests/test_preliminary_play_enrichment_replay.py",
+    "artifacts/pit/preliminary_play_enrichment_replay_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-187.json",
+    "<external-data-root>/training/preliminary_play_enrichment_replay/sha256/<dataset_identity>",
+    "<external-data-root>/model_artifacts/preliminary_play_enrichment_replay/sha256/<model_identity>",
+    "<external-data-root>/forecast_snapshots/preliminary_play_enrichment_replay/sha256/<forecast_identity>",
+    "<external-data-root>/manifests/preliminary_play_enrichment_replay/sha256/<run_identity>/run_manifest.json",
+    "<external-data-root>/validation/POST-SUBTASK-187"
+  ],
+  "files_expected_to_be_read": [
+    "artifacts/jira_evidence/POST-SUBTASK-169.json",
+    "artifacts/jira_evidence/POST-SUBTASK-184.json",
+    "artifacts/jira_evidence/POST-SUBTASK-186.json",
+    "artifacts/pit/preliminary_dense_play_drive_replay_gate.json",
+    "artifacts/pit/historical_play_enrichment_pit_gate.json"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/preliminary_play_enrichment_replay_contract.json",
+    "src/aggie_analytics/modeling/play_enrichment_augmented.py",
+    "tools/run_preliminary_play_drive_augmented.py",
+    "tools/validate_preliminary_play_drive_augmented.py",
+    "tests/test_preliminary_play_enrichment_replay.py",
+    "artifacts/pit/preliminary_play_enrichment_replay_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-187.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml"
+  ],
+  "gap_ids": [
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-187_replay_preliminary_baselines_with_exact_play_enrichment_pit_features.md",
+  "governance_traceability_gate": "TASK-036",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100495,
+  "in_scope": [
+    "Exact canonical game/team join for the 2023-2025 POST-SUBTASK-186 play-enrichment feature population.",
+    "Chronological preliminary replay that never backcasts the May 2023 publication horizon.",
+    "Paired baseline and prior-replay comparison, calibration diagnostics, serialization replay, deterministic reconstruction, provenance, and negative-result preservation."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "BAT-544",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "preliminary-unprotected",
+    "baseline-modeling",
+    "play-enrichment",
+    "pit",
+    "local-id-post-subtask-187"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-187",
+  "maturity_before": "DEVELOPMENT_ONLY_PIT_ADMITTED",
+  "objective": "Replay the immutable preliminary baseline pipeline with exact POST-SUBTASK-186 play-enrichment development-PIT features while preserving chronology, source-model candidate boundaries, missingness, and protected nonauthority.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24935",
+    "jira_updated_at": "2026-08-11T10:46:44.154-0500",
+    "last_synced_at": "2026-08-11T15:46:53.040406+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
+  "out_of_scope": [
+    "Backcasting May 2023-known enrichment into 2014-2022 supervised fit rows or fabricating an earlier known-at timestamp.",
+    "Promoting source-model metrics, inferred positions, or source player IDs into official statistics or canonical identity.",
+    "Changing immutable predecessor datasets, targets, splits, models, forecasts, metrics, or conclusions.",
+    "Protected evaluation, champion or production promotion, forecast publication, A&M specialization lift, BAS, Aggie Excess, or any scientific claim."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-025",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "POST-SUBTASK-169 exact preliminary baseline ladder and immutable identities.",
+    "POST-SUBTASK-184 exact dense play/drive comparison run.",
+    "POST-SUBTASK-186 exact play-enrichment development-PIT identity ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb.",
+    "Verified pre-change recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-187-PRECHANGE-20260811T154115Z."
+  ],
+  "primary_source_refs": [
+    "SRCREF-00069",
+    "SRCREF-02049",
+    "SRCREF-02050"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv",
+    "configs/judging_rule_seal.json"
+  ],
+  "ready": false,
+  "record_revision": "1.0",
+  "required_evidence": [
+    "Exact POST-SUBTASK-169, POST-SUBTASK-184, and POST-SUBTASK-186 input hashes plus new dataset, feature, target, split, model, forecast, run, code, config, and validation identities.",
+    "Rows, games, seasons, feature counts, cold starts, null cells, exclusions, fit windows, leakage checks, per-season/slice metrics, and paired deltas.",
+    "Deterministic rebuild, numerical model replay, cleanup, live Jira/GitHub integration, and explicit protected/scientific nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Exact canonical joins, source-model boundaries, chronology, imputation, missingness, and protected nonauthority fail closed.",
+      "path": "tests/test_preliminary_play_enrichment_replay.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The complete external replay passes immutable input, reconstruction, numerical replay, metrics, provenance, and byte-identity checks.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-187.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any enrichment feature is backdated or used to fit an outcome at or after its target season.",
+    "Any target event, future outcome, official-stat assertion, canonical identity, missing fact, label, or timestamp is fabricated.",
+    "Any result is represented as protected, champion, production, forecast-publication, A&M-lift, BAS, Aggie Excess, or scientific authority."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241",
+    "RISK-242"
+  ],
+  "schema_version": "2.0",
+  "scope": "Build and independently validate a separately lineaged PRELIMINARY_UNPROTECTED replay using only the exact POST-SUBTASK-186 development-PIT play-enrichment feature population at its defensible known-at horizon.",
+  "source_ids": [
+    "TASK-036",
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "source_refs": [
+    "SRCREF-00069",
+    "SRCREF-02049",
+    "SRCREF-02050"
+  ],
+  "stop_conditions": [
+    "Stop the affected artifact on input hash, identity, chronology, target overlap, schema, missingness, serialization, numerical replay, metric, mutation, or byte-rebuild failure.",
+    "Quarantine only affected rows or model families and continue independently valid historical acquisition and baseline work.",
+    "Do not weaken chronology, imputation, comparison, validation, or scientific boundaries merely to obtain improvement."
+  ],
+  "supporting_source_refs": [],
+  "title": "[POST-SUBTASK-187] Replay preliminary baselines with exact play-enrichment PIT features",
+  "traceability_inherited_from": [
+    "TASK-036"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "PROVENANCE",
+    "REPRODUCIBILITY",
+    "PIT_LEAKAGE",
+    "CALIBRATION"
+  ],
+  "why_this_exists": "POST-SUBTASK-186 admitted 28 exact-linked play-enrichment features but did not consume them in a separately lineaged preliminary replay; their empirical value must be measured rather than assumed.",
+  "work_packet_path": "",
+  "workflow_state": "IN_PROGRESS"
+}
+```
+
+## Objective
+
+Replay the immutable preliminary baseline pipeline with exact POST-SUBTASK-186 play-enrichment development-PIT features while preserving chronology, source-model candidate boundaries, missingness, and protected nonauthority.
+
+## Why This Exists
+
+POST-SUBTASK-186 admitted 28 exact-linked play-enrichment features but did not consume them in a separately lineaged preliminary replay; their empirical value must be measured rather than assumed.
+
+## Scope
+
+Build and independently validate a separately lineaged PRELIMINARY_UNPROTECTED replay using only the exact POST-SUBTASK-186 development-PIT play-enrichment feature population at its defensible known-at horizon.
+
+### Explicit In Scope
+
+- Exact canonical game/team join for the 2023-2025 POST-SUBTASK-186 play-enrichment feature population.
+- Chronological preliminary replay that never backcasts the May 2023 publication horizon.
+- Paired baseline and prior-replay comparison, calibration diagnostics, serialization replay, deterministic reconstruction, provenance, and negative-result preservation.
+
+### Explicit Out of Scope
+
+- Backcasting May 2023-known enrichment into 2014-2022 supervised fit rows or fabricating an earlier known-at timestamp.
+- Promoting source-model metrics, inferred positions, or source player IDs into official statistics or canonical identity.
+- Changing immutable predecessor datasets, targets, splits, models, forecasts, metrics, or conclusions.
+- Protected evaluation, champion or production promotion, forecast publication, A&M specialization lift, BAS, Aggie Excess, or any scientific claim.
+
+## Prerequisites
+
+- POST-SUBTASK-169 exact preliminary baseline ladder and immutable identities.
+- POST-SUBTASK-184 exact dense play/drive comparison run.
+- POST-SUBTASK-186 exact play-enrichment development-PIT identity ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb.
+- Verified pre-change recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-187-PRECHANGE-20260811T154115Z.
+
+## Hard Dependencies
+
+- POST-SUBTASK-169
+- POST-SUBTASK-184
+- POST-SUBTASK-186
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- None.
+
+## Files Expected To Be Modified
+
+- configs/preliminary_play_enrichment_replay_contract.json
+- src/aggie_analytics/modeling/play_enrichment_augmented.py
+- tools/run_preliminary_play_drive_augmented.py
+- tools/validate_preliminary_play_drive_augmented.py
+- tests/test_preliminary_play_enrichment_replay.py
+- artifacts/pit/preliminary_play_enrichment_replay_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-187.json
+- jira/project/JIRA_TARGET_PROFILE.yaml
+
+## Components Expected To Be Touched
+
+- modeling
+- pit-temporal
+- validation-promotion
+
+## Protected Files / Interfaces
+
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+- configs/judging_rule_seal.json
+
+## Expected Outputs / Artifacts
+
+- configs/preliminary_play_enrichment_replay_contract.json
+- src/aggie_analytics/modeling/play_enrichment_augmented.py
+- tools/run_preliminary_play_drive_augmented.py
+- tools/validate_preliminary_play_drive_augmented.py
+- tests/test_preliminary_play_enrichment_replay.py
+- artifacts/pit/preliminary_play_enrichment_replay_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-187.json
+- <external-data-root>/training/preliminary_play_enrichment_replay/sha256/<dataset_identity>
+- <external-data-root>/model_artifacts/preliminary_play_enrichment_replay/sha256/<model_identity>
+- <external-data-root>/forecast_snapshots/preliminary_play_enrichment_replay/sha256/<forecast_identity>
+- <external-data-root>/manifests/preliminary_play_enrichment_replay/sha256/<run_identity>/run_manifest.json
+- <external-data-root>/validation/POST-SUBTASK-187
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `TASK-036`
+- Inherited from: TASK-036
+- Resolution: `DIRECT_PLUS_INHERITED_DOMAIN_GATE`
+- Effective counts: `{}`
+
+## Acceptance Criteria
+
+1. Consume the immutable POST-SUBTASK-169 baseline and POST-SUBTASK-184 comparison only through their pinned run, manifest, dataset, target, split, feature, model, and forecast identities; no predecessor is rewritten.
+2. Join only exact POST-SUBTASK-186 development-PIT feature identity ce9564bd to the unchanged 2023-2025 target population by canonical game and team identity; exclude any unmatched feature game rather than fabricate a label.
+3. Preserve the BAT-543 source-model candidate boundary: EPA, WPA, success, PPA, inferred positions, and source player IDs remain non-official and noncanonical evidence, with literal '?' retained as UNKNOWN.
+4. Chronology remains closed to backcasting: 2023 is the frozen baseline fallback, 2024 fits only 2023 outcomes, and 2025 fits only 2023-2024 outcomes; target-game and future outcomes never enter feature evidence or fit.
+5. Cold starts and null feature cells remain explicit under fit-only median imputation with indicators; no missing statistic, identity, timestamp, feature, or label is invented or silently zero-filled.
+6. New immutable external artifacts preserve improvement, degradation, mixed results, and quarantine dispositions and remain PRELIMINARY_UNPROTECTED with no protected, champion, production, publication, or scientific authority.
+7. The dataset, models, forecasts, manifest, metrics, and dispositions pass schema, provenance, PIT, leakage, numerical replay, mutation, and byte-identical deterministic rebuild validation.
+
+## Definition of Done
+
+1. A new immutable external dataset identity joins exact POST-SUBTASK-169 targets/splits and exact POST-SUBTASK-186 development-PIT play-enrichment features without rewriting either predecessor.
+2. The complete frozen baseline remains pinned and the logistic and ridge play-enrichment stackers run with chronological fit windows, fit-only imputation, cold-start handling, serialization, prediction replay, calibration diagnostics, and per-season/slice metrics.
+3. Paired comparisons against the frozen baseline and POST-SUBTASK-184 preserve improvement, degradation, and mixed results without changing thresholds or selecting a champion.
+4. Independent validation proves input hashes, target and feature identities, row/game/team coverage, exclusions, missingness, source known-at ordering, target exclusion, deterministic identities, byte-identical rebuild, and numerical model replay.
+5. Canonical/live Jira, Git, protected PR checks, exact-main post-merge checks, governing goal, cleanup, and scientific nonclaims agree before Done.
+6. Historical acquisition and other independently useful preliminary work continue without declaring final historical-population or production readiness.
+
+## Required Tests / Validation
+
+- **NEW_AUTOMATED_TEST_REQUIRED** / `PIT_LEAKAGE` — `tests/test_preliminary_play_enrichment_replay.py` — Exact canonical joins, source-model boundaries, chronology, imputation, missingness, and protected nonauthority fail closed.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-187.json` — The complete external replay passes immutable input, reconstruction, numerical replay, metrics, provenance, and byte-identity checks.
+
+## Required Evidence
+
+- Exact POST-SUBTASK-169, POST-SUBTASK-184, and POST-SUBTASK-186 input hashes plus new dataset, feature, target, split, model, forecast, run, code, config, and validation identities.
+- Rows, games, seasons, feature counts, cold starts, null cells, exclusions, fit windows, leakage checks, per-season/slice metrics, and paired deltas.
+- Deterministic rebuild, numerical model replay, cleanup, live Jira/GitHub integration, and explicit protected/scientific nonclaims.
+
+## Completion Evidence Contract
+
+```json
+{}
+```
+
+## End-to-End Validation Requirement
+
+Re-read exact baseline, prior-replay, target, split, and play-enrichment manifests and payloads; rebuild the canonical game/team join, chronological stackers, predictions, metrics, comparisons, serialized models, and content-addressed manifest in an isolated external root; verify population, missingness, chronology, target exclusion, hashes, mutation controls, numerical replay, byte identity, authority, and cleanup.
+
+## Expected Maturity After Completion
+
+`EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED`
+
+## Risk / Failure Conditions
+
+- Any enrichment feature is backdated or used to fit an outcome at or after its target season.
+- Any target event, future outcome, official-stat assertion, canonical identity, missing fact, label, or timestamp is fabricated.
+- Any result is represented as protected, champion, production, forecast-publication, A&M-lift, BAS, Aggie Excess, or scientific authority.
+
+## Stop Conditions
+
+- Stop the affected artifact on input hash, identity, chronology, target overlap, schema, missingness, serialization, numerical replay, metric, mutation, or byte-rebuild failure.
+- Quarantine only affected rows or model families and continue independently valid historical acquisition and baseline work.
+- Do not weaken chronology, imputation, comparison, validation, or scientific boundaries merely to obtain improvement.
+
+## Source References
+
+- SRCREF-00069
+- SRCREF-02049
+- SRCREF-02050
+
+## AI Context Notes
+
+- This is a deterministic statistical replay; OpenAI must not generate features, labels, timestamps, identities, metrics, or promotion decisions.
+- Source-model play enrichment is candidate evidence rather than official football statistics or canonical player truth.

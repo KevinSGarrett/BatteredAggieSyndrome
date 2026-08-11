@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "PRELIMINARY_PLAY_ENRICHMENT_REPLAY_GATE",
+  "decision_unit": "POST-SUBTASK-187",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "result": "PASS_MIXED_EMPIRICAL_DISPOSITION_PRELIMINARY_ONLY",
+  "input_identities": {
+    "baseline_run": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "prior_dense_play_drive_run": "fbd173efe68ee6aebc0e897ced096c29ce4ea4c6d794029e11fcb590dee60b2a",
+    "play_enrichment_feature": "ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb"
+  },
+  "output_identities": {
+    "run": "bceb755657b40f73bf18d7fce46b52596b942cccc7c1996a3c0a9634e66ebc28",
+    "manifest_sha256": "e9a1d35816aa164efc1cf34b37433a17e9ee55c079381aa774c7731f92faf0dd",
+    "dataset": "694456887dea77c3c66f0802d49e71872c0b1d35013142cd68239cca370aa9b3",
+    "feature": "7c2d38b4f6893f4e17c3c102f97734e86f55a034238649ffe44d4260be5b0a13",
+    "target": "f35d24dc2b9d700b449e4ce60f2f9ecf1881b2f1d1b600fb0e579c1e17928dd0",
+    "split": "012b3b28ceb0788725c6d08f6004dd959a655624f07831076833573a08d418a3",
+    "forecast": "c61a44905793bcdee3f8f7421f4f914d6983ca562a67a87a669469c84dabfd09",
+    "logistic_model": "fffa1193018bbb80613dfc89b717965baf68abba74cdcc9ff8f3f09e6ca79f64",
+    "ridge_margin_model": "8f8d2c55630ced28f6bb8a81ea7efc0d060764ffc486797efe4b20d3dbbe03e5"
+  },
+  "population": {
+    "source_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+    "partial_source_seasons": [2020],
+    "target_seasons": [2023, 2024, 2025],
+    "games": 2763,
+    "rows_by_season": {"2023": 910, "2024": 919, "2025": 934},
+    "features_per_candidate": 31,
+    "play_enrichment_difference_features": 28,
+    "cold_start_games": 23,
+    "missing_cells_per_play_enrichment_difference": 23,
+    "excluded_feature_games": ["game_126950537b3059bdaa46c689e2b34db7"],
+    "exclusion_reason": "ABSENT_FROM_PINNED_OUTCOME_TARGET_POPULATION_NO_LABEL_FABRICATED"
+  },
+  "chronology": {
+    "2023": "EXACT_FROZEN_BASELINE_FALLBACK_NO_FIT",
+    "2024_fit_seasons": [2023],
+    "2024_maximum_fit_start_utc": "2024-01-09T00:30:00Z",
+    "2024_minimum_prediction_start_utc": "2024-08-24T16:00:00Z",
+    "2025_fit_seasons": [2023, 2024],
+    "2025_maximum_fit_start_utc": "2025-01-21T00:30:00Z",
+    "2025_minimum_prediction_start_utc": "2025-08-23T16:00:00Z",
+    "target_or_future_outcomes_in_fit": 0,
+    "source_known_at_after_target_cutoff": 0,
+    "target_game_outcomes_in_feature_evidence": 0,
+    "protected_split_opened": false
+  },
+  "metrics_all_games": {
+    "play_enrichment_logistic_stacker": {
+      "2023": {"rows": 910, "brier": 0.1787888378664104, "log_loss": 0.5267672857650244, "ece_10": 0.04273553098512131},
+      "2024": {"rows": 919, "brier": 0.19164641519550676, "log_loss": 0.5563442877158908, "ece_10": 0.04075445128843845},
+      "2025": {"rows": 934, "brier": 0.18024571303220718, "log_loss": 0.5343873968520565, "ece_10": 0.032868458643364205}
+    },
+    "play_enrichment_ridge_margin_stacker": {
+      "2023": {"rows": 910, "brier": 0.18243760446630392, "log_loss": 0.5404399904923277, "ece_10": 0.057525921743748085, "margin_mae": 13.656819600924914},
+      "2024": {"rows": 919, "brier": 0.1941617412724396, "log_loss": 0.5659761810633673, "ece_10": 0.049557837549059, "margin_mae": 14.659169989470886},
+      "2025": {"rows": 934, "brier": 0.1844863548353262, "log_loss": 0.5465738446390467, "ece_10": 0.062261799595958484, "margin_mae": 13.961770825022407}
+    }
+  },
+  "empirical_disposition": {
+    "versus_frozen_baseline": "MIXED_LOGISTIC_IMPROVED_2024_2025_RIDGE_WORSE_2024_BETTER_2025",
+    "versus_prior_dense_play_drive": "IMPROVED_2024_AND_2025_ALL_REPORTED_PROBABILITY_METRICS_AND_RIDGE_MARGIN_MAE",
+    "logistic_2024_brier_delta_vs_frozen": -0.001561503807959136,
+    "logistic_2025_brier_delta_vs_frozen": -0.0025571053467973726,
+    "ridge_2024_margin_mae_delta_vs_frozen": 0.1314877645420509,
+    "ridge_2025_margin_mae_delta_vs_frozen": -0.04264045028371477,
+    "logistic_2024_brier_delta_vs_dense": -0.0026261388648515793,
+    "logistic_2025_brier_delta_vs_dense": -0.0005224364454183561,
+    "ridge_2024_margin_mae_delta_vs_dense": -0.1452279537051293,
+    "ridge_2025_margin_mae_delta_vs_dense": -0.04035389756799823,
+    "champion_or_production_promotion": false
+  },
+  "validation": {
+    "checks_passed": 70,
+    "checks_failed": 0,
+    "deterministic_payloads_compared": 8,
+    "byte_identical_rebuild": true,
+    "validation_report_sha256": "220e2b9b53eb751f60be8759f2c6e13e472bfc6e7aa0ee386431154ad3de06e4"
+  },
+  "authority": {
+    "pipeline_integration": true,
+    "preliminary_unprotected_research": true,
+    "protected_training": false,
+    "protected_evaluation": false,
+    "champion_promotion": false,
+    "production_forecast_publication": false
+  },
+  "limitations": [
+    "The feature payload is known only by May 2023 and cannot be backcast into the 2014-2022 fit population.",
+    "The 2023 output is the exact frozen fallback and not a learned enrichment-feature result.",
+    "The 2024 ridge result is worse than frozen on probability metrics and margin MAE; that negative finding is preserved.",
+    "Source-model metrics and inferred player fields remain candidate-only, nonofficial, and noncanonical.",
+    "Protected retraining still requires the expanded quality-supported population and unchanged chronological/W17 gates."
+  ],
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

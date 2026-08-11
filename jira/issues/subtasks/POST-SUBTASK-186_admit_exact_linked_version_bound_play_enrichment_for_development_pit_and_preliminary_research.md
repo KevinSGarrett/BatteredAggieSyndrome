@@ -21,7 +21,9 @@
     "No OpenAI output or model-generated fact participates in acquisition, linkage, identity, timing, aggregation, validation, or admission."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-187"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-186_admit_exact_linked_version_bound_play_enrichment_for_development_pit_and_preliminary_research.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "pit-temporal",
@@ -112,11 +114,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24934",
-    "jira_updated_at": "2026-08-11T10:01:14.860-0500",
-    "last_synced_at": "2026-08-11T15:01:36.664648+00:00",
+    "jira_updated_at": "2026-08-11T10:46:44.038-0500",
+    "last_synced_at": "2026-08-11T15:46:53.040406+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Name-only team or player mapping, canonical player identity promotion, roster membership inference, starter/availability claims, or interpreting literal '?' as a known position.",
@@ -218,7 +220,7 @@
   ],
   "why_this_exists": "The pinned 2014-2022 enrichment payload contains derived play metrics and player-position candidates committed before every 2023-2025 target cutoff, but only exact links to the pinned base-play identity and verified source-team assignments can support a non-name-based development-PIT lane.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 
@@ -260,7 +262,7 @@ Convert exact validated play-enrichment links into canonical-team development-PI
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-187
 
 ## Read / Inspect First
 

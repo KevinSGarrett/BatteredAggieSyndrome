@@ -9,35 +9,46 @@ import numpy as np
 
 
 CLASSIFICATION = "PRELIMINARY_UNPROTECTED"
-RUN_VERSION = "preliminary-play-drive-walk-forward-v1"
-LOGISTIC_FAMILY = "play_drive_logistic_stacker"
-MARGIN_FAMILY = "play_drive_ridge_margin_stacker"
-PROFILE_LABEL = "play_drive"
-SOURCE_KNOWN_AT_FIELD = "play_drive_source_known_at_utc"
-HOME_SOURCE_KNOWN_AT_FIELD = "home_play_drive_source_known_at_utc"
-AWAY_SOURCE_KNOWN_AT_FIELD = "away_play_drive_source_known_at_utc"
-LINEAGE_FIELD = "play_drive_lineage_sha256"
-PROTECTED_FIELD = "play_drive_protected_eligible"
+RUN_VERSION = "preliminary-play-enrichment-walk-forward-v1"
+LOGISTIC_FAMILY = "play_enrichment_logistic_stacker"
+MARGIN_FAMILY = "play_enrichment_ridge_margin_stacker"
+PROFILE_LABEL = "play_enrichment"
+SOURCE_KNOWN_AT_FIELD = "play_enrichment_source_known_at_utc"
+HOME_SOURCE_KNOWN_AT_FIELD = "home_play_enrichment_source_known_at_utc"
+AWAY_SOURCE_KNOWN_AT_FIELD = "away_play_enrichment_source_known_at_utc"
+LINEAGE_FIELD = "play_enrichment_lineage_sha256"
+PROTECTED_FIELD = "play_enrichment_protected_eligible"
 PROFILE_FIELDS = (
-    "play_count",
-    "play_game_count",
-    "play_season_count",
-    "epa_mean",
-    "stat_yardage_mean",
+    "source_play_count",
+    "source_game_count",
+    "source_season_count",
+    "position_candidate_row_count",
+    "unknown_position_row_count",
+    "source_player_id_candidate_row_count",
+    "source_epa_mean",
+    "source_wpa_mean",
+    "source_success_rate",
+    "source_ppa_mean",
+    "source_epa_revision_mean_abs",
+    "source_wpa_revision_mean_abs",
     "rush_rate",
     "pass_rate",
-    "scoring_play_rate",
-    "interception_rate",
     "sack_rate",
-    "pass_completion_rate",
-    "drive_count",
-    "drive_game_count",
-    "drive_plays_mean",
-    "touchdown_drive_rate",
-    "field_goal_drive_rate",
-    "turnover_drive_rate",
+    "interception_rate",
+    "completion_rate_on_pass_attempt",
+    "target_rate",
+    "touchdown_rate",
+    "turnover_rate",
+    "penalty_rate",
+    "red_zone_play_rate",
+    "scoring_opportunity_rate",
+    "middle_eight_rate",
+    "stuffed_run_rate",
+    "position_candidate_rate",
+    "unknown_position_rate",
+    "source_player_id_candidate_rate",
 )
-DIFFERENCE_FIELDS = tuple(f"play_drive_{name}_diff" for name in PROFILE_FIELDS)
+DIFFERENCE_FIELDS = tuple(f"play_enrichment_{name}_diff" for name in PROFILE_FIELDS)
 LOGISTIC_FEATURES = ("baseline_logit",) + DIFFERENCE_FIELDS + (
     "home_profile_cold_start",
     "away_profile_cold_start",
@@ -86,7 +97,7 @@ def fit_seasons_for_prediction(season: int) -> tuple[int, ...]:
         return (2023,)
     if season == 2025:
         return (2023, 2024)
-    raise ValueError(f"season {season} is outside the approved play/drive replay")
+    raise ValueError(f"season {season} is outside the approved play-enrichment replay")
 
 
 def build_game_profile(
@@ -96,38 +107,49 @@ def build_game_profile(
         raise ValueError(f"exactly two team profile rows required for {target['target_game_id']}")
     by_role = {str(row["team_role"]).upper(): row for row in profile_rows}
     if set(by_role) != {"HOME", "AWAY"}:
-        raise ValueError("HOME and AWAY play/drive profile rows required")
+        raise ValueError("HOME and AWAY play-enrichment profile rows required")
     home, away = by_role["HOME"], by_role["AWAY"]
     game_id = str(target["target_game_id"])
     if str(home["game_id"]) != game_id or str(away["game_id"]) != game_id:
-        raise ValueError("target/play-drive game identity mismatch")
+        raise ValueError("target/play-enrichment game identity mismatch")
     if str(home["team_id"]) != str(target["home_team_id"]):
-        raise ValueError("home team/play-drive identity mismatch")
+        raise ValueError("home team/play-enrichment identity mismatch")
     if str(away["team_id"]) != str(target["away_team_id"]):
-        raise ValueError("away team/play-drive identity mismatch")
+        raise ValueError("away team/play-enrichment identity mismatch")
     if str(home["opponent_team_id"]) != str(target["away_team_id"]):
-        raise ValueError("home opponent/play-drive identity mismatch")
+        raise ValueError("home opponent/play-enrichment identity mismatch")
     if str(away["opponent_team_id"]) != str(target["home_team_id"]):
-        raise ValueError("away opponent/play-drive identity mismatch")
+        raise ValueError("away opponent/play-enrichment identity mismatch")
     for side, row in (("home", home), ("away", away)):
+        if row.get("classification") != "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_EXACT_PLAY_ENRICHMENT":
+            raise ValueError(f"{side} play-enrichment classification drift")
+        if bool(row.get("official_stat_authority")):
+            raise ValueError(f"{side} play-enrichment claims official-stat authority")
+        if bool(row.get("canonical_player_identity_promoted")):
+            raise ValueError(f"{side} play-enrichment promotes candidate player identity")
         if bool(row["cold_start"]):
             if any(row.get(name) is not None for name in PROFILE_FIELDS):
                 raise ValueError(f"{side} cold-start row contains fabricated profile values")
-        elif row.get("historical_known_at_eligible") is not True:
-            raise ValueError(f"{side} play/drive evidence is not historical-known-at eligible")
+            if row.get("authority") is not None or row.get("metric_authority") is not None:
+                raise ValueError(f"{side} cold-start row contains unsupported authority")
+        else:
+            if row.get("authority") != "DEVELOPMENT_ONLY":
+                raise ValueError(f"{side} play-enrichment evidence is not development-only")
+            if row.get("metric_authority") != "SOURCE_MODEL_CANDIDATE_NOT_OFFICIAL":
+                raise ValueError(f"{side} play-enrichment metric authority drift")
     if bool(home.get("protected_eligible") or away.get("protected_eligible")):
-        raise ValueError("play/drive evidence unexpectedly claims protected eligibility")
-    if home.get("source_known_at_utc") is not None and str(home["source_known_at_utc"]) > str(target["cutoff_utc"]):
-        raise ValueError("home play/drive evidence is after target cutoff")
-    if away.get("source_known_at_utc") is not None and str(away["source_known_at_utc"]) > str(target["cutoff_utc"]):
-        raise ValueError("away play/drive evidence is after target cutoff")
+        raise ValueError("play-enrichment evidence unexpectedly claims protected eligibility")
+    for side, row in (("home", home), ("away", away)):
+        if row.get("source_known_at_utc") is not None and str(row["source_known_at_utc"]) > str(target["cutoff_utc"]):
+            raise ValueError(f"{side} play-enrichment evidence is after target cutoff")
+        if row.get("maximum_source_effective_at_utc") is not None and str(row["maximum_source_effective_at_utc"]) >= str(target["start_utc"]):
+            raise ValueError(f"{side} play-enrichment evidence includes target/future game time")
 
     known_values = [
         str(row["source_known_at_utc"])
         for row in (home, away)
         if row.get("source_known_at_utc") is not None
     ]
-
     result: dict[str, Any] = {
         "classification": CLASSIFICATION,
         "target_game_id": game_id,
@@ -138,17 +160,17 @@ def build_game_profile(
         "away_team_id": str(target["away_team_id"]),
         "home_profile_cold_start": float(bool(home["cold_start"])),
         "away_profile_cold_start": float(bool(away["cold_start"])),
-        "home_play_drive_source_known_at_utc": home.get("source_known_at_utc"),
-        "away_play_drive_source_known_at_utc": away.get("source_known_at_utc"),
-        "play_drive_source_known_at_utc": max(known_values) if known_values else None,
-        "play_drive_protected_eligible": False,
+        HOME_SOURCE_KNOWN_AT_FIELD: home.get("source_known_at_utc"),
+        AWAY_SOURCE_KNOWN_AT_FIELD: away.get("source_known_at_utc"),
+        SOURCE_KNOWN_AT_FIELD: max(known_values) if known_values else None,
+        PROTECTED_FIELD: False,
     }
     for source_name, output_name in zip(PROFILE_FIELDS, DIFFERENCE_FIELDS):
         left, right = home.get(source_name), away.get(source_name)
         result[output_name] = (
             None if left is None or right is None else float(left) - float(right)
         )
-    result["play_drive_lineage_sha256"] = stable_hash(
+    result[LINEAGE_FIELD] = stable_hash(
         {
             "target_game_id": game_id,
             "home_team_id": home["team_id"],

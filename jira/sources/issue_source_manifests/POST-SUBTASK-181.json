@@ -1,13 +1,13 @@
 {
   "files_to_inspect": [
-    "governance/OPENAI_ASSISTIVE_PLANE.md",
-    "configs/openai_assist_policy.json",
-    "configs/openai_task_registry.json",
-    "schemas/openai/assistive_candidate.schema.json",
-    "docs/final/CODEX_HANDOFF.md"
+    "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
+    "artifacts/openai_assist/depth_chart_pilot.json",
+    "configs/openai_depth_chart_pilot.json",
+    "docs/final/CODEX_HANDOFF.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md"
   ],
-  "governance_traceability_gate": "POST-SUBTASK-162",
-  "issue_id": "POST-SUBTASK-162",
+  "governance_traceability_gate": "POST-SUBTASK-167",
+  "issue_id": "POST-SUBTASK-181",
   "retrieval_protocol": [
     "Verify document_sha256 against the current repository file.",
     "Verify anchor_hash against the normalized stored excerpt and current line range.",
@@ -16,7 +16,9 @@
   ],
   "schema_version": 2,
   "source_ids": [
-    "OPENAI-ASSIST-PLAN"
+    "OPENAI-ASSIST-PLAN",
+    "GAP-002",
+    "GAP-005"
   ],
   "source_refs": [
     {
@@ -35,5 +37,7 @@
       "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\OPENAI_ASSISTIVE_PLANE.md"
     }
   ],
-  "traceability_inherited_from": []
+  "traceability_inherited_from": [
+    "POST-SUBTASK-168"
+  ]
 }

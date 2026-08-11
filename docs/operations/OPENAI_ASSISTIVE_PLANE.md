@@ -34,6 +34,8 @@ Pilot C is deliberately non-promoting: Nano/minimal passed 0/8 exact cases, Terr
 
 Every paid operation requires a registered task, Jira identity, source capture SHA-256, strict schema, bounded output tokens, allocation, priority, and candidate destination. The CLI never accepts an API key argument. It uses a nonempty `OPENAI_API_KEY` from the authoritative root `.env` first, or an already-injected inherited process value when the file is unavailable. It reports only the credential channel and boolean presence, never the value, and never writes the process value back to disk.
 
+Layout-heavy source evidence may be attached as a content-addressed PNG stored under the external data root. The controller verifies the MIME type, PNG dimensions, 20 MiB local cap, external-root confinement, detail level, source hash, and conservative image-token cost before admission; the request identity and provenance manifest retain the image hash without putting the image in Git. This route uses a Responses `input_image` block and remains subject to `store:false`, strict Structured Outputs, evidence validation, and candidate-only authority. BAT-538 is the first bounded use: four synchronous GPT-4o Mini calls cost `$0.016589`; the corrected two-case schema passed exactly, no Batch was justified, and 25 official pages remained a validated `STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART` negative finding.
+
 Operational artifacts are under `C:\BatteredAggieSyndrome.data\openai`. Delete reconstructible files in `tmp`; preserve accepted request/response/manifests, ledger events, evaluation evidence, and quarantines according to the project retention contract.
 
 ## BAT-522 final scale-out disposition

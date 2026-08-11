@@ -119,11 +119,13 @@ artifacts/jira_evidence/POST-SUBTASK-177.json
 artifacts/jira_evidence/POST-SUBTASK-178.json
 artifacts/jira_evidence/POST-SUBTASK-179.json
 artifacts/jira_evidence/POST-SUBTASK-180.json
+artifacts/jira_evidence/POST-SUBTASK-181.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
 artifacts/open_source/repository_review_decisions.csv
 artifacts/openai_assist/continuous_operations.json
+artifacts/openai_assist/depth_chart_noncoverage_visual_review.json
 artifacts/openai_assist/depth_chart_pilot.json
 artifacts/openai_assist/entity_review_pilot.json
 artifacts/openai_assist/final_handoff.json
@@ -141,6 +143,7 @@ artifacts/pit/historical_play_drive_pit_aggregate_gate.json
 artifacts/pit/historical_player_box_reconciliation_gate.json
 artifacts/pit/historical_rankings_reconciliation_gate.json
 artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
+artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json
 artifacts/pit/historical_tamu_official_gamebook_reconciliation_gate.json
 artifacts/pit/historical_team_box_reconciliation_gate.json
 artifacts/pit/historical_venue_assignment_reconciliation_gate.json
@@ -191,6 +194,7 @@ configs/model_architecture_registry.json
 configs/open_source_integration_registry.json
 configs/openai_assist_policy.json
 configs/openai_availability_source_triage.json
+configs/openai_depth_chart_noncoverage_review.json
 configs/openai_depth_chart_pilot.json
 configs/openai_entity_review_pilot.json
 configs/openai_evaluation_policy.json
@@ -1047,6 +1051,7 @@ jira/ai/work_packets/POST-SUBTASK-165.md
 jira/ai/work_packets/POST-SUBTASK-166.md
 jira/ai/work_packets/POST-SUBTASK-167.md
 jira/ai/work_packets/POST-SUBTASK-168.md
+jira/ai/work_packets/POST-SUBTASK-181.md
 jira/history/ISSUE_CHANGE_LOG.jsonl
 jira/import/ATLASSIAN_2026_COMPATIBILITY.md
 jira/import/FIELD_MAPPING_GUIDE.md
@@ -1371,6 +1376,7 @@ jira/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_dri
 jira/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.md
 jira/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.md
 jira/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.md
+jira/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1881,6 +1887,7 @@ jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_
 jira/records/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.json
 jira/records/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.json
 jira/records/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.json
+jira/records/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2383,6 +2390,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-177.json
 jira/sources/issue_source_manifests/POST-SUBTASK-178.json
 jira/sources/issue_source_manifests/POST-SUBTASK-179.json
 jira/sources/issue_source_manifests/POST-SUBTASK-180.json
+jira/sources/issue_source_manifests/POST-SUBTASK-181.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2646,6 +2654,7 @@ jira/validation/VALIDATION_REPORT.md
 jira/validation/VALIDATION_RESULTS.json
 prompts/openai_assist/availability_source_triage_v1.txt
 prompts/openai_assist/depth_chart_document_v1.txt
+prompts/openai_assist/depth_chart_noncoverage_visual_v1.txt
 prompts/openai_assist/entity_review_v1.txt
 prompts/openai_assist/evaluation_v4.txt
 prompts/openai_assist/gamebook_domain_v4.txt
@@ -2749,6 +2758,7 @@ schemas/models/model_target.json
 schemas/models/simulation_scenario.json
 schemas/openai/assistive_candidate.schema.json
 schemas/openai/assistive_evaluation.schema.json
+schemas/openai/depth_chart_noncoverage_visual.schema.json
 schemas/players/availability_state.json
 schemas/players/honor_observation.json
 schemas/players/player_state.json
@@ -3019,6 +3029,7 @@ tools/build_jira_control_plane.py
 tools/build_post2022_roster_candidate.py
 tools/build_supplemental_play_drive_gap.py
 tools/build_tamu_availability_evidence_pages.py
+tools/build_tamu_depth_chart_noncoverage_review.py
 tools/build_wmt_provider_timestamp_pit.py
 tools/build_wmt_tamu_specialization_feature_pit.py
 tools/capture_runtime_manifest.py
@@ -3050,6 +3061,7 @@ tools/run_expanded_event_chronology_preliminary.py
 tools/run_local_benchmark.py
 tools/run_openai_assist_eval.py
 tools/run_openai_availability_source_triage.py
+tools/run_openai_depth_chart_noncoverage_visual_review.py
 tools/run_openai_depth_chart_pilot.py
 tools/run_openai_entity_review_pilot.py
 tools/run_openai_gamebook_pilot.py
@@ -3102,6 +3114,7 @@ tools/validate_repository.py
 tools/validate_supplemental_play_drive_gap.py
 tools/validate_tamu_availability_evidence_pages.py
 tools/validate_tamu_availability_source_sample.py
+tools/validate_tamu_depth_chart_noncoverage_review.py
 tools/validate_tamu_specialization.py
 tools/validate_team_state.py
 tools/validate_temporal.py

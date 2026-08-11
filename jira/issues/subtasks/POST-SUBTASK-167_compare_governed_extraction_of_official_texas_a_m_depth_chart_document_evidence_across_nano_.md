@@ -35,7 +35,8 @@
   "blocked_reason": "",
   "blocks": [
     "POST-STORY-056",
-    "POST-SUBTASK-166"
+    "POST-SUBTASK-166",
+    "POST-SUBTASK-181"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_texas_a_m_depth_chart_document_evidence_across_nano_.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -308,6 +309,7 @@ Execute POST-SUBTASK-167 within the optional OpenAI assistive plane. Consume `PO
 
 - POST-STORY-056
 - POST-SUBTASK-166
+- POST-SUBTASK-181
 
 ## Read / Inspect First
 

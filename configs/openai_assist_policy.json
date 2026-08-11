@@ -2,7 +2,7 @@
   "schema_version": 2,
   "policy_id": "openai-assistive-plane-2026-08-10-balanced-router-v2",
   "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
-  "official_docs_checked_at": "2026-08-10",
+  "official_docs_checked_at": "2026-08-11",
   "api": {
     "batch_completion_window": "24h",
     "max_transient_attempts": 3,
@@ -14,6 +14,8 @@
     "batch": "https://developers.openai.com/api/docs/guides/batch",
     "data_controls": "https://developers.openai.com/api/docs/guides/your-data",
     "evaluation": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+    "file_inputs": "https://developers.openai.com/api/docs/guides/file-inputs",
+    "image_inputs": "https://developers.openai.com/api/docs/guides/images-vision",
     "model_guidance": "https://developers.openai.com/api/docs/guides/upgrading-to-gpt-5p6-sol",
     "pricing": "https://developers.openai.com/api/docs/pricing",
     "responses": "https://developers.openai.com/api/docs/guides/migrate-to-responses",

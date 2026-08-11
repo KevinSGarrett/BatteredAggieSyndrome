@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "review_id": "tamu-official-depth-chart-noncoverage-review-v1",
+  "jira_unit": "POST-SUBTASK-181",
+  "task_name": "depth_chart_noncoverage_visual_review",
+  "authority": "SHADOW_NEGATIVE_FINDING_CANDIDATE_ONLY_NO_DEPTH_CHART_OR_PIT_ADMISSION",
+  "source": {
+    "source_id": "SRC-014",
+    "provider": "Texas A&M Athletics / SIDEARM official weekly game notes",
+    "acquisition_identity": "13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956",
+    "acquisition_manifest_relative_path": "manifests/acquisition/bat523-tamu-official-pregame-game-notes-2011-2025-v1/sha256/13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956/tamu_official_game_notes_acquisition_manifest.json",
+    "acquisition_manifest_sha256": "ad4b834f33581452db0be71770118347237621efff97bb18bde8d7ff204d506d",
+    "depth_page_candidate_identity": "ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4",
+    "depth_page_manifest_relative_path": "manifests/historical_known_at/sha256/ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4/tamu_depth_chart_evidence_pages_manifest.json",
+    "depth_page_manifest_sha256": "618de5e4646c2750e4bb65faa6c8cf6bda285d5ed08f5514606a98cfc45005b3",
+    "noncovered_documents": 25,
+    "seasons": {"2022": 12, "2023": 13},
+    "historical_publication_time_state": "UNKNOWN",
+    "canonical_or_pit_admission": false
+  },
+  "deterministic_review": {
+    "required_heading": "STARTING LINEUPS",
+    "forbidden_depth_heading_regex": "(?im)^\\s*(?:TEXAS A&M\\s+)?(?:DEPTH CHART|TWO[- ]DEEP)\\s*$",
+    "expected_classification": "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART",
+    "render_scale": 2.0
+  },
+  "deterministic_result": {
+    "dataset_identity": "e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027",
+    "manifest_sha256": "f5b0636be63afd20b731227849243681db384f319081dbf80d9102317d574c9c",
+    "payload_sha256": "4792e792dc485119b128cd7e37f6b5e53c74f2da272e6d10d9383a5170e8bca7",
+    "payload_rows": 25,
+    "page_image_aggregate_identity": "55d3b3295a7eecb8dbd79a47f9b77e982fd4ec59e2b9cf8d1c3698b48843040a",
+    "page_image_count": 25
+  },
+  "prompt": {
+    "path": "prompts/openai_assist/depth_chart_noncoverage_visual_v1.txt",
+    "version": "depth-chart-noncoverage-visual-v2-fixed-object",
+    "sha256": "d1e1653b82e040d3643e1482395a07e62bb650187885e86d6c016e4db0b489b1"
+  },
+  "output_schema": "schemas/openai/depth_chart_noncoverage_visual.schema.json",
+  "visual_samples": [
+    {
+      "case_id": "depth-noncoverage-2022-opening-format",
+      "source_request_id": "req_08598955bc5a796880457a0d",
+      "season": 2022,
+      "season_ordinal": 2,
+      "model": "gpt-4o-mini",
+      "reasoning_effort": "none",
+      "image_detail": "high"
+    },
+    {
+      "case_id": "depth-noncoverage-2023-opening-format",
+      "source_request_id": "req_1b4f0b7f99e5facf294ac1c5",
+      "season": 2023,
+      "season_ordinal": 2,
+      "model": "gpt-4o-mini",
+      "reasoning_effort": "none",
+      "image_detail": "high"
+    }
+  ],
+  "acceptance": {
+    "strict_schema_rate_min": 1.0,
+    "exact_classification_rate_min": 1.0,
+    "evidence_accuracy_min": 1.0,
+    "unsupported_fact_rate_max": 0.0,
+    "historical_timestamp_fabrication_max": 0,
+    "automatic_batch_or_canonical_promotion": false
+  }
+}

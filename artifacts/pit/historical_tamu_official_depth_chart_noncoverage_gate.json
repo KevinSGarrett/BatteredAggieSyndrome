@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_TAMU_OFFICIAL_DEPTH_CHART_NONCOVERAGE_GATE",
+  "decision_unit": "POST-SUBTASK-181",
+  "jira_key": "BAT-538",
+  "issued_at_utc": "2026-08-11T09:49:00Z",
+  "source_population": {
+    "source_id": "SRC-014",
+    "acquisition_identity": "13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956",
+    "prior_candidate_identity": "ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4",
+    "review_dataset_identity": "e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027",
+    "documents": 25,
+    "seasons": [2022, 2023],
+    "documents_by_season": {"2022": 12, "2023": 13}
+  },
+  "deterministic_review": {
+    "classification": "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART",
+    "classified_documents": 25,
+    "explicit_depth_chart_heading_documents": 0,
+    "manifest_sha256": "f5b0636be63afd20b731227849243681db384f319081dbf80d9102317d574c9c",
+    "payload_sha256": "4792e792dc485119b128cd7e37f6b5e53c74f2da272e6d10d9383a5170e8bca7",
+    "page_image_aggregate_identity": "55d3b3295a7eecb8dbd79a47f9b77e982fd4ec59e2b9cf8d1c3698b48843040a",
+    "validation_report_sha256": "c136337a4fcd6b5bff52b747dccdf318741df60ff923f9a3f558ae013db8b332",
+    "byte_identical_rebuild": true
+  },
+  "openai_shadow_review": {
+    "model": "gpt-4o-mini",
+    "reasoning_effort": "none",
+    "live_api_calls": 4,
+    "cost_usd": "0.016589",
+    "initial_schema_failure_preserved": true,
+    "corrected_exact_candidates": 2,
+    "corrected_predictions_sha256": "5bd3cb9f7ad2173bb64ca922ffb0054c17e67c7b3b37c96dcb984e450c97d3a9",
+    "batch_jobs": 0,
+    "authority": "CANDIDATE_ONLY_CORROBORATION"
+  },
+  "historical_known_at_gate": {
+    "historical_publication_time_state": "UNKNOWN",
+    "starting_lineup_history_promoted_to_depth_chart": false,
+    "absence_fabricated_into_depth_chart": false,
+    "canonical_player_identity_admission": false,
+    "canonical_depth_chart_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "forecast_or_publication_admission": false
+  },
+  "gate_disposition": "VALIDATED_NEGATIVE_FINDING_STARTING_LINEUP_HISTORY_IS_NOT_DEPTH_CHART_AND_ALL_DOWNSTREAM_ADMISSION_REMAINS_CLOSED",
+  "scientific_nonclaims": {
+    "historical_depth_chart_population_complete": false,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

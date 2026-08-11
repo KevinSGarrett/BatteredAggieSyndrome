@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_PROGRESS_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-181",
+  "jira_import_id": 100489,
+  "jira_key": "BAT-538",
+  "status": "IN_PROGRESS_VALIDATED_PREINTEGRATION",
+  "classification": "HISTORICAL_DEPTH_CHART_NONCOVERAGE_NEGATIVE_FINDING",
+  "objective": "Resolve the exact 25 official A&M 2022-2023 depth-chart page noncoverage documents without fabricating coverage and add governed visual candidate QA.",
+  "population": {
+    "dataset_identity": "e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027",
+    "documents": 25,
+    "documents_by_season": {"2022": 12, "2023": 13},
+    "classification": "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART",
+    "classified_documents": 25,
+    "historical_publication_time_state": "UNKNOWN"
+  },
+  "validation": {
+    "manifest_sha256": "f5b0636be63afd20b731227849243681db384f319081dbf80d9102317d574c9c",
+    "payload_sha256": "4792e792dc485119b128cd7e37f6b5e53c74f2da272e6d10d9383a5170e8bca7",
+    "page_image_aggregate_identity": "55d3b3295a7eecb8dbd79a47f9b77e982fd4ec59e2b9cf8d1c3698b48843040a",
+    "validation_report_sha256": "c136337a4fcd6b5bff52b747dccdf318741df60ff923f9a3f558ae013db8b332",
+    "mutation_controls_passed": 8,
+    "byte_identical_rebuild": true
+  },
+  "openai": {
+    "calls": 4,
+    "model": "gpt-4o-mini",
+    "cost_usd": "0.016589",
+    "accepted_review_candidates": 2,
+    "quarantined": 1,
+    "superseded_exact_candidate": 1,
+    "corrected_run_manifest_sha256": "80de669f0144948441088aac4ba1b221131cd062add63484fcaedf37e65dbb51",
+    "corrected_predictions_sha256": "5bd3cb9f7ad2173bb64ca922ffb0054c17e67c7b3b37c96dcb984e450c97d3a9",
+    "batch_jobs": 0,
+    "batch_reason": "TWO_CASE_NEW_VISUAL_FORMAT_REQUIRES_BOUNDED_SYNCHRONOUS_QA_NOT_SCALE_OUT"
+  },
+  "repository_evidence": [
+    "configs/openai_depth_chart_noncoverage_review.json",
+    "artifacts/openai_assist/depth_chart_noncoverage_visual_review.json",
+    "artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json",
+    "src/aggie_analytics/openai_assist/controller.py",
+    "tools/build_tamu_depth_chart_noncoverage_review.py",
+    "tools/validate_tamu_depth_chart_noncoverage_review.py"
+  ],
+  "authority": {
+    "candidate_review": true,
+    "canonical_or_pit": false,
+    "training_or_protected": false,
+    "champion_or_production": false
+  },
+  "live_jira": {
+    "authentication": "HTTP_200",
+    "status": "In Progress",
+    "claim_comment_id": "13527",
+    "scope_correction_comment_id": "13529",
+    "preintegration_evidence_comment_id": "13575",
+    "updated_at": "2026-08-11T05:03:27.299-0500",
+    "links": [
+      "BAT-524 BLOCKS BAT-538",
+      "BAT-523 RELATES BAT-538",
+      "BAT-525 RELATES BAT-538"
+    ]
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

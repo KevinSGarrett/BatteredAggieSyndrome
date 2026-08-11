@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://batteredaggiesyndrome.local/schemas/openai/depth_chart_noncoverage_visual.schema.json",
+  "title": "Official depth-chart noncoverage visual candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "source_capture_sha256",
+    "disposition",
+    "page_classification",
+    "depth_chart_present",
+    "starting_lineup_history_present",
+    "historical_publication_time_utc",
+    "historical_publication_time_state",
+    "evidence",
+    "conflicts",
+    "notes"
+  ],
+  "properties": {
+    "task_id": {"type": "string", "enum": ["depth_chart_noncoverage_visual_review"]},
+    "source_capture_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "disposition": {"type": "string", "enum": ["CANDIDATE"]},
+    "page_classification": {
+      "type": "string",
+      "enum": ["DEPTH_CHART", "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART", "BOTH", "OTHER", "UNKNOWN"]
+    },
+    "depth_chart_present": {"type": "boolean"},
+    "starting_lineup_history_present": {"type": "boolean"},
+    "historical_publication_time_utc": {"type": "null"},
+    "historical_publication_time_state": {"type": "string", "enum": ["UNKNOWN"]},
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_capture_sha256", "locator", "rendered_image_sha256"],
+      "properties": {
+        "source_capture_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "locator": {"type": "string", "minLength": 1},
+        "rendered_image_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "conflicts": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

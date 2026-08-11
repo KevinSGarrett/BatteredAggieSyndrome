@@ -1,18 +1,20 @@
 <p align="center">
-  <picture>
-    <source media="(max-width: 700px)" srcset="docs/assets/readme/hero-mobile.svg">
-    <img src="docs/assets/readme/hero.svg" width="100%" alt="Battered Aggie Syndrome — a point-in-time college-football forecasting research engine">
-  </picture>
+  <img src="docs/assets/readme/hero.png" width="100%" alt="Battered Aggie Syndrome — the Aggie Analytics Engine for point-in-time college-football forecasting">
 </p>
 
 <h1 align="center">Battered Aggie Syndrome</h1>
 
-<p align="center">
-  <strong>The Aggie Analytics Engine</strong><br>
-  A local-first research system for national college-football forecasting, high-resolution Texas A&amp;M analysis, and one gloriously testable question:
-  <br><br>
-  <em>Is Battered Aggie Syndrome statistically distinguishable from ordinary college-football variance?</em>
-</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <sub><strong>POST-ANALYSIS DIAGNOSTIC</strong></sub><br><br>
+      <strong>What happened when AI finished analyzing A&amp;M football history?</strong><br>
+      It recommended therapy for the dataset.
+    </td>
+  </tr>
+</table>
+
+<p align="center">Battered Aggie Syndrome is the fan belief that Texas A&amp;M football disappoints in unusually improbable ways; the Aggie Analytics Engine is attempting to determine scientifically whether A&amp;M really does underperform objective pregame expectations more frequently or more severely than comparable college-football programs—or whether BAS is just normal college-football variance plus several decades of Aggie emotional damage.</p>
 
 <p align="center">
   <a href="pyproject.toml"><img alt="Python 3.11 through 3.13" src="https://img.shields.io/badge/Python-3.11%E2%80%933.13-500000?style=flat-square&logo=python&logoColor=white"></a>
@@ -34,7 +36,7 @@ Battered Aggie Syndrome is a serious probabilistic sports-analytics project wrap
 
 The system does not begin with the assumption that Texas A&M is cursed. It begins with immutable data, chronological evaluation, and a null hypothesis. The curse must earn promotion through the same protected validation gates as everything else.
 
-## At a glance
+<h2 align="center">At a glance</h2>
 
 <table>
   <tr>
@@ -55,7 +57,7 @@ The system does not begin with the assumption that Texas A&M is cursed. It begin
 
 The national foundation provides the neutral expectation required to distinguish “an unusual Aggie outcome” from “college football happened again.” The result is not merely a predictor. It is an evidence system designed to answer *what was knowable before kickoff, what did the model expect, what actually happened, and how unusual was the gap?*
 
-## Why this project is different
+<h2 align="center">Why this project is different</h2>
 
 College-football prediction is difficult for all the usual reasons: sparse seasons, constant roster turnover, coaching changes, injuries, uneven schedules, changing conferences, limited historical availability, and a suspicious number of games played by 19-year-olds in front of 100,000 emotionally stable adults.
 
@@ -68,7 +70,7 @@ College-football prediction is difficult for all the usual reasons: sparse seaso
 | **Evidence is reproducible** | Raw captures, matrices, models, and forecast snapshots are immutable, content-addressed, and connected by provenance. |
 | **The null result is a valid result** | Texas A&amp;M specialization may resolve to no adjustment; BAS may resolve to no stable excess effect. Both outcomes are scientifically acceptable. |
 
-## Architecture
+<h2 align="center">Architecture</h2>
 
 <p align="center">
   <picture>
@@ -89,7 +91,7 @@ The engine is organized around seven explicit transitions:
 
 Bulk data and runtime artifacts remain outside Git under `AGGIE_ANALYTICS_DATA_ROOT`. The repository holds the code, contracts, schemas, prompts, validators, small evidence artifacts, and documentation required to reproduce those transitions.
 
-## BAS, quantified
+<h2 align="center">BAS, quantified</h2>
 
 For a Texas A&amp;M game, the neutral national model produces a pregame expected margin. BAS is measured from the residual—not from wins, losses, vibes, or message-board temperature.
 
@@ -116,18 +118,17 @@ The 7-point shortfall is the headline BAS event. The 3-, 14-, and 21-point level
 
 Those jokes are labels for humans, not model inputs. The system does not train on vibes, message-board despair, yell intensity, or how early someone muttered “I’ve seen this movie before.”
 
-## The qualitative model — for humans only
+<h2 align="center">The qualitative model</h2>
 
 <p align="center">
   <img src="docs/assets/readme/aggie-emotional-rollercoaster.png" width="72%" alt="A humorous illustrated roller coaster of maroon-clad college-football fans moving from celebration to anxiety inside a stadium">
 </p>
 
 <p align="center">
-  <strong>At kickoff: optimism. At halftime: variance. By the fourth quarter: the protected holdout.</strong><br>
-  <sub>Cultural context only—never a feature, label, prior, or source of model truth.</sub>
+  <strong>At kickoff: optimism. At halftime: variance. By the fourth quarter: the protected holdout.</strong>
 </p>
 
-## Scientific contract
+<h2 align="center">Scientific contract</h2>
 
 The project treats forecasting claims as earned privileges:
 
@@ -142,7 +143,7 @@ The project treats forecasting claims as earned privileges:
 
 Read the full [validation and protected-split contract](docs/56_VALIDATION_AND_PROTECTED_SPLITS.md) and [source-of-truth map](governance/SOURCE_OF_TRUTH_MAP.md).
 
-## Project status
+<h2 align="center">Project status</h2>
 
 > [!IMPORTANT]
 > The architecture and starter system are extensive; the scientific conclusions are intentionally unfinished. Historical materialization and chronological replay are active. Existing real-data baseline artifacts are **preliminary and unprotected** unless an artifact explicitly proves a stronger eligibility class.
@@ -174,7 +175,7 @@ That honesty boundary is part of the product. This repository would rather publi
 
 See the [component maturity matrix](docs/final/FINAL_COMPONENT_MATURITY.csv), [known gaps](docs/final/FINAL_KNOWN_GAPS.md), and [implementation priority](docs/final/FINAL_IMPLEMENTATION_PRIORITY.md).
 
-## Model ladder
+<h2 align="center">Model ladder</h2>
 
 | Stage | Model family | Purpose |
 |---:|---|---|
@@ -190,7 +191,7 @@ No model family is declared the winner in advance. The protected scorecard decid
 
 A model advances because the evidence says so—not because its output looks especially good next to a maroon PowerPoint template.
 
-## Technology
+<h2 align="center">Technology</h2>
 
 | Layer | Current project choices |
 |---|---|
@@ -205,7 +206,7 @@ A model advances because the evidence says so—not because its output looks esp
 
 Optional libraries remain replaceable adapters. MLflow cannot declare a champion, Optuna cannot inspect protected outcomes, and the dashboard cannot secretly retrain the model because somebody refreshed the page aggressively.
 
-## Quick start
+<h2 align="center">Quick start</h2>
 
 ### Prerequisites
 
@@ -256,7 +257,7 @@ Product requests read previously published forecast snapshots. They do not invok
 
 For operational boundaries, see [local runtime paths](docs/operations/LOCAL_RUNTIME_PATHS.md) and [credentials and secrets](docs/operations/CREDENTIALS_AND_SECRETS.md).
 
-## Repository map
+<h2 align="center">Repository map</h2>
 
 ```text
 BatteredAggieSyndrome/
@@ -272,7 +273,7 @@ BatteredAggieSyndrome/
 └── jira/                  canonical work records, evidence, and synchronization pack
 ```
 
-## Documentation flight plan
+<h2 align="center">Documentation flight plan</h2>
 
 | If you want to… | Start here |
 |---|---|
@@ -285,7 +286,7 @@ BatteredAggieSyndrome/
 | Handle credentials safely | [Credentials and secrets](docs/operations/CREDENTIALS_AND_SECRETS.md) |
 | Contribute a change | [Contributing guide](CONTRIBUTING.md) |
 
-## Frequently asked questions
+<h2 align="center">Frequently asked questions</h2>
 
 <details>
 <summary><strong>Does the model assume Texas A&amp;M will disappoint me?</strong></summary>
@@ -322,7 +323,7 @@ Then the project reports the null result, closes the laptop, and continues exper
 
 </details>
 
-## Contributing
+<h2 align="center">Contributing</h2>
 
 Contributions should preserve the core invariants: stable identity, immutable evidence, explicit known-at time, target-game exclusion, chronological evaluation, and honest maturity claims. Start with [CONTRIBUTING.md](CONTRIBUTING.md), then run the strict repository validator before opening a pull request.
 

@@ -402,8 +402,7 @@ docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md
 docs/assets/readme/aggie-emotional-rollercoaster.png
 docs/assets/readme/bas-spectrum-mobile.svg
 docs/assets/readme/bas-spectrum.svg
-docs/assets/readme/hero-mobile.svg
-docs/assets/readme/hero.svg
+docs/assets/readme/hero.png
 docs/assets/readme/system-map-mobile.svg
 docs/assets/readme/system-map.svg
 docs/context/ACCEPTANCE_CONTEXT.md

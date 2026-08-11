@@ -36843,3 +36843,76 @@ Source References
 Governance Traceability Gate: TASK-036
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-187_replay_preliminary_baselines_with_exact_play_enrichment_pit_features.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;baseline-modeling;play-enrichment;pit;local-id-post-subtask-187,modeling,POST-SUBTASK-187,TASK-036;GAP-002;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE
+Sub-task,BAT-545,100496,[POST-SUBTASK-188] Admit version-bound historical venue assignments for development PIT,100060,"Local ID: POST-SUBTASK-188
+
+Objective
+Admit only exact game-ID-linked, version-bound 2010-2022 venue evidence into a development-only historical PIT state while preserving every absent venue, schema variant, and authority limitation.
+
+Why This Exists
+The accepted 2010-2022 outcome population has exact source-game identities and 13 public repository schedule captures committed before every 2023-2025 target cutoff. Venue evidence can therefore advance independently without using the 2026 current catalog as a historical backfill or inferring venues from home teams.
+
+Scope
+Normalize three observed schedule schema variants, join by normalized numeric source game ID and season to the immutable accepted-outcome identity, admit explicit record-time venue assignments, and quarantine missing venue evidence without fabricating a timeless venue catalog.
+
+Explicit In Scope
+- Thirteen immutable sportsdataverse/cfbfastR-data schedule captures for seasons 2010-2022 with public Git committer known-at times from 2023-05-04 through 2023-05-06.
+- Exact one-to-one source game ID and season linkage to the accepted historical-outcome dataset, including deterministic Float64-to-integer ID normalization for the 2011 and 2020 schema variants.
+- Game-grain venue ID, name, city, state, capacity, and indoor evidence exactly as recorded, with field-level missingness, content-addressed provenance, quarantine, and deterministic replay.
+
+Explicit Out of Scope
+- Name-only venue mapping, home-team stadium inference, current-catalog historical backfill, geocoding inference, or silently treating capacity and indoor attributes as timeless canonical truth.
+- Inventing missing venue assignments or attributes, discarding otherwise useful game/outcome seasons, or promoting unresolved venue aliases into canonical identity.
+- Protected training or evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or any scientific result.
+
+Prerequisites / Dependencies
+- Immutable accepted historical-outcome identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7 with exact canonical game mappings.
+- Thirteen captured schedule payloads and capture manifests under the configured external data root.
+- Verified pre-change recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-188-PRECHANGE-20260811T164215Z.
+- Configured standardized external data root and protected W17 judging boundaries.
+- POST-SUBTASK-029
+
+Acceptance Criteria
+1. All 11,146 source schedule rows across 2010-2022 are read only from their pinned capture manifests and payload hashes; schema variants are explicit and no duplicate normalized season/game key is accepted.
+2. All 10,593 accepted historical outcomes join one-to-one by normalized source game ID and season; season/type identity is reconciled and unmatched or conflicting records fail closed.
+3. Exactly 10,414 games with explicit venue ID and name evidence enter the development-only assignment payload; the 179 linked games without venue evidence remain explicit NOT_PRESENT quarantine rows rather than inferred values.
+4. Every admitted source commit time precedes the earliest 2023 target cutoff, source seasons do not overlap 2023-2025 targets, and no outcome, label, target, post-cutoff, or current-catalog field enters the admitted payload.
+5. Outputs preserve immutable content-addressed source, state, quarantine, manifest, validation, and field-missingness identities and pass an isolated byte-identical rebuild plus mutation controls.
+6. Authority remains development-only historical venue evidence; protected training/evaluation, canonical timeless catalog promotion, production promotion, forecast publication, completeness, and scientific claims remain closed.
+
+Definition of Done
+1. Every source and accepted-outcome row is deterministically dispositioned at season/game/domain/field grain, including the two numeric-ID schema variants and 179 NOT_PRESENT venue records.
+2. An immutable external venue-assignment identity contains exact canonical game linkage, record-time venue evidence, source capture/hash/known-at lineage, explicit field missingness, and no inferred values.
+3. Repository tests and independent external validation prove source hashes, join cardinality, chronology, target exclusion, schemas, counts, quarantines, authority, mutation failures, and byte-identical reconstruction.
+4. Canonical and live Jira, Git/PR evidence, governing goal, active plan, cleanup, and scientific nonclaims agree before Done.
+5. Historical acquisition and preliminary modeling continue independently without declaring final historical-population or production readiness.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_historical_venue_assignment_pit.py — Numeric-ID schema normalization, exact joins, NOT_PRESENT quarantine, chronology, target exclusion, and protected nonauthority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-188.json — The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks.
+
+Required Evidence
+- Exact source capture, payload, accepted-outcome, contract, code, dataset, quarantine, manifest, validation, Git, PR, and hosted-check identities.
+- Per-season source, linked, admitted, missing, schema, venue-field, game, byte, and hash counts plus ID/name ambiguity results.
+- Maximum source known-at time, minimum target cutoff, zero target overlap, zero outcome/target fields, mutation controls, and byte-identical rebuild.
+- Explicit record-time attribute, missing-evidence, current-catalog non-backfill, development-only authority, and protected/production/completeness/scientific nonclaims.
+
+End-to-End Validation
+Re-read each pinned capture manifest and payload plus the accepted-outcome payload; independently rebuild normalized source keys, one-to-one canonical joins, admitted and NOT_PRESENT payloads, manifest, and hashes in an isolated external root; verify population, schema variants, missingness, chronology, target exclusion, authority, mutation controls, and byte identity; then remove reconstructible rebuild output.
+
+Stop Conditions
+- Stop the affected row, field, season, or artifact on source, join, chronology, schema, authority, population, hash, or rebuild failure.
+- Quarantine only affected evidence and continue independent historical domains, acquisition, and preliminary modeling.
+- Do not weaken PIT, identity, missingness, or scientific boundaries merely to obtain admission.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-188_admit_version_bound_historical_venue_assignments_for_development_pit.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;venue;pit;development-only;provenance;local-id-post-subtask-188,pit-temporal,POST-SUBTASK-188,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,DEVELOPMENT_ONLY_PIT_ADMITTED,PARTIAL,POST_W25,true,DATA,HISTORICAL_REFERENCE

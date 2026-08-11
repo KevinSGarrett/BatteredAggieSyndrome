@@ -109,6 +109,23 @@
     "training_feature_writes": 0,
     "protected_truth_writes": 0
   },
+  "integration": {
+    "pull_request": 176,
+    "reviewed_head": "531577c8d4c595779547e9bd3b5502d1621ba6d5",
+    "merge_commit": "3ad9476891023cbbea2138efd673d3136ad3fdb6",
+    "merged_at_utc": "2026-08-11T10:09:33Z",
+    "required_and_postmerge_checks_passed": true,
+    "jira_status": "Done",
+    "jira_postmerge_comment_id": "13577"
+  },
+  "cleanup": {
+    "reconstructible_files_removed": 2,
+    "reconstructible_bytes_removed": 582643,
+    "temporary_review_root_remaining": false,
+    "debug_replay_root_remaining": false,
+    "short_replay_root_remaining": false,
+    "immutable_requests_responses_manifests_evals_and_ledger_preserved": true
+  },
   "scientific_nonclaims": {
     "historical_population_ready": false,
     "gap_002_resolved": false,

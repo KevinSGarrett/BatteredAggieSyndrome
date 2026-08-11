@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "artifact_type": "JIRA_PROGRESS_EVIDENCE",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
   "local_issue_id": "POST-SUBTASK-181",
   "jira_import_id": 100489,
   "jira_key": "BAT-538",
-  "status": "IN_PROGRESS_VALIDATED_PREINTEGRATION",
+  "status": "VERIFIED",
   "classification": "HISTORICAL_DEPTH_CHART_NONCOVERAGE_NEGATIVE_FINDING",
   "objective": "Resolve the exact 25 official A&M 2022-2023 depth-chart page noncoverage documents without fabricating coverage and add governed visual candidate QA.",
   "population": {
@@ -51,16 +51,40 @@
   },
   "live_jira": {
     "authentication": "HTTP_200",
-    "status": "In Progress",
+    "status": "Done",
     "claim_comment_id": "13527",
     "scope_correction_comment_id": "13529",
     "preintegration_evidence_comment_id": "13575",
-    "updated_at": "2026-08-11T05:03:27.299-0500",
+    "in_review_comment_id": "13576",
+    "postmerge_comment_id": "13577",
+    "updated_at": "2026-08-11T05:11:57.733-0500",
     "links": [
       "BAT-524 BLOCKS BAT-538",
       "BAT-523 RELATES BAT-538",
       "BAT-525 RELATES BAT-538"
     ]
+  },
+  "integration": {
+    "pull_request": 176,
+    "pull_request_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/176",
+    "reviewed_head": "531577c8d4c595779547e9bd3b5502d1621ba6d5",
+    "merge_commit": "3ad9476891023cbbea2138efd673d3136ad3fdb6",
+    "merged_at_utc": "2026-08-11T10:09:33Z",
+    "required_pull_request_checks_passed": true,
+    "postmerge_repository_ci_run": 31480961679,
+    "postmerge_security_analysis_run": 31480961615,
+    "postmerge_checks_passed": true
+  },
+  "cleanup": {
+    "removed_files": 2,
+    "removed_bytes": 582643,
+    "removed_paths": [
+      "<external-data-root>/openai/tmp/BAT-538-pdf-review",
+      "<external-data-root>/runtime/BAT-538/debug-replay",
+      "<external-data-root>/r"
+    ],
+    "removed_content": "RECONSTRUCTIBLE_VISUAL_INSPECTION_AND_EMPTY_REPLAY_ROOTS",
+    "immutable_source_and_evidence_preserved": true
   },
   "scientific_nonclaims": {
     "historical_population_ready": false,

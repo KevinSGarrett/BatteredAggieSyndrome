@@ -56,10 +56,10 @@
   "result": "PASS",
   "schema_version": 1,
   "status_counts": {
-    "Done": 62,
-    "In Progress": 2,
+    "Done": 63,
+    "In Progress": 1,
     "To Do": 422
   },
   "unexpected_link_count": 0,
-  "verified_at": "2026-08-11T07:25:48.637452+00:00"
+  "verified_at": "2026-08-11T07:44:23.798957+00:00"
 }

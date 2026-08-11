@@ -122,8 +122,8 @@
     "assignee": "",
     "jira_issue_id": "24666",
     "jira_updated_at": "2026-08-11T01:09:23.260-0500",
-    "last_synced_at": "2026-08-11T07:25:49.170544+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

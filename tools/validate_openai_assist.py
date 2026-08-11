@@ -191,7 +191,35 @@ def validate(root: Path) -> list[str]:
     dispositions = checkpoint.get("dispositions", {})
     if dispositions.get("canonical_writes") != 0 or dispositions.get("rejected") != 0:
         errors.append("continuing OpenAI report crossed authority or lost provider results")
-    if continuous_report.get("budget", {}).get("remaining_usd") != "96.519394":
+    gamebook_checkpoint = continuous_report.get("gamebook_schema_mapping_checkpoint", {})
+    if gamebook_checkpoint.get("provider_calls") != 14 or gamebook_checkpoint.get("batch_jobs") != 0:
+        errors.append("gamebook schema-mapping checkpoint has unexpected job counts")
+    if set(gamebook_checkpoint.get("models", {})) != {
+        "gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"
+    }:
+        errors.append("gamebook schema-mapping checkpoint lacks the balanced model comparison")
+    gamebook_metrics = gamebook_checkpoint.get("metrics", {})
+    if (
+        gamebook_metrics.get("strict_schema_rate") != 1.0
+        or gamebook_metrics.get("evidence_accuracy") != 1.0
+        or gamebook_metrics.get("unsupported_fact_rate") != 0.0
+    ):
+        errors.append("gamebook schema-mapping checkpoint violates schema/evidence invariants")
+    if any(
+        gamebook_metrics.get(field) != 0
+        for field in ["canonical_writes", "pit_writes", "training_feature_writes", "protected_truth_writes"]
+    ):
+        errors.append("gamebook schema-mapping checkpoint crossed candidate-only authority")
+    if gamebook_checkpoint.get("source_population", {}).get(
+        "games_with_actions_but_no_explicit_play_collection"
+    ) != 50:
+        errors.append("gamebook schema-mapping checkpoint does not bind the source gap population")
+    budget_checkpoint = continuous_report.get("budget", {})
+    if (
+        budget_checkpoint.get("remaining_usd") != "95.706999"
+        or budget_checkpoint.get("settled_usd") != "4.293001"
+        or budget_checkpoint.get("cumulative_calls") != 466
+    ):
         errors.append("continuing OpenAI report does not reconcile the usage ledger")
     if continuous_report.get("completion", {}).get("continuing_operations_active") is not True:
         errors.append("BAT-522 was incorrectly treated as terminal API use")

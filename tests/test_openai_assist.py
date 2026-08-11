@@ -147,9 +147,42 @@ class OpenAIAssistTests(unittest.TestCase):
         self.assertEqual(36, checkpoint["dispositions"]["quarantine"])
         self.assertEqual(0, checkpoint["dispositions"]["canonical_writes"])
         self.assertEqual({"gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"}, set(checkpoint["models"]))
-        self.assertEqual("96.519394", report["budget"]["remaining_usd"])
+        schema_mapping = report["gamebook_schema_mapping_checkpoint"]
+        self.assertEqual(14, schema_mapping["provider_calls"])
+        self.assertEqual(50, schema_mapping["source_population"]["games_with_actions_but_no_explicit_play_collection"])
+        self.assertEqual(12, schema_mapping["metrics"]["validated_exact_review_candidates"])
+        self.assertEqual(2, schema_mapping["metrics"]["quarantined_exact_gold_mismatches"])
+        self.assertEqual(0.0, schema_mapping["metrics"]["unsupported_fact_rate"])
+        self.assertEqual(0, schema_mapping["metrics"]["canonical_writes"])
+        self.assertEqual(0, schema_mapping["metrics"]["pit_writes"])
+        self.assertEqual(0, schema_mapping["metrics"]["training_feature_writes"])
+        self.assertEqual("REJECT_CURRENT_FORMAT_NO_BATCH", schema_mapping["models"]["gpt-5-nano"]["decision"])
+        self.assertEqual(
+            "BOUNDED_SHADOW_EXACT_RETAIN_FOR_MORE_GOLD",
+            schema_mapping["models"]["gpt-5.6-luna"]["decision"],
+        )
+        self.assertEqual("95.706999", report["budget"]["remaining_usd"])
         self.assertTrue(report["completion"]["continuing_operations_active"])
         self.assertFalse(report["completion"]["completion_claimed"])
+
+    def test_gamebook_schema_mapping_router_and_prompt_are_pinned_candidate_only(self):
+        config = json.loads(
+            (ROOT / "configs" / "openai_gamebook_schema_mapping.json").read_text(encoding="utf-8")
+        )
+        task = json.loads(
+            (ROOT / "configs" / "openai_task_registry.json").read_text(encoding="utf-8")
+        )["tasks"][config["task_name"]]
+        self.assertEqual("POST-SUBTASK-168", config["jira_unit"])
+        self.assertEqual("REVIEW", task["candidate_destination"])
+        self.assertEqual(
+            {"gpt-5-nano", "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"},
+            {route["model"] for route in config["routes"]},
+        )
+        self.assertEqual(14, sum(len(route["case_ids"]) for route in config["routes"]))
+        self.assertFalse(config["acceptance"]["automatic_batch_or_canonical_promotion"])
+        prompt_path = ROOT / config["prompt"]["path"]
+        self.assertEqual(config["prompt"]["sha256"], hashlib.sha256(prompt_path.read_bytes()).hexdigest())
+        self.assertIn("false", prompt_path.read_text(encoding="utf-8"))
 
     def test_policy_budget_is_exact_and_model_effort_is_bounded(self):
         policy = AssistivePolicy.load(ROOT)

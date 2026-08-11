@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "pilot_id": "POST168_GAMEBOOK_ACTION_PLAY_SCHEMA_MAPPING_V1",
+  "task_name": "gamebook_schema_mapping",
+  "jira_unit": "POST-SUBTASK-168",
+  "authority": "CANDIDATE_REVIEW_ONLY_NO_CANONICAL_PIT_TRAINING_OR_PROTECTED_AUTHORITY",
+  "source": {
+    "dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "manifest_relative_path": "manifests/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebook_reconciliation.json",
+    "manifest_sha256": "9cd644376253e278fc833b6b58c717ea4889b6243671c15bc078623ba822da0e",
+    "payload_root_relative_path": "quarantine/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebooks",
+    "actions_payload": {
+      "relative_path": "domain=actions/candidate_records.parquet",
+      "sha256": "514a5f51ab4d5ed5ce51e75b6031b6198a7193cdb30883c37f7fca21c3dfa29d",
+      "rows": 147381
+    },
+    "plays_payload": {
+      "relative_path": "domain=plays/candidate_records.parquet",
+      "sha256": "cb2ec58c8bb7e28aac94bd7a75f4be59425dcb6f231a8333b4ed0e55850f2a53",
+      "rows": 41453
+    }
+  },
+  "selection": {
+    "action_candidate_seasons": [2013, 2014, 2015, 2016, 2017],
+    "native_play_comparator_season": 2018,
+    "require_action_game_absent_from_play_domain": true,
+    "candidate_required_fields": ["play_text", "play_number", "drive_number"],
+    "selection_order": ["season", "wmt_game_id", "record_ordinal", "record_id"]
+  },
+  "prompt": {
+    "path": "prompts/openai_assist/gamebook_schema_mapping_v1.txt",
+    "version": "gamebook-schema-mapping-v1",
+    "sha256": "22d86215a30d28f0e7114df159bdc0b0278e2c3266b465bdc6dcd17deede6041"
+  },
+  "output_schema": "schemas/openai/assistive_evaluation.schema.json",
+  "routes": [
+    {
+      "model": "gpt-5-nano",
+      "reasoning_effort": "minimal",
+      "case_ids": ["ACTION_PLAY_2013", "ACTION_NON_PLAY_2013", "NATIVE_PLAY_2018"]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "none",
+      "case_ids": ["ACTION_PLAY_2013", "ACTION_PLAY_2014", "ACTION_PLAY_2015", "ACTION_PLAY_2016", "ACTION_PLAY_2017", "ACTION_NON_PLAY_2013", "NATIVE_PLAY_2018"]
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "reasoning_effort": "low",
+      "case_ids": ["ACTION_PLAY_2015", "ACTION_PLAY_2017", "ACTION_NON_PLAY_2013"]
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "medium",
+      "case_ids": ["ACTION_PLAY_2017"]
+    }
+  ],
+  "acceptance": {
+    "strict_schema_validity": 1.0,
+    "evidence_accuracy": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "field_accuracy": 1.0,
+    "canonical_writes": 0,
+    "pit_writes": 0,
+    "training_feature_writes": 0,
+    "automatic_batch_or_canonical_promotion": false
+  },
+  "batch_decision": "NOT_ADMITTED_NEW_SCHEMA_MAPPING_FORMAT_REQUIRES_SYNCHRONOUS_GOLD_COMPARISON_FIRST"
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "preliminary-unprotected-baselines-bat398-scoped-team-outcome-v1",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "decision_unit": "POST-TASK-PRELIMINARY-BASELINES-001",
+  "authorized_inputs": {
+    "bat523_scoped_replay_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "bat523_replay_manifest_sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888",
+    "bat387_core_registry_identity": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "contemporary_games_sha256": "1d8b52e0ed409b9d7648d2a8fa89cf1bb0be1e037d5aea92642cf555378ae06a",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "target_seasons": [2023, 2024, 2025],
+    "domains": ["TEAM_OUTCOME_CONTEXT", "OFFICIAL_COMPLETED_OUTCOME_TARGETS"],
+    "eligibility": "PIPELINE_INTEGRATION_CHRONOLOGICAL_REPLAY_TEAM_STRENGTH_RESEARCH_AND_PRELIMINARY_UNPROTECTED_BASELINES_ONLY"
+  },
+  "split_policy": {
+    "2023": "DEVELOPMENT_FIT",
+    "2024": "DEVELOPMENT_TUNE",
+    "2025": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+    "protected_split_opened": false
+  },
+  "feature_policy": {
+    "version": "team-outcome-prior-differences-v1",
+    "features": [
+      "prior_win_rate_diff",
+      "prior_points_for_mean_diff",
+      "prior_points_against_mean_diff",
+      "log1p_prior_games_diff",
+      "home_field",
+      "neutral_site",
+      "home_cold_start",
+      "away_cold_start"
+    ],
+    "imputation": "FIT_SPLIT_MEDIAN_FOR_NUMERIC_PRIORS_WITH_EXPLICIT_COLD_START_INDICATORS",
+    "target_game_or_future_features": "PROHIBITED"
+  },
+  "target_policy": {
+    "version": "completed-official-outcome-target-v1",
+    "materialized_separately": true,
+    "targets": ["home_win", "home_points", "away_points", "margin", "total"],
+    "ties": "home_win=0.5 for probability scoring; ties excluded from binary logistic fitting",
+    "missing_or_incomplete": "EXCLUDE_WITH_RECORDED_REASON_NEVER_FABRICATE"
+  },
+  "model_ladder": [
+    "naive_historical_average",
+    "home_field_empirical",
+    "elo_rating",
+    "regularized_logistic",
+    "regularized_linear_margin",
+    "poisson_skellam_score_distribution",
+    "hist_gradient_boosting_after_simple_pipeline_gate"
+  ],
+  "dependency_contract": {
+    "preliminary_lane_requires": [
+      "BAT-398_EXPANDED_SCOPED_TEAM_OUTCOME_APPROVAL",
+      "BAT-399_SCOPED_PIPELINE_AND_LEAKAGE_ELIGIBILITY",
+      "PINNED_CONTEMPORARY_COMPLETED_OUTCOME_TARGETS"
+    ],
+    "preliminary_lane_does_not_require": [
+      "FINAL_HISTORICAL_POPULATION_READINESS",
+      "GAP-002_RESOLUTION",
+      "PROTECTED_W17_EVALUATION",
+      "PRODUCTION_FEATURE_PROMOTION"
+    ],
+    "protected_promotion_still_requires": [
+      "EXPANDED_QUALITY_SUPPORTED_HISTORY",
+      "ALL_APPLICABLE_DOMAIN_AND_PIT_GATES",
+      "W17_PROTECTED_CHRONOLOGICAL_EVALUATION",
+      "SEALED_CHAMPION_CHALLENGER_PROMOTION"
+    ]
+  },
+  "nonclaims": [
+    "No production champion or production readiness.",
+    "No protected performance.",
+    "No Texas A&M specialization lift.",
+    "No BAS or Aggie Excess result.",
+    "No final historical-population readiness or GAP-002 resolution."
+  ]
+}

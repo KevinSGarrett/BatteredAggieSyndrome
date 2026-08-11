@@ -15807,3 +15807,75 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-168
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json",In Progress,Highest,actionable;openai-assist;post-wave;subtask;continuous-operations;candidate-assistance;terra-sol-comparison;local-id-post-subtask-168,data-sources,POST-SUBTASK-168,OPENAI-ASSIST-PLAN,PHASE-1,IN_PROGRESS,OPERATING,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Sub-task,,100477,[POST-SUBTASK-169] Execute scoped PRELIMINARY_UNPROTECTED baseline pipeline without opening protected promotion,100075,"Local ID: POST-SUBTASK-169
+
+Objective
+Use only the exact BAT-398/BAT-399 scoped team-outcome replay and pinned contemporary completed outcomes to exercise a fully lineaged preliminary modeling pipeline while final historical expansion continues independently.
+
+Why This Exists
+Final expanded-history and protected-promotion gates must remain binding without preventing an explicitly unprotected pipeline and baseline proof on the already approved scoped population.
+
+Scope
+Materialize separate feature, target, split, and training identities; train the simple baseline ladder; permit tree boosting only after the simple pipeline passes; persist and replay immutable external artifacts; and report preliminary metrics and negative findings without a champion or protected claim.
+
+Explicit In Scope
+- Exact replay dataset cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7 only.
+- 2010-2022 team-outcome priors and 2023-2025 completed outcome targets only.
+- Naive, home-field, Elo, regularized logistic/linear, Poisson/Skellam, and post-simple-gate histogram tree baselines.
+- Development fit/tune/unprotected-evaluation chronology, missingness, cold starts, calibration diagnostics, serialization, replay, provenance, and cleanup.
+
+Explicit Out of Scope
+- Any final historical-readiness or GAP-002 completion claim.
+- Protected W17 evaluation, production promotion, champion selection, A&M specialization lift, BAS, Aggie Excess, or publication.
+- Any play, drive, roster, ranking, venue, weather, gamebook, player, or advanced-stat candidate not separately admitted for training.
+
+Prerequisites / Dependencies
+- BAT-398 expanded scoped team-outcome approval recorded by the BAT-523 replay gate.
+- BAT-399 scoped pipeline/leakage eligibility only, not production approval.
+- Pinned contemporary completed-outcome payload SHA-256 1d8b52e0ed409b9d7648d2a8fa89cf1bb0be1e037d5aea92642cf555378ae06a.
+- POST-SUBTASK-048
+- POST-SUBTASK-049
+
+Acceptance Criteria
+1. Every input identity matches the exact BAT-523 scoped replay and approved contemporary outcome payload; eligibility is not broadened.
+2. Feature, target, split, training, model, forecast, and run identities are immutable, reproducible, external-storage-only, and independently rehashed.
+3. The 2023/2024/2025 fit/tune/unprotected-evaluation chronology passes target-game, future-feature, duplicate, missing-label, and protected-split checks.
+4. All six simple baselines serialize and replay before histogram tree boosting is admitted.
+5. Every metric and conclusion is labeled PRELIMINARY_UNPROTECTED and all production/protected/A&M/BAS nonclaims remain false.
+
+Definition of Done
+1. The immutable dataset contains separate feature, outcome-target, split-assignment, and joined training payloads with exact hashes.
+2. Naive, home-field, Elo, regularized logistic/linear, and Poisson/Skellam models train and replay; tree boosting runs only after the simple gate passes.
+3. Per-season and relevant-slice probability, calibration, and score diagnostics are preserved with missingness and exclusions.
+4. The independent validator passes artifact hashes, rows, classification, chronology, target isolation, bounded probabilities, model replay, and mutation controls.
+5. Protected promotion still depends on expanded quality-supported history and W17 validation; no champion is promoted.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_preliminary_unprotected_baselines.py — Synthetic feature pairing, cold start, imputation-fit boundary, leakage failure, Elo determinism, metric, and scoped-contract tests pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-169.json — The external run manifest and every data/model/forecast artifact pass the independent preliminary validator.
+
+Required Evidence
+- Exact BAT-398/BAT-399 scoped input identities and hashes.
+- Dataset, feature, target, split, model, forecast, and run identities with external paths and SHA-256 values.
+- Season/game/row/feature/missingness/exclusion counts and chronological leakage results.
+- Per-season and relevant-slice metrics with PRELIMINARY_UNPROTECTED classification and protected nonclaims.
+- Deterministic rebuild, serialization replay, cleanup, focused/full tests, repository, provenance, and Jira validation.
+
+End-to-End Validation
+Rebuild the same immutable training and forecast identities, independently rehash all payloads and models, replay serialized artifacts, and verify 2025 unprotected evaluation uses only 2023-2024 fitting and 2024 calibration evidence.
+
+Stop Conditions
+- Stop this lane if an input hash or approved scope drifts.
+- Stop the affected model if chronology, serialization replay, or provenance validation fails; do not block independent historical acquisition.
+- Do not use protected results to revise this preliminary pipeline.
+
+Source References
+- SRCREF-00069
+- SRCREF-02116
+- SRCREF-02117
+- SRCREF-02049
+- SRCREF-02050
+
+Governance Traceability Gate: TASK-036
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;baseline-modeling;chronological-replay;local-id-post-subtask-169,modeling,POST-SUBTASK-169,TASK-036;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE

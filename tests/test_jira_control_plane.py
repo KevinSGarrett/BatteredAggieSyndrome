@@ -36,7 +36,10 @@ class JiraControlPlaneTests(unittest.TestCase):
             profile["live_counts"]["issues"] + len(pending),
             canonical_count + len(auxiliary["issues"]),
         )
-        self.assertEqual(pending, ["POST-SUBTASK-167", "POST-SUBTASK-168"])
+        self.assertEqual(
+            pending,
+            ["POST-SUBTASK-167", "POST-SUBTASK-168", "POST-SUBTASK-169"],
+        )
 
 
 if __name__ == "__main__":

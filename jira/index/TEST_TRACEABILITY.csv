@@ -1471,6 +1471,8 @@ ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-167,Subtask,"Pin policy, 
 tests/test_openai_assist.py,EXISTING_AUTOMATED_TEST,POST-SUBTASK-168,Subtask,"Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass."
 artifacts/jira_evidence/POST-SUBTASK-168.json,END_TO_END,POST-SUBTASK-168,Subtask,"Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and Sol after deterministic source selection, validate every output without canonical/PIT authority, reconcile exact usage, and leave the continuing lane active for the next eligible workload."
 ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-168,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
+tests/test_preliminary_unprotected_baselines.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-169,Sub-task,"Synthetic feature pairing, cold start, imputation-fit boundary, leakage failure, Elo determinism, metric, and scoped-contract tests pass."
+artifacts/jira_evidence/POST-SUBTASK-169.json,END_TO_END,POST-SUBTASK-169,Sub-task,The external run manifest and every data/model/forecast artifact pass the independent preliminary validator.
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

@@ -19,7 +19,8 @@
   "blocked_reason": "QUALITY_GATE_BLOCKED_MATRIX_IDENTITY: 7c4b170a85d7aa8053bbbad099b8569cff6676580f18f46f375bbece8a53b3d1; BAT-398 decision BLOCK; zero accepted rows/cells",
   "blocks": [
     "POST-SUBTASK-050",
-    "POST-SUBTASK-051"
+    "POST-SUBTASK-051",
+    "POST-SUBTASK-169"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-049_run_static_future_append_value_mutation_same_game_normalization_entity_correctio.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",

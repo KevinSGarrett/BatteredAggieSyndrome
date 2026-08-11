@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
+  "local_id": "POST-SUBTASK-169",
+  "jira_key": "PENDING_LIVE_SYNCHRONIZATION",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "issue_disposition": "DONE_VERIFIED_LOCAL_PENDING_LIVE_JIRA_SYNC",
+  "achieved_maturity": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+  "evidence_state": "VERIFIED",
+  "input_identities": {
+    "bat523_scoped_replay_dataset": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "bat523_replay_manifest_sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888",
+    "bat387_core_registry": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "contemporary_games_sha256": "1d8b52e0ed409b9d7648d2a8fa89cf1bb0be1e037d5aea92642cf555378ae06a"
+  },
+  "dependency_scope_contract": {
+    "depends_only_on": ["POST-SUBTASK-048/BAT-398", "POST-SUBTASK-049/BAT-399"],
+    "eligible_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "eligible_replay_manifest_sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888",
+    "authority": "PRELIMINARY_UNPROTECTED_PIPELINE_AND_LEAKAGE_REPLAY_ONLY",
+    "protected_downstream_remains_expanded_history_gated": true,
+    "protected_downstream_opened": false
+  },
+  "code_identities": {
+    "preliminary_module_sha256": "9c185d0ac6b453b6e82201f66d84a046354b57363402f03f37c6699365275fab",
+    "runner_sha256": "a5a6c2e67a8eff03173abf116ac73f8932fb82eddd9797bde713183933fb4651",
+    "validator_sha256": "3a32d3800632f1ff5c0637b6ea34f155d3eb752da386fbabc8d136033e104907"
+  },
+  "output_identities": {
+    "run": "3977b720c69dc75559b1f18ed5ab665ab2262e64fe97dc74dd9668ac09604d08",
+    "manifest_sha256": "27cb3b0ec782a0a97d474ff4a7d3c5710f57556ef412440f91fd2e246d091508",
+    "dataset": "f4e6d55b9593d217ddb003a6bb0b852a5e651b25d29a6738c274a15430909f29",
+    "feature": "233dcfce8168da5e373b2eeaef6fcd8403e503cc8097cc89e832b13510878408",
+    "target": "6b95d5b43acc4c2ac23e65bd7613cc342851165a1ca9601a337de834ab84540a",
+    "split": "1af384d751c271273d670e14bf5d3adf123e1294a12bb4d78ae6cdbb93c19b20",
+    "forecast": "c22f8c42df3fb50e958966436e542107b2bd71db19e9b558a277ebe5a71bf069"
+  },
+  "dataset_payloads": [
+    {"name": "feature_matrix.parquet", "rows": 2764, "sha256": "6a264a4a4781f45f6fe04ced774c82ecfb7a0c5b944134142de41655bfa330dd"},
+    {"name": "outcome_targets.parquet", "rows": 2763, "sha256": "d9e49d903b83759b31c6169891aa9e3183f63a1cd2263d03a3a0b0745a79d0bb"},
+    {"name": "split_assignments.parquet", "rows": 2764, "sha256": "e1f25169ac8752621bac33c613d5c1aaf0c10b4f85750cee3bc676fb16db91e6"},
+    {"name": "training_matrix.parquet", "rows": 2763, "sha256": "1ef244e9e9306f1ecb2c1103d6e998a2873fb892bbf310dac6a5570620a9cf58"}
+  ],
+  "forecast_payload": {
+    "name": "predictions.parquet",
+    "rows": 14791,
+    "sha256": "f07ab8c258b50ff343bebe9c5314d3ba4572b5fc56bb0288b56da5c18f731b35"
+  },
+  "model_artifacts": [
+    {"family": "naive_historical_average", "model_identity": "0c515d55627eec3fbd7178e99bfb2e2fbc564db9cd2c91e03143ce5ef2193748", "artifact_sha256": "883bbd4844af68a3da32013b13985f20b87748ac4e62721a08a199fb33a3874b"},
+    {"family": "home_field_empirical", "model_identity": "c846db0b7e8be8715b0f38bb926f32e5758feb9a9b00e53a3a864b9040dd2c89", "artifact_sha256": "592feafcd0bf02c84f44d4e29e823bba50a6405e915ae1994da19cb4b8c59d67"},
+    {"family": "elo_rating", "model_identity": "1b24f32e8cfb7b3104122ac1b17d50b65eeeb9f76017c7d7635790a7ece7cd80", "artifact_sha256": "2fe323e8facf9558a4a08c76813f601c66f262fe557a189b85347e4573f4a86f"},
+    {"family": "regularized_logistic", "model_identity": "f43755727c2a82fabe8a603870ea06f851c5047bcd94bfcd046b75d5cff1d747", "artifact_sha256": "b7d316ce2872cb9ce6f38afe7171ed4fb2c39d07be4ef495a97d4500f3104ce7"},
+    {"family": "regularized_linear_margin", "model_identity": "ecc7637c20bd546aee0558d8187d39e7cf26c2f7253873694464bd65e9d2bb6e", "artifact_sha256": "6ddab70057f748d78381d60ffdd2bd486e8eb14d238a3888b6fe99f71c8849e7"},
+    {"family": "poisson_skellam_score_distribution", "model_identity": "548adc11c404f6cf929f73a3722112d523ca47a7a03e96770312b7d9407e0be4", "artifact_sha256": "f1cbd59301e0dec51cba63501fee1b1b824d8bd8b2b4bf7290114a8523e889e4"},
+    {"family": "hist_gradient_boosting", "model_identity": "4d8be581544fbf3d3ecef8c24882fbafde523008414104ea06d41f55ed6d8b23", "artifact_sha256": "3f228ec22c65673e0c20ee06df074aeab6c8fde5679f9b0322f76f348d658eb7"}
+  ],
+  "population": {
+    "feature_games": 2764,
+    "labeled_games": 2763,
+    "excluded_unlabeled_games": 1,
+    "target_seasons": [2023, 2024, 2025],
+    "source_feature_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "split_assignments": {"2023": "DEVELOPMENT_FIT", "2024": "DEVELOPMENT_TUNE", "2025": "DEVELOPMENT_EVALUATION_UNPROTECTED"},
+    "labeled_by_season": {"2023": 910, "2024": 919, "2025": 934},
+    "feature_count": 8,
+    "cold_start_games": 14,
+    "missing_cells": {"prior_win_rate_diff": 14, "prior_points_for_mean_diff": 14, "prior_points_against_mean_diff": 14},
+    "imputation": "FIT_SPLIT_MEDIAN_WITH_EXPLICIT_COLD_START_INDICATORS"
+  },
+  "selected_preliminary_metrics": {
+    "2025_unprotected": {
+      "elo_rating": {"rows": 934, "brier": 0.17893887818892096, "log_loss": 0.5319473434763387, "calibrated_brier": 0.17871879604337015},
+      "naive_historical_average": {"rows": 934, "brier": 0.22950107399620726, "log_loss": 0.651627506300982},
+      "home_field_empirical": {"rows": 934, "brier": 0.2287181961195838, "log_loss": 0.649956245779467},
+      "regularized_logistic": {"rows": 934, "brier": 0.20891650788045746, "log_loss": 0.6026278230276828},
+      "regularized_linear_margin": {"rows": 934, "brier": 0.2090219570746723, "calibrated_brier": 0.20846182504800953, "margin_mae": 15.589559026103393},
+      "poisson_skellam_score_distribution": {"rows": 934, "brier": 0.24063280779698384, "calibrated_brier": 0.20846106675933634, "margin_mae": 15.591037446572495, "total_mae": 13.140077183475224},
+      "hist_gradient_boosting": {"rows": 934, "brier": 0.20788151057675214, "log_loss": 0.6019957788662077}
+    }
+  },
+  "validation": {
+    "deterministic_rebuild_identity_match": true,
+    "run_summary_sha256": "c8f10fec69e4ae21938db51b2625ca2e53153a34852aa915d601a022eef63f78",
+    "rebuild_summary_sha256": "c8f10fec69e4ae21938db51b2625ca2e53153a34852aa915d601a022eef63f78",
+    "independent_validator": "PASS",
+    "checks_passed": 58,
+    "checks_failed": 0,
+    "validation_report_sha256": "6f5e68491fd562e2234fdfcd5ed762afbc186349d61259168cb2bc02d16c14aa",
+    "target_game_identity_exclusion": "PASS",
+    "future_target_feature_exclusion": "PASS",
+    "protected_split_opened": false,
+    "simple_pipeline_gate_before_tree": "PASS",
+    "integrated_origin_main_commit": "0cdb6e7256d54a7e75b9c580ac8367a6a91222e4",
+    "focused_tests": {"passed": 9, "failed": 0},
+    "full_test_suite": {"passed": 359, "skipped": 3, "subtests_passed": 83, "failed": 0}
+  },
+  "external_locations": {
+    "training": "<external-data-root>/training/preliminary_unprotected/sha256/f4e6d55b9593d217ddb003a6bb0b852a5e651b25d29a6738c274a15430909f29",
+    "models": "<external-data-root>/model_artifacts/preliminary_unprotected/sha256/<model_identity>",
+    "forecast": "<external-data-root>/forecast_snapshots/preliminary_unprotected/sha256/c22f8c42df3fb50e958966436e542107b2bd71db19e9b558a277ebe5a71bf069",
+    "manifest": "<external-data-root>/manifests/preliminary_unprotected/sha256/3977b720c69dc75559b1f18ed5ab665ab2262e64fe97dc74dd9668ac09604d08/run_manifest.json",
+    "validation": "<external-data-root>/validation/POST-TASK-PRELIMINARY-BASELINES-001"
+  },
+  "acceptance_matrix": [
+    {"criterion": "Exact scoped identities only", "disposition": "PASS"},
+    {"criterion": "Separate target and chronological split lineage", "disposition": "PASS"},
+    {"criterion": "Simple baseline ladder before tree", "disposition": "PASS"},
+    {"criterion": "Serialization, replay, provenance, and deterministic rebuild", "disposition": "PASS"},
+    {"criterion": "PRELIMINARY_UNPROTECTED labels and protected nonclaims", "disposition": "PASS"}
+  ],
+  "negative_findings": [
+    "One 2024 target game has no pinned completed outcome and is excluded without fabrication.",
+    "Fourteen games have cold-start/missing prior cells and use the versioned fit-split median rule plus explicit indicators.",
+    "The Poisson/Skellam raw 2025 probability calibration is weak before development-only calibration.",
+    "Tree boosting did not outperform Elo on 2025 unprotected Brier score.",
+    "The training features contain only scoped team-outcome priors; candidate play, drive, roster, ranking, venue, weather, gamebook, player, and advanced-stat domains remain excluded."
+  ],
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  },
+  "cleanup": {
+    "reconstructible_stage_removed": true,
+    "abandoned_downloads": 0,
+    "openai_calls": 0,
+    "superseded_runs_removed": 3,
+    "superseded_external_directories_removed": 30,
+    "superseded_validation_files_removed": 9,
+    "bytes_recovered": 5305454
+  },
+  "rollback": {
+    "backup_set": "<external-data-root>/backups/POST-TASK-preliminary-unprotected-baselines/20260810T231923Z",
+    "bundle_sha256": "b47f2cffa19ad1c4373cd1732aa1a8e3022e43ec610e8228117d7495aca9e58b"
+  }
+}

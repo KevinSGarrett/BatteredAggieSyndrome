@@ -396,8 +396,6 @@ ADDED,tests/test_source_access_smoke_results.py
 ADDED,tests/test_supplemental_play_drive.py
 ADDED,tests/test_wmt_provider_timestamp_pit.py
 ADDED,tests/test_wmt_tamu_specialization_feature_pit.py
-ADDED,tools/__pycache__/__init__.cpython-311.pyc
-ADDED,tools/__pycache__/repo_integrity.cpython-311.pyc
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_sec_tamu_availability.py
 ADDED,tools/acquire_sportsdataverse_rosters.py

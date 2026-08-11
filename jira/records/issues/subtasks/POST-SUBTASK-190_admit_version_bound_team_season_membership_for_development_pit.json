@@ -48,7 +48,7 @@
   "end_to_end_validation": "Re-read the pinned candidate manifest, twenty season payloads and capture manifests, canonical team evidence, and target-cutoff payload; independently rebuild exact admissions in an isolated external root; verify hashes, population, natural keys, transitions, missingness, chronology, authority, forbidden fields, mutation controls, and byte identity; then remove reconstructible output when host policy permits.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-190.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "DEVELOPMENT_ONLY_PIT_ADMITTED",
@@ -103,11 +103,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24939",
-    "jira_updated_at": "2026-08-11T13:15:25.848-0500",
-    "last_synced_at": "2026-08-11T18:15:53.701207+00:00",
+    "jira_updated_at": "2026-08-11T13:38:36.329-0500",
+    "last_synced_at": "2026-08-11T18:39:08.349137+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Name-only team merges, inferred effective dates, missing division imputation, current metadata backfill, or treating branding and venue fields as season-effective truth.",
@@ -135,7 +135,7 @@
     "governance/PROTECTED_SPLIT_REGISTRY.csv"
   ],
   "ready": false,
-  "record_revision": "1.0",
+  "record_revision": "1.1",
   "related_to": [
     "POST-SUBTASK-188",
     "POST-SUBTASK-189"
@@ -216,5 +216,5 @@
   "unblock_condition": "",
   "why_this_exists": "The validated 2001-2020 team-membership candidate has exact source bytes and a public repository commit before all approved 2023-2025 target cutoffs. All 2,462 unique exact team-season memberships can advance independently as post-capture development evidence without fabricating missing divisions or treating venue and branding fields as historical truth.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

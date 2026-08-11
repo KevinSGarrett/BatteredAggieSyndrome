@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_EXECUTION_EVIDENCE",
+  "local_id": "POST-SUBTASK-174",
+  "status": "PASS_VALIDATED_CANDIDATE_ONLY",
+  "scope": {
+    "domains": ["plays", "drives"],
+    "source": "SRC-002_CFBD_IMMUTABLE_CAPTURES",
+    "selected_seasons": [2011, 2020, 2023, 2024, 2025],
+    "selection_reason": "Close the 2011 and 2020 versioned-candidate gaps and extend play/drive candidate coverage through 2025 without reacquiring immutable evidence already present.",
+    "scope_not_silently_broadened": true
+  },
+  "identities": {
+    "dataset_identity": "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
+    "manifest_sha256": "c41fbedaa89e2ff9188f74789554fd34d5b173f636ee0b3a0853403eee5c4671",
+    "validation_report_sha256": "b078bdfadcc89b7578798be8734e6bca5cf27a9b36cab27dbc3d9b08ad4f2c14",
+    "acquisition_manifest_sha256": "bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7",
+    "acquisition_canonical_payload_sha256": "9c1c3555d4bd45fa9336582b696b4d62c28b63ab319ff97f320922f135afcc9a",
+    "canonical_game_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "ordered_play_lineage_sha256": "6f227f2e667e9049cfaaf6418c1ea675ae4df52a5fe4a125cc12cfda5620b4bc",
+    "ordered_drive_lineage_sha256": "e44513b6c6e4faa9f84459337101b4d252b8c0d0b6090ff15d8df9fe5e6f609d"
+  },
+  "population": {
+    "capture_count": 88,
+    "play_rows": 737580,
+    "drive_rows": 100341,
+    "total_rows": 837921,
+    "dispositions": {
+      "CANDIDATE_EXACT_CANONICAL_GAME_AND_DRIVE": 737580,
+      "CANDIDATE_EXACT_CANONICAL_GAME_AND_PLAY_LINKS": 100315,
+      "CANDIDATE_EXACT_CANONICAL_GAME_DRIVE_WITHOUT_PLAY_ROWS": 26
+    },
+    "quarantined_rows": 0,
+    "dense_2010_2025_candidate_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "missingness": {
+      "drive_result": 0,
+      "drive_without_play_rows": 26,
+      "play_text": 235,
+      "play_type": 0,
+      "ppa_source": 186183,
+      "wallclock_source": 154099
+    }
+  },
+  "artifacts": {
+    "manifest": "<external-data-root>/manifests/historical_known_at/sha256/813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f/supplemental_play_drive_reconciliation.json",
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f/supplemental_play_drive",
+    "validation": "<external-data-root>/validation/POST-SUBTASK-174/supplemental_play_drive_validation.json"
+  },
+  "validation": {
+    "checks_passed": 74,
+    "checks_failed": 0,
+    "deterministic_payloads_compared": 11,
+    "byte_identical_rebuild": true,
+    "rebuild_root_removed": true,
+    "canonical_game_mapping_misses": 0,
+    "play_drive_link_misses": 0
+  },
+  "negative_findings": [
+    "Current 2026 capture timestamps do not establish historical pregame known-at eligibility.",
+    "The CFBD route does not establish upstream independence.",
+    "Twenty-six 2020 drives have no observed play rows and remain partial candidates.",
+    "The first long temporary rebuild path exceeded Windows MAX_PATH; validation was rerun from the bounded short external root C:\\BatteredAggieSyndrome.data\\validation\\P174R and passed, then the rebuild root was removed."
+  ],
+  "authority": {
+    "candidate_only": true,
+    "canonical_admission": false,
+    "historical_known_at_eligible": false,
+    "pit_state_admission": false,
+    "feature_or_training_admission": false,
+    "protected_use_admission": false,
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "scientific_result": "NOT_CLAIMED"
+  },
+  "rollback": {
+    "zip": "<external-data-root>/backups/POST-SUBTASK-174-play-drive-gap/before-play-drive-gap.zip",
+    "zip_sha256": "ca6b9d5f5a8c86cdbadba5b88377b76cdef16b584a839fe04ec9c98e3903e497",
+    "bundle_sha256": "b1605efe1cb8e742b8c3c717630f80f3d7763ddc07014e767c6e5d6e9a3f0a33",
+    "verifier_status": "PASS"
+  }
+}

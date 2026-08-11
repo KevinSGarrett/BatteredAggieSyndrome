@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-174",
+  "dataset_version": "supplemental-cfbd-play-drive-2011-2020-2023-2025-v1",
+  "source_id": "SRC-002",
+  "selected_seasons": [2011, 2020, 2023, 2024, 2025],
+  "acquisition_manifest": {
+    "external_relative_path": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/historical_expansion_acquisition_manifest.full.json",
+    "sha256": "bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7",
+    "canonical_payload_sha256": "9c1c3555d4bd45fa9336582b696b4d62c28b63ab319ff97f320922f135afcc9a"
+  },
+  "canonical_game_registry": {
+    "external_relative_path": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+    "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+  },
+  "expected_population": {
+    "2011": {"plays": {"captures": 16, "rows": 146789}, "drives": {"captures": 1, "rows": 20775}},
+    "2020": {"plays": {"captures": 17, "rows": 102809}, "drives": {"captures": 1, "rows": 14172}},
+    "2023": {"plays": {"captures": 16, "rows": 158995}, "drives": {"captures": 1, "rows": 21866}},
+    "2024": {"plays": {"captures": 17, "rows": 162751}, "drives": {"captures": 1, "rows": 21766}},
+    "2025": {"plays": {"captures": 17, "rows": 166236}, "drives": {"captures": 1, "rows": 21762}}
+  },
+  "source_authority": {
+    "immutable_raw_capture_reused": true,
+    "reacquisition_required": false,
+    "capture_time_known": true,
+    "historical_source_publication_time_known": false,
+    "historical_known_at_eligible": false,
+    "canonical_game_mapping_method": "EXACT_VERIFIED_SRC_002_GAME_ID",
+    "name_only_mapping_permitted": false,
+    "upstream_independence_claimed": false,
+    "candidate_only": true,
+    "canonical_or_pit_admission": false,
+    "feature_or_training_admission": false,
+    "protected_use_admission": false
+  },
+  "required_negative_findings": [
+    "Capture timestamps in 2026 do not establish historical pregame known-at eligibility.",
+    "The supplemental route is CFBD aggregated/derived evidence and does not establish upstream independence.",
+    "A drive with no observed play rows remains a partial drive candidate rather than being discarded or fabricated.",
+    "No play or drive candidate may enter target-game features, protected evaluation, or production promotion from this contract alone."
+  ]
+}

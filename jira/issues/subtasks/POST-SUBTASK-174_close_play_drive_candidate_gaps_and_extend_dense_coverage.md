@@ -1,0 +1,364 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.json -->
+# POST-SUBTASK-174 — [POST-SUBTASK-174] Close play/drive candidate gaps and extend dense coverage
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Only the exact immutable SRC-002 play and drive captures for 2011, 2020, 2023, 2024, and 2025 enter the dataset identity; no season is silently added.",
+    "Every normalized row retains capture, request, source-row, response-hash, observation, game, drive or play, and canonical-game lineage with no name-only mapping.",
+    "Partial drives, source missingness, current capture time, and unknown historical publication time remain explicit; no missing factual value is fabricated.",
+    "All payloads remain candidate-only outside Git and receive no canonical, PIT, feature, training, protected, forecast, or production authority.",
+    "An independent validator and isolated deterministic rebuild reproduce all 10 payloads and the manifest byte-for-byte."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "The exact immutable raw captures already existed outside Git, so this unit reused them instead of spending provider capacity on duplicate acquisition.",
+    "No OpenAI or model-generated fact was used; deterministic parsing and exact registry linkage solved the bounded task.",
+    "Dense 2010-2025 coverage is a candidate-layer statement only and does not establish historical-known-at, downstream admission, or final population readiness."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "data",
+  "components_expected_to_be_touched": [
+    "data",
+    "pit-temporal",
+    "provenance"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "The exact five-season source population is normalized into immutable content-addressed play and drive candidate payloads outside Git.",
+    "All 837,921 rows have exact canonical-game mapping and reason-coded dispositions; 26 drives without observed plays remain explicit partial candidates.",
+    "The 74-check independent validator and 11-file byte-identical deterministic rebuild pass with zero mismatches.",
+    "The historical recovery contract, replay gate, Jira evidence, and governing-goal checkpoint record exact identities, missingness, limitations, and protected nonclaims.",
+    "Historical expansion proceeds to the next independently useful domain while downstream promotion remains gated by valid historical known-at evidence."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029"
+  ],
+  "end_to_end_validation": "Rebuild the five-season play and drive candidate population in an isolated short external root; verify immutable capture identities, canonical registry identity, every row and disposition, linkage and missingness, payload hashes, manifest identity, authority boundaries, and cleanup.",
+  "epic_id": "POST-EPIC-003",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-174.json",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
+  "expected_outputs": [
+    "configs/supplemental_play_drive_gap_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-174.json",
+    "<external-data-root>/quarantine/historical_known_at/sha256/<dataset_identity>/supplemental_play_drive",
+    "<external-data-root>/manifests/historical_known_at/sha256/<dataset_identity>/supplemental_play_drive_reconciliation.json",
+    "<external-data-root>/validation/POST-SUBTASK-174/supplemental_play_drive_validation.json"
+  ],
+  "files_expected_to_be_read": [
+    "artifacts/data_lake/historical_expansion_population_profile.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/supplemental_play_drive_gap_contract.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "src/aggie_analytics/data/play_drive.py",
+    "tools/build_supplemental_play_drive_gap.py",
+    "tools/validate_supplemental_play_drive_gap.py",
+    "tests/test_supplemental_play_drive.py",
+    "tests/test_historical_known_at_recovery_contract.py",
+    "artifacts/jira_evidence/POST-SUBTASK-174.json"
+  ],
+  "gap_ids": [
+    "GAP-002"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.md",
+  "governance_traceability_gate": "POST-SUBTASK-033",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100482,
+  "in_scope": [
+    "National play and drive candidates for the exact 2011, 2020, 2023, 2024, and 2025 seasons from existing immutable CFBD captures.",
+    "Deterministic normalization, exact source-game-to-canonical-game reconciliation, exact play-to-drive linkage, partial-domain preservation, missingness, provenance, and deterministic replay.",
+    "Candidate-layer union coverage with the previously validated versioned 2004-2022 play and drive artifacts."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "plays",
+    "drives",
+    "candidate-only",
+    "provenance"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-174",
+  "maturity_before": "VALIDATED_CANDIDATE_GAPS_2011_2020_AND_POST_2022",
+  "objective": "Close the 2011 and 2020 play/drive candidate gaps and extend candidate coverage through 2025 using exact immutable captures, deterministic normalization, explicit partiality, and strict downstream authority gates.",
+  "out_of_scope": [
+    "Treating 2026 capture time as historical publication or pregame known-at evidence.",
+    "Fabricating missing play text, PPA, wall-clock, play rows, publication times, or any other fact.",
+    "Canonical/PIT/feature/training/protected admission, final historical-population readiness, GAP-002 resolution, champion promotion, production readiness, A&M specialization lift, BAS, Aggie Excess, or any scientific result."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-010",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Pinned historical acquisition manifest and canonical payload identity.",
+    "Pinned canonical game registry with exact SRC-002 game identifiers.",
+    "Validated versioned play and drive candidate identities and configured external data root."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02013",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "required_evidence": [
+    "Exact acquisition, capture, registry, dataset, manifest, payload, lineage, validation, and rollback identities.",
+    "Per-season captures, games, rows, dispositions, partial drives, missingness, bytes, hashes, and canonical mapping counts.",
+    "Independent full scan, byte-identical deterministic rebuild, cleanup, and preserved Windows MAX_PATH negative finding.",
+    "Explicit candidate-only authority, unknown historical publication time, upstream-independence limitation, and protected nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Play and drive normalization, stable identities, exact canonical-game linkage, partial-drive preservation, and no fabricated missing facts pass.",
+      "path": "tests/test_supplemental_play_drive.py",
+      "validation_class": "PROVENANCE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "External candidate payloads pass all 74 independent checks and an 11-file byte-identical deterministic rebuild.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-174.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any capture, registry, population, observation, lineage, disposition, payload, dataset, manifest, or rebuild identity drifts.",
+    "A drive without observed plays is discarded, fabricated, or silently promoted as complete.",
+    "Current capture time is represented as historical publication time or any candidate is admitted downstream without its applicable gates.",
+    "Dense candidate coverage is reported as final historical completeness, protected readiness, or a scientific result."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241"
+  ],
+  "schema_version": 2,
+  "scope": "Reuse and validate the exact immutable CFBD play and drive captures that fill the versioned 2011/2020 gaps and extend coverage through 2025, while preserving missingness, partial domains, and candidate-only authority.",
+  "source_ids": [
+    "GAP-002",
+    "HANDOFF-003"
+  ],
+  "source_refs": [
+    "SRCREF-02013",
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "stop_conditions": [
+    "Stop the affected artifact on source identity, canonical mapping, duplicate identity, linkage, population, lineage, schema, authority, or deterministic rebuild failure.",
+    "Quarantine or preserve partial records at their actual grain; do not block independently valid seasons or domains.",
+    "Do not open protected promotion until expanded quality-supported historical-known-at evidence and applicable W17 gates pass."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006"
+  ],
+  "title": "[POST-SUBTASK-174] Close play/drive candidate gaps and extend dense coverage",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-033"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "PROVENANCE",
+    "REPRODUCIBILITY"
+  ],
+  "why_this_exists": "The versioned play and drive candidate layers omitted 2011 and 2020 and stopped at 2022 even though exact immutable national captures for those gaps and 2023-2025 already existed and could be independently coverage-gated.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}
+```
+
+## Objective
+
+Close the 2011 and 2020 play/drive candidate gaps and extend candidate coverage through 2025 using exact immutable captures, deterministic normalization, explicit partiality, and strict downstream authority gates.
+
+## Why This Exists
+
+The versioned play and drive candidate layers omitted 2011 and 2020 and stopped at 2022 even though exact immutable national captures for those gaps and 2023-2025 already existed and could be independently coverage-gated.
+
+## Scope
+
+Reuse and validate the exact immutable CFBD play and drive captures that fill the versioned 2011/2020 gaps and extend coverage through 2025, while preserving missingness, partial domains, and candidate-only authority.
+
+### Explicit In Scope
+
+- National play and drive candidates for the exact 2011, 2020, 2023, 2024, and 2025 seasons from existing immutable CFBD captures.
+- Deterministic normalization, exact source-game-to-canonical-game reconciliation, exact play-to-drive linkage, partial-domain preservation, missingness, provenance, and deterministic replay.
+- Candidate-layer union coverage with the previously validated versioned 2004-2022 play and drive artifacts.
+
+### Explicit Out of Scope
+
+- Treating 2026 capture time as historical publication or pregame known-at evidence.
+- Fabricating missing play text, PPA, wall-clock, play rows, publication times, or any other fact.
+- Canonical/PIT/feature/training/protected admission, final historical-population readiness, GAP-002 resolution, champion promotion, production readiness, A&M specialization lift, BAS, Aggie Excess, or any scientific result.
+
+## Prerequisites
+
+- Pinned historical acquisition manifest and canonical payload identity.
+- Pinned canonical game registry with exact SRC-002 game identifiers.
+- Validated versioned play and drive candidate identities and configured external data root.
+
+## Hard Dependencies
+
+- POST-SUBTASK-029
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- None.
+
+## Files Expected To Be Modified
+
+- configs/supplemental_play_drive_gap_contract.json
+- configs/historical_known_at_recovery_contract.json
+- src/aggie_analytics/data/play_drive.py
+- tools/build_supplemental_play_drive_gap.py
+- tools/validate_supplemental_play_drive_gap.py
+- tests/test_supplemental_play_drive.py
+- tests/test_historical_known_at_recovery_contract.py
+- artifacts/jira_evidence/POST-SUBTASK-174.json
+
+## Components Expected To Be Touched
+
+- data
+- pit-temporal
+- provenance
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+
+## Expected Outputs / Artifacts
+
+- configs/supplemental_play_drive_gap_contract.json
+- artifacts/jira_evidence/POST-SUBTASK-174.json
+- <external-data-root>/quarantine/historical_known_at/sha256/<dataset_identity>/supplemental_play_drive
+- <external-data-root>/manifests/historical_known_at/sha256/<dataset_identity>/supplemental_play_drive_reconciliation.json
+- <external-data-root>/validation/POST-SUBTASK-174/supplemental_play_drive_validation.json
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-033`
+- Inherited from: POST-SUBTASK-033
+- Resolution: `DIRECT_PLUS_INHERITED_DOMAIN_GATE`
+- Effective counts: `{}`
+
+## Acceptance Criteria
+
+1. Only the exact immutable SRC-002 play and drive captures for 2011, 2020, 2023, 2024, and 2025 enter the dataset identity; no season is silently added.
+2. Every normalized row retains capture, request, source-row, response-hash, observation, game, drive or play, and canonical-game lineage with no name-only mapping.
+3. Partial drives, source missingness, current capture time, and unknown historical publication time remain explicit; no missing factual value is fabricated.
+4. All payloads remain candidate-only outside Git and receive no canonical, PIT, feature, training, protected, forecast, or production authority.
+5. An independent validator and isolated deterministic rebuild reproduce all 10 payloads and the manifest byte-for-byte.
+
+## Definition of Done
+
+1. The exact five-season source population is normalized into immutable content-addressed play and drive candidate payloads outside Git.
+2. All 837,921 rows have exact canonical-game mapping and reason-coded dispositions; 26 drives without observed plays remain explicit partial candidates.
+3. The 74-check independent validator and 11-file byte-identical deterministic rebuild pass with zero mismatches.
+4. The historical recovery contract, replay gate, Jira evidence, and governing-goal checkpoint record exact identities, missingness, limitations, and protected nonclaims.
+5. Historical expansion proceeds to the next independently useful domain while downstream promotion remains gated by valid historical known-at evidence.
+
+## Required Tests / Validation
+
+- **NEW_AUTOMATED_TEST_REQUIRED** / `PROVENANCE` — `tests/test_supplemental_play_drive.py` — Play and drive normalization, stable identities, exact canonical-game linkage, partial-drive preservation, and no fabricated missing facts pass.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-174.json` — External candidate payloads pass all 74 independent checks and an 11-file byte-identical deterministic rebuild.
+
+## Required Evidence
+
+- Exact acquisition, capture, registry, dataset, manifest, payload, lineage, validation, and rollback identities.
+- Per-season captures, games, rows, dispositions, partial drives, missingness, bytes, hashes, and canonical mapping counts.
+- Independent full scan, byte-identical deterministic rebuild, cleanup, and preserved Windows MAX_PATH negative finding.
+- Explicit candidate-only authority, unknown historical publication time, upstream-independence limitation, and protected nonclaims.
+
+## Completion Evidence Contract
+
+```json
+{}
+```
+
+## End-to-End Validation Requirement
+
+Rebuild the five-season play and drive candidate population in an isolated short external root; verify immutable capture identities, canonical registry identity, every row and disposition, linkage and missingness, payload hashes, manifest identity, authority boundaries, and cleanup.
+
+## Expected Maturity After Completion
+
+`VALIDATED_RECONCILED_CANDIDATE_ONLY`
+
+## Risk / Failure Conditions
+
+- Any capture, registry, population, observation, lineage, disposition, payload, dataset, manifest, or rebuild identity drifts.
+- A drive without observed plays is discarded, fabricated, or silently promoted as complete.
+- Current capture time is represented as historical publication time or any candidate is admitted downstream without its applicable gates.
+- Dense candidate coverage is reported as final historical completeness, protected readiness, or a scientific result.
+
+## Stop Conditions
+
+- Stop the affected artifact on source identity, canonical mapping, duplicate identity, linkage, population, lineage, schema, authority, or deterministic rebuild failure.
+- Quarantine or preserve partial records at their actual grain; do not block independently valid seasons or domains.
+- Do not open protected promotion until expanded quality-supported historical-known-at evidence and applicable W17 gates pass.
+
+## Source References
+
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+## AI Context Notes
+
+- The exact immutable raw captures already existed outside Git, so this unit reused them instead of spending provider capacity on duplicate acquisition.
+- No OpenAI or model-generated fact was used; deterministic parsing and exact registry linkage solved the bounded task.
+- Dense 2010-2025 coverage is a candidate-layer statement only and does not establish historical-known-at, downstream admission, or final population readiness.

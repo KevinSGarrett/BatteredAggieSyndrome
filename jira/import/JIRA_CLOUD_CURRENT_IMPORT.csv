@@ -36994,3 +36994,74 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-189_admit_version_bound_historical_roster_memberships_for_development_pit.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;roster;membership;pit;development-only;provenance;local-id-post-subtask-189,pit-temporal,POST-SUBTASK-189,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,DEVELOPMENT_ONLY_PIT_ADMITTED,VERIFIED,POST_W25,true,DATA
+Sub-task,BAT-547,100498,[POST-SUBTASK-190] Admit version-bound team-season membership for development PIT,100060,"Local ID: POST-SUBTASK-190
+
+Objective
+Admit exact canonical 2001-2020 version-bound team-season conference/division memberships into a post-capture development-only PIT state without backcasting, missing-value fabrication, venue inference, or timeless branding claims.
+
+Why This Exists
+The validated 2001-2020 team-membership candidate has exact source bytes and a public repository commit before all approved 2023-2025 target cutoffs. All 2,462 unique exact team-season memberships can advance independently as post-capture development evidence without fabricating missing divisions or treating venue and branding fields as historical truth.
+
+Scope
+Normalize the twenty candidate team-membership payloads, admit only unique exact canonical team-season conference/division membership, preserve nulls and transitions, and bind the result to source-known-at time without venue, branding, or earlier-cutoff inference.
+
+Explicit In Scope
+- Twenty immutable sportsdataverse/cfbfastR-data team-membership captures for 2001-2020 at commit b865176f908cb6b791dc8e14562c52676f456275 and known-at 2023-05-05T03:50:21Z.
+- Exact provider-ID canonical team-season membership plus version-bound conference and division with explicit nulls, provenance, transition evidence, deterministic replay, and no inferred effective day.
+
+Explicit Out of Scope
+- Name-only team merges, inferred effective dates, missing division imputation, current metadata backfill, or treating branding and venue fields as season-effective truth.
+- Protected training/evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or scientific claims.
+
+Prerequisites / Dependencies
+- Validated candidate identity 964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024 with twenty immutable payloads and exact team identity evidence.
+- Accepted target-cutoff payload a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942.
+- Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-190-PRECHANGE-20260811T181059Z.
+- POST-SUBTASK-029
+- POST-SUBTASK-042
+- POST-SUBTASK-169
+
+Acceptance Criteria
+1. All 2,462 immutable source rows across 2001-2020 are hash-verified from candidate identity 964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024 before disposition.
+2. Only exact source-ID canonical team-season memberships with AUTO_ACCEPTED_VERIFIED resolution, one source-ID option, unique observation ID, and unique season/team natural key are admitted.
+3. Conference and division remain version-bound season membership attributes; all 993 absent divisions remain null and no conference, division, venue, capacity, mascot, alias, or effective-day value is fabricated.
+4. The source commit time 2023-05-05T03:50:21Z precedes approved 2023-2025 target cutoffs but may not be backcast to earlier prediction times.
+5. Outputs pass immutable identity, chronology, schema, transition, missingness, authority, mutation, byte-identical rebuild, Jira, repository, provenance, and full-suite gates before Done.
+
+Definition of Done
+1. Every row is deterministically dispositioned at season/source-team/canonical-team/conference/division grain and all transitions and nulls are preserved.
+2. An immutable external identity contains only exact canonical team-season membership, conference/division, source-known-at lineage, and explicit nonauthority fields.
+3. Independent reconstruction proves source hashes, counts, uniqueness, transition count, missingness, chronology, forbidden-field exclusion, mutations, and byte identity.
+4. Canonical/live Jira, Git/PR evidence, governing goal, active plan, cleanup, and scientific nonclaims agree before Done.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_historical_team_membership_pit.py — Exact team membership, conference/division state, nulls, chronology, no venue/branding inference, and protected nonauthority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-190.json — The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks.
+
+Required Evidence
+- Exact candidate, capture, payload, entity, target-cutoff, contract, code, dataset, manifest, validation, Git, PR, and hosted-check identities.
+- Per-season counts, identity states, natural-key uniqueness, conference/division transitions, missingness, repeated-payload findings, chronology, forbidden fields, mutation controls, and byte-identical rebuild.
+- Explicit post-capture, team-membership-only, no-venue, no-branding, development-only, and protected/production/completeness/scientific nonclaims.
+
+End-to-End Validation
+Re-read the pinned candidate manifest, twenty season payloads and capture manifests, canonical team evidence, and target-cutoff payload; independently rebuild exact admissions in an isolated external root; verify hashes, population, natural keys, transitions, missingness, chronology, authority, forbidden fields, mutation controls, and byte identity; then remove reconstructible output when host policy permits.
+
+Stop Conditions
+- Stop the affected row, season, or artifact on source, identity, option-count, natural-key, chronology, transition, schema, authority, population, hash, or rebuild failure.
+- Do not weaken PIT, identity, missingness, team-membership-only, no-venue, or scientific boundaries merely to obtain admission.
+
+Source References
+- SRCREF-02042
+- SRCREF-02013
+- SRCREF-00623
+- SRCREF-00624
+- SRCREF-01723
+- SRCREF-01564
+- SRCREF-01889
+- SRCREF-02006
+- SRCREF-02016
+- SRCREF-02018
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-190_admit_version_bound_team_season_membership_for_development_pit.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;team-membership;conference;pit;development-only;provenance;local-id-post-subtask-190,pit-temporal,POST-SUBTASK-190,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,DEVELOPMENT_ONLY_PIT_ADMITTED,PARTIAL,POST_W25,true,DATA

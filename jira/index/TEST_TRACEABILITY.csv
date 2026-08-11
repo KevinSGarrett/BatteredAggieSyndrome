@@ -1513,6 +1513,8 @@ tests/test_historical_venue_assignment_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-S
 artifacts/jira_evidence/POST-SUBTASK-188.json,END_TO_END,POST-SUBTASK-188,Sub-task,"The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks."
 tests/test_historical_roster_membership_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-189,Sub-task,"Exact membership admission, physical null-type drift, multi-team preservation, non-admitted classes, chronology, backcast prohibition, and protected nonauthority remain deterministic."
 artifacts/jira_evidence/POST-SUBTASK-189.json,END_TO_END,POST-SUBTASK-189,Sub-task,"The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks."
+tests/test_historical_team_membership_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-190,Sub-task,"Exact team membership, conference/division state, nulls, chronology, no venue/branding inference, and protected nonauthority remain deterministic."
+artifacts/jira_evidence/POST-SUBTASK-190.json,END_TO_END,POST-SUBTASK-190,Sub-task,"The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

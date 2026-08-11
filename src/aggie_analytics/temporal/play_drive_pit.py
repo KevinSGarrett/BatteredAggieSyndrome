@@ -7,12 +7,18 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-import polars as pl
-
 
 PLAY_IDENTITY = "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5"
 DRIVE_IDENTITY = "342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0"
 TARGET_REPLAY_IDENTITY = "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7"
+
+
+def _polars() -> Any:
+    try:
+        import polars
+    except ImportError as exc:
+        raise RuntimeError("historical play/drive materialization requires the optional data-engineering environment") from exc
+    return polars
 
 
 def canonical_json_bytes(value: Any) -> bytes:
@@ -64,7 +70,8 @@ def _source_files(data_root: Path, identity: str, domain: str, seasons: list[int
 
 def _load_sources(
     data_root: Path, contract: dict[str, Any]
-) -> tuple[pl.DataFrame, pl.DataFrame, pl.DataFrame, pl.DataFrame]:
+) -> tuple[Any, Any, Any, Any]:
+    pl = _polars()
     source = contract["source_contract"]
     seasons = [int(value) for value in source["source_seasons"]]
     play_files = _source_files(data_root, source["play_dataset_identity"], "plays", seasons, "candidate_play_rows.parquet")
@@ -101,8 +108,9 @@ def _load_sources(
 
 
 def _validate_source_contract(
-    plays: pl.DataFrame, drives: pl.DataFrame, targets: pl.DataFrame, contract: dict[str, Any]
+    plays: Any, drives: Any, targets: Any, contract: dict[str, Any]
 ) -> dict[str, Any]:
+    pl = _polars()
     source = contract["source_contract"]
     plays = plays.filter(pl.col("reconciliation_disposition") == source["play_disposition"])
     drives = drives.filter(pl.col("reconciliation_disposition") == source["drive_disposition"])
@@ -137,8 +145,9 @@ def _validate_source_contract(
 
 
 def _build_profiles(
-    plays: pl.DataFrame, drives: pl.DataFrame, team_map: pl.DataFrame, contract: dict[str, Any]
-) -> tuple[pl.DataFrame, dict[str, int]]:
+    plays: Any, drives: Any, team_map: Any, contract: dict[str, Any]
+) -> tuple[Any, dict[str, int]]:
+    pl = _polars()
     source = contract["source_contract"]
     plays = plays.filter(pl.col("reconciliation_disposition") == source["play_disposition"])
     drives = drives.filter(pl.col("reconciliation_disposition") == source["drive_disposition"])
@@ -218,7 +227,8 @@ def _build_profiles(
     return profiles, counts
 
 
-def _build_features(targets: pl.DataFrame, profiles: pl.DataFrame) -> pl.DataFrame:
+def _build_features(targets: Any, profiles: Any) -> Any:
+    pl = _polars()
     targets = targets.with_columns(
         pl.struct(["start_utc", "cutoff_lead_hours"])
         .map_elements(lambda row: cutoff_utc(row["start_utc"], row["cutoff_lead_hours"]), return_dtype=pl.String)
@@ -249,6 +259,7 @@ def _build_features(targets: pl.DataFrame, profiles: pl.DataFrame) -> pl.DataFra
 def materialize(
     *, input_data_root: Path, output_data_root: Path, repo_root: Path, issued_at_utc: str
 ) -> dict[str, Any]:
+    pl = _polars()
     contract_path = repo_root / "configs" / "historical_play_drive_pit_aggregate_contract.json"
     contract_bytes = contract_path.read_bytes()
     contract = json.loads(contract_bytes)

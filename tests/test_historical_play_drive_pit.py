@@ -4,7 +4,10 @@ import json
 import unittest
 from pathlib import Path
 
-import polars as pl
+try:
+    import polars as pl
+except ImportError:
+    pl = None
 
 from aggie_analytics.temporal.play_drive_pit import (
     _build_features,
@@ -33,6 +36,7 @@ class HistoricalPlayDrivePitTests(unittest.TestCase):
         self.assertEqual(classify_drive_result("INT", self.contract), (False, False, True))
         self.assertEqual(classify_drive_result("INT RETURN TOUCH", self.contract), (False, False, False))
 
+    @unittest.skipIf(pl is None, "optional data-engineering dependency polars is not installed")
     def test_profiles_and_target_rows_preserve_cold_start(self) -> None:
         play_disposition = self.contract["source_contract"]["play_disposition"]
         drive_disposition = self.contract["source_contract"]["drive_disposition"]

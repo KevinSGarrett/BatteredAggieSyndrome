@@ -49,7 +49,7 @@
   "evidence_state": "VERIFIED",
   "execution_lane": "MODEL_RESEARCH",
   "execution_mode": "HISTORICAL_REFERENCE",
-  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED_NEGATIVE_RESULT",
+  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
   "expected_outputs": [
     "configs/preliminary_wmt_tamu_shadow_contract.json",
     "src/aggie_analytics/modeling/wmt_tamu_shadow.py",
@@ -354,7 +354,7 @@ Re-read exact POST-SUBTASK-177 reference predictions and POST-SUBTASK-179 WMT ta
 
 ## Expected Maturity After Completion
 
-`EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED_NEGATIVE_RESULT`
+`EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED`
 
 ## Risk / Failure Conditions
 

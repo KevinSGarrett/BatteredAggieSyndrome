@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_SEC_TAMU_AVAILABILITY_EVIDENCE_GATE",
+  "decision_unit": "POST-SUBTASK-182",
+  "jira_key": "BAT-539",
+  "issued_at_utc": "2026-08-11T10:50:21Z",
+  "source_population": {
+    "scope": "BOUNDED_2024_2025_TEXAS_A_AND_M_SEC_OR_CFP_AVAILABILITY_EVIDENCE",
+    "official_policy_sources": 1,
+    "official_archive_routes": 1,
+    "timestamped_article_report_sources": 8,
+    "seasons": [2024, 2025],
+    "report_games": 8,
+    "raw_captures": 12,
+    "acquisition_identity": "f808269069584a35c935ab6719dd5046aee820dce98d341651df50ee166572c9",
+    "acquisition_manifest_sha256": "3f9df11221f06ba2f0b49ff7f2d22453b5dbe387a0ea13b8667e6b361b089e78"
+  },
+  "official_archive_finding": {
+    "route_reachable": true,
+    "http_success": true,
+    "archive_records_returned": 0,
+    "disposition": "CAPTURED_EMPTY_ARCHIVE_PROVIDER_LIMITATION",
+    "public_client_token_persisted": false,
+    "missing_archive_rows_inferred_as_healthy_or_available": false
+  },
+  "candidate_population": {
+    "dataset_identity": "86aececb96017ff1e89c147a43e6de49137c37a111e5e1f7171d7b1af36bd334",
+    "manifest_sha256": "dc4ee7fbec9b876c7e00318d5e9d932ec1c4bdbbb2d40d72c6dd402bdab3a3dd",
+    "candidate_payload_sha256": "a236b21f6bc55a9b128983aec0fe230a4486a06b66238d0a646b41be3e954297",
+    "quarantine_payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate_rows": 42,
+    "quarantine_rows": 0,
+    "chronology_pass_rows": 42,
+    "status_counts": {
+      "DOUBTFUL": 3,
+      "OUT": 22,
+      "PROBABLE": 4,
+      "QUESTIONABLE": 13
+    },
+    "observed_schema_drift": "NAME_HEADER_NORMALIZED_TO_PLAYER_WITHOUT_VALUE_FABRICATION",
+    "report_versions_preserved_independently": true
+  },
+  "validation": {
+    "status": "PASS",
+    "checks_passed": 33,
+    "checks_failed": 0,
+    "unit_tests_passed": 7,
+    "full_pytest_passed": 433,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "strict_repository_validation": "PASS",
+    "jira_second_pass_sections": 68,
+    "validation_report_sha256": "2c26aa7939b8886484f6333fcefc9aa366f068bffe79157513b340a947c94e3d",
+    "deterministic_candidate_replay": true,
+    "deterministic_quarantine_replay": true,
+    "credential_material_serialized": false
+  },
+  "historical_known_at_gate": {
+    "source_publication_time_present_rows": 42,
+    "publication_before_conservative_game_date_boundary_rows": 42,
+    "historical_known_at_candidate": true,
+    "exact_kickoff_or_prediction_cutoff_admission_established": false,
+    "canonical_player_identity_admission": false,
+    "canonical_availability_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "forecast_or_publication_admission": false
+  },
+  "gate_disposition": "TIMESTAMPED_SOURCE_SCOPED_AVAILABILITY_CANDIDATES_VALIDATED_OFFICIAL_ARCHIVE_EMPTY_CANONICAL_PIT_TRAINING_PROTECTED_AND_FORECAST_ADMISSION_REMAIN_CLOSED",
+  "scientific_nonclaims": {
+    "historical_availability_population_complete": false,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_008_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

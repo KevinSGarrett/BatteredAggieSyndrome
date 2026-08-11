@@ -36336,7 +36336,7 @@ Source References
 
 Governance Traceability Gate: TASK-036
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;tamu-specialization;wmt;baseline-modeling;pit;provenance;local-id-post-subtask-180,modeling,POST-SUBTASK-180,TASK-036;GAP-002;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED_NEGATIVE_RESULT,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;tamu-specialization;wmt;baseline-modeling;pit;provenance;local-id-post-subtask-180,modeling,POST-SUBTASK-180,TASK-036;GAP-002;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE
 Sub-task,BAT-538,100489,Recover 2022-2023 official A&M depth-chart page noncoverage in governed shadow mode,100466,"Local ID: POST-SUBTASK-181
 
 Objective
@@ -36400,4 +36400,85 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-167
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;tamu-specialization;official-documents;depth-chart;openai-assist;candidate-only;pit;provenance;local-id-post-subtask-181,player-context-intelligence,POST-SUBTASK-181,OPENAI-ASSIST-PLAN;GAP-002;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_VISUAL_NEGATIVE_FINDING_AND_GOVERNED_IMAGE_INPUT,VERIFIED,POST_W25,false,RESEARCH_LANE,HISTORICAL_REFERENCE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;tamu-specialization;official-documents;depth-chart;openai-assist;candidate-only;pit;provenance;local-id-post-subtask-181,player-context-intelligence,POST-SUBTASK-181,OPENAI-ASSIST-PLAN;GAP-002;GAP-005,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,false,RESEARCH_LANE,HISTORICAL_REFERENCE
+Sub-task,BAT-539,100490,Recover timestamped SEC Texas A&M availability evidence and preserve archive gaps,100466,"Local ID: POST-SUBTASK-182
+
+Objective
+Recover timestamped SEC Texas A&M availability evidence and preserve official archive gaps without inferring healthy status or canonical player identity.
+
+Why This Exists
+Historical availability remains an explicit GAP-008 domain. The official SEC policy establishes a high-value, timestamped A&M lane beginning in 2024, but the live archive currently returns no historical rows. This unit preserves that limitation and recovers evidence-present report versions from public timestamped routes without inventing health, identity, or completeness.
+
+Scope
+Acquire, normalize, reconcile, and independently coverage-gate a bounded timestamped 2024-2025 Texas A&M SEC availability evidence population while preserving official archive noncoverage and candidate-only authority.
+
+Explicit In Scope
+- Official SEC availability policy and archive-route capture with exact technical outcome and provider limitations.
+- Bounded 2024-2025 Texas A&M football report-version evidence from public timestamped sources when exact facts are present.
+- Deterministic extraction, candidate normalization, provenance, coverage/noncoverage, validation, isolated replay, Jira synchronization, and cleanup.
+
+Explicit Out of Scope
+- Inferring healthy, available, injured, or absent from missing reports, missing names, roster membership, participation, press-conference language, or game outcomes.
+- Treating lower-authority media reproduction as an official archive payload or silently filling report versions, publication times, positions, identities, statuses, or games absent from cited evidence.
+- Canonical/PIT/training/protected admission, champion or production promotion, forecast publication, final historical readiness, protected A&M lift, BAS, Aggie Excess, or any scientific claim.
+
+Prerequisites / Dependencies
+- TASK-191 availability report version and policy-scope PIT contract is Done with verified evidence.
+- TASK-193 official conference availability source lane and A&M SEC priority is Done with verified evidence.
+- Configured standardized external data root, safe isolated worktree, and successful live Jira authentication.
+- TASK-191
+- TASK-193
+- POST-SUBTASK-181
+
+Acceptance Criteria
+1. The bounded population is limited to publicly accessible 2024-2025 Texas A&M football availability evidence tied to covered SEC or CFP games, plus the official SEC policy and archive-route captures; no nationwide or earlier-era completeness is claimed.
+2. Every acquired source response, article, report version, source URL, capture timestamp, publication timestamp, evidence excerpt, normalized candidate row, manifest, quarantine row, and validation result is content-addressed outside Git.
+3. Official SEC report evidence outranks timestamped media reproduction when available; an empty or inaccessible official archive is preserved as an explicit provider limitation and never converted into a healthy, available, or complete population inference.
+4. Each candidate preserves season, game, team, player display identity, position when present, status, report version or publication class, published-at, captured-at, source class, exact evidence locator, and source/capture hashes; later revisions never rewrite earlier versions.
+5. Player identities remain source-scoped candidates unless deterministic provider or canonical identity evidence exists; name-only, model-only, roster-only, participation-only, or score-assisted merges are prohibited.
+6. No candidate enters canonical entities, PIT state, training features, protected evaluation, model promotion, forecasts, BAS, Aggie Excess, or publication state until a separate deterministic admission unit proves applicable identity, chronology, coverage, and leakage gates.
+
+Definition of Done
+1. A deterministic acquisition adapter captures the SEC policy, official archive shell, official archive API response, and a bounded source registry of timestamped 2024-2025 Texas A&M availability evidence without exposing embedded or project credentials.
+2. A deterministic builder emits version-preserving player-game-status candidate rows and explicit source, route, report-version, player-identity, coverage, noncoverage, missingness, and chronology dispositions; absence never implies health or availability.
+3. Independent validation checks all source/capture hashes, publication-before-game ordering where claimed, duplicate/version behavior, status vocabulary, player candidate identity, forbidden inferences, mutation controls, and byte-identical replay from the exact immutable captures.
+4. Immutable raw, candidate, quarantine, manifest, and validation payloads are stored under the configured external data root; reconstructible temporary downloads are removed after validation.
+5. Live Jira, goal, active plan, evidence, repository/provenance validators, secret scan, full test suite, normal PR review, post-merge synchronization, and cleanup pass before Done.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / CHRONOLOGICAL_REPLAY: tests/test_sec_tamu_availability.py — Official-route emptiness, deterministic structured extraction, report-version ordering, status vocabulary, source-scoped identity, absence-to-UNKNOWN behavior, mutation rejection, and candidate-only authority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-182.json — All bounded sources, captures, timestamps, report versions, candidates, negative findings, mutation checks, byte-identical replay, external artifacts, and authority boundaries pass independently.
+
+Required Evidence
+- Exact official policy, archive shell, archive API, fallback source, raw capture, normalized candidate, quarantine, manifest, validation, deterministic replay, and cleanup hashes.
+- Sources, games, report versions, publication timestamps, player-status rows, statuses, positions, identity dispositions, exclusions, missingness, archive failures, and coverage by season and source class.
+- Repository/provenance/Jira/secret/full-suite validator results, PR and merge identities, live Jira comments/transitions/links, and explicit candidate-only/protected nonclaims.
+
+End-to-End Validation
+Replay the exact bounded immutable source captures independently; verify source URLs, HTTP outcomes, hashes, publication and capture timestamps, game/report-version ordering, normalized player-status candidates, explicit archive noncoverage, no absence-to-health inference, no name-only canonical merge, candidate-only authority, byte-identical rows, and cleanup.
+
+Stop Conditions
+- Stop and quarantine the affected source, report version, or row on source/capture hash, publication time, game mapping, status vocabulary, player identity, evidence locator, schema, chronology, replay, credential, or authority failure.
+- Preserve valid partial and negative findings and continue unrelated historical expansion and modeling; source-specific failure must not globally block the project.
+- Do not weaken UNKNOWN missingness, report-version chronology, source authority, identity, PIT, leakage, or protected boundaries to manufacture availability coverage.
+
+Source References
+- SRCREF-00481
+- SRCREF-00493
+- SRCREF-00534
+- SRCREF-00634
+- SRCREF-00652
+- SRCREF-01049
+- SRCREF-01085
+- SRCREF-01089
+- SRCREF-01290
+- SRCREF-01369
+- SRCREF-01376
+- SRCREF-01570
+- SRCREF-01949
+- SRCREF-02116
+- SRCREF-02117
+
+Governance Traceability Gate: TASK-193
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-182_recover_timestamped_sec_texas_a_m_availability_evidence_and_preserve_archive_gaps.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;tamu-specialization;availability;sec;candidate-only;pit;provenance;local-id-post-subtask-182,player-context-intelligence,POST-SUBTASK-182,SRC-017;GAP-002;GAP-008,PHASE-1,REVIEW,VALIDATED_RECONCILED_CANDIDATE_ONLY,PARTIAL,POST_W25,false,DATA,HISTORICAL_REFERENCE

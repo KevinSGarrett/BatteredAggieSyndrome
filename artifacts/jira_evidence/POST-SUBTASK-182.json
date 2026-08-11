@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_PREINTEGRATION_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-182",
+  "jira_import_id": 100490,
+  "jira_key": "BAT-539",
+  "status": "VALIDATED_PREINTEGRATION",
+  "classification": "TIMESTAMPED_SEC_TAMU_AVAILABILITY_CANDIDATE_ONLY",
+  "objective": "Recover timestamped SEC Texas A&M availability evidence and preserve official archive gaps without inferring health or canonical player identity.",
+  "population": {
+    "acquisition_identity": "f808269069584a35c935ab6719dd5046aee820dce98d341651df50ee166572c9",
+    "dataset_identity": "86aececb96017ff1e89c147a43e6de49137c37a111e5e1f7171d7b1af36bd334",
+    "seasons": [2024, 2025],
+    "report_sources": 8,
+    "report_games": 8,
+    "candidate_rows": 42,
+    "quarantine_rows": 0,
+    "official_archive_records": 0
+  },
+  "validation": {
+    "acquisition_manifest_sha256": "3f9df11221f06ba2f0b49ff7f2d22453b5dbe387a0ea13b8667e6b361b089e78",
+    "candidate_manifest_sha256": "dc4ee7fbec9b876c7e00318d5e9d932ec1c4bdbbb2d40d72c6dd402bdab3a3dd",
+    "candidate_payload_sha256": "a236b21f6bc55a9b128983aec0fe230a4486a06b66238d0a646b41be3e954297",
+    "validation_report_sha256": "2c26aa7939b8886484f6333fcefc9aa366f068bffe79157513b340a947c94e3d",
+    "checks_passed": 33,
+    "unit_tests_passed": 7,
+    "deterministic_replay": true,
+    "full_pytest_passed": 433,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "strict_repository": "PASS",
+    "jira_second_pass_sections": 68,
+    "jira_live_control_plane": "PASS"
+  },
+  "repository_evidence": [
+    "configs/sec_tamu_availability_recovery_contract.json",
+    "src/aggie_analytics/data/sec_availability.py",
+    "tools/acquire_sec_tamu_availability.py",
+    "tools/build_sec_tamu_availability_candidates.py",
+    "tools/validate_sec_tamu_availability_candidates.py",
+    "tests/test_sec_tamu_availability.py",
+    "artifacts/pit/historical_sec_tamu_availability_evidence_gate.json"
+  ],
+  "authority": {
+    "historical_known_at_candidate": true,
+    "canonical_or_pit": false,
+    "training_or_protected": false,
+    "champion_or_production": false
+  },
+  "live_jira": {
+    "authentication": "HTTP_200",
+    "status": "In Review",
+    "claim_comment_id": "13624",
+    "preintegration_comment_id": "13633",
+    "historical_reconciliation_comment_id": "13632",
+    "historical_reconciliation_report": "<external-data-root>/reconciliation/jira/JIRA-LIVE-CATCHUP-20260811T110019Z.json",
+    "historical_reconciliation_report_sha256": "126d5b4aef333d8e35bf7f7506ce124fcdffbb1486571e4292079a7c35aef4aa",
+    "links": [
+      "BAT-324 BLOCKS BAT-539",
+      "BAT-328 BLOCKS BAT-539",
+      "BAT-538 BLOCKS BAT-539"
+    ]
+  },
+  "integration": {
+    "pull_request": null,
+    "merge_commit": null,
+    "required_pull_request_checks_passed": false
+  },
+  "openai": {
+    "calls_this_unit": 0,
+    "reason": "DETERMINISTIC_HTML_TABLE_EXTRACTION_AND_SCHEMA_NORMALIZATION_FULLY_SOLVED_THE_BOUNDED_TASK",
+    "cumulative_calls": 470,
+    "cumulative_spend_usd": "4.309590",
+    "remaining_budget_usd": "95.690410",
+    "batch_jobs": 0
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_008_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

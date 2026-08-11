@@ -112,6 +112,7 @@ artifacts/jira_evidence/POST-SUBTASK-170.json
 artifacts/jira_evidence/POST-SUBTASK-171.json
 artifacts/jira_evidence/POST-SUBTASK-172.json
 artifacts/jira_evidence/POST-SUBTASK-173.json
+artifacts/jira_evidence/POST-SUBTASK-174.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -194,6 +195,7 @@ configs/source_acquisition_registry.json
 configs/source_drift_registry.json
 configs/source_rights_registry.json
 configs/sportsdataverse_post2022_roster_acquisition.json
+configs/supplemental_play_drive_gap_contract.json
 configs/tamu_availability_source_sample.json
 configs/tamu_specialization_registry.json
 configs/team_state_registry.json
@@ -1343,6 +1345,7 @@ jira/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_devel
 jira/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_rankings_pit_features.md
 jira/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.md
 jira/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.md
+jira/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1846,6 +1849,7 @@ jira/records/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_
 jira/records/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_rankings_pit_features.json
 jira/records/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.json
 jira/records/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.json
+jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2341,6 +2345,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-170.json
 jira/sources/issue_source_manifests/POST-SUBTASK-171.json
 jira/sources/issue_source_manifests/POST-SUBTASK-172.json
 jira/sources/issue_source_manifests/POST-SUBTASK-173.json
+jira/sources/issue_source_manifests/POST-SUBTASK-174.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2763,6 +2768,7 @@ src/aggie_analytics/data/cfbd.py
 src/aggie_analytics/data/contracts.py
 src/aggie_analytics/data/http.py
 src/aggie_analytics/data/open_source.py
+src/aggie_analytics/data/play_drive.py
 src/aggie_analytics/data/roster_reconciliation.py
 src/aggie_analytics/data/snapshots.py
 src/aggie_analytics/entities/__init__.py
@@ -2933,6 +2939,7 @@ tests/test_repo_integrity_tools.py
 tests/test_resource_scheduler_full.py
 tests/test_result_comparison_full.py
 tests/test_source_access_smoke_results.py
+tests/test_supplemental_play_drive.py
 tests/test_tamu_specialization_governance.py
 tests/test_team_state_governance.py
 tests/test_temporal_governance.py
@@ -2958,6 +2965,7 @@ tools/build_artifact_record.py
 tools/build_historical_rankings_pit.py
 tools/build_jira_control_plane.py
 tools/build_post2022_roster_candidate.py
+tools/build_supplemental_play_drive_gap.py
 tools/build_tamu_availability_evidence_pages.py
 tools/capture_runtime_manifest.py
 tools/check_advanced_challenger_admission.py
@@ -3028,6 +3036,7 @@ tools/validate_preliminary_rankings_augmented_baselines.py
 tools/validate_preliminary_unprotected_baselines.py
 tools/validate_product_supply_chain.py
 tools/validate_repository.py
+tools/validate_supplemental_play_drive_gap.py
 tools/validate_tamu_availability_evidence_pages.py
 tools/validate_tamu_availability_source_sample.py
 tools/validate_tamu_specialization.py

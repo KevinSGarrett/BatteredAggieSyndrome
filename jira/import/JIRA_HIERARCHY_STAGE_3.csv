@@ -16156,3 +16156,74 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;rosters;candidate-only;provenance;local-id-post-subtask-173,data,POST-SUBTASK-173,GAP-002;HANDOFF-003,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Sub-task,,100482,[POST-SUBTASK-174] Close play/drive candidate gaps and extend dense coverage,100060,"Local ID: POST-SUBTASK-174
+
+Objective
+Close the 2011 and 2020 play/drive candidate gaps and extend candidate coverage through 2025 using exact immutable captures, deterministic normalization, explicit partiality, and strict downstream authority gates.
+
+Why This Exists
+The versioned play and drive candidate layers omitted 2011 and 2020 and stopped at 2022 even though exact immutable national captures for those gaps and 2023-2025 already existed and could be independently coverage-gated.
+
+Scope
+Reuse and validate the exact immutable CFBD play and drive captures that fill the versioned 2011/2020 gaps and extend coverage through 2025, while preserving missingness, partial domains, and candidate-only authority.
+
+Explicit In Scope
+- National play and drive candidates for the exact 2011, 2020, 2023, 2024, and 2025 seasons from existing immutable CFBD captures.
+- Deterministic normalization, exact source-game-to-canonical-game reconciliation, exact play-to-drive linkage, partial-domain preservation, missingness, provenance, and deterministic replay.
+- Candidate-layer union coverage with the previously validated versioned 2004-2022 play and drive artifacts.
+
+Explicit Out of Scope
+- Treating 2026 capture time as historical publication or pregame known-at evidence.
+- Fabricating missing play text, PPA, wall-clock, play rows, publication times, or any other fact.
+- Canonical/PIT/feature/training/protected admission, final historical-population readiness, GAP-002 resolution, champion promotion, production readiness, A&M specialization lift, BAS, Aggie Excess, or any scientific result.
+
+Prerequisites / Dependencies
+- Pinned historical acquisition manifest and canonical payload identity.
+- Pinned canonical game registry with exact SRC-002 game identifiers.
+- Validated versioned play and drive candidate identities and configured external data root.
+- POST-SUBTASK-029
+
+Acceptance Criteria
+1. Only the exact immutable SRC-002 play and drive captures for 2011, 2020, 2023, 2024, and 2025 enter the dataset identity; no season is silently added.
+2. Every normalized row retains capture, request, source-row, response-hash, observation, game, drive or play, and canonical-game lineage with no name-only mapping.
+3. Partial drives, source missingness, current capture time, and unknown historical publication time remain explicit; no missing factual value is fabricated.
+4. All payloads remain candidate-only outside Git and receive no canonical, PIT, feature, training, protected, forecast, or production authority.
+5. An independent validator and isolated deterministic rebuild reproduce all 10 payloads and the manifest byte-for-byte.
+
+Definition of Done
+1. The exact five-season source population is normalized into immutable content-addressed play and drive candidate payloads outside Git.
+2. All 837,921 rows have exact canonical-game mapping and reason-coded dispositions; 26 drives without observed plays remain explicit partial candidates.
+3. The 74-check independent validator and 11-file byte-identical deterministic rebuild pass with zero mismatches.
+4. The historical recovery contract, replay gate, Jira evidence, and governing-goal checkpoint record exact identities, missingness, limitations, and protected nonclaims.
+5. Historical expansion proceeds to the next independently useful domain while downstream promotion remains gated by valid historical known-at evidence.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PROVENANCE: tests/test_supplemental_play_drive.py — Play and drive normalization, stable identities, exact canonical-game linkage, partial-drive preservation, and no fabricated missing facts pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-174.json — External candidate payloads pass all 74 independent checks and an 11-file byte-identical deterministic rebuild.
+
+Required Evidence
+- Exact acquisition, capture, registry, dataset, manifest, payload, lineage, validation, and rollback identities.
+- Per-season captures, games, rows, dispositions, partial drives, missingness, bytes, hashes, and canonical mapping counts.
+- Independent full scan, byte-identical deterministic rebuild, cleanup, and preserved Windows MAX_PATH negative finding.
+- Explicit candidate-only authority, unknown historical publication time, upstream-independence limitation, and protected nonclaims.
+
+End-to-End Validation
+Rebuild the five-season play and drive candidate population in an isolated short external root; verify immutable capture identities, canonical registry identity, every row and disposition, linkage and missingness, payload hashes, manifest identity, authority boundaries, and cleanup.
+
+Stop Conditions
+- Stop the affected artifact on source identity, canonical mapping, duplicate identity, linkage, population, lineage, schema, authority, or deterministic rebuild failure.
+- Quarantine or preserve partial records at their actual grain; do not block independently valid seasons or domains.
+- Do not open protected promotion until expanded quality-supported historical-known-at evidence and applicable W17 gates pass.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;plays;drives;candidate-only;provenance;local-id-post-subtask-174,data,POST-SUBTASK-174,GAP-002;HANDOFF-003,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE

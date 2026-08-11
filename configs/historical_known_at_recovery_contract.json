@@ -169,6 +169,38 @@
     "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
     "domain_gate_disposition": "CANDIDATE_LAYER_VALIDATED_PIT_AND_CANONICAL_ADMISSION_NOT_APPROVED"
   },
+  "latest_validated_supplemental_play_drive_candidate": {
+    "dataset_identity": "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
+    "manifest_sha256": "c41fbedaa89e2ff9188f74789554fd34d5b173f636ee0b3a0853403eee5c4671",
+    "validation_report_sha256": "b078bdfadcc89b7578798be8734e6bca5cf27a9b36cab27dbc3d9b08ad4f2c14",
+    "domains": ["PLAYS", "DRIVES"],
+    "grains": ["PLAY", "DRIVE"],
+    "source_seasons": [2011, 2020, 2023, 2024, 2025],
+    "capture_count": 88,
+    "play_rows": 737580,
+    "drive_rows": 100341,
+    "exact_canonical_game_and_drive_play_candidates": 737580,
+    "exact_canonical_game_and_play_link_drive_candidates": 100315,
+    "exact_canonical_game_drive_without_play_rows_candidates": 26,
+    "quarantined_rows": 0,
+    "dense_2010_2025_candidate_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "missingness": {
+      "drive_result": 0,
+      "drive_without_play_rows": 26,
+      "play_text": 235,
+      "play_type": 0,
+      "ppa_source": 186183,
+      "wallclock_source": 154099
+    },
+    "validation_checks_passed": 74,
+    "deterministic_payloads_compared": 11,
+    "canonical_game_mapping_method": "EXACT_VERIFIED_SRC_002_GAME_ID",
+    "historical_known_at_basis": "CURRENT_2026_CAPTURE_TIME_ONLY_SOURCE_PUBLICATION_TIME_UNKNOWN",
+    "partial_domain_rule": "DRIVES_WITHOUT_OBSERVED_PLAY_ROWS_REMAIN_EXPLICIT_PARTIAL_CANDIDATES",
+    "upstream_independence": "NOT_CLAIMED_CFBD_AGGREGATED_OR_DERIVED_EVIDENCE",
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "domain_gate_disposition": "DENSE_2010_2025_PLAY_AND_DRIVE_CANDIDATE_COVERAGE_VALIDATED_CANONICAL_PIT_FEATURE_TRAINING_AND_PROTECTED_ADMISSION_NOT_APPROVED"
+  },
   "latest_validated_roster_candidate": {
     "dataset_identity": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
     "manifest_sha256": "453c4863577d3ad3e8e54396d54194024390d1bef1af9eab324c9577a5a7160f",

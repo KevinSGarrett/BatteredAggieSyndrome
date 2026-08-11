@@ -197,6 +197,32 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
+    def test_supplemental_play_drive_gap_is_dense_candidate_coverage_only(self) -> None:
+        supplemental = self.contract["latest_validated_supplemental_play_drive_candidate"]
+        self.assertEqual(
+            supplemental["dataset_identity"],
+            "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
+        )
+        self.assertEqual(supplemental["source_seasons"], [2011, 2020, 2023, 2024, 2025])
+        self.assertEqual(supplemental["capture_count"], 88)
+        self.assertEqual(supplemental["play_rows"], 737580)
+        self.assertEqual(supplemental["drive_rows"], 100341)
+        self.assertEqual(supplemental["exact_canonical_game_drive_without_play_rows_candidates"], 26)
+        self.assertEqual(supplemental["quarantined_rows"], 0)
+        self.assertEqual(supplemental["dense_2010_2025_candidate_seasons"], list(range(2010, 2026)))
+        self.assertEqual(supplemental["validation_checks_passed"], 74)
+        self.assertEqual(supplemental["deterministic_payloads_compared"], 11)
+        self.assertIn("SOURCE_PUBLICATION_TIME_UNKNOWN", supplemental["historical_known_at_basis"])
+        self.assertEqual(supplemental["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        checkpoint = self.gate["parallel_supplemental_play_drive_checkpoint"]
+        self.assertTrue(checkpoint["exact_canonical_game_mapping"])
+        self.assertFalse(checkpoint["historical_source_publication_time_established"])
+        self.assertFalse(checkpoint["canonical_play_or_drive_admission"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["training_feature_admission"])
+        self.assertFalse(checkpoint["protected_evaluation_admission"])
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+
     def test_roster_history_is_validated_candidate_only_without_availability_inference(self) -> None:
         roster = self.contract["latest_validated_roster_candidate"]
         self.assertEqual(

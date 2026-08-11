@@ -132,6 +132,27 @@
     "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
     "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_AND_PIT_ADMISSION_PENDING"
   },
+  "parallel_supplemental_play_drive_checkpoint": {
+    "domains": ["plays", "drives"],
+    "grains": ["PLAY", "DRIVE"],
+    "dataset_identity": "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
+    "manifest_sha256": "c41fbedaa89e2ff9188f74789554fd34d5b173f636ee0b3a0853403eee5c4671",
+    "validation_report_sha256": "b078bdfadcc89b7578798be8734e6bca5cf27a9b36cab27dbc3d9b08ad4f2c14",
+    "source_seasons": [2011, 2020, 2023, 2024, 2025],
+    "dense_2010_2025_candidate_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "play_rows": 737580,
+    "drive_rows": 100341,
+    "drives_without_observed_play_rows": 26,
+    "quarantined_rows": 0,
+    "exact_canonical_game_mapping": true,
+    "historical_source_publication_time_established": false,
+    "canonical_play_or_drive_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "gate_disposition": "DENSE_CANDIDATE_COVERAGE_VALIDATED_HISTORICAL_KNOWN_AT_AND_ALL_DOWNSTREAM_ADMISSION_PENDING"
+  },
   "parallel_roster_checkpoint": {
     "domain": "rosters",
     "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",

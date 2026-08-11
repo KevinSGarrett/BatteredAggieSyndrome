@@ -1481,6 +1481,8 @@ tests/test_expanded_event_chronology.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK
 artifacts/jira_evidence/POST-SUBTASK-172.json,END_TO_END,POST-SUBTASK-172,Sub-task,"External dataset, models, predictions, manifest, hashes, chronology, timestamp drift evidence, and protected closure pass independent validation and deterministic rebuild."
 tests/test_cfbd_historical_acquisition.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-173,Sub-task,"Credential redaction, deterministic request identities, schema inspection, conservative roster reconciliation, conflicts, and source-only nonpromotion pass."
 artifacts/jira_evidence/POST-SUBTASK-173.json,END_TO_END,POST-SUBTASK-173,Sub-task,"External candidate, quarantine, and manifest payloads pass all 17 independent checks and a byte-identical isolated deterministic rebuild."
+tests/test_supplemental_play_drive.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-174,Sub-task,"Play and drive normalization, stable identities, exact canonical-game linkage, partial-drive preservation, and no fabricated missing facts pass."
+artifacts/jira_evidence/POST-SUBTASK-174.json,END_TO_END,POST-SUBTASK-174,Sub-task,External candidate payloads pass all 74 independent checks and an 11-file byte-identical deterministic rebuild.
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

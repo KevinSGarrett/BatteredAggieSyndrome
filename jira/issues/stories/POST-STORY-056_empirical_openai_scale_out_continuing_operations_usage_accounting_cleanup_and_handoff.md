@@ -111,7 +111,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Story",
-  "jira_key": "",
+  "jira_key": "BAT-515",
   "labels": [
     "actionable",
     "openai-assist",
@@ -122,6 +122,15 @@
   "local_id": "POST-STORY-056",
   "maturity_before": "NOT_STARTED",
   "objective": "Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24655",
+    "jira_updated_at": "2026-08-11T01:07:02.924-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "To Do"
+  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",

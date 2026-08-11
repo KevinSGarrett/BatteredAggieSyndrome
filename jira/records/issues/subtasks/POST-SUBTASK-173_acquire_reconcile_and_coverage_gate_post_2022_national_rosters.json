@@ -17,7 +17,7 @@
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
-  "component": "data",
+  "component": "data-sources",
   "components_expected_to_be_touched": [
     "data",
     "entities",
@@ -84,7 +84,7 @@
     "Candidate-only evidence that can support later identity and roster-domain review after independent known-at and PIT qualification."
   ],
   "issue_type": "Sub-task",
-  "jira_key": "",
+  "jira_key": "BAT-530",
   "labels": [
     "actionable",
     "post-wave",
@@ -98,6 +98,15 @@
   "local_id": "POST-SUBTASK-173",
   "maturity_before": "SOURCE_PROFILED_PARTIAL_THROUGH_2022",
   "objective": "Close the post-2022 roster acquisition gap with immutable national source captures, conservative reconciliation, exact quarantine, and coverage gating while preserving historical-known-at and protected-promotion boundaries.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24670",
+    "jira_updated_at": "2026-08-11T01:07:01.410-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "Done"
+  },
   "out_of_scope": [
     "Treating source release timestamps as historical game-time known-at evidence or roster membership as availability.",
     "Name-only person merges, fabricated fields, inferred missing values, or automatic canonical/PIT/feature/training admission.",

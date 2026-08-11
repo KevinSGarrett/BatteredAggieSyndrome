@@ -145,8 +145,8 @@
     "assignee": "",
     "jira_issue_id": "24534",
     "jira_updated_at": "2026-08-10T04:55:05.148-0500",
-    "last_synced_at": "2026-08-10T09:56:50.108734+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-394\\BAT-394-completion-live-rows.csv",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

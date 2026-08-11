@@ -23,7 +23,7 @@
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
-  "component": "data",
+  "component": "data-sources",
   "components_expected_to_be_touched": [
     "data",
     "pit-temporal",
@@ -89,7 +89,7 @@
     "Candidate-only evidence for later domain review after historical known-at, canonical, PIT, leakage, and protected validation."
   ],
   "issue_type": "Sub-task",
-  "jira_key": "",
+  "jira_key": "BAT-532",
   "labels": [
     "actionable",
     "post-wave",
@@ -104,6 +104,15 @@
   "local_id": "POST-SUBTASK-175",
   "maturity_before": "VALIDATED_ACTION_SOURCE_AND_SCHEMA_MAPPING_GAP",
   "objective": "Recover the exact defensible action-derived play-summary candidates for official gamebook games missing a native plays collection while preserving grain, exclusions, provenance, and all downstream authority gates.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24672",
+    "jira_updated_at": "2026-08-11T01:07:02.995-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "Done"
+  },
   "out_of_scope": [
     "Representing action summaries as native player-linked play rows or fabricating player identity, drive linkage, play numbers, text, publication times, or missing facts.",
     "Canonical, historical-known-at, PIT, feature, training, protected, forecast, publication, or production admission.",

@@ -147,7 +147,7 @@
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "",
+  "jira_key": "BAT-520",
   "labels": [
     "actionable",
     "openai-assist",
@@ -160,6 +160,15 @@
   "local_id": "POST-SUBTASK-164",
   "maturity_before": "EMPIRICALLY_VALIDATED",
   "objective": "Pilot quarantine and schema-drift classification with deterministic remediation routing",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24660",
+    "jira_updated_at": "2026-08-11T01:06:44.343-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "Done"
+  },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",

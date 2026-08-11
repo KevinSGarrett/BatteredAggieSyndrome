@@ -89,7 +89,7 @@
     "Seven-family preliminary baseline ladder, calibration, metrics, replay, provenance, and cleanup."
   ],
   "issue_type": "Sub-task",
-  "jira_key": "",
+  "jira_key": "BAT-529",
   "labels": [
     "actionable",
     "post-wave",
@@ -103,6 +103,15 @@
   "local_id": "POST-SUBTASK-172",
   "maturity_before": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
   "objective": "Exercise the complete preliminary model pipeline on the exact quality-supported 2010-2025 outcome population while preserving event-chronology-only authority and keeping protected promotion dependent on expanded historical-known-at evidence.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24669",
+    "jira_updated_at": "2026-08-11T01:07:03.514-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "Done"
+  },
   "out_of_scope": [
     "Historical-known-at/PIT admission for the 2010-2022 outcome evidence.",
     "Final historical-population readiness, GAP-002 resolution, protected evaluation, champion promotion, production readiness, A&M specialization lift, BAS, or Aggie Excess.",

@@ -95,6 +95,8 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-171.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-172.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-173.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-174.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-175.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-176.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
 ADDED,artifacts/open_source/integration_validation_manifest.json
@@ -110,8 +112,10 @@ ADDED,artifacts/openai_assist/router_rebalance.json
 ADDED,artifacts/operations/ci_pipeline_validation.json
 ADDED,artifacts/operations/security_supply_chain_report.json
 ADDED,artifacts/pit/asof_state_manifest.json
+ADDED,artifacts/pit/historical_action_derived_play_summary_gate.json
 ADDED,artifacts/pit/historical_advanced_game_reconciliation_gate.json
 ADDED,artifacts/pit/historical_known_at_replay_gate.json
+ADDED,artifacts/pit/historical_play_drive_pit_aggregate_gate.json
 ADDED,artifacts/pit/historical_player_box_reconciliation_gate.json
 ADDED,artifacts/pit/historical_rankings_reconciliation_gate.json
 ADDED,artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
@@ -135,10 +139,12 @@ ADDED,artifacts/source_governance/source_priority_decisions.json
 ADDED,artifacts/source_governance/source_rights_gate_test.json
 ADDED,artifacts/source_governance/supplemental_rights_decisions.csv
 ADDED,artifacts/source_governance/tier1_rights_decisions.csv
+ADDED,configs/action_derived_play_summary_contract.json
 ADDED,configs/cfbd_post2022_roster_acquisition.json
 ADDED,configs/expanded_event_chronology_preliminary_contract.json
 ADDED,configs/external_storage_policy.json
 ADDED,configs/historical_known_at_recovery_contract.json
+ADDED,configs/historical_play_drive_pit_aggregate_contract.json
 ADDED,configs/historical_rankings_pit_contract.json
 ADDED,configs/known_at_registry.json
 ADDED,configs/open_source_integration_registry.json
@@ -273,6 +279,7 @@ ADDED,requirements/openai-assist.lock
 ADDED,schemas/openai/assistive_candidate.schema.json
 ADDED,schemas/openai/assistive_evaluation.schema.json
 ADDED,scripts/audit_control_plane.ps1
+ADDED,src/aggie_analytics/data/action_play_summary.py
 ADDED,src/aggie_analytics/data/cfbd.py
 ADDED,src/aggie_analytics/data/http.py
 ADDED,src/aggie_analytics/data/open_source.py
@@ -296,8 +303,10 @@ ADDED,src/aggie_analytics/openai_assist/storage.py
 ADDED,src/aggie_analytics/operations/cleanup.py
 ADDED,src/aggie_analytics/temporal/expanded_event_chronology.py
 ADDED,src/aggie_analytics/temporal/historical_recovery.py
+ADDED,src/aggie_analytics/temporal/play_drive_pit.py
 ADDED,src/aggie_analytics/temporal/rankings_pit.py
 ADDED,tests/test_acquisition_resilience.py
+ADDED,tests/test_action_play_summary.py
 ADDED,tests/test_autonomous_control_tools.py
 ADDED,tests/test_cfbd_historical_acquisition.py
 ADDED,tests/test_core_registry.py
@@ -305,6 +314,7 @@ ADDED,tests/test_expanded_event_chronology.py
 ADDED,tests/test_external_storage_policy.py
 ADDED,tests/test_historical_known_at_recovery_contract.py
 ADDED,tests/test_historical_known_at_replay.py
+ADDED,tests/test_historical_play_drive_pit.py
 ADDED,tests/test_historical_rankings_pit.py
 ADDED,tests/test_instructions_pack.py
 ADDED,tests/test_jira_control_plane.py
@@ -322,6 +332,8 @@ ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_sportsdataverse_rosters.py
 ADDED,tools/apply_private_research_acquisition_policy.py
 ADDED,tools/audit_control_plane.py
+ADDED,tools/build_action_derived_play_summary.py
+ADDED,tools/build_historical_play_drive_pit.py
 ADDED,tools/build_historical_rankings_pit.py
 ADDED,tools/build_jira_control_plane.py
 ADDED,tools/build_post2022_roster_candidate.py
@@ -352,9 +364,11 @@ ADDED,tools/run_preliminary_rankings_augmented_baselines.py
 ADDED,tools/run_preliminary_unprotected_baselines.py
 ADDED,tools/select_next_work.py
 ADDED,tools/sync_openai_jira_graph.py
+ADDED,tools/validate_action_derived_play_summary.py
 ADDED,tools/validate_autonomous_controls.py
 ADDED,tools/validate_expanded_event_chronology_preliminary.py
 ADDED,tools/validate_external_storage_policy.py
+ADDED,tools/validate_historical_play_drive_pit.py
 ADDED,tools/validate_historical_rankings_pit.py
 ADDED,tools/validate_instructions.py
 ADDED,tools/validate_jira_control_plane.py

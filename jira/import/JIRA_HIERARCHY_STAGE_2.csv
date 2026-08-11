@@ -16334,7 +16334,7 @@ Source References
 Governance Traceability Gate:
 
 Canonical Record: jira/records/issues/tasks/TASK-201_resolve_officiating_assignment_gap_fallback_policy_before_feature_experiments.json",Done,Medium,historical;planning-program;research-design;w13;wave-completed;local-id-task-201,feature-engineering,TASK-201,TASK-201,PHASE-2,DONE,CONTRACT_DEFINED,VERIFIED,W13,false,RESEARCH_LANE,HISTORICAL_REFERENCE
-Story,,100465,"[POST-STORY-054] Governance, storage, budget, controller, and local evaluation foundation",100464,"Local ID: POST-STORY-054
+Story,BAT-513,100465,"[POST-STORY-054] Governance, storage, budget, controller, and local evaluation foundation",100464,"Local ID: POST-STORY-054
 
 Objective
 Governance, storage, budget, controller, and local evaluation foundation
@@ -16397,7 +16397,7 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-040
 
 Canonical Record: jira/records/issues/stories/POST-STORY-054_governance_storage_budget_controller_and_local_evaluation_foundation.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-054,operations-security,POST-STORY-054,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,INTEGRATED,PLANNED,POST_W25,false,SHARED_CONTRACT,AGGREGATE_GATE
-Story,,100466,"[POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",100464,"Local ID: POST-STORY-055
+Story,BAT-514,100466,"[POST-STORY-055] Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots",100464,"Local ID: POST-STORY-055
 
 Objective
 Bounded OpenAI assistive extraction, entity, quarantine, and availability pilots
@@ -16460,7 +16460,7 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-161
 
 Canonical Record: jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json",To Do,Highest,actionable;openai-assist;post-wave;aggregate-gate;local-id-post-story-055,data-sources,POST-STORY-055,OPENAI-ASSIST-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
-Story,,100467,"[POST-STORY-056] Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff",100464,"Local ID: POST-STORY-056
+Story,BAT-515,100467,"[POST-STORY-056] Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff",100464,"Local ID: POST-STORY-056
 
 Objective
 Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff

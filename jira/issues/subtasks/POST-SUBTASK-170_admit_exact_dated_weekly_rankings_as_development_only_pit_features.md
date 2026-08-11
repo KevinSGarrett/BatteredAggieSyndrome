@@ -33,7 +33,7 @@
     "negative_results_preserved": true,
     "protected_nonclaims_required": true
   },
-  "component": "data",
+  "component": "pit-temporal",
   "components_expected_to_be_touched": [
     "data",
     "features",
@@ -95,7 +95,7 @@
     "Development and PRELIMINARY_UNPROTECTED research use only."
   ],
   "issue_type": "Sub-task",
-  "jira_key": "",
+  "jira_key": "BAT-527",
   "labels": [
     "actionable",
     "post-wave",
@@ -109,6 +109,15 @@
   "local_id": "POST-SUBTASK-170",
   "maturity_before": "RECONCILED_CANDIDATE",
   "objective": "Admit only exact dated weekly historical rankings into a conservative point-in-time state and target-game feature layer for development/preliminary use while preserving all excluded evidence and protected gates.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24667",
+    "jira_updated_at": "2026-08-11T01:07:03.436-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "Done"
+  },
   "out_of_scope": [
     "Undated preseason/final polls or conflicted/low-agreement alignments.",
     "Name-only team merges or non-exact identity candidates.",

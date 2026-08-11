@@ -36,7 +36,7 @@
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "summary": "Recover evidence-backed historical known-at timestamps and rematerialize nonempty PIT state",
-      "issue_type": "Sub-task",
+      "issue_type": "Task",
       "status": "In Progress",
       "logical_state": "IN_PROGRESS",
       "maturity": "CONTRACT_DEFINED",
@@ -44,7 +44,7 @@
       "owner_wave": "POST_W25",
       "phase": "PHASE-1",
       "critical_path": true,
-      "execution_lane": "DATA_RESEARCH",
+      "execution_lane": "DATA_MATERIALIZATION",
       "classification": "AUTHORIZED_AUXILIARY_LIVE_UNIT"
     }
   ]

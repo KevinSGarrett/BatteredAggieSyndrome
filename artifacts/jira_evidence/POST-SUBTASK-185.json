@@ -4,7 +4,7 @@
   "local_issue_id": "POST-SUBTASK-185",
   "jira_import_id": 100493,
   "jira_key": "BAT-542",
-  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "status": "DONE_VERIFIED_ON_INTEGRATION",
   "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_PLAYER_EVENT_METRICS",
   "objective": "Admit exact version-bound sparse player-event metrics into a development-only PIT state and preliminary feature layer without overstating player-box completeness or protected authority.",
   "input_identities": {
@@ -80,10 +80,27 @@
   },
   "live_jira": {
     "authentication": "HTTP_200",
-    "status": "In Progress",
+    "status": "Done",
     "preintegration_evidence_comment_id": "13651",
+    "integration_comment_id": "13652",
     "dependency": "BAT-379 BLOCKS BAT-542",
-    "last_successful_sync_utc": "2026-08-11T14:10:09.933Z"
+    "last_successful_sync_utc": "2026-08-11T14:23:34.476418Z",
+    "completion_sync_live_spec_updates": 1,
+    "completion_sync_local_live_state_changes": 1,
+    "canonical_mirror_issue_count": 493,
+    "canonical_mirror_link_count": 1118,
+    "canonical_mirror_status_counts": {"Done": 70, "In Progress": 1, "To Do": 422}
+  },
+  "integration": {
+    "branch": "codex/BAT-542-player-event-pit",
+    "base_commit": "591af6bbbf2599dcc41a6efd75c36fa7681d1ffd",
+    "implementation_commit": "497638f15e4bc06a688dffa9ca132087d68206ca",
+    "pull_request": 184,
+    "merge_commit": "5e1b52a3a1b129c90a42d4c6ff7c09f6a64c62d8",
+    "merged_at_utc": "2026-08-11T14:19:28Z",
+    "postmerge_repository_ci_run": 31500911639,
+    "postmerge_security_analysis_run": 31500911763,
+    "postmerge_checks_passed": true
   },
   "openai": {
     "calls_this_unit": 0,

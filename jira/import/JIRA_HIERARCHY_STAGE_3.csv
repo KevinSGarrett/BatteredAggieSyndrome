@@ -17011,4 +17011,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;player-stats;pit;development-only;preliminary-unprotected;provenance;local-id-post-subtask-185,pit-temporal,POST-SUBTASK-185,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,DEVELOPMENT_ONLY_PIT_ADMITTED,IMPLEMENTED_VALIDATED_PENDING_INTEGRATION,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;player-stats;pit;development-only;preliminary-unprotected;provenance;local-id-post-subtask-185,pit-temporal,POST-SUBTASK-185,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,DEVELOPMENT_ONLY_PIT_ADMITTED,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE

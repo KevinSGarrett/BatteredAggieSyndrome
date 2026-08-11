@@ -28,7 +28,8 @@
     "POST-SUBTASK-030",
     "POST-SUBTASK-162",
     "POST-SUBTASK-165",
-    "POST-SUBTASK-167"
+    "POST-SUBTASK-167",
+    "POST-SUBTASK-195"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-028_acquire_timestamped_roster_depth_participation_injury_recruiting_transfer_coachi.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -146,8 +147,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24518",
-    "jira_updated_at": "2026-08-11T04:28:36.298-0500",
-    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "jira_updated_at": "2026-08-11T17:04:26.586-0500",
+    "last_synced_at": "2026-08-11T22:04:38.502338+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -380,6 +381,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-010 (Historical expansion acr
 - POST-SUBTASK-162
 - POST-SUBTASK-165
 - POST-SUBTASK-167
+- POST-SUBTASK-195
 
 ## Read / Inspect First
 

@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-195",
+  "jira_key": "BAT-552",
+  "classification": "HISTORICAL_GAME_OUTCOME_REFERENCE_CANDIDATE_ONLY",
+  "source_contract": {
+    "cfbd_manifest_relative_path": "manifests/acquisition/bat378-cfbd-historical-expansion-v1/historical_expansion_acquisition_manifest.full.json",
+    "cfbd_manifest_sha256": "bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7",
+    "cfbd_raw_sha256_list_identity": "663cf655124cb87184c0f03f17c350ea27cb3064a4c4831e63bc89124924cb69",
+    "cfbd_source_id": "SRC-002",
+    "cfbd_endpoint_id": "CFBD-GetGames",
+    "cfbd_schema_sha256": "5430d7160e8733eac2cccd26e13168fa5af3e25e374e2f955603a8f0f33cec62",
+    "cfbd_minimum_capture_known_at_utc": "2026-08-09T19:09:42Z",
+    "cfbd_maximum_capture_known_at_utc": "2026-08-09T19:11:11Z",
+    "sportsdataverse_manifest_relative_path": "manifests/acquisition/bat378-sportsdataverse-supplement-v1/sportsdataverse_supplement_manifest.full.json",
+    "sportsdataverse_manifest_sha256": "b8716531c152d664a36d448b4d306104c4266b3b3445a00a034235f3ce35b07e",
+    "sportsdataverse_raw_sha256_list_identity": "354fa82578d596766209dacd6cc1b2db91b150f0189ba7f24cc5f45e972ee212",
+    "sportsdataverse_source_id": "SRC-001",
+    "sportsdataverse_dataset": "schedules_outcomes",
+    "sportsdataverse_schema_sha256": "86f3c13cc4ea216d8db604b681ce9d92b93063c7755a136f049e9c8fd4ae4e30",
+    "sportsdataverse_minimum_capture_known_at_utc": "2026-08-09T21:02:07.900666Z",
+    "sportsdataverse_maximum_capture_known_at_utc": "2026-08-09T21:02:18.377245Z",
+    "canonical_registry_relative_path": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "source_seasons": [1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009],
+    "historical_known_at_state": "CAPTURE_TIME_KNOWN; SOURCE_PUBLICATION_AND_FINAL_WHISTLE_TIMES_UNKNOWN"
+  },
+  "fields": {
+    "completed_outcome_fields": [
+      "schema_version", "classification", "canonical_game_id", "season", "season_type", "week", "start_time_utc", "home_team_id", "away_team_id", "neutral_site", "game_status", "completed", "home_points", "away_points", "outcome_result", "primary_source_id", "primary_source_game_id", "primary_source_capture_id", "primary_source_request_id", "primary_source_response_sha256", "primary_source_capture_known_at_utc", "source_record_evidence_sha256", "canonical_mapping_record_sha256", "canonical_registry_sha256", "source_route_count", "source_evidence_sha256", "historical_known_at_state", "schedule_reference_eligible", "outcome_reference_eligible", "preliminary_outcome_label_candidate", "historical_pit_eligible", "same_day_chronology_eligible", "preliminary_feature_direct_admission", "protected_eligible", "row_lineage_sha256"
+    ],
+    "schedule_only_fields": [
+      "schema_version", "classification", "canonical_game_id", "season", "season_type", "week", "start_time_utc", "home_team_id", "away_team_id", "neutral_site", "game_status", "completed", "home_points", "away_points", "outcome_result", "primary_source_id", "primary_source_game_id", "primary_source_capture_id", "primary_source_request_id", "primary_source_response_sha256", "primary_source_capture_known_at_utc", "source_record_evidence_sha256", "canonical_mapping_record_sha256", "canonical_registry_sha256", "source_route_count", "source_evidence_sha256", "historical_known_at_state", "schedule_reference_eligible", "outcome_reference_eligible", "preliminary_outcome_label_candidate", "historical_pit_eligible", "same_day_chronology_eligible", "preliminary_feature_direct_admission", "protected_eligible", "nonadmission_reason", "row_lineage_sha256"
+    ],
+    "reconciliation_fields": [
+      "schema_version", "canonical_game_id", "season", "sportsdataverse_source_game_id", "sportsdataverse_status", "sportsdataverse_mapping_method", "sportsdataverse_resolution_state", "sportsdataverse_source_row_sha256", "sportsdataverse_capture_sha256", "cfbd_source_game_id", "cfbd_source_row_sha256", "alias_group_size", "reconciliation_disposition", "same_upstream_independence", "outcome_reference_contribution", "row_lineage_sha256"
+    ],
+    "forbidden_output_fields": [
+      "attendance", "homeLineScores", "awayLineScores", "homePregameElo", "awayPregameElo", "homePostgameElo", "awayPostgameElo", "homePostgameWinProbability", "awayPostgameWinProbability", "excitementIndex", "highlights", "target_game_feature", "protected_split", "champion_state"
+    ]
+  },
+  "acceptance": {
+    "expected_cfbd_files": 47,
+    "expected_cfbd_rows": 33272,
+    "expected_cfbd_unique_games": 33272,
+    "expected_sportsdataverse_files": 6,
+    "expected_sportsdataverse_rows": 4650,
+    "expected_sportsdataverse_unique_source_games": 4650,
+    "expected_sportsdataverse_unique_canonical_games": 4630,
+    "expected_canonical_schedule_games": 33278,
+    "expected_completed_outcomes": 33276,
+    "expected_schedule_only_nonoutcomes": 2,
+    "expected_ties": 490,
+    "expected_canonical_cross_source_overlap": 4624,
+    "expected_cfbd_only_canonical_games": 28648,
+    "expected_sportsdataverse_only_canonical_games": 6,
+    "expected_alias_groups": 20,
+    "expected_alias_rows": 40,
+    "expected_duplicate_completed_game_ids": 0,
+    "expected_duplicate_schedule_only_game_ids": 0,
+    "expected_unmapped_cfbd_rows": 0,
+    "expected_unmapped_sportsdataverse_rows": 0,
+    "expected_reconciliation_dispositions": {
+      "CROSS_SOURCE_FINAL_SCORE_EXACT": 4626,
+      "CROSS_SOURCE_POSTPONED_RESCHEDULE_ALIAS": 18,
+      "SUPPLEMENT_ONLY_CANCELED": 2,
+      "SUPPLEMENT_ONLY_FINAL": 4
+    },
+    "expected_cfbd_by_season": {
+      "1963": 620, "1964": 633, "1965": 640, "1966": 633, "1967": 629, "1968": 639, "1969": 657, "1970": 700, "1971": 743, "1972": 739, "1973": 757, "1974": 760, "1975": 806, "1976": 804, "1977": 867, "1978": 816, "1979": 825, "1980": 816, "1981": 804, "1982": 687, "1983": 696, "1984": 676, "1985": 673, "1986": 637, "1987": 633, "1988": 636, "1989": 632, "1990": 646, "1991": 639, "1992": 637, "1993": 632, "1994": 636, "1995": 640, "1996": 662, "1997": 666, "1998": 674, "1999": 686, "2000": 702, "2001": 709, "2002": 772, "2003": 771, "2004": 721, "2005": 718, "2006": 792, "2007": 798, "2008": 805, "2009": 808
+    },
+    "expected_schedule_by_season": {
+      "1963": 620, "1964": 633, "1965": 640, "1966": 633, "1967": 629, "1968": 639, "1969": 657, "1970": 700, "1971": 743, "1972": 739, "1973": 757, "1974": 760, "1975": 806, "1976": 804, "1977": 867, "1978": 816, "1979": 825, "1980": 816, "1981": 804, "1982": 687, "1983": 696, "1984": 676, "1985": 673, "1986": 637, "1987": 633, "1988": 636, "1989": 632, "1990": 646, "1991": 639, "1992": 637, "1993": 632, "1994": 636, "1995": 640, "1996": 662, "1997": 666, "1998": 674, "1999": 686, "2000": 702, "2001": 709, "2002": 772, "2003": 771, "2004": 721, "2005": 719, "2006": 792, "2007": 798, "2008": 808, "2009": 810
+    },
+    "expected_completed_by_season": {
+      "1963": 620, "1964": 633, "1965": 640, "1966": 633, "1967": 629, "1968": 639, "1969": 657, "1970": 700, "1971": 743, "1972": 739, "1973": 757, "1974": 760, "1975": 806, "1976": 804, "1977": 867, "1978": 816, "1979": 825, "1980": 816, "1981": 804, "1982": 687, "1983": 696, "1984": 676, "1985": 673, "1986": 637, "1987": 633, "1988": 636, "1989": 632, "1990": 646, "1991": 639, "1992": 637, "1993": 632, "1994": 636, "1995": 640, "1996": 662, "1997": 666, "1998": 674, "1999": 686, "2000": 702, "2001": 709, "2002": 772, "2003": 771, "2004": 721, "2005": 718, "2006": 792, "2007": 798, "2008": 807, "2009": 810
+    },
+    "expected_alias_groups_by_season": {
+      "2004": 5,
+      "2005": 9,
+      "2007": 2,
+      "2008": 4
+    }
+  },
+  "authority": {
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false,
+    "candidate_snapshot_materialization": true,
+    "schedule_reference_use": true,
+    "outcome_reference_use": true,
+    "preliminary_outcome_label_candidate": true,
+    "historical_pit_admission": false,
+    "same_day_chronology_admission": false,
+    "preliminary_feature_direct_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "domain_eligibility": {
+    "schedules": "REFERENCE_CANDIDATE_33278_CANONICAL_GAMES",
+    "official_outcomes": "REFERENCE_CANDIDATE_33276_COMPLETED_GAMES",
+    "rating_and_team_strength_research": "ELIGIBLE_ONLY_THROUGH_A_SEPARATE_NO_TARGET_GAME_CHRONOLOGY_GATE",
+    "outcome_labels": "PRELIMINARY_CANDIDATE_ONLY",
+    "drives": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+    "plays": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+    "team_box_scores": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+    "player_box_scores": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+    "rosters": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+    "rankings": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+    "venues": "IDENTITY_REFERENCE_ONLY_NOT_HISTORICAL_EFFECTIVE_TRUTH",
+    "advanced_game_statistics": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+    "structured_gamebook_equivalent": "NOT_ESTABLISHED_BY_THIS_ARTIFACT"
+  },
+  "negative_findings": [
+    "Historical source publication and final-whistle times are not proved; capture timestamps are from 2026 and no pregame or same-day PIT backcast is permitted.",
+    "SportsDataverse schedule data is ESPN-derived and is not independent confirmation of CFBD upstream truth.",
+    "Eighteen zero-score SportsDataverse rows are postponed schedule aliases, not outcomes; their rescheduled final rows map to the same canonical games.",
+    "Two additional SportsDataverse alias groups contain duplicate final source IDs with identical participants, kickoff, and score; they remain source aliases rather than extra games.",
+    "Two supplement-only schedules were canceled and remain nonoutcomes with scores cleared rather than treated as 0-0 ties.",
+    "Four supplement-only completed records are postseason all-star games and remain separately source-lineaged rather than silently represented as CFBD coverage.",
+    "Player, roster, play-by-play, drive, box-score, advanced-stat, weather, injury, availability, and structured-gamebook completeness are not established by this artifact.",
+    "This artifact does not establish final historical completeness, resolution of GAP-002, production readiness, protected performance, A&M specialization lift, BAS, Aggie Excess, or any scientific result."
+  ]
+}

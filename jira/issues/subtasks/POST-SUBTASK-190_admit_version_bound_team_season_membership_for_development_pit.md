@@ -27,7 +27,9 @@
     "The tranche establishes no venue, capacity, branding, protected, production, or scientific authority."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-191"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-190_admit_version_bound_team_season_membership_for_development_pit.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "pit-temporal",
@@ -109,8 +111,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24939",
-    "jira_updated_at": "2026-08-11T13:38:36.329-0500",
-    "last_synced_at": "2026-08-11T18:39:08.349137+00:00",
+    "jira_updated_at": "2026-08-11T14:04:24.799-0500",
+    "last_synced_at": "2026-08-11T19:06:36.529502+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -262,7 +264,7 @@ Normalize the twenty candidate team-membership payloads, admit only unique exact
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-191
 
 ## Read / Inspect First
 

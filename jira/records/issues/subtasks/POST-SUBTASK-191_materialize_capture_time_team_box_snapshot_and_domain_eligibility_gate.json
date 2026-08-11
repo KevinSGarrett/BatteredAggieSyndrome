@@ -1,0 +1,222 @@
+{
+  "acceptance_control_ids": [
+    "AC-015",
+    "AC-102"
+  ],
+  "acceptance_criteria": [
+    "All 27,340 source rows are hash-verified and deterministically dispositioned without changing the corrected candidate's six disposition populations.",
+    "Every admitted candidate retains exact game, team, season, side, capture, source-row, stat-category, value, and missingness provenance; no source-only or name-only identity is silently promoted.",
+    "All 21,168 historical outcome-overlap rows reconcile, including the 18 rows in nine exact-game side swaps, while the side-label conflict remains explicit.",
+    "The gate records historical known-at as unknown, admits no pre-capture PIT feature, and cannot be consumed by protected or preliminary chronological replay without a separate eligible timing contract.",
+    "Outputs pass identity, schema-drift, missingness, chronology, quarantine, mutation, byte-identical rebuild, Jira, repository, provenance, and full-suite validation before Done."
+  ],
+  "adr_ids": [
+    "ADR-093",
+    "ADR-152",
+    "ADR-162"
+  ],
+  "ai_context_notes": [
+    "No OpenAI output or generated fact may participate in game/team identity, side reconciliation, statistic values, publication timing, missingness, or validation.",
+    "The 2022-2025 same-provider overlap is not independent confirmation and the nine side swaps remain explicit evidence conflicts despite exact point-vector reconciliation.",
+    "This unit is a capture-time candidate snapshot prerequisite, not historical PIT, preliminary-model, protected, official-stat, production, or scientific authority."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-191_materialize_capture_time_team_box_snapshot_and_domain_eligibility_gate.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "pit-temporal",
+  "components_expected_to_be_touched": [
+    "data",
+    "entities",
+    "pit-temporal",
+    "provenance",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "Per-season and per-stat-category capture-time snapshot and nonadmitted/quarantine artifacts are immutable, content-addressed, reproducible, and externally stored.",
+    "Independent reconstruction verifies source hashes, exact populations, unique natural keys, reconciliation states, schema drift, missingness, capture-time authority, mutations, and byte identity.",
+    "Canonical/live Jira, Git/PR evidence, governing goal, active plan, cleanup, and all nonclaims agree before Done."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029",
+    "POST-SUBTASK-042",
+    "POST-SUBTASK-169",
+    "POST-SUBTASK-190"
+  ],
+  "end_to_end_validation": "Re-read the corrected candidate manifest, 261 capture manifests and raw payloads, accepted outcome payload, canonical team evidence, and season payloads; rebuild the snapshot in an isolated external root; verify hashes, populations, natural keys, side swaps, schema drift, missingness, capture-time authority, quarantine, forbidden fields, mutation controls, and byte identity; then remove reconstructible output after validation.",
+  "epic_id": "POST-EPIC-003",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-191.json",
+  "evidence_state": "PARTIAL",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
+  "expected_outputs": [
+    "configs/historical_team_box_snapshot_contract.json",
+    "artifacts/pit/historical_team_box_snapshot_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-191.json",
+    "<external-data-root>/quarantine/historical_capture_time/sha256/<dataset_identity>/exact_reconciled_team_box_rows.parquet",
+    "<external-data-root>/quarantine/historical_capture_time/sha256/<dataset_identity>/exact_reconciled_team_box_stat_cells.parquet",
+    "<external-data-root>/quarantine/historical_capture_time/sha256/<dataset_identity>/source_only_team_box_rows.parquet",
+    "<external-data-root>/manifests/historical_capture_time/sha256/<dataset_identity>/historical_team_box_snapshot_manifest.json",
+    "<external-data-root>/validation/POST-SUBTASK-191/historical_team_box_snapshot_validation.json"
+  ],
+  "files_expected_to_be_read": [
+    "artifacts/pit/historical_team_box_reconciliation_gate.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/historical_team_box_snapshot_contract.json",
+    "src/aggie_analytics/temporal/team_box_snapshot.py",
+    "tools/build_historical_team_box_snapshot.py",
+    "tools/validate_historical_team_box_snapshot.py",
+    "tests/test_historical_team_box_snapshot.py",
+    "artifacts/pit/historical_team_box_snapshot_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-191.json"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-191_materialize_capture_time_team_box_snapshot_and_domain_eligibility_gate.md",
+  "governance_traceability_gate": "POST-SUBTASK-033",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100499,
+  "in_scope": [
+    "Corrected immutable candidate identity 3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b across 2010-2025, 13,670 games, 27,340 team rows, 812,533 stat cells, and 261 exact captures.",
+    "Exact game/team identity evidence, cross-route outcome/side reconciliation, season-specific schema and stat-category missingness, explicit 2020 partiality, capture provenance, deterministic replay, and capture-time-only eligibility."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "BAT-548",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "team-box",
+    "capture-time",
+    "candidate-only",
+    "schema-drift",
+    "provenance",
+    "local-id-post-subtask-191"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-191",
+  "maturity_before": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
+  "objective": "Materialize and independently validate the exact 2010-2025 version-bound team-box candidate as an immutable capture-time historical snapshot while refusing historical PIT backcast or silent promotion of source-only rows and drifting stat categories.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24940",
+    "jira_updated_at": "2026-08-11T14:04:25.273-0500",
+    "last_synced_at": "2026-08-11T19:04:25.273000+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
+  "out_of_scope": [
+    "Historical publication-time inference, pre-capture PIT backcast, same-provider overlap as independent confirmation, zero-filling missing categories, source-only name merges, official-stat promotion, or rewriting immutable source captures.",
+    "Protected training/evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or scientific claims."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-010",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Corrected candidate manifest SHA-256 and all 261 capture/raw payload hashes verify.",
+    "BAT-523 accepted historical outcome identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7 remains immutable.",
+    "Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-191-PRECHANGE-20260811T185936Z."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02042",
+    "SRCREF-02013",
+    "SRCREF-00623"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "1.0",
+  "related_to": [
+    "POST-SUBTASK-185",
+    "POST-SUBTASK-189"
+  ],
+  "required_evidence": [
+    "Exact corrected-candidate, capture, raw, outcome, entity, contract, code, dataset, manifest, validation, Git, PR, and hosted-check identities.",
+    "Per-season rows/games/stat cells, disposition states, natural-key uniqueness, side swaps, schema paths, category missingness, 2020 partiality, capture times, quarantine, mutation controls, and byte-identical rebuild.",
+    "Explicit capture-time-only, candidate-only, no historical PIT backcast, no zero-fill, no official-stat, and protected/production/completeness/scientific nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Exact capture-time team-box snapshot, side reconciliation, missingness, schema drift, and no-backcast authority remain deterministic.",
+      "path": "tests/test_historical_team_box_snapshot.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The complete external population passes source identity, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-191.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-046",
+    "REQ-268",
+    "REQ-303",
+    "REQ-389",
+    "REQ-390",
+    "REQ-415"
+  ],
+  "risk_failure_conditions": [
+    "Any source hash, row count, game/team identity, side reconciliation, natural key, stat cell, missingness, schema, capture identity, or rebuild identity drifts.",
+    "Any historical publication time, zero-filled missing stat, source-only team merge, outcome/target field, protected decision, or fabricated value enters the snapshot."
+  ],
+  "risk_ids": [
+    "RISK-073",
+    "RISK-137",
+    "RISK-147"
+  ],
+  "schema_version": 2,
+  "scope": "Disposition all 27,340 candidate game-team rows, preserve the 21,168 cross-route outcome overlaps and nine side-swap games, materialize only evidence-supported game/team/stat cells, and publish an explicit capture-time eligibility gate with per-season schema and missingness evidence.",
+  "source_ids": [
+    "GAP-002",
+    "GAP-003",
+    "HANDOFF-003"
+  ],
+  "source_refs": [
+    "SRCREF-02042",
+    "SRCREF-02013",
+    "SRCREF-00623",
+    "SRCREF-00624",
+    "SRCREF-01723",
+    "SRCREF-01564",
+    "SRCREF-01889",
+    "SRCREF-02006",
+    "SRCREF-02016",
+    "SRCREF-02018"
+  ],
+  "stop_conditions": [
+    "Stop the affected row, game, season, category, or artifact on identity, source, reconciliation, schema, missingness, authority, hash, population, or rebuild failure.",
+    "Do not weaken capture-time-only, candidate-only, no-backcast, no-zero-fill, or scientific boundaries merely to obtain approval."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-00624",
+    "SRCREF-01723",
+    "SRCREF-01564",
+    "SRCREF-01889",
+    "SRCREF-02006",
+    "SRCREF-02016",
+    "SRCREF-02018"
+  ],
+  "title": "[POST-SUBTASK-191] Materialize capture-time team-box snapshot and domain eligibility gate",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-033"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "why_this_exists": "Team-box history is the prerequisite candidate layer for player-box and advanced-game-stat reconciliation. The corrected candidate has exact source bytes, two rows for every source game, zero duplicate game/team-side rows, and no unresolved cross-route point conflicts, but its historical publication times remain unknown and therefore require an explicit non-PIT boundary.",
+  "work_packet_path": "",
+  "workflow_state": "IN_PROGRESS"
+}

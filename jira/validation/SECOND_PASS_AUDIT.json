@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-11T18:44:18.109222+00:00",
+  "generated_at": "2026-08-11T19:21:56.115122+00:00",
   "metrics": {
     "aggregate_count": 74,
     "atomic_count": 168,
@@ -11,16 +11,16 @@
     "core_validator_error_count": 0,
     "historical_count": 234,
     "import": {
-      "issue_rows": 498,
-      "link_rows": 1136,
-      "modern_issue_rows": 498
+      "issue_rows": 499,
+      "link_rows": 1142,
+      "modern_issue_rows": 499
     },
     "import_error_count": 0,
-    "issue_count": 498,
+    "issue_count": 499,
     "issue_types": {
       "Epic": 51,
       "Story": 56,
-      "Sub-task": 16,
+      "Sub-task": 17,
       "Subtask": 174,
       "Task": 201
     },
@@ -28,6 +28,11 @@
     "non_jira_scope_diff": {
       "added": [
         ".github/dependabot.yml",
+        ".pytest_cache/.gitignore",
+        ".pytest_cache/CACHEDIR.TAG",
+        ".pytest_cache/README.md",
+        ".pytest_cache/v/cache/lastfailed",
+        ".pytest_cache/v/cache/nodeids",
         "artifacts/benchmarks/ac038_gate_decision.json",
         "artifacts/benchmarks/ac038_input_manifest.json",
         "artifacts/benchmarks/ac038_target_benchmark.json",
@@ -139,6 +144,7 @@
         "artifacts/jira_evidence/POST-SUBTASK-188.json",
         "artifacts/jira_evidence/POST-SUBTASK-189.json",
         "artifacts/jira_evidence/POST-SUBTASK-190.json",
+        "artifacts/jira_evidence/POST-SUBTASK-191.json",
         "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
         "artifacts/open_source/integration_negative_findings.json",
         "artifacts/open_source/integration_validation_manifest.json",
@@ -169,6 +175,7 @@
         "artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json",
         "artifacts/pit/historical_tamu_official_gamebook_reconciliation_gate.json",
         "artifacts/pit/historical_team_box_reconciliation_gate.json",
+        "artifacts/pit/historical_team_box_snapshot_gate.json",
         "artifacts/pit/historical_team_membership_pit_gate.json",
         "artifacts/pit/historical_venue_assignment_pit_gate.json",
         "artifacts/pit/historical_venue_assignment_reconciliation_gate.json",
@@ -206,6 +213,7 @@
         "configs/historical_player_event_metric_pit_contract.json",
         "configs/historical_rankings_pit_contract.json",
         "configs/historical_roster_membership_pit_contract.json",
+        "configs/historical_team_box_snapshot_contract.json",
         "configs/historical_team_membership_pit_contract.json",
         "configs/historical_venue_assignment_pit_contract.json",
         "configs/known_at_registry.json",
@@ -352,6 +360,7 @@
         "schemas/openai/assistive_evaluation.schema.json",
         "schemas/openai/depth_chart_noncoverage_visual.schema.json",
         "scripts/audit_control_plane.ps1",
+        "src/aggie_analytics/__pycache__/__init__.cpython-311.pyc",
         "src/aggie_analytics/data/action_play_summary.py",
         "src/aggie_analytics/data/cfbd.py",
         "src/aggie_analytics/data/http.py",
@@ -362,6 +371,14 @@
         "src/aggie_analytics/entities/candidates.py",
         "src/aggie_analytics/entities/people_registry.py",
         "src/aggie_analytics/entities/registry_artifacts.py",
+        "src/aggie_analytics/modeling/__pycache__/__init__.cpython-311.pyc",
+        "src/aggie_analytics/modeling/__pycache__/coherence.cpython-311.pyc",
+        "src/aggie_analytics/modeling/__pycache__/contracts.cpython-311.pyc",
+        "src/aggie_analytics/modeling/__pycache__/forecast.cpython-311.pyc",
+        "src/aggie_analytics/modeling/__pycache__/play_drive_augmented.cpython-311.pyc",
+        "src/aggie_analytics/modeling/__pycache__/runtime.cpython-311.pyc",
+        "src/aggie_analytics/modeling/__pycache__/simulation.cpython-311.pyc",
+        "src/aggie_analytics/modeling/__pycache__/uncertainty.cpython-311.pyc",
         "src/aggie_analytics/modeling/play_drive_augmented.py",
         "src/aggie_analytics/modeling/play_enrichment_augmented.py",
         "src/aggie_analytics/modeling/preliminary.py",
@@ -385,6 +402,7 @@
         "src/aggie_analytics/temporal/player_event_metric_pit.py",
         "src/aggie_analytics/temporal/rankings_pit.py",
         "src/aggie_analytics/temporal/roster_membership_pit.py",
+        "src/aggie_analytics/temporal/team_box_snapshot.py",
         "src/aggie_analytics/temporal/team_membership_pit.py",
         "src/aggie_analytics/temporal/venue_assignment_pit.py",
         "src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py",
@@ -404,6 +422,7 @@
         "tests/test_historical_player_event_metric_pit.py",
         "tests/test_historical_rankings_pit.py",
         "tests/test_historical_roster_membership_pit.py",
+        "tests/test_historical_team_box_snapshot.py",
         "tests/test_historical_team_membership_pit.py",
         "tests/test_historical_venue_assignment_pit.py",
         "tests/test_instructions_pack.py",
@@ -424,6 +443,7 @@
         "tests/test_supplemental_play_drive.py",
         "tests/test_wmt_provider_timestamp_pit.py",
         "tests/test_wmt_tamu_specialization_feature_pit.py",
+        "tools/__pycache__/run_preliminary_unprotected_baselines.cpython-311.pyc",
         "tools/acquire_cfbd_historical.py",
         "tools/acquire_sec_tamu_availability.py",
         "tools/acquire_sportsdataverse_rosters.py",
@@ -436,6 +456,7 @@
         "tools/build_historical_player_event_metric_pit.py",
         "tools/build_historical_rankings_pit.py",
         "tools/build_historical_roster_membership_pit.py",
+        "tools/build_historical_team_box_snapshot.py",
         "tools/build_historical_team_membership_pit.py",
         "tools/build_historical_venue_assignment_pit.py",
         "tools/build_jira_control_plane.py",
@@ -485,6 +506,7 @@
         "tools/validate_historical_player_event_metric_pit.py",
         "tools/validate_historical_rankings_pit.py",
         "tools/validate_historical_roster_membership_pit.py",
+        "tools/validate_historical_team_box_snapshot.py",
         "tools/validate_historical_team_membership_pit.py",
         "tools/validate_historical_venue_assignment_pit.py",
         "tools/validate_instructions.py",
@@ -572,7 +594,7 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1341,
+      "current_non_jira_files": 1363,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],
@@ -690,7 +712,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 498 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 499 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -955,7 +977,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 498 issues and 1136 links.",
+      "detail": "Strict import dry-run passes for 499 issues and 1142 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"
@@ -1149,7 +1171,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 498 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 499 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -1171,7 +1193,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 498 issues and 1136 links.",
+      "detail": "Strict import dry-run passes for 499 issues and 1142 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"

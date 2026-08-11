@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_TEAM_BOX_CAPTURE_TIME_SNAPSHOT_GATE",
+  "decision_unit": "POST-SUBTASK-191",
+  "jira_key": "BAT-548",
+  "status": "PASS_CAPTURE_TIME_CANDIDATE_ONLY_PREINTEGRATION",
+  "classification": "CAPTURE_TIME_HISTORICAL_TEAM_BOX_SNAPSHOT_CANDIDATE_ONLY",
+  "input_identities": {
+    "candidate_dataset": "3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b",
+    "candidate_manifest_sha256": "7ca71666e49787cf09bee955102192b169a36d226d3772f94958b2a7f41540d5",
+    "accepted_outcome_dataset": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7"
+  },
+  "output_identities": {
+    "dataset": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
+    "manifest_sha256": "41551bd3123999a3c8de0096864a5a04642f3f62bfe52f825f7d3d4903b9d543",
+    "exact_rows_sha256": "8af59b6929d3be5a03c76badd34e2a3913d5c69cdf79f9a7303556462f675da4",
+    "exact_stat_cells_sha256": "fa355fab8d43a2266986be1cd5c34893d3d6084627f923136d094d1fb78cb750",
+    "source_only_rows_sha256": "b4b8939db1c0241a54048be73b8e226f5f4ddc1089a1aab322718ae409aa8c16",
+    "validation_report_sha256": "34df9398acd2665f153a1a1cba0d56dbbddc6fef5d546b219ea616d1f4492e09"
+  },
+  "population": {
+    "season_min": 2010,
+    "season_max": 2025,
+    "source_captures": 261,
+    "source_games": 13670,
+    "source_team_rows": 27340,
+    "source_stat_cells": 812533,
+    "exact_reconciled_games": 13349,
+    "exact_reconciled_team_rows": 26698,
+    "exact_reconciled_stat_cells": 795482,
+    "source_only_games": 321,
+    "source_only_team_rows": 642,
+    "source_only_stat_cells": 17051,
+    "distinct_exact_teams": 480,
+    "distinct_stat_categories": 35,
+    "historical_outcome_overlap_rows": 21168,
+    "side_swap_games": 9,
+    "side_swap_rows": 18,
+    "duplicate_observation_ids": 0,
+    "duplicate_natural_keys": 0
+  },
+  "chronology_and_leakage": {
+    "historical_known_at_state": "UNKNOWN_FOR_TEAM_BOX_STATS; CAPTURE_TIME_ONLY",
+    "minimum_capture_known_at_utc": "2026-08-09T16:59:44Z",
+    "maximum_capture_known_at_utc": "2026-08-09T19:03:15Z",
+    "historical_publication_time_proved": false,
+    "pre_capture_backcast": false,
+    "historical_pit_admission": false,
+    "preliminary_replay_admission": false,
+    "protected_split_opened": false
+  },
+  "schema_and_missingness": {
+    "physical_source_schema_hashes": 1,
+    "stat_categories_2010_2015": 28,
+    "stat_categories_2016_2025": 35,
+    "missing_categories_zero_filled": false,
+    "raw_stat_values_parsed_or_inferred": false,
+    "season_2020_partial_preserved": true,
+    "same_provider_overlap_claimed_independent": false
+  },
+  "validation": {
+    "checks_passed": 87,
+    "mutation_controls_passed": 6,
+    "deterministic_payloads_compared": 4,
+    "byte_identical_rebuild": true,
+    "focused_tests_passed": 3,
+    "full_pytest_passed": 467,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "full_unittest_passed": 464,
+    "full_unittest_skipped": 3,
+    "reconstructible_cleanup": "REMOVED_16_FILES_81843632_BYTES",
+    "final_quality_gate": {
+      "jira_pack": "PASS_499_CANONICAL",
+      "jira_links": 1142,
+      "second_pass": "PASS_68_OF_68",
+      "strict_repository": "PASS",
+      "dependency_cycles": 0,
+      "source_references": "PASS_2119",
+      "jira_manifest": "PASS_1882_FILES",
+      "external_storage": "PASS",
+      "w25_final": "PASS"
+    }
+  },
+  "authority": {
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false,
+    "candidate_snapshot_materialization": true,
+    "historical_pit_admission": false,
+    "preliminary_chronological_replay_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "gate_disposition": "EXACT_RECONCILED_CAPTURE_TIME_TEAM_BOX_SNAPSHOT_PASS_CANDIDATE_ONLY_NO_HISTORICAL_PIT_BACKCAST",
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

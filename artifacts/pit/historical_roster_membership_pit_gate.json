@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_VERSION_BOUND_ROSTER_MEMBERSHIP_PIT_GATE",
+  "decision_unit": "POST-SUBTASK-189",
+  "jira_key": "BAT-546",
+  "status": "PASS_DEVELOPMENT_ONLY_PREINTEGRATION",
+  "classification": "DEVELOPMENT_ONLY_VERSION_BOUND_ROSTER_MEMBERSHIP_PIT",
+  "input_identities": {
+    "candidate_dataset": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
+    "candidate_manifest_sha256": "453c4863577d3ad3e8e54396d54194024390d1bef1af9eab324c9577a5a7160f",
+    "target_cutoff_payload_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942",
+    "source_repository": "sportsdataverse/cfbfastR-data",
+    "source_commit_sha": "b865176f908cb6b791dc8e14562c52676f456275",
+    "source_known_at_utc": "2023-05-05T03:50:21Z"
+  },
+  "output_identities": {
+    "dataset": "3e3da7de2f58870301a5917274024b2752523ba4b6097501def636d464be24cb",
+    "manifest_sha256": "3a15d56a9e619aa22b7f51a03891ac39dd4b59bfe12685e4dc90900c1aa725f9",
+    "admitted_payload_sha256": "2b450c5807b75d33e3af40e2555f8a3568df808f7e9e685b74cda797c10c9689",
+    "nonadmitted_payload_sha256": "17544cc76a152e4eb4d99fb6ad78ef4609328bd93f13e25630e1e117e5d9ff04",
+    "validation_report_sha256": "dfa0dc4fea59da2bea4139328fd6f58c43d9b1bb34acabec3f03e681ddf84242"
+  },
+  "population": {
+    "source_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "target_seasons": [2023, 2024, 2025],
+    "source_rows": 206773,
+    "admitted_rows": 154387,
+    "nonadmitted_rows": 52386,
+    "distinct_players": 53089,
+    "distinct_teams": 127,
+    "multi_team_player_seasons": 199,
+    "duplicate_observation_ids": 0,
+    "duplicate_natural_keys": 0
+  },
+  "chronology_and_leakage": {
+    "source_known_at_utc": "2023-05-05T03:50:21Z",
+    "minimum_target_cutoff_utc": "2023-08-25T18:30:00Z",
+    "source_known_at_before_target_cutoff": true,
+    "backcast_before_source_known_at": false,
+    "target_or_outcome_columns": 0,
+    "protected_split_opened": false
+  },
+  "schema_and_identity_boundaries": {
+    "semantic_source_schema_hashes": 1,
+    "physical_schema_variants": 2,
+    "name_only_player_merge": false,
+    "current_capture_fields_in_admitted_state": false,
+    "missing_values_fabricated_or_silently_imputed": false,
+    "effective_day_or_transfer_order_inferred": false,
+    "roster_membership_promoted_to_availability": false
+  },
+  "validation": {
+    "checks_passed": 67,
+    "mutation_controls_passed": 5,
+    "deterministic_payloads_compared": 3,
+    "byte_identical_rebuild": true,
+    "focused_tests_passed": 3,
+    "full_pytest_passed": 461,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "full_unittest_passed": 458,
+    "full_unittest_skipped": 3,
+    "jira_pack": "PASS_497_ISSUES_1131_LINKS",
+    "jira_second_pass": "PASS_68_SECTIONS",
+    "strict_repository": "PASS",
+    "provenance_secret_forbidden_artifact_gate": "PASS",
+    "reconstructible_rebuild_cleanup": "HOST_POLICY_BLOCKED_BEFORE_EXECUTION_PRESERVED_FOR_REVIEW"
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "pit_state_admission": true,
+    "season_membership_only": true,
+    "development_feature_admission": false,
+    "game_time_availability_authority": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "gate_disposition": "EXACT_VERSION_BOUND_PLAYER_TEAM_SEASON_MEMBERSHIPS_PASS_FOR_POST_CAPTURE_DEVELOPMENT_PIT_ONLY",
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

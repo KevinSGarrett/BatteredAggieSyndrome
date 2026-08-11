@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-189",
+  "jira_key": "BAT-546",
+  "classification": "DEVELOPMENT_ONLY_VERSION_BOUND_ROSTER_MEMBERSHIP_PIT",
+  "source_contract": {
+    "candidate_dataset_identity": "17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda",
+    "candidate_manifest_relative_path": "manifests/historical_known_at/sha256/17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda/roster_history_reconciliation.json",
+    "candidate_manifest_sha256": "453c4863577d3ad3e8e54396d54194024390d1bef1af9eab324c9577a5a7160f",
+    "candidate_payload_root": "quarantine/historical_known_at/sha256/17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda/rosters",
+    "repository": "sportsdataverse/cfbfastR-data",
+    "source_commit_sha": "b865176f908cb6b791dc8e14562c52676f456275",
+    "source_known_at_utc": "2023-05-05T03:50:21Z",
+    "source_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "target_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "target_cutoff_relative_path": "features/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/target_game_cutoffs.parquet",
+    "target_cutoff_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942",
+    "target_seasons": [2023, 2024, 2025],
+    "known_at_basis": "PUBLIC_REPOSITORY_COMMITTER_TIME_BOUND_TO_EXACT_ROSTER_FILE_BYTES"
+  },
+  "admission": {
+    "eligible_disposition": "CANDIDATE_CROSS_ROUTE_IDENTITY_EXACT_ROSTER_CANONICAL_PLAYER_MEMBERSHIP",
+    "required_resolution_state": "AUTO_ACCEPTED_VERIFIED",
+    "required_exact_team_option_count": 1,
+    "required_athlete_id_occurrence": 0,
+    "natural_key": ["season", "canonical_player_id", "canonical_team_id"],
+    "season_grain_only": true,
+    "admitted_fields": ["observation_id", "athlete_id", "canonical_player_id", "canonical_team_id", "canonical_team_label", "first_name", "last_name", "team", "position", "class_year", "jersey", "height", "weight", "home_city", "home_state", "home_country", "season", "source_capture_id", "source_payload_sha256", "source_commit_sha", "source_known_at_utc", "source_schema_sha256", "source_record_evidence_sha256", "row_lineage_sha256"]
+  },
+  "acceptance": {
+    "expected_source_files": 19,
+    "expected_source_rows": 206773,
+    "expected_admitted_rows": 154387,
+    "expected_nonadmitted_rows": 52386,
+    "expected_distinct_players": 53089,
+    "expected_distinct_teams": 127,
+    "expected_multi_team_player_seasons": 199,
+    "expected_duplicate_observation_ids": 0,
+    "expected_duplicate_natural_keys": 0,
+    "expected_source_schema_hashes": 1,
+    "expected_minimum_target_cutoff_utc": "2023-08-25T18:30:00Z",
+    "expected_admitted_by_season": {"2004": 3223, "2005": 3439, "2006": 3462, "2007": 3602, "2008": 3653, "2009": 5355, "2010": 5703, "2011": 5790, "2012": 6148, "2013": 6740, "2014": 7668, "2015": 8675, "2016": 10238, "2017": 11010, "2018": 11674, "2019": 14228, "2020": 15302, "2021": 14130, "2022": 14347},
+    "expected_nonadmitted_dispositions": {
+      "CANDIDATE_VERSIONED_REPOSITORY_ROSTER_SOURCE_LEVEL_ONLY": 44637,
+      "QUARANTINE_CANONICAL_ROSTER_MEMBERSHIP_AMBIGUOUS": 6462,
+      "QUARANTINE_CURRENT_ROSTER_ATHLETE_NAME_CONFLICT": 1214,
+      "QUARANTINE_CURRENT_ROSTER_MATCH_AMBIGUOUS": 24,
+      "QUARANTINE_INVALID_VERSIONED_ROSTER_CORE": 49
+    },
+    "expected_admitted_missingness": {"position": 13922, "class_year": 67188, "jersey": 15444, "height": 14381, "weight": 57224, "home_city": 14484, "home_state": 14961, "home_country": 14489},
+    "byte_identical_rebuild": true
+  },
+  "authority": {
+    "pit_state_admission": true,
+    "earliest_eligible_prediction_time_utc": "2023-05-05T03:50:21Z",
+    "backcast_before_source_known_at": false,
+    "season_membership_only": true,
+    "effective_day_inferred": false,
+    "transfer_order_inferred": false,
+    "depth_or_starter_inferred": false,
+    "participation_or_usage_inferred": false,
+    "availability_or_injury_inferred": false,
+    "eligibility_inferred": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "forbidden_admitted_fields": ["current_cfbd_id_match", "current_cfbd_name_match", "current_cfbd_capture_id", "current_cfbd_payload_sha256", "current_cfbd_request_sha256", "current_first_name", "current_last_name", "current_team", "current_weight", "current_height", "current_jersey", "current_class_year", "current_position", "headshot_url", "home_latitude", "home_longitude", "home_county_fips", "recruit_ids_json", "target", "label", "outcome", "home_points", "away_points", "draft", "availability", "injury", "starter", "depth"],
+  "negative_findings": [
+    "The physical Parquet type of class_year is Null in some season files and Int64 in others; relaxed read concatenation is required while the source semantic schema hash remains stable.",
+    "Exactly 52,386 rows remain source-only, ambiguous, conflicting, or invalid-core evidence and are never silently promoted.",
+    "199 player-seasons legitimately contain memberships for multiple teams; distinct team associations are preserved without transfer ordering or an inferred effective day.",
+    "Version-bound position, class, jersey, height, weight, and hometown values retain explicit missingness and are not promoted as timeless person truth.",
+    "Current CFBD comparison fields, headshot URLs, geocodes, recruiting identifiers, outcomes, targets, and protected fields are excluded from the admitted state.",
+    "No roster membership implies depth, starter, participation, usage, availability, injury, or eligibility state.",
+    "The 2023 source commit may support only prediction/evidence states at or after its known-at time; it is not backcast to historical game-time cutoffs.",
+    "This development-only artifact does not establish final historical completeness, GAP-002 resolution, production readiness, protected performance, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ]
+}

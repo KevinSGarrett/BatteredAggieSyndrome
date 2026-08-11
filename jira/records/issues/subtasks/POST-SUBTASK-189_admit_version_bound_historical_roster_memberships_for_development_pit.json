@@ -1,0 +1,231 @@
+{
+  "acceptance_control_ids": [
+    "AC-015",
+    "AC-102"
+  ],
+  "acceptance_criteria": [
+    "All 206,773 source candidate rows across 2004-2022 are read only from the immutable POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001 roster identity and its nineteen content-addressed season payloads; hashes, schema variants, and natural keys are verified before disposition.",
+    "Exactly 154,387 unique canonical player-team-season memberships with AUTO_ACCEPTED_VERIFIED identity, exact historical team evidence, one exact-team option, no ambiguity, and no duplicate association are eligible for development-only admission.",
+    "All 52,386 remaining rows preserve their original source-only, ambiguity, conflict, or invalid-core disposition outside admission; no name-only merge, team inference, duplicate suppression, or missing attribute fabrication is permitted.",
+    "The source commit time 2023-05-05T03:50:21Z precedes every approved 2023-2025 target cutoff, but the state may not be backcast to prediction cutoffs before that time and roster membership may not imply depth, starter, participation, eligibility, usage, injury, or availability state.",
+    "The admitted state preserves season-grain membership, legitimate multi-team seasons, version-bound public roster attributes with explicit nulls, exact source lineage, and no current-capture comparison, draft outcome, target, outcome, or protected field.",
+    "Outputs pass immutable identity, chronology, schema, missingness, authority, mutation, byte-identical rebuild, Jira, repository, provenance, and full-suite gates before Done; protected and scientific authority remain closed."
+  ],
+  "adr_ids": [
+    "ADR-093",
+    "ADR-152",
+    "ADR-162"
+  ],
+  "ai_context_notes": [
+    "No OpenAI output or model-generated fact participates in roster identity, source timing, membership admission, attribute normalization, or validation.",
+    "Player identity persists across teams; distinct player-team-season rows are preserved and no transfer ordering or effective day is inferred from season-grain evidence.",
+    "Current CFBD roster comparisons remain diagnostic candidate evidence only and are excluded from the admitted historical state."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-189_admit_version_bound_historical_roster_memberships_for_development_pit.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "pit-temporal",
+  "components_expected_to_be_touched": [
+    "data",
+    "entities",
+    "pit-temporal",
+    "player-context-intelligence",
+    "provenance",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "Every roster row is deterministically dispositioned at season/player/team/identity/attribute grain, including source-only candidates, ambiguous memberships, name conflicts, match ambiguity, invalid cores, multi-team seasons, and physical null-type drift.",
+    "An immutable external roster-membership identity contains only exact canonical memberships, season-grain applicability, source-known-at lineage, historical roster attributes, field missingness, and explicit nonavailability authority.",
+    "Repository tests and independent external validation prove source hashes, row counts, identity cardinality, natural-key uniqueness, chronology, no backcast, schema, missingness, protected-field exclusion, mutation failures, and byte-identical reconstruction.",
+    "Canonical and live Jira, Git/PR evidence, governing goal, active plan, cleanup, and scientific nonclaims agree before Done.",
+    "Historical acquisition and preliminary modeling continue independently without declaring final historical-population or production readiness."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029",
+    "POST-SUBTASK-042",
+    "POST-SUBTASK-169"
+  ],
+  "end_to_end_validation": "Re-read the pinned candidate manifest, all nineteen roster payloads and capture manifests, canonical entity evidence, and target-cutoff payload; independently rebuild exact admissions and non-admitted dispositions in an isolated external root; verify hashes, schema drift, identity and natural-key cardinality, multi-team preservation, missingness, chronology, target exclusion, authority, mutation controls, and byte identity; then remove reconstructible rebuild output.",
+  "epic_id": "POST-EPIC-003",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-189.json",
+  "evidence_state": "PARTIAL",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "DEVELOPMENT_ONLY_PIT_ADMITTED",
+  "expected_outputs": [
+    "configs/historical_roster_membership_pit_contract.json",
+    "artifacts/pit/historical_roster_membership_pit_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-189.json",
+    "<external-data-root>/pit_state/historical_known_at/sha256/<dataset_identity>/historical_roster_memberships.parquet",
+    "<external-data-root>/quarantine/historical_known_at/sha256/<dataset_identity>/historical_roster_membership_nonadmitted.parquet",
+    "<external-data-root>/manifests/historical_known_at/sha256/<dataset_identity>/historical_roster_membership_pit_manifest.json",
+    "<external-data-root>/validation/POST-SUBTASK-189/historical_roster_membership_pit_validation.json"
+  ],
+  "files_expected_to_be_read": [
+    "configs/historical_known_at_recovery_contract.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json",
+    "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/historical_roster_membership_pit_contract.json",
+    "src/aggie_analytics/temporal/roster_membership_pit.py",
+    "tools/build_historical_roster_membership_pit.py",
+    "tools/validate_historical_roster_membership_pit.py",
+    "tests/test_historical_roster_membership_pit.py",
+    "artifacts/pit/historical_roster_membership_pit_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-189.json"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-189_admit_version_bound_historical_roster_memberships_for_development_pit.md",
+  "governance_traceability_gate": "POST-SUBTASK-033",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100497,
+  "in_scope": [
+    "Nineteen immutable sportsdataverse/cfbfastR-data roster captures for seasons 2004-2022 at exact public repository commit b865176f908cb6b791dc8e14562c52676f456275 and known-at time 2023-05-05T03:50:21Z.",
+    "Exact canonical player and team-season membership admission using athlete ID, canonical identity, exact historical team label, verified resolution state, and unique season-player-team association.",
+    "Season-grain roster membership and version-bound public roster attributes with explicit missingness, content-addressed provenance, non-admitted dispositions, deterministic replay, and no inferred effective day."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "BAT-546",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "roster",
+    "membership",
+    "pit",
+    "development-only",
+    "provenance",
+    "local-id-post-subtask-189"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-189",
+  "maturity_before": "VALIDATED_VERSION_BOUND_ROSTER_CANDIDATE",
+  "objective": "Admit only exact canonical 2004-2022 version-bound player-team-season roster memberships into a development-only post-capture PIT state while preserving every source-only row, identity conflict, ambiguity, missing attribute, and nonavailability limitation.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24938",
+    "jira_updated_at": "2026-08-11T12:43:07.020-0500",
+    "last_synced_at": "2026-08-11T17:43:17.159278+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
+  "out_of_scope": [
+    "Name-only player merges, inferred transfer ordering or effective dates, current-roster backfill, missing attribute imputation, or treating version-bound roster attributes as timeless person truth.",
+    "Inferring depth, starter status, participation, expected usage, availability, injury, eligibility, or same-game state from season roster membership.",
+    "Backcasting the 2023 source commit to earlier prediction cutoffs, protected training or evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-010",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Validated candidate identity 17e42ac17f94248213407366ee32e5a09705317d98c3561ee7e93fda6eda8dda with nineteen immutable source payloads and exact canonical membership evidence.",
+    "Canonical entity snapshot with stable player/team IDs and accepted target-cutoff payload a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942.",
+    "Verified pre-change recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-189-PRECHANGE-20260811T173331Z.",
+    "Configured standardized external data root and protected W17 judging boundaries."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02042",
+    "SRCREF-02013",
+    "SRCREF-00623"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "1.0",
+  "related_to": [
+    "POST-SUBTASK-061",
+    "POST-SUBTASK-173"
+  ],
+  "required_evidence": [
+    "Exact candidate, capture, payload, entity, target-cutoff, contract, code, dataset, non-admitted, manifest, validation, Git, PR, and hosted-check identities.",
+    "Per-season source/admitted/non-admitted counts, identity states, natural-key uniqueness, multi-team membership groups, attribute missingness, schema drift, bytes, and hashes.",
+    "Source known-at versus target cutoffs, zero backcast authority, zero target/outcome/current-comparison/protected fields, mutation controls, and byte-identical rebuild.",
+    "Explicit season-grain, roster-not-availability, current-capture exclusion, development-only authority, and protected/production/completeness/scientific nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Exact membership admission, physical null-type drift, multi-team preservation, non-admitted classes, chronology, backcast prohibition, and protected nonauthority remain deterministic.",
+      "path": "tests/test_historical_roster_membership_pit.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-189.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-046",
+    "REQ-268",
+    "REQ-303",
+    "REQ-389",
+    "REQ-390",
+    "REQ-415"
+  ],
+  "risk_failure_conditions": [
+    "Any source hash, identity state, exact-team option, ambiguity, natural key, chronology, schema, authority, population, manifest, or rebuild identity drifts.",
+    "Any name-only merge, current-capture backfill, inferred effective day, inferred transfer order, missing attribute fabrication, draft outcome, target, outcome, depth, starter, participation, injury, eligibility, usage, or availability field enters admission.",
+    "Any 2023 source knowledge is backcast to an earlier prediction cutoff or any development-only membership state is represented as protected, production, complete-history, or scientific authority."
+  ],
+  "risk_ids": [
+    "RISK-073",
+    "RISK-137",
+    "RISK-147"
+  ],
+  "schema_version": 2,
+  "scope": "Normalize the nineteen candidate roster payloads with relaxed physical-null schema handling, admit only unique exact canonical player-team-season memberships and version-bound historical attributes, preserve all other dispositions, and bind the result to source-known-at time without inferring game-time availability.",
+  "source_ids": [
+    "GAP-002",
+    "GAP-003",
+    "HANDOFF-003"
+  ],
+  "source_refs": [
+    "SRCREF-02042",
+    "SRCREF-02013",
+    "SRCREF-00623",
+    "SRCREF-00624",
+    "SRCREF-01723",
+    "SRCREF-01564",
+    "SRCREF-01889",
+    "SRCREF-02006",
+    "SRCREF-02016",
+    "SRCREF-02018"
+  ],
+  "stop_conditions": [
+    "Stop the affected row, field, season, or artifact on source, identity, exact-team, ambiguity, natural-key, chronology, schema, authority, population, hash, or rebuild failure.",
+    "Quarantine only affected evidence and continue independent historical domains, acquisition, and preliminary modeling.",
+    "Do not weaken PIT, identity, missingness, roster-not-availability, or scientific boundaries merely to obtain admission."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-00624",
+    "SRCREF-01723",
+    "SRCREF-01564",
+    "SRCREF-01889",
+    "SRCREF-02006",
+    "SRCREF-02016",
+    "SRCREF-02018"
+  ],
+  "title": "[POST-SUBTASK-189] Admit version-bound historical roster memberships for development PIT",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-033"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "why_this_exists": "The validated 2004-2022 roster candidate has exact source bytes and a public repository commit before every 2023-2025 target cutoff. Its 154,387 unique exact canonical memberships can advance independently as post-capture development PIT evidence without promoting source-only identities or confusing roster membership with availability.",
+  "work_packet_path": "",
+  "workflow_state": "IN_PROGRESS"
+}

@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T17:16:28.398199+00:00"
+      "verified_at": "2026-08-11T17:42:38.855042+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T17:16:28.593093+00:00"
+      "verified_at": "2026-08-11T17:42:39.081488+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T17:16:28.862939+00:00"
+      "verified_at": "2026-08-11T17:42:39.299985+00:00"
     }
   ],
   "backup": {
@@ -31,23 +31,11 @@
     "id": "134"
   },
   "canonical_spec_sync": {
-    "backup": {
-      "bytes": 785,
-      "issue_count": 1,
-      "path": "reconciliation/jira/canonical-spec-sync/20260811T171639Z/pre-update.json",
-      "sha256": "d2917f0e03574e9d2ac9551dab9dcee625846670ddc5c8d5dd2e44a62f2d4c37",
-      "storage_root": "EXTERNAL_DATA_ROOT"
-    },
-    "changed_issues": 1,
-    "completed_at": "2026-08-11T17:16:40.632029+00:00",
-    "completed_local_ids": [
-      "POST-SUBTASK-188"
-    ],
-    "errors": [],
-    "started_at": "2026-08-11T17:16:39.796258+00:00",
-    "status": "COMPLETE"
+    "changed_issues": 0,
+    "status": "EXACT_NO_UPDATES_REQUIRED",
+    "verified_at": "2026-08-11T17:42:53.262518+00:00"
   },
-  "completed_at": "2026-08-11T17:17:24.442382+00:00",
+  "completed_at": "2026-08-11T17:43:43.885011+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -55,8 +43,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-11T17:16:44.464482+00:00",
-    "verified_at": "2026-08-11T17:16:46.056108+00:00",
+    "updated_at": "2026-08-11T17:42:59.053401+00:00",
+    "verified_at": "2026-08-11T17:43:00.904809+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -750,6 +738,7 @@
     "POST-SUBTASK-186": "BAT-543",
     "POST-SUBTASK-187": "BAT-544",
     "POST-SUBTASK-188": "BAT-545",
+    "POST-SUBTASK-189": "BAT-546",
     "TASK-001": "BAT-104",
     "TASK-002": "BAT-105",
     "TASK-003": "BAT-106",
@@ -953,12 +942,12 @@
     "TASK-201": "BAT-350"
   },
   "link_direction_remediation": {
-    "corrected_link_count": 1126,
-    "existing_canonical_links": 1123,
-    "missing_canonical_links": 3,
+    "corrected_link_count": 1131,
+    "existing_canonical_links": 1126,
+    "missing_canonical_links": 5,
     "preserved_auxiliary_links": 0,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-11T17:16:59.960860+00:00"
+    "verified_at": "2026-08-11T17:43:16.712135+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -1085,6 +1074,7 @@
     "Blocks|POST-SUBTASK-029|POST-SUBTASK-185",
     "Blocks|POST-SUBTASK-029|POST-SUBTASK-186",
     "Blocks|POST-SUBTASK-029|POST-SUBTASK-188",
+    "Blocks|POST-SUBTASK-029|POST-SUBTASK-189",
     "Blocks|POST-SUBTASK-030|POST-EPIC-007",
     "Blocks|POST-SUBTASK-030|POST-STORY-011",
     "Blocks|POST-SUBTASK-030|POST-STORY-021",
@@ -1133,6 +1123,7 @@
     "Blocks|POST-SUBTASK-042|POST-SUBTASK-043",
     "Blocks|POST-SUBTASK-042|POST-SUBTASK-044",
     "Blocks|POST-SUBTASK-042|POST-SUBTASK-045",
+    "Blocks|POST-SUBTASK-042|POST-SUBTASK-189",
     "Blocks|POST-SUBTASK-043|POST-SUBTASK-044",
     "Blocks|POST-SUBTASK-043|POST-SUBTASK-045",
     "Blocks|POST-SUBTASK-044|POST-SUBTASK-045",
@@ -1509,6 +1500,7 @@
     "Blocks|POST-SUBTASK-168|POST-SUBTASK-175",
     "Blocks|POST-SUBTASK-169|POST-SUBTASK-171",
     "Blocks|POST-SUBTASK-169|POST-SUBTASK-187",
+    "Blocks|POST-SUBTASK-169|POST-SUBTASK-189",
     "Blocks|POST-SUBTASK-170|POST-SUBTASK-171",
     "Blocks|POST-SUBTASK-170|POST-SUBTASK-172",
     "Blocks|POST-SUBTASK-171|POST-SUBTASK-172",
@@ -1887,6 +1879,8 @@
     "Relates|EPIC-033|POST-SUBTASK-141",
     "Relates|POST-SUBTASK-188|POST-SUBTASK-046",
     "Relates|POST-SUBTASK-188|POST-SUBTASK-067",
+    "Relates|POST-SUBTASK-189|POST-SUBTASK-061",
+    "Relates|POST-SUBTASK-189|POST-SUBTASK-173",
     "Relates|TASK-001|POST-SUBTASK-141",
     "Relates|TASK-002|POST-SUBTASK-141",
     "Relates|TASK-003|POST-SUBTASK-069",
@@ -2095,21 +2089,21 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 242,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 97,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 496\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 74,\n      \"ATOMIC_EXECUTION\": 168,\n      \"HISTORICAL_REFERENCE\": 254\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 496,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 1,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2119\n    },\n    \"subtask_count\": 174,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 223,\n      \"EXISTING_AUTOMATED_TEST\": 1177,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 71,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 242,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-11\",\n    \"work_packet_count\": 242\n  }\n}\n"
+        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 242,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 97,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 497\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 74,\n      \"ATOMIC_EXECUTION\": 168,\n      \"HISTORICAL_REFERENCE\": 255\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 497,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 1,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2119\n    },\n    \"subtask_count\": 174,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 224,\n      \"EXISTING_AUTOMATED_TEST\": 1177,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 72,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 242,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-11\",\n    \"work_packet_count\": 242\n  }\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2119,35 +2113,35 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 496,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 497,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 496,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 497,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-188-completion"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-189-roster-pit"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"actionable_count\": 242,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 97,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 496\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 74,\n    \"ATOMIC_EXECUTION\": 168,\n    \"HISTORICAL_REFERENCE\": 254\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 496,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 1,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2119\n  },\n  \"subtask_count\": 174,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 223,\n    \"EXISTING_AUTOMATED_TEST\": 1177,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 71,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 242,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-11\",\n  \"work_packet_count\": 242\n}\n"
+        "stdout": "{\n  \"actionable_count\": 242,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 97,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 497\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 74,\n    \"ATOMIC_EXECUTION\": 168,\n    \"HISTORICAL_REFERENCE\": 255\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 497,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 1,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2119\n  },\n  \"subtask_count\": 174,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 224,\n    \"EXISTING_AUTOMATED_TEST\": 1177,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 72,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 242,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-11\",\n  \"work_packet_count\": 242\n}\n"
       }
     ],
     "result": "PASS"
@@ -2228,6 +2222,10 @@
     {
       "finding": "Canonical Jira spec synchronization failures: POST-SUBTASK-187: PUT /rest/api/3/issue/BAT-544 failed with HTTP 400: {\"errorMessages\":[],\"errors\":{\"customfield_10198\":\"Specify a valid value for Evidence State\"}}",
       "recorded_at": "2026-08-11T16:11:04.026235+00:00"
+    },
+    {
+      "finding": "POST /rest/api/3/issue/bulk failed with HTTP 400: {\"issues\":[],\"errors\":[{\"status\":400,\"elementErrors\":{\"errorMessages\":[],\"errors\":{\"customfield_10197\":\"Select a valid option for Implementation Maturity and try again.\"}},\"failedElementNumber\":0}]}",
+      "recorded_at": "2026-08-11T17:40:54.082683+00:00"
     }
   ],
   "permission_remediation": {
@@ -2264,16 +2262,16 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 1,
+      "changes": 7,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
-      "rows": 496
+      "rows": 497
     },
     "live": {
-      "changed_issues": 1,
+      "changed_issues": 7,
       "conflict_count": 0,
       "result": "PASS",
-      "rows": 496,
+      "rows": 497,
       "strict_validation": "PASS"
     }
   },
@@ -2320,9 +2318,9 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-11T17:17:24.442382+00:00",
+  "updated_at": "2026-08-11T17:43:43.885011+00:00",
   "verification": {
-    "actual_expected_link_count": 1126,
+    "actual_expected_link_count": 1131,
     "board": {
       "filter_id": "10134",
       "id": "134",
@@ -2360,17 +2358,17 @@
       "Source IDs": "customfield_10194"
     },
     "discrepancies": [],
-    "expected_link_count": 1126,
-    "issue_count": 499,
+    "expected_link_count": 1131,
+    "issue_count": 500,
     "issue_type_counts": {
       "Epic": 51,
       "Story": 56,
-      "Sub-task": 188,
+      "Sub-task": 189,
       "Task": 201
     },
     "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
     "missing_link_count": 0,
-    "parent_count": 445,
+    "parent_count": 446,
     "project": {
       "base_url": "https://kevinsgarrett.atlassian.net",
       "id": "10133",
@@ -2380,10 +2378,10 @@
     "schema_version": 1,
     "status_counts": {
       "Done": 73,
-      "In Progress": 1,
+      "In Progress": 2,
       "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-11T17:16:59.960860+00:00"
+    "verified_at": "2026-08-11T17:43:16.712135+00:00"
   }
 }

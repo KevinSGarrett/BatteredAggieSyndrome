@@ -55,7 +55,8 @@
     "POST-STORY-015",
     "POST-SUBTASK-043",
     "POST-SUBTASK-044",
-    "POST-SUBTASK-045"
+    "POST-SUBTASK-045",
+    "POST-SUBTASK-189"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-042_publish_the_canonical_entity_snapshot_and_approve_or_block_downstream_pit_consum.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -182,9 +183,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24532",
-    "jira_updated_at": "2026-08-10T03:35:44.464-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T12:43:06.764-0500",
+    "last_synced_at": "2026-08-11T17:43:17.159278+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -467,6 +468,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-014 (Population resolution, r
 - POST-SUBTASK-043
 - POST-SUBTASK-044
 - POST-SUBTASK-045
+- POST-SUBTASK-189
 
 ## Read / Inspect First
 

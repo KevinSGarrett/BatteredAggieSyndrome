@@ -390,6 +390,7 @@ docs/architecture/PREDICTION_PIPELINE.md
 docs/architecture/RESEARCH_AND_LLM_PLANE.md
 docs/architecture/SYSTEM_BOUNDARIES.md
 docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md
+docs/assets/readme/aggie-emotional-rollercoaster.png
 docs/assets/readme/bas-spectrum-mobile.svg
 docs/assets/readme/bas-spectrum.svg
 docs/assets/readme/hero-mobile.svg

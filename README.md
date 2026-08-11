@@ -113,6 +113,17 @@ BAS shortfall        = expected A&M margin − actual A&M margin
 
 The 7-point shortfall is the headline BAS event. The 3-, 14-, and 21-point levels preserve mild, severe, and extreme tail behavior. Human-facing labels may be funny; the calculation is not.
 
+## The qualitative model — for humans only
+
+<p align="center">
+  <img src="docs/assets/readme/aggie-emotional-rollercoaster.png" width="72%" alt="A humorous illustrated roller coaster of maroon-clad college-football fans moving from celebration to anxiety inside a stadium">
+</p>
+
+<p align="center">
+  <strong>At kickoff: optimism. At halftime: variance. By the fourth quarter: the protected holdout.</strong><br>
+  <sub>Owner-supplied AI illustration. Cultural context only—never a feature, label, prior, or source of model truth.</sub>
+</p>
+
 ## Scientific contract
 
 The project treats forecasting claims as earned privileges:

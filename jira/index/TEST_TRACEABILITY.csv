@@ -1503,6 +1503,8 @@ tests/test_historical_play_drive_pit_extension.py,NEW_AUTOMATED_TEST_REQUIRED,PO
 artifacts/jira_evidence/POST-SUBTASK-183.json,END_TO_END,POST-SUBTASK-183,Sub-task,"The complete external population passes 46 checks, six mutation controls, and a three-file byte-identical isolated rebuild."
 tests/test_preliminary_play_drive_augmented.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-184,Sub-task,"Dense input pinning, separate lineage, chronology, cold starts, target exclusion, and protected nonauthority remain deterministic."
 artifacts/jira_evidence/POST-SUBTASK-184.json,END_TO_END,POST-SUBTASK-184,Sub-task,"The joined dataset, models, predictions, metrics, hashes, numerical replay, and isolated byte-identical rebuild pass independent validation."
+tests/test_historical_player_event_metric_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-185,Sub-task,"Disposition gating, exact canonical identity, sparse metric aggregation, chronology, cold starts, missingness, and protected nonauthority remain deterministic."
+artifacts/jira_evidence/POST-SUBTASK-185.json,END_TO_END,POST-SUBTASK-185,Sub-task,"The complete external admitted population passes identity, chronology, schema, provenance, mutation, and byte-identical rebuild checks."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

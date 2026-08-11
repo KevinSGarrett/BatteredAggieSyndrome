@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-185",
+  "jira_key": "BAT-542",
+  "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_PLAYER_EVENT_METRICS",
+  "source_contract": {
+    "candidate_dataset_identity": "869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10",
+    "candidate_manifest_sha256": "4e20e5a285a14cca40a5dc0a57ce4628edb5d76653d037ffe3add793f8b3dede",
+    "source_commit_sha": "b865176f908cb6b791dc8e14562c52676f456275",
+    "source_known_at_utc": "2023-05-05T03:50:21Z",
+    "source_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "partial_source_seasons": [2020],
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "target_seasons": [2023, 2024, 2025],
+    "eligible_disposition": "CANDIDATE_CROSS_ROUTE_PLAYER_METRIC_EXACT_CANONICAL_GAME_PLAYER_TEAM",
+    "canonical_membership_resolution_state": "AUTO_ACCEPTED_VERIFIED",
+    "historical_known_at_basis": "PUBLIC_REPOSITORY_COMMITTER_TIME_BOUND_TO_EXACT_FILE_BYTES",
+    "cross_route_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE"
+  },
+  "metric_contract": [
+    {"category": "passing", "stat_type": "YDS", "aggregation": "SUM", "feature_name": "passing_yds"},
+    {"category": "rushing", "stat_type": "CAR", "aggregation": "COUNT", "feature_name": "rushing_attempts"},
+    {"category": "rushing", "stat_type": "YDS", "aggregation": "SUM", "feature_name": "rushing_yds"},
+    {"category": "receiving", "stat_type": "REC", "aggregation": "COUNT", "feature_name": "receiving_receptions"},
+    {"category": "receiving", "stat_type": "YDS", "aggregation": "SUM", "feature_name": "receiving_yds"},
+    {"category": "interceptions", "stat_type": "INT", "aggregation": "SUM", "feature_name": "defensive_interceptions"}
+  ],
+  "feature_contract": {
+    "grain": "TARGET_GAME_TEAM",
+    "profile_window": "ALL_EXACT_RECONCILED_VERSION_BOUND_SOURCE_GAMES_2014_2022_AVAILABLE_AT_TARGET_CUTOFF",
+    "base_features": ["source_game_count", "source_season_count", "contributing_player_count", "metric_observation_count"],
+    "per_game_features": ["passing_yds_per_source_game", "rushing_attempts_per_source_game", "rushing_yds_per_source_game", "receiving_receptions_per_source_game", "receiving_yds_per_source_game", "defensive_interceptions_per_source_game"],
+    "efficiency_features": ["rushing_yds_per_attempt", "receiving_yds_per_reception"],
+    "missingness": "NO_FACT_INVENTION; ABSENT_METRIC_EVIDENCE_REMAINS_NULL; EXPLICIT METRIC ROW COUNTS AND COLD START",
+    "target_or_outcome_fields": "PROHIBITED"
+  },
+  "acceptance": {
+    "expected_candidate_rows": 354082,
+    "expected_eligible_rows": 289897,
+    "expected_disposition_counts": {
+      "CANDIDATE_CROSS_ROUTE_PLAYER_METRIC_EXACT_CANONICAL_GAME_PLAYER_TEAM": 289897,
+      "QUARANTINE_CROSS_ROUTE_PLAYER_METRIC_VALUE_CONFLICT": 43111,
+      "CANDIDATE_CROSS_ROUTE_PLAYER_METRIC_EXACT_CANONICAL_IDENTITY_PENDING": 12097,
+      "CANDIDATE_VERSIONED_REPOSITORY_PLAYER_EVENT_AGGREGATE_SOURCE_LEVEL_ONLY": 6742,
+      "CANDIDATE_CROSS_ROUTE_PLAYER_METRIC_EXACT_CANONICAL_MEMBERSHIP_PENDING": 2041,
+      "QUARANTINE_CURRENT_PLAYER_BOX_NAME_CONFLICT": 194
+    },
+    "required_target_game_team_multiplier": 2,
+    "target_game_overlap": 0,
+    "byte_identical_rebuild": true
+  },
+  "authority": {
+    "pit_state_admission": true,
+    "development_feature_admission": true,
+    "preliminary_unprotected_feature_candidate": true,
+    "official_player_box_completeness": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "negative_findings": [
+    "The admitted metrics are sparse event-derived evidence, not complete official player box scores.",
+    "The 2020 source season is partial and remains explicitly marked partial.",
+    "Cross-route agreement may share ESPN upstream derivation and is not independent-source confirmation.",
+    "All identity-pending, membership-pending, source-only, value-conflict, and name-conflict rows remain excluded or quarantined.",
+    "The static profile is limited to 2023-2025 preliminary targets because no later source payload has an eligible historical publication time.",
+    "No missing value, identity, outcome, timestamp, or statistic is fabricated or silently imputed.",
+    "This development-only artifact does not establish final historical completeness, protected readiness, production performance, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ]
+}

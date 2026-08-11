@@ -36623,3 +36623,75 @@ Source References
 Governance Traceability Gate: TASK-036
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-184_replay_preliminary_baselines_with_dense_2010_2022_play_drive_pit_features.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;baseline-modeling;play-drive;pit;local-id-post-subtask-184,modeling,POST-SUBTASK-184,TASK-036;GAP-002;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE
+Sub-task,BAT-542,100493,[POST-SUBTASK-185] Admit version-bound player-event metrics for development PIT and preliminary research,100060,"Local ID: POST-SUBTASK-185
+
+Objective
+Admit exact version-bound sparse player-event metrics into a development-only PIT state and preliminary feature layer without overstating player-box completeness or protected authority.
+
+Why This Exists
+The exact 2014-2022 repository player-stat evidence was publicly committed before every 2023-2025 target cutoff, allowing its reconciled sparse player-event metrics to advance development PIT without inventing completeness or protected authority.
+
+Scope
+Convert only exact, version-bound, pre-cutoff, reconciled sparse player-event metric evidence into canonical development-PIT state and target-game/team features with explicit partial coverage.
+
+Explicit In Scope
+- Exact version-bound 2014-2022 sparse event-derived passing, rushing, receiving, and interception player metrics with defensible pre-target publication time.
+- Canonical game, player, and team identity validation; reconciliation-disposition gating; explicit quarantine; target-cutoff aggregation; content-addressed provenance; deterministic replay; and development-only PIT admission.
+- Preliminary unprotected feature candidacy with per-season and per-metric coverage and missingness preserved.
+
+Explicit Out of Scope
+- Promoting rows with unresolved canonical identity, membership, source-only disposition, or cross-route value/name conflict.
+- Representing sparse event-derived metrics as complete official player box scores or inventing missing values, publication times, outcomes, identities, or statistics.
+- Protected training or evaluation, champion or production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific result.
+
+Prerequisites / Dependencies
+- Pinned candidate identity 869818c5 and reconciliation manifest 4e20e5a2.
+- Pinned version-bound repository commit b865176f908cb6b791dc8e14562c52676f456275 and public committer time.
+- Pinned canonical game, player, and source-team identity evidence plus 2023-2025 target cutoff matrix.
+- Configured standardized external data root.
+- POST-SUBTASK-029
+
+Acceptance Criteria
+1. Only exact 2014-2022 event-derived player metric rows from the pinned sportsdataverse/cfbfastR-data commit b865176f908cb6b791dc8e14562c52676f456275 and its 2023-05-05T03:50:21Z public committer time are eligible; source-only, ambiguous-identity, membership-pending, and conflicting rows remain excluded or quarantined.
+2. Eligibility is measured independently by season, metric, canonical game/player/team identity, reconciliation disposition, source known-at time, target cutoff, and missingness; the partial 2020 season remains explicit and no player-box completeness claim is made.
+3. Every admitted source row is known before every 2023-2025 target cutoff, target-game overlap is zero, and no target, outcome, post-cutoff, or fabricated field enters the feature payload.
+4. The output preserves immutable content-addressed source, profile, feature, manifest, validation, and quarantine identities and passes an isolated byte-identical rebuild plus mutation controls.
+5. Authority remains development-only historical known-at player-event metrics and preliminary unprotected feature research; protected training or evaluation, champion or production promotion, forecasts, final historical completeness, A&M lift, BAS, Aggie Excess, and scientific claims remain closed.
+
+Definition of Done
+1. All 354,082 derived game-player-category-stat aggregates are deterministically dispositioned: 289,897 exact rows are admitted and 64,185 conflict, identity-gap, membership-gap, source-only, or name-conflict rows remain excluded or quarantined.
+2. The immutable c6baa76b development-PIT state contains 7,079 games, 14,073 players, 132 teams, and explicit partial-2020 status; its 5,528 target-game/team rows retain 489 cold starts and 12 feature columns without silent imputation.
+3. All 51 source, mapping, chronology, target exclusion, schema, hash, population, provenance checks, seven mutation controls, and four-payload byte-identical isolated rebuild checks pass.
+4. Canonical Jira, repository evidence, historical recovery gate, and governing goal preserve development-only authority and protected nonclaims.
+5. Historical acquisition and independently useful preliminary modeling continue without declaring final historical-population or production readiness.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_historical_player_event_metric_pit.py — Disposition gating, exact canonical identity, sparse metric aggregation, chronology, cold starts, missingness, and protected nonauthority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-185.json — The complete external admitted population passes identity, chronology, schema, provenance, mutation, and byte-identical rebuild checks.
+
+Required Evidence
+- Exact source commit, candidate manifest, mapping, target replay, contract, code, dataset, payload, manifest, validation, and rollback identities.
+- Per-season and per-metric source rows, eligible rows, exact identities, conflicts, quarantines, missingness, targets, features, cold starts, bytes, and hashes.
+- Maximum source known-at/effective times, minimum target cutoff, zero target overlap, no target/outcome fields, mutation controls, and byte-identical rebuild.
+- Explicit sparse event-derived limitation, development-only PIT/preliminary authority, shared-upstream caveat, and protected/production/scientific nonclaims.
+
+End-to-End Validation
+Re-read the exact pinned reconciliation manifest and source payloads; independently rebuild admitted player-event metrics, canonical team profiles, and target-cutoff features; verify identity, reconciliation disposition, chronology, target exclusion, schemas, counts, quarantines, hashes, authority, and byte identity; then remove reconstructible rebuild output.
+
+Stop Conditions
+- Stop the affected row, metric, season, or artifact on source, reconciliation, mapping, chronology, target overlap, schema, authority, population, hash, or deterministic rebuild failure.
+- Exclude or quarantine only affected evidence; do not block independent domains, acquisition, or preliminary modeling.
+- Do not open protected promotion until expanded quality-supported history and all applicable W17 gates pass.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;player-stats;pit;development-only;preliminary-unprotected;provenance;local-id-post-subtask-185,pit-temporal,POST-SUBTASK-185,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,DEVELOPMENT_ONLY_PIT_ADMITTED,IMPLEMENTED_VALIDATED_PENDING_INTEGRATION,POST_W25,true,DATA,HISTORICAL_REFERENCE

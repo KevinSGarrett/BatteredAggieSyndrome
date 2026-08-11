@@ -4,13 +4,13 @@
 - Source-prompt sections audited: 68
 - Passed sections: 68
 - Failed sections: 0
-- Canonical issues: 490
+- Canonical issues: 491
 - Post-wave packets: 242 / 242
 - Atomic execution records: 168
 - Aggregate gate records: 74
 - Protected/touched overlaps: 0
 - Source references validated: 2119
-- Import rows validated: 490
+- Import rows validated: 491
 
 ## 68-section matrix
 
@@ -24,7 +24,7 @@
 | 6 | Establish source authority | PASS | Source precedence and conflicts are explicitly represented. |
 | 7 | Reconcile the existing planning system | PASS | Historical Epics/Tasks retain stable source IDs and separate historical classification. |
 | 8 | Full completion-gap analysis | PASS | Every final gap and risk has a Jira disposition. |
-| 9 | Represent the entire project | PASS | Current strict coverage and derivative validation agree at 490 canonical issues. |
+| 9 | Represent the entire project | PASS | Current strict coverage and derivative validation agree at 491 canonical issues. |
 | 10 | Issue hierarchy | PASS | Parent/child types and parent existence validate across the complete graph. |
 | 11 | Issue types have meaning | PASS | Parent/child types and parent existence validate across the complete graph. |
 | 12 | Issue granularity | PASS | All 168 atomic Subtasks have criterion/output-specific scope; generic v1 boilerplate is absent. |
@@ -48,7 +48,7 @@
 | 30 | Do not assume final Jira configuration | PASS | Target configuration is either an unbound template with blank keys or an explicitly verified live target with valid mapped keys. |
 | 31 | Human-readable and machine-readable views | PASS | Every canonical JSON has a generated human-readable Markdown view. |
 | 32 | Local jira directory structure | PASS | Required Jira subdirectories and major artifacts exist. |
-| 33 | Jira import strategy | PASS | Strict import dry-run passes for 490 issues and 1112 links. |
+| 33 | Jira import strategy | PASS | Strict import dry-run passes for 491 issues and 1114 links. |
 | 34 | Verify current Atlassian requirements | PASS | Current official Jira Cloud CSV/Parent/ADF/REST/link assumptions are recorded with verification date and destination-mapping boundaries. |
 | 35 | Minimize custom-field bloat | PASS | The minimal searchable custom-field proposal is present; execution mode remains machine-searchable through the local packet/index schema without unnecessary Jira custom-field bloat. |
 | 36 | Labels and components | PASS | Controlled component and label vocabularies exist. |
@@ -66,9 +66,9 @@
 | 48 | BAS and scientific integrity | PASS | BAS-science work preserves null-result acceptance and dedicated scientific domain coverage. |
 | 49 | Point-in-time and leakage protection | PASS | PIT/leakage work and release-blocking criteria are represented and traceable. |
 | 50 | Automated validation | PASS | Full schema, semantic, source, dependency, import, manifest, and second-pass validators are present and pass. |
-| 51 | Coverage gates | PASS | Current strict coverage and derivative validation agree at 490 canonical issues. |
+| 51 | Coverage gates | PASS | Current strict coverage and derivative validation agree at 491 canonical issues. |
 | 52 | Planning completeness versus product completeness | PASS | Historical DONE remains scoped by maturity/evidence and is not treated as product completion. |
-| 53 | Import dry-run | PASS | Strict import dry-run passes for 490 issues and 1112 links. |
+| 53 | Import dry-run | PASS | Strict import dry-run passes for 491 issues and 1114 links. |
 | 54 | Post-import reconciliation | PASS | Post-import key/status reconciliation utility and validation checklist exist. |
 | 55 | Continuous update contract | PASS | Completion/sync protocols rebuild queues/import derivatives and validate after meaningful changes. |
 | 56 | Change journal | PASS | Versioned changelog and append-only meaningful event log exist. |

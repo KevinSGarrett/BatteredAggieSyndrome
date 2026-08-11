@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-11T11:03:19.929673+00:00",
+  "generated_at": "2026-08-11T12:34:40.464699+00:00",
   "metrics": {
     "aggregate_count": 74,
     "atomic_count": 168,
@@ -11,16 +11,16 @@
     "core_validator_error_count": 0,
     "historical_count": 234,
     "import": {
-      "issue_rows": 490,
-      "link_rows": 1112,
-      "modern_issue_rows": 490
+      "issue_rows": 491,
+      "link_rows": 1114,
+      "modern_issue_rows": 491
     },
     "import_error_count": 0,
-    "issue_count": 490,
+    "issue_count": 491,
     "issue_types": {
       "Epic": 51,
       "Story": 56,
-      "Sub-task": 8,
+      "Sub-task": 9,
       "Subtask": 174,
       "Task": 201
     },
@@ -131,6 +131,7 @@
         "artifacts/jira_evidence/POST-SUBTASK-180.json",
         "artifacts/jira_evidence/POST-SUBTASK-181.json",
         "artifacts/jira_evidence/POST-SUBTASK-182.json",
+        "artifacts/jira_evidence/POST-SUBTASK-183.json",
         "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
         "artifacts/open_source/integration_negative_findings.json",
         "artifacts/open_source/integration_validation_manifest.json",
@@ -186,6 +187,7 @@
         "configs/external_storage_policy.json",
         "configs/historical_known_at_recovery_contract.json",
         "configs/historical_play_drive_pit_aggregate_contract.json",
+        "configs/historical_play_drive_pit_extension_contract.json",
         "configs/historical_rankings_pit_contract.json",
         "configs/known_at_registry.json",
         "configs/open_source_integration_registry.json",
@@ -210,6 +212,7 @@
         "configs/sportsdataverse_post2022_roster_acquisition.json",
         "configs/supplemental_play_drive_gap_contract.json",
         "configs/tamu_availability_source_sample.json",
+        "configs/versioned_play_drive_gap_contract.json",
         "configs/wmt_provider_timestamp_pit_contract.json",
         "configs/wmt_tamu_specialization_feature_pit_contract.json",
         "docs/OPEN_SOURCE_INTEGRATION_STRATEGY.md",
@@ -369,6 +372,7 @@
         "tests/test_historical_known_at_recovery_contract.py",
         "tests/test_historical_known_at_replay.py",
         "tests/test_historical_play_drive_pit.py",
+        "tests/test_historical_play_drive_pit_extension.py",
         "tests/test_historical_rankings_pit.py",
         "tests/test_instructions_pack.py",
         "tests/test_jira_control_plane.py",
@@ -394,6 +398,7 @@
         "tools/audit_control_plane.py",
         "tools/build_action_derived_play_summary.py",
         "tools/build_historical_play_drive_pit.py",
+        "tools/build_historical_play_drive_pit_extension.py",
         "tools/build_historical_rankings_pit.py",
         "tools/build_jira_control_plane.py",
         "tools/build_post2022_roster_candidate.py",
@@ -401,6 +406,7 @@
         "tools/build_supplemental_play_drive_gap.py",
         "tools/build_tamu_availability_evidence_pages.py",
         "tools/build_tamu_depth_chart_noncoverage_review.py",
+        "tools/build_versioned_play_drive_gap.py",
         "tools/build_wmt_provider_timestamp_pit.py",
         "tools/build_wmt_tamu_specialization_feature_pit.py",
         "tools/generate_instruction_manifest.py",
@@ -436,6 +442,7 @@
         "tools/validate_expanded_event_chronology_preliminary.py",
         "tools/validate_external_storage_policy.py",
         "tools/validate_historical_play_drive_pit.py",
+        "tools/validate_historical_play_drive_pit_extension.py",
         "tools/validate_historical_rankings_pit.py",
         "tools/validate_instructions.py",
         "tools/validate_jira_control_plane.py",
@@ -522,7 +529,7 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1291,
+      "current_non_jira_files": 1298,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],
@@ -640,7 +647,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 490 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 491 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -905,7 +912,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 490 issues and 1112 links.",
+      "detail": "Strict import dry-run passes for 491 issues and 1114 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"
@@ -1099,7 +1106,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 490 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 491 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -1121,7 +1128,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 490 issues and 1112 links.",
+      "detail": "Strict import dry-run passes for 491 issues and 1114 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"

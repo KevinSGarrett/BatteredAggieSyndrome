@@ -103,6 +103,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-179.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-180.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-181.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-182.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-183.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
 ADDED,artifacts/open_source/integration_validation_manifest.json
@@ -158,6 +159,7 @@ ADDED,configs/expanded_event_chronology_preliminary_contract.json
 ADDED,configs/external_storage_policy.json
 ADDED,configs/historical_known_at_recovery_contract.json
 ADDED,configs/historical_play_drive_pit_aggregate_contract.json
+ADDED,configs/historical_play_drive_pit_extension_contract.json
 ADDED,configs/historical_rankings_pit_contract.json
 ADDED,configs/known_at_registry.json
 ADDED,configs/open_source_integration_registry.json
@@ -182,6 +184,7 @@ ADDED,configs/source_rights_registry.json
 ADDED,configs/sportsdataverse_post2022_roster_acquisition.json
 ADDED,configs/supplemental_play_drive_gap_contract.json
 ADDED,configs/tamu_availability_source_sample.json
+ADDED,configs/versioned_play_drive_gap_contract.json
 ADDED,configs/wmt_provider_timestamp_pit_contract.json
 ADDED,configs/wmt_tamu_specialization_feature_pit_contract.json
 ADDED,docs/OPEN_SOURCE_INTEGRATION_STRATEGY.md
@@ -341,6 +344,7 @@ ADDED,tests/test_external_storage_policy.py
 ADDED,tests/test_historical_known_at_recovery_contract.py
 ADDED,tests/test_historical_known_at_replay.py
 ADDED,tests/test_historical_play_drive_pit.py
+ADDED,tests/test_historical_play_drive_pit_extension.py
 ADDED,tests/test_historical_rankings_pit.py
 ADDED,tests/test_instructions_pack.py
 ADDED,tests/test_jira_control_plane.py
@@ -366,6 +370,7 @@ ADDED,tools/apply_private_research_acquisition_policy.py
 ADDED,tools/audit_control_plane.py
 ADDED,tools/build_action_derived_play_summary.py
 ADDED,tools/build_historical_play_drive_pit.py
+ADDED,tools/build_historical_play_drive_pit_extension.py
 ADDED,tools/build_historical_rankings_pit.py
 ADDED,tools/build_jira_control_plane.py
 ADDED,tools/build_post2022_roster_candidate.py
@@ -373,6 +378,7 @@ ADDED,tools/build_sec_tamu_availability_candidates.py
 ADDED,tools/build_supplemental_play_drive_gap.py
 ADDED,tools/build_tamu_availability_evidence_pages.py
 ADDED,tools/build_tamu_depth_chart_noncoverage_review.py
+ADDED,tools/build_versioned_play_drive_gap.py
 ADDED,tools/build_wmt_provider_timestamp_pit.py
 ADDED,tools/build_wmt_tamu_specialization_feature_pit.py
 ADDED,tools/generate_instruction_manifest.py
@@ -408,6 +414,7 @@ ADDED,tools/validate_autonomous_controls.py
 ADDED,tools/validate_expanded_event_chronology_preliminary.py
 ADDED,tools/validate_external_storage_policy.py
 ADDED,tools/validate_historical_play_drive_pit.py
+ADDED,tools/validate_historical_play_drive_pit_extension.py
 ADDED,tools/validate_historical_rankings_pit.py
 ADDED,tools/validate_instructions.py
 ADDED,tools/validate_jira_control_plane.py

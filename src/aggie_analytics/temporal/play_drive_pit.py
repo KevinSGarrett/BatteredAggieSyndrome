@@ -68,16 +68,57 @@ def _source_files(data_root: Path, identity: str, domain: str, seasons: list[int
     return files
 
 
+def _source_dispositions(source: dict[str, Any], domain: str) -> list[str]:
+    plural = source.get(f"{domain}_dispositions")
+    if plural:
+        return [str(value) for value in plural]
+    return [str(source[f"{domain}_disposition"])]
+
+
+def _eligible_source_rows(rows: Any, source: dict[str, Any], domain: str) -> Any:
+    pl = _polars()
+    return rows.filter(pl.col("reconciliation_disposition").is_in(_source_dispositions(source, domain)))
+
+
 def _load_sources(
     data_root: Path, contract: dict[str, Any]
 ) -> tuple[Any, Any, Any, Any]:
     pl = _polars()
     source = contract["source_contract"]
-    seasons = [int(value) for value in source["source_seasons"]]
-    play_files = _source_files(data_root, source["play_dataset_identity"], "plays", seasons, "candidate_play_rows.parquet")
-    drive_files = _source_files(data_root, source["drive_dataset_identity"], "drives", seasons, "candidate_drive_rows.parquet")
-    plays = pl.concat([pl.read_parquet(path) for path in play_files], how="vertical_relaxed")
-    drives = pl.concat([pl.read_parquet(path) for path in drive_files], how="vertical_relaxed")
+    layers = source.get("source_layers")
+    if layers:
+        play_files: list[Path] = []
+        drive_files: list[Path] = []
+        for layer in layers:
+            seasons = [int(value) for value in layer["source_seasons"]]
+            play_files.extend(
+                _source_files(
+                    data_root,
+                    layer["play_dataset_identity"],
+                    "plays",
+                    seasons,
+                    "candidate_play_rows.parquet",
+                )
+            )
+            drive_files.extend(
+                _source_files(
+                    data_root,
+                    layer["drive_dataset_identity"],
+                    "drives",
+                    seasons,
+                    "candidate_drive_rows.parquet",
+                )
+            )
+    else:
+        seasons = [int(value) for value in source["source_seasons"]]
+        play_files = _source_files(
+            data_root, source["play_dataset_identity"], "plays", seasons, "candidate_play_rows.parquet"
+        )
+        drive_files = _source_files(
+            data_root, source["drive_dataset_identity"], "drives", seasons, "candidate_drive_rows.parquet"
+        )
+    plays = pl.concat([pl.read_parquet(path) for path in play_files], how="diagonal_relaxed")
+    drives = pl.concat([pl.read_parquet(path) for path in drive_files], how="diagonal_relaxed")
     target_path = (
         data_root / "features" / "historical_known_at" / "sha256"
         / source["target_replay_identity"] / "target_game_cutoffs.parquet"
@@ -112,8 +153,8 @@ def _validate_source_contract(
 ) -> dict[str, Any]:
     pl = _polars()
     source = contract["source_contract"]
-    plays = plays.filter(pl.col("reconciliation_disposition") == source["play_disposition"])
-    drives = drives.filter(pl.col("reconciliation_disposition") == source["drive_disposition"])
+    plays = _eligible_source_rows(plays, source, "play")
+    drives = _eligible_source_rows(drives, source, "drive")
     if plays.is_empty() or drives.is_empty() or targets.is_empty():
         raise ValueError("exact play, drive, and target populations must all be nonempty")
     target_seasons = sorted(targets["season"].unique().to_list())
@@ -149,8 +190,8 @@ def _build_profiles(
 ) -> tuple[Any, dict[str, int]]:
     pl = _polars()
     source = contract["source_contract"]
-    plays = plays.filter(pl.col("reconciliation_disposition") == source["play_disposition"])
-    drives = drives.filter(pl.col("reconciliation_disposition") == source["drive_disposition"])
+    plays = _eligible_source_rows(plays, source, "play")
+    drives = _eligible_source_rows(drives, source, "drive")
     plays = plays.with_columns(
         pl.col("offense_team_id").cast(pl.String).alias("source_team_id"),
         pl.col("canonical_game_id").cast(pl.String),
@@ -257,10 +298,15 @@ def _build_features(targets: Any, profiles: Any) -> Any:
 
 
 def materialize(
-    *, input_data_root: Path, output_data_root: Path, repo_root: Path, issued_at_utc: str
+    *,
+    input_data_root: Path,
+    output_data_root: Path,
+    repo_root: Path,
+    issued_at_utc: str,
+    contract_name: str = "historical_play_drive_pit_aggregate_contract.json",
 ) -> dict[str, Any]:
     pl = _polars()
-    contract_path = repo_root / "configs" / "historical_play_drive_pit_aggregate_contract.json"
+    contract_path = repo_root / "configs" / contract_name
     contract_bytes = contract_path.read_bytes()
     contract = json.loads(contract_bytes)
     plays, drives, targets, team_map = _load_sources(input_data_root, contract)
@@ -270,7 +316,11 @@ def materialize(
     target_games = targets.height
     if features.height != target_games * contract["acceptance"]["required_target_game_team_multiplier"]:
         raise ValueError("target-game/team feature population is not exactly two rows per target game")
-    source_games = set(plays.filter(pl.col("reconciliation_disposition") == contract["source_contract"]["play_disposition"])["canonical_game_id"].cast(pl.String).to_list())
+    source_games = set(
+        _eligible_source_rows(plays, contract["source_contract"], "play")["canonical_game_id"]
+        .cast(pl.String)
+        .to_list()
+    )
     if any(game in source_games for game in features["game_id"].to_list()):
         raise ValueError("target-game leakage detected in feature source population")
     identity_payload = {
@@ -332,13 +382,16 @@ def materialize(
         },
         "payloads": payloads,
         "authority": contract["authority"],
-        "negative_findings": [
-            "The validated versioned repository has no source season for 2011 or 2020.",
-            "Only exact cross-route canonical-game reconciliations from 2010-2022 are admitted; 2004-2009 source-level-only rows and current 2026 supplemental captures remain excluded.",
-            "The profile is static for 2023-2025 targets because no later play/drive capture has an eligible historical publication time.",
-            "Cold starts and null source statistics remain explicit; no missing value, target, outcome, or publication time is fabricated.",
-            "This development-only PIT aggregate does not authorize protected training, protected evaluation, champion promotion, production forecasts, or scientific claims.",
-        ],
+        "negative_findings": contract.get(
+            "negative_findings",
+            [
+                "The validated versioned repository has no source season for 2011 or 2020.",
+                "Only exact cross-route canonical-game reconciliations from 2010-2022 are admitted; 2004-2009 source-level-only rows and current 2026 supplemental captures remain excluded.",
+                "The profile is static for 2023-2025 targets because no later play/drive capture has an eligible historical publication time.",
+                "Cold starts and null source statistics remain explicit; no missing value, target, outcome, or publication time is fabricated.",
+                "This development-only PIT aggregate does not authorize protected training, protected evaluation, champion promotion, production forecasts, or scientific claims.",
+            ],
+        ),
         "scientific_nonclaims": {
             "historical_population_ready": False,
             "gap_002_resolved": False,

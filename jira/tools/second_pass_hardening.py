@@ -2226,15 +2226,21 @@ def main() -> int:
             requested_states[local_id] = mapped
 
         operational = dict(record.get("operational_jira", {}))
-        operational.update({
+        incoming_operational = {
             "status_raw": raw_status,
             "assignee": row.get(assignee_col, "").strip() if assignee_col else "",
             "sprint": row.get(sprint_col, "").strip() if sprint_col else "",
             "jira_updated_at": row.get(updated_col, "").strip() if updated_col else "",
             "jira_issue_id": row.get(issue_id_col, "").strip() if issue_id_col else operational.get("jira_issue_id", ""),
-            "last_synced_at": now,
-            "source_export": str(args.export_csv.resolve()),
-        })
+        }
+        live_state_changed = any(
+            str(operational.get(key, "")) != str(value)
+            for key, value in incoming_operational.items()
+        )
+        operational.update(incoming_operational)
+        if live_state_changed or not operational.get("last_synced_at"):
+            operational["last_synced_at"] = now
+            operational["source_export"] = "jira/reconciliation/BAT_JIRA_EXPORT.csv"
         record["operational_jira"] = operational
 
     if errors:

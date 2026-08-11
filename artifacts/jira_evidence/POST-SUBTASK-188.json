@@ -4,7 +4,7 @@
   "local_issue_id": "POST-SUBTASK-188",
   "jira_import_id": 100496,
   "jira_key": "BAT-545",
-  "status": "IMPLEMENTED_VALIDATED_PENDING_GIT_INTEGRATION",
+  "status": "DONE_VERIFIED_ON_INTEGRATION",
   "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_VENUE_ASSIGNMENT",
   "objective": "Admit exact version-bound 2010-2022 record-time venue assignments into development PIT without inference, backfill, or protected authority.",
   "input_identities": {
@@ -66,7 +66,10 @@
     "jira_live_control_plane_and_mirror": "PASS",
     "jira_pack": "PASS_496_ISSUES",
     "jira_dependencies": "PASS_1126_LINKS",
-    "jira_source_refs": "PASS_2119_REFERENCES"
+    "jira_source_refs": "PASS_2119_REFERENCES",
+    "hosted_pull_request_checks": "PASS_PR_190_ALL_REQUIRED_CHECKS",
+    "postmerge_repository_ci": "PASS_RUN_31516242548",
+    "postmerge_security_analysis": "PASS_RUN_31516242519"
   },
   "external_locations": {
     "state": "<external-data-root>/pit_state/historical_known_at/sha256/b84ef29b9d4b548d82b3797a467982010b591b127fefadeaa2567584290c554b/historical_venue_assignments.parquet",
@@ -83,17 +86,61 @@
   },
   "live_jira": {
     "authentication": "HTTP_200",
-    "status": "In Progress",
+    "status": "Done",
     "created_issue": "BAT-545",
     "activation_comment_id": "13661",
+    "preintegration_pull_request_comment_id": "13662",
+    "integration_comment_id": "13663",
     "dependencies": ["BAT-379 BLOCKS BAT-545"],
     "related_links": ["BAT-545 RELATES BAT-396", "BAT-545 RELATES BAT-417"],
     "duplicate_matches_before_create": 0,
-    "live_sync_conflicts": 0
+    "live_sync_conflicts": 0,
+    "continuous_synchronization": true,
+    "completion_transition_verified": true,
+    "completion_import": {
+      "canonical_issues": 496,
+      "auxiliary_issues": 3,
+      "live_issues": 499,
+      "parent_links": 445,
+      "dependency_links": 1126,
+      "operational_done": 73,
+      "active_post_wave": 242,
+      "canonical_spec_sync_changed": 1,
+      "canonical_spec_sync_errors": 0,
+      "local_reconciliation_changes": 1,
+      "local_reconciliation_conflicts": 0,
+      "completion_assurance_verified": 221,
+      "final_status_totals": {
+        "Done": 75,
+        "In Progress": 2,
+        "To Do": 422
+      }
+    }
   },
   "recovery": {
     "checkpoint": "<external-data-root>/backups/POST-SUBTASK-188-PRECHANGE-20260811T164215Z",
     "bundle_sha256": "213c1a0e8e95e69894654901835dc279af69f69baf0190449deac5a6f42befdb",
+    "dirty_root_touched": false
+  },
+  "integration": {
+    "branch": "codex/BAT-545-versioned-venue-pit",
+    "base_commit": "3095fca4cbd4f6412ea3c02c9befae31434c3cc2",
+    "implementation_commit": "2618b5503f6d8faa6b120f3505929ff8b80543b6",
+    "pull_request": 190,
+    "merge_commit": "0f4e0e3368c2b3152d242506d8bebc48c6286875",
+    "merged_at_utc": "2026-08-11T17:10:46Z",
+    "postmerge_repository_ci_run": 31516242548,
+    "postmerge_security_analysis_run": 31516242519,
+    "postmerge_checks_passed": true,
+    "status": "MERGED_VERIFIED"
+  },
+  "cleanup": {
+    "report": "<external-data-root>/reconciliation/cleanup/BAT-545-CLEANUP-20260811T171459Z.json",
+    "report_sha256": "bb67b04f099eae1c9f05ae32138b4b44bfb3af2f002a7f822d93df8c97a21e5e",
+    "implementation_worktree_removed": true,
+    "worktree_registry_pruned": true,
+    "superseded_materializations_removed": 2,
+    "authoritative_artifacts_preserved": true,
     "dirty_root_touched": false
   },
   "openai": {

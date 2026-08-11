@@ -46,7 +46,7 @@
   "end_to_end_validation": "Re-read each pinned capture manifest and payload plus the accepted-outcome payload; independently rebuild normalized source keys, one-to-one canonical joins, admitted and NOT_PRESENT payloads, manifest, and hashes in an isolated external root; verify population, schema variants, missingness, chronology, target exclusion, authority, mutation controls, and byte identity; then remove reconstructible rebuild output.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-188.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "DEVELOPMENT_ONLY_PIT_ADMITTED",
@@ -102,11 +102,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24936",
-    "jira_updated_at": "2026-08-11T11:45:03.837-0500",
-    "last_synced_at": "2026-08-11T16:45:14.063357+00:00",
+    "jira_updated_at": "2026-08-11T12:16:39.093-0500",
+    "last_synced_at": "2026-08-11T17:17:00.368890+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Name-only venue mapping, home-team stadium inference, current-catalog historical backfill, geocoding inference, or silently treating capacity and indoor attributes as timeless canonical truth.",
@@ -206,7 +206,7 @@
   "unblock_condition": "",
   "why_this_exists": "The accepted 2010-2022 outcome population has exact source-game identities and 13 public repository schedule captures committed before every 2023-2025 target cutoff. Venue evidence can therefore advance independently without using the 2026 current catalog as a historical backfill or inferring venues from home teams.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

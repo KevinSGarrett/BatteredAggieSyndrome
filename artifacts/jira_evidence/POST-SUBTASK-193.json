@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_PREINTEGRATION_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-193",
+  "jira_import_id": 100501,
+  "jira_key": "BAT-550",
+  "status": "VERIFIED_PREINTEGRATION",
+  "classification": "CAPTURE_TIME_HISTORICAL_PLAYER_BOX_SNAPSHOT_CANDIDATE_ONLY",
+  "input_identity": {
+    "candidate_dataset": "d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d",
+    "candidate_manifest_sha256": "bcc3ef592d3a586934cab141e772c2f74843964533bd23fa8765eacad9206ca4",
+    "team_box_snapshot_dataset": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
+    "player_event_candidate": "869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10"
+  },
+  "population": {
+    "seasons": "2010-2025",
+    "games": 13670,
+    "team_rows": 27337,
+    "stat_cells": 5279775,
+    "provider_player_ids": 63407,
+    "exact_cells": 2064668,
+    "nonadmitted_cells": 3215107,
+    "value_exact_incomplete_identity_cells": 55,
+    "invalid_core_cells": 246,
+    "play_derived_conflict_cells": 34006,
+    "one_sided_games": 3,
+    "whitespace_drift_cells": 47446
+  },
+  "output_identity": {
+    "dataset": "3df499e8f6d448624fc62af2a95505546483cc01aba84f19078ad72fd0d36af5",
+    "manifest_sha256": "c13560f1ce45ae06c9ab8d7540b1f97e77821b4563c921e66efe67cf518b2fb2",
+    "exact_cells_sha256": "1a9896a69081e8cdfa385119f48724e7414355e22f6f96275ee8ba1f8d7987e9",
+    "nonadmitted_cells_sha256": "88cbab28df0c90d74c7b84b50156cb975bae7b39e342b9cb4763106984f362ec",
+    "validation_report_sha256": "eb6817ab6393a37da01fe5ca00528570d7edc8d914b28f1eb1477d380313263d"
+  },
+  "validation": {
+    "independent_checks_passed": 61,
+    "mutation_controls_passed": 6,
+    "deterministic_builds_compared": 3,
+    "byte_identical_payload_rebuild": true,
+    "reconstructible_rebuilds_removed": 2,
+    "focused_tests_passed": 3,
+    "full_pytest_passed": 474,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "full_unittest_passed": 471,
+    "full_unittest_skipped": 3,
+    "final_quality_gate": {
+      "jira_pack": "PASS_501_CANONICAL",
+      "jira_links": 1154,
+      "second_pass": "PASS_68_OF_68",
+      "strict_repository": "PASS",
+      "dependency_cycles": 0,
+      "source_references": "PASS_2119",
+      "jira_manifest": "PASS_1888_FILES",
+      "external_storage": "PASS",
+      "w25_final": "PASS",
+      "secret_and_forbidden_artifact_scan": "PASS"
+    },
+    "integration": {
+      "implementation_commit": null,
+      "pull_request": null,
+      "main_commit": null,
+      "repository_ci_run": null,
+      "security_analysis_run": null,
+      "exact_main_checks": "PENDING"
+    }
+  },
+  "authority": {
+    "historical_known_at": "UNKNOWN",
+    "capture_time_only": true,
+    "provider_player_ids_candidate_only": true,
+    "name_only_merges": false,
+    "historical_pit_admission": false,
+    "preliminary_replay_admission": false,
+    "protected_split_opened": false
+  },
+  "recovery": {
+    "checkpoint": "<external-data-root>/backups/POST-SUBTASK-193-PRECHANGE-20260811T202146Z",
+    "bundle_sha256": "a2e6ff72d9cd6e0818de33ce58002e611637e0634833fcbe518b9a63cdfa1ee2",
+    "backup_manifest_sha256": "b30127bb24f30e254d7016221751d9451e6a71701a7f9cc858e0af3e6824e94e",
+    "dirty_root_touched": false
+  },
+  "live_jira": {
+    "authentication": "HTTP_200_WITHOUT_CREDENTIAL_DISCLOSURE",
+    "issue_id": "24942",
+    "activation_comment_id": "13684",
+    "preintegration_comment_id": "13685",
+    "status": "In Progress",
+    "links_created": 6,
+    "verification": "PASS_504_LIVE_501_CANONICAL_450_PARENTS_1154_LINKS_ZERO_DISCREPANCIES_77_DONE_2_IN_PROGRESS_422_TO_DO"
+  },
+  "openai": {
+    "calls_this_unit": 0,
+    "reason": "DETERMINISTIC_STRUCTURED_PARQUET_HASH_SCHEMA_IDENTITY_RECONCILIATION_AND_QUARANTINE_GATING_FULLY_SOLVE_THIS_UNIT",
+    "cumulative_calls": 470,
+    "cumulative_spend_usd": "4.309590",
+    "remaining_budget_usd": "95.690410",
+    "batch_jobs": 0,
+    "last_successful_api_use_utc": "2026-08-11T09:48:49.502971+00:00"
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "gap_003_resolved": false,
+    "preliminary_model_training_eligible": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

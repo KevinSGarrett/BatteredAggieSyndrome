@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-193",
+  "jira_key": "BAT-550",
+  "classification": "CAPTURE_TIME_HISTORICAL_PLAYER_BOX_SNAPSHOT_CANDIDATE_ONLY",
+  "source_contract": {
+    "candidate_dataset_identity": "d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d",
+    "candidate_manifest_relative_path": "manifests/historical_known_at/sha256/d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d/player_box_history_reconciliation.json",
+    "candidate_manifest_sha256": "bcc3ef592d3a586934cab141e772c2f74843964533bd23fa8765eacad9206ca4",
+    "candidate_payload_root": "quarantine/historical_known_at/sha256/d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d/player_box_scores",
+    "team_box_snapshot_dataset_identity": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
+    "player_event_candidate_identity": "869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "historical_known_at_state": "UNKNOWN_FOR_PLAYER_BOX_STATS; CAPTURE_TIME_ONLY",
+    "minimum_capture_known_at_utc": "2026-08-09T16:59:44Z",
+    "maximum_capture_known_at_utc": "2026-08-09T19:06:07Z"
+  },
+  "disposition": {
+    "eligible_reconciliation_dispositions": ["CANDIDATE_CURRENT_CANONICAL_GAME_MULTISET_EXACT", "CANDIDATE_PLAY_DERIVED_METRIC_EXACT"],
+    "nonadmitted_reconciliation_dispositions": ["CANDIDATE_TEAM_BOX_GAME_TEAM_LINKED_PLAYER_STAT", "QUARANTINE_INVALID_PLAYER_BOX_CORE", "QUARANTINE_PLAY_DERIVED_METRIC_VALUE_CONFLICT"],
+    "natural_key": ["season", "source_game_id", "source_team_normalized", "source_player_id", "category", "stat_type"],
+    "snapshot_fields": [
+      "schema_version", "season", "source_game_id", "source_team", "source_team_normalized", "source_team_home_away", "source_player_id",
+      "player_label_raw", "player_label", "player_label_normalized", "category", "stat_type", "stat_value_raw", "canonical_game_id_candidate",
+      "canonical_team_id_candidate", "canonical_player_id_candidate", "home_away_candidate", "team_box_observation_id", "player_event_observation_id",
+      "player_event_source_value", "player_event_source_rows", "player_event_value_exact", "source_capture_id", "source_request_id", "source_response_sha256",
+      "source_response_bytes", "source_game_row_number", "source_team_index", "source_category_index", "source_type_index", "source_athlete_index",
+      "capture_known_at_utc", "source_record_evidence_sha256", "current_game_multiset_exact_match", "historical_known_at_state",
+      "reconciliation_disposition", "observation_id", "row_lineage_sha256"
+    ],
+    "forbidden_snapshot_fields": ["source_team_points", "team_box_historical_outcome_match", "admission_state", "target", "label", "outcome", "home_points", "away_points", "protected_split"]
+  },
+  "acceptance": {
+    "expected_source_files": 16,
+    "expected_source_cells": 5279775,
+    "expected_source_games": 13670,
+    "expected_source_team_rows": 27337,
+    "expected_source_player_ids": 63407,
+    "expected_exact_cells": 2064668,
+    "expected_exact_games": 9925,
+    "expected_exact_player_ids": 36537,
+    "expected_nonadmitted_cells": 3215107,
+    "expected_nonadmitted_games": 10011,
+    "expected_categories": 10,
+    "expected_stat_types": 24,
+    "expected_missing_player_id_cells": 0,
+    "expected_missing_player_name_cells": 246,
+    "expected_missing_stat_value_cells": 0,
+    "expected_player_label_whitespace_drift_cells": 47446,
+    "expected_games_with_two_team_rows": 13667,
+    "expected_games_without_two_team_rows": 3,
+    "expected_missing_team_rows": 3,
+    "expected_team_box_link_cells": 5279775,
+    "expected_player_event_link_cells": 292892,
+    "expected_exact_value_incomplete_identity_cells": 55,
+    "expected_duplicate_observation_ids": 0,
+    "expected_duplicate_natural_keys": 0,
+    "expected_physical_schema_hashes": 1,
+    "expected_exact_by_season": {"2014": 32141, "2015": 32531, "2016": 32636, "2017": 35163, "2018": 36175, "2019": 37136, "2020": 24032, "2021": 29017, "2022": 435101, "2023": 446525, "2024": 455245, "2025": 468966},
+    "expected_nonadmitted_by_season": {"2010": 163517, "2011": 161540, "2012": 164926, "2013": 168191, "2014": 139109, "2015": 138192, "2016": 408823, "2017": 402055, "2018": 399393, "2019": 403629, "2020": 251672, "2021": 414060},
+    "expected_disposition_counts": {
+      "CANDIDATE_CURRENT_CANONICAL_GAME_MULTISET_EXACT": 1805837,
+      "CANDIDATE_PLAY_DERIVED_METRIC_EXACT": 258886,
+      "CANDIDATE_TEAM_BOX_GAME_TEAM_LINKED_PLAYER_STAT": 3180800,
+      "QUARANTINE_INVALID_PLAYER_BOX_CORE": 246,
+      "QUARANTINE_PLAY_DERIVED_METRIC_VALUE_CONFLICT": 34006
+    }
+  },
+  "authority": {
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false,
+    "candidate_snapshot_materialization": true,
+    "historical_pit_admission": false,
+    "preliminary_chronological_replay_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "negative_findings": [
+    "Historical publication timestamps are not proved; all values are capture-time candidates acquired in 2026 and no PIT backcast is permitted.",
+    "CFBD player boxes are structured aggregator evidence and are not represented as official primary gamebooks.",
+    "Current 2022-2025 overlap is same-provider reproducibility evidence, not independent confirmation.",
+    "Play-derived reconciliation covers only six bounded 2014-2022 metrics and may share ESPN upstream origin; 34,006 conflicts remain nonadmitted at stat-cell grain.",
+    "All 3,180,800 team-box-only cells lack exact current-multiset or play-derived value confirmation and remain nonadmitted without discarding their games or seasons.",
+    "Provider athlete IDs remain player-identity candidates; no name-only merge occurs. Exactly 246 invalid-core cells have missing player labels.",
+    "Fifty-five play-derived value-exact cells lack complete canonical game/team candidates and remain nonadmitted despite their value agreement.",
+    "Three games contain only one captured team object, and 47,446 cells preserve raw-versus-normalized player-label whitespace drift including invalid labels.",
+    "This artifact does not establish historical completeness, official player-box truth, PIT eligibility, preliminary or protected training authority, production readiness, protected performance, A&M lift, BAS, or Aggie Excess."
+  ]
+}

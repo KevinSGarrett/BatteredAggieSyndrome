@@ -37204,3 +37204,73 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-192_materialize_capture_time_advanced_game_stat_snapshot_and_domain_eligibility_gate.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;advanced-game-stats;capture-time;candidate-only;schema-drift;missingness;provenance;local-id-post-subtask-192,pit-temporal,POST-SUBTASK-192,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA
+Sub-task,BAT-550,100501,[POST-SUBTASK-193] Materialize capture-time player-box snapshot and stat-cell eligibility gate,100060,"Local ID: POST-SUBTASK-193
+
+Objective
+Materialize and independently validate the corrected 2010-2025 player-box candidate as an immutable capture-time stat-cell snapshot while preserving provider-player identity boundaries, exact current/play-derived evidence, invalid core, conflicts, label whitespace, incomplete game sides, and the prohibition on historical PIT backcast.
+
+Why This Exists
+The corrected player-box candidate is the last direct bulk dependent of the team-box capture-time snapshot. It offers exact reproducibility for 2022-2025 and exact six-metric play-derived evidence for 2014-2022, but historical publication times are unknown, provider athlete IDs remain candidates, conflicting cells and incomplete games exist, and every weaker link must remain explicitly nonadmitted.
+
+Scope
+Disposition all 5,279,775 candidate player stat cells, materialize only current-multiset-exact or unique play-derived exact cells, preserve provider player IDs as candidates, quarantine team-box-only/invalid/conflict cells, and publish an explicit capture-time eligibility gate with per-season coverage, incomplete-game, label, missingness, and conflict evidence.
+
+Explicit In Scope
+- Corrected immutable candidate d866f2ba94b9c19a966e0eaf8326259b5761b64386f9829a95d43b9e2831069d across 2010-2025, 13,670 games, 27,337 team rows, 5,279,775 stat cells, 63,407 provider player IDs, and sixteen source seasons.
+- Current-game multiset-exact and unique play-derived metric-exact candidate cells, team-box-only and conflict quarantine, provider-ID player candidates, raw/normalized label evidence, partiality, capture provenance, deterministic replay, and capture-time-only eligibility.
+
+Explicit Out of Scope
+- Historical publication-time inference, pre-capture PIT backcast, same-provider overlap as independent confirmation, name-only player merges, conflict-value selection, zero-filling, rewriting immutable source captures, or representing aggregator boxes as official primary gamebooks.
+- Protected training/evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or scientific claims.
+
+Prerequisites / Dependencies
+- Corrected player-box candidate manifest SHA-256 bcc3ef592d3a586934cab141e772c2f74843964533bd23fa8765eacad9206ca4 and all referenced season/capture payload hashes verify.
+- BAT-548 capture-time team-box identity f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733 remains immutable and candidate-only.
+- BAT-542 version-bound player-event candidate 869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10 remains bounded to six metrics and its known-at contract.
+- Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-193-PRECHANGE-20260811T202146Z.
+- POST-SUBTASK-029
+- POST-SUBTASK-042
+- POST-SUBTASK-185
+- POST-SUBTASK-191
+
+Acceptance Criteria
+1. All 5,279,775 source stat cells and sixteen season payloads are hash-verified and deterministically dispositioned without changing the corrected candidate population.
+2. The exact candidate contains only current-game multiset-exact or unique play-derived metric-exact cells; team-box-only, invalid-core, and play-derived conflict cells remain separately nonadmitted at stat-cell grain.
+3. Every retained cell preserves exact game/team/provider-player/category/type/value, raw and normalized player labels, capture coordinates, source evidence, identity candidates, reconciliation evidence, and lineage without name-only player merges.
+4. The three one-team games, 246 invalid-core cells, 34,006 play-derived value conflicts, 47,446 whitespace-drift cells, partial seasons, and all provider limitations remain explicit.
+5. Historical known-at remains unknown, no pre-capture PIT or preliminary replay feature is admitted, and outputs pass identity, schema, missingness, quarantine, mutation, byte-rebuild, Jira, repository, provenance, and full-suite validation before Done.
+
+Definition of Done
+1. Per-season capture-time exact-candidate and nonadmitted artifacts are immutable, content-addressed, reproducible, and externally stored.
+2. Independent reconstruction verifies source hashes, exact population, natural keys, dispositions, player-label preservation, missingness, one-team games, conflicts, capture-time authority, mutations, and byte identity.
+3. Canonical/live Jira, Git/PR evidence, governing goal, active plan, cleanup, OpenAI non-use rationale, and all scientific nonclaims agree before Done.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_historical_player_box_snapshot.py — Exact capture-time player-box snapshot, provider-player identity boundary, cell-level conflicts, label preservation, incomplete games, and no-backcast authority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-193.json — The complete external population passes source identity, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks.
+
+Required Evidence
+- Exact corrected-candidate, capture, raw, team-box, player-event, current-multiset, entity, contract, code, dataset, manifest, validation, Git, PR, and hosted-check identities.
+- Per-season cells/games/players, dispositions, natural-key uniqueness, label whitespace, missing core, one-team games, conflicts, partiality, capture times, quarantine, mutation controls, and byte-identical rebuild.
+- Explicit capture-time-only, candidate-only, provider-ID-candidate-only, no historical PIT backcast, no name-only merge, no zero-fill, no independent-confirmation, and protected/production/completeness/scientific nonclaims.
+
+End-to-End Validation
+Re-read the corrected candidate manifest, source captures, team-box and player-event prerequisites, current multiset evidence, and all sixteen season payloads; rebuild in an isolated external root; verify hashes, populations, natural keys, dispositions, label whitespace, missingness, one-team games, conflicts, capture-time authority, quarantine, forbidden fields, mutation controls, and byte identity; then remove only reconstructible output after validation.
+
+Stop Conditions
+- Stop the affected cell, player, game, season, disposition, or artifact on identity, source, reconciliation, schema, missingness, incomplete-side, conflict, authority, hash, population, or rebuild failure.
+- Do not weaken capture-time-only, candidate-only, provider-ID-candidate-only, no-name-merge, no-backcast, no-zero-fill, or scientific boundaries merely to obtain approval.
+
+Source References
+- SRCREF-02013
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02014
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+- SRCREF-02042
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-193_materialize_capture_time_player_box_snapshot_and_stat_cell_eligibility_gate.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;player-box;capture-time;candidate-only;entity-resolution;conflict-quarantine;provenance;local-id-post-subtask-193,pit-temporal,POST-SUBTASK-193,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA

@@ -20,7 +20,9 @@
     "No OpenAI output or model-generated fact participates in acquisition, identity, timing, reconciliation, aggregation, validation, or admission."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-193"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "pit-temporal",
@@ -109,8 +111,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24933",
-    "jira_updated_at": "2026-08-11T14:04:25.217-0500",
-    "last_synced_at": "2026-08-11T19:06:36.529502+00:00",
+    "jira_updated_at": "2026-08-11T15:26:32.089-0500",
+    "last_synced_at": "2026-08-11T20:26:43.633325+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -256,7 +258,7 @@ Convert only exact, version-bound, pre-cutoff, reconciled sparse player-event me
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-193
 
 ## Read / Inspect First
 

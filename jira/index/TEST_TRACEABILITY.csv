@@ -1519,6 +1519,8 @@ tests/test_historical_team_box_snapshot.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBT
 artifacts/jira_evidence/POST-SUBTASK-191.json,END_TO_END,POST-SUBTASK-191,Sub-task,"The complete external population passes source identity, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks."
 tests/test_historical_advanced_game_snapshot.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-192,Sub-task,"Exact capture-time advanced-stat snapshot, missingness, reciprocity, schema, and no-backcast authority remain deterministic."
 artifacts/jira_evidence/POST-SUBTASK-192.json,END_TO_END,POST-SUBTASK-192,Sub-task,"The complete external population passes source identity, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks."
+tests/test_historical_player_box_snapshot.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-193,Sub-task,"Exact capture-time player-box snapshot, provider-player identity boundary, cell-level conflicts, label preservation, incomplete games, and no-backcast authority remain deterministic."
+artifacts/jira_evidence/POST-SUBTASK-193.json,END_TO_END,POST-SUBTASK-193,Sub-task,"The complete external population passes source identity, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

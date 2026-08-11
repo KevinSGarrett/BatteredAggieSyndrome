@@ -1,0 +1,432 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-194_materialize_previous_run_weather_candidate_snapshot_and_domain_eligibility_gate.json -->
+# POST-SUBTASK-194 — [POST-SUBTASK-194] Materialize previous-run weather candidate snapshot and domain eligibility gate
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [
+    "AC-011",
+    "AC-073",
+    "AC-075",
+    "AC-079",
+    "AC-080"
+  ],
+  "acceptance_criteria": [
+    "All five season payloads and 136,350 source cells are hash-verified and deterministically dispositioned without broadening the validated BAT-523 candidate population.",
+    "Exactly 61,000 non-null fixed-lead weather values remain candidate-only and all 75,350 archive-variable-unavailable cells remain separately nonadmitted at game/valid-hour/variable/lead grain.",
+    "Every retained value preserves game, kickoff, venue-coordinate candidate, variable, valid hour, nominal lead, source request/capture, provider route/model, units, and row-level provenance without inventing model initialization or API availability time.",
+    "The two source-evidence-gap games, 2021-2023 variable sparsity, dome context, current-catalog coordinate limitation, and zero technical-route gaps remain explicit and independently coverage-gated.",
+    "No PIT, preliminary replay, protected, or production authority is opened; outputs pass schema, identity, missingness, quarantine, mutation, byte-rebuild, Jira, repository, provenance, and full-suite validation before Done."
+  ],
+  "adr_ids": [
+    "ADR-005",
+    "ADR-006",
+    "ADR-042",
+    "ADR-111",
+    "ADR-119"
+  ],
+  "ai_context_notes": [
+    "Official Open-Meteo documentation supports fixed 24/48/72-hour lead semantics but does not prove exact historical run initialization or API availability for these responses.",
+    "No OpenAI output or generated fact may participate in weather values, timestamps, venue coordinates, availability inference, missingness, or validation.",
+    "This unit is a historical nominal-lead candidate snapshot prerequisite, not canonical weather truth, historical PIT, preliminary-model, protected, production, or scientific authority."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-194_materialize_previous_run_weather_candidate_snapshot_and_domain_eligibility_gate.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "pit-temporal",
+  "components_expected_to_be_touched": [
+    "data",
+    "pit-temporal",
+    "player-context-intelligence",
+    "provenance",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "Per-season non-null candidate and archive-unavailable artifacts are immutable, content-addressed, reproducible, and externally stored.",
+    "Independent reconstruction verifies source hashes, exact population, natural keys, dispositions, fixed-lead semantics, missingness, source gaps, coordinate limits, authority, mutations, and byte identity.",
+    "Canonical/live Jira, Git/PR evidence, governing goal, active plan, cleanup, OpenAI non-use rationale, and all scientific nonclaims agree before Done."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029",
+    "POST-SUBTASK-042",
+    "POST-SUBTASK-188"
+  ],
+  "end_to_end_validation": "Re-read candidate identity 67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb, all five payloads, the BAT-523 weather gate, official fixed-lead documentation, venue prerequisites, and source captures; rebuild in an isolated external root; verify hashes, populations, natural keys, dispositions, nominal leads, units, variable availability, source gaps, coordinate limitations, authority, forbidden fields, mutation controls, and byte identity; remove only reconstructible rebuild output after success.",
+  "epic_id": "POST-EPIC-007",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-194.json",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
+  "expected_outputs": [
+    "configs/historical_weather_previous_runs_snapshot_contract.json",
+    "artifacts/pit/historical_weather_previous_runs_snapshot_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-194.json",
+    "<external-data-root>/quarantine/historical_nominal_lead/sha256/<dataset_identity>/candidate_weather_previous_run_cells.parquet",
+    "<external-data-root>/quarantine/historical_nominal_lead/sha256/<dataset_identity>/archive_unavailable_weather_cells.parquet",
+    "<external-data-root>/manifests/historical_nominal_lead/sha256/<dataset_identity>/historical_weather_previous_runs_snapshot_manifest.json",
+    "<external-data-root>/validation/POST-SUBTASK-194/<dataset_identity>/historical_weather_previous_runs_snapshot_validation.json"
+  ],
+  "files_expected_to_be_read": [
+    "artifacts/pit/historical_weather_previous_runs_reconciliation_gate.json",
+    "artifacts/pit/historical_venue_assignment_pit_gate.json",
+    "src/aggie_analytics/context_intelligence/context.py"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/historical_weather_previous_runs_snapshot_contract.json",
+    "src/aggie_analytics/temporal/weather_previous_runs_snapshot.py",
+    "tools/build_historical_weather_previous_runs_snapshot.py",
+    "tools/validate_historical_weather_previous_runs_snapshot.py",
+    "tests/test_historical_weather_previous_runs_snapshot.py",
+    "artifacts/pit/historical_weather_previous_runs_snapshot_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-194.json"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-194_materialize_previous_run_weather_candidate_snapshot_and_domain_eligibility_gate.md",
+  "governance_traceability_gate": "POST-SUBTASK-069",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100502,
+  "in_scope": [
+    "Validated immutable candidate 67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb across 2021-2025, 4,545 games, 553 requests, 136,350 variable/lead cells, 61,000 non-null values, and 75,350 archive-unavailable cells.",
+    "Source-defined 1/2/3-day nominal-lead semantics, current venue-coordinate candidates, dome context, per-variable/season partiality, capture provenance, deterministic replay, and candidate-only eligibility."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "BAT-551",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "weather",
+    "previous-runs",
+    "nominal-lead",
+    "candidate-only",
+    "partial-domain",
+    "provenance",
+    "local-id-post-subtask-194"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-194",
+  "maturity_before": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
+  "objective": "Materialize and independently validate the complete 2021-2025 Open-Meteo previous-runs candidate as an immutable nominal-lead weather snapshot while preserving archive sparsity, source gaps, current-coordinate limitations, fixed-lead evidence, and the prohibition on historical availability inference.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24944",
+    "jira_updated_at": "2026-08-11T16:12:25.976-0500",
+    "last_synced_at": "2026-08-11T21:12:36.215112+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
+  "out_of_scope": [
+    "Exact historical model-run initialization or API availability inference, historical-coordinate backcast, observed/reanalysis substitution, zero-filling unavailable variables, dome-effect assumptions, or representing forecast-model output as stadium observation.",
+    "Preliminary or protected training/evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or scientific claims."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-023",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Validated weather previous-runs candidate manifest SHA-256 4164a6f9ed7fbc760496f712f96e8a5646f79f86584340d842398cfff0adfad0 and all five referenced payload hashes verify.",
+    "BAT-523 weather reconciliation gate preserves zero technical-route gaps, two source-evidence-gap games, and candidate-only authority.",
+    "BAT-545 historical venue assignment identity remains immutable; current-catalog weather coordinates are not silently promoted to historical effective coordinates.",
+    "Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-194-PRECHANGE-20260811T210624Z."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02048",
+    "SRCREF-02041",
+    "SRCREF-02006"
+  ],
+  "priority": "P1",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "1.1",
+  "related_to": [
+    "POST-SUBTASK-067",
+    "POST-SUBTASK-169",
+    "POST-SUBTASK-188"
+  ],
+  "required_evidence": [
+    "Exact candidate, acquisition, capture, raw, venue, contract, code, dataset, manifest, validation, Git, PR, and hosted-check identities.",
+    "Per-season/game/variable/lead cells, dispositions, natural-key uniqueness, archive sparsity, source gaps, dome context, coordinate limitations, fixed-lead semantics, capture times, quarantine, mutation controls, and byte-identical rebuild.",
+    "Explicit candidate-only, nominal-lead-only, no historical API-availability inference, no coordinate backcast, no observed-weather substitution, no zero-fill, and protected/production/completeness/scientific nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Nominal-lead weather snapshot, partial-variable boundary, current-coordinate limitation, unavailable-cell quarantine, and no-availability-inference authority remain deterministic.",
+      "path": "tests/test_historical_weather_previous_runs_snapshot.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The complete external population passes source identity, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-194.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [
+    "REQ-039",
+    "REQ-041",
+    "REQ-052",
+    "REQ-053",
+    "REQ-063",
+    "REQ-199",
+    "REQ-319",
+    "REQ-323",
+    "REQ-345"
+  ],
+  "risk_failure_conditions": [
+    "Any source hash, cell count, game/valid-hour/variable/lead identity, disposition, coordinate evidence, capture identity, natural key, or rebuild identity drifts.",
+    "Any fabricated model-run initialization, API availability, historical coordinate, unavailable weather value, realized-weather substitution, target/outcome field, protected decision, or scientific claim enters the snapshot."
+  ],
+  "risk_ids": [
+    "RISK-050",
+    "RISK-099",
+    "RISK-106",
+    "RISK-227",
+    "RISK-241"
+  ],
+  "schema_version": 2,
+  "scope": "Disposition all 136,350 previous-runs weather cells, materialize only 61,000 source-present fixed-lead values, preserve 75,350 archive-unavailable cells separately, and publish an explicit nominal-lead candidate gate with season/variable/lead coverage, source-gap, coordinate, dome, missingness, and chronology evidence.",
+  "source_ids": [
+    "GAP-002",
+    "GAP-006",
+    "HANDOFF-008"
+  ],
+  "source_refs": [
+    "SRCREF-02048",
+    "SRCREF-02041",
+    "SRCREF-02006",
+    "SRCREF-02042",
+    "SRCREF-02043",
+    "SRCREF-02044",
+    "SRCREF-02045",
+    "SRCREF-02046",
+    "SRCREF-02047",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-01894",
+    "SRCREF-01568"
+  ],
+  "stop_conditions": [
+    "Stop the affected cell, game, season, variable, lead, disposition, or artifact on identity, source, schema, missingness, coordinate, chronology, authority, hash, population, or rebuild failure.",
+    "Do not weaken candidate-only, nominal-lead-only, no-availability-inference, no-coordinate-backcast, no-substitution, no-zero-fill, or scientific boundaries merely to obtain approval."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02042",
+    "SRCREF-02043",
+    "SRCREF-02044",
+    "SRCREF-02045",
+    "SRCREF-02046",
+    "SRCREF-02047",
+    "SRCREF-02001",
+    "SRCREF-02002",
+    "SRCREF-02003",
+    "SRCREF-02004",
+    "SRCREF-02005",
+    "SRCREF-01894",
+    "SRCREF-01568"
+  ],
+  "title": "[POST-SUBTASK-194] Materialize previous-run weather candidate snapshot and domain eligibility gate",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-069"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "why_this_exists": "BAT-523 proved a technically complete 2021-2025 Open-Meteo previous-runs candidate, but it remains mixed with archive-unavailable cells and does not prove historical API availability or venue-coordinate effective time. A dedicated immutable snapshot must preserve the useful fixed-lead values and every limitation before any downstream weather decision can be evaluated.",
+  "work_packet_path": "",
+  "workflow_state": "IN_PROGRESS"
+}
+```
+
+## Objective
+
+Materialize and independently validate the complete 2021-2025 Open-Meteo previous-runs candidate as an immutable nominal-lead weather snapshot while preserving archive sparsity, source gaps, current-coordinate limitations, fixed-lead evidence, and the prohibition on historical availability inference.
+
+## Why This Exists
+
+BAT-523 proved a technically complete 2021-2025 Open-Meteo previous-runs candidate, but it remains mixed with archive-unavailable cells and does not prove historical API availability or venue-coordinate effective time. A dedicated immutable snapshot must preserve the useful fixed-lead values and every limitation before any downstream weather decision can be evaluated.
+
+## Scope
+
+Disposition all 136,350 previous-runs weather cells, materialize only 61,000 source-present fixed-lead values, preserve 75,350 archive-unavailable cells separately, and publish an explicit nominal-lead candidate gate with season/variable/lead coverage, source-gap, coordinate, dome, missingness, and chronology evidence.
+
+### Explicit In Scope
+
+- Validated immutable candidate 67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb across 2021-2025, 4,545 games, 553 requests, 136,350 variable/lead cells, 61,000 non-null values, and 75,350 archive-unavailable cells.
+- Source-defined 1/2/3-day nominal-lead semantics, current venue-coordinate candidates, dome context, per-variable/season partiality, capture provenance, deterministic replay, and candidate-only eligibility.
+
+### Explicit Out of Scope
+
+- Exact historical model-run initialization or API availability inference, historical-coordinate backcast, observed/reanalysis substitution, zero-filling unavailable variables, dome-effect assumptions, or representing forecast-model output as stadium observation.
+- Preliminary or protected training/evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or scientific claims.
+
+## Prerequisites
+
+- Validated weather previous-runs candidate manifest SHA-256 4164a6f9ed7fbc760496f712f96e8a5646f79f86584340d842398cfff0adfad0 and all five referenced payload hashes verify.
+- BAT-523 weather reconciliation gate preserves zero technical-route gaps, two source-evidence-gap games, and candidate-only authority.
+- BAT-545 historical venue assignment identity remains immutable; current-catalog weather coordinates are not silently promoted to historical effective coordinates.
+- Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-194-PRECHANGE-20260811T210624Z.
+
+## Hard Dependencies
+
+- POST-SUBTASK-029
+- POST-SUBTASK-042
+- POST-SUBTASK-188
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- None.
+
+## Files Expected To Be Modified
+
+- configs/historical_weather_previous_runs_snapshot_contract.json
+- src/aggie_analytics/temporal/weather_previous_runs_snapshot.py
+- tools/build_historical_weather_previous_runs_snapshot.py
+- tools/validate_historical_weather_previous_runs_snapshot.py
+- tests/test_historical_weather_previous_runs_snapshot.py
+- artifacts/pit/historical_weather_previous_runs_snapshot_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-194.json
+
+## Components Expected To Be Touched
+
+- data
+- pit-temporal
+- player-context-intelligence
+- provenance
+- validation-promotion
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+
+## Expected Outputs / Artifacts
+
+- configs/historical_weather_previous_runs_snapshot_contract.json
+- artifacts/pit/historical_weather_previous_runs_snapshot_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-194.json
+- <external-data-root>/quarantine/historical_nominal_lead/sha256/<dataset_identity>/candidate_weather_previous_run_cells.parquet
+- <external-data-root>/quarantine/historical_nominal_lead/sha256/<dataset_identity>/archive_unavailable_weather_cells.parquet
+- <external-data-root>/manifests/historical_nominal_lead/sha256/<dataset_identity>/historical_weather_previous_runs_snapshot_manifest.json
+- <external-data-root>/validation/POST-SUBTASK-194/<dataset_identity>/historical_weather_previous_runs_snapshot_validation.json
+
+## Direct Requirements
+
+- REQ-039
+- REQ-041
+- REQ-052
+- REQ-053
+- REQ-063
+- REQ-199
+- REQ-319
+- REQ-323
+- REQ-345
+
+## Direct Acceptance Controls
+
+- AC-011
+- AC-073
+- AC-075
+- AC-079
+- AC-080
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-069`
+- Inherited from: POST-SUBTASK-069
+- Resolution: `DIRECT_PLUS_INHERITED_DOMAIN_GATE`
+- Effective counts: `{}`
+
+## Acceptance Criteria
+
+1. All five season payloads and 136,350 source cells are hash-verified and deterministically dispositioned without broadening the validated BAT-523 candidate population.
+2. Exactly 61,000 non-null fixed-lead weather values remain candidate-only and all 75,350 archive-variable-unavailable cells remain separately nonadmitted at game/valid-hour/variable/lead grain.
+3. Every retained value preserves game, kickoff, venue-coordinate candidate, variable, valid hour, nominal lead, source request/capture, provider route/model, units, and row-level provenance without inventing model initialization or API availability time.
+4. The two source-evidence-gap games, 2021-2023 variable sparsity, dome context, current-catalog coordinate limitation, and zero technical-route gaps remain explicit and independently coverage-gated.
+5. No PIT, preliminary replay, protected, or production authority is opened; outputs pass schema, identity, missingness, quarantine, mutation, byte-rebuild, Jira, repository, provenance, and full-suite validation before Done.
+
+## Definition of Done
+
+1. Per-season non-null candidate and archive-unavailable artifacts are immutable, content-addressed, reproducible, and externally stored.
+2. Independent reconstruction verifies source hashes, exact population, natural keys, dispositions, fixed-lead semantics, missingness, source gaps, coordinate limits, authority, mutations, and byte identity.
+3. Canonical/live Jira, Git/PR evidence, governing goal, active plan, cleanup, OpenAI non-use rationale, and all scientific nonclaims agree before Done.
+
+## Required Tests / Validation
+
+- **NEW_AUTOMATED_TEST_REQUIRED** / `PIT_LEAKAGE` — `tests/test_historical_weather_previous_runs_snapshot.py` — Nominal-lead weather snapshot, partial-variable boundary, current-coordinate limitation, unavailable-cell quarantine, and no-availability-inference authority remain deterministic.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-194.json` — The complete external population passes source identity, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks.
+
+## Required Evidence
+
+- Exact candidate, acquisition, capture, raw, venue, contract, code, dataset, manifest, validation, Git, PR, and hosted-check identities.
+- Per-season/game/variable/lead cells, dispositions, natural-key uniqueness, archive sparsity, source gaps, dome context, coordinate limitations, fixed-lead semantics, capture times, quarantine, mutation controls, and byte-identical rebuild.
+- Explicit candidate-only, nominal-lead-only, no historical API-availability inference, no coordinate backcast, no observed-weather substitution, no zero-fill, and protected/production/completeness/scientific nonclaims.
+
+## Completion Evidence Contract
+
+```json
+{}
+```
+
+## End-to-End Validation Requirement
+
+Re-read candidate identity 67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb, all five payloads, the BAT-523 weather gate, official fixed-lead documentation, venue prerequisites, and source captures; rebuild in an isolated external root; verify hashes, populations, natural keys, dispositions, nominal leads, units, variable availability, source gaps, coordinate limitations, authority, forbidden fields, mutation controls, and byte identity; remove only reconstructible rebuild output after success.
+
+## Expected Maturity After Completion
+
+`VALIDATED_RECONCILED_CANDIDATE_ONLY`
+
+## Risk / Failure Conditions
+
+- Any source hash, cell count, game/valid-hour/variable/lead identity, disposition, coordinate evidence, capture identity, natural key, or rebuild identity drifts.
+- Any fabricated model-run initialization, API availability, historical coordinate, unavailable weather value, realized-weather substitution, target/outcome field, protected decision, or scientific claim enters the snapshot.
+
+## Stop Conditions
+
+- Stop the affected cell, game, season, variable, lead, disposition, or artifact on identity, source, schema, missingness, coordinate, chronology, authority, hash, population, or rebuild failure.
+- Do not weaken candidate-only, nominal-lead-only, no-availability-inference, no-coordinate-backcast, no-substitution, no-zero-fill, or scientific boundaries merely to obtain approval.
+
+## Source References
+
+- SRCREF-02048
+- SRCREF-02041
+- SRCREF-02006
+- SRCREF-02042
+- SRCREF-02043
+- SRCREF-02044
+- SRCREF-02045
+- SRCREF-02046
+- SRCREF-02047
+- SRCREF-02001
+- SRCREF-02002
+- SRCREF-02003
+- SRCREF-02004
+- SRCREF-02005
+- SRCREF-01894
+- SRCREF-01568
+
+## AI Context Notes
+
+- Official Open-Meteo documentation supports fixed 24/48/72-hour lead semantics but does not prove exact historical run initialization or API availability for these responses.
+- No OpenAI output or generated fact may participate in weather values, timestamps, venue coordinates, availability inference, missingness, or validation.
+- This unit is a historical nominal-lead candidate snapshot prerequisite, not canonical weather truth, historical PIT, preliminary-model, protected, production, or scientific authority.

@@ -15,7 +15,9 @@
     "The 2026 current venue candidate layer may be used only for non-PIT reconciliation diagnostics, never historical backfill."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-194"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-188_admit_version_bound_historical_venue_assignments_for_development_pit.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "pit-temporal",
@@ -96,8 +98,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24936",
-    "jira_updated_at": "2026-08-11T13:15:25.251-0500",
-    "last_synced_at": "2026-08-11T18:15:53.701207+00:00",
+    "jira_updated_at": "2026-08-11T16:12:25.996-0500",
+    "last_synced_at": "2026-08-11T21:12:36.215112+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"

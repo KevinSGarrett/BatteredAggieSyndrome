@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_PREINTEGRATION_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-184",
+  "jira_import_id": 100492,
+  "jira_key": "BAT-541",
+  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "objective": "Replay the preliminary model pipeline with exact dense 2010-2022 POST-SUBTASK-183 play/drive development-PIT features without mutating predecessors or opening protected promotion.",
+  "input_identities": {
+    "baseline_run": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "baseline_manifest_sha256": "602477b325c33811ccf9573af6cc7c6854621b322566c15e580dc134ddf07e8a",
+    "baseline_dataset": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "baseline_feature": "df9093758679968bc88fb7a1c5b7931c0bbe5f625fe928b69f2ccc0abe8de265",
+    "baseline_target": "a384834b94cf2cbc5e56ebd31577108bbea6014e5009931f11a4a7c3be703f71",
+    "baseline_split": "9e201d2a298bc8d65876e36e483e2d4a0d574ae1b407ca420ca3950093e4dc86",
+    "prior_play_drive_run": "8cc415cec979666f23ba616fea4cdc677566c16eaab254f1698bbfeb67906e56",
+    "prior_play_drive_manifest_sha256": "a028bb55d11724ff09e88e21c5de4c3768d3d67c342b2519cf8ebd628c49a729",
+    "dense_play_drive_feature": "1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d",
+    "dense_play_drive_payload_sha256": "d24f0d9f9726886b5771739c7b704ca05fd964a16826673c5a5a5dd73cc75db9"
+  },
+  "output_identities": {
+    "run": "fbd173efe68ee6aebc0e897ced096c29ce4ea4c6d794029e11fcb590dee60b2a",
+    "manifest_sha256": "bf036b13bef1b99ea27b7edd73161fb83467ebb9bd9f543caf8dfd2020436337",
+    "dataset": "7f319f81d8b06e76058f75bf7bd478d0c2926beb4f2225b593391c46b8b855c5",
+    "feature": "dc55bedaa5a7955e8be7aff7cc6027d6a80883fc5580a7876ab211ab79b62bca",
+    "target": "669de1dee2aea9fd233f94ef6433c996c40c3b0fc60118fbf9e2f3eabb6c74a1",
+    "split": "7db9dc052d50f65fb78f1cb79c9bc12ec54f6493e16fcbb94917c4eac2345155",
+    "forecast": "076572c44e61a6cc2bc97228c3bd1cf00c933dc8d9346450155003157ffe8247",
+    "logistic_model": "83910b534ffb7ce756b81ff574b42e7c9e56f25e60a9645fcef0663d3e9cb259",
+    "ridge_margin_model": "a0a56fe5de4d358a1a5db87fee684b09f9686c9a191d80f662b443ab9b6a5654"
+  },
+  "population": {
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "target_seasons": [2023, 2024, 2025],
+    "games": 2763,
+    "rows": 2763,
+    "rows_by_season": {"2023": 910, "2024": 919, "2025": 934},
+    "features_per_candidate": 20,
+    "cold_start_games": 14,
+    "missing_cells_per_play_drive_difference": 14,
+    "excluded_source_feature_games": ["game_126950537b3059bdaa46c689e2b34db7"],
+    "exclusion_reason": "ABSENT_FROM_PINNED_OUTCOME_TARGET_POPULATION_NO_LABEL_FABRICATED"
+  },
+  "chronological_assignments": {
+    "2023": {"disposition": "FROZEN_BASELINE_FALLBACK", "fit_seasons": [], "rows": 910},
+    "2024": {"fit_seasons": [2023], "fit_rows": 910, "prediction_rows": 919, "maximum_fit_start_utc": "2024-01-09T00:30:00Z", "minimum_prediction_start_utc": "2024-08-24T16:00:00Z"},
+    "2025": {"fit_seasons": [2023, 2024], "fit_rows": 1829, "prediction_rows": 934, "maximum_fit_start_utc": "2025-01-21T00:30:00Z", "minimum_prediction_start_utc": "2025-08-23T16:00:00Z"}
+  },
+  "metrics_all_games": {
+    "play_drive_logistic_stacker": {
+      "2023": {"rows": 910, "brier": 0.1787888378664104, "log_loss": 0.5267672857650244, "ece_10": 0.04273553098512131},
+      "2024": {"rows": 919, "brier": 0.19427255406035834, "log_loss": 0.5617703107754368, "ece_10": 0.04325944435787016},
+      "2025": {"rows": 934, "brier": 0.18076814947762554, "log_loss": 0.5392329123032825, "ece_10": 0.031189307169945512}
+    },
+    "play_drive_ridge_margin_stacker": {
+      "2023": {"rows": 910, "brier": 0.18243760446630392, "log_loss": 0.5404399904923277, "ece_10": 0.057525921743748085, "margin_mae": 13.656819600924914},
+      "2024": {"rows": 919, "brier": 0.197224332485207, "log_loss": 0.5725057234375284, "ece_10": 0.04961954785624445, "margin_mae": 14.804397943176015},
+      "2025": {"rows": 934, "brier": 0.18584001399138958, "log_loss": 0.5509208134159704, "ece_10": 0.05480638087872492, "margin_mae": 14.002124722590406}
+    }
+  },
+  "paired_disposition": {
+    "versus_post_subtask_177": "NEGATIVE_FOR_BOTH_FAMILIES_ON_2024_AND_2025_ALL_REPORTED_PAIRED_METRICS",
+    "logistic_2024_brier_delta": 0.0006309389907001861,
+    "logistic_2025_brier_delta": 0.00004176750237175342,
+    "ridge_2024_brier_delta": 0.0004796171775812985,
+    "ridge_2025_brier_delta": 0.00018327300820808468,
+    "champion_or_production_promotion": false
+  },
+  "leakage_validation": {
+    "target_game_outcome_in_play_drive_evidence": 0,
+    "source_known_at_after_target_cutoff": 0,
+    "target_or_future_season_outcomes_in_fit": 0,
+    "outcome_targets_materialized_separately": "PASS",
+    "same_target_rows_as_frozen_baseline": "PASS",
+    "protected_split_opened": false
+  },
+  "validation": {
+    "checks_passed": 70,
+    "checks_failed": 0,
+    "deterministic_payloads_compared": 8,
+    "byte_identical_rebuild": true,
+    "numerical_serialized_model_replays": 4,
+    "validation_report_sha256": "4ce51bc9978000e789ac437aaea517baa6b3ea5af298f94e303f54f448d37101",
+    "focused_tests_passed": 6,
+    "unsafe_storage_namespace_mutation_rejected": true,
+    "post_subtask_177_compatibility_checks_passed": 52,
+    "post_subtask_177_compatibility_report_sha256": "d6634633a411d8c57d0688074ff098464a5b684372c66e48ca8fcdc474811510",
+    "full_pytest_passed": 438,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "strict_repository": "PASS",
+    "strict_secret_scan": "PASS",
+    "jira_control_plane_live_required": "PASS",
+    "jira_mirror_live_required": "PASS",
+    "jira_second_pass_sections": 68,
+    "jira_file_manifest": "PASS",
+    "autonomous_controls": "PASS",
+    "external_storage_policy": "PASS",
+    "w25_final": "PASS"
+  },
+  "external_locations": {
+    "training": "<external-data-root>/training/preliminary_dense_play_drive_replay/sha256/7f319f81d8b06e76058f75bf7bd478d0c2926beb4f2225b593391c46b8b855c5",
+    "models": "<external-data-root>/model_artifacts/preliminary_dense_play_drive_replay/sha256/<model_identity>",
+    "forecast": "<external-data-root>/forecast_snapshots/preliminary_dense_play_drive_replay/sha256/076572c44e61a6cc2bc97228c3bd1cf00c933dc8d9346450155003157ffe8247",
+    "manifest": "<external-data-root>/manifests/preliminary_dense_play_drive_replay/sha256/fbd173efe68ee6aebc0e897ced096c29ce4ea4c6d794029e11fcb590dee60b2a/run_manifest.json",
+    "validation": "<external-data-root>/validation/POST-SUBTASK-184/validation-report.json"
+  },
+  "live_jira": {
+    "authentication": "HTTP_200",
+    "status": "In Progress",
+    "claim_comment_id": "13645",
+    "preintegration_evidence_comment_id": "13646",
+    "last_successful_sync_utc": "2026-08-11T13:19:15.369497+00:00",
+    "links": [
+      "BAT-529 BLOCKS BAT-541",
+      "BAT-534 BLOCKS BAT-541",
+      "BAT-540 BLOCKS BAT-541"
+    ]
+  },
+  "openai": {
+    "calls_this_unit": 0,
+    "reason": "DETERMINISTIC_STRUCTURED_TABLE_JOIN_MODELING_AND_VALIDATION_FULLY_SOLVED_THE_TASK",
+    "cumulative_calls": 470,
+    "cumulative_spend_usd": "4.309590",
+    "remaining_budget_usd": "95.690410",
+    "batch_jobs": 0
+  },
+  "cleanup": {
+    "report": "<external-data-root>/reconciliation/cleanup/BAT-541-CLEANUP-20260811T131000Z.json",
+    "report_sha256": "396a5c693498cdb15a1cd8f9bb4b6086514fff00448f31fbe91501acc825df8e",
+    "classification": "DELETE_RECONSTRUCTIBLE",
+    "candidate_directories": 16,
+    "candidate_files": 48,
+    "candidate_bytes": 14941258,
+    "removed_files": 0,
+    "bytes_recovered": 0,
+    "execution_state": "BLOCKED_BY_HOST_POLICY_BEFORE_EXECUTION",
+    "authoritative_artifacts_preserved": true
+  },
+  "limitations": [
+    "The dense features cannot be backcast into the 2010-2022 fit population.",
+    "The 2023 candidate is an exact frozen-baseline fallback.",
+    "The paired 2024 and 2025 result is negative versus POST-SUBTASK-177 and is preserved without promotion.",
+    "The 2025 Texas A&M slice contains 13 games and is descriptive only.",
+    "Protected retraining still requires expanded quality-supported history and unchanged chronological/W17 gates."
+  ],
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

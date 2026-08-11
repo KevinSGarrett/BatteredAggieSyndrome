@@ -14,7 +14,9 @@
     "No OpenAI output or model-generated fact participates in acquisition, identity, timing, normalization, aggregation, validation, or admission."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-184"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive_pit_gaps.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "pit-temporal",
@@ -109,8 +111,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24931",
-    "jira_updated_at": "2026-08-11T07:43:39.018-0500",
-    "last_synced_at": "2026-08-11T12:43:58.036810+00:00",
+    "jira_updated_at": "2026-08-11T08:04:15.534-0500",
+    "last_synced_at": "2026-08-11T13:05:34.430365+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"

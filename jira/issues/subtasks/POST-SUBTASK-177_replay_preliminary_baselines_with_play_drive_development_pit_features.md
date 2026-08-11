@@ -22,7 +22,8 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-SUBTASK-180"
+    "POST-SUBTASK-180",
+    "POST-SUBTASK-184"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -114,8 +115,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24674",
-    "jira_updated_at": "2026-08-11T07:09:30.930-0500",
-    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "jira_updated_at": "2026-08-11T08:04:15.609-0500",
+    "last_synced_at": "2026-08-11T13:05:34.430365+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -253,6 +254,7 @@ Build and independently validate one separately lineaged preliminary-unprotected
 ## Blocks
 
 - POST-SUBTASK-180
+- POST-SUBTASK-184
 
 ## Read / Inspect First
 

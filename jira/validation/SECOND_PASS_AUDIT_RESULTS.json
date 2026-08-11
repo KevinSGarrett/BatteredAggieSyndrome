@@ -4,19 +4,19 @@
   "blocked_count": 97,
   "deferred_count": 37,
   "derivative_result_counts": {
-    "PASS": 491
+    "PASS": 492
   },
   "error_count": 0,
   "errors": [],
   "execution_mode_counts": {
     "AGGREGATE_GATE": 74,
     "ATOMIC_EXECUTION": 168,
-    "HISTORICAL_REFERENCE": 249
+    "HISTORICAL_REFERENCE": 250
   },
   "forced_new_automated_on_publication_boundary_count": 0,
   "generic_scope_count": 0,
   "invalid_traceability_gate_count": 0,
-  "issue_count": 491,
+  "issue_count": 492,
   "master_prompt_compliance_section_count": 68,
   "ready_count": 1,
   "registry_coverage": {
@@ -51,11 +51,11 @@
     "BENCHMARK": 24,
     "CALIBRATION": 39,
     "CHRONOLOGICAL_REPLAY": 65,
-    "END_TO_END": 218,
+    "END_TO_END": 219,
     "EXISTING_AUTOMATED_TEST": 1177,
     "INTEGRATION": 44,
     "MANUAL": 7,
-    "NEW_AUTOMATED_TEST_REQUIRED": 66,
+    "NEW_AUTOMATED_TEST_REQUIRED": 67,
     "OPERATIONS": 42,
     "PUBLICATION_BOUNDARY_REVIEW": 7,
     "REPRODUCIBILITY": 242,

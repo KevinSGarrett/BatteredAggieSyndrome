@@ -4,6 +4,7 @@ import argparse
 from hashlib import sha256
 import json
 from pathlib import Path
+import re
 import sys
 from typing import Any, Mapping, Sequence
 
@@ -36,12 +37,24 @@ def main() -> int:
     parser.add_argument("--data-root", type=Path, required=True)
     parser.add_argument("--run-identity", required=True)
     parser.add_argument("--report-path", type=Path, required=True)
+    parser.add_argument("--contract-path", type=Path)
+    parser.add_argument("--rebuild-root", type=Path)
     args = parser.parse_args()
     repo_root, root = args.repo_root.resolve(), args.data_root.resolve()
     sys.path.insert(0, str(repo_root / "src"))
     from aggie_analytics.modeling import play_drive_augmented as helpers
 
-    manifest_path = root / "manifests/preliminary_play_drive_augmented/sha256" / args.run_identity / "run_manifest.json"
+    contract_path = (
+        args.contract_path.resolve()
+        if args.contract_path
+        else repo_root / "configs/preliminary_play_drive_augmented_contract.json"
+    )
+    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    authorized = contract["authorized_inputs"]
+    storage_namespace = str(contract.get("storage_namespace", "preliminary_play_drive_augmented"))
+    if not re.fullmatch(r"[a-z0-9][a-z0-9_]*", storage_namespace):
+        raise ValueError("storage namespace must be a safe relative path component")
+    manifest_path = root / f"manifests/{storage_namespace}/sha256" / args.run_identity / "run_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     checks: list[dict[str, Any]] = []
 
@@ -50,14 +63,14 @@ def main() -> int:
 
     check("run_identity", manifest["run_identity"] == args.run_identity)
     check("classification", manifest["classification"] == helpers.CLASSIFICATION)
-    check("decision_unit", manifest["decision_unit"] == "POST-SUBTASK-177")
+    check("decision_unit", manifest["decision_unit"] == contract["decision_unit"])
     check("protected_nonclaims", not any(manifest["protected_nonclaims"].values()))
     check("protected_split_closed", manifest["leakage_validation"]["protected_split_opened"] is False)
     check("target_outcome_excluded", manifest["leakage_validation"]["target_game_outcome_in_play_drive_evidence"] == 0)
     check("future_outcomes_excluded", manifest["leakage_validation"]["target_or_future_season_outcomes_in_fit"] == 0)
     check("2023_fallback", manifest["leakage_validation"]["2023_no_fit_fallback_exact"] == "PASS")
-    check("exact_input_baseline", manifest["input_identities"]["baseline_run"] == "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080")
-    check("exact_input_play_drive", manifest["input_identities"]["play_drive_feature"] == "b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06")
+    check("exact_input_baseline", manifest["input_identities"]["baseline_run"] == authorized["baseline_run_identity"])
+    check("exact_input_play_drive", manifest["input_identities"]["play_drive_feature"] == authorized["play_drive_feature_identity"])
 
     training_root = root / manifest["external_locations"]["training"]
     frames: dict[str, pl.DataFrame] = {}
@@ -124,18 +137,54 @@ def main() -> int:
     check("model_families", model_families == {"play_drive_logistic_stacker", "play_drive_ridge_margin_stacker"})
     for family, seasons in manifest["baseline_comparison"].items():
         check(f"comparison_rows:{family}", all(item["rows_equal"] for item in seasons.values()))
+    if manifest.get("prior_play_drive_comparison"):
+        for family, seasons in manifest["prior_play_drive_comparison"].items():
+            check(
+                f"prior_comparison_rows:{family}",
+                all(item["rows_equal"] for item in seasons.values()),
+            )
+
+    deterministic_payloads_compared = 0
+    if args.rebuild_root:
+        rebuild_root = args.rebuild_root.resolve()
+        relative_paths = [
+            f"{manifest['external_locations']['training']}/{info['name']}"
+            for info in manifest["dataset_payloads"]
+        ]
+        relative_paths.extend(
+            [
+                f"{manifest['external_locations']['forecast']}/predictions.parquet",
+                manifest["external_locations"]["manifest"],
+                *(model["artifact_path"] for model in manifest["models"]),
+            ]
+        )
+        for relative in relative_paths:
+            original = root / relative
+            rebuilt = rebuild_root / relative
+            check(f"rebuild_exists:{relative}", rebuilt.is_file())
+            if original.is_file() and rebuilt.is_file():
+                deterministic_payloads_compared += 1
+                check(
+                    f"rebuild_byte_identity:{relative}",
+                    sha256_file(original) == sha256_file(rebuilt),
+                )
 
     failures = [item for item in checks if item["result"] == "FAIL"]
     report = {
         "schema_version": "1.0.0",
         "artifact_type": "PRELIMINARY_PLAY_DRIVE_AUGMENTED_VALIDATION",
         "classification": helpers.CLASSIFICATION,
-        "decision_unit": "POST-SUBTASK-177",
+        "decision_unit": contract["decision_unit"],
         "run_identity": args.run_identity,
         "manifest_sha256": sha256_file(manifest_path),
         "result": "PASS" if not failures else "FAIL",
         "checks_passed": len(checks) - len(failures),
         "checks_failed": len(failures),
+        "deterministic_payloads_compared": deterministic_payloads_compared,
+        "byte_identical_rebuild": bool(args.rebuild_root) and not any(
+            item["result"] == "FAIL" and item["check"].startswith("rebuild_")
+            for item in checks
+        ),
         "checks": checks,
         "failures": failures,
     }

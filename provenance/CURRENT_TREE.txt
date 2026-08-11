@@ -122,6 +122,7 @@ artifacts/jira_evidence/POST-SUBTASK-180.json
 artifacts/jira_evidence/POST-SUBTASK-181.json
 artifacts/jira_evidence/POST-SUBTASK-182.json
 artifacts/jira_evidence/POST-SUBTASK-183.json
+artifacts/jira_evidence/POST-SUBTASK-184.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -154,6 +155,7 @@ artifacts/pit/historical_weather_previous_runs_reconciliation_gate.json
 artifacts/pit/known_at_gate.json
 artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json
+artifacts/pit/preliminary_dense_play_drive_replay_gate.json
 artifacts/pit/preliminary_play_drive_augmented_gate.json
 artifacts/pit/preliminary_wmt_tamu_shadow_gate.json
 artifacts/pit/timestamp_normalization_report.json
@@ -207,6 +209,7 @@ configs/openai_gamebook_schema_mapping.json
 configs/openai_quarantine_schema_pilot.json
 configs/openai_task_registry.json
 configs/player_intelligence_registry.json
+configs/preliminary_dense_play_drive_replay_contract.json
 configs/preliminary_play_drive_augmented_contract.json
 configs/preliminary_rankings_augmented_contract.json
 configs/preliminary_unprotected_baseline_contract.json
@@ -1384,6 +1387,7 @@ jira/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candi
 jira/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.md
 jira/issues/subtasks/POST-SUBTASK-182_recover_timestamped_sec_texas_a_m_availability_evidence_and_preserve_archive_gaps.md
 jira/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive_pit_gaps.md
+jira/issues/subtasks/POST-SUBTASK-184_replay_preliminary_baselines_with_dense_2010_2022_play_drive_pit_features.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1897,6 +1901,7 @@ jira/records/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shad
 jira/records/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.json
 jira/records/issues/subtasks/POST-SUBTASK-182_recover_timestamped_sec_texas_a_m_availability_evidence_and_preserve_archive_gaps.json
 jira/records/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive_pit_gaps.json
+jira/records/issues/subtasks/POST-SUBTASK-184_replay_preliminary_baselines_with_dense_2010_2022_play_drive_pit_features.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2402,6 +2407,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-180.json
 jira/sources/issue_source_manifests/POST-SUBTASK-181.json
 jira/sources/issue_source_manifests/POST-SUBTASK-182.json
 jira/sources/issue_source_manifests/POST-SUBTASK-183.json
+jira/sources/issue_source_manifests/POST-SUBTASK-184.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json

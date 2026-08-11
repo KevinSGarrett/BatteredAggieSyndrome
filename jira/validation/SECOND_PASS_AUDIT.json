@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-11T19:31:16.600330+00:00",
+  "generated_at": "2026-08-11T19:48:23.849285+00:00",
   "metrics": {
     "aggregate_count": 74,
     "atomic_count": 168,
@@ -11,16 +11,16 @@
     "core_validator_error_count": 0,
     "historical_count": 234,
     "import": {
-      "issue_rows": 499,
-      "link_rows": 1142,
-      "modern_issue_rows": 499
+      "issue_rows": 500,
+      "link_rows": 1148,
+      "modern_issue_rows": 500
     },
     "import_error_count": 0,
-    "issue_count": 499,
+    "issue_count": 500,
     "issue_types": {
       "Epic": 51,
       "Story": 56,
-      "Sub-task": 17,
+      "Sub-task": 18,
       "Subtask": 174,
       "Task": 201
     },
@@ -697,7 +697,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 499 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 500 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -962,7 +962,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 499 issues and 1142 links.",
+      "detail": "Strict import dry-run passes for 500 issues and 1148 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"
@@ -1156,7 +1156,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 499 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 500 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -1178,7 +1178,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 499 issues and 1142 links.",
+      "detail": "Strict import dry-run passes for 500 issues and 1148 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"

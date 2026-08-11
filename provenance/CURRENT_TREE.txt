@@ -130,6 +130,7 @@ artifacts/jira_evidence/POST-SUBTASK-188.json
 artifacts/jira_evidence/POST-SUBTASK-189.json
 artifacts/jira_evidence/POST-SUBTASK-190.json
 artifacts/jira_evidence/POST-SUBTASK-191.json
+artifacts/jira_evidence/POST-SUBTASK-192.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -148,6 +149,7 @@ artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
 artifacts/pit/historical_action_derived_play_summary_gate.json
 artifacts/pit/historical_advanced_game_reconciliation_gate.json
+artifacts/pit/historical_advanced_game_snapshot_gate.json
 artifacts/pit/historical_known_at_replay_gate.json
 artifacts/pit/historical_play_drive_pit_aggregate_gate.json
 artifacts/pit/historical_play_enrichment_pit_gate.json
@@ -201,6 +203,7 @@ configs/experiment_research_registry.json
 configs/experiment_store_policy.json
 configs/external_storage_policy.json
 configs/feature_lifecycle_registry.json
+configs/historical_advanced_game_snapshot_contract.json
 configs/historical_known_at_recovery_contract.json
 configs/historical_play_drive_pit_aggregate_contract.json
 configs/historical_play_drive_pit_extension_contract.json
@@ -1423,6 +1426,7 @@ jira/issues/subtasks/POST-SUBTASK-188_admit_version_bound_historical_venue_assig
 jira/issues/subtasks/POST-SUBTASK-189_admit_version_bound_historical_roster_memberships_for_development_pit.md
 jira/issues/subtasks/POST-SUBTASK-190_admit_version_bound_team_season_membership_for_development_pit.md
 jira/issues/subtasks/POST-SUBTASK-191_materialize_capture_time_team_box_snapshot_and_domain_eligibility_gate.md
+jira/issues/subtasks/POST-SUBTASK-192_materialize_capture_time_advanced_game_stat_snapshot_and_domain_eligibility_gate.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1944,6 +1948,7 @@ jira/records/issues/subtasks/POST-SUBTASK-188_admit_version_bound_historical_ven
 jira/records/issues/subtasks/POST-SUBTASK-189_admit_version_bound_historical_roster_memberships_for_development_pit.json
 jira/records/issues/subtasks/POST-SUBTASK-190_admit_version_bound_team_season_membership_for_development_pit.json
 jira/records/issues/subtasks/POST-SUBTASK-191_materialize_capture_time_team_box_snapshot_and_domain_eligibility_gate.json
+jira/records/issues/subtasks/POST-SUBTASK-192_materialize_capture_time_advanced_game_stat_snapshot_and_domain_eligibility_gate.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2457,6 +2462,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-188.json
 jira/sources/issue_source_manifests/POST-SUBTASK-189.json
 jira/sources/issue_source_manifests/POST-SUBTASK-190.json
 jira/sources/issue_source_manifests/POST-SUBTASK-191.json
+jira/sources/issue_source_manifests/POST-SUBTASK-192.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2995,6 +3001,7 @@ src/aggie_analytics/team_state/hierarchy.py
 src/aggie_analytics/team_state/state.py
 src/aggie_analytics/team_state/weighting.py
 src/aggie_analytics/temporal/__init__.py
+src/aggie_analytics/temporal/advanced_game_snapshot.py
 src/aggie_analytics/temporal/contracts.py
 src/aggie_analytics/temporal/eligibility.py
 src/aggie_analytics/temporal/expanded_event_chronology.py
@@ -3037,6 +3044,7 @@ tests/test_feature_lifecycle_governance.py
 tests/test_feature_registry_governance.py
 tests/test_feature_tournament.py
 tests/test_feature_tournament_full.py
+tests/test_historical_advanced_game_snapshot.py
 tests/test_historical_known_at_recovery_contract.py
 tests/test_historical_known_at_replay.py
 tests/test_historical_play_drive_pit.py
@@ -3107,6 +3115,7 @@ tools/backup_state.py
 tools/bootstrap_readiness.py
 tools/build_action_derived_play_summary.py
 tools/build_artifact_record.py
+tools/build_historical_advanced_game_snapshot.py
 tools/build_historical_play_drive_pit.py
 tools/build_historical_play_drive_pit_extension.py
 tools/build_historical_play_enrichment_pit.py
@@ -3187,6 +3196,7 @@ tools/validate_experimentation.py
 tools/validate_external_storage_policy.py
 tools/validate_feature_lifecycle.py
 tools/validate_feature_registry.py
+tools/validate_historical_advanced_game_snapshot.py
 tools/validate_historical_play_drive_pit.py
 tools/validate_historical_play_drive_pit_extension.py
 tools/validate_historical_play_enrichment_pit.py

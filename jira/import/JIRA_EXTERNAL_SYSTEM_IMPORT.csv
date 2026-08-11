@@ -37136,3 +37136,71 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-191_materialize_capture_time_team_box_snapshot_and_domain_eligibility_gate.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;team-box;capture-time;candidate-only;schema-drift;provenance;local-id-post-subtask-191,pit-temporal,POST-SUBTASK-191,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Sub-task,BAT-549,100500,[POST-SUBTASK-192] Materialize capture-time advanced game-stat snapshot and domain eligibility gate,100060,"Local ID: POST-SUBTASK-192
+
+Objective
+Materialize and independently validate the corrected 2001-2025 advanced game-stat candidate as an immutable capture-time historical snapshot while preserving partial seasons, value-level missingness, game-pair reciprocity evidence, and the prohibition on historical PIT backcast.
+
+Why This Exists
+The corrected advanced-stat candidate spans twenty-five seasons and is a higher-value, lower-identity-risk dependency than the much larger player-box layer. Its immutable capture evidence and team-box/outcome links support deterministic candidate materialization, but its historical publication times are unknown and therefore require a strict non-PIT boundary.
+
+Scope
+Disposition all 42,190 candidate game-team rows, preserve exact game/team/side evidence and 66 nested field paths, materialize only evidence-supported values, and publish an explicit capture-time eligibility gate with per-season coverage, missingness, reciprocity, and source-only quarantine evidence.
+
+Explicit In Scope
+- Corrected immutable candidate identity 8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc across 2001-2025, 21,095 games, 42,190 game-team rows, and 25 source seasons.
+- Exact game/team/side candidates, cross-route outcome and team-box links, 66-path structural schema, leaf missingness, game-pair offense/defense reciprocity, partial-season evidence, capture provenance, deterministic replay, and capture-time-only eligibility.
+
+Explicit Out of Scope
+- Historical publication-time inference, pre-capture PIT backcast, same-provider overlap as independent confirmation, zero-filling absent advanced values, source-only team merges, or rewriting immutable source captures.
+- Player-box materialization, protected training/evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or scientific claims.
+
+Prerequisites / Dependencies
+- Corrected advanced-game candidate manifest SHA-256 and all referenced season/capture payload hashes verify.
+- BAT-548 capture-time team-box identity f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733 remains immutable and candidate-only.
+- Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-192-PRECHANGE-20260811T194357Z.
+- POST-SUBTASK-029
+- POST-SUBTASK-042
+- POST-SUBTASK-190
+- POST-SUBTASK-191
+
+Acceptance Criteria
+1. All 42,190 source rows and twenty-five season payloads are hash-verified and deterministically dispositioned without changing the corrected candidate populations.
+2. Every retained candidate preserves exact source game/team/side, season/type/week, capture/request/response, row lineage, nested field values, missingness, schema, and reconciliation provenance; source-only rows remain separately quarantined.
+3. All two-sided game pairs preserve offense/defense reciprocity evidence, current/cross-route links, partial seasons, the 2022 coverage boundary, and every negative finding without fabricated thresholds or values.
+4. The gate records historical known-at as unknown, admits no pre-capture PIT feature, and cannot be consumed by preliminary or protected chronological replay without a separate eligible timing contract.
+5. Outputs pass identity, schema-drift, leaf-missingness, chronology, quarantine, mutation, byte-identical rebuild, Jira, repository, provenance, and full-suite validation before Done.
+
+Definition of Done
+1. Per-season capture-time snapshot and nonadmitted/quarantine artifacts are immutable, content-addressed, reproducible, and externally stored.
+2. Independent reconstruction verifies source hashes, exact populations, unique natural keys, reconciliation states, schema paths, leaf missingness, reciprocity, capture-time authority, mutations, and byte identity.
+3. Canonical/live Jira, Git/PR evidence, governing goal, active plan, cleanup, OpenAI non-use rationale, and all scientific nonclaims agree before Done.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_historical_advanced_game_snapshot.py — Exact capture-time advanced-stat snapshot, missingness, reciprocity, schema, and no-backcast authority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-192.json — The complete external population passes source identity, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks.
+
+Required Evidence
+- Exact corrected-candidate, capture, raw, outcome, team-box, entity, contract, code, dataset, manifest, validation, Git, PR, and hosted-check identities.
+- Per-season rows/games, disposition states, natural-key uniqueness, 66-path schema, leaf missingness, partiality, coverage boundary, reciprocity, capture times, quarantine, mutation controls, and byte-identical rebuild.
+- Explicit capture-time-only, candidate-only, no historical PIT backcast, no zero-fill, no independent-confirmation, and protected/production/completeness/scientific nonclaims.
+
+End-to-End Validation
+Re-read the corrected candidate manifest, source capture/raw payload identities, accepted outcome and team-box evidence, and all season payloads; rebuild the snapshot in an isolated external root; verify hashes, populations, natural keys, reconciliation dispositions, structural schema, leaf missingness, game-pair reciprocity, partial seasons, capture-time authority, quarantine, forbidden fields, mutation controls, and byte identity; then remove only reconstructible output after validation.
+
+Stop Conditions
+- Stop the affected row, game, season, field path, or artifact on identity, source, reconciliation, schema, missingness, reciprocity, authority, hash, population, or rebuild failure.
+- Do not weaken capture-time-only, candidate-only, no-backcast, no-zero-fill, or scientific boundaries merely to obtain approval.
+
+Source References
+- SRCREF-02013
+- SRCREF-01889
+- SRCREF-01564
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-192_materialize_capture_time_advanced_game_stat_snapshot_and_domain_eligibility_gate.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;advanced-game-stats;capture-time;candidate-only;schema-drift;missingness;provenance;local-id-post-subtask-192,pit-temporal,POST-SUBTASK-192,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE

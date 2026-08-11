@@ -128,8 +128,8 @@
     "assignee": "",
     "jira_issue_id": "24261",
     "jira_updated_at": "2026-08-09T00:40:19.211-0500",
-    "last_synced_at": "2026-08-11T06:30:01.758065+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "last_synced_at": "2026-08-11T07:25:49.170544+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
   },

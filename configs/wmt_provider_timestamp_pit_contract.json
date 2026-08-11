@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "POST178-WMT-PROVIDER-TIMESTAMP-PIT-V1",
+  "decision_unit": "POST-SUBTASK-178",
+  "jira_key": "BAT-535",
+  "classification": "DEVELOPMENT_ONLY_WMT_PROVIDER_TIMESTAMP_PIT",
+  "source_contract": {
+    "acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "reconciliation_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "source_seasons": [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "target_seasons": [2023, 2024, 2025],
+    "domains": {
+      "game": {"record_path": [], "timestamp_fields": ["created_at", "updated_at"]},
+      "actions": {"record_path": ["action"], "timestamp_fields": ["created_at", "updated_at"]},
+      "plays": {"record_path": ["play"], "timestamp_fields": ["created_at", "updated_at"]},
+      "drives": {"record_path": ["summary"], "timestamp_fields": ["created_at", "updated_at"]},
+      "players": {"record_path": [], "timestamp_fields": ["created_at", "updated_at"]}
+    },
+    "known_at_rule": "MAXIMUM_PARSEABLE_PROVIDER_TIMESTAMP_ON_THE_EXACT_RECORD",
+    "effective_at_rule": "PINNED_SOURCE_GAME_DATE",
+    "timestamp_boundary": "STRICTLY_BEFORE_TARGET_CUTOFF"
+  },
+  "eligibility": {
+    "require_pinned_source_payload_hash": true,
+    "require_nonempty_record_identity": true,
+    "require_parseable_timezone_aware_provider_timestamp": true,
+    "require_source_game_date_before_target_cutoff": true,
+    "require_provider_known_at_before_target_cutoff": true,
+    "game_or_event_time_as_known_at_allowed": false,
+    "current_capture_time_as_known_at_allowed": false,
+    "pdf_metadata_as_known_at_allowed": false,
+    "inferred_or_model_generated_known_at_allowed": false,
+    "missing_or_invalid_timestamp_allowed": false,
+    "target_or_future_record_allowed": false
+  },
+  "output_contract": {
+    "state_grain": "EXACT_SOURCE_RECORD_VERSION",
+    "coverage_grain": "TARGET_GAME_CUTOFF",
+    "coverage_is_predictive_feature": false,
+    "coverage_purpose": "DOMAIN_GRANULAR_PIT_ELIGIBILITY_AND_PIPELINE_DIAGNOSTICS",
+    "missingness": "EXCLUDE_ONLY_AFFECTED_RECORD_OR_DOMAIN_AND_REPORT_EXPLICITLY",
+    "target_or_outcome_fields": "PROHIBITED"
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "development_pit_state_admission": true,
+    "development_coverage_diagnostic_admission": true,
+    "preliminary_unprotected_training_direct_feature": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "acceptance": {
+    "expected_source_games": 177,
+    "required_domains": ["game", "actions", "plays", "drives", "players"],
+    "minimum_admitted_records": 1,
+    "missing_timestamp_violations_allowed": 0,
+    "invalid_timestamp_violations_allowed": 0,
+    "known_at_cutoff_violations_allowed": 0,
+    "effective_time_cutoff_violations_allowed": 0,
+    "target_or_outcome_columns_allowed": 0,
+    "byte_identical_rebuild_required": true
+  },
+  "external_storage": {
+    "pit_state": "pit_state/historical_known_at/sha256/<dataset_identity>/wmt_provider_timestamp_records.parquet",
+    "features": "features/historical_known_at/sha256/<dataset_identity>/target_cutoff_wmt_domain_features.parquet",
+    "manifest": "manifests/historical_known_at/sha256/<dataset_identity>/wmt_provider_timestamp_pit_manifest.json",
+    "validation": "validation/POST-SUBTASK-178/wmt_provider_timestamp_pit_validation.json",
+    "bulk_payloads_in_git": false
+  }
+}

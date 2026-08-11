@@ -36122,3 +36122,76 @@ Source References
 Governance Traceability Gate: TASK-036
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;baseline-modeling;play-drive;pit;local-id-post-subtask-177,modeling,POST-SUBTASK-177,TASK-036;GAP-002;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH
+Sub-task,BAT-535,100486,Admit WMT provider-timestamped gamebook records for domain-granular development PIT,100060,"Local ID: POST-SUBTASK-178
+
+Objective
+Admit only exact official WMT gamebook records whose provider version timestamps are before each target cutoff into a domain-granular development-only PIT layer.
+
+Why This Exists
+The official WMT payloads contain record-level provider creation and update metadata that can recover conservative known-at eligibility for substantial historical gamebook domains without inventing publication times.
+
+Scope
+Convert exact provider-version metadata in the pinned official WMT gamebook payloads into record- and domain-granular development PIT eligibility without backcasting or global completeness claims.
+
+Explicit In Scope
+- Provider-timestamp extraction from exact immutable Texas A&M official WMT game, action, play, drive, and player records.
+- Domain-granular target-cutoff eligibility, canonical identity joins, partial-coverage reporting, provenance, deterministic replay, and development-only PIT admission.
+- A separately lineaged feature candidate for a later preliminary unprotected replay without protected or production authority.
+
+Explicit Out of Scope
+- Treating event/game time, current 2026 capture time, PDF creation metadata, or a model-generated value as historical publication time.
+- Admitting records with missing, invalid, or post-cutoff provider timestamps, or silently promoting incomplete domains.
+- Protected training/evaluation, champion or production promotion, publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific result.
+
+Prerequisites / Dependencies
+- Pinned d227b6cf official WMT gamebook acquisition manifest and immutable raw captures.
+- Pinned expanded target replay and exact target-game cutoff matrix.
+- Canonical game/team identities and protected PIT/leakage rules.
+- Configured standardized external data root.
+- POST-SUBTASK-029
+- POST-SUBTASK-175
+
+Acceptance Criteria
+1. Only records from the pinned Texas A&M official WMT gamebook acquisition identity d227b6cf are eligible, and every admitted record retains its source capture, payload, game, domain, record, and provider timestamp identity.
+2. Known-at time is the maximum parseable provider created/updated/version timestamp on the exact record; game time, current capture time, PDF metadata, model output, and inferred publication time are never substituted.
+3. Eligibility is computed independently by game, action, play, drive, and player domain at each target cutoff; a missing or post-cutoff timestamp excludes only the affected record or domain.
+4. Target-game records and future records are excluded from every target feature; identity joins remain canonical and no name-only merge, factual imputation, or timestamp fabrication is permitted.
+5. Authority is limited to development-only PIT and preliminary unprotected research; protected evaluation, champion promotion, production forecasts, A&M lift, BAS, Aggie Excess, final historical readiness, and scientific claims remain closed.
+
+Definition of Done
+1. All 177 pinned WMT payloads are replayed and every game, action, play, drive, and player record is classified independently by provider timestamp coverage, source season, target cutoff eligibility, and exclusion reason.
+2. Immutable content-addressed candidate/PIT payloads and manifests are stored outside Git with exact population, schema, missingness, timestamp distribution, and provenance identities.
+3. Target-cutoff joins prove strict source-known-at-before-cutoff ordering, zero target-game overlap, no target or outcome fields, domain-specific partial coverage, and deterministic byte-identical replay.
+4. Repository, provenance, Jira second-pass, PIT/leakage, secret, and full automated test gates pass, and reconstructible temporary output is cleaned.
+5. The historical recovery contract, replay gate, Jira evidence, governing goal, and active plan preserve development-only authority and all protected nonclaims.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_wmt_provider_timestamp_pit.py — Provider timestamp parsing, maximum-version selection, domain isolation, cutoff ordering, target exclusion, invalid timestamp quarantine, and protected nonauthority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-178.json — The complete 177-payload population, external artifacts, identities, hashes, target-cutoff eligibility, mutation controls, and byte-identical isolated rebuild pass independent validation.
+
+Required Evidence
+- Exact acquisition, capture, payload, game, record, timestamp, target-cutoff, code, contract, dataset, manifest, validation, and rollback identities.
+- Counts by source season, domain, schema, timestamp field, timestamp year, target season, eligibility, exclusion, missingness, and reconciliation disposition.
+- Zero target-game overlap, strict known-at ordering, no target/outcome fields, mutation controls, byte-identical rebuild, and cleanup evidence.
+- Explicit development-only PIT/preliminary authority and protected/production/scientific nonclaims.
+
+End-to-End Validation
+Re-read the pinned d227b6cf acquisition manifest and every referenced immutable WMT payload; independently derive the maximum record-level provider timestamp, rebuild domain rows and target-cutoff eligibility, verify hashes, schemas, counts, chronology, target exclusion, authority, and byte identity, then remove the reconstructible rebuild.
+
+Stop Conditions
+- Stop the affected record or artifact on provider timestamp, source identity, schema, mapping, chronology, target overlap, authority, hash, or deterministic rebuild failure.
+- Exclude or quarantine only affected rows or domains; do not block independent historical acquisition, preliminary modeling, or other source routes.
+- Do not weaken PIT, leakage, identity, validation, or protected gates to obtain apparent coverage.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;gamebook;wmt;plays;drives;players;pit;preliminary-unprotected;provenance;local-id-post-subtask-178,pit-temporal,POST-SUBTASK-178,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,DEVELOPMENT_ONLY_PIT_ADMITTED,VERIFIED,POST_W25,true,DATA

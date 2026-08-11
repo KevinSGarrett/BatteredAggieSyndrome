@@ -20,7 +20,9 @@
     "This gamebook gap recovery runs independently from the already completed preliminary unprotected baseline and does not change its identities."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-178"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "data-sources",
@@ -107,9 +109,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24672",
-    "jira_updated_at": "2026-08-11T01:09:27.140-0500",
-    "last_synced_at": "2026-08-11T06:30:01.758065+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T02:25:41.084-0500",
+    "last_synced_at": "2026-08-11T07:25:49.170544+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -253,7 +255,7 @@ Convert only paired official play-summary actions from action-only games into a 
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-178
 
 ## Read / Inspect First
 

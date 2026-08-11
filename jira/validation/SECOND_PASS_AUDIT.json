@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-11T18:26:59.251890+00:00",
+  "generated_at": "2026-08-11T18:44:18.109222+00:00",
   "metrics": {
     "aggregate_count": 74,
     "atomic_count": 168,
@@ -424,8 +424,6 @@
         "tests/test_supplemental_play_drive.py",
         "tests/test_wmt_provider_timestamp_pit.py",
         "tests/test_wmt_tamu_specialization_feature_pit.py",
-        "tools/__pycache__/__init__.cpython-311.pyc",
-        "tools/__pycache__/repo_integrity.cpython-311.pyc",
         "tools/acquire_cfbd_historical.py",
         "tools/acquire_sec_tamu_availability.py",
         "tools/acquire_sportsdataverse_rosters.py",
@@ -574,7 +572,7 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1343,
+      "current_non_jira_files": 1341,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],

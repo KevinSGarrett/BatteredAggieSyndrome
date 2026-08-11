@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-176",
+  "jira_import_id": 100484,
+  "status": "DONE_VERIFIED",
+  "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_PIT_AGGREGATE",
+  "objective": "Admit exact version-bound play and drive aggregates for 2023-2025 development PIT and preliminary unprotected research without broadening source, identity, temporal, or protected authority.",
+  "source_identities": {
+    "play_dataset_identity": "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+    "play_manifest_sha256": "9fc257b86c496ed91115ed7f97fff34ffbda3e8beb2ff712aa12f0e60d812cf6",
+    "drive_dataset_identity": "342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0",
+    "drive_manifest_sha256": "ad08719246b144fa2983a2ba54aa20a2b7f56959a9028c04ad413d53eac6f639",
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+  },
+  "output_identity": {
+    "dataset_identity": "b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06",
+    "manifest_sha256": "d60fe92254f76edb6774cc93b8d8b1e6d1f6fb09c342d20f781ec01ffefda8b5",
+    "validation_report_sha256": "11948a97d7643afbafd2cfc18e575e500e6ca2241d250587665a0522ef5fdc9d",
+    "team_profile_sha256": "bead78a877ef95ff5ece962e636bebee47e7759a3415e95544af20953ab9139a",
+    "target_game_team_features_sha256": "d85e40096669acd9b0d5f674cabb0d39fd2658233556f356e6a5d9e7d228367d"
+  },
+  "population": {
+    "source_seasons": [2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+    "missing_source_seasons": [2011, 2020],
+    "target_seasons": [2023, 2024, 2025],
+    "exact_play_rows": 1606094,
+    "mapped_exact_play_rows": 1605841,
+    "unmapped_exact_play_rows": 253,
+    "exact_play_games": 9011,
+    "exact_drive_rows": 230004,
+    "mapped_exact_drive_rows": 229967,
+    "unmapped_exact_drive_rows": 37,
+    "exact_drive_games": 9010,
+    "canonical_team_map_rows": 344,
+    "profile_teams": 243,
+    "target_games": 2764,
+    "target_game_team_rows": 5528,
+    "feature_columns": 17,
+    "cold_start_rows": 14,
+    "payload_files": 2,
+    "payload_bytes": 287369
+  },
+  "coverage_by_target_season": {
+    "2023": {"games": 910, "rows": 1820, "cold_start_rows": 4},
+    "2024": {"games": 920, "rows": 1840, "cold_start_rows": 4},
+    "2025": {"games": 934, "rows": 1868, "cold_start_rows": 6}
+  },
+  "temporal_and_leakage_validation": {
+    "maximum_source_known_at_utc": "2023-05-06T07:52:16Z",
+    "maximum_source_effective_at_utc": "2023-01-10T00:30Z",
+    "minimum_target_cutoff_utc": "2023-08-25T18:30:00Z",
+    "target_game_overlap": 0,
+    "source_known_at_violations": 0,
+    "source_effective_time_violations": 0,
+    "target_or_outcome_columns": 0,
+    "protected_eligible_rows": 0,
+    "historical_publication_time_fabricated": false,
+    "missing_feature_values_fabricated": false
+  },
+  "validation": {
+    "checks_passed": 32,
+    "checks_failed": 0,
+    "mutation_controls_passed": 5,
+    "deterministic_payloads_compared": 3,
+    "byte_identical_rebuild": true,
+    "rebuild_root_removed": true
+  },
+  "repository_artifacts": [
+    {"path": "configs/historical_play_drive_pit_aggregate_contract.json", "bytes": 3941, "sha256": "d9578046c6fe8d076b06d771568b6aa92f0e37bf8b5908642b1f7c669620df37"},
+    {"path": "src/aggie_analytics/temporal/play_drive_pit.py", "bytes": 18355, "sha256": "7c4ebbff658385e49a5a923a5710780d6f4fcac3ee698c60650e6b945227aec8"},
+    {"path": "tools/build_historical_play_drive_pit.py", "bytes": 1231, "sha256": "d1bfd0e1506e14a2697520bd51f232058fbffca996f7ef2924da09a5578cff1b"},
+    {"path": "tools/validate_historical_play_drive_pit.py", "bytes": 7948, "sha256": "2ac6b6aff78d66da54f6d4b8dca5a74d44b94a0219b12cf6a63dfc87660c1da0"},
+    {"path": "tests/test_historical_play_drive_pit.py", "bytes": 4343, "sha256": "ea08b4ad9fcccd7dd4d006f2956a70b7c04e3bdaa252c7a00f0fd1367ad12c81"},
+    {"path": "artifacts/pit/historical_play_drive_pit_aggregate_gate.json", "bytes": 3903, "sha256": "0226c69c75fbeda2c05160b55e3869576e314dc06e87beaab5bf3232106883e2"}
+  ],
+  "external_artifacts": [
+    {"path": "<external-data-root>/pit_state/historical_known_at/sha256/b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06/team_play_drive_profiles.parquet", "bytes": 37855, "sha256": "bead78a877ef95ff5ece962e636bebee47e7759a3415e95544af20953ab9139a"},
+    {"path": "<external-data-root>/features/historical_known_at/sha256/b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06/target_game_team_play_drive_features.parquet", "bytes": 249514, "sha256": "d85e40096669acd9b0d5f674cabb0d39fd2658233556f356e6a5d9e7d228367d"},
+    {"path": "<external-data-root>/manifests/historical_known_at/sha256/b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06/play_drive_pit_aggregate_manifest.json", "sha256": "d60fe92254f76edb6774cc93b8d8b1e6d1f6fb09c342d20f781ec01ffefda8b5"},
+    {"path": "<external-data-root>/validation/POST-SUBTASK-176/play_drive_pit_aggregate_validation.json", "sha256": "11948a97d7643afbafd2cfc18e575e500e6ca2241d250587665a0522ef5fdc9d"}
+  ],
+  "failed_prevalidation_cleanup": {
+    "failed_dataset_identity": "55f4cf8e1e0dd61c528995b39678eec69aec2631124cd2a302d80b58776bceae",
+    "finding": "Raw source team IDs were joined directly to canonical target team IDs, producing 5,528 cold starts.",
+    "files_removed": 3,
+    "bytes_removed": 142925,
+    "reconstructible": true,
+    "remaining_paths": 0
+  },
+  "rollback": {
+    "snapshot": "<external-data-root>/backups/POST-SUBTASK-176-play-drive-pit/20260811T060000Z",
+    "snapshot_sha256": "1d826718cde77638fcd0c3d9a605219d4f03c7370e01da7e1cb9ff9dcdbfaeb4",
+    "bundle": "<external-data-root>/backups/POST-SUBTASK-176-play-drive-pit/20260811T060000Z.bundle",
+    "bundle_sha256": "82ec08b1fb42d1bf712c2bdc5cac3948535b2f77d4a35b2cd2abed32b290de0e"
+  },
+  "authority": {
+    "pit_state_admission": true,
+    "development_feature_admission": true,
+    "preliminary_unprotected_training_candidate": true,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "limitations": [
+    "No version-bound source season is available for 2011 or 2020.",
+    "The profile remains static for 2023-2025 because later captured play/drive data lack eligible historical publication times.",
+    "The SHA-pinned team mapping excludes 253 play rows and 37 drive rows, and 14 target-game/team rows remain cold starts.",
+    "The artifact is eligible only for development PIT and preliminary unprotected research; it does not establish final historical completeness or protected/production performance."
+  ],
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

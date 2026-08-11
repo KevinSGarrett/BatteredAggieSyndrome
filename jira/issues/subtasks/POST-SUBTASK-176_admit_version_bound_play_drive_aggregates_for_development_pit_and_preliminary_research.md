@@ -1,0 +1,380 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.json -->
+# POST-SUBTASK-176 — [POST-SUBTASK-176] Admit version-bound play/drive aggregates for development PIT and preliminary research
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Only exact cross-route canonical-game play and drive rows from the pinned 2010-2022 version-bound source layers are eligible; source-level-only rows, current 2026 captures, unmapped team IDs, and missing seasons remain excluded.",
+    "Every admitted source row is published and effective before every 2023-2025 target cutoff, target-game overlap is zero, and no target or outcome column enters the feature payload.",
+    "The pinned SHA-verified BAT-387 source-team assignment ledger is the only identity bridge; name-only or raw-ID-to-canonical-ID joins are prohibited.",
+    "The output contains exactly two target-game/team rows per target game, explicit cold starts and nulls, immutable content-addressed payloads, and a byte-identical rebuild.",
+    "Authority is limited to development-only PIT and preliminary unprotected feature research; protected training, protected evaluation, champion promotion, production forecasts, and scientific claims remain closed."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This unit converts already validated version-bound candidates into a narrow post-publication PIT aggregate; it does not broaden the candidate source population.",
+    "No OpenAI output or model-generated fact participates in the source rows, mapping, timing, features, or admission decision.",
+    "POST-SUBTASK-172 remains the immutable preliminary baseline; this feature layer is an eligible input for a separately identified superseding preliminary experiment."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "data",
+  "components_expected_to_be_touched": [
+    "data",
+    "pit-temporal",
+    "provenance",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "The exact 1,606,094 play and 230,004 drive source rows are independently eligibility-gated without silently admitting the 253 play and 37 drive rows lacking an accepted team mapping.",
+    "A 243-team PIT profile and 5,528-row target-game/team development feature layer are stored outside Git under immutable identity b78d577d, with 14 cold starts explicit.",
+    "All 32 validation checks, five mutation controls, and the three-file byte-identical rebuild pass; the failed raw-ID join artifact is removed and preserved as a negative finding.",
+    "The historical recovery contract, replay gate, Jira evidence, and governing goal retain the exact development-only authority and protected nonclaims.",
+    "Expanded acquisition and independently useful modeling work continue without declaring final historical-population or production readiness."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029"
+  ],
+  "end_to_end_validation": "Re-read the exact pinned source candidates, target cutoffs, and SHA-verified canonical team assignment ledger; independently rebuild the team profiles and target-game/team features; verify chronology, target exclusion, schemas, hashes, counts, nulls, authority, and byte identity; then remove the reconstructible rebuild.",
+  "epic_id": "POST-EPIC-003",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-176.json",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "DEVELOPMENT_ONLY_PIT_ADMITTED",
+  "expected_outputs": [
+    "configs/historical_play_drive_pit_aggregate_contract.json",
+    "artifacts/pit/historical_play_drive_pit_aggregate_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-176.json",
+    "<external-data-root>/pit_state/historical_known_at/sha256/<dataset_identity>/team_play_drive_profiles.parquet",
+    "<external-data-root>/features/historical_known_at/sha256/<dataset_identity>/target_game_team_play_drive_features.parquet",
+    "<external-data-root>/manifests/historical_known_at/sha256/<dataset_identity>/play_drive_pit_aggregate_manifest.json",
+    "<external-data-root>/validation/POST-SUBTASK-176/play_drive_pit_aggregate_validation.json"
+  ],
+  "files_expected_to_be_read": [
+    "configs/historical_known_at_recovery_contract.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "configs/historical_play_drive_pit_aggregate_contract.json"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/historical_play_drive_pit_aggregate_contract.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "src/aggie_analytics/temporal/play_drive_pit.py",
+    "tools/build_historical_play_drive_pit.py",
+    "tools/validate_historical_play_drive_pit.py",
+    "tests/test_historical_play_drive_pit.py",
+    "tests/test_historical_known_at_recovery_contract.py",
+    "tests/test_jira_control_plane.py",
+    "artifacts/pit/historical_play_drive_pit_aggregate_gate.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-176.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml"
+  ],
+  "gap_ids": [
+    "GAP-002",
+    "GAP-003"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.md",
+  "governance_traceability_gate": "POST-SUBTASK-033",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100484,
+  "in_scope": [
+    "Exact canonical-game play and drive rows from version-bound 2010-2022 source payloads with defensible repository publication times.",
+    "SHA-pinned source-team-to-canonical-team mapping, team-level aggregation, 2023-2025 target cutoff joins, cold-start handling, provenance, deterministic replay, and development-only PIT admission.",
+    "Preliminary unprotected feature candidacy without protected or production authority."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "plays",
+    "drives",
+    "pit",
+    "preliminary-unprotected",
+    "provenance"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-176",
+  "maturity_before": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
+  "objective": "Admit the exact version-bound historical play and drive aggregates that are genuinely known before 2023-2025 target cutoffs into a development-only PIT feature layer for preliminary unprotected research.",
+  "out_of_scope": [
+    "Admitting 2004-2009 source-level-only rows, absent 2011/2020 seasons, current 2026 supplemental captures, or rows without an accepted canonical team mapping.",
+    "Inventing missing values, publication times, target outcomes, identity mappings, or cold-start features.",
+    "Protected training/evaluation, champion or production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-010",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Pinned version-bound play and drive candidate datasets and manifests.",
+    "Pinned expanded target replay and cutoff matrix.",
+    "Pinned SHA-verified BAT-387 canonical source-team assignment ledger.",
+    "Configured standardized external data root."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02013",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "required_evidence": [
+    "Exact source, target replay, canonical registry, contract, code, dataset, manifest, payload, validation, and rollback identities.",
+    "Source seasons, missing seasons, play/drive rows and games, mapped and unmapped rows, teams, target seasons/games/rows, features, cold starts, bytes, and hashes.",
+    "Maximum source known-at/effective times, minimum target cutoff, zero target overlap, no target/outcome columns, five mutation controls, and byte-identical rebuild.",
+    "Explicit development-only PIT/preliminary authority and protected/production/scientific nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Cutoff computation, conservative drive-result semantics, canonical identity joins, explicit cold starts, and protected nonauthority remain deterministic.",
+      "path": "tests/test_historical_play_drive_pit.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The complete external population passes 32 checks, five mutation controls, and a three-file byte-identical isolated rebuild.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-176.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any source, mapping, target, population, chronology, schema, payload, dataset, manifest, validation, or rebuild identity drifts.",
+    "Any target game, outcome field, post-cutoff row, unmapped identity, missing source season, or fabricated feature enters the admitted payload.",
+    "Any development-only artifact is represented as protected, champion, production, forecast, or scientific authority."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241"
+  ],
+  "schema_version": 2,
+  "scope": "Convert only exact, version-bound, pre-cutoff historical play and drive evidence into a canonical-ID team profile and target-game/team development feature layer with explicit partial coverage.",
+  "source_ids": [
+    "GAP-002",
+    "GAP-003",
+    "HANDOFF-003"
+  ],
+  "source_refs": [
+    "SRCREF-02013",
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "stop_conditions": [
+    "Stop the affected artifact on source, mapping, chronology, target overlap, schema, authority, population, hash, or deterministic rebuild failure.",
+    "Exclude or quarantine only affected rows or domains; do not block independent acquisition or preliminary modeling.",
+    "Do not open protected promotion until expanded quality-supported history and all applicable W17 gates pass."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006"
+  ],
+  "title": "[POST-SUBTASK-176] Admit version-bound play/drive aggregates for development PIT and preliminary research",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-033"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "PROVENANCE",
+    "REPRODUCIBILITY",
+    "PIT_LEAKAGE"
+  ],
+  "why_this_exists": "The source rows have exact repository publication times before all 2023-2025 target cutoffs, so their reconciled aggregates can safely advance development PIT and preliminary research without waiting for final historical completeness.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}
+```
+
+## Objective
+
+Admit the exact version-bound historical play and drive aggregates that are genuinely known before 2023-2025 target cutoffs into a development-only PIT feature layer for preliminary unprotected research.
+
+## Why This Exists
+
+The source rows have exact repository publication times before all 2023-2025 target cutoffs, so their reconciled aggregates can safely advance development PIT and preliminary research without waiting for final historical completeness.
+
+## Scope
+
+Convert only exact, version-bound, pre-cutoff historical play and drive evidence into a canonical-ID team profile and target-game/team development feature layer with explicit partial coverage.
+
+### Explicit In Scope
+
+- Exact canonical-game play and drive rows from version-bound 2010-2022 source payloads with defensible repository publication times.
+- SHA-pinned source-team-to-canonical-team mapping, team-level aggregation, 2023-2025 target cutoff joins, cold-start handling, provenance, deterministic replay, and development-only PIT admission.
+- Preliminary unprotected feature candidacy without protected or production authority.
+
+### Explicit Out of Scope
+
+- Admitting 2004-2009 source-level-only rows, absent 2011/2020 seasons, current 2026 supplemental captures, or rows without an accepted canonical team mapping.
+- Inventing missing values, publication times, target outcomes, identity mappings, or cold-start features.
+- Protected training/evaluation, champion or production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific result.
+
+## Prerequisites
+
+- Pinned version-bound play and drive candidate datasets and manifests.
+- Pinned expanded target replay and cutoff matrix.
+- Pinned SHA-verified BAT-387 canonical source-team assignment ledger.
+- Configured standardized external data root.
+
+## Hard Dependencies
+
+- POST-SUBTASK-029
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- None.
+
+## Files Expected To Be Modified
+
+- configs/historical_play_drive_pit_aggregate_contract.json
+- configs/historical_known_at_recovery_contract.json
+- src/aggie_analytics/temporal/play_drive_pit.py
+- tools/build_historical_play_drive_pit.py
+- tools/validate_historical_play_drive_pit.py
+- tests/test_historical_play_drive_pit.py
+- tests/test_historical_known_at_recovery_contract.py
+- tests/test_jira_control_plane.py
+- artifacts/pit/historical_play_drive_pit_aggregate_gate.json
+- artifacts/pit/historical_known_at_replay_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-176.json
+- jira/project/JIRA_TARGET_PROFILE.yaml
+
+## Components Expected To Be Touched
+
+- data
+- pit-temporal
+- provenance
+- validation-promotion
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+
+## Expected Outputs / Artifacts
+
+- configs/historical_play_drive_pit_aggregate_contract.json
+- artifacts/pit/historical_play_drive_pit_aggregate_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-176.json
+- <external-data-root>/pit_state/historical_known_at/sha256/<dataset_identity>/team_play_drive_profiles.parquet
+- <external-data-root>/features/historical_known_at/sha256/<dataset_identity>/target_game_team_play_drive_features.parquet
+- <external-data-root>/manifests/historical_known_at/sha256/<dataset_identity>/play_drive_pit_aggregate_manifest.json
+- <external-data-root>/validation/POST-SUBTASK-176/play_drive_pit_aggregate_validation.json
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-033`
+- Inherited from: POST-SUBTASK-033
+- Resolution: `DIRECT_PLUS_INHERITED_DOMAIN_GATE`
+- Effective counts: `{}`
+
+## Acceptance Criteria
+
+1. Only exact cross-route canonical-game play and drive rows from the pinned 2010-2022 version-bound source layers are eligible; source-level-only rows, current 2026 captures, unmapped team IDs, and missing seasons remain excluded.
+2. Every admitted source row is published and effective before every 2023-2025 target cutoff, target-game overlap is zero, and no target or outcome column enters the feature payload.
+3. The pinned SHA-verified BAT-387 source-team assignment ledger is the only identity bridge; name-only or raw-ID-to-canonical-ID joins are prohibited.
+4. The output contains exactly two target-game/team rows per target game, explicit cold starts and nulls, immutable content-addressed payloads, and a byte-identical rebuild.
+5. Authority is limited to development-only PIT and preliminary unprotected feature research; protected training, protected evaluation, champion promotion, production forecasts, and scientific claims remain closed.
+
+## Definition of Done
+
+1. The exact 1,606,094 play and 230,004 drive source rows are independently eligibility-gated without silently admitting the 253 play and 37 drive rows lacking an accepted team mapping.
+2. A 243-team PIT profile and 5,528-row target-game/team development feature layer are stored outside Git under immutable identity b78d577d, with 14 cold starts explicit.
+3. All 32 validation checks, five mutation controls, and the three-file byte-identical rebuild pass; the failed raw-ID join artifact is removed and preserved as a negative finding.
+4. The historical recovery contract, replay gate, Jira evidence, and governing goal retain the exact development-only authority and protected nonclaims.
+5. Expanded acquisition and independently useful modeling work continue without declaring final historical-population or production readiness.
+
+## Required Tests / Validation
+
+- **NEW_AUTOMATED_TEST_REQUIRED** / `PIT_LEAKAGE` — `tests/test_historical_play_drive_pit.py` — Cutoff computation, conservative drive-result semantics, canonical identity joins, explicit cold starts, and protected nonauthority remain deterministic.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-176.json` — The complete external population passes 32 checks, five mutation controls, and a three-file byte-identical isolated rebuild.
+
+## Required Evidence
+
+- Exact source, target replay, canonical registry, contract, code, dataset, manifest, payload, validation, and rollback identities.
+- Source seasons, missing seasons, play/drive rows and games, mapped and unmapped rows, teams, target seasons/games/rows, features, cold starts, bytes, and hashes.
+- Maximum source known-at/effective times, minimum target cutoff, zero target overlap, no target/outcome columns, five mutation controls, and byte-identical rebuild.
+- Explicit development-only PIT/preliminary authority and protected/production/scientific nonclaims.
+
+## Completion Evidence Contract
+
+```json
+{}
+```
+
+## End-to-End Validation Requirement
+
+Re-read the exact pinned source candidates, target cutoffs, and SHA-verified canonical team assignment ledger; independently rebuild the team profiles and target-game/team features; verify chronology, target exclusion, schemas, hashes, counts, nulls, authority, and byte identity; then remove the reconstructible rebuild.
+
+## Expected Maturity After Completion
+
+`DEVELOPMENT_ONLY_PIT_ADMITTED`
+
+## Risk / Failure Conditions
+
+- Any source, mapping, target, population, chronology, schema, payload, dataset, manifest, validation, or rebuild identity drifts.
+- Any target game, outcome field, post-cutoff row, unmapped identity, missing source season, or fabricated feature enters the admitted payload.
+- Any development-only artifact is represented as protected, champion, production, forecast, or scientific authority.
+
+## Stop Conditions
+
+- Stop the affected artifact on source, mapping, chronology, target overlap, schema, authority, population, hash, or deterministic rebuild failure.
+- Exclude or quarantine only affected rows or domains; do not block independent acquisition or preliminary modeling.
+- Do not open protected promotion until expanded quality-supported history and all applicable W17 gates pass.
+
+## Source References
+
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+## AI Context Notes
+
+- This unit converts already validated version-bound candidates into a narrow post-publication PIT aggregate; it does not broaden the candidate source population.
+- No OpenAI output or model-generated fact participates in the source rows, mapping, timing, features, or admission decision.
+- POST-SUBTASK-172 remains the immutable preliminary baseline; this feature layer is an eligible input for a separately identified superseding preliminary experiment.

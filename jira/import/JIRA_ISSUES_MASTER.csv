@@ -35635,3 +35635,66 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;rankings;pit;development-only;local-id-post-subtask-170,data,POST-SUBTASK-170,GAP-002;HANDOFF-003,PHASE-1,DONE,EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Sub-task,,100479,[POST-SUBTASK-171] Replay preliminary baselines with exact rankings PIT features,100075,"Local ID: POST-SUBTASK-171
+
+Objective
+Measure the incremental preliminary value of the exact admitted rankings PIT domain on the unchanged baseline population without opening protected promotion.
+
+Why This Exists
+Newly admitted historical domains must supersede preliminary artifacts through measured replay rather than narrative assumption.
+
+Scope
+Join exact rankings PIT features, replay the unchanged ladder, preserve immutable artifacts, and compare paired preliminary metrics.
+
+Explicit In Scope
+- Exact POST-SUBTASK-169 rows and splits.
+- Exact POST-SUBTASK-170 rankings feature identity.
+- Same seven-model ladder and paired preliminary metrics.
+
+Explicit Out of Scope
+- Protected evaluation or champion promotion.
+- Any broader historical population or non-admitted domain.
+- Any fabricated unranked value or publication timestamp.
+
+Prerequisites / Dependencies
+- POST-SUBTASK-169 immutable baseline run.
+- POST-SUBTASK-170 exact rankings PIT feature admission.
+- POST-SUBTASK-169
+- POST-SUBTASK-170
+
+Acceptance Criteria
+1. The exact POST-SUBTASK-169 target rows and splits are retained and only POST-SUBTASK-170 rankings PIT features are added.
+2. Missing numeric ranks remain missing and use fit-only imputation with explicit evidence indicators.
+3. The same model ladder is replayed and paired 2025 metrics are compared without champion or protected authority.
+4. All external payloads rebuild to identical content-addressed identities and pass independent leakage/provenance validation.
+
+Definition of Done
+1. Exact row/split identity is preserved.
+2. Sparse rankings features and missingness are lineaged.
+3. All seven models serialize and replay.
+4. Paired metrics and limitations are reported.
+5. Protected promotion remains closed.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_preliminary_rankings_augmented_contract.py — Exact scope, missing rank, future evidence, and protected nonclaim tests pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-171.json — External artifacts pass independent validation and deterministic rebuild.
+
+Required Evidence
+- Exact input/output identities and hashes.
+- Rows, seasons, features, missingness, exclusions, and leakage checks.
+- Paired model metrics and negative findings.
+- Deterministic rebuild and complete validation.
+
+End-to-End Validation
+Rebuild dataset, models, predictions, manifest, and paired metrics in a separate external root and independently verify hashes, rows, chronology, missingness, target isolation, and protected closure.
+
+Stop Conditions
+- Stop on input identity drift, row/split drift, chronology failure, or deterministic rebuild mismatch.
+
+Source References
+- SRCREF-02049
+- SRCREF-02050
+
+Governance Traceability Gate: TASK-036
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_rankings_pit_features.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;rankings;baseline-modeling;local-id-post-subtask-171,modeling,POST-SUBTASK-171,TASK-036;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE

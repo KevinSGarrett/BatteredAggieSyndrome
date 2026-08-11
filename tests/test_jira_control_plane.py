@@ -43,6 +43,7 @@ class JiraControlPlaneTests(unittest.TestCase):
                 "POST-SUBTASK-168",
                 "POST-SUBTASK-169",
                 "POST-SUBTASK-170",
+                "POST-SUBTASK-171",
             ],
         )
 

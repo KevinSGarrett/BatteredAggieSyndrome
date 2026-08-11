@@ -20,7 +20,9 @@
     "Bulk training/model/forecast payloads remain outside Git under the configured data root."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-171"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "completion_evidence_contract": {
@@ -259,7 +261,7 @@ Materialize separate feature, target, split, and training identities; train the 
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-171
 
 ## Read / Inspect First
 

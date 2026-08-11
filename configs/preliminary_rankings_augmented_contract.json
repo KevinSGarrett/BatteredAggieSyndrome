@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "preliminary-unprotected-team-outcome-plus-ap-rankings-v1",
+  "decision_unit": "POST-SUBTASK-171",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "supersedes_for_comparison_only": {
+    "baseline_run_identity": "3977b720c69dc75559b1f18ed5ab665ab2262e64fe97dc74dd9668ac09604d08",
+    "baseline_dataset_identity": "f4e6d55b9593d217ddb003a6bb0b852a5e651b25d29a6738c274a15430909f29",
+    "baseline_manifest_sha256": "27cb3b0ec782a0a97d474ff4a7d3c5710f57556ef412440f91fd2e246d091508"
+  },
+  "authorized_inputs": {
+    "team_outcome_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "rankings_pit_run_identity": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+    "rankings_feature_identity": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "rankings_feature_sha256": "f7bade2b2653df3c4f82927beaf3ba7dc254c6bb8487849f980a2eac6f0c3a4e",
+    "target_seasons": [2023, 2024, 2025],
+    "eligibility": "DEVELOPMENT_AND_PRELIMINARY_UNPROTECTED_ONLY"
+  },
+  "join_contract": {
+    "grain": "ONE_ROW_PER_TARGET_GAME",
+    "key": "target_game_id",
+    "required_team_sides": ["HOME", "AWAY"],
+    "cutoff_equality_required": true,
+    "team_identity_equality_required": true,
+    "unmatched_target_games_allowed": false,
+    "target_outcome_fields_from_rankings_prohibited": true
+  },
+  "ranking_features": [
+    "ap_rank_diff",
+    "home_ap_rank_observed",
+    "away_ap_rank_observed",
+    "ap_poll_available",
+    "home_ap_listed",
+    "away_ap_listed"
+  ],
+  "feature_semantics": {
+    "ap_rank_diff": "away_rank_minus_home_rank_when_both_numeric_else_null",
+    "numeric_missingness": "FIT_SPLIT_MEDIAN_ONLY_WITH_EXPLICIT_OBSERVED_INDICATORS",
+    "unranked_numeric_value": "NEVER_FABRICATE",
+    "points_and_first_place_votes": "EXCLUDED_FROM_INITIAL_AUGMENTED_REPLAY",
+    "publication_time": "CONSUME_PINNED_CONSERVATIVE_FIRST_ELIGIBLE_AT_ONLY"
+  },
+  "split_policy": {
+    "2023": "DEVELOPMENT_FIT",
+    "2024": "DEVELOPMENT_TUNE",
+    "2025": "DEVELOPMENT_EVALUATION_UNPROTECTED",
+    "protected_split_opened": false
+  },
+  "comparison_contract": {
+    "same_target_rows_required": true,
+    "same_model_ladder_required": true,
+    "paired_metrics_against_baseline_required": true,
+    "tree_after_simple_gate_only": true,
+    "adoption_authority": "PRELIMINARY_RESEARCH_ONLY_NO_CHAMPION"
+  },
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

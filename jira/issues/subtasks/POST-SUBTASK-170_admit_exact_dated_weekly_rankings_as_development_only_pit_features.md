@@ -1,0 +1,378 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.json -->
+# POST-SUBTASK-170 — [POST-SUBTASK-170] Admit exact dated weekly rankings as development-only PIT features
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Only 2010-2025 DATED_WEEKLY polls with EXACT_HIGH_COVERAGE_UNIQUE alignment and EXACT_VERIFIED_ALIAS_CANDIDATE team identity are admitted.",
+    "Date-only source precision is represented by a conservative possible-publication interval; no exact publication timestamp is fabricated.",
+    "A poll is eligible for a target game only when the interval upper bound is no later than the target cutoff.",
+    "State, target-cutoff, feature, quarantine, and manifest payloads rebuild byte-for-byte with immutable external identities.",
+    "The domain is development/preliminary eligible only; protected evaluation and production promotion remain closed."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is a scoped domain admission, not final historical-population readiness or GAP-002 resolution.",
+    "Do not invent rankings, team identities, poll timestamps, outcomes, or missing values.",
+    "Bulk state, feature, quarantine, and manifest payloads remain outside Git."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {
+    "acceptance_matrix_required": true,
+    "artifact_hashes_required": true,
+    "classification": "HISTORICAL_PIT_DOMAIN_ELIGIBLE_DEVELOPMENT_ONLY",
+    "negative_results_preserved": true,
+    "protected_nonclaims_required": true
+  },
+  "component": "data",
+  "components_expected_to_be_touched": [
+    "data",
+    "features",
+    "provenance"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "Exact eligible weekly rankings are materialized into immutable PIT state and target-game feature payloads outside Git.",
+    "Undated, conflicted, low-agreement, and non-exact-identity records remain in reason-coded quarantine.",
+    "The independent validator passes identity, chronology, missingness, target isolation, provenance, and mutation controls.",
+    "A deterministic rebuild produces the same five payload hashes and run identity.",
+    "Historical expansion continues and protected promotion remains dependent on the expanded quality-supported population."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029",
+    "POST-SUBTASK-165"
+  ],
+  "end_to_end_validation": "Rebuild the rankings PIT artifacts from the exact normalization, reconciliation, and historical replay identities; independently rehash all payloads and verify no future poll or target outcome enters a feature row.",
+  "epic_id": "POST-EPIC-003",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-170.json",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY",
+  "expected_outputs": [
+    "configs/historical_rankings_pit_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-170.json",
+    "<external-data-root>/pit_state/historical_rankings/sha256/<state_identity>",
+    "<external-data-root>/features/historical_rankings/sha256/<feature_identity>",
+    "<external-data-root>/quarantine/historical_rankings_pit/sha256/<quarantine_identity>",
+    "<external-data-root>/manifests/historical_rankings_pit/sha256/<run_identity>/rankings_pit_manifest.json"
+  ],
+  "files_expected_to_be_read": [
+    "artifacts/pit/historical_rankings_reconciliation_gate.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "governance/DO_NOT_DRIFT.md",
+    "docs/final/FINAL_KNOWN_GAPS.csv"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/historical_rankings_pit_contract.json",
+    "src/aggie_analytics/temporal/rankings_pit.py",
+    "tools/build_historical_rankings_pit.py",
+    "tools/validate_historical_rankings_pit.py",
+    "tests/test_historical_rankings_pit.py",
+    "artifacts/jira_evidence/POST-SUBTASK-170.json"
+  ],
+  "gap_ids": [
+    "GAP-002"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.md",
+  "governance_traceability_gate": "POST-SUBTASK-033",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100478,
+  "in_scope": [
+    "2010-2025 exact high-coverage dated weekly AP ranking alignments only.",
+    "Exact verified canonical-team aliases only.",
+    "Conservative date-only known-at intervals, target-game cutoffs, explicit missingness, quarantine, deterministic rebuild, and provenance validation.",
+    "Development and PRELIMINARY_UNPROTECTED research use only."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "rankings",
+    "pit",
+    "development-only"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-170",
+  "maturity_before": "RECONCILED_CANDIDATE",
+  "objective": "Admit only exact dated weekly historical rankings into a conservative point-in-time state and target-game feature layer for development/preliminary use while preserving all excluded evidence and protected gates.",
+  "out_of_scope": [
+    "Undated preseason/final polls or conflicted/low-agreement alignments.",
+    "Name-only team merges or non-exact identity candidates.",
+    "Protected evaluation, production promotion, champion selection, A&M lift, BAS, Aggie Excess, or final GAP-002 closure."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-010",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Pinned historical rankings normalization identity acad9e20ba70ab7f371fa210431e4adc66243138154683f9a1b71961e0630220.",
+    "Pinned rankings reconciliation identity 28668e9138f9267a0dbe00c60f7cedd8f1fc37b051e2b3c61dde4fd240fb3570.",
+    "Pinned scoped historical replay identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02013",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "required_evidence": [
+    "Exact input and output identities, payload hashes, external paths, seasons, polls, rows, teams, games, missingness, and quarantine counts.",
+    "Conservative source-precision policy and proof that future polls and target outcomes do not enter features.",
+    "Deterministic rebuild, independent validation, focused/full tests, repository, provenance, and Jira validation.",
+    "Explicit protected nonclaims and unresolved GAP-002 state."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Date intervals, exact eligibility, latest-known poll selection, missingness, target isolation, and scoped-contract tests pass.",
+      "path": "tests/test_historical_rankings_pit.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The external state, cutoff, feature, quarantine, and manifest payloads pass the independent rankings PIT validator and deterministic rebuild.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-170.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any poll becomes eligible before the conservative possible-publication interval upper bound.",
+    "Any non-exact team identity or conflicted alignment is silently admitted.",
+    "Any target outcome appears in a feature payload.",
+    "Any protected or final historical readiness claim is opened."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241"
+  ],
+  "schema_version": 2,
+  "scope": "Build, validate, and admit a narrowly scoped historical rankings PIT feature layer while quarantining every ineligible poll or identity and retaining protected-history dependencies.",
+  "source_ids": [
+    "GAP-002",
+    "HANDOFF-003"
+  ],
+  "source_refs": [
+    "SRCREF-02013",
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "stop_conditions": [
+    "Stop if an input identity drifts or deterministic rebuild differs.",
+    "Quarantine affected polls or identities when chronology, reconciliation, or provenance fails; do not block unrelated historical domains.",
+    "Do not use this scoped admission to open protected evaluation."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006"
+  ],
+  "title": "[POST-SUBTASK-170] Admit exact dated weekly rankings as development-only PIT features",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-033"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "PIT_LEAKAGE",
+    "PROVENANCE",
+    "REPRODUCIBILITY"
+  ],
+  "why_this_exists": "The expanded history contains useful dated rankings evidence that can improve development and preliminary modeling now without pretending undated or ambiguous evidence is chronologically eligible.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}
+```
+
+## Objective
+
+Admit only exact dated weekly historical rankings into a conservative point-in-time state and target-game feature layer for development/preliminary use while preserving all excluded evidence and protected gates.
+
+## Why This Exists
+
+The expanded history contains useful dated rankings evidence that can improve development and preliminary modeling now without pretending undated or ambiguous evidence is chronologically eligible.
+
+## Scope
+
+Build, validate, and admit a narrowly scoped historical rankings PIT feature layer while quarantining every ineligible poll or identity and retaining protected-history dependencies.
+
+### Explicit In Scope
+
+- 2010-2025 exact high-coverage dated weekly AP ranking alignments only.
+- Exact verified canonical-team aliases only.
+- Conservative date-only known-at intervals, target-game cutoffs, explicit missingness, quarantine, deterministic rebuild, and provenance validation.
+- Development and PRELIMINARY_UNPROTECTED research use only.
+
+### Explicit Out of Scope
+
+- Undated preseason/final polls or conflicted/low-agreement alignments.
+- Name-only team merges or non-exact identity candidates.
+- Protected evaluation, production promotion, champion selection, A&M lift, BAS, Aggie Excess, or final GAP-002 closure.
+
+## Prerequisites
+
+- Pinned historical rankings normalization identity acad9e20ba70ab7f371fa210431e4adc66243138154683f9a1b71961e0630220.
+- Pinned rankings reconciliation identity 28668e9138f9267a0dbe00c60f7cedd8f1fc37b051e2b3c61dde4fd240fb3570.
+- Pinned scoped historical replay identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7.
+
+## Hard Dependencies
+
+- POST-SUBTASK-029
+- POST-SUBTASK-165
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- None.
+
+## Files Expected To Be Modified
+
+- configs/historical_rankings_pit_contract.json
+- src/aggie_analytics/temporal/rankings_pit.py
+- tools/build_historical_rankings_pit.py
+- tools/validate_historical_rankings_pit.py
+- tests/test_historical_rankings_pit.py
+- artifacts/jira_evidence/POST-SUBTASK-170.json
+
+## Components Expected To Be Touched
+
+- data
+- features
+- provenance
+
+## Protected Files / Interfaces
+
+- AGENTS.md
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+
+## Expected Outputs / Artifacts
+
+- configs/historical_rankings_pit_contract.json
+- artifacts/jira_evidence/POST-SUBTASK-170.json
+- <external-data-root>/pit_state/historical_rankings/sha256/<state_identity>
+- <external-data-root>/features/historical_rankings/sha256/<feature_identity>
+- <external-data-root>/quarantine/historical_rankings_pit/sha256/<quarantine_identity>
+- <external-data-root>/manifests/historical_rankings_pit/sha256/<run_identity>/rankings_pit_manifest.json
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-033`
+- Inherited from: POST-SUBTASK-033
+- Resolution: `DIRECT_PLUS_INHERITED_DOMAIN_GATE`
+- Effective counts: `{}`
+
+## Acceptance Criteria
+
+1. Only 2010-2025 DATED_WEEKLY polls with EXACT_HIGH_COVERAGE_UNIQUE alignment and EXACT_VERIFIED_ALIAS_CANDIDATE team identity are admitted.
+2. Date-only source precision is represented by a conservative possible-publication interval; no exact publication timestamp is fabricated.
+3. A poll is eligible for a target game only when the interval upper bound is no later than the target cutoff.
+4. State, target-cutoff, feature, quarantine, and manifest payloads rebuild byte-for-byte with immutable external identities.
+5. The domain is development/preliminary eligible only; protected evaluation and production promotion remain closed.
+
+## Definition of Done
+
+1. Exact eligible weekly rankings are materialized into immutable PIT state and target-game feature payloads outside Git.
+2. Undated, conflicted, low-agreement, and non-exact-identity records remain in reason-coded quarantine.
+3. The independent validator passes identity, chronology, missingness, target isolation, provenance, and mutation controls.
+4. A deterministic rebuild produces the same five payload hashes and run identity.
+5. Historical expansion continues and protected promotion remains dependent on the expanded quality-supported population.
+
+## Required Tests / Validation
+
+- **NEW_AUTOMATED_TEST_REQUIRED** / `PIT_LEAKAGE` — `tests/test_historical_rankings_pit.py` — Date intervals, exact eligibility, latest-known poll selection, missingness, target isolation, and scoped-contract tests pass.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-170.json` — The external state, cutoff, feature, quarantine, and manifest payloads pass the independent rankings PIT validator and deterministic rebuild.
+
+## Required Evidence
+
+- Exact input and output identities, payload hashes, external paths, seasons, polls, rows, teams, games, missingness, and quarantine counts.
+- Conservative source-precision policy and proof that future polls and target outcomes do not enter features.
+- Deterministic rebuild, independent validation, focused/full tests, repository, provenance, and Jira validation.
+- Explicit protected nonclaims and unresolved GAP-002 state.
+
+## Completion Evidence Contract
+
+```json
+{
+  "acceptance_matrix_required": true,
+  "artifact_hashes_required": true,
+  "classification": "HISTORICAL_PIT_DOMAIN_ELIGIBLE_DEVELOPMENT_ONLY",
+  "negative_results_preserved": true,
+  "protected_nonclaims_required": true
+}
+```
+
+## End-to-End Validation Requirement
+
+Rebuild the rankings PIT artifacts from the exact normalization, reconciliation, and historical replay identities; independently rehash all payloads and verify no future poll or target outcome enters a feature row.
+
+## Expected Maturity After Completion
+
+`EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY`
+
+## Risk / Failure Conditions
+
+- Any poll becomes eligible before the conservative possible-publication interval upper bound.
+- Any non-exact team identity or conflicted alignment is silently admitted.
+- Any target outcome appears in a feature payload.
+- Any protected or final historical readiness claim is opened.
+
+## Stop Conditions
+
+- Stop if an input identity drifts or deterministic rebuild differs.
+- Quarantine affected polls or identities when chronology, reconciliation, or provenance fails; do not block unrelated historical domains.
+- Do not use this scoped admission to open protected evaluation.
+
+## Source References
+
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+## AI Context Notes
+
+- This is a scoped domain admission, not final historical-population readiness or GAP-002 resolution.
+- Do not invent rankings, team identities, poll timestamps, outcomes, or missing values.
+- Bulk state, feature, quarantine, and manifest payloads remain outside Git.

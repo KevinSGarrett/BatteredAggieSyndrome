@@ -66,12 +66,35 @@
     "deterministic_rebuild_checks_passed": 8,
     "deterministic_payloads_compared": 92
   },
+  "pit_admission": {
+    "decision_unit": "POST-SUBTASK-170",
+    "run_identity": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+    "state_identity": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
+    "feature_identity": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "quarantine_identity": "05b61402e901e89b6668bea11098cc4a47ccaaeab873298f759f0cb7f9946d5e",
+    "manifest_sha256": "38144d4babb32432998308992bec57fcf7e817e3eb9197d9ee052a97083d5bd2",
+    "validation_report_sha256": "66f01095afadf4509a3d02d1bc51253ad422f1cd143dcfc6ed54dec1d1555b52",
+    "deterministic_rebuild_report_sha256": "d893622ce5901675fa84c058484a027013ec90cb83b64cb0df5f39a5c715b4cf",
+    "seasons": [2010, 2025],
+    "admitted_polls": 227,
+    "admitted_state_rows": 9972,
+    "admitted_canonical_teams": 131,
+    "target_games": 13357,
+    "games_with_eligible_poll": 12012,
+    "feature_rows": 26714,
+    "feature_rows_with_source_team": 8330,
+    "feature_rows_with_numeric_rank": 4744,
+    "date_only_publication_interval": "[poll_date-1dT00:00:00Z, poll_date+2dT00:00:00Z)",
+    "first_eligible_at_policy": "POLL_DATE_PLUS_TWO_DAYS_UTC_CONSERVATIVE_UPPER_BOUND",
+    "exact_publication_timestamp_claimed": false,
+    "protected_evaluation_admission": false
+  },
   "historical_known_at_gate": {
-    "explicit_date_precision": "CANDIDATE_ONLY_REQUIRES_RELEASE_WEEK_TARGET_CUTOFF_VALIDATION",
+    "explicit_date_precision": "PIT_ELIGIBLE_ONLY_AFTER_CONSERVATIVE_DATE_INTERVAL_UPPER_BOUND",
     "preseason_and_final": "UNKNOWN_NOT_PIT_ELIGIBLE",
-    "canonical_team_admission": false,
-    "pit_state_admission": false,
-    "training_feature_admission": false,
+    "canonical_team_admission": true,
+    "pit_state_admission": true,
+    "training_feature_admission": "DEVELOPMENT_AND_PRELIMINARY_ONLY",
     "protected_evaluation_admission": false
   },
   "preserved_negative_findings": [
@@ -83,7 +106,7 @@
     "CFBD AP points are zero or incomplete in some historical seasons, so rank agreement never silently promotes points agreement.",
     "No exact publication timestamp is fabricated from a date-only heading, season, week, game time, or current retrieval time."
   ],
-  "decision": "VALIDATED_CANDIDATE_LAYER_CONTINUE_DOMAIN_SPECIFIC_PIT_GATING",
+  "decision": "VALIDATED_EXACT_DATED_WEEKLY_RANKINGS_PIT_ADMISSION_DEVELOPMENT_ONLY",
   "scientific_nonclaims": {
     "final_historical_population_ready": false,
     "gap_002_resolved": false,

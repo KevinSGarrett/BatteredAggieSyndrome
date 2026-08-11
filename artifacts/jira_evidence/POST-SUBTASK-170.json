@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
+  "local_id": "POST-SUBTASK-170",
+  "jira_key": "PENDING_LIVE_SYNCHRONIZATION",
+  "classification": "HISTORICAL_PIT_DOMAIN_ELIGIBLE_DEVELOPMENT_ONLY",
+  "issue_disposition": "DONE_VERIFIED_LOCAL_PENDING_LIVE_JIRA_SYNC",
+  "achieved_maturity": "EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY",
+  "evidence_state": "VERIFIED",
+  "input_identities": {
+    "normalization": "acad9e20ba70ab7f371fa210431e4adc66243138154683f9a1b71961e0630220",
+    "normalization_manifest_sha256": "5b92f53c17ad9a7a1a7e438bb0abb6466347f413fc9eea0493ad43c4f6a800f2",
+    "reconciliation": "28668e9138f9267a0dbe00c60f7cedd8f1fc37b051e2b3c61dde4fd240fb3570",
+    "reconciliation_manifest_sha256": "e9cafcc251a0888bdf3e2651f859d2db27d47d5fa43912181eac19ed914eaaa0",
+    "historical_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "historical_replay_manifest_sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888"
+  },
+  "output_identities": {
+    "run": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+    "state": "7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
+    "features": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "quarantine": "05b61402e901e89b6668bea11098cc4a47ccaaeab873298f759f0cb7f9946d5e",
+    "manifest_sha256": "38144d4babb32432998308992bec57fcf7e817e3eb9197d9ee052a97083d5bd2"
+  },
+  "code_identities": {
+    "module_sha256": "909221c0a2d6203269be381542ce07712d3e5b6fabe449bcbb72caf7125b4ef9",
+    "runner_sha256": "e39e8b64010014072c40162ae34885705172efd0f9f66ef2369f710cc9772023",
+    "validator_sha256": "8b9ed3c4d0e47f353c375930ba99db791102b5138c7d0bad588926d1898c4c82",
+    "contract_sha256": "9f701eb6184bdf95bb54e1f6b078eab6cdb045862e3f5b15ce7a9b04eebc9574"
+  },
+  "payloads": {
+    "state": {"rows": 9972, "sha256": "3782d3cebd28c4002dcb6d6c879cc0c154402a25e3e2a709311f1594b444df83"},
+    "target_game_cutoffs": {"rows": 13357, "sha256": "ae9922b2f0819a62ba7f999f933088d4cf73f34a11d9b49dd37765462c918106"},
+    "features": {"rows": 26714, "sha256": "f7bade2b2653df3c4f82927beaf3ba7dc254c6bb8487849f980a2eac6f0c3a4e"},
+    "quarantine": {"rows": 201, "sha256": "47d11ff52ec34953566b9bb4ea74b7c3f6faa37aad8fa38b6cf5484ae2d534e7"}
+  },
+  "population": {
+    "seasons": [2010, 2025],
+    "candidate_rows": 11857,
+    "aligned_polls": 262,
+    "admitted_polls": 227,
+    "admitted_state_rows": 9972,
+    "admitted_canonical_teams": 131,
+    "target_games": 13357,
+    "games_with_eligible_poll": 12012,
+    "feature_rows": 26714,
+    "feature_rows_with_source_team": 8330,
+    "feature_rows_with_numeric_rank": 4744,
+    "poll_quarantine_records": 35,
+    "identity_quarantine_records": 166
+  },
+  "temporal_policy": {
+    "source_precision": "DATE_ONLY",
+    "exact_publication_timestamp_claimed": false,
+    "publication_interval": "[poll_date-1dT00:00:00Z, poll_date+2dT00:00:00Z)",
+    "first_eligible_at": "POLL_DATE_PLUS_TWO_DAYS_UTC_CONSERVATIVE_ALL_TIMEZONE_UPPER_BOUND",
+    "target_cutoff_lead_hours": 24,
+    "future_poll_rows": 0,
+    "target_outcome_fields_in_features": 0
+  },
+  "eligibility": {
+    "canonical_team_identity": "EXACT_VERIFIED_ONLY",
+    "pit_state": true,
+    "development_and_preliminary_feature_use": true,
+    "protected_evaluation": false,
+    "production_promotion": false
+  },
+  "validation": {
+    "independent_checks_passed": 42,
+    "independent_checks_failed": 0,
+    "validation_report_sha256": "66f01095afadf4509a3d02d1bc51253ad422f1cd143dcfc6ed54dec1d1555b52",
+    "deterministic_rebuild_payloads_compared": 5,
+    "deterministic_rebuild_identity_match": true,
+    "deterministic_rebuild_report_sha256": "d893622ce5901675fa84c058484a027013ec90cb83b64cb0df5f39a5c715b4cf",
+    "focused_tests_passed": 29,
+    "full_test_suite": {
+      "passed": 366,
+      "skipped": 3,
+      "subtests_passed": 83,
+      "failed": 0
+    },
+    "repository_strict_validator": "PASS",
+    "jira_strict_validator": "PASS",
+    "jira_second_pass_audit": "PASS"
+  },
+  "external_locations": {
+    "state": "<external-data-root>/pit_state/historical_rankings/sha256/7e78a9e9fa9e14baec8c053f28f2a5dd777777757ddfe9c631259428edbfd5e0",
+    "features": "<external-data-root>/features/historical_rankings/sha256/b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "quarantine": "<external-data-root>/quarantine/historical_rankings_pit/sha256/05b61402e901e89b6668bea11098cc4a47ccaaeab873298f759f0cb7f9946d5e",
+    "manifest": "<external-data-root>/manifests/historical_rankings_pit/sha256/a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e/rankings_pit_manifest.json",
+    "validation": "<external-data-root>/validation/POST-SUBTASK-170"
+  },
+  "negative_findings": [
+    "The first full-suite invocation resolved an older editable-install path and failed collection; rerunning with this worktree's src as PYTHONPATH passed 366 tests, 3 skips, and 83 subtests.",
+    "Thirty-two undated preseason/final polls remain excluded.",
+    "Two conflicted 2020 polls and one low-agreement 2020 poll remain quarantined.",
+    "One hundred sixty-six non-exact team identity rows remain quarantined; no name-only merge is permitted.",
+    "Teams absent from the latest eligible poll retain null ranks and explicit missingness.",
+    "Protected evaluation and production promotion remain closed."
+  ],
+  "protected_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  },
+  "cleanup": {
+    "superseded_v1_state_removed": true,
+    "superseded_v1_features_removed": true,
+    "superseded_v1_manifest_removed": true,
+    "reconstructible_rebuild_roots_removed": 2,
+    "superseded_or_duplicate_validation_files_removed": 5,
+    "bytes_recovered": 5686416,
+    "authoritative_v2_payloads_preserved": true,
+    "authoritative_v2_validation_and_rebuild_reports_preserved": true
+  },
+  "rollback": {
+    "backup_set": "<external-data-root>/backups/POST-SUBTASK-170-rankings-pit-admission/20260811T005245Z",
+    "bundle_sha256": "e862a1286bc4cf49fb4f1ed3444a66e7491dcce0078973186b87c3b799358bf1"
+  }
+}

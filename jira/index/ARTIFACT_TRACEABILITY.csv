@@ -627,7 +627,7 @@ artifacts/data_lake/core_acquisition_manifest.json,POST-SUBTASK-025,Subtask,true
 artifacts/data_lake/core_normalization_report.json,POST-SUBTASK-026,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-027,VERIFIED
 artifacts/data_lake/core_coverage_gate.json,POST-SUBTASK-027,Subtask,true,PRODUCTION_READY,POST-STORY-010;POST-STORY-011;POST-SUBTASK-028;POST-SUBTASK-029;POST-SUBTASK-030;POST-SUBTASK-031;POST-SUBTASK-032;POST-SUBTASK-033,VERIFIED
 artifacts/data_lake/historical_expansion_acquisition_manifest.json,POST-SUBTASK-028,Subtask,true,IMPLEMENTED,POST-SUBTASK-029;POST-SUBTASK-030;POST-SUBTASK-162;POST-SUBTASK-165;POST-SUBTASK-167,VERIFIED
-artifacts/data_lake/historical_expansion_population_profile.json,POST-SUBTASK-029,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-030,VERIFIED
+artifacts/data_lake/historical_expansion_population_profile.json,POST-SUBTASK-029,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-030;POST-SUBTASK-170,VERIFIED
 artifacts/data_lake/historical_expansion_eligibility_gate.json,POST-SUBTASK-030,Subtask,true,PRODUCTION_READY,POST-EPIC-007;POST-STORY-011;POST-STORY-021;POST-STORY-023;POST-SUBTASK-031;POST-SUBTASK-032;POST-SUBTASK-033;POST-SUBTASK-061;POST-SUBTASK-062;POST-SUBTASK-063;POST-SUBTASK-067;POST-SUBTASK-068;POST-SUBTASK-069,VERIFIED
 artifacts/data_lake/immutability_and_correction_test.json,POST-SUBTASK-031,Subtask,true,IMPLEMENTED,POST-SUBTASK-032;POST-SUBTASK-033,VERIFIED
 artifacts/data_lake/NATIONAL_DATA_LAKE_MANIFEST.json,POST-SUBTASK-032,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-033,VERIFIED
@@ -774,8 +774,8 @@ artifacts/jira_evidence/POST-SUBTASK-163.json,POST-SUBTASK-163,Subtask,true,EMPI
 artifacts/openai_assist/router_rebalance.json,POST-SUBTASK-164,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,VERIFIED
 artifacts/openai_assist/quarantine_schema_pilot.json,POST-SUBTASK-164,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,VERIFIED
 artifacts/jira_evidence/POST-SUBTASK-164.json,POST-SUBTASK-164,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,VERIFIED
-artifacts/openai_assist/availability_pilot.json,POST-SUBTASK-165,Subtask,true,EMPIRICALLY_VALIDATED,,PLANNED
-artifacts/jira_evidence/POST-SUBTASK-165.json,POST-SUBTASK-165,Subtask,true,EMPIRICALLY_VALIDATED,,PLANNED
+artifacts/openai_assist/availability_pilot.json,POST-SUBTASK-165,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-170,PLANNED
+artifacts/jira_evidence/POST-SUBTASK-165.json,POST-SUBTASK-165,Subtask,true,EMPIRICALLY_VALIDATED,POST-SUBTASK-170,PLANNED
 artifacts/openai_assist/final_handoff.json,POST-SUBTASK-166,Subtask,true,OPERATING,,VERIFIED
 artifacts/jira_evidence/POST-SUBTASK-166.json,POST-SUBTASK-166,Subtask,true,OPERATING,,VERIFIED
 artifacts/openai_assist/depth_chart_pilot.json,POST-SUBTASK-167,Subtask,true,EMPIRICALLY_VALIDATED,POST-STORY-056;POST-SUBTASK-166,VERIFIED
@@ -789,6 +789,12 @@ artifacts/jira_evidence/POST-SUBTASK-169.json,POST-SUBTASK-169,Sub-task,true,EMP
 <external-data-root>/model_artifacts/preliminary_unprotected/sha256/<model_identity>,POST-SUBTASK-169,Sub-task,true,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,,VERIFIED
 <external-data-root>/forecast_snapshots/preliminary_unprotected/sha256/<forecast_identity>,POST-SUBTASK-169,Sub-task,true,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,,VERIFIED
 <external-data-root>/manifests/preliminary_unprotected/sha256/<run_identity>/run_manifest.json,POST-SUBTASK-169,Sub-task,true,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,,VERIFIED
+configs/historical_rankings_pit_contract.json,POST-SUBTASK-170,Sub-task,true,EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY,,VERIFIED
+artifacts/jira_evidence/POST-SUBTASK-170.json,POST-SUBTASK-170,Sub-task,true,EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY,,VERIFIED
+<external-data-root>/pit_state/historical_rankings/sha256/<state_identity>,POST-SUBTASK-170,Sub-task,true,EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY,,VERIFIED
+<external-data-root>/features/historical_rankings/sha256/<feature_identity>,POST-SUBTASK-170,Sub-task,true,EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY,,VERIFIED
+<external-data-root>/quarantine/historical_rankings_pit/sha256/<quarantine_identity>,POST-SUBTASK-170,Sub-task,true,EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY,,VERIFIED
+<external-data-root>/manifests/historical_rankings_pit/sha256/<run_identity>/rankings_pit_manifest.json,POST-SUBTASK-170,Sub-task,true,EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY,,VERIFIED
 SOURCE_RESEARCH_LOG.csv,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED
 docs/data_research/w06/DATA_RESEARCH_METHOD.md,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED
 docs/data_research/w06/DATA_DOMAIN_COVERAGE_MATRIX.csv,TASK-002,Task,true,CONTRACT_DEFINED,TASK-003;TASK-004,VERIFIED

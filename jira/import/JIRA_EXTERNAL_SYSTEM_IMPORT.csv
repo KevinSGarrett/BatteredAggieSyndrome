@@ -35910,3 +35910,75 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;plays;drives;candidate-only;provenance;local-id-post-subtask-174,data,POST-SUBTASK-174,GAP-002;HANDOFF-003,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Sub-task,,100483,[POST-SUBTASK-175] Recover action-derived play-summary candidates for gamebook gaps,100060,"Local ID: POST-SUBTASK-175
+
+Objective
+Recover the exact defensible action-derived play-summary candidates for official gamebook games missing a native plays collection while preserving grain, exclusions, provenance, and all downstream authority gates.
+
+Why This Exists
+Fifty official A&M gamebook games contain a complete paired action summary stream but no separate native plays collection; preserving that useful evidence at its true grain closes a measured gamebook gap without inventing native-play or historical-time authority.
+
+Scope
+Convert only paired official play-summary actions from action-only games into a separately lineaged candidate layer, preserving actual grain, missingness, exclusions, and downstream nonauthority.
+
+Explicit In Scope
+- The exact official WMT action-only game population for 2013-2017.
+- Deterministic play/start plus play/end grouping, source-link verification, action-derived summary normalization, immutable payloads, exclusions, provenance, coverage, and replay.
+- Candidate-only evidence for later domain review after historical known-at, canonical, PIT, leakage, and protected validation.
+
+Explicit Out of Scope
+- Representing action summaries as native player-linked play rows or fabricating player identity, drive linkage, play numbers, text, publication times, or missing facts.
+- Canonical, historical-known-at, PIT, feature, training, protected, forecast, publication, or production admission.
+- Changing the immutable POST-SUBTASK-172 preliminary baseline identities or claiming final historical readiness, production readiness, A&M lift, BAS, Aggie Excess, or a scientific result.
+
+Prerequisites / Dependencies
+- Pinned SRC-014 official gamebook source dataset, manifest, actions, and plays payload hashes.
+- Validated POST-SUBTASK-168 action/play schema-mapping checkpoint.
+- Configured standardized external data root and immutable candidate-layer contract.
+- POST-SUBTASK-168
+- POST-SUBTASK-029
+
+Acceptance Criteria
+1. Only the exact 2013-2017 SRC-014 action records for the 50 games with no native plays collection enter the derived dataset identity.
+2. A candidate requires one play/start and one play/end action at the same game, period, and play number; nonempty play text, positive play number, drive number, exact semantic agreement, and an end-to-start source link are mandatory.
+3. The output is labeled action-derived play-summary grain and must never be represented as equivalent to the native player-linked plays relation.
+4. Every candidate and exclusion retains exact source record, pointer, evidence, response, capture, game, season, and pair lineage; no missing value or publication time is fabricated.
+5. An independent full scan and isolated deterministic rebuild reproduce all ten payloads and the manifest byte-for-byte while all canonical, PIT, training, protected, forecast, and publication authority remains closed.
+
+Definition of Done
+1. The exact action-only source population is classified at its true grain without native-play equivalence or silent scope expansion.
+2. All 11,529 accepted summaries and 70 excluded groups are immutable, content-addressed, source-lineaged, and stored outside Git.
+3. The 87-check validator and 11-file byte-identical rebuild pass with zero pair, source, native-game-overlap, authority, or lineage failures.
+4. The historical recovery contract, replay gate, Jira evidence, and governing goal record exact identities, coverage, exclusions, limitations, and protected nonclaims.
+5. Historical expansion proceeds to the next independently useful gamebook, availability, roster, play, drive, or other domain gap without declaring final population readiness.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PROVENANCE: tests/test_action_play_summary.py — Valid pairs produce stable action-derived summary candidates; missing values, broken links, and incomplete pairs remain explicit exclusions with downstream authority closed.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-175.json — The complete external population passes all 87 checks and an 11-file byte-identical isolated deterministic rebuild.
+
+Required Evidence
+- Exact source, manifest, payload, contract, code, dataset, row-lineage, exclusion-lineage, validation, and rollback identities.
+- Per-season games, source actions, paired actions, summary groups, candidates, exclusions, reason counts, bytes, and payload hashes.
+- Independent full scan, native-game disjointness, pair semantic and linkage validation, byte-identical rebuild, MAX_PATH finding, and cleanup.
+- Explicit action-derived grain, candidate-only authority, unknown historical publication time, target-state exclusion, and protected nonclaims.
+
+End-to-End Validation
+Re-scan the exact source actions and native plays payloads, independently verify every pair and source lineage, rebuild the full candidate and exclusion layer under a bounded short external path, compare all ten Parquet payloads and the manifest byte-for-byte, and remove the reconstructible rebuild.
+
+Stop Conditions
+- Stop the affected artifact on source identity, group completeness, pair semantic, linkage, population, lineage, schema, authority, or deterministic rebuild failure.
+- Quarantine or exclude only the affected groups; do not block independently useful seasons, games, or domains.
+- Do not open protected promotion until the expanded quality-supported historical-known-at population and applicable W17 gates pass.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;gamebook;plays;candidate-only;provenance;local-id-post-subtask-175,data,POST-SUBTASK-175,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE

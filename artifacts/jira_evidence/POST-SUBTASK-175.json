@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_EXECUTION_EVIDENCE",
+  "local_id": "POST-SUBTASK-175",
+  "status": "PASS_VALIDATED_CANDIDATE_ONLY",
+  "scope": {
+    "domain": "TAMU_ACTION_DERIVED_PLAY_SUMMARY",
+    "source": "SRC-014_TAMU_OFFICIAL_WMT_GAMEBOOK_ACTIONS",
+    "selected_seasons": [2013, 2014, 2015, 2016, 2017],
+    "selection_reason": "Recover one-row-per-play summary candidates only for the 50 games that contain action records but no native plays collection.",
+    "scope_not_silently_broadened": true
+  },
+  "identities": {
+    "source_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "source_manifest_sha256": "9cd644376253e278fc833b6b58c717ea4889b6243671c15bc078623ba822da0e",
+    "source_actions_sha256": "514a5f51ab4d5ed5ce51e75b6031b6198a7193cdb30883c37f7fca21c3dfa29d",
+    "source_plays_sha256": "cb2ec58c8bb7e28aac94bd7a75f4be59425dcb6f231a8333b4ed0e55850f2a53",
+    "dataset_identity": "9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451",
+    "manifest_sha256": "f48cac4cd3c42adaa1cd59ee70b96df9ca6fe372808fcd614e75a6de27c04429",
+    "validation_report_sha256": "176883b1b8535272d1fd6089194d014ea70944b4b308e0b742e369a056401c78",
+    "ordered_candidate_lineage_sha256": "a43dab2d01b179ce38b5192ef003aac038ba8a2325f1efb633196faaf370fc2f",
+    "ordered_exclusion_lineage_sha256": "5d124586c6fa2ef61a3b28f2848b8bfe426f7ce0791dd64435f70196a3dc1983"
+  },
+  "population": {
+    "source_actions_rows": 147381,
+    "native_play_rows": 41453,
+    "native_play_games": 109,
+    "action_only_games": 50,
+    "action_rows_in_action_only_games": 48598,
+    "non_summary_action_rows": 25400,
+    "paired_summary_action_rows": 23198,
+    "summary_groups": 11599,
+    "candidate_rows": 11529,
+    "excluded_groups": 70,
+    "reason_counts": {
+      "DRIVE_NUMBER_MISSING": 70,
+      "PLAY_NUMBER_NOT_POSITIVE": 50
+    },
+    "by_season": {
+      "2013": {"games": 12, "candidate_rows": 2758, "excluded_groups": 18},
+      "2014": {"games": 12, "candidate_rows": 2731, "excluded_groups": 18},
+      "2015": {"games": 10, "candidate_rows": 2240, "excluded_groups": 13},
+      "2016": {"games": 13, "candidate_rows": 3125, "excluded_groups": 18},
+      "2017": {"games": 3, "candidate_rows": 675, "excluded_groups": 3}
+    }
+  },
+  "artifacts": {
+    "manifest": "<external-data-root>/manifests/historical_known_at/sha256/9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451/action_derived_play_summary_reconciliation.json",
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451/action_derived_play_summary",
+    "validation": "<external-data-root>/validation/POST-SUBTASK-175/action_derived_play_summary_validation.json",
+    "gate": "artifacts/pit/historical_action_derived_play_summary_gate.json"
+  },
+  "validation": {
+    "checks_passed": 87,
+    "checks_failed": 0,
+    "payloads_compared_byte_identical": 11,
+    "byte_identical_rebuild": true,
+    "rebuild_root_removed": true,
+    "candidate_and_exclusion_key_overlap": 0,
+    "native_play_game_overlap": 0,
+    "pair_semantic_mismatches": 0,
+    "pair_link_failures": 0
+  },
+  "negative_findings": [
+    "The source action relation is not equivalent to the native player-linked plays relation.",
+    "Only paired play/start and play/end summaries were recovered; 25,400 other action records remain at action grain.",
+    "Fifty coin-toss or other nonpositive play-number groups and twenty additional positive-number groups missing drive numbers contribute to seventy reason-coded exclusions.",
+    "Exact historical publication time remains unknown, so target-game state has no pregame, feature, training, protected, forecast, or publication authority.",
+    "Default Windows MAX_PATH rejected the first long rebuild path; the short standardized external rebuild passed and was cleaned.",
+    "The first full-suite invocation resolved an older editable install from another worktree and reported thirteen missing modules; explicitly binding PYTHONPATH to this isolated worktree reproduced the CI boundary and passed the complete unittest and pytest suites."
+  ],
+  "authority": {
+    "candidate_only": true,
+    "native_play_equivalence_claimed": false,
+    "canonical_admission": false,
+    "historical_known_at_eligible": false,
+    "pit_state_admission": false,
+    "feature_or_training_admission": false,
+    "protected_evaluation_admission": false,
+    "forecast_or_publication_admission": false,
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "scientific_result": "NOT_CLAIMED"
+  },
+  "rollback": {
+    "backup_root": "<external-data-root>/backups/POST-SUBTASK-175-action-play-summary/20260811T045903Z",
+    "zip_sha256": "b623698d214f45cbfcc56186449e7417746a224ff397d08b27ffe2358355fba3",
+    "bundle_sha256": "7f74182aa5af2ccda1db87a81b3e5d428055f6531e7b2029ad94817ed33e4e1b",
+    "rollback_manifest_sha256": "4db8a9a0e7c6c702ad51e64dcc2b83967bf6d5156cfac058a2b0211bda771743",
+    "verifier_status": "PASS"
+  },
+  "cleanup": {
+    "failed_partial_dataset_identity": "7479277c4aa8dcd3e2ad5bc5aa4eb2f3e4a59e163f9e22226756245f3e4317e4",
+    "failed_partial_bytes_removed": 808613,
+    "deterministic_rebuild_removed": true,
+    "reconstructible_temporary_files_remaining": 0
+  }
+}

@@ -39,7 +39,8 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-STORY-056"
+    "POST-STORY-056",
+    "POST-SUBTASK-175"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -301,6 +302,7 @@ Execute POST-SUBTASK-168 within the optional OpenAI assistive plane. Consume `PO
 ## Blocks
 
 - POST-STORY-056
+- POST-SUBTASK-175
 
 ## Read / Inspect First
 

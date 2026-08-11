@@ -3,7 +3,7 @@
   "artifact_type": "HISTORICAL_ADVANCED_GAME_CAPTURE_TIME_SNAPSHOT_GATE",
   "decision_unit": "POST-SUBTASK-192",
   "jira_key": "BAT-549",
-  "status": "PASS_CAPTURE_TIME_CANDIDATE_ONLY_PREINTEGRATION",
+  "status": "PASS_CAPTURE_TIME_CANDIDATE_ONLY_VERIFIED_INTEGRATED",
   "classification": "CAPTURE_TIME_HISTORICAL_ADVANCED_GAME_SNAPSHOT_CANDIDATE_ONLY",
   "input_identities": {
     "candidate_dataset": "8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc",
@@ -102,12 +102,12 @@
   },
   "gate_disposition": "COLLISION_FREE_RECONCILED_CAPTURE_TIME_ADVANCED_GAME_SNAPSHOT_PASS_CANDIDATE_ONLY_NO_HISTORICAL_PIT_BACKCAST",
   "integration": {
-    "implementation_commit": "PENDING",
-    "pull_request": null,
-    "main_commit": "PENDING",
-    "repository_ci_run": null,
-    "security_analysis_run": null,
-    "exact_main_checks": "PENDING"
+    "implementation_commit": "479f1b348fcfd205b8772e999dced0b68b5d0a5f",
+    "pull_request": 199,
+    "main_commit": "55c54168c7ba5c945c8bc103bd8beabe8dad5697",
+    "repository_ci_run": 31531074576,
+    "security_analysis_run": 31531074701,
+    "exact_main_checks": "PASS"
   },
   "scientific_nonclaims": {
     "historical_population_ready": false,

@@ -4,7 +4,7 @@
   "local_issue_id": "POST-SUBTASK-180",
   "jira_import_id": 100488,
   "jira_key": "BAT-537",
-  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "status": "VERIFIED",
   "classification": "PRELIMINARY_UNPROTECTED_WMT_TAMU_SHADOW",
   "objective": "Execute a separately lineaged chronological A&M shadow replay using only the exact POST-SUBTASK-179 WMT feature candidate and POST-SUBTASK-177 frozen national references.",
   "input_identities": {
@@ -83,6 +83,17 @@
     "isolated_rebuild_summary_sha256": "4b969ab7db0617e39b197b8faf3174f5777a6b1bab78884b126b0308e4bd49b1",
     "validation_report_sha256": "bb7bf81dd81c527e5624d65e72b5def1318ee9a1316a52f7d3edd1274fc90261",
     "reconstructible_rebuild_removed": true
+  },
+  "integration": {
+    "pull_request": 174,
+    "pull_request_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/174",
+    "reviewed_head": "0d61b45c55a29ec16be9d24a2effbfcaba6a8adf",
+    "merge_commit": "19d9bdf8eaa17dc16646898e4778a87f0dc26bdf",
+    "merged_at_utc": "2026-08-11T09:12:11Z",
+    "required_checks_passed": true,
+    "dependency_minimal_import_boundary_validated": true,
+    "jira_in_review_comment_id": "13520",
+    "jira_postmerge_comment_id": "13523"
   },
   "authority": {
     "pipeline_integration": true,

@@ -178,6 +178,7 @@ configs/openai_gamebook_pilot.json
 configs/openai_quarantine_schema_pilot.json
 configs/openai_task_registry.json
 configs/player_intelligence_registry.json
+configs/preliminary_rankings_augmented_contract.json
 configs/preliminary_unprotected_baseline_contract.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
@@ -2900,6 +2901,7 @@ tests/test_openai_assist.py
 tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
+tests/test_preliminary_rankings_augmented_contract.py
 tests/test_preliminary_unprotected_baselines.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py

@@ -115,11 +115,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24944",
-    "jira_updated_at": "2026-08-11T16:12:25.976-0500",
-    "last_synced_at": "2026-08-11T21:12:36.215112+00:00",
+    "jira_updated_at": "2026-08-11T16:33:09.372-0500",
+    "last_synced_at": "2026-08-11T21:33:33.163527+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Exact historical model-run initialization or API availability inference, historical-coordinate backcast, observed/reanalysis substitution, zero-filling unavailable variables, dome-effect assumptions, or representing forecast-model output as stadium observation.",
@@ -148,7 +148,7 @@
     "governance/PROTECTED_SPLIT_REGISTRY.csv"
   ],
   "ready": false,
-  "record_revision": "1.1",
+  "record_revision": "1.2",
   "related_to": [
     "POST-SUBTASK-067",
     "POST-SUBTASK-169",
@@ -247,7 +247,7 @@
   "unblock_condition": "",
   "why_this_exists": "BAT-523 proved a technically complete 2021-2025 Open-Meteo previous-runs candidate, but it remains mixed with archive-unavailable cells and does not prove historical API availability or venue-coordinate effective time. A dedicated immutable snapshot must preserve the useful fixed-lead values and every limitation before any downstream weather decision can be evaluated.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

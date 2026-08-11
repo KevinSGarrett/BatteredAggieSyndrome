@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "artifact_type": "JIRA_PREINTEGRATION_EVIDENCE",
+  "artifact_type": "JIRA_INTEGRATED_EVIDENCE",
   "local_issue_id": "POST-SUBTASK-183",
   "jira_import_id": 100491,
   "jira_key": "BAT-540",
-  "status": "VALIDATED_PREINTEGRATION",
+  "status": "INTEGRATED_VERIFIED",
   "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_PIT_AGGREGATE",
   "objective": "Recover exact 2011 and 2020 version-bound play/drive populations and supersede the partial development-only PIT aggregate without broadening protected authority.",
   "immutable_capture": {
@@ -99,16 +99,17 @@
   },
   "live_jira": {
     "authentication": "HTTP_200",
-    "status": "In Progress",
+    "status": "Done",
     "claim_comment_id": "13638",
     "preintegration_comment_id": "13639",
     "corrected_preintegration_comment_id": "13640",
     "cleanup_finding_comment_id": "13641",
     "pull_request_checkpoint_comment_id": "13642",
+    "completion_comment_id": "13643",
     "live_issue_count": 494,
     "live_parent_count": 442,
     "live_canonical_link_count": 1114,
-    "last_successful_sync_utc": "2026-08-11T12:22:00.501416+00:00",
+    "last_successful_sync_utc": "2026-08-11T12:43:57.548542+00:00",
     "reconciliation_cutoff_utc": "2026-08-10T20:07:04Z",
     "canonical_records_reconciled": 491,
     "auxiliary_records_reconciled": 3,
@@ -116,14 +117,19 @@
     "post_reconciliation_noop_dry_run_changes": 0,
     "continuous_sync_noop_churn_prevented": true,
     "live_status_counts": {
-      "Done": 69,
-      "In Progress": 3,
+      "Done": 70,
+      "In Progress": 2,
       "To Do": 422
     },
     "link_repair_snapshot": "<external-data-root>/reconciliation/jira/BAT-CANONICAL-LINK-REPAIR-20260811T120842Z.json",
     "link_repair_snapshot_sha256": "bff2c6b26abfd17169b0759cfaa0a362172e2ee6d3292a43a1358f81121f4cd1",
     "continuous_reconciliation_report": "<external-data-root>/reconciliation/jira/JIRA-LIVE-CONTINUOUS-RECONCILIATION-20260811T122224Z.json",
     "continuous_reconciliation_report_sha256": "3787b6c84be8974ff6ad84117805e941e2bd3348d526a1e72e861d0676d90985",
+    "final_reconciliation_report": "<external-data-root>/reconciliation/jira/JIRA-LIVE-CONTINUOUS-RECONCILIATION-FINAL-20260811T124358Z.json",
+    "final_reconciliation_report_sha256": "8d851364b1e7d14df8a5b4b820106548c3c5b75b14d26e7e541a956ec8093d46",
+    "completion_sync_live_spec_updates": 1,
+    "completion_sync_local_live_state_changes": 1,
+    "completion_sync_noop_dry_run_changes": 0,
     "links": [
       "BAT-531 BLOCKS BAT-540",
       "BAT-533 BLOCKS BAT-540"
@@ -134,8 +140,12 @@
     "base_commit": "0c150eebfd3cedd91373926fa7ecdfd41bd8c543",
     "pull_request": 180,
     "preintegration_commit": "35b1c793cc5226133d9e4a99e38694ac453b93ca",
-    "merge_commit": null,
-    "postmerge_checks_passed": false
+    "final_pull_request_head": "65c25525b9c87c0fc676981100bd3558e3ce9b71",
+    "merge_commit": "b024139b3fc50fa47ae22c45f580890744ce5f46",
+    "merged_at_utc": "2026-08-11T12:39:40Z",
+    "postmerge_repository_ci_run": 31492294475,
+    "postmerge_security_analysis_run": 31492294462,
+    "postmerge_checks_passed": true
   },
   "cleanup": {
     "report": "<external-data-root>/reconciliation/cleanup/BAT-540-CLEANUP-20260811T123000Z.json",

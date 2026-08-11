@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="260" viewBox="0 0 1200 260" role="img" aria-labelledby="title desc">
+  <title id="title">BAS shortfall severity spectrum</title>
+  <desc id="desc">The difference between expected and actual Texas A&amp;M margin is evaluated at 3, 7, 14, and 21 point shortfall thresholds.</desc>
+  <defs>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#D6D3C4"/>
+      <stop offset="0.34" stop-color="#A86A6A"/>
+      <stop offset="0.68" stop-color="#7D2020"/>
+      <stop offset="1" stop-color="#500000"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="260" rx="24" fill="#F8F7F3"/>
+  <text x="60" y="54" fill="#500000" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2.6">BATTERED AGGIE SYNDROME · PROTECTED SEVERITY LADDER</text>
+  <text x="60" y="90" fill="#1B1B1B" font-family="Consolas, monospace" font-size="20">shortfall = expected A&amp;M margin − actual A&amp;M margin</text>
+  <rect x="60" y="125" width="1080" height="18" rx="9" fill="url(#bar)"/>
+  <g fill="#500000" stroke="#FFFFFF" stroke-width="4">
+    <circle cx="280" cy="134" r="12"/>
+    <circle cx="500" cy="134" r="12"/>
+    <circle cx="780" cy="134" r="12"/>
+    <circle cx="1060" cy="134" r="12"/>
+  </g>
+  <g font-family="Segoe UI, Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="280" y="181" fill="#500000" font-size="18" font-weight="800">3+</text>
+    <text x="280" y="205" fill="#707070" font-size="13">MILD</text>
+    <text x="500" y="181" fill="#500000" font-size="18" font-weight="800">7+</text>
+    <text x="500" y="205" fill="#707070" font-size="13">HEADLINE</text>
+    <text x="780" y="181" fill="#500000" font-size="18" font-weight="800">14+</text>
+    <text x="780" y="205" fill="#707070" font-size="13">SEVERE</text>
+    <text x="1060" y="181" fill="#500000" font-size="18" font-weight="800">21+</text>
+    <text x="1060" y="205" fill="#707070" font-size="13">EXTREME</text>
+  </g>
+  <text x="60" y="237" fill="#707070" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="12">The labels are interpretive. The thresholds are governance-protected; the model does not train on folklore.</text>
+</svg>

@@ -856,6 +856,24 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         )
         self.assertFalse(self.tamu_depth_chart_gate["historical_known_at_gate"]["pit_state_admission"])
 
+    def test_wmt_tamu_shadow_replay_preserves_negative_result_and_protected_closure(self) -> None:
+        replay = self.contract["latest_validated_preliminary_wmt_tamu_shadow_replay"]
+        self.assertEqual(
+            replay["run_identity"],
+            "f1a1b669a090e5e1a7d9281726c209f62e20f2957a51f6d9d4fe02de01e1eb8e",
+        )
+        self.assertEqual(replay["target_games"], 39)
+        self.assertEqual(replay["games_per_season"], 13)
+        self.assertEqual(replay["missing_feature_cells"], 0)
+        self.assertEqual(replay["target_or_future_outcomes_in_fit"], 0)
+        self.assertEqual(replay["post_cutoff_feature_rows"], 0)
+        self.assertTrue(replay["byte_identical_rebuild_summary"])
+        self.assertIn("BOTH_WMT_SHADOW_CANDIDATES_NEGATIVE", replay["empirical_disposition"])
+        self.assertFalse(replay["protected_training_admission"])
+        self.assertFalse(replay["protected_evaluation_admission"])
+        self.assertFalse(replay["champion_or_production_promotion"])
+        self.assertFalse(replay["tamu_specialization_lift_claimed"])
+
 
 if __name__ == "__main__":
     unittest.main()

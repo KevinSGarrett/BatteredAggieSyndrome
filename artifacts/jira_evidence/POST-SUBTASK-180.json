@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-180",
+  "jira_import_id": 100488,
+  "jira_key": "BAT-537",
+  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "classification": "PRELIMINARY_UNPROTECTED_WMT_TAMU_SHADOW",
+  "objective": "Execute a separately lineaged chronological A&M shadow replay using only the exact POST-SUBTASK-179 WMT feature candidate and POST-SUBTASK-177 frozen national references.",
+  "input_identities": {
+    "national_reference_run": "8cc415cec979666f23ba616fea4cdc677566c16eaab254f1698bbfeb67906e56",
+    "national_reference_manifest_sha256": "a028bb55d11724ff09e88e21c5de4c3768d3d67c342b2519cf8ebd628c49a729",
+    "national_reference_dataset": "8e68a17d7c9a1c021830606e8badce52281d2e4470fecd0b46bd9d1fbb9e5245",
+    "national_reference_feature": "22c576832f223046d2de36efbe8846c4c1c085014c27c68bd5d7d63f47e41182",
+    "national_reference_target": "89d23c72386f6f3f788819b037d635b46708802112203adea43fe950b5237123",
+    "national_reference_split": "9acd6d86cb0b9cd2169b22f9bf918b43232df3c5b6503a9a031ea25281debed6",
+    "national_reference_forecast": "520e10ef999935f55e18d36125c76397496ea76cf49110ae0eea9b2de554bbe5",
+    "wmt_feature": "337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815"
+  },
+  "output_identities": {
+    "run": "f1a1b669a090e5e1a7d9281726c209f62e20f2957a51f6d9d4fe02de01e1eb8e",
+    "manifest_sha256": "89b9bac4592da790bce5f24d5a254ddd362c7de82bcf8b5f77e1b0b1de7f2432",
+    "dataset": "f55001888ec1dffa964e8ab09f6bfa8206c1bbc225069914d8d13d1726bca7f0",
+    "feature": "832a18ece46a903b2fb214118dbfc0321a0171d13848d164118de710869a0c60",
+    "target": "9ab1eb4dca09049abd9327df705cd531b5870b207afda00f3bfc4bad15b52145",
+    "split": "606827609abec157aeb380668844ad87fcf1769975261e84be49390643b8a256",
+    "forecast": "595dd6c08b83f77ad659ac4ef705f05e08bcbd9aa384a4c7dac6569f9cf26e42",
+    "logistic_model": "03e9142f91c8b37b1c18a435f33a2c20e8b867c27ea3fef3244e1e09c9773c23",
+    "ridge_margin_model": "d9b5ecb8277f1b1007e1c5d0321eba7db818e7c47893697dd536e804483b4f4f"
+  },
+  "population": {
+    "seasons": [2023, 2024, 2025],
+    "games": 39,
+    "rows": 39,
+    "rows_by_season": {"2023": 13, "2024": 13, "2025": 13},
+    "features_per_candidate": 5,
+    "predeclared_wmt_features": ["action_penalty_rate", "play_scoring_rate", "drive_turnover_rate", "player_starter_rate"],
+    "missing_feature_cells": 0,
+    "cold_start_games": 0,
+    "exclusions": 0
+  },
+  "chronological_assignments": {
+    "2023": {"disposition": "FROZEN_NATIONAL_REFERENCE_FALLBACK", "fit_seasons": [], "rows": 13},
+    "2024": {"fit_seasons": [2023], "fit_rows": 13, "prediction_rows": 13, "maximum_fit_start_utc": "2023-12-28T02:00:00Z", "minimum_prediction_start_utc": "2024-08-31T23:30:00Z"},
+    "2025": {"fit_seasons": [2023, 2024], "fit_rows": 26, "prediction_rows": 13, "maximum_fit_start_utc": "2024-12-28T03:30:00Z", "minimum_prediction_start_utc": "2025-08-30T23:00:00Z"}
+  },
+  "metrics": {
+    "wmt_tamu_logistic_shadow_stacker": {
+      "2023": {"rows": 13, "brier": 0.1017576334457455, "log_loss": 0.3570424311438683, "ece_10": 0.28418756230716624},
+      "2024": {"rows": 13, "brier": 0.24447815640268855, "log_loss": 0.6820694141717265, "ece_10": 0.13054810543170342},
+      "2025": {"rows": 13, "brier": 0.21631877497562504, "log_loss": 0.6255067662755232, "ece_10": 0.30586681728118126}
+    },
+    "wmt_tamu_ridge_margin_shadow_stacker": {
+      "2023": {"rows": 13, "brier": 0.12628459076248144, "log_loss": 0.4232686307599645, "ece_10": 0.2679645671635585, "margin_mae": 10.318688918187235},
+      "2024": {"rows": 13, "brier": 0.23761906917712347, "log_loss": 0.6681849638653705, "ece_10": 0.060110333910674774, "margin_mae": 14.989495065517046},
+      "2025": {"rows": 13, "brier": 0.16608882110077622, "log_loss": 0.5203758066281713, "ece_10": 0.19715170804606863, "margin_mae": 12.77809757587992}
+    }
+  },
+  "frozen_reference_comparison": {
+    "logistic_2024": {"brier_delta": 0.03639678647778763, "log_loss_delta": 0.10425415676995686, "disposition": "NEGATIVE"},
+    "logistic_2025": {"brier_delta": 0.06974088776455165, "log_loss_delta": 0.18001686917145643, "disposition": "NEGATIVE"},
+    "ridge_2024": {"brier_delta": 0.03612566281201143, "log_loss_delta": 0.09378244726639062, "margin_mae_delta": 2.1145108360209424, "disposition": "NEGATIVE"},
+    "ridge_2025": {"brier_delta": 0.016791258172942275, "log_loss_delta": 0.055496009940463054, "margin_mae_delta": 3.24999191391127, "disposition": "NEGATIVE"}
+  },
+  "external_artifacts": [
+    {"path": "<external-data-root>/training/preliminary_wmt_tamu_shadow/sha256/f55001888ec1dffa964e8ab09f6bfa8206c1bbc225069914d8d13d1726bca7f0/feature_matrix.parquet", "bytes": 16778, "sha256": "3beb92a75d8d4026d97217e46aac435e701249ddf35c088ff70a73030392311e"},
+    {"path": "<external-data-root>/training/preliminary_wmt_tamu_shadow/sha256/f55001888ec1dffa964e8ab09f6bfa8206c1bbc225069914d8d13d1726bca7f0/outcome_targets.parquet", "bytes": 4905, "sha256": "cca3f2cb24faedcff215d9a95886658a4df1c45661ae649b9590be132b2af26d"},
+    {"path": "<external-data-root>/training/preliminary_wmt_tamu_shadow/sha256/f55001888ec1dffa964e8ab09f6bfa8206c1bbc225069914d8d13d1726bca7f0/split_assignments.parquet", "bytes": 4350, "sha256": "49385878158ccd967ed8f6d9742fd22aa5d705da4f267aac3da4f38ee181bc29"},
+    {"path": "<external-data-root>/training/preliminary_wmt_tamu_shadow/sha256/f55001888ec1dffa964e8ab09f6bfa8206c1bbc225069914d8d13d1726bca7f0/training_matrix.parquet", "bytes": 19498, "sha256": "e70923bd1b9a9fc3ecced0e9db8a7df93b31673be726551ef014133621c7b6e9"},
+    {"path": "<external-data-root>/forecast_snapshots/preliminary_wmt_tamu_shadow/sha256/595dd6c08b83f77ad659ac4ef705f05e08bcbd9aa384a4c7dac6569f9cf26e42/predictions.parquet", "bytes": 22898, "sha256": "fe68479f829e6566ab3194dd25b38d6ada603104b2579ff47f5c371b4572af10"},
+    {"path": "<external-data-root>/model_artifacts/preliminary_wmt_tamu_shadow/sha256/03e9142f91c8b37b1c18a435f33a2c20e8b867c27ea3fef3244e1e09c9773c23/model.joblib", "bytes": 2022, "sha256": "2acafa2e93b2b8bfb22130ca04b836ed0e3a26846c0414cb171fbc2209fb05ad"},
+    {"path": "<external-data-root>/model_artifacts/preliminary_wmt_tamu_shadow/sha256/d9b5ecb8277f1b1007e1c5d0321eba7db818e7c47893697dd536e804483b4f4f/model.joblib", "bytes": 1841, "sha256": "739d34e4b1fe4bf8b1d96e288e6bdb9210a8168243563b81857fb775aa85b6b6"},
+    {"path": "<external-data-root>/manifests/preliminary_wmt_tamu_shadow/sha256/f1a1b669a090e5e1a7d9281726c209f62e20f2957a51f6d9d4fe02de01e1eb8e/run_manifest.json", "bytes": 11460, "sha256": "89b9bac4592da790bce5f24d5a254ddd362c7de82bcf8b5f77e1b0b1de7f2432"},
+    {"path": "<external-data-root>/validation/POST-SUBTASK-180/validation-report.json", "bytes": 3219, "sha256": "bb7bf81dd81c527e5624d65e72b5def1318ee9a1316a52f7d3edd1274fc90261"}
+  ],
+  "validation": {
+    "checks_passed": 37,
+    "checks_failed": 0,
+    "numerical_model_replays": 4,
+    "unit_tests": 4,
+    "byte_identical_run_and_rebuild_summaries": true,
+    "run_summary_sha256": "4b969ab7db0617e39b197b8faf3174f5777a6b1bab78884b126b0308e4bd49b1",
+    "isolated_rebuild_summary_sha256": "4b969ab7db0617e39b197b8faf3174f5777a6b1bab78884b126b0308e4bd49b1",
+    "validation_report_sha256": "bb7bf81dd81c527e5624d65e72b5def1318ee9a1316a52f7d3edd1274fc90261",
+    "reconstructible_rebuild_removed": true
+  },
+  "authority": {
+    "pipeline_integration": true,
+    "preliminary_unprotected_research": true,
+    "feature_adoption": false,
+    "protected_training": false,
+    "protected_evaluation": false,
+    "champion_promotion": false,
+    "production_forecast_publication": false
+  },
+  "limitations": [
+    "Thirty-nine A&M games, thirteen per season, are too few to establish stable specialization lift.",
+    "Both candidate families are negative versus the exact frozen national reference in 2024 and 2025 and are not adopted.",
+    "Protected retraining still requires expanded quality-supported history and unchanged chronological/W17 gates."
+  ],
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

@@ -118,6 +118,7 @@ artifacts/jira_evidence/POST-SUBTASK-176.json
 artifacts/jira_evidence/POST-SUBTASK-177.json
 artifacts/jira_evidence/POST-SUBTASK-178.json
 artifacts/jira_evidence/POST-SUBTASK-179.json
+artifacts/jira_evidence/POST-SUBTASK-180.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -148,6 +149,7 @@ artifacts/pit/known_at_gate.json
 artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json
 artifacts/pit/preliminary_play_drive_augmented_gate.json
+artifacts/pit/preliminary_wmt_tamu_shadow_gate.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/pit/wmt_provider_timestamp_pit_gate.json
 artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json
@@ -200,6 +202,7 @@ configs/player_intelligence_registry.json
 configs/preliminary_play_drive_augmented_contract.json
 configs/preliminary_rankings_augmented_contract.json
 configs/preliminary_unprotected_baseline_contract.json
+configs/preliminary_wmt_tamu_shadow_contract.json
 configs/raw_feature_registry.json
 configs/repository_policy.json
 configs/research_execution_registry.json
@@ -1367,6 +1370,7 @@ jira/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_
 jira/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.md
 jira/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.md
 jira/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.md
+jira/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1876,6 +1880,7 @@ jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_agg
 jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.json
 jira/records/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.json
 jira/records/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.json
+jira/records/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2377,6 +2382,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-176.json
 jira/sources/issue_source_manifests/POST-SUBTASK-177.json
 jira/sources/issue_source_manifests/POST-SUBTASK-178.json
 jira/sources/issue_source_manifests/POST-SUBTASK-179.json
+jira/sources/issue_source_manifests/POST-SUBTASK-180.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2859,6 +2865,7 @@ src/aggie_analytics/modeling/registry.py
 src/aggie_analytics/modeling/runtime.py
 src/aggie_analytics/modeling/simulation.py
 src/aggie_analytics/modeling/uncertainty.py
+src/aggie_analytics/modeling/wmt_tamu_shadow.py
 src/aggie_analytics/openai_assist/__init__.py
 src/aggie_analytics/openai_assist/budget.py
 src/aggie_analytics/openai_assist/contracts.py
@@ -2971,6 +2978,7 @@ tests/test_player_intelligence_governance.py
 tests/test_preliminary_play_drive_augmented.py
 tests/test_preliminary_rankings_augmented_contract.py
 tests/test_preliminary_unprotected_baselines.py
+tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
 tests/test_replay_adoption.py
@@ -3050,6 +3058,7 @@ tools/run_openai_quarantine_pilot.py
 tools/run_preliminary_play_drive_augmented.py
 tools/run_preliminary_rankings_augmented_baselines.py
 tools/run_preliminary_unprotected_baselines.py
+tools/run_preliminary_wmt_tamu_shadow.py
 tools/run_product.py
 tools/run_reference_feature_tournament.py
 tools/run_reference_hpo_grid.py
@@ -3087,6 +3096,7 @@ tools/validate_post2022_roster_candidate.py
 tools/validate_preliminary_play_drive_augmented.py
 tools/validate_preliminary_rankings_augmented_baselines.py
 tools/validate_preliminary_unprotected_baselines.py
+tools/validate_preliminary_wmt_tamu_shadow.py
 tools/validate_product_supply_chain.py
 tools/validate_repository.py
 tools/validate_supplemental_play_drive_gap.py

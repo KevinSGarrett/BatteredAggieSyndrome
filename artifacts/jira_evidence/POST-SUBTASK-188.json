@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_INTEGRATED_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-188",
+  "jira_import_id": 100496,
+  "jira_key": "BAT-545",
+  "status": "IMPLEMENTED_VALIDATED_PENDING_GIT_INTEGRATION",
+  "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_VENUE_ASSIGNMENT",
+  "objective": "Admit exact version-bound 2010-2022 record-time venue assignments into development PIT without inference, backfill, or protected authority.",
+  "input_identities": {
+    "accepted_outcome_dataset": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "accepted_outcome_payload_sha256": "7fdea2ced7508e7f3b78d397bf8984325dd2b7095b05dc486335ee9c432ccb64",
+    "target_cutoff_payload_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942",
+    "capture_manifest_count": 13,
+    "capture_payload_count": 13,
+    "source_known_at_range_utc": ["2023-05-04T23:19:09Z", "2023-05-06T07:52:16Z"]
+  },
+  "output_identities": {
+    "dataset": "b84ef29b9d4b548d82b3797a467982010b591b127fefadeaa2567584290c554b",
+    "manifest_sha256": "956791484fc5c3ccfbdf079b1b175a22b75e0ba50278770202dd9a3e27912878",
+    "assignment_payload_sha256": "ae99e74763adea24f0cbb80ace2434e81cffc38e90e055c3d7deee901952d721",
+    "quarantine_payload_sha256": "56d65a2dee0c6efc84767651a58397fbc1d8ebeb36bf5985ad791de859837014",
+    "validation_report_sha256": "0a1f4f453067d92d16f63533facc9614604b713708b77e123b50f2cfb02e6921"
+  },
+  "population": {
+    "source_rows": 11146,
+    "accepted_outcome_rows": 10593,
+    "exact_join_rows": 10593,
+    "admitted_rows": 10414,
+    "not_present_rows": 179,
+    "source_distinct_venues": 241,
+    "admitted_distinct_venues": 191,
+    "schema_variants": 3,
+    "partial_source_seasons": [2020],
+    "per_season_admitted_rows": {"2010": 460, "2011": 761, "2012": 799, "2013": 811, "2014": 868, "2015": 869, "2016": 872, "2017": 873, "2018": 882, "2019": 878, "2020": 563, "2021": 884, "2022": 894},
+    "per_season_not_present_rows": {"2010": 39, "2011": 50, "2012": 40, "2013": 37, "2014": 0, "2015": 0, "2016": 0, "2017": 0, "2018": 0, "2019": 8, "2020": 5, "2021": 0, "2022": 0},
+    "admitted_field_missingness": {"venue_id": 0, "venue_full_name": 0, "venue_address_city": 0, "venue_address_state": 3, "venue_capacity": 166, "venue_indoor": 0},
+    "nonpositive_capacity_placeholders": {"rows": 166, "analytical_value": "NULL", "raw_value_retained": true}
+  },
+  "leakage_validation": {
+    "maximum_source_known_at_utc": "2023-05-06T07:52:16Z",
+    "minimum_target_cutoff_utc": "2023-08-25T18:30:00Z",
+    "target_game_overlap": 0,
+    "target_or_outcome_columns": 0,
+    "protected_split_opened": false
+  },
+  "validation": {
+    "external_checks_passed": 57,
+    "mutation_controls_passed": 8,
+    "deterministic_payloads_compared": 3,
+    "byte_identical_rebuild": true,
+    "rebuild_root_removed": true,
+    "focused_tests_passed": 3,
+    "full_pytest_passed": 458,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "full_unittest_passed": 455,
+    "full_unittest_skipped": 3,
+    "strict_repository": "PASS",
+    "strict_secret_and_forbidden_artifact_scan": "PASS",
+    "external_storage_policy": "PASS",
+    "w25_final": "PASS",
+    "data_research_provenance": "PASS",
+    "autonomous_controls": "PASS",
+    "dependency_policy": "PASS",
+    "jira_live_control_plane_and_mirror": "PASS",
+    "jira_pack": "PASS_496_ISSUES",
+    "jira_dependencies": "PASS_1126_LINKS",
+    "jira_source_refs": "PASS_2119_REFERENCES"
+  },
+  "external_locations": {
+    "state": "<external-data-root>/pit_state/historical_known_at/sha256/b84ef29b9d4b548d82b3797a467982010b591b127fefadeaa2567584290c554b/historical_venue_assignments.parquet",
+    "quarantine": "<external-data-root>/quarantine/historical_known_at/sha256/b84ef29b9d4b548d82b3797a467982010b591b127fefadeaa2567584290c554b/historical_venue_assignment_quarantine.parquet",
+    "manifest": "<external-data-root>/manifests/historical_known_at/sha256/b84ef29b9d4b548d82b3797a467982010b591b127fefadeaa2567584290c554b/historical_venue_assignment_pit_manifest.json",
+    "validation": "<external-data-root>/validation/POST-SUBTASK-188/historical_venue_assignment_pit_validation.json"
+  },
+  "repository_files": {
+    "contract_sha256": "3472771cc51248dcf102c12d4d94cfd762a124fab9f27c5c3d5bfe8a703ef423",
+    "core_sha256": "77920d229884919549f770465e5ca9d5bce2c426a43827e384b5d22cd6ebb960",
+    "builder_sha256": "bfa66c7ee76ebf5c7f7cffe420a0bda689e516a5658a0924b249c75d66ea5b89",
+    "validator_sha256": "3f4378249d0cb94fd76155cac9a896c3616a125bba8dea4708377acfe7998557",
+    "focused_tests_sha256": "fa5ee871d942e7b6ae1cda212a20936fdb6b7f750dd630191541f23b959cfe81"
+  },
+  "live_jira": {
+    "authentication": "HTTP_200",
+    "status": "In Progress",
+    "created_issue": "BAT-545",
+    "activation_comment_id": "13661",
+    "dependencies": ["BAT-379 BLOCKS BAT-545"],
+    "related_links": ["BAT-545 RELATES BAT-396", "BAT-545 RELATES BAT-417"],
+    "duplicate_matches_before_create": 0,
+    "live_sync_conflicts": 0
+  },
+  "recovery": {
+    "checkpoint": "<external-data-root>/backups/POST-SUBTASK-188-PRECHANGE-20260811T164215Z",
+    "bundle_sha256": "213c1a0e8e95e69894654901835dc279af69f69baf0190449deac5a6f42befdb",
+    "dirty_root_touched": false
+  },
+  "openai": {
+    "calls_this_unit": 0,
+    "reason": "DETERMINISTIC_STRUCTURED_TABLE_IDENTITY_NORMALIZATION_AND_EXACT_JOIN_VALIDATION_FULLY_SOLVED_THE_TASK",
+    "cumulative_calls": 470,
+    "cumulative_spend_usd": "4.309590",
+    "remaining_budget_usd": "95.690410",
+    "batch_jobs": 0,
+    "last_successful_api_use_utc": "2026-08-11T09:48:49.502971+00:00"
+  },
+  "limitations": [
+    "179 accepted historical games have no explicit venue ID/name evidence and remain NOT_PRESENT.",
+    "The 2020 source season remains partial.",
+    "Three admitted rows lack venue state text; the other admitted venue fields are present.",
+    "166 admitted rows carry a nonpositive capacity placeholder; raw values are retained and analytical venue_capacity remains missing.",
+    "Record-time venue attributes are not a timeless canonical catalog and no current-catalog historical backfill is used.",
+    "No target-game feature or preliminary model replay is opened by this admission unit."
+  ],
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

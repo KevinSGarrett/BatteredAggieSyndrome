@@ -1,0 +1,204 @@
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "All 11,146 source schedule rows across 2010-2022 are read only from their pinned capture manifests and payload hashes; schema variants are explicit and no duplicate normalized season/game key is accepted.",
+    "All 10,593 accepted historical outcomes join one-to-one by normalized source game ID and season; season/type identity is reconciled and unmatched or conflicting records fail closed.",
+    "Exactly 10,414 games with explicit venue ID and name evidence enter the development-only assignment payload; the 179 linked games without venue evidence remain explicit NOT_PRESENT quarantine rows rather than inferred values.",
+    "Every admitted source commit time precedes the earliest 2023 target cutoff, source seasons do not overlap 2023-2025 targets, and no outcome, label, target, post-cutoff, or current-catalog field enters the admitted payload.",
+    "Outputs preserve immutable content-addressed source, state, quarantine, manifest, validation, and field-missingness identities and pass an isolated byte-identical rebuild plus mutation controls.",
+    "Authority remains development-only historical venue evidence; protected training/evaluation, canonical timeless catalog promotion, production promotion, forecast publication, completeness, and scientific claims remain closed."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "No OpenAI output or model-generated fact participates in acquisition, identity, timing, normalization, validation, or admission.",
+    "Venue fields are factual record-time evidence from pinned schedule rows, not a timeless canonical venue catalog.",
+    "The 2026 current venue candidate layer may be used only for non-PIT reconciliation diagnostics, never historical backfill."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-188_admit_version_bound_historical_venue_assignments_for_development_pit.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "pit-temporal",
+  "components_expected_to_be_touched": [
+    "data",
+    "pit-temporal",
+    "provenance",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "Every source and accepted-outcome row is deterministically dispositioned at season/game/domain/field grain, including the two numeric-ID schema variants and 179 NOT_PRESENT venue records.",
+    "An immutable external venue-assignment identity contains exact canonical game linkage, record-time venue evidence, source capture/hash/known-at lineage, explicit field missingness, and no inferred values.",
+    "Repository tests and independent external validation prove source hashes, join cardinality, chronology, target exclusion, schemas, counts, quarantines, authority, mutation failures, and byte-identical reconstruction.",
+    "Canonical and live Jira, Git/PR evidence, governing goal, active plan, cleanup, and scientific nonclaims agree before Done.",
+    "Historical acquisition and preliminary modeling continue independently without declaring final historical-population or production readiness."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029"
+  ],
+  "end_to_end_validation": "Re-read each pinned capture manifest and payload plus the accepted-outcome payload; independently rebuild normalized source keys, one-to-one canonical joins, admitted and NOT_PRESENT payloads, manifest, and hashes in an isolated external root; verify population, schema variants, missingness, chronology, target exclusion, authority, mutation controls, and byte identity; then remove reconstructible rebuild output.",
+  "epic_id": "POST-EPIC-003",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-188.json",
+  "evidence_state": "PARTIAL",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "DEVELOPMENT_ONLY_PIT_ADMITTED",
+  "expected_outputs": [
+    "configs/historical_venue_assignment_pit_contract.json",
+    "artifacts/pit/historical_venue_assignment_pit_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-188.json",
+    "<external-data-root>/pit_state/historical_known_at/sha256/<dataset_identity>/historical_venue_assignments.parquet",
+    "<external-data-root>/quarantine/historical_known_at/sha256/<dataset_identity>/historical_venue_assignment_quarantine.parquet",
+    "<external-data-root>/manifests/historical_known_at/sha256/<dataset_identity>/historical_venue_assignment_pit_manifest.json",
+    "<external-data-root>/validation/POST-SUBTASK-188/historical_venue_assignment_pit_validation.json"
+  ],
+  "files_expected_to_be_read": [
+    "configs/historical_known_at_recovery_contract.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/historical_venue_assignment_pit_contract.json",
+    "src/aggie_analytics/temporal/venue_assignment_pit.py",
+    "tools/build_historical_venue_assignment_pit.py",
+    "tools/validate_historical_venue_assignment_pit.py",
+    "tests/test_historical_venue_assignment_pit.py",
+    "artifacts/pit/historical_venue_assignment_pit_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-188.json"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-188_admit_version_bound_historical_venue_assignments_for_development_pit.md",
+  "governance_traceability_gate": "POST-SUBTASK-033",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100496,
+  "in_scope": [
+    "Thirteen immutable sportsdataverse/cfbfastR-data schedule captures for seasons 2010-2022 with public Git committer known-at times from 2023-05-04 through 2023-05-06.",
+    "Exact one-to-one source game ID and season linkage to the accepted historical-outcome dataset, including deterministic Float64-to-integer ID normalization for the 2011 and 2020 schema variants.",
+    "Game-grain venue ID, name, city, state, capacity, and indoor evidence exactly as recorded, with field-level missingness, content-addressed provenance, quarantine, and deterministic replay."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "BAT-545",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "venue",
+    "pit",
+    "development-only",
+    "provenance",
+    "local-id-post-subtask-188"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-188",
+  "maturity_before": "VALIDATED_VERSION_BOUND_SOURCE_CANDIDATE",
+  "objective": "Admit only exact game-ID-linked, version-bound 2010-2022 venue evidence into a development-only historical PIT state while preserving every absent venue, schema variant, and authority limitation.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24936",
+    "jira_updated_at": "2026-08-11T11:45:03.837-0500",
+    "last_synced_at": "2026-08-11T16:45:14.063357+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
+  "out_of_scope": [
+    "Name-only venue mapping, home-team stadium inference, current-catalog historical backfill, geocoding inference, or silently treating capacity and indoor attributes as timeless canonical truth.",
+    "Inventing missing venue assignments or attributes, discarding otherwise useful game/outcome seasons, or promoting unresolved venue aliases into canonical identity.",
+    "Protected training or evaluation, champion or production promotion, forecast publication, final historical completeness, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-010",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Immutable accepted historical-outcome identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7 with exact canonical game mappings.",
+    "Thirteen captured schedule payloads and capture manifests under the configured external data root.",
+    "Verified pre-change recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-188-PRECHANGE-20260811T164215Z.",
+    "Configured standardized external data root and protected W17 judging boundaries."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02013",
+    "SRCREF-02016",
+    "SRCREF-02018"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "1.0",
+  "related_to": [
+    "POST-SUBTASK-046",
+    "POST-SUBTASK-067"
+  ],
+  "required_evidence": [
+    "Exact source capture, payload, accepted-outcome, contract, code, dataset, quarantine, manifest, validation, Git, PR, and hosted-check identities.",
+    "Per-season source, linked, admitted, missing, schema, venue-field, game, byte, and hash counts plus ID/name ambiguity results.",
+    "Maximum source known-at time, minimum target cutoff, zero target overlap, zero outcome/target fields, mutation controls, and byte-identical rebuild.",
+    "Explicit record-time attribute, missing-evidence, current-catalog non-backfill, development-only authority, and protected/production/completeness/scientific nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Numeric-ID schema normalization, exact joins, NOT_PRESENT quarantine, chronology, target exclusion, and protected nonauthority remain deterministic.",
+      "path": "tests/test_historical_venue_assignment_pit.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-188.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any source hash, normalized key, join cardinality, season/type identity, chronology, target overlap, schema, authority, population, or rebuild identity drifts.",
+    "Any name-only or home-team inference, current-catalog backfill, missing venue fabrication, outcome field, target field, or post-cutoff evidence enters the admitted payload.",
+    "Any record-time venue evidence is represented as timeless canonical truth or any development-only artifact is represented as protected, production, complete-history, or scientific authority."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241"
+  ],
+  "schema_version": 2,
+  "scope": "Normalize three observed schedule schema variants, join by normalized numeric source game ID and season to the immutable accepted-outcome identity, admit explicit record-time venue assignments, and quarantine missing venue evidence without fabricating a timeless venue catalog.",
+  "source_ids": [
+    "GAP-002",
+    "GAP-003",
+    "HANDOFF-003"
+  ],
+  "source_refs": [
+    "SRCREF-02013",
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "stop_conditions": [
+    "Stop the affected row, field, season, or artifact on source, join, chronology, schema, authority, population, hash, or rebuild failure.",
+    "Quarantine only affected evidence and continue independent historical domains, acquisition, and preliminary modeling.",
+    "Do not weaken PIT, identity, missingness, or scientific boundaries merely to obtain admission."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02014",
+    "SRCREF-02006",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "title": "[POST-SUBTASK-188] Admit version-bound historical venue assignments for development PIT",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-033"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "why_this_exists": "The accepted 2010-2022 outcome population has exact source-game identities and 13 public repository schedule captures committed before every 2023-2025 target cutoff. Venue evidence can therefore advance independently without using the 2026 current catalog as a historical backfill or inferring venues from home teams.",
+  "work_packet_path": "",
+  "workflow_state": "IN_PROGRESS"
+}

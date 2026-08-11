@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-11T16:23:52.265954+00:00",
+  "generated_at": "2026-08-11T16:59:48.122259+00:00",
   "metrics": {
     "aggregate_count": 74,
     "atomic_count": 168,
@@ -11,16 +11,16 @@
     "core_validator_error_count": 0,
     "historical_count": 234,
     "import": {
-      "issue_rows": 495,
-      "link_rows": 1123,
-      "modern_issue_rows": 495
+      "issue_rows": 496,
+      "link_rows": 1126,
+      "modern_issue_rows": 496
     },
     "import_error_count": 0,
-    "issue_count": 495,
+    "issue_count": 496,
     "issue_types": {
       "Epic": 51,
       "Story": 56,
-      "Sub-task": 13,
+      "Sub-task": 14,
       "Subtask": 174,
       "Task": 201
     },
@@ -136,6 +136,7 @@
         "artifacts/jira_evidence/POST-SUBTASK-185.json",
         "artifacts/jira_evidence/POST-SUBTASK-186.json",
         "artifacts/jira_evidence/POST-SUBTASK-187.json",
+        "artifacts/jira_evidence/POST-SUBTASK-188.json",
         "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
         "artifacts/open_source/integration_negative_findings.json",
         "artifacts/open_source/integration_validation_manifest.json",
@@ -165,6 +166,7 @@
         "artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json",
         "artifacts/pit/historical_tamu_official_gamebook_reconciliation_gate.json",
         "artifacts/pit/historical_team_box_reconciliation_gate.json",
+        "artifacts/pit/historical_venue_assignment_pit_gate.json",
         "artifacts/pit/historical_venue_assignment_reconciliation_gate.json",
         "artifacts/pit/historical_weather_previous_runs_reconciliation_gate.json",
         "artifacts/pit/known_at_gate.json",
@@ -199,6 +201,7 @@
         "configs/historical_play_enrichment_pit_contract.json",
         "configs/historical_player_event_metric_pit_contract.json",
         "configs/historical_rankings_pit_contract.json",
+        "configs/historical_venue_assignment_pit_contract.json",
         "configs/known_at_registry.json",
         "configs/open_source_integration_registry.json",
         "configs/openai_assist_policy.json",
@@ -375,6 +378,7 @@
         "src/aggie_analytics/temporal/play_enrichment_pit.py",
         "src/aggie_analytics/temporal/player_event_metric_pit.py",
         "src/aggie_analytics/temporal/rankings_pit.py",
+        "src/aggie_analytics/temporal/venue_assignment_pit.py",
         "src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py",
         "src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py",
         "tests/test_acquisition_resilience.py",
@@ -391,6 +395,7 @@
         "tests/test_historical_play_enrichment_pit.py",
         "tests/test_historical_player_event_metric_pit.py",
         "tests/test_historical_rankings_pit.py",
+        "tests/test_historical_venue_assignment_pit.py",
         "tests/test_instructions_pack.py",
         "tests/test_jira_control_plane.py",
         "tests/test_open_source_adapters.py",
@@ -420,6 +425,7 @@
         "tools/build_historical_play_enrichment_pit.py",
         "tools/build_historical_player_event_metric_pit.py",
         "tools/build_historical_rankings_pit.py",
+        "tools/build_historical_venue_assignment_pit.py",
         "tools/build_jira_control_plane.py",
         "tools/build_post2022_roster_candidate.py",
         "tools/build_sec_tamu_availability_candidates.py",
@@ -466,6 +472,7 @@
         "tools/validate_historical_play_enrichment_pit.py",
         "tools/validate_historical_player_event_metric_pit.py",
         "tools/validate_historical_rankings_pit.py",
+        "tools/validate_historical_venue_assignment_pit.py",
         "tools/validate_instructions.py",
         "tools/validate_jira_control_plane.py",
         "tools/validate_jira_mirror.py",
@@ -551,7 +558,7 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1320,
+      "current_non_jira_files": 1327,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],
@@ -669,7 +676,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 495 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 496 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -934,7 +941,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 495 issues and 1123 links.",
+      "detail": "Strict import dry-run passes for 496 issues and 1126 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"
@@ -1128,7 +1135,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 495 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 496 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -1150,7 +1157,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 495 issues and 1123 links.",
+      "detail": "Strict import dry-run passes for 496 issues and 1126 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"

@@ -20,7 +20,9 @@
     "Partial source seasons and domains remain explicit and do not globally block historical expansion or preliminary modeling."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-179"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "pit-temporal",
@@ -267,7 +269,7 @@ Convert exact provider-version metadata in the pinned official WMT gamebook payl
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-179
 
 ## Read / Inspect First
 

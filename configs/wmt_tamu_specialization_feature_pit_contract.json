@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "POST179-WMT-TAMU-SPECIALIZATION-FEATURE-PIT-V1",
+  "decision_unit": "POST-SUBTASK-179",
+  "jira_key": "BAT-536",
+  "classification": "PRELIMINARY_UNPROTECTED_WMT_TAMU_SPECIALIZATION_FEATURE_PIT",
+  "source_contract": {
+    "acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "reconciliation_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "provider_record_pit_identity": "3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498",
+    "provider_record_pit_manifest_sha256": "8d880434a8c475e6f62127f4d97805591b6b620511f522258e33301d63d022fe",
+    "provider_record_pit_payload_sha256": "f6c89aeebfa7e24d1004012abfeda4d8efb792581cbd7ceee50f97dfa92a2b2e",
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "target_cutoff_payload_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942",
+    "canonical_tamu_team_id": "team_d0aff8aacd805801ab3d3d8293f3b298",
+    "wmt_tamu_school_id": "697",
+    "source_seasons": [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "target_seasons": [2023, 2024, 2025],
+    "candidate_payload_sha256": {
+      "competitors": "222363248f7421ade8d2def92f8698a0e45f29af88562f56f3983f4cfa098704",
+      "actions": "514a5f51ab4d5ed5ce51e75b6031b6198a7193cdb30883c37f7fca21c3dfa29d",
+      "plays": "cb2ec58c8bb7e28aac94bd7a75f4be59425dcb6f231a8333b4ed0e55850f2a53",
+      "drives": "83cc139c20a99e271c67fb1e98cc9ae7b6626e71e84aa0edb342443d9c76aea8",
+      "players": "b0e906950748ebc62c8996142d391eb3a2b67220ad3028703ce209b05b6935f8"
+    },
+    "identity_rule": "EXACTLY_ONE_OFFICIAL_SCHOOL_ID_697_COMPETITOR_PER_WMT_GAME_PLUS_EXACT_PER_GAME_COMPETITOR_AND_TEAM_IDS",
+    "record_rule": "DOMAIN_AND_RECORD_ID_MUST_EXIST_IN_PINNED_POST_SUBTASK_178_PROVIDER_RECORD_PIT",
+    "timestamp_boundary": "AVAILABLE_AT_AND_EFFECTIVE_AT_STRICTLY_BEFORE_TARGET_CUTOFF"
+  },
+  "feature_contract": {
+    "action_type_values": ["pass", "rush", "tackle", "penalty", "fumble", "interception"],
+    "play_type_values": ["pass", "rush", "tackle", "penalty", "fumble", "interception"],
+    "play_subtype_values": ["complete", "incomplete", "sacked"],
+    "touchdown_drive_results": ["TD"],
+    "field_goal_drive_results": ["FG"],
+    "turnover_drive_results": ["INT", "FUMB"],
+    "punt_drive_results": ["PUNT"],
+    "downs_drive_results": ["DOWNS"],
+    "rate_denominator": "ALL_ATTRIBUTED_RECORDS_IN_THE_APPLICABLE_DOMAIN",
+    "missingness": "NULL_METRIC_PLUS_EXPLICIT_ZERO_RECORD_AND_GAME_COUNTS",
+    "player_identity_authority": "COUNT_AND_PARTICIPATION_ONLY_NO_CANONICAL_PLAYER_MERGE",
+    "forbidden_source_fields": [
+      "home_score",
+      "visitor_score",
+      "away_score",
+      "score",
+      "winner",
+      "tie",
+      "target_value",
+      "target_margin",
+      "label",
+      "game_outcome"
+    ]
+  },
+  "eligibility": {
+    "require_all_pinned_payload_hashes": true,
+    "require_exact_single_tamu_competitor_per_game": true,
+    "require_official_school_id": true,
+    "require_exact_provider_record_pit_membership": true,
+    "require_record_source_hash_match": true,
+    "require_provider_known_at_before_target_cutoff": true,
+    "require_source_game_effective_time_before_target_cutoff": true,
+    "name_only_identity_allowed": false,
+    "score_assisted_identity_allowed": false,
+    "target_game_or_future_record_allowed": false,
+    "missing_or_fabricated_feature_value_allowed": false
+  },
+  "acceptance": {
+    "expected_identity_games": 177,
+    "expected_competitor_rows": 354,
+    "expected_tamu_target_games": 39,
+    "expected_attributed_records_by_domain": {
+      "actions": 73124,
+      "plays": 20432,
+      "drives": 2055,
+      "players": 9182
+    },
+    "required_feature_domains": ["actions", "plays", "drives", "players"],
+    "identity_ambiguities_allowed": 0,
+    "source_hash_mismatches_allowed": 0,
+    "known_at_cutoff_violations_allowed": 0,
+    "effective_time_cutoff_violations_allowed": 0,
+    "target_or_forbidden_columns_allowed": 0,
+    "byte_identical_rebuild_required": true
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "canonical_entity_mutation": false,
+    "development_pit_state_admission": true,
+    "preliminary_unprotected_feature_candidate": true,
+    "preliminary_unprotected_training_requires_separate_replay_unit": true,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "external_storage": {
+    "source_record_lineage": "pit_state/historical_known_at/sha256/<dataset_identity>/wmt_tamu_feature_source_records.parquet",
+    "source_game_features": "pit_state/historical_known_at/sha256/<dataset_identity>/wmt_tamu_source_game_features.parquet",
+    "target_features": "features/historical_known_at/sha256/<dataset_identity>/wmt_tamu_target_cutoff_features.parquet",
+    "manifest": "manifests/historical_known_at/sha256/<dataset_identity>/wmt_tamu_specialization_feature_pit_manifest.json",
+    "validation": "validation/POST-SUBTASK-179/wmt_tamu_specialization_feature_pit_validation.json",
+    "bulk_payloads_in_git": false
+  }
+}

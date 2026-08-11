@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "gate_id": "POST179-WMT-TAMU-SPECIALIZATION-FEATURE-PIT",
+  "decision_unit": "POST-SUBTASK-179",
+  "jira_key": "BAT-536",
+  "status": "PASS",
+  "classification": "PRELIMINARY_UNPROTECTED_WMT_TAMU_SPECIALIZATION_FEATURE_PIT",
+  "source_identities": {
+    "acquisition": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "reconciliation": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "provider_record_pit": "3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498",
+    "target_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "canonical_tamu_team": "team_d0aff8aacd805801ab3d3d8293f3b298"
+  },
+  "admitted_layer": {
+    "dataset_identity": "337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815",
+    "manifest_sha256": "3871454fe643abd013d7c4fb2aa622a00bf933a4407fe220e44d667c4bbeedb5",
+    "validation_report_sha256": "abb5c1bde0914e424249d52274eb7d77168aa15ff804a88422f56afb483e5912",
+    "identity_games": 177,
+    "source_game_rows": 177,
+    "source_seasons": [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "attributed_records": 104793,
+    "attributed_records_by_domain": {
+      "actions": 73124,
+      "plays": 20432,
+      "drives": 2055,
+      "players": 9182
+    },
+    "source_games_by_domain": {
+      "actions": 157,
+      "plays": 106,
+      "drives": 157,
+      "players": 162
+    },
+    "target_seasons": [2023, 2024, 2025],
+    "target_games": 39,
+    "target_feature_columns": 36,
+    "target_cold_starts": 0,
+    "minimum_target_source_records": 76541,
+    "maximum_target_source_records": 104077,
+    "official_identity_rule": "SCHOOL_ID_697_PLUS_EXACT_PER_GAME_COMPETITOR_AND_TEAM_IDS",
+    "name_only_merges": 0,
+    "score_assisted_merges": 0,
+    "target_or_forbidden_columns": 0,
+    "provider_record_pit_membership_misses": 0,
+    "known_at_cutoff_violations": 0,
+    "effective_time_cutoff_violations": 0,
+    "target_game_or_future_record_rows": 0,
+    "validation_checks_passed": 42,
+    "mutation_controls_passed": 4,
+    "deterministic_payloads_compared": 4,
+    "byte_identical_rebuild": true,
+    "rebuild_root_removed": true
+  },
+  "payloads": [
+    {
+      "role": "DEVELOPMENT_ONLY_TAMU_FEATURE_SOURCE_RECORD_LINEAGE",
+      "rows": 104793,
+      "bytes": 6122058,
+      "sha256": "3f3bb3256968acf16ad23671e78de87dca9b1d9f3f453a7f94c51ec4ba29e550"
+    },
+    {
+      "role": "DEVELOPMENT_ONLY_TAMU_SOURCE_GAME_FEATURE_STATE",
+      "rows": 177,
+      "bytes": 60755,
+      "sha256": "e8fdfef065aaa7f3483d89c9e1b361db294b63c74e3a38fcefde5d32dfc85fa7"
+    },
+    {
+      "role": "PRELIMINARY_UNPROTECTED_TAMU_TARGET_CUTOFF_FEATURES",
+      "rows": 39,
+      "bytes": 34623,
+      "sha256": "f0724f25c849ea24c819cf002eb274a328f293c13d93dac2635d58d899e3f214"
+    }
+  ],
+  "authority": {
+    "canonical_source_mutation": false,
+    "canonical_entity_mutation": false,
+    "development_pit_state_admission": true,
+    "preliminary_unprotected_feature_candidate": true,
+    "preliminary_unprotected_training_requires_separate_replay_unit": true,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "negative_findings": [
+    "The WMT route has no gamebook targets for 2010-2011 and only metadata for 2012; rich domain coverage remains partial from 2013 onward.",
+    "Play rows are action-grain records, so their rates are action-record rates rather than unique snap rates.",
+    "Provider player IDs remain participation evidence only and are not promoted into canonical player identity.",
+    "No protected A&M lift, final historical readiness, production readiness, BAS, Aggie Excess, or scientific result is claimed."
+  ],
+  "gate_disposition": "PASS_DEVELOPMENT_ONLY_PIT_FEATURE_CANDIDATE_FOR_SEPARATELY_LINEAGED_PRELIMINARY_UNPROTECTED_REPLAY"
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "local_id": "POST-SUBTASK-179",
+  "jira_key": "BAT-536",
+  "title": "Materialize provider-timestamped Texas A&M WMT specialization features for development PIT",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "VERIFIED",
+  "implementation": {
+    "contract": "configs/wmt_tamu_specialization_feature_pit_contract.json",
+    "module": "src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py",
+    "build_tool": "tools/build_wmt_tamu_specialization_feature_pit.py",
+    "validation_tool": "tools/validate_wmt_tamu_specialization_feature_pit.py",
+    "tests": "tests/test_wmt_tamu_specialization_feature_pit.py",
+    "gate": "artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json"
+  },
+  "identities": {
+    "acquisition": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "reconciliation": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "provider_record_pit": "3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498",
+    "target_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "canonical_tamu_team": "team_d0aff8aacd805801ab3d3d8293f3b298",
+    "dataset": "337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815",
+    "manifest_sha256": "3871454fe643abd013d7c4fb2aa622a00bf933a4407fe220e44d667c4bbeedb5",
+    "validation_report_sha256": "abb5c1bde0914e424249d52274eb7d77168aa15ff804a88422f56afb483e5912",
+    "rollback_checkpoint": "C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-179-prechange-20260811T075549Z"
+  },
+  "population": {
+    "identity_games": 177,
+    "source_game_rows": 177,
+    "attributed_records": 104793,
+    "actions": 73124,
+    "plays": 20432,
+    "drives": 2055,
+    "players": 9182,
+    "action_games": 157,
+    "play_games": 106,
+    "drive_games": 157,
+    "player_games": 162,
+    "target_games": 39,
+    "target_seasons": [2023, 2024, 2025],
+    "target_feature_columns": 36,
+    "target_cold_starts": 0,
+    "minimum_target_source_records": 76541,
+    "maximum_target_source_records": 104077
+  },
+  "validation": {
+    "status": "PASS",
+    "checks_passed": 42,
+    "mutation_controls_passed": 4,
+    "deterministic_payloads_compared": 4,
+    "byte_identical_rebuild": true,
+    "rebuild_root_removed": true,
+    "identity_ambiguities": 0,
+    "name_only_merges": 0,
+    "score_assisted_merges": 0,
+    "provider_record_pit_membership_misses": 0,
+    "target_or_forbidden_columns": 0,
+    "known_at_cutoff_violations": 0,
+    "effective_time_cutoff_violations": 0,
+    "target_game_or_future_record_rows": 0
+  },
+  "external_artifacts": [
+    "C:/BatteredAggieSyndrome.data/pit_state/historical_known_at/sha256/337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815/wmt_tamu_feature_source_records.parquet",
+    "C:/BatteredAggieSyndrome.data/pit_state/historical_known_at/sha256/337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815/wmt_tamu_source_game_features.parquet",
+    "C:/BatteredAggieSyndrome.data/features/historical_known_at/sha256/337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815/wmt_tamu_target_cutoff_features.parquet",
+    "C:/BatteredAggieSyndrome.data/manifests/historical_known_at/sha256/337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815/wmt_tamu_specialization_feature_pit_manifest.json",
+    "C:/BatteredAggieSyndrome.data/validation/POST-SUBTASK-179/wmt_tamu_specialization_feature_pit_validation.json"
+  ],
+  "authority": {
+    "classification": "PRELIMINARY_UNPROTECTED_WMT_TAMU_SPECIALIZATION_FEATURE_PIT",
+    "development_pit_state_admission": true,
+    "preliminary_unprotected_feature_candidate": true,
+    "preliminary_unprotected_training_requires_separate_replay_unit": true,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "completion_claim": {
+    "post_subtask_179_implemented": true,
+    "exact_provider_identity_and_record_membership_validated": true,
+    "strict_cutoff_and_target_exclusion_validated": true,
+    "deterministic_external_artifacts_published": true,
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

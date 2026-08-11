@@ -3,7 +3,7 @@
   "local_id": "POST-SUBTASK-179",
   "jira_key": "BAT-536",
   "title": "Materialize provider-timestamped Texas A&M WMT specialization features for development PIT",
-  "workflow_state": "IN_PROGRESS",
+  "workflow_state": "DONE",
   "evidence_state": "VERIFIED",
   "implementation": {
     "contract": "configs/wmt_tamu_specialization_feature_pit_contract.json",
@@ -23,6 +23,14 @@
     "manifest_sha256": "3871454fe643abd013d7c4fb2aa622a00bf933a4407fe220e44d667c4bbeedb5",
     "validation_report_sha256": "abb5c1bde0914e424249d52274eb7d77168aa15ff804a88422f56afb483e5912",
     "rollback_checkpoint": "C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-179-prechange-20260811T075549Z"
+  },
+  "integration": {
+    "pull_request": 172,
+    "pull_request_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/172",
+    "merge_commit": "06a2c819407ac5a5ce889801f25dcb7008992e9f",
+    "merged_at_utc": "2026-08-11T08:23:09Z",
+    "required_checks_passed": true,
+    "jira_postmerge_comment_id": "13505"
   },
   "population": {
     "identity_games": 177,

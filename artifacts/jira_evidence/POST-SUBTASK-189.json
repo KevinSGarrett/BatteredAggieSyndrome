@@ -4,7 +4,7 @@
   "local_issue_id": "POST-SUBTASK-189",
   "jira_import_id": 100497,
   "jira_key": "BAT-546",
-  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "status": "DONE",
   "classification": "DEVELOPMENT_ONLY_VERSION_BOUND_ROSTER_MEMBERSHIP_PIT",
   "objective": "Admit exact canonical 2004-2022 version-bound player-team-season roster memberships without backcasting, name-only merges, missing-value fabrication, or availability inference.",
   "input_identity": {
@@ -61,6 +61,11 @@
     "jira_second_pass": "PASS_68_SECTIONS",
     "repository_provenance_secret_forbidden_artifact_gate": "PASS",
     "external_storage_w25_data_research_autonomy_dependency_gates": "PASS",
+    "protected_pr": "192",
+    "implementation_commit": "748a85fd4ff23767ae7c26bf3a5de308243e37f8",
+    "main_merge_commit": "2770ef83564c51280d734f1f98ff0da22136ced9",
+    "exact_main_repository_ci_run": "31520245736_PASS",
+    "exact_main_security_analysis_run": "31520245634_PASS",
     "rebuild_cleanup": "HOST_POLICY_BLOCKED_BEFORE_EXECUTION_PRESERVED_FOR_REVIEW"
   },
   "authority": {
@@ -76,7 +81,9 @@
     "authentication": "HTTP_200_WITHOUT_CREDENTIAL_DISCLOSURE",
     "issue_id": "24938",
     "activation_comment_id": "13666",
-    "status": "In Progress"
+    "preintegration_comment_id": "13667",
+    "integration_comment_id": "13668",
+    "status": "Done"
   },
   "recovery": {
     "checkpoint": "<external-data-root>/backups/POST-SUBTASK-189-PRECHANGE-20260811T173331Z",

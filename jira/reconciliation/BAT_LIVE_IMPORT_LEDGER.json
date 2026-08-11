@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T07:25:17.354367+00:00"
+      "verified_at": "2026-08-11T07:43:52.807145+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T07:25:17.546902+00:00"
+      "verified_at": "2026-08-11T07:43:52.989628+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T07:25:17.742325+00:00"
+      "verified_at": "2026-08-11T07:43:53.172035+00:00"
     }
   ],
   "backup": {
@@ -34,20 +34,20 @@
     "backup": {
       "bytes": 785,
       "issue_count": 1,
-      "path": "reconciliation/jira/canonical-spec-sync/20260811T072530Z/pre-update.json",
-      "sha256": "3efe9767f8602d41584276902ebd607bd22d8c238f284b8bd351b8281d78d724",
+      "path": "reconciliation/jira/canonical-spec-sync/20260811T074403Z/pre-update.json",
+      "sha256": "c9506712f3cabf9697e1d698b22800432d7d67cb339f770b1b47a90cfc0e5416",
       "storage_root": "EXTERNAL_DATA_ROOT"
     },
     "changed_issues": 1,
-    "completed_at": "2026-08-11T07:25:30.675754+00:00",
+    "completed_at": "2026-08-11T07:44:04.491854+00:00",
     "completed_local_ids": [
-      "POST-SUBTASK-177"
+      "POST-SUBTASK-178"
     ],
     "errors": [],
-    "started_at": "2026-08-11T07:25:30.056218+00:00",
+    "started_at": "2026-08-11T07:44:03.669751+00:00",
     "status": "COMPLETE"
   },
-  "completed_at": "2026-08-11T07:26:13.985631+00:00",
+  "completed_at": "2026-08-11T07:44:47.900403+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -55,8 +55,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-11T07:25:34.882426+00:00",
-    "verified_at": "2026-08-11T07:25:36.580380+00:00",
+    "updated_at": "2026-08-11T07:44:10.252028+00:00",
+    "verified_at": "2026-08-11T07:44:11.946237+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -453,7 +453,7 @@
     }
   ],
   "historical_done_operationally_overridden": 221,
-  "historical_done_requested": 62,
+  "historical_done_requested": 63,
   "issues": {
     "EPIC-001": "BAT-1",
     "EPIC-002": "BAT-2",
@@ -948,7 +948,7 @@
     "missing_canonical_links": 2,
     "preserved_auxiliary_links": 3,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-11T07:25:48.637452+00:00"
+    "verified_at": "2026-08-11T07:44:23.798957+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2063,9 +2063,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2075,9 +2075,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2087,7 +2087,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2097,9 +2097,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2109,9 +2109,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2244,7 +2244,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-11T07:26:13.985631+00:00",
+  "updated_at": "2026-08-11T07:44:47.900403+00:00",
   "verification": {
     "actual_expected_link_count": 1104,
     "board": {
@@ -2303,11 +2303,11 @@
     "result": "PASS",
     "schema_version": 1,
     "status_counts": {
-      "Done": 62,
-      "In Progress": 2,
+      "Done": 63,
+      "In Progress": 1,
       "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-11T07:25:48.637452+00:00"
+    "verified_at": "2026-08-11T07:44:23.798957+00:00"
   }
 }

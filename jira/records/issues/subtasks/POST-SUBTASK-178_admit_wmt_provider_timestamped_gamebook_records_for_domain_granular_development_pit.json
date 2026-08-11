@@ -112,11 +112,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24925",
-    "jira_updated_at": "2026-08-11T02:25:41.107-0500",
-    "last_synced_at": "2026-08-11T07:25:49.170544+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T02:44:06.684-0500",
+    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Treating event/game time, current 2026 capture time, PDF creation metadata, or a model-generated value as historical publication time.",
@@ -219,5 +219,5 @@
   ],
   "why_this_exists": "The official WMT payloads contain record-level provider creation and update metadata that can recover conservative known-at eligibility for substantial historical gamebook domains without inventing publication times.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_INTEGRATED_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-187",
+  "jira_import_id": 100495,
+  "jira_key": "BAT-544",
+  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "objective": "Replay the exact POST-SUBTASK-186 development-PIT play-enrichment features through the immutable preliminary baseline pipeline without backcasting, fabricating evidence, or opening protected promotion.",
+  "input_identities": {
+    "baseline_run": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "baseline_manifest_sha256": "602477b325c33811ccf9573af6cc7c6854621b322566c15e580dc134ddf07e8a",
+    "baseline_dataset": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "baseline_feature": "df9093758679968bc88fb7a1c5b7931c0bbe5f625fe928b69f2ccc0abe8de265",
+    "baseline_target": "a384834b94cf2cbc5e56ebd31577108bbea6014e5009931f11a4a7c3be703f71",
+    "baseline_split": "9e201d2a298bc8d65876e36e483e2d4a0d574ae1b407ca420ca3950093e4dc86",
+    "prior_dense_play_drive_run": "fbd173efe68ee6aebc0e897ced096c29ce4ea4c6d794029e11fcb590dee60b2a",
+    "prior_dense_play_drive_manifest_sha256": "bf036b13bef1b99ea27b7edd73161fb83467ebb9bd9f543caf8dfd2020436337",
+    "play_enrichment_feature": "ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb",
+    "play_enrichment_payload_sha256": "1303d216f930e4cc761e00b5b0deeb396c969be98830801e13cbc002c75ddb36",
+    "play_enrichment_manifest_sha256": "be9bb847326e485385dd7ce00320f78ce0c8893bf0dc629fa72e8ebd53b75595"
+  },
+  "output_identities": {
+    "run": "bceb755657b40f73bf18d7fce46b52596b942cccc7c1996a3c0a9634e66ebc28",
+    "manifest_sha256": "e9a1d35816aa164efc1cf34b37433a17e9ee55c079381aa774c7731f92faf0dd",
+    "dataset": "694456887dea77c3c66f0802d49e71872c0b1d35013142cd68239cca370aa9b3",
+    "feature": "7c2d38b4f6893f4e17c3c102f97734e86f55a034238649ffe44d4260be5b0a13",
+    "target": "f35d24dc2b9d700b449e4ce60f2f9ecf1881b2f1d1b600fb0e579c1e17928dd0",
+    "split": "012b3b28ceb0788725c6d08f6004dd959a655624f07831076833573a08d418a3",
+    "forecast": "c61a44905793bcdee3f8f7421f4f914d6983ca562a67a87a669469c84dabfd09",
+    "logistic_model": "fffa1193018bbb80613dfc89b717965baf68abba74cdcc9ff8f3f09e6ca79f64",
+    "ridge_margin_model": "8f8d2c55630ced28f6bb8a81ea7efc0d060764ffc486797efe4b20d3dbbe03e5"
+  },
+  "population": {
+    "source_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+    "partial_source_seasons": [2020],
+    "target_seasons": [2023, 2024, 2025],
+    "games": 2763,
+    "rows": 2763,
+    "rows_by_season": {"2023": 910, "2024": 919, "2025": 934},
+    "features_per_candidate": 31,
+    "play_enrichment_difference_features": 28,
+    "cold_start_games": 23,
+    "missing_cells_per_difference_feature": 23,
+    "excluded_source_feature_games": ["game_126950537b3059bdaa46c689e2b34db7"],
+    "exclusion_reason": "ABSENT_FROM_PINNED_OUTCOME_TARGET_POPULATION_NO_LABEL_FABRICATED"
+  },
+  "chronological_assignments": {
+    "2023": {"disposition": "FROZEN_BASELINE_FALLBACK", "fit_seasons": [], "rows": 910},
+    "2024": {"fit_seasons": [2023], "fit_rows": 910, "prediction_rows": 919, "maximum_fit_start_utc": "2024-01-09T00:30:00Z", "minimum_prediction_start_utc": "2024-08-24T16:00:00Z"},
+    "2025": {"fit_seasons": [2023, 2024], "fit_rows": 1829, "prediction_rows": 934, "maximum_fit_start_utc": "2025-01-21T00:30:00Z", "minimum_prediction_start_utc": "2025-08-23T16:00:00Z"}
+  },
+  "metrics_all_games": {
+    "play_enrichment_logistic_stacker": {
+      "2023": {"rows": 910, "brier": 0.1787888378664104, "log_loss": 0.5267672857650244, "ece_10": 0.04273553098512131},
+      "2024": {"rows": 919, "brier": 0.19164641519550676, "log_loss": 0.5563442877158908, "ece_10": 0.04075445128843845},
+      "2025": {"rows": 934, "brier": 0.18024571303220718, "log_loss": 0.5343873968520565, "ece_10": 0.032868458643364205}
+    },
+    "play_enrichment_ridge_margin_stacker": {
+      "2023": {"rows": 910, "brier": 0.18243760446630392, "log_loss": 0.5404399904923277, "ece_10": 0.057525921743748085, "margin_mae": 13.656819600924914},
+      "2024": {"rows": 919, "brier": 0.1941617412724396, "log_loss": 0.5659761810633673, "ece_10": 0.049557837549059, "margin_mae": 14.659169989470886},
+      "2025": {"rows": 934, "brier": 0.1844863548353262, "log_loss": 0.5465738446390467, "ece_10": 0.062261799595958484, "margin_mae": 13.961770825022407}
+    }
+  },
+  "paired_disposition": {
+    "versus_frozen_baseline": "MIXED_LOGISTIC_IMPROVED_2024_2025_RIDGE_WORSE_2024_BETTER_2025",
+    "versus_post_subtask_184_dense_replay": "IMPROVED_2024_AND_2025_ALL_REPORTED_PROBABILITY_METRICS_AND_RIDGE_MARGIN_MAE",
+    "champion_or_production_promotion": false
+  },
+  "leakage_validation": {
+    "target_game_outcome_in_profile_evidence": 0,
+    "source_known_at_after_target_cutoff": 0,
+    "target_or_future_season_outcomes_in_fit": 0,
+    "outcome_targets_materialized_separately": "PASS",
+    "same_target_rows_as_frozen_baseline": "PASS",
+    "protected_split_opened": false
+  },
+  "validation": {
+    "checks_passed": 70,
+    "checks_failed": 0,
+    "deterministic_payloads_compared": 8,
+    "byte_identical_rebuild": true,
+    "numerical_serialized_model_replays": 4,
+    "validation_report_sha256": "220e2b9b53eb751f60be8759f2c6e13e472bfc6e7aa0ee386431154ad3de06e4",
+    "focused_tests_passed": 10,
+    "unsafe_profile_module_mutation_rejected": true,
+    "legacy_dense_runner_compatibility_checks_passed": 54,
+    "legacy_dense_runner_compatibility_report_sha256": "e30e1784f88d78d81336d35df8447d2c2627998c0296757c21354f27c2140d84",
+    "full_pytest_passed": 455,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "full_unittest_passed": 452,
+    "full_unittest_skipped": 3,
+    "strict_repository": "PASS",
+    "strict_secret_scan": "PASS",
+    "jira_pack": "PASS",
+    "jira_source_refs": 2119,
+    "jira_dependency_cycles": 0,
+    "jira_import_validation": "PASS",
+    "jira_file_manifest": "PASS",
+    "jira_second_pass_sections": 68
+  },
+  "external_locations": {
+    "training": "<external-data-root>/training/preliminary_play_enrichment_replay/sha256/694456887dea77c3c66f0802d49e71872c0b1d35013142cd68239cca370aa9b3",
+    "models": "<external-data-root>/model_artifacts/preliminary_play_enrichment_replay/sha256/<model_identity>",
+    "forecast": "<external-data-root>/forecast_snapshots/preliminary_play_enrichment_replay/sha256/c61a44905793bcdee3f8f7421f4f914d6983ca562a67a87a669469c84dabfd09",
+    "manifest": "<external-data-root>/manifests/preliminary_play_enrichment_replay/sha256/bceb755657b40f73bf18d7fce46b52596b942cccc7c1996a3c0a9634e66ebc28/run_manifest.json",
+    "validation_report": "<external-data-root>/reconciliation/modeling/BAT-544/validation-report.json"
+  },
+  "live_jira": {
+    "authentication": "HTTP_200",
+    "status": "In Progress",
+    "activation_comment_id": "13657",
+    "dependencies": ["BAT-526 BLOCKS BAT-544", "BAT-541 BLOCKS BAT-544", "BAT-543 BLOCKS BAT-544"],
+    "continuous_synchronization": true
+  },
+  "integration": {
+    "branch": "codex/BAT-544-play-enrichment-preliminary",
+    "base_commit": "bc8f22a99c7885597d2316fa2a413e19d6874ca4",
+    "pull_request": null,
+    "merge_commit": null,
+    "status": "PENDING_PROTECTED_PR"
+  },
+  "openai": {
+    "calls_this_unit": 0,
+    "reason": "DETERMINISTIC_STRUCTURED_TABLE_JOIN_MODELING_AND_VALIDATION_FULLY_SOLVED_THE_TASK",
+    "cumulative_calls": 470,
+    "cumulative_spend_usd": "4.309590",
+    "remaining_budget_usd": "95.690410",
+    "batch_jobs": 0,
+    "last_successful_api_use_utc": "2026-08-11T09:48:49.502971+00:00"
+  },
+  "cleanup": {
+    "report": "<external-data-root>/reconciliation/cleanup/BAT-544-CLEANUP-20260811T160500Z.json",
+    "report_sha256": "6328e26685b717caf4afcd1d66494783fde58356823d5d2c5f30a516be646e82",
+    "classification": "DELETE_RECONSTRUCTIBLE",
+    "candidate_files": 8,
+    "candidate_bytes": 2866887,
+    "removed_files": 0,
+    "bytes_recovered": 0,
+    "execution_state": "BLOCKED_BY_HOST_POLICY_BEFORE_EXECUTION",
+    "authoritative_artifacts_preserved": true
+  },
+  "limitations": [
+    "The enrichment features cannot be backcast into their 2014-2022 source period.",
+    "The 2023 candidate is an exact frozen-baseline fallback.",
+    "The 2024 ridge candidate is worse than frozen and that negative finding is retained.",
+    "Source-model metrics and inferred player fields remain nonofficial candidate evidence.",
+    "Protected retraining still requires expanded quality-supported history and unchanged chronological/W17 gates."
+  ],
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

@@ -125,6 +125,7 @@ artifacts/jira_evidence/POST-SUBTASK-183.json
 artifacts/jira_evidence/POST-SUBTASK-184.json
 artifacts/jira_evidence/POST-SUBTASK-185.json
 artifacts/jira_evidence/POST-SUBTASK-186.json
+artifacts/jira_evidence/POST-SUBTASK-187.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -161,6 +162,7 @@ artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json
 artifacts/pit/preliminary_dense_play_drive_replay_gate.json
 artifacts/pit/preliminary_play_drive_augmented_gate.json
+artifacts/pit/preliminary_play_enrichment_replay_gate.json
 artifacts/pit/preliminary_wmt_tamu_shadow_gate.json
 artifacts/pit/timestamp_normalization_report.json
 artifacts/pit/wmt_provider_timestamp_pit_gate.json
@@ -217,6 +219,7 @@ configs/openai_task_registry.json
 configs/player_intelligence_registry.json
 configs/preliminary_dense_play_drive_replay_contract.json
 configs/preliminary_play_drive_augmented_contract.json
+configs/preliminary_play_enrichment_replay_contract.json
 configs/preliminary_rankings_augmented_contract.json
 configs/preliminary_unprotected_baseline_contract.json
 configs/preliminary_wmt_tamu_shadow_contract.json
@@ -1396,6 +1399,7 @@ jira/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive
 jira/issues/subtasks/POST-SUBTASK-184_replay_preliminary_baselines_with_dense_2010_2022_play_drive_pit_features.md
 jira/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.md
 jira/issues/subtasks/POST-SUBTASK-186_admit_exact_linked_version_bound_play_enrichment_for_development_pit_and_preliminary_research.md
+jira/issues/subtasks/POST-SUBTASK-187_replay_preliminary_baselines_with_exact_play_enrichment_pit_features.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1912,6 +1916,7 @@ jira/records/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_pl
 jira/records/issues/subtasks/POST-SUBTASK-184_replay_preliminary_baselines_with_dense_2010_2022_play_drive_pit_features.json
 jira/records/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.json
 jira/records/issues/subtasks/POST-SUBTASK-186_admit_exact_linked_version_bound_play_enrichment_for_development_pit_and_preliminary_research.json
+jira/records/issues/subtasks/POST-SUBTASK-187_replay_preliminary_baselines_with_exact_play_enrichment_pit_features.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2420,6 +2425,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-183.json
 jira/sources/issue_source_manifests/POST-SUBTASK-184.json
 jira/sources/issue_source_manifests/POST-SUBTASK-185.json
 jira/sources/issue_source_manifests/POST-SUBTASK-186.json
+jira/sources/issue_source_manifests/POST-SUBTASK-187.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2899,6 +2905,7 @@ src/aggie_analytics/modeling/ensemble.py
 src/aggie_analytics/modeling/forecast.py
 src/aggie_analytics/modeling/joint.py
 src/aggie_analytics/modeling/play_drive_augmented.py
+src/aggie_analytics/modeling/play_enrichment_augmented.py
 src/aggie_analytics/modeling/preliminary.py
 src/aggie_analytics/modeling/preliminary_rankings.py
 src/aggie_analytics/modeling/registry.py
@@ -3021,6 +3028,7 @@ tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
 tests/test_preliminary_play_drive_augmented.py
+tests/test_preliminary_play_enrichment_replay.py
 tests/test_preliminary_rankings_augmented_contract.py
 tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from hashlib import sha256
+import importlib
 import json
 from pathlib import Path
 import re
@@ -42,14 +43,16 @@ def main() -> int:
     args = parser.parse_args()
     repo_root, root = args.repo_root.resolve(), args.data_root.resolve()
     sys.path.insert(0, str(repo_root / "src"))
-    from aggie_analytics.modeling import play_drive_augmented as helpers
-
     contract_path = (
         args.contract_path.resolve()
         if args.contract_path
         else repo_root / "configs/preliminary_play_drive_augmented_contract.json"
     )
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    profile_module = str(contract.get("profile_module", "play_drive_augmented"))
+    if not re.fullmatch(r"[a-z][a-z0-9_]*", profile_module):
+        raise ValueError("profile module must be a safe module name")
+    helpers = importlib.import_module(f"aggie_analytics.modeling.{profile_module}")
     authorized = contract["authorized_inputs"]
     storage_namespace = str(contract.get("storage_namespace", "preliminary_play_drive_augmented"))
     if not re.fullmatch(r"[a-z0-9][a-z0-9_]*", storage_namespace):
@@ -66,11 +69,22 @@ def main() -> int:
     check("decision_unit", manifest["decision_unit"] == contract["decision_unit"])
     check("protected_nonclaims", not any(manifest["protected_nonclaims"].values()))
     check("protected_split_closed", manifest["leakage_validation"]["protected_split_opened"] is False)
-    check("target_outcome_excluded", manifest["leakage_validation"]["target_game_outcome_in_play_drive_evidence"] == 0)
+    leakage = manifest["leakage_validation"]
+    check(
+        "target_outcome_excluded",
+        leakage.get(
+            "target_game_outcome_in_profile_evidence",
+            leakage.get("target_game_outcome_in_play_drive_evidence"),
+        ) == 0,
+    )
     check("future_outcomes_excluded", manifest["leakage_validation"]["target_or_future_season_outcomes_in_fit"] == 0)
     check("2023_fallback", manifest["leakage_validation"]["2023_no_fit_fallback_exact"] == "PASS")
     check("exact_input_baseline", manifest["input_identities"]["baseline_run"] == authorized["baseline_run_identity"])
-    check("exact_input_play_drive", manifest["input_identities"]["play_drive_feature"] == authorized["play_drive_feature_identity"])
+    expected_profile = authorized.get("profile_feature_identity", authorized.get("play_drive_feature_identity"))
+    actual_profile = manifest["input_identities"].get(
+        "profile_feature", manifest["input_identities"].get("play_drive_feature")
+    )
+    check("exact_input_profile", actual_profile == expected_profile)
 
     training_root = root / manifest["external_locations"]["training"]
     frames: dict[str, pl.DataFrame] = {}
@@ -93,8 +107,8 @@ def main() -> int:
         check("training_games_unique", training["target_game_id"].n_unique() == training.height)
         check("seasons", set(training["season"].unique()) == {2023, 2024, 2025})
         check("population_alignment", set(training["target_game_id"]) == set(features["target_game_id"]) == set(targets["target_game_id"]) == set(splits["target_game_id"]))
-        check("source_before_cutoff", training.filter(pl.col("play_drive_source_known_at_utc") > pl.col("cutoff_utc")).height == 0)
-        check("protected_feature_false", training.filter(pl.col("play_drive_protected_eligible") != False).height == 0)  # noqa: E712
+        check("source_before_cutoff", training.filter(pl.col(helpers.SOURCE_KNOWN_AT_FIELD) > pl.col("cutoff_utc")).height == 0)
+        check("protected_feature_false", training.filter(pl.col(helpers.PROTECTED_FIELD) != False).height == 0)  # noqa: E712
         check("feature_lineage_unique", features["feature_row_identity"].n_unique() == features.height)
         check("feature_columns", set(helpers.DIFFERENCE_FIELDS).issubset(training.columns))
 
@@ -104,7 +118,7 @@ def main() -> int:
     if forecast.height:
         check("forecast_hash", sha256_file(forecast_path) == manifest["forecast_payload"]["sha256"])
         check("forecast_rows", forecast.height == 5526 == manifest["forecast_payload"]["rows"])
-        check("forecast_families", set(forecast["model_id"].unique()) == {"play_drive_logistic_stacker", "play_drive_ridge_margin_stacker"})
+        check("forecast_families", set(forecast["model_id"].unique()) == {helpers.LOGISTIC_FAMILY, helpers.MARGIN_FAMILY})
         check("forecast_probability_bounds", forecast.filter((pl.col("home_win_probability") <= 0) | (pl.col("home_win_probability") >= 1)).height == 0)
         check("forecast_classification", set(forecast["classification"].unique()) == {helpers.CLASSIFICATION})
         check("forecast_dataset_identity", set(forecast["dataset_identity"].unique()) == {manifest["dataset_identity"]})
@@ -127,18 +141,21 @@ def main() -> int:
             estimator = payload["models_by_prediction_season"][prediction_season]
             selected = [row for row in training_rows if int(row["season"]) == prediction_season]
             expected = forecast.filter((pl.col("model_id") == family) & (pl.col("season") == prediction_season)).sort(["start_utc", "target_game_id"])
-            if family == "play_drive_logistic_stacker":
+            if family == helpers.LOGISTIC_FAMILY:
                 replay = estimator.predict_proba(matrix(selected, payload["feature_columns"]))[:, 1]
                 actual = expected["home_win_probability"].to_numpy()
             else:
                 replay = estimator.predict(matrix(selected, payload["feature_columns"]))
                 actual = expected["predicted_margin"].to_numpy()
             check(f"numerical_replay:{family}:{prediction_season}", bool(np.allclose(replay, actual, rtol=0, atol=1e-12)))
-    check("model_families", model_families == {"play_drive_logistic_stacker", "play_drive_ridge_margin_stacker"})
+    check("model_families", model_families == {helpers.LOGISTIC_FAMILY, helpers.MARGIN_FAMILY})
     for family, seasons in manifest["baseline_comparison"].items():
         check(f"comparison_rows:{family}", all(item["rows_equal"] for item in seasons.values()))
-    if manifest.get("prior_play_drive_comparison"):
-        for family, seasons in manifest["prior_play_drive_comparison"].items():
+    prior_comparison = manifest.get("prior_comparison", {}).get(
+        "metrics", manifest.get("prior_play_drive_comparison", {})
+    )
+    if prior_comparison:
+        for family, seasons in prior_comparison.items():
             check(
                 f"prior_comparison_rows:{family}",
                 all(item["rows_equal"] for item in seasons.values()),
@@ -172,7 +189,7 @@ def main() -> int:
     failures = [item for item in checks if item["result"] == "FAIL"]
     report = {
         "schema_version": "1.0.0",
-        "artifact_type": "PRELIMINARY_PLAY_DRIVE_AUGMENTED_VALIDATION",
+        "artifact_type": "PRELIMINARY_PROFILE_AUGMENTED_VALIDATION",
         "classification": helpers.CLASSIFICATION,
         "decision_unit": contract["decision_unit"],
         "run_identity": args.run_identity,

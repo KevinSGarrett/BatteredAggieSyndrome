@@ -21,7 +21,8 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-SUBTASK-171"
+    "POST-SUBTASK-171",
+    "POST-SUBTASK-187"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -121,9 +122,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24666",
-    "jira_updated_at": "2026-08-11T01:09:23.260-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T10:46:43.953-0500",
+    "last_synced_at": "2026-08-11T15:46:53.040406+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -271,6 +272,7 @@ Materialize separate feature, target, split, and training identities; train the 
 ## Blocks
 
 - POST-SUBTASK-171
+- POST-SUBTASK-187
 
 ## Read / Inspect First
 

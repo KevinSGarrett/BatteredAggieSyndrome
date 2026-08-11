@@ -4,6 +4,7 @@ import argparse
 from collections import Counter
 from datetime import datetime, timezone
 from hashlib import sha256
+import importlib
 import importlib.util
 import json
 import math
@@ -116,14 +117,14 @@ def fit_models(
         raise ValueError("2023, 2024, and 2025 rows are required")
     predictions: list[dict[str, Any]] = []
     model_specs = {
-        "play_drive_logistic_stacker": {
-            "family": "play_drive_logistic_stacker",
+        helpers.LOGISTIC_FAMILY: {
+            "family": helpers.LOGISTIC_FAMILY,
             "base_family": "regularized_logistic",
             "feature_columns": list(helpers.LOGISTIC_FEATURES),
             "models_by_prediction_season": {},
         },
-        "play_drive_ridge_margin_stacker": {
-            "family": "play_drive_ridge_margin_stacker",
+        helpers.MARGIN_FAMILY: {
+            "family": helpers.MARGIN_FAMILY,
             "base_family": "regularized_linear_margin",
             "feature_columns": list(helpers.MARGIN_FEATURES),
             "models_by_prediction_season": {},
@@ -153,16 +154,16 @@ def fit_models(
             "margin": int(row["margin"]),
             "total": int(row["total"]),
             "home_win_probability": helpers.safe_probability(probability),
-            "play_drive_source_known_at_utc": row["play_drive_source_known_at_utc"],
-            "play_drive_lineage_sha256": row["play_drive_lineage_sha256"],
+            helpers.SOURCE_KNOWN_AT_FIELD: row[helpers.SOURCE_KNOWN_AT_FIELD],
+            helpers.LINEAGE_FIELD: row[helpers.LINEAGE_FIELD],
         }
 
     for row in by_season[2023]:
-        logistic = common(row, "play_drive_logistic_stacker", row["baseline_logistic_probability"])
+        logistic = common(row, helpers.LOGISTIC_FAMILY, row["baseline_logistic_probability"])
         logistic["model_origin"] = "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS"
         logistic["fit_seasons"] = []
         predictions.append(logistic)
-        ridge = common(row, "play_drive_ridge_margin_stacker", row["baseline_margin_probability"])
+        ridge = common(row, helpers.MARGIN_FAMILY, row["baseline_margin_probability"])
         ridge["predicted_margin"] = float(row["baseline_margin"])
         ridge["model_origin"] = "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS"
         ridge["fit_seasons"] = []
@@ -197,9 +198,9 @@ def fit_models(
         logistic_probability = logistic.predict_proba(
             matrix(predict, helpers.LOGISTIC_FEATURES)
         )[:, 1]
-        model_specs["play_drive_logistic_stacker"]["models_by_prediction_season"][prediction_season] = logistic
+        model_specs[helpers.LOGISTIC_FAMILY]["models_by_prediction_season"][prediction_season] = logistic
         for row, value in zip(predict, logistic_probability):
-            item = common(row, "play_drive_logistic_stacker", float(value))
+            item = common(row, helpers.LOGISTIC_FAMILY, float(value))
             item["model_origin"] = "CHRONOLOGICAL_PRIOR_SEASON_FIT"
             item["fit_seasons"] = list(fit_seasons)
             predictions.append(item)
@@ -216,9 +217,9 @@ def fit_models(
             np.asarray([row["margin"] for row in fit], dtype=float),
         )
         predicted_margin = ridge.predict(matrix(predict, helpers.MARGIN_FEATURES))
-        model_specs["play_drive_ridge_margin_stacker"]["models_by_prediction_season"][prediction_season] = ridge
+        model_specs[helpers.MARGIN_FAMILY]["models_by_prediction_season"][prediction_season] = ridge
         for row, value in zip(predict, predicted_margin):
-            item = common(row, "play_drive_ridge_margin_stacker", helpers.sigmoid(float(value) / 14.0))
+            item = common(row, helpers.MARGIN_FAMILY, helpers.sigmoid(float(value) / 14.0))
             item["predicted_margin"] = float(value)
             item["model_origin"] = "CHRONOLOGICAL_PRIOR_SEASON_FIT"
             item["fit_seasons"] = list(fit_seasons)
@@ -296,8 +297,6 @@ def main() -> int:
     repo_root, data_root = args.repo_root.resolve(), args.data_root.resolve()
     output_root = args.output_data_root.resolve() if args.output_data_root else data_root
     sys.path.insert(0, str(repo_root / "src"))
-    from aggie_analytics.modeling import play_drive_augmented as helpers
-
     issued = datetime.fromisoformat(args.issued_at_utc.replace("Z", "+00:00"))
     if issued.tzinfo is None:
         raise ValueError("issued-at-utc must be timezone aware")
@@ -308,14 +307,22 @@ def main() -> int:
         else repo_root / "configs/preliminary_play_drive_augmented_contract.json"
     )
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    profile_module = str(contract.get("profile_module", "play_drive_augmented"))
+    if not re.fullmatch(r"[a-z][a-z0-9_]*", profile_module):
+        raise ValueError("profile module must be a safe module name")
+    helpers = importlib.import_module(f"aggie_analytics.modeling.{profile_module}")
     if contract["classification"] != helpers.CLASSIFICATION:
         raise ValueError("classification drift")
 
     authorized = contract["authorized_inputs"]
     baseline_run = str(authorized["baseline_run_identity"])
     baseline_manifest_sha = str(authorized["baseline_manifest_sha256"])
-    play_drive_feature_id = str(authorized["play_drive_feature_identity"])
-    play_drive_sha = str(authorized["play_drive_payload_sha256"])
+    profile_feature_id = str(
+        authorized.get("profile_feature_identity", authorized.get("play_drive_feature_identity"))
+    )
+    profile_sha = str(
+        authorized.get("profile_payload_sha256", authorized.get("play_drive_payload_sha256"))
+    )
     decision_unit = str(contract["decision_unit"])
     run_version = str(contract["run_version"])
     storage_namespace = str(contract.get("storage_namespace", "preliminary_play_drive_augmented"))
@@ -325,27 +332,35 @@ def main() -> int:
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]*-", stage_prefix):
         raise ValueError("stage prefix must contain only lowercase letters, digits, and hyphens")
     baseline_manifest_path = data_root / "manifests/preliminary_event_chronology/sha256" / baseline_run / "run_manifest.json"
-    play_drive_path = data_root / "features/historical_known_at/sha256" / play_drive_feature_id / "target_game_team_play_drive_features.parquet"
+    profile_relative = str(
+        contract.get(
+            "profile_payload_relative_path",
+            "features/historical_known_at/sha256/{profile_feature_identity}/target_game_team_play_drive_features.parquet",
+        )
+    ).format(profile_feature_identity=profile_feature_id)
+    profile_path = data_root / profile_relative
     if sha256_file(baseline_manifest_path) != baseline_manifest_sha:
         raise ValueError("pinned baseline manifest drift")
-    if sha256_file(play_drive_path) != play_drive_sha:
-        raise ValueError("pinned play/drive feature drift")
+    if sha256_file(profile_path) != profile_sha:
+        raise ValueError("pinned profile feature drift")
     baseline_manifest = json.loads(baseline_manifest_path.read_text(encoding="utf-8"))
-    prior_play_drive_manifest: dict[str, Any] | None = None
-    prior_play_drive_run = authorized.get("prior_play_drive_run_identity")
-    if prior_play_drive_run:
-        prior_play_drive_path = (
-            data_root
-            / "manifests/preliminary_play_drive_augmented/sha256"
-            / str(prior_play_drive_run)
-            / "run_manifest.json"
+    prior_manifest: dict[str, Any] | None = None
+    prior_run = authorized.get("prior_run_identity", authorized.get("prior_play_drive_run_identity"))
+    prior_contract = contract.get("prior_comparison", {})
+    if prior_run:
+        prior_relative = str(
+            prior_contract.get(
+                "manifest_relative_path",
+                "manifests/preliminary_play_drive_augmented/sha256/{run_identity}/run_manifest.json",
+            )
+        ).format(run_identity=prior_run)
+        prior_path = data_root / prior_relative
+        expected_prior_sha = str(
+            authorized.get("prior_manifest_sha256", authorized.get("prior_play_drive_manifest_sha256"))
         )
-        expected_prior_sha = str(authorized["prior_play_drive_manifest_sha256"])
-        if sha256_file(prior_play_drive_path) != expected_prior_sha:
-            raise ValueError("pinned prior play/drive manifest drift")
-        prior_play_drive_manifest = json.loads(
-            prior_play_drive_path.read_text(encoding="utf-8")
-        )
+        if sha256_file(prior_path) != expected_prior_sha:
+            raise ValueError("pinned prior comparison manifest drift")
+        prior_manifest = json.loads(prior_path.read_text(encoding="utf-8"))
     baseline_training_path = data_root / baseline_manifest["external_locations"]["training"] / "training_matrix.parquet"
     baseline_forecast_path = data_root / baseline_manifest["external_locations"]["forecast"] / "predictions.parquet"
     baseline_training = pl.read_parquet(baseline_training_path).filter(pl.col("season") >= 2023).sort(["start_utc", "target_game_id"])
@@ -357,7 +372,7 @@ def main() -> int:
         (str(row["model_id"]), str(row["target_game_id"])): row
         for row in baseline_predictions
     }
-    profiles = pl.read_parquet(play_drive_path).to_dicts()
+    profiles = pl.read_parquet(profile_path).to_dicts()
     profiles_by_game: dict[str, list[dict[str, Any]]] = {}
     for row in profiles:
         profiles_by_game.setdefault(str(row["game_id"]), []).append(row)
@@ -401,15 +416,15 @@ def main() -> int:
         "away_team_id", "baseline_logistic_probability", "baseline_logit",
         "baseline_logistic_model_identity", "baseline_margin_probability", "baseline_margin",
         "baseline_margin_model_identity", *helpers.DIFFERENCE_FIELDS, "home_profile_cold_start",
-        "away_profile_cold_start", "home_play_drive_source_known_at_utc",
-        "away_play_drive_source_known_at_utc", "play_drive_source_known_at_utc",
-        "play_drive_lineage_sha256", "feature_row_identity", "play_drive_protected_eligible",
+        "away_profile_cold_start", helpers.HOME_SOURCE_KNOWN_AT_FIELD,
+        helpers.AWAY_SOURCE_KNOWN_AT_FIELD, helpers.SOURCE_KNOWN_AT_FIELD,
+        helpers.LINEAGE_FIELD, "feature_row_identity", helpers.PROTECTED_FIELD,
     ]
     feature_payload_rows = [{name: row.get(name) for name in feature_columns} for row in features]
 
     code = {
         "contract_sha256": sha256_file(contract_path),
-        "module_sha256": sha256_file(repo_root / "src/aggie_analytics/modeling/play_drive_augmented.py"),
+        "module_sha256": sha256_file(repo_root / f"src/aggie_analytics/modeling/{profile_module}.py"),
         "runner_sha256": sha256_file(Path(__file__).resolve()),
         "validator_sha256": sha256_file(repo_root / "tools/validate_preliminary_play_drive_augmented.py"),
     }
@@ -435,10 +450,10 @@ def main() -> int:
             "baseline_target": baseline_manifest["target_identity"],
             "baseline_split": baseline_manifest["split_identity"],
             "baseline_forecast": baseline_manifest["forecast_identity"],
-            "play_drive_feature": play_drive_feature_id,
+            "profile_feature": profile_feature_id,
         }
-        if prior_play_drive_run:
-            input_identities["prior_play_drive_run"] = str(prior_play_drive_run)
+        if prior_run:
+            input_identities["prior_comparison_run"] = str(prior_run)
         dataset_identity = helpers.stable_hash(
             {
                 "run_version": run_version,
@@ -454,7 +469,7 @@ def main() -> int:
             {
                 "dataset_identity": dataset_identity,
                 "feature_columns": list(helpers.LOGISTIC_FEATURES),
-                "play_drive_feature": play_drive_feature_id,
+                "profile_feature": profile_feature_id,
             }
         )
         target_identity = helpers.stable_hash(
@@ -516,7 +531,7 @@ def main() -> int:
             for family in sorted(model_identities)
         }
         frozen_rows = {
-            "play_drive_logistic_stacker": [
+            helpers.LOGISTIC_FAMILY: [
                 {
                     **row,
                     "home_win_probability": float(row["baseline_logistic_probability"]),
@@ -526,7 +541,7 @@ def main() -> int:
                 }
                 for row in rows
             ],
-            "play_drive_ridge_margin_stacker": [
+            helpers.MARGIN_FAMILY: [
                 {
                     **row,
                     "home_win_probability": float(row["baseline_margin_probability"]),
@@ -555,13 +570,15 @@ def main() -> int:
                 comparison[family][str(season)] = item
 
         prior_comparison: dict[str, Any] = {}
-        if prior_play_drive_manifest is not None:
+        if prior_manifest is not None:
+            family_map = prior_contract.get("family_map", {})
             for family in sorted(model_identities):
                 prior_comparison[family] = {}
+                prior_family = str(family_map.get(family, family))
                 for season in (2023, 2024, 2025):
                     slice_id = f"SEASON_{season}_ALL"
                     candidate = metric_row(metrics[family], slice_id)
-                    prior = metric_row(prior_play_drive_manifest["metrics"][family], slice_id)
+                    prior = metric_row(prior_manifest["metrics"][prior_family], slice_id)
                     item = {
                         "rows_equal": candidate["probability"]["rows"]
                         == prior["probability"]["rows"],
@@ -628,10 +645,14 @@ def main() -> int:
             "metrics": metrics,
             "frozen_baseline_metrics": frozen_metrics,
             "baseline_comparison": comparison,
-            "prior_play_drive_comparison": prior_comparison,
+            "prior_comparison": {
+                "label": prior_contract.get("label", "prior_play_drive"),
+                "run_identity": str(prior_run) if prior_run else None,
+                "metrics": prior_comparison,
+            },
             "diagnostics": diagnostics,
             "leakage_validation": {
-                "target_game_outcome_in_play_drive_evidence": 0,
+                "target_game_outcome_in_profile_evidence": 0,
                 "source_known_at_after_target_cutoff": 0,
                 "target_or_future_season_outcomes_in_fit": 0,
                 "outcome_targets_materialized_separately": "PASS",
@@ -675,7 +696,7 @@ def main() -> int:
             "model_identities": model_identities,
             "population": manifest["population"],
             "baseline_comparison": comparison,
-            "prior_play_drive_comparison": prior_comparison,
+            "prior_comparison": manifest["prior_comparison"],
         }
         payload = json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n"
         if args.summary_path:

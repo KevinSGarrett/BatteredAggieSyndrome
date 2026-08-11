@@ -109,6 +109,7 @@ artifacts/jira_evidence/POST-SUBTASK-167.json
 artifacts/jira_evidence/POST-SUBTASK-168.json
 artifacts/jira_evidence/POST-SUBTASK-169.json
 artifacts/jira_evidence/POST-SUBTASK-170.json
+artifacts/jira_evidence/POST-SUBTASK-171.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -1334,6 +1335,7 @@ jira/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_official_te
 jira/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.md
 jira/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.md
 jira/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.md
+jira/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_rankings_pit_features.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1834,6 +1836,7 @@ jira/records/issues/subtasks/POST-SUBTASK-167_compare_governed_extraction_of_off
 jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json
 jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json
 jira/records/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.json
+jira/records/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_rankings_pit_features.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2326,6 +2329,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-167.json
 jira/sources/issue_source_manifests/POST-SUBTASK-168.json
 jira/sources/issue_source_manifests/POST-SUBTASK-169.json
 jira/sources/issue_source_manifests/POST-SUBTASK-170.json
+jira/sources/issue_source_manifests/POST-SUBTASK-171.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2796,6 +2800,7 @@ src/aggie_analytics/modeling/ensemble.py
 src/aggie_analytics/modeling/forecast.py
 src/aggie_analytics/modeling/joint.py
 src/aggie_analytics/modeling/preliminary.py
+src/aggie_analytics/modeling/preliminary_rankings.py
 src/aggie_analytics/modeling/registry.py
 src/aggie_analytics/modeling/runtime.py
 src/aggie_analytics/modeling/simulation.py
@@ -2965,6 +2970,7 @@ tools/run_openai_depth_chart_pilot.py
 tools/run_openai_entity_review_pilot.py
 tools/run_openai_gamebook_pilot.py
 tools/run_openai_quarantine_pilot.py
+tools/run_preliminary_rankings_augmented_baselines.py
 tools/run_preliminary_unprotected_baselines.py
 tools/run_product.py
 tools/run_reference_feature_tournament.py
@@ -2995,6 +3001,7 @@ tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_openai_assist.py
 tools/validate_player_intelligence.py
+tools/validate_preliminary_rankings_augmented_baselines.py
 tools/validate_preliminary_unprotected_baselines.py
 tools/validate_product_supply_chain.py
 tools/validate_repository.py

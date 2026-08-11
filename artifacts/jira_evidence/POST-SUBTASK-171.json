@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
+  "local_id": "POST-SUBTASK-171",
+  "jira_key": "PENDING_LIVE_SYNCHRONIZATION",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "issue_disposition": "DONE_VERIFIED_LOCAL_PENDING_LIVE_JIRA_SYNC",
+  "achieved_maturity": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+  "evidence_state": "VERIFIED",
+  "input_identities": {
+    "baseline_run": "3977b720c69dc75559b1f18ed5ab665ab2262e64fe97dc74dd9668ac09604d08",
+    "baseline_dataset": "f4e6d55b9593d217ddb003a6bb0b852a5e651b25d29a6738c274a15430909f29",
+    "team_outcome_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "rankings_pit_run": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+    "rankings_features": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "rankings_features_sha256": "f7bade2b2653df3c4f82927beaf3ba7dc254c6bb8487849f980a2eac6f0c3a4e"
+  },
+  "output_identities": {
+    "run": "90d42825e13e3f8e62b7273d2d9f5c2047d1f760122a2c1b07a14d606d2f2c8a",
+    "manifest_sha256": "490b5723f4ad7d399ed4f4be5feeb17e20b159085ee12c3c9373f978b4e28919",
+    "dataset": "5c7b382c10ee2080e6bdf03a435a3f9990a2274cbee5911c601c7b3c2a7c5022",
+    "features": "fcab4dd105eab0af01967c722fedf2c803b1445a16e8934f331e67def4a80824",
+    "targets": "60e5cb3caac26b8dcbd87eedaddac0e385d8c4dc59e0b471c9ff9fdac8a7066d",
+    "splits": "2ce796b0063401202ba88cfbb995d6f435f68b0e94665a747350bbfaac268658",
+    "forecast": "45d046843d16d6657e209ace50b3ea56ecbf184b7e9c0f6b22424d6e09e69008"
+  },
+  "code_identities": {
+    "module_sha256": "5d2df177786ff9fb2161d7cbef7e48bd17152b96fa4f41087d7765cb88ad6fff",
+    "runner_sha256": "50830fe1682b06d9d306e1583a3fc7dddc4e16d76c2bb41bd58452cc6ee13938",
+    "validator_sha256": "aa88de7ee127be4057ba3647b1d281901ff914fc18e0d80c5d4ebc08e312a604",
+    "contract_sha256": "f168c1642694999417f9ea2491deccd319999118f2e9269787e899c6eaa754fb"
+  },
+  "population": {
+    "feature_games": 2764,
+    "labeled_games": 2763,
+    "feature_count": 14,
+    "target_seasons": [2023, 2024, 2025],
+    "both_numeric_rank_games": {"2023": 50, "2024": 52, "2025": 51},
+    "eligible_poll_games": {"2023": 815, "2024": 820, "2025": 838},
+    "rank_diff_missing": 2611,
+    "unmatched_games": 0
+  },
+  "payloads": [
+    {"name":"feature_matrix.parquet","rows":2764,"sha256":"8d668c7423bcb24a4aeff54fa03b494e3e7377d5eee5e33ca42ea05ac1cbe180"},
+    {"name":"outcome_targets.parquet","rows":2763,"sha256":"d9e49d903b83759b31c6169891aa9e3183f63a1cd2263d03a3a0b0745a79d0bb"},
+    {"name":"split_assignments.parquet","rows":2764,"sha256":"e1f25169ac8752621bac33c613d5c1aaf0c10b4f85750cee3bc676fb16db91e6"},
+    {"name":"training_matrix.parquet","rows":2763,"sha256":"5f569ffec4842d31e4cf9adfd686a8d2aaca89e9b22a397d0a7462a0cf2db668"},
+    {"name":"predictions.parquet","rows":14791,"sha256":"be41a74a5412d36daf87432141135ae4a6ef9e4b473ccc243a1fe06f58cf8bf6"}
+  ],
+  "model_identities": {
+    "naive_historical_average":"77b92017e5c22e65a20cf74490beadbecf99183ddd94a9acccc87bce658f1887",
+    "home_field_empirical":"66ffd088d42103d89c40ef77dee190606dea36a814252994f5be3aac3d605953",
+    "elo_rating":"dfccdbcf67d1584ad32cc048f8a183ed5b58860a36b9e255f696747f8cabf77c",
+    "regularized_logistic":"713ebeab8639140b2ddb83762a730589e0a35b2452f9c045deafd4d352d62746",
+    "regularized_linear_margin":"86587b49d3ccb84f9583c55e6afb25462ddfcc5df16a156c54784169278c2127",
+    "poisson_skellam_score_distribution":"ec0bb6f306f88e1b0f600ce59f2409104166bf8218c36bf6cc6fff9cb6abc8be",
+    "hist_gradient_boosting":"bd0cb5a75434c895f789ebcc3058ed90142a2710f626cbdb215ec29e2eb2a95e"
+  },
+  "selected_2025_metrics": {
+    "elo_rating":{"brier":0.17893887818892096,"log_loss":0.5319473434763387},
+    "regularized_logistic":{"brier":0.18847909169391652,"log_loss":0.5543430838910608},
+    "regularized_linear_margin":{"brier":0.18990684440639527,"log_loss":0.5593933701429279,"margin_mae":14.505210074376143},
+    "poisson_skellam_score_distribution":{"brier":0.20927353247777034,"log_loss":0.7304012863234544,"margin_mae":14.510466835495063,"total_mae":13.083376783747905},
+    "hist_gradient_boosting":{"brier":0.19015484775178876,"log_loss":0.5595146097882671}
+  },
+  "paired_2025_findings": {
+    "controls_unchanged": ["naive_historical_average","home_field_empirical","elo_rating"],
+    "feature_using_models_improved_brier_and_log_loss": true,
+    "best_brier_delta": -0.03135927531921351,
+    "best_log_loss_delta": -0.09360369850831485,
+    "disposition": "PROMISING_PRELIMINARY_DIAGNOSTIC_REQUIRES_EXPANDED_HISTORY_AND_PROTECTED_VALIDATION"
+  },
+  "validation": {
+    "independent_checks_passed": 47,
+    "independent_checks_failed": 0,
+    "validation_report_sha256": "1742f9133bdcf9b3e3b336e564067dc0d9bb7da7d2537260452028df1905ebd8",
+    "deterministic_rebuild_identity_match": true,
+    "rebuild_checks_passed": 47,
+    "full_test_suite": {"passed": 371, "skipped": 3, "subtests_passed": 83, "failed": 0},
+    "unittest_suite": {"passed": 368, "skipped": 3, "failed": 0},
+    "repository_strict_validator": "PASS",
+    "jira_strict_validator": "PASS",
+    "jira_second_pass_audit": "PASS",
+    "target_game_exclusion": "PASS",
+    "future_rankings_exclusion": "PASS",
+    "protected_split_opened": false
+  },
+  "external_locations": {
+    "training":"<external-data-root>/training/preliminary_unprotected/sha256/5c7b382c10ee2080e6bdf03a435a3f9990a2274cbee5911c601c7b3c2a7c5022",
+    "models":"<external-data-root>/model_artifacts/preliminary_unprotected/sha256/<model_identity>",
+    "forecast":"<external-data-root>/forecast_snapshots/preliminary_unprotected/sha256/45d046843d16d6657e209ace50b3ea56ecbf184b7e9c0f6b22424d6e09e69008",
+    "manifest":"<external-data-root>/manifests/preliminary_unprotected/sha256/90d42825e13e3f8e62b7273d2d9f5c2047d1f760122a2c1b07a14d606d2f2c8a/run_manifest.json",
+    "validation":"<external-data-root>/validation/POST-SUBTASK-171"
+  },
+  "negative_findings": [
+    "Only 153 of 2,764 feature games have numeric ranks for both teams; 2,611 rank differences remain missing.",
+    "No unranked numeric value is fabricated; fit-only median imputation is accompanied by explicit evidence indicators.",
+    "Improvement is preliminary, unprotected, and measured on the same narrow 2023-2025 population.",
+    "Elo remains the strongest raw 2025 Brier baseline despite the rankings lift in feature-using models."
+  ],
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  },
+  "cleanup": {
+    "superseded_prevalidator_run_removed": true,
+    "superseded_external_directories_removed": 10,
+    "reconstructible_rebuild_root_removed": true,
+    "superseded_validation_files_removed": 1,
+    "bytes_recovered": 3890984,
+    "authoritative_v2_payloads_and_reports_preserved": true
+  },
+  "rollback": {
+    "bundle":"<external-data-root>/backups/POST-SUBTASK-171-rankings-augmented-preliminary/before-rankings-augmented-preliminary.bundle",
+    "bundle_sha256":"74ba766c2fdb7834481ab6ab73a30cbc6ff1ed249bd68765353d34707716c2be"
+  }
+}

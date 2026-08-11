@@ -1,215 +1,204 @@
-# Battered Aggie Syndrome
+<p align="center">
+  <picture>
+    <source media="(max-width: 700px)" srcset="docs/assets/readme/hero-mobile.svg">
+    <img src="docs/assets/readme/hero.svg" width="100%" alt="Battered Aggie Syndrome — a point-in-time college-football forecasting research engine">
+  </picture>
+</p>
 
-### The Aggie Analytics Engine
+<h1 align="center">Battered Aggie Syndrome</h1>
 
-[![repository-ci](https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/ci.yml/badge.svg)](https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/ci.yml)
-[![security-analysis](https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/security.yml/badge.svg)](https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/security.yml)
+<p align="center">
+  <strong>The Aggie Analytics Engine</strong><br>
+  A local-first research system for national college-football forecasting, high-resolution Texas A&amp;M analysis, and one gloriously testable question:
+  <br><br>
+  <em>Is Battered Aggie Syndrome statistically distinguishable from ordinary college-football variance?</em>
+</p>
 
-> A local-first college-football forecasting and research engine built to answer the question every Aggie has asked by the fourth quarter:
->
-> **“Was that actually improbable, or have I simply attended Texas A&M long enough?”**
+<p align="center">
+  <a href="#architecture"><img alt="Explore the architecture" src="https://img.shields.io/badge/EXPLORE-ARCHITECTURE-500000?style=for-the-badge&labelColor=1B1B1B"></a>
+  <a href="#quick-start"><img alt="Run locally" src="https://img.shields.io/badge/START-RUN_LOCALLY-500000?style=for-the-badge&labelColor=1B1B1B"></a>
+  <a href="#scientific-contract"><img alt="Read the scientific contract" src="https://img.shields.io/badge/READ-SCIENTIFIC_CONTRACT-500000?style=for-the-badge&labelColor=1B1B1B"></a>
+  <a href="#project-status"><img alt="View project status" src="https://img.shields.io/badge/VIEW-PROJECT_STATUS-500000?style=for-the-badge&labelColor=1B1B1B"></a>
+</p>
 
-Battered Aggie Syndrome is a serious probabilistic sports-analytics project wrapped around a deeply unserious coping mechanism. It builds national college-football models, adds a higher-resolution Texas A&M specialization layer, and scientifically tests whether the Aggies underperform neutral pregame expectations more often—or more spectacularly—than comparable programs.
+<p align="center">
+  <a href="pyproject.toml"><img alt="Python 3.11 through 3.13" src="https://img.shields.io/badge/Python-3.11%E2%80%933.13-500000?style=flat-square&logo=python&logoColor=white"></a>
+  <a href="src/aggie_analytics"><img alt="Polars analytics" src="https://img.shields.io/badge/Polars-Analytics-500000?style=flat-square&logo=polars&logoColor=white"></a>
+  <a href="src/aggie_analytics/modeling"><img alt="scikit-learn modeling" src="https://img.shields.io/badge/scikit--learn-Modeling-500000?style=flat-square&logo=scikitlearn&logoColor=white"></a>
+  <a href="requirements/product.lock"><img alt="FastAPI optional product adapter" src="https://img.shields.io/badge/FastAPI-Optional_Adapter-500000?style=flat-square&logo=fastapi&logoColor=white"></a>
+  <a href="docs/operations/LOCAL_RUNTIME_PATHS.md"><img alt="Apache Parquet external data lake" src="https://img.shields.io/badge/Parquet-Data_Lake-500000?style=flat-square&logo=apacheparquet&logoColor=white"></a>
+  <a href="scripts"><img alt="PowerShell operations" src="https://img.shields.io/badge/PowerShell-Operations-500000?style=flat-square&logo=powershell&logoColor=white"></a>
+  <a href=".github/workflows"><img alt="GitHub Actions automation" src="https://img.shields.io/badge/GitHub_Actions-Automation-500000?style=flat-square&logo=githubactions&logoColor=white"></a>
+</p>
 
-The system does not begin with the assumption that Texas A&M is cursed. It begins with immutable data, chronological evaluation, and a null hypothesis. The curse must earn promotion through the same protected validation gates as everything else.
+<p align="center">
+  <img alt="Local-first" src="https://img.shields.io/badge/LOCAL--FIRST-WINDOWS_%2B_CROSS--PLATFORM_CI-D6D3C4?style=flat-square&labelColor=500000&color=D6D3C4">
+  <img alt="Point-in-time guarded" src="https://img.shields.io/badge/PIT_GUARD-TARGET--GAME_EXCLUDED-D6D3C4?style=flat-square&labelColor=500000&color=D6D3C4">
+  <img alt="Baseline first" src="https://img.shields.io/badge/MODELING-BASELINES_BEFORE_COMPLEXITY-D6D3C4?style=flat-square&labelColor=500000&color=D6D3C4">
+  <img alt="Null results welcome" src="https://img.shields.io/badge/SCIENCE-NULL_RESULTS_WELCOME-D6D3C4?style=flat-square&labelColor=500000&color=D6D3C4">
+</p>
 
-## The one-sentence version
+---
 
-This project turns historical college-football data into point-in-time-correct team and player state, produces coherent probabilistic forecasts, and measures **BAS** as the difference between what a neutral pregame model expected from Texas A&M and what actually happened.
+> **No curse is assumed.** The engine starts with immutable evidence, a neutral national expectation, and a null hypothesis. If the data cannot support “Aggie Excess,” the correct result is no effect.
 
-## Why this exists
+## At a glance
 
-College-football prediction is difficult for all the usual reasons: sparse seasons, constant roster turnover, coaching changes, injuries, uneven schedules, changing conferences, limited historical availability, and a suspicious number of games played by 19-year-olds in front of 100,000 emotionally stable adults.
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h3>National foundation</h3>
+      Learns college-football behavior across teams, seasons, schedules, and regimes to create a neutral pregame expectation.
+    </td>
+    <td width="33%" valign="top">
+      <h3>A&amp;M specialization</h3>
+      Adds deeper Texas A&amp;M evidence only when it improves on the unchanged national forecast under chronological evaluation.
+    </td>
+    <td width="33%" valign="top">
+      <h3>BAS science</h3>
+      Measures expectation-relative shortfall, tail severity, peer context, and stability without letting folklore become a feature.
+    </td>
+  </tr>
+</table>
 
-Texas A&M adds a particularly interesting research question:
+The result is not merely a predictor. It is an evidence system designed to answer *what was knowable before kickoff, what did the model expect, what actually happened, and how unusual was the gap?*
 
-- Is the program genuinely more volatile than its peers?
-- Does it underperform expectations at an unusual rate?
-- Are the painful outcomes explainable by opponent strength, roster state, coaching regimes, game context, or ordinary variance?
-- Is “Battered Aggie Syndrome” measurable—or just a highly developed cultural reflex?
+## Why this project is different
 
-Rather than hard-code the folklore, this project tests it.
+| Principle | What it means here |
+|---|---|
+| **Time is a first-class feature** | Every observation has source, event, capture, and known-at semantics. A current page cannot silently backfill historical knowledge. |
+| **The target game is off-limits** | A game cannot train, tune, calibrate, or leak into its own pregame forecast. |
+| **Forecasts must agree with themselves** | Win probability, score, margin, total, and uncertainty are derived from coherent distributions—not unrelated guesses. |
+| **Complexity must earn promotion** | Historical averages, home-field rules, Elo, regularized models, and score distributions establish the floor before boosting or neural challengers. |
+| **Evidence is reproducible** | Raw captures, matrices, models, and forecast snapshots are immutable, content-addressed, and connected by provenance. |
+| **The null result is a valid result** | Texas A&amp;M specialization may resolve to no adjustment; BAS may resolve to no stable excess effect. Both outcomes are scientifically acceptable. |
+
+## Architecture
+
+<p align="center">
+  <picture>
+    <source media="(max-width: 700px)" srcset="docs/assets/readme/system-map-mobile.svg">
+    <img src="docs/assets/readme/system-map.svg" width="100%" alt="Seven-stage system map from immutable source capture to forecast publication">
+  </picture>
+</p>
+
+The engine is organized around seven explicit transitions:
+
+1. **Capture** public source evidence without mutating the original payload.
+2. **Resolve** stable team, game, player, coach, venue, and source identities.
+3. **Replay** only the state known before a forecast cutoff.
+4. **Model** with interpretable baselines before bounded challengers.
+5. **Calibrate** coherent win, score, margin, total, and uncertainty distributions.
+6. **Specialize** for Texas A&amp;M against a mandatory no-adjustment reference.
+7. **Publish** immutable, read-only forecast snapshots for product surfaces.
+
+Bulk data and runtime artifacts remain outside Git under `AGGIE_ANALYTICS_DATA_ROOT`. The repository holds the code, contracts, schemas, prompts, validators, small evidence artifacts, and documentation required to reproduce those transitions.
 
 ## BAS, quantified
 
-For a Texas A&M game, the primary residual is:
+For a Texas A&amp;M game, the neutral national model produces a pregame expected margin. BAS is measured from the residual—not from wins, losses, vibes, or message-board temperature.
 
 ```text
-performance residual = actual A&M margin - expected A&M margin
+performance residual = actual A&M margin − expected A&M margin
+BAS shortfall        = expected A&M margin − actual A&M margin
 ```
 
-The corresponding shortfall is:
+<p align="center">
+  <picture>
+    <source media="(max-width: 700px)" srcset="docs/assets/readme/bas-spectrum-mobile.svg">
+    <img src="docs/assets/readme/bas-spectrum.svg" width="100%" alt="BAS shortfall thresholds at 3, 7, 14, and 21 points">
+  </picture>
+</p>
 
-```text
-BAS shortfall = expected A&M margin - actual A&M margin
-```
+The 7-point shortfall is the headline BAS event. The 3-, 14-, and 21-point levels preserve mild, severe, and extreme tail behavior. Human-facing labels may be funny; the calculation is not.
 
-The expectation must be generated before the game by a BAS-independent national model, using only information that was actually available at the forecast cutoff. The target game cannot train, tune, or otherwise leak into its own expectation.
+## The qualitative model — for humans only
 
-The protected BAS severity thresholds are 3, 7, 14, and 21 points. The 7-point shortfall is the headline event.
+<p align="center">
+  <img src="docs/assets/readme/aggie-emotional-rollercoaster.png" width="72%" alt="A humorous illustrated roller coaster of maroon-clad college-football fans moving from celebration to anxiety inside a stadium">
+</p>
 
-| Shortfall | Scientific interpretation | Completely unscientific Aggie translation |
-|---:|---|---|
-| 3+ | Mild underperformance | “That feels familiar.” |
-| 7+ | Headline BAS event | “Here we go.” |
-| 14+ | Severe BAS event | “Do not open the group chat.” |
-| 21+ | Extreme BAS event | “Tradition has entered the model.” |
+<p align="center">
+  <strong>At kickoff: optimism. At halftime: variance. By the fourth quarter: the protected holdout.</strong><br>
+  <sub>Owner-supplied AI illustration. Cultural context only—never a feature, label, prior, or source of model truth.</sub>
+</p>
 
-Those jokes are labels for humans, not model inputs. The system does not train on vibes, message-board despair, yell intensity, or how early someone muttered “I’ve seen this movie before.”
+## Scientific contract
 
-## What the system does
+The project treats forecasting claims as earned privileges:
 
-The intended end-to-end system:
+- **No future leakage.** A forecast uses only evidence available at its cutoff.
+- **No target leakage.** Outcomes and outcome-derived fields are isolated from pregame features.
+- **No fabricated completeness.** Missing, contradictory, or timestamp-unknown evidence remains missing, conditional, or quarantined.
+- **No name-only identity merges.** Entity resolution must retain source evidence and pass deterministic identity controls.
+- **Chronology over random splits.** Development, tuning, replay, and protected evaluation preserve real forecasting order.
+- **Protected rules stay protected.** Models cannot move the split, metric, threshold, or promotion gate to improve their own score.
+- **Candidate means candidate.** Assistive AI, research automation, and experimental features cannot directly alter canonical truth or champion state.
+- **No narrative rescue.** A preferred model, feature, or Aggie story can be rejected by the evidence.
 
-1. Acquires national historical college-football data and preserves the exact source payloads.
-2. Normalizes teams, games, players, coaches, venues, conferences, and source identities.
-3. Builds point-in-time (PIT) state containing only information known before each prediction.
-4. Creates versioned features for team strength, efficiency, roster state, continuity, context, weather, market information, and other evidence-supported domains.
-5. Trains simple, interpretable baselines before evaluating more complex challengers.
-6. Produces coherent score, margin, win, total, uncertainty, and BAS-related distributions.
-7. Evaluates models chronologically through walk-forward and protected holdout protocols.
-8. Adds a Texas A&M specialization layer only if it improves upon the unchanged national forecast.
-9. Publishes immutable forecast snapshots for read-only API and dashboard consumption.
+Read the full [validation and protected-split contract](docs/56_VALIDATION_AND_PROTECTED_SPLITS.md) and [source-of-truth map](governance/SOURCE_OF_TRUTH_MAP.md).
 
-## How it works
+## Project status
 
-```mermaid
-flowchart LR
-    A["Source APIs, archives, and public data"] --> B["Immutable raw snapshots"]
-    B --> C["Canonical identities and observations"]
-    C --> D["Point-in-time state"]
-    D --> E["Versioned features and training matrices"]
-    E --> F["National baseline and challenger models"]
-    F --> G["Calibration, uncertainty, and ensembles"]
-    G --> H["Texas A&M specialization"]
-    H --> I["BAS and Aggie Excess tests"]
-    G --> J["Immutable forecast snapshots"]
-    I --> J
-    J --> K["Read-only API and dashboard"]
-```
+> [!IMPORTANT]
+> The architecture and starter system are extensive; the scientific conclusions are intentionally unfinished. Historical materialization and chronological replay are active. Existing real-data baseline artifacts are **preliminary and unprotected** unless an artifact explicitly proves a stronger eligibility class.
 
-### 1. National foundation
+### Built and exercised
 
-The national model learns broad college-football behavior across teams and seasons. This provides the neutral expectation required to distinguish “an unusual Aggie outcome” from “college football happened again.”
+- immutable source snapshots, content hashes, and provenance manifests;
+- canonical identity and point-in-time gateway interfaces;
+- real historical acquisition, reconciliation, and domain-specific eligibility gates;
+- feature lifecycle, missingness, leakage, and replay controls;
+- historical-average, home-field, Elo, regularized, score-distribution, and bounded boosting baseline paths;
+- calibration, ensemble, uncertainty, A&amp;M specialization, and BAS interfaces;
+- governed experiment identity, replay, queue, and promotion machinery;
+- snapshot-only API and static dashboard boundaries;
+- local operations, Jira evidence synchronization, repository integrity, CodeQL, and dependency controls.
 
-### 2. Texas A&M specialization
+### Explicitly not claimed
 
-A higher-resolution A&M layer can use deeper roster, staff, availability, venue, matchup, and program-regime evidence. It must always be compared with the unchanged national forecast. If specialization does not provide reproducible lift, the correct adjustment is no adjustment.
-
-### 3. Coherent forecasting
-
-Win probability, team scores, margin, total, and BAS probabilities cannot be contradictory independent guesses. The model layer is designed around coherent score and margin distributions from which related forecast quantities are derived.
-
-### 4. Protected evaluation
-
-Models are developed and judged chronologically. Protected periods cannot be used to tune features, select hyperparameters, move thresholds, or rescue a preferred story. A model advances because the evidence says so—not because its output looks especially good next to a maroon PowerPoint template.
-
-## Model strategy
-
-The project is deliberately baseline-first:
-
-| Model family | Role |
-|---|---|
-| Historical and home-rate baselines | Establish the minimum sanity floor |
-| Elo | Maintain interpretable, continuously updated team-strength ratings |
-| Logistic regression / GLMs | Produce explainable win and margin baselines |
-| Poisson / Skellam score models | Produce coherent score and margin distributions |
-| Gradient-boosted trees | Capture nonlinear effects and feature interactions |
-| Calibrated ensembles | Combine independently useful models without mixing incompatible forecast lanes |
-| Small neural models | Optional challengers that must beat strong tabular baselines to justify their complexity |
-
-No model family is declared the winner in advance. XGBoost, LightGBM, CatBoost, scikit-learn boosting, PyTorch, Bayesian, hierarchical, and distributional approaches are candidates—not articles of faith.
-
-## Feature selection and “what matters”
-
-The engine is designed to find useful predictors through chronological evidence rather than intuition alone. Candidate features can be examined through:
-
-- missingness and computability analysis;
-- variance and correlation screening;
-- mutual information;
-- permutation importance;
-- feature-family ablation;
-- interaction and redundancy analysis;
-- stability across seasons, regimes, teams, and A&M/peer slices;
-- calibration and out-of-distribution behavior;
-- protected walk-forward performance.
-
-A feature is not promoted merely because it has an impressive chart or a football-sounding name. It must be point-in-time safe, reproducible, sufficiently available, and useful beyond the period in which it was discovered.
-
-## Data integrity rules
-
-The core invariants are intentionally strict:
-
-- **No future leakage.** A forecast may use only evidence known at its cutoff.
-- **No target-game leakage.** A game’s outcome cannot participate in its own features or expectation.
-- **Immutable evidence.** Raw captures, derived matrices, model artifacts, and forecasts are content-addressed or versioned.
-- **Stable identity.** Teams, games, players, coaches, venues, and source records retain canonical IDs and provenance.
-- **No fabricated values.** Missing historical evidence remains missing, conditional, or quarantined.
-- **Chronological validation.** Random train/test splits do not substitute for real forecasting chronology.
-- **Null results are valid.** The project must be able to conclude that Aggie Excess is not statistically supported.
-
-## Data and storage architecture
-
-Large data lives outside Git under `AGGIE_ANALYTICS_DATA_ROOT`:
-
-```text
-RAW
-  -> QUARANTINE
-  -> CANONICAL
-  -> PIT_STATE
-  -> FEATURES
-  -> TRAINING
-  -> MODEL_ARTIFACTS
-  -> FORECAST_SNAPSHOTS
-```
-
-The repository contains code, schemas, contracts, validators, manifests, small fixtures, and documentation. Bulk source payloads, training matrices, experiment stores, and model binaries remain outside the repository.
-
-The preferred local analytical design uses native immutable raw files, partitioned Parquet, and local columnar processing. DuckDB and Polars are preferred candidates where their SQL, lazy, or streaming execution creates measurable value. PostgreSQL and distributed infrastructure remain optional until a real workload justifies them.
-
-## Technical stack
-
-- **Language:** Python 3.11–3.13; Python 3.12 preferred
-- **Execution:** Local-first Windows development, cross-platform CI
-- **Storage:** Content-addressed files, JSON/CSV manifests, partitioned Parquet
-- **Analytics:** Polars and DuckDB-oriented local analytical boundary
-- **Baseline ML:** scikit-learn-compatible GLMs and boosting candidates
-- **Advanced candidates:** XGBoost, LightGBM, CatBoost, statsmodels, PyTorch
-- **Experiment tracking:** Aggie-owned immutable evidence with optional MLflow adapter
-- **Hyperparameter optimization:** Bounded development-only searches with optional Optuna adapter
-- **Serving:** Immutable snapshots through an optional FastAPI adapter and static dashboard
-- **Quality:** Unit tests, strict repository validation, leakage gates, schema checks, replay tests, CodeQL, and dependency auditing
-
-Optional libraries remain replaceable adapters. MLflow cannot declare a champion, Optuna cannot inspect protected outcomes, and the dashboard cannot secretly retrain the model because somebody refreshed the page aggressively.
-
-## Current maturity
-
-The 25-wave architecture and starter-build program is complete. Post-wave implementation is now materializing and validating real historical data before empirical model training.
-
-Already present:
-
-- immutable source-snapshot and provenance contracts;
-- canonical identity and PIT interfaces;
-- feature lifecycle and screening machinery;
-- baseline, joint-score, calibration, ensemble, uncertainty, and BAS interfaces;
-- experiment identity, replay, queue, tournament, and promotion governance;
-- weekly orchestration and immutable publication starters;
-- snapshot-only API and dashboard boundaries;
-- extensive synthetic, governance, packaging, and security validation.
-
-Not yet claimed:
-
+- final national historical-population completeness;
 - a trained production champion;
-- protected real-world performance metrics;
+- protected real-world performance;
 - a production feature set;
-- proven Texas A&M specialization lift;
+- proven Texas A&amp;M specialization lift;
 - a statistically supported BAS or Aggie Excess effect;
 - profitable wagering performance;
-- production-ready advanced neural, graph, or live-game modeling.
+- production-ready neural, graph, or live-game modeling.
 
-That boundary is deliberate. This repository would rather admit that the model is not trained yet than hang a national championship banner for a backtest.
+That honesty boundary is part of the product. This repository would rather publish a null result than hang a national-championship banner for a backtest.
 
-See [the final implementation priority](docs/final/FINAL_IMPLEMENTATION_PRIORITY.md), [known gaps](docs/final/FINAL_KNOWN_GAPS.md), and [component maturity table](docs/final/FINAL_COMPONENT_MATURITY.csv) for the detailed handoff state.
+See the [component maturity matrix](docs/final/FINAL_COMPONENT_MATURITY.csv), [known gaps](docs/final/FINAL_KNOWN_GAPS.md), and [implementation priority](docs/final/FINAL_IMPLEMENTATION_PRIORITY.md).
+
+## Model ladder
+
+| Stage | Model family | Purpose |
+|---:|---|---|
+| 01 | Historical and home-field baselines | Establish the minimum sanity floor and cold-start behavior |
+| 02 | Elo / rating systems | Maintain interpretable, continuously updated team strength |
+| 03 | Regularized linear and logistic models | Produce explainable margin and win-probability baselines |
+| 04 | Poisson / Skellam score models | Produce coherent team-score and margin distributions |
+| 05 | Gradient-boosted trees | Capture nonlinearities after the simple pipeline is validated |
+| 06 | Calibrated ensembles | Combine independently useful forecasts without mixing incompatible lanes |
+| 07 | Advanced challengers | Enter only after data sufficiency and baseline-saturation gates pass |
+
+No model family is declared the winner in advance. The protected scorecard decides.
+
+## Technology
+
+| Layer | Current project choices |
+|---|---|
+| **Language** | Python 3.11–3.13; Python 3.12 is the preferred CI/runtime target |
+| **Analytics** | Polars and NumPy for materialization and numerical paths; Parquet for partitioned analytical data |
+| **Modeling** | scikit-learn-compatible baselines, Elo, regularized GLMs, Poisson/Skellam, and bounded tree boosting |
+| **Storage** | Immutable files, JSON/CSV manifests, content-addressed captures, external raw/canonical/PIT/training/model roots |
+| **Serving** | Optional FastAPI/Uvicorn adapter over already-published immutable snapshots |
+| **Operations** | PowerShell-first local Windows workflows with cross-platform GitHub Actions |
+| **Assurance** | Unit and integration tests, schema validation, PIT/leakage gates, deterministic replay, CodeQL, and dependency auditing |
+| **Research assistance** | Governed optional OpenAI candidate plane; never a forecast-critical runtime dependency or source of canonical truth |
+
+Optional tools stay replaceable. MLflow cannot declare a champion, Optuna cannot inspect protected outcomes, and refreshing the dashboard cannot secretly retrain a model.
 
 ## Quick start
 
@@ -219,21 +208,27 @@ See [the final implementation priority](docs/final/FINAL_IMPLEMENTATION_PRIORITY
 - Python 3.12 recommended
 - PowerShell on Windows
 
-### Clone
+### 1 · Clone
 
 ```powershell
 git clone https://github.com/KevinSGarrett/BatteredAggieSyndrome.git
 Set-Location BatteredAggieSyndrome
 ```
 
-### Bootstrap on Windows
+### 2 · Bootstrap
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/bootstrap.ps1
 .\.venv\Scripts\Activate.ps1
 ```
 
-### Validate the repository
+### 3 · Point runtime data outside Git
+
+```powershell
+$env:AGGIE_ANALYTICS_DATA_ROOT = "C:\BatteredAggieSyndrome.data"
+```
+
+### 4 · Validate
 
 ```powershell
 python -B -m unittest discover -s tests -p "test_*.py" -v
@@ -241,7 +236,8 @@ python -B tools/validate_w25_final.py --repo-root .
 python -B tools/validate_repository.py --repo-root . --strict
 ```
 
-### Optional product adapter
+<details>
+<summary><strong>Optional snapshot-serving adapter</strong></summary>
 
 ```powershell
 python -m pip install --require-hashes -r requirements/product.lock
@@ -251,53 +247,96 @@ python tools/run_product.py --snapshot-root <published-forecast-root>
 
 Product requests read previously published forecast snapshots. They do not invoke acquisition, feature generation, training, or hidden request-time inference.
 
-## Configuration and secrets
+</details>
 
-Set the external runtime root explicitly:
-
-```powershell
-$env:AGGIE_ANALYTICS_DATA_ROOT = "C:\BatteredAggieSyndrome.data"
-```
-
-See [local runtime paths](docs/operations/LOCAL_RUNTIME_PATHS.md) and [credentials and secrets](docs/operations/CREDENTIALS_AND_SECRETS.md) for the operational contracts.
+For operational boundaries, see [local runtime paths](docs/operations/LOCAL_RUNTIME_PATHS.md) and [credentials and secrets](docs/operations/CREDENTIALS_AND_SECRETS.md).
 
 ## Repository map
 
 ```text
-src/aggie_analytics/   Core Python package
-tests/                 Unit, contract, governance, and integration tests
-configs/               Versioned machine-readable registries
-governance/            Requirements, ADRs, gates, policies, and scientific controls
-docs/                  Architecture, implementation, research, and operating documentation
-schemas/               Data and artifact schemas
-scripts/               Bootstrap and operational entry points
-tools/                 Validators, generators, and repository utilities
-artifacts/             Small tracked evidence and reports—not the bulk data lake
-jira/                  Local Jira planning, evidence, and synchronization pack
+BatteredAggieSyndrome/
+├── src/aggie_analytics/   engine packages: data → PIT → modeling → product
+├── tests/                 unit, contract, governance, replay, and integration tests
+├── configs/               versioned machine-readable registries and policies
+├── governance/            scientific controls, decision rules, and protected gates
+├── schemas/               data, evidence, experiment, model, and forecast contracts
+├── tools/                 builders, validators, replay runners, and operators
+├── scripts/               bootstrap and target-machine entry points
+├── artifacts/             small tracked evidence—not the bulk data lake
+├── docs/                  architecture, implementation, research, and runbooks
+└── jira/                  canonical work records, evidence, and synchronization pack
 ```
+
+## Documentation flight plan
+
+| If you want to… | Start here |
+|---|---|
+| Understand the system | [Architecture](docs/01_ARCHITECTURE.md) |
+| See what is real vs. still pending | [Component maturity](docs/final/FINAL_COMPONENT_MATURITY.csv) |
+| Review scientific evaluation | [Validation and protected splits](docs/56_VALIDATION_AND_PROTECTED_SPLITS.md) |
+| Inspect unresolved limitations | [Known gaps](docs/final/FINAL_KNOWN_GAPS.md) |
+| Follow implementation order | [Final implementation priority](docs/final/FINAL_IMPLEMENTATION_PRIORITY.md) |
+| Configure local storage | [Local runtime paths](docs/operations/LOCAL_RUNTIME_PATHS.md) |
+| Handle credentials safely | [Credentials and secrets](docs/operations/CREDENTIALS_AND_SECRETS.md) |
+| Contribute a change | [Contributing guide](CONTRIBUTING.md) |
+
+## Engineering signals
+
+<p>
+  <a href="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/ci.yml"><img alt="Repository CI" src="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/security.yml"><img alt="CodeQL and security analysis" src="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/security.yml/badge.svg"></a>
+  <img alt="Immutable provenance" src="https://img.shields.io/badge/PROVENANCE-CONTENT_ADDRESSED-500000?style=flat-square">
+  <img alt="Chronological evaluation" src="https://img.shields.io/badge/EVALUATION-CHRONOLOGICAL-500000?style=flat-square">
+  <img alt="Raw data outside Git" src="https://img.shields.io/badge/DATA-EXTERNAL_TO_GIT-500000?style=flat-square">
+</p>
+
+CI and security badges report automation state. The more important assurances are enforced in code: immutable identities, source evidence, target-game exclusion, protected chronology, strict schemas, and fail-closed promotion.
 
 ## Frequently asked questions
 
-### Does the model assume Texas A&M will disappoint me?
+<details>
+<summary><strong>Does the model assume Texas A&amp;M will disappoint me?</strong></summary>
 
-Every Saturday will disappoint you as an Aggie.
+No. That would be target leakage from lived experience. The neutral national model must form the expectation first, and the result must survive the same evaluation rules as every other claim.
 
-### Is BAS just another name for losing?
+</details>
 
-No. BAS is expectation-relative. A narrow loss to a much stronger opponent can outperform expectation; an ugly win can underperform it. The relevant quantity is the difference between expected and actual margin.
+<details>
+<summary><strong>Is BAS just another name for losing?</strong></summary>
 
-### Why use national data for an A&M project?
+No. BAS is expectation-relative. A close loss to a much stronger opponent can outperform expectation; an ugly win can underperform it.
 
-Without a national reference, the system cannot tell whether A&M is unusual or merely participating in college football. The national foundation supplies the counterfactual baseline; the A&M layer tests whether deeper local evidence adds value.
+</details>
 
-### Is this a sports-betting system?
+<details>
+<summary><strong>Why use national data for an A&amp;M project?</strong></summary>
 
-Yes. Always put double your net worth on A&M to disappoint you. 100% guaranteed odds of winning.
+Without a national reference, the system cannot distinguish unusual A&amp;M behavior from ordinary college-football volatility. The national model supplies the counterfactual; the specialization layer tests whether deeper local evidence adds value.
 
-### What happens if the data says BAS is not real?
+</details>
 
-Then the project reports the null result, closes the laptop, and continues experiencing BAS recreationally.
+<details>
+<summary><strong>Is this a betting product?</strong></summary>
 
-## Gig ’em
+No. It is a private forecasting and research project. It does not claim profitability, guarantee outcomes, or provide wagering advice.
 
-Built with Python, probability, and off-season BAS confidence that this is for sure A&M's year to win the National Championship.
+</details>
+
+<details>
+<summary><strong>What if the data says BAS is not real?</strong></summary>
+
+Then the project reports the null result, preserves the evidence, and continues experiencing BAS recreationally.
+
+</details>
+
+## Contributing
+
+Contributions should preserve the core invariants: stable identity, immutable evidence, explicit known-at time, target-game exclusion, chronological evaluation, and honest maturity claims. Start with [CONTRIBUTING.md](CONTRIBUTING.md), then run the strict repository validator before opening a pull request.
+
+---
+
+<p align="center">
+  <strong>Built with Python, probability, and an evidence-based tolerance for fourth-quarter variance.</strong><br>
+  <sub>Independent personal research project. Not affiliated with or endorsed by Texas A&amp;M University, the NCAA, or any data provider.</sub><br><br>
+  <span>Gig ’em.</span>
+</p>

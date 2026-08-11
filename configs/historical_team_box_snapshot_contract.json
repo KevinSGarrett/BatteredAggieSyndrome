@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-191",
+  "jira_key": "BAT-548",
+  "classification": "CAPTURE_TIME_HISTORICAL_TEAM_BOX_SNAPSHOT_CANDIDATE_ONLY",
+  "source_contract": {
+    "candidate_dataset_identity": "3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b",
+    "candidate_manifest_relative_path": "manifests/historical_known_at/sha256/3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b/team_box_history_reconciliation.json",
+    "candidate_manifest_sha256": "7ca71666e49787cf09bee955102192b169a36d226d3772f94958b2a7f41540d5",
+    "candidate_payload_root": "quarantine/historical_known_at/sha256/3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b/team_box_scores",
+    "accepted_outcome_dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "historical_known_at_state": "UNKNOWN_FOR_TEAM_BOX_STATS; CAPTURE_TIME_ONLY",
+    "minimum_capture_known_at_utc": "2026-08-09T16:59:44Z",
+    "maximum_capture_known_at_utc": "2026-08-09T19:03:15Z"
+  },
+  "disposition": {
+    "eligible_reconciliation_dispositions": [
+      "CANDIDATE_CROSS_ROUTE_GAME_SIDE_POINT_RECONCILED",
+      "CANDIDATE_CROSS_ROUTE_SIDE_SWAP_RECONCILED",
+      "CANDIDATE_CURRENT_CANONICAL_CAPTURE_EXACT_MATCH",
+      "CANDIDATE_CURRENT_EXACT_AND_CROSS_ROUTE_GAME_SIDE_POINT_RECONCILED",
+      "CANDIDATE_CURRENT_EXACT_AND_CROSS_ROUTE_SIDE_SWAP_RECONCILED"
+    ],
+    "nonadmitted_reconciliation_disposition": "CANDIDATE_SOURCE_LEVEL_GAME_TEAM_BOX",
+    "natural_key": ["season", "source_game_id", "canonical_team_id_candidate"],
+    "snapshot_fields": [
+      "schema_version", "season", "season_type", "week", "source_game_id", "source_team_id", "source_team", "source_conference", "home_away", "points",
+      "stats_json", "stats_sha256", "stats_category_count", "duplicate_stats_categories_json", "source_capture_id", "source_request_id", "source_response_sha256", "source_response_bytes",
+      "source_game_row_number", "source_team_row_number", "capture_known_at_utc", "source_record_evidence_sha256", "observation_id", "canonical_game_id_candidate", "canonical_team_id_candidate",
+      "historical_outcome_observation_id", "historical_outcome_source_known_at_utc", "historical_side_points", "historical_game_side_point_match", "historical_side_alignment",
+      "historical_known_at_state", "reconciliation_disposition", "row_lineage_sha256"
+    ],
+    "forbidden_snapshot_fields": [
+      "current_canonical_team_box_id", "current_capture_points_match", "current_capture_stats_match", "current_capture_exact_match", "admission_state",
+      "target", "label", "outcome", "home_points", "away_points", "protected_split"
+    ]
+  },
+  "acceptance": {
+    "expected_source_files": 16,
+    "expected_source_rows": 27340,
+    "expected_source_games": 13670,
+    "expected_source_stat_cells": 812533,
+    "expected_exact_rows": 26698,
+    "expected_exact_games": 13349,
+    "expected_exact_teams": 480,
+    "expected_exact_stat_cells": 795482,
+    "expected_nonadmitted_rows": 642,
+    "expected_nonadmitted_games": 321,
+    "expected_nonadmitted_stat_cells": 17051,
+    "expected_distinct_stat_categories": 35,
+    "expected_duplicate_observation_ids": 0,
+    "expected_duplicate_natural_keys": 0,
+    "expected_side_swap_rows": 18,
+    "expected_side_swap_games": 9,
+    "expected_outcome_overlap_rows": 21168,
+    "expected_physical_schema_hashes": 1,
+    "expected_exact_by_season": {"2010": 998, "2011": 1608, "2012": 1678, "2013": 1696, "2014": 1734, "2015": 1738, "2016": 1742, "2017": 1746, "2018": 1764, "2019": 1772, "2020": 1136, "2021": 1768, "2022": 1792, "2023": 1820, "2024": 1838, "2025": 1868},
+    "expected_nonadmitted_by_season": {"2010": 618, "2011": 2, "2012": 2, "2015": 2, "2016": 2, "2017": 2, "2018": 4, "2019": 4, "2021": 6},
+    "expected_disposition_counts": {
+      "CANDIDATE_CROSS_ROUTE_GAME_SIDE_POINT_RECONCILED": 19364,
+      "CANDIDATE_CROSS_ROUTE_SIDE_SWAP_RECONCILED": 16,
+      "CANDIDATE_CURRENT_CANONICAL_CAPTURE_EXACT_MATCH": 5530,
+      "CANDIDATE_CURRENT_EXACT_AND_CROSS_ROUTE_GAME_SIDE_POINT_RECONCILED": 1786,
+      "CANDIDATE_CURRENT_EXACT_AND_CROSS_ROUTE_SIDE_SWAP_RECONCILED": 2,
+      "CANDIDATE_SOURCE_LEVEL_GAME_TEAM_BOX": 642
+    },
+    "expected_category_counts_by_season": {"2010": 28, "2011": 28, "2012": 28, "2013": 28, "2014": 28, "2015": 28, "2016": 35, "2017": 35, "2018": 35, "2019": 35, "2020": 35, "2021": 35, "2022": 35, "2023": 35, "2024": 35, "2025": 35}
+  },
+  "authority": {
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false,
+    "candidate_snapshot_materialization": true,
+    "historical_pit_admission": false,
+    "preliminary_chronological_replay_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "negative_findings": [
+    "Every team-box statistic has immutable 2026 capture time but no proved historical publication time; no historical PIT backcast is allowed.",
+    "The 2022-2025 current canonical comparison is same-provider overlap rather than independent confirmation.",
+    "Nine exact games reconcile distinct score vectors only after preserving an explicit home/away side-label swap.",
+    "The 2020 population is materially partial and stat-category availability changes from 28 to 35 categories beginning in 2016.",
+    "All 642 source-level rows remain nonadmitted and no missing stat category is zero-filled."
+  ]
+}

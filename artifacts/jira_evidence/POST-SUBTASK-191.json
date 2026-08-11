@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_INTEGRATED_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-191",
+  "jira_import_id": 100499,
+  "jira_key": "BAT-548",
+  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "classification": "CAPTURE_TIME_HISTORICAL_TEAM_BOX_SNAPSHOT_CANDIDATE_ONLY",
+  "input_identity": {
+    "candidate_dataset": "3edf5fe3cf48c9c1000fcbcc1d3fd674ed0875a7e561997f13d3f8d958b01f5b",
+    "candidate_manifest_sha256": "7ca71666e49787cf09bee955102192b169a36d226d3772f94958b2a7f41540d5",
+    "accepted_outcome_dataset": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7"
+  },
+  "population": {"seasons": "2010-2025", "captures": 261, "games": 13670, "team_rows": 27340, "stat_cells": 812533, "historical_outcome_overlap_rows": 21168, "side_swap_rows": 18, "source_only_rows": 642},
+  "output_identity": {"dataset": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733", "manifest_sha256": "41551bd3123999a3c8de0096864a5a04642f3f62bfe52f825f7d3d4903b9d543", "exact_rows_sha256": "8af59b6929d3be5a03c76badd34e2a3913d5c69cdf79f9a7303556462f675da4", "exact_stat_cells_sha256": "fa355fab8d43a2266986be1cd5c34893d3d6084627f923136d094d1fb78cb750", "source_only_rows_sha256": "b4b8939db1c0241a54048be73b8e226f5f4ddc1089a1aab322718ae409aa8c16", "validation_report_sha256": "34df9398acd2665f153a1a1cba0d56dbbddc6fef5d546b219ea616d1f4492e09"},
+  "validation": {"independent_checks_passed": 87, "mutation_controls_passed": 6, "deterministic_payloads_compared": 4, "byte_identical_rebuild": true, "focused_tests_passed": 3, "full_pytest_passed": 467, "full_pytest_skipped": 3, "full_pytest_subtests_passed": 83, "full_unittest_passed": 464, "full_unittest_skipped": 3, "reconstructible_cleanup": "REMOVED_16_FILES_81843632_BYTES", "final_quality_gate": {"jira_pack": "PASS_499_CANONICAL", "jira_links": 1142, "second_pass": "PASS_68_OF_68", "strict_repository": "PASS", "dependency_cycles": 0, "source_references": "PASS_2119", "jira_manifest": "PASS_1882_FILES", "external_storage": "PASS", "w25_final": "PASS"}},
+  "authority": {"historical_known_at": "UNKNOWN", "capture_time_only": true, "historical_pit_admission": false, "preliminary_replay_admission": false, "protected_split_opened": false},
+  "recovery": {"checkpoint": "<external-data-root>/backups/POST-SUBTASK-191-PRECHANGE-20260811T185936Z", "bundle_sha256": "5799039068f73e6cd4075086d7fe8dfa3e43bb18eef3ce7d733f8f39fb24e94a", "backup_manifest_sha256": "23ce81329db8d815a412384ddaa649ac02350e66c4fcbfb395c77c98c1f0848b", "dirty_root_touched": false},
+  "live_jira": {"authentication": "HTTP_200_WITHOUT_CREDENTIAL_DISCLOSURE", "issue_id": "24940", "activation_comment_id": "13676", "status": "In Progress", "updated_at": "2026-08-11T14:07:24.324-0500", "links_created": 6, "verification": "PASS_502_LIVE_499_CANONICAL_448_PARENTS_1142_LINKS_ZERO_DISCREPANCIES"},
+  "openai": {"calls_this_unit": 0, "reason": "DETERMINISTIC_STRUCTURED_CANDIDATE_PROFILING_AND_EXACT_RECONCILIATION_ARE_THE_INITIAL_CRITICAL_PATH", "cumulative_calls": 470, "cumulative_spend_usd": "4.309590", "remaining_budget_usd": "95.690410", "batch_jobs": 0, "last_successful_api_use_utc": "2026-08-11T09:48:49.502971+00:00"},
+  "scientific_nonclaims": {"historical_population_ready": false, "gap_002_resolved": false, "production_model_ready": false, "trained_production_champion": false, "protected_performance_claimed": false, "tamu_specialization_lift_claimed": false, "bas_or_aggie_excess_result_claimed": false}
+}

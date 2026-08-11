@@ -24,7 +24,8 @@
     "POST-SUBTASK-171",
     "POST-SUBTASK-187",
     "POST-SUBTASK-189",
-    "POST-SUBTASK-190"
+    "POST-SUBTASK-190",
+    "POST-SUBTASK-191"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -124,8 +125,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24666",
-    "jira_updated_at": "2026-08-11T13:15:24.986-0500",
-    "last_synced_at": "2026-08-11T18:15:53.701207+00:00",
+    "jira_updated_at": "2026-08-11T14:04:24.540-0500",
+    "last_synced_at": "2026-08-11T19:06:36.529502+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -277,6 +278,7 @@ Materialize separate feature, target, split, and training identities; train the 
 - POST-SUBTASK-187
 - POST-SUBTASK-189
 - POST-SUBTASK-190
+- POST-SUBTASK-191
 
 ## Read / Inspect First
 

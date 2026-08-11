@@ -1,5 +1,10 @@
 change_type,repo_relative_path
 ADDED,.github/dependabot.yml
+ADDED,.pytest_cache/.gitignore
+ADDED,.pytest_cache/CACHEDIR.TAG
+ADDED,.pytest_cache/README.md
+ADDED,.pytest_cache/v/cache/lastfailed
+ADDED,.pytest_cache/v/cache/nodeids
 ADDED,artifacts/benchmarks/ac038_gate_decision.json
 ADDED,artifacts/benchmarks/ac038_input_manifest.json
 ADDED,artifacts/benchmarks/ac038_target_benchmark.json
@@ -111,6 +116,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-187.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-188.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-189.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-190.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-191.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
 ADDED,artifacts/open_source/integration_validation_manifest.json
@@ -141,6 +147,7 @@ ADDED,artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
 ADDED,artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json
 ADDED,artifacts/pit/historical_tamu_official_gamebook_reconciliation_gate.json
 ADDED,artifacts/pit/historical_team_box_reconciliation_gate.json
+ADDED,artifacts/pit/historical_team_box_snapshot_gate.json
 ADDED,artifacts/pit/historical_team_membership_pit_gate.json
 ADDED,artifacts/pit/historical_venue_assignment_pit_gate.json
 ADDED,artifacts/pit/historical_venue_assignment_reconciliation_gate.json
@@ -178,6 +185,7 @@ ADDED,configs/historical_play_enrichment_pit_contract.json
 ADDED,configs/historical_player_event_metric_pit_contract.json
 ADDED,configs/historical_rankings_pit_contract.json
 ADDED,configs/historical_roster_membership_pit_contract.json
+ADDED,configs/historical_team_box_snapshot_contract.json
 ADDED,configs/historical_team_membership_pit_contract.json
 ADDED,configs/historical_venue_assignment_pit_contract.json
 ADDED,configs/known_at_registry.json
@@ -324,6 +332,7 @@ ADDED,schemas/openai/assistive_candidate.schema.json
 ADDED,schemas/openai/assistive_evaluation.schema.json
 ADDED,schemas/openai/depth_chart_noncoverage_visual.schema.json
 ADDED,scripts/audit_control_plane.ps1
+ADDED,src/aggie_analytics/__pycache__/__init__.cpython-311.pyc
 ADDED,src/aggie_analytics/data/action_play_summary.py
 ADDED,src/aggie_analytics/data/cfbd.py
 ADDED,src/aggie_analytics/data/http.py
@@ -334,6 +343,14 @@ ADDED,src/aggie_analytics/data/sec_availability.py
 ADDED,src/aggie_analytics/entities/candidates.py
 ADDED,src/aggie_analytics/entities/people_registry.py
 ADDED,src/aggie_analytics/entities/registry_artifacts.py
+ADDED,src/aggie_analytics/modeling/__pycache__/__init__.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/coherence.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/contracts.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/forecast.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/play_drive_augmented.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/runtime.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/simulation.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/uncertainty.cpython-311.pyc
 ADDED,src/aggie_analytics/modeling/play_drive_augmented.py
 ADDED,src/aggie_analytics/modeling/play_enrichment_augmented.py
 ADDED,src/aggie_analytics/modeling/preliminary.py
@@ -357,6 +374,7 @@ ADDED,src/aggie_analytics/temporal/play_enrichment_pit.py
 ADDED,src/aggie_analytics/temporal/player_event_metric_pit.py
 ADDED,src/aggie_analytics/temporal/rankings_pit.py
 ADDED,src/aggie_analytics/temporal/roster_membership_pit.py
+ADDED,src/aggie_analytics/temporal/team_box_snapshot.py
 ADDED,src/aggie_analytics/temporal/team_membership_pit.py
 ADDED,src/aggie_analytics/temporal/venue_assignment_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
@@ -376,6 +394,7 @@ ADDED,tests/test_historical_play_enrichment_pit.py
 ADDED,tests/test_historical_player_event_metric_pit.py
 ADDED,tests/test_historical_rankings_pit.py
 ADDED,tests/test_historical_roster_membership_pit.py
+ADDED,tests/test_historical_team_box_snapshot.py
 ADDED,tests/test_historical_team_membership_pit.py
 ADDED,tests/test_historical_venue_assignment_pit.py
 ADDED,tests/test_instructions_pack.py
@@ -396,6 +415,7 @@ ADDED,tests/test_source_access_smoke_results.py
 ADDED,tests/test_supplemental_play_drive.py
 ADDED,tests/test_wmt_provider_timestamp_pit.py
 ADDED,tests/test_wmt_tamu_specialization_feature_pit.py
+ADDED,tools/__pycache__/run_preliminary_unprotected_baselines.cpython-311.pyc
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_sec_tamu_availability.py
 ADDED,tools/acquire_sportsdataverse_rosters.py
@@ -408,6 +428,7 @@ ADDED,tools/build_historical_play_enrichment_pit.py
 ADDED,tools/build_historical_player_event_metric_pit.py
 ADDED,tools/build_historical_rankings_pit.py
 ADDED,tools/build_historical_roster_membership_pit.py
+ADDED,tools/build_historical_team_box_snapshot.py
 ADDED,tools/build_historical_team_membership_pit.py
 ADDED,tools/build_historical_venue_assignment_pit.py
 ADDED,tools/build_jira_control_plane.py
@@ -457,6 +478,7 @@ ADDED,tools/validate_historical_play_enrichment_pit.py
 ADDED,tools/validate_historical_player_event_metric_pit.py
 ADDED,tools/validate_historical_rankings_pit.py
 ADDED,tools/validate_historical_roster_membership_pit.py
+ADDED,tools/validate_historical_team_box_snapshot.py
 ADDED,tools/validate_historical_team_membership_pit.py
 ADDED,tools/validate_historical_venue_assignment_pit.py
 ADDED,tools/validate_instructions.py

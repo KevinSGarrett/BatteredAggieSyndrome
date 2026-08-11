@@ -16512,3 +16512,76 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;gamebook;wmt;plays;drives;players;pit;preliminary-unprotected;provenance;local-id-post-subtask-178,pit-temporal,POST-SUBTASK-178,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,DEVELOPMENT_ONLY_PIT_ADMITTED,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Sub-task,BAT-536,100487,Materialize provider-timestamped Texas A&M WMT specialization features for development PIT,100060,"Local ID: POST-SUBTASK-179
+
+Objective
+Materialize leakage-safe Texas A&M specialization features from the exact provider-timestamped WMT development PIT without broadening source authority or opening protected promotion.
+
+Why This Exists
+POST-SUBTASK-178 recovered substantial record-level historical eligibility but deliberately did not create predictive features; this unit converts only the exact admitted A&M evidence into leakage-safe candidate features for preliminary pipeline research.
+
+Scope
+Convert only exact Texas A&M-attributed, provider-timestamped WMT records already admitted by POST-SUBTASK-178 into domain-granular source-game state and 2023-2025 A&M target-cutoff development features.
+
+Explicit In Scope
+- Official per-game Texas A&M WMT competitor/team identity resolution using schoolId 697 and exact provider identifiers.
+- Provider-timestamped actions, plays, drives, and player participation aggregated to source-game and exact A&M target-cutoff development PIT features.
+- Domain-granular partial coverage, missingness, cold starts, target-game exclusion, provenance, deterministic replay, and preliminary unprotected feature candidacy.
+
+Explicit Out of Scope
+- Using score, winner, target outcome, target-game content, event time as publication time, current capture time, model output, or inferred values as feature evidence.
+- Admitting records outside POST-SUBTASK-178, silently promoting missing action/play/drive/player domains, or creating a name-only or score-assisted identity merge.
+- Protected training/evaluation, champion or production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific result.
+
+Prerequisites / Dependencies
+- Pinned d227b6cf official WMT acquisition and 76c3b366 candidate reconciliation identities.
+- Pinned POST-SUBTASK-178 provider-timestamped record PIT dataset 3b7ee9e5.
+- Pinned expanded target replay cf732b78 and exact 2023-2025 A&M target cutoffs.
+- Canonical Texas A&M team identity and configured standardized external data root.
+- POST-SUBTASK-029
+- POST-SUBTASK-178
+
+Acceptance Criteria
+1. Only records already admitted by POST-SUBTASK-178 dataset identity 3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498 are eligible; this unit must not broaden source, season, domain, record, timestamp, or target-cutoff eligibility.
+2. Texas A&M attribution requires official WMT schoolId 697, exactly one matching competitor per source game, exact per-game competitor and team identifiers, and pinned canonical team identity team_d0aff8aacd805801ab3d3d8293f3b298; name-only or score-assisted identity joins are prohibited.
+3. Every feature for a target cutoff uses only attributed source records whose provider known-at and effective times are strictly before that cutoff and whose source game is not the target game; target outcomes, scores, winners, future rows, and post-cutoff versions are excluded.
+4. Actions, plays, drives, and player participation are admitted and coverage-gated independently; missing domains remain explicit, cold starts remain null or flagged, and no factual value or timestamp is fabricated.
+5. Authority is limited to development-only PIT and preliminary unprotected feature research; protected training, protected evaluation, champion promotion, production forecasts, A&M lift, BAS, Aggie Excess, final historical readiness, and scientific claims remain closed.
+
+Definition of Done
+1. All 177 pinned WMT source games are deterministically identity-gated, with exactly one official schoolId 697 competitor or an explicit per-game quarantine finding; domain-specific A&M-attributed record counts and coverage are recorded by source season and game.
+2. The 39 exact 2023-2025 A&M target cutoffs are materialized with strictly pre-cutoff, target-game-excluded feature state, explicit domain coverage, missingness, cold starts, and source-record lineage.
+3. Immutable content-addressed PIT feature payloads and manifests are stored outside Git with exact source, mapping, contract, code, dataset, schema, population, feature, target, and provenance identities.
+4. Independent chronology, leakage, forbidden-field, identity, schema, mutation-control, and byte-identical rebuild validation passes, and reconstructible temporary output is removed.
+5. Repository, provenance, Jira second-pass, secret, and full automated test gates pass; the governing goal and active plan retain development-only authority and every protected or scientific nonclaim.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_wmt_tamu_specialization_feature_pit.py — Official schoolId attribution, per-game provider identity mapping, domain isolation, feature semantics, cutoff ordering, target exclusion, explicit cold starts, forbidden-field rejection, and protected nonauthority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-179.json — The complete pinned source population, A&M attribution map, external artifacts, identities, hashes, cutoff features, mutation controls, and byte-identical isolated rebuild pass independent validation.
+
+Required Evidence
+- Exact acquisition, reconciliation, provider-record PIT, competitor mapping, canonical team, target cutoff, contract, code, dataset, manifest, validation, and rollback identities.
+- Counts by source season, source game, target season, domain, record grain, schema, attribution disposition, cutoff eligibility, missingness, cold start, and exclusion reason.
+- Strict provider-known-at and effective-time ordering, zero target-game overlap, forbidden-field absence, identity mutation controls, byte-identical rebuild, and cleanup evidence.
+- Explicit development-only PIT/preliminary authority and protected, production, lift, BAS, Aggie Excess, completeness, and scientific nonclaims.
+
+End-to-End Validation
+Re-read the pinned WMT competitors and record candidates, POST-SUBTASK-178 admitted record state, and exact target cutoff matrix; independently rebuild per-game Texas A&M identity, source-game aggregates, and cutoff features; verify strict chronology, target exclusion, forbidden fields, schemas, counts, hashes, authority, and byte identity; then remove the reconstructible rebuild.
+
+Stop Conditions
+- Stop the affected record, game, domain, or artifact on source identity, provider timestamp, A&M attribution, schema, chronology, target overlap, forbidden field, authority, hash, or deterministic rebuild failure.
+- Exclude or quarantine only affected rows or domains; do not block independent historical acquisition, preliminary modeling, or other source routes.
+- Do not weaken PIT, leakage, identity, validation, or protected gates to obtain apparent coverage or a favorable feature result.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;tamu-specialization;gamebook;wmt;pit;preliminary-unprotected;provenance;local-id-post-subtask-179,pit-temporal,POST-SUBTASK-179,GAP-002;GAP-003;GAP-005;HANDOFF-003,PHASE-1,IN_PROGRESS,DEVELOPMENT_ONLY_PIT_ADMITTED,PLANNED,POST_W25,true,DATA,HISTORICAL_REFERENCE

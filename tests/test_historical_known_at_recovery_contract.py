@@ -87,6 +87,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "historical_play_drive_pit_aggregate_gate.json"
             ).read_text(encoding="utf-8")
         )
+        cls.wmt_tamu_feature_pit_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "wmt_tamu_specialization_feature_pit_gate.json"
+            ).read_text(encoding="utf-8")
+        )
         cls.tamu_depth_chart_gate = json.loads(
             (
                 ROOT
@@ -321,6 +329,32 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(admitted["validation_checks_passed"], 32)
         self.assertEqual(admitted["mutation_controls_passed"], 5)
         self.assertEqual(admitted["deterministic_payloads_compared"], 3)
+        self.assertTrue(admitted["byte_identical_rebuild"])
+
+    def test_wmt_tamu_specialization_features_are_exact_and_preliminary_only(self) -> None:
+        checkpoint = self.contract["latest_validated_wmt_tamu_specialization_feature_pit"]
+        self.assertEqual(
+            checkpoint["dataset_identity"],
+            "337ca2219b8787d9c4c1c4e5b2644436ac2b21bdcd39bf532286250168601815",
+        )
+        self.assertEqual(checkpoint["identity_games"], 177)
+        self.assertEqual(checkpoint["attributed_records"], 104793)
+        self.assertEqual(checkpoint["target_games"], 39)
+        self.assertEqual(checkpoint["target_feature_columns"], 36)
+        self.assertEqual(checkpoint["target_cold_starts"], 0)
+        self.assertIn("SCHOOL_ID_697", checkpoint["official_identity_rule"])
+        self.assertTrue(checkpoint["pit_state_admission"])
+        self.assertTrue(checkpoint["preliminary_unprotected_feature_candidate"])
+        self.assertTrue(checkpoint["preliminary_unprotected_training_requires_separate_replay_unit"])
+        self.assertFalse(checkpoint["canonical_player_identity_admission"])
+        self.assertFalse(checkpoint["protected_training_admission"])
+        self.assertFalse(checkpoint["protected_evaluation_admission"])
+        admitted = self.wmt_tamu_feature_pit_gate["admitted_layer"]
+        self.assertEqual(admitted["validation_checks_passed"], 42)
+        self.assertEqual(admitted["mutation_controls_passed"], 4)
+        self.assertEqual(admitted["deterministic_payloads_compared"], 4)
+        self.assertEqual(admitted["target_or_forbidden_columns"], 0)
+        self.assertEqual(admitted["target_game_or_future_record_rows"], 0)
         self.assertTrue(admitted["byte_identical_rebuild"])
 
     def test_player_event_metrics_are_bounded_validated_candidates_not_official_box_scores(self) -> None:

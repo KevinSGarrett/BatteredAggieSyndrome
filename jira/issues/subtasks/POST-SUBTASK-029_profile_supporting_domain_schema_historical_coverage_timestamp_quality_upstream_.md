@@ -30,7 +30,8 @@
     "POST-SUBTASK-174",
     "POST-SUBTASK-175",
     "POST-SUBTASK-176",
-    "POST-SUBTASK-178"
+    "POST-SUBTASK-178",
+    "POST-SUBTASK-179"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -381,6 +382,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-010 (Historical expansion acr
 - POST-SUBTASK-175
 - POST-SUBTASK-176
 - POST-SUBTASK-178
+- POST-SUBTASK-179
 
 ## Read / Inspect First
 

@@ -1,0 +1,225 @@
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Only records already admitted by POST-SUBTASK-178 dataset identity 3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498 are eligible; this unit must not broaden source, season, domain, record, timestamp, or target-cutoff eligibility.",
+    "Texas A&M attribution requires official WMT schoolId 697, exactly one matching competitor per source game, exact per-game competitor and team identifiers, and pinned canonical team identity team_d0aff8aacd805801ab3d3d8293f3b298; name-only or score-assisted identity joins are prohibited.",
+    "Every feature for a target cutoff uses only attributed source records whose provider known-at and effective times are strictly before that cutoff and whose source game is not the target game; target outcomes, scores, winners, future rows, and post-cutoff versions are excluded.",
+    "Actions, plays, drives, and player participation are admitted and coverage-gated independently; missing domains remain explicit, cold starts remain null or flagged, and no factual value or timestamp is fabricated.",
+    "Authority is limited to development-only PIT and preliminary unprotected feature research; protected training, protected evaluation, champion promotion, production forecasts, A&M lift, BAS, Aggie Excess, final historical readiness, and scientific claims remain closed."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "The provider identity mapping, cutoff admission, feature computation, and validation are deterministic; OpenAI has no role in identity, factual truth, PIT eligibility, or canonical acceptance.",
+    "Provider team identifiers vary by season, so the official per-game schoolId 697 competitor record is the only WMT attribution bridge used by this unit.",
+    "Partial source seasons and domains remain explicit and do not globally block historical expansion or preliminary modeling."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "pit-temporal",
+  "components_expected_to_be_touched": [
+    "data",
+    "pit-temporal",
+    "feature-engineering",
+    "provenance",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "All 177 pinned WMT source games are deterministically identity-gated, with exactly one official schoolId 697 competitor or an explicit per-game quarantine finding; domain-specific A&M-attributed record counts and coverage are recorded by source season and game.",
+    "The 39 exact 2023-2025 A&M target cutoffs are materialized with strictly pre-cutoff, target-game-excluded feature state, explicit domain coverage, missingness, cold starts, and source-record lineage.",
+    "Immutable content-addressed PIT feature payloads and manifests are stored outside Git with exact source, mapping, contract, code, dataset, schema, population, feature, target, and provenance identities.",
+    "Independent chronology, leakage, forbidden-field, identity, schema, mutation-control, and byte-identical rebuild validation passes, and reconstructible temporary output is removed.",
+    "Repository, provenance, Jira second-pass, secret, and full automated test gates pass; the governing goal and active plan retain development-only authority and every protected or scientific nonclaim."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029",
+    "POST-SUBTASK-178"
+  ],
+  "end_to_end_validation": "Re-read the pinned WMT competitors and record candidates, POST-SUBTASK-178 admitted record state, and exact target cutoff matrix; independently rebuild per-game Texas A&M identity, source-game aggregates, and cutoff features; verify strict chronology, target exclusion, forbidden fields, schemas, counts, hashes, authority, and byte identity; then remove the reconstructible rebuild.",
+  "epic_id": "POST-EPIC-003",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-179.json",
+  "evidence_state": "PLANNED",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "DEVELOPMENT_ONLY_PIT_ADMITTED",
+  "expected_outputs": [
+    "configs/wmt_tamu_specialization_feature_pit_contract.json",
+    "src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py",
+    "tools/build_wmt_tamu_specialization_feature_pit.py",
+    "tools/validate_wmt_tamu_specialization_feature_pit.py",
+    "artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-179.json",
+    "<external-data-root>/pit_state/historical_known_at/sha256/<dataset_identity>/wmt_tamu_source_game_features.parquet",
+    "<external-data-root>/features/historical_known_at/sha256/<dataset_identity>/wmt_tamu_target_cutoff_features.parquet",
+    "<external-data-root>/manifests/historical_known_at/sha256/<dataset_identity>/wmt_tamu_specialization_feature_pit_manifest.json",
+    "<external-data-root>/validation/POST-SUBTASK-179/wmt_tamu_specialization_feature_pit_validation.json"
+  ],
+  "files_expected_to_be_read": [
+    "configs/wmt_provider_timestamp_pit_contract.json",
+    "artifacts/pit/wmt_provider_timestamp_pit_gate.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "configs/expanded_event_chronology_preliminary_contract.json"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/wmt_tamu_specialization_feature_pit_contract.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py",
+    "tools/build_wmt_tamu_specialization_feature_pit.py",
+    "tools/validate_wmt_tamu_specialization_feature_pit.py",
+    "tests/test_wmt_tamu_specialization_feature_pit.py",
+    "tests/test_historical_known_at_recovery_contract.py",
+    "tests/test_jira_control_plane.py",
+    "artifacts/pit/wmt_tamu_specialization_feature_pit_gate.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-179.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml"
+  ],
+  "gap_ids": [
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_and_m_wmt_specialization_features_for_development_pit.md",
+  "governance_traceability_gate": "POST-SUBTASK-033",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100487,
+  "in_scope": [
+    "Official per-game Texas A&M WMT competitor/team identity resolution using schoolId 697 and exact provider identifiers.",
+    "Provider-timestamped actions, plays, drives, and player participation aggregated to source-game and exact A&M target-cutoff development PIT features.",
+    "Domain-granular partial coverage, missingness, cold starts, target-game exclusion, provenance, deterministic replay, and preliminary unprotected feature candidacy."
+  ],
+  "issue_type": "Subtask",
+  "jira_key": "BAT-536",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "tamu-specialization",
+    "gamebook",
+    "wmt",
+    "pit",
+    "preliminary-unprotected",
+    "provenance"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-179",
+  "maturity_before": "PROVIDER_TIMESTAMPED_RECORD_PIT_ADMITTED",
+  "objective": "Materialize leakage-safe Texas A&M specialization features from the exact provider-timestamped WMT development PIT without broadening source authority or opening protected promotion.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24926",
+    "jira_updated_at": "2026-08-11T03:19:24.372-0500",
+    "last_synced_at": "2026-08-11T08:19:24.372000+00:00",
+    "source_export": "LIVE_REST_POST_SUBTASK_179_PREINTEGRATION_EVIDENCE",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
+  "out_of_scope": [
+    "Using score, winner, target outcome, target-game content, event time as publication time, current capture time, model output, or inferred values as feature evidence.",
+    "Admitting records outside POST-SUBTASK-178, silently promoting missing action/play/drive/player domains, or creating a name-only or score-assisted identity merge.",
+    "Protected training/evaluation, champion or production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-010",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Pinned d227b6cf official WMT acquisition and 76c3b366 candidate reconciliation identities.",
+    "Pinned POST-SUBTASK-178 provider-timestamped record PIT dataset 3b7ee9e5.",
+    "Pinned expanded target replay cf732b78 and exact 2023-2025 A&M target cutoffs.",
+    "Canonical Texas A&M team identity and configured standardized external data root."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02013",
+    "SRCREF-02006",
+    "SRCREF-01889"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "required_evidence": [
+    "Exact acquisition, reconciliation, provider-record PIT, competitor mapping, canonical team, target cutoff, contract, code, dataset, manifest, validation, and rollback identities.",
+    "Counts by source season, source game, target season, domain, record grain, schema, attribution disposition, cutoff eligibility, missingness, cold start, and exclusion reason.",
+    "Strict provider-known-at and effective-time ordering, zero target-game overlap, forbidden-field absence, identity mutation controls, byte-identical rebuild, and cleanup evidence.",
+    "Explicit development-only PIT/preliminary authority and protected, production, lift, BAS, Aggie Excess, completeness, and scientific nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Official schoolId attribution, per-game provider identity mapping, domain isolation, feature semantics, cutoff ordering, target exclusion, explicit cold starts, forbidden-field rejection, and protected nonauthority remain deterministic.",
+      "path": "tests/test_wmt_tamu_specialization_feature_pit.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "The complete pinned source population, A&M attribution map, external artifacts, identities, hashes, cutoff features, mutation controls, and byte-identical isolated rebuild pass independent validation.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-179.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any source, admission, record, provider timestamp, competitor/team mapping, target, feature, schema, population, hash, or deterministic rebuild identity drifts.",
+    "Any score, winner, target-game, future record, post-cutoff row, missing timestamp, invalid identity, fabricated value, or name-only merge enters an admitted feature.",
+    "Any development-only artifact is represented as protected, champion, production, forecast-publication, lift, BAS, Aggie Excess, completeness, or scientific authority."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241",
+    "RISK-242"
+  ],
+  "schema_version": 2,
+  "scope": "Convert only exact Texas A&M-attributed, provider-timestamped WMT records already admitted by POST-SUBTASK-178 into domain-granular source-game state and 2023-2025 A&M target-cutoff development features.",
+  "source_ids": [
+    "GAP-002",
+    "GAP-003",
+    "GAP-005",
+    "HANDOFF-003"
+  ],
+  "source_refs": [
+    "SRCREF-02013",
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "stop_conditions": [
+    "Stop the affected record, game, domain, or artifact on source identity, provider timestamp, A&M attribution, schema, chronology, target overlap, forbidden field, authority, hash, or deterministic rebuild failure.",
+    "Exclude or quarantine only affected rows or domains; do not block independent historical acquisition, preliminary modeling, or other source routes.",
+    "Do not weaken PIT, leakage, identity, validation, or protected gates to obtain apparent coverage or a favorable feature result."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-01564"
+  ],
+  "title": "Materialize provider-timestamped Texas A&M WMT specialization features for development PIT",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-033"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "PROVENANCE",
+    "REPRODUCIBILITY",
+    "PIT_LEAKAGE"
+  ],
+  "why_this_exists": "POST-SUBTASK-178 recovered substantial record-level historical eligibility but deliberately did not create predictive features; this unit converts only the exact admitted A&M evidence into leakage-safe candidate features for preliminary pipeline research.",
+  "work_packet_path": "",
+  "workflow_state": "IN_PROGRESS"
+}

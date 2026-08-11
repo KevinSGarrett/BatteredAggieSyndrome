@@ -104,6 +104,7 @@
     "preintegration_comment_id": "13639",
     "corrected_preintegration_comment_id": "13640",
     "cleanup_finding_comment_id": "13641",
+    "pull_request_checkpoint_comment_id": "13642",
     "live_issue_count": 494,
     "live_parent_count": 442,
     "live_canonical_link_count": 1114,
@@ -131,7 +132,8 @@
   "integration": {
     "branch": "codex/BAT-540-play-drive-2011-2020-pit",
     "base_commit": "0c150eebfd3cedd91373926fa7ecdfd41bd8c543",
-    "pull_request": null,
+    "pull_request": 180,
+    "preintegration_commit": "35b1c793cc5226133d9e4a99e38694ac453b93ca",
     "merge_commit": null,
     "postmerge_checks_passed": false
   },

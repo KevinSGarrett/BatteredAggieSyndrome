@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_ADVANCED_GAME_CAPTURE_TIME_SNAPSHOT_GATE",
+  "decision_unit": "POST-SUBTASK-192",
+  "jira_key": "BAT-549",
+  "status": "PASS_CAPTURE_TIME_CANDIDATE_ONLY_PREINTEGRATION",
+  "classification": "CAPTURE_TIME_HISTORICAL_ADVANCED_GAME_SNAPSHOT_CANDIDATE_ONLY",
+  "input_identities": {
+    "candidate_dataset": "8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc",
+    "candidate_manifest_sha256": "fd47fe331173946912fb5a2ed262e2d06a648b14fb83db82c89176e5ee5dc62b",
+    "team_box_snapshot_dataset": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733"
+  },
+  "output_identities": {
+    "dataset": "133c3bf970b4982d2a17b031a3ee60d531c99d9bb9069c3293955a7f2ca57c24",
+    "manifest_sha256": "de152bc939cee173c2a3955046b69400221f649bca33457699f46ec5de173490",
+    "exact_rows_sha256": "4d0f795281da4d61fceb8673b6b918aac07bf560a9ae789559c2744f893a390d",
+    "nonadmitted_rows_sha256": "1e8425f4c6561e961fdfa2ccef38831d74d697963a37968de5af06a1ff8774c7",
+    "validation_report_sha256": "b2a1e7083754203bbf87c92fbfbeae3f6a67c8adc2cedc0327e442fc89ce6051"
+  },
+  "population": {
+    "season_min": 2001,
+    "season_max": 2025,
+    "source_games": 21095,
+    "source_team_rows": 42190,
+    "source_leaf_cells": 2362640,
+    "exact_reconciled_games": 13259,
+    "exact_reconciled_team_rows": 26518,
+    "exact_reconciled_leaf_cells": 1485008,
+    "nonadmitted_games": 7836,
+    "nonadmitted_team_rows": 15672,
+    "nonadmitted_leaf_cells": 877632,
+    "distinct_exact_teams": 478,
+    "field_paths": 66,
+    "leaf_paths": 56,
+    "missing_leaf_cells": 0,
+    "two_sided_source_games": 21095,
+    "offense_defense_reciprocal_games": 21095,
+    "team_box_link_rows": 27142,
+    "team_box_outcome_match_rows": 20996,
+    "team_box_only_collision_rows": 624,
+    "team_box_only_collision_games": 312,
+    "duplicate_observation_ids": 0,
+    "duplicate_exact_natural_keys": 0
+  },
+  "chronology_and_leakage": {
+    "historical_known_at_state": "UNKNOWN_FOR_ADVANCED_STATS; CAPTURE_TIME_ONLY",
+    "minimum_capture_known_at_utc": "2026-08-09T16:57:53Z",
+    "maximum_capture_known_at_utc": "2026-08-09T19:10:37Z",
+    "historical_publication_time_proved": false,
+    "pre_capture_backcast": false,
+    "historical_pit_admission": false,
+    "preliminary_replay_admission": false,
+    "protected_split_opened": false
+  },
+  "schema_missingness_and_reconciliation": {
+    "physical_source_schema_hashes": 1,
+    "stable_structural_path_count": 66,
+    "observed_leaf_path_count": 56,
+    "observed_missing_leaf_cells": 0,
+    "missing_values_zero_filled": false,
+    "same_provider_overlap_claimed_independent": false,
+    "team_box_only_collisions_promoted": false,
+    "season_2001_sparse_preserved": true,
+    "season_2002_sparse_preserved": true,
+    "season_2020_partial_preserved": true,
+    "season_2022_coverage_boundary_preserved": true
+  },
+  "validation": {
+    "checks_passed": 58,
+    "mutation_controls_passed": 6,
+    "deterministic_builds_compared": 3,
+    "byte_identical_payload_rebuild": true,
+    "focused_tests_passed": 4,
+    "full_pytest_passed": 471,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "full_unittest_passed": 468,
+    "full_unittest_skipped": 3,
+    "final_quality_gate": {
+      "jira_pack": "PASS_500_CANONICAL",
+      "jira_links": 1148,
+      "second_pass": "PASS_68_OF_68",
+      "strict_repository": "PASS",
+      "dependency_cycles": 0,
+      "source_references": "PASS_2119",
+      "jira_manifest": "PASS_1885_FILES",
+      "external_storage": "PASS",
+      "w25_final": "PASS",
+      "secret_and_forbidden_artifact_scan": "PASS"
+    }
+  },
+  "authority": {
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false,
+    "candidate_snapshot_materialization": true,
+    "historical_pit_admission": false,
+    "preliminary_chronological_replay_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "gate_disposition": "COLLISION_FREE_RECONCILED_CAPTURE_TIME_ADVANCED_GAME_SNAPSHOT_PASS_CANDIDATE_ONLY_NO_HISTORICAL_PIT_BACKCAST",
+  "integration": {
+    "implementation_commit": "PENDING",
+    "pull_request": null,
+    "main_commit": "PENDING",
+    "repository_ci_run": null,
+    "security_analysis_run": null,
+    "exact_main_checks": "PENDING"
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "preliminary_model_training_eligible": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

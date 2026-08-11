@@ -28,7 +28,8 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-SUBTASK-191"
+    "POST-SUBTASK-191",
+    "POST-SUBTASK-192"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-190_admit_version_bound_team_season_membership_for_development_pit.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -111,8 +112,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24939",
-    "jira_updated_at": "2026-08-11T14:04:24.799-0500",
-    "last_synced_at": "2026-08-11T19:06:36.529502+00:00",
+    "jira_updated_at": "2026-08-11T14:49:21.856-0500",
+    "last_synced_at": "2026-08-11T19:49:31.987810+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -265,6 +266,7 @@ Normalize the twenty candidate team-membership payloads, admit only unique exact
 ## Blocks
 
 - POST-SUBTASK-191
+- POST-SUBTASK-192
 
 ## Read / Inspect First
 

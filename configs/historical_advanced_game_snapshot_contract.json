@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-192",
+  "jira_key": "BAT-549",
+  "classification": "CAPTURE_TIME_HISTORICAL_ADVANCED_GAME_SNAPSHOT_CANDIDATE_ONLY",
+  "source_contract": {
+    "candidate_dataset_identity": "8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc",
+    "candidate_manifest_relative_path": "manifests/historical_known_at/sha256/8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc/advanced_game_history_reconciliation.json",
+    "candidate_manifest_sha256": "fd47fe331173946912fb5a2ed262e2d06a648b14fb83db82c89176e5ee5dc62b",
+    "candidate_payload_root": "quarantine/historical_known_at/sha256/8daab70f13294ed69d0692933c210765602dfedb65af499fe48fdd1dfec5adfc/advanced_game_statistics",
+    "team_box_snapshot_dataset_identity": "f2e8fae89ca3659adad710b4b9b952cdb391a1b3c0c44956803b0e29c219a733",
+    "source_seasons": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "historical_known_at_state": "UNKNOWN_FOR_ADVANCED_STATS; CAPTURE_TIME_ONLY",
+    "minimum_capture_known_at_utc": "2026-08-09T16:57:53Z",
+    "maximum_capture_known_at_utc": "2026-08-09T19:10:37Z"
+  },
+  "disposition": {
+    "eligible_reconciliation_dispositions": [
+      "CANDIDATE_CROSS_ROUTE_OUTCOME_LINKED_ADVANCED_STATS",
+      "CANDIDATE_CURRENT_CANONICAL_CAPTURE_EXACT_MATCH",
+      "CANDIDATE_CURRENT_EXACT_AND_CROSS_ROUTE_OUTCOME_LINKED"
+    ],
+    "nonadmitted_reconciliation_dispositions": [
+      "CANDIDATE_SOURCE_LEVEL_ADVANCED_GAME_STATS",
+      "CANDIDATE_TEAM_BOX_GAME_TEAM_LINKED_ADVANCED_STATS"
+    ],
+    "natural_key": ["season", "source_game_id", "canonical_team_id_candidate"],
+    "snapshot_fields": [
+      "schema_version", "season", "season_type", "week", "source_game_id", "source_team", "source_team_normalized", "source_opponent", "source_opponent_normalized",
+      "offense_json", "offense_sha256", "defense_json", "defense_sha256", "source_capture_id", "source_request_id", "source_response_sha256", "source_response_bytes",
+      "source_row_number", "capture_known_at_utc", "source_record_evidence_sha256", "observation_id", "canonical_game_id_candidate", "canonical_team_id_candidate",
+      "canonical_opponent_id_candidate", "home_away_candidate", "team_box_observation_id", "team_box_historical_outcome_match", "historical_known_at_state",
+      "reconciliation_disposition", "row_lineage_sha256"
+    ],
+    "forbidden_snapshot_fields": ["current_canonical_advanced_id", "current_capture_exact_match", "admission_state", "target", "label", "outcome", "home_points", "away_points", "protected_split"]
+  },
+  "acceptance": {
+    "expected_source_files": 25,
+    "expected_source_rows": 42190,
+    "expected_source_games": 21095,
+    "expected_source_leaf_cells": 2362640,
+    "expected_exact_rows": 26518,
+    "expected_exact_games": 13259,
+    "expected_exact_teams": 478,
+    "expected_exact_leaf_cells": 1485008,
+    "expected_nonadmitted_rows": 15672,
+    "expected_nonadmitted_games": 7836,
+    "expected_nonadmitted_leaf_cells": 877632,
+    "expected_field_path_count": 66,
+    "expected_leaf_path_count": 56,
+    "expected_missing_leaf_cells": 0,
+    "expected_duplicate_observation_ids": 0,
+    "expected_duplicate_natural_keys": 0,
+    "expected_two_sided_games": 21095,
+    "expected_reciprocal_games": 21095,
+    "expected_team_box_link_rows": 27142,
+    "expected_team_box_outcome_match_rows": 20996,
+    "expected_team_box_only_collision_rows": 624,
+    "expected_team_box_only_collision_games": 312,
+    "expected_physical_schema_hashes": 1,
+    "expected_exact_by_season": {"2010": 972, "2011": 1590, "2012": 1648, "2013": 1696, "2014": 1698, "2015": 1724, "2016": 1712, "2017": 1736, "2018": 1758, "2019": 1770, "2020": 1136, "2021": 1768, "2022": 1792, "2023": 1820, "2024": 1830, "2025": 1868},
+    "expected_nonadmitted_by_season": {"2001": 844, "2002": 62, "2003": 968, "2004": 926, "2005": 1192, "2006": 1364, "2007": 1412, "2008": 1552, "2009": 1578, "2010": 600, "2011": 16, "2012": 2, "2013": 14, "2015": 2, "2016": 2, "2017": 2, "2018": 4, "2019": 4, "2020": 2, "2021": 6, "2022": 1126, "2023": 1164, "2024": 1382, "2025": 1448},
+    "expected_disposition_counts": {
+      "CANDIDATE_CROSS_ROUTE_OUTCOME_LINKED_ADVANCED_STATS": 19208,
+      "CANDIDATE_CURRENT_CANONICAL_CAPTURE_EXACT_MATCH": 5522,
+      "CANDIDATE_CURRENT_EXACT_AND_CROSS_ROUTE_OUTCOME_LINKED": 1788,
+      "CANDIDATE_SOURCE_LEVEL_ADVANCED_GAME_STATS": 15048,
+      "CANDIDATE_TEAM_BOX_GAME_TEAM_LINKED_ADVANCED_STATS": 624
+    }
+  },
+  "authority": {
+    "immutable_raw_capture_mutation": false,
+    "canonical_entity_mutation": false,
+    "candidate_snapshot_materialization": true,
+    "historical_pit_admission": false,
+    "preliminary_chronological_replay_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "negative_findings": [
+    "Historical publication timestamps are not proved; all values are capture-time candidates acquired in 2026 and no PIT backcast is permitted.",
+    "The 2022-2025 current overlap is same-provider evidence and is not independent confirmation of advanced values.",
+    "Team-box and outcome links establish game/team/side candidates only; they do not independently confirm PPA, success, explosiveness, or line-yard values.",
+    "All 624 team-box-only linked rows form 312 duplicate canonical game/team collision groups and remain nonadmitted with explicit collision evidence.",
+    "The 2001 and especially 2002 seasons are sparse, 2020 is partial, and the 2022 boundary expands sharply; seasons remain independently coverage-gated.",
+    "The source reports a stable 66-path structure and 56 populated leaf paths with zero observed missing leaf cells; this is an observed population fact, not a fabricated completeness threshold.",
+    "This artifact does not establish historical completeness, PIT eligibility, preliminary or protected training authority, production readiness, protected performance, A&M lift, BAS, or Aggie Excess."
+  ]
+}

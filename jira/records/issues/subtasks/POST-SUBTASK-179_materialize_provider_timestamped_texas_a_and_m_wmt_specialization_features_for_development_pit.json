@@ -41,7 +41,7 @@
   "end_to_end_validation": "Re-read the pinned WMT competitors and record candidates, POST-SUBTASK-178 admitted record state, and exact target cutoff matrix; independently rebuild per-game Texas A&M identity, source-game aggregates, and cutoff features; verify strict chronology, target exclusion, forbidden fields, schemas, counts, hashes, authority, and byte identity; then remove the reconstructible rebuild.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-179.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "DEVELOPMENT_ONLY_PIT_ADMITTED",
@@ -113,11 +113,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24926",
-    "jira_updated_at": "2026-08-11T03:19:24.372-0500",
-    "last_synced_at": "2026-08-11T08:19:24.372000+00:00",
-    "source_export": "LIVE_REST_POST_SUBTASK_179_PREINTEGRATION_EVIDENCE",
+    "jira_updated_at": "2026-08-11T03:23:43.675-0500",
+    "last_synced_at": "2026-08-11T08:23:43.675000+00:00",
+    "source_export": "LIVE_REST_POST_SUBTASK_179_POSTMERGE_DONE_EVIDENCE",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Using score, winner, target outcome, target-game content, event time as publication time, current capture time, model output, or inferred values as feature evidence.",
@@ -221,5 +221,5 @@
   ],
   "why_this_exists": "POST-SUBTASK-178 recovered substantial record-level historical eligibility but deliberately did not create predictive features; this unit converts only the exact admitted A&M evidence into leakage-safe candidate features for preliminary pipeline research.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

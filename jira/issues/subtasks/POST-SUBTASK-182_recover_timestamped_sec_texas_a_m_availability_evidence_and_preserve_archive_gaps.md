@@ -91,7 +91,7 @@
   "end_to_end_validation": "Replay the exact bounded immutable source captures independently; verify source URLs, HTTP outcomes, hashes, publication and capture timestamps, game/report-version ordering, normalized player-status candidates, explicit archive noncoverage, no absence-to-health inference, no name-only canonical merge, candidate-only authority, byte-identical rows, and cleanup.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-182.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
@@ -171,11 +171,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24930",
-    "jira_updated_at": "2026-08-11T06:01:25.983-0500",
-    "last_synced_at": "2026-08-11T11:01:25.983000+00:00",
+    "jira_updated_at": "2026-08-11T06:09:29.863-0500",
+    "last_synced_at": "2026-08-11T11:09:29.863000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.data\\runtime\\POST-SUBTASK-182\\jira-live-export.csv",
     "sprint": "",
-    "status_raw": "In Review"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Inferring healthy, available, injured, or absent from missing reports, missing names, roster membership, participation, press-conference language, or game outcomes.",
@@ -295,7 +295,7 @@
   ],
   "why_this_exists": "Historical availability remains an explicit GAP-008 domain. The official SEC policy establishes a high-value, timestamped A&M lane beginning in 2024, but the live archive currently returns no historical rows. This unit preserves that limitation and recovers evidence-present report versions from public timestamped routes without inventing health, identity, or completeness.",
   "work_packet_path": "",
-  "workflow_state": "REVIEW"
+  "workflow_state": "DONE"
 }
 ```
 

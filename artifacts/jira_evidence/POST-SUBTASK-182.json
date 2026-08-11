@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "artifact_type": "JIRA_PREINTEGRATION_EVIDENCE",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
   "local_issue_id": "POST-SUBTASK-182",
   "jira_import_id": 100490,
   "jira_key": "BAT-539",
-  "status": "VALIDATED_PREINTEGRATION",
+  "status": "VERIFIED",
   "classification": "TIMESTAMPED_SEC_TAMU_AVAILABILITY_CANDIDATE_ONLY",
   "objective": "Recover timestamped SEC Texas A&M availability evidence and preserve official archive gaps without inferring health or canonical player identity.",
   "population": {
@@ -49,12 +49,13 @@
   },
   "live_jira": {
     "authentication": "HTTP_200",
-    "status": "In Review",
+    "status": "Done",
     "claim_comment_id": "13624",
     "preintegration_comment_id": "13633",
+    "postmerge_comment_id": "13634",
     "historical_reconciliation_comment_id": "13632",
-    "historical_reconciliation_report": "<external-data-root>/reconciliation/jira/JIRA-LIVE-CATCHUP-20260811T110019Z.json",
-    "historical_reconciliation_report_sha256": "126d5b4aef333d8e35bf7f7506ce124fcdffbb1486571e4292079a7c35aef4aa",
+    "historical_reconciliation_report": "<external-data-root>/reconciliation/jira/JIRA-LIVE-RECONCILIATION-FINAL-20260811T111040Z.json",
+    "historical_reconciliation_report_sha256": "2416fb0c4dec22a801f8d51071d1393afa804625cad8df78a4c88fc636e15e78",
     "links": [
       "BAT-324 BLOCKS BAT-539",
       "BAT-328 BLOCKS BAT-539",
@@ -62,9 +63,15 @@
     ]
   },
   "integration": {
-    "pull_request": null,
-    "merge_commit": null,
-    "required_pull_request_checks_passed": false
+    "pull_request": 178,
+    "pull_request_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/178",
+    "reviewed_head": "91fa3cce0c1017435ee726e7c70bfad6564ee732",
+    "merge_commit": "b91c9d0c2606f5dbf40253a077afcd86c8d70ee4",
+    "merged_at_utc": "2026-08-11T11:07:03Z",
+    "required_pull_request_checks_passed": true,
+    "postmerge_repository_ci_run": 31485197462,
+    "postmerge_security_analysis_run": 31485197432,
+    "postmerge_checks_passed": true
   },
   "openai": {
     "calls_this_unit": 0,
@@ -73,6 +80,13 @@
     "cumulative_spend_usd": "4.309590",
     "remaining_budget_usd": "95.690410",
     "batch_jobs": 0
+  },
+  "cleanup": {
+    "superseded_candidate_identity_removed": "065954c045a77c4946759241519acf0bf71b2e0a4e592a0c61f82ab306be9a7c",
+    "reconstructible_files_removed": 3,
+    "empty_directories_removed": 3,
+    "runtime_audit_scripts_pending_final_report_cleanup": false,
+    "immutable_source_and_validated_evidence_preserved": true
   },
   "scientific_nonclaims": {
     "historical_population_ready": false,

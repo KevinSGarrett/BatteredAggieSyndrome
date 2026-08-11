@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "PRELIMINARY_DENSE_PLAY_DRIVE_REPLAY_GATE",
+  "decision_unit": "POST-SUBTASK-184",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "result": "PASS_NEGATIVE_EMPIRICAL_DISPOSITION_PRELIMINARY_ONLY",
+  "input_identities": {
+    "baseline_run": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "prior_play_drive_run": "8cc415cec979666f23ba616fea4cdc677566c16eaab254f1698bbfeb67906e56",
+    "dense_play_drive_feature": "1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d"
+  },
+  "output_identities": {
+    "run": "fbd173efe68ee6aebc0e897ced096c29ce4ea4c6d794029e11fcb590dee60b2a",
+    "dataset": "7f319f81d8b06e76058f75bf7bd478d0c2926beb4f2225b593391c46b8b855c5",
+    "feature": "dc55bedaa5a7955e8be7aff7cc6027d6a80883fc5580a7876ab211ab79b62bca",
+    "target": "669de1dee2aea9fd233f94ef6433c996c40c3b0fc60118fbf9e2f3eabb6c74a1",
+    "split": "7db9dc052d50f65fb78f1cb79c9bc12ec54f6493e16fcbb94917c4eac2345155",
+    "forecast": "076572c44e61a6cc2bc97228c3bd1cf00c933dc8d9346450155003157ffe8247",
+    "logistic_model": "83910b534ffb7ce756b81ff574b42e7c9e56f25e60a9645fcef0663d3e9cb259",
+    "ridge_margin_model": "a0a56fe5de4d358a1a5db87fee684b09f9686c9a191d80f662b443ab9b6a5654"
+  },
+  "population": {
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "target_seasons": [2023, 2024, 2025],
+    "games": 2763,
+    "rows_by_season": {"2023": 910, "2024": 919, "2025": 934},
+    "features_per_candidate": 20,
+    "cold_start_games": 14,
+    "missing_cells_per_play_drive_difference": 14,
+    "excluded_feature_games": ["game_126950537b3059bdaa46c689e2b34db7"]
+  },
+  "chronology": {
+    "2023": "EXACT_FROZEN_BASELINE_FALLBACK_NO_FIT",
+    "2024_fit_seasons": [2023],
+    "2024_maximum_fit_start_utc": "2024-01-09T00:30:00Z",
+    "2024_minimum_prediction_start_utc": "2024-08-24T16:00:00Z",
+    "2025_fit_seasons": [2023, 2024],
+    "2025_maximum_fit_start_utc": "2025-01-21T00:30:00Z",
+    "2025_minimum_prediction_start_utc": "2025-08-23T16:00:00Z",
+    "target_or_future_outcomes_in_fit": 0,
+    "source_known_at_after_target_cutoff": 0,
+    "target_game_outcomes_in_feature_evidence": 0
+  },
+  "empirical_disposition": {
+    "versus_prior_play_drive_replay": "NEGATIVE_2024_AND_2025_ALL_REPORTED_PROBABILITY_METRICS_AND_RIDGE_MARGIN_MAE",
+    "logistic_2024_brier_delta": 0.0006309389907001861,
+    "logistic_2024_log_loss_delta": 0.0017850139141963872,
+    "logistic_2025_brier_delta": 0.00004176750237175342,
+    "logistic_2025_log_loss_delta": 0.00020076234369093005,
+    "ridge_2024_brier_delta": 0.0004796171775812985,
+    "ridge_2024_log_loss_delta": 0.0011624184686860328,
+    "ridge_2024_margin_mae_delta": 0.012367947817207181,
+    "ridge_2025_brier_delta": 0.00018327300820808468,
+    "ridge_2025_log_loss_delta": 0.000667845382259391,
+    "ridge_2025_margin_mae_delta": 0.041636126036751264,
+    "champion_or_production_promotion": false
+  },
+  "validation": {
+    "checks_passed": 70,
+    "checks_failed": 0,
+    "deterministic_payloads_compared": 8,
+    "byte_identical_rebuild": true,
+    "validation_report_sha256": "4ce51bc9978000e789ac437aaea517baa6b3ea5af298f94e303f54f448d37101"
+  },
+  "authority": {
+    "pipeline_integration": true,
+    "preliminary_unprotected_research": true,
+    "protected_training": false,
+    "protected_evaluation": false,
+    "champion_promotion": false,
+    "production_forecast_publication": false
+  },
+  "limitations": [
+    "The dense profile is known only by May 2023 and cannot be backcast into the 2010-2022 fit population.",
+    "The 2023 output is the exact frozen fallback and not a learned dense-feature result.",
+    "The denser 2010-2022 profile degraded the paired 2024 and 2025 results versus POST-SUBTASK-177 and is not adopted as a preferred candidate.",
+    "The 2025 Texas A&M slice has 13 games and remains descriptive only.",
+    "Protected retraining still requires the expanded quality-supported population and unchanged chronological/W17 gates."
+  ],
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

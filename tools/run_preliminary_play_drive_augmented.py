@@ -8,6 +8,7 @@ import importlib.util
 import json
 import math
 from pathlib import Path
+import re
 import shutil
 import sys
 import tempfile
@@ -22,10 +23,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 
-BASELINE_RUN = "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080"
-BASELINE_MANIFEST_SHA = "602477b325c33811ccf9573af6cc7c6854621b322566c15e580dc134ddf07e8a"
-PLAY_DRIVE_FEATURE_ID = "b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06"
-PLAY_DRIVE_SHA = "d85e40096669acd9b0d5f674cabb0d39fd2658233556f356e6a5d9e7d228367d"
 TAMU_TEAM_ID = "team_d0aff8aacd805801ab3d3d8293f3b298"
 
 
@@ -36,6 +33,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--output-data-root", type=Path)
     result.add_argument("--issued-at-utc", required=True)
     result.add_argument("--summary-path", type=Path)
+    result.add_argument("--contract-path", type=Path)
     return result
 
 
@@ -248,6 +246,8 @@ def serialize_models(
     output_root: Path,
     base: Any,
     helpers: Any,
+    run_version: str,
+    storage_namespace: str,
 ) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for spec in specs:
@@ -257,7 +257,7 @@ def serialize_models(
         artifact = model_stage / "model.joblib"
         payload = {
             "classification": helpers.CLASSIFICATION,
-            "run_version": helpers.RUN_VERSION,
+            "run_version": run_version,
             "dataset_identity": dataset_identity,
             **spec,
         }
@@ -274,7 +274,7 @@ def serialize_models(
                 "prediction_seasons": [2023, 2024, 2025],
             }
         )
-        destination = output_root / "model_artifacts/preliminary_play_drive_augmented/sha256" / model_identity
+        destination = output_root / f"model_artifacts/{storage_namespace}/sha256" / model_identity
         base.move_or_verify(model_stage, destination, sha256_file)
         records.append(
             {
@@ -282,7 +282,7 @@ def serialize_models(
                 "family": family,
                 "model_identity": model_identity,
                 "dataset_identity": dataset_identity,
-                "artifact_path": f"model_artifacts/preliminary_play_drive_augmented/sha256/{model_identity}/model.joblib",
+                "artifact_path": f"model_artifacts/{storage_namespace}/sha256/{model_identity}/model.joblib",
                 "artifact_sha256": artifact_sha,
                 "serialization_replay": "PASS",
                 "fit_seasons_by_prediction_season": {"2023": [], "2024": [2023], "2025": [2023, 2024]},
@@ -302,18 +302,50 @@ def main() -> int:
     if issued.tzinfo is None:
         raise ValueError("issued-at-utc must be timezone aware")
     base = load_base_runner(repo_root)
-    contract_path = repo_root / "configs/preliminary_play_drive_augmented_contract.json"
+    contract_path = (
+        args.contract_path.resolve()
+        if args.contract_path
+        else repo_root / "configs/preliminary_play_drive_augmented_contract.json"
+    )
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
     if contract["classification"] != helpers.CLASSIFICATION:
         raise ValueError("classification drift")
 
-    baseline_manifest_path = data_root / "manifests/preliminary_event_chronology/sha256" / BASELINE_RUN / "run_manifest.json"
-    play_drive_path = data_root / "features/historical_known_at/sha256" / PLAY_DRIVE_FEATURE_ID / "target_game_team_play_drive_features.parquet"
-    if sha256_file(baseline_manifest_path) != BASELINE_MANIFEST_SHA:
+    authorized = contract["authorized_inputs"]
+    baseline_run = str(authorized["baseline_run_identity"])
+    baseline_manifest_sha = str(authorized["baseline_manifest_sha256"])
+    play_drive_feature_id = str(authorized["play_drive_feature_identity"])
+    play_drive_sha = str(authorized["play_drive_payload_sha256"])
+    decision_unit = str(contract["decision_unit"])
+    run_version = str(contract["run_version"])
+    storage_namespace = str(contract.get("storage_namespace", "preliminary_play_drive_augmented"))
+    stage_prefix = str(contract.get("stage_prefix", "post177-"))
+    if not re.fullmatch(r"[a-z0-9][a-z0-9_]*", storage_namespace):
+        raise ValueError("storage namespace must be a safe relative path component")
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]*-", stage_prefix):
+        raise ValueError("stage prefix must contain only lowercase letters, digits, and hyphens")
+    baseline_manifest_path = data_root / "manifests/preliminary_event_chronology/sha256" / baseline_run / "run_manifest.json"
+    play_drive_path = data_root / "features/historical_known_at/sha256" / play_drive_feature_id / "target_game_team_play_drive_features.parquet"
+    if sha256_file(baseline_manifest_path) != baseline_manifest_sha:
         raise ValueError("pinned baseline manifest drift")
-    if sha256_file(play_drive_path) != PLAY_DRIVE_SHA:
+    if sha256_file(play_drive_path) != play_drive_sha:
         raise ValueError("pinned play/drive feature drift")
     baseline_manifest = json.loads(baseline_manifest_path.read_text(encoding="utf-8"))
+    prior_play_drive_manifest: dict[str, Any] | None = None
+    prior_play_drive_run = authorized.get("prior_play_drive_run_identity")
+    if prior_play_drive_run:
+        prior_play_drive_path = (
+            data_root
+            / "manifests/preliminary_play_drive_augmented/sha256"
+            / str(prior_play_drive_run)
+            / "run_manifest.json"
+        )
+        expected_prior_sha = str(authorized["prior_play_drive_manifest_sha256"])
+        if sha256_file(prior_play_drive_path) != expected_prior_sha:
+            raise ValueError("pinned prior play/drive manifest drift")
+        prior_play_drive_manifest = json.loads(
+            prior_play_drive_path.read_text(encoding="utf-8")
+        )
     baseline_training_path = data_root / baseline_manifest["external_locations"]["training"] / "training_matrix.parquet"
     baseline_forecast_path = data_root / baseline_manifest["external_locations"]["forecast"] / "predictions.parquet"
     baseline_training = pl.read_parquet(baseline_training_path).filter(pl.col("season") >= 2023).sort(["start_utc", "target_game_id"])
@@ -381,9 +413,9 @@ def main() -> int:
         "runner_sha256": sha256_file(Path(__file__).resolve()),
         "validator_sha256": sha256_file(repo_root / "tools/validate_preliminary_play_drive_augmented.py"),
     }
-    tmp_root = output_root / "tmp/preliminary_play_drive_augmented"
+    tmp_root = output_root / f"tmp/{storage_namespace}"
     tmp_root.mkdir(parents=True, exist_ok=True)
-    stage = Path(tempfile.mkdtemp(prefix="post177-", dir=tmp_root))
+    stage = Path(tempfile.mkdtemp(prefix=stage_prefix, dir=tmp_root))
     try:
         dataset_stage = stage / "dataset"
         payloads: list[dict[str, Any]] = []
@@ -397,30 +429,32 @@ def main() -> int:
             info["sha256"] = sha256_file(dataset_stage / name)
             payloads.append(info)
         input_identities = {
-            "baseline_run": BASELINE_RUN,
+            "baseline_run": baseline_run,
             "baseline_dataset": baseline_manifest["dataset_identity"],
             "baseline_feature": baseline_manifest["feature_identity"],
             "baseline_target": baseline_manifest["target_identity"],
             "baseline_split": baseline_manifest["split_identity"],
             "baseline_forecast": baseline_manifest["forecast_identity"],
-            "play_drive_feature": PLAY_DRIVE_FEATURE_ID,
+            "play_drive_feature": play_drive_feature_id,
         }
+        if prior_play_drive_run:
+            input_identities["prior_play_drive_run"] = str(prior_play_drive_run)
         dataset_identity = helpers.stable_hash(
             {
-                "run_version": helpers.RUN_VERSION,
+                "run_version": run_version,
                 "classification": helpers.CLASSIFICATION,
                 "input_identities": input_identities,
                 "code_identities": code,
                 "payloads": sorted(payloads, key=lambda row: row["name"]),
             }
         )
-        training_destination = output_root / "training/preliminary_play_drive_augmented/sha256" / dataset_identity
+        training_destination = output_root / f"training/{storage_namespace}/sha256" / dataset_identity
         base.move_or_verify(dataset_stage, training_destination, sha256_file)
         feature_identity = helpers.stable_hash(
             {
                 "dataset_identity": dataset_identity,
                 "feature_columns": list(helpers.LOGISTIC_FEATURES),
-                "play_drive_feature": PLAY_DRIVE_FEATURE_ID,
+                "play_drive_feature": play_drive_feature_id,
             }
         )
         target_identity = helpers.stable_hash(
@@ -440,7 +474,16 @@ def main() -> int:
         )
 
         predictions, model_specs, diagnostics = fit_models(rows, contract, helpers)
-        models = serialize_models(model_specs, dataset_identity, stage, output_root, base, helpers)
+        models = serialize_models(
+            model_specs,
+            dataset_identity,
+            stage,
+            output_root,
+            base,
+            helpers,
+            run_version,
+            storage_namespace,
+        )
         model_identities = {row["family"]: row["model_identity"] for row in models}
         for row in predictions:
             row.update(
@@ -465,7 +508,7 @@ def main() -> int:
                 "payload": forecast_payload,
             }
         )
-        forecast_destination = output_root / "forecast_snapshots/preliminary_play_drive_augmented/sha256" / forecast_identity
+        forecast_destination = output_root / f"forecast_snapshots/{storage_namespace}/sha256" / forecast_identity
         base.move_or_verify(forecast_stage, forecast_destination, sha256_file)
 
         metrics = {
@@ -511,9 +554,31 @@ def main() -> int:
                     item["margin_mae_delta_candidate_minus_frozen"] = candidate["margin"]["mae"] - frozen["margin"]["mae"]
                 comparison[family][str(season)] = item
 
+        prior_comparison: dict[str, Any] = {}
+        if prior_play_drive_manifest is not None:
+            for family in sorted(model_identities):
+                prior_comparison[family] = {}
+                for season in (2023, 2024, 2025):
+                    slice_id = f"SEASON_{season}_ALL"
+                    candidate = metric_row(metrics[family], slice_id)
+                    prior = metric_row(prior_play_drive_manifest["metrics"][family], slice_id)
+                    item = {
+                        "rows_equal": candidate["probability"]["rows"]
+                        == prior["probability"]["rows"],
+                        "brier_delta_candidate_minus_prior": candidate["probability"]["brier"]
+                        - prior["probability"]["brier"],
+                        "log_loss_delta_candidate_minus_prior": candidate["probability"]["log_loss"]
+                        - prior["probability"]["log_loss"],
+                    }
+                    if candidate["margin"]["rows"]:
+                        item["margin_mae_delta_candidate_minus_prior"] = (
+                            candidate["margin"]["mae"] - prior["margin"]["mae"]
+                        )
+                    prior_comparison[family][str(season)] = item
+
         run_identity = helpers.stable_hash(
             {
-                "run_version": helpers.RUN_VERSION,
+                "run_version": run_version,
                 "dataset_identity": dataset_identity,
                 "feature_identity": feature_identity,
                 "target_identity": target_identity,
@@ -531,10 +596,10 @@ def main() -> int:
         unused_profile_games = sorted(set(profiles_by_game) - {row["target_game_id"] for row in rows})
         manifest = {
             "schema_version": "1.0.0",
-            "artifact_type": "PRELIMINARY_UNPROTECTED_PLAY_DRIVE_AUGMENTED_RUN",
+            "artifact_type": contract.get("artifact_type", "PRELIMINARY_UNPROTECTED_PLAY_DRIVE_AUGMENTED_RUN"),
             "classification": helpers.CLASSIFICATION,
-            "decision_unit": "POST-SUBTASK-177",
-            "run_version": helpers.RUN_VERSION,
+            "decision_unit": decision_unit,
+            "run_version": run_version,
             "run_identity": run_identity,
             "issued_at_utc": issued.astimezone(timezone.utc).isoformat().replace("+00:00", "Z"),
             "input_identities": input_identities,
@@ -563,6 +628,7 @@ def main() -> int:
             "metrics": metrics,
             "frozen_baseline_metrics": frozen_metrics,
             "baseline_comparison": comparison,
+            "prior_play_drive_comparison": prior_comparison,
             "diagnostics": diagnostics,
             "leakage_validation": {
                 "target_game_outcome_in_play_drive_evidence": 0,
@@ -574,19 +640,19 @@ def main() -> int:
                 "protected_split_opened": False,
             },
             "external_locations": {
-                "training": f"training/preliminary_play_drive_augmented/sha256/{dataset_identity}",
-                "models": "model_artifacts/preliminary_play_drive_augmented/sha256/<model_identity>",
-                "forecast": f"forecast_snapshots/preliminary_play_drive_augmented/sha256/{forecast_identity}",
-                "manifest": f"manifests/preliminary_play_drive_augmented/sha256/{run_identity}/run_manifest.json",
+                "training": f"training/{storage_namespace}/sha256/{dataset_identity}",
+                "models": f"model_artifacts/{storage_namespace}/sha256/<model_identity>",
+                "forecast": f"forecast_snapshots/{storage_namespace}/sha256/{forecast_identity}",
+                "manifest": f"manifests/{storage_namespace}/sha256/{run_identity}/run_manifest.json",
             },
-            "limitations": [
+            "limitations": contract.get("limitations", [
                 "All artifacts, metrics, and comparisons are PRELIMINARY_UNPROTECTED.",
                 "The play/drive profiles summarize 2010-2022 evidence known in May 2023 and cannot be backcast into the 2010-2022 baseline fit window.",
                 "The 2023 candidate is therefore an exact frozen-baseline fallback; 2024 fits only 2023 outcomes and 2025 fits only 2023-2024 outcomes.",
                 "Static profile differences do not represent target-season play-by-play updates.",
                 "Tree boosting was not admitted for this short post-publication supervised horizon.",
                 "Negative or mixed comparison results are preserved and cannot promote a champion.",
-            ],
+            ]),
             "protected_nonclaims": contract["protected_nonclaims"],
             "cleanup": {"reconstructible_stage_removed": True, "abandoned_downloads": 0},
         }
@@ -595,7 +661,7 @@ def main() -> int:
         manifest_path = manifest_stage / "run_manifest.json"
         manifest_path.write_bytes(helpers.canonical_json(manifest) + b"\n")
         manifest_sha = sha256_file(manifest_path)
-        manifest_destination = output_root / "manifests/preliminary_play_drive_augmented/sha256" / run_identity
+        manifest_destination = output_root / f"manifests/{storage_namespace}/sha256" / run_identity
         base.move_or_verify(manifest_stage, manifest_destination, sha256_file)
         result = {
             "result": "PASS",
@@ -609,6 +675,7 @@ def main() -> int:
             "model_identities": model_identities,
             "population": manifest["population"],
             "baseline_comparison": comparison,
+            "prior_play_drive_comparison": prior_comparison,
         }
         payload = json.dumps(result, sort_keys=True, separators=(",", ":")) + "\n"
         if args.summary_path:

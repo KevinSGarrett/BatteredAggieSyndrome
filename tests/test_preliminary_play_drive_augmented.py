@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
+import subprocess
+import sys
+import tempfile
 import unittest
 
 try:
@@ -19,6 +23,10 @@ except ModuleNotFoundError as exc:
 
 
 ROOT = Path(__file__).resolve().parents[1]
+RUNNER_DEPENDENCIES_AVAILABLE = all(
+    importlib.util.find_spec(name) is not None
+    for name in ("joblib", "numpy", "polars", "sklearn")
+)
 
 
 class PreliminaryPlayDriveAugmentedTests(unittest.TestCase):
@@ -35,6 +43,61 @@ class PreliminaryPlayDriveAugmentedTests(unittest.TestCase):
         self.assertEqual(inputs["eligibility"], "DEVELOPMENT_AND_PRELIMINARY_UNPROTECTED_ONLY")
         self.assertFalse(self.contract["chronology_policy"]["protected_split_opened"])
         self.assertFalse(any(self.contract["protected_nonclaims"].values()))
+
+    def test_dense_replay_is_separately_lineaged_and_unprotected(self) -> None:
+        contract = json.loads(
+            (ROOT / "configs/preliminary_dense_play_drive_replay_contract.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        inputs = contract["authorized_inputs"]
+        self.assertEqual(contract["decision_unit"], "POST-SUBTASK-184")
+        self.assertEqual(contract["classification"], "PRELIMINARY_UNPROTECTED")
+        self.assertEqual(
+            inputs["play_drive_feature_identity"],
+            "1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d",
+        )
+        self.assertEqual(
+            inputs["prior_play_drive_run_identity"],
+            "8cc415cec979666f23ba616fea4cdc677566c16eaab254f1698bbfeb67906e56",
+        )
+        self.assertEqual(inputs["source_seasons"], list(range(2010, 2023)))
+        self.assertFalse(contract["chronology_policy"]["protected_split_opened"])
+        self.assertFalse(any(contract["protected_nonclaims"].values()))
+
+    @unittest.skipUnless(
+        RUNNER_DEPENDENCIES_AVAILABLE,
+        "optional modeling runner dependencies unavailable",
+    )
+    def test_unsafe_storage_namespace_fails_closed(self) -> None:
+        contract = json.loads(
+            (ROOT / "configs/preliminary_dense_play_drive_replay_contract.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        contract["storage_namespace"] = "../outside"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "unsafe-contract.json"
+            path.write_text(json.dumps(contract), encoding="utf-8")
+            run = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "tools/run_preliminary_play_drive_augmented.py"),
+                    "--repo-root",
+                    str(ROOT),
+                    "--data-root",
+                    str(ROOT),
+                    "--contract-path",
+                    str(path),
+                    "--issued-at-utc",
+                    "2026-08-11T00:00:00Z",
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        self.assertNotEqual(run.returncode, 0)
+        self.assertIn("storage namespace must be a safe relative path component", run.stderr)
 
     @unittest.skipIf(fit_seasons_for_prediction is None, "optional modeling dependencies unavailable")
     def test_walk_forward_fit_plan(self) -> None:

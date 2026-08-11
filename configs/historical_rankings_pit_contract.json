@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "historical-ap-rankings-pit-date-only-upper-bound-v1",
+  "decision_unit": "POST-SUBTASK-170",
+  "classification": "HISTORICAL_PIT_DOMAIN_ELIGIBLE_DEVELOPMENT_ONLY",
+  "scope": {
+    "poll": "AP",
+    "seasons": [2010, 2025],
+    "normalization_identity": "acad9e20ba70ab7f371fa210431e4adc66243138154683f9a1b71961e0630220",
+    "normalization_manifest_sha256": "5b92f53c17ad9a7a1a7e438bb0abb6466347f413fc9eea0493ad43c4f6a800f2",
+    "reconciliation_identity": "28668e9138f9267a0dbe00c60f7cedd8f1fc37b051e2b3c61dde4fd240fb3570",
+    "reconciliation_manifest_sha256": "e9cafcc251a0888bdf3e2651f859d2db27d47d5fa43912181eac19ed914eaaa0",
+    "historical_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "historical_replay_manifest_sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888"
+  },
+  "admission": {
+    "required_poll_phase": "DATED_WEEKLY",
+    "required_poll_alignment": "EXACT_HIGH_COVERAGE_UNIQUE",
+    "required_identity_resolution": "EXACT_VERIFIED_ALIAS_CANDIDATE",
+    "canonical_team_id_required": true,
+    "date_only_publication_interval": "[poll_date-1dT00:00:00Z, poll_date+2dT00:00:00Z)",
+    "first_eligible_at_policy": "POLL_DATE_PLUS_TWO_DAYS_UTC_CONSERVATIVE_ALL_TIMEZONE_UPPER_BOUND",
+    "target_cutoff_lead_hours": 24,
+    "latest_poll_only": true,
+    "numeric_rank_missing_policy": "PRESERVE_NULL_WITH_EXPLICIT_RANK_STATE_AND_SOURCE_POLL_MEMBERSHIP",
+    "unlisted_team_policy": "NOT_LISTED_IN_LATEST_ELIGIBLE_SOURCE_POLL; DO_NOT_FABRICATE_NUMERIC_RANK"
+  },
+  "quarantine": [
+    "UNDATED_PRESEASON_OR_FINAL",
+    "DATED_POLL_NOT_EXACT_HIGH_COVERAGE_UNIQUE",
+    "TEAM_IDENTITY_NOT_EXACT_VERIFIED",
+    "CANONICAL_TEAM_ID_MISSING"
+  ],
+  "eligibility": {
+    "canonical_team_identity": true,
+    "pit_state": true,
+    "development_and_preliminary_feature_use": true,
+    "protected_evaluation": false,
+    "production_promotion": false,
+    "reason": "Protected use still requires expanded matrix integration, chronological replay, and applicable W17 gates."
+  },
+  "storage": {
+    "pit_state": "pit_state/historical_rankings/sha256",
+    "features": "features/historical_rankings/sha256",
+    "quarantine": "quarantine/historical_rankings_pit/sha256",
+    "manifests": "manifests/historical_rankings_pit/sha256",
+    "runtime": "runtime/POST-SUBTASK-170"
+  },
+  "nonclaims": [
+    "No exact publication timestamp is asserted.",
+    "No preseason or final poll is admitted without independent dated evidence.",
+    "No unresolved team identity or conflicted poll is admitted.",
+    "No protected feature, champion, production readiness, historical completeness, A&M lift, BAS, or Aggie Excess result is established."
+  ]
+}

@@ -334,15 +334,17 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(rankings["validation_checks_passed"], 28)
         self.assertEqual(rankings["mutation_controls_passed"], 14)
         self.assertEqual(rankings["deterministic_payloads_compared"], 92)
-        self.assertEqual(rankings["admission_state"], "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED")
+        self.assertEqual(rankings["admission_state"], "EXACT_DATED_WEEKLY_PIT_ADMITTED_DEVELOPMENT_ONLY")
         self.assertTrue(self.evidence["completion_claim"]["rankings_candidate_layer_validated"])
         self.assertFalse(self.evidence["completion_claim"]["rankings_canonical_or_pit_admission"])
+        self.assertTrue(self.evidence["completion_claim"]["rankings_exact_dated_weekly_pit_admission"])
         checkpoint = self.gate["parallel_rankings_checkpoint"]
-        self.assertFalse(checkpoint["canonical_team_admission"])
-        self.assertFalse(checkpoint["pit_state_admission"])
-        self.assertFalse(checkpoint["training_feature_admission"])
-        self.assertIn("PENDING", checkpoint["gate_disposition"])
-        self.assertFalse(self.rankings_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertTrue(checkpoint["canonical_team_admission"])
+        self.assertTrue(checkpoint["pit_state_admission"])
+        self.assertEqual(checkpoint["training_feature_admission"], "DEVELOPMENT_AND_PRELIMINARY_ONLY")
+        self.assertIn("PROTECTED_USE_PENDING", checkpoint["gate_disposition"])
+        self.assertTrue(self.rankings_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertFalse(self.rankings_gate["historical_known_at_gate"]["protected_evaluation_admission"])
         self.assertFalse(self.rankings_gate["scientific_nonclaims"]["gap_002_resolved"])
 
     def test_college_poll_archive_is_registered_under_private_research_policy(self) -> None:

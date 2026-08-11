@@ -1473,6 +1473,8 @@ artifacts/jira_evidence/POST-SUBTASK-168.json,END_TO_END,POST-SUBTASK-168,Subtas
 ISSUE_COMPLETION_MANIFEST,REPRODUCIBILITY,POST-SUBTASK-168,Subtask,"Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities."
 tests/test_preliminary_unprotected_baselines.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-169,Sub-task,"Synthetic feature pairing, cold start, imputation-fit boundary, leakage failure, Elo determinism, metric, and scoped-contract tests pass."
 artifacts/jira_evidence/POST-SUBTASK-169.json,END_TO_END,POST-SUBTASK-169,Sub-task,The external run manifest and every data/model/forecast artifact pass the independent preliminary validator.
+tests/test_historical_rankings_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-170,Sub-task,"Date intervals, exact eligibility, latest-known poll selection, missingness, target isolation, and scoped-contract tests pass."
+artifacts/jira_evidence/POST-SUBTASK-170.json,END_TO_END,POST-SUBTASK-170,Sub-task,"The external state, cutoff, feature, quarantine, and manifest payloads pass the independent rankings PIT validator and deterministic rebuild."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

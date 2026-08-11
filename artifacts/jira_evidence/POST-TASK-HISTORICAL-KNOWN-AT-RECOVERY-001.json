@@ -741,6 +741,7 @@
     "team_membership_canonical_or_pit_admission": false,
     "rankings_candidate_layer_validated": true,
     "rankings_canonical_or_pit_admission": false,
+    "rankings_exact_dated_weekly_pit_admission": true,
     "team_box_candidate_layer_validated": true,
     "team_box_canonical_pit_feature_or_official_source_admission": false,
     "structured_team_box_candidate_materialized": true,

@@ -24,7 +24,9 @@
     "artifacts/jira_evidence/POST-SUBTASK-165.json"
   ],
   "blocked_reason": "DEFERRED_PENDING_TIMESTAMPED_EVIDENCE",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-170"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-165_pilot_timestamped_injury_depth_chart_practice_and_availability_extraction_when_evidence_is_r.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "completion_evidence_contract": {
@@ -275,7 +277,7 @@ Execute POST-SUBTASK-165 within the optional OpenAI assistive plane. Consume `PO
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-170
 
 ## Read / Inspect First
 

@@ -38,7 +38,12 @@ class JiraControlPlaneTests(unittest.TestCase):
         )
         self.assertEqual(
             pending,
-            ["POST-SUBTASK-167", "POST-SUBTASK-168", "POST-SUBTASK-169"],
+            [
+                "POST-SUBTASK-167",
+                "POST-SUBTASK-168",
+                "POST-SUBTASK-169",
+                "POST-SUBTASK-170",
+            ],
         )
 
 

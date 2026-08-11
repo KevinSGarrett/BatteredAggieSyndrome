@@ -18,7 +18,8 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-SUBTASK-030"
+    "POST-SUBTASK-030",
+    "POST-SUBTASK-170"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",

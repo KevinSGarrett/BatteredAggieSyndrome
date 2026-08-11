@@ -37376,6 +37376,8 @@ Prerequisites / Dependencies
 - BAT-387 canonical registry identity 10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac with exact provider-ID game mappings.
 - Read-only population profile: 33,272 unique completed CFBD games, 33,278 canonical schedule union, 33,276 completed outcome candidates, and explicit SportsDataverse alias/supplement dispositions.
 - Verified recovery checkpoint C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-195-PRECHANGE-20260811T215652Z.
+- Integrated dataset identity 8e639d010b4808fe279e97e5ff79adf31a2b04cd8ee1ece1dcf2f09ec7343296 and immutable validation report SHA-256 d946e0e2972c5f5ffff0cf923faa708e33dcf1e8867b8a8e38015252d16868a4.
+- Implementation PR 207 merged as dca218f81d316c4ccffb786fc184670eaf166d80 after all hosted repository and security checks passed.
 - POST-SUBTASK-028
 - POST-SUBTASK-029
 - POST-SUBTASK-037
@@ -37434,4 +37436,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-069
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-195_materialize_1963_2009_national_game_outcome_spine_and_tiered_eligibility_gate.json",In Progress,Medium,actionable;post-wave;subtask;historical-expansion;games;outcomes;1963-2009;tiered-eligibility;candidate-only;provenance;local-id-post-subtask-195,data-sources,POST-SUBTASK-195,GAP-002;GAP-003;HANDOFF-008,PHASE-1,IN_PROGRESS,VALIDATED_RECONCILED_CANDIDATE_ONLY,PARTIAL,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-195_materialize_1963_2009_national_game_outcome_spine_and_tiered_eligibility_gate.json",Done,Medium,actionable;post-wave;subtask;historical-expansion;games;outcomes;1963-2009;tiered-eligibility;candidate-only;provenance;local-id-post-subtask-195,data-sources,POST-SUBTASK-195,GAP-002;GAP-003;HANDOFF-008,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE

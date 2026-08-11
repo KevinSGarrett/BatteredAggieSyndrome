@@ -98,7 +98,8 @@
     "checks": 106,
     "mutation_controls": 8,
     "byte_identical_rebuild": true,
-    "report_sha256": "78e659f358945e4293bcb95f71a79a76e39c9dcad5b2a2aea1d05b6fbe42ae09",
+    "report_relative_path": "validation/POST-SUBTASK-195/8e639d010b4808fe279e97e5ff79adf31a2b04cd8ee1ece1dcf2f09ec7343296/runs/d946e0e2972c5f5ffff0cf923faa708e33dcf1e8867b8a8e38015252d16868a4/historical_game_outcome_spine_validation.json",
+    "report_sha256": "d946e0e2972c5f5ffff0cf923faa708e33dcf1e8867b8a8e38015252d16868a4",
     "focused_tests": 5
   },
   "scientific_nonclaims": {

@@ -28,7 +28,8 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-SUBTASK-192"
+    "POST-SUBTASK-192",
+    "POST-SUBTASK-193"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-191_materialize_capture_time_team_box_snapshot_and_domain_eligibility_gate.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -113,8 +114,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24940",
-    "jira_updated_at": "2026-08-11T14:49:21.773-0500",
-    "last_synced_at": "2026-08-11T19:49:31.987810+00:00",
+    "jira_updated_at": "2026-08-11T15:26:32.162-0500",
+    "last_synced_at": "2026-08-11T20:26:43.633325+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -268,6 +269,7 @@ Disposition all 27,340 candidate game-team rows, preserve the 21,168 cross-route
 ## Blocks
 
 - POST-SUBTASK-192
+- POST-SUBTASK-193
 
 ## Read / Inspect First
 

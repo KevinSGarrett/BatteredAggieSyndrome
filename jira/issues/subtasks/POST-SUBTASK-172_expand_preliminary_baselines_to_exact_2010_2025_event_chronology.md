@@ -1,0 +1,362 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.json -->
+# POST-SUBTASK-172 — [POST-SUBTASK-172] Expand preliminary baselines to exact 2010-2025 event chronology
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "The exact 10593-row accepted historical outcome identity and exact 2763-row POST-SUBTASK-171 contemporary target identity are combined without admitting any other label or feature population.",
+    "Historical source kickoff timestamps remain the chronology authority required by the pinned rankings feature identity; all 24 canonical timestamp differences are preserved and any drift above the observed 270-minute bound fails closed.",
+    "Separate feature, outcome-target, split, training, model, forecast, and run identities are immutable, external-storage-only, and reproduce byte-for-byte in an independent build root.",
+    "All target-game, same-season/week batch, future-start, fabricated-publication-time, historical-known-at eligibility, and protected-split gates pass.",
+    "Every artifact, metric, and conclusion remains PRELIMINARY_UNPROTECTED_EVENT_CHRONOLOGY_ONLY and protected promotion remains dependent on expanded quality-supported historical-known-at evidence and W17 gates."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "This is an event-chronology-only preliminary research unit, not historical-known-at/PIT admission.",
+    "No OpenAI output or inferred factual value is admitted into targets or features.",
+    "Historical acquisition remains a separate active critical-path lane and does not depend on this unit."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "modeling",
+  "components_expected_to_be_touched": [
+    "modeling",
+    "features",
+    "temporal",
+    "provenance"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "The immutable 2010-2025 population contains 13356 exact rows with separate feature, target, split, and joined training payloads.",
+    "Development fit is 2010-2022, development tune is 2023-2024, and development evaluation is 2025 unprotected; no protected split is opened.",
+    "Naive, home-field, week-batched Elo, regularized logistic/linear, and Poisson/Skellam models serialize and replay before histogram tree boosting runs.",
+    "Per-season and relevant-slice probability, calibration, and score diagnostics preserve missingness, cold starts, exclusions, and timestamp reconciliation findings.",
+    "The independent validator and deterministic rebuild pass, reconstructible staging is cleaned, and protected production promotion remains closed."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-170",
+    "POST-SUBTASK-171"
+  ],
+  "end_to_end_validation": "Rebuild the complete external training, model, forecast, and manifest artifacts in a separate external root; compare every payload hash and identity; verify exact population, chronology, source/canonical time evidence, target isolation, missingness, serialization replay, and protected closure.",
+  "epic_id": "POST-EPIC-008",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "MODEL_RESEARCH",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+  "expected_outputs": [
+    "configs/expanded_event_chronology_preliminary_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-172.json",
+    "<external-data-root>/training/preliminary_event_chronology/sha256/<dataset_identity>",
+    "<external-data-root>/model_artifacts/preliminary_event_chronology/sha256/<model_identity>",
+    "<external-data-root>/forecast_snapshots/preliminary_event_chronology/sha256/<forecast_identity>",
+    "<external-data-root>/manifests/preliminary_event_chronology/sha256/<run_identity>/run_manifest.json"
+  ],
+  "files_expected_to_be_read": [
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "configs/preliminary_rankings_augmented_contract.json",
+    "configs/historical_rankings_pit_contract.json",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "docs/60_W17_EXPERIMENT_BOUNDARIES_AND_W18_HANDOFF.md"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/expanded_event_chronology_preliminary_contract.json",
+    "src/aggie_analytics/temporal/expanded_event_chronology.py",
+    "tools/run_expanded_event_chronology_preliminary.py",
+    "tools/validate_expanded_event_chronology_preliminary.py",
+    "tests/test_expanded_event_chronology.py",
+    "artifacts/jira_evidence/POST-SUBTASK-172.json"
+  ],
+  "gap_ids": [
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.md",
+  "governance_traceability_gate": "TASK-036",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100480,
+  "in_scope": [
+    "Exact accepted 2010-2022 cross-source outcomes and exact POST-SUBTASK-171 2023-2025 targets.",
+    "Exact POST-SUBTASK-170 rankings feature identity and 14-feature model matrix.",
+    "Week-batched event chronology with source/canonical kickoff reconciliation evidence.",
+    "Seven-family preliminary baseline ladder, calibration, metrics, replay, provenance, and cleanup."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "preliminary-unprotected",
+    "baseline-modeling",
+    "historical-expansion",
+    "event-chronology"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-172",
+  "maturity_before": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+  "objective": "Exercise the complete preliminary model pipeline on the exact quality-supported 2010-2025 outcome population while preserving event-chronology-only authority and keeping protected promotion dependent on expanded historical-known-at evidence.",
+  "out_of_scope": [
+    "Historical-known-at/PIT admission for the 2010-2022 outcome evidence.",
+    "Final historical-population readiness, GAP-002 resolution, protected evaluation, champion promotion, production readiness, A&M specialization lift, BAS, or Aggie Excess.",
+    "Any domain, target, timestamp, or factual value outside the pinned identities or invented to fill missing evidence."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-025",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "POST-SUBTASK-171 exact contemporary target and rankings-augmented baseline identity.",
+    "Pinned accepted historical outcome replay identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7.",
+    "Pinned canonical registry and rankings feature identities."
+  ],
+  "primary_source_refs": [
+    "SRCREF-00069",
+    "SRCREF-02049",
+    "SRCREF-02050"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "configs/judging_rule_seal.json"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "required_evidence": [
+    "Exact input, dataset, feature, target, split, run, model, and forecast identities and hashes.",
+    "Seasons, games, rows, features, missingness, cold starts, exclusions, and source/canonical kickoff drift counts.",
+    "Chronological cutoffs, target-game and same-batch exclusion, future-start, fabricated-time, historical-known-at, and protected-split test results.",
+    "Metrics by season and relevant slice, immutable external locations, deterministic rebuild, validation, and cleanup evidence.",
+    "Explicit preliminary classification, limitations, and requirements remaining for protected promotion."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Event-batch isolation, earlier-batch eligibility, non-PIT authority, duplicate rejection, and scoped timestamp reconciliation contract tests pass.",
+      "path": "tests/test_expanded_event_chronology.py",
+      "validation_class": "PIT_LEAKAGE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "External dataset, models, predictions, manifest, hashes, chronology, timestamp drift evidence, and protected closure pass independent validation and deterministic rebuild.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-172.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any source identity, target population, rankings feature, or chronology contract silently broadens.",
+    "Any target-game, same-batch, future-start, or fabricated timestamp enters feature evidence.",
+    "Any canonical/source kickoff mismatch is hidden or exceeds the pinned observed bound.",
+    "Any preliminary metric is treated as protected evidence or promotional authority."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241",
+    "RISK-242"
+  ],
+  "schema_version": 2,
+  "scope": "Combine the exact validated historical and contemporary outcome labels, build a conservative week-batched event chronology, join only the pinned rankings features, run the complete baseline ladder, and preserve reproducible preliminary evidence outside Git.",
+  "source_ids": [
+    "TASK-036",
+    "GAP-002",
+    "GAP-003",
+    "GAP-005"
+  ],
+  "source_refs": [
+    "SRCREF-00069",
+    "SRCREF-02049",
+    "SRCREF-02050"
+  ],
+  "stop_conditions": [
+    "Stop this lane on input identity drift, population drift, target/future/same-batch leakage, source kickoff drift above 270 minutes, serialization failure, or deterministic rebuild mismatch.",
+    "Quarantine or stop only the affected artifact; do not interrupt independent historical acquisition.",
+    "Do not open protected promotion until expanded quality-supported historical-known-at evidence and W17 gates pass."
+  ],
+  "supporting_source_refs": [],
+  "title": "[POST-SUBTASK-172] Expand preliminary baselines to exact 2010-2025 event chronology",
+  "traceability_inherited_from": [
+    "TASK-036"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "PIT_LEAKAGE",
+    "PROVENANCE",
+    "REPRODUCIBILITY"
+  ],
+  "why_this_exists": "Final expanded-history and protected-promotion gates must remain binding without preventing a separately lineaged preliminary pipeline from using the maximum exact outcome population already available.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}
+```
+
+## Objective
+
+Exercise the complete preliminary model pipeline on the exact quality-supported 2010-2025 outcome population while preserving event-chronology-only authority and keeping protected promotion dependent on expanded historical-known-at evidence.
+
+## Why This Exists
+
+Final expanded-history and protected-promotion gates must remain binding without preventing a separately lineaged preliminary pipeline from using the maximum exact outcome population already available.
+
+## Scope
+
+Combine the exact validated historical and contemporary outcome labels, build a conservative week-batched event chronology, join only the pinned rankings features, run the complete baseline ladder, and preserve reproducible preliminary evidence outside Git.
+
+### Explicit In Scope
+
+- Exact accepted 2010-2022 cross-source outcomes and exact POST-SUBTASK-171 2023-2025 targets.
+- Exact POST-SUBTASK-170 rankings feature identity and 14-feature model matrix.
+- Week-batched event chronology with source/canonical kickoff reconciliation evidence.
+- Seven-family preliminary baseline ladder, calibration, metrics, replay, provenance, and cleanup.
+
+### Explicit Out of Scope
+
+- Historical-known-at/PIT admission for the 2010-2022 outcome evidence.
+- Final historical-population readiness, GAP-002 resolution, protected evaluation, champion promotion, production readiness, A&M specialization lift, BAS, or Aggie Excess.
+- Any domain, target, timestamp, or factual value outside the pinned identities or invented to fill missing evidence.
+
+## Prerequisites
+
+- POST-SUBTASK-171 exact contemporary target and rankings-augmented baseline identity.
+- Pinned accepted historical outcome replay identity cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7.
+- Pinned canonical registry and rankings feature identities.
+
+## Hard Dependencies
+
+- POST-SUBTASK-170
+- POST-SUBTASK-171
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- None.
+
+## Files Expected To Be Modified
+
+- configs/expanded_event_chronology_preliminary_contract.json
+- src/aggie_analytics/temporal/expanded_event_chronology.py
+- tools/run_expanded_event_chronology_preliminary.py
+- tools/validate_expanded_event_chronology_preliminary.py
+- tests/test_expanded_event_chronology.py
+- artifacts/jira_evidence/POST-SUBTASK-172.json
+
+## Components Expected To Be Touched
+
+- modeling
+- features
+- temporal
+- provenance
+
+## Protected Files / Interfaces
+
+- governance/DO_NOT_DRIFT.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- configs/judging_rule_seal.json
+
+## Expected Outputs / Artifacts
+
+- configs/expanded_event_chronology_preliminary_contract.json
+- artifacts/jira_evidence/POST-SUBTASK-172.json
+- <external-data-root>/training/preliminary_event_chronology/sha256/<dataset_identity>
+- <external-data-root>/model_artifacts/preliminary_event_chronology/sha256/<model_identity>
+- <external-data-root>/forecast_snapshots/preliminary_event_chronology/sha256/<forecast_identity>
+- <external-data-root>/manifests/preliminary_event_chronology/sha256/<run_identity>/run_manifest.json
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `TASK-036`
+- Inherited from: TASK-036
+- Resolution: `DIRECT_PLUS_INHERITED_DOMAIN_GATE`
+- Effective counts: `{}`
+
+## Acceptance Criteria
+
+1. The exact 10593-row accepted historical outcome identity and exact 2763-row POST-SUBTASK-171 contemporary target identity are combined without admitting any other label or feature population.
+2. Historical source kickoff timestamps remain the chronology authority required by the pinned rankings feature identity; all 24 canonical timestamp differences are preserved and any drift above the observed 270-minute bound fails closed.
+3. Separate feature, outcome-target, split, training, model, forecast, and run identities are immutable, external-storage-only, and reproduce byte-for-byte in an independent build root.
+4. All target-game, same-season/week batch, future-start, fabricated-publication-time, historical-known-at eligibility, and protected-split gates pass.
+5. Every artifact, metric, and conclusion remains PRELIMINARY_UNPROTECTED_EVENT_CHRONOLOGY_ONLY and protected promotion remains dependent on expanded quality-supported historical-known-at evidence and W17 gates.
+
+## Definition of Done
+
+1. The immutable 2010-2025 population contains 13356 exact rows with separate feature, target, split, and joined training payloads.
+2. Development fit is 2010-2022, development tune is 2023-2024, and development evaluation is 2025 unprotected; no protected split is opened.
+3. Naive, home-field, week-batched Elo, regularized logistic/linear, and Poisson/Skellam models serialize and replay before histogram tree boosting runs.
+4. Per-season and relevant-slice probability, calibration, and score diagnostics preserve missingness, cold starts, exclusions, and timestamp reconciliation findings.
+5. The independent validator and deterministic rebuild pass, reconstructible staging is cleaned, and protected production promotion remains closed.
+
+## Required Tests / Validation
+
+- **NEW_AUTOMATED_TEST_REQUIRED** / `PIT_LEAKAGE` — `tests/test_expanded_event_chronology.py` — Event-batch isolation, earlier-batch eligibility, non-PIT authority, duplicate rejection, and scoped timestamp reconciliation contract tests pass.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-172.json` — External dataset, models, predictions, manifest, hashes, chronology, timestamp drift evidence, and protected closure pass independent validation and deterministic rebuild.
+
+## Required Evidence
+
+- Exact input, dataset, feature, target, split, run, model, and forecast identities and hashes.
+- Seasons, games, rows, features, missingness, cold starts, exclusions, and source/canonical kickoff drift counts.
+- Chronological cutoffs, target-game and same-batch exclusion, future-start, fabricated-time, historical-known-at, and protected-split test results.
+- Metrics by season and relevant slice, immutable external locations, deterministic rebuild, validation, and cleanup evidence.
+- Explicit preliminary classification, limitations, and requirements remaining for protected promotion.
+
+## Completion Evidence Contract
+
+```json
+{}
+```
+
+## End-to-End Validation Requirement
+
+Rebuild the complete external training, model, forecast, and manifest artifacts in a separate external root; compare every payload hash and identity; verify exact population, chronology, source/canonical time evidence, target isolation, missingness, serialization replay, and protected closure.
+
+## Expected Maturity After Completion
+
+`EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED`
+
+## Risk / Failure Conditions
+
+- Any source identity, target population, rankings feature, or chronology contract silently broadens.
+- Any target-game, same-batch, future-start, or fabricated timestamp enters feature evidence.
+- Any canonical/source kickoff mismatch is hidden or exceeds the pinned observed bound.
+- Any preliminary metric is treated as protected evidence or promotional authority.
+
+## Stop Conditions
+
+- Stop this lane on input identity drift, population drift, target/future/same-batch leakage, source kickoff drift above 270 minutes, serialization failure, or deterministic rebuild mismatch.
+- Quarantine or stop only the affected artifact; do not interrupt independent historical acquisition.
+- Do not open protected promotion until expanded quality-supported historical-known-at evidence and W17 gates pass.
+
+## Source References
+
+- SRCREF-00069
+- SRCREF-02049
+- SRCREF-02050
+
+## AI Context Notes
+
+- This is an event-chronology-only preliminary research unit, not historical-known-at/PIT admission.
+- No OpenAI output or inferred factual value is admitted into targets or features.
+- Historical acquisition remains a separate active critical-path lane and does not depend on this unit.

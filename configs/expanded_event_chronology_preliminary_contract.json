@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-172",
+  "classification": "PRELIMINARY_UNPROTECTED_EVENT_CHRONOLOGY_ONLY",
+  "objective": "Expand preliminary team-outcome research to the maximum validated 2010-2025 label population without inventing historical publication timestamps or opening protected promotion.",
+  "authorized_inputs": {
+    "historical_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "historical_outcomes_sha256": "7fdea2ced7508e7f3b78d397bf8984325dd2b7095b05dc486335ee9c432ccb64",
+    "canonical_core_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "contemporary_target_identity": "60e5cb3caac26b8dcbd87eedaddac0e385d8c4dc59e0b471c9ff9fdac8a7066d",
+    "contemporary_targets_sha256": "d9e49d903b83759b31c6169891aa9e3183f63a1cd2263d03a3a0b0745a79d0bb",
+    "rankings_feature_identity": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "rankings_features_sha256": "f7bade2b2653df3c4f82927beaf3ba7dc254c6bb8487849f980a2eac6f0c3a4e"
+  },
+  "target_policy": {
+    "seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "historical_rows": "STRICT_CROSS_SOURCE_EXACT_OUTCOMES_ONLY",
+    "contemporary_rows": "EXACT_POST_SUBTASK_171_TARGET_ROWS_ONLY",
+    "labels_materialized_separately": true,
+    "missing_or_conflicting_outcomes": "EXCLUDE_OR_QUARANTINE_NEVER_FABRICATE"
+  },
+  "event_chronology_policy": {
+    "authority": "PRELIMINARY_TEAM_STRENGTH_RESEARCH_ONLY",
+    "historical_known_at_eligible": false,
+    "batch_key": ["season", "season_type_order", "week"],
+    "prior_requirements": [
+      "SOURCE_BATCH_STRICTLY_PRECEDES_TARGET_BATCH",
+      "SOURCE_GAME_START_PRECEDES_TARGET_CUTOFF",
+      "SOURCE_GAME_ID_DIFFERS_FROM_TARGET_GAME_ID"
+    ],
+    "same_batch_updates": "FORBIDDEN",
+    "publication_timestamp": "UNKNOWN_NOT_INFERRED",
+    "source_known_at_timestamp": "PRESERVED_AS_OBSERVED_BUT_NOT_REWRITTEN",
+    "pit_promotion": "FORBIDDEN_UNTIL_INDEPENDENT_HISTORICAL_KNOWN_AT_EVIDENCE_EXISTS"
+  },
+  "game_start_reconciliation": {
+    "historical_chronological_cutoff_authority": "PINNED_ACCEPTED_HISTORICAL_SOURCE_START_ALIGNED_TO_RANKINGS_FEATURE",
+    "contemporary_chronological_cutoff_authority": "PINNED_CONTEMPORARY_TARGET_START",
+    "canonical_registry_start_preserved_as_reconciliation_evidence": true,
+    "source_start_preserved": true,
+    "source_minus_canonical_delta_preserved": true,
+    "pinned_population_maximum_observed_absolute_delta_minutes": 270,
+    "larger_delta": "FAIL_CLOSED",
+    "eligibility_effect": "NO_HISTORICAL_KNOWN_AT_OR_PROTECTED_ELIGIBILITY"
+  },
+  "split_policy": {
+    "development_fit": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "development_tune": [2023, 2024],
+    "development_evaluation_unprotected": [2025],
+    "protected_split_opened": false
+  },
+  "model_ladder": [
+    "naive_historical_average",
+    "home_field_empirical",
+    "elo_rating_week_batched",
+    "regularized_logistic",
+    "regularized_linear_margin",
+    "poisson_skellam_score_distribution",
+    "hist_gradient_boosting_after_simple_gate"
+  ],
+  "missingness": {
+    "numeric_rank": "NULL_UNLESS_BOTH_NUMERIC_WITH_EXPLICIT_INDICATORS",
+    "team_priors": "FIT_ONLY_MEDIAN_WITH_EXPLICIT_COLD_START_INDICATORS",
+    "publication_time": "UNKNOWN_NEVER_IMPUTED"
+  },
+  "protected_nonclaims": {
+    "historical_known_at_ready": false,
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

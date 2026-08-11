@@ -110,6 +110,7 @@ artifacts/jira_evidence/POST-SUBTASK-168.json
 artifacts/jira_evidence/POST-SUBTASK-169.json
 artifacts/jira_evidence/POST-SUBTASK-170.json
 artifacts/jira_evidence/POST-SUBTASK-171.json
+artifacts/jira_evidence/POST-SUBTASK-172.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -156,6 +157,7 @@ configs/backlog_policy.json
 configs/bas_science_registry.json
 configs/context_intelligence_registry.json
 configs/entity_registry.json
+configs/expanded_event_chronology_preliminary_contract.json
 configs/experiment_artifact_policy.json
 configs/experiment_research_registry.json
 configs/experiment_store_policy.json
@@ -1336,6 +1338,7 @@ jira/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candida
 jira/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.md
 jira/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.md
 jira/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_rankings_pit_features.md
+jira/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1837,6 +1840,7 @@ jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai
 jira/records/issues/subtasks/POST-SUBTASK-169_execute_scoped_preliminary_unprotected_baseline_pipeline_without_opening_protected_promotion.json
 jira/records/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.json
 jira/records/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_rankings_pit_features.json
+jira/records/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2330,6 +2334,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-168.json
 jira/sources/issue_source_manifests/POST-SUBTASK-169.json
 jira/sources/issue_source_manifests/POST-SUBTASK-170.json
 jira/sources/issue_source_manifests/POST-SUBTASK-171.json
+jira/sources/issue_source_manifests/POST-SUBTASK-172.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2858,6 +2863,7 @@ src/aggie_analytics/team_state/weighting.py
 src/aggie_analytics/temporal/__init__.py
 src/aggie_analytics/temporal/contracts.py
 src/aggie_analytics/temporal/eligibility.py
+src/aggie_analytics/temporal/expanded_event_chronology.py
 src/aggie_analytics/temporal/historical_recovery.py
 src/aggie_analytics/temporal/rankings_pit.py
 src/aggie_analytics/temporal/state.py
@@ -2878,6 +2884,7 @@ tests/test_context_intelligence_governance.py
 tests/test_core_registry.py
 tests/test_data_research.py
 tests/test_entity_governance.py
+tests/test_expanded_event_chronology.py
 tests/test_experiment_store_full.py
 tests/test_experimentation_governance.py
 tests/test_external_storage_policy.py
@@ -2963,6 +2970,7 @@ tools/refresh_openai_assist_lock.py
 tools/render_task_context.py
 tools/repo_integrity.py
 tools/restore_state.py
+tools/run_expanded_event_chronology_preliminary.py
 tools/run_local_benchmark.py
 tools/run_openai_assist_eval.py
 tools/run_openai_availability_source_triage.py
@@ -2989,6 +2997,7 @@ tools/validate_context_intelligence.py
 tools/validate_data_research.py
 tools/validate_dependency_policy.py
 tools/validate_entities.py
+tools/validate_expanded_event_chronology_preliminary.py
 tools/validate_experimentation.py
 tools/validate_external_storage_policy.py
 tools/validate_feature_lifecycle.py

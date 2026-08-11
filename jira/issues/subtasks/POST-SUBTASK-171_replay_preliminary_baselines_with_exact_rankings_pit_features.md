@@ -18,7 +18,9 @@
     "No OpenAI facts or imputed source values are permitted."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-172"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_rankings_pit_features.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "modeling",
@@ -218,7 +220,7 @@ Join exact rankings PIT features, replay the unchanged ladder, preserve immutabl
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-172
 
 ## Read / Inspect First
 

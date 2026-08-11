@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "artifact_type": "JIRA_PREINTEGRATION_EVIDENCE",
+  "artifact_type": "JIRA_INTEGRATED_EVIDENCE",
   "local_issue_id": "POST-SUBTASK-194",
   "jira_import_id": 100502,
   "jira_key": "BAT-551",
-  "status": "VERIFIED_PREINTEGRATION",
+  "status": "VERIFIED_INTEGRATED",
   "classification": "NOMINAL_LEAD_HISTORICAL_WEATHER_SNAPSHOT_CANDIDATE_ONLY",
   "input_identity": {
     "candidate_dataset": "67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb",
@@ -57,7 +57,14 @@
       "w25_final": "PASS",
       "secret_and_forbidden_artifact_scan": "PASS"
     },
-    "integration": "PENDING"
+    "integration": {
+      "implementation_commit": "be940f42d7485223aa08fd0a87f7b687de9e0499",
+      "pull_request": 205,
+      "main_commit": "b8c7933eb6adc62b4563932a62e2e7b510be6de6",
+      "repository_ci_run": 31538048487,
+      "security_analysis_run": 31538048557,
+      "exact_main_checks": "PASS"
+    }
   },
   "authority": {
     "historical_known_at": "UNKNOWN",
@@ -80,9 +87,12 @@
     "authentication": "HTTP_200_WITHOUT_CREDENTIAL_DISCLOSURE",
     "issue_id": "24944",
     "activation_comment_id": "13687",
-    "status": "In Progress",
+    "preintegration_comment_id": "13692",
+    "completion_comment_id": "13693",
+    "status": "Done",
+    "updated_at": "2026-08-11T16:34:11.830-0500",
     "links_created": 6,
-    "verification": "PASS_505_LIVE_502_CANONICAL_451_PARENTS_1160_LINKS_ZERO_DISCREPANCIES_78_DONE_2_IN_PROGRESS_422_TO_DO"
+    "verification": "PASS_505_LIVE_502_CANONICAL_451_PARENTS_1160_LINKS_ZERO_DISCREPANCIES_79_DONE_1_IN_PROGRESS_422_TO_DO"
   },
   "openai": {
     "calls_this_unit": 0,

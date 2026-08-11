@@ -3,7 +3,7 @@
   "artifact_type": "HISTORICAL_WEATHER_PREVIOUS_RUNS_NOMINAL_LEAD_SNAPSHOT_GATE",
   "decision_unit": "POST-SUBTASK-194",
   "jira_key": "BAT-551",
-  "status": "PASS_NOMINAL_LEAD_CANDIDATE_ONLY_VERIFIED_PENDING_INTEGRATION",
+  "status": "PASS_NOMINAL_LEAD_CANDIDATE_ONLY_VERIFIED_INTEGRATED",
   "classification": "NOMINAL_LEAD_HISTORICAL_WEATHER_SNAPSHOT_CANDIDATE_ONLY",
   "input_identities": {
     "candidate_dataset": "67df813d497ea9e33d20ee21e3b3110b4c5668b1c4c4bef4f70aa841c1ac2bdb",
@@ -108,12 +108,12 @@
   },
   "gate_disposition": "SOURCE_PRESENT_FIXED_LEAD_WEATHER_VALUES_PASS_CANDIDATE_ONLY_ARCHIVE_UNAVAILABLE_VALUES_PRESERVED_NO_HISTORICAL_AVAILABILITY_INFERENCE",
   "integration": {
-    "implementation_commit": "PENDING",
-    "pull_request": "PENDING",
-    "main_commit": "PENDING",
-    "repository_ci_run": "PENDING",
-    "security_analysis_run": "PENDING",
-    "exact_main_checks": "PENDING"
+    "implementation_commit": "be940f42d7485223aa08fd0a87f7b687de9e0499",
+    "pull_request": 205,
+    "main_commit": "b8c7933eb6adc62b4563932a62e2e7b510be6de6",
+    "repository_ci_run": 31538048487,
+    "security_analysis_run": 31538048557,
+    "exact_main_checks": "PASS"
   },
   "scientific_nonclaims": {
     "historical_weather_complete": false,

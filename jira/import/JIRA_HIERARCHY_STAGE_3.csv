@@ -17667,4 +17667,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-069
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-194_materialize_previous_run_weather_candidate_snapshot_and_domain_eligibility_gate.json",In Progress,High,actionable;post-wave;subtask;historical-expansion;weather;previous-runs;nominal-lead;candidate-only;partial-domain;provenance;local-id-post-subtask-194,pit-temporal,POST-SUBTASK-194,GAP-002;GAP-006;HANDOFF-008,PHASE-1,IN_PROGRESS,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,false,DATA,HISTORICAL_REFERENCE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-194_materialize_previous_run_weather_candidate_snapshot_and_domain_eligibility_gate.json",Done,High,actionable;post-wave;subtask;historical-expansion;weather;previous-runs;nominal-lead;candidate-only;partial-domain;provenance;local-id-post-subtask-194,pit-temporal,POST-SUBTASK-194,GAP-002;GAP-006;HANDOFF-008,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,false,DATA,HISTORICAL_REFERENCE

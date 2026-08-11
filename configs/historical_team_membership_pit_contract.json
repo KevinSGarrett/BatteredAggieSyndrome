@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-190",
+  "jira_key": "BAT-547",
+  "classification": "DEVELOPMENT_ONLY_VERSION_BOUND_TEAM_MEMBERSHIP_PIT",
+  "source_contract": {
+    "candidate_dataset_identity": "964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024",
+    "candidate_manifest_relative_path": "manifests/historical_known_at/sha256/964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024/team_membership_reconciliation.json",
+    "candidate_manifest_sha256": "a5571a60f79206bef1de0643188a8317ec3a25cb96875f628e893c74b3b07810",
+    "candidate_payload_root": "quarantine/historical_known_at/sha256/964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024/team_membership",
+    "repository": "sportsdataverse/cfbfastR-data",
+    "source_commit_sha": "b865176f908cb6b791dc8e14562c52676f456275",
+    "source_known_at_utc": "2023-05-05T03:50:21Z",
+    "source_seasons": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+    "target_cutoff_relative_path": "features/historical_known_at/sha256/cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7/target_game_cutoffs.parquet",
+    "target_cutoff_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942",
+    "target_seasons": [2023, 2024, 2025]
+  },
+  "admission": {
+    "eligible_disposition": "CANDIDATE_EXACT_SOURCE_ID_CANONICAL_TEAM_SEASON_MEMBERSHIP",
+    "required_resolution_state": "AUTO_ACCEPTED_VERIFIED",
+    "required_source_id_option_count": 1,
+    "natural_key": ["season", "canonical_team_id"],
+    "admitted_fields": ["observation_id", "season", "source_team_id", "canonical_team_id", "canonical_record_sha256", "school", "conference", "division", "source_capture_id", "source_payload_sha256", "source_commit_sha", "source_known_at_utc", "source_schema_sha256", "source_record_evidence_sha256", "row_lineage_sha256"]
+  },
+  "acceptance": {
+    "expected_source_files": 20,
+    "expected_source_rows": 2462,
+    "expected_admitted_rows": 2462,
+    "expected_nonadmitted_rows": 0,
+    "expected_distinct_teams": 132,
+    "expected_duplicate_observation_ids": 0,
+    "expected_duplicate_natural_keys": 0,
+    "expected_conference_nulls": 0,
+    "expected_division_nulls": 993,
+    "expected_transitions": 158,
+    "expected_source_schema_hashes": 1,
+    "expected_minimum_target_cutoff_utc": "2023-08-25T18:30:00Z",
+    "expected_admitted_by_season": {"2001": 117, "2002": 117, "2003": 117, "2004": 120, "2005": 119, "2006": 119, "2007": 120, "2008": 120, "2009": 120, "2010": 120, "2011": 120, "2012": 124, "2013": 125, "2014": 128, "2015": 128, "2016": 128, "2017": 130, "2018": 130, "2019": 130, "2020": 130},
+    "byte_identical_rebuild": true
+  },
+  "authority": {
+    "pit_state_admission": true,
+    "earliest_eligible_prediction_time_utc": "2023-05-05T03:50:21Z",
+    "backcast_before_source_known_at": false,
+    "team_season_membership_only": true,
+    "effective_day_inferred": false,
+    "conference_or_division_imputed": false,
+    "venue_or_capacity_inferred": false,
+    "branding_effective_time_inferred": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "forbidden_admitted_fields": ["abbreviation", "mascot", "alt_name1", "alt_name2", "alt_name3", "venue", "venue_id", "capacity", "latitude", "longitude", "target", "label", "outcome", "home_points", "away_points"],
+  "negative_findings": [
+    "Exactly 993 team-season rows have no division evidence and remain null.",
+    "Identical source bytes across adjacent seasons are preserved as separate version-bound memberships but do not prove independent observations.",
+    "Mascot, abbreviation, aliases, colors, logos, venue, and capacity are not admitted as season-effective facts.",
+    "The 2023 source commit is not backcast to earlier prediction cutoffs.",
+    "This artifact does not establish final historical completeness, GAP-002 resolution, production readiness, protected performance, A&M lift, BAS, Aggie Excess, or a scientific result."
+  ]
+}

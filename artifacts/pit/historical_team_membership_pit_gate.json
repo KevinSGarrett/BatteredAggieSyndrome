@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_VERSION_BOUND_TEAM_MEMBERSHIP_PIT_GATE",
+  "decision_unit": "POST-SUBTASK-190",
+  "jira_key": "BAT-547",
+  "status": "PASS_DEVELOPMENT_ONLY_PREINTEGRATION",
+  "classification": "DEVELOPMENT_ONLY_VERSION_BOUND_TEAM_MEMBERSHIP_PIT",
+  "input_identities": {"candidate_dataset": "964daf659f62069eda5b9e264f09dd53892d958d0ebff3780ad836a3d7d42024", "candidate_manifest_sha256": "a5571a60f79206bef1de0643188a8317ec3a25cb96875f628e893c74b3b07810", "target_cutoff_payload_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942", "source_commit_sha": "b865176f908cb6b791dc8e14562c52676f456275", "source_known_at_utc": "2023-05-05T03:50:21Z"},
+  "output_identities": {"dataset": "de2d6f4519b84d2b09431245ec6f4090265e91cba38cebfdc1bdd8e03c4292cf", "manifest_sha256": "6828e1f8d3fdf22fd8ec95ac655206d6ec2ecc7bccbb2b80ba2db8d27165fac9", "membership_payload_sha256": "527140cbeea15b211f0cbf6a5d77109cf0eced10b211b54ee3ff3e0658ad96e6", "validation_report_sha256": "377865e7ec8e3e1fa5f859424dc673ff4acb1a3c44292a9c653a4adc42bd6735"},
+  "population": {"source_season_min": 2001, "source_season_max": 2020, "source_files": 20, "source_rows": 2462, "admitted_rows": 2462, "nonadmitted_rows": 0, "distinct_teams": 132, "conference_nulls": 0, "division_nulls": 993, "conference_or_division_transitions": 158, "duplicate_observation_ids": 0, "duplicate_natural_keys": 0},
+  "chronology_and_leakage": {"source_known_at_utc": "2023-05-05T03:50:21Z", "minimum_target_cutoff_utc": "2023-08-25T18:30:00Z", "source_known_at_before_target_cutoff": true, "backcast_before_source_known_at": false, "target_or_outcome_columns": 0, "protected_split_opened": false},
+  "schema_and_identity_boundaries": {"semantic_source_schema_hashes": 1, "exact_source_id_only": true, "name_only_team_merge": false, "division_imputation": false, "venue_or_capacity_inference": false, "branding_effective_time_inference": false, "missing_values_fabricated": false},
+  "validation": {"checks_passed": 56, "mutation_controls_passed": 5, "deterministic_payloads_compared": 2, "byte_identical_rebuild": true, "focused_tests_passed": 3, "full_pytest_passed": 464, "full_pytest_skipped": 3, "full_pytest_subtests_passed": 83, "full_unittest_passed": 461, "full_unittest_skipped": 3, "jira_pack": "PASS_498_ISSUES_1136_LINKS", "jira_second_pass": "PASS_68_SECTIONS", "strict_repository": "PASS"},
+  "authority": {"canonical_source_mutation": false, "pit_state_admission": true, "team_season_membership_only": true, "development_feature_admission": false, "venue_or_capacity_truth": false, "branding_effective_truth": false, "protected_training_admission": false, "protected_evaluation_admission": false, "champion_or_production_promotion": false, "forecast_publication": false},
+  "gate_disposition": "EXACT_VERSION_BOUND_TEAM_SEASON_CONFERENCE_DIVISION_MEMBERSHIP_PASS_FOR_POST_CAPTURE_DEVELOPMENT_PIT_ONLY",
+  "scientific_nonclaims": {"historical_population_ready": false, "gap_002_resolved": false, "production_model_ready": false, "trained_production_champion": false, "protected_performance_claimed": false, "tamu_specialization_lift_claimed": false, "bas_or_aggie_excess_result_claimed": false}
+}

@@ -36054,3 +36054,71 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;plays;drives;pit;preliminary-unprotected;provenance;local-id-post-subtask-176,pit-temporal,POST-SUBTASK-176,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,DEVELOPMENT_ONLY_PIT_ADMITTED,VERIFIED,POST_W25,true,DATA
+Sub-task,BAT-534,100485,Replay preliminary baselines with play/drive development-PIT features,100075,"Local ID: POST-SUBTASK-177
+
+Objective
+Replay the preliminary model pipeline with the exact POST-SUBTASK-176 play/drive development-PIT features without mutating POST-SUBTASK-172 or opening protected promotion.
+
+Why This Exists
+The exact POST-SUBTASK-176 features are eligible for preliminary research but cannot be silently inserted into the older fixed baseline. A separately identified chronological replay is required to measure their value honestly and exercise the full pipeline without protected overclaim.
+
+Scope
+Build and independently validate one separately lineaged preliminary-unprotected replay using only the exact POST-SUBTASK-176 development-PIT feature population at its defensible known-at horizon.
+
+Explicit In Scope
+- Exact canonical-ID game/team join for the 2023-2025 POST-SUBTASK-176 feature population.
+- Chronological online learning and evaluation that never backcasts the May 2023 feature publication time.
+- Low-cost simple baseline comparison, calibration diagnostics, artifact serialization, replay, provenance, and negative-result preservation.
+
+Explicit Out of Scope
+- Backcasting POST-SUBTASK-176 features into 2010-2022 training rows or fabricating an earlier known-at timestamp.
+- Changing the immutable POST-SUBTASK-172 datasets, models, predictions, splits, metrics, or conclusions.
+- Protected evaluation, champion or production promotion, forecast publication, A&M specialization lift, BAS, Aggie Excess, or any scientific claim.
+
+Prerequisites / Dependencies
+- POST-SUBTASK-172 exact preliminary event-chronology run and immutable payload identities.
+- POST-SUBTASK-176 exact development-only PIT play/drive feature identity and independent validation.
+- Configured standardized external data root with immutable content-addressed training, model, forecast, manifest, validation, and backup roots.
+- POST-SUBTASK-172
+- POST-SUBTASK-176
+
+Acceptance Criteria
+1. The immutable POST-SUBTASK-172 run, dataset, feature, target, split, forecast, and model identities remain unchanged and are consumed only as pinned inputs and comparison evidence.
+2. Only the exact POST-SUBTASK-176 target-game/team feature payload under identity b78d577d is joined, using canonical game and team IDs with exactly two team rows per eligible target game and no name-only mapping.
+3. The replay preserves chronology: play/drive features are not used to fit 2010-2022 outcomes because their exact known-at time is May 2023; any learned augmentation for 2024 uses 2023 outcomes only and any 2025 evaluation uses 2023-2024 outcomes only.
+4. Cold starts, null feature cells, 2011/2020 source-season absence, and the static 2023-2025 profile limitation remain explicit under versioned fit-only imputation and indicator rules; no factual value or timestamp is invented.
+5. All datasets, models, predictions, metrics, and conclusions are independently identified PRELIMINARY_UNPROTECTED_PLAY_DRIVE_AUGMENTED and have no protected, champion, production, forecast-publication, A&M-lift, BAS, Aggie Excess, or scientific authority.
+6. An independent validator and isolated deterministic rebuild reproduce every accepted payload, model artifact, manifest, metric, and disposition byte-for-byte.
+
+Definition of Done
+1. A new immutable external training-dataset identity joins the exact POST-SUBTASK-172 target/split population to the exact POST-SUBTASK-176 play/drive development-PIT feature identity without rewriting either input.
+2. The complete low-cost baseline/replay pipeline runs with explicit chronological eligibility, fit-only imputation, cold-start handling, serialization, prediction replay, calibration diagnostics, metrics by season and relevant slice, and provenance verification.
+3. The experiment reports whether the added features improve, degrade, or cannot yet support each model family; null or negative results are preserved and no empirical threshold is changed to force adoption.
+4. All external payloads pass schema, identity, chronology, PIT, target-leakage, deterministic replay, and byte-identity validation, and reconstructible staging output is cleaned.
+5. Protected promotion remains closed and Lane A approximately 2010-2025 historical expansion continues independently.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_preliminary_play_drive_augmented.py — Canonical game/team pivoting, known-at chronology, online fit windows, fit-only imputation, cold starts, target exclusion, and protected nonauthority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-177.json — External joined dataset, model artifacts, predictions, metrics, manifest, hashes, serialization replay, chronology, and protected closure pass independent validation and byte-identical rebuild.
+
+Required Evidence
+- Exact POST-SUBTASK-172 and POST-SUBTASK-176 input hashes plus new dataset, feature, target, split, imputation, model, prediction, metric, forecast, run, code, config, runtime, and validation identities.
+- Rows, games, seasons, feature counts, cold starts, missingness, exclusions, chronological cutoffs, training windows, leakage checks, and metrics by season/slice.
+- Deterministic rebuild and serialization replay evidence, all negative findings, cleanup, and explicit protected nonclaims.
+
+End-to-End Validation
+Re-read the exact POST-SUBTASK-172 manifest and payloads plus the exact POST-SUBTASK-176 manifest and feature payload; rebuild the joined game-level matrix, chronological online assignments, imputation state, model artifacts, predictions, calibration and metrics; verify hashes, target exclusion, source known-at eligibility, serialization, replay equality, and protected closure; then remove the reconstructible rebuild.
+
+Stop Conditions
+- Stop the affected artifact on input hash, game/team identity, chronology, target overlap, schema, missingness, model serialization, prediction replay, metric, or deterministic rebuild failure.
+- Quarantine only affected rows or model families and continue independently valid historical acquisition and baseline work.
+- Do not weaken splits, chronology, imputation, validation, or scientific gates merely to obtain apparent improvement.
+
+Source References
+- SRCREF-00069
+- SRCREF-02049
+- SRCREF-02050
+
+Governance Traceability Gate: TASK-036
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;baseline-modeling;play-drive;pit;local-id-post-subtask-177,modeling,POST-SUBTASK-177,TASK-036;GAP-002;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH

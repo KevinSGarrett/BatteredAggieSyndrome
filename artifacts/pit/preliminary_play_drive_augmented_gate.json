@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "PRELIMINARY_PLAY_DRIVE_AUGMENTED_GATE",
+  "decision_unit": "POST-SUBTASK-177",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "result": "PASS_PRELIMINARY_ONLY",
+  "input_identities": {
+    "baseline_run": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "baseline_dataset": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "baseline_feature": "df9093758679968bc88fb7a1c5b7931c0bbe5f625fe928b69f2ccc0abe8de265",
+    "baseline_target": "a384834b94cf2cbc5e56ebd31577108bbea6014e5009931f11a4a7c3be703f71",
+    "baseline_split": "9e201d2a298bc8d65876e36e483e2d4a0d574ae1b407ca420ca3950093e4dc86",
+    "play_drive_feature": "b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06"
+  },
+  "output_identities": {
+    "run": "8cc415cec979666f23ba616fea4cdc677566c16eaab254f1698bbfeb67906e56",
+    "dataset": "8e68a17d7c9a1c021830606e8badce52281d2e4470fecd0b46bd9d1fbb9e5245",
+    "feature": "22c576832f223046d2de36efbe8846c4c1c085014c27c68bd5d7d63f47e41182",
+    "target": "89d23c72386f6f3f788819b037d635b46708802112203adea43fe950b5237123",
+    "split": "9acd6d86cb0b9cd2169b22f9bf918b43232df3c5b6503a9a031ea25281debed6",
+    "forecast": "520e10ef999935f55e18d36125c76397496ea76cf49110ae0eea9b2de554bbe5",
+    "logistic_model": "75baf75232f78bcc875e5f6119d03f22b386ba2d07832c52668d67628396df73",
+    "ridge_margin_model": "ed27ed123da4ff1ea4d44ed6aff8dbf8f24b0cf00d1971cb5e023992ccc4215f"
+  },
+  "population": {
+    "seasons": [2023, 2024, 2025],
+    "games": 2763,
+    "rows_by_season": {"2023": 910, "2024": 919, "2025": 934},
+    "play_drive_source_rows": 5528,
+    "joined_feature_rows": 2763,
+    "features_per_candidate": 20,
+    "cold_start_games": 14,
+    "missing_cells_per_play_drive_difference": 14,
+    "unused_source_feature_games": ["game_126950537b3059bdaa46c689e2b34db7"]
+  },
+  "chronology": {
+    "play_drive_known_at_utc": "2023-05-06T07:52:16Z",
+    "2023": "EXACT_FROZEN_BASELINE_FALLBACK_NO_FIT",
+    "2024_fit_seasons": [2023],
+    "2024_maximum_fit_start_utc": "2024-01-09T00:30:00Z",
+    "2024_minimum_prediction_start_utc": "2024-08-24T16:00:00Z",
+    "2025_fit_seasons": [2023, 2024],
+    "2025_maximum_fit_start_utc": "2025-01-21T00:30:00Z",
+    "2025_minimum_prediction_start_utc": "2025-08-23T16:00:00Z",
+    "target_or_future_outcomes_in_fit": 0,
+    "source_known_at_after_target_cutoff": 0,
+    "target_game_outcomes_in_feature_evidence": 0
+  },
+  "empirical_disposition": {
+    "play_drive_logistic_stacker": {
+      "2024": "NEGATIVE_VERSUS_FROZEN_BASELINE",
+      "2025": "POSITIVE_BRIER_AND_LOG_LOSS_PRELIMINARY_ONLY",
+      "2025_brier_delta_candidate_minus_frozen": -0.00207643640375077,
+      "2025_log_loss_delta_candidate_minus_frozen": -0.0010958120026558493
+    },
+    "play_drive_ridge_margin_stacker": {
+      "2024": "NEGATIVE_VERSUS_FROZEN_BASELINE",
+      "2025": "MIXED_PRELIMINARY_ONLY",
+      "2025_brier_delta_candidate_minus_frozen": -0.00021530282170520443,
+      "2025_log_loss_delta_candidate_minus_frozen": 0.00023395987362251347,
+      "2025_margin_mae_delta_candidate_minus_frozen": -0.0439226787524678
+    },
+    "tree_boosting": "NOT_ADMITTED_FOR_SHORT_POST_PUBLICATION_HORIZON",
+    "champion_or_production_promotion": false
+  },
+  "validation": {
+    "checks_passed": 52,
+    "checks_failed": 0,
+    "numerical_model_replays": 4,
+    "serialization_replay": "PASS",
+    "byte_identical_rerun_summary": true,
+    "validation_report_sha256": "2412024c52a7244645233b6b5d530f599c2f49c9f8387b8b1f218a88bfe31f93"
+  },
+  "authority": {
+    "pipeline_integration": true,
+    "preliminary_unprotected_research": true,
+    "protected_training": false,
+    "protected_evaluation": false,
+    "champion_promotion": false,
+    "production_forecast_publication": false
+  },
+  "limitations": [
+    "The static play/drive profile summarizes exact 2010-2022 evidence and cannot be backcast into the older baseline fit population.",
+    "The extra 2024 source feature game is absent from the pinned outcome-target population and is excluded rather than assigned a fabricated label.",
+    "Fourteen games contain at least one cold-start profile; each affected play/drive difference remains null until fit-only statistical imputation.",
+    "The season-to-season results are mixed and do not justify protected or production promotion."
+  ],
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-177",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "run_version": "preliminary-play-drive-walk-forward-v1",
+  "authorized_inputs": {
+    "baseline_run_identity": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "baseline_manifest_sha256": "602477b325c33811ccf9573af6cc7c6854621b322566c15e580dc134ddf07e8a",
+    "baseline_dataset_identity": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "baseline_feature_identity": "df9093758679968bc88fb7a1c5b7931c0bbe5f625fe928b69f2ccc0abe8de265",
+    "baseline_target_identity": "a384834b94cf2cbc5e56ebd31577108bbea6014e5009931f11a4a7c3be703f71",
+    "baseline_split_identity": "9e201d2a298bc8d65876e36e483e2d4a0d574ae1b407ca420ca3950093e4dc86",
+    "baseline_forecast_identity": "fb84332df4f25f511752cf354bc5b12a7c3283ae44e1f45a24cb932a2122f50a",
+    "play_drive_feature_identity": "b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06",
+    "play_drive_payload_sha256": "d85e40096669acd9b0d5f674cabb0d39fd2658233556f356e6a5d9e7d228367d",
+    "play_drive_known_at_utc": "2023-05-06T07:52:16Z",
+    "eligible_target_seasons": [2023, 2024, 2025],
+    "eligibility": "DEVELOPMENT_AND_PRELIMINARY_UNPROTECTED_ONLY"
+  },
+  "chronology_policy": {
+    "2023": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS",
+    "2024": "FIT_ONLY_2023_OUTCOMES",
+    "2025": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+    "target_game_and_future_outcomes_excluded": true,
+    "same_season_future_outcomes_excluded": true,
+    "protected_split_opened": false
+  },
+  "model_policy": {
+    "families": [
+      "play_drive_logistic_stacker",
+      "play_drive_ridge_margin_stacker"
+    ],
+    "logistic_c": 0.1,
+    "ridge_alpha": 100.0,
+    "imputation": "FIT_ONLY_MEDIAN_WITH_EXPLICIT_COLD_START_INDICATORS",
+    "tree_boosting": "NOT_ADMITTED_FOR_THIS_SHORT_POST_PUBLICATION_HORIZON"
+  },
+  "comparison_contract": {
+    "logistic_reference_family": "regularized_logistic",
+    "margin_reference_family": "regularized_linear_margin",
+    "same_target_rows_required": true,
+    "negative_results_preserved": true,
+    "adoption_authority": "PRELIMINARY_RESEARCH_ONLY_NO_CHAMPION"
+  },
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

@@ -1487,6 +1487,8 @@ tests/test_action_play_summary.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-175,S
 artifacts/jira_evidence/POST-SUBTASK-175.json,END_TO_END,POST-SUBTASK-175,Sub-task,The complete external population passes all 87 checks and an 11-file byte-identical isolated deterministic rebuild.
 tests/test_historical_play_drive_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-176,Sub-task,"Cutoff computation, conservative drive-result semantics, canonical identity joins, explicit cold starts, and protected nonauthority remain deterministic."
 artifacts/jira_evidence/POST-SUBTASK-176.json,END_TO_END,POST-SUBTASK-176,Sub-task,"The complete external population passes 32 checks, five mutation controls, and a three-file byte-identical isolated rebuild."
+tests/test_preliminary_play_drive_augmented.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-177,Subtask,"Canonical game/team pivoting, known-at chronology, online fit windows, fit-only imputation, cold starts, target exclusion, and protected nonauthority remain deterministic."
+artifacts/jira_evidence/POST-SUBTASK-177.json,END_TO_END,POST-SUBTASK-177,Subtask,"External joined dataset, model artifacts, predictions, metrics, manifest, hashes, serialization replay, chronology, and protected closure pass independent validation and byte-identical rebuild."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

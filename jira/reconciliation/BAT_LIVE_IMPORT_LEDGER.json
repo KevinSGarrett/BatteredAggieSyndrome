@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T06:06:23.698133+00:00"
+      "verified_at": "2026-08-11T06:29:25.450724+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T06:06:23.917231+00:00"
+      "verified_at": "2026-08-11T06:29:25.626867+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T06:06:24.100341+00:00"
+      "verified_at": "2026-08-11T06:29:25.931650+00:00"
     }
   ],
   "backup": {
@@ -31,32 +31,11 @@
     "id": "134"
   },
   "canonical_spec_sync": {
-    "backup": {
-      "bytes": 153237,
-      "issue_count": 10,
-      "path": "reconciliation/jira/canonical-spec-sync/20260811T060643Z/pre-update.json",
-      "sha256": "b76ddd33c1b81d6ae2e718057787b66ebd4a79f614181123f6d240ff25c9ede1",
-      "storage_root": "EXTERNAL_DATA_ROOT"
-    },
-    "changed_issues": 10,
-    "completed_at": "2026-08-11T06:06:45.330491+00:00",
-    "completed_local_ids": [
-      "POST-EPIC-018",
-      "POST-STORY-054",
-      "POST-STORY-055",
-      "POST-STORY-056",
-      "POST-SUBTASK-161",
-      "POST-SUBTASK-162",
-      "POST-SUBTASK-163",
-      "POST-SUBTASK-164",
-      "POST-SUBTASK-165",
-      "POST-SUBTASK-166"
-    ],
-    "errors": [],
-    "started_at": "2026-08-11T06:06:43.784854+00:00",
-    "status": "COMPLETE"
+    "changed_issues": 0,
+    "status": "EXACT_NO_UPDATES_REQUIRED",
+    "verified_at": "2026-08-11T06:29:42.707855+00:00"
   },
-  "completed_at": "2026-08-11T06:07:36.492836+00:00",
+  "completed_at": "2026-08-11T06:30:28.346684+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -64,8 +43,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-11T06:06:54.892341+00:00",
-    "verified_at": "2026-08-11T06:06:56.440845+00:00",
+    "updated_at": "2026-08-11T06:29:47.219467+00:00",
+    "verified_at": "2026-08-11T06:29:48.998729+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -747,6 +726,7 @@
     "POST-SUBTASK-174": "BAT-531",
     "POST-SUBTASK-175": "BAT-532",
     "POST-SUBTASK-176": "BAT-533",
+    "POST-SUBTASK-177": "BAT-534",
     "TASK-001": "BAT-104",
     "TASK-002": "BAT-105",
     "TASK-003": "BAT-106",
@@ -950,12 +930,12 @@
     "TASK-201": "BAT-350"
   },
   "link_direction_remediation": {
-    "corrected_link_count": 1100,
-    "existing_canonical_links": 1081,
-    "missing_canonical_links": 19,
+    "corrected_link_count": 1102,
+    "existing_canonical_links": 1100,
+    "missing_canonical_links": 2,
     "preserved_auxiliary_links": 3,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-11T06:07:11.140010+00:00"
+    "verified_at": "2026-08-11T06:30:01.272049+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -1502,6 +1482,8 @@
     "Blocks|POST-SUBTASK-170|POST-SUBTASK-171",
     "Blocks|POST-SUBTASK-170|POST-SUBTASK-172",
     "Blocks|POST-SUBTASK-171|POST-SUBTASK-172",
+    "Blocks|POST-SUBTASK-172|POST-SUBTASK-177",
+    "Blocks|POST-SUBTASK-176|POST-SUBTASK-177",
     "Blocks|TASK-001|TASK-002",
     "Blocks|TASK-002|TASK-003",
     "Blocks|TASK-002|TASK-004",
@@ -2066,21 +2048,21 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 242,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 97,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 484\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 74,\n      \"ATOMIC_EXECUTION\": 168,\n      \"HISTORICAL_REFERENCE\": 242\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 484,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 1,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2119\n    },\n    \"subtask_count\": 168,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 211,\n      \"EXISTING_AUTOMATED_TEST\": 1177,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 59,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 242,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-11\",\n    \"work_packet_count\": 242\n  }\n}\n"
+        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 242,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 97,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 485\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 74,\n      \"ATOMIC_EXECUTION\": 168,\n      \"HISTORICAL_REFERENCE\": 243\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 485,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 1,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2119\n    },\n    \"subtask_count\": 169,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 212,\n      \"EXISTING_AUTOMATED_TEST\": 1177,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 60,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 242,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-11\",\n    \"work_packet_count\": 242\n  }\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2090,35 +2072,35 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 484,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 485,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 484,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 485,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"actionable_count\": 242,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 97,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 484\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 74,\n    \"ATOMIC_EXECUTION\": 168,\n    \"HISTORICAL_REFERENCE\": 242\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 484,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 1,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2119\n  },\n  \"subtask_count\": 168,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 211,\n    \"EXISTING_AUTOMATED_TEST\": 1177,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 59,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 242,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-11\",\n  \"work_packet_count\": 242\n}\n"
+        "stdout": "{\n  \"actionable_count\": 242,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 97,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 485\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 74,\n    \"ATOMIC_EXECUTION\": 168,\n    \"HISTORICAL_REFERENCE\": 243\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 485,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 1,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2119\n  },\n  \"subtask_count\": 169,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 212,\n    \"EXISTING_AUTOMATED_TEST\": 1177,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 60,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 242,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-11\",\n  \"work_packet_count\": 242\n}\n"
       }
     ],
     "result": "PASS"
@@ -2187,16 +2169,16 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 484,
+      "changes": 485,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
-      "rows": 484
+      "rows": 485
     },
     "live": {
-      "changed_issues": 484,
+      "changed_issues": 485,
       "conflict_count": 0,
       "result": "PASS",
-      "rows": 484,
+      "rows": 485,
       "strict_validation": "PASS"
     }
   },
@@ -2243,9 +2225,9 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-11T06:07:36.492836+00:00",
+  "updated_at": "2026-08-11T06:30:28.346684+00:00",
   "verification": {
-    "actual_expected_link_count": 1100,
+    "actual_expected_link_count": 1102,
     "board": {
       "filter_id": "10134",
       "id": "134",
@@ -2283,17 +2265,17 @@
       "Source IDs": "customfield_10194"
     },
     "discrepancies": [],
-    "expected_link_count": 1100,
-    "issue_count": 487,
+    "expected_link_count": 1102,
+    "issue_count": 488,
     "issue_type_counts": {
       "Epic": 51,
       "Story": 56,
-      "Sub-task": 176,
+      "Sub-task": 177,
       "Task": 201
     },
     "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
     "missing_link_count": 0,
-    "parent_count": 433,
+    "parent_count": 434,
     "project": {
       "base_url": "https://kevinsgarrett.atlassian.net",
       "id": "10133",
@@ -2303,10 +2285,10 @@
     "schema_version": 1,
     "status_counts": {
       "Done": 61,
-      "In Progress": 1,
+      "In Progress": 2,
       "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-11T06:07:11.140010+00:00"
+    "verified_at": "2026-08-11T06:30:01.272049+00:00"
   }
 }

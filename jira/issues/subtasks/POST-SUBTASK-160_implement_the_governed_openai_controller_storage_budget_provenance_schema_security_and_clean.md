@@ -157,8 +157,8 @@
     "assignee": "",
     "jira_issue_id": "24656",
     "jira_updated_at": "2026-08-11T01:07:02.371-0500",
-    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "last_synced_at": "2026-08-11T06:30:01.758065+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

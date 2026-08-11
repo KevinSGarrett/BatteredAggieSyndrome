@@ -21,7 +21,8 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-SUBTASK-171"
+    "POST-SUBTASK-171",
+    "POST-SUBTASK-172"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-170_admit_exact_dated_weekly_rankings_as_development_only_pit_features.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -250,6 +251,7 @@ Build, validate, and admit a narrowly scoped historical rankings PIT feature lay
 ## Blocks
 
 - POST-SUBTASK-171
+- POST-SUBTASK-172
 
 ## Read / Inspect First
 

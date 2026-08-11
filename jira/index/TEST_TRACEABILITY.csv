@@ -1477,6 +1477,8 @@ tests/test_historical_rankings_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-1
 artifacts/jira_evidence/POST-SUBTASK-170.json,END_TO_END,POST-SUBTASK-170,Sub-task,"The external state, cutoff, feature, quarantine, and manifest payloads pass the independent rankings PIT validator and deterministic rebuild."
 tests/test_preliminary_rankings_augmented_contract.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-171,Sub-task,"Exact scope, missing rank, future evidence, and protected nonclaim tests pass."
 artifacts/jira_evidence/POST-SUBTASK-171.json,END_TO_END,POST-SUBTASK-171,Sub-task,External artifacts pass independent validation and deterministic rebuild.
+tests/test_expanded_event_chronology.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-172,Sub-task,"Event-batch isolation, earlier-batch eligibility, non-PIT authority, duplicate rejection, and scoped timestamp reconciliation contract tests pass."
+artifacts/jira_evidence/POST-SUBTASK-172.json,END_TO_END,POST-SUBTASK-172,Sub-task,"External dataset, models, predictions, manifest, hashes, chronology, timestamp drift evidence, and protected closure pass independent validation and deterministic rebuild."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

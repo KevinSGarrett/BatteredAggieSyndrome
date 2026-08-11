@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
+  "local_id": "POST-SUBTASK-172",
+  "jira_key": "PENDING_LIVE_SYNCHRONIZATION",
+  "classification": "PRELIMINARY_UNPROTECTED_EVENT_CHRONOLOGY_ONLY",
+  "issue_disposition": "DONE_VERIFIED_LOCAL_PENDING_LIVE_JIRA_SYNC",
+  "achieved_maturity": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+  "evidence_state": "VERIFIED",
+  "input_identities": {
+    "historical_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "historical_outcomes_sha256": "7fdea2ced7508e7f3b78d397bf8984325dd2b7095b05dc486335ee9c432ccb64",
+    "canonical_core_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "contemporary_dataset": "5c7b382c10ee2080e6bdf03a435a3f9990a2274cbee5911c601c7b3c2a7c5022",
+    "contemporary_target": "60e5cb3caac26b8dcbd87eedaddac0e385d8c4dc59e0b471c9ff9fdac8a7066d",
+    "contemporary_targets_sha256": "d9e49d903b83759b31c6169891aa9e3183f63a1cd2263d03a3a0b0745a79d0bb",
+    "rankings_run": "a7743bb76680c5034b3b15bcccff76961af400f949fd7de0f3feb0db33acaa7e",
+    "rankings_features": "b165e076222104d71f345cf294d5b177d2c049bf1168b11c29e9cc5690375274",
+    "rankings_features_sha256": "f7bade2b2653df3c4f82927beaf3ba7dc254c6bb8487849f980a2eac6f0c3a4e"
+  },
+  "output_identities": {
+    "run": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "manifest_sha256": "602477b325c33811ccf9573af6cc7c6854621b322566c15e580dc134ddf07e8a",
+    "dataset": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "features": "df9093758679968bc88fb7a1c5b7931c0bbe5f625fe928b69f2ccc0abe8de265",
+    "targets": "a384834b94cf2cbc5e56ebd31577108bbea6014e5009931f11a4a7c3be703f71",
+    "splits": "9e201d2a298bc8d65876e36e483e2d4a0d574ae1b407ca420ca3950093e4dc86",
+    "forecast": "fb84332df4f25f511752cf354bc5b12a7c3283ae44e1f45a24cb932a2122f50a"
+  },
+  "code_identities": {
+    "chronology_module_sha256": "0ddb58a32a3e0934af454e56272635e2d21d33340c907a382eadece5a9e7a0bc",
+    "rankings_module_sha256": "5d2df177786ff9fb2161d7cbef7e48bd17152b96fa4f41087d7765cb88ad6fff",
+    "preliminary_module_sha256": "9c185d0ac6b453b6e82201f66d84a046354b57363402f03f37c6699365275fab",
+    "runner_sha256": "1e385735ba2176b52a4c9df95cb72631e9c7ab734b3647e7cbfdf87a67d4cac5",
+    "validator_sha256": "11b87ede4e91bc41e5ef8cd2df7a4b2ec7da725f6b1bece6c1c6486ec79fe98a",
+    "contract_sha256": "487d397d130867e67f21b3001238d12eb8912d64321068a5c43cbdba5b6d6df6"
+  },
+  "population": {
+    "seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "games": 13356,
+    "feature_rows": 13356,
+    "target_rows": 13356,
+    "training_rows": 13356,
+    "feature_count": 14,
+    "historical_labels": 10593,
+    "contemporary_labels": 2763,
+    "split_counts": {
+      "DEVELOPMENT_FIT_2010_2022": 10593,
+      "DEVELOPMENT_TUNE_2023_2024": 1829,
+      "DEVELOPMENT_EVALUATION_UNPROTECTED_2025": 934
+    },
+    "season_counts": {
+      "2010": 499,
+      "2011": 811,
+      "2012": 839,
+      "2013": 848,
+      "2014": 868,
+      "2015": 869,
+      "2016": 872,
+      "2017": 873,
+      "2018": 882,
+      "2019": 886,
+      "2020": 568,
+      "2021": 884,
+      "2022": 894,
+      "2023": 910,
+      "2024": 919,
+      "2025": 934
+    },
+    "cold_start_games": 170,
+    "missing_feature_cells": {
+      "prior_win_rate_diff": 170,
+      "prior_points_for_mean_diff": 170,
+      "prior_points_against_mean_diff": 170,
+      "ap_rank_diff": 12559,
+      "all_other_feature_columns": 0
+    },
+    "rankings_both_numeric_games": 797,
+    "rankings_target_games": 13356
+  },
+  "timestamp_reconciliation": {
+    "historical_chronology_authority": "PINNED_ACCEPTED_HISTORICAL_SOURCE_START_ALIGNED_TO_RANKINGS_FEATURE",
+    "canonical_timestamp_preserved": true,
+    "source_timestamp_preserved": true,
+    "source_minus_canonical_delta_preserved": true,
+    "exact_match_rows": 10569,
+    "drift_rows": 24,
+    "minimum_minutes": -270,
+    "maximum_minutes": 240,
+    "maximum_absolute_minutes": 270,
+    "larger_delta": "FAIL_CLOSED",
+    "historical_known_at_eligibility_granted": false
+  },
+  "payloads": [
+    {"name": "feature_matrix.parquet", "rows": 13356, "bytes": 2661434, "sha256": "66110e7d72ffe95edd6d17477a3f76fde59c1f8173b671a46cb6c52ac3d01fe5"},
+    {"name": "outcome_targets.parquet", "rows": 13356, "bytes": 941300, "sha256": "fc42f2aaa155cedd9ad0a77244998a5b92e30baae06a056af367d443fcb28b87"},
+    {"name": "split_assignments.parquet", "rows": 13356, "bytes": 280647, "sha256": "ce679ede903f5a0afe2457e4ef78d1267b39c0ad1aafe8f843a1dbde05a3af73"},
+    {"name": "training_matrix.parquet", "rows": 13356, "bytes": 3288790, "sha256": "702b6dc3710d3f3181ae4359ae19a4274c3e28828f2964202c8cf1be4c90ae0e"},
+    {"name": "predictions.parquet", "rows": 19341, "bytes": 452318, "sha256": "c0de4d0d7e4fc3c94a125b9cdf05d602ecbaf5efa2070d22cea01f4786f6d4e8"}
+  ],
+  "model_identities": {
+    "naive_historical_average": {"identity": "ea051baebf8de83e2854a8185592c5673916143db0685236f9459254b687c336", "artifact_sha256": "bfe6ef0e8d898527ec53da7e750713155d3675bbd51457f91f87f0576836084a"},
+    "home_field_empirical": {"identity": "3f88c88870fe8a902327b800bb4c5fead2212b538a17fe4ce2161ef6a8d9c1e3", "artifact_sha256": "42fd9448dfe6ca72a5fa682e96fad8fc8f6e11f99ff795df0cca78e295e8aa66"},
+    "elo_rating_week_batched": {"identity": "8bc179a6da1d0fba0aaa3394147b75256bf6d2a58c7bbb88457b4378277ab1fc", "artifact_sha256": "a00e8cbf3bbc0739ed4ab83775cf6b4c5df81fda84382d4069db189d82d77ed4"},
+    "regularized_logistic": {"identity": "a9b298ecb4aa847aba5bd9de87c6c52efb00d97253f7a181029fe9ca8137abce", "artifact_sha256": "90950f29572dedccfe0529fdadfb181967738d57328bfbced6fd8d348522bf28"},
+    "regularized_linear_margin": {"identity": "3aedd0dce933bf9c87550c46eae2eef525c766165db9ddb36188eeea473b9fd7", "artifact_sha256": "96dc6b1a6e23a7ca11ab02101a02f90383809378ca8a6c0310a16b3795731cb0"},
+    "poisson_skellam_score_distribution": {"identity": "9326313eb682059a6085cebbf9235663163036e158f2b27197d06d0ef95e1c82", "artifact_sha256": "118d96d5a4abc16d3ea88cb5d8b6475db614886b71aa8853ce8a32a384a0d274"},
+    "hist_gradient_boosting": {"identity": "685f782e3093f7eebad043b6b1f3f14ff43e1ef2f6df883633b3c42ae325357e", "artifact_sha256": "af9793fc73e9898e3e928b0f59893a91f75442a9a7b6642af4b4f4204f7f35cd"}
+  },
+  "metrics_all_games": {
+    "naive_historical_average": {
+      "2023": {"brier": 0.23329758967408937, "log_loss": 0.6593692106513348},
+      "2024": {"brier": 0.23269295733951903, "log_loss": 0.6581362683505357},
+      "2025": {"brier": 0.22950107399620726, "log_loss": 0.651627506300982, "calibrated_brier": 0.229014212477662}
+    },
+    "home_field_empirical": {
+      "2023": {"brier": 0.2328822066416883, "log_loss": 0.6584964823457494},
+      "2024": {"brier": 0.2309648014080719, "log_loss": 0.6545518291351797},
+      "2025": {"brier": 0.2291508595159696, "log_loss": 0.6508760774512359, "calibrated_brier": 0.22871398862909326}
+    },
+    "elo_rating_week_batched": {
+      "2023": {"brier": 0.18034920094225448, "log_loss": 0.5356789638764654},
+      "2024": {"brier": 0.19371060698706058, "log_loss": 0.5653004896657797},
+      "2025": {"brier": 0.1773816341133053, "log_loss": 0.5265935990956604, "calibrated_brier": 0.17634973159232756}
+    },
+    "regularized_logistic": {
+      "2023": {"brier": 0.1787888378664104, "log_loss": 0.5267672857650244},
+      "2024": {"brier": 0.1932079190034659, "log_loss": 0.5579178679639398},
+      "2025": {"brier": 0.18280281837900456, "log_loss": 0.5401279619622474, "calibrated_brier": 0.1826922313018518}
+    },
+    "regularized_linear_margin": {
+      "2023": {"brier": 0.18243760446630392, "log_loss": 0.5404399904923277, "margin_mae": 13.656819600924914},
+      "2024": {"brier": 0.19373232273599772, "log_loss": 0.5640818100488485, "margin_mae": 14.527682224928835},
+      "2025": {"brier": 0.1858720438048867, "log_loss": 0.5500190081600885, "calibrated_brier": 0.18281486177405887, "margin_mae": 14.004411275306122}
+    },
+    "poisson_skellam_score_distribution": {
+      "2023": {"brier": 0.19429477557551258, "log_loss": 0.6220903051128959, "margin_mae": 13.677783655767149, "total_mae": 13.83297226714228},
+      "2024": {"brier": 0.21937737897856752, "log_loss": 0.6821000347105536, "margin_mae": 14.538696257881215, "total_mae": 13.379676929671826},
+      "2025": {"brier": 0.19780155638353808, "log_loss": 0.6688912362004261, "calibrated_brier": 0.18383162277005885, "margin_mae": 14.042065570486141, "total_mae": 13.336126692738656}
+    },
+    "hist_gradient_boosting": {
+      "2023": {"brier": 0.1794300057238265, "log_loss": 0.5298396784145476},
+      "2024": {"brier": 0.19389715249370837, "log_loss": 0.5599894755295226},
+      "2025": {"brier": 0.18231985576432813, "log_loss": 0.5397423879650297, "calibrated_brier": 0.18228360459146664}
+    }
+  },
+  "relevant_slice_2025_texas_am": {
+    "rows_per_model": 13,
+    "best_observed_brier_family": "regularized_logistic",
+    "best_observed_brier": 0.14795605956044783,
+    "best_observed_calibrated_brier_family": "regularized_linear_margin",
+    "best_observed_calibrated_brier": 0.14446087342389446,
+    "interpretation": "DESCRIPTIVE_PRELIMINARY_UNPROTECTED_SMALL_SLICE_ONLY_NO_SPECIALIZATION_LIFT_CLAIM"
+  },
+  "leakage_validation": {
+    "target_game_identity_exclusion": "PASS",
+    "same_season_week_batch_outcomes_excluded": "PASS",
+    "source_start_before_target_cutoff": "PASS",
+    "outcome_targets_materialized_separately": "PASS",
+    "publication_timestamps_fabricated": 0,
+    "historical_known_at_eligible_rows": 0,
+    "protected_split_opened": false,
+    "same_batch_candidates_excluded": 244,
+    "future_or_cutoff_candidates_excluded": 2394750
+  },
+  "validation": {
+    "independent_checks_passed": 59,
+    "independent_checks_failed": 0,
+    "validation_report_sha256": "792f2d4d0e2e0e5883ef3fac5c7af98f4c332586b5b1c4481a3478c31b152b10",
+    "deterministic_rebuild_compared_files": 13,
+    "deterministic_rebuild_hash_mismatches": 0,
+    "simple_serialization_gate": "PASS_BEFORE_TREE_BOOSTING",
+    "all_seven_model_roundtrips": "PASS",
+    "focused_tests": {"passed": 4, "failed": 0},
+    "full_test_suite": {"passed": 375, "skipped": 3, "subtests_passed": 83, "failed": 0},
+    "unittest_suite": {"passed": 372, "skipped": 3, "failed": 0},
+    "repository_strict_validator": "PASS",
+    "jira_strict_validator": "PASS",
+    "jira_second_pass_audit": "PASS"
+  },
+  "external_locations": {
+    "training": "<external-data-root>/training/preliminary_event_chronology/sha256/8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "models": "<external-data-root>/model_artifacts/preliminary_event_chronology/sha256/<model_identity>",
+    "forecast": "<external-data-root>/forecast_snapshots/preliminary_event_chronology/sha256/fb84332df4f25f511752cf354bc5b12a7c3283ae44e1f45a24cb932a2122f50a",
+    "manifest": "<external-data-root>/manifests/preliminary_event_chronology/sha256/a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080/run_manifest.json",
+    "validation": "<external-data-root>/validation/POST-SUBTASK-172"
+  },
+  "negative_findings": [
+    "Historical outcome source-known-at timestamps are from May 2023 and cannot establish pregame historical-known-at/PIT eligibility for 2010-2022.",
+    "Twenty-four accepted historical source kickoff timestamps differ from canonical registry metadata by up to 270 minutes; both timestamps and the delta are preserved.",
+    "AP rank difference is missing for 12559 of 13356 games; no unranked numeric value is fabricated.",
+    "The 2025 Texas A&M slice has only 13 games and cannot support an A&M specialization-lift claim.",
+    "No 2025 cold-start rows occurred; cold-start behavior is exercised in earlier development seasons and synthetic tests.",
+    "These event-chronology results do not replace the independent approximately 2010-2025 historical acquisition and historical-known-at workstream."
+  ],
+  "protected_nonclaims": {
+    "historical_known_at_ready": false,
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  },
+  "cleanup": {
+    "runner_stage_removed": true,
+    "worktree_test_caches_removed": true,
+    "abandoned_downloads": 0,
+    "deterministic_rebuild_root": "RETAINED_PENDING_ALLOWED_DESTRUCTIVE_CLEANUP",
+    "superseded_prevalidator_artifacts": "RETAINED_PENDING_ALLOWED_DESTRUCTIVE_CLEANUP",
+    "identified_reconstructible_bytes": 15454983,
+    "authoritative_v2_payloads_and_reports_preserved": true
+  },
+  "rollback": {
+    "bundle": "<external-data-root>/backups/POST-SUBTASK-172-expanded-outcome-replay/before-expanded-outcome-replay.bundle",
+    "bundle_sha256": "99d2f24ddbcb1fb86da7413268c078efbe617184b11d8d35b5d798dd5b92a8d2"
+  }
+}

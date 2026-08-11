@@ -22,7 +22,8 @@
   "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-177",
-    "POST-SUBTASK-183"
+    "POST-SUBTASK-183",
+    "POST-SUBTASK-186"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -113,8 +114,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24673",
-    "jira_updated_at": "2026-08-11T07:09:30.986-0500",
-    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "jira_updated_at": "2026-08-11T09:43:40.726-0500",
+    "last_synced_at": "2026-08-11T14:43:50.492525+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -262,6 +263,7 @@ Convert only exact, version-bound, pre-cutoff historical play and drive evidence
 
 - POST-SUBTASK-177
 - POST-SUBTASK-183
+- POST-SUBTASK-186
 
 ## Read / Inspect First
 

@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-186",
+  "jira_key": "BAT-543",
+  "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_EXACT_PLAY_ENRICHMENT",
+  "source_contract": {
+    "candidate_dataset_identity": "7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0",
+    "candidate_manifest_sha256": "b27a23337c5e6f3c1ffc37180823645c6ecec75376cf64af4d697dac9885d444",
+    "base_play_dataset_identity": "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+    "base_play_manifest_sha256": "9fc257b86c496ed91115ed7f97fff34ffbda3e8beb2ff712aa12f0e60d812cf6",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "canonical_team_mapping_method": "INTERNAL_ASSIGNMENT_LEDGER_FROM_VERIFIED_SOURCE_IDENTITY",
+    "source_system_id": "SRC-002",
+    "source_commit_sha": "b865176f908cb6b791dc8e14562c52676f456275",
+    "source_known_at_utc": "2023-05-05T03:50:21Z",
+    "candidate_source_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "exact_link_source_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+    "partial_source_seasons": [2020],
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "target_cutoff_payload_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942",
+    "target_seasons": [2023, 2024, 2025],
+    "eligible_enrichment_disposition": "CANDIDATE_EXACT_VALIDATED_PLAY_ENRICHMENT_LINK",
+    "eligible_base_play_disposition": "CANDIDATE_CROSS_ROUTE_EXACT_PLAY_CANONICAL_GAME",
+    "historical_known_at_basis": "PUBLIC_REPOSITORY_COMMITTER_TIME_BOUND_TO_EXACT_FILE_BYTES",
+    "player_identity_contract": "SOURCE_PLAYER_IDS_NAMES_AND_POSITIONS_REMAIN_NONCANONICAL_CANDIDATE_EVIDENCE"
+  },
+  "eligibility": {
+    "require_unique_exact_base_play_observation_link": true,
+    "require_matching_canonical_game_identity": true,
+    "require_exact_base_play_text_match": true,
+    "require_verified_source_team_assignment": true,
+    "name_only_team_or_player_mapping_allowed": false,
+    "source_model_metric_official_authority": false,
+    "literal_question_mark_position_meaning": "UNKNOWN",
+    "require_source_known_at_not_after_target_cutoff": true,
+    "require_source_effective_time_before_target_cutoff": true,
+    "target_game_rows_allowed": false,
+    "unknown_publication_time_allowed": false
+  },
+  "feature_contract": {
+    "grain": "TARGET_GAME_TEAM",
+    "profile_window": "ALL_EXACT_LINKED_VERIFIED_TEAM_MAPPED_SOURCE_PLAYS_2014_2019_2021_2022_AVAILABLE_AT_TARGET_CUTOFF",
+    "base_features": [
+      "source_play_count",
+      "source_game_count",
+      "source_season_count",
+      "position_candidate_row_count",
+      "unknown_position_row_count",
+      "source_player_id_candidate_row_count"
+    ],
+    "source_model_features": [
+      "source_epa_mean",
+      "source_wpa_mean",
+      "source_success_rate",
+      "source_ppa_mean",
+      "source_epa_revision_mean_abs",
+      "source_wpa_revision_mean_abs"
+    ],
+    "event_rate_features": [
+      "rush_rate",
+      "pass_rate",
+      "sack_rate",
+      "interception_rate",
+      "completion_rate_on_pass_attempt",
+      "target_rate",
+      "touchdown_rate",
+      "turnover_rate",
+      "penalty_rate",
+      "red_zone_play_rate",
+      "scoring_opportunity_rate",
+      "middle_eight_rate",
+      "stuffed_run_rate"
+    ],
+    "candidate_coverage_features": [
+      "position_candidate_rate",
+      "unknown_position_rate",
+      "source_player_id_candidate_rate"
+    ],
+    "missingness": "NO_FACT_INVENTION; SOURCE_METRIC_NULLS_REMAIN_NULL; NULL_PROFILE_FEATURES_AND_EXPLICIT_COLD_START_FLAGS",
+    "target_or_outcome_fields": "PROHIBITED"
+  },
+  "acceptance": {
+    "expected_candidate_rows": 1426487,
+    "expected_exact_link_rows": 1176564,
+    "expected_verified_team_mapped_rows": 1176311,
+    "expected_unmapped_exact_link_rows": 253,
+    "expected_unmapped_source_team_ids": ["112358"],
+    "expected_disposition_counts": {
+      "CANDIDATE_CANONICAL_GAME_PLAY_ENRICHMENT_UNRECONCILED": 139932,
+      "CANDIDATE_EXACT_VALIDATED_PLAY_ENRICHMENT_LINK": 1176564,
+      "CANDIDATE_VERSIONED_PLAY_ENRICHMENT_SOURCE_LEVEL_ONLY": 83654,
+      "QUARANTINE_BASE_PLAY_GAME_SEQUENCE_AMBIGUOUS": 62,
+      "QUARANTINE_BASE_PLAY_NOT_CANDIDATE": 3185,
+      "QUARANTINE_BASE_PLAY_TEXT_CONFLICT": 9007,
+      "QUARANTINE_DUPLICATE_ENRICHMENT_GAME_SEQUENCE_KEY": 13102,
+      "QUARANTINE_INVALID_ENRICHMENT_CORE": 981
+    },
+    "required_target_game_team_multiplier": 2,
+    "target_game_overlap_allowed": 0,
+    "source_known_at_violations_allowed": 0,
+    "source_effective_time_violations_allowed": 0,
+    "target_or_outcome_columns_allowed": 0,
+    "byte_identical_rebuild_required": true,
+    "partial_season_and_negative_findings_preserved": true
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "canonical_player_identity_promotion": false,
+    "official_stat_authority": false,
+    "pit_state_admission": true,
+    "development_feature_admission": true,
+    "preliminary_unprotected_feature_candidate": true,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "negative_findings": [
+    "The prerequisite versioned base-play layer has no 2020 payload, so 2020 enrichment remains partial and cannot enter the exact-link admitted state.",
+    "Exactly 253 otherwise exact-linked 2021-2022 plays use source team ID 112358 for Long Island University, which is absent from the pinned verified assignment ledger; those rows are quarantined rather than name-mapped.",
+    "Duplicate enrichment game/sequence keys, base-play ambiguity or absence, text conflicts, invalid cores, unreconciled canonical-game rows, and source-only rows remain excluded or quarantined.",
+    "Source-model EPA and WPA differ from the prerequisite snapshot for many exact-linked plays; both source values and revision deltas are preserved without declaring either revision official or authoritative.",
+    "Source player IDs, names, and inferred positions are not canonical identity, roster, starter, or availability evidence; the literal '?' remains explicit UNKNOWN.",
+    "No missing value, identity, outcome, timestamp, position, or statistic is fabricated or silently imputed.",
+    "This development-only artifact does not establish final historical completeness, protected readiness, production performance, A&M lift, BAS, Aggie Excess, or any scientific result."
+  ],
+  "external_storage": {
+    "pit_state": "pit_state/historical_known_at/sha256/<dataset_identity>",
+    "features": "features/historical_known_at/sha256/<dataset_identity>",
+    "quarantine": "quarantine/historical_known_at/sha256/<dataset_identity>",
+    "manifest": "manifests/historical_known_at/sha256/<dataset_identity>/play_enrichment_pit_manifest.json",
+    "validation": "validation/POST-SUBTASK-186/play_enrichment_pit_validation.json",
+    "bulk_payloads_in_git": false
+  }
+}

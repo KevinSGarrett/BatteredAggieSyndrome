@@ -124,6 +124,7 @@ artifacts/jira_evidence/POST-SUBTASK-182.json
 artifacts/jira_evidence/POST-SUBTASK-183.json
 artifacts/jira_evidence/POST-SUBTASK-184.json
 artifacts/jira_evidence/POST-SUBTASK-185.json
+artifacts/jira_evidence/POST-SUBTASK-186.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -144,6 +145,7 @@ artifacts/pit/historical_action_derived_play_summary_gate.json
 artifacts/pit/historical_advanced_game_reconciliation_gate.json
 artifacts/pit/historical_known_at_replay_gate.json
 artifacts/pit/historical_play_drive_pit_aggregate_gate.json
+artifacts/pit/historical_play_enrichment_pit_gate.json
 artifacts/pit/historical_player_box_reconciliation_gate.json
 artifacts/pit/historical_player_event_metric_pit_gate.json
 artifacts/pit/historical_rankings_reconciliation_gate.json
@@ -192,6 +194,7 @@ configs/feature_lifecycle_registry.json
 configs/historical_known_at_recovery_contract.json
 configs/historical_play_drive_pit_aggregate_contract.json
 configs/historical_play_drive_pit_extension_contract.json
+configs/historical_play_enrichment_pit_contract.json
 configs/historical_player_event_metric_pit_contract.json
 configs/historical_rankings_pit_contract.json
 configs/hpo_registry.json
@@ -1392,6 +1395,7 @@ jira/issues/subtasks/POST-SUBTASK-182_recover_timestamped_sec_texas_a_m_availabi
 jira/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive_pit_gaps.md
 jira/issues/subtasks/POST-SUBTASK-184_replay_preliminary_baselines_with_dense_2010_2022_play_drive_pit_features.md
 jira/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.md
+jira/issues/subtasks/POST-SUBTASK-186_admit_exact_linked_version_bound_play_enrichment_for_development_pit_and_preliminary_research.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1907,6 +1911,7 @@ jira/records/issues/subtasks/POST-SUBTASK-182_recover_timestamped_sec_texas_a_m_
 jira/records/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive_pit_gaps.json
 jira/records/issues/subtasks/POST-SUBTASK-184_replay_preliminary_baselines_with_dense_2010_2022_play_drive_pit_features.json
 jira/records/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.json
+jira/records/issues/subtasks/POST-SUBTASK-186_admit_exact_linked_version_bound_play_enrichment_for_development_pit_and_preliminary_research.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2414,6 +2419,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-182.json
 jira/sources/issue_source_manifests/POST-SUBTASK-183.json
 jira/sources/issue_source_manifests/POST-SUBTASK-184.json
 jira/sources/issue_source_manifests/POST-SUBTASK-185.json
+jira/sources/issue_source_manifests/POST-SUBTASK-186.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2956,6 +2962,7 @@ src/aggie_analytics/temporal/eligibility.py
 src/aggie_analytics/temporal/expanded_event_chronology.py
 src/aggie_analytics/temporal/historical_recovery.py
 src/aggie_analytics/temporal/play_drive_pit.py
+src/aggie_analytics/temporal/play_enrichment_pit.py
 src/aggie_analytics/temporal/player_event_metric_pit.py
 src/aggie_analytics/temporal/rankings_pit.py
 src/aggie_analytics/temporal/state.py
@@ -2992,6 +2999,7 @@ tests/test_historical_known_at_recovery_contract.py
 tests/test_historical_known_at_replay.py
 tests/test_historical_play_drive_pit.py
 tests/test_historical_play_drive_pit_extension.py
+tests/test_historical_play_enrichment_pit.py
 tests/test_historical_player_event_metric_pit.py
 tests/test_historical_rankings_pit.py
 tests/test_hpo_engine_full.py
@@ -3054,6 +3062,7 @@ tools/build_action_derived_play_summary.py
 tools/build_artifact_record.py
 tools/build_historical_play_drive_pit.py
 tools/build_historical_play_drive_pit_extension.py
+tools/build_historical_play_enrichment_pit.py
 tools/build_historical_player_event_metric_pit.py
 tools/build_historical_rankings_pit.py
 tools/build_jira_control_plane.py
@@ -3129,6 +3138,7 @@ tools/validate_feature_lifecycle.py
 tools/validate_feature_registry.py
 tools/validate_historical_play_drive_pit.py
 tools/validate_historical_play_drive_pit_extension.py
+tools/validate_historical_play_enrichment_pit.py
 tools/validate_historical_player_event_metric_pit.py
 tools/validate_historical_rankings_pit.py
 tools/validate_instructions.py

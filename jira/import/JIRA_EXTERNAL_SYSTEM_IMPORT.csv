@@ -36695,3 +36695,78 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-033
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-185_admit_version_bound_player_event_metrics_for_development_pit_and_preliminary_research.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;player-stats;pit;development-only;preliminary-unprotected;provenance;local-id-post-subtask-185,pit-temporal,POST-SUBTASK-185,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,DEVELOPMENT_ONLY_PIT_ADMITTED,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Sub-task,BAT-543,100494,[POST-SUBTASK-186] Admit exact-linked version-bound play enrichment for development PIT and preliminary research,100060,"Local ID: POST-SUBTASK-186
+
+Objective
+Admit only exact base-play-linked, canonically team-mapped, version-bound play-enrichment evidence into a development-only PIT state and preliminary feature layer while preserving source-model revisions, unknown positions, and every excluded row.
+
+Why This Exists
+The pinned 2014-2022 enrichment payload contains derived play metrics and player-position candidates committed before every 2023-2025 target cutoff, but only exact links to the pinned base-play identity and verified source-team assignments can support a non-name-based development-PIT lane.
+
+Scope
+Convert exact validated play-enrichment links into canonical-team development-PIT profiles and target-game/team features, with explicit quarantine for unmapped team identities and no promotion of player names, player IDs, source-model metrics, or inferred positions into canonical truth.
+
+Explicit In Scope
+- Exact version-bound 2014-2019 and 2021-2022 enrichment rows joined one-to-one to the pinned base-play observation identity with defensible pre-target publication time.
+- Verified source-team-ID to canonical-team assignment; explicit quarantine of unmapped team rows; deterministic derived-metric aggregation; target-cutoff features; content-addressed provenance; replay; and development-only PIT admission.
+- Preservation and reporting of source-model EPA/WPA revision deltas, metric missingness, literal unknown position evidence, duplicate/conflict quarantine, partial 2020 status, and preliminary-unprotected feature candidacy.
+
+Explicit Out of Scope
+- Name-only team or player mapping, canonical player identity promotion, roster membership inference, starter/availability claims, or interpreting literal '?' as a known position.
+- Treating source-model EPA, WPA, success, PPA, or player-position candidates as official statistics or silently declaring one source-model revision authoritative.
+- Protected training or evaluation, champion or production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific result.
+
+Prerequisites / Dependencies
+- Pinned enrichment candidate identity 7a774ac9 and reconciliation manifest with 1,176,564 exact validated base-play links.
+- Pinned base-play identity 714a8566 and canonical registry SHA-256 10d0bd0a with verified source-team assignments.
+- Pinned repository commit b865176f908cb6b791dc8e14562c52676f456275, public committer known-at time 2023-05-05T03:50:21Z, and 2023-2025 target cutoff matrix cf732b78.
+- Configured standardized external data root.
+- POST-SUBTASK-029
+- POST-SUBTASK-176
+
+Acceptance Criteria
+1. Only rows with disposition CANDIDATE_EXACT_VALIDATED_PLAY_ENRICHMENT_LINK, a one-to-one exact base_play_observation_id join, matching canonical game identity, and a verified source-team-ID assignment are eligible; all other rows remain excluded or quarantined.
+2. Eligibility and coverage are measured independently by source/version, season, canonical game/team, base-play identity, metric, schema, missingness, reconciliation disposition, source known-at time, and target cutoff; missing 2020 base-play coverage remains explicit.
+3. Source-model EPA/WPA revisions and their deltas, metric nulls, and literal '?' position candidates are preserved as evidence; no source player ID/name/position is promoted to canonical identity or official-stat authority.
+4. Every admitted row is known before every 2023-2025 target cutoff, target-game overlap is zero, and no target, outcome, post-cutoff, name-only identity, or fabricated value enters the feature payload.
+5. Outputs preserve immutable content-addressed source, admitted-state, profile, feature, manifest, validation, and quarantine identities and pass isolated byte-identical rebuild plus fail-closed mutation controls.
+6. Authority remains development-only historical known-at play enrichment and preliminary-unprotected feature research; protected, production, completeness, A&M-lift, BAS, Aggie Excess, and scientific claims remain closed.
+
+Definition of Done
+1. All 1,426,487 source rows are deterministically dispositioned, including 1,176,564 exact links, 253 exact-linked but canonically unmapped Long Island University rows, 2020 partial/source-only evidence, and all duplicate, conflict, invalid, unreconciled, and source-only rows.
+2. The admitted development-PIT state uses only the 1,176,311 exact-linked and verified-team-mapped rows, reports per-season/game/team/metric/position coverage and missingness, and never performs a name-only merge.
+3. The target feature payload contains exactly two rows per pinned 2023-2025 target game with explicit cold starts, no silent imputation, no target/outcome fields, and source publication strictly before the earliest target cutoff.
+4. Independent source, linkage, mapping, chronology, target exclusion, schema, hash, population, provenance, mutation, and byte-identical rebuild checks pass.
+5. Canonical Jira, repository evidence, historical recovery gate, and governing goal agree with development-only authority and protected nonclaims; protected PR integration and live Jira evidence are complete before Done.
+6. Historical acquisition and independently useful preliminary modeling continue without declaring final historical-population or production readiness.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_historical_play_enrichment_pit.py — Exact base-play linkage, source-team assignment, source-model revision preservation, unknown-position handling, chronology, missingness, and protected nonauthority remain deterministic.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-186.json — The complete external admitted population passes linkage, mapping, chronology, schema, provenance, mutation, and byte-identical rebuild checks.
+
+Required Evidence
+- Exact source commit, enrichment/base-play/registry/target identities, contracts, code, dataset, payload, manifest, validation, rollback, Jira, Git, PR, and hosted-check identities.
+- Per-season source, exact-link, mapped, unmapped, duplicate, conflict, invalid, unreconciled, source-only, metric-null, position-coverage, game, team, target, feature, cold-start, byte, and hash counts.
+- Maximum source known-at/effective times, minimum target cutoff, zero target overlap, zero target/outcome fields, fail-closed mutation controls, and byte-identical rebuild.
+- Explicit source-model revision and player-position candidate limitations, development-only PIT/preliminary authority, and protected/production/completeness/scientific nonclaims.
+
+End-to-End Validation
+Re-read the exact pinned enrichment and base-play manifests and payloads; independently rejoin every exact enrichment row to its base-play observation and verified source-team assignment; rebuild admitted play enrichment, canonical-team profiles, and target-cutoff features; verify disposition, linkage, team mapping, chronology, schemas, counts, missingness, quarantines, hashes, authority, mutation controls, and byte identity; then remove reconstructible rebuild output.
+
+Stop Conditions
+- Stop the affected row, season, metric, position grain, or artifact on linkage, mapping, chronology, target overlap, schema, authority, population, hash, or rebuild failure.
+- Exclude or quarantine only affected evidence; do not block independent domains, acquisition, or preliminary modeling.
+- Do not open protected promotion until expanded quality-supported history and all applicable W17 gates pass.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-186_admit_exact_linked_version_bound_play_enrichment_for_development_pit_and_preliminary_research.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;play-enrichment;pit;development-only;preliminary-unprotected;provenance;local-id-post-subtask-186,pit-temporal,POST-SUBTASK-186,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,DEVELOPMENT_ONLY_PIT_ADMITTED,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE

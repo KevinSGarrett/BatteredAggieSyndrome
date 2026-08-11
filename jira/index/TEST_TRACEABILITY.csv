@@ -1505,6 +1505,8 @@ tests/test_preliminary_play_drive_augmented.py,NEW_AUTOMATED_TEST_REQUIRED,POST-
 artifacts/jira_evidence/POST-SUBTASK-184.json,END_TO_END,POST-SUBTASK-184,Sub-task,"The joined dataset, models, predictions, metrics, hashes, numerical replay, and isolated byte-identical rebuild pass independent validation."
 tests/test_historical_player_event_metric_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-185,Sub-task,"Disposition gating, exact canonical identity, sparse metric aggregation, chronology, cold starts, missingness, and protected nonauthority remain deterministic."
 artifacts/jira_evidence/POST-SUBTASK-185.json,END_TO_END,POST-SUBTASK-185,Sub-task,"The complete external admitted population passes identity, chronology, schema, provenance, mutation, and byte-identical rebuild checks."
+tests/test_historical_play_enrichment_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-186,Sub-task,"Exact base-play linkage, source-team assignment, source-model revision preservation, unknown-position handling, chronology, missingness, and protected nonauthority remain deterministic."
+artifacts/jira_evidence/POST-SUBTASK-186.json,END_TO_END,POST-SUBTASK-186,Sub-task,"The complete external admitted population passes linkage, mapping, chronology, schema, provenance, mutation, and byte-identical rebuild checks."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

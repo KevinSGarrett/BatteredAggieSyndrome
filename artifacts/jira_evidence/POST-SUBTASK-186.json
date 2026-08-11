@@ -1,0 +1,161 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_INTEGRATED_EVIDENCE",
+  "local_issue_id": "POST-SUBTASK-186",
+  "jira_import_id": 100494,
+  "jira_key": "BAT-543",
+  "status": "VALIDATED_PREINTEGRATION",
+  "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_EXACT_PLAY_ENRICHMENT",
+  "objective": "Admit only exact base-play-linked and verified-team-mapped version-bound play enrichment into development PIT and preliminary-unprotected feature research.",
+  "input_identities": {
+    "candidate_dataset": "7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0",
+    "candidate_manifest_sha256": "b27a23337c5e6f3c1ffc37180823645c6ecec75376cf64af4d697dac9885d444",
+    "base_play_dataset": "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+    "base_play_manifest_sha256": "9fc257b86c496ed91115ed7f97fff34ffbda3e8beb2ff712aa12f0e60d812cf6",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "target_replay": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "target_cutoff_payload_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942",
+    "source_commit": "b865176f908cb6b791dc8e14562c52676f456275",
+    "source_known_at_utc": "2023-05-05T03:50:21Z"
+  },
+  "output_identities": {
+    "dataset": "ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb",
+    "manifest_sha256": "be9bb847326e485385dd7ce00320f78ce0c8893bf0dc629fa72e8ebd53b75595",
+    "state_payload_sha256": "9057f6a1afaf9dafbbfdf1e310d950f9725cdb91fccd16b77dc86b39772d18e5",
+    "profile_payload_sha256": "53a862fe7f6d03246fbbfd3901eca9dce8b0a268a1ab54d06e25af86267b4d55",
+    "feature_payload_sha256": "1303d216f930e4cc761e00b5b0deeb396c969be98830801e13cbc002c75ddb36",
+    "unmapped_team_quarantine_sha256": "24ae01fd853166072a9cb56e37e9596df7bf7a41e2472e63bca9f035082dedfa",
+    "validation_report_sha256": "55ccee4df2a9a39bd71fcd3d62b358d1073d13f72039148858a893b37107dd20"
+  },
+  "population": {
+    "candidate_source_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "exact_link_source_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022],
+    "partial_source_seasons": [2020],
+    "candidate_rows": 1426487,
+    "exact_link_rows": 1176564,
+    "admitted_rows": 1176311,
+    "unmapped_team_quarantine_rows": 253,
+    "excluded_or_quarantined_rows": 250176,
+    "admitted_games": 6696,
+    "admitted_teams": 238,
+    "rows_with_position_candidate": 822164,
+    "rows_with_unknown_position_candidate": 16432,
+    "rows_with_source_player_id_candidate": 823694,
+    "target_seasons": [2023, 2024, 2025],
+    "target_games": 2764,
+    "target_game_team_rows": 5528,
+    "cold_start_rows": 23,
+    "features": 28,
+    "admitted_source_metric_nulls": {
+      "EPA": 3402,
+      "wpa": 14437,
+      "success": 0,
+      "ppa": 269256
+    }
+  },
+  "leakage_validation": {
+    "maximum_source_known_at_utc": "2023-05-05T03:50:21Z",
+    "maximum_source_effective_at_utc": "2022-11-19T17:00Z",
+    "minimum_target_cutoff_utc": "2023-08-25T18:30:00Z",
+    "target_game_overlap": 0,
+    "target_or_outcome_columns": 0,
+    "protected_split_opened": false
+  },
+  "identity_and_metric_boundaries": {
+    "unmapped_source_team_id": "112358",
+    "unmapped_source_team_label": "Long Island University",
+    "name_only_team_or_player_mapping": false,
+    "canonical_player_identity_promoted": false,
+    "raw_source_player_ids_copied_into_admitted_state": false,
+    "literal_question_mark_position": "UNKNOWN",
+    "source_model_metrics": ["EPA", "wpa", "success", "ppa"],
+    "source_model_metrics_official": false,
+    "epa_wpa_revision_deltas_preserved": true,
+    "missing_values_fabricated_or_silently_imputed": false
+  },
+  "validation": {
+    "external_checks_passed": 69,
+    "mutation_controls_passed": 11,
+    "deterministic_payloads_compared": 5,
+    "byte_identical_rebuild": true,
+    "rebuild_root_removed": true,
+    "focused_and_recovery_tests_passed": 39,
+    "full_pytest_passed": 451,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "full_unittest_passed": 448,
+    "full_unittest_skipped": 3,
+    "strict_repository": "PASS_AFTER_VERIFIED_PYTEST_CACHE_CLEANUP_AND_MANIFEST_REBUILD",
+    "strict_secret_scan": "PASS",
+    "provenance_data_research": "PASS",
+    "external_storage_policy": "PASS",
+    "autonomous_controls": "PASS",
+    "dependency_policy": "PASS",
+    "w25_final": "PASS",
+    "jira_second_pass": "PASS_AT_LIVE_ACTIVATION_494_ISSUES_1120_LINKS",
+    "jira_file_manifest": "PASS",
+    "jira_live_control_plane_and_mirror": "PASS",
+    "hosted_pull_request_checks": "PENDING_PREINTEGRATION"
+  },
+  "external_locations": {
+    "state": "<external-data-root>/pit_state/historical_known_at/sha256/ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb/play_enrichment.parquet",
+    "profiles": "<external-data-root>/pit_state/historical_known_at/sha256/ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb/team_play_enrichment_profiles.parquet",
+    "features": "<external-data-root>/features/historical_known_at/sha256/ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb/target_game_team_play_enrichment_features.parquet",
+    "quarantine": "<external-data-root>/quarantine/historical_known_at/sha256/ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb/unmapped_source_team_rows.parquet",
+    "manifest": "<external-data-root>/manifests/historical_known_at/sha256/ce9564bddc73cd046a89ef2ac5bb80140e738c52aa2f69e0014f64e45a34dfbb/play_enrichment_pit_manifest.json",
+    "validation": "<external-data-root>/validation/POST-SUBTASK-186/play_enrichment_pit_validation.json"
+  },
+  "repository_files": {
+    "contract_sha256": "5fcacbd8bf057664fb2e98d9b7f4a186a38fb09d27056ba58ee686ac50dd3a83",
+    "core_sha256": "2e097ded9bff2fe56223cfda45ec22c6042f0f5a46c2c9e9f70b00cecd78d1a8",
+    "builder_sha256": "4cfd2a793bb73b44006f1861296c3d1ebaaa55523e699ff0486c1ae9cbd43fba",
+    "validator_sha256": "95e5ea953811ae157739ebf8e7bd8beebb1d098b0174f9cc49c886673b34b64f",
+    "focused_tests_sha256": "327ca664d9cc8bc8eb54a3cf8d0c9ff78711c96a6fab1b78ad6011653f01952e",
+    "recovery_tests_sha256": "445ae8fb4de498701a52f5b8a3468c3b0de5e3dd35b963fbfa0ea04680e6d489",
+    "gate_sha256": "fa23e94c500176fe44ae21e27b8bb951699ffde19fa05f83462cd53dce5ae768",
+    "recovery_contract_sha256": "72c459fec1a70bb8778ded5653e9f27248e39d42538e94c2147b75727e55c142",
+    "replay_gate_sha256": "8b513e9983592cd031d87119d1fa981ab2a274f1b1c9adbb59ceb6245a8e8629"
+  },
+  "live_jira": {
+    "authentication": "HTTP_200",
+    "status": "In Progress",
+    "created_issue": "BAT-543",
+    "preintegration_evidence_comment_id": "13654",
+    "dependencies": ["BAT-379 BLOCKS BAT-543", "BAT-533 BLOCKS BAT-543"],
+    "canonical_mirror_issue_count": 494,
+    "canonical_mirror_link_count": 1120,
+    "duplicate_matches_before_create": 0,
+    "live_sync_conflicts": 0
+  },
+  "recovery": {
+    "checkpoint": "<external-data-root>/backups/POST-SUBTASK-186-PRECHANGE-20260811T143930Z",
+    "bundle_sha256": "5a0d3bef81158a856f2ad05a433ee6752023c059d5e6a351e338eef919ed28e7",
+    "backup_manifest_sha256": "2a995c1253c248b069dc0832629a65ca67e08fae592c85fec198e4c99157dd23",
+    "dirty_root_touched": false
+  },
+  "openai": {
+    "calls_this_unit": 0,
+    "reason": "DETERMINISTIC_EXACT_LINKAGE_TEAM_ASSIGNMENT_AND_STRUCTURED_TABLE_VALIDATION_FULLY_SOLVED_THE_TASK",
+    "cumulative_calls": 470,
+    "cumulative_spend_usd": "4.309590",
+    "remaining_budget_usd": "95.690410",
+    "batch_jobs": 0,
+    "last_successful_api_use_utc": "2026-08-11T09:48:49.502971+00:00"
+  },
+  "limitations": [
+    "The prerequisite version-bound base-play layer has no 2020 payload, so 2020 remains partial and contributes no admitted exact-link row.",
+    "The 253 Long Island University rows remain quarantined because source team ID 112358 lacks a verified canonical assignment.",
+    "Source-model metrics and inferred positions are candidates, not official statistics or canonical player evidence.",
+    "The 28 development features are not yet consumed by a separately lineaged preliminary-unprotected replay.",
+    "Protected retraining and promotion still require expanded quality-supported history and unchanged W17 gates."
+  ],
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

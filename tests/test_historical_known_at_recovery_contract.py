@@ -454,6 +454,35 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
+    def test_play_enrichment_has_separate_exact_linked_development_pit_admission(self) -> None:
+        admitted = self.contract["latest_validated_play_enrichment_pit_admission"]
+        self.assertEqual(
+            admitted["source_candidate_identity"],
+            "7a774ac95cfd0e29bacffd9a4fd164e264b789a1c4df6b674c0325f9f81340c0",
+        )
+        self.assertEqual(
+            admitted["base_play_identity"],
+            "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+        )
+        self.assertEqual(admitted["candidate_source_seasons"], list(range(2014, 2023)))
+        self.assertEqual(admitted["exact_link_source_seasons"], [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022])
+        self.assertEqual(admitted["partial_source_seasons"], [2020])
+        self.assertEqual(admitted["exact_link_rows"], 1176564)
+        self.assertEqual(admitted["admitted_rows"], 1176311)
+        self.assertEqual(admitted["unmapped_exact_link_quarantine_rows"], 253)
+        self.assertEqual(admitted["target_game_overlap"], 0)
+        self.assertFalse(admitted["canonical_player_identity_promotion"])
+        self.assertFalse(admitted["name_only_team_or_player_mapping"])
+        self.assertTrue(admitted["pit_state_admission"])
+        self.assertTrue(admitted["development_feature_admission"])
+        self.assertFalse(admitted["protected_training_admission"])
+        self.assertFalse(admitted["protected_evaluation_admission"])
+        checkpoint = self.gate["parallel_play_enrichment_pit_checkpoint"]
+        self.assertEqual(checkpoint["dataset_identity"], admitted["dataset_identity"])
+        self.assertEqual(checkpoint["cold_start_rows"], 23)
+        self.assertEqual(checkpoint["literal_question_mark_position"], "UNKNOWN")
+        self.assertEqual(checkpoint["admission_state"], "DEVELOPMENT_ONLY_PIT_ADMITTED")
+
     def test_post2022_roster_extension_is_validated_candidate_only(self) -> None:
         roster = self.contract["latest_validated_post2022_roster_candidate"]
         self.assertEqual(

@@ -892,6 +892,8 @@ POST-SUBTASK-037,POST-SUBTASK-195,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-042,POST-SUBTASK-195,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-195,POST-SUBTASK-169,RELATES_TO,false,Historical/post-wave reconciliation
 POST-SUBTASK-195,POST-SUBTASK-172,RELATES_TO,false,Historical/post-wave reconciliation
+POST-STORY-010,POST-SUBTASK-196,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-196,POST-SUBTASK-195,RELATES_TO,false,Historical/post-wave reconciliation
 EPIC-001,TASK-001,PARENT_CHILD,false,Canonical hierarchy
 TASK-001,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
 EPIC-001,TASK-002,PARENT_CHILD,false,Canonical hierarchy

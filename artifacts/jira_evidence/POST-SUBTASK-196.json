@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "local_id": "POST-SUBTASK-196",
+  "jira_key": "BAT-553",
+  "evidence_state": "VERIFIED",
+  "classification": "ADMINISTRATIVE_DUPLICATE_AUDIT_NO_NEW_DATASET",
+  "duplicate_of": {
+    "local_id": "POST-SUBTASK-174",
+    "jira_key": "BAT-531",
+    "pull_request": 164,
+    "dataset_identity": "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
+    "manifest_sha256": "c41fbedaa89e2ff9188f74789554fd34d5b173f636ee0b3a0853403eee5c4671",
+    "validation_sha256": "b078bdfadcc89b7578798be8734e6bca5cf27a9b36cab27dbc3d9b08ad4f2c14",
+    "validation_checks": 74,
+    "byte_identical_rebuild": true
+  },
+  "matching_population": {
+    "source_capture_count": 53,
+    "source_record_count": 553376,
+    "source_bytes": 338544532,
+    "empty_capture_count": 0,
+    "source_profile_identity": "8b1a0d0beb313154eceacf9d42f8a32d39664b49f6eaafbd77552ee74f3dba71",
+    "by_season": {
+      "2023": {
+        "plays": 158995,
+        "drives": 21866
+      },
+      "2024": {
+        "plays": 162751,
+        "drives": 21766
+      },
+      "2025": {
+        "plays": 166236,
+        "drives": 21762
+      }
+    }
+  },
+  "live_jira": {
+    "issue_id": "24946",
+    "status": "Done",
+    "updated_at": "2026-08-11T18:02:12.374-0500",
+    "duplicate_link_id": "17534",
+    "duplicate_of": "BAT-531",
+    "evidence_comment_id": "13708"
+  },
+  "disposition": {
+    "new_dataset_created": false,
+    "new_code_created": false,
+    "new_historical_coverage_claimed": false,
+    "openai_calls": 0,
+    "openai_spend_usd": 0.0,
+    "result": "CLOSED_AS_DUPLICATE_OF_POST_SUBTASK_174"
+  },
+  "authority": {
+    "changes_post_subtask_174_authority": false,
+    "historical_pit": false,
+    "protected_training_or_evaluation": false,
+    "production_or_champion_promotion": false,
+    "forecast_publication": false,
+    "scientific_claim": false
+  }
+}

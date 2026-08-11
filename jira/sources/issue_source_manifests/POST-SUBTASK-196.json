@@ -1,0 +1,114 @@
+{
+  "files_to_inspect": [
+    "artifacts/jira_evidence/POST-SUBTASK-174.json",
+    "tools/build_supplemental_play_drive_gap.py"
+  ],
+  "governance_traceability_gate": "POST-SUBTASK-069",
+  "issue_id": "POST-SUBTASK-196",
+  "retrieval_protocol": [
+    "Verify document_sha256 against the current repository file.",
+    "Verify anchor_hash against the normalized stored excerpt and current line range.",
+    "If the file hash changed, run repair_source_refs.py to relocate the exact anchor/heading before using the reference.",
+    "Open only the referenced section plus the minimal listed implementation/prerequisite context; the Windows path is convenience metadata, not authority."
+  ],
+  "schema_version": 2,
+  "source_ids": [
+    "GAP-002",
+    "HANDOFF-008"
+  ],
+  "source_refs": [
+    {
+      "anchor_excerpt": "# Source Mapping & Evidence Identity — Wave 07 ## Why these are separate A source provider, a dataset/report family, an edited publication, a retrieval event and an individual parsed claim are not the same object. W07 therefore freezes the hierarchy: `SOURCE_SYSTEM -> SOURCE_RESOURCE -> PUBLICATION_VERSION -> RAW_CAPTU",
+      "anchor_hash": "1e8c619ef64d9b19d7e8f3229d2ed1695757c0d22c0678d295602ee62ee27ded",
+      "authority_level": "ACCEPTED_DESIGN",
+      "document_sha256": "9fbf23d76009407c25ac28070668325e1df0739d655ccfc5d90ef5f53e9de71d",
+      "end_line": 43,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md",
+      "source_ref_id": "SRCREF-02013",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Canonical raw-data design, implementation, test, or handoff source",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md"
+    },
+    {
+      "anchor_excerpt": "# Canonical Entity Architecture — Wave 07 ## Status **Accepted design contract.** This wave freezes identity semantics and machine-readable contracts. It does **not** claim that the national historical entity lake has been materialized; real resolver/data-adapter implementation remains primarily W19. ## Identity rules ",
+      "anchor_hash": "df74dbad54cb8e2934ac86a600b50ddf164c73d3527ce13344093706b8a51db9",
+      "authority_level": "ACCEPTED_DESIGN",
+      "document_sha256": "44e0f776dbbb6d8e31f307fac37683fe8c86528c7c353c7e4d10220e4fedb595",
+      "end_line": 55,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/14_CANONICAL_ENTITY_ARCHITECTURE.md",
+      "source_ref_id": "SRCREF-02019",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Canonical entities design, implementation, test, or handoff source",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\14_CANONICAL_ENTITY_ARCHITECTURE.md"
+    },
+    {
+      "anchor_excerpt": "# Entity Resolution & Review — Wave 07 ## Goal Resolve source identities into canonical identities with high precision while making uncertainty auditable. ## Resolution pipeline 1. Reuse a previously verified, non-superseded source mapping when its scope is valid. 2. Apply a validated direct-source-ID or authoritative ",
+      "anchor_hash": "5acaab54488cf255c0419ed959d6e8b3300505aa63c47c690b81581e95d12fc6",
+      "authority_level": "ACCEPTED_DESIGN",
+      "document_sha256": "b9b4845be3f8fa2adcd4348c25e1a3d37dd0ca30bdb974c5e980e01584f0c08f",
+      "end_line": 47,
+      "heading": "",
+      "last_verified": "2026-08-08",
+      "repo_relative_path": "docs/16_ENTITY_RESOLUTION_AND_REVIEW.md",
+      "source_ref_id": "SRCREF-02020",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Canonical entities design, implementation, test, or handoff source",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\16_ENTITY_RESOLUTION_AND_REVIEW.md"
+    },
+    {
+      "anchor_excerpt": "GAP-002,BLOCKING_EMPIRICAL_MODEL_READINESS,National historical data materialization,Recon/sample evidence is not the historical data lake,Acquire/version approved national source history and population-level manifests,P0",
+      "anchor_hash": "8473ae923e1fe7030633ed9646edcf4929e86d754d24e24f1987c1779831873f",
+      "authority_level": "FINAL_CURRENT",
+      "document_sha256": "083a5e63e14221b461dab67f10fe5939126d9c84d333a09d449d91b99f950024",
+      "end_line": 3,
+      "heading": "",
+      "last_verified": "2026-08-09",
+      "repo_relative_path": "docs/final/FINAL_KNOWN_GAPS.csv",
+      "source_ref_id": "SRCREF-01564",
+      "source_type": "csv",
+      "start_line": 3,
+      "why_relevant": "Authoritative registry row for GAP-002",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\final\\FINAL_KNOWN_GAPS.csv"
+    },
+    {
+      "anchor_excerpt": "GAP-003,BLOCKING_EMPIRICAL_MODEL_READINESS,Protected historical replay,No real protected Brier/log-loss/calibration/score likelihood is claimed,Run chronological W17 protocol after materialization,P0",
+      "anchor_hash": "8bd55bacb3393d4ab437c31fa2b1e2231a0d3b26d52e768fa9591b6ab9cbf073",
+      "authority_level": "FINAL_CURRENT",
+      "document_sha256": "083a5e63e14221b461dab67f10fe5939126d9c84d333a09d449d91b99f950024",
+      "end_line": 4,
+      "heading": "",
+      "last_verified": "2026-08-09",
+      "repo_relative_path": "docs/final/FINAL_KNOWN_GAPS.csv",
+      "source_ref_id": "SRCREF-01565",
+      "source_type": "csv",
+      "start_line": 4,
+      "why_relevant": "Authoritative registry row for GAP-003",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\final\\FINAL_KNOWN_GAPS.csv"
+    },
+    {
+      "anchor_excerpt": "GAP-004,EMPIRICAL,Production feature set,No raw/derived candidate is production-promoted by final wave,\"Run W10/W17 screening, stability and ablation on real PIT matrices\",P1",
+      "anchor_hash": "4ba9a1c959e954e38cb9817e660839dac667619c792b2313acd467568d511f6b",
+      "authority_level": "FINAL_CURRENT",
+      "document_sha256": "083a5e63e14221b461dab67f10fe5939126d9c84d333a09d449d91b99f950024",
+      "end_line": 5,
+      "heading": "",
+      "last_verified": "2026-08-09",
+      "repo_relative_path": "docs/final/FINAL_KNOWN_GAPS.csv",
+      "source_ref_id": "SRCREF-01566",
+      "source_type": "csv",
+      "start_line": 5,
+      "why_relevant": "Authoritative registry row for GAP-004",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\docs\\final\\FINAL_KNOWN_GAPS.csv"
+    }
+  ],
+  "traceability_inherited_from": [
+    "POST-SUBTASK-069"
+  ]
+}

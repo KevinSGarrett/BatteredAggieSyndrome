@@ -37437,3 +37437,63 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-069
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-195_materialize_1963_2009_national_game_outcome_spine_and_tiered_eligibility_gate.json",Done,Medium,actionable;post-wave;subtask;historical-expansion;games;outcomes;1963-2009;tiered-eligibility;candidate-only;provenance;local-id-post-subtask-195,data-sources,POST-SUBTASK-195,GAP-002;GAP-003;HANDOFF-008,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA
+Sub-task,BAT-553,100504,[POST-SUBTASK-196] Duplicate audit: post-2022 national play/drive history already covered by POST-SUBTASK-174,100060,"Local ID: POST-SUBTASK-196
+
+Objective
+Record that the proposed post-2022 national play/drive work is an exact duplicate of POST-SUBTASK-174 / BAT-531 and prevent redundant implementation.
+
+Why This Exists
+The initial gap inventory proposed a redundant work unit. Preserving the corrected disposition prevents duplicate data, code, Jira scope, and false coverage claims while retaining an auditable record.
+
+Scope
+Perform a read-only duplicate audit, pin the matching POST-SUBTASK-174 identities, reconcile BAT-553 as a duplicate, and return historical expansion planning to a genuinely missing domain.
+
+Explicit In Scope
+- Read-only comparison of the proposed 2023-2025 play/drive population with POST-SUBTASK-174 / BAT-531.
+- Administrative duplicate disposition and preservation of exact evidence identities.
+
+Explicit Out of Scope
+- Creating another 2023-2025 play/drive dataset, schema, builder, validator, or model input.
+- Changing the authority, PIT eligibility, or scientific claims of POST-SUBTASK-174.
+- Protected promotion, forecasts, final completeness, GAP resolution, protected performance, A&M lift, BAS, Aggie Excess, or any scientific claim.
+
+Prerequisites / Dependencies
+- POST-SUBTASK-174 / BAT-531 is merged, validated, and evidence-backed.
+- The read-only source profile is compared to the existing immutable dataset before any mutation.
+
+Acceptance Criteria
+1. Prove whether the proposed 2023-2025 national play/drive scope is already represented by an immutable validated dataset before authorizing new implementation.
+2. Pin the existing dataset, manifest, validation, season, play-row, and drive-row identities that establish the duplicate disposition.
+3. Close the live and canonical work unit as a duplicate without creating a second dataset, code path, or scientific claim.
+
+Definition of Done
+1. The exact duplicate evidence is recorded in canonical Jira, generated Jira, repository evidence, and live Jira.
+2. BAT-553 links to BAT-531 as a duplicate and is Done without claiming new historical coverage.
+3. Repository and Jira consistency validators accept the administrative audit record.
+
+Required Tests / Validation
+- END_TO_END / GOVERNANCE_CONSISTENCY: artifacts/jira_evidence/POST-SUBTASK-196.json — The duplicate evidence identities, live Jira disposition, and canonical/generated views agree without any new data artifact.
+
+Required Evidence
+- Existing POST-SUBTASK-174 dataset, manifest, and validation hashes.
+- Exact 2023-2025 play and drive row-count match.
+- Live BAT-553 duplicate link, evidence comment, and Done transition.
+
+End-to-End Validation
+Verify the existing POST-SUBTASK-174 dataset, manifest, validation, and per-season row identities; verify the live duplicate link, comment, and Done transition; then run Jira consistency gates without materializing data.
+
+Stop Conditions
+- Do not materialize or implement when the proposed population is already fully represented by the verified POST-SUBTASK-174 dataset.
+- Never weaken no-fabrication, provenance, PIT, target-game, protected-promotion, or scientific boundaries.
+
+Source References
+- SRCREF-02013
+- SRCREF-02019
+- SRCREF-02020
+- SRCREF-01564
+- SRCREF-01565
+- SRCREF-01566
+
+Governance Traceability Gate: POST-SUBTASK-069
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-196_capture_and_gate_post_2022_national_play_drive_history.json",Done,Medium,post-wave;subtask;historical-expansion;duplicate-scope;duplicate-of-bat-531;audit-only;local-id-post-subtask-196,data-sources,POST-SUBTASK-196,GAP-002;HANDOFF-008,PHASE-1,DONE,DUPLICATE_SCOPE_VERIFIED_NO_NEW_MATURITY,VERIFIED,POST_W25,false,GOVERNANCE

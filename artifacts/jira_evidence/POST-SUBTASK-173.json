@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
+  "local_id": "POST-SUBTASK-173",
+  "jira_key": "PENDING_LIVE_SYNCHRONIZATION",
+  "classification": "VALIDATED_RECONCILED_ROSTER_CANDIDATE_ONLY",
+  "issue_disposition": "DONE_VERIFIED_LOCAL_PENDING_LIVE_JIRA_SYNC",
+  "evidence_state": "VERIFIED",
+  "source_route": {
+    "preferred_route": "CFBD_AUTHENTICATED_ROSTER_ENDPOINT",
+    "preferred_route_result": "HTTP_429_AFTER_4_BOUNDED_RETRIES",
+    "equivalent_route": "SPORTSDATAVERSE_PUBLIC_GITHUB_RELEASE_espn_cfb_rosters",
+    "release_id": 101941086,
+    "secrets_logged_or_persisted": 0
+  },
+  "input_identities": {
+    "acquisition": "6e3fba9bff67318e6dc3d94b09700b16c92619fe7a14131ccf0a14757bacc2a8",
+    "acquisition_manifest_sha256": "5e1efc3e56c803d4c2b3020e6e441544409a3ad6f27595aec7996b679920bec0",
+    "canonical_people_registry_sha256": "0ab6acafbe350a4958a5fca1c02a9c51463ab8a93ecc173a57b9fd925bf2198d"
+  },
+  "output_identities": {
+    "dataset": "151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242",
+    "reconciliation_manifest_sha256": "62a8721c9af2ea8bc451b9ee51cdc49c5be65ee87440d483a351e945c2d6cddd",
+    "validation_report_sha256": "11b93bb959ab7febe595ca34853986c80bce3b013a31bac67d0cccc73951c2b1"
+  },
+  "population": {
+    "seasons": [2023, 2024, 2025],
+    "source_rows": 79832,
+    "season_rows": {
+      "2023": 26068,
+      "2024": 27477,
+      "2025": 26287
+    },
+    "raw_bytes": 7846862,
+    "normalized_payload_bytes": 9970709,
+    "dispositions": {
+      "CANDIDATE_EXACT_SOURCE_ID_NAME_AND_CANONICAL_MEMBERSHIP": 46586,
+      "CANDIDATE_CANONICAL_PERSON_MEMBERSHIP_PENDING": 5214,
+      "CANDIDATE_SOURCE_LEVEL_ONLY": 27283,
+      "QUARANTINE_SOURCE_ID_NAME_CONFLICT": 749
+    }
+  },
+  "provider_assets": [
+    {"season": 2023, "bytes": 2555225, "sha256": "ed9fd8f45d6a14703ada58b37c0cee212e32cd880f212319c7489f166af54f75"},
+    {"season": 2024, "bytes": 2701957, "sha256": "9f279200b6617503ae09f6cb9955d814d6c76d916e66c11b3166d48f9008c6a5"},
+    {"season": 2025, "bytes": 2589680, "sha256": "d7e3283fb6db8bdf02fa6e1f091f3f2b8fb6f5793dce0e3fc0aedb5dacd61ff8"}
+  ],
+  "payloads": [
+    {"season": 2023, "rows": 26068, "bytes": 3232895, "sha256": "001bc5629b60255c4feab43a2a4f5c640be467cb57b4d60fd68e78ef2a5f8721"},
+    {"season": 2024, "rows": 27477, "bytes": 3390764, "sha256": "36f3b500927f698edcaaf094d653049d7edf6362931153b50e60c78c930a6995"},
+    {"season": 2025, "rows": 26287, "bytes": 3235107, "sha256": "4839af88376768da68a8789d7f15e938f5de72dc38928111b281dc4697e215f7"},
+    {"role": "QUARANTINE", "rows": 749, "bytes": 111943, "sha256": "e66af684281739071e28761af941878772d8908f2435edcc6a8bc10f11133205"}
+  ],
+  "validation": {
+    "independent_checks_passed": 17,
+    "independent_checks_failed": 0,
+    "deterministic_rebuild_compared_files": 5,
+    "deterministic_rebuild_hash_mismatches": 0,
+    "rebuild_root_removed": true,
+    "focused_tests_passed": 30,
+    "focused_tests_failed": 0
+  },
+  "authority": {
+    "candidate_only": true,
+    "historical_known_at_eligible": false,
+    "canonical_or_pit_admission": false,
+    "feature_or_training_admission": false,
+    "protected_use_admission": false,
+    "roster_membership_implies_availability": false,
+    "source_release_time_implies_historical_known_at": false,
+    "name_only_merge_permitted": false
+  },
+  "negative_findings": [
+    "The preferred CFBD authenticated route returned HTTP 429 after four bounded retries; an equivalent provider-published release route was used.",
+    "All release asset update timestamps are in 2026 and do not establish historical known-at eligibility for 2023-2025 games.",
+    "Five thousand two hundred fourteen rows resolve to a canonical person but lack exact canonical membership agreement.",
+    "Twenty-seven thousand two hundred eighty-three rows remain source-level only and 749 conflicting source-ID/name rows remain quarantined.",
+    "The 2025 source introduced draft-related fields; those raw fields are preserved only in immutable captures and excluded from normalized roster candidates."
+  ],
+  "external_locations": {
+    "raw": "<external-data-root>/raw/SRC-001/sportsdataverse_rosters_post2022",
+    "acquisition_manifest": "<external-data-root>/manifests/acquisition/sportsdataverse-rosters-2023-2025-v1/sha256/6e3fba9bff67318e6dc3d94b09700b16c92619fe7a14131ccf0a14757bacc2a8/sportsdataverse_roster_acquisition_manifest.json",
+    "candidate_and_quarantine": "<external-data-root>/quarantine/historical_known_at/sha256/151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242/rosters_post2022",
+    "reconciliation_manifest": "<external-data-root>/manifests/historical_known_at/sha256/151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242/post2022_roster_reconciliation.json",
+    "validation": "<external-data-root>/validation/POST-SUBTASK-173/post2022_roster_validation.json"
+  },
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  },
+  "rollback": {
+    "zip": "<external-data-root>/backups/POST-SUBTASK-173-cfbd-post2022/before-cfbd-post2022.zip",
+    "zip_sha256": "3c4bab4f1ff55daa60a224c73e03337377d9a69c53444dc7d4d175b109004c40",
+    "bundle_sha256": "0f76111321a10a4cb09e187b4765b009213143017369b20c46c6a1de2881d824"
+  }
+}

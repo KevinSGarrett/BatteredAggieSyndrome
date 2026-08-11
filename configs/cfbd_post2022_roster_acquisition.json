@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-173",
+  "run_id": "cfbd-roster-fbs-2023-2025-v1",
+  "classification": "HISTORICAL_DOMAIN_CANDIDATE_ONLY_NOT_CANONICAL_NOT_PIT_NOT_TRAINING_ELIGIBLE",
+  "source_id": "SRC-002",
+  "endpoint_id": "CFBD-GetRoster",
+  "path": "/roster",
+  "source_acquisition_registry_sha256": "94fa9e7fed7d1e8a91abe5d1947d15285bb2504fbde4670628a4b89240b9d75b",
+  "credential_environment_variable": "CFBD_API_KEY",
+  "requests": [
+    {"year": 2023, "classification": "fbs"},
+    {"year": 2024, "classification": "fbs"},
+    {"year": 2025, "classification": "fbs"}
+  ],
+  "expected_seasons": [2023, 2024, 2025],
+  "expected_minimum_rows_per_season": 1,
+  "authority": {
+    "source_capture_only": true,
+    "provider_player_identity_candidate_only": true,
+    "name_only_merge_permitted": false,
+    "roster_membership_implies_availability": false,
+    "historical_publication_time_known": false,
+    "canonical_or_pit_admission": false,
+    "feature_or_training_admission": false,
+    "protected_use_admission": false
+  }
+}

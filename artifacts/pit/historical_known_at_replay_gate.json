@@ -152,6 +152,28 @@
     "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
     "gate_disposition": "DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_PIT_AND_AVAILABILITY_ADMISSION_PENDING"
   },
+  "parallel_post2022_roster_checkpoint": {
+    "domain": "rosters",
+    "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",
+    "acquisition_identity": "6e3fba9bff67318e6dc3d94b09700b16c92619fe7a14131ccf0a14757bacc2a8",
+    "dataset_identity": "151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242",
+    "manifest_sha256": "62a8721c9af2ea8bc451b9ee51cdc49c5be65ee87440d483a351e945c2d6cddd",
+    "validation_report_sha256": "11b93bb959ab7febe595ca34853986c80bce3b013a31bac67d0cccc73951c2b1",
+    "source_seasons": [2023, 2024, 2025],
+    "source_rows": 79832,
+    "exact_canonical_membership_candidates": 46586,
+    "canonical_person_membership_pending_candidates": 5214,
+    "source_level_only_candidates": 27283,
+    "quarantined_rows": 749,
+    "primary_route_finding": "CFBD_HTTP_429_EQUIVALENT_PUBLIC_RELEASE_ROUTE_SUCCEEDED",
+    "future_draft_fields_admitted": false,
+    "identity_rule": "SOURCE_ID_AND_NORMALIZED_NAME_REQUIRED; EXACT_SEASON_TEAM_LABEL_REQUIRED_FOR_MEMBERSHIP; NO_NAME_ONLY_MERGE",
+    "availability_inference": false,
+    "historical_known_at_eligible": false,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "upstream_independence": "NOT_CLAIMED_SHARED_ESPN_DERIVATION_POSSIBLE",
+    "gate_disposition": "POST2022_DOMAIN_CANDIDATE_LAYER_VALIDATED_CANONICAL_PIT_FEATURE_TRAINING_PROTECTED_AND_AVAILABILITY_ADMISSION_PENDING"
+  },
   "parallel_player_event_metric_checkpoint": {
     "domain": "player_event_metrics",
     "grain": "GAME_PLAYER_CATEGORY_STAT_DERIVED_FROM_VERSIONED_PLAY_EVENTS",

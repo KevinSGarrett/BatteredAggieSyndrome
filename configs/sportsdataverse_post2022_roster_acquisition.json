@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-173",
+  "run_id": "sportsdataverse-rosters-2023-2025-v1",
+  "classification": "HISTORICAL_DOMAIN_CANDIDATE_ONLY_NOT_CANONICAL_NOT_PIT_NOT_TRAINING_ELIGIBLE",
+  "source_id": "SRC-001",
+  "provider": "SportsDataverse sportsdataverse-data release store",
+  "repository": "sportsdataverse/sportsdataverse-data",
+  "release_id": 101941086,
+  "release_tag": "espn_cfb_rosters",
+  "release_published_at_utc": "2023-05-04T21:48:06Z",
+  "release_inventory_checked_at_utc": "2026-08-11T03:05:00Z",
+  "assets": [
+    {
+      "season": 2023,
+      "name": "rosters_2023.parquet",
+      "size": 2555225,
+      "sha256": "ed9fd8f45d6a14703ada58b37c0cee212e32cd880f212319c7489f166af54f75",
+      "updated_at_utc": "2026-07-12T06:21:58Z",
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_rosters/rosters_2023.parquet"
+    },
+    {
+      "season": 2024,
+      "name": "rosters_2024.parquet",
+      "size": 2701957,
+      "sha256": "9f279200b6617503ae09f6cb9955d814d6c76d916e66c11b3166d48f9008c6a5",
+      "updated_at_utc": "2026-07-18T13:49:00Z",
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_rosters/rosters_2024.parquet"
+    },
+    {
+      "season": 2025,
+      "name": "rosters_2025.parquet",
+      "size": 2589680,
+      "sha256": "d7e3283fb6db8bdf02fa6e1f091f3f2b8fb6f5793dce0e3fc0aedb5dacd61ff8",
+      "updated_at_utc": "2026-07-12T06:22:06Z",
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_cfb_rosters/rosters_2025.parquet"
+    }
+  ],
+  "authority": {
+    "source_capture_only": true,
+    "upstream_independence_from_cfbd": false,
+    "provider_player_identity_candidate_only": true,
+    "name_only_merge_permitted": false,
+    "roster_membership_implies_availability": false,
+    "asset_updated_at_is_historical_game_known_at": false,
+    "canonical_or_pit_admission": false,
+    "feature_or_training_admission": false,
+    "protected_use_admission": false
+  }
+}

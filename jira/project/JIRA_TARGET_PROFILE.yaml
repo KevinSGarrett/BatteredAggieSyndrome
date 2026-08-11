@@ -129,10 +129,11 @@
       "POST-SUBTASK-169",
       "POST-SUBTASK-170",
       "POST-SUBTASK-171",
-      "POST-SUBTASK-172"
+      "POST-SUBTASK-172",
+      "POST-SUBTASK-173"
     ],
-    "pending_reason": "JIRA_CREDENTIAL_UNAVAILABLE_AFTER_LOCAL_ENV_DELETION_INCIDENT",
-    "state": "PENDING_EXTERNAL_CREDENTIAL_RESTORATION"
+    "pending_reason": "JIRA_CREDENTIALS_NOT_CONFIGURED_IN_AUTHORITATIVE_PROJECT_ENV",
+    "state": "PENDING_EXTERNAL_CREDENTIAL_CONFIGURATION"
   },
   "notes": [
     "BAT was discovered and configured through Jira Cloud REST v3 using returned IDs only.",

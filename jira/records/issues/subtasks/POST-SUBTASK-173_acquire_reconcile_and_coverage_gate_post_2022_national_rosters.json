@@ -1,0 +1,200 @@
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "Only the exact provider-published 2023, 2024, and 2025 roster assets and their verified SHA-256 digests enter the acquisition identity.",
+    "Every normalized row retains immutable source-asset, source-row, row-hash, season, team, and player evidence; draft fields observed in 2025 remain excluded from the roster candidate.",
+    "Canonical-person and membership candidates require exact source-ID, normalized-name, and canonical-membership agreement; conflicts remain quarantined and source-only rows are not promoted.",
+    "Roster membership does not imply historical availability, source release timestamps do not become game-time known-at evidence, and no canonical, PIT, feature, training, protected, or production admission is granted.",
+    "An independent validator and isolated deterministic rebuild reproduce the exact population, dispositions, payload hashes, dataset identity, and manifest identity."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "CFBD remained the preferred authenticated route, but bounded retries returned HTTP 429; the exact equivalent public SportsDataverse release assets were acquired without pausing the domain.",
+    "No OpenAI output or inferred factual value is admitted into the roster artifacts.",
+    "This is a candidate-only roster-domain expansion checkpoint; historical acquisition for plays, drives, gamebooks, and other gaps remains independently active."
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "component": "data",
+  "components_expected_to_be_touched": [
+    "data",
+    "entities",
+    "provenance"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": true,
+  "definition_of_done": [
+    "The exact 2023-2025 national roster assets are immutable, content-addressed, digest-verified, and stored outside Git.",
+    "All 79,832 source rows are normalized and conservatively reconciled with exact reason-coded dispositions and 749 conflict rows quarantined.",
+    "The independent 17-check validator and five-payload deterministic rebuild pass with zero mismatches.",
+    "The historical recovery contract, replay gate, Jira evidence, and governing-goal checkpoint record the exact identities, limitations, and protected nonclaims.",
+    "Historical expansion continues to the next useful nonduplicate domains without treating this partial roster tranche as final population readiness."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-029"
+  ],
+  "end_to_end_validation": "Rebuild the complete candidate and quarantine payloads in an isolated external root; verify provider digests, acquisition identity, row lineage, exact population and disposition counts, authority boundaries, payload hashes, manifest identity, and cleanup of the rebuild root.",
+  "epic_id": "POST-EPIC-003",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-173.json",
+  "evidence_state": "VERIFIED",
+  "execution_lane": "DATA",
+  "execution_mode": "HISTORICAL_REFERENCE",
+  "expected_maturity_after_completion": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
+  "expected_outputs": [
+    "configs/cfbd_post2022_roster_acquisition.json",
+    "configs/sportsdataverse_post2022_roster_acquisition.json",
+    "artifacts/jira_evidence/POST-SUBTASK-173.json",
+    "<external-data-root>/raw/SRC-001/sportsdataverse_rosters_post2022",
+    "<external-data-root>/quarantine/historical_known_at/sha256/<dataset_identity>/rosters_post2022",
+    "<external-data-root>/manifests/historical_known_at/sha256/<dataset_identity>/post2022_roster_reconciliation.json",
+    "<external-data-root>/validation/POST-SUBTASK-173/post2022_roster_validation.json"
+  ],
+  "files_expected_to_be_read": [
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "docs/final/FINAL_KNOWN_GAPS.csv",
+    "docs/15_SOURCE_MAPPING_AND_EVIDENCE_IDENTITY.md"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/cfbd_post2022_roster_acquisition.json",
+    "configs/sportsdataverse_post2022_roster_acquisition.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "src/aggie_analytics/data/cfbd.py",
+    "src/aggie_analytics/data/http.py",
+    "src/aggie_analytics/data/roster_reconciliation.py",
+    "tools/acquire_cfbd_historical.py",
+    "tools/acquire_sportsdataverse_rosters.py",
+    "tools/build_post2022_roster_candidate.py",
+    "tools/validate_post2022_roster_candidate.py",
+    "tests/test_cfbd_historical_acquisition.py",
+    "artifacts/jira_evidence/POST-SUBTASK-173.json"
+  ],
+  "gap_ids": [
+    "GAP-002"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.md",
+  "governance_traceability_gate": "POST-SUBTASK-033",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
+  "import_id": 100481,
+  "in_scope": [
+    "National 2023-2025 player-team-season roster membership from exact digest-pinned release assets.",
+    "Provider-route fallback, immutable acquisition, schema inspection, Unicode-aware normalization, conservative identity reconciliation, quarantine, missingness, provenance, and deterministic replay.",
+    "Candidate-only evidence that can support later identity and roster-domain review after independent known-at and PIT qualification."
+  ],
+  "issue_type": "Sub-task",
+  "jira_key": "",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "rosters",
+    "candidate-only",
+    "provenance"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-173",
+  "maturity_before": "SOURCE_PROFILED_PARTIAL_THROUGH_2022",
+  "objective": "Close the post-2022 roster acquisition gap with immutable national source captures, conservative reconciliation, exact quarantine, and coverage gating while preserving historical-known-at and protected-promotion boundaries.",
+  "out_of_scope": [
+    "Treating source release timestamps as historical game-time known-at evidence or roster membership as availability.",
+    "Name-only person merges, fabricated fields, inferred missing values, or automatic canonical/PIT/feature/training admission.",
+    "Final historical-population readiness, GAP-002 resolution, protected evaluation, champion promotion, production readiness, A&M specialization lift, BAS, or Aggie Excess."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-010",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "Validated canonical people and membership registries with pinned hashes.",
+    "Configured external data root and immutable raw snapshot contract.",
+    "Provider-published release metadata and SHA-256 asset digests for all three seasons."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02013",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "AGENTS.md",
+    "governance/DO_NOT_DRIFT.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "required_evidence": [
+    "Exact provider release, asset, acquisition, manifest, dataset, registry, payload, and validation identities.",
+    "Season rows, bytes, schema drift, disposition counts, quarantine counts, missingness, and excluded future/draft fields.",
+    "Credential-safe request behavior, bounded-route failure evidence, equivalent-route acquisition, deterministic rebuild, and cleanup.",
+    "Explicit candidate-only authority, historical-known-at limitations, and protected nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "Credential redaction, deterministic request identities, schema inspection, conservative roster reconciliation, conflicts, and source-only nonpromotion pass.",
+      "path": "tests/test_cfbd_historical_acquisition.py",
+      "validation_class": "PROVENANCE"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "External candidate, quarantine, and manifest payloads pass all 17 independent checks and a byte-identical isolated deterministic rebuild.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-173.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any provider digest, acquisition identity, canonical-registry identity, row lineage, population, disposition, payload hash, or deterministic rebuild drifts.",
+    "Any name-only, conflicting, or source-only identity is silently promoted.",
+    "Any post-season release timestamp, draft field, roster membership, or missing fact is misrepresented as historical known-at availability.",
+    "Any candidate roster artifact is treated as protected or production authority."
+  ],
+  "risk_ids": [
+    "RISK-227",
+    "RISK-241"
+  ],
+  "schema_version": 2,
+  "scope": "Acquire and validate the missing national 2023-2025 roster tranche, preserve exact external captures and lineage, reconcile only evidence-supported identities, and quarantine every conflict without blocking unrelated historical domains.",
+  "source_ids": [
+    "GAP-002",
+    "HANDOFF-003"
+  ],
+  "source_refs": [
+    "SRCREF-02013",
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006",
+    "SRCREF-01889",
+    "SRCREF-01564"
+  ],
+  "stop_conditions": [
+    "Stop the affected artifact on source digest, identity, population, lineage, schema, quarantine, authority, or deterministic rebuild failure.",
+    "If one provider route is technically unavailable, use an equivalent permitted public route and preserve the route decision; do not pause unrelated acquisition.",
+    "Do not open protected promotion until the expanded quality-supported historical-known-at population and applicable W17 gates pass."
+  ],
+  "supporting_source_refs": [
+    "SRCREF-02014",
+    "SRCREF-02016",
+    "SRCREF-02018",
+    "SRCREF-02006"
+  ],
+  "title": "[POST-SUBTASK-173] Acquire, reconcile, and coverage-gate post-2022 national rosters",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-033"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "PROVENANCE",
+    "REPRODUCIBILITY"
+  ],
+  "why_this_exists": "The validated roster source population stopped at 2022 even though the broader historical-expansion contract requires every useful domain to be acquired and coverage-gated independently by season without imposing a four-season ceiling.",
+  "work_packet_path": "",
+  "workflow_state": "DONE"
+}

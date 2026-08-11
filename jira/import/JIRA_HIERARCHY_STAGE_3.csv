@@ -16085,3 +16085,74 @@ Source References
 Governance Traceability Gate: TASK-036
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.json",Done,Highest,actionable;post-wave;subtask;preliminary-unprotected;baseline-modeling;historical-expansion;event-chronology;local-id-post-subtask-172,modeling,POST-SUBTASK-172,TASK-036;GAP-002;GAP-003;GAP-005,PHASE-1,DONE,EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED,VERIFIED,POST_W25,false,MODEL_RESEARCH,HISTORICAL_REFERENCE
+Sub-task,,100481,"[POST-SUBTASK-173] Acquire, reconcile, and coverage-gate post-2022 national rosters",100060,"Local ID: POST-SUBTASK-173
+
+Objective
+Close the post-2022 roster acquisition gap with immutable national source captures, conservative reconciliation, exact quarantine, and coverage gating while preserving historical-known-at and protected-promotion boundaries.
+
+Why This Exists
+The validated roster source population stopped at 2022 even though the broader historical-expansion contract requires every useful domain to be acquired and coverage-gated independently by season without imposing a four-season ceiling.
+
+Scope
+Acquire and validate the missing national 2023-2025 roster tranche, preserve exact external captures and lineage, reconcile only evidence-supported identities, and quarantine every conflict without blocking unrelated historical domains.
+
+Explicit In Scope
+- National 2023-2025 player-team-season roster membership from exact digest-pinned release assets.
+- Provider-route fallback, immutable acquisition, schema inspection, Unicode-aware normalization, conservative identity reconciliation, quarantine, missingness, provenance, and deterministic replay.
+- Candidate-only evidence that can support later identity and roster-domain review after independent known-at and PIT qualification.
+
+Explicit Out of Scope
+- Treating source release timestamps as historical game-time known-at evidence or roster membership as availability.
+- Name-only person merges, fabricated fields, inferred missing values, or automatic canonical/PIT/feature/training admission.
+- Final historical-population readiness, GAP-002 resolution, protected evaluation, champion promotion, production readiness, A&M specialization lift, BAS, or Aggie Excess.
+
+Prerequisites / Dependencies
+- Validated canonical people and membership registries with pinned hashes.
+- Configured external data root and immutable raw snapshot contract.
+- Provider-published release metadata and SHA-256 asset digests for all three seasons.
+- POST-SUBTASK-029
+
+Acceptance Criteria
+1. Only the exact provider-published 2023, 2024, and 2025 roster assets and their verified SHA-256 digests enter the acquisition identity.
+2. Every normalized row retains immutable source-asset, source-row, row-hash, season, team, and player evidence; draft fields observed in 2025 remain excluded from the roster candidate.
+3. Canonical-person and membership candidates require exact source-ID, normalized-name, and canonical-membership agreement; conflicts remain quarantined and source-only rows are not promoted.
+4. Roster membership does not imply historical availability, source release timestamps do not become game-time known-at evidence, and no canonical, PIT, feature, training, protected, or production admission is granted.
+5. An independent validator and isolated deterministic rebuild reproduce the exact population, dispositions, payload hashes, dataset identity, and manifest identity.
+
+Definition of Done
+1. The exact 2023-2025 national roster assets are immutable, content-addressed, digest-verified, and stored outside Git.
+2. All 79,832 source rows are normalized and conservatively reconciled with exact reason-coded dispositions and 749 conflict rows quarantined.
+3. The independent 17-check validator and five-payload deterministic rebuild pass with zero mismatches.
+4. The historical recovery contract, replay gate, Jira evidence, and governing-goal checkpoint record the exact identities, limitations, and protected nonclaims.
+5. Historical expansion continues to the next useful nonduplicate domains without treating this partial roster tranche as final population readiness.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PROVENANCE: tests/test_cfbd_historical_acquisition.py — Credential redaction, deterministic request identities, schema inspection, conservative roster reconciliation, conflicts, and source-only nonpromotion pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-173.json — External candidate, quarantine, and manifest payloads pass all 17 independent checks and a byte-identical isolated deterministic rebuild.
+
+Required Evidence
+- Exact provider release, asset, acquisition, manifest, dataset, registry, payload, and validation identities.
+- Season rows, bytes, schema drift, disposition counts, quarantine counts, missingness, and excluded future/draft fields.
+- Credential-safe request behavior, bounded-route failure evidence, equivalent-route acquisition, deterministic rebuild, and cleanup.
+- Explicit candidate-only authority, historical-known-at limitations, and protected nonclaims.
+
+End-to-End Validation
+Rebuild the complete candidate and quarantine payloads in an isolated external root; verify provider digests, acquisition identity, row lineage, exact population and disposition counts, authority boundaries, payload hashes, manifest identity, and cleanup of the rebuild root.
+
+Stop Conditions
+- Stop the affected artifact on source digest, identity, population, lineage, schema, quarantine, authority, or deterministic rebuild failure.
+- If one provider route is technically unavailable, use an equivalent permitted public route and preserve the route decision; do not pause unrelated acquisition.
+- Do not open protected promotion until the expanded quality-supported historical-known-at population and applicable W17 gates pass.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+- SRCREF-01889
+- SRCREF-01564
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;rosters;candidate-only;provenance;local-id-post-subtask-173,data,POST-SUBTASK-173,GAP-002;HANDOFF-003,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE

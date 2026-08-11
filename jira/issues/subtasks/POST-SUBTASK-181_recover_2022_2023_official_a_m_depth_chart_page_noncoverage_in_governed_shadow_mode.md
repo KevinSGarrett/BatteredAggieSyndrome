@@ -45,7 +45,9 @@
     "jira"
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-182"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "completion_evidence_contract": {
@@ -95,7 +97,7 @@
   "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "HISTORICAL_REFERENCE",
-  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_VISUAL_NEGATIVE_FINDING_AND_GOVERNED_IMAGE_INPUT",
+  "expected_maturity_after_completion": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
   "expected_outputs": [
     "configs/openai_depth_chart_noncoverage_review.json",
     "schemas/openai/depth_chart_noncoverage_visual.schema.json",
@@ -302,7 +304,7 @@ Build and independently validate a deterministic and governed visual negative re
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-182
 
 ## Read / Inspect First
 
@@ -434,7 +436,7 @@ Rejoin POST-SUBTASK-167 noncoverage rows to the exact acquisition manifest and i
 
 ## Expected Maturity After Completion
 
-`EMPIRICALLY_VALIDATED_VISUAL_NEGATIVE_FINDING_AND_GOVERNED_IMAGE_INPUT`
+`VALIDATED_RECONCILED_CANDIDATE_ONLY`
 
 ## Risk / Failure Conditions
 

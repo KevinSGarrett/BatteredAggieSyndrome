@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0",
+  "contract_id": "BAS-SEC-TAMU-AVAILABILITY-RECOVERY-V1",
+  "decision_unit": "POST-SUBTASK-182",
+  "jira_key": "BAT-539",
+  "classification": "HISTORICAL_AVAILABILITY_CANDIDATE_ONLY",
+  "source_policy": {
+    "official_covered_report_priority": true,
+    "media_reproduction_authority": "LOWER_AUTHORITY_CANDIDATE_EVIDENCE",
+    "missing_report_disposition": "UNKNOWN_NOT_HEALTHY_OR_AVAILABLE",
+    "later_version_rewrites_earlier_version": false,
+    "name_only_canonical_player_merge": false,
+    "publication_time_required_for_candidate_row": true,
+    "target_game_date_boundary_rule": "PUBLICATION_MUST_PRECEDE_UTC_START_OF_TARGET_GAME_DATE",
+    "target_game_date_boundary_scope": "CONSERVATIVE_CHRONOLOGY_CHECK_NOT_EXACT_KICKOFF_OR_PIT_ADMISSION"
+  },
+  "status_vocabulary": [
+    "OUT",
+    "DOUBTFUL",
+    "QUESTIONABLE",
+    "PROBABLE",
+    "AVAILABLE",
+    "GAME_TIME_DECISION"
+  ],
+  "sources": [
+    {
+      "source_record_id": "SEC-POLICY-2024-08-29",
+      "route_type": "OFFICIAL_POLICY_PDF",
+      "source_class": "OFFICIAL_CONFERENCE_POLICY",
+      "url": "https://storage.googleapis.com/secsports-prod/upload/2024/08/29/d020f3d7-90ba-41d0-ad9e-24f598717d69.pdf",
+      "candidate_rows_expected": false
+    },
+    {
+      "source_record_id": "SEC-ARCHIVE-CURRENT",
+      "route_type": "OFFICIAL_ARCHIVE_ROUTE",
+      "source_class": "OFFICIAL_CONFERENCE_ARCHIVE",
+      "url": "https://www.secsports.com/fbreports-archive",
+      "candidate_rows_expected": false
+    },
+    {
+      "source_record_id": "KBTX-2024-FLORIDA-WEDNESDAY",
+      "route_type": "TIMESTAMPED_ARTICLE_TABLE",
+      "source_class": "MEDIA_REPRODUCTION_OF_OFFICIAL_REPORT",
+      "url": "https://www.kbtx.com/2024/09/12/sec-releases-first-texas-am-availability-report-prior-florida/",
+      "season": 2024,
+      "game_label": "Texas A&M at Florida",
+      "target_game_date": "2024-09-14",
+      "report_version": "WEDNESDAY_INITIAL",
+      "table_heading_contains": "Texas A&M Availability Report",
+      "candidate_rows_expected": true
+    },
+    {
+      "source_record_id": "KBTX-2024-ARKANSAS-WEDNESDAY",
+      "route_type": "TIMESTAMPED_ARTICLE_TABLE",
+      "source_class": "MEDIA_REPRODUCTION_OF_OFFICIAL_REPORT",
+      "url": "https://www.kbtx.com/2024/09/26/seven-players-listed-texas-ams-first-availability-report-prior-arkansas/",
+      "season": 2024,
+      "game_label": "Texas A&M vs Arkansas",
+      "target_game_date": "2024-09-28",
+      "report_version": "WEDNESDAY_INITIAL",
+      "table_heading_contains": "Texas A&M Wednesday Availability Report",
+      "candidate_rows_expected": true
+    },
+    {
+      "source_record_id": "KBTX-2024-MISSOURI-WEDNESDAY",
+      "route_type": "TIMESTAMPED_ARTICLE_TABLE",
+      "source_class": "MEDIA_REPRODUCTION_OF_OFFICIAL_REPORT",
+      "url": "https://www.kbtx.com/2024/10/03/texas-am-ol-armaj-reed-adams-new-addition-availability-report/",
+      "season": 2024,
+      "game_label": "Texas A&M vs Missouri",
+      "target_game_date": "2024-10-05",
+      "report_version": "WEDNESDAY_INITIAL",
+      "table_heading_contains": "Texas A&M Wednesday Availability Report",
+      "candidate_rows_expected": true
+    },
+    {
+      "source_record_id": "KBTX-2024-MISSISSIPPI-STATE-THURSDAY",
+      "route_type": "TIMESTAMPED_ARTICLE_TABLE",
+      "source_class": "MEDIA_REPRODUCTION_OF_OFFICIAL_REPORT",
+      "url": "https://www.kbtx.com/2024/10/18/texas-ams-terry-bussey-upgraded-thursday-availability-report/",
+      "season": 2024,
+      "game_label": "Texas A&M at Mississippi State",
+      "target_game_date": "2024-10-19",
+      "report_version": "THURSDAY_UPDATE",
+      "table_heading_contains": "Texas A&M Thursday Availability Report",
+      "candidate_rows_expected": true
+    },
+    {
+      "source_record_id": "KBTX-2024-AUBURN-WEDNESDAY",
+      "route_type": "TIMESTAMPED_ARTICLE_TABLE",
+      "source_class": "MEDIA_REPRODUCTION_OF_OFFICIAL_REPORT",
+      "url": "https://www.kbtx.com/2024/11/21/texas-ams-rueben-owens-chase-bisontis-upgraded-doubtful-auburn/",
+      "season": 2024,
+      "game_label": "Texas A&M at Auburn",
+      "target_game_date": "2024-11-23",
+      "report_version": "WEDNESDAY_INITIAL",
+      "table_heading_contains": "Texas A&M Wednesday Availability Report",
+      "candidate_rows_expected": true
+    },
+    {
+      "source_record_id": "KBTX-2024-TEXAS-WEDNESDAY",
+      "route_type": "TIMESTAMPED_ARTICLE_TABLE",
+      "source_class": "MEDIA_REPRODUCTION_OF_OFFICIAL_REPORT",
+      "url": "https://www.kbtx.com/2024/11/28/five-texas-am-football-players-listed-questionable-texas-game/",
+      "season": 2024,
+      "game_label": "Texas A&M vs Texas",
+      "target_game_date": "2024-11-30",
+      "report_version": "WEDNESDAY_INITIAL",
+      "table_heading_contains": "Texas A&M Wednesday Availability Report",
+      "candidate_rows_expected": true
+    },
+    {
+      "source_record_id": "KBTX-2025-AUBURN-WEDNESDAY",
+      "route_type": "TIMESTAMPED_ARTICLE_TABLE",
+      "source_class": "MEDIA_REPRODUCTION_OF_OFFICIAL_REPORT",
+      "url": "https://www.kbtx.com/2025/09/25/texas-am-lb-williams-listed-questionable-auburn-first-availability-report/",
+      "season": 2025,
+      "game_label": "Texas A&M vs Auburn",
+      "target_game_date": "2025-09-27",
+      "report_version": "WEDNESDAY_INITIAL",
+      "table_heading_contains": "Texas A&M Wednesday Availability Report",
+      "candidate_rows_expected": true
+    },
+    {
+      "source_record_id": "KBTX-2025-CFP-MIAMI-WEDNESDAY",
+      "route_type": "TIMESTAMPED_ARTICLE_TABLE",
+      "source_class": "MEDIA_REPRODUCTION_OF_OFFICIAL_CFP_REPORT",
+      "url": "https://www.kbtx.com/2025/12/18/texas-ams-moss-listed-questionable-cfp-first-round-williams-moss-probable/",
+      "season": 2025,
+      "game_label": "Texas A&M vs Miami CFP",
+      "target_game_date": "2025-12-20",
+      "report_version": "WEDNESDAY_INITIAL",
+      "table_heading_contains": "Texas A&M CFP First Round Availability Report",
+      "position_embedded_in_player": true,
+      "candidate_rows_expected": true
+    }
+  ],
+  "external_storage": {
+    "raw": "raw/historical_known_at/sec_availability/sha256",
+    "manifests": "manifests/historical_known_at/sha256",
+    "quarantine": "quarantine/historical_known_at/sha256",
+    "validation": "validation/POST-SUBTASK-182"
+  },
+  "authority": {
+    "candidate_layer": true,
+    "canonical_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "model_promotion": false,
+    "forecast_publication": false
+  },
+  "scientific_nonclaims": [
+    "final historical population readiness",
+    "GAP-002 resolution",
+    "GAP-008 resolution",
+    "production model readiness",
+    "protected performance",
+    "Texas A&M specialization lift",
+    "BAS",
+    "Aggie Excess"
+  ]
+}

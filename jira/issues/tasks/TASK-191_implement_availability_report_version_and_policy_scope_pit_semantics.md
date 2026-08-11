@@ -27,6 +27,7 @@
   ],
   "blocked_reason": "",
   "blocks": [
+    "POST-SUBTASK-182",
     "TASK-193"
   ],
   "canonical_record": "jira/records/issues/tasks/TASK-191_implement_availability_report_version_and_policy_scope_pit_semantics.json",
@@ -254,6 +255,7 @@ Original task type TEMPORAL_DESIGN with mutation scope: PIT availability semanti
 
 ## Blocks
 
+- POST-SUBTASK-182
 - TASK-193
 
 ## Read / Inspect First

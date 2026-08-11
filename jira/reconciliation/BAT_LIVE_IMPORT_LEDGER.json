@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T07:43:52.807145+00:00"
+      "verified_at": "2026-08-11T10:35:51.724109+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T07:43:52.989628+00:00"
+      "verified_at": "2026-08-11T10:35:51.900237+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T07:43:53.172035+00:00"
+      "verified_at": "2026-08-11T10:35:52.076401+00:00"
     }
   ],
   "backup": {
@@ -32,19 +32,20 @@
   },
   "canonical_spec_sync": {
     "backup": {
-      "bytes": 785,
-      "issue_count": 1,
-      "path": "reconciliation/jira/canonical-spec-sync/20260811T074403Z/pre-update.json",
-      "sha256": "c9506712f3cabf9697e1d698b22800432d7d67cb339f770b1b47a90cfc0e5416",
+      "bytes": 5600,
+      "issue_count": 2,
+      "path": "reconciliation/jira/canonical-spec-sync/20260811T103600Z/pre-update.json",
+      "sha256": "316f43d515a6b7a4a669a81788bd54c8f3cc8366325cabd9af54e3e99a1631e0",
       "storage_root": "EXTERNAL_DATA_ROOT"
     },
-    "changed_issues": 1,
-    "completed_at": "2026-08-11T07:44:04.491854+00:00",
+    "changed_issues": 2,
+    "completed_at": "2026-08-11T10:36:01.276222+00:00",
     "completed_local_ids": [
-      "POST-SUBTASK-178"
+      "POST-SUBTASK-180",
+      "POST-SUBTASK-181"
     ],
     "errors": [],
-    "started_at": "2026-08-11T07:44:03.669751+00:00",
+    "started_at": "2026-08-11T10:36:00.481315+00:00",
     "status": "COMPLETE"
   },
   "completed_at": "2026-08-11T07:44:47.900403+00:00",
@@ -55,8 +56,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-11T07:44:10.252028+00:00",
-    "verified_at": "2026-08-11T07:44:11.946237+00:00",
+    "updated_at": "2026-08-11T10:36:04.524817+00:00",
+    "verified_at": "2026-08-11T10:36:06.230543+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -453,7 +454,7 @@
     }
   ],
   "historical_done_operationally_overridden": 221,
-  "historical_done_requested": 63,
+  "historical_done_requested": 66,
   "issues": {
     "EPIC-001": "BAT-1",
     "EPIC-002": "BAT-2",
@@ -740,6 +741,10 @@
     "POST-SUBTASK-176": "BAT-533",
     "POST-SUBTASK-177": "BAT-534",
     "POST-SUBTASK-178": "BAT-535",
+    "POST-SUBTASK-179": "BAT-536",
+    "POST-SUBTASK-180": "BAT-537",
+    "POST-SUBTASK-181": "BAT-538",
+    "POST-SUBTASK-182": "BAT-539",
     "TASK-001": "BAT-104",
     "TASK-002": "BAT-105",
     "TASK-003": "BAT-106",
@@ -942,6 +947,7 @@
     "TASK-200": "BAT-349",
     "TASK-201": "BAT-350"
   },
+  "last_error": "Live Jira links are neither the exact canonical set nor the exact/recoverable reversed importer set; refusing automated link deletion",
   "link_direction_remediation": {
     "corrected_link_count": 1104,
     "existing_canonical_links": 1102,
@@ -2152,6 +2158,18 @@
     {
       "finding": "POST /rest/api/3/issue/bulk failed with HTTP 400: {\"issues\":[],\"errors\":[{\"status\":400,\"elementErrors\":{\"errorMessages\":[],\"errors\":{\"customfield_10197\":\"Select a valid option for Implementation Maturity and try again.\"}},\"failedElementNumber\":0}]}",
       "recorded_at": "2026-08-11T07:24:36.447417+00:00"
+    },
+    {
+      "finding": "BAT contains issues outside the canonical import set: BAT-536:NO_LOCAL_ID, BAT-537:NO_LOCAL_ID",
+      "recorded_at": "2026-08-11T10:32:35.659865+00:00"
+    },
+    {
+      "finding": "POST /rest/api/3/issue/bulk failed with HTTP 400: {\"issues\":[],\"errors\":[{\"status\":400,\"elementErrors\":{\"errorMessages\":[],\"errors\":{\"customfield_10197\":\"Select a valid option for Implementation Maturity and try again.\"}},\"failedElementNumber\":0}]}",
+      "recorded_at": "2026-08-11T10:33:25.082649+00:00"
+    },
+    {
+      "finding": "Canonical Jira spec synchronization failures: POST-SUBTASK-180: PUT /rest/api/3/issue/BAT-537 failed with HTTP 400: {\"errorMessages\":[],\"errors\":{\"customfield_10197\":\"Specify a valid value for Implementation Maturity\"}}; POST-SUBTASK-181: PUT /rest/api/3/issue/BAT-538 failed with HTTP 400: {\"errorMessages\":[],\"errors\":{\"customfield_10197\":\"Specify a valid value for Implementation Maturity\"}}",
+      "recorded_at": "2026-08-11T10:34:38.141578+00:00"
     }
   ],
   "permission_remediation": {
@@ -2228,7 +2246,7 @@
     }
   },
   "started_at": "2026-08-09T04:34:44.229661+00:00",
-  "status": "COMPLETE_VERIFIED",
+  "status": "FAILED_RESUMABLE",
   "targeted_link_direction_remediation": {
     "backup": {
       "path": "jira\\snapshots\\BAT_TARGETED_REVERSED_LINKS_20260810T041844Z.json",
@@ -2244,7 +2262,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-11T07:44:47.900403+00:00",
+  "updated_at": "2026-08-11T10:36:08.472708+00:00",
   "verification": {
     "actual_expected_link_count": 1104,
     "board": {

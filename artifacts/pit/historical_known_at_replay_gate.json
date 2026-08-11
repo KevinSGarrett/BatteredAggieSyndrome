@@ -596,6 +596,31 @@
     "admission_state": "VALIDATED_NEGATIVE_FINDING_NOT_ADMITTED",
     "gate_disposition": "STARTING_LINEUP_HISTORY_IS_NOT_DEPTH_CHART_AND_ALL_DOWNSTREAM_ADMISSION_REMAINS_CLOSED"
   },
+  "parallel_sec_tamu_availability_checkpoint": {
+    "gate_artifact": "artifacts/pit/historical_sec_tamu_availability_evidence_gate.json",
+    "acquisition_identity": "f808269069584a35c935ab6719dd5046aee820dce98d341651df50ee166572c9",
+    "dataset_identity": "86aececb96017ff1e89c147a43e6de49137c37a111e5e1f7171d7b1af36bd334",
+    "manifest_sha256": "dc4ee7fbec9b876c7e00318d5e9d932ec1c4bdbbb2d40d72c6dd402bdab3a3dd",
+    "candidate_payload_sha256": "a236b21f6bc55a9b128983aec0fe230a4486a06b66238d0a646b41be3e954297",
+    "validation_report_sha256": "2c26aa7939b8886484f6333fcefc9aa366f068bffe79157513b340a947c94e3d",
+    "source_seasons": [2024, 2025],
+    "timestamped_report_sources": 8,
+    "report_games": 8,
+    "candidate_rows": 42,
+    "quarantine_rows": 0,
+    "chronology_pass_rows": 42,
+    "official_archive_records": 0,
+    "official_archive_disposition": "CAPTURED_EMPTY_ARCHIVE_PROVIDER_LIMITATION",
+    "source_publication_time_established": true,
+    "missing_report_means_available": false,
+    "canonical_player_identity_admission": false,
+    "canonical_availability_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "admission_state": "VALIDATED_TIMESTAMPED_CANDIDATE_NOT_ADMITTED",
+    "gate_disposition": "BOUNDED_AVAILABILITY_CANDIDATE_RECOVERY_ADVANCES_GAP_008_EVIDENCE_BUT_DOES_NOT_RESOLVE_HISTORICAL_POPULATION_OR_DOWNSTREAM_ADMISSION"
+  },
   "coverage": {
     "source_candidate_rows": 12047,
     "accepted_strict_game_outcomes": 10593,
@@ -646,6 +671,7 @@
       "Fourteen target-team rows retain explicit SOURCE_MISSING priors.",
       "This replay does not establish a production feature set, protected performance, A&M specialization lift, BAS, Aggie Excess, or any scientific result."
       ,"The exact 25 official 2022-2023 game-note documents without deterministic depth-chart pages contain historical STARTING LINEUPS tables, not pregame depth charts; the domain gap remains explicit and is not fabricated into coverage."
+      ,"Eight timestamped 2024-2025 Texas A&M availability-report reproductions yielded 42 source-scoped player-status candidates, while the official SEC archive returned zero records; no missing report or absent player is inferred healthy or available, and canonical/PIT/training/protected admission remains closed."
     ]
   },
   "downstream_reevaluation": {

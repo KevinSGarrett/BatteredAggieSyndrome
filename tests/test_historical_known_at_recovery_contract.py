@@ -111,6 +111,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "historical_tamu_official_depth_chart_noncoverage_gate.json"
             ).read_text(encoding="utf-8")
         )
+        cls.sec_tamu_availability_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_sec_tamu_availability_evidence_gate.json"
+            ).read_text(encoding="utf-8")
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -910,6 +918,32 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(
             self.tamu_depth_chart_noncoverage_gate["scientific_nonclaims"]["gap_002_resolved"]
         )
+
+    def test_sec_tamu_availability_is_timestamped_candidate_evidence_not_admitted_truth(self) -> None:
+        candidate = self.contract["latest_validated_sec_tamu_availability_candidate"]
+        self.assertEqual(
+            candidate["dataset_identity"],
+            "86aececb96017ff1e89c147a43e6de49137c37a111e5e1f7171d7b1af36bd334",
+        )
+        self.assertEqual(candidate["source_seasons"], [2024, 2025])
+        self.assertEqual(candidate["timestamped_report_sources"], 8)
+        self.assertEqual(candidate["report_games"], 8)
+        self.assertEqual(candidate["candidate_rows"], 42)
+        self.assertEqual(candidate["quarantine_rows"], 0)
+        self.assertEqual(candidate["chronology_pass_rows"], 42)
+        self.assertEqual(candidate["official_archive_records"], 0)
+        self.assertTrue(candidate["source_publication_time_established"])
+        self.assertFalse(candidate["missing_report_means_available"])
+        self.assertFalse(candidate["canonical_player_identity_admission"])
+        self.assertFalse(candidate["canonical_availability_admission"])
+        self.assertFalse(candidate["pit_state_admission"])
+        self.assertFalse(candidate["training_feature_admission"])
+        self.assertFalse(candidate["protected_evaluation_admission"])
+        checkpoint = self.gate["parallel_sec_tamu_availability_checkpoint"]
+        self.assertEqual(checkpoint["official_archive_disposition"], "CAPTURED_EMPTY_ARCHIVE_PROVIDER_LIMITATION")
+        self.assertEqual(checkpoint["admission_state"], "VALIDATED_TIMESTAMPED_CANDIDATE_NOT_ADMITTED")
+        self.assertFalse(self.sec_tamu_availability_gate["historical_known_at_gate"]["pit_state_admission"])
+        self.assertFalse(self.sec_tamu_availability_gate["scientific_nonclaims"]["gap_008_resolved"])
 
 
 if __name__ == "__main__":

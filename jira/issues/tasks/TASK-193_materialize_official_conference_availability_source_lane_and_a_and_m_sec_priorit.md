@@ -27,7 +27,9 @@
     "official availability adapter/materialization plan"
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-182"
+  ],
   "canonical_record": "jira/records/issues/tasks/TASK-193_materialize_official_conference_availability_source_lane_and_a_and_m_sec_priorit.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "completion_evidence_contract": {},
@@ -253,7 +255,7 @@ Original task type DATA_DESIGN with mutation scope: availability source adapters
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-182
 
 ## Read / Inspect First
 

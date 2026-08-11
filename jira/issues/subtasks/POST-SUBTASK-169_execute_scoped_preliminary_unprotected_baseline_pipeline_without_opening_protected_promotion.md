@@ -105,7 +105,7 @@
     "Development fit/tune/unprotected-evaluation chronology, missingness, cold starts, calibration diagnostics, serialization, replay, provenance, and cleanup."
   ],
   "issue_type": "Sub-task",
-  "jira_key": "",
+  "jira_key": "BAT-526",
   "labels": [
     "actionable",
     "post-wave",
@@ -118,6 +118,15 @@
   "local_id": "POST-SUBTASK-169",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Use only the exact BAT-398/BAT-399 scoped team-outcome replay and pinned contemporary completed outcomes to exercise a fully lineaged preliminary modeling pipeline while final historical expansion continues independently.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24666",
+    "jira_updated_at": "2026-08-11T01:07:03.081-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "Done"
+  },
   "out_of_scope": [
     "Any final historical-readiness or GAP-002 completion claim.",
     "Protected W17 evaluation, production promotion, champion selection, A&M specialization lift, BAS, Aggie Excess, or publication.",

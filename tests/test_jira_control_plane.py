@@ -36,21 +36,9 @@ class JiraControlPlaneTests(unittest.TestCase):
             profile["live_counts"]["issues"] + len(pending),
             canonical_count + len(auxiliary["issues"]),
         )
-        self.assertEqual(
-            pending,
-            [
-                "POST-SUBTASK-167",
-                "POST-SUBTASK-168",
-                "POST-SUBTASK-169",
-                "POST-SUBTASK-170",
-                "POST-SUBTASK-171",
-                "POST-SUBTASK-172",
-                "POST-SUBTASK-173",
-                "POST-SUBTASK-174",
-                "POST-SUBTASK-175",
-                "POST-SUBTASK-176",
-            ],
-        )
+        self.assertEqual(pending, [])
+        self.assertEqual(profile["local_sync"]["state"], "LIVE_SYNCHRONIZED")
+        self.assertTrue(profile["local_sync"]["last_successful_sync"])
 
 
 if __name__ == "__main__":

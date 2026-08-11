@@ -2,7 +2,7 @@
   "error_count": 0,
   "errors": [],
   "failed_sections": 0,
-  "generated_at": "2026-08-11T04:40:39.910327+00:00",
+  "generated_at": "2026-08-11T06:14:01.950707+00:00",
   "metrics": {
     "aggregate_count": 74,
     "atomic_count": 168,
@@ -11,16 +11,16 @@
     "core_validator_error_count": 0,
     "historical_count": 234,
     "import": {
-      "issue_rows": 482,
-      "link_rows": 1097,
-      "modern_issue_rows": 482
+      "issue_rows": 484,
+      "link_rows": 1100,
+      "modern_issue_rows": 484
     },
     "import_error_count": 0,
-    "issue_count": 482,
+    "issue_count": 484,
     "issue_types": {
       "Epic": 51,
       "Story": 56,
-      "Sub-task": 6,
+      "Sub-task": 8,
       "Subtask": 168,
       "Task": 201
     },
@@ -123,6 +123,8 @@
         "artifacts/jira_evidence/POST-SUBTASK-172.json",
         "artifacts/jira_evidence/POST-SUBTASK-173.json",
         "artifacts/jira_evidence/POST-SUBTASK-174.json",
+        "artifacts/jira_evidence/POST-SUBTASK-175.json",
+        "artifacts/jira_evidence/POST-SUBTASK-176.json",
         "artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json",
         "artifacts/open_source/integration_negative_findings.json",
         "artifacts/open_source/integration_validation_manifest.json",
@@ -138,8 +140,10 @@
         "artifacts/operations/ci_pipeline_validation.json",
         "artifacts/operations/security_supply_chain_report.json",
         "artifacts/pit/asof_state_manifest.json",
+        "artifacts/pit/historical_action_derived_play_summary_gate.json",
         "artifacts/pit/historical_advanced_game_reconciliation_gate.json",
         "artifacts/pit/historical_known_at_replay_gate.json",
+        "artifacts/pit/historical_play_drive_pit_aggregate_gate.json",
         "artifacts/pit/historical_player_box_reconciliation_gate.json",
         "artifacts/pit/historical_rankings_reconciliation_gate.json",
         "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
@@ -163,10 +167,12 @@
         "artifacts/source_governance/source_rights_gate_test.json",
         "artifacts/source_governance/supplemental_rights_decisions.csv",
         "artifacts/source_governance/tier1_rights_decisions.csv",
+        "configs/action_derived_play_summary_contract.json",
         "configs/cfbd_post2022_roster_acquisition.json",
         "configs/expanded_event_chronology_preliminary_contract.json",
         "configs/external_storage_policy.json",
         "configs/historical_known_at_recovery_contract.json",
+        "configs/historical_play_drive_pit_aggregate_contract.json",
         "configs/historical_rankings_pit_contract.json",
         "configs/known_at_registry.json",
         "configs/open_source_integration_registry.json",
@@ -301,6 +307,7 @@
         "schemas/openai/assistive_candidate.schema.json",
         "schemas/openai/assistive_evaluation.schema.json",
         "scripts/audit_control_plane.ps1",
+        "src/aggie_analytics/data/action_play_summary.py",
         "src/aggie_analytics/data/cfbd.py",
         "src/aggie_analytics/data/http.py",
         "src/aggie_analytics/data/open_source.py",
@@ -324,8 +331,10 @@
         "src/aggie_analytics/operations/cleanup.py",
         "src/aggie_analytics/temporal/expanded_event_chronology.py",
         "src/aggie_analytics/temporal/historical_recovery.py",
+        "src/aggie_analytics/temporal/play_drive_pit.py",
         "src/aggie_analytics/temporal/rankings_pit.py",
         "tests/test_acquisition_resilience.py",
+        "tests/test_action_play_summary.py",
         "tests/test_autonomous_control_tools.py",
         "tests/test_cfbd_historical_acquisition.py",
         "tests/test_core_registry.py",
@@ -333,6 +342,7 @@
         "tests/test_external_storage_policy.py",
         "tests/test_historical_known_at_recovery_contract.py",
         "tests/test_historical_known_at_replay.py",
+        "tests/test_historical_play_drive_pit.py",
         "tests/test_historical_rankings_pit.py",
         "tests/test_instructions_pack.py",
         "tests/test_jira_control_plane.py",
@@ -350,6 +360,8 @@
         "tools/acquire_sportsdataverse_rosters.py",
         "tools/apply_private_research_acquisition_policy.py",
         "tools/audit_control_plane.py",
+        "tools/build_action_derived_play_summary.py",
+        "tools/build_historical_play_drive_pit.py",
         "tools/build_historical_rankings_pit.py",
         "tools/build_jira_control_plane.py",
         "tools/build_post2022_roster_candidate.py",
@@ -380,9 +392,11 @@
         "tools/run_preliminary_unprotected_baselines.py",
         "tools/select_next_work.py",
         "tools/sync_openai_jira_graph.py",
+        "tools/validate_action_derived_play_summary.py",
         "tools/validate_autonomous_controls.py",
         "tools/validate_expanded_event_chronology_preliminary.py",
         "tools/validate_external_storage_policy.py",
+        "tools/validate_historical_play_drive_pit.py",
         "tools/validate_historical_rankings_pit.py",
         "tools/validate_instructions.py",
         "tools/validate_jira_control_plane.py",
@@ -463,7 +477,7 @@
         "tools/validate_w20_starter.py",
         "tools/validate_w21_mlops.py"
       ],
-      "current_non_jira_files": 1232,
+      "current_non_jira_files": 1246,
       "exact_snapshot_match": false,
       "inventory_non_jira_files": 863,
       "missing": [],
@@ -581,7 +595,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 482 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 484 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -846,7 +860,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 482 issues and 1097 links.",
+      "detail": "Strict import dry-run passes for 484 issues and 1100 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"
@@ -1040,7 +1054,7 @@
     },
     {
       "check_group": "coverage",
-      "detail": "Current strict coverage and derivative validation agree at 482 canonical issues.",
+      "detail": "Current strict coverage and derivative validation agree at 484 canonical issues.",
       "evidence_files": [
         "validation/SECOND_PASS_AUDIT_RESULTS.json",
         "validation/DERIVATIVE_CONSISTENCY_REPORT.csv"
@@ -1062,7 +1076,7 @@
     },
     {
       "check_group": "import",
-      "detail": "Strict import dry-run passes for 482 issues and 1097 links.",
+      "detail": "Strict import dry-run passes for 484 issues and 1100 links.",
       "evidence_files": [
         "validation/IMPORT_DRY_RUN_REPORT.md",
         "validation/IMPORT_VALIDATION.csv"

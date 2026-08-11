@@ -23,7 +23,7 @@
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
-  "component": "data",
+  "component": "pit-temporal",
   "components_expected_to_be_touched": [
     "data",
     "pit-temporal",
@@ -91,7 +91,7 @@
     "Preliminary unprotected feature candidacy without protected or production authority."
   ],
   "issue_type": "Sub-task",
-  "jira_key": "",
+  "jira_key": "BAT-533",
   "labels": [
     "actionable",
     "post-wave",
@@ -107,6 +107,15 @@
   "local_id": "POST-SUBTASK-176",
   "maturity_before": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
   "objective": "Admit the exact version-bound historical play and drive aggregates that are genuinely known before 2023-2025 target cutoffs into a development-only PIT feature layer for preliminary unprotected research.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24673",
+    "jira_updated_at": "2026-08-11T01:07:01.900-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "Done"
+  },
   "out_of_scope": [
     "Admitting 2004-2009 source-level-only rows, absent 2011/2020 seasons, current 2026 supplemental captures, or rows without an accepted canonical team mapping.",
     "Inventing missing values, publication times, target outcomes, identity mappings, or cold-start features.",

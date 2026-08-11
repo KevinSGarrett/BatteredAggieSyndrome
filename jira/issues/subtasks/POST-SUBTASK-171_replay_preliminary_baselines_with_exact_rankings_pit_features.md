@@ -83,7 +83,7 @@
     "Same seven-model ladder and paired preliminary metrics."
   ],
   "issue_type": "Sub-task",
-  "jira_key": "",
+  "jira_key": "BAT-528",
   "labels": [
     "actionable",
     "post-wave",
@@ -96,6 +96,15 @@
   "local_id": "POST-SUBTASK-171",
   "maturity_before": "CONTRACT_DEFINED",
   "objective": "Measure the incremental preliminary value of the exact admitted rankings PIT domain on the unchanged baseline population without opening protected promotion.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24668",
+    "jira_updated_at": "2026-08-11T01:07:03.494-0500",
+    "last_synced_at": "2026-08-11T06:07:11.607568+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\JIRA-LIVE-CATCHUP-20260811\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "sprint": "",
+    "status_raw": "Done"
+  },
   "out_of_scope": [
     "Protected evaluation or champion promotion.",
     "Any broader historical population or non-admitted domain.",

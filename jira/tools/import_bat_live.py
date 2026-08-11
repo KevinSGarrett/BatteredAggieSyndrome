@@ -92,6 +92,10 @@ FIELD_SPECS = [
         "options": [
             "DESIGN_ONLY", "CONTRACT_DEFINED", "FUNCTIONAL_STARTER", "IMPLEMENTED",
             "INTEGRATED", "EMPIRICALLY_VALIDATED", "PRODUCTION_READY", "OPERATING",
+            "DEVELOPMENT_ONLY_PIT_ADMITTED",
+            "EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY",
+            "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
+            "VALIDATED_RECONCILED_CANDIDATE_ONLY",
         ],
         "description": "Implementation maturity kept separate from workflow status and evidence state to prevent fabricated completion.",
     },
@@ -120,8 +124,9 @@ FIELD_SPECS = [
         "column": "Execution Lane",
         "kind": "select",
         "options": [
-            "DATA_MATERIALIZATION", "OPERATIONS", "PROTECTED_GATE", "RESEARCH_LANE",
-            "SCIENTIFIC", "SECURITY", "SHARED_CONTRACT", "SOLO_WORKTREE",
+            "DATA", "DATA_MATERIALIZATION", "MODEL_RESEARCH", "OPERATIONS",
+            "PROTECTED_GATE", "RESEARCH_LANE", "SCIENTIFIC", "SECURITY",
+            "SHARED_CONTRACT", "SOLO_WORKTREE",
         ],
         "description": "Safe execution and concurrency lane for AI implementation sessions.",
     },
@@ -2078,6 +2083,12 @@ def write_target_configuration(
                 "issues": verification["issue_count"],
                 "parents": verification["parent_count"],
                 "links": verification["actual_expected_link_count"],
+            },
+            "local_sync": {
+                "state": "LIVE_SYNCHRONIZED",
+                "pending_issue_ids": [],
+                "pending_reason": "",
+                "last_successful_sync": verification["verified_at"],
             },
             "notes": [
                 "BAT was discovered and configured through Jira Cloud REST v3 using returned IDs only.",

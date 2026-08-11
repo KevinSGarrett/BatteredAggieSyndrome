@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "OPENAI_DEPTH_CHART_NONCOVERAGE_VISUAL_REVIEW",
+  "decision_unit": "POST-SUBTASK-181",
+  "jira_key": "BAT-538",
+  "issued_at_utc": "2026-08-11T09:49:00Z",
+  "overall_disposition": "PASS_EXACT_CANDIDATE_ONLY_NEGATIVE_FINDING_CONFIRMED",
+  "governance": {
+    "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
+    "official_docs_checked_at": "2026-08-11",
+    "responses_store": false,
+    "strict_structured_outputs": true,
+    "candidate_only_authority": true,
+    "canonical_or_pit_authority": false,
+    "training_or_protected_authority": false
+  },
+  "official_documentation": {
+    "responses": "https://developers.openai.com/api/docs/guides/migrate-to-responses",
+    "structured_outputs": "https://developers.openai.com/api/docs/guides/structured-outputs",
+    "file_inputs": "https://developers.openai.com/api/docs/guides/file-inputs",
+    "image_inputs": "https://developers.openai.com/api/docs/guides/images-vision",
+    "image_costing": "https://developers.openai.com/api/docs/guides/images-vision#calculating-costs",
+    "data_controls": "https://developers.openai.com/api/docs/guides/your-data",
+    "batch": "https://developers.openai.com/api/docs/guides/batch"
+  },
+  "deterministic_population": {
+    "source_id": "SRC-014",
+    "acquisition_identity": "13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956",
+    "acquisition_manifest_sha256": "ad4b834f33581452db0be71770118347237621efff97bb18bde8d7ff204d506d",
+    "prior_depth_page_candidate_identity": "ebc7c1c002cd92b22606ba1f95c4e4ec73217c6439b32e6eea26fdbadeedd6a4",
+    "dataset_identity": "e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027",
+    "manifest_sha256": "f5b0636be63afd20b731227849243681db384f319081dbf80d9102317d574c9c",
+    "payload_sha256": "4792e792dc485119b128cd7e37f6b5e53c74f2da272e6d10d9383a5170e8bca7",
+    "page_image_aggregate_identity": "55d3b3295a7eecb8dbd79a47f9b77e982fd4ec59e2b9cf8d1c3698b48843040a",
+    "page_image_count": 25,
+    "page_image_bytes": 4644774,
+    "documents": 25,
+    "documents_by_season": {"2022": 12, "2023": 13},
+    "classification_counts": {"STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART": 25},
+    "historical_publication_time_state": "UNKNOWN",
+    "explicit_depth_chart_headings": 0
+  },
+  "independent_validation": {
+    "report_sha256": "c136337a4fcd6b5bff52b747dccdf318741df60ff923f9a3f558ae013db8b332",
+    "status": "PASS",
+    "checks_failed": 0,
+    "mutation_controls_passed": 8,
+    "byte_identical_payload_replay": true,
+    "byte_identical_page_image_replay": true
+  },
+  "controller_extension": {
+    "evidence_type": "CONTENT_ADDRESSED_EXTERNAL_PNG",
+    "allowed_mime_type": "image/png",
+    "allowed_detail": ["low", "high", "auto"],
+    "external_root_confinement": true,
+    "maximum_local_image_bytes": 20971520,
+    "request_identity_includes_image_hash_dimensions_bytes_and_detail": true,
+    "conservative_image_token_cost_estimation": true,
+    "batch_manifest_path_safe": true
+  },
+  "initial_generic_schema_run": {
+    "provider_calls": 2,
+    "model": "gpt-4o-mini",
+    "reasoning_effort": "none",
+    "cost_usd": "0.008443",
+    "exact_candidates": 1,
+    "quarantined_or_rejected": 1,
+    "run_manifest_sha256": "9032b41b7d27e71caa86779b55717e40ce59c3c75acab79005133972043e3053",
+    "predictions_sha256": "14755219fc5204a205a959f03c351588266dc29b402d8d4ac56285e7fe7709e1",
+    "negative_finding": "One result duplicated historical_publication_time_utc in a generic fact array; the result was not accepted and remains preserved."
+  },
+  "corrected_fixed_object_run": {
+    "provider_calls": 2,
+    "model": "gpt-4o-mini",
+    "reasoning_effort": "none",
+    "cost_usd": "0.008146",
+    "strict_schema_rate": 1.0,
+    "exact_classification_rate": 1.0,
+    "evidence_accuracy": 1.0,
+    "unsupported_fact_rate": 0.0,
+    "accepted_review_candidates": 2,
+    "quarantined_or_rejected": 0,
+    "run_manifest_sha256": "80de669f0144948441088aac4ba1b221131cd062add63484fcaedf37e65dbb51",
+    "predictions_sha256": "5bd3cb9f7ad2173bb64ca922ffb0054c17e67c7b3b37c96dcb984e450c97d3a9"
+  },
+  "usage": {
+    "calls": 4,
+    "batch_jobs": 0,
+    "batch_reason": "TWO_CASE_NEW_VISUAL_FORMAT_REQUIRES_BOUNDED_SYNCHRONOUS_QA_NOT_SCALE_OUT",
+    "input_tokens": 105084,
+    "output_tokens": 1374,
+    "reasoning_tokens": 0,
+    "total_tokens": 106458,
+    "cost_usd": "0.016589",
+    "last_successful_api_use_utc": "2026-08-11T09:48:49.502971+00:00",
+    "cumulative_settled_usd": "4.309590",
+    "remaining_authorized_usd": "95.690410",
+    "released_stage_usd": "30.000000",
+    "outstanding_reservations_usd": "0.000000"
+  },
+  "dispositions": {
+    "accepted_candidate": 2,
+    "review": 2,
+    "quarantine": 1,
+    "rejected": 0,
+    "superseded_exact_candidate": 1,
+    "canonical_writes": 0,
+    "pit_writes": 0,
+    "training_feature_writes": 0,
+    "protected_truth_writes": 0
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

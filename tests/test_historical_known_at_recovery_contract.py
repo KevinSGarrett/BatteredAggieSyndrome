@@ -103,6 +103,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "historical_tamu_official_depth_chart_evidence_gate.json"
             ).read_text(encoding="utf-8")
         )
+        cls.tamu_depth_chart_noncoverage_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_tamu_official_depth_chart_noncoverage_gate.json"
+            ).read_text(encoding="utf-8")
+        )
 
     def test_live_unit_identity_and_dependency_are_registered(self) -> None:
         item = next(row for row in self.registry["issues"] if row["jira_key"] == "BAT-523")
@@ -873,6 +881,35 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(replay["protected_evaluation_admission"])
         self.assertFalse(replay["champion_or_production_promotion"])
         self.assertFalse(replay["tamu_specialization_lift_claimed"])
+
+    def test_tamu_depth_chart_noncoverage_is_a_validated_negative_finding_not_fabricated_coverage(self) -> None:
+        review = self.contract["latest_validated_tamu_official_depth_chart_noncoverage_review"]
+        self.assertEqual(
+            review["dataset_identity"],
+            "e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027",
+        )
+        self.assertEqual(review["documents_reviewed"], 25)
+        self.assertEqual(review["documents_by_season"], {"2022": 12, "2023": 13})
+        self.assertEqual(review["classification"], "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART")
+        self.assertEqual(review["explicit_depth_chart_heading_documents"], 0)
+        self.assertEqual(review["historical_publication_time_state"], "UNKNOWN")
+        self.assertFalse(review["starting_lineup_history_promoted_to_depth_chart"])
+        self.assertFalse(review["canonical_depth_chart_admission"])
+        self.assertFalse(review["pit_state_admission"])
+        self.assertFalse(review["training_feature_admission"])
+        self.assertFalse(review["protected_evaluation_admission"])
+        checkpoint = self.gate["parallel_tamu_official_depth_chart_noncoverage_checkpoint"]
+        self.assertTrue(checkpoint["openai_initial_schema_failure_preserved"])
+        self.assertEqual(checkpoint["openai_corrected_exact_candidates"], 2)
+        self.assertEqual(checkpoint["admission_state"], "VALIDATED_NEGATIVE_FINDING_NOT_ADMITTED")
+        self.assertFalse(
+            self.tamu_depth_chart_noncoverage_gate["historical_known_at_gate"][
+                "starting_lineup_history_promoted_to_depth_chart"
+            ]
+        )
+        self.assertFalse(
+            self.tamu_depth_chart_noncoverage_gate["scientific_nonclaims"]["gap_002_resolved"]
+        )
 
 
 if __name__ == "__main__":

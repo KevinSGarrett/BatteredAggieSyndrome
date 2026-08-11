@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import hashlib
+import base64
 import json
 import math
 import os
+import struct
 import tempfile
 import time
 from dataclasses import asdict, dataclass
@@ -44,6 +46,9 @@ class AssistiveJob:
     priority: Priority = Priority.NORMAL
     release_reason: str | None = None
     admission_review_id: str | None = None
+    source_image_path: Path | None = None
+    source_image_mime_type: str | None = None
+    source_image_detail: str | None = None
 
 
 @dataclass(frozen=True)
@@ -181,8 +186,48 @@ class AssistiveController:
             raise ControllerError("source URL must be an explicit public or local evidence locator")
         if task.get("conditional"):
             raise ControllerError("conditional task has not been explicitly activated by evidence readiness")
+        self._image_attachment(job)
         validate_strict_output_schema(schema)
         assert_prompt_safe(asdict(job))
+
+    @staticmethod
+    def _png_dimensions(payload: bytes) -> tuple[int, int]:
+        if len(payload) < 24 or payload[:8] != b"\x89PNG\r\n\x1a\n":
+            raise ControllerError("governed image evidence must be a valid PNG")
+        width, height = struct.unpack(">II", payload[16:24])
+        if width <= 0 or height <= 0:
+            raise ControllerError("governed image evidence has invalid dimensions")
+        return width, height
+
+    def _image_attachment(self, job: AssistiveJob) -> dict[str, Any] | None:
+        values = (job.source_image_path, job.source_image_mime_type, job.source_image_detail)
+        if all(value is None for value in values):
+            return None
+        if any(value is None for value in values):
+            raise ControllerError("image path, MIME type, and detail must be supplied together")
+        if job.source_image_mime_type != "image/png":
+            raise ControllerError("the governed visual evidence plane currently admits PNG only")
+        if job.source_image_detail not in {"low", "high", "auto"}:
+            raise ControllerError("image detail must be low, high, or auto")
+        try:
+            path = Path(job.source_image_path).resolve(strict=True)
+            path.relative_to(self.store.root.parent.resolve())
+        except (OSError, ValueError) as exc:
+            raise ControllerError("governed image evidence must resolve inside the external data root") from exc
+        if path.stat().st_size > 20 * 1024 * 1024:
+            raise ControllerError("governed image evidence exceeds the 20 MiB local admission limit")
+        payload = path.read_bytes()
+        width, height = self._png_dimensions(payload)
+        return {
+            "path": path,
+            "payload": payload,
+            "sha256": hashlib.sha256(payload).hexdigest(),
+            "bytes": len(payload),
+            "width": width,
+            "height": height,
+            "mime_type": job.source_image_mime_type,
+            "detail": job.source_image_detail,
+        }
 
     def _configured_secret_values(self) -> tuple[str, ...]:
         return configured_secret_values(self.repo_root)
@@ -192,13 +237,68 @@ class AssistiveController:
             assert_prompt_safe(request_material, known_secret=secret)
 
     @staticmethod
-    def estimate_tokens(job: AssistiveJob, schema: dict[str, Any]) -> TokenEstimate:
+    def _image_tokens(model: str, attachment: dict[str, Any]) -> int:
+        width = int(attachment["width"])
+        height = int(attachment["height"])
+        detail = str(attachment["detail"])
+        if model == "gpt-4o-mini":
+            if detail == "low":
+                return 2833
+            scale = min(2048 / width, 2048 / height, 1.0)
+            width *= scale
+            height *= scale
+            second_scale = 768 / min(width, height)
+            width *= second_scale
+            height *= second_scale
+            tiles = math.ceil(width / 512) * math.ceil(height / 512)
+            return 2833 + tiles * 5667
+        patches = math.ceil(width / 32) * math.ceil(height / 32)
+        if model == "gpt-5-nano":
+            return math.ceil(patches * 2.46)
+        return patches
+
+    @classmethod
+    def estimate_tokens(
+        cls,
+        job: AssistiveJob,
+        schema: dict[str, Any],
+        attachment: dict[str, Any] | None = None,
+    ) -> TokenEstimate:
         payload = job.prompt + job.source_excerpt + json.dumps(schema, ensure_ascii=False, sort_keys=True)
         # Deliberately conservative lexical estimate for admission; actual cost is settled from API usage.
         input_tokens = math.ceil(len(payload.encode("utf-8")) / 3) + 512
+        if attachment is not None:
+            input_tokens += cls._image_tokens(job.model, attachment)
         return TokenEstimate(input_tokens, 0, job.max_output_tokens)
 
-    def _request_body(self, job: AssistiveJob, schema: dict[str, Any]) -> dict[str, Any]:
+    def _request_body(
+        self,
+        job: AssistiveJob,
+        schema: dict[str, Any],
+        attachment: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        user_content: list[dict[str, Any]] = [
+            {
+                "type": "input_text",
+                "text": (
+                    f"TASK_ID={job.task_name}\n"
+                    f"SOURCE_URL={job.source_url}\n"
+                    f"SOURCE_CAPTURE_SHA256={job.source_capture_sha256}\n"
+                    "SOURCE_EXCERPT_BEGIN\n"
+                    f"{job.source_excerpt}\n"
+                    "SOURCE_EXCERPT_END"
+                ),
+            }
+        ]
+        if attachment is not None:
+            encoded = base64.b64encode(attachment["payload"]).decode("ascii")
+            user_content.append(
+                {
+                    "type": "input_image",
+                    "image_url": f"data:{attachment['mime_type']};base64,{encoded}",
+                    "detail": attachment["detail"],
+                }
+            )
         body = {
             "model": job.model,
             "input": [
@@ -218,19 +318,7 @@ class AssistiveController:
                 },
                 {
                     "role": "user",
-                    "content": [
-                        {
-                            "type": "input_text",
-                            "text": (
-                                f"TASK_ID={job.task_name}\n"
-                                f"SOURCE_URL={job.source_url}\n"
-                                f"SOURCE_CAPTURE_SHA256={job.source_capture_sha256}\n"
-                                "SOURCE_EXCERPT_BEGIN\n"
-                                f"{job.source_excerpt}\n"
-                                "SOURCE_EXCERPT_END"
-                            ),
-                        }
-                    ],
+                    "content": user_content,
                 },
             ],
             "max_output_tokens": job.max_output_tokens,
@@ -253,9 +341,10 @@ class AssistiveController:
     def prepare(self, job: AssistiveJob, mode: ProcessingMode) -> dict[str, Any]:
         schema = self._load_schema(job.schema_path)
         self._validate_job(job, schema)
-        body = self._request_body(job, schema)
+        attachment = self._image_attachment(job)
+        body = self._request_body(job, schema, attachment)
         assert_prompt_safe(body)
-        tokens = self.estimate_tokens(job, schema)
+        tokens = self.estimate_tokens(job, schema, attachment)
         cost = self.policy.estimate_cost(job.model, mode, tokens)
         identity = {
             "policy_id": self.policy.payload["policy_id"],
@@ -274,6 +363,11 @@ class AssistiveController:
             "destination": job.destination,
             "mode": mode.value,
             "max_output_tokens": job.max_output_tokens,
+            "source_image_sha256": attachment["sha256"] if attachment else None,
+            "source_image_bytes": attachment["bytes"] if attachment else None,
+            "source_image_width": attachment["width"] if attachment else None,
+            "source_image_height": attachment["height"] if attachment else None,
+            "source_image_detail": attachment["detail"] if attachment else None,
         }
         request_id = sha256_value(identity)
         request_artifact = self.store.put_json(
@@ -427,6 +521,7 @@ class AssistiveController:
                 "response_sha256": response_artifact.sha256,
                 "source_capture_sha256": job.source_capture_sha256,
                 "source_excerpt_sha256": prepared["identity"]["source_excerpt_sha256"],
+                "source_image_sha256": prepared["identity"]["source_image_sha256"],
                 "prompt_sha256": prepared["identity"]["prompt_sha256"],
                 "schema_sha256": prepared["identity"]["schema_sha256"],
                 "model_requested": job.model,
@@ -544,6 +639,11 @@ class AssistiveController:
                         "job": {
                             **asdict(item["job"]),
                             "schema_path": self._schema_reference(item["job"].schema_path),
+                            "source_image_path": (
+                                str(item["job"].source_image_path.resolve())
+                                if item["job"].source_image_path is not None
+                                else None
+                            ),
                             "priority": item["job"].priority.value,
                         },
                     }
@@ -596,6 +696,8 @@ class AssistiveController:
         for item in manifest["jobs"]:
             job_data = dict(item["job"])
             job_data["schema_path"] = self._resolve_schema_reference(job_data["schema_path"])
+            if job_data.get("source_image_path") is not None:
+                job_data["source_image_path"] = Path(job_data["source_image_path"])
             job_data["priority"] = Priority(job_data["priority"])
             job = AssistiveJob(**job_data)
             reservation = Reservation(

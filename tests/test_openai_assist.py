@@ -4,6 +4,7 @@ import copy
 import hashlib
 import json
 import shutil
+import struct
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -161,7 +162,12 @@ class OpenAIAssistTests(unittest.TestCase):
             "BOUNDED_SHADOW_EXACT_RETAIN_FOR_MORE_GOLD",
             schema_mapping["models"]["gpt-5.6-luna"]["decision"],
         )
-        self.assertEqual("95.706999", report["budget"]["remaining_usd"])
+        visual = report["depth_chart_noncoverage_visual_checkpoint"]
+        self.assertEqual(4, visual["provider_calls"])
+        self.assertEqual(2, visual["models"]["gpt-4o-mini"]["corrected_exact_review_candidates"])
+        self.assertEqual(0, visual["canonical_writes"])
+        self.assertEqual(0, visual["pit_writes"])
+        self.assertEqual("95.690410", report["budget"]["remaining_usd"])
         self.assertTrue(report["completion"]["continuing_operations_active"])
         self.assertFalse(report["completion"]["completion_claimed"])
 
@@ -254,6 +260,51 @@ class OpenAIAssistTests(unittest.TestCase):
             )
             prepared = controller.prepare(job, ProcessingMode.SYNCHRONOUS)
             self.assertNotIn("reasoning", prepared["body"])
+
+    def test_governed_visual_evidence_is_content_addressed_external_and_costed(self):
+        with tempfile.TemporaryDirectory() as raw:
+            repo = self._temporary_repo(Path(raw))
+            controller = _TestController(repo, _FakeClient({}))
+            image_path = Path(raw) / "external" / "quarantine" / "visual.png"
+            image_path.parent.mkdir(parents=True, exist_ok=True)
+            image_payload = (
+                b"\x89PNG\r\n\x1a\n"
+                + b"\x00\x00\x00\x0dIHDR"
+                + struct.pack(">II", 1188, 1540)
+                + b"\x08\x02\x00\x00\x00"
+            )
+            image_path.write_bytes(image_payload)
+            base = self._job(repo)
+            job = AssistiveJob(
+                **{
+                    **base.__dict__,
+                    "model": "gpt-4o-mini",
+                    "reasoning_effort": "none",
+                    "allocation": "FOUR_O_MINI_AB",
+                    "source_image_path": image_path,
+                    "source_image_mime_type": "image/png",
+                    "source_image_detail": "high",
+                }
+            )
+            prepared = controller.prepare(job, ProcessingMode.SYNCHRONOUS)
+            visual = prepared["body"]["input"][1]["content"][1]
+            self.assertEqual("input_image", visual["type"])
+            self.assertEqual("high", visual["detail"])
+            self.assertTrue(visual["image_url"].startswith("data:image/png;base64,"))
+            self.assertEqual(hashlib.sha256(image_payload).hexdigest(), prepared["identity"]["source_image_sha256"])
+            self.assertEqual(1188, prepared["identity"]["source_image_width"])
+            self.assertGreaterEqual(prepared["estimate"].tokens.input_tokens, 25_501)
+
+    def test_governed_visual_evidence_rejects_repository_or_partial_attachment(self):
+        with tempfile.TemporaryDirectory() as raw:
+            repo = self._temporary_repo(Path(raw))
+            controller = _TestController(repo, _FakeClient({}))
+            base = self._job(repo)
+            with self.assertRaisesRegex(ControllerError, "must be supplied together"):
+                controller.prepare(
+                    AssistiveJob(**{**base.__dict__, "source_image_path": repo / "inside.png"}),
+                    ProcessingMode.SYNCHRONOUS,
+                )
 
     def test_strict_schema_requires_all_properties_and_closed_objects(self):
         validate_strict_output_schema(self._schema())

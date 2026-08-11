@@ -1,0 +1,459 @@
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.json -->
+# POST-SUBTASK-181 — Recover 2022-2023 official A&M depth-chart page noncoverage in governed shadow mode
+
+## Canonical metadata
+
+```json
+{
+  "acceptance_control_ids": [],
+  "acceptance_criteria": [
+    "The exact 25 immutable official Texas A&M 2022-2023 weekly game-note documents recorded as deterministic depth-chart page noncoverage by POST-SUBTASK-167 remain the only admitted population; no source, season, document, page, or authority is silently broadened.",
+    "Every source PDF, acquisition manifest, prior depth-page candidate, selected review page, rendered page image, prompt, schema, request, response, and result is content-addressed and stored outside Git where bulk or operational.",
+    "Deterministic full-population review distinguishes historical STARTING LINEUPS tables from pregame depth charts, preserves an UNKNOWN historical publication time, and never fabricates a depth chart from a roster, start chart, or prior-game lineup table.",
+    "Governed OpenAI visual QA uses the Responses API with store:false, strict task-specific Structured Outputs, budget admission, source hashes, exact page locators, evidence validation, and candidate-only authority.",
+    "The first generic-schema duplicate-field failure remains preserved as a negative finding; the corrected fixed-object schema must pass both predeclared 2022 and 2023 format cases exactly before its candidates are accepted for review evidence.",
+    "No result writes canonical entities, PIT state, training features, labels, protected evaluation, model promotion, forecasts, publication state, BAS, or Aggie Excess, and the absence of depth-chart evidence remains an explicit domain gap rather than an inferred fact population."
+  ],
+  "adr_ids": [],
+  "ai_context_notes": [
+    "POST-SUBTASK-167 validated extraction only where a deterministic depth-chart page existed and recorded 25 noncovered documents: 12 in 2022 and 13 in 2023.",
+    "The suspected page in each noncovered document is explicitly headed STARTING LINEUPS and lists completed opponents by row; it is historical lineup evidence, not an upcoming-game ordered depth chart.",
+    "GPT-4o Mini is admitted only for bounded visual/layout QA because deterministic text and local visual inspection already establish the full-population negative finding; Nano, Luna, Terra, and Sol are not used merely to increase utilization."
+  ],
+  "allowed_modification_paths": [
+    "configs/openai_depth_chart_noncoverage_review.json",
+    "configs/openai_task_registry.json",
+    "configs/openai_assist_policy.json",
+    "schemas/openai/depth_chart_noncoverage_visual.schema.json",
+    "prompts/openai_assist/depth_chart_noncoverage_visual_v1.txt",
+    "src/aggie_analytics/openai_assist/controller.py",
+    "tools/build_tamu_depth_chart_noncoverage_review.py",
+    "tools/validate_tamu_depth_chart_noncoverage_review.py",
+    "tools/run_openai_depth_chart_noncoverage_visual_review.py",
+    "tools/validate_openai_assist.py",
+    "tests/test_openai_assist.py",
+    "tests/test_historical_known_at_recovery_contract.py",
+    "artifacts/openai_assist/depth_chart_noncoverage_visual_review.json",
+    "artifacts/openai_assist/continuous_operations.json",
+    "artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json",
+    "artifacts/pit/historical_known_at_replay_gate.json",
+    "configs/historical_known_at_recovery_contract.json",
+    "artifacts/jira_evidence/POST-SUBTASK-181.json",
+    "docs/architecture/OPENAI_ASSISTIVE_PLANE.md",
+    "docs/operations/OPENAI_ASSISTIVE_PLANE.md",
+    "governance/OPENAI_ASSISTIVE_PLANE.md",
+    "jira"
+  ],
+  "blocked_reason": "",
+  "blocks": [],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.json",
+  "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
+  "completion_evidence_contract": {
+    "acceptance_matrix_required": true,
+    "artifact_hashes_required": true,
+    "budget_ledger_required": true,
+    "candidate_only": true,
+    "negative_results_preserved": true,
+    "protected_nonclaims_required": true,
+    "provenance_dimensions": [
+      "source",
+      "capture",
+      "page",
+      "rendered_image",
+      "prompt",
+      "schema",
+      "model",
+      "reasoning",
+      "code",
+      "config",
+      "runtime",
+      "cost"
+    ]
+  },
+  "component": "player-context-intelligence",
+  "components_expected_to_be_touched": [
+    "player-context-intelligence",
+    "data-ingestion",
+    "pit-temporal",
+    "validation-promotion"
+  ],
+  "content_contract_version": "2.0",
+  "critical_path": false,
+  "definition_of_done": [
+    "A deterministic builder joins the exact 25 noncoverage records to immutable official PDFs, finds exactly one STARTING LINEUPS history page per document, rejects any explicit depth-chart heading, renders content-addressed review images, and materializes an immutable external review identity.",
+    "Independent validation checks source bindings, hashes, counts, classifications, authority, eight mutation controls, and byte-identical isolated replay of the JSONL payload and all 25 rendered page images.",
+    "The governed controller supports external content-addressed PNG evidence with MIME/detail validation, current documented vision request structure, conservative token/cost admission, strict schema output, request identity, caching, provenance, and tests.",
+    "Two predeclared format samples execute through the governed controller; invalid output is quarantined, the corrected schema produces exact evidence-backed candidates, and usage is settled in the local ledger.",
+    "Jira, goal, active plan, evidence, repository/provenance validators, secret scan, full test suite, normal PR review, post-merge synchronization, and cleanup pass before Done."
+  ],
+  "dependencies": [
+    "POST-SUBTASK-167"
+  ],
+  "end_to_end_validation": "Rejoin POST-SUBTASK-167 noncoverage rows to the exact acquisition manifest and immutable PDFs; verify 25 documents, 12/13 season counts, one STARTING LINEUPS page per document, zero explicit depth-chart headings, deterministic rendering, payload/image identities, mutation rejection, byte-identical replay, strict OpenAI visual schema behavior, budget settlement, candidate-only authority, and no canonical/PIT/training/protected writes.",
+  "epic_id": "POST-EPIC-018",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-181.json",
+  "evidence_state": "PARTIAL",
+  "execution_lane": "RESEARCH_LANE",
+  "execution_mode": "ATOMIC_EXECUTION",
+  "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_VISUAL_NEGATIVE_FINDING_AND_GOVERNED_IMAGE_INPUT",
+  "expected_outputs": [
+    "configs/openai_depth_chart_noncoverage_review.json",
+    "schemas/openai/depth_chart_noncoverage_visual.schema.json",
+    "prompts/openai_assist/depth_chart_noncoverage_visual_v1.txt",
+    "tools/build_tamu_depth_chart_noncoverage_review.py",
+    "tools/validate_tamu_depth_chart_noncoverage_review.py",
+    "tools/run_openai_depth_chart_noncoverage_visual_review.py",
+    "artifacts/openai_assist/depth_chart_noncoverage_visual_review.json",
+    "artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-181.json",
+    "<external-data-root>/quarantine/historical_known_at/sha256/e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027",
+    "<external-data-root>/validation/BAT-538/depth_chart_noncoverage_review_e67558ab_validation.json",
+    "<external-data-root>/openai/evals/sha256"
+  ],
+  "files_expected_to_be_read": [
+    "configs/openai_depth_chart_pilot.json",
+    "artifacts/openai_assist/depth_chart_pilot.json",
+    "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
+    "configs/openai_assist_policy.json",
+    "src/aggie_analytics/openai_assist/controller.py"
+  ],
+  "files_expected_to_be_touched": [
+    "configs/openai_depth_chart_noncoverage_review.json",
+    "configs/openai_task_registry.json",
+    "configs/openai_assist_policy.json",
+    "schemas/openai/depth_chart_noncoverage_visual.schema.json",
+    "prompts/openai_assist/depth_chart_noncoverage_visual_v1.txt",
+    "src/aggie_analytics/openai_assist/controller.py",
+    "tools/build_tamu_depth_chart_noncoverage_review.py",
+    "tools/validate_tamu_depth_chart_noncoverage_review.py",
+    "tools/run_openai_depth_chart_noncoverage_visual_review.py",
+    "tests/test_openai_assist.py",
+    "artifacts/openai_assist/depth_chart_noncoverage_visual_review.json",
+    "artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json",
+    "artifacts/jira_evidence/POST-SUBTASK-181.json",
+    "jira/project/JIRA_TARGET_PROFILE.yaml"
+  ],
+  "files_to_inspect": [
+    "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
+    "artifacts/openai_assist/depth_chart_pilot.json",
+    "configs/openai_depth_chart_pilot.json",
+    "docs/final/CODEX_HANDOFF.md",
+    "governance/PROTECTED_ACCEPTANCE_RULES.md"
+  ],
+  "gap_ids": [
+    "GAP-002",
+    "GAP-005"
+  ],
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.md",
+  "governance_traceability_gate": "POST-SUBTASK-167",
+  "historical_classification": "ACTIONABLE_POST_WAVE",
+  "import_id": 100489,
+  "in_scope": [
+    "Exact immutable 25-document noncoverage population from the 2022-2023 official A&M weekly game-note captures.",
+    "Deterministic page classification, visual rendering, replay, governed image-input controller support, two-case GPT-4o Mini QA, strict output correction, negative-finding preservation, provenance, budget reporting, and cleanup."
+  ],
+  "issue_type": "Subtask",
+  "jira_key": "BAT-538",
+  "labels": [
+    "actionable",
+    "post-wave",
+    "subtask",
+    "historical-expansion",
+    "tamu-specialization",
+    "official-documents",
+    "depth-chart",
+    "openai-assist",
+    "candidate-only",
+    "pit",
+    "provenance"
+  ],
+  "last_content_audit": "2026-08-11",
+  "local_id": "POST-SUBTASK-181",
+  "maturity_before": "VALIDATED_TEXT_ONLY_DEPTH_PAGE_PILOT_WITH_25_DOCUMENT_NONCOVERAGE",
+  "objective": "Resolve the exact 2022-2023 official A&M depth-chart page noncoverage honestly, add governed visual evidence support, and preserve absence as a validated negative finding rather than fabricating depth-chart data.",
+  "operational_jira": {
+    "assignee": "",
+    "jira_issue_id": "24928",
+    "jira_updated_at": "2026-08-11T05:03:27.299-0500",
+    "last_synced_at": "2026-08-11T10:03:27.299+00:00",
+    "source_export": "LIVE_REST_POST_SUBTASK_181_PREINTEGRATION_EVIDENCE_COMMENT_13575",
+    "sprint": "",
+    "status_raw": "In Progress"
+  },
+  "out_of_scope": [
+    "Treating prior-game starting-lineup tables, start charts, roster pages, or career starts as pregame depth charts or current availability evidence.",
+    "Fabricating historical publication timestamps, depth-chart order, player availability, injuries, identities, or facts absent from the cited page.",
+    "Automatic Batch scale-out, canonical/PIT/training/protected admission, production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific claim."
+  ],
+  "owner_wave": "POST_W25",
+  "parent_id": "POST-STORY-055",
+  "phase": "PHASE-1",
+  "prerequisites": [
+    "POST-SUBTASK-167 exact 25-document noncoverage population and source bindings.",
+    "Configured standardized external data root, governed OpenAI controller, nonempty authoritative OPENAI_API_KEY, and successful live Jira authentication.",
+    "Current official OpenAI Responses, vision/file-input, Structured Outputs, and data-control documentation reviewed before API execution."
+  ],
+  "primary_source_refs": [
+    "SRCREF-02119"
+  ],
+  "priority": "P0",
+  "protected_files_and_interfaces": [
+    "governance/PROTECTED_ACCEPTANCE_RULES.md",
+    "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+    "governance/PROTECTED_SPLIT_REGISTRY.csv",
+    "governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv"
+  ],
+  "ready": false,
+  "record_revision": "2.0",
+  "required_evidence": [
+    "Exact acquisition, depth-page candidate, 25 source PDF, selected page text, rendered image, payload, manifest, prompt, schema, request, response, usage-ledger, validation, replay, and cleanup hashes.",
+    "Documents and pages by season, deterministic classifications, visual sample identities, initial failed-output disposition, corrected exact-output results, calls/tokens/cost by model, remaining budget, and Batch nonadmission reason.",
+    "Repository/OpenAI/provenance/Jira/secret/full-suite validator results, PR and merge identities, live Jira comments/transitions/links, and explicit protected nonclaims."
+  ],
+  "required_tests": [
+    {
+      "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+      "expectation": "External visual evidence admission, PNG identity/dimensions, multimodal request structure, image token/cost estimate, redaction, store:false, strict schema, and invalid attachment rejection remain deterministic.",
+      "path": "tests/test_openai_assist.py",
+      "validation_class": "SECURITY"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "All 25 immutable PDFs, selected historical lineup pages, rendered images, negative classifications, mutation checks, byte-identical replay, OpenAI visual candidates, authority boundaries, and budget evidence pass independently.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-181.json",
+      "validation_class": "END_TO_END"
+    }
+  ],
+  "requirement_ids": [],
+  "risk_failure_conditions": [
+    "Any source PDF, page population, source/capture identity, heading/classification, rendered image, prompt/schema, request/response, cost, evidence locator, or deterministic replay identity drifts.",
+    "Any historical starting-lineup table is silently promoted to a pregame depth chart, or any unknown timestamp, player fact, identity, injury, availability, canonical/PIT/training/protected state is fabricated.",
+    "Any invalid first-run model output is hidden, accepted, or used to weaken the fixed schema, deterministic evidence, budget, or protected authority boundaries."
+  ],
+  "risk_ids": [
+    "RISK-199",
+    "RISK-227",
+    "RISK-241"
+  ],
+  "schema_version": "2.0",
+  "scope": "Build and independently validate a deterministic and governed visual negative review of the exact 25 official A&M 2022-2023 depth-chart page noncoverage documents.",
+  "source_ids": [
+    "OPENAI-ASSIST-PLAN",
+    "GAP-002",
+    "GAP-005"
+  ],
+  "source_refs": [
+    "SRCREF-02119"
+  ],
+  "stop_conditions": [
+    "Stop and quarantine the affected document or model result on source hash, page count, heading, image, schema, evidence, budget, provenance, replay, credential, or authority failure.",
+    "Preserve valid negative findings and continue unrelated historical expansion and modeling; partial source or OpenAI failure must not globally block the project.",
+    "Do not weaken the distinction between historical lineups and pregame depth charts or any PIT/protected boundary to manufacture coverage."
+  ],
+  "supporting_source_refs": [],
+  "title": "Recover 2022-2023 official A&M depth-chart page noncoverage in governed shadow mode",
+  "traceability_inherited_from": [
+    "POST-SUBTASK-168"
+  ],
+  "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
+  "unblock_condition": "",
+  "validation_classes": [
+    "END_TO_END",
+    "SECURITY"
+  ],
+  "why_this_exists": "POST-SUBTASK-167 deliberately preserved 25 official 2022-2023 documents without deterministic depth-chart pages. This unit resolves whether visual layout hid useful depth-chart evidence, adds a governed image-input route for future layout-heavy work, and records the evidence-backed negative result without inventing coverage.",
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-181.md",
+  "workflow_state": "IN_PROGRESS"
+}
+```
+
+## Objective
+
+Resolve the exact 2022-2023 official A&M depth-chart page noncoverage honestly, add governed visual evidence support, and preserve absence as a validated negative finding rather than fabricating depth-chart data.
+
+## Why This Exists
+
+POST-SUBTASK-167 deliberately preserved 25 official 2022-2023 documents without deterministic depth-chart pages. This unit resolves whether visual layout hid useful depth-chart evidence, adds a governed image-input route for future layout-heavy work, and records the evidence-backed negative result without inventing coverage.
+
+## Scope
+
+Build and independently validate a deterministic and governed visual negative review of the exact 25 official A&M 2022-2023 depth-chart page noncoverage documents.
+
+### Explicit In Scope
+
+- Exact immutable 25-document noncoverage population from the 2022-2023 official A&M weekly game-note captures.
+- Deterministic page classification, visual rendering, replay, governed image-input controller support, two-case GPT-4o Mini QA, strict output correction, negative-finding preservation, provenance, budget reporting, and cleanup.
+
+### Explicit Out of Scope
+
+- Treating prior-game starting-lineup tables, start charts, roster pages, or career starts as pregame depth charts or current availability evidence.
+- Fabricating historical publication timestamps, depth-chart order, player availability, injuries, identities, or facts absent from the cited page.
+- Automatic Batch scale-out, canonical/PIT/training/protected admission, production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific claim.
+
+## Prerequisites
+
+- POST-SUBTASK-167 exact 25-document noncoverage population and source bindings.
+- Configured standardized external data root, governed OpenAI controller, nonempty authoritative OPENAI_API_KEY, and successful live Jira authentication.
+- Current official OpenAI Responses, vision/file-input, Structured Outputs, and data-control documentation reviewed before API execution.
+
+## Hard Dependencies
+
+- POST-SUBTASK-167
+
+## Blocks
+
+- None.
+
+## Read / Inspect First
+
+- artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
+- artifacts/openai_assist/depth_chart_pilot.json
+- configs/openai_depth_chart_pilot.json
+- docs/final/CODEX_HANDOFF.md
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+
+## Files Expected To Be Modified
+
+- configs/openai_depth_chart_noncoverage_review.json
+- configs/openai_task_registry.json
+- configs/openai_assist_policy.json
+- schemas/openai/depth_chart_noncoverage_visual.schema.json
+- prompts/openai_assist/depth_chart_noncoverage_visual_v1.txt
+- src/aggie_analytics/openai_assist/controller.py
+- tools/build_tamu_depth_chart_noncoverage_review.py
+- tools/validate_tamu_depth_chart_noncoverage_review.py
+- tools/run_openai_depth_chart_noncoverage_visual_review.py
+- tests/test_openai_assist.py
+- artifacts/openai_assist/depth_chart_noncoverage_visual_review.json
+- artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-181.json
+- jira/project/JIRA_TARGET_PROFILE.yaml
+
+## Components Expected To Be Touched
+
+- player-context-intelligence
+- data-ingestion
+- pit-temporal
+- validation-promotion
+
+## Protected Files / Interfaces
+
+- governance/PROTECTED_ACCEPTANCE_RULES.md
+- governance/PROTECTED_JUDGING_RULE_SEAL.csv
+- governance/PROTECTED_SPLIT_REGISTRY.csv
+- governance/THRESHOLD_PRECOMMITMENT_REGISTRY.csv
+
+## Expected Outputs / Artifacts
+
+- configs/openai_depth_chart_noncoverage_review.json
+- schemas/openai/depth_chart_noncoverage_visual.schema.json
+- prompts/openai_assist/depth_chart_noncoverage_visual_v1.txt
+- tools/build_tamu_depth_chart_noncoverage_review.py
+- tools/validate_tamu_depth_chart_noncoverage_review.py
+- tools/run_openai_depth_chart_noncoverage_visual_review.py
+- artifacts/openai_assist/depth_chart_noncoverage_visual_review.json
+- artifacts/pit/historical_tamu_official_depth_chart_noncoverage_gate.json
+- artifacts/jira_evidence/POST-SUBTASK-181.json
+- <external-data-root>/quarantine/historical_known_at/sha256/e67558ab5a406e7394c2759e39ad6d2cec1ec04227b37b5441c340f09170e027
+- <external-data-root>/validation/BAT-538/depth_chart_noncoverage_review_e67558ab_validation.json
+- <external-data-root>/openai/evals/sha256
+
+## Direct Requirements
+
+- None.
+
+## Direct Acceptance Controls
+
+- None.
+
+## Governance Traceability Inheritance
+
+- Gate: `POST-SUBTASK-167`
+- Inherited from: POST-SUBTASK-168
+- Resolution: `DIRECT_PLUS_INHERITED_DOMAIN_GATE`
+- Effective counts: `{}`
+
+## Acceptance Criteria
+
+1. The exact 25 immutable official Texas A&M 2022-2023 weekly game-note documents recorded as deterministic depth-chart page noncoverage by POST-SUBTASK-167 remain the only admitted population; no source, season, document, page, or authority is silently broadened.
+2. Every source PDF, acquisition manifest, prior depth-page candidate, selected review page, rendered page image, prompt, schema, request, response, and result is content-addressed and stored outside Git where bulk or operational.
+3. Deterministic full-population review distinguishes historical STARTING LINEUPS tables from pregame depth charts, preserves an UNKNOWN historical publication time, and never fabricates a depth chart from a roster, start chart, or prior-game lineup table.
+4. Governed OpenAI visual QA uses the Responses API with store:false, strict task-specific Structured Outputs, budget admission, source hashes, exact page locators, evidence validation, and candidate-only authority.
+5. The first generic-schema duplicate-field failure remains preserved as a negative finding; the corrected fixed-object schema must pass both predeclared 2022 and 2023 format cases exactly before its candidates are accepted for review evidence.
+6. No result writes canonical entities, PIT state, training features, labels, protected evaluation, model promotion, forecasts, publication state, BAS, or Aggie Excess, and the absence of depth-chart evidence remains an explicit domain gap rather than an inferred fact population.
+
+## Definition of Done
+
+1. A deterministic builder joins the exact 25 noncoverage records to immutable official PDFs, finds exactly one STARTING LINEUPS history page per document, rejects any explicit depth-chart heading, renders content-addressed review images, and materializes an immutable external review identity.
+2. Independent validation checks source bindings, hashes, counts, classifications, authority, eight mutation controls, and byte-identical isolated replay of the JSONL payload and all 25 rendered page images.
+3. The governed controller supports external content-addressed PNG evidence with MIME/detail validation, current documented vision request structure, conservative token/cost admission, strict schema output, request identity, caching, provenance, and tests.
+4. Two predeclared format samples execute through the governed controller; invalid output is quarantined, the corrected schema produces exact evidence-backed candidates, and usage is settled in the local ledger.
+5. Jira, goal, active plan, evidence, repository/provenance validators, secret scan, full test suite, normal PR review, post-merge synchronization, and cleanup pass before Done.
+
+## Required Tests / Validation
+
+- **NEW_AUTOMATED_TEST_REQUIRED** / `SECURITY` — `tests/test_openai_assist.py` — External visual evidence admission, PNG identity/dimensions, multimodal request structure, image token/cost estimate, redaction, store:false, strict schema, and invalid attachment rejection remain deterministic.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-181.json` — All 25 immutable PDFs, selected historical lineup pages, rendered images, negative classifications, mutation checks, byte-identical replay, OpenAI visual candidates, authority boundaries, and budget evidence pass independently.
+
+## Required Evidence
+
+- Exact acquisition, depth-page candidate, 25 source PDF, selected page text, rendered image, payload, manifest, prompt, schema, request, response, usage-ledger, validation, replay, and cleanup hashes.
+- Documents and pages by season, deterministic classifications, visual sample identities, initial failed-output disposition, corrected exact-output results, calls/tokens/cost by model, remaining budget, and Batch nonadmission reason.
+- Repository/OpenAI/provenance/Jira/secret/full-suite validator results, PR and merge identities, live Jira comments/transitions/links, and explicit protected nonclaims.
+
+## Completion Evidence Contract
+
+```json
+{
+  "acceptance_matrix_required": true,
+  "artifact_hashes_required": true,
+  "budget_ledger_required": true,
+  "candidate_only": true,
+  "negative_results_preserved": true,
+  "protected_nonclaims_required": true,
+  "provenance_dimensions": [
+    "source",
+    "capture",
+    "page",
+    "rendered_image",
+    "prompt",
+    "schema",
+    "model",
+    "reasoning",
+    "code",
+    "config",
+    "runtime",
+    "cost"
+  ]
+}
+```
+
+## End-to-End Validation Requirement
+
+Rejoin POST-SUBTASK-167 noncoverage rows to the exact acquisition manifest and immutable PDFs; verify 25 documents, 12/13 season counts, one STARTING LINEUPS page per document, zero explicit depth-chart headings, deterministic rendering, payload/image identities, mutation rejection, byte-identical replay, strict OpenAI visual schema behavior, budget settlement, candidate-only authority, and no canonical/PIT/training/protected writes.
+
+## Expected Maturity After Completion
+
+`EMPIRICALLY_VALIDATED_VISUAL_NEGATIVE_FINDING_AND_GOVERNED_IMAGE_INPUT`
+
+## Risk / Failure Conditions
+
+- Any source PDF, page population, source/capture identity, heading/classification, rendered image, prompt/schema, request/response, cost, evidence locator, or deterministic replay identity drifts.
+- Any historical starting-lineup table is silently promoted to a pregame depth chart, or any unknown timestamp, player fact, identity, injury, availability, canonical/PIT/training/protected state is fabricated.
+- Any invalid first-run model output is hidden, accepted, or used to weaken the fixed schema, deterministic evidence, budget, or protected authority boundaries.
+
+## Stop Conditions
+
+- Stop and quarantine the affected document or model result on source hash, page count, heading, image, schema, evidence, budget, provenance, replay, credential, or authority failure.
+- Preserve valid negative findings and continue unrelated historical expansion and modeling; partial source or OpenAI failure must not globally block the project.
+- Do not weaken the distinction between historical lineups and pregame depth charts or any PIT/protected boundary to manufacture coverage.
+
+## Source References
+
+- SRCREF-02119
+
+## AI Context Notes
+
+- POST-SUBTASK-167 validated extraction only where a deterministic depth-chart page existed and recorded 25 noncovered documents: 12 in 2022 and 13 in 2023.
+- The suspected page in each noncovered document is explicitly headed STARTING LINEUPS and lists completed opponents by row; it is historical lineup evidence, not an upcoming-game ordered depth chart.
+- GPT-4o Mini is admitted only for bounded visual/layout QA because deterministic text and local visual inspection already establish the full-population negative finding; Nano, Luna, Terra, and Sol are not used merely to increase utilization.

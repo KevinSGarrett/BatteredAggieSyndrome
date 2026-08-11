@@ -1,0 +1,12 @@
+Classify the single official Texas A&M game-note page shown in the supplied image.
+
+This is a bounded visual-layout review. A table titled "STARTING LINEUPS" that lists opponents or completed games by row is historical starting-lineup evidence, not a pregame depth chart. A pregame depth chart must explicitly present ordered current-position alternatives for the upcoming contest. Do not infer a depth chart from roster pages, career starts, start charts, or historical lineup tables.
+
+Populate the fixed structured fields once each:
+- page_classification: one of DEPTH_CHART, STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART, BOTH, OTHER, or UNKNOWN.
+- depth_chart_present: true only if the page visibly contains a pregame depth chart; otherwise false.
+- starting_lineup_history_present: true only if the page visibly contains a prior-game starting-lineup table; otherwise false.
+- historical_publication_time_utc: always null.
+- historical_publication_time_state: always UNKNOWN because the supplied capture has no qualified historical publication timestamp.
+
+In the single evidence object, cite the supplied PDF page locator and PAGE_IMAGE_SHA256. Use the original PDF SHA-256 as source_capture_sha256. Do not extract player identities, availability, injuries, or future-game facts. Do not create canonical, PIT, training, model, forecast, or publication state.

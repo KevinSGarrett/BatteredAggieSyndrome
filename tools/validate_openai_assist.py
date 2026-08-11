@@ -214,11 +214,24 @@ def validate(root: Path) -> list[str]:
         "games_with_actions_but_no_explicit_play_collection"
     ) != 50:
         errors.append("gamebook schema-mapping checkpoint does not bind the source gap population")
+    visual_checkpoint = continuous_report.get("depth_chart_noncoverage_visual_checkpoint", {})
+    if visual_checkpoint.get("provider_calls") != 4 or visual_checkpoint.get("batch_jobs") != 0:
+        errors.append("depth-chart noncoverage visual checkpoint has unexpected job counts")
+    if visual_checkpoint.get("deterministic_classification") != "STARTING_LINEUP_HISTORY_NOT_DEPTH_CHART":
+        errors.append("depth-chart noncoverage visual checkpoint changed the deterministic negative finding")
+    visual_model = visual_checkpoint.get("models", {}).get("gpt-4o-mini", {})
+    if visual_model.get("corrected_exact_review_candidates") != 2:
+        errors.append("depth-chart noncoverage fixed-object visual review did not retain two exact candidates")
+    if any(
+        visual_checkpoint.get(field) != 0
+        for field in ["canonical_writes", "pit_writes", "training_feature_writes", "protected_truth_writes"]
+    ):
+        errors.append("depth-chart noncoverage visual checkpoint crossed candidate-only authority")
     budget_checkpoint = continuous_report.get("budget", {})
     if (
-        budget_checkpoint.get("remaining_usd") != "95.706999"
-        or budget_checkpoint.get("settled_usd") != "4.293001"
-        or budget_checkpoint.get("cumulative_calls") != 466
+        budget_checkpoint.get("remaining_usd") != "95.690410"
+        or budget_checkpoint.get("settled_usd") != "4.309590"
+        or budget_checkpoint.get("cumulative_calls") != 470
     ):
         errors.append("continuing OpenAI report does not reconcile the usage ledger")
     if continuous_report.get("completion", {}).get("continuing_operations_active") is not True:

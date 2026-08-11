@@ -61,7 +61,8 @@
     "POST-SUBTASK-191",
     "POST-SUBTASK-192",
     "POST-SUBTASK-193",
-    "POST-SUBTASK-194"
+    "POST-SUBTASK-194",
+    "POST-SUBTASK-195"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-042_publish_the_canonical_entity_snapshot_and_approve_or_block_downstream_pit_consum.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -188,8 +189,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24532",
-    "jira_updated_at": "2026-08-11T16:12:25.318-0500",
-    "last_synced_at": "2026-08-11T21:12:36.215112+00:00",
+    "jira_updated_at": "2026-08-11T17:04:26.827-0500",
+    "last_synced_at": "2026-08-11T22:04:38.502338+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -479,6 +480,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-014 (Population resolution, r
 - POST-SUBTASK-192
 - POST-SUBTASK-193
 - POST-SUBTASK-194
+- POST-SUBTASK-195
 
 ## Read / Inspect First
 

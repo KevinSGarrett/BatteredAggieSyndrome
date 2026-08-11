@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-195",
+  "jira_key": "BAT-552",
+  "result": "PASS_CANDIDATE_ONLY",
+  "classification": "HISTORICAL_GAME_OUTCOME_REFERENCE_CANDIDATE_ONLY",
+  "dataset_identity": "8e639d010b4808fe279e97e5ff79adf31a2b04cd8ee1ece1dcf2f09ec7343296",
+  "manifest": {
+    "relative_path": "manifests/historical_game_outcome_spine/sha256/8e639d010b4808fe279e97e5ff79adf31a2b04cd8ee1ece1dcf2f09ec7343296/historical_game_outcome_spine_manifest.json",
+    "sha256": "77d75bbb07f66f4315684da37987faf08f70e72e3a8d52cb9b5cf6e93bb05132"
+  },
+  "inputs": {
+    "cfbd_acquisition_manifest_sha256": "bb5ace34c41cfc886f928119b53d495b9870ec1d7c7caff559d3a9e9d178fba7",
+    "cfbd_raw_sha256_list_identity": "663cf655124cb1750b31311cdb9f6bb776835127c636353b94c0767d0ec604b2",
+    "sportsdataverse_acquisition_manifest_sha256": "b8716531c152d664a36d448b4d306104c4266b3b3445a00a034235f3ce35b07e",
+    "sportsdataverse_raw_sha256_list_identity": "354fa82578d596766209dacd6cc1b2db91b150f0189ba7f24cc5f45e972ee212",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+  },
+  "population": {
+    "seasons": [1963, 2009],
+    "season_count": 47,
+    "cfbd_files": 47,
+    "cfbd_rows": 33272,
+    "sportsdataverse_files": 6,
+    "sportsdataverse_rows": 4650,
+    "sportsdataverse_unique_canonical_games": 4630,
+    "canonical_schedule_games": 33278,
+    "completed_outcomes": 33276,
+    "schedule_only_nonoutcomes": 2,
+    "ties": 490,
+    "canonical_cross_source_overlap": 4624,
+    "cfbd_only_canonical_games": 28648,
+    "sportsdataverse_only_canonical_games": 6,
+    "duplicate_completed_game_ids": 0,
+    "duplicate_schedule_only_game_ids": 0,
+    "unmapped_source_rows": 0
+  },
+  "reconciliation": {
+    "alias_groups": 20,
+    "alias_rows": 40,
+    "cross_source_final_score_exact_rows": 4626,
+    "postponed_reschedule_alias_rows": 18,
+    "supplement_only_final_rows": 4,
+    "supplement_only_canceled_rows": 2,
+    "final_score_conflicts": 0,
+    "same_upstream_independent_confirmations": 0
+  },
+  "payloads": [
+    {
+      "role": "COMPLETED_OUTCOME_REFERENCE_CANDIDATES",
+      "rows": 33276,
+      "bytes": 5580103,
+      "sha256": "87c9e7f24aed1a4d93cd81a49a02016998c58b899fe6de196281c8bc262cd540",
+      "record_sha256": "91a30c8f6ede9498309dd6632a522ac0c440868cc5fdc06dd5984bb82ad6de04",
+      "physical_schema_sha256": "7525ed34a92ab133c1069b8edb2d38d966e346ffea13861b4c19da1235afd5f2",
+      "null_cells": 0
+    },
+    {
+      "role": "SCHEDULE_ONLY_NONOUTCOMES",
+      "rows": 2,
+      "bytes": 19452,
+      "sha256": "206157cb6b0ec584e481ad2c788c707cae052d7aa3304f142fe89a7f0265faa1",
+      "record_sha256": "04fcc445ba3faebee5deda100d83e3d48a6dd2a2b0c67d12b440b9c2ed37b129",
+      "physical_schema_sha256": "9cd3397eb56dffab523f3b3adf5e33a93db52595b1af6a83828ed982167b63c4",
+      "intentional_null_cells": 6
+    },
+    {
+      "role": "SOURCE_ALIAS_AND_OUTCOME_RECONCILIATION",
+      "rows": 4650,
+      "bytes": 625124,
+      "sha256": "064c9ace02559d5ac354049272b9b4443fa7a35d343cf5391a29a2bdec4fc24c",
+      "record_sha256": "1f933f328d88363c19e23764be4b74b4ba54f3f33c615de0dc600957220d5ecc",
+      "physical_schema_sha256": "0abd8d837af6208bf3f8b8ad0c4bfe5b58fed2daac553838ee13d577663fd29a",
+      "intentional_null_cells": 12
+    }
+  ],
+  "chronology": {
+    "historical_known_at_state": "CAPTURE_TIME_KNOWN; SOURCE_PUBLICATION_AND_FINAL_WHISTLE_TIMES_UNKNOWN",
+    "historical_source_publication_time_proved": false,
+    "historical_final_whistle_time_proved": false,
+    "same_day_chronology_admitted": false,
+    "target_game_feature_use_admitted": false,
+    "rating_or_team_strength_use": "REQUIRES_SEPARATE_NO_TARGET_GAME_CHRONOLOGY_GATE"
+  },
+  "authority": {
+    "schedule_reference_use": true,
+    "outcome_reference_use": true,
+    "preliminary_outcome_label_candidate": true,
+    "historical_pit_admission": false,
+    "preliminary_feature_direct_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "validation": {
+    "result": "PASS",
+    "checks": 106,
+    "mutation_controls": 8,
+    "byte_identical_rebuild": true,
+    "report_sha256": "78e659f358945e4293bcb95f71a79a76e39c9dcad5b2a2aea1d05b6fbe42ae09",
+    "focused_tests": 5
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

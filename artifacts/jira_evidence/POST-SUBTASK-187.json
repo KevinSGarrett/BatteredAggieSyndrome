@@ -4,7 +4,7 @@
   "local_issue_id": "POST-SUBTASK-187",
   "jira_import_id": 100495,
   "jira_key": "BAT-544",
-  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "status": "DONE_VERIFIED_ON_INTEGRATION",
   "classification": "PRELIMINARY_UNPROTECTED",
   "objective": "Replay the exact POST-SUBTASK-186 development-PIT play-enrichment features through the immutable preliminary baseline pipeline without backcasting, fabricating evidence, or opening protected promotion.",
   "input_identities": {
@@ -98,7 +98,10 @@
     "jira_dependency_cycles": 0,
     "jira_import_validation": "PASS",
     "jira_file_manifest": "PASS",
-    "jira_second_pass_sections": 68
+    "jira_second_pass_sections": 68,
+    "hosted_pull_request_checks": "PASS_PR_188_ALL_REQUIRED_CHECKS",
+    "postmerge_repository_ci": "PASS_RUN_31510763513",
+    "postmerge_security_analysis": "PASS_RUN_31510763522"
   },
   "external_locations": {
     "training": "<external-data-root>/training/preliminary_play_enrichment_replay/sha256/694456887dea77c3c66f0802d49e71872c0b1d35013142cd68239cca370aa9b3",
@@ -109,17 +112,52 @@
   },
   "live_jira": {
     "authentication": "HTTP_200",
-    "status": "In Progress",
+    "status": "Done",
     "activation_comment_id": "13657",
+    "preintegration_pull_request_comment_id": "13658",
+    "integration_comment_id": "13659",
     "dependencies": ["BAT-526 BLOCKS BAT-544", "BAT-541 BLOCKS BAT-544", "BAT-543 BLOCKS BAT-544"],
-    "continuous_synchronization": true
+    "continuous_synchronization": true,
+    "completion_transition_verified": true,
+    "completion_import": {
+      "canonical_issues": 495,
+      "parent_links": 444,
+      "dependency_links": 1123,
+      "operational_done": 72,
+      "active_post_wave": 242,
+      "canonical_spec_sync_changed": 1,
+      "canonical_spec_sync_errors": 0,
+      "local_reconciliation_changes": 1,
+      "local_reconciliation_conflicts": 0,
+      "completion_assurance_verified": 221
+    },
+    "incident_cutoff_reconciliation_report": {
+      "path": "<external-data-root>/reconciliation/jira/JIRA-LIVE-CATCHUP-CONSOLIDATED-20260811T161953Z.json",
+      "sha256": "616b84e7deae64bbbe38c748117b2e03253734433dbb0755a0ddffc818179ea3",
+      "cutoff_utc": "2026-08-10T20:07:04Z",
+      "live_issues_inspected": 498,
+      "final_status_totals": {"Done": 74, "In Progress": 2, "To Do": 422},
+      "result": "PASS_WITH_EXPLICIT_NONBLOCKING_REVIEW_ITEMS"
+    },
+    "transient_completion_sync_finding": {
+      "first_attempt": "HTTP_400_INVALID_EVIDENCE_STATE_OPTION",
+      "rejected_value": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+      "repair": "CANONICAL_EVIDENCE_STATE_SET_TO_VERIFIED_AND_WORKFLOW_STATE_SET_TO_DONE_AFTER_MERGE_VALIDATION",
+      "rerun": "COMPLETE_VERIFIED",
+      "duplicate_issue_or_link_created": false
+    }
   },
   "integration": {
     "branch": "codex/BAT-544-play-enrichment-preliminary",
     "base_commit": "bc8f22a99c7885597d2316fa2a413e19d6874ca4",
-    "pull_request": null,
-    "merge_commit": null,
-    "status": "PENDING_PROTECTED_PR"
+    "implementation_commit": "9a292ec927cd3a627917678c4fb05fed8177c3dd",
+    "pull_request": 188,
+    "merge_commit": "ba8d639f2af2c29a13046da06b118ce2ac7af6dd",
+    "merged_at_utc": "2026-08-11T16:07:46Z",
+    "postmerge_repository_ci_run": 31510763513,
+    "postmerge_security_analysis_run": 31510763522,
+    "postmerge_checks_passed": true,
+    "status": "MERGED_VERIFIED"
   },
   "openai": {
     "calls_this_unit": 0,

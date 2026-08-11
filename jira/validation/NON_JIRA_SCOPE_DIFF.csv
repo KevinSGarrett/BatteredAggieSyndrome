@@ -104,6 +104,10 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-180.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-181.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-182.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-183.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-184.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-185.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-186.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-187.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
 ADDED,artifacts/open_source/integration_validation_manifest.json
@@ -124,7 +128,9 @@ ADDED,artifacts/pit/historical_action_derived_play_summary_gate.json
 ADDED,artifacts/pit/historical_advanced_game_reconciliation_gate.json
 ADDED,artifacts/pit/historical_known_at_replay_gate.json
 ADDED,artifacts/pit/historical_play_drive_pit_aggregate_gate.json
+ADDED,artifacts/pit/historical_play_enrichment_pit_gate.json
 ADDED,artifacts/pit/historical_player_box_reconciliation_gate.json
+ADDED,artifacts/pit/historical_player_event_metric_pit_gate.json
 ADDED,artifacts/pit/historical_rankings_reconciliation_gate.json
 ADDED,artifacts/pit/historical_sec_tamu_availability_evidence_gate.json
 ADDED,artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json
@@ -136,7 +142,9 @@ ADDED,artifacts/pit/historical_weather_previous_runs_reconciliation_gate.json
 ADDED,artifacts/pit/known_at_gate.json
 ADDED,artifacts/pit/matrix_gate_decision.json
 ADDED,artifacts/pit/pregame_matrix_manifest.json
+ADDED,artifacts/pit/preliminary_dense_play_drive_replay_gate.json
 ADDED,artifacts/pit/preliminary_play_drive_augmented_gate.json
+ADDED,artifacts/pit/preliminary_play_enrichment_replay_gate.json
 ADDED,artifacts/pit/preliminary_wmt_tamu_shadow_gate.json
 ADDED,artifacts/pit/timestamp_normalization_report.json
 ADDED,artifacts/pit/wmt_provider_timestamp_pit_gate.json
@@ -160,6 +168,8 @@ ADDED,configs/external_storage_policy.json
 ADDED,configs/historical_known_at_recovery_contract.json
 ADDED,configs/historical_play_drive_pit_aggregate_contract.json
 ADDED,configs/historical_play_drive_pit_extension_contract.json
+ADDED,configs/historical_play_enrichment_pit_contract.json
+ADDED,configs/historical_player_event_metric_pit_contract.json
 ADDED,configs/historical_rankings_pit_contract.json
 ADDED,configs/known_at_registry.json
 ADDED,configs/open_source_integration_registry.json
@@ -173,7 +183,9 @@ ADDED,configs/openai_gamebook_pilot.json
 ADDED,configs/openai_gamebook_schema_mapping.json
 ADDED,configs/openai_quarantine_schema_pilot.json
 ADDED,configs/openai_task_registry.json
+ADDED,configs/preliminary_dense_play_drive_replay_contract.json
 ADDED,configs/preliminary_play_drive_augmented_contract.json
+ADDED,configs/preliminary_play_enrichment_replay_contract.json
 ADDED,configs/preliminary_rankings_augmented_contract.json
 ADDED,configs/preliminary_unprotected_baseline_contract.json
 ADDED,configs/preliminary_wmt_tamu_shadow_contract.json
@@ -314,6 +326,7 @@ ADDED,src/aggie_analytics/entities/candidates.py
 ADDED,src/aggie_analytics/entities/people_registry.py
 ADDED,src/aggie_analytics/entities/registry_artifacts.py
 ADDED,src/aggie_analytics/modeling/play_drive_augmented.py
+ADDED,src/aggie_analytics/modeling/play_enrichment_augmented.py
 ADDED,src/aggie_analytics/modeling/preliminary.py
 ADDED,src/aggie_analytics/modeling/preliminary_rankings.py
 ADDED,src/aggie_analytics/modeling/wmt_tamu_shadow.py
@@ -331,6 +344,8 @@ ADDED,src/aggie_analytics/operations/cleanup.py
 ADDED,src/aggie_analytics/temporal/expanded_event_chronology.py
 ADDED,src/aggie_analytics/temporal/historical_recovery.py
 ADDED,src/aggie_analytics/temporal/play_drive_pit.py
+ADDED,src/aggie_analytics/temporal/play_enrichment_pit.py
+ADDED,src/aggie_analytics/temporal/player_event_metric_pit.py
 ADDED,src/aggie_analytics/temporal/rankings_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
@@ -345,6 +360,8 @@ ADDED,tests/test_historical_known_at_recovery_contract.py
 ADDED,tests/test_historical_known_at_replay.py
 ADDED,tests/test_historical_play_drive_pit.py
 ADDED,tests/test_historical_play_drive_pit_extension.py
+ADDED,tests/test_historical_play_enrichment_pit.py
+ADDED,tests/test_historical_player_event_metric_pit.py
 ADDED,tests/test_historical_rankings_pit.py
 ADDED,tests/test_instructions_pack.py
 ADDED,tests/test_jira_control_plane.py
@@ -354,6 +371,7 @@ ADDED,tests/test_open_source_properties.py
 ADDED,tests/test_openai_assist.py
 ADDED,tests/test_people_registry.py
 ADDED,tests/test_preliminary_play_drive_augmented.py
+ADDED,tests/test_preliminary_play_enrichment_replay.py
 ADDED,tests/test_preliminary_rankings_augmented_contract.py
 ADDED,tests/test_preliminary_unprotected_baselines.py
 ADDED,tests/test_preliminary_wmt_tamu_shadow.py
@@ -371,6 +389,8 @@ ADDED,tools/audit_control_plane.py
 ADDED,tools/build_action_derived_play_summary.py
 ADDED,tools/build_historical_play_drive_pit.py
 ADDED,tools/build_historical_play_drive_pit_extension.py
+ADDED,tools/build_historical_play_enrichment_pit.py
+ADDED,tools/build_historical_player_event_metric_pit.py
 ADDED,tools/build_historical_rankings_pit.py
 ADDED,tools/build_jira_control_plane.py
 ADDED,tools/build_post2022_roster_candidate.py
@@ -415,6 +435,8 @@ ADDED,tools/validate_expanded_event_chronology_preliminary.py
 ADDED,tools/validate_external_storage_policy.py
 ADDED,tools/validate_historical_play_drive_pit.py
 ADDED,tools/validate_historical_play_drive_pit_extension.py
+ADDED,tools/validate_historical_play_enrichment_pit.py
+ADDED,tools/validate_historical_player_event_metric_pit.py
 ADDED,tools/validate_historical_rankings_pit.py
 ADDED,tools/validate_instructions.py
 ADDED,tools/validate_jira_control_plane.py

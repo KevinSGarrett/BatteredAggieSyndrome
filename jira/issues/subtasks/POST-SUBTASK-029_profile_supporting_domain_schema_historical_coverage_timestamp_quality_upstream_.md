@@ -29,7 +29,8 @@
     "POST-SUBTASK-173",
     "POST-SUBTASK-174",
     "POST-SUBTASK-175",
-    "POST-SUBTASK-176"
+    "POST-SUBTASK-176",
+    "POST-SUBTASK-178"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -148,9 +149,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24519",
-    "jira_updated_at": "2026-08-11T01:07:01.880-0500",
-    "last_synced_at": "2026-08-11T06:30:01.758065+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-177-play-drive-preliminary\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T02:25:41.020-0500",
+    "last_synced_at": "2026-08-11T07:25:49.170544+00:00",
+    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-178-wmt-known-at\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -379,6 +380,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-010 (Historical expansion acr
 - POST-SUBTASK-174
 - POST-SUBTASK-175
 - POST-SUBTASK-176
+- POST-SUBTASK-178
 
 ## Read / Inspect First
 

@@ -485,6 +485,26 @@
     "admission_state": "CANDIDATE_OR_QUARANTINE_NOT_ADMITTED",
     "gate_disposition": "OFFICIAL_PRIMARY_CANDIDATE_LAYER_VALIDATED_DOMAIN_COVERAGE_PLAYER_IDENTITY_PUBLICATION_TIME_CANONICAL_PIT_FEATURE_AND_PROTECTED_USE_VALIDATION_PENDING"
   },
+  "parallel_wmt_provider_timestamp_pit_checkpoint": {
+    "gate_artifact": "artifacts/pit/wmt_provider_timestamp_pit_gate.json",
+    "dataset_identity": "3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498",
+    "manifest_sha256": "8d880434a8c475e6f62127f4d97805591b6b620511f522258e33301d63d022fe",
+    "validation_report_sha256": "a3ca80ab5497f582e80dab9ea9e2bcb3b47d4391ddd1efd1ed2b2687c7da9440",
+    "source_records_scanned": 211675,
+    "admitted_records": 208696,
+    "excluded_after_all_target_cutoffs": 2979,
+    "admitted_games": 175,
+    "target_cutoff_rows": 2764,
+    "provider_timestamp_missing_or_invalid_admitted": 0,
+    "target_or_outcome_columns": 0,
+    "coverage_diagnostic_only": true,
+    "canonical_source_mutation": false,
+    "pit_state_admission": true,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "admission_state": "DEVELOPMENT_ONLY_PIT_ADMITTED",
+    "gate_disposition": "STRICT_RECORD_LEVEL_PROVIDER_VERSION_AND_EFFECTIVE_DATE_BEFORE_CUTOFF_PASS_DEVELOPMENT_ONLY"
+  },
   "parallel_tamu_official_depth_chart_evidence_checkpoint": {
     "gate_artifact": "artifacts/pit/historical_tamu_official_depth_chart_evidence_gate.json",
     "source_acquisition_identity": "13000ee8edb3926fb3394a8c9e3a4b21f44d61e01cf0ce57070e41c751f07956",

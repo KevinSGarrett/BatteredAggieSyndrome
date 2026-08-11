@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "WMT_PROVIDER_TIMESTAMP_PIT_GATE",
+  "decision_unit": "POST-SUBTASK-178",
+  "jira_key": "BAT-535",
+  "status": "PASS_DEVELOPMENT_ONLY",
+  "dataset_identity": "3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498",
+  "manifest_sha256": "8d880434a8c475e6f62127f4d97805591b6b620511f522258e33301d63d022fe",
+  "validation_report_sha256": "a3ca80ab5497f582e80dab9ea9e2bcb3b47d4391ddd1efd1ed2b2687c7da9440",
+  "source": {
+    "acquisition_identity": "d227b6cfca71ad0e6d514fa707f7d23a4a6a59374142352a016202c3bd2f25b3",
+    "reconciliation_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7"
+  },
+  "population": {
+    "source_records_scanned": 211675,
+    "admitted_records": 208696,
+    "excluded_after_all_target_cutoffs": 2979,
+    "admitted_games": 175,
+    "target_games": 2764,
+    "target_cutoff_rows": 2764,
+    "admitted_by_domain": {
+      "game": 175,
+      "actions": 145531,
+      "plays": 40646,
+      "drives": 4110,
+      "players": 18234
+    }
+  },
+  "validation": {
+    "checks_passed": 28,
+    "mutation_controls_passed": 3,
+    "byte_identical_rebuild": true,
+    "rebuild_root_removed": true,
+    "missing_or_invalid_provider_timestamps_admitted": 0,
+    "target_or_outcome_columns": 0
+  },
+  "authority": {
+    "development_pit_state_admission": true,
+    "coverage_diagnostic_admission": true,
+    "coverage_is_direct_predictive_feature": false,
+    "canonical_source_mutation": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "production_or_champion_promotion": false
+  },
+  "negative_findings": [
+    "Provider version time identifies conservative availability of the exact current record version; it does not backcast content to the game date.",
+    "The 2,979 records unavailable before every target cutoff remain excluded without blocking eligible records or domains.",
+    "The coverage matrix is diagnostic and cannot directly control training, protected evaluation, promotion, forecasts, or publication.",
+    "Final historical readiness, GAP-002 resolution, protected performance, A&M lift, BAS, Aggie Excess, and scientific results remain unclaimed."
+  ]
+}

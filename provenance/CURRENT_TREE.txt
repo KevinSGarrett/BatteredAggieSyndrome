@@ -116,6 +116,7 @@ artifacts/jira_evidence/POST-SUBTASK-174.json
 artifacts/jira_evidence/POST-SUBTASK-175.json
 artifacts/jira_evidence/POST-SUBTASK-176.json
 artifacts/jira_evidence/POST-SUBTASK-177.json
+artifacts/jira_evidence/POST-SUBTASK-178.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -147,6 +148,7 @@ artifacts/pit/matrix_gate_decision.json
 artifacts/pit/pregame_matrix_manifest.json
 artifacts/pit/preliminary_play_drive_augmented_gate.json
 artifacts/pit/timestamp_normalization_report.json
+artifacts/pit/wmt_provider_timestamp_pit_gate.json
 artifacts/source_governance/acquisition_resilience_test.json
 artifacts/source_governance/credential_contract.redacted.json
 artifacts/source_governance/private_research_policy_migration.json
@@ -212,6 +214,7 @@ configs/team_state_registry.json
 configs/temporal_registry.json
 configs/tournament_registry.json
 configs/validation_science_registry.json
+configs/wmt_provider_timestamp_pit_contract.json
 data/README.md
 docs/00_PROJECT_CHARTER.md
 docs/00_TERMINOLOGY.md
@@ -1359,6 +1362,7 @@ jira/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend
 jira/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.md
 jira/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.md
 jira/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.md
+jira/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1866,6 +1870,7 @@ jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_an
 jira/records/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.json
 jira/records/issues/subtasks/POST-SUBTASK-176_admit_version_bound_play_drive_aggregates_for_development_pit_and_preliminary_research.json
 jira/records/issues/subtasks/POST-SUBTASK-177_replay_preliminary_baselines_with_play_drive_development_pit_features.json
+jira/records/issues/subtasks/POST-SUBTASK-178_admit_wmt_provider_timestamped_gamebook_records_for_domain_granular_development_pit.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2365,6 +2370,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-174.json
 jira/sources/issue_source_manifests/POST-SUBTASK-175.json
 jira/sources/issue_source_manifests/POST-SUBTASK-176.json
 jira/sources/issue_source_manifests/POST-SUBTASK-177.json
+jira/sources/issue_source_manifests/POST-SUBTASK-178.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2905,6 +2911,7 @@ src/aggie_analytics/temporal/historical_recovery.py
 src/aggie_analytics/temporal/play_drive_pit.py
 src/aggie_analytics/temporal/rankings_pit.py
 src/aggie_analytics/temporal/state.py
+src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 src/aggie_analytics/validation/__init__.py
 src/aggie_analytics/validation/metrics.py
 src/aggie_analytics/validation/promotion.py
@@ -2979,6 +2986,7 @@ tests/test_w23_operations.py
 tests/test_w24_readiness.py
 tests/test_w25_final_handoff.py
 tests/test_wave03_governance.py
+tests/test_wmt_provider_timestamp_pit.py
 tests/test_worktree_resource_policy.py
 tools/__init__.py
 tools/acquire_cfbd_historical.py
@@ -2995,6 +3003,7 @@ tools/build_jira_control_plane.py
 tools/build_post2022_roster_candidate.py
 tools/build_supplemental_play_drive_gap.py
 tools/build_tamu_availability_evidence_pages.py
+tools/build_wmt_provider_timestamp_pit.py
 tools/capture_runtime_manifest.py
 tools/check_advanced_challenger_admission.py
 tools/compare_development_results.py
@@ -3088,6 +3097,7 @@ tools/validate_w23_operations.py
 tools/validate_w24_readiness.py
 tools/validate_w25_final.py
 tools/validate_wave_pair.py
+tools/validate_wmt_provider_timestamp_pit.py
 tools/verify_experiment_replay.py
 tools/verify_judging_seal.py
 tools/verify_prior_wave.py

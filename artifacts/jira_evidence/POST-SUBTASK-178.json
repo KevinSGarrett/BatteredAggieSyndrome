@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "JIRA_COMPLETION_EVIDENCE",
+  "local_id": "POST-SUBTASK-178",
+  "jira_key": "BAT-535",
+  "evidence_state": "VALIDATED",
+  "classification": "DEVELOPMENT_ONLY_WMT_PROVIDER_TIMESTAMP_PIT",
+  "rollback_checkpoint": "C:/BatteredAggieSyndrome.data/backups/POST-SUBTASK-178-prechange-20260811T071817Z",
+  "dataset_identity": "3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498",
+  "manifest_sha256": "8d880434a8c475e6f62127f4d97805591b6b620511f522258e33301d63d022fe",
+  "validation_report_sha256": "a3ca80ab5497f582e80dab9ea9e2bcb3b47d4391ddd1efd1ed2b2687c7da9440",
+  "payloads": [
+    {
+      "path": "<external-data-root>/pit_state/historical_known_at/sha256/3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498/wmt_provider_timestamp_records.parquet",
+      "rows": 208696,
+      "bytes": 11887661,
+      "sha256": "f6c89aeebfa7e24d1004012abfeda4d8efb792581cbd7ceee50f97dfa92a2b2e"
+    },
+    {
+      "path": "<external-data-root>/features/historical_known_at/sha256/3b7ee9e5b322c92dd4b617de6f1ff82408613d10ab75bdb915cdd70c4a59d498/target_cutoff_wmt_domain_features.parquet",
+      "rows": 2764,
+      "bytes": 72524,
+      "sha256": "2d05de277e1612947ceab8875ac46e961ce71a9437f260b307b0b44650aa934b"
+    }
+  ],
+  "population": {
+    "source_records_scanned": 211675,
+    "admitted_records": 208696,
+    "excluded_after_all_target_cutoffs": 2979,
+    "admitted_games": 175,
+    "target_cutoff_rows": 2764,
+    "source_seasons": [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "target_seasons": [2023, 2024, 2025]
+  },
+  "validation": {
+    "unit_tests": "5 passed",
+    "independent_checks": 28,
+    "mutation_controls": 3,
+    "byte_identical_rebuild": true,
+    "temporary_rebuild_removed": true
+  },
+  "authority": {
+    "development_pit_state_admission": true,
+    "coverage_diagnostic_only": true,
+    "direct_training_feature": false,
+    "protected_or_production_authority": false
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

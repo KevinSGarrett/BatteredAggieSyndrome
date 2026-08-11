@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "HISTORICAL_PLAYER_EVENT_METRIC_PIT_GATE",
+  "decision_unit": "POST-SUBTASK-185",
+  "jira_key": "BAT-542",
+  "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_PLAYER_EVENT_METRICS",
+  "gate_status": "PASS_DEVELOPMENT_ONLY",
+  "source": {
+    "candidate_dataset_identity": "869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10",
+    "candidate_manifest_sha256": "4e20e5a285a14cca40a5dc0a57ce4628edb5d76653d037ffe3add793f8b3dede",
+    "source_commit_sha": "b865176f908cb6b791dc8e14562c52676f456275",
+    "source_known_at_utc": "2023-05-05T03:50:21Z",
+    "source_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "partial_source_seasons": [2020],
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "target_seasons": [2023, 2024, 2025]
+  },
+  "output": {
+    "dataset_identity": "c6baa76b899686f9b89470f5992ffdfb36b7bcc4749d2a82099d9c918c01c0bb",
+    "manifest_sha256": "952d80624adf95c8dba2986baf5c898a588049e1b7e1bf2ac2c024d43be6c2ab",
+    "validation_report_sha256": "7770ec9ef83d4815ea08b8a673db10c0ee2cf0932f6cc3ba0c236e095ce8def5",
+    "state_payload_sha256": "3e29ee7e2a82682682c742136bde571d104a820672dc1a56eb07221a650c6d7c",
+    "profile_payload_sha256": "253a19d1dcace690425288ccaa7ade147faeed5dab6b7cd6bb560f5b16ba5ffc",
+    "feature_payload_sha256": "a3db6c9e09633271c3fc096996994b1165f1f640dd4ef519f482f2f8e03cc245"
+  },
+  "population": {
+    "candidate_rows": 354082,
+    "admitted_rows": 289897,
+    "excluded_or_quarantined_rows": 64185,
+    "admitted_games": 7079,
+    "admitted_players": 14073,
+    "admitted_teams": 132,
+    "profile_teams": 132,
+    "target_games": 2764,
+    "target_game_team_rows": 5528,
+    "cold_start_rows": 489,
+    "feature_columns": 12,
+    "disposition_counts": {
+      "CANDIDATE_CROSS_ROUTE_PLAYER_METRIC_EXACT_CANONICAL_GAME_PLAYER_TEAM": 289897,
+      "QUARANTINE_CROSS_ROUTE_PLAYER_METRIC_VALUE_CONFLICT": 43111,
+      "CANDIDATE_CROSS_ROUTE_PLAYER_METRIC_EXACT_CANONICAL_IDENTITY_PENDING": 12097,
+      "CANDIDATE_VERSIONED_REPOSITORY_PLAYER_EVENT_AGGREGATE_SOURCE_LEVEL_ONLY": 6742,
+      "CANDIDATE_CROSS_ROUTE_PLAYER_METRIC_EXACT_CANONICAL_MEMBERSHIP_PENDING": 2041,
+      "QUARANTINE_CURRENT_PLAYER_BOX_NAME_CONFLICT": 194
+    }
+  },
+  "temporal_validation": {
+    "maximum_source_known_at_utc": "2023-05-05T03:50:21Z",
+    "minimum_target_cutoff_utc": "2023-08-25T18:30:00Z",
+    "source_season_before_target_season": true,
+    "target_game_overlap": 0,
+    "target_or_outcome_columns": 0
+  },
+  "validation": {
+    "status": "PASS",
+    "checks_passed": 51,
+    "mutation_controls_passed": 7,
+    "deterministic_payloads_compared": 4,
+    "byte_identical_rebuild": true,
+    "focused_tests_passed": 4
+  },
+  "authority": {
+    "pit_state_admission": true,
+    "development_feature_admission": true,
+    "preliminary_unprotected_feature_candidate": true,
+    "official_player_box_completeness": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "negative_findings": [
+    "Sparse event-derived metrics are not complete official player box scores.",
+    "The 2020 source season is partial.",
+    "Shared ESPN upstream derivation may exist, so cross-route independence is not claimed.",
+    "Exactly 64,185 identity-pending, membership-pending, source-only, value-conflict, or name-conflict observations remain excluded or quarantined.",
+    "No final historical completeness, protected readiness, production performance, A&M lift, BAS, Aggie Excess, or scientific result is established."
+  ]
+}

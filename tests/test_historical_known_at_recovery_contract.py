@@ -399,6 +399,27 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["official_box_score_materialization"])
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
 
+    def test_player_event_metrics_have_separate_development_pit_admission(self) -> None:
+        admitted = self.contract["latest_validated_player_event_metric_pit_admission"]
+        self.assertEqual(
+            admitted["source_candidate_identity"],
+            "869818c5fe312bafbff5139eadb21153069d974ea7f576f154a58ecb6d888f10",
+        )
+        self.assertEqual(admitted["source_seasons"], list(range(2014, 2023)))
+        self.assertEqual(admitted["partial_source_seasons"], [2020])
+        self.assertEqual(admitted["eligible_rows"], 289897)
+        self.assertEqual(admitted["excluded_or_quarantined_rows"], 64185)
+        self.assertEqual(admitted["target_game_overlap"], 0)
+        self.assertTrue(admitted["pit_state_admission"])
+        self.assertTrue(admitted["development_feature_admission"])
+        self.assertFalse(admitted["protected_training_admission"])
+        self.assertFalse(admitted["protected_evaluation_admission"])
+        checkpoint = self.gate["parallel_player_event_metric_pit_checkpoint"]
+        self.assertEqual(checkpoint["dataset_identity"], admitted["dataset_identity"])
+        self.assertEqual(checkpoint["cold_start_rows"], 489)
+        self.assertFalse(checkpoint["official_box_score_materialization"])
+        self.assertEqual(checkpoint["admission_state"], "DEVELOPMENT_ONLY_PIT_ADMITTED")
+
     def test_play_enrichment_is_validated_candidate_only_without_player_or_feature_promotion(self) -> None:
         enrichment = self.contract["latest_validated_play_enrichment_candidate"]
         self.assertEqual(

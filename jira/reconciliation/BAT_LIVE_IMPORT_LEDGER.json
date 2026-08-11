@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T15:46:14.201148+00:00"
+      "verified_at": "2026-08-11T16:12:25.833829+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T15:46:14.393053+00:00"
+      "verified_at": "2026-08-11T16:12:26.024917+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T15:46:14.600659+00:00"
+      "verified_at": "2026-08-11T16:12:26.212770+00:00"
     }
   ],
   "backup": {
@@ -31,11 +31,23 @@
     "id": "134"
   },
   "canonical_spec_sync": {
-    "changed_issues": 0,
-    "status": "EXACT_NO_UPDATES_REQUIRED",
-    "verified_at": "2026-08-11T15:46:33.086011+00:00"
+    "backup": {
+      "bytes": 49087,
+      "issue_count": 1,
+      "path": "reconciliation/jira/canonical-spec-sync/20260811T161236Z/pre-update.json",
+      "sha256": "54389e8e2f12f387740c45c201c9cfd568731234d835a83479543837b77ef514",
+      "storage_root": "EXTERNAL_DATA_ROOT"
+    },
+    "changed_issues": 1,
+    "completed_at": "2026-08-11T16:12:36.941008+00:00",
+    "completed_local_ids": [
+      "POST-SUBTASK-187"
+    ],
+    "errors": [],
+    "started_at": "2026-08-11T16:12:36.259889+00:00",
+    "status": "COMPLETE"
   },
-  "completed_at": "2026-08-11T15:47:17.696823+00:00",
+  "completed_at": "2026-08-11T16:13:20.796362+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -43,8 +55,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-11T15:46:37.915075+00:00",
-    "verified_at": "2026-08-11T15:46:39.592324+00:00",
+    "updated_at": "2026-08-11T16:12:40.842109+00:00",
+    "verified_at": "2026-08-11T16:12:42.868763+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -441,7 +453,7 @@
     }
   ],
   "historical_done_operationally_overridden": 221,
-  "historical_done_requested": 71,
+  "historical_done_requested": 72,
   "issues": {
     "EPIC-001": "BAT-1",
     "EPIC-002": "BAT-2",
@@ -945,7 +957,7 @@
     "missing_canonical_links": 3,
     "preserved_auxiliary_links": 0,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-11T15:46:52.613765+00:00"
+    "verified_at": "2026-08-11T16:12:55.885522+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2079,9 +2091,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2091,9 +2103,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2103,7 +2115,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2113,9 +2125,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2125,9 +2137,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-play-enrichment-replay"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-187-completion"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2208,6 +2220,10 @@
     {
       "finding": "Reconciliation dry-run reported conflicts: [{'field': 'Issue key', 'jira_value': 'BAT-541', 'local_id': 'POST-SUBTASK-184', 'local_value': 'PENDING_LIVE_SYNCHRONIZATION', 'resolution': 'EXISTING_KEY_MISMATCH_REQUIRES_MANUAL_REVIEW'}]",
       "recorded_at": "2026-08-11T13:04:24.557925+00:00"
+    },
+    {
+      "finding": "Canonical Jira spec synchronization failures: POST-SUBTASK-187: PUT /rest/api/3/issue/BAT-544 failed with HTTP 400: {\"errorMessages\":[],\"errors\":{\"customfield_10198\":\"Specify a valid value for Evidence State\"}}",
+      "recorded_at": "2026-08-11T16:11:04.026235+00:00"
     }
   ],
   "permission_remediation": {
@@ -2244,13 +2260,13 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 4,
+      "changes": 1,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
       "rows": 495
     },
     "live": {
-      "changed_issues": 4,
+      "changed_issues": 1,
       "conflict_count": 0,
       "result": "PASS",
       "rows": 495,
@@ -2300,7 +2316,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-11T15:47:17.696823+00:00",
+  "updated_at": "2026-08-11T16:13:20.796362+00:00",
   "verification": {
     "actual_expected_link_count": 1123,
     "board": {
@@ -2359,11 +2375,11 @@
     "result": "PASS",
     "schema_version": 1,
     "status_counts": {
-      "Done": 71,
-      "In Progress": 2,
+      "Done": 72,
+      "In Progress": 1,
       "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-11T15:46:52.613765+00:00"
+    "verified_at": "2026-08-11T16:12:55.885522+00:00"
   }
 }

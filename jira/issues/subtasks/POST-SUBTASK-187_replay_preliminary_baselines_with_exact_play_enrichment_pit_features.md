@@ -48,7 +48,7 @@
   "end_to_end_validation": "Re-read exact baseline, prior-replay, target, split, and play-enrichment manifests and payloads; rebuild the canonical game/team join, chronological stackers, predictions, metrics, comparisons, serialized models, and content-addressed manifest in an isolated external root; verify population, missingness, chronology, target exclusion, hashes, mutation controls, numerical replay, byte identity, authority, and cleanup.",
   "epic_id": "POST-EPIC-008",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-187.json",
-  "evidence_state": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "evidence_state": "VERIFIED",
   "execution_lane": "MODEL_RESEARCH",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
@@ -116,11 +116,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24935",
-    "jira_updated_at": "2026-08-11T10:46:44.154-0500",
-    "last_synced_at": "2026-08-11T15:46:53.040406+00:00",
+    "jira_updated_at": "2026-08-11T11:12:35.597-0500",
+    "last_synced_at": "2026-08-11T16:12:56.355150+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Backcasting May 2023-known enrichment into 2014-2022 supervised fit rows or fabricating an earlier known-at timestamp.",
@@ -216,7 +216,7 @@
   ],
   "why_this_exists": "POST-SUBTASK-186 admitted 28 exact-linked play-enrichment features but did not consume them in a separately lineaged preliminary replay; their empirical value must be measured rather than assumed.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

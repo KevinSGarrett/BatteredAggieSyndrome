@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T10:35:51.724109+00:00"
+      "verified_at": "2026-08-11T12:21:33.328026+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T10:35:51.900237+00:00"
+      "verified_at": "2026-08-11T12:21:33.511655+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-11T10:35:52.076401+00:00"
+      "verified_at": "2026-08-11T12:21:33.681036+00:00"
     }
   ],
   "backup": {
@@ -31,24 +31,11 @@
     "id": "134"
   },
   "canonical_spec_sync": {
-    "backup": {
-      "bytes": 5600,
-      "issue_count": 2,
-      "path": "reconciliation/jira/canonical-spec-sync/20260811T103600Z/pre-update.json",
-      "sha256": "316f43d515a6b7a4a669a81788bd54c8f3cc8366325cabd9af54e3e99a1631e0",
-      "storage_root": "EXTERNAL_DATA_ROOT"
-    },
-    "changed_issues": 2,
-    "completed_at": "2026-08-11T10:36:01.276222+00:00",
-    "completed_local_ids": [
-      "POST-SUBTASK-180",
-      "POST-SUBTASK-181"
-    ],
-    "errors": [],
-    "started_at": "2026-08-11T10:36:00.481315+00:00",
-    "status": "COMPLETE"
+    "changed_issues": 0,
+    "status": "EXACT_NO_UPDATES_REQUIRED",
+    "verified_at": "2026-08-11T12:21:42.949366+00:00"
   },
-  "completed_at": "2026-08-11T07:44:47.900403+00:00",
+  "completed_at": "2026-08-11T12:22:24.768987+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -56,8 +43,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-11T10:36:04.524817+00:00",
-    "verified_at": "2026-08-11T10:36:06.230543+00:00",
+    "updated_at": "2026-08-11T12:21:46.727198+00:00",
+    "verified_at": "2026-08-11T12:21:48.416121+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -454,7 +441,7 @@
     }
   ],
   "historical_done_operationally_overridden": 221,
-  "historical_done_requested": 66,
+  "historical_done_requested": 67,
   "issues": {
     "EPIC-001": "BAT-1",
     "EPIC-002": "BAT-2",
@@ -947,14 +934,13 @@
     "TASK-200": "BAT-349",
     "TASK-201": "BAT-350"
   },
-  "last_error": "Live Jira links are neither the exact canonical set nor the exact/recoverable reversed importer set; refusing automated link deletion",
   "link_direction_remediation": {
-    "corrected_link_count": 1104,
-    "existing_canonical_links": 1102,
-    "missing_canonical_links": 2,
-    "preserved_auxiliary_links": 3,
+    "corrected_link_count": 1114,
+    "existing_canonical_links": 1105,
+    "missing_canonical_links": 9,
+    "preserved_auxiliary_links": 0,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-11T07:44:23.798957+00:00"
+    "verified_at": "2026-08-11T12:22:00.501416+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -1077,6 +1063,7 @@
     "Blocks|POST-SUBTASK-029|POST-SUBTASK-175",
     "Blocks|POST-SUBTASK-029|POST-SUBTASK-176",
     "Blocks|POST-SUBTASK-029|POST-SUBTASK-178",
+    "Blocks|POST-SUBTASK-029|POST-SUBTASK-179",
     "Blocks|POST-SUBTASK-030|POST-EPIC-007",
     "Blocks|POST-SUBTASK-030|POST-STORY-011",
     "Blocks|POST-SUBTASK-030|POST-STORY-021",
@@ -1496,6 +1483,7 @@
     "Blocks|POST-SUBTASK-165|POST-SUBTASK-170",
     "Blocks|POST-SUBTASK-167|POST-STORY-056",
     "Blocks|POST-SUBTASK-167|POST-SUBTASK-166",
+    "Blocks|POST-SUBTASK-167|POST-SUBTASK-181",
     "Blocks|POST-SUBTASK-168|POST-STORY-056",
     "Blocks|POST-SUBTASK-168|POST-SUBTASK-175",
     "Blocks|POST-SUBTASK-169|POST-SUBTASK-171",
@@ -1503,8 +1491,14 @@
     "Blocks|POST-SUBTASK-170|POST-SUBTASK-172",
     "Blocks|POST-SUBTASK-171|POST-SUBTASK-172",
     "Blocks|POST-SUBTASK-172|POST-SUBTASK-177",
+    "Blocks|POST-SUBTASK-174|POST-SUBTASK-183",
     "Blocks|POST-SUBTASK-175|POST-SUBTASK-178",
     "Blocks|POST-SUBTASK-176|POST-SUBTASK-177",
+    "Blocks|POST-SUBTASK-176|POST-SUBTASK-183",
+    "Blocks|POST-SUBTASK-177|POST-SUBTASK-180",
+    "Blocks|POST-SUBTASK-178|POST-SUBTASK-179",
+    "Blocks|POST-SUBTASK-179|POST-SUBTASK-180",
+    "Blocks|POST-SUBTASK-181|POST-SUBTASK-182",
     "Blocks|TASK-001|TASK-002",
     "Blocks|TASK-002|TASK-003",
     "Blocks|TASK-002|TASK-004",
@@ -1826,7 +1820,9 @@
     "Blocks|TASK-190|TASK-191",
     "Blocks|TASK-190|TASK-195",
     "Blocks|TASK-190|TASK-197",
+    "Blocks|TASK-191|POST-SUBTASK-182",
     "Blocks|TASK-191|TASK-193",
+    "Blocks|TASK-193|POST-SUBTASK-182",
     "Blocks|TASK-197|TASK-200",
     "Relates|EPIC-001|POST-SUBTASK-051",
     "Relates|EPIC-002|POST-SUBTASK-042",
@@ -2069,21 +2065,21 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 242,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 97,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 486\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 74,\n      \"ATOMIC_EXECUTION\": 168,\n      \"HISTORICAL_REFERENCE\": 244\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 486,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 1,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2119\n    },\n    \"subtask_count\": 170,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 213,\n      \"EXISTING_AUTOMATED_TEST\": 1177,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 61,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 242,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-11\",\n    \"work_packet_count\": 242\n  }\n}\n"
+        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 242,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 97,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 491\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 74,\n      \"ATOMIC_EXECUTION\": 168,\n      \"HISTORICAL_REFERENCE\": 249\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 491,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 1,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2119\n    },\n    \"subtask_count\": 174,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 218,\n      \"EXISTING_AUTOMATED_TEST\": 1177,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 66,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 242,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-11\",\n    \"work_packet_count\": 242\n  }\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2093,35 +2089,35 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 486,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 491,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 486,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 491,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-183-play-drive-pit"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"actionable_count\": 242,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 97,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 486\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 74,\n    \"ATOMIC_EXECUTION\": 168,\n    \"HISTORICAL_REFERENCE\": 244\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 486,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 1,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2119\n  },\n  \"subtask_count\": 170,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 213,\n    \"EXISTING_AUTOMATED_TEST\": 1177,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 61,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 242,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-11\",\n  \"work_packet_count\": 242\n}\n"
+        "stdout": "{\n  \"actionable_count\": 242,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 97,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 491\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 74,\n    \"ATOMIC_EXECUTION\": 168,\n    \"HISTORICAL_REFERENCE\": 249\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 491,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 1,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2119\n  },\n  \"subtask_count\": 174,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 218,\n    \"EXISTING_AUTOMATED_TEST\": 1177,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 66,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 242,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-11\",\n  \"work_packet_count\": 242\n}\n"
       }
     ],
     "result": "PASS"
@@ -2170,6 +2166,30 @@
     {
       "finding": "Canonical Jira spec synchronization failures: POST-SUBTASK-180: PUT /rest/api/3/issue/BAT-537 failed with HTTP 400: {\"errorMessages\":[],\"errors\":{\"customfield_10197\":\"Specify a valid value for Implementation Maturity\"}}; POST-SUBTASK-181: PUT /rest/api/3/issue/BAT-538 failed with HTTP 400: {\"errorMessages\":[],\"errors\":{\"customfield_10197\":\"Specify a valid value for Implementation Maturity\"}}",
       "recorded_at": "2026-08-11T10:34:38.141578+00:00"
+    },
+    {
+      "finding": "Live Jira links are neither the exact canonical set nor the exact/recoverable reversed importer set; refusing automated link deletion",
+      "recorded_at": "2026-08-11T10:36:08.472708+00:00"
+    },
+    {
+      "finding": "BAT contains issues outside the canonical import set: BAT-540:NO_LOCAL_ID",
+      "recorded_at": "2026-08-11T12:02:39.285211+00:00"
+    },
+    {
+      "finding": "Canonical Jira spec synchronization failures: POST-SUBTASK-183: PUT /rest/api/3/issue/BAT-540 failed with HTTP 400: {\"errorMessages\":[],\"errors\":{\"customfield_10197\":\"Specify a valid value for Implementation Maturity\",\"customfield_10198\":\"Specify a valid value for Evidence State\"}}",
+      "recorded_at": "2026-08-11T12:03:41.219702+00:00"
+    },
+    {
+      "finding": "Live Jira links are neither the exact canonical set nor the exact/recoverable reversed importer set; refusing automated link deletion",
+      "recorded_at": "2026-08-11T12:05:03.492555+00:00"
+    },
+    {
+      "finding": "Live Jira links are neither the exact canonical set nor the exact/recoverable reversed importer set; refusing automated link deletion",
+      "recorded_at": "2026-08-11T12:06:28.465513+00:00"
+    },
+    {
+      "finding": "Live Jira verification failed: POST-SUBTASK-181: parent BAT-60 != BAT-514",
+      "recorded_at": "2026-08-11T12:09:41.069678+00:00"
     }
   ],
   "permission_remediation": {
@@ -2206,16 +2226,16 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 486,
+      "changes": 491,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
-      "rows": 486
+      "rows": 491
     },
     "live": {
-      "changed_issues": 486,
+      "changed_issues": 491,
       "conflict_count": 0,
       "result": "PASS",
-      "rows": 486,
+      "rows": 491,
       "strict_validation": "PASS"
     }
   },
@@ -2246,7 +2266,7 @@
     }
   },
   "started_at": "2026-08-09T04:34:44.229661+00:00",
-  "status": "FAILED_RESUMABLE",
+  "status": "COMPLETE_VERIFIED",
   "targeted_link_direction_remediation": {
     "backup": {
       "path": "jira\\snapshots\\BAT_TARGETED_REVERSED_LINKS_20260810T041844Z.json",
@@ -2262,9 +2282,9 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-11T10:36:08.472708+00:00",
+  "updated_at": "2026-08-11T12:22:24.768987+00:00",
   "verification": {
-    "actual_expected_link_count": 1104,
+    "actual_expected_link_count": 1114,
     "board": {
       "filter_id": "10134",
       "id": "134",
@@ -2302,17 +2322,17 @@
       "Source IDs": "customfield_10194"
     },
     "discrepancies": [],
-    "expected_link_count": 1104,
-    "issue_count": 489,
+    "expected_link_count": 1114,
+    "issue_count": 494,
     "issue_type_counts": {
       "Epic": 51,
       "Story": 56,
-      "Sub-task": 178,
+      "Sub-task": 183,
       "Task": 201
     },
     "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
     "missing_link_count": 0,
-    "parent_count": 435,
+    "parent_count": 440,
     "project": {
       "base_url": "https://kevinsgarrett.atlassian.net",
       "id": "10133",
@@ -2321,11 +2341,11 @@
     "result": "PASS",
     "schema_version": 1,
     "status_counts": {
-      "Done": 63,
-      "In Progress": 1,
+      "Done": 67,
+      "In Progress": 2,
       "To Do": 422
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-11T07:44:23.798957+00:00"
+    "verified_at": "2026-08-11T12:22:00.501416+00:00"
   }
 }

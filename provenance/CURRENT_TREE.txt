@@ -121,6 +121,7 @@ artifacts/jira_evidence/POST-SUBTASK-179.json
 artifacts/jira_evidence/POST-SUBTASK-180.json
 artifacts/jira_evidence/POST-SUBTASK-181.json
 artifacts/jira_evidence/POST-SUBTASK-182.json
+artifacts/jira_evidence/POST-SUBTASK-183.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -186,6 +187,7 @@ configs/external_storage_policy.json
 configs/feature_lifecycle_registry.json
 configs/historical_known_at_recovery_contract.json
 configs/historical_play_drive_pit_aggregate_contract.json
+configs/historical_play_drive_pit_extension_contract.json
 configs/historical_rankings_pit_contract.json
 configs/hpo_registry.json
 configs/hydration_manifest.json
@@ -226,6 +228,7 @@ configs/team_state_registry.json
 configs/temporal_registry.json
 configs/tournament_registry.json
 configs/validation_science_registry.json
+configs/versioned_play_drive_gap_contract.json
 configs/wmt_provider_timestamp_pit_contract.json
 configs/wmt_tamu_specialization_feature_pit_contract.json
 data/README.md
@@ -1380,6 +1383,7 @@ jira/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_texas_a_a
 jira/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.md
 jira/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.md
 jira/issues/subtasks/POST-SUBTASK-182_recover_timestamped_sec_texas_a_m_availability_evidence_and_preserve_archive_gaps.md
+jira/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive_pit_gaps.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1892,6 +1896,7 @@ jira/records/issues/subtasks/POST-SUBTASK-179_materialize_provider_timestamped_t
 jira/records/issues/subtasks/POST-SUBTASK-180_replay_a_and_m_specialization_shadow_candidates_with_exact_provider_timestamped_wmt_features.json
 jira/records/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.json
 jira/records/issues/subtasks/POST-SUBTASK-182_recover_timestamped_sec_texas_a_m_availability_evidence_and_preserve_archive_gaps.json
+jira/records/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive_pit_gaps.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2396,6 +2401,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-179.json
 jira/sources/issue_source_manifests/POST-SUBTASK-180.json
 jira/sources/issue_source_manifests/POST-SUBTASK-181.json
 jira/sources/issue_source_manifests/POST-SUBTASK-182.json
+jira/sources/issue_source_manifests/POST-SUBTASK-183.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2972,6 +2978,7 @@ tests/test_feature_tournament_full.py
 tests/test_historical_known_at_recovery_contract.py
 tests/test_historical_known_at_replay.py
 tests/test_historical_play_drive_pit.py
+tests/test_historical_play_drive_pit_extension.py
 tests/test_historical_rankings_pit.py
 tests/test_hpo_engine_full.py
 tests/test_hpo_governance.py
@@ -3032,6 +3039,7 @@ tools/bootstrap_readiness.py
 tools/build_action_derived_play_summary.py
 tools/build_artifact_record.py
 tools/build_historical_play_drive_pit.py
+tools/build_historical_play_drive_pit_extension.py
 tools/build_historical_rankings_pit.py
 tools/build_jira_control_plane.py
 tools/build_post2022_roster_candidate.py
@@ -3039,6 +3047,7 @@ tools/build_sec_tamu_availability_candidates.py
 tools/build_supplemental_play_drive_gap.py
 tools/build_tamu_availability_evidence_pages.py
 tools/build_tamu_depth_chart_noncoverage_review.py
+tools/build_versioned_play_drive_gap.py
 tools/build_wmt_provider_timestamp_pit.py
 tools/build_wmt_tamu_specialization_feature_pit.py
 tools/capture_runtime_manifest.py
@@ -3104,6 +3113,7 @@ tools/validate_external_storage_policy.py
 tools/validate_feature_lifecycle.py
 tools/validate_feature_registry.py
 tools/validate_historical_play_drive_pit.py
+tools/validate_historical_play_drive_pit_extension.py
 tools/validate_historical_rankings_pit.py
 tools/validate_instructions.py
 tools/validate_jira_control_plane.py

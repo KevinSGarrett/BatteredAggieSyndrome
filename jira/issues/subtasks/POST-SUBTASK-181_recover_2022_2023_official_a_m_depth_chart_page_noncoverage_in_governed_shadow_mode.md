@@ -176,9 +176,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24928",
-    "jira_updated_at": "2026-08-11T05:11:57.733-0500",
-    "last_synced_at": "2026-08-11T10:12:36.4565129+00:00",
-    "source_export": "LIVE_REST_POST_SUBTASK_181_POSTMERGE_DONE_EVIDENCE_COMMENT_13577",
+    "jira_updated_at": "2026-08-11T07:10:20.582-0500",
+    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

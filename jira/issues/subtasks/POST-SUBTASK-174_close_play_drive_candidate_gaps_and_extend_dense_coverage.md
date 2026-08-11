@@ -20,7 +20,9 @@
     "Dense 2010-2025 coverage is a candidate-layer statement only and does not establish historical-known-at, downstream admission, or final population readiness."
   ],
   "blocked_reason": "",
-  "blocks": [],
+  "blocks": [
+    "POST-SUBTASK-183"
+  ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "component": "data-sources",
@@ -103,9 +105,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24671",
-    "jira_updated_at": "2026-08-11T01:09:26.522-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T07:09:30.836-0500",
+    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },
@@ -247,7 +249,7 @@ Reuse and validate the exact immutable CFBD play and drive captures that fill th
 
 ## Blocks
 
-- None.
+- POST-SUBTASK-183
 
 ## Read / Inspect First
 

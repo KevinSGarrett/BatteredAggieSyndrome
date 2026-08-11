@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "POST183-HISTORICAL-PLAY-DRIVE-PIT-EXTENSION-V1",
+  "decision_unit": "POST-SUBTASK-183",
+  "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_PIT_AGGREGATE",
+  "source_contract": {
+    "source_layers": [
+      {
+        "layer": "POST176_VERSIONED_BASE",
+        "play_dataset_identity": "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+        "play_manifest_sha256": "9fc257b86c496ed91115ed7f97fff34ffbda3e8beb2ff712aa12f0e60d812cf6",
+        "drive_dataset_identity": "342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0",
+        "drive_manifest_sha256": "ad08719246b144fa2983a2ba54aa20a2b7f56959a9028c04ad413d53eac6f639",
+        "source_seasons": [2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022]
+      },
+      {
+        "layer": "POST183_VERSIONED_GAP_EXTENSION",
+        "play_dataset_identity": "33f3f3ab34ba38c2e107410545fac2f227bfb40b5b04478c28e34a85b91e23bc",
+        "play_manifest_sha256": "a470973d156ac7914c67e55c93a3808aa6daa3bf165f2b9d2d8b13b5373e749d",
+        "drive_dataset_identity": "33f3f3ab34ba38c2e107410545fac2f227bfb40b5b04478c28e34a85b91e23bc",
+        "drive_manifest_sha256": "a470973d156ac7914c67e55c93a3808aa6daa3bf165f2b9d2d8b13b5373e749d",
+        "source_seasons": [2011, 2020]
+      }
+    ],
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "canonical_team_mapping_method": "INTERNAL_ASSIGNMENT_LEDGER_FROM_VERIFIED_SOURCE_IDENTITY",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "missing_source_seasons": [],
+    "target_seasons": [2023, 2024, 2025],
+    "play_dispositions": [
+      "CANDIDATE_CROSS_ROUTE_EXACT_PLAY_CANONICAL_GAME",
+      "CANDIDATE_VERSION_BOUND_EXACT_PLAY_CANONICAL_GAME"
+    ],
+    "drive_dispositions": [
+      "CANDIDATE_CROSS_ROUTE_EXACT_DRIVE_CANONICAL_GAME",
+      "CANDIDATE_VERSION_BOUND_EXACT_DRIVE_CANONICAL_GAME"
+    ],
+    "historical_known_at_basis": "PUBLIC_REPOSITORY_COMMITTER_TIME_BOUND_TO_EXACT_FILE_BYTES"
+  },
+  "eligibility": {
+    "require_exact_canonical_game_reconciliation": true,
+    "require_nonempty_canonical_game_id": true,
+    "require_nonempty_offense_team_id": true,
+    "require_source_known_at_not_after_target_cutoff": true,
+    "require_source_effective_time_before_target_cutoff": true,
+    "target_game_rows_allowed": false,
+    "current_2026_supplemental_capture_allowed": false,
+    "source_level_only_2004_2009_allowed": false,
+    "unknown_publication_time_allowed": false
+  },
+  "feature_contract": {
+    "grain": "TARGET_GAME_TEAM",
+    "profile_window": "ALL_EXACT_VERSION_BOUND_SOURCE_GAMES_2010_2022_AVAILABLE_AT_TARGET_CUTOFF",
+    "play_features": [
+      "play_count", "play_game_count", "play_season_count", "epa_mean",
+      "stat_yardage_mean", "rush_rate", "pass_rate", "scoring_play_rate",
+      "interception_rate", "sack_rate", "pass_completion_rate"
+    ],
+    "drive_features": [
+      "drive_count", "drive_game_count", "drive_plays_mean",
+      "touchdown_drive_rate", "field_goal_drive_rate", "turnover_drive_rate"
+    ],
+    "touchdown_drive_results": ["TD", "RUSHING TD", "PASSING TD"],
+    "field_goal_drive_results": ["FG", "FG GOOD", "MADE FG"],
+    "turnover_drive_results": ["INT", "FUMBLE", "DOWNS", "TURNOVER ON DOWNS", "POSS. ON DOWNS"],
+    "missingness": "NO_FACT_INVENTION; NULL_PROFILE_FEATURES_AND_EXPLICIT_COLD_START_FLAGS",
+    "target_or_outcome_fields": "PROHIBITED"
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "pit_state_admission": true,
+    "development_feature_admission": true,
+    "preliminary_unprotected_training_candidate": true,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "acceptance": {
+    "minimum_target_rows": 1,
+    "required_target_game_team_multiplier": 2,
+    "source_known_at_violations_allowed": 0,
+    "source_effective_time_violations_allowed": 0,
+    "target_game_overlap_allowed": 0,
+    "target_or_outcome_columns_allowed": 0,
+    "byte_identical_rebuild_required": true,
+    "partial_season_and_cold_start_findings_preserved": true
+  },
+  "external_storage": {
+    "pit_state": "pit_state/historical_known_at/sha256/<dataset_identity>",
+    "features": "features/historical_known_at/sha256/<dataset_identity>",
+    "manifest": "manifests/historical_known_at/sha256/<dataset_identity>/play_drive_pit_aggregate_manifest.json",
+    "validation": "validation/POST-SUBTASK-183/play_drive_pit_extension_validation.json",
+    "bulk_payloads_in_git": false
+  },
+  "negative_findings": [
+    "The recovered 2011 and 2020 repository populations are partial relative to the later CFBD captures; source-only and supplemental-only rows remain measured rather than fabricated or silently promoted.",
+    "Two 2020 repository drives fail exact drive-team identity derivation and remain quarantined; this does not discard otherwise eligible plays, drives, games, or seasons.",
+    "Only exact canonical-game and verified source-team rows from 2010-2022 are admitted; 2004-2009 source-level-only rows and current 2026 supplemental known-at timestamps remain excluded.",
+    "The profile is static for 2023-2025 targets because no later play/drive capture has an eligible historical publication time.",
+    "Cold starts and null source statistics remain explicit; no missing value, target, outcome, identity, or publication time is fabricated.",
+    "This development-only PIT aggregate does not authorize protected training, protected evaluation, champion promotion, production forecasts, historical completeness, or scientific claims."
+  ]
+}

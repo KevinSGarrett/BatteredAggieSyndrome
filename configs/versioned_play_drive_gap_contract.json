@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "POST183-VERSIONED-PLAY-DRIVE-GAP-V1",
+  "decision_unit": "POST-SUBTASK-183",
+  "jira_key": "BAT-540",
+  "classification": "DEVELOPMENT_ONLY_HISTORICAL_KNOWN_AT_SOURCE_EXTENSION",
+  "source": {
+    "repository": "sportsdataverse/cfbfastR-data",
+    "commit_sha": "b9b838e44f16131b897489e6ae3da355f8c99865",
+    "commit_committer_date": "2022-07-25T17:33:07Z",
+    "source_paths": [
+      "pbp/parquet/play_by_play_2011.parquet",
+      "pbp/parquet/play_by_play_2020.parquet"
+    ],
+    "seasons": [2011, 2020],
+    "known_at_evidence_class": "GIT_COMMITTER_DATE_IN_PUBLIC_REPOSITORY_HISTORY"
+  },
+  "eligibility": {
+    "require_exact_payload_sha256": true,
+    "require_exact_commit_sha_and_committer_time": true,
+    "require_exact_canonical_game_identity": true,
+    "require_verified_source_team_identity": true,
+    "require_nonempty_source_effective_time": true,
+    "require_source_known_at_before_all_target_cutoffs": true,
+    "target_game_rows_allowed": false,
+    "fabricated_cross_route_match_allowed": false,
+    "current_2026_capture_known_at_substitution_allowed": false
+  },
+  "reconciliation": {
+    "supplemental_dataset_identity": "813276328568574a1d19173018ba328fd1c4a63a8aa34b34255ef1a2d880020f",
+    "cross_route_match_is_required_for_repository_admission": false,
+    "reason": "The exact immutable repository payload is primary evidence. Later CFBD captures corroborate overlapping rows but do not define the repository population or its historical known-at time.",
+    "preserve_repository_only_and_supplemental_only_findings": true,
+    "preserve_identifier_schema_drift": true
+  },
+  "authority": {
+    "immutable_raw_capture": true,
+    "candidate_normalization": true,
+    "development_pit_admission": true,
+    "preliminary_unprotected_training_candidate": true,
+    "canonical_source_mutation": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "external_storage": {
+    "raw": "raw/historical_known_at/github/sha256/<payload_sha256>/payload.parquet",
+    "candidate": "quarantine/historical_known_at/sha256/<dataset_identity>/<domain>/season=<season>/candidate_<domain>_rows.parquet",
+    "manifest": "manifests/historical_known_at/sha256/<dataset_identity>/versioned_play_drive_gap_reconciliation.json",
+    "bulk_payloads_in_git": false
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

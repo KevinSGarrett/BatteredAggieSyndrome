@@ -36482,3 +36482,74 @@ Source References
 Governance Traceability Gate: TASK-193
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-182_recover_timestamped_sec_texas_a_m_availability_evidence_and_preserve_archive_gaps.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;tamu-specialization;availability;sec;candidate-only;pit;provenance;local-id-post-subtask-182,player-context-intelligence,POST-SUBTASK-182,SRC-017;GAP-002;GAP-008,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,false,DATA
+Sub-task,BAT-540,100491,[POST-SUBTASK-183] Recover 2011/2020 version-bound play/drive PIT gaps,100060,"Local ID: POST-SUBTASK-183
+
+Objective
+Recover the exact 2011 and 2020 version-bound play/drive populations, reconcile their source differences, and supersede the partial development-only PIT aggregate without broadening protected authority.
+
+Why This Exists
+The exact repository versions for 2011 and 2020 were publicly committed before every 2023-2025 target cutoff, allowing those partial source populations to close season-level development PIT gaps without inventing current-capture timestamps or protected authority.
+
+Scope
+Close the 2011 and 2020 season-level play/drive PIT gaps using exact immutable repository evidence while preserving row-level partial coverage and protected nonauthority.
+
+Explicit In Scope
+- Exact immutable 2011 and 2020 version-bound repository plays and drives with public pre-target commit time.
+- Canonical game and team identity validation, cross-route reconciliation, explicit quarantine, content-addressed provenance, deterministic replay, and development-only PIT admission.
+- Dense 2010-2022 play/drive feature candidacy for a separately lineaged preliminary unprotected replay.
+
+Explicit Out of Scope
+- Promoting unmatched later supplemental rows by borrowing the repository commit time.
+- Inventing missing values, identifiers, publication times, target outcomes, or source completeness.
+- Protected training/evaluation, champion or production promotion, forecast publication, final historical readiness, A&M lift, BAS, Aggie Excess, or any scientific result.
+
+Prerequisites / Dependencies
+- POST-SUBTASK-174 supplemental candidate reconciliation.
+- POST-SUBTASK-176 development-only PIT aggregate and target replay.
+- Pinned BAT-387 canonical game and source-team assignment ledger.
+- Configured standardized external data root.
+- POST-SUBTASK-174
+- POST-SUBTASK-176
+
+Acceptance Criteria
+1. The exact 2011 and 2020 repository payloads are captured outside Git at immutable content-addressed paths and bound to commit b9b838e44f16131b897489e6ae3da355f8c99865 and its 2022-07-25T17:33:07Z public committer time.
+2. Only rows with exact canonical game identity, verified source-team identity, nonempty source effective time, and pre-cutoff source known-at time enter development PIT; affected ambiguous rows are quarantined without discarding otherwise useful seasons or domains.
+3. Cross-route row-count, identifier, content, drive-result, and missing-game differences against the later CFBD supplemental population are measured and preserved; no false one-to-one or completeness claim is created.
+4. The superseding aggregate covers source seasons 2010-2022 at the same target-game/team grain, has zero target-game overlap, excludes target/outcome columns, preserves cold starts and nulls, and passes a byte-identical isolated rebuild.
+5. Authority remains development-only PIT and preliminary unprotected feature research; protected training/evaluation, champion or production promotion, forecast publication, historical completeness, and scientific claims remain closed.
+
+Definition of Done
+1. The two source Parquet payloads, exact commit API response, capture manifests, normalized candidate layers, and reconciliation manifest are content-addressed outside Git with verified hashes.
+2. All 234,857 repository plays and 34,810 repository drives are dispositioned; two ambiguous 2020 drives are quarantined and all other eligible rows retain exact canonical game and verified team identity.
+3. The superseding development-only aggregate identity 1bd6f4c6 contains 1,840,951 plays, 264,812 drives, 243 profiles, and 5,528 target-game/team rows over dense 2010-2022 source seasons.
+4. All 46 validation checks, six mutation controls, three-file byte-identical rebuild, relevant tests, repository validators, and integration checks pass.
+5. The next separately lineaged preliminary replay is enabled without claiming protected readiness or final historical completeness.
+
+Required Tests / Validation
+- NEW_AUTOMATED_TEST_REQUIRED / PIT_LEAKAGE: tests/test_historical_play_drive_pit_extension.py — Multiple exact source dispositions combine while quarantine is excluded and protected authority remains closed.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-183.json — The complete external population passes 46 checks, six mutation controls, and a three-file byte-identical isolated rebuild.
+
+Required Evidence
+- Exact commit, raw payload, capture, schema, registry, supplemental, builder, contract, dataset, manifest, payload, validation, and rollback identities.
+- Per-season source rows, games, drives, exact identifier/content/result matches, source-only/supplemental-only differences, dispositions, quarantines, and known-at/effective times.
+- Combined source seasons, plays, drives, games, mappings, profiles, target rows, features, cold starts, bytes, hashes, target overlap, mutation controls, and byte-identical rebuild.
+- Explicit development-only/preliminary authority and protected/production/scientific nonclaims.
+
+End-to-End Validation
+Verify exact raw bytes and commit metadata; rebuild normalized 2011/2020 plays and drives; reconcile against the supplemental population; rebuild the combined 2010-2022 PIT layer; verify identity, chronology, target exclusion, schemas, hashes, counts, quarantines, authority, and byte identity; then remove reconstructible rebuild output.
+
+Stop Conditions
+- Stop the affected row, domain, or artifact on source, identity, chronology, target overlap, schema, authority, population, hash, or deterministic rebuild failure.
+- Quarantine only affected rows or domains; do not block independent acquisition or preliminary modeling.
+- Do not open protected promotion until expanded quality-supported history and all applicable W17 gates pass.
+
+Source References
+- SRCREF-02013
+- SRCREF-02014
+- SRCREF-02016
+- SRCREF-02018
+- SRCREF-02006
+
+Governance Traceability Gate: POST-SUBTASK-033
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-183_recover_2011_2020_version_bound_play_drive_pit_gaps.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;plays;drives;pit;development-only;preliminary-unprotected;provenance;local-id-post-subtask-183,pit-temporal,POST-SUBTASK-183,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,DEVELOPMENT_ONLY_PIT_ADMITTED,PARTIAL,POST_W25,true,DATA

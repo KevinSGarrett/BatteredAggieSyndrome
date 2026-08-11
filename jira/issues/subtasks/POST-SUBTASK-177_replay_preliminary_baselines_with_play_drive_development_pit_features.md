@@ -114,9 +114,9 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24674",
-    "jira_updated_at": "2026-08-11T02:25:30.171-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-11T07:09:30.930-0500",
+    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
   },

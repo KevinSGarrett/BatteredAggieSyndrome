@@ -325,11 +325,12 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         aggregate = self.contract["latest_validated_play_drive_pit_aggregate"]
         self.assertEqual(
             aggregate["dataset_identity"],
-            "b78d577db4a054a56f66aa5cd4e9649594876785e4143cb4669b62746c1b0e06",
+            "1bd6f4c69932d5c401a3318517849fe1f1f6347d299f893809c536f52bec321d",
         )
-        self.assertEqual(aggregate["missing_source_seasons"], [2011, 2020])
-        self.assertEqual(aggregate["exact_play_rows"], 1606094)
-        self.assertEqual(aggregate["exact_drive_rows"], 230004)
+        self.assertEqual(aggregate["missing_source_seasons"], [])
+        self.assertEqual(aggregate["source_seasons"], list(range(2010, 2023)))
+        self.assertEqual(aggregate["exact_play_rows"], 1840951)
+        self.assertEqual(aggregate["exact_drive_rows"], 264812)
         self.assertEqual(aggregate["target_game_team_rows"], 5528)
         self.assertEqual(aggregate["cold_start_rows"], 14)
         self.assertEqual(aggregate["target_game_overlap"], 0)
@@ -342,8 +343,8 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertTrue(checkpoint["preliminary_unprotected_training_candidate"])
         self.assertFalse(checkpoint["protected_training_admission"])
         admitted = self.play_drive_pit_gate["admitted_layer"]
-        self.assertEqual(admitted["validation_checks_passed"], 32)
-        self.assertEqual(admitted["mutation_controls_passed"], 5)
+        self.assertEqual(admitted["validation_checks_passed"], 46)
+        self.assertEqual(admitted["mutation_controls_passed"], 6)
         self.assertEqual(admitted["deterministic_payloads_compared"], 3)
         self.assertTrue(admitted["byte_identical_rebuild"])
 

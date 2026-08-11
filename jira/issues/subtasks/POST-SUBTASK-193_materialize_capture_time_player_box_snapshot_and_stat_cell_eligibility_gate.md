@@ -117,11 +117,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24942",
-    "jira_updated_at": "2026-08-11T15:42:44.313-0500",
-    "last_synced_at": "2026-08-11T20:43:07.523912+00:00",
+    "jira_updated_at": "2026-08-11T15:51:52.100-0500",
+    "last_synced_at": "2026-08-11T20:52:13.414882+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Historical publication-time inference, pre-capture PIT backcast, same-provider overlap as independent confirmation, name-only player merges, conflict-value selection, zero-filling, rewriting immutable source captures, or representing aggregator boxes as official primary gamebooks.",
@@ -150,7 +150,7 @@
     "governance/PROTECTED_SPLIT_REGISTRY.csv"
   ],
   "ready": false,
-  "record_revision": "1.1",
+  "record_revision": "1.2",
   "related_to": [
     "POST-SUBTASK-169",
     "POST-SUBTASK-192"
@@ -232,7 +232,7 @@
   "unblock_condition": "",
   "why_this_exists": "The corrected player-box candidate is the last direct bulk dependent of the team-box capture-time snapshot. It offers exact reproducibility for 2022-2025 and exact six-metric play-derived evidence for 2014-2022, but historical publication times are unknown, provider athlete IDs remain candidates, conflicting cells and incomplete games exist, and every weaker link must remain explicitly nonadmitted.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

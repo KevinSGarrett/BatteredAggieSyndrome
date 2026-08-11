@@ -257,6 +257,47 @@
     ],
     "domain_gate_disposition": "VALIDATED_DENSE_2010_2025_CANDIDATE_COVERAGE_ONLY_CANONICAL_PIT_FEATURE_TRAINING_AND_PROTECTED_ADMISSION_NOT_APPROVED"
   },
+  "validated_action_derived_play_summary_candidate": {
+    "domain": "tamu_action_derived_play_summary",
+    "grain": "GAME_PERIOD_PLAY_NUMBER_ACTION_DERIVED_SUMMARY",
+    "source_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "dataset_identity": "9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451/action_derived_play_summary_reconciliation.json",
+      "sha256": "f48cac4cd3c42adaa1cd59ee70b96df9ca6fe372808fcd614e75a6de27c04429"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451/action_derived_play_summary",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/POST-SUBTASK-175/action_derived_play_summary_validation.json",
+      "sha256": "176883b1b8535272d1fd6089194d014ea70944b4b308e0b742e369a056401c78",
+      "checks_passed": 87,
+      "checks_failed": 0
+    },
+    "deterministic_rebuild": {
+      "status": "PASS",
+      "manifest_and_10_payloads_byte_identical": true,
+      "rebuild_root_removed": true
+    },
+    "population": {
+      "source_seasons": [2013, 2014, 2015, 2016, 2017],
+      "source_action_only_games": 50,
+      "source_action_rows": 48598,
+      "non_summary_action_rows": 25400,
+      "paired_summary_action_rows": 23198,
+      "summary_groups": 11599,
+      "candidate_rows": 11529,
+      "excluded_groups": 70,
+      "play_number_not_positive_groups": 50,
+      "drive_number_missing_groups": 70
+    },
+    "source_and_route_findings": [
+      "The paired summary rows are derived from official WMT actions but are not equivalent to the native player-linked plays relation.",
+      "Every candidate retains both source action records and exact evidence hashes; all other action rows remain at action grain.",
+      "Seventy groups remain reason-coded exclusions; no missing drive number, play number, text, linkage, identity, or publication time is fabricated.",
+      "All evidence is postgame with unknown exact historical publication time and is denied canonical, PIT, feature, training, protected, forecast, and publication authority."
+    ],
+    "domain_gate_disposition": "VALIDATED_ACTION_DERIVED_PLAY_SUMMARY_CANDIDATE_ONLY_NATIVE_PLAY_EQUIVALENCE_AND_ALL_DOWNSTREAM_ADMISSION_DENIED"
+  },
   "validated_roster_candidate": {
     "domain": "rosters",
     "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",
@@ -818,6 +859,13 @@
     "bundle_bytes": 16465859,
     "base_commit": "746e77d6b49d910540d224d29a9bcc31d0a42c0f"
   },
+  "action_derived_play_summary_rollback_checkpoint": {
+    "path": "<external-data-root>/backups/POST-SUBTASK-175-action-play-summary/20260811T045903Z",
+    "zip_sha256": "b623698d214f45cbfcc56186449e7417746a224ff397d08b27ffe2358355fba3",
+    "bundle_sha256": "7f74182aa5af2ccda1db87a81b3e5d428055f6531e7b2029ad94817ed33e4e1b",
+    "rollback_manifest_sha256": "4db8a9a0e7c6c702ad51e64dcc2b83967bf6d5156cfac058a2b0211bda771743",
+    "base_commit": "96701d4fe90d617e063d7a07cd8071ee47427857"
+  },
   "completion_claim": {
     "workstream_activated": true,
     "historical_known_at_recovered": "SCOPED_2010_2022_TEAM_OUTCOME_CONTEXT",
@@ -830,6 +878,9 @@
     "supplemental_play_drive_candidate_layer_validated": true,
     "supplemental_play_drive_dense_2010_2025_candidate_coverage": true,
     "supplemental_play_drive_canonical_pit_feature_training_or_protected_admission": false,
+    "action_derived_play_summary_candidate_layer_validated": true,
+    "action_derived_play_summary_native_play_equivalence": false,
+    "action_derived_play_summary_canonical_pit_feature_training_protected_forecast_or_publication_admission": false,
     "roster_candidate_layer_validated": true,
     "roster_canonical_pit_or_availability_admission": false,
     "player_event_metric_candidate_layer_validated": true,

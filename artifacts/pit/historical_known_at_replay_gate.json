@@ -153,6 +153,28 @@
     "admission_state": "CANDIDATE_NOT_ADMITTED",
     "gate_disposition": "DENSE_CANDIDATE_COVERAGE_VALIDATED_HISTORICAL_KNOWN_AT_AND_ALL_DOWNSTREAM_ADMISSION_PENDING"
   },
+  "parallel_action_derived_play_summary_checkpoint": {
+    "domain": "tamu_action_derived_play_summary",
+    "grain": "GAME_PERIOD_PLAY_NUMBER_ACTION_DERIVED_SUMMARY",
+    "gate_artifact": "artifacts/pit/historical_action_derived_play_summary_gate.json",
+    "dataset_identity": "9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451",
+    "manifest_sha256": "f48cac4cd3c42adaa1cd59ee70b96df9ca6fe372808fcd614e75a6de27c04429",
+    "validation_report_sha256": "176883b1b8535272d1fd6089194d014ea70944b4b308e0b742e369a056401c78",
+    "source_seasons": [2013, 2014, 2015, 2016, 2017],
+    "action_only_games": 50,
+    "candidate_rows": 11529,
+    "excluded_groups": 70,
+    "native_play_relation_equivalence": false,
+    "exact_historical_publication_time_established": false,
+    "target_game_state_allowed_in_pregame_features": false,
+    "canonical_play_admission": false,
+    "pit_state_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "forecast_or_publication_admission": false,
+    "admission_state": "CANDIDATE_NOT_ADMITTED",
+    "gate_disposition": "ACTION_DERIVED_SUMMARY_CANDIDATE_VALIDATED_ALL_DOWNSTREAM_ADMISSION_DENIED"
+  },
   "parallel_roster_checkpoint": {
     "domain": "rosters",
     "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",

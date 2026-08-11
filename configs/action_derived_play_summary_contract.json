@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-175",
+  "dataset_version": "tamu-action-derived-play-summary-2013-2017-v1",
+  "source_id": "SRC-014",
+  "source_dataset": {
+    "identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "manifest_relative_path": "manifests/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebook_reconciliation.json",
+    "manifest_sha256": "9cd644376253e278fc833b6b58c717ea4889b6243671c15bc078623ba822da0e",
+    "payload_root_relative_path": "quarantine/historical_known_at/sha256/76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010/tamu_official_gamebooks",
+    "actions_relative_path": "domain=actions/candidate_records.parquet",
+    "actions_sha256": "514a5f51ab4d5ed5ce51e75b6031b6198a7193cdb30883c37f7fca21c3dfa29d",
+    "actions_rows": 147381,
+    "plays_relative_path": "domain=plays/candidate_records.parquet",
+    "plays_sha256": "cb2ec58c8bb7e28aac94bd7a75f4be59425dcb6f231a8333b4ed0e55850f2a53",
+    "plays_rows": 41453
+  },
+  "selected_seasons": [2013, 2014, 2015, 2016, 2017],
+  "selection_rule": {
+    "native_play_collection_must_be_absent_for_game": true,
+    "action_type": "play",
+    "required_pair_subtypes": ["start", "end"],
+    "required_start_fields": ["play_by_play_text", "play_number", "game_drive_number"],
+    "play_number_must_be_positive": true,
+    "end_play_by_play_id_must_equal_start_action_id": true,
+    "paired_semantic_fields_must_match": true,
+    "output_grain": "GAME_PERIOD_PLAY_NUMBER_ACTION_DERIVED_SUMMARY"
+  },
+  "expected_population": {
+    "2013": {"games": 12, "action_rows": 11624, "non_summary_action_rows": 6072, "summary_action_rows": 5552, "summary_groups": 2776, "candidate_rows": 2758, "excluded_groups": 18, "play_number_not_positive": 12, "drive_number_missing": 18},
+    "2014": {"games": 12, "action_rows": 11613, "non_summary_action_rows": 6115, "summary_action_rows": 5498, "summary_groups": 2749, "candidate_rows": 2731, "excluded_groups": 18, "play_number_not_positive": 12, "drive_number_missing": 18},
+    "2015": {"games": 10, "action_rows": 9462, "non_summary_action_rows": 4956, "summary_action_rows": 4506, "summary_groups": 2253, "candidate_rows": 2240, "excluded_groups": 13, "play_number_not_positive": 10, "drive_number_missing": 13},
+    "2016": {"games": 13, "action_rows": 13067, "non_summary_action_rows": 6781, "summary_action_rows": 6286, "summary_groups": 3143, "candidate_rows": 3125, "excluded_groups": 18, "play_number_not_positive": 13, "drive_number_missing": 18},
+    "2017": {"games": 3, "action_rows": 2832, "non_summary_action_rows": 1476, "summary_action_rows": 1356, "summary_groups": 678, "candidate_rows": 675, "excluded_groups": 3, "play_number_not_positive": 3, "drive_number_missing": 3}
+  },
+  "authority": {
+    "candidate_only": true,
+    "native_play_equivalence_claimed": false,
+    "historical_known_at_eligible": false,
+    "canonical_admission": false,
+    "pit_state_admission": false,
+    "feature_or_training_admission": false,
+    "protected_evaluation_admission": false,
+    "forecast_or_publication_admission": false
+  },
+  "required_negative_findings": [
+    "The recovered grain is an action-derived play summary, not the native player-linked plays relation.",
+    "The 2013-2017 source records lack exact historical publication times; current capture time is not substituted.",
+    "Non-summary actions and incomplete summary groups are preserved as measured exclusions rather than fabricated into plays.",
+    "Target-game scores and events in this postgame evidence have no pregame feature, training, protected, forecast, or publication authority."
+  ]
+}

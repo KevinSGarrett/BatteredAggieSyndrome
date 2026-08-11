@@ -71,6 +71,14 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
                 / "historical_tamu_official_gamebook_reconciliation_gate.json"
             ).read_text(encoding="utf-8")
         )
+        cls.action_play_summary_gate = json.loads(
+            (
+                ROOT
+                / "artifacts"
+                / "pit"
+                / "historical_action_derived_play_summary_gate.json"
+            ).read_text(encoding="utf-8")
+        )
         cls.tamu_depth_chart_gate = json.loads(
             (
                 ROOT
@@ -222,6 +230,40 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertFalse(checkpoint["training_feature_admission"])
         self.assertFalse(checkpoint["protected_evaluation_admission"])
         self.assertIn("PENDING", checkpoint["gate_disposition"])
+
+    def test_action_derived_play_summaries_preserve_true_grain_and_nonauthority(self) -> None:
+        derived = self.contract["latest_validated_action_derived_play_summary_candidate"]
+        self.assertEqual(
+            derived["dataset_identity"],
+            "9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451",
+        )
+        self.assertEqual(derived["source_seasons"], [2013, 2014, 2015, 2016, 2017])
+        self.assertEqual(derived["source_action_only_games"], 50)
+        self.assertEqual(derived["source_action_rows"], 48598)
+        self.assertEqual(derived["non_summary_action_rows"], 25400)
+        self.assertEqual(derived["paired_summary_action_rows"], 23198)
+        self.assertEqual(derived["summary_groups"], 11599)
+        self.assertEqual(derived["candidate_rows"], 11529)
+        self.assertEqual(derived["excluded_groups"], 70)
+        self.assertFalse(derived["native_player_linked_play_relation_equivalence"])
+        self.assertFalse(derived["feature_or_training_admission"])
+        self.assertFalse(derived["protected_evaluation_admission"])
+        checkpoint = self.gate["parallel_action_derived_play_summary_checkpoint"]
+        self.assertFalse(checkpoint["native_play_relation_equivalence"])
+        self.assertFalse(checkpoint["target_game_state_allowed_in_pregame_features"])
+        self.assertFalse(checkpoint["pit_state_admission"])
+        self.assertFalse(checkpoint["forecast_or_publication_admission"])
+        self.assertEqual(self.action_play_summary_gate["candidate_layer"]["validation_checks_passed"], 87)
+        self.assertEqual(self.action_play_summary_gate["exclusion_findings"]["play_number_not_positive"], 50)
+        self.assertFalse(
+            self.action_play_summary_gate["historical_known_at_gate"]["feature_or_training_admission"]
+        )
+        claim = self.evidence["completion_claim"]
+        self.assertTrue(claim["action_derived_play_summary_candidate_layer_validated"])
+        self.assertFalse(claim["action_derived_play_summary_native_play_equivalence"])
+        self.assertFalse(
+            claim["action_derived_play_summary_canonical_pit_feature_training_protected_forecast_or_publication_admission"]
+        )
 
     def test_roster_history_is_validated_candidate_only_without_availability_inference(self) -> None:
         roster = self.contract["latest_validated_roster_candidate"]

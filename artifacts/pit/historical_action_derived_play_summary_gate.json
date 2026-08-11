@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "gate_id": "POST175-TAMU-ACTION-DERIVED-PLAY-SUMMARY-2013-2017",
+  "decision_unit": "POST-SUBTASK-175",
+  "source_id": "SRC-014",
+  "source_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+  "candidate_layer": {
+    "dataset_identity": "9ea078e06300ee2d6fe2c50857986fd29a46d1d3a3513b28cca74bd499ae8451",
+    "manifest_sha256": "f48cac4cd3c42adaa1cd59ee70b96df9ca6fe372808fcd614e75a6de27c04429",
+    "validation_report_sha256": "176883b1b8535272d1fd6089194d014ea70944b4b308e0b742e369a056401c78",
+    "source_season_min": 2013,
+    "source_season_max": 2017,
+    "source_action_only_games": 50,
+    "source_action_rows": 48598,
+    "non_summary_action_rows": 25400,
+    "paired_summary_action_rows": 23198,
+    "summary_groups": 11599,
+    "candidate_rows": 11529,
+    "candidate_games": 50,
+    "excluded_groups": 70,
+    "payload_files": 10,
+    "validation_checks_passed": 87,
+    "deterministic_payloads_compared": 11,
+    "byte_identical_rebuild": true
+  },
+  "grain_contract": {
+    "source_grain": "OFFICIAL_GAME_ACTION_SOURCE_RECORD",
+    "output_grain": "GAME_PERIOD_PLAY_NUMBER_ACTION_DERIVED_SUMMARY",
+    "native_player_linked_play_relation_equivalence": false,
+    "paired_start_end_required": true,
+    "source_action_detail_rows_promoted": false
+  },
+  "coverage_by_season": {
+    "2013": {"games": 12, "candidate_rows": 2758, "excluded_groups": 18},
+    "2014": {"games": 12, "candidate_rows": 2731, "excluded_groups": 18},
+    "2015": {"games": 10, "candidate_rows": 2240, "excluded_groups": 13},
+    "2016": {"games": 13, "candidate_rows": 3125, "excluded_groups": 18},
+    "2017": {"games": 3, "candidate_rows": 675, "excluded_groups": 3}
+  },
+  "exclusion_findings": {
+    "play_number_not_positive": 50,
+    "drive_number_missing": 70,
+    "paired_semantic_mismatch": 0,
+    "pair_link_failure": 0,
+    "missing_pair_member": 0
+  },
+  "historical_known_at_gate": {
+    "exact_historical_publication_time_established": false,
+    "retrieval_time_used_as_historical_publication_time": false,
+    "target_game_state_present_in_postgame_evidence": true,
+    "target_game_state_allowed_in_pregame_features": false,
+    "canonical_admission": false,
+    "pit_state_admission": false,
+    "feature_or_training_admission": false,
+    "protected_evaluation_admission": false,
+    "forecast_or_publication_admission": false,
+    "admission_state": "CANDIDATE_QUARANTINE_NOT_ADMITTED"
+  },
+  "negative_findings": [
+    "The recovered grain is a paired action-derived play summary and is not the native player-linked plays relation.",
+    "All records are postgame evidence with unknown exact historical publication time.",
+    "The 70 incomplete groups remain excluded with exact reason codes; no values or linkage are fabricated.",
+    "The first long deterministic-rebuild path exceeded default Windows MAX_PATH; the rerun used the bounded external path validation/p175r, passed byte-for-byte, and was removed."
+  ],
+  "gate_disposition": "VALIDATED_ACTION_DERIVED_PLAY_SUMMARY_CANDIDATE_ONLY_NATIVE_PLAY_EQUIVALENCE_HISTORICAL_TIME_CANONICAL_PIT_FEATURE_TRAINING_PROTECTED_AND_FORECAST_ADMISSION_DENIED",
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_result_claimed": false
+  }
+}

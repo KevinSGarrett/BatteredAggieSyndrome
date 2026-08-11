@@ -113,6 +113,7 @@ artifacts/jira_evidence/POST-SUBTASK-171.json
 artifacts/jira_evidence/POST-SUBTASK-172.json
 artifacts/jira_evidence/POST-SUBTASK-173.json
 artifacts/jira_evidence/POST-SUBTASK-174.json
+artifacts/jira_evidence/POST-SUBTASK-175.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -128,6 +129,7 @@ artifacts/openai_assist/router_rebalance.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
+artifacts/pit/historical_action_derived_play_summary_gate.json
 artifacts/pit/historical_advanced_game_reconciliation_gate.json
 artifacts/pit/historical_known_at_replay_gate.json
 artifacts/pit/historical_player_box_reconciliation_gate.json
@@ -154,6 +156,7 @@ artifacts/source_governance/source_rights_gate_test.json
 artifacts/source_governance/supplemental_rights_decisions.csv
 artifacts/source_governance/tier1_rights_decisions.csv
 configs/acceptance_registry.json
+configs/action_derived_play_summary_contract.json
 configs/architecture_registry.json
 configs/backlog_policy.json
 configs/bas_science_registry.json
@@ -1347,6 +1350,7 @@ jira/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_exact_ra
 jira/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.md
 jira/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.md
 jira/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.md
+jira/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1851,6 +1855,7 @@ jira/records/issues/subtasks/POST-SUBTASK-171_replay_preliminary_baselines_with_
 jira/records/issues/subtasks/POST-SUBTASK-172_expand_preliminary_baselines_to_exact_2010_2025_event_chronology.json
 jira/records/issues/subtasks/POST-SUBTASK-173_acquire_reconcile_and_coverage_gate_post_2022_national_rosters.json
 jira/records/issues/subtasks/POST-SUBTASK-174_close_play_drive_candidate_gaps_and_extend_dense_coverage.json
+jira/records/issues/subtasks/POST-SUBTASK-175_recover_action_derived_play_summary_candidates_for_gamebook_gaps.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2347,6 +2352,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-171.json
 jira/sources/issue_source_manifests/POST-SUBTASK-172.json
 jira/sources/issue_source_manifests/POST-SUBTASK-173.json
 jira/sources/issue_source_manifests/POST-SUBTASK-174.json
+jira/sources/issue_source_manifests/POST-SUBTASK-175.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2765,6 +2771,7 @@ src/aggie_analytics/context_intelligence/coaching.py
 src/aggie_analytics/context_intelligence/context.py
 src/aggie_analytics/context_intelligence/mechanics.py
 src/aggie_analytics/data/__init__.py
+src/aggie_analytics/data/action_play_summary.py
 src/aggie_analytics/data/adapters.py
 src/aggie_analytics/data/cfbd.py
 src/aggie_analytics/data/contracts.py
@@ -2890,6 +2897,7 @@ src/aggie_analytics/validation/promotion.py
 src/aggie_analytics/validation/protected.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
+tests/test_action_play_summary.py
 tests/test_advanced_challenger_full.py
 tests/test_architecture.py
 tests/test_artifact_manifest.py
@@ -2963,6 +2971,7 @@ tools/apply_private_research_acquisition_policy.py
 tools/audit_control_plane.py
 tools/backup_state.py
 tools/bootstrap_readiness.py
+tools/build_action_derived_play_summary.py
 tools/build_artifact_record.py
 tools/build_historical_rankings_pit.py
 tools/build_jira_control_plane.py
@@ -3014,6 +3023,7 @@ tools/schema_discovery.py
 tools/select_next_work.py
 tools/sync_openai_jira_graph.py
 tools/validate_acceptance.py
+tools/validate_action_derived_play_summary.py
 tools/validate_architecture.py
 tools/validate_autonomous_controls.py
 tools/validate_backlog.py

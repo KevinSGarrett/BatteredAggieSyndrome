@@ -92,9 +92,9 @@
   "end_to_end_validation": "Rejoin POST-SUBTASK-167 noncoverage rows to the exact acquisition manifest and immutable PDFs; verify 25 documents, 12/13 season counts, one STARTING LINEUPS page per document, zero explicit depth-chart headings, deterministic rendering, payload/image identities, mutation rejection, byte-identical replay, strict OpenAI visual schema behavior, budget settlement, candidate-only authority, and no canonical/PIT/training/protected writes.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-181.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
-  "execution_mode": "ATOMIC_EXECUTION",
+  "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_VISUAL_NEGATIVE_FINDING_AND_GOVERNED_IMAGE_INPUT",
   "expected_outputs": [
     "configs/openai_depth_chart_noncoverage_review.json",
@@ -146,7 +146,7 @@
   ],
   "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-181_recover_2022_2023_official_a_m_depth_chart_page_noncoverage_in_governed_shadow_mode.md",
   "governance_traceability_gate": "POST-SUBTASK-167",
-  "historical_classification": "ACTIONABLE_POST_WAVE",
+  "historical_classification": "POST_W25_IMPLEMENTATION",
   "import_id": 100489,
   "in_scope": [
     "Exact immutable 25-document noncoverage population from the 2022-2023 official A&M weekly game-note captures.",
@@ -174,11 +174,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24928",
-    "jira_updated_at": "2026-08-11T05:03:27.299-0500",
-    "last_synced_at": "2026-08-11T10:03:27.299+00:00",
-    "source_export": "LIVE_REST_POST_SUBTASK_181_PREINTEGRATION_EVIDENCE_COMMENT_13575",
+    "jira_updated_at": "2026-08-11T05:11:57.733-0500",
+    "last_synced_at": "2026-08-11T10:12:36.4565129+00:00",
+    "source_export": "LIVE_REST_POST_SUBTASK_181_POSTMERGE_DONE_EVIDENCE_COMMENT_13577",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Treating prior-game starting-lineup tables, start charts, roster pages, or career starts as pregame depth charts or current availability evidence.",
@@ -262,8 +262,8 @@
     "SECURITY"
   ],
   "why_this_exists": "POST-SUBTASK-167 deliberately preserved 25 official 2022-2023 documents without deterministic depth-chart pages. This unit resolves whether visual layout hid useful depth-chart evidence, adds a governed image-input route for future layout-heavy work, and records the evidence-backed negative result without inventing coverage.",
-  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-181.md",
-  "workflow_state": "IN_PROGRESS"
+  "work_packet_path": "",
+  "workflow_state": "DONE"
 }
 ```
 

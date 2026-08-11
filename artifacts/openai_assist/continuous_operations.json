@@ -279,7 +279,7 @@
   "completion": {
     "completion_claimed": false,
     "continuing_operations_active": true,
-    "jira_live_sync_pending": true,
+    "jira_live_sync_pending": false,
     "global_project_complete": false
   },
   "scientific_nonclaims": {

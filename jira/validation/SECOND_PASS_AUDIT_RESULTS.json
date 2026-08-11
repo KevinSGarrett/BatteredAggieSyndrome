@@ -1,5 +1,5 @@
 {
-  "actionable_count": 243,
+  "actionable_count": 242,
   "blank_e2e_count": 0,
   "blocked_count": 97,
   "deferred_count": 37,
@@ -10,8 +10,8 @@
   "errors": [],
   "execution_mode_counts": {
     "AGGREGATE_GATE": 74,
-    "ATOMIC_EXECUTION": 169,
-    "HISTORICAL_REFERENCE": 246
+    "ATOMIC_EXECUTION": 168,
+    "HISTORICAL_REFERENCE": 247
   },
   "forced_new_automated_on_publication_boundary_count": 0,
   "generic_scope_count": 0,
@@ -64,5 +64,5 @@
     "STATIC_VALIDATION": 31
   },
   "validated_at": "2026-08-11",
-  "work_packet_count": 243
+  "work_packet_count": 242
 }

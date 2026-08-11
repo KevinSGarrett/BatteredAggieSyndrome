@@ -1051,7 +1051,6 @@ jira/ai/work_packets/POST-SUBTASK-165.md
 jira/ai/work_packets/POST-SUBTASK-166.md
 jira/ai/work_packets/POST-SUBTASK-167.md
 jira/ai/work_packets/POST-SUBTASK-168.md
-jira/ai/work_packets/POST-SUBTASK-181.md
 jira/history/ISSUE_CHANGE_LOG.jsonl
 jira/import/ATLASSIAN_2026_COMPATIBILITY.md
 jira/import/FIELD_MAPPING_GUIDE.md

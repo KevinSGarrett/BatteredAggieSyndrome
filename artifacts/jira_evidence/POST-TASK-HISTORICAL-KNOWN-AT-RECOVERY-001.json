@@ -253,6 +253,54 @@
     ],
     "domain_gate_disposition": "VALIDATED_CANDIDATE_LAYER_ONLY_PIT_CANONICAL_AND_AVAILABILITY_ADMISSION_NOT_APPROVED"
   },
+  "validated_post2022_roster_candidate": {
+    "domain": "rosters",
+    "grain": "PLAYER_TEAM_SEASON_ROSTER_MEMBERSHIP",
+    "acquisition": {
+      "identity": "6e3fba9bff67318e6dc3d94b09700b16c92619fe7a14131ccf0a14757bacc2a8",
+      "manifest_path": "<external-data-root>/manifests/acquisition/sportsdataverse-rosters-2023-2025-v1/sha256/6e3fba9bff67318e6dc3d94b09700b16c92619fe7a14131ccf0a14757bacc2a8/sportsdataverse_roster_acquisition_manifest.json",
+      "manifest_sha256": "5e1efc3e56c803d4c2b3020e6e441544409a3ad6f27595aec7996b679920bec0",
+      "captured_assets": 3,
+      "captured_bytes": 7846862,
+      "primary_route_finding": "CFBD_REST_HTTP_429_AFTER_FOUR_BOUNDED_ATTEMPTS",
+      "successful_substitute_route": "PINNED_SPORTSDATAVERSE_GITHUB_RELEASE_ASSETS_WITH_PUBLISHED_SHA256_DIGESTS"
+    },
+    "dataset_identity": "151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242",
+    "manifest": {
+      "path": "<external-data-root>/manifests/historical_known_at/sha256/151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242/post2022_roster_reconciliation.json",
+      "sha256": "62a8721c9af2ea8bc451b9ee51cdc49c5be65ee87440d483a351e945c2d6cddd"
+    },
+    "payload_root": "<external-data-root>/quarantine/historical_known_at/sha256/151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242/rosters_post2022",
+    "independent_validation": {
+      "path": "<external-data-root>/validation/POST-SUBTASK-173/post2022_roster_validation.json",
+      "sha256": "11b93bb959ab7febe595ca34853986c80bce3b013a31bac67d0cccc73951c2b1",
+      "checks_passed": 17,
+      "checks_failed": 0
+    },
+    "deterministic_rebuild": {
+      "status": "PASS",
+      "manifest_and_4_payloads_byte_identical": true,
+      "rebuild_root_removed": true
+    },
+    "population": {
+      "source_seasons": [2023, 2024, 2025],
+      "source_rows": 79832,
+      "exact_source_id_name_and_canonical_membership_candidates": 46586,
+      "canonical_person_membership_pending_candidates": 5214,
+      "source_level_only_candidates": 27283,
+      "quarantined_source_id_name_conflicts": 749,
+      "payload_bytes": 9970709
+    },
+    "source_and_route_findings": [
+      "The authenticated CFBD primary route returned HTTP 429 after four bounded retries; this domain continued through equivalent public release assets instead of blocking.",
+      "All three release assets matched the provider-published SHA-256 digests and span 2023 through 2025 without silently broadening the requested population.",
+      "Canonical membership candidates require exact source athlete ID, normalized first and last name, season, and normalized team label; no name-only merge is permitted.",
+      "The 2025 source added draft fields. They are preserved in immutable raw evidence but excluded from normalized roster candidates to prevent future-information use.",
+      "Release update timestamps occur in 2026 and are not promoted to historical pregame known-at timestamps for 2023 through 2025.",
+      "Roster membership does not imply starter, injury, depth-chart, practice, or availability status, and no row is admitted to canonical data, PIT state, features, training, protected evaluation, or forecasts."
+    ],
+    "domain_gate_disposition": "VALIDATED_POST2022_CANDIDATE_LAYER_ONLY_CANONICAL_PIT_FEATURE_TRAINING_PROTECTED_AND_AVAILABILITY_ADMISSION_NOT_APPROVED"
+  },
   "validated_player_event_metric_candidate": {
     "domain": "player_event_metrics",
     "grain": "GAME_PLAYER_CATEGORY_STAT_DERIVED_FROM_VERSIONED_PLAY_EVENTS",

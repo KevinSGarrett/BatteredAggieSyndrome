@@ -25,7 +25,8 @@
   "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-030",
-    "POST-SUBTASK-170"
+    "POST-SUBTASK-170",
+    "POST-SUBTASK-173"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -371,6 +372,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-010 (Historical expansion acr
 
 - POST-SUBTASK-030
 - POST-SUBTASK-170
+- POST-SUBTASK-173
 
 ## Read / Inspect First
 

@@ -280,6 +280,37 @@ class HistoricalKnownAtRecoveryContractTests(unittest.TestCase):
         self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
         self.assertIn("PENDING", checkpoint["gate_disposition"])
 
+    def test_post2022_roster_extension_is_validated_candidate_only(self) -> None:
+        roster = self.contract["latest_validated_post2022_roster_candidate"]
+        self.assertEqual(
+            roster["dataset_identity"],
+            "151c594e243d6db7efcb811634da99415b46384a263114edd7121ddd3500b242",
+        )
+        self.assertEqual(roster["source_seasons"], [2023, 2024, 2025])
+        self.assertEqual(roster["source_rows"], 79832)
+        self.assertEqual(roster["exact_source_id_name_and_canonical_membership_candidates"], 46586)
+        self.assertEqual(roster["canonical_person_membership_pending_candidates"], 5214)
+        self.assertEqual(roster["source_level_only_candidates"], 27283)
+        self.assertEqual(roster["quarantined_source_id_name_conflicts"], 749)
+        self.assertEqual(roster["validation_checks_passed"], 17)
+        self.assertEqual(roster["deterministic_payloads_compared"], 5)
+        self.assertIn("HTTP_429", roster["primary_route_finding"])
+        self.assertIn("NO_NAME_ONLY_MERGE", roster["identity_contract"])
+        self.assertEqual(roster["admission_state"], "CANDIDATE_NOT_ADMITTED")
+
+        checkpoint = self.gate["parallel_post2022_roster_checkpoint"]
+        self.assertEqual(checkpoint["quarantined_rows"], 749)
+        self.assertFalse(checkpoint["future_draft_fields_admitted"])
+        self.assertFalse(checkpoint["availability_inference"])
+        self.assertFalse(checkpoint["historical_known_at_eligible"])
+        self.assertEqual(checkpoint["admission_state"], "CANDIDATE_NOT_ADMITTED")
+        self.assertIn("PENDING", checkpoint["gate_disposition"])
+
+        evidence = self.evidence["validated_post2022_roster_candidate"]
+        self.assertEqual(evidence["population"]["source_rows"], 79832)
+        self.assertEqual(evidence["independent_validation"]["checks_failed"], 0)
+        self.assertTrue(evidence["deterministic_rebuild"]["manifest_and_4_payloads_byte_identical"])
+
     def test_team_membership_history_is_validated_candidate_only_without_venue_or_pit_promotion(self) -> None:
         membership = self.contract["latest_validated_team_membership_candidate"]
         self.assertEqual(

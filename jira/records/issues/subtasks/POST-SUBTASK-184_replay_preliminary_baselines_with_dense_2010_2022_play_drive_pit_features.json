@@ -41,7 +41,7 @@
   "end_to_end_validation": "Re-read the exact POST-SUBTASK-172 baseline manifest, POST-SUBTASK-177 comparison manifest, and POST-SUBTASK-183 feature payload; rebuild the separately lineaged matrix, targets, splits, models, predictions, metrics, manifest, and validation report; verify all identities, chronology, target exclusion, protected closure, model replay, and byte identity; then clean reconstructible output where permitted or preserve the exact host-policy limitation.",
   "epic_id": "POST-EPIC-008",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-184.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "MODEL_RESEARCH",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
@@ -106,11 +106,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24932",
-    "jira_updated_at": "2026-08-11T08:18:54.983-0500",
-    "last_synced_at": "2026-08-11T13:19:15.369497+00:00",
+    "jira_updated_at": "2026-08-11T08:30:02.875-0500",
+    "last_synced_at": "2026-08-11T13:30:25.367888+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Backcasting the dense features into 2010-2022 fit rows or fabricating an earlier known-at timestamp.",
@@ -140,7 +140,7 @@
     "configs/judging_rule_seal.json"
   ],
   "ready": false,
-  "record_revision": "1.0",
+  "record_revision": "2.0",
   "required_evidence": [
     "Exact POST-SUBTASK-172, POST-SUBTASK-177, and POST-SUBTASK-183 input hashes plus new dataset, feature, target, split, model, forecast, run, code, config, and validation identities.",
     "Rows, games, seasons, feature counts, cold starts, missingness, exclusions, fit windows, leakage checks, per-season/slice metrics, and paired deltas.",
@@ -204,5 +204,5 @@
   ],
   "why_this_exists": "POST-SUBTASK-183 superseded the earlier partial play/drive PIT feature identity. Its denser evidence must be evaluated through a new immutable replay rather than silently replacing POST-SUBTASK-177 or being assumed beneficial.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

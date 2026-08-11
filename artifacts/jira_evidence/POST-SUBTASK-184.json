@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "artifact_type": "JIRA_PREINTEGRATION_EVIDENCE",
+  "artifact_type": "JIRA_INTEGRATED_EVIDENCE",
   "local_issue_id": "POST-SUBTASK-184",
   "jira_import_id": 100492,
   "jira_key": "BAT-541",
-  "status": "IMPLEMENTED_VALIDATED_PENDING_INTEGRATION",
+  "status": "DONE_VERIFIED_ON_INTEGRATION",
   "classification": "PRELIMINARY_UNPROTECTED",
   "objective": "Replay the preliminary model pipeline with exact dense 2010-2022 POST-SUBTASK-183 play/drive development-PIT features without mutating predecessors or opening protected promotion.",
   "input_identities": {
@@ -108,15 +108,31 @@
   },
   "live_jira": {
     "authentication": "HTTP_200",
-    "status": "In Progress",
+    "status": "Done",
     "claim_comment_id": "13645",
     "preintegration_evidence_comment_id": "13646",
-    "last_successful_sync_utc": "2026-08-11T13:19:15.369497+00:00",
+    "pull_request_checkpoint_comment_id": "13647",
+    "hosted_correction_comment_id": "13648",
+    "integration_comment_id": "13649",
+    "last_successful_sync_utc": "2026-08-11T13:30:25.367888+00:00",
+    "completion_sync_live_spec_updates": 1,
+    "completion_sync_local_live_state_changes": 1,
     "links": [
       "BAT-529 BLOCKS BAT-541",
       "BAT-534 BLOCKS BAT-541",
       "BAT-540 BLOCKS BAT-541"
     ]
+  },
+  "integration": {
+    "branch": "codex/BAT-541-play-drive-preliminary-replay",
+    "base_commit": "1dcee8779c799e425b5e5946efaf1b6c2acd015c",
+    "pull_request": 182,
+    "final_pull_request_head": "56546583641c9df1b65e35966ceb9df20701041c",
+    "merge_commit": "00c5c751b01cb0f5af31fd6e64c2547c022367af",
+    "merged_at_utc": "2026-08-11T13:25:08Z",
+    "postmerge_repository_ci_run": 31496061715,
+    "postmerge_security_analysis_run": 31496061542,
+    "postmerge_checks_passed": true
   },
   "openai": {
     "calls_this_unit": 0,

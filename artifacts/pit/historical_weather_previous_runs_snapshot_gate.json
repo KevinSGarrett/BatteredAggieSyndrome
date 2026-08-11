@@ -72,8 +72,23 @@
     "byte_identical_payload_rebuild": true,
     "reconstructible_rebuilds_removed": 2,
     "focused_tests_passed": 3,
-    "full_suite": "PENDING_PREINTEGRATION_GATE",
-    "final_quality_gate": "PENDING_PREINTEGRATION_GATE"
+    "full_pytest_passed": 477,
+    "full_pytest_skipped": 3,
+    "full_pytest_subtests_passed": 83,
+    "full_unittest_passed": 474,
+    "full_unittest_skipped": 3,
+    "final_quality_gate": {
+      "jira_pack": "PASS_502_CANONICAL",
+      "jira_links": 1160,
+      "second_pass": "PASS_68_OF_68",
+      "strict_repository": "PASS",
+      "dependency_cycles": 0,
+      "source_references": "PASS_2119",
+      "jira_manifest": "PASS_1891_FILES",
+      "external_storage": "PASS",
+      "w25_final": "PASS",
+      "secret_and_forbidden_artifact_scan": "PASS"
+    }
   },
   "authority": {
     "immutable_raw_capture_mutation": false,

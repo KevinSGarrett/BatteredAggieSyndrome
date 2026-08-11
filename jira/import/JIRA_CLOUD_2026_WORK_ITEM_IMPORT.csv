@@ -37135,4 +37135,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-033
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-191_materialize_capture_time_team_box_snapshot_and_domain_eligibility_gate.json",In Progress,Highest,actionable;post-wave;subtask;historical-expansion;team-box;capture-time;candidate-only;schema-drift;provenance;local-id-post-subtask-191,pit-temporal,POST-SUBTASK-191,GAP-002;GAP-003;HANDOFF-003,PHASE-1,IN_PROGRESS,VALIDATED_RECONCILED_CANDIDATE_ONLY,PARTIAL,POST_W25,true,DATA
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-191_materialize_capture_time_team_box_snapshot_and_domain_eligibility_gate.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;team-box;capture-time;candidate-only;schema-drift;provenance;local-id-post-subtask-191,pit-temporal,POST-SUBTASK-191,GAP-002;GAP-003;HANDOFF-003,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA

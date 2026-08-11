@@ -48,7 +48,7 @@
   "end_to_end_validation": "Re-read the corrected candidate manifest, 261 capture manifests and raw payloads, accepted outcome payload, canonical team evidence, and season payloads; rebuild the snapshot in an isolated external root; verify hashes, populations, natural keys, side swaps, schema drift, missingness, capture-time authority, quarantine, forbidden fields, mutation controls, and byte identity; then remove reconstructible output after validation.",
   "epic_id": "POST-EPIC-003",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-191.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "DATA",
   "execution_mode": "HISTORICAL_REFERENCE",
   "expected_maturity_after_completion": "VALIDATED_RECONCILED_CANDIDATE_ONLY",
@@ -105,11 +105,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24940",
-    "jira_updated_at": "2026-08-11T14:04:25.273-0500",
-    "last_synced_at": "2026-08-11T19:04:25.273000+00:00",
+    "jira_updated_at": "2026-08-11T14:32:51.526-0500",
+    "last_synced_at": "2026-08-11T19:33:13.830773+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Historical publication-time inference, pre-capture PIT backcast, same-provider overlap as independent confirmation, zero-filling missing categories, source-only name merges, official-stat promotion, or rewriting immutable source captures.",
@@ -137,7 +137,7 @@
     "governance/PROTECTED_SPLIT_REGISTRY.csv"
   ],
   "ready": false,
-  "record_revision": "1.0",
+  "record_revision": "1.1",
   "related_to": [
     "POST-SUBTASK-185",
     "POST-SUBTASK-189"
@@ -218,5 +218,5 @@
   "unblock_condition": "",
   "why_this_exists": "Team-box history is the prerequisite candidate layer for player-box and advanced-game-stat reconciliation. The corrected candidate has exact source bytes, two rows for every source game, zero duplicate game/team-side rows, and no unresolved cross-route point conflicts, but its historical publication times remain unknown and therefore require an explicit non-PIT boundary.",
   "work_packet_path": "",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

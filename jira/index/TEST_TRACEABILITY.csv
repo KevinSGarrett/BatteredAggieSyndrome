@@ -1511,6 +1511,8 @@ tests/test_preliminary_play_enrichment_replay.py,NEW_AUTOMATED_TEST_REQUIRED,POS
 artifacts/jira_evidence/POST-SUBTASK-187.json,END_TO_END,POST-SUBTASK-187,Sub-task,"The complete external replay passes immutable input, reconstruction, numerical replay, metrics, provenance, and byte-identity checks."
 tests/test_historical_venue_assignment_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-188,Sub-task,"Numeric-ID schema normalization, exact joins, NOT_PRESENT quarantine, chronology, target exclusion, and protected nonauthority remain deterministic."
 artifacts/jira_evidence/POST-SUBTASK-188.json,END_TO_END,POST-SUBTASK-188,Sub-task,"The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks."
+tests/test_historical_roster_membership_pit.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-189,Sub-task,"Exact membership admission, physical null-type drift, multi-team preservation, non-admitted classes, chronology, backcast prohibition, and protected nonauthority remain deterministic."
+artifacts/jira_evidence/POST-SUBTASK-189.json,END_TO_END,POST-SUBTASK-189,Sub-task,"The complete external population passes source identity, reconstruction, schema, provenance, mutation, and byte-identity checks."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

@@ -34,7 +34,8 @@
     "POST-SUBTASK-179",
     "POST-SUBTASK-185",
     "POST-SUBTASK-186",
-    "POST-SUBTASK-188"
+    "POST-SUBTASK-188",
+    "POST-SUBTASK-189"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-029_profile_supporting_domain_schema_historical_coverage_timestamp_quality_upstream_.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -153,8 +154,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24519",
-    "jira_updated_at": "2026-08-11T11:45:03.754-0500",
-    "last_synced_at": "2026-08-11T16:45:14.063357+00:00",
+    "jira_updated_at": "2026-08-11T12:43:06.456-0500",
+    "last_synced_at": "2026-08-11T17:43:17.159278+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -389,6 +390,7 @@ Execute the atomic 2 of 3 step in Story POST-STORY-010 (Historical expansion acr
 - POST-SUBTASK-185
 - POST-SUBTASK-186
 - POST-SUBTASK-188
+- POST-SUBTASK-189
 
 ## Read / Inspect First
 

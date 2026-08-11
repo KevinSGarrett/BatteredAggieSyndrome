@@ -65,11 +65,17 @@ Execute POST-SUBTASK-168 within the optional OpenAI assistive plane. Consume `PO
 - configs/openai_task_registry.json
 - configs/openai_availability_source_triage.json
 - configs/tamu_availability_source_sample.json
+- configs/openai_gamebook_schema_mapping.json
 - prompts/openai_assist/availability_source_triage_v1.txt
+- prompts/openai_assist/gamebook_schema_mapping_v1.txt
 - src/aggie_analytics/openai_assist/credentials.py
 - tools/prepare_tamu_availability_source_sample.py
 - tools/validate_tamu_availability_source_sample.py
 - tools/run_openai_availability_source_triage.py
+- tools/prepare_openai_gamebook_schema_mapping.py
+- tools/run_openai_gamebook_schema_mapping.py
+- tools/validate_openai_gamebook_schema_mapping.py
+- tools/validate_openai_assist.py
 - artifacts/openai_assist/continuous_operations.json
 - tests/test_openai_assist.py
 - artifacts/jira_evidence/POST-SUBTASK-168.json

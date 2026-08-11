@@ -1,10 +1,5 @@
 change_type,repo_relative_path
 ADDED,.github/dependabot.yml
-ADDED,.pytest_cache/.gitignore
-ADDED,.pytest_cache/CACHEDIR.TAG
-ADDED,.pytest_cache/README.md
-ADDED,.pytest_cache/v/cache/lastfailed
-ADDED,.pytest_cache/v/cache/nodeids
 ADDED,artifacts/benchmarks/ac038_gate_decision.json
 ADDED,artifacts/benchmarks/ac038_input_manifest.json
 ADDED,artifacts/benchmarks/ac038_target_benchmark.json
@@ -153,6 +148,7 @@ ADDED,configs/openai_depth_chart_pilot.json
 ADDED,configs/openai_entity_review_pilot.json
 ADDED,configs/openai_evaluation_policy.json
 ADDED,configs/openai_gamebook_pilot.json
+ADDED,configs/openai_gamebook_schema_mapping.json
 ADDED,configs/openai_quarantine_schema_pilot.json
 ADDED,configs/openai_task_registry.json
 ADDED,configs/preliminary_rankings_augmented_contract.json
@@ -271,18 +267,12 @@ ADDED,prompts/openai_assist/entity_review_v1.txt
 ADDED,prompts/openai_assist/evaluation_v4.txt
 ADDED,prompts/openai_assist/gamebook_domain_v4.txt
 ADDED,prompts/openai_assist/gamebook_play_v1.txt
+ADDED,prompts/openai_assist/gamebook_schema_mapping_v1.txt
 ADDED,prompts/openai_assist/quarantine_schema_v1.txt
 ADDED,requirements/openai-assist.lock
 ADDED,schemas/openai/assistive_candidate.schema.json
 ADDED,schemas/openai/assistive_evaluation.schema.json
 ADDED,scripts/audit_control_plane.ps1
-ADDED,src/aggie_analytics/__pycache__/__init__.cpython-311.pyc
-ADDED,src/aggie_analytics/data/__pycache__/__init__.cpython-311.pyc
-ADDED,src/aggie_analytics/data/__pycache__/adapters.cpython-311.pyc
-ADDED,src/aggie_analytics/data/__pycache__/contracts.cpython-311.pyc
-ADDED,src/aggie_analytics/data/__pycache__/open_source.cpython-311.pyc
-ADDED,src/aggie_analytics/data/__pycache__/play_drive.cpython-311.pyc
-ADDED,src/aggie_analytics/data/__pycache__/snapshots.cpython-311.pyc
 ADDED,src/aggie_analytics/data/cfbd.py
 ADDED,src/aggie_analytics/data/http.py
 ADDED,src/aggie_analytics/data/open_source.py
@@ -307,9 +297,6 @@ ADDED,src/aggie_analytics/operations/cleanup.py
 ADDED,src/aggie_analytics/temporal/expanded_event_chronology.py
 ADDED,src/aggie_analytics/temporal/historical_recovery.py
 ADDED,src/aggie_analytics/temporal/rankings_pit.py
-ADDED,tests/__pycache__/test_historical_known_at_recovery_contract.cpython-311-pytest-9.1.1.pyc
-ADDED,tests/__pycache__/test_jira_control_plane.cpython-311-pytest-9.1.1.pyc
-ADDED,tests/__pycache__/test_supplemental_play_drive.cpython-311-pytest-9.1.1.pyc
 ADDED,tests/test_acquisition_resilience.py
 ADDED,tests/test_autonomous_control_tools.py
 ADDED,tests/test_cfbd_historical_acquisition.py
@@ -331,8 +318,6 @@ ADDED,tests/test_preliminary_unprotected_baselines.py
 ADDED,tests/test_product_supply_chain.py
 ADDED,tests/test_source_access_smoke_results.py
 ADDED,tests/test_supplemental_play_drive.py
-ADDED,tools/__pycache__/__init__.cpython-311.pyc
-ADDED,tools/__pycache__/validate_jira_control_plane.cpython-311.pyc
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_sportsdataverse_rosters.py
 ADDED,tools/apply_private_research_acquisition_policy.py
@@ -350,6 +335,7 @@ ADDED,tools/package_repository_export.py
 ADDED,tools/prepare_openai_depth_chart_pilot.py
 ADDED,tools/prepare_openai_entity_review_pilot.py
 ADDED,tools/prepare_openai_gamebook_pilot.py
+ADDED,tools/prepare_openai_gamebook_schema_mapping.py
 ADDED,tools/prepare_openai_quarantine_pilot.py
 ADDED,tools/prepare_tamu_availability_source_sample.py
 ADDED,tools/refresh_openai_assist_lock.py
@@ -360,6 +346,7 @@ ADDED,tools/run_openai_availability_source_triage.py
 ADDED,tools/run_openai_depth_chart_pilot.py
 ADDED,tools/run_openai_entity_review_pilot.py
 ADDED,tools/run_openai_gamebook_pilot.py
+ADDED,tools/run_openai_gamebook_schema_mapping.py
 ADDED,tools/run_openai_quarantine_pilot.py
 ADDED,tools/run_preliminary_rankings_augmented_baselines.py
 ADDED,tools/run_preliminary_unprotected_baselines.py
@@ -373,6 +360,7 @@ ADDED,tools/validate_instructions.py
 ADDED,tools/validate_jira_control_plane.py
 ADDED,tools/validate_jira_mirror.py
 ADDED,tools/validate_openai_assist.py
+ADDED,tools/validate_openai_gamebook_schema_mapping.py
 ADDED,tools/validate_post2022_roster_candidate.py
 ADDED,tools/validate_preliminary_rankings_augmented_baselines.py
 ADDED,tools/validate_preliminary_unprotected_baselines.py

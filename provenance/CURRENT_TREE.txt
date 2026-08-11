@@ -181,6 +181,7 @@ configs/openai_depth_chart_pilot.json
 configs/openai_entity_review_pilot.json
 configs/openai_evaluation_policy.json
 configs/openai_gamebook_pilot.json
+configs/openai_gamebook_schema_mapping.json
 configs/openai_quarantine_schema_pilot.json
 configs/openai_task_registry.json
 configs/player_intelligence_registry.json
@@ -2613,6 +2614,7 @@ prompts/openai_assist/entity_review_v1.txt
 prompts/openai_assist/evaluation_v4.txt
 prompts/openai_assist/gamebook_domain_v4.txt
 prompts/openai_assist/gamebook_play_v1.txt
+prompts/openai_assist/gamebook_schema_mapping_v1.txt
 prompts/openai_assist/quarantine_schema_v1.txt
 provenance/INPUT_ARTIFACTS.csv
 provenance/MANIFEST_POLICY.md
@@ -2985,6 +2987,7 @@ tools/packaging.py
 tools/prepare_openai_depth_chart_pilot.py
 tools/prepare_openai_entity_review_pilot.py
 tools/prepare_openai_gamebook_pilot.py
+tools/prepare_openai_gamebook_schema_mapping.py
 tools/prepare_openai_quarantine_pilot.py
 tools/prepare_tamu_availability_source_sample.py
 tools/refresh_openai_assist_lock.py
@@ -2998,6 +3001,7 @@ tools/run_openai_availability_source_triage.py
 tools/run_openai_depth_chart_pilot.py
 tools/run_openai_entity_review_pilot.py
 tools/run_openai_gamebook_pilot.py
+tools/run_openai_gamebook_schema_mapping.py
 tools/run_openai_quarantine_pilot.py
 tools/run_preliminary_rankings_augmented_baselines.py
 tools/run_preliminary_unprotected_baselines.py
@@ -3030,6 +3034,7 @@ tools/validate_jira_mirror.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_openai_assist.py
+tools/validate_openai_gamebook_schema_mapping.py
 tools/validate_player_intelligence.py
 tools/validate_post2022_roster_candidate.py
 tools/validate_preliminary_rankings_augmented_baselines.py

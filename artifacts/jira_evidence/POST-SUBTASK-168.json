@@ -3,44 +3,44 @@
   "evidence_manifest_type": "POST_W25_IN_PROGRESS_ATOMIC_CHECKPOINT_EVIDENCE",
   "decision_unit": "POST-SUBTASK-168",
   "jira_key": "",
-  "created_at_utc": "2026-08-10T22:44:13Z",
-  "overall_disposition": "IN_PROGRESS_VALIDATED_CONTINUING_OPERATIONS_CHECKPOINT",
+  "created_at_utc": "2026-08-11T04:30:19Z",
+  "overall_disposition": "IN_PROGRESS_VALIDATED_CONTINUING_OPERATIONS_TWO_WORKLOAD_CHECKPOINT",
   "acceptance_matrix": [
     {
       "criterion": 1,
       "disposition": "PASS",
       "evidence": "artifacts/openai_assist/continuous_operations.json",
-      "evidence_sha256": "f816e9cdb37c97095752460b16217fb38f1653756672e4ae4b8db11557c0a140",
-      "observable_result": "BAT-522 remains the exact-format automatic Batch/canonical promotion decision, while POST-SUBTASK-168 separately admitted 64 bounded candidate-only synchronous calls. Nano failure did not prohibit value-backed Luna, Terra, or Sol comparison."
+      "evidence_sha256": "61026e4d5101a08ffc5ba36339ec9b9be13d1e9a90268fa1e630570eb58c8cf3",
+      "observable_result": "BAT-522 remains the exact-format automatic Batch/canonical promotion decision, while POST-SUBTASK-168 separately admitted 78 bounded candidate-only synchronous calls across two real workloads. Nano failure did not prohibit value-backed Luna, Terra, or Sol comparison, and no failed exact-format result granted Batch or canonical authority."
     },
     {
       "criterion": 2,
       "disposition": "PASS",
       "evidence": "artifacts/openai_assist/continuous_operations.json",
-      "evidence_sha256": "f816e9cdb37c97095752460b16217fb38f1653756672e4ae4b8db11557c0a140",
-      "observable_result": "A validated 16-case official 2011-2025 availability source sample received 16 calls each on Nano, Luna, Terra, and Sol. Deterministic scanning and source binding ran first, and all factual/PIT/canonical authority remained false."
+      "evidence_sha256": "61026e4d5101a08ffc5ba36339ec9b9be13d1e9a90268fa1e630570eb58c8cf3",
+      "observable_result": "After the official availability sample, a distinct deterministic 7-case A&M gamebook schema-drift gold set covered 2013-2017 action-domain play candidates, a non-play action, and a native-play comparator. Fourteen value-routed calls assessed the 50-game actions-without-plays gap while all factual, PIT, training, and canonical authority remained false."
     },
     {
       "criterion": 3,
       "disposition": "PASS",
-      "evidence": "tools/run_openai_availability_source_triage.py",
-      "evidence_sha256": "c3c4c0bed8d32fe2d1a5ae65d84aa5d549f69ce264c4c29a8eceb9958f942c2d",
-      "observable_result": "All 64 calls used the governed Responses controller, store:false, a strict schema, minimized official excerpts, content-addressed external storage, budget admission, deterministic validation, and review/quarantine-only disposition. Zero provider failures, canonical writes, protected writes, or Batch jobs occurred."
+      "evidence": "tools/run_openai_gamebook_schema_mapping.py",
+      "evidence_sha256": "6d9dec5c486592744bb4a36600b2041c270644a6937b9893a374766aad12b5b4",
+      "observable_result": "All 14 latest calls used the governed Responses controller, store:false, the strict evaluation schema, minimized content-addressed excerpts, budget admission, idempotent caching, and deterministic independent validation. Zero provider, schema, evidence, unsupported-fact, authoritative-write, or protected-write failures occurred."
     },
     {
       "criterion": 4,
       "disposition": "PASS",
       "evidence": "artifacts/openai_assist/continuous_operations.json",
-      "evidence_sha256": "f816e9cdb37c97095752460b16217fb38f1653756672e4ae4b8db11557c0a140",
-      "observable_result": "The checkpoint reports calls, tokens, dollars, cumulative and remaining budget, last successful timestamp, model roles, 28 accepted review candidates, 36 quarantines, zero rejects, the exact no-Batch reason, cleanup, negative findings, and the next API-eligible prompt-correction workload."
+      "evidence_sha256": "61026e4d5101a08ffc5ba36339ec9b9be13d1e9a90268fa1e630570eb58c8cf3",
+      "observable_result": "The checkpoint reports the 14 latest and 466 cumulative settled calls, per-model tokens and dollars, $4.293001 cumulative spend, $95.706999 remaining, last-success timestamp, 12 exact review candidates, 2 quarantined gold mismatches, zero rejects, exact no-Batch reason, cleanup, negative findings, and the next API-eligible workload."
     }
   ],
   "artifacts": [
     {
       "role": "CONTINUING_OPERATIONS_CHECKPOINT",
       "path": "artifacts/openai_assist/continuous_operations.json",
-      "sha256": "f816e9cdb37c97095752460b16217fb38f1653756672e4ae4b8db11557c0a140",
-      "bytes": 6261
+      "sha256": "61026e4d5101a08ffc5ba36339ec9b9be13d1e9a90268fa1e630570eb58c8cf3",
+      "bytes": 10772
     },
     {
       "role": "SOURCE_TRIAGE_CONFIG",
@@ -65,6 +65,36 @@
       "path": "src/aggie_analytics/openai_assist/credentials.py",
       "sha256": "9f67d2a016d45f886151b584c6c4b17563797c8e4287d502f760dbe472401c51",
       "bytes": 3532
+    },
+    {
+      "role": "GAMEBOOK_SCHEMA_MAPPING_CONFIG",
+      "path": "configs/openai_gamebook_schema_mapping.json",
+      "sha256": "4ce5ff2d568175104623f1c186a812175a1bce4143c365a755b8b8ec0dbb9f1c",
+      "bytes": 2918
+    },
+    {
+      "role": "GAMEBOOK_SCHEMA_MAPPING_PROMPT",
+      "path": "prompts/openai_assist/gamebook_schema_mapping_v1.txt",
+      "sha256": "22d86215a30d28f0e7114df159bdc0b0278e2c3266b465bdc6dcd17deede6041",
+      "bytes": 1707
+    },
+    {
+      "role": "GAMEBOOK_SCHEMA_MAPPING_PREPARER",
+      "path": "tools/prepare_openai_gamebook_schema_mapping.py",
+      "sha256": "3f909949cd118ff30ecc1dae62f7e651b67ef0cfeb7dff65cc6d7fe87e926fe6",
+      "bytes": 12974
+    },
+    {
+      "role": "GAMEBOOK_SCHEMA_MAPPING_RUNNER",
+      "path": "tools/run_openai_gamebook_schema_mapping.py",
+      "sha256": "6d9dec5c486592744bb4a36600b2041c270644a6937b9893a374766aad12b5b4",
+      "bytes": 11794
+    },
+    {
+      "role": "GAMEBOOK_SCHEMA_MAPPING_INDEPENDENT_VALIDATOR",
+      "path": "tools/validate_openai_gamebook_schema_mapping.py",
+      "sha256": "040da284a463254fe1d27f4660a558ef8e21ec7e6356164e6553948eaee79d41",
+      "bytes": 7938
     }
   ],
   "external_evidence": {
@@ -73,16 +103,26 @@
     "source_sample_validation_sha256": "1fd6366c01ab45dd9c3e97684bfd0e96d3f56b3e4dbbf6714ae4a41932bbe5a4",
     "preflight_manifest_sha256": "ade29fb3a1bcad29a6d70abbf5c9f07f3205199ec683720d29eb4f87b60c8826",
     "predictions_sha256": "ebf5f4745f82080712ebe198124343a0d0a9be739bb7979d85ea6c3c50ff4cb8",
-    "run_manifest_sha256": "5c31f0bea821ad5c4450e483131a3f8048c7fa847bf3140dc7ebac3d0ca59ae3"
+    "run_manifest_sha256": "5c31f0bea821ad5c4450e483131a3f8048c7fa847bf3140dc7ebac3d0ca59ae3",
+    "gamebook_source_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "gamebook_gold_sha256": "2c3a82eb6e19a0e3290b2ef7167f72cf86268087e286bb6f0b940aa9eb9314e8",
+    "gamebook_gold_manifest_sha256": "8e55fad34661f41e52a8c9e9d7fec8c38b6212f56ab1a33151409dc591d5ef41",
+    "gamebook_preflight_manifest_sha256": "8d4ec3b9b341de4e1d8d757fa2b731c54db46308c59b39a94a16bfce0d08d66b",
+    "gamebook_predictions_sha256": "9fa8815394b97628f87636734128fa2b3623022dfb323dd38e4633da19e8be92",
+    "gamebook_evaluation_sha256": "489b61d4e6d7d3bfd5e25d1bc0a54b8852de6b7b3f5091baf481c12f766dc61f",
+    "gamebook_run_manifest_sha256": "79a3a76f7734ee46a143cffae87a13eeacf08dfed775186e1285461d0d59cc64",
+    "gamebook_independent_validation_sha256": "88cd3e44bf6cc6ac6237908bcde94d14f138921c00c8e3bf7f797648188f40da"
   },
   "usage": {
-    "synchronous_jobs": 64,
+    "synchronous_jobs_total_for_continuing_unit": 78,
+    "calls_since_prior_handoff": 14,
+    "cumulative_project_settled_calls": 466,
     "batch_jobs": 0,
-    "settled_this_checkpoint_usd": "0.729459",
-    "cumulative_settled_usd": "3.480606",
-    "remaining_usd": "96.519394",
+    "settled_since_prior_handoff_usd": "0.085151",
+    "cumulative_settled_usd": "4.293001",
+    "remaining_usd": "95.706999",
     "outstanding_reservations": 0,
-    "last_successful_api_use_utc": "2026-08-10T22:44:13.123191+00:00"
+    "last_successful_api_use_utc": "2026-08-11T04:30:19.680714+00:00"
   },
   "negative_findings": [
     {
@@ -96,6 +136,14 @@
     {
       "finding": "No factual gold or historical/PIT eligibility exists for this source-triage format.",
       "disposition": "NO_BATCH_AND_NO_CANONICAL_PROMOTION"
+    },
+    {
+      "finding": "Nano promoted the 2013 period-start non-play action and Terra disagreed with one predeclared non-play schema label; aggregate gamebook field precision/recall was 0.9642857143.",
+      "disposition": "TWO_RESULTS_QUARANTINED; NANO_REJECT_CURRENT_FORMAT; TERRA_PARTIAL_REVIEW_ONLY; NO_BATCH_OR_AUTOMATIC_MAPPING_PROMOTION"
+    },
+    {
+      "finding": "Luna was exact on seven bounded cases and Sol on one hard case, but the sample is insufficient to establish broad exact-format promotion.",
+      "disposition": "RETAIN_BOUNDED_SHADOW_RESULT_AND_EXPAND_DETERMINISTIC_GOLD_BEFORE_SCALE"
     }
   ],
   "cleanup": {

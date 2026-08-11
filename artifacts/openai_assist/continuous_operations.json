@@ -2,14 +2,14 @@
   "schema_version": "1.0.0",
   "artifact_type": "OPENAI_CONTINUING_OPERATIONS_CHECKPOINT",
   "decision_unit": "POST-SUBTASK-168",
-  "created_at_utc": "2026-08-10T22:44:13Z",
-  "overall_disposition": "IN_PROGRESS_VALIDATED_CANDIDATE_ONLY_CHECKPOINT",
+  "created_at_utc": "2026-08-11T04:30:19Z",
+  "overall_disposition": "IN_PROGRESS_VALIDATED_CANDIDATE_ONLY_TWO_WORKLOAD_CHECKPOINT",
   "governance": {
     "governing_plan_sha256": "651bbff29cb929cdc441178f67df59e87600a3bc8a54516a942562c7d09aa523",
     "bulk_or_canonical_promotion_separate_from_candidate_assistance": true,
     "bat_522_terminal_end_of_api_use": false,
     "store_false": true,
-    "credential_source": "INHERITED_PROCESS_ENVIRONMENT",
+    "current_credential_source": "AUTHORITATIVE_ENV_FILE",
     "credential_value_logged_or_copied": false,
     "candidate_only_authority": true,
     "deterministic_forecast_runtime_dependency": false
@@ -96,6 +96,98 @@
     "external_run_manifest_sha256": "5c31f0bea821ad5c4450e483131a3f8048c7fa847bf3140dc7ebac3d0ca59ae3",
     "last_successful_api_use_utc": "2026-08-10T22:44:13.123191+00:00"
   },
+  "gamebook_schema_mapping_checkpoint": {
+    "task": "gamebook_schema_mapping",
+    "source_dataset_identity": "76c3b366431d5085588d07df7d8db77348ac737dc57538befe26c7080150f010",
+    "source_manifest_sha256": "9cd644376253e278fc833b6b58c717ea4889b6243671c15bc078623ba822da0e",
+    "gold_sha256": "2c3a82eb6e19a0e3290b2ef7167f72cf86268087e286bb6f0b940aa9eb9314e8",
+    "gold_manifest_sha256": "8e55fad34661f41e52a8c9e9d7fec8c38b6212f56ab1a33151409dc591d5ef41",
+    "preflight_manifest_sha256": "8d4ec3b9b341de4e1d8d757fa2b731c54db46308c59b39a94a16bfce0d08d66b",
+    "predictions_sha256": "9fa8815394b97628f87636734128fa2b3623022dfb323dd38e4633da19e8be92",
+    "evaluation_sha256": "489b61d4e6d7d3bfd5e25d1bc0a54b8852de6b7b3f5091baf481c12f766dc61f",
+    "run_manifest_sha256": "79a3a76f7734ee46a143cffae87a13eeacf08dfed775186e1285461d0d59cc64",
+    "independent_validation_sha256": "88cd3e44bf6cc6ac6237908bcde94d14f138921c00c8e3bf7f797648188f40da",
+    "processing_mode": "SYNCHRONOUS",
+    "sample_cases": 7,
+    "requested_jobs": 14,
+    "provider_calls": 14,
+    "completed_predictions": 14,
+    "batch_jobs": 0,
+    "batch_reason": "NOT_ADMITTED_NEW_SCHEMA_MAPPING_FORMAT_REQUIRES_SYNCHRONOUS_GOLD_COMPARISON_FIRST",
+    "source_population": {
+      "actions_rows": 147381,
+      "actions_games": 159,
+      "plays_rows": 41453,
+      "plays_games": 109,
+      "games_with_actions_but_no_explicit_play_collection": 50,
+      "reviewed_action_candidate_seasons": [2013, 2014, 2015, 2016, 2017],
+      "historical_publication_time_state": "UNKNOWN",
+      "canonical_or_pit_admission": false,
+      "training_feature_admission": false
+    },
+    "models": {
+      "gpt-5-nano": {
+        "reasoning_effort": "minimal",
+        "calls": 3,
+        "input_tokens": 5029,
+        "output_tokens": 2430,
+        "reasoning_tokens": 0,
+        "cost_usd": "0.001225",
+        "exact_review_candidates": 2,
+        "quarantined": 1,
+        "decision": "REJECT_CURRENT_FORMAT_NO_BATCH"
+      },
+      "gpt-5.6-luna": {
+        "reasoning_effort": "none",
+        "calls": 7,
+        "input_tokens": 11720,
+        "output_tokens": 5680,
+        "reasoning_tokens": 0,
+        "cost_usd": "0.009163",
+        "exact_review_candidates": 7,
+        "quarantined": 0,
+        "decision": "BOUNDED_SHADOW_EXACT_RETAIN_FOR_MORE_GOLD"
+      },
+      "gpt-5.6-terra": {
+        "reasoning_effort": "low",
+        "calls": 3,
+        "input_tokens": 5010,
+        "output_tokens": 2419,
+        "reasoning_tokens": 0,
+        "cost_usd": "0.039048",
+        "exact_review_candidates": 2,
+        "quarantined": 1,
+        "decision": "PARTIAL_HARD_CASE_REVIEW_ONLY"
+      },
+      "gpt-5.6-sol": {
+        "reasoning_effort": "medium",
+        "calls": 1,
+        "input_tokens": 1695,
+        "output_tokens": 908,
+        "reasoning_tokens": 49,
+        "cost_usd": "0.035715",
+        "exact_review_candidates": 1,
+        "quarantined": 0,
+        "decision": "BOUNDED_SHADOW_EXACT_RETAIN_FOR_MORE_GOLD"
+      }
+    },
+    "metrics": {
+      "strict_schema_rate": 1.0,
+      "field_precision": 0.9642857142857143,
+      "field_recall": 0.9642857142857143,
+      "evidence_accuracy": 1.0,
+      "unsupported_fact_rate": 0.0,
+      "validated_exact_review_candidates": 12,
+      "quarantined_exact_gold_mismatches": 2,
+      "canonical_writes": 0,
+      "pit_writes": 0,
+      "training_feature_writes": 0,
+      "protected_truth_writes": 0
+    },
+    "calls_cost_usd": "0.085151",
+    "last_successful_api_use_utc": "2026-08-11T04:30:19.680714+00:00",
+    "final_disposition": "PASS_INVARIANTS_PARTIAL_EMPIRICAL_RESULT_SHADOW_REVIEW_ONLY"
+  },
   "negative_findings": {
     "original_dispositions_preserved": true,
     "deterministic_source_selection_echo_mismatches": 27,
@@ -108,16 +200,22 @@
       "gpt-5.6-sol": "16/16"
     },
     "interpretation": "The deterministic scanner class should be bound as provenance rather than delegated as a semantic fact. No result is retroactively promoted; a new prompt version must predeclare that separation before reuse."
+    ,
+    "gamebook_schema_mapping": [
+      "Nano incorrectly promoted the 2013 period-start action to a play-semantic candidate and is rejected for this exact format.",
+      "Terra correctly rejected the period-start record role but disagreed with the predeclared NOT_A_PLAY_SCHEMA_CANDIDATE label because its nested schema still matched the play schema; the result remains quarantined and the gold-label semantics require bounded review.",
+      "Luna was exact on all seven bounded cases and Sol was exact on its one hard challenge, but the sample is too small for automatic Batch or mapping promotion."
+    ]
   },
   "budget": {
-    "calls_before_checkpoint": 332,
-    "calls_this_checkpoint": 64,
-    "cumulative_calls": 396,
-    "settled_before_usd": "2.751147",
-    "settled_this_checkpoint_usd": "0.729459",
-    "settled_usd": "3.480606",
+    "calls_before_latest_checkpoint": 452,
+    "calls_latest_checkpoint": 14,
+    "cumulative_calls": 466,
+    "settled_before_latest_checkpoint_usd": "4.207850",
+    "settled_latest_checkpoint_usd": "0.085151",
+    "settled_usd": "4.293001",
     "reserved_usd": "0.000000",
-    "remaining_usd": "96.519394",
+    "remaining_usd": "95.706999",
     "released_stage_usd": "30.000000",
     "hard_stop_usd": "100.000000",
     "terra_reserve_released": false,
@@ -133,13 +231,13 @@
     "authoritative_repository_root_mutated_by_runtime": false
   },
   "next_api_eligible_workload": {
-    "task": "availability_source_triage_v2",
-    "decision": "PREDECLARE_DETERMINISTIC_SELECTION_CLASS_AS_BOUND_METADATA_AND_EVALUATE_ONLY_SEMANTIC_TEAM_TEMPORAL_CONTEXT",
+    "task": "gamebook_schema_mapping_expanded_gold_or_next_dependency_ready_entity_quarantine_work",
+    "decision": "EXPAND DETERMINISTIC GOLD ACROSS PLAY TYPES AND NEGATIVE ACTIONS BEFORE ANY ROUTINE MAPPING SCALE; OTHERWISE ROUTE THE NEXT DISTINCT HIGH_VALUE CANDIDATE_ONLY BACKLOG",
     "nano": "FAILED_CURRENT_FORMAT_DO_NOT_SCALE",
-    "luna": "CHEAPEST_PROMISING_FULL_SAMPLE_ROUTE",
-    "terra": "AMBIGUITY_ESCALATION",
+    "luna": "CHEAPEST EXACT BOUNDED ROUTE_REQUIRES_MORE_GOLD",
+    "terra": "AMBIGUITY_ESCALATION_REQUIRES_GOLD_SEMANTICS_REVIEW",
     "sol": "SMALL_HARD_CASE_CHALLENGE_ONLY",
-    "batch": "NOT_YET_JUSTIFIED"
+    "batch": "NOT_YET_JUSTIFIED_NEW_FORMAT_AND_AGGREGATE_FIELD_ACCURACY_BELOW_PREDECLARED_ONE"
   },
   "completion": {
     "completion_claimed": false,

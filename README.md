@@ -15,13 +15,6 @@
 </p>
 
 <p align="center">
-  <a href="#architecture"><img alt="Explore the architecture" src="https://img.shields.io/badge/EXPLORE-ARCHITECTURE-500000?style=for-the-badge&labelColor=1B1B1B"></a>
-  <a href="#quick-start"><img alt="Run locally" src="https://img.shields.io/badge/START-RUN_LOCALLY-500000?style=for-the-badge&labelColor=1B1B1B"></a>
-  <a href="#scientific-contract"><img alt="Read the scientific contract" src="https://img.shields.io/badge/READ-SCIENTIFIC_CONTRACT-500000?style=for-the-badge&labelColor=1B1B1B"></a>
-  <a href="#project-status"><img alt="View project status" src="https://img.shields.io/badge/VIEW-PROJECT_STATUS-500000?style=for-the-badge&labelColor=1B1B1B"></a>
-</p>
-
-<p align="center">
   <a href="pyproject.toml"><img alt="Python 3.11 through 3.13" src="https://img.shields.io/badge/Python-3.11%E2%80%933.13-500000?style=flat-square&logo=python&logoColor=white"></a>
   <a href="src/aggie_analytics"><img alt="Polars analytics" src="https://img.shields.io/badge/Polars-Analytics-500000?style=flat-square&logo=polars&logoColor=white"></a>
   <a href="src/aggie_analytics/modeling"><img alt="scikit-learn modeling" src="https://img.shields.io/badge/scikit--learn-Modeling-500000?style=flat-square&logo=scikitlearn&logoColor=white"></a>
@@ -31,16 +24,15 @@
   <a href=".github/workflows"><img alt="GitHub Actions automation" src="https://img.shields.io/badge/GitHub_Actions-Automation-500000?style=flat-square&logo=githubactions&logoColor=white"></a>
 </p>
 
-<p align="center">
-  <img alt="Local-first" src="https://img.shields.io/badge/LOCAL--FIRST-WINDOWS_%2B_CROSS--PLATFORM_CI-D6D3C4?style=flat-square&labelColor=500000&color=D6D3C4">
-  <img alt="Point-in-time guarded" src="https://img.shields.io/badge/PIT_GUARD-TARGET--GAME_EXCLUDED-D6D3C4?style=flat-square&labelColor=500000&color=D6D3C4">
-  <img alt="Baseline first" src="https://img.shields.io/badge/MODELING-BASELINES_BEFORE_COMPLEXITY-D6D3C4?style=flat-square&labelColor=500000&color=D6D3C4">
-  <img alt="Null results welcome" src="https://img.shields.io/badge/SCIENCE-NULL_RESULTS_WELCOME-D6D3C4?style=flat-square&labelColor=500000&color=D6D3C4">
-</p>
-
 ---
 
-> **No curse is assumed.** The engine starts with immutable evidence, a neutral national expectation, and a null hypothesis. If the data cannot support “Aggie Excess,” the correct result is no effect.
+> A local-first college-football forecasting and research engine built to answer the question every Aggie has asked by the fourth quarter:
+>
+> **“Was that actually improbable, or have I simply attended Texas A&M long enough?”**
+
+Battered Aggie Syndrome is a serious probabilistic sports-analytics project wrapped around a deeply unserious coping mechanism. It builds national college-football models, adds a higher-resolution Texas A&M specialization layer, and scientifically tests whether the Aggies underperform neutral pregame expectations more often—or more spectacularly—than comparable programs.
+
+The system does not begin with the assumption that Texas A&M is cursed. It begins with immutable data, chronological evaluation, and a null hypothesis. The curse must earn promotion through the same protected validation gates as everything else.
 
 ## At a glance
 
@@ -61,9 +53,11 @@
   </tr>
 </table>
 
-The result is not merely a predictor. It is an evidence system designed to answer *what was knowable before kickoff, what did the model expect, what actually happened, and how unusual was the gap?*
+The national foundation provides the neutral expectation required to distinguish “an unusual Aggie outcome” from “college football happened again.” The result is not merely a predictor. It is an evidence system designed to answer *what was knowable before kickoff, what did the model expect, what actually happened, and how unusual was the gap?*
 
 ## Why this project is different
+
+College-football prediction is difficult for all the usual reasons: sparse seasons, constant roster turnover, coaching changes, injuries, uneven schedules, changing conferences, limited historical availability, and a suspicious number of games played by 19-year-olds in front of 100,000 emotionally stable adults.
 
 | Principle | What it means here |
 |---|---|
@@ -111,7 +105,16 @@ BAS shortfall        = expected A&M margin − actual A&M margin
   </picture>
 </p>
 
-The 7-point shortfall is the headline BAS event. The 3-, 14-, and 21-point levels preserve mild, severe, and extreme tail behavior. Human-facing labels may be funny; the calculation is not.
+The 7-point shortfall is the headline BAS event. The 3-, 14-, and 21-point levels preserve mild, severe, and extreme tail behavior.
+
+| Shortfall | Scientific interpretation | Completely unscientific Aggie translation |
+|---:|---|---|
+| 3+ | Mild underperformance | “That feels familiar.” |
+| 7+ | Headline BAS event | “Here we go.” |
+| 14+ | Severe BAS event | “Do not open the group chat.” |
+| 21+ | Extreme BAS event | “Tradition has entered the model.” |
+
+Those jokes are labels for humans, not model inputs. The system does not train on vibes, message-board despair, yell intensity, or how early someone muttered “I’ve seen this movie before.”
 
 ## The qualitative model — for humans only
 
@@ -121,7 +124,7 @@ The 7-point shortfall is the headline BAS event. The 3-, 14-, and 21-point level
 
 <p align="center">
   <strong>At kickoff: optimism. At halftime: variance. By the fourth quarter: the protected holdout.</strong><br>
-  <sub>Owner-supplied AI illustration. Cultural context only—never a feature, label, prior, or source of model truth.</sub>
+  <sub>Cultural context only—never a feature, label, prior, or source of model truth.</sub>
 </p>
 
 ## Scientific contract
@@ -185,6 +188,8 @@ See the [component maturity matrix](docs/final/FINAL_COMPONENT_MATURITY.csv), [k
 
 No model family is declared the winner in advance. The protected scorecard decides.
 
+A model advances because the evidence says so—not because its output looks especially good next to a maroon PowerPoint template.
+
 ## Technology
 
 | Layer | Current project choices |
@@ -198,7 +203,7 @@ No model family is declared the winner in advance. The protected scorecard decid
 | **Assurance** | Unit and integration tests, schema validation, PIT/leakage gates, deterministic replay, CodeQL, and dependency auditing |
 | **Research assistance** | Governed optional OpenAI candidate plane; never a forecast-critical runtime dependency or source of canonical truth |
 
-Optional tools stay replaceable. MLflow cannot declare a champion, Optuna cannot inspect protected outcomes, and refreshing the dashboard cannot secretly retrain a model.
+Optional libraries remain replaceable adapters. MLflow cannot declare a champion, Optuna cannot inspect protected outcomes, and the dashboard cannot secretly retrain the model because somebody refreshed the page aggressively.
 
 ## Quick start
 
@@ -280,24 +285,12 @@ BatteredAggieSyndrome/
 | Handle credentials safely | [Credentials and secrets](docs/operations/CREDENTIALS_AND_SECRETS.md) |
 | Contribute a change | [Contributing guide](CONTRIBUTING.md) |
 
-## Engineering signals
-
-<p>
-  <a href="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/ci.yml"><img alt="Repository CI" src="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/ci.yml/badge.svg"></a>
-  <a href="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/security.yml"><img alt="CodeQL and security analysis" src="https://github.com/KevinSGarrett/BatteredAggieSyndrome/actions/workflows/security.yml/badge.svg"></a>
-  <img alt="Immutable provenance" src="https://img.shields.io/badge/PROVENANCE-CONTENT_ADDRESSED-500000?style=flat-square">
-  <img alt="Chronological evaluation" src="https://img.shields.io/badge/EVALUATION-CHRONOLOGICAL-500000?style=flat-square">
-  <img alt="Raw data outside Git" src="https://img.shields.io/badge/DATA-EXTERNAL_TO_GIT-500000?style=flat-square">
-</p>
-
-CI and security badges report automation state. The more important assurances are enforced in code: immutable identities, source evidence, target-game exclusion, protected chronology, strict schemas, and fail-closed promotion.
-
 ## Frequently asked questions
 
 <details>
 <summary><strong>Does the model assume Texas A&amp;M will disappoint me?</strong></summary>
 
-No. That would be target leakage from lived experience. The neutral national model must form the expectation first, and the result must survive the same evaluation rules as every other claim.
+Every Saturday will disappoint you as an Aggie.
 
 </details>
 
@@ -316,16 +309,16 @@ Without a national reference, the system cannot distinguish unusual A&amp;M beha
 </details>
 
 <details>
-<summary><strong>Is this a betting product?</strong></summary>
+<summary><strong>Is this a sports-betting system?</strong></summary>
 
-No. It is a private forecasting and research project. It does not claim profitability, guarantee outcomes, or provide wagering advice.
+Yes. Always put double your net worth on A&M to disappoint you. 100% guaranteed odds of winning.
 
 </details>
 
 <details>
-<summary><strong>What if the data says BAS is not real?</strong></summary>
+<summary><strong>What happens if the data says BAS is not real?</strong></summary>
 
-Then the project reports the null result, preserves the evidence, and continues experiencing BAS recreationally.
+Then the project reports the null result, closes the laptop, and continues experiencing BAS recreationally.
 
 </details>
 
@@ -336,7 +329,7 @@ Contributions should preserve the core invariants: stable identity, immutable ev
 ---
 
 <p align="center">
-  <strong>Built with Python, probability, and an evidence-based tolerance for fourth-quarter variance.</strong><br>
+  <strong>Built with Python, probability, and off-season BAS confidence that this is for sure A&amp;M's year to win the National Championship.</strong><br>
   <sub>Independent personal research project. Not affiliated with or endorsed by Texas A&amp;M University, the NCAA, or any data provider.</sub><br><br>
   <span>Gig ’em.</span>
 </p>

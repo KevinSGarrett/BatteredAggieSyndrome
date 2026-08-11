@@ -999,6 +999,9 @@ artifacts/jira_evidence/POST-SUBTASK-195.json,POST-SUBTASK-195,Sub-task,true,VAL
 <external-data-root>/quarantine/historical_game_outcome_spine/sha256/<dataset_identity>/source_alias_reconciliation.parquet,POST-SUBTASK-195,Sub-task,true,VALIDATED_RECONCILED_CANDIDATE_ONLY,,VERIFIED
 <external-data-root>/manifests/historical_game_outcome_spine/sha256/<dataset_identity>/historical_game_outcome_spine_manifest.json,POST-SUBTASK-195,Sub-task,true,VALIDATED_RECONCILED_CANDIDATE_ONLY,,VERIFIED
 <external-data-root>/validation/POST-SUBTASK-195/<dataset_identity>/historical_game_outcome_spine_validation.json,POST-SUBTASK-195,Sub-task,true,VALIDATED_RECONCILED_CANDIDATE_ONLY,,VERIFIED
+jira/records/issues/subtasks/POST-SUBTASK-196_capture_and_gate_post_2022_national_play_drive_history.json,POST-SUBTASK-196,Sub-task,true,DUPLICATE_SCOPE_VERIFIED_NO_NEW_MATURITY,,VERIFIED
+jira/issues/subtasks/POST-SUBTASK-196_capture_and_gate_post_2022_national_play_drive_history.md,POST-SUBTASK-196,Sub-task,true,DUPLICATE_SCOPE_VERIFIED_NO_NEW_MATURITY,,VERIFIED
+artifacts/jira_evidence/POST-SUBTASK-196.json,POST-SUBTASK-196,Sub-task,true,DUPLICATE_SCOPE_VERIFIED_NO_NEW_MATURITY,,VERIFIED
 SOURCE_RESEARCH_LOG.csv,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED
 docs/data_research/w06/DATA_RESEARCH_METHOD.md,TASK-001,Task,true,CONTRACT_DEFINED,TASK-002,VERIFIED
 docs/data_research/w06/DATA_DOMAIN_COVERAGE_MATRIX.csv,TASK-002,Task,true,CONTRACT_DEFINED,TASK-003;TASK-004,VERIFIED

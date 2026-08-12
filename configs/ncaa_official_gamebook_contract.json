@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-197",
+  "jira_key": "BAT-554",
+  "classification": "NATIONAL_NCAA_OFFICIAL_GAMEBOOK_EQUIVALENT_CANDIDATE_ONLY",
+  "run_id": "BAT-554-NCAA-OFFICIAL-BOUNDED-V1",
+  "source": {
+    "source_ids": ["SRC-014", "SRC-015", "SRC-048"],
+    "capture_source_id": "SRC-015",
+    "provider": "NCAA Statistics",
+    "official_host": "stats.ncaa.org",
+    "sport_code": "MFB",
+    "upstream_parser_repository": "sportsdataverse/sportsdataverse-py",
+    "upstream_parser_commit": "357fd18788680f3442dd22f86befbc33e52fb013",
+    "upstream_parser_paths": [
+      "sportsdataverse/cfb/cfb_ncaa_box.py",
+      "sportsdataverse/cfb/cfb_ncaa_pbp.py"
+    ]
+  },
+  "transport": {
+    "route_order": ["direct_http", "local_patchright_chrome", "scrapfly", "scraperapi"],
+    "direct_http": {"enabled": true},
+    "local_patchright_chrome": {
+      "enabled": true,
+      "prefer_external_patchright_browser": true,
+      "external_patchright_browser_glob": "patchright-browsers/chromium-*/chrome-win64/chrome.exe",
+      "browser_executable_candidates": [
+        "C:/Program Files/Google/Chrome/Application/chrome.exe",
+        "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+      ],
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "wait_after_load_milliseconds": 8000
+    },
+    "scrapfly": {
+      "enabled_when_nonempty": true,
+      "credential_environment_variable": "SCRAPFLY_API_TOKEN",
+      "api_url": "https://api.scrapfly.io/scrape",
+      "render_js": true,
+      "anti_scraping_protection": true,
+      "proxy_pool": "public_residential_pool",
+      "country": "us",
+      "rendering_wait_milliseconds": 8000,
+      "cost_budget": 55
+    },
+    "scraperapi": {
+      "enabled_when_nonempty": true,
+      "credential_environment_variable": "SCRAPERAPI_API_TOKEN",
+      "api_url": "https://api.scraperapi.com/",
+      "render": true,
+      "country_code": "us"
+    }
+  },
+  "content_validation": {
+    "minimum_html_bytes": 1024,
+    "reject_case_insensitive_markers": [
+      "bm-verify",
+      "_abck",
+      "access denied",
+      "reference #",
+      "captcha",
+      "enable javascript and cookies to continue"
+    ],
+    "generic_required_markers": ["ncaa"],
+    "endpoint_required_marker_groups": {
+      "box_score": [["box score", "scoring summary", "team statistics", "individual statistics"]],
+      "play_by_play": [["play-by-play", "play by play"]],
+      "drives": [["drive", "drives"]],
+      "team_stats": [["team statistics", "team stats"]],
+      "individual_stats": [["individual statistics", "individual stats", "passing", "rushing"]],
+      "officials": [["officials", "referee"]]
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint_id": "box_score",
+      "path_template": "/contests/{contest_id}/box_score",
+      "domains": ["linescore_game_info", "venue", "attendance"]
+    },
+    {
+      "endpoint_id": "play_by_play",
+      "path_template": "/contests/{contest_id}/play_by_play",
+      "domains": ["play_by_play"]
+    },
+    {
+      "endpoint_id": "drives",
+      "path_template": "/contests/{contest_id}/drives",
+      "domains": ["drives"]
+    },
+    {
+      "endpoint_id": "team_stats",
+      "path_template": "/contests/{contest_id}/team_stats",
+      "domains": ["team_stats_by_period"]
+    },
+    {
+      "endpoint_id": "individual_stats",
+      "path_template": "/contests/{contest_id}/individual_stats",
+      "domains": ["player_stats"]
+    },
+    {
+      "endpoint_id": "officials",
+      "path_template": "/contests/{contest_id}/officials",
+      "domains": ["officials"]
+    }
+  ],
+  "seed_contests": [
+    {
+      "contest_id": "5362283",
+      "season": 2024,
+      "season_type": "regular",
+      "observed_matchup": "California at Auburn",
+      "observed_game_date": "2024-09-07",
+      "canonical_game_id": null,
+      "identity_state": "OFFICIAL_CONTEST_ID_PINNED_CANONICAL_RECONCILIATION_PENDING"
+    },
+    {
+      "contest_id": "5336803",
+      "season": null,
+      "season_type": null,
+      "observed_matchup": null,
+      "observed_game_date": null,
+      "canonical_game_id": null,
+      "identity_state": "UPSTREAM_PARSER_FIXTURE_CONTEST_ID_CANONICAL_RECONCILIATION_PENDING"
+    },
+    {
+      "contest_id": "5361446",
+      "season": null,
+      "season_type": null,
+      "observed_matchup": null,
+      "observed_game_date": null,
+      "canonical_game_id": null,
+      "identity_state": "UPSTREAM_PARSER_FIXTURE_CONTEST_ID_CANONICAL_RECONCILIATION_PENDING"
+    }
+  ],
+  "discovery": {
+    "path_template": "/teams/{team_season_id}",
+    "route_order": ["direct_http", "local_patchright_chrome", "scrapfly", "scraperapi"],
+    "maximum_teams_per_season": 1000,
+    "minimum_team_page_bytes": 1000,
+    "request_timeout_seconds": 30,
+    "progress_interval": 25,
+    "seed_team_season_ids": {
+      "2010": "136982",
+      "2011": "16591",
+      "2012": "15956",
+      "2013": "62689",
+      "2014": "83559",
+      "2015": "19621",
+      "2016": "66586",
+      "2017": "113532",
+      "2018": "449790",
+      "2019": "477997",
+      "2020": "499518",
+      "2021": "522872",
+      "2022": "544634",
+      "2023": "557196",
+      "2024": "589027",
+      "2025": "606076"
+    },
+    "seed_provenance": {
+      "organization": "Auburn",
+      "organization_id": "37",
+      "observed_team_page": "https://stats.ncaa.org/teams/589027",
+      "selection_source": "official season selector on the 2024-25 Auburn team page",
+      "observed_at_utc": "2026-08-12T00:52:00Z"
+    }
+  },
+  "domain_grain": {
+    "linescore_game_info": "game_team_period",
+    "venue": "game",
+    "attendance": "game",
+    "officials": "game_official",
+    "drives": "game_team_drive",
+    "team_stats_by_period": "game_team_period_stat",
+    "player_stats": "game_team_player_stat",
+    "play_by_play": "game_drive_play"
+  },
+  "authority": {
+    "immutable_private_raw_archive": true,
+    "candidate_normalization_and_reconciliation": true,
+    "canonical_entity_mutation": false,
+    "historical_pit_admission": false,
+    "preliminary_training_admission": false,
+    "protected_training_or_evaluation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "scale_out_gate": {
+    "bounded_real_contest_success_required": true,
+    "byte_identical_rebuild_required": true,
+    "canonical_identity_reconciliation_required_for_promotion": true,
+    "partial_domain_does_not_block_unrelated_valid_domains": true,
+    "automatic_national_scale_out_enabled": false
+  }
+}

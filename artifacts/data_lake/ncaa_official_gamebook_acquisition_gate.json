@@ -1,0 +1,127 @@
+{
+  "artifact_type": "NCAA_OFFICIAL_GAMEBOOK_ACQUISITION_GATE",
+  "authority": {
+    "candidate_normalization_and_reconciliation": true,
+    "canonical_entity_mutation": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false,
+    "historical_pit_admission": false,
+    "immutable_private_raw_archive": true,
+    "preliminary_training_admission": false,
+    "protected_training_or_evaluation": false
+  },
+  "bounded_population": {
+    "captured": 6,
+    "captured_domains": [
+      "attendance",
+      "drives",
+      "linescore_game_info",
+      "officials",
+      "play_by_play",
+      "player_stats",
+      "team_stats_by_period",
+      "venue"
+    ],
+    "contest_ids": [
+      "5362283"
+    ],
+    "domain_capture_counts": {
+      "attendance": 1,
+      "drives": 1,
+      "linescore_game_info": 1,
+      "officials": 1,
+      "play_by_play": 1,
+      "player_stats": 1,
+      "team_stats_by_period": 1,
+      "venue": 1
+    },
+    "endpoint_ids": [
+      "box_score",
+      "drives",
+      "individual_stats",
+      "officials",
+      "play_by_play",
+      "team_stats"
+    ],
+    "missing_domains": [],
+    "normalized_domain_counts": {
+      "attendance": 1,
+      "drives": 1,
+      "linescore_game_info": 1,
+      "officials": 1,
+      "play_by_play": 1,
+      "player_stats": 1,
+      "team_stats_by_period": 1,
+      "venue": 1
+    },
+    "normalized_row_counts": {
+      "attendance": 1,
+      "drives": 26,
+      "linescore_game_info": 8,
+      "officials": 1,
+      "play_by_play": 213,
+      "player_stats": 36,
+      "team_stats_by_period": 120,
+      "venue": 1
+    },
+    "requested": 6,
+    "technical_failures": 0
+  },
+  "classification": "NATIONAL_NCAA_OFFICIAL_GAMEBOOK_EQUIVALENT_CANDIDATE_ONLY",
+  "decision_unit": "POST-SUBTASK-197",
+  "discovery_population": {
+    "canonical_identity_promoted": false,
+    "discovered_contest_count": 3753,
+    "historical_pit_eligible": false,
+    "manifest": {
+      "discovery_identity": "4dbba4b7439b8901011755225460fb34896b49a0746af4895a6b486004d2789d",
+      "path": "C:\\BatteredAggieSyndrome.data\\manifests\\acquisition\\BAT-554-NCAA-OFFICIAL-BOUNDED-V1\\discovery\\2024\\sha256\\4dbba4b7439b8901011755225460fb34896b49a0746af4895a6b486004d2789d\\ncaa_team_graph_discovery_manifest.json",
+      "sha256": "bdc655b00c88d1911881309ddd9ccb3a6909dcac027b386e590591e3368a9bdd"
+    },
+    "remaining_queue_count": 0,
+    "season": 2024,
+    "state": "COMPLETE_GRAPH_EXHAUSTED",
+    "team_failure_count": 0,
+    "team_page_capture_count": 656
+  },
+  "identity_gate": {
+    "canonical_game_identity_promoted": false,
+    "name_only_match_promoted": false,
+    "official_contest_ids_pinned": true,
+    "state": "CANONICAL_RECONCILIATION_PENDING"
+  },
+  "jira_key": "BAT-554",
+  "manifest": {
+    "acquisition_identity": "b58e69d2df9531d25ac252b5b2edd19102df4b8506c2f3b4529c9f6f842cf9ca",
+    "path": "C:\\BatteredAggieSyndrome.data\\manifests\\acquisition\\BAT-554-NCAA-OFFICIAL-BOUNDED-V1\\sha256\\b58e69d2df9531d25ac252b5b2edd19102df4b8506c2f3b4529c9f6f842cf9ca\\ncaa_official_gamebook_acquisition_manifest.json",
+    "sha256": "6f8f5f01c34a32533dadb273813bb99fb50c56711426e27cd6752cd958270ee5"
+  },
+  "negative_findings": [
+    "A bounded source-route success does not establish national historical completeness.",
+    "NCAA contest IDs remain candidate mappings until deterministic canonical game/team reconciliation passes.",
+    "Capture time does not prove historical publication time or same-game pregame eligibility.",
+    "Missing endpoints and partial games remain explicit and do not invalidate unrelated captured domains."
+  ],
+  "pit_gate": {
+    "capture_time_recorded": true,
+    "historical_pit_eligible": false,
+    "historical_publication_time_proved": false,
+    "same_game_pregame_eligible": false,
+    "target_game_outcome_excluded": true
+  },
+  "result": "PASS_BOUNDED_CANDIDATE_CAPTURE",
+  "scale_out_gate": {
+    "automatic_national_scale_out_enabled": false,
+    "partial_domain_does_not_block_unrelated_valid_domains": true,
+    "reason": "BOUNDED_ROUTE_AND_SCHEMA_EVIDENCE_REQUIRES_CANONICAL_IDENTITY_AND_COVERAGE_VALIDATION"
+  },
+  "schema_version": "1.0.0",
+  "scientific_nonclaims": {
+    "bas_or_aggie_excess_claimed": false,
+    "gap_002_resolved": false,
+    "historical_population_ready": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false
+  }
+}

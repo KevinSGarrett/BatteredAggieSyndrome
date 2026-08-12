@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "local_id": "POST-SUBTASK-197",
+  "jira_key": "BAT-554",
+  "status": "IN_PROGRESS",
+  "classification": "NATIONAL_NCAA_OFFICIAL_GAMEBOOK_EQUIVALENT_CANDIDATE_ONLY",
+  "objective": "Acquire and independently gate national official NCAA MFB contest evidence across every available gamebook-equivalent domain.",
+  "activation": {
+    "activated_at_utc": "2026-08-11T23:39:00Z",
+    "origin_main": "120c40ffe53bdc4b0f6a6b68d3169e72dc0941ba",
+    "worktree": "C:\\BatteredAggieSyndrome.data\\worktrees\\POST-SUBTASK-197-ncaa-gamebook",
+    "branch": "codex/BAT-554-ncaa-gamebook",
+    "prechange_backup": "C:\\BatteredAggieSyndrome.data\\backups\\POST-SUBTASK-197-PRECHANGE-20260811T232903Z",
+    "prechange_backup_manifest_sha256": "f3a2ec21aeca1744624dfa196055e911269a696abbcd01ddc6a7a7f225ad784f",
+    "live_jira_issue_id": "24947",
+    "live_jira_activation_comment_id": "13717"
+  },
+  "duplicate_audit": {
+    "dedicated_stats_ncaa_org_unit_found": false,
+    "distinguished_existing_units": [
+      "BAT-375 broad national acquisition",
+      "BAT-518 bounded OpenAI gamebook extraction pilot",
+      "BAT-535 A&M-only WMT provider-timestamp PIT",
+      "BAT-548/BAT-550 aggregator-derived capture-time team/player box candidates"
+    ]
+  },
+  "pinned_source": {
+    "source_ids": ["SRC-014", "SRC-015", "SRC-048"],
+    "repository": "sportsdataverse/sportsdataverse-py",
+    "repository_commit": "357fd18788680f3442dd22f86befbc33e52fb013",
+    "parser_paths": [
+      "sportsdataverse/cfb/cfb_ncaa_box.py",
+      "sportsdataverse/cfb/cfb_ncaa_pbp.py"
+    ],
+    "official_host": "stats.ncaa.org",
+    "sport_code": "MFB",
+    "domains": ["linescore_game_info", "venue", "attendance", "officials", "drives", "team_stats_by_period", "player_stats", "play_by_play"]
+  },
+  "authority": {
+    "candidate_only": true,
+    "historical_pit_admission": false,
+    "protected_training_or_evaluation": false,
+    "production_or_champion_promotion": false,
+    "forecast_publication": false
+  },
+  "implementation_checkpoint": {
+    "recorded_at_utc": "2026-08-12T01:33:04Z",
+    "bounded_contest": {
+      "contest_id": "5362283",
+      "observed_matchup": "California at Auburn",
+      "season": 2024,
+      "endpoint_capture_count": 6,
+      "technical_failure_count": 0,
+      "normalized_domain_count": 8,
+      "normalized_row_count": 406,
+      "acquisition_identity": "b58e69d2df9531d25ac252b5b2edd19102df4b8506c2f3b4529c9f6f842cf9ca",
+      "manifest_sha256": "6f8f5f01c34a32533dadb273813bb99fb50c56711426e27cd6752cd958270ee5"
+    },
+    "official_team_graph_2024": {
+      "state": "COMPLETE_GRAPH_EXHAUSTED",
+      "team_page_capture_count": 656,
+      "discovered_contest_count": 3753,
+      "team_failure_count": 0,
+      "remaining_queue_count": 0,
+      "discovery_identity": "4dbba4b7439b8901011755225460fb34896b49a0746af4895a6b486004d2789d",
+      "manifest_sha256": "bdc655b00c88d1911881309ddd9ccb3a6909dcac027b386e590591e3368a9bdd"
+    },
+    "route_findings": [
+      "Direct HTTP and local Patchright/Chromium remain the preferred no-proxy routes when content validation succeeds.",
+      "Restored Scrapfly residential rendering successfully captured official NCAA pages that stalled the local browser route.",
+      "A bounded ScraperAPI canary returned HTTP 500 for one team page; this route-specific negative was preserved and did not block Scrapfly or cached captures.",
+      "Two Scrapfly anti-bot interstitials succeeded on bounded retry; the final exhausted 2024 manifest has zero unresolved failures."
+    ],
+    "validation": {
+      "result": "PASS",
+      "check_count": 7408,
+      "mutation_control_count": 6,
+      "configured_secret_values_checked_without_logging": 2,
+      "report_path": "C:\\BatteredAggieSyndrome.data\\validation\\POST-SUBTASK-197\\ncaa_official_gamebook_validation.json",
+      "report_sha256": "925c2f964646f314144a04a7a369323156d6dbcbf67baed8c032f9190d84c14d",
+      "tests_pinned_runtime": "14_PASS",
+      "tests_base_runtime": "13_PASS_1_EXPECTED_OPTIONAL_PARSER_SKIP",
+      "full_suite": "495_PASS_4_SKIP_94_SUBTESTS_PASS"
+    },
+    "versioned_artifacts": {
+      "configs/ncaa_official_gamebook_contract.json": "03a0d11442adc522fe11b717071462882ab9125111f85f421b649baf64cbd7d9",
+      "artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json": "a98ce27099d31c9114a91029146b00970b605ce20fd67a206741ecde12ebbeb9",
+      "tools/acquire_ncaa_official_gamebooks.py": "276748422a2ebeb02b4c2a1882a5001d8dff2d500797ee6eaaa961bc04e6137a",
+      "tools/validate_ncaa_official_gamebooks.py": "389f2fb5fb2db1e3789958f8dfa6399feabe73390c906a6bb0015c2923c89e3c",
+      "tests/test_ncaa_official_gamebooks.py": "3b22242bcb10b117563b13c2a02581ae2a13cfa33db00a21cc5aff8a3279bd08"
+    },
+    "live_jira_checkpoint": {
+      "authenticated": true,
+      "issue_key": "BAT-554",
+      "issue_id": "24947",
+      "status": "In Progress",
+      "comment_id": "13736",
+      "comment_created_at": "2026-08-12T01:35:20.420Z"
+    },
+    "cleanup": {
+      "reconstructible_paths_removed": 7,
+      "bytes_recovered": 90657606,
+      "removed_classes": ["byte-identical validation rebuilds", "abandoned Patchright browser profiles"],
+      "immutable_raw_or_manifest_payloads_removed": false,
+      "parser_environment_or_browser_installation_removed": false
+    }
+  },
+  "next_actions": [
+    "Repeat graph-exhausted official team-season discovery for 2010-2023 and 2025, preserving independent season failures and coverage.",
+    "Reconcile the 2024 discovered NCAA contest IDs to canonical games and teams without name-only promotion.",
+    "Acquire and domain-gate the maximum quality-supported official contest population using resumable bounded tranches.",
+    "Expand autonomously to the maximum quality-supported national population with independent domain gates."
+  ],
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

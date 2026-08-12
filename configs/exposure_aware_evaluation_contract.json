@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "exposure-aware-evaluation-2024-2025-v1",
+  "classification": "SCIENTIFIC_GOVERNANCE",
+  "exposed_seasons": [2024, 2025],
+  "exposure_rule": "Any inspected outcome, metric, slice, comparison, or decision feedback makes the affected decision family development-only.",
+  "original_seals": {
+    "preserve_unchanged": true,
+    "paths": [
+      "governance/PROTECTED_SPLIT_REGISTRY.csv",
+      "governance/PROTECTED_JUDGING_RULE_SEAL.csv",
+      "governance/PROTECTED_ACCEPTANCE_RULES.md"
+    ]
+  },
+  "decision_level_isolation": {
+    "required": true,
+    "frozen_preinspection_artifact_may_retain_supported_eligibility": true,
+    "feedback_affected_artifact_status": "DEVELOPMENT_UNPROTECTED_EXPOSED",
+    "forbidden_status_for_exposed_artifacts": "UNTOUCHED_PROTECTED"
+  },
+  "current_eligibility": {
+    "2024": "DEVELOPMENT_UNPROTECTED_FOR_AFFECTED_DECISION_FAMILIES",
+    "2025": "DEVELOPMENT_UNPROTECTED_FOR_AFFECTED_DECISION_FAMILIES",
+    "allowed_uses": [
+      "pipeline integration",
+      "chronological replay",
+      "development diagnostics",
+      "preliminary unprotected model comparison",
+      "exposure-aware frozen-artifact audit"
+    ],
+    "prohibited_claims": [
+      "untouched protected performance",
+      "production champion",
+      "A&M specialization lift",
+      "BAS",
+      "Aggie Excess"
+    ]
+  },
+  "next_untouched_population": {
+    "population": "FORECAST_FIRST_2026_PLUS",
+    "status": "PENDING_FUTURE_OUTCOME_ACCRUAL_AND_IMMUTABLE_PREFLIGHT_SEAL",
+    "fallback": "A different population is eligible only with immutable evidence that it did not influence development."
+  },
+  "ledger": {
+    "external_root": "manifests/evaluation_exposure/sha256",
+    "content_addressed": true,
+    "required_fields": [
+      "source_manifest_path",
+      "source_manifest_sha256",
+      "run_identity",
+      "dataset_identity",
+      "feature_identity",
+      "target_identity",
+      "split_identity",
+      "model_identities",
+      "exposed_seasons",
+      "decision_families",
+      "feedback_channels",
+      "eligibility"
+    ]
+  },
+  "nonclaims": [
+    "No protected performance is established.",
+    "No production champion is established.",
+    "No A&M specialization lift, BAS, or Aggie Excess result is established."
+  ]
+}

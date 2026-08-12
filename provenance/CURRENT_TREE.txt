@@ -205,11 +205,13 @@ configs/backlog_policy.json
 configs/bas_science_registry.json
 configs/cfbd_post2022_roster_acquisition.json
 configs/context_intelligence_registry.json
+configs/elo_challenger_research_contract.json
 configs/entity_registry.json
 configs/expanded_event_chronology_preliminary_contract.json
 configs/experiment_artifact_policy.json
 configs/experiment_research_registry.json
 configs/experiment_store_policy.json
+configs/exposure_aware_evaluation_contract.json
 configs/external_storage_policy.json
 configs/feature_lifecycle_registry.json
 configs/historical_advanced_game_snapshot_contract.json
@@ -256,6 +258,7 @@ configs/repository_policy.json
 configs/research_execution_registry.json
 configs/research_resource_policy.json
 configs/result_comparison_policy.json
+configs/retraining_admission_policy.json
 configs/sec_tamu_availability_recovery_contract.json
 configs/source_acquisition_registry.json
 configs/source_drift_registry.json
@@ -263,6 +266,7 @@ configs/source_rights_registry.json
 configs/sportsdataverse_post2022_roster_acquisition.json
 configs/supplemental_play_drive_gap_contract.json
 configs/tamu_availability_source_sample.json
+configs/tamu_no_adjustment_reference.json
 configs/tamu_specialization_registry.json
 configs/team_state_registry.json
 configs/temporal_registry.json
@@ -3049,9 +3053,11 @@ src/aggie_analytics/temporal/weather_previous_runs_snapshot.py
 src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
 src/aggie_analytics/validation/__init__.py
+src/aggie_analytics/validation/evaluation_exposure.py
 src/aggie_analytics/validation/metrics.py
 src/aggie_analytics/validation/promotion.py
 src/aggie_analytics/validation/protected.py
+src/aggie_analytics/validation/retraining_admission.py
 tests/test_acceptance_governance.py
 tests/test_acquisition_resilience.py
 tests/test_action_play_summary.py
@@ -3067,6 +3073,7 @@ tests/test_context_intelligence_governance.py
 tests/test_core_registry.py
 tests/test_data_research.py
 tests/test_entity_governance.py
+tests/test_evaluation_exposure.py
 tests/test_expanded_event_chronology.py
 tests/test_experiment_store_full.py
 tests/test_experimentation_governance.py
@@ -3151,6 +3158,7 @@ tools/backup_state.py
 tools/bootstrap_readiness.py
 tools/build_action_derived_play_summary.py
 tools/build_artifact_record.py
+tools/build_evaluation_exposure_ledger.py
 tools/build_historical_advanced_game_snapshot.py
 tools/build_historical_game_outcome_spine.py
 tools/build_historical_play_drive_pit.py
@@ -3160,6 +3168,7 @@ tools/build_historical_player_box_snapshot.py
 tools/build_historical_player_event_metric_pit.py
 tools/build_historical_rankings_pit.py
 tools/build_historical_roster_membership_pit.py
+tools/build_historical_spine_coverage_matrix.py
 tools/build_historical_team_box_snapshot.py
 tools/build_historical_team_membership_pit.py
 tools/build_historical_venue_assignment_pit.py
@@ -3178,6 +3187,7 @@ tools/check_advanced_challenger_admission.py
 tools/compare_development_results.py
 tools/create_experiment.py
 tools/create_research_packet.py
+tools/evaluate_retraining_admission.py
 tools/experiment_store_cli.py
 tools/freeze_experiment_spec.py
 tools/generate_instruction_manifest.py
@@ -3208,6 +3218,7 @@ tools/run_openai_entity_review_pilot.py
 tools/run_openai_gamebook_pilot.py
 tools/run_openai_gamebook_schema_mapping.py
 tools/run_openai_quarantine_pilot.py
+tools/run_preliminary_elo_challengers.py
 tools/run_preliminary_play_drive_augmented.py
 tools/run_preliminary_rankings_augmented_baselines.py
 tools/run_preliminary_unprotected_baselines.py
@@ -3258,6 +3269,7 @@ tools/validate_openai_assist.py
 tools/validate_openai_gamebook_schema_mapping.py
 tools/validate_player_intelligence.py
 tools/validate_post2022_roster_candidate.py
+tools/validate_preliminary_elo_challengers.py
 tools/validate_preliminary_play_drive_augmented.py
 tools/validate_preliminary_rankings_augmented_baselines.py
 tools/validate_preliminary_unprotected_baselines.py

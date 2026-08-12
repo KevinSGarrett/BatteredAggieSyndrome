@@ -7,6 +7,8 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
+    "Inventory C:/BatteredAggieSyndrome.data/validation read-only before cleanup and classify exact paths, bytes, references, content identities, registered-worktree state, and recovery value.",
+    "Preserve unique validation evidence, accepted artifacts, immutable manifests, provenance, and recovery-critical content; remove only verified reconstructible content and never recursively delete a dirty or unverified worktree.",
     "Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.",
     "The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
@@ -137,7 +139,7 @@
     "shared-contract",
     "subtask"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-12",
   "local_id": "POST-SUBTASK-130",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata",
@@ -203,7 +205,7 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`configs/backup_retention_policy.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -411,9 +413,11 @@ Execute the atomic 1 of 3 step in Story POST-STORY-044 (Rights-aware backup, res
 
 ## Acceptance Criteria
 
-1. Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
-2. The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Inventory C:/BatteredAggieSyndrome.data/validation read-only before cleanup and classify exact paths, bytes, references, content identities, registered-worktree state, and recovery value.
+2. Preserve unique validation evidence, accepted artifacts, immutable manifests, provenance, and recovery-critical content; remove only verified reconstructible content and never recursively delete a dirty or unverified worktree.
+3. Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
+4. The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Definition of Done
 

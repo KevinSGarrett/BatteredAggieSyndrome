@@ -103,9 +103,11 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
-2. The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Inventory C:/BatteredAggieSyndrome.data/validation read-only before cleanup and classify exact paths, bytes, references, content identities, registered-worktree state, and recovery value.
+2. Preserve unique validation evidence, accepted artifacts, immutable manifests, provenance, and recovery-critical content; remove only verified reconstructible content and never recursively delete a dirty or unverified worktree.
+3. Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
+4. The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 

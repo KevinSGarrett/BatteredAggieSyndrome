@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "tamu-no-adjustment-reference-v1",
+  "classification": "PRELIMINARY_UNPROTECTED",
+  "reference": "UNCHANGED_NATIONAL_MODEL",
+  "mandatory": true,
+  "current_shadow_sample_games": 39,
+  "current_disposition": "SMALL_NEGATIVE_NO_SPECIALIZATION_SUPPORT",
+  "forecast_behavior": "NO_A_AND_M_ADJUSTMENT",
+  "retest_requires": [
+    "larger chronological A&M-specific eligible sample",
+    "consistent out-of-sample improvement across seasons",
+    "material improvement across declared metrics",
+    "calibration improvement or non-degradation",
+    "stability across declared slices"
+  ],
+  "scientific_interpretation": "No adjustment is a valid successful outcome.",
+  "nonclaims": ["No A&M specialization lift.", "No BAS result.", "No Aggie Excess result."]
+}

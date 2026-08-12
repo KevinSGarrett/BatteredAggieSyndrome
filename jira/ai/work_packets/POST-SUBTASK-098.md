@@ -108,9 +108,11 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
-2. The declared output `artifacts/validation/protected_access_protocol_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Fail closed when an exposed artifact, derived artifact, decision family, inspected 2024-2025 result, or inherited exposure is represented as untouched protected, split-protected, or protected-promotion eligible.
+2. A future protected claim requires immutable forecast-first capture and proof that model, dataset, feature, threshold, judging-contract, and prediction identities predate the outcome.
+3. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
+4. The declared output `artifacts/validation/protected_access_protocol_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 

@@ -4,13 +4,13 @@
 - Source-prompt sections audited: 68
 - Passed sections: 68
 - Failed sections: 0
-- Canonical issues: 500
-- Post-wave packets: 242 / 242
-- Atomic execution records: 168
+- Canonical issues: 505
+- Post-wave packets: 243 / 243
+- Atomic execution records: 169
 - Aggregate gate records: 74
 - Protected/touched overlaps: 0
 - Source references validated: 2119
-- Import rows validated: 500
+- Import rows validated: 505
 
 ## 68-section matrix
 
@@ -24,10 +24,10 @@
 | 6 | Establish source authority | PASS | Source precedence and conflicts are explicitly represented. |
 | 7 | Reconcile the existing planning system | PASS | Historical Epics/Tasks retain stable source IDs and separate historical classification. |
 | 8 | Full completion-gap analysis | PASS | Every final gap and risk has a Jira disposition. |
-| 9 | Represent the entire project | PASS | Current strict coverage and derivative validation agree at 500 canonical issues. |
+| 9 | Represent the entire project | PASS | Current strict coverage and derivative validation agree at 505 canonical issues. |
 | 10 | Issue hierarchy | PASS | Parent/child types and parent existence validate across the complete graph. |
 | 11 | Issue types have meaning | PASS | Parent/child types and parent existence validate across the complete graph. |
-| 12 | Issue granularity | PASS | All 168 atomic Subtasks have criterion/output-specific scope; generic v1 boilerplate is absent. |
+| 12 | Issue granularity | PASS | All 169 atomic Subtasks have criterion/output-specific scope; generic v1 boilerplate is absent. |
 | 13 | Required content for every actionable issue | PASS | Every post-wave record carries the full execution/completion contract and read/touch/protected separation. |
 | 14 | Acceptance criteria | PASS | Every post-wave record has explicit acceptance criteria. |
 | 15 | Definition of Done | PASS | Every post-wave record has Definition of Done separate from acceptance criteria. |
@@ -43,12 +43,12 @@
 | 25 | Critical path | PASS | Dependency-critical gating records are explicitly indexed. |
 | 26 | Priorities | PASS | All records use the controlled logical priority vocabulary. |
 | 27 | AI-token-efficient design | PASS | Compact startup, queues, one-record packets, and retrieval indexes support minimal context loading. |
-| 28 | AI work packets | PASS | Packet coverage is 242/242 post-wave records; modes prevent aggregate direct execution. |
+| 28 | AI work packets | PASS | Packet coverage is 243/243 post-wave records; modes prevent aggregate direct execution. |
 | 29 | Local/Jira field-level authority | PASS | Local specification authority and Jira operational authority are separated with conflict handling. |
 | 30 | Do not assume final Jira configuration | PASS | Target configuration is either an unbound template with blank keys or an explicitly verified live target with valid mapped keys. |
 | 31 | Human-readable and machine-readable views | PASS | Every canonical JSON has a generated human-readable Markdown view. |
 | 32 | Local jira directory structure | PASS | Required Jira subdirectories and major artifacts exist. |
-| 33 | Jira import strategy | PASS | Strict import dry-run passes for 500 issues and 1148 links. |
+| 33 | Jira import strategy | PASS | Strict import dry-run passes for 505 issues and 1173 links. |
 | 34 | Verify current Atlassian requirements | PASS | Current official Jira Cloud CSV/Parent/ADF/REST/link assumptions are recorded with verification date and destination-mapping boundaries. |
 | 35 | Minimize custom-field bloat | PASS | The minimal searchable custom-field proposal is present; execution mode remains machine-searchable through the local packet/index schema without unnecessary Jira custom-field bloat. |
 | 36 | Labels and components | PASS | Controlled component and label vocabularies exist. |
@@ -66,9 +66,9 @@
 | 48 | BAS and scientific integrity | PASS | BAS-science work preserves null-result acceptance and dedicated scientific domain coverage. |
 | 49 | Point-in-time and leakage protection | PASS | PIT/leakage work and release-blocking criteria are represented and traceable. |
 | 50 | Automated validation | PASS | Full schema, semantic, source, dependency, import, manifest, and second-pass validators are present and pass. |
-| 51 | Coverage gates | PASS | Current strict coverage and derivative validation agree at 500 canonical issues. |
+| 51 | Coverage gates | PASS | Current strict coverage and derivative validation agree at 505 canonical issues. |
 | 52 | Planning completeness versus product completeness | PASS | Historical DONE remains scoped by maturity/evidence and is not treated as product completion. |
-| 53 | Import dry-run | PASS | Strict import dry-run passes for 500 issues and 1148 links. |
+| 53 | Import dry-run | PASS | Strict import dry-run passes for 505 issues and 1173 links. |
 | 54 | Post-import reconciliation | PASS | Post-import key/status reconciliation utility and validation checklist exist. |
 | 55 | Continuous update contract | PASS | Completion/sync protocols rebuild queues/import derivatives and validate after meaningful changes. |
 | 56 | Change journal | PASS | Versioned changelog and append-only meaningful event log exist. |

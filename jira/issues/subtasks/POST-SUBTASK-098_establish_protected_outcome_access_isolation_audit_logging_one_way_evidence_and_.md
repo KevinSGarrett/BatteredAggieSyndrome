@@ -7,6 +7,8 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
+    "Fail closed when an exposed artifact, derived artifact, decision family, inspected 2024-2025 result, or inherited exposure is represented as untouched protected, split-protected, or protected-promotion eligible.",
+    "A future protected claim requires immutable forecast-first capture and proof that model, dataset, feature, threshold, judging-contract, and prediction identities predate the outcome.",
     "Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.",
     "The declared output `artifacts/validation/protected_access_protocol_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
@@ -143,7 +145,7 @@
     "subtask",
     "validation"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-12",
   "local_id": "POST-SUBTASK-098",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Establish protected-outcome access isolation, audit logging, one-way evidence, and failure preservation",
@@ -212,7 +214,7 @@
     "docs/58_MODEL_PROMOTION_AND_THRESHOLD_PRECOMMITMENT.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/validation/protected_access_protocol_test.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -454,9 +456,11 @@ Execute the atomic 2 of 3 step in Story POST-STORY-033 (Protected split, judging
 
 ## Acceptance Criteria
 
-1. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
-2. The declared output `artifacts/validation/protected_access_protocol_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Fail closed when an exposed artifact, derived artifact, decision family, inspected 2024-2025 result, or inherited exposure is represented as untouched protected, split-protected, or protected-promotion eligible.
+2. A future protected claim requires immutable forecast-first capture and proof that model, dataset, feature, threshold, judging-contract, and prediction identities predate the outcome.
+3. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
+4. The declared output `artifacts/validation/protected_access_protocol_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Definition of Done
 

@@ -7,6 +7,9 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
+    "A versioned deterministic admission controller records old/new dataset identities, observed population/coverage/missingness/schema/reconciliation/PIT-feature/defect deltas, evidence identities, rationale, and action for every retraining decision.",
+    "Full ladder retraining occurs only at an evidence-backed coherent milestone or predeclared comparison; candidate-only and immaterial changes receive focused integration/replay tests without automatic full retraining.",
+    "No arbitrary numeric threshold is fabricated merely to suppress or trigger a run, and the preliminary-unprotected lane does not require a current production champion.",
     "Triggers predeclare evidence/budget/freeze/skip reasons, cannot repeatedly tune on protected outcomes, preserve all failed/no-improvement challengers, and never corrupt the active champion.",
     "The declared output `artifacts/mlops/retraining_challenger_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
@@ -137,7 +140,7 @@
     "research-lane",
     "subtask"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-12",
   "local_id": "POST-SUBTASK-109",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Implement season/week/data-drift/performance retraining triggers and execute reproducible challenger runs against the current champion",
@@ -202,7 +205,7 @@
     "docs/105_W21_AUTONOMOUS_WEEKLY_MLOPS.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/mlops/retraining_challenger_report.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -421,9 +424,12 @@ Execute the atomic 1 of 3 step in Story POST-STORY-037 (Governed retraining, pro
 
 ## Acceptance Criteria
 
-1. Triggers predeclare evidence/budget/freeze/skip reasons, cannot repeatedly tune on protected outcomes, preserve all failed/no-improvement challengers, and never corrupt the active champion.
-2. The declared output `artifacts/mlops/retraining_challenger_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. A versioned deterministic admission controller records old/new dataset identities, observed population/coverage/missingness/schema/reconciliation/PIT-feature/defect deltas, evidence identities, rationale, and action for every retraining decision.
+2. Full ladder retraining occurs only at an evidence-backed coherent milestone or predeclared comparison; candidate-only and immaterial changes receive focused integration/replay tests without automatic full retraining.
+3. No arbitrary numeric threshold is fabricated merely to suppress or trigger a run, and the preliminary-unprotected lane does not require a current production champion.
+4. Triggers predeclare evidence/budget/freeze/skip reasons, cannot repeatedly tune on protected outcomes, preserve all failed/no-improvement challengers, and never corrupt the active champion.
+5. The declared output `artifacts/mlops/retraining_challenger_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Definition of Done
 

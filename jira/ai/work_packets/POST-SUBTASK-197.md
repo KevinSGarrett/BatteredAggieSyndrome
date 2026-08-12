@@ -37,7 +37,7 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 
 - Workflow: `IN_PROGRESS`
 - Ready: `false`
-- Priority: `Highest`
+- Priority: `P0`
 - Critical path: `true`
 - Execution lane: `DATA_MATERIALIZATION`
 - Execution mode: `ATOMIC_EXECUTION`

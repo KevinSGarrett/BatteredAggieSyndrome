@@ -104,9 +104,12 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
-2. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Preserve the unchanged current Elo artifact as the reference and predeclare each interpretable challenger hypothesis, reference deficiency, parameter constraints, chronological development split, metrics, slices, and stability/materiality rule.
+2. Prioritize time decay, bounded margin updates, offseason regression, information-aware cold starts, opponent-adjusted offense/defense, site effects, regime stability, uncertainty, and probability/margin calibration before higher-complexity models.
+3. Report effect sizes and negative findings by season and relevant slice, prefer the simpler reference absent stable material improvement, and never treat inspected 2024-2025 results as untouched protected evidence or promote a champion from preliminary results.
+4. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
+5. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 

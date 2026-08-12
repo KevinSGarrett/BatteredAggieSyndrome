@@ -1,7 +1,15 @@
 from __future__ import annotations
 import hashlib, json, os, subprocess, sys, tempfile, unittest
 from pathlib import Path
-from aggie_analytics.operations.observability import JsonlEventSink, MetricRegistry, sanitize_metadata
+from aggie_analytics.operations.observability import (
+    IDENTITY_FIELDS,
+    JsonlEventSink,
+    MetricRegistry,
+    OperationalEvent,
+    sanitize_metadata,
+    validate_metric_snapshot,
+    validate_operational_event,
+)
 from aggie_analytics.operations.environment import UnsafeLocalRuntimePath, collect_runtime_manifest, provision_local_runtime_paths, validate_local_path_contract
 from aggie_analytics.operations.backup import create_backup, restore_backup, verify_backup
 from aggie_analytics.operations.benchmark import run_benchmark
@@ -18,6 +26,65 @@ class W23OperationsTests(unittest.TestCase):
     def test_metric_registry(self):
         m=MetricRegistry(); m.increment('runs_total'); m.increment('runs_total',2); m.gauge('queue_depth',4)
         self.assertEqual(m.snapshot()['counters']['runs_total'],3.0); self.assertEqual(m.snapshot()['gauges']['queue_depth'],4.0)
+
+    def test_observability_event_exposes_complete_correlation_contract(self):
+        fields={name:f'{name}-001' for name in IDENTITY_FIELDS}
+        event=OperationalEvent(
+            event='SOURCE_WINDOW_CHECKED',component='historical-ingestion',
+            occurred_at_utc='2026-08-12T22:00:00Z',duration_ms=12.5,count=7,
+            status='DEGRADED',blocker_code='OPTIONAL_DOMAIN_MISSING',missingness='EXPECTED',
+            metadata={'cookie':'private-cookie','message':'Bearer abcdefghijklmnop'},**fields,
+        )
+        first=event.as_dict(); second=event.as_dict(); validate_operational_event(first)
+        self.assertEqual(first,second); self.assertEqual(first['event_identity'],second['event_identity'])
+        self.assertEqual(first['identities'],fields); self.assertEqual(first['run_id'],fields['run_id'])
+        self.assertEqual(first['missingness'],'EXPECTED'); self.assertEqual(first['status'],'DEGRADED')
+        self.assertEqual(first['metadata']['cookie'],'[REDACTED]')
+        self.assertEqual(first['metadata']['message'],'Bearer [REDACTED]')
+
+    def test_observability_event_fails_closed_on_semantic_or_identity_mutation(self):
+        event=OperationalEvent(
+            event='ENTITY_RECONCILED',component='identity',run_id='run-1',
+            occurred_at_utc='2026-08-12T22:00:00Z',status='SUCCEEDED',count=1,
+        ).as_dict()
+        mutated=json.loads(json.dumps(event)); mutated['count']=2
+        with self.assertRaisesRegex(ValueError,'content identity'):
+            validate_operational_event(mutated)
+        with self.assertRaisesRegex(ValueError,'defect missingness'):
+            OperationalEvent(
+                event='ENTITY_RECONCILED',component='identity',status='SUCCEEDED',missingness='DEFECT',
+            ).as_dict()
+        with self.assertRaisesRegex(ValueError,'invalid run_id'):
+            OperationalEvent(
+                event='ENTITY_RECONCILED',component='identity',run_id='token'+'='+'abcdefghijklmnop',
+            ).as_dict()
+
+    def test_metric_health_snapshot_is_identity_bound_redacted_and_freshness_gated(self):
+        metrics=MetricRegistry(); metrics.increment('records_total',7); metrics.gauge('queue_depth',2)
+        identities={name:f'{name}-001' for name in IDENTITY_FIELDS}
+        snapshot=metrics.observed_snapshot(
+            component='historical-ingestion',identities=identities,
+            observed_at_utc='2026-08-12T22:00:00Z',status='DEGRADED',
+            expected_missing_count=3,defect_count=1,blockers=('SCHEMA_DRIFT_QUARANTINE',),
+            max_age_seconds=600,metadata={'api_key':'never-log-this','note':'secret'+'='+'abcdefghijklmnop'},
+        )
+        validate_metric_snapshot(snapshot,now_utc='2026-08-12T22:05:00Z')
+        self.assertEqual(snapshot['missingness_counts'],{'expected_missing':3,'defect':1})
+        self.assertEqual(snapshot['metadata']['api_key'],'[REDACTED]')
+        self.assertEqual(snapshot['metadata']['note'],'secret=[REDACTED]')
+        with self.assertRaisesRegex(ValueError,'stale'):
+            validate_metric_snapshot(snapshot,now_utc='2026-08-12T22:11:00Z')
+        mutated=json.loads(json.dumps(snapshot)); mutated['metrics']['gauges']['queue_depth']=3.0
+        with self.assertRaisesRegex(ValueError,'content identity'):
+            validate_metric_snapshot(mutated)
+
+    def test_blocked_health_requires_an_explicit_blocker(self):
+        metrics=MetricRegistry(); identities={name:None for name in IDENTITY_FIELDS}
+        with self.assertRaisesRegex(ValueError,'requires at least one blocker'):
+            metrics.observed_snapshot(
+                component='weekly',identities=identities,
+                observed_at_utc='2026-08-12T22:00:00Z',status='BLOCKED',
+            )
     def test_runtime_manifest_allowlists_environment(self):
         p=collect_runtime_manifest(packages=['fastapi','definitely-not-installed-aggie'])
         self.assertEqual(p['schema_version'],'aggie.runtime.environment.v1'); self.assertIn('manifest_sha256',p); self.assertEqual(p['packages']['definitely-not-installed-aggie'],'NOT_INSTALLED')

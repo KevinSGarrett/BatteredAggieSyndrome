@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-055",
+  "related_design_units": ["TASK-075", "TASK-107"],
+  "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
+  "artifact_type": "PRELIMINARY_UNPROTECTED_SUSTAINABILITY_ABLATION_RUN",
+  "run_version": "preliminary-sustainability-nested-walk-forward-v1",
+  "profile_module": "sustainability_augmented",
+  "storage_namespace": "preliminary_sustainability_ablation",
+  "stage_prefix": "bat405-sustainability-ablation-",
+  "profile_payload_relative_path": "features/preliminary_sustainability/sha256/{profile_feature_identity}/target_game_team_sustainability_features.parquet",
+  "profile_manifest_relative_path": "manifests/preliminary_sustainability/sha256/{profile_feature_identity}/run_manifest.json",
+  "authorized_inputs": {
+    "baseline_run_identity": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "baseline_manifest_sha256": "602477b325c33811ccf9573af6cc7c6854621b322566c15e580dc134ddf07e8a",
+    "baseline_dataset_identity": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "baseline_feature_identity": "df9093758679968bc88fb7a1c5b7931c0bbe5f625fe928b69f2ccc0abe8de265",
+    "baseline_target_identity": "a384834b94cf2cbc5e56ebd31577108bbea6014e5009931f11a4a7c3be703f71",
+    "baseline_split_identity": "9e201d2a298bc8d65876e36e483e2d4a0d574ae1b407ca420ca3950093e4dc86",
+    "baseline_forecast_identity": "fb84332df4f25f511752cf354bc5b12a7c3283ae44e1f45a24cb932a2122f50a",
+    "profile_feature_identity": "e650ea85fb8223f71cb14603dc25f21eb9686810a7f671c39a728fef8b418cf9",
+    "profile_manifest_sha256": "c46410fa8e9aa274ea12cbc508c293d38b158a258415be32bcaf6b8bd6534cfb",
+    "profile_payload_sha256": "5b43da9a9db57560e9de6cf5e22191fb51ab3d3f7c3e13efdaf725b69b75ecdc",
+    "profile_known_at_utc": "2023-05-06T07:52:16Z",
+    "eligible_target_seasons": [2023, 2024, 2025],
+    "eligibility": "DEVELOPMENT_AND_PRELIMINARY_UNPROTECTED_ONLY"
+  },
+  "predeclared_hypothesis": {
+    "baseline_deficiency": "The unchanged regularized outcome-prior models do not expose whether historical result-versus-score residuals, close-game residuals, margin volatility, or downside-tail frequency contain incremental chronological signal.",
+    "candidate_change": "Add eight immutable home-minus-away sustainability and downside-risk contrasts to the unchanged baseline logit or margin prediction, with explicit cold starts and fit-only imputation.",
+    "expected_direction": "Incremental value, if present, should reduce probability or margin error in both the 2024 and 2025 rolling-origin seasons without a sign reversal across metrics; mixed or negative evidence rejects adoption.",
+    "adoption_rule": "No promotion in this work unit. Preserve identical-row effect sizes; prefer the unchanged reference unless improvement is stable, material, and later replicated on genuinely untouched evidence.",
+    "threshold_policy": "No post-hoc threshold and no fabricated materiality cutoff."
+  },
+  "candidate_profile_fields": [
+    "all_win_share_minus_score_share",
+    "all_close_win_share_minus_overall",
+    "all_margin_stddev",
+    "all_downside_tail_rate",
+    "recent_win_share_minus_score_share",
+    "recent_close_win_share_minus_overall",
+    "recent_margin_stddev",
+    "recent_downside_tail_rate"
+  ],
+  "diagnostic_only_profile_fields": [
+    "all_source_game_count",
+    "all_source_season_count",
+    "recent_source_game_count",
+    "recent_source_season_count",
+    "all_upside_tail_rate",
+    "recent_upside_tail_rate",
+    "pandemic_2020_game_share"
+  ],
+  "chronology_policy": {
+    "2023": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS",
+    "2024": "FIT_ONLY_2023_OUTCOMES",
+    "2025": "FIT_ONLY_2023_AND_2024_OUTCOMES",
+    "target_game_and_future_outcomes_excluded": true,
+    "same_season_future_outcomes_excluded": true,
+    "fit_only_imputation": true,
+    "protected_split_opened": false
+  },
+  "model_policy": {
+    "families": [
+      "sustainability_logistic_stacker",
+      "sustainability_ridge_margin_stacker"
+    ],
+    "logistic_c": 0.1,
+    "ridge_alpha": 100.0,
+    "hyperparameter_source": "UNCHANGED_FROM_PREDECLARED_FOCUSED_ABLATION_DEFAULTS",
+    "imputation": "FIT_ONLY_MEDIAN_WITH_EXPLICIT_COLD_START_INDICATORS",
+    "tree_boosting": "NOT_ADMITTED_FOR_THIS_FOCUSED_INTERPRETABLE_ABLATION"
+  },
+  "comparison_contract": {
+    "frozen_logistic_reference_family": "regularized_logistic",
+    "frozen_margin_reference_family": "regularized_linear_margin",
+    "same_target_rows_required": true,
+    "same_chronological_assignments_required": true,
+    "common_support_required": true,
+    "negative_results_preserved": true,
+    "adoption_authority": "PRELIMINARY_RESEARCH_ONLY_NO_CHAMPION"
+  },
+  "limitations": [
+    "All artifacts, metrics, and decisions are PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE.",
+    "The 2024-2025 outcomes have already supplied development feedback and cannot be presented as untouched protected evidence.",
+    "The profiles summarize static 2010-2022 retrospective evidence known in May 2023 and are not target-season updates.",
+    "The 2023 candidate is an exact frozen-baseline fallback; 2024 fits only 2023 outcomes and 2025 fits only 2023-2024 outcomes.",
+    "Outcome-only residuals are descriptive candidates and do not identify causal luck, clutch performance, coaching effects, injuries, turnovers, or field position.",
+    "The recent window includes the 2020 pandemic regime; its composition is diagnostic-only and is not silently normalized.",
+    "Negative or mixed evidence is preserved and cannot promote a champion, A&M adjustment, BAS, or Aggie Excess."
+  ],
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

@@ -95,8 +95,9 @@ def derive_states(root: Path = ROOT) -> tuple[dict[str, str], dict[str, Any]]:
         if local["qualification_disposition"] == "EMPIRICALLY_REJECTED_NO_OPERATIONAL_ROUTE"
         and any(item.get("result") == "PASS_CANDIDATE_RETRIEVAL_ONLY_EXACT_ROUTE_READY" for item in local.get("shadow_qualifications", []))
         else "EVIDENCE_CONFLICT",
-        "remote_cpu_worker": "BLOCKED_PARTIAL_PROTOTYPE_RETIRED"
-        if cpu["readiness_disposition"] == "BLOCKED_CORRECTED_ARCHITECTURE_REQUIRED"
+        "remote_cpu_worker": "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY"
+        if cpu["readiness_disposition"] == "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY"
+        and cpu["qualification"]["disposition"] == "PASS"
         else "EVIDENCE_CONFLICT",
         "unified_plane": "IMPLEMENTED_NONLIVE",
     }
@@ -110,7 +111,10 @@ def derive_states(root: Path = ROOT) -> tuple[dict[str, str], dict[str, Any]]:
             item.get("result") == "PASS_CANDIDATE_RETRIEVAL_ONLY_EXACT_ROUTE_READY"
             for item in local.get("shadow_qualifications", [])
         ),
-        "cpu_corrected_live_qualification_passes": 0,
+        "cpu_corrected_live_qualification_passes": int(
+            cpu["readiness_disposition"] == "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY"
+            and cpu["qualification"]["disposition"] == "PASS"
+        ),
         "scheduler_real_cycles": 0,
         "soak_calendar_days": 0,
         "retries_health_catalog_counted_as_accepted": 0,

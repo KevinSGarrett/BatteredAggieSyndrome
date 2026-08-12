@@ -16,46 +16,57 @@ def sha256(path: Path) -> str:
 def main() -> int:
     findings: list[str] = []
     summary = json.loads(SUMMARY.read_text(encoding="utf-8"))
-    external = Path(summary["external_readiness_path"])
-    if not external.is_file() or sha256(external) != summary["external_readiness_sha256"]:
-        findings.append("CPU_WORKER_EXTERNAL_READINESS_IDENTITY_INVALID")
-    else:
-        evidence = json.loads(external.read_text(encoding="utf-8"))
-        if evidence["peer"]["dns_name"] != summary["exact_identity"]["worker_dns_name"]:
-            findings.append("CPU_WORKER_DNS_IDENTITY_MISMATCH")
-        if evidence["peer"].get("node_id") is None:
-            findings.append("CPU_WORKER_NODE_IDENTITY_MISSING")
-        if evidence["canonical_writes"] or evidence["protected_decisions"]:
-            findings.append("CPU_WORKER_AUTHORITY_BOUNDARY_VIOLATION")
-    implemented = summary["implemented_candidate"]
-    if implemented["deployment_state"] != "PROTOTYPE_DISABLED_PENDING_CORRECTED_ARCHITECTURE":
-        findings.append("CPU_WORKER_PROTOTYPE_NOT_RETIRED")
-    if summary["readiness_disposition"] != "BLOCKED_CORRECTED_ARCHITECTURE_REQUIRED":
-        findings.append("CPU_WORKER_PREMATURE_OPERATIONAL_CLAIM")
-    if implemented["arbitrary_path_or_shell_execution"] or implemented["public_exposure"]:
-        findings.append("CPU_WORKER_SECURITY_POLICY_INVALID")
+    readiness = Path(summary["external_readiness_path"])
     qualification = Path(summary["external_qualification_path"])
+    if not readiness.is_file() or sha256(readiness) != summary["external_readiness_sha256"]:
+        findings.append("CPU_WORKER_EXTERNAL_READINESS_IDENTITY_INVALID")
     if not qualification.is_file() or sha256(qualification) != summary["external_qualification_sha256"]:
         findings.append("CPU_WORKER_EXTERNAL_QUALIFICATION_IDENTITY_INVALID")
+        result = None
     else:
         result = json.loads(qualification.read_text(encoding="utf-8"))
+    if summary["readiness_disposition"] != "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY":
+        findings.append("CPU_WORKER_QUALIFIED_CANDIDATE_STATE_MISSING")
+    deployment = summary["deployment"]
+    if not deployment["loopback_only"] or deployment["public_funnel"]:
+        findings.append("CPU_WORKER_PRIVATE_TRANSPORT_INVALID")
+    if deployment["service_identity"] != "NT AUTHORITY\\LOCAL SERVICE" or deployment["run_level"] != "Limited":
+        findings.append("CPU_WORKER_PRIVILEGE_INVALID")
+    if deployment["arbitrary_path_url_module_command_or_shell"]:
+        findings.append("CPU_WORKER_ARBITRARY_EXECUTION_AUTHORITY_PRESENT")
+    gates = summary["qualification"]
+    required_true = [
+        "completed_job_replay_after_worker_and_controller_restart",
+        "interrupted_job_recovery",
+        "unauthorized_request_rejection",
+        "expired_packet_rejection",
+        "invalid_signature_rejection",
+        "corrupt_packet_rejection",
+        "disk_admission",
+        "result_hash_verification",
+        "cleanup",
+    ]
+    if gates["deterministic_tranches"] < 3 or gates["byte_identical_replays"] < 3 or gates["exact_dedup_pilots"] < 1:
+        findings.append("CPU_WORKER_LIVE_WORKLOAD_GATES_INCOMPLETE")
+    if not all(gates[field] is True for field in required_true):
+        findings.append("CPU_WORKER_LIVE_SECURITY_OR_RECOVERY_GATE_INCOMPLETE")
+    if gates["canonical_writes"] or gates["protected_decisions"]:
+        findings.append("CPU_WORKER_AUTHORITY_BOUNDARY_VIOLATION")
+    if result is not None:
         if result["qualification_disposition"] != "PASS":
-            findings.append("CPU_WORKER_HISTORICAL_PROTOTYPE_EVIDENCE_INVALID")
-        if not all(item["byte_identical_replay"] for item in result["tranches"]):
-            findings.append("CPU_WORKER_REPLAY_NOT_BYTE_IDENTICAL")
-        if result["restart_evidence"]["restart_recovery"] != "PASS":
-            findings.append("CPU_WORKER_RESTART_RECOVERY_NOT_PASS")
+            findings.append("CPU_WORKER_QUALIFICATION_NOT_PASS")
+        if len(result["tranches"]) < 3 or not all(item["byte_identical_replay"] for item in result["tranches"]):
+            findings.append("CPU_WORKER_EXTERNAL_REPLAY_INVALID")
         if result["canonical_writes"] or result["protected_decisions"]:
-            findings.append("CPU_WORKER_QUALIFICATION_AUTHORITY_VIOLATION")
+            findings.append("CPU_WORKER_EXTERNAL_AUTHORITY_VIOLATION")
     if findings:
         print(json.dumps({"status": "FAIL", "findings": findings}, indent=2))
         return 1
     print(json.dumps({
         "status": "PASS",
         "worker_online": True,
-        "operational_state": "BLOCKED_PARTIAL",
-        "prototype_disabled": True,
-        "historical_prototype_mechanics": "PASS_PRESERVED_NOT_CURRENT_QUALIFICATION",
+        "operational_state": "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY",
+        "fully_operational_claimed": False,
         "canonical_writes": 0,
         "protected_decisions": 0,
     }, sort_keys=True))

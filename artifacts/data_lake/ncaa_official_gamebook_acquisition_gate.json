@@ -11,7 +11,7 @@
     "protected_training_or_evaluation": false
   },
   "bounded_population": {
-    "captured": 6,
+    "captured": 18,
     "captured_domains": [
       "attendance",
       "drives",
@@ -23,17 +23,19 @@
       "venue"
     ],
     "contest_ids": [
+      "5336803",
+      "5361446",
       "5362283"
     ],
     "domain_capture_counts": {
-      "attendance": 1,
-      "drives": 1,
-      "linescore_game_info": 1,
-      "officials": 1,
-      "play_by_play": 1,
-      "player_stats": 1,
-      "team_stats_by_period": 1,
-      "venue": 1
+      "attendance": 3,
+      "drives": 3,
+      "linescore_game_info": 3,
+      "officials": 3,
+      "play_by_play": 3,
+      "player_stats": 3,
+      "team_stats_by_period": 3,
+      "venue": 3
     },
     "endpoint_ids": [
       "box_score",
@@ -45,26 +47,26 @@
     ],
     "missing_domains": [],
     "normalized_domain_counts": {
-      "attendance": 1,
-      "drives": 1,
-      "linescore_game_info": 1,
-      "officials": 1,
-      "play_by_play": 1,
-      "player_stats": 1,
-      "team_stats_by_period": 1,
-      "venue": 1
+      "attendance": 3,
+      "drives": 3,
+      "linescore_game_info": 3,
+      "officials": 3,
+      "play_by_play": 3,
+      "player_stats": 3,
+      "team_stats_by_period": 3,
+      "venue": 3
     },
     "normalized_row_counts": {
-      "attendance": 1,
-      "drives": 26,
-      "linescore_game_info": 8,
-      "officials": 1,
-      "play_by_play": 213,
-      "player_stats": 36,
-      "team_stats_by_period": 120,
-      "venue": 1
+      "attendance": 3,
+      "drives": 77,
+      "linescore_game_info": 24,
+      "officials": 3,
+      "play_by_play": 668,
+      "player_stats": 112,
+      "team_stats_by_period": 360,
+      "venue": 3
     },
-    "requested": 6,
+    "requested": 18,
     "technical_failures": 0
   },
   "classification": "NATIONAL_NCAA_OFFICIAL_GAMEBOOK_EQUIVALENT_CANDIDATE_ONLY",
@@ -92,9 +94,9 @@
   },
   "jira_key": "BAT-554",
   "manifest": {
-    "acquisition_identity": "b58e69d2df9531d25ac252b5b2edd19102df4b8506c2f3b4529c9f6f842cf9ca",
-    "path": "C:\\BatteredAggieSyndrome.data\\manifests\\acquisition\\BAT-554-NCAA-OFFICIAL-BOUNDED-V1\\sha256\\b58e69d2df9531d25ac252b5b2edd19102df4b8506c2f3b4529c9f6f842cf9ca\\ncaa_official_gamebook_acquisition_manifest.json",
-    "sha256": "6f8f5f01c34a32533dadb273813bb99fb50c56711426e27cd6752cd958270ee5"
+    "acquisition_identity": "47141b77e857ddb2917a640094813d2500ef1ae094a8cbbdfa25c9f1df7e43ee",
+    "path": "C:\\BatteredAggieSyndrome.data\\manifests\\acquisition\\BAT-554-NCAA-OFFICIAL-BOUNDED-V1\\sha256\\47141b77e857ddb2917a640094813d2500ef1ae094a8cbbdfa25c9f1df7e43ee\\ncaa_official_gamebook_acquisition_manifest.json",
+    "sha256": "dce2eeb2a1e50c6e54bdf350fd52f096b03f177399b8cc7295addec13465dd2a"
   },
   "negative_findings": [
     "A bounded source-route success does not establish national historical completeness.",

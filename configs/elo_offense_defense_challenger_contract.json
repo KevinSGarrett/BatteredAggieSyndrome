@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "preliminary-elo-offense-defense-score-components-v1",
+  "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
+  "jira_key": "BAT-423",
+  "canonical_unit": "POST-SUBTASK-073",
+  "hypothesis": "One scalar Elo rating cannot distinguish opponent-adjusted scoring and prevention strength, which may limit probability and margin accuracy.",
+  "unchanged_reference": "elo_rating_week_batched_reference",
+  "simpler_controls": [
+    "elo_bounded_margin_2",
+    "elo_probability_logistic_calibrated"
+  ],
+  "candidate": "elo_offense_defense_score_components_selected",
+  "input_dataset_identity": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+  "fit_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+  "report_only_exposed_seasons": [2023, 2024, 2025],
+  "parameter_grid": {
+    "update_rate": [0.025, 0.05, 0.1, 0.2],
+    "offseason_retention": [0.5, 0.75, 1.0]
+  },
+  "fixed_parameters": {
+    "initial_team_score_mean": 24.0,
+    "non_neutral_home_score_edge": 2.5,
+    "score_residual_cap": 28.0,
+    "batch_grain": "season_type_week",
+    "component_update_allocation": "HALF_TO_SCORING_COMPONENT_HALF_TO_OPPONENT_PREVENTION_COMPONENT"
+  },
+  "selection_rule": "On 2010-2022 chronological predictions only: lowest calibrated log loss, then Brier, margin RMSE, lower update rate, and higher offseason retention.",
+  "evaluation": {
+    "common_support_required": true,
+    "metrics": ["brier", "log_loss", "ece_10", "margin_mae", "margin_rmse"],
+    "slices": ["season", "neutral_site", "home_favorite_or_underdog", "cold_start", "Texas_A&M_involved"],
+    "disposition": "Prefer scalar Elo unless the candidate is directionally stable against the unchanged reference, beats calibrated scalar Elo on probability metrics, beats bounded-margin Elo on margin metrics, and later demonstrates material value. No threshold is invented in this bounded run.",
+    "post_result_uncertainty_diagnostic": {
+      "method": "paired game-level percentile bootstrap on common support",
+      "replicates": 2000,
+      "confidence_level": 0.95,
+      "base_seed": 423,
+      "honesty": "Added after the first development result was inspected; diagnostic only, never predeclared protected evidence."
+    }
+  },
+  "missingness": "Team offense and defense states initialize to zero deviations with explicit games-observed and information-scarcity values; no absent factual score is imputed.",
+  "pit_policy": "All game updates occur only after the complete season-type/week batch is predicted. Report seasons never select parameters.",
+  "authority": {
+    "candidate_only": true,
+    "protected_performance": false,
+    "champion_or_production_promotion": false,
+    "a_and_m_adjustment": false,
+    "bas_or_aggie_excess": false
+  }
+}

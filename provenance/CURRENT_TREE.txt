@@ -206,6 +206,7 @@ configs/bas_science_registry.json
 configs/cfbd_post2022_roster_acquisition.json
 configs/context_intelligence_registry.json
 configs/elo_challenger_research_contract.json
+configs/elo_offense_defense_challenger_contract.json
 configs/entity_registry.json
 configs/expanded_event_chronology_preliminary_contract.json
 configs/experiment_artifact_policy.json
@@ -3142,6 +3143,7 @@ tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
 tests/test_preliminary_elo_challengers.py
+tests/test_preliminary_elo_offense_defense.py
 tests/test_preliminary_play_drive_augmented.py
 tests/test_preliminary_play_enrichment_replay.py
 tests/test_preliminary_possession_pace.py
@@ -3255,6 +3257,7 @@ tools/run_openai_gamebook_pilot.py
 tools/run_openai_gamebook_schema_mapping.py
 tools/run_openai_quarantine_pilot.py
 tools/run_preliminary_elo_challengers.py
+tools/run_preliminary_elo_offense_defense.py
 tools/run_preliminary_play_drive_augmented.py
 tools/run_preliminary_rankings_augmented_baselines.py
 tools/run_preliminary_unprotected_baselines.py
@@ -3312,6 +3315,7 @@ tools/validate_openai_gamebook_schema_mapping.py
 tools/validate_player_intelligence.py
 tools/validate_post2022_roster_candidate.py
 tools/validate_preliminary_elo_challengers.py
+tools/validate_preliminary_elo_offense_defense.py
 tools/validate_preliminary_play_drive_augmented.py
 tools/validate_preliminary_possession_pace.py
 tools/validate_preliminary_rankings_augmented_baselines.py

@@ -26,6 +26,14 @@ NOW = datetime(2026, 8, 12, 19, 30, tzinfo=timezone.utc)
 
 
 class CpuWorkerBackendTests(unittest.TestCase):
+    def test_installer_uses_current_noninteractive_tailscale_cli(self) -> None:
+        installer = (Path(__file__).resolve().parents[1] / "tools" / "install_cpu_worker_service.ps1").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("tailscale funnel reset", installer)
+        self.assertIn("tailscale serve --bg --yes --https=443", installer)
+        self.assertNotIn("tailscale funnel 443 off", installer)
+
     def test_worker_identity_requires_exact_stable_node(self) -> None:
         CpuWorkerIdentity(
             "comfy-v4-cpu-01.tail9b05ab.ts.net",

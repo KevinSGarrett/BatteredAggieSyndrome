@@ -51,8 +51,13 @@
     "baseline_modeling": ["POST-EPIC-008"]
   },
   "current_evidence": {
-    "historical_coverage_matrix_identity": "9beb7bc091fb90c82febfb7f256d58d0dfc7cbfe90869c2face9dc2a539f807f",
-    "historical_coverage_matrix_sha256": "f0e8e8c3a8c8911d823fc0cd20f1274bec271e4d600b6b9386a6d7b3c9f29d4a",
+    "historical_coverage_matrix_identity": "700bd57e9030d5a886de081e6e75703630c301da224e159f241749a3d0483680",
+    "historical_coverage_matrix_sha256": "cf46246cdfc861f94851f78ff544dc83007e99d84d3a8881b177e6c8d242e122",
+    "ncaa_2023_discovery_identity": "492f47b11c96fab1ce904689d4f0fcd06dc2d89dd33a238a963871fd7d2ff157",
+    "ncaa_2023_discovery_manifest_sha256": "8357a409467cb84738873a5c521874d3966a0e368635707f3e3dee5c0b3a8655",
+    "ncaa_2023_discovery_validation_identity": "dc8bcc278b1f40095598973a1c7d7da6f2b17aa71d21aaeb3427754bedf1a953",
+    "ncaa_2023_discovery_validation_sha256": "533da3d7bd1f8b98990ea0769419029e15d431ef18cac2d08d5d02bf670d492f",
+    "ncaa_2023_discovery_disposition": "PASS_COMPLETE_GRAPH_EXHAUSTED_CAPTURE_COMPLETE_CANONICAL_RECONCILIATION_AND_PIT_ADMISSION_PENDING",
     "retraining_decision_identity": "65bce7739f4f8229b53f9e2ad3beb9fd551813bbdd211802b2c01e3d066c0264",
     "retraining_action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
     "evaluation_exposure_ledger_identity": "189e5726635a6166e94c26261e96ec5e8af312de047437e8e57500e623980e0d",

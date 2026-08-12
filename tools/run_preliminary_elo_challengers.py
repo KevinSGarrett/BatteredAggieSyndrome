@@ -9,9 +9,6 @@ from pathlib import Path
 import sys
 from typing import Any
 
-import polars as pl
-
-
 CLASSIFICATION = "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
 DATASET_IDENTITY = "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2"
 TAMU_TEAM_ID = "team_d0aff8aacd805801ab3d3d8293f3b298"
@@ -129,6 +126,10 @@ def slices(rows: list[dict[str, Any]], season: int) -> dict[str, list[dict[str, 
 
 
 def main() -> int:
+    # Keep the pure chronological Elo replay importable in the core environment;
+    # Parquet I/O remains an explicitly optional data-engineering dependency.
+    import polars as pl
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, required=True)
     parser.add_argument("--data-root", type=Path, required=True)

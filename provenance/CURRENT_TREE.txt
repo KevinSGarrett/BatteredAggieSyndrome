@@ -261,6 +261,8 @@ configs/preliminary_play_enrichment_replay_contract.json
 configs/preliminary_possession_pace_ablation_contract.json
 configs/preliminary_possession_pace_contract.json
 configs/preliminary_rankings_augmented_contract.json
+configs/preliminary_schedule_stress_ablation_contract.json
+configs/preliminary_schedule_stress_contract.json
 configs/preliminary_sustainability_ablation_contract.json
 configs/preliminary_sustainability_contract.json
 configs/preliminary_unprotected_baseline_contract.json
@@ -2983,6 +2985,7 @@ src/aggie_analytics/features/observed_weather_shadow.py
 src/aggie_analytics/features/possession_pace.py
 src/aggie_analytics/features/registry.py
 src/aggie_analytics/features/returning_production.py
+src/aggie_analytics/features/schedule_stress.py
 src/aggie_analytics/features/screening.py
 src/aggie_analytics/features/sustainability.py
 src/aggie_analytics/features/transforms.py
@@ -3003,6 +3006,7 @@ src/aggie_analytics/modeling/preliminary.py
 src/aggie_analytics/modeling/preliminary_rankings.py
 src/aggie_analytics/modeling/registry.py
 src/aggie_analytics/modeling/runtime.py
+src/aggie_analytics/modeling/schedule_stress_augmented.py
 src/aggie_analytics/modeling/simulation.py
 src/aggie_analytics/modeling/sustainability_augmented.py
 src/aggie_analytics/modeling/uncertainty.py
@@ -3155,6 +3159,8 @@ tests/test_preliminary_play_enrichment_replay.py
 tests/test_preliminary_possession_pace.py
 tests/test_preliminary_possession_pace_ablation.py
 tests/test_preliminary_rankings_augmented_contract.py
+tests/test_preliminary_schedule_stress.py
+tests/test_preliminary_schedule_stress_ablation.py
 tests/test_preliminary_sustainability.py
 tests/test_preliminary_sustainability_ablation.py
 tests/test_preliminary_unprotected_baselines.py
@@ -3220,6 +3226,7 @@ tools/build_noaa_isd_game_observation_shadow.py
 tools/build_noaa_isd_station_matching.py
 tools/build_post2022_roster_candidate.py
 tools/build_preliminary_possession_pace.py
+tools/build_preliminary_schedule_stress.py
 tools/build_preliminary_sustainability.py
 tools/build_retrospective_returning_production.py
 tools/build_sec_tamu_availability_candidates.py
@@ -3330,6 +3337,7 @@ tools/validate_preliminary_elo_uncertainty.py
 tools/validate_preliminary_play_drive_augmented.py
 tools/validate_preliminary_possession_pace.py
 tools/validate_preliminary_rankings_augmented_baselines.py
+tools/validate_preliminary_schedule_stress.py
 tools/validate_preliminary_sustainability.py
 tools/validate_preliminary_unprotected_baselines.py
 tools/validate_preliminary_wmt_tamu_shadow.py

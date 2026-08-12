@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "TASK-079",
+  "related_decision_unit": "TASK-077",
+  "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
+  "artifact_type": "PRELIMINARY_UNPROTECTED_SCHEDULE_STRESS_ABLATION_RUN",
+  "run_version": "preliminary-schedule-stress-walk-forward-v1",
+  "profile_module": "schedule_stress_augmented",
+  "storage_namespace": "preliminary_schedule_stress_ablation",
+  "stage_prefix": "bat182-schedule-stress-ablation-",
+  "profile_payload_relative_path": "features/preliminary_schedule_stress/sha256/{profile_feature_identity}/target_game_team_schedule_stress.parquet",
+  "profile_manifest_relative_path": "manifests/preliminary_schedule_stress/sha256/{profile_feature_identity}/run_manifest.json",
+  "authorized_inputs": {
+    "baseline_run_identity": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "baseline_manifest_sha256": "602477b325c33811ccf9573af6cc7c6854621b322566c15e580dc134ddf07e8a",
+    "baseline_dataset_identity": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "baseline_feature_identity": "df9093758679968bc88fb7a1c5b7931c0bbe5f625fe928b69f2ccc0abe8de265",
+    "baseline_target_identity": "a384834b94cf2cbc5e56ebd31577108bbea6014e5009931f11a4a7c3be703f71",
+    "baseline_split_identity": "9e201d2a298bc8d65876e36e483e2d4a0d574ae1b407ca420ca3950093e4dc86",
+    "baseline_forecast_identity": "fb84332df4f25f511752cf354bc5b12a7c3283ae44e1f45a24cb932a2122f50a",
+    "profile_feature_identity": "c0a55c31ef51528eb992f34aaf2183c5d81875fc217bf20c44c1ad51ace07482",
+    "profile_manifest_sha256": "72b99821d70996fa9da5a56a691ff22bb2b5838505f35b186413b2ecc90f06b0",
+    "profile_payload_sha256": "1d1591506ab8b4b8c1f270d1b8f5d3b3f074e63421595901dfe93e8936ae019d",
+    "eligible_target_seasons": [2023, 2024, 2025],
+    "eligibility": "DEVELOPMENT_AND_PRELIMINARY_UNPROTECTED_ONLY"
+  },
+  "predeclared_hypothesis": {
+    "baseline_deficiency": "The unchanged outcome-prior models do not represent recent schedule compression, observable game-start rest, road-or-neutral workload, opponent pregame strength, or opponent-adjusted recent margin.",
+    "candidate_change": "Add nine home-minus-away chronology-supported workload and recent-form contrasts to the unchanged baseline logit or margin prediction.",
+    "expected_direction": "Useful workload or opponent-adjusted form should reduce probability or margin error in both rolling-origin report seasons without unstable reversal; otherwise retain the unchanged reference.",
+    "adoption_rule": "No promotion. Preserve all effects and prefer the unchanged reference unless stable material improvement later replicates on untouched evidence.",
+    "threshold_policy": "No post-hoc threshold or fabricated materiality boundary."
+  },
+  "candidate_profile_fields": ["days_since_last_game_start", "games_last_7d", "games_last_14d", "games_last_28d", "away_or_neutral_games_last_28d", "consecutive_away_or_neutral_games", "recent_5_margin_mean", "recent_5_opponent_pregame_win_share_mean", "recent_5_opponent_adjusted_margin_mean"],
+  "diagnostic_only_profile_fields": ["prior_game_count", "prior_season_game_count"],
+  "chronology_policy": {"2023": "FROZEN_BASELINE_FALLBACK_NO_PRIOR_POST_PUBLICATION_LABELS", "2024": "FIT_ONLY_2023_OUTCOMES", "2025": "FIT_ONLY_2023_AND_2024_OUTCOMES", "target_game_and_future_outcomes_excluded": true, "fit_only_imputation": true, "protected_split_opened": false},
+  "model_policy": {"families": ["schedule_stress_logistic_stacker", "schedule_stress_ridge_margin_stacker"], "logistic_c": 0.1, "ridge_alpha": 100.0, "hyperparameter_source": "UNCHANGED_FOCUSED_ABLATION_DEFAULTS", "imputation": "FIT_ONLY_MEDIAN_WITH_EXPLICIT_COLD_START_INDICATORS", "tree_boosting": "NOT_ADMITTED"},
+  "comparison_contract": {"same_target_rows_required": true, "same_chronological_assignments_required": true, "common_support_required": true, "negative_results_preserved": true, "adoption_authority": "PRELIMINARY_RESEARCH_ONLY_NO_CHAMPION"},
+  "limitations": ["All results are PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE.", "The source provides retrospective event chronology rather than original historical known-at evidence.", "Game-start spacing is not physiological recovery and no travel distance is fabricated.", "The 2024-2025 outcomes have already supplied development feedback.", "Negative or mixed evidence cannot promote a feature, A&M adjustment, BAS, or Aggie Excess."],
+  "protected_nonclaims": {"final_historical_population_ready": false, "gap_002_resolved": false, "production_model_ready": false, "champion_promoted": false, "protected_performance_claimed": false, "tamu_specialization_lift_claimed": false, "bas_or_aggie_excess_claimed": false}
+}

@@ -145,11 +145,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24956",
-    "jira_updated_at": "2026-08-12T15:37:11.020-0500",
-    "last_synced_at": "2026-08-12T20:37:34.454526+00:00",
+    "jira_updated_at": "2026-08-12T16:58:24.235-0500",
+    "last_synced_at": "2026-08-12T21:58:24.235000+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Public Funnel exposure, arbitrary remote code execution, or credential capture.",

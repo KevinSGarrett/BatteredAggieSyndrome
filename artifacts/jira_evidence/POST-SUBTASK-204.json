@@ -6,9 +6,10 @@
   "evidence_state": "VERIFIED",
   "workflow_state": "DONE",
   "issue_disposition": "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY",
-  "merged_pull_requests": [248, 249, 250, 251, 252],
+  "merged_pull_requests": [248, 249, 250, 251, 252, 253],
   "final_controller_merge_commit": "6e828c0f8d2e5121a7e823f94dbb13696ee5fe63",
   "deployed_worker_merge_commit": "7dfdeedf3595e6372eb1b90c09fc0a437d495d7a",
+  "qualification_evidence_merge_commit": "a387928d88e2238aeb7d06c5a0e9d9bb199039f8",
   "all_required_hosted_checks": "PASS",
   "external_qualification_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\qualifications\\f1\\f10b8b491e4232bb44f6399e400c7ae61fbad1fb1191123de60dfc1356f11a09.json",
   "external_qualification_sha256": "f10b8b491e4232bb44f6399e400c7ae61fbad1fb1191123de60dfc1356f11a09",
@@ -30,6 +31,13 @@
     "remote_staging_bytes_removed": 66003451,
     "recovery_root_preserved": "C:\\BatteredAggieWorkerV2.recovery.20260812T214118Z",
     "controller_signing_key_value_recorded": false
+  },
+  "live_jira": {
+    "authentication": "PASS",
+    "jira_issue_id": "24956",
+    "status": "Done",
+    "completion_comment_id": "13933",
+    "updated_at": "2026-08-12T16:58:24.235-0500"
   },
   "completion_claim": "BAT-563 qualification is complete at the deterministic qualified-candidate level. This does not establish unified sustained operation or general remote execution authority.",
   "protected_nonclaims": [

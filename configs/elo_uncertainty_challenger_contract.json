@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "preliminary-elo-uncertainty-challenger-v1",
+  "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
+  "jira_key": "BAT-423",
+  "canonical_unit": "POST-SUBTASK-073",
+  "hypothesis": "A homoskedastic scalar Elo distribution may understate uncertainty when pregame team support is sparse or when the learned rating path is sensitive to historical outcomes.",
+  "input_dataset_identity": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+  "fit_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+  "report_only_exposed_seasons": [2023, 2024, 2025],
+  "unchanged_mean_reference": {
+    "family": "elo_bounded_margin_2_calibrated_homoskedastic",
+    "offseason_retention": 1.0,
+    "margin_update_cap": 2.0,
+    "probability_calibration": "FIT_2010_2022_LOGISTIC",
+    "margin_calibration": "FIT_2010_2022_ZERO_INTERCEPT_SCALE",
+    "variance": "FIT_2010_2022_MEAN_SQUARED_MARGIN_RESIDUAL"
+  },
+  "candidates": {
+    "data_support": {
+      "family": "elo_bounded_margin_2_support_conditioned_variance",
+      "support_formula": "1/sqrt(1+home_prior_games) + 1/sqrt(1+away_prior_games)",
+      "variance_formula": "exp(intercept + slope * support) * fit_smearing_scale",
+      "fit_target": "log(squared_chronological_margin_residual + 1e-6)",
+      "mean_prediction": "UNCHANGED_REFERENCE_MEAN"
+    },
+    "rating_path": {
+      "family": "elo_bounded_margin_2_bootstrap_trajectory",
+      "members": 64,
+      "seed": 423000,
+      "resampling": "DETERMINISTIC_GAME_LEVEL_POISSON_1_UPDATE_WEIGHTS",
+      "member_calibration": "FIT_2010_2022_ONLY",
+      "epistemic_variance": "SAMPLE_VARIANCE_OF_MEMBER_MARGIN_MEANS",
+      "total_variance": "REFERENCE_ALEATORIC_VARIANCE_PLUS_EPISTEMIC_VARIANCE",
+      "cold_start_limitation": "Bootstrap trajectory dispersion is zero before any differentiating evidence and is not treated as complete cold-start uncertainty."
+    }
+  },
+  "evaluation": {
+    "common_support_required": true,
+    "normal_margin_interval_nominal_coverage": 0.8,
+    "metrics": ["brier", "log_loss", "ece_10", "margin_mae", "margin_rmse", "normal_margin_nll", "interval_80_coverage", "interval_80_coverage_absolute_error", "interval_80_mean_width", "interval_80_score"],
+    "slices": ["season", "neutral_site", "cold_start", "Texas_A&M_involved"],
+    "admission_rule": "Prefer the unchanged reference unless a candidate improves normal margin NLL and interval score directionally in every report season without using report outcomes for fitting or selection. Bootstrap probability means must also avoid season-level Brier or log-loss regression. No effect-size threshold is invented in this bounded run."
+  },
+  "pit_policy": "All Elo members predict a complete season-type/week batch before any outcome from that batch updates state. Every calibration and variance parameter uses 2010-2022 only. The 2023-2025 outcomes are report-only exposed development evidence.",
+  "uncertainty_separation": {
+    "data_support_and_total_residual_variance": "Evaluated as one empirically conditioned predictive-variance surface.",
+    "bootstrap_epistemic_and_global_aleatoric": "Evaluated as a separate surface in margin-squared units.",
+    "not_combined": "The support-conditioned and bootstrap surfaces are not added together because their uncertainty overlap is not identified.",
+    "directional_strength": "Uncertainty changes variance or warnings only; it does not force a team-strength direction."
+  },
+  "authority": {
+    "candidate_only": true,
+    "protected_performance": false,
+    "champion_or_production_promotion": false,
+    "a_and_m_adjustment": false,
+    "bas_or_aggie_excess": false,
+    "market_lane": "PURE_FOOTBALL"
+  }
+}

@@ -25,6 +25,11 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def qualification_run_id(config_sha256: str, started_at: datetime) -> str:
+    identity = f"{config_sha256}:{started_at.astimezone(timezone.utc).isoformat()}"
+    return hashlib.sha256(identity.encode("utf-8")).hexdigest()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "configs/cpu_worker_qualification.json")
@@ -36,6 +41,9 @@ def main() -> int:
     parser.add_argument("--cleanup-evidence", type=Path, required=True)
     args = parser.parse_args()
     config = json.loads(args.config.read_text(encoding="utf-8"))
+    captured_at = datetime.now(timezone.utc)
+    config_sha256 = sha256(args.config)
+    run_id = qualification_run_id(config_sha256, captured_at)
     identity = json.loads(args.identity_evidence.read_text(encoding="utf-8"))
     CpuWorkerIdentity(
         identity["tailscale_dns_name"],
@@ -58,7 +66,7 @@ def main() -> int:
     tranches = []
     for sequence, task in enumerate(config["tasks"], start=1):
         job = CpuWorkerJob(task["task"], task["payload"], config["jira_unit"])
-        envelope = job.request(signing_key, nonce=f"qualification-{sequence:02d}")
+        envelope = job.request(signing_key, nonce=f"qualification-{run_id[:24]}-{sequence:02d}")
         first, first_path = client.submit(job, envelope)
         second, second_path = client.submit(job, envelope)
         tranches.append({
@@ -94,8 +102,9 @@ def main() -> int:
         "schema_version": 2,
         "qualification_id": config["qualification_id"],
         "jira_unit": config["jira_unit"],
-        "captured_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "config_sha256": sha256(args.config),
+        "captured_at_utc": captured_at.isoformat().replace("+00:00", "Z"),
+        "qualification_run_id": run_id,
+        "config_sha256": config_sha256,
         "worker_identity": {
             "dns_name": identity["tailscale_dns_name"],
             "node_id": identity["tailscale_node_id"],

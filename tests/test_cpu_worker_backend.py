@@ -19,6 +19,7 @@ from aggie_analytics.assistive_plane.cpu_worker_backend import (
     verify_cpu_response,
 )
 from tools.cpu_worker_service import BoundedWorkerServer, WorkerRuntime, handler
+from tools.qualify_cpu_worker import qualification_run_id
 
 
 KEY = b"k" * 32
@@ -26,6 +27,17 @@ NOW = datetime(2026, 8, 12, 19, 30, tzinfo=timezone.utc)
 
 
 class CpuWorkerBackendTests(unittest.TestCase):
+    def test_qualification_run_identity_is_stable_within_run_and_unique_across_runs(self) -> None:
+        config_sha = "a" * 64
+        first = qualification_run_id(config_sha, NOW)
+        self.assertEqual(first, qualification_run_id(config_sha, NOW))
+        self.assertNotEqual(first, qualification_run_id(config_sha, NOW + timedelta(microseconds=1)))
+        qualifier = (Path(__file__).resolve().parents[1] / "tools" / "qualify_cpu_worker.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn('nonce=f"qualification-{run_id[:24]}-{sequence:02d}"', qualifier)
+        self.assertNotIn('nonce=f"qualification-{sequence:02d}"', qualifier)
+
     def test_installer_uses_current_noninteractive_tailscale_cli(self) -> None:
         installer = (Path(__file__).resolve().parents[1] / "tools" / "install_cpu_worker_service.ps1").read_text(
             encoding="utf-8"

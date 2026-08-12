@@ -16600,3 +16600,72 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-198
 
 Canonical Record: jira/records/issues/stories/POST-STORY-057_governed_complementary_openrouter_assistive_development_plane_with_isolated_budget_and_candi.json",In Progress,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;aggregate-gate;local-id-post-story-057,operations-security,POST-STORY-057,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
+Story,BAT-559,100510,"[POST-STORY-058] Operate one unified assistive execution plane across deterministic, OpenAI, OpenRouter, Cursor, local Qwen, and private CPU worker routes",100464,"Local ID: POST-STORY-058
+
+Objective
+Operate one unified assistive execution plane across deterministic, OpenAI, OpenRouter, Cursor, local Qwen, and private CPU worker routes
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+Coordinate one provider-neutral ready-work inventory, exact route readiness, independent budgets, candidate authority, utilization evidence, and graceful fallback without replacing provider-specific ledgers or protected project controls.
+
+Explicit In Scope
+- Perform the exact action: Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-162 complete at required maturity
+- Dependency POST-SUBTASK-163 complete at required maturity
+- Dependency POST-SUBTASK-164 complete at required maturity
+- Dependency POST-SUBTASK-167 complete at required maturity
+- Dependency POST-SUBTASK-168 complete at required maturity
+- POST-SUBTASK-160
+- POST-SUBTASK-198
+
+Acceptance Criteria
+1. All eligible ready work has immutable pre-routing effort and exactly one reconciled disposition.
+2. Every provider route is keyed by exact model, task format, schema, policy, security, and budget evidence.
+3. Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/three-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out and continuing candidate-only operations remain inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-STORY-056.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Prove scale-out and continuing candidate-only operations remain inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02121
+
+Governance Traceability Gate: POST-SUBTASK-201
+
+Canonical Record: jira/records/issues/stories/POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.json",In Progress,Highest,actionable;post-wave;unified-assistive;candidate-only;aggregate-gate;local-id-post-story-058,operations-security,POST-STORY-058,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE

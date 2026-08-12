@@ -1,0 +1,39 @@
+{
+  "files_to_inspect": [
+    "governance/OPENAI_ASSISTIVE_PLANE.md",
+    "configs/openai_assist_policy.json",
+    "configs/openai_task_registry.json",
+    "schemas/openai/assistive_candidate.schema.json",
+    "docs/final/CODEX_HANDOFF.md"
+  ],
+  "governance_traceability_gate": "POST-SUBTASK-205",
+  "issue_id": "POST-SUBTASK-205",
+  "retrieval_protocol": [
+    "Verify document_sha256 against the current repository file.",
+    "Verify anchor_hash against the normalized stored excerpt and current line range.",
+    "If the file hash changed, run repair_source_refs.py to relocate the exact anchor/heading before using the reference.",
+    "Open only the referenced section plus the minimal listed implementation/prerequisite context; the Windows path is convenience metadata, not authority."
+  ],
+  "schema_version": 2,
+  "source_ids": [
+    "UNIFIED-ASSISTIVE-EXECUTION-PLAN"
+  ],
+  "source_refs": [
+    {
+      "anchor_excerpt": "# Unified Assistive Execution Plane Status: foundation implementation in progress; provider qualifications remain evidence-gated. This contract adopts directive SHA-256 `CDE877F540156F97723944EB34419742B3A6B77783C19DE2F3B87A209E5DEF84`, governing-plan SHA-256 `42E66C08B1069026D92D4B6E50EFF1AF9E2263F1F57A7BCE4CF018972DB",
+      "anchor_hash": "27a82b916d5d7fb3ad27c25acf55341dddec2625678d4443b0f993c576269363",
+      "authority_level": "GOVERNANCE_DETAIL",
+      "document_sha256": "da9b360372758358510ce8bfddf7eba7136b99132f3daccea71f39fcb28e309a",
+      "end_line": 32,
+      "heading": "Unified Assistive Execution Plane",
+      "last_verified": "2026-08-12",
+      "repo_relative_path": "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
+      "source_ref_id": "SRCREF-02121",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Mandatory unified inventory, routing, provider, budget, worker, sustained-operation, and authority contract",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
+    }
+  ],
+  "traceability_inherited_from": []
+}

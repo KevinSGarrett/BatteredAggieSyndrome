@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "registry_id": "assistive-provider-registry-2026-08-12",
+  "schema_version": 2,
+  "registry_id": "unified-assistive-provider-registry-2026-08-12",
   "providers": {
     "openai": {
       "adapter": "aggie_analytics.openai_assist.controller.AssistiveController",
@@ -13,12 +13,40 @@
       "authority": "CANDIDATE_ONLY_ASSISTIVE_DEVELOPMENT",
       "budget_ledger": "C:\\BatteredAggieSyndrome.data\\assistive\\openrouter\\usage\\ledger.json",
       "policy": "configs/openrouter_assist_policy.json"
+    },
+    "cursor": {
+      "adapter": "aggie_analytics.assistive_plane.cursor_backend.CursorBackend",
+      "authority": "PATCH_OR_REVIEW_CANDIDATE_ONLY",
+      "budget_ledger": "C:\\BatteredAggieSyndrome.data\\assistive\\cursor\\usage\\ledger.json",
+      "policy": "configs/unified_assistive_policy.json"
+    },
+    "local_qwen": {
+      "adapter": "aggie_analytics.assistive_plane.ollama_backend.OllamaRoutePolicy",
+      "authority": "CANDIDATE_ONLY_LOCAL_INFERENCE",
+      "budget_ledger": null,
+      "policy": "configs/unified_assistive_policy.json"
+    },
+    "remote_cpu_worker": {
+      "adapter": "aggie_analytics.assistive_plane.cpu_worker_backend.CpuWorkerIdentity",
+      "authority": "DETERMINISTIC_BOUNDED_WORKER",
+      "budget_ledger": null,
+      "policy": "configs/unified_assistive_policy.json"
+    },
+    "codex_deterministic": {
+      "adapter": "LOCAL_PROJECT_EXECUTION",
+      "authority": "FINAL_IMPLEMENTATION_AND_VALIDATION",
+      "budget_ledger": null,
+      "policy": "configs/unified_assistive_policy.json"
     }
   },
   "invariants": [
     "ONE_PROVIDER_PER_REQUEST",
     "NO_BUDGET_TRANSFER_BETWEEN_PROVIDERS",
     "DETERMINISTIC_PROJECT_AUTHORITY_RETAINED",
-    "NO_CANONICAL_OR_PROTECTED_TRUTH_WRITES"
+    "NO_CANONICAL_OR_PROTECTED_TRUTH_WRITES",
+    "PRE_ROUTING_EFFORT_IS_IMMUTABLE",
+    "EXACTLY_ONE_DISPOSITION_PER_READY_WORK_UNIT",
+    "READINESS_KEYS_PROVIDER_MODEL_FORMAT_SCHEMA",
+    "NO_DIRECT_PROVIDER_WRAPPER_BYPASS"
   ]
 }

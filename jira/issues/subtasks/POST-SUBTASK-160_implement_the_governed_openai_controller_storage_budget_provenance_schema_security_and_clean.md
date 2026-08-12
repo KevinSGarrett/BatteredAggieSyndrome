@@ -36,9 +36,11 @@
   "blocked_reason": "",
   "blocks": [
     "POST-STORY-057",
+    "POST-STORY-058",
     "POST-SUBTASK-161",
     "POST-SUBTASK-168",
-    "POST-SUBTASK-198"
+    "POST-SUBTASK-198",
+    "POST-SUBTASK-201"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-160_implement_the_governed_openai_controller_storage_budget_provenance_schema_security_and_clean.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -158,8 +160,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24656",
-    "jira_updated_at": "2026-08-12T11:20:28.756-0500",
-    "last_synced_at": "2026-08-12T16:21:58.376101+00:00",
+    "jira_updated_at": "2026-08-12T12:49:18.386-0500",
+    "last_synced_at": "2026-08-12T17:49:30.668888+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -307,9 +309,11 @@ Execute POST-SUBTASK-160 within the optional OpenAI assistive plane. Consume `PO
 ## Blocks
 
 - POST-STORY-057
+- POST-STORY-058
 - POST-SUBTASK-161
 - POST-SUBTASK-168
 - POST-SUBTASK-198
+- POST-SUBTASK-201
 
 ## Read / Inspect First
 

@@ -26,7 +26,8 @@ def validate(root: Path) -> list[str]:
     if policy["api"]["batch_enabled"] is not False:
         errors.append("OpenRouter Batch Beta must remain disabled until its separate gate passes")
     registry = json.loads((root / "configs/assistive_provider_registry.json").read_text(encoding="utf-8"))
-    if registry["invariants"] != ["ONE_PROVIDER_PER_REQUEST", "NO_BUDGET_TRANSFER_BETWEEN_PROVIDERS", "DETERMINISTIC_PROJECT_AUTHORITY_RETAINED", "NO_CANONICAL_OR_PROTECTED_TRUTH_WRITES"]:
+    required_invariants = {"ONE_PROVIDER_PER_REQUEST", "NO_BUDGET_TRANSFER_BETWEEN_PROVIDERS", "DETERMINISTIC_PROJECT_AUTHORITY_RETAINED", "NO_CANONICAL_OR_PROTECTED_TRUTH_WRITES"}
+    if not required_invariants.issubset(set(registry["invariants"])):
         errors.append("provider-neutral registry invariants drifted")
     tasks = json.loads((root / "configs/openrouter_task_registry.json").read_text(encoding="utf-8"))["tasks"]
     for task_name, task in tasks.items():

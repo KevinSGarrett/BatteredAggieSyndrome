@@ -204,6 +204,9 @@ POST-SUBTASK-167,POST-STORY-056,BLOCKS,true,Issue dependency contract
 POST-SUBTASK-168,POST-STORY-056,BLOCKS,true,Issue dependency contract
 POST-EPIC-018,POST-STORY-057,PARENT_CHILD,false,Canonical hierarchy
 POST-SUBTASK-160,POST-STORY-057,BLOCKS,true,Issue dependency contract
+POST-EPIC-018,POST-STORY-058,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-160,POST-STORY-058,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-198,POST-STORY-058,BLOCKS,true,Issue dependency contract
 POST-STORY-001,POST-SUBTASK-001,PARENT_CHILD,false,Canonical hierarchy
 POST-STORY-001,POST-SUBTASK-002,PARENT_CHILD,false,Canonical hierarchy
 POST-SUBTASK-001,POST-SUBTASK-002,BLOCKS,true,Issue dependency contract
@@ -911,6 +914,21 @@ POST-STORY-057,POST-SUBTASK-199,PARENT_CHILD,false,Canonical hierarchy
 POST-SUBTASK-198,POST-SUBTASK-199,BLOCKS,true,Issue dependency contract
 POST-STORY-057,POST-SUBTASK-200,PARENT_CHILD,false,Canonical hierarchy
 POST-SUBTASK-199,POST-SUBTASK-200,BLOCKS,true,Issue dependency contract
+POST-STORY-058,POST-SUBTASK-201,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-160,POST-SUBTASK-201,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-198,POST-SUBTASK-201,BLOCKS,true,Issue dependency contract
+POST-STORY-058,POST-SUBTASK-202,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-201,POST-SUBTASK-202,BLOCKS,true,Issue dependency contract
+POST-STORY-058,POST-SUBTASK-203,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-201,POST-SUBTASK-203,BLOCKS,true,Issue dependency contract
+POST-STORY-058,POST-SUBTASK-204,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-201,POST-SUBTASK-204,BLOCKS,true,Issue dependency contract
+POST-STORY-058,POST-SUBTASK-205,PARENT_CHILD,false,Canonical hierarchy
+POST-SUBTASK-202,POST-SUBTASK-205,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-203,POST-SUBTASK-205,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-204,POST-SUBTASK-205,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-168,POST-SUBTASK-205,BLOCKS,true,Issue dependency contract
+POST-SUBTASK-199,POST-SUBTASK-205,BLOCKS,true,Issue dependency contract
 EPIC-001,TASK-001,PARENT_CHILD,false,Canonical hierarchy
 TASK-001,POST-SUBTASK-141,RELATES_TO,false,Historical/post-wave reconciliation
 EPIC-001,TASK-002,PARENT_CHILD,false,Canonical hierarchy

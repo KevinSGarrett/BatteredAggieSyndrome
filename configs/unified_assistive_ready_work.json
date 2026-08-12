@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "inventory_seed_id": "unified-assistive-ready-work-2026-08-12-v1",
+  "decided_at": "2026-08-12T18:15:00Z",
+  "work_units": [
+    {
+      "local_id": "POST-SUBTASK-168",
+      "task_format": "candidate_workload_selection",
+      "schema_path": "schemas/openai/assistive_candidate.schema.json",
+      "authority": "CANDIDATE_ONLY",
+      "pre_routing_effort_points": 5,
+      "scope": "Select the next evidence-backed direct OpenAI candidate packets from dependency-ready project work.",
+      "disposition": "DEFERRED_DEPENDENCY",
+      "provider": null,
+      "model": null,
+      "reason": "specific evidence packets and exact per-task model routes must be enumerated before dispatch"
+    },
+    {
+      "local_id": "POST-SUBTASK-199",
+      "task_format": "strict_json_patch_review",
+      "schema_path": "schemas/assistive/independent_review.schema.json",
+      "authority": "CANDIDATE_ONLY",
+      "pre_routing_effort_points": 5,
+      "scope": "Run the bounded OpenRouter Qwen and cross-family pilot after positive paid authority.",
+      "disposition": "BUDGET_BLOCKED",
+      "provider": "openrouter",
+      "model": "qwen/qwen3-coder-next",
+      "reason": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED"
+    },
+    {
+      "local_id": "POST-SUBTASK-200",
+      "task_format": "continuing_candidate_operations",
+      "schema_path": "schemas/assistive/independent_review.schema.json",
+      "authority": "CANDIDATE_ONLY",
+      "pre_routing_effort_points": 8,
+      "scope": "Operate only empirically admitted OpenRouter routes.",
+      "disposition": "DEFERRED_DEPENDENCY",
+      "provider": null,
+      "model": null,
+      "reason": "paid pilot and route admission are incomplete"
+    },
+    {
+      "local_id": "POST-SUBTASK-201",
+      "task_format": "repository_foundation_implementation",
+      "schema_path": "configs/unified_assistive_policy.json",
+      "authority": "CODEX_FINAL_IMPLEMENTATION",
+      "pre_routing_effort_points": 8,
+      "scope": "Implement and integrate the provider-neutral inventory, readiness, budget, provenance, and validation foundation.",
+      "disposition": "CODEX_DETERMINISTIC",
+      "provider": "codex_deterministic",
+      "model": null,
+      "reason": "repository implementation and validation require Codex final authority"
+    },
+    {
+      "local_id": "POST-SUBTASK-202",
+      "task_format": "isolated_repository_patch",
+      "schema_path": "configs/unified_assistive_policy.json",
+      "authority": "PATCH_CANDIDATE_ONLY",
+      "pre_routing_effort_points": 8,
+      "scope": "Qualify Cursor through two serial safety pilots and bounded concurrency.",
+      "disposition": "BUDGET_BLOCKED",
+      "provider": "cursor",
+      "model": "gpt-5.3-codex",
+      "reason": "PAID_CURSOR_BUDGET_NOT_AUTHORIZED"
+    },
+    {
+      "local_id": "POST-SUBTASK-203",
+      "task_format": "strict_json_local_candidate",
+      "schema_path": "schemas/assistive/independent_review.schema.json",
+      "authority": "CANDIDATE_ONLY",
+      "pre_routing_effort_points": 5,
+      "scope": "Qualify local Qwen on at least three real task types.",
+      "disposition": "DEFERRED_DEPENDENCY",
+      "provider": null,
+      "model": null,
+      "reason": "foundation must integrate before real local qualification begins"
+    },
+    {
+      "local_id": "POST-SUBTASK-204",
+      "task_format": "deterministic_remote_tranche",
+      "schema_path": "configs/unified_assistive_policy.json",
+      "authority": "BOUNDED_DETERMINISTIC_WORKER",
+      "pre_routing_effort_points": 8,
+      "scope": "Qualify the exact private CPU worker through replayable tranches and one bounded pilot.",
+      "disposition": "DEFERRED_DEPENDENCY",
+      "provider": null,
+      "model": null,
+      "reason": "foundation integration and worker service qualification are pending"
+    },
+    {
+      "local_id": "POST-SUBTASK-205",
+      "task_format": "cross_plane_sustained_assurance",
+      "schema_path": "configs/unified_assistive_policy.json",
+      "authority": "CODEX_FINAL_ASSURANCE",
+      "pre_routing_effort_points": 8,
+      "scope": "Run common-support comparison, real scheduler cycles, restart/outage exercises, and sustained assurance.",
+      "disposition": "DEFERRED_DEPENDENCY",
+      "provider": null,
+      "model": null,
+      "reason": "route qualifications and seven-day evidence window are pending"
+    }
+  ]
+}

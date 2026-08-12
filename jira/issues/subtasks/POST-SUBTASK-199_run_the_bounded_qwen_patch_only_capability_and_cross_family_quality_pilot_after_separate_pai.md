@@ -23,7 +23,8 @@
   ],
   "blocked_reason": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED",
   "blocks": [
-    "POST-SUBTASK-200"
+    "POST-SUBTASK-200",
+    "POST-SUBTASK-205"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -132,8 +133,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24950",
-    "jira_updated_at": "2026-08-12T11:33:05.691-0500",
-    "last_synced_at": "2026-08-12T16:37:44.614094+00:00",
+    "jira_updated_at": "2026-08-12T12:49:18.899-0500",
+    "last_synced_at": "2026-08-12T17:49:30.668888+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
@@ -281,6 +282,7 @@ After explicit paid authority, compare deterministic-only work with a pinned Qwe
 ## Blocks
 
 - POST-SUBTASK-200
+- POST-SUBTASK-205
 
 ## Read / Inspect First
 

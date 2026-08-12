@@ -37,7 +37,9 @@
   ],
   "blocked_reason": "",
   "blocks": [
-    "POST-SUBTASK-199"
+    "POST-STORY-058",
+    "POST-SUBTASK-199",
+    "POST-SUBTASK-201"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-198_implement_the_non_billable_provider_neutral_openrouter_foundation_usd_0_hard_stop_privacy_co.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -160,8 +162,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24949",
-    "jira_updated_at": "2026-08-12T11:49:52.892-0500",
-    "last_synced_at": "2026-08-12T16:50:14.033730+00:00",
+    "jira_updated_at": "2026-08-12T12:49:18.866-0500",
+    "last_synced_at": "2026-08-12T17:49:30.668888+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"

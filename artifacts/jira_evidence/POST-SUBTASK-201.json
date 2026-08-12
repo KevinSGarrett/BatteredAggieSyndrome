@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "decision_unit": "POST-SUBTASK-201",
+  "jira_key": "BAT-560",
+  "evidence_state": "PARTIAL_PRE_INTEGRATION",
+  "authority": "NON_BILLABLE_FOUNDATION_ONLY",
+  "governing_identities": {
+    "directive_sha256": "cde877f540156f97723944eb34419742b3a6b77783c19de2f3b87a209e5def84",
+    "plan_sha256": "42e66c08b1069026d92d4b6e50eff1af9e2263f1f57a7bce4cf018972db976e5",
+    "assurance_report_sha256": "bd07f61af182e5826009fc85413c3b155c41397289e0998ce4c4412c26e04008",
+    "openrouter_plan_sha256": "d8680f970e58b776de36bef1cab40eca0b614ff22f65411dc8b862eb95893396",
+    "goal_objective_sha256": "1cd61986eb70afcf94ae678ff8fad426a7e121928f3fe1e53bd82cd3aeaf15bd",
+    "base_commit": "d2869c18b91e3d6a22f92b2e4431186c2489497c",
+    "branch": "codex/unified-assistive-foundation"
+  },
+  "credential_preflight": {
+    "authoritative_env": "C:\\BatteredAggieSyndrome\\.env",
+    "openai_nonempty": true,
+    "openrouter_nonempty": true,
+    "cursor_nonempty": true,
+    "values_observed_or_recorded": false,
+    "env_copied_to_worktree": false
+  },
+  "provider_budget_authority": {
+    "direct_openai_hard_limit_usd": "100.00",
+    "openrouter_hard_limit_usd": "0.00",
+    "openrouter_blocker": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED",
+    "cursor_hard_limit_usd": "0.00",
+    "cursor_blocker": "PAID_CURSOR_BUDGET_NOT_AUTHORIZED",
+    "cross_provider_budget_transfer": false
+  },
+  "live_capability_evidence": {
+    "cursor_catalog_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cursor\\catalogs\\5d\\5d5f4539b5f6406756248dcbe88142e1e5c34a3ea9c83418d29ee8f12c923fc3.json",
+    "cursor_catalog_sha256": "5d5f4539b5f6406756248dcbe88142e1e5c34a3ea9c83418d29ee8f12c923fc3",
+    "cursor_model_count": 34,
+    "cursor_repository_count": 27,
+    "required_cursor_model": "gpt-5.3-codex",
+    "required_cursor_model_present": true,
+    "local_runtime_path": "C:\\BatteredAggieSyndrome.data\\assistive\\runtime\\capability\\4e\\4e4a15a3bbfc46de0f902f6162222b829e3f0c450e8051c5a905d065d13d14c3.json",
+    "local_runtime_sha256": "4e4a15a3bbfc46de0f902f6162222b829e3f0c450e8051c5a905d065d13d14c3",
+    "controller_hostname": "Kevin",
+    "expected_cpu_worker_online": true,
+    "local_ollama_installed": true,
+    "paid_provider_calls": 0
+  },
+  "ready_work_inventory": {
+    "snapshot_path": "C:\\BatteredAggieSyndrome.data\\assistive\\inventory\\snapshots\\57\\57e639616e9a8ff696b7bb01f3ae1fd7ce2723522e9298d94defc9fcdef42858.json",
+    "snapshot_sha256": "57e639616e9a8ff696b7bb01f3ae1fd7ce2723522e9298d94defc9fcdef42858",
+    "inventory_identity": "da1f659393373f996fb39d674df61b380b31aac5971a307c79261f739e8d8541",
+    "work_units": 8,
+    "dispositions": 8,
+    "coverage_fraction": 1.0,
+    "effort_points_total": 55,
+    "counts_by_disposition": {
+      "BUDGET_BLOCKED": 2,
+      "CODEX_DETERMINISTIC": 1,
+      "DEFERRED_DEPENDENCY": 5
+    },
+    "anti_padding_validation": "PASS"
+  },
+  "jira_graph": {
+    "umbrella": "BAT-559",
+    "foundation": "BAT-560",
+    "cursor_qualification": "BAT-561",
+    "local_qwen_qualification": "BAT-562",
+    "cpu_worker_qualification": "BAT-563",
+    "cross_plane_sustained_assurance": "BAT-564",
+    "live_issue_count": 515,
+    "live_link_count": 1191,
+    "live_import_result": "PASS",
+    "second_pass_result": "PASS"
+  },
+  "validation_checkpoint": {
+    "unified_focused_tests": "9 PASS",
+    "openrouter_regression_tests": "9 PASS",
+    "unittest_full_suite": "591 PASS, 4 SKIPPED",
+    "pytest_full_suite": "593 PASS, 4 SKIPPED, 104 SUBTESTS PASS",
+    "strict_repository_secret_manifest_governance": "PASS",
+    "jira_second_pass": "PASS",
+    "jira_file_manifest": "PASS",
+    "w25_final": "PASS"
+  },
+  "implementation_hashes": {
+    "configs/unified_assistive_policy.json": "931b8a34cdb7a2909acb0b103e50471380e891139e6d59f00ae8d05ea19128f2",
+    "configs/unified_assistive_ready_work.json": "fd981f7e377f380e8dce6cef6c1c8e9368d2a4574ea642e95254ec8eaf4711e1",
+    "configs/assistive_provider_registry.json": "f3b410eb969fef2cc58775f4ea840c5ebfc9e8bcb65388b0dd3b69b40995a686",
+    "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md": "da9b360372758358510ce8bfddf7eba7136b99132f3daccea71f39fcb28e309a",
+    "src/aggie_analytics/assistive_plane/orchestration.py": "426afc4a2a9719cc54a1401604426aa2542e42c46947b00c9f42ad769d337cc2",
+    "src/aggie_analytics/assistive_plane/cursor_backend.py": "33a465ca0cf8bffcd6e7bfe24260fc529dc0dc6e95be045f89445477ae17b5ae",
+    "src/aggie_analytics/assistive_plane/ollama_backend.py": "c6db03b49af05720e1d2dcba0978c5e0a6f6715da2434907ad81b21ea06ac404",
+    "src/aggie_analytics/assistive_plane/cpu_worker_backend.py": "204d432d14dc64a21c595debc7ed80eea3ebcd0116c947ce290900d10e5b8df4",
+    "src/aggie_analytics/assistive_plane/bypass.py": "0c0aff72bbb395a505bb72782014e6594fc81f908874f9590f918366b7c1f3c0",
+    "tests/test_unified_assistive_plane.py": "e4b17ea58b66af611fa1d140e43100cc1358ec94d31aa8892f5b774b7d77c372",
+    "tools/validate_unified_assistive_plane.py": "1c4eafe34b2d6c7980a3bd77c0a8ecd619946ddf391b8e8d4ebb85e324c3ea70",
+    "tools/materialize_unified_assistive_inventory.py": "652b593c79b4766b0fecef5d3f2fc4b6b4a76d4be34d366ceacafbc8659adc77"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Inventory enforces immutable pre-routing effort, unique work identities, exactly one disposition, and complete count/point reconciliation.",
+      "result": "PASS_FOCUSED",
+      "evidence": ["tests/test_unified_assistive_plane.py", "src/aggie_analytics/assistive_plane/orchestration.py", "57e639616e9a8ff696b7bb01f3ae1fd7ce2723522e9298d94defc9fcdef42858"]
+    },
+    {
+      "criterion": "Readiness binds provider, exact resolved model, task format, schema hash, and policy version.",
+      "result": "PASS_FOCUSED",
+      "evidence": ["ReadinessRegistry exact-key tests"]
+    },
+    {
+      "criterion": "Cursor, Ollama, CPU-worker, budget-separation, storage, and direct-endpoint bypass policies fail closed.",
+      "result": "PASS_FOCUSED",
+      "evidence": ["18 focused unified/OpenRouter tests PASS", "unified validator PASS"]
+    },
+    {
+      "criterion": "Credential-safe live catalog/runtime evidence is preserved outside Git.",
+      "result": "PASS",
+      "evidence": ["5d5f4539b5f6406756248dcbe88142e1e5c34a3ea9c83418d29ee8f12c923fc3", "4e4a15a3bbfc46de0f902f6162222b829e3f0c450e8051c5a905d065d13d14c3"]
+    },
+    {
+      "criterion": "Canonical/live Jira graph and second-pass validation agree.",
+      "result": "PASS",
+      "evidence": ["515 canonical/live issues", "1191 live links", "2121 source anchors", "zero second-pass errors"]
+    },
+    {
+      "criterion": "Normal protected PR integration and exact-main full validation complete.",
+      "result": "PENDING",
+      "evidence": []
+    }
+  ],
+  "negative_findings": [
+    "The historical W25 hydration binding remains unavailable and was not inferred; the existing prospective supersession remains controlling.",
+    "No positive paid OpenRouter budget exists.",
+    "No positive paid Cursor budget exists; token presence is not spending authority.",
+    "The CPU worker is online but has not yet passed service, software-lock, storage, grant, replay, or recovery qualification.",
+    "Local Qwen models are installed but real qualification volume has not yet executed.",
+    "Seven-day sustained operation and three real scheduler cycles cannot be claimed at this foundation checkpoint."
+  ],
+  "protected_nonclaims": [
+    "No final historical completeness or GAP-002 resolution.",
+    "No production model readiness, champion, or protected performance.",
+    "No A&M specialization lift, BAS, or Aggie Excess result."
+  ]
+}

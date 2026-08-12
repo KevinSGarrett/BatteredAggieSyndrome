@@ -33,14 +33,14 @@ Execute 10 nontrivial isolated repository units using exact live `gpt-5.3-codex`
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `IN_PROGRESS`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `BLOCKED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-202`
 
 ## Read first

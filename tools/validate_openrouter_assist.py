@@ -15,8 +15,10 @@ from aggie_analytics.assistive_plane.schemas import validate_strict_schema  # no
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
     policy = json.loads((root / "configs/openrouter_assist_policy.json").read_text(encoding="utf-8"))
-    if policy["budget"]["paid_hard_limit_usd"] != "0.00" or policy["budget"]["paid_calls_authorized"] is not False:
-        errors.append("paid OpenRouter authority must remain exactly USD 0.00 until separately authorized")
+    if policy["budget"]["paid_hard_limit_usd"] != "25.00" or policy["budget"]["released_stage_usd"] != "5.00" or policy["budget"]["paid_calls_authorized"] is not True:
+        errors.append("paid OpenRouter authority must preserve the authorized USD 25 hard cap and USD 5 released stage")
+    if policy["budget"].get("authorization_id") != "USER-OPENROUTER-25-2026-08-12" or policy["budget"].get("nontransferable") is not True:
+        errors.append("OpenRouter authorization identity or nontransferable boundary is invalid")
     if policy["budget"]["direct_openai_budget_transfer_usd"] != "0.00":
         errors.append("direct OpenAI funds must not transfer to OpenRouter")
     defaults = policy["provider_defaults"]

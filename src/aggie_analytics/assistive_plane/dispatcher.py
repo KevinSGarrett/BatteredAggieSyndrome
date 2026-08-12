@@ -27,7 +27,8 @@ class AssistiveDispatcher:
         self.store = ContentAddressedStore(Path(self.policy["storage"]["root"]))
         self.store.initialize()
         hard_limit = Decimal(str(self.policy["budget"]["paid_hard_limit_usd"]))
-        self.ledger = BudgetLedger(self.store.root / "usage" / "ledger.json", hard_limit)
+        released_limit = Decimal(str(self.policy["budget"].get("released_stage_usd", hard_limit)))
+        self.ledger = BudgetLedger(self.store.root / "usage" / "ledger.json", hard_limit, released_limit)
 
     def _cache_pointer(self, request_id: str) -> Path:
         return self.store.root / "runtime" / "request_cache" / f"{request_id}.json"
@@ -107,7 +108,7 @@ class AssistiveDispatcher:
                     raise
         except (TransientBackendError, PermanentBackendError) as exc:
             self.ledger.release(request_id)
-            return self._record(request, Disposition.REJECTED, f"PROVIDER_FAILURE:{type(exc).__name__}", None)
+            return self._record(request, Disposition.REJECTED, f"PROVIDER_FAILURE:{type(exc).__name__}:{exc}", None)
         if result is None:
             self.ledger.release(request_id)
             return self._record(request, Disposition.REJECTED, "PROVIDER_RESULT_ABSENT", None)
@@ -123,7 +124,11 @@ class AssistiveDispatcher:
                 "quarantine",
                 {**asdict(result), "request_id": request_id, "reason": "UNEXPECTED_MODEL_RESOLUTION"},
             )
-            self.ledger.release(request_id)
+            try:
+                self.ledger.settle(request_id, Decimal(result.cost_usd))
+            except BudgetRejected as exc:
+                self.ledger.release(request_id)
+                return self._record(request, Disposition.QUARANTINE, str(exc), result)
             return self._record(request, Disposition.QUARANTINE, "UNEXPECTED_MODEL_RESOLUTION", result)
         try:
             validate_output(result.output, schema)
@@ -132,7 +137,11 @@ class AssistiveDispatcher:
                 "quarantine",
                 {**asdict(result), "request_id": request_id, "reason": f"STRICT_OUTPUT_INVALID:{exc}"},
             )
-            self.ledger.release(request_id)
+            try:
+                self.ledger.settle(request_id, Decimal(result.cost_usd))
+            except BudgetRejected as cost_exc:
+                self.ledger.release(request_id)
+                return self._record(request, Disposition.QUARANTINE, str(cost_exc), result)
             return self._record(request, Disposition.QUARANTINE, f"STRICT_OUTPUT_INVALID:{exc}", result)
         self.store.put_json("responses", {**asdict(result), "request_id": request_id})
         try:
@@ -156,6 +165,7 @@ class AssistiveDispatcher:
             "disposition": disposition.value,
             "reason": reason,
             "paid_hard_limit_usd": str(self.ledger.hard_limit_usd),
+            "released_stage_usd": str(self.ledger.released_limit_usd),
             "canonical_write_authority": False,
             "protected_decision_authority": False,
         }

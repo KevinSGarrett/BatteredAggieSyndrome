@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "qualification_id": "BAT-562-qwen25-coder-shadow-v1",
+  "jira_unit": "BAT-562",
+  "authority": "CANDIDATE_ONLY_NO_DIRECT_MUTATION_NO_CANONICAL_OR_PROTECTED_AUTHORITY",
+  "model": "qwen2.5-coder:7b-instruct-q4_K_M",
+  "expected_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+  "endpoint": "http://127.0.0.1:11434",
+  "context_tokens": 4096,
+  "schema_path": "schemas/assistive/local_coder_shadow.schema.json",
+  "storage_root": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen",
+  "acceptance": {
+    "strict_schema_rate_min": 1.0,
+    "allowed_path_rate_min": 1.0,
+    "evidence_accuracy_min": 0.9,
+    "expected_term_recall_min": 0.8,
+    "unsupported_fact_rate_max": 0.0,
+    "unique_task_types_min": 4,
+    "packets_min": 4
+  },
+  "packets": [
+    {
+      "task_id": "budget-ledger-lock-review",
+      "task_type": "CODE_REVIEW",
+      "source_path": "src/aggie_analytics/assistive_plane/budget.py",
+      "start_marker": "class BudgetLedger:",
+      "end_marker": "    def _write(self, data: dict[str, object]) -> None:",
+      "instruction": "Review cross-process locking, atomic budget reservation, settlement, and provider reconciliation. Propose only evidence-backed corrections.",
+      "allowed_paths": ["src/aggie_analytics/assistive_plane/budget.py"],
+      "expected_terms": ["released_limit_usd", "reservations", "reconcile_provider_total"],
+      "patch_required": false
+    },
+    {
+      "task_id": "cpu-worker-replay-test-generation",
+      "task_type": "TEST_GENERATION",
+      "source_path": "tests/test_cpu_worker_backend.py",
+      "start_marker": "    def test_loopback_service_requires_tailscale_serve_identity_and_hmac(self) -> None:",
+      "end_marker": "if __name__ == \"__main__\":",
+      "instruction": "Propose a bounded additional regression test for durable replay and cleanup behavior. Do not modify implementation files.",
+      "allowed_paths": ["tests/test_cpu_worker_backend.py"],
+      "expected_terms": ["replay", "runtime/nonces", "runtime/replays"],
+      "patch_required": true
+    },
+    {
+      "task_id": "openrouter-responses-parser-scaffold",
+      "task_type": "PARSER_SCAFFOLDING",
+      "source_path": "src/aggie_analytics/assistive_plane/openrouter_backend.py",
+      "start_marker": "def response_output_text(body: dict[str, object]) -> str | None:",
+      "end_marker": "class OpenRouterBackend:",
+      "instruction": "Propose a minimal parser hardening candidate for Responses output arrays while preserving strict failure on absent text.",
+      "allowed_paths": ["src/aggie_analytics/assistive_plane/openrouter_backend.py"],
+      "expected_terms": ["output_text", "content", "output"],
+      "patch_required": true
+    },
+    {
+      "task_id": "ready-inventory-static-analysis",
+      "task_type": "STATIC_ANALYSIS_EXPLANATION",
+      "source_path": "tools/materialize_unified_assistive_inventory.py",
+      "start_marker": "def route_readiness_for(item: dict[str, Any], readiness: dict[str, Any]) -> dict[str, Any] | None:",
+      "end_marker": "def main() -> int:",
+      "instruction": "Explain exact-route readiness and identify any fail-open or ambiguity risk. A patch is optional and must stay in this file.",
+      "allowed_paths": ["tools/materialize_unified_assistive_inventory.py"],
+      "expected_terms": ["ROUTE_READINESS_NOT_UNIQUE", "CAPABILITY_BLOCKED", "SUSPENDED_REJECTED_ROUTE"],
+      "patch_required": false
+    }
+  ]
+}

@@ -122,7 +122,7 @@ def specs() -> list[dict[str, Any]]:
     foundation["evidence_state"] = "VERIFIED"
     foundation["ready"] = False
 
-    pilot = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-199", import_id=100508, objective="Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization", issue_type="Subtask", parent="POST-STORY-057", dependencies=["POST-SUBTASK-198"], workflow="BLOCKED")
+    pilot = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-199", import_id=100508, objective="Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization", issue_type="Subtask", parent="POST-STORY-057", dependencies=["POST-SUBTASK-198"], workflow="IN_PROGRESS")
     pilot["scope"] = "After explicit paid authority, compare deterministic-only work with a pinned Qwen candidate and bounded cross-family references on versioned gold cases; no production or canonical authority."
     pilot["acceptance_criteria"] = [
         "The user separately authorizes a positive OpenRouter spending envelope and provider/account hard limits are reconciled before the first paid call.",
@@ -130,8 +130,13 @@ def specs() -> list[dict[str, Any]]:
         "A versioned gold corpus reports schema validity, evidence accuracy, unsupported claims, patch applicability, tests, review savings, consistency, disagreement, dispositions, and accepted value per dollar.",
         "Negative findings remain preserved and no route is adopted solely because a response succeeded."
     ]
-    pilot["blocked_reason"] = "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED"
-    pilot["unblock_condition"] = "User explicitly authorizes a positive OpenRouter-only spending envelope; foundation is integrated; exact route/privacy/schema/cost gates pass."
+    pilot["blocked_reason"] = ""
+    pilot["unblock_condition"] = ""
+    pilot["evidence_state"] = "PARTIAL"
+    pilot["ready"] = False
+    pilot["ai_context_notes"].append(
+        "The user authorized a separate nontransferable USD 25 hard limit on 2026-08-12; only USD 5 is initially released and no paid route is operational until this pilot passes."
+    )
 
     operations = common(load("POST-SUBTASK-168"), local_id="POST-SUBTASK-200", import_id=100509, objective="Operate empirically admitted OpenRouter assistive routes with independent usage, provenance, cleanup, and handoff evidence", issue_type="Subtask", parent="POST-STORY-057", dependencies=["POST-SUBTASK-199"], workflow="BLOCKED")
     operations["scope"] = "Operate only task/model/provider routes that pass the paid pilot and remain inside the separately authorized OpenRouter envelope. Batch Beta stays separately gated."
@@ -141,8 +146,11 @@ def specs() -> list[dict[str, Any]]:
         "OpenRouter and direct OpenAI calls, spend, remaining budgets, models, providers, dispositions, Batch decisions, cleanup, blockers, and next workloads are reported separately at handoff.",
         "Provider failure, rejected admission, or partial task failure never globally blocks independent acquisition, modeling, or deterministic implementation."
     ]
-    operations["blocked_reason"] = "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED_AND_EMPIRICAL_ROUTE_NOT_ADMITTED"
-    operations["unblock_condition"] = "POST-SUBTASK-199 passes for at least one exact task/model/provider route within a separately authorized positive budget."
+    operations["blocked_reason"] = "EMPIRICAL_ROUTE_NOT_ADMITTED"
+    operations["unblock_condition"] = "POST-SUBTASK-199 passes for at least one exact task/model/provider route within the separately authorized USD 25 hard limit and current released stage."
+    operations["ai_context_notes"].append(
+        "The USD 25 provider cap removes the budget-authorization blocker but does not admit continuing paid operation before exact-route evidence passes."
+    )
     return [story, foundation, pilot, operations]
 
 

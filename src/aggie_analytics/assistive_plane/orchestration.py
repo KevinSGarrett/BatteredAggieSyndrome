@@ -15,6 +15,7 @@ ALLOWED_EFFORT_POINTS = frozenset({1, 2, 3, 5, 8})
 
 
 class RoutingDisposition(StrEnum):
+    COMPLETED = "COMPLETED"
     CODEX_DETERMINISTIC = "CODEX_DETERMINISTIC"
     DIRECT_OPENAI = "DIRECT_OPENAI"
     OPENROUTER = "OPENROUTER"
@@ -25,6 +26,7 @@ class RoutingDisposition(StrEnum):
     BUDGET_BLOCKED = "BUDGET_BLOCKED"
     CAPABILITY_BLOCKED = "CAPABILITY_BLOCKED"
     REJECTED_NO_VALUE = "REJECTED_NO_VALUE"
+    SUSPENDED_REJECTED_ROUTE = "SUSPENDED_REJECTED_ROUTE"
 
 
 class ReadinessState(StrEnum):
@@ -74,9 +76,13 @@ class RouteDecision:
 class RouteKey:
     provider: str
     resolved_model: str
+    model_digest: str
     task_format: str
+    prompt_version: str
+    schema_version: str
     schema_sha256: str
     policy_version: str
+    execution_surface: str
 
     def identity(self) -> str:
         return sha256_value(asdict(self))

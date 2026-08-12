@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.assistive_plane.bypass import find_direct_endpoint_bypasses
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerIdentity
-from aggie_analytics.assistive_plane.cursor_backend import CursorBackend, CursorRunPolicy
+from aggie_analytics.assistive_plane.cursor_backend import CursorBackend, CursorRunPolicy, load_cursor_key
 from aggie_analytics.assistive_plane.ollama_backend import OllamaRoutePolicy
 from aggie_analytics.assistive_plane.orchestration import (
     ProviderBudget,
@@ -71,11 +71,60 @@ class UnifiedAssistivePlaneTests(unittest.TestCase):
             replace(unit, pre_routing_effort_points=4)
 
     def test_readiness_is_exact_route_key(self) -> None:
-        key = RouteKey("cursor", "gpt-5.3-codex", "patch", "c" * 64, "v1")
+        key = RouteKey(
+            "cursor",
+            "gpt-5.3-codex",
+            "catalog-model-id",
+            "patch",
+            "cursor-safety-v1",
+            "1",
+            "c" * 64,
+            "v2",
+            "cursor-cloud-agent",
+        )
         registry = ReadinessRegistry([RouteReadiness(key, ReadinessState.READY, "d" * 64, "qualified")])
         self.assertEqual(registry.require(key).state, ReadinessState.READY)
         with self.assertRaisesRegex(ValueError, "ROUTE_READINESS_NOT_ESTABLISHED"):
             registry.require(replace(key, task_format="review"))
+
+    def test_empirical_rejection_is_exact_and_cannot_be_inherited(self) -> None:
+        payload = __import__("json").loads(
+            (ROOT / "configs/assistive_route_readiness.json").read_text(encoding="utf-8")
+        )
+        entries = []
+        for item in payload["routes"]:
+            if item["model_digest"].startswith("UNRESOLVED_"):
+                continue
+            key_fields = {
+                name: item[name]
+                for name in (
+                    "provider", "resolved_model", "model_digest", "task_format",
+                    "prompt_version", "schema_version", "schema_sha256",
+                    "policy_version", "execution_surface",
+                )
+            }
+            entries.append(
+                RouteReadiness(
+                    RouteKey(**key_fields),
+                    ReadinessState(item["state"]),
+                    item["evidence_sha256"],
+                    item["reason"],
+                )
+            )
+        registry = ReadinessRegistry(entries)
+        rejected = entries[0].key
+        with self.assertRaisesRegex(ValueError, "ROUTE_NOT_READY:NOT_READY"):
+            registry.require(rejected)
+        for changed in (
+            replace(rejected, resolved_model="another-model"),
+            replace(rejected, task_format="bounded-code-review"),
+            replace(rejected, prompt_version="new-prompt"),
+            replace(rejected, schema_version="2"),
+            replace(rejected, model_digest="f" * 64),
+        ):
+            with self.assertRaisesRegex(ValueError, "ROUTE_READINESS_NOT_ESTABLISHED"):
+                registry.require(changed)
+        self.assertFalse(payload["human_status_override_allowed"])
 
     def test_cursor_policy_fails_closed(self) -> None:
         backend = CursorBackend(CursorRunPolicy(reasoning="medium"))
@@ -83,6 +132,25 @@ class UnifiedAssistivePlaneTests(unittest.TestCase):
         self.assertEqual(payload["model"]["id"], "gpt-5.3-codex")
         self.assertFalse(payload["workOnCurrentBranch"])
         self.assertFalse(payload["autoCreatePR"])
+
+    def test_cursor_payload_can_bind_idempotent_agent_identity(self) -> None:
+        payload = CursorBackend(CursorRunPolicy(reasoning="low")).build_create_payload(
+            prompt="bounded",
+            repository_url="https://github.com/example/project",
+            starting_ref="a" * 40,
+            agent_id="bc-00000000-0000-0000-0000-000000000001",
+        )
+        self.assertEqual("bc-00000000-0000-0000-0000-000000000001", payload["agentId"])
+        self.assertEqual("a" * 40, payload["repos"][0]["startingRef"])
+
+    def test_cursor_credential_loader_requires_one_nonempty_value(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            env = Path(raw) / ".env"
+            env.write_text("CURSOR_API_TOKEN=example\n", encoding="utf-8")
+            self.assertTrue(load_cursor_key(env))
+            env.write_text("CURSOR_API_TOKEN=one\nCURSOR_API_TOKEN=two\n", encoding="utf-8")
+            with self.assertRaises(RuntimeError):
+                load_cursor_key(env)
         for policy in [
             CursorRunPolicy(model="auto"),
             CursorRunPolicy(reasoning="high"),
@@ -104,7 +172,12 @@ class UnifiedAssistivePlaneTests(unittest.TestCase):
             replace(route, parallel_requests=2).validate()
 
     def test_cpu_worker_identity_is_exact(self) -> None:
-        CpuWorkerIdentity("comfy-v4-cpu-01.tail9b05ab.ts.net.", "windows", True).validate()
+        CpuWorkerIdentity(
+            "comfy-v4-cpu-01.tail9b05ab.ts.net.",
+            "windows",
+            True,
+            node_id="nUxabVWSHb11CNTRL",
+        ).validate()
         with self.assertRaisesRegex(ValueError, "CPU_WORKER_IDENTITY_MISMATCH"):
             CpuWorkerIdentity("comfy-v3-coordinator-01.tail9b05ab.ts.net", "linux", True).validate()
 

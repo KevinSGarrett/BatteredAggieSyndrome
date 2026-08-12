@@ -16,12 +16,13 @@
   "ai_context_notes": [
     "Canonical OpenRouter contract source is `SRCREF-02120`.",
     "Never expose OPENROUTER_API_KEY, .env content, cookies, authorization headers, private data, or unnecessary protected evidence.",
-    "OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority."
+    "OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority.",
+    "The USD 25 provider cap removes the budget-authorization blocker but does not admit continuing paid operation before exact-route evidence passes."
   ],
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-200.json"
   ],
-  "blocked_reason": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED_AND_EMPIRICAL_ROUTE_NOT_ADMITTED",
+  "blocked_reason": "EMPIRICAL_ROUTE_NOT_ADMITTED",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-200_operate_empirically_admitted_openrouter_assistive_routes_with_independent_usage_provenance_c.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -243,7 +244,7 @@
   "title": "[POST-SUBTASK-200] Operate empirically admitted OpenRouter assistive routes with independent usage, provenance, cleanup, and handoff evidence",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "POST-SUBTASK-199 passes for at least one exact task/model/provider route within a separately authorized positive budget.",
+  "unblock_condition": "POST-SUBTASK-199 passes for at least one exact task/model/provider route within the separately authorized USD 25 hard limit and current released stage.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -439,3 +440,4 @@ Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and So
 - Canonical OpenRouter contract source is `SRCREF-02120`.
 - Never expose OPENROUTER_API_KEY, .env content, cookies, authorization headers, private data, or unnecessary protected evidence.
 - OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority.
+- The USD 25 provider cap removes the budget-authorization blocker but does not admit continuing paid operation before exact-route evidence passes.

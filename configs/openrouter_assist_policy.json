@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "policy_id": "openrouter-assistive-development-plane-v1",
+  "schema_version": 2,
+  "policy_id": "openrouter-assistive-development-plane-v2-paid-authorization",
   "governing_directive_sha256": "0a2087e4692977f14b96b0feb9cd7f01a96a50d4f085e92fc83eac192998ca89",
   "governing_plan_sha256": "5cc491a90a5df11a066b88b665fe69c51b31bd8725185c2ed653b249b808f498",
   "authority": {
@@ -22,10 +22,12 @@
   },
   "budget": {
     "currency": "USD",
-    "paid_calls_authorized": false,
-    "paid_hard_limit_usd": "0.00",
-    "released_stage_usd": "0.00",
-    "blocker": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED",
+    "paid_calls_authorized": true,
+    "paid_hard_limit_usd": "25.00",
+    "released_stage_usd": "5.00",
+    "authorization_id": "USER-OPENROUTER-25-2026-08-12",
+    "release_stages_usd": ["5.00", "15.00", "25.00"],
+    "nontransferable": true,
     "direct_openai_budget_transfer_usd": "0.00",
     "missing_provider_cost_disposition": "QUARANTINE"
   },
@@ -40,10 +42,10 @@
   },
   "catalog": {
     "candidate_model": "qwen/qwen3-coder-next",
-    "candidate_state": "CAPABILITY_CANDIDATE_NOT_PAID_NOT_ROUTE_APPROVED",
+    "candidate_state": "PAID_CAPABILITY_PILOT_AUTHORIZED_NOT_ROUTE_APPROVED",
     "candidate_allowed_reasoning_efforts": ["none"],
     "observed_catalog_pricing_usd_per_token": {
-      "input": "0.00000011",
+      "input": "0.00000012",
       "output": "0.00000080"
     },
     "route_approval_requires": ["EXACT_MODEL_AVAILABLE", "STRICT_SCHEMA_SUPPORTED", "ZDR_ENDPOINT_ELIGIBLE", "COST_ACCOUNTING_AVAILABLE", "PAID_BUDGET_AUTHORIZED", "EMPIRICAL_PILOT_PASS"]

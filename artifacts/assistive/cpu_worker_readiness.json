@@ -3,66 +3,89 @@
   "decision_unit": "POST-SUBTASK-204",
   "jira_key": "BAT-563",
   "evidence_state": "PARTIAL",
-  "readiness_disposition": "BLOCKED_REMOTE_SETUP_OR_SERVICE_REQUIRED",
+  "readiness_disposition": "BLOCKED_CORRECTED_ARCHITECTURE_REQUIRED",
   "protected_integration": {
     "implementation_commit": "0ca3210577fc6af47c8a9fdfc9c57f5284d952f1",
     "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/246",
     "merged_main_commit": "3df7e57a1df2ec6c751728ca9e459a141494625a",
-    "merged_at_utc": "2026-08-12T18:48:20Z",
+    "postmerge_pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/247",
+    "postmerge_main_commit": "ac7d8e24cb950b6f24fa089f6a33328642c65139",
     "all_required_hosted_checks": "PASS"
   },
-  "external_readiness_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\readiness\\1a\\1a79f3e3d2776ae05a4b9f144f075b168cb6b8aa0b4f131f7b4658f283f41947.json",
-  "external_readiness_sha256": "1a79f3e3d2776ae05a4b9f144f075b168cb6b8aa0b4f131f7b4658f283f41947",
+  "external_readiness_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\readiness\\3a\\3abbe8be96083973a18e54c0bfb10e364df718c47bbead2f20331504c7a43ae0.json",
+  "external_readiness_sha256": "3abbe8be96083973a18e54c0bfb10e364df718c47bbead2f20331504c7a43ae0",
+  "external_qualification_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\qualifications\\72\\72e0a835d9e14562140158a462357bc6df1ba782b6b7ebf16c508510e7dbf9aa.json",
+  "external_qualification_sha256": "72e0a835d9e14562140158a462357bc6df1ba782b6b7ebf16c508510e7dbf9aa",
+  "historical_prototype_restart_evidence_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\runtime\\restart_evidence_20260812T191745Z.json",
   "exact_identity": {
     "worker_dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
-    "worker_tailscale_ipv4": "100.77.151.3",
+    "worker_windows_hostname": "comfy-v4-cpu-01",
+    "worker_tailscale_node_id": "nUxabVWSHb11CNTRL",
     "worker_os": "windows",
     "worker_online": true,
     "controller_dns_name": "kevin.tail9b05ab.ts.net",
-    "controller_tailscale_ipv4": "100.79.129.63"
+    "controller_tailscale_node_id": "noo2qLiJGB11CNTRL",
+    "durable_ip_identity": false
   },
   "observed_access": {
     "ssh_22": false,
     "rdp_3389": true,
+    "rpc_135": true,
+    "smb_445": true,
     "winrm_http_5985": false,
     "winrm_https_5986": false,
-    "project_worker_8765": false,
+    "historical_prototype_worker_8765_was_reachable": true,
+    "historical_prototype_worker_8765_now_disabled": true,
+    "chrome_remote_desktop_authenticated": true,
     "dcom_cim_current_identity_authenticated": false,
-    "saved_rdp_credential_target_present": false
+    "saved_rdp_credential_target_present": false,
+    "smb_administrative_share_current_identity_authenticated": false,
+    "remote_scheduled_task_current_identity_authenticated": false,
+    "chrome_remote_read_only_preflight_evidence_sha256": "7e024bc0959a8b92d216acd5a4268ef664c1ef9529158e1288fb1e09b2003d87"
   },
   "implemented_candidate": {
     "allowed_tasks": ["CANONICAL_JSON", "LINE_HASH_MANIFEST", "EXACT_TEXT_DEDUP"],
     "arbitrary_path_or_shell_execution": false,
-    "exact_worker_bind": "100.77.151.3:8765",
-    "exact_controller_allow": "100.79.129.63",
+    "retired_transport": "DIRECT_HTTP_SOURCE_IP_ALLOWLIST",
+    "required_transport": "LOOPBACK_TAILSCALE_SERVE_PRIVATE_HTTPS",
     "public_exposure": false,
     "content_addressed_results": true,
     "idempotent_request_identity": true,
     "canonical_writes": 0,
     "protected_decisions": 0,
-    "deployment_state": "NOT_DEPLOYED"
+    "deployment_state": "PROTOTYPE_DISABLED_PENDING_CORRECTED_ARCHITECTURE"
+  },
+  "historical_prototype_results": {
+    "deterministic_tranches": 3,
+    "byte_identical_replays": 3,
+    "exact_dedup_pilots": 1,
+    "restart_recovery": "PASS",
+    "health_after_restart": "READY",
+    "canonical_writes": 0,
+    "protected_decisions": 0
   },
   "required_remaining_evidence": [
-    "Authenticated recoverable remote setup on the exact peer",
-    "Worker-side software and storage lock",
-    "Private firewall rule and live heartbeat",
-    "Three live deterministic tranches with byte-identical replay",
-    "One live exact-dedup pilot",
-    "Service restart and recovery evidence",
-    "Worker-side cleanup and final route-readiness decision"
+    "Stable Tailscale node and Windows host identity binding without committed IP authority",
+    "Loopback service exposed through private Tailscale Serve HTTPS and coordinator-only grant",
+    "HMAC-signed expiring idempotent job envelopes and replay rejection",
+    "Restricted non-SYSTEM service identity and minimal verified bundle",
+    "Three corrected-architecture deterministic tranches, dedup pilot, restart and interrupted-job recovery",
+    "Unauthorized, corrupt, expired, invalid-signature, disk-admission, hash, and cleanup gates"
   ],
   "blockers": [
-    "NO_AUTHENTICATED_UNATTENDED_REMOTE_MANAGEMENT_CHANNEL",
-    "CPU_WORKER_SERVICE_NOT_LISTENING",
-    "COMPUTER_USE_SKILL_DOCUMENTATION_API_UNAVAILABLE"
+    "PROTOTYPE_TRANSPORT_RETIRED",
+    "CORRECTED_PRIVATE_HTTPS_TRANSPORT_NOT_DEPLOYED",
+    "SIGNED_ENVELOPE_AUTHENTICATION_NOT_DEPLOYED",
+    "RESTRICTED_SERVICE_IDENTITY_NOT_DEPLOYED",
+    "CORRECTED_ARCHITECTURE_LIVE_QUALIFICATION_PENDING"
   ],
   "independent_work_continuing": [
-    "Local worker protocol, installer, qualification harness, validators, and tests",
     "Governed direct OpenAI candidate assistance",
     "Deterministic project execution and historical acquisition"
   ],
   "protected_nonclaims": [
-    "The CPU worker is not operationally qualified.",
+    "The historical prototype result is preserved but does not qualify the corrected architecture.",
+    "BAT-563 remains BLOCKED / PARTIAL.",
     "No canonical, PIT, model-promotion, forecast, publication, BAS, or Aggie Excess authority is delegated.",
     "No historical completeness, production readiness, champion, protected performance, or A&M specialization result is claimed."
   ]

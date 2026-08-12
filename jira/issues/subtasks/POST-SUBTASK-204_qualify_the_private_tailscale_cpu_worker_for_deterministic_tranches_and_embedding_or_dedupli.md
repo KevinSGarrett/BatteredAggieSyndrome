@@ -33,7 +33,7 @@
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
   ],
-  "blocked_reason": "NO_AUTHENTICATED_UNATTENDED_REMOTE_MANAGEMENT_CHANNEL; CPU_WORKER_SERVICE_NOT_LISTENING",
+  "blocked_reason": "CORRECTED_IDENTITY_TRANSPORT_AUTHENTICATION_PRIVILEGE_BUNDLE_AND_LIVE_QUALIFICATION_REQUIRED",
   "blocks": [
     "POST-SUBTASK-205"
   ],
@@ -86,7 +86,7 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Deploy only to the exact private Windows peer, verify heartbeat and controller allowlist, execute all fixed tasks twice, restart the service, replay, validate hashes, and clean reconstructible temporary output.",
+  "end_to_end_validation": "Deploy only to the exact verified private Windows peer through the authorized Chrome bootstrap, verify Serve HTTPS/grants/HMAC/least-privilege identity, execute all fixed tasks and rejection cases, restart worker/controller, recover interruption, validate hashes/resources, and clean reconstructible temporary output.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-204.json",
   "evidence_state": "PARTIAL",
@@ -130,9 +130,10 @@
   "historical_classification": "ACTIONABLE_POST_WAVE",
   "import_id": 100514,
   "in_scope": [
-    "Exact Tailscale peer and controller identity verification.",
-    "A fixed-function deterministic service with no arbitrary shell or path authority.",
-    "Three byte-replayable tranches, one exact-dedup pilot, restart recovery, provenance, and cleanup evidence."
+    "Stable Tailscale node, MagicDNS, Windows hostname, OS/hardware, and controller identity verification without committed IP authority.",
+    "A loopback-only fixed-function service exposed by private Tailscale Serve HTTPS, constrained by grants and HMAC-signed expiring envelopes.",
+    "A minimal hash-manifested bundle under a restricted service identity with no arbitrary shell, URL, module, or path authority.",
+    "Three byte-replayable tranches, exact deduplication, unauthorized/corrupt/expired/signature rejection, restart/interruption recovery, resource admission, provenance, and cleanup evidence."
   ],
   "issue_type": "Subtask",
   "jira_key": "BAT-563",
@@ -150,8 +151,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24956",
-    "jira_updated_at": "2026-08-12T13:42:55.922-0500",
-    "last_synced_at": "2026-08-12T18:43:18.489158+00:00",
+    "jira_updated_at": "2026-08-12T15:37:11.020-0500",
+    "last_synced_at": "2026-08-12T20:37:34.454526+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
@@ -250,7 +251,7 @@
   "title": "[POST-SUBTASK-204] Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Establish a recoverable authenticated setup path on exact peer comfy-v4-cpu-01, deploy the private service, then pass heartbeat, three replay tranches, exact-dedup pilot, restart recovery, and cleanup evidence.",
+  "unblock_condition": "Deploy the corrected minimal loopback/Tailscale-Serve/HMAC/least-privilege service to verified peer comfy-v4-cpu-01, then pass all live identity, unauthorized, replay, restart, corruption, resource, hash, and cleanup gates.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -276,9 +277,10 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ### Explicit In Scope
 
-- Exact Tailscale peer and controller identity verification.
-- A fixed-function deterministic service with no arbitrary shell or path authority.
-- Three byte-replayable tranches, one exact-dedup pilot, restart recovery, provenance, and cleanup evidence.
+- Stable Tailscale node, MagicDNS, Windows hostname, OS/hardware, and controller identity verification without committed IP authority.
+- A loopback-only fixed-function service exposed by private Tailscale Serve HTTPS, constrained by grants and HMAC-signed expiring envelopes.
+- A minimal hash-manifested bundle under a restricted service identity with no arbitrary shell, URL, module, or path authority.
+- Three byte-replayable tranches, exact deduplication, unauthorized/corrupt/expired/signature rejection, restart/interruption recovery, resource admission, provenance, and cleanup evidence.
 
 ### Explicit Out of Scope
 
@@ -413,7 +415,7 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## End-to-End Validation Requirement
 
-Deploy only to the exact private Windows peer, verify heartbeat and controller allowlist, execute all fixed tasks twice, restart the service, replay, validate hashes, and clean reconstructible temporary output.
+Deploy only to the exact verified private Windows peer through the authorized Chrome bootstrap, verify Serve HTTPS/grants/HMAC/least-privilege identity, execute all fixed tasks and rejection cases, restart worker/controller, recover interruption, validate hashes/resources, and clean reconstructible temporary output.
 
 ## Expected Maturity After Completion
 

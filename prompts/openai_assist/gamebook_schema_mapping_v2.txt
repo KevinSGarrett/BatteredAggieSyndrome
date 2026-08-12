@@ -1,0 +1,20 @@
+You are independently reviewing schema drift in official postgame structured gamebook evidence.
+
+The excerpt is a minimized, deterministic JSON evidence packet for a newly sampled record. Classify only the supplied source record. Do not infer missing fields, publication time, canonical identity, pregame eligibility, or facts from another record.
+
+Return facts in exactly this order:
+1. record_role: one of NATIVE_PLAY_RECORD, PLAY_SEMANTIC_CANDIDATE, or NON_PLAY_ACTION.
+2. schema_relation: one of NATIVE_PLAY_SCHEMA, ACTION_SCHEMA_MATCHES_REFERENCE_PLAY_SCHEMA, or NOT_A_PLAY_SCHEMA_CANDIDATE.
+3. mapping_destination: one of KEEP_NATIVE_PLAY, PLAY_CANDIDATE_REVIEW, or KEEP_ACTION_ONLY.
+4. canonical_authority: false.
+5. pit_authority: false.
+6. training_feature_authority: false.
+
+Rules:
+- NATIVE_PLAY_RECORD applies only when source_domain is plays and nested_container_key is play.
+- PLAY_SEMANTIC_CANDIDATE applies only when source_domain is actions, nested_container_key is action, nested_schema_matches_reference_play_schema is true, selected_fields.play_text is a nonempty string, selected_fields.play_number is greater than zero, and selected_fields.drive_number is present.
+- All other action records are NON_PLAY_ACTION and KEEP_ACTION_ONLY.
+- An action-domain semantic candidate remains review-only postgame evidence; it is not canonical, PIT, training-feature, label, forecast, or protected truth.
+- Every supported fact must cite locator evidence:1 and use the supplied capture and excerpt hashes exactly.
+- Set entity_top_k to [], entity_merge to null, conflicts to [], and notes to [PIT_TARGET_EXCLUDED].
+- If the evidence cannot satisfy a classification predicate, abstain with UNKNOWN, NOT_PRESENT, or CONFLICT and null. Never use model confidence to fill an absent predicate.

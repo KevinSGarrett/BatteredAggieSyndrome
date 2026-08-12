@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "decision_unit": "POST-SUBTASK-202",
+  "jira_key": "BAT-561",
+  "evidence_state": "PARTIAL_CONTROLLER_READY_ZERO_REAL_AGENTS",
+  "authority": "ISOLATED_PATCH_CANDIDATE_ONLY",
+  "budget": {
+    "hard_limit_usd": "200.00",
+    "released_stage_usd": "20.00",
+    "settled_cost_usd": "0",
+    "reserved_cost_usd": "0",
+    "cross_provider_transfer_allowed": false
+  },
+  "credential_preflight": {
+    "authoritative_env": "C:\\BatteredAggieSyndrome\\.env",
+    "cursor_api_token_present_exactly_once_and_nonempty": true,
+    "credential_value_recorded_or_copied": false
+  },
+  "live_catalog": {
+    "sha256": "5d5f4539b5f6406756248dcbe88142e1e5c34a3ea9c83418d29ee8f12c923fc3",
+    "models": 34,
+    "repositories": 27,
+    "exact_model": "gpt-5.3-codex",
+    "exact_model_present": true,
+    "repository_present": true
+  },
+  "implemented_controller": {
+    "backend_sha256": "0201e6875c5dbbd5710cf0f69f52d7743d8a06c503539b2c035025761d363133",
+    "controller_sha256": "e32bcb70f35ee76fb85970a6bdb4111188babd1ddf047df1d6ac1338426969dc",
+    "exact_model_enforced": true,
+    "allowed_reasoning": ["low", "medium"],
+    "fast_disabled": true,
+    "work_on_current_branch": false,
+    "auto_create_pr": false,
+    "exact_starting_ref_required": true,
+    "external_content_addressed_evidence": true
+  },
+  "execution": {
+    "real_agents_created": 0,
+    "serial_safety_pilots_completed": 0,
+    "concurrent_agents_allowed_now": 0,
+    "state": "PAID_PILOT_AUTHORIZED_ZERO_REAL_AGENTS",
+    "next_gate": "Integrate the reviewed controller through current main, then run the first serial exact-main safety pilot and validate its complete generated-branch diff and tests."
+  },
+  "protected_nonclaims": [
+    "Authentication and catalog visibility do not make Cursor operational.",
+    "No Cursor agent has executed a real project workload.",
+    "No Cursor result has implementation, merge, canonical, PIT, protected, scientific, forecast, publication, BAS, or Aggie Excess authority."
+  ]
+}

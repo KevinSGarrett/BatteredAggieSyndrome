@@ -141,7 +141,9 @@ artifacts/jira_evidence/POST-SUBTASK-195.json
 artifacts/jira_evidence/POST-SUBTASK-196.json
 artifacts/jira_evidence/POST-SUBTASK-197.json
 artifacts/jira_evidence/POST-SUBTASK-198.json
+artifacts/jira_evidence/POST-SUBTASK-199.json
 artifacts/jira_evidence/POST-SUBTASK-201.json
+artifacts/jira_evidence/POST-SUBTASK-202.json
 artifacts/jira_evidence/POST-SUBTASK-203.json
 artifacts/jira_evidence/POST-SUBTASK-204.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
@@ -208,6 +210,7 @@ configs/acceptance_registry.json
 configs/action_derived_play_summary_contract.json
 configs/architecture_registry.json
 configs/assistive_provider_registry.json
+configs/assistive_route_readiness.json
 configs/backlog_policy.json
 configs/bas_science_registry.json
 configs/cfbd_post2022_roster_acquisition.json
@@ -244,6 +247,8 @@ configs/hydration_manifest.json
 configs/implementation_plan.json
 configs/judging_rule_seal.json
 configs/known_at_registry.json
+configs/local_coder_shadow_qualification.json
+configs/local_embedding_shadow_qualification.json
 configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
 configs/ncaa_contest_reconciliation_contract.json
@@ -263,6 +268,7 @@ configs/openai_entity_review_pilot.json
 configs/openai_evaluation_policy.json
 configs/openai_gamebook_pilot.json
 configs/openai_gamebook_schema_mapping.json
+configs/openai_gamebook_schema_mapping_v2.json
 configs/openai_quarantine_schema_pilot.json
 configs/openai_task_registry.json
 configs/openrouter_assist_policy.json
@@ -300,6 +306,7 @@ configs/tamu_specialization_registry.json
 configs/team_state_registry.json
 configs/temporal_registry.json
 configs/tournament_registry.json
+configs/unified_assistive_operational_claims.json
 configs/unified_assistive_policy.json
 configs/unified_assistive_ready_work.json
 configs/validation_science_registry.json
@@ -2842,6 +2849,7 @@ prompts/openai_assist/evaluation_v4.txt
 prompts/openai_assist/gamebook_domain_v4.txt
 prompts/openai_assist/gamebook_play_v1.txt
 prompts/openai_assist/gamebook_schema_mapping_v1.txt
+prompts/openai_assist/gamebook_schema_mapping_v2.txt
 prompts/openai_assist/quarantine_schema_v1.txt
 provenance/INPUT_ARTIFACTS.csv
 provenance/MANIFEST_POLICY.md
@@ -2892,6 +2900,7 @@ requirements/product.lock
 requirements/weather-gfs.lock
 schemas/assistive/candidate_patch.schema.json
 schemas/assistive/independent_review.schema.json
+schemas/assistive/local_coder_shadow.schema.json
 schemas/assistive/local_qwen_candidate.schema.json
 schemas/assistive/reconciliation_ranking.schema.json
 schemas/assistive/schema_drift_review.schema.json
@@ -3271,6 +3280,7 @@ tests/test_supplemental_play_drive.py
 tests/test_tamu_specialization_governance.py
 tests/test_team_state_governance.py
 tests/test_temporal_governance.py
+tests/test_unified_assistive_completeness.py
 tests/test_unified_assistive_plane.py
 tests/test_validation_science_governance.py
 tests/test_w18_full_gate.py
@@ -3335,9 +3345,11 @@ tools/build_wmt_tamu_specialization_feature_pit.py
 tools/capture_runtime_manifest.py
 tools/check_advanced_challenger_admission.py
 tools/compare_development_results.py
+tools/cpu_worker_minimal_init.py
 tools/cpu_worker_service.py
 tools/create_experiment.py
 tools/create_research_packet.py
+tools/cursor_assist.py
 tools/evaluate_retraining_admission.py
 tools/experiment_store_cli.py
 tools/freeze_experiment_spec.py
@@ -3364,11 +3376,14 @@ tools/refresh_cursor_catalog.py
 tools/refresh_local_assistive_runtime.py
 tools/refresh_openai_assist_lock.py
 tools/refresh_openrouter_model_catalog.py
+tools/refresh_openrouter_usage.py
 tools/render_task_context.py
 tools/repo_integrity.py
 tools/restore_state.py
 tools/run_expanded_event_chronology_preliminary.py
 tools/run_local_benchmark.py
+tools/run_local_coder_shadow.py
+tools/run_local_embedding_shadow.py
 tools/run_local_qwen_qualification.py
 tools/run_openai_assist_eval.py
 tools/run_openai_availability_source_triage.py
@@ -3467,6 +3482,7 @@ tools/validate_tamu_specialization.py
 tools/validate_team_state.py
 tools/validate_temporal.py
 tools/validate_tournament.py
+tools/validate_unified_assistive_completeness.py
 tools/validate_unified_assistive_plane.py
 tools/validate_validation_science.py
 tools/validate_w18_full_rebuild.py

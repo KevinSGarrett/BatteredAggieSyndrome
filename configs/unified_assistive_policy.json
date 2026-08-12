@@ -1,6 +1,7 @@
 {
-  "schema_version": 1,
-  "policy_id": "unified-assistive-execution-plane-v1",
+  "schema_version": 2,
+  "policy_id": "unified-assistive-execution-plane-v2-operational-correction",
+  "effective_at_utc": "2026-08-12T19:28:39Z",
   "governing_directive_sha256": "cde877f540156f97723944eb34419742b3a6b77783c19de2f3b87a209e5def84",
   "governing_plan_sha256": "42e66c08b1069026d92d4b6e50eff1af9e2263f1f57a7bce4cf018972db976e5",
   "assurance_report_sha256": "bd07f61af182e5826009fc85413c3b155c41397289e0998ce4c4412c26e04008",
@@ -13,11 +14,11 @@
     "required_coverage_fraction": 1.0,
     "anti_padding": true
   },
-  "readiness_key": ["provider", "resolved_model", "task_format", "schema_sha256", "policy_version"],
+  "readiness_key": ["provider", "resolved_model", "model_digest", "task_format", "prompt_version", "schema_version", "schema_sha256", "policy_version", "execution_surface"],
   "budgets": {
     "openai": {"hard_limit_usd": "100.00", "authorization_id": "USER-OPENAI-100-2026-08"},
-    "openrouter": {"hard_limit_usd": "0.00", "authorization_id": null, "blocker": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED"},
-    "cursor": {"hard_limit_usd": "0.00", "authorization_id": null, "blocker": "PAID_CURSOR_BUDGET_NOT_AUTHORIZED"},
+    "openrouter": {"hard_limit_usd": "25.00", "released_stage_usd": "5.00", "authorization_id": "USER-OPENROUTER-25-2026-08-12", "stages_usd": ["5.00", "15.00", "25.00"], "nontransferable": true},
+    "cursor": {"hard_limit_usd": "200.00", "released_stage_usd": "20.00", "authorization_id": "USER-CURSOR-200-2026-08-12", "stages_usd": ["20.00", "60.00", "200.00"], "nontransferable": true},
     "local_qwen": {"hard_limit_usd": "0.00", "authorization_id": "LOCAL_COMPUTE_ONLY"},
     "remote_cpu_worker": {"hard_limit_usd": "0.00", "authorization_id": "PRIVATE_DETERMINISTIC_WORKER_ONLY"}
   },
@@ -44,14 +45,19 @@
   "remote_cpu_worker": {
     "allowed_dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
     "expected_os": "windows",
-    "allowed_tailscale_ipv4": "100.77.151.3",
-    "allowed_controller_tailscale_ipv4": "100.79.129.63",
-    "allowed_port": 8765,
+    "durable_identity_fields": ["tailscale_node_id", "magicdns_name", "windows_hostname", "os", "hardware_profile", "verified_at_utc"],
+    "durable_ip_identity_forbidden": true,
+    "transport": "LOOPBACK_TAILSCALE_SERVE_PRIVATE_HTTPS",
+    "tailscale_funnel": false,
+    "authentication": "HMAC_SIGNED_CONTENT_ADDRESSED_ENVELOPE",
+    "service_identity": "DEDICATED_RESTRICTED_LOCAL_ACCOUNT_OR_LOW_PRIVILEGE_SERVICE_IDENTITY",
+    "prototype_direct_http_retired": true,
     "allowed_tasks": ["CANONICAL_JSON", "LINE_HASH_MANIFEST", "EXACT_TEXT_DEDUP"],
     "arbitrary_path_or_shell_execution": false,
     "public_exposure": false,
     "required_deterministic_tranches": 3,
-    "required_embedding_dedup_or_small_model_pilots": 1
+    "required_embedding_dedup_or_small_model_pilots": 1,
+    "required_live_gates": ["PRIVATE_HTTPS", "COORDINATOR_GRANT", "SIGNED_ENVELOPE", "UNAUTHORIZED_REJECTION", "EXPIRED_REJECTION", "REPLAY_IDEMPOTENCY", "WORKER_RESTART", "CONTROLLER_RESTART", "INTERRUPTED_JOB_RECOVERY", "DISK_ADMISSION", "CLEANUP_LEDGER"]
   },
   "execution_minimums": {
     "direct_openai_additional_candidate_units": 20,

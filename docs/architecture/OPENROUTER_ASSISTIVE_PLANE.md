@@ -12,6 +12,6 @@ bounded task packet
   -> candidate | review | quarantine | rejected
 ```
 
-The production OpenRouter policy has a USD 0.00 hard limit, so its backend cannot be reached by a billable request. Fake-client tests exercise the dispatcher boundary without a provider call. Public catalog capture is a separate non-billable read-only operation.
+The production OpenRouter policy has a separate USD 25 hard limit and a lower USD 5 released pilot stage. Both are enforced locally before dispatch, and later releases require empirical evidence. Fake-client tests exercise budget, schema, and provider boundaries independently. Public catalog capture is a separate non-billable read-only operation.
 
 Operational data is content-addressed outside Git. Repository code contains only policy, schemas, adapter/controller code, tests, and documentation. Batch Beta is disabled pending its separate gate.

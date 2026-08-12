@@ -13,13 +13,43 @@
     "merged_at_utc": "2026-08-12T18:29:59Z",
     "all_required_hosted_checks": "PASS"
   },
-  "completion_claim": "The required bounded local-Qwen qualification executed on 10 real packets across three task types for three immutable runs (36 calls total). Both exact evaluated model identities failed predeclared evidence-quality gates and were not admitted. Completion validates the qualification decision, not route readiness.",
+  "completion_claim": "The required bounded local-Qwen qualification executed on 10 real packets across three task types for three immutable runs (36 calls total). Both exact evaluated evidence-critical model identities failed. A later exact qwen2.5-coder shadow also failed, while an independently keyed bge-m3 embedding/retrieval route passed its narrow candidate-only gate. No result was generalized across task formats.",
   "summary_artifact": "artifacts/assistive/local_qwen_qualification.json",
   "external_evaluation_sha256": [
     "c3a9a358ca4c760f560107825373bec95862c9fcdb2a6be9d185d225957c5413",
     "5930e8bf9f61ea955e83ea1f7b75a220683d8ab38273028a728556e63a7164ee",
-    "7d03b5abd0b4bc8622b5fa7817770c572899678f7914a0e81da48352d7ffcd49"
+    "7d03b5abd0b4bc8622b5fa7817770c572899678f7914a0e81da48352d7ffcd49",
+    "71bf6ea7fc0c95af0cc2ec987c06e5e5d66e1dcb2cc28a7f19f929961654568a"
   ],
+  "better_matched_shadow_followup": {
+    "model": "qwen2.5-coder:7b-instruct-q4_K_M",
+    "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+    "task_types": 4,
+    "packets": 4,
+    "strict_schema_rate": 1.0,
+    "allowed_path_rate": 0.5,
+    "evidence_accuracy": 0.4,
+    "expected_term_recall": 0.3333333333333333,
+    "unsupported_fact_rate": 0.0,
+    "accepted_shadow_candidates": 0,
+    "review_time_saved_seconds": 0.0,
+    "result": "FAIL_PRESERVE_NEGATIVE_EVIDENCE_EXACT_ROUTE_NOT_READY"
+  },
+  "embedding_shadow_followup": {
+    "model": "bge-m3:latest",
+    "model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+    "task_format": "embedding_dedup_semantic_candidate_retrieval",
+    "evaluation_sha256": "a44dd7401bd003f7e572ce97450d07ea776f3a00f14ba80317ac947ced39e425",
+    "corpus_records": 9,
+    "query_count": 4,
+    "top1_recall": 1.0,
+    "top3_recall": 1.0,
+    "exact_repeat_cosine": 1.0,
+    "review_time_saved_seconds": 0.0,
+    "canonical_writes": 0,
+    "protected_decisions": 0,
+    "result": "PASS_CANDIDATE_RETRIEVAL_ONLY_EXACT_ROUTE_READY"
+  },
   "acceptance_evidence": [
     {
       "criterion": "Model/runtime/digest and content-addressed identities are preserved.",
@@ -46,7 +76,7 @@
   "cleanup": {"all_models_unloaded": true, "temporary_bytecode_removed": true},
   "downstream_disposition": "POST-SUBTASK-205 remains blocked from claiming a complete local-Qwen operational route. Independent CPU-worker, OpenAI, deterministic, and budget-eligible route work continues.",
   "protected_nonclaims": [
-    "No route readiness is claimed.",
+    "No evidence-critical extraction or coding route readiness is claimed; only the exact bge-m3 embedding/retrieval candidate route is ready.",
     "No final historical completeness, production readiness, champion, protected performance, A&M lift, BAS, or Aggie Excess result is claimed."
   ]
 }

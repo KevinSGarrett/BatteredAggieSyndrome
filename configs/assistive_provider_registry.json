@@ -1,6 +1,6 @@
 {
-  "schema_version": 2,
-  "registry_id": "unified-assistive-provider-registry-2026-08-12",
+  "schema_version": 3,
+  "registry_id": "unified-assistive-provider-registry-2026-08-12-operational-correction",
   "providers": {
     "openai": {
       "adapter": "aggie_analytics.openai_assist.controller.AssistiveController",
@@ -12,13 +12,15 @@
       "adapter": "aggie_analytics.assistive_plane.openrouter_backend.OpenRouterBackend",
       "authority": "CANDIDATE_ONLY_ASSISTIVE_DEVELOPMENT",
       "budget_ledger": "C:\\BatteredAggieSyndrome.data\\assistive\\openrouter\\usage\\ledger.json",
-      "policy": "configs/openrouter_assist_policy.json"
+      "policy": "configs/openrouter_assist_policy.json",
+      "paid_authority": {"hard_limit_usd": "25.00", "released_stage_usd": "5.00", "authorization_id": "USER-OPENROUTER-25-2026-08-12"}
     },
     "cursor": {
       "adapter": "aggie_analytics.assistive_plane.cursor_backend.CursorBackend",
       "authority": "PATCH_OR_REVIEW_CANDIDATE_ONLY",
       "budget_ledger": "C:\\BatteredAggieSyndrome.data\\assistive\\cursor\\usage\\ledger.json",
-      "policy": "configs/unified_assistive_policy.json"
+      "policy": "configs/unified_assistive_policy.json",
+      "paid_authority": {"hard_limit_usd": "200.00", "released_stage_usd": "20.00", "authorization_id": "USER-CURSOR-200-2026-08-12"}
     },
     "local_qwen": {
       "adapter": "aggie_analytics.assistive_plane.ollama_backend.OllamaRoutePolicy",

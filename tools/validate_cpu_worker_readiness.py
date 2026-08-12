@@ -23,25 +23,39 @@ def main() -> int:
         evidence = json.loads(external.read_text(encoding="utf-8"))
         if evidence["peer"]["dns_name"] != summary["exact_identity"]["worker_dns_name"]:
             findings.append("CPU_WORKER_DNS_IDENTITY_MISMATCH")
-        if evidence["peer"]["tailscale_ips"][0] != summary["exact_identity"]["worker_tailscale_ipv4"]:
-            findings.append("CPU_WORKER_IP_IDENTITY_MISMATCH")
-        if evidence["readiness_disposition"] != summary["readiness_disposition"]:
-            findings.append("CPU_WORKER_READINESS_DISPOSITION_MISMATCH")
+        if evidence["peer"].get("node_id") is None:
+            findings.append("CPU_WORKER_NODE_IDENTITY_MISSING")
         if evidence["canonical_writes"] or evidence["protected_decisions"]:
             findings.append("CPU_WORKER_AUTHORITY_BOUNDARY_VIOLATION")
     implemented = summary["implemented_candidate"]
-    if implemented["deployment_state"] != "NOT_DEPLOYED" or summary["readiness_disposition"] != "BLOCKED_REMOTE_SETUP_OR_SERVICE_REQUIRED":
-        findings.append("CPU_WORKER_PREMATURE_READINESS_CLAIM")
+    if implemented["deployment_state"] != "PROTOTYPE_DISABLED_PENDING_CORRECTED_ARCHITECTURE":
+        findings.append("CPU_WORKER_PROTOTYPE_NOT_RETIRED")
+    if summary["readiness_disposition"] != "BLOCKED_CORRECTED_ARCHITECTURE_REQUIRED":
+        findings.append("CPU_WORKER_PREMATURE_OPERATIONAL_CLAIM")
     if implemented["arbitrary_path_or_shell_execution"] or implemented["public_exposure"]:
         findings.append("CPU_WORKER_SECURITY_POLICY_INVALID")
+    qualification = Path(summary["external_qualification_path"])
+    if not qualification.is_file() or sha256(qualification) != summary["external_qualification_sha256"]:
+        findings.append("CPU_WORKER_EXTERNAL_QUALIFICATION_IDENTITY_INVALID")
+    else:
+        result = json.loads(qualification.read_text(encoding="utf-8"))
+        if result["qualification_disposition"] != "PASS":
+            findings.append("CPU_WORKER_HISTORICAL_PROTOTYPE_EVIDENCE_INVALID")
+        if not all(item["byte_identical_replay"] for item in result["tranches"]):
+            findings.append("CPU_WORKER_REPLAY_NOT_BYTE_IDENTICAL")
+        if result["restart_evidence"]["restart_recovery"] != "PASS":
+            findings.append("CPU_WORKER_RESTART_RECOVERY_NOT_PASS")
+        if result["canonical_writes"] or result["protected_decisions"]:
+            findings.append("CPU_WORKER_QUALIFICATION_AUTHORITY_VIOLATION")
     if findings:
         print(json.dumps({"status": "FAIL", "findings": findings}, indent=2))
         return 1
     print(json.dumps({
         "status": "PASS",
         "worker_online": True,
-        "remote_setup_blocked": True,
-        "service_ready": False,
+        "operational_state": "BLOCKED_PARTIAL",
+        "prototype_disabled": True,
+        "historical_prototype_mechanics": "PASS_PRESERVED_NOT_CURRENT_QUALIFICATION",
         "canonical_writes": 0,
         "protected_decisions": 0,
     }, sort_keys=True))

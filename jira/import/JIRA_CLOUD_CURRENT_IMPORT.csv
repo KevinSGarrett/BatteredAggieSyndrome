@@ -37794,7 +37794,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-199
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.json",To Do,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-199,operations-security,POST-SUBTASK-199,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.json",In Progress,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-199,operations-security,POST-SUBTASK-199,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE
 Sub-task,BAT-558,100509,"[POST-SUBTASK-200] Operate empirically admitted OpenRouter assistive routes with independent usage, provenance, cleanup, and handoff evidence",100506,"Local ID: POST-SUBTASK-200
 
 Objective
@@ -37958,9 +37958,10 @@ Prerequisites / Dependencies
 
 Acceptance Criteria
 1. Inventory validation enforces effort points 1/2/3/5/8, stable identities, anti-padding, one disposition, and complete count/point reconciliation.
-2. Readiness binds provider, resolved model, task format, schema hash, and policy version; provider budgets remain independent and explicit.
+2. Readiness binds provider, resolved model and digest, task format, prompt/schema identity, policy version, and execution surface; empirical rejection cannot be overridden by a status edit.
 3. Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.
-4. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
+4. A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.
+5. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
 
 Definition of Done
 1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
@@ -38058,7 +38059,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-202
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-202,operations-security,POST-SUBTASK-202,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.json",In Progress,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-202,operations-security,POST-SUBTASK-202,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE
 Sub-task,BAT-562,100513,"[POST-SUBTASK-203] Qualify local Ollama Qwen on real strict-schema, reconciliation, and code-review work",100510,"Local ID: POST-SUBTASK-203
 
 Objective
@@ -38068,7 +38069,7 @@ Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
 
 Scope
-Run at least 100 real records or 10 bounded packets across three task types under loopback-only, one-model, one-parallel, 4K-context initial policy.
+Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, and run separately keyed shadow qualifications for qwen2.5-coder and bge-m3 on better-matched workloads.
 
 Explicit In Scope
 - Perform the exact action: Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol.
@@ -38135,9 +38136,10 @@ Scope
 Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot.
 
 Explicit In Scope
-- Exact Tailscale peer and controller identity verification.
-- A fixed-function deterministic service with no arbitrary shell or path authority.
-- Three byte-replayable tranches, one exact-dedup pilot, restart recovery, provenance, and cleanup evidence.
+- Stable Tailscale node, MagicDNS, Windows hostname, OS/hardware, and controller identity verification without committed IP authority.
+- A loopback-only fixed-function service exposed by private Tailscale Serve HTTPS, constrained by grants and HMAC-signed expiring envelopes.
+- A minimal hash-manifested bundle under a restricted service identity with no arbitrary shell, URL, module, or path authority.
+- Three byte-replayable tranches, exact deduplication, unauthorized/corrupt/expired/signature rejection, restart/interruption recovery, resource admission, provenance, and cleanup evidence.
 
 Explicit Out of Scope
 - Public Funnel exposure, arbitrary remote code execution, or credential capture.
@@ -38173,7 +38175,7 @@ Required Evidence
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
 
 End-to-End Validation
-Deploy only to the exact private Windows peer, verify heartbeat and controller allowlist, execute all fixed tasks twice, restart the service, replay, validate hashes, and clean reconstructible temporary output.
+Deploy only to the exact verified private Windows peer through the authorized Chrome bootstrap, verify Serve HTTPS/grants/HMAC/least-privilege identity, execute all fixed tasks and rejection cases, restart worker/controller, recover interruption, validate hashes/resources, and clean reconstructible temporary output.
 
 Stop Conditions
 - Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.

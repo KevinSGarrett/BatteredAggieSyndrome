@@ -64,12 +64,18 @@ Implement the non-billable provider-neutral foundation and preserve existing dir
 ## Files I may modify or create
 
 - configs/assistive_provider_registry.json
+- configs/assistive_route_readiness.json
 - configs/unified_assistive_policy.json
+- configs/unified_assistive_ready_work.json
+- configs/unified_assistive_operational_claims.json
 - src/aggie_analytics/assistive_plane
+- tools/materialize_unified_assistive_inventory.py
 - tools/validate_unified_assistive_plane.py
+- tools/validate_unified_assistive_completeness.py
 - tools/refresh_cursor_catalog.py
 - tools/refresh_local_assistive_runtime.py
 - tests/test_unified_assistive_plane.py
+- tests/test_unified_assistive_completeness.py
 - governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - governance/SOURCE_OF_TRUTH_MAP.md
 - docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
@@ -104,9 +110,10 @@ Produce and validate these outputs within this atomic work unit:
 ## Acceptance criteria
 
 1. Inventory validation enforces effort points 1/2/3/5/8, stable identities, anti-padding, one disposition, and complete count/point reconciliation.
-2. Readiness binds provider, resolved model, task format, schema hash, and policy version; provider budgets remain independent and explicit.
+2. Readiness binds provider, resolved model and digest, task format, prompt/schema identity, policy version, and execution surface; empirical rejection cannot be overridden by a status edit.
 3. Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.
-4. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
+4. A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.
+5. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
 
 ## Tests / validation
 

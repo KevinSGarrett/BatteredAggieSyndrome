@@ -1,6 +1,6 @@
 # OpenRouter Assistive Development Plane
 
-Status: governed foundation; paid execution disabled.
+Status: governed foundation verified; USD 25 paid pilot authority exists with only USD 5 released; no route is operationally qualified yet.
 
 This contract adopts the user directive with SHA-256 `0A2087E4692977F14B96B0FEB9CD7F01A96A50D4F085E92FC83EAC192998CA89` and the mandatory plan with SHA-256 `5CC491A90A5DF11A066B88B665FE69C51B31BD8725185C2ED653B249B808F498`.
 
@@ -14,7 +14,7 @@ The plane may not write canonical data, PIT state, training features, labels, pr
 
 Direct OpenAI and OpenRouter remain separate providers behind the provider-neutral registry. One request uses one provider, one ledger, and one budget. The existing direct OpenAI USD 100 authorization does not transfer to OpenRouter.
 
-The OpenRouter paid hard limit and released stage are both exactly USD 0.00. `PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED` rejects every billable request locally before network dispatch. No proposed amount in the implementation plan is authorization. Public documentation and model-catalog capture are non-billable capability evidence.
+The user authorized a separate, nontransferable USD 25 hard limit on 2026-08-12. Only USD 5 is initially released for capability and bounded real-work qualification. Local admission enforces the lower released stage as well as the absolute cap; later stages of USD 15 and USD 25 require empirical value evidence. This authorization does not make any route operational or admit continuing paid work. Public documentation and model-catalog capture remain non-billable capability evidence.
 
 ## Privacy, routing, and output rules
 
@@ -34,7 +34,7 @@ Candidate patch workers must use an isolated external clean worktree based on a 
 
 ## Evaluation and adoption
 
-`qwen/qwen3-coder-next` is only a capability candidate. It is not a paid, route-approved, or empirically adopted model. After the user separately authorizes a paid OpenRouter envelope, the initial bounded pilot must compare deterministic-only work with the candidate on a versioned gold corpus and measure strict schema validity, unsupported claims, evidence accuracy, patch applicability, test pass rate, review time saved, repeat consistency, cross-family disagreement, accepted value per dollar, and quarantine/rejection rates.
+`qwen/qwen3-coder-next` is a paid-pilot candidate only. It is not route-approved, operationally qualified, or empirically adopted. The initial bounded pilot must compare deterministic-only work with the candidate on a versioned gold corpus and measure strict schema validity, unsupported claims, evidence accuracy, patch applicability, test pass rate, review time saved, repeat consistency, cross-family disagreement, accepted value per dollar, and quarantine/rejection rates.
 
 No model, provider, fallback, Batch route, or task format earns continuing use without passing its predeclared empirical gate. Negative results are preserved. Provider failure degrades to deterministic/local work and never globally blocks historical acquisition or modeling.
 

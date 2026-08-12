@@ -103,12 +103,13 @@ def specs() -> list[dict[str, Any]]:
 
     foundation = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-201", import_id=100511, objective="Implement the unified ready-work inventory, routing, readiness, budget, provenance, bypass, utilization, and completeness foundation", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-160", "POST-SUBTASK-198"], workflow="IN_PROGRESS")
     foundation["scope"] = "Implement the non-billable provider-neutral foundation and preserve existing direct OpenAI/OpenRouter controllers behind adapters. Live paid/provider qualification volumes are downstream."
-    foundation["files_expected_to_be_touched"] = ["configs/assistive_provider_registry.json", "configs/unified_assistive_policy.json", "src/aggie_analytics/assistive_plane", "tools/validate_unified_assistive_plane.py", "tools/refresh_cursor_catalog.py", "tools/refresh_local_assistive_runtime.py", "tests/test_unified_assistive_plane.py", "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "governance/SOURCE_OF_TRUTH_MAP.md", "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"]
+    foundation["files_expected_to_be_touched"] = ["configs/assistive_provider_registry.json", "configs/assistive_route_readiness.json", "configs/unified_assistive_policy.json", "configs/unified_assistive_ready_work.json", "configs/unified_assistive_operational_claims.json", "src/aggie_analytics/assistive_plane", "tools/materialize_unified_assistive_inventory.py", "tools/validate_unified_assistive_plane.py", "tools/validate_unified_assistive_completeness.py", "tools/refresh_cursor_catalog.py", "tools/refresh_local_assistive_runtime.py", "tests/test_unified_assistive_plane.py", "tests/test_unified_assistive_completeness.py", "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "governance/SOURCE_OF_TRUTH_MAP.md", "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"]
     foundation["allowed_modification_paths"] = foundation["files_expected_to_be_touched"] + [foundation["evidence_manifest_path"]]
     foundation["acceptance_criteria"] = [
         "Inventory validation enforces effort points 1/2/3/5/8, stable identities, anti-padding, one disposition, and complete count/point reconciliation.",
-        "Readiness binds provider, resolved model, task format, schema hash, and policy version; provider budgets remain independent and explicit.",
+        "Readiness binds provider, resolved model and digest, task format, prompt/schema identity, policy version, and execution surface; empirical rejection cannot be overridden by a status edit.",
         "Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.",
+        "A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.",
         "Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.",
     ]
     foundation["blocked_reason"] = ""
@@ -121,18 +122,23 @@ def specs() -> list[dict[str, Any]]:
     foundation["evidence_state"] = "VERIFIED"
     foundation["ready"] = False
 
-    cursor = common(load("POST-SUBTASK-199"), local_id="POST-SUBTASK-202", import_id=100512, objective="Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="BLOCKED")
+    cursor = common(load("POST-SUBTASK-199"), local_id="POST-SUBTASK-202", import_id=100512, objective="Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="IN_PROGRESS")
     cursor["scope"] = "Execute 10 nontrivial isolated repository units using exact live `gpt-5.3-codex`, low/medium reasoning, Fast disabled, no direct branch/PR/merge authority, and full Codex review."
     cursor["acceptance_criteria"] = [
         "A positive Cursor-only spending envelope and live catalog/repository readiness exist before paid run creation.",
         "Two serial safety pilots pass before at most two concurrent agents; all 10 units use clean exact-base isolation.",
         "Every diff is scope/secret/test/review validated and no Cursor result controls protected truth or integration.",
     ]
-    cursor["blocked_reason"] = "PAID_CURSOR_BUDGET_NOT_AUTHORIZED"
-    cursor["unblock_condition"] = "User explicitly authorizes a positive Cursor-only envelope and POST-SUBTASK-201 integrates."
+    cursor["blocked_reason"] = ""
+    cursor["unblock_condition"] = ""
+    cursor["evidence_state"] = "PARTIAL"
+    cursor["ready"] = False
+    cursor["ai_context_notes"].append(
+        "The user authorized a separate nontransferable USD 200 hard limit on 2026-08-12; only USD 20 is initially released and zero qualifying real agents have executed."
+    )
 
     qwen = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-203", import_id=100513, objective="Qualify local Ollama Qwen on real strict-schema, reconciliation, and code-review work", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="DONE")
-    qwen["scope"] = "Run at least 100 real records or 10 bounded packets across three task types under loopback-only, one-model, one-parallel, 4K-context initial policy."
+    qwen["scope"] = "Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, and run separately keyed shadow qualifications for qwen2.5-coder and bge-m3 on better-matched workloads."
     qwen["acceptance_criteria"] = [
         "Model/runtime/digest/hardware identities and prompt/schema/result dispositions are content-addressed.",
         "Strict schema, evidence, abstention, consistency, time/rework, and unsupported-fact results are measured on real work.",
@@ -144,6 +150,7 @@ def specs() -> list[dict[str, Any]]:
     qwen["ready"] = False
     qwen["expected_outputs"] = [
         "artifacts/assistive/local_qwen_qualification.json",
+        "configs/assistive_route_readiness.json",
         "artifacts/jira_evidence/POST-SUBTASK-203.json",
     ]
     qwen["evidence_manifest_path"] = "artifacts/jira_evidence/POST-SUBTASK-203.json"
@@ -162,8 +169,8 @@ def specs() -> list[dict[str, Any]]:
         "Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.",
         "No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced.",
     ]
-    worker["blocked_reason"] = "NO_AUTHENTICATED_UNATTENDED_REMOTE_MANAGEMENT_CHANNEL; CPU_WORKER_SERVICE_NOT_LISTENING"
-    worker["unblock_condition"] = "Establish a recoverable authenticated setup path on exact peer comfy-v4-cpu-01, deploy the private service, then pass heartbeat, three replay tranches, exact-dedup pilot, restart recovery, and cleanup evidence."
+    worker["blocked_reason"] = "CORRECTED_IDENTITY_TRANSPORT_AUTHENTICATION_PRIVILEGE_BUNDLE_AND_LIVE_QUALIFICATION_REQUIRED"
+    worker["unblock_condition"] = "Deploy the corrected minimal loopback/Tailscale-Serve/HMAC/least-privilege service to verified peer comfy-v4-cpu-01, then pass all live identity, unauthorized, replay, restart, corruption, resource, hash, and cleanup gates."
     worker["evidence_state"] = "PARTIAL"
     worker["expected_outputs"] = [
         "artifacts/assistive/cpu_worker_readiness.json",
@@ -193,9 +200,10 @@ def specs() -> list[dict[str, Any]]:
     ]
     worker["files_to_inspect"] = worker["files_expected_to_be_read"]
     worker["in_scope"] = [
-        "Exact Tailscale peer and controller identity verification.",
-        "A fixed-function deterministic service with no arbitrary shell or path authority.",
-        "Three byte-replayable tranches, one exact-dedup pilot, restart recovery, provenance, and cleanup evidence.",
+        "Stable Tailscale node, MagicDNS, Windows hostname, OS/hardware, and controller identity verification without committed IP authority.",
+        "A loopback-only fixed-function service exposed by private Tailscale Serve HTTPS, constrained by grants and HMAC-signed expiring envelopes.",
+        "A minimal hash-manifested bundle under a restricted service identity with no arbitrary shell, URL, module, or path authority.",
+        "Three byte-replayable tranches, exact deduplication, unauthorized/corrupt/expired/signature rejection, restart/interruption recovery, resource admission, provenance, and cleanup evidence.",
     ]
     worker["out_of_scope"] = [
         "Public Funnel exposure, arbitrary remote code execution, or credential capture.",
@@ -207,7 +215,7 @@ def specs() -> list[dict[str, Any]]:
         {"classification": "END_TO_END", "expectation": "Three exact-peer tranches and one dedup pilot replay byte-identically after a service restart.", "path": "artifacts/jira_evidence/POST-SUBTASK-204.json", "validation_class": "END_TO_END"},
         {"classification": "REPRODUCIBILITY", "expectation": "Peer, controller, code, config, request, result, runtime, and cleanup identities are preserved.", "path": "artifacts/assistive/cpu_worker_readiness.json", "validation_class": "REPRODUCIBILITY"},
     ]
-    worker["end_to_end_validation"] = "Deploy only to the exact private Windows peer, verify heartbeat and controller allowlist, execute all fixed tasks twice, restart the service, replay, validate hashes, and clean reconstructible temporary output."
+    worker["end_to_end_validation"] = "Deploy only to the exact verified private Windows peer through the authorized Chrome bootstrap, verify Serve HTTPS/grants/HMAC/least-privilege identity, execute all fixed tasks and rejection cases, restart worker/controller, recover interruption, validate hashes/resources, and clean reconstructible temporary output."
 
     assurance = common(load("POST-SUBTASK-168"), local_id="POST-SUBTASK-205", import_id=100515, objective="Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-202", "POST-SUBTASK-203", "POST-SUBTASK-204", "POST-SUBTASK-168", "POST-SUBTASK-199"], workflow="BLOCKED")
     assurance["scope"] = "Derive final utilization/completeness from real route evidence, not counters, after applicable providers qualify; preserve explicit budget/capability incompleteness."
@@ -216,8 +224,8 @@ def specs() -> list[dict[str, Any]]:
         "At least seven calendar days, three real scheduler cycles, one restart exercise, and one outage exercise reconcile with inventory/dispatch/usage/result/cleanup ledgers.",
         "All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill.",
     ]
-    assurance["blocked_reason"] = "LOCAL_QWEN_NOT_ADMITTED; CURSOR_BUDGET_BLOCKED; CPU_WORKER_REMOTE_SETUP_AND_SUSTAINED_TIME_WINDOW_PENDING"
-    assurance["unblock_condition"] = "A local route passes a newly versioned empirical qualification, POST-SUBTASK-204 qualifies, paid-route budget gates resolve where applicable, and sustained-operation evidence accrues."
+    assurance["blocked_reason"] = "EXACT_LOCAL_QWEN_ROUTES_REJECTED; NEW_LOCAL_SHADOW_ROUTES_PENDING; CURSOR_AND_OPENROUTER_PILOTS_PENDING; CPU_WORKER_V2_PENDING; SUSTAINED_CLOCK_NOT_STARTED"
+    assurance["unblock_condition"] = "At least one separately keyed local route qualifies, paid Cursor/OpenRouter pilots pass their applicable gates, POST-SUBTASK-204 qualifies, and seven days plus three real scheduler cycles accrue from production-like eligible work."
     return [story, foundation, cursor, qwen, worker, assurance]
 
 

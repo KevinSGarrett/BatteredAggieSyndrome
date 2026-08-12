@@ -14,7 +14,7 @@
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-205.json"
   ],
-  "blocked_reason": "LOCAL_QWEN_NOT_ADMITTED; CURSOR_BUDGET_BLOCKED; CPU_WORKER_REMOTE_SETUP_AND_SUSTAINED_TIME_WINDOW_PENDING",
+  "blocked_reason": "EXACT_LOCAL_QWEN_ROUTES_REJECTED; NEW_LOCAL_SHADOW_ROUTES_PENDING; CURSOR_AND_OPENROUTER_PILOTS_PENDING; CPU_WORKER_V2_PENDING; SUSTAINED_CLOCK_NOT_STARTED",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -239,7 +239,7 @@
   "title": "[POST-SUBTASK-205] Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "A local route passes a newly versioned empirical qualification, POST-SUBTASK-204 qualifies, paid-route budget gates resolve where applicable, and sustained-operation evidence accrues.",
+  "unblock_condition": "At least one separately keyed local route qualifies, paid Cursor/OpenRouter pilots pass their applicable gates, POST-SUBTASK-204 qualifies, and seven days plus three real scheduler cycles accrue from production-like eligible work.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",

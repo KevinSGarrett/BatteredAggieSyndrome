@@ -9,7 +9,7 @@ python -B tools/validate_openrouter_assist.py --repo-root .
 python -B -m unittest tests.test_openrouter_assist
 ```
 
-The validator must confirm a USD 0.00 paid hard stop, no budget transfer from direct OpenAI, strict schemas, privacy/provider defaults, disabled Batch Beta, and a single OpenRouter backend endpoint.
+The validator must confirm the authorized USD 25 hard stop, the lower USD 5 released stage, no budget transfer from direct OpenAI, strict schemas, privacy/provider defaults, disabled Batch Beta, and a single OpenRouter backend endpoint.
 
 ## Non-billable catalog refresh
 

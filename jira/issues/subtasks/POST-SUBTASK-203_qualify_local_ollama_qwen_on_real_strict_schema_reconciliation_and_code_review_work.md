@@ -20,6 +20,7 @@
   ],
   "allowed_modification_paths": [
     "artifacts/assistive/local_qwen_qualification.json",
+    "configs/assistive_route_readiness.json",
     "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
   "blocked_reason": "",
@@ -48,7 +49,7 @@
       "cost"
     ]
   },
-  "completion_evidence_manifest_sha256": "3996b3803958cc2902a2f46eff79fd9861dc1ccc047de55f249e84f3a32de08f",
+  "completion_evidence_manifest_sha256": "c427d8fb6bb157994bcb2cf1139b14032c1e08d366e7a25c62f7264dd09a6b5b",
   "component": "operations-security",
   "components_expected_to_be_touched": [
     "operations-security",
@@ -85,6 +86,7 @@
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
   "expected_outputs": [
     "artifacts/assistive/local_qwen_qualification.json",
+    "configs/assistive_route_readiness.json",
     "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
   "files_expected_to_be_read": [
@@ -134,8 +136,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24955",
-    "jira_updated_at": "2026-08-12T13:22:07.445-0500",
-    "last_synced_at": "2026-08-12T18:22:30.571784+00:00",
+    "jira_updated_at": "2026-08-12T15:37:10.639-0500",
+    "last_synced_at": "2026-08-12T20:37:34.454526+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -219,7 +221,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Run at least 100 real records or 10 bounded packets across three task types under loopback-only, one-model, one-parallel, 4K-context initial policy.",
+  "scope": "Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, and run separately keyed shadow qualifications for qwen2.5-coder and bge-m3 on better-matched workloads.",
   "source_ids": [
     "UNIFIED-ASSISTIVE-EXECUTION-PLAN"
   ],
@@ -257,7 +259,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Run at least 100 real records or 10 bounded packets across three task types under loopback-only, one-model, one-parallel, 4K-context initial policy.
+Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, and run separately keyed shadow qualifications for qwen2.5-coder and bge-m3 on better-matched workloads.
 
 ### Explicit In Scope
 
@@ -319,6 +321,7 @@ Run at least 100 real records or 10 bounded packets across three task types unde
 ## Expected Outputs / Artifacts
 
 - artifacts/assistive/local_qwen_qualification.json
+- configs/assistive_route_readiness.json
 - artifacts/jira_evidence/POST-SUBTASK-203.json
 
 ## Direct Requirements

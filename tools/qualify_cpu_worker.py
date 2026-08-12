@@ -28,33 +28,43 @@ def sha256(path: Path) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "configs/cpu_worker_qualification.json")
-    parser.add_argument("--restart-evidence", type=Path)
+    parser.add_argument("--signing-key-file", type=Path, required=True)
+    parser.add_argument("--identity-evidence", type=Path, required=True)
+    parser.add_argument("--restart-evidence", type=Path, required=True)
+    parser.add_argument("--controller-restart-evidence", type=Path, required=True)
+    parser.add_argument("--security-evidence", type=Path, required=True)
+    parser.add_argument("--cleanup-evidence", type=Path, required=True)
     args = parser.parse_args()
     config = json.loads(args.config.read_text(encoding="utf-8"))
-    CpuWorkerIdentity(config["worker_dns_name"], config["worker_os"], True).validate()
-    endpoint = CpuWorkerEndpoint(config["endpoint"], allowed_port=config["service_port"])
+    identity = json.loads(args.identity_evidence.read_text(encoding="utf-8"))
+    CpuWorkerIdentity(
+        identity["tailscale_dns_name"],
+        identity["os"],
+        identity["online"],
+        windows_hostname=identity["windows_hostname"],
+        node_id=identity["tailscale_node_id"],
+    ).validate()
+    endpoint = CpuWorkerEndpoint(config["private_endpoint"])
     endpoint.validate()
+    signing_key = args.signing_key_file.read_bytes()
+    if len(signing_key) < 32:
+        raise RuntimeError("CPU_WORKER_SIGNING_KEY_TOO_SHORT")
     storage = Path(config["storage_root"])
-    with urlopen(f"{config['endpoint']}/health", timeout=10) as response:
+    with urlopen(f"{config['private_endpoint']}/health", timeout=10) as response:
         health = json.loads(response.read().decode("utf-8"))
-    if health != {
-        "status": "READY",
-        "schema_version": 1,
-        "authority": config["authority"],
-        "public_exposure": False,
-        "allowed_controller_ip": config["controller_tailscale_ipv4"],
-    }:
+    if health.get("status") != "READY_FOR_LIVE_QUALIFICATION" or health.get("transport") != "TAILSCALE_SERVE_PRIVATE_HTTPS":
         raise RuntimeError("CPU_WORKER_HEALTH_IDENTITY_INVALID")
-    client = CpuWorkerClient(endpoint, storage)
+    client = CpuWorkerClient(endpoint, storage, signing_key)
     tranches = []
     for sequence, task in enumerate(config["tasks"], start=1):
         job = CpuWorkerJob(task["task"], task["payload"], config["jira_unit"])
-        first, first_path = client.submit(job)
-        second, second_path = client.submit(job)
+        envelope = job.request(signing_key, nonce=f"qualification-{sequence:02d}")
+        first, first_path = client.submit(job, envelope)
+        second, second_path = client.submit(job, envelope)
         tranches.append({
             "sequence": sequence,
             "task": job.task,
-            "request_id": job.identity(),
+            "job_id": job.identity(),
             "first_artifact": str(first_path),
             "first_sha256": sha256(first_path),
             "second_artifact": str(second_path),
@@ -62,35 +72,49 @@ def main() -> int:
             "byte_identical_replay": first == second and first_path == second_path,
             "result_sha256": first["result_sha256"],
         })
-    restart = None
-    if args.restart_evidence:
-        restart = json.loads(args.restart_evidence.read_text(encoding="utf-8"))
+    restart = json.loads(args.restart_evidence.read_text(encoding="utf-8"))
+    controller_restart = json.loads(args.controller_restart_evidence.read_text(encoding="utf-8"))
+    security = json.loads(args.security_evidence.read_text(encoding="utf-8"))
+    cleanup = json.loads(args.cleanup_evidence.read_text(encoding="utf-8"))
+    required_security = {
+        "unauthorized_node_rejected", "expired_packet_rejected", "invalid_signature_rejected",
+        "corrupt_packet_rejected", "disk_admission_passed", "result_hash_verified",
+        "interrupted_job_recovered", "funnel_disabled", "restricted_service_identity",
+    }
     passed = (
         len(tranches) >= config["required_deterministic_tranches"]
         and sum(item["task"] == "EXACT_TEXT_DEDUP" for item in tranches) >= config["required_dedup_pilots"]
         and all(item["byte_identical_replay"] for item in tranches)
-        and restart is not None
         and restart.get("restart_recovery") == "PASS"
+        and controller_restart.get("reconciliation") == "PASS"
+        and all(security.get(field) is True for field in required_security)
+        and cleanup.get("status") == "PASS"
     )
     record = {
-        "schema_version": 1,
+        "schema_version": 2,
         "qualification_id": config["qualification_id"],
         "jira_unit": config["jira_unit"],
         "captured_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "config_sha256": sha256(args.config),
         "worker_identity": {
-            "dns_name": config["worker_dns_name"],
-            "os": config["worker_os"],
-            "tailscale_ipv4": config["worker_tailscale_ipv4"],
-            "public_exposure": False,
+            "dns_name": identity["tailscale_dns_name"],
+            "node_id": identity["tailscale_node_id"],
+            "windows_hostname": identity["windows_hostname"],
+            "os": identity["os"],
+            "public_funnel": False,
+            "durable_ip_identity": False,
         },
         "authority": config["authority"],
         "health": health,
         "tranches": tranches,
-        "restart_evidence": restart,
+        "restart_evidence_sha256": sha256(args.restart_evidence),
+        "controller_restart_evidence_sha256": sha256(args.controller_restart_evidence),
+        "security_evidence_sha256": sha256(args.security_evidence),
+        "cleanup_evidence_sha256": sha256(args.cleanup_evidence),
+        "signing_key_recorded": False,
         "canonical_writes": 0,
         "protected_decisions": 0,
-        "qualification_disposition": "PASS" if passed else "BLOCKED_RESTART_EVIDENCE_REQUIRED",
+        "qualification_disposition": "PASS" if passed else "BLOCKED_CORRECTED_LIVE_GATES_INCOMPLETE",
     }
     path, digest = write_content_addressed_json(storage, "qualifications", record)
     print(json.dumps({"status": record["qualification_disposition"], "path": str(path), "sha256": digest}, sort_keys=True))

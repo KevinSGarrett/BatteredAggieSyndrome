@@ -229,9 +229,9 @@ def validate(root: Path) -> list[str]:
         errors.append("depth-chart noncoverage visual checkpoint crossed candidate-only authority")
     budget_checkpoint = continuous_report.get("budget", {})
     if (
-        budget_checkpoint.get("remaining_usd") != "95.690410"
-        or budget_checkpoint.get("settled_usd") != "4.309590"
-        or budget_checkpoint.get("cumulative_calls") != 470
+        budget_checkpoint.get("remaining_usd") != "95.469485"
+        or budget_checkpoint.get("settled_usd") != "4.530515"
+        or budget_checkpoint.get("cumulative_calls") != 492
     ):
         errors.append("continuing OpenAI report does not reconcile the usage ledger")
     if continuous_report.get("completion", {}).get("continuing_operations_active") is not True:

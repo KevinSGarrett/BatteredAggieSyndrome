@@ -167,7 +167,9 @@ class OpenAIAssistTests(unittest.TestCase):
         self.assertEqual(2, visual["models"]["gpt-4o-mini"]["corrected_exact_review_candidates"])
         self.assertEqual(0, visual["canonical_writes"])
         self.assertEqual(0, visual["pit_writes"])
-        self.assertEqual("95.690410", report["budget"]["remaining_usd"])
+        self.assertEqual("95.469485", report["budget"]["remaining_usd"])
+        self.assertEqual("4.530515", report["budget"]["settled_usd"])
+        self.assertEqual(492, report["budget"]["cumulative_calls"])
         self.assertTrue(report["completion"]["continuing_operations_active"])
         self.assertFalse(report["completion"]["completion_claimed"])
 

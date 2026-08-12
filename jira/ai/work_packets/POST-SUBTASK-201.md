@@ -33,14 +33,14 @@ Implement the non-billable provider-neutral foundation and preserve existing dir
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `SHARED_CONTRACT`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `INTEGRATED`
-- Evidence state: `PARTIAL`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-201`
 
 ## Read first

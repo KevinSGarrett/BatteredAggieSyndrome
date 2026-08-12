@@ -113,6 +113,13 @@ def specs() -> list[dict[str, Any]]:
     ]
     foundation["blocked_reason"] = ""
     foundation["unblock_condition"] = ""
+    # The provider-neutral foundation merged through protected PR #242 at
+    # exact main d849cc416de2730b589634709e6c0a66add88625 after all hosted
+    # and local acceptance gates passed. Preserve terminal evidence on future
+    # graph reconciliation rather than regressing the unit to partial work.
+    foundation["workflow_state"] = "DONE"
+    foundation["evidence_state"] = "VERIFIED"
+    foundation["ready"] = False
 
     cursor = common(load("POST-SUBTASK-199"), local_id="POST-SUBTASK-202", import_id=100512, objective="Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="BLOCKED")
     cursor["scope"] = "Execute 10 nontrivial isolated repository units using exact live `gpt-5.3-codex`, low/medium reasoning, Fast disabled, no direct branch/PR/merge authority, and full Codex review."

@@ -91,7 +91,7 @@
   "end_to_end_validation": "Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-201.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "INTEGRATED",
@@ -152,11 +152,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24953",
-    "jira_updated_at": "2026-08-12T12:49:19.494-0500",
-    "last_synced_at": "2026-08-12T17:49:30.668888+00:00",
+    "jira_updated_at": "2026-08-12T13:02:19.064-0500",
+    "last_synced_at": "2026-08-12T18:02:41.441484+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -261,7 +261,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-201.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

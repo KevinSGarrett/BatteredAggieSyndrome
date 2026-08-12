@@ -2,7 +2,7 @@
   "schema_version": 1,
   "decision_unit": "POST-SUBTASK-201",
   "jira_key": "BAT-560",
-  "evidence_state": "PARTIAL_PRE_INTEGRATION",
+  "evidence_state": "VERIFIED",
   "authority": "NON_BILLABLE_FOUNDATION_ONLY",
   "governing_identities": {
     "directive_sha256": "cde877f540156f97723944eb34419742b3a6b77783c19de2f3b87a209e5def84",
@@ -11,7 +11,11 @@
     "openrouter_plan_sha256": "d8680f970e58b776de36bef1cab40eca0b614ff22f65411dc8b862eb95893396",
     "goal_objective_sha256": "1cd61986eb70afcf94ae678ff8fad426a7e121928f3fe1e53bd82cd3aeaf15bd",
     "base_commit": "d2869c18b91e3d6a22f92b2e4431186c2489497c",
-    "branch": "codex/unified-assistive-foundation"
+    "branch": "codex/unified-assistive-foundation",
+    "implementation_commit": "87d481389f2678df8526b9649c1638c6addf7dbd",
+    "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/242",
+    "merged_main_commit": "d849cc416de2730b589634709e6c0a66add88625",
+    "merged_at_utc": "2026-08-12T18:00:20Z"
   },
   "credential_preflight": {
     "authoritative_env": "C:\\BatteredAggieSyndrome\\.env",
@@ -78,7 +82,14 @@
     "strict_repository_secret_manifest_governance": "PASS",
     "jira_second_pass": "PASS",
     "jira_file_manifest": "PASS",
-    "w25_final": "PASS"
+    "w25_final": "PASS",
+    "hosted_core_ubuntu": "PASS",
+    "hosted_core_windows": "PASS",
+    "hosted_product_ubuntu": "PASS",
+    "hosted_product_windows": "PASS",
+    "hosted_security_policy": "PASS",
+    "hosted_dependency_review": "PASS",
+    "hosted_codeql": "PASS"
   },
   "implementation_hashes": {
     "configs/unified_assistive_policy.json": "931b8a34cdb7a2909acb0b103e50471380e891139e6d59f00ae8d05ea19128f2",
@@ -122,8 +133,8 @@
     },
     {
       "criterion": "Normal protected PR integration and exact-main full validation complete.",
-      "result": "PENDING",
-      "evidence": []
+      "result": "PASS",
+      "evidence": ["PR #242", "main d849cc416de2730b589634709e6c0a66add88625", "all required hosted checks PASS"]
     }
   ],
   "negative_findings": [

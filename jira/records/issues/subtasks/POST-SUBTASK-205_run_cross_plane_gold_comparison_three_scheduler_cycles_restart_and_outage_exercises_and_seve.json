@@ -14,7 +14,7 @@
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-205.json"
   ],
-  "blocked_reason": "LOCAL_QWEN_NOT_ADMITTED; CURSOR_BUDGET_BLOCKED; CPU_WORKER_AND_SUSTAINED_TIME_WINDOW_PENDING",
+  "blocked_reason": "LOCAL_QWEN_NOT_ADMITTED; CURSOR_BUDGET_BLOCKED; CPU_WORKER_REMOTE_SETUP_AND_SUSTAINED_TIME_WINDOW_PENDING",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",

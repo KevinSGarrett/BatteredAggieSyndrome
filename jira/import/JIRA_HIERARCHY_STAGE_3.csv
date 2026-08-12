@@ -18313,15 +18313,14 @@ Scope
 Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot.
 
 Explicit In Scope
-- Perform the exact action: Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation.
-- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
-- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+- Exact Tailscale peer and controller identity verification.
+- A fixed-function deterministic service with no arbitrary shell or path authority.
+- Three byte-replayable tranches, one exact-dedup pilot, restart recovery, provenance, and cleanup evidence.
 
 Explicit Out of Scope
-- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
-- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
-- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
-- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+- Public Funnel exposure, arbitrary remote code execution, or credential capture.
+- Canonical, PIT, label, protected-evaluation, model-promotion, forecast, publication, BAS, or Aggie Excess authority.
+- Claiming route readiness before live exact-peer replay and restart evidence pass.
 
 Prerequisites / Dependencies
 - Dependency POST-SUBTASK-040 complete at required maturity
@@ -18341,9 +18340,9 @@ Definition of Done
 6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
 
 Required Tests / Validation
-- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
-- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-160.json — Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth.
-- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_cpu_worker_backend.py — Fixed task, identity, endpoint, authority, replay, and malformed-input gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-204.json — Three exact-peer tranches and one dedup pilot replay byte-identically after a service restart.
+- REPRODUCIBILITY / REPRODUCIBILITY: artifacts/assistive/cpu_worker_readiness.json — Peer, controller, code, config, request, result, runtime, and cleanup identities are preserved.
 
 Required Evidence
 - `artifacts/jira_evidence/POST-SUBTASK-160.json` with one evidence row per acceptance criterion and exact artifact hashes.
@@ -18352,7 +18351,7 @@ Required Evidence
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
 
 End-to-End Validation
-Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth.
+Deploy only to the exact private Windows peer, verify heartbeat and controller allowlist, execute all fixed tasks twice, restart the service, replay, validate hashes, and clean reconstructible temporary output.
 
 Stop Conditions
 - Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
@@ -18364,7 +18363,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-204
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-204,operations-security,POST-SUBTASK-204,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-204,operations-security,POST-SUBTASK-204,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-564,100515,"[POST-SUBTASK-205] Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance",100510,"Local ID: POST-SUBTASK-205
 
 Objective

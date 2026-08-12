@@ -33,6 +33,13 @@ REQUIRED_FILES = [
     "configs/local_qwen_qualification.json",
     "schemas/assistive/local_qwen_candidate.schema.json",
     "artifacts/assistive/local_qwen_qualification.json",
+    "configs/cpu_worker_qualification.json",
+    "tools/cpu_worker_service.py",
+    "tools/install_cpu_worker_service.ps1",
+    "tools/qualify_cpu_worker.py",
+    "tools/refresh_cpu_worker_readiness.py",
+    "tools/validate_cpu_worker_readiness.py",
+    "artifacts/assistive/cpu_worker_readiness.json",
 ]
 
 

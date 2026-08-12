@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-067",
+  "jira_key": "BAT-417",
+  "classification": "PRELIMINARY_UNPROTECTED_ISSUED_GFS_MULTIGAME_SELECTION_PILOT",
+  "source": {
+    "source_id": "SRC-028",
+    "provider": "NOAA/NCEP via NOAA Open Data Dissemination",
+    "bucket": "noaa-gfs-bdp-pds",
+    "base_url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com",
+    "grid": "pgrb2.0p25",
+    "registry_url": "https://registry.opendata.aws/noaa-gfs-bdp-pds/"
+  },
+  "input": {
+    "relative_path": "quarantine/historical_nominal_lead/sha256/e307d2c36e970a5faea1fc98dd254a816ae327d994929f735de906a93818e90e/candidate_weather_previous_run_cells.parquet",
+    "sha256": "da534def725da009b2e73605221aebd7ea4a1270ceaafa28ed7b8d83711fe1cd"
+  },
+  "population": {
+    "selection_reason": "BOUNDED_STRATIFIED_ROUTE_AND_LEAD_VALIDATION_NOT_A_COVERAGE_SAMPLE",
+    "expected_selection_rows": 7,
+    "expected_output_rows": 70,
+    "selectors": [
+      {
+        "season": 2021,
+        "source_game_id": "401281943",
+        "lead_days": 1,
+        "expected_cutoff_utc": "2021-09-03T18:00:00Z",
+        "expected_valid_utc": "2021-09-04T18:00:00Z",
+        "expected_latitude": 36.0680662,
+        "expected_longitude": -94.1789534
+      },
+      {
+        "season": 2022,
+        "source_game_id": "401403853",
+        "lead_days": 2,
+        "expected_cutoff_utc": "2022-08-26T02:00:00Z",
+        "expected_valid_utc": "2022-08-28T02:00:00Z",
+        "expected_latitude": 21.294294,
+        "expected_longitude": -157.819338
+      },
+      {
+        "season": 2023,
+        "source_game_id": "401520145",
+        "lead_days": 3,
+        "expected_cutoff_utc": "2023-08-23T21:00:00Z",
+        "expected_valid_utc": "2023-08-26T21:00:00Z",
+        "expected_latitude": 33.8201052,
+        "expected_longitude": -85.76647
+      },
+      {
+        "season": 2024,
+        "source_game_id": "401628319",
+        "lead_days": 1,
+        "expected_cutoff_utc": "2024-08-30T23:00:00Z",
+        "expected_valid_utc": "2024-08-31T23:00:00Z",
+        "expected_latitude": 33.2082752,
+        "expected_longitude": -87.5503836
+      },
+      {
+        "season": 2024,
+        "source_game_id": "401628319",
+        "lead_days": 3,
+        "expected_cutoff_utc": "2024-08-28T23:00:00Z",
+        "expected_valid_utc": "2024-08-31T23:00:00Z",
+        "expected_latitude": 33.2082752,
+        "expected_longitude": -87.5503836
+      },
+      {
+        "season": 2024,
+        "source_game_id": "401644731",
+        "lead_days": 1,
+        "expected_cutoff_utc": "2024-08-30T19:00:00Z",
+        "expected_valid_utc": "2024-08-31T19:00:00Z",
+        "expected_latitude": 41.9339586,
+        "expected_longitude": -88.7778357
+      },
+      {
+        "season": 2025,
+        "source_game_id": "401752665",
+        "lead_days": 2,
+        "expected_cutoff_utc": "2025-08-28T19:00:00Z",
+        "expected_valid_utc": "2025-08-30T19:00:00Z",
+        "expected_latitude": 30.4381692,
+        "expected_longitude": -84.3044032
+      }
+    ]
+  },
+  "selection": {
+    "cycles_utc": [0, 6, 12, 18],
+    "cycles_to_probe": 5,
+    "maximum_forecast_hour": 120,
+    "rule": "LATEST_SIX_HOUR_GFS_CYCLE_WITH_INTEGRAL_VALID_HOUR_AND_OBJECT_LAST_MODIFIED_AT_OR_BEFORE_EXACT_CUTOFF",
+    "unavailable_object": "RECORD_ATTEMPT_AND_TRY_PRIOR_CYCLE",
+    "published_after_cutoff": "RECORD_ATTEMPT_AND_TRY_PRIOR_CYCLE",
+    "no_eligible_cycle": "FAIL_CLOSED_FOR_AFFECTED_SELECTOR"
+  },
+  "messages": [
+    {"component": "temperature_2m", "descriptor": "TMP:2 m above ground"},
+    {"component": "dew_point_2m", "descriptor": "DPT:2 m above ground"},
+    {"component": "relative_humidity_2m", "descriptor": "RH:2 m above ground"},
+    {"component": "wind_u_10m", "descriptor": "UGRD:10 m above ground"},
+    {"component": "wind_v_10m", "descriptor": "VGRD:10 m above ground"},
+    {"component": "wind_gust_surface", "descriptor": "GUST:surface"},
+    {"component": "precipitation_accumulation", "descriptor": "APCP:surface", "selection": "SHORTEST_NONZERO_ACCUMULATION_WINDOW_ENDING_AT_FORECAST_HOUR"},
+    {"component": "surface_pressure", "descriptor": "PRES:surface"},
+    {"component": "visibility_surface", "descriptor": "VIS:surface"},
+    {"component": "cloud_cover_total", "descriptor": "TCDC:entire atmosphere"}
+  ],
+  "decoder": {
+    "package": "eccodes",
+    "package_version": "2.47.0",
+    "api_version": "2.47.0",
+    "polars_package_version": "1.43.2",
+    "runtime": "ISOLATED_EXTERNAL_RUNTIME_NOT_REQUIRED_PROJECT_RUNTIME_DEPENDENCY"
+  },
+  "missingness": {
+    "missing_message": "FAIL_CLOSED_FOR_AFFECTED_SELECTOR",
+    "missing_grid_value": "NULL_NOT_ZERO",
+    "unsupported_unit": "FAIL_CLOSED",
+    "precipitation_window": "PRESERVE_EXACT_ACCUMULATION_HOURS_NEVER_RELABEL_AS_ONE_HOUR"
+  },
+  "authority": {
+    "issued_run_capture": true,
+    "automatic_bounded_run_selection": true,
+    "multigame_decode_candidate": true,
+    "national_or_season_coverage": false,
+    "canonical_venue_coordinate": false,
+    "forecast_error_derivation": false,
+    "training_feature_admission": false,
+    "protected_or_production": false
+  },
+  "artifact_roots": {
+    "features": "features/weather_gfs_multigame_selection/sha256",
+    "manifests": "manifests/weather_gfs_multigame_selection/sha256",
+    "validation": "validation/POST-SUBTASK-067/noaa_gfs_multigame_selection"
+  },
+  "scientific_nonclaims": [
+    "Seven selected cutoffs are a route and lead-time pilot, not a representative coverage sample.",
+    "Current-catalog venue coordinates remain candidate geometry and do not establish historical venue-coordinate truth.",
+    "Observed weather is not substituted for issued forecast evidence and forecast error is not derived here.",
+    "No feature, training, protected, production, champion, A&M-lift, BAS, Aggie Excess, or historical-completeness result is established."
+  ]
+}

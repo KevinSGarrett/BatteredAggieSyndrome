@@ -130,6 +130,18 @@
     "noaa_gfs_issued_run_pilot_capture_manifest_sha256": "6e5b6425d1e6f939e4ecd65517bd7a58846837565e4ce786aaf3e0c65188c046",
     "noaa_gfs_issued_run_pilot_validation_sha256": "7634d100a9b29ca56aee5e9faec402d2fb141275e2d71bf50b87e44001599a17",
     "noaa_gfs_issued_run_pilot_disposition": "PASS_ONE_GAME_EXACT_ISSUED_RUN_AVAILABILITY_AND_DECODE_CANDIDATE_ONLY_NO_AUTOMATIC_NATIONAL_SELECTION_OR_FEATURE_AUTHORITY",
+    "noaa_gfs_multigame_selection_identity": "f313496787c939f87e0e83832570ef95e2fb7c67b44deb4ae61c8c08652852c5",
+    "noaa_gfs_multigame_selection_manifest_sha256": "535136b618bb778d91e0adffcd25435194c9de5e849aa7a4a69297298e50c0f8",
+    "noaa_gfs_multigame_selection_capture_manifest_sha256": "d9db0a3a938da9fa09a576581f3215b8f02bb08839c4af2efa5ada5796498dad",
+    "noaa_gfs_multigame_selection_payload_sha256": "cda15407347fbc83f2a209a3277b5e1def8b933c9053a9596c7416aa72bfb88f",
+    "noaa_gfs_multigame_selection_validation_sha256": "e9fe87118250c8dad1e0fb45a0f42a5a9ed2c8c5b03ec2916978cce22c762d11",
+    "noaa_gfs_multigame_selection_disposition": "PASS_BOUNDED_LATEST_AVAILABLE_CYCLE_SELECTION_7_CUTOFFS_2021_TO_2025_LEADS_1_TO_3_CANDIDATE_ONLY_NO_SEASON_COVERAGE_OR_FEATURE_AUTHORITY",
+    "noaa_gfs_multigame_selection_superseded_identities": [
+      "d3f1d6351224bb0d3174f9d7b3857a42c314beed6bf60e39d8fa823726189e78",
+      "e8b0fe491946b1d012b294c814924270ec751e42b9ce63e08ce2d57a1fcbc54a",
+      "2719f7c65dbd1f623f6ac4c0ecbde46bc75e543b00d887efc9268271cd2b8cf5"
+    ],
+    "noaa_gfs_multigame_selection_superseded_reason": "IDENTITY_AND_AUTHORITY_FIELDS_HARDENED_BEFORE_INTEGRATION_NO_SUPERSEDED_ADMISSION_AUTHORITY",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
   },

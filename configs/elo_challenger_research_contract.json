@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "contract_id": "preliminary-unprotected-interpretable-elo-challengers-v1",
   "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
   "reference": {
@@ -15,9 +15,20 @@
     "chronological_development_only": true,
     "exposed_seasons": [2024, 2025],
     "untouched_protected_claims": false,
-    "report_by": ["season", "neutral_site", "cold_start", "Texas_A&M_involved"],
+    "report_by": ["season", "neutral_site", "home_favorite_or_underdog", "cold_start", "Texas_A&M_involved"],
     "metrics": ["brier", "log_loss", "ece_10", "margin_mae", "margin_rmse"],
     "selection_rule": "Prefer the unchanged reference unless improvement is stable, material, and simpler-or-justified across seasons and relevant slices."
+  },
+  "development_fit_policy": {
+    "fit_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "report_only_exposed_seasons": [2023, 2024, 2025],
+    "report_seasons_may_select_parameters": false,
+    "time_decay_half_life_grid_days": [365, 730, 1460, 2920],
+    "time_decay_selection": "Lowest 2010-2022 log loss, then Brier score, then the longer/simpler half-life.",
+    "site_effect_fit": "Fit one non-neutral rating-point adjustment on 2010-2022 while holding the standard Elo probability slope and neutral-site adjustment fixed.",
+    "probability_calibration_fit": "Fit an intercept and rating-difference slope on 2010-2022 reference predictions only.",
+    "common_support": "Every family reports the identical target-game population within each 2023-2025 season and slice.",
+    "materiality": "Report exact effects without inventing a promotion threshold; no preliminary result has promotion authority."
   },
   "challengers": [
     {"id": "ELO_TIME_DECAY", "hypothesis": "Older results are overweighted across changing team regimes.", "change": "Evidence-estimated recency weighting and time decay."},

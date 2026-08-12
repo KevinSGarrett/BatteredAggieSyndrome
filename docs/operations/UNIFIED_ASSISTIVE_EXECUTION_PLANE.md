@@ -14,6 +14,27 @@ Before service deployment:
 - bind service configuration to the exact current-main build commit and external runtime root;
 - preserve backup/restore, forced-crash, cold-boot, drain, emergency-stop, rollback, and cleanup evidence.
 
+## Controller service release and installation
+
+The controller and watchdog are separate long-lived processes. The controller holds both an OS process lock and a renewable SQLite leader lease for its full lifetime. It writes a content-addressed heartbeat every 30 seconds and observes the queue every 60 seconds, but the current service-shell unit records zero real scheduler cycles and performs no provider dispatch. The watchdog uses its own process lock, opens SQLite read-only, and writes independent content-addressed reports even when the controller is stopped.
+
+After the implementation commit is merged and exact-main validation passes, build the immutable minimal release from a clean exact-main worktree:
+
+```powershell
+python -B tools/build_unified_assistive_release.py --expected-commit <exact-main-sha>
+```
+
+The release contains only the controller/watchdog entry points and their required standard-library modules under `C:\BatteredAggieSyndrome.data\assistive\orchestrator-v3\releases\<commit>`. Every file and the source tree are SHA-256 bound in `RELEASE_MANIFEST.json`. Rebuilding an existing commit verifies it rather than overwriting it.
+
+Run the installer in read-only preview first, then register the two distinct limited tasks:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/install_unified_assistive_services.ps1 -ReleaseRoot <release> -WhatIf
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/install_unified_assistive_services.ps1 -ReleaseRoot <release>
+```
+
+The installer refuses SYSTEM, verifies every release hash, exports any replaced task definition, and uses a limited current-user interactive token. This proves OS supervision while that user is logged on; cold boot before user logon remains explicitly unproven and blocks the corresponding acceptance row until a separately reviewed bounded service identity is deployed. A controller heartbeat or watchdog health result does not establish operational completion, campaign completion, or soak progress.
+
 Provider campaign accounting uses distinct base units and frozen effort, not raw calls. Retries, health checks, catalog requests, smoke tests, duplicate submissions, and self-correction follow-ups never count as accepted work. Material Jira transitions synchronize within 15 minutes or create an explicit queued finding. The seven-day clock starts only after qualified routes process real production-like work through the deployed controller.
 
 1. Build or refresh the ready-work inventory before routing.

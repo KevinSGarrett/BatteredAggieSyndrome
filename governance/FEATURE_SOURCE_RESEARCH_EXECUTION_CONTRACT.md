@@ -119,6 +119,14 @@ The contract decomposes observed win share versus aggregate scoring share, close
 
 The 27-check validator passed with zero failures and independently rebuilt byte-identical payloads. Manifest SHA-256 is `c46410fa8e9aa274ea12cbc508c293d38b158a258415be32bcaf6b8bd6534cfb`; profile payload SHA-256 is `5b06414f9a606610c03c0d040cb30ca6753037d7cfd60b80a02444e6e54e3388`; feature payload SHA-256 is `5b43da9a9db57560e9de6cf5e22191fb51ab3d3f7c3e13efdaf725b69b75ecdc`; validation SHA-256 is `feb1f45fbac8d334651c496197eacb74b2976e4dbd827becadbbc6f18ff9ab77`. This is candidate materialization only. Chronological common-support ablation, schedule-stress integration, protected replication, production promotion, A&M adjustment, BAS, and Aggie Excess remain separate and closed.
 
+## Executed NCAA 2023 source-graph exhaustion checkpoint
+
+The 2023 official NCAA team-season discovery graph is complete under immutable identity `492f47b11c96fab1ce904689d4f0fcd06dc2d89dd33a238a963871fd7d2ff157`. The resumable crawl visited 654 distinct team-season pages, discovered 3,682 distinct official contest IDs, exhausted its queue, and recorded zero team-page failures. Manifest SHA-256 is `8357a409467cb84738873a5c521874d3966a0e368635707f3e3dee5c0b3a8655`.
+
+Independent validation passed 7,875 checks plus four mutation controls. It verified every raw page and request-cache payload, content/path and season binding, graph conservation, queue exhaustion, credential absence, closed downstream authority, and a byte-identical manifest rebuild. Validation identity is `dc8bcc278b1f40095598973a1c7d7da6f2b17aa71d21aaeb3427754bedf1a953`; report SHA-256 is `533da3d7bd1f8b98990ea0769419029e15d431ef18cac2d08d5d02bf670d492f`.
+
+Coverage matrix identity `700bd57e9030d5a886de081e6e75703630c301da224e159f241749a3d0483680`, SHA-256 `cf46246cdfc861f94851f78ff544dc83007e99d84d3a8881b177e6c8d242e122`, now records 2023 discovery as `COMPLETE_GRAPH_EXHAUSTED_CAPTURE_COMPLETE` independently from its 910-game schedule/outcome spine. Canonical contest/team reconciliation, official contest-domain acquisition, historical PIT eligibility, training authority, and national historical completeness remain pending. The next season-discovery priority is 2022 and then remaining 2010-2021 tranches; incomplete gamebook domains do not discard otherwise useful outcome/Elo seasons.
+
 ## Completion boundary
 
 Applicable units must pass repository, provenance, Jira second-pass, secret, unit/property, integration, chronological/PIT, mutation, and full-suite checks with commands, exit codes, hashes, and exceptions recorded. This contract establishes no final historical completeness, production model, champion, protected performance, A&M lift, BAS, Aggie Excess, or other scientific result.

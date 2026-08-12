@@ -485,6 +485,11 @@ def build_indexes(records: list[dict[str, Any]]) -> None:
                 "source_id": record["local_id"], "target_id": related, "relationship": "RELATES_TO",
                 "hard": False, "source_basis": "Historical/post-wave reconciliation",
             })
+        for original in record.get("duplicate_of", []):
+            dependency_rows.append({
+                "source_id": original, "target_id": record["local_id"], "relationship": "DUPLICATE",
+                "hard": False, "source_basis": "Verified duplicate-scope reconciliation",
+            })
     write_csv(JIRA_ROOT / "index" / "DEPENDENCY_INDEX.csv", dependency_rows)
     write_csv(JIRA_ROOT / "index" / "HIERARCHY_INDEX.csv", [{
         "local_id": record["local_id"], "issue_type": record["issue_type"], "parent_id": record.get("parent_id", ""),
@@ -574,6 +579,13 @@ def build_import_files(records: list[dict[str, Any]]) -> dict[str, int]:
                 "target_jira_key": f"{{{{JIRA_KEY:{related}}}}}",
                 "target_link_type_name": "Relates", "status": "PENDING_POST_IMPORT_KEY_MAP",
             })
+        for original in record.get("duplicate_of", []):
+            link_rows.append({
+                "source_local_id": original, "relationship": "DUPLICATE", "target_local_id": record["local_id"],
+                "source_jira_key": f"{{{{JIRA_KEY:{original}}}}}",
+                "target_jira_key": f"{{{{JIRA_KEY:{record['local_id']}}}}}",
+                "target_link_type_name": "Duplicate", "status": "PENDING_POST_IMPORT_KEY_MAP",
+            })
     link_rows = sorted(
         {(
             row["source_local_id"], row["relationship"], row["target_local_id"]
@@ -611,7 +623,7 @@ def build_import_files(records: list[dict[str, Any]]) -> dict[str, int]:
 
     link_payloads: list[dict[str, Any]] = []
     for row in link_rows:
-        link_name = "Blocks" if row["relationship"] == "BLOCKS" else "Relates"
+        link_name = {"BLOCKS": "Blocks", "RELATES_TO": "Relates", "DUPLICATE": "Duplicate"}[row["relationship"]]
         link_payloads.append({
             "method": "POST", "endpoint": "/rest/api/3/issueLink",
             "source_local_id": row["source_local_id"], "target_local_id": row["target_local_id"],
@@ -989,7 +1001,7 @@ def validate_import_files(records: list[dict[str, Any]] | None = None) -> tuple[
         link_keys.add(key)
         if key[0] not in by_id or key[2] not in by_id:
             errors.append(f"Link endpoint not found {key}")
-        if key[1] not in {"BLOCKS", "RELATES_TO"}:
+        if key[1] not in {"BLOCKS", "RELATES_TO", "DUPLICATE"}:
             errors.append(f"Unsupported link relationship {key[1]}")
         if key[1] == "BLOCKS" and key[0] not in by_id.get(key[2], {}).get("dependencies", []):
             errors.append(f"BLOCKS link direction differs from canonical dependency: {key}")
@@ -999,6 +1011,9 @@ def validate_import_files(records: list[dict[str, Any]] | None = None) -> tuple[
     } | {
         (record["local_id"], "RELATES_TO", related)
         for record in records for related in record.get("related_to", [])
+    } | {
+        (original, "DUPLICATE", record["local_id"])
+        for record in records for original in record.get("duplicate_of", [])
     }
     if link_keys != expected_links:
         missing = expected_links - link_keys

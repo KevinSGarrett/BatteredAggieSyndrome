@@ -41,6 +41,9 @@
     "Repository and Jira consistency validators accept the administrative audit record."
   ],
   "dependencies": [],
+  "duplicate_of": [
+    "POST-SUBTASK-174"
+  ],
   "end_to_end_validation": "Verify the existing POST-SUBTASK-174 dataset, manifest, validation, and per-season row identities; verify the live duplicate link, comment, and Done transition; then run Jira consistency gates without materializing data.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-196.json",
@@ -96,8 +99,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24946",
-    "jira_updated_at": "2026-08-11T18:16:31.135-0500",
-    "last_synced_at": "2026-08-11T23:16:31.135000+00:00",
+    "jira_updated_at": "2026-08-12T11:19:31.893-0500",
+    "last_synced_at": "2026-08-12T16:21:58.376101+00:00",
     "resolution": "",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
@@ -131,6 +134,7 @@
   "ready": false,
   "record_revision": "1.1",
   "related_to": [
+    "POST-SUBTASK-176",
     "POST-SUBTASK-195"
   ],
   "required_evidence": [

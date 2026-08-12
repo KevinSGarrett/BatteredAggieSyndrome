@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "decision_unit": "POST-SUBTASK-198",
+  "jira_key": "BAT-556",
+  "evidence_state": "PARTIAL",
+  "authority": "NON_BILLABLE_FOUNDATION_ONLY",
+  "governing_identities": {
+    "directive_sha256": "0a2087e4692977f14b96b0feb9cd7f01a96a50d4f085e92fc83eac192998ca89",
+    "plan_sha256": "5cc491a90a5df11a066b88b665fe69c51b31bd8725185c2ed653b249b808f498",
+    "base_commit": "95f1b642c0373d9ed30779b3589137f06d6af3f1",
+    "branch": "codex/openrouter-assistive-foundation"
+  },
+  "credential_preflight": {
+    "authoritative_env": "C:\\BatteredAggieSyndrome\\.env",
+    "variable_exists_exactly_once": true,
+    "variable_nonempty": true,
+    "value_observed_or_recorded": false,
+    "env_copied_to_worktree": false
+  },
+  "budget": {
+    "paid_calls_authorized": false,
+    "paid_hard_limit_usd": "0.00",
+    "released_stage_usd": "0.00",
+    "settled_calls": 0,
+    "settled_spend_usd": "0.000000",
+    "remaining_authorized_budget_usd": "0.00",
+    "direct_openai_budget_transfer_usd": "0.00",
+    "blocker": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED"
+  },
+  "catalog_evidence": {
+    "manifest_path": "C:\\BatteredAggieSyndrome.data\\assistive\\openrouter\\manifests\\sha256\\d6\\d66942a140529a1726a1b6502563a69ea9a8b2d175de6079846a14b1990767a3\\artifact.json",
+    "manifest_sha256": "d66942a140529a1726a1b6502563a69ea9a8b2d175de6079846a14b1990767a3",
+    "candidate_model": "qwen/qwen3-coder-next",
+    "candidate_found": true,
+    "candidate_state": "CAPABILITY_CANDIDATE_NOT_PAID_NOT_ROUTE_APPROVED",
+    "paid_provider_calls": 0
+  },
+  "current_documentation_reconciliation": {
+    "responses_state": "STATELESS; STORE_AND_PREVIOUS_RESPONSE_CHAINING_NOT_USED",
+    "structured_outputs_state": "EXACT_ENDPOINT_AND_PROVIDER_PARAMETER_SUPPORT_REQUIRED",
+    "provider_defaults": {
+      "require_parameters": true,
+      "data_collection": "deny",
+      "zdr": true,
+      "allow_fallbacks": false
+    },
+    "batch_beta_state": "DISABLED_PENDING_SEPARATE_PRIVACY_ZDR_RETENTION_SCHEMA_ACCOUNTING_AND_EMPIRICAL_GATE",
+    "proposal_difference_preserved": "Current official documentation exposes Batch Beta; the proposal's no-Batch assumption is superseded, but Batch is not admitted by this foundation."
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Single provider-neutral dispatcher and OpenRouter backend own all governed behavior.",
+      "result": "PASS",
+      "evidence": ["src/aggie_analytics/assistive_plane", "tools/validate_openrouter_assist.py"]
+    },
+    {
+      "criterion": "Every paid request is rejected at exactly USD 0.00 before backend dispatch and no direct OpenAI budget transfers.",
+      "result": "PASS",
+      "evidence": ["configs/openrouter_assist_policy.json", "tests/test_openrouter_assist.py::test_zero_budget_rejects_before_backend"]
+    },
+    {
+      "criterion": "Privacy, strict schema, redaction, content-addressed storage, and worker path controls are implemented.",
+      "result": "PASS",
+      "evidence": ["configs/openrouter_assist_policy.json", "schemas/assistive", "tests/test_openrouter_assist.py"]
+    },
+    {
+      "criterion": "Public official documentation and catalog evidence are captured outside Git without a paid inference call.",
+      "result": "PASS",
+      "evidence": ["d66942a140529a1726a1b6502563a69ea9a8b2d175de6079846a14b1990767a3"]
+    },
+    {
+      "criterion": "Focused repository/Jira validation passes.",
+      "result": "PASS",
+      "evidence": ["9 focused tests PASS", "582 full-suite tests PASS with 4 documented skips after explicit PYTHONPATH=src", "OpenRouter validator PASS", "Jira second pass PASS: 509 issues and 2120 anchors", "live Jira verification PASS: 509 canonical issues and 1179 links"]
+    },
+    {
+      "criterion": "Normal PR integration, hosted checks, exact-main validation, and post-merge evidence complete.",
+      "result": "PENDING",
+      "evidence": ["Foundation remains on codex/openrouter-assistive-foundation until full validation and review integration complete."]
+    }
+  ],
+  "dispositions": {
+    "accepted_candidate": 0,
+    "review": 0,
+    "quarantine": 0,
+    "rejected_paid_admission": 1,
+    "canonical_writes": 0,
+    "protected_decisions": 0
+  },
+  "batch_jobs": 0,
+  "cleanup": {
+    "report_path": "C:\\BatteredAggieSyndrome.data\\assistive\\openrouter\\runtime\\cleanup\\4df6dec2f1c36340cdd827a1194bfc8d59e6654104092693015d8c410a1fbe1d\\artifact.json",
+    "report_sha256": "4df6dec2f1c36340cdd827a1194bfc8d59e6654104092693015d8c410a1fbe1d",
+    "removed_reconstructible_files": 5,
+    "bytes_recovered": 4018730,
+    "tmp_removed_files": 0,
+    "remaining_review_items": []
+  },
+  "negative_findings": [
+    "No paid OpenRouter envelope has been authorized.",
+    "Exact Qwen endpoint ZDR and strict-schema capability are not yet proven.",
+    "OpenRouter Batch Beta documents provider/output retention behavior requiring a separate gate.",
+    "The live Jira importer required exact option reconciliation and stale/reversed BAT-553/BAT-554 link correction before strict verification passed.",
+    "The first full-suite invocation omitted the source-tree import path and failed to import aggie_analytics; the corrected explicit PYTHONPATH=src invocation passed all 582 tests with 4 skips."
+  ],
+  "protected_nonclaims": [
+    "No final historical completeness.",
+    "No production model readiness or champion.",
+    "No protected performance.",
+    "No A&M specialization lift, BAS, or Aggie Excess result."
+  ]
+}

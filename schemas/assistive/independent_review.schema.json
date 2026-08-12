@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verdict": {"type": "string", "enum": ["PASS", "FAIL", "REVIEW", "UNKNOWN"]},
+    "findings": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "unsupported_claims": {"type": "array", "items": {"type": "string"}},
+    "recommended_checks": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": ["verdict", "findings", "evidence", "unsupported_claims", "recommended_checks"]
+}

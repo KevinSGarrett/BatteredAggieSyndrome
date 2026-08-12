@@ -96,6 +96,8 @@ FIELD_SPECS = [
             "EMPIRICALLY_VALIDATED_DOMAIN_PIT_ELIGIBLE_DEVELOPMENT_ONLY",
             "EMPIRICALLY_VALIDATED_PRELIMINARY_UNPROTECTED",
             "VALIDATED_RECONCILED_CANDIDATE_ONLY",
+            "DUPLICATE_SCOPE_VERIFIED_NO_NEW_MATURITY",
+            "EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY",
         ],
         "description": "Implementation maturity kept separate from workflow status and evidence state to prevent fabricated completion.",
     },
@@ -103,7 +105,10 @@ FIELD_SPECS = [
         "name": "Evidence State",
         "column": "Evidence State",
         "kind": "select",
-        "options": ["PLANNED", "PARTIAL", "BLOCKED", "VERIFIED"],
+        "options": [
+            "PLANNED", "PARTIAL", "BLOCKED", "VERIFIED",
+            "ACTIVE_EMPIRICAL_CHECKPOINT_2024_GRAPH_EXHAUSTED",
+        ],
         "description": "Completion-evidence state; code existence or Jira Done alone does not prove completion.",
     },
     {
@@ -127,6 +132,7 @@ FIELD_SPECS = [
             "DATA", "DATA_MATERIALIZATION", "MODEL_RESEARCH", "OPERATIONS",
             "PROTECTED_GATE", "RESEARCH_LANE", "SCIENTIFIC", "SECURITY",
             "SHARED_CONTRACT", "SOLO_WORKTREE",
+            "GOVERNANCE",
         ],
         "description": "Safe execution and concurrency lane for AI implementation sessions.",
     },
@@ -312,6 +318,8 @@ def canonical_expected_counts() -> dict[str, int]:
             link_signatures.add((dependency, "BLOCKS", local_id))
         for related in record.get("related_to", []):
             link_signatures.add((local_id, "RELATES_TO", related))
+        for original in record.get("duplicate_of", []):
+            link_signatures.add((original, "DUPLICATE", local_id))
     return {
         "issues": len(records),
         "links": len(link_signatures),
@@ -374,7 +382,7 @@ def validate_inputs(
             errors.append(f"link template mismatch: {row}")
         if row["source_local_id"] not in local_ids or row["target_local_id"] not in local_ids:
             errors.append(f"link endpoint is not a known Local Issue ID: {row}")
-        if row["target_link_type_name"] not in {"Blocks", "Relates"}:
+        if row["target_link_type_name"] not in {"Blocks", "Relates", "Duplicate"}:
             errors.append(f"unsupported link type: {row}")
     if errors:
         raise RuntimeError("Local import preflight failed: " + "; ".join(errors[:30]))

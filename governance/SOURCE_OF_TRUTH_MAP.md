@@ -1,5 +1,13 @@
 # Source of Truth Map
 
+## Optional assistive development providers
+
+- `configs/assistive_provider_registry.json` is authoritative for provider separation and adapter ownership.
+- `configs/openrouter_assist_policy.json` is authoritative for OpenRouter authority, privacy/routing defaults, external storage, Batch state, and the separately governed USD 0.00 budget.
+- `configs/openrouter_task_registry.json` and `schemas/assistive/*.schema.json` are authoritative for OpenRouter task eligibility and machine-consumed candidate contracts.
+- `governance/OPENROUTER_ASSISTIVE_PLANE.md` is the governing OpenRouter authority and Definition-of-Done contract.
+- `configs/openai_assist_policy.json` and `governance/OPENAI_ASSISTIVE_PLANE.md` remain authoritative for the independent direct OpenAI plane; no OpenRouter policy transfers or overrides its budget or operational evidence.
+
 ## Precedence
 1. Latest explicit user instruction.
 2. Approved Level-A invariants.

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "observed_change": {"type": "string"},
+    "candidate_mapping": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "risk": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "UNKNOWN"]},
+    "disposition": {"type": "string", "enum": ["REVIEW", "QUARANTINE", "NOT_PRESENT", "CONFLICT"]}
+  },
+  "required": ["observed_change", "candidate_mapping", "evidence", "risk", "disposition"]
+}

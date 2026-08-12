@@ -1,0 +1,39 @@
+{
+  "files_to_inspect": [
+    "governance/OPENAI_ASSISTIVE_PLANE.md",
+    "configs/openai_assist_policy.json",
+    "configs/openai_task_registry.json",
+    "schemas/openai/assistive_candidate.schema.json",
+    "docs/final/CODEX_HANDOFF.md"
+  ],
+  "governance_traceability_gate": "POST-SUBTASK-199",
+  "issue_id": "POST-SUBTASK-199",
+  "retrieval_protocol": [
+    "Verify document_sha256 against the current repository file.",
+    "Verify anchor_hash against the normalized stored excerpt and current line range.",
+    "If the file hash changed, run repair_source_refs.py to relocate the exact anchor/heading before using the reference.",
+    "Open only the referenced section plus the minimal listed implementation/prerequisite context; the Windows path is convenience metadata, not authority."
+  ],
+  "schema_version": 2,
+  "source_ids": [
+    "OPENROUTER-ASSISTIVE-PLANE-PLAN"
+  ],
+  "source_refs": [
+    {
+      "anchor_excerpt": "# OpenRouter Assistive Development Plane Status: governed foundation; paid execution disabled. This contract adopts the user directive with SHA-256 `0A2087E4692977F14B96B0FEB9CD7F01A96A50D4F085E92FC83EAC192998CA89` and the mandatory plan with SHA-256 `5CC491A90A5DF11A066B88B665FE69C51B31BD8725185C2ED653B249B808F498`. #",
+      "anchor_hash": "9fe2518470756ca57bd5a1d8a79fa0e84654a1f6532d5de166341ac15f51a75d",
+      "authority_level": "GOVERNANCE_DETAIL",
+      "document_sha256": "0805f77dd90477064845f395cafc6f46d0d4c6b240e055dd30051784208d05e0",
+      "end_line": 45,
+      "heading": "OpenRouter Assistive Development Plane",
+      "last_verified": "2026-08-12",
+      "repo_relative_path": "governance/OPENROUTER_ASSISTIVE_PLANE.md",
+      "source_ref_id": "SRCREF-02120",
+      "source_type": "md",
+      "start_line": 1,
+      "why_relevant": "Mandatory OpenRouter authority, isolated budget, privacy, evaluation, storage, and completion contract",
+      "windows_absolute_path": "C:\\BatteredAggieSyndrome\\governance\\OPENROUTER_ASSISTIVE_PLANE.md"
+    }
+  ],
+  "traceability_inherited_from": []
+}

@@ -262,6 +262,7 @@ configs/research_execution_registry.json
 configs/research_resource_policy.json
 configs/result_comparison_policy.json
 configs/retraining_admission_policy.json
+configs/retrospective_returning_production_contract.json
 configs/sec_tamu_availability_recovery_contract.json
 configs/source_acquisition_registry.json
 configs/source_drift_registry.json
@@ -2968,6 +2969,7 @@ src/aggie_analytics/features/factory.py
 src/aggie_analytics/features/lifecycle.py
 src/aggie_analytics/features/possession_pace.py
 src/aggie_analytics/features/registry.py
+src/aggie_analytics/features/returning_production.py
 src/aggie_analytics/features/screening.py
 src/aggie_analytics/features/transforms.py
 src/aggie_analytics/lineage.py
@@ -3137,6 +3139,7 @@ tests/test_replay_engine_full.py
 tests/test_repo_integrity_tools.py
 tests/test_resource_scheduler_full.py
 tests/test_result_comparison_full.py
+tests/test_retrospective_returning_production.py
 tests/test_sec_tamu_availability.py
 tests/test_source_access_smoke_results.py
 tests/test_supplemental_play_drive.py
@@ -3185,6 +3188,7 @@ tools/build_historical_weather_previous_runs_snapshot.py
 tools/build_jira_control_plane.py
 tools/build_post2022_roster_candidate.py
 tools/build_preliminary_possession_pace.py
+tools/build_retrospective_returning_production.py
 tools/build_sec_tamu_availability_candidates.py
 tools/build_supplemental_play_drive_gap.py
 tools/build_tamu_availability_evidence_pages.py
@@ -3287,6 +3291,7 @@ tools/validate_preliminary_unprotected_baselines.py
 tools/validate_preliminary_wmt_tamu_shadow.py
 tools/validate_product_supply_chain.py
 tools/validate_repository.py
+tools/validate_retrospective_returning_production.py
 tools/validate_sec_tamu_availability_candidates.py
 tools/validate_supplemental_play_drive_gap.py
 tools/validate_tamu_availability_evidence_pages.py

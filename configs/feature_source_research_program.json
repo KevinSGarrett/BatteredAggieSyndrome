@@ -86,6 +86,10 @@
     "noaa_isd_observed_coverage_identity": "fdf87e692b28fd20af1b8defa839326abc7703536ed86db2232ab17f9570ea15",
     "noaa_isd_observed_coverage_validation_sha256": "ed0a1cf553ab8724f8c0023b8c95c68cc95c1f4b41592e941aa78b3d7798a711",
     "noaa_isd_observed_coverage_disposition": "PASS_2024_RANK_ONE_COVERAGE_PILOT_CANDIDATE_ONLY_NO_STATION_OR_FEATURE_PROMOTION",
+    "noaa_isd_game_observation_shadow_identity": "47dea7e719c134476742b06c2e3163df98dfb5ee848d5c3eaf5d7ed1534624b9",
+    "noaa_isd_game_observation_shadow_manifest_sha256": "f17f778481b65f37b0481412004de50b49d536804a5b6919fbba6bf565299be5",
+    "noaa_isd_game_observation_shadow_validation_sha256": "7fc3abc5c4551bafe7f1960bb362b8fbe204ff0452e7f32291dc7203059038a6",
+    "noaa_isd_game_observation_shadow_disposition": "PASS_SHADOW_ONLY_903_GAMES_WITHIN_ONE_DAY_17_LONG_GAPS_REQUIRE_ALTERNATE_STATION_REVIEW",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
   },

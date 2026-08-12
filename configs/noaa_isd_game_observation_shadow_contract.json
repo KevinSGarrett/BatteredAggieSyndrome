@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-067",
+  "jira_key": "BAT-417",
+  "classification": "PRELIMINARY_UNPROTECTED_OBSERVED_GAME_TIME_SHADOW_CANDIDATE",
+  "source": {
+    "source_id": "SRC-029",
+    "dataset": "noaa_isd_global_hourly_station_year",
+    "url_template": "https://noaa-global-hourly-pds.s3.amazonaws.com/{calendar_year}/{station_file_id}.csv",
+    "provider": "NOAA/NCEI via NOAA Open Data Dissemination",
+    "format_documentation_uri": "https://www.ncei.noaa.gov/pub/data/noaa/isd-format-document.pdf"
+  },
+  "inputs": {
+    "game_coordinate_payload": {
+      "relative_path": "quarantine/historical_nominal_lead/sha256/e307d2c36e970a5faea1fc98dd254a816ae327d994929f735de906a93818e90e/candidate_weather_previous_run_cells.parquet",
+      "sha256": "da534def725da009b2e73605221aebd7ea4a1270ceaafa28ed7b8d83711fe1cd"
+    },
+    "station_candidate_payload": {
+      "relative_path": "features/weather_station_matching/sha256/a23eee749d62fbd9ab68571bfdc456bc64f928f93446a2b71e21874f7842055c/venue_season_station_candidates.csv",
+      "sha256": "44f264fde681ad292251ae2e4e2abe687d76e910572a9a973876ca2a11ed7e6a"
+    },
+    "observed_2024_acquisition_manifest": {
+      "relative_path": "manifests/weather_observed_coverage_pilot/sha256/e4ff69a7050887a7289d94898bc4f0c36bc43afc7c4e1239fddbea1ebfdf863f/acquisition_manifest.json",
+      "sha256": "5af85b58f3397b308f48499857e6136ffd959539cefa93ab0c0d2e69c86ffa4e",
+      "identity": "e4ff69a7050887a7289d94898bc4f0c36bc43afc7c4e1239fddbea1ebfdf863f"
+    }
+  },
+  "population": {
+    "football_season": 2024,
+    "expected_games": 920,
+    "expected_calendar_year_2024_games": 909,
+    "expected_calendar_year_2025_games": 11,
+    "expected_unique_station_years": 157,
+    "expected_2024_station_years": 147,
+    "expected_2025_station_years": 10,
+    "station_rank": 1
+  },
+  "selection": {
+    "temporal_candidates": ["LATEST_AT_OR_BEFORE_KICKOFF", "EARLIEST_AT_OR_AFTER_KICKOFF", "NEAREST_ABSOLUTE_TO_KICKOFF"],
+    "maximum_time_delta_minutes": null,
+    "automatic_station_acceptance": false,
+    "automatic_observation_acceptance": false,
+    "dome_observation_feature_eligibility": false,
+    "tie_break": "EARLIER_OBSERVATION_WINS",
+    "duplicate_timestamp_ranking": "MOST_DECODED_COMMON_FIELDS_THEN_REPORT_TYPE_SOURCE_AND_ROW_NUMBER_ASCENDING",
+    "quality_flag_policy": "PRESERVE_NOAA_FLAGS_AND_DECODE_SENTINELS_TO_NULL"
+  },
+  "decoded_fields": {
+    "TMP": "air_temperature_celsius_tenths",
+    "DEW": "dew_point_celsius_tenths",
+    "WND": "wind_direction_degrees_and_speed_mps_tenths",
+    "VIS": "visibility_distance_meters",
+    "SLP": "sea_level_pressure_hpa_tenths",
+    "precipitation": "RAW_AA_FIELDS_ONLY_NOT_NUMERICALLY_AGGREGATED_IN_THIS_UNIT"
+  },
+  "missingness": {
+    "sentinel": "NULL_WITH_RAW_AND_QUALITY_FLAG_PRESERVED",
+    "no_before_observation": "UNKNOWN_NOT_ZERO",
+    "no_after_observation": "UNKNOWN_NOT_ZERO",
+    "missing_variable": "UNKNOWN_NOT_ZERO",
+    "station_not_accepted": "CANDIDATE_REVIEW_REQUIRED"
+  },
+  "authority": {
+    "shadow_observation_candidate_materialization": true,
+    "canonical_station_acceptance": false,
+    "pregame_forecast_evidence": false,
+    "historical_pit_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "production_or_publication": false
+  },
+  "artifact_roots": {
+    "features": "features/weather_game_observation_shadow/sha256",
+    "manifests": "manifests/weather_game_observation_shadow/sha256",
+    "validation": "validation/POST-SUBTASK-067/noaa_isd_game_observation_shadow"
+  },
+  "scientific_nonclaims": [
+    "Nearest-distance station rank is not canonical station truth.",
+    "Nearest-time observed weather is retrospective context, not a forecast available before kickoff.",
+    "No time-distance acceptance threshold is invented in this shadow unit.",
+    "No protected, production, champion, A&M-lift, BAS, or Aggie Excess result is established."
+  ]
+}

@@ -9,6 +9,11 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$requestedWhatIf = [bool]$WhatIfPreference
+# PowerShell propagates -WhatIf to read-only cmdlets such as Get-FileHash and
+# Get-ScheduledTask. Suppress that propagation during preflight; mutations
+# remain exclusively behind ShouldProcess below.
+$WhatIfPreference = $false
 $release = (Resolve-Path -LiteralPath $ReleaseRoot).Path
 $manifestPath = Join-Path $release 'RELEASE_MANIFEST.json'
 if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) { throw 'RELEASE_MANIFEST_MISSING' }
@@ -31,19 +36,11 @@ if ($LASTEXITCODE -ne 0 -or $version -notmatch '^3 (11|12|13)$') { throw 'PYTHON
 $controllerScript = Join-Path $release 'tools\run_unified_assistive_controller.py'
 $watchdogScript = Join-Path $release 'tools\run_unified_assistive_watchdog.py'
 $backupRoot = Join-Path $RuntimeRoot ('backups\task-definitions\' + (Get-Date).ToUniversalTime().ToString('yyyyMMddTHHmmssZ'))
-$null = New-Item -ItemType Directory -Path $backupRoot -Force
+$existingTasks = @{}
 foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
     $existing = Get-ScheduledTask -TaskName $name -ErrorAction SilentlyContinue
     if ($existing -and -not $Replace) { throw "SCHEDULED_TASK_EXISTS:$name" }
-    if ($existing) {
-        Export-ScheduledTask -TaskName $name | Set-Content -LiteralPath (Join-Path $backupRoot "$name.xml") -Encoding UTF8
-        Stop-ScheduledTask -TaskName $name -ErrorAction SilentlyContinue
-        $deadline = (Get-Date).AddSeconds(30)
-        while ((Get-ScheduledTask -TaskName $name -ErrorAction SilentlyContinue).State -eq 'Running') {
-            if ((Get-Date) -ge $deadline) { throw "SCHEDULED_TASK_STOP_TIMEOUT:$name" }
-            Start-Sleep -Milliseconds 250
-        }
-    }
+    $existingTasks[$name] = $existing
 }
 
 $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
@@ -56,19 +53,37 @@ $watchdogArguments = '"' + $watchdogScript + '" serve --runtime-root "' + $Runti
 $controllerAction = New-ScheduledTaskAction -Execute $python -Argument $controllerArguments -WorkingDirectory $release
 $watchdogAction = New-ScheduledTaskAction -Execute $python -Argument $watchdogArguments -WorkingDirectory $release
 
-if ($PSCmdlet.ShouldProcess($ControllerTaskName, 'Register limited controller scheduled task')) {
+$WhatIfPreference = $requestedWhatIf
+$installController = $PSCmdlet.ShouldProcess($ControllerTaskName, 'Register limited controller scheduled task')
+$installWatchdog = $PSCmdlet.ShouldProcess($WatchdogTaskName, 'Register independent limited watchdog scheduled task')
+if ($installController -or $installWatchdog) {
+    $WhatIfPreference = $false
+    $null = New-Item -ItemType Directory -Path $backupRoot -Force
+    foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
+        if ($existingTasks[$name]) {
+            Export-ScheduledTask -TaskName $name | Set-Content -LiteralPath (Join-Path $backupRoot "$name.xml") -Encoding UTF8
+            Stop-ScheduledTask -TaskName $name -ErrorAction SilentlyContinue
+            $deadline = (Get-Date).AddSeconds(30)
+            while ((Get-ScheduledTask -TaskName $name -ErrorAction SilentlyContinue).State -eq 'Running') {
+                if ((Get-Date) -ge $deadline) { throw "SCHEDULED_TASK_STOP_TIMEOUT:$name" }
+                Start-Sleep -Milliseconds 250
+            }
+        }
+    }
+}
+if ($installController) {
     Register-ScheduledTask -TaskName $ControllerTaskName -Action $controllerAction -Trigger $trigger -Settings $settings -Principal $principal -Description "Aggie Analytics unified assistive controller $($manifest.build_commit)" -Force | Out-Null
 }
-if ($PSCmdlet.ShouldProcess($WatchdogTaskName, 'Register independent limited watchdog scheduled task')) {
+if ($installWatchdog) {
     Register-ScheduledTask -TaskName $WatchdogTaskName -Action $watchdogAction -Trigger $trigger -Settings $settings -Principal $principal -Description "Aggie Analytics independent read-only watchdog $($manifest.build_commit)" -Force | Out-Null
 }
 
-if (-not $WhatIfPreference) {
+if ($installController -and $installWatchdog) {
     Start-ScheduledTask -TaskName $ControllerTaskName
     Start-ScheduledTask -TaskName $WatchdogTaskName
 }
 [pscustomobject]@{
-    result = if ($WhatIfPreference) { 'WHATIF_PASS' } else { 'PASS' }
+    result = if ($requestedWhatIf) { 'WHATIF_PASS' } else { 'PASS' }
     release = $release
     build_commit = $manifest.build_commit
     principal = $identity.Name

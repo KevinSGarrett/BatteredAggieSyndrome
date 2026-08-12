@@ -149,6 +149,8 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("BAS-UnifiedAssistiveController", installer)
         self.assertIn("BAS-UnifiedAssistiveWatchdog", installer)
         self.assertIn("Export-ScheduledTask", installer)
+        self.assertIn("$requestedWhatIf = [bool]$WhatIfPreference", installer)
+        self.assertIn("$WhatIfPreference = $false", installer)
         self.assertIn("cold_boot_without_user_logon = 'NOT_YET_PROVEN'", installer)
 
 

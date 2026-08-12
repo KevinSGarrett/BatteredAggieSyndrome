@@ -125,6 +125,7 @@ class ExposureAwareEvaluationTests(unittest.TestCase):
             candidates = [
                 ("partial", "PARTIAL_MAXIMUM_TEAM_LIMIT_REACHED", 300, 1900, 0),
                 ("complete", "COMPLETE_GRAPH_EXHAUSTED", 299, 1890, 1),
+                ("empty-complete", "COMPLETE_GRAPH_EXHAUSTED", 0, 0, 0),
             ]
             for identity, state, pages, contests, failures in candidates:
                 path = root / identity / "ncaa_team_graph_discovery_manifest.json"
@@ -136,14 +137,15 @@ class ExposureAwareEvaluationTests(unittest.TestCase):
                             "state": state,
                             "team_page_capture_count": pages,
                             "discovered_contest_ids": list(range(contests)),
+                            "discovered_team_season_ids": list(range(pages)),
                             "team_failure_count": failures,
                         }
                     ),
                     encoding="utf-8",
                 )
             path, item = module.select_strongest_discovery(data_root, 2025)
-            self.assertEqual(path.parent.name, "complete")
-            self.assertEqual(item["state"], "COMPLETE_GRAPH_EXHAUSTED")
+            self.assertEqual(path.parent.name, "partial")
+            self.assertEqual(item["state"], "PARTIAL_MAXIMUM_TEAM_LIMIT_REACHED")
 
 
 if __name__ == "__main__":

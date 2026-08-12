@@ -30,16 +30,17 @@ def select_strongest_discovery(data_root: Path, season: int) -> tuple[Path, dict
         / str(season)
         / "sha256"
     )
-    candidates: list[tuple[tuple[int, int, int, int, str], Path, dict[str, Any]]] = []
+    candidates: list[tuple[tuple[int, int, int, int, int, str], Path, dict[str, Any]]] = []
     for path in sorted(root.glob("*/ncaa_team_graph_discovery_manifest.json")):
         item = json.loads(path.read_text(encoding="utf-8"))
         identity = str(item.get("discovery_identity", ""))
         if identity != path.parent.name:
             raise ValueError(f"discovery identity/path mismatch: {path}")
         rank = (
-            int(item.get("state") == "COMPLETE_GRAPH_EXHAUSTED"),
-            int(item.get("team_page_capture_count", 0)),
             len(item.get("discovered_contest_ids", [])),
+            int(item.get("team_page_capture_count", 0)),
+            len(item.get("discovered_team_season_ids", [])),
+            int(item.get("state") == "COMPLETE_GRAPH_EXHAUSTED"),
             -int(item.get("team_failure_count", 0)),
             identity,
         )
@@ -152,6 +153,15 @@ def main() -> int:
         "eligibility_tiers": [],
         "state": "BOUNDED_SAMPLE_VALIDATED",
     })
+    complete_discovery_seasons = sorted(
+        season for season, (_, item) in discoveries.items()
+        if item.get("state") == "COMPLETE_GRAPH_EXHAUSTED"
+    )
+    partial_discovery_seasons = sorted(
+        season for season, (_, item) in discoveries.items()
+        if item.get("state") != "COMPLETE_GRAPH_EXHAUSTED"
+    )
+    not_started_discovery_seasons = sorted(set(DISCOVERY_SEASONS) - set(discoveries))
     payload = {
         "schema_version": "1.0.0",
         "artifact_type": "HISTORICAL_SPINE_COVERAGE_AND_ELIGIBILITY_MATRIX",
@@ -161,9 +171,9 @@ def main() -> int:
         "seasons": list(range(2010, 2026)),
         "spine_rule": "Outcomes, schedules, canonical identity, and known-at correctness are the spine; incomplete attached domains do not discard an otherwise useful season.",
         "negative_findings": [
-            "NCAA official contest discovery is complete only for 2024.",
-            "The 2025 NCAA graph remains partial at the 250-page checkpoint.",
-            "NCAA discovery for 2010-2022 has not yet executed; 2023 is a bounded partial tranche.",
+            f"NCAA official contest discovery is graph-exhausted only for seasons {complete_discovery_seasons}.",
+            f"NCAA discovery remains bounded/partial for seasons {partial_discovery_seasons}.",
+            f"NCAA discovery has not started for seasons {not_started_discovery_seasons}.",
             "Only one bounded 2024 contest has validated all eight parser-domain groups; this is not population coverage.",
             "No NCAA gamebook row currently has preliminary-training, protected, champion, or production authority."
         ],

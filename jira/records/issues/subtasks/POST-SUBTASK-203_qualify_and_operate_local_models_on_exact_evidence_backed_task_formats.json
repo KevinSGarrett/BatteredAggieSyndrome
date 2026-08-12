@@ -1,22 +1,28 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "One common-support gold comparison reports quality, evidence, abstention, review time, rework, throughput, cost, and dispositions across admitted routes.",
-    "At least seven calendar days, three real scheduler cycles, one restart exercise, and one outage exercise reconcile with inventory/dispatch/usage/result/cleanup ledgers.",
-    "All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill."
+    "Model/runtime/digest/hardware identities and prompt/schema/result dispositions are content-addressed.",
+    "Strict schema, evidence, abstention, consistency, time/rework, and unsupported-fact results are measured on real work.",
+    "Candidate outputs cannot bypass deterministic validation or enter canonical/protected truth directly.",
+    "After qualification, at least 50 distinct real units, 150 effort points, 30 accepted useful results, and three independently qualified families reconcile through the controller."
   ],
   "adr_ids": [],
   "ai_context_notes": [
     "Canonical unified assistive contract source is `SRCREF-02121`.",
     "Never expose credentials, .env content, private data, or unnecessary protected evidence.",
-    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority."
+    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.",
+    "The bounded historical qualification and exact-route negative evidence remain verified; the expanded local-model campaign is active and no operational local-model plane is claimed."
   ],
   "allowed_modification_paths": [
-    "artifacts/jira_evidence/POST-SUBTASK-205.json"
+    "artifacts/assistive/local_qwen_qualification.json",
+    "configs/assistive_route_readiness.json",
+    "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
-  "blocked_reason": "EXACT_LOCAL_QWEN_ROUTES_REJECTED; NEW_LOCAL_SHADOW_ROUTES_PENDING; CURSOR_AND_OPENROUTER_PILOTS_PENDING; CPU_WORKER_V2_PENDING; SUSTAINED_CLOCK_NOT_STARTED",
-  "blocks": [],
-  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.json",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-201",
+  "blocks": [
+    "POST-SUBTASK-205"
+  ],
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "completion_evidence_contract": {
     "acceptance_matrix_required": true,
@@ -55,11 +61,7 @@
     "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
   ],
   "dependencies": [
-    "POST-SUBTASK-202",
-    "POST-SUBTASK-203",
-    "POST-SUBTASK-204",
-    "POST-SUBTASK-168",
-    "POST-SUBTASK-199"
+    "POST-SUBTASK-201"
   ],
   "effective_traceability_counts": {
     "acceptance_control_ids": 0,
@@ -69,15 +71,17 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and Sol after deterministic source selection, validate every output without canonical/PIT authority, reconcile exact usage, and leave the continuing lane active for the next eligible workload.",
+  "end_to_end_validation": "Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.",
   "epic_id": "POST-EPIC-018",
-  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-205.json",
-  "evidence_state": "BLOCKED",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-203.json",
+  "evidence_state": "PARTIAL",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
   "expected_outputs": [
-    "artifacts/jira_evidence/POST-SUBTASK-205.json"
+    "artifacts/assistive/local_qwen_qualification.json",
+    "configs/assistive_route_readiness.json",
+    "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
   "files_expected_to_be_read": [
     "governance/OPENAI_ASSISTIVE_PLANE.md",
@@ -87,21 +91,9 @@
     "docs/final/CODEX_HANDOFF.md"
   ],
   "files_expected_to_be_touched": [
-    "configs/openai_task_registry.json",
-    "configs/openai_availability_source_triage.json",
-    "configs/tamu_availability_source_sample.json",
-    "configs/openai_gamebook_schema_mapping.json",
-    "prompts/openai_assist/availability_source_triage_v1.txt",
-    "prompts/openai_assist/gamebook_schema_mapping_v1.txt",
-    "src/aggie_analytics/openai_assist/credentials.py",
-    "tools/prepare_tamu_availability_source_sample.py",
-    "tools/validate_tamu_availability_source_sample.py",
-    "tools/run_openai_availability_source_triage.py",
-    "tools/prepare_openai_gamebook_schema_mapping.py",
-    "tools/run_openai_gamebook_schema_mapping.py",
-    "tools/validate_openai_gamebook_schema_mapping.py",
-    "tools/validate_openai_assist.py",
-    "artifacts/openai_assist/continuous_operations.json",
+    "fixtures/openai_assist",
+    "src/aggie_analytics/openai_assist/evals.py",
+    "artifacts/openai_assist/model_comparison.json",
     "tests/test_openai_assist.py"
   ],
   "files_to_inspect": [
@@ -112,18 +104,18 @@
     "docs/final/CODEX_HANDOFF.md"
   ],
   "gap_ids": [],
-  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.md",
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.md",
   "governance_review_required": false,
-  "governance_traceability_gate": "POST-SUBTASK-205",
+  "governance_traceability_gate": "POST-SUBTASK-203",
   "historical_classification": "ACTIONABLE_POST_WAVE",
-  "import_id": 100515,
+  "import_id": 100513,
   "in_scope": [
-    "Perform the exact action: Operate continuing governed OpenAI candidate assistance on dependency-ready real project work.",
+    "Perform the exact action: Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol.",
     "Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.",
     "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-564",
+  "jira_key": "BAT-562",
   "labels": [
     "actionable",
     "post-wave",
@@ -132,14 +124,14 @@
     "subtask"
   ],
   "last_content_audit": "2026-08-12",
-  "local_id": "POST-SUBTASK-205",
+  "local_id": "POST-SUBTASK-203",
   "maturity_before": "NOT_STARTED",
-  "objective": "Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance",
+  "objective": "Qualify and operate local models on exact evidence-backed task formats",
   "operational_jira": {
     "assignee": "",
-    "jira_issue_id": "24957",
-    "jira_updated_at": "2026-08-12T12:49:19.926-0500",
-    "last_synced_at": "2026-08-12T17:49:30.668888+00:00",
+    "jira_issue_id": "24955",
+    "jira_updated_at": "2026-08-12T18:21:51.603-0500",
+    "last_synced_at": "2026-08-12T23:22:31.717226+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
@@ -189,7 +181,7 @@
   "ready": false,
   "record_revision": "2.0",
   "required_evidence": [
-    "`artifacts/jira_evidence/POST-SUBTASK-168.json` with one evidence row per acceptance criterion and exact artifact hashes.",
+    "`artifacts/jira_evidence/POST-SUBTASK-161.json` with one evidence row per acceptance criterion and exact artifact hashes.",
     "Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.",
     "Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.",
     "Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes."
@@ -203,8 +195,8 @@
     },
     {
       "classification": "END_TO_END",
-      "expectation": "Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and Sol after deterministic source selection, validate every output without canonical/PIT authority, reconcile exact usage, and leave the continuing lane active for the next eligible workload.",
-      "path": "artifacts/jira_evidence/POST-SUBTASK-168.json",
+      "expectation": "Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-161.json",
       "validation_class": "END_TO_END"
     },
     {
@@ -223,7 +215,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Derive final utilization/completeness from real route evidence, not counters, after applicable providers qualify; preserve explicit budget/capability incompleteness.",
+  "scope": "Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, qualify separately keyed coding, embedding, visual, and classification routes, then complete the 50-unit/150-point/30-useful three-family campaign.",
   "source_ids": [
     "UNIFIED-ASSISTIVE-EXECUTION-PLAN"
   ],
@@ -236,16 +228,16 @@
     "Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity."
   ],
   "supporting_source_refs": [],
-  "title": "[POST-SUBTASK-205] Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance",
+  "title": "[POST-SUBTASK-203] Qualify and operate local models on exact evidence-backed task formats",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "At least one separately keyed local route qualifies, paid Cursor/OpenRouter pilots pass their applicable gates, POST-SUBTASK-204 qualifies, and seven days plus three real scheduler cycles accrue from production-like eligible work.",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
     "SECURITY"
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
-  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-205.md",
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-203.md",
   "workflow_state": "BLOCKED"
 }

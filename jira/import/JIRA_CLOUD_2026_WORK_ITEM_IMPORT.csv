@@ -31531,7 +31531,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-127_instrument_run_stage_source_snapshot_entity_matrix_feature_model_product_identif.json",In Progress,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-127,operations-security,POST-SUBTASK-127,HANDOFF-012,PHASE-4,IN_PROGRESS,IMPLEMENTED,PARTIAL,POST_W25,false,OPERATIONS
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-127_instrument_run_stage_source_snapshot_entity_matrix_feature_model_product_identif.json",Done,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-127,operations-security,POST-SUBTASK-127,HANDOFF-012,PHASE-4,DONE,IMPLEMENTED,VERIFIED,POST_W25,false,OPERATIONS
 Sub-task,BAT-478,100432,[POST-SUBTASK-128] Implement source/API/terms/schema/entity/feature/data/model/concept/freshness/security/governance drift detectors plus alert severity/dedup/ack/escalation,100093,"Local ID: POST-SUBTASK-128
 
 Objective
@@ -31627,7 +31627,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-128,operations-security,POST-SUBTASK-128,HANDOFF-012,PHASE-4,BLOCKED,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,OPERATIONS
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-128,operations-security,POST-SUBTASK-128,HANDOFF-012,PHASE-4,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,OPERATIONS
 Sub-task,BAT-479,100433,"[POST-SUBTASK-129] Run outage, schema, stale forecast, disk, corrupt artifact, model, security, and governance-conflict game days through incident/rollback/substitution runbooks",100093,"Local ID: POST-SUBTASK-129
 
 Objective
@@ -37869,7 +37869,7 @@ Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
 
 Scope
-Coordinate one provider-neutral ready-work inventory, exact route readiness, independent budgets, candidate authority, utilization evidence, and graceful fallback without replacing provider-specific ledgers or protected project controls.
+Operate the mandatory provider-neutral controller, independent watchdog, 204-row acceptance graph, exact route readiness, independent budgets, candidate authority, campaigns, utilization evidence, reconciliation, cleanup, and sustained-operation gate without replacing provider-specific ledgers or protected project controls.
 
 Explicit In Scope
 - Perform the exact action: Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff.
@@ -37894,7 +37894,8 @@ Prerequisites / Dependencies
 Acceptance Criteria
 1. All eligible ready work has immutable pre-routing effort and exactly one reconciled disposition.
 2. Every provider route is keyed by exact model, task format, schema, policy, security, and budget evidence.
-3. Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/three-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.
+3. All 204 mandatory acceptance rows have exactly one canonical/live owner and evidence-backed PASS before overall completion.
+4. Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/21-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.
 
 Definition of Done
 1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
@@ -37938,7 +37939,7 @@ Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
 
 Scope
-Implement the non-billable provider-neutral foundation and preserve existing direct OpenAI/OpenRouter controllers behind adapters. Live paid/provider qualification volumes are downstream.
+Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, and cleanup.
 
 Explicit In Scope
 - Perform the exact action: Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation.
@@ -37962,6 +37963,8 @@ Acceptance Criteria
 3. Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.
 4. A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.
 5. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
+6. The controller and independent watchdog are OS-supervised outside Codex Desktop, recover from crash/restart, agree on maximum justified state, and cannot overclaim partial operation.
+7. All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes.
 
 Definition of Done
 1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
@@ -37995,7 +37998,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-201
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json",Done,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-201,operations-security,POST-SUBTASK-201,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,DONE,INTEGRATED,VERIFIED,POST_W25,false,SHARED_CONTRACT
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json",In Progress,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-201,operations-security,POST-SUBTASK-201,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,IN_PROGRESS,INTEGRATED,PARTIAL,POST_W25,false,SHARED_CONTRACT
 Sub-task,BAT-561,100512,"[POST-SUBTASK-202] Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration",100510,"Local ID: POST-SUBTASK-202
 
 Objective
@@ -38059,17 +38062,17 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-202
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.json",In Progress,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-202,operations-security,POST-SUBTASK-202,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE
-Sub-task,BAT-562,100513,"[POST-SUBTASK-203] Qualify local Ollama Qwen on real strict-schema, reconciliation, and code-review work",100510,"Local ID: POST-SUBTASK-203
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-202,operations-security,POST-SUBTASK-202,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE
+Sub-task,BAT-562,100513,[POST-SUBTASK-203] Qualify and operate local models on exact evidence-backed task formats,100510,"Local ID: POST-SUBTASK-203
 
 Objective
-Qualify local Ollama Qwen on real strict-schema, reconciliation, and code-review work
+Qualify and operate local models on exact evidence-backed task formats
 
 Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
 
 Scope
-Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, and run separately keyed shadow qualifications for qwen2.5-coder and bge-m3 on better-matched workloads.
+Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, qualify separately keyed coding, embedding, visual, and classification routes, then complete the 50-unit/150-point/30-useful three-family campaign.
 
 Explicit In Scope
 - Perform the exact action: Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol.
@@ -38090,6 +38093,7 @@ Acceptance Criteria
 1. Model/runtime/digest/hardware identities and prompt/schema/result dispositions are content-addressed.
 2. Strict schema, evidence, abstention, consistency, time/rework, and unsupported-fact results are measured on real work.
 3. Candidate outputs cannot bypass deterministic validation or enter canonical/protected truth directly.
+4. After qualification, at least 50 distinct real units, 150 effort points, 30 accepted useful results, and three independently qualified families reconcile through the controller.
 
 Definition of Done
 1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
@@ -38123,7 +38127,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-203
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-203_qualify_local_ollama_qwen_on_real_strict_schema_reconciliation_and_code_review_work.json",Done,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-203,operations-security,POST-SUBTASK-203,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-203,operations-security,POST-SUBTASK-203,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE
 Sub-task,BAT-563,100514,[POST-SUBTASK-204] Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance,100510,"Local ID: POST-SUBTASK-204
 
 Objective
@@ -38187,11 +38191,11 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-204
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json",Done,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-204,operations-security,POST-SUBTASK-204,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE
-Sub-task,BAT-564,100515,"[POST-SUBTASK-205] Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance",100510,"Local ID: POST-SUBTASK-205
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-204,operations-security,POST-SUBTASK-204,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE
+Sub-task,BAT-564,100515,"[POST-SUBTASK-205] Run cross-plane comparison, utilization floors, 21 scheduler cycles, restart/outage exercises, and seven-day sustained assurance",100510,"Local ID: POST-SUBTASK-205
 
 Objective
-Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance
+Run cross-plane comparison, utilization floors, 21 scheduler cycles, restart/outage exercises, and seven-day sustained assurance
 
 Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
@@ -38220,8 +38224,9 @@ Prerequisites / Dependencies
 
 Acceptance Criteria
 1. One common-support gold comparison reports quality, evidence, abstention, review time, rework, throughput, cost, and dispositions across admitted routes.
-2. At least seven calendar days, three real scheduler cycles, one restart exercise, and one outage exercise reconcile with inventory/dispatch/usage/result/cleanup ledgers.
-3. All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill.
+2. At least seven consecutive calendar days, 21 real scheduler cycles, 25 soak-only units/100 points, controller/watchdog restart evidence, and provider/worker outage exercises reconcile with inventory/dispatch/usage/result/cleanup ledgers.
+3. The continuing campaigns total at least 135 assignments, 450 points, 125 distinct base units, 85% weighted attempted offload, and 60% weighted accepted offload without padding.
+4. All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill.
 
 Definition of Done
 1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
@@ -38255,4 +38260,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-205
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-205,operations-security,POST-SUBTASK-205,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_comparison_utilization_floors_21_scheduler_cycles_restart_outage_exercises_a.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-205,operations-security,POST-SUBTASK-205,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE

@@ -92,18 +92,19 @@ def common(template: dict[str, Any], *, local_id: str, import_id: int, objective
 
 def specs() -> list[dict[str, Any]]:
     story = common(load("POST-STORY-057"), local_id="POST-STORY-058", import_id=100510, objective="Operate one unified assistive execution plane across deterministic, OpenAI, OpenRouter, Cursor, local Qwen, and private CPU worker routes", issue_type="Story", parent="POST-EPIC-018", dependencies=["POST-SUBTASK-160", "POST-SUBTASK-198"], workflow="IN_PROGRESS")
-    story["scope"] = "Coordinate one provider-neutral ready-work inventory, exact route readiness, independent budgets, candidate authority, utilization evidence, and graceful fallback without replacing provider-specific ledgers or protected project controls."
+    story["scope"] = "Operate the mandatory provider-neutral controller, independent watchdog, 204-row acceptance graph, exact route readiness, independent budgets, candidate authority, campaigns, utilization evidence, reconciliation, cleanup, and sustained-operation gate without replacing provider-specific ledgers or protected project controls."
     story["acceptance_criteria"] = [
         "All eligible ready work has immutable pre-routing effort and exactly one reconciled disposition.",
         "Every provider route is keyed by exact model, task format, schema, policy, security, and budget evidence.",
-        "Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/three-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.",
+        "All 204 mandatory acceptance rows have exactly one canonical/live owner and evidence-backed PASS before overall completion.",
+        "Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/21-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.",
     ]
     story["blocked_reason"] = ""
     story["unblock_condition"] = ""
 
     foundation = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-201", import_id=100511, objective="Implement the unified ready-work inventory, routing, readiness, budget, provenance, bypass, utilization, and completeness foundation", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-160", "POST-SUBTASK-198"], workflow="IN_PROGRESS")
-    foundation["scope"] = "Implement the non-billable provider-neutral foundation and preserve existing direct OpenAI/OpenRouter controllers behind adapters. Live paid/provider qualification volumes are downstream."
-    foundation["files_expected_to_be_touched"] = ["configs/assistive_provider_registry.json", "configs/assistive_route_readiness.json", "configs/unified_assistive_policy.json", "configs/unified_assistive_ready_work.json", "configs/unified_assistive_operational_claims.json", "src/aggie_analytics/assistive_plane", "tools/materialize_unified_assistive_inventory.py", "tools/validate_unified_assistive_plane.py", "tools/validate_unified_assistive_completeness.py", "tools/refresh_cursor_catalog.py", "tools/refresh_local_assistive_runtime.py", "tests/test_unified_assistive_plane.py", "tests/test_unified_assistive_completeness.py", "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "governance/SOURCE_OF_TRUTH_MAP.md", "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"]
+    foundation["scope"] = "Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, and cleanup."
+    foundation["files_expected_to_be_touched"] = ["configs/assistive_provider_registry.json", "configs/assistive_route_readiness.json", "configs/unified_assistive_policy.json", "configs/unified_assistive_ready_work.json", "configs/unified_assistive_operational_claims.json", "configs/unified_assistive_acceptance_ownership.json", "src/aggie_analytics/assistive_plane", "tools/adopt_unified_enforcement_package.py", "tools/validate_unified_acceptance_ownership.py", "tools/run_unified_assistive_controller.py", "tools/run_unified_assistive_watchdog.py", "tools/materialize_unified_assistive_inventory.py", "tools/validate_unified_assistive_plane.py", "tools/validate_unified_assistive_completeness.py", "tools/refresh_cursor_catalog.py", "tools/refresh_local_assistive_runtime.py", "tests/test_unified_controller_state.py", "tests/test_unified_assistive_plane.py", "tests/test_unified_assistive_completeness.py", "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "governance/SOURCE_OF_TRUTH_MAP.md", "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"]
     foundation["allowed_modification_paths"] = foundation["files_expected_to_be_touched"] + [foundation["evidence_manifest_path"]]
     foundation["acceptance_criteria"] = [
         "Inventory validation enforces effort points 1/2/3/5/8, stable identities, anti-padding, one disposition, and complete count/point reconciliation.",
@@ -111,15 +112,17 @@ def specs() -> list[dict[str, Any]]:
         "Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.",
         "A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.",
         "Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.",
+        "The controller and independent watchdog are OS-supervised outside Codex Desktop, recover from crash/restart, agree on maximum justified state, and cannot overclaim partial operation.",
+        "All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes.",
     ]
     foundation["blocked_reason"] = ""
     foundation["unblock_condition"] = ""
-    # The provider-neutral foundation merged through protected PR #242 at
-    # exact main d849cc416de2730b589634709e6c0a66add88625 after all hosted
-    # and local acceptance gates passed. Preserve terminal evidence on future
-    # graph reconciliation rather than regressing the unit to partial work.
-    foundation["workflow_state"] = "DONE"
-    foundation["evidence_state"] = "VERIFIED"
+    # The provider-neutral structural foundation merged through PR #242. The
+    # 2026-08-12 enforcement directive expands this existing umbrella with a
+    # persistent controller/watchdog and runtime campaign requirements, so the
+    # historical evidence remains preserved while the expanded unit is active.
+    foundation["workflow_state"] = "IN_PROGRESS"
+    foundation["evidence_state"] = "PARTIAL"
     foundation["ready"] = False
 
     cursor = common(load("POST-SUBTASK-199"), local_id="POST-SUBTASK-202", import_id=100512, objective="Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="IN_PROGRESS")
@@ -137,16 +140,17 @@ def specs() -> list[dict[str, Any]]:
         "The user authorized a separate nontransferable USD 200 hard limit on 2026-08-12; only USD 20 is initially released and zero qualifying real agents have executed."
     )
 
-    qwen = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-203", import_id=100513, objective="Qualify local Ollama Qwen on real strict-schema, reconciliation, and code-review work", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="DONE")
-    qwen["scope"] = "Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, and run separately keyed shadow qualifications for qwen2.5-coder and bge-m3 on better-matched workloads."
+    qwen = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-203", import_id=100513, objective="Qualify and operate local models on exact evidence-backed task formats", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="IN_PROGRESS")
+    qwen["scope"] = "Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, qualify separately keyed coding, embedding, visual, and classification routes, then complete the 50-unit/150-point/30-useful three-family campaign."
     qwen["acceptance_criteria"] = [
         "Model/runtime/digest/hardware identities and prompt/schema/result dispositions are content-addressed.",
         "Strict schema, evidence, abstention, consistency, time/rework, and unsupported-fact results are measured on real work.",
         "Candidate outputs cannot bypass deterministic validation or enter canonical/protected truth directly.",
+        "After qualification, at least 50 distinct real units, 150 effort points, 30 accepted useful results, and three independently qualified families reconcile through the controller.",
     ]
     qwen["blocked_reason"] = ""
     qwen["unblock_condition"] = ""
-    qwen["evidence_state"] = "VERIFIED"
+    qwen["evidence_state"] = "PARTIAL"
     qwen["ready"] = False
     qwen["expected_outputs"] = [
         "artifacts/assistive/local_qwen_qualification.json",
@@ -155,11 +159,8 @@ def specs() -> list[dict[str, Any]]:
     ]
     qwen["evidence_manifest_path"] = "artifacts/jira_evidence/POST-SUBTASK-203.json"
     qwen["allowed_modification_paths"] = qwen["expected_outputs"]
-    qwen["completion_evidence_manifest_sha256"] = hashlib.sha256(
-        (ROOT / qwen["evidence_manifest_path"]).read_bytes()
-    ).hexdigest()
     qwen["ai_context_notes"].append(
-        "The bounded qualification is complete and verified, but both exact evaluated model identities failed predeclared evidence-quality gates; no local Qwen operational route is admitted."
+        "The bounded historical qualification and exact-route negative evidence remain verified; the expanded local-model campaign is active and no operational local-model plane is claimed."
     )
 
     worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="BLOCKED")
@@ -217,15 +218,16 @@ def specs() -> list[dict[str, Any]]:
     ]
     worker["end_to_end_validation"] = "Deploy only to the exact verified private Windows peer through the authorized Chrome bootstrap, verify Serve HTTPS/grants/HMAC/least-privilege identity, execute all fixed tasks and rejection cases, restart worker/controller, recover interruption, validate hashes/resources, and clean reconstructible temporary output."
 
-    assurance = common(load("POST-SUBTASK-168"), local_id="POST-SUBTASK-205", import_id=100515, objective="Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-202", "POST-SUBTASK-203", "POST-SUBTASK-204", "POST-SUBTASK-168", "POST-SUBTASK-199"], workflow="BLOCKED")
+    assurance = common(load("POST-SUBTASK-168"), local_id="POST-SUBTASK-205", import_id=100515, objective="Run cross-plane comparison, utilization floors, 21 scheduler cycles, restart/outage exercises, and seven-day sustained assurance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-202", "POST-SUBTASK-203", "POST-SUBTASK-204", "POST-SUBTASK-168", "POST-SUBTASK-199"], workflow="BLOCKED")
     assurance["scope"] = "Derive final utilization/completeness from real route evidence, not counters, after applicable providers qualify; preserve explicit budget/capability incompleteness."
     assurance["acceptance_criteria"] = [
         "One common-support gold comparison reports quality, evidence, abstention, review time, rework, throughput, cost, and dispositions across admitted routes.",
-        "At least seven calendar days, three real scheduler cycles, one restart exercise, and one outage exercise reconcile with inventory/dispatch/usage/result/cleanup ledgers.",
+        "At least seven consecutive calendar days, 21 real scheduler cycles, 25 soak-only units/100 points, controller/watchdog restart evidence, and provider/worker outage exercises reconcile with inventory/dispatch/usage/result/cleanup ledgers.",
+        "The continuing campaigns total at least 135 assignments, 450 points, 125 distinct base units, 85% weighted attempted offload, and 60% weighted accepted offload without padding.",
         "All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill.",
     ]
     assurance["blocked_reason"] = "EXACT_LOCAL_QWEN_ROUTES_REJECTED; NEW_LOCAL_SHADOW_ROUTES_PENDING; CURSOR_AND_OPENROUTER_PILOTS_PENDING; CPU_WORKER_V2_PENDING; SUSTAINED_CLOCK_NOT_STARTED"
-    assurance["unblock_condition"] = "At least one separately keyed local route qualifies, paid Cursor/OpenRouter pilots pass their applicable gates, POST-SUBTASK-204 qualifies, and seven days plus three real scheduler cycles accrue from production-like eligible work."
+    assurance["unblock_condition"] = "The persistent controller/watchdog deploy, provider and worker campaign prerequisites pass, and seven days plus 21 real scheduler cycles and 25 soak-only units/100 points accrue from production-like eligible work."
     return [story, foundation, cursor, qwen, worker, assurance]
 
 

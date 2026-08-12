@@ -1,5 +1,17 @@
 # Unified Assistive Execution Plane
 
+## 2026-08-12 mandatory execution-enforcement adoption
+
+The five-file `unified-assistive-execution-enforcement` package is an executable governing contract. Its verified identities are: start-here `d1576960f748072350b98925eb4f879a8a4d44237b285f2896e69da44d3403e3`; master directive `7e7d927a3e3a3efd43705a4f2dc64ff9e593cde5085fb271a6276bd8194a1813`; acceptance matrix `bd0142e8df4f25bd0b8733221c232cd3009786aad4f393a71154c9f2ade61111`; second-pass assurance `935e023ffb73f4d2f44bb4b744d57444af2fe41d80ee31d0c915e1627ac28826`; and package manifest `9e9e35032c69029b100c85fa15d53beb66cbbee0a6b36641758d97e43588a243`.
+
+`configs/unified_assistive_acceptance_ownership.json` is the canonical row-level adoption of all 204 mandatory acceptance contracts. Each row has exactly one primary canonical local owner and live BAT key. Runtime attempts remain external and summarize to those durable units; they do not create per-call Jira issues.
+
+The operational result vocabulary is only `PASS`, `FAIL`, `BLOCKED`, or `INCOMPLETE`, and exit code zero is reserved for a full `PASS`. `PASS_HONEST_PARTIAL_STATE` and equivalent partial-success claims are forbidden. Structural validity is reported separately from runtime completeness. The current combined state is `INCOMPLETE_CONTROLLER_NOT_DEPLOYED` even though the provider-neutral foundation and direct OpenAI candidate plane have useful prior evidence.
+
+The required final architecture is one OS-supervised controller outside Codex Desktop using SQLite WAL, a process lock plus database leader lease, transactional compare-and-swap transitions, immutable effort/work identities, leases and dead letters, budget reservations and settlement, reconciliation, and cleanup. A separately supervised read-only watchdog directly inspects the database and live evidence and must agree with the controller. Neither component receives canonical, protected, scientific, Git/GitHub merge, Jira acceptance, or publication authority.
+
+Campaign floors are mandatory and non-padding: Cursor 10 units/40 points/6 useful; OpenRouter 20/60/12 across three categories; 30 new controller-routed OpenAI units/100/20; CPU worker 25/100; and post-qualification local models 50/150/30 across three families. The global floor is 135 route-work assignments, 450 points, at least 125 distinct base units, 85% weighted attempted offload, and 60% weighted accepted offload. Sustained operation requires seven consecutive real calendar days, at least 21 scheduler cycles, and 25 soak-only units/100 points with restart, outage, no-change, reconciliation, watchdog, and cleanup evidence.
+
 Status: provider-neutral foundation verified; operational-correction implementation in progress; provider qualifications remain evidence-gated.
 
 This contract adopts directive SHA-256 `CDE877F540156F97723944EB34419742B3A6B77783C19DE2F3B87A209E5DEF84`, governing-plan SHA-256 `42E66C08B1069026D92D4B6E50EFF1AF9E2263F1F57A7BCE4CF018972DB976E5`, assurance-report SHA-256 `BD07F61AF182E5826009FC85413C3B155C41397289E0998CE4C4412C26E04008`, and current OpenRouter-plan SHA-256 `D8680F970E58B776DE36BEF1CAB40ECA0B614FF22F65411DC8B862EB95893396`.

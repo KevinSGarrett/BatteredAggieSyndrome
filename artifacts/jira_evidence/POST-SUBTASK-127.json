@@ -2,20 +2,20 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "created_at_utc": "2026-08-12T22:50:00Z",
-  "updated_at_utc": "2026-08-12T22:50:00Z",
+  "updated_at_utc": "2026-08-12T23:24:00Z",
   "jira_key": "BAT-477",
   "local_issue_id": "POST-SUBTASK-127",
-  "workflow_state": "IN_PROGRESS",
-  "evidence_state": "PARTIAL",
-  "observable_outcome": "The observability v2 candidate exposes ten correlation identities, timing/count/status/blocker and explicit missingness semantics, deterministic event and metric-health identities, freshness gates, and secret redaction. The complete local suite passes; completion awaits protected integration and exact-main replay.",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "observable_outcome": "The observability v2 contract exposes ten correlation identities, timing/count/status/blocker and explicit missingness semantics, deterministic event and metric-health identities, freshness gates, and secret redaction. PR #259 merged after every required hosted check passed, and exact merged main replay passed the complete local suite.",
   "outputs": [
     {
       "path": "artifacts/operations/observability_contract_test.json",
       "bytes": 9095,
       "sha256": "dafa552e4e781ddf889cbe62e4463aa3125a38087475fed01acd582dac94c6c3",
       "schema_version": "1.0.0",
-      "maturity": "IMPLEMENTED_CANDIDATE",
-      "eligibility": "PROTECTED_INTEGRATION_PENDING"
+      "maturity": "IMPLEMENTED_VERIFIED",
+      "eligibility": "INTEGRATED_OPERATIONAL_INSTRUMENTATION_CONTRACT"
     }
   ],
   "input_identities": {
@@ -46,8 +46,8 @@
     "focused_tests": "PASS_17_TESTS_1_SKIPPED",
     "full_suite": "PASS_629_TESTS_4_SKIPPED_104_SUBTESTS",
     "source_references": "PASS_2121",
-    "protected_integration": "PENDING",
-    "exact_main_replay": "PENDING"
+    "protected_integration": "PASS_PR_259_ALL_REQUIRED_HOSTED_CHECKS",
+    "exact_main_replay": "PASS_MERGE_664124B6_629_TESTS_4_SKIPPED_104_SUBTESTS"
   },
   "negative_findings": [
     "The first full-suite attempt correctly failed because the two intentionally changed implementation/test files invalidated their pinned source anchors; both exact anchors were versioned to the new file identities and all 2,121 references then passed.",
@@ -65,23 +65,24 @@
   },
   "downstream_evaluation": {
     "consumer": "POST-SUBTASK-128",
-    "decision": "DEFER_PENDING_PROTECTED_INTEGRATION",
-    "post_subtask_128_ready": false,
+    "decision": "DEPENDENCY_SATISFIED_RECOMPUTE_ALL_REMAINING_READINESS_GATES",
+    "post_subtask_128_ready": true,
     "silent_unlock_allowed": false
   },
   "integration": {
     "branch": "codex/BAT-477-observability",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "required_checks": "PENDING",
-    "exact_main_replay": "PENDING"
+    "pull_request": 259,
+    "head_sha": "8285f2524f35ebd242588eb58afcbd0a24c5dae4",
+    "merge_sha": "664124b6e27916ba0d1fbc2b05bb4f5cecb0cf05",
+    "merged_at_utc": "2026-08-12T22:59:29Z",
+    "required_checks": "PASS_WINDOWS_LINUX_PRODUCT_SECURITY_DEPENDENCY_REVIEW_CODEQL",
+    "exact_main_replay": "PASS_629_TESTS_4_SKIPPED_104_SUBTESTS"
   },
   "completion": {
-    "achieved_maturity": "IMPLEMENTED_CANDIDATE",
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "IN_PROGRESS",
-    "remaining_issue_scope_blockers": ["PROTECTED_INTEGRATION_PENDING", "EXACT_MAIN_REPLAY_PENDING"],
-    "completion_claim": "BAT-477 is not complete; its locally validated candidate awaits protected integration."
+    "achieved_maturity": "IMPLEMENTED_VERIFIED",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
+    "remaining_issue_scope_blockers": [],
+    "completion_claim": "BAT-477 bounded observability-contract scope is complete and integrated; this does not establish sustained unified-plane operation or scientific readiness."
   }
 }

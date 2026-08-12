@@ -310,6 +310,7 @@ configs/tamu_specialization_registry.json
 configs/team_state_registry.json
 configs/temporal_registry.json
 configs/tournament_registry.json
+configs/unified_assistive_acceptance_ownership.json
 configs/unified_assistive_operational_claims.json
 configs/unified_assistive_policy.json
 configs/unified_assistive_ready_work.json
@@ -1515,8 +1516,10 @@ jira/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability
 jira/issues/subtasks/POST-SUBTASK-200_operate_empirically_admitted_openrouter_assistive_routes_with_independent_usage_provenance_c.md
 jira/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.md
 jira/issues/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.md
+jira/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.md
 jira/issues/subtasks/POST-SUBTASK-203_qualify_local_ollama_qwen_on_real_strict_schema_reconciliation_and_code_review_work.md
 jira/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.md
+jira/issues/subtasks/POST-SUBTASK-205_run_cross_plane_comparison_utilization_floors_21_scheduler_cycles_restart_outage_exercises_a.md
 jira/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
@@ -2052,9 +2055,9 @@ jira/records/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_ca
 jira/records/issues/subtasks/POST-SUBTASK-200_operate_empirically_admitted_openrouter_assistive_routes_with_independent_usage_provenance_c.json
 jira/records/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json
 jira/records/issues/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.json
-jira/records/issues/subtasks/POST-SUBTASK-203_qualify_local_ollama_qwen_on_real_strict_schema_reconciliation_and_code_review_work.json
+jira/records/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.json
 jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json
-jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.json
+jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_comparison_utilization_floors_21_scheduler_cycles_restart_outage_exercises_a.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -3009,6 +3012,7 @@ src/aggie_analytics/assistive_plane/backend.py
 src/aggie_analytics/assistive_plane/budget.py
 src/aggie_analytics/assistive_plane/bypass.py
 src/aggie_analytics/assistive_plane/contracts.py
+src/aggie_analytics/assistive_plane/controller_state.py
 src/aggie_analytics/assistive_plane/cpu_worker_backend.py
 src/aggie_analytics/assistive_plane/cursor_backend.py
 src/aggie_analytics/assistive_plane/dispatcher.py
@@ -3018,6 +3022,7 @@ src/aggie_analytics/assistive_plane/orchestration.py
 src/aggie_analytics/assistive_plane/redaction.py
 src/aggie_analytics/assistive_plane/schemas.py
 src/aggie_analytics/assistive_plane/storage.py
+src/aggie_analytics/assistive_plane/watchdog.py
 src/aggie_analytics/assistive_plane/worker.py
 src/aggie_analytics/bas/__init__.py
 src/aggie_analytics/bas/contracts.py
@@ -3286,6 +3291,8 @@ tests/test_team_state_governance.py
 tests/test_temporal_governance.py
 tests/test_unified_assistive_completeness.py
 tests/test_unified_assistive_plane.py
+tests/test_unified_controller_state.py
+tests/test_unified_enforcement_adoption.py
 tests/test_validation_science_governance.py
 tests/test_w18_full_gate.py
 tests/test_w19_foundation.py
@@ -3305,6 +3312,7 @@ tools/acquire_ncaa_official_gamebooks.py
 tools/acquire_noaa_isd_observed_coverage_pilot.py
 tools/acquire_sec_tamu_availability.py
 tools/acquire_sportsdataverse_rosters.py
+tools/adopt_unified_enforcement_package.py
 tools/apply_private_research_acquisition_policy.py
 tools/audit_control_plane.py
 tools/backup_state.py
@@ -3347,6 +3355,7 @@ tools/build_versioned_play_drive_gap.py
 tools/build_wmt_provider_timestamp_pit.py
 tools/build_wmt_tamu_specialization_feature_pit.py
 tools/capture_runtime_manifest.py
+tools/capture_unified_live_baseline.py
 tools/check_advanced_challenger_admission.py
 tools/compare_development_results.py
 tools/cpu_worker_minimal_init.py
@@ -3408,6 +3417,8 @@ tools/run_product.py
 tools/run_reference_feature_tournament.py
 tools/run_reference_hpo_grid.py
 tools/run_tournament_reference.py
+tools/run_unified_assistive_controller.py
+tools/run_unified_assistive_watchdog.py
 tools/schedule_research_queue.py
 tools/schema_discovery.py
 tools/select_next_work.py
@@ -3486,6 +3497,7 @@ tools/validate_tamu_specialization.py
 tools/validate_team_state.py
 tools/validate_temporal.py
 tools/validate_tournament.py
+tools/validate_unified_acceptance_ownership.py
 tools/validate_unified_assistive_completeness.py
 tools/validate_unified_assistive_plane.py
 tools/validate_validation_science.py

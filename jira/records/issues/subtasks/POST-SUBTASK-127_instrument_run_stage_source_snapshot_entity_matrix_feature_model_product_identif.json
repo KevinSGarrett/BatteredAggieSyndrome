@@ -42,6 +42,7 @@
       "split/cutoff when applicable"
     ]
   },
+  "completion_evidence_manifest_sha256": "7686f1d4e76a68cfe0f9ed687987f4bd239fae76fe5e1384935f7a4b60ceaf16",
   "component": "operations-security",
   "components_expected_to_be_touched": [
     "operations-security",
@@ -73,7 +74,7 @@
   "end_to_end_validation": "Validate that `artifacts/operations/observability_contract_test.json` can be parsed and consumed by `POST-SUBTASK-128` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-127.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "OPERATIONS",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -141,11 +142,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24617",
-    "jira_updated_at": "2026-08-12T17:42:03.050-0500",
-    "last_synced_at": "2026-08-12T22:42:03.050000+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-12T18:25:14.037-0500",
+    "last_synced_at": "2026-08-12T23:25:31.885253+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -326,5 +327,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-043: Structured observability, alerts, drift, and incident response.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-127.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }

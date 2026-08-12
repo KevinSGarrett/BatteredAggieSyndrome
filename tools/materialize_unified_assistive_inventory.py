@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import sys
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -17,6 +18,33 @@ from aggie_analytics.assistive_plane.orchestration import ReadyWorkInventory, Re
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def git_value(*arguments: str) -> str:
+    result = subprocess.run(["git", *arguments], cwd=ROOT, check=True, capture_output=True, text=True)
+    return result.stdout.strip()
+
+
+def external_evidence_identity(root: Path) -> dict[str, Any]:
+    if not root.is_dir():
+        return {"present": False, "file_count": 0, "manifest_sha256": None}
+    records = []
+    for path in sorted(root.rglob("*.json")):
+        try:
+            records.append({"path": path.relative_to(root).as_posix(), "sha256": sha256(path), "bytes": path.stat().st_size})
+        except OSError:
+            continue
+    return {
+        "present": True,
+        "file_count": len(records),
+        "manifest_sha256": hashlib.sha256(json.dumps(records, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+    }
+
+
+def parse_timestamp(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
 
 
 def record_for(local_id: str) -> tuple[Path, dict[str, Any]]:
@@ -90,12 +118,15 @@ def main() -> int:
     policy_path = ROOT / "configs/unified_assistive_policy.json"
     provider_registry_path = ROOT / "configs/assistive_provider_registry.json"
     route_readiness_path = ROOT / "configs/assistive_route_readiness.json"
+    acceptance_ownership_path = ROOT / "configs/unified_assistive_acceptance_ownership.json"
     policy = json.loads(policy_path.read_text(encoding="utf-8"))
     readiness = json.loads(route_readiness_path.read_text(encoding="utf-8"))
+    ownership = json.loads(acceptance_ownership_path.read_text(encoding="utf-8"))
     generated_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     units: list[ReadyWorkUnit] = []
     pending: list[dict[str, Any]] = []
     source_records: list[dict[str, str]] = []
+    transition_times = [parse_timestamp(seed.get("material_transition_at"))]
     for item in seed["work_units"]:
         record_local_id = item.get("record_local_id") or item["local_id"]
         work_unit_id = item.get("work_unit_id") or item["local_id"]
@@ -124,6 +155,17 @@ def main() -> int:
             "last_synced_at": record.get("operational_jira", {}).get("last_synced_at"),
             "record_sha256": sha256(record_path),
         })
+        transition_times.extend(
+            [
+                parse_timestamp(record.get("operational_jira", {}).get("jira_updated_at")),
+                parse_timestamp(record.get("operational_jira", {}).get("last_synced_at")),
+            ]
+        )
+    represented = {item.get("record_local_id") or item["local_id"] for item in seed["work_units"]}
+    required_owners = set(ownership["owner_records"])
+    missing_owners = sorted(required_owners - represented)
+    if missing_owners:
+        raise RuntimeError(f"MANDATORY_JIRA_OWNER_ABSENT_FROM_INVENTORY:{','.join(missing_owners)}")
     decisions = []
     for unit, (item, record) in zip(units, pending, strict=True):
         disposition, provider, model, reason = derive_decision(item, record, policy, readiness)
@@ -140,13 +182,27 @@ def main() -> int:
     snapshot = {
         "schema_version": 1,
         "inventory_seed_id": seed["inventory_seed_id"],
-        "material_transition_at": seed["material_transition_at"],
+        "material_transition_at": max(item for item in transition_times if item is not None).isoformat().replace("+00:00", "Z"),
         "generated_at": generated_at,
         "decisions_derived_from_current_evidence": True,
         "seed_sha256": sha256(args.seed),
         "policy_sha256": sha256(policy_path),
         "provider_registry_sha256": sha256(provider_registry_path),
         "route_readiness_sha256": sha256(route_readiness_path),
+        "acceptance_ownership_sha256": sha256(acceptance_ownership_path),
+        "mandatory_acceptance_rows": ownership["mandatory_row_count"],
+        "git": {
+            "head": git_value("rev-parse", "HEAD"),
+            "origin_main": git_value("rev-parse", "origin/main"),
+            "status_porcelain_sha256": hashlib.sha256(git_value("status", "--porcelain").encode()).hexdigest(),
+        },
+        "external_evidence": {
+            "openai": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\openai")),
+            "openrouter": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\assistive\openrouter")),
+            "cursor": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor")),
+            "local": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\assistive\local-qwen")),
+            "cpu_worker": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\assistive\cpu-worker")),
+        },
         "work_units": [
             {
                 "work_unit_id": unit.work_unit_id,

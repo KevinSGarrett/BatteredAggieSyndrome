@@ -18,11 +18,11 @@
   ],
   "source_refs": [
     {
-      "anchor_excerpt": "# Unified Assistive Execution Plane Status: provider-neutral foundation verified; operational-correction implementation in progress; provider qualifications remain evidence-gated. This contract adopts directive SHA-256 `CDE877F540156F97723944EB34419742B3A6B77783C19DE2F3B87A209E5DEF84`, governing-plan SHA-256 `42E66C08B",
-      "anchor_hash": "6eae6d7a91ff8734f0f0aca15e9a403acdb37ca30f98d48a0c57fd3181d1cfda",
+      "anchor_excerpt": "# Unified Assistive Execution Plane ## 2026-08-12 mandatory execution-enforcement adoption The five-file `unified-assistive-execution-enforcement` package is an executable governing contract. Its verified identities are: start-here `d1576960f748072350b98925eb4f879a8a4d44237b285f2896e69da44d3403e3`; master directive `7e",
+      "anchor_hash": "8cde38506cd64181edeba461d1ce1a83a9e101e1ba5f6e2f689444b693d0c5ec",
       "authority_level": "GOVERNANCE_DETAIL",
-      "document_sha256": "c71723c5e4d85709de766cc9d8c1d512889e581926cfb04246fa15d07875a9a4",
-      "end_line": 34,
+      "document_sha256": "a3cde10332898ac410daadff2c231f059bb8976568f701766b3acc8ca1d3e72d",
+      "end_line": 46,
       "heading": "Unified Assistive Execution Plane",
       "last_verified": "2026-08-12",
       "repo_relative_path": "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",

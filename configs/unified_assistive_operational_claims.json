@@ -1,14 +1,15 @@
 {
   "schema_version": 1,
-  "claim_id": "unified-assistive-operational-claims-2026-08-12-correction",
+  "claim_id": "unified-assistive-operational-claims-2026-08-12-enforcement",
   "claims": {
     "openai": "OPERATIONAL_CANDIDATE_ONLY",
     "openrouter": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL",
     "cursor": "PAID_PILOT_AUTHORIZED_ZERO_REAL_AGENTS",
-    "local_qwen": "ONE_EMBEDDING_ROUTE_READY_EVIDENCE_AND_CODER_ROUTES_REJECTED",
-    "remote_cpu_worker": "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY",
-    "unified_plane": "IMPLEMENTED_NONLIVE"
+    "local_qwen": "EXACT_EVALUATED_ROUTES_REJECTED_NEW_QUALIFICATION_PENDING",
+    "remote_cpu_worker": "BLOCKED_PARTIAL_CORRECTED_DEPLOYMENT_PENDING",
+    "unified_plane": "INCOMPLETE_CONTROLLER_NOT_DEPLOYED"
   },
+  "overall_result": "INCOMPLETE",
   "sustained_operation_claimed": false,
   "fully_operational_claimed": false
 }

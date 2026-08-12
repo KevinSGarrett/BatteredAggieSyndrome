@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import sys
 import time
@@ -22,6 +23,13 @@ from aggie_analytics.assistive_plane.cpu_worker_backend import MAX_TEXT_BYTES, e
 MIN_FREE_BYTES = 256 * 1024 * 1024
 MAX_EXECUTION_SECONDS = 20.0
 MAX_QUEUE = 8
+SHA256_HEX = re.compile(r"[0-9a-f]{64}\Z")
+
+
+def _digest_component(value: str) -> str:
+    if SHA256_HEX.fullmatch(value) is None:
+        raise ValueError("CPU_WORKER_PATH_DIGEST_INVALID")
+    return value
 
 
 def _atomic_write(destination: Path, data: bytes) -> None:
@@ -53,18 +61,24 @@ class WorkerRuntime:
         self.storage_root.mkdir(parents=True, exist_ok=True)
 
     def _nonce_path(self, nonce: str) -> Path:
-        digest = hashlib.sha256(nonce.encode("utf-8")).hexdigest()
+        digest = _digest_component(hashlib.sha256(nonce.encode("utf-8")).hexdigest())
         return self.storage_root / "runtime" / "nonces" / digest[:2] / f"{digest}.json"
 
     def _replay_path(self, envelope_sha256: str) -> Path:
+        envelope_sha256 = _digest_component(envelope_sha256)
         return self.storage_root / "runtime" / "replays" / envelope_sha256[:2] / f"{envelope_sha256}.json"
 
     def execute(self, request_payload: dict[str, object]) -> dict[str, object]:
         request_data = canonical_json_bytes(request_payload)
-        envelope_sha256 = hashlib.sha256(request_data).hexdigest()
+        envelope_sha256 = _digest_component(hashlib.sha256(request_data).hexdigest())
         nonce = request_payload.get("nonce")
         job_id = request_payload.get("job_id")
-        if not isinstance(nonce, str) or not nonce or not isinstance(job_id, str) or len(job_id) != 64:
+        if (
+            not isinstance(nonce, str)
+            or not nonce
+            or not isinstance(job_id, str)
+            or SHA256_HEX.fullmatch(job_id) is None
+        ):
             raise ValueError("CPU_WORKER_RUNTIME_IDENTITY_INVALID")
         nonce_path = self._nonce_path(nonce)
         replay_path = self._replay_path(envelope_sha256)
@@ -77,7 +91,7 @@ class WorkerRuntime:
         free_bytes = shutil.disk_usage(self.storage_root).free
         if free_bytes < MIN_FREE_BYTES:
             raise ValueError("CPU_WORKER_DISK_ADMISSION_REJECTED")
-        lease = self.storage_root / "runtime" / "leases" / f"{job_id}.json"
+        lease = self.storage_root / "runtime" / "leases" / f"{envelope_sha256}.json"
         lease.parent.mkdir(parents=True, exist_ok=True)
         try:
             with lease.open("x", encoding="utf-8") as handle:
@@ -86,7 +100,7 @@ class WorkerRuntime:
                 os.fsync(handle.fileno())
         except FileExistsError as exc:
             raise ValueError("CPU_WORKER_JOB_LEASE_BUSY") from exc
-        scratch = self.storage_root / "runtime" / "scratch" / f"{job_id}-{envelope_sha256[:12]}"
+        scratch = self.storage_root / "runtime" / "scratch" / envelope_sha256
         scratch.mkdir(parents=True, exist_ok=False)
         started = time.monotonic()
         removed_bytes = 0
@@ -193,7 +207,7 @@ def handler(
                 request_payload = json.loads(request_data.decode("utf-8"))
                 response_payload = runtime.execute(request_payload)
                 data = canonical_json_bytes({"request": request_payload, "response": response_payload}) + b"\n"
-                digest = hashlib.sha256(data).hexdigest()
+                digest = _digest_component(hashlib.sha256(data).hexdigest())
                 destination = storage_root / "results" / digest[:2] / f"{digest}.json"
                 _atomic_write(destination, data)
                 self.send_json(200, response_payload)

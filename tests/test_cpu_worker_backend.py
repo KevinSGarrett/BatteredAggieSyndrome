@@ -18,7 +18,7 @@ from aggie_analytics.assistive_plane.cpu_worker_backend import (
     execute_cpu_task,
     verify_cpu_response,
 )
-from tools.cpu_worker_service import BoundedWorkerServer, handler
+from tools.cpu_worker_service import BoundedWorkerServer, WorkerRuntime, handler
 
 
 KEY = b"k" * 32
@@ -98,6 +98,14 @@ class CpuWorkerBackendTests(unittest.TestCase):
             CpuWorkerJob("SHELL", {"command": "whoami"}, "BAT-563")
         with self.assertRaisesRegex(ValueError, "CPU_WORKER_DEDUP_RECORD_INVALID"):
             execute_cpu_task("EXACT_TEXT_DEDUP", {"records": [{"path": "C:/"}]})
+
+    def test_runtime_rejects_path_like_job_identity_before_filesystem_use(self) -> None:
+        with TemporaryDirectory() as temporary:
+            request = self.request()
+            request["job_id"] = ("../" * 21) + "."
+            with self.assertRaisesRegex(ValueError, "CPU_WORKER_RUNTIME_IDENTITY_INVALID"):
+                WorkerRuntime(Path(temporary), KEY).execute(request)
+            self.assertEqual([], list(Path(temporary).rglob("*.json")))
 
     def test_deterministic_tasks(self) -> None:
         payload = {"lines": ["BAT-563", "worker", "candidate-only"]}

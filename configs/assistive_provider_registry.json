@@ -27,7 +27,7 @@
       "policy": "configs/unified_assistive_policy.json"
     },
     "remote_cpu_worker": {
-      "adapter": "aggie_analytics.assistive_plane.cpu_worker_backend.CpuWorkerIdentity",
+      "adapter": "aggie_analytics.assistive_plane.cpu_worker_backend.CpuWorkerClient",
       "authority": "DETERMINISTIC_BOUNDED_WORKER",
       "budget_ledger": null,
       "policy": "configs/unified_assistive_policy.json"

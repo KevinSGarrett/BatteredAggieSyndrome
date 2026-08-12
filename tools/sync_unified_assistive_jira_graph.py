@@ -155,15 +155,59 @@ def specs() -> list[dict[str, Any]]:
         "The bounded qualification is complete and verified, but both exact evaluated model identities failed predeclared evidence-quality gates; no local Qwen operational route is admitted."
     )
 
-    worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="READY")
+    worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="BLOCKED")
     worker["scope"] = "Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot."
     worker["acceptance_criteria"] = [
         "Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.",
         "Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.",
         "No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced.",
     ]
-    worker["blocked_reason"] = ""
-    worker["unblock_condition"] = ""
+    worker["blocked_reason"] = "NO_AUTHENTICATED_UNATTENDED_REMOTE_MANAGEMENT_CHANNEL; CPU_WORKER_SERVICE_NOT_LISTENING"
+    worker["unblock_condition"] = "Establish a recoverable authenticated setup path on exact peer comfy-v4-cpu-01, deploy the private service, then pass heartbeat, three replay tranches, exact-dedup pilot, restart recovery, and cleanup evidence."
+    worker["evidence_state"] = "PARTIAL"
+    worker["expected_outputs"] = [
+        "artifacts/assistive/cpu_worker_readiness.json",
+        "artifacts/jira_evidence/POST-SUBTASK-204.json",
+    ]
+    worker["evidence_manifest_path"] = "artifacts/jira_evidence/POST-SUBTASK-204.json"
+    worker["allowed_modification_paths"] = [
+        *worker["expected_outputs"],
+        "configs/cpu_worker_qualification.json",
+        "configs/unified_assistive_policy.json",
+        "configs/assistive_provider_registry.json",
+        "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
+        "tools/cpu_worker_service.py",
+        "tools/install_cpu_worker_service.ps1",
+        "tools/qualify_cpu_worker.py",
+        "tools/refresh_cpu_worker_readiness.py",
+        "tools/validate_cpu_worker_readiness.py",
+        "tests/test_cpu_worker_backend.py",
+        "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
+        "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
+    ]
+    worker["files_expected_to_be_touched"] = worker["allowed_modification_paths"]
+    worker["files_expected_to_be_read"] = [
+        "configs/unified_assistive_policy.json",
+        "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
+        "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
+    ]
+    worker["files_to_inspect"] = worker["files_expected_to_be_read"]
+    worker["in_scope"] = [
+        "Exact Tailscale peer and controller identity verification.",
+        "A fixed-function deterministic service with no arbitrary shell or path authority.",
+        "Three byte-replayable tranches, one exact-dedup pilot, restart recovery, provenance, and cleanup evidence.",
+    ]
+    worker["out_of_scope"] = [
+        "Public Funnel exposure, arbitrary remote code execution, or credential capture.",
+        "Canonical, PIT, label, protected-evaluation, model-promotion, forecast, publication, BAS, or Aggie Excess authority.",
+        "Claiming route readiness before live exact-peer replay and restart evidence pass.",
+    ]
+    worker["required_tests"] = [
+        {"classification": "EXISTING_AUTOMATED_TEST", "expectation": "Fixed task, identity, endpoint, authority, replay, and malformed-input gates pass.", "path": "tests/test_cpu_worker_backend.py", "validation_class": "SECURITY"},
+        {"classification": "END_TO_END", "expectation": "Three exact-peer tranches and one dedup pilot replay byte-identically after a service restart.", "path": "artifacts/jira_evidence/POST-SUBTASK-204.json", "validation_class": "END_TO_END"},
+        {"classification": "REPRODUCIBILITY", "expectation": "Peer, controller, code, config, request, result, runtime, and cleanup identities are preserved.", "path": "artifacts/assistive/cpu_worker_readiness.json", "validation_class": "REPRODUCIBILITY"},
+    ]
+    worker["end_to_end_validation"] = "Deploy only to the exact private Windows peer, verify heartbeat and controller allowlist, execute all fixed tasks twice, restart the service, replay, validate hashes, and clean reconstructible temporary output."
 
     assurance = common(load("POST-SUBTASK-168"), local_id="POST-SUBTASK-205", import_id=100515, objective="Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-202", "POST-SUBTASK-203", "POST-SUBTASK-204", "POST-SUBTASK-168", "POST-SUBTASK-199"], workflow="BLOCKED")
     assurance["scope"] = "Derive final utilization/completeness from real route evidence, not counters, after applicable providers qualify; preserve explicit budget/capability incompleteness."
@@ -172,7 +216,7 @@ def specs() -> list[dict[str, Any]]:
         "At least seven calendar days, three real scheduler cycles, one restart exercise, and one outage exercise reconcile with inventory/dispatch/usage/result/cleanup ledgers.",
         "All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill.",
     ]
-    assurance["blocked_reason"] = "LOCAL_QWEN_NOT_ADMITTED; CURSOR_BUDGET_BLOCKED; CPU_WORKER_AND_SUSTAINED_TIME_WINDOW_PENDING"
+    assurance["blocked_reason"] = "LOCAL_QWEN_NOT_ADMITTED; CURSOR_BUDGET_BLOCKED; CPU_WORKER_REMOTE_SETUP_AND_SUSTAINED_TIME_WINDOW_PENDING"
     assurance["unblock_condition"] = "A local route passes a newly versioned empirical qualification, POST-SUBTASK-204 qualifies, paid-route budget gates resolve where applicable, and sustained-operation evidence accrues."
     return [story, foundation, cursor, qwen, worker, assurance]
 

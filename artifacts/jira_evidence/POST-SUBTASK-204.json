@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "decision_unit": "POST-SUBTASK-204",
+  "jira_key": "BAT-563",
+  "evidence_state": "PARTIAL",
+  "workflow_state": "BLOCKED",
+  "issue_disposition": "BLOCKED_REMOTE_SETUP_INDEPENDENT_IMPLEMENTATION_CONTINUES",
+  "readiness_artifact": "artifacts/assistive/cpu_worker_readiness.json",
+  "external_readiness_sha256": "1a79f3e3d2776ae05a4b9f144f075b168cb6b8aa0b4f131f7b4658f283f41947",
+  "acceptance_evidence": [
+    {
+      "criterion": "Exact peer identity, OS, online status, and private-network addresses are verified.",
+      "result": "PASS",
+      "evidence": ["exact Tailscale peer unique", "Windows peer online", "worker 100.77.151.3", "controller 100.79.129.63"]
+    },
+    {
+      "criterion": "Least-privilege deterministic service and qualification harness are implemented and locally tested.",
+      "result": "IN_PROGRESS",
+      "evidence": ["three fixed task types", "no arbitrary path or shell task", "exact bind and controller allowlist", "content-addressed replay harness"]
+    },
+    {
+      "criterion": "Three remote deterministic tranches, one dedup pilot, and restart recovery pass.",
+      "result": "BLOCKED",
+      "evidence": ["port 8765 not listening", "SSH and WinRM unavailable", "RDP reachable but no saved credential target", "required computer-control safety documentation API absent"]
+    },
+    {
+      "criterion": "No public exposure or protected authority is introduced.",
+      "result": "PASS_TO_CURRENT_IMPLEMENTATION_SCOPE",
+      "evidence": ["no Funnel configured by project", "direct Tailscale-IP bind only", "controller-IP firewall design", "zero canonical writes", "zero protected decisions"]
+    }
+  ],
+  "completion_claim": "No completion is claimed. Local implementation progresses, but BAT-563 remains incomplete until exact-peer deployment, live replay, dedup, restart, cleanup, and final validation evidence pass.",
+  "protected_nonclaims": [
+    "No CPU-worker route readiness.",
+    "No production or scientific result."
+  ]
+}

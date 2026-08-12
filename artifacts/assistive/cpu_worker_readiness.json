@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "decision_unit": "POST-SUBTASK-204",
+  "jira_key": "BAT-563",
+  "evidence_state": "PARTIAL",
+  "readiness_disposition": "BLOCKED_REMOTE_SETUP_OR_SERVICE_REQUIRED",
+  "external_readiness_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\readiness\\1a\\1a79f3e3d2776ae05a4b9f144f075b168cb6b8aa0b4f131f7b4658f283f41947.json",
+  "external_readiness_sha256": "1a79f3e3d2776ae05a4b9f144f075b168cb6b8aa0b4f131f7b4658f283f41947",
+  "exact_identity": {
+    "worker_dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
+    "worker_tailscale_ipv4": "100.77.151.3",
+    "worker_os": "windows",
+    "worker_online": true,
+    "controller_dns_name": "kevin.tail9b05ab.ts.net",
+    "controller_tailscale_ipv4": "100.79.129.63"
+  },
+  "observed_access": {
+    "ssh_22": false,
+    "rdp_3389": true,
+    "winrm_http_5985": false,
+    "winrm_https_5986": false,
+    "project_worker_8765": false,
+    "dcom_cim_current_identity_authenticated": false,
+    "saved_rdp_credential_target_present": false
+  },
+  "implemented_candidate": {
+    "allowed_tasks": ["CANONICAL_JSON", "LINE_HASH_MANIFEST", "EXACT_TEXT_DEDUP"],
+    "arbitrary_path_or_shell_execution": false,
+    "exact_worker_bind": "100.77.151.3:8765",
+    "exact_controller_allow": "100.79.129.63",
+    "public_exposure": false,
+    "content_addressed_results": true,
+    "idempotent_request_identity": true,
+    "canonical_writes": 0,
+    "protected_decisions": 0,
+    "deployment_state": "NOT_DEPLOYED"
+  },
+  "required_remaining_evidence": [
+    "Authenticated recoverable remote setup on the exact peer",
+    "Worker-side software and storage lock",
+    "Private firewall rule and live heartbeat",
+    "Three live deterministic tranches with byte-identical replay",
+    "One live exact-dedup pilot",
+    "Service restart and recovery evidence",
+    "Worker-side cleanup and final route-readiness decision"
+  ],
+  "blockers": [
+    "NO_AUTHENTICATED_UNATTENDED_REMOTE_MANAGEMENT_CHANNEL",
+    "CPU_WORKER_SERVICE_NOT_LISTENING",
+    "COMPUTER_USE_SKILL_DOCUMENTATION_API_UNAVAILABLE"
+  ],
+  "independent_work_continuing": [
+    "Local worker protocol, installer, qualification harness, validators, and tests",
+    "Governed direct OpenAI candidate assistance",
+    "Deterministic project execution and historical acquisition"
+  ],
+  "protected_nonclaims": [
+    "The CPU worker is not operationally qualified.",
+    "No canonical, PIT, model-promotion, forecast, publication, BAS, or Aggie Excess authority is delegated.",
+    "No historical completeness, production readiness, champion, protected performance, or A&M specialization result is claimed."
+  ]
+}

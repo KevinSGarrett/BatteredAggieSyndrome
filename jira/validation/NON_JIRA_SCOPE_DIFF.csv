@@ -1,5 +1,6 @@
 change_type,repo_relative_path
 ADDED,.github/dependabot.yml
+ADDED,artifacts/assistive/cpu_worker_readiness.json
 ADDED,artifacts/assistive/local_qwen_qualification.json
 ADDED,artifacts/benchmarks/ac038_gate_decision.json
 ADDED,artifacts/benchmarks/ac038_input_manifest.json
@@ -124,6 +125,7 @@ ADDED,artifacts/jira_evidence/POST-SUBTASK-197.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-198.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-201.json
 ADDED,artifacts/jira_evidence/POST-SUBTASK-203.json
+ADDED,artifacts/jira_evidence/POST-SUBTASK-204.json
 ADDED,artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 ADDED,artifacts/open_source/integration_negative_findings.json
 ADDED,artifacts/open_source/integration_validation_manifest.json
@@ -187,6 +189,7 @@ ADDED,artifacts/source_governance/tier1_rights_decisions.csv
 ADDED,configs/action_derived_play_summary_contract.json
 ADDED,configs/assistive_provider_registry.json
 ADDED,configs/cfbd_post2022_roster_acquisition.json
+ADDED,configs/cpu_worker_qualification.json
 ADDED,configs/elo_challenger_research_contract.json
 ADDED,configs/elo_offense_defense_challenger_contract.json
 ADDED,configs/elo_uncertainty_challenger_contract.json
@@ -473,6 +476,7 @@ ADDED,tests/test_action_play_summary.py
 ADDED,tests/test_autonomous_control_tools.py
 ADDED,tests/test_cfbd_historical_acquisition.py
 ADDED,tests/test_core_registry.py
+ADDED,tests/test_cpu_worker_backend.py
 ADDED,tests/test_evaluation_exposure.py
 ADDED,tests/test_expanded_event_chronology.py
 ADDED,tests/test_external_storage_policy.py
@@ -576,9 +580,11 @@ ADDED,tools/build_tamu_depth_chart_noncoverage_review.py
 ADDED,tools/build_versioned_play_drive_gap.py
 ADDED,tools/build_wmt_provider_timestamp_pit.py
 ADDED,tools/build_wmt_tamu_specialization_feature_pit.py
+ADDED,tools/cpu_worker_service.py
 ADDED,tools/evaluate_retraining_admission.py
 ADDED,tools/generate_instruction_manifest.py
 ADDED,tools/hydrate_jira_mirror.py
+ADDED,tools/install_cpu_worker_service.ps1
 ADDED,tools/materialize_unified_assistive_inventory.py
 ADDED,tools/openai_assist.py
 ADDED,tools/openrouter_assist.py
@@ -590,6 +596,8 @@ ADDED,tools/prepare_openai_gamebook_pilot.py
 ADDED,tools/prepare_openai_gamebook_schema_mapping.py
 ADDED,tools/prepare_openai_quarantine_pilot.py
 ADDED,tools/prepare_tamu_availability_source_sample.py
+ADDED,tools/qualify_cpu_worker.py
+ADDED,tools/refresh_cpu_worker_readiness.py
 ADDED,tools/refresh_cursor_catalog.py
 ADDED,tools/refresh_local_assistive_runtime.py
 ADDED,tools/refresh_openai_assist_lock.py
@@ -618,6 +626,7 @@ ADDED,tools/sync_openrouter_jira_graph.py
 ADDED,tools/sync_unified_assistive_jira_graph.py
 ADDED,tools/validate_action_derived_play_summary.py
 ADDED,tools/validate_autonomous_controls.py
+ADDED,tools/validate_cpu_worker_readiness.py
 ADDED,tools/validate_expanded_event_chronology_preliminary.py
 ADDED,tools/validate_external_storage_policy.py
 ADDED,tools/validate_historical_advanced_game_snapshot.py

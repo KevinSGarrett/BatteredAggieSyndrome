@@ -1,10 +1,8 @@
 {
   "files_to_inspect": [
-    "governance/OPENAI_ASSISTIVE_PLANE.md",
-    "configs/openai_assist_policy.json",
-    "configs/openai_task_registry.json",
-    "schemas/openai/assistive_candidate.schema.json",
-    "docs/final/CODEX_HANDOFF.md"
+    "configs/unified_assistive_policy.json",
+    "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
+    "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
   ],
   "governance_traceability_gate": "POST-SUBTASK-204",
   "issue_id": "POST-SUBTASK-204",

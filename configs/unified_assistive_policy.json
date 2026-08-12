@@ -44,6 +44,11 @@
   "remote_cpu_worker": {
     "allowed_dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
     "expected_os": "windows",
+    "allowed_tailscale_ipv4": "100.77.151.3",
+    "allowed_controller_tailscale_ipv4": "100.79.129.63",
+    "allowed_port": 8765,
+    "allowed_tasks": ["CANONICAL_JSON", "LINE_HASH_MANIFEST", "EXACT_TEXT_DEDUP"],
+    "arbitrary_path_or_shell_execution": false,
     "public_exposure": false,
     "required_deterministic_tranches": 3,
     "required_embedding_dedup_or_small_model_pilots": 1

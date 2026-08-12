@@ -1,0 +1,7 @@
+{
+  "schema_version": "negative-probe-v1",
+  "jira_key": "BAT-476",
+  "probe": "SKIP_CI_CANNOT_SATISFY_REQUIRED_CHECKS",
+  "must_never_merge": true,
+  "authoritative_evidence": false
+}

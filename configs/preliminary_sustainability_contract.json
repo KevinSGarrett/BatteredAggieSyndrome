@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT405-PRELIMINARY-SUSTAINABILITY-VOLATILITY-V1",
+  "decision_unit": "POST-SUBTASK-055",
+  "related_design_units": ["TASK-075", "TASK-107"],
+  "parent_unit": "POST-STORY-019",
+  "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
+  "source_contract": {
+    "dataset_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "replay_manifest_sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888",
+    "accepted_outcomes_sha256": "7fdea2ced7508e7f3b78d397bf8984325dd2b7095b05dc486335ee9c432ccb64",
+    "target_cutoffs_sha256": "a32b733d9f2278639fea0d4dedc3e9f33a45004f042f869cff148a4bf0faf942",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "recent_window_seasons": [2020, 2021, 2022],
+    "target_seasons": [2023, 2024, 2025],
+    "historical_known_at_basis": "RETROSPECTIVE_PUBLIC_CAPTURE_TIMESTAMP; EVENT_CHRONOLOGY_ELIGIBLE_BUT_NOT_ORIGINAL_HISTORICAL_PIT",
+    "source_grain": "CANONICAL_COMPLETED_GAME",
+    "target_grain": "TARGET_GAME_TEAM"
+  },
+  "feature_contract": {
+    "grain": "TARGET_GAME_TEAM",
+    "profile_window": "STATIC_PRETARGET_HISTORY_THROUGH_2022; RECENT_WINDOW_IS_2020_2022_AND_EXPLICITLY_INCLUDES_THE_2020_PANDEMIC_REGIME",
+    "close_game_definition": "ABSOLUTE_FINAL_MARGIN_LESS_THAN_OR_EQUAL_TO_7",
+    "tail_definition": "ABSOLUTE_FINAL_MARGIN_GREATER_THAN_OR_EQUAL_TO_17; SIGN_PRESERVES_UPSIDE_OR_DOWNSIDE",
+    "score_share_definition": "TOTAL_POINTS_FOR_DIVIDED_BY_TOTAL_POINTS_FOR_PLUS_TOTAL_POINTS_AGAINST",
+    "features": {
+      "all_source_game_count": "count of admitted 2010-2022 completed games for the team",
+      "all_source_season_count": "count of distinct admitted source seasons for the team",
+      "all_win_share": "wins plus one-half ties divided by admitted games",
+      "all_score_share": "aggregate points for divided by aggregate points for plus points against",
+      "all_win_share_minus_score_share": "descriptive result-versus-scoring-share residual; not calibrated luck or causal skill",
+      "all_close_game_share": "games with absolute final margin at most seven divided by admitted games",
+      "all_close_win_share": "wins plus one-half ties among close games; null when no close-game evidence exists",
+      "all_close_win_share_minus_overall": "close-game win share minus all-game win share; null without close-game evidence",
+      "all_margin_mean": "mean team-oriented final margin",
+      "all_margin_stddev": "population standard deviation of team-oriented final margins",
+      "all_mean_absolute_margin": "mean absolute team-oriented final margin",
+      "all_downside_tail_rate": "losses by at least seventeen divided by admitted games",
+      "all_upside_tail_rate": "wins by at least seventeen divided by admitted games",
+      "all_tail_imbalance": "upside-tail rate minus downside-tail rate",
+      "recent_source_game_count": "count of admitted 2020-2022 completed games for the team",
+      "recent_source_season_count": "count of distinct admitted 2020-2022 source seasons for the team",
+      "recent_win_share_minus_score_share": "2020-2022 descriptive result-versus-scoring-share residual",
+      "recent_close_game_share": "2020-2022 close-game share",
+      "recent_close_win_share_minus_overall": "2020-2022 close-game win share minus recent overall win share; null without close games",
+      "recent_margin_stddev": "2020-2022 population standard deviation of team-oriented final margins",
+      "recent_downside_tail_rate": "2020-2022 loss-by-seventeen-or-more rate",
+      "recent_upside_tail_rate": "2020-2022 win-by-seventeen-or-more rate",
+      "recent_tail_imbalance": "2020-2022 upside-tail rate minus downside-tail rate",
+      "pandemic_2020_game_share": "2020 games divided by recent-window games; exposes rather than hides regime composition"
+    },
+    "missingness": "NULL_WHEN_TEAM_OR_CLOSE_GAME_EVIDENCE_IS_ABSENT; NEVER ZERO_FILL MISSING EVIDENCE",
+    "structural_zero_policy": "ZERO IS VALID ONLY FOR AN OBSERVED COUNT OR RATE WHOSE DENOMINATOR IS POSITIVE",
+    "unsupported_fields": {
+      "turnover_luck": "turnover opportunities and recoveries are not present in this outcome-only source",
+      "fumble_recovery_residual": "fumble events are absent",
+      "field_position_luck": "drive-start field position is absent",
+      "injury_adjusted_sustainability": "timestamped availability evidence is absent",
+      "causal_clutch_or_coaching_effect": "final-score residuals cannot identify causal clutch or coaching effects",
+      "calibrated_future_regression_probability": "this unit materializes descriptive candidates and does not calibrate a future-regression probability"
+    },
+    "target_or_future_outcome_fields": "PROHIBITED"
+  },
+  "eligibility": {
+    "require_pinned_source_hashes": true,
+    "require_unique_canonical_source_games": true,
+    "require_source_known_at_not_after_target_cutoff": true,
+    "require_source_season_before_target_season": true,
+    "target_game_rows_allowed_in_source": false,
+    "historical_original_pit_eligibility": false,
+    "development_feature_admission": true
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "preliminary_unprotected_training_candidate": true,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false,
+    "bas_or_aggie_excess_authority": false
+  },
+  "acceptance": {
+    "required_target_game_team_multiplier": 2,
+    "duplicate_source_games_allowed": 0,
+    "target_game_overlap_allowed": 0,
+    "target_or_future_outcome_columns_allowed": 0,
+    "byte_identical_rebuild_required": true,
+    "rate_bounds": [0.0, 1.0],
+    "residual_bounds": [-1.0, 1.0],
+    "partial_team_and_season_coverage_preserved": true
+  },
+  "external_storage": {
+    "profiles": "pit_state/preliminary_sustainability/sha256/<dataset_identity>/team_sustainability_profiles.parquet",
+    "features": "features/preliminary_sustainability/sha256/<dataset_identity>/target_game_team_sustainability_features.parquet",
+    "manifest": "manifests/preliminary_sustainability/sha256/<dataset_identity>/run_manifest.json",
+    "validation": "validation/POST-SUBTASK-055/sustainability_candidate_validation.json",
+    "bulk_payloads_in_git": false
+  },
+  "negative_findings": [
+    "The source is complete at its admitted game grain but 2010 and lower-information team-seasons are sparse; counts and cold starts remain explicit.",
+    "The recent window includes the unusual 2020 pandemic season, so pandemic composition is exposed as a separate feature rather than silently normalized away.",
+    "Score-share and close-game residuals are descriptive candidate components, not calibrated luck, clutch, coaching, or causal effects.",
+    "Turnover, fumble, field-position, injury, and snap evidence is absent and is not inferred from final scores.",
+    "The source captures were known in May 2023 rather than at the original historical game times, so these artifacts have development-only retrospective authority.",
+    "This unit does not authorize protected evaluation, production promotion, A&M adjustment, BAS, Aggie Excess, or any scientific result."
+  ]
+}

@@ -41,14 +41,14 @@ Execute the atomic 3 of 3 step in Story POST-STORY-042 (CI, dependency, secret, 
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `IN_PROGRESS`
+- Ready: `false`
 - Priority: `P2`
 - Critical path: `false`
 - Execution lane: `PROTECTED_GATE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `PRODUCTION_READY`
-- Evidence state: `PLANNED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-132`
 
 ## Read first

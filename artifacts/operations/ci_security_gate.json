@@ -1,0 +1,276 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "aggie.ci_security_release_gate",
+  "created_at_utc": "2026-08-12T22:20:00Z",
+  "updated_at_utc": "2026-08-12T22:20:00Z",
+  "issue": {
+    "jira_key": "BAT-476",
+    "local_id": "POST-SUBTASK-126",
+    "objective": "Validate protected-branch/release blocking and auditable exception behavior"
+  },
+  "gate_disposition": "PROTECTED_INTEGRATION_PENDING",
+  "issue_completion_allowed": false,
+  "eligibility": "CANDIDATE_CONTROL_GATE_ONLY",
+  "source_identity": {
+    "git_base_commit": "e8b626a553c96dda2673679d55c525b065077c04",
+    "git_base_tree": "59c532aaaea68489373e5111f933cf2fcea6f859",
+    "branch": "codex/BAT-476-security-gate",
+    "source_manifest": "jira/sources/issue_source_manifests/POST-SUBTASK-126.json",
+    "source_ref_count": 14,
+    "source_document_hashes_match": true,
+    "historical_hydration_pair": "FORMALLY_SUPERSEDED_FOR_POST_W25_EXECUTION_MISSING_ARTIFACT_NOT_RECONSTRUCTED"
+  },
+  "prerequisite_evidence": [
+    {
+      "local_id": "POST-SUBTASK-002",
+      "jira_key": "BAT-352",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-002.json",
+      "sha256": "d81ce5af8f2e704e0b183558f76ff8ef384059429fc351fde1928330093e7e70",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "accepted": true
+    },
+    {
+      "local_id": "POST-SUBTASK-124",
+      "jira_key": "BAT-474",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-124.json",
+      "sha256": "286689e6f5e292a493be420834b07d80ad8d828e804082d773957a11f3d7911d",
+      "primary_output": "artifacts/operations/ci_pipeline_validation.json",
+      "primary_output_sha256": "93b5f86257ea50e926d1158bc4e51bbbba975145a4ece902bece962527917fa3",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "accepted": true
+    },
+    {
+      "local_id": "POST-SUBTASK-125",
+      "jira_key": "BAT-475",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-125.json",
+      "sha256": "b04eea6cadf5eaf0f645fa2fc9824daa026d56325c84e32e11f95c248fc45ccb",
+      "primary_output": "artifacts/operations/security_supply_chain_report.json",
+      "primary_output_sha256": "1ba41151d46e61b99c7af1b640cf07642e0582980469cbcca904b4ad1653e9c9",
+      "workflow_state": "DONE",
+      "evidence_state": "VERIFIED",
+      "accepted": true
+    }
+  ],
+  "code_config_tool_runtime_identity": {
+    "repository_ci_sha256": "2807ba9949be2d625019b0fffdb80e2d1ac93d6f3225f1e521a95a9c9302f7f7",
+    "security_workflow_sha256": "1f5d272d34dde3d68b86b830c1b4f81fe157df89faf9147e72d0897c743c1958",
+    "product_lock_sha256": "488ca7da0d545a774147155eeaeb5372d71728fd9ed41507fd2fa2b1440c8c05",
+    "protected_judging_seal_sha256": "7bf245d93d1d0fc6b87f55dddcacec76ced222279ffa09b7b1ab08ba36667356",
+    "pit_fixture_sha256": "ad4e4300988c6ffdfd54112513a862a334152025f8ef0c22316951ac49fcb140",
+    "private_research_policy_migration_sha256": "7e7d54f6b84f21ef61bbbec857ae57c6745282a1e0b639297cce391df904e435",
+    "tier1_source_decisions_sha256": "20a3051b5836538fafea6455c16abe372a3fd1e9175a7cd882e1de7cd6541a83",
+    "supplemental_source_decisions_sha256": "873f493fe236074a7c97ecffa2d84fc4057419feeb0e12bc5dcf96f100014175",
+    "local_python": "3.11.9",
+    "protected_ci_python": "3.12",
+    "external_services_required_for_local_validation": []
+  },
+  "live_github_control": {
+    "snapshot_path": "EXTERNAL_DATA_ROOT/runtime/BAT-476/live-github-control-snapshot.json",
+    "snapshot_sha256": "e3738b66572969bd3de6a8189bbeffc60e8e97c2847e9a97a8e324c09eb41851",
+    "checked_at_utc": "2026-08-12T22:11:56.9766325Z",
+    "strict_up_to_date_required": true,
+    "admins_enforced": true,
+    "conversation_resolution_required": true,
+    "linear_history_required": true,
+    "force_push_allowed": false,
+    "branch_deletion_allowed": false,
+    "required_check_count": 7,
+    "required_checks_provider_app_id": 15368,
+    "required_checks": [
+      "core-validation (ubuntu-latest, 3.12)",
+      "core-validation (windows-latest, 3.12)",
+      "product-adapter (ubuntu-latest)",
+      "product-adapter (windows-latest)",
+      "security-policy",
+      "codeql",
+      "dependency-review"
+    ],
+    "bypass_allowances_configured": false,
+    "open_secret_scanning_alerts": 0,
+    "open_code_scanning_alerts": 0,
+    "open_dependabot_alerts": 0,
+    "perpetual_zero_alert_claimed": false
+  },
+  "negative_release_probes": [
+    {
+      "id": "SKIP_CI_REQUIRED_CHECK_PROBE",
+      "pull_request": 255,
+      "head_sha": "1a1171b25ab59e7ad8ab0c2a93d66f3b03e34739",
+      "external_evidence_sha256": "24e9387a70d39dd551f1dcf3ad46a1181c0e2c7237dede2430fdb155fc6c8fdb",
+      "check_count": 0,
+      "protected_merge_state": "BLOCKED",
+      "closed_unmerged": true,
+      "disposition": "PASS_NEGATIVE_PROBE"
+    },
+    {
+      "id": "RETRY_INTEGRITY_FAILURE_PROBE",
+      "pull_request": 256,
+      "head_sha": "864af25ff9bb885a598a4f34c6ab595d3da928bf",
+      "repository_ci_run_id": 31646084256,
+      "attempt_1": "FAILURE",
+      "attempt_2": "FAILURE",
+      "attempt_2_failed_required_job_ids": [94280167194, 94280167245, 94280167058],
+      "external_evidence_sha256": "bc8fefde5f7cfd2ba8d21da3a94974ad457286bc8f7fdca4844d979603d0ba50",
+      "protected_merge_state": "BLOCKED",
+      "closed_unmerged": true,
+      "disposition": "PASS_NEGATIVE_PROBE"
+    },
+    {
+      "id": "PROTECTED_W17_MUTATION_PROBE",
+      "scope": "EXTERNAL_COPY_ONLY",
+      "changed_copy": "configs/validation_science_registry.json",
+      "verifier_exit_code": 1,
+      "verifier_finding": "changed:configs/validation_science_registry.json",
+      "repository_protected_file_modified": false,
+      "disposition": "PASS_NEGATIVE_PROBE"
+    }
+  ],
+  "exception_policy": {
+    "mode": "DENY_BY_DEFAULT_NO_BYPASS_ACTORS",
+    "active_manual_exceptions": 0,
+    "accepted_risks": 0,
+    "attribution_and_expiry_required_if_future_exception_proposed": true,
+    "protected_science_or_pit_exception_allowed": false,
+    "silent_exception_allowed": false,
+    "current_time_bounded_exception_applicable": false
+  },
+  "security_and_publication_boundary": {
+    "secret_scanning_enabled": true,
+    "push_protection_enabled": true,
+    "credential_values_emitted": false,
+    "restricted_raw_payloads_in_repository": false,
+    "rights_metadata_nonblocking_for_private_research": true,
+    "private_research_acquisition_and_training_allowed": true,
+    "raw_third_party_publication_allowed": false,
+    "future_distribution_review_required_only_if_distribution_is_proposed": true,
+    "source_rights_approval_claimed": false
+  },
+  "pit_and_scientific_boundary": {
+    "applicable_to_release_gate": true,
+    "fixture_case_count": 16,
+    "fixture_cases_passed": 16,
+    "future_same_game_postgame_and_realized_weather_rejected": true,
+    "protected_judging_seal_current_copy": "PASS",
+    "protected_results_inspected": false,
+    "dataset_split_model_or_metric_produced": false,
+    "data_identity": "NOT_APPLICABLE_NO_DATA_PROCESSING",
+    "split_identity": "NOT_APPLICABLE_NO_MODEL_EVALUATION",
+    "cutoff_identity": "PINNED_SYNTHETIC_FIXTURES_ONLY",
+    "fabricated_metrics": false
+  },
+  "local_validation": [
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q",
+      "exit_code": 0,
+      "result": "PASS_625_TESTS_4_SKIPPED_104_SUBTESTS"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q tests/test_w23_operations.py tests/test_temporal_governance.py tests/test_product_supply_chain.py",
+      "exit_code": 0,
+      "result": "PASS_24_TESTS_1_SKIPPED_16_SUBTESTS"
+    },
+    {
+      "command": "python -B tools/validate_w25_final.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "PYTHONPATH=src python -B tools/verify_judging_seal.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B tools/validate_repository.py --repo-root . --strict",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B tools/validate_w23_operations.py --repo-root .",
+      "exit_code": 2,
+      "result": "EXPECTED_IMPLEMENTATION_PASS_RELEASE_BLOCKED_AC038_THR011_THR012"
+    },
+    {
+      "command": "python -B jira/tools/validate_second_pass.py",
+      "exit_code": 0,
+      "result": "PASS_515_ISSUES_2121_SOURCE_ANCHORS"
+    },
+    {
+      "command": "python -B jira/tools/validate_jira_manifest.py",
+      "exit_code": 0,
+      "result": "PASS_1941_FILES"
+    },
+    {
+      "command": "python -B tools/validate_dependency_policy.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS_2_DIRECT_14_HASH_LOCKED"
+    },
+    {
+      "command": "python -B -m unittest tests.test_w23_operations tests.test_temporal_governance tests.test_product_supply_chain -v",
+      "exit_code": 1,
+      "result": "NEGATIVE_RESULT_PRESERVED_WINDOWS_DOTTED_IMPORT_SHADOWING_CANONICAL_PYTEST_PATH_PASSED"
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "CI runs all required suites from a clean state, preserves failure logs/evidence, and cannot skip gates through naming/retry while keeping the local workflow runnable without Kubernetes/Kafka/Redis/cloud dependency.",
+      "disposition": "BLOCKED",
+      "observable_result": "Local clean validation and both live negative probes pass, but this candidate commit has not yet passed its own seven protected PR contexts.",
+      "unblock_condition": "The protected implementation PR and exact merge-commit replay must pass all seven required contexts."
+    },
+    {
+      "criterion": "Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.",
+      "disposition": "PASS",
+      "observable_result": "Verified BAT-475 input, current workflow/lock hashes, zero time-bounded open alerts, secret scanning/push protection, repository strict scan, and publication boundary are recorded without values or restricted payloads."
+    },
+    {
+      "criterion": "Any release-blocking test, secret, integrity, rights, or protected-control failure stops release; manual exceptions are explicit, attributable, time-bounded, and cannot weaken science/PIT rules.",
+      "disposition": "PASS",
+      "observable_result": "Skip syntax and two integrity attempts remained blocked; W17 copy mutation failed; no bypass actor or active exception exists; private-research rights metadata does not block acquisition but raw publication remains disabled."
+    },
+    {
+      "criterion": "All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.",
+      "disposition": "PASS",
+      "observable_result": "All three verified prerequisite manifests and outputs are hash-bound; AC-038, THR-011/012, historical population, and protected-scientific readiness remain explicit and no downstream unit is unlocked before protected integration."
+    }
+  ],
+  "negative_findings": [
+    {
+      "id": "CURRENT_PR_PROTECTED_INTEGRATION_PENDING",
+      "waived": false,
+      "resolution": "REQUIRES_PROTECTED_PR_AND_EXACT_MAIN_REPLAY"
+    },
+    {
+      "id": "AC038_TARGET_HARDWARE_UNRESOLVED",
+      "waived": false,
+      "resolution": "RETAINED_PROGRAM_RELEASE_BLOCKER"
+    },
+    {
+      "id": "HISTORICAL_POPULATION_AND_PROTECTED_MODEL_READINESS_UNRESOLVED",
+      "waived": false,
+      "resolution": "RETAINED_INDEPENDENT_PROGRAM_BLOCKERS"
+    },
+    {
+      "id": "WINDOWS_DOTTED_UNITTEST_IMPORT_SHADOWING",
+      "waived": false,
+      "resolution": "PRESERVED_CANONICAL_PYTEST_AND_DISCOVERY_INVOCATIONS_PASS"
+    }
+  ],
+  "downstream_evaluation": {
+    "story_consumer": "POST-STORY-042",
+    "current_decision": "DEFER_PENDING_PROTECTED_INTEGRATION",
+    "post_subtask_127": "REMAINS_BLOCKED_PENDING_POST_SUBTASK_126_VERIFIED_COMPLETION",
+    "post_subtask_128": "REMAINS_BLOCKED",
+    "post_subtask_129": "REMAINS_BLOCKED",
+    "silent_unlock_allowed": false
+  },
+  "integration": {
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "required_contexts": "PENDING",
+    "exact_main_replay": "PENDING"
+  },
+  "completion_claim": "BAT-476 has a locally validated candidate gate with live negative bypass evidence. Completion, Story approval, and downstream unlock remain prohibited until protected integration and exact-main replay pass."
+}

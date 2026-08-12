@@ -81,7 +81,7 @@
   "end_to_end_validation": "A clean change cannot produce a release package unless code, Jira, security, integrity, and protected-governance gates all pass. The gate decision must explicitly reevaluate downstream issues: POST-STORY-043, POST-SUBTASK-127, POST-SUBTASK-128, POST-SUBTASK-129.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-126.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -150,11 +150,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24616",
-    "jira_updated_at": "2026-08-09T23:24:12.452-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
+    "jira_updated_at": "2026-08-12T17:12:34.601-0500",
+    "last_synced_at": "2026-08-12T22:12:34.601000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -212,7 +212,7 @@
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md",
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -353,7 +353,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-042: CI, dependency, secret, license, and supply-chain controls.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-126.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

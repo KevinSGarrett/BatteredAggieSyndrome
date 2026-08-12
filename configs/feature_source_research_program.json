@@ -77,6 +77,10 @@
     "returning_production_research_manifest_sha256": "1a148f0f56f9a59d52cd5ad90f70711570c7e804b4e57e98072130973434bb06",
     "returning_production_research_validation_sha256": "25ecef4cbe1cbf5b02c2fa25db1f44997e5ed7065e7acd43827ad7862688ad70",
     "returning_production_research_disposition": "PASS_RETROSPECTIVE_FORMULA_RESEARCH_ONLY_TARGET_GAME_AND_SHARED_SNAP_AUTHORITY_CLOSED",
+    "noaa_isd_station_matching_identity": "a23eee749d62fbd9ab68571bfdc456bc64f928f93446a2b71e21874f7842055c",
+    "noaa_isd_station_matching_manifest_sha256": "02dac33aaf47a38a60321c55c4ce3b29fb80f278a76a8ad30873aa8eb309fd0b",
+    "noaa_isd_station_matching_validation_sha256": "f4e803ff2c5d766e13f53f136e63220dafbf104f9336d0f5e5aeeaf5b8052987",
+    "noaa_isd_station_matching_disposition": "PASS_REVIEW_ONLY_STATION_CANDIDATES_OBSERVED_AND_ISSUED_WEATHER_AUTHORITY_CLOSED",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
   },

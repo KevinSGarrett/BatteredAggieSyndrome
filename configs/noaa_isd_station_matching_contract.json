@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-067",
+  "jira_key": "BAT-417",
+  "classification": "OBSERVED_WEATHER_STATION_MATCHING_CANDIDATE_ONLY",
+  "source": {
+    "source_id": "SRC-029",
+    "dataset": "noaa_isd_station_history",
+    "source_uri": "https://www.ncei.noaa.gov/pub/data/noaa/isd-history.csv",
+    "provider": "NOAA/NCEI",
+    "extension": ".csv"
+  },
+  "inputs": {
+    "historical_venue_manifest": {
+      "relative_path": "manifests/historical_known_at/sha256/b84ef29b9d4b548d82b3797a467982010b591b127fefadeaa2567584290c554b/historical_venue_assignment_pit_manifest.json",
+      "sha256": "956791484fc5c3ccfbdf079b1b175a22b75e0ba50278770202dd9a3e27912878",
+      "dataset_identity": "b84ef29b9d4b548d82b3797a467982010b591b127fefadeaa2567584290c554b"
+    },
+    "historical_venue_payload": {
+      "relative_path": "pit_state/historical_known_at/sha256/b84ef29b9d4b548d82b3797a467982010b591b127fefadeaa2567584290c554b/historical_venue_assignments.parquet",
+      "sha256": "ae99e74763adea24f0cbb80ace2434e81cffc38e90e055c3d7deee901952d721"
+    },
+    "current_coordinate_manifest": {
+      "relative_path": "manifests/historical_nominal_lead/sha256/e307d2c36e970a5faea1fc98dd254a816ae327d994929f735de906a93818e90e/historical_weather_previous_runs_snapshot_manifest.json",
+      "sha256": "e2456ff5d72498d66d60db4f501e4dec0181cd6591ebac940c002c0c78d22b59",
+      "dataset_identity": "e307d2c36e970a5faea1fc98dd254a816ae327d994929f735de906a93818e90e"
+    },
+    "current_coordinate_payload": {
+      "relative_path": "quarantine/historical_nominal_lead/sha256/e307d2c36e970a5faea1fc98dd254a816ae327d994929f735de906a93818e90e/candidate_weather_previous_run_cells.parquet",
+      "sha256": "da534def725da009b2e73605221aebd7ea4a1270ceaafa28ed7b8d83711fe1cd"
+    }
+  },
+  "population": {
+    "season_min": 2010,
+    "season_max": 2025,
+    "top_k_station_candidates": 5,
+    "station_period_overlap_required": true
+  },
+  "matching_contract": {
+    "distance_formula": "HAVERSINE_KM_WGS84_RADIUS_6371_0088",
+    "ranking": ["distance_km_ascending", "station_id_ascending"],
+    "automatic_distance_acceptance_threshold": null,
+    "automatic_canonical_station_promotion": false,
+    "name_only_promotion": false,
+    "coordinate_authority": "CURRENT_2026_CATALOG_CANDIDATE_EFFECTIVE_TIME_UNKNOWN",
+    "missing_coordinate_semantics": "UNKNOWN_NO_COORDINATE_EVIDENCE_NOT_ZERO",
+    "missing_station_semantics": "UNKNOWN_NO_PERIOD_OVERLAPPING_STATION_NOT_ZERO"
+  },
+  "authority": {
+    "station_candidate_materialization": true,
+    "observed_weather_acquisition": false,
+    "issued_forecast_substitution": false,
+    "historical_pit_admission": false,
+    "canonical_weather_mutation": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "artifact_roots": {
+    "features": "features/weather_station_matching/sha256",
+    "manifests": "manifests/weather_station_matching/sha256",
+    "validation": "validation/POST-SUBTASK-067/noaa_isd_station_matching"
+  },
+  "acceptance": {
+    "pinned_inputs_match": true,
+    "station_catalog_immutable_capture": true,
+    "venue_season_natural_key_unique": true,
+    "candidate_natural_key_unique": true,
+    "top_k_complete_where_station_candidates_exist": true,
+    "distance_nonnegative": true,
+    "station_period_covers_season": true,
+    "missing_venues_preserved": true,
+    "deterministic_rebuild": true
+  },
+  "scientific_nonclaims": [
+    "The nearest station is not automatically the correct stadium observation station.",
+    "Current venue coordinates are not backcast as historical PIT truth.",
+    "Observed conditions are not issued forecasts and cannot substitute for forecast-time evidence.",
+    "This artifact does not establish a weather feature, historical completeness, protected eligibility, production readiness, protected performance, A&M lift, BAS, or Aggie Excess."
+  ]
+}

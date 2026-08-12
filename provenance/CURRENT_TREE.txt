@@ -236,6 +236,7 @@ configs/judging_rule_seal.json
 configs/known_at_registry.json
 configs/model_architecture_registry.json
 configs/ncaa_official_gamebook_contract.json
+configs/noaa_isd_game_observation_shadow_contract.json
 configs/noaa_isd_observed_coverage_pilot_contract.json
 configs/noaa_isd_station_matching_contract.json
 configs/open_source_integration_registry.json
@@ -2969,6 +2970,7 @@ src/aggie_analytics/experimentation/worktree.py
 src/aggie_analytics/features/__init__.py
 src/aggie_analytics/features/factory.py
 src/aggie_analytics/features/lifecycle.py
+src/aggie_analytics/features/observed_weather_shadow.py
 src/aggie_analytics/features/possession_pace.py
 src/aggie_analytics/features/registry.py
 src/aggie_analytics/features/returning_production.py
@@ -3120,6 +3122,7 @@ tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
 tests/test_ncaa_official_gamebooks.py
+tests/test_noaa_isd_game_observation_shadow.py
 tests/test_noaa_isd_observed_coverage_pilot.py
 tests/test_noaa_isd_station_matching.py
 tests/test_open_source_adapters.py
@@ -3192,6 +3195,7 @@ tools/build_historical_team_membership_pit.py
 tools/build_historical_venue_assignment_pit.py
 tools/build_historical_weather_previous_runs_snapshot.py
 tools/build_jira_control_plane.py
+tools/build_noaa_isd_game_observation_shadow.py
 tools/build_noaa_isd_station_matching.py
 tools/build_post2022_roster_candidate.py
 tools/build_preliminary_possession_pace.py
@@ -3286,6 +3290,7 @@ tools/validate_jira_mirror.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_ncaa_official_gamebooks.py
+tools/validate_noaa_isd_game_observation_shadow.py
 tools/validate_noaa_isd_observed_coverage_pilot.py
 tools/validate_noaa_isd_station_matching.py
 tools/validate_openai_assist.py

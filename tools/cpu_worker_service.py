@@ -68,6 +68,66 @@ class WorkerRuntime:
         envelope_sha256 = _digest_component(envelope_sha256)
         return self.storage_root / "runtime" / "replays" / envelope_sha256[:2] / f"{envelope_sha256}.json"
 
+    def recover_interrupted_jobs(self) -> int:
+        leases_root = self.storage_root / "runtime" / "leases"
+        scratch_root = self.storage_root / "runtime" / "scratch"
+        recovered = 0
+        lease_digests: set[str] = set()
+        if leases_root.exists():
+            for lease in sorted(leases_root.glob("*.json")):
+                envelope_sha256 = lease.stem
+                if SHA256_HEX.fullmatch(envelope_sha256) is None:
+                    continue
+                lease_digests.add(envelope_sha256)
+                job_id: object = None
+                try:
+                    lease_payload = json.loads(lease.read_text(encoding="utf-8"))
+                    job_id = lease_payload.get("job_id")
+                except (OSError, UnicodeDecodeError, json.JSONDecodeError, AttributeError):
+                    job_id = None
+                scratch = scratch_root / envelope_sha256
+                removed_bytes = 0
+                if scratch.is_dir():
+                    removed_bytes = sum(path.stat().st_size for path in scratch.rglob("*") if path.is_file())
+                    shutil.rmtree(scratch)
+                elif scratch.exists():
+                    removed_bytes = scratch.stat().st_size
+                    scratch.unlink()
+                lease.unlink()
+                _content_addressed_event(self.storage_root, "recovery", {
+                    "event": "INTERRUPTED_JOB_RECOVERY",
+                    "job_id": job_id,
+                    "envelope_sha256": envelope_sha256,
+                    "lease_removed": True,
+                    "scratch_removed": True,
+                    "bytes_removed": removed_bytes,
+                })
+                recovered += 1
+        if scratch_root.exists():
+            for scratch in sorted(scratch_root.iterdir()):
+                envelope_sha256 = scratch.name
+                if SHA256_HEX.fullmatch(envelope_sha256) is None or envelope_sha256 in lease_digests:
+                    continue
+                removed_bytes = 0
+                if scratch.is_dir():
+                    removed_bytes = sum(path.stat().st_size for path in scratch.rglob("*") if path.is_file())
+                    shutil.rmtree(scratch)
+                elif scratch.is_file():
+                    removed_bytes = scratch.stat().st_size
+                    scratch.unlink()
+                else:
+                    continue
+                _content_addressed_event(self.storage_root, "recovery", {
+                    "event": "ORPHAN_SCRATCH_RECOVERY",
+                    "job_id": None,
+                    "envelope_sha256": envelope_sha256,
+                    "lease_removed": False,
+                    "scratch_removed": True,
+                    "bytes_removed": removed_bytes,
+                })
+                recovered += 1
+        return recovered
+
     def execute(self, request_payload: dict[str, object]) -> dict[str, object]:
         request_data = canonical_json_bytes(request_payload)
         envelope_sha256 = _digest_component(hashlib.sha256(request_data).hexdigest())
@@ -235,6 +295,7 @@ def main() -> int:
     if len(signing_key) < 32:
         raise RuntimeError("CPU_WORKER_SIGNING_KEY_TOO_SHORT")
     args.storage_root.mkdir(parents=True, exist_ok=True)
+    recovered_interrupted_jobs = WorkerRuntime(args.storage_root, signing_key).recover_interrupted_jobs()
     server = BoundedWorkerServer((args.bind, args.port), handler(
         signing_key=signing_key,
         storage_root=args.storage_root,
@@ -246,6 +307,7 @@ def main() -> int:
         "authority": "DETERMINISTIC_NO_CANONICAL_OR_PROTECTED_WRITES",
         "bind": args.bind,
         "port": args.port,
+        "recovered_interrupted_jobs": recovered_interrupted_jobs,
     })
     try:
         server.serve_forever(poll_interval=0.25)

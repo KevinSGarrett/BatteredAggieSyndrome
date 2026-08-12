@@ -139,6 +139,16 @@ if ($PSCmdlet.ShouldProcess($InstallRoot, 'Install corrected least-privilege pri
     if (Test-Path -LiteralPath $InstallRoot) {
         $existingManifest = Join-Path $InstallRoot 'worker_bundle_manifest.json'
         if (-not (Test-Path -LiteralPath $existingManifest -PathType Leaf)) { throw 'CPU_WORKER_EXISTING_ROOT_NOT_VERIFIED_V2' }
+        $existingTask = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
+        if ($existingTask) {
+            Stop-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
+            $stopDeadline = (Get-Date).AddSeconds(10)
+            while ((Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue).State -eq 'Running') {
+                if ((Get-Date) -ge $stopDeadline) { throw 'CPU_WORKER_EXISTING_TASK_STOP_TIMEOUT' }
+                Start-Sleep -Milliseconds 200
+            }
+            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
+        }
         $recovery = "$InstallRoot.recovery.$((Get-Date).ToUniversalTime().ToString('yyyyMMddTHHmmssZ'))"
         Move-Item -LiteralPath $InstallRoot -Destination $recovery
     }

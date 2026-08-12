@@ -87,6 +87,12 @@ The bounded station-matching population is identity `a23eee749d62fbd9ab68571bfdc
 
 This checkpoint does not select a canonical stadium station and does not fabricate a distance cutoff. Venue coordinates remain explicitly current-2026 catalog candidates whose historical effective time is unknown. The 86 missing venue-season coordinates remain missing rather than zero-filled or name-matched. Observed hourly-condition acquisition, station acceptance, forecast-error derivation, and issued-forecast acquisition remain separate dependent work. Observations may support retrospective evaluation but may never substitute for forecast-time evidence. No training, PIT, protected, production, champion, forecast, A&M-lift, BAS, or Aggie Excess authority is granted.
 
+## Executed NOAA ISD observed-coverage pilot
+
+The first bounded observation-coverage pilot is acquisition identity `e4ff69a7050887a7289d94898bc4f0c36bc43afc7c4e1239fddbea1ebfdf863f` and validated coverage identity `fdf87e692b28fd20af1b8defa839326abc7703536ed86db2232ab17f9570ea15`. NOAA retired its former NCEI direct ISD CSV endpoint on 2026-07-31, so acquisition uses the current NOAA Open Data Dissemination public bucket. All 149 distinct rank-one 2024 station-year candidates were captured immutably after venue-sharing deduplication: 1,220,246,591 raw bytes and 2,476,918 rows.
+
+This is an acquisition and schema-coverage pilot, not station acceptance. The files contain 138 physical schema variants and four partial-calendar stations. Non-sentinel data exists for temperature at 148 stations, wind at 143, dew point at 137, visibility at 134, precipitation at 130, and sea-level pressure at 109. These are independent domain coverage findings; absent variables remain missing and do not discard useful station-years. Rank one remains only an acquisition-priority candidate, not canonical stadium truth. No game-hour aggregation, forecast-error feature, historical PIT, training, protected, production, champion, A&M-lift, BAS, or Aggie Excess authority is granted, and observed records never substitute for issued forecasts.
+
 ## Completion boundary
 
 Applicable units must pass repository, provenance, Jira second-pass, secret, unit/property, integration, chronological/PIT, mutation, and full-suite checks with commands, exit codes, hashes, and exceptions recorded. This contract establishes no final historical completeness, production model, champion, protected performance, A&M lift, BAS, Aggie Excess, or other scientific result.

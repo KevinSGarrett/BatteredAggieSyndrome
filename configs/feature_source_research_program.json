@@ -81,6 +81,11 @@
     "noaa_isd_station_matching_manifest_sha256": "02dac33aaf47a38a60321c55c4ce3b29fb80f278a76a8ad30873aa8eb309fd0b",
     "noaa_isd_station_matching_validation_sha256": "f4e803ff2c5d766e13f53f136e63220dafbf104f9336d0f5e5aeeaf5b8052987",
     "noaa_isd_station_matching_disposition": "PASS_REVIEW_ONLY_STATION_CANDIDATES_OBSERVED_AND_ISSUED_WEATHER_AUTHORITY_CLOSED",
+    "noaa_isd_observed_coverage_acquisition_identity": "e4ff69a7050887a7289d94898bc4f0c36bc43afc7c4e1239fddbea1ebfdf863f",
+    "noaa_isd_observed_coverage_manifest_sha256": "5af85b58f3397b308f48499857e6136ffd959539cefa93ab0c0d2e69c86ffa4e",
+    "noaa_isd_observed_coverage_identity": "fdf87e692b28fd20af1b8defa839326abc7703536ed86db2232ab17f9570ea15",
+    "noaa_isd_observed_coverage_validation_sha256": "ed0a1cf553ab8724f8c0023b8c95c68cc95c1f4b41592e941aa78b3d7798a711",
+    "noaa_isd_observed_coverage_disposition": "PASS_2024_RANK_ONE_COVERAGE_PILOT_CANDIDATE_ONLY_NO_STATION_OR_FEATURE_PROMOTION",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
   },

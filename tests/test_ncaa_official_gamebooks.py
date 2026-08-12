@@ -223,6 +223,12 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
             )
             self.assertEqual(["scrapfly", "scraperapi"], [route_id for route_id, _ in routes])
             self.assertTrue(all(state["credential_state"] == "CONFIGURED_NONEMPTY" for state in states[-2:]))
+            self.assertTrue(
+                all(
+                    route.timeout_seconds == float(self.contract["discovery"]["request_timeout_seconds"])
+                    for _, route in routes
+                )
+            )
             serialized = json.dumps(states) + repr(routes)
             self.assertNotIn("OPTIONAL_LOCAL_SECRET_SCRAPFLY", serialized)
             self.assertNotIn("OPTIONAL_LOCAL_SECRET_SCRAPERAPI", serialized)

@@ -1160,7 +1160,8 @@ def build_discovery_routes(
 ) -> tuple[list[tuple[str, Any]], list[dict[str, Any]]]:
     """Build a secret-safe route cascade for official team-page discovery."""
 
-    available: dict[str, Any] = {"direct_http": DirectHTTPTransport()}
+    timeout_seconds = float(contract["discovery"]["request_timeout_seconds"])
+    available: dict[str, Any] = {"direct_http": DirectHTTPTransport(timeout_seconds=timeout_seconds)}
     states: list[dict[str, Any]] = [
         {"route_id": "direct_http", "availability": "AVAILABLE", "credential_state": "NOT_REQUIRED"}
     ]
@@ -1190,9 +1191,14 @@ def build_discovery_routes(
                     country=route_config["country"],
                     rendering_wait_milliseconds=int(route_config["rendering_wait_milliseconds"]),
                     cost_budget=int(route_config["cost_budget"]),
+                    timeout_seconds=timeout_seconds,
                 )
             else:
-                available[route_id] = transport_type(credential, api_url=route_config["api_url"])
+                available[route_id] = transport_type(
+                    credential,
+                    api_url=route_config["api_url"],
+                    timeout_seconds=timeout_seconds,
+                )
             states.append(
                 {"route_id": route_id, "availability": "AVAILABLE", "credential_state": "CONFIGURED_NONEMPTY"}
             )

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT210-PRELIMINARY-POSTGAME-COLLAPSE-TAXONOMY-V1",
+  "decision_unit": "TASK-107",
+  "jira_key": "BAT-210",
+  "feature_umbrella": "POST-SUBTASK-055",
+  "feature_umbrella_jira_key": "BAT-405",
+  "classification": "PRELIMINARY_UNPROTECTED_POSTGAME_DESCRIPTIVE_ONLY",
+  "source_contract": {
+    "acquisition_manifest": "manifests/acquisition/bat375-cfbd-core-2022-2025-v1/core_acquisition_manifest.full.json",
+    "acquisition_manifest_sha256": "613365ddc1de976f0dd909b529abd27da600dff8be0ed08bfc33b3a9501d307c",
+    "canonical_registry": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "outcome_targets": "training/preliminary_event_chronology/sha256/8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2/outcome_targets.parquet",
+    "outcome_targets_sha256": "fc42f2aaa155cedd9ad0a77244998a5b92e30baae06a056af367d443fcb28b87",
+    "national_reference_predictions": "forecast_snapshots/preliminary_event_chronology/sha256/fb84332df4f25f511752cf354bc5b12a7c3283ae44e1f45a24cb932a2122f50a/predictions.parquet",
+    "national_reference_predictions_sha256": "c0de4d0d7e4fc3c94a125b9cdf05d602ecbaf5efa2070d22cea01f4786f6d4e8",
+    "national_reference_model_id": "regularized_linear_margin",
+    "national_reference_model_identity": "3aedd0dce933bf9c87550c46eae2eef525c766165db9ddb36188eeea473b9fd7",
+    "seasons": [2023, 2024, 2025],
+    "datasets": ["plays"],
+    "successful_requests_only": true,
+    "immutable_raw_sha256_required": true,
+    "game_identity_method": "CFBD_GAME_ID_TO_VERIFIED_CANONICAL_REGISTRY_SOURCE_MAPPING"
+  },
+  "taxonomy": {
+    "grain": ["CANONICAL_GAME", "CANONICAL_GAME_TEAM"],
+    "observed_score_state": "HOME_MINUS_AWAY_AFTER_EACH_RECORDED_PLAY",
+    "opening_score_state": "0_TO_0_INCLUDED",
+    "lead_thresholds": [7, 14, 21],
+    "downside_residual_thresholds": [3, 7, 14, 21],
+    "late_period_minimum": 4,
+    "definitions": {
+      "lead_surrendered_N": "team reached an observed lead of at least N points and lost the completed game",
+      "fourth_quarter_lead_surrendered": "team had any observed lead in period 4 or later and lost the completed game",
+      "largest_lead_surrendered": "maximum observed team lead when the team lost; zero for a loss without an observed lead; null for non-loss",
+      "national_expected_margin_residual": "actual team-oriented final margin minus the frozen national reference predicted team-oriented margin",
+      "downside_residual_N": "national expected-margin residual is at most negative N"
+    },
+    "missingness": "NULL_WHEN_PLAY_COVERAGE_OR_NATIONAL_REFERENCE_EVIDENCE_IS_ABSENT; NEVER_ZERO_FILL_MISSING_EVIDENCE",
+    "structural_zero": "FALSE_OR_ZERO_ONLY_WHEN_THE_GAME_HAS_VALIDATED_PLAY_COVERAGE_AND_THE_DEFINED_EVENT_WAS_OBSERVED_NOT_TO_OCCUR"
+  },
+  "eligibility": {
+    "postgame_description": true,
+    "retrospective_research": true,
+    "pregame_feature": false,
+    "historical_original_pit": false,
+    "protected_evaluation": false,
+    "training_feature": false,
+    "forecast_input": false,
+    "same_game_prediction": false
+  },
+  "validation": {
+    "require_unique_source_play_id": true,
+    "require_unique_canonical_game": true,
+    "require_score_nonnegative": true,
+    "require_scoreboard_final_match": true,
+    "require_reference_identity_match": true,
+    "require_team_orientation_antisymmetry": true,
+    "require_byte_identical_rebuild": true,
+    "partial_coverage_preserved": true
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "pregame_or_pit_feature_admission": false,
+    "model_training_admission": false,
+    "protected_or_production_admission": false,
+    "champion_or_forecast_authority": false,
+    "bas_or_aggie_excess_authority": false,
+    "coaching_or_causal_claim_authority": false
+  },
+  "external_storage": {
+    "features": "features/postgame_collapse_taxonomy/sha256/<dataset_identity>",
+    "manifest": "manifests/postgame_collapse_taxonomy/sha256/<dataset_identity>/run_manifest.json",
+    "validation": "validation/TASK-107/postgame_collapse_taxonomy_validation.json",
+    "bulk_payloads_in_git": false
+  },
+  "negative_findings": [
+    "The play captures were retrieved in 2026 and cannot establish original historical known-at eligibility.",
+    "Recorded play score states may omit undocumented scoreboard transitions; coverage and final-score reconciliation remain explicit.",
+    "A surrendered lead is a descriptive game-state event, not evidence of coaching causality, team-specific pathology, or a stable forecasting feature.",
+    "The frozen national reference and all 2023-2025 outcomes are already inspected development evidence.",
+    "This taxonomy is not BAS, Aggie Excess, protected performance, production readiness, or a champion decision."
+  ]
+}

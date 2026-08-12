@@ -260,6 +260,7 @@ configs/preliminary_play_drive_augmented_contract.json
 configs/preliminary_play_enrichment_replay_contract.json
 configs/preliminary_possession_pace_ablation_contract.json
 configs/preliminary_possession_pace_contract.json
+configs/preliminary_postgame_collapse_taxonomy_contract.json
 configs/preliminary_rankings_augmented_contract.json
 configs/preliminary_schedule_stress_ablation_contract.json
 configs/preliminary_schedule_stress_contract.json
@@ -2983,6 +2984,7 @@ src/aggie_analytics/features/gfs_issued_run.py
 src/aggie_analytics/features/lifecycle.py
 src/aggie_analytics/features/observed_weather_shadow.py
 src/aggie_analytics/features/possession_pace.py
+src/aggie_analytics/features/postgame_collapse_taxonomy.py
 src/aggie_analytics/features/registry.py
 src/aggie_analytics/features/returning_production.py
 src/aggie_analytics/features/schedule_stress.py
@@ -3151,6 +3153,7 @@ tests/test_openai_assist.py
 tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
+tests/test_postgame_collapse_taxonomy.py
 tests/test_preliminary_elo_challengers.py
 tests/test_preliminary_elo_offense_defense.py
 tests/test_preliminary_elo_uncertainty.py
@@ -3226,6 +3229,7 @@ tools/build_noaa_isd_game_observation_shadow.py
 tools/build_noaa_isd_station_matching.py
 tools/build_post2022_roster_candidate.py
 tools/build_preliminary_possession_pace.py
+tools/build_preliminary_postgame_collapse_taxonomy.py
 tools/build_preliminary_schedule_stress.py
 tools/build_preliminary_sustainability.py
 tools/build_retrospective_returning_production.py
@@ -3336,6 +3340,7 @@ tools/validate_preliminary_elo_offense_defense.py
 tools/validate_preliminary_elo_uncertainty.py
 tools/validate_preliminary_play_drive_augmented.py
 tools/validate_preliminary_possession_pace.py
+tools/validate_preliminary_postgame_collapse_taxonomy.py
 tools/validate_preliminary_rankings_augmented_baselines.py
 tools/validate_preliminary_schedule_stress.py
 tools/validate_preliminary_sustainability.py

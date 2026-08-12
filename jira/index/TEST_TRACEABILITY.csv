@@ -1526,6 +1526,8 @@ artifacts/jira_evidence/POST-SUBTASK-194.json,END_TO_END,POST-SUBTASK-194,Sub-ta
 tests/test_historical_game_outcome_spine.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-195,Sub-task,"Game/outcome materialization, canonical union, status disposition, source alias reconciliation, field allowlist, and authority boundaries remain deterministic."
 artifacts/jira_evidence/POST-SUBTASK-195.json,END_TO_END,POST-SUBTASK-195,Sub-task,"The complete external population passes source identity, canonical mapping, reconstruction, schema, provenance, quarantine, mutation, and byte-identity checks."
 artifacts/jira_evidence/POST-SUBTASK-196.json,END_TO_END,POST-SUBTASK-196,Sub-task,"The duplicate evidence identities, live Jira disposition, and canonical/generated views agree without any new data artifact."
+tests/test_ncaa_official_gamebooks.py,NEW_AUTOMATED_TEST_REQUIRED,POST-SUBTASK-197,Subtask,"Deterministic parser fixtures cover every NCAA contest tab, missing tabs, schema drift, malformed HTML, anti-bot/interstitial payload rejection, and no-fabrication behavior."
+artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json,END_TO_END,POST-SUBTASK-197,Subtask,"A bounded real official-contest sample is fetched, hashed, parsed, reconciled, domain-gated, rebuilt byte-identically, and rejected under unsafe identity/PIT/provenance mutations."
 tests/test_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tests/test_w25_final_handoff.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.
 tools/validate_w24_readiness.py,EXISTING_AUTOMATED_TEST,TASK-001,Task,Run and retain the result when this issue touches the covered contract.

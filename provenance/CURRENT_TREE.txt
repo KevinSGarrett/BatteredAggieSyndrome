@@ -32,6 +32,7 @@ artifacts/data_lake/historical_expansion_eligibility_gate.json
 artifacts/data_lake/historical_expansion_population_profile.json
 artifacts/data_lake/immutability_and_correction_test.json
 artifacts/data_lake/national_lake_readiness.json
+artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
 artifacts/entities/canonical_core_registry.csv
 artifacts/entities/canonical_core_registry_manifest.json
@@ -136,6 +137,7 @@ artifacts/jira_evidence/POST-SUBTASK-193.json
 artifacts/jira_evidence/POST-SUBTASK-194.json
 artifacts/jira_evidence/POST-SUBTASK-195.json
 artifacts/jira_evidence/POST-SUBTASK-196.json
+artifacts/jira_evidence/POST-SUBTASK-197.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -230,6 +232,7 @@ configs/implementation_plan.json
 configs/judging_rule_seal.json
 configs/known_at_registry.json
 configs/model_architecture_registry.json
+configs/ncaa_official_gamebook_contract.json
 configs/open_source_integration_registry.json
 configs/openai_assist_policy.json
 configs/openai_availability_source_triage.json
@@ -1100,6 +1103,7 @@ jira/ai/work_packets/POST-SUBTASK-165.md
 jira/ai/work_packets/POST-SUBTASK-166.md
 jira/ai/work_packets/POST-SUBTASK-167.md
 jira/ai/work_packets/POST-SUBTASK-168.md
+jira/ai/work_packets/POST-SUBTASK-197.md
 jira/history/ISSUE_CHANGE_LOG.jsonl
 jira/import/ATLASSIAN_2026_COMPATIBILITY.md
 jira/import/FIELD_MAPPING_GUIDE.md
@@ -1440,6 +1444,7 @@ jira/issues/subtasks/POST-SUBTASK-193_materialize_capture_time_player_box_snapsh
 jira/issues/subtasks/POST-SUBTASK-194_materialize_previous_run_weather_candidate_snapshot_and_domain_eligibility_gate.md
 jira/issues/subtasks/POST-SUBTASK-195_materialize_1963_2009_national_game_outcome_spine_and_tiered_eligibility_gate.md
 jira/issues/subtasks/POST-SUBTASK-196_capture_and_gate_post_2022_national_play_drive_history.md
+jira/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1966,6 +1971,7 @@ jira/records/issues/subtasks/POST-SUBTASK-193_materialize_capture_time_player_bo
 jira/records/issues/subtasks/POST-SUBTASK-194_materialize_previous_run_weather_candidate_snapshot_and_domain_eligibility_gate.json
 jira/records/issues/subtasks/POST-SUBTASK-195_materialize_1963_2009_national_game_outcome_spine_and_tiered_eligibility_gate.json
 jira/records/issues/subtasks/POST-SUBTASK-196_capture_and_gate_post_2022_national_play_drive_history.json
+jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2484,6 +2490,7 @@ jira/sources/issue_source_manifests/POST-SUBTASK-193.json
 jira/sources/issue_source_manifests/POST-SUBTASK-194.json
 jira/sources/issue_source_manifests/POST-SUBTASK-195.json
 jira/sources/issue_source_manifests/POST-SUBTASK-196.json
+jira/sources/issue_source_manifests/POST-SUBTASK-197.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -3094,6 +3101,7 @@ tests/test_locks_full.py
 tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
+tests/test_ncaa_official_gamebooks.py
 tests/test_open_source_adapters.py
 tests/test_open_source_integration_registry.py
 tests/test_open_source_properties.py
@@ -3134,6 +3142,7 @@ tests/test_wmt_tamu_specialization_feature_pit.py
 tests/test_worktree_resource_policy.py
 tools/__init__.py
 tools/acquire_cfbd_historical.py
+tools/acquire_ncaa_official_gamebooks.py
 tools/acquire_sec_tamu_availability.py
 tools/acquire_sportsdataverse_rosters.py
 tools/apply_private_research_acquisition_policy.py
@@ -3244,6 +3253,7 @@ tools/validate_jira_control_plane.py
 tools/validate_jira_mirror.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
+tools/validate_ncaa_official_gamebooks.py
 tools/validate_openai_assist.py
 tools/validate_openai_gamebook_schema_mapping.py
 tools/validate_player_intelligence.py

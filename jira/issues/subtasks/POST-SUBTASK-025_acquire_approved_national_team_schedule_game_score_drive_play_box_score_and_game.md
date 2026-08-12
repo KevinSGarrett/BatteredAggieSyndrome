@@ -25,7 +25,8 @@
   "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-026",
-    "POST-SUBTASK-027"
+    "POST-SUBTASK-027",
+    "POST-SUBTASK-197"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-025_acquire_approved_national_team_schedule_game_score_drive_play_box_score_and_game.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -376,6 +377,7 @@ Execute the atomic 1 of 3 step in Story POST-STORY-009 (Core national game spine
 
 - POST-SUBTASK-026
 - POST-SUBTASK-027
+- POST-SUBTASK-197
 
 ## Read / Inspect First
 

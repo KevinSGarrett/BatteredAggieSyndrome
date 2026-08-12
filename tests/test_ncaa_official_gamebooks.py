@@ -137,6 +137,22 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
         self.assertEqual(["5362283"], result["contest_ids"])
         self.assertEqual(["589027", "589036"], result["team_season_ids"])
         self.assertEqual("589027", result["season_options"]["2024-25"])
+        self.assertEqual("MODERN_CONTEST_ROW", result["link_schema"])
+
+    def test_legacy_team_page_discovery_traverses_schedule_results_without_inventing_contests(self) -> None:
+        filler = "<div>NCAA official team statistics</div>" * 40
+        body = (
+            "<html><body>NCAA<table>"
+            "<tr><td>09/04/2010</td><td><a href='/teams/136978'>Arkansas St.</a></td>"
+            "<td>W 52 - 26</td></tr>"
+            "<tr><td>Navigation</td><td><a href='/teams/999999'>Not a schedule opponent</a></td></tr>"
+            "</table><select><option value='136982'>2010-11</option></select>"
+            f"{filler}</body></html>"
+        ).encode("utf-8")
+        result = inspect_ncaa_team_page(body, contract=self.contract)
+        self.assertEqual([], result["contest_ids"])
+        self.assertEqual(["136978"], result["team_season_ids"])
+        self.assertEqual("LEGACY_SCHEDULE_RESULT_ROW", result["link_schema"])
 
     def test_team_graph_discovery_is_bounded_content_addressed_and_cache_reproducible(self) -> None:
         filler = "<div>NCAA official team statistics</div>" * 40

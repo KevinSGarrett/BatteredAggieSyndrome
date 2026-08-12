@@ -783,15 +783,25 @@ def inspect_ncaa_team_page(body: bytes, *, contract: Mapping[str, Any]) -> dict[
         raise AcquisitionFailure("CONTENT_TOO_SMALL", "team page was below the minimum content size")
     if "<html" not in lowered or "ncaa" not in normalized_text(body):
         raise AcquisitionFailure("SCHEMA_INCOMPATIBLE", "team page lacked official NCAA HTML markers")
+    all_rows = re.findall(r"(?is)<tr\b[^>]*>.*?</tr>", text)
     contest_rows = [
         row
-        for row in re.findall(r"(?is)<tr\b[^>]*>.*?</tr>", text)
+        for row in all_rows
         if re.search(r"/contests/[0-9]+/box_score", row)
     ]
+    legacy_schedule_rows = [
+        row
+        for row in all_rows
+        if not contest_rows
+        and re.search(r"/teams/[0-9]+", row)
+        and re.search(r"[0-9]{2}/[0-9]{2}/[0-9]{4}", row)
+        and re.search(r">\s*(?:W|L|T)\s+[0-9]+\s*-\s*[0-9]+\s*<", row, re.IGNORECASE)
+    ]
+    traversal_rows = contest_rows or legacy_schedule_rows
     team_ids = sorted(
         {
             identifier
-            for row in contest_rows
+            for row in traversal_rows
             for identifier in re.findall(r"/teams/([0-9]+)(?:[\"'/])", row)
         }
     )
@@ -816,6 +826,7 @@ def inspect_ncaa_team_page(body: bytes, *, contract: Mapping[str, Any]) -> dict[
         "html_bytes": len(body),
         "team_link_count": len(team_ids),
         "contest_link_count": len(contest_ids),
+        "link_schema": "MODERN_CONTEST_ROW" if contest_rows else "LEGACY_SCHEDULE_RESULT_ROW",
     }
 
 

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-067",
+  "jira_key": "BAT-417",
+  "classification": "PRELIMINARY_UNPROTECTED_ISSUED_GFS_RUN_PILOT",
+  "source": {
+    "source_id": "SRC-028",
+    "provider": "NOAA/NCEP via NOAA Open Data Dissemination",
+    "bucket": "noaa-gfs-bdp-pds",
+    "base_url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com",
+    "grid": "pgrb2.0p25",
+    "registry_url": "https://registry.opendata.aws/noaa-gfs-bdp-pds/"
+  },
+  "input": {
+    "relative_path": "quarantine/historical_nominal_lead/sha256/e307d2c36e970a5faea1fc98dd254a816ae327d994929f735de906a93818e90e/candidate_weather_previous_run_cells.parquet",
+    "sha256": "da534def725da009b2e73605221aebd7ea4a1270ceaafa28ed7b8d83711fe1cd"
+  },
+  "population": {
+    "source_game_id": "401644731",
+    "lead_days": 1,
+    "expected_cutoff_utc": "2024-08-30T19:00:00Z",
+    "expected_valid_utc": "2024-08-31T19:00:00Z",
+    "expected_latitude": 41.9339586,
+    "expected_longitude": -88.7778357,
+    "expected_output_rows": 10
+  },
+  "issued_run": {
+    "initialization_utc": "2024-08-30T12:00:00Z",
+    "forecast_hour": 31,
+    "object_key": "gfs.20240830/12/atmos/gfs.t12z.pgrb2.0p25.f031",
+    "index_object_key": "gfs.20240830/12/atmos/gfs.t12z.pgrb2.0p25.f031.idx",
+    "expected_object_last_modified_utc": "2024-08-30T15:43:13Z",
+    "availability_rule": "OBJECT_LAST_MODIFIED_AT_OR_BEFORE_EXACT_TARGET_CUTOFF",
+    "selection_rule": "PINNED_BOUNDED_PILOT_NO_AUTOMATIC_NATIONAL_RUN_SELECTION"
+  },
+  "messages": [
+    {"component": "temperature_2m", "match": ":TMP:2 m above ground:31 hour fcst:"},
+    {"component": "dew_point_2m", "match": ":DPT:2 m above ground:31 hour fcst:"},
+    {"component": "relative_humidity_2m", "match": ":RH:2 m above ground:31 hour fcst:"},
+    {"component": "wind_u_10m", "match": ":UGRD:10 m above ground:31 hour fcst:"},
+    {"component": "wind_v_10m", "match": ":VGRD:10 m above ground:31 hour fcst:"},
+    {"component": "wind_gust_surface", "match": ":GUST:surface:31 hour fcst:"},
+    {"component": "precipitation_1h", "match": ":APCP:surface:30-31 hour acc fcst:"},
+    {"component": "surface_pressure", "match": ":PRES:surface:31 hour fcst:"},
+    {"component": "visibility_surface", "match": ":VIS:surface:31 hour fcst:"},
+    {"component": "cloud_cover_total", "match": ":TCDC:entire atmosphere:31 hour fcst:"}
+  ],
+  "decoder": {
+    "package": "eccodes",
+    "package_version": "2.47.0",
+    "api_version": "2.47.0",
+    "runtime": "ISOLATED_EXTERNAL_RUNTIME_NOT_REQUIRED_PROJECT_RUNTIME_DEPENDENCY"
+  },
+  "missingness": {
+    "missing_message": "FAIL_CLOSED_NO_VALUE",
+    "missing_grid_value": "NULL_NOT_ZERO",
+    "unsupported_unit": "FAIL_CLOSED"
+  },
+  "authority": {
+    "issued_run_capture": true,
+    "exact_run_availability_proof": true,
+    "single_game_decode_candidate": true,
+    "automatic_national_run_selection": false,
+    "forecast_error_derivation": false,
+    "training_feature_admission": false,
+    "protected_or_production": false
+  },
+  "artifact_roots": {
+    "features": "features/weather_gfs_issued_run_pilot/sha256",
+    "manifests": "manifests/weather_gfs_issued_run_pilot/sha256",
+    "validation": "validation/POST-SUBTASK-067/noaa_gfs_issued_run_pilot"
+  },
+  "scientific_nonclaims": [
+    "One exact issued run does not establish national or historical weather completeness.",
+    "This pilot does not select runs automatically for other games or seasons.",
+    "Observed weather is not substituted for forecast evidence and forecast error is not derived in this unit.",
+    "No feature, training, protected, production, champion, A&M-lift, BAS, or Aggie Excess result is established."
+  ]
+}

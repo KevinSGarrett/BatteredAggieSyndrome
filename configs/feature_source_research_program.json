@@ -95,6 +95,11 @@
     "noaa_isd_alternate_station_recovery_capture_manifest_sha256": "2f52ed9f558685834b6407ab2208e844ebdf6e08ab64168d94b57449991728d5",
     "noaa_isd_alternate_station_recovery_validation_sha256": "211667080eb9288dfe3d28f96497df75e9f526bda257deeef13343d053f40c1e",
     "noaa_isd_alternate_station_recovery_disposition": "PASS_REVIEW_ONLY_ALL_17_LONG_GAP_GAMES_HAVE_RANK_2_TO_5_CANDIDATE_WITHIN_60_MINUTES_NO_AUTOMATIC_STATION_SELECTION_OR_FEATURE_AUTHORITY",
+    "noaa_gfs_issued_run_pilot_identity": "b671b68b5f948df5345c4b1c35bd220454b70d64d1c852b8be95bcfe6cc415bf",
+    "noaa_gfs_issued_run_pilot_manifest_sha256": "aa273e74026cc25fa5dd3b4b792566715e39f6400474e5db7e5da7198d58121d",
+    "noaa_gfs_issued_run_pilot_capture_manifest_sha256": "6e5b6425d1e6f939e4ecd65517bd7a58846837565e4ce786aaf3e0c65188c046",
+    "noaa_gfs_issued_run_pilot_validation_sha256": "7634d100a9b29ca56aee5e9faec402d2fb141275e2d71bf50b87e44001599a17",
+    "noaa_gfs_issued_run_pilot_disposition": "PASS_ONE_GAME_EXACT_ISSUED_RUN_AVAILABILITY_AND_DECODE_CANDIDATE_ONLY_NO_AUTOMATIC_NATIONAL_SELECTION_OR_FEATURE_AUTHORITY",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
   },

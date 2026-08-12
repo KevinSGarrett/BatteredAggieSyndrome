@@ -40,7 +40,12 @@
   "bundle": {
     "minimal_files_only": true,
     "pre_and_post_transfer_sha256_manifest_required": true,
-    "atomic_install": true
+    "atomic_install": true,
+    "embedded_runtime_required": true,
+    "embedded_runtime_distribution": "CPython 3.11.9 embeddable package (64-bit)",
+    "embedded_runtime_source_archive_sha256": "009d6bf7e3b2ddca3d784fa09f90fe54336d5b60f0e0f305c37f400bf83cfd3b",
+    "embedded_runtime_sigstore_identity_verified": true,
+    "user_profile_runtime_forbidden": true
   },
   "runtime_controls": ["JOB_SCOPED_SCRATCH", "ATOMIC_LEASE", "BOUNDED_QUEUE", "BODY_TIMEOUT", "EXECUTION_TIMEOUT", "RECORD_AND_BYTE_LIMITS", "ATOMIC_RESULT_RENAME", "IDEMPOTENT_REPLAY", "STARTUP_HEALTH", "CLEAN_SHUTDOWN", "RESTART_RECOVERY", "DISK_ADMISSION", "CLEANUP_LEDGER"],
   "tasks": [

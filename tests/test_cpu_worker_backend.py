@@ -34,6 +34,23 @@ class CpuWorkerBackendTests(unittest.TestCase):
         self.assertIn("tailscale serve --bg --yes --https=443", installer)
         self.assertNotIn("tailscale funnel 443 off", installer)
 
+    def test_installer_uses_manifest_bound_worker_owned_python_runtime(self) -> None:
+        installer = (Path(__file__).resolve().parents[1] / "tools" / "install_cpu_worker_service.ps1").read_text(
+            encoding="utf-8"
+        )
+        self.assertNotIn("Get-Command python", installer)
+        self.assertIn("runtime_manifest.csv", installer)
+        self.assertIn("CPU_WORKER_RUNTIME_MANIFEST_COVERAGE_MISMATCH", installer)
+        self.assertIn("CPU_WORKER_RUNTIME_UNMANIFESTED_FILE", installer)
+        self.assertIn("CPU_WORKER_RUNTIME_HASH_MISMATCH", installer)
+        self.assertIn("CPU_WORKER_RUNTIME_VERSION_MISMATCH", installer)
+        self.assertIn("CPU_WORKER_RUNTIME_ARCHITECTURE_MISMATCH", installer)
+        self.assertIn("runtime\\python.exe", installer)
+        self.assertIn("New-ScheduledTaskAction -Execute $runtimePythonInstalled", installer)
+        self.assertIn("LOCAL SERVICE:(OI)(CI)RX", installer)
+        self.assertNotIn("[IO.Path]::GetRelativePath", installer)
+        self.assertNotIn("AppData", installer)
+
     def test_worker_identity_requires_exact_stable_node(self) -> None:
         CpuWorkerIdentity(
             "comfy-v4-cpu-01.tail9b05ab.ts.net",

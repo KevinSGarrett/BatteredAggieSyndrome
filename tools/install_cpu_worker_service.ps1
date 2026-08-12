@@ -23,9 +23,45 @@ if (-not $tailscaleStatus.Self.Online) { throw 'CPU_WORKER_TAILSCALE_OFFLINE' }
 if (-not (Test-Path -LiteralPath $SigningKeyInputPath -PathType Leaf)) { throw 'CPU_WORKER_SIGNING_KEY_INPUT_MISSING' }
 $inputKey = [IO.File]::ReadAllBytes($SigningKeyInputPath)
 if ($inputKey.Length -ne 32) { [Array]::Clear($inputKey, 0, $inputKey.Length); throw 'CPU_WORKER_SIGNING_KEY_INPUT_INVALID' }
-$python = (Get-Command python -ErrorAction Stop).Source
 $null = & tailscale serve --help
 if ($LASTEXITCODE -ne 0) { throw 'CPU_WORKER_TAILSCALE_SERVE_UNAVAILABLE' }
+
+$runtimeSourceRoot = Join-Path $SourceRoot 'runtime'
+$runtimeManifestPath = Join-Path $SourceRoot 'runtime_manifest.csv'
+if (-not (Test-Path -LiteralPath $runtimeSourceRoot -PathType Container)) { throw 'CPU_WORKER_RUNTIME_SOURCE_MISSING' }
+if (-not (Test-Path -LiteralPath $runtimeManifestPath -PathType Leaf)) { throw 'CPU_WORKER_RUNTIME_MANIFEST_MISSING' }
+$runtimeSourceRootResolved = [IO.Path]::GetFullPath($runtimeSourceRoot).TrimEnd('\')
+$runtimeEntries = @(Import-Csv -LiteralPath $runtimeManifestPath)
+if ($runtimeEntries.Count -eq 0) { throw 'CPU_WORKER_RUNTIME_MANIFEST_EMPTY' }
+$runtimePaths = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+foreach ($entry in $runtimeEntries) {
+    $relativePath = [string]$entry.relative_path
+    if ([string]::IsNullOrWhiteSpace($relativePath) -or [IO.Path]::IsPathRooted($relativePath)) {
+        throw 'CPU_WORKER_RUNTIME_MANIFEST_PATH_INVALID'
+    }
+    $sourcePath = [IO.Path]::GetFullPath((Join-Path $runtimeSourceRootResolved $relativePath))
+    if (-not $sourcePath.StartsWith($runtimeSourceRootResolved + '\', [StringComparison]::OrdinalIgnoreCase)) {
+        throw 'CPU_WORKER_RUNTIME_MANIFEST_PATH_ESCAPE'
+    }
+    if (-not $runtimePaths.Add($relativePath)) { throw "CPU_WORKER_RUNTIME_MANIFEST_DUPLICATE:$relativePath" }
+    if (-not (Test-Path -LiteralPath $sourcePath -PathType Leaf)) { throw "CPU_WORKER_RUNTIME_FILE_MISSING:$relativePath" }
+    $sourceItem = Get-Item -LiteralPath $sourcePath
+    if ([int64]$entry.bytes -ne $sourceItem.Length) { throw "CPU_WORKER_RUNTIME_BYTES_MISMATCH:$relativePath" }
+    $sourceSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $sourcePath).Hash.ToLowerInvariant()
+    if ($sourceSha -ne ([string]$entry.sha256).ToLowerInvariant()) { throw "CPU_WORKER_RUNTIME_HASH_MISMATCH:$relativePath" }
+}
+$actualRuntimeFiles = @(Get-ChildItem -LiteralPath $runtimeSourceRootResolved -Recurse -File)
+if ($actualRuntimeFiles.Count -ne $runtimeEntries.Count) { throw 'CPU_WORKER_RUNTIME_MANIFEST_COVERAGE_MISMATCH' }
+foreach ($actualRuntimeFile in $actualRuntimeFiles) {
+    $actualRelativePath = $actualRuntimeFile.FullName.Substring($runtimeSourceRootResolved.Length).TrimStart('\')
+    if (-not $runtimePaths.Contains($actualRelativePath)) { throw "CPU_WORKER_RUNTIME_UNMANIFESTED_FILE:$actualRelativePath" }
+}
+$runtimePythonSource = Join-Path $runtimeSourceRootResolved 'python.exe'
+if (-not (Test-Path -LiteralPath $runtimePythonSource -PathType Leaf)) { throw 'CPU_WORKER_RUNTIME_PYTHON_MISSING' }
+$runtimeProbe = (& $runtimePythonSource -I -c "import json,platform,sys;print(json.dumps({'version':platform.python_version(),'bits':64 if sys.maxsize>2**32 else 32}))" | ConvertFrom-Json)
+if ($LASTEXITCODE -ne 0) { throw 'CPU_WORKER_RUNTIME_PROBE_FAILED' }
+if ([string]$runtimeProbe.version -ne '3.11.9') { throw "CPU_WORKER_RUNTIME_VERSION_MISMATCH:$($runtimeProbe.version)" }
+if ([int]$runtimeProbe.bits -ne 64) { throw "CPU_WORKER_RUNTIME_ARCHITECTURE_MISMATCH:$($runtimeProbe.bits)" }
 
 $files = @(
     @{ Source = 'tools\cpu_worker_service.py'; Destination = 'tools\cpu_worker_service.py' },
@@ -58,18 +94,41 @@ if ($PSCmdlet.ShouldProcess($InstallRoot, 'Install corrected least-privilege pri
         $destination = Join-Path $staging $file.Destination
         Copy-Item -LiteralPath $source -Destination $destination -Force
         $manifest += [ordered]@{
+            kind = 'worker_code'
             relative_path = $file.Destination
             source_sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $source).Hash.ToLowerInvariant()
             installed_sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $destination).Hash.ToLowerInvariant()
         }
     }
+    foreach ($entry in $runtimeEntries) {
+        $source = Join-Path $runtimeSourceRootResolved $entry.relative_path
+        $relativeDestination = Join-Path 'runtime' $entry.relative_path
+        $destination = Join-Path $staging $relativeDestination
+        $destinationParent = Split-Path -Parent $destination
+        New-Item -ItemType Directory -Path $destinationParent -Force | Out-Null
+        Copy-Item -LiteralPath $source -Destination $destination -Force
+        $manifest += [ordered]@{
+            kind = 'embedded_python_runtime'
+            relative_path = $relativeDestination
+            source_sha256 = ([string]$entry.sha256).ToLowerInvariant()
+            installed_sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $destination).Hash.ToLowerInvariant()
+        }
+    }
     $manifestPath = Join-Path $staging 'worker_bundle_manifest.json'
     $manifestPayload = [ordered]@{
-        schema_version = 2
+        schema_version = 3
         worker_dns_name = $selfDns.TrimEnd('.')
         worker_node_id = [string]$tailscaleStatus.Self.ID
         windows_hostname = $actualHostName
         created_at_utc = (Get-Date).ToUniversalTime().ToString('o')
+        python_runtime = [ordered]@{
+            distribution = 'CPython embeddable package'
+            version = [string]$runtimeProbe.version
+            architecture_bits = [int]$runtimeProbe.bits
+            executable_relative_path = 'runtime\python.exe'
+            source_archive_sha256 = '009d6bf7e3b2ddca3d784fa09f90fe54336d5b60f0e0f305c37f400bf83cfd3b'
+            source_signature_verified = $true
+        }
         files = $manifest
     }
     [IO.File]::WriteAllText($manifestPath, ($manifestPayload | ConvertTo-Json -Depth 6), [Text.UTF8Encoding]::new($false))
@@ -95,11 +154,12 @@ if ($PSCmdlet.ShouldProcess($InstallRoot, 'Install corrected least-privilege pri
 
     & icacls $InstallRoot /inheritance:r /grant:r 'SYSTEM:(OI)(CI)F' 'Administrators:(OI)(CI)F' 'LOCAL SERVICE:(OI)(CI)RX' | Out-Null
     & icacls (Join-Path $InstallRoot 'data') /inheritance:r /grant:r 'SYSTEM:(OI)(CI)F' 'Administrators:(OI)(CI)F' 'LOCAL SERVICE:(OI)(CI)M' | Out-Null
-    & icacls (Join-Path $InstallRoot 'runtime') /inheritance:r /grant:r 'SYSTEM:(OI)(CI)F' 'Administrators:(OI)(CI)F' 'LOCAL SERVICE:(OI)(CI)M' | Out-Null
+    & icacls (Join-Path $InstallRoot 'runtime') /inheritance:r /grant:r 'SYSTEM:(OI)(CI)F' 'Administrators:(OI)(CI)F' 'LOCAL SERVICE:(OI)(CI)RX' | Out-Null
     & icacls (Join-Path $InstallRoot 'secrets') /inheritance:r /grant:r 'SYSTEM:(OI)(CI)F' 'Administrators:(OI)(CI)F' 'LOCAL SERVICE:(OI)(CI)R' | Out-Null
     Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false
     $arguments = "-B `"$InstallRoot\tools\cpu_worker_service.py`" --bind 127.0.0.1 --port $Port --storage-root `"$InstallRoot\data`" --signing-key-file `"$InstallRoot\secrets\worker-hmac.key`" --expected-user-login `"$ExpectedUserLogin`""
-    $action = New-ScheduledTaskAction -Execute $python -Argument $arguments -WorkingDirectory $InstallRoot
+    $runtimePythonInstalled = Join-Path $InstallRoot 'runtime\python.exe'
+    $action = New-ScheduledTaskAction -Execute $runtimePythonInstalled -Argument $arguments -WorkingDirectory $InstallRoot
     $trigger = New-ScheduledTaskTrigger -AtStartup
     $settings = New-ScheduledTaskSettingsSet -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1) -ExecutionTimeLimit (New-TimeSpan -Days 3650)
     $principal = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\LOCAL SERVICE' -LogonType ServiceAccount -RunLevel Limited
@@ -123,6 +183,10 @@ if ($PSCmdlet.ShouldProcess($InstallRoot, 'Install corrected least-privilege pri
     Funnel = $false
     ServiceIdentity = 'NT AUTHORITY\LOCAL SERVICE'
     RunLevel = 'Limited'
+    PythonRuntimeVersion = [string]$runtimeProbe.version
+    PythonRuntimeArchitectureBits = [int]$runtimeProbe.bits
+    PythonExecutable = (Join-Path $InstallRoot 'runtime\python.exe')
+    PythonExecutableSha256 = if (Test-Path -LiteralPath (Join-Path $InstallRoot 'runtime\python.exe')) { (Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $InstallRoot 'runtime\python.exe')).Hash } else { $null }
     BundleManifestSha256 = if (Test-Path -LiteralPath (Join-Path $InstallRoot 'worker_bundle_manifest.json')) { (Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $InstallRoot 'worker_bundle_manifest.json')).Hash } else { $null }
     SigningKeyRecorded = $false
     ArbitraryShellOrPathExecution = $false

@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-067",
+  "jira_key": "BAT-417",
+  "classification": "PRELIMINARY_UNPROTECTED_ALTERNATE_STATION_RECOVERY_REVIEW",
+  "inputs": {
+    "rank_one_shadow": {
+      "relative_path": "features/weather_game_observation_shadow/sha256/47dea7e719c134476742b06c2e3163df98dfb5ee848d5c3eaf5d7ed1534624b9/game_time_observation_shadow.parquet",
+      "sha256": "7a2f886a3065b84acd796fe6a4981adb86d2309eacefc3ea037f678be277dd5b",
+      "identity": "47dea7e719c134476742b06c2e3163df98dfb5ee848d5c3eaf5d7ed1534624b9"
+    },
+    "station_candidates": {
+      "relative_path": "features/weather_station_matching/sha256/a23eee749d62fbd9ab68571bfdc456bc64f928f93446a2b71e21874f7842055c/venue_season_station_candidates.csv",
+      "sha256": "44f264fde681ad292251ae2e4e2abe687d76e910572a9a973876ca2a11ed7e6a"
+    },
+    "observed_2024_acquisition_manifest": {
+      "relative_path": "manifests/weather_observed_coverage_pilot/sha256/e4ff69a7050887a7289d94898bc4f0c36bc43afc7c4e1239fddbea1ebfdf863f/acquisition_manifest.json",
+      "sha256": "5af85b58f3397b308f48499857e6136ffd959539cefa93ab0c0d2e69c86ffa4e"
+    }
+  },
+  "source": {
+    "source_id": "SRC-029",
+    "dataset": "noaa_isd_global_hourly_station_year",
+    "url_template": "https://noaa-global-hourly-pds.s3.amazonaws.com/{calendar_year}/{station_file_id}.csv",
+    "provider": "NOAA/NCEI via NOAA Open Data Dissemination"
+  },
+  "population": {
+    "football_season": 2024,
+    "recovery_population_rule": "PINNED_RANK_ONE_SHADOW_NEAREST_DELTA_ABOVE_1440_MINUTES",
+    "recovery_rule_is_feature_acceptance_threshold": false,
+    "expected_games": 17,
+    "alternate_ranks": [2, 3, 4, 5],
+    "expected_game_candidate_rows": 68,
+    "expected_unique_alternate_station_years": 24,
+    "expected_prior_capture_reuse": 5,
+    "expected_new_or_request_cache_station_years": 19
+  },
+  "selection": {
+    "automatic_alternate_station_selection": false,
+    "automatic_station_acceptance": false,
+    "maximum_time_delta_minutes": null,
+    "diagnostic_windows_minutes": [15, 30, 60, 1440],
+    "temporal_rule": "NEAREST_ABSOLUTE_TO_KICKOFF_EARLIER_WINS_TIE",
+    "decoded_field_rule": "SAME_PINNED_NOAA_DECODER_AS_RANK_ONE_SHADOW"
+  },
+  "authority": {
+    "alternate_candidate_acquisition": true,
+    "alternate_candidate_comparison": true,
+    "canonical_station_acceptance": false,
+    "game_feature_admission": false,
+    "pregame_forecast_evidence": false,
+    "historical_pit_or_training": false,
+    "protected_or_production": false
+  },
+  "artifact_roots": {
+    "features": "features/weather_alternate_station_recovery/sha256",
+    "manifests": "manifests/weather_alternate_station_recovery/sha256",
+    "validation": "validation/POST-SUBTASK-067/noaa_isd_alternate_station_recovery"
+  },
+  "scientific_nonclaims": [
+    "A smaller report-time delta does not prove an alternate station is meteorologically representative of the stadium.",
+    "No alternate is automatically selected or admitted as a feature.",
+    "Observed records never substitute for issued forecasts.",
+    "No protected, production, champion, A&M-lift, BAS, or Aggie Excess result is established."
+  ]
+}

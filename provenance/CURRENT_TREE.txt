@@ -3111,6 +3111,7 @@ tests/test_historical_player_box_snapshot.py
 tests/test_historical_player_event_metric_pit.py
 tests/test_historical_rankings_pit.py
 tests/test_historical_roster_membership_pit.py
+tests/test_historical_spine_coverage_matrix.py
 tests/test_historical_team_box_snapshot.py
 tests/test_historical_team_membership_pit.py
 tests/test_historical_venue_assignment_pit.py

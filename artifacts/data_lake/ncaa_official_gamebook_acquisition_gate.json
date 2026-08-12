@@ -71,18 +71,18 @@
   "decision_unit": "POST-SUBTASK-197",
   "discovery_population": {
     "canonical_identity_promoted": false,
-    "discovered_contest_count": 3753,
+    "discovered_contest_count": 3780,
     "historical_pit_eligible": false,
     "manifest": {
-      "discovery_identity": "4dbba4b7439b8901011755225460fb34896b49a0746af4895a6b486004d2789d",
-      "path": "C:\\BatteredAggieSyndrome.data\\manifests\\acquisition\\BAT-554-NCAA-OFFICIAL-BOUNDED-V1\\discovery\\2024\\sha256\\4dbba4b7439b8901011755225460fb34896b49a0746af4895a6b486004d2789d\\ncaa_team_graph_discovery_manifest.json",
-      "sha256": "bdc655b00c88d1911881309ddd9ccb3a6909dcac027b386e590591e3368a9bdd"
+      "discovery_identity": "8fac579906a6ab1879e4b7440f7f8764556d08d0ae27c8c09651775cdb70ec60",
+      "path": "C:\\BatteredAggieSyndrome.data\\manifests\\acquisition\\BAT-554-NCAA-OFFICIAL-BOUNDED-V1\\discovery\\2025\\sha256\\8fac579906a6ab1879e4b7440f7f8764556d08d0ae27c8c09651775cdb70ec60\\ncaa_team_graph_discovery_manifest.json",
+      "sha256": "6e8844cb898d7caa2c87b1b5785c8695e6ec0c84b26525bda2a7ba0014ab253f"
     },
     "remaining_queue_count": 0,
-    "season": 2024,
+    "season": 2025,
     "state": "COMPLETE_GRAPH_EXHAUSTED",
     "team_failure_count": 0,
-    "team_page_capture_count": 656
+    "team_page_capture_count": 657
   },
   "identity_gate": {
     "canonical_game_identity_promoted": false,

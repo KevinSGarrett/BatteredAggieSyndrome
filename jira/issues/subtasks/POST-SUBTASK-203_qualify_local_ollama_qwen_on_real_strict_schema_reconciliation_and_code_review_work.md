@@ -48,7 +48,7 @@
       "cost"
     ]
   },
-  "completion_evidence_manifest_sha256": "53164693b04d8c0365b809915157c9314a352b094a472702643a3409ca100a14",
+  "completion_evidence_manifest_sha256": "3996b3803958cc2902a2f46eff79fd9861dc1ccc047de55f249e84f3a32de08f",
   "component": "operations-security",
   "components_expected_to_be_touched": [
     "operations-security",

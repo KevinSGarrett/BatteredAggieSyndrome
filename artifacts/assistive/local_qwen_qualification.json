@@ -5,6 +5,19 @@
   "evidence_state": "VERIFIED",
   "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
   "qualification_disposition": "EMPIRICALLY_REJECTED_NO_OPERATIONAL_ROUTE",
+  "protected_integration": {
+    "implementation_commit": "d748aa965fead425448a24fd84a4e9417819e3ab",
+    "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/244",
+    "merged_main_commit": "b9c2320d227eeb172725b175784a18bf0dfcf6b9",
+    "merged_at_utc": "2026-08-12T18:29:59Z",
+    "hosted_core_ubuntu": "PASS",
+    "hosted_core_windows": "PASS",
+    "hosted_product_ubuntu": "PASS",
+    "hosted_product_windows": "PASS",
+    "hosted_security_policy": "PASS",
+    "hosted_dependency_review": "PASS",
+    "hosted_codeql": "PASS"
+  },
   "acceptance_contract": {
     "strict_schema_rate_min": 0.9,
     "evidence_accuracy_min": 0.8,

@@ -6,6 +6,13 @@
   "evidence_state": "VERIFIED",
   "issue_disposition": "DONE_VERIFIED_EMPIRICALLY_REJECTED_NO_OPERATIONAL_ROUTE",
   "implementation_maturity": "EMPIRICALLY_VALIDATED",
+  "protected_integration": {
+    "implementation_commit": "d748aa965fead425448a24fd84a4e9417819e3ab",
+    "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/244",
+    "merged_main_commit": "b9c2320d227eeb172725b175784a18bf0dfcf6b9",
+    "merged_at_utc": "2026-08-12T18:29:59Z",
+    "all_required_hosted_checks": "PASS"
+  },
   "completion_claim": "The required bounded local-Qwen qualification executed on 10 real packets across three task types for three immutable runs (36 calls total). Both exact evaluated model identities failed predeclared evidence-quality gates and were not admitted. Completion validates the qualification decision, not route readiness.",
   "summary_artifact": "artifacts/assistive/local_qwen_qualification.json",
   "external_evaluation_sha256": [

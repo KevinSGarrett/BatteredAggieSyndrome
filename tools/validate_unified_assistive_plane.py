@@ -28,6 +28,11 @@ REQUIRED_FILES = [
     "tools/refresh_local_assistive_runtime.py",
     "tools/sync_unified_assistive_jira_graph.py",
     "tools/materialize_unified_assistive_inventory.py",
+    "tools/run_local_qwen_qualification.py",
+    "tools/validate_local_qwen_qualification.py",
+    "configs/local_qwen_qualification.json",
+    "schemas/assistive/local_qwen_candidate.schema.json",
+    "artifacts/assistive/local_qwen_qualification.json",
 ]
 
 

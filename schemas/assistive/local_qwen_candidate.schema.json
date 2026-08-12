@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Local Qwen bounded candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "task_type",
+    "disposition",
+    "summary",
+    "findings",
+    "unsupported_facts",
+    "recommended_checks"
+  ],
+  "properties": {
+    "task_id": {"type": "string"},
+    "task_type": {
+      "type": "string",
+      "enum": ["POLICY_CLASSIFICATION", "EVIDENCE_RECONCILIATION", "CODE_REVIEW"]
+    },
+    "disposition": {
+      "type": "string",
+      "enum": ["CANDIDATE", "REVIEW", "UNKNOWN", "CONFLICT"]
+    },
+    "summary": {"type": "string"},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "evidence_quote", "source_sha256", "severity"],
+        "properties": {
+          "claim": {"type": "string"},
+          "evidence_quote": {"type": "string"},
+          "source_sha256": {"type": "string"},
+          "severity": {"type": "string", "enum": ["INFO", "LOW", "MEDIUM", "HIGH"]}
+        }
+      }
+    },
+    "unsupported_facts": {"type": "array", "items": {"type": "string"}},
+    "recommended_checks": {"type": "array", "items": {"type": "string"}}
+  }
+}

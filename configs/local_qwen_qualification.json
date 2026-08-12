@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "qualification_id": "BAT-562-local-qwen-10-packet-v3-qwen3vl8b",
+  "jira_unit": "BAT-562",
+  "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+  "model": "qwen3-vl:8b-instruct-q4_K_M",
+  "expected_digest_prefix": "0533d74300e4",
+  "endpoint": "http://127.0.0.1:11434",
+  "context_tokens": 4096,
+  "parallel_requests": 1,
+  "max_loaded_models": 1,
+  "schema_path": "schemas/assistive/local_qwen_candidate.schema.json",
+  "storage_root": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen",
+  "acceptance": {
+    "strict_schema_rate_min": 0.9,
+    "evidence_accuracy_min": 0.8,
+    "expected_term_recall_min": 0.8,
+    "unsupported_fact_rate_max": 0.0,
+    "task_types_min": 3,
+    "packets_min": 10
+  },
+  "packets": [
+    {
+      "task_id": "policy-openrouter-budget",
+      "task_type": "POLICY_CLASSIFICATION",
+      "source_path": "configs/unified_assistive_policy.json",
+      "json_fields": ["budgets.openrouter"],
+      "instruction": "Classify the paid OpenRouter admission state and preserve the exact blocker and dollar limit.",
+      "expected_terms": ["PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED", "0.00"]
+    },
+    {
+      "task_id": "policy-cursor-budget",
+      "task_type": "POLICY_CLASSIFICATION",
+      "source_path": "configs/unified_assistive_policy.json",
+      "json_fields": ["budgets.cursor"],
+      "instruction": "Classify the paid Cursor admission state and preserve the exact blocker and dollar limit.",
+      "expected_terms": ["PAID_CURSOR_BUDGET_NOT_AUTHORIZED", "0.00"]
+    },
+    {
+      "task_id": "policy-cursor-model",
+      "task_type": "POLICY_CLASSIFICATION",
+      "source_path": "configs/unified_assistive_policy.json",
+      "json_fields": ["cursor"],
+      "instruction": "Identify the exact required Cursor model and allowed reasoning levels without inventing alternatives.",
+      "expected_terms": ["gpt-5.3-codex", "low", "medium"]
+    },
+    {
+      "task_id": "policy-sustained-minimums",
+      "task_type": "POLICY_CLASSIFICATION",
+      "source_path": "configs/unified_assistive_policy.json",
+      "json_fields": ["execution_minimums"],
+      "instruction": "Identify the sustained-operation and direct-OpenAI minimum fields exactly as written.",
+      "expected_terms": ["sustained_calendar_days", "scheduler_cycles", "direct_openai_additional_candidate_units"]
+    },
+    {
+      "task_id": "reconcile-ready-inventory",
+      "task_type": "EVIDENCE_RECONCILIATION",
+      "source_path": "C:\\BatteredAggieSyndrome.data\\assistive\\inventory\\snapshots\\57\\57e639616e9a8ff696b7bb01f3ae1fd7ce2723522e9298d94defc9fcdef42858.json",
+      "json_fields": ["validation"],
+      "instruction": "Reconcile the work-unit count, complete disposition coverage, and total effort points.",
+      "expected_terms": ["work_unit_count", "coverage_fraction", "effort_points_total"]
+    },
+    {
+      "task_id": "reconcile-cpu-worker",
+      "task_type": "EVIDENCE_RECONCILIATION",
+      "source_path": "C:\\BatteredAggieSyndrome.data\\assistive\\runtime\\capability\\4e\\4e4a15a3bbfc46de0f902f6162222b829e3f0c450e8051c5a905d065d13d14c3.json",
+      "json_fields": ["cpu_worker_identity_valid", "peers"],
+      "instruction": "Identify whether the exact comfy-v4 CPU worker was identity-valid and online at capture time.",
+      "expected_terms": ["cpu_worker_identity_valid", "comfy-v4-cpu-01", "online"]
+    },
+    {
+      "task_id": "reconcile-ollama-runtime",
+      "task_type": "EVIDENCE_RECONCILIATION",
+      "source_path": "C:\\BatteredAggieSyndrome.data\\assistive\\runtime\\capability\\4e\\4e4a15a3bbfc46de0f902f6162222b829e3f0c450e8051c5a905d065d13d14c3.json",
+      "json_fields": ["ollama"],
+      "instruction": "Identify the captured Ollama version and whether qwen2.5:7b-instruct was installed.",
+      "expected_terms": ["0.32.6", "qwen2.5:7b-instruct", "max_loaded_models"]
+    },
+    {
+      "task_id": "review-cursor-policy-code",
+      "task_type": "CODE_REVIEW",
+      "source_path": "src/aggie_analytics/assistive_plane/orchestration.py",
+      "start_marker": "def validate_cursor_request",
+      "end_marker": "def validate_ollama_route",
+      "instruction": "Identify the exact symbolic failures for disallowed reasoning and Fast mode.",
+      "expected_terms": ["CURSOR_REASONING_NOT_ALLOWED", "CURSOR_FAST_NOT_ALLOWED"]
+    },
+    {
+      "task_id": "review-ollama-policy-code",
+      "task_type": "CODE_REVIEW",
+      "source_path": "src/aggie_analytics/assistive_plane/orchestration.py",
+      "start_marker": "def validate_ollama_route",
+      "end_marker": "def validate_cpu_worker_identity",
+      "instruction": "Identify the exact symbolic failures for non-loopback routing and excess concurrency.",
+      "expected_terms": ["OLLAMA_NON_LOOPBACK_ENDPOINT", "OLLAMA_CONCURRENCY_POLICY_VIOLATION"]
+    },
+    {
+      "task_id": "review-inventory-code",
+      "task_type": "CODE_REVIEW",
+      "source_path": "src/aggie_analytics/assistive_plane/orchestration.py",
+      "start_marker": "class ReadyWorkInventory",
+      "end_marker": "class ReadinessRegistry",
+      "instruction": "Identify the exact symbolic failures for duplicate and missing route dispositions.",
+      "expected_terms": ["MULTIPLE_ROUTE_DISPOSITIONS", "MISSING_ROUTE_DISPOSITION"]
+    }
+  ]
+}

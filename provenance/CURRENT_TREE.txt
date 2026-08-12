@@ -18,6 +18,7 @@ CHANGELOG.md
 CONTRIBUTING.md
 README.md
 artifacts/README.md
+artifacts/assistive/local_qwen_qualification.json
 artifacts/benchmarks/ac038_gate_decision.json
 artifacts/benchmarks/ac038_input_manifest.json
 artifacts/benchmarks/ac038_target_benchmark.json
@@ -140,6 +141,7 @@ artifacts/jira_evidence/POST-SUBTASK-196.json
 artifacts/jira_evidence/POST-SUBTASK-197.json
 artifacts/jira_evidence/POST-SUBTASK-198.json
 artifacts/jira_evidence/POST-SUBTASK-201.json
+artifacts/jira_evidence/POST-SUBTASK-203.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -239,6 +241,7 @@ configs/hydration_manifest.json
 configs/implementation_plan.json
 configs/judging_rule_seal.json
 configs/known_at_registry.json
+configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
 configs/ncaa_contest_reconciliation_contract.json
 configs/ncaa_official_gamebook_contract.json
@@ -2886,6 +2889,7 @@ requirements/product.lock
 requirements/weather-gfs.lock
 schemas/assistive/candidate_patch.schema.json
 schemas/assistive/independent_review.schema.json
+schemas/assistive/local_qwen_candidate.schema.json
 schemas/assistive/reconciliation_ranking.schema.json
 schemas/assistive/schema_drift_review.schema.json
 schemas/assistive/visual_layout_triage.schema.json
@@ -3211,6 +3215,7 @@ tests/test_hypothesis_queue.py
 tests/test_instructions_pack.py
 tests/test_jira_control_plane.py
 tests/test_lineage_full.py
+tests/test_local_qwen_qualification.py
 tests/test_local_tracker_full.py
 tests/test_locks_full.py
 tests/test_model_architecture_governance.py
@@ -3356,6 +3361,7 @@ tools/repo_integrity.py
 tools/restore_state.py
 tools/run_expanded_event_chronology_preliminary.py
 tools/run_local_benchmark.py
+tools/run_local_qwen_qualification.py
 tools/run_openai_assist_eval.py
 tools/run_openai_availability_source_triage.py
 tools/run_openai_depth_chart_noncoverage_visual_review.py
@@ -3412,6 +3418,7 @@ tools/validate_historical_weather_previous_runs_snapshot.py
 tools/validate_instructions.py
 tools/validate_jira_control_plane.py
 tools/validate_jira_mirror.py
+tools/validate_local_qwen_qualification.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
 tools/validate_ncaa_contest_reconciliation.py

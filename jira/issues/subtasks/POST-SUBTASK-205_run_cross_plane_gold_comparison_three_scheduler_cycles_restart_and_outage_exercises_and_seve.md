@@ -20,7 +20,7 @@
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-205.json"
   ],
-  "blocked_reason": "DEPENDENT_ROUTE_QUALIFICATIONS_AND_SUSTAINED_TIME_WINDOW_PENDING",
+  "blocked_reason": "LOCAL_QWEN_NOT_ADMITTED; CURSOR_BUDGET_BLOCKED; CPU_WORKER_AND_SUSTAINED_TIME_WINDOW_PENDING",
   "blocks": [],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -245,7 +245,7 @@
   "title": "[POST-SUBTASK-205] Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "POST-SUBTASK-202 through POST-SUBTASK-204 and applicable OpenAI/OpenRouter operations reach evidence-backed dispositions.",
+  "unblock_condition": "A local route passes a newly versioned empirical qualification, POST-SUBTASK-204 qualifies, paid-route budget gates resolve where applicable, and sustained-operation evidence accrues.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",

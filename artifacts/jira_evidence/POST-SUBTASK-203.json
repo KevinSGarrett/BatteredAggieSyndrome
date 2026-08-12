@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "decision_unit": "POST-SUBTASK-203",
+  "jira_key": "BAT-562",
+  "evidence_state": "VERIFIED",
+  "issue_disposition": "DONE_VERIFIED_EMPIRICALLY_REJECTED_NO_OPERATIONAL_ROUTE",
+  "implementation_maturity": "EMPIRICALLY_VALIDATED",
+  "completion_claim": "The required bounded local-Qwen qualification executed on 10 real packets across three task types for three immutable runs (36 calls total). Both exact evaluated model identities failed predeclared evidence-quality gates and were not admitted. Completion validates the qualification decision, not route readiness.",
+  "summary_artifact": "artifacts/assistive/local_qwen_qualification.json",
+  "external_evaluation_sha256": [
+    "c3a9a358ca4c760f560107825373bec95862c9fcdb2a6be9d185d225957c5413",
+    "5930e8bf9f61ea955e83ea1f7b75a220683d8ab38273028a728556e63a7164ee",
+    "7d03b5abd0b4bc8622b5fa7817770c572899678f7914a0e81da48352d7ffcd49"
+  ],
+  "acceptance_evidence": [
+    {
+      "criterion": "Model/runtime/digest and content-addressed identities are preserved.",
+      "result": "PASS",
+      "evidence": ["two exact model digests", "three content-addressed evaluation manifests", "external request/response/eval storage"]
+    },
+    {
+      "criterion": "At least 10 real packets across three task types are evaluated with strict schema, evidence, unsupported-fact, consistency, time, and disposition measures.",
+      "result": "PASS",
+      "evidence": ["10 unique packets per run", "three task types", "36 calls", "all required metrics recorded"]
+    },
+    {
+      "criterion": "Candidate outputs cannot bypass deterministic validation or control canonical/protected truth.",
+      "result": "PASS",
+      "evidence": ["zero canonical writes", "zero protected decisions", "all failed evidence routed to quarantine/review", "one isolated accepted candidate was not promoted"]
+    },
+    {
+      "criterion": "Operational admission requires all predeclared quality gates.",
+      "result": "FAIL_AS_EXPECTED_NEGATIVE_RESULT",
+      "evidence": ["best evidence accuracy 0.6471 below 0.8", "unsupported-fact rate remained above zero", "no model admitted"]
+    }
+  ],
+  "cost": {"provider_usd": "0.00", "local_compute_only": true},
+  "cleanup": {"all_models_unloaded": true, "temporary_bytecode_removed": true},
+  "downstream_disposition": "POST-SUBTASK-205 remains blocked from claiming a complete local-Qwen operational route. Independent CPU-worker, OpenAI, deterministic, and budget-eligible route work continues.",
+  "protected_nonclaims": [
+    "No route readiness is claimed.",
+    "No final historical completeness, production readiness, champion, protected performance, A&M lift, BAS, or Aggie Excess result is claimed."
+  ]
+}

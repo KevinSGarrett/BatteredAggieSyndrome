@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "decision_unit": "POST-SUBTASK-203",
+  "jira_key": "BAT-562",
+  "evidence_state": "VERIFIED",
+  "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+  "qualification_disposition": "EMPIRICALLY_REJECTED_NO_OPERATIONAL_ROUTE",
+  "acceptance_contract": {
+    "strict_schema_rate_min": 0.9,
+    "evidence_accuracy_min": 0.8,
+    "expected_term_recall_min": 0.8,
+    "unsupported_fact_rate_max": 0.0,
+    "task_types_min": 3,
+    "packets_min": 10
+  },
+  "aggregate": {
+    "provider_calls": 36,
+    "unique_packet_executions": 30,
+    "unique_packet_definitions": 10,
+    "task_types": 3,
+    "models_evaluated": 2,
+    "prompt_tokens": 18060,
+    "output_tokens": 13480,
+    "wall_seconds": 303.387378,
+    "cost_usd": "0.00",
+    "canonical_writes": 0,
+    "protected_decisions": 0,
+    "models_left_loaded": 0
+  },
+  "runs": [
+    {
+      "qualification_id": "BAT-562-local-qwen-10-packet-v1",
+      "model": "qwen2.5:7b-instruct",
+      "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "evaluation_path": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen\\evals\\c3\\c3a9a358ca4c760f560107825373bec95862c9fcdb2a6be9d185d225957c5413.json",
+      "evaluation_sha256": "c3a9a358ca4c760f560107825373bec95862c9fcdb2a6be9d185d225957c5413",
+      "metrics": {
+        "provider_calls": 12,
+        "unique_packets": 10,
+        "task_types": 3,
+        "strict_schema_rate": 1.0,
+        "evidence_accuracy": 0.6470588235294118,
+        "expected_term_recall": 0.76,
+        "unsupported_fact_rate": 0.9411764705882353,
+        "repeat_exact_response_rate": 0.0,
+        "dispositions": {"QUARANTINE": 10},
+        "prompt_tokens": 4702,
+        "output_tokens": 4502,
+        "wall_seconds": 104.231144,
+        "unload_succeeded": true
+      },
+      "result": "FAIL_PRESERVE_NEGATIVE_EVIDENCE"
+    },
+    {
+      "qualification_id": "BAT-562-local-qwen-10-packet-v2",
+      "model": "qwen2.5:7b-instruct",
+      "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "evaluation_path": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen\\evals\\59\\5930e8bf9f61ea955e83ea1f7b75a220683d8ab38273028a728556e63a7164ee.json",
+      "evaluation_sha256": "5930e8bf9f61ea955e83ea1f7b75a220683d8ab38273028a728556e63a7164ee",
+      "metrics": {
+        "provider_calls": 12,
+        "unique_packets": 10,
+        "task_types": 3,
+        "strict_schema_rate": 1.0,
+        "evidence_accuracy": 0.15789473684210525,
+        "expected_term_recall": 0.68,
+        "unsupported_fact_rate": 0.8421052631578947,
+        "repeat_exact_response_rate": 0.5,
+        "dispositions": {"QUARANTINE": 9, "REVIEW": 1},
+        "prompt_tokens": 6805,
+        "output_tokens": 4277,
+        "wall_seconds": 73.636817,
+        "unload_succeeded": true
+      },
+      "result": "FAIL_PRESERVE_NEGATIVE_EVIDENCE"
+    },
+    {
+      "qualification_id": "BAT-562-local-qwen-10-packet-v3-qwen3vl8b",
+      "model": "qwen3-vl:8b-instruct-q4_K_M",
+      "model_digest": "0533d74300e4f9bc367d675d4e64ffd073d50ff16a2b4096cc2e8a1cf8c96319",
+      "evaluation_path": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen\\evals\\7d\\7d03b5abd0b4bc8622b5fa7817770c572899678f7914a0e81da48352d7ffcd49.json",
+      "evaluation_sha256": "7d03b5abd0b4bc8622b5fa7817770c572899678f7914a0e81da48352d7ffcd49",
+      "metrics": {
+        "provider_calls": 12,
+        "unique_packets": 10,
+        "task_types": 3,
+        "strict_schema_rate": 0.9,
+        "evidence_accuracy": 0.1111111111111111,
+        "expected_term_recall": 0.72,
+        "unsupported_fact_rate": 0.8888888888888888,
+        "repeat_exact_response_rate": 0.5,
+        "dispositions": {"ACCEPTED_CANDIDATE": 1, "QUARANTINE": 9},
+        "prompt_tokens": 6553,
+        "output_tokens": 4701,
+        "wall_seconds": 125.519417,
+        "unload_succeeded": true
+      },
+      "result": "FAIL_PRESERVE_NEGATIVE_EVIDENCE"
+    }
+  ],
+  "acceptance_decision": {
+    "result": "FAIL",
+    "admitted_models": [],
+    "operational_route_ready": false,
+    "reason": "Both evaluated local model identities failed the predeclared evidence-accuracy and zero-unsupported-fact gates. The result is preserved without lowering thresholds or promoting a weaker authority tier.",
+    "allowed_future_use": "A newly versioned candidate format or model identity may be evaluated as a separate shadow qualification; these failed identities are not admitted for evidence-critical project work."
+  },
+  "cleanup": {
+    "models_unloaded_after_each_run": true,
+    "ollama_ps_empty_after_qualification": true,
+    "reconstructible_repository_bytecode_removed": true,
+    "external_requests_responses_and_evaluations_preserved": true
+  },
+  "protected_nonclaims": [
+    "No local model entered canonical data or protected truth.",
+    "No scientific, model-promotion, forecast, BAS, Aggie Excess, or publication decision was delegated.",
+    "BAT-562 completion means the bounded empirical qualification executed; it does not mean a local Qwen route qualified."
+  ]
+}

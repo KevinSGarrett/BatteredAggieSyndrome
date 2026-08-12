@@ -15,9 +15,11 @@
   "ai_context_notes": [
     "Canonical unified assistive contract source is `SRCREF-02121`.",
     "Never expose credentials, .env content, private data, or unnecessary protected evidence.",
-    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority."
+    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.",
+    "The bounded qualification is complete and verified, but both exact evaluated model identities failed predeclared evidence-quality gates; no local Qwen operational route is admitted."
   ],
   "allowed_modification_paths": [
+    "artifacts/assistive/local_qwen_qualification.json",
     "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
   "blocked_reason": "",
@@ -46,6 +48,7 @@
       "cost"
     ]
   },
+  "completion_evidence_manifest_sha256": "53164693b04d8c0365b809915157c9314a352b094a472702643a3409ca100a14",
   "component": "operations-security",
   "components_expected_to_be_touched": [
     "operations-security",
@@ -76,11 +79,12 @@
   "end_to_end_validation": "Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-203.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "VERIFIED",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
   "expected_outputs": [
+    "artifacts/assistive/local_qwen_qualification.json",
     "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
   "files_expected_to_be_read": [
@@ -130,11 +134,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24955",
-    "jira_updated_at": "2026-08-12T13:02:15.788-0500",
-    "last_synced_at": "2026-08-12T18:02:41.441484+00:00",
+    "jira_updated_at": "2026-08-12T13:22:07.445-0500",
+    "last_synced_at": "2026-08-12T18:22:30.571784+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -178,7 +182,7 @@
     "schemas/openai/assistive_candidate.schema.json",
     "docs/final/CODEX_HANDOFF.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-161.json` with one evidence row per acceptance criterion and exact artifact hashes.",
@@ -239,7 +243,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-203.md",
-  "workflow_state": "READY"
+  "workflow_state": "DONE"
 }
 ```
 
@@ -314,6 +318,7 @@ Run at least 100 real records or 10 bounded packets across three task types unde
 
 ## Expected Outputs / Artifacts
 
+- artifacts/assistive/local_qwen_qualification.json
 - artifacts/jira_evidence/POST-SUBTASK-203.json
 
 ## Direct Requirements
@@ -414,3 +419,4 @@ Run the versioned local harness over capable-model reference and cheaper routes,
 - Canonical unified assistive contract source is `SRCREF-02121`.
 - Never expose credentials, .env content, private data, or unnecessary protected evidence.
 - Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.
+- The bounded qualification is complete and verified, but both exact evaluated model identities failed predeclared evidence-quality gates; no local Qwen operational route is admitted.

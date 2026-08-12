@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-067",
+  "jira_key": "BAT-417",
+  "classification": "OBSERVED_WEATHER_RANK_ONE_COVERAGE_PILOT_CANDIDATE_ONLY",
+  "source": {
+    "source_id": "SRC-029",
+    "dataset": "noaa_isd_global_hourly_station_year",
+    "url_template": "https://noaa-global-hourly-pds.s3.amazonaws.com/{season}/{station_file_id}.csv",
+    "provider": "NOAA/NCEI via NOAA Open Data Dissemination",
+    "route_change_evidence": "NOAA retired the former NCEI direct ISD CSV service on 2026-07-31 and directs bulk access to NODD; the NOAA-managed public bucket is authoritative for this pilot.",
+    "extension": ".csv"
+  },
+  "input": {
+    "station_matching_manifest_relative_path": "manifests/weather_station_matching/sha256/a23eee749d62fbd9ab68571bfdc456bc64f928f93446a2b71e21874f7842055c/run_manifest.json",
+    "station_matching_manifest_sha256": "02dac33aaf47a38a60321c55c4ce3b29fb80f278a76a8ad30873aa8eb309fd0b",
+    "station_matching_identity": "a23eee749d62fbd9ab68571bfdc456bc64f928f93446a2b71e21874f7842055c",
+    "station_candidate_relative_path": "features/weather_station_matching/sha256/a23eee749d62fbd9ab68571bfdc456bc64f928f93446a2b71e21874f7842055c/venue_season_station_candidates.csv",
+    "station_candidate_sha256": "44f264fde681ad292251ae2e4e2abe687d76e910572a9a973876ca2a11ed7e6a"
+  },
+  "pilot_population": {
+    "season": 2024,
+    "station_rank": 1,
+    "expected_unique_station_years": 149,
+    "deduplicate_shared_station_years": true
+  },
+  "authority": {
+    "immutable_station_year_acquisition": true,
+    "availability_and_schema_coverage_measurement": true,
+    "canonical_station_acceptance": false,
+    "game_condition_materialization": false,
+    "issued_forecast_substitution": false,
+    "historical_pit_admission": false,
+    "training_feature_admission": false,
+    "protected_evaluation_admission": false,
+    "production_or_publication": false
+  },
+  "artifact_root": "manifests/weather_observed_coverage_pilot/sha256",
+  "missingness": {
+    "missing_station_year": "TECHNICAL_OR_SOURCE_COVERAGE_GAP_NOT_ZERO",
+    "missing_observation": "UNKNOWN_NOT_ZERO",
+    "sentinel_values": "PRESERVE_RAW_AND_DECODE_ONLY_IN_LATER_VERSIONED_NORMALIZATION"
+  },
+  "acceptance": {
+    "exact_pinned_input": true,
+    "unique_request_identity": true,
+    "immutable_raw_capture": true,
+    "all_expected_station_years_disposed": true,
+    "credentials_absent_from_evidence": true,
+    "no_station_or_feature_promotion": true
+  },
+  "scientific_nonclaims": [
+    "Rank one is a bounded acquisition-priority candidate, not an accepted canonical stadium station.",
+    "Observed hourly records are retrospective evidence and never issued forecasts.",
+    "This pilot does not create game-condition features, PIT eligibility, protected evidence, production readiness, A&M lift, BAS, or Aggie Excess."
+  ]
+}

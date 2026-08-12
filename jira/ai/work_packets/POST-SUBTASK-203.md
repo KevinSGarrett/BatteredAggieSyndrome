@@ -33,8 +33,8 @@ Run at least 100 real records or 10 bounded packets across three task types unde
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
-- Ready: `false`
+- Workflow: `READY`
+- Ready: `true`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`

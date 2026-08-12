@@ -33,8 +33,8 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
-- Ready: `false`
+- Workflow: `READY`
+- Ready: `true`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`

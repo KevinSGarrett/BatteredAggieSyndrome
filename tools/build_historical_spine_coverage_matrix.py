@@ -8,7 +8,7 @@ from typing import Any
 
 
 EVENT_RUN = "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080"
-DISCOVERY_SEASONS = (2024, 2025)
+DISCOVERY_SEASONS = tuple(range(2010, 2026))
 
 
 def canonical_json(value: Any) -> bytes:
@@ -58,10 +58,14 @@ def main() -> int:
     event_path = data_root / "manifests/preliminary_event_chronology/sha256" / EVENT_RUN / "run_manifest.json"
     event = json.loads(event_path.read_text(encoding="utf-8"))
     target_counts = event["population"]["target_counts_by_season"]
-    discoveries = {
-        season: select_strongest_discovery(data_root, season)
-        for season in DISCOVERY_SEASONS
-    }
+    discoveries: dict[int, tuple[Path, dict[str, Any]]] = {}
+    for season in DISCOVERY_SEASONS:
+        try:
+            discoveries[season] = select_strongest_discovery(data_root, season)
+        except FileNotFoundError:
+            # Missing seasons are explicit NOT_STARTED rows below; partial
+            # availability in one season never discards another season.
+            continue
     rows: list[dict[str, Any]] = []
     for season in range(2010, 2026):
         rows.append({
@@ -159,7 +163,7 @@ def main() -> int:
         "negative_findings": [
             "NCAA official contest discovery is complete only for 2024.",
             "The 2025 NCAA graph remains partial at the 250-page checkpoint.",
-            "NCAA discovery for 2010-2023 has not yet executed.",
+            "NCAA discovery for 2010-2022 has not yet executed; 2023 is a bounded partial tranche.",
             "Only one bounded 2024 contest has validated all eight parser-domain groups; this is not population coverage.",
             "No NCAA gamebook row currently has preliminary-training, protected, champion, or production authority."
         ],

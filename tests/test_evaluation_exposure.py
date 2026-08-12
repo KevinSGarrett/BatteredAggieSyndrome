@@ -123,28 +123,35 @@ class ExposureAwareEvaluationTests(unittest.TestCase):
             data_root = Path(temp)
             root = data_root / "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2025/sha256"
             candidates = [
-                ("partial", "PARTIAL_MAXIMUM_TEAM_LIMIT_REACHED", 300, 1900, 0),
-                ("complete", "COMPLETE_GRAPH_EXHAUSTED", 299, 1890, 1),
-                ("empty-complete", "COMPLETE_GRAPH_EXHAUSTED", 0, 0, 0),
+                ("PARTIAL_MAXIMUM_TEAM_LIMIT_REACHED", 300, 1900, 0),
+                ("COMPLETE_GRAPH_EXHAUSTED", 299, 1890, 1),
+                ("COMPLETE_GRAPH_EXHAUSTED", 0, 0, 0),
             ]
-            for identity, state, pages, contests, failures in candidates:
+            expected_identity = None
+            for state, pages, contests, failures in candidates:
+                core = {
+                    "state": state,
+                    "team_page_capture_count": pages,
+                    "discovered_contest_ids": list(range(contests)),
+                    "discovered_team_season_ids": list(range(pages)),
+                    "team_failure_count": failures,
+                }
+                identity = hashlib.sha256(module.canonical_json(core)).hexdigest()
+                if pages == 300:
+                    expected_identity = identity
                 path = root / identity / "ncaa_team_graph_discovery_manifest.json"
                 path.parent.mkdir(parents=True)
                 path.write_text(
                     json.dumps(
                         {
+                            **core,
                             "discovery_identity": identity,
-                            "state": state,
-                            "team_page_capture_count": pages,
-                            "discovered_contest_ids": list(range(contests)),
-                            "discovered_team_season_ids": list(range(pages)),
-                            "team_failure_count": failures,
                         }
                     ),
                     encoding="utf-8",
                 )
             path, item = module.select_strongest_discovery(data_root, 2025)
-            self.assertEqual(path.parent.name, "partial")
+            self.assertEqual(path.parent.name, expected_identity)
             self.assertEqual(item["state"], "PARTIAL_MAXIMUM_TEAM_LIMIT_REACHED")
 
 

@@ -214,6 +214,7 @@ configs/experiment_store_policy.json
 configs/exposure_aware_evaluation_contract.json
 configs/external_storage_policy.json
 configs/feature_lifecycle_registry.json
+configs/feature_source_research_program.json
 configs/historical_advanced_game_snapshot_contract.json
 configs/historical_game_outcome_spine_contract.json
 configs/historical_known_at_recovery_contract.json
@@ -564,6 +565,7 @@ governance/FEATURE_LIFECYCLE_DECISION_LOG.csv
 governance/FEATURE_LIFECYCLE_STATES.csv
 governance/FEATURE_LIFECYCLE_TRANSITIONS.csv
 governance/FEATURE_SCREENING_METHODS.csv
+governance/FEATURE_SOURCE_RESEARCH_EXECUTION_CONTRACT.md
 governance/FEATURE_TOURNAMENT_POLICY.csv
 governance/FEATURE_TOURNAMENT_STAGE_MATRIX.csv
 governance/FEATURE_TRANSFORMATION_CATALOG.csv

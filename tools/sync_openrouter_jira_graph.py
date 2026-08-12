@@ -114,6 +114,13 @@ def specs() -> list[dict[str, Any]]:
     ]
     foundation["blocked_reason"] = ""
     foundation["unblock_condition"] = ""
+    # The non-billable foundation was merged through PR #240 at exact main
+    # eeb3d52698adab4f1e242d7a3ec89fb0e3163e83 after every hosted and local
+    # acceptance gate passed. Preserve that terminal evidence on future graph
+    # reconciliation instead of regressing the unit to IN_PROGRESS/PARTIAL.
+    foundation["workflow_state"] = "DONE"
+    foundation["evidence_state"] = "VERIFIED"
+    foundation["ready"] = False
 
     pilot = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-199", import_id=100508, objective="Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization", issue_type="Subtask", parent="POST-STORY-057", dependencies=["POST-SUBTASK-198"], workflow="BLOCKED")
     pilot["scope"] = "After explicit paid authority, compare deterministic-only work with a pinned Qwen candidate and bounded cross-family references on versioned gold cases; no production or canonical authority."

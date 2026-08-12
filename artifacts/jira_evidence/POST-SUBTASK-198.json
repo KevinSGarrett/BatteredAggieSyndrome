@@ -2,13 +2,17 @@
   "schema_version": 1,
   "decision_unit": "POST-SUBTASK-198",
   "jira_key": "BAT-556",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "authority": "NON_BILLABLE_FOUNDATION_ONLY",
   "governing_identities": {
     "directive_sha256": "0a2087e4692977f14b96b0feb9cd7f01a96a50d4f085e92fc83eac192998ca89",
     "plan_sha256": "5cc491a90a5df11a066b88b665fe69c51b31bd8725185c2ed653b249b808f498",
     "base_commit": "95f1b642c0373d9ed30779b3589137f06d6af3f1",
-    "branch": "codex/openrouter-assistive-foundation"
+    "branch": "codex/openrouter-assistive-foundation",
+    "implementation_commit": "7543466560a3c6110687dbc7770255638eb2c7cc",
+    "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/240",
+    "merged_main_commit": "eeb3d52698adab4f1e242d7a3ec89fb0e3163e83",
+    "merged_at_utc": "2026-08-12T16:47:37Z"
   },
   "credential_preflight": {
     "authoritative_env": "C:\\BatteredAggieSyndrome\\.env",
@@ -75,8 +79,13 @@
     },
     {
       "criterion": "Normal PR integration, hosted checks, exact-main validation, and post-merge evidence complete.",
-      "result": "PENDING",
-      "evidence": ["Foundation remains on codex/openrouter-assistive-foundation until full validation and review integration complete."]
+      "result": "PASS",
+      "evidence": [
+        "PR #240 merged to exact main eeb3d52698adab4f1e242d7a3ec89fb0e3163e83",
+        "Linux and Windows core validation PASS",
+        "Linux and Windows product-adapter validation PASS",
+        "security policy, dependency review, and CodeQL PASS"
+      ]
     }
   ],
   "dispositions": {

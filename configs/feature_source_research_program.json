@@ -69,8 +69,12 @@
     "possession_pace_candidate_manifest_sha256": "9e5a2d59c0728818a4c7db04ee9e89d25467af9f8d7a5ebac5e5534dbbe94900",
     "possession_pace_candidate_validation_sha256": "e2b9e7c6d9916922bc5ef5f2cf1bc718cc5e2707a521ef23afe9f1d17ce6db21",
     "possession_pace_candidate_disposition": "PASS_PRELIMINARY_CANDIDATE_ONLY_TRUE_POSSESSION_TIME_AND_SECONDS_PER_SNAP_UNSUPPORTED",
+    "possession_pace_ablation_run_identity": "72b2ca49f6b417114fac87cd78343ede112c3c39d26d0afb2378ecb21e72fc7b",
+    "possession_pace_ablation_manifest_sha256": "7f97957726a881a7a89197173425a19c692e98dbfa4d77da2f844043b65011a3",
+    "possession_pace_ablation_validation_sha256": "49b6b44ce8251afbfdf2df5854ce61f5551ead95aa2610dfb5c7d355c43f8938",
+    "possession_pace_ablation_disposition": "REJECT_UNSTABLE_MIXED_SEASON_EFFECT_UNCHANGED_PLAY_DRIVE_REFERENCE_REMAINS_PREFERRED",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
-    "development_classification": "PRELIMINARY_UNPROTECTED"
+    "development_classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
   },
   "storage_root": "C:\\BatteredAggieSyndrome.data",
   "complexity_must_earn_adoption": true,

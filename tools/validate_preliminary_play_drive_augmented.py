@@ -85,6 +85,36 @@ def main() -> int:
         "profile_feature", manifest["input_identities"].get("play_drive_feature")
     )
     check("exact_input_profile", actual_profile == expected_profile)
+    if authorized.get("profile_manifest_sha256"):
+        check(
+            "exact_input_profile_manifest",
+            manifest["input_identities"].get("profile_manifest")
+            == authorized["profile_manifest_sha256"],
+        )
+    nested_prior = contract.get("nested_prior_features", {})
+    if nested_prior.get("enabled"):
+        check(
+            "exact_input_nested_prior_dataset",
+            manifest["input_identities"].get("nested_prior_dataset")
+            == authorized["prior_dataset_identity"],
+        )
+        check(
+            "exact_input_nested_prior_payload",
+            manifest["input_identities"].get("nested_prior_feature_payload")
+            == authorized["prior_feature_payload_sha256"],
+        )
+        check(
+            "nested_prior_population_alignment",
+            manifest["leakage_validation"].get("same_target_rows_as_nested_prior")
+            == "PASS",
+        )
+        check(
+            "nested_prior_identity_alignment",
+            manifest["leakage_validation"].get(
+                "nested_prior_team_cutoff_and_cold_start_alignment"
+            )
+            == "PASS",
+        )
 
     training_root = root / manifest["external_locations"]["training"]
     frames: dict[str, pl.DataFrame] = {}
@@ -111,6 +141,36 @@ def main() -> int:
         check("protected_feature_false", training.filter(pl.col(helpers.PROTECTED_FIELD) != False).height == 0)  # noqa: E712
         check("feature_lineage_unique", features["feature_row_identity"].n_unique() == features.height)
         check("feature_columns", set(helpers.DIFFERENCE_FIELDS).issubset(training.columns))
+        for name, frame in (
+            ("training", training),
+            ("features", features),
+            ("targets", targets),
+            ("splits", splits),
+        ):
+            check(
+                f"classification:{name}",
+                set(frame["classification"].unique()) == {helpers.CLASSIFICATION},
+            )
+        diagnostic_fields = set(getattr(helpers, "DIAGNOSTIC_FIELDS", ()))
+        fitted_fields = set(helpers.LOGISTIC_FEATURES) | set(helpers.MARGIN_FEATURES)
+        check(
+            "diagnostic_fields_excluded_from_fit",
+            not diagnostic_fields.intersection(fitted_fields),
+        )
+        if nested_prior.get("enabled"):
+            check(
+                "nested_prior_feature_rows",
+                manifest["population"].get("nested_prior_feature_rows")
+                == training.height,
+            )
+            check(
+                "common_support_cold_start_missingness",
+                all(
+                    manifest["population"]["missing_feature_cells"].get(name)
+                    == manifest["population"]["cold_start_games"]
+                    for name in helpers.DIFFERENCE_FIELDS
+                ),
+            )
 
     forecast_path = root / manifest["external_locations"]["forecast"] / "predictions.parquet"
     check("forecast_exists", forecast_path.is_file())

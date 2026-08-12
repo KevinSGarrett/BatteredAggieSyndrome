@@ -3127,6 +3127,7 @@ tests/test_locks_full.py
 tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
+tests/test_ncaa_official_discovery_validation.py
 tests/test_ncaa_official_gamebooks.py
 tests/test_noaa_gfs_issued_run_pilot.py
 tests/test_noaa_isd_alternate_station_recovery.py
@@ -3299,6 +3300,7 @@ tools/validate_jira_control_plane.py
 tools/validate_jira_mirror.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
+tools/validate_ncaa_official_discovery.py
 tools/validate_ncaa_official_gamebooks.py
 tools/validate_noaa_gfs_issued_run_pilot.py
 tools/validate_noaa_isd_alternate_station_recovery.py

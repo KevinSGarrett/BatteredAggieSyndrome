@@ -81,6 +81,12 @@ The bounded retrospective formula-research population is identity `4eb29ad4de42d
 
 Count ratios are bounded shares. Yardage ratios use signed event-sum semantics because negative player events can make a returning subset slightly exceed the net team total or become negative. Thirteen such values are retained and diagnosed without clipping. The capture was known in May 2023, not at the original offseason transition, so this population is development-only retrospective research. It grants no target-game, preliminary-training, protected, production, forecast, starter, depth-chart, injury, or shared-snap authority.
 
+## Executed NOAA ISD station-matching checkpoint
+
+The bounded station-matching population is identity `a23eee749d62fbd9ab68571bfdc456bc64f928f93446a2b71e21874f7842055c`. Its immutable NOAA/NCEI ISD catalog capture contains 28,474 valid station period-of-record rows. It independently covers 2,363 venue-season rows across 2010-2025: 2,277 have one current-catalog coordinate candidate, 86 preserve missing coordinate evidence, and none have multiple distinct coordinate variants. The output retains the five nearest season-overlapping station candidates, yielding 11,385 review rows.
+
+This checkpoint does not select a canonical stadium station and does not fabricate a distance cutoff. Venue coordinates remain explicitly current-2026 catalog candidates whose historical effective time is unknown. The 86 missing venue-season coordinates remain missing rather than zero-filled or name-matched. Observed hourly-condition acquisition, station acceptance, forecast-error derivation, and issued-forecast acquisition remain separate dependent work. Observations may support retrospective evaluation but may never substitute for forecast-time evidence. No training, PIT, protected, production, champion, forecast, A&M-lift, BAS, or Aggie Excess authority is granted.
+
 ## Completion boundary
 
 Applicable units must pass repository, provenance, Jira second-pass, secret, unit/property, integration, chronological/PIT, mutation, and full-suite checks with commands, exit codes, hashes, and exceptions recorded. This contract establishes no final historical completeness, production model, champion, protected performance, A&M lift, BAS, Aggie Excess, or other scientific result.

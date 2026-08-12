@@ -1,72 +1,39 @@
 {
-  "schema_version": 1,
-  "evidence_manifest_type": "jira_issue_progress_evidence",
+  "schema_version": 2,
+  "evidence_manifest_type": "jira_issue_completion_evidence",
   "decision_unit": "POST-SUBTASK-204",
   "jira_key": "BAT-563",
-  "evidence_state": "PARTIAL",
-  "workflow_state": "BLOCKED",
-  "issue_disposition": "BLOCKED_NON_UI_ADMIN_BOOTSTRAP_INDEPENDENT_IMPLEMENTATION_CONTINUES",
-  "protected_integration": {
-    "implementation_commit": "0ca3210577fc6af47c8a9fdfc9c57f5284d952f1",
-    "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/246",
-    "merged_main_commit": "3df7e57a1df2ec6c751728ca9e459a141494625a",
-    "merged_at_utc": "2026-08-12T18:48:20Z",
-    "all_required_hosted_checks": "PASS"
-  },
-  "corrective_implementation": {
-    "branch": "codex/BAT-563-live-deployment",
-    "base_main_commit": "ac7d8e24cb950b6f24fa089f6a33328642c65139",
-    "pull_request": "PENDING",
-    "architecture": "LOOPBACK_TAILSCALE_SERVE_HTTPS_SIGNED_ENVELOPES_LOCAL_SERVICE_MINIMAL_BUNDLE",
-    "local_validation": "PASS",
-    "recovery_checkpoint": "C:\\BatteredAggieSyndrome.data\\backups\\BAT-563-CORRECTIVE-20260812T205212Z",
-    "recovery_manifest_sha256": "01e8e89a25eb46bff16e0d54b420bcab27930035d733d587e4df7bab5da6c16d"
-  },
-  "remote_bootstrap_preflight": {
-    "chrome_remote_evidence": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\runtime\\chrome_remote_bootstrap_20260812T203300Z.json",
-    "chrome_remote_evidence_sha256": "7e024bc0959a8b92d216acd5a4268ef664c1ef9529158e1288fb1e09b2003d87",
-    "worker_dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
-    "worker_node_id": "nUxabVWSHb11CNTRL",
-    "controller_dns_name": "kevin.tail9b05ab.ts.net",
-    "controller_node_id": "noo2qLiJGB11CNTRL",
-    "chrome_remote_state": "CONNECTED_READ_ONLY_PREFLIGHT_THEN_DISCONNECTED",
-    "non_ui_admin_route": "CURRENTLY_UNAVAILABLE",
-    "observations": [
-      "RPC, SMB, and RDP are reachable on the verified peer.",
-      "WinRM and the corrected worker endpoint are not listening.",
-      "SMB administrative shares and remote scheduled-task control reject the current network identity with Access Denied.",
-      "A Windows Hello PIN is not a reusable SMB or RPC network credential.",
-      "The governed computer-control interface cannot automate terminal or administrative UI actions."
-    ],
-    "minimal_unblock": "After the corrective PR merges, run the reviewed installer once in an elevated PowerShell on the verified worker, or supply an already-authorized non-UI Windows administrative channel."
-  },
-  "readiness_artifact": "artifacts/assistive/cpu_worker_readiness.json",
-  "external_readiness_sha256": "3abbe8be96083973a18e54c0bfb10e364df718c47bbead2f20331504c7a43ae0",
+  "evidence_state": "VERIFIED",
+  "workflow_state": "DONE",
+  "issue_disposition": "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY",
+  "merged_pull_requests": [248, 249, 250, 251, 252],
+  "final_controller_merge_commit": "6e828c0f8d2e5121a7e823f94dbb13696ee5fe63",
+  "deployed_worker_merge_commit": "7dfdeedf3595e6372eb1b90c09fc0a437d495d7a",
+  "all_required_hosted_checks": "PASS",
+  "external_qualification_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\qualifications\\f1\\f10b8b491e4232bb44f6399e400c7ae61fbad1fb1191123de60dfc1356f11a09.json",
+  "external_qualification_sha256": "f10b8b491e4232bb44f6399e400c7ae61fbad1fb1191123de60dfc1356f11a09",
   "acceptance_evidence": [
-    {
-      "criterion": "Exact peer identity, OS, online status, and private-network addresses are verified.",
-      "result": "PASS",
-      "evidence": ["verified worker MagicDNS and node identity", "verified controller MagicDNS and node identity", "Windows peer online", "no committed Tailscale IP used as durable identity"]
-    },
-    {
-      "criterion": "Least-privilege deterministic service and qualification harness are implemented and locally tested.",
-      "result": "PASS_LOCAL_IMPLEMENTATION_SCOPE",
-      "evidence": ["three fixed task types", "no arbitrary path, URL, module, command, or shell task", "loopback bind with Tailscale Serve design", "HMAC-signed bounded envelopes", "content-addressed replay harness", "restricted Local Service identity", "minimal manifest-bound bundle"]
-    },
-    {
-      "criterion": "Three remote deterministic tranches, one dedup pilot, and restart recovery pass.",
-      "result": "BLOCKED",
-      "evidence": ["corrected worker endpoint not listening", "WinRM unavailable", "SMB administrative share and remote scheduled-task access denied", "Chrome Remote Desktop proved the exact worker reachable", "computer-control policy forbids terminal/admin UI automation", "one-time elevated installer action remains required"]
-    },
-    {
-      "criterion": "No public exposure or protected authority is introduced.",
-      "result": "PASS_TO_CURRENT_IMPLEMENTATION_SCOPE",
-      "evidence": ["Funnel disabled by design", "loopback-only service bind", "private Tailscale Serve HTTPS", "coordinator identity plus signed-envelope authorization", "zero canonical writes", "zero protected decisions"]
-    }
+    {"criterion": "Exact stable worker and controller identity, private transport, and runtime identity are verified.", "result": "PASS"},
+    {"criterion": "Restricted Local Service worker, minimal manifest-bound bundle, and worker-owned pinned runtime are deployed.", "result": "PASS"},
+    {"criterion": "Three fixed deterministic tranches and one exact-dedup pilot replay byte-identically.", "result": "PASS"},
+    {"criterion": "Worker/controller restart, interrupted-job recovery, invalid/corrupt/expired/unauthorized packet rejection, disk admission, hash validation, and cleanup pass.", "result": "PASS"},
+    {"criterion": "No public Funnel, arbitrary execution, credentials in evidence, canonical writes, or protected decisions are introduced.", "result": "PASS"}
   ],
-  "completion_claim": "No completion is claimed. The corrected local implementation and validation pass, but BAT-563 remains incomplete until the merged installer is bootstrapped once on the exact peer and live replay, dedup, restart, authentication rejection, cleanup, and final validation evidence pass.",
+  "negative_findings_preserved": [
+    "The initial Serve attempt stalled because tailnet HTTPS certificates were disabled; HTTPS was enabled through the authenticated admin console before qualification.",
+    "The first implementation depended on user-profile Python and was not deployed; it was replaced by a Sigstore-verified CPython embeddable runtime.",
+    "The first corrected worker lacked stale lease/scratch startup recovery; the gap was fixed and empirically exercised before qualification.",
+    "The first sealing retry reused a fixed nonce with a fresh timestamp and was correctly rejected; qualification run identity now prevents that conflict."
+  ],
+  "cleanup": {
+    "remote_staging_files_removed": 95,
+    "remote_staging_bytes_removed": 66003451,
+    "recovery_root_preserved": "C:\\BatteredAggieWorkerV2.recovery.20260812T214118Z",
+    "controller_signing_key_value_recorded": false
+  },
+  "completion_claim": "BAT-563 qualification is complete at the deterministic qualified-candidate level. This does not establish unified sustained operation or general remote execution authority.",
   "protected_nonclaims": [
-    "No CPU-worker route readiness.",
-    "No production or scientific result."
+    "No unified-plane fully operational or seven-day sustained-operation claim.",
+    "No canonical, PIT, model-promotion, forecast, publication, production, protected-performance, A&M-lift, BAS, Aggie Excess, or other scientific-result claim."
   ]
 }

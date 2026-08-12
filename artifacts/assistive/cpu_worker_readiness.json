@@ -1,22 +1,24 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "decision_unit": "POST-SUBTASK-204",
   "jira_key": "BAT-563",
-  "evidence_state": "PARTIAL",
-  "readiness_disposition": "BLOCKED_CORRECTED_ARCHITECTURE_REQUIRED",
+  "evidence_state": "COMPLETE",
+  "readiness_disposition": "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY",
+  "operational_claim": "QUALIFIED_CANDIDATE_NOT_FULLY_OPERATIONAL",
   "protected_integration": {
-    "implementation_commit": "0ca3210577fc6af47c8a9fdfc9c57f5284d952f1",
-    "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/246",
-    "merged_main_commit": "3df7e57a1df2ec6c751728ca9e459a141494625a",
-    "postmerge_pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/247",
-    "postmerge_main_commit": "ac7d8e24cb950b6f24fa089f6a33328642c65139",
+    "foundation_merge_commit": "fa319123ee53aa2991e5b3344d9448e10d1f9456",
+    "tailscale_cli_merge_commit": "46cbc1dfaf6073b5a3cafcf7fff6ac124c365cad",
+    "embedded_runtime_merge_commit": "88ae377d78257a8a857c0fe524881e9f21ba95c0",
+    "interrupted_recovery_merge_commit": "7dfdeedf3595e6372eb1b90c09fc0a437d495d7a",
+    "qualification_controller_merge_commit": "6e828c0f8d2e5121a7e823f94dbb13696ee5fe63",
+    "pull_requests": [248, 249, 250, 251, 252],
     "all_required_hosted_checks": "PASS"
   },
-  "external_readiness_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\readiness\\3a\\3abbe8be96083973a18e54c0bfb10e364df718c47bbead2f20331504c7a43ae0.json",
-  "external_readiness_sha256": "3abbe8be96083973a18e54c0bfb10e364df718c47bbead2f20331504c7a43ae0",
-  "external_qualification_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\qualifications\\72\\72e0a835d9e14562140158a462357bc6df1ba782b6b7ebf16c508510e7dbf9aa.json",
-  "external_qualification_sha256": "72e0a835d9e14562140158a462357bc6df1ba782b6b7ebf16c508510e7dbf9aa",
-  "historical_prototype_restart_evidence_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\runtime\\restart_evidence_20260812T191745Z.json",
+  "external_readiness_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\readiness\\bf\\bfc488e322355cf488ec59c1b94d279614673ca326db4fcbefd3f55b8a33f526.json",
+  "external_readiness_sha256": "bfc488e322355cf488ec59c1b94d279614673ca326db4fcbefd3f55b8a33f526",
+  "external_qualification_path": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\qualifications\\f1\\f10b8b491e4232bb44f6399e400c7ae61fbad1fb1191123de60dfc1356f11a09.json",
+  "external_qualification_sha256": "f10b8b491e4232bb44f6399e400c7ae61fbad1fb1191123de60dfc1356f11a09",
+  "external_evidence_root": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker\\evidence\\BAT-563\\7dfdeedf3595e6372eb1b90c09fc0a437d495d7a",
   "exact_identity": {
     "worker_dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
     "worker_windows_hostname": "comfy-v4-cpu-01",
@@ -25,68 +27,56 @@
     "worker_online": true,
     "controller_dns_name": "kevin.tail9b05ab.ts.net",
     "controller_tailscale_node_id": "noo2qLiJGB11CNTRL",
-    "durable_ip_identity": false
+    "durable_ip_identity": false,
+    "ssh_host_keys_pinned": true
   },
-  "observed_access": {
-    "ssh_22": false,
-    "rdp_3389": true,
-    "rpc_135": true,
-    "smb_445": true,
-    "winrm_http_5985": false,
-    "winrm_https_5986": false,
-    "historical_prototype_worker_8765_was_reachable": true,
-    "historical_prototype_worker_8765_now_disabled": true,
-    "chrome_remote_desktop_authenticated": true,
-    "dcom_cim_current_identity_authenticated": false,
-    "saved_rdp_credential_target_present": false,
-    "smb_administrative_share_current_identity_authenticated": false,
-    "remote_scheduled_task_current_identity_authenticated": false,
-    "chrome_remote_read_only_preflight_evidence_sha256": "7e024bc0959a8b92d216acd5a4268ef664c1ef9529158e1288fb1e09b2003d87"
+  "deployment": {
+    "install_root": "C:\\BatteredAggieWorkerV2",
+    "service_identity": "NT AUTHORITY\\LOCAL SERVICE",
+    "run_level": "Limited",
+    "python_runtime": "CPython 3.11.9 64-bit embeddable",
+    "python_runtime_sha256": "5f7b89a612c9b8af1d6456cdfcd1dbe5ca630849e79aebced9bee9a6694952ec",
+    "worker_service_sha256": "c112daf836bfab6a10b99160f32da3839d4fa08341269a0f47826f72047ba354",
+    "bundle_manifest_sha256": "60087bfa9115110fca91a92c01649ce2b497eee51b865ae463c8d7f5a7845c86",
+    "transport": "TAILSCALE_SERVE_PRIVATE_HTTPS",
+    "transport_scope": "TAILNET_ONLY",
+    "loopback_only": true,
+    "public_funnel": false,
+    "authentication": "TRUSTED_TAILSCALE_SERVE_IDENTITY_PLUS_CONTROLLER_ONLY_HMAC",
+    "tailnet_acl_exclusivity_claimed": false,
+    "arbitrary_path_url_module_command_or_shell": false,
+    "controller_signing_key_recorded": false
   },
-  "implemented_candidate": {
-    "allowed_tasks": ["CANONICAL_JSON", "LINE_HASH_MANIFEST", "EXACT_TEXT_DEDUP"],
-    "arbitrary_path_or_shell_execution": false,
-    "retired_transport": "DIRECT_HTTP_SOURCE_IP_ALLOWLIST",
-    "required_transport": "LOOPBACK_TAILSCALE_SERVE_PRIVATE_HTTPS",
-    "public_exposure": false,
-    "content_addressed_results": true,
-    "idempotent_request_identity": true,
-    "canonical_writes": 0,
-    "protected_decisions": 0,
-    "deployment_state": "PROTOTYPE_DISABLED_PENDING_CORRECTED_ARCHITECTURE"
-  },
-  "historical_prototype_results": {
+  "qualification": {
+    "disposition": "PASS",
     "deterministic_tranches": 3,
     "byte_identical_replays": 3,
     "exact_dedup_pilots": 1,
-    "restart_recovery": "PASS",
-    "health_after_restart": "READY",
+    "completed_job_replay_after_worker_and_controller_restart": true,
+    "interrupted_job_recovery": true,
+    "unauthorized_request_rejection": true,
+    "expired_packet_rejection": true,
+    "invalid_signature_rejection": true,
+    "corrupt_packet_rejection": true,
+    "disk_admission": true,
+    "result_hash_verification": true,
+    "cleanup": true,
     "canonical_writes": 0,
     "protected_decisions": 0
   },
-  "required_remaining_evidence": [
-    "Stable Tailscale node and Windows host identity binding without committed IP authority",
-    "Loopback service exposed through private Tailscale Serve HTTPS and coordinator-only grant",
-    "HMAC-signed expiring idempotent job envelopes and replay rejection",
-    "Restricted non-SYSTEM service identity and minimal verified bundle",
-    "Three corrected-architecture deterministic tranches, dedup pilot, restart and interrupted-job recovery",
-    "Unauthorized, corrupt, expired, invalid-signature, disk-admission, hash, and cleanup gates"
-  ],
-  "blockers": [
-    "PROTOTYPE_TRANSPORT_RETIRED",
-    "CORRECTED_PRIVATE_HTTPS_TRANSPORT_NOT_DEPLOYED",
-    "SIGNED_ENVELOPE_AUTHENTICATION_NOT_DEPLOYED",
-    "RESTRICTED_SERVICE_IDENTITY_NOT_DEPLOYED",
-    "CORRECTED_ARCHITECTURE_LIVE_QUALIFICATION_PENDING"
-  ],
-  "independent_work_continuing": [
-    "Governed direct OpenAI candidate assistance",
-    "Deterministic project execution and historical acquisition"
-  ],
-  "protected_nonclaims": [
-    "The historical prototype result is preserved but does not qualify the corrected architecture.",
-    "BAT-563 remains BLOCKED / PARTIAL.",
-    "No canonical, PIT, model-promotion, forecast, publication, BAS, or Aggie Excess authority is delegated.",
-    "No historical completeness, production readiness, champion, protected performance, or A&M specialization result is claimed."
+  "cleanup": {
+    "remote_staging_files_removed": 95,
+    "remote_staging_bytes_removed": 66003451,
+    "leases_remaining": 0,
+    "scratch_entries_remaining": 0,
+    "temporary_files_remaining": 0,
+    "first_install_recovery_root_preserved": "C:\\BatteredAggieWorkerV2.recovery.20260812T214118Z",
+    "recovery_root_reason": "unique immediate rollback value pending post-merge evidence retention review"
+  },
+  "remaining_boundaries": [
+    "This is a deterministic candidate route, not arbitrary remote execution.",
+    "No exclusive Tailscale ACL grant is claimed; job authorization is enforced by the controller-only HMAC in addition to trusted Serve identity.",
+    "Unified sustained operation and the seven-day soak remain separate and incomplete.",
+    "No canonical, PIT, model-promotion, forecast, publication, BAS, or Aggie Excess authority is delegated."
   ]
 }

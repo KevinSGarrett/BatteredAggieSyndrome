@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT405-PRELIMINARY-POSSESSION-PACE-WORKLOAD-V1",
+  "decision_unit": "POST-SUBTASK-055",
+  "parent_unit": "POST-STORY-019",
+  "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
+  "source_contract": {
+    "source_layers": [
+      {
+        "layer": "POST176_VERSIONED_BASE",
+        "play_dataset_identity": "714a856691a84bac8f822091a98bb8ef68f2473edd1924abd94b8c5045c3cfc5",
+        "play_manifest_sha256": "9fc257b86c496ed91115ed7f97fff34ffbda3e8beb2ff712aa12f0e60d812cf6",
+        "drive_dataset_identity": "342be676be8a01ce00677a872e06fda73e607b26116ec971f09f5966d21891d0",
+        "drive_manifest_sha256": "ad08719246b144fa2983a2ba54aa20a2b7f56959a9028c04ad413d53eac6f639",
+        "source_seasons": [2010, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022]
+      },
+      {
+        "layer": "POST183_VERSIONED_GAP_EXTENSION",
+        "play_dataset_identity": "33f3f3ab34ba38c2e107410545fac2f227bfb40b5b04478c28e34a85b91e23bc",
+        "play_manifest_sha256": "a470973d156ac7914c67e55c93a3808aa6daa3bf165f2b9d2d8b13b5373e749d",
+        "drive_dataset_identity": "33f3f3ab34ba38c2e107410545fac2f227bfb40b5b04478c28e34a85b91e23bc",
+        "drive_manifest_sha256": "a470973d156ac7914c67e55c93a3808aa6daa3bf165f2b9d2d8b13b5373e749d",
+        "source_seasons": [2011, 2020]
+      }
+    ],
+    "target_replay_identity": "cf732b78db6deff2e2cca51364a18e03219a5ceda88d2f5efa475dad1f7e3fe7",
+    "target_replay_manifest_sha256": "7383dd69d4165d0e18f89ad690d155305e062d7f81ad9b0087233a90a044a888",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "canonical_team_mapping_method": "INTERNAL_ASSIGNMENT_LEDGER_FROM_VERIFIED_SOURCE_IDENTITY",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "missing_source_seasons": [],
+    "target_seasons": [2023, 2024, 2025],
+    "play_dispositions": [
+      "CANDIDATE_CROSS_ROUTE_EXACT_PLAY_CANONICAL_GAME",
+      "CANDIDATE_VERSION_BOUND_EXACT_PLAY_CANONICAL_GAME"
+    ],
+    "drive_dispositions": [
+      "CANDIDATE_CROSS_ROUTE_EXACT_DRIVE_CANONICAL_GAME",
+      "CANDIDATE_VERSION_BOUND_EXACT_DRIVE_CANONICAL_GAME"
+    ],
+    "historical_known_at_basis": "PUBLIC_REPOSITORY_COMMITTER_TIME_BOUND_TO_EXACT_FILE_BYTES"
+  },
+  "feature_contract": {
+    "grain": "TARGET_GAME_TEAM",
+    "profile_window": "ALL_EXACT_VERSION_BOUND_SOURCE_GAMES_2010_2022_AVAILABLE_AT_TARGET_CUTOFF",
+    "features": {
+      "offensive_drives_per_game": "exact admitted offensive drive rows divided by unique exact admitted drive games",
+      "offensive_plays_per_game": "exact admitted offensive play rows divided by unique exact admitted play games",
+      "observed_plays_per_drive_mean": "mean admitted source_play_rows over offensive drives",
+      "regulation_drive_span_seconds_mean": "mean absolute elapsed-game-clock difference between recorded first and last play endpoints for drives wholly in regulation with valid clocks",
+      "regulation_drive_span_seconds_median": "median of the same eligible observed drive-span population",
+      "regulation_drive_span_eligible_rate": "eligible regulation drive-span rows divided by exact offensive drives",
+      "source_endpoint_reverse_rate": "fraction of eligible regulation drives whose source first/last ordering runs backward in elapsed game clock",
+      "overtime_drive_rate": "drive rows with either endpoint after regulation divided by exact offensive drives",
+      "rule_era_transfer_mismatch": "true when a pre-2023 source-only profile is attached to a 2023-or-later target"
+    },
+    "source_rule_era": "PRE_2023_FIRST_DOWN_CLOCK",
+    "target_rule_eras": {
+      "through_2022": "PRE_2023_FIRST_DOWN_CLOCK",
+      "from_2023": "2023_PLUS_FIRST_DOWN_CLOCK_RUNNING"
+    },
+    "missingness": "NULL_WHEN_EVIDENCE_IS_ABSENT_OR_CLOCK_ENDPOINTS_ARE_INVALID; NEVER ZERO_FILL",
+    "structural_zero_policy": "NO_FEATURE_IN_THIS_CONTRACT_TREATS MISSING AS STRUCTURAL ZERO",
+    "unsupported_fields": {
+      "true_possession_time": "not derivable from first/last recorded play clocks",
+      "seconds_per_snap": "snap timestamps are absent",
+      "full_drive_duration": "the interval after the final recorded play until possession transfer is absent",
+      "score_state_adjusted_pace": "not predeclared or validated in this unit"
+    },
+    "target_or_outcome_fields": "PROHIBITED"
+  },
+  "eligibility": {
+    "require_exact_canonical_game_reconciliation": true,
+    "require_pinned_source_manifest_hashes": true,
+    "require_verified_source_team_mapping": true,
+    "require_source_known_at_not_after_target_cutoff": true,
+    "require_source_effective_time_before_target_cutoff": true,
+    "target_game_rows_allowed_in_source": false,
+    "overtime_allowed_for_clock_span": false,
+    "invalid_clock_allowed_for_clock_span": false,
+    "source_order_assumed_chronological": false
+  },
+  "authority": {
+    "canonical_source_mutation": false,
+    "development_feature_admission": true,
+    "preliminary_unprotected_training_candidate": true,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication_authority": false
+  },
+  "acceptance": {
+    "required_target_game_team_multiplier": 2,
+    "target_game_overlap_allowed": 0,
+    "target_or_outcome_columns_allowed": 0,
+    "negative_drive_span_rows_allowed": 0,
+    "byte_identical_rebuild_required": true,
+    "unsupported_metric_columns_allowed": 0,
+    "partial_coverage_and_source_order_findings_preserved": true
+  },
+  "external_storage": {
+    "profiles": "pit_state/preliminary_possession_pace/sha256/<dataset_identity>/team_possession_pace_profiles.parquet",
+    "features": "features/preliminary_possession_pace/sha256/<dataset_identity>/target_game_team_possession_pace_features.parquet",
+    "manifest": "manifests/preliminary_possession_pace/sha256/<dataset_identity>/run_manifest.json",
+    "validation": "validation/POST-SUBTASK-055/possession_pace_candidate_validation.json",
+    "bulk_payloads_in_git": false
+  },
+  "negative_findings": [
+    "The exact admitted drive sources contain complete endpoint fields but source first/last order is not consistently chronological; observed spans therefore normalize endpoint order and report the reverse-order rate.",
+    "Observed first-to-last recorded-play span is not true possession time or full drive duration.",
+    "The eligible source population ends in 2022, so every 2023-2025 target carries an explicit clock-rule-era transfer mismatch.",
+    "The profile is static for 2023-2025 because no later play/drive capture has an eligible historical publication time.",
+    "This candidate unit does not select a production pace formula or authorize protected training, protected evaluation, champion promotion, or scientific claims."
+  ]
+}

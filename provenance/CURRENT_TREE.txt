@@ -251,6 +251,7 @@ configs/player_intelligence_registry.json
 configs/preliminary_dense_play_drive_replay_contract.json
 configs/preliminary_play_drive_augmented_contract.json
 configs/preliminary_play_enrichment_replay_contract.json
+configs/preliminary_possession_pace_contract.json
 configs/preliminary_rankings_augmented_contract.json
 configs/preliminary_unprotected_baseline_contract.json
 configs/preliminary_wmt_tamu_shadow_contract.json
@@ -2964,6 +2965,7 @@ src/aggie_analytics/experimentation/worktree.py
 src/aggie_analytics/features/__init__.py
 src/aggie_analytics/features/factory.py
 src/aggie_analytics/features/lifecycle.py
+src/aggie_analytics/features/possession_pace.py
 src/aggie_analytics/features/registry.py
 src/aggie_analytics/features/screening.py
 src/aggie_analytics/features/transforms.py
@@ -3121,6 +3123,7 @@ tests/test_player_intelligence_governance.py
 tests/test_preliminary_elo_challengers.py
 tests/test_preliminary_play_drive_augmented.py
 tests/test_preliminary_play_enrichment_replay.py
+tests/test_preliminary_possession_pace.py
 tests/test_preliminary_rankings_augmented_contract.py
 tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py
@@ -3178,6 +3181,7 @@ tools/build_historical_venue_assignment_pit.py
 tools/build_historical_weather_previous_runs_snapshot.py
 tools/build_jira_control_plane.py
 tools/build_post2022_roster_candidate.py
+tools/build_preliminary_possession_pace.py
 tools/build_sec_tamu_availability_candidates.py
 tools/build_supplemental_play_drive_gap.py
 tools/build_tamu_availability_evidence_pages.py
@@ -3274,6 +3278,7 @@ tools/validate_player_intelligence.py
 tools/validate_post2022_roster_candidate.py
 tools/validate_preliminary_elo_challengers.py
 tools/validate_preliminary_play_drive_augmented.py
+tools/validate_preliminary_possession_pace.py
 tools/validate_preliminary_rankings_augmented_baselines.py
 tools/validate_preliminary_unprotected_baselines.py
 tools/validate_preliminary_wmt_tamu_shadow.py

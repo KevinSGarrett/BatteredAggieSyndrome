@@ -150,11 +150,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24616",
-    "jira_updated_at": "2026-08-12T17:31:36.803-0500",
-    "last_synced_at": "2026-08-12T22:31:36.803000+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-12T18:20:38.908-0500",
+    "last_synced_at": "2026-08-12T23:22:31.717226+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Review"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",

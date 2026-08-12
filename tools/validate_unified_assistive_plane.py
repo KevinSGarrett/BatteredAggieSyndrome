@@ -19,6 +19,7 @@ REQUIRED_FILES = [
     "configs/assistive_route_readiness.json",
     "configs/unified_assistive_operational_claims.json",
     "configs/unified_assistive_ready_work.json",
+    "configs/unified_assistive_acceptance_ownership.json",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -26,6 +27,8 @@ REQUIRED_FILES = [
     "src/aggie_analytics/assistive_plane/cursor_backend.py",
     "src/aggie_analytics/assistive_plane/ollama_backend.py",
     "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
+    "src/aggie_analytics/assistive_plane/controller_state.py",
+    "src/aggie_analytics/assistive_plane/watchdog.py",
     "tools/refresh_cursor_catalog.py",
     "tools/refresh_local_assistive_runtime.py",
     "tools/sync_unified_assistive_jira_graph.py",
@@ -42,6 +45,11 @@ REQUIRED_FILES = [
     "tools/refresh_cpu_worker_readiness.py",
     "tools/validate_cpu_worker_readiness.py",
     "tools/validate_unified_assistive_completeness.py",
+    "tools/adopt_unified_enforcement_package.py",
+    "tools/validate_unified_acceptance_ownership.py",
+    "tools/run_unified_assistive_controller.py",
+    "tools/run_unified_assistive_watchdog.py",
+    "tools/capture_unified_live_baseline.py",
     "artifacts/assistive/cpu_worker_readiness.json",
 ]
 
@@ -57,6 +65,22 @@ def main() -> int:
         findings.append("EFFORT_POINT_SET_INVALID")
     if policy["inventory"].get("required_coverage_fraction") != 1.0:
         findings.append("INVENTORY_COVERAGE_NOT_COMPLETE")
+    package = policy.get("enforcement_package", {})
+    if package.get("mandatory_acceptance_rows") != 204:
+        findings.append("MANDATORY_ACCEPTANCE_ROW_COUNT_INVALID")
+    if policy.get("result_semantics", {}).get("allowed") != ["PASS", "FAIL", "BLOCKED", "INCOMPLETE"]:
+        findings.append("OPERATIONAL_RESULT_SEMANTICS_INVALID")
+    if "PASS_HONEST_PARTIAL_STATE" not in policy.get("result_semantics", {}).get("forbidden", []):
+        findings.append("PARTIAL_PASS_NOT_EXPLICITLY_FORBIDDEN")
+    if policy.get("controller", {}).get("journal_mode") != "WAL":
+        findings.append("CONTROLLER_WAL_POLICY_MISSING")
+    if policy.get("watchdog", {}).get("read_only") is not True:
+        findings.append("WATCHDOG_READ_ONLY_POLICY_MISSING")
+    minimums = policy.get("execution_minimums", {})
+    if minimums.get("global", {}).get("route_work_assignments") != 135:
+        findings.append("GLOBAL_ROUTE_WORK_FLOOR_INVALID")
+    if minimums.get("scheduler_cycles") != 21 or minimums.get("soak_only_units") != 25:
+        findings.append("SUSTAINED_OPERATION_FLOOR_INVALID")
     expected = {"openai", "openrouter", "cursor", "local_qwen", "remote_cpu_worker", "codex_deterministic"}
     if set(registry.get("providers", {})) != expected:
         findings.append("PROVIDER_REGISTRY_INCOMPLETE")

@@ -33,7 +33,7 @@ Execute 10 nontrivial isolated repository units using exact live `gpt-5.3-codex`
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
+- Workflow: `BLOCKED`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`

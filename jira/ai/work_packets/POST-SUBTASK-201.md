@@ -16,7 +16,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Atomic execution scope
 
-Implement the non-billable provider-neutral foundation and preserve existing direct OpenAI/OpenRouter controllers behind adapters. Live paid/provider qualification volumes are downstream.
+Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, and cleanup.
 
 ### In scope
 
@@ -33,14 +33,14 @@ Implement the non-billable provider-neutral foundation and preserve existing dir
 
 ## Current gate state
 
-- Workflow: `DONE`
+- Workflow: `IN_PROGRESS`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `SHARED_CONTRACT`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `INTEGRATED`
-- Evidence state: `VERIFIED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-201`
 
 ## Read first
@@ -68,12 +68,18 @@ Implement the non-billable provider-neutral foundation and preserve existing dir
 - configs/unified_assistive_policy.json
 - configs/unified_assistive_ready_work.json
 - configs/unified_assistive_operational_claims.json
+- configs/unified_assistive_acceptance_ownership.json
 - src/aggie_analytics/assistive_plane
+- tools/adopt_unified_enforcement_package.py
+- tools/validate_unified_acceptance_ownership.py
+- tools/run_unified_assistive_controller.py
+- tools/run_unified_assistive_watchdog.py
 - tools/materialize_unified_assistive_inventory.py
 - tools/validate_unified_assistive_plane.py
 - tools/validate_unified_assistive_completeness.py
 - tools/refresh_cursor_catalog.py
 - tools/refresh_local_assistive_runtime.py
+- tests/test_unified_controller_state.py
 - tests/test_unified_assistive_plane.py
 - tests/test_unified_assistive_completeness.py
 - governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
@@ -114,6 +120,8 @@ Produce and validate these outputs within this atomic work unit:
 3. Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.
 4. A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.
 5. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
+6. The controller and independent watchdog are OS-supervised outside Codex Desktop, recover from crash/restart, agree on maximum justified state, and cannot overclaim partial operation.
+7. All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes.
 
 ## Tests / validation
 

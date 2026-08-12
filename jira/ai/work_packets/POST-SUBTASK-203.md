@@ -8,7 +8,7 @@
 
 ## What am I implementing?
 
-Qualify local Ollama Qwen on real strict-schema, reconciliation, and code-review work
+Qualify and operate local models on exact evidence-backed task formats
 
 ## Why?
 
@@ -16,7 +16,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Atomic execution scope
 
-Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, and run separately keyed shadow qualifications for qwen2.5-coder and bge-m3 on better-matched workloads.
+Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, qualify separately keyed coding, embedding, visual, and classification routes, then complete the 50-unit/150-point/30-useful three-family campaign.
 
 ### In scope
 
@@ -33,19 +33,19 @@ Preserve the completed negative qualification for the exact qwen2.5:7b-instruct 
 
 ## Current gate state
 
-- Workflow: `DONE`
+- Workflow: `BLOCKED`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `VERIFIED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-203`
 
 ## Read first
 
-1. `jira/records/issues/subtasks/POST-SUBTASK-203_qualify_local_ollama_qwen_on_real_strict_schema_reconciliation_and_code_review_work.json`
+1. `jira/records/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.json`
 2. `jira/sources/issue_source_manifests/POST-SUBTASK-203.json`
 3. `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv` row for `POST-SUBTASK-203`.
 4. Only these additional files/sections, plus verified prerequisite outputs:
@@ -98,6 +98,7 @@ Produce and validate these outputs within this atomic work unit:
 1. Model/runtime/digest/hardware identities and prompt/schema/result dispositions are content-addressed.
 2. Strict schema, evidence, abstention, consistency, time/rework, and unsupported-fact results are measured on real work.
 3. Candidate outputs cannot bypass deterministic validation or enter canonical/protected truth directly.
+4. After qualification, at least 50 distinct real units, 150 effort points, 30 accepted useful results, and three independently qualified families reconcile through the controller.
 
 ## Tests / validation
 

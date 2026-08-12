@@ -13,12 +13,15 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.assistive_plane.orchestration import write_content_addressed_json
+from aggie_analytics.assistive_plane.controller_state import parse_rfc3339
 
 
 OPENAI_LEDGER = Path(r"C:\BatteredAggieSyndrome.data\openai\usage\usage-ledger.jsonl")
-OUTPUT_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\orchestrator")
+OUTPUT_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\orchestrator-v3")
 OPENROUTER_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\openrouter")
 CURSOR_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor")
+AUTHORITATIVE_ENV = Path(r"C:\BatteredAggieSyndrome\.env")
+ALLOWED_RESULTS = {"PASS", "FAIL", "BLOCKED", "INCOMPLETE"}
 
 
 def sha256(path: Path) -> str:
@@ -38,7 +41,7 @@ def settled_openai_calls(path: Path = OPENAI_LEDGER) -> int:
     return count
 
 
-def credential_present_once(name: str, env_path: Path = ROOT / ".env") -> bool:
+def credential_present_once(name: str, env_path: Path = AUTHORITATIVE_ENV) -> bool:
     if not env_path.is_file():
         return False
     matches = []
@@ -68,12 +71,8 @@ def json_artifacts(root: Path) -> list[dict[str, Any]]:
 
 def derive_states(root: Path = ROOT) -> tuple[dict[str, str], dict[str, Any]]:
     policy = json.loads((root / "configs/unified_assistive_policy.json").read_text(encoding="utf-8"))
-    local = json.loads((root / "artifacts/assistive/local_qwen_qualification.json").read_text(encoding="utf-8"))
-    cpu = json.loads((root / "artifacts/assistive/cpu_worker_readiness.json").read_text(encoding="utf-8"))
     openai_calls = settled_openai_calls()
     openrouter_manifests = json_artifacts(OPENROUTER_ROOT / "manifests")
-    openrouter_candidates = sum(item.get("disposition") == "CANDIDATE" for item in openrouter_manifests)
-    openrouter_failures = sum(item.get("disposition") in {"REJECTED", "QUARANTINE"} for item in openrouter_manifests)
     openrouter_ledger_path = OPENROUTER_ROOT / "usage" / "ledger.json"
     openrouter_ledger = json.loads(openrouter_ledger_path.read_text(encoding="utf-8")) if openrouter_ledger_path.is_file() else {}
     openrouter_spend = Decimal(str(openrouter_ledger.get("settled_usd", "0")))
@@ -81,43 +80,23 @@ def derive_states(root: Path = ROOT) -> tuple[dict[str, str], dict[str, Any]]:
     cursor_agents = len({item.get("agent_id") for item in cursor_manifests if item.get("agent_id")})
     states = {
         "openai": "OPERATIONAL_CANDIDATE_ONLY" if openai_calls else "CONFIGURED_NOT_OPERATIONAL",
-        "openrouter": (
-            "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL"
-            if openrouter_spend > 0 or openrouter_candidates > 0
-            else "PAID_PILOT_AUTHORIZED_NOT_EXECUTED"
-        ) if policy["budgets"]["openrouter"]["released_stage_usd"] == "5.00" else "BUDGET_BLOCKED",
-        "cursor": (
-            "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL"
-            if cursor_agents > 0
-            else "PAID_PILOT_AUTHORIZED_ZERO_REAL_AGENTS"
-        ) if policy["budgets"]["cursor"]["released_stage_usd"] == "20.00" else "BUDGET_BLOCKED",
-        "local_qwen": "ONE_EMBEDDING_ROUTE_READY_EVIDENCE_AND_CODER_ROUTES_REJECTED"
-        if local["qualification_disposition"] == "EMPIRICALLY_REJECTED_NO_OPERATIONAL_ROUTE"
-        and any(item.get("result") == "PASS_CANDIDATE_RETRIEVAL_ONLY_EXACT_ROUTE_READY" for item in local.get("shadow_qualifications", []))
-        else "EVIDENCE_CONFLICT",
-        "remote_cpu_worker": "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY"
-        if cpu["readiness_disposition"] == "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY"
-        and cpu["qualification"]["disposition"] == "PASS"
-        else "EVIDENCE_CONFLICT",
-        "unified_plane": "IMPLEMENTED_NONLIVE",
+        "openrouter": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL" if openrouter_spend > 0 else "PAID_PILOT_AUTHORIZED_NOT_OPERATIONAL",
+        "cursor": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL" if cursor_agents > 0 else "PAID_PILOT_AUTHORIZED_ZERO_REAL_AGENTS",
+        "local_qwen": "EXACT_EVALUATED_ROUTES_REJECTED_NEW_QUALIFICATION_PENDING",
+        "remote_cpu_worker": "BLOCKED_PARTIAL_CORRECTED_DEPLOYMENT_PENDING",
+        "unified_plane": "INCOMPLETE_CONTROLLER_NOT_DEPLOYED",
     }
     evidence = {
         "settled_openai_calls": openai_calls,
-        "openrouter_validated_candidates": openrouter_candidates,
-        "openrouter_failed_or_quarantined_manifests": openrouter_failures,
+        "new_controller_routed_openai_units": 0,
+        "openrouter_real_manifests": len(openrouter_manifests),
         "openrouter_settled_usd": format(openrouter_spend, "f"),
         "cursor_real_agents": cursor_agents,
-        "local_qwen_accepted_operational_routes": sum(
-            item.get("result") == "PASS_CANDIDATE_RETRIEVAL_ONLY_EXACT_ROUTE_READY"
-            for item in local.get("shadow_qualifications", [])
-        ),
-        "cpu_corrected_live_qualification_passes": int(
-            cpu["readiness_disposition"] == "QUALIFIED_CANDIDATE_DETERMINISTIC_ONLY"
-            and cpu["qualification"]["disposition"] == "PASS"
-        ),
+        "controller_os_supervision_verified": False,
+        "watchdog_os_supervision_verified": False,
         "scheduler_real_cycles": 0,
         "soak_calendar_days": 0,
-        "retries_health_catalog_counted_as_accepted": 0,
+        "soak_only_units": 0,
         "failed_or_rejected_work_omitted": False,
         "structural_and_operational_results_separate": True,
         "credential_presence": {
@@ -125,9 +104,10 @@ def derive_states(root: Path = ROOT) -> tuple[dict[str, str], dict[str, Any]]:
             "openrouter": credential_present_once("OPENROUTER_API_KEY"),
             "cursor": credential_present_once("CURSOR_API_TOKEN"),
         },
-        "provider_catalogs_present": {
-            "openrouter": (OPENROUTER_ROOT / "catalogs").is_dir(),
-            "cursor": (CURSOR_ROOT / "catalogs").is_dir(),
+        "hard_limits_usd": {
+            name: budget["hard_limit_usd"]
+            for name, budget in policy["budgets"].items()
+            if "hard_limit_usd" in budget
         },
     }
     return states, evidence
@@ -142,44 +122,118 @@ def validate_claims(claims: dict[str, Any], states: dict[str, str]) -> list[str]
         findings.append("FULL_OPERATIONAL_CLAIM_PREMATURE")
     if claims.get("sustained_operation_claimed"):
         findings.append("SUSTAINED_OPERATION_CLAIM_PREMATURE")
+    if "overall_result" in claims and claims.get("overall_result") not in ALLOWED_RESULTS:
+        findings.append("OVERALL_RESULT_SEMANTICS_INVALID")
     return findings
+
+
+def evaluate_rows(registry: dict[str, Any], report_path: Path | None) -> tuple[list[dict[str, Any]], str, list[str]]:
+    required_ids = [row["id"] for row in registry["rows"]]
+    if report_path is None:
+        rows = [
+            {
+                "id": row_id,
+                "mandatory": True,
+                "result": "INCOMPLETE",
+                "observed": {},
+                "required": {},
+                "evidence": [],
+                "findings": ["RUNTIME_ACCEPTANCE_EVIDENCE_NOT_YET_SUPPLIED"],
+            }
+            for row_id in required_ids
+        ]
+        return rows, "INCOMPLETE", ["MANDATORY_RUNTIME_ACCEPTANCE_REPORT_MISSING"]
+    supplied = json.loads(report_path.read_text(encoding="utf-8"))
+    rows = supplied.get("rows", [])
+    findings: list[str] = []
+    by_id = {row.get("id"): row for row in rows}
+    if len(by_id) != len(rows):
+        findings.append("DUPLICATE_ACCEPTANCE_RESULT_ROW")
+    if set(by_id) != set(required_ids):
+        findings.append("ACCEPTANCE_RESULT_POPULATION_MISMATCH")
+    for row_id in required_ids:
+        row = by_id.get(row_id)
+        if row is None:
+            continue
+        result = row.get("result")
+        if result not in ALLOWED_RESULTS:
+            findings.append(f"ACCEPTANCE_RESULT_INVALID:{row_id}")
+        if result == "PASS" and not row.get("evidence"):
+            findings.append(f"PASS_WITHOUT_EVIDENCE:{row_id}")
+    if findings or any(row.get("result") == "FAIL" for row in rows):
+        overall = "FAIL"
+    elif any(row.get("result") == "BLOCKED" for row in rows):
+        overall = "BLOCKED"
+    elif any(row.get("result") == "INCOMPLETE" for row in rows):
+        overall = "INCOMPLETE"
+    elif len(rows) == len(required_ids) and all(row.get("result") == "PASS" for row in rows):
+        overall = "PASS"
+    else:
+        overall = "INCOMPLETE"
+    return rows, overall, findings
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--claims",
-        type=Path,
-        default=ROOT / "configs/unified_assistive_operational_claims.json",
-    )
+    parser.add_argument("--claims", type=Path, default=ROOT / "configs/unified_assistive_operational_claims.json")
+    parser.add_argument("--acceptance-report", type=Path)
     parser.add_argument("--inventory-snapshot", type=Path)
     parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
     args = parser.parse_args()
     claims = json.loads(args.claims.read_text(encoding="utf-8"))
+    registry_path = ROOT / "configs/unified_assistive_acceptance_ownership.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
     states, evidence = derive_states()
     findings = validate_claims(claims, states)
-    inventory = None
-    if args.inventory_snapshot:
-        inventory = {
-            "path": str(args.inventory_snapshot),
-            "sha256": sha256(args.inventory_snapshot),
-        }
-        payload = json.loads(args.inventory_snapshot.read_text(encoding="utf-8"))
-        if payload["validation"]["coverage_fraction"] != 1.0:
+    rows, overall, row_findings = evaluate_rows(registry, args.acceptance_report)
+    findings.extend(row_findings)
+    inventory_sha256 = None
+    latest_material_transition_at = None
+    if args.inventory_snapshot is None:
+        findings.append("CURRENT_INVENTORY_SNAPSHOT_MISSING")
+    else:
+        inventory = json.loads(args.inventory_snapshot.read_text(encoding="utf-8"))
+        inventory_sha256 = sha256(args.inventory_snapshot)
+        latest_material_transition_at = inventory.get("material_transition_at")
+        if inventory.get("validation", {}).get("coverage_fraction") != 1.0:
             findings.append("READY_WORK_COVERAGE_INCOMPLETE")
+        if inventory.get("mandatory_acceptance_rows") != 204:
+            findings.append("INVENTORY_ACCEPTANCE_POPULATION_INVALID")
+        generated = inventory.get("generated_at")
+        if generated and latest_material_transition_at:
+            generated_at = parse_rfc3339(generated)
+            transition_at = parse_rfc3339(latest_material_transition_at)
+            if generated_at < transition_at:
+                findings.append("INVENTORY_SNAPSHOT_PREDATES_MATERIAL_TRANSITION")
+    if findings:
+        overall = "FAIL" if any(item.startswith(("CLAIM_", "ACCEPTANCE_", "PASS_", "OVERALL_")) for item in findings) else overall
+    if claims.get("overall_result") != overall:
+        findings.append(f"CLAIMED_OVERALL_RESULT_CONFLICT:{claims.get('overall_result')}:{overall}")
+        if claims.get("overall_result") == "PASS":
+            overall = "FAIL"
     report = {
-        "schema_version": 1,
+        "schema_version": 2,
+        "evaluation_id": hashlib.sha256((sha256(registry_path) + sha256(args.claims)).encode("ascii")).hexdigest(),
+        "controller_build_commit": "UNKNOWN_NOT_DEPLOYED",
+        "inventory_sha256": inventory_sha256,
+        "latest_material_transition_at": latest_material_transition_at,
+        "live_state_capture_sha256": None,
         "derived_states": states,
         "claims_sha256": sha256(args.claims),
-        "inventory": inventory,
+        "acceptance_registry_sha256": sha256(registry_path),
+        "rows": rows,
+        "overall_result": overall,
+        "blocking_row_ids": [row["id"] for row in rows if row.get("result") != "PASS"],
+        "weighted_attempted_offload_ratio": 0.0,
+        "weighted_accepted_offload_ratio": 0.0,
+        "measured_effective_savings_minutes": 0.0,
         "evidence_counts": evidence,
         "structural_validity": "SEPARATELY_VALIDATED",
-        "operational_completeness": "PASS_HONEST_PARTIAL_STATE" if not findings else "FAIL",
         "findings": findings,
     }
     path, digest = write_content_addressed_json(args.output_root, "completeness", report)
-    print(json.dumps({"status": "PASS" if not findings else "FAIL", "path": str(path), "sha256": digest, "derived_states": states}, sort_keys=True))
-    return 0 if not findings else 1
+    print(json.dumps({"status": overall, "path": str(path), "sha256": digest, "derived_states": states}, sort_keys=True))
+    return 0 if overall == "PASS" else 1
 
 
 if __name__ == "__main__":

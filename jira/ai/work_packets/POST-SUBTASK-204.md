@@ -33,14 +33,14 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Current gate state
 
-- Workflow: `DONE`
+- Workflow: `BLOCKED`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `VERIFIED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-204`
 
 ## Read first

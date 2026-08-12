@@ -16,7 +16,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Aggregate integration and closure scope
 
-Coordinate one provider-neutral ready-work inventory, exact route readiness, independent budgets, candidate authority, utilization evidence, and graceful fallback without replacing provider-specific ledgers or protected project controls.
+Operate the mandatory provider-neutral controller, independent watchdog, 204-row acceptance graph, exact route readiness, independent budgets, candidate authority, campaigns, utilization evidence, reconciliation, cleanup, and sustained-operation gate without replacing provider-specific ledgers or protected project controls.
 
 ### In scope
 
@@ -94,7 +94,8 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 1. All eligible ready work has immutable pre-routing effort and exactly one reconciled disposition.
 2. Every provider route is keyed by exact model, task format, schema, policy, security, and budget evidence.
-3. Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/three-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.
+3. All 204 mandatory acceptance rows have exactly one canonical/live owner and evidence-backed PASS before overall completion.
+4. Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/21-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.
 
 ## Tests / validation
 

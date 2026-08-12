@@ -1,5 +1,5 @@
-<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json -->
-# POST-SUBTASK-204 — [POST-SUBTASK-204] Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance
+<!-- GENERATED VIEW. Canonical record: jira/records/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.json -->
+# POST-SUBTASK-203 — [POST-SUBTASK-203] Qualify and operate local models on exact evidence-backed task formats
 
 ## Canonical metadata
 
@@ -7,37 +7,28 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
-    "Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.",
-    "Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.",
-    "No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced."
+    "Model/runtime/digest/hardware identities and prompt/schema/result dispositions are content-addressed.",
+    "Strict schema, evidence, abstention, consistency, time/rework, and unsupported-fact results are measured on real work.",
+    "Candidate outputs cannot bypass deterministic validation or enter canonical/protected truth directly.",
+    "After qualification, at least 50 distinct real units, 150 effort points, 30 accepted useful results, and three independently qualified families reconcile through the controller."
   ],
   "adr_ids": [],
   "ai_context_notes": [
     "Canonical unified assistive contract source is `SRCREF-02121`.",
     "Never expose credentials, .env content, private data, or unnecessary protected evidence.",
-    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority."
+    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.",
+    "The bounded historical qualification and exact-route negative evidence remain verified; the expanded local-model campaign is active and no operational local-model plane is claimed."
   ],
   "allowed_modification_paths": [
-    "artifacts/assistive/cpu_worker_readiness.json",
-    "artifacts/jira_evidence/POST-SUBTASK-204.json",
-    "configs/cpu_worker_qualification.json",
-    "configs/unified_assistive_policy.json",
-    "configs/assistive_provider_registry.json",
-    "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
-    "tools/cpu_worker_service.py",
-    "tools/install_cpu_worker_service.ps1",
-    "tools/qualify_cpu_worker.py",
-    "tools/refresh_cpu_worker_readiness.py",
-    "tools/validate_cpu_worker_readiness.py",
-    "tests/test_cpu_worker_backend.py",
-    "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
-    "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
+    "artifacts/assistive/local_qwen_qualification.json",
+    "configs/assistive_route_readiness.json",
+    "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
-  "blocked_reason": "CORRECTED_IDENTITY_TRANSPORT_AUTHENTICATION_PRIVILEGE_BUNDLE_AND_LIVE_QUALIFICATION_REQUIRED",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-201",
   "blocks": [
     "POST-SUBTASK-205"
   ],
-  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json",
+  "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
   "completion_evidence_contract": {
     "acceptance_matrix_required": true,
@@ -86,57 +77,51 @@
     "risk_ids": 0
   },
   "effective_traceability_total": 0,
-  "end_to_end_validation": "Deploy only to the exact verified private Windows peer through the authorized Chrome bootstrap, verify Serve HTTPS/grants/HMAC/least-privilege identity, execute all fixed tasks and rejection cases, restart worker/controller, recover interruption, validate hashes/resources, and clean reconstructible temporary output.",
+  "end_to_end_validation": "Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.",
   "epic_id": "POST-EPIC-018",
-  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-204.json",
+  "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-203.json",
   "evidence_state": "PARTIAL",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
   "expected_outputs": [
-    "artifacts/assistive/cpu_worker_readiness.json",
-    "artifacts/jira_evidence/POST-SUBTASK-204.json"
+    "artifacts/assistive/local_qwen_qualification.json",
+    "configs/assistive_route_readiness.json",
+    "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
   "files_expected_to_be_read": [
-    "configs/unified_assistive_policy.json",
-    "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
-    "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
+    "governance/OPENAI_ASSISTIVE_PLANE.md",
+    "configs/openai_assist_policy.json",
+    "configs/openai_task_registry.json",
+    "schemas/openai/assistive_candidate.schema.json",
+    "docs/final/CODEX_HANDOFF.md"
   ],
   "files_expected_to_be_touched": [
-    "artifacts/assistive/cpu_worker_readiness.json",
-    "artifacts/jira_evidence/POST-SUBTASK-204.json",
-    "configs/cpu_worker_qualification.json",
-    "configs/unified_assistive_policy.json",
-    "configs/assistive_provider_registry.json",
-    "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
-    "tools/cpu_worker_service.py",
-    "tools/install_cpu_worker_service.ps1",
-    "tools/qualify_cpu_worker.py",
-    "tools/refresh_cpu_worker_readiness.py",
-    "tools/validate_cpu_worker_readiness.py",
-    "tests/test_cpu_worker_backend.py",
-    "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
-    "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
+    "fixtures/openai_assist",
+    "src/aggie_analytics/openai_assist/evals.py",
+    "artifacts/openai_assist/model_comparison.json",
+    "tests/test_openai_assist.py"
   ],
   "files_to_inspect": [
-    "configs/unified_assistive_policy.json",
-    "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
-    "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
+    "governance/OPENAI_ASSISTIVE_PLANE.md",
+    "configs/openai_assist_policy.json",
+    "configs/openai_task_registry.json",
+    "schemas/openai/assistive_candidate.schema.json",
+    "docs/final/CODEX_HANDOFF.md"
   ],
   "gap_ids": [],
-  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.md",
+  "generated_markdown": "jira/issues/subtasks/POST-SUBTASK-203_qualify_and_operate_local_models_on_exact_evidence_backed_task_formats.md",
   "governance_review_required": false,
-  "governance_traceability_gate": "POST-SUBTASK-204",
+  "governance_traceability_gate": "POST-SUBTASK-203",
   "historical_classification": "ACTIONABLE_POST_WAVE",
-  "import_id": 100514,
+  "import_id": 100513,
   "in_scope": [
-    "Stable Tailscale node, MagicDNS, Windows hostname, OS/hardware, and controller identity verification without committed IP authority.",
-    "A loopback-only fixed-function service exposed by private Tailscale Serve HTTPS, constrained by grants and HMAC-signed expiring envelopes.",
-    "A minimal hash-manifested bundle under a restricted service identity with no arbitrary shell, URL, module, or path authority.",
-    "Three byte-replayable tranches, exact deduplication, unauthorized/corrupt/expired/signature rejection, restart/interruption recovery, resource admission, provenance, and cleanup evidence."
+    "Perform the exact action: Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol.",
+    "Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.",
+    "Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results."
   ],
   "issue_type": "Subtask",
-  "jira_key": "BAT-563",
+  "jira_key": "BAT-562",
   "labels": [
     "actionable",
     "post-wave",
@@ -145,28 +130,29 @@
     "subtask"
   ],
   "last_content_audit": "2026-08-12",
-  "local_id": "POST-SUBTASK-204",
+  "local_id": "POST-SUBTASK-203",
   "maturity_before": "NOT_STARTED",
-  "objective": "Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance",
+  "objective": "Qualify and operate local models on exact evidence-backed task formats",
   "operational_jira": {
     "assignee": "",
-    "jira_issue_id": "24956",
-    "jira_updated_at": "2026-08-12T18:21:52.578-0500",
+    "jira_issue_id": "24955",
+    "jira_updated_at": "2026-08-12T18:21:51.603-0500",
     "last_synced_at": "2026-08-12T23:22:31.717226+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "To Do"
   },
   "out_of_scope": [
-    "Public Funnel exposure, arbitrary remote code execution, or credential capture.",
-    "Canonical, PIT, label, protected-evaluation, model-promotion, forecast, publication, BAS, or Aggie Excess authority.",
-    "Claiming route readiness before live exact-peer replay and restart evidence pass."
+    "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
+    "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
+    "Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.",
+    "Blocking historical expansion or deterministic/local work when the optional provider is unavailable."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-STORY-058",
   "phase": "PHASE-1",
   "prerequisites": [
-    "Dependency POST-SUBTASK-040 complete at required maturity"
+    "Dependency POST-SUBTASK-160 complete at required maturity"
   ],
   "primary_source_refs": [
     "SRCREF-02121"
@@ -201,7 +187,7 @@
   "ready": false,
   "record_revision": "2.0",
   "required_evidence": [
-    "`artifacts/jira_evidence/POST-SUBTASK-160.json` with one evidence row per acceptance criterion and exact artifact hashes.",
+    "`artifacts/jira_evidence/POST-SUBTASK-161.json` with one evidence row per acceptance criterion and exact artifact hashes.",
     "Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.",
     "Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.",
     "Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes."
@@ -209,20 +195,20 @@
   "required_tests": [
     {
       "classification": "EXISTING_AUTOMATED_TEST",
-      "expectation": "Fixed task, identity, endpoint, authority, replay, and malformed-input gates pass.",
-      "path": "tests/test_cpu_worker_backend.py",
+      "expectation": "Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.",
+      "path": "tests/test_openai_assist.py",
       "validation_class": "SECURITY"
     },
     {
       "classification": "END_TO_END",
-      "expectation": "Three exact-peer tranches and one dedup pilot replay byte-identically after a service restart.",
-      "path": "artifacts/jira_evidence/POST-SUBTASK-204.json",
+      "expectation": "Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-161.json",
       "validation_class": "END_TO_END"
     },
     {
       "classification": "REPRODUCIBILITY",
-      "expectation": "Peer, controller, code, config, request, result, runtime, and cleanup identities are preserved.",
-      "path": "artifacts/assistive/cpu_worker_readiness.json",
+      "expectation": "Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.",
+      "path": "ISSUE_COMPLETION_MANIFEST",
       "validation_class": "REPRODUCIBILITY"
     }
   ],
@@ -235,7 +221,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot.",
+  "scope": "Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, qualify separately keyed coding, embedding, visual, and classification routes, then complete the 50-unit/150-point/30-useful three-family campaign.",
   "source_ids": [
     "UNIFIED-ASSISTIVE-EXECUTION-PLAN"
   ],
@@ -248,24 +234,24 @@
     "Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity."
   ],
   "supporting_source_refs": [],
-  "title": "[POST-SUBTASK-204] Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance",
+  "title": "[POST-SUBTASK-203] Qualify and operate local models on exact evidence-backed task formats",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Deploy the corrected minimal loopback/Tailscale-Serve/HMAC/least-privilege service to verified peer comfy-v4-cpu-01, then pass all live identity, unauthorized, replay, restart, corruption, resource, hash, and cleanup gates.",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
     "SECURITY"
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
-  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-204.md",
+  "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-203.md",
   "workflow_state": "BLOCKED"
 }
 ```
 
 ## Objective
 
-Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance
+Qualify and operate local models on exact evidence-backed task formats
 
 ## Why This Exists
 
@@ -273,24 +259,24 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot.
+Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, qualify separately keyed coding, embedding, visual, and classification routes, then complete the 50-unit/150-point/30-useful three-family campaign.
 
 ### Explicit In Scope
 
-- Stable Tailscale node, MagicDNS, Windows hostname, OS/hardware, and controller identity verification without committed IP authority.
-- A loopback-only fixed-function service exposed by private Tailscale Serve HTTPS, constrained by grants and HMAC-signed expiring envelopes.
-- A minimal hash-manifested bundle under a restricted service identity with no arbitrary shell, URL, module, or path authority.
-- Three byte-replayable tranches, exact deduplication, unauthorized/corrupt/expired/signature rejection, restart/interruption recovery, resource admission, provenance, and cleanup evidence.
+- Perform the exact action: Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
 
 ### Explicit Out of Scope
 
-- Public Funnel exposure, arbitrary remote code execution, or credential capture.
-- Canonical, PIT, label, protected-evaluation, model-promotion, forecast, publication, BAS, or Aggie Excess authority.
-- Claiming route readiness before live exact-peer replay and restart evidence pass.
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
 
 ## Prerequisites
 
-- Dependency POST-SUBTASK-040 complete at required maturity
+- Dependency POST-SUBTASK-160 complete at required maturity
 
 ## Hard Dependencies
 
@@ -302,26 +288,18 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Read / Inspect First
 
-- configs/unified_assistive_policy.json
-- governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
-- docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
+- governance/OPENAI_ASSISTIVE_PLANE.md
+- configs/openai_assist_policy.json
+- configs/openai_task_registry.json
+- schemas/openai/assistive_candidate.schema.json
+- docs/final/CODEX_HANDOFF.md
 
 ## Files Expected To Be Modified
 
-- artifacts/assistive/cpu_worker_readiness.json
-- artifacts/jira_evidence/POST-SUBTASK-204.json
-- configs/cpu_worker_qualification.json
-- configs/unified_assistive_policy.json
-- configs/assistive_provider_registry.json
-- src/aggie_analytics/assistive_plane/cpu_worker_backend.py
-- tools/cpu_worker_service.py
-- tools/install_cpu_worker_service.ps1
-- tools/qualify_cpu_worker.py
-- tools/refresh_cpu_worker_readiness.py
-- tools/validate_cpu_worker_readiness.py
-- tests/test_cpu_worker_backend.py
-- docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
-- docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
+- fixtures/openai_assist
+- src/aggie_analytics/openai_assist/evals.py
+- artifacts/openai_assist/model_comparison.json
+- tests/test_openai_assist.py
 
 ## Components Expected To Be Touched
 
@@ -342,8 +320,9 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Expected Outputs / Artifacts
 
-- artifacts/assistive/cpu_worker_readiness.json
-- artifacts/jira_evidence/POST-SUBTASK-204.json
+- artifacts/assistive/local_qwen_qualification.json
+- configs/assistive_route_readiness.json
+- artifacts/jira_evidence/POST-SUBTASK-203.json
 
 ## Direct Requirements
 
@@ -355,16 +334,17 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Governance Traceability Inheritance
 
-- Gate: `POST-SUBTASK-204`
+- Gate: `POST-SUBTASK-203`
 - Inherited from: None
 - Resolution: `DIRECT_DOMAIN_GATE`
 - Effective counts: `{"acceptance_control_ids": 0, "adr_ids": 0, "gap_ids": 0, "requirement_ids": 0, "risk_ids": 0}`
 
 ## Acceptance Criteria
 
-1. Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.
-2. Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.
-3. No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced.
+1. Model/runtime/digest/hardware identities and prompt/schema/result dispositions are content-addressed.
+2. Strict schema, evidence, abstention, consistency, time/rework, and unsupported-fact results are measured on real work.
+3. Candidate outputs cannot bypass deterministic validation or enter canonical/protected truth directly.
+4. After qualification, at least 50 distinct real units, 150 effort points, 30 accepted useful results, and three independently qualified families reconcile through the controller.
 
 ## Definition of Done
 
@@ -377,13 +357,13 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Required Tests / Validation
 
-- **EXISTING_AUTOMATED_TEST** / `SECURITY` — `tests/test_cpu_worker_backend.py` — Fixed task, identity, endpoint, authority, replay, and malformed-input gates pass.
-- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-204.json` — Three exact-peer tranches and one dedup pilot replay byte-identically after a service restart.
-- **REPRODUCIBILITY** / `REPRODUCIBILITY` — `artifacts/assistive/cpu_worker_readiness.json` — Peer, controller, code, config, request, result, runtime, and cleanup identities are preserved.
+- **EXISTING_AUTOMATED_TEST** / `SECURITY` — `tests/test_openai_assist.py` — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- **END_TO_END** / `END_TO_END` — `artifacts/jira_evidence/POST-SUBTASK-161.json` — Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.
+- **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
 
 ## Required Evidence
 
-- `artifacts/jira_evidence/POST-SUBTASK-160.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- `artifacts/jira_evidence/POST-SUBTASK-161.json` with one evidence row per acceptance criterion and exact artifact hashes.
 - Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
 - Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
 - Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
@@ -415,7 +395,7 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## End-to-End Validation Requirement
 
-Deploy only to the exact verified private Windows peer through the authorized Chrome bootstrap, verify Serve HTTPS/grants/HMAC/least-privilege identity, execute all fixed tasks and rejection cases, restart worker/controller, recover interruption, validate hashes/resources, and clean reconstructible temporary output.
+Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.
 
 ## Expected Maturity After Completion
 
@@ -443,3 +423,4 @@ Deploy only to the exact verified private Windows peer through the authorized Ch
 - Canonical unified assistive contract source is `SRCREF-02121`.
 - Never expose credentials, .env content, private data, or unnecessary protected evidence.
 - Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.
+- The bounded historical qualification and exact-route negative evidence remain verified; the expanded local-model campaign is active and no operational local-model plane is claimed.

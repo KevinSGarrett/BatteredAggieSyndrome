@@ -9,7 +9,8 @@
   "acceptance_criteria": [
     "All eligible ready work has immutable pre-routing effort and exactly one reconciled disposition.",
     "Every provider route is keyed by exact model, task format, schema, policy, security, and budget evidence.",
-    "Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/three-cycle sustained evidence pass or remain precisely incomplete without blocking independent work."
+    "All 204 mandatory acceptance rows have exactly one canonical/live owner and evidence-backed PASS before overall completion.",
+    "Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/21-cycle sustained evidence pass or remain precisely incomplete without blocking independent work."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -124,8 +125,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24952",
-    "jira_updated_at": "2026-08-12T12:49:18.491-0500",
-    "last_synced_at": "2026-08-12T17:49:30.668888+00:00",
+    "jira_updated_at": "2026-08-12T18:20:38.834-0500",
+    "last_synced_at": "2026-08-12T23:22:31.717226+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "In Progress"
@@ -213,7 +214,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Coordinate one provider-neutral ready-work inventory, exact route readiness, independent budgets, candidate authority, utilization evidence, and graceful fallback without replacing provider-specific ledgers or protected project controls.",
+  "scope": "Operate the mandatory provider-neutral controller, independent watchdog, 204-row acceptance graph, exact route readiness, independent budgets, candidate authority, campaigns, utilization evidence, reconciliation, cleanup, and sustained-operation gate without replacing provider-specific ledgers or protected project controls.",
   "source_ids": [
     "UNIFIED-ASSISTIVE-EXECUTION-PLAN"
   ],
@@ -251,7 +252,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Coordinate one provider-neutral ready-work inventory, exact route readiness, independent budgets, candidate authority, utilization evidence, and graceful fallback without replacing provider-specific ledgers or protected project controls.
+Operate the mandatory provider-neutral controller, independent watchdog, 204-row acceptance graph, exact route readiness, independent budgets, candidate authority, campaigns, utilization evidence, reconciliation, cleanup, and sustained-operation gate without replacing provider-specific ledgers or protected project controls.
 
 ### Explicit In Scope
 
@@ -335,7 +336,8 @@ Coordinate one provider-neutral ready-work inventory, exact route readiness, ind
 
 1. All eligible ready work has immutable pre-routing effort and exactly one reconciled disposition.
 2. Every provider route is keyed by exact model, task format, schema, policy, security, and budget evidence.
-3. Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/three-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.
+3. All 204 mandatory acceptance rows have exactly one canonical/live owner and evidence-backed PASS before overall completion.
+4. Required real workloads, cross-plane comparison, restart/outage recovery, and seven-day/21-cycle sustained evidence pass or remain precisely incomplete without blocking independent work.
 
 ## Definition of Done
 

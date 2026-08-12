@@ -21,7 +21,7 @@
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-202.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-201",
   "blocks": [
     "POST-SUBTASK-205"
   ],
@@ -131,11 +131,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24954",
-    "jira_updated_at": "2026-08-12T15:37:15.606-0500",
-    "last_synced_at": "2026-08-12T20:37:34.454526+00:00",
+    "jira_updated_at": "2026-08-12T18:21:50.592-0500",
+    "last_synced_at": "2026-08-12T23:22:31.717226+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "To Do"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -232,7 +232,7 @@
   "title": "[POST-SUBTASK-202] Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -240,7 +240,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-202.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "BLOCKED"
 }
 ```
 

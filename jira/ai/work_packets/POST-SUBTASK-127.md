@@ -39,14 +39,14 @@ Execute the atomic 1 of 3 step in Story POST-STORY-043 (Structured observability
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
+- Workflow: `DONE`
 - Ready: `false`
 - Priority: `P2`
 - Critical path: `false`
 - Execution lane: `OPERATIONS`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `FUNCTIONAL_STARTER` → `IMPLEMENTED`
-- Evidence state: `PARTIAL`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-132`
 
 ## Read first

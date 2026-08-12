@@ -1,9 +1,21 @@
 {
-  "schema_version": 2,
-  "inventory_seed_id": "unified-assistive-ready-work-catalog-2026-08-12-v2",
-  "material_transition_at": "2026-08-12T20:35:01Z",
+  "schema_version": 3,
+  "inventory_seed_id": "unified-assistive-ready-work-routing-catalog-2026-08-12-v3",
+  "material_transition_at": "2026-08-12T23:01:24Z",
   "decisions_are_derived": true,
   "work_units": [
+    {
+      "local_id": "POST-STORY-058",
+      "task_format": "unified_execution_program",
+      "schema_path": "configs/unified_assistive_acceptance_ownership.json",
+      "authority": "CODEX_FINAL_IMPLEMENTATION",
+      "pre_routing_effort_points": 8,
+      "scope": "Operate the unified controller, watchdog, provider campaigns, review, Jira reconciliation, cleanup, utilization, and sustained-operation program.",
+      "disposition": "CODEX_DETERMINISTIC",
+      "provider": "codex_deterministic",
+      "model": null,
+      "reason": "the mandatory enforcement program is active and remains incomplete"
+    },
     {
       "local_id": "POST-SUBTASK-168",
       "task_format": "candidate_workload_selection",
@@ -46,11 +58,11 @@
       "schema_path": "configs/unified_assistive_policy.json",
       "authority": "CODEX_FINAL_IMPLEMENTATION",
       "pre_routing_effort_points": 8,
-      "scope": "Implement and integrate the provider-neutral inventory, readiness, budget, provenance, and validation foundation.",
-      "disposition": "COMPLETED",
+      "scope": "Implement and deploy the persistent controller, WAL state machine, independent watchdog, ownership evaluator, budgets, reconciliation, backup, rollback, and cleanup.",
+      "disposition": "CODEX_DETERMINISTIC",
       "provider": "codex_deterministic",
       "model": null,
-      "reason": "foundation merged and verified; operational-correction extensions execute under the same durable unit"
+      "reason": "the structural foundation is preserved, while the mandatory persistent runtime expansion is active"
     },
     {
       "local_id": "POST-SUBTASK-202",
@@ -70,11 +82,11 @@
       "schema_path": "schemas/assistive/independent_review.schema.json",
       "authority": "CANDIDATE_ONLY",
       "pre_routing_effort_points": 5,
-      "scope": "Qualify local Qwen on at least three real task types.",
-      "disposition": "COMPLETED",
-      "provider": null,
+      "scope": "Preserve exact-route rejections, qualify better-matched local routes, and execute the three-family local campaign.",
+      "disposition": "CODEX_DETERMINISTIC",
+      "provider": "codex_deterministic",
       "model": null,
-      "reason": "the exact BAT-562 evidence-critical qualification completed with empirical rejection"
+      "reason": "historical exact-route qualification is preserved; new qualifications and the local campaign are active"
     },
     {
       "work_unit_id": "POST-SUBTASK-203::qwen2.5-coder-shadow-v1",

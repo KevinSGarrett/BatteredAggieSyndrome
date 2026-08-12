@@ -1,18 +1,53 @@
 {
-  "schema_version": 2,
-  "policy_id": "unified-assistive-execution-plane-v2-operational-correction",
-  "effective_at_utc": "2026-08-12T19:28:39Z",
+  "schema_version": 3,
+  "policy_id": "unified-assistive-execution-plane-v3-enforcement",
+  "effective_at_utc": "2026-08-12T23:01:24Z",
   "governing_directive_sha256": "cde877f540156f97723944eb34419742b3a6b77783c19de2f3b87a209e5def84",
   "governing_plan_sha256": "42e66c08b1069026d92d4b6e50eff1af9e2263f1f57a7bce4cf018972db976e5",
   "assurance_report_sha256": "bd07f61af182e5826009fc85413c3b155c41397289e0998ce4c4412c26e04008",
   "openrouter_plan_sha256": "d8680f970e58b776de36bef1cab40eca0b614ff22f65411dc8b862eb95893396",
+  "enforcement_package": {
+    "request_sha256": "c82dc0cb054f92f90cfb7e4f6f656e75514ac82b1298d507a0bf202c031bef2f",
+    "start_here_sha256": "d1576960f748072350b98925eb4f879a8a4d44237b285f2896e69da44d3403e3",
+    "master_directive_sha256": "7e7d927a3e3a3efd43705a4f2dc64ff9e593cde5085fb271a6276bd8194a1813",
+    "acceptance_matrix_sha256": "bd0142e8df4f25bd0b8733221c232cd3009786aad4f393a71154c9f2ade61111",
+    "assurance_report_sha256": "935e023ffb73f4d2f44bb4b744d57444af2fe41d80ee31d0c915e1627ac28826",
+    "package_manifest_sha256": "9e9e35032c69029b100c85fa15d53beb66cbbee0a6b36641758d97e43588a243",
+    "mandatory_acceptance_rows": 204
+  },
   "storage_root": "C:\\BatteredAggieSyndrome.data\\assistive",
   "effort_points": [1, 2, 3, 5, 8],
   "inventory": {
     "one_disposition_per_work_unit": true,
     "immutable_pre_routing_effort": true,
     "required_coverage_fraction": 1.0,
-    "anti_padding": true
+    "anti_padding": true,
+    "material_transition_refresh_slo_seconds": 300,
+    "immutable_snapshots": true
+  },
+  "result_semantics": {
+    "allowed": ["PASS", "FAIL", "BLOCKED", "INCOMPLETE"],
+    "exit_zero_only_for": "PASS",
+    "forbidden": ["PASS_HONEST_PARTIAL_STATE", "COMPLETE_WITH_FOLLOWUPS", "OPERATIONAL_BUT_UNUSED", "CONFIGURED_OPERATIONAL"]
+  },
+  "controller": {
+    "runtime_root": "C:\\BatteredAggieSyndrome.data\\assistive\\orchestrator-v3",
+    "database": "orchestrator.sqlite3",
+    "journal_mode": "WAL",
+    "os_supervision_required": true,
+    "independent_of_codex_desktop": true,
+    "single_active_leader": true,
+    "heartbeat_max_age_seconds": 90,
+    "lease_recovery_remote_inspection_required": true,
+    "loopback_control_interface_only": true,
+    "direct_provider_wrapper_bypass": false
+  },
+  "watchdog": {
+    "independent_process_required": true,
+    "read_only": true,
+    "os_supervision_required": true,
+    "controller_mutation_authority": false,
+    "agreement_required_for_pass": true
   },
   "readiness_key": ["provider", "resolved_model", "model_digest", "task_format", "prompt_version", "schema_version", "schema_sha256", "policy_version", "execution_surface"],
   "budgets": {
@@ -60,11 +95,17 @@
     "required_live_gates": ["PRIVATE_HTTPS", "COORDINATOR_GRANT", "SIGNED_ENVELOPE", "UNAUTHORIZED_REJECTION", "EXPIRED_REJECTION", "REPLAY_IDEMPOTENCY", "WORKER_RESTART", "CONTROLLER_RESTART", "INTERRUPTED_JOB_RECOVERY", "DISK_ADMISSION", "CLEANUP_LEDGER"]
   },
   "execution_minimums": {
-    "direct_openai_additional_candidate_units": 20,
-    "openrouter_units_after_paid_authority": 20,
+    "cursor": {"units": 10, "effort_points": 40, "accepted_useful": 6},
+    "openrouter": {"units": 20, "effort_points": 60, "accepted_useful": 12, "categories": 3},
+    "direct_openai": {"new_controller_routed_units": 30, "effort_points": 100, "accepted_useful": 20},
+    "remote_cpu_worker": {"units": 25, "effort_points": 100},
+    "local_models_post_qualification": {"units": 50, "effort_points": 150, "accepted_useful": 30, "qualified_families": 3},
+    "global": {"route_work_assignments": 135, "effort_points": 450, "distinct_base_units": 125, "weighted_attempted_ratio": 0.85, "weighted_accepted_ratio": 0.60},
     "cross_plane_gold_comparisons": 1,
     "sustained_calendar_days": 7,
-    "scheduler_cycles": 3,
+    "scheduler_cycles": 21,
+    "soak_only_units": 25,
+    "soak_only_effort_points": 100,
     "restart_recovery_exercises": 1,
     "outage_exercises": 1
   },

@@ -1,5 +1,21 @@
 # Unified Assistive Execution Plane Operations
 
+## Enforced operating state
+
+The current overall state is `INCOMPLETE`. Do not substitute foundation code, credentials, catalog checks, smoke tests, merged PRs, or Jira status for runtime completion.
+
+Runtime state belongs under `C:\BatteredAggieSyndrome.data\assistive\orchestrator-v3`, including `state\orchestrator.sqlite3`, snapshots, leases, usage, results, review, reconciliation, logs, watchdog reports, backups, runtime, and temporary output. Git contains only small policies, contracts, code, tests, schemas, and documentation.
+
+Before service deployment:
+
+- validate all 204 ownership rows with `python -B tools/validate_unified_acceptance_ownership.py`;
+- initialize a disposable state database and run controller state/property tests;
+- verify the controller and watchdog use separate OS-supervised identities and the watchdog has no write authority;
+- bind service configuration to the exact current-main build commit and external runtime root;
+- preserve backup/restore, forced-crash, cold-boot, drain, emergency-stop, rollback, and cleanup evidence.
+
+Provider campaign accounting uses distinct base units and frozen effort, not raw calls. Retries, health checks, catalog requests, smoke tests, duplicate submissions, and self-correction follow-ups never count as accepted work. Material Jira transitions synchronize within 15 minutes or create an explicit queued finding. The seven-day clock starts only after qualified routes process real production-like work through the deployed controller.
+
 1. Build or refresh the ready-work inventory before routing.
 2. Assign effort before provider selection and preserve the unit identity.
 3. Require one route disposition and an exact readiness record.

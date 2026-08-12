@@ -8,7 +8,7 @@
 
 ## What am I implementing?
 
-Run cross-plane gold comparison, three scheduler cycles, restart and outage exercises, and seven-day sustained assurance
+Run cross-plane comparison, utilization floors, 21 scheduler cycles, restart/outage exercises, and seven-day sustained assurance
 
 ## Why?
 
@@ -45,7 +45,7 @@ Derive final utilization/completeness from real route evidence, not counters, af
 
 ## Read first
 
-1. `jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.json`
+1. `jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_comparison_utilization_floors_21_scheduler_cycles_restart_outage_exercises_a.json`
 2. `jira/sources/issue_source_manifests/POST-SUBTASK-205.json`
 3. `jira/index/ISSUE_GOVERNANCE_CONTEXT.csv` row for `POST-SUBTASK-205`.
 4. Only these additional files/sections, plus verified prerequisite outputs:
@@ -96,8 +96,9 @@ Produce and validate these outputs within this atomic work unit:
 ## Acceptance criteria
 
 1. One common-support gold comparison reports quality, evidence, abstention, review time, rework, throughput, cost, and dispositions across admitted routes.
-2. At least seven calendar days, three real scheduler cycles, one restart exercise, and one outage exercise reconcile with inventory/dispatch/usage/result/cleanup ledgers.
-3. All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill.
+2. At least seven consecutive calendar days, 21 real scheduler cycles, 25 soak-only units/100 points, controller/watchdog restart evidence, and provider/worker outage exercises reconcile with inventory/dispatch/usage/result/cleanup ledgers.
+3. The continuing campaigns total at least 135 assignments, 450 points, 125 distinct base units, 85% weighted attempted offload, and 60% weighted accepted offload without padding.
+4. All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill.
 
 ## Tests / validation
 

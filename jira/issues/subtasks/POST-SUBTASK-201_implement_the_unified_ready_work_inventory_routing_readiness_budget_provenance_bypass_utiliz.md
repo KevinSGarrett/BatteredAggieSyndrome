@@ -11,7 +11,9 @@
     "Readiness binds provider, resolved model and digest, task format, prompt/schema identity, policy version, and execution surface; empirical rejection cannot be overridden by a status edit.",
     "Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.",
     "A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.",
-    "Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration."
+    "Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.",
+    "The controller and independent watchdog are OS-supervised outside Codex Desktop, recover from crash/restart, agree on maximum justified state, and cannot overclaim partial operation.",
+    "All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -25,12 +27,18 @@
     "configs/unified_assistive_policy.json",
     "configs/unified_assistive_ready_work.json",
     "configs/unified_assistive_operational_claims.json",
+    "configs/unified_assistive_acceptance_ownership.json",
     "src/aggie_analytics/assistive_plane",
+    "tools/adopt_unified_enforcement_package.py",
+    "tools/validate_unified_acceptance_ownership.py",
+    "tools/run_unified_assistive_controller.py",
+    "tools/run_unified_assistive_watchdog.py",
     "tools/materialize_unified_assistive_inventory.py",
     "tools/validate_unified_assistive_plane.py",
     "tools/validate_unified_assistive_completeness.py",
     "tools/refresh_cursor_catalog.py",
     "tools/refresh_local_assistive_runtime.py",
+    "tests/test_unified_controller_state.py",
     "tests/test_unified_assistive_plane.py",
     "tests/test_unified_assistive_completeness.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -98,7 +106,7 @@
   "end_to_end_validation": "Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-201.json",
-  "evidence_state": "VERIFIED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "SHARED_CONTRACT",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "INTEGRATED",
@@ -118,12 +126,18 @@
     "configs/unified_assistive_policy.json",
     "configs/unified_assistive_ready_work.json",
     "configs/unified_assistive_operational_claims.json",
+    "configs/unified_assistive_acceptance_ownership.json",
     "src/aggie_analytics/assistive_plane",
+    "tools/adopt_unified_enforcement_package.py",
+    "tools/validate_unified_acceptance_ownership.py",
+    "tools/run_unified_assistive_controller.py",
+    "tools/run_unified_assistive_watchdog.py",
     "tools/materialize_unified_assistive_inventory.py",
     "tools/validate_unified_assistive_plane.py",
     "tools/validate_unified_assistive_completeness.py",
     "tools/refresh_cursor_catalog.py",
     "tools/refresh_local_assistive_runtime.py",
+    "tests/test_unified_controller_state.py",
     "tests/test_unified_assistive_plane.py",
     "tests/test_unified_assistive_completeness.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -165,11 +179,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24953",
-    "jira_updated_at": "2026-08-12T15:37:10.615-0500",
-    "last_synced_at": "2026-08-12T20:37:34.454526+00:00",
+    "jira_updated_at": "2026-08-12T18:20:43.185-0500",
+    "last_synced_at": "2026-08-12T23:22:31.717226+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "Done"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -250,7 +264,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Implement the non-billable provider-neutral foundation and preserve existing direct OpenAI/OpenRouter controllers behind adapters. Live paid/provider qualification volumes are downstream.",
+  "scope": "Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, and cleanup.",
   "source_ids": [
     "UNIFIED-ASSISTIVE-EXECUTION-PLAN"
   ],
@@ -274,7 +288,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-201.md",
-  "workflow_state": "DONE"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 
@@ -288,7 +302,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Implement the non-billable provider-neutral foundation and preserve existing direct OpenAI/OpenRouter controllers behind adapters. Live paid/provider qualification volumes are downstream.
+Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, and cleanup.
 
 ### Explicit In Scope
 
@@ -333,12 +347,18 @@ Implement the non-billable provider-neutral foundation and preserve existing dir
 - configs/unified_assistive_policy.json
 - configs/unified_assistive_ready_work.json
 - configs/unified_assistive_operational_claims.json
+- configs/unified_assistive_acceptance_ownership.json
 - src/aggie_analytics/assistive_plane
+- tools/adopt_unified_enforcement_package.py
+- tools/validate_unified_acceptance_ownership.py
+- tools/run_unified_assistive_controller.py
+- tools/run_unified_assistive_watchdog.py
 - tools/materialize_unified_assistive_inventory.py
 - tools/validate_unified_assistive_plane.py
 - tools/validate_unified_assistive_completeness.py
 - tools/refresh_cursor_catalog.py
 - tools/refresh_local_assistive_runtime.py
+- tests/test_unified_controller_state.py
 - tests/test_unified_assistive_plane.py
 - tests/test_unified_assistive_completeness.py
 - governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
@@ -389,6 +409,8 @@ Implement the non-billable provider-neutral foundation and preserve existing dir
 3. Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.
 4. A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.
 5. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
+6. The controller and independent watchdog are OS-supervised outside Codex Desktop, recover from crash/restart, agree on maximum justified state, and cannot overclaim partial operation.
+7. All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes.
 
 ## Definition of Done
 

@@ -17976,7 +17976,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-198
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-198_implement_the_non_billable_provider_neutral_openrouter_foundation_usd_0_hard_stop_privacy_co.json",In Progress,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-198,operations-security,POST-SUBTASK-198,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,IN_PROGRESS,INTEGRATED,PARTIAL,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-198_implement_the_non_billable_provider_neutral_openrouter_foundation_usd_0_hard_stop_privacy_co.json",Done,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-198,operations-security,POST-SUBTASK-198,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,DONE,INTEGRATED,VERIFIED,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-557,100508,[POST-SUBTASK-199] Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization,100506,"Local ID: POST-SUBTASK-199
 
 Objective

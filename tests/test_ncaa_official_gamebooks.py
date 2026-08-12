@@ -145,13 +145,15 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
             "<html><body>NCAA<table>"
             "<tr><td>09/04/2010</td><td><a href='/teams/136978'>Arkansas St.</a></td>"
             "<td>W 52 - 26</td></tr>"
+            "<tr><td>09/17/2011</td><td><a href='/teams/137712'>Clemson</a></td>"
+            "<td>24 - 38</td></tr>"
             "<tr><td>Navigation</td><td><a href='/teams/999999'>Not a schedule opponent</a></td></tr>"
             "</table><select><option value='136982'>2010-11</option></select>"
             f"{filler}</body></html>"
         ).encode("utf-8")
         result = inspect_ncaa_team_page(body, contract=self.contract)
         self.assertEqual([], result["contest_ids"])
-        self.assertEqual(["136978"], result["team_season_ids"])
+        self.assertEqual(["136978", "137712"], result["team_season_ids"])
         self.assertEqual("LEGACY_SCHEDULE_RESULT_ROW", result["link_schema"])
 
     def test_team_graph_discovery_is_bounded_content_addressed_and_cache_reproducible(self) -> None:

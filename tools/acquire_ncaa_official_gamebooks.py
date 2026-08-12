@@ -795,7 +795,7 @@ def inspect_ncaa_team_page(body: bytes, *, contract: Mapping[str, Any]) -> dict[
         if not contest_rows
         and re.search(r"/teams/[0-9]+", row)
         and re.search(r"[0-9]{2}/[0-9]{2}/[0-9]{4}", row)
-        and re.search(r">\s*(?:W|L|T)\s+[0-9]+\s*-\s*[0-9]+\s*<", row, re.IGNORECASE)
+        and re.search(r">\s*(?:(?:W|L|T)\s+)?[0-9]+\s*-\s*[0-9]+\s*<", row, re.IGNORECASE)
     ]
     traversal_rows = contest_rows or legacy_schedule_rows
     team_ids = sorted(

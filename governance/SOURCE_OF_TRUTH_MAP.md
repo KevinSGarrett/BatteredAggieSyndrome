@@ -124,3 +124,7 @@ The final cumulative W25 repository is the canonical end-of-program state. `docs
 ## Post-W25 feature/source/research execution
 
 `governance/FEATURE_SOURCE_RESEARCH_EXECUTION_CONTRACT.md` and `configs/feature_source_research_program.json` govern the current post-W25 feature, source, and dependency-gated research expansion. They implement newer explicit user direction without creating a Wave 26 or rewriting W25 evidence. Current verified immutable evidence outranks proposal-time observations; W17 protected judging, W08 PIT rules, canonical identity, empirical adoption, and the exposure-aware 2024-2025 development boundary remain controlling.
+
+## Unified assistive execution plane
+
+`governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md`, `configs/unified_assistive_policy.json`, and `configs/assistive_provider_registry.json` govern post-W25 assistive orchestration across deterministic Codex/local execution, direct OpenAI, OpenRouter, Cursor, local Ollama/Qwen, and the private CPU worker. They supersede provider-specific orchestration assumptions only where the later unified contract explicitly differs. Existing direct-OpenAI/OpenRouter ledgers and historical evidence remain authoritative for their own calls and budgets. W17 protected judging, W08 PIT, canonical identity, Git/Jira source precedence, and Codex final authority remain controlling.

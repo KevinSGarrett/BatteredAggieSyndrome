@@ -1,5 +1,5 @@
 {
-  "actual_expected_link_count": 1179,
+  "actual_expected_link_count": 1191,
   "board": {
     "filter_id": "10134",
     "id": "134",
@@ -37,17 +37,17 @@
     "Source IDs": "customfield_10194"
   },
   "discrepancies": [],
-  "expected_link_count": 1179,
-  "issue_count": 512,
+  "expected_link_count": 1191,
+  "issue_count": 518,
   "issue_type_counts": {
     "Epic": 51,
-    "Story": 57,
-    "Sub-task": 200,
+    "Story": 58,
+    "Sub-task": 205,
     "Task": 201
   },
   "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
   "missing_link_count": 0,
-  "parent_count": 458,
+  "parent_count": 464,
   "project": {
     "base_url": "https://kevinsgarrett.atlassian.net",
     "id": "10133",
@@ -57,9 +57,9 @@
   "schema_version": 1,
   "status_counts": {
     "Done": 82,
-    "In Progress": 3,
-    "To Do": 424
+    "In Progress": 5,
+    "To Do": 428
   },
   "unexpected_link_count": 0,
-  "verified_at": "2026-08-12T16:50:13.557732+00:00"
+  "verified_at": "2026-08-12T17:49:30.195512+00:00"
 }

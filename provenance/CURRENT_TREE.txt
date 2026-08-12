@@ -139,6 +139,7 @@ artifacts/jira_evidence/POST-SUBTASK-195.json
 artifacts/jira_evidence/POST-SUBTASK-196.json
 artifacts/jira_evidence/POST-SUBTASK-197.json
 artifacts/jira_evidence/POST-SUBTASK-198.json
+artifacts/jira_evidence/POST-SUBTASK-201.json
 artifacts/jira_evidence/POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001.json
 artifacts/open_source/integration_negative_findings.json
 artifacts/open_source/integration_validation_manifest.json
@@ -293,6 +294,8 @@ configs/tamu_specialization_registry.json
 configs/team_state_registry.json
 configs/temporal_registry.json
 configs/tournament_registry.json
+configs/unified_assistive_policy.json
+configs/unified_assistive_ready_work.json
 configs/validation_science_registry.json
 configs/versioned_play_drive_gap_contract.json
 configs/wmt_provider_timestamp_pit_contract.json
@@ -432,6 +435,7 @@ docs/architecture/OPENROUTER_ASSISTIVE_PLANE.md
 docs/architecture/PREDICTION_PIPELINE.md
 docs/architecture/RESEARCH_AND_LLM_PLANE.md
 docs/architecture/SYSTEM_BOUNDARIES.md
+docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 docs/architecture/W24_FINAL_ARCHITECTURE_CHALLENGE.md
 docs/assets/readme/aggie-emotional-rollercoaster.png
 docs/assets/readme/bas-spectrum-mobile.svg
@@ -496,6 +500,7 @@ docs/operations/OPENAI_ASSISTIVE_PLANE.md
 docs/operations/OPENROUTER_ASSISTIVE_PLANE.md
 docs/operations/SOURCE_CREDENTIAL_CONTRACT.md
 docs/operations/TARGET_HARDWARE_BENCHMARK.md
+docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 docs/operations/UNIVERSAL_PRIVATE_RESEARCH_ACQUISITION_POLICY.md
 docs/product/API_CONTRACT.md
 docs/product/FRAMEWORK_DECISION.md
@@ -714,6 +719,7 @@ governance/TRANSFER_RECRUITING_PROVENANCE_AUDIT.csv
 governance/TRANSFER_TRANSLATION_EXPERIMENT_PLAN.csv
 governance/UNCERTAINTY_COMPONENTS.csv
 governance/UNCERTAINTY_OOD_MARKET_EVALUATION.csv
+governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 governance/UNRESOLVED_QUESTIONS.csv
 governance/VENUE_TRAVEL_REST_CONTRACTS.csv
 governance/W01_VALIDATION_REPORT.md
@@ -966,6 +972,7 @@ jira/ai/work_packets/POST-STORY-054.md
 jira/ai/work_packets/POST-STORY-055.md
 jira/ai/work_packets/POST-STORY-056.md
 jira/ai/work_packets/POST-STORY-057.md
+jira/ai/work_packets/POST-STORY-058.md
 jira/ai/work_packets/POST-SUBTASK-001.md
 jira/ai/work_packets/POST-SUBTASK-002.md
 jira/ai/work_packets/POST-SUBTASK-003.md
@@ -1138,6 +1145,11 @@ jira/ai/work_packets/POST-SUBTASK-197.md
 jira/ai/work_packets/POST-SUBTASK-198.md
 jira/ai/work_packets/POST-SUBTASK-199.md
 jira/ai/work_packets/POST-SUBTASK-200.md
+jira/ai/work_packets/POST-SUBTASK-201.md
+jira/ai/work_packets/POST-SUBTASK-202.md
+jira/ai/work_packets/POST-SUBTASK-203.md
+jira/ai/work_packets/POST-SUBTASK-204.md
+jira/ai/work_packets/POST-SUBTASK-205.md
 jira/history/ISSUE_CHANGE_LOG.jsonl
 jira/import/ATLASSIAN_2026_COMPATIBILITY.md
 jira/import/FIELD_MAPPING_GUIDE.md
@@ -1283,6 +1295,7 @@ jira/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_qu
 jira/issues/stories/POST-STORY-056_empirical_openai_scale_out_continuing_operations_usage_accounting_cleanup_and_handoff.md
 jira/issues/stories/POST-STORY-056_empirical_openai_scale_out_usage_accounting_cleanup_and_handoff.md
 jira/issues/stories/POST-STORY-057_governed_complementary_openrouter_assistive_development_plane_with_isolated_budget_and_candi.md
+jira/issues/stories/POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.md
 jira/issues/subtasks/POST-SUBTASK-001_verify_w25_repository_identity_manifests_and_no_wave_26_state.md
 jira/issues/subtasks/POST-SUBTASK-002_run_the_full_unit_and_governance_validator_suite_on_the_target_host.md
 jira/issues/subtasks/POST-SUBTASK-003_capture_the_authoritative_target_runtime_and_dependency_manifest.md
@@ -1483,6 +1496,11 @@ jira/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_ga
 jira/issues/subtasks/POST-SUBTASK-198_implement_the_non_billable_provider_neutral_openrouter_foundation_usd_0_hard_stop_privacy_co.md
 jira/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.md
 jira/issues/subtasks/POST-SUBTASK-200_operate_empirically_admitted_openrouter_assistive_routes_with_independent_usage_provenance_c.md
+jira/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.md
+jira/issues/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.md
+jira/issues/subtasks/POST-SUBTASK-203_qualify_local_ollama_qwen_on_real_strict_schema_reconciliation_and_code_review_work.md
+jira/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.md
+jira/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.md
 jira/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.md
 jira/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.md
 jira/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.md
@@ -1814,6 +1832,7 @@ jira/records/issues/stories/POST-STORY-054_governance_storage_budget_controller_
 jira/records/issues/stories/POST-STORY-055_bounded_openai_assistive_extraction_entity_quarantine_and_availability_pilots.json
 jira/records/issues/stories/POST-STORY-056_empirical_openai_scale_out_continuing_operations_usage_accounting_cleanup_and_handoff.json
 jira/records/issues/stories/POST-STORY-057_governed_complementary_openrouter_assistive_development_plane_with_isolated_budget_and_candi.json
+jira/records/issues/stories/POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.json
 jira/records/issues/subtasks/POST-SUBTASK-001_verify_w25_repository_identity_manifests_and_no_wave_26_state.json
 jira/records/issues/subtasks/POST-SUBTASK-002_run_the_full_unit_and_governance_validator_suite_on_the_target_host.json
 jira/records/issues/subtasks/POST-SUBTASK-003_capture_the_authoritative_target_runtime_and_dependency_manifest.json
@@ -2014,6 +2033,11 @@ jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_off
 jira/records/issues/subtasks/POST-SUBTASK-198_implement_the_non_billable_provider_neutral_openrouter_foundation_usd_0_hard_stop_privacy_co.json
 jira/records/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.json
 jira/records/issues/subtasks/POST-SUBTASK-200_operate_empirically_admitted_openrouter_assistive_routes_with_independent_usage_provenance_c.json
+jira/records/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json
+jira/records/issues/subtasks/POST-SUBTASK-202_qualify_cursor_cloud_agents_with_exact_codex_model_serial_safety_pilots_bounded_concurrency_.json
+jira/records/issues/subtasks/POST-SUBTASK-203_qualify_local_ollama_qwen_on_real_strict_schema_reconciliation_and_code_review_work.json
+jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json
+jira/records/issues/subtasks/POST-SUBTASK-205_run_cross_plane_gold_comparison_three_scheduler_cycles_restart_and_outage_exercises_and_seve.json
 jira/records/issues/tasks/TASK-001_freeze_w06_research_method_and_stopping_rules.json
 jira/records/issues/tasks/TASK-002_execute_multi_pass_domain_and_source_discovery.json
 jira/records/issues/tasks/TASK-003_audit_access_licensing_historical_depth_and_pit_feasibility.json
@@ -2337,6 +2361,7 @@ jira/sources/issue_source_manifests/POST-STORY-054.json
 jira/sources/issue_source_manifests/POST-STORY-055.json
 jira/sources/issue_source_manifests/POST-STORY-056.json
 jira/sources/issue_source_manifests/POST-STORY-057.json
+jira/sources/issue_source_manifests/POST-STORY-058.json
 jira/sources/issue_source_manifests/POST-SUBTASK-001.json
 jira/sources/issue_source_manifests/POST-SUBTASK-002.json
 jira/sources/issue_source_manifests/POST-SUBTASK-003.json
@@ -2537,6 +2562,11 @@ jira/sources/issue_source_manifests/POST-SUBTASK-197.json
 jira/sources/issue_source_manifests/POST-SUBTASK-198.json
 jira/sources/issue_source_manifests/POST-SUBTASK-199.json
 jira/sources/issue_source_manifests/POST-SUBTASK-200.json
+jira/sources/issue_source_manifests/POST-SUBTASK-201.json
+jira/sources/issue_source_manifests/POST-SUBTASK-202.json
+jira/sources/issue_source_manifests/POST-SUBTASK-203.json
+jira/sources/issue_source_manifests/POST-SUBTASK-204.json
+jira/sources/issue_source_manifests/POST-SUBTASK-205.json
 jira/sources/issue_source_manifests/TASK-001.json
 jira/sources/issue_source_manifests/TASK-002.json
 jira/sources/issue_source_manifests/TASK-003.json
@@ -2957,9 +2987,14 @@ src/aggie_analytics/architecture/registry.py
 src/aggie_analytics/assistive_plane/__init__.py
 src/aggie_analytics/assistive_plane/backend.py
 src/aggie_analytics/assistive_plane/budget.py
+src/aggie_analytics/assistive_plane/bypass.py
 src/aggie_analytics/assistive_plane/contracts.py
+src/aggie_analytics/assistive_plane/cpu_worker_backend.py
+src/aggie_analytics/assistive_plane/cursor_backend.py
 src/aggie_analytics/assistive_plane/dispatcher.py
+src/aggie_analytics/assistive_plane/ollama_backend.py
 src/aggie_analytics/assistive_plane/openrouter_backend.py
+src/aggie_analytics/assistive_plane/orchestration.py
 src/aggie_analytics/assistive_plane/redaction.py
 src/aggie_analytics/assistive_plane/schemas.py
 src/aggie_analytics/assistive_plane/storage.py
@@ -3227,6 +3262,7 @@ tests/test_supplemental_play_drive.py
 tests/test_tamu_specialization_governance.py
 tests/test_team_state_governance.py
 tests/test_temporal_governance.py
+tests/test_unified_assistive_plane.py
 tests/test_validation_science_governance.py
 tests/test_w18_full_gate.py
 tests/test_w19_foundation.py
@@ -3298,6 +3334,7 @@ tools/freeze_experiment_spec.py
 tools/generate_instruction_manifest.py
 tools/hydrate_jira_mirror.py
 tools/init_experiment_store.py
+tools/materialize_unified_assistive_inventory.py
 tools/openai_assist.py
 tools/openrouter_assist.py
 tools/package_instructions.py
@@ -3310,6 +3347,8 @@ tools/prepare_openai_gamebook_pilot.py
 tools/prepare_openai_gamebook_schema_mapping.py
 tools/prepare_openai_quarantine_pilot.py
 tools/prepare_tamu_availability_source_sample.py
+tools/refresh_cursor_catalog.py
+tools/refresh_local_assistive_runtime.py
 tools/refresh_openai_assist_lock.py
 tools/refresh_openrouter_model_catalog.py
 tools/render_task_context.py
@@ -3341,6 +3380,7 @@ tools/schema_discovery.py
 tools/select_next_work.py
 tools/sync_openai_jira_graph.py
 tools/sync_openrouter_jira_graph.py
+tools/sync_unified_assistive_jira_graph.py
 tools/validate_acceptance.py
 tools/validate_action_derived_play_summary.py
 tools/validate_architecture.py
@@ -3411,6 +3451,7 @@ tools/validate_tamu_specialization.py
 tools/validate_team_state.py
 tools/validate_temporal.py
 tools/validate_tournament.py
+tools/validate_unified_assistive_plane.py
 tools/validate_validation_science.py
 tools/validate_w18_full_rebuild.py
 tools/validate_w19_foundation.py

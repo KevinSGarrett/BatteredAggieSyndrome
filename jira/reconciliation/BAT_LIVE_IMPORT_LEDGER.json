@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-12T16:49:39.025186+00:00"
+      "verified_at": "2026-08-12T17:48:35.898953+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-12T16:49:39.215283+00:00"
+      "verified_at": "2026-08-12T17:48:36.131274+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-12T16:49:39.510171+00:00"
+      "verified_at": "2026-08-12T17:48:36.341178+00:00"
     }
   ],
   "backup": {
@@ -31,23 +31,11 @@
     "id": "134"
   },
   "canonical_spec_sync": {
-    "backup": {
-      "bytes": 785,
-      "issue_count": 1,
-      "path": "reconciliation/jira/canonical-spec-sync/20260812T164950Z/pre-update.json",
-      "sha256": "86cadf3212f3f60833bf55baf97fa3169d5d18fad453c931529f0f6b51dd79a6",
-      "storage_root": "EXTERNAL_DATA_ROOT"
-    },
-    "changed_issues": 1,
-    "completed_at": "2026-08-12T16:49:51.132076+00:00",
-    "completed_local_ids": [
-      "POST-SUBTASK-198"
-    ],
-    "errors": [],
-    "started_at": "2026-08-12T16:49:50.386897+00:00",
-    "status": "COMPLETE"
+    "changed_issues": 0,
+    "status": "EXACT_NO_UPDATES_REQUIRED",
+    "verified_at": "2026-08-12T17:49:03.960455+00:00"
   },
-  "completed_at": "2026-08-12T16:50:38.994430+00:00",
+  "completed_at": "2026-08-12T17:49:55.054543+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -55,8 +43,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-12T16:49:58.244555+00:00",
-    "verified_at": "2026-08-12T16:50:00.093672+00:00",
+    "updated_at": "2026-08-12T17:49:11.219751+00:00",
+    "verified_at": "2026-08-12T17:49:13.364389+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -563,6 +551,7 @@
     "POST-STORY-055": "BAT-514",
     "POST-STORY-056": "BAT-515",
     "POST-STORY-057": "BAT-555",
+    "POST-STORY-058": "BAT-559",
     "POST-SUBTASK-001": "BAT-351",
     "POST-SUBTASK-002": "BAT-352",
     "POST-SUBTASK-003": "BAT-353",
@@ -763,6 +752,11 @@
     "POST-SUBTASK-198": "BAT-556",
     "POST-SUBTASK-199": "BAT-557",
     "POST-SUBTASK-200": "BAT-558",
+    "POST-SUBTASK-201": "BAT-560",
+    "POST-SUBTASK-202": "BAT-561",
+    "POST-SUBTASK-203": "BAT-562",
+    "POST-SUBTASK-204": "BAT-563",
+    "POST-SUBTASK-205": "BAT-564",
     "TASK-001": "BAT-104",
     "TASK-002": "BAT-105",
     "TASK-003": "BAT-106",
@@ -966,12 +960,12 @@
     "TASK-201": "BAT-350"
   },
   "link_direction_remediation": {
-    "corrected_link_count": 1179,
-    "existing_canonical_links": 1169,
-    "missing_canonical_links": 10,
+    "corrected_link_count": 1191,
+    "existing_canonical_links": 1179,
+    "missing_canonical_links": 12,
     "preserved_auxiliary_links": 4,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-12T16:50:13.557732+00:00"
+    "verified_at": "2026-08-12T17:49:30.195512+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -1519,9 +1513,11 @@
     "Blocks|POST-SUBTASK-157|POST-SUBTASK-159",
     "Blocks|POST-SUBTASK-158|POST-SUBTASK-159",
     "Blocks|POST-SUBTASK-160|POST-STORY-057",
+    "Blocks|POST-SUBTASK-160|POST-STORY-058",
     "Blocks|POST-SUBTASK-160|POST-SUBTASK-161",
     "Blocks|POST-SUBTASK-160|POST-SUBTASK-168",
     "Blocks|POST-SUBTASK-160|POST-SUBTASK-198",
+    "Blocks|POST-SUBTASK-160|POST-SUBTASK-201",
     "Blocks|POST-SUBTASK-161|POST-STORY-055",
     "Blocks|POST-SUBTASK-161|POST-SUBTASK-162",
     "Blocks|POST-SUBTASK-161|POST-SUBTASK-163",
@@ -1540,6 +1536,7 @@
     "Blocks|POST-SUBTASK-167|POST-SUBTASK-181",
     "Blocks|POST-SUBTASK-168|POST-STORY-056",
     "Blocks|POST-SUBTASK-168|POST-SUBTASK-175",
+    "Blocks|POST-SUBTASK-168|POST-SUBTASK-205",
     "Blocks|POST-SUBTASK-169|POST-SUBTASK-171",
     "Blocks|POST-SUBTASK-169|POST-SUBTASK-187",
     "Blocks|POST-SUBTASK-169|POST-SUBTASK-189",
@@ -1569,8 +1566,17 @@
     "Blocks|POST-SUBTASK-190|POST-SUBTASK-192",
     "Blocks|POST-SUBTASK-191|POST-SUBTASK-192",
     "Blocks|POST-SUBTASK-191|POST-SUBTASK-193",
+    "Blocks|POST-SUBTASK-198|POST-STORY-058",
     "Blocks|POST-SUBTASK-198|POST-SUBTASK-199",
+    "Blocks|POST-SUBTASK-198|POST-SUBTASK-201",
     "Blocks|POST-SUBTASK-199|POST-SUBTASK-200",
+    "Blocks|POST-SUBTASK-199|POST-SUBTASK-205",
+    "Blocks|POST-SUBTASK-201|POST-SUBTASK-202",
+    "Blocks|POST-SUBTASK-201|POST-SUBTASK-203",
+    "Blocks|POST-SUBTASK-201|POST-SUBTASK-204",
+    "Blocks|POST-SUBTASK-202|POST-SUBTASK-205",
+    "Blocks|POST-SUBTASK-203|POST-SUBTASK-205",
+    "Blocks|POST-SUBTASK-204|POST-SUBTASK-205",
     "Blocks|TASK-001|TASK-002",
     "Blocks|TASK-002|TASK-003",
     "Blocks|TASK-002|TASK-004",
@@ -2161,59 +2167,59 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 247,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 99,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 509\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 75,\n      \"ATOMIC_EXECUTION\": 172,\n      \"HISTORICAL_REFERENCE\": 262\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 509,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 1,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2120\n    },\n    \"subtask_count\": 178,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 236,\n      \"EXISTING_AUTOMATED_TEST\": 1181,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 79,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 246,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-12\",\n    \"work_packet_count\": 247\n  }\n}\n"
+        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 253,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 103,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 515\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 76,\n      \"ATOMIC_EXECUTION\": 177,\n      \"HISTORICAL_REFERENCE\": 262\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 515,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 1,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2121\n    },\n    \"subtask_count\": 183,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 242,\n      \"EXISTING_AUTOMATED_TEST\": 1187,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 79,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 252,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-12\",\n    \"work_packet_count\": 253\n  }\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"errors\": [],\n  \"references\": 2120,\n  \"relocated\": 0,\n  \"repair\": false,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"errors\": [],\n  \"references\": 2121,\n  \"relocated\": 0,\n  \"repair\": false,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 509,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"cycles\": 0,\n  \"errors\": [],\n  \"issues\": 515,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 509,\n  \"result\": \"PASS\"\n}\n"
+        "stdout": "{\n  \"all_error_count\": 0,\n  \"errors\": [],\n  \"import_error_count\": 0,\n  \"issue_count\": 515,\n  \"result\": \"PASS\"\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\openrouter\\postmerge-20260812"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\unified-assistive-foundation-20260812"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"actionable_count\": 247,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 99,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 509\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 75,\n    \"ATOMIC_EXECUTION\": 172,\n    \"HISTORICAL_REFERENCE\": 262\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 509,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 1,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2120\n  },\n  \"subtask_count\": 178,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 236,\n    \"EXISTING_AUTOMATED_TEST\": 1181,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 79,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 246,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-12\",\n  \"work_packet_count\": 247\n}\n"
+        "stdout": "{\n  \"actionable_count\": 253,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 103,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 515\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 76,\n    \"ATOMIC_EXECUTION\": 177,\n    \"HISTORICAL_REFERENCE\": 262\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 515,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 1,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2121\n  },\n  \"subtask_count\": 183,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 242,\n    \"EXISTING_AUTOMATED_TEST\": 1187,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 79,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 252,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-12\",\n  \"work_packet_count\": 253\n}\n"
       }
     ],
     "result": "PASS"
@@ -2362,16 +2368,16 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 1,
+      "changes": 10,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
-      "rows": 509
+      "rows": 515
     },
     "live": {
-      "changed_issues": 1,
+      "changed_issues": 10,
       "conflict_count": 0,
       "result": "PASS",
-      "rows": 509,
+      "rows": 515,
       "strict_validation": "PASS"
     }
   },
@@ -2418,9 +2424,9 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-12T16:50:38.994430+00:00",
+  "updated_at": "2026-08-12T17:49:55.054543+00:00",
   "verification": {
-    "actual_expected_link_count": 1179,
+    "actual_expected_link_count": 1191,
     "board": {
       "filter_id": "10134",
       "id": "134",
@@ -2458,17 +2464,17 @@
       "Source IDs": "customfield_10194"
     },
     "discrepancies": [],
-    "expected_link_count": 1179,
-    "issue_count": 512,
+    "expected_link_count": 1191,
+    "issue_count": 518,
     "issue_type_counts": {
       "Epic": 51,
-      "Story": 57,
-      "Sub-task": 200,
+      "Story": 58,
+      "Sub-task": 205,
       "Task": 201
     },
     "link_direction_semantics": "source_local_id performs the Jira outward action toward target_local_id",
     "missing_link_count": 0,
-    "parent_count": 458,
+    "parent_count": 464,
     "project": {
       "base_url": "https://kevinsgarrett.atlassian.net",
       "id": "10133",
@@ -2478,10 +2484,10 @@
     "schema_version": 1,
     "status_counts": {
       "Done": 82,
-      "In Progress": 3,
-      "To Do": 424
+      "In Progress": 5,
+      "To Do": 428
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-12T16:50:13.557732+00:00"
+    "verified_at": "2026-08-12T17:49:30.195512+00:00"
   }
 }

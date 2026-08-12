@@ -34,7 +34,8 @@
   "blocked_reason": "",
   "blocks": [
     "POST-STORY-056",
-    "POST-SUBTASK-175"
+    "POST-SUBTASK-175",
+    "POST-SUBTASK-205"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -156,8 +157,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24665",
-    "jira_updated_at": "2026-08-11T07:08:46.909-0500",
-    "last_synced_at": "2026-08-11T12:27:27.702639+00:00",
+    "jira_updated_at": "2026-08-12T12:49:18.198-0500",
+    "last_synced_at": "2026-08-12T17:49:30.668888+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "In Progress"

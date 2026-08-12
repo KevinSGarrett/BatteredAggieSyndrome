@@ -7,6 +7,8 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
+    "The unchanged national model remains the mandatory A&M no-adjustment reference; the 39-game 2023-2025 WMT shadow result remains preliminary, small, negative, and insufficient for specialization.",
+    "No A&M adapter enters forecasts without a larger chronological sample and consistent out-of-sample improvement across seasons, declared metrics, calibration, and stability slices; no adjustment is an acceptable scientific result.",
     "Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.",
     "The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.",
     "All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened."
@@ -126,7 +128,7 @@
     "post-wave",
     "tamu"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-12",
   "local_id": "POST-EPIC-009",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Build A&M-specific state and specialization candidates while requiring protected evidence and accepting a global-only/no-adjustment result.",
@@ -192,7 +194,7 @@
     "docs/42_TAMU_PEERS_ANALOGS_AND_SNAPSHOTS.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "Verified Story gate decisions for POST-SUBTASK-081, POST-SUBTASK-084, POST-SUBTASK-087.",
@@ -392,9 +394,11 @@ All Stories and Subtasks under this Epic for the tamu domain, including its expl
 
 ## Acceptance Criteria
 
-1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
-2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
-3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+1. The unchanged national model remains the mandatory A&M no-adjustment reference; the 39-game 2023-2025 WMT shadow result remains preliminary, small, negative, and insufficient for specialization.
+2. No A&M adapter enters forecasts without a larger chronological sample and consistent out-of-sample improvement across seasons, declared metrics, calibration, and stability slices; no adjustment is an acceptable scientific result.
+3. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+4. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+5. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
 
 ## Definition of Done
 

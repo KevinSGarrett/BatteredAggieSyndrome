@@ -7,6 +7,8 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
+    "Preserve the original 2024-2025 split and judging seals as historical evidence while an immutable decision-level exposure ledger records every inspected preliminary run, result, model, feature, threshold, transformation, hypothesis, prompt, and adoption/rejection decision.",
+    "Treat exposed 2024-2025 evidence as development-unprotected for affected decision families; only a separately proven frozen pre-inspection artifact may retain narrower supported eligibility.",
     "All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.",
     "The declared output `artifacts/validation/protected_seal_verification.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
@@ -141,7 +143,7 @@
     "subtask",
     "validation"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-12",
   "local_id": "POST-SUBTASK-097",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Verify protected split, judging-rule, threshold, feature, model, A&M, BAS, peer, and candidate seal hashes",
@@ -208,7 +210,7 @@
     "docs/59_BAS_TAMU_UNCERTAINTY_MARKET_EVALUATION.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/validation/protected_seal_verification.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -442,9 +444,11 @@ Execute the atomic 1 of 3 step in Story POST-STORY-033 (Protected split, judging
 
 ## Acceptance Criteria
 
-1. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
-2. The declared output `artifacts/validation/protected_seal_verification.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Preserve the original 2024-2025 split and judging seals as historical evidence while an immutable decision-level exposure ledger records every inspected preliminary run, result, model, feature, threshold, transformation, hypothesis, prompt, and adoption/rejection decision.
+2. Treat exposed 2024-2025 evidence as development-unprotected for affected decision families; only a separately proven frozen pre-inspection artifact may retain narrower supported eligibility.
+3. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
+4. The declared output `artifacts/validation/protected_seal_verification.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Definition of Done
 

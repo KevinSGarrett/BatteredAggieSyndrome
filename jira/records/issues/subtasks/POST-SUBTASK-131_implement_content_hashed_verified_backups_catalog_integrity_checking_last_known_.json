@@ -1,6 +1,8 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
+    "The outside-Git cleanup report records exact paths, pre/post files and bytes, preserved paths and reasons, removed content and reconstruction evidence, worktree cleanliness/recoverability, bytes recovered, remaining review items, and final free space.",
+    "Strict repository, provenance, Jira second-pass, secret, and full-suite validation pass after cleanup without interrupting active acquisition.",
     "Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.",
     "The declared output `artifacts/operations/backup_catalog_and_integrity.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
@@ -133,7 +135,7 @@
     "post-wave",
     "subtask"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-12",
   "local_id": "POST-SUBTASK-131",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Implement content-hashed verified backups, catalog, integrity checking, last-known-good protection, and restricted-destination enforcement",
@@ -200,7 +202,7 @@
     "docs/operations/CI_SECURITY_SUPPLY_CHAIN.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/operations/backup_catalog_and_integrity.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",

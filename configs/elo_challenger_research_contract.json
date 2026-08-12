@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "preliminary-unprotected-interpretable-elo-challengers-v1",
+  "classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE",
+  "reference": {
+    "family": "elo_rating",
+    "immutability": "UNCHANGED_REFERENCE_REQUIRED",
+    "identity_source": "C:/BatteredAggieSyndrome.data/manifests/preliminary_unprotected/sha256/3977b720c69dc75559b1f18ed5ab665ab2262e64fe97dc74dd9668ac09604d08/run_manifest.json",
+    "dataset_identity": "f4e6d55b9593d217ddb003a6bb0b852a5e651b25d29a6738c274a15430909f29",
+    "feature_identity": "233dcfce8168da5e373b2eeaef6fcd8403e503cc8097cc89e832b13510878408",
+    "target_identity": "6b95d5b43acc4c2ac23e65bd7613cc342851165a1ca9601a337de834ab84540a",
+    "split_identity": "1af384d751c271273d670e14bf5d3adf123e1294a12bb4d78ae6cdbb93c19b20"
+  },
+  "evaluation": {
+    "chronological_development_only": true,
+    "exposed_seasons": [2024, 2025],
+    "untouched_protected_claims": false,
+    "report_by": ["season", "neutral_site", "cold_start", "Texas_A&M_involved"],
+    "metrics": ["brier", "log_loss", "ece_10", "margin_mae", "margin_rmse"],
+    "selection_rule": "Prefer the unchanged reference unless improvement is stable, material, and simpler-or-justified across seasons and relevant slices."
+  },
+  "challengers": [
+    {"id": "ELO_TIME_DECAY", "hypothesis": "Older results are overweighted across changing team regimes.", "change": "Evidence-estimated recency weighting and time decay."},
+    {"id": "ELO_BOUNDED_MARGIN", "hypothesis": "Binary updates discard useful victory-margin evidence.", "change": "Bounded margin multiplier with explicit blowout cap."},
+    {"id": "ELO_OFFSEASON_REGRESSION", "hypothesis": "Unchanged offseason ratings overstate continuity.", "change": "Regression toward an evidence-based population mean."},
+    {"id": "ELO_COLD_START", "hypothesis": "Lower-information teams receive overconfident initial ratings.", "change": "Information-aware initialization and uncertainty."},
+    {"id": "ELO_OFFENSE_DEFENSE", "hypothesis": "One scalar rating cannot distinguish matchup-relevant scoring and prevention strength.", "change": "Opponent-adjusted offensive and defensive components."},
+    {"id": "ELO_SITE_EFFECTS", "hypothesis": "One fixed home edge misstates neutral and regime-varying site effects.", "change": "Separate home and neutral effects estimated on development chronology."},
+    {"id": "ELO_REGIME_STABILITY", "hypothesis": "Rating behavior changes across seasons and regimes.", "change": "Season/regime stability diagnostics and bounded adjustment."},
+    {"id": "ELO_UNCERTAINTY", "hypothesis": "Point ratings hide information scarcity.", "change": "Uncertainty-aware rating state and shrinkage."},
+    {"id": "ELO_DISTRIBUTION_CALIBRATION", "hypothesis": "Raw rating differences do not directly yield calibrated win and margin distributions.", "change": "Chronological development calibration into probability and margin distributions."}
+  ],
+  "complexity_policy": "Neural or other high-complexity challengers remain deferred until interpretable ratings and conventional baselines demonstrate saturation.",
+  "nonclaims": ["No champion promotion.", "No protected performance.", "No A&M lift, BAS, or Aggie Excess result."]
+}

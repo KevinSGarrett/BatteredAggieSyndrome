@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "evidence-based-retraining-admission-v1",
+  "classification": "SCIENTIFIC_GOVERNANCE",
+  "full_retraining_material_change_kinds": [
+    "ADDITIONAL_ELIGIBLE_SEASONS_OR_GAMES",
+    "MATERIAL_DOMAIN_COVERAGE_INCREASE",
+    "MEANINGFUL_MISSINGNESS_REDUCTION",
+    "TRAINING_POPULATION_SCHEMA_CHANGE",
+    "TRAINING_POPULATION_RECONCILIATION_CHANGE",
+    "NEW_PIT_SAFE_FEATURE_FAMILY",
+    "CONSEQUENTIAL_DATA_DEFECT_CORRECTION",
+    "PREDECLARED_SCIENTIFIC_COMPARISON"
+  ],
+  "decision_rules": {
+    "full_ladder": "At least one evidence-backed material change is true and the proposed population is training-eligible.",
+    "focused_only": "No evidence-backed material change is true, or the new population remains candidate-only.",
+    "arbitrary_numeric_thresholds": "PROHIBITED",
+    "preserve_every_decision": true
+  },
+  "required_observed_deltas": [
+    "old_dataset_identity",
+    "new_dataset_identity",
+    "eligible_seasons_before",
+    "eligible_seasons_after",
+    "eligible_games_before",
+    "eligible_games_after",
+    "domain_coverage_deltas",
+    "missingness_deltas",
+    "schema_or_reconciliation_deltas",
+    "pit_safe_feature_family_deltas",
+    "consequential_defect_deltas"
+  ],
+  "actions": {
+    "FULL_LADDER_RETRAINING_ADMITTED": "Run the complete preliminary ladder at the coherent milestone.",
+    "FOCUSED_INTEGRATION_REPLAY_ONLY": "Run focused joins, replay, serialization, leakage, and provenance tests.",
+    "REJECT_INVALID_EVIDENCE": "Quarantine the decision until identities and observed deltas validate."
+  }
+}

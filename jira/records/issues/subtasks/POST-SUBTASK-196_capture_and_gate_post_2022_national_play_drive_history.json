@@ -114,7 +114,7 @@
     "SRCREF-02019",
     "SRCREF-02020"
   ],
-  "priority": "Highest",
+  "priority": "P0",
   "protected_files_and_interfaces": [
     "AGENTS.md",
     "governance/DO_NOT_DRIFT.md",

@@ -110,10 +110,12 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
-2. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
-3. Authorization names exact candidates/tasks/cutoffs/lanes/splits/metrics/thresholds/evidence destinations and verifies all PIT/feature/model/A&M/BAS prerequisites or remains blocked.
-4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+1. Do not authorize a 2024-2025 protected run for any exposure-ledger decision family; identify and preflight-seal a genuinely untouched population, preferably forecast-first 2026+, before protected performance can be claimed.
+2. If untouched forecast-first evidence has not accrued, retain an explicit pending disposition and continue independent development-unprotected work without weakening the protected gate.
+3. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
+4. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
+5. Authorization names exact candidates/tasks/cutoffs/lanes/splits/metrics/thresholds/evidence destinations and verifies all PIT/feature/model/A&M/BAS prerequisites or remains blocked.
+6. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 ## Tests / validation
 

@@ -106,9 +106,11 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
-2. The declared output `artifacts/validation/protected_seal_verification.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Preserve the original 2024-2025 split and judging seals as historical evidence while an immutable decision-level exposure ledger records every inspected preliminary run, result, model, feature, threshold, transformation, hypothesis, prompt, and adoption/rejection decision.
+2. Treat exposed 2024-2025 evidence as development-unprotected for affected decision families; only a separately proven frozen pre-inspection artifact may retain narrower supported eligibility.
+3. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
+4. The declared output `artifacts/validation/protected_seal_verification.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 

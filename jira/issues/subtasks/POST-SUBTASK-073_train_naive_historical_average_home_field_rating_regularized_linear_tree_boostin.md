@@ -7,6 +7,9 @@
 {
   "acceptance_control_ids": [],
   "acceptance_criteria": [
+    "Preserve the unchanged current Elo artifact as the reference and predeclare each interpretable challenger hypothesis, reference deficiency, parameter constraints, chronological development split, metrics, slices, and stability/materiality rule.",
+    "Prioritize time decay, bounded margin updates, offseason regression, information-aware cold starts, opponent-adjusted offense/defense, site effects, regime stability, uncertainty, and probability/margin calibration before higher-complexity models.",
+    "Report effect sizes and negative findings by season and relevant slice, prefer the simpler reference absent stable material improvement, and never treat inspected 2024-2025 results as untouched protected evidence or promote a champion from preliminary results.",
     "Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.",
     "The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
     "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence."
@@ -137,7 +140,7 @@
     "subtask",
     "historical-expansion"
   ],
-  "last_content_audit": "2026-08-09",
+  "last_content_audit": "2026-08-12",
   "local_id": "POST-SUBTASK-073",
   "maturity_before": "FUNCTIONAL_STARTER",
   "objective": "Train naive, historical-average, home-field, rating, regularized linear, tree-boosting, market-free, and market-aware baselines with bounded searches",
@@ -205,7 +208,7 @@
     "docs/54_UNCERTAINTY_OOD_AND_MARKET_LANES.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "related_to": [],
   "required_evidence": [
     "`artifacts/modeling/baseline_candidate_runs.json` plus SHA-256/content identity, producer command/version, prerequisite artifact identities, creation time, and validation disposition.",
@@ -439,9 +442,12 @@ Execute the atomic 1 of 3 step in Story POST-STORY-025 (Simple, rating, linear, 
 
 ## Acceptance Criteria
 
-1. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
-2. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Preserve the unchanged current Elo artifact as the reference and predeclare each interpretable challenger hypothesis, reference deficiency, parameter constraints, chronological development split, metrics, slices, and stability/materiality rule.
+2. Prioritize time decay, bounded margin updates, offseason regression, information-aware cold starts, opponent-adjusted offense/defense, site effects, regime stability, uncertainty, and probability/margin calibration before higher-complexity models.
+3. Report effect sizes and negative findings by season and relevant slice, prefer the simpler reference absent stable material improvement, and never treat inspected 2024-2025 results as untouched protected evidence or promote a champion from preliminary results.
+4. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
+5. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Definition of Done
 

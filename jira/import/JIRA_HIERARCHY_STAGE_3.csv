@@ -6800,9 +6800,12 @@ Prerequisites / Dependencies
 - POST-SUBTASK-072
 
 Acceptance Criteria
-1. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
-2. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Preserve the unchanged current Elo artifact as the reference and predeclare each interpretable challenger hypothesis, reference deficiency, parameter constraints, chronological development split, metrics, slices, and stability/materiality rule.
+2. Prioritize time decay, bounded margin updates, offseason regression, information-aware cold starts, opponent-adjusted offense/defense, site effects, regime stability, uncertainty, and probability/margin calibration before higher-complexity models.
+3. Report effect sizes and negative findings by season and relevant slice, prefer the simpler reference absent stable material improvement, and never treat inspected 2024-2025 results as untouched protected evidence or promote a champion from preliminary results.
+4. Every run pins data/config/code/seed/runtime, fits recency/home-field/shrinkage only on permitted history, separates market lanes/cutoffs, and retains failed or negative trials.
+5. The declared output `artifacts/modeling/baseline_candidate_runs.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-073 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -9169,9 +9172,11 @@ Prerequisites / Dependencies
 - POST-SUBTASK-090
 
 Acceptance Criteria
-1. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
-2. The declared output `artifacts/validation/protected_seal_verification.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Preserve the original 2024-2025 split and judging seals as historical evidence while an immutable decision-level exposure ledger records every inspected preliminary run, result, model, feature, threshold, transformation, hypothesis, prompt, and adoption/rejection decision.
+2. Treat exposed 2024-2025 evidence as development-unprotected for affected decision families; only a separately proven frozen pre-inspection artifact may retain narrower supported eligibility.
+3. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
+4. The declared output `artifacts/validation/protected_seal_verification.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-097 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -9269,9 +9274,11 @@ Prerequisites / Dependencies
 - POST-SUBTASK-097
 
 Acceptance Criteria
-1. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
-2. The declared output `artifacts/validation/protected_access_protocol_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Fail closed when an exposed artifact, derived artifact, decision family, inspected 2024-2025 result, or inherited exposure is represented as untouched protected, split-protected, or protected-promotion eligible.
+2. A future protected claim requires immutable forecast-first capture and proof that model, dataset, feature, threshold, judging-contract, and prediction identities predate the outcome.
+3. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
+4. The declared output `artifacts/validation/protected_access_protocol_test.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-098 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -9374,10 +9381,12 @@ Prerequisites / Dependencies
 - POST-SUBTASK-098
 
 Acceptance Criteria
-1. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
-2. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
-3. Authorization names exact candidates/tasks/cutoffs/lanes/splits/metrics/thresholds/evidence destinations and verifies all PIT/feature/model/A&M/BAS prerequisites or remains blocked.
-4. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
+1. Do not authorize a 2024-2025 protected run for any exposure-ledger decision family; identify and preflight-seal a genuinely untouched population, preferably forecast-first 2026+, before protected performance can be claimed.
+2. If untouched forecast-first evidence has not accrued, retain an explicit pending disposition and continue independent development-unprotected work without weakening the protected gate.
+3. All seal files/registries/assignments/thresholds/data identities match recorded hashes; a mutation or missing seal blocks evaluation and cannot be waived to make a candidate pass.
+4. Only evaluation code can access protected outcomes, every access is attributable, training/tuning cannot read labels/scorecards, and partial failures do not return outcomes for iterative tuning.
+5. Authorization names exact candidates/tasks/cutoffs/lanes/splits/metrics/thresholds/evidence destinations and verifies all PIT/feature/model/A&M/BAS prerequisites or remains blocked.
+6. All prerequisite evidence is linked and unresolved blockers remain explicit; file creation alone cannot pass this gate.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-099 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -10338,9 +10347,12 @@ Prerequisites / Dependencies
 - POST-SUBTASK-108
 
 Acceptance Criteria
-1. Triggers predeclare evidence/budget/freeze/skip reasons, cannot repeatedly tune on protected outcomes, preserve all failed/no-improvement challengers, and never corrupt the active champion.
-2. The declared output `artifacts/mlops/retraining_challenger_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. A versioned deterministic admission controller records old/new dataset identities, observed population/coverage/missingness/schema/reconciliation/PIT-feature/defect deltas, evidence identities, rationale, and action for every retraining decision.
+2. Full ladder retraining occurs only at an evidence-backed coherent milestone or predeclared comparison; candidate-only and immaterial changes receive focused integration/replay tests without automatic full retraining.
+3. No arbitrary numeric threshold is fabricated merely to suppress or trigger a run, and the preliminary-unprotected lane does not require a current production champion.
+4. Triggers predeclare evidence/budget/freeze/skip reasons, cannot repeatedly tune on protected outcomes, preserve all failed/no-improvement challengers, and never corrupt the active champion.
+5. The declared output `artifacts/mlops/retraining_challenger_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-109 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -12329,9 +12341,11 @@ Prerequisites / Dependencies
 - POST-SUBTASK-129
 
 Acceptance Criteria
-1. Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
-2. The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. Inventory C:/BatteredAggieSyndrome.data/validation read-only before cleanup and classify exact paths, bytes, references, content identities, registered-worktree state, and recovery value.
+2. Preserve unique validation evidence, accepted artifacts, immutable manifests, provenance, and recovery-critical content; remove only verified reconstructible content and never recursively delete a dirty or unverified worktree.
+3. Canonical protected evidence, negative results, source-policy metadata, and issue history retain required immutability while raw third-party data never copies to publication destinations.
+4. The declared output `configs/backup_retention_policy.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-130 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -12418,9 +12432,11 @@ Prerequisites / Dependencies
 - POST-SUBTASK-130
 
 Acceptance Criteria
-1. Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.
-2. The declared output `artifacts/operations/backup_catalog_and_integrity.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. The outside-Git cleanup report records exact paths, pre/post files and bytes, preserved paths and reasons, removed content and reconstruction evidence, worktree cleanliness/recoverability, bytes recovered, remaining review items, and final free space.
+2. Strict repository, provenance, Jira second-pass, secret, and full-suite validation pass after cleanup without interrupting active acquisition.
+3. Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.
+4. The declared output `artifacts/operations/backup_catalog_and_integrity.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 Definition of Done
 1. The atomic scope in POST-SUBTASK-131 is completed without absorbing sibling work or weakening any protected requirement, control, split, judging rule, private-research publication boundary, or security boundary.
@@ -17753,7 +17769,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-069
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-195_materialize_1963_2009_national_game_outcome_spine_and_tiered_eligibility_gate.json",Done,Medium,actionable;post-wave;subtask;historical-expansion;games;outcomes;1963-2009;tiered-eligibility;candidate-only;provenance;local-id-post-subtask-195,data-sources,POST-SUBTASK-195,GAP-002;GAP-003;HANDOFF-008,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-195_materialize_1963_2009_national_game_outcome_spine_and_tiered_eligibility_gate.json",Done,Highest,actionable;post-wave;subtask;historical-expansion;games;outcomes;1963-2009;tiered-eligibility;candidate-only;provenance;local-id-post-subtask-195,data-sources,POST-SUBTASK-195,GAP-002;GAP-003;HANDOFF-008,PHASE-1,DONE,VALIDATED_RECONCILED_CANDIDATE_ONLY,VERIFIED,POST_W25,true,DATA,HISTORICAL_REFERENCE
 Sub-task,BAT-553,100504,[POST-SUBTASK-196] Duplicate audit: post-2022 national play/drive history already covered by POST-SUBTASK-174,100060,"Local ID: POST-SUBTASK-196
 
 Objective
@@ -17813,7 +17829,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-069
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-196_capture_and_gate_post_2022_national_play_drive_history.json",Done,Medium,post-wave;subtask;historical-expansion;duplicate-scope;duplicate-of-bat-531;audit-only;local-id-post-subtask-196,data-sources,POST-SUBTASK-196,GAP-002;HANDOFF-008,PHASE-1,DONE,DUPLICATE_SCOPE_VERIFIED_NO_NEW_MATURITY,VERIFIED,POST_W25,false,GOVERNANCE,HISTORICAL_REFERENCE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-196_capture_and_gate_post_2022_national_play_drive_history.json",Done,Highest,post-wave;subtask;historical-expansion;duplicate-scope;duplicate-of-bat-531;audit-only;local-id-post-subtask-196,data-sources,POST-SUBTASK-196,GAP-002;HANDOFF-008,PHASE-1,DONE,DUPLICATE_SCOPE_VERIFIED_NO_NEW_MATURITY,VERIFIED,POST_W25,false,GOVERNANCE,HISTORICAL_REFERENCE
 Sub-task,BAT-554,100505,[POST-SUBTASK-197] Acquire and gate national NCAA official gamebook-equivalent evidence,100060,"Local ID: POST-SUBTASK-197
 
 Objective
@@ -17893,4 +17909,4 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-069
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.json",In Progress,Medium,post-wave;subtask;historical-expansion;ncaa-official;gamebook-equivalent;stats-ncaa-org;candidate-only;immutable-raw;provenance;pit-gated;partial-domain-admission;local-id-post-subtask-197,data-sources,POST-SUBTASK-197,SRC-014;SRC-015;SRC-048;GAP-002;GAP-006;HANDOFF-008,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY,ACTIVE_EMPIRICAL_CHECKPOINT_2024_GRAPH_EXHAUSTED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.json",In Progress,Highest,post-wave;subtask;historical-expansion;ncaa-official;gamebook-equivalent;stats-ncaa-org;candidate-only;immutable-raw;provenance;pit-gated;partial-domain-admission;local-id-post-subtask-197,data-sources,POST-SUBTASK-197,SRC-014;SRC-015;SRC-048;GAP-002;GAP-006;HANDOFF-008,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY,ACTIVE_EMPIRICAL_CHECKPOINT_2024_GRAPH_EXHAUSTED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION

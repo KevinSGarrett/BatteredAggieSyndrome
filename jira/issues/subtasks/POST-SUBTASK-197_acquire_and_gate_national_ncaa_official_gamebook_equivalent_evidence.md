@@ -187,7 +187,7 @@
     "SRCREF-02015",
     "SRCREF-02016"
   ],
-  "priority": "Highest",
+  "priority": "P0",
   "protected_files_and_interfaces": [
     "AGENTS.md",
     "governance/DO_NOT_DRIFT.md",

@@ -102,9 +102,12 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Triggers predeclare evidence/budget/freeze/skip reasons, cannot repeatedly tune on protected outcomes, preserve all failed/no-improvement challengers, and never corrupt the active champion.
-2. The declared output `artifacts/mlops/retraining_challenger_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. A versioned deterministic admission controller records old/new dataset identities, observed population/coverage/missingness/schema/reconciliation/PIT-feature/defect deltas, evidence identities, rationale, and action for every retraining decision.
+2. Full ladder retraining occurs only at an evidence-backed coherent milestone or predeclared comparison; candidate-only and immaterial changes receive focused integration/replay tests without automatic full retraining.
+3. No arbitrary numeric threshold is fabricated merely to suppress or trigger a run, and the preliminary-unprotected lane does not require a current production champion.
+4. Triggers predeclare evidence/budget/freeze/skip reasons, cannot repeatedly tune on protected outcomes, preserve all failed/no-improvement challengers, and never corrupt the active champion.
+5. The declared output `artifacts/mlops/retraining_challenger_report.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+6. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 

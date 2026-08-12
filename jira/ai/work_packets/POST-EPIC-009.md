@@ -107,9 +107,11 @@ Review and integrate these child-produced outputs; do not recreate them directly
 
 ## Acceptance criteria
 
-1. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
-2. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
-3. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
+1. The unchanged national model remains the mandatory A&M no-adjustment reference; the 39-game 2023-2025 WMT shadow result remains preliminary, small, negative, and insufficient for specialization.
+2. No A&M adapter enters forecasts without a larger chronological sample and consistent out-of-sample improvement across seasons, declared metrics, calibration, and stability slices; no adjustment is an acceptable scientific result.
+3. Every child issue completes at its declared maturity and evidence state, or has an explicit accepted-risk/deferred disposition.
+4. The Epic's end-to-end gate proves the integrated capability on the required real data, target host, protected chronology, or operating path; file existence alone is insufficient.
+5. All requirement, acceptance-control, ADR, risk, gap, test, artifact, and source references remain valid and no protected invariant is weakened.
 
 ## Tests / validation
 

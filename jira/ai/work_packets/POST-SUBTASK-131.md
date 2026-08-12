@@ -105,9 +105,11 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Acceptance criteria
 
-1. Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.
-2. The declared output `artifacts/operations/backup_catalog_and_integrity.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
-3. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
+1. The outside-Git cleanup report records exact paths, pre/post files and bytes, preserved paths and reasons, removed content and reconstruction evidence, worktree cleanliness/recoverability, bytes recovered, remaining review items, and final free space.
+2. Strict repository, provenance, Jira second-pass, secret, and full-suite validation pass after cleanup without interrupting active acquisition.
+3. Backups are independently readable/content-hashed/cataloged/permission-checked, partial/corrupt copies never replace good state, and Jira canonical records/key map/change log/indexes are included efficiently.
+4. The declared output `artifacts/operations/backup_catalog_and_integrity.json` is produced with deterministic identity, provenance, and validation metadata appropriate to this work.
+5. The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.
 
 ## Tests / validation
 

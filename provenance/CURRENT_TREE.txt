@@ -3021,6 +3021,7 @@ src/aggie_analytics/assistive_plane/openrouter_backend.py
 src/aggie_analytics/assistive_plane/orchestration.py
 src/aggie_analytics/assistive_plane/redaction.py
 src/aggie_analytics/assistive_plane/schemas.py
+src/aggie_analytics/assistive_plane/service_runtime.py
 src/aggie_analytics/assistive_plane/storage.py
 src/aggie_analytics/assistive_plane/watchdog.py
 src/aggie_analytics/assistive_plane/worker.py
@@ -3291,6 +3292,7 @@ tests/test_team_state_governance.py
 tests/test_temporal_governance.py
 tests/test_unified_assistive_completeness.py
 tests/test_unified_assistive_plane.py
+tests/test_unified_controller_service.py
 tests/test_unified_controller_state.py
 tests/test_unified_enforcement_adoption.py
 tests/test_validation_science_governance.py
@@ -3351,6 +3353,7 @@ tools/build_sec_tamu_availability_candidates.py
 tools/build_supplemental_play_drive_gap.py
 tools/build_tamu_availability_evidence_pages.py
 tools/build_tamu_depth_chart_noncoverage_review.py
+tools/build_unified_assistive_release.py
 tools/build_versioned_play_drive_gap.py
 tools/build_wmt_provider_timestamp_pit.py
 tools/build_wmt_tamu_specialization_feature_pit.py
@@ -3370,6 +3373,7 @@ tools/generate_instruction_manifest.py
 tools/hydrate_jira_mirror.py
 tools/init_experiment_store.py
 tools/install_cpu_worker_service.ps1
+tools/install_unified_assistive_services.ps1
 tools/materialize_unified_assistive_inventory.py
 tools/openai_assist.py
 tools/openrouter_assist.py

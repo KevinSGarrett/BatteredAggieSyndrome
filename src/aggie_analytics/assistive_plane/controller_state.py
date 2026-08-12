@@ -263,6 +263,16 @@ class ControllerState:
             if result.rowcount != 1:
                 raise RuntimeError("CONTROLLER_LEADER_OWNERSHIP_LOST")
 
+    def release_leader(self, owner_id: str) -> None:
+        """Release only the caller's lease during a graceful shutdown."""
+        with self.transaction() as connection:
+            result = connection.execute(
+                "DELETE FROM leader_lease WHERE singleton=1 AND owner_id=?",
+                (owner_id,),
+            )
+            if result.rowcount != 1:
+                raise RuntimeError("CONTROLLER_LEADER_OWNERSHIP_LOST")
+
     def register_work_unit(self, *, work_unit_id: str, identity_sha256: str, jira_identity: str, effort_points: int, actor: str, now: datetime | None = None) -> None:
         if effort_points not in {1, 2, 3, 5, 8}:
             raise ValueError("INVALID_PRE_ROUTING_EFFORT")

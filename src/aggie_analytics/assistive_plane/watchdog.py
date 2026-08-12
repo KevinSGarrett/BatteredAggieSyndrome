@@ -17,7 +17,13 @@ class ReadOnlyWatchdog:
         moment = now or datetime.now(timezone.utc)
         findings: list[str] = []
         if not self.database.is_file():
-            return {"result": "INCOMPLETE", "findings": ["CONTROLLER_DATABASE_MISSING"], "controller_alive": False}
+            return {
+                "result": "INCOMPLETE",
+                "scope": "CONTROLLER_DATABASE_AND_HEARTBEAT_HEALTH_ONLY",
+                "findings": ["CONTROLLER_DATABASE_MISSING"],
+                "controller_alive": False,
+                "overall_operational_completion": "INCOMPLETE",
+            }
         uri = f"file:{self.database.as_posix()}?mode=ro"
         connection = sqlite3.connect(uri, uri=True, timeout=5)
         connection.row_factory = sqlite3.Row
@@ -42,6 +48,7 @@ class ReadOnlyWatchdog:
                     findings.append("CONTROLLER_LEASE_EXPIRED")
             return {
                 "result": "PASS" if not findings else "FAIL",
+                "scope": "CONTROLLER_DATABASE_AND_HEARTBEAT_HEALTH_ONLY",
                 "findings": findings,
                 "controller_alive": alive,
                 "heartbeat_age_seconds": age,
@@ -49,6 +56,7 @@ class ReadOnlyWatchdog:
                 "journal_mode": mode,
                 "leader_owner_id": leader["owner_id"] if leader else None,
                 "controller_build_commit": leader["build_commit"] if leader else None,
+                "overall_operational_completion": "INCOMPLETE",
             }
         finally:
             connection.close()

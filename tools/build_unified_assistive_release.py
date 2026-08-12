@@ -23,6 +23,11 @@ FILES = (
     "tools/run_unified_assistive_controller.py",
     "tools/run_unified_assistive_watchdog.py",
 )
+GENERATED_RELEASE_FILES = {
+    "src/aggie_analytics/assistive_plane/__init__.py": (
+        b'"""Minimal controller/watchdog release package; no provider adapters are imported."""\n'
+    ),
+}
 
 
 def sha256_file(path: Path) -> str:
@@ -58,8 +63,17 @@ def build_release(output_root: Path, *, expected_commit: str | None = None) -> t
                 raise RuntimeError(f"RELEASE_SOURCE_MISSING:{relative}")
             destination = temporary / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(source, destination)
-            hashes[relative] = {"sha256": sha256_file(destination), "bytes": destination.stat().st_size}
+            if relative in GENERATED_RELEASE_FILES:
+                destination.write_bytes(GENERATED_RELEASE_FILES[relative])
+                source_kind = "GENERATED_MINIMAL_PACKAGE_INITIALIZER"
+            else:
+                shutil.copy2(source, destination)
+                source_kind = "EXACT_REPOSITORY_FILE"
+            hashes[relative] = {
+                "sha256": sha256_file(destination),
+                "bytes": destination.stat().st_size,
+                "source_kind": source_kind,
+            }
         tree_identity = hashlib.sha256(canonical(hashes)).hexdigest()
         manifest: dict[str, object] = {
             "schema_version": 1,

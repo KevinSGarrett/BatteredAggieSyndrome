@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_completion_evidence",
+  "created_at_utc": "2026-08-12T22:50:00Z",
+  "updated_at_utc": "2026-08-12T22:50:00Z",
+  "jira_key": "BAT-477",
+  "local_issue_id": "POST-SUBTASK-127",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "PARTIAL",
+  "observable_outcome": "The observability v2 candidate exposes ten correlation identities, timing/count/status/blocker and explicit missingness semantics, deterministic event and metric-health identities, freshness gates, and secret redaction. The complete local suite passes; completion awaits protected integration and exact-main replay.",
+  "outputs": [
+    {
+      "path": "artifacts/operations/observability_contract_test.json",
+      "bytes": 9095,
+      "sha256": "dafa552e4e781ddf889cbe62e4463aa3125a38087475fed01acd582dac94c6c3",
+      "schema_version": "1.0.0",
+      "maturity": "IMPLEMENTED_CANDIDATE",
+      "eligibility": "PROTECTED_INTEGRATION_PENDING"
+    }
+  ],
+  "input_identities": {
+    "git_base_commit": "2bf8fd53a01b2e263a31b30725f51387a5014f0d",
+    "post_subtask_024_sha256": "416a1ce70da87e9938aaa6f38da185d55e5d7e1f5a25b16b7c8775e01aa50bed",
+    "post_subtask_126_sha256": "abc8f696bd1895ad946e97949d97a6bbb2ccfadd706cd46848700fff06d49d80",
+    "observability_module_sha256": "2a9417bb69d2042f0b0a088ea0ec75f9250e7b142c49a333bf1c1794d61ced45",
+    "test_module_sha256": "84a5b9a470d52feba6825e409ff95969fd072334ba10043d3c4aaeed0613e721"
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Events expose correlation/timing/count/status/blocker identities and distinguish expected missingness from defects while redacting secrets and restricted payloads.",
+      "disposition": "PASS",
+      "observable_result": "All ten identity fields and required operational semantics are schema-bound; credential keys and value patterns are redacted; semantic and identity mutations fail closed."
+    },
+    {
+      "criterion": "The declared output is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "observable_result": "The output binds exact prerequisites, implementation hashes, fixed-time deterministic examples, negative controls, and candidate validation results."
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "observable_result": "Examples are deterministic contract fixtures; all source, data, model, protected-result, and production-readiness claims remain explicitly not applicable or pending."
+    }
+  ],
+  "validation": {
+    "focused_tests": "PASS_17_TESTS_1_SKIPPED",
+    "full_suite": "PASS_629_TESTS_4_SKIPPED_104_SUBTESTS",
+    "source_references": "PASS_2121",
+    "protected_integration": "PENDING",
+    "exact_main_replay": "PENDING"
+  },
+  "negative_findings": [
+    "The first full-suite attempt correctly failed because the two intentionally changed implementation/test files invalidated their pinned source anchors; both exact anchors were versioned to the new file identities and all 2,121 references then passed.",
+    "The Windows symlink/junction safety test remains platform-capability skipped where directory symlink creation is unavailable.",
+    "This contract does not prove that every project workflow has adopted the instrumentation or that sustained operational monitoring exists."
+  ],
+  "scientific_and_security_boundary": {
+    "credential_values_included": false,
+    "restricted_payloads_included": false,
+    "dataset_split_model_or_metric_produced": false,
+    "protected_results_inspected": false,
+    "historical_completeness_claimed": false,
+    "production_readiness_claimed": false,
+    "tamu_lift_bas_or_aggie_excess_claimed": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-128",
+    "decision": "DEFER_PENDING_PROTECTED_INTEGRATION",
+    "post_subtask_128_ready": false,
+    "silent_unlock_allowed": false
+  },
+  "integration": {
+    "branch": "codex/BAT-477-observability",
+    "pull_request": null,
+    "head_sha": null,
+    "merge_sha": null,
+    "required_checks": "PENDING",
+    "exact_main_replay": "PENDING"
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED_CANDIDATE",
+    "evidence_state": "PARTIAL",
+    "issue_disposition": "IN_PROGRESS",
+    "remaining_issue_scope_blockers": ["PROTECTED_INTEGRATION_PENDING", "EXACT_MAIN_REPLAY_PENDING"],
+    "completion_claim": "BAT-477 is not complete; its locally validated candidate awaits protected integration."
+  }
+}

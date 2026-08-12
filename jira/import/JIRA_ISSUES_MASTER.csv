@@ -31531,7 +31531,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-127_instrument_run_stage_source_snapshot_entity_matrix_feature_model_product_identif.json",To Do,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-127,operations-security,POST-SUBTASK-127,HANDOFF-012,PHASE-4,READY,IMPLEMENTED,PLANNED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-127_instrument_run_stage_source_snapshot_entity_matrix_feature_model_product_identif.json",In Progress,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-127,operations-security,POST-SUBTASK-127,HANDOFF-012,PHASE-4,IN_PROGRESS,IMPLEMENTED,PARTIAL,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-478,100432,[POST-SUBTASK-128] Implement source/API/terms/schema/entity/feature/data/model/concept/freshness/security/governance drift detectors plus alert severity/dedup/ack/escalation,100093,"Local ID: POST-SUBTASK-128
 
 Objective

@@ -1,0 +1,239 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "aggie.observability.contract_test",
+  "created_at_utc": "2026-08-12T22:45:00Z",
+  "updated_at_utc": "2026-08-12T22:45:00Z",
+  "issue": {
+    "local_id": "POST-SUBTASK-127",
+    "jira_key": "BAT-477",
+    "objective": "Instrument correlation identities, metrics, structured events, health, and redaction"
+  },
+  "disposition": "IMPLEMENTED_CANDIDATE_PENDING_PROTECTED_INTEGRATION",
+  "eligibility": "OPERATIONS_CONTRACT_CANDIDATE",
+  "source_identity": {
+    "git_base_commit": "2bf8fd53a01b2e263a31b30725f51387a5014f0d",
+    "branch": "codex/BAT-477-observability",
+    "source_manifest": "jira/sources/issue_source_manifests/POST-SUBTASK-127.json",
+    "source_ref_count": 14,
+    "source_document_hashes_match": true
+  },
+  "prerequisite_evidence": [
+    {
+      "local_id": "POST-SUBTASK-024",
+      "jira_key": "BAT-374",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-024.json",
+      "sha256": "416a1ce70da87e9938aaa6f38da185d55e5d7e1f5a25b16b7c8775e01aa50bed",
+      "primary_output": "artifacts/source_governance/source_drift_baseline.json",
+      "primary_output_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+      "evidence_state": "VERIFIED",
+      "accepted": true
+    },
+    {
+      "local_id": "POST-SUBTASK-126",
+      "jira_key": "BAT-476",
+      "path": "artifacts/jira_evidence/POST-SUBTASK-126.json",
+      "sha256": "abc8f696bd1895ad946e97949d97a6bbb2ccfadd706cd46848700fff06d49d80",
+      "primary_output": "artifacts/operations/ci_security_gate.json",
+      "primary_output_sha256": "6dfebe01e2d95f9bd9176ee758f46813723c41ffce20493701b29b0c60a2f8a7",
+      "evidence_state": "VERIFIED",
+      "accepted": true
+    }
+  ],
+  "implementation_identity": {
+    "observability_module": "src/aggie_analytics/operations/observability.py",
+    "observability_module_sha256": "2a9417bb69d2042f0b0a088ea0ec75f9250e7b142c49a333bf1c1794d61ced45",
+    "test_module": "tests/test_w23_operations.py",
+    "test_module_sha256": "84a5b9a470d52feba6825e409ff95969fd072334ba10043d3c4aaeed0613e721",
+    "python": "3.11.9",
+    "runtime_dependency": "STANDARD_LIBRARY_ONLY"
+  },
+  "contract": {
+    "event_schema": "aggie.operations.observability.v2",
+    "required_identity_fields": [
+      "run_id",
+      "stage_id",
+      "source_id",
+      "snapshot_id",
+      "entity_id",
+      "matrix_id",
+      "feature_set_id",
+      "model_id",
+      "product_id",
+      "correlation_id"
+    ],
+    "event_dimensions": [
+      "timestamp_utc",
+      "level",
+      "event",
+      "component",
+      "identities",
+      "duration_ms",
+      "count",
+      "status",
+      "blocker_code",
+      "missingness",
+      "metadata",
+      "event_identity"
+    ],
+    "missingness_classes": ["NOT_APPLICABLE", "EXPECTED", "DEFECT"],
+    "health_states": ["HEALTHY", "DEGRADED", "BLOCKED"],
+    "metric_types": ["COUNTER", "GAUGE"],
+    "deterministic_identity": "SHA256_CANONICAL_JSON",
+    "append_only_jsonl": true,
+    "external_observability_service_required": false,
+    "raw_source_payload_logging_allowed": false,
+    "credential_logging_allowed": false,
+    "consumer_fail_closed_on": [
+      "MISSING_FIELD",
+      "EXTRA_FIELD",
+      "SCHEMA_MISMATCH",
+      "IDENTITY_MUTATION",
+      "SEMANTIC_CONFLICT",
+      "STALE_SNAPSHOT",
+      "FUTURE_DATED_SNAPSHOT",
+      "INVALID_METRIC",
+      "BLOCKED_WITHOUT_BLOCKER"
+    ]
+  },
+  "deterministic_examples": {
+    "event": {
+      "blocker_code": "OPTIONAL_DOMAIN_MISSING",
+      "component": "historical-ingestion",
+      "count": 7,
+      "duration_ms": 12.5,
+      "event": "SOURCE_WINDOW_CHECKED",
+      "event_identity": "4842cd19ff195efa412d7ebc17431d1e3bef274194ccc8e2da087f4bcbf8651b",
+      "identities": {
+        "correlation_id": "correlation_id-bat477",
+        "entity_id": "entity_id-bat477",
+        "feature_set_id": "feature_set_id-bat477",
+        "matrix_id": "matrix_id-bat477",
+        "model_id": "model_id-bat477",
+        "product_id": "product_id-bat477",
+        "run_id": "run_id-bat477",
+        "snapshot_id": "snapshot_id-bat477",
+        "source_id": "source_id-bat477",
+        "stage_id": "stage_id-bat477"
+      },
+      "level": "INFO",
+      "metadata": {
+        "domain": "player-box",
+        "message": "Bearer [REDACTED]",
+        "token": "[REDACTED]"
+      },
+      "missingness": "EXPECTED",
+      "run_id": "run_id-bat477",
+      "schema_version": "aggie.operations.observability.v2",
+      "status": "DEGRADED",
+      "timestamp_utc": "2026-08-12T22:45:00+00:00"
+    },
+    "metric_health_snapshot": {
+      "blockers": ["SCHEMA_DRIFT_QUARANTINE"],
+      "component": "historical-ingestion",
+      "freshness": {"max_age_seconds": 900},
+      "identities": {
+        "correlation_id": "correlation_id-bat477",
+        "entity_id": "entity_id-bat477",
+        "feature_set_id": "feature_set_id-bat477",
+        "matrix_id": "matrix_id-bat477",
+        "model_id": "model_id-bat477",
+        "product_id": "product_id-bat477",
+        "run_id": "run_id-bat477",
+        "snapshot_id": "snapshot_id-bat477",
+        "source_id": "source_id-bat477",
+        "stage_id": "stage_id-bat477"
+      },
+      "metadata": {
+        "api_key": "[REDACTED]",
+        "domain": "player-box"
+      },
+      "metrics": {
+        "counters": {"records_total": 7.0},
+        "gauges": {"queue_depth": 2.0}
+      },
+      "missingness_counts": {"defect": 1, "expected_missing": 3},
+      "observed_at_utc": "2026-08-12T22:45:00+00:00",
+      "schema_version": "aggie.operations.observability.v2",
+      "snapshot_identity": "844efe261d1b6288f0636721c88d1dfbd3b0c2aac497b5dff1ecdba755e3ecfa",
+      "snapshot_type": "METRIC_HEALTH",
+      "status": "DEGRADED"
+    }
+  },
+  "mutation_and_negative_controls": [
+    {
+      "id": "EVENT_COUNT_MUTATION",
+      "expected": "REJECT_CONTENT_IDENTITY_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "id": "DEFECT_MISSINGNESS_SUCCESS_STATUS",
+      "expected": "REJECT_SEMANTIC_CONFLICT",
+      "result": "PASS"
+    },
+    {
+      "id": "CREDENTIAL_ASSIGNMENT_IN_IDENTIFIER",
+      "expected": "REJECT_INVALID_IDENTIFIER",
+      "result": "PASS"
+    },
+    {
+      "id": "METRIC_MUTATION",
+      "expected": "REJECT_CONTENT_IDENTITY_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "id": "STALE_METRIC_SNAPSHOT",
+      "expected": "REJECT_STALE",
+      "result": "PASS"
+    },
+    {
+      "id": "BLOCKED_HEALTH_WITHOUT_BLOCKER",
+      "expected": "REJECT_MISSING_BLOCKER",
+      "result": "PASS"
+    }
+  ],
+  "acceptance_matrix": [
+    {
+      "criterion": "Events expose correlation/timing/count/status/blocker identities and distinguish expected missingness from defects while redacting secrets and restricted payloads.",
+      "disposition": "PASS",
+      "observable_result": "The v2 event and metric-health contracts expose all ten correlation identities, timing/count/status/blocker fields, explicit EXPECTED versus DEFECT missingness, deterministic identities, and redacted metadata; mutation tests fail closed."
+    },
+    {
+      "criterion": "The declared output is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS",
+      "observable_result": "This artifact binds exact prerequisites and implementation hashes, includes byte-reproducible fixed-time examples, and is externally SHA-256 bound by the issue evidence manifest."
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS",
+      "observable_result": "All examples are labeled deterministic contract fixtures. No source availability, dataset, split, model, metric, target-hardware, protected result, or operational production readiness is asserted."
+    }
+  ],
+  "validation": {
+    "focused_test_command": "PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q tests/test_w23_operations.py",
+    "focused_test_result": "PASS_17_TESTS_1_SKIPPED",
+    "full_suite": "PASS_629_TESTS_4_SKIPPED_104_SUBTESTS",
+    "source_reference_validation": "PASS_2121_REFERENCES",
+    "repository_and_jira": "PENDING_CANDIDATE_FINAL_GATE",
+    "protected_integration": "PENDING"
+  },
+  "security_and_scientific_boundary": {
+    "credential_values_included": false,
+    "restricted_raw_payloads_included": false,
+    "deterministic_fixture_only": true,
+    "real_source_availability_claimed": false,
+    "operational_production_readiness_claimed": false,
+    "dataset_or_split_identity": "NOT_APPLICABLE",
+    "model_or_metric_produced": false,
+    "protected_results_inspected": false,
+    "historical_completeness_claimed": false,
+    "production_champion_claimed": false,
+    "tamu_lift_bas_or_aggie_excess_claimed": false
+  },
+  "downstream": {
+    "consumer": "POST-SUBTASK-128",
+    "decision": "DEFER_PENDING_PROTECTED_INTEGRATION",
+    "consumer_requires_schema": "aggie.operations.observability.v2",
+    "manual_reconstruction_allowed": false,
+    "silent_unlock_allowed": false
+  }
+}

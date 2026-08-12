@@ -79,7 +79,7 @@
   "end_to_end_validation": "Validate that `artifacts/operations/observability_contract_test.json` can be parsed and consumed by `POST-SUBTASK-128` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-127.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "OPERATIONS",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "IMPLEMENTED",
@@ -147,11 +147,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24617",
-    "jira_updated_at": "2026-08-09T23:24:12.420-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
+    "jira_updated_at": "2026-08-12T17:42:03.050-0500",
+    "last_synced_at": "2026-08-12T22:42:03.050000+00:00",
     "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -206,7 +206,7 @@
     "docs/109_W23_LOCAL_PRODUCTION_OPERATIONS.md",
     "docs/operations/OBSERVABILITY.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -332,7 +332,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-043: Structured observability, alerts, drift, and incident response.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-127.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

@@ -131,7 +131,7 @@ def specs() -> list[dict[str, Any]]:
     cursor["blocked_reason"] = "PAID_CURSOR_BUDGET_NOT_AUTHORIZED"
     cursor["unblock_condition"] = "User explicitly authorizes a positive Cursor-only envelope and POST-SUBTASK-201 integrates."
 
-    qwen = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-203", import_id=100513, objective="Qualify local Ollama Qwen on real strict-schema, reconciliation, and code-review work", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="READY")
+    qwen = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-203", import_id=100513, objective="Qualify local Ollama Qwen on real strict-schema, reconciliation, and code-review work", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="DONE")
     qwen["scope"] = "Run at least 100 real records or 10 bounded packets across three task types under loopback-only, one-model, one-parallel, 4K-context initial policy."
     qwen["acceptance_criteria"] = [
         "Model/runtime/digest/hardware identities and prompt/schema/result dispositions are content-addressed.",
@@ -140,6 +140,20 @@ def specs() -> list[dict[str, Any]]:
     ]
     qwen["blocked_reason"] = ""
     qwen["unblock_condition"] = ""
+    qwen["evidence_state"] = "VERIFIED"
+    qwen["ready"] = False
+    qwen["expected_outputs"] = [
+        "artifacts/assistive/local_qwen_qualification.json",
+        "artifacts/jira_evidence/POST-SUBTASK-203.json",
+    ]
+    qwen["evidence_manifest_path"] = "artifacts/jira_evidence/POST-SUBTASK-203.json"
+    qwen["allowed_modification_paths"] = qwen["expected_outputs"]
+    qwen["completion_evidence_manifest_sha256"] = hashlib.sha256(
+        (ROOT / qwen["evidence_manifest_path"]).read_bytes()
+    ).hexdigest()
+    qwen["ai_context_notes"].append(
+        "The bounded qualification is complete and verified, but both exact evaluated model identities failed predeclared evidence-quality gates; no local Qwen operational route is admitted."
+    )
 
     worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="READY")
     worker["scope"] = "Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot."
@@ -158,8 +172,8 @@ def specs() -> list[dict[str, Any]]:
         "At least seven calendar days, three real scheduler cycles, one restart exercise, and one outage exercise reconcile with inventory/dispatch/usage/result/cleanup ledgers.",
         "All invariants remain unviolated and exact incomplete provider requirements are reported without fabricated backfill.",
     ]
-    assurance["blocked_reason"] = "DEPENDENT_ROUTE_QUALIFICATIONS_AND_SUSTAINED_TIME_WINDOW_PENDING"
-    assurance["unblock_condition"] = "POST-SUBTASK-202 through POST-SUBTASK-204 and applicable OpenAI/OpenRouter operations reach evidence-backed dispositions."
+    assurance["blocked_reason"] = "LOCAL_QWEN_NOT_ADMITTED; CURSOR_BUDGET_BLOCKED; CPU_WORKER_AND_SUSTAINED_TIME_WINDOW_PENDING"
+    assurance["unblock_condition"] = "A local route passes a newly versioned empirical qualification, POST-SUBTASK-204 qualifies, paid-route budget gates resolve where applicable, and sustained-operation evidence accrues."
     return [story, foundation, cursor, qwen, worker, assurance]
 
 

@@ -38122,7 +38122,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-203
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-203_qualify_local_ollama_qwen_on_real_strict_schema_reconciliation_and_code_review_work.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-203,operations-security,POST-SUBTASK-203,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,READY,EMPIRICALLY_VALIDATED,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-203_qualify_local_ollama_qwen_on_real_strict_schema_reconciliation_and_code_review_work.json",Done,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-203,operations-security,POST-SUBTASK-203,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-563,100514,[POST-SUBTASK-204] Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance,100510,"Local ID: POST-SUBTASK-204
 
 Objective

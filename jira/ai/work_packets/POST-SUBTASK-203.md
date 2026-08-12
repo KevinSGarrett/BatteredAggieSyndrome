@@ -33,14 +33,14 @@ Run at least 100 real records or 10 bounded packets across three task types unde
 
 ## Current gate state
 
-- Workflow: `READY`
-- Ready: `true`
+- Workflow: `DONE`
+- Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `PLANNED`
+- Evidence state: `VERIFIED`
 - Governance traceability gate: `POST-SUBTASK-203`
 
 ## Read first
@@ -62,6 +62,7 @@ Run at least 100 real records or 10 bounded packets across three task types unde
 
 ## Files I may modify or create
 
+- artifacts/assistive/local_qwen_qualification.json
 - artifacts/jira_evidence/POST-SUBTASK-203.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
@@ -87,6 +88,7 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 
 Produce and validate these outputs within this atomic work unit:
 
+- artifacts/assistive/local_qwen_qualification.json
 - artifacts/jira_evidence/POST-SUBTASK-203.json
 
 ## Acceptance criteria

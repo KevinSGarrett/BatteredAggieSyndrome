@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT182-PRELIMINARY-SCHEDULE-STRESS-V1",
+  "decision_units": ["TASK-077", "TASK-079"],
+  "live_jira_units": ["BAT-180", "BAT-182"],
+  "classification": "PRELIMINARY_UNPROTECTED_EVENT_CHRONOLOGY_ONLY",
+  "source": {
+    "run_identity": "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080",
+    "manifest_sha256": "602477b325c33811ccf9573af6cc7c6854621b322566c15e580dc134ddf07e8a",
+    "dataset_identity": "8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2",
+    "training_matrix_sha256": "702b6dc3710d3f3181ae4359ae19a4274c3e28828f2964202c8cf1be4c90ae0e",
+    "source_seasons": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "target_seasons": [2023, 2024, 2025],
+    "grain": "CANONICAL_COMPLETED_GAME_WITH_RETROSPECTIVE_EVENT_CHRONOLOGY"
+  },
+  "feature_contract": {
+    "grain": "TARGET_GAME_TEAM",
+    "evidence_admission": "SOURCE_GAME_START_UTC_STRICTLY_BEFORE_TARGET_CUTOFF_UTC",
+    "windows_days": [7, 14, 28],
+    "recent_game_window": 5,
+    "features": {
+      "prior_game_count": "all admitted prior games for the team",
+      "prior_season_game_count": "admitted prior games in the target season",
+      "days_since_last_game_start": "elapsed days from the most recent admitted prior game start to target start; null for cold start",
+      "games_last_7d": "admitted prior game starts in the trailing seven days",
+      "games_last_14d": "admitted prior game starts in the trailing fourteen days",
+      "games_last_28d": "admitted prior game starts in the trailing twenty-eight days",
+      "away_or_neutral_games_last_28d": "trailing twenty-eight-day admitted games played away or at a neutral site",
+      "consecutive_away_or_neutral_games": "consecutive admitted away-or-neutral games immediately before target",
+      "recent_5_margin_mean": "mean team-oriented final margin over up to five admitted prior games",
+      "recent_5_opponent_pregame_win_share_mean": "mean opponent pregame win share recorded at up to five admitted prior meetings; null where all opponent histories were absent",
+      "recent_5_opponent_adjusted_margin_mean": "mean actual team margin minus the pregame team-minus-opponent historical margin expectation over up to five admitted prior games; null where no expectation was supported"
+    },
+    "opponent_adjustment": "ACTUAL_TEAM_MARGIN_MINUS_TEAM_PRIOR_MARGIN_MEAN_PLUS_OPPONENT_PRIOR_MARGIN_MEAN; ONLY WHEN BOTH PREGAME HISTORIES_EXIST",
+    "missingness": "NULL_WHEN_REQUIRED_PRIOR_EVIDENCE_IS_ABSENT; COUNTS_ARE_STRUCTURAL_ZERO_WHEN_THE_OBSERVED_PRIOR_WINDOW_IS_EMPTY",
+    "target_or_future_outcomes": "PROHIBITED",
+    "travel_distance": "NOT_MATERIALIZED_BECAUSE_PINNED_VENUE_COORDINATE_EVIDENCE_IS_NOT_PART_OF_THIS SOURCE",
+    "true_recovery_burden": "NOT_INFERRED_FROM_GAME_START_SPACING"
+  },
+  "eligibility": {
+    "event_chronology_candidate": true,
+    "historical_original_pit": false,
+    "protected_training": false,
+    "protected_evaluation": false,
+    "production": false,
+    "champion": false,
+    "forecast_publication": false
+  },
+  "acceptance": {
+    "target_games": 2763,
+    "target_team_rows": 5526,
+    "duplicate_target_game_team_rows": 0,
+    "target_game_evidence_rows": 0,
+    "source_start_at_or_after_cutoff_rows": 0,
+    "byte_identical_rebuild": true,
+    "partial_history_preserved": true
+  },
+  "external_storage": {
+    "features": "features/preliminary_schedule_stress/sha256/<identity>/target_game_team_schedule_stress.parquet",
+    "manifest": "manifests/preliminary_schedule_stress/sha256/<identity>/run_manifest.json",
+    "validation": "validation/TASK-079/preliminary_schedule_stress_validation.json"
+  },
+  "limitations": [
+    "The underlying source is retrospective event chronology, not original historical known-at evidence.",
+    "Game-start spacing is an observable workload proxy and is not labeled as physiological recovery.",
+    "No travel miles, time zones, altitude, venue transitions, or roof state are fabricated without pinned venue evidence.",
+    "Opponent adjustment uses only pregame historical team outcome state and is not an advanced efficiency measure.",
+    "The inspected 2024-2025 periods remain development/unprotected.",
+    "Materialization alone does not establish predictive value or feature adoption."
+  ]
+}

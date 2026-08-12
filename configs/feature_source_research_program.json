@@ -90,6 +90,11 @@
     "noaa_isd_game_observation_shadow_manifest_sha256": "f17f778481b65f37b0481412004de50b49d536804a5b6919fbba6bf565299be5",
     "noaa_isd_game_observation_shadow_validation_sha256": "7fc3abc5c4551bafe7f1960bb362b8fbe204ff0452e7f32291dc7203059038a6",
     "noaa_isd_game_observation_shadow_disposition": "PASS_SHADOW_ONLY_903_GAMES_WITHIN_ONE_DAY_17_LONG_GAPS_REQUIRE_ALTERNATE_STATION_REVIEW",
+    "noaa_isd_alternate_station_recovery_identity": "663e28683b0559e85dcb3a2ad0fbc584b122125bdfff664838c7dd957d2e41fd",
+    "noaa_isd_alternate_station_recovery_manifest_sha256": "aac398edff2dd5b9c31b66ad575c26e1698337eb3d2c90419dc8bbe5563dfb2f",
+    "noaa_isd_alternate_station_recovery_capture_manifest_sha256": "2f52ed9f558685834b6407ab2208e844ebdf6e08ab64168d94b57449991728d5",
+    "noaa_isd_alternate_station_recovery_validation_sha256": "211667080eb9288dfe3d28f96497df75e9f526bda257deeef13343d053f40c1e",
+    "noaa_isd_alternate_station_recovery_disposition": "PASS_REVIEW_ONLY_ALL_17_LONG_GAP_GAMES_HAVE_RANK_2_TO_5_CANDIDATE_WITHIN_60_MINUTES_NO_AUTOMATIC_STATION_SELECTION_OR_FEATURE_AUTHORITY",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
   },

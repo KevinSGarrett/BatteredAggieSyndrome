@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.1.0",
+  "contract_id": "BAT415-RETROSPECTIVE-RETURNING-PRODUCTION-RESEARCH-V1.1",
+  "decision_unit": "POST-SUBTASK-065",
+  "parent_unit": "POST-STORY-022",
+  "classification": "DEVELOPMENT_ONLY_RETROSPECTIVE_RETURNING_PRODUCTION_RESEARCH",
+  "source_contract": {
+    "roster_dataset_identity": "3e3da7de2f58870301a5917274024b2752523ba4b6097501def636d464be24cb",
+    "roster_manifest_relative_path": "manifests/historical_known_at/sha256/3e3da7de2f58870301a5917274024b2752523ba4b6097501def636d464be24cb/historical_roster_membership_pit_manifest.json",
+    "roster_manifest_sha256": "3a15d56a9e619aa22b7f51a03891ac39dd4b59bfe12685e4dc90900c1aa725f9",
+    "roster_payload_relative_path": "pit_state/historical_known_at/sha256/3e3da7de2f58870301a5917274024b2752523ba4b6097501def636d464be24cb/historical_roster_memberships.parquet",
+    "roster_payload_sha256": "2b450c5807b75d33e3af40e2555f8a3568df808f7e9e685b74cda797c10c9689",
+    "player_metric_dataset_identity": "c6baa76b899686f9b89470f5992ffdfb36b7bcc4749d2a82099d9c918c01c0bb",
+    "player_metric_manifest_relative_path": "manifests/historical_known_at/sha256/c6baa76b899686f9b89470f5992ffdfb36b7bcc4749d2a82099d9c918c01c0bb/player_event_metric_pit_manifest.json",
+    "player_metric_manifest_sha256": "952d80624adf95c8dba2986baf5c898a588049e1b7e1bf2ac2c024d43be6c2ab",
+    "player_metric_payload_relative_path": "pit_state/historical_known_at/sha256/c6baa76b899686f9b89470f5992ffdfb36b7bcc4749d2a82099d9c918c01c0bb/player_event_metrics.parquet",
+    "player_metric_payload_sha256": "3e29ee7e2a82682682c742136bde571d104a820672dc1a56eb07221a650c6d7c",
+    "roster_seasons": [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "player_metric_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "partial_player_metric_seasons": [2020],
+    "source_known_at_basis": "EXACT_PUBLIC_REPOSITORY_VERSION_BOUND_CAPTURE_KNOWN_IN_MAY_2023"
+  },
+  "population_contract": {
+    "transition_seasons": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "grain": "CANONICAL_TEAM_OFFSEASON_TRANSITION",
+    "common_support_requires": [
+      "prior-season roster membership",
+      "target-season roster membership",
+      "prior-season admitted player event metrics"
+    ],
+    "partial_transition": "2020_TO_2021_DUE_TO_PARTIAL_2020_PLAYER_METRIC_SOURCE",
+    "target_game_feature_materialization": false
+  },
+  "feature_contract": {
+    "roster_continuity": {
+      "returning_roster_count": "count of canonical players present for the same canonical team in both prior and target season rosters",
+      "prior_roster_count": "distinct canonical players on the prior-season team roster",
+      "current_roster_count": "distinct canonical players on the target-season team roster",
+      "departed_roster_count": "prior roster players absent from the same team in the target season",
+      "arrival_roster_count": "target roster players absent from the same team in the prior season",
+      "roster_retention_rate": "returning_roster_count divided by prior_roster_count",
+      "roster_arrival_rate": "arrival_roster_count divided by current_roster_count",
+      "roster_jaccard": "returning_roster_count divided by the union of prior and target roster players"
+    },
+    "returning_production": {
+      "formula": "sum prior-season source_value for players on the same target-season team roster divided by total prior-season team source_value",
+      "category_stat_pairs": [
+        ["interceptions", "INT"],
+        ["passing", "YDS"],
+        ["receiving", "REC"],
+        ["receiving", "YDS"],
+        ["rushing", "CAR"],
+        ["rushing", "YDS"]
+      ],
+      "missingness": "NULL when a team/category/stat denominator is absent; never zero-fill absent evidence",
+      "structural_zero": "A recorded zero denominator is not eligible for a share and remains null",
+      "ratio_semantics": {
+        "interceptions_INT_receiving_REC_rushing_CAR": "BOUNDED_NONNEGATIVE_COUNT_SHARE; returning subset divided by team total must remain in [0,1]",
+        "passing_YDS_receiving_YDS_rushing_YDS": "SIGNED_EVENT_SUM_RATIO; negative player events can make the returning subset slightly exceed the net team total or become negative, so values are preserved without clipping and explicitly diagnosed"
+      },
+      "pre_materialization_source_diagnostic": {
+        "reason": "The first fail-closed materialization attempt found legitimate signed-yardage subset ratios outside [0,1]; no artifact was written before this contract revision.",
+        "signed_yardage_ratios_outside_zero_one": 13,
+        "count_ratios_outside_zero_one": 0,
+        "nonpositive_team_denominators": 0
+      },
+      "composite_policy": "No cross-category composite is created because passing and receiving yards overlap and no empirical weights are predeclared"
+    },
+    "unsupported_fields": {
+      "shared_snap_continuity": "source evidence has no snap counts",
+      "starter_continuity": "roster membership does not establish starters",
+      "depth_chart_continuity": "roster membership does not establish depth",
+      "injury_adjusted_returning_production": "timestamped availability evidence is absent from this population",
+      "target_2023_2025_returning_production": "historical-known-at roster membership ends in 2022"
+    }
+  },
+  "eligibility": {
+    "canonical_player_and_team_identity_required": true,
+    "same_team_return_required": true,
+    "source_manifests_and_payload_hashes_required": true,
+    "original_transition_time_pit_claimed": false,
+    "retrospective_research_only": true,
+    "partial_season_preserved": true,
+    "name_only_merge_allowed": false,
+    "protected_eligible": false
+  },
+  "acceptance": {
+    "expected_transition_seasons": 8,
+    "expected_category_stat_pairs": 6,
+    "minimum_common_teams_per_transition": 121,
+    "duplicate_team_transition_rows_allowed": 0,
+    "nonpositive_production_denominators_allowed": 0,
+    "bounded_count_share_outside_zero_one_allowed": 0,
+    "expected_signed_yardage_ratios_outside_zero_one": 13,
+    "unsupported_metric_columns_allowed": 0,
+    "byte_identical_rebuild_required": true
+  },
+  "authority": {
+    "development_formula_research": true,
+    "target_game_feature_admission": false,
+    "preliminary_training_admission": false,
+    "protected_training_admission": false,
+    "protected_evaluation_admission": false,
+    "champion_or_production_promotion": false,
+    "forecast_publication": false
+  },
+  "external_storage": {
+    "features": "features/returning_production_research/sha256/<dataset_identity>/team_season_transition_features.parquet",
+    "components": "features/returning_production_research/sha256/<dataset_identity>/returning_production_components.parquet",
+    "coverage": "features/returning_production_research/sha256/<dataset_identity>/transition_coverage.parquet",
+    "manifest": "manifests/returning_production_research/sha256/<dataset_identity>/run_manifest.json",
+    "validation": "validation/POST-SUBTASK-065/returning_production_research_validation.json",
+    "bulk_payloads_in_git": false
+  },
+  "protected_nonclaims": {
+    "final_historical_population_ready": false,
+    "production_model_ready": false,
+    "champion_promoted": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

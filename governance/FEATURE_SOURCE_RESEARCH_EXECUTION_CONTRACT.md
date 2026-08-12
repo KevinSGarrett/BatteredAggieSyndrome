@@ -75,6 +75,12 @@ The first bounded candidate materialization is identity `a719b03d2c91142802adb19
 
 The terms are deliberately narrow. Recorded-play clock span is neither true possession time nor full drive duration, and the sources do not support seconds per snap. Those unsupported metrics remain absent. The candidate has no protected-training, protected-evaluation, champion, or publication authority and requires a later chronological common-support model comparison before empirical adoption.
 
+## Executed retrospective returning-production checkpoint
+
+The bounded retrospective formula-research population is identity `4eb29ad4de42df08e2e29f58cacf4ea9f0fd3092e0303e7c5b81a6e2cdbc6139`. It contains 982 common-support canonical-team offseason transitions for 2015-2022, backed by exact roster-membership and player-event-metric captures. It materializes roster retention, arrivals, Jaccard continuity, and six prior-production ratios. The 2020-to-2021 transition remains explicitly partial, and 25 absent team/category/stat cells remain null.
+
+Count ratios are bounded shares. Yardage ratios use signed event-sum semantics because negative player events can make a returning subset slightly exceed the net team total or become negative. Thirteen such values are retained and diagnosed without clipping. The capture was known in May 2023, not at the original offseason transition, so this population is development-only retrospective research. It grants no target-game, preliminary-training, protected, production, forecast, starter, depth-chart, injury, or shared-snap authority.
+
 ## Completion boundary
 
 Applicable units must pass repository, provenance, Jira second-pass, secret, unit/property, integration, chronological/PIT, mutation, and full-suite checks with commands, exit codes, hashes, and exceptions recorded. This contract establishes no final historical completeness, production model, champion, protected performance, A&M lift, BAS, Aggie Excess, or other scientific result.

@@ -73,6 +73,10 @@
     "possession_pace_ablation_manifest_sha256": "7f97957726a881a7a89197173425a19c692e98dbfa4d77da2f844043b65011a3",
     "possession_pace_ablation_validation_sha256": "49b6b44ce8251afbfdf2df5854ce61f5551ead95aa2610dfb5c7d355c43f8938",
     "possession_pace_ablation_disposition": "REJECT_UNSTABLE_MIXED_SEASON_EFFECT_UNCHANGED_PLAY_DRIVE_REFERENCE_REMAINS_PREFERRED",
+    "returning_production_research_identity": "4eb29ad4de42df08e2e29f58cacf4ea9f0fd3092e0303e7c5b81a6e2cdbc6139",
+    "returning_production_research_manifest_sha256": "1a148f0f56f9a59d52cd5ad90f70711570c7e804b4e57e98072130973434bb06",
+    "returning_production_research_validation_sha256": "25ecef4cbe1cbf5b02c2fa25db1f44997e5ed7065e7acd43827ad7862688ad70",
+    "returning_production_research_disposition": "PASS_RETROSPECTIVE_FORMULA_RESEARCH_ONLY_TARGET_GAME_AND_SHARED_SNAP_AUTHORITY_CLOSED",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED_EXPOSURE_AWARE"
   },

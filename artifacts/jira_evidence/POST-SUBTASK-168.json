@@ -3,44 +3,44 @@
   "evidence_manifest_type": "POST_W25_IN_PROGRESS_ATOMIC_CHECKPOINT_EVIDENCE",
   "decision_unit": "POST-SUBTASK-168",
   "jira_key": "",
-  "created_at_utc": "2026-08-11T04:30:19Z",
-  "overall_disposition": "IN_PROGRESS_VALIDATED_CONTINUING_OPERATIONS_TWO_WORKLOAD_CHECKPOINT",
+  "created_at_utc": "2026-08-12T20:13:17Z",
+  "overall_disposition": "IN_PROGRESS_VALIDATED_CONTINUING_OPERATIONS_EXPANDED_GOLD_CHECKPOINT",
   "acceptance_matrix": [
     {
       "criterion": 1,
       "disposition": "PASS",
       "evidence": "artifacts/openai_assist/continuous_operations.json",
-      "evidence_sha256": "61026e4d5101a08ffc5ba36339ec9b9be13d1e9a90268fa1e630570eb58c8cf3",
-      "observable_result": "BAT-522 remains the exact-format automatic Batch/canonical promotion decision, while POST-SUBTASK-168 separately admitted 78 bounded candidate-only synchronous calls across two real workloads. Nano failure did not prohibit value-backed Luna, Terra, or Sol comparison, and no failed exact-format result granted Batch or canonical authority."
+      "evidence_sha256": "6dbce4de09eee4612b19e508725ffb4df7d9e899d9b495a97698294528a0548c",
+      "observable_result": "BAT-522 remains the exact-format automatic Batch/canonical promotion decision, while POST-SUBTASK-168 continued with a 22-call expanded-gold candidate-only run. Nano failure did not prohibit value-backed Luna, Terra, or Sol comparison, and no failed exact-format result granted Batch or canonical authority."
     },
     {
       "criterion": 2,
       "disposition": "PASS",
       "evidence": "artifacts/openai_assist/continuous_operations.json",
-      "evidence_sha256": "61026e4d5101a08ffc5ba36339ec9b9be13d1e9a90268fa1e630570eb58c8cf3",
-      "observable_result": "After the official availability sample, a distinct deterministic 7-case A&M gamebook schema-drift gold set covered 2013-2017 action-domain play candidates, a non-play action, and a native-play comparator. Fourteen value-routed calls assessed the 50-game actions-without-plays gap while all factual, PIT, training, and canonical authority remained false."
+      "evidence_sha256": "6dbce4de09eee4612b19e508725ffb4df7d9e899d9b495a97698294528a0548c",
+      "observable_result": "A new 22-case deterministic gold set exercised additional gamebook action/play schema mappings. All factual, PIT, training, and canonical authority remained false."
     },
     {
       "criterion": 3,
       "disposition": "PASS",
       "evidence": "tools/run_openai_gamebook_schema_mapping.py",
       "evidence_sha256": "6d9dec5c486592744bb4a36600b2041c270644a6937b9893a374766aad12b5b4",
-      "observable_result": "All 14 latest calls used the governed Responses controller, store:false, the strict evaluation schema, minimized content-addressed excerpts, budget admission, idempotent caching, and deterministic independent validation. Zero provider, schema, evidence, unsupported-fact, authoritative-write, or protected-write failures occurred."
+      "observable_result": "All 22 latest calls used the governed Responses controller, store:false, the strict evaluation schema, minimized content-addressed excerpts, budget admission, idempotent caching, and deterministic independent validation. Zero provider, schema, evidence, unsupported-fact, authoritative-write, or protected-write failures occurred."
     },
     {
       "criterion": 4,
       "disposition": "PASS",
       "evidence": "artifacts/openai_assist/continuous_operations.json",
-      "evidence_sha256": "61026e4d5101a08ffc5ba36339ec9b9be13d1e9a90268fa1e630570eb58c8cf3",
-      "observable_result": "The checkpoint reports the 14 latest and 466 cumulative settled calls, per-model tokens and dollars, $4.293001 cumulative spend, $95.706999 remaining, last-success timestamp, 12 exact review candidates, 2 quarantined gold mismatches, zero rejects, exact no-Batch reason, cleanup, negative findings, and the next API-eligible workload."
+      "evidence_sha256": "6dbce4de09eee4612b19e508725ffb4df7d9e899d9b495a97698294528a0548c",
+      "observable_result": "The checkpoint reports 22 latest and 492 cumulative settled calls, $4.530515 cumulative spend, $95.469485 remaining, 22 review candidates, zero quarantines/rejects, zero measured review-time savings, and the exact no-Batch reason."
     }
   ],
   "artifacts": [
     {
       "role": "CONTINUING_OPERATIONS_CHECKPOINT",
       "path": "artifacts/openai_assist/continuous_operations.json",
-      "sha256": "61026e4d5101a08ffc5ba36339ec9b9be13d1e9a90268fa1e630570eb58c8cf3",
-      "bytes": 10772
+      "sha256": "6dbce4de09eee4612b19e508725ffb4df7d9e899d9b495a97698294528a0548c",
+      "bytes": 14583
     },
     {
       "role": "SOURCE_TRIAGE_CONFIG",
@@ -115,14 +115,14 @@
   },
   "usage": {
     "synchronous_jobs_total_for_continuing_unit": 78,
-    "calls_since_prior_handoff": 14,
-    "cumulative_project_settled_calls": 466,
+    "calls_since_prior_handoff": 22,
+    "cumulative_project_settled_calls": 492,
     "batch_jobs": 0,
-    "settled_since_prior_handoff_usd": "0.085151",
-    "cumulative_settled_usd": "4.293001",
-    "remaining_usd": "95.706999",
+    "settled_since_prior_handoff_usd": "0.220925",
+    "cumulative_settled_usd": "4.530515",
+    "remaining_usd": "95.469485",
     "outstanding_reservations": 0,
-    "last_successful_api_use_utc": "2026-08-11T04:30:19.680714+00:00"
+    "last_successful_api_use_utc": "2026-08-12T20:13:17.839729+00:00"
   },
   "negative_findings": [
     {

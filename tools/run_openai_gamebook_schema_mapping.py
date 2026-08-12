@@ -62,12 +62,13 @@ def _job(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run or preflight the governed gamebook schema-mapping review")
+    parser.add_argument("--config", type=Path, default=ROOT / "configs" / "openai_gamebook_schema_mapping.json")
     parser.add_argument("--gold", type=Path, required=True)
     parser.add_argument("--max-jobs", type=int, default=20)
     parser.add_argument("--plan-only", action="store_true")
     args = parser.parse_args()
 
-    config = json.loads((ROOT / "configs" / "openai_gamebook_schema_mapping.json").read_text(encoding="utf-8"))
+    config = json.loads(args.config.resolve(strict=True).read_text(encoding="utf-8"))
     controller = AssistiveController(ROOT)
     gold_path = args.gold.resolve(strict=True)
     gold_path.relative_to(controller.store.directory("evals"))

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import socket
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -16,17 +15,10 @@ from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerIdentity
 from aggie_analytics.assistive_plane.orchestration import write_content_addressed_json
 
 
-def port_open(host: str, port: int, timeout: float = 2.0) -> bool:
-    try:
-        with socket.create_connection((host, port), timeout=timeout):
-            return True
-    except OSError:
-        return False
-
-
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "configs/cpu_worker_qualification.json")
+    parser.add_argument("--deployment-evidence", type=Path)
     args = parser.parse_args()
     config = json.loads(args.config.read_text(encoding="utf-8"))
     completed = subprocess.run(["tailscale", "status", "--json"], capture_output=True, text=True, check=False)
@@ -37,10 +29,30 @@ def main() -> int:
     if len(peers) != 1:
         raise RuntimeError("CPU_WORKER_PEER_NOT_UNIQUE")
     peer = peers[0]
-    CpuWorkerIdentity(peer["DNSName"], peer["OS"], bool(peer["Online"])).validate()
-    ports = {str(port): port_open(config["worker_dns_name"], port) for port in [22, 3389, 5985, 5986, config["service_port"]]}
-    unattended = ports["22"] or ports["5985"] or ports["5986"]
-    service_ready = ports[str(config["service_port"])]
+    CpuWorkerIdentity(
+        peer["DNSName"],
+        peer["OS"],
+        bool(peer["Online"]),
+        windows_hostname=config["worker_windows_hostname"],
+        node_id=peer["ID"],
+        allowed_dns_name=config["worker_dns_name"],
+        allowed_node_id=config["worker_node_id"],
+    ).validate()
+    deployment = None
+    if args.deployment_evidence:
+        deployment = json.loads(args.deployment_evidence.read_text(encoding="utf-8"))
+    required_gates = {
+        "private_https",
+        "coordinator_grant",
+        "signed_envelope",
+        "restricted_service_identity",
+        "minimal_bundle_hash_match",
+        "live_replay",
+        "restart_recovery",
+        "cleanup",
+    }
+    passed_gates = set(deployment.get("passed_gates", [])) if deployment else set()
+    corrected_ready = required_gates <= passed_gates
     record = {
         "schema_version": 1,
         "qualification_id": config["qualification_id"],
@@ -49,33 +61,32 @@ def main() -> int:
             "dns_name": peer["DNSName"].rstrip("."),
             "os": peer["OS"],
             "online": bool(peer["Online"]),
-            "tailscale_ips": peer["TailscaleIPs"],
+            "observed_tailscale_ips": peer["TailscaleIPs"],
             "node_id": peer["ID"],
+            "windows_hostname": config["worker_windows_hostname"],
+            "durable_ip_identity": False,
         },
         "controller": {
             "dns_name": config["controller_dns_name"],
-            "tailscale_ipv4": config["controller_tailscale_ipv4"],
+            "node_id": config["controller_node_id"],
         },
-        "ports": ports,
+        "required_transport": config["transport"],
+        "required_authentication": config["authentication"],
+        "required_privilege": config["privilege"],
+        "required_bundle": config["bundle"],
         "public_funnel_configured_by_project": False,
-        "unattended_management_channel_ready": unattended,
-        "worker_service_ready": service_ready,
-        "readiness_disposition": "READY_FOR_QUALIFICATION" if unattended and service_ready else "BLOCKED_REMOTE_SETUP_OR_SERVICE_REQUIRED",
-        "blockers": [
-            value
-            for value, present in [
-                ("NO_AUTHENTICATED_UNATTENDED_REMOTE_MANAGEMENT_CHANNEL", unattended),
-                ("CPU_WORKER_SERVICE_NOT_LISTENING", service_ready),
-            ]
-            if not present
-        ],
+        "prototype_direct_http_disabled": True,
+        "corrected_deployment_evidence_path": str(args.deployment_evidence) if args.deployment_evidence else None,
+        "passed_gates": sorted(passed_gates),
+        "readiness_disposition": "READY_FOR_LIVE_QUALIFICATION" if corrected_ready else "BLOCKED_CORRECTED_ARCHITECTURE_REQUIRED",
+        "blockers": sorted(required_gates - passed_gates),
         "canonical_writes": 0,
         "protected_decisions": 0,
     }
     storage = Path(config["storage_root"])
     path, digest = write_content_addressed_json(storage, "readiness", record)
     print(json.dumps({"status": record["readiness_disposition"], "path": str(path), "sha256": digest}, sort_keys=True))
-    return 0 if record["readiness_disposition"] == "READY_FOR_QUALIFICATION" else 2
+    return 0 if corrected_ready else 2
 
 
 if __name__ == "__main__":

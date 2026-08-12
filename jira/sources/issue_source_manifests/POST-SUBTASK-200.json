@@ -20,10 +20,10 @@
   ],
   "source_refs": [
     {
-      "anchor_excerpt": "# OpenRouter Assistive Development Plane Status: governed foundation; paid execution disabled. This contract adopts the user directive with SHA-256 `0A2087E4692977F14B96B0FEB9CD7F01A96A50D4F085E92FC83EAC192998CA89` and the mandatory plan with SHA-256 `5CC491A90A5DF11A066B88B665FE69C51B31BD8725185C2ED653B249B808F498`. #",
-      "anchor_hash": "9fe2518470756ca57bd5a1d8a79fa0e84654a1f6532d5de166341ac15f51a75d",
+      "anchor_excerpt": "# OpenRouter Assistive Development Plane Status: governed foundation verified; USD 25 paid pilot authority exists with only USD 5 released; no route is operationally qualified yet. This contract adopts the user directive with SHA-256 `0A2087E4692977F14B96B0FEB9CD7F01A96A50D4F085E92FC83EAC192998CA89` and the mandatory p",
+      "anchor_hash": "3ccfc77c624e4ac75fc4ff9a9428a771debd0a525316ab254bfd00538fe397e0",
       "authority_level": "GOVERNANCE_DETAIL",
-      "document_sha256": "0805f77dd90477064845f395cafc6f46d0d4c6b240e055dd30051784208d05e0",
+      "document_sha256": "066b979c21f6509185e68c85284cc5d4a0f7bd6edb8036c1d81def1760fcb3ee",
       "end_line": 45,
       "heading": "OpenRouter Assistive Development Plane",
       "last_verified": "2026-08-12",

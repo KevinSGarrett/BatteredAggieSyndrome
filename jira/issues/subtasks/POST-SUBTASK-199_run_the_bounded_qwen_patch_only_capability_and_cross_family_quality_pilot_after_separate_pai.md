@@ -16,12 +16,13 @@
   "ai_context_notes": [
     "Canonical OpenRouter contract source is `SRCREF-02120`.",
     "Never expose OPENROUTER_API_KEY, .env content, cookies, authorization headers, private data, or unnecessary protected evidence.",
-    "OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority."
+    "OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority.",
+    "The user authorized a separate nontransferable USD 25 hard limit on 2026-08-12; only USD 5 is initially released and no paid route is operational until this pilot passes."
   ],
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-199.json"
   ],
-  "blocked_reason": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-200",
     "POST-SUBTASK-205"
@@ -78,7 +79,7 @@
   "end_to_end_validation": "Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.",
   "epic_id": "POST-EPIC-018",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-199.json",
-  "evidence_state": "BLOCKED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "RESEARCH_LANE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -133,11 +134,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24950",
-    "jira_updated_at": "2026-08-12T12:49:18.899-0500",
-    "last_synced_at": "2026-08-12T17:49:30.668888+00:00",
+    "jira_updated_at": "2026-08-12T15:37:14.548-0500",
+    "last_synced_at": "2026-08-12T20:37:34.454526+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
@@ -234,7 +235,7 @@
   "title": "[POST-SUBTASK-199] Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "User explicitly authorizes a positive OpenRouter-only spending envelope; foundation is integrated; exact route/privacy/schema/cost gates pass.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -242,7 +243,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-199.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 
@@ -419,3 +420,4 @@ Run the versioned local harness over capable-model reference and cheaper routes,
 - Canonical OpenRouter contract source is `SRCREF-02120`.
 - Never expose OPENROUTER_API_KEY, .env content, cookies, authorization headers, private data, or unnecessary protected evidence.
 - OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority.
+- The user authorized a separate nontransferable USD 25 hard limit on 2026-08-12; only USD 5 is initially released and no paid route is operational until this pilot passes.

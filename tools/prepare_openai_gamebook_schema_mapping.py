@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import argparse
 import sys
 from collections import Counter
 from pathlib import Path
@@ -139,7 +140,10 @@ def _case(
 
 
 def main() -> int:
-    config = json.loads((ROOT / "configs" / "openai_gamebook_schema_mapping.json").read_text(encoding="utf-8"))
+    parser = argparse.ArgumentParser(description="Prepare governed gamebook schema-mapping gold")
+    parser.add_argument("--config", type=Path, default=ROOT / "configs" / "openai_gamebook_schema_mapping.json")
+    args = parser.parse_args()
+    config = json.loads(args.config.resolve(strict=True).read_text(encoding="utf-8"))
     controller = AssistiveController(ROOT)
     data_root = controller.store.root.parent
     source = config["source"]
@@ -174,7 +178,9 @@ def main() -> int:
     )
     reference_keys = sorted(_nested(reference, "play"))
 
-    selected_action_rows: list[dict[str, Any]] = []
+    selected_action_rows: list[tuple[dict[str, Any], str]] = []
+    positive_count = int(config["selection"].get("positive_records_per_season", 1))
+    positive_offset = int(config["selection"].get("positive_record_offset", 0))
     for season in config["selection"]["action_candidate_seasons"]:
         candidates = []
         for row in actions:
@@ -191,21 +197,54 @@ def main() -> int:
                 candidates.append(row)
         if not candidates:
             raise SystemExit(f"no action-domain play-semantic candidate for season {season}")
-        chosen = candidates[0]
-        if sorted(_nested(chosen, "action")) != reference_keys:
-            raise SystemExit(f"action/play nested schema mismatch for configured positive season {season}")
-        selected_action_rows.append(chosen)
+        chosen_rows = candidates[positive_offset:positive_offset + positive_count]
+        if len(chosen_rows) != positive_count:
+            raise SystemExit(f"insufficient action-domain play-semantic candidates for season {season}")
+        for index, chosen in enumerate(chosen_rows, start=1):
+            if sorted(_nested(chosen, "action")) != reference_keys:
+                raise SystemExit(f"action/play nested schema mismatch for configured positive season {season}")
+            case_id = f"ACTION_PLAY_{season}" if positive_count == 1 else f"ACTION_PLAY_{season}_{index:02d}"
+            selected_action_rows.append((chosen, case_id))
 
-    first_game = str(selected_action_rows[0]["wmt_game_id"])
-    non_play = next(
-        row
-        for row in actions
-        if str(row["wmt_game_id"]) == first_game
-        and (not _selected(row).get("play_text") or not _selected(row).get("play_number"))
-    )
+    non_play_rows: list[tuple[dict[str, Any], str]] = []
+    non_play_per_season = int(config["selection"].get("non_play_records_per_season", 0))
+    if non_play_per_season:
+        non_play_offset = int(config["selection"].get("non_play_record_offset", 0))
+        for season in config["selection"]["action_candidate_seasons"]:
+            candidates = [
+                row for row in actions
+                if row["season"] == season
+                and str(row["wmt_game_id"]) not in explicit_play_games
+                and (not _selected(row).get("play_text") or not _selected(row).get("play_number"))
+            ]
+            chosen_rows = candidates[non_play_offset:non_play_offset + non_play_per_season]
+            if len(chosen_rows) != non_play_per_season:
+                raise SystemExit(f"insufficient non-play action candidates for season {season}")
+            for index, chosen in enumerate(chosen_rows, start=1):
+                non_play_rows.append((chosen, f"ACTION_NON_PLAY_{season}_{index:02d}"))
+    else:
+        first_game = str(selected_action_rows[0][0]["wmt_game_id"])
+        non_play_rows.append((next(
+            row
+            for row in actions
+            if str(row["wmt_game_id"]) == first_game
+            and (not _selected(row).get("play_text") or not _selected(row).get("play_number"))
+        ), "ACTION_NON_PLAY_2013"))
+
+    native_count = int(config["selection"].get("native_play_records", 1))
+    native_offset = int(config["selection"].get("native_play_record_offset", 0))
+    native_candidates = [
+        row for row in plays
+        if row["season"] == config["selection"]["native_play_comparator_season"]
+        and isinstance(_selected(row).get("play_text"), str)
+        and bool(_selected(row)["play_text"].strip())
+    ]
+    native_rows = native_candidates[native_offset:native_offset + native_count]
+    if len(native_rows) != native_count:
+        raise SystemExit("insufficient native-play comparator candidates")
 
     gold: list[dict[str, Any]] = []
-    for row in selected_action_rows:
+    for row, case_id in selected_action_rows:
         gold.append(
             _case(
                 row=row,
@@ -213,7 +252,7 @@ def main() -> int:
                 nested_key="action",
                 reference_keys=reference_keys,
                 explicit_play_games=explicit_play_games,
-                case_id=f"ACTION_PLAY_{row['season']}",
+                case_id=case_id,
                 expected=_expected(
                     "PLAY_SEMANTIC_CANDIDATE",
                     "ACTION_SCHEMA_MATCHES_REFERENCE_PLAY_SCHEMA",
@@ -223,32 +262,34 @@ def main() -> int:
                 payload_path=actions_path,
             )
         )
-    gold.append(
-        _case(
+    for non_play, case_id in non_play_rows:
+        gold.append(_case(
             row=non_play,
             source_domain="actions",
             nested_key="action",
             reference_keys=reference_keys,
             explicit_play_games=explicit_play_games,
-            case_id="ACTION_NON_PLAY_2013",
+            case_id=case_id,
             expected=_expected("NON_PLAY_ACTION", "NOT_A_PLAY_SCHEMA_CANDIDATE", "KEEP_ACTION_ONLY"),
             dataset_identity=source["dataset_identity"],
             payload_path=actions_path,
-        )
-    )
-    gold.append(
-        _case(
-            row=reference,
+        ))
+    for index, native in enumerate(native_rows, start=1):
+        gold.append(_case(
+            row=native,
             source_domain="plays",
             nested_key="play",
             reference_keys=reference_keys,
             explicit_play_games=explicit_play_games,
-            case_id="NATIVE_PLAY_2018",
+            case_id=(
+                f"NATIVE_PLAY_{native['season']}"
+                if native_count == 1
+                else f"NATIVE_PLAY_{native['season']}_{index:02d}"
+            ),
             expected=_expected("NATIVE_PLAY_RECORD", "NATIVE_PLAY_SCHEMA", "KEEP_NATIVE_PLAY"),
             dataset_identity=source["dataset_identity"],
             payload_path=plays_path,
-        )
-    )
+        ))
     gold.sort(key=lambda row: row["case_id"])
     case_ids = {row["case_id"] for row in gold}
     routed_ids = {case_id for route in config["routes"] for case_id in route["case_ids"]}

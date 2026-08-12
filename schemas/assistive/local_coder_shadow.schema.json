@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Local coding-model shadow candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "task_type", "disposition", "summary", "findings", "proposed_paths", "patch", "recommended_tests", "unsupported_facts"],
+  "properties": {
+    "task_id": {"type": "string"},
+    "task_type": {"type": "string", "enum": ["CODE_REVIEW", "TEST_GENERATION", "PARSER_SCAFFOLDING", "STATIC_ANALYSIS_EXPLANATION"]},
+    "disposition": {"type": "string", "enum": ["CANDIDATE", "REVIEW", "UNKNOWN", "CONFLICT"]},
+    "summary": {"type": "string"},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "evidence_quote", "severity"],
+        "properties": {
+          "claim": {"type": "string"},
+          "evidence_quote": {"type": "string"},
+          "severity": {"type": "string", "enum": ["INFO", "LOW", "MEDIUM", "HIGH"]}
+        }
+      }
+    },
+    "proposed_paths": {"type": "array", "items": {"type": "string"}},
+    "patch": {"type": "string"},
+    "recommended_tests": {"type": "array", "items": {"type": "string"}},
+    "unsupported_facts": {"type": "array", "items": {"type": "string"}}
+  }
+}

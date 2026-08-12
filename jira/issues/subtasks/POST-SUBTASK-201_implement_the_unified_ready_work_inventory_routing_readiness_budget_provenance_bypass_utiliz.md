@@ -8,8 +8,9 @@
   "acceptance_control_ids": [],
   "acceptance_criteria": [
     "Inventory validation enforces effort points 1/2/3/5/8, stable identities, anti-padding, one disposition, and complete count/point reconciliation.",
-    "Readiness binds provider, resolved model, task format, schema hash, and policy version; provider budgets remain independent and explicit.",
+    "Readiness binds provider, resolved model and digest, task format, prompt/schema identity, policy version, and execution surface; empirical rejection cannot be overridden by a status edit.",
     "Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.",
+    "A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.",
     "Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration."
   ],
   "adr_ids": [],
@@ -20,12 +21,18 @@
   ],
   "allowed_modification_paths": [
     "configs/assistive_provider_registry.json",
+    "configs/assistive_route_readiness.json",
     "configs/unified_assistive_policy.json",
+    "configs/unified_assistive_ready_work.json",
+    "configs/unified_assistive_operational_claims.json",
     "src/aggie_analytics/assistive_plane",
+    "tools/materialize_unified_assistive_inventory.py",
     "tools/validate_unified_assistive_plane.py",
+    "tools/validate_unified_assistive_completeness.py",
     "tools/refresh_cursor_catalog.py",
     "tools/refresh_local_assistive_runtime.py",
     "tests/test_unified_assistive_plane.py",
+    "tests/test_unified_assistive_completeness.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "governance/SOURCE_OF_TRUTH_MAP.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -107,12 +114,18 @@
   ],
   "files_expected_to_be_touched": [
     "configs/assistive_provider_registry.json",
+    "configs/assistive_route_readiness.json",
     "configs/unified_assistive_policy.json",
+    "configs/unified_assistive_ready_work.json",
+    "configs/unified_assistive_operational_claims.json",
     "src/aggie_analytics/assistive_plane",
+    "tools/materialize_unified_assistive_inventory.py",
     "tools/validate_unified_assistive_plane.py",
+    "tools/validate_unified_assistive_completeness.py",
     "tools/refresh_cursor_catalog.py",
     "tools/refresh_local_assistive_runtime.py",
     "tests/test_unified_assistive_plane.py",
+    "tests/test_unified_assistive_completeness.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "governance/SOURCE_OF_TRUTH_MAP.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -152,8 +165,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24953",
-    "jira_updated_at": "2026-08-12T13:02:19.064-0500",
-    "last_synced_at": "2026-08-12T18:02:41.441484+00:00",
+    "jira_updated_at": "2026-08-12T15:37:10.615-0500",
+    "last_synced_at": "2026-08-12T20:37:34.454526+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
     "status_raw": "Done"
@@ -316,12 +329,18 @@ Implement the non-billable provider-neutral foundation and preserve existing dir
 ## Files Expected To Be Modified
 
 - configs/assistive_provider_registry.json
+- configs/assistive_route_readiness.json
 - configs/unified_assistive_policy.json
+- configs/unified_assistive_ready_work.json
+- configs/unified_assistive_operational_claims.json
 - src/aggie_analytics/assistive_plane
+- tools/materialize_unified_assistive_inventory.py
 - tools/validate_unified_assistive_plane.py
+- tools/validate_unified_assistive_completeness.py
 - tools/refresh_cursor_catalog.py
 - tools/refresh_local_assistive_runtime.py
 - tests/test_unified_assistive_plane.py
+- tests/test_unified_assistive_completeness.py
 - governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - governance/SOURCE_OF_TRUTH_MAP.md
 - docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
@@ -366,9 +385,10 @@ Implement the non-billable provider-neutral foundation and preserve existing dir
 ## Acceptance Criteria
 
 1. Inventory validation enforces effort points 1/2/3/5/8, stable identities, anti-padding, one disposition, and complete count/point reconciliation.
-2. Readiness binds provider, resolved model, task format, schema hash, and policy version; provider budgets remain independent and explicit.
+2. Readiness binds provider, resolved model and digest, task format, prompt/schema identity, policy version, and execution surface; empirical rejection cannot be overridden by a status edit.
 3. Cursor, loopback Ollama, and exact CPU-worker identity policies fail closed; direct endpoint bypasses are detected.
-4. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
+4. A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.
+5. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
 
 ## Definition of Done
 

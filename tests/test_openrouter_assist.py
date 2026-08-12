@@ -4,6 +4,7 @@ import json
 import sys
 import tempfile
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from decimal import Decimal
 from pathlib import Path
@@ -15,6 +16,7 @@ from aggie_analytics.assistive_plane.backend import FakeBackend, TransientBacken
 from aggie_analytics.assistive_plane.contracts import AssistiveRequest, Authority, Disposition, sha256_value
 from aggie_analytics.assistive_plane.dispatcher import AssistiveDispatcher
 from aggie_analytics.assistive_plane.openrouter_backend import load_openrouter_key
+from aggie_analytics.assistive_plane.openrouter_backend import OpenRouterBackend, response_output_text
 from aggie_analytics.assistive_plane.redaction import contains_secret, redact
 from aggie_analytics.assistive_plane.worker import validate_patch_paths
 
@@ -25,9 +27,12 @@ class OpenRouterAssistTests(unittest.TestCase):
         root = Path(self.temporary.name)
         policy = json.loads((ROOT / "configs/openrouter_assist_policy.json").read_text(encoding="utf-8"))
         policy["storage"]["root"] = str(root / "external")
+        policy["budget"]["paid_hard_limit_usd"] = "0.00"
+        policy["budget"]["released_stage_usd"] = "0.00"
         self.policy_path = root / "policy.json"
         self.policy_path.write_text(json.dumps(policy), encoding="utf-8")
         policy["budget"]["paid_hard_limit_usd"] = "1.00"
+        policy["budget"]["released_stage_usd"] = "0.25"
         policy["budget"]["paid_calls_authorized"] = True
         self.simulated_policy_path = root / "simulated-policy.json"
         self.simulated_policy_path.write_text(json.dumps(policy), encoding="utf-8")
@@ -56,7 +61,7 @@ class OpenRouterAssistTests(unittest.TestCase):
         backend = FakeBackend(self.output)
         result = AssistiveDispatcher(ROOT, backend, self.policy_path).dispatch(self.request, self.schema)
         self.assertEqual(result.disposition, Disposition.REJECTED)
-        self.assertEqual(result.reason, "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED")
+        self.assertEqual(result.reason, "PROVIDER_RELEASED_STAGE_EXCEEDED")
         self.assertEqual(backend.calls, 0)
 
     def test_secret_rejected_before_backend(self) -> None:
@@ -101,6 +106,28 @@ class OpenRouterAssistTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             load_openrouter_key(env)
 
+    def test_none_reasoning_is_not_sent_as_unsupported_parameter(self) -> None:
+        backend = OpenRouterBackend(Path(self.temporary.name) / ".env")
+        payload = backend._payload(self.request, self.schema)
+        self.assertNotIn("reasoning", payload)
+        self.assertTrue(payload["provider"]["require_parameters"])
+        self.assertTrue(payload["provider"]["zdr"])
+
+    def test_responses_wire_output_is_extracted(self) -> None:
+        self.assertEqual(
+            '{"verdict":"REVIEW"}',
+            response_output_text({"output": [{"type": "message", "content": [{"type": "output_text", "text": '{"verdict":"REVIEW"}'}]}]}),
+        )
+
+    def test_paid_invalid_output_is_quarantined_and_settled(self) -> None:
+        backend = FakeBackend({"unexpected": True})
+        dispatcher = AssistiveDispatcher(ROOT, backend, self.simulated_policy_path)
+        result = dispatcher.dispatch(self.request, self.schema)
+        self.assertEqual(Disposition.QUARANTINE, result.disposition)
+        self.assertIn("STRICT_OUTPUT_INVALID", result.reason)
+        self.assertEqual(Decimal("0.000001"), dispatcher.ledger.state().settled_usd)
+        self.assertEqual(Decimal("0"), dispatcher.ledger.state().reserved_usd)
+
     def test_fake_end_to_end_settlement_and_cache(self) -> None:
         backend = FakeBackend(self.output)
         dispatcher = AssistiveDispatcher(ROOT, backend, self.simulated_policy_path)
@@ -111,6 +138,39 @@ class OpenRouterAssistTests(unittest.TestCase):
         self.assertEqual(backend.calls, 1)
         self.assertEqual(dispatcher.ledger.state().settled_usd, Decimal("0.000001"))
         self.assertEqual(dispatcher.ledger.state().reserved_usd, Decimal("0"))
+
+    def test_released_stage_is_lower_admission_ceiling(self) -> None:
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
+        dispatcher.ledger.reserve("existing", Decimal("0.249999"))
+        result = dispatcher.dispatch(self.request, self.schema)
+        self.assertEqual(result.disposition, Disposition.REJECTED)
+        self.assertEqual(result.reason, "PROVIDER_RELEASED_STAGE_EXCEEDED")
+
+    def test_provider_total_reconciliation_closes_orphans_conservatively(self) -> None:
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
+        dispatcher.ledger.reserve("orphan", Decimal("0.01"))
+        dispatcher.ledger.reconcile_provider_total(Decimal("0.02"), evidence_sha256="a" * 64)
+        state = dispatcher.ledger.state()
+        self.assertEqual(Decimal("0.02"), state.settled_usd)
+        self.assertEqual(Decimal("0"), state.reserved_usd)
+
+    def test_lagging_provider_total_cannot_reduce_local_settlement(self) -> None:
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
+        dispatcher.ledger.reconcile_provider_total(Decimal("0.02"), evidence_sha256="a" * 64)
+        dispatcher.ledger.reconcile_provider_total(Decimal("0.01"), evidence_sha256="b" * 64)
+        self.assertEqual(Decimal("0.02"), dispatcher.ledger.state().settled_usd)
+
+    def test_concurrent_reservations_are_not_lost(self) -> None:
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
+
+        def reserve(index: int) -> None:
+            dispatcher.ledger.reserve(f"concurrent-{index}", Decimal("0.01"))
+
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            list(pool.map(reserve, range(20)))
+        state = dispatcher.ledger.state()
+        self.assertEqual(Decimal("0.20"), state.reserved_usd)
+        self.assertEqual(1, dispatcher.ledger.lock_path.stat().st_size)
 
     def test_transient_retry_is_bounded(self) -> None:
         class FlakyBackend(FakeBackend):

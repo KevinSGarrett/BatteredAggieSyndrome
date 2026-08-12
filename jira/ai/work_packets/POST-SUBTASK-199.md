@@ -33,14 +33,14 @@ After explicit paid authority, compare deterministic-only work with a pinned Qwe
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `IN_PROGRESS`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
 - Execution lane: `RESEARCH_LANE`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `NOT_STARTED` → `EMPIRICALLY_VALIDATED`
-- Evidence state: `BLOCKED`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-199`
 
 ## Read first

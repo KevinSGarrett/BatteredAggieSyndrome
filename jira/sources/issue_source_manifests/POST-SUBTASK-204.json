@@ -18,11 +18,11 @@
   ],
   "source_refs": [
     {
-      "anchor_excerpt": "# Unified Assistive Execution Plane Status: foundation implementation in progress; provider qualifications remain evidence-gated. This contract adopts directive SHA-256 `CDE877F540156F97723944EB34419742B3A6B77783C19DE2F3B87A209E5DEF84`, governing-plan SHA-256 `42E66C08B1069026D92D4B6E50EFF1AF9E2263F1F57A7BCE4CF018972DB",
-      "anchor_hash": "27a82b916d5d7fb3ad27c25acf55341dddec2625678d4443b0f993c576269363",
+      "anchor_excerpt": "# Unified Assistive Execution Plane Status: provider-neutral foundation verified; operational-correction implementation in progress; provider qualifications remain evidence-gated. This contract adopts directive SHA-256 `CDE877F540156F97723944EB34419742B3A6B77783C19DE2F3B87A209E5DEF84`, governing-plan SHA-256 `42E66C08B",
+      "anchor_hash": "6eae6d7a91ff8734f0f0aca15e9a403acdb37ca30f98d48a0c57fd3181d1cfda",
       "authority_level": "GOVERNANCE_DETAIL",
-      "document_sha256": "da9b360372758358510ce8bfddf7eba7136b99132f3daccea71f39fcb28e309a",
-      "end_line": 32,
+      "document_sha256": "c71723c5e4d85709de766cc9d8c1d512889e581926cfb04246fa15d07875a9a4",
+      "end_line": 34,
       "heading": "Unified Assistive Execution Plane",
       "last_verified": "2026-08-12",
       "repo_relative_path": "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",

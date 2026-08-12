@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -26,6 +27,20 @@ def load_openrouter_key(authoritative_env: Path) -> str:
     return matches[0]
 
 
+def response_output_text(body: dict[str, object]) -> str | None:
+    direct = body.get("output_text")
+    if isinstance(direct, str):
+        return direct
+    pieces: list[str] = []
+    for item in body.get("output", []) if isinstance(body.get("output"), list) else []:
+        if not isinstance(item, dict) or item.get("type") != "message":
+            continue
+        for part in item.get("content", []) if isinstance(item.get("content"), list) else []:
+            if isinstance(part, dict) and part.get("type") == "output_text" and isinstance(part.get("text"), str):
+                pieces.append(part["text"])
+    return "".join(pieces) if pieces else None
+
+
 class OpenRouterBackend:
     name = "openrouter"
 
@@ -33,14 +48,13 @@ class OpenRouterBackend:
         self.authoritative_env = authoritative_env
         self.timeout_seconds = timeout_seconds
 
-    def submit(self, request: AssistiveRequest, schema: dict[str, object]) -> ProviderResult:
-        key = load_openrouter_key(self.authoritative_env)
+    @staticmethod
+    def _payload(request: AssistiveRequest, schema: dict[str, object]) -> dict[str, object]:
         prompt = "\n\n".join(request.evidence_excerpts)
-        payload = {
+        payload: dict[str, object] = {
             "model": request.model,
             "input": prompt,
             "max_output_tokens": request.max_output_tokens,
-            "reasoning": {"effort": request.reasoning_effort},
             "text": {"format": {"type": "json_schema", "name": request.task_id, "strict": True, "schema": schema}},
             "provider": {
                 "require_parameters": True,
@@ -49,6 +63,13 @@ class OpenRouterBackend:
                 "allow_fallbacks": False,
             },
         }
+        if request.reasoning_effort not in {"none", "minimal"}:
+            payload["reasoning"] = {"effort": request.reasoning_effort}
+        return payload
+
+    def submit(self, request: AssistiveRequest, schema: dict[str, object]) -> ProviderResult:
+        key = load_openrouter_key(self.authoritative_env)
+        payload = self._payload(request, schema)
         wire = json.dumps(payload, separators=(",", ":")).encode("utf-8")
         http_request = urllib.request.Request(
             OPENROUTER_RESPONSES_ENDPOINT,
@@ -60,18 +81,31 @@ class OpenRouterBackend:
             with urllib.request.urlopen(http_request, timeout=self.timeout_seconds) as response:
                 body = json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
+            provider_code = "UNKNOWN"
+            try:
+                error_body = json.loads(exc.read().decode("utf-8"))
+                provider_code = str(error_body.get("error", {}).get("code", "UNKNOWN"))
+            except (UnicodeDecodeError, json.JSONDecodeError, AttributeError):
+                pass
             error = TransientBackendError if exc.code == 429 or 500 <= exc.code < 600 else PermanentBackendError
-            raise error(f"OpenRouter request failed with HTTP {exc.code}") from exc
+            raise error(f"OPENROUTER_HTTP_{exc.code}_CODE_{provider_code}") from exc
         except (TimeoutError, urllib.error.URLError) as exc:
             raise TransientBackendError("OpenRouter request failed with a transient transport error") from exc
-        output_text = body.get("output_text")
+        output_text = response_output_text(body)
         if not isinstance(output_text, str):
             raise PermanentBackendError("OpenRouter Responses result has no output_text")
+        try:
+            output = json.loads(output_text)
+        except json.JSONDecodeError:
+            output = {
+                "_malformed_output": True,
+                "output_text_sha256": hashlib.sha256(output_text.encode("utf-8")).hexdigest(),
+            }
         return ProviderResult(
             provider=self.name,
             model_requested=request.model,
             model_resolved=str(body.get("model", "")),
-            output=json.loads(output_text),
+            output=output,
             usage=dict(body.get("usage", {})),
             raw_response_id=str(body.get("id", "")),
             cost_usd=str(body.get("usage", {}).get("cost")) if body.get("usage", {}).get("cost") is not None else None,

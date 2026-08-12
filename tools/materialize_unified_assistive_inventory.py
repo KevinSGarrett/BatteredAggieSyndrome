@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -25,20 +26,83 @@ def record_for(local_id: str) -> tuple[Path, dict[str, Any]]:
     return matches[0], json.loads(matches[0].read_text(encoding="utf-8"))
 
 
+def paid_budget_admitted(policy: dict[str, Any], provider: str) -> bool:
+    from decimal import Decimal
+
+    budget = policy["budgets"][provider]
+    return (
+        bool(budget.get("authorization_id"))
+        and Decimal(budget["hard_limit_usd"]) > 0
+        and Decimal(budget.get("released_stage_usd", "0")) > 0
+    )
+
+
+def route_readiness_for(item: dict[str, Any], readiness: dict[str, Any]) -> dict[str, Any] | None:
+    provider = item.get("provider")
+    model = item.get("model")
+    task_format = item.get("task_format")
+    matches = [
+        route
+        for route in readiness["routes"]
+        if route["resolved_model"] == model
+        and route["task_format"] == task_format
+        and provider in {route["provider"], "local_qwen"}
+    ]
+    if len(matches) > 1:
+        raise RuntimeError(f"ROUTE_READINESS_NOT_UNIQUE:{model}:{task_format}")
+    return matches[0] if matches else None
+
+
+def derive_decision(
+    item: dict[str, Any], record: dict[str, Any], policy: dict[str, Any], readiness: dict[str, Any]
+) -> tuple[RoutingDisposition, str | None, str | None, str]:
+    work_unit_id = item.get("work_unit_id") or item["local_id"]
+    is_shadow = "::" in work_unit_id
+    if not is_shadow and record.get("workflow_state") == "DONE":
+        return RoutingDisposition.COMPLETED, None, None, item["reason"]
+    provider = item.get("provider")
+    route = route_readiness_for(item, readiness)
+    if route is not None and route["state"] != "READY":
+        return (
+            RoutingDisposition.SUSPENDED_REJECTED_ROUTE
+            if route["state"] == "NOT_READY"
+            else RoutingDisposition.CAPABILITY_BLOCKED,
+            provider,
+            item.get("model"),
+            route["reason"],
+        )
+    if provider in {"openrouter", "cursor"} and not paid_budget_admitted(policy, provider):
+        return (
+            RoutingDisposition.BUDGET_BLOCKED,
+            provider,
+            item.get("model"),
+            f"PAID_{provider.upper()}_BUDGET_NOT_AUTHORIZED",
+        )
+    return RoutingDisposition(item["disposition"]), provider, item.get("model"), item["reason"]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed", type=Path, default=ROOT / "configs/unified_assistive_ready_work.json")
     parser.add_argument("--storage-root", type=Path, default=Path(r"C:\BatteredAggieSyndrome.data\assistive\inventory"))
     args = parser.parse_args()
     seed = json.loads(args.seed.read_text(encoding="utf-8"))
+    policy_path = ROOT / "configs/unified_assistive_policy.json"
+    provider_registry_path = ROOT / "configs/assistive_provider_registry.json"
+    route_readiness_path = ROOT / "configs/assistive_route_readiness.json"
+    policy = json.loads(policy_path.read_text(encoding="utf-8"))
+    readiness = json.loads(route_readiness_path.read_text(encoding="utf-8"))
+    generated_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     units: list[ReadyWorkUnit] = []
     pending: list[dict[str, Any]] = []
     source_records: list[dict[str, str]] = []
     for item in seed["work_units"]:
-        record_path, record = record_for(item["local_id"])
+        record_local_id = item.get("record_local_id") or item["local_id"]
+        work_unit_id = item.get("work_unit_id") or item["local_id"]
+        record_path, record = record_for(record_local_id)
         schema_path = ROOT / item["schema_path"]
         unit = ReadyWorkUnit(
-            work_unit_id=item["local_id"],
+            work_unit_id=work_unit_id,
             jira_unit=record["jira_key"],
             task_format=item["task_format"],
             schema_sha256=sha256(schema_path),
@@ -49,25 +113,40 @@ def main() -> int:
             scope=item["scope"],
         )
         units.append(unit)
-        pending.append(item)
-        source_records.append({"local_id": item["local_id"], "jira_key": record["jira_key"], "record_sha256": sha256(record_path)})
-    decisions = [
-        RouteDecision(
+        pending.append((item, record))
+        source_records.append({
+            "work_unit_id": work_unit_id,
+            "record_local_id": record_local_id,
+            "jira_key": record["jira_key"],
+            "workflow_state": record.get("workflow_state", "UNKNOWN"),
+            "live_status_mirror": record.get("operational_jira", {}).get("status_raw", "UNKNOWN"),
+            "live_updated_at": record.get("operational_jira", {}).get("jira_updated_at"),
+            "last_synced_at": record.get("operational_jira", {}).get("last_synced_at"),
+            "record_sha256": sha256(record_path),
+        })
+    decisions = []
+    for unit, (item, record) in zip(units, pending, strict=True):
+        disposition, provider, model, reason = derive_decision(item, record, policy, readiness)
+        decisions.append(RouteDecision(
             work_unit_id=unit.work_unit_id,
             work_unit_identity=unit.identity(),
-            disposition=RoutingDisposition(item["disposition"]),
-            provider=item["provider"],
-            model=item["model"],
-            reason=item["reason"],
-            decided_at=seed["decided_at"],
-        )
-        for unit, item in zip(units, pending, strict=True)
-    ]
+            disposition=disposition,
+            provider=provider,
+            model=model,
+            reason=reason,
+            decided_at=generated_at,
+        ))
     report = ReadyWorkInventory(units, decisions).validate()
     snapshot = {
         "schema_version": 1,
         "inventory_seed_id": seed["inventory_seed_id"],
+        "material_transition_at": seed["material_transition_at"],
+        "generated_at": generated_at,
+        "decisions_derived_from_current_evidence": True,
         "seed_sha256": sha256(args.seed),
+        "policy_sha256": sha256(policy_path),
+        "provider_registry_sha256": sha256(provider_registry_path),
+        "route_readiness_sha256": sha256(route_readiness_path),
         "work_units": [
             {
                 "work_unit_id": unit.work_unit_id,

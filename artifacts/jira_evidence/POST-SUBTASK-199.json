@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "decision_unit": "POST-SUBTASK-199",
+  "jira_key": "BAT-557",
+  "evidence_state": "PARTIAL_PILOT_IN_PROGRESS",
+  "authority": "CANDIDATE_REVIEW_ONLY",
+  "budget": {
+    "hard_limit_usd": "25.00",
+    "released_stage_usd": "5.00",
+    "settled_usd": "0.00149004",
+    "outstanding_reservations_usd": "0",
+    "remaining_hard_limit_usd": "24.99850996",
+    "cross_provider_transfer_allowed": false,
+    "provider_reconciliation_sha256": "118fe40d76e977bf3c1bab50c0a25ff10e4a05a11a5c58ce680e6a885093fc77"
+  },
+  "catalog": {
+    "evidence_sha256": "75198453698fb624a3c067b1bfe6210b530970d4292c332d7ad4a9d01f2332fb",
+    "resolved_model": "qwen/qwen3-coder-next",
+    "exact_endpoints": 4,
+    "zdr_endpoints": 2,
+    "zdr_structured_output_endpoints": 1,
+    "selected_provider": "parasail"
+  },
+  "first_validated_real_candidate": {
+    "task": "independent_budget_controller_review",
+    "request_sha256": "6cee84b2b77f62f8d522f238dfcdc5bf3ed2ae0edfd1297f4c92d9ba2aedfc9c",
+    "request_id": "9890ce40c4a85f4bfde088463ec0d18d65cd8c9ec8b8596f7d88854cab7f0603",
+    "manifest_sha256": "b820198ab57967b990cfda4ee222ace307a991b67f26d4f8d0725fb66039072e",
+    "response_sha256": "086d88befe5bbc23771c0be5b18e2865197607f9f41bfaa78c465d188af8f47d",
+    "provider_generation_id": "gen-1786566002-LP4UQ3MRvC873RIvWw6Q",
+    "actual_cost_usd": "0.00063748",
+    "strict_schema_valid": true,
+    "disposition": "REVIEW_MODIFIED_NOT_AUTOMATICALLY_ACCEPTED",
+    "canonical_writes": 0,
+    "protected_decisions": 0,
+    "measured_review_time_saved_seconds": 0
+  },
+  "negative_evidence": {
+    "preserved_failure_manifests": [
+      "862fa9ed4d3e6e26fab5e09cba33adf02cfcf644ac7615a23b7abc91fbbd8952",
+      "538d3ab34d7f4733df7f9598e868ee5f1183638e85d91aade35bcd8173c305ee",
+      "d054f13f20f5f9c3199dc6f967b3cc6e827ad11a14bb6465191d7f3b9d91c903",
+      "8cfd3804d8b0b034a9bc0c826496adce20cc55777bfe47eafe25330a1dd5dc71"
+    ],
+    "findings": [
+      "Initial request identity used a noncanonical source hash and failed closed before provider execution.",
+      "The Responses endpoint rejected an unsupported reasoning value until the request builder omitted it.",
+      "The first successful wire response exposed output-array parsing and bounded-output truncation defects; both are now regression tested.",
+      "Provider usage reconciliation is authoritative for all-key spend and cannot reduce a newer local settlement.",
+      "The one validated candidate contains mixed-value review findings and has not been accepted as an implementation decision."
+    ]
+  },
+  "current_disposition": {
+    "state": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL",
+    "accepted_useful_results": 0,
+    "modified_review_results": 1,
+    "quarantined_or_rejected_manifests": 4,
+    "required_real_units_before_continuing_operation_claim": 20,
+    "required_categories": 3,
+    "batch_or_broad_scale_admitted": false
+  },
+  "protected_nonclaims": [
+    "One validated paid candidate does not make OpenRouter operational.",
+    "No canonical, PIT, training, model-promotion, forecast, publication, BAS, Aggie Excess, or protected authority was delegated.",
+    "No historical completeness, production readiness, champion, protected performance, or A&M specialization result is claimed."
+  ]
+}

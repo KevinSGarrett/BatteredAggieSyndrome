@@ -16,7 +16,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Atomic execution scope
 
-Run at least 100 real records or 10 bounded packets across three task types under loopback-only, one-model, one-parallel, 4K-context initial policy.
+Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, and run separately keyed shadow qualifications for qwen2.5-coder and bge-m3 on better-matched workloads.
 
 ### In scope
 
@@ -63,6 +63,7 @@ Run at least 100 real records or 10 bounded packets across three task types unde
 ## Files I may modify or create
 
 - artifacts/assistive/local_qwen_qualification.json
+- configs/assistive_route_readiness.json
 - artifacts/jira_evidence/POST-SUBTASK-203.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
@@ -89,6 +90,7 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 Produce and validate these outputs within this atomic work unit:
 
 - artifacts/assistive/local_qwen_qualification.json
+- configs/assistive_route_readiness.json
 - artifacts/jira_evidence/POST-SUBTASK-203.json
 
 ## Acceptance criteria

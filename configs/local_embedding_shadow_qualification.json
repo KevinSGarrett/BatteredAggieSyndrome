@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "qualification_id": "BAT-562-bge-m3-embedding-shadow-v1",
+  "jira_unit": "BAT-562",
+  "authority": "CANDIDATE_RETRIEVAL_ONLY_NO_CANONICAL_OR_PROTECTED_AUTHORITY",
+  "model": "bge-m3:latest",
+  "expected_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+  "endpoint": "http://127.0.0.1:11434",
+  "storage_root": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen",
+  "corpus_local_ids": ["POST-SUBTASK-168", "POST-SUBTASK-198", "POST-SUBTASK-199", "POST-SUBTASK-200", "POST-SUBTASK-201", "POST-SUBTASK-202", "POST-SUBTASK-203", "POST-SUBTASK-204", "POST-SUBTASK-205"],
+  "queries": [
+    {"query_id": "openrouter-pilot", "text": "run the paid Qwen OpenRouter capability pilot with strict evidence and cost controls", "expected_local_id": "POST-SUBTASK-199"},
+    {"query_id": "cursor-safety", "text": "qualify Cursor cloud coding agents through serial exact-main safety runs", "expected_local_id": "POST-SUBTASK-202"},
+    {"query_id": "local-model", "text": "evaluate local Ollama Qwen models on bounded real candidate tasks", "expected_local_id": "POST-SUBTASK-203"},
+    {"query_id": "cpu-worker", "text": "verify the private Windows CPU worker with deterministic replay restart and deduplication", "expected_local_id": "POST-SUBTASK-204"}
+  ],
+  "acceptance": {
+    "top1_recall_min": 0.75,
+    "top3_recall_min": 1.0,
+    "exact_repeat_cosine_min": 0.999999,
+    "query_count_min": 4,
+    "canonical_writes_max": 0,
+    "protected_decisions_max": 0
+  }
+}

@@ -16,6 +16,8 @@ from aggie_analytics.assistive_plane.storage import ContentAddressedStore  # noq
 
 
 CATALOG_URL = "https://openrouter.ai/api/v1/models"
+ENDPOINTS_URL = "https://openrouter.ai/api/v1/models/qwen/qwen3-coder-next/endpoints"
+ZDR_ENDPOINTS_URL = "https://openrouter.ai/api/v1/endpoints/zdr"
 DOC_URLS = {
     "responses": "https://openrouter.ai/docs/api_reference/responses/overview",
     "structured_outputs": "https://openrouter.ai/docs/guides/features/structured-outputs",
@@ -43,6 +45,14 @@ def main() -> int:
     catalog = fetch(CATALOG_URL)
     path, digest, size = store.put_json("runtime", json.loads(catalog))
     captures["model_catalog"] = {"url": CATALOG_URL, "path": str(path), "sha256": digest, "bytes": size}
+    endpoint_payload = fetch(ENDPOINTS_URL)
+    endpoint_json = json.loads(endpoint_payload)
+    path, digest, size = store.put_json("runtime", endpoint_json)
+    captures["candidate_endpoints"] = {"url": ENDPOINTS_URL, "path": str(path), "sha256": digest, "bytes": size}
+    zdr_payload = fetch(ZDR_ENDPOINTS_URL)
+    zdr_json = json.loads(zdr_payload)
+    path, digest, size = store.put_json("runtime", zdr_json)
+    captures["zdr_endpoints"] = {"url": ZDR_ENDPOINTS_URL, "path": str(path), "sha256": digest, "bytes": size}
     for name, url in DOC_URLS.items():
         payload = fetch(url)
         digest = hashlib.sha256(payload).hexdigest()
@@ -54,6 +64,9 @@ def main() -> int:
         captures[name] = {"url": url, "path": str(destination), "sha256": digest, "bytes": len(payload)}
     models = json.loads(catalog).get("data", [])
     candidate = next((item for item in models if item.get("id") == "qwen/qwen3-coder-next"), None)
+    exact_endpoints = [item for item in endpoint_json.get("data", {}).get("endpoints", []) if item.get("model_id") == "qwen/qwen3-coder-next"]
+    exact_zdr = [item for item in zdr_json.get("data", []) if item.get("model_id") == "qwen/qwen3-coder-next"]
+    strict_zdr = [item for item in exact_zdr if "structured_outputs" in item.get("supported_parameters", [])]
     manifest = {
         "schema_version": 1,
         "retrieved_at": retrieved_at,
@@ -62,8 +75,11 @@ def main() -> int:
         "captures": captures,
         "candidate_model": "qwen/qwen3-coder-next",
         "candidate_found": candidate is not None,
-        "candidate_state": "CAPABILITY_CANDIDATE_NOT_PAID_NOT_ROUTE_APPROVED",
-        "route_approval_pending": ["ZDR_ENDPOINT_ELIGIBILITY", "STRICT_SCHEMA_CAPABILITY_PROBE", "PAID_BUDGET_AUTHORIZATION", "EMPIRICAL_PILOT"],
+        "candidate_endpoints": len(exact_endpoints),
+        "candidate_zdr_endpoints": len(exact_zdr),
+        "candidate_strict_structured_output_zdr_endpoints": len(strict_zdr),
+        "candidate_state": "PAID_CAPABILITY_PILOT_AUTHORIZED_NOT_ROUTE_APPROVED",
+        "route_approval_pending": ["STRICT_SCHEMA_CAPABILITY_PROBE", "EMPIRICAL_PILOT"],
         "batch_state": "DISABLED_PENDING_SEPARATE_BETA_PRIVACY_ZDR_RETENTION_SCHEMA_ACCOUNTING_EMPIRICAL_GATE"
     }
     manifest_path, manifest_sha, _ = store.put_json("manifests", manifest)

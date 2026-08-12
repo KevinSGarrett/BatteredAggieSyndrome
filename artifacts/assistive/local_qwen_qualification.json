@@ -118,6 +118,67 @@
     "reason": "Both evaluated local model identities failed the predeclared evidence-accuracy and zero-unsupported-fact gates. The result is preserved without lowering thresholds or promoting a weaker authority tier.",
     "allowed_future_use": "A newly versioned candidate format or model identity may be evaluated as a separate shadow qualification; these failed identities are not admitted for evidence-critical project work."
   },
+  "shadow_qualifications": [
+    {
+      "qualification_id": "BAT-562-qwen25-coder-shadow-v1",
+      "model": "qwen2.5-coder:7b-instruct-q4_K_M",
+      "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+      "task_format": "bounded_code_review_test_generation_parser_scaffolding",
+      "evaluation_path": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen\\evals\\71\\71bf6ea7fc0c95af0cc2ec987c06e5e5d66e1dcb2cc28a7f19f929961654568a.json",
+      "evaluation_sha256": "71bf6ea7fc0c95af0cc2ec987c06e5e5d66e1dcb2cc28a7f19f929961654568a",
+      "metrics": {
+        "packets": 4,
+        "task_types": 4,
+        "strict_schema_rate": 1.0,
+        "allowed_path_rate": 0.5,
+        "evidence_accuracy": 0.4,
+        "expected_term_recall": 0.3333333333333333,
+        "unsupported_fact_rate": 0.0,
+        "accepted_shadow_candidates": 0,
+        "quarantine_or_review": 4,
+        "prompt_tokens": 4506,
+        "output_tokens": 1674,
+        "wall_seconds": 65.578871,
+        "model_size_bytes": 4683087561,
+        "unload_succeeded": true,
+        "review_time_saved_seconds": 0.0,
+        "direct_mutations": 0,
+        "canonical_writes": 0,
+        "protected_decisions": 0
+      },
+      "result": "FAIL_PRESERVE_NEGATIVE_EVIDENCE_EXACT_ROUTE_NOT_READY"
+    },
+    {
+      "qualification_id": "BAT-562-bge-m3-embedding-shadow-v1",
+      "model": "bge-m3:latest",
+      "model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+      "task_format": "embedding_dedup_semantic_candidate_retrieval",
+      "evaluation_path": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen\\evals\\a4\\a44dd7401bd003f7e572ce97450d07ea776f3a00f14ba80317ac947ced39e425.json",
+      "evaluation_sha256": "a44dd7401bd003f7e572ce97450d07ea776f3a00f14ba80317ac947ced39e425",
+      "metrics": {
+        "corpus_records": 9,
+        "query_count": 4,
+        "embedding_dimensions": 1024,
+        "top1_recall": 1.0,
+        "top3_recall": 1.0,
+        "exact_repeat_cosine": 1.0,
+        "prompt_tokens": 931,
+        "wall_seconds": 20.191776,
+        "model_size_bytes": 1157672605,
+        "review_time_saved_seconds": 0.0,
+        "canonical_writes": 0,
+        "protected_decisions": 0
+      },
+      "result": "PASS_CANDIDATE_RETRIEVAL_ONLY_EXACT_ROUTE_READY"
+    }
+  ],
+  "current_route_summary": {
+    "evidence_critical_routes_ready": 0,
+    "coding_routes_ready": 0,
+    "embedding_candidate_routes_ready": 1,
+    "ready_route": "bge-m3:latest + embedding_dedup_semantic_candidate_retrieval + schema/policy v1",
+    "generalization_across_models_or_formats": false
+  },
   "cleanup": {
     "models_unloaded_after_each_run": true,
     "ollama_ps_empty_after_qualification": true,

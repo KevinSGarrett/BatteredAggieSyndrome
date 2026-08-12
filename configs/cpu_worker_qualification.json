@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
-  "qualification_id": "BAT-563-private-cpu-worker-v1",
+  "schema_version": 2,
+  "qualification_id": "BAT-563-private-cpu-worker-v2-corrected-architecture",
   "jira_unit": "BAT-563",
   "worker_dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
   "worker_os": "windows",
-  "worker_tailscale_ipv4": "100.77.151.3",
+  "worker_windows_hostname": "comfy-v4-cpu-01",
+  "worker_node_id": "nUxabVWSHb11CNTRL",
   "controller_dns_name": "kevin.tail9b05ab.ts.net",
-  "controller_tailscale_ipv4": "100.79.129.63",
-  "endpoint": "http://comfy-v4-cpu-01.tail9b05ab.ts.net:8765",
+  "controller_node_id": "noo2qLiJGB11CNTRL",
+  "loopback_endpoint": "http://127.0.0.1:8765",
+  "private_endpoint": "https://comfy-v4-cpu-01.tail9b05ab.ts.net",
   "service_port": 8765,
   "storage_root": "C:\\BatteredAggieSyndrome.data\\assistive\\cpu_worker",
   "authority": "DETERMINISTIC_NO_CANONICAL_OR_PROTECTED_WRITES",
@@ -15,6 +17,32 @@
   "required_dedup_pilots": 1,
   "require_restart_recovery": true,
   "require_public_exposure_false": true,
+  "transport": {
+    "worker_bind": "LOOPBACK_ONLY",
+    "exposure": "TAILSCALE_SERVE_PRIVATE_HTTPS",
+    "funnel": false,
+    "coordinator_grant_required": true,
+    "direct_http_prototype_retired": true
+  },
+  "authentication": {
+    "mode": "HMAC_SIGNED_CONTENT_ADDRESSED_ENVELOPE",
+    "required_fields": ["job_id", "jira_unit", "issued_at_utc", "expires_at_utc", "nonce", "payload_sha256", "schema_version", "policy_version", "task", "signature"],
+    "reject_expired": true,
+    "reject_replay_inconsistent": true,
+    "secret_in_git": false
+  },
+  "privilege": {
+    "system_account_allowed": false,
+    "dedicated_restricted_identity_required": true,
+    "interactive_login": false,
+    "administrator_after_install": false
+  },
+  "bundle": {
+    "minimal_files_only": true,
+    "pre_and_post_transfer_sha256_manifest_required": true,
+    "atomic_install": true
+  },
+  "runtime_controls": ["JOB_SCOPED_SCRATCH", "ATOMIC_LEASE", "BOUNDED_QUEUE", "BODY_TIMEOUT", "EXECUTION_TIMEOUT", "RECORD_AND_BYTE_LIMITS", "ATOMIC_RESULT_RENAME", "IDEMPOTENT_REPLAY", "STARTUP_HEALTH", "CLEAN_SHUTDOWN", "RESTART_RECOVERY", "DISK_ADMISSION", "CLEANUP_LEDGER"],
   "tasks": [
     {
       "task": "CANONICAL_JSON",

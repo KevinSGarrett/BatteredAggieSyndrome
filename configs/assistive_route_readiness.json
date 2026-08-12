@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "registry_id": "assistive-route-readiness-2026-08-12-operational-correction",
+  "human_status_override_allowed": false,
+  "evidence_priority": "EMPIRICAL_QUALIFICATION_OVERRIDES_NARRATIVE_STATUS",
+  "routes": [
+    {
+      "provider": "ollama_local",
+      "resolved_model": "qwen2.5:7b-instruct",
+      "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "task_format": "evidence_critical_local_candidate_10_packet",
+      "prompt_version": "BAT-562-local-qwen-10-packet-v1",
+      "schema_version": "1",
+      "schema_sha256": "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c",
+      "policy_version": "unified-assistive-execution-plane-v1",
+      "execution_surface": "ollama-loopback",
+      "state": "NOT_READY",
+      "reason": "EMPIRICALLY_REJECTED_UNSUPPORTED_FACT_AND_EVIDENCE_ACCURACY_GATES",
+      "evidence_sha256": "8f9a4aa6c3309d44f1ea94f83dfddb9640e33bf8f338ec7c5ba4eac18e495f72"
+    },
+    {
+      "provider": "ollama_local",
+      "resolved_model": "qwen2.5:7b-instruct",
+      "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "task_format": "evidence_critical_local_candidate_10_packet",
+      "prompt_version": "BAT-562-local-qwen-10-packet-v2",
+      "schema_version": "1",
+      "schema_sha256": "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c",
+      "policy_version": "unified-assistive-execution-plane-v1",
+      "execution_surface": "ollama-loopback",
+      "state": "NOT_READY",
+      "reason": "EMPIRICALLY_REJECTED_UNSUPPORTED_FACT_AND_EVIDENCE_ACCURACY_GATES",
+      "evidence_sha256": "8f9a4aa6c3309d44f1ea94f83dfddb9640e33bf8f338ec7c5ba4eac18e495f72"
+    },
+    {
+      "provider": "ollama_local",
+      "resolved_model": "qwen3-vl:8b-instruct-q4_K_M",
+      "model_digest": "0533d74300e4f9bc367d675d4e64ffd073d50ff16a2b4096cc2e8a1cf8c96319",
+      "task_format": "evidence_critical_local_candidate_10_packet",
+      "prompt_version": "BAT-562-local-qwen-10-packet-v3-qwen3vl8b",
+      "schema_version": "1",
+      "schema_sha256": "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c",
+      "policy_version": "unified-assistive-execution-plane-v1",
+      "execution_surface": "ollama-loopback",
+      "state": "NOT_READY",
+      "reason": "EMPIRICALLY_REJECTED_UNSUPPORTED_FACT_AND_EVIDENCE_ACCURACY_GATES",
+      "evidence_sha256": "8f9a4aa6c3309d44f1ea94f83dfddb9640e33bf8f338ec7c5ba4eac18e495f72"
+    },
+    {
+      "provider": "ollama_local",
+      "resolved_model": "qwen2.5-coder:7b-instruct-q4_K_M",
+      "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+      "task_format": "bounded_code_review_test_generation_parser_scaffolding",
+      "prompt_version": "local-coder-shadow-v1",
+      "schema_version": "1",
+      "schema_sha256": "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c",
+      "policy_version": "unified-assistive-execution-plane-v2-operational-correction",
+      "execution_surface": "ollama-loopback-isolated-candidate-worktree",
+      "state": "NOT_READY",
+      "reason": "EMPIRICALLY_REJECTED_ALLOWED_PATH_EVIDENCE_ACCURACY_AND_EXPECTED_TERM_RECALL_GATES",
+      "evidence_sha256": "71bf6ea7fc0c95af0cc2ec987c06e5e5d66e1dcb2cc28a7f19f929961654568a"
+    },
+    {
+      "provider": "ollama_local",
+      "resolved_model": "bge-m3:latest",
+      "model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+      "task_format": "embedding_dedup_semantic_candidate_retrieval",
+      "prompt_version": "embedding-shadow-v1",
+      "schema_version": "1",
+      "schema_sha256": "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c",
+      "policy_version": "unified-assistive-execution-plane-v2-operational-correction",
+      "execution_surface": "ollama-loopback",
+      "state": "READY",
+      "reason": "EMPIRICALLY_QUALIFIED_CANDIDATE_RETRIEVAL_ONLY_TOP1_TOP3_AND_REPEAT_GATES_PASS",
+      "evidence_sha256": "a44dd7401bd003f7e572ce97450d07ea776f3a00f14ba80317ac947ced39e425"
+    }
+  ]
+}

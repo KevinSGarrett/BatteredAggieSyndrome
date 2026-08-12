@@ -20,9 +20,10 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ### In scope
 
-- Exact Tailscale peer and controller identity verification.
-- A fixed-function deterministic service with no arbitrary shell or path authority.
-- Three byte-replayable tranches, one exact-dedup pilot, restart recovery, provenance, and cleanup evidence.
+- Stable Tailscale node, MagicDNS, Windows hostname, OS/hardware, and controller identity verification without committed IP authority.
+- A loopback-only fixed-function service exposed by private Tailscale Serve HTTPS, constrained by grants and HMAC-signed expiring envelopes.
+- A minimal hash-manifested bundle under a restricted service identity with no arbitrary shell, URL, module, or path authority.
+- Three byte-replayable tranches, exact deduplication, unauthorized/corrupt/expired/signature rejection, restart/interruption recovery, resource admission, provenance, and cleanup evidence.
 
 ### Out of scope
 
@@ -121,7 +122,7 @@ Produce and validate these outputs within this atomic work unit:
 
 ## End-to-end handoff
 
-Deploy only to the exact private Windows peer, verify heartbeat and controller allowlist, execute all fixed tasks twice, restart the service, replay, validate hashes, and clean reconstructible temporary output.
+Deploy only to the exact verified private Windows peer through the authorized Chrome bootstrap, verify Serve HTTPS/grants/HMAC/least-privilege identity, execute all fixed tasks and rejection cases, restart worker/controller, recover interruption, validate hashes/resources, and clean reconstructible temporary output.
 
 ## Stop instead of improvising when
 

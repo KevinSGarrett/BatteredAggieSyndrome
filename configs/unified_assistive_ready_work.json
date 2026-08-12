@@ -1,7 +1,8 @@
 {
-  "schema_version": 1,
-  "inventory_seed_id": "unified-assistive-ready-work-2026-08-12-v1",
-  "decided_at": "2026-08-12T18:15:00Z",
+  "schema_version": 2,
+  "inventory_seed_id": "unified-assistive-ready-work-catalog-2026-08-12-v2",
+  "material_transition_at": "2026-08-12T20:35:01Z",
+  "decisions_are_derived": true,
   "work_units": [
     {
       "local_id": "POST-SUBTASK-168",
@@ -10,10 +11,10 @@
       "authority": "CANDIDATE_ONLY",
       "pre_routing_effort_points": 5,
       "scope": "Select the next evidence-backed direct OpenAI candidate packets from dependency-ready project work.",
-      "disposition": "DEFERRED_DEPENDENCY",
-      "provider": null,
-      "model": null,
-      "reason": "specific evidence packets and exact per-task model routes must be enumerated before dispatch"
+      "disposition": "DIRECT_OPENAI",
+      "provider": "openai",
+      "model": "GOVERNED_TASK_ROUTER",
+      "reason": "continuing candidate-only operation is authorized and real eligible work exists"
     },
     {
       "local_id": "POST-SUBTASK-199",
@@ -22,10 +23,10 @@
       "authority": "CANDIDATE_ONLY",
       "pre_routing_effort_points": 5,
       "scope": "Run the bounded OpenRouter Qwen and cross-family pilot after positive paid authority.",
-      "disposition": "BUDGET_BLOCKED",
+      "disposition": "OPENROUTER",
       "provider": "openrouter",
       "model": "qwen/qwen3-coder-next",
-      "reason": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED"
+      "reason": "USD 5 initial stage is authorized for the capability and bounded real-work pilot"
     },
     {
       "local_id": "POST-SUBTASK-200",
@@ -34,10 +35,10 @@
       "authority": "CANDIDATE_ONLY",
       "pre_routing_effort_points": 8,
       "scope": "Operate only empirically admitted OpenRouter routes.",
-      "disposition": "DEFERRED_DEPENDENCY",
+      "disposition": "CAPABILITY_BLOCKED",
       "provider": null,
       "model": null,
-      "reason": "paid pilot and route admission are incomplete"
+      "reason": "route-specific empirical admission remains incomplete; budget is no longer the blocker"
     },
     {
       "local_id": "POST-SUBTASK-201",
@@ -46,10 +47,10 @@
       "authority": "CODEX_FINAL_IMPLEMENTATION",
       "pre_routing_effort_points": 8,
       "scope": "Implement and integrate the provider-neutral inventory, readiness, budget, provenance, and validation foundation.",
-      "disposition": "CODEX_DETERMINISTIC",
+      "disposition": "COMPLETED",
       "provider": "codex_deterministic",
       "model": null,
-      "reason": "repository implementation and validation require Codex final authority"
+      "reason": "foundation merged and verified; operational-correction extensions execute under the same durable unit"
     },
     {
       "local_id": "POST-SUBTASK-202",
@@ -58,10 +59,10 @@
       "authority": "PATCH_CANDIDATE_ONLY",
       "pre_routing_effort_points": 8,
       "scope": "Qualify Cursor through two serial safety pilots and bounded concurrency.",
-      "disposition": "BUDGET_BLOCKED",
+      "disposition": "CURSOR",
       "provider": "cursor",
       "model": "gpt-5.3-codex",
-      "reason": "PAID_CURSOR_BUDGET_NOT_AUTHORIZED"
+      "reason": "USD 20 initial stage is authorized for two serial safety pilots"
     },
     {
       "local_id": "POST-SUBTASK-203",
@@ -70,10 +71,36 @@
       "authority": "CANDIDATE_ONLY",
       "pre_routing_effort_points": 5,
       "scope": "Qualify local Qwen on at least three real task types.",
-      "disposition": "DEFERRED_DEPENDENCY",
+      "disposition": "COMPLETED",
       "provider": null,
       "model": null,
-      "reason": "foundation must integrate before real local qualification begins"
+      "reason": "the exact BAT-562 evidence-critical qualification completed with empirical rejection"
+    },
+    {
+      "work_unit_id": "POST-SUBTASK-203::qwen2.5-coder-shadow-v1",
+      "record_local_id": "POST-SUBTASK-203",
+      "task_format": "bounded_code_review_test_generation_parser_scaffolding",
+      "schema_path": "schemas/assistive/local_qwen_candidate.schema.json",
+      "authority": "CANDIDATE_ONLY",
+      "pre_routing_effort_points": 5,
+      "scope": "Run a new exact-digest shadow qualification for qwen2.5-coder on bounded real repository units.",
+      "disposition": "LOCAL_QWEN",
+      "provider": "local_qwen",
+      "model": "qwen2.5-coder:7b-instruct-q4_K_M",
+      "reason": "new model-format identity does not inherit BAT-562 rejection and requires a fresh shadow qualification"
+    },
+    {
+      "work_unit_id": "POST-SUBTASK-203::bge-m3-embedding-shadow-v1",
+      "record_local_id": "POST-SUBTASK-203",
+      "task_format": "embedding_dedup_semantic_candidate_retrieval",
+      "schema_path": "schemas/assistive/local_qwen_candidate.schema.json",
+      "authority": "CANDIDATE_ONLY",
+      "pre_routing_effort_points": 3,
+      "scope": "Run a new exact-digest shadow qualification for bge-m3 embeddings and deduplication.",
+      "disposition": "LOCAL_QWEN",
+      "provider": "local_qwen",
+      "model": "bge-m3:latest",
+      "reason": "embedding route requires separate identity, quality, resource, and downstream-value evidence"
     },
     {
       "local_id": "POST-SUBTASK-204",
@@ -85,7 +112,7 @@
       "disposition": "DEFERRED_DEPENDENCY",
       "provider": null,
       "model": null,
-      "reason": "foundation integration and worker service qualification are pending"
+      "reason": "retired prototype evidence is preserved; corrected HTTPS, signing, least-privilege, minimal-bundle, and live qualification gates are pending"
     },
     {
       "local_id": "POST-SUBTASK-205",

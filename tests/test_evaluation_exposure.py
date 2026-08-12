@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -110,6 +111,39 @@ class ExposureAwareEvaluationTests(unittest.TestCase):
         replayed = module.replay(rows, offseason_retention=1.0, margin_cap=None)
         self.assertEqual([row["home_win_probability"] for row in replayed], [0.5, 0.5])
         self.assertEqual(replayed, module.replay(rows, offseason_retention=1.0, margin_cap=None))
+
+    def test_historical_coverage_selects_strongest_immutable_discovery(self):
+        spec = importlib.util.spec_from_file_location(
+            "historical_coverage", ROOT / "tools" / "build_historical_spine_coverage_matrix.py"
+        )
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as temp:
+            data_root = Path(temp)
+            root = data_root / "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2025/sha256"
+            candidates = [
+                ("partial", "PARTIAL_MAXIMUM_TEAM_LIMIT_REACHED", 300, 1900, 0),
+                ("complete", "COMPLETE_GRAPH_EXHAUSTED", 299, 1890, 1),
+            ]
+            for identity, state, pages, contests, failures in candidates:
+                path = root / identity / "ncaa_team_graph_discovery_manifest.json"
+                path.parent.mkdir(parents=True)
+                path.write_text(
+                    json.dumps(
+                        {
+                            "discovery_identity": identity,
+                            "state": state,
+                            "team_page_capture_count": pages,
+                            "discovered_contest_ids": list(range(contests)),
+                            "team_failure_count": failures,
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            path, item = module.select_strongest_discovery(data_root, 2025)
+            self.assertEqual(path.parent.name, "complete")
+            self.assertEqual(item["state"], "COMPLETE_GRAPH_EXHAUSTED")
 
 
 if __name__ == "__main__":

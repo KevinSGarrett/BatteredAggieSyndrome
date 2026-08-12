@@ -8,10 +8,7 @@ from typing import Any
 
 
 EVENT_RUN = "a3914e3f5b3fa95c81b7ee08338e27901ac07da870277967234dbe1fb7cd2080"
-DISCOVERY_IDENTITIES = {
-    2024: "4dbba4b7439b8901011755225460fb34896b49a0746af4895a6b486004d2789d",
-    2025: "0fafda82afd29fe116aeed8896712efa59b108fe54494ef18e387e922bf11609",
-}
+DISCOVERY_SEASONS = (2024, 2025)
 
 
 def canonical_json(value: Any) -> bytes:
@@ -26,6 +23,33 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def select_strongest_discovery(data_root: Path, season: int) -> tuple[Path, dict[str, Any]]:
+    root = (
+        data_root
+        / "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery"
+        / str(season)
+        / "sha256"
+    )
+    candidates: list[tuple[tuple[int, int, int, int, str], Path, dict[str, Any]]] = []
+    for path in sorted(root.glob("*/ncaa_team_graph_discovery_manifest.json")):
+        item = json.loads(path.read_text(encoding="utf-8"))
+        identity = str(item.get("discovery_identity", ""))
+        if identity != path.parent.name:
+            raise ValueError(f"discovery identity/path mismatch: {path}")
+        rank = (
+            int(item.get("state") == "COMPLETE_GRAPH_EXHAUSTED"),
+            int(item.get("team_page_capture_count", 0)),
+            len(item.get("discovered_contest_ids", [])),
+            -int(item.get("team_failure_count", 0)),
+            identity,
+        )
+        candidates.append((rank, path, item))
+    if not candidates:
+        raise FileNotFoundError(f"no immutable NCAA discovery manifest for season {season}")
+    _, path, item = max(candidates, key=lambda row: row[0])
+    return path, item
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-root", type=Path, required=True)
@@ -34,10 +58,10 @@ def main() -> int:
     event_path = data_root / "manifests/preliminary_event_chronology/sha256" / EVENT_RUN / "run_manifest.json"
     event = json.loads(event_path.read_text(encoding="utf-8"))
     target_counts = event["population"]["target_counts_by_season"]
-    discoveries: dict[int, tuple[Path, dict[str, Any]]] = {}
-    for season, identity in DISCOVERY_IDENTITIES.items():
-        path = data_root / "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery" / str(season) / "sha256" / identity / "ncaa_team_graph_discovery_manifest.json"
-        discoveries[season] = (path, json.loads(path.read_text(encoding="utf-8")))
+    discoveries = {
+        season: select_strongest_discovery(data_root, season)
+        for season in DISCOVERY_SEASONS
+    }
     rows: list[dict[str, Any]] = []
     for season in range(2010, 2026):
         rows.append({

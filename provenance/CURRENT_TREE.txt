@@ -261,6 +261,7 @@ configs/preliminary_play_enrichment_replay_contract.json
 configs/preliminary_possession_pace_ablation_contract.json
 configs/preliminary_possession_pace_contract.json
 configs/preliminary_rankings_augmented_contract.json
+configs/preliminary_sustainability_contract.json
 configs/preliminary_unprotected_baseline_contract.json
 configs/preliminary_wmt_tamu_shadow_contract.json
 configs/raw_feature_registry.json
@@ -2982,6 +2983,7 @@ src/aggie_analytics/features/possession_pace.py
 src/aggie_analytics/features/registry.py
 src/aggie_analytics/features/returning_production.py
 src/aggie_analytics/features/screening.py
+src/aggie_analytics/features/sustainability.py
 src/aggie_analytics/features/transforms.py
 src/aggie_analytics/features/weather_station_matching.py
 src/aggie_analytics/lineage.py
@@ -3151,6 +3153,7 @@ tests/test_preliminary_play_enrichment_replay.py
 tests/test_preliminary_possession_pace.py
 tests/test_preliminary_possession_pace_ablation.py
 tests/test_preliminary_rankings_augmented_contract.py
+tests/test_preliminary_sustainability.py
 tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
@@ -3214,6 +3217,7 @@ tools/build_noaa_isd_game_observation_shadow.py
 tools/build_noaa_isd_station_matching.py
 tools/build_post2022_roster_candidate.py
 tools/build_preliminary_possession_pace.py
+tools/build_preliminary_sustainability.py
 tools/build_retrospective_returning_production.py
 tools/build_sec_tamu_availability_candidates.py
 tools/build_supplemental_play_drive_gap.py
@@ -3323,6 +3327,7 @@ tools/validate_preliminary_elo_uncertainty.py
 tools/validate_preliminary_play_drive_augmented.py
 tools/validate_preliminary_possession_pace.py
 tools/validate_preliminary_rankings_augmented_baselines.py
+tools/validate_preliminary_sustainability.py
 tools/validate_preliminary_unprotected_baselines.py
 tools/validate_preliminary_wmt_tamu_shadow.py
 tools/validate_product_supply_chain.py

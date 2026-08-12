@@ -2,19 +2,22 @@
   "schema_version": "1.0.0",
   "artifact_type": "aggie.ci_security_release_gate",
   "created_at_utc": "2026-08-12T22:20:00Z",
-  "updated_at_utc": "2026-08-12T22:20:00Z",
+  "updated_at_utc": "2026-08-12T22:35:00Z",
   "issue": {
     "jira_key": "BAT-476",
     "local_id": "POST-SUBTASK-126",
     "objective": "Validate protected-branch/release blocking and auditable exception behavior"
   },
-  "gate_disposition": "PROTECTED_INTEGRATION_PENDING",
-  "issue_completion_allowed": false,
-  "eligibility": "CANDIDATE_CONTROL_GATE_ONLY",
+  "gate_disposition": "PASS_PROTECTED_INTEGRATED",
+  "issue_completion_allowed": true,
+  "eligibility": "PRODUCTION_READY_CONTROL_GATE",
   "source_identity": {
     "git_base_commit": "e8b626a553c96dda2673679d55c525b065077c04",
     "git_base_tree": "59c532aaaea68489373e5111f933cf2fcea6f859",
     "branch": "codex/BAT-476-security-gate",
+    "candidate_head_commit": "7045e3246df6697bba02965be40ba3a461cfa3c0",
+    "integrated_main_commit": "8f3de4ddb933eeb82f9e0dcff8e16303e3644017",
+    "integrated_main_tree": "fcb85108695d6c05f103e7f127ca2e90319c951c",
     "source_manifest": "jira/sources/issue_source_manifests/POST-SUBTASK-126.json",
     "source_ref_count": 14,
     "source_document_hashes_match": true,
@@ -210,14 +213,19 @@
       "command": "python -B -m unittest tests.test_w23_operations tests.test_temporal_governance tests.test_product_supply_chain -v",
       "exit_code": 1,
       "result": "NEGATIVE_RESULT_PRESERVED_WINDOWS_DOTTED_IMPORT_SHADOWING_CANONICAL_PYTEST_PATH_PASSED"
+    },
+    {
+      "command": "EXACT_MAIN=8f3de4ddb933eeb82f9e0dcff8e16303e3644017 PYTHONPATH=src python -B -m pytest -p no:cacheprovider -q plus W25, W17 seal, strict repository, Jira pack/second-pass/manifest/source/dependency, dependency-policy, and W23 implementation validation",
+      "exit_code": 0,
+      "result": "PASS_EXACT_MAIN_625_TESTS_4_SKIPPED_104_SUBTESTS_ALL_APPLICABLE_VALIDATORS_PASS_W23_RELEASE_BLOCKERS_RETAINED"
     }
   ],
   "acceptance_matrix": [
     {
       "criterion": "CI runs all required suites from a clean state, preserves failure logs/evidence, and cannot skip gates through naming/retry while keeping the local workflow runnable without Kubernetes/Kafka/Redis/cloud dependency.",
-      "disposition": "BLOCKED",
-      "observable_result": "Local clean validation and both live negative probes pass, but this candidate commit has not yet passed its own seven protected PR contexts.",
-      "unblock_condition": "The protected implementation PR and exact merge-commit replay must pass all seven required contexts."
+      "disposition": "PASS",
+      "observable_result": "Local clean validation, both live negative probes, all seven required PR #257 contexts, and exact-main replay at 8f3de4ddb933eeb82f9e0dcff8e16303e3644017 passed.",
+      "unblock_condition": ""
     },
     {
       "criterion": "Locks/hashes/findings/licenses/secrets/restricted patterns are recorded with severity/remediation or accepted-risk disposition and no credential/raw restricted payload reaches repository or CI artifacts.",
@@ -237,9 +245,9 @@
   ],
   "negative_findings": [
     {
-      "id": "CURRENT_PR_PROTECTED_INTEGRATION_PENDING",
+      "id": "CURRENT_PR_PROTECTED_INTEGRATION_COMPLETED",
       "waived": false,
-      "resolution": "REQUIRES_PROTECTED_PR_AND_EXACT_MAIN_REPLAY"
+      "resolution": "RESOLVED_PR257_ALL_REQUIRED_CONTEXTS_AND_EXACT_MAIN_REPLAY_PASS"
     },
     {
       "id": "AC038_TARGET_HARDWARE_UNRESOLVED",
@@ -259,18 +267,21 @@
   ],
   "downstream_evaluation": {
     "story_consumer": "POST-STORY-042",
-    "current_decision": "DEFER_PENDING_PROTECTED_INTEGRATION",
-    "post_subtask_127": "REMAINS_BLOCKED_PENDING_POST_SUBTASK_126_VERIFIED_COMPLETION",
-    "post_subtask_128": "REMAINS_BLOCKED",
-    "post_subtask_129": "REMAINS_BLOCKED",
+    "current_decision": "APPROVE_POST_STORY_042_CONTROL_CAPABILITY_RETAIN_PROGRAM_RELEASE_BLOCKERS",
+    "post_subtask_127": "READY_AFTER_POST_SUBTASK_126_VERIFIED_COMPLETION",
+    "post_subtask_128": "REMAINS_BLOCKED_BY_POST_SUBTASK_127",
+    "post_subtask_129": "REMAINS_BLOCKED_BY_POST_SUBTASK_127_AND_POST_SUBTASK_128",
     "silent_unlock_allowed": false
   },
   "integration": {
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "required_contexts": "PENDING",
-    "exact_main_replay": "PENDING"
+    "pull_request": 257,
+    "head_sha": "7045e3246df6697bba02965be40ba3a461cfa3c0",
+    "merge_sha": "8f3de4ddb933eeb82f9e0dcff8e16303e3644017",
+    "merged_at_utc": "2026-08-12T22:30:57Z",
+    "repository_ci_run_ids": [31647165306, 31647169070],
+    "security_analysis_run_id": 31647169072,
+    "required_contexts": "PASS_ALL_SEVEN_REQUIRED_CONTEXTS",
+    "exact_main_replay": "PASS_AT_8f3de4ddb933eeb82f9e0dcff8e16303e3644017"
   },
-  "completion_claim": "BAT-476 has a locally validated candidate gate with live negative bypass evidence. Completion, Story approval, and downstream unlock remain prohibited until protected integration and exact-main replay pass."
+  "completion_claim": "BAT-476 completed its bounded control scope with protected integration and exact-main replay. POST-SUBTASK-127 may become READY. Program release remains blocked by AC-038/THR-011/THR-012 and no historical-completeness, protected-performance, production-model, A&M-lift, BAS, or Aggie Excess result is claimed."
 }

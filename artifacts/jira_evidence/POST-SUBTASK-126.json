@@ -2,24 +2,24 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_completion_evidence",
   "created_at_utc": "2026-08-12T22:20:00Z",
-  "updated_at_utc": "2026-08-12T22:20:00Z",
+  "updated_at_utc": "2026-08-12T22:35:00Z",
   "jira_key": "BAT-476",
   "local_issue_id": "POST-SUBTASK-126",
-  "workflow_state": "IN_PROGRESS",
-  "evidence_state": "PARTIAL",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
   "producer": {
     "agent": "Codex",
     "session_id": "019fe513-80e8-72f3-bc22-816e700bf74c"
   },
-  "observable_outcome": "A current-main candidate has locally passed the complete regression, security, protected-governance, PIT, publication-boundary, backup/recovery, and Jira validation campaign. Live skip and retry probes remained protected-branch blocked. Completion remains pending this candidate's own seven required PR contexts and exact-main replay.",
+  "observable_outcome": "BAT-476 passed the complete local and exact-main regression, security, protected-governance, PIT, publication-boundary, backup/recovery, Jira, live negative-probe, and protected-integration campaign. PR #257 passed all seven required contexts and merged as 8f3de4ddb933eeb82f9e0dcff8e16303e3644017; downstream POST-SUBTASK-127 is eligible to become READY while independent program release blockers remain explicit.",
   "outputs": [
     {
       "path": "artifacts/operations/ci_security_gate.json",
-      "bytes": 12411,
-      "sha256": "786ea57122a28e5387ce1f2c4bd718f5d0026c9b833cca160aa9421d4c4a9baa",
+      "bytes": 13480,
+      "sha256": "6dfebe01e2d95f9bd9176ee758f46813723c41ffce20493701b29b0c60a2f8a7",
       "schema_version": "1.0.0",
-      "maturity": "PRODUCTION_READY_CONTROL_CANDIDATE",
-      "eligibility": "PROTECTED_INTEGRATION_PENDING"
+      "maturity": "PRODUCTION_READY_CONTROL_GATE",
+      "eligibility": "PROTECTED_INTEGRATED"
     }
   ],
   "input_identities": {
@@ -37,10 +37,10 @@
   "acceptance_matrix": [
     {
       "criterion": "CI runs all required suites from a clean state, preserves failure logs/evidence, and cannot skip gates through naming/retry while keeping the local workflow runnable without Kubernetes/Kafka/Redis/cloud dependency.",
-      "disposition": "BLOCKED",
-      "observable_result": "Local clean validation and both live negative probes pass, but the implementation candidate has not yet passed its own seven protected contexts.",
+      "disposition": "PASS",
+      "observable_result": "Local clean validation, both live negative probes, all seven required PR #257 contexts, and exact-main replay at 8f3de4ddb933eeb82f9e0dcff8e16303e3644017 passed.",
       "evidence_path": "artifacts/operations/ci_security_gate.json",
-      "evidence_sha256": "786ea57122a28e5387ce1f2c4bd718f5d0026c9b833cca160aa9421d4c4a9baa",
+      "evidence_sha256": "6dfebe01e2d95f9bd9176ee758f46813723c41ffce20493701b29b0c60a2f8a7",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-12T22:20:00Z"
     },
@@ -49,7 +49,7 @@
       "disposition": "PASS",
       "observable_result": "The gate binds current locks, workflows, verified security input, alert snapshot, secret controls, publication boundary, and negative findings without credential values or restricted payloads.",
       "evidence_path": "artifacts/operations/ci_security_gate.json",
-      "evidence_sha256": "786ea57122a28e5387ce1f2c4bd718f5d0026c9b833cca160aa9421d4c4a9baa",
+      "evidence_sha256": "6dfebe01e2d95f9bd9176ee758f46813723c41ffce20493701b29b0c60a2f8a7",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-12T22:20:00Z"
     },
@@ -58,7 +58,7 @@
       "disposition": "PASS",
       "observable_result": "PR #255 stayed blocked with zero checks; PR #256 stayed blocked after integrity attempts 1 and 2; an external W17 mutation failed the seal; no bypass actor, accepted risk, or active exception exists.",
       "evidence_path": "artifacts/operations/ci_security_gate.json",
-      "evidence_sha256": "786ea57122a28e5387ce1f2c4bd718f5d0026c9b833cca160aa9421d4c4a9baa",
+      "evidence_sha256": "6dfebe01e2d95f9bd9176ee758f46813723c41ffce20493701b29b0c60a2f8a7",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-12T22:20:00Z"
     },
@@ -67,7 +67,7 @@
       "disposition": "PASS",
       "observable_result": "All prerequisite manifests and outputs are hash-bound. AC-038, THR-011/012, historical population, protected science, and protected-integration pending state remain explicit; downstream unlock is false.",
       "evidence_path": "artifacts/operations/ci_security_gate.json",
-      "evidence_sha256": "786ea57122a28e5387ce1f2c4bd718f5d0026c9b833cca160aa9421d4c4a9baa",
+      "evidence_sha256": "6dfebe01e2d95f9bd9176ee758f46813723c41ffce20493701b29b0c60a2f8a7",
       "verifier": "Codex",
       "verified_at_utc": "2026-08-12T22:20:00Z"
     }
@@ -95,10 +95,10 @@
   },
   "negative_findings": [
     {
-      "id": "PROTECTED_INTEGRATION_PENDING",
-      "status": "OPEN_ISSUE_SCOPE_GATE",
+      "id": "PROTECTED_INTEGRATION_COMPLETED",
+      "status": "RESOLVED",
       "waived": false,
-      "resolution": "REQUIRES_IMPLEMENTATION_PR_AND_EXACT_MAIN_REPLAY"
+      "resolution": "PR257_REQUIRED_CONTEXTS_AND_EXACT_MAIN_REPLAY_PASS"
     },
     {
       "id": "AC038_TARGET_HARDWARE_UNRESOLVED",
@@ -130,27 +130,24 @@
   },
   "downstream_evaluation": {
     "consumer": "POST-STORY-042",
-    "decision": "DEFER_PENDING_PROTECTED_INTEGRATION",
-    "post_subtask_127_ready": false,
+    "decision": "APPROVE_POST_STORY_042_CONTROL_CAPABILITY_RETAIN_PROGRAM_RELEASE_BLOCKERS",
+    "post_subtask_127_ready": true,
     "silent_downstream_unlock_allowed": false
   },
   "integration": {
     "branch": "codex/BAT-476-security-gate",
-    "pull_request": null,
-    "head_sha": null,
-    "merge_sha": null,
-    "required_checks": "PENDING",
-    "exact_main_replay": "PENDING"
+    "pull_request": 257,
+    "head_sha": "7045e3246df6697bba02965be40ba3a461cfa3c0",
+    "merge_sha": "8f3de4ddb933eeb82f9e0dcff8e16303e3644017",
+    "required_checks": "PASS_ALL_SEVEN_REQUIRED_CONTEXTS",
+    "exact_main_replay": "PASS_AT_8f3de4ddb933eeb82f9e0dcff8e16303e3644017"
   },
   "completion": {
-    "achieved_maturity": "PRODUCTION_READY_CONTROL_CANDIDATE",
-    "evidence_state": "PARTIAL",
-    "issue_disposition": "IN_PROGRESS",
-    "local_acceptance_criteria_pass": false,
-    "remaining_issue_scope_blockers": [
-      "PROTECTED_INTEGRATION_PENDING",
-      "EXACT_MAIN_REPLAY_PENDING"
-    ],
+    "achieved_maturity": "PRODUCTION_READY_CONTROL_GATE",
+    "evidence_state": "VERIFIED",
+    "issue_disposition": "DONE",
+    "local_acceptance_criteria_pass": true,
+    "remaining_issue_scope_blockers": [],
     "remaining_program_blockers": [
       "AC-038",
       "THR-011",
@@ -158,6 +155,6 @@
       "EXPANDED_HISTORICAL_POPULATION_NOT_FINAL",
       "PROTECTED_MODEL_READINESS_NOT_ESTABLISHED"
     ],
-    "completion_claim": "BAT-476 is not complete. It has a locally validated candidate with live bypass-failure evidence and awaits protected integration."
+    "completion_claim": "BAT-476 is complete within its bounded control scope. Program release and scientific claims remain independently gated by the listed unresolved program blockers."
   }
 }

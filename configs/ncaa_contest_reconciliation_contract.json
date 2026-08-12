@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.2.0",
+  "contract_id": "BAT-554-NCAA-CONTEST-RECONCILIATION-V1.2",
+  "decision_unit": "POST-SUBTASK-197",
+  "jira_key": "BAT-554",
+  "classification": "CANDIDATE_ONLY_DETERMINISTIC_TWO_SIDED_CONTEXT_RECONCILIATION",
+  "source_contract": {
+    "season": 2023,
+    "discovery_manifest": "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/discovery/2023/sha256/492f47b11c96fab1ce904689d4f0fcd06dc2d89dd33a238a963871fd7d2ff157/ncaa_team_graph_discovery_manifest.json",
+    "discovery_manifest_sha256": "8357a409467cb84738873a5c521874d3966a0e368635707f3e3dee5c0b3a8655",
+    "canonical_registry": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+    "canonical_registry_sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac",
+    "outcome_targets": "training/preliminary_event_chronology/sha256/8beb354a3d80fa2435c05fecf588d2be9cf803f6ba72d08c23d895712453c2e2/outcome_targets.parquet",
+    "outcome_targets_sha256": "fc42f2aaa155cedd9ad0a77244998a5b92e30baae06a056af367d443fcb28b87"
+  },
+  "admission": {
+    "team_alias_resolution": "EXACT_NORMALIZED_AUTO_ACCEPTED_VERIFIED_HISTORICAL_ALIAS_AS_CONTEXT_CANDIDATE_ONLY",
+    "normalization_token_expansions": {
+      "st": "state",
+      "so": "southern"
+    },
+    "alias_effective_interval_alone_grants_mapping": false,
+    "required_participant_aliases": 2,
+    "required_mirrored_schedule_observations": 2,
+    "required_distinct_source_team_season_pages": 2,
+    "maximum_source_date_to_utc_date_delta_days": 1,
+    "require_exact_oriented_final_score": true,
+    "require_exact_canonical_participant_pair": true,
+    "require_unique_ncaa_contest_to_canonical_game": true,
+    "require_unique_canonical_game_to_ncaa_contest": true,
+    "name_only_promotion_allowed": false
+  },
+  "authority": {
+    "canonical_registry_write": false,
+    "immutable_raw_capture_write": false,
+    "historical_pit_eligible": false,
+    "training_eligible": false,
+    "protected_evaluation_eligible": false,
+    "production_eligible": false,
+    "official_domain_acquisition_candidate_route": true
+  },
+  "missingness": {
+    "unparsed_team_page": "PRESERVE_AS_SOURCE_PAGE_PARSE_FAILURE",
+    "unscored_or_canceled_contest": "NO_COMPLETED_SCORE_OBSERVATION",
+    "missing_or_ambiguous_alias": "PARTICIPANT_ALIAS_NOT_UNIQUELY_RESOLVED",
+    "no_context_match": "NO_EXACT_CANONICAL_PARTICIPANT_DATE_SCORE_MATCH",
+    "insufficient_mirror": "INSUFFICIENT_TWO_SIDED_SOURCE_EVIDENCE",
+    "conflict": "CONFLICTING_CANONICAL_CANDIDATES"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "document_type": {"type": "string"},
+    "regions": {"type": "array", "items": {"type": "string"}},
+    "candidate_fields": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "disposition": {"type": "string", "enum": ["REVIEW", "QUARANTINE", "NOT_PRESENT", "UNKNOWN"]}
+  },
+  "required": ["document_type", "regions", "candidate_fields", "evidence", "disposition"]
+}

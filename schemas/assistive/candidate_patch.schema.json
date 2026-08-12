@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "summary": {"type": "string"},
+    "patch": {"type": "string"},
+    "touched_paths": {"type": "array", "items": {"type": "string"}},
+    "tests_requested": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "uncertainties": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": ["summary", "patch", "touched_paths", "tests_requested", "evidence", "uncertainties"]
+}

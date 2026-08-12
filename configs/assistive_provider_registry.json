@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "registry_id": "assistive-provider-registry-2026-08-12",
+  "providers": {
+    "openai": {
+      "adapter": "aggie_analytics.openai_assist.controller.AssistiveController",
+      "authority": "EXISTING_GOVERNED_DIRECT_OPENAI_PLANE",
+      "budget_ledger": "C:\\BatteredAggieSyndrome.data\\openai\\usage\\ledger.json",
+      "policy": "configs/openai_assist_policy.json"
+    },
+    "openrouter": {
+      "adapter": "aggie_analytics.assistive_plane.openrouter_backend.OpenRouterBackend",
+      "authority": "CANDIDATE_ONLY_ASSISTIVE_DEVELOPMENT",
+      "budget_ledger": "C:\\BatteredAggieSyndrome.data\\assistive\\openrouter\\usage\\ledger.json",
+      "policy": "configs/openrouter_assist_policy.json"
+    }
+  },
+  "invariants": [
+    "ONE_PROVIDER_PER_REQUEST",
+    "NO_BUDGET_TRANSFER_BETWEEN_PROVIDERS",
+    "DETERMINISTIC_PROJECT_AUTHORITY_RETAINED",
+    "NO_CANONICAL_OR_PROTECTED_TRUTH_WRITES"
+  ]
+}

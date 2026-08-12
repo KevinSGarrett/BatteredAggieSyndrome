@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "routing_objective": "ACCEPTED_VALIDATED_CANDIDATE_VALUE_PER_DOLLAR",
+  "tasks": {
+    "patch_candidate": {
+      "authority": "PATCH_CANDIDATE",
+      "schema": "schemas/assistive/candidate_patch.schema.json",
+      "jira_unit": "POST-SUBTASK-199",
+      "candidate_model": "qwen/qwen3-coder-next",
+      "default_reasoning_effort": "none"
+    },
+    "independent_review": {
+      "authority": "INDEPENDENT_REVIEW",
+      "schema": "schemas/assistive/independent_review.schema.json",
+      "jira_unit": "POST-SUBTASK-199",
+      "candidate_model": "qwen/qwen3-coder-next",
+      "default_reasoning_effort": "none"
+    },
+    "reconciliation_ranking": {
+      "authority": "RECONCILIATION_RANKING",
+      "schema": "schemas/assistive/reconciliation_ranking.schema.json",
+      "jira_unit": "POST-SUBTASK-200",
+      "candidate_model": "qwen/qwen3-coder-next",
+      "default_reasoning_effort": "none"
+    },
+    "schema_drift_review": {
+      "authority": "SCHEMA_DRIFT_REVIEW",
+      "schema": "schemas/assistive/schema_drift_review.schema.json",
+      "jira_unit": "POST-SUBTASK-200",
+      "candidate_model": "qwen/qwen3-coder-next",
+      "default_reasoning_effort": "none"
+    },
+    "visual_layout_triage": {
+      "authority": "VISUAL_LAYOUT_TRIAGE",
+      "schema": "schemas/assistive/visual_layout_triage.schema.json",
+      "jira_unit": "POST-SUBTASK-200",
+      "candidate_model": "MODEL_UNRESOLVED_PENDING_EMPIRICAL_ROUTE_QUALIFICATION",
+      "default_reasoning_effort": "none"
+    }
+  }
+}

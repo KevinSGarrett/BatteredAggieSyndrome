@@ -37595,3 +37595,268 @@ Source References
 Governance Traceability Gate: POST-SUBTASK-069
 
 Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.json",In Progress,Highest,post-wave;subtask;historical-expansion;ncaa-official;gamebook-equivalent;stats-ncaa-org;candidate-only;immutable-raw;provenance;pit-gated;partial-domain-admission;local-id-post-subtask-197,data-sources,POST-SUBTASK-197,SRC-014;SRC-015;SRC-048;GAP-002;GAP-006;HANDOFF-008,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY,ACTIVE_EMPIRICAL_CHECKPOINT_2024_GRAPH_EXHAUSTED,POST_W25,true,DATA_MATERIALIZATION,ATOMIC_EXECUTION
+Story,BAT-555,100506,[POST-STORY-057] Governed complementary OpenRouter assistive development plane with isolated budget and candidate-only authority,100464,"Local ID: POST-STORY-057
+
+Objective
+Governed complementary OpenRouter assistive development plane with isolated budget and candidate-only authority
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+Provide one complementary OpenRouter backend behind a provider-neutral boundary without rewriting direct OpenAI, transferring budgets, or entering forecast-critical or protected authority paths.
+
+Explicit In Scope
+- Perform the exact action: Empirical OpenAI scale-out, continuing operations, usage accounting, cleanup, and handoff.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-162 complete at required maturity
+- Dependency POST-SUBTASK-163 complete at required maturity
+- Dependency POST-SUBTASK-164 complete at required maturity
+- Dependency POST-SUBTASK-167 complete at required maturity
+- Dependency POST-SUBTASK-168 complete at required maturity
+- POST-SUBTASK-160
+
+Acceptance Criteria
+1. The non-billable foundation, paid capability pilot, and continuing-operations gate each have explicit evidence-backed dispositions.
+2. Direct OpenAI remains independently governed and operational; OpenRouter uses its own policy, storage, ledger, model/route qualification, and handoff accounting.
+3. Provider failure or lack of paid authority degrades to deterministic/local work without blocking historical acquisition or modeling.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-STORY-056.json — Prove scale-out and continuing candidate-only operations remain inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-STORY-056.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Prove scale-out and continuing candidate-only operations remain inside empirical acceptance, candidate authority, staged/model-cap budget, storage, cleanup, and protected-nonclaim boundaries.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02120
+
+Governance Traceability Gate: POST-SUBTASK-198
+
+Canonical Record: jira/records/issues/stories/POST-STORY-057_governed_complementary_openrouter_assistive_development_plane_with_isolated_budget_and_candi.json",In Progress,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;aggregate-gate;local-id-post-story-057,operations-security,POST-STORY-057,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
+Sub-task,BAT-556,100507,"[POST-SUBTASK-198] Implement the non-billable provider-neutral OpenRouter foundation, USD 0 hard stop, privacy controls, storage, schemas, and worker isolation",100506,"Local ID: POST-SUBTASK-198
+
+Objective
+Implement the non-billable provider-neutral OpenRouter foundation, USD 0 hard stop, privacy controls, storage, schemas, and worker isolation
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+Implement and integrate the governed foundation and public capability evidence. Paid inference is out of scope and must be rejected locally before network dispatch.
+
+Explicit In Scope
+- Perform the exact action: Implement the governed OpenAI controller, storage, budget, provenance, schema, security, and cleanup foundation.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-040 complete at required maturity
+- POST-SUBTASK-160
+
+Acceptance Criteria
+1. One provider-neutral dispatcher and one OpenRouter backend own admission, credential loading, redaction, strict schemas, request identity, retries, storage, provenance, usage/cost validation, and disposition.
+2. The production ledger hard-stops every billable request at exactly USD 0.00 before network dispatch and transfers no direct OpenAI funds.
+3. Provider defaults require parameter support, deny data collection, require ZDR, and disable fallback; exact routes remain unapproved pending endpoint and empirical evidence.
+4. Public official documentation and model catalog are content-addressed outside Git; qwen/qwen3-coder-next remains a capability candidate only.
+5. Worker packets and patch paths cannot access .env, .git, protected truth, external data, or out-of-scope paths; deterministic validators retain all authority.
+6. Focused, repository, provenance, Jira, secret, and full-suite validation pass through normal PR integration.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-160.json — Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-SUBTASK-160.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Use fake synchronous and Batch clients to prove a registered cited job is admitted, store:false, strict-schema validated, externally content-addressed, candidate-disposed, cost-settled, cached, and unable to touch protected truth.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02120
+
+Governance Traceability Gate: POST-SUBTASK-198
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-198_implement_the_non_billable_provider_neutral_openrouter_foundation_usd_0_hard_stop_privacy_co.json",In Progress,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-198,operations-security,POST-SUBTASK-198,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,IN_PROGRESS,INTEGRATED,PARTIAL,POST_W25,false,SHARED_CONTRACT,ATOMIC_EXECUTION
+Sub-task,BAT-557,100508,[POST-SUBTASK-199] Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization,100506,"Local ID: POST-SUBTASK-199
+
+Objective
+Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+After explicit paid authority, compare deterministic-only work with a pinned Qwen candidate and bounded cross-family references on versioned gold cases; no production or canonical authority.
+
+Explicit In Scope
+- Perform the exact action: Build the local gold corpus and evaluation harness and compare Luna, Terra, and Sol.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-160 complete at required maturity
+- POST-SUBTASK-198
+
+Acceptance Criteria
+1. The user separately authorizes a positive OpenRouter spending envelope and provider/account hard limits are reconciled before the first paid call.
+2. Exact model and provider endpoints pass strict schema, ZDR, data-collection, fallback, context, usage, and cost capability probes.
+3. A versioned gold corpus reports schema validity, evidence accuracy, unsupported claims, patch applicability, tests, review savings, consistency, disagreement, dispositions, and accepted value per dollar.
+4. Negative findings remain preserved and no route is adopted solely because a response succeeded.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-161.json — Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-SUBTASK-161.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Run the versioned local harness over capable-model reference and cheaper routes, preserve raw external results and costs, and publish only a small comparison manifest and empirical route decision.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02120
+
+Governance Traceability Gate: POST-SUBTASK-199
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.json",To Do,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-199,operations-security,POST-SUBTASK-199,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Sub-task,BAT-558,100509,"[POST-SUBTASK-200] Operate empirically admitted OpenRouter assistive routes with independent usage, provenance, cleanup, and handoff evidence",100506,"Local ID: POST-SUBTASK-200
+
+Objective
+Operate empirically admitted OpenRouter assistive routes with independent usage, provenance, cleanup, and handoff evidence
+
+Why This Exists
+The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
+
+Scope
+Operate only task/model/provider routes that pass the paid pilot and remain inside the separately authorized OpenRouter envelope. Batch Beta stays separately gated.
+
+Explicit In Scope
+- Perform the exact action: Operate continuing governed OpenAI candidate assistance on dependency-ready real project work.
+- Use one governed controller, strict Structured Outputs, minimized cited evidence, content-addressed external storage, deterministic validation, and locally enforced cost admission.
+- Preserve abstentions, conflicts, schema failures, unsupported facts, partial batch failures, and negative empirical results.
+
+Explicit Out of Scope
+- Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
+- Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
+- Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
+- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+
+Prerequisites / Dependencies
+- Dependency POST-SUBTASK-160 complete at required maturity
+- POST-SUBTASK-199
+
+Acceptance Criteria
+1. Only empirically admitted task/model/provider routes receive continuing work; deterministic/local methods remain preferred when sufficient.
+2. Every request records task/Jira/base/source/prompt/schema/model/reasoning/provider/privacy/cost/output/disposition identities in external content-addressed storage.
+3. OpenRouter and direct OpenAI calls, spend, remaining budgets, models, providers, dispositions, Batch decisions, cleanup, blockers, and next workloads are reported separately at handoff.
+4. Provider failure, rejected admission, or partial task failure never globally blocks independent acquisition, modeling, or deterministic implementation.
+
+Definition of Done
+1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.
+2. Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.
+3. OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.
+4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
+5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
+6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+
+Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / SECURITY: tests/test_openai_assist.py — Credential redaction, store:false, candidate-only authority, strict schemas, budget hard stop, and isolation gates pass.
+- END_TO_END / END_TO_END: artifacts/jira_evidence/POST-SUBTASK-168.json — Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and Sol after deterministic source selection, validate every output without canonical/PIT authority, reconcile exact usage, and leave the continuing lane active for the next eligible workload.
+- REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Pin policy, prompt, schema, model, reasoning, source, request/response, cost, code, and runtime identities.
+
+Required Evidence
+- `artifacts/jira_evidence/POST-SUBTASK-168.json` with one evidence row per acceptance criterion and exact artifact hashes.
+- Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.
+- Cleanup record for remote files where practical and abandoned local temporary files, plus remaining review/quarantine items.
+- Exact commands, exit codes, relevant output, failed/negative cases, and downstream readiness changes.
+
+End-to-End Validation
+Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and Sol after deterministic source selection, validate every output without canonical/PIT authority, reconcile exact usage, and leave the continuing lane active for the next eligible workload.
+
+Stop Conditions
+- Stop only the affected API job on missing evidence, invalid schema, unsupported fact, credential exposure, budget rejection, provider failure, or inaccessible source; continue independent work.
+- Quarantine the affected result on contradiction, refusal, malformed output, provenance mismatch, PIT/target leakage, or identity risk.
+- Stop and preserve evidence rather than inventing facts, timestamps, metrics, identities, or maturity.
+
+Source References
+- SRCREF-02120
+
+Governance Traceability Gate: POST-SUBTASK-200
+
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-200_operate_empirically_admitted_openrouter_assistive_routes_with_independent_usage_provenance_c.json",To Do,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-200,operations-security,POST-SUBTASK-200,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION

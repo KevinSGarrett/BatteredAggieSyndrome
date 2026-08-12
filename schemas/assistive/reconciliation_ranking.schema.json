@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "candidate_ids": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "conflicts": {"type": "array", "items": {"type": "string"}},
+    "disposition": {"type": "string", "enum": ["REVIEW", "UNRESOLVED", "NOT_PRESENT", "CONFLICT"]}
+  },
+  "required": ["candidate_ids", "evidence", "conflicts", "disposition"]
+}

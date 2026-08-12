@@ -94,6 +94,12 @@ def main() -> int:
         for detail in validate_openai_assist(root):
             findings.append(type("F", (), {"kind":"openai_assist", "path":str(openai_assist_policy.relative_to(root)), "detail":detail})())
 
+    openrouter_assist_policy = root / "configs/openrouter_assist_policy.json"
+    if openrouter_assist_policy.exists():
+        from tools.validate_openrouter_assist import validate as validate_openrouter_assist
+        for detail in validate_openrouter_assist(root):
+            findings.append(type("F", (), {"kind":"openrouter_assist", "path":str(openrouter_assist_policy.relative_to(root)), "detail":detail})())
+
     # Lightweight governance integrity checks.
     req_path = root / "governance/REQUIREMENTS_INDEX.csv"
     trace_path = root / "governance/REQUIREMENTS_TRACEABILITY.csv"

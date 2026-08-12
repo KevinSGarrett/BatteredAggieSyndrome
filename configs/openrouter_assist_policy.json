@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "policy_id": "openrouter-assistive-development-plane-v1",
+  "governing_directive_sha256": "0a2087e4692977f14b96b0feb9cd7f01a96a50d4f085e92fc83eac192998ca89",
+  "governing_plan_sha256": "5cc491a90a5df11a066b88b665fe69c51b31bd8725185c2ed653b249b808f498",
+  "authority": {
+    "allowed": ["PATCH_CANDIDATE", "INDEPENDENT_REVIEW", "RECONCILIATION_RANKING", "SCHEMA_DRIFT_REVIEW", "VISUAL_LAYOUT_TRIAGE"],
+    "forbidden": ["CANONICAL_DATA", "PIT_STATE", "TRAINING_FEATURES", "LABELS", "PROTECTED_EVALUATION", "MODEL_PROMOTION", "FORECASTS", "BAS", "AGGIE_EXCESS", "PUBLICATION"]
+  },
+  "api": {
+    "max_transient_attempts": 3,
+    "strict_structured_outputs": true,
+    "batch_enabled": false,
+    "batch_disabled_reason": "BETA_ROUTE_REQUIRES_SEPARATE_PRIVACY_ZDR_RETENTION_SCHEMA_ACCOUNTING_AND_EMPIRICAL_GATE"
+  },
+  "provider_defaults": {
+    "require_parameters": true,
+    "data_collection": "deny",
+    "zdr": true,
+    "allow_fallbacks": false,
+    "cross_model_fallbacks": false
+  },
+  "budget": {
+    "currency": "USD",
+    "paid_calls_authorized": false,
+    "paid_hard_limit_usd": "0.00",
+    "released_stage_usd": "0.00",
+    "blocker": "PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED",
+    "direct_openai_budget_transfer_usd": "0.00",
+    "missing_provider_cost_disposition": "QUARANTINE"
+  },
+  "storage": {
+    "root": "C:\\BatteredAggieSyndrome.data\\assistive\\openrouter",
+    "subdirectories": ["requests", "responses", "manifests", "evals", "quarantine", "usage", "runtime", "tmp", "worker_packets", "worker_results"]
+  },
+  "credential": {
+    "authoritative_env": "C:\\BatteredAggieSyndrome\\.env",
+    "variable": "OPENROUTER_API_KEY",
+    "copy_to_worktree": false
+  },
+  "catalog": {
+    "candidate_model": "qwen/qwen3-coder-next",
+    "candidate_state": "CAPABILITY_CANDIDATE_NOT_PAID_NOT_ROUTE_APPROVED",
+    "candidate_allowed_reasoning_efforts": ["none"],
+    "observed_catalog_pricing_usd_per_token": {
+      "input": "0.00000011",
+      "output": "0.00000080"
+    },
+    "route_approval_requires": ["EXACT_MODEL_AVAILABLE", "STRICT_SCHEMA_SUPPORTED", "ZDR_ENDPOINT_ELIGIBLE", "COST_ACCOUNTING_AVAILABLE", "PAID_BUDGET_AUTHORIZED", "EMPIRICAL_PILOT_PASS"]
+  }
+}

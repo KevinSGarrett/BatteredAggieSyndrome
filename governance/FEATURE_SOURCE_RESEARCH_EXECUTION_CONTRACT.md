@@ -69,6 +69,12 @@ The machine-readable issue reuse and research-gate registry is `configs/feature_
 
 Newer evidence than the proposal inspection includes the immutable 2024–2025 exposure ledger, pending forecast-first 2026+ protected population, deterministic retraining-admission controller, preliminary margin-aware Elo improvement and negative offseason-regression result, mandatory A&M no-adjustment reference, verified dirty-root recovery, approximately 505-unit canonical/live Jira graph, and active 2010–2025 NCAA discovery. These exact artifacts are reused and are not duplicated.
 
+## Executed possession, pace, and workload checkpoint
+
+The first bounded candidate materialization is identity `a719b03d2c91142802adb194c875677e07e29ab85bd6bf1f138749fb971cb213`. It binds and verifies the exact source manifests as well as using only exact canonical-game and verified-team play/drive evidence from 2010-2022 that was historically known before the 2023-2025 target cutoffs. It materializes offensive drives/game, offensive plays/game, observed plays/drive, regulation first-to-last-recorded-play span summaries, explicit clock-span eligibility, source endpoint-order diagnostics, overtime rate, cold starts, and the 2023 clock-rule-era transfer mismatch.
+
+The terms are deliberately narrow. Recorded-play clock span is neither true possession time nor full drive duration, and the sources do not support seconds per snap. Those unsupported metrics remain absent. The candidate has no protected-training, protected-evaluation, champion, or publication authority and requires a later chronological common-support model comparison before empirical adoption.
+
 ## Completion boundary
 
 Applicable units must pass repository, provenance, Jira second-pass, secret, unit/property, integration, chronological/PIT, mutation, and full-suite checks with commands, exit codes, hashes, and exceptions recorded. This contract establishes no final historical completeness, production model, champion, protected performance, A&M lift, BAS, Aggie Excess, or other scientific result.

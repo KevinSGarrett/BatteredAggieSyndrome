@@ -53,7 +53,7 @@
   "current_evidence": {
     "historical_coverage_matrix_identity": "9beb7bc091fb90c82febfb7f256d58d0dfc7cbfe90869c2face9dc2a539f807f",
     "historical_coverage_matrix_sha256": "f0e8e8c3a8c8911d823fc0cd20f1274bec271e4d600b6b9386a6d7b3c9f29d4a",
-    "retraining_decision_identity": "127bdad2e639e3885889bd8699271901adc0cdb51a4324a1efa03e0702cc1840",
+    "retraining_decision_identity": "65bce7739f4f8229b53f9e2ad3beb9fd551813bbdd211802b2c01e3d066c0264",
     "retraining_action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
     "evaluation_exposure_ledger_identity": "189e5726635a6166e94c26261e96ec5e8af312de047437e8e57500e623980e0d",
     "elo_challenger_run_identity": "64b1896794943610ff34ca3d0e2b9c7c5b1fe152e575d84b0431a86b9ccbb6dd",
@@ -65,6 +65,10 @@
       "fitted_non_neutral_home_edge": "SMALL_POSITIVE_ALL_REPORT_SEASONS_EFFECTIVE_81_452767_ELO_POINTS",
       "logistic_probability_calibration": "MIXED_BRIER_SMALL_2024_REGRESSION_LOG_LOSS_IMPROVED_ALL_REPORT_SEASONS"
     },
+    "possession_pace_candidate_identity": "a719b03d2c91142802adb194c875677e07e29ab85bd6bf1f138749fb971cb213",
+    "possession_pace_candidate_manifest_sha256": "9e5a2d59c0728818a4c7db04ee9e89d25467af9f8d7a5ebac5e5534dbbe94900",
+    "possession_pace_candidate_validation_sha256": "e2b9e7c6d9916922bc5ef5f2cf1bc718cc5e2707a521ef23afe9f1d17ce6db21",
+    "possession_pace_candidate_disposition": "PASS_PRELIMINARY_CANDIDATE_ONLY_TRUE_POSSESSION_TIME_AND_SECONDS_PER_SNAP_UNSUPPORTED",
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED"
   },

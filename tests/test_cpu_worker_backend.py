@@ -132,6 +132,44 @@ class CpuWorkerBackendTests(unittest.TestCase):
                 WorkerRuntime(Path(temporary), KEY).execute(request)
             self.assertEqual([], list(Path(temporary).rglob("*.json")))
 
+    def test_startup_recovers_interrupted_leases_and_orphan_scratch(self) -> None:
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = WorkerRuntime(root, KEY)
+            interrupted_digest = "a" * 64
+            orphan_digest = "b" * 64
+            invalid_digest = "not-a-digest"
+            lease = root / "runtime" / "leases" / f"{interrupted_digest}.json"
+            lease.parent.mkdir(parents=True)
+            lease.write_text(json.dumps({"job_id": "c" * 64, "envelope_sha256": interrupted_digest}), encoding="utf-8")
+            interrupted_scratch = root / "runtime" / "scratch" / interrupted_digest
+            interrupted_scratch.mkdir(parents=True)
+            (interrupted_scratch / "partial.bin").write_bytes(b"partial")
+            orphan_scratch = root / "runtime" / "scratch" / orphan_digest
+            orphan_scratch.mkdir(parents=True)
+            (orphan_scratch / "partial.bin").write_bytes(b"orphan")
+            invalid_scratch = root / "runtime" / "scratch" / invalid_digest
+            invalid_scratch.mkdir(parents=True)
+            self.assertEqual(2, runtime.recover_interrupted_jobs())
+            self.assertFalse(lease.exists())
+            self.assertFalse(interrupted_scratch.exists())
+            self.assertFalse(orphan_scratch.exists())
+            self.assertTrue(invalid_scratch.exists())
+            recovery_events = list((root / "runtime" / "recovery").rglob("*.json"))
+            self.assertEqual(2, len(recovery_events))
+            event_names = {json.loads(path.read_text(encoding="utf-8"))["event"] for path in recovery_events}
+            self.assertEqual({"INTERRUPTED_JOB_RECOVERY", "ORPHAN_SCRATCH_RECOVERY"}, event_names)
+            self.assertEqual(0, runtime.recover_interrupted_jobs())
+
+    def test_replace_stops_existing_task_before_preserving_install_root(self) -> None:
+        installer = (Path(__file__).resolve().parents[1] / "tools" / "install_cpu_worker_service.ps1").read_text(
+            encoding="utf-8"
+        )
+        stop_position = installer.index("Stop-ScheduledTask -TaskName $taskName")
+        move_position = installer.index("Move-Item -LiteralPath $InstallRoot -Destination $recovery")
+        self.assertLess(stop_position, move_position)
+        self.assertIn("CPU_WORKER_EXISTING_TASK_STOP_TIMEOUT", installer)
+
     def test_deterministic_tasks(self) -> None:
         payload = {"lines": ["BAT-563", "worker", "candidate-only"]}
         self.assertEqual(execute_cpu_task("LINE_HASH_MANIFEST", payload), execute_cpu_task("LINE_HASH_MANIFEST", payload))

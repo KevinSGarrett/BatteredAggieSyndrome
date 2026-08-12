@@ -3118,6 +3118,7 @@ tests/test_openai_assist.py
 tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
+tests/test_preliminary_elo_challengers.py
 tests/test_preliminary_play_drive_augmented.py
 tests/test_preliminary_play_enrichment_replay.py
 tests/test_preliminary_rankings_augmented_contract.py

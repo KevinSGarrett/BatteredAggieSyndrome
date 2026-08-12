@@ -55,6 +55,16 @@
     "historical_coverage_matrix_sha256": "f0e8e8c3a8c8911d823fc0cd20f1274bec271e4d600b6b9386a6d7b3c9f29d4a",
     "retraining_decision_identity": "127bdad2e639e3885889bd8699271901adc0cdb51a4324a1efa03e0702cc1840",
     "retraining_action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+    "evaluation_exposure_ledger_identity": "189e5726635a6166e94c26261e96ec5e8af312de047437e8e57500e623980e0d",
+    "elo_challenger_run_identity": "64b1896794943610ff34ca3d0e2b9c7c5b1fe152e575d84b0431a86b9ccbb6dd",
+    "elo_challenger_manifest_sha256": "12b47f779238ab43299b4b88a4501f36b1dd0c70114ccd15fe687946db7f008f",
+    "elo_challenger_validation_sha256": "d9f5743735bf6321a10c0853dbec6f2399f68a27cef20d0bb88cffb6303bda39",
+    "elo_challenger_disposition": {
+      "leading_development_challenger": "ELO_BOUNDED_MARGIN_2_STABLE_DIRECTIONAL_IMPROVEMENT_NO_PROMOTION_AUTHORITY",
+      "inactivity_time_decay": "NEGATIVE_ALL_REPORT_SEASONS",
+      "fitted_non_neutral_home_edge": "SMALL_POSITIVE_ALL_REPORT_SEASONS_EFFECTIVE_81_452767_ELO_POINTS",
+      "logistic_probability_calibration": "MIXED_BRIER_SMALL_2024_REGRESSION_LOG_LOSS_IMPROVED_ALL_REPORT_SEASONS"
+    },
     "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
     "development_classification": "PRELIMINARY_UNPROTECTED"
   },

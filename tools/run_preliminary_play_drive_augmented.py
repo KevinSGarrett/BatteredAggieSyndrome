@@ -105,6 +105,47 @@ def metric_row(metrics: Sequence[Mapping[str, Any]], slice_id: str) -> Mapping[s
     return next(row for row in metrics if row["slice"] == slice_id)
 
 
+def empirical_direction_from_comparisons(
+    prior_comparison: Mapping[str, Mapping[str, Mapping[str, Any]]],
+    baseline_comparison: Mapping[str, Mapping[str, Mapping[str, Any]]],
+) -> tuple[str, str, str]:
+    if prior_comparison:
+        selected = prior_comparison
+        suffix = "_candidate_minus_prior"
+        reference = "PINNED_PRIOR_CANDIDATE"
+    else:
+        selected = baseline_comparison
+        suffix = "_candidate_minus_frozen"
+        reference = "UNCHANGED_FROZEN_BASELINE"
+    deltas = [
+        float(value)
+        for seasons in selected.values()
+        for season, item in seasons.items()
+        if season != "2023"
+        for key, value in item.items()
+        if key.endswith(suffix)
+    ]
+    if not deltas:
+        return "NOT_EVALUATED", "RESEARCH_ONLY_NO_PROMOTION", reference
+    has_improvement = any(value < 0.0 for value in deltas)
+    has_degradation = any(value > 0.0 for value in deltas)
+    if has_improvement and has_degradation:
+        return (
+            "MIXED_SEASON_OR_METRIC_DIRECTION",
+            "REJECT_UNSTABLE_MIXED_SEASON_EFFECT",
+            reference,
+        )
+    if has_degradation:
+        return (
+            "CONSISTENT_NONNEGATIVE",
+            "REJECT_CONSISTENT_DEGRADATION",
+            reference,
+        )
+    if has_improvement:
+        return "CONSISTENT_NONPOSITIVE", "RESEARCH_ONLY_NO_PROMOTION", reference
+    return "NO_INCREMENTAL_CHANGE", "PREFER_UNCHANGED_REFERENCE", reference
+
+
 def fit_models(
     rows: Sequence[dict[str, Any]], contract: Mapping[str, Any], helpers: Any
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
@@ -655,27 +696,14 @@ def main() -> int:
                         )
                     prior_comparison[family][str(season)] = item
 
-        prior_effect_deltas = [
-            float(value)
-            for seasons in prior_comparison.values()
-            for season, item in seasons.items()
-            if season != "2023"
-            for key, value in item.items()
-            if key.endswith("_candidate_minus_prior")
-        ]
-        has_improvement = any(value < 0.0 for value in prior_effect_deltas)
-        has_degradation = any(value > 0.0 for value in prior_effect_deltas)
-        if has_improvement and has_degradation:
-            empirical_direction = "MIXED_SEASON_OR_METRIC_DIRECTION"
-            admission_decision = "REJECT_UNSTABLE_MIXED_SEASON_EFFECT"
-        elif prior_effect_deltas:
-            empirical_direction = (
-                "CONSISTENT_NONPOSITIVE" if not has_degradation else "CONSISTENT_NONNEGATIVE"
-            )
-            admission_decision = "RESEARCH_ONLY_NO_PROMOTION"
-        else:
-            empirical_direction = "NOT_EVALUATED"
-            admission_decision = "RESEARCH_ONLY_NO_PROMOTION"
+        direction_helper = getattr(
+            helpers,
+            "empirical_direction_from_comparisons",
+            empirical_direction_from_comparisons,
+        )
+        empirical_direction, admission_decision, empirical_reference = direction_helper(
+            prior_comparison, comparison
+        )
 
         run_identity = helpers.stable_hash(
             {
@@ -744,6 +772,7 @@ def main() -> int:
                     "diagnostic_only_profile_fields", []
                 ),
                 "nested_prior_features": bool(nested_prior_contract.get("enabled")),
+                "empirical_reference": empirical_reference,
                 "empirical_direction": empirical_direction,
                 "decision": admission_decision,
             },

@@ -6,6 +6,13 @@
   "evidence_state": "PARTIAL",
   "workflow_state": "BLOCKED",
   "issue_disposition": "BLOCKED_REMOTE_SETUP_INDEPENDENT_IMPLEMENTATION_CONTINUES",
+  "protected_integration": {
+    "implementation_commit": "0ca3210577fc6af47c8a9fdfc9c57f5284d952f1",
+    "pull_request": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/pull/246",
+    "merged_main_commit": "3df7e57a1df2ec6c751728ca9e459a141494625a",
+    "merged_at_utc": "2026-08-12T18:48:20Z",
+    "all_required_hosted_checks": "PASS"
+  },
   "readiness_artifact": "artifacts/assistive/cpu_worker_readiness.json",
   "external_readiness_sha256": "1a79f3e3d2776ae05a4b9f144f075b168cb6b8aa0b4f131f7b4658f283f41947",
   "acceptance_evidence": [

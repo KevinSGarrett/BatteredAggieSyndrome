@@ -7,7 +7,6 @@ from hashlib import sha256
 import importlib
 import importlib.util
 import json
-import math
 from pathlib import Path
 import re
 import shutil
@@ -343,6 +342,16 @@ def main() -> int:
         raise ValueError("pinned baseline manifest drift")
     if sha256_file(profile_path) != profile_sha:
         raise ValueError("pinned profile feature drift")
+    profile_manifest_relative = contract.get("profile_manifest_relative_path")
+    profile_manifest_sha = authorized.get("profile_manifest_sha256")
+    if profile_manifest_relative or profile_manifest_sha:
+        if not profile_manifest_relative or not profile_manifest_sha:
+            raise ValueError("profile manifest path and hash must be configured together")
+        profile_manifest_path = data_root / str(profile_manifest_relative).format(
+            profile_feature_identity=profile_feature_id
+        )
+        if sha256_file(profile_manifest_path) != str(profile_manifest_sha):
+            raise ValueError("pinned profile manifest drift")
     baseline_manifest = json.loads(baseline_manifest_path.read_text(encoding="utf-8"))
     prior_manifest: dict[str, Any] | None = None
     prior_run = authorized.get("prior_run_identity", authorized.get("prior_play_drive_run_identity"))
@@ -361,6 +370,36 @@ def main() -> int:
         if sha256_file(prior_path) != expected_prior_sha:
             raise ValueError("pinned prior comparison manifest drift")
         prior_manifest = json.loads(prior_path.read_text(encoding="utf-8"))
+    nested_prior_contract = contract.get("nested_prior_features", {})
+    nested_prior_rows_by_game: dict[str, dict[str, Any]] = {}
+    nested_prior_payload_sha: str | None = None
+    if nested_prior_contract.get("enabled"):
+        if prior_manifest is None:
+            raise ValueError("nested prior features require a pinned prior manifest")
+        expected_prior_dataset = str(authorized["prior_dataset_identity"])
+        if str(prior_manifest["dataset_identity"]) != expected_prior_dataset:
+            raise ValueError("nested prior dataset identity drift")
+        payload_name = str(nested_prior_contract["payload_name"])
+        payload_info = next(
+            (row for row in prior_manifest["dataset_payloads"] if row["name"] == payload_name),
+            None,
+        )
+        if payload_info is None:
+            raise ValueError("nested prior feature payload is absent from prior manifest")
+        nested_prior_payload_sha = str(nested_prior_contract["payload_sha256"])
+        if nested_prior_payload_sha != str(authorized["prior_feature_payload_sha256"]):
+            raise ValueError("nested prior feature contract hash drift")
+        if nested_prior_payload_sha != str(payload_info["sha256"]):
+            raise ValueError("nested prior feature manifest hash drift")
+        nested_prior_path = data_root / prior_manifest["external_locations"]["training"] / payload_name
+        if sha256_file(nested_prior_path) != nested_prior_payload_sha:
+            raise ValueError("nested prior feature payload drift")
+        nested_prior_rows = pl.read_parquet(nested_prior_path).to_dicts()
+        nested_prior_rows_by_game = {
+            str(row["target_game_id"]): row for row in nested_prior_rows
+        }
+        if len(nested_prior_rows_by_game) != len(nested_prior_rows):
+            raise ValueError("nested prior feature target games are not unique")
     baseline_training_path = data_root / baseline_manifest["external_locations"]["training"] / "training_matrix.parquet"
     baseline_forecast_path = data_root / baseline_manifest["external_locations"]["forecast"] / "predictions.parquet"
     baseline_training = pl.read_parquet(baseline_training_path).filter(pl.col("season") >= 2023).sort(["start_utc", "target_game_id"])
@@ -382,6 +421,13 @@ def main() -> int:
     for target in targets:
         game_id = str(target["target_game_id"])
         feature = helpers.build_game_profile(target, profiles_by_game.get(game_id, []))
+        if nested_prior_contract.get("enabled"):
+            if not hasattr(helpers, "merge_prior_features"):
+                raise ValueError("profile module does not implement nested prior feature merge")
+            prior_feature = nested_prior_rows_by_game.get(game_id)
+            if prior_feature is None:
+                raise ValueError(f"nested prior feature missing target game {game_id}")
+            feature = helpers.merge_prior_features(feature, prior_feature)
         logistic_base = prediction_index[("regularized_logistic", game_id)]
         margin_base = prediction_index[("regularized_linear_margin", game_id)]
         feature.update(
@@ -396,11 +442,17 @@ def main() -> int:
         )
         feature["feature_row_identity"] = helpers.stable_hash(feature)
         features.append(feature)
-        rows.append({**feature, **target})
+        row = {**feature, **target}
+        row["classification"] = helpers.CLASSIFICATION
+        rows.append(row)
     if len(features) != 2763 or len({row["target_game_id"] for row in features}) != len(features):
         raise ValueError("approved target population changed")
     if sorted({int(row["season"]) for row in rows}) != [2023, 2024, 2025]:
         raise ValueError("approved target seasons changed")
+    if nested_prior_contract.get("enabled"):
+        target_games = {str(row["target_game_id"]) for row in rows}
+        if set(nested_prior_rows_by_game) != target_games:
+            raise ValueError("nested prior feature population differs from target population")
 
     outcome_columns = [
         "classification", "target_game_id", "season", "season_type", "week", "start_utc",
@@ -411,6 +463,8 @@ def main() -> int:
     split_columns = ["classification", "target_game_id", "season", "start_utc", "assignment"]
     outcome_targets = [{name: row.get(name) for name in outcome_columns} for row in targets]
     split_assignments = [{name: row.get(name) for name in split_columns} for row in targets]
+    for record in (*outcome_targets, *split_assignments):
+        record["classification"] = helpers.CLASSIFICATION
     feature_columns = [
         "classification", "target_game_id", "season", "start_utc", "cutoff_utc", "home_team_id",
         "away_team_id", "baseline_logistic_probability", "baseline_logit",
@@ -419,6 +473,7 @@ def main() -> int:
         "away_profile_cold_start", helpers.HOME_SOURCE_KNOWN_AT_FIELD,
         helpers.AWAY_SOURCE_KNOWN_AT_FIELD, helpers.SOURCE_KNOWN_AT_FIELD,
         helpers.LINEAGE_FIELD, "feature_row_identity", helpers.PROTECTED_FIELD,
+        *getattr(helpers, "DIAGNOSTIC_FIELDS", ()),
     ]
     feature_payload_rows = [{name: row.get(name) for name in feature_columns} for row in features]
 
@@ -452,8 +507,15 @@ def main() -> int:
             "baseline_forecast": baseline_manifest["forecast_identity"],
             "profile_feature": profile_feature_id,
         }
+        if profile_manifest_sha:
+            input_identities["profile_manifest"] = str(profile_manifest_sha)
         if prior_run:
             input_identities["prior_comparison_run"] = str(prior_run)
+        if nested_prior_payload_sha:
+            input_identities["nested_prior_dataset"] = str(
+                authorized["prior_dataset_identity"]
+            )
+            input_identities["nested_prior_feature_payload"] = nested_prior_payload_sha
         dataset_identity = helpers.stable_hash(
             {
                 "run_version": run_version,
@@ -593,6 +655,28 @@ def main() -> int:
                         )
                     prior_comparison[family][str(season)] = item
 
+        prior_effect_deltas = [
+            float(value)
+            for seasons in prior_comparison.values()
+            for season, item in seasons.items()
+            if season != "2023"
+            for key, value in item.items()
+            if key.endswith("_candidate_minus_prior")
+        ]
+        has_improvement = any(value < 0.0 for value in prior_effect_deltas)
+        has_degradation = any(value > 0.0 for value in prior_effect_deltas)
+        if has_improvement and has_degradation:
+            empirical_direction = "MIXED_SEASON_OR_METRIC_DIRECTION"
+            admission_decision = "REJECT_UNSTABLE_MIXED_SEASON_EFFECT"
+        elif prior_effect_deltas:
+            empirical_direction = (
+                "CONSISTENT_NONPOSITIVE" if not has_degradation else "CONSISTENT_NONNEGATIVE"
+            )
+            admission_decision = "RESEARCH_ONLY_NO_PROMOTION"
+        else:
+            empirical_direction = "NOT_EVALUATED"
+            admission_decision = "RESEARCH_ONLY_NO_PROMOTION"
+
         run_identity = helpers.stable_hash(
             {
                 "run_version": run_version,
@@ -638,6 +722,7 @@ def main() -> int:
                 "feature_count_logistic": len(helpers.LOGISTIC_FEATURES),
                 "feature_count_margin": len(helpers.MARGIN_FEATURES),
                 "profile_source_rows": len(profiles),
+                "nested_prior_feature_rows": len(nested_prior_rows_by_game),
                 "unused_profile_games": unused_profile_games,
                 "cold_start_games": sum(bool(row["home_profile_cold_start"] or row["away_profile_cold_start"]) for row in rows),
                 "missing_feature_cells": missingness,
@@ -651,12 +736,29 @@ def main() -> int:
                 "metrics": prior_comparison,
             },
             "diagnostics": diagnostics,
+            "feature_admission": {
+                "fitted_candidate_profile_fields": contract.get(
+                    "candidate_profile_fields", []
+                ),
+                "diagnostic_only_profile_fields": contract.get(
+                    "diagnostic_only_profile_fields", []
+                ),
+                "nested_prior_features": bool(nested_prior_contract.get("enabled")),
+                "empirical_direction": empirical_direction,
+                "decision": admission_decision,
+            },
             "leakage_validation": {
                 "target_game_outcome_in_profile_evidence": 0,
                 "source_known_at_after_target_cutoff": 0,
                 "target_or_future_season_outcomes_in_fit": 0,
                 "outcome_targets_materialized_separately": "PASS",
                 "same_target_rows_as_frozen_baseline": "PASS",
+                "same_target_rows_as_nested_prior": (
+                    "PASS" if nested_prior_contract.get("enabled") else "NOT_APPLICABLE"
+                ),
+                "nested_prior_team_cutoff_and_cold_start_alignment": (
+                    "PASS" if nested_prior_contract.get("enabled") else "NOT_APPLICABLE"
+                ),
                 "2023_no_fit_fallback_exact": "PASS",
                 "protected_split_opened": False,
             },

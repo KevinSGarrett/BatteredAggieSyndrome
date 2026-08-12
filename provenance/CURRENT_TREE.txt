@@ -251,6 +251,7 @@ configs/player_intelligence_registry.json
 configs/preliminary_dense_play_drive_replay_contract.json
 configs/preliminary_play_drive_augmented_contract.json
 configs/preliminary_play_enrichment_replay_contract.json
+configs/preliminary_possession_pace_ablation_contract.json
 configs/preliminary_possession_pace_contract.json
 configs/preliminary_rankings_augmented_contract.json
 configs/preliminary_unprotected_baseline_contract.json
@@ -2980,6 +2981,7 @@ src/aggie_analytics/modeling/forecast.py
 src/aggie_analytics/modeling/joint.py
 src/aggie_analytics/modeling/play_drive_augmented.py
 src/aggie_analytics/modeling/play_enrichment_augmented.py
+src/aggie_analytics/modeling/possession_pace_augmented.py
 src/aggie_analytics/modeling/preliminary.py
 src/aggie_analytics/modeling/preliminary_rankings.py
 src/aggie_analytics/modeling/registry.py
@@ -3124,6 +3126,7 @@ tests/test_preliminary_elo_challengers.py
 tests/test_preliminary_play_drive_augmented.py
 tests/test_preliminary_play_enrichment_replay.py
 tests/test_preliminary_possession_pace.py
+tests/test_preliminary_possession_pace_ablation.py
 tests/test_preliminary_rankings_augmented_contract.py
 tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py

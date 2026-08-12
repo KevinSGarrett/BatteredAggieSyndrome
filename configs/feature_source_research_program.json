@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "program_id": "FEATURE_SOURCE_RESEARCH_EXPANSION_2026_08_11",
+  "classification": "GOVERNED_EXECUTION_PROGRAM_NO_SCIENTIFIC_RESULT",
+  "governance_contract": "governance/FEATURE_SOURCE_RESEARCH_EXECUTION_CONTRACT.md",
+  "proposal_documents": [
+    {
+      "name": "pasted-text.txt",
+      "sha256": "0E1DA653FA2849CFD27A9F3A7103C9FEB535252F8E95870C8C58486234AD0EAC",
+      "bytes": 51261,
+      "expected_lines": 982,
+      "observed_logical_lines": 980,
+      "identity_disposition": "HASH_AND_BYTES_MATCH_LINE_COUNT_DISCREPANCY_RECORDED"
+    },
+    {
+      "name": "AGGIE_ANALYTICS_FEATURE_AND_SOURCE_EXECUTION_MANUAL.md",
+      "sha256": "422127E631E48D152979BE9C1CDBBBB5CE71203C65ADA034A09F329798BFEE8F",
+      "bytes": 49955,
+      "observed_logical_lines": 1171,
+      "identity_disposition": "MATCH"
+    }
+  ],
+  "lanes": [
+    "HISTORICAL_EVIDENCE_BACKBONE",
+    "CANDIDATE_FEATURE_ENGINEERING",
+    "DEPENDENCY_GATED_RESEARCH"
+  ],
+  "historical_target_seasons": {
+    "preferred_start": 2010,
+    "through": 2025,
+    "extend_earlier_when_quality_supported": true,
+    "independent_domain_eligibility": true
+  },
+  "research_gates": {
+    "MAPIE": "CALIBRATED_CHRONOLOGICAL_BASELINES_REQUIRED",
+    "OPTUNA": "STABLE_DETERMINISTIC_PIPELINE_AND_SIMPLE_BASELINES_REQUIRED",
+    "SHAP": "EMPIRICALLY_COMPETITIVE_TREE_CHALLENGER_REQUIRED",
+    "PYMC_ARVIZ": "DETERMINISTIC_RESIDUAL_AND_SIMPLER_SHRINKAGE_STABILITY_REQUIRED"
+  },
+  "jira_reuse": {
+    "historical_spine": ["POST-STORY-009", "POST-SUBTASK-025", "POST-SUBTASK-026", "POST-SUBTASK-027", "POST-SUBTASK-197"],
+    "contextual_sources": ["POST-STORY-010", "POST-SUBTASK-028"],
+    "feature_engineering": ["POST-STORY-019", "POST-SUBTASK-055", "POST-SUBTASK-056", "POST-SUBTASK-057"],
+    "player_availability": ["EPIC-009", "POST-STORY-021", "TASK-049", "TASK-050", "TASK-051", "TASK-052"],
+    "returning_production_continuity": ["POST-STORY-022", "POST-SUBTASK-064", "POST-SUBTASK-065", "POST-SUBTASK-066"],
+    "weather_context": ["POST-STORY-023", "POST-SUBTASK-067", "TASK-065", "TASK-192"],
+    "possession_tempo": ["EPIC-013", "TASK-071"],
+    "opponent_adjustment_schedule_stress": ["EPIC-014", "TASK-077", "TASK-079"],
+    "sustainability_collapse": ["TASK-075", "TASK-107"],
+    "uncertainty": ["EPIC-022", "TASK-122", "TASK-126", "TASK-127"],
+    "baseline_modeling": ["POST-EPIC-008"]
+  },
+  "current_evidence": {
+    "historical_coverage_matrix_identity": "9beb7bc091fb90c82febfb7f256d58d0dfc7cbfe90869c2face9dc2a539f807f",
+    "historical_coverage_matrix_sha256": "f0e8e8c3a8c8911d823fc0cd20f1274bec271e4d600b6b9386a6d7b3c9f29d4a",
+    "retraining_decision_identity": "127bdad2e639e3885889bd8699271901adc0cdb51a4324a1efa03e0702cc1840",
+    "retraining_action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+    "protected_population": "FORECAST_FIRST_2026_PLUS_PENDING_PREFLIGHT_AND_OUTCOMES",
+    "development_classification": "PRELIMINARY_UNPROTECTED"
+  },
+  "storage_root": "C:\\BatteredAggieSyndrome.data",
+  "complexity_must_earn_adoption": true,
+  "new_issue_requires_proved_nonduplicate_scope": true,
+  "production_claim_authority": false
+}

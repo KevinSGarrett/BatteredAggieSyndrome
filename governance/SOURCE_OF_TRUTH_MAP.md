@@ -112,3 +112,7 @@ Texas A&M uses the same W07 canonical team/player/coach/game identities and W08 
 
 ## W25 terminal handoff
 The final cumulative W25 repository is the canonical end-of-program state. `docs/final/CODEX_HANDOFF.md`, `FINAL_COMPONENT_MATURITY.csv`, `FINAL_KNOWN_GAPS.*`, and `FINAL_IMPLEMENTATION_PRIORITY.md` govern post-wave implementation. No Wave 26 artifact may supersede this program state.
+
+## Post-W25 feature/source/research execution
+
+`governance/FEATURE_SOURCE_RESEARCH_EXECUTION_CONTRACT.md` and `configs/feature_source_research_program.json` govern the current post-W25 feature, source, and dependency-gated research expansion. They implement newer explicit user direction without creating a Wave 26 or rewriting W25 evidence. Current verified immutable evidence outranks proposal-time observations; W17 protected judging, W08 PIT rules, canonical identity, empirical adoption, and the exposure-aware 2024-2025 development boundary remain controlling.

@@ -105,8 +105,9 @@ if ($PSCmdlet.ShouldProcess($InstallRoot, 'Install corrected least-privilege pri
     $principal = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\LOCAL SERVICE' -LogonType ServiceAccount -RunLevel Limited
     Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Principal $principal -Force | Out-Null
     Start-ScheduledTask -TaskName $taskName
-    & tailscale funnel 443 off | Out-Null
-    & tailscale serve --bg --https=443 "http://127.0.0.1:$Port" | Out-Null
+    & tailscale funnel reset | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'CPU_WORKER_TAILSCALE_FUNNEL_RESET_FAILED' }
+    & tailscale serve --bg --yes --https=443 "http://127.0.0.1:$Port" | Out-Null
     if ($LASTEXITCODE -ne 0) { throw 'CPU_WORKER_TAILSCALE_SERVE_CONFIGURATION_FAILED' }
 }
 

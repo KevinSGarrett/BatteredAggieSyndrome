@@ -84,15 +84,44 @@ def paid_budget_admitted(policy: dict[str, Any], provider: str) -> bool:
 
 def route_readiness_for(item: dict[str, Any], readiness: dict[str, Any]) -> dict[str, Any] | None:
     provider = item.get("provider")
+    if provider == "local_qwen":
+        expected_keys = (
+            "model_digest",
+            "prompt_version",
+            "schema_version",
+            "schema_sha256",
+            "policy_version",
+            "execution_surface",
+        )
+        missing = [key for key in expected_keys if not item.get(key)]
+        if missing:
+            raise RuntimeError(
+                "ROUTE_IDENTITY_INCOMPLETE:"
+                f"{item.get('work_unit_id') or item.get('local_id') or 'UNKNOWN'}:"
+                + ",".join(missing)
+            )
     model = item.get("model")
     task_format = item.get("task_format")
-    matches = [
-        route
-        for route in readiness["routes"]
-        if route["resolved_model"] == model
-        and route["task_format"] == task_format
-        and provider in {route["provider"], "local_qwen"}
-    ]
+    matches = []
+    for route in readiness["routes"]:
+        if route["resolved_model"] != model or route["task_format"] != task_format:
+            continue
+        if provider not in {route["provider"], "local_qwen"}:
+            continue
+        if provider == "local_qwen":
+            if any(
+                item.get(key) != route.get(key)
+                for key in (
+                    "model_digest",
+                    "prompt_version",
+                    "schema_version",
+                    "schema_sha256",
+                    "policy_version",
+                    "execution_surface",
+                )
+            ):
+                continue
+        matches.append(route)
     if len(matches) > 1:
         raise RuntimeError(f"ROUTE_READINESS_NOT_UNIQUE:{model}:{task_format}")
     return matches[0] if matches else None
@@ -107,6 +136,13 @@ def derive_decision(
         return RoutingDisposition.COMPLETED, None, None, item["reason"]
     provider = item.get("provider")
     route = route_readiness_for(item, readiness)
+    if provider == "local_qwen" and route is None:
+        return (
+            RoutingDisposition.CAPABILITY_BLOCKED,
+            provider,
+            item.get("model"),
+            "EXACT_ROUTE_READINESS_NOT_ESTABLISHED",
+        )
     if route is not None and route["state"] != "READY":
         return (
             RoutingDisposition.SUSPENDED_REJECTED_ROUTE

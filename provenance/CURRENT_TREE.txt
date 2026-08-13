@@ -3297,6 +3297,7 @@ tests/test_unified_assistive_plane.py
 tests/test_unified_controller_service.py
 tests/test_unified_controller_state.py
 tests/test_unified_enforcement_adoption.py
+tests/test_unified_inventory_materializer.py
 tests/test_unified_inventory_scheduler.py
 tests/test_unified_live_service.py
 tests/test_validation_science_governance.py

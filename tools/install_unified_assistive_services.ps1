@@ -153,11 +153,15 @@ if ($installController -or $installWatchdog) {
         $dataRoot = Split-Path -Parent $assistiveRoot
         $inventoryRoot = Join-Path $assistiveRoot 'inventory'
         $cpuWorkerRoot = Join-Path $assistiveRoot 'cpu_worker'
+        $providerWorkRoot = Join-Path $assistiveRoot 'provider_work'
+        $openaiRoot = Join-Path $dataRoot 'openai'
+        $authoritativeEnvPath = 'C:\BatteredAggieSyndrome\.env'
         $signingKeyPath = Join-Path $cpuWorkerRoot 'controller\secrets\worker-v2.bin'
         $readContainers = @(
             (Split-Path -Parent $python),
             $release,
-            (Join-Path $dataRoot 'manifests')
+            (Join-Path $dataRoot 'manifests'),
+            $providerWorkRoot
         )
         $writeContainers = @(
             (Join-Path $RuntimeRoot 'state'),
@@ -167,7 +171,8 @@ if ($installController -or $installWatchdog) {
             (Join-Path $RuntimeRoot 'packets'),
             (Join-Path $inventoryRoot 'current'),
             (Join-Path $inventoryRoot 'runtime'),
-            (Join-Path $cpuWorkerRoot 'results')
+            (Join-Path $cpuWorkerRoot 'results'),
+            $openaiRoot
         )
         foreach ($path in $readContainers + $writeContainers) {
             if (-not (Test-Path -LiteralPath $path -PathType Container)) {
@@ -176,6 +181,9 @@ if ($installController -or $installWatchdog) {
         }
         if (-not (Test-Path -LiteralPath $signingKeyPath -PathType Leaf)) {
             throw 'CONTROLLER_LOCAL_SERVICE_SIGNING_KEY_MISSING'
+        }
+        if (-not (Test-Path -LiteralPath $authoritativeEnvPath -PathType Leaf)) {
+            throw 'CONTROLLER_LOCAL_SERVICE_AUTHORITATIVE_ENV_MISSING'
         }
         foreach ($path in $readContainers) {
             & icacls.exe $path /grant '*S-1-5-19:(OI)(CI)RX' | Out-Null
@@ -187,6 +195,8 @@ if ($installController -or $installWatchdog) {
         }
         & icacls.exe $signingKeyPath /grant '*S-1-5-19:R' | Out-Null
         if ($LASTEXITCODE -ne 0) { throw 'CONTROLLER_LOCAL_SERVICE_KEY_ACL_FAILED' }
+        & icacls.exe $authoritativeEnvPath /grant '*S-1-5-19:R' | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw 'CONTROLLER_LOCAL_SERVICE_ENV_ACL_FAILED' }
     }
     foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
         if ($existingTasks[$name]) {

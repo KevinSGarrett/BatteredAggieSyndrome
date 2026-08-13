@@ -92,6 +92,22 @@ class UnifiedLiveServiceTests(unittest.TestCase):
         self.assertIn("SERVICE_TASK_PRINCIPAL_INVALID:BAS-UnifiedAssistiveController", report["findings"])
         self.assertIn("SERVICE_CONTROLLER_HEARTBEAT_STALE", report["findings"])
 
+    def test_inventory_cycles_without_dispatch_do_not_make_scheduler_operational(self) -> None:
+        state = ControllerState(self.runtime / "state/orchestrator.sqlite3")
+        state.record_cycle(
+            cycle_id="cycle-1",
+            inventory_sha256="c" * 64,
+            eligible_units=1,
+            dispatched_units=0,
+            no_change=False,
+            result="INCOMPLETE_IDLE_WITH_READY_WORK",
+            now=self.now,
+        )
+        report = evaluate_live_service(runtime_root=self.runtime, tasks=self.tasks(), now=self.now)
+        self.assertEqual(1, report["scheduler"]["real_cycles"])
+        self.assertEqual(0, report["scheduler"]["dispatched_units"])
+        self.assertFalse(report["scheduler"]["operational"])
+
     def test_completeness_derives_deployed_shell_without_scheduler_claim(self) -> None:
         capture = evaluate_live_service(runtime_root=self.runtime, tasks=self.tasks(), now=self.now)
         capture_path = Path(self.temporary.name) / "capture.json"

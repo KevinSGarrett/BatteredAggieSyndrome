@@ -17,7 +17,10 @@ DEFAULT_RUNTIME = Path(r"C:\BatteredAggieSyndrome.data\assistive\orchestrator-v3
 FILES = (
     "src/aggie_analytics/__init__.py",
     "src/aggie_analytics/assistive_plane/__init__.py",
+    "src/aggie_analytics/assistive_plane/contracts.py",
     "src/aggie_analytics/assistive_plane/controller_state.py",
+    "src/aggie_analytics/assistive_plane/orchestration.py",
+    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
     "src/aggie_analytics/assistive_plane/service_runtime.py",
     "src/aggie_analytics/assistive_plane/watchdog.py",
     "tools/run_unified_assistive_controller.py",

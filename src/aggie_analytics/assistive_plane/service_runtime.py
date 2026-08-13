@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .controller_state import ControllerState, LeaderLock, rfc3339
+from .scheduler_runtime import InventoryScheduler, SchedulerConfig
 from .watchdog import ReadOnlyWatchdog
 
 
@@ -62,18 +63,23 @@ class ControllerServiceConfig:
     heartbeat_seconds: float = 30.0
     queue_evaluation_seconds: float = 60.0
     lease_ttl_seconds: int = 120
+    inventory_current_path: Path | None = None
+    inventory_max_age_seconds: int = 300
+    scheduler_cycle_interval_seconds: int = 21600
 
     def validate(self) -> None:
         if self.heartbeat_seconds <= 0 or self.heartbeat_seconds >= self.lease_ttl_seconds:
             raise ValueError("CONTROLLER_HEARTBEAT_INTERVAL_INVALID")
         if self.queue_evaluation_seconds <= 0:
             raise ValueError("CONTROLLER_QUEUE_INTERVAL_INVALID")
+        if self.inventory_max_age_seconds <= 0 or self.scheduler_cycle_interval_seconds <= 0:
+            raise ValueError("CONTROLLER_SCHEDULER_INTERVAL_INVALID")
         if len(self.build_commit) != 40 or any(character not in "0123456789abcdef" for character in self.build_commit.lower()):
             raise ValueError("CONTROLLER_BUILD_COMMIT_INVALID")
 
 
 class ControllerService:
-    """Long-lived leader/heartbeat shell; dispatch is admitted by later scheduler units."""
+    """Long-lived leader with a fail-closed inventory scheduler and honest dispatch boundary."""
 
     def __init__(self, config: ControllerServiceConfig) -> None:
         config.validate()
@@ -81,9 +87,29 @@ class ControllerService:
         self.database = config.runtime_root / "state" / "orchestrator.sqlite3"
         self.state = ControllerState(self.database)
         self.store = ContentAddressedReportStore(config.runtime_root / "evidence")
+        inventory_path = config.inventory_current_path or (
+            config.runtime_root.parent / "inventory" / "current" / "inventory.json"
+        )
+        self.scheduler = InventoryScheduler(
+            self.state,
+            SchedulerConfig(
+                inventory_current_path=inventory_path,
+                evidence_root=config.runtime_root / "evidence",
+                inventory_max_age_seconds=config.inventory_max_age_seconds,
+                cycle_interval_seconds=config.scheduler_cycle_interval_seconds,
+            ),
+        )
 
-    def _heartbeat_payload(self, *, started_at: str, sequence: int, queue_evaluations: int) -> dict[str, Any]:
+    def _heartbeat_payload(
+        self,
+        *,
+        started_at: str,
+        sequence: int,
+        queue_evaluations: int,
+        last_scheduler_evaluation: dict[str, Any] | None,
+    ) -> dict[str, Any]:
         status = self.state.status()
+        scheduler = last_scheduler_evaluation or {}
         return {
             "schema_version": 1,
             "artifact_type": "UNIFIED_ASSISTIVE_CONTROLLER_HEARTBEAT",
@@ -95,8 +121,16 @@ class ControllerService:
             "build_commit": self.config.build_commit,
             "heartbeat_sequence": sequence,
             "queue_evaluation_observations": queue_evaluations,
-            "real_scheduler_cycles_recorded_by_service": 0,
-            "dispatch_engine_state": "NOT_IMPLEMENTED_IN_THIS_ATOMIC_UNIT",
+            "real_scheduler_cycles_recorded_by_service": status["scheduler_cycles"],
+            "scheduler_dispatched_units": status["scheduler_dispatched_units"],
+            "scheduler_active_idle_intervals": status["active_idle_intervals"],
+            "scheduler_last_result": scheduler.get("result", "NOT_YET_EVALUATED"),
+            "scheduler_inventory_sha256": scheduler.get("inventory_sha256"),
+            "scheduler_eligible_units": scheduler.get("eligible_units", 0),
+            "scheduler_provider_calls": scheduler.get("provider_calls", 0),
+            "dispatch_engine_state": scheduler.get(
+                "dispatch_engine_state", "INVENTORY_SCHEDULER_WAITING_FOR_FIRST_EVALUATION"
+            ),
             "operational_completion": "INCOMPLETE",
             "database": {
                 "journal_mode": status["journal_mode"],
@@ -112,6 +146,7 @@ class ControllerService:
         queue_evaluations = 0
         next_heartbeat = started_monotonic
         next_queue_observation = started_monotonic
+        last_scheduler_evaluation: dict[str, Any] | None = None
         completed_normally = False
         lock = LeaderLock(self.config.runtime_root / "runtime" / "controller.lock")
         self.state.initialize()
@@ -135,6 +170,7 @@ class ControllerService:
                     moment = time.monotonic()
                     if moment >= next_queue_observation:
                         queue_evaluations += 1
+                        last_scheduler_evaluation = self.scheduler.evaluate()
                         next_queue_observation = moment + self.config.queue_evaluation_seconds
                     if moment >= next_heartbeat:
                         self.state.heartbeat(
@@ -148,6 +184,7 @@ class ControllerService:
                                 started_at=started_at,
                                 sequence=heartbeat_sequence,
                                 queue_evaluations=queue_evaluations,
+                                last_scheduler_evaluation=last_scheduler_evaluation,
                             ),
                             current_name="controller-heartbeat.json",
                         )
@@ -173,7 +210,7 @@ class ControllerService:
             "shutdown": "GRACEFUL",
             "heartbeat_count": heartbeat_sequence,
             "queue_observation_count": queue_evaluations,
-            "real_scheduler_cycles": 0,
+            "real_scheduler_cycles": self.state.status()["scheduler_cycles"],
             "operational_completion": "INCOMPLETE",
         }
         self.store.write("controller-service-events", report, current_name="controller-service-last-exit.json")

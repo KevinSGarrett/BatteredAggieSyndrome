@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, Iterator
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 ALLOWED_STATES = {
     "DISCOVERED",
     "ELIGIBLE",
@@ -218,6 +218,19 @@ class ControllerState:
                     result TEXT NOT NULL,
                     evidence_sha256 TEXT
                 );
+                CREATE TABLE IF NOT EXISTS idle_intervals (
+                    idle_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    inventory_sha256 TEXT NOT NULL,
+                    provider TEXT NOT NULL,
+                    reason TEXT NOT NULL,
+                    opened_at TEXT NOT NULL,
+                    last_observed_at TEXT NOT NULL,
+                    resolved_at TEXT,
+                    evidence_sha256 TEXT
+                );
+                CREATE UNIQUE INDEX IF NOT EXISTS one_active_idle_interval_per_unit
+                    ON idle_intervals(work_unit_id) WHERE resolved_at IS NULL;
                 CREATE TABLE IF NOT EXISTS controller_events (
                     event_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     event_type TEXT NOT NULL,
@@ -399,17 +412,83 @@ class ControllerState:
             )
             return self.budget_snapshot(row["provider"], connection)
 
-    def record_cycle(self, *, cycle_id: str, inventory_sha256: str, eligible_units: int, dispatched_units: int, no_change: bool, result: str, evidence_sha256: str | None = None, now: datetime | None = None) -> None:
+    def record_cycle(self, *, cycle_id: str, inventory_sha256: str, eligible_units: int, dispatched_units: int, no_change: bool, result: str, evidence_sha256: str | None = None, now: datetime | None = None) -> bool:
         if len(inventory_sha256) != 64:
             raise ValueError("INVENTORY_IDENTITY_INVALID")
         if no_change and dispatched_units:
             raise ValueError("NO_CHANGE_CYCLE_DISPATCH_CONFLICT")
         stamp = rfc3339(now or utc_now())
         with self.transaction() as connection:
+            existing = connection.execute(
+                "SELECT inventory_sha256,eligible_units,dispatched_units,no_change,result,evidence_sha256 "
+                "FROM scheduler_cycles WHERE cycle_id=?",
+                (cycle_id,),
+            ).fetchone()
+            expected = (inventory_sha256, eligible_units, dispatched_units, int(no_change), result, evidence_sha256)
+            if existing is not None:
+                observed = tuple(existing)
+                if observed != expected:
+                    raise RuntimeError("SCHEDULER_CYCLE_IDEMPOTENCY_CONFLICT")
+                return False
             connection.execute(
                 "INSERT INTO scheduler_cycles(cycle_id,inventory_sha256,started_at,completed_at,eligible_units,dispatched_units,no_change,result,evidence_sha256) VALUES(?,?,?,?,?,?,?,?,?)",
                 (cycle_id, inventory_sha256, stamp, stamp, eligible_units, dispatched_units, int(no_change), result, evidence_sha256),
             )
+            return True
+
+    def record_idle_interval(
+        self,
+        *,
+        idle_id: str,
+        work_unit_id: str,
+        inventory_sha256: str,
+        provider: str,
+        reason: str,
+        evidence_sha256: str | None = None,
+        now: datetime | None = None,
+    ) -> bool:
+        if len(inventory_sha256) != 64:
+            raise ValueError("INVENTORY_IDENTITY_INVALID")
+        if evidence_sha256 is not None and len(evidence_sha256) != 64:
+            raise ValueError("IDLE_EVIDENCE_IDENTITY_INVALID")
+        stamp = rfc3339(now or utc_now())
+        with self.transaction() as connection:
+            active = connection.execute(
+                "SELECT * FROM idle_intervals WHERE work_unit_id=? AND resolved_at IS NULL",
+                (work_unit_id,),
+            ).fetchone()
+            if active is not None:
+                if active["provider"] != provider or active["reason"] != reason:
+                    connection.execute(
+                        "UPDATE idle_intervals SET resolved_at=?,last_observed_at=? WHERE idle_id=?",
+                        (stamp, stamp, active["idle_id"]),
+                    )
+                else:
+                    connection.execute(
+                        "UPDATE idle_intervals SET inventory_sha256=?,last_observed_at=?,evidence_sha256=? WHERE idle_id=?",
+                        (inventory_sha256, stamp, evidence_sha256, active["idle_id"]),
+                    )
+                    return False
+            connection.execute(
+                "INSERT INTO idle_intervals(idle_id,work_unit_id,inventory_sha256,provider,reason,opened_at,last_observed_at,evidence_sha256) "
+                "VALUES(?,?,?,?,?,?,?,?)",
+                (idle_id, work_unit_id, inventory_sha256, provider, reason, stamp, stamp, evidence_sha256),
+            )
+            return True
+
+    def resolve_idle_intervals(self, active_work_unit_ids: set[str], *, now: datetime | None = None) -> int:
+        stamp = rfc3339(now or utc_now())
+        with self.transaction() as connection:
+            rows = connection.execute(
+                "SELECT idle_id,work_unit_id FROM idle_intervals WHERE resolved_at IS NULL"
+            ).fetchall()
+            closing = [row["idle_id"] for row in rows if row["work_unit_id"] not in active_work_unit_ids]
+            for idle_id in closing:
+                connection.execute(
+                    "UPDATE idle_intervals SET resolved_at=?,last_observed_at=? WHERE idle_id=?",
+                    (stamp, stamp, idle_id),
+                )
+            return len(closing)
 
     def status(self) -> dict[str, Any]:
         connection = self.connect()
@@ -418,7 +497,16 @@ class ControllerState:
             mode = connection.execute("PRAGMA journal_mode").fetchone()[0]
             leader = connection.execute("SELECT * FROM leader_lease WHERE singleton=1").fetchone()
             counts = {row["current_state"]: row["count"] for row in connection.execute("SELECT current_state,COUNT(*) AS count FROM work_units GROUP BY current_state")}
-            cycles = connection.execute("SELECT COUNT(*) FROM scheduler_cycles").fetchone()[0]
+            cycle_summary = connection.execute(
+                "SELECT COUNT(*) AS cycles,COALESCE(SUM(dispatched_units),0) AS dispatched,"
+                "COALESCE(SUM(no_change),0) AS no_change FROM scheduler_cycles"
+            ).fetchone()
+            latest_cycle = connection.execute(
+                "SELECT * FROM scheduler_cycles ORDER BY completed_at DESC,cycle_id DESC LIMIT 1"
+            ).fetchone()
+            active_idle = connection.execute(
+                "SELECT COUNT(*) FROM idle_intervals WHERE resolved_at IS NULL"
+            ).fetchone()[0]
             return {
                 "schema_version": SCHEMA_VERSION,
                 "database": str(self.database),
@@ -426,7 +514,11 @@ class ControllerState:
                 "integrity_check": integrity,
                 "leader": dict(leader) if leader else None,
                 "work_unit_counts": counts,
-                "scheduler_cycles": cycles,
+                "scheduler_cycles": int(cycle_summary["cycles"]),
+                "scheduler_dispatched_units": int(cycle_summary["dispatched"]),
+                "scheduler_no_change_cycles": int(cycle_summary["no_change"]),
+                "scheduler_latest_cycle": dict(latest_cycle) if latest_cycle else None,
+                "active_idle_intervals": int(active_idle),
             }
         finally:
             connection.close()

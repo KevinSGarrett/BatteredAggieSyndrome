@@ -28,6 +28,7 @@ REQUIRED_FILES = [
     "src/aggie_analytics/assistive_plane/ollama_backend.py",
     "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
     "src/aggie_analytics/assistive_plane/controller_state.py",
+    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
     "src/aggie_analytics/assistive_plane/watchdog.py",
     "tools/refresh_cursor_catalog.py",
     "tools/refresh_local_assistive_runtime.py",
@@ -65,6 +66,8 @@ def main() -> int:
         findings.append("EFFORT_POINT_SET_INVALID")
     if policy["inventory"].get("required_coverage_fraction") != 1.0:
         findings.append("INVENTORY_COVERAGE_NOT_COMPLETE")
+    if policy["inventory"].get("current_pointer_promotion_requires_clean_current_main") is not True:
+        findings.append("INVENTORY_CURRENT_POINTER_PROMOTION_NOT_FAIL_CLOSED")
     package = policy.get("enforcement_package", {})
     if package.get("mandatory_acceptance_rows") != 204:
         findings.append("MANDATORY_ACCEPTANCE_ROW_COUNT_INVALID")
@@ -74,6 +77,11 @@ def main() -> int:
         findings.append("PARTIAL_PASS_NOT_EXPLICITLY_FORBIDDEN")
     if policy.get("controller", {}).get("journal_mode") != "WAL":
         findings.append("CONTROLLER_WAL_POLICY_MISSING")
+    controller = policy.get("controller", {})
+    if controller.get("scheduler_dispatch_required_for_operational_state") is not True:
+        findings.append("SCHEDULER_OPERATIONAL_CLAIM_CAN_IGNORE_DISPATCH")
+    if controller.get("no_change_cycle_provider_calls_required") != 0:
+        findings.append("NO_CHANGE_CYCLE_CAN_SPEND_PROVIDER_CALLS")
     if policy.get("watchdog", {}).get("read_only") is not True:
         findings.append("WATCHDOG_READ_ONLY_POLICY_MISSING")
     minimums = policy.get("execution_minimums", {})

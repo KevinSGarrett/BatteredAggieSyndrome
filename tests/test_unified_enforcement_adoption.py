@@ -56,6 +56,14 @@ class UnifiedEnforcementAdoptionTests(unittest.TestCase):
         self.assertEqual(25, minimums["soak_only_units"])
         self.assertEqual(100, minimums["soak_only_effort_points"])
 
+    def test_scheduler_admission_and_claim_boundaries_fail_closed(self) -> None:
+        inventory = self.policy["inventory"]
+        controller = self.policy["controller"]
+        self.assertTrue(inventory["current_pointer_promotion_requires_clean_current_main"])
+        self.assertTrue(controller["scheduler_dispatch_required_for_operational_state"])
+        self.assertTrue(controller["idle_with_ready_work_must_be_recorded"])
+        self.assertEqual(0, controller["no_change_cycle_provider_calls_required"])
+
 
 if __name__ == "__main__":
     unittest.main()

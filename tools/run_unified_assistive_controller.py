@@ -41,6 +41,9 @@ def main() -> int:
     parser.add_argument("--queue-evaluation-seconds", type=float, default=60.0)
     parser.add_argument("--lease-ttl-seconds", type=int, default=120)
     parser.add_argument("--maximum-runtime-seconds", type=float)
+    parser.add_argument("--inventory-current-path", type=Path)
+    parser.add_argument("--inventory-max-age-seconds", type=int, default=300)
+    parser.add_argument("--scheduler-cycle-interval-seconds", type=int, default=21600)
     parser.add_argument("--inventory-sha256")
     parser.add_argument("--cycle-id")
     parser.add_argument("--eligible-units", type=int, default=0)
@@ -65,6 +68,9 @@ def main() -> int:
                 heartbeat_seconds=args.heartbeat_seconds,
                 queue_evaluation_seconds=args.queue_evaluation_seconds,
                 lease_ttl_seconds=args.lease_ttl_seconds,
+                inventory_current_path=args.inventory_current_path,
+                inventory_max_age_seconds=args.inventory_max_age_seconds,
+                scheduler_cycle_interval_seconds=args.scheduler_cycle_interval_seconds,
             )
         )
         print(json.dumps(service.run(stop_event, maximum_runtime_seconds=args.maximum_runtime_seconds), sort_keys=True))

@@ -22,7 +22,7 @@ Codex retains final implementation, Git/GitHub, Jira, data, identity, PIT/leakag
 
 ## Inventory and routing
 
-One provider-neutral controller owns the canonical ready-work inventory. Every unit has a stable task/Jira identity, dependency and evidence contract, strict schema or deterministic destination, and immutable pre-routing effort in `1,2,3,5,8`. Every eligible unit has exactly one disposition. Splitting, padding, duplicate routing, and retrospective effort rewriting are invalid.
+One provider-neutral controller owns the canonical ready-work inventory. Every unit has a stable task/Jira identity, dependency and evidence contract, strict schema or deterministic destination, and immutable pre-routing effort in `1,2,3,5,8`. Every eligible unit has exactly one disposition. Splitting, padding, duplicate routing, and retrospective effort rewriting are invalid. Only a fresh snapshot generated from a clean worktree whose HEAD equals origin/main may become the scheduler's current pointer. Stale, dirty, non-main, coverage-incomplete, validation-mismatched, or authority-elevated inventory fails closed. Scheduler evaluation cycles, idle intervals, provider calls, and dispatch outcomes are counted separately; evaluation without dispatch cannot justify an operational claim.
 
 Readiness binds provider, resolved model and digest, task format, prompt version, schema version/hash, policy version, and execution surface. Missing or changed readiness fails closed. Empirical evidence outranks human-authored status. Provider credentials, model catalogs, budgets, runtime availability, and successful responses are not interchangeable with route qualification.
 

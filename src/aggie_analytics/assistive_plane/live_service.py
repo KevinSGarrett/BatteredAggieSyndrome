@@ -134,10 +134,18 @@ def evaluate_live_service(
         if state["journal_mode"] != "WAL" or state["integrity_check"] != "ok":
             findings.append("SERVICE_DATABASE_HEALTH_FAILED")
     except (OSError, ValueError) as exc:
-        state = {"scheduler_cycles": 0, "journal_mode": None, "integrity_check": None}
+        state = {
+            "scheduler_cycles": 0,
+            "scheduler_dispatched_units": 0,
+            "scheduler_no_change_cycles": 0,
+            "active_idle_intervals": 0,
+            "journal_mode": None,
+            "integrity_check": None,
+        }
         findings.append(f"SERVICE_DATABASE_INVALID:{exc}")
     deployed_healthy = not findings
     scheduler_cycles = int(state.get("scheduler_cycles", 0))
+    scheduler_dispatched = int(state.get("scheduler_dispatched_units", 0))
     dispatch_state = heartbeat.get("dispatch_engine_state")
     return {
         "schema_version": 1,
@@ -156,6 +164,10 @@ def evaluate_live_service(
             "build_commit": heartbeat.get("build_commit"),
             "dispatch_engine_state": dispatch_state,
             "queue_evaluation_observations": heartbeat.get("queue_evaluation_observations", 0),
+            "scheduler_last_result": heartbeat.get("scheduler_last_result"),
+            "scheduler_inventory_sha256": heartbeat.get("scheduler_inventory_sha256"),
+            "scheduler_eligible_units": heartbeat.get("scheduler_eligible_units", 0),
+            "scheduler_provider_calls": heartbeat.get("scheduler_provider_calls", 0),
         },
         "watchdog": {
             "report_sha256": sha256_file(watchdog_path) if watchdog_path.is_file() else None,
@@ -171,8 +183,11 @@ def evaluate_live_service(
         },
         "scheduler": {
             "recorded_cycles": scheduler_cycles,
-            "real_cycles": 0,
-            "operational": scheduler_cycles > 0 and dispatch_state not in {None, "NOT_IMPLEMENTED_IN_THIS_ATOMIC_UNIT"},
+            "real_cycles": scheduler_cycles,
+            "dispatched_units": scheduler_dispatched,
+            "no_change_cycles": int(state.get("scheduler_no_change_cycles", 0)),
+            "active_idle_intervals": int(state.get("active_idle_intervals", 0)),
+            "operational": scheduler_cycles > 0 and scheduler_dispatched > 0,
         },
         "cold_boot_without_user_logon": "NOT_PROVEN",
         "credential_values_captured": False,

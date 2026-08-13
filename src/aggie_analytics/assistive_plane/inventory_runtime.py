@@ -8,6 +8,7 @@ import tempfile
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
@@ -79,6 +80,46 @@ BGE_SCHEMA_VERSION = "1"
 BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c"
 READY_WORK_UNIT_FIELDS = frozenset(ReadyWorkUnit.__dataclass_fields__)
 ROUTE_DECISION_FIELDS = frozenset(RouteDecision.__dataclass_fields__)
+
+
+class _BoundedVisibleTextParser(HTMLParser):
+    """Extract a deterministic, bounded evidence excerpt without external parsers."""
+
+    def __init__(self, max_chars: int) -> None:
+        super().__init__(convert_charrefs=True)
+        self.max_chars = max_chars
+        self.parts: list[str] = []
+        self.characters = 0
+        self.suppressed_depth = 0
+
+    def handle_starttag(self, tag: str, _attrs: list[tuple[str, str | None]]) -> None:
+        if tag in {"script", "style", "template", "noscript"}:
+            self.suppressed_depth += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in {"script", "style", "template", "noscript"} and self.suppressed_depth:
+            self.suppressed_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if self.suppressed_depth or self.characters >= self.max_chars:
+            return
+        value = " ".join(data.split())
+        if not value:
+            return
+        remaining = self.max_chars - self.characters
+        value = value[:remaining]
+        self.parts.append(value)
+        self.characters += len(value) + 1
+
+    def text(self) -> str:
+        return "\n".join(self.parts)[: self.max_chars]
+
+
+def _bounded_html_text(raw: bytes, max_chars: int = 10000) -> str:
+    parser = _BoundedVisibleTextParser(max_chars)
+    parser.feed(raw.decode("utf-8", errors="replace"))
+    parser.close()
+    return parser.text()
 
 
 def _dynamic_work_unit_id(packet: dict[str, Any], packet_sha256: str) -> str | None:
@@ -259,6 +300,7 @@ class RuntimeInventoryConfig:
     semantic_policy_path: Path | None = None
     semantic_readiness_path: Path | None = None
     openrouter_task_registry_path: Path | None = None
+    openai_task_registry_path: Path | None = None
     external_assistive_root: Path | None = None
     continuous_source_root: Path | None = None
     project_root: Path | None = None
@@ -301,6 +343,11 @@ class RuntimeInventoryConfig:
             and not self.openrouter_task_registry_path.is_absolute()
         ):
             raise ValueError("RUNTIME_INVENTORY_OPENROUTER_TASK_REGISTRY_NOT_ABSOLUTE")
+        if (
+            self.openai_task_registry_path is not None
+            and not self.openai_task_registry_path.is_absolute()
+        ):
+            raise ValueError("RUNTIME_INVENTORY_OPENAI_TASK_REGISTRY_NOT_ABSOLUTE")
 
 
 class RuntimeInventoryRefresher:
@@ -312,6 +359,7 @@ class RuntimeInventoryRefresher:
         self.config = config
         self._semantic_module: Any | None = None
         self._openrouter_task_registry: dict[str, Any] | None = None
+        self._openai_task_registry: dict[str, Any] | None = None
         self._provider_packet_findings: list[dict[str, str]] = []
 
     def _openrouter_jira_identity(self, task_id: str) -> str:
@@ -331,6 +379,20 @@ class RuntimeInventoryRefresher:
         if not isinstance(jira_unit, str) or not jira_unit:
             raise ValueError("RUNTIME_INVENTORY_OPENROUTER_TASK_JIRA_IDENTITY_INVALID")
         return jira_unit
+
+    def _openai_task_definition(self, task_id: str) -> dict[str, Any]:
+        if self._openai_task_registry is None:
+            path = self.config.openai_task_registry_path
+            if path is None or not path.is_file():
+                raise RuntimeError("RUNTIME_INVENTORY_OPENAI_TASK_REGISTRY_MISSING")
+            registry = _verified_json(path)
+            if registry.get("schema_version") != 2 or not isinstance(registry.get("tasks"), dict):
+                raise ValueError("RUNTIME_INVENTORY_OPENAI_TASK_REGISTRY_INVALID")
+            self._openai_task_registry = registry
+        task = self._openai_task_registry["tasks"].get(task_id)
+        if not isinstance(task, dict):
+            raise ValueError("RUNTIME_INVENTORY_OPENAI_TASK_NOT_REGISTERED")
+        return task
 
     def _load_semantic_module(self) -> Any:
         if self._semantic_module is not None:
@@ -1220,7 +1282,7 @@ class RuntimeInventoryRefresher:
                 data = canonical_json_bytes(packet) + b"\n"
                 digest = hashlib.sha256(data).hexdigest()
                 work_unit_id = "AUTO-OR-" + digest[:20]
-                if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+                if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
                     continue
                 destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
                 if destination.exists() and destination.read_bytes() != data:
@@ -1314,7 +1376,7 @@ class RuntimeInventoryRefresher:
             data = canonical_json_bytes(packet) + b"\n"
             digest = hashlib.sha256(data).hexdigest()
             work_unit_id = "AUTO-CURSOR-" + digest[:20]
-            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
                 continue
             destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
             if destination.exists() and destination.read_bytes() != data:
@@ -1388,7 +1450,7 @@ class RuntimeInventoryRefresher:
             data = canonical_json_bytes(packet) + b"\n"
             digest = hashlib.sha256(data).hexdigest()
             work_unit_id = "AUTO-CPU-MANIFEST-" + digest[:20]
-            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
                 continue
             destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
             if destination.exists() and destination.read_bytes() != data:
@@ -1422,11 +1484,38 @@ class RuntimeInventoryRefresher:
         ):
             return []
         source_root = data_root / "reconciliation" / "historical_expansion"
-        if not source_root.is_dir():
-            return []
-        sources, _ = _bounded_json_scan(source_root, limit=128)
         records: list[tuple[Path, str, str]] = []
-        for source in sources:
+        if source_root.is_dir():
+            sources, _ = _bounded_json_scan(source_root, limit=128)
+            for source in sources:
+                raw = source.read_bytes()
+                if not 0 < len(raw) <= MAX_DISCOVERED_MANIFEST_BYTES:
+                    continue
+                value = json.loads(raw)
+                if not isinstance(value, dict):
+                    continue
+                compact = json.dumps(
+                    {
+                        "artifact_type": value.get("artifact_type"),
+                        "decision_unit": value.get("decision_unit"),
+                        "classification": value.get("classification"),
+                        "negative_findings": value.get("negative_findings", []),
+                        "next_action": value.get("next_action"),
+                    },
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )[:3000]
+                records.append((source, hashlib.sha256(raw).hexdigest(), compact))
+        manifest_sources, _ = _bounded_top_level_json_scan(
+            self.config.manifests_root.resolve(strict=False),
+            limit=MAX_HISTORICAL_MANIFEST_SCAN_UNITS,
+            name_prefix="snap_",
+        )
+        manifest_sources = sorted(
+            (path for path in manifest_sources if path.name.startswith("snap_")),
+            key=lambda path: (-path.stat().st_mtime_ns, path.as_posix()),
+        )[:256]
+        for source in manifest_sources:
             raw = source.read_bytes()
             if not 0 < len(raw) <= MAX_DISCOVERED_MANIFEST_BYTES:
                 continue
@@ -1435,11 +1524,12 @@ class RuntimeInventoryRefresher:
                 continue
             compact = json.dumps(
                 {
-                    "artifact_type": value.get("artifact_type"),
-                    "decision_unit": value.get("decision_unit"),
-                    "classification": value.get("classification"),
-                    "negative_findings": value.get("negative_findings", []),
-                    "next_action": value.get("next_action"),
+                    "dataset": value.get("dataset"),
+                    "source_id": value.get("source_id"),
+                    "row_count": value.get("row_count"),
+                    "schema_fields": value.get("schema_fields", []),
+                    "route": value.get("metadata", {}).get("selected_route_id"),
+                    "retrieved_at": value.get("retrieved_at"),
                 },
                 sort_keys=True,
                 separators=(",", ":"),
@@ -1487,7 +1577,7 @@ class RuntimeInventoryRefresher:
             data = canonical_json_bytes(packet) + b"\n"
             digest = hashlib.sha256(data).hexdigest()
             work_unit_id = "AUTO-BGE-" + digest[:20]
-            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
                 continue
             destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
             if destination.exists() and destination.read_bytes() != data:
@@ -1523,14 +1613,14 @@ class RuntimeInventoryRefresher:
         ):
             return []
         source_root = data_root / "quarantine"
-        if not source_root.is_dir():
-            return []
         schema_relative = "schemas/openai/assistive_candidate.schema.json"
         schema = _verified_json(release_root / schema_relative)
         schema_sha256 = sha256_value(schema)
-        sources, _ = _bounded_json_scan(source_root, limit=512)
-        sources.sort(key=lambda path: (-path.stat().st_mtime_ns, path.as_posix()))
         created: list[dict[str, str]] = []
+        sources: list[Path] = []
+        if source_root.is_dir():
+            sources, _ = _bounded_json_scan(source_root, limit=512)
+            sources.sort(key=lambda path: (-path.stat().st_mtime_ns, path.as_posix()))
         for source in sources:
             relative = source.relative_to(source_root).as_posix()
             if "availability" in relative.lower():
@@ -1599,7 +1689,7 @@ class RuntimeInventoryRefresher:
             data = canonical_json_bytes(packet) + b"\n"
             digest = hashlib.sha256(data).hexdigest()
             work_unit_id = "AUTO-OAI-" + digest[:20]
-            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
                 continue
             destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
             if destination.exists() and destination.read_bytes() != data:
@@ -1611,6 +1701,148 @@ class RuntimeInventoryRefresher:
                     "provider": "openai_direct",
                     "source_relative_path": relative,
                     "source_sha256": source_capture_sha256,
+                    "packet_path": str(destination),
+                    "packet_sha256": digest,
+                }
+            )
+            if len(created) >= 2:
+                break
+        if len(created) >= 2:
+            return created
+
+        task_name = "gamebook_schema_mapping"
+        task_definition = self._openai_task_definition(task_name)
+        jira_unit = str(task_definition.get("jira_unit", ""))
+        allowed_models = task_definition.get("allowed_models", [])
+        model = "gpt-5.6-terra"
+        allocation = str(task_definition.get("allocation_by_model", {}).get(model, ""))
+        if not jira_unit or model not in allowed_models or not allocation:
+            raise ValueError("RUNTIME_INVENTORY_OPENAI_GAMEBOOK_TASK_BINDING_INVALID")
+        manifest_sources, _ = _bounded_top_level_json_scan(
+            self.config.manifests_root.resolve(strict=False),
+            limit=MAX_HISTORICAL_MANIFEST_SCAN_UNITS,
+            name_prefix="snap_",
+        )
+        gamebook_datasets = {
+            "ncaa_contest_box_score",
+            "ncaa_contest_drives",
+            "ncaa_contest_individual_stats",
+            "ncaa_contest_officials",
+            "ncaa_contest_play_by_play",
+            "ncaa_contest_team_stats",
+        }
+        candidates: list[tuple[int, int, Path, dict[str, Any]]] = []
+        for manifest_path in manifest_sources:
+            manifest = _verified_json(manifest_path)
+            dataset = manifest.get("dataset")
+            if dataset not in gamebook_datasets:
+                continue
+            fields = manifest.get("schema_fields", [])
+            field_count = len(fields) if isinstance(fields, list) else 999
+            candidates.append(
+                (0 if field_count == 0 else 1, field_count, manifest_path, manifest)
+            )
+        candidates.sort(
+            key=lambda item: (
+                item[0],
+                item[1],
+                -item[2].stat().st_mtime_ns,
+                item[2].as_posix(),
+            )
+        )
+        resolved_data_root = data_root.resolve(strict=True)
+        for _empty_rank, _field_count, manifest_path, manifest in candidates:
+            relative_raw = manifest.get("relative_path")
+            raw_sha256 = manifest.get("raw_sha256")
+            source_uri = manifest.get("source_uri")
+            if (
+                not isinstance(relative_raw, str)
+                or not relative_raw
+                or not self._valid_sha256(raw_sha256)
+                or not isinstance(source_uri, str)
+                or not source_uri
+            ):
+                continue
+            try:
+                raw_path = (resolved_data_root / relative_raw).resolve(strict=True)
+            except OSError:
+                continue
+            if resolved_data_root not in raw_path.parents or not raw_path.is_file():
+                continue
+            raw = raw_path.read_bytes()
+            if not 0 < len(raw) <= MAX_PROVIDER_WORK_BYTES:
+                continue
+            if hashlib.sha256(raw).hexdigest() != raw_sha256:
+                continue
+            excerpt = _bounded_html_text(raw)
+            if len(excerpt) < 100:
+                continue
+            excerpt_sha256 = hashlib.sha256(excerpt.encode("utf-8")).hexdigest()
+            manifest_sha256 = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+            dataset = str(manifest["dataset"])
+            prompt = (
+                "Map only the fields and sections explicitly present in this NCAA gamebook-equivalent "
+                "page excerpt. Do not invent plays, statistics, timestamps, identities, or completeness. "
+                f"Return task_id exactly {task_name}, source_capture_sha256 exactly {raw_sha256}, and "
+                "disposition REVIEW. Return scalar facts for page_dataset, observed_section_labels, "
+                "field_mapping_candidate, and deterministic_parser_gap. Every SUPPORTED fact must cite "
+                f"source_capture_sha256 {raw_sha256}, locator evidence:1, and excerpt_sha256 "
+                f"{excerpt_sha256}. Use UNKNOWN or NOT_PRESENT with null value and no evidence when absent. "
+                "This is candidate-only schema interpretation with no canonical, PIT, training, protected, "
+                "forecast, model-promotion, BAS, or publication authority."
+            )
+            packet = {
+                "schema_version": 1,
+                "provider": "openai_direct",
+                "task_format": "governed_openai_candidate_v1",
+                "jira_unit": jira_unit,
+                "schema_sha256": schema_sha256,
+                "source_hashes": [raw_sha256, excerpt_sha256, manifest_sha256],
+                "dependencies": [],
+                "pre_routing_effort_points": 5,
+                "scope": (
+                    "Candidate-only NCAA gamebook-equivalent schema mapping for "
+                    f"{dataset} capture {raw_sha256[:12]}"
+                ),
+                "job": {
+                    "task_name": task_name,
+                    "jira_unit": jira_unit,
+                    "source_url": source_uri,
+                    "source_capture_sha256": raw_sha256,
+                    "source_excerpt": excerpt,
+                    "prompt": prompt,
+                    "prompt_version": "continuous-gamebook-schema-mapping-v1",
+                    "schema_path": schema_relative,
+                    "schema_version": "1",
+                    "model": model,
+                    "reasoning_effort": "medium",
+                    "allocation": allocation,
+                    "destination": "REVIEW",
+                    "max_output_tokens": 1600,
+                    "priority": "HIGH",
+                    "release_reason": None,
+                    "admission_review_id": None,
+                    "source_image_path": None,
+                    "source_image_mime_type": None,
+                    "source_image_detail": None,
+                },
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            data = canonical_json_bytes(packet) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            work_unit_id = "AUTO-OAI-" + digest[:20]
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
+                continue
+            destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+            if destination.exists() and destination.read_bytes() != data:
+                raise RuntimeError("CONTINUOUS_OPENAI_GAMEBOOK_PACKET_COLLISION")
+            if not destination.exists():
+                _atomic_write(destination, data)
+            created.append(
+                {
+                    "provider": "openai_direct",
+                    "source_relative_path": relative_raw,
+                    "source_sha256": str(raw_sha256),
                     "packet_path": str(destination),
                     "packet_sha256": digest,
                 }

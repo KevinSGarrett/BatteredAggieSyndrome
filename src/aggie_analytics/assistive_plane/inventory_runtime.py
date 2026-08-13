@@ -49,6 +49,7 @@ CPU_LINE_HASH_TASK_FORMAT = "cpu_worker_line_hash_manifest_v1"
 CPU_LINE_HASH_SCHEMA_SHA256 = hashlib.sha256(
     b"cpu_worker_line_hash_manifest_v1:lines:utf8-list;candidate-only;exact-local-replay"
 ).hexdigest()
+CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION = "historical-manifest-provenance-index-v1"
 CPU_TEXT_DEDUP_TASK_FORMAT = "cpu_worker_exact_text_dedup_v1"
 CPU_TEXT_DEDUP_SCHEMA_SHA256 = hashlib.sha256(
     b"cpu_worker_exact_text_dedup_v1:records:id-text;nfkc-whitespace-casefold;candidate-only"
@@ -1660,6 +1661,7 @@ class RuntimeInventoryRefresher:
                 f"covering {len(batch_lines)} immutable captures and {batch_bytes} source bytes."
             ),
             "downstream_consumer": "HISTORICAL_MANIFEST_PROVENANCE_AND_REPLAY_VALIDATION",
+            "downstream_consumer_contract_version": CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
             "delegation_preference_reason": "BOUNDED_FIXED_FUNCTION_REMOTE_CPU_BATCH_AVOIDS_COORDINATOR_SERIAL_HASHING",
             "input_metrics": {
                 "documents": len(batch_lines),

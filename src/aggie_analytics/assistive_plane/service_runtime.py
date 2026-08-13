@@ -207,6 +207,7 @@ class ControllerService:
                 cpu_worker_endpoint=config.cpu_worker_endpoint,
                 cpu_worker_storage_root=cpu_worker_root,
                 cpu_worker_signing_key_path=signing_key_path,
+                downstream_artifact_root=data_root / "reconciliation" / "assistive_consumed",
                 max_dispatch_per_cycle=config.max_dispatch_per_cycle,
                 release_root=release_root,
                 openai_enabled=config.openai_enabled,

@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import tempfile
+import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -12,7 +13,10 @@ from typing import Any
 from .contracts import sha256_value
 from .controller_state import ControllerState, TERMINAL_STATES, parse_rfc3339, rfc3339
 from .cpu_worker_backend import CpuWorkerClient, CpuWorkerEndpoint, CpuWorkerJob
-from .inventory_runtime import cpu_qualification_evidence_sha256
+from .inventory_runtime import (
+    CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
+    cpu_qualification_evidence_sha256,
+)
 from .ollama_backend import OLLAMA_LOOPBACK_ENDPOINT
 from .orchestration import (
     ATOMIC_EXECUTABLE,
@@ -83,6 +87,7 @@ class SchedulerConfig:
     cpu_worker_endpoint: str | None = None
     cpu_worker_storage_root: Path | None = None
     cpu_worker_signing_key_path: Path | None = None
+    downstream_artifact_root: Path | None = None
     max_dispatch_per_cycle: int = 3
     release_root: Path | None = None
     bge_endpoint: str = OLLAMA_LOOPBACK_ENDPOINT
@@ -128,6 +133,8 @@ class InventoryScheduler:
         route_identity: str,
         wall_seconds: float,
         compute: dict[str, Any],
+        direct_baseline_seconds: float | None = None,
+        orchestration_seconds: float = 0.0,
     ) -> dict[str, Any]:
         """Build fail-closed workload-substance evidence for one real dispatch."""
         payload = packet.get("payload", {})
@@ -162,13 +169,128 @@ class InventoryScheduler:
             "route_identity": route_identity,
             "wall_seconds": max(0.0, wall_seconds),
             "compute": compute,
-            "direct_baseline_seconds": None,
-            "orchestration_seconds": 0.0,
+            "direct_baseline_seconds": direct_baseline_seconds,
+            "orchestration_seconds": max(0.0, orchestration_seconds),
             "downstream_consumed": False,
             "changed_project_artifact": False,
             "consumed_artifact_identity": None,
             "net_time_saved_seconds": 0.0,
             "duplicated_by_codex": False,
+        }
+
+    def _consume_cpu_line_hash_result(
+        self,
+        *,
+        packet: dict[str, Any],
+        response: dict[str, Any],
+        work_unit_id: str,
+        attempt_id: str,
+        validation_sha256: str,
+    ) -> dict[str, Any] | None:
+        """Materialize a validated CPU line-hash tranche into the BAS provenance workflow."""
+        root = self.config.downstream_artifact_root
+        if root is None or packet.get("task") != "LINE_HASH_MANIFEST":
+            return None
+        if (
+            packet.get("downstream_consumer_contract_version")
+            != CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION
+        ):
+            return None
+        result = response.get("result")
+        source_hashes = packet.get("source_hashes")
+        if not isinstance(result, dict) or not isinstance(source_hashes, list):
+            raise RuntimeError("CPU_DOWNSTREAM_CONSUMER_INPUT_INVALID")
+        line_hashes = result.get("line_sha256")
+        if (
+            not isinstance(line_hashes, list)
+            or len(line_hashes) != len(source_hashes)
+            or result.get("line_count") != len(source_hashes)
+            or not all(
+                isinstance(value, str)
+                and len(value) == 64
+                and all(character in "0123456789abcdef" for character in value)
+                for value in line_hashes
+            )
+            or not all(
+                isinstance(value, str)
+                and len(value) == 64
+                and all(character in "0123456789abcdef" for character in value)
+                for value in source_hashes
+            )
+        ):
+            raise RuntimeError("CPU_DOWNSTREAM_PROVENANCE_CARDINALITY_INVALID")
+        started = time.perf_counter()
+        artifact = {
+            "artifact_type": "HISTORICAL_MANIFEST_PROVENANCE_INDEX",
+            "schema_version": 1,
+            "work_unit_id": work_unit_id,
+            "attempt_id": attempt_id,
+            "jira_unit": str(packet.get("jira_unit", "BAT-563")),
+            "downstream_consumer": str(
+                packet.get(
+                    "downstream_consumer",
+                    "HISTORICAL_MANIFEST_PROVENANCE_AND_REPLAY_VALIDATION",
+                )
+            ),
+            "validation_sha256": validation_sha256,
+            "joined_sha256": result.get("joined_sha256"),
+            "records": [
+                {"source_sha256": source_sha256, "canonical_line_sha256": line_sha256}
+                for source_sha256, line_sha256 in zip(source_hashes, line_hashes, strict=True)
+            ],
+            "authority": "DETERMINISTIC_PROVENANCE_INDEX_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        artifact_identity = hashlib.sha256(canonical_json_bytes(artifact)).hexdigest()
+        expected_artifact_path = (
+            root / "historical-manifest-provenance" / "sha256" / artifact_identity / "report.json"
+        )
+        created_new_artifact = not expected_artifact_path.exists()
+        artifact_path, artifact_sha256 = content_addressed_write(
+            root,
+            "historical-manifest-provenance",
+            artifact,
+            current_name=f"{work_unit_id}.json",
+        )
+        review_seconds = max(0.0, time.perf_counter() - started)
+        if not created_new_artifact:
+            disposition_sha256 = self.state.record_downstream_review_disposition(
+                attempt_id=attempt_id,
+                disposition="UNUSED",
+                downstream_consumer=artifact["downstream_consumer"],
+                reason="IDENTICAL_PROVENANCE_ARTIFACT_ALREADY_EXISTED",
+                changed_project_artifact=False,
+                net_time_saved_seconds=0.0,
+                duplicated_by_codex=False,
+                review_seconds=review_seconds,
+            )
+            return {
+                "disposition": "UNUSED",
+                "artifact_path": str(artifact_path),
+                "artifact_sha256": artifact_sha256,
+                "disposition_sha256": disposition_sha256,
+                "records": len(line_hashes),
+                "review_seconds": review_seconds,
+                "measured_net_time_saved_seconds": 0.0,
+            }
+        disposition_sha256 = self.state.record_downstream_review_disposition(
+            attempt_id=attempt_id,
+            disposition="ACCEPTED",
+            downstream_consumer=artifact["downstream_consumer"],
+            reason="VALIDATED_REMOTE_HASH_TRANCHE_MATERIALIZED_INTO_PROVENANCE_INDEX",
+            consumed_artifact_identity=artifact_sha256,
+            changed_project_artifact=True,
+            net_time_saved_seconds=0.0,
+            duplicated_by_codex=False,
+            review_seconds=review_seconds,
+        )
+        return {
+            "disposition": "ACCEPTED",
+            "artifact_path": str(artifact_path),
+            "artifact_sha256": artifact_sha256,
+            "disposition_sha256": disposition_sha256,
+            "records": len(line_hashes),
+            "review_seconds": review_seconds,
+            "measured_net_time_saved_seconds": 0.0,
         }
 
     @staticmethod
@@ -951,6 +1073,8 @@ class InventoryScheduler:
                 self.config.evidence_root, "cleanup", cleanup,
                 current_name=f"cleanup-{decision.work_unit_id}.json",
             )
+            wall_seconds = max(0.0, (completed - moment).total_seconds())
+            local_replay_seconds = getattr(client, "last_local_replay_seconds", None)
             self.state.complete_candidate_work(
                 work_unit_id=decision.work_unit_id,
                 attempt_id=attempt_id,
@@ -970,12 +1094,27 @@ class InventoryScheduler:
                     packet=packet,
                     provider=str(decision.provider),
                     route_identity=route_identity,
-                    wall_seconds=max(0.0, (completed - moment).total_seconds()),
+                    wall_seconds=wall_seconds,
                     compute={"provider_calls": 1, "task": packet["task"]},
+                    direct_baseline_seconds=local_replay_seconds,
+                    orchestration_seconds=wall_seconds,
                 ),
                 actor=self.config.owner_id,
                 now=completed,
             )
+            try:
+                downstream_consumption = self._consume_cpu_line_hash_result(
+                    packet=packet,
+                    response=response,
+                    work_unit_id=decision.work_unit_id,
+                    attempt_id=attempt_id,
+                    validation_sha256=validation_sha256,
+                )
+            except Exception as consumer_error:
+                downstream_consumption = {
+                    "disposition": "REVIEW_ONLY",
+                    "finding": type(consumer_error).__name__ + ":" + str(consumer_error)[:240],
+                }
             return {
                 "work_unit_id": decision.work_unit_id,
                 "provider": decision.provider,
@@ -983,8 +1122,12 @@ class InventoryScheduler:
                 "provider_run_id": provider_run_id,
                 "result_sha256": result_sha256,
                 "artifact_path": str(artifact_path),
-                "review_disposition": "REVIEW_ONLY",
+                "review_disposition": (
+                    downstream_consumption.get("disposition", "REVIEW_ONLY")
+                    if downstream_consumption else "REVIEW_ONLY"
+                ),
                 "provider_call_attempted": True,
+                "downstream_consumption": downstream_consumption,
             }
         except Exception as exc:
             retryable = attempt_number < 3 and isinstance(exc, (OSError, TimeoutError, RuntimeError))

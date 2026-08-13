@@ -40,6 +40,9 @@ class OpenRouterAssistTests(unittest.TestCase):
         self.simulated_policy_path = root / "simulated-policy.json"
         self.simulated_policy_path.write_text(json.dumps(policy), encoding="utf-8")
         self.schema = json.loads((ROOT / "schemas/assistive/independent_review.schema.json").read_text(encoding="utf-8"))
+        self.reconciliation_schema = json.loads(
+            (ROOT / "schemas/assistive/reconciliation_ranking.schema.json").read_text(encoding="utf-8")
+        )
         self.output = {"verdict": "REVIEW", "findings": [], "evidence": [], "unsupported_claims": [], "recommended_checks": []}
         self.request = AssistiveRequest(
             task_id="independent_review",
@@ -59,6 +62,30 @@ class OpenRouterAssistTests(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
+
+    @staticmethod
+    def _binding_excerpt(candidate_ids: list[str], request_id: str | None = None) -> str:
+        binding: dict[str, object] = {"candidate_ids": candidate_ids}
+        if request_id is not None:
+            binding["request_id"] = request_id
+        return json.dumps({"reconciliation_candidate_binding_v1": binding}, sort_keys=True)
+
+    def _reconciliation_request(self, evidence_excerpts: tuple[str, ...]) -> AssistiveRequest:
+        return AssistiveRequest(
+            task_id="reconciliation_ranking",
+            jira_unit="POST-SUBTASK-200",
+            base_commit="a" * 40,
+            authority=Authority.RECONCILIATION_RANKING,
+            prompt_version="v1",
+            schema_version="v1",
+            schema_sha256=sha256_value(self.reconciliation_schema),
+            source_hashes=("b" * 64,),
+            evidence_excerpts=evidence_excerpts,
+            model="qwen/qwen3-coder-next",
+            reasoning_effort="none",
+            max_output_tokens=256,
+            provider_policy_version="v1",
+        )
 
     def test_zero_budget_rejects_before_backend(self) -> None:
         backend = FakeBackend(self.output)
@@ -228,6 +255,102 @@ class OpenRouterAssistTests(unittest.TestCase):
         self.assertEqual(backend.calls, 1)
         self.assertEqual(dispatcher.ledger.state().settled_usd, Decimal("0.000001"))
         self.assertEqual(dispatcher.ledger.state().reserved_usd, Decimal("0"))
+
+    def test_reconciliation_candidate_ids_must_be_unique_and_allowed(self) -> None:
+        backend = FakeBackend(
+            {
+                "candidate_ids": ["CID-2", "CID-1"],
+                "evidence": [],
+                "conflicts": [],
+                "disposition": "REVIEW",
+            }
+        )
+        dispatcher = AssistiveDispatcher(ROOT, backend, self.simulated_policy_path)
+        request = self._reconciliation_request((self._binding_excerpt(["CID-1", "CID-2"]),))
+        result = dispatcher.dispatch(request, self.reconciliation_schema)
+        self.assertEqual(Disposition.CANDIDATE, result.disposition)
+        self.assertEqual("CANDIDATE_ONLY_VALIDATED", result.reason)
+
+    def test_reconciliation_duplicate_candidate_id_is_quarantined_and_settled(self) -> None:
+        backend = FakeBackend(
+            {
+                "candidate_ids": ["CID-1", "CID-1"],
+                "evidence": [],
+                "conflicts": [],
+                "disposition": "REVIEW",
+            }
+        )
+        dispatcher = AssistiveDispatcher(ROOT, backend, self.simulated_policy_path)
+        request = self._reconciliation_request((self._binding_excerpt(["CID-1", "CID-2"]),))
+        result = dispatcher.dispatch(request, self.reconciliation_schema)
+        self.assertEqual(Disposition.QUARANTINE, result.disposition)
+        self.assertIn("RESULT_CANDIDATE_ID_DUPLICATE", result.reason)
+        self.assertEqual(Decimal("0.000001"), dispatcher.ledger.state().settled_usd)
+        self.assertEqual(Decimal("0"), dispatcher.ledger.state().reserved_usd)
+
+    def test_reconciliation_unknown_candidate_id_is_quarantined_and_settled(self) -> None:
+        backend = FakeBackend(
+            {
+                "candidate_ids": ["CID-UNKNOWN"],
+                "evidence": [],
+                "conflicts": [],
+                "disposition": "REVIEW",
+            }
+        )
+        dispatcher = AssistiveDispatcher(ROOT, backend, self.simulated_policy_path)
+        request = self._reconciliation_request((self._binding_excerpt(["CID-1", "CID-2"]),))
+        result = dispatcher.dispatch(request, self.reconciliation_schema)
+        self.assertEqual(Disposition.QUARANTINE, result.disposition)
+        self.assertIn("RESULT_CANDIDATE_ID_UNKNOWN", result.reason)
+        self.assertEqual(Decimal("0.000001"), dispatcher.ledger.state().settled_usd)
+        self.assertEqual(Decimal("0"), dispatcher.ledger.state().reserved_usd)
+
+    def test_reconciliation_allowed_set_missing_or_ambiguous_fails_closed(self) -> None:
+        base_output = {"candidate_ids": [], "evidence": [], "conflicts": [], "disposition": "REVIEW"}
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(base_output), self.simulated_policy_path)
+        missing = dispatcher.dispatch(self._reconciliation_request(("plain prose",)), self.reconciliation_schema)
+        self.assertEqual(Disposition.QUARANTINE, missing.disposition)
+        self.assertIn("ALLOWED_SET_UNAVAILABLE", missing.reason)
+        self.assertEqual(Decimal("0.000001"), dispatcher.ledger.state().settled_usd)
+
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(base_output), self.simulated_policy_path)
+        ambiguous = dispatcher.dispatch(
+            self._reconciliation_request(
+                (self._binding_excerpt(["CID-1"]), self._binding_excerpt(["CID-1", "CID-2"]))
+            ),
+            self.reconciliation_schema,
+        )
+        self.assertEqual(Disposition.QUARANTINE, ambiguous.disposition)
+        self.assertIn("ALLOWED_SET_AMBIGUOUS", ambiguous.reason)
+
+    def test_non_reconciliation_tasks_do_not_require_reconciliation_binding(self) -> None:
+        backend = FakeBackend(self.output)
+        request = replace(self.request, evidence_excerpts=('{"unexpected":"shape"}',))
+        result = AssistiveDispatcher(ROOT, backend, self.simulated_policy_path).dispatch(request, self.schema)
+        self.assertEqual(Disposition.CANDIDATE, result.disposition)
+
+    def test_reconciliation_cache_hit_skips_revalidation(self) -> None:
+        backend = FakeBackend(
+            {
+                "candidate_ids": ["CID-1"],
+                "evidence": [],
+                "conflicts": [],
+                "disposition": "REVIEW",
+            }
+        )
+        dispatcher = AssistiveDispatcher(ROOT, backend, self.simulated_policy_path)
+        request = self._reconciliation_request((self._binding_excerpt(["CID-1", "CID-2"]),))
+        first = dispatcher.dispatch(request, self.reconciliation_schema)
+        backend.output = {
+            "candidate_ids": ["CID-UNKNOWN"],
+            "evidence": [],
+            "conflicts": [],
+            "disposition": "REVIEW",
+        }
+        second = dispatcher.dispatch(request, self.reconciliation_schema)
+        self.assertEqual(Disposition.CANDIDATE, first.disposition)
+        self.assertEqual("CACHE_HIT", second.reason)
+        self.assertEqual(1, backend.calls)
 
     def test_budget_settlement_is_idempotent_but_conflicts_on_changed_cost(self) -> None:
         dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)

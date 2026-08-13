@@ -114,8 +114,9 @@ class UnifiedControllerServiceTests(unittest.TestCase):
             return_value={
                 "scheduler_cycles": 2,
                 "scheduler_dispatched_units": 3,
-                "release_scheduler_dispatched_units": 3,
-                "release_scheduler_provider_calls": 3,
+                "scheduler_provider_calls": 3,
+                "release_scheduler_dispatched_units": 0,
+                "release_scheduler_provider_calls": 0,
                 "active_idle_intervals": 0,
                 "journal_mode": "WAL",
                 "integrity_check": "ok",
@@ -136,8 +137,9 @@ class UnifiedControllerServiceTests(unittest.TestCase):
             },
         )
         self.assertEqual("INVENTORY_SCHEDULER_CONTROLLER_ROUTED_DISPATCH_ACTIVE", heartbeat["dispatch_engine_state"])
-        self.assertEqual(3, heartbeat["release_scheduler_dispatched_units"])
+        self.assertEqual(0, heartbeat["release_scheduler_dispatched_units"])
         self.assertEqual(3, heartbeat["scheduler_provider_calls"])
+        self.assertEqual(0, heartbeat["release_scheduler_provider_calls"])
         self.assertEqual(0, heartbeat["scheduler_latest_cycle_provider_calls"])
         blocked = service._heartbeat_payload(
             started_at="2026-08-13T00:00:00Z",

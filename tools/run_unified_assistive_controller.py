@@ -33,7 +33,7 @@ def commit_identity(explicit: str | None = None) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["init", "status", "heartbeat", "cycle", "serve"])
+    parser.add_argument("command", choices=["init", "status", "heartbeat", "cycle", "serve", "recover-orphaned-lease"])
     parser.add_argument("--runtime-root", type=Path, default=DEFAULT_RUNTIME)
     parser.add_argument("--owner-id", default=f"{os.environ.get('COMPUTERNAME', 'unknown')}:{os.getpid()}:{uuid.uuid4().hex}")
     parser.add_argument("--build-commit")
@@ -49,6 +49,10 @@ def main() -> int:
     parser.add_argument("--eligible-units", type=int, default=0)
     parser.add_argument("--dispatched-units", type=int, default=0)
     parser.add_argument("--no-change", action="store_true")
+    parser.add_argument("--expected-owner-id")
+    parser.add_argument("--expected-build-commit")
+    parser.add_argument("--expected-owner-pid", type=int)
+    parser.add_argument("--recovery-evidence-sha256")
     args = parser.parse_args()
     database = args.runtime_root / "state" / "orchestrator.sqlite3"
     state = ControllerState(database)
@@ -90,6 +94,37 @@ def main() -> int:
     if args.command == "heartbeat":
         state.heartbeat(args.owner_id)
         print(json.dumps({"result": "PASS", "owner_id": args.owner_id}, sort_keys=True))
+        return 0
+    if args.command == "recover-orphaned-lease":
+        if (
+            not args.expected_owner_id
+            or not args.expected_build_commit
+            or args.expected_owner_pid is None
+            or not args.recovery_evidence_sha256
+        ):
+            parser.error(
+                "recover-orphaned-lease requires --expected-owner-id, --expected-build-commit, "
+                "--expected-owner-pid, and --recovery-evidence-sha256"
+            )
+        state.release_orphaned_leader(
+            expected_owner_id=args.expected_owner_id,
+            expected_build_commit=args.expected_build_commit,
+            expected_owner_pid=args.expected_owner_pid,
+            recovery_evidence_sha256=args.recovery_evidence_sha256,
+        )
+        print(
+            json.dumps(
+                {
+                    "result": "PASS",
+                    "operation": "ORPHAN_LEASE_RECOVERY",
+                    "expected_owner_id": args.expected_owner_id,
+                    "expected_build_commit": args.expected_build_commit,
+                    "expected_owner_pid": args.expected_owner_pid,
+                    "recovery_evidence_sha256": args.recovery_evidence_sha256,
+                },
+                sort_keys=True,
+            )
+        )
         return 0
     if not args.inventory_sha256 or not args.cycle_id:
         parser.error("cycle requires --inventory-sha256 and --cycle-id")

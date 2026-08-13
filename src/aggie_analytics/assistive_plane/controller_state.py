@@ -51,6 +51,28 @@ def usd_cents(value: str | Decimal) -> int:
     return int(amount * 100)
 
 
+def process_is_live(pid: int) -> bool:
+    if pid <= 0:
+        return False
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
+
+
+def owner_pid(owner_id: str) -> int:
+    parts = owner_id.split(":")
+    if len(parts) < 3:
+        raise RuntimeError("CONTROLLER_RECOVERY_OWNER_ID_FORMAT_INVALID")
+    try:
+        return int(parts[1])
+    except ValueError as exc:  # pragma: no cover - explicit defensive path
+        raise RuntimeError("CONTROLLER_RECOVERY_OWNER_ID_FORMAT_INVALID") from exc
+
+
 class LeaderLock:
     """Cross-platform nonblocking process lock for the single controller leader."""
 
@@ -285,6 +307,49 @@ class ControllerState:
             )
             if result.rowcount != 1:
                 raise RuntimeError("CONTROLLER_LEADER_OWNERSHIP_LOST")
+
+    def release_orphaned_leader(
+        self,
+        *,
+        expected_owner_id: str,
+        expected_build_commit: str,
+        expected_owner_pid: int,
+        recovery_evidence_sha256: str,
+        now: datetime | None = None,
+    ) -> None:
+        if len(recovery_evidence_sha256) != 64:
+            raise ValueError("RECOVERY_EVIDENCE_IDENTITY_INVALID")
+        bound_owner_pid = owner_pid(expected_owner_id)
+        if bound_owner_pid != expected_owner_pid:
+            raise RuntimeError("CONTROLLER_RECOVERY_OWNER_PID_MISMATCH")
+        if process_is_live(expected_owner_pid):
+            raise RuntimeError("CONTROLLER_RECOVERY_OWNER_PROCESS_LIVE")
+        stamp = rfc3339(now or utc_now())
+        with self.transaction() as connection:
+            lease = connection.execute("SELECT * FROM leader_lease WHERE singleton=1").fetchone()
+            if lease is None:
+                raise RuntimeError("CONTROLLER_RECOVERY_LEASE_MISSING")
+            if lease["owner_id"] != expected_owner_id or lease["build_commit"] != expected_build_commit:
+                raise RuntimeError("CONTROLLER_RECOVERY_LEASE_MISMATCH")
+            removed = connection.execute(
+                "DELETE FROM leader_lease WHERE singleton=1 AND owner_id=? AND build_commit=?",
+                (expected_owner_id, expected_build_commit),
+            )
+            if removed.rowcount != 1:
+                raise RuntimeError("CONTROLLER_RECOVERY_OWNERSHIP_LOST")
+            payload = {
+                "expected_owner_id": expected_owner_id,
+                "expected_build_commit": expected_build_commit,
+                "expected_owner_pid": expected_owner_pid,
+                "recovery_evidence_sha256": recovery_evidence_sha256,
+                "lease_acquired_at": lease["acquired_at"],
+                "lease_heartbeat_at": lease["heartbeat_at"],
+                "lease_expires_at": lease["expires_at"],
+            }
+            connection.execute(
+                "INSERT INTO controller_events(event_type,payload_json,occurred_at) VALUES(?,?,?)",
+                ("CONTROLLER_ORPHAN_LEASE_RECOVERED", json.dumps(payload, sort_keys=True, separators=(",", ":")), stamp),
+            )
 
     def register_work_unit(self, *, work_unit_id: str, identity_sha256: str, jira_identity: str, effort_points: int, actor: str, now: datetime | None = None) -> None:
         if effort_points not in {1, 2, 3, 5, 8}:

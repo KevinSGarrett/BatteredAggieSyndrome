@@ -57,6 +57,66 @@ class UnifiedControllerStateTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "CONTROLLER_DATABASE_LEADER_ACTIVE"):
             self.state.acquire_leader("owner-b", "c" * 40, now=self.now + timedelta(seconds=1))
 
+    def test_orphan_recovery_releases_exact_bound_owner_and_records_event(self) -> None:
+        owner = "host:12345:owner-uuid"
+        self.state.acquire_leader(owner, "b" * 40, now=self.now, ttl_seconds=120)
+        with unittest.mock.patch("aggie_analytics.assistive_plane.controller_state.process_is_live", return_value=False):
+            self.state.release_orphaned_leader(
+                expected_owner_id=owner,
+                expected_build_commit="b" * 40,
+                expected_owner_pid=12345,
+                recovery_evidence_sha256="e" * 64,
+                now=self.now + timedelta(seconds=1),
+            )
+        status = self.state.status()
+        self.assertIsNone(status["leader"])
+        connection = self.state.connect()
+        try:
+            event = connection.execute(
+                "SELECT event_type,payload_json FROM controller_events ORDER BY event_id DESC LIMIT 1"
+            ).fetchone()
+            self.assertEqual("CONTROLLER_ORPHAN_LEASE_RECOVERED", event["event_type"])
+            self.assertIn('"expected_owner_pid":12345', event["payload_json"])
+            self.assertIn('"recovery_evidence_sha256":"' + ("e" * 64) + '"', event["payload_json"])
+        finally:
+            connection.close()
+
+    def test_orphan_recovery_fails_closed_on_owner_or_build_mismatch(self) -> None:
+        owner = "host:12345:owner-uuid"
+        self.state.acquire_leader(owner, "b" * 40, now=self.now, ttl_seconds=120)
+        with unittest.mock.patch("aggie_analytics.assistive_plane.controller_state.process_is_live", return_value=False):
+            with self.assertRaisesRegex(RuntimeError, "CONTROLLER_RECOVERY_LEASE_MISMATCH"):
+                self.state.release_orphaned_leader(
+                    expected_owner_id=owner,
+                    expected_build_commit="c" * 40,
+                    expected_owner_pid=12345,
+                    recovery_evidence_sha256="e" * 64,
+                    now=self.now + timedelta(seconds=1),
+                )
+            with self.assertRaisesRegex(RuntimeError, "CONTROLLER_RECOVERY_OWNER_PID_MISMATCH"):
+                self.state.release_orphaned_leader(
+                    expected_owner_id=owner,
+                    expected_build_commit="b" * 40,
+                    expected_owner_pid=99999,
+                    recovery_evidence_sha256="e" * 64,
+                    now=self.now + timedelta(seconds=1),
+                )
+
+    def test_orphan_recovery_rejects_still_live_owner_pid(self) -> None:
+        owner = "host:12345:owner-uuid"
+        self.state.acquire_leader(owner, "b" * 40, now=self.now, ttl_seconds=120)
+        with unittest.mock.patch(
+            "aggie_analytics.assistive_plane.controller_state.process_is_live", return_value=True
+        ):
+            with self.assertRaisesRegex(RuntimeError, "CONTROLLER_RECOVERY_OWNER_PROCESS_LIVE"):
+                self.state.release_orphaned_leader(
+                    expected_owner_id=owner,
+                    expected_build_commit="b" * 40,
+                    expected_owner_pid=12345,
+                    recovery_evidence_sha256="e" * 64,
+                    now=self.now + timedelta(seconds=1),
+                )
+
     def test_work_identity_and_transition_are_compare_and_swap(self) -> None:
         self.register()
         self.state.register_work_unit(

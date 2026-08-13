@@ -194,6 +194,14 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("$requestedWhatIf = [bool]$WhatIfPreference", installer)
         self.assertIn("$WhatIfPreference = $false", installer)
         self.assertIn("cold_boot_without_user_logon = 'NOT_YET_PROVEN'", installer)
+        self.assertIn("CONTROLLER_RECOVERY_ACTION_IDENTITY_MISMATCH", installer)
+        self.assertIn("CONTROLLER_RECOVERY_BUILD_BINDING_MISMATCH", installer)
+        self.assertIn("CONTROLLER_RECOVERY_OWNER_PROCESS_STILL_LIVE", installer)
+        self.assertIn("recover-orphaned-lease", installer)
+        self.assertIn("--expected-owner-id", installer)
+        self.assertIn("--expected-build-commit", installer)
+        self.assertIn("--expected-owner-pid", installer)
+        self.assertIn("--recovery-evidence-sha256", installer)
 
 
 if __name__ == "__main__":

@@ -205,6 +205,16 @@ class UnifiedReleaseTests(unittest.TestCase):
                 manifest["files"]["src/aggie_analytics/assistive_plane/__init__.py"]["source_kind"],
             )
             self.assertNotIn("dispatcher", package_init.read_text(encoding="utf-8"))
+            unexpected = release / "src/aggie_analytics/assistive_plane/__pycache__/runtime.pyc"
+            unexpected.parent.mkdir(parents=True)
+            unexpected.write_bytes(b"reconstructible bytecode")
+            with (
+                patch.object(self.module, "git", side_effect=fake_git),
+                self.assertRaisesRegex(RuntimeError, "IMMUTABLE_RELEASE_UNEXPECTED_FILE_SET"),
+            ):
+                self.module.build_release(output, expected_commit="c" * 40)
+            unexpected.unlink()
+            unexpected.parent.rmdir()
             runtime = Path(temporary) / "runtime"
             launched = subprocess.run(
                 [
@@ -262,6 +272,10 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("CONTROLLER_RECOVERY_OWNER_PROCESS_STILL_LIVE", installer)
         self.assertIn("CONTROLLER_RECOVERY_OWNER_PROCESS_MISSING_WHILE_TASK_RUNNING", installer)
         self.assertIn("CONTROLLER_RECOVERY_LEASE_MISSING_WHILE_TASK_RUNNING", installer)
+        self.assertIn("RELEASE_FILE_SET_MISMATCH", installer)
+        self.assertIn("$controllerArguments = '-B", installer)
+        self.assertIn("$watchdogArguments = '-B", installer)
+        self.assertIn("^(?:-B\\s+)?", installer)
         self.assertIn("CLEAN_SHUTDOWN_NO_LEASE", installer)
         self.assertIn("CLEAN_SHUTDOWN_RELEASED_LEASE", installer)
         self.assertIn("EXACT_ORPHAN_LEASE_RELEASED", installer)

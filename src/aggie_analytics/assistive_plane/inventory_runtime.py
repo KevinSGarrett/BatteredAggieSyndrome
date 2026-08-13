@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from .contracts import canonical_json_bytes, sha256_value
-from .controller_state import ControllerState, rfc3339
+from .controller_state import ControllerState, TERMINAL_STATES, rfc3339
 from .cpu_worker_backend import MAX_RECORDS
 from .orchestration import (
     ATOMIC_EXECUTABLE,
@@ -79,6 +79,26 @@ BGE_SCHEMA_VERSION = "1"
 BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c"
 READY_WORK_UNIT_FIELDS = frozenset(ReadyWorkUnit.__dataclass_fields__)
 ROUTE_DECISION_FIELDS = frozenset(RouteDecision.__dataclass_fields__)
+
+
+def _dynamic_work_unit_id(packet: dict[str, Any], packet_sha256: str) -> str | None:
+    """Return the exact durable identity for a producer-generated provider packet."""
+    provider = packet.get("provider")
+    task_format = packet.get("task_format")
+    prefix: str | None = None
+    if provider == "openai_direct" and task_format == "governed_openai_candidate_v1":
+        prefix = "AUTO-OAI-"
+    elif provider == "openrouter" and task_format == OPENROUTER_TASK_FORMAT:
+        prefix = "AUTO-OR-"
+    elif provider == "ollama_local" and task_format == BGE_TASK_FORMAT:
+        prefix = "AUTO-BGE-"
+    elif provider == "cursor" and task_format == CURSOR_TASK_FORMAT:
+        prefix = "AUTO-CURSOR-"
+    elif provider == "remote_cpu_worker":
+        route = CPU_EXACT_ROUTES.get(str(packet.get("task", "")))
+        if route is not None:
+            prefix = route[2]
+    return None if prefix is None else prefix + packet_sha256[:20]
 
 
 def cpu_qualification_evidence_sha256(
@@ -585,14 +605,17 @@ class RuntimeInventoryRefresher:
                 for work_unit_id in work_unit_ids
             }
         )
-        closed_content_addresses = {
+        terminal_content_addresses = {
             digest
             for digest, work_unit_ids in content_address_work_units.items()
-            if any(content_address_states.get(work_unit_id) == "CLOSED" for work_unit_id in work_unit_ids)
+            if any(
+                content_address_states.get(work_unit_id) in TERMINAL_STATES
+                for work_unit_id in work_unit_ids
+            )
         }
         discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
         for resolved, raw, source_sha256, content_addressed in candidate_records:
-            if content_addressed and source_sha256 in closed_content_addresses:
+            if content_addressed and source_sha256 in terminal_content_addresses:
                 continue
             packet = json.loads(raw)
             if not isinstance(packet, dict) or packet.get("schema_version") != 1:
@@ -798,7 +821,11 @@ class RuntimeInventoryRefresher:
                 "readiness_evidence_sha256": readiness,
             }))
         states = self.state.work_unit_states({unit.work_unit_id for unit, _, _ in discovered})
-        active = [entry for entry in discovered if states.get(entry[0].work_unit_id) != "CLOSED"]
+        active = [
+            entry
+            for entry in discovered
+            if states.get(entry[0].work_unit_id) not in TERMINAL_STATES
+        ]
         if len(active) > MAX_PROVIDER_WORK_UNITS:
             raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_ACTIVE_BOUND_EXCEEDED")
         return active
@@ -857,6 +884,42 @@ class RuntimeInventoryRefresher:
                     "source_relative_path": source.relative_to(root).as_posix(),
                     "quarantine_path": str(payload_path),
                 }
+                try:
+                    packet = json.loads(raw)
+                except (json.JSONDecodeError, UnicodeDecodeError):
+                    packet = None
+                if isinstance(packet, dict):
+                    canonical_packet_sha256 = hashlib.sha256(
+                        canonical_json_bytes(packet) + b"\n"
+                    ).hexdigest()
+                    work_unit_id = _dynamic_work_unit_id(packet, canonical_packet_sha256)
+                    if work_unit_id is not None:
+                        finding["work_unit_id"] = work_unit_id
+                        state = self.state.work_unit_states({work_unit_id}).get(work_unit_id)
+                        if state == "DISCOVERED":
+                            try:
+                                self.state.transition(
+                                    work_unit_id=work_unit_id,
+                                    expected_state="DISCOVERED",
+                                    new_state="QUARANTINED",
+                                    reason="PROVIDER_PACKET_QUARANTINED_BEFORE_ADMISSION",
+                                    actor="runtime_inventory",
+                                    evidence_sha256=digest,
+                                    now=moment,
+                                )
+                                finding["work_unit_state_disposition"] = "QUARANTINED"
+                            except RuntimeError as transition_error:
+                                current_state = self.state.work_unit_states({work_unit_id}).get(
+                                    work_unit_id
+                                )
+                                finding["work_unit_state_disposition"] = (
+                                    f"PRESERVED_CONCURRENT_STATE:{current_state}"
+                                )
+                                finding["state_transition_finding"] = str(transition_error)[:160]
+                        elif state is not None:
+                            finding["work_unit_state_disposition"] = (
+                                f"PRESERVED_EXISTING_STATE:{state}"
+                            )
                 finding_data = canonical_json_bytes(finding) + b"\n"
                 if not finding_path.exists():
                     _atomic_write(finding_path, finding_data)
@@ -909,6 +972,12 @@ class RuntimeInventoryRefresher:
             "local_models_post_qualification": ("ollama_local", "local_qwen"),
         }
         active_packets: dict[str, int] = {}
+        atomic_ids = {
+            str(decision.get("work_unit_id", ""))
+            for decision in route_decisions
+            if work_unit_roles.get(str(decision.get("work_unit_id", ""))) == ATOMIC_EXECUTABLE
+        }
+        durable_states = self.state.work_unit_states(atomic_ids)
         for decision in route_decisions:
             provider = decision.get("provider")
             work_unit_id = str(decision.get("work_unit_id", ""))
@@ -922,6 +991,7 @@ class RuntimeInventoryRefresher:
                     RoutingDisposition.REMOTE_CPU_WORKER.value,
                 }
                 and work_unit_roles.get(work_unit_id) == ATOMIC_EXECUTABLE
+                and durable_states.get(work_unit_id) not in TERMINAL_STATES
             ):
                 active_packets[str(provider)] = active_packets.get(str(provider), 0) + 1
 

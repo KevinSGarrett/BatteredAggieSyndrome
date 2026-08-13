@@ -944,6 +944,135 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertFalse((provider_root / "invalid.json").exists())
         self.assertTrue(Path(snapshot["provider_work_findings"][0]["quarantine_path"]).is_file())
 
+    def test_stale_cursor_packet_is_terminalized_and_replaced_for_current_release(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        release_commit = "9" * 40
+        stale_commit = "8" * 40
+        release_root = self.root / "releases" / release_commit
+        review_source = release_root / "src/aggie_analytics/assistive_plane/inventory_runtime.py"
+        review_source.parent.mkdir(parents=True)
+        review_source.write_text("# current release review target\n", encoding="utf-8")
+        policy_path = self.root / "policy.json"
+        policy_path.write_text(
+            json.dumps(
+                {
+                    "execution_minimums": {
+                        "cursor": {
+                            "new_controller_routed_units": 10,
+                            "effort_points": 40,
+                            "accepted_useful": 6,
+                        }
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        semantic_module_path = self.root / "semantic.py"
+        semantic_module_path.write_text("# not loaded by this focused test\n", encoding="utf-8")
+        readiness_path = self.root / "readiness.json"
+        readiness_path.write_text("{}", encoding="utf-8")
+        external_assistive_root = self.root / "external/assistive"
+        external_assistive_root.mkdir(parents=True)
+        stale_packet = {
+            "schema_version": 1,
+            "provider": "cursor",
+            "task_format": CURSOR_TASK_FORMAT,
+            "jira_unit": "POST-SUBTASK-202",
+            "schema_sha256": CURSOR_SCHEMA_SHA256,
+            "source_hashes": ["1" * 64, sha256_value({"release_commit": stale_commit})],
+            "dependencies": [],
+            "pre_routing_effort_points": 5,
+            "scope": "Stale exact-base Cursor review",
+            "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+            "starting_ref": stale_commit,
+            "base_commit": stale_commit,
+            "model": "gpt-5.3-codex",
+            "reasoning": "medium",
+            "fast": False,
+            "work_on_current_branch": False,
+            "auto_create_pr": False,
+            "max_reservation_usd": "2.00",
+            "prompt": "Review the stale release without making changes.",
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        stale_data = canonical_json_bytes(stale_packet) + b"\n"
+        stale_digest = hashlib.sha256(stale_data).hexdigest()
+        stale_path = provider_root / "continuous/sha256" / stale_digest[:2] / f"{stale_digest}.json"
+        stale_path.parent.mkdir(parents=True)
+        stale_path.write_bytes(stale_data)
+        stale_work_unit_id = "AUTO-CURSOR-" + stale_digest[:20]
+        self.state.register_work_unit(
+            work_unit_id=stale_work_unit_id,
+            identity_sha256="2" * 64,
+            jira_identity="POST-SUBTASK-202",
+            effort_points=5,
+            actor="test",
+            now=self.now,
+        )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+                release_root=release_root,
+                build_commit=release_commit,
+                semantic_materializer_path=semantic_module_path,
+                semantic_policy_path=policy_path,
+                semantic_readiness_path=readiness_path,
+                external_assistive_root=external_assistive_root,
+            ),
+        )
+        snapshot = {
+            "git": {"deployed_head": release_commit},
+            "external_evidence": {
+                "cursor": {
+                    "present": True,
+                    "unique_jobs": 10,
+                    "settled_usd": "1.00",
+                    "manifest_sha256": "3" * 64,
+                }
+            },
+        }
+
+        self.assertEqual([], refresher._discover_provider_work(snapshot, self.now))
+        self.assertFalse(stale_path.exists())
+        self.assertEqual(
+            "QUARANTINED",
+            self.state.work_unit_states({stale_work_unit_id})[stale_work_unit_id],
+        )
+        finding = refresher._provider_packet_findings[0]
+        self.assertEqual(stale_work_unit_id, finding["work_unit_id"])
+        self.assertEqual("QUARANTINED", finding["work_unit_state_disposition"])
+
+        demand = refresher._operational_demand(
+            snapshot,
+            [
+                {
+                    "work_unit_id": stale_work_unit_id,
+                    "disposition": "CURSOR",
+                    "provider": "cursor",
+                }
+            ],
+            {stale_work_unit_id: "ATOMIC_EXECUTABLE"},
+        )
+        self.assertEqual(0, demand["providers"]["cursor"]["active_execution_packets"])
+        replacement = refresher._materialize_continuous_cursor_work(snapshot, demand)
+        self.assertEqual(1, len(replacement))
+        replacement_packet = json.loads(
+            Path(replacement[0]["packet_path"]).read_text(encoding="utf-8")
+        )
+        self.assertEqual(release_commit, replacement_packet["base_commit"])
+        self.assertNotEqual(stale_digest, replacement[0]["packet_sha256"])
+        admitted = refresher._discover_provider_work(
+            snapshot, self.now + timedelta(seconds=1)
+        )
+        self.assertEqual(1, len(admitted))
+        self.assertTrue(admitted[0][0].work_unit_id.startswith("AUTO-CURSOR-"))
+
     def test_selected_cpu_manifest_packet_requires_exact_qualification_and_is_routable(self) -> None:
         provider_root = self.root / "provider_work/requests"
         provider_root.mkdir(parents=True)

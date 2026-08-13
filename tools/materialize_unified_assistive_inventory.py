@@ -390,8 +390,15 @@ def openrouter_semantic_evidence(root: Path, policy: dict[str, Any]) -> dict[str
                 "provider_policy_version": route["provider_policy_version"],
                 "model": route["model"],
                 "reasoning_effort": route["reasoning_effort"],
-                "readiness_supported_state": "READY" if provider_reconciled and remaining_released > 0 else "NOT_READY",
-                "evidence_verified": provider_reconciled,
+                # Exact candidate-route qualification and campaign-level provider
+                # usage reconciliation are separate authorities. A newly settled
+                # controller call can temporarily make the campaign summary trail
+                # the usage ledger; that must suppress operational claims, but it
+                # must not revoke an otherwise valid exact route while released
+                # budget remains. The finding below keeps the reconciliation debt
+                # explicit until the campaign summary is refreshed.
+                "readiness_supported_state": "READY" if remaining_released > 0 else "NOT_READY",
+                "evidence_verified": True,
                 "readiness_evidence_sha256": summary_sha256,
                 "route_evidence_sha256": route["evidence_sha256"],
                 "budget_evidence_sha256": ledger_sha256,

@@ -454,7 +454,7 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
             self.assertIn("OPENROUTER_ACCEPTED_USEFUL_BELOW_POLICY_THRESHOLD", evidence["findings"])
             self.assertIn("OPENROUTER_PARTIAL_HISTORICAL_REVIEW_EVIDENCE", evidence["findings"])
 
-    def test_openrouter_semantics_require_reconciled_budget_and_exact_summary_identity(self) -> None:
+    def test_openrouter_semantics_separate_route_readiness_from_campaign_reconciliation(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             self.write_openrouter_summary(root, accepted=10, modified=2, request_count=20)
@@ -467,7 +467,8 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
             (root / "usage/ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
             rejected = MATERIALIZER.openrouter_semantic_evidence(root, self.openrouter_policy())
             self.assertFalse(rejected["operationally_admitted"])
-            self.assertEqual("NOT_READY", rejected["routes"][0]["readiness_supported_state"])
+            self.assertEqual("READY", rejected["routes"][0]["readiness_supported_state"])
+            self.assertTrue(rejected["routes"][0]["evidence_verified"])
             self.assertIn("OPENROUTER_PROVIDER_USAGE_NOT_RECONCILED", rejected["findings"])
 
 

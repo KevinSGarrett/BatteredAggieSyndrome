@@ -401,6 +401,7 @@ class RuntimeInventoryRefresher:
                     or not isinstance(base_commit, str)
                     or len(base_commit) != 40
                     or any(character not in "0123456789abcdef" for character in base_commit)
+                    or base_commit != snapshot.get("git", {}).get("origin_main")
                     or not isinstance(evidence_excerpts, list)
                     or not evidence_excerpts
                     or any(not isinstance(item, str) or not item for item in evidence_excerpts)

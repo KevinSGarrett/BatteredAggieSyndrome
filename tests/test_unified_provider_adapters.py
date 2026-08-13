@@ -16,7 +16,7 @@ from aggie_analytics.assistive_plane.provider_adapters import (
     GovernedOpenRouterAdapter,
     OPENROUTER_TASK_FORMAT,
 )
-from aggie_analytics.assistive_plane.backend import FakeBackend
+from aggie_analytics.assistive_plane.backend import FakeBackend, PermanentBackendError
 from aggie_analytics.assistive_plane.contracts import sha256_value
 
 
@@ -209,6 +209,27 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
         self.assertEqual("QUARANTINE", result.disposition)
         self.assertIn("STRICT_OUTPUT_INVALID", result.validation_errors[0])
         self.assertEqual(1, result.resource["provider_calls"])
+
+    def test_openrouter_failed_provider_attempt_is_counted(self) -> None:
+        temporary, root, policy_path = self._openrouter_root("0.25")
+        self.addCleanup(temporary.cleanup)
+
+        class FailingBackend(FakeBackend):
+            def submit(self, request, schema):
+                self.calls += 1
+                raise PermanentBackendError("bounded failure")
+
+        backend = FailingBackend({})
+        adapter = GovernedOpenRouterAdapter(
+            root,
+            policy_path=policy_path,
+            backend_factory=lambda _env: backend,
+        )
+        result = adapter.run(self._openrouter_packet(root))
+        self.assertEqual("REJECTED", result.disposition)
+        self.assertEqual(1, backend.calls)
+        self.assertEqual(1, result.resource["provider_calls"])
+        self.assertIn("PROVIDER_FAILURE", result.validation_errors[0])
 
     def test_openrouter_fake_provider_lifecycle_cache_and_accounting(self) -> None:
         temporary, root, policy_path = self._openrouter_root("0.25")

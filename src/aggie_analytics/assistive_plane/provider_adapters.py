@@ -27,6 +27,19 @@ BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826e
 OPENROUTER_TASK_FORMAT = "governed_openrouter_candidate_v1"
 
 
+class _CountingBackend:
+    """Count every provider submission, including failed and retried calls."""
+
+    def __init__(self, delegate: Any) -> None:
+        self.delegate = delegate
+        self.name = delegate.name
+        self.calls = 0
+
+    def submit(self, request: AssistiveRequest, schema: dict[str, object]) -> Any:
+        self.calls += 1
+        return self.delegate.submit(request, schema)
+
+
 @dataclass(frozen=True)
 class ProviderAdapterResult:
     remote_identity: str
@@ -214,7 +227,8 @@ class GovernedOpenRouterAdapter:
         policy = json.loads(self.policy_path.read_text(encoding="utf-8"))
         env_path = Path(str(policy["credential"]["authoritative_env"]))
         backend = (backend_factory or OpenRouterBackend)(env_path)
-        self.dispatcher = (dispatcher_factory or AssistiveDispatcher)(self.root, backend, self.policy_path)
+        self.backend = _CountingBackend(backend)
+        self.dispatcher = (dispatcher_factory or AssistiveDispatcher)(self.root, self.backend, self.policy_path)
         self.task_registry = json.loads((self.root / "configs" / "openrouter_task_registry.json").read_text(encoding="utf-8"))
 
     @staticmethod
@@ -280,11 +294,10 @@ class GovernedOpenRouterAdapter:
             max_output_tokens=int(packet["max_output_tokens"]),
             provider_policy_version=str(packet["provider_policy_version"]),
         )
+        calls_before = self.backend.calls
         result = self.dispatcher.dispatch(request, schema)
+        provider_calls = self.backend.calls - calls_before
         provider_result = result.provider_result
-        provider_calls = 0
-        if provider_result is not None and result.reason != "CACHE_HIT":
-            provider_calls = 1
         payload = {
             "request_id": result.request_id,
             "disposition": result.disposition.value,

@@ -743,6 +743,13 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
             refresher._discover_provider_work(current_payload, self.now)
 
+        packet["base_commit"] = "b" * 40
+        packet["identity_hashes"]["source_sha256"] = sha256_value(tuple(packet["source_hashes"]))
+        (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
+        with self.assertRaisesRegex(ValueError, "OPENROUTER_PACKET_INVALID"):
+            refresher._discover_provider_work(current_payload, self.now)
+
+        packet["base_commit"] = "a" * 40
         packet["identity_hashes"]["source_sha256"] = "9" * 64
         (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
         current_payload["external_evidence"]["openrouter"]["routes"][0]["budget_remaining_usd"] = "1.23"

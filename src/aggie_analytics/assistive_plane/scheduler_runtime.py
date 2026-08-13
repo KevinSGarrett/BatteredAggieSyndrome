@@ -211,34 +211,19 @@ class InventoryScheduler:
 
     @staticmethod
     def _candidate_review_disposition(
-        provider: str,
+        _provider: str,
         result: ProviderAdapterResult,
     ) -> tuple[str, str]:
-        """Accept only schema-valid, evidence-bearing candidate utility; never authoritative truth."""
+        """Keep semantic/model outputs pending until a distinct review records value.
+
+        Schema validity and the presence of non-empty output establish only that
+        a candidate can enter the durable review queue.  They do not establish
+        usefulness, correctness, or accepted time savings and therefore cannot
+        be counted as an accepted campaign result.
+        """
         if result.validation_errors or result.disposition != "REVIEW_ONLY":
             return result.disposition, "PROVIDER_OR_VALIDATOR_TERMINAL_DISPOSITION"
-        payload = result.result
-        useful = False
-        if provider == "ollama_local":
-            useful = bool(payload.get("rankings"))
-        elif provider == "openrouter":
-            provider_result = payload.get("provider_result")
-            useful = isinstance(provider_result, dict) and bool(provider_result.get("output"))
-        elif provider == "openai_direct":
-            candidate = payload.get("candidate")
-            useful = isinstance(candidate, dict) and any(
-                bool(candidate.get(field)) for field in ("facts", "conflicts", "notes")
-            )
-        elif provider == "cursor":
-            run = payload.get("run")
-            useful = isinstance(run, dict) and any(
-                bool(run.get(field)) for field in ("summary", "output", "result", "findings")
-            )
-        return (
-            ("ACCEPTED", "DETERMINISTIC_SCHEMA_EVIDENCE_UTILITY_GATE_PASS")
-            if useful
-            else ("REVIEW_ONLY", "VALID_CANDIDATE_REQUIRES_FURTHER_VALUE_REVIEW")
-        )
+        return "REVIEW_ONLY", "VALID_CANDIDATE_REQUIRES_DISTINCT_VALUE_REVIEW"
 
     def _load_execution_packet(self, payload: dict[str, Any], work_unit_id: str) -> tuple[dict[str, Any], str]:
         reference = payload.get("execution_packets", {}).get(work_unit_id)

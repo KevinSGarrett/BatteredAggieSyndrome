@@ -117,6 +117,24 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.temporary.cleanup()
 
+    def test_schema_valid_semantic_candidate_is_not_auto_accepted_as_useful(self) -> None:
+        result = ProviderAdapterResult(
+            remote_identity="cursor-run",
+            result={
+                "authority": "CANDIDATE_ONLY",
+                "canonical_writes": 0,
+                "protected_decisions": 0,
+                "run": {"result": "nonempty candidate findings"},
+            },
+            disposition="REVIEW_ONLY",
+            validation_errors=(),
+            actual_cost_usd="0.10",
+            resource={"provider_calls": 1},
+        )
+        disposition, reason = InventoryScheduler._candidate_review_disposition("cursor", result)
+        self.assertEqual("REVIEW_ONLY", disposition)
+        self.assertEqual("VALID_CANDIDATE_REQUIRES_DISTINCT_VALUE_REVIEW", reason)
+
     def test_refresh_discovers_granular_units_and_reuses_immutable_snapshot(self) -> None:
         first = self.refresher.refresh(now=self.now)
         self.assertEqual(2, first["granular_units"])

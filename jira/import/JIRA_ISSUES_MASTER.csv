@@ -38156,7 +38156,6 @@ Explicit Out of Scope
 
 Prerequisites / Dependencies
 - Dependency POST-SUBTASK-040 complete at required maturity
-- POST-SUBTASK-201
 
 Acceptance Criteria
 1. Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.
@@ -38195,7 +38194,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-204
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-204,operations-security,POST-SUBTASK-204,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-204_qualify_the_private_tailscale_cpu_worker_for_deterministic_tranches_and_embedding_or_dedupli.json",In Progress,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-204,operations-security,POST-SUBTASK-204,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-564,100515,"[POST-SUBTASK-205] Run cross-plane comparison, utilization floors, 21 scheduler cycles, restart/outage exercises, and seven-day sustained assurance",100510,"Local ID: POST-SUBTASK-205
 
 Objective

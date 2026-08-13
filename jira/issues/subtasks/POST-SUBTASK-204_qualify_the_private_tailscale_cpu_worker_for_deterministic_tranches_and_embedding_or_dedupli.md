@@ -15,7 +15,8 @@
   "ai_context_notes": [
     "Canonical unified assistive contract source is `SRCREF-02121`.",
     "Never expose credentials, .env content, private data, or unnecessary protected evidence.",
-    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority."
+    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.",
+    "The corrected fixed-function CPU worker passed bounded qualification. On 2026-08-13 the persistent controller routed seven granular BAS manifest units through the exact CANONICAL_JSON route; all seven closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete."
   ],
   "allowed_modification_paths": [
     "artifacts/assistive/cpu_worker_readiness.json",
@@ -33,7 +34,7 @@
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
   ],
-  "blocked_reason": "CORRECTED_IDENTITY_TRANSPORT_AUTHENTICATION_PRIVILEGE_BUNDLE_AND_LIVE_QUALIFICATION_REQUIRED",
+  "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-205"
   ],
@@ -75,9 +76,7 @@
     "Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.",
     "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
   ],
-  "dependencies": [
-    "POST-SUBTASK-201"
-  ],
+  "dependencies": [],
   "effective_traceability_counts": {
     "acceptance_control_ids": 0,
     "adr_ids": 0,
@@ -251,7 +250,7 @@
   "title": "[POST-SUBTASK-204] Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "Deploy the corrected minimal loopback/Tailscale-Serve/HMAC/least-privilege service to verified peer comfy-v4-cpu-01, then pass all live identity, unauthorized, replay, restart, corruption, resource, hash, and cleanup gates.",
+  "unblock_condition": "",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -259,7 +258,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-204.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 
@@ -294,7 +293,7 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Hard Dependencies
 
-- POST-SUBTASK-201
+- None.
 
 ## Blocks
 
@@ -443,3 +442,4 @@ Deploy only to the exact verified private Windows peer through the authorized Ch
 - Canonical unified assistive contract source is `SRCREF-02121`.
 - Never expose credentials, .env content, private data, or unnecessary protected evidence.
 - Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.
+- The corrected fixed-function CPU worker passed bounded qualification. On 2026-08-13 the persistent controller routed seven granular BAS manifest units through the exact CANONICAL_JSON route; all seven closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete.

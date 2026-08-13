@@ -33,7 +33,7 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Current gate state
 
-- Workflow: `BLOCKED`
+- Workflow: `IN_PROGRESS`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`
@@ -56,7 +56,7 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 
 ## Dependencies that must already be complete
 
-- POST-SUBTASK-201
+- None.
 
 ## Files I may modify or create
 

@@ -82,13 +82,13 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - tests/test_unified_controller_state.py
 - tests/test_unified_assistive_plane.py
 - tests/test_unified_assistive_completeness.py
-- tests/test_unified_inventory_materializer.py
-- tests/test_unified_inventory_scheduler.py
-- tests/test_unified_runtime_inventory_dispatch.py
 - governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - governance/SOURCE_OF_TRUTH_MAP.md
 - docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
+- tests/test_unified_inventory_materializer.py
+- tests/test_unified_inventory_scheduler.py
+- tests/test_unified_runtime_inventory_dispatch.py
 - artifacts/jira_evidence/POST-SUBTASK-201.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.

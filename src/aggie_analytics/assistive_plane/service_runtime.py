@@ -50,6 +50,49 @@ def atomic_write(path: Path, data: bytes) -> None:
         raise
 
 
+def consume_service_stop_request(runtime_root: Path, role: str, build_commit: str) -> bool:
+    if role not in {"controller", "watchdog"}:
+        raise ValueError("SERVICE_STOP_ROLE_INVALID")
+    request_path = runtime_root / "control" / f"{role}-stop.json"
+    if not request_path.is_file():
+        return False
+    data = request_path.read_bytes()
+    digest = hashlib.sha256(data).hexdigest()
+    try:
+        payload = json.loads(data.decode("utf-8"))
+        valid = (
+            isinstance(payload, dict)
+            and set(payload) == {
+                "artifact_type",
+                "build_commit",
+                "request_id",
+                "requested_at",
+                "role",
+                "schema_version",
+            }
+            and payload.get("schema_version") == 1
+            and payload.get("artifact_type") == "UNIFIED_ASSISTIVE_SERVICE_STOP_REQUEST"
+            and payload.get("role") == role
+            and payload.get("build_commit") == build_commit
+            and isinstance(payload.get("requested_at"), str)
+            and str(payload.get("requested_at")).endswith("Z")
+            and isinstance(payload.get("request_id"), str)
+            and len(str(payload.get("request_id"))) == 32
+            and all(character in "0123456789abcdef" for character in str(payload.get("request_id")).lower())
+        )
+    except (UnicodeError, json.JSONDecodeError):
+        valid = False
+    category = "acknowledged" if valid else "quarantine"
+    evidence = runtime_root / "control" / category / role / "sha256" / digest / "request.json"
+    if evidence.exists():
+        if evidence.read_bytes() != data:
+            raise RuntimeError("SERVICE_STOP_REQUEST_EVIDENCE_COLLISION")
+    else:
+        atomic_write(evidence, data)
+    request_path.unlink(missing_ok=True)
+    return valid
+
+
 class ContentAddressedReportStore:
     """Immutable evidence plus a replaceable pointer to the latest observation."""
 
@@ -305,6 +348,11 @@ class ControllerService:
             initial_heartbeat.wait(timeout=min(5.0, self.config.lease_ttl_seconds / 2))
             try:
                 while not stop_event.is_set():
+                    if consume_service_stop_request(
+                        self.config.runtime_root, "controller", self.config.build_commit
+                    ):
+                        stop_event.set()
+                        break
                     if heartbeat_errors:
                         raise heartbeat_errors[0]
                     moment = time.monotonic()
@@ -416,6 +464,9 @@ class WatchdogService:
         last: dict[str, Any] = {}
         with LeaderLock(self.config.runtime_root / "runtime" / "watchdog.lock"):
             while not stop_event.is_set():
+                if consume_service_stop_request(self.config.runtime_root, "watchdog", self.config.build_commit):
+                    stop_event.set()
+                    break
                 last = self.watchdog.inspect()
                 last.update(
                     {
@@ -440,5 +491,12 @@ class WatchdogService:
                     if remaining_runtime <= 0:
                         break
                     wait_timeout = min(wait_timeout, remaining_runtime)
-                stop_event.wait(wait_timeout)
+                wait_deadline = time.monotonic() + wait_timeout
+                while not stop_event.is_set() and time.monotonic() < wait_deadline:
+                    if consume_service_stop_request(
+                        self.config.runtime_root, "watchdog", self.config.build_commit
+                    ):
+                        stop_event.set()
+                        break
+                    stop_event.wait(min(0.25, max(0.01, wait_deadline - time.monotonic())))
         return {"result": "PASS", "service": "watchdog", "reports": reports, "last_report": last}

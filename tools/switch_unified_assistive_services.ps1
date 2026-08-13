@@ -33,21 +33,63 @@ if ($PSCmdlet.ShouldProcess($release, 'Activate verified release and restart exi
     } else {
         $null
     }
-    $activationJson = & $python -B $activator --runtime-root $RuntimeRoot --release-root $release
-    if ($LASTEXITCODE -ne 0) { throw 'RELEASE_ACTIVATION_FAILED' }
-    $activation = $activationJson | ConvertFrom-Json
+    $currentPointer = Get-Content -LiteralPath $pointerPath -Raw | ConvertFrom-Json
+    $currentBuild = [string]$currentPointer.build_commit
+    if ($currentBuild -notmatch '^[0-9a-f]{40}$') { throw 'CURRENT_RELEASE_POINTER_BUILD_INVALID' }
+    $controlRoot = Join-Path $RuntimeRoot 'control'
+    $acknowledgements = @{}
+    foreach ($role in @('controller', 'watchdog')) {
+        $request = [ordered]@{
+            artifact_type = 'UNIFIED_ASSISTIVE_SERVICE_STOP_REQUEST'
+            build_commit = $currentBuild
+            request_id = [guid]::NewGuid().ToString('N')
+            requested_at = (Get-Date).ToUniversalTime().ToString('o').Replace('+00:00', 'Z')
+            role = $role
+            schema_version = 1
+        }
+        $requestJson = ($request | ConvertTo-Json -Compress) + "`n"
+        $requestBytes = [System.Text.UTF8Encoding]::new($false).GetBytes($requestJson)
+        $sha = [System.Security.Cryptography.SHA256]::Create()
+        try {
+            $requestHash = ([System.BitConverter]::ToString($sha.ComputeHash($requestBytes))).Replace('-', '').ToLowerInvariant()
+        } finally {
+            $sha.Dispose()
+        }
+        $requestPath = Join-Path $controlRoot ($role + '-stop.json')
+        $temporaryRequest = Join-Path $controlRoot ('.' + $role + '-stop-' + [guid]::NewGuid().ToString('N') + '.tmp')
+        $null = New-Item -ItemType Directory -Path $controlRoot -Force
+        [System.IO.File]::WriteAllBytes($temporaryRequest, $requestBytes)
+        Move-Item -LiteralPath $temporaryRequest -Destination $requestPath -Force
+        $acknowledgements[$role] = Join-Path $controlRoot ('acknowledged\' + $role + '\sha256\' + $requestHash + '\request.json')
+    }
     try {
-        Stop-ScheduledTask -TaskName $ControllerTaskName -ErrorAction Stop
-        Stop-ScheduledTask -TaskName $WatchdogTaskName -ErrorAction Stop
         $deadline = (Get-Date).AddSeconds(45)
         foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
             while ((Get-ScheduledTask -TaskName $name -ErrorAction Stop).State -eq 'Running') {
-                if ((Get-Date) -ge $deadline) { throw "SCHEDULED_TASK_STOP_TIMEOUT:$name" }
+                if ((Get-Date) -ge $deadline) { throw "GRACEFUL_SERVICE_STOP_TIMEOUT:$name" }
                 Start-Sleep -Milliseconds 250
             }
         }
+        foreach ($role in @('controller', 'watchdog')) {
+            if (-not (Test-Path -LiteralPath $acknowledgements[$role] -PathType Leaf)) {
+                throw "SERVICE_STOP_ACKNOWLEDGEMENT_MISSING:$role"
+            }
+        }
+        $statusJson = & $python -B (Join-Path $release 'tools\run_unified_assistive_controller.py') status --runtime-root $RuntimeRoot
+        if ($LASTEXITCODE -ne 0) { throw 'POST_STOP_CONTROLLER_STATUS_FAILED' }
+        if (($statusJson | ConvertFrom-Json).leader) { throw 'POST_STOP_CONTROLLER_LEADER_REMAINS' }
+        $activationJson = & $python -B $activator --runtime-root $RuntimeRoot --release-root $release
+        if ($LASTEXITCODE -ne 0) { throw 'RELEASE_ACTIVATION_FAILED' }
+        $activation = $activationJson | ConvertFrom-Json
         Start-ScheduledTask -TaskName $ControllerTaskName
         Start-ScheduledTask -TaskName $WatchdogTaskName
+        $deadline = (Get-Date).AddSeconds(30)
+        foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
+            while ((Get-ScheduledTask -TaskName $name -ErrorAction Stop).State -ne 'Running') {
+                if ((Get-Date) -ge $deadline) { throw "SCHEDULED_TASK_START_TIMEOUT:$name" }
+                Start-Sleep -Milliseconds 250
+            }
+        }
     } catch {
         if ($previousPointer) {
             $rollback = Join-Path (Split-Path -Parent $pointerPath) ('.current-release-' + [guid]::NewGuid().ToString('N') + '.tmp')
@@ -67,5 +109,6 @@ if ($PSCmdlet.ShouldProcess($release, 'Activate verified release and restart exi
         elevation_required = $false
         task_registration_performed = $false
         rollback_available = [bool]$previousPointer
+        graceful_stop_acknowledged = $true
     } | ConvertTo-Json -Compress
 }

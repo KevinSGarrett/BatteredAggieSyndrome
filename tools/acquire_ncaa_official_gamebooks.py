@@ -797,6 +797,7 @@ def inspect_ncaa_team_page(body: bytes, *, contract: Mapping[str, Any]) -> dict[
         and re.search(r"[0-9]{2}/[0-9]{2}/[0-9]{4}", row)
         and re.search(r">\s*(?:(?:W|L|T)\s+)?[0-9]+\s*-\s*[0-9]+\s*<", row, re.IGNORECASE)
     ]
+    legacy_schedule_records = extract_legacy_schedule_records(legacy_schedule_rows)
     traversal_rows = contest_rows or legacy_schedule_rows
     team_ids = sorted(
         {
@@ -822,12 +823,76 @@ def inspect_ncaa_team_page(body: bytes, *, contract: Mapping[str, Any]) -> dict[
     return {
         "team_season_ids": team_ids,
         "contest_ids": contest_ids,
+        "legacy_schedule_records": legacy_schedule_records,
+        "legacy_schedule_record_count": len(legacy_schedule_records),
         "season_options": dict(sorted(season_options.items())),
         "html_bytes": len(body),
         "team_link_count": len(team_ids),
         "contest_link_count": len(contest_ids),
         "link_schema": "MODERN_CONTEST_ROW" if contest_rows else "LEGACY_SCHEDULE_RESULT_ROW",
     }
+
+
+def _html_fragment_text(value: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"(?s)<[^>]+>", " ", value))).strip()
+
+
+def extract_legacy_schedule_records(rows: list[str]) -> list[dict[str, Any]]:
+    """Extract source-linked legacy schedule facts without inventing contest IDs.
+
+    Older NCAA team pages expose opponent team-season links and factual
+    schedule/result cells, but no contest link. These records remain
+    candidate-only until a separate deterministic game reconciliation binds
+    both linked team-season pages to a canonical game.
+    """
+
+    records: list[dict[str, Any]] = []
+    for row in rows:
+        date_match = re.search(r"\b([0-9]{2}/[0-9]{2}/[0-9]{4})\b", row)
+        opponent_match = re.search(
+            r"(?is)<a\b[^>]*href=[\"']/teams/([0-9]+)[\"'][^>]*>(.*?)</a>",
+            row,
+        )
+        row_text = _html_fragment_text(row)
+        score_match = re.search(r"\b(?:(W|L|T)\s+)?([0-9]+)\s*-\s*([0-9]+)\b", row_text, re.IGNORECASE)
+        if date_match is None or opponent_match is None or score_match is None:
+            continue
+        try:
+            game_date = datetime.strptime(date_match.group(1), "%m/%d/%Y").date().isoformat()
+        except ValueError:
+            continue
+        opponent_label = _html_fragment_text(opponent_match.group(2))
+        away_marker = opponent_label.startswith("@")
+        opponent_name = opponent_label[1:].strip() if away_marker else opponent_label
+        if not opponent_name:
+            continue
+        records.append(
+            {
+                "game_date": game_date,
+                "opponent_team_season_id": opponent_match.group(1),
+                "opponent_display_name": opponent_name,
+                "site_hint": "AWAY" if away_marker else "HOME_OR_NEUTRAL_UNKNOWN",
+                "explicit_result_code": (
+                    score_match.group(1).upper() if score_match.group(1) is not None else "UNKNOWN"
+                ),
+                "score_for": int(score_match.group(2)),
+                "score_against": int(score_match.group(3)),
+                "contest_id": None,
+                "canonical_game_id": None,
+                "reconciliation_state": "SOURCE_LINKED_CANDIDATE_ONLY",
+                "source_row_sha256": hashlib.sha256(row.encode("utf-8")).hexdigest(),
+            }
+        )
+    return sorted(
+        records,
+        key=lambda item: (
+            item["game_date"],
+            int(item["opponent_team_season_id"]),
+            item["score_for"],
+            item["score_against"],
+            item["source_row_sha256"],
+        ),
+    )
 
 
 def discover_season(
@@ -892,8 +957,15 @@ def discover_season(
                         retrieved_at=retrieved_at,
                         source_uri=source_uri,
                         extension=request.extension,
-                        row_count=profile["contest_link_count"],
-                        schema_fields=("team_season_ids", "contest_ids", "season_options"),
+                        row_count=(
+                            profile["contest_link_count"] + profile["legacy_schedule_record_count"]
+                        ),
+                        schema_fields=(
+                            "team_season_ids",
+                            "contest_ids",
+                            "legacy_schedule_records",
+                            "season_options",
+                        ),
                         metadata={
                             "decision_unit": contract["decision_unit"],
                             "jira_key": contract["jira_key"],
@@ -982,6 +1054,9 @@ def discover_season(
                         "teams_visited": len(visited),
                         "teams_queued": len(queue),
                         "contest_ids": len(contest_ids),
+                        "legacy_schedule_records": sum(
+                            int(row.get("legacy_schedule_record_count", 0)) for row in captures
+                        ),
                         "failures": len(failures),
                     },
                     sort_keys=True,
@@ -990,7 +1065,7 @@ def discover_season(
             )
     state = "COMPLETE_GRAPH_EXHAUSTED" if not queue else "PARTIAL_MAXIMUM_TEAM_LIMIT_REACHED"
     core = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "artifact_type": "NCAA_OFFICIAL_TEAM_GRAPH_DISCOVERY_MANIFEST",
         "decision_unit": contract["decision_unit"],
         "jira_key": contract["jira_key"],
@@ -1003,6 +1078,9 @@ def discover_season(
         "team_failure_count": len(failures),
         "discovered_team_season_ids": sorted(visited, key=int),
         "discovered_contest_ids": sorted(contest_ids, key=int),
+        "legacy_schedule_record_count": sum(
+            int(row.get("legacy_schedule_record_count", 0)) for row in captures
+        ),
         "captures": sorted(captures, key=lambda row: int(row["team_season_id"])),
         "failures": sorted(failures, key=lambda row: int(row["team_season_id"])),
         "remaining_queue": sorted(queue, key=int),
@@ -1043,6 +1121,7 @@ def discover_season(
         "team_failure_count": len(failures),
         "discovered_team_count": len(visited),
         "discovered_contest_count": len(contest_ids),
+        "legacy_schedule_record_count": core["legacy_schedule_record_count"],
         "remaining_queue_count": len(queue),
     }
 
@@ -1428,6 +1507,9 @@ def build_gate(
             "team_page_capture_count": discovery_manifest["team_page_capture_count"],
             "team_failure_count": discovery_manifest["team_failure_count"],
             "discovered_contest_count": len(discovery_manifest["discovered_contest_ids"]),
+            "legacy_schedule_record_count": discovery_manifest.get(
+                "legacy_schedule_record_count", 0
+            ),
             "remaining_queue_count": len(discovery_manifest["remaining_queue"]),
             "manifest": {
                 "path": str(discovery_manifest_path),

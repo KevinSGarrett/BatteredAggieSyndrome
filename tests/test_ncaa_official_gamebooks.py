@@ -157,6 +157,46 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
         self.assertEqual([], result["contest_ids"])
         self.assertEqual(["136978", "137712"], result["team_season_ids"])
         self.assertEqual("LEGACY_SCHEDULE_RESULT_ROW", result["link_schema"])
+        self.assertEqual(2, result["legacy_schedule_record_count"])
+        self.assertEqual(
+            {
+                "game_date": "2010-09-04",
+                "opponent_team_season_id": "136978",
+                "opponent_display_name": "Arkansas St.",
+                "site_hint": "HOME_OR_NEUTRAL_UNKNOWN",
+                "explicit_result_code": "W",
+                "score_for": 52,
+                "score_against": 26,
+                "contest_id": None,
+                "canonical_game_id": None,
+                "reconciliation_state": "SOURCE_LINKED_CANDIDATE_ONLY",
+                "source_row_sha256": result["legacy_schedule_records"][0]["source_row_sha256"],
+            },
+            result["legacy_schedule_records"][0],
+        )
+        self.assertEqual("UNKNOWN", result["legacy_schedule_records"][1]["explicit_result_code"])
+        self.assertIsNone(result["legacy_schedule_records"][1]["contest_id"])
+        self.assertIsNone(result["legacy_schedule_records"][1]["canonical_game_id"])
+
+    def test_legacy_schedule_records_preserve_away_hint_without_promoting_home_or_neutral(self) -> None:
+        filler = "<div>NCAA official team statistics</div>" * 40
+        body = (
+            "<html><body>NCAA<table>"
+            "<tr><td>09/04/2010</td><td><a href='/teams/137345'>@ San Jose St.</a></td>"
+            "<td>W 48 - 3</td></tr>"
+            "<tr><td>bad date</td><td><a href='/teams/1'>Ignored</a></td><td>W 1 - 0</td></tr>"
+            "</table>"
+            f"{filler}</body></html>"
+        ).encode("utf-8")
+        first = inspect_ncaa_team_page(body, contract=self.contract)
+        second = inspect_ncaa_team_page(body, contract=self.contract)
+        self.assertEqual(first, second)
+        self.assertEqual(1, first["legacy_schedule_record_count"])
+        record = first["legacy_schedule_records"][0]
+        self.assertEqual("AWAY", record["site_hint"])
+        self.assertEqual("San Jose St.", record["opponent_display_name"])
+        self.assertEqual("137345", record["opponent_team_season_id"])
+        self.assertEqual(64, len(record["source_row_sha256"]))
 
     def test_team_graph_discovery_is_bounded_content_addressed_and_cache_reproducible(self) -> None:
         filler = "<div>NCAA official team statistics</div>" * 40
@@ -195,11 +235,65 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
             self.assertEqual("COMPLETE_GRAPH_EXHAUSTED", first["state"])
             self.assertEqual(2, first["discovered_team_count"])
             self.assertEqual(3, first["discovered_contest_count"])
+            self.assertEqual(0, first["legacy_schedule_record_count"])
             self.assertEqual(2, first_browser.calls)
             second_browser = FakeBrowser()
             second = discover_season(
                 season=2024,
                 contract=self.contract,
+                store=store,
+                browser=second_browser,
+                retrieved_at=datetime(2026, 8, 13, tzinfo=timezone.utc),
+                maximum_teams=10,
+            )
+            self.assertEqual(0, second_browser.calls)
+            self.assertEqual(first["discovery_identity"], second["discovery_identity"])
+            self.assertEqual(first["manifest_sha256"], second["manifest_sha256"])
+
+    def test_legacy_discovery_manifest_is_content_addressed_and_cache_reproducible(self) -> None:
+        filler = "<div>NCAA official team statistics</div>" * 40
+        body = (
+            "<html><body>NCAA<table>"
+            "<tr><td>09/04/2010</td><td><a href='/teams/137345'>@ San Jose St.</a></td>"
+            "<td>W 48 - 3</td></tr>"
+            f"</table>{filler}</body></html>"
+        ).encode("utf-8")
+
+        class FakeBrowser:
+            def __init__(self):
+                self.calls = 0
+
+            def fetch(self, uri):
+                self.calls += 1
+                return FetchResponse(body=body, status_code=200)
+
+        contract = json.loads(json.dumps(self.contract))
+        contract["discovery"]["seed_team_season_ids"]["2010"] = "137345"
+        with tempfile.TemporaryDirectory() as directory:
+            store = RawSnapshotStore(Path(directory))
+            first_browser = FakeBrowser()
+            first = discover_season(
+                season=2010,
+                contract=contract,
+                store=store,
+                browser=first_browser,
+                retrieved_at=datetime(2026, 8, 12, tzinfo=timezone.utc),
+                maximum_teams=10,
+            )
+            self.assertEqual("COMPLETE_GRAPH_EXHAUSTED", first["state"])
+            self.assertEqual(1, first["legacy_schedule_record_count"])
+            manifest = json.loads(Path(first["manifest_path"]).read_text(encoding="utf-8"))
+            self.assertEqual("1.1.0", manifest["schema_version"])
+            self.assertEqual(1, manifest["legacy_schedule_record_count"])
+            self.assertEqual(1, manifest["captures"][0]["legacy_schedule_record_count"])
+            self.assertEqual(
+                "SOURCE_LINKED_CANDIDATE_ONLY",
+                manifest["captures"][0]["legacy_schedule_records"][0]["reconciliation_state"],
+            )
+            second_browser = FakeBrowser()
+            second = discover_season(
+                season=2010,
+                contract=contract,
                 store=store,
                 browser=second_browser,
                 retrieved_at=datetime(2026, 8, 13, tzinfo=timezone.utc),
@@ -250,6 +344,7 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
                 "team_failure_count": 0,
                 "discovered_team_count": 1,
                 "discovered_contest_count": 1,
+                "legacy_schedule_record_count": 0,
                 "remaining_queue_count": 0,
             }
             arguments = [

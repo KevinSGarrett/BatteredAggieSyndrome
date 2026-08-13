@@ -76,11 +76,11 @@
       "schema_path": "configs/unified_assistive_policy.json",
       "authority": "PATCH_CANDIDATE_ONLY",
       "pre_routing_effort_points": 8,
-      "scope": "Continue the ten-unit Cursor campaign after two serial safety pilots and four accepted bounded campaign units.",
+      "scope": "Operate and empirically qualify the bounded Cursor repository campaign using immutable agent, settlement, review, Git, PR, and validation evidence.",
       "disposition": "CURSOR",
       "provider": "cursor",
       "model": "gpt-5.3-codex",
-      "reason": "six of ten real units are accepted within the USD 20 released stage; four real units and final qualification evidence remain"
+      "reason": "derive the current Cursor campaign state from immutable runtime evidence; broader operational and sustained gates remain independent"
     },
     {
       "local_id": "POST-SUBTASK-203",

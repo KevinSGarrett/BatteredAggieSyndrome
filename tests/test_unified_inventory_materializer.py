@@ -296,6 +296,52 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
             self.assertIn("CURSOR_DUPLICATE_REVIEW_JOB_ID:job-1", evidence["findings"])
             self.assertIn("CURSOR_DUPLICATE_REVIEW_AGENT_ID:agent-1", evidence["findings"])
 
+    def test_cursor_campaign_decision_uses_current_semantic_evidence(self) -> None:
+        item = {
+            "local_id": "POST-SUBTASK-202",
+            "disposition": "CURSOR",
+            "provider": "cursor",
+            "model": "gpt-5.3-codex",
+            "task_format": "isolated_repository_patch",
+            "reason": "stale seed narrative",
+        }
+        evidence = {
+            "cursor": {
+                "real_review_dispositions": 10,
+                "unique_jobs": 10,
+                "unique_agents": 10,
+                "accepted_useful": 10,
+                "modified": 6,
+                "settled_usd": "5.0443093000000002",
+                "controller_routed_units": 0,
+                "transitional_or_manual_units": 10,
+            }
+        }
+        disposition, provider, model, reason = MATERIALIZER.derive_decision(
+            item,
+            {"workflow_state": "IN_PROGRESS"},
+            {
+                "budgets": {
+                    "cursor": {
+                        "authorization_id": "user-authorized-cursor-200-usd",
+                        "hard_limit_usd": "200.00",
+                        "released_stage_usd": "20.00",
+                    }
+                }
+            },
+            {"routes": []},
+            evidence,
+        )
+        self.assertEqual(RoutingDisposition.CURSOR, disposition)
+        self.assertEqual("cursor", provider)
+        self.assertEqual("gpt-5.3-codex", model)
+        self.assertIn("reviewed=10", reason)
+        self.assertIn("unique_jobs=10", reason)
+        self.assertIn("unique_agents=10", reason)
+        self.assertIn("campaign_count_gate_passed=true", reason)
+        self.assertIn("controller_routed=0", reason)
+        self.assertNotIn("stale seed narrative", reason)
+
     @staticmethod
     def openrouter_policy(
         *,

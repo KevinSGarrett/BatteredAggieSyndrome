@@ -1206,6 +1206,8 @@ class ControllerState:
         try:
             integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
             mode = connection.execute("PRAGMA journal_mode").fetchone()[0]
+            schema_row = connection.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone()
+            schema_version = int(schema_row[0]) if schema_row else 0
             leader = connection.execute("SELECT * FROM leader_lease WHERE singleton=1").fetchone()
             counts = {row["current_state"]: row["count"] for row in connection.execute("SELECT current_state,COUNT(*) AS count FROM work_units GROUP BY current_state")}
             cycle_summary = connection.execute(
@@ -1218,16 +1220,30 @@ class ControllerState:
             active_idle = connection.execute(
                 "SELECT COUNT(*) FROM idle_intervals WHERE resolved_at IS NULL"
             ).fetchone()[0]
-            execution = connection.execute(
-                "SELECT COUNT(*) AS attempts,"
-                "SUM(CASE WHEN state='CLOSED' THEN 1 ELSE 0 END) AS closed_attempts FROM dispatch_attempts"
-            ).fetchone()
-            review_counts = {
-                row["disposition"]: int(row["count"])
-                for row in connection.execute("SELECT disposition,COUNT(*) AS count FROM reviews GROUP BY disposition")
+            tables = {
+                row[0]
+                for row in connection.execute("SELECT name FROM sqlite_master WHERE type='table'")
             }
+            if "dispatch_attempts" in tables:
+                execution = connection.execute(
+                    "SELECT COUNT(*) AS attempts,"
+                    "SUM(CASE WHEN state='CLOSED' THEN 1 ELSE 0 END) AS closed_attempts FROM dispatch_attempts"
+                ).fetchone()
+                attempts = int(execution["attempts"])
+                closed_attempts = int(execution["closed_attempts"] or 0)
+            else:
+                attempts = 0
+                closed_attempts = 0
+            review_counts = (
+                {
+                    row["disposition"]: int(row["count"])
+                    for row in connection.execute("SELECT disposition,COUNT(*) AS count FROM reviews GROUP BY disposition")
+                }
+                if "reviews" in tables
+                else {}
+            )
             return {
-                "schema_version": SCHEMA_VERSION,
+                "schema_version": schema_version,
                 "database": str(self.database),
                 "journal_mode": str(mode).upper(),
                 "integrity_check": integrity,
@@ -1238,8 +1254,8 @@ class ControllerState:
                 "scheduler_no_change_cycles": int(cycle_summary["no_change"]),
                 "scheduler_latest_cycle": dict(latest_cycle) if latest_cycle else None,
                 "active_idle_intervals": int(active_idle),
-                "dispatch_attempts": int(execution["attempts"]),
-                "closed_dispatch_attempts": int(execution["closed_attempts"] or 0),
+                "dispatch_attempts": attempts,
+                "closed_dispatch_attempts": closed_attempts,
                 "review_dispositions": review_counts,
             }
         finally:

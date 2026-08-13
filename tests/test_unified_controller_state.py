@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -296,6 +297,27 @@ class UnifiedControllerStateTests(unittest.TestCase):
                 result="PASS",
                 now=self.now,
             )
+
+    def test_status_remains_read_only_compatible_with_schema_v3_during_upgrade(self) -> None:
+        database = Path(self.temp.name) / "schema-v3" / "orchestrator.sqlite3"
+        state = ControllerState(database)
+        state.initialize()
+        connection = sqlite3.connect(database)
+        try:
+            connection.execute("PRAGMA foreign_keys=OFF")
+            connection.execute("DROP TABLE dispatch_attempts")
+            connection.execute("DROP TABLE reviews")
+            connection.execute("UPDATE metadata SET value='3' WHERE key='schema_version'")
+            connection.commit()
+        finally:
+            connection.close()
+
+        status = state.status()
+
+        self.assertEqual(3, status["schema_version"])
+        self.assertEqual(0, status["dispatch_attempts"])
+        self.assertEqual(0, status["closed_dispatch_attempts"])
+        self.assertEqual({}, status["review_dispositions"])
 
     def test_watchdog_bounded_runtime_does_not_sleep_full_interval(self) -> None:
         state = ControllerState(Path(self.temp.name) / "runtime" / "state" / "orchestrator.sqlite3")

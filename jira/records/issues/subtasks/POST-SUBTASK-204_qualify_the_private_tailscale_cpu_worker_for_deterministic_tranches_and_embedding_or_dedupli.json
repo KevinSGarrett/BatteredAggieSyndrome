@@ -10,7 +10,8 @@
     "Canonical unified assistive contract source is `SRCREF-02121`.",
     "Never expose credentials, .env content, private data, or unnecessary protected evidence.",
     "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.",
-    "The corrected fixed-function CPU worker passed bounded qualification. By 2026-08-13T11:15Z the persistent exact-main controller had routed 25 granular BAS manifest units through the exact CANONICAL_JSON route; all 25 closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Exact LINE_HASH_MANIFEST and EXACT_TEXT_DEDUP campaign admission is being added without broadening worker authority. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete."
+    "The corrected fixed-function CPU worker passed bounded qualification. By 2026-08-13T11:15Z the persistent exact-main controller had routed 25 granular BAS manifest units through the exact CANONICAL_JSON route; all 25 closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Exact LINE_HASH_MANIFEST and EXACT_TEXT_DEDUP campaign admission is being added without broadening worker authority. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete.",
+    "The live BAT-560 BLOCKS BAT-563 relationship is adopted as the canonical POST-SUBTASK-201 dependency because multiformat CPU campaign operation relies on the unified inventory, lease, dispatch, validation, review, settlement, and cleanup foundation."
   ],
   "allowed_modification_paths": [
     "artifacts/assistive/cpu_worker_readiness.json",
@@ -35,7 +36,7 @@
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-201",
   "blocks": [
     "POST-SUBTASK-205"
   ],
@@ -77,7 +78,9 @@
     "Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.",
     "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
   ],
-  "dependencies": [],
+  "dependencies": [
+    "POST-SUBTASK-201"
+  ],
   "effective_traceability_counts": {
     "acceptance_control_ids": 0,
     "adr_ids": 0,
@@ -258,7 +261,7 @@
   "title": "[POST-SUBTASK-204] Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance",
   "traceability_inherited_from": [],
   "traceability_resolution": "DIRECT_DOMAIN_GATE",
-  "unblock_condition": "",
+  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
   "validation_classes": [
     "END_TO_END",
     "REPRODUCIBILITY",
@@ -266,5 +269,5 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-204.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "BLOCKED"
 }

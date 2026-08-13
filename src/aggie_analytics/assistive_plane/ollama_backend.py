@@ -5,6 +5,9 @@ from dataclasses import dataclass
 from .orchestration import validate_ollama_route
 
 
+OLLAMA_LOOPBACK_ENDPOINT = "http://127.0.0.1:11434"
+
+
 @dataclass(frozen=True)
 class OllamaRoutePolicy:
     endpoint: str

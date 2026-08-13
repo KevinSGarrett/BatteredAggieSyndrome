@@ -13,7 +13,7 @@ from aggie_analytics.assistive_plane.contracts import canonical_json_bytes
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerClient, execute_cpu_request
 from aggie_analytics.assistive_plane.inventory_runtime import RuntimeInventoryConfig, RuntimeInventoryRefresher
-from aggie_analytics.assistive_plane.orchestration import ReadyWorkInventory
+from aggie_analytics.assistive_plane.provider_adapters import ProviderAdapterResult
 from aggie_analytics.assistive_plane.scheduler_runtime import InventoryScheduler, SchedulerConfig
 from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog
 
@@ -275,6 +275,124 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         with closing(self.state.connect()) as connection:
             attempt_ids = [row[0] for row in connection.execute("SELECT attempt_id FROM dispatch_attempts")]
         self.assertEqual(3, len(set(attempt_ids)))
+
+
+    def test_exact_bge_readiness_cannot_be_widened_by_narrative_status(self) -> None:
+        packet = {
+            "provider": "ollama_local", "model": "bge-m3:latest", "model_digest": "7" * 64,
+            "task_format": "embedding_dedup_semantic_candidate_retrieval", "policy_version": "policy-v1",
+            "prompt_version": "prompt-v1", "route_schema_version": "1", "schema_sha256": "3" * 64,
+        }
+        route = {
+            "provider": "ollama_local", "resolved_model": "bge-m3:latest", "model_digest": "7" * 64,
+            "task_format": "embedding_dedup_semantic_candidate_retrieval", "policy_version": "policy-v1",
+            "prompt_version": "prompt-v1", "schema_version": "1", "schema_sha256": "3" * 64,
+            "evidence_supported_state": "NOT_READY", "evidence_verified": True,
+            "evidence_sha256": "8" * 64, "human_status": "READY",
+        }
+        snapshot = {"external_evidence": {"local_qwen": {"routes": [route]}}}
+        self.assertIsNone(RuntimeInventoryRefresher._provider_readiness(snapshot, packet))
+        route["evidence_supported_state"] = "READY"
+        route["model_digest"] = "9" * 64
+        self.assertIsNone(RuntimeInventoryRefresher._provider_readiness(snapshot, packet))
+        route["model_digest"] = "7" * 64
+        self.assertEqual("8" * 64, RuntimeInventoryRefresher._provider_readiness(snapshot, packet))
+
+    def test_invalid_provider_packet_does_not_block_cpu_manifest_discovery(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        (provider_root / "invalid.json").write_text('{"schema_version":99}', encoding="utf-8")
+        refresher = RuntimeInventoryRefresher(self.state, RuntimeInventoryConfig(
+            current_path=self.current, snapshot_root=self.root / "inventory/runtime",
+            packet_root=self.root / "orchestrator", manifests_root=self.manifests,
+            provider_work_root=provider_root,
+        ))
+        report = refresher.refresh(now=self.now)
+        self.assertEqual(2, report["granular_units"])
+        snapshot = json.loads(Path(report["snapshot_path"]).read_text(encoding="utf-8"))
+        self.assertEqual(1, len(snapshot["provider_work_findings"]))
+        self.assertEqual(
+            "PROVIDER_WORK_DEFERRED_CPU_AND_DETERMINISTIC_DISCOVERY_CONTINUES",
+            snapshot["provider_work_findings"][0]["disposition"],
+        )
+
+    def test_granular_bge_and_openai_packets_traverse_durable_candidate_lifecycle(self) -> None:
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        current_payload["external_evidence"].update({
+            "openai": {"present": True, "manifest_sha256": "1" * 64},
+            "local_qwen": {"routes": [{
+                "provider": "ollama_local", "resolved_model": "bge-m3:latest",
+                "model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+                "task_format": "embedding_dedup_semantic_candidate_retrieval",
+                "policy_version": "unified-assistive-execution-plane-v2-operational-correction",
+                "prompt_version": "embedding-shadow-v1", "schema_version": "1",
+                "schema_sha256": "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c",
+                "evidence_supported_state": "READY", "evidence_verified": True,
+                "evidence_sha256": "2" * 64,
+            }]},
+        })
+        self.current.write_bytes(canonical_json_bytes(current_payload) + b"\n")
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        bge_packet = {
+            "schema_version": 1, "provider": "ollama_local",
+            "task_format": "embedding_dedup_semantic_candidate_retrieval", "model": "bge-m3:latest",
+            "model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+            "policy_version": "unified-assistive-execution-plane-v2-operational-correction",
+            "prompt_version": "embedding-shadow-v1", "route_schema_version": "1",
+            "jira_unit": "BAT-562", "schema_sha256": "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c",
+            "source_hashes": ["4" * 64],
+            "query": "Texas A&M", "candidates": [{"candidate_id": "a", "text": "Texas A&M Aggies"}],
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        openai_packet = {
+            "schema_version": 1, "provider": "openai_direct", "task_format": "governed_openai_candidate_v1",
+            "jira_unit": "POST-SUBTASK-168", "schema_sha256": "5" * 64, "source_hashes": ["6" * 64],
+            "job": {"model": "gpt-5-nano"},
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        (provider_root / "bge.json").write_bytes(canonical_json_bytes(bge_packet) + b"\n")
+        (provider_root / "openai.json").write_bytes(canonical_json_bytes(openai_packet) + b"\n")
+        refresher = RuntimeInventoryRefresher(self.state, RuntimeInventoryConfig(
+            current_path=self.current, snapshot_root=self.root / "inventory/runtime",
+            packet_root=self.root / "orchestrator", manifests_root=self.manifests,
+            provider_work_root=provider_root,
+        ))
+        self.assertEqual(4, refresher.refresh(now=self.now)["granular_units"])
+
+        class FakeAdapter:
+            def __init__(self, provider: str, cost: str) -> None:
+                self.provider, self.cost = provider, cost
+
+            def run(self, _packet: dict[str, object]) -> ProviderAdapterResult:
+                return ProviderAdapterResult(
+                    remote_identity=f"{self.provider}-run",
+                    result={"authority": "CANDIDATE_ONLY", "canonical_writes": 0,
+                            "protected_decisions": 0, "provider": self.provider},
+                    disposition="REVIEW_ONLY", validation_errors=(), actual_cost_usd=self.cost,
+                    resource={"tokens": 17},
+                )
+
+        scheduler = InventoryScheduler(self.state, SchedulerConfig(
+            inventory_current_path=self.current, evidence_root=self.root / "runtime/evidence",
+            inventory_max_age_seconds=300, cycle_interval_seconds=3600,
+            owner_id="provider-controller-test", max_dispatch_per_cycle=2,
+        ), adapters={
+            "ollama_local": FakeAdapter("ollama_local", "0.000000"),
+            "openai_direct": FakeAdapter("openai_direct", "0.000321"),
+        })
+        report = scheduler.evaluate(now=self.now)
+        self.assertEqual(2, report["dispatched_units"])
+        self.assertEqual(2, report["provider_calls"])
+        self.assertEqual({"ollama_local", "openai_direct"}, {item["provider"] for item in report["dispatched"]})
+        with closing(self.state.connect()) as connection:
+            rows = connection.execute(
+                "SELECT provider,status,resource_json FROM provider_runs WHERE provider IN ('ollama_local','openai_direct')"
+            ).fetchall()
+            self.assertEqual(2, len(rows))
+            self.assertTrue(all(row["status"] == "SETTLED" for row in rows))
+            openai = next(row for row in rows if row["provider"] == "openai_direct")
+            self.assertEqual("0.000321", json.loads(openai["resource_json"])["actual_cost_usd_exact"])
 
 
 if __name__ == "__main__":

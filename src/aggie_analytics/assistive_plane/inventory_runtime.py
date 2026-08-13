@@ -16,7 +16,10 @@ from .orchestration import ReadyWorkInventory, ReadyWorkUnit, RouteDecision, Rou
 
 MAX_DISCOVERED_MANIFEST_BYTES = 1024 * 1024
 MAX_DISCOVERED_UNITS = 64
+MAX_PROVIDER_WORK_BYTES = 2 * 1024 * 1024
+MAX_PROVIDER_WORK_UNITS = 64
 DISCOVERY_NAMES = frozenset({"run.json", "progress.json"})
+DYNAMIC_PREFIXES = ("AUTO-CPU-MANIFEST-", "AUTO-BGE-", "AUTO-OAI-")
 CPU_MANIFEST_TASK_FORMAT = "cpu_worker_canonical_manifest_v1"
 CPU_MANIFEST_SCHEMA_SHA256 = hashlib.sha256(
     b"cpu_worker_canonical_manifest_v1:value:any-json;candidate-only;exact-local-replay"
@@ -92,6 +95,7 @@ class RuntimeInventoryConfig:
     snapshot_root: Path
     packet_root: Path
     manifests_root: Path
+    provider_work_root: Path | None = None
     refresh_max_age_seconds: int = 240
 
     def validate(self) -> None:
@@ -99,6 +103,8 @@ class RuntimeInventoryConfig:
             raise ValueError("RUNTIME_INVENTORY_REFRESH_AGE_INVALID")
         if not self.manifests_root.is_absolute():
             raise ValueError("RUNTIME_INVENTORY_MANIFEST_ROOT_NOT_ABSOLUTE")
+        if self.provider_work_root is not None and not self.provider_work_root.is_absolute():
+            raise ValueError("RUNTIME_INVENTORY_PROVIDER_WORK_ROOT_NOT_ABSOLUTE")
 
 
 class RuntimeInventoryRefresher:
@@ -180,6 +186,111 @@ class RuntimeInventoryRefresher:
         return discovered
 
     @staticmethod
+    def _valid_sha256(value: object) -> bool:
+        text = str(value)
+        return len(text) == 64 and all(character in "0123456789abcdef" for character in text)
+
+    @classmethod
+    def _provider_readiness(cls, snapshot: dict[str, Any], packet: dict[str, Any]) -> str | None:
+        provider = packet.get("provider")
+        if provider == "openai_direct":
+            evidence = snapshot.get("external_evidence", {}).get("openai", {})
+            digest = evidence.get("manifest_sha256")
+            return str(digest) if evidence.get("present") and cls._valid_sha256(digest) else None
+        if provider == "ollama_local" and packet.get("task_format") == "embedding_dedup_semantic_candidate_retrieval":
+            routes = snapshot.get("external_evidence", {}).get("local_qwen", {}).get("routes", [])
+            for route in routes if isinstance(routes, list) else []:
+                exact = (
+                    route.get("provider") == "ollama_local"
+                    and route.get("resolved_model") == packet.get("model")
+                    and route.get("model_digest") == packet.get("model_digest")
+                    and route.get("task_format") == packet.get("task_format")
+                    and route.get("policy_version") == packet.get("policy_version")
+                    and route.get("prompt_version") == packet.get("prompt_version")
+                    and route.get("schema_version") == packet.get("route_schema_version")
+                    and route.get("schema_sha256") == packet.get("schema_sha256")
+                )
+                if exact and route.get("evidence_supported_state") == "READY" and route.get("evidence_verified") is True:
+                    digest = route.get("evidence_sha256")
+                    return str(digest) if cls._valid_sha256(digest) else None
+        return None
+
+    def _discover_provider_work(
+        self, snapshot: dict[str, Any], moment: datetime
+    ) -> list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]]:
+        root_value = self.config.provider_work_root
+        if root_value is None or not root_value.exists():
+            return []
+        root = root_value.resolve(strict=True)
+        candidates = sorted(
+            (path for path in root.rglob("*.json") if 0 < path.stat().st_size <= MAX_PROVIDER_WORK_BYTES),
+            key=lambda path: path.relative_to(root).as_posix(),
+        )
+        if len(candidates) > MAX_PROVIDER_WORK_UNITS:
+            raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_BOUND_EXCEEDED")
+        discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
+        for source in candidates:
+            resolved = source.resolve(strict=True)
+            if root not in resolved.parents:
+                raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_OUTSIDE_ALLOWLIST")
+            raw = resolved.read_bytes()
+            source_sha256 = hashlib.sha256(raw).hexdigest()
+            packet = json.loads(raw)
+            if not isinstance(packet, dict) or packet.get("schema_version") != 1:
+                raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_INVALID")
+            if packet.get("authority") != "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES":
+                raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_AUTHORITY_INVALID")
+            provider = packet.get("provider")
+            task_format = packet.get("task_format")
+            if provider == "openai_direct" and task_format == "governed_openai_candidate_v1":
+                prefix = "AUTO-OAI-"
+                disposition = RoutingDisposition.DIRECT_OPENAI
+                model = packet.get("job", {}).get("model")
+            elif provider == "ollama_local" and task_format == "embedding_dedup_semantic_candidate_retrieval":
+                prefix = "AUTO-BGE-"
+                disposition = RoutingDisposition.LOCAL_QWEN
+                model = packet.get("model")
+            else:
+                raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_ROUTE_INVALID")
+            readiness = self._provider_readiness(snapshot, packet)
+            if readiness is None:
+                raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_EXACT_ROUTE_NOT_READY")
+            jira_unit = str(packet.get("jira_unit", ""))
+            schema_sha256 = str(packet.get("schema_sha256", ""))
+            if not jira_unit or not self._valid_sha256(schema_sha256):
+                raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_IDENTITY_INVALID")
+            source_hashes = packet.get("source_hashes", [])
+            if not isinstance(source_hashes, list) or not source_hashes or not all(self._valid_sha256(item) for item in source_hashes):
+                raise ValueError("RUNTIME_INVENTORY_PROVIDER_SOURCE_HASHES_INVALID")
+            packet_path, packet_sha256 = _content_addressed_json(self.config.packet_root, "provider-packets", packet)
+            work_unit_id = prefix + packet_sha256[:20]
+            unit = ReadyWorkUnit(
+                work_unit_id=work_unit_id,
+                jira_unit=jira_unit,
+                task_format=str(task_format),
+                schema_sha256=schema_sha256,
+                authority="CANDIDATE_ONLY",
+                source_hashes=tuple([*source_hashes, source_sha256, packet_sha256]),
+                dependencies=tuple(packet.get("dependencies", [])),
+                pre_routing_effort_points=int(packet.get("pre_routing_effort_points", 1)),
+                scope=str(packet.get("scope", "Governed granular candidate-only provider work")),
+            )
+            decision = RouteDecision(
+                work_unit_id=work_unit_id,
+                work_unit_identity=unit.identity(),
+                disposition=disposition,
+                provider=str(provider),
+                model=str(model),
+                reason="EXACT_ROUTE_READY_AND_GRANULAR_PACKET_MATERIALIZED",
+                decided_at=rfc3339(moment),
+            )
+            discovered.append((unit, decision, {
+                "packet_path": str(packet_path), "packet_sha256": packet_sha256,
+                "readiness_evidence_sha256": readiness,
+            }))
+        return discovered
+
+    @staticmethod
     def _cpu_qualified(snapshot: dict[str, Any]) -> bool:
         return cpu_qualification_evidence_sha256(snapshot) is not None
 
@@ -192,15 +303,27 @@ class RuntimeInventoryRefresher:
         prior_units = {
             item["work_unit_id"]: item
             for item in base.get("work_units", [])
-            if str(item.get("work_unit_id", "")).startswith("AUTO-CPU-MANIFEST-")
+            if str(item.get("work_unit_id", "")).startswith(DYNAMIC_PREFIXES)
         }
         prior_decisions = {
             item["work_unit_id"]: item
             for item in base.get("route_decisions", [])
-            if str(item.get("work_unit_id", "")).startswith("AUTO-CPU-MANIFEST-")
+            if str(item.get("work_unit_id", "")).startswith(DYNAMIC_PREFIXES)
         }
         execution_packets = dict(base.get("execution_packets", {}))
-        discovered = self._discover(moment)
+        provider_work_findings: list[dict[str, str]] = []
+        try:
+            provider_work = self._discover_provider_work(base, moment)
+        except (OSError, KeyError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
+            finding = {
+                "finding": type(exc).__name__ + ":" + str(exc)[:240],
+                "observed_at": rfc3339(moment),
+                "disposition": "PROVIDER_WORK_DEFERRED_CPU_AND_DETERMINISTIC_DISCOVERY_CONTINUES",
+            }
+            provider_work_findings.append(finding)
+            self.state.append_event("PROVIDER_WORK_DISCOVERY_DEFERRED", finding, now=moment)
+            provider_work = []
+        discovered = [*self._discover(moment), *provider_work]
         for unit, decision, packet in discovered:
             prior_units.setdefault(unit.work_unit_id, asdict(unit))
             prior_decisions.setdefault(
@@ -223,11 +346,11 @@ class RuntimeInventoryRefresher:
 
         static_units = [
             item for item in base.get("work_units", [])
-            if not str(item.get("work_unit_id", "")).startswith("AUTO-CPU-MANIFEST-")
+            if not str(item.get("work_unit_id", "")).startswith(DYNAMIC_PREFIXES)
         ]
         static_decisions = [
             item for item in base.get("route_decisions", [])
-            if not str(item.get("work_unit_id", "")).startswith("AUTO-CPU-MANIFEST-")
+            if not str(item.get("work_unit_id", "")).startswith(DYNAMIC_PREFIXES)
         ]
         work_units = static_units + [prior_units[key] for key in sorted(prior_units)]
         route_decisions = static_decisions + [prior_decisions[key] for key in sorted(prior_decisions)]
@@ -264,10 +387,11 @@ class RuntimeInventoryRefresher:
                 "execution_states": status,
                 "route_decisions": route_decisions,
                 "work_units": work_units,
+                "provider_work_findings": provider_work_findings,
             }
         )
         snapshot = {
-            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "route_decisions", "execution_packets", "runtime_material_identity"}},
+            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings"}},
             "schema_version": 2,
             "artifact_type": "UNIFIED_ASSISTIVE_RUNTIME_INVENTORY",
             "generated_at": rfc3339(moment),
@@ -277,6 +401,7 @@ class RuntimeInventoryRefresher:
             "route_decisions": route_decisions,
             "execution_packets": execution_packets,
             "execution_states": status,
+            "provider_work_findings": provider_work_findings,
             "validation": validation,
             "canonical_or_protected_authority": False,
         }

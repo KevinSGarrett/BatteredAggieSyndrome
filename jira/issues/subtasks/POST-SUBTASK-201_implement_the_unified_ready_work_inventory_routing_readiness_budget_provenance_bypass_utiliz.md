@@ -55,6 +55,7 @@
     "tests/test_unified_runtime_inventory_dispatch.py",
     "jira/tools/import_bat_live.py",
     "tests/test_jira_evidence_state_mapping.py",
+    "tests/test_jira_operational_status_policy.py",
     "artifacts/jira_evidence/POST-SUBTASK-201.json"
   ],
   "blocked_reason": "",
@@ -158,7 +159,8 @@
     "tests/test_unified_inventory_scheduler.py",
     "tests/test_unified_runtime_inventory_dispatch.py",
     "jira/tools/import_bat_live.py",
-    "tests/test_jira_evidence_state_mapping.py"
+    "tests/test_jira_evidence_state_mapping.py",
+    "tests/test_jira_operational_status_policy.py"
   ],
   "files_to_inspect": [
     "governance/OPENAI_ASSISTIVE_PLANE.md",
@@ -385,6 +387,7 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - tests/test_unified_runtime_inventory_dispatch.py
 - jira/tools/import_bat_live.py
 - tests/test_jira_evidence_state_mapping.py
+- tests/test_jira_operational_status_policy.py
 
 ## Components Expected To Be Touched
 

@@ -111,6 +111,19 @@
   ],
   "issue_type": "Subtask",
   "jira_key": "BAT-561",
+  "jira_operational_status_policy": {
+    "clear_when": "Clear or revise when the Cursor campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
+    "evidence_refs": [
+      "BAT-560",
+      "BAT-561",
+      "POST-SUBTASK-201",
+      "POST-SUBTASK-202"
+    ],
+    "mode": "EXPLICIT_ACTIVE_EXECUTION",
+    "rationale": "Real Cursor campaign units are actively executing and being reviewed while the shared BAT-560 operational dependency remains logically incomplete.",
+    "schema_version": 1,
+    "target_status": "In Progress"
+  },
   "labels": [
     "actionable",
     "post-wave",

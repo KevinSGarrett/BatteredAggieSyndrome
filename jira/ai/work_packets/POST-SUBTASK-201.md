@@ -91,6 +91,7 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - tests/test_unified_runtime_inventory_dispatch.py
 - jira/tools/import_bat_live.py
 - tests/test_jira_evidence_state_mapping.py
+- tests/test_jira_operational_status_policy.py
 - artifacts/jira_evidence/POST-SUBTASK-201.json
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.

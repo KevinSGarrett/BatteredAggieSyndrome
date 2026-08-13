@@ -153,6 +153,19 @@
   ],
   "issue_type": "Subtask",
   "jira_key": "BAT-563",
+  "jira_operational_status_policy": {
+    "clear_when": "Clear or revise when the CPU-worker campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
+    "evidence_refs": [
+      "BAT-560",
+      "BAT-563",
+      "POST-SUBTASK-201",
+      "POST-SUBTASK-204"
+    ],
+    "mode": "EXPLICIT_ACTIVE_EXECUTION",
+    "rationale": "Qualified fixed-function CPU routes are serving real campaign units while unattended BAT-560 deployment and campaign-level completion remain logically incomplete.",
+    "schema_version": 1,
+    "target_status": "In Progress"
+  },
   "labels": [
     "actionable",
     "post-wave",

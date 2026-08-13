@@ -47,6 +47,7 @@
     "tests/test_unified_assistive_completeness.py",
     "tests/test_unified_inventory_materializer.py",
     "tests/test_unified_inventory_scheduler.py",
+    "tests/test_unified_runtime_inventory_dispatch.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "governance/SOURCE_OF_TRUTH_MAP.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -148,6 +149,7 @@
     "tests/test_unified_assistive_completeness.py",
     "tests/test_unified_inventory_materializer.py",
     "tests/test_unified_inventory_scheduler.py",
+    "tests/test_unified_runtime_inventory_dispatch.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "governance/SOURCE_OF_TRUTH_MAP.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -236,7 +238,7 @@
     "docs/final/CODEX_HANDOFF.md"
   ],
   "ready": false,
-  "record_revision": "2.1",
+  "record_revision": "2.2",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-160.json` with one evidence row per acceptance criterion and exact artifact hashes.",
     "Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.",
@@ -371,6 +373,7 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - tests/test_unified_assistive_completeness.py
 - tests/test_unified_inventory_materializer.py
 - tests/test_unified_inventory_scheduler.py
+- tests/test_unified_runtime_inventory_dispatch.py
 - governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - governance/SOURCE_OF_TRUTH_MAP.md
 - docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md

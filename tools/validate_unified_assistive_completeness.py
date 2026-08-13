@@ -23,6 +23,7 @@ OPENROUTER_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\openrouter")
 CURSOR_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor")
 AUTHORITATIVE_ENV = Path(r"C:\BatteredAggieSyndrome\.env")
 SERVICE_CAPTURE = OUTPUT_ROOT / "service-state/current/service-state.json"
+CURRENT_INVENTORY = Path(r"C:\BatteredAggieSyndrome.data\assistive\inventory\current\inventory.json")
 ALLOWED_RESULTS = {"PASS", "FAIL", "BLOCKED", "INCOMPLETE"}
 
 
@@ -71,6 +72,19 @@ def json_artifacts(root: Path) -> list[dict[str, Any]]:
     return artifacts
 
 
+def current_inventory(path: Path = CURRENT_INVENTORY) -> dict[str, Any]:
+    if not path.is_file():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("artifact_type") == "UNIFIED_ASSISTIVE_INVENTORY_POINTER":
+        snapshot_path = Path(str(payload["snapshot_path"]))
+        data = snapshot_path.read_bytes()
+        if hashlib.sha256(data).hexdigest() != payload.get("snapshot_sha256"):
+            raise RuntimeError("COMPLETENESS_INVENTORY_POINTER_HASH_MISMATCH")
+        payload = json.loads(data)
+    return payload
+
+
 def derive_states(root: Path = ROOT, service_capture: Path | None = None) -> tuple[dict[str, str], dict[str, Any]]:
     policy = json.loads((root / "configs/unified_assistive_policy.json").read_text(encoding="utf-8"))
     openai_calls = settled_openai_calls()
@@ -81,6 +95,15 @@ def derive_states(root: Path = ROOT, service_capture: Path | None = None) -> tup
     cursor_manifests = json_artifacts(CURSOR_ROOT / "manifests")
     cursor_agents = len({item.get("agent_id") for item in cursor_manifests if item.get("agent_id")})
     service = json.loads(service_capture.read_text(encoding="utf-8")) if service_capture and service_capture.is_file() else None
+    inventory = current_inventory()
+    semantic = inventory.get("external_evidence", {})
+    cpu_qualified = bool(semantic.get("cpu_worker", {}).get("qualified"))
+    local_routes = semantic.get("local_qwen", {}).get("routes", [])
+    bge_ready = any(
+        str(item.get("resolved_model", "")).startswith("bge-m3")
+        and item.get("evidence_supported_state") == "READY"
+        for item in local_routes
+    )
     service_deployed = bool(service and service.get("result") == "PASS" and service.get("service_shell_state") == "DEPLOYED_HEALTHY")
     scheduler_real_cycles = int(service.get("scheduler", {}).get("real_cycles", 0)) if service else 0
     scheduler_operational = bool(service and service.get("scheduler", {}).get("operational"))
@@ -94,8 +117,14 @@ def derive_states(root: Path = ROOT, service_capture: Path | None = None) -> tup
         "openai": "OPERATIONAL_CANDIDATE_ONLY" if openai_calls else "CONFIGURED_NOT_OPERATIONAL",
         "openrouter": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL" if openrouter_spend > 0 else "PAID_PILOT_AUTHORIZED_NOT_OPERATIONAL",
         "cursor": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL" if cursor_agents > 0 else "PAID_PILOT_AUTHORIZED_ZERO_REAL_AGENTS",
-        "local_qwen": "EXACT_EVALUATED_ROUTES_REJECTED_NEW_QUALIFICATION_PENDING",
-        "remote_cpu_worker": "BLOCKED_PARTIAL_CORRECTED_DEPLOYMENT_PENDING",
+        "local_qwen": (
+            "BGE_M3_EXACT_RETRIEVAL_READY_QWEN_EXACT_ROUTES_REJECTED"
+            if bge_ready else "EXACT_EVALUATED_ROUTES_REJECTED_NEW_QUALIFICATION_PENDING"
+        ),
+        "remote_cpu_worker": (
+            "EXACT_FIXED_FUNCTION_QUALIFIED_CAMPAIGN_INCOMPLETE"
+            if cpu_qualified else "BLOCKED_PARTIAL_CORRECTED_DEPLOYMENT_PENDING"
+        ),
         "unified_plane": unified_state,
     }
     evidence = {
@@ -108,6 +137,9 @@ def derive_states(root: Path = ROOT, service_capture: Path | None = None) -> tup
         "watchdog_os_supervision_verified": service_deployed,
         "scheduler_real_cycles": scheduler_real_cycles,
         "scheduler_operational": scheduler_operational,
+        "scheduler_dispatched_units": int(service.get("scheduler", {}).get("dispatched_units", 0)) if service else 0,
+        "cpu_worker_exact_qualified": cpu_qualified,
+        "bge_m3_exact_retrieval_ready": bge_ready,
         "service_capture_present": service is not None,
         "service_capture_result": service.get("result") if service else None,
         "soak_calendar_days": 0,

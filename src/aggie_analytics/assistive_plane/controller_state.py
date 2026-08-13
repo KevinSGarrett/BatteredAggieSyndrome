@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -12,12 +13,20 @@ from pathlib import Path
 from typing import Any, Iterator
 
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 ALLOWED_STATES = {
     "DISCOVERED",
     "ELIGIBLE",
     "ADMITTED",
     "LEASED",
+    "DISPATCHED",
+    "RESULT_RECEIVED",
+    "VALIDATED",
+    "REVIEWED",
+    "SETTLED",
+    "CLEANED",
+    "CLOSED",
+    "RETRY_WAIT",
     "RUNNING",
     "VALIDATING",
     "REVIEW",
@@ -30,7 +39,10 @@ ALLOWED_STATES = {
     "CANCELLED",
     "DEAD_LETTER",
 }
-TERMINAL_STATES = {"ACCEPTED", "MODIFIED", "REVIEW_ONLY", "QUARANTINED", "REJECTED", "FAILED", "CANCELLED", "DEAD_LETTER"}
+TERMINAL_STATES = {
+    "CLOSED", "ACCEPTED", "MODIFIED", "REVIEW_ONLY", "QUARANTINED", "REJECTED",
+    "FAILED", "CANCELLED", "DEAD_LETTER",
+}
 
 
 def utc_now() -> datetime:
@@ -295,6 +307,120 @@ class ControllerState:
                     payload_json TEXT NOT NULL,
                     occurred_at TEXT NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS work_dependencies (
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    dependency_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY (work_unit_id, dependency_id)
+                );
+                CREATE TABLE IF NOT EXISTS work_leases (
+                    lease_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    owner_id TEXT NOT NULL,
+                    acquired_at TEXT NOT NULL,
+                    heartbeat_at TEXT NOT NULL,
+                    expires_at TEXT NOT NULL,
+                    status TEXT NOT NULL CHECK (status IN ('ACTIVE','CLOSED','ABANDONED'))
+                );
+                CREATE TABLE IF NOT EXISTS dispatch_attempts (
+                    attempt_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    provider TEXT NOT NULL,
+                    route_identity TEXT NOT NULL,
+                    state TEXT NOT NULL,
+                    started_at TEXT NOT NULL,
+                    completed_at TEXT,
+                    request_sha256 TEXT,
+                    result_sha256 TEXT,
+                    error_code TEXT
+                );
+                CREATE TABLE IF NOT EXISTS provider_runs (
+                    provider_run_id TEXT PRIMARY KEY,
+                    attempt_id TEXT NOT NULL REFERENCES dispatch_attempts(attempt_id),
+                    provider TEXT NOT NULL,
+                    remote_identity TEXT NOT NULL,
+                    request_sha256 TEXT NOT NULL,
+                    response_sha256 TEXT,
+                    status TEXT NOT NULL,
+                    actual_cost_cents INTEGER NOT NULL DEFAULT 0,
+                    resource_json TEXT NOT NULL,
+                    started_at TEXT NOT NULL,
+                    completed_at TEXT
+                );
+                CREATE TABLE IF NOT EXISTS retry_records (
+                    retry_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    prior_attempt_id TEXT REFERENCES dispatch_attempts(attempt_id),
+                    reason TEXT NOT NULL,
+                    eligible_at TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS route_readiness_observations (
+                    observation_id TEXT PRIMARY KEY,
+                    route_identity TEXT NOT NULL,
+                    state TEXT NOT NULL,
+                    evidence_sha256 TEXT NOT NULL,
+                    observed_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS execution_artifacts (
+                    artifact_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    attempt_id TEXT REFERENCES dispatch_attempts(attempt_id),
+                    artifact_type TEXT NOT NULL,
+                    path TEXT NOT NULL,
+                    sha256 TEXT NOT NULL,
+                    bytes INTEGER NOT NULL,
+                    recorded_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS validation_results (
+                    validation_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    attempt_id TEXT NOT NULL REFERENCES dispatch_attempts(attempt_id),
+                    validator TEXT NOT NULL,
+                    result TEXT NOT NULL,
+                    evidence_sha256 TEXT NOT NULL,
+                    recorded_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS reviews (
+                    review_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    attempt_id TEXT NOT NULL REFERENCES dispatch_attempts(attempt_id),
+                    reviewer TEXT NOT NULL,
+                    disposition TEXT NOT NULL,
+                    evidence_sha256 TEXT NOT NULL,
+                    review_seconds REAL,
+                    recorded_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS cleanup_actions (
+                    cleanup_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    attempt_id TEXT NOT NULL REFERENCES dispatch_attempts(attempt_id),
+                    action TEXT NOT NULL,
+                    bytes_removed INTEGER NOT NULL,
+                    evidence_sha256 TEXT NOT NULL,
+                    recorded_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS incidents (
+                    incident_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT REFERENCES work_units(work_unit_id),
+                    attempt_id TEXT REFERENCES dispatch_attempts(attempt_id),
+                    finding TEXT NOT NULL,
+                    evidence_sha256 TEXT,
+                    opened_at TEXT NOT NULL,
+                    resolved_at TEXT
+                );
+                CREATE TABLE IF NOT EXISTS reconciliation_records (
+                    reconciliation_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT REFERENCES work_units(work_unit_id),
+                    jira_identity TEXT,
+                    git_identity TEXT,
+                    pr_identity TEXT,
+                    result_identity TEXT,
+                    result TEXT NOT NULL,
+                    recorded_at TEXT NOT NULL
+                );
+                CREATE UNIQUE INDEX IF NOT EXISTS one_active_work_lease_per_unit
+                    ON work_leases(work_unit_id) WHERE status='ACTIVE';
                 """
             )
             connection.execute(
@@ -705,6 +831,376 @@ class ControllerState:
                 )
             return len(closing)
 
+    def work_unit_states(self, work_unit_ids: set[str]) -> dict[str, str]:
+        if not work_unit_ids:
+            return {}
+        placeholders = ",".join("?" for _ in work_unit_ids)
+        connection = self.connect()
+        try:
+            rows = connection.execute(
+                f"SELECT work_unit_id,current_state FROM work_units WHERE work_unit_id IN ({placeholders})",
+                tuple(sorted(work_unit_ids)),
+            ).fetchall()
+            return {str(row["work_unit_id"]): str(row["current_state"]) for row in rows}
+        finally:
+            connection.close()
+
+    @staticmethod
+    def _validate_sha256(value: str, finding: str) -> None:
+        if re.fullmatch(r"[0-9a-f]{64}", value) is None:
+            raise ValueError(finding)
+
+    @staticmethod
+    def _transition_in_connection(
+        connection: sqlite3.Connection,
+        *,
+        work_unit_id: str,
+        expected_state: str,
+        new_state: str,
+        reason: str,
+        actor: str,
+        stamp: str,
+        evidence_sha256: str | None = None,
+    ) -> None:
+        row = connection.execute(
+            "SELECT current_state,version FROM work_units WHERE work_unit_id=?", (work_unit_id,)
+        ).fetchone()
+        if row is None:
+            raise KeyError(work_unit_id)
+        if row["current_state"] != expected_state:
+            raise RuntimeError("WORK_UNIT_STATE_CONFLICT")
+        version = int(row["version"]) + 1
+        connection.execute(
+            "UPDATE work_units SET current_state=?,updated_at=?,version=? WHERE work_unit_id=?",
+            (new_state, stamp, version, work_unit_id),
+        )
+        connection.execute(
+            "INSERT INTO transitions(work_unit_id,from_state,to_state,reason,evidence_sha256,actor,occurred_at,unit_version) "
+            "VALUES(?,?,?,?,?,?,?,?)",
+            (work_unit_id, expected_state, new_state, reason, evidence_sha256, actor, stamp, version),
+        )
+
+    def claim_dispatch(
+        self,
+        *,
+        work_unit_id: str,
+        dependencies: tuple[str, ...],
+        lease_id: str,
+        attempt_id: str,
+        owner_id: str,
+        provider: str,
+        route_identity: str,
+        readiness_evidence_sha256: str,
+        now: datetime | None = None,
+        ttl_seconds: int = 600,
+    ) -> bool:
+        self._validate_sha256(route_identity, "ROUTE_IDENTITY_INVALID")
+        self._validate_sha256(readiness_evidence_sha256, "ROUTE_READINESS_EVIDENCE_INVALID")
+        if ttl_seconds <= 0:
+            raise ValueError("WORK_LEASE_TTL_INVALID")
+        moment = now or utc_now()
+        stamp = rfc3339(moment)
+        with self.transaction() as connection:
+            row = connection.execute(
+                "SELECT current_state FROM work_units WHERE work_unit_id=?", (work_unit_id,)
+            ).fetchone()
+            if row is None:
+                raise KeyError(work_unit_id)
+            if row["current_state"] == "CLOSED":
+                return False
+            active = connection.execute(
+                "SELECT lease_id,expires_at FROM work_leases WHERE work_unit_id=? AND status='ACTIVE'",
+                (work_unit_id,),
+            ).fetchone()
+            if active is not None:
+                if parse_rfc3339(active["expires_at"]) > moment:
+                    return False
+                connection.execute(
+                    "UPDATE work_leases SET status='ABANDONED',heartbeat_at=? WHERE lease_id=?",
+                    (stamp, active["lease_id"]),
+                )
+                connection.execute(
+                    "INSERT OR IGNORE INTO incidents(incident_id,work_unit_id,finding,opened_at) VALUES(?,?,?,?)",
+                    (hashlib.sha256(f"{active['lease_id']}:abandoned".encode()).hexdigest(), work_unit_id, "ABANDONED_WORK_LEASE_RECOVERED", stamp),
+                )
+            starting_state = str(row["current_state"])
+            if starting_state == "RETRY_WAIT":
+                retry = connection.execute(
+                    "SELECT eligible_at FROM retry_records WHERE work_unit_id=? ORDER BY created_at DESC LIMIT 1",
+                    (work_unit_id,),
+                ).fetchone()
+                if retry is None or parse_rfc3339(retry["eligible_at"]) > moment:
+                    return False
+            elif starting_state != "DISCOVERED":
+                return False
+            for dependency in dependencies:
+                connection.execute(
+                    "INSERT OR IGNORE INTO work_dependencies(work_unit_id,dependency_id,observed_at) VALUES(?,?,?)",
+                    (work_unit_id, dependency, stamp),
+                )
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state=starting_state, new_state="ELIGIBLE",
+                reason="DEPENDENCIES_AND_ROUTE_READY", actor=owner_id, stamp=stamp,
+            )
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="ELIGIBLE", new_state="LEASED",
+                reason="ATOMIC_WORK_LEASE_ACQUIRED", actor=owner_id, stamp=stamp,
+            )
+            connection.execute(
+                "INSERT INTO work_leases(lease_id,work_unit_id,owner_id,acquired_at,heartbeat_at,expires_at,status) "
+                "VALUES(?,?,?,?,?,?,'ACTIVE')",
+                (lease_id, work_unit_id, owner_id, stamp, stamp, rfc3339(moment + timedelta(seconds=ttl_seconds))),
+            )
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="LEASED", new_state="ADMITTED",
+                reason="EXACT_ROUTE_ADMISSION_PASSED", actor=owner_id, stamp=stamp,
+            )
+            connection.execute(
+                "UPDATE work_units SET route_identity=? WHERE work_unit_id=?", (route_identity, work_unit_id)
+            )
+            readiness_observation_id = hashlib.sha256(
+                f"{route_identity}:{readiness_evidence_sha256}".encode()
+            ).hexdigest()
+            connection.execute(
+                "INSERT OR IGNORE INTO route_readiness_observations(observation_id,route_identity,state,evidence_sha256,observed_at) "
+                "VALUES(?,?,'READY',?,?)",
+                (readiness_observation_id, route_identity, readiness_evidence_sha256, stamp),
+            )
+            connection.execute(
+                "INSERT INTO dispatch_attempts(attempt_id,work_unit_id,provider,route_identity,state,started_at) "
+                "VALUES(?,?,?,?,?,?)",
+                (attempt_id, work_unit_id, provider, route_identity, "ADMITTED", stamp),
+            )
+            return True
+
+    def dispatch_attempt_count(self, work_unit_id: str) -> int:
+        connection = self.connect()
+        try:
+            return int(
+                connection.execute(
+                    "SELECT COUNT(*) FROM dispatch_attempts WHERE work_unit_id=?", (work_unit_id,)
+                ).fetchone()[0]
+            )
+        finally:
+            connection.close()
+
+    def record_dispatch(
+        self,
+        *,
+        work_unit_id: str,
+        attempt_id: str,
+        provider_run_id: str,
+        provider: str,
+        remote_identity: str,
+        request_sha256: str,
+        request_artifact_path: Path,
+        actor: str,
+        now: datetime | None = None,
+    ) -> None:
+        self._validate_sha256(request_sha256, "DISPATCH_REQUEST_IDENTITY_INVALID")
+        stamp = rfc3339(now or utc_now())
+        request_artifact_sha256 = hashlib.sha256(request_artifact_path.read_bytes()).hexdigest()
+        with self.transaction() as connection:
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="ADMITTED", new_state="DISPATCHED",
+                reason="PROVIDER_REQUEST_SUBMITTED", actor=actor, stamp=stamp, evidence_sha256=request_sha256,
+            )
+            connection.execute(
+                "UPDATE dispatch_attempts SET state='DISPATCHED',request_sha256=? WHERE attempt_id=? AND work_unit_id=?",
+                (request_sha256, attempt_id, work_unit_id),
+            )
+            connection.execute(
+                "INSERT INTO provider_runs(provider_run_id,attempt_id,provider,remote_identity,request_sha256,status,resource_json,started_at) "
+                "VALUES(?,?,?,?,?,'DISPATCHED','{}',?)",
+                (provider_run_id, attempt_id, provider, remote_identity, request_sha256, stamp),
+            )
+            connection.execute(
+                "INSERT INTO execution_artifacts(artifact_id,work_unit_id,attempt_id,artifact_type,path,sha256,bytes,recorded_at) "
+                "VALUES(?,?,?,?,?,?,?,?)",
+                (
+                    request_artifact_sha256,
+                    work_unit_id,
+                    attempt_id,
+                    "PROVIDER_REQUEST_ENVELOPE",
+                    str(request_artifact_path),
+                    request_artifact_sha256,
+                    request_artifact_path.stat().st_size,
+                    stamp,
+                ),
+            )
+
+    def record_result_and_artifact(
+        self,
+        *,
+        work_unit_id: str,
+        attempt_id: str,
+        provider_run_id: str,
+        result_sha256: str,
+        artifact_path: Path,
+        actor: str,
+        now: datetime | None = None,
+    ) -> None:
+        self._validate_sha256(result_sha256, "DISPATCH_RESULT_IDENTITY_INVALID")
+        stamp = rfc3339(now or utc_now())
+        artifact_bytes = artifact_path.stat().st_size
+        artifact_sha256 = hashlib.sha256(artifact_path.read_bytes()).hexdigest()
+        with self.transaction() as connection:
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="DISPATCHED", new_state="RESULT_RECEIVED",
+                reason="CONTENT_ADDRESSED_PROVIDER_RESULT_RECEIVED", actor=actor, stamp=stamp,
+                evidence_sha256=artifact_sha256,
+            )
+            connection.execute(
+                "UPDATE dispatch_attempts SET state='RESULT_RECEIVED',result_sha256=? WHERE attempt_id=?",
+                (result_sha256, attempt_id),
+            )
+            connection.execute(
+                "UPDATE provider_runs SET response_sha256=?,status='RESULT_RECEIVED',completed_at=? WHERE provider_run_id=?",
+                (result_sha256, stamp, provider_run_id),
+            )
+            connection.execute(
+                "INSERT INTO execution_artifacts(artifact_id,work_unit_id,attempt_id,artifact_type,path,sha256,bytes,recorded_at) "
+                "VALUES(?,?,?,?,?,?,?,?)",
+                (artifact_sha256, work_unit_id, attempt_id, "PROVIDER_REQUEST_RESPONSE", str(artifact_path), artifact_sha256, artifact_bytes, stamp),
+            )
+
+    def complete_validated_review_only(
+        self,
+        *,
+        work_unit_id: str,
+        attempt_id: str,
+        lease_id: str,
+        validation_sha256: str,
+        review_sha256: str,
+        cleanup_sha256: str,
+        actor: str,
+        now: datetime | None = None,
+    ) -> None:
+        for value, finding in (
+            (validation_sha256, "VALIDATION_IDENTITY_INVALID"),
+            (review_sha256, "REVIEW_IDENTITY_INVALID"),
+            (cleanup_sha256, "CLEANUP_IDENTITY_INVALID"),
+        ):
+            self._validate_sha256(value, finding)
+        stamp = rfc3339(now or utc_now())
+        with self.transaction() as connection:
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="RESULT_RECEIVED", new_state="VALIDATED",
+                reason="DETERMINISTIC_EXACT_REPLAY_PASSED", actor=actor, stamp=stamp, evidence_sha256=validation_sha256,
+            )
+            connection.execute(
+                "INSERT INTO validation_results(validation_id,work_unit_id,attempt_id,validator,result,evidence_sha256,recorded_at) "
+                "VALUES(?,?,?,?,?,?,?)",
+                (validation_sha256, work_unit_id, attempt_id, "CPU_WORKER_EXACT_LOCAL_REPLAY", "PASS", validation_sha256, stamp),
+            )
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="VALIDATED", new_state="REVIEWED",
+                reason="CANDIDATE_ONLY_REVIEW_QUEUE_DISPOSITION", actor=actor, stamp=stamp, evidence_sha256=review_sha256,
+            )
+            connection.execute(
+                "INSERT INTO reviews(review_id,work_unit_id,attempt_id,reviewer,disposition,evidence_sha256,review_seconds,recorded_at) "
+                "VALUES(?,?,?,?,?,?,?,?)",
+                (review_sha256, work_unit_id, attempt_id, "DETERMINISTIC_POLICY", "REVIEW_ONLY", review_sha256, 0.0, stamp),
+            )
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="REVIEWED", new_state="SETTLED",
+                reason="NONBILLABLE_CPU_RESOURCE_SETTLED", actor=actor, stamp=stamp,
+            )
+            connection.execute(
+                "UPDATE provider_runs SET status='SETTLED',actual_cost_cents=0 WHERE attempt_id=?", (attempt_id,)
+            )
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="SETTLED", new_state="CLEANED",
+                reason="NO_RECONSTRUCTIBLE_TEMP_REMAINS", actor=actor, stamp=stamp, evidence_sha256=cleanup_sha256,
+            )
+            connection.execute(
+                "INSERT INTO cleanup_actions(cleanup_id,work_unit_id,attempt_id,action,bytes_removed,evidence_sha256,recorded_at) "
+                "VALUES(?,?,?,?,?,?,?)",
+                (cleanup_sha256, work_unit_id, attempt_id, "NO_RECONSTRUCTIBLE_TEMP_CREATED", 0, cleanup_sha256, stamp),
+            )
+            self._transition_in_connection(
+                connection, work_unit_id=work_unit_id, expected_state="CLEANED", new_state="CLOSED",
+                reason="CONTROLLER_ROUTED_CANDIDATE_ONLY_UNIT_CLOSED", actor=actor, stamp=stamp,
+                evidence_sha256=review_sha256,
+            )
+            connection.execute(
+                "UPDATE dispatch_attempts SET state='CLOSED',completed_at=? WHERE attempt_id=?", (stamp, attempt_id)
+            )
+            connection.execute(
+                "UPDATE work_leases SET status='CLOSED',heartbeat_at=? WHERE lease_id=?", (stamp, lease_id)
+            )
+            reconciliation_id = hashlib.sha256(f"{work_unit_id}:{attempt_id}:reconciled".encode()).hexdigest()
+            jira_identity = connection.execute(
+                "SELECT jira_identity FROM work_units WHERE work_unit_id=?", (work_unit_id,)
+            ).fetchone()[0]
+            result_identity = connection.execute(
+                "SELECT result_sha256 FROM dispatch_attempts WHERE attempt_id=?", (attempt_id,)
+            ).fetchone()[0]
+            connection.execute(
+                "INSERT INTO reconciliation_records(reconciliation_id,work_unit_id,jira_identity,result_identity,result,recorded_at) "
+                "VALUES(?,?,?,?,?,?)",
+                (
+                    reconciliation_id,
+                    work_unit_id,
+                    jira_identity,
+                    result_identity,
+                    "EXTERNAL_CANDIDATE_RESULT_BOUND_TO_EXISTING_JIRA_UMBRELLA_NO_GIT_OR_PR_MUTATION",
+                    stamp,
+                ),
+            )
+
+    def record_dispatch_failure(
+        self,
+        *,
+        work_unit_id: str,
+        attempt_id: str,
+        lease_id: str,
+        error_code: str,
+        actor: str,
+        retryable: bool = True,
+        retry_delay_seconds: int = 60,
+        now: datetime | None = None,
+    ) -> None:
+        stamp = rfc3339(now or utc_now())
+        with self.transaction() as connection:
+            row = connection.execute(
+                "SELECT current_state FROM work_units WHERE work_unit_id=?", (work_unit_id,)
+            ).fetchone()
+            next_state = "RETRY_WAIT" if retryable else "FAILED"
+            if row and row["current_state"] not in TERMINAL_STATES:
+                self._transition_in_connection(
+                    connection, work_unit_id=work_unit_id, expected_state=row["current_state"], new_state=next_state,
+                    reason=error_code, actor=actor, stamp=stamp,
+                )
+            connection.execute(
+                "UPDATE dispatch_attempts SET state='FAILED',completed_at=?,error_code=? WHERE attempt_id=?",
+                (stamp, error_code, attempt_id),
+            )
+            connection.execute(
+                "UPDATE provider_runs SET status='FAILED',completed_at=? WHERE attempt_id=?",
+                (stamp, attempt_id),
+            )
+            connection.execute("UPDATE work_leases SET status='CLOSED',heartbeat_at=? WHERE lease_id=?", (stamp, lease_id))
+            incident_id = hashlib.sha256(f"{attempt_id}:{error_code}".encode()).hexdigest()
+            connection.execute(
+                "INSERT OR IGNORE INTO incidents(incident_id,work_unit_id,attempt_id,finding,opened_at) VALUES(?,?,?,?,?)",
+                (incident_id, work_unit_id, attempt_id, error_code, stamp),
+            )
+            if retryable:
+                retry_id = hashlib.sha256(f"{attempt_id}:retry".encode()).hexdigest()
+                connection.execute(
+                    "INSERT INTO retry_records(retry_id,work_unit_id,prior_attempt_id,reason,eligible_at,created_at) "
+                    "VALUES(?,?,?,?,?,?)",
+                    (
+                        retry_id,
+                        work_unit_id,
+                        attempt_id,
+                        error_code,
+                        rfc3339((now or utc_now()) + timedelta(seconds=retry_delay_seconds)),
+                        stamp,
+                    ),
+                )
+
     def status(self) -> dict[str, Any]:
         connection = self.connect()
         try:
@@ -722,6 +1218,14 @@ class ControllerState:
             active_idle = connection.execute(
                 "SELECT COUNT(*) FROM idle_intervals WHERE resolved_at IS NULL"
             ).fetchone()[0]
+            execution = connection.execute(
+                "SELECT COUNT(*) AS attempts,"
+                "SUM(CASE WHEN state='CLOSED' THEN 1 ELSE 0 END) AS closed_attempts FROM dispatch_attempts"
+            ).fetchone()
+            review_counts = {
+                row["disposition"]: int(row["count"])
+                for row in connection.execute("SELECT disposition,COUNT(*) AS count FROM reviews GROUP BY disposition")
+            }
             return {
                 "schema_version": SCHEMA_VERSION,
                 "database": str(self.database),
@@ -734,6 +1238,9 @@ class ControllerState:
                 "scheduler_no_change_cycles": int(cycle_summary["no_change"]),
                 "scheduler_latest_cycle": dict(latest_cycle) if latest_cycle else None,
                 "active_idle_intervals": int(active_idle),
+                "dispatch_attempts": int(execution["attempts"]),
+                "closed_dispatch_attempts": int(execution["closed_attempts"] or 0),
+                "review_dispositions": review_counts,
             }
         finally:
             connection.close()

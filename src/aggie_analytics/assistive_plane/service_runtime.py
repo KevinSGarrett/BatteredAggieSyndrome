@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .controller_state import ControllerState, LeaderLock, rfc3339
+from .inventory_runtime import RuntimeInventoryConfig, RuntimeInventoryRefresher
 from .scheduler_runtime import InventoryScheduler, SchedulerConfig
 from .watchdog import ReadOnlyWatchdog
 
@@ -66,6 +67,10 @@ class ControllerServiceConfig:
     inventory_current_path: Path | None = None
     inventory_max_age_seconds: int = 300
     scheduler_cycle_interval_seconds: int = 21600
+    inventory_refresh_max_age_seconds: int = 240
+    cpu_worker_endpoint: str | None = "https://comfy-v4-cpu-01.tail9b05ab.ts.net"
+    cpu_worker_signing_key_path: Path | None = None
+    max_dispatch_per_cycle: int = 3
 
     def validate(self) -> None:
         if self.heartbeat_seconds <= 0 or self.heartbeat_seconds >= self.lease_ttl_seconds:
@@ -74,6 +79,8 @@ class ControllerServiceConfig:
             raise ValueError("CONTROLLER_QUEUE_INTERVAL_INVALID")
         if self.inventory_max_age_seconds <= 0 or self.scheduler_cycle_interval_seconds <= 0:
             raise ValueError("CONTROLLER_SCHEDULER_INTERVAL_INVALID")
+        if self.inventory_refresh_max_age_seconds <= 0 or self.max_dispatch_per_cycle <= 0:
+            raise ValueError("CONTROLLER_EXECUTION_BOUND_INVALID")
         if len(self.build_commit) != 40 or any(character not in "0123456789abcdef" for character in self.build_commit.lower()):
             raise ValueError("CONTROLLER_BUILD_COMMIT_INVALID")
 
@@ -90,6 +97,21 @@ class ControllerService:
         inventory_path = config.inventory_current_path or (
             config.runtime_root.parent / "inventory" / "current" / "inventory.json"
         )
+        data_root = config.runtime_root.parents[1]
+        cpu_worker_root = config.runtime_root.parent / "cpu_worker"
+        signing_key_path = config.cpu_worker_signing_key_path or (
+            cpu_worker_root / "controller" / "secrets" / "worker-v2.bin"
+        )
+        self.inventory_refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=inventory_path,
+                snapshot_root=config.runtime_root.parent / "inventory" / "runtime",
+                packet_root=config.runtime_root,
+                manifests_root=data_root / "manifests",
+                refresh_max_age_seconds=config.inventory_refresh_max_age_seconds,
+            ),
+        )
         self.scheduler = InventoryScheduler(
             self.state,
             SchedulerConfig(
@@ -97,6 +119,11 @@ class ControllerService:
                 evidence_root=config.runtime_root / "evidence",
                 inventory_max_age_seconds=config.inventory_max_age_seconds,
                 cycle_interval_seconds=config.scheduler_cycle_interval_seconds,
+                owner_id=config.owner_id,
+                cpu_worker_endpoint=config.cpu_worker_endpoint,
+                cpu_worker_storage_root=cpu_worker_root,
+                cpu_worker_signing_key_path=signing_key_path,
+                max_dispatch_per_cycle=config.max_dispatch_per_cycle,
             ),
         )
 
@@ -107,6 +134,7 @@ class ControllerService:
         sequence: int,
         queue_evaluations: int,
         last_scheduler_evaluation: dict[str, Any] | None,
+        last_inventory_refresh: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         status = self.state.status()
         scheduler = last_scheduler_evaluation or {}
@@ -128,6 +156,7 @@ class ControllerService:
             "scheduler_inventory_sha256": scheduler.get("inventory_sha256"),
             "scheduler_eligible_units": scheduler.get("eligible_units", 0),
             "scheduler_provider_calls": scheduler.get("provider_calls", 0),
+            "scheduler_inventory_refresh": last_inventory_refresh,
             "dispatch_engine_state": scheduler.get(
                 "dispatch_engine_state", "INVENTORY_SCHEDULER_WAITING_FOR_FIRST_EVALUATION"
             ),
@@ -147,6 +176,7 @@ class ControllerService:
         next_heartbeat = started_monotonic
         next_queue_observation = started_monotonic
         last_scheduler_evaluation: dict[str, Any] | None = None
+        last_inventory_refresh: dict[str, Any] | None = None
         completed_normally = False
         lock = LeaderLock(self.config.runtime_root / "runtime" / "controller.lock")
         self.state.initialize()
@@ -168,8 +198,28 @@ class ControllerService:
             try:
                 while not stop_event.is_set():
                     moment = time.monotonic()
-                    if moment >= next_queue_observation:
+                    remaining_runtime = (
+                        None
+                        if maximum_runtime_seconds is None
+                        else maximum_runtime_seconds - (moment - started_monotonic)
+                    )
+                    queue_budget_available = remaining_runtime is None or remaining_runtime >= min(
+                        1.0, self.config.queue_evaluation_seconds
+                    )
+                    if moment >= next_queue_observation and queue_budget_available:
                         queue_evaluations += 1
+                        try:
+                            last_inventory_refresh = self.inventory_refresher.refresh()
+                        except (OSError, KeyError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
+                            last_inventory_refresh = {
+                                "result": "BLOCKED",
+                                "finding": str(exc),
+                                "refreshed_at": rfc3339(datetime.now(timezone.utc)),
+                            }
+                            self.state.append_event(
+                                "RUNTIME_INVENTORY_REFRESH_BLOCKED",
+                                {"finding": str(exc)},
+                            )
                         last_scheduler_evaluation = self.scheduler.evaluate()
                         next_queue_observation = moment + self.config.queue_evaluation_seconds
                     if moment >= next_heartbeat:
@@ -185,6 +235,7 @@ class ControllerService:
                                 sequence=heartbeat_sequence,
                                 queue_evaluations=queue_evaluations,
                                 last_scheduler_evaluation=last_scheduler_evaluation,
+                                last_inventory_refresh=last_inventory_refresh,
                             ),
                             current_name="controller-heartbeat.json",
                         )
@@ -245,7 +296,11 @@ class WatchdogService:
         self.config = config
         self.database = config.runtime_root / "state" / "orchestrator.sqlite3"
         self.store = ContentAddressedReportStore(config.runtime_root / "watchdog")
-        self.watchdog = ReadOnlyWatchdog(self.database, config.heartbeat_max_age_seconds)
+        self.watchdog = ReadOnlyWatchdog(
+            self.database,
+            config.heartbeat_max_age_seconds,
+            expected_build_commit=config.build_commit,
+        )
 
     def run(
         self,
@@ -267,7 +322,7 @@ class WatchdogService:
                         "watchdog_pid": os.getpid(),
                         "watchdog_hostname": socket.gethostname(),
                         "observed_at": rfc3339(datetime.now(timezone.utc)),
-                        "full_operational_audit": "PENDING_LATER_ATOMIC_UNIT",
+                        "full_operational_audit": "EVIDENCE_DERIVED_AND_FAIL_CLOSED",
                         "overall_operational_completion": "INCOMPLETE",
                     }
                 )

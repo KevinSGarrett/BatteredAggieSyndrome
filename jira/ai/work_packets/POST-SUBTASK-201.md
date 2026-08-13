@@ -84,6 +84,7 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - tests/test_unified_assistive_completeness.py
 - tests/test_unified_inventory_materializer.py
 - tests/test_unified_inventory_scheduler.py
+- tests/test_unified_runtime_inventory_dispatch.py
 - governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - governance/SOURCE_OF_TRUTH_MAP.md
 - docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md

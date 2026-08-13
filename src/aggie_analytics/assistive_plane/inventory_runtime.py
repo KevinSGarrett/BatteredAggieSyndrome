@@ -25,6 +25,7 @@ MAX_DISCOVERED_MANIFEST_BYTES = 1024 * 1024
 MAX_DISCOVERED_UNITS = 64
 MAX_PROVIDER_WORK_BYTES = 2 * 1024 * 1024
 MAX_PROVIDER_WORK_UNITS = 64
+MAX_PROVIDER_WORK_SCAN_UNITS = 4096
 DISCOVERY_NAMES = frozenset({"run.json", "progress.json"})
 DYNAMIC_PREFIXES = ("AUTO-CPU-MANIFEST-", "AUTO-BGE-", "AUTO-OAI-")
 CPU_MANIFEST_TASK_FORMAT = "cpu_worker_canonical_manifest_v1"
@@ -263,8 +264,8 @@ class RuntimeInventoryRefresher:
             (path for path in root.rglob("*.json") if 0 < path.stat().st_size <= MAX_PROVIDER_WORK_BYTES),
             key=lambda path: path.relative_to(root).as_posix(),
         )
-        if len(candidates) > MAX_PROVIDER_WORK_UNITS:
-            raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_BOUND_EXCEEDED")
+        if len(candidates) > MAX_PROVIDER_WORK_SCAN_UNITS:
+            raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_SCAN_BOUND_EXCEEDED")
         discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
         for source in candidates:
             resolved = source.resolve(strict=True)
@@ -325,7 +326,11 @@ class RuntimeInventoryRefresher:
                 "packet_path": str(packet_path), "packet_sha256": packet_sha256,
                 "readiness_evidence_sha256": readiness,
             }))
-        return discovered
+        states = self.state.work_unit_states({unit.work_unit_id for unit, _, _ in discovered})
+        active = [entry for entry in discovered if states.get(entry[0].work_unit_id) != "CLOSED"]
+        if len(active) > MAX_PROVIDER_WORK_UNITS:
+            raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_ACTIVE_BOUND_EXCEEDED")
+        return active
 
     @staticmethod
     def _cpu_qualified(snapshot: dict[str, Any]) -> bool:

@@ -37,6 +37,8 @@ The installer refuses SYSTEM, verifies every release hash, exports any replaced 
 
 Provider campaign accounting uses distinct base units and frozen effort, not raw calls. Retries, health checks, catalog requests, smoke tests, duplicate submissions, and self-correction follow-ups never count as accepted work. Material Jira transitions synchronize within 15 minutes or create an explicit queued finding. The seven-day clock starts only after qualified routes process real production-like work through the deployed controller.
 
+The provider request store is an immutable content-addressed intake history, not a bounded destructive queue. Runtime discovery may scan a separately bounded historical population, but the admission bound applies only to packets whose durable work unit is not already `CLOSED`. Completed packet identities remain preserved for audit and replay without consuming active-discovery capacity; more than 64 simultaneously active provider packets still fails closed.
+
 1. Build or refresh the ready-work inventory before routing.
 2. Assign effort before provider selection and preserve the unit identity.
 3. Require one route disposition and an exact readiness record.

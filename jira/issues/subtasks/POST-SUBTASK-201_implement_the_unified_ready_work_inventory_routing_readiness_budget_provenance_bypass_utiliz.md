@@ -45,20 +45,19 @@
     "tests/test_unified_controller_state.py",
     "tests/test_unified_assistive_plane.py",
     "tests/test_unified_assistive_completeness.py",
-    "tests/test_unified_inventory_materializer.py",
-    "tests/test_unified_inventory_scheduler.py",
-    "tests/test_unified_runtime_inventory_dispatch.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "governance/SOURCE_OF_TRUTH_MAP.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
+    "tests/test_unified_inventory_materializer.py",
+    "tests/test_unified_inventory_scheduler.py",
+    "tests/test_unified_runtime_inventory_dispatch.py",
     "artifacts/jira_evidence/POST-SUBTASK-201.json"
   ],
   "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-202",
-    "POST-SUBTASK-203",
-    "POST-SUBTASK-204"
+    "POST-SUBTASK-203"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -147,13 +146,13 @@
     "tests/test_unified_controller_state.py",
     "tests/test_unified_assistive_plane.py",
     "tests/test_unified_assistive_completeness.py",
-    "tests/test_unified_inventory_materializer.py",
-    "tests/test_unified_inventory_scheduler.py",
-    "tests/test_unified_runtime_inventory_dispatch.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "governance/SOURCE_OF_TRUTH_MAP.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
-    "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
+    "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
+    "tests/test_unified_inventory_materializer.py",
+    "tests/test_unified_inventory_scheduler.py",
+    "tests/test_unified_runtime_inventory_dispatch.py"
   ],
   "files_to_inspect": [
     "governance/OPENAI_ASSISTIVE_PLANE.md",
@@ -340,7 +339,6 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 
 - POST-SUBTASK-202
 - POST-SUBTASK-203
-- POST-SUBTASK-204
 
 ## Read / Inspect First
 
@@ -371,13 +369,13 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - tests/test_unified_controller_state.py
 - tests/test_unified_assistive_plane.py
 - tests/test_unified_assistive_completeness.py
-- tests/test_unified_inventory_materializer.py
-- tests/test_unified_inventory_scheduler.py
-- tests/test_unified_runtime_inventory_dispatch.py
 - governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - governance/SOURCE_OF_TRUTH_MAP.md
 - docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
+- tests/test_unified_inventory_materializer.py
+- tests/test_unified_inventory_scheduler.py
+- tests/test_unified_runtime_inventory_dispatch.py
 
 ## Components Expected To Be Touched
 

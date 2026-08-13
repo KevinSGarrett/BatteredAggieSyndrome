@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
@@ -105,6 +106,13 @@ def specs() -> list[dict[str, Any]]:
     foundation = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-201", import_id=100511, objective="Implement the unified ready-work inventory, routing, readiness, budget, provenance, bypass, utilization, and completeness foundation", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-160", "POST-SUBTASK-198"], workflow="IN_PROGRESS")
     foundation["scope"] = "Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, and cleanup."
     foundation["files_expected_to_be_touched"] = ["configs/assistive_provider_registry.json", "configs/assistive_route_readiness.json", "configs/unified_assistive_policy.json", "configs/unified_assistive_ready_work.json", "configs/unified_assistive_operational_claims.json", "configs/unified_assistive_acceptance_ownership.json", "src/aggie_analytics/assistive_plane", "tools/adopt_unified_enforcement_package.py", "tools/validate_unified_acceptance_ownership.py", "tools/run_unified_assistive_controller.py", "tools/run_unified_assistive_watchdog.py", "tools/materialize_unified_assistive_inventory.py", "tools/validate_unified_assistive_plane.py", "tools/validate_unified_assistive_completeness.py", "tools/refresh_cursor_catalog.py", "tools/refresh_local_assistive_runtime.py", "tests/test_unified_controller_state.py", "tests/test_unified_assistive_plane.py", "tests/test_unified_assistive_completeness.py", "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "governance/SOURCE_OF_TRUTH_MAP.md", "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md", "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"]
+    foundation["files_expected_to_be_touched"].extend(
+        [
+            "tests/test_unified_inventory_materializer.py",
+            "tests/test_unified_inventory_scheduler.py",
+            "tests/test_unified_runtime_inventory_dispatch.py",
+        ]
+    )
     foundation["allowed_modification_paths"] = foundation["files_expected_to_be_touched"] + [foundation["evidence_manifest_path"]]
     foundation["acceptance_criteria"] = [
         "Inventory validation enforces effort points 1/2/3/5/8, stable identities, anti-padding, one disposition, and complete count/point reconciliation.",
@@ -114,7 +122,12 @@ def specs() -> list[dict[str, Any]]:
         "Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.",
         "The controller and independent watchdog are OS-supervised outside Codex Desktop, recover from crash/restart, agree on maximum justified state, and cannot overclaim partial operation.",
         "All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes.",
+        "Undispatched inventory revisions are preserved and may be superseded append-only; active or externally consequential identity changes fail closed without terminating the controller.",
+        "Inventory derivation semantically validates exact local-model, CPU-worker, Cursor, usage, review, and dispatch-origin evidence instead of treating directory hashes as readiness.",
+        "The persistent scheduler discovers granular BAS units and durably leases, dispatches, validates, reviews, settles, cleans, closes or requeues them without an active Codex turn.",
+        "The independent watchdog reports process health separately and fails operational completeness on stale inventory, idle admitted work, zero dispatch, reconciliation gaps, abandoned leases, or unsupported claims.",
     ]
+    foundation["record_revision"] = "2.2"
     foundation["blocked_reason"] = ""
     foundation["unblock_condition"] = ""
     # The provider-neutral structural foundation merged through PR #242. The
@@ -163,16 +176,19 @@ def specs() -> list[dict[str, Any]]:
         "The bounded historical qualification and exact-route negative evidence remain verified; the expanded local-model campaign is active and no operational local-model plane is claimed."
     )
 
-    worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="BLOCKED")
+    worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=[], workflow="IN_PROGRESS")
     worker["scope"] = "Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot."
     worker["acceptance_criteria"] = [
         "Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.",
         "Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.",
         "No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced.",
     ]
-    worker["blocked_reason"] = "CORRECTED_IDENTITY_TRANSPORT_AUTHENTICATION_PRIVILEGE_BUNDLE_AND_LIVE_QUALIFICATION_REQUIRED"
-    worker["unblock_condition"] = "Deploy the corrected minimal loopback/Tailscale-Serve/HMAC/least-privilege service to verified peer comfy-v4-cpu-01, then pass all live identity, unauthorized, replay, restart, corruption, resource, hash, and cleanup gates."
+    worker["blocked_reason"] = ""
+    worker["unblock_condition"] = ""
     worker["evidence_state"] = "PARTIAL"
+    worker["ai_context_notes"].append(
+        "The corrected fixed-function CPU worker passed bounded qualification. On 2026-08-13 the persistent controller routed seven granular BAS manifest units through the exact CANONICAL_JSON route; all seven closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete."
+    )
     worker["expected_outputs"] = [
         "artifacts/assistive/cpu_worker_readiness.json",
         "artifacts/jira_evidence/POST-SUBTASK-204.json",
@@ -264,6 +280,9 @@ def ensure_source_ref() -> None:
 
 
 def main() -> int:
+    argparse.ArgumentParser(
+        description="Synchronize the canonical unified-assistive Jira records and rebuild derivatives."
+    ).parse_args()
     ensure_source_ref()
     records = specs()
     ids = {record["local_id"] for record in records}

@@ -3282,6 +3282,7 @@ tests/test_preliminary_unprotected_baselines.py
 tests/test_preliminary_wmt_tamu_shadow.py
 tests/test_product_supply_chain.py
 tests/test_promotion_bridge_full.py
+tests/test_queue_openai_gamebook_candidate_work.py
 tests/test_replay_adoption.py
 tests/test_replay_engine_full.py
 tests/test_repo_integrity_tools.py

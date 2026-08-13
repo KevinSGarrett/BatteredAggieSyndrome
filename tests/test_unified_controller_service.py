@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import io
 import json
 import subprocess
 import sys
@@ -9,8 +10,9 @@ import tempfile
 import threading
 import time
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from aggie_analytics.assistive_plane.controller_state import ControllerState, LeaderLock
 from aggie_analytics.assistive_plane.service_runtime import (
@@ -222,6 +224,46 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("--expected-build-commit", installer)
         self.assertIn("--expected-owner-pid", installer)
         self.assertIn("--recovery-evidence-sha256", installer)
+
+
+class WatchdogCliTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        path = REPO / "tools/run_unified_assistive_watchdog.py"
+        spec = importlib.util.spec_from_file_location("run_unified_assistive_watchdog", path)
+        assert spec and spec.loader
+        cls.module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.module)
+
+    def test_inspect_enables_full_operational_audit_and_release_binding(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary) / "assistive" / "orchestrator-v3"
+            expected_commit = "d" * 40
+            inspector = Mock()
+            inspector.inspect.return_value = {"result": "FAIL", "findings": ["ELIGIBLE_UNITS_IDLING"]}
+            with (
+                patch.object(self.module, "ReadOnlyWatchdog", return_value=inspector) as watchdog,
+                patch.object(self.module, "commit_identity", return_value=expected_commit),
+                patch.object(
+                    sys,
+                    "argv",
+                    [
+                        "run_unified_assistive_watchdog.py",
+                        "inspect",
+                        "--runtime-root",
+                        str(runtime),
+                    ],
+                ),
+                redirect_stdout(io.StringIO()),
+            ):
+                self.assertEqual(1, self.module.main())
+            watchdog.assert_called_once_with(
+                runtime / "state" / "orchestrator.sqlite3",
+                90,
+                inventory_path=runtime.parent / "inventory" / "current" / "inventory.json",
+                scheduler_report_path=runtime / "evidence" / "current" / "scheduler-evaluation.json",
+                expected_build_commit=expected_commit,
+            )
 
 
 if __name__ == "__main__":

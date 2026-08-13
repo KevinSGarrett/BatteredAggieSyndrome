@@ -63,9 +63,10 @@ class UnifiedLiveServiceTests(unittest.TestCase):
         common = {
             "state": "Running",
             "enabled": True,
-            "principal": "kevin",
+            "principal": "NT AUTHORITY\\LOCAL SERVICE",
             "run_level": "Limited",
-            "logon_type": "Interactive",
+            "logon_type": "ServiceAccount",
+            "trigger_types": ["MSFT_TaskBootTrigger"],
             "execute": "python.exe",
             "arguments": f"serve --build-commit {'a' * 40}",
             "working_directory": str(self.release),
@@ -83,6 +84,10 @@ class UnifiedLiveServiceTests(unittest.TestCase):
         self.assertFalse(report["scheduler"]["operational"])
         self.assertEqual(0, report["scheduler"]["real_cycles"])
         self.assertEqual("INCOMPLETE", report["overall_operational_completion"])
+        self.assertEqual(
+            "STARTUP_CAPABLE_NONINTERACTIVE_RUNTIME_VERIFIED_BOOT_OBSERVATION_PENDING",
+            report["cold_boot_without_user_logon"],
+        )
 
     def test_stale_heartbeat_or_system_principal_fails_capture(self) -> None:
         tasks = self.tasks()
@@ -91,6 +96,34 @@ class UnifiedLiveServiceTests(unittest.TestCase):
         self.assertEqual("FAIL", report["result"])
         self.assertIn("SERVICE_TASK_PRINCIPAL_INVALID:BAS-UnifiedAssistiveController", report["findings"])
         self.assertIn("SERVICE_CONTROLLER_HEARTBEAT_STALE", report["findings"])
+
+    def test_interactive_logon_or_missing_boot_trigger_fails_capture(self) -> None:
+        tasks = self.tasks()
+        tasks[0]["principal"] = "kevin"
+        tasks[0]["logon_type"] = "Interactive"
+        tasks[0]["trigger_types"] = ["MSFT_TaskLogonTrigger"]
+        report = evaluate_live_service(runtime_root=self.runtime, tasks=tasks, now=self.now)
+        self.assertEqual("FAIL", report["result"])
+        self.assertIn("SERVICE_TASK_PRINCIPAL_INVALID:BAS-UnifiedAssistiveController", report["findings"])
+        self.assertIn("SERVICE_TASK_NOT_NONINTERACTIVE:BAS-UnifiedAssistiveController", report["findings"])
+        self.assertIn("SERVICE_TASK_STARTUP_TRIGGER_MISSING:BAS-UnifiedAssistiveController", report["findings"])
+
+    def test_watchdog_operational_failure_does_not_erase_structural_health(self) -> None:
+        path = self.runtime / "watchdog/current/watchdog-report.json"
+        watchdog = json.loads(path.read_text(encoding="utf-8"))
+        watchdog.update(
+            {
+                "result": "FAIL",
+                "structural_result": "PASS",
+                "operational_result": "FAIL",
+                "operational_findings": ["ELIGIBLE_UNITS_IDLING"],
+            }
+        )
+        path.write_text(json.dumps(watchdog), encoding="utf-8")
+        report = evaluate_live_service(runtime_root=self.runtime, tasks=self.tasks(), now=self.now)
+        self.assertEqual("PASS", report["result"], report)
+        self.assertEqual("DEPLOYED_HEALTHY", report["service_shell_state"])
+        self.assertEqual("FAIL", report["watchdog"]["operational_result"])
 
     def test_inventory_cycles_without_dispatch_do_not_make_scheduler_operational(self) -> None:
         state = ControllerState(self.runtime / "state/orchestrator.sqlite3")

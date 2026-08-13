@@ -136,6 +136,13 @@ class ReadOnlyWatchdog:
             ).fetchone()[0]
             if self.operational_audit_enabled and expired_leases:
                 operational_findings.append("ABANDONED_WORK_LEASES_PRESENT")
+            inflight_without_lease = connection.execute(
+                "SELECT COUNT(*) FROM dispatch_attempts a JOIN work_units w ON w.work_unit_id=a.work_unit_id "
+                "WHERE a.state IN ('DISPATCHED','RESULT_RECEIVED') AND w.current_state<>'CLOSED' AND NOT EXISTS ("
+                "SELECT 1 FROM work_leases l WHERE l.work_unit_id=w.work_unit_id AND l.status='ACTIVE')"
+            ).fetchone()[0]
+            if self.operational_audit_enabled and inflight_without_lease:
+                operational_findings.append("UNRECONCILED_INFLIGHT_PROVIDER_ATTEMPT")
             closed_without_evidence = connection.execute(
                 "SELECT COUNT(*) FROM work_units w WHERE w.current_state='CLOSED' AND ("
                 "(SELECT COUNT(*) FROM provider_runs p JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id WHERE a.work_unit_id=w.work_unit_id AND p.status='SETTLED')=0 OR "
@@ -174,6 +181,7 @@ class ReadOnlyWatchdog:
                 "scheduler_provider_calls": scheduler_provider_calls,
                 "scheduler_idle_units": scheduler_idle,
                 "abandoned_work_leases": int(expired_leases),
+                "unreconciled_inflight_provider_attempts": int(inflight_without_lease),
                 "closed_units_missing_evidence": int(closed_without_evidence),
                 "provider_result_settlement_mismatches": int(run_mismatches),
                 "overall_operational_completion": "INCOMPLETE",

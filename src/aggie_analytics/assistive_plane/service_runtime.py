@@ -186,6 +186,7 @@ class ControllerService:
                 self.config.build_commit,
                 ttl_seconds=self.config.lease_ttl_seconds,
             )
+            lease_recovery = self.state.reconcile_expired_work_leases()
             self.state.append_event(
                 "CONTROLLER_SERVICE_STARTED",
                 {
@@ -193,6 +194,7 @@ class ControllerService:
                     "build_commit": self.config.build_commit,
                     "pid": os.getpid(),
                     "hostname": socket.gethostname(),
+                    "expired_work_lease_recovery": lease_recovery,
                 },
             )
             try:

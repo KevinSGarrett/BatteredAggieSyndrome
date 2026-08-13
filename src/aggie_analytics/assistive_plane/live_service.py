@@ -77,8 +77,13 @@ def evaluate_live_service(
         if task.get("run_level") != "Limited":
             findings.append(f"SERVICE_TASK_NOT_LIMITED:{name}")
         principal = str(task.get("principal", ""))
-        if not principal or principal.upper().endswith("SYSTEM"):
+        if principal.upper() != r"NT AUTHORITY\LOCAL SERVICE":
             findings.append(f"SERVICE_TASK_PRINCIPAL_INVALID:{name}")
+        if str(task.get("logon_type", "")) != "ServiceAccount":
+            findings.append(f"SERVICE_TASK_NOT_NONINTERACTIVE:{name}")
+        trigger_types = task.get("trigger_types", [])
+        if not isinstance(trigger_types, list) or "MSFT_TaskBootTrigger" not in trigger_types:
+            findings.append(f"SERVICE_TASK_STARTUP_TRIGGER_MISSING:{name}")
         arguments = str(task.get("arguments", ""))
         working_directory = Path(str(task.get("working_directory", "")))
         release_roots.add(working_directory)
@@ -116,7 +121,8 @@ def evaluate_live_service(
         watchdog_age = max(0.0, (moment - parse_rfc3339(watchdog["observed_at"])).total_seconds())
         if watchdog_age > watchdog_max_age_seconds:
             findings.append("SERVICE_WATCHDOG_REPORT_STALE")
-        if watchdog.get("result") != "PASS" or not watchdog.get("controller_alive"):
+        structural_result = watchdog.get("structural_result", watchdog.get("result"))
+        if structural_result != "PASS" or not watchdog.get("controller_alive"):
             findings.append("SERVICE_WATCHDOG_CONTROLLER_HEALTH_FAILED")
     except (OSError, KeyError, ValueError, json.JSONDecodeError) as exc:
         watchdog = {}
@@ -174,6 +180,9 @@ def evaluate_live_service(
             "report_age_seconds": watchdog_age,
             "build_commit": watchdog.get("watchdog_build_commit"),
             "controller_alive": watchdog.get("controller_alive", False),
+            "structural_result": watchdog.get("structural_result", watchdog.get("result")),
+            "operational_result": watchdog.get("operational_result", watchdog.get("result")),
+            "operational_findings": watchdog.get("operational_findings", []),
         },
         "database": {
             "path": str(database),
@@ -189,6 +198,9 @@ def evaluate_live_service(
             "active_idle_intervals": int(state.get("active_idle_intervals", 0)),
             "operational": scheduler_cycles > 0 and scheduler_dispatched > 0,
         },
-        "cold_boot_without_user_logon": "NOT_PROVEN",
+        "cold_boot_without_user_logon": (
+            "STARTUP_CAPABLE_NONINTERACTIVE_RUNTIME_VERIFIED_BOOT_OBSERVATION_PENDING"
+            if deployed_healthy else "NOT_PROVEN"
+        ),
         "credential_values_captured": False,
     }

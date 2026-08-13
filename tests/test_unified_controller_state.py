@@ -192,26 +192,104 @@ class UnifiedControllerStateTests(unittest.TestCase):
             self.assertEqual("d" * 64, observation["inventory_sha256"])
         finally:
             connection.close()
-        self.assertEqual(
-            2,
-            self.state.transition(
-                work_unit_id="UNIT-1",
-                expected_state="DISCOVERED",
-                new_state="ELIGIBLE",
-                reason="DEPENDENCIES_PASS",
-                actor="test",
-                now=self.now,
-            ),
+
+    def test_startup_recovery_requeues_only_expired_pre_dispatch_lease(self) -> None:
+        self.register()
+        claimed = self.state.claim_dispatch(
+            work_unit_id="UNIT-1",
+            dependencies=(),
+            lease_id="lease-1",
+            attempt_id="attempt-1",
+            owner_id="owner-old",
+            provider="remote_cpu_worker",
+            route_identity="b" * 64,
+            readiness_evidence_sha256="c" * 64,
+            now=self.now,
+            ttl_seconds=1,
         )
-        with self.assertRaisesRegex(RuntimeError, "COMPARE_AND_SWAP_STATE_CONFLICT"):
-            self.state.transition(
-                work_unit_id="UNIT-1",
-                expected_state="DISCOVERED",
-                new_state="ELIGIBLE",
-                reason="DUPLICATE",
-                actor="test",
-                now=self.now,
+        self.assertTrue(claimed)
+
+        recovery = self.state.reconcile_expired_work_leases(now=self.now + timedelta(seconds=2))
+
+        self.assertEqual(
+            {"expired_leases_observed": 1, "recovered_pre_dispatch": 1, "provider_reconciliation_required": 0},
+            recovery,
+        )
+        connection = self.state.connect()
+        try:
+            self.assertEqual(
+                "RETRY_WAIT",
+                connection.execute("SELECT current_state FROM work_units WHERE work_unit_id='UNIT-1'").fetchone()[0],
             )
+            self.assertEqual(
+                "FAILED",
+                connection.execute("SELECT state FROM dispatch_attempts WHERE attempt_id='attempt-1'").fetchone()[0],
+            )
+            self.assertEqual(
+                "ABANDONED",
+                connection.execute("SELECT status FROM work_leases WHERE lease_id='lease-1'").fetchone()[0],
+            )
+        finally:
+            connection.close()
+        self.assertTrue(
+            self.state.claim_dispatch(
+                work_unit_id="UNIT-1",
+                dependencies=(),
+                lease_id="lease-2",
+                attempt_id="attempt-2",
+                owner_id="owner-new",
+                provider="remote_cpu_worker",
+                route_identity="b" * 64,
+                readiness_evidence_sha256="c" * 64,
+                now=self.now + timedelta(seconds=2),
+            )
+        )
+
+    def test_startup_recovery_never_retries_ambiguous_inflight_provider_attempt(self) -> None:
+        self.register()
+        self.state.claim_dispatch(
+            work_unit_id="UNIT-1",
+            dependencies=(),
+            lease_id="lease-1",
+            attempt_id="attempt-1",
+            owner_id="owner-old",
+            provider="remote_cpu_worker",
+            route_identity="b" * 64,
+            readiness_evidence_sha256="c" * 64,
+            now=self.now,
+            ttl_seconds=1,
+        )
+        request = Path(self.temp.name) / "request.json"
+        request.write_text("{}", encoding="utf-8")
+        self.state.record_dispatch(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-1",
+            provider_run_id="run-1",
+            provider="remote_cpu_worker",
+            remote_identity="remote-1",
+            request_sha256="d" * 64,
+            request_artifact_path=request,
+            actor="owner-old",
+            now=self.now,
+        )
+
+        recovery = self.state.reconcile_expired_work_leases(now=self.now + timedelta(seconds=2))
+
+        self.assertEqual(1, recovery["provider_reconciliation_required"])
+        self.assertEqual(0, recovery["recovered_pre_dispatch"])
+        connection = self.state.connect()
+        try:
+            self.assertEqual(
+                "DISPATCHED",
+                connection.execute("SELECT current_state FROM work_units WHERE work_unit_id='UNIT-1'").fetchone()[0],
+            )
+            self.assertEqual(0, connection.execute("SELECT COUNT(*) FROM retry_records").fetchone()[0])
+            self.assertEqual(
+                "ABANDONED_INFLIGHT_PROVIDER_RECONCILIATION_REQUIRED",
+                connection.execute("SELECT finding FROM incidents ORDER BY opened_at DESC LIMIT 1").fetchone()[0],
+            )
+        finally:
+            connection.close()
 
     def test_active_work_revision_change_fails_closed(self) -> None:
         self.register()

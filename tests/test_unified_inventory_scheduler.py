@@ -31,7 +31,13 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.temporary.cleanup()
 
-    def write_inventory(self, disposition: RoutingDisposition, *, generated_at: datetime | None = None) -> str:
+    def write_inventory(
+        self,
+        disposition: RoutingDisposition,
+        *,
+        generated_at: datetime | None = None,
+        scope: str = "review one bounded real evidence packet",
+    ) -> str:
         unit = ReadyWorkUnit(
             work_unit_id="UNIT-1",
             jira_unit="BAT-560",
@@ -41,7 +47,7 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
             source_hashes=("b" * 64,),
             dependencies=(),
             pre_routing_effort_points=3,
-            scope="review one bounded real evidence packet",
+            scope=scope,
         )
         decision = RouteDecision(
             work_unit_id=unit.work_unit_id,
@@ -183,6 +189,46 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
         report = self.scheduler().evaluate(now=self.now)
         self.assertEqual("SCHEDULER_INVENTORY_DIRTY_WORKTREE", report["finding"])
         self.assertEqual(0, self.state.status()["scheduler_cycles"])
+
+    def test_undispatched_inventory_revision_is_superseded_without_service_failure(self) -> None:
+        self.write_inventory(RoutingDisposition.DIRECT_OPENAI)
+        self.scheduler().evaluate(now=self.now)
+        self.write_inventory(
+            RoutingDisposition.DIRECT_OPENAI,
+            generated_at=self.now + timedelta(minutes=1),
+            scope="revised bounded evidence packet before any dispatch",
+        )
+        report = self.scheduler().evaluate(now=self.now + timedelta(minutes=1))
+        self.assertEqual("INCOMPLETE", report["result"])
+        with closing(self.state.connect()) as connection:
+            revisions = connection.execute(
+                "SELECT identity_sha256,superseded_at FROM work_unit_revisions WHERE work_unit_id=?",
+                ("UNIT-1",),
+            ).fetchall()
+        self.assertEqual(2, len(revisions))
+        self.assertEqual(1, sum(row["superseded_at"] is not None for row in revisions))
+
+    def test_active_inventory_revision_conflict_blocks_cycle_without_crashing(self) -> None:
+        self.write_inventory(RoutingDisposition.DIRECT_OPENAI)
+        self.scheduler().evaluate(now=self.now)
+        self.state.transition(
+            work_unit_id="UNIT-1",
+            expected_state="DISCOVERED",
+            new_state="ELIGIBLE",
+            reason="DEPENDENCIES_PASS",
+            actor="test",
+            now=self.now + timedelta(seconds=1),
+        )
+        self.write_inventory(
+            RoutingDisposition.DIRECT_OPENAI,
+            generated_at=self.now + timedelta(minutes=1),
+            scope="illegal mutation after execution eligibility",
+        )
+        report = self.scheduler().evaluate(now=self.now + timedelta(minutes=1))
+        self.assertEqual("BLOCKED", report["result"])
+        self.assertEqual("IMMUTABLE_ACTIVE_WORK_UNIT_IDENTITY_CONFLICT", report["finding"])
+        self.assertEqual("INVENTORY_WORK_UNIT_REVISION_BLOCKED", report["dispatch_engine_state"])
+        self.assertEqual(0, report["provider_calls"])
 
 
 if __name__ == "__main__":

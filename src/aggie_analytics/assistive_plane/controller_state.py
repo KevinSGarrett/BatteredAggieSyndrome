@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Iterator
 
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 ALLOWED_STATES = {
     "DISCOVERED",
     "ELIGIBLE",
@@ -214,6 +214,26 @@ class ControllerState:
                     updated_at TEXT NOT NULL,
                     version INTEGER NOT NULL DEFAULT 0
                 );
+                CREATE TABLE IF NOT EXISTS work_unit_revisions (
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    identity_sha256 TEXT NOT NULL,
+                    jira_identity TEXT NOT NULL,
+                    effort_points INTEGER NOT NULL CHECK (effort_points IN (1,2,3,5,8)),
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    superseded_at TEXT,
+                    superseded_by_sha256 TEXT,
+                    PRIMARY KEY (work_unit_id, identity_sha256)
+                );
+                CREATE TABLE IF NOT EXISTS work_unit_revision_observations (
+                    work_unit_id TEXT NOT NULL,
+                    identity_sha256 TEXT NOT NULL,
+                    inventory_sha256 TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY (work_unit_id, identity_sha256, inventory_sha256),
+                    FOREIGN KEY (work_unit_id, identity_sha256)
+                        REFERENCES work_unit_revisions(work_unit_id, identity_sha256)
+                );
                 CREATE TABLE IF NOT EXISTS transitions (
                     transition_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
@@ -276,6 +296,11 @@ class ControllerState:
                     occurred_at TEXT NOT NULL
                 );
                 """
+            )
+            connection.execute(
+                "INSERT OR IGNORE INTO work_unit_revisions("
+                "work_unit_id,identity_sha256,jira_identity,effort_points,first_seen_at,last_seen_at) "
+                "SELECT work_unit_id,identity_sha256,jira_identity,effort_points,created_at,updated_at FROM work_units"
             )
             existing = connection.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone()
             if existing and int(existing[0]) > SCHEMA_VERSION:
@@ -369,28 +394,135 @@ class ControllerState:
                 ("CONTROLLER_ORPHAN_LEASE_RECOVERED", json.dumps(payload, sort_keys=True, separators=(",", ":")), stamp),
             )
 
-    def register_work_unit(self, *, work_unit_id: str, identity_sha256: str, jira_identity: str, effort_points: int, actor: str, now: datetime | None = None) -> None:
+    def register_work_unit(
+        self,
+        *,
+        work_unit_id: str,
+        identity_sha256: str,
+        jira_identity: str,
+        effort_points: int,
+        actor: str,
+        inventory_sha256: str | None = None,
+        now: datetime | None = None,
+    ) -> None:
         if effort_points not in {1, 2, 3, 5, 8}:
             raise ValueError("INVALID_PRE_ROUTING_EFFORT")
-        if len(identity_sha256) != 64:
+        if re.fullmatch(r"[0-9a-f]{64}", identity_sha256) is None:
             raise ValueError("WORK_UNIT_IDENTITY_INVALID")
+        if inventory_sha256 is not None and re.fullmatch(r"[0-9a-f]{64}", inventory_sha256) is None:
+            raise ValueError("INVENTORY_IDENTITY_INVALID")
         stamp = rfc3339(now or utc_now())
         with self.transaction() as connection:
             row = connection.execute("SELECT * FROM work_units WHERE work_unit_id=?", (work_unit_id,)).fetchone()
             if row:
                 expected = (identity_sha256, jira_identity, effort_points)
                 observed = (row["identity_sha256"], row["jira_identity"], row["effort_points"])
-                if observed != expected:
-                    raise RuntimeError("IMMUTABLE_WORK_UNIT_IDENTITY_CONFLICT")
+                if observed == expected:
+                    connection.execute(
+                        "UPDATE work_unit_revisions SET last_seen_at=? WHERE work_unit_id=? AND identity_sha256=?",
+                        (stamp, work_unit_id, identity_sha256),
+                    )
+                    self._record_revision_observation(
+                        connection, work_unit_id, identity_sha256, inventory_sha256, stamp
+                    )
+                    return
+                consequential_transition = connection.execute(
+                    "SELECT 1 FROM transitions WHERE work_unit_id=? "
+                    "AND reason NOT IN ('REGISTERED','INVENTORY_REVISION_SUPERSEDED') LIMIT 1",
+                    (work_unit_id,),
+                ).fetchone()
+                reservation = connection.execute(
+                    "SELECT 1 FROM reservations WHERE work_unit_id=? LIMIT 1",
+                    (work_unit_id,),
+                ).fetchone()
+                if (
+                    row["current_state"] != "DISCOVERED"
+                    or row["route_identity"] is not None
+                    or consequential_transition is not None
+                    or reservation is not None
+                ):
+                    raise RuntimeError("IMMUTABLE_ACTIVE_WORK_UNIT_IDENTITY_CONFLICT")
+                prior_revision = connection.execute(
+                    "SELECT 1 FROM work_unit_revisions WHERE work_unit_id=? AND identity_sha256=?",
+                    (work_unit_id, identity_sha256),
+                ).fetchone()
+                if prior_revision is not None:
+                    raise RuntimeError("WORK_UNIT_REVISION_REAPPEARANCE_CONFLICT")
+                version = int(row["version"]) + 1
+                connection.execute(
+                    "UPDATE idle_intervals SET resolved_at=?,last_observed_at=? "
+                    "WHERE work_unit_id=? AND resolved_at IS NULL",
+                    (stamp, stamp, work_unit_id),
+                )
+                connection.execute(
+                    "UPDATE work_unit_revisions SET superseded_at=?,superseded_by_sha256=? "
+                    "WHERE work_unit_id=? AND identity_sha256=? AND superseded_at IS NULL",
+                    (stamp, identity_sha256, work_unit_id, row["identity_sha256"]),
+                )
+                connection.execute(
+                    "UPDATE work_units SET identity_sha256=?,jira_identity=?,effort_points=?,updated_at=?,version=? "
+                    "WHERE work_unit_id=?",
+                    (identity_sha256, jira_identity, effort_points, stamp, version, work_unit_id),
+                )
+                connection.execute(
+                    "INSERT INTO work_unit_revisions("
+                    "work_unit_id,identity_sha256,jira_identity,effort_points,first_seen_at,last_seen_at) "
+                    "VALUES(?,?,?,?,?,?)",
+                    (work_unit_id, identity_sha256, jira_identity, effort_points, stamp, stamp),
+                )
+                connection.execute(
+                    "INSERT INTO transitions(work_unit_id,from_state,to_state,reason,evidence_sha256,actor,occurred_at,unit_version) "
+                    "VALUES(?,?,?,?,?,?,?,?)",
+                    (
+                        work_unit_id,
+                        "DISCOVERED",
+                        "DISCOVERED",
+                        "INVENTORY_REVISION_SUPERSEDED",
+                        row["identity_sha256"],
+                        actor,
+                        stamp,
+                        version,
+                    ),
+                )
+                self._record_revision_observation(
+                    connection, work_unit_id, identity_sha256, inventory_sha256, stamp
+                )
                 return
             connection.execute(
                 "INSERT INTO work_units(work_unit_id,identity_sha256,jira_identity,effort_points,current_state,created_at,updated_at) VALUES(?,?,?,?,?,?,?)",
                 (work_unit_id, identity_sha256, jira_identity, effort_points, "DISCOVERED", stamp, stamp),
             )
             connection.execute(
+                "INSERT INTO work_unit_revisions("
+                "work_unit_id,identity_sha256,jira_identity,effort_points,first_seen_at,last_seen_at) "
+                "VALUES(?,?,?,?,?,?)",
+                (work_unit_id, identity_sha256, jira_identity, effort_points, stamp, stamp),
+            )
+            self._record_revision_observation(
+                connection, work_unit_id, identity_sha256, inventory_sha256, stamp
+            )
+            connection.execute(
                 "INSERT INTO transitions(work_unit_id,from_state,to_state,reason,actor,occurred_at,unit_version) VALUES(?,?,?,?,?,?,0)",
                 (work_unit_id, None, "DISCOVERED", "REGISTERED", actor, stamp),
             )
+
+    @staticmethod
+    def _record_revision_observation(
+        connection: sqlite3.Connection,
+        work_unit_id: str,
+        identity_sha256: str,
+        inventory_sha256: str | None,
+        stamp: str,
+    ) -> None:
+        if inventory_sha256 is None:
+            return
+        connection.execute(
+            "INSERT INTO work_unit_revision_observations("
+            "work_unit_id,identity_sha256,inventory_sha256,observed_at) VALUES(?,?,?,?) "
+            "ON CONFLICT(work_unit_id,identity_sha256,inventory_sha256) "
+            "DO UPDATE SET observed_at=excluded.observed_at",
+            (work_unit_id, identity_sha256, inventory_sha256, stamp),
+        )
 
     def transition(self, *, work_unit_id: str, expected_state: str, new_state: str, reason: str, actor: str, evidence_sha256: str | None = None, now: datetime | None = None) -> int:
         if expected_state not in ALLOWED_STATES or new_state not in ALLOWED_STATES:

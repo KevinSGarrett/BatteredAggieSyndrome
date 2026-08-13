@@ -7,6 +7,7 @@ import tempfile
 import threading
 import time
 import unittest
+from unittest import mock
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -63,7 +64,7 @@ class UnifiedControllerStateTests(unittest.TestCase):
     def test_orphan_recovery_releases_exact_bound_owner_and_records_event(self) -> None:
         owner = "host:12345:" + ("a" * 32)
         self.state.acquire_leader(owner, "b" * 40, now=self.now, ttl_seconds=120)
-        with unittest.mock.patch("aggie_analytics.assistive_plane.controller_state.process_is_live", return_value=False):
+        with mock.patch("aggie_analytics.assistive_plane.controller_state.process_is_live", return_value=False):
             self.state.release_orphaned_leader(
                 expected_owner_id=owner,
                 expected_build_commit="b" * 40,
@@ -87,7 +88,7 @@ class UnifiedControllerStateTests(unittest.TestCase):
     def test_orphan_recovery_fails_closed_on_owner_or_build_mismatch(self) -> None:
         owner = "host:12345:" + ("a" * 32)
         self.state.acquire_leader(owner, "b" * 40, now=self.now, ttl_seconds=120)
-        with unittest.mock.patch("aggie_analytics.assistive_plane.controller_state.process_is_live", return_value=False):
+        with mock.patch("aggie_analytics.assistive_plane.controller_state.process_is_live", return_value=False):
             with self.assertRaisesRegex(RuntimeError, "CONTROLLER_RECOVERY_LEASE_MISMATCH"):
                 self.state.release_orphaned_leader(
                     expected_owner_id=owner,
@@ -108,7 +109,7 @@ class UnifiedControllerStateTests(unittest.TestCase):
     def test_orphan_recovery_rejects_still_live_owner_pid(self) -> None:
         owner = "host:12345:" + ("a" * 32)
         self.state.acquire_leader(owner, "b" * 40, now=self.now, ttl_seconds=120)
-        with unittest.mock.patch(
+        with mock.patch(
             "aggie_analytics.assistive_plane.controller_state.process_is_live", return_value=True
         ):
             with self.assertRaisesRegex(RuntimeError, "CONTROLLER_RECOVERY_OWNER_PROCESS_LIVE"):
@@ -154,7 +155,7 @@ class UnifiedControllerStateTests(unittest.TestCase):
                 child.terminate()
             child.wait(timeout=10)
 
-    def test_work_identity_and_transition_are_compare_and_swap(self) -> None:
+    def test_undispatched_work_revision_is_preserved_and_superseded(self) -> None:
         self.register()
         self.state.register_work_unit(
             work_unit_id="UNIT-1",
@@ -164,17 +165,34 @@ class UnifiedControllerStateTests(unittest.TestCase):
             actor="test",
             now=self.now,
         )
-        with self.assertRaisesRegex(RuntimeError, "IMMUTABLE_WORK_UNIT_IDENTITY_CONFLICT"):
-            self.state.register_work_unit(
-                work_unit_id="UNIT-1",
-                identity_sha256="c" * 64,
-                jira_identity="BAT-560",
-                effort_points=3,
-                actor="test",
-                now=self.now,
-            )
+        self.state.register_work_unit(
+            work_unit_id="UNIT-1",
+            identity_sha256="c" * 64,
+            jira_identity="BAT-560",
+            effort_points=3,
+            actor="test",
+            inventory_sha256="d" * 64,
+            now=self.now,
+        )
+        connection = self.state.connect()
+        try:
+            revisions = connection.execute(
+                "SELECT identity_sha256,superseded_by_sha256 FROM work_unit_revisions "
+                "WHERE work_unit_id=? ORDER BY first_seen_at,identity_sha256",
+                ("UNIT-1",),
+            ).fetchall()
+            self.assertEqual(2, len(revisions))
+            old = next(row for row in revisions if row["identity_sha256"] == "a" * 64)
+            self.assertEqual("c" * 64, old["superseded_by_sha256"])
+            observation = connection.execute(
+                "SELECT inventory_sha256 FROM work_unit_revision_observations WHERE work_unit_id=?",
+                ("UNIT-1",),
+            ).fetchone()
+            self.assertEqual("d" * 64, observation["inventory_sha256"])
+        finally:
+            connection.close()
         self.assertEqual(
-            1,
+            2,
             self.state.transition(
                 work_unit_id="UNIT-1",
                 expected_state="DISCOVERED",
@@ -191,6 +209,49 @@ class UnifiedControllerStateTests(unittest.TestCase):
                 new_state="ELIGIBLE",
                 reason="DUPLICATE",
                 actor="test",
+                now=self.now,
+            )
+
+    def test_active_work_revision_change_fails_closed(self) -> None:
+        self.register()
+        self.state.transition(
+            work_unit_id="UNIT-1",
+            expected_state="DISCOVERED",
+            new_state="ELIGIBLE",
+            reason="DEPENDENCIES_PASS",
+            actor="test",
+            now=self.now,
+        )
+        with self.assertRaisesRegex(RuntimeError, "IMMUTABLE_ACTIVE_WORK_UNIT_IDENTITY_CONFLICT"):
+            self.state.register_work_unit(
+                work_unit_id="UNIT-1",
+                identity_sha256="c" * 64,
+                jira_identity="BAT-560",
+                effort_points=3,
+                actor="test",
+                inventory_sha256="d" * 64,
+                now=self.now,
+            )
+
+    def test_pre_dispatch_revision_reappearance_fails_closed_without_sqlite_error(self) -> None:
+        self.register()
+        self.state.register_work_unit(
+            work_unit_id="UNIT-1",
+            identity_sha256="c" * 64,
+            jira_identity="BAT-560",
+            effort_points=3,
+            actor="test",
+            inventory_sha256="d" * 64,
+            now=self.now,
+        )
+        with self.assertRaisesRegex(RuntimeError, "WORK_UNIT_REVISION_REAPPEARANCE_CONFLICT"):
+            self.state.register_work_unit(
+                work_unit_id="UNIT-1",
+                identity_sha256="a" * 64,
+                jira_identity="BAT-560",
+                effort_points=3,
+                actor="test",
+                inventory_sha256="e" * 64,
                 now=self.now,
             )
 

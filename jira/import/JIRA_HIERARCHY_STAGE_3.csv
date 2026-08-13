@@ -18142,6 +18142,10 @@ Acceptance Criteria
 5. Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.
 6. The controller and independent watchdog are OS-supervised outside Codex Desktop, recover from crash/restart, agree on maximum justified state, and cannot overclaim partial operation.
 7. All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes.
+8. Undispatched inventory revisions are preserved and may be superseded append-only; active or externally consequential identity changes fail closed without terminating the controller.
+9. Inventory derivation semantically validates exact local-model, CPU-worker, Cursor, usage, review, and dispatch-origin evidence instead of treating directory hashes as readiness.
+10. The persistent scheduler discovers granular BAS units and durably leases, dispatches, validates, reviews, settles, cleans, closes or requeues them without an active Codex turn.
+11. The independent watchdog reports process health separately and fails operational completeness on stale inventory, idle admitted work, zero dispatch, reconciliation gaps, abandoned leases, or unsupported claims.
 
 Definition of Done
 1. Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.

@@ -8,6 +8,7 @@ import sys
 import subprocess
 import tempfile
 from datetime import datetime, timezone
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
@@ -55,7 +56,248 @@ def external_evidence_identity(root: Path) -> dict[str, Any]:
         "present": True,
         "file_count": len(records),
         "manifest_sha256": hashlib.sha256(json.dumps(records, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+        "latest_write_at": max(
+            (datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) for path in root.rglob("*.json")),
+            default=None,
+        ).isoformat().replace("+00:00", "Z") if records else None,
     }
+
+
+def verified_content_addressed_json(path: Path) -> dict[str, Any]:
+    digest = sha256(path)
+    if path.stem != digest:
+        raise RuntimeError(f"EXTERNAL_EVIDENCE_CONTENT_ADDRESS_MISMATCH:{path}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise RuntimeError(f"EXTERNAL_EVIDENCE_NOT_OBJECT:{path}")
+    return payload
+
+
+def local_qwen_semantic_evidence(root: Path, readiness: dict[str, Any]) -> dict[str, Any]:
+    routes: list[dict[str, Any]] = []
+    for route in readiness["routes"]:
+        evidence_sha256 = route.get("evidence_sha256")
+        evidence_path = root / "evals" / str(evidence_sha256)[:2] / f"{evidence_sha256}.json"
+        evidence_verified = False
+        evidence_disposition = None
+        findings: list[str] = []
+        if evidence_path.is_file():
+            payload = verified_content_addressed_json(evidence_path)
+            evidence_disposition = payload.get("qualification_disposition")
+            if payload.get("model") != route["resolved_model"]:
+                findings.append("MODEL_IDENTITY_MISMATCH")
+            if payload.get("model_digest") != route["model_digest"]:
+                findings.append("MODEL_DIGEST_MISMATCH")
+            if payload.get("canonical_or_protected_authority") is True:
+                findings.append("AUTHORITY_BOUNDARY_INVALID")
+            if payload.get("metrics", {}).get("canonical_writes", 0) != 0:
+                findings.append("CANONICAL_WRITE_EVIDENCE_INVALID")
+            if payload.get("metrics", {}).get("protected_decisions", 0) != 0:
+                findings.append("PROTECTED_DECISION_EVIDENCE_INVALID")
+            evidence_verified = not findings
+        else:
+            findings.append("EVIDENCE_ARTIFACT_MISSING")
+        empirical_ready = (
+            route["state"] == "READY"
+            and evidence_verified
+            and isinstance(evidence_disposition, str)
+            and evidence_disposition.startswith("PASS_")
+        )
+        evidence_supported_state = "READY" if empirical_ready else "NOT_READY"
+        if route["state"] == "NOT_READY":
+            evidence_supported_state = "NOT_READY"
+        routes.append(
+            {
+                "provider": route["provider"],
+                "resolved_model": route["resolved_model"],
+                "model_digest": route["model_digest"],
+                "task_format": route["task_format"],
+                "prompt_version": route["prompt_version"],
+                "schema_version": route["schema_version"],
+                "schema_sha256": route["schema_sha256"],
+                "policy_version": route["policy_version"],
+                "execution_surface": route["execution_surface"],
+                "registry_state": route["state"],
+                "evidence_supported_state": evidence_supported_state,
+                "evidence_sha256": evidence_sha256,
+                "evidence_verified": evidence_verified,
+                "qualification_disposition": evidence_disposition,
+                "findings": findings,
+            }
+        )
+    return {
+        **external_evidence_identity(root),
+        "routes": routes,
+        "ready_exact_routes": sum(item["evidence_supported_state"] == "READY" for item in routes),
+        "rejected_or_unqualified_exact_routes": sum(
+            item["evidence_supported_state"] == "NOT_READY" for item in routes
+        ),
+    }
+
+
+def cpu_worker_semantic_evidence(root: Path) -> dict[str, Any]:
+    qualified: list[dict[str, Any]] = []
+    findings: list[str] = []
+    readiness_records: dict[str, dict[str, Any]] = {}
+    for path in sorted((root / "readiness").rglob("*.json")) if (root / "readiness").is_dir() else []:
+        try:
+            payload = verified_content_addressed_json(path)
+        except (OSError, ValueError, json.JSONDecodeError, RuntimeError) as exc:
+            findings.append(str(exc))
+            continue
+        qualification_id = payload.get("qualification_id")
+        required_gates = {
+            "cleanup",
+            "coordinator_grant",
+            "live_replay",
+            "minimal_bundle_hash_match",
+            "private_https",
+            "restart_recovery",
+            "restricted_service_identity",
+            "signed_envelope",
+        }
+        peer = payload.get("peer", {})
+        if (
+            qualification_id == "BAT-563-private-cpu-worker-v2-corrected-architecture"
+            and payload.get("readiness_disposition") == "READY_FOR_LIVE_QUALIFICATION"
+            and payload.get("blockers") == []
+            and required_gates.issubset(set(payload.get("passed_gates", [])))
+            and payload.get("canonical_writes") == 0
+            and payload.get("protected_decisions") == 0
+            and payload.get("prototype_direct_http_disabled") is True
+            and payload.get("public_funnel_configured_by_project") is False
+            and peer.get("dns_name") == "comfy-v4-cpu-01.tail9b05ab.ts.net"
+            and peer.get("windows_hostname") == "comfy-v4-cpu-01"
+            and peer.get("os") == "windows"
+            and peer.get("durable_ip_identity") is False
+            and isinstance(peer.get("node_id"), str)
+            and bool(peer.get("node_id"))
+        ):
+            readiness_records[str(qualification_id)] = {
+                "evidence_sha256": path.stem,
+                "peer": peer,
+            }
+    for path in sorted((root / "qualifications").rglob("*.json")) if (root / "qualifications").is_dir() else []:
+        try:
+            payload = verified_content_addressed_json(path)
+        except (OSError, ValueError, json.JSONDecodeError, RuntimeError) as exc:
+            findings.append(str(exc))
+            continue
+        if payload.get("qualification_disposition") != "PASS":
+            continue
+        if payload.get("qualification_id") != "BAT-563-private-cpu-worker-v2-corrected-architecture":
+            continue
+        required = {
+            "authority": "DETERMINISTIC_NO_CANONICAL_OR_PROTECTED_WRITES",
+            "canonical_writes": 0,
+            "protected_decisions": 0,
+            "signing_key_recorded": False,
+        }
+        if any(payload.get(key) != value for key, value in required.items()):
+            findings.append(f"CPU_WORKER_QUALIFICATION_BOUNDARY_INVALID:{path.name}")
+            continue
+        tranches = payload.get("tranches", [])
+        expected_tasks = {"CANONICAL_JSON", "LINE_HASH_MANIFEST", "EXACT_TEXT_DEDUP"}
+        if (
+            len(tranches) < 3
+            or not all(item.get("byte_identical_replay") is True for item in tranches)
+            or {item.get("task") for item in tranches} != expected_tasks
+        ):
+            findings.append(f"CPU_WORKER_REPLAY_EVIDENCE_INCOMPLETE:{path.name}")
+            continue
+        readiness = readiness_records.get(str(payload.get("qualification_id")))
+        if readiness is None:
+            findings.append(f"CPU_WORKER_READINESS_EVIDENCE_MISSING:{path.name}")
+            continue
+        worker_identity = payload.get("worker_identity", {})
+        if any(
+            worker_identity.get(field) != readiness["peer"].get(field)
+            for field in ("node_id", "dns_name", "windows_hostname", "os", "durable_ip_identity")
+        ):
+            findings.append(f"CPU_WORKER_READINESS_IDENTITY_MISMATCH:{path.name}")
+            continue
+        qualified.append(
+            {
+                "qualification_id": payload.get("qualification_id"),
+                "qualification_run_id": payload.get("qualification_run_id"),
+                "evidence_sha256": path.stem,
+                "readiness_evidence_sha256": readiness["evidence_sha256"],
+                "worker_identity": worker_identity,
+                "tranche_count": len(tranches),
+                "tasks": sorted({item.get("task") for item in tranches}),
+            }
+        )
+    return {
+        **external_evidence_identity(root),
+        "qualified": bool(qualified),
+        "qualifications": qualified,
+        "findings": findings,
+        "authority": "BOUNDED_DETERMINISTIC_WORKER_ONLY",
+    }
+
+
+def cursor_semantic_evidence(root: Path) -> dict[str, Any]:
+    dispositions: list[dict[str, Any]] = []
+    findings: list[str] = []
+    disposition_root = root / "dispositions"
+    for path in sorted(disposition_root.rglob("*.json")) if disposition_root.is_dir() else []:
+        try:
+            payload = verified_content_addressed_json(path)
+        except (OSError, ValueError, json.JSONDecodeError, RuntimeError) as exc:
+            findings.append(str(exc))
+            continue
+        if (
+            payload.get("candidate_only") is not True
+            or payload.get("canonical_authority") is not False
+            or payload.get("protected_authority") is True
+        ):
+            findings.append(f"CURSOR_AUTHORITY_BOUNDARY_INVALID:{path.name}")
+            continue
+        dispositions.append(payload)
+    unique_jobs = {str(item.get("job_id")) for item in dispositions if item.get("job_id")}
+    unique_agents = {str(item.get("agent_id")) for item in dispositions if item.get("agent_id")}
+    controller_routed = [item for item in dispositions if item.get("dispatch_origin") == "PERSISTENT_CONTROLLER"]
+    return {
+        **external_evidence_identity(root),
+        "real_review_dispositions": len(dispositions),
+        "unique_jobs": len(unique_jobs),
+        "unique_agents": len(unique_agents),
+        "accepted_useful": sum(int(item.get("accepted_useful_results", 0)) for item in dispositions),
+        "modified": sum(int(item.get("modified_results", 0)) for item in dispositions),
+        "review_only": sum(int(item.get("review_only_results", 0)) for item in dispositions),
+        "quarantined": sum(int(item.get("quarantined_results", 0)) for item in dispositions),
+        "rejected": sum(int(item.get("rejected_results", 0)) for item in dispositions),
+        "failed": sum(int(item.get("provider_failures", 0)) for item in dispositions),
+        "settled_usd": format(
+            sum(
+                (Decimal(str(item.get("provider_usage", {}).get("actual_usd", "0"))) for item in dispositions),
+                Decimal("0"),
+            ),
+            "f",
+        ),
+        "controller_routed_units": len(controller_routed),
+        "transitional_or_manual_units": len(dispositions) - len(controller_routed),
+        "findings": findings,
+    }
+
+
+def route_state_from_semantic_evidence(
+    route: dict[str, Any], semantic_evidence: dict[str, Any]
+) -> str:
+    for item in semantic_evidence["local_qwen"]["routes"]:
+        identity_fields = (
+            "resolved_model",
+            "model_digest",
+            "task_format",
+            "prompt_version",
+            "schema_version",
+            "schema_sha256",
+            "policy_version",
+            "execution_surface",
+        )
+        if all(item[field] == route[field] for field in identity_fields):
+            return str(item["evidence_supported_state"])
+    return "NOT_READY"
 
 
 def parse_timestamp(value: str | None) -> datetime | None:
@@ -128,7 +370,11 @@ def route_readiness_for(item: dict[str, Any], readiness: dict[str, Any]) -> dict
 
 
 def derive_decision(
-    item: dict[str, Any], record: dict[str, Any], policy: dict[str, Any], readiness: dict[str, Any]
+    item: dict[str, Any],
+    record: dict[str, Any],
+    policy: dict[str, Any],
+    readiness: dict[str, Any],
+    semantic_evidence: dict[str, Any] | None = None,
 ) -> tuple[RoutingDisposition, str | None, str | None, str]:
     work_unit_id = item.get("work_unit_id") or item["local_id"]
     is_shadow = "::" in work_unit_id
@@ -136,6 +382,15 @@ def derive_decision(
         return RoutingDisposition.COMPLETED, None, None, item["reason"]
     provider = item.get("provider")
     route = route_readiness_for(item, readiness)
+    if route is not None and semantic_evidence is not None:
+        semantic_state = route_state_from_semantic_evidence(route, semantic_evidence)
+        if semantic_state != route["state"]:
+            return (
+                RoutingDisposition.CAPABILITY_BLOCKED,
+                provider,
+                item.get("model"),
+                "ROUTE_REGISTRY_CONFLICTS_WITH_SEMANTIC_RUNTIME_EVIDENCE",
+            )
     if provider == "local_qwen" and route is None:
         return (
             RoutingDisposition.CAPABILITY_BLOCKED,
@@ -159,6 +414,17 @@ def derive_decision(
             item.get("model"),
             f"PAID_{provider.upper()}_BUDGET_NOT_AUTHORIZED",
         )
+    if (
+        (item.get("record_local_id") or item.get("local_id")) == "POST-SUBTASK-204"
+        and semantic_evidence is not None
+        and semantic_evidence["cpu_worker"]["qualified"]
+    ):
+        return (
+            RoutingDisposition.REMOTE_CPU_WORKER,
+            "remote_cpu_worker",
+            "DETERMINISTIC_CPU_WORKER_V2",
+            "EXACT_CPU_WORKER_QUALIFICATION_PASS_CONTINUING_CAMPAIGN_READY",
+        )
     return RoutingDisposition(item["disposition"]), provider, item.get("model"), item["reason"]
 
 
@@ -175,11 +441,26 @@ def main() -> int:
     policy = json.loads(policy_path.read_text(encoding="utf-8"))
     readiness = json.loads(route_readiness_path.read_text(encoding="utf-8"))
     ownership = json.loads(acceptance_ownership_path.read_text(encoding="utf-8"))
+    external_roots = {
+        "openai": Path(r"C:\BatteredAggieSyndrome.data\openai"),
+        "openrouter": Path(r"C:\BatteredAggieSyndrome.data\assistive\openrouter"),
+        "cursor": Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor"),
+        "local_qwen": Path(r"C:\BatteredAggieSyndrome.data\assistive\local_qwen"),
+        "cpu_worker": Path(r"C:\BatteredAggieSyndrome.data\assistive\cpu_worker"),
+    }
+    semantic_evidence = {
+        "openai": external_evidence_identity(external_roots["openai"]),
+        "openrouter": external_evidence_identity(external_roots["openrouter"]),
+        "cursor": cursor_semantic_evidence(external_roots["cursor"]),
+        "local_qwen": local_qwen_semantic_evidence(external_roots["local_qwen"], readiness),
+        "cpu_worker": cpu_worker_semantic_evidence(external_roots["cpu_worker"]),
+    }
     generated_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     units: list[ReadyWorkUnit] = []
     pending: list[dict[str, Any]] = []
     source_records: list[dict[str, str]] = []
     transition_times = [parse_timestamp(seed.get("material_transition_at"))]
+    transition_times.extend(parse_timestamp(value.get("latest_write_at")) for value in semantic_evidence.values())
     for item in seed["work_units"]:
         record_local_id = item.get("record_local_id") or item["local_id"]
         work_unit_id = item.get("work_unit_id") or item["local_id"]
@@ -221,7 +502,9 @@ def main() -> int:
         raise RuntimeError(f"MANDATORY_JIRA_OWNER_ABSENT_FROM_INVENTORY:{','.join(missing_owners)}")
     decisions = []
     for unit, (item, record) in zip(units, pending, strict=True):
-        disposition, provider, model, reason = derive_decision(item, record, policy, readiness)
+        disposition, provider, model, reason = derive_decision(
+            item, record, policy, readiness, semantic_evidence
+        )
         decisions.append(RouteDecision(
             work_unit_id=unit.work_unit_id,
             work_unit_identity=unit.identity(),
@@ -252,13 +535,7 @@ def main() -> int:
             "origin_main": origin_main,
             "status_porcelain_sha256": status_porcelain_sha256,
         },
-        "external_evidence": {
-            "openai": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\openai")),
-            "openrouter": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\assistive\openrouter")),
-            "cursor": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor")),
-            "local": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\assistive\local-qwen")),
-            "cpu_worker": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\assistive\cpu-worker")),
-        },
+        "external_evidence": semantic_evidence,
         "work_units": [
             {
                 "work_unit_id": unit.work_unit_id,

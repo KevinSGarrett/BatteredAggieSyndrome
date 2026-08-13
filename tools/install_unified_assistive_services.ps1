@@ -47,6 +47,10 @@ if ($LASTEXITCODE -ne 0 -or $version -notmatch '^3 (11|12|13)$') { throw 'PYTHON
 
 $controllerScript = Join-Path $release 'tools\run_unified_assistive_controller.py'
 $watchdogScript = Join-Path $release 'tools\run_unified_assistive_watchdog.py'
+$releaseLauncher = Join-Path $release 'tools\launch_unified_assistive_service.py'
+$releaseActivator = Join-Path $release 'tools\activate_unified_assistive_release.py'
+$stableLauncherRoot = Join-Path $RuntimeRoot 'launcher'
+$stableLauncher = Join-Path $stableLauncherRoot 'launch_unified_assistive_service.py'
 $backupRoot = Join-Path $RuntimeRoot ('backups\task-definitions\' + (Get-Date).ToUniversalTime().ToString('yyyyMMddTHHmmssZ'))
 $existingTasks = @{}
 foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
@@ -71,25 +75,39 @@ if ($PrincipalMode -eq 'LocalService') {
     $triggerType = 'LogonTrigger'
 }
 $settings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -RestartCount 5 -RestartInterval (New-TimeSpan -Minutes 1) -StartWhenAvailable -ExecutionTimeLimit ([TimeSpan]::Zero) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
-$controllerArguments = '-B "' + $controllerScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
-$watchdogArguments = '-B "' + $watchdogScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
-$controllerAction = New-ScheduledTaskAction -Execute $python -Argument $controllerArguments -WorkingDirectory $release
-$watchdogAction = New-ScheduledTaskAction -Execute $python -Argument $watchdogArguments -WorkingDirectory $release
+$controllerArguments = '-B "' + $stableLauncher + '" --role controller --runtime-root "' + $RuntimeRoot + '"'
+$watchdogArguments = '-B "' + $stableLauncher + '" --role watchdog --runtime-root "' + $RuntimeRoot + '"'
+$controllerAction = New-ScheduledTaskAction -Execute $python -Argument $controllerArguments -WorkingDirectory $stableLauncherRoot
+$watchdogAction = New-ScheduledTaskAction -Execute $python -Argument $watchdogArguments -WorkingDirectory $stableLauncherRoot
 $replacementRecovery = $null
 $replacementRecoveryDisposition = 'NOT_APPLICABLE'
+$installedLauncherHash = $null
+$activation = $null
 if ($Replace -and $existingTasks[$ControllerTaskName]) {
     $existingControllerAction = $existingTasks[$ControllerTaskName].Actions | Select-Object -First 1
     if (-not $existingControllerAction) { throw 'CONTROLLER_RECOVERY_ACTION_MISSING' }
     $existingArguments = [string]$existingControllerAction.Arguments
-    if ($existingArguments -notmatch '^(?:-B\s+)?"([^"\r\n]*\\run_unified_assistive_controller\.py)"\s+serve(?:\s|$)') { throw 'CONTROLLER_RECOVERY_ACTION_IDENTITY_MISMATCH' }
-    $existingControllerScriptPath = [System.IO.Path]::GetFullPath($Matches[1])
     $existingWorkingDirectory = [System.IO.Path]::GetFullPath([string]$existingControllerAction.WorkingDirectory)
-    $expectedExistingControllerScriptPath = [System.IO.Path]::GetFullPath((Join-Path $existingWorkingDirectory 'tools\run_unified_assistive_controller.py'))
-    if ($existingControllerScriptPath -ne $expectedExistingControllerScriptPath) { throw 'CONTROLLER_RECOVERY_ACTION_PATH_MISMATCH' }
     if ([System.IO.Path]::GetFullPath([string]$existingControllerAction.Execute) -ne $python) { throw 'CONTROLLER_RECOVERY_ACTION_EXECUTABLE_MISMATCH' }
-    if ($existingArguments -notmatch '--build-commit\s+([0-9a-f]{40})') { throw 'CONTROLLER_RECOVERY_ACTION_BUILD_MISSING' }
-    $actionBuildCommit = $Matches[1]
-    if ((Split-Path -Leaf $existingWorkingDirectory) -ne $actionBuildCommit) { throw 'CONTROLLER_RECOVERY_ACTION_DIRECTORY_BUILD_MISMATCH' }
+    if ($existingArguments -match '^(?:-B\s+)?"([^"\r\n]*\\run_unified_assistive_controller\.py)"\s+serve(?:\s|$)') {
+        $existingControllerScriptPath = [System.IO.Path]::GetFullPath($Matches[1])
+        $expectedExistingControllerScriptPath = [System.IO.Path]::GetFullPath((Join-Path $existingWorkingDirectory 'tools\run_unified_assistive_controller.py'))
+        if ($existingControllerScriptPath -ne $expectedExistingControllerScriptPath) { throw 'CONTROLLER_RECOVERY_ACTION_PATH_MISMATCH' }
+        if ($existingArguments -notmatch '--build-commit\s+([0-9a-f]{40})') { throw 'CONTROLLER_RECOVERY_ACTION_BUILD_MISSING' }
+        $actionBuildCommit = $Matches[1]
+        if ((Split-Path -Leaf $existingWorkingDirectory) -ne $actionBuildCommit) { throw 'CONTROLLER_RECOVERY_ACTION_DIRECTORY_BUILD_MISMATCH' }
+    } elseif ($existingArguments -match '^(?:-B\s+)?"([^"\r\n]*\\launch_unified_assistive_service\.py)"\s+--role\s+controller(?:\s|$)') {
+        $existingLauncherPath = [System.IO.Path]::GetFullPath($Matches[1])
+        if ($existingLauncherPath -ne [System.IO.Path]::GetFullPath($stableLauncher)) { throw 'CONTROLLER_RECOVERY_ACTION_PATH_MISMATCH' }
+        $pointerPath = Join-Path $RuntimeRoot 'deployment\current-release.json'
+        if (-not (Test-Path -LiteralPath $pointerPath -PathType Leaf)) { throw 'CONTROLLER_RECOVERY_POINTER_MISSING' }
+        $pointer = Get-Content -LiteralPath $pointerPath -Raw | ConvertFrom-Json
+        $actionBuildCommit = [string]$pointer.build_commit
+        if ($actionBuildCommit -notmatch '^[0-9a-f]{40}$') { throw 'CONTROLLER_RECOVERY_ACTION_BUILD_MISSING' }
+        $existingControllerScriptPath = Join-Path $RuntimeRoot ('releases\' + $actionBuildCommit + '\tools\run_unified_assistive_controller.py')
+    } else {
+        throw 'CONTROLLER_RECOVERY_ACTION_IDENTITY_MISMATCH'
+    }
     $statusJson = & $python -B $controllerScript status --runtime-root "$RuntimeRoot"
     if ($LASTEXITCODE -ne 0) { throw 'CONTROLLER_RECOVERY_STATUS_FAILED' }
     $status = $statusJson | ConvertFrom-Json
@@ -173,7 +191,9 @@ if ($installController -or $installWatchdog) {
         $signingKeyPath = Join-Path $cpuWorkerRoot 'controller\secrets\worker-v2.bin'
         $readContainers = @(
             (Split-Path -Parent $python),
-            $release,
+            (Join-Path $RuntimeRoot 'releases'),
+            $stableLauncherRoot,
+            (Join-Path $RuntimeRoot 'deployment'),
             (Join-Path $dataRoot 'manifests'),
             $providerWorkRoot,
             $openrouterRoot,
@@ -271,12 +291,22 @@ if ($installController -or $installWatchdog) {
             $replacementRecoveryDisposition = 'EXACT_ORPHAN_LEASE_RELEASED'
         }
     }
+    $null = New-Item -ItemType Directory -Path $stableLauncherRoot -Force
+    Copy-Item -LiteralPath $releaseLauncher -Destination $stableLauncher -Force
+    $installedLauncherHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $stableLauncher).Hash.ToLowerInvariant()
+    $expectedLauncherHash = [string]$manifest.files.'tools/launch_unified_assistive_service.py'.sha256
+    if ($installedLauncherHash -ne $expectedLauncherHash) { throw 'STABLE_LAUNCHER_INSTALL_HASH_MISMATCH' }
+    & icacls.exe $stableLauncher /inheritance:r /grant:r '*S-1-5-18:F' '*S-1-5-32-544:F' '*S-1-5-19:RX' | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'STABLE_LAUNCHER_ACL_FAILED' }
+    $activationJson = & $python -B $releaseActivator --runtime-root "$RuntimeRoot" --release-root "$release"
+    if ($LASTEXITCODE -ne 0) { throw 'RELEASE_ACTIVATION_FAILED' }
+    $activation = $activationJson | ConvertFrom-Json
 }
 if ($installController) {
-    Register-ScheduledTask -TaskName $ControllerTaskName -Action $controllerAction -Trigger $trigger -Settings $settings -Principal $principal -Description "Aggie Analytics unified assistive controller $($manifest.build_commit)" -Force | Out-Null
+    Register-ScheduledTask -TaskName $ControllerTaskName -Action $controllerAction -Trigger $trigger -Settings $settings -Principal $principal -Description 'Aggie Analytics unified assistive controller stable launcher' -Force | Out-Null
 }
 if ($installWatchdog) {
-    Register-ScheduledTask -TaskName $WatchdogTaskName -Action $watchdogAction -Trigger $trigger -Settings $settings -Principal $principal -Description "Aggie Analytics independent read-only watchdog $($manifest.build_commit)" -Force | Out-Null
+    Register-ScheduledTask -TaskName $WatchdogTaskName -Action $watchdogAction -Trigger $trigger -Settings $settings -Principal $principal -Description 'Aggie Analytics independent read-only watchdog stable launcher' -Force | Out-Null
 }
 
 if ($installController -and $installWatchdog) {
@@ -296,6 +326,10 @@ if ($installController -and $installWatchdog) {
     controller_task = $ControllerTaskName
     watchdog_task = $WatchdogTaskName
     replacement_recovery = $replacementRecoveryDisposition
+    stable_launcher = $stableLauncher
+    stable_launcher_sha256 = $installedLauncherHash
+    release_pointer_sha256 = $activation.pointer_sha256
+    future_release_switch_elevation_required = $false
     cold_boot_without_user_logon = if ($PrincipalMode -eq 'LocalService') { 'STARTUP_CAPABLE_CONFIGURATION_BOOT_OBSERVATION_PENDING' } else { 'NOT_YET_PROVEN' }
     operational_completion = 'INCOMPLETE'
 } | ConvertTo-Json -Compress

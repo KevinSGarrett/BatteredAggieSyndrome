@@ -567,6 +567,33 @@ def derive_decision(
             f"PAID_{provider.upper()}_BUDGET_NOT_AUTHORIZED",
         )
     if (
+        (item.get("record_local_id") or item.get("local_id")) == "POST-SUBTASK-202"
+        and semantic_evidence is not None
+    ):
+        cursor = semantic_evidence["cursor"]
+        reviewed = int(cursor["real_review_dispositions"])
+        unique_jobs = int(cursor["unique_jobs"])
+        unique_agents = int(cursor["unique_agents"])
+        accepted = int(cursor["accepted_useful"])
+        modified = int(cursor["modified"])
+        settled_usd = cursor["settled_usd"]
+        controller_routed = int(cursor["controller_routed_units"])
+        transitional = int(cursor["transitional_or_manual_units"])
+        return (
+            RoutingDisposition.CURSOR,
+            "cursor",
+            item.get("model"),
+            (
+                "EVIDENCE_DERIVED_CURSOR_CAMPAIGN_STATE:"
+                f"reviewed={reviewed};unique_jobs={unique_jobs};unique_agents={unique_agents};"
+                f"accepted_useful={accepted};modified={modified};settled_usd={settled_usd};"
+                f"controller_routed={controller_routed};transitional_or_manual={transitional};"
+                "campaign_count_gate_passed="
+                f"{str(reviewed >= 10 and unique_jobs >= 10 and unique_agents >= 10).lower()};"
+                "broader_operational_and_sustained_gates_remain"
+            ),
+        )
+    if (
         (item.get("record_local_id") or item.get("local_id")) == "POST-SUBTASK-204"
         and semantic_evidence is not None
         and semantic_evidence["cpu_worker"]["qualified"]

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import os
 import tempfile
@@ -143,6 +144,10 @@ class RuntimeInventoryConfig:
     provider_work_root: Path | None = None
     release_root: Path | None = None
     build_commit: str | None = None
+    semantic_materializer_path: Path | None = None
+    semantic_policy_path: Path | None = None
+    semantic_readiness_path: Path | None = None
+    external_assistive_root: Path | None = None
     refresh_max_age_seconds: int = 240
 
     def validate(self) -> None:
@@ -161,6 +166,18 @@ class RuntimeInventoryConfig:
             or any(character not in "0123456789abcdef" for character in self.build_commit)
         ):
             raise ValueError("RUNTIME_INVENTORY_BUILD_COMMIT_INVALID")
+        semantic_paths = (
+            self.semantic_materializer_path,
+            self.semantic_policy_path,
+            self.semantic_readiness_path,
+            self.external_assistive_root,
+        )
+        if any(path is not None for path in semantic_paths) and not all(
+            path is not None for path in semantic_paths
+        ):
+            raise ValueError("RUNTIME_INVENTORY_SEMANTIC_REFRESH_CONFIG_INCOMPLETE")
+        if any(path is not None and not path.is_absolute() for path in semantic_paths):
+            raise ValueError("RUNTIME_INVENTORY_SEMANTIC_REFRESH_PATH_NOT_ABSOLUTE")
 
 
 class RuntimeInventoryRefresher:
@@ -170,6 +187,49 @@ class RuntimeInventoryRefresher:
         config.validate()
         self.state = state
         self.config = config
+        self._semantic_module: Any | None = None
+
+    def _load_semantic_module(self) -> Any:
+        if self._semantic_module is not None:
+            return self._semantic_module
+        path = self.config.semantic_materializer_path
+        if path is None or not path.is_file():
+            raise RuntimeError("RUNTIME_INVENTORY_SEMANTIC_MATERIALIZER_MISSING")
+        spec = importlib.util.spec_from_file_location("aggie_runtime_semantic_materializer", path)
+        if spec is None or spec.loader is None:
+            raise RuntimeError("RUNTIME_INVENTORY_SEMANTIC_MATERIALIZER_IMPORT_INVALID")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        required = (
+            "external_evidence_identity",
+            "openrouter_semantic_evidence",
+            "cursor_semantic_evidence",
+            "local_qwen_semantic_evidence",
+            "cpu_worker_semantic_evidence",
+        )
+        if any(not callable(getattr(module, name, None)) for name in required):
+            raise RuntimeError("RUNTIME_INVENTORY_SEMANTIC_MATERIALIZER_CONTRACT_INVALID")
+        self._semantic_module = module
+        return module
+
+    def _live_external_evidence(self, base: dict[str, Any]) -> dict[str, Any]:
+        if self.config.semantic_materializer_path is None:
+            return dict(base.get("external_evidence", {}))
+        assert self.config.semantic_policy_path is not None
+        assert self.config.semantic_readiness_path is not None
+        assert self.config.external_assistive_root is not None
+        module = self._load_semantic_module()
+        policy = _verified_json(self.config.semantic_policy_path)
+        readiness = _verified_json(self.config.semantic_readiness_path)
+        assistive_root = self.config.external_assistive_root
+        data_root = assistive_root.parent
+        return {
+            "openai": module.external_evidence_identity(data_root / "openai"),
+            "openrouter": module.openrouter_semantic_evidence(assistive_root / "openrouter", policy),
+            "cursor": module.cursor_semantic_evidence(assistive_root / "cursor"),
+            "local_qwen": module.local_qwen_semantic_evidence(assistive_root / "local_qwen", readiness),
+            "cpu_worker": module.cpu_worker_semantic_evidence(assistive_root / "cpu_worker"),
+        }
 
     def _load_current_snapshot(self) -> tuple[dict[str, Any], str]:
         payload = _verified_json(self.config.current_path)
@@ -574,6 +634,8 @@ class RuntimeInventoryRefresher:
     def refresh(self, *, now: datetime | None = None) -> dict[str, Any]:
         moment = now or datetime.now(timezone.utc)
         base, base_sha256 = self._load_current_snapshot()
+        live_external_evidence = self._live_external_evidence(base)
+        base = {**base, "external_evidence": live_external_evidence}
         deployed_release = self._deployed_release()
         if not self._cpu_qualified(base):
             raise RuntimeError("RUNTIME_INVENTORY_CPU_QUALIFICATION_NOT_ESTABLISHED")
@@ -676,6 +738,7 @@ class RuntimeInventoryRefresher:
                 "work_unit_roles": work_unit_roles,
                 "provider_work_findings": provider_work_findings,
                 "deployed_release": deployed_release,
+                "external_evidence": live_external_evidence,
             }
         )
         snapshot = {

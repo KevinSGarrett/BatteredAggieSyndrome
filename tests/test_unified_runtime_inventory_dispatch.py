@@ -137,6 +137,78 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         refreshed_pointer = json.loads(self.current.read_text(encoding="utf-8"))
         self.assertNotEqual(pointer["refreshed_at"], refreshed_pointer["refreshed_at"])
 
+    def test_refresh_reloads_external_semantics_and_versions_material_transition(self) -> None:
+        semantic_module = self.root / "semantic_materializer.py"
+        semantic_module.write_text(
+            """
+import hashlib
+from pathlib import Path
+
+def external_evidence_identity(root: Path):
+    files = sorted(root.rglob('*.json')) if root.is_dir() else []
+    return {'present': root.is_dir(), 'file_count': len(files), 'manifest_sha256': hashlib.sha256(str(len(files)).encode()).hexdigest()}
+
+def openrouter_semantic_evidence(root: Path, policy):
+    return {**external_evidence_identity(root), 'routes': [], 'state': 'PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL'}
+
+def cursor_semantic_evidence(root: Path):
+    return external_evidence_identity(root)
+
+def local_qwen_semantic_evidence(root: Path, readiness):
+    return {**external_evidence_identity(root), 'routes': []}
+
+def cpu_worker_semantic_evidence(root: Path):
+    return {
+        **external_evidence_identity(root),
+        'qualified': True,
+        'qualifications': [{
+            'tasks': ['CANONICAL_JSON', 'EXACT_TEXT_DEDUP', 'LINE_HASH_MANIFEST'],
+            'evidence_sha256': 'b' * 64,
+            'readiness_evidence_sha256': 'c' * 64,
+        }],
+    }
+""".strip(),
+            encoding="utf-8",
+        )
+        policy = self.root / "policy.json"
+        readiness = self.root / "readiness.json"
+        policy.write_text("{}", encoding="utf-8")
+        readiness.write_text("{}", encoding="utf-8")
+        assistive = self.root / "external/assistive"
+        (assistive / "openrouter").mkdir(parents=True)
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                semantic_materializer_path=semantic_module,
+                semantic_policy_path=policy,
+                semantic_readiness_path=readiness,
+                external_assistive_root=assistive,
+            ),
+        )
+
+        first = refresher.refresh(now=self.now)
+        (assistive / "openrouter/transition.json").write_text("{}", encoding="utf-8")
+        second = refresher.refresh(now=self.now + timedelta(minutes=1))
+
+        self.assertNotEqual(first["snapshot_sha256"], second["snapshot_sha256"])
+        snapshot = json.loads(Path(second["snapshot_path"]).read_text(encoding="utf-8"))
+        self.assertEqual(1, snapshot["external_evidence"]["openrouter"]["file_count"])
+        self.assertEqual(second["runtime_material_identity"], snapshot["runtime_material_identity"])
+
+    def test_semantic_refresh_configuration_is_all_or_none(self) -> None:
+        with self.assertRaisesRegex(ValueError, "RUNTIME_INVENTORY_SEMANTIC_REFRESH_CONFIG_INCOMPLETE"):
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                semantic_materializer_path=self.root / "semantic.py",
+            ).validate()
+
     def test_refresh_replaces_stale_seed_git_with_exact_deployed_release_evidence(self) -> None:
         build_commit = "9" * 40
         release = self.root / "releases" / build_commit

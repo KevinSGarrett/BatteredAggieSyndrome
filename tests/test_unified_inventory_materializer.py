@@ -278,6 +278,134 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
             self.assertEqual(0, evidence["controller_routed_units"])
             self.assertEqual(1, evidence["transitional_or_manual_units"])
 
+    @staticmethod
+    def openrouter_policy(
+        *,
+        accepted_useful: int = 12,
+        units: int = 20,
+        categories: int = 3,
+    ) -> dict[str, object]:
+        return {
+            "budgets": {
+                "openrouter": {
+                    "hard_limit_usd": "25.00",
+                    "released_stage_usd": "5.00",
+                }
+            },
+            "execution_minimums": {
+                "openrouter": {
+                    "accepted_useful": accepted_useful,
+                    "units": units,
+                    "categories": categories,
+                }
+            }
+        }
+
+    @staticmethod
+    def write_openrouter_summary(
+        root: Path,
+        *,
+        accepted: int,
+        modified: int,
+        request_count: int,
+        missing_evidence: dict[str, object] | None = None,
+    ) -> None:
+        route = {
+            "provider": "openrouter",
+            "task_format": "governed_openrouter_candidate_v1",
+            "task_id": "independent_review",
+            "schema_sha256": "6" * 64,
+            "request_schema_version": "v1",
+            "provider_policy_version": "policy-v1",
+            "model": "qwen/qwen3-coder-next",
+            "reasoning_effort": "none",
+            "request_count": request_count,
+            "complete_evidence_count": request_count,
+            "accepted_useful_count": accepted + modified,
+            "readiness_supported_state": "READY",
+            "evidence_verified": True,
+            "evidence_sha256": "7" * 64,
+        }
+        summary = {
+            "schema_version": 1,
+            "artifact_type": "OPENROUTER_DETERMINISTIC_CAMPAIGN_SUMMARY",
+            "request_count": request_count,
+            "counts_by_category": {
+                "independent_review": 1,
+                "reconciliation_ranking": 1,
+                "schema_drift_review": 1,
+            },
+            "counts_by_disposition": {
+                "accepted": accepted,
+                "modified": modified,
+                "review_only": 0,
+                "quarantined": 1,
+                "rejected": 1,
+            },
+            "total_cost_usd": "0.10000000",
+            "provider_reconciled": True,
+            "missing_evidence": missing_evidence or {},
+            "routes": [route],
+        }
+        data = json.dumps(summary, sort_keys=True, separators=(",", ":")).encode() + b"\n"
+        digest = hashlib.sha256(data).hexdigest()
+        artifact = root / "evals/campaign_summaries/sha256" / digest[:2] / digest / "artifact.json"
+        artifact.parent.mkdir(parents=True)
+        artifact.write_bytes(data)
+        pointer = {"artifact_path": str(artifact), "artifact_sha256": digest}
+        current = root / "evals/campaign_summaries/current.json"
+        current.parent.mkdir(parents=True, exist_ok=True)
+        current.write_text(json.dumps(pointer), encoding="utf-8")
+        usage = root / "usage/ledger.json"
+        usage.parent.mkdir(parents=True, exist_ok=True)
+        usage.write_text(
+            json.dumps(
+                {
+                    "settled_usd": "0.10000000",
+                    "provider_reconciliation": {
+                        "status": "PROVIDER_TOTAL_RECONCILED",
+                        "provider_total_usd": "0.10000000",
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+
+    def test_openrouter_semantics_keep_pilot_nonoperational_but_exact_route_ready(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_openrouter_summary(
+                root,
+                accepted=5,
+                modified=2,
+                request_count=20,
+                missing_evidence={"old-request": ["review"]},
+            )
+            evidence = MATERIALIZER.openrouter_semantic_evidence(
+                root, self.openrouter_policy()
+            )
+            self.assertEqual("PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL", evidence["state"])
+            self.assertFalse(evidence["operationally_admitted"])
+            self.assertEqual("READY", evidence["routes"][0]["readiness_supported_state"])
+            self.assertIn("OPENROUTER_ACCEPTED_USEFUL_BELOW_POLICY_THRESHOLD", evidence["findings"])
+            self.assertIn("OPENROUTER_PARTIAL_HISTORICAL_REVIEW_EVIDENCE", evidence["findings"])
+
+    def test_openrouter_semantics_require_reconciled_budget_and_exact_summary_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_openrouter_summary(root, accepted=10, modified=2, request_count=20)
+            admitted = MATERIALIZER.openrouter_semantic_evidence(root, self.openrouter_policy())
+            self.assertEqual("OPERATIONALLY_ADMITTED", admitted["state"])
+            self.assertTrue(admitted["operationally_admitted"])
+
+            ledger = json.loads((root / "usage/ledger.json").read_text(encoding="utf-8"))
+            ledger["settled_usd"] = "0.20000000"
+            (root / "usage/ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
+            rejected = MATERIALIZER.openrouter_semantic_evidence(root, self.openrouter_policy())
+            self.assertFalse(rejected["operationally_admitted"])
+            self.assertEqual("NOT_READY", rejected["routes"][0]["readiness_supported_state"])
+            self.assertIn("OPENROUTER_PROVIDER_USAGE_NOT_RECONCILED", rejected["findings"])
+
 
 if __name__ == "__main__":
     unittest.main()

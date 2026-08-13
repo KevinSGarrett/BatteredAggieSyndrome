@@ -704,18 +704,14 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
                     "task_format": OPENROUTER_TASK_FORMAT,
                     "task_id": "independent_review",
                     "schema_sha256": "6" * 64,
+                    "request_schema_version": "v1",
                     "provider_policy_version": "openrouter-assistive-development-plane-v2-paid-authorization",
                     "model": "qwen/qwen3-coder-next",
                     "reasoning_effort": "none",
-                    "task_sha256": packet["identity_hashes"]["task_sha256"],
-                    "schema_sha256_identity": packet["identity_hashes"]["schema_sha256"],
-                    "policy_sha256": packet["identity_hashes"]["policy_sha256"],
-                    "model_sha256": packet["identity_hashes"]["model_sha256"],
-                    "reasoning_sha256": packet["identity_hashes"]["reasoning_sha256"],
-                    "source_sha256": packet["identity_hashes"]["source_sha256"],
                     "readiness_supported_state": "READY",
                     "evidence_verified": True,
                     "readiness_evidence_sha256": "7" * 64,
+                    "route_evidence_sha256": "9" * 64,
                     "budget_evidence_sha256": "8" * 64,
                     "budget_released_stage_usd": "5.00",
                     "budget_remaining_usd": "1.23",
@@ -753,7 +749,7 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         packet["identity_hashes"]["source_sha256"] = "9" * 64
         (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
         current_payload["external_evidence"]["openrouter"]["routes"][0]["budget_remaining_usd"] = "1.23"
-        with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
+        with self.assertRaisesRegex(ValueError, "IDENTITY_HASH_MISMATCH"):
             refresher._discover_provider_work(current_payload, self.now)
 
     def test_openrouter_scheduler_restart_idempotency_and_accounting_use_fake_adapter(self) -> None:
@@ -809,18 +805,14 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
                     "task_format": OPENROUTER_TASK_FORMAT,
                     "task_id": "independent_review",
                     "schema_sha256": packet["schema_sha256"],
+                    "request_schema_version": packet["request_schema_version"],
                     "provider_policy_version": packet["provider_policy_version"],
                     "model": packet["model"],
                     "reasoning_effort": packet["reasoning_effort"],
-                    "task_sha256": packet["identity_hashes"]["task_sha256"],
-                    "schema_sha256_identity": packet["identity_hashes"]["schema_sha256"],
-                    "policy_sha256": packet["identity_hashes"]["policy_sha256"],
-                    "model_sha256": packet["identity_hashes"]["model_sha256"],
-                    "reasoning_sha256": packet["identity_hashes"]["reasoning_sha256"],
-                    "source_sha256": packet["identity_hashes"]["source_sha256"],
                     "readiness_supported_state": "READY",
                     "evidence_verified": True,
                     "readiness_evidence_sha256": "7" * 64,
+                    "route_evidence_sha256": "9" * 64,
                     "budget_evidence_sha256": "8" * 64,
                     "budget_released_stage_usd": "5.00",
                     "budget_remaining_usd": "2.25",

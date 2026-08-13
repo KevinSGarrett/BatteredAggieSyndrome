@@ -72,7 +72,7 @@ def external_evidence_identity(root: Path) -> dict[str, Any]:
 
 def verified_content_addressed_json(path: Path) -> dict[str, Any]:
     digest = sha256(path)
-    if path.stem != digest:
+    if digest not in {path.stem, path.parent.name}:
         raise RuntimeError(f"EXTERNAL_EVIDENCE_CONTENT_ADDRESS_MISMATCH:{path}")
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -288,6 +288,145 @@ def cursor_semantic_evidence(root: Path) -> dict[str, Any]:
     }
 
 
+def openrouter_semantic_evidence(root: Path, policy: dict[str, Any]) -> dict[str, Any]:
+    identity = external_evidence_identity(root)
+    findings: list[str] = []
+    pointer_path = root / "evals" / "campaign_summaries" / "current.json"
+    ledger_path = root / "usage" / "ledger.json"
+    if not pointer_path.is_file() or not ledger_path.is_file():
+        return {
+            **identity,
+            "state": "CONFIGURED",
+            "routes": [],
+            "operationally_admitted": False,
+            "findings": ["OPENROUTER_CAMPAIGN_SUMMARY_OR_LEDGER_MISSING"],
+        }
+    try:
+        pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+        summary_path = Path(str(pointer["artifact_path"])).resolve(strict=True)
+        if root.resolve() not in summary_path.parents:
+            raise RuntimeError("OPENROUTER_SUMMARY_OUTSIDE_EXTERNAL_ROOT")
+        summary_sha256 = sha256(summary_path)
+        if summary_sha256 != pointer.get("artifact_sha256"):
+            raise RuntimeError("OPENROUTER_SUMMARY_POINTER_HASH_MISMATCH")
+        summary = verified_content_addressed_json(summary_path)
+        ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    except (OSError, KeyError, ValueError, json.JSONDecodeError, RuntimeError) as exc:
+        return {
+            **identity,
+            "state": "EVIDENCE_INVALID",
+            "routes": [],
+            "operationally_admitted": False,
+            "findings": [str(exc)],
+        }
+
+    budget = policy["budgets"]["openrouter"]
+    hard_limit = Decimal(str(budget["hard_limit_usd"]))
+    released_stage = Decimal(str(budget["released_stage_usd"]))
+    settled = Decimal(str(ledger.get("settled_usd", "0")))
+    summary_total = Decimal(str(summary.get("total_cost_usd", "0")))
+    provider_reconciliation = ledger.get("provider_reconciliation", {})
+    provider_reconciled = (
+        summary.get("provider_reconciled") is True
+        and provider_reconciliation.get("status") == "PROVIDER_TOTAL_RECONCILED"
+        and Decimal(str(provider_reconciliation.get("provider_total_usd", "-1"))) == settled
+        and settled == summary_total
+        and settled <= hard_limit
+        and settled <= released_stage
+    )
+    if not provider_reconciled:
+        findings.append("OPENROUTER_PROVIDER_USAGE_NOT_RECONCILED")
+    remaining_hard = hard_limit - settled
+    remaining_released = released_stage - settled
+    if remaining_hard <= 0 or remaining_released <= 0:
+        findings.append("OPENROUTER_BUDGET_NOT_POSITIVE")
+
+    counts = summary.get("counts_by_disposition", {})
+    accepted_useful = int(counts.get("accepted", 0)) + int(counts.get("modified", 0))
+    categories = summary.get("counts_by_category", {})
+    minimums = policy["execution_minimums"]["openrouter"]
+    if accepted_useful < int(minimums["accepted_useful"]):
+        findings.append("OPENROUTER_ACCEPTED_USEFUL_BELOW_POLICY_THRESHOLD")
+    missing_evidence = summary.get("missing_evidence", {})
+    if missing_evidence:
+        findings.append("OPENROUTER_PARTIAL_HISTORICAL_REVIEW_EVIDENCE")
+
+    routes: list[dict[str, Any]] = []
+    ledger_sha256 = sha256(ledger_path)
+    for route in summary.get("routes", []):
+        required_strings = (
+            "task_id",
+            "schema_sha256",
+            "request_schema_version",
+            "provider_policy_version",
+            "model",
+            "reasoning_effort",
+            "evidence_sha256",
+        )
+        route_valid = (
+            isinstance(route, dict)
+            and all(isinstance(route.get(key), str) and route.get(key) for key in required_strings)
+            and route.get("provider") == "openrouter"
+            and route.get("task_format") == "governed_openrouter_candidate_v1"
+            and route.get("evidence_verified") is True
+            and route.get("readiness_supported_state") == "READY"
+        )
+        if not route_valid:
+            findings.append("OPENROUTER_EXACT_ROUTE_EVIDENCE_INVALID")
+            continue
+        routes.append(
+            {
+                "provider": "openrouter",
+                "task_format": route["task_format"],
+                "task_id": route["task_id"],
+                "schema_sha256": route["schema_sha256"],
+                "request_schema_version": route["request_schema_version"],
+                "provider_policy_version": route["provider_policy_version"],
+                "model": route["model"],
+                "reasoning_effort": route["reasoning_effort"],
+                "readiness_supported_state": "READY" if provider_reconciled and remaining_released > 0 else "NOT_READY",
+                "evidence_verified": provider_reconciled,
+                "readiness_evidence_sha256": summary_sha256,
+                "route_evidence_sha256": route["evidence_sha256"],
+                "budget_evidence_sha256": ledger_sha256,
+                "budget_hard_limit_usd": format(hard_limit, "f"),
+                "budget_released_stage_usd": format(released_stage, "f"),
+                "budget_remaining_usd": format(remaining_released, "f"),
+                "request_count": int(route.get("request_count", 0)),
+                "complete_evidence_count": int(route.get("complete_evidence_count", 0)),
+                "accepted_useful_count": int(route.get("accepted_useful_count", 0)),
+            }
+        )
+
+    units = int(summary.get("request_count", 0))
+    category_count = len(categories)
+    operationally_admitted = (
+        provider_reconciled
+        and units >= int(minimums["units"])
+        and category_count >= int(minimums["categories"])
+        and accepted_useful >= int(minimums["accepted_useful"])
+        and not missing_evidence
+    )
+    return {
+        **identity,
+        "state": "OPERATIONALLY_ADMITTED" if operationally_admitted else "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL",
+        "summary_sha256": summary_sha256,
+        "ledger_sha256": ledger_sha256,
+        "requests": units,
+        "categories_covered": category_count,
+        "accepted_useful": accepted_useful,
+        "modified": int(counts.get("modified", 0)),
+        "review_only": int(counts.get("review_only", 0)),
+        "quarantined": int(counts.get("quarantined", 0)),
+        "rejected": int(counts.get("rejected", 0)),
+        "settled_usd": format(settled, "f"),
+        "remaining_released_usd": format(remaining_released, "f"),
+        "routes": routes,
+        "operationally_admitted": operationally_admitted,
+        "findings": sorted(set(findings)),
+    }
+
+
 def route_state_from_semantic_evidence(
     route: dict[str, Any], semantic_evidence: dict[str, Any]
 ) -> str:
@@ -457,7 +596,7 @@ def main() -> int:
     }
     semantic_evidence = {
         "openai": external_evidence_identity(external_roots["openai"]),
-        "openrouter": external_evidence_identity(external_roots["openrouter"]),
+        "openrouter": openrouter_semantic_evidence(external_roots["openrouter"], policy),
         "cursor": cursor_semantic_evidence(external_roots["cursor"]),
         "local_qwen": local_qwen_semantic_evidence(external_roots["local_qwen"], readiness),
         "cpu_worker": cpu_worker_semantic_evidence(external_roots["cpu_worker"]),

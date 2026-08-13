@@ -301,26 +301,21 @@ class RuntimeInventoryRefresher:
                     and route.get("task_format") == OPENROUTER_TASK_FORMAT
                     and route.get("task_id") == packet.get("task_id")
                     and route.get("schema_sha256") == packet.get("schema_sha256")
+                    and route.get("request_schema_version") == packet.get("request_schema_version")
                     and route.get("provider_policy_version") == packet.get("provider_policy_version")
                     and route.get("model") == packet.get("model")
                     and route.get("reasoning_effort") == packet.get("reasoning_effort")
-                    and route.get("task_sha256") == packet.get("identity_hashes", {}).get("task_sha256")
-                    and route.get("schema_sha256_identity")
-                    == packet.get("identity_hashes", {}).get("schema_sha256")
-                    and route.get("policy_sha256") == packet.get("identity_hashes", {}).get("policy_sha256")
-                    and route.get("model_sha256") == packet.get("identity_hashes", {}).get("model_sha256")
-                    and route.get("reasoning_sha256")
-                    == packet.get("identity_hashes", {}).get("reasoning_sha256")
-                    and route.get("source_sha256") == packet.get("identity_hashes", {}).get("source_sha256")
                 )
                 if not exact:
                     continue
                 readiness = route.get("readiness_evidence_sha256")
+                route_evidence = route.get("route_evidence_sha256")
                 budget = route.get("budget_evidence_sha256")
                 if (
                     route.get("readiness_supported_state") != "READY"
                     or route.get("evidence_verified") is not True
                     or not cls._valid_sha256(readiness)
+                    or not cls._valid_sha256(route_evidence)
                     or not cls._valid_sha256(budget)
                 ):
                     continue
@@ -334,6 +329,7 @@ class RuntimeInventoryRefresher:
                 return sha256_value(
                     {
                         "readiness_evidence_sha256": str(readiness),
+                        "route_evidence_sha256": str(route_evidence),
                         "budget_evidence_sha256": str(budget),
                         "budget_remaining_usd": format(remaining_usd, "f"),
                     }

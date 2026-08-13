@@ -21,16 +21,33 @@ FILES = (
     "src/aggie_analytics/assistive_plane/controller_state.py",
     "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
     "src/aggie_analytics/assistive_plane/inventory_runtime.py",
+    "src/aggie_analytics/assistive_plane/ollama_backend.py",
     "src/aggie_analytics/assistive_plane/orchestration.py",
+    "src/aggie_analytics/assistive_plane/provider_adapters.py",
     "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
     "src/aggie_analytics/assistive_plane/service_runtime.py",
     "src/aggie_analytics/assistive_plane/watchdog.py",
+    "src/aggie_analytics/openai_assist/__init__.py",
+    "src/aggie_analytics/openai_assist/budget.py",
+    "src/aggie_analytics/openai_assist/contracts.py",
+    "src/aggie_analytics/openai_assist/controller.py",
+    "src/aggie_analytics/openai_assist/credentials.py",
+    "src/aggie_analytics/openai_assist/evals.py",
+    "src/aggie_analytics/openai_assist/policy.py",
+    "src/aggie_analytics/openai_assist/redaction.py",
+    "src/aggie_analytics/openai_assist/schemas.py",
+    "src/aggie_analytics/openai_assist/storage.py",
+    "configs/openai_assist_policy.json",
+    "configs/openai_task_registry.json",
+    "schemas/openai/assistive_candidate.schema.json",
+    "schemas/openai/assistive_evaluation.schema.json",
+    "schemas/openai/depth_chart_noncoverage_visual.schema.json",
     "tools/run_unified_assistive_controller.py",
     "tools/run_unified_assistive_watchdog.py",
 )
 GENERATED_RELEASE_FILES = {
     "src/aggie_analytics/assistive_plane/__init__.py": (
-        b'"""Minimal controller/watchdog release package; no provider adapters are imported."""\n'
+        b'"""Minimal governed controller release with admitted provider adapters."""\n'
     ),
 }
 

@@ -1061,6 +1061,7 @@ class ControllerState:
         request_sha256: str,
         request_artifact_path: Path,
         actor: str,
+        resource: dict[str, Any] | None = None,
         now: datetime | None = None,
     ) -> None:
         self._validate_sha256(request_sha256, "DISPATCH_REQUEST_IDENTITY_INVALID")
@@ -1077,8 +1078,8 @@ class ControllerState:
             )
             connection.execute(
                 "INSERT INTO provider_runs(provider_run_id,attempt_id,provider,remote_identity,request_sha256,status,resource_json,started_at) "
-                "VALUES(?,?,?,?,?,'DISPATCHED','{}',?)",
-                (provider_run_id, attempt_id, provider, remote_identity, request_sha256, stamp),
+                "VALUES(?,?,?,?,?,'DISPATCHED',?,?)",
+                (provider_run_id, attempt_id, provider, remote_identity, request_sha256, json.dumps(resource or {}, sort_keys=True), stamp),
             )
             connection.execute(
                 "INSERT INTO execution_artifacts(artifact_id,work_unit_id,attempt_id,artifact_type,path,sha256,bytes,recorded_at) "
@@ -1142,6 +1143,46 @@ class ControllerState:
         actor: str,
         now: datetime | None = None,
     ) -> None:
+        self.complete_candidate_work(
+            work_unit_id=work_unit_id,
+            attempt_id=attempt_id,
+            lease_id=lease_id,
+            validation_sha256=validation_sha256,
+            review_sha256=review_sha256,
+            cleanup_sha256=cleanup_sha256,
+            validator="CPU_WORKER_EXACT_LOCAL_REPLAY",
+            validation_result="PASS",
+            reviewer="DETERMINISTIC_POLICY",
+            disposition="REVIEW_ONLY",
+            actual_cost_usd="0.000000",
+            settlement_reason="NONBILLABLE_CPU_RESOURCE_SETTLED",
+            cleanup_action="NO_RECONSTRUCTIBLE_TEMP_CREATED",
+            actor=actor,
+            now=now,
+        )
+
+    def complete_candidate_work(
+        self,
+        *,
+        work_unit_id: str,
+        attempt_id: str,
+        lease_id: str,
+        validation_sha256: str,
+        review_sha256: str,
+        cleanup_sha256: str,
+        validator: str,
+        validation_result: str,
+        reviewer: str,
+        disposition: str,
+        actual_cost_usd: str,
+        settlement_reason: str,
+        cleanup_action: str,
+        actor: str,
+        review_seconds: float = 0.0,
+        bytes_removed: int = 0,
+        resource: dict[str, Any] | None = None,
+        now: datetime | None = None,
+    ) -> None:
         for value, finding in (
             (validation_sha256, "VALIDATION_IDENTITY_INVALID"),
             (review_sha256, "REVIEW_IDENTITY_INVALID"),
@@ -1152,12 +1193,12 @@ class ControllerState:
         with self.transaction() as connection:
             self._transition_in_connection(
                 connection, work_unit_id=work_unit_id, expected_state="RESULT_RECEIVED", new_state="VALIDATED",
-                reason="DETERMINISTIC_EXACT_REPLAY_PASSED", actor=actor, stamp=stamp, evidence_sha256=validation_sha256,
+                reason="CANDIDATE_DETERMINISTIC_VALIDATION_COMPLETE", actor=actor, stamp=stamp, evidence_sha256=validation_sha256,
             )
             connection.execute(
                 "INSERT INTO validation_results(validation_id,work_unit_id,attempt_id,validator,result,evidence_sha256,recorded_at) "
                 "VALUES(?,?,?,?,?,?,?)",
-                (validation_sha256, work_unit_id, attempt_id, "CPU_WORKER_EXACT_LOCAL_REPLAY", "PASS", validation_sha256, stamp),
+                (validation_sha256, work_unit_id, attempt_id, validator, validation_result, validation_sha256, stamp),
             )
             self._transition_in_connection(
                 connection, work_unit_id=work_unit_id, expected_state="VALIDATED", new_state="REVIEWED",
@@ -1166,14 +1207,16 @@ class ControllerState:
             connection.execute(
                 "INSERT INTO reviews(review_id,work_unit_id,attempt_id,reviewer,disposition,evidence_sha256,review_seconds,recorded_at) "
                 "VALUES(?,?,?,?,?,?,?,?)",
-                (review_sha256, work_unit_id, attempt_id, "DETERMINISTIC_POLICY", "REVIEW_ONLY", review_sha256, 0.0, stamp),
+                (review_sha256, work_unit_id, attempt_id, reviewer, disposition, review_sha256, review_seconds, stamp),
             )
             self._transition_in_connection(
                 connection, work_unit_id=work_unit_id, expected_state="REVIEWED", new_state="SETTLED",
-                reason="NONBILLABLE_CPU_RESOURCE_SETTLED", actor=actor, stamp=stamp,
+                reason=settlement_reason, actor=actor, stamp=stamp,
             )
+            actual_cost_cents = int((Decimal(actual_cost_usd) * Decimal(100)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
             connection.execute(
-                "UPDATE provider_runs SET status='SETTLED',actual_cost_cents=0 WHERE attempt_id=?", (attempt_id,)
+                "UPDATE provider_runs SET status='SETTLED',actual_cost_cents=?,resource_json=? WHERE attempt_id=?",
+                (actual_cost_cents, json.dumps(resource or {}, sort_keys=True), attempt_id),
             )
             self._transition_in_connection(
                 connection, work_unit_id=work_unit_id, expected_state="SETTLED", new_state="CLEANED",
@@ -1182,7 +1225,7 @@ class ControllerState:
             connection.execute(
                 "INSERT INTO cleanup_actions(cleanup_id,work_unit_id,attempt_id,action,bytes_removed,evidence_sha256,recorded_at) "
                 "VALUES(?,?,?,?,?,?,?)",
-                (cleanup_sha256, work_unit_id, attempt_id, "NO_RECONSTRUCTIBLE_TEMP_CREATED", 0, cleanup_sha256, stamp),
+                (cleanup_sha256, work_unit_id, attempt_id, cleanup_action, bytes_removed, cleanup_sha256, stamp),
             )
             self._transition_in_connection(
                 connection, work_unit_id=work_unit_id, expected_state="CLEANED", new_state="CLOSED",

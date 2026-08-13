@@ -13,7 +13,9 @@ from .contracts import sha256_value
 from .controller_state import ControllerState, parse_rfc3339, rfc3339
 from .cpu_worker_backend import CpuWorkerClient, CpuWorkerEndpoint, CpuWorkerJob
 from .inventory_runtime import cpu_qualification_evidence_sha256
+from .ollama_backend import OLLAMA_LOOPBACK_ENDPOINT
 from .orchestration import ReadyWorkInventory, RoutingDisposition, load_inventory
+from .provider_adapters import BgeM3CandidateAdapter, GovernedOpenAIAdapter, ProviderAdapterResult
 
 
 ROUTABLE_DISPOSITIONS = frozenset(
@@ -70,6 +72,9 @@ class SchedulerConfig:
     cpu_worker_storage_root: Path | None = None
     cpu_worker_signing_key_path: Path | None = None
     max_dispatch_per_cycle: int = 3
+    release_root: Path | None = None
+    bge_endpoint: str = OLLAMA_LOOPBACK_ENDPOINT
+    openai_enabled: bool = True
 
     def validate(self) -> None:
         if self.inventory_max_age_seconds <= 0:
@@ -90,10 +95,17 @@ class SchedulerConfig:
 class InventoryScheduler:
     """Fail-closed inventory evaluator; provider dispatch is a separate admitted layer."""
 
-    def __init__(self, state: ControllerState, config: SchedulerConfig) -> None:
+    def __init__(
+        self,
+        state: ControllerState,
+        config: SchedulerConfig,
+        *,
+        adapters: dict[str, Any] | None = None,
+    ) -> None:
         config.validate()
         self.state = state
         self.config = config
+        self._adapters = adapters
 
     def _load(self, now: datetime) -> tuple[dict[str, Any], ReadyWorkInventory, str, float]:
         path = self.config.inventory_current_path
@@ -159,9 +171,17 @@ class InventoryScheduler:
         packet = json.loads(data)
         if packet.get("authority") != "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES":
             raise RuntimeError("SCHEDULER_EXECUTION_PACKET_AUTHORITY_INVALID")
-        if packet.get("task") not in {"CANONICAL_JSON", "LINE_HASH_MANIFEST", "EXACT_TEXT_DEDUP"}:
-            raise RuntimeError("SCHEDULER_EXECUTION_PACKET_TASK_INVALID")
         return packet, digest
+
+    def _provider_adapters(self) -> dict[str, Any]:
+        if self._adapters is not None:
+            return self._adapters
+        adapters: dict[str, Any] = {"ollama_local": BgeM3CandidateAdapter(self.config.bge_endpoint)}
+        if self.config.openai_enabled:
+            if self.config.release_root is None:
+                raise RuntimeError("SCHEDULER_OPENAI_RELEASE_ROOT_MISSING")
+            adapters["openai_direct"] = GovernedOpenAIAdapter(self.config.release_root)
+        return adapters
 
     def _dispatch_cpu(
         self,
@@ -173,6 +193,8 @@ class InventoryScheduler:
         client: CpuWorkerClient,
     ) -> dict[str, Any] | None:
         packet, packet_sha256 = self._load_execution_packet(payload, decision.work_unit_id)
+        if packet.get("task") not in {"CANONICAL_JSON", "LINE_HASH_MANIFEST", "EXACT_TEXT_DEDUP"}:
+            raise RuntimeError("SCHEDULER_CPU_EXECUTION_PACKET_TASK_INVALID")
         route_identity = sha256_value(
             {
                 "provider": decision.provider,
@@ -182,6 +204,219 @@ class InventoryScheduler:
                 "packet_sha256": packet_sha256,
             }
         )
+        return self._dispatch_cpu_after_route(
+            payload=payload,
+            work_unit=work_unit,
+            decision=decision,
+            moment=moment,
+            client=client,
+            packet=packet,
+            packet_sha256=packet_sha256,
+            route_identity=route_identity,
+        )
+
+    def _dispatch_candidate_provider(
+        self,
+        *,
+        payload: dict[str, Any],
+        work_unit: Any,
+        decision: Any,
+        moment: datetime,
+        adapter: Any,
+    ) -> dict[str, Any] | None:
+        packet, packet_sha256 = self._load_execution_packet(payload, decision.work_unit_id)
+        reference = payload["execution_packets"][decision.work_unit_id]
+        readiness_evidence_sha256 = reference.get("readiness_evidence_sha256")
+        if not isinstance(readiness_evidence_sha256, str) or len(readiness_evidence_sha256) != 64:
+            raise RuntimeError("SCHEDULER_PROVIDER_READINESS_EVIDENCE_MISSING")
+        route_identity = sha256_value({
+            "provider": decision.provider,
+            "model": decision.model,
+            "task_format": work_unit.task_format,
+            "schema_sha256": work_unit.schema_sha256,
+            "packet_sha256": packet_sha256,
+            "readiness_evidence_sha256": readiness_evidence_sha256,
+        })
+        attempt_number = self.state.dispatch_attempt_count(decision.work_unit_id) + 1
+        attempt_id = hashlib.sha256(
+            f"{work_unit.identity()}:{route_identity}:attempt-{attempt_number}".encode()
+        ).hexdigest()
+        lease_id = hashlib.sha256(f"{attempt_id}:lease".encode()).hexdigest()
+        claimed = self.state.claim_dispatch(
+            work_unit_id=decision.work_unit_id,
+            dependencies=work_unit.dependencies,
+            lease_id=lease_id,
+            attempt_id=attempt_id,
+            owner_id=self.config.owner_id,
+            provider=str(decision.provider),
+            route_identity=route_identity,
+            readiness_evidence_sha256=readiness_evidence_sha256,
+            now=moment,
+        )
+        if not claimed:
+            return None
+        provider_call_attempted = False
+        try:
+            request = {
+                "schema_version": 1,
+                "artifact_type": "GOVERNED_PROVIDER_DISPATCH_REQUEST",
+                "work_unit_id": decision.work_unit_id,
+                "attempt_id": attempt_id,
+                "provider": decision.provider,
+                "route_identity": route_identity,
+                "packet_sha256": packet_sha256,
+                "readiness_evidence_sha256": readiness_evidence_sha256,
+                "authority": "CANDIDATE_ONLY",
+            }
+            request_path, request_sha256 = content_addressed_write(
+                self.config.evidence_root, "provider-requests", request,
+                current_name=f"request-{decision.work_unit_id}.json",
+            )
+            provider_run_id = hashlib.sha256(f"{attempt_id}:{route_identity}".encode()).hexdigest()
+            self.state.record_dispatch(
+                work_unit_id=decision.work_unit_id,
+                attempt_id=attempt_id,
+                provider_run_id=provider_run_id,
+                provider=str(decision.provider),
+                remote_identity=route_identity,
+                request_sha256=request_sha256,
+                request_artifact_path=request_path,
+                actor=self.config.owner_id,
+                resource={"packet_sha256": packet_sha256},
+                now=moment,
+            )
+            result: ProviderAdapterResult = adapter.run(packet)
+            provider_call_attempted = bool(result.resource.get("provider_calls", 1))
+            result_payload = {
+                "schema_version": 1,
+                "artifact_type": "GOVERNED_PROVIDER_CANDIDATE_RESULT",
+                "work_unit_id": decision.work_unit_id,
+                "attempt_id": attempt_id,
+                "provider": decision.provider,
+                "remote_identity": result.remote_identity,
+                "result": result.result,
+                "disposition": result.disposition,
+                "validation_errors": list(result.validation_errors),
+                "actual_cost_usd": result.actual_cost_usd,
+                "resource": result.resource,
+                "authority": "CANDIDATE_ONLY",
+            }
+            artifact_path, artifact_sha256 = content_addressed_write(
+                self.config.evidence_root, "provider-results", result_payload,
+                current_name=f"result-{decision.work_unit_id}.json",
+            )
+            result_sha256 = sha256_value(result.result)
+            completed = datetime.now(timezone.utc)
+            self.state.record_result_and_artifact(
+                work_unit_id=decision.work_unit_id,
+                attempt_id=attempt_id,
+                provider_run_id=provider_run_id,
+                result_sha256=result_sha256,
+                artifact_path=artifact_path,
+                actor=self.config.owner_id,
+                now=completed,
+            )
+            validation = {
+                "work_unit_id": decision.work_unit_id,
+                "attempt_id": attempt_id,
+                "packet_sha256": packet_sha256,
+                "result_sha256": result_sha256,
+                "validation_errors": list(result.validation_errors),
+                "authority": result.result.get("authority"),
+                "canonical_writes": result.result.get("canonical_writes", 0),
+                "protected_decisions": result.result.get("protected_decisions", 0),
+            }
+            if validation["canonical_writes"] != 0 or validation["protected_decisions"] != 0:
+                raise RuntimeError("SCHEDULER_PROVIDER_AUTHORITY_VIOLATION")
+            _, validation_sha256 = content_addressed_write(
+                self.config.evidence_root, "dispatch-validations", validation,
+                current_name=f"validation-{decision.work_unit_id}.json",
+            )
+            review = {
+                "work_unit_id": decision.work_unit_id,
+                "attempt_id": attempt_id,
+                "disposition": result.disposition,
+                "validation_sha256": validation_sha256,
+                "candidate_only": True,
+            }
+            _, review_sha256 = content_addressed_write(
+                self.config.evidence_root, "review-queue", review,
+                current_name=f"review-{decision.work_unit_id}.json",
+            )
+            cleanup = {
+                "work_unit_id": decision.work_unit_id,
+                "attempt_id": attempt_id,
+                "action": "NO_RECONSTRUCTIBLE_TEMP_CREATED",
+                "bytes_removed": 0,
+            }
+            _, cleanup_sha256 = content_addressed_write(
+                self.config.evidence_root, "cleanup", cleanup,
+                current_name=f"cleanup-{decision.work_unit_id}.json",
+            )
+            self.state.complete_candidate_work(
+                work_unit_id=decision.work_unit_id,
+                attempt_id=attempt_id,
+                lease_id=lease_id,
+                validation_sha256=validation_sha256,
+                review_sha256=review_sha256,
+                cleanup_sha256=cleanup_sha256,
+                validator="GOVERNED_PROVIDER_SCHEMA_EVIDENCE_AUTHORITY",
+                validation_result="PASS" if not result.validation_errors else "QUARANTINED",
+                reviewer="DURABLE_CANDIDATE_REVIEW_QUEUE",
+                disposition=result.disposition,
+                actual_cost_usd=result.actual_cost_usd,
+                settlement_reason="AUTHORITATIVE_PROVIDER_LEDGER_RECONCILED",
+                cleanup_action="NO_RECONSTRUCTIBLE_TEMP_CREATED",
+                resource={**result.resource, "actual_cost_usd_exact": result.actual_cost_usd, "remote_identity": result.remote_identity},
+                actor=self.config.owner_id,
+                now=completed,
+            )
+            return {
+                "work_unit_id": decision.work_unit_id,
+                "provider": decision.provider,
+                "attempt_id": attempt_id,
+                "provider_run_id": provider_run_id,
+                "result_sha256": result_sha256,
+                "artifact_path": str(artifact_path),
+                "artifact_sha256": artifact_sha256,
+                "review_disposition": result.disposition,
+                "actual_cost_usd": result.actual_cost_usd,
+                "provider_call_attempted": provider_call_attempted,
+            }
+        except Exception as exc:
+            retryable_names = {"APIConnectionError", "APITimeoutError", "TimeoutError", "URLError"}
+            retryable = attempt_number < 3 and (isinstance(exc, (OSError, TimeoutError)) or exc.__class__.__name__ in retryable_names)
+            self.state.record_dispatch_failure(
+                work_unit_id=decision.work_unit_id,
+                attempt_id=attempt_id,
+                lease_id=lease_id,
+                error_code=type(exc).__name__ + ":" + str(exc)[:240],
+                actor=self.config.owner_id,
+                retryable=retryable,
+                now=moment,
+            )
+            return {
+                "work_unit_id": decision.work_unit_id,
+                "provider": decision.provider,
+                "attempt_id": attempt_id,
+                "failed": True,
+                "retryable": retryable,
+                "provider_call_attempted": provider_call_attempted,
+                "finding": type(exc).__name__ + ":" + str(exc)[:240],
+            }
+
+    def _dispatch_cpu_after_route(
+        self,
+        *,
+        payload: dict[str, Any],
+        work_unit: Any,
+        decision: Any,
+        moment: datetime,
+        client: CpuWorkerClient,
+        packet: dict[str, Any],
+        packet_sha256: str,
+        route_identity: str,
+    ) -> dict[str, Any] | None:
         readiness_evidence_sha256 = cpu_qualification_evidence_sha256(payload)
         if readiness_evidence_sha256 is None:
             raise RuntimeError("SCHEDULER_CPU_QUALIFICATION_NOT_ESTABLISHED")
@@ -408,22 +643,39 @@ class InventoryScheduler:
         dispatched: list[dict[str, Any]] = []
         provider_calls = 0
         cpu_client = self._cpu_client()
-        if cycle_due and cpu_client is not None:
+        provider_packets_present = any(
+            decision.disposition is not RoutingDisposition.REMOTE_CPU_WORKER
+            and decision.work_unit_id in payload.get("execution_packets", {})
+            for decision in eligible
+        )
+        adapters = self._provider_adapters() if cycle_due and provider_packets_present else {}
+        if cycle_due:
             for decision in eligible:
                 if len(dispatched) >= self.config.max_dispatch_per_cycle:
                     break
-                if decision.disposition is not RoutingDisposition.REMOTE_CPU_WORKER:
-                    continue
                 if decision.work_unit_id not in payload.get("execution_packets", {}):
                     continue
                 try:
-                    result = self._dispatch_cpu(
-                        payload=payload,
-                        work_unit=units[decision.work_unit_id],
-                        decision=decision,
-                        moment=moment,
-                        client=cpu_client,
-                    )
+                    if decision.disposition is RoutingDisposition.REMOTE_CPU_WORKER:
+                        if cpu_client is None:
+                            continue
+                        result = self._dispatch_cpu(
+                            payload=payload,
+                            work_unit=units[decision.work_unit_id],
+                            decision=decision,
+                            moment=moment,
+                            client=cpu_client,
+                        )
+                    elif decision.provider in adapters:
+                        result = self._dispatch_candidate_provider(
+                            payload=payload,
+                            work_unit=units[decision.work_unit_id],
+                            decision=decision,
+                            moment=moment,
+                            adapter=adapters[str(decision.provider)],
+                        )
+                    else:
+                        continue
                 except (OSError, KeyError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
                     result = {
                         "work_unit_id": decision.work_unit_id,
@@ -437,9 +689,8 @@ class InventoryScheduler:
                     dispatched.append(result)
                     provider_calls += int(bool(result.get("provider_call_attempted")))
         outcomes = dispatched
-        dispatched = [item for item in outcomes if item.get("provider_call_attempted")]
         failures = [item for item in outcomes if item.get("failed")]
-        successful_dispatches = [item for item in dispatched if not item.get("failed")]
+        successful_dispatches = [item for item in outcomes if not item.get("failed")]
         dispatched_ids = {item["work_unit_id"] for item in outcomes}
         current_states = self.state.work_unit_states(set(units))
         idle_units = []
@@ -456,6 +707,14 @@ class InventoryScheduler:
                     reason = "SCHEDULER_CYCLE_INTERVAL_NOT_DUE"
                 else:
                     reason = "BOUNDED_DISPATCH_CAPACITY_DEFERRED"
+            elif decision.work_unit_id not in payload.get("execution_packets", {}):
+                reason = "EXECUTION_PACKET_NOT_MATERIALIZED"
+            elif not cycle_due:
+                reason = "SCHEDULER_CYCLE_INTERVAL_NOT_DUE"
+            elif decision.provider not in adapters:
+                reason = "PROVIDER_DISPATCH_ADAPTER_NOT_CONFIGURED"
+            else:
+                reason = "BOUNDED_DISPATCH_CAPACITY_DEFERRED"
             idle_units.append({
                 "work_unit_id": decision.work_unit_id,
                 "provider": decision.provider,

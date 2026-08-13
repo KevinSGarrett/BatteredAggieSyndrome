@@ -71,6 +71,9 @@ class ControllerServiceConfig:
     cpu_worker_endpoint: str | None = "https://comfy-v4-cpu-01.tail9b05ab.ts.net"
     cpu_worker_signing_key_path: Path | None = None
     max_dispatch_per_cycle: int = 3
+    provider_work_root: Path | None = None
+    authoritative_env_path: Path | None = None
+    openai_enabled: bool = True
 
     def validate(self) -> None:
         if self.heartbeat_seconds <= 0 or self.heartbeat_seconds >= self.lease_ttl_seconds:
@@ -83,6 +86,10 @@ class ControllerServiceConfig:
             raise ValueError("CONTROLLER_EXECUTION_BOUND_INVALID")
         if len(self.build_commit) != 40 or any(character not in "0123456789abcdef" for character in self.build_commit.lower()):
             raise ValueError("CONTROLLER_BUILD_COMMIT_INVALID")
+        if self.provider_work_root is not None and not self.provider_work_root.is_absolute():
+            raise ValueError("CONTROLLER_PROVIDER_WORK_ROOT_INVALID")
+        if self.authoritative_env_path is not None and not self.authoritative_env_path.is_absolute():
+            raise ValueError("CONTROLLER_AUTHORITATIVE_ENV_PATH_INVALID")
 
 
 class ControllerService:
@@ -98,6 +105,12 @@ class ControllerService:
             config.runtime_root.parent / "inventory" / "current" / "inventory.json"
         )
         data_root = config.runtime_root.parents[1]
+        release_root = Path(__file__).resolve().parents[3]
+        authoritative_env_path = config.authoritative_env_path
+        if authoritative_env_path is None and os.name == "nt":
+            authoritative_env_path = Path(r"C:\BatteredAggieSyndrome\.env")
+        if authoritative_env_path is not None:
+            os.environ["AGGIE_AUTHORITATIVE_ENV_PATH"] = str(authoritative_env_path)
         cpu_worker_root = config.runtime_root.parent / "cpu_worker"
         signing_key_path = config.cpu_worker_signing_key_path or (
             cpu_worker_root / "controller" / "secrets" / "worker-v2.bin"
@@ -109,6 +122,7 @@ class ControllerService:
                 snapshot_root=config.runtime_root.parent / "inventory" / "runtime",
                 packet_root=config.runtime_root,
                 manifests_root=data_root / "manifests",
+                provider_work_root=config.provider_work_root or data_root / "assistive" / "provider_work" / "requests",
                 refresh_max_age_seconds=config.inventory_refresh_max_age_seconds,
             ),
         )
@@ -124,6 +138,8 @@ class ControllerService:
                 cpu_worker_storage_root=cpu_worker_root,
                 cpu_worker_signing_key_path=signing_key_path,
                 max_dispatch_per_cycle=config.max_dispatch_per_cycle,
+                release_root=release_root,
+                openai_enabled=config.openai_enabled,
             ),
         )
 

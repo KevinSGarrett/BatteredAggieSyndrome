@@ -417,12 +417,19 @@ def validate(root: Path) -> list[str]:
         errors.append(f"OpenAI assist lock must contain 17 exact packages, got {len(entries)}")
 
     package_root = root / "src" / "aggie_analytics"
+    governed_orchestrator_bridges = {
+        "src/aggie_analytics/assistive_plane/provider_adapters.py",
+    }
     for path in package_root.rglob("*.py"):
         text = path.read_text(encoding="utf-8")
         relative = path.relative_to(root).as_posix()
         if "from openai import" in text and not relative.endswith("openai_assist/controller.py"):
             errors.append(f"scattered direct OpenAI SDK import: {relative}")
-        if "openai_assist" in text and "src/aggie_analytics/openai_assist/" not in relative:
+        if (
+            "openai_assist" in text
+            and "src/aggie_analytics/openai_assist/" not in relative
+            and relative not in governed_orchestrator_bridges
+        ):
             errors.append(f"forecast/runtime package imports optional assistive plane: {relative}")
     if policy.payload["api"]["responses_endpoint"] != "/v1/responses":
         errors.append("new work must use the Responses API")

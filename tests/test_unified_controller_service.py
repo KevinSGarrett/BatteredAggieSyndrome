@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -354,6 +355,121 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("--expected-build-commit", installer)
         self.assertIn("--expected-owner-pid", installer)
         self.assertIn("--recovery-evidence-sha256", installer)
+        self.assertIn("launch_unified_assistive_service.py", installer)
+        self.assertIn("activate_unified_assistive_release.py", installer)
+        self.assertIn("--role controller", installer)
+        self.assertIn("--role watchdog", installer)
+        self.assertIn("future_release_switch_elevation_required = $false", installer)
+        self.assertIn("STABLE_LAUNCHER_ACL_FAILED", installer)
+        self.assertIn("'*S-1-5-19:RX'", installer)
+
+    def test_non_elevated_switch_never_registers_or_elevates_tasks(self) -> None:
+        switcher = (REPO / "tools/switch_unified_assistive_services.ps1").read_text(encoding="utf-8")
+        self.assertIn("activate_unified_assistive_release.py", switcher)
+        self.assertIn("Stop-ScheduledTask", switcher)
+        self.assertIn("Start-ScheduledTask", switcher)
+        self.assertIn("task_registration_performed = $false", switcher)
+        self.assertIn("rollback_available = [bool]$previousPointer", switcher)
+        self.assertIn("[System.IO.File]::Replace($rollback, $pointerPath, $null)", switcher)
+        self.assertNotIn("Register-ScheduledTask", switcher)
+        self.assertNotIn("Start-Process", switcher)
+        self.assertNotIn("RunAs", switcher)
+
+
+class StableServiceLauncherTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        launcher_path = REPO / "tools/launch_unified_assistive_service.py"
+        launcher_spec = importlib.util.spec_from_file_location("stable_launcher_tests", launcher_path)
+        assert launcher_spec and launcher_spec.loader
+        cls.launcher = importlib.util.module_from_spec(launcher_spec)
+        launcher_spec.loader.exec_module(cls.launcher)
+        activator_path = REPO / "tools/activate_unified_assistive_release.py"
+        activator_spec = importlib.util.spec_from_file_location("stable_activator_tests", activator_path)
+        assert activator_spec and activator_spec.loader
+        cls.activator = importlib.util.module_from_spec(activator_spec)
+        activator_spec.loader.exec_module(cls.activator)
+
+    def make_release(self, root: Path, commit: str = "e" * 40) -> Path:
+        release = root / "releases" / commit
+        files: dict[str, dict[str, object]] = {}
+        for relative in (
+            "tools/run_unified_assistive_controller.py",
+            "tools/run_unified_assistive_watchdog.py",
+        ):
+            path = release / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("print('service')\n", encoding="utf-8")
+            files[relative] = {
+                "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                "bytes": path.stat().st_size,
+                "source_kind": "TEST",
+            }
+        manifest = {
+            "schema_version": 1,
+            "artifact_type": "UNIFIED_ASSISTIVE_CONTROLLER_RELEASE",
+            "build_commit": commit,
+            "source_tree_sha256": "f" * 64,
+            "files": files,
+        }
+        (release / "RELEASE_MANIFEST.json").write_text(
+            json.dumps(manifest, sort_keys=True, separators=(",", ":")) + "\n",
+            encoding="utf-8",
+        )
+        return release
+
+    def test_activation_and_validation_bind_exact_content_addressed_release(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary) / "runtime"
+            runtime.mkdir()
+            release = self.make_release(runtime)
+            result = self.activator.activate(runtime, release)
+            validated_release, manifest = self.launcher.validate_release(runtime)
+            self.assertEqual(release.resolve(), validated_release)
+            self.assertEqual("e" * 40, manifest["build_commit"])
+            pointer = runtime / "deployment/current-release.json"
+            self.assertEqual(result["pointer_sha256"], hashlib.sha256(pointer.read_bytes()).hexdigest())
+            immutable = Path(result["immutable_pointer_path"])
+            self.assertEqual(pointer.read_bytes(), immutable.read_bytes())
+
+    def test_tampered_release_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary) / "runtime"
+            runtime.mkdir()
+            release = self.make_release(runtime)
+            self.activator.activate(runtime, release)
+            (release / "tools/run_unified_assistive_controller.py").write_text("tampered\n", encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "RELEASE_FILE_IDENTITY_MISMATCH"):
+                self.launcher.validate_release(runtime)
+
+    def test_pointer_path_escape_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary) / "runtime"
+            runtime.mkdir()
+            release = self.make_release(runtime)
+            self.activator.activate(runtime, release)
+            pointer_path = runtime / "deployment/current-release.json"
+            pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+            outside = Path(temporary) / "outside"
+            outside.mkdir()
+            pointer["release_root"] = str(outside)
+            pointer_path.write_text(json.dumps(pointer), encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "RELEASE_POINTER_PATH_INVALID"):
+                self.launcher.validate_release(runtime)
+
+    def test_launch_execs_only_the_role_bound_script(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary) / "runtime"
+            runtime.mkdir()
+            release = self.make_release(runtime)
+            self.activator.activate(runtime, release)
+            with patch.object(self.launcher.os, "execv", side_effect=RuntimeError("captured")) as execute:
+                with self.assertRaisesRegex(RuntimeError, "captured"):
+                    self.launcher.launch("controller", runtime)
+            arguments = execute.call_args.args[1]
+            self.assertTrue(os.path.samefile(release / "tools/run_unified_assistive_controller.py", arguments[2]))
+            self.assertIn("--build-commit", arguments)
+            self.assertNotIn("run_unified_assistive_watchdog.py", " ".join(arguments))
 
 
 class WatchdogCliTests(unittest.TestCase):

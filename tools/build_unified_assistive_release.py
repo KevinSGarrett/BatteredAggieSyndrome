@@ -61,6 +61,9 @@ FILES = (
     "schemas/openai/depth_chart_noncoverage_visual.schema.json",
     "tools/run_unified_assistive_controller.py",
     "tools/run_unified_assistive_watchdog.py",
+    "tools/launch_unified_assistive_service.py",
+    "tools/activate_unified_assistive_release.py",
+    "tools/switch_unified_assistive_services.ps1",
     "tools/materialize_unified_assistive_inventory.py",
 )
 GENERATED_RELEASE_FILES = {

@@ -3341,6 +3341,7 @@ tools/acquire_ncaa_official_gamebooks.py
 tools/acquire_noaa_isd_observed_coverage_pilot.py
 tools/acquire_sec_tamu_availability.py
 tools/acquire_sportsdataverse_rosters.py
+tools/activate_unified_assistive_release.py
 tools/adopt_unified_enforcement_package.py
 tools/apply_private_research_acquisition_policy.py
 tools/audit_control_plane.py
@@ -3405,6 +3406,7 @@ tools/hydrate_jira_mirror.py
 tools/init_experiment_store.py
 tools/install_cpu_worker_service.ps1
 tools/install_unified_assistive_services.ps1
+tools/launch_unified_assistive_service.py
 tools/materialize_unified_assistive_inventory.py
 tools/openai_assist.py
 tools/openrouter_assist.py
@@ -3463,6 +3465,7 @@ tools/schedule_research_queue.py
 tools/schema_discovery.py
 tools/select_next_work.py
 tools/summarize_openrouter_campaign.py
+tools/switch_unified_assistive_services.ps1
 tools/sync_openai_jira_graph.py
 tools/sync_openrouter_jira_graph.py
 tools/sync_unified_assistive_jira_graph.py

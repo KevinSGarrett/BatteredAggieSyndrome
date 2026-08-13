@@ -462,6 +462,113 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(3, len(discovered))
         self.assertTrue(all(item[1].disposition.value == "OPENROUTER" for item in discovered))
 
+    def test_ready_canonical_jira_unit_becomes_granular_cursor_and_openrouter_work(self) -> None:
+        project = self.root / "project"
+        issue = project / "jira/records/issues/subtasks/POST-SUBTASK-900_ready.json"
+        issue.parent.mkdir(parents=True)
+        issue.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "local_id": "POST-SUBTASK-900",
+                    "jira_key": "BAT-900",
+                    "priority": "P1",
+                    "ready": True,
+                    "workflow_state": "READY",
+                    "execution_mode": "ATOMIC_EXECUTION",
+                    "blocked_reason": "",
+                    "objective": "Implement a bounded parser correction",
+                    "scope": "Correct parser behavior and preserve negative evidence.",
+                    "acceptance_criteria": ["Targeted parser test passes"],
+                    "allowed_modification_paths": ["src/parser.py", "tests/test_parser.py"],
+                    "files_expected_to_be_touched": ["src/parser.py", "tests/test_parser.py"],
+                    "files_to_inspect": ["src/parser.py", "tests/test_parser.py"],
+                    "expected_outputs": [],
+                    "required_tests": [{"path": "tests/test_parser.py"}],
+                    "dependencies": [],
+                    "operational_jira": {"status_raw": "To Do"},
+                }
+            ),
+            encoding="utf-8",
+        )
+        build_commit = "a" * 40
+        release = self.root / "releases" / build_commit
+        release.mkdir(parents=True)
+        registry = self.root / "openrouter-task-registry.json"
+        registry.write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "tasks": {
+                        "independent_review": {"jira_unit": "POST-SUBTASK-199"},
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        queue = self.root / "provider-work/requests"
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=queue,
+                release_root=release,
+                build_commit=build_commit,
+                project_root=project,
+                openrouter_task_registry_path=registry,
+            ),
+        )
+        route = {
+            "provider": "openrouter",
+            "task_format": OPENROUTER_TASK_FORMAT,
+            "task_id": "independent_review",
+            "schema_sha256": "6" * 64,
+            "request_schema_version": "v1",
+            "provider_policy_version": "policy-v1",
+            "model": "qwen/qwen3-coder-next",
+            "reasoning_effort": "none",
+            "readiness_supported_state": "READY",
+            "evidence_verified": True,
+            "readiness_evidence_sha256": "7" * 64,
+            "route_evidence_sha256": "8" * 64,
+            "budget_evidence_sha256": "9" * 64,
+            "budget_released_stage_usd": "5.00",
+            "budget_remaining_usd": "4.00",
+        }
+        snapshot = {
+            "git": {"head": build_commit, "origin_main": build_commit},
+            "external_evidence": {
+                "openrouter": {"requests": 0, "accepted_useful": 0, "routes": [route]},
+                "cursor": {
+                    "present": True,
+                    "manifest_sha256": "5" * 64,
+                    "unique_jobs": 4,
+                    "settled_usd": "1.00",
+                },
+            },
+        }
+        demand = {
+            "providers": {
+                "openrouter": {"unmet": True, "active_execution_packets": 0, "pending_review_results": 0},
+                "cursor": {"unmet": True, "active_execution_packets": 0, "pending_review_results": 0},
+            }
+        }
+        openrouter = refresher._materialize_continuous_openrouter_work(snapshot, demand)
+        cursor = refresher._materialize_continuous_cursor_work(snapshot, demand)
+        self.assertEqual(1, len(openrouter))
+        self.assertEqual(1, len(cursor))
+        packets = [
+            json.loads(Path(item["packet_path"]).read_text(encoding="utf-8"))
+            for item in [*openrouter, *cursor]
+        ]
+        self.assertTrue(all(packet["source_jira_unit"] == "BAT-900" for packet in packets))
+        discovered = refresher._discover_provider_work(snapshot, self.now)
+        self.assertEqual({"BAT-900"}, {unit.jira_unit for unit, _, _ in discovered})
+        self.assertEqual({"OPENROUTER", "CURSOR"}, {decision.disposition.value for _, decision, _ in discovered})
+
     def test_cursor_packet_survives_submit_poll_and_restart_safe_completion(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))
         current_payload["external_evidence"]["cursor"] = {

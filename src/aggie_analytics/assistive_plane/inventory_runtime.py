@@ -464,6 +464,59 @@ class RuntimeInventoryRefresher:
             "evidence_scope": "IMMUTABLE_DEPLOYED_RELEASE_FROM_MERGED_MAIN",
         }
 
+    def _jira_ready_records(self, *, limit: int = 16) -> list[tuple[Path, dict[str, Any], str]]:
+        """Return bounded, explicitly executable canonical Jira units."""
+        project_root = self.config.project_root
+        if project_root is None:
+            return []
+        records_root = project_root / "jira" / "records" / "issues"
+        if not records_root.is_dir():
+            return []
+        candidates, capped = _bounded_json_scan(
+            records_root,
+            limit=MAX_PROVIDER_WORK_SCAN_UNITS,
+        )
+        if capped:
+            raise RuntimeError("RUNTIME_INVENTORY_JIRA_READY_SCAN_BOUND_EXCEEDED")
+        priority_rank = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
+        ready: list[tuple[int, str, Path, dict[str, Any], str]] = []
+        for path in candidates:
+            raw = path.read_bytes()
+            if not 0 < len(raw) <= MAX_PROVIDER_WORK_BYTES:
+                continue
+            record = json.loads(raw)
+            if not isinstance(record, dict):
+                continue
+            live_status = str(record.get("operational_jira", {}).get("status_raw", "")).upper()
+            if (
+                record.get("ready") is not True
+                or record.get("workflow_state") != "READY"
+                or record.get("execution_mode") != "ATOMIC_EXECUTION"
+                or bool(str(record.get("blocked_reason", "")).strip())
+                or live_status in {"DONE", "CLOSED", "RESOLVED"}
+                or not record.get("jira_key")
+                or not record.get("local_id")
+                or not record.get("acceptance_criteria")
+                or not (
+                    record.get("allowed_modification_paths")
+                    or record.get("files_expected_to_be_touched")
+                    or record.get("expected_outputs")
+                )
+            ):
+                continue
+            source_sha256 = hashlib.sha256(raw).hexdigest()
+            ready.append(
+                (
+                    priority_rank.get(str(record.get("priority", "P3")), 9),
+                    str(record["local_id"]),
+                    path,
+                    record,
+                    source_sha256,
+                )
+            )
+        ready.sort(key=lambda item: (item[0], item[1], item[2].as_posix()))
+        return [(path, record, digest) for _, _, path, record, digest in ready[:limit]]
+
     def _discover(self, moment: datetime) -> list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]]:
         root = self.config.manifests_root.resolve(strict=True)
         candidates = sorted(
@@ -700,6 +753,10 @@ class RuntimeInventoryRefresher:
                 for work_unit_id in work_unit_ids
             )
         }
+        ready_jira_units = {
+            str(record["jira_key"])
+            for _path, record, _digest in self._jira_ready_records(limit=MAX_PROVIDER_WORK_UNITS)
+        }
         discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
         for resolved, raw, source_sha256, content_addressed in candidate_records:
             if content_addressed and source_sha256 in terminal_content_addresses:
@@ -841,10 +898,13 @@ class RuntimeInventoryRefresher:
             readiness = self._provider_readiness(snapshot, packet)
             if readiness is None:
                 raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_EXACT_ROUTE_NOT_READY")
-            jira_unit = str(packet.get("jira_unit", ""))
+            control_jira_unit = str(packet.get("jira_unit", ""))
+            jira_unit = str(packet.get("source_jira_unit") or control_jira_unit)
             schema_sha256 = str(packet.get("schema_sha256", ""))
-            if not jira_unit or not self._valid_sha256(schema_sha256):
+            if not control_jira_unit or not jira_unit or not self._valid_sha256(schema_sha256):
                 raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_IDENTITY_INVALID")
+            if packet.get("source_jira_unit") is not None and jira_unit not in ready_jira_units:
+                raise ValueError("RUNTIME_INVENTORY_PROVIDER_SOURCE_JIRA_NOT_READY")
             source_hashes = packet.get("source_hashes", [])
             if not isinstance(source_hashes, list) or not source_hashes or not all(self._valid_sha256(item) for item in source_hashes):
                 raise ValueError("RUNTIME_INVENTORY_PROVIDER_SOURCE_HASHES_INVALID")
@@ -854,7 +914,7 @@ class RuntimeInventoryRefresher:
                     "task_sha256": sha256_value(
                         {
                             "task_id": packet["task_id"],
-                            "jira_unit": jira_unit,
+                            "jira_unit": control_jira_unit,
                             "authority": packet["authority"],
                         }
                     ),
@@ -1165,7 +1225,7 @@ class RuntimeInventoryRefresher:
             for route in routes
             if isinstance(route, dict)
             and route.get("task_id") in {
-                "schema_drift_review", "reconciliation_ranking", "independent_review"
+                "patch_candidate", "schema_drift_review", "reconciliation_ranking", "independent_review"
             }
             and route.get("readiness_supported_state") == "READY"
             and route.get("evidence_verified") is True
@@ -1173,6 +1233,109 @@ class RuntimeInventoryRefresher:
         if not ready_routes:
             return []
         release_commit = self._snapshot_release_commit(snapshot)
+        capacity = max(0, 6 - int(openrouter.get("pending_review_results", 0)))
+        created: list[dict[str, str]] = []
+        jira_route = ready_routes.get("independent_review")
+        if jira_route is not None and capacity > 0 and self.config.project_root is not None:
+            project_root = self.config.project_root.resolve(strict=True)
+            for source, record, source_sha256 in self._jira_ready_records(limit=4):
+                relative = source.relative_to(project_root).as_posix()
+                evidence = json.dumps(
+                    {
+                        "instruction": (
+                            "Independently review the bounded implementation contract and declared allowed paths. "
+                            "Return evidence-backed findings, unsupported claims, and recommended checks; do not claim completion."
+                        ),
+                        "jira_key": record["jira_key"],
+                        "local_id": record["local_id"],
+                        "objective": record.get("objective"),
+                        "scope": record.get("scope"),
+                        "allowed_modification_paths": record.get("allowed_modification_paths", []),
+                        "files_expected_to_be_touched": record.get("files_expected_to_be_touched", []),
+                        "files_to_inspect": record.get("files_to_inspect", []),
+                        "acceptance_criteria": record.get("acceptance_criteria", []),
+                        "required_tests": record.get("required_tests", []),
+                        "source_relative_path": relative,
+                        "source_sha256": source_sha256,
+                    },
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )
+                if len(evidence) > 12000:
+                    continue
+                control_jira_unit = self._openrouter_jira_identity("independent_review")
+                packet: dict[str, Any] = {
+                    "schema_version": 1,
+                    "provider": "openrouter",
+                    "task_format": OPENROUTER_TASK_FORMAT,
+                    "task_id": "independent_review",
+                    "jira_unit": control_jira_unit,
+                    "source_jira_unit": str(record["jira_key"]),
+                    "schema_sha256": str(jira_route["schema_sha256"]),
+                    "request_schema_version": str(jira_route["request_schema_version"]),
+                    "provider_policy_version": str(jira_route["provider_policy_version"]),
+                    "model": str(jira_route["model"]),
+                    "reasoning_effort": str(jira_route["reasoning_effort"]),
+                    "max_output_tokens": 900,
+                    "base_commit": release_commit,
+                    "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+                    "source_hashes": [source_sha256],
+                    "dependencies": list(record.get("dependencies", [])),
+                    "pre_routing_effort_points": 5,
+                    "scope": f"Jira-derived independent candidate implementation review for {record['jira_key']}",
+                    "prompt_version": "continuous-jira-ready-independent-review-v1",
+                    "evidence_excerpts": [evidence],
+                }
+                packet["identity_hashes"] = {
+                    "task_sha256": sha256_value(
+                        {
+                            "task_id": packet["task_id"],
+                            "jira_unit": control_jira_unit,
+                            "authority": packet["authority"],
+                        }
+                    ),
+                    "schema_sha256": sha256_value(
+                        {
+                            "schema_version": packet["request_schema_version"],
+                            "schema_sha256": packet["schema_sha256"],
+                        }
+                    ),
+                    "policy_sha256": sha256_value(
+                        {
+                            "provider_policy_version": packet["provider_policy_version"],
+                            "task_format": packet["task_format"],
+                        }
+                    ),
+                    "model_sha256": sha256_value({"model": packet["model"]}),
+                    "reasoning_sha256": sha256_value(
+                        {
+                            "reasoning_effort": packet["reasoning_effort"],
+                            "max_output_tokens": packet["max_output_tokens"],
+                        }
+                    ),
+                    "source_sha256": sha256_value(tuple(packet["source_hashes"])),
+                }
+                data = canonical_json_bytes(packet) + b"\n"
+                digest = hashlib.sha256(data).hexdigest()
+                work_unit_id = "AUTO-OR-" + digest[:20]
+                if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
+                    continue
+                destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+                if destination.exists() and destination.read_bytes() != data:
+                    raise RuntimeError("CONTINUOUS_JIRA_OPENROUTER_PACKET_COLLISION")
+                if not destination.exists():
+                    _atomic_write(destination, data)
+                created.append(
+                    {
+                        "provider": "openrouter",
+                        "task_id": "independent_review",
+                        "source_relative_path": relative,
+                        "source_sha256": source_sha256,
+                        "packet_path": str(destination),
+                        "packet_sha256": digest,
+                    }
+                )
+                break
         data_root = manifests_root.parent
         source_specs = (
             (
@@ -1194,8 +1357,6 @@ class RuntimeInventoryRefresher:
                 "Independently challenge this candidate artifact for leakage, unsupported claims, and missing evidence.",
             ),
         )
-        capacity = max(0, 6 - int(openrouter.get("pending_review_results", 0)))
-        created: list[dict[str, str]] = []
         for task_id, task_root, allowed_names, instruction in source_specs:
             if task_id not in ready_routes or not task_root.is_dir():
                 continue
@@ -1323,7 +1484,35 @@ class RuntimeInventoryRefresher:
         release_root = self.config.release_root
         if release_root is None:
             return []
-        review_targets = (
+        review_targets: list[tuple[Path, str, str | None, str | None]] = []
+        if self.config.project_root is not None:
+            project_root = self.config.project_root.resolve(strict=True)
+            for source, record, _source_sha256 in self._jira_ready_records(limit=8):
+                relative = source.relative_to(project_root).as_posix()
+                compact_contract = json.dumps(
+                    {
+                        "jira_key": record["jira_key"],
+                        "local_id": record["local_id"],
+                        "objective": record.get("objective"),
+                        "scope": record.get("scope"),
+                        "allowed_modification_paths": record.get("allowed_modification_paths", []),
+                        "files_expected_to_be_touched": record.get("files_expected_to_be_touched", []),
+                        "files_to_inspect": record.get("files_to_inspect", []),
+                        "acceptance_criteria": record.get("acceptance_criteria", []),
+                        "required_tests": record.get("required_tests", []),
+                    },
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )
+                if len(compact_contract) > 14000:
+                    continue
+                focus = (
+                    f"Evaluate the executable Jira contract below against exact current main. Identify the "
+                    f"smallest valid implementation, exact allowed paths, existing reusable code, required tests, "
+                    f"and any evidence-backed blocker. Jira contract: {compact_contract}"
+                )
+                review_targets.append((source, focus, str(record["jira_key"]), relative))
+        fixed_review_targets = (
             ("src/aggie_analytics/assistive_plane/inventory_runtime.py", "bounded semantic work discovery, duplicate suppression, and per-packet isolation"),
             ("src/aggie_analytics/assistive_plane/scheduler_runtime.py", "durable provider lifecycle, restart recovery, and no duplicate submission"),
             ("src/aggie_analytics/assistive_plane/controller_state.py", "atomic state transitions, leases, settlements, and reconciliation"),
@@ -1337,11 +1526,15 @@ class RuntimeInventoryRefresher:
             ("tools/run_unified_assistive_controller.py", "deployment configuration and fail-closed defaults"),
             ("tools/materialize_unified_assistive_inventory.py", "semantic evidence interpretation and route disposition integrity"),
         )
+        review_targets.extend(
+            (release_root / relative, focus, None, relative)
+            for relative, focus in fixed_review_targets
+        )
         created: list[dict[str, str]] = []
-        for relative, focus in review_targets:
-            source = release_root / relative
+        for source, focus, source_jira_unit, relative_override in review_targets:
             if not source.is_file():
                 continue
+            relative = relative_override or source.name
             source_sha256 = hashlib.sha256(source.read_bytes()).hexdigest()
             packet: dict[str, Any] = {
                 "schema_version": 1,
@@ -1373,6 +1566,8 @@ class RuntimeInventoryRefresher:
                 ),
                 "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
             }
+            if source_jira_unit is not None:
+                packet["source_jira_unit"] = source_jira_unit
             data = canonical_json_bytes(packet) + b"\n"
             digest = hashlib.sha256(data).hexdigest()
             work_unit_id = "AUTO-CURSOR-" + digest[:20]

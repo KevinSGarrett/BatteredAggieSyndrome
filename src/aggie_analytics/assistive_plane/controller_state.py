@@ -481,6 +481,11 @@ class ControllerState:
                 "ON CONFLICT(key) DO UPDATE SET value=excluded.value",
                 (str(SCHEMA_VERSION),),
             )
+            connection.execute(
+                "UPDATE incidents SET resolved_at=? WHERE resolved_at IS NULL AND work_unit_id IN "
+                "(SELECT work_unit_id FROM work_units WHERE current_state='CLOSED')",
+                (rfc3339(utc_now()),),
+            )
             connection.commit()
         finally:
             connection.close()
@@ -1640,6 +1645,10 @@ class ControllerState:
                     "EXTERNAL_CANDIDATE_RESULT_BOUND_TO_EXISTING_JIRA_UMBRELLA_NO_GIT_OR_PR_MUTATION",
                     stamp,
                 ),
+            )
+            connection.execute(
+                "UPDATE incidents SET resolved_at=? WHERE work_unit_id=? AND resolved_at IS NULL",
+                (stamp, work_unit_id),
             )
 
     def record_dispatch_failure(

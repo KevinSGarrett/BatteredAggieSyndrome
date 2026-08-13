@@ -505,7 +505,11 @@ class InventoryScheduler:
                     actual_cost_usd=result.actual_cost_usd,
                     settlement_reason="CURSOR_PROVIDER_USAGE_RECONCILED",
                     cleanup_action="NO_LOCAL_CURSOR_WORKTREE_CREATED_BY_CONTROLLER",
-                    resource={**result.resource, "provider_calls": 1, "actual_cost_usd_exact": result.actual_cost_usd},
+                    resource={
+                        **result.resource,
+                        "provider_calls": int(resource.get("provider_calls", 1)),
+                        "actual_cost_usd_exact": result.actual_cost_usd,
+                    },
                     actor=self.config.owner_id,
                     now=completed,
                 )

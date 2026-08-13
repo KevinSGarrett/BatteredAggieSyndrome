@@ -3,8 +3,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -106,8 +106,10 @@ def launch(role: str, runtime_root: Path, pointer_path: Path | None = None, *, v
         "--build-commit",
         str(manifest["build_commit"]),
     ]
-    os.execv(sys.executable, arguments)
-    raise RuntimeError("SERVICE_EXEC_RETURNED")
+    completed = subprocess.run(arguments, check=False)
+    if completed.returncode != 0:
+        raise RuntimeError(f"SERVICE_CHILD_EXITED:{completed.returncode}")
+    return {**result, "child_exit_code": completed.returncode}
 
 
 def main() -> int:

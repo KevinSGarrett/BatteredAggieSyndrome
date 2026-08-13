@@ -463,13 +463,23 @@ class StableServiceLauncherTests(unittest.TestCase):
             runtime.mkdir()
             release = self.make_release(runtime)
             self.activator.activate(runtime, release)
-            with patch.object(self.launcher.os, "execv", side_effect=RuntimeError("captured")) as execute:
-                with self.assertRaisesRegex(RuntimeError, "captured"):
-                    self.launcher.launch("controller", runtime)
-            arguments = execute.call_args.args[1]
+            with patch.object(self.launcher.subprocess, "run", return_value=Mock(returncode=0)) as execute:
+                result = self.launcher.launch("controller", runtime)
+            arguments = execute.call_args.args[0]
             self.assertTrue(os.path.samefile(release / "tools/run_unified_assistive_controller.py", arguments[2]))
             self.assertIn("--build-commit", arguments)
             self.assertNotIn("run_unified_assistive_watchdog.py", " ".join(arguments))
+            self.assertEqual(0, result["child_exit_code"])
+
+    def test_launcher_remains_attached_and_propagates_child_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary) / "runtime"
+            runtime.mkdir()
+            release = self.make_release(runtime)
+            self.activator.activate(runtime, release)
+            with patch.object(self.launcher.subprocess, "run", return_value=Mock(returncode=17)):
+                with self.assertRaisesRegex(RuntimeError, "SERVICE_CHILD_EXITED:17"):
+                    self.launcher.launch("watchdog", runtime)
 
 
 class WatchdogCliTests(unittest.TestCase):

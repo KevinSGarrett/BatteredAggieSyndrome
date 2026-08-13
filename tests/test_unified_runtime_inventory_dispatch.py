@@ -270,8 +270,42 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         self.assertEqual("PASS", operational["operational_result"])
         self.assertEqual(2, operational["scheduler_dispatched_units"])
         self.assertEqual(2, operational["scheduler_provider_calls"])
+        self.assertEqual(0, operational["scheduler_cached_or_local_reuse_dispatches"])
         self.assertEqual(0, operational["latest_scheduler_evaluation_dispatched_units"])
         self.assertNotIn("ZERO_DISPATCH_WHILE_ADMITTED_WORK_EXISTS", operational["findings"])
+
+        with closing(self.state.connect()) as connection:
+            run = connection.execute("SELECT provider_run_id, resource_json FROM provider_runs LIMIT 1").fetchone()
+            resource = json.loads(run["resource_json"])
+            resource["provider_calls"] = 0
+            resource["cached"] = True
+            connection.execute(
+                "UPDATE provider_runs SET resource_json=? WHERE provider_run_id=?",
+                (json.dumps(resource, sort_keys=True), run["provider_run_id"]),
+            )
+            connection.commit()
+        cached_cycle = dict(no_cycle)
+        cached_cycle["dispatched_units"] = 1
+        cached_cycle["provider_calls"] = 0
+        cached_cycle["dispatched"] = [
+            {"work_unit_id": "CACHE-HIT", "provider_call_attempted": False}
+        ]
+        (self.root / "runtime/evidence/current/scheduler-evaluation.json").write_bytes(
+            canonical_json_bytes(cached_cycle) + b"\n"
+        )
+        cached_operational = watchdog.inspect(now=self.now + timedelta(seconds=3))
+        self.assertEqual("PASS", cached_operational["operational_result"])
+        self.assertEqual(2, cached_operational["scheduler_dispatched_units"])
+        self.assertEqual(1, cached_operational["scheduler_provider_calls"])
+        self.assertEqual(1, cached_operational["scheduler_cached_or_local_reuse_dispatches"])
+        self.assertEqual(
+            1,
+            cached_operational[
+                "latest_scheduler_evaluation_cached_or_local_reuse_dispatches"
+            ],
+        )
+        self.assertNotIn("RELEASE_PROVIDER_CALL_DISPATCH_MISMATCH", cached_operational["findings"])
+        self.assertNotIn("SCHEDULER_PROVIDER_CALL_DISPATCH_MISMATCH", cached_operational["findings"])
 
         snapshot = json.loads(Path(refreshed["snapshot_path"]).read_text(encoding="utf-8"))
         self.assertEqual(

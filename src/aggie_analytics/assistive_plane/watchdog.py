@@ -137,7 +137,7 @@ class ReadOnlyWatchdog:
                         operational_findings.append("SCHEDULER_COMPLETENESS_EVIDENCE_STALE")
                     if scheduler_report.get("result") in {"FAIL", "BLOCKED"}:
                         operational_findings.append("SCHEDULER_EVALUATION_FAILED")
-                    if latest_scheduler_dispatched != latest_scheduler_provider_calls:
+                    if latest_scheduler_provider_calls > latest_scheduler_dispatched:
                         operational_findings.append("SCHEDULER_PROVIDER_CALL_DISPATCH_MISMATCH")
                     if scheduler_idle:
                         operational_findings.append("ELIGIBLE_UNITS_IDLING")
@@ -161,7 +161,7 @@ class ReadOnlyWatchdog:
                         scheduler_provider_calls += int(resource.get("provider_calls", 1))
                     except (TypeError, ValueError, json.JSONDecodeError):
                         operational_findings.append("PROVIDER_RESOURCE_USAGE_INVALID")
-                if scheduler_dispatched != scheduler_provider_calls:
+                if scheduler_provider_calls > scheduler_dispatched:
                     operational_findings.append("RELEASE_PROVIDER_CALL_DISPATCH_MISMATCH")
             if eligible_units and scheduler_dispatched == 0:
                 operational_findings.append("ZERO_DISPATCH_WHILE_ADMITTED_WORK_EXISTS")
@@ -215,8 +215,14 @@ class ReadOnlyWatchdog:
                 "scheduler_evidence_age_seconds": scheduler_age,
                 "scheduler_dispatched_units": scheduler_dispatched,
                 "scheduler_provider_calls": scheduler_provider_calls,
+                "scheduler_cached_or_local_reuse_dispatches": max(
+                    0, scheduler_dispatched - scheduler_provider_calls
+                ),
                 "latest_scheduler_evaluation_dispatched_units": latest_scheduler_dispatched,
                 "latest_scheduler_evaluation_provider_calls": latest_scheduler_provider_calls,
+                "latest_scheduler_evaluation_cached_or_local_reuse_dispatches": max(
+                    0, latest_scheduler_dispatched - latest_scheduler_provider_calls
+                ),
                 "release_evidence_started_at": release_started_at,
                 "scheduler_idle_units": scheduler_idle,
                 "abandoned_work_leases": int(expired_leases),

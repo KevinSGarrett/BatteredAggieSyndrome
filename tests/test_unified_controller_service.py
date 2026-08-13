@@ -198,6 +198,7 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("'NT AUTHORITY\\LOCAL SERVICE'", installer)
         self.assertIn("-LogonType ServiceAccount -RunLevel Limited", installer)
         self.assertIn("CONTROLLER_LOCAL_SERVICE_SIGNING_KEY_MISSING", installer)
+        self.assertIn("CONTROLLER_LOCAL_SERVICE_ELEVATION_REQUIRED_BEFORE_MUTATION", installer)
         self.assertIn("'*S-1-5-19:(OI)(CI)RX'", installer)
         self.assertIn("'*S-1-5-19:(OI)(CI)M'", installer)
         self.assertIn("'*S-1-5-19:R'", installer)

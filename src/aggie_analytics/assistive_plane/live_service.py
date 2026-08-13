@@ -77,7 +77,7 @@ def evaluate_live_service(
         if task.get("run_level") != "Limited":
             findings.append(f"SERVICE_TASK_NOT_LIMITED:{name}")
         principal = str(task.get("principal", ""))
-        if principal.upper() != r"NT AUTHORITY\LOCAL SERVICE":
+        if principal.upper() not in {"LOCAL SERVICE", r"NT AUTHORITY\LOCAL SERVICE"}:
             findings.append(f"SERVICE_TASK_PRINCIPAL_INVALID:{name}")
         if str(task.get("logon_type", "")) != "ServiceAccount":
             findings.append(f"SERVICE_TASK_NOT_NONINTERACTIVE:{name}")

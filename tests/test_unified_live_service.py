@@ -108,6 +108,16 @@ class UnifiedLiveServiceTests(unittest.TestCase):
         self.assertIn("SERVICE_TASK_NOT_NONINTERACTIVE:BAS-UnifiedAssistiveController", report["findings"])
         self.assertIn("SERVICE_TASK_STARTUP_TRIGGER_MISSING:BAS-UnifiedAssistiveController", report["findings"])
 
+    def test_windows_normalized_local_service_name_is_accepted(self) -> None:
+        tasks = self.tasks()
+        for task in tasks:
+            task["principal"] = "LOCAL SERVICE"
+
+        report = evaluate_live_service(runtime_root=self.runtime, tasks=tasks, now=self.now)
+
+        self.assertNotIn("SERVICE_TASK_PRINCIPAL_INVALID:BAS-UnifiedAssistiveController", report["findings"])
+        self.assertNotIn("SERVICE_TASK_PRINCIPAL_INVALID:BAS-UnifiedAssistiveWatchdog", report["findings"])
+
     def test_watchdog_operational_failure_does_not_erase_structural_health(self) -> None:
         path = self.runtime / "watchdog/current/watchdog-report.json"
         watchdog = json.loads(path.read_text(encoding="utf-8"))

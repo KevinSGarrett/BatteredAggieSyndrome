@@ -122,6 +122,19 @@
   ],
   "issue_type": "Subtask",
   "jira_key": "BAT-562",
+  "jira_operational_status_policy": {
+    "clear_when": "Clear or revise when the local-model campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
+    "evidence_refs": [
+      "BAT-560",
+      "BAT-562",
+      "POST-SUBTASK-201",
+      "POST-SUBTASK-203"
+    ],
+    "mode": "EXPLICIT_ACTIVE_EXECUTION",
+    "rationale": "Exact rejected Qwen routes remain rejected while separately keyed bge-m3 and local-model campaign work is actively executing under the incomplete BAT-560 controller foundation.",
+    "schema_version": 1,
+    "target_status": "In Progress"
+  },
   "labels": [
     "actionable",
     "post-wave",

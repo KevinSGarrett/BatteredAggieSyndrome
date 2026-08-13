@@ -35,6 +35,7 @@ EXPORT_PATH = JIRA_ROOT / "reconciliation" / "BAT_JIRA_EXPORT.csv"
 VERIFY_PATH = JIRA_ROOT / "validation" / "BAT_LIVE_IMPORT_VERIFICATION.json"
 COMPLETION_POLICY_PATH = JIRA_ROOT / "project" / "HISTORICAL_COMPLETION_ASSURANCE_POLICY.json"
 AUXILIARY_ISSUES_PATH = JIRA_ROOT / "reconciliation" / "BAT_AUXILIARY_ISSUE_REGISTRY.json"
+RECORDS_ROOT = JIRA_ROOT / "records" / "issues"
 
 ISSUES_CSV = JIRA_ROOT / "import" / "JIRA_ISSUES_MASTER.csv"
 CREATE_PAYLOADS = JIRA_ROOT / "import" / "JIRA_API_CREATE_PAYLOADS.jsonl"
@@ -263,6 +264,63 @@ def load_completion_policy() -> dict[str, Any]:
     if len(ids) != len(set(ids)) or int(policy.get("issue_count", -1)) != len(ids):
         raise RuntimeError("Historical completion assurance policy has invalid issue identity cardinality")
     return policy
+
+
+def load_operational_status_policies() -> dict[str, dict[str, Any]]:
+    """Load explicit live-Jira status intent without changing logical workflow truth.
+
+    Jira owns live operational status, while the canonical dependency graph owns
+    logical workflow state.  A campaign can therefore remain logically BLOCKED
+    on an umbrella dependency while real, independently safe work is actively
+    executing.  Only an explicit, evidence-linked canonical policy may bridge
+    that distinction; an embedded operational_jira mirror is never authority.
+    """
+
+    policies: dict[str, dict[str, Any]] = {}
+    for path in sorted(RECORDS_ROOT.rglob("*.json")):
+        record = load_json(path, {})
+        policy = record.get("jira_operational_status_policy")
+        if policy is None:
+            continue
+        local_id = str(record.get("local_id", "")).strip()
+        if not local_id or local_id in policies:
+            raise RuntimeError(f"Duplicate or missing Jira operational-status policy identity: {local_id!r}")
+        if policy.get("schema_version") != 1:
+            raise RuntimeError(f"{local_id}: Jira operational-status policy schema must be 1")
+        if policy.get("mode") != "EXPLICIT_ACTIVE_EXECUTION":
+            raise RuntimeError(f"{local_id}: unsupported Jira operational-status policy mode")
+        if policy.get("target_status") != "In Progress":
+            raise RuntimeError(f"{local_id}: operational-status policy may only declare In Progress")
+        if record.get("workflow_state") not in {"IN_PROGRESS", "BLOCKED"}:
+            raise RuntimeError(
+                f"{local_id}: active Jira operational status requires logical IN_PROGRESS or BLOCKED"
+            )
+        if not str(policy.get("rationale", "")).strip():
+            raise RuntimeError(f"{local_id}: operational-status policy requires a rationale")
+        evidence_refs = policy.get("evidence_refs", [])
+        if not isinstance(evidence_refs, list) or not evidence_refs or any(
+            not str(value).strip() for value in evidence_refs
+        ):
+            raise RuntimeError(f"{local_id}: operational-status policy requires evidence references")
+        if not str(policy.get("clear_when", "")).strip():
+            raise RuntimeError(f"{local_id}: operational-status policy requires a clear_when condition")
+        policies[local_id] = copy.deepcopy(policy)
+    return policies
+
+
+def expected_operational_status(
+    row: dict[str, str],
+    operational_status_policies: dict[str, dict[str, Any]],
+    completion_policy: dict[str, Any],
+) -> str:
+    local_id = row["Local Issue ID"]
+    completion_override_ids = set(completion_policy.get("local_issue_ids", []))
+    if local_id in completion_override_ids:
+        return str(completion_policy.get("jira_operational_override", {}).get("status", "To Do"))
+    policy = operational_status_policies.get(local_id)
+    if policy is not None:
+        return str(policy["target_status"])
+    return row["Status"]
 
 
 def load_auxiliary_issues() -> dict[str, dict[str, Any]]:
@@ -1303,17 +1361,24 @@ def transition_declared_active_statuses(
     client: JiraClient,
     rows: list[dict[str, str]],
     key_map: dict[str, str],
+    operational_status_policies: dict[str, dict[str, Any]],
 ) -> None:
-    active_rows = [row for row in rows if row["Status"] not in {"To Do", "Done"}]
-    for row in active_rows:
+    completion_policy = load_completion_policy()
+    active_rows = [
+        (row, expected_operational_status(row, operational_status_policies, completion_policy))
+        for row in rows
+        if expected_operational_status(row, operational_status_policies, completion_policy)
+        not in {"To Do", "Done"}
+    ]
+    for row, target_status in active_rows:
         key = key_map[row["Local Issue ID"]]
         issue = client.get(f"/rest/api/3/issue/{key}?fields=status")
-        if issue["fields"]["status"]["name"] == row["Status"]:
+        if issue["fields"]["status"]["name"] == target_status:
             continue
         transitions = client.get(f"/rest/api/3/issue/{key}/transitions").get("transitions", [])
-        transition = next((item for item in transitions if item.get("to", {}).get("name") == row["Status"]), None)
+        transition = next((item for item in transitions if item.get("to", {}).get("name") == target_status), None)
         if transition is None:
-            raise RuntimeError(f"No transition to {row['Status']} is available for {key}")
+            raise RuntimeError(f"No transition to {target_status} is available for {key}")
         client.post(f"/rest/api/3/issue/{key}/transitions", {"transition": {"id": str(transition["id"])}})
 
 
@@ -1929,6 +1994,7 @@ def verify_live(
     field_ids: dict[str, str],
     component_ids: dict[str, str],
     key_map: dict[str, str],
+    operational_status_policies: dict[str, dict[str, Any]],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     completion_policy = load_completion_policy()
     completion_override_ids = set(completion_policy.get("local_issue_ids", []))
@@ -1965,10 +2031,10 @@ def verify_live(
             discrepancies.append(f"{local_id}: ADF description mismatch")
         if actual_type != row["Issue type"]:
             discrepancies.append(f"{local_id}: issue type {actual_type} != {row['Issue type']}")
-        expected_status = (
-            completion_override.get("status", "To Do")
-            if local_id in completion_override_ids
-            else row["Status"]
+        expected_status = expected_operational_status(
+            row,
+            operational_status_policies,
+            completion_policy,
         )
         if actual_status != expected_status:
             discrepancies.append(f"{local_id}: status {actual_status} != {expected_status}")
@@ -2204,7 +2270,17 @@ def main() -> int:
     args = parser.parse_args()
     auxiliary = load_auxiliary_issues()
     rows, payloads, links, link_payloads = load_inputs()
+    operational_status_policies = load_operational_status_policies()
     preflight = validate_inputs(rows, payloads, links, link_payloads)
+    preflight["operational_status_policies"] = len(operational_status_policies)
+    preflight["operational_status_policy_identity"] = sha256_bytes(
+        json.dumps(
+            operational_status_policies,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
     print(
         f"LOCAL PREFLIGHT: {preflight['result']} issues={preflight['issues']} "
         f"links={preflight['links']} auxiliary={len(auxiliary)}",
@@ -2252,12 +2328,21 @@ def main() -> int:
     synchronize_canonical_spec_fields(client, ledger, rows, payloads, key_map, fields, components)
     make_completion_assurance_backup(client, ledger, fields)
     transition_historical_done(client, ledger, rows, key_map, fields["Local Issue ID"])
-    transition_declared_active_statuses(client, rows, key_map)
+    transition_declared_active_statuses(client, rows, key_map, operational_status_policies)
     enforce_completion_assurance_policy(client, ledger, key_map, fields)
     remediate_reversed_importer_links(client, ledger, link_payloads, key_map, fields["Local Issue ID"])
     create_links(client, ledger, link_payloads, key_map, fields["Local Issue ID"])
     configure_filters(client, ledger, fields)
-    verification, live_issues = verify_live(client, rows, payloads, link_payloads, fields, components, key_map)
+    verification, live_issues = verify_live(
+        client,
+        rows,
+        payloads,
+        link_payloads,
+        fields,
+        components,
+        key_map,
+        operational_status_policies,
+    )
     if ledger.get("link_direction_remediation"):
         ledger["link_direction_remediation"].update(
             {

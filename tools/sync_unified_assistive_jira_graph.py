@@ -113,6 +113,7 @@ def specs() -> list[dict[str, Any]]:
             "tests/test_unified_runtime_inventory_dispatch.py",
             "jira/tools/import_bat_live.py",
             "tests/test_jira_evidence_state_mapping.py",
+            "tests/test_jira_operational_status_policy.py",
         ]
     )
     foundation["allowed_modification_paths"] = foundation["files_expected_to_be_touched"] + [foundation["evidence_manifest_path"]]
@@ -157,6 +158,14 @@ def specs() -> list[dict[str, Any]]:
     cursor["ai_context_notes"].append(
         "The user authorized a separate nontransferable USD 200 hard limit on 2026-08-12; only USD 20 is initially released. Six real candidate-only units executed on 2026-08-13 across eleven runs, including the two serial pilots and four bounded campaign units; all six were accepted, three with Codex review edits, and cumulative settlement is USD 1.86454790. Four additional real units, broader category coverage, weighted utilization, and sustained-operation gates remain pending, so Cursor is not operational."
     )
+    cursor["jira_operational_status_policy"] = {
+        "schema_version": 1,
+        "mode": "EXPLICIT_ACTIVE_EXECUTION",
+        "target_status": "In Progress",
+        "rationale": "Real Cursor campaign units are actively executing and being reviewed while the shared BAT-560 operational dependency remains logically incomplete.",
+        "evidence_refs": ["BAT-560", "BAT-561", "POST-SUBTASK-201", "POST-SUBTASK-202"],
+        "clear_when": "Clear or revise when the Cursor campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
+    }
 
     qwen = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-203", import_id=100513, objective="Qualify and operate local models on exact evidence-backed task formats", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="IN_PROGRESS")
     qwen["scope"] = "Preserve the completed negative qualification for the exact qwen2.5:7b-instruct and qwen3-vl evidence-critical routes, enforce those rejections at admission, qualify separately keyed coding, embedding, visual, and classification routes, then complete the 50-unit/150-point/30-useful three-family campaign."
@@ -180,6 +189,14 @@ def specs() -> list[dict[str, Any]]:
     qwen["ai_context_notes"].append(
         "The bounded historical qualification and exact-route negative evidence remain verified; the expanded local-model campaign is active and no operational local-model plane is claimed."
     )
+    qwen["jira_operational_status_policy"] = {
+        "schema_version": 1,
+        "mode": "EXPLICIT_ACTIVE_EXECUTION",
+        "target_status": "In Progress",
+        "rationale": "Exact rejected Qwen routes remain rejected while separately keyed bge-m3 and local-model campaign work is actively executing under the incomplete BAT-560 controller foundation.",
+        "evidence_refs": ["BAT-560", "BAT-562", "POST-SUBTASK-201", "POST-SUBTASK-203"],
+        "clear_when": "Clear or revise when the local-model campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
+    }
 
     worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="IN_PROGRESS")
     worker["scope"] = "Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run real replayable BAS tranches across the separately qualified CANONICAL_JSON, LINE_HASH_MANIFEST, and EXACT_TEXT_DEDUP task identities."
@@ -197,6 +214,14 @@ def specs() -> list[dict[str, Any]]:
     worker["ai_context_notes"].append(
         "The live BAT-560 BLOCKS BAT-563 relationship is adopted as the canonical POST-SUBTASK-201 dependency because multiformat CPU campaign operation relies on the unified inventory, lease, dispatch, validation, review, settlement, and cleanup foundation."
     )
+    worker["jira_operational_status_policy"] = {
+        "schema_version": 1,
+        "mode": "EXPLICIT_ACTIVE_EXECUTION",
+        "target_status": "In Progress",
+        "rationale": "Qualified fixed-function CPU routes are serving real campaign units while unattended BAT-560 deployment and campaign-level completion remain logically incomplete.",
+        "evidence_refs": ["BAT-560", "BAT-563", "POST-SUBTASK-201", "POST-SUBTASK-204"],
+        "clear_when": "Clear or revise when the CPU-worker campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
+    }
     worker["expected_outputs"] = [
         "artifacts/assistive/cpu_worker_readiness.json",
         "artifacts/jira_evidence/POST-SUBTASK-204.json",

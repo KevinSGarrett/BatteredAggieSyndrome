@@ -225,7 +225,17 @@ def write_content_addressed_json(root: Path, category: str, payload: dict[str, A
 def load_inventory(path: Path) -> ReadyWorkInventory:
     payload = json.loads(path.read_text(encoding="utf-8"))
     units = [
-        ReadyWorkUnit(**{**item, "source_hashes": tuple(item["source_hashes"]), "dependencies": tuple(item["dependencies"])})
+        ReadyWorkUnit(
+            work_unit_id=item["work_unit_id"],
+            jira_unit=item["jira_unit"],
+            task_format=item["task_format"],
+            schema_sha256=item["schema_sha256"],
+            authority=item["authority"],
+            source_hashes=tuple(item["source_hashes"]),
+            dependencies=tuple(item["dependencies"]),
+            pre_routing_effort_points=item["pre_routing_effort_points"],
+            scope=item["scope"],
+        )
         for item in payload["work_units"]
     ]
     decisions = [

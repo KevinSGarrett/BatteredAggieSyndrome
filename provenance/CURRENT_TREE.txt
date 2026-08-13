@@ -3021,6 +3021,7 @@ src/aggie_analytics/assistive_plane/ollama_backend.py
 src/aggie_analytics/assistive_plane/openrouter_backend.py
 src/aggie_analytics/assistive_plane/orchestration.py
 src/aggie_analytics/assistive_plane/redaction.py
+src/aggie_analytics/assistive_plane/scheduler_runtime.py
 src/aggie_analytics/assistive_plane/schemas.py
 src/aggie_analytics/assistive_plane/service_runtime.py
 src/aggie_analytics/assistive_plane/storage.py
@@ -3296,6 +3297,7 @@ tests/test_unified_assistive_plane.py
 tests/test_unified_controller_service.py
 tests/test_unified_controller_state.py
 tests/test_unified_enforcement_adoption.py
+tests/test_unified_inventory_scheduler.py
 tests/test_unified_live_service.py
 tests/test_validation_science_governance.py
 tests/test_w18_full_gate.py

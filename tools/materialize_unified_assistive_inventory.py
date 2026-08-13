@@ -3,8 +3,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 import subprocess
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -18,6 +20,21 @@ from aggie_analytics.assistive_plane.orchestration import ReadyWorkInventory, Re
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def atomic_write(path: Path, data: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(data)
+            handle.flush()
+            os.fsync(handle.fileno())
+        temporary.replace(path)
+    except Exception:
+        temporary.unlink(missing_ok=True)
+        raise
 
 
 def git_value(*arguments: str) -> str:
@@ -179,6 +196,9 @@ def main() -> int:
             decided_at=generated_at,
         ))
     report = ReadyWorkInventory(units, decisions).validate()
+    head = git_value("rev-parse", "HEAD")
+    origin_main = git_value("rev-parse", "origin/main")
+    status_porcelain_sha256 = hashlib.sha256(git_value("status", "--porcelain").encode()).hexdigest()
     snapshot = {
         "schema_version": 1,
         "inventory_seed_id": seed["inventory_seed_id"],
@@ -192,9 +212,9 @@ def main() -> int:
         "acceptance_ownership_sha256": sha256(acceptance_ownership_path),
         "mandatory_acceptance_rows": ownership["mandatory_row_count"],
         "git": {
-            "head": git_value("rev-parse", "HEAD"),
-            "origin_main": git_value("rev-parse", "origin/main"),
-            "status_porcelain_sha256": hashlib.sha256(git_value("status", "--porcelain").encode()).hexdigest(),
+            "head": head,
+            "origin_main": origin_main,
+            "status_porcelain_sha256": status_porcelain_sha256,
         },
         "external_evidence": {
             "openai": external_evidence_identity(Path(r"C:\BatteredAggieSyndrome.data\openai")),
@@ -235,8 +255,28 @@ def main() -> int:
         "canonical_or_protected_authority": False,
     }
     path, digest = write_content_addressed_json(args.storage_root, "snapshots", snapshot)
-    print(json.dumps({"status": "PASS", "snapshot_path": str(path), "snapshot_sha256": digest, **report}, sort_keys=True))
-    return 0
+    snapshot_bytes = path.read_bytes()
+    if hashlib.sha256(snapshot_bytes).hexdigest() != digest:
+        raise RuntimeError("INVENTORY_SNAPSHOT_HASH_MISMATCH")
+    promotion_findings = []
+    if head != origin_main:
+        promotion_findings.append("INVENTORY_PROMOTION_REQUIRES_CURRENT_MAIN")
+    if status_porcelain_sha256 != hashlib.sha256(b"").hexdigest():
+        promotion_findings.append("INVENTORY_PROMOTION_REQUIRES_CLEAN_WORKTREE")
+    current_path = args.storage_root / "current" / "inventory.json"
+    if not promotion_findings:
+        atomic_write(current_path, snapshot_bytes)
+        if current_path.read_bytes() != snapshot_bytes:
+            raise RuntimeError("INVENTORY_CURRENT_POINTER_VERIFY_FAILED")
+    print(json.dumps({
+        "status": "PASS" if not promotion_findings else "BLOCKED",
+        "snapshot_path": str(path),
+        "snapshot_sha256": digest,
+        "current_path": str(current_path) if not promotion_findings else None,
+        "promotion_findings": promotion_findings,
+        **report,
+    }, sort_keys=True))
+    return 0 if not promotion_findings else 1
 
 
 if __name__ == "__main__":

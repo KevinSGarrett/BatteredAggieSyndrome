@@ -16,7 +16,7 @@ Before service deployment:
 
 ## Controller service release and installation
 
-The controller and watchdog are separate long-lived processes. The controller holds both an OS process lock and a renewable SQLite leader lease for its full lifetime. It writes a content-addressed heartbeat every 30 seconds and observes the queue every 60 seconds, but the current service-shell unit records zero real scheduler cycles and performs no provider dispatch. The watchdog uses its own process lock, opens SQLite read-only, and writes independent content-addressed reports even when the controller is stopped.
+The controller and watchdog are separate long-lived processes. The controller holds both an OS process lock and a renewable SQLite leader lease for its full lifetime. It writes a content-addressed heartbeat every 30 seconds and evaluates the promoted inventory every 60 seconds. A clean exact-main materialization atomically promotes `C:\BatteredAggieSyndrome.data\assistive\inventory\current\inventory.json`; dirty or non-main materializations remain immutable snapshots but cannot replace that pointer. The scheduler records at most one evidence cycle per unchanged inventory within the configured interval, records each provider-ready unit left idle, and makes zero provider calls until a reviewed dispatcher is installed. Such cycles prove scheduler evaluation only, not operational dispatch. The watchdog uses its own process lock, opens SQLite read-only, and writes independent content-addressed reports even when the controller is stopped.
 
 After the implementation commit is merged and exact-main validation passes, build the immutable minimal release from a clean exact-main worktree:
 

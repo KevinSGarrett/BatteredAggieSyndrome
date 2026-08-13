@@ -23,6 +23,29 @@ CPU_MANIFEST_SCHEMA_SHA256 = hashlib.sha256(
 ).hexdigest()
 
 
+def cpu_qualification_evidence_sha256(snapshot: dict[str, Any]) -> str | None:
+    evidence = snapshot.get("external_evidence", {}).get("cpu_worker", {})
+    if not evidence.get("qualified"):
+        return None
+
+    def valid_sha256(value: object) -> bool:
+        text = str(value)
+        return len(text) == 64 and all(character in "0123456789abcdef" for character in text)
+
+    qualifications = evidence.get("qualifications", [])
+    if not isinstance(qualifications, list):
+        return None
+    for qualification in qualifications:
+        if (
+            isinstance(qualification, dict)
+            and "CANONICAL_JSON" in qualification.get("tasks", [])
+            and valid_sha256(qualification.get("evidence_sha256"))
+            and valid_sha256(qualification.get("readiness_evidence_sha256"))
+        ):
+            return str(qualification["readiness_evidence_sha256"])
+    return None
+
+
 def _atomic_write(path: Path, data: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
@@ -156,8 +179,7 @@ class RuntimeInventoryRefresher:
 
     @staticmethod
     def _cpu_qualified(snapshot: dict[str, Any]) -> bool:
-        evidence = snapshot.get("external_evidence", {}).get("cpu_worker", {})
-        return bool(evidence.get("qualified")) and bool(evidence.get("qualification_sha256"))
+        return cpu_qualification_evidence_sha256(snapshot) is not None
 
     def refresh(self, *, now: datetime | None = None) -> dict[str, Any]:
         moment = now or datetime.now(timezone.utc)

@@ -7,6 +7,7 @@ import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -24,6 +25,7 @@ from acquire_ncaa_official_gamebooks import (  # noqa: E402
     inspect_ncaa_html,
     inspect_ncaa_team_page,
     load_optional_dotenv_value,
+    main,
     normalize_ncaa_capture,
     request_for,
     validate_official_uri,
@@ -232,6 +234,59 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
             serialized = json.dumps(states) + repr(routes)
             self.assertNotIn("OPTIONAL_LOCAL_SECRET_SCRAPFLY", serialized)
             self.assertNotIn("OPTIONAL_LOCAL_SECRET_SCRAPERAPI", serialized)
+
+    def test_discovery_startup_falls_back_when_optional_patchright_is_absent(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            env_file = root / ".env"
+            env_file.write_text("", encoding="utf-8")
+            expected = {
+                "season": 2021,
+                "state": "COMPLETE_GRAPH_EXHAUSTED",
+                "discovery_identity": "a" * 64,
+                "manifest_path": str(root / "manifest.json"),
+                "manifest_sha256": "b" * 64,
+                "team_page_capture_count": 1,
+                "team_failure_count": 0,
+                "discovered_team_count": 1,
+                "discovered_contest_count": 1,
+                "remaining_queue_count": 0,
+            }
+            arguments = [
+                "--repo-root",
+                str(ROOT),
+                "--data-root",
+                str(root / "data"),
+                "--env-file",
+                str(env_file),
+                "--contract",
+                str(self.contract_path),
+                "--issued-at-utc",
+                "2026-08-13T00:00:00Z",
+                "--runtime-root",
+                str(root / "runtime"),
+                "--discover-season",
+                "2021",
+                "--discovery-only",
+                "--discovery-route-id",
+                "direct_http",
+                "--discovery-route-id",
+                "local_patchright_chrome",
+            ]
+            with (
+                patch.object(sys, "argv", ["acquire_ncaa_official_gamebooks.py", *arguments]),
+                patch(
+                    "acquire_ncaa_official_gamebooks.select_browser_runtime",
+                    return_value=(Path("chrome.exe"), None),
+                ),
+                patch(
+                    "acquire_ncaa_official_gamebooks.StatefulPatchrightSession.__enter__",
+                    side_effect=ImportError("patchright absent"),
+                ),
+                patch("acquire_ncaa_official_gamebooks.discover_season", return_value=expected) as discovery,
+            ):
+                self.assertEqual(0, main())
+            self.assertEqual(["direct_http"], [route_id for route_id, _ in discovery.call_args.kwargs["routes"]])
 
     def test_request_identity_is_stable_and_canonical_identity_remains_unpromoted(self) -> None:
         contest = self.contract["seed_contests"][0]

@@ -385,6 +385,28 @@ class OpenRouterAssistTests(unittest.TestCase):
         self.assertEqual(result.disposition, Disposition.REJECTED)
         self.assertEqual(result.reason, "PROVIDER_RELEASED_STAGE_EXCEEDED")
 
+    def test_provider_actual_over_released_stage_is_retained_as_liability(self) -> None:
+        class OverStageBackend(FakeBackend):
+            def submit(self, request, schema):
+                result = super().submit(request, schema)
+                return replace(result, cost_usd="0.30")
+
+        dispatcher = AssistiveDispatcher(ROOT, OverStageBackend(self.output), self.simulated_policy_path)
+        result = dispatcher.dispatch(self.request, self.schema)
+        self.assertEqual(Disposition.QUARANTINE, result.disposition)
+        self.assertEqual("PROVIDER_ACTUAL_COST_EXCEEDS_RELEASED_STAGE", result.reason)
+        state = dispatcher.ledger.state()
+        self.assertEqual(Decimal("0"), state.settled_usd)
+        self.assertEqual(Decimal("0.30"), state.reserved_usd)
+        with self.assertRaisesRegex(BudgetRejected, "PROVIDER_UNSETTLED_ACTUAL_RELEASE_BLOCKED"):
+            dispatcher.ledger.release(self.request.identity())
+        with self.assertRaisesRegex(BudgetRejected, "PROVIDER_REQUEST_HAS_UNSETTLED_ACTUAL"):
+            dispatcher.ledger.reserve(self.request.identity(), Decimal("0.01"))
+        dispatcher.ledger.reconcile_provider_total(Decimal("0.30"), evidence_sha256="c" * 64)
+        reconciled = dispatcher.ledger.state()
+        self.assertEqual(Decimal("0.30"), reconciled.settled_usd)
+        self.assertEqual(Decimal("0"), reconciled.reserved_usd)
+
     def test_provider_total_reconciliation_closes_orphans_conservatively(self) -> None:
         dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
         dispatcher.ledger.reserve("orphan", Decimal("0.01"))

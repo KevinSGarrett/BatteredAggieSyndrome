@@ -129,7 +129,9 @@ class AssistiveDispatcher:
             try:
                 self.ledger.settle(request_id, Decimal(result.cost_usd))
             except BudgetRejected as exc:
-                self.ledger.release(request_id)
+                self.ledger.preserve_unsettled_actual(
+                    request_id, Decimal(result.cost_usd), reason=str(exc)
+                )
                 return self._record(request, Disposition.QUARANTINE, str(exc), result)
             return self._record(request, Disposition.QUARANTINE, "UNEXPECTED_MODEL_RESOLUTION", result)
         try:
@@ -142,7 +144,9 @@ class AssistiveDispatcher:
             try:
                 self.ledger.settle(request_id, Decimal(result.cost_usd))
             except BudgetRejected as cost_exc:
-                self.ledger.release(request_id)
+                self.ledger.preserve_unsettled_actual(
+                    request_id, Decimal(result.cost_usd), reason=str(cost_exc)
+                )
                 return self._record(request, Disposition.QUARANTINE, str(cost_exc), result)
             return self._record(request, Disposition.QUARANTINE, f"STRICT_OUTPUT_INVALID:{exc}", result)
         try:
@@ -155,14 +159,18 @@ class AssistiveDispatcher:
             try:
                 self.ledger.settle(request_id, Decimal(result.cost_usd))
             except BudgetRejected as cost_exc:
-                self.ledger.release(request_id)
+                self.ledger.preserve_unsettled_actual(
+                    request_id, Decimal(result.cost_usd), reason=str(cost_exc)
+                )
                 return self._record(request, Disposition.QUARANTINE, str(cost_exc), result)
             return self._record(request, Disposition.QUARANTINE, f"RECONCILIATION_POST_SCHEMA_INVALID:{exc}", result)
         self.store.put_json("responses", {**asdict(result), "request_id": request_id})
         try:
             self.ledger.settle(request_id, Decimal(result.cost_usd))
         except BudgetRejected as exc:
-            self.ledger.release(request_id)
+            self.ledger.preserve_unsettled_actual(
+                request_id, Decimal(result.cost_usd), reason=str(exc)
+            )
             return self._record(request, Disposition.QUARANTINE, str(exc), result)
         final = self._record(request, Disposition.CANDIDATE, "CANDIDATE_ONLY_VALIDATED", result)
         self._write_cache_pointer(request_id, final.manifest_path)

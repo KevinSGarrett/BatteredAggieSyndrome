@@ -115,8 +115,11 @@ class BudgetLedger:
             data = self._load()
             reservations = dict(data.get("reservations", {}))
             settlements = dict(data.get("settlements", {}))
+            unsettled_actuals = dict(data.get("unsettled_actuals", {}))
             if request_id in settlements:
                 raise BudgetRejected("PROVIDER_REQUEST_ALREADY_SETTLED")
+            if request_id in unsettled_actuals:
+                raise BudgetRejected("PROVIDER_REQUEST_HAS_UNSETTLED_ACTUAL")
             if request_id in reservations:
                 if Decimal(str(reservations[request_id])) != estimate_usd:
                     raise BudgetRejected("PROVIDER_RESERVATION_IDEMPOTENCY_CONFLICT")
@@ -159,10 +162,53 @@ class BudgetLedger:
         with self._lock():
             data = self._load()
             reservations = dict(data.get("reservations", {}))
+            if request_id in dict(data.get("unsettled_actuals", {})):
+                raise BudgetRejected("PROVIDER_UNSETTLED_ACTUAL_RELEASE_BLOCKED")
             if request_id in reservations:
                 reservations.pop(request_id)
                 data["reservations"] = reservations
                 self._write(data)
+
+    def preserve_unsettled_actual(
+        self,
+        request_id: str,
+        actual_usd: Decimal,
+        *,
+        reason: str,
+    ) -> None:
+        """Retain a provider-acknowledged charge that policy refused to settle.
+
+        Admission limits can prevent a call before it happens, but they cannot
+        erase a charge after the provider has executed it.  The exact actual is
+        therefore retained as a conservative reservation and blocks replay or
+        further admission until provider-total reconciliation resolves it.
+        """
+        if actual_usd < 0:
+            raise BudgetRejected("PROVIDER_UNSETTLED_ACTUAL_INVALID")
+        with self._lock():
+            data = self._load()
+            reservations = dict(data.get("reservations", {}))
+            settlements = dict(data.get("settlements", {}))
+            if request_id in settlements:
+                if Decimal(str(settlements[request_id])) != actual_usd:
+                    raise BudgetRejected("PROVIDER_SETTLEMENT_IDEMPOTENCY_CONFLICT")
+                return
+            if request_id not in reservations:
+                raise BudgetRejected("PROVIDER_UNSETTLED_ACTUAL_RESERVATION_NOT_FOUND")
+            prior = Decimal(str(reservations[request_id]))
+            reservations[request_id] = format(max(prior, actual_usd), "f")
+            unsettled_actuals = dict(data.get("unsettled_actuals", {}))
+            existing = unsettled_actuals.get(request_id)
+            if existing is not None and Decimal(str(existing["actual_usd"])) != actual_usd:
+                raise BudgetRejected("PROVIDER_UNSETTLED_ACTUAL_IDEMPOTENCY_CONFLICT")
+            unsettled_actuals[request_id] = {
+                "actual_usd": format(actual_usd, "f"),
+                "reason": reason,
+                "conservative_liability_retained": True,
+            }
+            data["reservations"] = reservations
+            data["unsettled_actuals"] = unsettled_actuals
+            self._write(data)
 
     def reconcile_provider_total(self, actual_total_usd: Decimal, *, evidence_sha256: str) -> None:
         if actual_total_usd < 0:
@@ -170,17 +216,26 @@ class BudgetLedger:
         with self._lock():
             data = self._load()
             settled = Decimal(str(data.get("settled_usd", "0")))
-            if actual_total_usd > self.released_limit_usd:
-                raise BudgetRejected("PROVIDER_TOTAL_EXCEEDS_RELEASED_STAGE")
             reconciled_total = max(actual_total_usd, settled)
             data["settled_usd"] = format(reconciled_total, "f")
             if actual_total_usd >= settled:
                 data["reservations"] = {}
+                data["unsettled_actuals"] = {}
             data["provider_reconciliation"] = {
                 "evidence_sha256": evidence_sha256,
                 "provider_total_usd": format(actual_total_usd, "f"),
                 "local_settled_before_usd": format(settled, "f"),
-                "status": "PROVIDER_TOTAL_RECONCILED" if actual_total_usd >= settled else "PROVIDER_TOTAL_LAGGING_LOCAL_SETTLEMENT",
+                "status": (
+                    "PROVIDER_TOTAL_RECONCILED_LIMIT_EXCEEDED"
+                    if actual_total_usd > self.released_limit_usd
+                    else (
+                        "PROVIDER_TOTAL_RECONCILED"
+                        if actual_total_usd >= settled
+                        else "PROVIDER_TOTAL_LAGGING_LOCAL_SETTLEMENT"
+                    )
+                ),
+                "released_stage_exceeded": actual_total_usd > self.released_limit_usd,
+                "hard_limit_exceeded": actual_total_usd > self.hard_limit_usd,
                 "conservative_all_key_usage_counted": True,
             }
             self._write(data)

@@ -771,6 +771,16 @@ def cpu_worker_semantic_evidence(root: Path):
                             "allowed_models": ["gpt-5.6-terra"],
                             "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
                         },
+                        "entity_review": {
+                            "jira_unit": "POST-SUBTASK-163",
+                            "allowed_models": ["gpt-5.6-terra"],
+                            "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
+                        },
+                        "assistive_model_evaluation": {
+                            "jira_unit": "POST-SUBTASK-161",
+                            "allowed_models": ["gpt-5.6-luna"],
+                            "allocation_by_model": {"gpt-5.6-luna": "CROSS_MODEL_QA"},
+                        },
                     },
                 }
             ),
@@ -815,7 +825,7 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(2, len(cursor))
         self.assertEqual(1, len(cpu))
         self.assertEqual(2, len(bge))
-        self.assertEqual(1, len(openai))
+        self.assertEqual(2, len(openai))
         packets = [
             json.loads(Path(item["packet_path"]).read_text(encoding="utf-8"))
             for item in [*cursor, *cpu, *bge, *openai]
@@ -825,6 +835,14 @@ def cpu_worker_semantic_evidence(root: Path):
             {packet["provider"] for packet in packets},
         )
         self.assertTrue(all(packet["authority"] == "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES" for packet in packets))
+        self.assertEqual(
+            {"quarantine_schema_classification", "entity_review"},
+            {
+                packet["job"]["task_name"]
+                for packet in packets
+                if packet["provider"] == "openai_direct"
+            },
+        )
 
     def test_live_manifests_replenish_bge_and_openai_gamebook_work(self) -> None:
         for index in range(3):
@@ -918,6 +936,71 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual("gpt-5.6-terra", openai_packet["job"]["model"])
         self.assertEqual(raw_sha256, openai_packet["job"]["source_capture_sha256"])
         self.assertIn("Quarter", openai_packet["job"]["source_excerpt"])
+
+    def test_feature_evidence_replenishes_openai_without_historical_directory(self) -> None:
+        feature_root = self.root / "reconciliation/feature_engineering"
+        feature_root.mkdir(parents=True)
+        feature = feature_root / "preliminary-negative-result.json"
+        feature.write_text(
+            json.dumps(
+                {
+                    "artifact_type": "PRELIMINARY_UNPROTECTED_FEATURE_RESULT",
+                    "decision": "REJECT_CANDIDATE",
+                    "negative_findings": ["NO_STABLE_CHRONOLOGICAL_LIFT"],
+                    "protected_claim": False,
+                }
+            ),
+            encoding="utf-8",
+        )
+        build_commit = "a" * 40
+        release = self.root / "releases" / build_commit
+        schema = release / "schemas/openai/assistive_candidate.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema.write_text(json.dumps({"type": "object"}), encoding="utf-8")
+        registry = release / "configs/openai_task_registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "tasks": {
+                        "assistive_model_evaluation": {
+                            "jira_unit": "POST-SUBTASK-161",
+                            "allowed_models": ["gpt-5.6-luna"],
+                            "allocation_by_model": {"gpt-5.6-luna": "CROSS_MODEL_QA"},
+                        },
+                        "gamebook_schema_mapping": {
+                            "jira_unit": "POST-SUBTASK-168",
+                            "allowed_models": ["gpt-5.6-terra"],
+                            "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
+                        },
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=self.root / "provider-work/requests",
+                release_root=release,
+                build_commit=build_commit,
+                openai_task_registry_path=registry,
+            ),
+        )
+        packets = refresher._materialize_continuous_openai_work(
+            {"providers": {"openai_direct": {"unmet": True, "active_execution_packets": 0}}}
+        )
+        self.assertEqual(1, len(packets))
+        packet = json.loads(Path(packets[0]["packet_path"]).read_text(encoding="utf-8"))
+        self.assertEqual("assistive_model_evaluation", packet["job"]["task_name"])
+        self.assertEqual("gpt-5.6-luna", packet["job"]["model"])
+        self.assertEqual("REVIEW", packet["job"]["destination"])
+        self.assertIn("PRELIMINARY_UNPROTECTED_FEATURE_RESULT", packet["job"]["source_excerpt"])
 
     def test_one_continuous_producer_failure_does_not_block_other_producers(self) -> None:
         cursor_packet = {

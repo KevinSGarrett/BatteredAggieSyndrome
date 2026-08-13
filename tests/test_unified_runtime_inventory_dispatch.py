@@ -1679,7 +1679,8 @@ def cpu_worker_semantic_evidence(root: Path):
         )
         status = self.state.status()
         self.assertEqual(1, status["useful_work_summary"]["downstream_consumed_outputs"])
-        self.assertEqual(1, status["useful_work_summary"]["accepted_useful_outputs"])
+        self.assertEqual(0, status["useful_work_summary"]["accepted_useful_outputs"])
+        self.assertEqual(0.0, status["useful_work_summary"]["measured_net_time_saved_seconds"])
         with closing(self.state.connect()) as connection:
             useful = connection.execute(
                 "SELECT direct_baseline_seconds,orchestration_seconds FROM useful_work_evidence "

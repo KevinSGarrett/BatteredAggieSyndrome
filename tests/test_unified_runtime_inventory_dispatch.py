@@ -144,6 +144,11 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         snapshot = json.loads(Path(report["snapshot_path"]).read_text(encoding="utf-8"))
         self.assertEqual(build_commit, snapshot["git"]["deployed_head"])
         self.assertEqual(build_commit, snapshot["git"]["merged_main_identity_at_release_build"])
+        self.assertEqual(hashlib.sha256(b"").hexdigest(), snapshot["git"]["status_porcelain_sha256"])
+        self.assertEqual(
+            "IMMUTABLE_RELEASE_TREE_NO_WORKTREE_MUTATION_SURFACE",
+            snapshot["git"]["status_evidence"],
+        )
         self.assertNotIn("origin_main", snapshot["git"])
         self.assertEqual(build_commit, snapshot["deployed_release"]["build_commit"])
         self.assertEqual("8" * 64, snapshot["deployed_release"]["source_tree_sha256"])

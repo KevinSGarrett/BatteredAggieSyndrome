@@ -438,6 +438,8 @@ class RuntimeInventoryRefresher:
                 {
                     "deployed_head": deployed_release["build_commit"],
                     "merged_main_identity_at_release_build": deployed_release["build_commit"],
+                    "status_porcelain_sha256": hashlib.sha256(b"").hexdigest(),
+                    "status_evidence": "IMMUTABLE_RELEASE_TREE_NO_WORKTREE_MUTATION_SURFACE",
                     "evidence_scope": deployed_release["evidence_scope"],
                 }
                 if deployed_release is not None

@@ -96,6 +96,14 @@ class UnifiedControllerServiceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "CONTROLLER_BUILD_COMMIT_INVALID"):
             ControllerServiceConfig(self.runtime, "owner", "not-a-commit").validate()
 
+    def test_zero_duration_bounded_run_still_emits_initial_heartbeat(self) -> None:
+        service = ControllerService(
+            ControllerServiceConfig(runtime_root=self.runtime, owner_id="test-owner", build_commit=self.commit)
+        )
+        result = service.run(threading.Event(), maximum_runtime_seconds=0)
+        self.assertEqual(1, result["heartbeat_count"])
+        self.assertTrue((self.runtime / "evidence/current/controller-heartbeat.json").is_file())
+
     def test_controller_records_runtime_failure_as_not_graceful(self) -> None:
         service = ControllerService(
             ControllerServiceConfig(

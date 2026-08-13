@@ -133,8 +133,6 @@ class ControllerService:
             try:
                 while not stop_event.is_set():
                     moment = time.monotonic()
-                    if maximum_runtime_seconds is not None and moment - started_monotonic >= maximum_runtime_seconds:
-                        break
                     if moment >= next_queue_observation:
                         queue_evaluations += 1
                         next_queue_observation = moment + self.config.queue_evaluation_seconds
@@ -154,6 +152,8 @@ class ControllerService:
                             current_name="controller-heartbeat.json",
                         )
                         next_heartbeat = moment + self.config.heartbeat_seconds
+                    if maximum_runtime_seconds is not None and moment - started_monotonic >= maximum_runtime_seconds:
+                        break
                     delay_candidates = [next_heartbeat - moment, next_queue_observation - moment, 0.25]
                     stop_event.wait(max(0.01, min(delay_candidates)))
                 completed_normally = True

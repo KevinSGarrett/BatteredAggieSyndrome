@@ -22,10 +22,30 @@ def queue_packet(source: Path, queue_root: Path) -> tuple[Path, str]:
     value = json.loads(source.read_text(encoding="utf-8"))
     if not isinstance(value, dict) or value.get("schema_version") != 1:
         raise ValueError("PROVIDER_WORK_PACKET_INVALID")
-    if value.get("provider") not in {"openai_direct", "ollama_local"}:
+    if value.get("provider") not in {"openai_direct", "ollama_local", "remote_cpu_worker"}:
         raise ValueError("PROVIDER_WORK_PROVIDER_NOT_ADMITTED")
     if value.get("authority") != "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES":
         raise ValueError("PROVIDER_WORK_AUTHORITY_INVALID")
+    if value.get("provider") == "remote_cpu_worker":
+        def valid_hash(item: object) -> bool:
+            return isinstance(item, str) and len(item) == 64 and all(
+                character in "0123456789abcdef" for character in item
+            )
+
+        payload = value.get("payload")
+        if (
+            value.get("task") != "CANONICAL_JSON"
+            or value.get("task_format") != "cpu_worker_canonical_manifest_v1"
+            or value.get("jira_unit") != "BAT-563"
+            or not isinstance(payload, dict)
+            or set(payload) != {"value"}
+            or not valid_hash(value.get("schema_sha256"))
+            or not isinstance(value.get("source_hashes"), list)
+            or not value["source_hashes"]
+            or not all(valid_hash(item) for item in value["source_hashes"])
+            or value.get("pre_routing_effort_points") not in {1, 2, 3, 5, 8}
+        ):
+            raise ValueError("PROVIDER_WORK_CPU_PACKET_INVALID")
     data = canonical_json_bytes(value) + b"\n"
     digest = hashlib.sha256(data).hexdigest()
     destination = queue_root / "sha256" / digest[:2] / f"{digest}.json"

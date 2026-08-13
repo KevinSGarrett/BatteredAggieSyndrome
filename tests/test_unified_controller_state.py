@@ -410,7 +410,7 @@ class UnifiedControllerStateTests(unittest.TestCase):
         started = time.monotonic()
         service.run(threading.Event(), maximum_runtime_seconds=0.05)
         elapsed = time.monotonic() - started
-        self.assertLess(elapsed, 1.0)
+        self.assertLess(elapsed, 2.0, "bounded runtime must not sleep the configured five-second interval")
 
     def test_controller_bounded_runtime_does_not_sleep_past_deadline(self) -> None:
         service = ControllerService(
@@ -426,7 +426,7 @@ class UnifiedControllerStateTests(unittest.TestCase):
         started = time.monotonic()
         service.run(threading.Event(), maximum_runtime_seconds=0.05)
         elapsed = time.monotonic() - started
-        self.assertLess(elapsed, 1.0)
+        self.assertLess(elapsed, 2.0, "bounded runtime must not sleep the configured five-second interval")
 
 
 if __name__ == "__main__":

@@ -12,6 +12,7 @@ from typing import Any
 from .contracts import sha256_value
 from .controller_state import ControllerState, parse_rfc3339, rfc3339
 from .cpu_worker_backend import CpuWorkerClient, CpuWorkerEndpoint, CpuWorkerJob
+from .inventory_runtime import cpu_qualification_evidence_sha256
 from .orchestration import ReadyWorkInventory, RoutingDisposition, load_inventory
 
 
@@ -181,9 +182,9 @@ class InventoryScheduler:
                 "packet_sha256": packet_sha256,
             }
         )
-        readiness_evidence_sha256 = str(
-            payload.get("external_evidence", {}).get("cpu_worker", {}).get("qualification_sha256", "")
-        )
+        readiness_evidence_sha256 = cpu_qualification_evidence_sha256(payload)
+        if readiness_evidence_sha256 is None:
+            raise RuntimeError("SCHEDULER_CPU_QUALIFICATION_NOT_ESTABLISHED")
         attempt_number = self.state.dispatch_attempt_count(decision.work_unit_id) + 1
         attempt_id = hashlib.sha256(
             f"{work_unit.identity()}:{route_identity}:attempt-{attempt_number}".encode()

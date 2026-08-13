@@ -45,7 +45,16 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
                 "status_porcelain_sha256": hashlib.sha256(b"").hexdigest(),
             },
             "external_evidence": {
-                "cpu_worker": {"qualified": True, "qualification_sha256": "b" * 64}
+                "cpu_worker": {
+                    "qualified": True,
+                    "qualifications": [
+                        {
+                            "tasks": ["CANONICAL_JSON", "EXACT_TEXT_DEDUP", "LINE_HASH_MANIFEST"],
+                            "evidence_sha256": "b" * 64,
+                            "readiness_evidence_sha256": "c" * 64,
+                        }
+                    ],
+                }
             },
             "work_units": [],
             "route_decisions": [],
@@ -79,6 +88,49 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         self.assertEqual(first["snapshot_sha256"], second["snapshot_sha256"])
         refreshed_pointer = json.loads(self.current.read_text(encoding="utf-8"))
         self.assertNotEqual(pointer["refreshed_at"], refreshed_pointer["refreshed_at"])
+
+    def test_cpu_qualification_requires_exact_semantic_evidence_contract(self) -> None:
+        self.assertFalse(
+            self.refresher._cpu_qualified(
+                {"external_evidence": {"cpu_worker": {"qualified": True, "qualification_sha256": "b" * 64}}}
+            )
+        )
+        self.assertFalse(
+            self.refresher._cpu_qualified(
+                {
+                    "external_evidence": {
+                        "cpu_worker": {
+                            "qualified": True,
+                            "qualifications": [
+                                {
+                                    "tasks": ["EXACT_TEXT_DEDUP"],
+                                    "evidence_sha256": "b" * 64,
+                                    "readiness_evidence_sha256": "c" * 64,
+                                }
+                            ],
+                        }
+                    }
+                }
+            )
+        )
+        self.assertFalse(
+            self.refresher._cpu_qualified(
+                {
+                    "external_evidence": {
+                        "cpu_worker": {
+                            "qualified": True,
+                            "qualifications": [
+                                {
+                                    "tasks": ["CANONICAL_JSON"],
+                                    "evidence_sha256": "not-a-hash",
+                                    "readiness_evidence_sha256": "c" * 64,
+                                }
+                            ],
+                        }
+                    }
+                }
+            )
+        )
 
     def test_persistent_scheduler_dispatches_real_packets_and_closes_lifecycle(self) -> None:
         self.refresher.refresh(now=self.now)

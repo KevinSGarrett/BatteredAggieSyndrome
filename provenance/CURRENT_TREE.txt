@@ -3250,6 +3250,7 @@ tests/test_hpo_governance.py
 tests/test_hypothesis_queue.py
 tests/test_instructions_pack.py
 tests/test_jira_control_plane.py
+tests/test_jira_evidence_state_mapping.py
 tests/test_lineage_full.py
 tests/test_local_qwen_qualification.py
 tests/test_local_tracker_full.py

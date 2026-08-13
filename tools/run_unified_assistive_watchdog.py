@@ -12,8 +12,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog
-from aggie_analytics.assistive_plane.service_runtime import WatchdogService, WatchdogServiceConfig
+from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog  # noqa: E402
+from aggie_analytics.assistive_plane.service_runtime import (  # noqa: E402
+    WatchdogService,
+    WatchdogServiceConfig,
+)
 
 
 DEFAULT_RUNTIME = Path(r"C:\BatteredAggieSyndrome.data\assistive\orchestrator-v3")
@@ -61,7 +64,17 @@ def main() -> int:
         )
         print(json.dumps(service.run(stop_event, maximum_runtime_seconds=args.maximum_runtime_seconds), sort_keys=True))
         return 0
-    report = ReadOnlyWatchdog(database, args.heartbeat_max_age_seconds).inspect()
+    # An interactive inspection is an operational audit, not merely a process
+    # health probe. Pass explicit evidence paths so ReadOnlyWatchdog enables
+    # its fail-closed inventory/scheduler checks, and bind the result to the
+    # release identity represented by the calling source tree.
+    report = ReadOnlyWatchdog(
+        database,
+        args.heartbeat_max_age_seconds,
+        inventory_path=args.runtime_root.parent / "inventory" / "current" / "inventory.json",
+        scheduler_report_path=args.runtime_root / "evidence" / "current" / "scheduler-evaluation.json",
+        expected_build_commit=commit_identity(args.build_commit),
+    ).inspect()
     print(json.dumps(report, sort_keys=True))
     return 0 if report["result"] == "PASS" else 1
 

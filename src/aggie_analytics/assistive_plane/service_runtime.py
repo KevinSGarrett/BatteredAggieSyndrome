@@ -128,6 +128,9 @@ class ControllerService:
                 semantic_materializer_path=release_root / "tools" / "materialize_unified_assistive_inventory.py",
                 semantic_policy_path=release_root / "configs" / "unified_assistive_policy.json",
                 semantic_readiness_path=release_root / "configs" / "assistive_route_readiness.json",
+                openrouter_task_registry_path=(
+                    release_root / "configs" / "openrouter_task_registry.json"
+                ),
                 external_assistive_root=config.runtime_root.parent,
                 continuous_source_root=data_root / "runtime",
                 project_root=Path(r"C:\BatteredAggieSyndrome") if os.name == "nt" else None,

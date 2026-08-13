@@ -258,6 +258,7 @@ class RuntimeInventoryConfig:
     semantic_materializer_path: Path | None = None
     semantic_policy_path: Path | None = None
     semantic_readiness_path: Path | None = None
+    openrouter_task_registry_path: Path | None = None
     external_assistive_root: Path | None = None
     continuous_source_root: Path | None = None
     project_root: Path | None = None
@@ -295,6 +296,11 @@ class RuntimeInventoryConfig:
             raise ValueError("RUNTIME_INVENTORY_SEMANTIC_REFRESH_CONFIG_INCOMPLETE")
         if any(path is not None and not path.is_absolute() for path in semantic_paths):
             raise ValueError("RUNTIME_INVENTORY_SEMANTIC_REFRESH_PATH_NOT_ABSOLUTE")
+        if (
+            self.openrouter_task_registry_path is not None
+            and not self.openrouter_task_registry_path.is_absolute()
+        ):
+            raise ValueError("RUNTIME_INVENTORY_OPENROUTER_TASK_REGISTRY_NOT_ABSOLUTE")
 
 
 class RuntimeInventoryRefresher:
@@ -305,7 +311,26 @@ class RuntimeInventoryRefresher:
         self.state = state
         self.config = config
         self._semantic_module: Any | None = None
+        self._openrouter_task_registry: dict[str, Any] | None = None
         self._provider_packet_findings: list[dict[str, str]] = []
+
+    def _openrouter_jira_identity(self, task_id: str) -> str:
+        """Resolve the exact task/Jira binding from the versioned provider registry."""
+        if self._openrouter_task_registry is None:
+            path = self.config.openrouter_task_registry_path
+            if path is None or not path.is_file():
+                raise RuntimeError("RUNTIME_INVENTORY_OPENROUTER_TASK_REGISTRY_MISSING")
+            registry = _verified_json(path)
+            if registry.get("schema_version") != 1 or not isinstance(registry.get("tasks"), dict):
+                raise ValueError("RUNTIME_INVENTORY_OPENROUTER_TASK_REGISTRY_INVALID")
+            self._openrouter_task_registry = registry
+        task = self._openrouter_task_registry["tasks"].get(task_id)
+        if not isinstance(task, dict):
+            raise ValueError("RUNTIME_INVENTORY_OPENROUTER_TASK_NOT_REGISTERED")
+        jira_unit = task.get("jira_unit")
+        if not isinstance(jira_unit, str) or not jira_unit:
+            raise ValueError("RUNTIME_INVENTORY_OPENROUTER_TASK_JIRA_IDENTITY_INVALID")
+        return jira_unit
 
     def _load_semantic_module(self) -> Any:
         if self._semantic_module is not None:
@@ -1160,7 +1185,7 @@ class RuntimeInventoryRefresher:
                     "provider": "openrouter",
                     "task_format": OPENROUTER_TASK_FORMAT,
                     "task_id": task_id,
-                    "jira_unit": "POST-SUBTASK-200",
+                    "jira_unit": self._openrouter_jira_identity(task_id),
                     "schema_sha256": str(route["schema_sha256"]),
                     "request_schema_version": str(route["request_schema_version"]),
                     "provider_policy_version": str(route["provider_policy_version"]),

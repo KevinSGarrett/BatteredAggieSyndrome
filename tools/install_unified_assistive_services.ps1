@@ -90,7 +90,7 @@ if ($Replace -and $existingTasks[$ControllerTaskName]) {
     if ($existingArguments -notmatch '--build-commit\s+([0-9a-f]{40})') { throw 'CONTROLLER_RECOVERY_ACTION_BUILD_MISSING' }
     $actionBuildCommit = $Matches[1]
     if ((Split-Path -Leaf $existingWorkingDirectory) -ne $actionBuildCommit) { throw 'CONTROLLER_RECOVERY_ACTION_DIRECTORY_BUILD_MISMATCH' }
-    $statusJson = & $python $controllerScript status --runtime-root "$RuntimeRoot"
+    $statusJson = & $python -B $controllerScript status --runtime-root "$RuntimeRoot"
     if ($LASTEXITCODE -ne 0) { throw 'CONTROLLER_RECOVERY_STATUS_FAILED' }
     $status = $statusJson | ConvertFrom-Json
     $existingTaskState = [string]$existingTasks[$ControllerTaskName].State
@@ -231,7 +231,7 @@ if ($installController -or $installWatchdog) {
         $controllerState = Get-ScheduledTask -TaskName $ControllerTaskName -ErrorAction SilentlyContinue
         if ($controllerState -and $controllerState.State -eq 'Running') { throw "SCHEDULED_TASK_STOP_TIMEOUT:$ControllerTaskName" }
         if (Get-Process -Id $replacementRecovery.owner_pid -ErrorAction SilentlyContinue) { throw 'CONTROLLER_RECOVERY_OWNER_PROCESS_STILL_LIVE' }
-        $postStopStatusJson = & $python $controllerScript status --runtime-root "$RuntimeRoot"
+        $postStopStatusJson = & $python -B $controllerScript status --runtime-root "$RuntimeRoot"
         if ($LASTEXITCODE -ne 0) { throw 'CONTROLLER_RECOVERY_POST_STOP_STATUS_FAILED' }
         $postStopStatus = $postStopStatusJson | ConvertFrom-Json
         if (-not $postStopStatus.leader) {
@@ -261,7 +261,7 @@ if ($installController -or $installWatchdog) {
                 }
                 Move-Item -LiteralPath $temporaryEvidencePath -Destination $evidencePath
             }
-            $recoverResult = & $python $controllerScript recover-orphaned-lease `
+            $recoverResult = & $python -B $controllerScript recover-orphaned-lease `
                 --runtime-root "$RuntimeRoot" `
                 --expected-owner-id "$($replacementRecovery.owner_id)" `
                 --expected-build-commit "$($replacementRecovery.build_commit)" `

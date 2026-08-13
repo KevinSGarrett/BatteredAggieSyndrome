@@ -35,6 +35,21 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         self.state = ControllerState(self.root / "runtime/state/orchestrator.sqlite3")
         self.state.initialize()
         self.now = datetime(2026, 8, 13, 2, 0, tzinfo=timezone.utc)
+        seed_unit = {
+            "work_unit_id": "STATIC-CODEX-UNIT",
+            "jira_unit": "BAT-560",
+            "task_format": "controller_implementation",
+            "schema_sha256": "d" * 64,
+            "authority": "CODEX_FINAL_IMPLEMENTATION",
+            "source_hashes": ["e" * 64],
+            "dependencies": [],
+            "pre_routing_effort_points": 1,
+            "scope": "Static controller implementation scope",
+        }
+        seed_unit["identity"] = hashlib.sha256(
+            canonical_json_bytes({key: value for key, value in seed_unit.items() if key != "identity"})
+        ).hexdigest()
+        self.seed_unit_identity = seed_unit["identity"]
         base = {
             "schema_version": 1,
             "generated_at": self.now.isoformat().replace("+00:00", "Z"),
@@ -56,9 +71,19 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
                     ],
                 }
             },
-            "work_units": [],
-            "route_decisions": [],
-            "validation": ReadyWorkInventory([], []).validate(),
+            "work_units": [seed_unit],
+            "route_decisions": [
+                {
+                    "work_unit_id": "STATIC-CODEX-UNIT",
+                    "work_unit_identity": seed_unit["identity"],
+                    "disposition": "CODEX_DETERMINISTIC",
+                    "provider": "codex_deterministic",
+                    "model": None,
+                    "reason": "static seed",
+                    "decided_at": self.now.isoformat().replace("+00:00", "Z"),
+                }
+            ],
+            "validation": {"inventory_identity": "f" * 64},
         }
         self.current.parent.mkdir(parents=True)
         self.current.write_bytes(canonical_json_bytes(base) + b"\n")
@@ -81,8 +106,12 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         pointer = json.loads(self.current.read_text(encoding="utf-8"))
         self.assertEqual("UNIFIED_ASSISTIVE_INVENTORY_POINTER", pointer["artifact_type"])
         snapshot = json.loads(Path(pointer["snapshot_path"]).read_text(encoding="utf-8"))
-        self.assertEqual(2, snapshot["validation"]["work_unit_count"])
-        self.assertEqual({"REMOTE_CPU_WORKER": 2}, snapshot["validation"]["counts_by_disposition"])
+        self.assertEqual(3, snapshot["validation"]["work_unit_count"])
+        self.assertEqual(
+            {"CODEX_DETERMINISTIC": 1, "REMOTE_CPU_WORKER": 2},
+            snapshot["validation"]["counts_by_disposition"],
+        )
+        self.assertEqual(self.seed_unit_identity, snapshot["work_units"][0]["identity"])
 
         second = self.refresher.refresh(now=self.now + timedelta(minutes=3))
         self.assertEqual(first["snapshot_sha256"], second["snapshot_sha256"])
@@ -193,7 +222,10 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
 
         refreshed = self.refresher.refresh(now=self.now + timedelta(minutes=1))
         snapshot = json.loads(Path(refreshed["snapshot_path"]).read_text(encoding="utf-8"))
-        self.assertEqual({"COMPLETED": 2}, snapshot["validation"]["counts_by_disposition"])
+        self.assertEqual(
+            {"CODEX_DETERMINISTIC": 1, "COMPLETED": 2},
+            snapshot["validation"]["counts_by_disposition"],
+        )
 
     def test_transient_failure_is_durably_retried_without_duplicate_attempt_identity(self) -> None:
         self.refresher.refresh(now=self.now)

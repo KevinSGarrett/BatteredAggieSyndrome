@@ -21,6 +21,8 @@ CPU_MANIFEST_TASK_FORMAT = "cpu_worker_canonical_manifest_v1"
 CPU_MANIFEST_SCHEMA_SHA256 = hashlib.sha256(
     b"cpu_worker_canonical_manifest_v1:value:any-json;candidate-only;exact-local-replay"
 ).hexdigest()
+READY_WORK_UNIT_FIELDS = frozenset(ReadyWorkUnit.__dataclass_fields__)
+ROUTE_DECISION_FIELDS = frozenset(RouteDecision.__dataclass_fields__)
 
 
 def cpu_qualification_evidence_sha256(snapshot: dict[str, Any]) -> str | None:
@@ -230,8 +232,25 @@ class RuntimeInventoryRefresher:
         work_units = static_units + [prior_units[key] for key in sorted(prior_units)]
         route_decisions = static_decisions + [prior_decisions[key] for key in sorted(prior_decisions)]
         inventory = ReadyWorkInventory(
-            [ReadyWorkUnit(**{**item, "source_hashes": tuple(item["source_hashes"]), "dependencies": tuple(item["dependencies"])}) for item in work_units],
-            [RouteDecision(**{**item, "disposition": RoutingDisposition(item["disposition"])}) for item in route_decisions],
+            [
+                ReadyWorkUnit(
+                    **{
+                        **{key: value for key, value in item.items() if key in READY_WORK_UNIT_FIELDS},
+                        "source_hashes": tuple(item["source_hashes"]),
+                        "dependencies": tuple(item["dependencies"]),
+                    }
+                )
+                for item in work_units
+            ],
+            [
+                RouteDecision(
+                    **{
+                        **{key: value for key, value in item.items() if key in ROUTE_DECISION_FIELDS},
+                        "disposition": RoutingDisposition(item["disposition"]),
+                    }
+                )
+                for item in route_decisions
+            ],
         )
         validation = inventory.validate()
         static_base_identity = base.get(

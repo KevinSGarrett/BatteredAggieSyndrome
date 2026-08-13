@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import os
+import tempfile
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
@@ -33,7 +36,36 @@ def _first_str(payload: dict[str, Any], keys: tuple[str, ...]) -> str | None:
     return None
 
 
-def _iter_json_records(path: Path) -> list[dict[str, Any]]:
+def _artifact_identity(path: Path, data: bytes) -> str | None:
+    digest = hashlib.sha256(data).hexdigest()
+    candidates = (path.stem, path.parent.name)
+    return digest if digest in candidates else None
+
+
+def _request_identity_from_record(record: dict[str, Any]) -> str | None:
+    fields = (
+        "task_id",
+        "jira_unit",
+        "base_commit",
+        "authority",
+        "prompt_version",
+        "schema_version",
+        "schema_sha256",
+        "source_hashes",
+        "evidence_excerpts",
+        "model",
+        "reasoning_effort",
+        "max_output_tokens",
+        "provider_policy_version",
+    )
+    if set(record) != set(fields):
+        return None
+    return hashlib.sha256(
+        json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+
+
+def _iter_json_records(path: Path, *, infer_request_identity: bool = False) -> list[dict[str, Any]]:
     if not path.exists():
         return []
     records: list[dict[str, Any]] = []
@@ -41,8 +73,18 @@ def _iter_json_records(path: Path) -> list[dict[str, Any]]:
         if not file_path.is_file():
             continue
         if file_path.suffix == ".json":
-            payload = json.loads(file_path.read_text(encoding="utf-8"))
-            records.extend(_flatten_payload(payload))
+            raw = file_path.read_bytes()
+            payload = json.loads(raw)
+            rows = _flatten_payload(payload)
+            artifact_identity = _artifact_identity(file_path, raw)
+            for row in rows:
+                inferred_request_identity = _request_identity_from_record(row) if infer_request_identity else None
+                row.setdefault("_artifact_path", str(file_path))
+                if artifact_identity:
+                    row.setdefault("_artifact_sha256", artifact_identity)
+                if inferred_request_identity:
+                    row.setdefault("request_id", inferred_request_identity)
+            records.extend(rows)
         elif file_path.suffix == ".jsonl":
             for raw_line in file_path.read_text(encoding="utf-8").splitlines():
                 line = raw_line.strip()
@@ -63,6 +105,11 @@ def _flatten_payload(payload: Any) -> list[dict[str, Any]]:
         requests = payload.get("requests")
         if isinstance(requests, list):
             for row in requests:
+                if isinstance(row, dict):
+                    rows.append(row)
+        review_rows = payload.get("rows")
+        if isinstance(review_rows, list):
+            for row in review_rows:
                 if isinstance(row, dict):
                     rows.append(row)
         return rows
@@ -106,7 +153,19 @@ def _normalize_disposition(value: str | None) -> str:
         "QUARANTINED": "quarantined",
         "REJECTED": "rejected",
     }
-    return mapping.get(token, "review_only")
+    if token in mapping:
+        return mapping[token]
+    for prefix, disposition in (
+        ("ACCEPTED_", "accepted"),
+        ("MODIFIED_", "modified"),
+        ("REVIEW_ONLY_", "review_only"),
+        ("QUARANTINED_", "quarantined"),
+        ("QUARANTINE_", "quarantined"),
+        ("REJECTED_", "rejected"),
+    ):
+        if token.startswith(prefix):
+            return disposition
+    return "review_only"
 
 
 @dataclass(frozen=True)
@@ -163,7 +222,7 @@ def summarize_campaign(
     reviews_root: Path,
     hard_budget_usd: Decimal,
 ) -> dict[str, Any]:
-    request_records = _iter_json_records(requests_root)
+    request_records = _iter_json_records(requests_root, infer_request_identity=True)
     response_records = _iter_json_records(responses_root)
     quarantine_records = _iter_json_records(quarantine_root)
     manifest_records = _iter_json_records(manifests_root)
@@ -188,12 +247,38 @@ def summarize_campaign(
     for source_name, identities in by_source_ids.items():
         unknown = sorted(identities - request_ids)
         if unknown:
+            if source_name == "manifests":
+                unsafe = []
+                for request_id in unknown:
+                    matching = [
+                        row for row in manifest_records if _first_str(row, IDENTITY_KEYS) == request_id
+                    ]
+                    if not matching or any(
+                        str(row.get("disposition", "")).upper() != "REJECTED"
+                        for row in matching
+                    ):
+                        unsafe.append(request_id)
+                if not unsafe:
+                    continue
+                unknown = unsafe
             raise RuntimeError(f"identity mismatch in {source_name}: unknown request ids {unknown}")
 
     usage_by_request: dict[str, tuple[int, int, Decimal]] = {}
     model_counts: Counter[str] = Counter()
     provider_counts: Counter[str] = Counter()
     category_counts: Counter[str] = Counter()
+    request_by_id = {
+        request_id: row
+        for row in request_records
+        if (request_id := _first_str(row, IDENTITY_KEYS)) is not None
+    }
+    for row in request_records:
+        category = _first_str(row, ("task_id", "category", "task"))
+        if category:
+            category_counts[category] += 1
+        model = _first_str(row, ("model",))
+        if model:
+            model_counts[model] += 1
     for row in response_records + quarantine_records:
         request_id = _first_str(row, IDENTITY_KEYS)
         if not request_id:
@@ -204,15 +289,13 @@ def summarize_campaign(
             usage_by_request[request_id] = usage_tuple
         elif existing != usage_tuple:
             raise RuntimeError(f"usage mismatch for request {request_id}")
-        model = _first_str(row, ("model_resolved", "model"))
-        if model:
-            model_counts[model] += 1
+        if request_id not in request_by_id or not _first_str(request_by_id[request_id], ("model",)):
+            model = _first_str(row, ("model_resolved", "model"))
+            if model:
+                model_counts[model] += 1
         provider = _first_str(row, ("provider", "provider_name"))
         if provider:
             provider_counts[provider] += 1
-        category = _first_str(row, ("category", "task_id", "task"))
-        if category:
-            category_counts[category] += 1
 
     settlement_by_request: dict[str, Decimal] = {}
     for row in settlement_records:
@@ -259,29 +342,53 @@ def summarize_campaign(
         if provider is not None and provider != local_cost:
             raise RuntimeError(f"cost mismatch local vs provider for request {request_id}")
 
+    provider_reconciliation: dict[str, Any] | None = None
+    for row in settlement_records + provider_records:
+        candidate = row.get("provider_reconciliation")
+        if not isinstance(candidate, dict):
+            continue
+        if provider_reconciliation is not None and candidate != provider_reconciliation:
+            raise RuntimeError("provider reconciliation evidence is not unique")
+        provider_reconciliation = candidate
+
     deduped_reviews = _dedupe_reviews(review_records)
     disposition_counts: Counter[str] = Counter()
     for decision in deduped_reviews.values():
         disposition_counts[decision.disposition] += 1
 
-    manifest_dispositions = Counter(
-        _normalize_disposition(_first_str(row, ("disposition", "review_disposition", "verdict")))
-        for row in manifest_records
-        if _first_str(row, IDENTITY_KEYS)
-    )
-    for key in ("accepted", "modified", "review_only", "quarantined", "rejected"):
-        if manifest_dispositions[key] > 0 and disposition_counts[key] > 0 and manifest_dispositions[key] != disposition_counts[key]:
-            raise RuntimeError(f"disposition mismatch for {key}: manifests={manifest_dispositions[key]} reviews={disposition_counts[key]}")
-
     total_input_tokens = sum(tokens[0] for tokens in usage_by_request.values())
     total_output_tokens = sum(tokens[1] for tokens in usage_by_request.values())
-    total_cost = sum((tokens[2] for tokens in usage_by_request.values()), Decimal("0"))
+    local_usage_total = sum((tokens[2] for tokens in usage_by_request.values()), Decimal("0"))
     settlement_total = sum(settlement_by_request.values(), Decimal("0"))
     provider_total = sum(provider_by_request.values(), Decimal("0"))
-    if settlement_by_request and settlement_total != total_cost:
-        raise RuntimeError(f"total cost mismatch local={total_cost} settlement={settlement_total}")
-    if provider_by_request and provider_total != total_cost:
-        raise RuntimeError(f"total cost mismatch local={total_cost} provider={provider_total}")
+    if provider_by_request and provider_total != local_usage_total:
+        raise RuntimeError(f"total cost mismatch local={local_usage_total} provider={provider_total}")
+    provider_reconciled = False
+    provider_reconciliation_sha256: str | None = None
+    authoritative_total_cost = local_usage_total
+    if provider_reconciliation is not None:
+        provider_status = str(provider_reconciliation.get("status", ""))
+        provider_total_reconciled = _to_decimal(
+            provider_reconciliation.get("provider_total_usd", "0"),
+            "provider_reconciliation.provider_total_usd",
+        )
+        provider_reconciliation_sha256 = _first_str(
+            provider_reconciliation, ("evidence_sha256",)
+        )
+        provider_reconciled = (
+            provider_status == "PROVIDER_TOTAL_RECONCILED"
+            and provider_total_reconciled >= local_usage_total
+            and provider_total_reconciled >= settlement_total
+            and provider_reconciliation_sha256 is not None
+            and len(provider_reconciliation_sha256) == 64
+        )
+        if not provider_reconciled:
+            raise RuntimeError("provider aggregate usage does not reconcile to local settled usage")
+        authoritative_total_cost = provider_total_reconciled
+    elif settlement_by_request and settlement_total != local_usage_total:
+        raise RuntimeError(
+            f"total cost mismatch local={local_usage_total} settlement={settlement_total}"
+        )
 
     missing_evidence: dict[str, list[str]] = {}
     for request_id in sorted(request_ids):
@@ -292,18 +399,83 @@ def summarize_campaign(
             missing.append("manifest")
         if request_id not in by_source_ids["settlements"]:
             missing.append("settlement")
-        if request_id not in by_source_ids["provider_usage"]:
-            missing.append("provider_usage")
         if request_id not in by_source_ids["reviews"]:
             missing.append("review")
         if missing:
             missing_evidence[request_id] = missing
 
-    remaining_budget = hard_budget_usd - total_cost
+    remaining_budget = hard_budget_usd - authoritative_total_cost
     if remaining_budget < Decimal("0"):
-        raise RuntimeError(f"budget exceeded total_cost={total_cost} hard_budget={hard_budget_usd}")
+        raise RuntimeError(
+            f"budget exceeded total_cost={authoritative_total_cost} hard_budget={hard_budget_usd}"
+        )
+
+    response_ids = by_source_ids["responses"]
+    quarantine_ids = by_source_ids["quarantine"]
+    routes: dict[tuple[str, ...], dict[str, Any]] = {}
+    for request_id, request in sorted(request_by_id.items()):
+        identity = (
+            str(request.get("task_id", "")),
+            str(request.get("schema_sha256", "")),
+            str(request.get("schema_version", "")),
+            str(request.get("provider_policy_version", "")),
+            str(request.get("model", "")),
+            str(request.get("reasoning_effort", "")),
+        )
+        if not all(identity):
+            continue
+        route = routes.setdefault(
+            identity,
+            {
+                "provider": "openrouter",
+                "task_format": "governed_openrouter_candidate_v1",
+                "task_id": identity[0],
+                "schema_sha256": identity[1],
+                "request_schema_version": identity[2],
+                "provider_policy_version": identity[3],
+                "model": identity[4],
+                "reasoning_effort": identity[5],
+                "request_count": 0,
+                "validated_candidate_count": 0,
+                "quarantine_count": 0,
+                "reviewed_count": 0,
+                "accepted_useful_count": 0,
+                "complete_evidence_count": 0,
+            },
+        )
+        route["request_count"] += 1
+        if request_id in response_ids:
+            route["validated_candidate_count"] += 1
+        if request_id in quarantine_ids:
+            route["quarantine_count"] += 1
+        decision = deduped_reviews.get(request_id)
+        if decision is not None:
+            route["reviewed_count"] += 1
+            if decision.disposition in {"accepted", "modified"}:
+                route["accepted_useful_count"] += 1
+        if (
+            request_id in response_ids
+            and request_id in by_source_ids["manifests"]
+            and request_id in by_source_ids["settlements"]
+            and decision is not None
+        ):
+            route["complete_evidence_count"] += 1
+    route_rows = []
+    for route in routes.values():
+        route["readiness_supported_state"] = (
+            "READY"
+            if provider_reconciled and route["complete_evidence_count"] > 0
+            else "NOT_READY"
+        )
+        route["evidence_verified"] = route["complete_evidence_count"] > 0
+        route["evidence_sha256"] = hashlib.sha256(
+            json.dumps(route, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        route_rows.append(route)
 
     return {
+        "schema_version": 1,
+        "artifact_type": "OPENROUTER_DETERMINISTIC_CAMPAIGN_SUMMARY",
         "request_count": len(request_ids),
         "response_or_quarantine_count": len(by_source_ids["responses"] | by_source_ids["quarantine"]),
         "quarantined_request_count": len(by_source_ids["quarantine"]),
@@ -320,15 +492,60 @@ def summarize_campaign(
         "input_tokens": total_input_tokens,
         "output_tokens": total_output_tokens,
         "total_tokens": total_input_tokens + total_output_tokens,
-        "total_cost_usd": f"{total_cost:.6f}",
+        "local_usage_cost_usd": f"{local_usage_total:.8f}",
+        "settlement_map_cost_usd": f"{settlement_total:.8f}",
+        "total_cost_usd": f"{authoritative_total_cost:.8f}",
         "remaining_budget_usd": f"{remaining_budget:.6f}",
         "missing_evidence": missing_evidence,
+        "provider_reconciled": provider_reconciled,
+        "provider_reconciliation_sha256": provider_reconciliation_sha256,
+        "routes": sorted(
+            route_rows,
+            key=lambda item: (
+                item["task_id"], item["schema_sha256"], item["model"], item["reasoning_effort"]
+            ),
+        ),
         "review_supersession_policy": (
             "drop records explicitly superseded by review_record_id; "
             "then select highest (review_revision, reviewed_at, review_record_id) per request"
         ),
         "operational_admission_guardrail": "counts_only_never_operational_admission",
     }
+
+
+def _atomic_write(path: Path, data: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(data)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary_name, path)
+    finally:
+        if os.path.exists(temporary_name):
+            os.unlink(temporary_name)
+
+
+def write_content_addressed_summary(output_root: Path, summary: dict[str, Any]) -> tuple[Path, str]:
+    data = json.dumps(summary, sort_keys=True, separators=(",", ":")).encode("utf-8") + b"\n"
+    digest = hashlib.sha256(data).hexdigest()
+    destination = output_root / "sha256" / digest[:2] / digest / "artifact.json"
+    if destination.exists():
+        if destination.read_bytes() != data:
+            raise RuntimeError("OPENROUTER_CAMPAIGN_SUMMARY_CONTENT_ADDRESS_COLLISION")
+    else:
+        _atomic_write(destination, data)
+    _atomic_write(
+        output_root / "current.json",
+        json.dumps(
+            {"artifact_path": str(destination), "artifact_sha256": digest},
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+        + b"\n",
+    )
+    return destination, digest
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -342,6 +559,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--reviews-root", type=Path, required=True)
     parser.add_argument("--hard-budget-usd", required=True)
     parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument("--output-root", type=Path, default=None)
     return parser
 
 
@@ -358,8 +576,11 @@ def main() -> int:
         hard_budget_usd=_to_decimal(args.hard_budget_usd, "hard_budget_usd"),
     )
     payload = json.dumps(summary, indent=2, sort_keys=True)
-    if args.output:
-        args.output.write_text(payload + "\n", encoding="utf-8")
+    if args.output_root:
+        destination, digest = write_content_addressed_summary(args.output_root, summary)
+        print(json.dumps({"result": "PASS", "artifact_path": str(destination), "artifact_sha256": digest}, sort_keys=True))
+    elif args.output:
+        _atomic_write(args.output, (payload + "\n").encode("utf-8"))
     else:
         print(payload)
     return 0

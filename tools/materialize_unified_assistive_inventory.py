@@ -72,7 +72,7 @@ def external_evidence_identity(root: Path) -> dict[str, Any]:
 
 def verified_content_addressed_json(path: Path) -> dict[str, Any]:
     digest = sha256(path)
-    if path.stem != digest:
+    if digest not in {path.stem, path.parent.name}:
         raise RuntimeError(f"EXTERNAL_EVIDENCE_CONTENT_ADDRESS_MISMATCH:{path}")
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -289,158 +289,139 @@ def cursor_semantic_evidence(root: Path) -> dict[str, Any]:
 
 
 def openrouter_semantic_evidence(root: Path, policy: dict[str, Any]) -> dict[str, Any]:
+    identity = external_evidence_identity(root)
     findings: list[str] = []
-    request_records: list[dict[str, Any]] = []
-    review_records: list[dict[str, Any]] = []
-    settlement_records: list[dict[str, Any]] = []
-    categories: set[str] = set()
-    request_ids: list[str] = []
-    review_ids: list[str] = []
+    pointer_path = root / "evals" / "campaign_summaries" / "current.json"
+    ledger_path = root / "usage" / "ledger.json"
+    if not pointer_path.is_file() or not ledger_path.is_file():
+        return {
+            **identity,
+            "state": "CONFIGURED",
+            "routes": [],
+            "operationally_admitted": False,
+            "findings": ["OPENROUTER_CAMPAIGN_SUMMARY_OR_LEDGER_MISSING"],
+        }
+    try:
+        pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+        summary_path = Path(str(pointer["artifact_path"])).resolve(strict=True)
+        if root.resolve() not in summary_path.parents:
+            raise RuntimeError("OPENROUTER_SUMMARY_OUTSIDE_EXTERNAL_ROOT")
+        summary_sha256 = sha256(summary_path)
+        if summary_sha256 != pointer.get("artifact_sha256"):
+            raise RuntimeError("OPENROUTER_SUMMARY_POINTER_HASH_MISMATCH")
+        summary = verified_content_addressed_json(summary_path)
+        ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    except (OSError, KeyError, ValueError, json.JSONDecodeError, RuntimeError) as exc:
+        return {
+            **identity,
+            "state": "EVIDENCE_INVALID",
+            "routes": [],
+            "operationally_admitted": False,
+            "findings": [str(exc)],
+        }
 
-    def load_records(category: str) -> list[dict[str, Any]]:
-        loaded: list[dict[str, Any]] = []
-        category_root = root / category
-        for path in sorted(category_root.rglob("*.json")) if category_root.is_dir() else []:
-            try:
-                loaded.append(verified_content_addressed_json(path))
-            except (OSError, ValueError, json.JSONDecodeError, RuntimeError) as exc:
-                findings.append(str(exc))
-        return loaded
-
-    request_records.extend(load_records("requests"))
-    review_records.extend(load_records("reviews"))
-    review_records.extend(load_records("dispositions"))
-    settlement_records.extend(load_records("settlements"))
-    settlement_records.extend(load_records("usage"))
-
-    for record in request_records:
-        request_id = record.get("request_id")
-        if isinstance(request_id, str) and request_id:
-            request_ids.append(request_id)
-        category = record.get("category")
-        if isinstance(category, str) and category:
-            categories.add(category)
-        provider = record.get("provider")
-        model = record.get("model")
-        if provider not in {"openrouter", None} or not isinstance(model, str) or not model:
-            findings.append("OPENROUTER_REQUEST_ROUTE_IDENTITY_INCOMPLETE")
-
-    for record in review_records:
-        request_id = record.get("request_id")
-        if isinstance(request_id, str) and request_id:
-            request_ids.append(request_id)
-        review_id = record.get("review_id")
-        if isinstance(review_id, str) and review_id:
-            review_ids.append(review_id)
-        accepted = int(record.get("accepted_useful_results", 0))
-        modified = int(record.get("modified_results", 0))
-        review_only = int(record.get("review_only_results", 0))
-        quarantined = int(record.get("quarantined_results", 0))
-        rejected = int(record.get("rejected_results", 0))
-        provider_usage = record.get("provider_usage", {})
-        has_disposition = any(value > 0 for value in (accepted, modified, review_only, quarantined, rejected))
-        if has_disposition and "actual_usd" not in provider_usage:
-            findings.append("OPENROUTER_PROVIDER_USAGE_MISSING")
-        quality_claim = (
-            record.get("quality_claim")
-            or record.get("quality_claims")
-            or record.get("quality_threshold_passed")
-            or record.get("quality_gate_passed")
-        )
-        if quality_claim and accepted <= 0:
-            findings.append("OPENROUTER_QUALITY_CLAIM_UNSUPPORTED")
-        category = record.get("category")
-        if isinstance(category, str) and category:
-            categories.add(category)
-
-    duplicate_request_ids = sorted({item for item in request_ids if request_ids.count(item) > 1})
-    duplicate_review_ids = sorted({item for item in review_ids if review_ids.count(item) > 1})
-    if duplicate_request_ids:
-        findings.append(f"OPENROUTER_DUPLICATE_REQUEST_IDENTITY:{','.join(duplicate_request_ids)}")
-    if duplicate_review_ids:
-        findings.append(f"OPENROUTER_DUPLICATE_REVIEW_IDENTITY:{','.join(duplicate_review_ids)}")
-
-    accepted_useful = sum(int(record.get("accepted_useful_results", 0)) for record in review_records)
-    modified = sum(int(record.get("modified_results", 0)) for record in review_records)
-    review_only = sum(int(record.get("review_only_results", 0)) for record in review_records)
-    quarantined = sum(int(record.get("quarantined_results", 0)) for record in review_records)
-    rejected = sum(int(record.get("rejected_results", 0)) for record in review_records)
-    provider_failures = sum(int(record.get("provider_failures", 0)) for record in review_records)
-    settled_usd = sum(
-        (Decimal(str(record.get("provider_usage", {}).get("actual_usd", "0"))) for record in review_records),
-        Decimal("0"),
+    budget = policy["budgets"]["openrouter"]
+    hard_limit = Decimal(str(budget["hard_limit_usd"]))
+    released_stage = Decimal(str(budget["released_stage_usd"]))
+    settled = Decimal(str(ledger.get("settled_usd", "0")))
+    summary_total = Decimal(str(summary.get("total_cost_usd", "0")))
+    provider_reconciliation = ledger.get("provider_reconciliation", {})
+    provider_reconciled = (
+        summary.get("provider_reconciled") is True
+        and provider_reconciliation.get("status") == "PROVIDER_TOTAL_RECONCILED"
+        and Decimal(str(provider_reconciliation.get("provider_total_usd", "-1"))) == settled
+        and settled == summary_total
+        and settled <= hard_limit
+        and settled <= released_stage
     )
-    settlement_total_usd = sum(
-        (
-            Decimal(
-                str(
-                    record.get("actual_usd")
-                    or record.get("settled_usd")
-                    or record.get("amount_usd")
-                    or "0"
-                )
-            )
-            for record in settlement_records
-        ),
-        Decimal("0"),
-    )
-    unresolved_settlement = any(
-        record.get("reconciled") is False
-        or str(record.get("status", "")).upper() in {"PENDING", "UNRECONCILED", "FAILED"}
-        for record in settlement_records
-    )
-    if unresolved_settlement or (review_records and settlement_total_usd != settled_usd):
-        findings.append("OPENROUTER_SETTLEMENT_UNRECONCILED")
+    if not provider_reconciled:
+        findings.append("OPENROUTER_PROVIDER_USAGE_NOT_RECONCILED")
+    remaining_hard = hard_limit - settled
+    remaining_released = released_stage - settled
+    if remaining_hard <= 0 or remaining_released <= 0:
+        findings.append("OPENROUTER_BUDGET_NOT_POSITIVE")
 
-    minimums = policy.get("execution_minimums", {}).get("openrouter", {})
-    accepted_threshold = int(minimums.get("accepted_useful", 0))
-    unit_threshold = int(minimums.get("units", 0))
-    category_threshold = int(minimums.get("categories", 0))
-    has_live_evidence = bool(request_records or review_records or settlement_records)
-    if review_records and accepted_useful < accepted_threshold:
+    counts = summary.get("counts_by_disposition", {})
+    accepted_useful = int(counts.get("accepted", 0)) + int(counts.get("modified", 0))
+    categories = summary.get("counts_by_category", {})
+    minimums = policy["execution_minimums"]["openrouter"]
+    if accepted_useful < int(minimums["accepted_useful"]):
         findings.append("OPENROUTER_ACCEPTED_USEFUL_BELOW_POLICY_THRESHOLD")
+    missing_evidence = summary.get("missing_evidence", {})
+    if missing_evidence:
+        findings.append("OPENROUTER_PARTIAL_HISTORICAL_REVIEW_EVIDENCE")
 
-    exact_route_ready = bool(request_records) and all(
-        isinstance(record.get("provider"), str)
-        and record.get("provider") == "openrouter"
-        and isinstance(record.get("model"), str)
-        and bool(record.get("model"))
-        for record in request_records
-    )
+    routes: list[dict[str, Any]] = []
+    ledger_sha256 = sha256(ledger_path)
+    for route in summary.get("routes", []):
+        required_strings = (
+            "task_id",
+            "schema_sha256",
+            "request_schema_version",
+            "provider_policy_version",
+            "model",
+            "reasoning_effort",
+            "evidence_sha256",
+        )
+        route_valid = (
+            isinstance(route, dict)
+            and all(isinstance(route.get(key), str) and route.get(key) for key in required_strings)
+            and route.get("provider") == "openrouter"
+            and route.get("task_format") == "governed_openrouter_candidate_v1"
+            and route.get("evidence_verified") is True
+            and route.get("readiness_supported_state") == "READY"
+        )
+        if not route_valid:
+            findings.append("OPENROUTER_EXACT_ROUTE_EVIDENCE_INVALID")
+            continue
+        routes.append(
+            {
+                "provider": "openrouter",
+                "task_format": route["task_format"],
+                "task_id": route["task_id"],
+                "schema_sha256": route["schema_sha256"],
+                "request_schema_version": route["request_schema_version"],
+                "provider_policy_version": route["provider_policy_version"],
+                "model": route["model"],
+                "reasoning_effort": route["reasoning_effort"],
+                "readiness_supported_state": "READY" if provider_reconciled and remaining_released > 0 else "NOT_READY",
+                "evidence_verified": provider_reconciled,
+                "readiness_evidence_sha256": summary_sha256,
+                "route_evidence_sha256": route["evidence_sha256"],
+                "budget_evidence_sha256": ledger_sha256,
+                "budget_hard_limit_usd": format(hard_limit, "f"),
+                "budget_released_stage_usd": format(released_stage, "f"),
+                "budget_remaining_usd": format(remaining_released, "f"),
+                "request_count": int(route.get("request_count", 0)),
+                "complete_evidence_count": int(route.get("complete_evidence_count", 0)),
+                "accepted_useful_count": int(route.get("accepted_useful_count", 0)),
+            }
+        )
+
+    units = int(summary.get("request_count", 0))
+    category_count = len(categories)
     operationally_admitted = (
-        exact_route_ready
-        and len(set(request_ids)) >= unit_threshold
-        and len(categories) >= category_threshold
-        and accepted_useful >= accepted_threshold
-        and not findings
+        provider_reconciled
+        and units >= int(minimums["units"])
+        and category_count >= int(minimums["categories"])
+        and accepted_useful >= int(minimums["accepted_useful"])
+        and not missing_evidence
     )
-    state = "CONFIGURED"
-    if has_live_evidence:
-        state = "PAID_PILOT_IN_PROGRESS"
-    if exact_route_ready:
-        state = "EXACT_ROUTE_READY"
-    if findings:
-        state = "EMPIRICALLY_REJECTED_OR_INSUFFICIENT"
-    if operationally_admitted:
-        state = "OPERATIONALLY_ADMITTED"
-
     return {
-        **external_evidence_identity(root),
-        "state": state,
-        "requests": len(request_records),
-        "unique_requests": len(set(request_ids)),
-        "reviews": len(review_records),
-        "unique_reviews": len(set(review_ids)),
-        "categories_covered": len(categories),
+        **identity,
+        "state": "OPERATIONALLY_ADMITTED" if operationally_admitted else "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL",
+        "summary_sha256": summary_sha256,
+        "ledger_sha256": ledger_sha256,
+        "requests": units,
+        "categories_covered": category_count,
         "accepted_useful": accepted_useful,
-        "modified": modified,
-        "review_only": review_only,
-        "quarantined": quarantined,
-        "rejected": rejected,
-        "failed": provider_failures,
-        "settled_usd": format(settled_usd, "f"),
-        "settlement_total_usd": format(settlement_total_usd, "f"),
-        "exact_route_ready": exact_route_ready,
+        "modified": int(counts.get("modified", 0)),
+        "review_only": int(counts.get("review_only", 0)),
+        "quarantined": int(counts.get("quarantined", 0)),
+        "rejected": int(counts.get("rejected", 0)),
+        "settled_usd": format(settled, "f"),
+        "remaining_released_usd": format(remaining_released, "f"),
+        "routes": routes,
         "operationally_admitted": operationally_admitted,
         "findings": sorted(set(findings)),
     }

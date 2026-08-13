@@ -11,7 +11,7 @@
     "Canonical OpenRouter contract source is `SRCREF-02120`.",
     "Never expose OPENROUTER_API_KEY, .env content, cookies, authorization headers, private data, or unnecessary protected evidence.",
     "OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority.",
-    "The user authorized a separate nontransferable USD 25 hard limit on 2026-08-12; only USD 5 is initially released and no paid route is operational until this pilot passes."
+    "The user authorized a separate nontransferable USD 25 hard limit on 2026-08-12; only USD 5 is initially released. Two strict-schema, ZDR, no-fallback qwen/qwen3-coder-next independent-review candidates have validated, while the conservative local all-key ledger records USD 0.00209168 and the provider total currently lags local settlement. These bounded candidates do not establish route admission or operational status."
   ],
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-199.json"

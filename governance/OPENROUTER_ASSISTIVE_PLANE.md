@@ -16,6 +16,8 @@ Direct OpenAI and OpenRouter remain separate providers behind the provider-neutr
 
 The user authorized a separate, nontransferable USD 25 hard limit on 2026-08-12. Only USD 5 is initially released for capability and bounded real-work qualification. Local admission enforces the lower released stage as well as the absolute cap; later stages of USD 15 and USD 25 require empirical value evidence. This authorization does not make any route operational or admit continuing paid work. Public documentation and model-catalog capture remain non-billable capability evidence.
 
+As of 2026-08-13, two strict-schema, ZDR, no-fallback `qwen/qwen3-coder-next` independent-review candidates have validated. The conservative local all-key ledger records USD 0.00209168 while the provider total currently lags that local settlement. This establishes useful bounded candidate evidence only; it does not pass the exact-route promotion, 20-real-unit, three-category, quality, measured review-value, or continuing-operation gates.
+
 ## Privacy, routing, and output rules
 
 The single OpenRouter backend loads `OPENROUTER_API_KEY` at runtime from the ignored authoritative root `.env`; it never prints, hashes, copies, serializes, or sends the credential as prompt content. Requests minimize cited excerpts and reject detected secrets.

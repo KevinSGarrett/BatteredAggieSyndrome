@@ -17,7 +17,7 @@
     "Canonical OpenRouter contract source is `SRCREF-02120`.",
     "Never expose OPENROUTER_API_KEY, .env content, cookies, authorization headers, private data, or unnecessary protected evidence.",
     "OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority.",
-    "The USD 25 provider cap removes the budget-authorization blocker but does not admit continuing paid operation before exact-route evidence passes."
+    "The USD 25 provider cap removes the budget-authorization blocker and bounded candidate-only calls may continue. Two validated independent-review candidates exist, but the 20-real-unit, three-category, quality, review-value, and exact-route promotion evidence remains incomplete; continuing operational admission therefore remains blocked."
   ],
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-200.json"
@@ -440,4 +440,4 @@ Run a bounded real-work candidate-only workload across Nano, Luna, Terra, and So
 - Canonical OpenRouter contract source is `SRCREF-02120`.
 - Never expose OPENROUTER_API_KEY, .env content, cookies, authorization headers, private data, or unnecessary protected evidence.
 - OpenRouter output is candidate-only; Codex and deterministic validators retain implementation, canonical, scientific, Git/GitHub, Jira, and publication authority.
-- The USD 25 provider cap removes the budget-authorization blocker but does not admit continuing paid operation before exact-route evidence passes.
+- The USD 25 provider cap removes the budget-authorization blocker and bounded candidate-only calls may continue. Two validated independent-review candidates exist, but the 20-real-unit, three-category, quality, review-value, and exact-route promotion evidence remains incomplete; continuing operational admission therefore remains blocked.

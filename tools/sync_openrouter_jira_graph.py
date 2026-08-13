@@ -135,7 +135,7 @@ def specs() -> list[dict[str, Any]]:
     pilot["evidence_state"] = "PARTIAL"
     pilot["ready"] = False
     pilot["ai_context_notes"].append(
-        "The user authorized a separate nontransferable USD 25 hard limit on 2026-08-12; only USD 5 is initially released and no paid route is operational until this pilot passes."
+        "The user authorized a separate nontransferable USD 25 hard limit on 2026-08-12; only USD 5 is initially released. Two strict-schema, ZDR, no-fallback qwen/qwen3-coder-next independent-review candidates have validated, while the conservative local all-key ledger records USD 0.00209168 and the provider total currently lags local settlement. These bounded candidates do not establish route admission or operational status."
     )
 
     operations = common(load("POST-SUBTASK-168"), local_id="POST-SUBTASK-200", import_id=100509, objective="Operate empirically admitted OpenRouter assistive routes with independent usage, provenance, cleanup, and handoff evidence", issue_type="Subtask", parent="POST-STORY-057", dependencies=["POST-SUBTASK-199"], workflow="BLOCKED")
@@ -149,7 +149,7 @@ def specs() -> list[dict[str, Any]]:
     operations["blocked_reason"] = "EMPIRICAL_ROUTE_NOT_ADMITTED"
     operations["unblock_condition"] = "POST-SUBTASK-199 passes for at least one exact task/model/provider route within the separately authorized USD 25 hard limit and current released stage."
     operations["ai_context_notes"].append(
-        "The USD 25 provider cap removes the budget-authorization blocker but does not admit continuing paid operation before exact-route evidence passes."
+        "The USD 25 provider cap removes the budget-authorization blocker and bounded candidate-only calls may continue. Two validated independent-review candidates exist, but the 20-real-unit, three-category, quality, review-value, and exact-route promotion evidence remains incomplete; continuing operational admission therefore remains blocked."
     )
     return [story, foundation, pilot, operations]
 

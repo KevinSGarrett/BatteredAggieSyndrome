@@ -278,6 +278,147 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
             self.assertEqual(0, evidence["controller_routed_units"])
             self.assertEqual(1, evidence["transitional_or_manual_units"])
 
+    @staticmethod
+    def openrouter_policy(
+        *,
+        accepted_useful: int = 12,
+        units: int = 20,
+        categories: int = 3,
+    ) -> dict[str, object]:
+        return {
+            "execution_minimums": {
+                "openrouter": {
+                    "accepted_useful": accepted_useful,
+                    "units": units,
+                    "categories": categories,
+                }
+            }
+        }
+
+    def test_openrouter_semantics_distinguish_configured_pilot_exact_and_operational(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            configured = MATERIALIZER.openrouter_semantic_evidence(
+                root, self.openrouter_policy(accepted_useful=1, units=1, categories=1)
+            )
+            self.assertEqual("CONFIGURED", configured["state"])
+
+            self.write_content_addressed(
+                root,
+                "settlements",
+                {"settlement_id": "st-1", "actual_usd": "0", "reconciled": True},
+            )
+            pilot = MATERIALIZER.openrouter_semantic_evidence(
+                root, self.openrouter_policy(accepted_useful=1, units=1, categories=1)
+            )
+            self.assertEqual("PAID_PILOT_IN_PROGRESS", pilot["state"])
+
+            self.write_content_addressed(
+                root,
+                "requests",
+                {
+                    "request_id": "req-1",
+                    "provider": "openrouter",
+                    "model": "qwen/qwen3-coder-next",
+                    "category": "independent_review",
+                },
+            )
+            exact_ready = MATERIALIZER.openrouter_semantic_evidence(
+                root, self.openrouter_policy(accepted_useful=0, units=5, categories=2)
+            )
+            self.assertEqual("EXACT_ROUTE_READY", exact_ready["state"])
+
+            self.write_content_addressed(
+                root,
+                "requests",
+                {
+                    "request_id": "req-2",
+                    "provider": "openrouter",
+                    "model": "qwen/qwen3-coder-next",
+                    "category": "patch_candidate",
+                },
+            )
+            self.write_content_addressed(
+                root,
+                "reviews",
+                {
+                    "review_id": "rev-1",
+                    "accepted_useful_results": 2,
+                    "provider_usage": {"actual_usd": "0.10"},
+                    "category": "schema_reconciliation",
+                },
+            )
+            self.write_content_addressed(
+                root,
+                "settlements",
+                {"settlement_id": "st-2", "actual_usd": "0.10", "reconciled": True},
+            )
+            admitted = MATERIALIZER.openrouter_semantic_evidence(
+                root, self.openrouter_policy(accepted_useful=2, units=2, categories=3)
+            )
+            self.assertEqual("OPERATIONALLY_ADMITTED", admitted["state"])
+            self.assertTrue(admitted["operationally_admitted"])
+
+    def test_openrouter_semantics_fail_closed_on_identity_settlement_usage_quality_and_threshold(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_content_addressed(
+                root,
+                "requests",
+                {
+                    "request_id": "req-dup",
+                    "provider": "openrouter",
+                    "model": "qwen/qwen3-coder-next",
+                    "category": "independent_review",
+                },
+            )
+            self.write_content_addressed(
+                root,
+                "requests",
+                {
+                    "request_id": "req-dup",
+                    "provider": "openrouter",
+                    "model": "qwen/qwen3-coder-next",
+                    "category": "independent_review",
+                },
+            )
+            self.write_content_addressed(
+                root,
+                "reviews",
+                {
+                    "request_id": "req-dup",
+                    "review_id": "rev-dup",
+                    "accepted_useful_results": 0,
+                    "quality_claim": "PASS",
+                    "quarantined_results": 1,
+                },
+            )
+            self.write_content_addressed(
+                root,
+                "reviews",
+                {
+                    "request_id": "req-dup",
+                    "review_id": "rev-dup",
+                    "accepted_useful_results": 0,
+                    "rejected_results": 1,
+                },
+            )
+            self.write_content_addressed(
+                root,
+                "settlements",
+                {"settlement_id": "st-bad", "actual_usd": "0.20", "status": "UNRECONCILED"},
+            )
+            evidence = MATERIALIZER.openrouter_semantic_evidence(
+                root, self.openrouter_policy(accepted_useful=1, units=1, categories=1)
+            )
+            self.assertEqual("EMPIRICALLY_REJECTED_OR_INSUFFICIENT", evidence["state"])
+            self.assertIn("OPENROUTER_DUPLICATE_REQUEST_IDENTITY:req-dup", evidence["findings"])
+            self.assertIn("OPENROUTER_DUPLICATE_REVIEW_IDENTITY:rev-dup", evidence["findings"])
+            self.assertIn("OPENROUTER_PROVIDER_USAGE_MISSING", evidence["findings"])
+            self.assertIn("OPENROUTER_SETTLEMENT_UNRECONCILED", evidence["findings"])
+            self.assertIn("OPENROUTER_QUALITY_CLAIM_UNSUPPORTED", evidence["findings"])
+            self.assertIn("OPENROUTER_ACCEPTED_USEFUL_BELOW_POLICY_THRESHOLD", evidence["findings"])
+
 
 if __name__ == "__main__":
     unittest.main()

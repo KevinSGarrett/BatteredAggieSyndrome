@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
-from aggie_analytics.assistive_plane.contracts import canonical_json_bytes
+from aggie_analytics.assistive_plane.contracts import canonical_json_bytes, sha256_value
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerClient, execute_cpu_request
 from aggie_analytics.assistive_plane.inventory_runtime import (
@@ -17,6 +17,7 @@ from aggie_analytics.assistive_plane.inventory_runtime import (
     CPU_LINE_HASH_TASK_FORMAT,
     CPU_TEXT_DEDUP_SCHEMA_SHA256,
     CPU_TEXT_DEDUP_TASK_FORMAT,
+    OPENROUTER_TASK_FORMAT,
     RuntimeInventoryConfig,
     RuntimeInventoryRefresher,
 )
@@ -648,6 +649,265 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
             self.assertTrue(all(row["status"] == "SETTLED" for row in rows))
             openai = next(row for row in rows if row["provider"] == "openai_direct")
             self.assertEqual("0.000321", json.loads(openai["resource_json"])["actual_cost_usd_exact"])
+
+    def test_openrouter_provider_packet_requires_exact_identity_and_positive_budget_evidence(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        source_hashes = ["4" * 64, "5" * 64]
+        packet = {
+            "schema_version": 1,
+            "provider": "openrouter",
+            "task_format": OPENROUTER_TASK_FORMAT,
+            "task_id": "independent_review",
+            "jira_unit": "POST-SUBTASK-199",
+            "schema_sha256": "6" * 64,
+            "request_schema_version": "v1",
+            "provider_policy_version": "openrouter-assistive-development-plane-v2-paid-authorization",
+            "model": "qwen/qwen3-coder-next",
+            "reasoning_effort": "none",
+            "max_output_tokens": 256,
+            "base_commit": "a" * 40,
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            "source_hashes": source_hashes,
+            "prompt_version": "v1",
+            "evidence_excerpts": ["bounded evidence excerpt"],
+        }
+        packet["identity_hashes"] = {
+            "task_sha256": sha256_value(
+                {
+                    "task_id": packet["task_id"],
+                    "jira_unit": packet["jira_unit"],
+                    "authority": packet["authority"],
+                }
+            ),
+            "schema_sha256": sha256_value(
+                {"schema_version": packet["request_schema_version"], "schema_sha256": packet["schema_sha256"]}
+            ),
+            "policy_sha256": sha256_value(
+                {
+                    "provider_policy_version": packet["provider_policy_version"],
+                    "task_format": packet["task_format"],
+                }
+            ),
+            "model_sha256": sha256_value({"model": packet["model"]}),
+            "reasoning_sha256": sha256_value(
+                {"reasoning_effort": packet["reasoning_effort"], "max_output_tokens": packet["max_output_tokens"]}
+            ),
+            "source_sha256": sha256_value(tuple(source_hashes)),
+        }
+        (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        current_payload["external_evidence"]["openrouter"] = {
+            "routes": [
+                {
+                    "provider": "openrouter",
+                    "task_format": OPENROUTER_TASK_FORMAT,
+                    "task_id": "independent_review",
+                    "schema_sha256": "6" * 64,
+                    "provider_policy_version": "openrouter-assistive-development-plane-v2-paid-authorization",
+                    "model": "qwen/qwen3-coder-next",
+                    "reasoning_effort": "none",
+                    "task_sha256": packet["identity_hashes"]["task_sha256"],
+                    "schema_sha256_identity": packet["identity_hashes"]["schema_sha256"],
+                    "policy_sha256": packet["identity_hashes"]["policy_sha256"],
+                    "model_sha256": packet["identity_hashes"]["model_sha256"],
+                    "reasoning_sha256": packet["identity_hashes"]["reasoning_sha256"],
+                    "source_sha256": packet["identity_hashes"]["source_sha256"],
+                    "readiness_supported_state": "READY",
+                    "evidence_verified": True,
+                    "readiness_evidence_sha256": "7" * 64,
+                    "budget_evidence_sha256": "8" * 64,
+                    "budget_released_stage_usd": "5.00",
+                    "budget_remaining_usd": "1.23",
+                }
+            ]
+        }
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+        discovered = refresher._discover_provider_work(current_payload, self.now)
+        self.assertEqual(1, len(discovered))
+        unit, decision, reference = discovered[0]
+        self.assertEqual("OPENROUTER", decision.disposition.value)
+        self.assertTrue(unit.work_unit_id.startswith("AUTO-OR-"))
+        self.assertTrue(len(reference["readiness_evidence_sha256"]) == 64)
+
+        current_payload["external_evidence"]["openrouter"]["routes"][0]["budget_remaining_usd"] = "0.00"
+        with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
+            refresher._discover_provider_work(current_payload, self.now)
+
+        packet["base_commit"] = "b" * 40
+        packet["identity_hashes"]["source_sha256"] = sha256_value(tuple(packet["source_hashes"]))
+        (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
+        with self.assertRaisesRegex(ValueError, "OPENROUTER_PACKET_INVALID"):
+            refresher._discover_provider_work(current_payload, self.now)
+
+        packet["base_commit"] = "a" * 40
+        packet["identity_hashes"]["source_sha256"] = "9" * 64
+        (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
+        current_payload["external_evidence"]["openrouter"]["routes"][0]["budget_remaining_usd"] = "1.23"
+        with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
+            refresher._discover_provider_work(current_payload, self.now)
+
+    def test_openrouter_scheduler_restart_idempotency_and_accounting_use_fake_adapter(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        packet = {
+            "schema_version": 1,
+            "provider": "openrouter",
+            "task_format": OPENROUTER_TASK_FORMAT,
+            "task_id": "independent_review",
+            "jira_unit": "POST-SUBTASK-199",
+            "schema_sha256": "6" * 64,
+            "request_schema_version": "v1",
+            "provider_policy_version": "openrouter-assistive-development-plane-v2-paid-authorization",
+            "model": "qwen/qwen3-coder-next",
+            "reasoning_effort": "none",
+            "max_output_tokens": 128,
+            "base_commit": "a" * 40,
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            "source_hashes": ["4" * 64],
+            "prompt_version": "v1",
+            "evidence_excerpts": ["bounded evidence excerpt"],
+        }
+        packet["identity_hashes"] = {
+            "task_sha256": sha256_value(
+                {
+                    "task_id": packet["task_id"],
+                    "jira_unit": packet["jira_unit"],
+                    "authority": packet["authority"],
+                }
+            ),
+            "schema_sha256": sha256_value(
+                {"schema_version": packet["request_schema_version"], "schema_sha256": packet["schema_sha256"]}
+            ),
+            "policy_sha256": sha256_value(
+                {
+                    "provider_policy_version": packet["provider_policy_version"],
+                    "task_format": packet["task_format"],
+                }
+            ),
+            "model_sha256": sha256_value({"model": packet["model"]}),
+            "reasoning_sha256": sha256_value(
+                {"reasoning_effort": packet["reasoning_effort"], "max_output_tokens": packet["max_output_tokens"]}
+            ),
+            "source_sha256": sha256_value(tuple(packet["source_hashes"])),
+        }
+        (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        current_payload["external_evidence"]["openrouter"] = {
+            "routes": [
+                {
+                    "provider": "openrouter",
+                    "task_format": OPENROUTER_TASK_FORMAT,
+                    "task_id": "independent_review",
+                    "schema_sha256": packet["schema_sha256"],
+                    "provider_policy_version": packet["provider_policy_version"],
+                    "model": packet["model"],
+                    "reasoning_effort": packet["reasoning_effort"],
+                    "task_sha256": packet["identity_hashes"]["task_sha256"],
+                    "schema_sha256_identity": packet["identity_hashes"]["schema_sha256"],
+                    "policy_sha256": packet["identity_hashes"]["policy_sha256"],
+                    "model_sha256": packet["identity_hashes"]["model_sha256"],
+                    "reasoning_sha256": packet["identity_hashes"]["reasoning_sha256"],
+                    "source_sha256": packet["identity_hashes"]["source_sha256"],
+                    "readiness_supported_state": "READY",
+                    "evidence_verified": True,
+                    "readiness_evidence_sha256": "7" * 64,
+                    "budget_evidence_sha256": "8" * 64,
+                    "budget_released_stage_usd": "5.00",
+                    "budget_remaining_usd": "2.25",
+                }
+            ]
+        }
+        self.current.write_bytes(canonical_json_bytes(current_payload) + b"\n")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+        refreshed = refresher.refresh(now=self.now)
+        self.assertEqual(3, refreshed["granular_units"])
+
+        class FakeOpenRouterAdapter:
+            def __init__(self) -> None:
+                self.calls = 0
+
+            def run(self, _packet: dict[str, object]) -> ProviderAdapterResult:
+                self.calls += 1
+                return ProviderAdapterResult(
+                    remote_identity=f"openrouter-run-{self.calls}",
+                    result={
+                        "authority": "CANDIDATE_ONLY",
+                        "canonical_writes": 0,
+                        "protected_decisions": 0,
+                        "provider": "openrouter",
+                    },
+                    disposition="REVIEW_ONLY",
+                    validation_errors=(),
+                    actual_cost_usd="0.000123",
+                    resource={"provider_calls": 1, "tokens": 42},
+                )
+
+        adapter = FakeOpenRouterAdapter()
+        scheduler = InventoryScheduler(
+            self.state,
+            SchedulerConfig(
+                inventory_current_path=self.current,
+                evidence_root=self.root / "runtime/evidence",
+                inventory_max_age_seconds=300,
+                cycle_interval_seconds=3600,
+                owner_id="openrouter-controller-test",
+                max_dispatch_per_cycle=1,
+            ),
+            adapters={"openrouter": adapter},
+        )
+        first = scheduler.evaluate(now=self.now)
+        self.assertEqual(1, first["dispatched_units"])
+        self.assertEqual(1, first["provider_calls"])
+        self.assertEqual("openrouter", first["dispatched"][0]["provider"])
+        self.assertEqual(1, adapter.calls)
+
+        refreshed = refresher.refresh(now=self.now + timedelta(seconds=61))
+        self.assertEqual(3, refreshed["granular_units"])
+        restarted_scheduler = InventoryScheduler(
+            self.state,
+            SchedulerConfig(
+                inventory_current_path=self.current,
+                evidence_root=self.root / "runtime/evidence",
+                inventory_max_age_seconds=300,
+                cycle_interval_seconds=3600,
+                owner_id="openrouter-controller-test",
+                max_dispatch_per_cycle=1,
+            ),
+            adapters={"openrouter": adapter},
+        )
+        second = restarted_scheduler.evaluate(now=self.now + timedelta(seconds=61))
+        self.assertEqual(0, second["dispatched_units"])
+        self.assertEqual(0, second["provider_calls"])
+        self.assertEqual(1, adapter.calls)
+        status = self.state.status()
+        self.assertEqual(1, status["dispatch_attempts"])
+        self.assertEqual(1, status["closed_dispatch_attempts"])
+        with closing(self.state.connect()) as connection:
+            runs = connection.execute(
+                "SELECT provider,status,resource_json FROM provider_runs WHERE provider='openrouter'"
+            ).fetchall()
+            self.assertEqual(1, len(runs))
+            self.assertEqual("SETTLED", runs[0]["status"])
+            self.assertEqual("0.000123", json.loads(runs[0]["resource_json"])["actual_cost_usd_exact"])
 
 
 if __name__ == "__main__":

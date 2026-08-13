@@ -144,15 +144,49 @@ class InventoryScheduler:
             return report
 
         units = {unit.work_unit_id: unit for unit in inventory.units}
-        for unit in inventory.units:
-            self.state.register_work_unit(
-                work_unit_id=unit.work_unit_id,
-                identity_sha256=unit.identity(),
-                jira_identity=unit.jira_unit,
-                effort_points=unit.pre_routing_effort_points,
-                actor="inventory-scheduler",
+        try:
+            for unit in inventory.units:
+                self.state.register_work_unit(
+                    work_unit_id=unit.work_unit_id,
+                    identity_sha256=unit.identity(),
+                    jira_identity=unit.jira_unit,
+                    effort_points=unit.pre_routing_effort_points,
+                    actor="inventory-scheduler",
+                    inventory_sha256=inventory_sha256,
+                    now=moment,
+                )
+        except RuntimeError as exc:
+            if str(exc) not in {
+                "IMMUTABLE_ACTIVE_WORK_UNIT_IDENTITY_CONFLICT",
+                "WORK_UNIT_REVISION_REAPPEARANCE_CONFLICT",
+            }:
+                raise
+            report = {
+                "schema_version": 1,
+                "artifact_type": "UNIFIED_ASSISTIVE_SCHEDULER_EVALUATION",
+                "observed_at": observed_at,
+                "result": "BLOCKED",
+                "finding": str(exc),
+                "inventory_path": str(self.config.inventory_current_path),
+                "inventory_sha256": inventory_sha256,
+                "provider_calls": 0,
+                "cycle_recorded": False,
+                "dispatch_engine_state": "INVENTORY_WORK_UNIT_REVISION_BLOCKED",
+                "operational_completion": "INCOMPLETE",
+            }
+            _, evidence_sha256 = content_addressed_write(
+                self.config.evidence_root,
+                "scheduler-evaluations",
+                report,
+                current_name="scheduler-evaluation.json",
+            )
+            self.state.append_event(
+                "SCHEDULER_WORK_UNIT_REVISION_BLOCKED",
+                {"finding": str(exc), "inventory_sha256": inventory_sha256, "evidence_sha256": evidence_sha256},
                 now=moment,
             )
+            report["evidence_sha256"] = evidence_sha256
+            return report
         eligible = [
             decision
             for decision in inventory.decisions

@@ -7,7 +7,11 @@
     "A refreshable content-addressed ready-work inventory and separate evidence-derived operational-completeness validator fail stale or overstated dispositions.",
     "Credential-safe live catalog/runtime evidence is content-addressed outside Git and all focused/full validators pass through protected integration.",
     "The controller and independent watchdog are OS-supervised outside Codex Desktop, recover from crash/restart, agree on maximum justified state, and cannot overclaim partial operation.",
-    "All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes."
+    "All 204 acceptance rows map to one canonical/live owner and the runtime validator exits zero only when every mandatory row passes.",
+    "Undispatched inventory revisions are preserved and may be superseded append-only; active or externally consequential identity changes fail closed without terminating the controller.",
+    "Inventory derivation semantically validates exact local-model, CPU-worker, Cursor, usage, review, and dispatch-origin evidence instead of treating directory hashes as readiness.",
+    "The persistent scheduler discovers granular BAS units and durably leases, dispatches, validates, reviews, settles, cleans, closes or requeues them without an active Codex turn.",
+    "The independent watchdog reports process health separately and fails operational completeness on stale inventory, idle admitted work, zero dispatch, reconciliation gaps, abandoned leases, or unsupported claims."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -35,6 +39,8 @@
     "tests/test_unified_controller_state.py",
     "tests/test_unified_assistive_plane.py",
     "tests/test_unified_assistive_completeness.py",
+    "tests/test_unified_inventory_materializer.py",
+    "tests/test_unified_inventory_scheduler.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "governance/SOURCE_OF_TRUTH_MAP.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -134,6 +140,8 @@
     "tests/test_unified_controller_state.py",
     "tests/test_unified_assistive_plane.py",
     "tests/test_unified_assistive_completeness.py",
+    "tests/test_unified_inventory_materializer.py",
+    "tests/test_unified_inventory_scheduler.py",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "governance/SOURCE_OF_TRUTH_MAP.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -222,7 +230,7 @@
     "docs/final/CODEX_HANDOFF.md"
   ],
   "ready": false,
-  "record_revision": "2.0",
+  "record_revision": "2.1",
   "required_evidence": [
     "`artifacts/jira_evidence/POST-SUBTASK-160.json` with one evidence row per acceptance criterion and exact artifact hashes.",
     "Request/job/Jira/source/capture/prompt/schema/model/reasoning identities; estimated and actual tokens/cost; validation and disposition.",

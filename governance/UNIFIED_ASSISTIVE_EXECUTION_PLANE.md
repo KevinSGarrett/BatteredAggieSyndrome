@@ -44,3 +44,13 @@ Operational payloads remain content-addressed under `C:\BatteredAggieSyndrome.da
 This plane establishes no historical completeness, protected performance, production readiness, champion, A&M lift, BAS, Aggie Excess, or other scientific result.
 
 Structural foundation validation and operational completeness are separate reports. The latter must derive the maximum justified state from live work, usage, dispositions, restart/outage evidence, cleanup, and soak evidence; it fails any narrative overclaim.
+
+## 2026-08-13 autonomous-dispatch correction
+
+The six accepted Cursor units and USD 1.86454790 settlement are preserved as transitional/manual campaign evidence; their `controller_routed_units` value is zero. The CPU worker has passed its exact corrected-v2 bounded qualification with three byte-identical deterministic tranches, and `bge-m3` has passed only the exact candidate retrieval/deduplication identity. Neither fact grants broader route authority or campaign completion. Exact Qwen rejections remain fail-closed.
+
+External runtime evidence is read semantically from `assistive\local_qwen`, `assistive\cpu_worker`, and provider-specific disposition/usage stores. A directory digest alone cannot change readiness. Content-address identity, model/digest, qualification disposition, zero canonical/protected authority, replay evidence, and exact format must agree.
+
+Logical work-unit identity and immutable execution identity are distinct. Before any eligibility transition, route binding, reservation, or provider/worker consequence, a changed inventory revision may supersede a prior revision only through append-only `work_unit_revisions`, observation, transition, and idle-resolution evidence. Once work becomes consequential, a changed identity fails closed and requires a successor unit. An identity conflict must publish a blocked scheduler artifact; it must not terminate the controller process.
+
+The current inventory remains an eleven-unit umbrella catalog and is not an adequate autonomous execution denominator. Granular BAS discovery, provider dispatch, durable review/settlement/cleanup/requeue, full operational watchdog checks, and unattended noninteractive startup remain P0 incomplete. The controller has dispatched zero units and made zero provider calls; the unified plane is not operational or sustained.

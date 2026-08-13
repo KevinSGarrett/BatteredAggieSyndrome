@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import importlib.util
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -114,6 +116,125 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
         readiness["routes"].append(copy.deepcopy(readiness["routes"][-1]))
         with self.assertRaisesRegex(RuntimeError, "ROUTE_READINESS_NOT_UNIQUE"):
             MATERIALIZER.route_readiness_for(self.bge_item(), readiness)
+
+    @staticmethod
+    def write_content_addressed(root: Path, category: str, payload: dict[str, object]) -> str:
+        data = (json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n").encode()
+        digest = hashlib.sha256(data).hexdigest()
+        path = root / category / digest[:2] / f"{digest}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(data)
+        return digest
+
+    def test_semantic_local_evidence_admits_only_exact_passed_route(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            readiness = {"routes": [copy.deepcopy(self.readiness["routes"][-1])]}
+            route = readiness["routes"][0]
+            digest = self.write_content_addressed(
+                root,
+                "evals",
+                {
+                    "model": route["resolved_model"],
+                    "model_digest": route["model_digest"],
+                    "qualification_disposition": "PASS_CANDIDATE_RETRIEVAL_ONLY",
+                    "canonical_or_protected_authority": False,
+                    "metrics": {"canonical_writes": 0, "protected_decisions": 0},
+                },
+            )
+            route["evidence_sha256"] = digest
+            evidence = MATERIALIZER.local_qwen_semantic_evidence(root, readiness)
+            self.assertEqual(1, evidence["ready_exact_routes"])
+            self.assertEqual("READY", evidence["routes"][0]["evidence_supported_state"])
+
+            changed = copy.deepcopy(readiness)
+            changed["routes"][0]["model_digest"] = "f" * 64
+            rejected = MATERIALIZER.local_qwen_semantic_evidence(root, changed)
+            self.assertEqual(0, rejected["ready_exact_routes"])
+            self.assertEqual("NOT_READY", rejected["routes"][0]["evidence_supported_state"])
+
+    def test_cpu_worker_semantics_require_exact_replay_and_no_authority(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_content_addressed(
+                root,
+                "readiness",
+                {
+                    "qualification_id": "BAT-563-private-cpu-worker-v2-corrected-architecture",
+                    "readiness_disposition": "READY_FOR_LIVE_QUALIFICATION",
+                    "blockers": [],
+                    "passed_gates": [
+                        "cleanup",
+                        "coordinator_grant",
+                        "live_replay",
+                        "minimal_bundle_hash_match",
+                        "private_https",
+                        "restart_recovery",
+                        "restricted_service_identity",
+                        "signed_envelope",
+                    ],
+                    "canonical_writes": 0,
+                    "protected_decisions": 0,
+                    "prototype_direct_http_disabled": True,
+                    "public_funnel_configured_by_project": False,
+                    "peer": {
+                        "dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
+                        "windows_hostname": "comfy-v4-cpu-01",
+                        "os": "windows",
+                        "durable_ip_identity": False,
+                        "node_id": "node",
+                    },
+                },
+            )
+            self.write_content_addressed(
+                root,
+                "qualifications",
+                {
+                    "qualification_disposition": "PASS",
+                    "qualification_id": "BAT-563-private-cpu-worker-v2-corrected-architecture",
+                    "qualification_run_id": "a" * 64,
+                    "authority": "DETERMINISTIC_NO_CANONICAL_OR_PROTECTED_WRITES",
+                    "canonical_writes": 0,
+                    "protected_decisions": 0,
+                    "signing_key_recorded": False,
+                    "worker_identity": {
+                        "node_id": "node",
+                        "dns_name": "comfy-v4-cpu-01.tail9b05ab.ts.net",
+                        "windows_hostname": "comfy-v4-cpu-01",
+                        "os": "windows",
+                        "durable_ip_identity": False,
+                    },
+                    "tranches": [
+                        {"task": "CANONICAL_JSON", "byte_identical_replay": True},
+                        {"task": "LINE_HASH_MANIFEST", "byte_identical_replay": True},
+                        {"task": "EXACT_TEXT_DEDUP", "byte_identical_replay": True},
+                    ],
+                },
+            )
+            evidence = MATERIALIZER.cpu_worker_semantic_evidence(root)
+            self.assertTrue(evidence["qualified"])
+            self.assertEqual(3, evidence["qualifications"][0]["tranche_count"])
+
+    def test_cursor_semantics_preserve_transitional_origin(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_content_addressed(
+                root,
+                "dispositions",
+                {
+                    "job_id": "job-1",
+                    "agent_id": "agent-1",
+                    "candidate_only": True,
+                    "canonical_authority": False,
+                    "accepted_useful_results": 1,
+                    "modified_results": 0,
+                    "provider_usage": {"actual_usd": "0.25"},
+                },
+            )
+            evidence = MATERIALIZER.cursor_semantic_evidence(root)
+            self.assertEqual(1, evidence["accepted_useful"])
+            self.assertEqual(0, evidence["controller_routed_units"])
+            self.assertEqual(1, evidence["transitional_or_manual_units"])
 
 
 if __name__ == "__main__":

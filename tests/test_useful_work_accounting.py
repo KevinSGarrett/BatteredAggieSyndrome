@@ -66,6 +66,23 @@ class UsefulWorkAccountingTests(unittest.TestCase):
         summary = self.state.provider_run_summary()["ollama_local"]
         self.assertEqual(0, summary["pending_downstream_review"])
 
+    def test_legacy_accepted_candidate_without_consumer_is_unused(self) -> None:
+        with self.state.transaction() as connection:
+            connection.execute(
+                "UPDATE reviews SET disposition='ACCEPTED' WHERE attempt_id=?", ("b" * 64,)
+            )
+        report = reconcile(
+            self.state,
+            provider="ollama_local",
+            report_root=self.root / "legacy-reports",
+            apply=True,
+            limit=10,
+        )
+        self.assertEqual(1, report["candidate_count"])
+        self.assertEqual("ACCEPTED", report["candidates"][0]["source_disposition"])
+        self.assertEqual({"UNUSED": 1}, report["disposition_counts"])
+        self.assertEqual(0, report["accepted_useful_offload_credit"])
+
 
 if __name__ == "__main__":
     unittest.main()

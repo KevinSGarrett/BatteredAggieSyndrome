@@ -199,7 +199,7 @@ class InventoryScheduler:
         active_idle_ids: set[str] = set()
         for item in idle_units:
             idle_id = hashlib.sha256(
-                f"{item['work_unit_id']}:{inventory_sha256}:{item['reason']}".encode("utf-8")
+                f"{item['work_unit_id']}:{inventory_sha256}:{item['provider']}:{item['reason']}:{observed_at}".encode("utf-8")
             ).hexdigest()
             self.state.record_idle_interval(
                 idle_id=idle_id,

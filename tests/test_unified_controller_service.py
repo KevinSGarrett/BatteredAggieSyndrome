@@ -3,6 +3,8 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import subprocess
+import sys
 import tempfile
 import threading
 import time
@@ -94,6 +96,14 @@ class UnifiedControllerServiceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "CONTROLLER_BUILD_COMMIT_INVALID"):
             ControllerServiceConfig(self.runtime, "owner", "not-a-commit").validate()
 
+    def test_zero_duration_bounded_run_still_emits_initial_heartbeat(self) -> None:
+        service = ControllerService(
+            ControllerServiceConfig(runtime_root=self.runtime, owner_id="test-owner", build_commit=self.commit)
+        )
+        result = service.run(threading.Event(), maximum_runtime_seconds=0)
+        self.assertEqual(1, result["heartbeat_count"])
+        self.assertTrue((self.runtime / "evidence/current/controller-heartbeat.json").is_file())
+
     def test_controller_records_runtime_failure_as_not_graceful(self) -> None:
         service = ControllerService(
             ControllerServiceConfig(
@@ -141,6 +151,38 @@ class UnifiedReleaseTests(unittest.TestCase):
             self.assertEqual(manifest["source_tree_sha256"], second_manifest["source_tree_sha256"])
             self.assertEqual(set(self.module.FILES), set(manifest["files"]))
             self.assertEqual("INCOMPLETE_UNTIL_DEPLOYED_AND_QUALIFIED", manifest["operational_completion"])
+            package_init = release / "src/aggie_analytics/assistive_plane/__init__.py"
+            self.assertEqual(
+                "GENERATED_MINIMAL_PACKAGE_INITIALIZER",
+                manifest["files"]["src/aggie_analytics/assistive_plane/__init__.py"]["source_kind"],
+            )
+            self.assertNotIn("dispatcher", package_init.read_text(encoding="utf-8"))
+            runtime = Path(temporary) / "runtime"
+            launched = subprocess.run(
+                [
+                    sys.executable,
+                    str(release / "tools/run_unified_assistive_controller.py"),
+                    "serve",
+                    "--runtime-root",
+                    str(runtime),
+                    "--build-commit",
+                    "c" * 40,
+                    "--heartbeat-seconds",
+                    "0.02",
+                    "--queue-evaluation-seconds",
+                    "0.03",
+                    "--lease-ttl-seconds",
+                    "2",
+                    "--maximum-runtime-seconds",
+                    "0.05",
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+            self.assertEqual(0, launched.returncode, launched.stderr)
+            self.assertTrue((runtime / "evidence/current/controller-heartbeat.json").is_file())
 
     def test_installer_is_limited_and_keeps_controller_and_watchdog_separate(self) -> None:
         installer = (REPO / "tools/install_unified_assistive_services.ps1").read_text(encoding="utf-8")

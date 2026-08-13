@@ -106,6 +106,9 @@ class BudgetLedger:
         with self._lock():
             data = self._load()
             reservations = dict(data.get("reservations", {}))
+            settlements = dict(data.get("settlements", {}))
+            if request_id in settlements:
+                raise BudgetRejected("PROVIDER_REQUEST_ALREADY_SETTLED")
             if request_id in reservations:
                 return
             state = self.state()

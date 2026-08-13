@@ -90,10 +90,18 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
             qwen_item = self.qwen_item()
             qwen_item[field] = changed
             self.assertIsNone(MATERIALIZER.route_readiness_for(qwen_item, self.readiness), field)
+            qwen_disposition, *_ = MATERIALIZER.derive_decision(
+                qwen_item, {"workflow_state": "IN_PROGRESS"}, {"budgets": {}}, self.readiness
+            )
+            self.assertEqual(RoutingDisposition.CAPABILITY_BLOCKED, qwen_disposition, field)
 
             bge_item = self.bge_item()
             bge_item[field] = changed
             self.assertIsNone(MATERIALIZER.route_readiness_for(bge_item, self.readiness), field)
+            bge_disposition, *_ = MATERIALIZER.derive_decision(
+                bge_item, {"workflow_state": "IN_PROGRESS"}, {"budgets": {}}, self.readiness
+            )
+            self.assertEqual(RoutingDisposition.CAPABILITY_BLOCKED, bge_disposition, field)
 
     def test_incomplete_route_identity_fails_closed(self) -> None:
         item = self.bge_item()

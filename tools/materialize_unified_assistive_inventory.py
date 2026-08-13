@@ -84,7 +84,6 @@ def paid_budget_admitted(policy: dict[str, Any], provider: str) -> bool:
 
 def route_readiness_for(item: dict[str, Any], readiness: dict[str, Any]) -> dict[str, Any] | None:
     provider = item.get("provider")
-    route_providers = {route["provider"] for route in readiness["routes"]}
     if provider == "local_qwen":
         expected_keys = (
             "model_digest",
@@ -109,7 +108,7 @@ def route_readiness_for(item: dict[str, Any], readiness: dict[str, Any]) -> dict
             continue
         if provider not in {route["provider"], "local_qwen"}:
             continue
-        if provider == "local_qwen" or provider in route_providers:
+        if provider == "local_qwen":
             if any(
                 item.get(key) != route.get(key)
                 for key in (
@@ -137,6 +136,13 @@ def derive_decision(
         return RoutingDisposition.COMPLETED, None, None, item["reason"]
     provider = item.get("provider")
     route = route_readiness_for(item, readiness)
+    if provider == "local_qwen" and route is None:
+        return (
+            RoutingDisposition.CAPABILITY_BLOCKED,
+            provider,
+            item.get("model"),
+            "EXACT_ROUTE_READINESS_NOT_ESTABLISHED",
+        )
     if route is not None and route["state"] != "READY":
         return (
             RoutingDisposition.SUSPENDED_REJECTED_ROUTE

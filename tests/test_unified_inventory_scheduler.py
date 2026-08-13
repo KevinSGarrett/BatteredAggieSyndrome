@@ -99,7 +99,9 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
     def test_ready_unit_records_honest_idle_cycle_without_provider_call(self) -> None:
         inventory_sha256 = self.write_inventory(RoutingDisposition.DIRECT_OPENAI)
         report = self.scheduler().evaluate(now=self.now)
-        self.assertEqual("INCOMPLETE", report["result"])
+        self.assertEqual("FAIL", report["result"])
+        self.assertEqual(1, report["eligible_unit_classification_counts"]["INVALID_STALE"])
+        self.assertEqual(1, len(report["unexplained_idle_units"]))
         self.assertEqual(inventory_sha256, report["inventory_sha256"])
         self.assertEqual(1, report["eligible_units"])
         self.assertEqual(0, report["provider_calls"])
@@ -183,7 +185,7 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
 
         self.write_inventory(RoutingDisposition.DIRECT_OPENAI)
         reopened = self.scheduler().evaluate(now=self.now + timedelta(minutes=2))
-        self.assertEqual("INCOMPLETE", reopened["result"])
+        self.assertEqual("FAIL", reopened["result"])
         self.assertEqual(0, reopened["provider_calls"])
         with closing(self.state.connect()) as connection:
             rows = connection.execute(
@@ -233,7 +235,7 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
             scope="revised bounded evidence packet before any dispatch",
         )
         report = self.scheduler().evaluate(now=self.now + timedelta(minutes=1))
-        self.assertEqual("INCOMPLETE", report["result"])
+        self.assertEqual("FAIL", report["result"])
         with closing(self.state.connect()) as connection:
             revisions = connection.execute(
                 "SELECT identity_sha256,superseded_at FROM work_unit_revisions WHERE work_unit_id=?",

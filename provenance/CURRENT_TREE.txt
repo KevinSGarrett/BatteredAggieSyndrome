@@ -254,6 +254,7 @@ configs/implementation_plan.json
 configs/judging_rule_seal.json
 configs/known_at_registry.json
 configs/local_coder_shadow_qualification.json
+configs/local_coder_shadow_qualification_v2.json
 configs/local_embedding_shadow_qualification.json
 configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
@@ -3322,6 +3323,7 @@ tests/test_unified_inventory_scheduler.py
 tests/test_unified_live_service.py
 tests/test_unified_provider_adapters.py
 tests/test_unified_runtime_inventory_dispatch.py
+tests/test_useful_work_accounting.py
 tests/test_validation_science_governance.py
 tests/test_w18_full_gate.py
 tests/test_w19_foundation.py
@@ -3425,6 +3427,7 @@ tools/queue_cpu_worker_manifest_work.py
 tools/queue_cpu_worker_text_work.py
 tools/queue_openai_gamebook_candidate_work.py
 tools/queue_unified_assistive_work.py
+tools/reconcile_assistive_review_backlog.py
 tools/record_cursor_review_disposition.py
 tools/refresh_cpu_worker_readiness.py
 tools/refresh_cursor_catalog.py

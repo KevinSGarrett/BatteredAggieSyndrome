@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "qualification_id": "BAT-562-qwen25-coder-useful-work-v2",
+  "jira_unit": "BAT-562",
+  "authority": "CANDIDATE_ONLY_NO_DIRECT_MUTATION_NO_CANONICAL_OR_PROTECTED_AUTHORITY",
+  "model": "qwen2.5-coder:7b-instruct-q4_K_M",
+  "expected_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+  "endpoint": "http://127.0.0.1:11434",
+  "context_tokens": 4096,
+  "schema_path": "schemas/assistive/local_coder_shadow.schema.json",
+  "storage_root": "C:\\BatteredAggieSyndrome.data\\assistive\\local_qwen",
+  "acceptance": {
+    "strict_schema_rate_min": 1.0,
+    "allowed_path_rate_min": 1.0,
+    "evidence_accuracy_min": 0.9,
+    "expected_term_recall_min": 0.8,
+    "unsupported_fact_rate_max": 0.0,
+    "unique_task_types_min": 4,
+    "packets_min": 4
+  },
+  "packets": [
+    {
+      "task_id": "useful-work-consumption-gate-review-v2",
+      "task_type": "CODE_REVIEW",
+      "source_path": "src/aggie_analytics/assistive_plane/controller_state.py",
+      "start_marker": "    def complete_candidate_work(",
+      "end_marker": "    def record_dispatch_failure(",
+      "instruction": "Review the fail-closed useful-work consumption gate. Identify only defects supported by exact numbered lines; an empty patch is acceptable.",
+      "allowed_paths": ["src/aggie_analytics/assistive_plane/controller_state.py"],
+      "expected_terms": ["downstream_consumed", "accepted_useful_offload", "useful_work_evidence"],
+      "patch_required": false
+    },
+    {
+      "task_id": "scheduler-substance-contract-explanation-v2",
+      "task_type": "STATIC_ANALYSIS_EXPLANATION",
+      "source_path": "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
+      "start_marker": "    def _useful_work_evidence(",
+      "end_marker": "    @staticmethod\n    def _fair_provider_order(",
+      "instruction": "Explain how this bounded contract prevents provider activity from being credited as downstream-consumed work. Cite exact numbered lines and do not infer runtime results.",
+      "allowed_paths": ["src/aggie_analytics/assistive_plane/scheduler_runtime.py"],
+      "expected_terms": ["downstream_consumer", "direct_baseline_seconds", "duplicated_by_codex"],
+      "patch_required": false
+    },
+    {
+      "task_id": "cpu-batch-producer-scaffold-review-v2",
+      "task_type": "PARSER_SCAFFOLDING",
+      "source_path": "src/aggie_analytics/assistive_plane/inventory_runtime.py",
+      "start_marker": "    def _materialize_continuous_cpu_work(",
+      "end_marker": "    def _materialize_continuous_bge_work(",
+      "instruction": "Review the fixed-function historical manifest batch producer and propose only a bounded candidate correction if exact evidence justifies one.",
+      "allowed_paths": ["src/aggie_analytics/assistive_plane/inventory_runtime.py"],
+      "expected_terms": ["LINE_HASH_MANIFEST", "input_metrics", "downstream_consumer"],
+      "patch_required": false
+    },
+    {
+      "task_id": "useful-work-regression-test-candidate-v2",
+      "task_type": "TEST_GENERATION",
+      "source_path": "tests/test_useful_work_accounting.py",
+      "start_marker": "class UsefulWorkAccountingTests(unittest.TestCase):",
+      "end_marker": "if __name__ == \"__main__\":",
+      "instruction": "Propose a bounded additional regression test for downstream-consumption admission or unused-review reconciliation. Cite exact numbered lines; a patch is optional.",
+      "allowed_paths": ["tests/test_useful_work_accounting.py"],
+      "expected_terms": ["DOWNSTREAM_ACCEPTANCE_CONSUMPTION_EVIDENCE_INCOMPLETE", "UNUSED", "pending_downstream_review"],
+      "patch_required": false
+    }
+  ]
+}

@@ -835,6 +835,16 @@ def cpu_worker_semantic_evidence(root: Path):
             {packet["provider"] for packet in packets},
         )
         self.assertTrue(all(packet["authority"] == "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES" for packet in packets))
+        cpu_packet = next(packet for packet in packets if packet["provider"] == "remote_cpu_worker")
+        self.assertEqual("LINE_HASH_MANIFEST", cpu_packet["task"])
+        self.assertGreaterEqual(cpu_packet["input_metrics"]["records"], 1)
+        self.assertEqual(
+            cpu_packet["input_metrics"]["records"], len(cpu_packet["source_hashes"])
+        )
+        self.assertEqual(
+            "HISTORICAL_MANIFEST_PROVENANCE_AND_REPLAY_VALIDATION",
+            cpu_packet["downstream_consumer"],
+        )
         self.assertEqual(
             {"quarantine_schema_classification", "entity_review"},
             {
@@ -1164,7 +1174,10 @@ def cpu_worker_semantic_evidence(root: Path):
         status = self.state.status()
         self.assertEqual(2, status["dispatch_attempts"])
         self.assertEqual(2, status["closed_dispatch_attempts"])
-        self.assertEqual({"ACCEPTED": 2}, status["review_dispositions"])
+        self.assertEqual({"REVIEW_ONLY": 2}, status["review_dispositions"])
+        self.assertEqual(2, status["useful_work_summary"]["raw_activity"])
+        self.assertEqual(0, status["useful_work_summary"]["downstream_consumed_outputs"])
+        self.assertEqual(0, status["useful_work_summary"]["accepted_useful_outputs"])
         self.assertEqual(2, status["scheduler_dispatched_units"])
         with closing(self.state.connect()) as connection:
             self.assertEqual(2, connection.execute("SELECT COUNT(*) FROM route_readiness_observations").fetchone()[0])

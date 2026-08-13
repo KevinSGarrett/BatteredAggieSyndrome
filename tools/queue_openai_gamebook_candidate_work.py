@@ -53,6 +53,19 @@ def _queue(value: dict[str, Any], root: Path) -> tuple[Path, str]:
     return destination, digest
 
 
+def _select_route(config: dict[str, Any], case_id: str, model: str | None) -> dict[str, Any]:
+    routes = [route for route in config["routes"] if case_id in route.get("case_ids", [])]
+    if model is not None:
+        routes = [route for route in routes if route.get("model") == model]
+    if len(routes) != 1:
+        if model is None and len(routes) > 1:
+            raise SystemExit(
+                "gamebook candidate case has multiple comparative routes; --model is required"
+            )
+        raise SystemExit("gamebook candidate route identity must resolve exactly once")
+    return routes[0]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Queue one governed gamebook candidate for the persistent OpenAI scheduler adapter"
@@ -60,6 +73,10 @@ def main() -> int:
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--gold", type=Path, required=True)
     parser.add_argument("--case-id", required=True)
+    parser.add_argument(
+        "--model",
+        help="Select the exact comparative model route when a case belongs to multiple routes",
+    )
     parser.add_argument("--queue-root", type=Path, default=DEFAULT_QUEUE)
     args = parser.parse_args()
 
@@ -72,10 +89,7 @@ def main() -> int:
     if len(matches) != 1:
         raise SystemExit("gamebook candidate case identity must resolve exactly once")
     case = matches[0]
-    routes = [route for route in config["routes"] if args.case_id in route.get("case_ids", [])]
-    if len(routes) != 1:
-        raise SystemExit("gamebook candidate route identity must resolve exactly once")
-    route = routes[0]
+    route = _select_route(config, args.case_id, args.model)
 
     prompt_path = ROOT / config["prompt"]["path"]
     prompt_data = prompt_path.read_bytes()

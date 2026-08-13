@@ -154,6 +154,9 @@ if ($installController -or $installWatchdog) {
         $inventoryRoot = Join-Path $assistiveRoot 'inventory'
         $cpuWorkerRoot = Join-Path $assistiveRoot 'cpu_worker'
         $providerWorkRoot = Join-Path $assistiveRoot 'provider_work'
+        $openrouterRoot = Join-Path $assistiveRoot 'openrouter'
+        $cursorRoot = Join-Path $assistiveRoot 'cursor'
+        $localQwenRoot = Join-Path $assistiveRoot 'local_qwen'
         $openaiRoot = Join-Path $dataRoot 'openai'
         $authoritativeEnvPath = 'C:\BatteredAggieSyndrome\.env'
         $signingKeyPath = Join-Path $cpuWorkerRoot 'controller\secrets\worker-v2.bin'
@@ -161,7 +164,11 @@ if ($installController -or $installWatchdog) {
             (Split-Path -Parent $python),
             $release,
             (Join-Path $dataRoot 'manifests'),
-            $providerWorkRoot
+            $providerWorkRoot,
+            $openrouterRoot,
+            $cursorRoot,
+            $localQwenRoot,
+            $cpuWorkerRoot
         )
         $writeContainers = @(
             (Join-Path $RuntimeRoot 'state'),

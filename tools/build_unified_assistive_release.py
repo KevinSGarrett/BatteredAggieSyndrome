@@ -48,6 +48,8 @@ FILES = (
     "configs/openai_task_registry.json",
     "configs/openrouter_assist_policy.json",
     "configs/openrouter_task_registry.json",
+    "configs/unified_assistive_policy.json",
+    "configs/assistive_route_readiness.json",
     "schemas/assistive/candidate_patch.schema.json",
     "schemas/assistive/independent_review.schema.json",
     "schemas/assistive/reconciliation_ranking.schema.json",
@@ -58,6 +60,7 @@ FILES = (
     "schemas/openai/depth_chart_noncoverage_visual.schema.json",
     "tools/run_unified_assistive_controller.py",
     "tools/run_unified_assistive_watchdog.py",
+    "tools/materialize_unified_assistive_inventory.py",
 )
 GENERATED_RELEASE_FILES = {
     "src/aggie_analytics/assistive_plane/__init__.py": (

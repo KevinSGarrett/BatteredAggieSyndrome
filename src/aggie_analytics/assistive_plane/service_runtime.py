@@ -125,6 +125,10 @@ class ControllerService:
                 provider_work_root=config.provider_work_root or data_root / "assistive" / "provider_work" / "requests",
                 release_root=release_root,
                 build_commit=config.build_commit,
+                semantic_materializer_path=release_root / "tools" / "materialize_unified_assistive_inventory.py",
+                semantic_policy_path=release_root / "configs" / "unified_assistive_policy.json",
+                semantic_readiness_path=release_root / "configs" / "assistive_route_readiness.json",
+                external_assistive_root=config.runtime_root.parent,
                 refresh_max_age_seconds=config.inventory_refresh_max_age_seconds,
             ),
         )

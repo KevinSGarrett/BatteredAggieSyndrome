@@ -149,11 +149,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24955",
-    "jira_updated_at": "2026-08-12T18:21:51.603-0500",
-    "last_synced_at": "2026-08-12T23:22:31.717226+00:00",
+    "jira_updated_at": "2026-08-13T02:28:16.841-0500",
+    "last_synced_at": "2026-08-13T12:02:20.873278+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",

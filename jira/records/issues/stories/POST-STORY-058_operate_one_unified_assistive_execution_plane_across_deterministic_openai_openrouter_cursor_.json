@@ -112,7 +112,7 @@
     "candidate-only",
     "aggregate-gate"
   ],
-  "last_content_audit": "2026-08-12",
+  "last_content_audit": "2026-08-13",
   "local_id": "POST-STORY-058",
   "maturity_before": "NOT_STARTED",
   "objective": "Operate one unified assistive execution plane across deterministic, OpenAI, OpenRouter, Cursor, local Qwen, and private CPU worker routes",

@@ -8,7 +8,7 @@
   "acceptance_control_ids": [],
   "acceptance_criteria": [
     "Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.",
-    "Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.",
+    "Real deterministic tranches span at least three exact task formats, replay byte-identically where applicable, and restart recovery succeeds.",
     "No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced."
   ],
   "adr_ids": [],
@@ -16,7 +16,7 @@
     "Canonical unified assistive contract source is `SRCREF-02121`.",
     "Never expose credentials, .env content, private data, or unnecessary protected evidence.",
     "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.",
-    "The corrected fixed-function CPU worker passed bounded qualification. On 2026-08-13 the persistent controller routed seven granular BAS manifest units through the exact CANONICAL_JSON route; all seven closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete."
+    "The corrected fixed-function CPU worker passed bounded qualification. By 2026-08-13T11:15Z the persistent exact-main controller had routed 25 granular BAS manifest units through the exact CANONICAL_JSON route; all 25 closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Exact LINE_HASH_MANIFEST and EXACT_TEXT_DEDUP campaign admission is being added without broadening worker authority. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete."
   ],
   "allowed_modification_paths": [
     "artifacts/assistive/cpu_worker_readiness.json",
@@ -25,12 +25,19 @@
     "configs/unified_assistive_policy.json",
     "configs/assistive_provider_registry.json",
     "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
+    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
+    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
     "tools/cpu_worker_service.py",
     "tools/install_cpu_worker_service.ps1",
+    "tools/queue_cpu_worker_manifest_work.py",
+    "tools/queue_cpu_worker_text_work.py",
+    "tools/queue_unified_assistive_work.py",
     "tools/qualify_cpu_worker.py",
     "tools/refresh_cpu_worker_readiness.py",
     "tools/validate_cpu_worker_readiness.py",
     "tests/test_cpu_worker_backend.py",
+    "tests/test_queue_cpu_worker_manifest_work.py",
+    "tests/test_unified_runtime_inventory_dispatch.py",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
   ],
@@ -108,12 +115,19 @@
     "configs/unified_assistive_policy.json",
     "configs/assistive_provider_registry.json",
     "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
+    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
+    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
     "tools/cpu_worker_service.py",
     "tools/install_cpu_worker_service.ps1",
+    "tools/queue_cpu_worker_manifest_work.py",
+    "tools/queue_cpu_worker_text_work.py",
+    "tools/queue_unified_assistive_work.py",
     "tools/qualify_cpu_worker.py",
     "tools/refresh_cpu_worker_readiness.py",
     "tools/validate_cpu_worker_readiness.py",
     "tests/test_cpu_worker_backend.py",
+    "tests/test_queue_cpu_worker_manifest_work.py",
+    "tests/test_unified_runtime_inventory_dispatch.py",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
   ],
@@ -143,7 +157,7 @@
     "candidate-only",
     "subtask"
   ],
-  "last_content_audit": "2026-08-12",
+  "last_content_audit": "2026-08-13",
   "local_id": "POST-SUBTASK-204",
   "maturity_before": "NOT_STARTED",
   "objective": "Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance",
@@ -234,7 +248,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot.",
+  "scope": "Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run real replayable BAS tranches across the separately qualified CANONICAL_JSON, LINE_HASH_MANIFEST, and EXACT_TEXT_DEDUP task identities.",
   "source_ids": [
     "UNIFIED-ASSISTIVE-EXECUTION-PLAN"
   ],
@@ -272,7 +286,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot.
+Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run real replayable BAS tranches across the separately qualified CANONICAL_JSON, LINE_HASH_MANIFEST, and EXACT_TEXT_DEDUP task identities.
 
 ### Explicit In Scope
 
@@ -313,12 +327,19 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 - configs/unified_assistive_policy.json
 - configs/assistive_provider_registry.json
 - src/aggie_analytics/assistive_plane/cpu_worker_backend.py
+- src/aggie_analytics/assistive_plane/inventory_runtime.py
+- src/aggie_analytics/assistive_plane/scheduler_runtime.py
 - tools/cpu_worker_service.py
 - tools/install_cpu_worker_service.ps1
+- tools/queue_cpu_worker_manifest_work.py
+- tools/queue_cpu_worker_text_work.py
+- tools/queue_unified_assistive_work.py
 - tools/qualify_cpu_worker.py
 - tools/refresh_cpu_worker_readiness.py
 - tools/validate_cpu_worker_readiness.py
 - tests/test_cpu_worker_backend.py
+- tests/test_queue_cpu_worker_manifest_work.py
+- tests/test_unified_runtime_inventory_dispatch.py
 - docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 
@@ -362,7 +383,7 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 ## Acceptance Criteria
 
 1. Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.
-2. Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.
+2. Real deterministic tranches span at least three exact task formats, replay byte-identically where applicable, and restart recovery succeeds.
 3. No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced.
 
 ## Definition of Done
@@ -442,4 +463,4 @@ Deploy only to the exact verified private Windows peer through the authorized Ch
 - Canonical unified assistive contract source is `SRCREF-02121`.
 - Never expose credentials, .env content, private data, or unnecessary protected evidence.
 - Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.
-- The corrected fixed-function CPU worker passed bounded qualification. On 2026-08-13 the persistent controller routed seven granular BAS manifest units through the exact CANONICAL_JSON route; all seven closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete.
+- The corrected fixed-function CPU worker passed bounded qualification. By 2026-08-13T11:15Z the persistent exact-main controller had routed 25 granular BAS manifest units through the exact CANONICAL_JSON route; all 25 closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Exact LINE_HASH_MANIFEST and EXACT_TEXT_DEDUP campaign admission is being added without broadening worker authority. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete.

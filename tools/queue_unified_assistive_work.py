@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.assistive_plane.contracts import canonical_json_bytes  # noqa: E402
+from aggie_analytics.assistive_plane.cpu_worker_backend import MAX_RECORDS  # noqa: E402
+from aggie_analytics.assistive_plane.inventory_runtime import CPU_EXACT_ROUTES  # noqa: E402
 
 
 DEFAULT_QUEUE = Path(r"C:\BatteredAggieSyndrome.data\assistive\provider_work\requests")
@@ -33,13 +35,43 @@ def queue_packet(source: Path, queue_root: Path) -> tuple[Path, str]:
             )
 
         payload = value.get("payload")
+        task = value.get("task")
+        route = CPU_EXACT_ROUTES.get(str(task))
+        payload_valid = (
+            task == "CANONICAL_JSON"
+            and isinstance(payload, dict)
+            and set(payload) == {"value"}
+        ) or (
+            task == "LINE_HASH_MANIFEST"
+            and isinstance(payload, dict)
+            and set(payload) == {"lines"}
+            and isinstance(payload["lines"], list)
+            and bool(payload["lines"])
+            and len(payload["lines"]) <= MAX_RECORDS
+            and all(isinstance(item, str) for item in payload["lines"])
+        ) or (
+            task == "EXACT_TEXT_DEDUP"
+            and isinstance(payload, dict)
+            and set(payload) == {"records"}
+            and isinstance(payload["records"], list)
+            and bool(payload["records"])
+            and len(payload["records"]) <= MAX_RECORDS
+            and all(
+                isinstance(item, dict)
+                and set(item) == {"id", "text"}
+                and isinstance(item["id"], str)
+                and bool(item["id"])
+                and isinstance(item["text"], str)
+                for item in payload["records"]
+            )
+            and len({item["id"] for item in payload["records"]}) == len(payload["records"])
+        )
         if (
-            value.get("task") != "CANONICAL_JSON"
-            or value.get("task_format") != "cpu_worker_canonical_manifest_v1"
+            route is None
+            or value.get("task_format") != route[0]
             or value.get("jira_unit") != "BAT-563"
-            or not isinstance(payload, dict)
-            or set(payload) != {"value"}
-            or not valid_hash(value.get("schema_sha256"))
+            or value.get("schema_sha256") != route[1]
+            or not payload_valid
             or not isinstance(value.get("source_hashes"), list)
             or not value["source_hashes"]
             or not all(valid_hash(item) for item in value["source_hashes"])

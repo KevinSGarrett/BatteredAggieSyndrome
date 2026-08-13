@@ -16,7 +16,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Atomic execution scope
 
-Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot.
+Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run real replayable BAS tranches across the separately qualified CANONICAL_JSON, LINE_HASH_MANIFEST, and EXACT_TEXT_DEDUP task identities.
 
 ### In scope
 
@@ -66,12 +66,19 @@ Establish a private least-privilege deterministic service on exact Windows peer 
 - configs/unified_assistive_policy.json
 - configs/assistive_provider_registry.json
 - src/aggie_analytics/assistive_plane/cpu_worker_backend.py
+- src/aggie_analytics/assistive_plane/inventory_runtime.py
+- src/aggie_analytics/assistive_plane/scheduler_runtime.py
 - tools/cpu_worker_service.py
 - tools/install_cpu_worker_service.ps1
+- tools/queue_cpu_worker_manifest_work.py
+- tools/queue_cpu_worker_text_work.py
+- tools/queue_unified_assistive_work.py
 - tools/qualify_cpu_worker.py
 - tools/refresh_cpu_worker_readiness.py
 - tools/validate_cpu_worker_readiness.py
 - tests/test_cpu_worker_backend.py
+- tests/test_queue_cpu_worker_manifest_work.py
+- tests/test_unified_runtime_inventory_dispatch.py
 - docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 - docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md
 
@@ -104,7 +111,7 @@ Produce and validate these outputs within this atomic work unit:
 ## Acceptance criteria
 
 1. Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.
-2. Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.
+2. Real deterministic tranches span at least three exact task formats, replay byte-identically where applicable, and restart recovery succeeds.
 3. No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced.
 
 ## Tests / validation

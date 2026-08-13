@@ -138,7 +138,7 @@
     "candidate-only",
     "subtask"
   ],
-  "last_content_audit": "2026-08-12",
+  "last_content_audit": "2026-08-13",
   "local_id": "POST-SUBTASK-205",
   "maturity_before": "NOT_STARTED",
   "objective": "Run cross-plane comparison, utilization floors, 21 scheduler cycles, restart/outage exercises, and seven-day sustained assurance",

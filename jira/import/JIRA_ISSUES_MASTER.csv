@@ -38141,7 +38141,7 @@ Why This Exists
 The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.
 
 Scope
-Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run three replayable tranches and one embedding/deduplication or small-model pilot.
+Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run real replayable BAS tranches across the separately qualified CANONICAL_JSON, LINE_HASH_MANIFEST, and EXACT_TEXT_DEDUP task identities.
 
 Explicit In Scope
 - Stable Tailscale node, MagicDNS, Windows hostname, OS/hardware, and controller identity verification without committed IP authority.
@@ -38159,7 +38159,7 @@ Prerequisites / Dependencies
 
 Acceptance Criteria
 1. Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.
-2. Three deterministic tranches replay byte-identically where applicable and restart recovery succeeds.
+2. Real deterministic tranches span at least three exact task formats, replay byte-identically where applicable, and restart recovery succeeds.
 3. No public Funnel exposure, credentials, canonical authority, or unverified remote mutation is introduced.
 
 Definition of Done

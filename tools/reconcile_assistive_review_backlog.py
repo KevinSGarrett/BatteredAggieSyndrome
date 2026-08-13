@@ -5,9 +5,13 @@ import hashlib
 import json
 import os
 import tempfile
+import sys
 from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 
@@ -51,10 +55,11 @@ def reconcile(
     state.initialize()
     with closing(state.connect()) as connection:
         rows = connection.execute(
-            "SELECT a.attempt_id,a.work_unit_id,a.started_at,p.remote_identity,r.evidence_sha256 "
+            "SELECT a.attempt_id,a.work_unit_id,a.started_at,p.remote_identity,r.disposition AS source_disposition,"
+            "r.evidence_sha256 "
             "FROM reviews r JOIN dispatch_attempts a ON a.attempt_id=r.attempt_id "
             "JOIN provider_runs p ON p.attempt_id=a.attempt_id "
-            "WHERE p.provider=? AND r.disposition='REVIEW_ONLY' AND NOT EXISTS ("
+            "WHERE p.provider=? AND r.disposition IN ('REVIEW_ONLY','ACCEPTED','MODIFIED') AND NOT EXISTS ("
             "SELECT 1 FROM downstream_review_dispositions d WHERE d.attempt_id=a.attempt_id) "
             "ORDER BY a.started_at,a.attempt_id LIMIT ?",
             (provider, limit),

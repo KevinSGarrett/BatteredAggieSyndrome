@@ -2076,7 +2076,7 @@ class ControllerState:
                 pending = connection.execute(
                     "SELECT COUNT(*) FROM reviews r JOIN dispatch_attempts a ON a.attempt_id=r.attempt_id "
                     "JOIN provider_runs p ON p.attempt_id=a.attempt_id "
-                    "WHERE p.provider=? AND r.disposition='REVIEW_ONLY' AND NOT EXISTS ("
+                    "WHERE p.provider=? AND r.disposition IN ('REVIEW_ONLY','ACCEPTED','MODIFIED') AND NOT EXISTS ("
                     "SELECT 1 FROM downstream_review_dispositions d WHERE d.attempt_id=a.attempt_id)" +
                     (" AND a.started_at>=?" if parameters else ""),
                     (provider, *parameters),

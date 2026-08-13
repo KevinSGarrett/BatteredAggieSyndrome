@@ -22,6 +22,7 @@ from .orchestration import (
     validate_work_unit_roles,
 )
 from .provider_adapters import BgeM3CandidateAdapter, GovernedOpenAIAdapter, ProviderAdapterResult
+from .provider_adapters import GovernedOpenRouterAdapter
 
 
 ROUTABLE_DISPOSITIONS = frozenset(
@@ -81,6 +82,7 @@ class SchedulerConfig:
     release_root: Path | None = None
     bge_endpoint: str = OLLAMA_LOOPBACK_ENDPOINT
     openai_enabled: bool = True
+    openrouter_enabled: bool = True
 
     def validate(self) -> None:
         if self.inventory_max_age_seconds <= 0:
@@ -194,6 +196,8 @@ class InventoryScheduler:
             if self.config.release_root is None:
                 raise RuntimeError("SCHEDULER_OPENAI_RELEASE_ROOT_MISSING")
             adapters["openai_direct"] = GovernedOpenAIAdapter(self.config.release_root)
+        if self.config.openrouter_enabled:
+            adapters["openrouter"] = GovernedOpenRouterAdapter(Path(__file__).resolve().parents[3])
         return adapters
 
     def _dispatch_cpu(

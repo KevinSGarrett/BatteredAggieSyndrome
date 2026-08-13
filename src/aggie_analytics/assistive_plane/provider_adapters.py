@@ -11,6 +11,9 @@ from typing import Any, Callable
 from aggie_analytics.openai_assist.contracts import Priority, sha256_value
 from aggie_analytics.openai_assist.controller import AssistiveController, AssistiveJob
 
+from .contracts import AssistiveRequest, Authority, Disposition, sha256_value as plane_sha256_value
+from .dispatcher import AssistiveDispatcher
+from .openrouter_backend import OpenRouterBackend
 from .ollama_backend import OLLAMA_LOOPBACK_ENDPOINT
 
 
@@ -21,6 +24,7 @@ BGE_POLICY_VERSION = "unified-assistive-execution-plane-v2-operational-correctio
 BGE_PROMPT_VERSION = "embedding-shadow-v1"
 BGE_SCHEMA_VERSION = "1"
 BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c"
+OPENROUTER_TASK_FORMAT = "governed_openrouter_candidate_v1"
 
 
 @dataclass(frozen=True)
@@ -190,5 +194,142 @@ class GovernedOpenAIAdapter:
                 "model": values["model"],
                 "reasoning_effort": values["reasoning_effort"],
                 "provider_calls": 0 if result.cached else 1,
+            },
+        )
+
+
+class GovernedOpenRouterAdapter:
+    """Scheduler bridge that reuses the governed OpenRouter dispatcher/policy stack."""
+
+    def __init__(
+        self,
+        root: Path,
+        *,
+        policy_path: Path | None = None,
+        backend_factory: Callable[[Path], Any] | None = None,
+        dispatcher_factory: Callable[[Path, Any, Path], Any] | None = None,
+    ) -> None:
+        self.root = root.resolve()
+        self.policy_path = (policy_path or (self.root / "configs" / "openrouter_assist_policy.json")).resolve()
+        policy = json.loads(self.policy_path.read_text(encoding="utf-8"))
+        env_path = Path(str(policy["credential"]["authoritative_env"]))
+        backend = (backend_factory or OpenRouterBackend)(env_path)
+        self.dispatcher = (dispatcher_factory or AssistiveDispatcher)(self.root, backend, self.policy_path)
+        self.task_registry = json.loads((self.root / "configs" / "openrouter_task_registry.json").read_text(encoding="utf-8"))
+
+    @staticmethod
+    def _valid_sha256(value: object) -> bool:
+        text = str(value)
+        return len(text) == 64 and all(character in "0123456789abcdef" for character in text)
+
+    def run(self, packet: dict[str, Any]) -> ProviderAdapterResult:
+        if packet.get("provider") != "openrouter" or packet.get("task_format") != OPENROUTER_TASK_FORMAT:
+            raise RuntimeError("OPENROUTER_TASK_FORMAT_NOT_ADMITTED")
+        if packet.get("authority") != "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES":
+            raise RuntimeError("OPENROUTER_PACKET_AUTHORITY_INVALID")
+        source_hashes = packet.get("source_hashes")
+        if not isinstance(source_hashes, list) or not source_hashes or not all(self._valid_sha256(item) for item in source_hashes):
+            raise RuntimeError("OPENROUTER_SOURCE_HASHES_INVALID")
+        identity_hashes = packet.get("identity_hashes")
+        if not isinstance(identity_hashes, dict):
+            raise RuntimeError("OPENROUTER_IDENTITY_HASHES_MISSING")
+        expected_hashes = {
+            "task_sha256": plane_sha256_value(
+                {
+                    "task_id": packet.get("task_id"),
+                    "jira_unit": packet.get("jira_unit"),
+                    "authority": packet.get("authority"),
+                }
+            ),
+            "schema_sha256": plane_sha256_value(
+                {"schema_version": packet.get("request_schema_version"), "schema_sha256": packet.get("schema_sha256")}
+            ),
+            "policy_sha256": plane_sha256_value(
+                {
+                    "provider_policy_version": packet.get("provider_policy_version"),
+                    "task_format": packet.get("task_format"),
+                }
+            ),
+            "model_sha256": plane_sha256_value({"model": packet.get("model")}),
+            "reasoning_sha256": plane_sha256_value(
+                {
+                    "reasoning_effort": packet.get("reasoning_effort"),
+                    "max_output_tokens": packet.get("max_output_tokens"),
+                }
+            ),
+            "source_sha256": plane_sha256_value(tuple(source_hashes)),
+        }
+        if identity_hashes != expected_hashes:
+            raise RuntimeError("OPENROUTER_IDENTITY_HASH_MISMATCH")
+        task = self.task_registry.get("tasks", {}).get(packet.get("task_id"))
+        if not isinstance(task, dict):
+            raise RuntimeError("OPENROUTER_TASK_NOT_REGISTERED")
+        schema = json.loads((self.root / str(task["schema"])).read_text(encoding="utf-8"))
+        request = AssistiveRequest(
+            task_id=str(packet["task_id"]),
+            jira_unit=str(packet["jira_unit"]),
+            base_commit=str(packet["base_commit"]),
+            authority=Authority(str(task["authority"])),
+            prompt_version=str(packet["prompt_version"]),
+            schema_version=str(packet["request_schema_version"]),
+            schema_sha256=str(packet["schema_sha256"]),
+            source_hashes=tuple(str(item) for item in source_hashes),
+            evidence_excerpts=tuple(str(item) for item in packet.get("evidence_excerpts", [])),
+            model=str(packet["model"]),
+            reasoning_effort=str(packet["reasoning_effort"]),
+            max_output_tokens=int(packet["max_output_tokens"]),
+            provider_policy_version=str(packet["provider_policy_version"]),
+        )
+        result = self.dispatcher.dispatch(request, schema)
+        provider_result = result.provider_result
+        provider_calls = 0
+        if provider_result is not None and result.reason != "CACHE_HIT":
+            provider_calls = 1
+        payload = {
+            "request_id": result.request_id,
+            "disposition": result.disposition.value,
+            "reason": result.reason,
+            "manifest_path": result.manifest_path,
+            "provider_result": (
+                {
+                    "provider": provider_result.provider,
+                    "model_requested": provider_result.model_requested,
+                    "model_resolved": provider_result.model_resolved,
+                    "usage": provider_result.usage,
+                    "raw_response_id": provider_result.raw_response_id,
+                    "cost_usd": provider_result.cost_usd,
+                    "output": provider_result.output,
+                }
+                if provider_result is not None
+                else None
+            ),
+            "authority": "CANDIDATE_ONLY",
+            "canonical_writes": 0,
+            "protected_decisions": 0,
+        }
+        if result.disposition is Disposition.QUARANTINE:
+            scheduler_disposition = "QUARANTINE"
+        elif result.disposition is Disposition.REJECTED:
+            scheduler_disposition = "REJECTED"
+        else:
+            scheduler_disposition = "REVIEW_ONLY"
+        actual_cost = (
+            str(provider_result.cost_usd)
+            if provider_result is not None and provider_result.cost_usd is not None
+            else "0.000000"
+        )
+        return ProviderAdapterResult(
+            remote_identity=result.request_id,
+            result=payload,
+            disposition=scheduler_disposition,
+            validation_errors=() if scheduler_disposition == "REVIEW_ONLY" else (result.reason,),
+            actual_cost_usd=actual_cost,
+            resource={
+                "provider_calls": provider_calls,
+                "cached": result.reason == "CACHE_HIT",
+                "manifest_path": result.manifest_path,
+                "openrouter_disposition": result.disposition.value,
+                "reasoning_effort": request.reasoning_effort,
+                "model": request.model,
             },
         )

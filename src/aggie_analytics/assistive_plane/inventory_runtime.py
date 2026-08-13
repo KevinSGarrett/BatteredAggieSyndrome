@@ -6,6 +6,7 @@ import os
 import tempfile
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
@@ -34,6 +35,7 @@ DYNAMIC_PREFIXES = (
     "AUTO-CPU-TEXT-DEDUP-",
     "AUTO-BGE-",
     "AUTO-OAI-",
+    "AUTO-OR-",
 )
 CPU_MANIFEST_TASK_FORMAT = "cpu_worker_canonical_manifest_v1"
 CPU_MANIFEST_SCHEMA_SHA256 = hashlib.sha256(
@@ -60,6 +62,7 @@ CPU_EXACT_ROUTES = {
         "AUTO-CPU-TEXT-DEDUP-",
     ),
 }
+OPENROUTER_TASK_FORMAT = "governed_openrouter_candidate_v1"
 READY_WORK_UNIT_FIELDS = frozenset(ReadyWorkUnit.__dataclass_fields__)
 ROUTE_DECISION_FIELDS = frozenset(RouteDecision.__dataclass_fields__)
 
@@ -290,6 +293,51 @@ class RuntimeInventoryRefresher:
                 if exact and route.get("evidence_supported_state") == "READY" and route.get("evidence_verified") is True:
                     digest = route.get("evidence_sha256")
                     return str(digest) if cls._valid_sha256(digest) else None
+        if provider == "openrouter" and packet.get("task_format") == OPENROUTER_TASK_FORMAT:
+            routes = snapshot.get("external_evidence", {}).get("openrouter", {}).get("routes", [])
+            for route in routes if isinstance(routes, list) else []:
+                exact = (
+                    route.get("provider") == "openrouter"
+                    and route.get("task_format") == OPENROUTER_TASK_FORMAT
+                    and route.get("task_id") == packet.get("task_id")
+                    and route.get("schema_sha256") == packet.get("schema_sha256")
+                    and route.get("provider_policy_version") == packet.get("provider_policy_version")
+                    and route.get("model") == packet.get("model")
+                    and route.get("reasoning_effort") == packet.get("reasoning_effort")
+                    and route.get("task_sha256") == packet.get("identity_hashes", {}).get("task_sha256")
+                    and route.get("schema_sha256_identity")
+                    == packet.get("identity_hashes", {}).get("schema_sha256")
+                    and route.get("policy_sha256") == packet.get("identity_hashes", {}).get("policy_sha256")
+                    and route.get("model_sha256") == packet.get("identity_hashes", {}).get("model_sha256")
+                    and route.get("reasoning_sha256")
+                    == packet.get("identity_hashes", {}).get("reasoning_sha256")
+                    and route.get("source_sha256") == packet.get("identity_hashes", {}).get("source_sha256")
+                )
+                if not exact:
+                    continue
+                readiness = route.get("readiness_evidence_sha256")
+                budget = route.get("budget_evidence_sha256")
+                if (
+                    route.get("readiness_supported_state") != "READY"
+                    or route.get("evidence_verified") is not True
+                    or not cls._valid_sha256(readiness)
+                    or not cls._valid_sha256(budget)
+                ):
+                    continue
+                try:
+                    released_stage_usd = Decimal(str(route.get("budget_released_stage_usd", "0")))
+                    remaining_usd = Decimal(str(route.get("budget_remaining_usd", "0")))
+                except InvalidOperation:
+                    continue
+                if released_stage_usd <= Decimal("0") or remaining_usd <= Decimal("0"):
+                    continue
+                return sha256_value(
+                    {
+                        "readiness_evidence_sha256": str(readiness),
+                        "budget_evidence_sha256": str(budget),
+                        "budget_remaining_usd": format(remaining_usd, "f"),
+                    }
+                )
         return None
 
     def _discover_provider_work(
@@ -319,10 +367,61 @@ class RuntimeInventoryRefresher:
                 raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_AUTHORITY_INVALID")
             provider = packet.get("provider")
             task_format = packet.get("task_format")
+            openrouter_identity_hashes: dict[str, str] | None = None
             if provider == "openai_direct" and task_format == "governed_openai_candidate_v1":
                 prefix = "AUTO-OAI-"
                 disposition = RoutingDisposition.DIRECT_OPENAI
                 model = packet.get("job", {}).get("model")
+            elif provider == "openrouter" and task_format == OPENROUTER_TASK_FORMAT:
+                task_id = packet.get("task_id")
+                authority = packet.get("authority")
+                prompt_version = packet.get("prompt_version")
+                request_schema_version = packet.get("request_schema_version")
+                provider_policy_version = packet.get("provider_policy_version")
+                reasoning_effort = packet.get("reasoning_effort")
+                max_output_tokens = packet.get("max_output_tokens")
+                base_commit = packet.get("base_commit")
+                evidence_excerpts = packet.get("evidence_excerpts")
+                openrouter_identity_hashes = packet.get("identity_hashes")
+                if (
+                    not isinstance(task_id, str)
+                    or not task_id
+                    or not isinstance(authority, str)
+                    or not authority
+                    or not isinstance(prompt_version, str)
+                    or not prompt_version
+                    or not isinstance(request_schema_version, str)
+                    or not request_schema_version
+                    or not isinstance(provider_policy_version, str)
+                    or not provider_policy_version
+                    or not isinstance(reasoning_effort, str)
+                    or not reasoning_effort
+                    or not isinstance(max_output_tokens, int)
+                    or max_output_tokens <= 0
+                    or not isinstance(base_commit, str)
+                    or len(base_commit) != 40
+                    or any(character not in "0123456789abcdef" for character in base_commit)
+                    or not isinstance(evidence_excerpts, list)
+                    or not evidence_excerpts
+                    or any(not isinstance(item, str) or not item for item in evidence_excerpts)
+                    or not isinstance(openrouter_identity_hashes, dict)
+                ):
+                    raise ValueError("RUNTIME_INVENTORY_OPENROUTER_PACKET_INVALID")
+                required_hashes = {
+                    "task_sha256",
+                    "schema_sha256",
+                    "policy_sha256",
+                    "model_sha256",
+                    "reasoning_sha256",
+                    "source_sha256",
+                }
+                if set(openrouter_identity_hashes) != required_hashes or not all(
+                    self._valid_sha256(openrouter_identity_hashes[key]) for key in required_hashes
+                ):
+                    raise ValueError("RUNTIME_INVENTORY_OPENROUTER_PACKET_HASHES_INVALID")
+                prefix = "AUTO-OR-"
+                disposition = RoutingDisposition.OPENROUTER
+                model = packet.get("model")
             elif provider == "ollama_local" and task_format == "embedding_dedup_semantic_candidate_retrieval":
                 prefix = "AUTO-BGE-"
                 disposition = RoutingDisposition.LOCAL_QWEN
@@ -381,6 +480,39 @@ class RuntimeInventoryRefresher:
             source_hashes = packet.get("source_hashes", [])
             if not isinstance(source_hashes, list) or not source_hashes or not all(self._valid_sha256(item) for item in source_hashes):
                 raise ValueError("RUNTIME_INVENTORY_PROVIDER_SOURCE_HASHES_INVALID")
+            if provider == "openrouter":
+                assert openrouter_identity_hashes is not None
+                expected_hashes = {
+                    "task_sha256": sha256_value(
+                        {
+                            "task_id": packet["task_id"],
+                            "jira_unit": jira_unit,
+                            "authority": packet["authority"],
+                        }
+                    ),
+                    "schema_sha256": sha256_value(
+                        {
+                            "schema_version": packet["request_schema_version"],
+                            "schema_sha256": schema_sha256,
+                        }
+                    ),
+                    "policy_sha256": sha256_value(
+                        {
+                            "provider_policy_version": packet["provider_policy_version"],
+                            "task_format": task_format,
+                        }
+                    ),
+                    "model_sha256": sha256_value({"model": packet.get("model")}),
+                    "reasoning_sha256": sha256_value(
+                        {
+                            "reasoning_effort": packet["reasoning_effort"],
+                            "max_output_tokens": packet["max_output_tokens"],
+                        }
+                    ),
+                    "source_sha256": sha256_value(tuple(source_hashes)),
+                }
+                if openrouter_identity_hashes != expected_hashes:
+                    raise ValueError("RUNTIME_INVENTORY_OPENROUTER_IDENTITY_HASH_MISMATCH")
             packet_path, packet_sha256 = _content_addressed_json(self.config.packet_root, "provider-packets", packet)
             work_unit_id = prefix + packet_sha256[:20]
             unit = ReadyWorkUnit(

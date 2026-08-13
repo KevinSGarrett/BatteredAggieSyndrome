@@ -12,9 +12,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.assistive_plane.contracts import canonical_json_bytes  # noqa: E402
+from aggie_analytics.assistive_plane.contracts import canonical_json_bytes, sha256_value  # noqa: E402
 from aggie_analytics.assistive_plane.cpu_worker_backend import MAX_RECORDS  # noqa: E402
-from aggie_analytics.assistive_plane.inventory_runtime import CPU_EXACT_ROUTES  # noqa: E402
+from aggie_analytics.assistive_plane.inventory_runtime import (  # noqa: E402
+    CPU_EXACT_ROUTES,
+    OPENROUTER_TASK_FORMAT,
+)
 
 
 DEFAULT_QUEUE = Path(r"C:\BatteredAggieSyndrome.data\assistive\provider_work\requests")
@@ -24,7 +27,7 @@ def queue_packet(source: Path, queue_root: Path) -> tuple[Path, str]:
     value = json.loads(source.read_text(encoding="utf-8"))
     if not isinstance(value, dict) or value.get("schema_version") != 1:
         raise ValueError("PROVIDER_WORK_PACKET_INVALID")
-    if value.get("provider") not in {"openai_direct", "ollama_local", "remote_cpu_worker"}:
+    if value.get("provider") not in {"openai_direct", "openrouter", "ollama_local", "remote_cpu_worker"}:
         raise ValueError("PROVIDER_WORK_PROVIDER_NOT_ADMITTED")
     if value.get("authority") != "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES":
         raise ValueError("PROVIDER_WORK_AUTHORITY_INVALID")
@@ -78,6 +81,75 @@ def queue_packet(source: Path, queue_root: Path) -> tuple[Path, str]:
             or value.get("pre_routing_effort_points") not in {1, 2, 3, 5, 8}
         ):
             raise ValueError("PROVIDER_WORK_CPU_PACKET_INVALID")
+    if value.get("provider") == "openrouter":
+        def valid_hash(item: object) -> bool:
+            return isinstance(item, str) and len(item) == 64 and all(
+                character in "0123456789abcdef" for character in item
+            )
+
+        task_id = value.get("task_id")
+        task_format = value.get("task_format")
+        jira_unit = value.get("jira_unit")
+        authority = value.get("authority")
+        schema_sha256 = value.get("schema_sha256")
+        request_schema_version = value.get("request_schema_version")
+        provider_policy_version = value.get("provider_policy_version")
+        model = value.get("model")
+        reasoning_effort = value.get("reasoning_effort")
+        max_output_tokens = value.get("max_output_tokens")
+        base_commit = value.get("base_commit")
+        source_hashes = value.get("source_hashes")
+        evidence_excerpts = value.get("evidence_excerpts")
+        identity_hashes = value.get("identity_hashes")
+        if (
+            task_format != OPENROUTER_TASK_FORMAT
+            or not isinstance(task_id, str)
+            or not task_id
+            or not isinstance(jira_unit, str)
+            or not jira_unit
+            or not isinstance(schema_sha256, str)
+            or not valid_hash(schema_sha256)
+            or not isinstance(request_schema_version, str)
+            or not request_schema_version
+            or not isinstance(provider_policy_version, str)
+            or not provider_policy_version
+            or not isinstance(model, str)
+            or not model
+            or not isinstance(reasoning_effort, str)
+            or not reasoning_effort
+            or not isinstance(max_output_tokens, int)
+            or max_output_tokens <= 0
+            or not isinstance(base_commit, str)
+            or len(base_commit) != 40
+            or any(character not in "0123456789abcdef" for character in base_commit)
+            or not isinstance(source_hashes, list)
+            or not source_hashes
+            or not all(valid_hash(item) for item in source_hashes)
+            or not isinstance(evidence_excerpts, list)
+            or not evidence_excerpts
+            or any(not isinstance(item, str) or not item for item in evidence_excerpts)
+            or not isinstance(identity_hashes, dict)
+            or authority != "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES"
+        ):
+            raise ValueError("PROVIDER_WORK_OPENROUTER_PACKET_INVALID")
+        expected_hashes = {
+            "task_sha256": sha256_value(
+                {"task_id": task_id, "jira_unit": jira_unit, "authority": authority}
+            ),
+            "schema_sha256": sha256_value(
+                {"schema_version": request_schema_version, "schema_sha256": schema_sha256}
+            ),
+            "policy_sha256": sha256_value(
+                {"provider_policy_version": provider_policy_version, "task_format": task_format}
+            ),
+            "model_sha256": sha256_value({"model": model}),
+            "reasoning_sha256": sha256_value(
+                {"reasoning_effort": reasoning_effort, "max_output_tokens": max_output_tokens}
+            ),
+            "source_sha256": sha256_value(tuple(source_hashes)),
+        }
+        if identity_hashes != expected_hashes:
+            raise ValueError("PROVIDER_WORK_OPENROUTER_HASH_IDENTITY_INVALID")
     data = canonical_json_bytes(value) + b"\n"
     digest = hashlib.sha256(data).hexdigest()
     destination = queue_root / "sha256" / digest[:2] / f"{digest}.json"

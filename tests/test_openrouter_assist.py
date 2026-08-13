@@ -148,6 +148,8 @@ class OpenRouterAssistTests(unittest.TestCase):
         self.assertEqual(Decimal("0.005"), dispatcher.ledger.state().settled_usd)
         with self.assertRaisesRegex(BudgetRejected, "PROVIDER_SETTLEMENT_IDEMPOTENCY_CONFLICT"):
             dispatcher.ledger.settle("stable-settlement", Decimal("0.006"))
+        with self.assertRaisesRegex(BudgetRejected, "PROVIDER_REQUEST_ALREADY_SETTLED"):
+            dispatcher.ledger.reserve("stable-settlement", Decimal("0.01"))
 
     def test_released_stage_is_lower_admission_ceiling(self) -> None:
         dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)

@@ -4,6 +4,7 @@ import sys
 import tempfile
 import unittest
 from dataclasses import replace
+from decimal import Decimal
 from email.message import Message
 from io import BytesIO
 from pathlib import Path
@@ -14,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.assistive_plane.bypass import find_direct_endpoint_bypasses
+from aggie_analytics.assistive_plane.budget import BudgetRejected
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerIdentity
 from aggie_analytics.assistive_plane.cursor_backend import (
     CursorApiError,
@@ -36,7 +38,7 @@ from aggie_analytics.assistive_plane.orchestration import (
     RoutingDisposition,
     write_content_addressed_json,
 )
-from tools.cursor_assist import inspect as inspect_cursor
+from tools.cursor_assist import finalize_request_identity, inspect as inspect_cursor, settlement_plan
 
 
 class UnifiedAssistivePlaneTests(unittest.TestCase):
@@ -174,6 +176,21 @@ class UnifiedAssistivePlaneTests(unittest.TestCase):
     def test_cursor_inspection_requires_bound_agent_job_identity(self) -> None:
         with self.assertRaisesRegex(ValueError, "CURSOR_AGENT_JOB_IDENTITY_MISMATCH"):
             inspect_cursor("bc-00000000-0000-5000-8000-000000000000", "a" * 64)
+
+    def test_cursor_postsettlement_finalize_uses_incremental_identity(self) -> None:
+        job_id = "a" * 64
+        request_id, actual, mode = settlement_plan(
+            {"settlements": {job_id: "0.25"}}, job_id, Decimal("0.30")
+        )
+        self.assertEqual(finalize_request_identity(job_id), request_id)
+        self.assertEqual(Decimal("0.05"), actual)
+        self.assertEqual("POST_SETTLEMENT_FINALIZE_INCREMENT", mode)
+        self.assertEqual(
+            (None, Decimal("0.00"), "ALREADY_SETTLED_NO_INCREMENT"),
+            settlement_plan({"settlements": {job_id: "0.30"}}, job_id, Decimal("0.30")),
+        )
+        with self.assertRaisesRegex(BudgetRejected, "CURSOR_AGGREGATE_USAGE_REGRESSION"):
+            settlement_plan({"settlements": {job_id: "0.31"}}, job_id, Decimal("0.30"))
 
     def test_cursor_client_preserves_only_structured_safe_error_fields(self) -> None:
         with tempfile.TemporaryDirectory() as raw:

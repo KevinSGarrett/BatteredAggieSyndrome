@@ -26,6 +26,7 @@ from aggie_analytics.assistive_plane.orchestration import write_content_addresse
 ENV = Path(r"C:\BatteredAggieSyndrome\.env")
 STORE = Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor")
 POLICY = ROOT / "configs" / "unified_assistive_policy.json"
+FINALIZE_RESERVATION_USD = Decimal("0.50")
 
 
 def canonical(value: Any) -> bytes:
@@ -34,6 +35,25 @@ def canonical(value: Any) -> bytes:
 
 def job_identity(spec: dict[str, Any]) -> str:
     return hashlib.sha256(canonical(spec)).hexdigest()
+
+
+def finalize_request_identity(job_id: str) -> str:
+    return hashlib.sha256(f"{job_id}:finalize:v1".encode("utf-8")).hexdigest()
+
+
+def settlement_plan(
+    ledger_data: dict[str, Any], job_id: str, provider_aggregate_usd: Decimal
+) -> tuple[str | None, Decimal, str]:
+    settlements = dict(ledger_data.get("settlements", {}))
+    if job_id not in settlements:
+        return job_id, provider_aggregate_usd, "INITIAL_AGGREGATE_SETTLEMENT"
+    prior_usd = Decimal(str(settlements[job_id]))
+    if provider_aggregate_usd < prior_usd:
+        raise BudgetRejected("CURSOR_AGGREGATE_USAGE_REGRESSION")
+    incremental_usd = provider_aggregate_usd - prior_usd
+    if incremental_usd == 0:
+        return None, incremental_usd, "ALREADY_SETTLED_NO_INCREMENT"
+    return finalize_request_identity(job_id), incremental_usd, "POST_SETTLEMENT_FINALIZE_INCREMENT"
 
 
 def ledger(policy: dict[str, Any]) -> BudgetLedger:
@@ -154,9 +174,14 @@ def inspect(agent_id: str, job_id: str) -> dict[str, Any]:
         charged_cents = cost.get("chargedCents") if isinstance(cost, dict) else None
         if charged_cents is None:
             raise RuntimeError("CURSOR_TERMINAL_USAGE_COST_MISSING")
-        actual_usd = Decimal(str(charged_cents)) / Decimal("100")
+        provider_aggregate_usd = Decimal(str(charged_cents)) / Decimal("100")
         budget = ledger(policy)
-        budget.settle(job_id, actual_usd)
+        ledger_data = json.loads((STORE / "usage" / "ledger.json").read_text(encoding="utf-8"))
+        settlement_request_id, actual_usd, settlement_mode = settlement_plan(
+            ledger_data, job_id, provider_aggregate_usd
+        )
+        if settlement_request_id is not None:
+            budget.settle(settlement_request_id, actual_usd)
         state = budget.state()
         settlement = {
             "schema_version": 1,
@@ -165,6 +190,9 @@ def inspect(agent_id: str, job_id: str) -> dict[str, Any]:
             "latest_run_id": run_id,
             "result_sha256": digest,
             "provider_usage": usage,
+            "provider_aggregate_usd": format(provider_aggregate_usd, "f"),
+            "settlement_request_id": settlement_request_id,
+            "settlement_mode": settlement_mode,
             "actual_usd": format(actual_usd, "f"),
             "settled_total_usd": format(state.settled_usd, "f"),
             "remaining_released_usd": format(state.released_limit_usd - state.settled_usd - state.reserved_usd, "f"),
@@ -193,7 +221,15 @@ def finalize(spec_path: Path, agent_id: str) -> dict[str, Any]:
     if agent_id != expected_agent_id:
         raise ValueError("CURSOR_AGENT_JOB_IDENTITY_MISMATCH")
     budget_data = json.loads((STORE / "usage" / "ledger.json").read_text(encoding="utf-8"))
-    if job_id not in budget_data.get("reservations", {}):
+    reservations = dict(budget_data.get("reservations", {}))
+    settlements = dict(budget_data.get("settlements", {}))
+    finalize_reservation_id: str | None = None
+    settlement_mode = "INITIAL_AGGREGATE_SETTLEMENT"
+    if job_id in settlements:
+        finalize_reservation_id = finalize_request_identity(job_id)
+        ledger(policy).reserve(finalize_reservation_id, FINALIZE_RESERVATION_USD)
+        settlement_mode = "POST_SETTLEMENT_FINALIZE_INCREMENT"
+    elif job_id not in reservations:
         raise BudgetRejected("CURSOR_FINALIZE_REQUIRES_OUTSTANDING_RESERVATION")
     backend = CursorBackend(CursorRunPolicy(reasoning=spec["reasoning"]))
     prompt = (
@@ -203,11 +239,16 @@ def finalize(spec_path: Path, agent_id: str) -> dict[str, Any]:
         "no working-tree changes, report that honestly and do not invent a commit."
     )
     client = CursorCloudClient(ENV)
-    response = client.request(
-        "POST",
-        f"/agents/{agent_id}/runs",
-        backend.build_followup_payload(prompt=prompt),
-    )
+    try:
+        response = client.request(
+            "POST",
+            f"/agents/{agent_id}/runs",
+            backend.build_followup_payload(prompt=prompt),
+        )
+    except CursorApiError:
+        if finalize_reservation_id is not None:
+            ledger(policy).release(finalize_reservation_id)
+        raise
     run = response.get("run", {})
     evidence = {
         "schema_version": 1,
@@ -218,7 +259,9 @@ def finalize(spec_path: Path, agent_id: str) -> dict[str, Any]:
         "run_id": run.get("id", ""),
         "action": "COMMIT_AND_PUSH_EXISTING_ALLOWED_PATH_CHANGES_ONLY",
         "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+        "budget_reservation_id": finalize_reservation_id or job_id,
         "budget_reservation_remains_outstanding": True,
+        "settlement_mode": settlement_mode,
         "auto_create_pr": False,
         "work_on_current_branch": False,
     }

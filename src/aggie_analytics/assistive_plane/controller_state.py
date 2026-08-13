@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sqlite3
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -54,6 +55,24 @@ def usd_cents(value: str | Decimal) -> int:
 def process_is_live(pid: int) -> bool:
     if pid <= 0:
         return False
+    if os.name == "nt":
+        # On Windows, os.kill(pid, 0) calls TerminateProcess rather than acting
+        # as the non-mutating POSIX existence probe. Query a minimal process
+        # handle instead and fail closed when Windows cannot prove absence.
+        import ctypes
+
+        process_query_limited_information = 0x1000
+        error_invalid_parameter = 87
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32.OpenProcess.argtypes = [ctypes.c_uint32, ctypes.c_int, ctypes.c_uint32]
+        kernel32.OpenProcess.restype = ctypes.c_void_p
+        kernel32.CloseHandle.argtypes = [ctypes.c_void_p]
+        kernel32.CloseHandle.restype = ctypes.c_int
+        handle = kernel32.OpenProcess(process_query_limited_information, False, pid)
+        if handle:
+            kernel32.CloseHandle(handle)
+            return True
+        return ctypes.get_last_error() != error_invalid_parameter
     try:
         os.kill(pid, 0)
     except ProcessLookupError:
@@ -64,13 +83,10 @@ def process_is_live(pid: int) -> bool:
 
 
 def owner_pid(owner_id: str) -> int:
-    parts = owner_id.split(":")
-    if len(parts) < 3:
+    match = re.fullmatch(r"[^:]+:([1-9][0-9]*):[0-9a-fA-F]{32}", owner_id)
+    if match is None:
         raise RuntimeError("CONTROLLER_RECOVERY_OWNER_ID_FORMAT_INVALID")
-    try:
-        return int(parts[1])
-    except ValueError as exc:  # pragma: no cover - explicit defensive path
-        raise RuntimeError("CONTROLLER_RECOVERY_OWNER_ID_FORMAT_INVALID") from exc
+    return int(match.group(1))
 
 
 class LeaderLock:
@@ -317,8 +333,10 @@ class ControllerState:
         recovery_evidence_sha256: str,
         now: datetime | None = None,
     ) -> None:
-        if len(recovery_evidence_sha256) != 64:
+        if re.fullmatch(r"[0-9a-f]{64}", recovery_evidence_sha256) is None:
             raise ValueError("RECOVERY_EVIDENCE_IDENTITY_INVALID")
+        if re.fullmatch(r"[0-9a-f]{40}", expected_build_commit) is None:
+            raise ValueError("RECOVERY_BUILD_IDENTITY_INVALID")
         bound_owner_pid = owner_pid(expected_owner_id)
         if bound_owner_pid != expected_owner_pid:
             raise RuntimeError("CONTROLLER_RECOVERY_OWNER_PID_MISMATCH")

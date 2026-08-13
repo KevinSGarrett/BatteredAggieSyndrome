@@ -139,6 +139,12 @@ if ($Replace -and $existingTasks[$ControllerTaskName]) {
 $WhatIfPreference = $requestedWhatIf
 $installController = $PSCmdlet.ShouldProcess($ControllerTaskName, 'Register limited controller scheduled task')
 $installWatchdog = $PSCmdlet.ShouldProcess($WatchdogTaskName, 'Register independent limited watchdog scheduled task')
+if (($installController -or $installWatchdog) -and $PrincipalMode -eq 'LocalService') {
+    $windowsPrincipal = [System.Security.Principal.WindowsPrincipal]::new($identity)
+    if (-not $windowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)) {
+        throw 'CONTROLLER_LOCAL_SERVICE_ELEVATION_REQUIRED_BEFORE_MUTATION'
+    }
+}
 if ($installController -or $installWatchdog) {
     $WhatIfPreference = $false
     $null = New-Item -ItemType Directory -Path $backupRoot -Force

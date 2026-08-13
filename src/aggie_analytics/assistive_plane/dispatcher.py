@@ -17,6 +17,8 @@ from .storage import ContentAddressedStore
 
 
 class AssistiveDispatcher:
+    _RECONCILIATION_BINDING_KEY = "reconciliation_candidate_binding_v1"
+
     def __init__(self, root: Path, backend: AssistiveBackend, policy_path: Path) -> None:
         self.root = root
         self.backend = backend
@@ -143,6 +145,19 @@ class AssistiveDispatcher:
                 self.ledger.release(request_id)
                 return self._record(request, Disposition.QUARANTINE, str(cost_exc), result)
             return self._record(request, Disposition.QUARANTINE, f"STRICT_OUTPUT_INVALID:{exc}", result)
+        try:
+            self._validate_reconciliation_candidate_ids(request, result.output)
+        except ValueError as exc:
+            self.store.put_json(
+                "quarantine",
+                {**asdict(result), "request_id": request_id, "reason": f"RECONCILIATION_POST_SCHEMA_INVALID:{exc}"},
+            )
+            try:
+                self.ledger.settle(request_id, Decimal(result.cost_usd))
+            except BudgetRejected as cost_exc:
+                self.ledger.release(request_id)
+                return self._record(request, Disposition.QUARANTINE, str(cost_exc), result)
+            return self._record(request, Disposition.QUARANTINE, f"RECONCILIATION_POST_SCHEMA_INVALID:{exc}", result)
         self.store.put_json("responses", {**asdict(result), "request_id": request_id})
         try:
             self.ledger.settle(request_id, Decimal(result.cost_usd))
@@ -171,3 +186,51 @@ class AssistiveDispatcher:
         }
         path, _, _ = self.store.put_json("manifests", manifest)
         return DispatchResult(request_id, disposition, reason, str(path), result if hasattr(result, "output") else None)
+
+    def _validate_reconciliation_candidate_ids(self, request: AssistiveRequest, output: dict[str, object]) -> None:
+        if request.task_id != "reconciliation_ranking":
+            return
+        allowed_ids = self._reconciliation_allowed_ids(request)
+        candidate_ids = output.get("candidate_ids")
+        if not isinstance(candidate_ids, list):
+            raise ValueError("RESULT_CANDIDATE_IDS_NOT_ARRAY")
+        observed: set[str] = set()
+        for candidate_id in candidate_ids:
+            if candidate_id in observed:
+                raise ValueError("RESULT_CANDIDATE_ID_DUPLICATE")
+            observed.add(candidate_id)
+            if candidate_id not in allowed_ids:
+                raise ValueError("RESULT_CANDIDATE_ID_UNKNOWN")
+
+    def _reconciliation_allowed_ids(self, request: AssistiveRequest) -> set[str]:
+        bindings: list[dict[str, object]] = []
+        for excerpt in request.evidence_excerpts:
+            try:
+                payload = json.loads(excerpt)
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(payload, dict):
+                continue
+            binding = payload.get(self._RECONCILIATION_BINDING_KEY)
+            if binding is None:
+                continue
+            if not isinstance(binding, dict):
+                raise ValueError("ALLOWED_SET_CONTRACT_INVALID")
+            bindings.append(binding)
+        if not bindings:
+            raise ValueError("ALLOWED_SET_UNAVAILABLE")
+        if len(bindings) != 1:
+            raise ValueError("ALLOWED_SET_AMBIGUOUS")
+        binding = bindings[0]
+        request_id = binding.get("request_id")
+        if request_id is not None:
+            if not isinstance(request_id, str) or request_id != request.identity():
+                raise ValueError("ALLOWED_SET_REQUEST_ID_MISMATCH")
+        candidate_ids = binding.get("candidate_ids")
+        if not isinstance(candidate_ids, list) or not candidate_ids:
+            raise ValueError("ALLOWED_SET_CONTRACT_INVALID")
+        if any(not isinstance(item, str) or not item for item in candidate_ids):
+            raise ValueError("ALLOWED_SET_CONTRACT_INVALID")
+        if len(set(candidate_ids)) != len(candidate_ids):
+            raise ValueError("ALLOWED_SET_CONTRACT_INVALID")
+        return set(candidate_ids)

@@ -11,6 +11,7 @@ from typing import Any
 
 from .contracts import canonical_json_bytes, sha256_value
 from .controller_state import ControllerState, rfc3339
+from .cpu_worker_backend import MAX_RECORDS
 from .orchestration import (
     ATOMIC_EXECUTABLE,
     ReadyWorkInventory,
@@ -27,16 +28,47 @@ MAX_PROVIDER_WORK_BYTES = 2 * 1024 * 1024
 MAX_PROVIDER_WORK_UNITS = 64
 MAX_PROVIDER_WORK_SCAN_UNITS = 4096
 DISCOVERY_NAMES = frozenset({"run.json", "progress.json"})
-DYNAMIC_PREFIXES = ("AUTO-CPU-MANIFEST-", "AUTO-BGE-", "AUTO-OAI-")
+DYNAMIC_PREFIXES = (
+    "AUTO-CPU-MANIFEST-",
+    "AUTO-CPU-LINE-HASH-",
+    "AUTO-CPU-TEXT-DEDUP-",
+    "AUTO-BGE-",
+    "AUTO-OAI-",
+)
 CPU_MANIFEST_TASK_FORMAT = "cpu_worker_canonical_manifest_v1"
 CPU_MANIFEST_SCHEMA_SHA256 = hashlib.sha256(
     b"cpu_worker_canonical_manifest_v1:value:any-json;candidate-only;exact-local-replay"
 ).hexdigest()
+CPU_LINE_HASH_TASK_FORMAT = "cpu_worker_line_hash_manifest_v1"
+CPU_LINE_HASH_SCHEMA_SHA256 = hashlib.sha256(
+    b"cpu_worker_line_hash_manifest_v1:lines:utf8-list;candidate-only;exact-local-replay"
+).hexdigest()
+CPU_TEXT_DEDUP_TASK_FORMAT = "cpu_worker_exact_text_dedup_v1"
+CPU_TEXT_DEDUP_SCHEMA_SHA256 = hashlib.sha256(
+    b"cpu_worker_exact_text_dedup_v1:records:id-text;nfkc-whitespace-casefold;candidate-only"
+).hexdigest()
+CPU_EXACT_ROUTES = {
+    "CANONICAL_JSON": (CPU_MANIFEST_TASK_FORMAT, CPU_MANIFEST_SCHEMA_SHA256, "AUTO-CPU-MANIFEST-"),
+    "LINE_HASH_MANIFEST": (
+        CPU_LINE_HASH_TASK_FORMAT,
+        CPU_LINE_HASH_SCHEMA_SHA256,
+        "AUTO-CPU-LINE-HASH-",
+    ),
+    "EXACT_TEXT_DEDUP": (
+        CPU_TEXT_DEDUP_TASK_FORMAT,
+        CPU_TEXT_DEDUP_SCHEMA_SHA256,
+        "AUTO-CPU-TEXT-DEDUP-",
+    ),
+}
 READY_WORK_UNIT_FIELDS = frozenset(ReadyWorkUnit.__dataclass_fields__)
 ROUTE_DECISION_FIELDS = frozenset(RouteDecision.__dataclass_fields__)
 
 
-def cpu_qualification_evidence_sha256(snapshot: dict[str, Any]) -> str | None:
+def cpu_qualification_evidence_sha256(
+    snapshot: dict[str, Any], task: str = "CANONICAL_JSON"
+) -> str | None:
+    if task not in CPU_EXACT_ROUTES:
+        return None
     evidence = snapshot.get("external_evidence", {}).get("cpu_worker", {})
     if not evidence.get("qualified"):
         return None
@@ -49,9 +81,11 @@ def cpu_qualification_evidence_sha256(snapshot: dict[str, Any]) -> str | None:
     if not isinstance(qualifications, list):
         return None
     for qualification in qualifications:
+        tasks = qualification.get("tasks") if isinstance(qualification, dict) else None
         if (
             isinstance(qualification, dict)
-            and "CANONICAL_JSON" in qualification.get("tasks", [])
+            and isinstance(tasks, list)
+            and task in tasks
             and valid_sha256(qualification.get("evidence_sha256"))
             and valid_sha256(qualification.get("readiness_evidence_sha256"))
         ):
@@ -231,8 +265,11 @@ class RuntimeInventoryRefresher:
     @classmethod
     def _provider_readiness(cls, snapshot: dict[str, Any], packet: dict[str, Any]) -> str | None:
         provider = packet.get("provider")
-        if provider == "remote_cpu_worker" and packet.get("task_format") == CPU_MANIFEST_TASK_FORMAT:
-            return cpu_qualification_evidence_sha256(snapshot)
+        if provider == "remote_cpu_worker":
+            task = str(packet.get("task", ""))
+            route = CPU_EXACT_ROUTES.get(task)
+            if route is not None and packet.get("task_format") == route[0]:
+                return cpu_qualification_evidence_sha256(snapshot, task)
         if provider == "openai_direct":
             evidence = snapshot.get("external_evidence", {}).get("openai", {})
             digest = evidence.get("manifest_sha256")
@@ -290,15 +327,46 @@ class RuntimeInventoryRefresher:
                 prefix = "AUTO-BGE-"
                 disposition = RoutingDisposition.LOCAL_QWEN
                 model = packet.get("model")
-            elif provider == "remote_cpu_worker" and task_format == CPU_MANIFEST_TASK_FORMAT:
+            elif provider == "remote_cpu_worker" and str(packet.get("task", "")) in CPU_EXACT_ROUTES:
+                task = str(packet["task"])
+                expected_format, expected_schema, prefix = CPU_EXACT_ROUTES[task]
                 payload = packet.get("payload")
+                payload_shape_valid = (
+                    task == "CANONICAL_JSON"
+                    and isinstance(payload, dict)
+                    and set(payload) == {"value"}
+                ) or (
+                    task == "LINE_HASH_MANIFEST"
+                    and isinstance(payload, dict)
+                    and set(payload) == {"lines"}
+                    and isinstance(payload["lines"], list)
+                    and bool(payload["lines"])
+                    and len(payload["lines"]) <= MAX_RECORDS
+                    and all(isinstance(item, str) for item in payload["lines"])
+                ) or (
+                    task == "EXACT_TEXT_DEDUP"
+                    and isinstance(payload, dict)
+                    and set(payload) == {"records"}
+                    and isinstance(payload["records"], list)
+                    and bool(payload["records"])
+                    and len(payload["records"]) <= MAX_RECORDS
+                    and all(
+                        isinstance(item, dict)
+                        and set(item) == {"id", "text"}
+                        and isinstance(item["id"], str)
+                        and bool(item["id"])
+                        and isinstance(item["text"], str)
+                        for item in payload["records"]
+                    )
+                    and len({item["id"] for item in payload["records"]})
+                    == len(payload["records"])
+                )
                 if (
-                    packet.get("task") != "CANONICAL_JSON"
-                    or not isinstance(payload, dict)
-                    or set(payload) != {"value"}
+                    task_format != expected_format
+                    or packet.get("schema_sha256") != expected_schema
+                    or not payload_shape_valid
                 ):
                     raise ValueError("RUNTIME_INVENTORY_CPU_PROVIDER_PACKET_INVALID")
-                prefix = "AUTO-CPU-MANIFEST-"
                 disposition = RoutingDisposition.REMOTE_CPU_WORKER
                 model = "DETERMINISTIC_CPU_WORKER_V2"
             else:

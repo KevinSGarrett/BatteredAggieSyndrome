@@ -3415,6 +3415,7 @@ tools/prepare_openai_quarantine_pilot.py
 tools/prepare_tamu_availability_source_sample.py
 tools/qualify_cpu_worker.py
 tools/queue_cpu_worker_manifest_work.py
+tools/queue_cpu_worker_text_work.py
 tools/queue_openai_gamebook_candidate_work.py
 tools/queue_unified_assistive_work.py
 tools/refresh_cpu_worker_readiness.py

@@ -430,7 +430,9 @@ class InventoryScheduler:
         packet_sha256: str,
         route_identity: str,
     ) -> dict[str, Any] | None:
-        readiness_evidence_sha256 = cpu_qualification_evidence_sha256(payload)
+        readiness_evidence_sha256 = cpu_qualification_evidence_sha256(
+            payload, str(packet.get("task", ""))
+        )
         if readiness_evidence_sha256 is None:
             raise RuntimeError("SCHEDULER_CPU_QUALIFICATION_NOT_ESTABLISHED")
         attempt_number = self.state.dispatch_attempt_count(decision.work_unit_id) + 1

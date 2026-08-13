@@ -12,7 +12,14 @@ from unittest.mock import patch
 from aggie_analytics.assistive_plane.contracts import canonical_json_bytes
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerClient, execute_cpu_request
-from aggie_analytics.assistive_plane.inventory_runtime import RuntimeInventoryConfig, RuntimeInventoryRefresher
+from aggie_analytics.assistive_plane.inventory_runtime import (
+    CPU_LINE_HASH_SCHEMA_SHA256,
+    CPU_LINE_HASH_TASK_FORMAT,
+    CPU_TEXT_DEDUP_SCHEMA_SHA256,
+    CPU_TEXT_DEDUP_TASK_FORMAT,
+    RuntimeInventoryConfig,
+    RuntimeInventoryRefresher,
+)
 from aggie_analytics.assistive_plane.orchestration import CAMPAIGN_OWNER, validate_work_unit_roles, ReadyWorkUnit
 from aggie_analytics.assistive_plane.provider_adapters import ProviderAdapterResult
 from aggie_analytics.assistive_plane.scheduler_runtime import InventoryScheduler, SchedulerConfig
@@ -448,6 +455,76 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
 
         current_payload["external_evidence"]["cpu_worker"]["qualified"] = False
         with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
+            refresher._discover_provider_work(current_payload, self.now)
+
+    def test_selected_cpu_text_routes_require_exact_task_format_schema_and_qualification(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        packets = (
+            {
+                "schema_version": 1,
+                "provider": "remote_cpu_worker",
+                "task": "LINE_HASH_MANIFEST",
+                "task_format": CPU_LINE_HASH_TASK_FORMAT,
+                "jira_unit": "BAT-563",
+                "schema_sha256": CPU_LINE_HASH_SCHEMA_SHA256,
+                "source_hashes": ["5" * 64],
+                "dependencies": [],
+                "pre_routing_effort_points": 1,
+                "scope": "Line-level integrity QA for a selected historical manifest",
+                "payload": {"lines": ["season=2022", "status=complete"]},
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            },
+            {
+                "schema_version": 1,
+                "provider": "remote_cpu_worker",
+                "task": "EXACT_TEXT_DEDUP",
+                "task_format": CPU_TEXT_DEDUP_TASK_FORMAT,
+                "jira_unit": "BAT-563",
+                "schema_sha256": CPU_TEXT_DEDUP_SCHEMA_SHA256,
+                "source_hashes": ["6" * 64],
+                "dependencies": [],
+                "pre_routing_effort_points": 1,
+                "scope": "Exact normalized-string candidate deduplication for historical evidence",
+                "payload": {"records": [{"id": "/team/0", "text": "Texas A&M"}]},
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            },
+        )
+        for index, packet in enumerate(packets):
+            (provider_root / f"cpu-text-{index}.json").write_bytes(canonical_json_bytes(packet) + b"\n")
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+
+        discovered = refresher._discover_provider_work(current_payload, self.now)
+        self.assertEqual(2, len(discovered))
+        self.assertEqual(
+            {"AUTO-CPU-LINE-HASH-", "AUTO-CPU-TEXT-DEDUP-"},
+            {entry[0].work_unit_id.rsplit("-", 1)[0] + "-" for entry in discovered},
+        )
+        self.assertTrue(all(entry[2]["readiness_evidence_sha256"] == "c" * 64 for entry in discovered))
+
+        current_payload["external_evidence"]["cpu_worker"]["qualifications"][0]["tasks"] = [
+            "CANONICAL_JSON",
+            "LINE_HASH_MANIFEST",
+        ]
+        with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
+            refresher._discover_provider_work(current_payload, self.now)
+
+        current_payload["external_evidence"]["cpu_worker"]["qualifications"][0]["tasks"].append(
+            "EXACT_TEXT_DEDUP"
+        )
+        packets[1]["task_format"] = CPU_LINE_HASH_TASK_FORMAT
+        (provider_root / "cpu-text-1.json").write_bytes(canonical_json_bytes(packets[1]) + b"\n")
+        with self.assertRaisesRegex(ValueError, "CPU_PROVIDER_PACKET_INVALID"):
             refresher._discover_provider_work(current_payload, self.now)
 
     def test_closed_provider_packets_do_not_exhaust_active_discovery_bound(self) -> None:

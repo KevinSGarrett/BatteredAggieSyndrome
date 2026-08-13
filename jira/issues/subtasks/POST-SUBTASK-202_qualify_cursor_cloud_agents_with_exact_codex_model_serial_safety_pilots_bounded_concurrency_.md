@@ -124,7 +124,7 @@
     "candidate-only",
     "subtask"
   ],
-  "last_content_audit": "2026-08-12",
+  "last_content_audit": "2026-08-13",
   "local_id": "POST-SUBTASK-202",
   "maturity_before": "NOT_STARTED",
   "objective": "Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration",

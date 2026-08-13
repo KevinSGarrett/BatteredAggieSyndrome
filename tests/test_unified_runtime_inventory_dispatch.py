@@ -807,6 +807,7 @@ def cpu_worker_semantic_evidence(root: Path):
                 build_commit=build_commit,
                 openai_task_registry_path=openai_task_registry,
                 continuous_source_root=source_root,
+                bge_downstream_consumer_contract_version="test-semantic-review-routing-v1",
             ),
         )
         demand = {
@@ -933,6 +934,7 @@ def cpu_worker_semantic_evidence(root: Path):
                 release_root=release,
                 build_commit=build_commit,
                 openai_task_registry_path=registry,
+                bge_downstream_consumer_contract_version="test-semantic-review-routing-v1",
             ),
         )
         demand = {
@@ -951,6 +953,18 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual("gpt-5.6-terra", openai_packet["job"]["model"])
         self.assertEqual(raw_sha256, openai_packet["job"]["source_capture_sha256"])
         self.assertIn("Quarter", openai_packet["job"]["source_excerpt"])
+
+    def test_bge_continuous_work_fails_closed_without_downstream_consumer(self) -> None:
+        demand = {
+            "providers": {
+                "ollama_local": {
+                    "unmet": True,
+                    "active_execution_packets": 0,
+                    "pending_review_results": 0,
+                }
+            }
+        }
+        self.assertEqual([], self.refresher._materialize_continuous_bge_work(demand))
 
     def test_feature_evidence_replenishes_openai_without_historical_directory(self) -> None:
         feature_root = self.root / "reconciliation/feature_engineering"

@@ -5,6 +5,7 @@ import hmac
 import json
 import re
 import secrets
+import time
 import unicodedata
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -263,6 +264,7 @@ class CpuWorkerClient:
         self.storage_root = storage_root
         self.signing_key = signing_key
         self.timeout_seconds = timeout_seconds
+        self.last_local_replay_seconds: float | None = None
 
     def submit(
         self,
@@ -287,7 +289,10 @@ class CpuWorkerClient:
             raise RuntimeError("CPU_WORKER_RESPONSE_TOO_LARGE")
         payload = json.loads(body.decode("utf-8"))
         verify_cpu_response(payload, request_payload, self.signing_key)
-        if payload["result"] != execute_cpu_task(job.task, job.payload):
+        replay_started = time.perf_counter()
+        replayed_result = execute_cpu_task(job.task, job.payload)
+        self.last_local_replay_seconds = max(0.0, time.perf_counter() - replay_started)
+        if payload["result"] != replayed_result:
             raise RuntimeError("CPU_WORKER_RESULT_VALIDATION_FAILED")
         data = canonical_json_bytes({"request": request_payload, "response": payload}) + b"\n"
         digest = _sha_bytes(data)

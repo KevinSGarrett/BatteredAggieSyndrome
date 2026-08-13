@@ -15,6 +15,7 @@ from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerClient, 
 from aggie_analytics.assistive_plane.inventory_runtime import (
     CURSOR_SCHEMA_SHA256,
     CURSOR_TASK_FORMAT,
+    CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
     CPU_LINE_HASH_SCHEMA_SHA256,
     CPU_LINE_HASH_TASK_FORMAT,
     CPU_TEXT_DEDUP_SCHEMA_SHA256,
@@ -846,6 +847,10 @@ def cpu_worker_semantic_evidence(root: Path):
             cpu_packet["downstream_consumer"],
         )
         self.assertEqual(
+            CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
+            cpu_packet["downstream_consumer_contract_version"],
+        )
+        self.assertEqual(
             {"quarantine_schema_classification", "entity_review"},
             {
                 packet["job"]["task_name"]
@@ -1579,6 +1584,110 @@ def cpu_worker_semantic_evidence(root: Path):
         (provider_root / "cpu-text-1.json").write_bytes(canonical_json_bytes(packets[1]) + b"\n")
         with self.assertRaisesRegex(ValueError, "CPU_PROVIDER_PACKET_INVALID"):
             refresher._discover_provider_work_batch(current_payload, self.now)
+
+    def test_cpu_line_hash_tranche_is_consumed_by_provenance_workflow(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        packet = {
+            "schema_version": 1,
+            "provider": "remote_cpu_worker",
+            "task": "LINE_HASH_MANIFEST",
+            "task_format": CPU_LINE_HASH_TASK_FORMAT,
+            "jira_unit": "BAT-563",
+            "schema_sha256": CPU_LINE_HASH_SCHEMA_SHA256,
+            "source_hashes": ["5" * 64, "6" * 64],
+            "dependencies": [],
+            "pre_routing_effort_points": 3,
+            "scope": "Bounded historical provenance tranche",
+            "downstream_consumer": "HISTORICAL_MANIFEST_PROVENANCE_AND_REPLAY_VALIDATION",
+            "downstream_consumer_contract_version": CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
+            "delegation_preference_reason": "BOUNDED_FIXED_FUNCTION_REMOTE_CPU_BATCH",
+            "input_metrics": {"documents": 2, "records": 2, "bytes": 32},
+            "payload": {"lines": ["season=2022", "status=complete"]},
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        packet_data = canonical_json_bytes(packet) + b"\n"
+        packet_digest = hashlib.sha256(packet_data).hexdigest()
+        (provider_root / "line-hash.json").write_bytes(packet_data)
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+        refresher.refresh(now=self.now)
+        key_path = self.root / "consumer-secret.bin"
+        key_path.write_bytes(b"k" * 32)
+
+        def local_submit(client: CpuWorkerClient, job: object, request_payload: dict[str, object] | None = None):
+            assert request_payload is not None
+            response = execute_cpu_request(
+                request_payload,
+                client.signing_key,
+                now=self.now + timedelta(seconds=1),
+            )
+            data = canonical_json_bytes({"request": request_payload, "response": response}) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            destination = client.storage_root / "results" / digest[:2] / f"{digest}.json"
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(data)
+            client.last_local_replay_seconds = 0.002
+            return response, destination
+
+        downstream_root = self.root / "reconciliation/assistive_consumed"
+        scheduler = InventoryScheduler(
+            self.state,
+            SchedulerConfig(
+                inventory_current_path=self.current,
+                evidence_root=self.root / "runtime/evidence",
+                inventory_max_age_seconds=300,
+                cycle_interval_seconds=3600,
+                owner_id="consumer-controller-test",
+                cpu_worker_endpoint="https://comfy-v4-cpu-01.tail9b05ab.ts.net",
+                cpu_worker_storage_root=self.root / "cpu_worker",
+                cpu_worker_signing_key_path=key_path,
+                downstream_artifact_root=downstream_root,
+                max_dispatch_per_cycle=3,
+            ),
+        )
+        legacy_packet = dict(packet)
+        legacy_packet.pop("downstream_consumer_contract_version")
+        self.assertIsNone(
+            scheduler._consume_cpu_line_hash_result(
+                packet=legacy_packet,
+                response={"result": {"line_count": 0, "line_sha256": []}},
+                work_unit_id="legacy-work-unit",
+                attempt_id="legacy-attempt",
+                validation_sha256="0" * 64,
+            )
+        )
+        with patch.object(CpuWorkerClient, "submit", local_submit):
+            report = scheduler.evaluate(now=self.now)
+        work_unit_id = "AUTO-CPU-LINE-HASH-" + packet_digest[:20]
+        dispatched = next(item for item in report["dispatched"] if item["work_unit_id"] == work_unit_id)
+        self.assertEqual("ACCEPTED", dispatched["review_disposition"])
+        consumption = dispatched["downstream_consumption"]
+        self.assertEqual(2, consumption["records"])
+        self.assertTrue(Path(consumption["artifact_path"]).is_file())
+        self.assertEqual(
+            consumption["artifact_sha256"],
+            hashlib.sha256(Path(consumption["artifact_path"]).read_bytes()).hexdigest(),
+        )
+        status = self.state.status()
+        self.assertEqual(1, status["useful_work_summary"]["downstream_consumed_outputs"])
+        self.assertEqual(1, status["useful_work_summary"]["accepted_useful_outputs"])
+        with closing(self.state.connect()) as connection:
+            useful = connection.execute(
+                "SELECT direct_baseline_seconds,orchestration_seconds FROM useful_work_evidence "
+                "WHERE work_unit_id=?",
+                (work_unit_id,),
+            ).fetchone()
+        self.assertEqual(0.002, useful["direct_baseline_seconds"])
+        self.assertGreaterEqual(useful["orchestration_seconds"], 0.0)
 
     def test_closed_provider_packets_do_not_exhaust_active_discovery_bound(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))

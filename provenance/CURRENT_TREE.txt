@@ -35,6 +35,7 @@ artifacts/data_lake/historical_expansion_population_profile.json
 artifacts/data_lake/immutability_and_correction_test.json
 artifacts/data_lake/national_lake_readiness.json
 artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
+artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
 artifacts/entities/CANONICAL_ENTITY_SNAPSHOT.json
 artifacts/entities/canonical_core_registry.csv
 artifacts/entities/canonical_core_registry_manifest.json
@@ -234,6 +235,7 @@ configs/feature_lifecycle_registry.json
 configs/feature_source_research_program.json
 configs/historical_advanced_game_snapshot_contract.json
 configs/historical_game_outcome_spine_contract.json
+configs/historical_game_outcome_spine_expansion_contract.json
 configs/historical_known_at_recovery_contract.json
 configs/historical_play_drive_pit_aggregate_contract.json
 configs/historical_play_drive_pit_extension_contract.json
@@ -255,7 +257,9 @@ configs/local_coder_shadow_qualification.json
 configs/local_embedding_shadow_qualification.json
 configs/local_qwen_qualification.json
 configs/model_architecture_registry.json
+configs/ncaa_contest_outcome_reference_adapter_contract.json
 configs/ncaa_contest_reconciliation_contract.json
+configs/ncaa_contest_reconciliation_expansion_policy.json
 configs/ncaa_official_gamebook_contract.json
 configs/noaa_gfs_issued_run_pilot_contract.json
 configs/noaa_gfs_multigame_selection_contract.json
@@ -3043,8 +3047,12 @@ src/aggie_analytics/data/adapters.py
 src/aggie_analytics/data/cfbd.py
 src/aggie_analytics/data/contracts.py
 src/aggie_analytics/data/historical_game_outcome_spine.py
+src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
+src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
 src/aggie_analytics/data/http.py
+src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 src/aggie_analytics/data/ncaa_contest_reconciliation.py
+src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
 src/aggie_analytics/data/open_source.py
 src/aggie_analytics/data/play_drive.py
 src/aggie_analytics/data/roster_reconciliation.py
@@ -3222,6 +3230,7 @@ tests/test_feature_tournament.py
 tests/test_feature_tournament_full.py
 tests/test_historical_advanced_game_snapshot.py
 tests/test_historical_game_outcome_spine.py
+tests/test_historical_game_outcome_spine_expansion.py
 tests/test_historical_known_at_recovery_contract.py
 tests/test_historical_known_at_replay.py
 tests/test_historical_play_drive_pit.py
@@ -3248,7 +3257,9 @@ tests/test_locks_full.py
 tests/test_model_architecture_governance.py
 tests/test_model_tournament.py
 tests/test_model_tournament_full.py
+tests/test_ncaa_contest_outcome_reference_adapter.py
 tests/test_ncaa_contest_reconciliation.py
+tests/test_ncaa_contest_reconciliation_expansion.py
 tests/test_ncaa_official_discovery_validation.py
 tests/test_ncaa_official_gamebooks.py
 tests/test_noaa_gfs_issued_run_pilot.py
@@ -3334,6 +3345,7 @@ tools/build_artifact_record.py
 tools/build_evaluation_exposure_ledger.py
 tools/build_historical_advanced_game_snapshot.py
 tools/build_historical_game_outcome_spine.py
+tools/build_historical_game_outcome_spine_expansion.py
 tools/build_historical_play_drive_pit.py
 tools/build_historical_play_drive_pit_extension.py
 tools/build_historical_play_enrichment_pit.py
@@ -3347,7 +3359,9 @@ tools/build_historical_team_membership_pit.py
 tools/build_historical_venue_assignment_pit.py
 tools/build_historical_weather_previous_runs_snapshot.py
 tools/build_jira_control_plane.py
+tools/build_ncaa_contest_outcome_reference_adapter.py
 tools/build_ncaa_contest_reconciliation.py
+tools/build_ncaa_contest_reconciliation_expansion.py
 tools/build_noaa_gfs_issued_run_pilot.py
 tools/build_noaa_gfs_multigame_selection.py
 tools/build_noaa_isd_alternate_station_recovery.py
@@ -3460,6 +3474,7 @@ tools/validate_feature_lifecycle.py
 tools/validate_feature_registry.py
 tools/validate_historical_advanced_game_snapshot.py
 tools/validate_historical_game_outcome_spine.py
+tools/validate_historical_game_outcome_spine_expansion.py
 tools/validate_historical_play_drive_pit.py
 tools/validate_historical_play_drive_pit_extension.py
 tools/validate_historical_play_enrichment_pit.py
@@ -3477,6 +3492,7 @@ tools/validate_jira_mirror.py
 tools/validate_local_qwen_qualification.py
 tools/validate_model_architecture.py
 tools/validate_model_tournament_plan.py
+tools/validate_ncaa_contest_outcome_reference_adapter.py
 tools/validate_ncaa_contest_reconciliation.py
 tools/validate_ncaa_official_discovery.py
 tools/validate_ncaa_official_gamebooks.py

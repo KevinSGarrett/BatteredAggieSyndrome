@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "decision_unit": "POST-SUBTASK-197",
+  "jira_key": "BAT-554",
+  "recorded_at_utc": "2026-08-13T10:15:00Z",
+  "classification": "HISTORICAL_OUTCOME_REFERENCE_AND_NCAA_RECONCILIATION_CANDIDATE_ONLY",
+  "historical_outcome_spine": {
+    "dataset_identity": "cc808f4ececfc98c79940bf04c4794294281c5fbeeb4e9ad2d09b98f0c860f69",
+    "manifest_sha256": "57c65b02204138d9be90d2255ddb7565cb5bba6b75d1f99129fafce67ca0e11d",
+    "completed_payload_sha256": "75b6a30d7d79d83e78834c6c026e0dcc7e2310d4c29f9bfe8069522e007ecf94",
+    "season_start": 1963,
+    "season_end": 2025,
+    "canonical_schedule_rows": 46960,
+    "completed_outcome_rows": 46957,
+    "schedule_only_nonoutcome_rows": 3,
+    "tie_rows": 490,
+    "validation_report_sha256": "88c5e93216c753c6b462d400968fcdfdf1933a464174567acffe0557bac977a7",
+    "validation_check_count": 91,
+    "mutation_control_count": 5
+  },
+  "ncaa_outcome_reference_adapter": {
+    "dataset_identity": "e77ed3d7ebaaf77539ac591ce7338874e2a02c9a6ebf070e06e16fa14dd64b33",
+    "manifest_sha256": "e9697c167c4a58920e2cb24c9175115dc9fad741019a3708fcbd5646c79fb18c",
+    "payload_sha256": "0dcfa95603ff4b2e68425d6bb8906fdeb74668d174006da65834ff15fd8ac6c4",
+    "row_count": 46957,
+    "season_start": 1963,
+    "season_end": 2025,
+    "null_cell_count": 0,
+    "validation_report_sha256": "b2739b0038cb72b78298c82bbab8bcbdbc8c817ecdbdb21d5a4c1f091299dc89",
+    "validation_check_count": 25,
+    "mutation_control_count": 1
+  },
+  "ncaa_2020_reconciliation": {
+    "dataset_identity": "4660f3143ed7e6557301cde7630357b935d71f96113652fa016bfc72ba986315",
+    "manifest_sha256": "7d298cf44f656bbb78a7e4675d65c7c8fa7b7281f9e8dd3499a8ad1c128c1af0",
+    "resolved_contract_identity": "61a0cb5a55b73be363a20703a24d063526c58c9d367621b05b579d7b299a6cf8",
+    "resolved_contract_sha256": "33d3109eecfe37dab09ac6c6a243d0714734e2303d0850d955729f3e7662f59d",
+    "discovery_identity": "583efe58279f83a8e5e73e124420452524992b9bcac03c36c6285a6faa78324f",
+    "discovery_manifest_sha256": "fba73ab4d2010ce6b2bd2d2f91b4811392e063c3ed066127cc99b398f4eace73",
+    "derived_discovery_view_identity": "9d3826fca7f7a0b5f09c10a91468dfe864f3503522be99db722a685505536810",
+    "duplicate_alias_quarantine_identity": "a2e6fe690bf725fc1fd799eb9498e6c048ba8b7e0011e37c4a8135b1c4eb0f90",
+    "original_discovered_contests": 893,
+    "duplicate_alias_contest_ids_quarantined": 4,
+    "contests_considered": 889,
+    "reconciled_contests": 486,
+    "unresolved_contests": 403,
+    "reconciled_team_seasons": 129,
+    "source_schedule_observations": 1772,
+    "page_parse_failures": 1,
+    "unresolved_no_score_observation": 5,
+    "unresolved_no_exact_match": 153,
+    "unresolved_participant_alias": 245,
+    "name_only_promotions": 0,
+    "validation_report_sha256": "b836555e3b18b2631e4f8d832cb1d7d2557527c3266b3f3452af8ead48754a11",
+    "validation_check_count": 37,
+    "validation_failure_count": 0
+  },
+  "active_independent_discovery": [
+    {
+      "season": 2018,
+      "state": "RUNNING",
+      "last_observed_teams_visited": 250,
+      "last_observed_contests": 1612,
+      "last_observed_failures": 3
+    },
+    {
+      "season": 2019,
+      "state": "RUNNING",
+      "last_observed_teams_visited": 250,
+      "last_observed_contests": 1666,
+      "last_observed_failures": 1
+    },
+    {
+      "season": 2021,
+      "state": "RUNNING",
+      "last_observed_teams_visited": 475,
+      "last_observed_contests": 2848,
+      "last_observed_failures": 2
+    }
+  ],
+  "authority": {
+    "outcome_reference_candidate": true,
+    "schema_adapter_candidate": true,
+    "ncaa_identity_reconciliation_candidate": true,
+    "historical_pit_admission": false,
+    "training_direct_admission": false,
+    "protected_evaluation_admission": false,
+    "production_or_champion_promotion": false,
+    "forecast_publication": false
+  },
+  "negative_findings": [
+    "One 2024 source schedule lacks final scores and remains schedule-only rather than being fabricated as a 0-0 outcome.",
+    "Four NCAA contest aliases describe two canonical 2020 games; every duplicate source alias is quarantined rather than arbitrarily promoted.",
+    "The 2020 official NCAA reconciliation remains partial: 403 of 889 considered contest identities are unresolved.",
+    "The expanded outcome spine does not replace or broaden the separately accepted 2010-2022 historical-known-at replay identity.",
+    "Inspected 2024-2025 evidence is development/unprotected and is not untouched protected evidence."
+  ],
+  "cleanup": {
+    "reconstructible_paths_removed": 22,
+    "bytes_recovered": 25556179,
+    "immutable_final_artifacts_removed": false,
+    "authoritative_prior_history_removed": false
+  },
+  "scientific_nonclaims": {
+    "historical_population_ready": false,
+    "gap_002_resolved": false,
+    "production_model_ready": false,
+    "trained_production_champion": false,
+    "protected_performance_claimed": false,
+    "tamu_specialization_lift_claimed": false,
+    "bas_or_aggie_excess_claimed": false
+  }
+}

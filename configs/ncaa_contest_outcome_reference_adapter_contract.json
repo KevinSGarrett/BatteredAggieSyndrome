@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "BAT-554-NCAA-CONTEST-OUTCOME-REFERENCE-ADAPTER-V1",
+  "decision_unit": "POST-SUBTASK-197",
+  "jira_key": "BAT-554",
+  "classification": "CANDIDATE_ONLY_OUTCOME_REFERENCE_ADAPTER_NO_AUTHORITY_EXPANSION",
+  "source": {
+    "spine_manifest": "manifests/historical_game_outcome_spine/sha256/cc808f4ececfc98c79940bf04c4794294281c5fbeeb4e9ad2d09b98f0c860f69/historical_game_outcome_spine_manifest.json",
+    "spine_manifest_sha256": "57c65b02204138d9be90d2255ddb7565cb5bba6b75d1f99129fafce67ca0e11d",
+    "completed_payload_role": "COMPLETED_OUTCOME_REFERENCE_CANDIDATES",
+    "completed_payload_sha256": "75b6a30d7d79d83e78834c6c026e0dcc7e2310d4c29f9bfe8069522e007ecf94",
+    "spine_dataset_identity": "cc808f4ececfc98c79940bf04c4794294281c5fbeeb4e9ad2d09b98f0c860f69"
+  },
+  "field_map": {
+    "canonical_game_id": "target_game_id",
+    "season": "season",
+    "season_type": "season_type",
+    "week": "week",
+    "start_time_utc": "start_utc",
+    "home_team_id": "home_team_id",
+    "away_team_id": "away_team_id",
+    "home_points": "home_points",
+    "away_points": "away_points"
+  },
+  "acceptance": {
+    "expected_rows": 46957,
+    "expected_season_min": 1963,
+    "expected_season_max": 2025,
+    "expected_season_count": 63,
+    "expected_unique_game_ids": 46957,
+    "expected_null_cells": 0
+  },
+  "authority": {
+    "schema_adapter_materialization": true,
+    "canonical_entity_mutation": false,
+    "outcome_value_mutation": false,
+    "historical_pit_admission": false,
+    "training_admission": false,
+    "protected_evaluation_admission": false,
+    "production_admission": false
+  }
+}

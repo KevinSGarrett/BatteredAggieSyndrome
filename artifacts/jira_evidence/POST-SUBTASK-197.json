@@ -105,6 +105,28 @@
       "parser_environment_or_browser_installation_removed": false
     }
   },
+  "historical_spine_reconciliation_checkpoint": {
+    "recorded_at_utc": "2026-08-13T10:15:00Z",
+    "versioned_evidence": "artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json",
+    "outcome_spine_dataset_identity": "cc808f4ececfc98c79940bf04c4794294281c5fbeeb4e9ad2d09b98f0c860f69",
+    "outcome_adapter_dataset_identity": "e77ed3d7ebaaf77539ac591ce7338874e2a02c9a6ebf070e06e16fa14dd64b33",
+    "ncaa_2020_reconciliation_dataset_identity": "4660f3143ed7e6557301cde7630357b935d71f96113652fa016bfc72ba986315",
+    "completed_outcome_rows": 46957,
+    "reconciled_2020_contests": 486,
+    "unresolved_2020_contests": 403,
+    "duplicate_alias_contest_ids_quarantined": 4,
+    "active_discovery_seasons": [2018, 2019, 2021],
+    "validation": {
+      "outcome_spine": "91_PASS_5_FAIL_CLOSED_MUTATIONS",
+      "outcome_adapter": "25_PASS_1_FAIL_CLOSED_MUTATION",
+      "ncaa_2020_reconciliation": "37_PASS_0_FAILURES"
+    },
+    "cleanup": {
+      "reconstructible_paths_removed": 22,
+      "bytes_recovered": 25556179
+    },
+    "authority": "CANDIDATE_REFERENCE_ONLY_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
+  },
   "next_actions": [
     "Repeat graph-exhausted official team-season discovery for 2010-2023 and 2025, preserving independent season failures and coverage.",
     "Reconcile the 2024 discovered NCAA contest IDs to canonical games and teams without name-only promotion.",

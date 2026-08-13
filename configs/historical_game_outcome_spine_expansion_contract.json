@@ -1,0 +1,63 @@
+{
+  "schema_version": "2.0.0",
+  "contract_id": "BAT-554-HISTORICAL-GAME-OUTCOME-SPINE-EXPANSION-V2",
+  "base_contract_relative_path": "configs/historical_game_outcome_spine_contract.json",
+  "base_contract_sha256": "ad5dfe1e1c14781ebda32e733bcbf77f39b8b46cdf2747f1520223d5c7f0f1f5",
+  "overrides": {
+    "schema_version": "2.0.0",
+    "decision_unit": "POST-SUBTASK-197",
+    "jira_key": "BAT-554",
+    "classification": "HISTORICAL_GAME_OUTCOME_REFERENCE_1963_2025_CANDIDATE_ONLY",
+    "source_contract": {
+      "cfbd_raw_sha256_list_identity": "59703c8379a9a46c13ab929d6dcc41c1f4e8a0377552d94e7db1032e10ec031b",
+      "cfbd_minimum_capture_known_at_utc": "2026-08-09T16:57:39Z",
+      "cfbd_maximum_capture_known_at_utc": "2026-08-09T19:11:11Z",
+      "source_seasons": [1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    },
+    "acceptance": {
+      "expected_cfbd_files": 63,
+      "expected_cfbd_rows": 46954,
+      "expected_cfbd_unique_games": 46954,
+      "expected_cfbd_completed_rows": 46953,
+      "expected_cfbd_incomplete_rows": 1,
+      "expected_canonical_schedule_games": 46960,
+      "expected_completed_outcomes": 46957,
+      "expected_schedule_only_nonoutcomes": 3,
+      "expected_ties": 490,
+      "expected_cfbd_only_canonical_games": 42330,
+      "expected_cfbd_by_season": {
+        "1963": 620, "1964": 633, "1965": 640, "1966": 633, "1967": 629, "1968": 639, "1969": 657, "1970": 700, "1971": 743, "1972": 739, "1973": 757, "1974": 760, "1975": 806, "1976": 804, "1977": 867, "1978": 816, "1979": 825, "1980": 816, "1981": 804, "1982": 687, "1983": 696, "1984": 676, "1985": 673, "1986": 637, "1987": 633, "1988": 636, "1989": 632, "1990": 646, "1991": 639, "1992": 637, "1993": 632, "1994": 636, "1995": 640, "1996": 662, "1997": 666, "1998": 674, "1999": 686, "2000": 702, "2001": 709, "2002": 772, "2003": 771, "2004": 721, "2005": 718, "2006": 792, "2007": 798, "2008": 805, "2009": 808, "2010": 808, "2011": 812, "2012": 840, "2013": 848, "2014": 868, "2015": 870, "2016": 873, "2017": 874, "2018": 884, "2019": 888, "2020": 570, "2021": 887, "2022": 896, "2023": 910, "2024": 920, "2025": 934
+      },
+      "expected_schedule_by_season": {
+        "1963": 620, "1964": 633, "1965": 640, "1966": 633, "1967": 629, "1968": 639, "1969": 657, "1970": 700, "1971": 743, "1972": 739, "1973": 757, "1974": 760, "1975": 806, "1976": 804, "1977": 867, "1978": 816, "1979": 825, "1980": 816, "1981": 804, "1982": 687, "1983": 696, "1984": 676, "1985": 673, "1986": 637, "1987": 633, "1988": 636, "1989": 632, "1990": 646, "1991": 639, "1992": 637, "1993": 632, "1994": 636, "1995": 640, "1996": 662, "1997": 666, "1998": 674, "1999": 686, "2000": 702, "2001": 709, "2002": 772, "2003": 771, "2004": 721, "2005": 719, "2006": 792, "2007": 798, "2008": 808, "2009": 810, "2010": 808, "2011": 812, "2012": 840, "2013": 848, "2014": 868, "2015": 870, "2016": 873, "2017": 874, "2018": 884, "2019": 888, "2020": 570, "2021": 887, "2022": 896, "2023": 910, "2024": 920, "2025": 934
+      },
+      "expected_completed_by_season": {
+        "1963": 620, "1964": 633, "1965": 640, "1966": 633, "1967": 629, "1968": 639, "1969": 657, "1970": 700, "1971": 743, "1972": 739, "1973": 757, "1974": 760, "1975": 806, "1976": 804, "1977": 867, "1978": 816, "1979": 825, "1980": 816, "1981": 804, "1982": 687, "1983": 696, "1984": 676, "1985": 673, "1986": 637, "1987": 633, "1988": 636, "1989": 632, "1990": 646, "1991": 639, "1992": 637, "1993": 632, "1994": 636, "1995": 640, "1996": 662, "1997": 666, "1998": 674, "1999": 686, "2000": 702, "2001": 709, "2002": 772, "2003": 771, "2004": 721, "2005": 718, "2006": 792, "2007": 798, "2008": 807, "2009": 810, "2010": 808, "2011": 812, "2012": 840, "2013": 848, "2014": 868, "2015": 870, "2016": 873, "2017": 874, "2018": 884, "2019": 888, "2020": 570, "2021": 887, "2022": 896, "2023": 910, "2024": 919, "2025": 934
+      }
+    },
+    "domain_eligibility": {
+      "schedules": "REFERENCE_CANDIDATE_46960_CANONICAL_GAMES_1963_2025",
+      "official_outcomes": "REFERENCE_CANDIDATE_46957_COMPLETED_GAMES_1963_2025",
+      "rating_and_team_strength_research": "ELIGIBLE_ONLY_THROUGH_A_SEPARATE_NO_TARGET_GAME_CHRONOLOGY_GATE",
+      "outcome_labels": "PRELIMINARY_CANDIDATE_ONLY",
+      "drives": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+      "plays": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+      "team_box_scores": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+      "player_box_scores": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+      "rosters": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+      "rankings": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+      "venues": "IDENTITY_REFERENCE_ONLY_NOT_HISTORICAL_EFFECTIVE_TRUTH",
+      "advanced_game_statistics": "NOT_ESTABLISHED_BY_THIS_ARTIFACT",
+      "structured_gamebook_equivalent": "NOT_ESTABLISHED_BY_THIS_ARTIFACT"
+    },
+    "negative_findings": [
+      "The 1963-2025 outcome-reference population is reconstructed from immutable captures made in 2026; historical source publication and final-whistle times are not inferred.",
+      "The existing 10593-game 2010-2022 historical-known-at replay remains the authority for its narrower development-only PIT scope; this expansion does not replace or broaden it.",
+      "The already-inspected 2024-2025 outcomes are development/unprotected evidence and are not represented as untouched protected evaluation.",
+      "SportsDataverse schedule data is ESPN-derived and is not independent confirmation of CFBD upstream truth.",
+      "Eighteen zero-score SportsDataverse rows are postponed schedule aliases, two additional groups are duplicate finals, two schedules were canceled, and none is double counted as an outcome.",
+      "Player, roster, play-by-play, drive, box-score, advanced-stat, weather, injury, availability, and structured-gamebook completeness are not established by this artifact.",
+      "This artifact does not establish final historical completeness, resolution of GAP-002, production readiness, protected performance, A&M specialization lift, BAS, Aggie Excess, or any scientific result."
+    ]
+  }
+}

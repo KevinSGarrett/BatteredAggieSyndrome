@@ -130,6 +130,14 @@ def build_release(output_root: Path, *, expected_commit: str | None = None) -> t
             existing = json.loads((release / "RELEASE_MANIFEST.json").read_text(encoding="utf-8"))
             if existing.get("build_commit") != head or existing.get("source_tree_sha256") != tree_identity or existing.get("files") != hashes:
                 raise RuntimeError("IMMUTABLE_RELEASE_COLLISION")
+            expected_files = {*hashes, "RELEASE_MANIFEST.json"}
+            actual_files = {
+                path.relative_to(release).as_posix()
+                for path in release.rglob("*")
+                if path.is_file()
+            }
+            if actual_files != expected_files:
+                raise RuntimeError("IMMUTABLE_RELEASE_UNEXPECTED_FILE_SET")
             for relative, identity in hashes.items():
                 installed = release / relative
                 if not installed.is_file() or sha256_file(installed) != identity["sha256"]:

@@ -26,6 +26,17 @@ foreach ($property in $manifest.files.PSObject.Properties) {
     $observed = (Get-FileHash -Algorithm SHA256 -LiteralPath $candidate).Hash.ToLowerInvariant()
     if ($observed -ne $property.Value.sha256) { throw "RELEASE_FILE_HASH_MISMATCH:$($property.Name)" }
 }
+$expectedReleaseFiles = @('RELEASE_MANIFEST.json') + @(
+    $manifest.files.PSObject.Properties | ForEach-Object { [string]$_.Name }
+)
+$releasePrefix = $release.TrimEnd('\') + '\'
+$actualReleaseFiles = @(
+    Get-ChildItem -LiteralPath $release -Recurse -File | ForEach-Object {
+        $_.FullName.Substring($releasePrefix.Length).Replace('\', '/')
+    }
+)
+$releaseFileDifference = @(Compare-Object -ReferenceObject $expectedReleaseFiles -DifferenceObject $actualReleaseFiles)
+if ($releaseFileDifference.Count -ne 0) { throw 'RELEASE_FILE_SET_MISMATCH' }
 
 if ([string]::IsNullOrWhiteSpace($PythonExecutable)) {
     $PythonExecutable = (Get-Command python -ErrorAction Stop).Source
@@ -60,8 +71,8 @@ if ($PrincipalMode -eq 'LocalService') {
     $triggerType = 'LogonTrigger'
 }
 $settings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -RestartCount 5 -RestartInterval (New-TimeSpan -Minutes 1) -StartWhenAvailable -ExecutionTimeLimit ([TimeSpan]::Zero)
-$controllerArguments = '"' + $controllerScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
-$watchdogArguments = '"' + $watchdogScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
+$controllerArguments = '-B "' + $controllerScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
+$watchdogArguments = '-B "' + $watchdogScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
 $controllerAction = New-ScheduledTaskAction -Execute $python -Argument $controllerArguments -WorkingDirectory $release
 $watchdogAction = New-ScheduledTaskAction -Execute $python -Argument $watchdogArguments -WorkingDirectory $release
 $replacementRecovery = $null
@@ -70,7 +81,7 @@ if ($Replace -and $existingTasks[$ControllerTaskName]) {
     $existingControllerAction = $existingTasks[$ControllerTaskName].Actions | Select-Object -First 1
     if (-not $existingControllerAction) { throw 'CONTROLLER_RECOVERY_ACTION_MISSING' }
     $existingArguments = [string]$existingControllerAction.Arguments
-    if ($existingArguments -notmatch '^"([^"\r\n]*\\run_unified_assistive_controller\.py)"\s+serve(?:\s|$)') { throw 'CONTROLLER_RECOVERY_ACTION_IDENTITY_MISMATCH' }
+    if ($existingArguments -notmatch '^(?:-B\s+)?"([^"\r\n]*\\run_unified_assistive_controller\.py)"\s+serve(?:\s|$)') { throw 'CONTROLLER_RECOVERY_ACTION_IDENTITY_MISMATCH' }
     $existingControllerScriptPath = [System.IO.Path]::GetFullPath($Matches[1])
     $existingWorkingDirectory = [System.IO.Path]::GetFullPath([string]$existingControllerAction.WorkingDirectory)
     $expectedExistingControllerScriptPath = [System.IO.Path]::GetFullPath((Join-Path $existingWorkingDirectory 'tools\run_unified_assistive_controller.py'))

@@ -992,7 +992,7 @@ class RuntimeInventoryRefresher:
     ) -> list[dict[str, str]]:
         """Compile new real BAS evidence into three governed reasoning categories."""
         queue_root = self.config.provider_work_root
-        manifests_root = self.config.manifests_root
+        manifests_root = self.config.manifests_root.resolve(strict=False)
         if queue_root is None or not manifests_root.is_dir():
             return []
         openrouter = demand.get("providers", {}).get("openrouter", {})
@@ -1252,7 +1252,7 @@ class RuntimeInventoryRefresher:
             or int(cpu.get("active_execution_packets", 0)) > 0
         ):
             return []
-        historical_root = self.config.manifests_root
+        historical_root = self.config.manifests_root.resolve(strict=False)
         if not historical_root.is_dir():
             return []
         candidates, _ = _bounded_top_level_json_scan(
@@ -1318,7 +1318,7 @@ class RuntimeInventoryRefresher:
         demand: dict[str, Any],
     ) -> list[dict[str, str]]:
         queue_root = self.config.provider_work_root
-        data_root = self.config.manifests_root.parent
+        data_root = self.config.manifests_root.parent.resolve(strict=False)
         local = demand.get("providers", {}).get("ollama_local", {})
         if (
             queue_root is None
@@ -1417,7 +1417,7 @@ class RuntimeInventoryRefresher:
         demand: dict[str, Any],
     ) -> list[dict[str, str]]:
         queue_root = self.config.provider_work_root
-        data_root = self.config.manifests_root.parent
+        data_root = self.config.manifests_root.parent.resolve(strict=False)
         release_root = self.config.release_root
         openai = demand.get("providers", {}).get("openai_direct", {})
         if (
@@ -1572,15 +1572,16 @@ class RuntimeInventoryRefresher:
             finding = "SCAN_COMPLETE"
             if root.is_dir():
                 try:
+                    resolved_root = root.resolve(strict=True)
                     if top_level_snapshots:
                         candidates, capped = _bounded_top_level_json_scan(
-                            root,
+                            resolved_root,
                             limit=scan_limit,
                             name_prefix="snap_",
                         )
                     else:
                         candidates, capped = _bounded_json_scan(
-                            root,
+                            resolved_root,
                             limit=scan_limit,
                             allowed_names=allowed_names,
                         )
@@ -1595,7 +1596,7 @@ class RuntimeInventoryRefresher:
                             data = path.read_bytes()
                             records.append(
                                 {
-                                    "path": path.relative_to(root).as_posix(),
+                                    "path": path.relative_to(resolved_root).as_posix(),
                                     "bytes": size,
                                     "sha256": hashlib.sha256(data).hexdigest(),
                                     "modified_ns": path.stat().st_mtime_ns,
@@ -1610,7 +1611,7 @@ class RuntimeInventoryRefresher:
             else:
                 finding = "SOURCE_ROOT_ABSENT_EMPTY_DENOMINATOR"
             watermarks[name] = {
-                "root": str(root),
+                "root": str(root.resolve(strict=False)),
                 "scanned_at": rfc3339(moment),
                 "scan_status": scan_status,
                 "finding": finding,

@@ -360,6 +360,20 @@ def cpu_worker_semantic_evidence(root: Path):
         )
         readiness.write_text("{}", encoding="utf-8")
         materializer.write_text("# test fixture\n", encoding="utf-8")
+        task_registry = self.root / "openrouter-task-registry.json"
+        task_registry.write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "tasks": {
+                        "schema_drift_review": {"jira_unit": "POST-SUBTASK-200"},
+                        "reconciliation_ranking": {"jira_unit": "POST-SUBTASK-200"},
+                        "independent_review": {"jira_unit": "POST-SUBTASK-199"},
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
         queue = self.root / "provider-work/requests"
         refresher = RuntimeInventoryRefresher(
             self.state,
@@ -372,6 +386,7 @@ def cpu_worker_semantic_evidence(root: Path):
                 semantic_materializer_path=materializer,
                 semantic_policy_path=policy,
                 semantic_readiness_path=readiness,
+                openrouter_task_registry_path=task_registry,
                 external_assistive_root=assistive,
                 continuous_source_root=source_root,
             ),
@@ -421,6 +436,10 @@ def cpu_worker_semantic_evidence(root: Path):
         )
         self.assertTrue(all(packet["prompt_version"] == "continuous-real-bas-evidence-v2" for packet in packets))
         self.assertTrue(all(packet["base_commit"] == "a" * 40 for packet in packets))
+        jira_by_task = {packet["task_id"]: packet["jira_unit"] for packet in packets}
+        self.assertEqual("POST-SUBTASK-199", jira_by_task["independent_review"])
+        self.assertEqual("POST-SUBTASK-200", jira_by_task["schema_drift_review"])
+        self.assertEqual("POST-SUBTASK-200", jira_by_task["reconciliation_ranking"])
         discovered = refresher._discover_provider_work(snapshot, self.now)
         self.assertEqual(3, len(discovered))
         self.assertTrue(all(item[1].disposition.value == "OPENROUTER" for item in discovered))

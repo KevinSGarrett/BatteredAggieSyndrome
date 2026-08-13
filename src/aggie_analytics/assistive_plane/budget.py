@@ -110,6 +110,8 @@ class BudgetLedger:
             if request_id in settlements:
                 raise BudgetRejected("PROVIDER_REQUEST_ALREADY_SETTLED")
             if request_id in reservations:
+                if Decimal(str(reservations[request_id])) != estimate_usd:
+                    raise BudgetRejected("PROVIDER_RESERVATION_IDEMPOTENCY_CONFLICT")
                 return
             state = self.state()
             if state.settled_usd + state.reserved_usd + estimate_usd > self.released_limit_usd:

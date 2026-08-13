@@ -240,6 +240,21 @@ class OpenRouterAssistTests(unittest.TestCase):
         with self.assertRaisesRegex(BudgetRejected, "PROVIDER_REQUEST_ALREADY_SETTLED"):
             dispatcher.ledger.reserve("stable-settlement", Decimal("0.01"))
 
+    def test_budget_reservation_idempotent_replay_requires_same_estimate(self) -> None:
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
+        dispatcher.ledger.reserve("stable-reservation", Decimal("0.01"))
+        dispatcher.ledger.reserve("stable-reservation", Decimal("0.01"))
+        self.assertEqual(Decimal("0.01"), dispatcher.ledger.state().reserved_usd)
+        with self.assertRaisesRegex(BudgetRejected, "PROVIDER_RESERVATION_IDEMPOTENCY_CONFLICT"):
+            dispatcher.ledger.reserve("stable-reservation", Decimal("0.02"))
+
+    def test_budget_settled_request_cannot_be_reserved_again(self) -> None:
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
+        dispatcher.ledger.reserve("already-settled", Decimal("0.01"))
+        dispatcher.ledger.settle("already-settled", Decimal("0.005"))
+        with self.assertRaisesRegex(BudgetRejected, "PROVIDER_REQUEST_ALREADY_SETTLED"):
+            dispatcher.ledger.reserve("already-settled", Decimal("0.005"))
+
     def test_released_stage_is_lower_admission_ceiling(self) -> None:
         dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
         dispatcher.ledger.reserve("existing", Decimal("0.249999"))

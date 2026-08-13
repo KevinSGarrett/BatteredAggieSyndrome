@@ -1681,6 +1681,9 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(1, status["useful_work_summary"]["downstream_consumed_outputs"])
         self.assertEqual(0, status["useful_work_summary"]["accepted_useful_outputs"])
         self.assertEqual(0.0, status["useful_work_summary"]["measured_net_time_saved_seconds"])
+        watchdog = ReadOnlyWatchdog(self.state.database).inspect(now=self.now + timedelta(seconds=2))
+        self.assertEqual(1, watchdog["useful_work_summary"]["downstream_consumed_output"])
+        self.assertEqual(0, watchdog["useful_work_summary"]["accepted_useful_offload"])
         with closing(self.state.connect()) as connection:
             useful = connection.execute(
                 "SELECT direct_baseline_seconds,orchestration_seconds FROM useful_work_evidence "

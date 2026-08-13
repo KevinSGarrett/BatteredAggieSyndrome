@@ -246,12 +246,19 @@ def main() -> int:
     rows, overall, row_findings = evaluate_rows(registry, args.acceptance_report)
     findings.extend(row_findings)
     inventory_sha256 = None
+    inventory_pointer_sha256 = None
     latest_material_transition_at = None
     if args.inventory_snapshot is None:
         findings.append("CURRENT_INVENTORY_SNAPSHOT_MISSING")
     else:
-        inventory = json.loads(args.inventory_snapshot.read_text(encoding="utf-8"))
-        inventory_sha256 = sha256(args.inventory_snapshot)
+        supplied_inventory = json.loads(args.inventory_snapshot.read_text(encoding="utf-8"))
+        if supplied_inventory.get("artifact_type") == "UNIFIED_ASSISTIVE_INVENTORY_POINTER":
+            inventory_pointer_sha256 = sha256(args.inventory_snapshot)
+            inventory = current_inventory(args.inventory_snapshot)
+            inventory_sha256 = str(supplied_inventory.get("snapshot_sha256"))
+        else:
+            inventory = supplied_inventory
+            inventory_sha256 = sha256(args.inventory_snapshot)
         latest_material_transition_at = inventory.get("material_transition_at")
         if inventory.get("validation", {}).get("coverage_fraction") != 1.0:
             findings.append("READY_WORK_COVERAGE_INCOMPLETE")
@@ -277,6 +284,7 @@ def main() -> int:
             if service_capture else "UNKNOWN_NOT_DEPLOYED"
         ),
         "inventory_sha256": inventory_sha256,
+        "inventory_pointer_sha256": inventory_pointer_sha256,
         "latest_material_transition_at": latest_material_transition_at,
         "live_state_capture_sha256": sha256(service_capture) if service_capture else None,
         "derived_states": states,

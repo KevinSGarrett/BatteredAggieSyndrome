@@ -70,7 +70,7 @@ if ($PrincipalMode -eq 'LocalService') {
     $logonType = 'Interactive'
     $triggerType = 'LogonTrigger'
 }
-$settings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -RestartCount 5 -RestartInterval (New-TimeSpan -Minutes 1) -StartWhenAvailable -ExecutionTimeLimit ([TimeSpan]::Zero)
+$settings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -RestartCount 5 -RestartInterval (New-TimeSpan -Minutes 1) -StartWhenAvailable -ExecutionTimeLimit ([TimeSpan]::Zero) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 $controllerArguments = '-B "' + $controllerScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
 $watchdogArguments = '-B "' + $watchdogScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
 $controllerAction = New-ScheduledTaskAction -Execute $python -Argument $controllerArguments -WorkingDirectory $release
@@ -291,6 +291,8 @@ if ($installController -and $installWatchdog) {
     run_level = 'Limited'
     logon_type = $logonType
     trigger_type = $triggerType
+    allow_start_if_on_batteries = $true
+    stop_if_going_on_batteries = $false
     controller_task = $ControllerTaskName
     watchdog_task = $WatchdogTaskName
     replacement_recovery = $replacementRecoveryDisposition

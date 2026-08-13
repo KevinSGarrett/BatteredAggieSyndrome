@@ -305,6 +305,7 @@ class RuntimeInventoryConfig:
     external_assistive_root: Path | None = None
     continuous_source_root: Path | None = None
     project_root: Path | None = None
+    bge_downstream_consumer_contract_version: str | None = None
     refresh_max_age_seconds: int = 240
 
     def validate(self) -> None:
@@ -318,6 +319,11 @@ class RuntimeInventoryConfig:
             raise ValueError("RUNTIME_INVENTORY_CONTINUOUS_SOURCE_ROOT_NOT_ABSOLUTE")
         if self.project_root is not None and not self.project_root.is_absolute():
             raise ValueError("RUNTIME_INVENTORY_PROJECT_ROOT_NOT_ABSOLUTE")
+        if self.bge_downstream_consumer_contract_version is not None and (
+            not self.bge_downstream_consumer_contract_version.strip()
+            or len(self.bge_downstream_consumer_contract_version) > 128
+        ):
+            raise ValueError("RUNTIME_INVENTORY_BGE_CONSUMER_CONTRACT_INVALID")
         if (self.release_root is None) != (self.build_commit is None):
             raise ValueError("RUNTIME_INVENTORY_RELEASE_IDENTITY_INCOMPLETE")
         if self.release_root is not None and not self.release_root.is_absolute():
@@ -1700,6 +1706,7 @@ class RuntimeInventoryRefresher:
         local = demand.get("providers", {}).get("ollama_local", {})
         if (
             queue_root is None
+            or self.config.bge_downstream_consumer_contract_version is None
             or not local.get("unmet")
             or int(local.get("active_execution_packets", 0)) > 0
             or int(local.get("pending_review_results", 0)) > 0
@@ -1782,6 +1789,9 @@ class RuntimeInventoryRefresher:
                 "scope": (
                     "Candidate-only semantic retrieval of comparable historical reconciliation "
                     f"evidence for {query_source.name}; no identity merge or canonical authority."
+                ),
+                "downstream_consumer_contract_version": (
+                    self.config.bge_downstream_consumer_contract_version
                 ),
                 "query": (
                     "Rank prior historical reconciliation artifacts most comparable to this new "

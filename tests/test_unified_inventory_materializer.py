@@ -8,7 +8,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from aggie_analytics.assistive_plane.orchestration import RoutingDisposition
+from aggie_analytics.assistive_plane.orchestration import (
+    ATOMIC_EXECUTABLE,
+    CAMPAIGN_OWNER,
+    QUALIFICATION_RECORD,
+    ReadyWorkUnit,
+    RoutingDisposition,
+    validate_work_unit_roles,
+)
 
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "tools" / "materialize_unified_assistive_inventory.py"
@@ -56,6 +63,41 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
             "execution_surface": "ollama-loopback",
             "reason": "test",
         }
+
+    def test_roles_require_exact_coverage_and_separate_campaigns_from_execution(self) -> None:
+        units = [
+            ReadyWorkUnit(
+                work_unit_id="CAMPAIGN",
+                jira_unit="BAT-560",
+                task_format="campaign",
+                schema_sha256="a" * 64,
+                authority="CODEX_FINAL_IMPLEMENTATION",
+                source_hashes=("b" * 64,),
+                dependencies=(),
+                pre_routing_effort_points=1,
+                scope="durable campaign owner",
+            ),
+            ReadyWorkUnit(
+                work_unit_id="PACKET",
+                jira_unit="BAT-560",
+                task_format="candidate",
+                schema_sha256="c" * 64,
+                authority="CANDIDATE_ONLY",
+                source_hashes=("d" * 64,),
+                dependencies=(),
+                pre_routing_effort_points=1,
+                scope="atomic executable packet",
+            ),
+        ]
+        report = validate_work_unit_roles(
+            units,
+            {"CAMPAIGN": CAMPAIGN_OWNER, "PACKET": ATOMIC_EXECUTABLE},
+        )
+        self.assertEqual(1, report["counts_by_role"][CAMPAIGN_OWNER])
+        self.assertEqual(1, report["counts_by_role"][ATOMIC_EXECUTABLE])
+        self.assertEqual(0, report["counts_by_role"][QUALIFICATION_RECORD])
+        with self.assertRaisesRegex(ValueError, "MISSING_WORK_UNIT_ROLE:PACKET"):
+            validate_work_unit_roles(units, {"CAMPAIGN": CAMPAIGN_OWNER})
 
     def test_exact_qwen_rejection_and_bge_ready_resolve_correctly(self) -> None:
         qwen_route = MATERIALIZER.route_readiness_for(self.qwen_item(), self.readiness)

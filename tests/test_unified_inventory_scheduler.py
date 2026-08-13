@@ -11,10 +11,13 @@ from pathlib import Path
 
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.orchestration import (
+    ATOMIC_EXECUTABLE,
+    CAMPAIGN_OWNER,
     ReadyWorkInventory,
     ReadyWorkUnit,
     RouteDecision,
     RoutingDisposition,
+    validate_work_unit_roles,
 )
 from aggie_analytics.assistive_plane.scheduler_runtime import InventoryScheduler, SchedulerConfig
 
@@ -37,6 +40,7 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
         *,
         generated_at: datetime | None = None,
         scope: str = "review one bounded real evidence packet",
+        inventory_role: str = ATOMIC_EXECUTABLE,
     ) -> str:
         unit = ReadyWorkUnit(
             work_unit_id="UNIT-1",
@@ -59,6 +63,7 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
             decided_at=self.now.isoformat().replace("+00:00", "Z"),
         )
         validation = ReadyWorkInventory([unit], [decision]).validate()
+        role_validation = validate_work_unit_roles([unit], {unit.work_unit_id: inventory_role})
         payload = {
             "schema_version": 1,
             "generated_at": (generated_at or self.now).isoformat().replace("+00:00", "Z"),
@@ -69,6 +74,8 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
                 "status_porcelain_sha256": hashlib.sha256(b"").hexdigest(),
             },
             "work_units": [asdict(unit)],
+            "work_unit_roles": {unit.work_unit_id: inventory_role},
+            "work_unit_role_validation": role_validation,
             "route_decisions": [{**asdict(decision), "disposition": decision.disposition.value}],
             "validation": validation,
         }
@@ -126,6 +133,32 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
         status = self.state.status()
         self.assertEqual(1, status["scheduler_no_change_cycles"])
         self.assertEqual(0, status["active_idle_intervals"])
+
+    def test_campaign_owner_is_not_an_idle_executable_unit_without_packet(self) -> None:
+        self.write_inventory(
+            RoutingDisposition.DIRECT_OPENAI,
+            inventory_role=CAMPAIGN_OWNER,
+            scope="Own a continuing provider campaign; granular packets are separate units",
+        )
+        report = self.scheduler().evaluate(now=self.now)
+        self.assertEqual("PASS", report["result"])
+        self.assertEqual(0, report["eligible_units"])
+        self.assertEqual(1, report["campaign_owner_units"])
+        self.assertEqual([], report["idle_units"])
+        self.assertTrue(report["no_change"])
+        self.assertEqual(0, report["provider_calls"])
+
+    def test_human_edited_role_map_cannot_hide_atomic_work(self) -> None:
+        self.write_inventory(RoutingDisposition.DIRECT_OPENAI)
+        payload = json.loads(self.current.read_text(encoding="utf-8"))
+        payload["work_unit_roles"]["UNIT-1"] = CAMPAIGN_OWNER
+        self.current.write_text(json.dumps(payload), encoding="utf-8")
+        report = self.scheduler().evaluate(now=self.now)
+        self.assertEqual("BLOCKED", report["result"])
+        self.assertEqual(
+            "SCHEDULER_WORK_UNIT_ROLE_VALIDATION_MISMATCH", report["finding"]
+        )
+        self.assertEqual(0, report["provider_calls"])
 
     def test_resolved_idle_interval_can_reopen_without_primary_key_collision(self) -> None:
         self.write_inventory(RoutingDisposition.DIRECT_OPENAI)

@@ -3217,6 +3217,7 @@ tests/test_cfbd_historical_acquisition.py
 tests/test_context_intelligence_governance.py
 tests/test_core_registry.py
 tests/test_cpu_worker_backend.py
+tests/test_cursor_review_disposition.py
 tests/test_data_research.py
 tests/test_entity_governance.py
 tests/test_evaluation_exposure.py
@@ -3275,6 +3276,7 @@ tests/test_open_source_integration_registry.py
 tests/test_open_source_properties.py
 tests/test_openai_assist.py
 tests/test_openrouter_assist.py
+tests/test_openrouter_campaign_summary.py
 tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
@@ -3420,6 +3422,7 @@ tools/queue_cpu_worker_manifest_work.py
 tools/queue_cpu_worker_text_work.py
 tools/queue_openai_gamebook_candidate_work.py
 tools/queue_unified_assistive_work.py
+tools/record_cursor_review_disposition.py
 tools/refresh_cpu_worker_readiness.py
 tools/refresh_cursor_catalog.py
 tools/refresh_local_assistive_runtime.py
@@ -3458,6 +3461,7 @@ tools/run_unified_assistive_watchdog.py
 tools/schedule_research_queue.py
 tools/schema_discovery.py
 tools/select_next_work.py
+tools/summarize_openrouter_campaign.py
 tools/sync_openai_jira_graph.py
 tools/sync_openrouter_jira_graph.py
 tools/sync_unified_assistive_jira_graph.py

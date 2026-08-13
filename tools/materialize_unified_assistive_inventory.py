@@ -261,6 +261,12 @@ def cursor_semantic_evidence(root: Path) -> dict[str, Any]:
             findings.append(f"CURSOR_AUTHORITY_BOUNDARY_INVALID:{path.name}")
             continue
         dispositions.append(payload)
+    job_ids = [str(item.get("job_id")) for item in dispositions if item.get("job_id")]
+    agent_ids = [str(item.get("agent_id")) for item in dispositions if item.get("agent_id")]
+    duplicate_jobs = sorted({identity for identity in job_ids if job_ids.count(identity) > 1})
+    duplicate_agents = sorted({identity for identity in agent_ids if agent_ids.count(identity) > 1})
+    findings.extend(f"CURSOR_DUPLICATE_REVIEW_JOB_ID:{identity}" for identity in duplicate_jobs)
+    findings.extend(f"CURSOR_DUPLICATE_REVIEW_AGENT_ID:{identity}" for identity in duplicate_agents)
     unique_jobs = {str(item.get("job_id")) for item in dispositions if item.get("job_id")}
     unique_agents = {str(item.get("agent_id")) for item in dispositions if item.get("agent_id")}
     controller_routed = [item for item in dispositions if item.get("dispatch_origin") == "PERSISTENT_CONTROLLER"]

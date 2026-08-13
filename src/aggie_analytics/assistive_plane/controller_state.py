@@ -483,7 +483,8 @@ class ControllerState:
             )
             connection.execute(
                 "UPDATE incidents SET resolved_at=? WHERE resolved_at IS NULL AND work_unit_id IN "
-                "(SELECT work_unit_id FROM work_units WHERE current_state='CLOSED')",
+                "(SELECT work_unit_id FROM work_units WHERE current_state IN "
+                "('CLOSED','ACCEPTED','MODIFIED','REVIEW_ONLY','QUARANTINED','REJECTED','FAILED','CANCELLED','DEAD_LETTER'))",
                 (rfc3339(utc_now()),),
             )
             connection.commit()
@@ -1128,6 +1129,11 @@ class ControllerState:
             "VALUES(?,?,?,?,?,?,?,?)",
             (work_unit_id, expected_state, new_state, reason, evidence_sha256, actor, stamp, version),
         )
+        if new_state in TERMINAL_STATES:
+            connection.execute(
+                "UPDATE incidents SET resolved_at=? WHERE work_unit_id=? AND resolved_at IS NULL",
+                (stamp, work_unit_id),
+            )
 
     def claim_dispatch(
         self,

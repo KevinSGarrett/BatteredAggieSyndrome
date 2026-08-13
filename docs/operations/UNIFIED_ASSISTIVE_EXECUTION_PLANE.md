@@ -39,6 +39,8 @@ Provider campaign accounting uses distinct base units and frozen effort, not raw
 
 The provider request store is an immutable content-addressed intake history, not a bounded destructive queue. Runtime discovery may scan a separately bounded historical population, but the admission bound applies only to packets whose durable work unit is not already `CLOSED`. Completed packet identities remain preserved for audit and replay without consuming active-discovery capacity; more than 64 simultaneously active provider packets still fails closed.
 
+Heartbeat dispatch state is release-cumulative, while latest-cycle counters remain explicit. A deterministic no-change cycle after successful controller-routed work must not reset the release to `PROVIDER_DISPATCH_PENDING` or report zero cumulative provider calls. Blocking and revision-conflict states still take precedence, and operational completion remains independently evidence-gated.
+
 1. Build or refresh the ready-work inventory before routing.
 2. Assign effort before provider selection and preserve the unit identity.
 3. Require one route disposition and an exact readiness record.

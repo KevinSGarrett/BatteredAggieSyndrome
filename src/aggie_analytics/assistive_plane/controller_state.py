@@ -1351,6 +1351,22 @@ class ControllerState:
                 if "reviews" in tables
                 else {}
             )
+            release_dispatched_units = 0
+            release_provider_calls = 0
+            if leader and {"dispatch_attempts", "provider_runs"} <= tables:
+                release_runs = connection.execute(
+                    "SELECT p.resource_json FROM provider_runs p "
+                    "JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id "
+                    "WHERE p.status='SETTLED' AND a.state='CLOSED' AND a.started_at>=?",
+                    (leader["acquired_at"],),
+                ).fetchall()
+                release_dispatched_units = len(release_runs)
+                for row in release_runs:
+                    try:
+                        resource = json.loads(row["resource_json"] or "{}")
+                        release_provider_calls += int(resource.get("provider_calls", 1))
+                    except (TypeError, ValueError, json.JSONDecodeError):
+                        continue
             return {
                 "schema_version": schema_version,
                 "database": str(self.database),
@@ -1360,6 +1376,8 @@ class ControllerState:
                 "work_unit_counts": counts,
                 "scheduler_cycles": int(cycle_summary["cycles"]),
                 "scheduler_dispatched_units": int(cycle_summary["dispatched"]),
+                "release_scheduler_dispatched_units": release_dispatched_units,
+                "release_scheduler_provider_calls": release_provider_calls,
                 "scheduler_no_change_cycles": int(cycle_summary["no_change"]),
                 "scheduler_latest_cycle": dict(latest_cycle) if latest_cycle else None,
                 "active_idle_intervals": int(active_idle),

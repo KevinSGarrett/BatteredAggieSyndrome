@@ -106,6 +106,50 @@ class UnifiedControllerServiceTests(unittest.TestCase):
         self.assertEqual(1, result["heartbeat_count"])
         self.assertTrue((self.runtime / "evidence/current/controller-heartbeat.json").is_file())
 
+    def test_heartbeat_preserves_release_dispatch_truth_after_no_change_cycle(self) -> None:
+        service = ControllerService(
+            ControllerServiceConfig(runtime_root=self.runtime, owner_id="test-owner", build_commit=self.commit)
+        )
+        service.state.status = Mock(
+            return_value={
+                "scheduler_cycles": 2,
+                "scheduler_dispatched_units": 3,
+                "release_scheduler_dispatched_units": 3,
+                "release_scheduler_provider_calls": 3,
+                "active_idle_intervals": 0,
+                "journal_mode": "WAL",
+                "integrity_check": "ok",
+                "schema_version": 4,
+            }
+        )
+        heartbeat = service._heartbeat_payload(
+            started_at="2026-08-13T00:00:00Z",
+            sequence=2,
+            queue_evaluations=2,
+            last_scheduler_evaluation={
+                "result": "PASS_NO_CHANGE_ZERO_CALLS",
+                "inventory_sha256": "a" * 64,
+                "eligible_units": 0,
+                "dispatched_units": 0,
+                "provider_calls": 0,
+                "dispatch_engine_state": "INVENTORY_SCHEDULER_ACTIVE_PROVIDER_DISPATCH_PENDING",
+            },
+        )
+        self.assertEqual("INVENTORY_SCHEDULER_CONTROLLER_ROUTED_DISPATCH_ACTIVE", heartbeat["dispatch_engine_state"])
+        self.assertEqual(3, heartbeat["release_scheduler_dispatched_units"])
+        self.assertEqual(3, heartbeat["scheduler_provider_calls"])
+        self.assertEqual(0, heartbeat["scheduler_latest_cycle_provider_calls"])
+        blocked = service._heartbeat_payload(
+            started_at="2026-08-13T00:00:00Z",
+            sequence=3,
+            queue_evaluations=3,
+            last_scheduler_evaluation={
+                "result": "FAIL",
+                "dispatch_engine_state": "INVENTORY_SCHEDULER_BLOCKED",
+            },
+        )
+        self.assertEqual("INVENTORY_SCHEDULER_BLOCKED", blocked["dispatch_engine_state"])
+
     def test_controller_records_runtime_failure_as_not_graceful(self) -> None:
         service = ControllerService(
             ControllerServiceConfig(

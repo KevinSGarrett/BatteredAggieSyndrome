@@ -175,14 +175,18 @@ def _bounded_json_scan(
             raise
         for entry in entries:
             try:
+                candidate = current / entry.name
                 if entry.is_dir(follow_symlinks=False):
-                    directories.append(Path(entry.path))
+                    # Preserve the caller's canonical root spelling. Windows runners can
+                    # return a long path from scandir beneath an 8.3-form temp root,
+                    # causing an otherwise valid relative_to() check to fail.
+                    directories.append(candidate)
                 elif (
                     entry.is_file(follow_symlinks=False)
                     and entry.name.endswith(".json")
                     and (allowed_names is None or entry.name in allowed_names)
                 ):
-                    files.append(Path(entry.path))
+                    files.append(candidate)
                     if len(files) >= limit:
                         capped = bool(directories) or entries.index(entry) < len(entries) - 1
                         break
@@ -214,7 +218,9 @@ def _bounded_top_level_json_scan(
             if len(files) >= limit:
                 capped = True
                 break
-            files.append(Path(entry.path))
+            # Construct from the resolved registry root rather than entry.path so
+            # Windows short/long path aliases cannot escape the relative identity.
+            files.append(resolved_root / entry.name)
         except OSError:
             continue
     return files, capped

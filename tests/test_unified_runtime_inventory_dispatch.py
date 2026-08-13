@@ -592,6 +592,31 @@ def cpu_worker_semantic_evidence(root: Path):
         schema = release / "schemas/openai/assistive_candidate.schema.json"
         schema.parent.mkdir(parents=True)
         schema.write_text(json.dumps({"type": "object"}), encoding="utf-8")
+        openai_task_registry = release / "configs/openai_task_registry.json"
+        openai_task_registry.parent.mkdir(parents=True)
+        openai_task_registry.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "tasks": {
+                        "quarantine_schema_classification": {
+                            "jira_unit": "POST-SUBTASK-164",
+                            "allowed_models": ["gpt-5.6-luna", "gpt-5.6-terra"],
+                            "allocation_by_model": {
+                                "gpt-5.6-luna": "LUNA_HARD_VOLUME",
+                                "gpt-5.6-terra": "TERRA_COMPLEX",
+                            },
+                        },
+                        "gamebook_schema_mapping": {
+                            "jira_unit": "POST-SUBTASK-168",
+                            "allowed_models": ["gpt-5.6-terra"],
+                            "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
+                        },
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
         for relative in (
             "src/aggie_analytics/assistive_plane/inventory_runtime.py",
             "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
@@ -610,6 +635,7 @@ def cpu_worker_semantic_evidence(root: Path):
                 provider_work_root=queue,
                 release_root=release,
                 build_commit=build_commit,
+                openai_task_registry_path=openai_task_registry,
                 continuous_source_root=source_root,
             ),
         )
@@ -640,6 +666,99 @@ def cpu_worker_semantic_evidence(root: Path):
             {packet["provider"] for packet in packets},
         )
         self.assertTrue(all(packet["authority"] == "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES" for packet in packets))
+
+    def test_live_manifests_replenish_bge_and_openai_gamebook_work(self) -> None:
+        for index in range(3):
+            (self.manifests / f"snap_live_{index}.json").write_text(
+                json.dumps(
+                    {
+                        "dataset": "ncaa_team_season_discovery",
+                        "snapshot_id": f"snap_live_{index}",
+                        "source_id": "SRC-015",
+                        "raw_sha256": str(index + 1) * 64,
+                        "retrieved_at": f"2026-08-13T02:0{index}:00Z",
+                        "row_count": index + 1,
+                        "schema_fields": ["team_season_ids", "contest_ids"],
+                        "metadata": {"selected_route_id": "scrapfly"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+        raw = (
+            b"<html><body><table><tr><th>Quarter</th><th>Clock</th><th>Play</th></tr>"
+            + b"<tr><td>1</td><td>14:51</td><td>Kickoff returned 22 yards</td></tr>" * 5
+            + b"</table></body></html>"
+        )
+        raw_sha256 = hashlib.sha256(raw).hexdigest()
+        raw_path = self.root / f"raw/SRC-015/ncaa_contest_play_by_play/{raw_sha256}.html"
+        raw_path.parent.mkdir(parents=True)
+        raw_path.write_bytes(raw)
+        manifest = {
+            "dataset": "ncaa_contest_play_by_play",
+            "snapshot_id": "snap_gamebook_live",
+            "source_id": "SRC-015",
+            "source_uri": "https://stats.ncaa.org/contests/1/play_by_play",
+            "relative_path": raw_path.relative_to(self.root).as_posix(),
+            "raw_sha256": raw_sha256,
+            "retrieved_at": "2026-08-13T02:05:00Z",
+            "row_count": 1,
+            "schema_fields": [],
+            "metadata": {"selected_route_id": "scrapfly"},
+        }
+        (self.manifests / "snap_gamebook_live.json").write_text(
+            json.dumps(manifest), encoding="utf-8"
+        )
+        build_commit = "a" * 40
+        release = self.root / "releases" / build_commit
+        schema = release / "schemas/openai/assistive_candidate.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema.write_text(json.dumps({"type": "object"}), encoding="utf-8")
+        registry = release / "configs/openai_task_registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "tasks": {
+                        "gamebook_schema_mapping": {
+                            "jira_unit": "POST-SUBTASK-168",
+                            "allowed_models": ["gpt-5.6-terra"],
+                            "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
+                        }
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=self.root / "provider-work/requests",
+                release_root=release,
+                build_commit=build_commit,
+                openai_task_registry_path=registry,
+            ),
+        )
+        demand = {
+            "providers": {
+                "ollama_local": {"unmet": True, "active_execution_packets": 0},
+                "openai_direct": {"unmet": True, "active_execution_packets": 0},
+            }
+        }
+        bge = refresher._materialize_continuous_bge_work(demand)
+        openai = refresher._materialize_continuous_openai_work(demand)
+        self.assertEqual(2, len(bge))
+        self.assertEqual(1, len(openai))
+        openai_packet = json.loads(Path(openai[0]["packet_path"]).read_text(encoding="utf-8"))
+        self.assertEqual("gamebook_schema_mapping", openai_packet["job"]["task_name"])
+        self.assertEqual("POST-SUBTASK-168", openai_packet["jira_unit"])
+        self.assertEqual("gpt-5.6-terra", openai_packet["job"]["model"])
+        self.assertEqual(raw_sha256, openai_packet["job"]["source_capture_sha256"])
+        self.assertIn("Quarter", openai_packet["job"]["source_excerpt"])
 
     def test_one_continuous_producer_failure_does_not_block_other_producers(self) -> None:
         cursor_packet = {

@@ -131,6 +131,9 @@ class ControllerService:
                 openrouter_task_registry_path=(
                     release_root / "configs" / "openrouter_task_registry.json"
                 ),
+                openai_task_registry_path=(
+                    release_root / "configs" / "openai_task_registry.json"
+                ),
                 external_assistive_root=config.runtime_root.parent,
                 continuous_source_root=data_root / "runtime",
                 project_root=Path(r"C:\BatteredAggieSyndrome") if os.name == "nt" else None,

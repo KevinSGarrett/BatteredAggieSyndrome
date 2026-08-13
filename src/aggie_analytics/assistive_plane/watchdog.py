@@ -179,15 +179,75 @@ class ReadOnlyWatchdog:
             ).fetchone()[0]
             if self.operational_audit_enabled and inflight_without_lease:
                 operational_findings.append("UNRECONCILED_INFLIGHT_PROVIDER_ATTEMPT")
-            closed_without_evidence = connection.execute(
+            closed_without_core_evidence = connection.execute(
                 "SELECT COUNT(*) FROM work_units w WHERE w.current_state='CLOSED' AND ("
                 "(SELECT COUNT(*) FROM provider_runs p JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id WHERE a.work_unit_id=w.work_unit_id AND p.status='SETTLED')=0 OR "
                 "(SELECT COUNT(*) FROM validation_results v WHERE v.work_unit_id=w.work_unit_id)=0 OR "
                 "(SELECT COUNT(*) FROM reviews r WHERE r.work_unit_id=w.work_unit_id)=0 OR "
                 "(SELECT COUNT(*) FROM cleanup_actions c WHERE c.work_unit_id=w.work_unit_id)=0)"
             ).fetchone()[0]
-            if self.operational_audit_enabled and closed_without_evidence:
+            closed_without_execution_artifacts = connection.execute(
+                "SELECT COUNT(*) FROM work_units w WHERE w.current_state='CLOSED' AND (NOT EXISTS ("
+                "SELECT 1 FROM execution_artifacts e JOIN dispatch_attempts a ON a.attempt_id=e.attempt_id "
+                "WHERE a.work_unit_id=w.work_unit_id AND e.artifact_type='PROVIDER_REQUEST_ENVELOPE') OR NOT EXISTS ("
+                "SELECT 1 FROM execution_artifacts e JOIN dispatch_attempts a ON a.attempt_id=e.attempt_id "
+                "WHERE a.work_unit_id=w.work_unit_id AND e.artifact_type='PROVIDER_REQUEST_RESPONSE'))"
+            ).fetchone()[0]
+            closed_without_reconciliation = connection.execute(
+                "SELECT COUNT(*) FROM work_units w WHERE w.current_state='CLOSED' AND NOT EXISTS ("
+                "SELECT 1 FROM reconciliation_records r WHERE r.work_unit_id=w.work_unit_id "
+                "AND r.jira_identity=w.jira_identity)"
+            ).fetchone()[0]
+            reconciliation_identity_mismatches = connection.execute(
+                "SELECT COUNT(*) FROM work_units w WHERE w.current_state='CLOSED' AND EXISTS ("
+                "SELECT 1 FROM reconciliation_records r WHERE r.work_unit_id=w.work_unit_id) AND NOT EXISTS ("
+                "SELECT 1 FROM reconciliation_records r JOIN dispatch_attempts a "
+                "ON a.work_unit_id=w.work_unit_id AND a.result_sha256=r.result_identity "
+                "WHERE r.work_unit_id=w.work_unit_id AND r.jira_identity=w.jira_identity "
+                "AND a.state='CLOSED' AND a.result_sha256 IS NOT NULL)"
+            ).fetchone()[0]
+            execution_artifact_identity_mismatches = 0
+            if self.operational_audit_enabled:
+                artifact_rows = connection.execute(
+                    "SELECT e.path,e.sha256,e.bytes FROM execution_artifacts e "
+                    "JOIN dispatch_attempts a ON a.attempt_id=e.attempt_id "
+                    "JOIN work_units w ON w.work_unit_id=a.work_unit_id "
+                    "WHERE w.current_state='CLOSED' AND e.artifact_type IN "
+                    "('PROVIDER_REQUEST_ENVELOPE','PROVIDER_REQUEST_RESPONSE')"
+                ).fetchall()
+                for row in artifact_rows:
+                    path = Path(str(row["path"]))
+                    try:
+                        data = path.read_bytes()
+                    except OSError:
+                        execution_artifact_identity_mismatches += 1
+                        continue
+                    if len(data) != int(row["bytes"]) or hashlib.sha256(data).hexdigest() != row["sha256"]:
+                        execution_artifact_identity_mismatches += 1
+            closed_without_evidence = connection.execute(
+                "SELECT COUNT(*) FROM work_units w WHERE w.current_state='CLOSED' AND ("
+                "NOT EXISTS (SELECT 1 FROM provider_runs p JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id "
+                "WHERE a.work_unit_id=w.work_unit_id AND p.status='SETTLED') OR "
+                "NOT EXISTS (SELECT 1 FROM validation_results v WHERE v.work_unit_id=w.work_unit_id) OR "
+                "NOT EXISTS (SELECT 1 FROM reviews r WHERE r.work_unit_id=w.work_unit_id) OR "
+                "NOT EXISTS (SELECT 1 FROM cleanup_actions c WHERE c.work_unit_id=w.work_unit_id) OR "
+                "NOT EXISTS (SELECT 1 FROM execution_artifacts e JOIN dispatch_attempts a ON a.attempt_id=e.attempt_id "
+                "WHERE a.work_unit_id=w.work_unit_id AND e.artifact_type='PROVIDER_REQUEST_ENVELOPE') OR "
+                "NOT EXISTS (SELECT 1 FROM execution_artifacts e JOIN dispatch_attempts a ON a.attempt_id=e.attempt_id "
+                "WHERE a.work_unit_id=w.work_unit_id AND e.artifact_type='PROVIDER_REQUEST_RESPONSE') OR "
+                "NOT EXISTS (SELECT 1 FROM reconciliation_records r WHERE r.work_unit_id=w.work_unit_id "
+                "AND r.jira_identity=w.jira_identity))"
+            ).fetchone()[0]
+            if self.operational_audit_enabled and closed_without_core_evidence:
                 operational_findings.append("CLOSED_UNIT_EVIDENCE_INCOMPLETE")
+            if self.operational_audit_enabled and closed_without_execution_artifacts:
+                operational_findings.append("CLOSED_UNIT_EXECUTION_ARTIFACT_MISSING")
+            if self.operational_audit_enabled and execution_artifact_identity_mismatches:
+                operational_findings.append("CLOSED_UNIT_EXECUTION_ARTIFACT_IDENTITY_MISMATCH")
+            if self.operational_audit_enabled and closed_without_reconciliation:
+                operational_findings.append("CLOSED_UNIT_RECONCILIATION_MISSING")
+            if self.operational_audit_enabled and reconciliation_identity_mismatches:
+                operational_findings.append("CLOSED_UNIT_RECONCILIATION_IDENTITY_MISMATCH")
             run_mismatches = connection.execute(
                 "SELECT COUNT(*) FROM provider_runs p JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id "
                 "WHERE (a.state='CLOSED' AND p.status<>'SETTLED') OR "
@@ -228,6 +288,15 @@ class ReadOnlyWatchdog:
                 "abandoned_work_leases": int(expired_leases),
                 "unreconciled_inflight_provider_attempts": int(inflight_without_lease),
                 "closed_units_missing_evidence": int(closed_without_evidence),
+                "closed_units_missing_core_evidence": int(closed_without_core_evidence),
+                "closed_units_missing_execution_artifacts": int(closed_without_execution_artifacts),
+                "closed_unit_execution_artifact_identity_mismatches": int(
+                    execution_artifact_identity_mismatches
+                ),
+                "closed_units_missing_reconciliation": int(closed_without_reconciliation),
+                "closed_unit_reconciliation_identity_mismatches": int(
+                    reconciliation_identity_mismatches
+                ),
                 "provider_result_settlement_mismatches": int(run_mismatches),
                 "overall_operational_completion": "INCOMPLETE",
             }

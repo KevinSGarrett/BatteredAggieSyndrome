@@ -54,7 +54,9 @@ class UnifiedControllerStateTests(unittest.TestCase):
         self.register()
         connection = self.state.connect()
         try:
-            connection.execute("UPDATE work_units SET current_state='CLOSED' WHERE work_unit_id='UNIT-1'")
+            connection.execute(
+                "UPDATE work_units SET current_state='QUARANTINED' WHERE work_unit_id='UNIT-1'"
+            )
             connection.execute(
                 "INSERT INTO incidents(incident_id,work_unit_id,finding,opened_at) VALUES(?,?,?,?)",
                 ("incident-closed", "UNIT-1", "PRIOR_TRANSIENT_FAILURE", self.now.isoformat()),

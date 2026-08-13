@@ -286,6 +286,13 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
         )
         self.assertEqual(4, sum(item.provider == "ollama_local" for item in ordered))
 
+    def test_terminal_units_cannot_consume_fair_provider_slots(self) -> None:
+        terminal = SimpleNamespace(provider="cursor", work_unit_id="CURSOR-QUARANTINED")
+        ready = SimpleNamespace(provider="cursor", work_unit_id="CURSOR-READY")
+        states = {terminal.work_unit_id: "QUARANTINED", ready.work_unit_id: "DISCOVERED"}
+        dispatchable = InventoryScheduler._exclude_terminal_units([terminal, ready], states)
+        self.assertEqual([ready], dispatchable)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .contracts import sha256_value
-from .controller_state import ControllerState, parse_rfc3339, rfc3339
+from .controller_state import ControllerState, TERMINAL_STATES, parse_rfc3339, rfc3339
 from .cpu_worker_backend import CpuWorkerClient, CpuWorkerEndpoint, CpuWorkerJob
 from .inventory_runtime import cpu_qualification_evidence_sha256
 from .ollama_backend import OLLAMA_LOOPBACK_ENDPOINT
@@ -138,6 +138,16 @@ class InventoryScheduler:
             for provider in provider_order
             for group in (grouped[provider],)
             if index < len(group)
+        ]
+
+    @staticmethod
+    def _exclude_terminal_units(
+        eligible: list[Any], current_states: dict[str, str]
+    ) -> list[Any]:
+        return [
+            decision
+            for decision in eligible
+            if current_states.get(decision.work_unit_id) not in TERMINAL_STATES
         ]
 
     def _load(self, now: datetime) -> tuple[dict[str, Any], ReadyWorkInventory, str, float]:
@@ -1027,6 +1037,8 @@ class InventoryScheduler:
                 ) == ATOMIC_EXECUTABLE
             )
         ]
+        current_states = self.state.work_unit_states({decision.work_unit_id for decision in eligible})
+        eligible = self._exclude_terminal_units(eligible, current_states)
         provider_recency = self.state.provider_last_dispatch_times(
             {str(decision.provider) for decision in eligible if decision.provider}
         )
@@ -1108,7 +1120,10 @@ class InventoryScheduler:
         current_states = self.state.work_unit_states(set(units))
         idle_units = []
         for decision in eligible:
-            if decision.work_unit_id in dispatched_ids or current_states.get(decision.work_unit_id) in {"CLOSED", "RETRY_WAIT", "FAILED", "DISPATCHED"}:
+            if (
+                decision.work_unit_id in dispatched_ids
+                or current_states.get(decision.work_unit_id) in TERMINAL_STATES | {"RETRY_WAIT", "DISPATCHED"}
+            ):
                 continue
             reason = "PROVIDER_DISPATCH_ADAPTER_NOT_INSTALLED_IN_ACTIVE_RELEASE"
             if decision.disposition is RoutingDisposition.REMOTE_CPU_WORKER:

@@ -147,6 +147,7 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
             (self.now + timedelta(minutes=3)).isoformat().replace("+00:00", "Z"),
             refreshed["producer_watermarks"]["sources"]["historical_snapshot_registry"]["scanned_at"],
         )
+        self.assertNotIn("historical_runtime", refreshed["producer_watermarks"]["sources"])
         refreshed_pointer = json.loads(self.current.read_text(encoding="utf-8"))
         self.assertNotEqual(pointer["refreshed_at"], refreshed_pointer["refreshed_at"])
 

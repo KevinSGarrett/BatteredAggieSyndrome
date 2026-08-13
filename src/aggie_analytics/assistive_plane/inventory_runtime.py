@@ -1537,12 +1537,6 @@ class RuntimeInventoryRefresher:
                 MAX_HISTORICAL_MANIFEST_SCAN_UNITS,
                 True,
             ),
-            "historical_runtime": (
-                (self.config.continuous_source_root or data_root / "runtime") / "BAT-554",
-                DISCOVERY_NAMES,
-                MAX_PROVIDER_WORK_SCAN_UNITS,
-                False,
-            ),
             "quarantine": (data_root / "quarantine", None, MAX_PROVIDER_WORK_SCAN_UNITS, False),
             "reconciliation": (data_root / "reconciliation", None, MAX_PROVIDER_WORK_SCAN_UNITS, False),
             "provider_request_queue": (

@@ -137,7 +137,7 @@ def specs() -> list[dict[str, Any]]:
     cursor["evidence_state"] = "PARTIAL"
     cursor["ready"] = False
     cursor["ai_context_notes"].append(
-        "The user authorized a separate nontransferable USD 200 hard limit on 2026-08-12; only USD 20 is initially released. Four real candidate-only units executed on 2026-08-13 across seven runs, including the two serial pilots and two concurrent nonoverlapping units; all four were accepted, two with Codex review edits, and cumulative settlement is USD 1.16544630. Six additional real units, broader category coverage, weighted utilization, and sustained-operation gates remain pending, so Cursor is not operational."
+        "The user authorized a separate nontransferable USD 200 hard limit on 2026-08-12; only USD 20 is initially released. Six real candidate-only units executed on 2026-08-13 across eleven runs, including the two serial pilots and four bounded campaign units; all six were accepted, three with Codex review edits, and cumulative settlement is USD 1.86454790. Four additional real units, broader category coverage, weighted utilization, and sustained-operation gates remain pending, so Cursor is not operational."
     )
 
     qwen = common(load("POST-SUBTASK-161"), local_id="POST-SUBTASK-203", import_id=100513, objective="Qualify and operate local models on exact evidence-backed task formats", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="IN_PROGRESS")

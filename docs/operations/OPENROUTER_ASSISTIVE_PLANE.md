@@ -17,7 +17,7 @@ The validator must confirm the authorized USD 25 hard stop, the lower USD 5 rele
 
 ## Paid dispatch state
 
-`tools/openrouter_assist.py` is intentionally fail-closed. Until the user separately authorizes an OpenRouter spending envelope and the policy is versioned through review, every positive estimated-cost request returns `PAID_OPENROUTER_BUDGET_NOT_AUTHORIZED` before invoking the backend.
+`tools/openrouter_assist.py` is intentionally fail-closed. The separately authorized USD 25 hard limit and USD 5 released stage now permit bounded candidate-only work after exact schema, privacy, provider, evidence, and reservation admission. As of 2026-08-13, two strict-schema `qwen/qwen3-coder-next` independent-review candidates validated; the conservative local all-key ledger records USD 0.00209168 while provider totals lag local settlement. No exact route is operationally admitted, and continuing scale remains gated on the required empirical campaign.
 
 Never provide the key in a command argument. The backend loads it only from `C:\BatteredAggieSyndrome\.env`. Never copy `.env` into a worktree.
 

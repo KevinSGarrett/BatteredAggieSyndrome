@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "inventory_seed_id": "unified-assistive-ready-work-routing-catalog-2026-08-12-v3",
-  "material_transition_at": "2026-08-12T23:01:24Z",
+  "material_transition_at": "2026-08-13T02:06:49Z",
   "decisions_are_derived": true,
   "work_units": [
     {
@@ -70,11 +70,11 @@
       "schema_path": "configs/unified_assistive_policy.json",
       "authority": "PATCH_CANDIDATE_ONLY",
       "pre_routing_effort_points": 8,
-      "scope": "Qualify Cursor through two serial safety pilots and bounded concurrency.",
+      "scope": "Continue the ten-unit Cursor campaign after two serial safety pilots and four accepted bounded campaign units.",
       "disposition": "CURSOR",
       "provider": "cursor",
       "model": "gpt-5.3-codex",
-      "reason": "USD 20 initial stage is authorized for two serial safety pilots"
+      "reason": "six of ten real units are accepted within the USD 20 released stage; four real units and final qualification evidence remain"
     },
     {
       "local_id": "POST-SUBTASK-203",

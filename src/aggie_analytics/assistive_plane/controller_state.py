@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sqlite3
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -49,6 +50,43 @@ def usd_cents(value: str | Decimal) -> int:
     if amount < 0:
         raise ValueError("NEGATIVE_BUDGET_AMOUNT")
     return int(amount * 100)
+
+
+def process_is_live(pid: int) -> bool:
+    if pid <= 0:
+        return False
+    if os.name == "nt":
+        # On Windows, os.kill(pid, 0) calls TerminateProcess rather than acting
+        # as the non-mutating POSIX existence probe. Query a minimal process
+        # handle instead and fail closed when Windows cannot prove absence.
+        import ctypes
+
+        process_query_limited_information = 0x1000
+        error_invalid_parameter = 87
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32.OpenProcess.argtypes = [ctypes.c_uint32, ctypes.c_int, ctypes.c_uint32]
+        kernel32.OpenProcess.restype = ctypes.c_void_p
+        kernel32.CloseHandle.argtypes = [ctypes.c_void_p]
+        kernel32.CloseHandle.restype = ctypes.c_int
+        handle = kernel32.OpenProcess(process_query_limited_information, False, pid)
+        if handle:
+            kernel32.CloseHandle(handle)
+            return True
+        return ctypes.get_last_error() != error_invalid_parameter
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
+
+
+def owner_pid(owner_id: str) -> int:
+    match = re.fullmatch(r"[^:]+:([1-9][0-9]*):[0-9a-fA-F]{32}", owner_id)
+    if match is None:
+        raise RuntimeError("CONTROLLER_RECOVERY_OWNER_ID_FORMAT_INVALID")
+    return int(match.group(1))
 
 
 class LeaderLock:
@@ -285,6 +323,51 @@ class ControllerState:
             )
             if result.rowcount != 1:
                 raise RuntimeError("CONTROLLER_LEADER_OWNERSHIP_LOST")
+
+    def release_orphaned_leader(
+        self,
+        *,
+        expected_owner_id: str,
+        expected_build_commit: str,
+        expected_owner_pid: int,
+        recovery_evidence_sha256: str,
+        now: datetime | None = None,
+    ) -> None:
+        if re.fullmatch(r"[0-9a-f]{64}", recovery_evidence_sha256) is None:
+            raise ValueError("RECOVERY_EVIDENCE_IDENTITY_INVALID")
+        if re.fullmatch(r"[0-9a-f]{40}", expected_build_commit) is None:
+            raise ValueError("RECOVERY_BUILD_IDENTITY_INVALID")
+        bound_owner_pid = owner_pid(expected_owner_id)
+        if bound_owner_pid != expected_owner_pid:
+            raise RuntimeError("CONTROLLER_RECOVERY_OWNER_PID_MISMATCH")
+        if process_is_live(expected_owner_pid):
+            raise RuntimeError("CONTROLLER_RECOVERY_OWNER_PROCESS_LIVE")
+        stamp = rfc3339(now or utc_now())
+        with self.transaction() as connection:
+            lease = connection.execute("SELECT * FROM leader_lease WHERE singleton=1").fetchone()
+            if lease is None:
+                raise RuntimeError("CONTROLLER_RECOVERY_LEASE_MISSING")
+            if lease["owner_id"] != expected_owner_id or lease["build_commit"] != expected_build_commit:
+                raise RuntimeError("CONTROLLER_RECOVERY_LEASE_MISMATCH")
+            removed = connection.execute(
+                "DELETE FROM leader_lease WHERE singleton=1 AND owner_id=? AND build_commit=?",
+                (expected_owner_id, expected_build_commit),
+            )
+            if removed.rowcount != 1:
+                raise RuntimeError("CONTROLLER_RECOVERY_OWNERSHIP_LOST")
+            payload = {
+                "expected_owner_id": expected_owner_id,
+                "expected_build_commit": expected_build_commit,
+                "expected_owner_pid": expected_owner_pid,
+                "recovery_evidence_sha256": recovery_evidence_sha256,
+                "lease_acquired_at": lease["acquired_at"],
+                "lease_heartbeat_at": lease["heartbeat_at"],
+                "lease_expires_at": lease["expires_at"],
+            }
+            connection.execute(
+                "INSERT INTO controller_events(event_type,payload_json,occurred_at) VALUES(?,?,?)",
+                ("CONTROLLER_ORPHAN_LEASE_RECOVERED", json.dumps(payload, sort_keys=True, separators=(",", ":")), stamp),
+            )
 
     def register_work_unit(self, *, work_unit_id: str, identity_sha256: str, jira_identity: str, effort_points: int, actor: str, now: datetime | None = None) -> None:
         if effort_points not in {1, 2, 3, 5, 8}:

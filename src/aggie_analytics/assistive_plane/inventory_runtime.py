@@ -265,6 +265,30 @@ class RuntimeInventoryRefresher:
         text = str(value)
         return len(text) == 64 and all(character in "0123456789abcdef" for character in text)
 
+    @staticmethod
+    def _valid_commit(value: object) -> bool:
+        text = str(value)
+        return len(text) == 40 and all(character in "0123456789abcdef" for character in text)
+
+    @classmethod
+    def _snapshot_release_commit(cls, snapshot: dict[str, Any]) -> str:
+        git = snapshot.get("git") or {}
+        release = snapshot.get("deployed_release") or {}
+        values = [
+            git.get("origin_main"),
+            git.get("head"),
+            git.get("deployed_head"),
+            git.get("merged_main_identity_at_release_build"),
+            release.get("build_commit"),
+        ]
+        present = [str(value) for value in values if value is not None]
+        if not present or any(not cls._valid_commit(value) for value in present):
+            raise RuntimeError("RUNTIME_INVENTORY_RELEASE_IDENTITY_INVALID")
+        identities = set(present)
+        if len(identities) != 1:
+            raise RuntimeError("RUNTIME_INVENTORY_RELEASE_IDENTITY_CONFLICT")
+        return identities.pop()
+
     @classmethod
     def _provider_readiness(cls, snapshot: dict[str, Any], packet: dict[str, Any]) -> str | None:
         provider = packet.get("provider")
@@ -379,6 +403,7 @@ class RuntimeInventoryRefresher:
                 base_commit = packet.get("base_commit")
                 evidence_excerpts = packet.get("evidence_excerpts")
                 openrouter_identity_hashes = packet.get("identity_hashes")
+                expected_base_commit = self._snapshot_release_commit(snapshot)
                 if (
                     not isinstance(task_id, str)
                     or not task_id
@@ -397,7 +422,7 @@ class RuntimeInventoryRefresher:
                     or not isinstance(base_commit, str)
                     or len(base_commit) != 40
                     or any(character not in "0123456789abcdef" for character in base_commit)
-                    or base_commit != snapshot.get("git", {}).get("origin_main")
+                    or base_commit != expected_base_commit
                     or not isinstance(evidence_excerpts, list)
                     or not evidence_excerpts
                     or any(not isinstance(item, str) or not item for item in evidence_excerpts)

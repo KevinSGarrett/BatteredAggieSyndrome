@@ -735,6 +735,21 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         self.assertTrue(unit.work_unit_id.startswith("AUTO-OR-"))
         self.assertTrue(len(reference["readiness_evidence_sha256"]) == 64)
 
+        current_payload["git"] = {
+            "deployed_head": "a" * 40,
+            "merged_main_identity_at_release_build": "a" * 40,
+            "status_porcelain_sha256": hashlib.sha256(b"").hexdigest(),
+            "status_evidence": "IMMUTABLE_RELEASE_TREE_NO_WORKTREE_MUTATION_SURFACE",
+        }
+        current_payload["deployed_release"] = {"build_commit": "a" * 40}
+        discovered_from_runtime_snapshot = refresher._discover_provider_work(current_payload, self.now)
+        self.assertEqual(1, len(discovered_from_runtime_snapshot))
+
+        current_payload["deployed_release"]["build_commit"] = "b" * 40
+        with self.assertRaisesRegex(RuntimeError, "RELEASE_IDENTITY_CONFLICT"):
+            refresher._discover_provider_work(current_payload, self.now)
+        current_payload["deployed_release"]["build_commit"] = "a" * 40
+
         current_payload["external_evidence"]["openrouter"]["routes"][0]["budget_remaining_usd"] = "0.00"
         with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
             refresher._discover_provider_work(current_payload, self.now)

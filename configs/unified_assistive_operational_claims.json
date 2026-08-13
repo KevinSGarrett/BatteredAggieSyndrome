@@ -7,7 +7,7 @@
     "cursor": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL",
     "local_qwen": "BGE_M3_EXACT_RETRIEVAL_READY_QWEN_EXACT_ROUTES_REJECTED",
     "remote_cpu_worker": "EXACT_FIXED_FUNCTION_QUALIFIED_CAMPAIGN_INCOMPLETE",
-    "unified_plane": "SERVICE_SHELL_DEPLOYED_SCHEDULER_NOT_OPERATIONAL"
+    "unified_plane": "CONTROLLER_SCHEDULER_DEPLOYED_CAMPAIGNS_INCOMPLETE"
   },
   "overall_result": "INCOMPLETE",
   "sustained_operation_claimed": false,

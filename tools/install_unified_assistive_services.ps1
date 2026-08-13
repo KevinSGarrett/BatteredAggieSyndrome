@@ -5,6 +5,7 @@ param(
     [string]$ControllerTaskName = 'BAS-UnifiedAssistiveController',
     [string]$WatchdogTaskName = 'BAS-UnifiedAssistiveWatchdog',
     [string]$PythonExecutable = '',
+    [ValidateSet('LocalService', 'InteractiveUser')][string]$PrincipalMode = 'LocalService',
     [switch]$Replace
 )
 
@@ -45,8 +46,19 @@ foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
 
 $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 if ($identity.IsSystem) { throw 'CONTROLLER_SERVICE_SYSTEM_IDENTITY_FORBIDDEN' }
-$principal = New-ScheduledTaskPrincipal -UserId $identity.Name -LogonType Interactive -RunLevel Limited
-$trigger = New-ScheduledTaskTrigger -AtLogOn -User $identity.Name
+if ($PrincipalMode -eq 'LocalService') {
+    $principalName = 'NT AUTHORITY\LOCAL SERVICE'
+    $principal = New-ScheduledTaskPrincipal -UserId $principalName -LogonType ServiceAccount -RunLevel Limited
+    $trigger = New-ScheduledTaskTrigger -AtStartup
+    $logonType = 'ServiceAccount'
+    $triggerType = 'BootTrigger'
+} else {
+    $principalName = $identity.Name
+    $principal = New-ScheduledTaskPrincipal -UserId $principalName -LogonType Interactive -RunLevel Limited
+    $trigger = New-ScheduledTaskTrigger -AtLogOn -User $principalName
+    $logonType = 'Interactive'
+    $triggerType = 'LogonTrigger'
+}
 $settings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -RestartCount 5 -RestartInterval (New-TimeSpan -Minutes 1) -StartWhenAvailable -ExecutionTimeLimit ([TimeSpan]::Zero)
 $controllerArguments = '"' + $controllerScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
 $watchdogArguments = '"' + $watchdogScript + '" serve --runtime-root "' + $RuntimeRoot + '" --build-commit ' + $manifest.build_commit
@@ -130,6 +142,46 @@ $installWatchdog = $PSCmdlet.ShouldProcess($WatchdogTaskName, 'Register independ
 if ($installController -or $installWatchdog) {
     $WhatIfPreference = $false
     $null = New-Item -ItemType Directory -Path $backupRoot -Force
+    if ($PrincipalMode -eq 'LocalService') {
+        $assistiveRoot = Split-Path -Parent $RuntimeRoot
+        $dataRoot = Split-Path -Parent $assistiveRoot
+        $inventoryRoot = Join-Path $assistiveRoot 'inventory'
+        $cpuWorkerRoot = Join-Path $assistiveRoot 'cpu_worker'
+        $signingKeyPath = Join-Path $cpuWorkerRoot 'controller\secrets\worker-v2.bin'
+        $readContainers = @(
+            (Split-Path -Parent $python),
+            $release,
+            (Join-Path $dataRoot 'manifests')
+        )
+        $writeContainers = @(
+            (Join-Path $RuntimeRoot 'state'),
+            (Join-Path $RuntimeRoot 'runtime'),
+            (Join-Path $RuntimeRoot 'evidence'),
+            (Join-Path $RuntimeRoot 'watchdog'),
+            (Join-Path $RuntimeRoot 'packets'),
+            (Join-Path $inventoryRoot 'current'),
+            (Join-Path $inventoryRoot 'runtime'),
+            (Join-Path $cpuWorkerRoot 'results')
+        )
+        foreach ($path in $readContainers + $writeContainers) {
+            if (-not (Test-Path -LiteralPath $path -PathType Container)) {
+                $null = New-Item -ItemType Directory -Path $path -Force
+            }
+        }
+        if (-not (Test-Path -LiteralPath $signingKeyPath -PathType Leaf)) {
+            throw 'CONTROLLER_LOCAL_SERVICE_SIGNING_KEY_MISSING'
+        }
+        foreach ($path in $readContainers) {
+            & icacls.exe $path /grant '*S-1-5-19:(OI)(CI)RX' | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw "CONTROLLER_LOCAL_SERVICE_READ_ACL_FAILED:$path" }
+        }
+        foreach ($path in $writeContainers) {
+            & icacls.exe $path /grant '*S-1-5-19:(OI)(CI)M' | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw "CONTROLLER_LOCAL_SERVICE_WRITE_ACL_FAILED:$path" }
+        }
+        & icacls.exe $signingKeyPath /grant '*S-1-5-19:R' | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw 'CONTROLLER_LOCAL_SERVICE_KEY_ACL_FAILED' }
+    }
     foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
         if ($existingTasks[$name]) {
             Export-ScheduledTask -TaskName $name | Set-Content -LiteralPath (Join-Path $backupRoot "$name.xml") -Encoding UTF8
@@ -201,12 +253,13 @@ if ($installController -and $installWatchdog) {
     result = if ($requestedWhatIf) { 'WHATIF_PASS' } else { 'PASS' }
     release = $release
     build_commit = $manifest.build_commit
-    principal = $identity.Name
+    principal = $principalName
     run_level = 'Limited'
-    logon_type = 'Interactive'
+    logon_type = $logonType
+    trigger_type = $triggerType
     controller_task = $ControllerTaskName
     watchdog_task = $WatchdogTaskName
     replacement_recovery = $replacementRecoveryDisposition
-    cold_boot_without_user_logon = 'NOT_YET_PROVEN'
+    cold_boot_without_user_logon = if ($PrincipalMode -eq 'LocalService') { 'STARTUP_CAPABLE_CONFIGURATION_BOOT_OBSERVATION_PENDING' } else { 'NOT_YET_PROVEN' }
     operational_completion = 'INCOMPLETE'
 } | ConvertTo-Json -Compress

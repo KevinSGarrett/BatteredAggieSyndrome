@@ -27,6 +27,7 @@ def collect_windows_tasks() -> list[dict[str, object]]:
         "[pscustomobject]@{task_name=$name;state=[string]$task.State;enabled=[bool]$task.Settings.Enabled;"
         "principal=[string]$task.Principal.UserId;run_level=[string]$task.Principal.RunLevel;"
         "logon_type=[string]$task.Principal.LogonType;execute=[string]$task.Actions.Execute;"
+        "trigger_types=@($task.Triggers|ForEach-Object{[string]$_.CimClass.CimClassName});"
         "arguments=[string]$task.Actions.Arguments;working_directory=[string]$task.Actions.WorkingDirectory;"
         "last_task_result=[int64]$info.LastTaskResult}};$rows|ConvertTo-Json -Depth 4 -Compress"
     )

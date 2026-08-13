@@ -984,6 +984,72 @@ class ControllerState:
         finally:
             connection.close()
 
+    def reconcile_expired_work_leases(self, *, now: datetime | None = None) -> dict[str, int]:
+        """Recover only pre-dispatch leases; quarantine in-flight ambiguity from automatic retry."""
+        moment = now or utc_now()
+        stamp = rfc3339(moment)
+        recovered_pre_dispatch = 0
+        review_required = 0
+        with self.transaction() as connection:
+            rows = connection.execute(
+                "SELECT l.lease_id,l.work_unit_id,w.current_state,a.attempt_id,a.state AS attempt_state "
+                "FROM work_leases l JOIN work_units w ON w.work_unit_id=l.work_unit_id "
+                "LEFT JOIN dispatch_attempts a ON a.attempt_id=("
+                "SELECT a2.attempt_id FROM dispatch_attempts a2 WHERE a2.work_unit_id=l.work_unit_id "
+                "ORDER BY a2.started_at DESC,a2.attempt_id DESC LIMIT 1) "
+                "WHERE l.status='ACTIVE' AND l.expires_at<? ORDER BY l.lease_id",
+                (stamp,),
+            ).fetchall()
+            for row in rows:
+                connection.execute(
+                    "UPDATE work_leases SET status='ABANDONED',heartbeat_at=? WHERE lease_id=? AND status='ACTIVE'",
+                    (stamp, row["lease_id"]),
+                )
+                attempt_id = row["attempt_id"]
+                if row["current_state"] == "ADMITTED" and row["attempt_state"] == "ADMITTED" and attempt_id:
+                    connection.execute(
+                        "UPDATE dispatch_attempts SET state='FAILED',completed_at=?,error_code=? WHERE attempt_id=?",
+                        (stamp, "ABANDONED_BEFORE_PROVIDER_DISPATCH", attempt_id),
+                    )
+                    self._transition_in_connection(
+                        connection,
+                        work_unit_id=row["work_unit_id"],
+                        expected_state="ADMITTED",
+                        new_state="RETRY_WAIT",
+                        reason="EXPIRED_PRE_DISPATCH_LEASE_RECOVERED",
+                        actor="controller-startup-recovery",
+                        stamp=stamp,
+                    )
+                    retry_id = hashlib.sha256(f"{attempt_id}:startup-retry".encode()).hexdigest()
+                    connection.execute(
+                        "INSERT OR IGNORE INTO retry_records(retry_id,work_unit_id,prior_attempt_id,reason,eligible_at,created_at) "
+                        "VALUES(?,?,?,?,?,?)",
+                        (
+                            retry_id,
+                            row["work_unit_id"],
+                            attempt_id,
+                            "ABANDONED_BEFORE_PROVIDER_DISPATCH",
+                            stamp,
+                            stamp,
+                        ),
+                    )
+                    finding = "ABANDONED_PRE_DISPATCH_WORK_LEASE_RECOVERED"
+                    recovered_pre_dispatch += 1
+                else:
+                    finding = "ABANDONED_INFLIGHT_PROVIDER_RECONCILIATION_REQUIRED"
+                    review_required += 1
+                incident_id = hashlib.sha256(f"{row['lease_id']}:{finding}".encode()).hexdigest()
+                connection.execute(
+                    "INSERT OR IGNORE INTO incidents(incident_id,work_unit_id,attempt_id,finding,opened_at) "
+                    "VALUES(?,?,?,?,?)",
+                    (incident_id, row["work_unit_id"], attempt_id, finding, stamp),
+                )
+        return {
+            "expired_leases_observed": recovered_pre_dispatch + review_required,
+            "recovered_pre_dispatch": recovered_pre_dispatch,
+            "provider_reconciliation_required": review_required,
+        }
+
     def record_dispatch(
         self,
         *,

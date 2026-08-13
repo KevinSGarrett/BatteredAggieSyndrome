@@ -57,6 +57,94 @@ class UnifiedControllerStateTests(unittest.TestCase):
         self.assertIn("CONTROLLER_HEARTBEAT_STALE", report["findings"])
         self.assertIn("CONTROLLER_LEASE_EXPIRED", report["findings"])
 
+    def test_watchdog_fails_closed_when_closed_unit_loses_artifact_or_reconciliation(self) -> None:
+        self.register()
+        self.state.acquire_leader("owner-a", "b" * 40, now=self.now, ttl_seconds=120)
+        self.assertTrue(
+            self.state.claim_dispatch(
+                work_unit_id="UNIT-1",
+                dependencies=(),
+                lease_id="lease-1",
+                attempt_id="attempt-1",
+                owner_id="owner-a",
+                provider="remote_cpu_worker",
+                route_identity="b" * 64,
+                readiness_evidence_sha256="c" * 64,
+                now=self.now,
+            )
+        )
+        request = Path(self.temp.name) / "request.json"
+        request.write_text('{"request":1}', encoding="utf-8")
+        self.state.record_dispatch(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-1",
+            provider_run_id="run-1",
+            provider="remote_cpu_worker",
+            remote_identity="remote-1",
+            request_sha256="d" * 64,
+            request_artifact_path=request,
+            actor="owner-a",
+            now=self.now,
+        )
+        result = Path(self.temp.name) / "result.json"
+        result.write_text('{"result":1}', encoding="utf-8")
+        self.state.record_result_and_artifact(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-1",
+            provider_run_id="run-1",
+            result_sha256="e" * 64,
+            artifact_path=result,
+            actor="owner-a",
+            now=self.now,
+        )
+        self.state.complete_validated_review_only(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-1",
+            lease_id="lease-1",
+            validation_sha256="f" * 64,
+            review_sha256="1" * 64,
+            cleanup_sha256="2" * 64,
+            actor="owner-a",
+            now=self.now,
+        )
+        watchdog = ReadOnlyWatchdog(self.database, expected_build_commit="b" * 40)
+        complete = watchdog.inspect(now=self.now + timedelta(seconds=1))
+        self.assertEqual(0, complete["closed_units_missing_evidence"])
+        self.assertEqual(0, complete["closed_units_missing_execution_artifacts"])
+        self.assertEqual(0, complete["closed_unit_execution_artifact_identity_mismatches"])
+        self.assertEqual(0, complete["closed_units_missing_reconciliation"])
+        self.assertEqual(0, complete["closed_unit_reconciliation_identity_mismatches"])
+
+        result.write_text('{"tampered":1}', encoding="utf-8")
+        tampered_artifact = watchdog.inspect(now=self.now + timedelta(seconds=1))
+        self.assertIn("CLOSED_UNIT_EXECUTION_ARTIFACT_IDENTITY_MISMATCH", tampered_artifact["findings"])
+        self.assertEqual(1, tampered_artifact["closed_unit_execution_artifact_identity_mismatches"])
+        result.write_text('{"result":1}', encoding="utf-8")
+
+        connection = self.state.connect()
+        try:
+            connection.execute("DELETE FROM execution_artifacts WHERE work_unit_id='UNIT-1'")
+            connection.commit()
+        finally:
+            connection.close()
+        missing_artifact = watchdog.inspect(now=self.now + timedelta(seconds=1))
+        self.assertIn("CLOSED_UNIT_EXECUTION_ARTIFACT_MISSING", missing_artifact["findings"])
+        self.assertEqual(1, missing_artifact["closed_units_missing_evidence"])
+        self.assertEqual(1, missing_artifact["closed_units_missing_execution_artifacts"])
+
+        connection = self.state.connect()
+        try:
+            connection.execute(
+                "UPDATE reconciliation_records SET result_identity=? WHERE work_unit_id='UNIT-1'",
+                ("9" * 64,),
+            )
+            connection.commit()
+        finally:
+            connection.close()
+        missing_both = watchdog.inspect(now=self.now + timedelta(seconds=1))
+        self.assertIn("CLOSED_UNIT_RECONCILIATION_IDENTITY_MISMATCH", missing_both["findings"])
+        self.assertEqual(1, missing_both["closed_unit_reconciliation_identity_mismatches"])
+
     def test_single_database_leader_fails_closed(self) -> None:
         self.state.acquire_leader("owner-a", "b" * 40, now=self.now)
         with self.assertRaisesRegex(RuntimeError, "CONTROLLER_DATABASE_LEADER_ACTIVE"):

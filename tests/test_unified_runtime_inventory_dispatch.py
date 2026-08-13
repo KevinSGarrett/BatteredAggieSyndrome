@@ -406,6 +406,50 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
             snapshot["provider_work_findings"][0]["disposition"],
         )
 
+    def test_selected_cpu_manifest_packet_requires_exact_qualification_and_is_routable(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        packet = {
+            "schema_version": 1,
+            "provider": "remote_cpu_worker",
+            "task": "CANONICAL_JSON",
+            "task_format": "cpu_worker_canonical_manifest_v1",
+            "jira_unit": "BAT-563",
+            "schema_sha256": hashlib.sha256(
+                b"cpu_worker_canonical_manifest_v1:value:any-json;candidate-only;exact-local-replay"
+            ).hexdigest(),
+            "source_hashes": ["4" * 64],
+            "dependencies": [],
+            "pre_routing_effort_points": 1,
+            "scope": "Exact canonicalization and provenance QA for a selected historical manifest",
+            "payload": {"value": {"season": 2021, "teams": 653}},
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        data = canonical_json_bytes(packet) + b"\n"
+        (provider_root / "cpu.json").write_bytes(data)
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+        discovered = refresher._discover_provider_work(current_payload, self.now)
+        self.assertEqual(1, len(discovered))
+        unit, decision, reference = discovered[0]
+        self.assertTrue(unit.work_unit_id.startswith("AUTO-CPU-MANIFEST-"))
+        self.assertEqual("REMOTE_CPU_WORKER", decision.disposition.value)
+        self.assertEqual("remote_cpu_worker", decision.provider)
+        self.assertEqual("c" * 64, reference["readiness_evidence_sha256"])
+
+        current_payload["external_evidence"]["cpu_worker"]["qualified"] = False
+        with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
+            refresher._discover_provider_work(current_payload, self.now)
+
     def test_closed_provider_packets_do_not_exhaust_active_discovery_bound(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))
         current_payload["external_evidence"]["openai"] = {

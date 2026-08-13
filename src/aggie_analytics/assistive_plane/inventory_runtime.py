@@ -231,6 +231,8 @@ class RuntimeInventoryRefresher:
     @classmethod
     def _provider_readiness(cls, snapshot: dict[str, Any], packet: dict[str, Any]) -> str | None:
         provider = packet.get("provider")
+        if provider == "remote_cpu_worker" and packet.get("task_format") == CPU_MANIFEST_TASK_FORMAT:
+            return cpu_qualification_evidence_sha256(snapshot)
         if provider == "openai_direct":
             evidence = snapshot.get("external_evidence", {}).get("openai", {})
             digest = evidence.get("manifest_sha256")
@@ -288,6 +290,17 @@ class RuntimeInventoryRefresher:
                 prefix = "AUTO-BGE-"
                 disposition = RoutingDisposition.LOCAL_QWEN
                 model = packet.get("model")
+            elif provider == "remote_cpu_worker" and task_format == CPU_MANIFEST_TASK_FORMAT:
+                payload = packet.get("payload")
+                if (
+                    packet.get("task") != "CANONICAL_JSON"
+                    or not isinstance(payload, dict)
+                    or set(payload) != {"value"}
+                ):
+                    raise ValueError("RUNTIME_INVENTORY_CPU_PROVIDER_PACKET_INVALID")
+                prefix = "AUTO-CPU-MANIFEST-"
+                disposition = RoutingDisposition.REMOTE_CPU_WORKER
+                model = "DETERMINISTIC_CPU_WORKER_V2"
             else:
                 raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_ROUTE_INVALID")
             readiness = self._provider_readiness(snapshot, packet)

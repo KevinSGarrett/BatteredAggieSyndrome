@@ -1911,6 +1911,134 @@ class RuntimeInventoryRefresher:
         if len(created) >= 2:
             return created
 
+        # The live historical-acquisition lane produces reconciliation and
+        # feature-evaluation evidence before it produces contest-detail pages.
+        # Treat those bounded, immutable JSON artifacts as real candidate-only
+        # review work so the direct-OpenAI route does not depend on a finite
+        # collection of gamebook-format probes.  These tasks may identify
+        # follow-up work, but they retain no canonical or protected authority.
+        review_sources = (
+            (
+                "entity_review",
+                data_root / "reconciliation" / "historical_expansion",
+                "Review only the supplied historical reconciliation evidence. Identify explicit unresolved "
+                "populations, ambiguity drivers, and deterministic follow-up routes. Do not approve an entity "
+                "merge, infer a missing identity, or claim historical completeness.",
+                "continuous-historical-reconciliation-review-v1",
+                "gpt-5.6-terra",
+                "medium",
+            ),
+            (
+                "assistive_model_evaluation",
+                data_root / "reconciliation" / "feature_engineering",
+                "Independently challenge only the supplied preliminary feature or evaluation artifact. Identify "
+                "explicit evidence gaps, leakage risks, unsupported claims, and deterministic checks. Do not "
+                "promote a feature, model, protected result, A&M lift, BAS, or Aggie Excess conclusion.",
+                "continuous-preliminary-evidence-qa-v1",
+                "gpt-5.6-luna",
+                "low",
+            ),
+        )
+        for task_name, review_root, instruction, prompt_version, model, reasoning_effort in review_sources:
+            if len(created) >= 2:
+                break
+            if not review_root.is_dir():
+                continue
+            task_definition = self._openai_task_definition(task_name)
+            jira_unit = str(task_definition.get("jira_unit", ""))
+            allowed_models = task_definition.get("allowed_models", [])
+            allocation = str(task_definition.get("allocation_by_model", {}).get(model, ""))
+            if not jira_unit or model not in allowed_models or not allocation:
+                raise ValueError("RUNTIME_INVENTORY_OPENAI_REVIEW_TASK_BINDING_INVALID")
+            scanned, _ = _bounded_json_scan(review_root, limit=256)
+            candidates = sorted(
+                (
+                    path
+                    for path in scanned
+                    if 0 < path.stat().st_size <= 12000
+                ),
+                key=lambda path: (-path.stat().st_mtime_ns, path.as_posix()),
+            )
+            for source in candidates:
+                raw = source.read_bytes()
+                try:
+                    value = json.loads(raw)
+                except json.JSONDecodeError:
+                    continue
+                if not isinstance(value, dict):
+                    continue
+                source_capture_sha256 = hashlib.sha256(raw).hexdigest()
+                excerpt = json.dumps(value, sort_keys=True, separators=(",", ":"))
+                if len(excerpt) > 12000:
+                    continue
+                excerpt_sha256 = hashlib.sha256(excerpt.encode("utf-8")).hexdigest()
+                relative = source.relative_to(data_root.resolve(strict=True)).as_posix()
+                prompt = (
+                    instruction
+                    + f" Return task_id exactly {task_name}, source_capture_sha256 exactly "
+                    + f"{source_capture_sha256}, and disposition REVIEW. Every SUPPORTED fact must cite exactly "
+                    + f"source_capture_sha256 {source_capture_sha256}, locator evidence:1, and excerpt_sha256 "
+                    + f"{excerpt_sha256}. Use UNKNOWN or NOT_PRESENT with no evidence when the artifact does not "
+                    + "state the fact. This output is candidate-only and cannot alter canonical data, PIT state, "
+                    + "training, protected evaluation, model promotion, forecasts, or publication."
+                )
+                packet = {
+                    "schema_version": 1,
+                    "provider": "openai_direct",
+                    "task_format": "governed_openai_candidate_v1",
+                    "jira_unit": jira_unit,
+                    "schema_sha256": schema_sha256,
+                    "source_hashes": [source_capture_sha256, excerpt_sha256],
+                    "dependencies": [],
+                    "pre_routing_effort_points": 3,
+                    "scope": f"Candidate-only {task_name} for {relative}",
+                    "job": {
+                        "task_name": task_name,
+                        "jira_unit": jira_unit,
+                        "source_url": source.resolve().as_uri(),
+                        "source_capture_sha256": source_capture_sha256,
+                        "source_excerpt": excerpt,
+                        "prompt": prompt,
+                        "prompt_version": prompt_version,
+                        "schema_path": schema_relative,
+                        "schema_version": "1",
+                        "model": model,
+                        "reasoning_effort": reasoning_effort,
+                        "allocation": allocation,
+                        "destination": "REVIEW",
+                        "max_output_tokens": 1200,
+                        "priority": "NORMAL",
+                        "release_reason": None,
+                        "admission_review_id": None,
+                        "source_image_path": None,
+                        "source_image_mime_type": None,
+                        "source_image_detail": None,
+                    },
+                    "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+                }
+                data = canonical_json_bytes(packet) + b"\n"
+                digest = hashlib.sha256(data).hexdigest()
+                work_unit_id = "AUTO-OAI-" + digest[:20]
+                if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
+                    continue
+                destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+                if destination.exists() and destination.read_bytes() != data:
+                    raise RuntimeError("CONTINUOUS_OPENAI_REVIEW_PACKET_COLLISION")
+                if not destination.exists():
+                    _atomic_write(destination, data)
+                created.append(
+                    {
+                        "provider": "openai_direct",
+                        "source_relative_path": relative,
+                        "source_sha256": source_capture_sha256,
+                        "packet_path": str(destination),
+                        "packet_sha256": digest,
+                    }
+                )
+                break
+        if len(created) >= 2:
+            return created
+
         task_name = "gamebook_schema_mapping"
         task_definition = self._openai_task_definition(task_name)
         jira_unit = str(task_definition.get("jira_unit", ""))

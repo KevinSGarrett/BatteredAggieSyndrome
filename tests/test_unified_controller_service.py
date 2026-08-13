@@ -20,6 +20,7 @@ from aggie_analytics.assistive_plane.service_runtime import (
     ControllerServiceConfig,
     WatchdogService,
     WatchdogServiceConfig,
+    atomic_write,
 )
 from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog
 
@@ -32,6 +33,23 @@ class UnifiedControllerServiceTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.runtime = Path(self.temp.name) / "runtime"
         self.commit = "b" * 40
+
+    def test_atomic_write_retries_transient_windows_replace_denial(self) -> None:
+        destination = self.runtime / "evidence/current/heartbeat.json"
+        original_replace = Path.replace
+        attempts = 0
+
+        def transient_denial(source: Path, target: Path) -> Path:
+            nonlocal attempts
+            attempts += 1
+            if attempts < 3:
+                raise PermissionError("simulated Windows sharing violation")
+            return original_replace(source, target)
+
+        with patch.object(Path, "replace", autospec=True, side_effect=transient_denial):
+            atomic_write(destination, b"heartbeat\n")
+        self.assertEqual(3, attempts)
+        self.assertEqual(b"heartbeat\n", destination.read_bytes())
 
     def tearDown(self) -> None:
         self.temp.cleanup()

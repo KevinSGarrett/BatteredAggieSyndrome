@@ -31,7 +31,20 @@ def atomic_write(path: Path, data: bytes) -> None:
             handle.write(data)
             handle.flush()
             os.fsync(handle.fileno())
-        temporary.replace(path)
+        # On Windows a reader can briefly hold the replace target open even
+        # though both files are on the same volume.  Heartbeat readers are
+        # intentionally concurrent with the writer, so retry only this narrow
+        # sharing violation instead of turning a healthy controller into a
+        # false process failure.  The same prepared temp file is reused and the
+        # operation remains an atomic replace when it succeeds.
+        for attempt in range(8):
+            try:
+                temporary.replace(path)
+                break
+            except PermissionError:
+                if attempt == 7:
+                    raise
+                time.sleep(0.01 * (attempt + 1))
     except Exception:
         temporary.unlink(missing_ok=True)
         raise

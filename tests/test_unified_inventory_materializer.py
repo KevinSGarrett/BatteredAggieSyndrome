@@ -278,6 +278,24 @@ class UnifiedInventoryMaterializerRouteIdentityTests(unittest.TestCase):
             self.assertEqual(0, evidence["controller_routed_units"])
             self.assertEqual(1, evidence["transitional_or_manual_units"])
 
+    def test_cursor_semantics_report_duplicate_review_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            common = {
+                "job_id": "job-1",
+                "agent_id": "agent-1",
+                "candidate_only": True,
+                "canonical_authority": False,
+                "protected_authority": False,
+                "accepted_useful_results": 1,
+                "provider_usage": {"actual_usd": "0.25"},
+            }
+            self.write_content_addressed(root, "dispositions", {**common, "review": "first"})
+            self.write_content_addressed(root, "dispositions", {**common, "review": "second"})
+            evidence = MATERIALIZER.cursor_semantic_evidence(root)
+            self.assertIn("CURSOR_DUPLICATE_REVIEW_JOB_ID:job-1", evidence["findings"])
+            self.assertIn("CURSOR_DUPLICATE_REVIEW_AGENT_ID:agent-1", evidence["findings"])
+
     @staticmethod
     def openrouter_policy(
         *,

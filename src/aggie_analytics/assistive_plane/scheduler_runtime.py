@@ -120,6 +120,26 @@ class InventoryScheduler:
         self.config = config
         self._adapters = adapters
 
+    @staticmethod
+    def _fair_provider_order(
+        eligible: list[Any], provider_recency: dict[str, str | None]
+    ) -> list[Any]:
+        """Interleave provider queues, oldest-dispatched provider first."""
+        grouped: dict[str, list[Any]] = {}
+        for decision in eligible:
+            grouped.setdefault(str(decision.provider), []).append(decision)
+        provider_order = sorted(
+            grouped,
+            key=lambda provider: (provider_recency.get(provider) or "", provider),
+        )
+        return [
+            group[index]
+            for index in range(max((len(group) for group in grouped.values()), default=0))
+            for provider in provider_order
+            for group in (grouped[provider],)
+            if index < len(group)
+        ]
+
     def _load(self, now: datetime) -> tuple[dict[str, Any], ReadyWorkInventory, str, float]:
         path = self.config.inventory_current_path
         pointer_data = path.read_bytes()
@@ -302,7 +322,7 @@ class InventoryScheduler:
                 current_name=f"request-{decision.work_unit_id}.json",
             )
             handle = adapter.submit(packet)
-            provider_call_attempted = True
+            provider_call_attempted = bool(handle.get("provider_calls", 1))
             provider_run_id = hashlib.sha256(
                 f"{attempt_id}:{handle['agent_id']}".encode()
             ).hexdigest()
@@ -316,7 +336,7 @@ class InventoryScheduler:
                 request_artifact_path=request_path,
                 actor=self.config.owner_id,
                 resource={
-                    "provider_calls": 1,
+                    "provider_calls": int(handle.get("provider_calls", 1)),
                     "packet_path": str(reference["packet_path"]),
                     "packet_sha256": packet_sha256,
                     "handle": handle,
@@ -331,16 +351,21 @@ class InventoryScheduler:
                 "agent_id": handle["agent_id"],
                 "job_id": handle["job_id"],
                 "state": "DISPATCHED_POLL_PENDING",
-                "provider_call_attempted": True,
+                "provider_call_attempted": provider_call_attempted,
             }
         except Exception as exc:
+            attempt_number = self.state.dispatch_attempt_count(decision.work_unit_id)
+            retryable_names = {"APIConnectionError", "APITimeoutError", "TimeoutError", "URLError"}
+            retryable = attempt_number < 3 and (
+                isinstance(exc, (OSError, TimeoutError)) or exc.__class__.__name__ in retryable_names
+            )
             self.state.record_dispatch_failure(
                 work_unit_id=decision.work_unit_id,
                 attempt_id=attempt_id,
                 lease_id=lease_id,
                 error_code=type(exc).__name__ + ":" + str(exc)[:240],
                 actor=self.config.owner_id,
-                retryable=True,
+                retryable=retryable,
                 now=moment,
             )
             return {
@@ -348,7 +373,7 @@ class InventoryScheduler:
                 "provider": "cursor",
                 "attempt_id": attempt_id,
                 "failed": True,
-                "retryable": True,
+                "retryable": retryable,
                 "provider_call_attempted": provider_call_attempted,
                 "finding": type(exc).__name__ + ":" + str(exc)[:240],
             }
@@ -998,6 +1023,10 @@ class InventoryScheduler:
                 ) == ATOMIC_EXECUTABLE
             )
         ]
+        provider_recency = self.state.provider_last_dispatch_times(
+            {str(decision.provider) for decision in eligible if decision.provider}
+        )
+        eligible = self._fair_provider_order(eligible, provider_recency)
         cycle_due = self._cycle_due(inventory_sha256, moment)
         dispatched: list[dict[str, Any]] = []
         provider_calls = 0

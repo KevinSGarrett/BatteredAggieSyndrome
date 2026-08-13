@@ -100,6 +100,14 @@ class BudgetLedger:
             sum((Decimal(str(v)) for v in reservations.values()), Decimal("0")),
         )
 
+    def settled_amount(self, request_id: str) -> Decimal | None:
+        """Return an exact prior settlement for restart-safe provider recovery."""
+        with self._lock():
+            settlements = dict(self._load().get("settlements", {}))
+            if request_id not in settlements:
+                return None
+            return Decimal(str(settlements[request_id]))
+
     def reserve(self, request_id: str, estimate_usd: Decimal) -> None:
         if estimate_usd <= 0:
             raise BudgetRejected("PAID_OPENROUTER_COST_ESTIMATE_REQUIRED")

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from decimal import Decimal
 from pathlib import Path
 
 from aggie_analytics.assistive_plane.provider_adapters import (
@@ -316,6 +317,57 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
             self.assertEqual("1.250000", ledger["settled_usd"])
             self.assertEqual({}, ledger["reservations"])
             self.assertEqual("PERSISTENT_CONTROLLER", result.result["dispatch_origin"])
+
+    def test_cursor_adapter_recovers_settled_job_without_duplicate_post(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "release"
+            (root / "configs").mkdir(parents=True)
+            policy = json.loads(
+                (Path(__file__).resolve().parents[1] / "configs/unified_assistive_policy.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            (root / "configs/unified_assistive_policy.json").write_text(json.dumps(policy), encoding="utf-8")
+
+            class FakeCursorClient:
+                def __init__(self) -> None:
+                    self.calls: list[tuple[str, str]] = []
+
+                def request(self, method: str, path: str, payload=None):
+                    self.calls.append((method, path))
+                    if method == "POST":
+                        raise AssertionError("settled recovery must not submit a duplicate agent")
+                    if path.endswith("/usage"):
+                        return {"cost": {"chargedCents": 125}, "tokens": 1234}
+                    if "/runs/" in path:
+                        return {"status": "FINISHED", "git": {"branchName": "cursor/recovered"}}
+                    return {"latestRunId": "run-1", "status": "FINISHED"}
+
+            packet = {
+                "provider": "cursor", "task_format": CURSOR_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-202", "schema_sha256": "a" * 64,
+                "prompt": "Review the scheduler without modifying files.",
+                "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                "starting_ref": "b" * 40, "base_commit": "b" * 40,
+                "model": "gpt-5.3-codex", "reasoning": "medium",
+                "max_reservation_usd": "2.00",
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            client = FakeCursorClient()
+            adapter = GovernedCursorAdapter(root, client=client, store_root=Path(temporary) / "cursor-store")
+            job_id = adapter._job_identity(packet)
+            adapter.ledger.reserve(job_id, Decimal("2.00"))
+            adapter.ledger.settle(job_id, Decimal("1.25"))
+
+            handle = adapter.submit(packet)
+            self.assertTrue(handle["idempotent_settled_recovery"])
+            self.assertEqual(0, handle["provider_calls"])
+            self.assertEqual([], client.calls)
+            result = adapter.poll(packet, handle)
+            self.assertIsNotNone(result)
+            assert result is not None
+            self.assertEqual("cursor/recovered", result.resource["branch"])
+            self.assertFalse(any(method == "POST" for method, _ in client.calls))
 
 
 if __name__ == "__main__":

@@ -13,7 +13,20 @@ from pathlib import Path
 from typing import Any, Iterator
 
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 6
+PRE_ROUTING_DISPOSITIONS = frozenset(
+    {
+        "ROUTED_TO_ASSISTIVE_PLANE",
+        "DETERMINISTIC_LOCAL_TOOL_REQUIRED",
+        "CODEX_AUTHORITY_ONLY",
+        "PROVIDER_ROUTE_EMPIRICALLY_REJECTED",
+        "PROVIDER_SECURITY_INELIGIBLE",
+        "PROVIDER_BUDGET_EXHAUSTED",
+        "USER_EXPLICITLY_RESERVED_FOR_CODEX",
+        "EMERGENCY_PIPELINE_REPAIR",
+        "UNJUSTIFIED_DIRECT_EXECUTION",
+    }
+)
 ALLOWED_STATES = {
     "DISCOVERED",
     "ELIGIBLE",
@@ -419,6 +432,38 @@ class ControllerState:
                     result TEXT NOT NULL,
                     recorded_at TEXT NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS pre_routing_decisions (
+                    decision_sha256 TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL,
+                    jira_identity TEXT,
+                    repository_identity TEXT NOT NULL,
+                    source_commit TEXT NOT NULL,
+                    task_category TEXT NOT NULL,
+                    effort_points INTEGER NOT NULL CHECK (effort_points IN (1,2,3,5,8)),
+                    candidate_routes_json TEXT NOT NULL,
+                    selected_route TEXT,
+                    route_identity TEXT,
+                    budget_admission TEXT NOT NULL,
+                    packet_identity TEXT,
+                    lease_identity TEXT,
+                    disposition TEXT NOT NULL,
+                    reason_code TEXT NOT NULL,
+                    evidence_sha256 TEXT NOT NULL,
+                    discovered_at TEXT NOT NULL,
+                    recorded_at TEXT NOT NULL
+                );
+                CREATE UNIQUE INDEX IF NOT EXISTS one_pre_routing_decision_per_work_identity
+                    ON pre_routing_decisions(work_unit_id, repository_identity, source_commit, task_category);
+                CREATE TABLE IF NOT EXISTS operational_conditions (
+                    condition_id TEXT PRIMARY KEY,
+                    finding TEXT NOT NULL,
+                    first_observed_at TEXT NOT NULL,
+                    last_observed_at TEXT NOT NULL,
+                    threshold_seconds INTEGER NOT NULL,
+                    evidence_sha256 TEXT,
+                    incident_opened INTEGER NOT NULL DEFAULT 0 CHECK (incident_opened IN (0,1)),
+                    resolved_at TEXT
+                );
                 CREATE UNIQUE INDEX IF NOT EXISTS one_active_work_lease_per_unit
                     ON work_leases(work_unit_id) WHERE status='ACTIVE';
                 """
@@ -440,6 +485,201 @@ class ControllerState:
         finally:
             connection.close()
 
+    def record_pre_routing_decision(
+        self,
+        *,
+        decision: dict[str, Any],
+        now: datetime | None = None,
+    ) -> str:
+        """Persist the immutable before-work routing interlock decision."""
+        required = {
+            "work_unit_id",
+            "repository_identity",
+            "source_commit",
+            "task_category",
+            "effort_points",
+            "candidate_routes",
+            "budget_admission",
+            "disposition",
+            "reason_code",
+            "evidence_sha256",
+            "discovered_at",
+        }
+        missing = sorted(required - set(decision))
+        if missing:
+            raise ValueError("PRE_ROUTING_DECISION_FIELDS_MISSING:" + ",".join(missing))
+        disposition = str(decision["disposition"])
+        if disposition not in PRE_ROUTING_DISPOSITIONS:
+            raise ValueError("PRE_ROUTING_DISPOSITION_INVALID")
+        routes = decision["candidate_routes"]
+        if not isinstance(routes, list) or not all(isinstance(item, str) and item for item in routes):
+            raise ValueError("PRE_ROUTING_CANDIDATE_ROUTES_INVALID")
+        effort_points = int(decision["effort_points"])
+        if effort_points not in {1, 2, 3, 5, 8}:
+            raise ValueError("INVALID_PRE_ROUTING_EFFORT")
+        source_commit = str(decision["source_commit"])
+        evidence_sha256 = str(decision["evidence_sha256"])
+        if len(source_commit) != 40 or any(character not in "0123456789abcdef" for character in source_commit):
+            raise ValueError("PRE_ROUTING_SOURCE_COMMIT_INVALID")
+        if len(evidence_sha256) != 64 or any(character not in "0123456789abcdef" for character in evidence_sha256):
+            raise ValueError("PRE_ROUTING_EVIDENCE_IDENTITY_INVALID")
+        canonical = {
+            key: decision.get(key)
+            for key in (
+                "work_unit_id",
+                "jira_identity",
+                "repository_identity",
+                "source_commit",
+                "task_category",
+                "effort_points",
+                "candidate_routes",
+                "selected_route",
+                "route_identity",
+                "budget_admission",
+                "packet_identity",
+                "lease_identity",
+                "disposition",
+                "reason_code",
+                "evidence_sha256",
+                "discovered_at",
+            )
+        }
+        decision_sha256 = hashlib.sha256(
+            (json.dumps(canonical, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
+        ).hexdigest()
+        stamp = rfc3339(now or utc_now())
+        values = (
+            decision_sha256,
+            str(canonical["work_unit_id"]),
+            canonical["jira_identity"],
+            str(canonical["repository_identity"]),
+            source_commit,
+            str(canonical["task_category"]),
+            effort_points,
+            json.dumps(routes, sort_keys=True, separators=(",", ":")),
+            canonical["selected_route"],
+            canonical["route_identity"],
+            str(canonical["budget_admission"]),
+            canonical["packet_identity"],
+            canonical["lease_identity"],
+            disposition,
+            str(canonical["reason_code"]),
+            evidence_sha256,
+            str(canonical["discovered_at"]),
+            stamp,
+        )
+        with self.transaction() as connection:
+            existing = connection.execute(
+                "SELECT decision_sha256 FROM pre_routing_decisions WHERE "
+                "work_unit_id=? AND repository_identity=? AND source_commit=? AND task_category=?",
+                (values[1], values[3], values[4], values[5]),
+            ).fetchone()
+            if existing is not None and existing["decision_sha256"] != decision_sha256:
+                raise RuntimeError("PRE_ROUTING_DECISION_IMMUTABILITY_CONFLICT")
+            connection.execute(
+                "INSERT OR IGNORE INTO pre_routing_decisions("
+                "decision_sha256,work_unit_id,jira_identity,repository_identity,source_commit,"
+                "task_category,effort_points,candidate_routes_json,selected_route,route_identity,"
+                "budget_admission,packet_identity,lease_identity,disposition,reason_code,"
+                "evidence_sha256,discovered_at,recorded_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                values,
+            )
+            if disposition == "UNJUSTIFIED_DIRECT_EXECUTION":
+                incident_id = hashlib.sha256(
+                    f"P0_UNJUSTIFIED_DIRECT_EXECUTION:{decision_sha256}".encode("utf-8")
+                ).hexdigest()
+                connection.execute(
+                    "INSERT OR IGNORE INTO incidents(incident_id,work_unit_id,finding,evidence_sha256,opened_at) "
+                    "VALUES(?,?,?,?,?)",
+                    (
+                        incident_id,
+                        None,
+                        "P0_UNJUSTIFIED_DIRECT_EXECUTION:" + str(canonical["work_unit_id"]),
+                        evidence_sha256,
+                        stamp,
+                    ),
+                )
+        return decision_sha256
+
+    def observe_operational_condition(
+        self,
+        *,
+        condition_id: str,
+        finding: str,
+        threshold_seconds: int,
+        evidence_sha256: str | None = None,
+        now: datetime | None = None,
+    ) -> bool:
+        """Track a persistent fault and open one incident after its SLO is exceeded."""
+        if threshold_seconds < 0:
+            raise ValueError("OPERATIONAL_CONDITION_THRESHOLD_INVALID")
+        stamp_value = now or utc_now()
+        stamp = rfc3339(stamp_value)
+        with self.transaction() as connection:
+            row = connection.execute(
+                "SELECT * FROM operational_conditions WHERE condition_id=?",
+                (condition_id,),
+            ).fetchone()
+            if row is None or row["resolved_at"] is not None:
+                connection.execute(
+                    "INSERT INTO operational_conditions(condition_id,finding,first_observed_at,last_observed_at,"
+                    "threshold_seconds,evidence_sha256,incident_opened,resolved_at) VALUES(?,?,?,?,?,?,0,NULL) "
+                    "ON CONFLICT(condition_id) DO UPDATE SET finding=excluded.finding,"
+                    "first_observed_at=excluded.first_observed_at,last_observed_at=excluded.last_observed_at,"
+                    "threshold_seconds=excluded.threshold_seconds,evidence_sha256=excluded.evidence_sha256,"
+                    "incident_opened=0,resolved_at=NULL",
+                    (condition_id, finding, stamp, stamp, threshold_seconds, evidence_sha256),
+                )
+                first_observed = stamp_value
+                incident_opened = False
+            else:
+                connection.execute(
+                    "UPDATE operational_conditions SET finding=?,last_observed_at=?,threshold_seconds=?,"
+                    "evidence_sha256=? WHERE condition_id=?",
+                    (finding, stamp, threshold_seconds, evidence_sha256, condition_id),
+                )
+                first_observed = parse_rfc3339(str(row["first_observed_at"]))
+                incident_opened = bool(row["incident_opened"])
+            elapsed = max(0.0, (stamp_value - first_observed).total_seconds())
+            if elapsed >= threshold_seconds and not incident_opened:
+                incident_id = hashlib.sha256(f"P0:{condition_id}:{first_observed}".encode("utf-8")).hexdigest()
+                connection.execute(
+                    "INSERT OR IGNORE INTO incidents(incident_id,finding,evidence_sha256,opened_at) VALUES(?,?,?,?)",
+                    (incident_id, finding, evidence_sha256, stamp),
+                )
+                connection.execute(
+                    "UPDATE operational_conditions SET incident_opened=1 WHERE condition_id=?",
+                    (condition_id,),
+                )
+                return True
+        return False
+
+    def resolve_operational_conditions(
+        self,
+        active_condition_ids: set[str],
+        *,
+        managed_prefixes: tuple[str, ...] = (),
+        now: datetime | None = None,
+    ) -> None:
+        stamp = rfc3339(now or utc_now())
+        with self.transaction() as connection:
+            rows = connection.execute(
+                "SELECT condition_id FROM operational_conditions WHERE resolved_at IS NULL"
+            ).fetchall()
+            for row in rows:
+                condition_id = str(row["condition_id"])
+                if managed_prefixes and not condition_id.startswith(managed_prefixes):
+                    continue
+                if condition_id not in active_condition_ids:
+                    connection.execute(
+                        "UPDATE operational_conditions SET resolved_at=? WHERE condition_id=?",
+                        (stamp, condition_id),
+                    )
+                    connection.execute(
+                        "UPDATE incidents SET resolved_at=? WHERE resolved_at IS NULL AND finding LIKE ?",
+                        (stamp, "%" + condition_id + "%"),
+                    )
+
     def acquire_leader(self, owner_id: str, build_commit: str, *, now: datetime | None = None, ttl_seconds: int = 120) -> None:
         moment = now or utc_now()
         expires = moment + timedelta(seconds=ttl_seconds)
@@ -453,6 +693,10 @@ class ControllerState:
                 "owner_id=excluded.owner_id,acquired_at=excluded.acquired_at,heartbeat_at=excluded.heartbeat_at,"
                 "expires_at=excluded.expires_at,build_commit=excluded.build_commit",
                 (owner_id, rfc3339(moment), rfc3339(moment), rfc3339(expires), build_commit),
+            )
+            connection.execute(
+                "INSERT OR IGNORE INTO metadata(key,value) VALUES(?,?)",
+                ("release_epoch:" + build_commit, rfc3339(moment)),
             )
 
     def heartbeat(self, owner_id: str, *, now: datetime | None = None, ttl_seconds: int = 120) -> None:
@@ -984,6 +1228,62 @@ class ControllerState:
         finally:
             connection.close()
 
+    def inflight_provider_runs(self, provider: str) -> list[dict[str, Any]]:
+        connection = self.connect()
+        try:
+            rows = connection.execute(
+                "SELECT p.provider_run_id,p.remote_identity,p.resource_json,p.started_at,"
+                "a.attempt_id,a.work_unit_id,a.route_identity,l.lease_id,l.expires_at "
+                "FROM provider_runs p JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id "
+                "JOIN work_units w ON w.work_unit_id=a.work_unit_id "
+                "JOIN work_leases l ON l.work_unit_id=w.work_unit_id AND l.status='ACTIVE' "
+                "WHERE p.provider=? AND p.status='DISPATCHED' AND a.state='DISPATCHED' "
+                "AND w.current_state='DISPATCHED' ORDER BY p.started_at,p.provider_run_id",
+                (provider,),
+            ).fetchall()
+            return [
+                {
+                    **dict(row),
+                    "resource": json.loads(row["resource_json"] or "{}"),
+                }
+                for row in rows
+            ]
+        finally:
+            connection.close()
+
+    def heartbeat_work_lease(
+        self,
+        *,
+        work_unit_id: str,
+        attempt_id: str,
+        lease_id: str,
+        ttl_seconds: int = 600,
+        now: datetime | None = None,
+    ) -> None:
+        if ttl_seconds <= 0:
+            raise ValueError("WORK_LEASE_TTL_INVALID")
+        moment = now or utc_now()
+        stamp = rfc3339(moment)
+        with self.transaction() as connection:
+            row = connection.execute(
+                "SELECT l.status,a.state,w.current_state FROM work_leases l "
+                "JOIN dispatch_attempts a ON a.work_unit_id=l.work_unit_id "
+                "JOIN work_units w ON w.work_unit_id=l.work_unit_id "
+                "WHERE l.lease_id=? AND l.work_unit_id=? AND a.attempt_id=?",
+                (lease_id, work_unit_id, attempt_id),
+            ).fetchone()
+            if (
+                row is None
+                or row["status"] != "ACTIVE"
+                or row["state"] != "DISPATCHED"
+                or row["current_state"] != "DISPATCHED"
+            ):
+                raise RuntimeError("INFLIGHT_WORK_LEASE_IDENTITY_MISMATCH")
+            connection.execute(
+                "UPDATE work_leases SET heartbeat_at=?,expires_at=? WHERE lease_id=?",
+                (stamp, rfc3339(moment + timedelta(seconds=ttl_seconds)), lease_id),
+            )
+
     def reconcile_expired_work_leases(self, *, now: datetime | None = None) -> dict[str, int]:
         """Recover only pre-dispatch leases; quarantine in-flight ambiguity from automatic retry."""
         moment = now or utc_now()
@@ -1049,6 +1349,73 @@ class ControllerState:
             "recovered_pre_dispatch": recovered_pre_dispatch,
             "provider_reconciliation_required": review_required,
         }
+
+    def recover_cursor_inflight_leases(
+        self,
+        *,
+        owner_id: str,
+        now: datetime | None = None,
+        ttl_seconds: int = 600,
+    ) -> int:
+        """Rebind only durable, already-submitted Cursor runs after leader restart."""
+        if ttl_seconds <= 0:
+            raise ValueError("WORK_LEASE_TTL_INVALID")
+        moment = now or utc_now()
+        stamp = rfc3339(moment)
+        recovered = 0
+        with self.transaction() as connection:
+            leader = connection.execute(
+                "SELECT owner_id FROM leader_lease WHERE singleton=1"
+            ).fetchone()
+            if leader is None or leader["owner_id"] != owner_id:
+                raise RuntimeError("CURSOR_RECOVERY_REQUIRES_CURRENT_LEADER")
+            rows = connection.execute(
+                "SELECT l.lease_id,l.work_unit_id,a.attempt_id,p.provider_run_id "
+                "FROM work_leases l JOIN work_units w ON w.work_unit_id=l.work_unit_id "
+                "JOIN dispatch_attempts a ON a.work_unit_id=w.work_unit_id "
+                "JOIN provider_runs p ON p.attempt_id=a.attempt_id "
+                "WHERE l.status='ABANDONED' AND w.current_state='DISPATCHED' "
+                "AND a.state='DISPATCHED' AND p.status='DISPATCHED' AND p.provider='cursor' "
+                "AND NOT EXISTS (SELECT 1 FROM work_leases active WHERE active.work_unit_id=w.work_unit_id "
+                "AND active.status='ACTIVE') ORDER BY l.lease_id"
+            ).fetchall()
+            for row in rows:
+                connection.execute(
+                    "UPDATE work_leases SET owner_id=?,heartbeat_at=?,expires_at=?,status='ACTIVE' "
+                    "WHERE lease_id=? AND status='ABANDONED'",
+                    (
+                        owner_id,
+                        stamp,
+                        rfc3339(moment + timedelta(seconds=ttl_seconds)),
+                        row["lease_id"],
+                    ),
+                )
+                connection.execute(
+                    "UPDATE incidents SET resolved_at=? WHERE work_unit_id=? AND attempt_id=? "
+                    "AND finding='ABANDONED_INFLIGHT_PROVIDER_RECONCILIATION_REQUIRED' "
+                    "AND resolved_at IS NULL",
+                    (stamp, row["work_unit_id"], row["attempt_id"]),
+                )
+                connection.execute(
+                    "INSERT INTO controller_events(event_type,payload_json,occurred_at) VALUES(?,?,?)",
+                    (
+                        "CURSOR_INFLIGHT_LEASE_RECOVERED_WITHOUT_RESUBMISSION",
+                        json.dumps(
+                            {
+                                "work_unit_id": row["work_unit_id"],
+                                "attempt_id": row["attempt_id"],
+                                "provider_run_id": row["provider_run_id"],
+                                "lease_id": row["lease_id"],
+                                "owner_id": owner_id,
+                            },
+                            sort_keys=True,
+                            separators=(",", ":"),
+                        ),
+                        stamp,
+                    ),
+                )
+                recovered += 1
+        return recovered
 
     def record_dispatch(
         self,
@@ -1351,6 +1718,25 @@ class ControllerState:
                 if "reviews" in tables
                 else {}
             )
+            pre_routing_counts = (
+                {
+                    row["disposition"]: int(row["count"])
+                    for row in connection.execute(
+                        "SELECT disposition,COUNT(*) AS count FROM pre_routing_decisions GROUP BY disposition"
+                    )
+                }
+                if "pre_routing_decisions" in tables
+                else {}
+            )
+            active_operational_conditions = (
+                int(
+                    connection.execute(
+                        "SELECT COUNT(*) FROM operational_conditions WHERE resolved_at IS NULL"
+                    ).fetchone()[0]
+                )
+                if "operational_conditions" in tables
+                else 0
+            )
             release_dispatched_units = 0
             release_provider_calls = 0
             scheduler_provider_calls = 0
@@ -1388,7 +1774,63 @@ class ControllerState:
                 "dispatch_attempts": attempts,
                 "closed_dispatch_attempts": closed_attempts,
                 "review_dispositions": review_counts,
+                "pre_routing_dispositions": pre_routing_counts,
+                "unjustified_direct_execution_count": pre_routing_counts.get(
+                    "UNJUSTIFIED_DIRECT_EXECUTION", 0
+                ),
+                "active_operational_conditions": active_operational_conditions,
             }
+        finally:
+            connection.close()
+
+    def provider_run_summary(self, *, current_release_only: bool = False) -> dict[str, dict[str, Any]]:
+        """Return durable controller-routed workload totals grouped by provider."""
+        connection = self.connect()
+        try:
+            since_clause = ""
+            parameters: tuple[Any, ...] = ()
+            if current_release_only:
+                leader = connection.execute(
+                    "SELECT build_commit FROM leader_lease WHERE singleton=1"
+                ).fetchone()
+                if leader is None:
+                    return {}
+                epoch = connection.execute(
+                    "SELECT value FROM metadata WHERE key=?",
+                    ("release_epoch:" + str(leader["build_commit"]),),
+                ).fetchone()
+                if epoch is None:
+                    return {}
+                since_clause = " WHERE a.started_at>=?"
+                parameters = (str(epoch["value"]),)
+            rows = connection.execute(
+                "SELECT p.provider,COUNT(*) AS runs,"
+                "SUM(CASE WHEN p.status='SETTLED' AND a.state='CLOSED' THEN 1 ELSE 0 END) AS closed_runs,"
+                "COALESCE(SUM(CASE WHEN p.status='SETTLED' AND a.state='CLOSED' THEN w.effort_points ELSE 0 END),0) AS closed_effort "
+                "FROM provider_runs p JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id "
+                "JOIN work_units w ON w.work_unit_id=a.work_unit_id" + since_clause + " GROUP BY p.provider",
+                parameters,
+            ).fetchall()
+            result: dict[str, dict[str, Any]] = {}
+            for row in rows:
+                provider = str(row["provider"])
+                dispositions = {
+                    str(item["disposition"]): int(item["count"])
+                    for item in connection.execute(
+                        "SELECT r.disposition,COUNT(*) AS count FROM reviews r "
+                        "JOIN dispatch_attempts a ON a.attempt_id=r.attempt_id "
+                        "JOIN provider_runs p ON p.attempt_id=a.attempt_id "
+                        "WHERE p.provider=?" + (" AND a.started_at>=?" if parameters else "") + " GROUP BY r.disposition",
+                        (provider, *parameters),
+                    )
+                }
+                result[provider] = {
+                    "runs": int(row["runs"]),
+                    "closed_runs": int(row["closed_runs"] or 0),
+                    "closed_effort_points": int(row["closed_effort"] or 0),
+                    "review_dispositions": dispositions,
+                }
+            return result
         finally:
             connection.close()
 

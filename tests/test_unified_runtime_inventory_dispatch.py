@@ -13,6 +13,8 @@ from aggie_analytics.assistive_plane.contracts import canonical_json_bytes, sha2
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerClient, execute_cpu_request
 from aggie_analytics.assistive_plane.inventory_runtime import (
+    CURSOR_SCHEMA_SHA256,
+    CURSOR_TASK_FORMAT,
     CPU_LINE_HASH_SCHEMA_SHA256,
     CPU_LINE_HASH_TASK_FORMAT,
     CPU_TEXT_DEDUP_SCHEMA_SHA256,
@@ -131,9 +133,20 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
             {"ATOMIC_EXECUTABLE": 2, "CAMPAIGN_OWNER": 1, "QUALIFICATION_RECORD": 0},
             snapshot["work_unit_role_validation"]["counts_by_role"],
         )
+        self.assertEqual(
+            {"ROUTED_TO_ASSISTIVE_PLANE": 2},
+            self.state.status()["pre_routing_dispositions"],
+        )
 
         second = self.refresher.refresh(now=self.now + timedelta(minutes=3))
-        self.assertEqual(first["snapshot_sha256"], second["snapshot_sha256"])
+        self.assertNotEqual(first["snapshot_sha256"], second["snapshot_sha256"])
+        self.assertTrue(Path(first["snapshot_path"]).is_file())
+        self.assertTrue(Path(second["snapshot_path"]).is_file())
+        refreshed = json.loads(Path(second["snapshot_path"]).read_text(encoding="utf-8"))
+        self.assertEqual(
+            (self.now + timedelta(minutes=3)).isoformat().replace("+00:00", "Z"),
+            refreshed["producer_watermarks"]["sources"]["historical_snapshot_registry"]["scanned_at"],
+        )
         refreshed_pointer = json.loads(self.current.read_text(encoding="utf-8"))
         self.assertNotEqual(pointer["refreshed_at"], refreshed_pointer["refreshed_at"])
 
@@ -198,6 +211,448 @@ def cpu_worker_semantic_evidence(root: Path):
         snapshot = json.loads(Path(second["snapshot_path"]).read_text(encoding="utf-8"))
         self.assertEqual(1, snapshot["external_evidence"]["openrouter"]["file_count"])
         self.assertEqual(second["runtime_material_identity"], snapshot["runtime_material_identity"])
+
+    def test_operational_demand_is_independent_of_empty_packet_queue(self) -> None:
+        policy = self.root / "policy.json"
+        readiness = self.root / "readiness.json"
+        materializer = self.root / "materializer.py"
+        assistive = self.root / "external/assistive"
+        assistive.mkdir(parents=True)
+        policy.write_text(
+            json.dumps(
+                {
+                    "execution_minimums": {
+                        "cursor": {"units": 10, "effort_points": 40, "accepted_useful": 6},
+                        "openrouter": {"units": 20, "effort_points": 60, "accepted_useful": 12},
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        readiness.write_text("{}", encoding="utf-8")
+        materializer.write_text("# test fixture\n", encoding="utf-8")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                semantic_materializer_path=materializer,
+                semantic_policy_path=policy,
+                semantic_readiness_path=readiness,
+                external_assistive_root=assistive,
+            ),
+        )
+        snapshot = {
+            "external_evidence": {
+                "cursor": {
+                    "unique_jobs": 10,
+                    "accepted_useful": 10,
+                    "controller_routed_units": 0,
+                },
+                "openrouter": {"requests": 25, "accepted_useful": 9},
+            }
+        }
+        demand = refresher._operational_demand(snapshot, [], {})
+        self.assertEqual(["cursor", "openrouter"], demand["unmet_without_packets"])
+        self.assertEqual(10, demand["providers"]["cursor"]["deficits"]["units"])
+        self.assertEqual(10, demand["providers"]["cursor"]["manual_or_external_units"])
+        self.assertEqual(20, demand["providers"]["openrouter"]["deficits"]["units"])
+        self.assertEqual(12, demand["providers"]["openrouter"]["deficits"]["accepted_useful"])
+
+    def test_watchdog_fails_when_campaign_debt_has_no_execution_packets(self) -> None:
+        now = self.now
+        self.state.acquire_leader("watchdog-test", "a" * 40, ttl_seconds=300, now=now)
+        inventory = self.root / "inventory-current.json"
+        inventory.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "artifact_type": "UNIFIED_ASSISTIVE_RUNTIME_INVENTORY",
+                    "generated_at": now.isoformat().replace("+00:00", "Z"),
+                    "route_decisions": [],
+                    "operational_demand": {
+                        "enabled": True,
+                        "unmet_without_packets": ["openrouter"],
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        scheduler = self.root / "scheduler.json"
+        scheduler.write_text(
+            json.dumps(
+                {
+                    "observed_at": now.isoformat().replace("+00:00", "Z"),
+                    "result": "PASS",
+                    "dispatched_units": 0,
+                    "provider_calls": 0,
+                    "idle_units": [],
+                    "operational_completion": "INCOMPLETE",
+                }
+            ),
+            encoding="utf-8",
+        )
+        report = ReadOnlyWatchdog(
+            self.state.database,
+            inventory_path=inventory,
+            scheduler_report_path=scheduler,
+            expected_build_commit="a" * 40,
+        ).inspect(now=now)
+        self.assertEqual("FAIL", report["operational_result"])
+        self.assertIn(
+            "AUTHORIZED_CAMPAIGN_BACKLOG_HAS_NO_EXECUTABLE_PACKETS:openrouter",
+            report["operational_findings"],
+        )
+        self.assertEqual(["openrouter"], report["unmet_campaigns_without_packets"])
+
+    def test_continuous_compiler_materializes_live_historical_openrouter_work(self) -> None:
+        policy = self.root / "policy.json"
+        readiness = self.root / "readiness.json"
+        materializer = self.root / "materializer.py"
+        assistive = self.root / "external/assistive"
+        source_root = self.root / "external/runtime"
+        progress = source_root / "BAT-554/2014/progress.json"
+        progress.parent.mkdir(parents=True)
+        progress.write_text(
+            json.dumps({"season": 2014, "teams_visited": 200, "unresolved": 17}),
+            encoding="utf-8",
+        )
+        historical_snapshot = self.manifests / "snap_2014_live.json"
+        historical_snapshot.write_text(
+            json.dumps(
+                {
+                    "dataset": "ncaa_team_season_discovery",
+                    "snapshot_id": "snap_2014_live",
+                    "source_id": "SRC-015",
+                    "raw_sha256": "1" * 64,
+                    "retrieved_at": "2026-08-13T02:00:00Z",
+                    "schema_fields": ["team_season_ids", "contest_ids"],
+                    "metadata": {"jira_key": "BAT-554", "candidate_only": True},
+                }
+            ),
+            encoding="utf-8",
+        )
+        reconciliation = self.root / "reconciliation/historical_expansion/checkpoint.json"
+        reconciliation.parent.mkdir(parents=True)
+        reconciliation.write_text(
+            json.dumps({"artifact_type": "RECONCILIATION_CHECKPOINT", "unresolved": 2907}),
+            encoding="utf-8",
+        )
+        feature = self.root / "reconciliation/feature_engineering/candidate.json"
+        feature.parent.mkdir(parents=True)
+        feature.write_text(
+            json.dumps({"artifact_type": "FEATURE_CANDIDATE", "pit_eligible": False}),
+            encoding="utf-8",
+        )
+        assistive.mkdir(parents=True)
+        policy.write_text(
+            json.dumps(
+                {
+                    "execution_minimums": {
+                        "openrouter": {"units": 20, "effort_points": 60, "accepted_useful": 12}
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        readiness.write_text("{}", encoding="utf-8")
+        materializer.write_text("# test fixture\n", encoding="utf-8")
+        queue = self.root / "provider-work/requests"
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=queue,
+                semantic_materializer_path=materializer,
+                semantic_policy_path=policy,
+                semantic_readiness_path=readiness,
+                external_assistive_root=assistive,
+                continuous_source_root=source_root,
+            ),
+        )
+        route = {
+            "provider": "openrouter",
+            "task_format": OPENROUTER_TASK_FORMAT,
+            "task_id": "schema_drift_review",
+            "schema_sha256": "6" * 64,
+            "request_schema_version": "v1",
+            "provider_policy_version": "openrouter-assistive-development-plane-v2-paid-authorization",
+            "model": "qwen/qwen3-coder-next",
+            "reasoning_effort": "none",
+            "readiness_supported_state": "READY",
+            "evidence_verified": True,
+            "readiness_evidence_sha256": "7" * 64,
+            "route_evidence_sha256": "8" * 64,
+            "budget_evidence_sha256": "9" * 64,
+            "budget_released_stage_usd": "5.00",
+            "budget_remaining_usd": "4.00",
+        }
+        routes = [
+            {**route, "task_id": task_id, "schema_sha256": token * 64}
+            for task_id, token in (
+                ("schema_drift_review", "6"),
+                ("reconciliation_ranking", "5"),
+                ("independent_review", "4"),
+            )
+        ]
+        snapshot = {
+            "git": {"head": "a" * 40, "origin_main": "a" * 40},
+            "external_evidence": {
+                "openrouter": {
+                    "requests": 25,
+                    "accepted_useful": 9,
+                    "routes": routes,
+                }
+            },
+        }
+        demand = refresher._operational_demand(snapshot, [], {})
+        created = refresher._materialize_continuous_openrouter_work(snapshot, demand)
+        self.assertEqual(3, len(created))
+        packets = [json.loads(Path(item["packet_path"]).read_text(encoding="utf-8")) for item in created]
+        self.assertEqual(
+            {"schema_drift_review", "reconciliation_ranking", "independent_review"},
+            {packet["task_id"] for packet in packets},
+        )
+        self.assertTrue(all(packet["prompt_version"] == "continuous-real-bas-evidence-v2" for packet in packets))
+        self.assertTrue(all(packet["base_commit"] == "a" * 40 for packet in packets))
+        discovered = refresher._discover_provider_work(snapshot, self.now)
+        self.assertEqual(3, len(discovered))
+        self.assertTrue(all(item[1].disposition.value == "OPENROUTER" for item in discovered))
+
+    def test_cursor_packet_survives_submit_poll_and_restart_safe_completion(self) -> None:
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        current_payload["external_evidence"]["cursor"] = {
+            "present": True,
+            "manifest_sha256": "7" * 64,
+            "unique_jobs": 10,
+            "settled_usd": "5.00",
+        }
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        packet = {
+            "schema_version": 1,
+            "provider": "cursor",
+            "task_format": CURSOR_TASK_FORMAT,
+            "jira_unit": "POST-SUBTASK-202",
+            "schema_sha256": CURSOR_SCHEMA_SHA256,
+            "source_hashes": ["8" * 64],
+            "dependencies": [],
+            "pre_routing_effort_points": 5,
+            "scope": "Controller-routed exact-base repository review",
+            "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+            "starting_ref": "a" * 40,
+            "base_commit": "a" * 40,
+            "model": "gpt-5.3-codex",
+            "reasoning": "medium",
+            "fast": False,
+            "work_on_current_branch": False,
+            "auto_create_pr": False,
+            "max_reservation_usd": "2.00",
+            "prompt": "Review scheduler liveness without modifying files.",
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        (provider_root / "cursor.json").write_bytes(canonical_json_bytes(packet) + b"\n")
+        self.current.write_bytes(canonical_json_bytes(current_payload) + b"\n")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+        refresher.refresh(now=self.now)
+
+        class FakeCursorAdapter:
+            def __init__(self) -> None:
+                self.submits = 0
+                self.polls = 0
+
+            def submit(self, _packet):
+                self.submits += 1
+                return {
+                    "job_id": "9" * 64,
+                    "agent_id": "bc-controller-test",
+                    "request_path": "cursor-request",
+                    "request_sha256": "a" * 64,
+                    "provider_calls": 1,
+                }
+
+            def poll(self, _packet, _handle):
+                self.polls += 1
+                return ProviderAdapterResult(
+                    remote_identity="bc-controller-test:run-1",
+                    result={
+                        "authority": "CANDIDATE_ONLY",
+                        "canonical_writes": 0,
+                        "protected_decisions": 0,
+                        "dispatch_origin": "PERSISTENT_CONTROLLER",
+                    },
+                    disposition="REVIEW_ONLY",
+                    validation_errors=(),
+                    actual_cost_usd="0.25",
+                    resource={"agent_id": "bc-controller-test", "run_id": "run-1"},
+                )
+
+        adapter = FakeCursorAdapter()
+        scheduler = InventoryScheduler(
+            self.state,
+            SchedulerConfig(
+                inventory_current_path=self.current,
+                evidence_root=self.root / "runtime/evidence",
+                inventory_max_age_seconds=300,
+                cycle_interval_seconds=60,
+                owner_id="cursor-controller-test",
+                max_dispatch_per_cycle=1,
+            ),
+            adapters={"cursor": adapter},
+        )
+        first = scheduler.evaluate(now=self.now)
+        self.assertEqual(1, first["dispatched_units"])
+        self.assertEqual(1, first["provider_calls"])
+        self.assertEqual(1, adapter.submits)
+        inflight = self.state.inflight_provider_runs("cursor")
+        self.assertEqual(1, len(inflight))
+
+        second = scheduler.evaluate(now=self.now + timedelta(seconds=61))
+        self.assertEqual(1, adapter.submits)
+        self.assertEqual(1, adapter.polls)
+        self.assertEqual("RESULT_REVIEW_QUEUED", second["cursor_polls"][0]["state"])
+        self.assertEqual([], self.state.inflight_provider_runs("cursor"))
+        states = self.state.work_unit_states({str(inflight[0]["work_unit_id"])})
+        self.assertEqual("CLOSED", states[str(inflight[0]["work_unit_id"])] )
+
+    def test_continuous_compilers_emit_real_cursor_cpu_bge_and_openai_units(self) -> None:
+        source_root = self.root / "external/runtime"
+        progress = source_root / "BAT-554/2015/progress.json"
+        progress.parent.mkdir(parents=True)
+        progress.write_text(json.dumps({"season": 2015, "teams_visited": 321}), encoding="utf-8")
+        (self.manifests / "snap_2015_live.json").write_text(
+            json.dumps(
+                {
+                    "dataset": "ncaa_team_season_discovery",
+                    "snapshot_id": "snap_2015_live",
+                    "source_id": "SRC-015",
+                    "raw_sha256": "2" * 64,
+                    "retrieved_at": "2026-08-13T02:00:00Z",
+                    "schema_fields": ["team_season_ids", "contest_ids"],
+                    "metadata": {"jira_key": "BAT-554", "candidate_only": True},
+                }
+            ),
+            encoding="utf-8",
+        )
+        reconciliation_root = self.root / "reconciliation/historical_expansion"
+        reconciliation_root.mkdir(parents=True)
+        for index in range(3):
+            (reconciliation_root / f"checkpoint-{index}.json").write_text(
+                json.dumps(
+                    {
+                        "artifact_type": "HISTORICAL_RECONCILIATION",
+                        "decision_unit": f"BAT-554-{index}",
+                        "negative_findings": [f"missing-{index}"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+        quarantine = self.root / "quarantine/schema/record.json"
+        quarantine.parent.mkdir(parents=True)
+        quarantine.write_text(
+            json.dumps({"artifact_type": "SCHEMA_QUARANTINE", "reason": "FIELD_DRIFT"}),
+            encoding="utf-8",
+        )
+        build_commit = "a" * 40
+        release = self.root / "releases" / build_commit
+        schema = release / "schemas/openai/assistive_candidate.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema.write_text(json.dumps({"type": "object"}), encoding="utf-8")
+        for relative in (
+            "src/aggie_analytics/assistive_plane/inventory_runtime.py",
+            "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
+        ):
+            target = release / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(f"# {relative}\n", encoding="utf-8")
+        queue = self.root / "provider-work/requests"
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=queue,
+                release_root=release,
+                build_commit=build_commit,
+                continuous_source_root=source_root,
+            ),
+        )
+        demand = {
+            "providers": {
+                provider: {"unmet": True, "active_execution_packets": 0, "pending_review_results": 0}
+                for provider in (
+                    "cursor", "remote_cpu_worker", "ollama_local", "openai_direct"
+                )
+            }
+        }
+        cursor = refresher._materialize_continuous_cursor_work(
+            {"git": {"head": build_commit, "origin_main": build_commit}}, demand
+        )
+        cpu = refresher._materialize_continuous_cpu_work({}, demand)
+        bge = refresher._materialize_continuous_bge_work(demand)
+        openai = refresher._materialize_continuous_openai_work(demand)
+        self.assertEqual(2, len(cursor))
+        self.assertEqual(1, len(cpu))
+        self.assertEqual(2, len(bge))
+        self.assertEqual(1, len(openai))
+        packets = [
+            json.loads(Path(item["packet_path"]).read_text(encoding="utf-8"))
+            for item in [*cursor, *cpu, *bge, *openai]
+        ]
+        self.assertEqual(
+            {"cursor", "remote_cpu_worker", "ollama_local", "openai_direct"},
+            {packet["provider"] for packet in packets},
+        )
+        self.assertTrue(all(packet["authority"] == "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES" for packet in packets))
+
+    def test_one_continuous_producer_failure_does_not_block_other_producers(self) -> None:
+        cursor_packet = {
+            "provider": "cursor",
+            "source_relative_path": "source.py",
+            "source_sha256": "1" * 64,
+            "packet_path": str(self.root / "candidate.json"),
+            "packet_sha256": "2" * 64,
+        }
+        with (
+            patch.object(
+                self.refresher,
+                "_materialize_continuous_openrouter_work",
+                side_effect=RuntimeError("malformed exact packet"),
+            ),
+            patch.object(
+                self.refresher,
+                "_materialize_continuous_cursor_work",
+                return_value=[cursor_packet],
+            ),
+            patch.object(self.refresher, "_materialize_continuous_cpu_work", return_value=[]),
+            patch.object(self.refresher, "_materialize_continuous_bge_work", return_value=[]),
+            patch.object(self.refresher, "_materialize_continuous_openai_work", return_value=[]),
+        ):
+            report = self.refresher.refresh(now=self.now)
+        snapshot = json.loads(Path(report["snapshot_path"]).read_text(encoding="utf-8"))
+        self.assertEqual([cursor_packet], snapshot["continuous_packets"])
+        producer_findings = [
+            item for item in snapshot["provider_work_findings"]
+            if item.get("disposition") == "EXACT_PRODUCER_FAILED_UNRELATED_PRODUCERS_CONTINUE"
+        ]
+        self.assertEqual(1, len(producer_findings))
+        self.assertEqual("openrouter", producer_findings[0]["provider"])
 
     def test_semantic_refresh_configuration_is_all_or_none(self) -> None:
         with self.assertRaisesRegex(ValueError, "RUNTIME_INVENTORY_SEMANTIC_REFRESH_CONFIG_INCOMPLETE"):
@@ -328,7 +783,7 @@ def cpu_worker_semantic_evidence(root: Path):
         status = self.state.status()
         self.assertEqual(2, status["dispatch_attempts"])
         self.assertEqual(2, status["closed_dispatch_attempts"])
-        self.assertEqual({"REVIEW_ONLY": 2}, status["review_dispositions"])
+        self.assertEqual({"ACCEPTED": 2}, status["review_dispositions"])
         self.assertEqual(2, status["scheduler_dispatched_units"])
         with closing(self.state.connect()) as connection:
             self.assertEqual(2, connection.execute("SELECT COUNT(*) FROM route_readiness_observations").fetchone()[0])
@@ -482,9 +937,11 @@ def cpu_worker_semantic_evidence(root: Path):
         snapshot = json.loads(Path(report["snapshot_path"]).read_text(encoding="utf-8"))
         self.assertEqual(1, len(snapshot["provider_work_findings"]))
         self.assertEqual(
-            "PROVIDER_WORK_DEFERRED_CPU_AND_DETERMINISTIC_DISCOVERY_CONTINUES",
+            "PACKET_QUARANTINED_UNRELATED_PROVIDER_WORK_CONTINUES",
             snapshot["provider_work_findings"][0]["disposition"],
         )
+        self.assertFalse((provider_root / "invalid.json").exists())
+        self.assertTrue(Path(snapshot["provider_work_findings"][0]["quarantine_path"]).is_file())
 
     def test_selected_cpu_manifest_packet_requires_exact_qualification_and_is_routable(self) -> None:
         provider_root = self.root / "provider_work/requests"
@@ -528,7 +985,7 @@ def cpu_worker_semantic_evidence(root: Path):
 
         current_payload["external_evidence"]["cpu_worker"]["qualified"] = False
         with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
-            refresher._discover_provider_work(current_payload, self.now)
+            refresher._discover_provider_work_batch(current_payload, self.now)
 
     def test_selected_cpu_text_routes_require_exact_task_format_schema_and_qualification(self) -> None:
         provider_root = self.root / "provider_work/requests"
@@ -590,7 +1047,7 @@ def cpu_worker_semantic_evidence(root: Path):
             "LINE_HASH_MANIFEST",
         ]
         with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
-            refresher._discover_provider_work(current_payload, self.now)
+            refresher._discover_provider_work_batch(current_payload, self.now)
 
         current_payload["external_evidence"]["cpu_worker"]["qualifications"][0]["tasks"].append(
             "EXACT_TEXT_DEDUP"
@@ -598,7 +1055,7 @@ def cpu_worker_semantic_evidence(root: Path):
         packets[1]["task_format"] = CPU_LINE_HASH_TASK_FORMAT
         (provider_root / "cpu-text-1.json").write_bytes(canonical_json_bytes(packets[1]) + b"\n")
         with self.assertRaisesRegex(ValueError, "CPU_PROVIDER_PACKET_INVALID"):
-            refresher._discover_provider_work(current_payload, self.now)
+            refresher._discover_provider_work_batch(current_payload, self.now)
 
     def test_closed_provider_packets_do_not_exhaust_active_discovery_bound(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))
@@ -642,7 +1099,7 @@ def cpu_worker_semantic_evidence(root: Path):
 
         with patch.object(self.state, "work_unit_states", return_value={}):
             with self.assertRaisesRegex(RuntimeError, "PROVIDER_WORK_ACTIVE_BOUND_EXCEEDED"):
-                refresher._discover_provider_work(current_payload, self.now)
+                refresher._discover_provider_work_batch(current_payload, self.now)
 
     def test_closed_content_addressed_packet_skips_stale_route_validation(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))
@@ -711,7 +1168,7 @@ def cpu_worker_semantic_evidence(root: Path):
 
         with patch.object(self.state, "work_unit_states", return_value={}):
             with self.assertRaisesRegex(RuntimeError, "PROVIDER_EXACT_ROUTE_NOT_READY"):
-                refresher._discover_provider_work(current_payload, self.now)
+                refresher._discover_provider_work_batch(current_payload, self.now)
 
     def test_content_addressed_packet_hash_mismatch_fails_closed(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))
@@ -729,8 +1186,12 @@ def cpu_worker_semantic_evidence(root: Path):
             ),
         )
 
-        with self.assertRaisesRegex(RuntimeError, "CONTENT_ADDRESS_MISMATCH"):
-            refresher._discover_provider_work(current_payload, self.now)
+        self.assertEqual([], refresher._discover_provider_work(current_payload, self.now))
+        self.assertIn(
+            "CONTENT_ADDRESS_MISMATCH",
+            refresher._provider_packet_findings[0]["finding"],
+        )
+        self.assertTrue(Path(refresher._provider_packet_findings[0]["quarantine_path"]).is_file())
 
     def test_granular_bge_and_openai_packets_traverse_durable_candidate_lifecycle(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))
@@ -907,25 +1368,25 @@ def cpu_worker_semantic_evidence(root: Path):
 
         current_payload["deployed_release"]["build_commit"] = "b" * 40
         with self.assertRaisesRegex(RuntimeError, "RELEASE_IDENTITY_CONFLICT"):
-            refresher._discover_provider_work(current_payload, self.now)
+            refresher._discover_provider_work_batch(current_payload, self.now)
         current_payload["deployed_release"]["build_commit"] = "a" * 40
 
         current_payload["external_evidence"]["openrouter"]["routes"][0]["budget_remaining_usd"] = "0.00"
         with self.assertRaisesRegex(RuntimeError, "EXACT_ROUTE_NOT_READY"):
-            refresher._discover_provider_work(current_payload, self.now)
+            refresher._discover_provider_work_batch(current_payload, self.now)
 
         packet["base_commit"] = "b" * 40
         packet["identity_hashes"]["source_sha256"] = sha256_value(tuple(packet["source_hashes"]))
         (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
         with self.assertRaisesRegex(ValueError, "OPENROUTER_PACKET_INVALID"):
-            refresher._discover_provider_work(current_payload, self.now)
+            refresher._discover_provider_work_batch(current_payload, self.now)
 
         packet["base_commit"] = "a" * 40
         packet["identity_hashes"]["source_sha256"] = "9" * 64
         (provider_root / "openrouter.json").write_bytes(canonical_json_bytes(packet) + b"\n")
         current_payload["external_evidence"]["openrouter"]["routes"][0]["budget_remaining_usd"] = "1.23"
         with self.assertRaisesRegex(ValueError, "IDENTITY_HASH_MISMATCH"):
-            refresher._discover_provider_work(current_payload, self.now)
+            refresher._discover_provider_work_batch(current_payload, self.now)
 
     def test_openrouter_scheduler_restart_idempotency_and_accounting_use_fake_adapter(self) -> None:
         provider_root = self.root / "provider_work/requests"

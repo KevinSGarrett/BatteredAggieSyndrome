@@ -150,6 +150,163 @@ class UnifiedControllerStateTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "CONTROLLER_DATABASE_LEADER_ACTIVE"):
             self.state.acquire_leader("owner-b", "c" * 40, now=self.now + timedelta(seconds=1))
 
+    def test_pre_routing_decision_is_immutable_and_unjustified_execution_fails_audit(self) -> None:
+        base = {
+            "work_unit_id": "BAT-560-BOOTSTRAP-1",
+            "jira_identity": "BAT-560",
+            "repository_identity": "BatteredAggieSyndrome",
+            "source_commit": "b" * 40,
+            "task_category": "PIPELINE_BOOTSTRAP_REPAIR",
+            "effort_points": 5,
+            "candidate_routes": ["CODEX"],
+            "selected_route": "CODEX",
+            "route_identity": "codex-desktop-final-authority",
+            "budget_admission": "NOT_APPLICABLE",
+            "packet_identity": None,
+            "lease_identity": None,
+            "disposition": "EMERGENCY_PIPELINE_REPAIR",
+            "reason_code": "PERSISTENT_WORK_PRODUCER_MISSING",
+            "evidence_sha256": "e" * 64,
+            "discovered_at": self.now.isoformat().replace("+00:00", "Z"),
+        }
+        identity = self.state.record_pre_routing_decision(decision=base, now=self.now)
+        self.assertEqual(64, len(identity))
+        self.assertEqual(identity, self.state.record_pre_routing_decision(decision=base, now=self.now))
+        with self.assertRaisesRegex(RuntimeError, "PRE_ROUTING_DECISION_IMMUTABILITY_CONFLICT"):
+            self.state.record_pre_routing_decision(
+                decision={**base, "reason_code": "DIFFERENT_REASON"}, now=self.now
+            )
+
+        unjustified = {
+            **base,
+            "work_unit_id": "PROJECT-WORK-1",
+            "task_category": "HISTORICAL_EXTRACTION",
+            "candidate_routes": ["openai_direct", "openrouter"],
+            "selected_route": "CODEX",
+            "disposition": "UNJUSTIFIED_DIRECT_EXECUTION",
+            "reason_code": "QUEUE_EMPTY",
+        }
+        self.state.record_pre_routing_decision(decision=unjustified, now=self.now)
+        self.state.acquire_leader("owner-a", "b" * 40, now=self.now)
+        report = ReadOnlyWatchdog(
+            self.database,
+            inventory_path=Path(self.temp.name) / "missing-inventory.json",
+        ).inspect(now=self.now + timedelta(seconds=1))
+        self.assertIn("UNJUSTIFIED_DIRECT_EXECUTION_PRESENT", report["operational_findings"])
+        self.assertEqual(1, report["unjustified_direct_execution_count"])
+
+    def test_operational_condition_opens_once_after_threshold_and_resolves(self) -> None:
+        self.assertFalse(
+            self.state.observe_operational_condition(
+                condition_id="PROVIDER_STARVATION:cursor",
+                finding="P0_PROVIDER_STARVATION:cursor",
+                threshold_seconds=1800,
+                evidence_sha256="f" * 64,
+                now=self.now,
+            )
+        )
+        self.assertFalse(
+            self.state.observe_operational_condition(
+                condition_id="PROVIDER_STARVATION:cursor",
+                finding="P0_PROVIDER_STARVATION:cursor",
+                threshold_seconds=1800,
+                evidence_sha256="f" * 64,
+                now=self.now + timedelta(minutes=29),
+            )
+        )
+        self.assertTrue(
+            self.state.observe_operational_condition(
+                condition_id="PROVIDER_STARVATION:cursor",
+                finding="P0_PROVIDER_STARVATION:cursor",
+                threshold_seconds=1800,
+                evidence_sha256="f" * 64,
+                now=self.now + timedelta(minutes=30),
+            )
+        )
+        self.assertFalse(
+            self.state.observe_operational_condition(
+                condition_id="PROVIDER_STARVATION:cursor",
+                finding="P0_PROVIDER_STARVATION:cursor",
+                threshold_seconds=1800,
+                evidence_sha256="f" * 64,
+                now=self.now + timedelta(minutes=31),
+            )
+        )
+        self.state.resolve_operational_conditions(
+            set(),
+            managed_prefixes=("PROVIDER_STARVATION:",),
+            now=self.now + timedelta(minutes=32),
+        )
+        connection = self.state.connect()
+        try:
+            condition = connection.execute(
+                "SELECT incident_opened,resolved_at FROM operational_conditions WHERE condition_id=?",
+                ("PROVIDER_STARVATION:cursor",),
+            ).fetchone()
+            incidents = connection.execute("SELECT COUNT(*) FROM incidents").fetchone()[0]
+        finally:
+            connection.close()
+        self.assertEqual(1, condition["incident_opened"])
+        self.assertIsNotNone(condition["resolved_at"])
+        self.assertEqual(1, incidents)
+
+    def test_restart_rebinds_only_submitted_cursor_run_without_new_attempt(self) -> None:
+        self.register()
+        owner = "host:12345:" + ("a" * 32)
+        self.state.acquire_leader(owner, "b" * 40, now=self.now, ttl_seconds=60)
+        self.assertTrue(
+            self.state.claim_dispatch(
+                work_unit_id="UNIT-1",
+                dependencies=(),
+                lease_id="lease-cursor",
+                attempt_id="attempt-cursor",
+                owner_id=owner,
+                provider="cursor",
+                route_identity="c" * 64,
+                readiness_evidence_sha256="d" * 64,
+                now=self.now,
+                ttl_seconds=60,
+            )
+        )
+        request = Path(self.temp.name) / "cursor-request.json"
+        request.write_text('{"request":1}', encoding="utf-8")
+        self.state.record_dispatch(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-cursor",
+            provider_run_id="run-cursor",
+            provider="cursor",
+            remote_identity="bc-agent",
+            request_sha256="e" * 64,
+            request_artifact_path=request,
+            actor=owner,
+            resource={"handle": {"agent_id": "bc-agent"}},
+            now=self.now,
+        )
+        recovery_time = self.now + timedelta(seconds=61)
+        self.assertEqual(
+            {"expired_leases_observed": 1, "recovered_pre_dispatch": 0, "provider_reconciliation_required": 1},
+            self.state.reconcile_expired_work_leases(now=recovery_time),
+        )
+        new_owner = "host:54321:" + ("f" * 32)
+        self.state.acquire_leader(new_owner, "b" * 40, now=recovery_time)
+        self.assertEqual(
+            1,
+            self.state.recover_cursor_inflight_leases(owner_id=new_owner, now=recovery_time),
+        )
+        inflight = self.state.inflight_provider_runs("cursor")
+        self.assertEqual(1, len(inflight))
+        self.assertEqual("attempt-cursor", inflight[0]["attempt_id"])
+        self.assertEqual(1, self.state.dispatch_attempt_count("UNIT-1"))
+        connection = self.state.connect()
+        try:
+            lease = connection.execute(
+                "SELECT owner_id,status FROM work_leases WHERE lease_id='lease-cursor'"
+            ).fetchone()
+        finally:
+            connection.close()
+        self.assertEqual(new_owner, lease["owner_id"])
+        self.assertEqual("ACTIVE", lease["status"])
+
     def test_orphan_recovery_releases_exact_bound_owner_and_records_event(self) -> None:
         owner = "host:12345:" + ("a" * 32)
         self.state.acquire_leader(owner, "b" * 40, now=self.now, ttl_seconds=120)

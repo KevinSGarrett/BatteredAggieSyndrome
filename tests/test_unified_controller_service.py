@@ -175,6 +175,50 @@ class UnifiedControllerServiceTests(unittest.TestCase):
         finally:
             connection.close()
 
+    def test_heartbeat_continues_while_inventory_evaluation_is_slow(self) -> None:
+        service = ControllerService(
+            ControllerServiceConfig(
+                runtime_root=self.runtime,
+                owner_id="test-owner",
+                build_commit=self.commit,
+                heartbeat_seconds=0.03,
+                queue_evaluation_seconds=0.02,
+                lease_ttl_seconds=2,
+            )
+        )
+
+        refresh_entered = threading.Event()
+        release_refresh = threading.Event()
+        stop = threading.Event()
+
+        def slow_refresh():
+            refresh_entered.set()
+            release_refresh.wait(timeout=2)
+            return {"result": "PASS", "snapshot_sha256": "a" * 64}
+
+        results: list[dict[str, object]] = []
+        with (
+            patch.object(service.inventory_refresher, "refresh", side_effect=slow_refresh),
+            patch.object(
+                service.scheduler,
+                "evaluate",
+                return_value={"result": "PASS_NO_CHANGE_ZERO_CALLS", "provider_calls": 0},
+            ),
+        ):
+            thread = threading.Thread(target=lambda: results.append(service.run(stop)))
+            thread.start()
+            self.assertTrue(refresh_entered.wait(timeout=3))
+            time.sleep(0.16)
+            heartbeat = json.loads(
+                (self.runtime / "evidence/current/controller-heartbeat.json").read_text(encoding="utf-8")
+            )
+            release_refresh.set()
+            stop.set()
+            thread.join(timeout=3)
+        self.assertFalse(thread.is_alive())
+        self.assertGreaterEqual(heartbeat["heartbeat_sequence"], 2)
+        self.assertGreaterEqual(results[0]["heartbeat_count"], 2)
+
 
 class UnifiedReleaseTests(unittest.TestCase):
     @classmethod

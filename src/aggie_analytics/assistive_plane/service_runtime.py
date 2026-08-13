@@ -219,10 +219,13 @@ class ControllerService:
         started_at = rfc3339(datetime.now(timezone.utc))
         heartbeat_sequence = 0
         queue_evaluations = 0
-        next_heartbeat = started_monotonic
         next_queue_observation = started_monotonic
         last_scheduler_evaluation: dict[str, Any] | None = None
         last_inventory_refresh: dict[str, Any] | None = None
+        heartbeat_guard = threading.Lock()
+        heartbeat_stop = threading.Event()
+        initial_heartbeat = threading.Event()
+        heartbeat_errors: list[BaseException] = []
         completed_normally = False
         lock = LeaderLock(self.config.runtime_root / "runtime" / "controller.lock")
         self.state.initialize()
@@ -247,8 +250,50 @@ class ControllerService:
                     "cursor_inflight_poll_recovery": cursor_poll_recovery,
                 },
             )
+
+            def heartbeat_loop() -> None:
+                nonlocal heartbeat_sequence
+                try:
+                    while not heartbeat_stop.is_set():
+                        with heartbeat_guard:
+                            heartbeat_sequence += 1
+                            sequence = heartbeat_sequence
+                            evaluations = queue_evaluations
+                            scheduler = last_scheduler_evaluation
+                            inventory_refresh = last_inventory_refresh
+                        self.state.heartbeat(
+                            self.config.owner_id,
+                            ttl_seconds=self.config.lease_ttl_seconds,
+                        )
+                        self.store.write(
+                            "controller-heartbeats",
+                            self._heartbeat_payload(
+                                started_at=started_at,
+                                sequence=sequence,
+                                queue_evaluations=evaluations,
+                                last_scheduler_evaluation=scheduler,
+                                last_inventory_refresh=inventory_refresh,
+                            ),
+                            current_name="controller-heartbeat.json",
+                        )
+                        initial_heartbeat.set()
+                        heartbeat_stop.wait(self.config.heartbeat_seconds)
+                except BaseException as exc:  # propagated on the controller thread
+                    heartbeat_errors.append(exc)
+                    initial_heartbeat.set()
+                    stop_event.set()
+
+            heartbeat_thread = threading.Thread(
+                target=heartbeat_loop,
+                name="unified-assistive-heartbeat",
+                daemon=True,
+            )
+            heartbeat_thread.start()
+            initial_heartbeat.wait(timeout=min(5.0, self.config.lease_ttl_seconds / 2))
             try:
                 while not stop_event.is_set():
+                    if heartbeat_errors:
+                        raise heartbeat_errors[0]
                     moment = time.monotonic()
                     remaining_runtime = (
                         None
@@ -259,11 +304,12 @@ class ControllerService:
                         1.0, self.config.queue_evaluation_seconds
                     )
                     if moment >= next_queue_observation and queue_budget_available:
-                        queue_evaluations += 1
+                        with heartbeat_guard:
+                            queue_evaluations += 1
                         try:
-                            last_inventory_refresh = self.inventory_refresher.refresh()
+                            inventory_refresh = self.inventory_refresher.refresh()
                         except (OSError, KeyError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
-                            last_inventory_refresh = {
+                            inventory_refresh = {
                                 "result": "BLOCKED",
                                 "finding": str(exc),
                                 "refreshed_at": rfc3339(datetime.now(timezone.utc)),
@@ -272,29 +318,14 @@ class ControllerService:
                                 "RUNTIME_INVENTORY_REFRESH_BLOCKED",
                                 {"finding": str(exc)},
                             )
-                        last_scheduler_evaluation = self.scheduler.evaluate()
+                        scheduler_evaluation = self.scheduler.evaluate()
+                        with heartbeat_guard:
+                            last_inventory_refresh = inventory_refresh
+                            last_scheduler_evaluation = scheduler_evaluation
                         next_queue_observation = moment + self.config.queue_evaluation_seconds
-                    if moment >= next_heartbeat:
-                        self.state.heartbeat(
-                            self.config.owner_id,
-                            ttl_seconds=self.config.lease_ttl_seconds,
-                        )
-                        heartbeat_sequence += 1
-                        self.store.write(
-                            "controller-heartbeats",
-                            self._heartbeat_payload(
-                                started_at=started_at,
-                                sequence=heartbeat_sequence,
-                                queue_evaluations=queue_evaluations,
-                                last_scheduler_evaluation=last_scheduler_evaluation,
-                                last_inventory_refresh=last_inventory_refresh,
-                            ),
-                            current_name="controller-heartbeat.json",
-                        )
-                        next_heartbeat = moment + self.config.heartbeat_seconds
                     if maximum_runtime_seconds is not None and moment - started_monotonic >= maximum_runtime_seconds:
                         break
-                    delay_candidates = [next_heartbeat - moment, next_queue_observation - moment, 0.25]
+                    delay_candidates = [next_queue_observation - moment, 0.25]
                     wait_timeout = max(0.01, min(delay_candidates))
                     if maximum_runtime_seconds is not None:
                         remaining_runtime = maximum_runtime_seconds - (time.monotonic() - started_monotonic)
@@ -302,8 +333,14 @@ class ControllerService:
                             break
                         wait_timeout = min(wait_timeout, remaining_runtime)
                     stop_event.wait(wait_timeout)
+                if heartbeat_errors:
+                    raise heartbeat_errors[0]
                 completed_normally = True
             finally:
+                heartbeat_stop.set()
+                heartbeat_thread.join(timeout=max(1.0, self.config.heartbeat_seconds * 2))
+                if heartbeat_thread.is_alive():
+                    completed_normally = False
                 self.state.append_event(
                     "CONTROLLER_SERVICE_STOPPED",
                     {

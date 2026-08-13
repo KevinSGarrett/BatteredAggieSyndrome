@@ -181,7 +181,7 @@ def specs() -> list[dict[str, Any]]:
         "The bounded historical qualification and exact-route negative evidence remain verified; the expanded local-model campaign is active and no operational local-model plane is claimed."
     )
 
-    worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=[], workflow="IN_PROGRESS")
+    worker = common(load("POST-SUBTASK-198"), local_id="POST-SUBTASK-204", import_id=100514, objective="Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance", issue_type="Subtask", parent="POST-STORY-058", dependencies=["POST-SUBTASK-201"], workflow="IN_PROGRESS")
     worker["scope"] = "Establish a private least-privilege deterministic service on exact Windows peer comfy-v4-cpu-01, then run real replayable BAS tranches across the separately qualified CANONICAL_JSON, LINE_HASH_MANIFEST, and EXACT_TEXT_DEDUP task identities."
     worker["acceptance_criteria"] = [
         "Peer identity, OS, storage, software lock, private binding/grants, heartbeat, timeouts, retry, idempotency, hashes, and cleanup pass before work.",
@@ -193,6 +193,9 @@ def specs() -> list[dict[str, Any]]:
     worker["evidence_state"] = "PARTIAL"
     worker["ai_context_notes"].append(
         "The corrected fixed-function CPU worker passed bounded qualification. By 2026-08-13T11:15Z the persistent exact-main controller had routed 25 granular BAS manifest units through the exact CANONICAL_JSON route; all 25 closed REVIEW_ONLY with validation, settlement, cleanup, and reconciliation evidence. Exact LINE_HASH_MANIFEST and EXACT_TEXT_DEDUP campaign admission is being added without broadening worker authority. Broader campaign, unattended startup, restart recovery, and sustained-operation criteria remain incomplete."
+    )
+    worker["ai_context_notes"].append(
+        "The live BAT-560 BLOCKS BAT-563 relationship is adopted as the canonical POST-SUBTASK-201 dependency because multiformat CPU campaign operation relies on the unified inventory, lease, dispatch, validation, review, settlement, and cleanup foundation."
     )
     worker["expected_outputs"] = [
         "artifacts/assistive/cpu_worker_readiness.json",

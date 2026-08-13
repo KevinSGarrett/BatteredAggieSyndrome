@@ -60,7 +60,8 @@
   "blocked_reason": "",
   "blocks": [
     "POST-SUBTASK-202",
-    "POST-SUBTASK-203"
+    "POST-SUBTASK-203",
+    "POST-SUBTASK-204"
   ],
   "canonical_record": "jira/records/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -344,6 +345,7 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 
 - POST-SUBTASK-202
 - POST-SUBTASK-203
+- POST-SUBTASK-204
 
 ## Read / Inspect First
 

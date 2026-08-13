@@ -7,7 +7,7 @@
     "cursor": "PAID_PILOT_AUTHORIZED_ZERO_REAL_AGENTS",
     "local_qwen": "EXACT_EVALUATED_ROUTES_REJECTED_NEW_QUALIFICATION_PENDING",
     "remote_cpu_worker": "BLOCKED_PARTIAL_CORRECTED_DEPLOYMENT_PENDING",
-    "unified_plane": "INCOMPLETE_CONTROLLER_NOT_DEPLOYED"
+    "unified_plane": "SERVICE_SHELL_DEPLOYED_SCHEDULER_NOT_OPERATIONAL"
   },
   "overall_result": "INCOMPLETE",
   "sustained_operation_claimed": false,

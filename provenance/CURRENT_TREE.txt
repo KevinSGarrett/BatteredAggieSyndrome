@@ -3016,6 +3016,7 @@ src/aggie_analytics/assistive_plane/controller_state.py
 src/aggie_analytics/assistive_plane/cpu_worker_backend.py
 src/aggie_analytics/assistive_plane/cursor_backend.py
 src/aggie_analytics/assistive_plane/dispatcher.py
+src/aggie_analytics/assistive_plane/live_service.py
 src/aggie_analytics/assistive_plane/ollama_backend.py
 src/aggie_analytics/assistive_plane/openrouter_backend.py
 src/aggie_analytics/assistive_plane/orchestration.py
@@ -3295,6 +3296,7 @@ tests/test_unified_assistive_plane.py
 tests/test_unified_controller_service.py
 tests/test_unified_controller_state.py
 tests/test_unified_enforcement_adoption.py
+tests/test_unified_live_service.py
 tests/test_validation_science_governance.py
 tests/test_w18_full_gate.py
 tests/test_w19_foundation.py
@@ -3359,6 +3361,7 @@ tools/build_wmt_provider_timestamp_pit.py
 tools/build_wmt_tamu_specialization_feature_pit.py
 tools/capture_runtime_manifest.py
 tools/capture_unified_live_baseline.py
+tools/capture_unified_live_service.py
 tools/check_advanced_challenger_admission.py
 tools/compare_development_results.py
 tools/cpu_worker_minimal_init.py

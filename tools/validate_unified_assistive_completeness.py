@@ -6,6 +6,7 @@ import hashlib
 import json
 import sys
 from pathlib import Path
+from datetime import datetime, timezone
 from typing import Any
 
 
@@ -21,6 +22,7 @@ OUTPUT_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\orchestrator-v3")
 OPENROUTER_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\openrouter")
 CURSOR_ROOT = Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor")
 AUTHORITATIVE_ENV = Path(r"C:\BatteredAggieSyndrome\.env")
+SERVICE_CAPTURE = OUTPUT_ROOT / "service-state/current/service-state.json"
 ALLOWED_RESULTS = {"PASS", "FAIL", "BLOCKED", "INCOMPLETE"}
 
 
@@ -69,7 +71,7 @@ def json_artifacts(root: Path) -> list[dict[str, Any]]:
     return artifacts
 
 
-def derive_states(root: Path = ROOT) -> tuple[dict[str, str], dict[str, Any]]:
+def derive_states(root: Path = ROOT, service_capture: Path | None = None) -> tuple[dict[str, str], dict[str, Any]]:
     policy = json.loads((root / "configs/unified_assistive_policy.json").read_text(encoding="utf-8"))
     openai_calls = settled_openai_calls()
     openrouter_manifests = json_artifacts(OPENROUTER_ROOT / "manifests")
@@ -78,13 +80,23 @@ def derive_states(root: Path = ROOT) -> tuple[dict[str, str], dict[str, Any]]:
     openrouter_spend = Decimal(str(openrouter_ledger.get("settled_usd", "0")))
     cursor_manifests = json_artifacts(CURSOR_ROOT / "manifests")
     cursor_agents = len({item.get("agent_id") for item in cursor_manifests if item.get("agent_id")})
+    service = json.loads(service_capture.read_text(encoding="utf-8")) if service_capture and service_capture.is_file() else None
+    service_deployed = bool(service and service.get("result") == "PASS" and service.get("service_shell_state") == "DEPLOYED_HEALTHY")
+    scheduler_real_cycles = int(service.get("scheduler", {}).get("real_cycles", 0)) if service else 0
+    scheduler_operational = bool(service and service.get("scheduler", {}).get("operational"))
+    if service_deployed and scheduler_operational:
+        unified_state = "CONTROLLER_SCHEDULER_DEPLOYED_CAMPAIGNS_INCOMPLETE"
+    elif service_deployed:
+        unified_state = "SERVICE_SHELL_DEPLOYED_SCHEDULER_NOT_OPERATIONAL"
+    else:
+        unified_state = "INCOMPLETE_CONTROLLER_NOT_DEPLOYED"
     states = {
         "openai": "OPERATIONAL_CANDIDATE_ONLY" if openai_calls else "CONFIGURED_NOT_OPERATIONAL",
         "openrouter": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL" if openrouter_spend > 0 else "PAID_PILOT_AUTHORIZED_NOT_OPERATIONAL",
         "cursor": "PAID_PILOT_IN_PROGRESS_NOT_OPERATIONAL" if cursor_agents > 0 else "PAID_PILOT_AUTHORIZED_ZERO_REAL_AGENTS",
         "local_qwen": "EXACT_EVALUATED_ROUTES_REJECTED_NEW_QUALIFICATION_PENDING",
         "remote_cpu_worker": "BLOCKED_PARTIAL_CORRECTED_DEPLOYMENT_PENDING",
-        "unified_plane": "INCOMPLETE_CONTROLLER_NOT_DEPLOYED",
+        "unified_plane": unified_state,
     }
     evidence = {
         "settled_openai_calls": openai_calls,
@@ -92,9 +104,12 @@ def derive_states(root: Path = ROOT) -> tuple[dict[str, str], dict[str, Any]]:
         "openrouter_real_manifests": len(openrouter_manifests),
         "openrouter_settled_usd": format(openrouter_spend, "f"),
         "cursor_real_agents": cursor_agents,
-        "controller_os_supervision_verified": False,
-        "watchdog_os_supervision_verified": False,
-        "scheduler_real_cycles": 0,
+        "controller_os_supervision_verified": service_deployed,
+        "watchdog_os_supervision_verified": service_deployed,
+        "scheduler_real_cycles": scheduler_real_cycles,
+        "scheduler_operational": scheduler_operational,
+        "service_capture_present": service is not None,
+        "service_capture_result": service.get("result") if service else None,
         "soak_calendar_days": 0,
         "soak_only_units": 0,
         "failed_or_rejected_work_omitted": False,
@@ -178,13 +193,24 @@ def main() -> int:
     parser.add_argument("--claims", type=Path, default=ROOT / "configs/unified_assistive_operational_claims.json")
     parser.add_argument("--acceptance-report", type=Path)
     parser.add_argument("--inventory-snapshot", type=Path)
+    parser.add_argument("--service-capture", type=Path, default=SERVICE_CAPTURE)
     parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
     args = parser.parse_args()
     claims = json.loads(args.claims.read_text(encoding="utf-8"))
     registry_path = ROOT / "configs/unified_assistive_acceptance_ownership.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
-    states, evidence = derive_states()
+    service_capture = args.service_capture if args.service_capture and args.service_capture.is_file() else None
+    states, evidence = derive_states(service_capture=service_capture)
     findings = validate_claims(claims, states)
+    if service_capture is None:
+        findings.append("LIVE_SERVICE_CAPTURE_MISSING")
+    else:
+        service = json.loads(service_capture.read_text(encoding="utf-8"))
+        if service.get("result") != "PASS":
+            findings.append("LIVE_SERVICE_CAPTURE_FAILED")
+        observed_at = service.get("observed_at")
+        if not observed_at or (datetime.now(timezone.utc) - parse_rfc3339(observed_at)).total_seconds() > 600:
+            findings.append("LIVE_SERVICE_CAPTURE_STALE")
     rows, overall, row_findings = evaluate_rows(registry, args.acceptance_report)
     findings.extend(row_findings)
     inventory_sha256 = None
@@ -214,10 +240,13 @@ def main() -> int:
     report = {
         "schema_version": 2,
         "evaluation_id": hashlib.sha256((sha256(registry_path) + sha256(args.claims)).encode("ascii")).hexdigest(),
-        "controller_build_commit": "UNKNOWN_NOT_DEPLOYED",
+        "controller_build_commit": (
+            json.loads(service_capture.read_text(encoding="utf-8")).get("release", {}).get("build_commit")
+            if service_capture else "UNKNOWN_NOT_DEPLOYED"
+        ),
         "inventory_sha256": inventory_sha256,
         "latest_material_transition_at": latest_material_transition_at,
-        "live_state_capture_sha256": None,
+        "live_state_capture_sha256": sha256(service_capture) if service_capture else None,
         "derived_states": states,
         "claims_sha256": sha256(args.claims),
         "acceptance_registry_sha256": sha256(registry_path),

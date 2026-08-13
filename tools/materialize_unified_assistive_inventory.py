@@ -16,7 +16,14 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.assistive_plane.orchestration import ReadyWorkInventory, ReadyWorkUnit, RouteDecision, RoutingDisposition, write_content_addressed_json
+from aggie_analytics.assistive_plane.orchestration import (
+    ReadyWorkInventory,
+    ReadyWorkUnit,
+    RouteDecision,
+    RoutingDisposition,
+    validate_work_unit_roles,
+    write_content_addressed_json,
+)
 
 
 def sha256(path: Path) -> str:
@@ -457,6 +464,7 @@ def main() -> int:
     }
     generated_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     units: list[ReadyWorkUnit] = []
+    work_unit_roles: dict[str, str] = {}
     pending: list[dict[str, Any]] = []
     source_records: list[dict[str, str]] = []
     transition_times = [parse_timestamp(seed.get("material_transition_at"))]
@@ -478,6 +486,7 @@ def main() -> int:
             scope=item["scope"],
         )
         units.append(unit)
+        work_unit_roles[work_unit_id] = item["inventory_role"]
         pending.append((item, record))
         source_records.append({
             "work_unit_id": work_unit_id,
@@ -515,6 +524,7 @@ def main() -> int:
             decided_at=generated_at,
         ))
     report = ReadyWorkInventory(units, decisions).validate()
+    role_validation = validate_work_unit_roles(units, work_unit_roles)
     head = git_value("rev-parse", "HEAD")
     origin_main = git_value("rev-parse", "origin/main")
     status_porcelain_sha256 = hashlib.sha256(git_value("status", "--porcelain").encode()).hexdigest()
@@ -551,6 +561,8 @@ def main() -> int:
             }
             for unit in units
         ],
+        "work_unit_roles": work_unit_roles,
+        "work_unit_role_validation": role_validation,
         "route_decisions": [
             {
                 "work_unit_id": decision.work_unit_id,

@@ -12,6 +12,12 @@ from .contracts import canonical_json_bytes, sha256_value
 
 
 ALLOWED_EFFORT_POINTS = frozenset({1, 2, 3, 5, 8})
+ATOMIC_EXECUTABLE = "ATOMIC_EXECUTABLE"
+CAMPAIGN_OWNER = "CAMPAIGN_OWNER"
+QUALIFICATION_RECORD = "QUALIFICATION_RECORD"
+ALLOWED_WORK_UNIT_ROLES = frozenset(
+    {ATOMIC_EXECUTABLE, CAMPAIGN_OWNER, QUALIFICATION_RECORD}
+)
 
 
 class RoutingDisposition(StrEnum):
@@ -155,6 +161,37 @@ class ReadyWorkInventory:
             "effort_points_by_disposition": dict(sorted(points.items())),
             "inventory_identity": sha256_value([asdict(item) for item in ordered]),
         }
+
+
+def validate_work_unit_roles(
+    units: Iterable[ReadyWorkUnit], roles: dict[str, str]
+) -> dict[str, Any]:
+    """Prove that campaign bookkeeping cannot masquerade as atomic executable work."""
+    unit_ids = {unit.work_unit_id for unit in units}
+    role_ids = set(roles)
+    missing = sorted(unit_ids - role_ids)
+    extra = sorted(role_ids - unit_ids)
+    if missing:
+        raise ValueError(f"MISSING_WORK_UNIT_ROLE:{','.join(missing)}")
+    if extra:
+        raise ValueError(f"ROLE_FOR_UNKNOWN_WORK_UNIT:{','.join(extra)}")
+    invalid = sorted(
+        f"{work_unit_id}:{role}"
+        for work_unit_id, role in roles.items()
+        if role not in ALLOWED_WORK_UNIT_ROLES
+    )
+    if invalid:
+        raise ValueError(f"INVALID_WORK_UNIT_ROLE:{','.join(invalid)}")
+    counts = {
+        role: sum(value == role for value in roles.values())
+        for role in sorted(ALLOWED_WORK_UNIT_ROLES)
+    }
+    return {
+        "schema_version": 1,
+        "coverage_fraction": 1.0,
+        "counts_by_role": counts,
+        "role_identity": sha256_value(dict(sorted(roles.items()))),
+    }
 
 
 class ReadinessRegistry:

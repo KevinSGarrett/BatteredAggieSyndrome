@@ -11,7 +11,14 @@ from typing import Any
 
 from .contracts import canonical_json_bytes, sha256_value
 from .controller_state import ControllerState, rfc3339
-from .orchestration import ReadyWorkInventory, ReadyWorkUnit, RouteDecision, RoutingDisposition
+from .orchestration import (
+    ATOMIC_EXECUTABLE,
+    ReadyWorkInventory,
+    ReadyWorkUnit,
+    RouteDecision,
+    RoutingDisposition,
+    validate_work_unit_roles,
+)
 
 
 MAX_DISCOVERED_MANIFEST_BYTES = 1024 * 1024
@@ -342,6 +349,12 @@ class RuntimeInventoryRefresher:
             if str(item.get("work_unit_id", "")).startswith(DYNAMIC_PREFIXES)
         }
         execution_packets = dict(base.get("execution_packets", {}))
+        work_unit_roles = dict(base.get("work_unit_roles", {}))
+        if not work_unit_roles:
+            work_unit_roles = {
+                str(item["work_unit_id"]): ATOMIC_EXECUTABLE
+                for item in base.get("work_units", [])
+            }
         provider_work_findings: list[dict[str, str]] = []
         try:
             provider_work = self._discover_provider_work(base, moment)
@@ -362,6 +375,7 @@ class RuntimeInventoryRefresher:
                 {**asdict(decision), "disposition": decision.disposition.value},
             )
             execution_packets.setdefault(unit.work_unit_id, packet)
+            work_unit_roles.setdefault(unit.work_unit_id, ATOMIC_EXECUTABLE)
 
         status = self.state.work_unit_states(set(prior_units))
         for work_unit_id, current_state in status.items():
@@ -407,6 +421,7 @@ class RuntimeInventoryRefresher:
             ],
         )
         validation = inventory.validate()
+        role_validation = validate_work_unit_roles(inventory.units, work_unit_roles)
         static_base_identity = base.get(
             "static_base_inventory_identity",
             base.get("validation", {}).get("inventory_identity", base_sha256),
@@ -418,18 +433,21 @@ class RuntimeInventoryRefresher:
                 "execution_states": status,
                 "route_decisions": route_decisions,
                 "work_units": work_units,
+                "work_unit_roles": work_unit_roles,
                 "provider_work_findings": provider_work_findings,
                 "deployed_release": deployed_release,
             }
         )
         snapshot = {
-            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings", "git", "deployed_release"}},
+            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "work_unit_roles", "work_unit_role_validation", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings", "git", "deployed_release"}},
             "schema_version": 2,
             "artifact_type": "UNIFIED_ASSISTIVE_RUNTIME_INVENTORY",
             "generated_at": rfc3339(moment),
             "runtime_material_identity": material_identity,
             "static_base_inventory_identity": static_base_identity,
             "work_units": work_units,
+            "work_unit_roles": work_unit_roles,
+            "work_unit_role_validation": role_validation,
             "route_decisions": route_decisions,
             "execution_packets": execution_packets,
             "execution_states": status,

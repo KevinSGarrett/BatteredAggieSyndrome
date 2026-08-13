@@ -13,6 +13,7 @@ from aggie_analytics.assistive_plane.contracts import canonical_json_bytes
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerClient, execute_cpu_request
 from aggie_analytics.assistive_plane.inventory_runtime import RuntimeInventoryConfig, RuntimeInventoryRefresher
+from aggie_analytics.assistive_plane.orchestration import CAMPAIGN_OWNER, validate_work_unit_roles, ReadyWorkUnit
 from aggie_analytics.assistive_plane.provider_adapters import ProviderAdapterResult
 from aggie_analytics.assistive_plane.scheduler_runtime import InventoryScheduler, SchedulerConfig
 from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog
@@ -50,6 +51,10 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
             canonical_json_bytes({key: value for key, value in seed_unit.items() if key != "identity"})
         ).hexdigest()
         self.seed_unit_identity = seed_unit["identity"]
+        seed_role_validation = validate_work_unit_roles(
+            [ReadyWorkUnit(**{key: value for key, value in seed_unit.items() if key != "identity"})],
+            {"STATIC-CODEX-UNIT": CAMPAIGN_OWNER},
+        )
         base = {
             "schema_version": 1,
             "generated_at": self.now.isoformat().replace("+00:00", "Z"),
@@ -72,6 +77,8 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
                 }
             },
             "work_units": [seed_unit],
+            "work_unit_roles": {"STATIC-CODEX-UNIT": CAMPAIGN_OWNER},
+            "work_unit_role_validation": seed_role_validation,
             "route_decisions": [
                 {
                     "work_unit_id": "STATIC-CODEX-UNIT",
@@ -112,6 +119,10 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
             snapshot["validation"]["counts_by_disposition"],
         )
         self.assertEqual(self.seed_unit_identity, snapshot["work_units"][0]["identity"])
+        self.assertEqual(
+            {"ATOMIC_EXECUTABLE": 2, "CAMPAIGN_OWNER": 1, "QUALIFICATION_RECORD": 0},
+            snapshot["work_unit_role_validation"]["counts_by_role"],
+        )
 
         second = self.refresher.refresh(now=self.now + timedelta(minutes=3))
         self.assertEqual(first["snapshot_sha256"], second["snapshot_sha256"])

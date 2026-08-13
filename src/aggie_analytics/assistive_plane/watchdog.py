@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .controller_state import parse_rfc3339
+from .orchestration import ATOMIC_EXECUTABLE, load_inventory, validate_work_unit_roles
 
 
 class ReadOnlyWatchdog:
@@ -82,6 +83,7 @@ class ReadOnlyWatchdog:
                         operational_findings.append("SCHEDULER_INVENTORY_POINTER_NOT_RUNTIME_REFRESHED")
                         inventory_time = parse_rfc3339(str(pointer["generated_at"]))
                         snapshot = pointer
+                        inventory_source_path = self.inventory_path
                     else:
                         inventory_time = parse_rfc3339(str(pointer["refreshed_at"]))
                         snapshot_path = Path(str(pointer["snapshot_path"]))
@@ -89,12 +91,26 @@ class ReadOnlyWatchdog:
                         if hashlib.sha256(snapshot_data).hexdigest() != pointer.get("snapshot_sha256"):
                             raise ValueError("WATCHDOG_INVENTORY_POINTER_HASH_MISMATCH")
                         snapshot = json.loads(snapshot_data)
+                        inventory_source_path = snapshot_path
                     inventory_age = max(0.0, (moment - inventory_time).total_seconds())
                     if inventory_age > self.evidence_max_age_seconds:
                         operational_findings.append("SCHEDULER_INVENTORY_STALE")
+                    roles = snapshot.get("work_unit_roles")
+                    if roles is not None:
+                        if not isinstance(roles, dict):
+                            raise ValueError("WATCHDOG_WORK_UNIT_ROLES_INVALID")
+                        role_validation = validate_work_unit_roles(
+                            load_inventory(inventory_source_path).units, roles
+                        )
+                        if role_validation != snapshot.get("work_unit_role_validation"):
+                            raise ValueError("WATCHDOG_WORK_UNIT_ROLE_VALIDATION_MISMATCH")
                     routable = {"DIRECT_OPENAI", "OPENROUTER", "CURSOR", "LOCAL_QWEN", "REMOTE_CPU_WORKER"}
                     eligible_units = sum(
-                        item.get("disposition") in routable for item in snapshot.get("route_decisions", [])
+                        item.get("disposition") in routable
+                        and snapshot.get("work_unit_roles", {}).get(
+                            str(item.get("work_unit_id")), ATOMIC_EXECUTABLE
+                        ) == ATOMIC_EXECUTABLE
+                        for item in snapshot.get("route_decisions", [])
                     )
                 except (OSError, KeyError, ValueError, json.JSONDecodeError):
                     operational_findings.append("SCHEDULER_INVENTORY_INVALID")

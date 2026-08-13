@@ -14,7 +14,13 @@ from .controller_state import ControllerState, parse_rfc3339, rfc3339
 from .cpu_worker_backend import CpuWorkerClient, CpuWorkerEndpoint, CpuWorkerJob
 from .inventory_runtime import cpu_qualification_evidence_sha256
 from .ollama_backend import OLLAMA_LOOPBACK_ENDPOINT
-from .orchestration import ReadyWorkInventory, RoutingDisposition, load_inventory
+from .orchestration import (
+    ATOMIC_EXECUTABLE,
+    ReadyWorkInventory,
+    RoutingDisposition,
+    load_inventory,
+    validate_work_unit_roles,
+)
 from .provider_adapters import BgeM3CandidateAdapter, GovernedOpenAIAdapter, ProviderAdapterResult
 
 
@@ -140,6 +146,13 @@ class InventoryScheduler:
             raise ValueError("SCHEDULER_INVENTORY_COVERAGE_INCOMPLETE")
         if validation != payload.get("validation"):
             raise ValueError("SCHEDULER_INVENTORY_VALIDATION_MISMATCH")
+        roles = payload.get("work_unit_roles")
+        if roles is not None:
+            if not isinstance(roles, dict):
+                raise ValueError("SCHEDULER_WORK_UNIT_ROLES_INVALID")
+            role_validation = validate_work_unit_roles(inventory.units, roles)
+            if role_validation != payload.get("work_unit_role_validation"):
+                raise ValueError("SCHEDULER_WORK_UNIT_ROLE_VALIDATION_MISMATCH")
         if payload.get("canonical_or_protected_authority") is not False:
             raise ValueError("SCHEDULER_INVENTORY_AUTHORITY_INVALID")
         git = payload.get("git", {})
@@ -637,7 +650,13 @@ class InventoryScheduler:
         eligible = [
             decision
             for decision in inventory.decisions
-            if decision.disposition in ROUTABLE_DISPOSITIONS and decision.provider
+            if (
+                decision.disposition in ROUTABLE_DISPOSITIONS
+                and decision.provider
+                and payload.get("work_unit_roles", {}).get(
+                    decision.work_unit_id, ATOMIC_EXECUTABLE
+                ) == ATOMIC_EXECUTABLE
+            )
         ]
         cycle_due = self._cycle_due(inventory_sha256, moment)
         dispatched: list[dict[str, Any]] = []
@@ -735,6 +754,14 @@ class InventoryScheduler:
             "inventory_identity": payload["validation"]["inventory_identity"],
             "work_unit_count": len(inventory.units),
             "eligible_units": len(eligible),
+            "campaign_owner_units": sum(
+                role == "CAMPAIGN_OWNER"
+                for role in payload.get("work_unit_roles", {}).values()
+            ),
+            "qualification_record_units": sum(
+                role == "QUALIFICATION_RECORD"
+                for role in payload.get("work_unit_roles", {}).values()
+            ),
             "eligible_effort_points": sum(item["effort_points"] for item in idle_units),
             "dispatched_units": len(dispatched),
             "provider_calls": provider_calls,

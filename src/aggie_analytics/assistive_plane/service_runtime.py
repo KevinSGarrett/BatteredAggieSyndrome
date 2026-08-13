@@ -156,6 +156,8 @@ class ControllerService:
     ) -> dict[str, Any]:
         status = self.state.status()
         scheduler = last_scheduler_evaluation or {}
+        scheduler_dispatched = int(status.get("scheduler_dispatched_units", 0))
+        scheduler_provider_calls = int(status.get("scheduler_provider_calls", 0))
         release_dispatched = int(status.get("release_scheduler_dispatched_units", 0))
         release_provider_calls = int(status.get("release_scheduler_provider_calls", 0))
         cycle_dispatch_state = scheduler.get(
@@ -165,7 +167,7 @@ class ControllerService:
             cycle_dispatch_state
             if cycle_dispatch_state in {"INVENTORY_SCHEDULER_BLOCKED", "INVENTORY_WORK_UNIT_REVISION_BLOCKED"}
             else "INVENTORY_SCHEDULER_CONTROLLER_ROUTED_DISPATCH_ACTIVE"
-            if release_dispatched > 0
+            if scheduler_dispatched > 0
             else cycle_dispatch_state
         )
         return {
@@ -180,15 +182,16 @@ class ControllerService:
             "heartbeat_sequence": sequence,
             "queue_evaluation_observations": queue_evaluations,
             "real_scheduler_cycles_recorded_by_service": status["scheduler_cycles"],
-            "scheduler_dispatched_units": status["scheduler_dispatched_units"],
+            "scheduler_dispatched_units": scheduler_dispatched,
+            "scheduler_provider_calls": scheduler_provider_calls,
             "release_scheduler_dispatched_units": release_dispatched,
+            "release_scheduler_provider_calls": release_provider_calls,
             "scheduler_active_idle_intervals": status["active_idle_intervals"],
             "scheduler_last_result": scheduler.get("result", "NOT_YET_EVALUATED"),
             "scheduler_inventory_sha256": scheduler.get("inventory_sha256"),
             "scheduler_eligible_units": scheduler.get("eligible_units", 0),
             "scheduler_latest_cycle_dispatched_units": scheduler.get("dispatched_units", 0),
             "scheduler_latest_cycle_provider_calls": scheduler.get("provider_calls", 0),
-            "scheduler_provider_calls": release_provider_calls,
             "scheduler_inventory_refresh": last_inventory_refresh,
             "dispatch_engine_state": dispatch_engine_state,
             "operational_completion": "INCOMPLETE",

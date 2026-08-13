@@ -1353,20 +1353,23 @@ class ControllerState:
             )
             release_dispatched_units = 0
             release_provider_calls = 0
-            if leader and {"dispatch_attempts", "provider_runs"} <= tables:
-                release_runs = connection.execute(
-                    "SELECT p.resource_json FROM provider_runs p "
+            scheduler_provider_calls = 0
+            if {"dispatch_attempts", "provider_runs"} <= tables:
+                settled_runs = connection.execute(
+                    "SELECT a.started_at,p.resource_json FROM provider_runs p "
                     "JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id "
-                    "WHERE p.status='SETTLED' AND a.state='CLOSED' AND a.started_at>=?",
-                    (leader["acquired_at"],),
+                    "WHERE p.status='SETTLED' AND a.state='CLOSED'",
                 ).fetchall()
-                release_dispatched_units = len(release_runs)
-                for row in release_runs:
+                for row in settled_runs:
                     try:
                         resource = json.loads(row["resource_json"] or "{}")
-                        release_provider_calls += int(resource.get("provider_calls", 1))
+                        provider_calls = int(resource.get("provider_calls", 1))
                     except (TypeError, ValueError, json.JSONDecodeError):
                         continue
+                    scheduler_provider_calls += provider_calls
+                    if leader and row["started_at"] >= leader["acquired_at"]:
+                        release_dispatched_units += 1
+                        release_provider_calls += provider_calls
             return {
                 "schema_version": schema_version,
                 "database": str(self.database),
@@ -1376,6 +1379,7 @@ class ControllerState:
                 "work_unit_counts": counts,
                 "scheduler_cycles": int(cycle_summary["cycles"]),
                 "scheduler_dispatched_units": int(cycle_summary["dispatched"]),
+                "scheduler_provider_calls": scheduler_provider_calls,
                 "release_scheduler_dispatched_units": release_dispatched_units,
                 "release_scheduler_provider_calls": release_provider_calls,
                 "scheduler_no_change_cycles": int(cycle_summary["no_change"]),

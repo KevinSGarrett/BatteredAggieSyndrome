@@ -260,6 +260,7 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         self.assertEqual(0, no_cycle["dispatched_units"])
         self.state.acquire_leader("watchdog-owner", "d" * 40, now=self.now, ttl_seconds=120)
         release_status = self.state.status()
+        self.assertEqual(2, release_status["scheduler_provider_calls"])
         self.assertEqual(2, release_status["release_scheduler_dispatched_units"])
         self.assertEqual(2, release_status["release_scheduler_provider_calls"])
         watchdog = ReadOnlyWatchdog(

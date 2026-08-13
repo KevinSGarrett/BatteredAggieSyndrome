@@ -104,6 +104,7 @@ def validate_discovery(
         "artifact_type",
         discovery["artifact_type"] == "NCAA_OFFICIAL_TEAM_GRAPH_DISCOVERY_MANIFEST",
     )
+    check("schema_version", discovery["schema_version"] in {"1.0.0", "1.1.0"})
     check("decision_unit", discovery["decision_unit"] == contract["decision_unit"])
     check("jira_key", discovery["jira_key"] == contract["jira_key"])
     check("classification", discovery["classification"] == contract["classification"])
@@ -154,6 +155,7 @@ def validate_discovery(
     )
 
     replay_contests: set[str] = set()
+    replay_legacy_schedule_count = 0
     target_season_label = f"{season}-{(int(season) + 1) % 100:02d}"
     for row in discovery["captures"]:
         suffix = row["team_season_id"]
@@ -174,6 +176,32 @@ def validate_discovery(
             f"profile_seasons_{suffix}",
             profile["season_options"] == row["season_options"],
         )
+        if discovery["schema_version"] == "1.1.0":
+            check(
+                f"profile_legacy_schedule_{suffix}",
+                profile["legacy_schedule_records"] == row["legacy_schedule_records"],
+            )
+            check(
+                f"profile_legacy_schedule_count_{suffix}",
+                profile["legacy_schedule_record_count"]
+                == row["legacy_schedule_record_count"],
+            )
+            for legacy in row["legacy_schedule_records"]:
+                legacy_suffix = f"{suffix}_{legacy['source_row_sha256'][:8]}"
+                check(
+                    f"legacy_contest_unresolved_{legacy_suffix}",
+                    legacy["contest_id"] is None,
+                )
+                check(
+                    f"legacy_canonical_game_unresolved_{legacy_suffix}",
+                    legacy["canonical_game_id"] is None,
+                )
+                check(
+                    f"legacy_candidate_only_{legacy_suffix}",
+                    legacy["reconciliation_state"]
+                    == "SOURCE_LINKED_CANDIDATE_ONLY",
+                )
+            replay_legacy_schedule_count += profile["legacy_schedule_record_count"]
         selected_team = profile["season_options"].get(target_season_label)
         check(
             f"target_season_binding_{suffix}",
@@ -209,6 +237,11 @@ def validate_discovery(
             destination.read_bytes() == raw_path.read_bytes(),
         )
     check("contest_population", replay_contests == set(discovered_contests))
+    if discovery["schema_version"] == "1.1.0":
+        check(
+            "legacy_schedule_population",
+            replay_legacy_schedule_count == discovery["legacy_schedule_record_count"],
+        )
 
     rebuilt_manifest_path = rebuild_root / "discovery_manifest.json"
     write_immutable_json(rebuilt_manifest_path, discovery)
@@ -263,6 +296,9 @@ def validate_discovery(
         "manifest_sha256": sha256_file(discovery_path),
         "team_page_capture_count": discovery["team_page_capture_count"],
         "discovered_contest_count": len(discovered_contests),
+        "legacy_schedule_record_count": discovery.get(
+            "legacy_schedule_record_count", 0
+        ),
         "team_failure_count": discovery["team_failure_count"],
         "remaining_queue_count": len(discovery["remaining_queue"]),
         "check_count": len(checks),

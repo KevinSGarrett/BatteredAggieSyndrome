@@ -227,6 +227,7 @@ def main() -> int:
         gate_discovery = gate.get("discovery_population")
         check("gate_discovery_present", isinstance(gate_discovery, dict))
         check("discovery_artifact_type", discovery["artifact_type"] == "NCAA_OFFICIAL_TEAM_GRAPH_DISCOVERY_MANIFEST")
+        check("discovery_schema_version", discovery["schema_version"] in {"1.0.0", "1.1.0"})
         check("discovery_decision_unit", discovery["decision_unit"] == contract["decision_unit"])
         check("discovery_jira_key", discovery["jira_key"] == contract["jira_key"])
         check("discovery_classification", discovery["classification"] == contract["classification"])
@@ -253,6 +254,7 @@ def main() -> int:
         discovered_contests = discovery["discovered_contest_ids"]
         check("discovery_contest_ids_unique", len(discovered_contests) == len(set(discovered_contests)))
         replay_contests: set[str] = set()
+        replay_legacy_schedule_count = 0
         target_season_label = f"{discovery['season']}-{(int(discovery['season']) + 1) % 100:02d}"
         for row in discovery["captures"]:
             validate_official_uri(row["source_uri"])
@@ -265,6 +267,26 @@ def main() -> int:
             check(f"discovery_profile_team_links_{suffix}", profile["team_season_ids"] == row["team_season_ids"])
             check(f"discovery_profile_contests_{suffix}", profile["contest_ids"] == row["contest_ids"])
             check(f"discovery_profile_seasons_{suffix}", profile["season_options"] == row["season_options"])
+            if discovery["schema_version"] == "1.1.0":
+                check(
+                    f"discovery_profile_legacy_schedule_{suffix}",
+                    profile["legacy_schedule_records"] == row["legacy_schedule_records"],
+                )
+                check(
+                    f"discovery_profile_legacy_schedule_count_{suffix}",
+                    profile["legacy_schedule_record_count"] == row["legacy_schedule_record_count"],
+                )
+                for legacy in row["legacy_schedule_records"]:
+                    check(f"legacy_contest_unresolved_{suffix}_{legacy['source_row_sha256'][:8]}", legacy["contest_id"] is None)
+                    check(
+                        f"legacy_canonical_game_unresolved_{suffix}_{legacy['source_row_sha256'][:8]}",
+                        legacy["canonical_game_id"] is None,
+                    )
+                    check(
+                        f"legacy_candidate_only_{suffix}_{legacy['source_row_sha256'][:8]}",
+                        legacy["reconciliation_state"] == "SOURCE_LINKED_CANDIDATE_ONLY",
+                    )
+                replay_legacy_schedule_count += profile["legacy_schedule_record_count"]
             selected_team = profile["season_options"].get(target_season_label)
             check(
                 f"discovery_target_season_binding_{suffix}",
@@ -292,6 +314,11 @@ def main() -> int:
             )
             replay_contests.update(profile["contest_ids"])
         check("discovery_contest_population", replay_contests == set(discovered_contests))
+        if discovery["schema_version"] == "1.1.0":
+            check(
+                "discovery_legacy_schedule_count",
+                replay_legacy_schedule_count == discovery["legacy_schedule_record_count"],
+            )
         validate_authority(discovery["authority"])
         check("discovery_credentials_not_persisted", discovery["credentials_logged_or_persisted"] is False)
         check("gate_discovery_season", gate_discovery["season"] == discovery["season"])
@@ -309,6 +336,12 @@ def main() -> int:
             and gate_discovery["discovered_contest_count"] == len(discovered_contests)
             and gate_discovery["remaining_queue_count"] == len(discovery["remaining_queue"]),
         )
+        if discovery["schema_version"] == "1.1.0":
+            check(
+                "gate_discovery_legacy_schedule_count",
+                gate_discovery["legacy_schedule_record_count"]
+                == discovery["legacy_schedule_record_count"],
+            )
         check("gate_discovery_canonical_closed", gate_discovery["canonical_identity_promoted"] is False)
         check("gate_discovery_pit_closed", gate_discovery["historical_pit_eligible"] is False)
         rebuilt_discovery_path = rebuild_root / "discovery_manifest.json"
@@ -325,6 +358,7 @@ def main() -> int:
             "manifest_sha256": sha256_file(discovery_path),
             "team_page_capture_count": discovery["team_page_capture_count"],
             "discovered_contest_count": len(discovered_contests),
+            "legacy_schedule_record_count": discovery.get("legacy_schedule_record_count", 0),
             "team_failure_count": discovery["team_failure_count"],
             "remaining_queue_count": len(discovery["remaining_queue"]),
         }

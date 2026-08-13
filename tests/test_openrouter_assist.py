@@ -4,15 +4,17 @@ import json
 import sys
 import tempfile
 import unittest
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from decimal import Decimal
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.assistive_plane.backend import FakeBackend, TransientBackendError
+from aggie_analytics.assistive_plane.backend import FakeBackend, PermanentBackendError, TransientBackendError
 from aggie_analytics.assistive_plane.budget import BudgetRejected
 from aggie_analytics.assistive_plane.contracts import AssistiveRequest, Authority, Disposition, sha256_value
 from aggie_analytics.assistive_plane.dispatcher import AssistiveDispatcher
@@ -119,6 +121,93 @@ class OpenRouterAssistTests(unittest.TestCase):
             '{"verdict":"REVIEW"}',
             response_output_text({"output": [{"type": "message", "content": [{"type": "output_text", "text": '{"verdict":"REVIEW"}'}]}]}),
         )
+
+    def test_response_output_text_prefers_direct_output_text(self) -> None:
+        self.assertEqual('{"verdict":"REVIEW"}', response_output_text({"output_text": '{"verdict":"REVIEW"}', "output": []}))
+
+    def test_response_output_text_rejects_malformed_containers(self) -> None:
+        malformed_bodies = (
+            ({"output": {}}, "OPENROUTER_RESPONSES_INVALID_OUTPUT_CONTAINER"),
+            ({"output": [123]}, "OPENROUTER_RESPONSES_INVALID_OUTPUT_ITEM"),
+            ({"output": [{"type": "message", "content": {}}]}, "OPENROUTER_RESPONSES_INVALID_CONTENT_CONTAINER"),
+            ({"output": [{"type": "message", "content": [123]}]}, "OPENROUTER_RESPONSES_INVALID_CONTENT_ITEM"),
+            (
+                {"output": [{"type": "message", "content": [{"type": "output_text", "text": 1}]}]},
+                "OPENROUTER_RESPONSES_INVALID_OUTPUT_TEXT",
+            ),
+        )
+        for body, expected_code in malformed_bodies:
+            with self.assertRaisesRegex(PermanentBackendError, expected_code):
+                response_output_text(body)
+
+    def test_openrouter_submit_validates_response_envelope(self) -> None:
+        env = Path(self.temporary.name) / ".env"
+        env.write_text("OPENROUTER_API_KEY=example\n", encoding="utf-8")
+        backend = OpenRouterBackend(env)
+
+        class _FakeHttpResponse:
+            def __init__(self, payload: object) -> None:
+                self._wire = json.dumps(payload).encode("utf-8")
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def read(self) -> bytes:
+                return self._wire
+
+        def invoke_with_payload(payload: object):
+            with patch.object(urllib.request, "urlopen", return_value=_FakeHttpResponse(payload)):
+                return backend.submit(self.request, self.schema)
+
+        valid_direct = invoke_with_payload(
+            {
+                "id": "resp_1",
+                "model": "qwen/qwen3-coder-next",
+                "usage": {"input_tokens": 1, "output_tokens": 1, "cost": 0.0001},
+                "output_text": '{"verdict":"REVIEW","findings":[],"evidence":[],"unsupported_claims":[],"recommended_checks":[]}',
+            }
+        )
+        self.assertEqual("resp_1", valid_direct.raw_response_id)
+        self.assertEqual("qwen/qwen3-coder-next", valid_direct.model_resolved)
+
+        valid_output_array = invoke_with_payload(
+            {
+                "id": "resp_2",
+                "model": "qwen/qwen3-coder-next",
+                "usage": {"input_tokens": 1, "output_tokens": 1},
+                "output": [
+                    {
+                        "type": "message",
+                        "content": [
+                            {
+                                "type": "output_text",
+                                "text": '{"verdict":"REVIEW","findings":[],"evidence":[],"unsupported_claims":[],"recommended_checks":[]}',
+                            }
+                        ],
+                    }
+                ],
+            }
+        )
+        self.assertEqual("resp_2", valid_output_array.raw_response_id)
+
+        malformed_cases = (
+            ([], "OPENROUTER_RESPONSES_INVALID_TOP_LEVEL"),
+            ({"id": "resp_x", "model": "m", "usage": []}, "OPENROUTER_RESPONSES_INVALID_USAGE"),
+            ({"id": "resp_x", "model": 7, "usage": {}}, "OPENROUTER_RESPONSES_INVALID_MODEL"),
+            ({"id": 7, "model": "m", "usage": {}}, "OPENROUTER_RESPONSES_INVALID_ID"),
+            ({"id": "resp_x", "model": "m", "usage": {}, "output": {}}, "OPENROUTER_RESPONSES_INVALID_OUTPUT_CONTAINER"),
+            (
+                {"id": "resp_x", "model": "m", "usage": {}, "output": [{"type": "message", "content": {}}]},
+                "OPENROUTER_RESPONSES_INVALID_CONTENT_CONTAINER",
+            ),
+            ({"id": "resp_x", "model": "m", "usage": {}}, "OPENROUTER_RESPONSES_MISSING_OUTPUT_TEXT"),
+        )
+        for payload, expected_code in malformed_cases:
+            with self.assertRaisesRegex(PermanentBackendError, expected_code):
+                invoke_with_payload(payload)
 
     def test_paid_invalid_output_is_quarantined_and_settled(self) -> None:
         backend = FakeBackend({"unexpected": True})

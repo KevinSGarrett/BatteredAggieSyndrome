@@ -1516,17 +1516,47 @@ def main() -> int:
         if "local_patchright_chrome" in selected_discovery_routes:
             browser_runtime = select_browser_runtime(contract, runtime_root)
             if browser_runtime is None:
-                raise RuntimeError("selected local Patchright/Chrome discovery runtime is unavailable")
-            browser_config = contract["transport"]["local_patchright_chrome"]
-            with StatefulPatchrightSession(
-                executable_path=browser_runtime[0],
-                browser_installation_root=browser_runtime[1],
-                runtime_root=runtime_root,
-                user_agent=str(browser_config["user_agent"]),
-                challenge_wait_milliseconds=int(browser_config["wait_after_load_milliseconds"]),
-                timeout_seconds=float(contract["discovery"]["request_timeout_seconds"]),
-            ) as browser:
-                execute_discovery(browser)
+                execute_discovery(None)
+            else:
+                browser_config = contract["transport"]["local_patchright_chrome"]
+                browser_session = StatefulPatchrightSession(
+                    executable_path=browser_runtime[0],
+                    browser_installation_root=browser_runtime[1],
+                    runtime_root=runtime_root,
+                    user_agent=str(browser_config["user_agent"]),
+                    challenge_wait_milliseconds=int(browser_config["wait_after_load_milliseconds"]),
+                    timeout_seconds=float(contract["discovery"]["request_timeout_seconds"]),
+                )
+                try:
+                    browser = browser_session.__enter__()
+                except Exception as error:
+                    print(
+                        json.dumps(
+                            {
+                                "event": "NCAA_DISCOVERY_ROUTE_STARTUP_UNAVAILABLE",
+                                "route_id": "local_patchright_chrome",
+                                "condition": (
+                                    error.condition
+                                    if isinstance(error, AcquisitionFailure)
+                                    else "BROWSER_STARTUP_UNAVAILABLE"
+                                ),
+                                "error_type": type(error).__name__,
+                                "fallback_routes": [
+                                    route_id
+                                    for route_id in selected_discovery_routes
+                                    if route_id != "local_patchright_chrome"
+                                ],
+                            },
+                            sort_keys=True,
+                        ),
+                        flush=True,
+                    )
+                    execute_discovery(None)
+                else:
+                    try:
+                        execute_discovery(browser)
+                    finally:
+                        browser_session.__exit__(None, None, None)
         else:
             execute_discovery(None)
         if args.discovery_only:

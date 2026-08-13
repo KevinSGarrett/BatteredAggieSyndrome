@@ -359,6 +359,7 @@ class RuntimeInventoryRefresher:
         self.config = config
         self._semantic_module: Any | None = None
         self._openrouter_task_registry: dict[str, Any] | None = None
+        self._jira_ready_cache: list[tuple[Path, dict[str, Any], str]] | None = None
         self._openai_task_registry: dict[str, Any] | None = None
         self._provider_packet_findings: list[dict[str, str]] = []
 
@@ -466,6 +467,8 @@ class RuntimeInventoryRefresher:
 
     def _jira_ready_records(self, *, limit: int = 16) -> list[tuple[Path, dict[str, Any], str]]:
         """Return bounded, explicitly executable canonical Jira units."""
+        if self._jira_ready_cache is not None:
+            return self._jira_ready_cache[:limit]
         project_root = self.config.project_root
         if project_root is None:
             return []
@@ -515,7 +518,10 @@ class RuntimeInventoryRefresher:
                 )
             )
         ready.sort(key=lambda item: (item[0], item[1], item[2].as_posix()))
-        return [(path, record, digest) for _, _, path, record, digest in ready[:limit]]
+        self._jira_ready_cache = [
+            (path, record, digest) for _, _, path, record, digest in ready
+        ]
+        return self._jira_ready_cache[:limit]
 
     def _discover(self, moment: datetime) -> list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]]:
         root = self.config.manifests_root.resolve(strict=True)
@@ -2147,6 +2153,7 @@ class RuntimeInventoryRefresher:
 
     def refresh(self, *, now: datetime | None = None) -> dict[str, Any]:
         moment = now or datetime.now(timezone.utc)
+        self._jira_ready_cache = None
         base, base_sha256 = self._load_current_snapshot()
         live_external_evidence = self._live_external_evidence(base)
         base = {**base, "external_evidence": live_external_evidence}

@@ -315,6 +315,8 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("$WhatIfPreference = $false", installer)
         self.assertIn("[ValidateSet('LocalService', 'InteractiveUser')]", installer)
         self.assertIn("New-ScheduledTaskTrigger -AtStartup", installer)
+        self.assertIn("-AllowStartIfOnBatteries", installer)
+        self.assertIn("-DontStopIfGoingOnBatteries", installer)
         self.assertIn("'NT AUTHORITY\\LOCAL SERVICE'", installer)
         self.assertIn("-LogonType ServiceAccount -RunLevel Limited", installer)
         self.assertIn("CONTROLLER_LOCAL_SERVICE_SIGNING_KEY_MISSING", installer)

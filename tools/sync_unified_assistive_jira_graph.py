@@ -111,6 +111,8 @@ def specs() -> list[dict[str, Any]]:
             "tests/test_unified_inventory_materializer.py",
             "tests/test_unified_inventory_scheduler.py",
             "tests/test_unified_runtime_inventory_dispatch.py",
+            "jira/tools/import_bat_live.py",
+            "tests/test_jira_evidence_state_mapping.py",
         ]
     )
     foundation["allowed_modification_paths"] = foundation["files_expected_to_be_touched"] + [foundation["evidence_manifest_path"]]
@@ -130,6 +132,9 @@ def specs() -> list[dict[str, Any]]:
     foundation["record_revision"] = "2.2"
     foundation["blocked_reason"] = ""
     foundation["unblock_condition"] = ""
+    foundation["ai_context_notes"].append(
+        "Live Jira synchronization maps the detailed 2020/2018/2019/2021 acquisition checkpoint to the bounded PARTIAL select option while preserving the exact canonical evidence state; unknown non-enumerated states fail closed."
+    )
     # The provider-neutral structural foundation merged through PR #242. The
     # 2026-08-12 enforcement directive expands this existing umbrella with a
     # persistent controller/watchdog and runtime campaign requirements, so the

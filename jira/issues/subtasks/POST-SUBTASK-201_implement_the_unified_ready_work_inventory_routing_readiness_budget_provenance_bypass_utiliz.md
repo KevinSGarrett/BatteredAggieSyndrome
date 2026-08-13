@@ -23,7 +23,8 @@
   "ai_context_notes": [
     "Canonical unified assistive contract source is `SRCREF-02121`.",
     "Never expose credentials, .env content, private data, or unnecessary protected evidence.",
-    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority."
+    "Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.",
+    "Live Jira synchronization maps the detailed 2020/2018/2019/2021 acquisition checkpoint to the bounded PARTIAL select option while preserving the exact canonical evidence state; unknown non-enumerated states fail closed."
   ],
   "allowed_modification_paths": [
     "configs/assistive_provider_registry.json",
@@ -52,6 +53,8 @@
     "tests/test_unified_inventory_materializer.py",
     "tests/test_unified_inventory_scheduler.py",
     "tests/test_unified_runtime_inventory_dispatch.py",
+    "jira/tools/import_bat_live.py",
+    "tests/test_jira_evidence_state_mapping.py",
     "artifacts/jira_evidence/POST-SUBTASK-201.json"
   ],
   "blocked_reason": "",
@@ -152,7 +155,9 @@
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "tests/test_unified_inventory_materializer.py",
     "tests/test_unified_inventory_scheduler.py",
-    "tests/test_unified_runtime_inventory_dispatch.py"
+    "tests/test_unified_runtime_inventory_dispatch.py",
+    "jira/tools/import_bat_live.py",
+    "tests/test_jira_evidence_state_mapping.py"
   ],
   "files_to_inspect": [
     "governance/OPENAI_ASSISTIVE_PLANE.md",
@@ -376,6 +381,8 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - tests/test_unified_inventory_materializer.py
 - tests/test_unified_inventory_scheduler.py
 - tests/test_unified_runtime_inventory_dispatch.py
+- jira/tools/import_bat_live.py
+- tests/test_jira_evidence_state_mapping.py
 
 ## Components Expected To Be Touched
 
@@ -504,3 +511,4 @@ Use fake synchronous and Batch clients to prove a registered cited job is admitt
 - Canonical unified assistive contract source is `SRCREF-02121`.
 - Never expose credentials, .env content, private data, or unnecessary protected evidence.
 - Codex and deterministic validators retain canonical, scientific, Git/GitHub, Jira, and publication authority.
+- Live Jira synchronization maps the detailed 2020/2018/2019/2021 acquisition checkpoint to the bounded PARTIAL select option while preserving the exact canonical evidence state; unknown non-enumerated states fail closed.

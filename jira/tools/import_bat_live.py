@@ -585,7 +585,22 @@ def ensure_fields(client: JiraClient, ledger: dict[str, Any]) -> dict[str, str]:
 
 def custom_value(field_name: str, value: str) -> Any:
     spec = next(item for item in FIELD_SPECS if item["name"] == field_name)
-    return value if spec["kind"] == "text" else {"value": value}
+    scalar = jira_custom_scalar(field_name, value)
+    return scalar if spec["kind"] == "text" else {"value": scalar}
+
+
+def jira_custom_scalar(field_name: str, value: str) -> str:
+    """Map canonical detail to the exact bounded Jira field vocabulary."""
+    if field_name != "Evidence State":
+        return value
+    aliases = {
+        "ACTIVE_EMPIRICAL_CHECKPOINT_2020_RECONCILED_2018_2019_2021_DISCOVERY_RUNNING": "PARTIAL",
+    }
+    mapped = aliases.get(value, value)
+    allowed = set(next(item for item in FIELD_SPECS if item["name"] == field_name)["options"])
+    if mapped not in allowed:
+        raise RuntimeError(f"JIRA_EVIDENCE_STATE_MAPPING_REQUIRED:{value}")
+    return mapped
 
 
 def map_existing_issues(
@@ -653,7 +668,8 @@ def reconcile_auxiliary_issues(
         updates: dict[str, Any] = {}
         for name, value in desired.items():
             field_id = field_ids[name]
-            if normalize_custom(fields.get(field_id)) != value:
+            target_value = jira_custom_scalar(name, value)
+            if normalize_custom(fields.get(field_id)) != target_value:
                 updates[field_id] = custom_value(name, value)
         if updates:
             client.put(f"/rest/api/3/issue/{key}", {"fields": updates})
@@ -1195,7 +1211,7 @@ def synchronize_canonical_spec_fields(
                 value = row["Critical Path"].lower()
             if field_name == "Evidence State" and local_id in completion_override_ids:
                 value = completion_override.get("evidence_state", "PARTIAL")
-            value = str(value)
+            value = jira_custom_scalar(field_name, str(value))
             if normalize_custom(fields.get(field_id)) != value:
                 updates[field_id] = custom_value(field_name, value)
         if updates:
@@ -1981,6 +1997,7 @@ def verify_live(
                 expected_value = row["Critical Path"].lower()
             if field_name == "Evidence State" and local_id in completion_override_ids:
                 expected_value = completion_override.get("evidence_state", "PARTIAL")
+            expected_value = jira_custom_scalar(field_name, expected_value)
             actual_value = normalize_custom(fields.get(field_id))
             if actual_value != expected_value:
                 discrepancies.append(f"{local_id}: {field_name} {actual_value!r} != {expected_value!r}")

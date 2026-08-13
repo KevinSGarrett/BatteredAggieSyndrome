@@ -569,6 +569,40 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual({"BAT-900"}, {unit.jira_unit for unit, _, _ in discovered})
         self.assertEqual({"OPENROUTER", "CURSOR"}, {decision.disposition.value for _, decision, _ in discovered})
 
+    def test_jira_ready_scan_is_cached_within_refresh_and_invalidated_between_refreshes(self) -> None:
+        project = self.root / "project"
+        issue = project / "jira/records/issues/tasks/TASK-900_ready.json"
+        issue.parent.mkdir(parents=True)
+        payload = {
+            "local_id": "TASK-900",
+            "jira_key": "BAT-900",
+            "priority": "P1",
+            "ready": True,
+            "workflow_state": "READY",
+            "execution_mode": "ATOMIC_EXECUTION",
+            "blocked_reason": "",
+            "acceptance_criteria": ["evidence exists"],
+            "expected_outputs": ["artifact.json"],
+            "operational_jira": {"status_raw": "To Do"},
+        }
+        issue.write_text(json.dumps(payload), encoding="utf-8")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                project_root=project,
+            ),
+        )
+        first = refresher._jira_ready_records()
+        self.assertEqual("BAT-900", first[0][1]["jira_key"])
+        issue.unlink()
+        self.assertEqual(first, refresher._jira_ready_records())
+        refresher._jira_ready_cache = None
+        self.assertEqual([], refresher._jira_ready_records())
+
     def test_cursor_packet_survives_submit_poll_and_restart_safe_completion(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))
         current_payload["external_evidence"]["cursor"] = {

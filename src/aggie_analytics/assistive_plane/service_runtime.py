@@ -123,6 +123,8 @@ class ControllerService:
                 packet_root=config.runtime_root,
                 manifests_root=data_root / "manifests",
                 provider_work_root=config.provider_work_root or data_root / "assistive" / "provider_work" / "requests",
+                release_root=release_root,
+                build_commit=config.build_commit,
                 refresh_max_age_seconds=config.inventory_refresh_max_age_seconds,
             ),
         )

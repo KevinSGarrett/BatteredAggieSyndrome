@@ -96,6 +96,8 @@ class RuntimeInventoryConfig:
     packet_root: Path
     manifests_root: Path
     provider_work_root: Path | None = None
+    release_root: Path | None = None
+    build_commit: str | None = None
     refresh_max_age_seconds: int = 240
 
     def validate(self) -> None:
@@ -105,6 +107,15 @@ class RuntimeInventoryConfig:
             raise ValueError("RUNTIME_INVENTORY_MANIFEST_ROOT_NOT_ABSOLUTE")
         if self.provider_work_root is not None and not self.provider_work_root.is_absolute():
             raise ValueError("RUNTIME_INVENTORY_PROVIDER_WORK_ROOT_NOT_ABSOLUTE")
+        if (self.release_root is None) != (self.build_commit is None):
+            raise ValueError("RUNTIME_INVENTORY_RELEASE_IDENTITY_INCOMPLETE")
+        if self.release_root is not None and not self.release_root.is_absolute():
+            raise ValueError("RUNTIME_INVENTORY_RELEASE_ROOT_NOT_ABSOLUTE")
+        if self.build_commit is not None and (
+            len(self.build_commit) != 40
+            or any(character not in "0123456789abcdef" for character in self.build_commit)
+        ):
+            raise ValueError("RUNTIME_INVENTORY_BUILD_COMMIT_INVALID")
 
 
 class RuntimeInventoryRefresher:
@@ -123,6 +134,25 @@ class RuntimeInventoryRefresher:
             return _verified_json(snapshot_path, snapshot_sha256), snapshot_sha256
         data = self.config.current_path.read_bytes()
         return payload, hashlib.sha256(data).hexdigest()
+
+    def _deployed_release(self) -> dict[str, Any] | None:
+        if self.config.release_root is None or self.config.build_commit is None:
+            return None
+        release = self.config.release_root.resolve(strict=True)
+        if release.name != self.config.build_commit:
+            raise RuntimeError("RUNTIME_INVENTORY_RELEASE_DIRECTORY_BUILD_MISMATCH")
+        manifest_path = release / "RELEASE_MANIFEST.json"
+        manifest_data = manifest_path.read_bytes()
+        manifest = json.loads(manifest_data)
+        if manifest.get("build_commit") != self.config.build_commit:
+            raise RuntimeError("RUNTIME_INVENTORY_RELEASE_MANIFEST_BUILD_MISMATCH")
+        return {
+            "build_commit": self.config.build_commit,
+            "release_root": str(release),
+            "release_manifest_sha256": hashlib.sha256(manifest_data).hexdigest(),
+            "source_tree_sha256": manifest.get("source_tree_sha256"),
+            "evidence_scope": "IMMUTABLE_DEPLOYED_RELEASE_FROM_MERGED_MAIN",
+        }
 
     def _discover(self, moment: datetime) -> list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]]:
         root = self.config.manifests_root.resolve(strict=True)
@@ -297,6 +327,7 @@ class RuntimeInventoryRefresher:
     def refresh(self, *, now: datetime | None = None) -> dict[str, Any]:
         moment = now or datetime.now(timezone.utc)
         base, base_sha256 = self._load_current_snapshot()
+        deployed_release = self._deployed_release()
         if not self._cpu_qualified(base):
             raise RuntimeError("RUNTIME_INVENTORY_CPU_QUALIFICATION_NOT_ESTABLISHED")
 
@@ -388,10 +419,11 @@ class RuntimeInventoryRefresher:
                 "route_decisions": route_decisions,
                 "work_units": work_units,
                 "provider_work_findings": provider_work_findings,
+                "deployed_release": deployed_release,
             }
         )
         snapshot = {
-            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings"}},
+            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings", "git", "deployed_release"}},
             "schema_version": 2,
             "artifact_type": "UNIFIED_ASSISTIVE_RUNTIME_INVENTORY",
             "generated_at": rfc3339(moment),
@@ -402,6 +434,16 @@ class RuntimeInventoryRefresher:
             "execution_packets": execution_packets,
             "execution_states": status,
             "provider_work_findings": provider_work_findings,
+            "git": (
+                {
+                    "deployed_head": deployed_release["build_commit"],
+                    "merged_main_identity_at_release_build": deployed_release["build_commit"],
+                    "evidence_scope": deployed_release["evidence_scope"],
+                }
+                if deployed_release is not None
+                else base.get("git")
+            ),
+            "deployed_release": deployed_release,
             "validation": validation,
             "canonical_or_protected_authority": False,
         }

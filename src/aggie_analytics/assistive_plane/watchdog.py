@@ -102,6 +102,8 @@ class ReadOnlyWatchdog:
             scheduler_age = None
             scheduler_dispatched = 0
             scheduler_provider_calls = 0
+            latest_scheduler_dispatched = 0
+            latest_scheduler_provider_calls = 0
             scheduler_idle = 0
             if not self.operational_audit_enabled:
                 pass
@@ -112,23 +114,41 @@ class ReadOnlyWatchdog:
                     scheduler_report = json.loads(self.scheduler_report_path.read_text(encoding="utf-8"))
                     scheduler_time = parse_rfc3339(str(scheduler_report["observed_at"]))
                     scheduler_age = max(0.0, (moment - scheduler_time).total_seconds())
-                    scheduler_dispatched = int(scheduler_report.get("dispatched_units", 0))
-                    scheduler_provider_calls = int(scheduler_report.get("provider_calls", 0))
+                    latest_scheduler_dispatched = int(scheduler_report.get("dispatched_units", 0))
+                    latest_scheduler_provider_calls = int(scheduler_report.get("provider_calls", 0))
                     scheduler_idle = len(scheduler_report.get("idle_units", []))
                     if scheduler_age > self.evidence_max_age_seconds:
                         operational_findings.append("SCHEDULER_COMPLETENESS_EVIDENCE_STALE")
                     if scheduler_report.get("result") in {"FAIL", "BLOCKED"}:
                         operational_findings.append("SCHEDULER_EVALUATION_FAILED")
-                    if scheduler_dispatched != scheduler_provider_calls:
+                    if latest_scheduler_dispatched != latest_scheduler_provider_calls:
                         operational_findings.append("SCHEDULER_PROVIDER_CALL_DISPATCH_MISMATCH")
-                    if eligible_units and scheduler_dispatched == 0:
-                        operational_findings.append("ZERO_DISPATCH_WHILE_ADMITTED_WORK_EXISTS")
                     if scheduler_idle:
                         operational_findings.append("ELIGIBLE_UNITS_IDLING")
                     if scheduler_report.get("operational_completion") not in {"INCOMPLETE", None}:
                         operational_findings.append("OPERATIONAL_CLAIM_EXCEEDS_EVIDENCE")
                 except (OSError, KeyError, ValueError, json.JSONDecodeError):
                     operational_findings.append("SCHEDULER_COMPLETENESS_EVIDENCE_INVALID")
+
+            release_started_at = leader["acquired_at"] if leader else None
+            if release_started_at is not None:
+                release_runs = connection.execute(
+                    "SELECT p.resource_json FROM provider_runs p "
+                    "JOIN dispatch_attempts a ON a.attempt_id=p.attempt_id "
+                    "WHERE p.status='SETTLED' AND a.state='CLOSED' AND a.started_at>=?",
+                    (release_started_at,),
+                ).fetchall()
+                scheduler_dispatched = len(release_runs)
+                for row in release_runs:
+                    try:
+                        resource = json.loads(row["resource_json"] or "{}")
+                        scheduler_provider_calls += int(resource.get("provider_calls", 1))
+                    except (TypeError, ValueError, json.JSONDecodeError):
+                        operational_findings.append("PROVIDER_RESOURCE_USAGE_INVALID")
+                if scheduler_dispatched != scheduler_provider_calls:
+                    operational_findings.append("RELEASE_PROVIDER_CALL_DISPATCH_MISMATCH")
+            if eligible_units and scheduler_dispatched == 0:
+                operational_findings.append("ZERO_DISPATCH_WHILE_ADMITTED_WORK_EXISTS")
 
             expired_leases = connection.execute(
                 "SELECT COUNT(*) FROM work_leases WHERE status='ACTIVE' AND expires_at<?",
@@ -179,6 +199,9 @@ class ReadOnlyWatchdog:
                 "scheduler_evidence_age_seconds": scheduler_age,
                 "scheduler_dispatched_units": scheduler_dispatched,
                 "scheduler_provider_calls": scheduler_provider_calls,
+                "latest_scheduler_evaluation_dispatched_units": latest_scheduler_dispatched,
+                "latest_scheduler_evaluation_provider_calls": latest_scheduler_provider_calls,
+                "release_evidence_started_at": release_started_at,
                 "scheduler_idle_units": scheduler_idle,
                 "abandoned_work_leases": int(expired_leases),
                 "unreconciled_inflight_provider_attempts": int(inflight_without_lease),

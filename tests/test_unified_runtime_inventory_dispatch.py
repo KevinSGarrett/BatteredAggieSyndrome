@@ -118,6 +118,36 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         refreshed_pointer = json.loads(self.current.read_text(encoding="utf-8"))
         self.assertNotEqual(pointer["refreshed_at"], refreshed_pointer["refreshed_at"])
 
+    def test_refresh_replaces_stale_seed_git_with_exact_deployed_release_evidence(self) -> None:
+        build_commit = "9" * 40
+        release = self.root / "releases" / build_commit
+        release.mkdir(parents=True)
+        manifest = {
+            "schema_version": 1,
+            "build_commit": build_commit,
+            "source_tree_sha256": "8" * 64,
+            "files": {},
+        }
+        (release / "RELEASE_MANIFEST.json").write_bytes(canonical_json_bytes(manifest) + b"\n")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                release_root=release,
+                build_commit=build_commit,
+            ),
+        )
+        report = refresher.refresh(now=self.now)
+        snapshot = json.loads(Path(report["snapshot_path"]).read_text(encoding="utf-8"))
+        self.assertEqual(build_commit, snapshot["git"]["deployed_head"])
+        self.assertEqual(build_commit, snapshot["git"]["merged_main_identity_at_release_build"])
+        self.assertNotIn("origin_main", snapshot["git"])
+        self.assertEqual(build_commit, snapshot["deployed_release"]["build_commit"])
+        self.assertEqual("8" * 64, snapshot["deployed_release"]["source_tree_sha256"])
+
     def test_cpu_qualification_requires_exact_semantic_evidence_contract(self) -> None:
         self.assertFalse(
             self.refresher._cpu_qualified(
@@ -209,6 +239,9 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
             self.assertEqual(2, connection.execute("SELECT COUNT(*) FROM reconciliation_records").fetchone()[0])
             self.assertEqual(2, connection.execute("SELECT COUNT(*) FROM execution_artifacts WHERE artifact_type='PROVIDER_REQUEST_ENVELOPE'").fetchone()[0])
 
+        refreshed = self.refresher.refresh(now=self.now + timedelta(seconds=1))
+        no_cycle = scheduler.evaluate(now=self.now + timedelta(seconds=2))
+        self.assertEqual(0, no_cycle["dispatched_units"])
         self.state.acquire_leader("watchdog-owner", "d" * 40, now=self.now, ttl_seconds=120)
         watchdog = ReadOnlyWatchdog(
             self.state.database,
@@ -219,8 +252,11 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         operational = watchdog.inspect(now=self.now + timedelta(seconds=2))
         self.assertEqual("PASS", operational["structural_result"])
         self.assertEqual("PASS", operational["operational_result"])
+        self.assertEqual(2, operational["scheduler_dispatched_units"])
+        self.assertEqual(2, operational["scheduler_provider_calls"])
+        self.assertEqual(0, operational["latest_scheduler_evaluation_dispatched_units"])
+        self.assertNotIn("ZERO_DISPATCH_WHILE_ADMITTED_WORK_EXISTS", operational["findings"])
 
-        refreshed = self.refresher.refresh(now=self.now + timedelta(minutes=1))
         snapshot = json.loads(Path(refreshed["snapshot_path"]).read_text(encoding="utf-8"))
         self.assertEqual(
             {"CODEX_DETERMINISTIC": 1, "COMPLETED": 2},

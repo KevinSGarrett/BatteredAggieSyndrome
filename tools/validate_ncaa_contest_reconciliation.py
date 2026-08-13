@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -97,12 +98,23 @@ def main() -> int:
         "failures": failed,
         "disposition": "PASS" if not failed else "FAIL",
     }
-    report_path = data_root / "validation/POST-SUBTASK-197/ncaa_contest_reconciliation_validation.json"
+    report_bytes = (json.dumps(report, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
+    report_sha256 = hashlib.sha256(report_bytes).hexdigest()
+    report_path = (
+        data_root
+        / "validation/POST-SUBTASK-197/ncaa-contest-reconciliation"
+        / args.dataset_identity
+        / "runs"
+        / report_sha256
+        / "report.json"
+    )
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_text(json.dumps(report, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    if report_path.exists() and report_path.read_bytes() != report_bytes:
+        raise ValueError("immutable NCAA reconciliation validation report collision")
+    report_path.write_bytes(report_bytes)
     print(json.dumps({
         "report_path": str(report_path),
-        "report_sha256": sha256_file(report_path),
+        "report_sha256": report_sha256,
         "check_count": len(checks),
         "failure_count": len(failed),
     }, sort_keys=True))

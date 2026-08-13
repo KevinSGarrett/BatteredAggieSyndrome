@@ -42,7 +42,7 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 - Execution lane: `DATA_MATERIALIZATION`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `SOURCE_ROUTE_AND_PARSER_CONTRACT_VERIFIED_NO_NATIONAL_OFFICIAL_POPULATION` → `EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY`
-- Evidence state: `ACTIVE_EMPIRICAL_CHECKPOINT_2024_GRAPH_EXHAUSTED`
+- Evidence state: `ACTIVE_EMPIRICAL_CHECKPOINT_2020_RECONCILED_2018_2019_2021_DISCOVERY_RUNNING`
 - Governance traceability gate: `POST-SUBTASK-069`
 
 ## Read first
@@ -65,11 +65,28 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 ## Files I may modify or create
 
 - configs/ncaa_official_gamebook_contract.json
+- configs/historical_game_outcome_spine_expansion_contract.json
+- configs/ncaa_contest_outcome_reference_adapter_contract.json
+- configs/ncaa_contest_reconciliation_expansion_policy.json
 - artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
+- artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
 - artifacts/jira_evidence/POST-SUBTASK-197.json
 - jira/project/JIRA_TARGET_PROFILE.yaml
+- src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
+- src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py
+- src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
+- src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
 - tools/acquire_ncaa_official_gamebooks.py
+- tools/build_historical_game_outcome_spine_expansion.py
+- tools/build_ncaa_contest_outcome_reference_adapter.py
+- tools/build_ncaa_contest_reconciliation_expansion.py
+- tools/validate_historical_game_outcome_spine_expansion.py
+- tools/validate_ncaa_contest_outcome_reference_adapter.py
+- tools/validate_ncaa_contest_reconciliation.py
 - tools/validate_ncaa_official_gamebooks.py
+- tests/test_historical_game_outcome_spine_expansion.py
+- tests/test_ncaa_contest_outcome_reference_adapter.py
+- tests/test_ncaa_contest_reconciliation_expansion.py
 - tests/test_ncaa_official_gamebooks.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
@@ -98,11 +115,27 @@ No path outside this list is authorized. A necessary undeclared edit requires a 
 Produce and validate these outputs within this atomic work unit:
 
 - configs/ncaa_official_gamebook_contract.json
+- configs/historical_game_outcome_spine_expansion_contract.json
+- configs/ncaa_contest_outcome_reference_adapter_contract.json
+- configs/ncaa_contest_reconciliation_expansion_policy.json
 - artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
+- artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
 - artifacts/jira_evidence/POST-SUBTASK-197.json
 - jira/project/JIRA_TARGET_PROFILE.yaml
+- src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
+- src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
+- src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
 - tools/acquire_ncaa_official_gamebooks.py
+- tools/build_historical_game_outcome_spine_expansion.py
+- tools/build_ncaa_contest_outcome_reference_adapter.py
+- tools/build_ncaa_contest_reconciliation_expansion.py
 - tools/validate_ncaa_official_gamebooks.py
+- tools/validate_historical_game_outcome_spine_expansion.py
+- tools/validate_ncaa_contest_outcome_reference_adapter.py
+- tools/validate_ncaa_contest_reconciliation.py
+- tests/test_historical_game_outcome_spine_expansion.py
+- tests/test_ncaa_contest_outcome_reference_adapter.py
+- tests/test_ncaa_contest_reconciliation_expansion.py
 - tests/test_ncaa_official_gamebooks.py
 
 ## Acceptance criteria

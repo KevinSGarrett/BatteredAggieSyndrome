@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "BAT-554-NCAA-CONTEST-RECONCILIATION-EXPANSION-POLICY-V1",
+  "decision_unit": "POST-SUBTASK-197",
+  "jira_key": "BAT-554",
+  "base_contract": {
+    "relative_path": "configs/ncaa_contest_reconciliation_contract.json",
+    "sha256": "ddca2e294e31bad17e4b449234e0bf62f2440fa584bca3be6718078eafb21d47"
+  },
+  "outcome_adapter": {
+    "manifest": "manifests/ncaa_contest_outcome_reference_adapter/sha256/e77ed3d7ebaaf77539ac591ce7338874e2a02c9a6ebf070e06e16fa14dd64b33/run_manifest.json",
+    "manifest_sha256": "e9697c167c4a58920e2cb24c9175115dc9fad741019a3708fcbd5646c79fb18c",
+    "dataset_identity": "e77ed3d7ebaaf77539ac591ce7338874e2a02c9a6ebf070e06e16fa14dd64b33",
+    "payload": "canonical/ncaa_contest_outcome_reference_adapter/sha256/e77ed3d7ebaaf77539ac591ce7338874e2a02c9a6ebf070e06e16fa14dd64b33/outcome_targets.parquet",
+    "payload_sha256": "0dcfa95603ff4b2e68425d6bb8906fdeb74668d174006da65834ff15fd8ac6c4"
+  },
+  "canonical_registry": {
+    "relative_path": "canonical/BAT-387/sha256/10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac/canonical_core_registry.csv",
+    "sha256": "10d0bd0adcef3fc1ba22fb9932f353cc59b0e5d4508c7891a1472d0221a454ac"
+  },
+  "admitted_season_min": 2010,
+  "admitted_season_max": 2025,
+  "required_discovery_state": "COMPLETE_GRAPH_EXHAUSTED",
+  "authority": {
+    "resolved_contract_materialization": true,
+    "canonical_registry_write": false,
+    "historical_pit_admission": false,
+    "training_admission": false,
+    "protected_evaluation_admission": false,
+    "production_admission": false
+  }
+}

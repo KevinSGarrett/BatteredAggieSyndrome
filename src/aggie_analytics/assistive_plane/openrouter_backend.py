@@ -31,13 +31,30 @@ def response_output_text(body: dict[str, object]) -> str | None:
     direct = body.get("output_text")
     if isinstance(direct, str):
         return direct
+    output = body.get("output")
+    if output is None:
+        return None
+    if not isinstance(output, list):
+        raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_OUTPUT_CONTAINER")
     pieces: list[str] = []
-    for item in body.get("output", []) if isinstance(body.get("output"), list) else []:
-        if not isinstance(item, dict) or item.get("type") != "message":
+    for item in output:
+        if not isinstance(item, dict):
+            raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_OUTPUT_ITEM")
+        if item.get("type") != "message":
             continue
-        for part in item.get("content", []) if isinstance(item.get("content"), list) else []:
-            if isinstance(part, dict) and part.get("type") == "output_text" and isinstance(part.get("text"), str):
-                pieces.append(part["text"])
+        content = item.get("content")
+        if content is None:
+            continue
+        if not isinstance(content, list):
+            raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_CONTENT_CONTAINER")
+        for part in content:
+            if not isinstance(part, dict):
+                raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_CONTENT_ITEM")
+            if part.get("type") == "output_text":
+                text = part.get("text")
+                if not isinstance(text, str):
+                    raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_OUTPUT_TEXT")
+                pieces.append(text)
     return "".join(pieces) if pieces else None
 
 
@@ -91,9 +108,20 @@ class OpenRouterBackend:
             raise error(f"OPENROUTER_HTTP_{exc.code}_CODE_{provider_code}") from exc
         except (TimeoutError, urllib.error.URLError) as exc:
             raise TransientBackendError("OpenRouter request failed with a transient transport error") from exc
+        if not isinstance(body, dict):
+            raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_TOP_LEVEL")
+        usage = body.get("usage")
+        if not isinstance(usage, dict):
+            raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_USAGE")
+        model_resolved = body.get("model")
+        if not isinstance(model_resolved, str):
+            raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_MODEL")
+        raw_response_id = body.get("id")
+        if not isinstance(raw_response_id, str):
+            raise PermanentBackendError("OPENROUTER_RESPONSES_INVALID_ID")
         output_text = response_output_text(body)
         if not isinstance(output_text, str):
-            raise PermanentBackendError("OpenRouter Responses result has no output_text")
+            raise PermanentBackendError("OPENROUTER_RESPONSES_MISSING_OUTPUT_TEXT")
         try:
             output = json.loads(output_text)
         except json.JSONDecodeError:
@@ -104,9 +132,9 @@ class OpenRouterBackend:
         return ProviderResult(
             provider=self.name,
             model_requested=request.model,
-            model_resolved=str(body.get("model", "")),
+            model_resolved=model_resolved,
             output=output,
-            usage=dict(body.get("usage", {})),
-            raw_response_id=str(body.get("id", "")),
-            cost_usd=str(body.get("usage", {}).get("cost")) if body.get("usage", {}).get("cost") is not None else None,
+            usage=dict(usage),
+            raw_response_id=raw_response_id,
+            cost_usd=str(usage.get("cost")) if usage.get("cost") is not None else None,
         )

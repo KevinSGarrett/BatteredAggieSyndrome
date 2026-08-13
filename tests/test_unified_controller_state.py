@@ -1,11 +1,19 @@
 from __future__ import annotations
 
 import tempfile
+import threading
+import time
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from aggie_analytics.assistive_plane.controller_state import ControllerState
+from aggie_analytics.assistive_plane.service_runtime import (
+    ControllerService,
+    ControllerServiceConfig,
+    WatchdogService,
+    WatchdogServiceConfig,
+)
 from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog
 
 
@@ -130,6 +138,37 @@ class UnifiedControllerStateTests(unittest.TestCase):
                 result="PASS",
                 now=self.now,
             )
+
+    def test_watchdog_bounded_runtime_does_not_sleep_full_interval(self) -> None:
+        state = ControllerState(Path(self.temp.name) / "runtime" / "state" / "orchestrator.sqlite3")
+        state.initialize()
+        service = WatchdogService(
+            WatchdogServiceConfig(
+                runtime_root=Path(self.temp.name) / "runtime",
+                build_commit="b" * 40,
+                interval_seconds=5.0,
+            )
+        )
+        started = time.monotonic()
+        service.run(threading.Event(), maximum_runtime_seconds=0.05)
+        elapsed = time.monotonic() - started
+        self.assertLess(elapsed, 1.0)
+
+    def test_controller_bounded_runtime_does_not_sleep_past_deadline(self) -> None:
+        service = ControllerService(
+            ControllerServiceConfig(
+                runtime_root=Path(self.temp.name) / "runtime",
+                owner_id="test-owner",
+                build_commit="b" * 40,
+                heartbeat_seconds=5.0,
+                queue_evaluation_seconds=5.0,
+                lease_ttl_seconds=10,
+            )
+        )
+        started = time.monotonic()
+        service.run(threading.Event(), maximum_runtime_seconds=0.05)
+        elapsed = time.monotonic() - started
+        self.assertLess(elapsed, 1.0)
 
 
 if __name__ == "__main__":

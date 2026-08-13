@@ -192,7 +192,13 @@ class ControllerService:
                     if maximum_runtime_seconds is not None and moment - started_monotonic >= maximum_runtime_seconds:
                         break
                     delay_candidates = [next_heartbeat - moment, next_queue_observation - moment, 0.25]
-                    stop_event.wait(max(0.01, min(delay_candidates)))
+                    wait_timeout = max(0.01, min(delay_candidates))
+                    if maximum_runtime_seconds is not None:
+                        remaining_runtime = maximum_runtime_seconds - (time.monotonic() - started_monotonic)
+                        if remaining_runtime <= 0:
+                            break
+                        wait_timeout = min(wait_timeout, remaining_runtime)
+                    stop_event.wait(wait_timeout)
                 completed_normally = True
             finally:
                 self.state.append_event(
@@ -271,5 +277,11 @@ class WatchdogService:
                     on_report(last)
                 if maximum_runtime_seconds is not None and time.monotonic() - started >= maximum_runtime_seconds:
                     break
-                stop_event.wait(self.config.interval_seconds)
+                wait_timeout = self.config.interval_seconds
+                if maximum_runtime_seconds is not None:
+                    remaining_runtime = maximum_runtime_seconds - (time.monotonic() - started)
+                    if remaining_runtime <= 0:
+                        break
+                    wait_timeout = min(wait_timeout, remaining_runtime)
+                stop_event.wait(wait_timeout)
         return {"result": "PASS", "service": "watchdog", "reports": reports, "last_report": last}

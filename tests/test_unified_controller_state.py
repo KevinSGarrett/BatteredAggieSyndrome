@@ -50,6 +50,28 @@ class UnifiedControllerStateTests(unittest.TestCase):
         self.assertTrue(report["controller_alive"])
         self.assertEqual("WAL", report["journal_mode"])
 
+    def test_initialize_reconciles_unresolved_incident_for_already_closed_unit(self) -> None:
+        self.register()
+        connection = self.state.connect()
+        try:
+            connection.execute("UPDATE work_units SET current_state='CLOSED' WHERE work_unit_id='UNIT-1'")
+            connection.execute(
+                "INSERT INTO incidents(incident_id,work_unit_id,finding,opened_at) VALUES(?,?,?,?)",
+                ("incident-closed", "UNIT-1", "PRIOR_TRANSIENT_FAILURE", self.now.isoformat()),
+            )
+            connection.commit()
+        finally:
+            connection.close()
+        self.state.initialize()
+        connection = self.state.connect()
+        try:
+            row = connection.execute(
+                "SELECT resolved_at FROM incidents WHERE incident_id='incident-closed'"
+            ).fetchone()
+        finally:
+            connection.close()
+        self.assertIsNotNone(row["resolved_at"])
+
     def test_watchdog_fails_stale_without_controller_mutation(self) -> None:
         self.state.acquire_leader("owner-a", "b" * 40, now=self.now, ttl_seconds=120)
         report = ReadOnlyWatchdog(self.database).inspect(now=self.now + timedelta(seconds=121))
@@ -97,6 +119,16 @@ class UnifiedControllerStateTests(unittest.TestCase):
             actor="owner-a",
             now=self.now,
         )
+        connection = self.state.connect()
+        try:
+            connection.execute(
+                "INSERT INTO incidents(incident_id,work_unit_id,attempt_id,finding,opened_at) "
+                "VALUES(?,?,?,?,?)",
+                ("incident-1", "UNIT-1", "attempt-1", "TRANSIENT_PROVIDER_FAILURE", self.now.isoformat()),
+            )
+            connection.commit()
+        finally:
+            connection.close()
         self.state.complete_validated_review_only(
             work_unit_id="UNIT-1",
             attempt_id="attempt-1",
@@ -107,6 +139,14 @@ class UnifiedControllerStateTests(unittest.TestCase):
             actor="owner-a",
             now=self.now,
         )
+        connection = self.state.connect()
+        try:
+            incident = connection.execute(
+                "SELECT resolved_at FROM incidents WHERE incident_id='incident-1'"
+            ).fetchone()
+        finally:
+            connection.close()
+        self.assertIsNotNone(incident["resolved_at"])
         watchdog = ReadOnlyWatchdog(self.database, expected_build_commit="b" * 40)
         complete = watchdog.inspect(now=self.now + timedelta(seconds=1))
         self.assertEqual(0, complete["closed_units_missing_evidence"])

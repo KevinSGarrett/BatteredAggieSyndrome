@@ -433,13 +433,39 @@ class RuntimeInventoryRefresher:
         )
         if len(candidates) > MAX_PROVIDER_WORK_SCAN_UNITS:
             raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_SCAN_BOUND_EXCEEDED")
-        discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
+        candidate_records: list[tuple[Path, bytes, str, bool]] = []
+        content_address_work_units: dict[str, set[str]] = {}
         for source in candidates:
             resolved = source.resolve(strict=True)
             if root not in resolved.parents:
                 raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_OUTSIDE_ALLOWLIST")
             raw = resolved.read_bytes()
             source_sha256 = hashlib.sha256(raw).hexdigest()
+            content_addressed = self._valid_sha256(resolved.stem)
+            if content_addressed and resolved.stem != source_sha256:
+                raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_CONTENT_ADDRESS_MISMATCH")
+            if content_addressed:
+                content_address_work_units[source_sha256] = {
+                    prefix + source_sha256[:20] for prefix in DYNAMIC_PREFIXES
+                }
+            candidate_records.append((resolved, raw, source_sha256, content_addressed))
+
+        content_address_states = self.state.work_unit_states(
+            {
+                work_unit_id
+                for work_unit_ids in content_address_work_units.values()
+                for work_unit_id in work_unit_ids
+            }
+        )
+        closed_content_addresses = {
+            digest
+            for digest, work_unit_ids in content_address_work_units.items()
+            if any(content_address_states.get(work_unit_id) == "CLOSED" for work_unit_id in work_unit_ids)
+        }
+        discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
+        for resolved, raw, source_sha256, content_addressed in candidate_records:
+            if content_addressed and source_sha256 in closed_content_addresses:
+                continue
             packet = json.loads(raw)
             if not isinstance(packet, dict) or packet.get("schema_version") != 1:
                 raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_INVALID")

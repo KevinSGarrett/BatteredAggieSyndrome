@@ -644,6 +644,94 @@ def cpu_worker_semantic_evidence(root: Path):
             with self.assertRaisesRegex(RuntimeError, "PROVIDER_WORK_ACTIVE_BOUND_EXCEEDED"):
                 refresher._discover_provider_work(current_payload, self.now)
 
+    def test_closed_content_addressed_packet_skips_stale_route_validation(self) -> None:
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        current_payload["external_evidence"]["openai"] = {
+            "present": True,
+            "manifest_sha256": "1" * 64,
+        }
+        provider_root = self.root / "provider_work/requests/sha256"
+        packet = {
+            "schema_version": 1,
+            "provider": "openai_direct",
+            "task_format": "governed_openai_candidate_v1",
+            "jira_unit": "POST-SUBTASK-168",
+            "schema_sha256": "5" * 64,
+            "source_hashes": ["6" * 64],
+            "job": {"model": "gpt-5-nano"},
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        data = canonical_json_bytes(packet) + b"\n"
+        digest = hashlib.sha256(data).hexdigest()
+        provider_root.mkdir(parents=True)
+        (provider_root / f"{digest}.json").write_bytes(data)
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+
+        closed = {"AUTO-OAI-" + digest[:20]: "CLOSED"}
+        current_payload["external_evidence"]["openai"] = {"present": False}
+        with patch.object(self.state, "work_unit_states", return_value=closed):
+            self.assertEqual([], refresher._discover_provider_work(current_payload, self.now))
+
+    def test_active_content_addressed_packet_still_fails_closed(self) -> None:
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        provider_root = self.root / "provider_work/requests/sha256"
+        provider_root.mkdir(parents=True)
+        packet = {
+            "schema_version": 1,
+            "provider": "openai_direct",
+            "task_format": "governed_openai_candidate_v1",
+            "jira_unit": "POST-SUBTASK-168",
+            "schema_sha256": "5" * 64,
+            "source_hashes": ["6" * 64],
+            "job": {"model": "gpt-5-nano"},
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        data = canonical_json_bytes(packet) + b"\n"
+        digest = hashlib.sha256(data).hexdigest()
+        (provider_root / f"{digest}.json").write_bytes(data)
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+
+        with patch.object(self.state, "work_unit_states", return_value={}):
+            with self.assertRaisesRegex(RuntimeError, "PROVIDER_EXACT_ROUTE_NOT_READY"):
+                refresher._discover_provider_work(current_payload, self.now)
+
+    def test_content_addressed_packet_hash_mismatch_fails_closed(self) -> None:
+        current_payload = json.loads(self.current.read_text(encoding="utf-8"))
+        provider_root = self.root / "provider_work/requests/sha256"
+        provider_root.mkdir(parents=True)
+        (provider_root / f"{'0' * 64}.json").write_text("{}\n", encoding="utf-8")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+
+        with self.assertRaisesRegex(RuntimeError, "CONTENT_ADDRESS_MISMATCH"):
+            refresher._discover_provider_work(current_payload, self.now)
+
     def test_granular_bge_and_openai_packets_traverse_durable_candidate_lifecycle(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))
         current_payload["external_evidence"].update({

@@ -207,6 +207,7 @@ if ($installController -or $installWatchdog) {
             (Join-Path $RuntimeRoot 'evidence'),
             (Join-Path $RuntimeRoot 'watchdog'),
             (Join-Path $RuntimeRoot 'packets'),
+            (Join-Path $RuntimeRoot 'control'),
             (Join-Path $inventoryRoot 'current'),
             (Join-Path $inventoryRoot 'runtime'),
             (Join-Path $cpuWorkerRoot 'results'),

@@ -22,6 +22,7 @@ from aggie_analytics.assistive_plane.service_runtime import (
     WatchdogService,
     WatchdogServiceConfig,
     atomic_write,
+    canonical_json_bytes,
 )
 from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog
 
@@ -113,6 +114,30 @@ class UnifiedControllerServiceTests(unittest.TestCase):
         self.assertIn("CONTROLLER_LEADER_MISSING", report["findings"])
         self.assertEqual("INCOMPLETE", report["overall_operational_completion"])
 
+    def test_watchdog_acknowledges_stop_request_without_waiting_full_interval(self) -> None:
+        request = {
+            "artifact_type": "UNIFIED_ASSISTIVE_SERVICE_STOP_REQUEST",
+            "build_commit": self.commit,
+            "request_id": "b" * 32,
+            "requested_at": "2026-08-13T00:00:00Z",
+            "role": "watchdog",
+            "schema_version": 1,
+        }
+        data = canonical_json_bytes(request)
+        atomic_write(self.runtime / "control/watchdog-stop.json", data)
+        service = WatchdogService(
+            WatchdogServiceConfig(runtime_root=self.runtime, build_commit=self.commit, interval_seconds=300)
+        )
+        started = time.monotonic()
+        result = service.run(threading.Event(), maximum_runtime_seconds=2)
+        digest = hashlib.sha256(data).hexdigest()
+        self.assertLess(time.monotonic() - started, 1)
+        self.assertEqual(0, result["reports"])
+        self.assertEqual(
+            data,
+            (self.runtime / "control/acknowledged/watchdog/sha256" / digest / "request.json").read_bytes(),
+        )
+
     def test_service_rejects_invalid_build_identity(self) -> None:
         with self.assertRaisesRegex(ValueError, "CONTROLLER_BUILD_COMMIT_INVALID"):
             ControllerServiceConfig(self.runtime, "owner", "not-a-commit").validate()
@@ -124,6 +149,30 @@ class UnifiedControllerServiceTests(unittest.TestCase):
         result = service.run(threading.Event(), maximum_runtime_seconds=0)
         self.assertEqual(1, result["heartbeat_count"])
         self.assertTrue((self.runtime / "evidence/current/controller-heartbeat.json").is_file())
+
+    def test_controller_acknowledges_exact_build_stop_request_and_releases_leader(self) -> None:
+        request = {
+            "artifact_type": "UNIFIED_ASSISTIVE_SERVICE_STOP_REQUEST",
+            "build_commit": self.commit,
+            "request_id": "a" * 32,
+            "requested_at": "2026-08-13T00:00:00Z",
+            "role": "controller",
+            "schema_version": 1,
+        }
+        data = canonical_json_bytes(request)
+        atomic_write(self.runtime / "control/controller-stop.json", data)
+        service = ControllerService(
+            ControllerServiceConfig(runtime_root=self.runtime, owner_id="test-owner", build_commit=self.commit)
+        )
+        result = service.run(threading.Event(), maximum_runtime_seconds=2)
+        digest = hashlib.sha256(data).hexdigest()
+        self.assertEqual("GRACEFUL", result["shutdown"])
+        self.assertFalse((self.runtime / "control/controller-stop.json").exists())
+        self.assertEqual(
+            data,
+            (self.runtime / "control/acknowledged/controller/sha256" / digest / "request.json").read_bytes(),
+        )
+        self.assertIsNone(ControllerState(self.runtime / "state/orchestrator.sqlite3").status()["leader"])
 
     def test_heartbeat_preserves_release_dispatch_truth_after_no_change_cycle(self) -> None:
         service = ControllerService(
@@ -366,14 +415,17 @@ class UnifiedReleaseTests(unittest.TestCase):
     def test_non_elevated_switch_never_registers_or_elevates_tasks(self) -> None:
         switcher = (REPO / "tools/switch_unified_assistive_services.ps1").read_text(encoding="utf-8")
         self.assertIn("activate_unified_assistive_release.py", switcher)
-        self.assertIn("Stop-ScheduledTask", switcher)
         self.assertIn("Start-ScheduledTask", switcher)
         self.assertIn("task_registration_performed = $false", switcher)
         self.assertIn("rollback_available = [bool]$previousPointer", switcher)
         self.assertIn("[System.IO.File]::Replace($rollback, $pointerPath, $null)", switcher)
         self.assertNotIn("Register-ScheduledTask", switcher)
+        self.assertNotIn("Stop-ScheduledTask", switcher)
         self.assertNotIn("Start-Process", switcher)
         self.assertNotIn("RunAs", switcher)
+        self.assertIn("UNIFIED_ASSISTIVE_SERVICE_STOP_REQUEST", switcher)
+        self.assertIn("SERVICE_STOP_ACKNOWLEDGEMENT_MISSING", switcher)
+        self.assertIn("POST_STOP_CONTROLLER_LEADER_REMAINS", switcher)
 
 
 class StableServiceLauncherTests(unittest.TestCase):

@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.assistive_plane.backend import FakeBackend, TransientBackendError
+from aggie_analytics.assistive_plane.budget import BudgetRejected
 from aggie_analytics.assistive_plane.contracts import AssistiveRequest, Authority, Disposition, sha256_value
 from aggie_analytics.assistive_plane.dispatcher import AssistiveDispatcher
 from aggie_analytics.assistive_plane.openrouter_backend import load_openrouter_key
@@ -138,6 +139,15 @@ class OpenRouterAssistTests(unittest.TestCase):
         self.assertEqual(backend.calls, 1)
         self.assertEqual(dispatcher.ledger.state().settled_usd, Decimal("0.000001"))
         self.assertEqual(dispatcher.ledger.state().reserved_usd, Decimal("0"))
+
+    def test_budget_settlement_is_idempotent_but_conflicts_on_changed_cost(self) -> None:
+        dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)
+        dispatcher.ledger.reserve("stable-settlement", Decimal("0.01"))
+        dispatcher.ledger.settle("stable-settlement", Decimal("0.005"))
+        dispatcher.ledger.settle("stable-settlement", Decimal("0.005"))
+        self.assertEqual(Decimal("0.005"), dispatcher.ledger.state().settled_usd)
+        with self.assertRaisesRegex(BudgetRejected, "PROVIDER_SETTLEMENT_IDEMPOTENCY_CONFLICT"):
+            dispatcher.ledger.settle("stable-settlement", Decimal("0.006"))
 
     def test_released_stage_is_lower_admission_ceiling(self) -> None:
         dispatcher = AssistiveDispatcher(ROOT, FakeBackend(self.output), self.simulated_policy_path)

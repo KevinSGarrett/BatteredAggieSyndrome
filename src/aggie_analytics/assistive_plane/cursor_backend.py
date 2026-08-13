@@ -4,6 +4,7 @@ import base64
 import json
 import urllib.error
 import urllib.request
+import uuid
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -12,6 +13,7 @@ from .orchestration import validate_cursor_request
 
 
 CURSOR_API_ROOT = "https://api.cursor.com/v1"
+CURSOR_AGENT_ID_NAMESPACE = uuid.UUID("c7959537-257f-53a6-887b-3e8d00e0846f")
 
 
 def load_cursor_key(authoritative_env: Path) -> str:
@@ -28,10 +30,75 @@ def load_cursor_key(authoritative_env: Path) -> str:
     return matches[0]
 
 
+def cursor_agent_identity(job_id: str) -> str:
+    if len(job_id) != 64 or any(character not in "0123456789abcdef" for character in job_id.lower()):
+        raise ValueError("CURSOR_JOB_IDENTITY_INVALID")
+    return f"bc-{uuid.uuid5(CURSOR_AGENT_ID_NAMESPACE, job_id.lower())}"
+
+
 class CursorApiError(RuntimeError):
-    def __init__(self, status: int, code: str = "CURSOR_API_ERROR") -> None:
-        super().__init__(f"{code}:HTTP_{status}")
+    def __init__(
+        self,
+        status: int,
+        code: str = "CURSOR_API_ERROR",
+        message: str = "",
+        *,
+        help_url: str = "",
+        provider: str = "",
+        request_id: str = "",
+    ) -> None:
+        detail = f":{message}" if message else ""
+        super().__init__(f"{code}:HTTP_{status}{detail}")
         self.status = status
+        self.code = code
+        self.message = message
+        self.help_url = help_url
+        self.provider = provider
+        self.request_id = request_id
+
+    def evidence(self) -> dict[str, object]:
+        return {
+            "status": self.status,
+            "code": self.code,
+            "message": self.message,
+            "help_url": self.help_url,
+            "provider": self.provider,
+            "request_id": self.request_id,
+        }
+
+
+def _safe_error_text(value: Any, *, maximum: int = 512) -> str:
+    if not isinstance(value, str):
+        return ""
+    normalized = " ".join(value.split())
+    return normalized[:maximum]
+
+
+def _cursor_api_error(exc: urllib.error.HTTPError) -> CursorApiError:
+    payload: dict[str, Any] = {}
+    try:
+        decoded = json.loads(exc.read().decode("utf-8"))
+        if isinstance(decoded, dict):
+            payload = decoded
+    except (UnicodeDecodeError, json.JSONDecodeError, OSError):
+        payload = {}
+    error = payload.get("error", {})
+    if not isinstance(error, dict):
+        error = {}
+    request_id = ""
+    if exc.headers is not None:
+        request_id = _safe_error_text(
+            exc.headers.get("X-Request-ID") or exc.headers.get("X-Cursor-Request-ID") or "",
+            maximum=128,
+        )
+    return CursorApiError(
+        exc.code,
+        _safe_error_text(error.get("code"), maximum=128) or "CURSOR_API_ERROR",
+        _safe_error_text(error.get("message")),
+        help_url=_safe_error_text(error.get("helpUrl")),
+        provider=_safe_error_text(error.get("provider"), maximum=128),
+        request_id=request_id,
+    )
 
 
 class CursorCloudClient:
@@ -53,7 +120,7 @@ class CursorCloudClient:
             with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
                 return json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
-            raise CursorApiError(exc.code) from exc
+            raise _cursor_api_error(exc) from exc
 
 
 @dataclass(frozen=True)
@@ -99,3 +166,9 @@ class CursorBackend:
         if agent_id is not None:
             payload["agentId"] = agent_id
         return payload
+
+    def build_followup_payload(self, *, prompt: str) -> dict[str, object]:
+        self.policy.validate()
+        if not prompt.strip():
+            raise ValueError("CURSOR_FOLLOWUP_PROMPT_REQUIRED")
+        return {"prompt": {"text": prompt}, "mode": "agent"}

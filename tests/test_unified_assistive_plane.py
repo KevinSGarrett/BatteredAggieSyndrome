@@ -4,14 +4,25 @@ import sys
 import tempfile
 import unittest
 from dataclasses import replace
+from email.message import Message
+from io import BytesIO
 from pathlib import Path
+from unittest.mock import patch
+from urllib.error import HTTPError
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.assistive_plane.bypass import find_direct_endpoint_bypasses
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerIdentity
-from aggie_analytics.assistive_plane.cursor_backend import CursorBackend, CursorRunPolicy, load_cursor_key
+from aggie_analytics.assistive_plane.cursor_backend import (
+    CursorApiError,
+    CursorBackend,
+    CursorCloudClient,
+    CursorRunPolicy,
+    cursor_agent_identity,
+    load_cursor_key,
+)
 from aggie_analytics.assistive_plane.ollama_backend import OllamaRoutePolicy
 from aggie_analytics.assistive_plane.orchestration import (
     ProviderBudget,
@@ -25,6 +36,7 @@ from aggie_analytics.assistive_plane.orchestration import (
     RoutingDisposition,
     write_content_addressed_json,
 )
+from tools.cursor_assist import inspect as inspect_cursor
 
 
 class UnifiedAssistivePlaneTests(unittest.TestCase):
@@ -142,6 +154,46 @@ class UnifiedAssistivePlaneTests(unittest.TestCase):
         )
         self.assertEqual("bc-00000000-0000-0000-0000-000000000001", payload["agentId"])
         self.assertEqual("a" * 40, payload["repos"][0]["startingRef"])
+
+    def test_cursor_agent_identity_is_deterministic_uuid_v5(self) -> None:
+        first = cursor_agent_identity("a" * 64)
+        self.assertEqual(first, cursor_agent_identity("a" * 64))
+        self.assertNotEqual(first, cursor_agent_identity("b" * 64))
+        self.assertRegex(first, r"^bc-[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
+        with self.assertRaisesRegex(ValueError, "CURSOR_JOB_IDENTITY_INVALID"):
+            cursor_agent_identity("not-a-hash")
+
+    def test_cursor_followup_inherits_safety_policy(self) -> None:
+        payload = CursorBackend(CursorRunPolicy(reasoning="low")).build_followup_payload(prompt="commit existing changes")
+        self.assertEqual({"prompt": {"text": "commit existing changes"}, "mode": "agent"}, payload)
+        self.assertNotIn("model", payload)
+        self.assertNotIn("autoCreatePR", payload)
+        with self.assertRaisesRegex(ValueError, "CURSOR_FOLLOWUP_PROMPT_REQUIRED"):
+            CursorBackend(CursorRunPolicy(reasoning="low")).build_followup_payload(prompt=" ")
+
+    def test_cursor_inspection_requires_bound_agent_job_identity(self) -> None:
+        with self.assertRaisesRegex(ValueError, "CURSOR_AGENT_JOB_IDENTITY_MISMATCH"):
+            inspect_cursor("bc-00000000-0000-5000-8000-000000000000", "a" * 64)
+
+    def test_cursor_client_preserves_only_structured_safe_error_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            env = Path(raw) / ".env"
+            env.write_text("CURSOR_API_TOKEN=example\n", encoding="utf-8")
+            headers = Message()
+            headers["X-Request-ID"] = "request-123"
+            body = BytesIO(
+                b'{"error":{"code":"validation_error","message":"model selection is invalid",'
+                b'"helpUrl":"https://cursor.com/docs","provider":"cursor"},"ignored":"secret"}'
+            )
+            failure = HTTPError("https://api.cursor.com/v1/agents", 400, "bad request", headers, body)
+            with patch("urllib.request.urlopen", side_effect=failure):
+                with self.assertRaises(CursorApiError) as caught:
+                    CursorCloudClient(env).request("POST", "/agents", {"prompt": {"text": "bounded"}})
+        self.assertEqual(400, caught.exception.status)
+        self.assertEqual("validation_error", caught.exception.code)
+        self.assertEqual("model selection is invalid", caught.exception.message)
+        self.assertEqual("request-123", caught.exception.request_id)
+        self.assertNotIn("secret", str(caught.exception))
 
     def test_cursor_credential_loader_requires_one_nonempty_value(self) -> None:
         with tempfile.TemporaryDirectory() as raw:

@@ -87,7 +87,7 @@ class BudgetLedger:
 
     def _load(self) -> dict[str, object]:
         if not self.path.exists():
-            return {"schema_version": 1, "settled_usd": "0.000000", "reservations": {}}
+            return {"schema_version": 1, "settled_usd": "0.000000", "reservations": {}, "settlements": {}}
         return json.loads(self.path.read_text(encoding="utf-8"))
 
     def state(self) -> BudgetState:
@@ -121,6 +121,11 @@ class BudgetLedger:
         with self._lock():
             data = self._load()
             reservations = dict(data.get("reservations", {}))
+            settlements = dict(data.get("settlements", {}))
+            if request_id in settlements:
+                if Decimal(str(settlements[request_id])) != actual_usd:
+                    raise BudgetRejected("PROVIDER_SETTLEMENT_IDEMPOTENCY_CONFLICT")
+                return
             if request_id not in reservations:
                 raise BudgetRejected("OPENROUTER_RESERVATION_NOT_FOUND")
             settled = Decimal(str(data.get("settled_usd", "0")))
@@ -132,6 +137,8 @@ class BudgetLedger:
                 raise BudgetRejected("PROVIDER_ACTUAL_COST_EXCEEDS_RELEASED_STAGE")
             reservations.pop(request_id)
             data["reservations"] = reservations
+            settlements[request_id] = format(actual_usd, "f")
+            data["settlements"] = settlements
             data["settled_usd"] = format(settled + actual_usd, "f")
             self._write(data)
 

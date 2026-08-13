@@ -201,6 +201,8 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("CONTROLLER_RECOVERY_BUILD_BINDING_MISMATCH", installer)
         self.assertIn("CONTROLLER_RECOVERY_OWNER_PROCESS_STILL_LIVE", installer)
         self.assertIn("CONTROLLER_RECOVERY_OWNER_PROCESS_MISSING_WHILE_TASK_RUNNING", installer)
+        self.assertIn("CONTROLLER_RECOVERY_LEASE_MISSING_WHILE_TASK_RUNNING", installer)
+        self.assertIn("CLEAN_SHUTDOWN_NO_LEASE", installer)
         self.assertIn("CLEAN_SHUTDOWN_RELEASED_LEASE", installer)
         self.assertIn("EXACT_ORPHAN_LEASE_RELEASED", installer)
         self.assertIn("CONTROLLER_RECOVERY_POST_STOP_LEASE_MISMATCH", installer)

@@ -70,53 +70,57 @@ if ($Replace -and $existingTasks[$ControllerTaskName]) {
     $statusJson = & $python $controllerScript status --runtime-root "$RuntimeRoot"
     if ($LASTEXITCODE -ne 0) { throw 'CONTROLLER_RECOVERY_STATUS_FAILED' }
     $status = $statusJson | ConvertFrom-Json
-    if (-not $status.leader) { throw 'CONTROLLER_RECOVERY_LEASE_MISSING' }
-    $leaderOwnerId = [string]$status.leader.owner_id
-    $leaderBuildCommit = [string]$status.leader.build_commit
-    if ($leaderBuildCommit -ne $actionBuildCommit) { throw 'CONTROLLER_RECOVERY_BUILD_BINDING_MISMATCH' }
-    if ($leaderOwnerId -notmatch '^[^:]+:([1-9][0-9]*):[0-9a-fA-F]{32}$') { throw 'CONTROLLER_RECOVERY_OWNER_FORMAT_INVALID' }
-    [int]$ownerPid = $Matches[1]
     $existingTaskState = [string]$existingTasks[$ControllerTaskName].State
-    $ownerProcess = Get-CimInstance Win32_Process -Filter "ProcessId = $ownerPid" -ErrorAction SilentlyContinue
-    $ownerCommandLine = $null
-    if ($ownerProcess) {
-        $ownerCommandLine = [string]$ownerProcess.CommandLine
-        if ([string]::IsNullOrWhiteSpace($ownerCommandLine)) { throw 'CONTROLLER_RECOVERY_OWNER_COMMANDLINE_MISSING' }
-        if ($ownerCommandLine -notmatch 'run_unified_assistive_controller\.py') { throw 'CONTROLLER_RECOVERY_OWNER_COMMAND_IDENTITY_MISMATCH' }
-        if ($ownerCommandLine -notmatch ('--build-commit\s+' + [regex]::Escape($leaderBuildCommit))) { throw 'CONTROLLER_RECOVERY_OWNER_BUILD_MISMATCH' }
-    } elseif ($existingTaskState -eq 'Running') {
-        throw 'CONTROLLER_RECOVERY_OWNER_PROCESS_MISSING_WHILE_TASK_RUNNING'
-    }
-    $replacementRecoveryEvidence = [ordered]@{
-        task_name = $ControllerTaskName
-        action_execute = [string]$existingControllerAction.Execute
-        action_arguments = $existingArguments
-        action_working_directory = $existingWorkingDirectory
-        action_controller_script = $existingControllerScriptPath
-        owner_id = $leaderOwnerId
-        owner_pid = $ownerPid
-        owner_commandline = $ownerCommandLine
-        owner_process_present = [bool]$ownerProcess
-        task_state = $existingTaskState
-        build_commit = $leaderBuildCommit
-        action_build_commit = $actionBuildCommit
-        observed_at_utc = (Get-Date).ToUniversalTime().ToString('o')
-    }
-    $replacementRecoveryEvidenceJson = $replacementRecoveryEvidence | ConvertTo-Json -Depth 16 -Compress
-    $sha256 = [System.Security.Cryptography.SHA256]::Create()
-    try {
-        $bytes = [System.Text.Encoding]::UTF8.GetBytes($replacementRecoveryEvidenceJson)
-        $hashBytes = $sha256.ComputeHash($bytes)
-        $replacementRecoveryEvidenceSha256 = ([System.BitConverter]::ToString($hashBytes)).Replace('-', '').ToLowerInvariant()
-    } finally {
-        $sha256.Dispose()
-    }
-    $replacementRecovery = [ordered]@{
-        owner_id = $leaderOwnerId
-        owner_pid = $ownerPid
-        build_commit = $leaderBuildCommit
-        evidence_sha256 = $replacementRecoveryEvidenceSha256
-        evidence_json = $replacementRecoveryEvidenceJson
+    if (-not $status.leader) {
+        if ($existingTaskState -eq 'Running') { throw 'CONTROLLER_RECOVERY_LEASE_MISSING_WHILE_TASK_RUNNING' }
+        $replacementRecoveryDisposition = 'CLEAN_SHUTDOWN_NO_LEASE'
+    } else {
+        $leaderOwnerId = [string]$status.leader.owner_id
+        $leaderBuildCommit = [string]$status.leader.build_commit
+        if ($leaderBuildCommit -ne $actionBuildCommit) { throw 'CONTROLLER_RECOVERY_BUILD_BINDING_MISMATCH' }
+        if ($leaderOwnerId -notmatch '^[^:]+:([1-9][0-9]*):[0-9a-fA-F]{32}$') { throw 'CONTROLLER_RECOVERY_OWNER_FORMAT_INVALID' }
+        [int]$ownerPid = $Matches[1]
+        $ownerProcess = Get-CimInstance Win32_Process -Filter "ProcessId = $ownerPid" -ErrorAction SilentlyContinue
+        $ownerCommandLine = $null
+        if ($ownerProcess) {
+            $ownerCommandLine = [string]$ownerProcess.CommandLine
+            if ([string]::IsNullOrWhiteSpace($ownerCommandLine)) { throw 'CONTROLLER_RECOVERY_OWNER_COMMANDLINE_MISSING' }
+            if ($ownerCommandLine -notmatch 'run_unified_assistive_controller\.py') { throw 'CONTROLLER_RECOVERY_OWNER_COMMAND_IDENTITY_MISMATCH' }
+            if ($ownerCommandLine -notmatch ('--build-commit\s+' + [regex]::Escape($leaderBuildCommit))) { throw 'CONTROLLER_RECOVERY_OWNER_BUILD_MISMATCH' }
+        } elseif ($existingTaskState -eq 'Running') {
+            throw 'CONTROLLER_RECOVERY_OWNER_PROCESS_MISSING_WHILE_TASK_RUNNING'
+        }
+        $replacementRecoveryEvidence = [ordered]@{
+            task_name = $ControllerTaskName
+            action_execute = [string]$existingControllerAction.Execute
+            action_arguments = $existingArguments
+            action_working_directory = $existingWorkingDirectory
+            action_controller_script = $existingControllerScriptPath
+            owner_id = $leaderOwnerId
+            owner_pid = $ownerPid
+            owner_commandline = $ownerCommandLine
+            owner_process_present = [bool]$ownerProcess
+            task_state = $existingTaskState
+            build_commit = $leaderBuildCommit
+            action_build_commit = $actionBuildCommit
+            observed_at_utc = (Get-Date).ToUniversalTime().ToString('o')
+        }
+        $replacementRecoveryEvidenceJson = $replacementRecoveryEvidence | ConvertTo-Json -Depth 16 -Compress
+        $sha256 = [System.Security.Cryptography.SHA256]::Create()
+        try {
+            $bytes = [System.Text.Encoding]::UTF8.GetBytes($replacementRecoveryEvidenceJson)
+            $hashBytes = $sha256.ComputeHash($bytes)
+            $replacementRecoveryEvidenceSha256 = ([System.BitConverter]::ToString($hashBytes)).Replace('-', '').ToLowerInvariant()
+        } finally {
+            $sha256.Dispose()
+        }
+        $replacementRecovery = [ordered]@{
+            owner_id = $leaderOwnerId
+            owner_pid = $ownerPid
+            build_commit = $leaderBuildCommit
+            evidence_sha256 = $replacementRecoveryEvidenceSha256
+            evidence_json = $replacementRecoveryEvidenceJson
+        }
     }
 }
 

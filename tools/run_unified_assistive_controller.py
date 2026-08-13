@@ -43,7 +43,7 @@ def main() -> int:
     parser.add_argument("--maximum-runtime-seconds", type=float)
     parser.add_argument("--inventory-current-path", type=Path)
     parser.add_argument("--inventory-max-age-seconds", type=int, default=300)
-    parser.add_argument("--scheduler-cycle-interval-seconds", type=int, default=21600)
+    parser.add_argument("--scheduler-cycle-interval-seconds", type=int, default=60)
     parser.add_argument("--inventory-sha256")
     parser.add_argument("--cycle-id")
     parser.add_argument("--eligible-units", type=int, default=0)

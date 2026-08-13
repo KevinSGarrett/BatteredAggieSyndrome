@@ -20,6 +20,7 @@ REQUIRED_FILES = [
     "configs/unified_assistive_operational_claims.json",
     "configs/unified_assistive_ready_work.json",
     "configs/unified_assistive_acceptance_ownership.json",
+    "configs/unified_assistive_change_routing_binding.json",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -62,6 +63,23 @@ def main() -> int:
             findings.append(f"REQUIRED_FILE_MISSING:{relative}")
     policy = json.loads((ROOT / "configs/unified_assistive_policy.json").read_text(encoding="utf-8"))
     registry = json.loads((ROOT / "configs/assistive_provider_registry.json").read_text(encoding="utf-8"))
+    routing_binding = json.loads(
+        (ROOT / "configs/unified_assistive_change_routing_binding.json").read_text(encoding="utf-8")
+    )
+    if routing_binding.get("disposition") == "UNJUSTIFIED_DIRECT_EXECUTION":
+        findings.append("MATERIAL_CHANGE_UNJUSTIFIED_DIRECT_EXECUTION")
+    if routing_binding.get("class") not in {"PIPELINE_BOOTSTRAP_REPAIR", "PROJECT_WORK"}:
+        findings.append("MATERIAL_CHANGE_ROUTING_CLASS_INVALID")
+    decision_identity = str(routing_binding.get("decision_sha256", ""))
+    if len(decision_identity) != 64 or any(
+        character not in "0123456789abcdef" for character in decision_identity
+    ):
+        findings.append("MATERIAL_CHANGE_PRE_ROUTING_IDENTITY_INVALID")
+    if (
+        routing_binding.get("class") == "PIPELINE_BOOTSTRAP_REPAIR"
+        and routing_binding.get("ordinary_project_work_authorized") is not False
+    ):
+        findings.append("BOOTSTRAP_REPAIR_ORDINARY_PROJECT_WORK_AUTHORIZED")
     if policy.get("effort_points") != [1, 2, 3, 5, 8]:
         findings.append("EFFORT_POINT_SET_INVALID")
     if policy["inventory"].get("required_coverage_fraction") != 1.0:

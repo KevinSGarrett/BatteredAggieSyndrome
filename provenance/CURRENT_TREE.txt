@@ -315,6 +315,7 @@ configs/team_state_registry.json
 configs/temporal_registry.json
 configs/tournament_registry.json
 configs/unified_assistive_acceptance_ownership.json
+configs/unified_assistive_change_routing_binding.json
 configs/unified_assistive_operational_claims.json
 configs/unified_assistive_policy.json
 configs/unified_assistive_ready_work.json

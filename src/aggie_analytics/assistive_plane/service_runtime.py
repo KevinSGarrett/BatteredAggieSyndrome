@@ -66,7 +66,7 @@ class ControllerServiceConfig:
     lease_ttl_seconds: int = 120
     inventory_current_path: Path | None = None
     inventory_max_age_seconds: int = 300
-    scheduler_cycle_interval_seconds: int = 21600
+    scheduler_cycle_interval_seconds: int = 60
     inventory_refresh_max_age_seconds: int = 240
     cpu_worker_endpoint: str | None = "https://comfy-v4-cpu-01.tail9b05ab.ts.net"
     cpu_worker_signing_key_path: Path | None = None
@@ -129,6 +129,8 @@ class ControllerService:
                 semantic_policy_path=release_root / "configs" / "unified_assistive_policy.json",
                 semantic_readiness_path=release_root / "configs" / "assistive_route_readiness.json",
                 external_assistive_root=config.runtime_root.parent,
+                continuous_source_root=data_root / "runtime",
+                project_root=Path(r"C:\BatteredAggieSyndrome") if os.name == "nt" else None,
                 refresh_max_age_seconds=config.inventory_refresh_max_age_seconds,
             ),
         )
@@ -225,6 +227,9 @@ class ControllerService:
                 ttl_seconds=self.config.lease_ttl_seconds,
             )
             lease_recovery = self.state.reconcile_expired_work_leases()
+            cursor_poll_recovery = self.state.recover_cursor_inflight_leases(
+                owner_id=self.config.owner_id,
+            )
             self.state.append_event(
                 "CONTROLLER_SERVICE_STARTED",
                 {
@@ -233,6 +238,7 @@ class ControllerService:
                     "pid": os.getpid(),
                     "hostname": socket.gethostname(),
                     "expired_work_lease_recovery": lease_recovery,
+                    "cursor_inflight_poll_recovery": cursor_poll_recovery,
                 },
             )
             try:

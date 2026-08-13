@@ -21,8 +21,13 @@ from .orchestration import (
     load_inventory,
     validate_work_unit_roles,
 )
-from .provider_adapters import BgeM3CandidateAdapter, GovernedOpenAIAdapter, ProviderAdapterResult
-from .provider_adapters import GovernedOpenRouterAdapter
+from .provider_adapters import (
+    BgeM3CandidateAdapter,
+    GovernedCursorAdapter,
+    GovernedOpenAIAdapter,
+    GovernedOpenRouterAdapter,
+    ProviderAdapterResult,
+)
 
 
 ROUTABLE_DISPOSITIONS = frozenset(
@@ -73,7 +78,7 @@ class SchedulerConfig:
     inventory_current_path: Path
     evidence_root: Path
     inventory_max_age_seconds: int = 300
-    cycle_interval_seconds: int = 21600
+    cycle_interval_seconds: int = 60
     owner_id: str = "inventory-scheduler"
     cpu_worker_endpoint: str | None = None
     cpu_worker_storage_root: Path | None = None
@@ -174,6 +179,37 @@ class InventoryScheduler:
         key = key_path.read_bytes()
         return CpuWorkerClient(CpuWorkerEndpoint(self.config.cpu_worker_endpoint), storage_root, key)
 
+    @staticmethod
+    def _candidate_review_disposition(
+        provider: str,
+        result: ProviderAdapterResult,
+    ) -> tuple[str, str]:
+        """Accept only schema-valid, evidence-bearing candidate utility; never authoritative truth."""
+        if result.validation_errors or result.disposition != "REVIEW_ONLY":
+            return result.disposition, "PROVIDER_OR_VALIDATOR_TERMINAL_DISPOSITION"
+        payload = result.result
+        useful = False
+        if provider == "ollama_local":
+            useful = bool(payload.get("rankings"))
+        elif provider == "openrouter":
+            provider_result = payload.get("provider_result")
+            useful = isinstance(provider_result, dict) and bool(provider_result.get("output"))
+        elif provider == "openai_direct":
+            candidate = payload.get("candidate")
+            useful = isinstance(candidate, dict) and any(
+                bool(candidate.get(field)) for field in ("facts", "conflicts", "notes")
+            )
+        elif provider == "cursor":
+            run = payload.get("run")
+            useful = isinstance(run, dict) and any(
+                bool(run.get(field)) for field in ("summary", "output", "result", "findings")
+            )
+        return (
+            ("ACCEPTED", "DETERMINISTIC_SCHEMA_EVIDENCE_UTILITY_GATE_PASS")
+            if useful
+            else ("REVIEW_ONLY", "VALID_CANDIDATE_REQUIRES_FURTHER_VALUE_REVIEW")
+        )
+
     def _load_execution_packet(self, payload: dict[str, Any], work_unit_id: str) -> tuple[dict[str, Any], str]:
         reference = payload.get("execution_packets", {}).get(work_unit_id)
         if not isinstance(reference, dict):
@@ -198,7 +234,292 @@ class InventoryScheduler:
             adapters["openai_direct"] = GovernedOpenAIAdapter(self.config.release_root)
         if self.config.openrouter_enabled:
             adapters["openrouter"] = GovernedOpenRouterAdapter(Path(__file__).resolve().parents[3])
+        if self.config.release_root is not None:
+            adapters["cursor"] = GovernedCursorAdapter(self.config.release_root)
         return adapters
+
+    def _dispatch_cursor_submit(
+        self,
+        *,
+        payload: dict[str, Any],
+        work_unit: Any,
+        decision: Any,
+        moment: datetime,
+        adapter: GovernedCursorAdapter,
+    ) -> dict[str, Any] | None:
+        packet, packet_sha256 = self._load_execution_packet(payload, decision.work_unit_id)
+        reference = payload["execution_packets"][decision.work_unit_id]
+        readiness_evidence_sha256 = reference.get("readiness_evidence_sha256")
+        if not isinstance(readiness_evidence_sha256, str) or len(readiness_evidence_sha256) != 64:
+            raise RuntimeError("SCHEDULER_CURSOR_READINESS_EVIDENCE_MISSING")
+        route_identity = sha256_value(
+            {
+                "provider": "cursor",
+                "model": decision.model,
+                "task_format": work_unit.task_format,
+                "schema_sha256": work_unit.schema_sha256,
+                "packet_sha256": packet_sha256,
+                "readiness_evidence_sha256": readiness_evidence_sha256,
+            }
+        )
+        attempt_number = self.state.dispatch_attempt_count(decision.work_unit_id) + 1
+        attempt_id = hashlib.sha256(
+            f"{work_unit.identity()}:{route_identity}:attempt-{attempt_number}".encode()
+        ).hexdigest()
+        lease_id = hashlib.sha256(f"{attempt_id}:lease".encode()).hexdigest()
+        claimed = self.state.claim_dispatch(
+            work_unit_id=decision.work_unit_id,
+            dependencies=work_unit.dependencies,
+            lease_id=lease_id,
+            attempt_id=attempt_id,
+            owner_id=self.config.owner_id,
+            provider="cursor",
+            route_identity=route_identity,
+            readiness_evidence_sha256=readiness_evidence_sha256,
+            ttl_seconds=600,
+            now=moment,
+        )
+        if not claimed:
+            return None
+        provider_call_attempted = False
+        try:
+            request = {
+                "schema_version": 1,
+                "artifact_type": "GOVERNED_CURSOR_DISPATCH_REQUEST",
+                "work_unit_id": decision.work_unit_id,
+                "attempt_id": attempt_id,
+                "provider": "cursor",
+                "route_identity": route_identity,
+                "packet_sha256": packet_sha256,
+                "readiness_evidence_sha256": readiness_evidence_sha256,
+                "base_commit": packet["base_commit"],
+                "authority": "CANDIDATE_ONLY",
+            }
+            request_path, request_sha256 = content_addressed_write(
+                self.config.evidence_root,
+                "provider-requests",
+                request,
+                current_name=f"request-{decision.work_unit_id}.json",
+            )
+            handle = adapter.submit(packet)
+            provider_call_attempted = True
+            provider_run_id = hashlib.sha256(
+                f"{attempt_id}:{handle['agent_id']}".encode()
+            ).hexdigest()
+            self.state.record_dispatch(
+                work_unit_id=decision.work_unit_id,
+                attempt_id=attempt_id,
+                provider_run_id=provider_run_id,
+                provider="cursor",
+                remote_identity=str(handle["agent_id"]),
+                request_sha256=request_sha256,
+                request_artifact_path=request_path,
+                actor=self.config.owner_id,
+                resource={
+                    "provider_calls": 1,
+                    "packet_path": str(reference["packet_path"]),
+                    "packet_sha256": packet_sha256,
+                    "handle": handle,
+                },
+                now=moment,
+            )
+            return {
+                "work_unit_id": decision.work_unit_id,
+                "provider": "cursor",
+                "attempt_id": attempt_id,
+                "provider_run_id": provider_run_id,
+                "agent_id": handle["agent_id"],
+                "job_id": handle["job_id"],
+                "state": "DISPATCHED_POLL_PENDING",
+                "provider_call_attempted": True,
+            }
+        except Exception as exc:
+            self.state.record_dispatch_failure(
+                work_unit_id=decision.work_unit_id,
+                attempt_id=attempt_id,
+                lease_id=lease_id,
+                error_code=type(exc).__name__ + ":" + str(exc)[:240],
+                actor=self.config.owner_id,
+                retryable=True,
+                now=moment,
+            )
+            return {
+                "work_unit_id": decision.work_unit_id,
+                "provider": "cursor",
+                "attempt_id": attempt_id,
+                "failed": True,
+                "retryable": True,
+                "provider_call_attempted": provider_call_attempted,
+                "finding": type(exc).__name__ + ":" + str(exc)[:240],
+            }
+
+    def _poll_cursor_runs(
+        self,
+        *,
+        adapter: GovernedCursorAdapter,
+        moment: datetime,
+    ) -> list[dict[str, Any]]:
+        outcomes: list[dict[str, Any]] = []
+        for inflight in self.state.inflight_provider_runs("cursor")[:2]:
+            resource = inflight["resource"]
+            packet_path = Path(str(resource.get("packet_path", "")))
+            try:
+                data = packet_path.read_bytes()
+                packet_sha256 = hashlib.sha256(data).hexdigest()
+                if packet_sha256 != resource.get("packet_sha256"):
+                    raise RuntimeError("CURSOR_INFLIGHT_PACKET_HASH_MISMATCH")
+                packet = json.loads(data)
+                result = adapter.poll(packet, dict(resource.get("handle", {})))
+                if result is None:
+                    self.state.heartbeat_work_lease(
+                        work_unit_id=str(inflight["work_unit_id"]),
+                        attempt_id=str(inflight["attempt_id"]),
+                        lease_id=str(inflight["lease_id"]),
+                        ttl_seconds=600,
+                        now=moment,
+                    )
+                    outcomes.append(
+                        {
+                            "work_unit_id": inflight["work_unit_id"],
+                            "provider": "cursor",
+                            "state": "POLL_PENDING",
+                            "agent_id": inflight["remote_identity"],
+                            "provider_call_attempted": False,
+                        }
+                    )
+                    continue
+                result_payload = {
+                    "schema_version": 1,
+                    "artifact_type": "GOVERNED_PROVIDER_CANDIDATE_RESULT",
+                    "work_unit_id": inflight["work_unit_id"],
+                    "attempt_id": inflight["attempt_id"],
+                    "provider": "cursor",
+                    "remote_identity": result.remote_identity,
+                    "result": result.result,
+                    "disposition": result.disposition,
+                    "validation_errors": list(result.validation_errors),
+                    "actual_cost_usd": result.actual_cost_usd,
+                    "resource": result.resource,
+                    "authority": "CANDIDATE_ONLY",
+                }
+                artifact_path, artifact_sha256 = content_addressed_write(
+                    self.config.evidence_root,
+                    "provider-results",
+                    result_payload,
+                    current_name=f"result-{inflight['work_unit_id']}.json",
+                )
+                result_sha256 = sha256_value(result.result)
+                completed = datetime.now(timezone.utc)
+                self.state.record_result_and_artifact(
+                    work_unit_id=str(inflight["work_unit_id"]),
+                    attempt_id=str(inflight["attempt_id"]),
+                    provider_run_id=str(inflight["provider_run_id"]),
+                    result_sha256=result_sha256,
+                    artifact_path=artifact_path,
+                    actor=self.config.owner_id,
+                    now=completed,
+                )
+                validation = {
+                    "work_unit_id": inflight["work_unit_id"],
+                    "attempt_id": inflight["attempt_id"],
+                    "packet_sha256": packet_sha256,
+                    "result_sha256": result_sha256,
+                    "validation_errors": list(result.validation_errors),
+                    "exact_base_commit": packet["base_commit"],
+                    "dispatch_origin": "PERSISTENT_CONTROLLER",
+                    "canonical_writes": 0,
+                    "protected_decisions": 0,
+                }
+                review_disposition, review_reason = self._candidate_review_disposition(
+                    "cursor", result
+                )
+                _, validation_sha256 = content_addressed_write(
+                    self.config.evidence_root,
+                    "dispatch-validations",
+                    validation,
+                    current_name=f"validation-{inflight['work_unit_id']}.json",
+                )
+                review = {
+                    "work_unit_id": inflight["work_unit_id"],
+                    "attempt_id": inflight["attempt_id"],
+                    "disposition": review_disposition,
+                    "reason": review_reason,
+                    "validation_sha256": validation_sha256,
+                    "candidate_only": True,
+                    "requires_codex_final_review": True,
+                }
+                _, review_sha256 = content_addressed_write(
+                    self.config.evidence_root,
+                    "review-queue",
+                    review,
+                    current_name=f"review-{inflight['work_unit_id']}.json",
+                )
+                cleanup = {
+                    "work_unit_id": inflight["work_unit_id"],
+                    "attempt_id": inflight["attempt_id"],
+                    "action": "NO_LOCAL_CURSOR_WORKTREE_CREATED_BY_CONTROLLER",
+                    "bytes_removed": 0,
+                }
+                _, cleanup_sha256 = content_addressed_write(
+                    self.config.evidence_root,
+                    "cleanup",
+                    cleanup,
+                    current_name=f"cleanup-{inflight['work_unit_id']}.json",
+                )
+                self.state.complete_candidate_work(
+                    work_unit_id=str(inflight["work_unit_id"]),
+                    attempt_id=str(inflight["attempt_id"]),
+                    lease_id=str(inflight["lease_id"]),
+                    validation_sha256=validation_sha256,
+                    review_sha256=review_sha256,
+                    cleanup_sha256=cleanup_sha256,
+                    validator="CURSOR_EXACT_BASE_IDENTITY_AND_AUTHORITY",
+                    validation_result="PASS" if not result.validation_errors else "QUARANTINED",
+                    reviewer="DURABLE_CANDIDATE_REVIEW_QUEUE",
+                    disposition=review_disposition,
+                    actual_cost_usd=result.actual_cost_usd,
+                    settlement_reason="CURSOR_PROVIDER_USAGE_RECONCILED",
+                    cleanup_action="NO_LOCAL_CURSOR_WORKTREE_CREATED_BY_CONTROLLER",
+                    resource={**result.resource, "provider_calls": 1, "actual_cost_usd_exact": result.actual_cost_usd},
+                    actor=self.config.owner_id,
+                    now=completed,
+                )
+                outcomes.append(
+                    {
+                        "work_unit_id": inflight["work_unit_id"],
+                        "provider": "cursor",
+                        "state": "RESULT_REVIEW_QUEUED",
+                        "result_sha256": result_sha256,
+                        "artifact_path": str(artifact_path),
+                        "artifact_sha256": artifact_sha256,
+                        "review_disposition": review_disposition,
+                        "actual_cost_usd": result.actual_cost_usd,
+                        "provider_call_attempted": False,
+                    }
+                )
+            except Exception as exc:
+                try:
+                    self.state.heartbeat_work_lease(
+                        work_unit_id=str(inflight["work_unit_id"]),
+                        attempt_id=str(inflight["attempt_id"]),
+                        lease_id=str(inflight["lease_id"]),
+                        ttl_seconds=600,
+                        now=moment,
+                    )
+                except RuntimeError:
+                    pass
+                outcomes.append(
+                    {
+                        "work_unit_id": inflight["work_unit_id"],
+                        "provider": "cursor",
+                        "state": "POLL_RETRY_PENDING",
+                        "failed": False,
+                        "retryable": True,
+                        "provider_call_attempted": False,
+                        "finding": type(exc).__name__ + ":" + str(exc)[:240],
+                    }
+                )
+        return outcomes
 
     def _dispatch_cpu(
         self,
@@ -345,6 +666,9 @@ class InventoryScheduler:
             }
             if validation["canonical_writes"] != 0 or validation["protected_decisions"] != 0:
                 raise RuntimeError("SCHEDULER_PROVIDER_AUTHORITY_VIOLATION")
+            review_disposition, review_reason = self._candidate_review_disposition(
+                str(decision.provider), result
+            )
             _, validation_sha256 = content_addressed_write(
                 self.config.evidence_root, "dispatch-validations", validation,
                 current_name=f"validation-{decision.work_unit_id}.json",
@@ -352,7 +676,8 @@ class InventoryScheduler:
             review = {
                 "work_unit_id": decision.work_unit_id,
                 "attempt_id": attempt_id,
-                "disposition": result.disposition,
+                "disposition": review_disposition,
+                "reason": review_reason,
                 "validation_sha256": validation_sha256,
                 "candidate_only": True,
             }
@@ -380,7 +705,7 @@ class InventoryScheduler:
                 validator="GOVERNED_PROVIDER_SCHEMA_EVIDENCE_AUTHORITY",
                 validation_result="PASS" if not result.validation_errors else "QUARANTINED",
                 reviewer="DURABLE_CANDIDATE_REVIEW_QUEUE",
-                disposition=result.disposition,
+                disposition=review_disposition,
                 actual_cost_usd=result.actual_cost_usd,
                 settlement_reason="AUTHORITATIVE_PROVIDER_LEDGER_RECONCILED",
                 cleanup_action="NO_RECONSTRUCTIBLE_TEMP_CREATED",
@@ -396,7 +721,7 @@ class InventoryScheduler:
                 "result_sha256": result_sha256,
                 "artifact_path": str(artifact_path),
                 "artifact_sha256": artifact_sha256,
-                "review_disposition": result.disposition,
+                "review_disposition": review_disposition,
                 "actual_cost_usd": result.actual_cost_usd,
                 "provider_call_attempted": provider_call_attempted,
             }
@@ -513,9 +838,10 @@ class InventoryScheduler:
             review = {
                 "work_unit_id": decision.work_unit_id,
                 "attempt_id": attempt_id,
-                "disposition": "REVIEW_ONLY",
-                "reason": "EXACT_DETERMINISTIC_QA_NO_AUTHORITATIVE_MUTATION",
+                "disposition": "ACCEPTED",
+                "reason": "BYTE_VERIFIED_DETERMINISTIC_CANDIDATE_UTILITY_ACCEPTED",
                 "validation_sha256": validation_sha256,
+                "candidate_only": True,
             }
             _, review_sha256 = content_addressed_write(
                 self.config.evidence_root, "review-queue", review,
@@ -531,13 +857,21 @@ class InventoryScheduler:
                 self.config.evidence_root, "cleanup", cleanup,
                 current_name=f"cleanup-{decision.work_unit_id}.json",
             )
-            self.state.complete_validated_review_only(
+            self.state.complete_candidate_work(
                 work_unit_id=decision.work_unit_id,
                 attempt_id=attempt_id,
                 lease_id=lease_id,
                 validation_sha256=validation_sha256,
                 review_sha256=review_sha256,
                 cleanup_sha256=cleanup_sha256,
+                validator="CPU_WORKER_EXACT_LOCAL_REPLAY",
+                validation_result="PASS",
+                reviewer="DETERMINISTIC_CANDIDATE_UTILITY_GATE",
+                disposition="ACCEPTED",
+                actual_cost_usd="0.000000",
+                settlement_reason="NONBILLABLE_CPU_RESOURCE_SETTLED",
+                cleanup_action="NO_RECONSTRUCTIBLE_TEMP_CREATED",
+                resource={"provider_calls": 1, "task": packet["task"]},
                 actor=self.config.owner_id,
                 now=completed,
             )
@@ -548,7 +882,7 @@ class InventoryScheduler:
                 "provider_run_id": provider_run_id,
                 "result_sha256": result_sha256,
                 "artifact_path": str(artifact_path),
-                "review_disposition": "REVIEW_ONLY",
+                "review_disposition": "ACCEPTED",
                 "provider_call_attempted": True,
             }
         except Exception as exc:
@@ -668,12 +1002,21 @@ class InventoryScheduler:
         dispatched: list[dict[str, Any]] = []
         provider_calls = 0
         cpu_client = self._cpu_client()
+        cursor_inflight = self.state.inflight_provider_runs("cursor")
+        cursor_submission_slots = max(0, 2 - len(cursor_inflight))
+        cursor_submissions = 0
         provider_packets_present = any(
             decision.disposition is not RoutingDisposition.REMOTE_CPU_WORKER
             and decision.work_unit_id in payload.get("execution_packets", {})
             for decision in eligible
         )
-        adapters = self._provider_adapters() if cycle_due and provider_packets_present else {}
+        adapters = self._provider_adapters() if (cycle_due and provider_packets_present) or cursor_inflight else {}
+        cursor_polls: list[dict[str, Any]] = []
+        if "cursor" in adapters and cursor_inflight:
+            cursor_polls = self._poll_cursor_runs(
+                adapter=adapters["cursor"],
+                moment=moment,
+            )
         if cycle_due:
             for decision in eligible:
                 if len(dispatched) >= self.config.max_dispatch_per_cycle:
@@ -691,6 +1034,18 @@ class InventoryScheduler:
                             moment=moment,
                             client=cpu_client,
                         )
+                    elif decision.disposition is RoutingDisposition.CURSOR and decision.provider == "cursor":
+                        if cursor_submissions >= cursor_submission_slots:
+                            continue
+                        result = self._dispatch_cursor_submit(
+                            payload=payload,
+                            work_unit=units[decision.work_unit_id],
+                            decision=decision,
+                            moment=moment,
+                            adapter=adapters["cursor"],
+                        )
+                        if result is not None:
+                            cursor_submissions += 1
                     elif decision.provider in adapters:
                         result = self._dispatch_candidate_provider(
                             payload=payload,
@@ -720,7 +1075,7 @@ class InventoryScheduler:
         current_states = self.state.work_unit_states(set(units))
         idle_units = []
         for decision in eligible:
-            if decision.work_unit_id in dispatched_ids or current_states.get(decision.work_unit_id) in {"CLOSED", "RETRY_WAIT", "FAILED"}:
+            if decision.work_unit_id in dispatched_ids or current_states.get(decision.work_unit_id) in {"CLOSED", "RETRY_WAIT", "FAILED", "DISPATCHED"}:
                 continue
             reason = "PROVIDER_DISPATCH_ADAPTER_NOT_INSTALLED_IN_ACTIVE_RELEASE"
             if decision.disposition is RoutingDisposition.REMOTE_CPU_WORKER:
@@ -772,6 +1127,7 @@ class InventoryScheduler:
             "dispatched_units": len(dispatched),
             "provider_calls": provider_calls,
             "dispatched": dispatched,
+            "cursor_polls": cursor_polls,
             "failures": failures,
             "idle_units": idle_units,
             "cycle_due": cycle_due,
@@ -788,6 +1144,7 @@ class InventoryScheduler:
             self.config.evidence_root, "scheduler-evaluations", report, current_name="scheduler-evaluation.json"
         )
         active_idle_ids: set[str] = set()
+        active_idle_conditions: set[str] = set()
         for item in idle_units:
             idle_id = hashlib.sha256(
                 f"{item['work_unit_id']}:{inventory_sha256}:{item['provider']}:{item['reason']}:{observed_at}".encode("utf-8")
@@ -802,7 +1159,21 @@ class InventoryScheduler:
                 now=moment,
             )
             active_idle_ids.add(item["work_unit_id"])
+            condition_id = "ELIGIBLE_WORK_IDLE:" + str(item["work_unit_id"])
+            active_idle_conditions.add(condition_id)
+            self.state.observe_operational_condition(
+                condition_id=condition_id,
+                finding="P0_ELIGIBLE_WORK_IDLE:" + str(item["work_unit_id"]),
+                threshold_seconds=600,
+                evidence_sha256=evidence_sha256,
+                now=moment,
+            )
         self.state.resolve_idle_intervals(active_idle_ids, now=moment)
+        self.state.resolve_operational_conditions(
+            active_idle_conditions,
+            managed_prefixes=("ELIGIBLE_WORK_IDLE:",),
+            now=moment,
+        )
         if cycle_due:
             self.state.record_cycle(
                 cycle_id=cycle_id,

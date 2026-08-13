@@ -3,8 +3,10 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import os
 import urllib.request
 from dataclasses import dataclass
+from decimal import Decimal
 from pathlib import Path
 from typing import Any, Callable
 
@@ -12,9 +14,18 @@ from aggie_analytics.openai_assist.contracts import Priority, sha256_value
 from aggie_analytics.openai_assist.controller import AssistiveController, AssistiveJob
 
 from .contracts import AssistiveRequest, Authority, Disposition, sha256_value as plane_sha256_value
+from .budget import BudgetLedger
+from .cursor_backend import (
+    CursorApiError,
+    CursorBackend,
+    CursorCloudClient,
+    CursorRunPolicy,
+    cursor_agent_identity,
+)
 from .dispatcher import AssistiveDispatcher
 from .openrouter_backend import OpenRouterBackend
 from .ollama_backend import OLLAMA_LOOPBACK_ENDPOINT
+from .orchestration import write_content_addressed_json
 
 
 BGE_MODEL = "bge-m3:latest"
@@ -25,6 +36,7 @@ BGE_PROMPT_VERSION = "embedding-shadow-v1"
 BGE_SCHEMA_VERSION = "1"
 BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c"
 OPENROUTER_TASK_FORMAT = "governed_openrouter_candidate_v1"
+CURSOR_TASK_FORMAT = "governed_cursor_repository_review_v1"
 
 
 class _CountingBackend:
@@ -344,5 +356,158 @@ class GovernedOpenRouterAdapter:
                 "openrouter_disposition": result.disposition.value,
                 "reasoning_effort": request.reasoning_effort,
                 "model": request.model,
+            },
+        )
+
+
+class GovernedCursorAdapter:
+    """Durable submit/poll bridge for exact-base candidate-only Cursor agents."""
+
+    TERMINAL = frozenset({"FINISHED", "ERROR", "CANCELLED", "EXPIRED"})
+
+    def __init__(
+        self,
+        root: Path,
+        *,
+        client: CursorCloudClient | None = None,
+        store_root: Path = Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor"),
+    ) -> None:
+        self.root = root.resolve()
+        self.store_root = store_root
+        policy = json.loads((self.root / "configs" / "unified_assistive_policy.json").read_text(encoding="utf-8"))
+        budget = policy["budgets"]["cursor"]
+        self.ledger = BudgetLedger(
+            self.store_root / "usage" / "ledger.json",
+            Decimal(str(budget["hard_limit_usd"])),
+            Decimal(str(budget["released_stage_usd"])),
+        )
+        env_path = Path(
+            os.environ.get("AGGIE_AUTHORITATIVE_ENV_PATH", r"C:\BatteredAggieSyndrome\.env")
+        )
+        self.client = client or CursorCloudClient(env_path)
+
+    @staticmethod
+    def _job_identity(packet: dict[str, Any]) -> str:
+        return plane_sha256_value(
+            {
+                "jira_unit": packet.get("jira_unit"),
+                "prompt": packet.get("prompt"),
+                "repository_url": packet.get("repository_url"),
+                "starting_ref": packet.get("starting_ref"),
+                "base_commit": packet.get("base_commit"),
+                "model": packet.get("model"),
+                "reasoning": packet.get("reasoning"),
+                "task_format": packet.get("task_format"),
+                "schema_sha256": packet.get("schema_sha256"),
+            }
+        )
+
+    def submit(self, packet: dict[str, Any]) -> dict[str, Any]:
+        if packet.get("provider") != "cursor" or packet.get("task_format") != CURSOR_TASK_FORMAT:
+            raise RuntimeError("CURSOR_TASK_FORMAT_NOT_ADMITTED")
+        if packet.get("authority") != "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES":
+            raise RuntimeError("CURSOR_PACKET_AUTHORITY_INVALID")
+        backend = CursorBackend(
+            CursorRunPolicy(model=str(packet["model"]), reasoning=str(packet["reasoning"]))
+        )
+        job_id = self._job_identity(packet)
+        agent_id = cursor_agent_identity(job_id)
+        reservation = Decimal(str(packet["max_reservation_usd"]))
+        self.ledger.reserve(job_id, reservation)
+        payload = backend.build_create_payload(
+            prompt=str(packet["prompt"]),
+            repository_url=str(packet["repository_url"]),
+            starting_ref=str(packet["starting_ref"]),
+            agent_id=agent_id,
+        )
+        try:
+            response = self.client.request("POST", "/agents", payload)
+        except CursorApiError as exc:
+            if exc.status != 409 or exc.code != "agent_id_conflict":
+                self.ledger.release(job_id)
+                raise
+            response = {
+                "agent": self.client.request("GET", f"/agents/{agent_id}"),
+                "idempotent_conflict_recovery": True,
+            }
+        evidence = {
+            "schema_version": 1,
+            "artifact_type": "CURSOR_CONTROLLER_ROUTED_SUBMISSION",
+            "job_id": job_id,
+            "agent_id": agent_id,
+            "jira_unit": packet["jira_unit"],
+            "base_commit": packet["base_commit"],
+            "model": backend.policy.model,
+            "reasoning": backend.policy.reasoning,
+            "fast": False,
+            "work_on_current_branch": False,
+            "auto_create_pr": False,
+            "reservation_usd": format(reservation, "f"),
+            "prompt_sha256": hashlib.sha256(str(packet["prompt"]).encode("utf-8")).hexdigest(),
+            "response": response,
+            "dispatch_origin": "PERSISTENT_CONTROLLER",
+            "candidate_only": True,
+        }
+        path, digest = write_content_addressed_json(self.store_root, "controller_requests", evidence)
+        return {
+            "job_id": job_id,
+            "agent_id": agent_id,
+            "request_path": str(path),
+            "request_sha256": digest,
+            "provider_calls": 1,
+        }
+
+    def poll(self, packet: dict[str, Any], handle: dict[str, Any]) -> ProviderAdapterResult | None:
+        job_id = self._job_identity(packet)
+        agent_id = cursor_agent_identity(job_id)
+        if handle.get("job_id") != job_id or handle.get("agent_id") != agent_id:
+            raise RuntimeError("CURSOR_DURABLE_HANDLE_IDENTITY_MISMATCH")
+        agent = self.client.request("GET", f"/agents/{agent_id}")
+        run_id = str(agent.get("latestRunId", ""))
+        if not run_id:
+            return None
+        run = self.client.request("GET", f"/agents/{agent_id}/runs/{run_id}")
+        status = str(run.get("status", ""))
+        if status not in self.TERMINAL:
+            return None
+        usage = self.client.request("GET", f"/agents/{agent_id}/usage")
+        cost = usage.get("cost", {})
+        charged_cents = cost.get("chargedCents") if isinstance(cost, dict) else None
+        if charged_cents is None:
+            raise RuntimeError("CURSOR_TERMINAL_USAGE_COST_MISSING")
+        actual = Decimal(str(charged_cents)) / Decimal("100")
+        self.ledger.settle(job_id, actual)
+        result = {
+            "schema_version": 1,
+            "artifact_type": "CURSOR_CONTROLLER_ROUTED_CANDIDATE_RESULT",
+            "job_id": job_id,
+            "agent_id": agent_id,
+            "run_id": run_id,
+            "status": status,
+            "agent": agent,
+            "run": run,
+            "usage": usage,
+            "git": run.get("git", {}),
+            "dispatch_origin": "PERSISTENT_CONTROLLER",
+            "authority": "CANDIDATE_ONLY",
+            "canonical_writes": 0,
+            "protected_decisions": 0,
+        }
+        path, digest = write_content_addressed_json(self.store_root, "controller_results", result)
+        disposition = "REVIEW_ONLY" if status == "FINISHED" else "REJECTED"
+        return ProviderAdapterResult(
+            remote_identity=f"{agent_id}:{run_id}",
+            result={**result, "artifact_path": str(path), "artifact_sha256": digest},
+            disposition=disposition,
+            validation_errors=() if status == "FINISHED" else (f"CURSOR_RUN_{status}",),
+            actual_cost_usd=format(actual, "f"),
+            resource={
+                "provider_calls": 0,
+                "agent_id": agent_id,
+                "run_id": run_id,
+                "job_id": job_id,
+                "branch": run.get("git", {}).get("branchName") if isinstance(run.get("git"), dict) else None,
+                "model": packet["model"],
+                "reasoning": packet["reasoning"],
             },
         )

@@ -22,6 +22,7 @@ FILES = (
     "src/aggie_analytics/assistive_plane/contracts.py",
     "src/aggie_analytics/assistive_plane/controller_state.py",
     "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
+    "src/aggie_analytics/assistive_plane/cursor_backend.py",
     "src/aggie_analytics/assistive_plane/dispatcher.py",
     "src/aggie_analytics/assistive_plane/inventory_runtime.py",
     "src/aggie_analytics/assistive_plane/ollama_backend.py",

@@ -29,6 +29,7 @@ MAX_DISCOVERED_UNITS = 64
 MAX_PROVIDER_WORK_BYTES = 2 * 1024 * 1024
 MAX_PROVIDER_WORK_UNITS = 64
 MAX_PROVIDER_WORK_SCAN_UNITS = 4096
+MAX_HISTORICAL_MANIFEST_SCAN_UNITS = 65536
 DISCOVERY_NAMES = frozenset({"run.json", "progress.json"})
 DYNAMIC_PREFIXES = (
     "AUTO-CPU-MANIFEST-",
@@ -37,6 +38,7 @@ DYNAMIC_PREFIXES = (
     "AUTO-BGE-",
     "AUTO-OAI-",
     "AUTO-OR-",
+    "AUTO-CURSOR-",
 )
 CPU_MANIFEST_TASK_FORMAT = "cpu_worker_canonical_manifest_v1"
 CPU_MANIFEST_SCHEMA_SHA256 = hashlib.sha256(
@@ -64,6 +66,17 @@ CPU_EXACT_ROUTES = {
     ),
 }
 OPENROUTER_TASK_FORMAT = "governed_openrouter_candidate_v1"
+CURSOR_TASK_FORMAT = "governed_cursor_repository_review_v1"
+CURSOR_SCHEMA_SHA256 = hashlib.sha256(
+    b"governed_cursor_repository_review_v1:exact-base;candidate-only;no-pr;no-authority"
+).hexdigest()
+BGE_MODEL = "bge-m3:latest"
+BGE_MODEL_DIGEST = "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab"
+BGE_TASK_FORMAT = "embedding_dedup_semantic_candidate_retrieval"
+BGE_POLICY_VERSION = "unified-assistive-execution-plane-v2-operational-correction"
+BGE_PROMPT_VERSION = "embedding-shadow-v1"
+BGE_SCHEMA_VERSION = "1"
+BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c"
 READY_WORK_UNIT_FIELDS = frozenset(ReadyWorkUnit.__dataclass_fields__)
 ROUTE_DECISION_FIELDS = frozenset(RouteDecision.__dataclass_fields__)
 
@@ -135,6 +148,84 @@ def _verified_json(path: Path, expected_sha256: str | None = None) -> dict[str, 
     return payload
 
 
+def _bounded_json_scan(
+    root: Path,
+    *,
+    limit: int,
+    allowed_names: frozenset[str] | None = None,
+) -> tuple[list[Path], bool]:
+    """Traverse an allowlisted root without first materializing an unbounded tree."""
+    if limit <= 0:
+        raise ValueError("BOUNDED_JSON_SCAN_LIMIT_INVALID")
+    resolved_root = root.resolve(strict=True)
+    directories = [resolved_root]
+    files: list[Path] = []
+    visited_directories = 0
+    directory_limit = max(1024, limit * 8)
+    capped = False
+    while directories and len(files) < limit:
+        current = directories.pop()
+        visited_directories += 1
+        if visited_directories > directory_limit:
+            capped = True
+            break
+        try:
+            entries = sorted(os.scandir(current), key=lambda entry: entry.name, reverse=True)
+        except OSError:
+            raise
+        for entry in entries:
+            try:
+                candidate = current / entry.name
+                if entry.is_dir(follow_symlinks=False):
+                    # Preserve the caller's canonical root spelling. Windows runners can
+                    # return a long path from scandir beneath an 8.3-form temp root,
+                    # causing an otherwise valid relative_to() check to fail.
+                    directories.append(candidate)
+                elif (
+                    entry.is_file(follow_symlinks=False)
+                    and entry.name.endswith(".json")
+                    and (allowed_names is None or entry.name in allowed_names)
+                ):
+                    files.append(candidate)
+                    if len(files) >= limit:
+                        capped = bool(directories) or entries.index(entry) < len(entries) - 1
+                        break
+            except OSError:
+                continue
+    if directories:
+        capped = True
+    return sorted(files, key=lambda path: path.relative_to(resolved_root).as_posix()), capped
+
+
+def _bounded_top_level_json_scan(
+    root: Path,
+    *,
+    limit: int,
+    name_prefix: str | None = None,
+) -> tuple[list[Path], bool]:
+    """Scan one explicit registry directory without traversing legacy subtrees."""
+    if limit <= 0:
+        raise ValueError("BOUNDED_TOP_LEVEL_JSON_SCAN_LIMIT_INVALID")
+    resolved_root = root.resolve(strict=True)
+    files: list[Path] = []
+    capped = False
+    for entry in sorted(os.scandir(resolved_root), key=lambda item: item.name):
+        try:
+            if not entry.is_file(follow_symlinks=False) or not entry.name.endswith(".json"):
+                continue
+            if name_prefix is not None and not entry.name.startswith(name_prefix):
+                continue
+            if len(files) >= limit:
+                capped = True
+                break
+            # Construct from the resolved registry root rather than entry.path so
+            # Windows short/long path aliases cannot escape the relative identity.
+            files.append(resolved_root / entry.name)
+        except OSError:
+            continue
+    return files, capped
+
+
 @dataclass(frozen=True)
 class RuntimeInventoryConfig:
     current_path: Path
@@ -148,6 +239,8 @@ class RuntimeInventoryConfig:
     semantic_policy_path: Path | None = None
     semantic_readiness_path: Path | None = None
     external_assistive_root: Path | None = None
+    continuous_source_root: Path | None = None
+    project_root: Path | None = None
     refresh_max_age_seconds: int = 240
 
     def validate(self) -> None:
@@ -157,6 +250,10 @@ class RuntimeInventoryConfig:
             raise ValueError("RUNTIME_INVENTORY_MANIFEST_ROOT_NOT_ABSOLUTE")
         if self.provider_work_root is not None and not self.provider_work_root.is_absolute():
             raise ValueError("RUNTIME_INVENTORY_PROVIDER_WORK_ROOT_NOT_ABSOLUTE")
+        if self.continuous_source_root is not None and not self.continuous_source_root.is_absolute():
+            raise ValueError("RUNTIME_INVENTORY_CONTINUOUS_SOURCE_ROOT_NOT_ABSOLUTE")
+        if self.project_root is not None and not self.project_root.is_absolute():
+            raise ValueError("RUNTIME_INVENTORY_PROJECT_ROOT_NOT_ABSOLUTE")
         if (self.release_root is None) != (self.build_commit is None):
             raise ValueError("RUNTIME_INVENTORY_RELEASE_IDENTITY_INCOMPLETE")
         if self.release_root is not None and not self.release_root.is_absolute():
@@ -188,6 +285,7 @@ class RuntimeInventoryRefresher:
         self.state = state
         self.config = config
         self._semantic_module: Any | None = None
+        self._provider_packet_findings: list[dict[str, str]] = []
 
     def _load_semantic_module(self) -> Any:
         if self._semantic_module is not None:
@@ -418,18 +516,48 @@ class RuntimeInventoryRefresher:
                         "budget_remaining_usd": format(remaining_usd, "f"),
                     }
                 )
+        if provider == "cursor" and packet.get("task_format") == CURSOR_TASK_FORMAT:
+            evidence = snapshot.get("external_evidence", {}).get("cursor", {})
+            digest = evidence.get("manifest_sha256")
+            try:
+                settled = Decimal(str(evidence.get("settled_usd", "0")))
+            except InvalidOperation:
+                return None
+            if (
+                evidence.get("present") is True
+                and int(evidence.get("unique_jobs", 0)) >= 2
+                and cls._valid_sha256(digest)
+                and settled < Decimal("20.00")
+                and packet.get("model") == "gpt-5.3-codex"
+                and packet.get("reasoning") in {"low", "medium"}
+            ):
+                return sha256_value(
+                    {
+                        "cursor_evidence_sha256": str(digest),
+                        "settled_usd": format(settled, "f"),
+                        "model": packet.get("model"),
+                        "reasoning": packet.get("reasoning"),
+                    }
+                )
         return None
 
-    def _discover_provider_work(
-        self, snapshot: dict[str, Any], moment: datetime
+    def _discover_provider_work_batch(
+        self,
+        snapshot: dict[str, Any],
+        moment: datetime,
+        candidates_override: list[Path] | None = None,
     ) -> list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]]:
         root_value = self.config.provider_work_root
         if root_value is None or not root_value.exists():
             return []
         root = root_value.resolve(strict=True)
-        candidates = sorted(
-            (path for path in root.rglob("*.json") if 0 < path.stat().st_size <= MAX_PROVIDER_WORK_BYTES),
-            key=lambda path: path.relative_to(root).as_posix(),
+        candidates = (
+            sorted(
+                (path for path in root.rglob("*.json") if 0 < path.stat().st_size <= MAX_PROVIDER_WORK_BYTES),
+                key=lambda path: path.relative_to(root).as_posix(),
+            )
+            if candidates_override is None
+            else candidates_override
         )
         if len(candidates) > MAX_PROVIDER_WORK_SCAN_UNITS:
             raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_SCAN_BOUND_EXCEEDED")
@@ -533,6 +661,28 @@ class RuntimeInventoryRefresher:
             elif provider == "ollama_local" and task_format == "embedding_dedup_semantic_candidate_retrieval":
                 prefix = "AUTO-BGE-"
                 disposition = RoutingDisposition.LOCAL_QWEN
+                model = packet.get("model")
+            elif provider == "cursor" and task_format == CURSOR_TASK_FORMAT:
+                expected_base_commit = self._snapshot_release_commit(snapshot)
+                if (
+                    packet.get("jira_unit") != "POST-SUBTASK-202"
+                    or packet.get("schema_sha256") != CURSOR_SCHEMA_SHA256
+                    or packet.get("model") != "gpt-5.3-codex"
+                    or packet.get("reasoning") not in {"low", "medium"}
+                    or packet.get("base_commit") != expected_base_commit
+                    or packet.get("starting_ref") != expected_base_commit
+                    or packet.get("fast") is not False
+                    or packet.get("work_on_current_branch") is not False
+                    or packet.get("auto_create_pr") is not False
+                    or not isinstance(packet.get("repository_url"), str)
+                    or not str(packet.get("repository_url")).startswith("https://github.com/")
+                    or not isinstance(packet.get("prompt"), str)
+                    or not str(packet.get("prompt")).strip()
+                    or Decimal(str(packet.get("max_reservation_usd", "0"))) <= 0
+                ):
+                    raise ValueError("RUNTIME_INVENTORY_CURSOR_PACKET_INVALID")
+                prefix = "AUTO-CURSOR-"
+                disposition = RoutingDisposition.CURSOR
                 model = packet.get("model")
             elif provider == "remote_cpu_worker" and str(packet.get("task", "")) in CPU_EXACT_ROUTES:
                 task = str(packet["task"])
@@ -653,9 +803,831 @@ class RuntimeInventoryRefresher:
             raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_ACTIVE_BOUND_EXCEEDED")
         return active
 
+    def _discover_provider_work(
+        self, snapshot: dict[str, Any], moment: datetime
+    ) -> list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]]:
+        """Isolate malformed packets by exact identity while admitting unrelated work."""
+        self._provider_packet_findings = []
+        root_value = self.config.provider_work_root
+        if root_value is None or not root_value.exists():
+            return []
+        root = root_value.resolve(strict=True)
+        candidates, scan_capped = _bounded_json_scan(
+            root,
+            limit=MAX_PROVIDER_WORK_SCAN_UNITS,
+        )
+        if scan_capped:
+            finding = {
+                "finding": "RUNTIME_INVENTORY_PROVIDER_WORK_SCAN_CAPACITY_DEFERRED",
+                "observed_at": rfc3339(moment),
+                "disposition": "EXCESS_PACKETS_REMAIN_QUEUED_UNRELATED_PACKETS_CONTINUE",
+            }
+            self._provider_packet_findings.append(finding)
+            self.state.append_event("PROVIDER_PACKET_CAPACITY_DEFERRED", finding, now=moment)
+        discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
+        for source in candidates:
+            try:
+                if not 0 < source.stat().st_size <= MAX_PROVIDER_WORK_BYTES:
+                    raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_SIZE_INVALID")
+                discovered.extend(
+                    self._discover_provider_work_batch(
+                        snapshot,
+                        moment,
+                        candidates_override=[source],
+                    )
+                )
+            except (OSError, KeyError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
+                try:
+                    raw = source.read_bytes()
+                except OSError:
+                    raw = str(source).encode("utf-8")
+                digest = hashlib.sha256(raw).hexdigest()
+                quarantine_root = root.parent / "quarantine" / "sha256" / digest
+                payload_path = quarantine_root / "packet.json"
+                finding_path = quarantine_root / "finding.json"
+                if not payload_path.exists():
+                    _atomic_write(payload_path, raw)
+                elif payload_path.read_bytes() != raw:
+                    raise RuntimeError("PROVIDER_PACKET_QUARANTINE_COLLISION")
+                finding = {
+                    "finding": type(exc).__name__ + ":" + str(exc)[:240],
+                    "observed_at": rfc3339(moment),
+                    "disposition": "PACKET_QUARANTINED_UNRELATED_PROVIDER_WORK_CONTINUES",
+                    "packet_sha256": digest,
+                    "source_relative_path": source.relative_to(root).as_posix(),
+                    "quarantine_path": str(payload_path),
+                }
+                finding_data = canonical_json_bytes(finding) + b"\n"
+                if not finding_path.exists():
+                    _atomic_write(finding_path, finding_data)
+                elif finding_path.read_bytes() != finding_data:
+                    versioned = quarantine_root / f"finding-{hashlib.sha256(finding_data).hexdigest()}.json"
+                    if not versioned.exists():
+                        _atomic_write(versioned, finding_data)
+                try:
+                    source.unlink()
+                except OSError:
+                    finding["disposition"] = "PACKET_QUARANTINED_SOURCE_REMOVAL_PENDING"
+                self._provider_packet_findings.append(finding)
+                self.state.append_event("PROVIDER_PACKET_QUARANTINED", finding, now=moment)
+        if len(discovered) > MAX_PROVIDER_WORK_UNITS:
+            admitted = discovered[:MAX_PROVIDER_WORK_UNITS]
+            deferred = len(discovered) - len(admitted)
+            finding = {
+                "finding": f"RUNTIME_INVENTORY_PROVIDER_ACTIVE_CAPACITY_DEFERRED:{deferred}",
+                "observed_at": rfc3339(moment),
+                "disposition": "EXCESS_VALID_PACKETS_REMAIN_QUEUED_UNRELATED_PACKETS_CONTINUE",
+            }
+            self._provider_packet_findings.append(finding)
+            self.state.append_event("PROVIDER_PACKET_CAPACITY_DEFERRED", finding, now=moment)
+            return admitted
+        return discovered
+
     @staticmethod
     def _cpu_qualified(snapshot: dict[str, Any]) -> bool:
         return cpu_qualification_evidence_sha256(snapshot) is not None
+
+    def _operational_demand(
+        self,
+        snapshot: dict[str, Any],
+        route_decisions: list[dict[str, Any]],
+        work_unit_roles: dict[str, str],
+    ) -> dict[str, Any]:
+        """Compute campaign debt independently of the currently materialized packet queue."""
+        policy_path = self.config.semantic_policy_path
+        if policy_path is None:
+            return {"enabled": False, "providers": {}, "unmet_provider_count": 0}
+        policy = _verified_json(policy_path)
+        minimums = policy.get("execution_minimums", {})
+        external = snapshot.get("external_evidence", {})
+        controller = self.state.provider_run_summary(current_release_only=True)
+        provider_map = {
+            "cursor": ("cursor", "cursor"),
+            "openrouter": ("openrouter", "openrouter"),
+            "direct_openai": ("openai_direct", "openai"),
+            "remote_cpu_worker": ("remote_cpu_worker", "cpu_worker"),
+            "local_models_post_qualification": ("ollama_local", "local_qwen"),
+        }
+        active_packets: dict[str, int] = {}
+        for decision in route_decisions:
+            provider = decision.get("provider")
+            work_unit_id = str(decision.get("work_unit_id", ""))
+            if (
+                provider
+                and decision.get("disposition") in {
+                    RoutingDisposition.DIRECT_OPENAI.value,
+                    RoutingDisposition.OPENROUTER.value,
+                    RoutingDisposition.CURSOR.value,
+                    RoutingDisposition.LOCAL_QWEN.value,
+                    RoutingDisposition.REMOTE_CPU_WORKER.value,
+                }
+                and work_unit_roles.get(work_unit_id) == ATOMIC_EXECUTABLE
+            ):
+                active_packets[str(provider)] = active_packets.get(str(provider), 0) + 1
+
+        providers: dict[str, Any] = {}
+        for policy_key, (provider, evidence_key) in provider_map.items():
+            requirement = minimums.get(policy_key)
+            if not isinstance(requirement, dict):
+                continue
+            required_units = int(requirement.get("new_controller_routed_units", requirement.get("units", 0)))
+            required_effort = int(requirement.get("effort_points", 0))
+            required_accepted = int(requirement.get("accepted_useful", 0))
+            summary = controller.get(provider, {})
+            observed_units = int(summary.get("closed_runs", 0))
+            observed_effort = int(summary.get("closed_effort_points", 0))
+            review_counts = summary.get("review_dispositions", {})
+            observed_accepted = int(review_counts.get("ACCEPTED", 0)) + int(review_counts.get("MODIFIED", 0))
+            pending_review = 0
+            semantic = external.get(evidence_key, {})
+            manual_or_external_units = int(
+                semantic.get("unique_jobs", semantic.get("requests", semantic.get("settled_calls", 0)))
+            )
+            controller_routed_units = int(summary.get("closed_runs", 0))
+            deficits = {
+                "units": max(0, required_units - observed_units),
+                "effort_points": max(0, required_effort - observed_effort),
+                "accepted_useful": max(0, required_accepted - observed_accepted),
+            }
+            unmet = any(deficits.values())
+            providers[provider] = {
+                "policy_key": policy_key,
+                "required_units": required_units,
+                "required_effort_points": required_effort,
+                "required_accepted_useful": required_accepted,
+                "observed_units": observed_units,
+                "observed_effort_points": observed_effort,
+                "observed_accepted_useful": observed_accepted,
+                "controller_routed_units": controller_routed_units,
+                "manual_or_external_units": manual_or_external_units,
+                "active_execution_packets": active_packets.get(provider, 0),
+                "pending_review_results": pending_review,
+                "deficits": deficits,
+                "unmet": unmet,
+            }
+        return {
+            "enabled": True,
+            "providers": providers,
+            "unmet_provider_count": sum(int(item["unmet"]) for item in providers.values()),
+            "unmet_without_packets": sorted(
+                provider
+                for provider, item in providers.items()
+                if item["unmet"]
+                and item["active_execution_packets"] == 0
+                and item["pending_review_results"] == 0
+            ),
+            "unmet_pending_review": sorted(
+                provider
+                for provider, item in providers.items()
+                if item["unmet"]
+                and item["active_execution_packets"] == 0
+                and item["pending_review_results"] > 0
+            ),
+        }
+
+    def _materialize_continuous_openrouter_work(
+        self,
+        snapshot: dict[str, Any],
+        demand: dict[str, Any],
+    ) -> list[dict[str, str]]:
+        """Compile new real BAS evidence into three governed reasoning categories."""
+        queue_root = self.config.provider_work_root
+        manifests_root = self.config.manifests_root.resolve(strict=False)
+        if queue_root is None or not manifests_root.is_dir():
+            return []
+        openrouter = demand.get("providers", {}).get("openrouter", {})
+        if (
+            not openrouter.get("unmet")
+            or int(openrouter.get("active_execution_packets", 0)) > 0
+            or int(openrouter.get("pending_review_results", 0)) >= 6
+        ):
+            return []
+        routes = snapshot.get("external_evidence", {}).get("openrouter", {}).get("routes", [])
+        ready_routes = {
+            str(route["task_id"]): route
+            for route in routes
+            if isinstance(route, dict)
+            and route.get("task_id") in {
+                "schema_drift_review", "reconciliation_ranking", "independent_review"
+            }
+            and route.get("readiness_supported_state") == "READY"
+            and route.get("evidence_verified") is True
+        }
+        if not ready_routes:
+            return []
+        release_commit = self._snapshot_release_commit(snapshot)
+        data_root = manifests_root.parent
+        source_specs = (
+            (
+                "schema_drift_review",
+                manifests_root,
+                None,
+                "Identify only evidence-supported schema drift, missingness, reconciliation, or provenance risks.",
+            ),
+            (
+                "reconciliation_ranking",
+                data_root / "reconciliation" / "historical_expansion",
+                None,
+                "Rank the evidence-supported reconciliation or missingness risks requiring deterministic follow-up.",
+            ),
+            (
+                "independent_review",
+                data_root / "reconciliation" / "feature_engineering",
+                None,
+                "Independently challenge this candidate artifact for leakage, unsupported claims, and missing evidence.",
+            ),
+        )
+        capacity = max(0, 6 - int(openrouter.get("pending_review_results", 0)))
+        created: list[dict[str, str]] = []
+        for task_id, task_root, allowed_names, instruction in source_specs:
+            if task_id not in ready_routes or not task_root.is_dir():
+                continue
+            if task_root == manifests_root:
+                scanned, _ = _bounded_top_level_json_scan(
+                    task_root,
+                    limit=MAX_HISTORICAL_MANIFEST_SCAN_UNITS,
+                    name_prefix="snap_",
+                )
+            else:
+                scanned, _ = _bounded_json_scan(
+                    task_root,
+                    limit=256,
+                    allowed_names=allowed_names,
+                )
+            candidates = sorted(
+                (
+                    path for path in scanned
+                    if task_root != manifests_root or path.name.startswith("snap_")
+                    if 0 < path.stat().st_size <= MAX_DISCOVERED_MANIFEST_BYTES
+                ),
+                key=lambda path: (-path.stat().st_mtime_ns, path.as_posix()),
+            )
+            route = ready_routes[task_id]
+            for resolved in candidates:
+                if len(created) >= min(3, capacity):
+                    break
+                raw = resolved.read_bytes()
+                source_sha256 = hashlib.sha256(raw).hexdigest()
+                value = json.loads(raw)
+                if not isinstance(value, dict):
+                    continue
+                relative = resolved.relative_to(data_root.resolve(strict=True)).as_posix()
+                evidence = json.dumps(
+                    {
+                        "instruction": instruction + " Use NOT_PRESENT when evidence is absent.",
+                        "source_relative_path": relative,
+                        "source_sha256": source_sha256,
+                        "evidence": value,
+                    },
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )
+                if len(evidence) > 12000:
+                    continue
+                source_hashes = [source_sha256]
+                packet: dict[str, Any] = {
+                    "schema_version": 1,
+                    "provider": "openrouter",
+                    "task_format": OPENROUTER_TASK_FORMAT,
+                    "task_id": task_id,
+                    "jira_unit": "POST-SUBTASK-200",
+                    "schema_sha256": str(route["schema_sha256"]),
+                    "request_schema_version": str(route["request_schema_version"]),
+                    "provider_policy_version": str(route["provider_policy_version"]),
+                    "model": str(route["model"]),
+                    "reasoning_effort": str(route["reasoning_effort"]),
+                    "max_output_tokens": 512,
+                    "base_commit": release_commit,
+                    "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+                    "source_hashes": source_hashes,
+                    "dependencies": [],
+                    "pre_routing_effort_points": 3,
+                    "scope": f"Continuous candidate-only {task_id} for {relative}",
+                    "prompt_version": "continuous-real-bas-evidence-v2",
+                    "evidence_excerpts": [evidence],
+                }
+                packet["identity_hashes"] = {
+                    "task_sha256": sha256_value(
+                        {"task_id": task_id, "jira_unit": packet["jira_unit"], "authority": packet["authority"]}
+                    ),
+                    "schema_sha256": sha256_value(
+                        {"schema_version": packet["request_schema_version"], "schema_sha256": packet["schema_sha256"]}
+                    ),
+                    "policy_sha256": sha256_value(
+                        {"provider_policy_version": packet["provider_policy_version"], "task_format": packet["task_format"]}
+                    ),
+                    "model_sha256": sha256_value({"model": packet["model"]}),
+                    "reasoning_sha256": sha256_value(
+                        {"reasoning_effort": packet["reasoning_effort"], "max_output_tokens": packet["max_output_tokens"]}
+                    ),
+                    "source_sha256": sha256_value(tuple(source_hashes)),
+                }
+                data = canonical_json_bytes(packet) + b"\n"
+                digest = hashlib.sha256(data).hexdigest()
+                work_unit_id = "AUTO-OR-" + digest[:20]
+                if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+                    continue
+                destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+                if destination.exists() and destination.read_bytes() != data:
+                    raise RuntimeError("CONTINUOUS_WORK_PACKET_COLLISION")
+                if not destination.exists():
+                    _atomic_write(destination, data)
+                created.append(
+                    {
+                        "provider": "openrouter",
+                        "task_id": task_id,
+                        "source_relative_path": relative,
+                        "source_sha256": source_sha256,
+                        "packet_path": str(destination),
+                        "packet_sha256": digest,
+                    }
+                )
+                break
+            if len(created) >= min(3, capacity):
+                break
+        return created
+
+    def _materialize_continuous_cursor_work(
+        self,
+        snapshot: dict[str, Any],
+        demand: dict[str, Any],
+    ) -> list[dict[str, str]]:
+        queue_root = self.config.provider_work_root
+        if queue_root is None:
+            return []
+        cursor = demand.get("providers", {}).get("cursor", {})
+        if (
+            not cursor.get("unmet")
+            or int(cursor.get("active_execution_packets", 0)) > 0
+            or int(cursor.get("pending_review_results", 0)) > 0
+        ):
+            return []
+        release_commit = self._snapshot_release_commit(snapshot)
+        release_root = self.config.release_root
+        if release_root is None:
+            return []
+        review_targets = (
+            ("src/aggie_analytics/assistive_plane/inventory_runtime.py", "bounded semantic work discovery, duplicate suppression, and per-packet isolation"),
+            ("src/aggie_analytics/assistive_plane/scheduler_runtime.py", "durable provider lifecycle, restart recovery, and no duplicate submission"),
+            ("src/aggie_analytics/assistive_plane/controller_state.py", "atomic state transitions, leases, settlements, and reconciliation"),
+            ("src/aggie_analytics/assistive_plane/watchdog.py", "independent operational completeness and starvation detection"),
+            ("src/aggie_analytics/assistive_plane/provider_adapters.py", "exact route identity, candidate-only authority, and usage settlement"),
+            ("src/aggie_analytics/assistive_plane/service_runtime.py", "unattended refresh and dispatch cadence"),
+            ("src/aggie_analytics/assistive_plane/cursor_backend.py", "Cursor idempotency, branch isolation, and budget lifecycle"),
+            ("src/aggie_analytics/assistive_plane/orchestration.py", "routing identity immutability and workload accounting"),
+            ("src/aggie_analytics/assistive_plane/budget.py", "reservation hard stops and settlement consistency"),
+            ("src/aggie_analytics/assistive_plane/cpu_worker_backend.py", "signed request identity, replay, and bounded deterministic authority"),
+            ("tools/run_unified_assistive_controller.py", "deployment configuration and fail-closed defaults"),
+            ("tools/materialize_unified_assistive_inventory.py", "semantic evidence interpretation and route disposition integrity"),
+        )
+        created: list[dict[str, str]] = []
+        for relative, focus in review_targets:
+            source = release_root / relative
+            if not source.is_file():
+                continue
+            source_sha256 = hashlib.sha256(source.read_bytes()).hexdigest()
+            packet: dict[str, Any] = {
+                "schema_version": 1,
+                "provider": "cursor",
+                "task_format": CURSOR_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-202",
+                "schema_sha256": CURSOR_SCHEMA_SHA256,
+                "source_hashes": [source_sha256, sha256_value({"release_commit": release_commit})],
+                "dependencies": [],
+                "pre_routing_effort_points": 5,
+                "scope": f"Controller-routed candidate-only review of {relative}: {focus}.",
+                "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                "starting_ref": release_commit,
+                "base_commit": release_commit,
+                "model": "gpt-5.3-codex",
+                "reasoning": "medium",
+                "fast": False,
+                "work_on_current_branch": False,
+                "auto_create_pr": False,
+                "max_reservation_usd": "2.00",
+                "prompt": (
+                    f"Perform an independent candidate-only review of {relative} at exact base commit "
+                    f"{release_commit}. Focus only on {focus}. Trace relevant callers and tests when "
+                    "needed, but do not modify files, create commits, push branches, or open a PR. "
+                    "Return evidence-backed findings with exact file/line references and severity. "
+                    "Do not read or expose .env, credentials, private raw data, or protected evidence. "
+                    "You have no canonical, protected, Git, Jira, forecast, model-promotion, BAS, or "
+                    "publication authority."
+                ),
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            data = canonical_json_bytes(packet) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            work_unit_id = "AUTO-CURSOR-" + digest[:20]
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+                continue
+            destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+            if destination.exists() and destination.read_bytes() != data:
+                raise RuntimeError("CONTINUOUS_CURSOR_PACKET_COLLISION")
+            if not destination.exists():
+                _atomic_write(destination, data)
+            created.append(
+                {
+                    "provider": "cursor",
+                    "source_relative_path": relative,
+                    "source_sha256": source_sha256,
+                    "packet_path": str(destination),
+                    "packet_sha256": digest,
+                }
+            )
+            if len(created) >= 2:
+                break
+        return created
+
+    def _materialize_continuous_cpu_work(
+        self,
+        snapshot: dict[str, Any],
+        demand: dict[str, Any],
+    ) -> list[dict[str, str]]:
+        queue_root = self.config.provider_work_root
+        cpu = demand.get("providers", {}).get("remote_cpu_worker", {})
+        if (
+            queue_root is None
+            or not cpu.get("unmet")
+            or int(cpu.get("active_execution_packets", 0)) > 0
+        ):
+            return []
+        historical_root = self.config.manifests_root.resolve(strict=False)
+        if not historical_root.is_dir():
+            return []
+        candidates, _ = _bounded_top_level_json_scan(
+            historical_root,
+            limit=MAX_HISTORICAL_MANIFEST_SCAN_UNITS,
+            name_prefix="snap_",
+        )
+        candidates = sorted(
+            (path for path in candidates if path.name.startswith("snap_")),
+            key=lambda path: (-path.stat().st_mtime_ns, path.as_posix()),
+        )
+        created: list[dict[str, str]] = []
+        for source in candidates:
+            raw = source.read_bytes()
+            if not 0 < len(raw) <= MAX_DISCOVERED_MANIFEST_BYTES:
+                continue
+            value = json.loads(raw)
+            if not isinstance(value, dict):
+                continue
+            source_sha256 = hashlib.sha256(raw).hexdigest()
+            packet = {
+                "schema_version": 1,
+                "provider": "remote_cpu_worker",
+                "task": "CANONICAL_JSON",
+                "task_format": CPU_MANIFEST_TASK_FORMAT,
+                "jira_unit": "BAT-563",
+                "schema_sha256": CPU_MANIFEST_SCHEMA_SHA256,
+                "source_hashes": [source_sha256],
+                "dependencies": [],
+                "pre_routing_effort_points": 1,
+                "scope": (
+                    "Controller-routed deterministic canonicalization and hash verification of live "
+                    f"historical evidence {source.relative_to(historical_root).as_posix()}"
+                ),
+                "payload": {"value": value},
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            data = canonical_json_bytes(packet) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            work_unit_id = "AUTO-CPU-MANIFEST-" + digest[:20]
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+                continue
+            destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+            if destination.exists() and destination.read_bytes() != data:
+                raise RuntimeError("CONTINUOUS_CPU_PACKET_COLLISION")
+            if not destination.exists():
+                _atomic_write(destination, data)
+            created.append(
+                {
+                    "provider": "remote_cpu_worker",
+                    "source_relative_path": source.relative_to(historical_root).as_posix(),
+                    "source_sha256": source_sha256,
+                    "packet_path": str(destination),
+                    "packet_sha256": digest,
+                }
+            )
+            if len(created) >= 2:
+                break
+        return created
+
+    def _materialize_continuous_bge_work(
+        self,
+        demand: dict[str, Any],
+    ) -> list[dict[str, str]]:
+        queue_root = self.config.provider_work_root
+        data_root = self.config.manifests_root.parent.resolve(strict=False)
+        local = demand.get("providers", {}).get("ollama_local", {})
+        if (
+            queue_root is None
+            or not local.get("unmet")
+            or int(local.get("active_execution_packets", 0)) > 0
+        ):
+            return []
+        source_root = data_root / "reconciliation" / "historical_expansion"
+        if not source_root.is_dir():
+            return []
+        sources, _ = _bounded_json_scan(source_root, limit=128)
+        records: list[tuple[Path, str, str]] = []
+        for source in sources:
+            raw = source.read_bytes()
+            if not 0 < len(raw) <= MAX_DISCOVERED_MANIFEST_BYTES:
+                continue
+            value = json.loads(raw)
+            if not isinstance(value, dict):
+                continue
+            compact = json.dumps(
+                {
+                    "artifact_type": value.get("artifact_type"),
+                    "decision_unit": value.get("decision_unit"),
+                    "classification": value.get("classification"),
+                    "negative_findings": value.get("negative_findings", []),
+                    "next_action": value.get("next_action"),
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            )[:3000]
+            records.append((source, hashlib.sha256(raw).hexdigest(), compact))
+        if len(records) < 2:
+            return []
+        records.sort(key=lambda item: (-item[0].stat().st_mtime_ns, item[0].as_posix()))
+        created: list[dict[str, str]] = []
+        for query_source, query_sha256, query_text in records:
+            candidates = [item for item in records if item[1] != query_sha256][:16]
+            if not candidates:
+                continue
+            packet = {
+                "schema_version": 1,
+                "provider": "ollama_local",
+                "model": BGE_MODEL,
+                "model_digest": BGE_MODEL_DIGEST,
+                "task_format": BGE_TASK_FORMAT,
+                "policy_version": BGE_POLICY_VERSION,
+                "prompt_version": BGE_PROMPT_VERSION,
+                "route_schema_version": BGE_SCHEMA_VERSION,
+                "schema_sha256": BGE_SCHEMA_SHA256,
+                "jira_unit": "BAT-562",
+                "source_hashes": [query_sha256, *[item[1] for item in candidates]],
+                "dependencies": [],
+                "pre_routing_effort_points": 2,
+                "scope": (
+                    "Candidate-only semantic retrieval of comparable historical reconciliation "
+                    f"evidence for {query_source.name}; no identity merge or canonical authority."
+                ),
+                "query": (
+                    "Rank prior historical reconciliation artifacts most comparable to this new "
+                    "artifact for deduplication and review routing. " + query_text
+                ),
+                "candidates": [
+                    {
+                        "candidate_id": item[1],
+                        "text": f"{item[0].name}: {item[2]}",
+                    }
+                    for item in candidates
+                ],
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            data = canonical_json_bytes(packet) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            work_unit_id = "AUTO-BGE-" + digest[:20]
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+                continue
+            destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+            if destination.exists() and destination.read_bytes() != data:
+                raise RuntimeError("CONTINUOUS_BGE_PACKET_COLLISION")
+            if not destination.exists():
+                _atomic_write(destination, data)
+            created.append(
+                {
+                    "provider": "ollama_local",
+                    "source_relative_path": query_source.relative_to(data_root).as_posix(),
+                    "source_sha256": query_sha256,
+                    "packet_path": str(destination),
+                    "packet_sha256": digest,
+                }
+            )
+            if len(created) >= 2:
+                break
+        return created
+
+    def _materialize_continuous_openai_work(
+        self,
+        demand: dict[str, Any],
+    ) -> list[dict[str, str]]:
+        queue_root = self.config.provider_work_root
+        data_root = self.config.manifests_root.parent.resolve(strict=False)
+        release_root = self.config.release_root
+        openai = demand.get("providers", {}).get("openai_direct", {})
+        if (
+            queue_root is None
+            or release_root is None
+            or not openai.get("unmet")
+            or int(openai.get("active_execution_packets", 0)) > 0
+        ):
+            return []
+        source_root = data_root / "quarantine"
+        if not source_root.is_dir():
+            return []
+        schema_relative = "schemas/openai/assistive_candidate.schema.json"
+        schema = _verified_json(release_root / schema_relative)
+        schema_sha256 = sha256_value(schema)
+        sources, _ = _bounded_json_scan(source_root, limit=512)
+        sources.sort(key=lambda path: (-path.stat().st_mtime_ns, path.as_posix()))
+        created: list[dict[str, str]] = []
+        for source in sources:
+            relative = source.relative_to(source_root).as_posix()
+            if "availability" in relative.lower():
+                continue
+            raw = source.read_bytes()
+            if not 0 < len(raw) <= 10000:
+                continue
+            try:
+                value = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(value, dict):
+                continue
+            source_capture_sha256 = hashlib.sha256(raw).hexdigest()
+            excerpt = json.dumps(value, sort_keys=True, separators=(",", ":"))
+            excerpt_sha256 = hashlib.sha256(excerpt.encode("utf-8")).hexdigest()
+            difficult = any(token in relative.lower() for token in ("duplicate", "conflict", "schema"))
+            model = "gpt-5.6-terra" if difficult else "gpt-5.6-luna"
+            allocation = "TERRA_COMPLEX" if difficult else "LUNA_HARD_VOLUME"
+            reasoning_effort = "medium" if difficult else "low"
+            prompt = (
+                "Classify only the supplied quarantined BAS evidence artifact for deterministic remediation. "
+                "Do not infer absent facts, canonical identities, timestamps, PIT eligibility, labels, or statistics. "
+                "Return task_id exactly quarantine_schema_classification, source_capture_sha256 exactly "
+                f"{source_capture_sha256}, and disposition QUARANTINE. Return facts for artifact_type, "
+                "quarantine_reason, remediation_route, and evidence_sufficiency. A SUPPORTED fact must cite "
+                f"exactly source_capture_sha256 {source_capture_sha256}, locator evidence:1, and excerpt_sha256 "
+                f"{excerpt_sha256}. Use UNKNOWN or NOT_PRESENT with no evidence when the source does not state "
+                "the fact. Use conflicts and notes only for evidence-backed limitations. This output is candidate-only "
+                "and has no canonical, PIT, training, protected, forecast, or publication authority."
+            )
+            packet = {
+                "schema_version": 1,
+                "provider": "openai_direct",
+                "task_format": "governed_openai_candidate_v1",
+                "jira_unit": "POST-SUBTASK-164",
+                "schema_sha256": schema_sha256,
+                "source_hashes": [source_capture_sha256, excerpt_sha256],
+                "dependencies": [],
+                "pre_routing_effort_points": 3,
+                "scope": f"Candidate-only quarantine remediation classification for {relative}",
+                "job": {
+                    "task_name": "quarantine_schema_classification",
+                    "jira_unit": "POST-SUBTASK-164",
+                    "source_url": source.resolve().as_uri(),
+                    "source_capture_sha256": source_capture_sha256,
+                    "source_excerpt": excerpt,
+                    "prompt": prompt,
+                    "prompt_version": "continuous-quarantine-remediation-v1",
+                    "schema_path": schema_relative,
+                    "schema_version": "1",
+                    "model": model,
+                    "reasoning_effort": reasoning_effort,
+                    "allocation": allocation,
+                    "destination": "QUARANTINE",
+                    "max_output_tokens": 1200,
+                    "priority": "NORMAL",
+                    "release_reason": None,
+                    "admission_review_id": None,
+                    "source_image_path": None,
+                    "source_image_mime_type": None,
+                    "source_image_detail": None,
+                },
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            data = canonical_json_bytes(packet) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            work_unit_id = "AUTO-OAI-" + digest[:20]
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) == "CLOSED":
+                continue
+            destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+            if destination.exists() and destination.read_bytes() != data:
+                raise RuntimeError("CONTINUOUS_OPENAI_PACKET_COLLISION")
+            if not destination.exists():
+                _atomic_write(destination, data)
+            created.append(
+                {
+                    "provider": "openai_direct",
+                    "source_relative_path": relative,
+                    "source_sha256": source_capture_sha256,
+                    "packet_path": str(destination),
+                    "packet_sha256": digest,
+                }
+            )
+            if len(created) >= 2:
+                break
+        return created
+
+    def _producer_watermarks(self, moment: datetime) -> dict[str, Any]:
+        data_root = (
+            self.config.continuous_source_root.parent
+            if self.config.continuous_source_root is not None
+            else self.config.manifests_root.parent
+        )
+        sources: dict[str, tuple[Path, frozenset[str] | None, int, bool]] = {
+            "historical_snapshot_registry": (
+                self.config.manifests_root,
+                None,
+                MAX_HISTORICAL_MANIFEST_SCAN_UNITS,
+                True,
+            ),
+            "historical_runtime": (
+                (self.config.continuous_source_root or data_root / "runtime") / "BAT-554",
+                DISCOVERY_NAMES,
+                MAX_PROVIDER_WORK_SCAN_UNITS,
+                False,
+            ),
+            "quarantine": (data_root / "quarantine", None, MAX_PROVIDER_WORK_SCAN_UNITS, False),
+            "reconciliation": (data_root / "reconciliation", None, MAX_PROVIDER_WORK_SCAN_UNITS, False),
+            "provider_request_queue": (
+                self.config.provider_work_root or data_root / "assistive/provider_work/requests",
+                None,
+                MAX_PROVIDER_WORK_SCAN_UNITS,
+                False,
+            ),
+            "provider_review_queue": (
+                self.config.packet_root / "evidence/review-queue",
+                None,
+                MAX_PROVIDER_WORK_SCAN_UNITS,
+                False,
+            ),
+        }
+        if self.config.project_root is not None:
+            sources["canonical_jira_records"] = (
+                self.config.project_root / "jira" / "records" / "issues",
+                None,
+                MAX_PROVIDER_WORK_SCAN_UNITS,
+                False,
+            )
+        watermarks: dict[str, Any] = {}
+        for name, (root, allowed_names, scan_limit, top_level_snapshots) in sources.items():
+            records: list[dict[str, Any]] = []
+            scan_status = "PASS"
+            finding = "SCAN_COMPLETE"
+            if root.is_dir():
+                try:
+                    resolved_root = root.resolve(strict=True)
+                    if top_level_snapshots:
+                        candidates, capped = _bounded_top_level_json_scan(
+                            resolved_root,
+                            limit=scan_limit,
+                            name_prefix="snap_",
+                        )
+                    else:
+                        candidates, capped = _bounded_json_scan(
+                            resolved_root,
+                            limit=scan_limit,
+                            allowed_names=allowed_names,
+                        )
+                    if capped:
+                        scan_status = "INCOMPLETE"
+                        finding = "SOURCE_SCAN_BOUND_REACHED"
+                    for path in candidates:
+                        try:
+                            size = path.stat().st_size
+                            if not 0 < size <= MAX_PROVIDER_WORK_BYTES:
+                                continue
+                            data = path.read_bytes()
+                            records.append(
+                                {
+                                    "path": path.relative_to(resolved_root).as_posix(),
+                                    "bytes": size,
+                                    "sha256": hashlib.sha256(data).hexdigest(),
+                                    "modified_ns": path.stat().st_mtime_ns,
+                                }
+                            )
+                        except OSError:
+                            scan_status = "INCOMPLETE"
+                            finding = "SOURCE_ENTRY_READ_FAILED"
+                except OSError:
+                    scan_status = "FAIL"
+                    finding = "SOURCE_SCAN_FAILED"
+            else:
+                finding = "SOURCE_ROOT_ABSENT_EMPTY_DENOMINATOR"
+            watermarks[name] = {
+                "root": str(root.resolve(strict=False)),
+                "scanned_at": rfc3339(moment),
+                "scan_status": scan_status,
+                "finding": finding,
+                "eligible_file_count": len(records),
+                "latest_modified_ns": max((int(item["modified_ns"]) for item in records), default=None),
+                "watermark_identity": sha256_value(records),
+            }
+        return {
+            "schema_version": 1,
+            "scan_interval_slo_seconds": 300,
+            "sources": watermarks,
+            "all_sources_scanned": all(
+                item["scan_status"] == "PASS" for item in watermarks.values()
+            ),
+            "watermark_identity": sha256_value(watermarks),
+        }
 
     def refresh(self, *, now: datetime | None = None) -> dict[str, Any]:
         moment = now or datetime.now(timezone.utc)
@@ -684,8 +1656,34 @@ class RuntimeInventoryRefresher:
                 for item in base.get("work_units", [])
             }
         provider_work_findings: list[dict[str, str]] = []
+        preliminary_demand = self._operational_demand(
+            base,
+            list(base.get("route_decisions", [])),
+            work_unit_roles,
+        )
+        continuous_packets: list[dict[str, str]] = []
+        producers = (
+            ("openrouter", lambda: self._materialize_continuous_openrouter_work(base, preliminary_demand)),
+            ("cursor", lambda: self._materialize_continuous_cursor_work(base, preliminary_demand)),
+            ("remote_cpu_worker", lambda: self._materialize_continuous_cpu_work(base, preliminary_demand)),
+            ("ollama_local", lambda: self._materialize_continuous_bge_work(preliminary_demand)),
+            ("openai_direct", lambda: self._materialize_continuous_openai_work(preliminary_demand)),
+        )
+        for producer, compile_work in producers:
+            try:
+                continuous_packets.extend(compile_work())
+            except (OSError, KeyError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
+                finding = {
+                    "finding": type(exc).__name__ + ":" + str(exc)[:240],
+                    "observed_at": rfc3339(moment),
+                    "provider": producer,
+                    "disposition": "EXACT_PRODUCER_FAILED_UNRELATED_PRODUCERS_CONTINUE",
+                }
+                provider_work_findings.append(finding)
+                self.state.append_event("CONTINUOUS_WORK_PRODUCER_BLOCKED", finding, now=moment)
         try:
             provider_work = self._discover_provider_work(base, moment)
+            provider_work_findings.extend(self._provider_packet_findings)
         except (OSError, KeyError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
             finding = {
                 "finding": type(exc).__name__ + ":" + str(exc)[:240],
@@ -727,6 +1725,110 @@ class RuntimeInventoryRefresher:
         ]
         work_units = static_units + [prior_units[key] for key in sorted(prior_units)]
         route_decisions = static_decisions + [prior_decisions[key] for key in sorted(prior_decisions)]
+        unit_by_id = {str(item["work_unit_id"]): item for item in work_units}
+        release_commit = self._snapshot_release_commit(base)
+        for decision in route_decisions:
+            work_unit_id = str(decision.get("work_unit_id", ""))
+            provider = decision.get("provider")
+            unit = unit_by_id.get(work_unit_id)
+            reference = execution_packets.get(work_unit_id)
+            if (
+                unit is None
+                or not provider
+                or decision.get("disposition") not in {
+                    RoutingDisposition.DIRECT_OPENAI.value,
+                    RoutingDisposition.OPENROUTER.value,
+                    RoutingDisposition.CURSOR.value,
+                    RoutingDisposition.LOCAL_QWEN.value,
+                    RoutingDisposition.REMOTE_CPU_WORKER.value,
+                }
+                or work_unit_roles.get(work_unit_id) != ATOMIC_EXECUTABLE
+                or not isinstance(reference, dict)
+            ):
+                continue
+            packet_identity = str(reference.get("packet_sha256", ""))
+            if not self._valid_sha256(packet_identity):
+                continue
+            route_identity = sha256_value(
+                {
+                    "provider": provider,
+                    "model": decision.get("model"),
+                    "task_format": unit.get("task_format"),
+                    "schema_sha256": unit.get("schema_sha256"),
+                    "packet_sha256": packet_identity,
+                }
+            )
+            self.state.record_pre_routing_decision(
+                decision={
+                    "work_unit_id": work_unit_id,
+                    "jira_identity": unit.get("jira_unit"),
+                    "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
+                    "source_commit": release_commit,
+                    "task_category": unit.get("task_format"),
+                    "effort_points": int(unit.get("pre_routing_effort_points", 1)),
+                    "candidate_routes": [str(provider)],
+                    "selected_route": str(provider),
+                    "route_identity": route_identity,
+                    "budget_admission": (
+                        "ZERO_COST_COMPUTE_ADMITTED"
+                        if provider in {"remote_cpu_worker", "ollama_local"}
+                        else "PROVIDER_BUDGET_ADMITTED"
+                    ),
+                    "packet_identity": packet_identity,
+                    "lease_identity": None,
+                    "disposition": "ROUTED_TO_ASSISTIVE_PLANE",
+                    "reason_code": str(decision.get("reason", "EXACT_ROUTE_READY")),
+                    "evidence_sha256": str(decision.get("work_unit_identity")),
+                    "discovered_at": str(decision.get("decided_at")),
+                },
+                now=moment,
+            )
+        operational_demand = self._operational_demand(base, route_decisions, work_unit_roles)
+        producer_watermarks = self._producer_watermarks(moment)
+        active_conditions: set[str] = set()
+        demand_evidence_sha256 = sha256_value(operational_demand)
+        for provider in operational_demand.get("unmet_without_packets", []):
+            condition_id = "PROVIDER_STARVATION:" + str(provider)
+            active_conditions.add(condition_id)
+            self.state.observe_operational_condition(
+                condition_id=condition_id,
+                finding="P0_PROVIDER_STARVATION:" + str(provider),
+                threshold_seconds=1800,
+                evidence_sha256=demand_evidence_sha256,
+                now=moment,
+            )
+        for source_name, watermark in producer_watermarks.get("sources", {}).items():
+            if watermark.get("scan_status") != "PASS":
+                condition_id = "PRODUCER_SOURCE_SCAN_INCOMPLETE:" + str(source_name)
+                active_conditions.add(condition_id)
+                self.state.observe_operational_condition(
+                    condition_id=condition_id,
+                    finding=condition_id,
+                    threshold_seconds=0,
+                    evidence_sha256=str(watermark.get("watermark_identity")),
+                    now=moment,
+                )
+        for finding in provider_work_findings:
+            if finding.get("disposition") == "EXACT_PRODUCER_FAILED_UNRELATED_PRODUCERS_CONTINUE":
+                condition_id = "WORK_PRODUCER_FAILED:" + str(finding.get("provider", "unknown"))
+                active_conditions.add(condition_id)
+                self.state.observe_operational_condition(
+                    condition_id=condition_id,
+                    finding="P0_AUTONOMOUS_WORK_PRODUCER_FAILED_WITH_DELEGABLE_WORK_PRESENT:"
+                    + condition_id,
+                    threshold_seconds=0,
+                    evidence_sha256=sha256_value(finding),
+                    now=moment,
+                )
+        self.state.resolve_operational_conditions(
+            active_conditions,
+            managed_prefixes=(
+                "PROVIDER_STARVATION:",
+                "PRODUCER_SOURCE_SCAN_INCOMPLETE:",
+                "WORK_PRODUCER_FAILED:",
+            ),
+            now=moment,
+        )
         inventory = ReadyWorkInventory(
             [
                 ReadyWorkUnit(
@@ -763,12 +1865,15 @@ class RuntimeInventoryRefresher:
                 "work_units": work_units,
                 "work_unit_roles": work_unit_roles,
                 "provider_work_findings": provider_work_findings,
+                "continuous_packets": continuous_packets,
                 "deployed_release": deployed_release,
                 "external_evidence": live_external_evidence,
+                "operational_demand": operational_demand,
+                "producer_watermarks": producer_watermarks,
             }
         )
         snapshot = {
-            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "work_unit_roles", "work_unit_role_validation", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings", "git", "deployed_release"}},
+            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "work_unit_roles", "work_unit_role_validation", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings", "continuous_packets", "operational_demand", "producer_watermarks", "git", "deployed_release"}},
             "schema_version": 2,
             "artifact_type": "UNIFIED_ASSISTIVE_RUNTIME_INVENTORY",
             "generated_at": rfc3339(moment),
@@ -781,6 +1886,9 @@ class RuntimeInventoryRefresher:
             "execution_packets": execution_packets,
             "execution_states": status,
             "provider_work_findings": provider_work_findings,
+            "continuous_packets": continuous_packets,
+            "operational_demand": operational_demand,
+            "producer_watermarks": producer_watermarks,
             "git": (
                 {
                     "deployed_head": deployed_release["build_commit"],

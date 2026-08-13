@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
+  "work_unit_id": "BAT-560-CONTINUOUS-OFFLOAD-REPAIR",
+  "jira_identity": "BAT-560",
+  "decision_sha256": "92a6e4a61588672e28ddf4b91576131d7fd29b2ea6a5a956d0558bc29dbc2db7",
+  "disposition": "EMERGENCY_PIPELINE_REPAIR",
+  "reason_code": "PERSISTENT_REAL_WORK_PRODUCER_AND_PROVIDER_SCHEDULER_ROUTES_MISSING",
+  "source_commit": "9745f04e40fb8cb5af0c6353a5ad0f5630c01b60",
+  "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
+  "restored_capabilities": [
+    "persistent_semantic_work_discovery",
+    "non_bypassable_pre_routing_decisions",
+    "cursor_persistent_scheduler_adapter",
+    "openrouter_per_packet_failure_isolation",
+    "provider_starvation_incidents",
+    "independent_operational_completeness_failures"
+  ],
+  "class": "PIPELINE_BOOTSTRAP_REPAIR",
+  "ordinary_project_work_authorized": false,
+  "canonical_or_protected_authority": false
+}

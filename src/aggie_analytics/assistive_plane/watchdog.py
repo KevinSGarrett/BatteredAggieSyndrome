@@ -72,6 +72,8 @@ class ReadOnlyWatchdog:
 
             inventory_age = None
             eligible_units = 0
+            unmet_without_packets: list[str] = []
+            unmet_pending_review: list[str] = []
             if not self.operational_audit_enabled:
                 pass
             elif not self.inventory_path.is_file():
@@ -112,6 +114,41 @@ class ReadOnlyWatchdog:
                         ) == ATOMIC_EXECUTABLE
                         for item in snapshot.get("route_decisions", [])
                     )
+                    demand = snapshot.get("operational_demand", {})
+                    if demand.get("enabled") is True:
+                        unmet_without_packets = [
+                            str(item) for item in demand.get("unmet_without_packets", [])
+                        ]
+                        if unmet_without_packets:
+                            operational_findings.append(
+                                "AUTHORIZED_CAMPAIGN_BACKLOG_HAS_NO_EXECUTABLE_PACKETS:"
+                                + ",".join(sorted(unmet_without_packets))
+                            )
+                        unmet_pending_review = [
+                            str(item) for item in demand.get("unmet_pending_review", [])
+                        ]
+                        if unmet_pending_review:
+                            operational_findings.append(
+                                "CAMPAIGN_REVIEW_BACKLOG_REQUIRES_DISPOSITION:"
+                                + ",".join(sorted(unmet_pending_review))
+                            )
+                    watermarks = snapshot.get("producer_watermarks")
+                    if not isinstance(watermarks, dict):
+                        operational_findings.append("PRODUCER_WATERMARKS_MISSING")
+                    else:
+                        sources = watermarks.get("sources", {})
+                        if not isinstance(sources, dict) or not sources:
+                            operational_findings.append("PRODUCER_WATERMARKS_EMPTY")
+                        else:
+                            incomplete = sorted(
+                                str(name)
+                                for name, item in sources.items()
+                                if not isinstance(item, dict) or item.get("scan_status") != "PASS"
+                            )
+                            if incomplete:
+                                operational_findings.append(
+                                    "PRODUCER_SOURCE_SCAN_INCOMPLETE:" + ",".join(incomplete)
+                                )
                 except (OSError, KeyError, ValueError, json.JSONDecodeError):
                     operational_findings.append("SCHEDULER_INVENTORY_INVALID")
 
@@ -255,6 +292,30 @@ class ReadOnlyWatchdog:
             ).fetchone()[0]
             if self.operational_audit_enabled and run_mismatches:
                 operational_findings.append("PROVIDER_RESULT_SETTLEMENT_MISMATCH")
+            table_names = {
+                str(row[0])
+                for row in connection.execute("SELECT name FROM sqlite_master WHERE type='table'")
+            }
+            unjustified_direct_execution = (
+                connection.execute(
+                    "SELECT COUNT(*) FROM pre_routing_decisions "
+                    "WHERE disposition='UNJUSTIFIED_DIRECT_EXECUTION'"
+                ).fetchone()[0]
+                if "pre_routing_decisions" in table_names
+                else 0
+            )
+            if self.operational_audit_enabled and unjustified_direct_execution:
+                operational_findings.append("UNJUSTIFIED_DIRECT_EXECUTION_PRESENT")
+            active_operational_incidents = (
+                connection.execute(
+                    "SELECT COUNT(*) FROM operational_conditions "
+                    "WHERE resolved_at IS NULL AND incident_opened=1"
+                ).fetchone()[0]
+                if "operational_conditions" in table_names
+                else 0
+            )
+            if self.operational_audit_enabled and active_operational_incidents:
+                operational_findings.append("ACTIVE_P0_OPERATIONAL_INCIDENTS_PRESENT")
             findings = structural_findings + operational_findings
             return {
                 "result": "PASS" if not findings else "FAIL",
@@ -272,6 +333,8 @@ class ReadOnlyWatchdog:
                 "controller_build_commit": leader["build_commit"] if leader else None,
                 "inventory_age_seconds": inventory_age,
                 "eligible_units": eligible_units,
+                "unmet_campaigns_without_packets": unmet_without_packets,
+                "unmet_campaigns_pending_review": unmet_pending_review,
                 "scheduler_evidence_age_seconds": scheduler_age,
                 "scheduler_dispatched_units": scheduler_dispatched,
                 "scheduler_provider_calls": scheduler_provider_calls,
@@ -298,6 +361,8 @@ class ReadOnlyWatchdog:
                     reconciliation_identity_mismatches
                 ),
                 "provider_result_settlement_mismatches": int(run_mismatches),
+                "unjustified_direct_execution_count": int(unjustified_direct_execution),
+                "active_p0_operational_incidents": int(active_operational_incidents),
                 "overall_operational_completion": "INCOMPLETE",
             }
         finally:

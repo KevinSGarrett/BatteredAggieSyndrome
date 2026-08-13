@@ -13,6 +13,8 @@ from aggie_analytics.assistive_plane.provider_adapters import (
     BGE_SCHEMA_VERSION,
     BGE_TASK_FORMAT,
     BgeM3CandidateAdapter,
+    CURSOR_TASK_FORMAT,
+    GovernedCursorAdapter,
     GovernedOpenRouterAdapter,
     OPENROUTER_TASK_FORMAT,
 )
@@ -256,6 +258,64 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
         self.assertEqual(0, second.resource["provider_calls"])
         self.assertTrue(second.resource["cached"])
         self.assertEqual(1, backend.calls)
+
+    def test_cursor_adapter_submits_polls_and_settles_deterministic_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "release"
+            (root / "configs").mkdir(parents=True)
+            policy = json.loads(
+                (Path(__file__).resolve().parents[1] / "configs/unified_assistive_policy.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            (root / "configs/unified_assistive_policy.json").write_text(
+                json.dumps(policy), encoding="utf-8"
+            )
+
+            class FakeCursorClient:
+                def __init__(self) -> None:
+                    self.calls: list[tuple[str, str]] = []
+
+                def request(self, method: str, path: str, payload=None):
+                    self.calls.append((method, path))
+                    if method == "POST" and path == "/agents":
+                        return {"agent": {"status": "RUNNING"}}
+                    if path.startswith("/agents/") and path.endswith("/usage"):
+                        return {"cost": {"chargedCents": 125}, "tokens": 1234}
+                    if "/runs/" in path:
+                        return {"status": "FINISHED", "git": {"branchName": "cursor/test"}}
+                    if path.startswith("/agents/"):
+                        return {"latestRunId": "run-1", "status": "FINISHED"}
+                    raise AssertionError((method, path, payload))
+
+            client = FakeCursorClient()
+            store = Path(temporary) / "cursor-store"
+            adapter = GovernedCursorAdapter(root, client=client, store_root=store)
+            packet = {
+                "provider": "cursor",
+                "task_format": CURSOR_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-202",
+                "schema_sha256": "a" * 64,
+                "prompt": "Review the scheduler without modifying files.",
+                "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                "starting_ref": "b" * 40,
+                "base_commit": "b" * 40,
+                "model": "gpt-5.3-codex",
+                "reasoning": "medium",
+                "max_reservation_usd": "2.00",
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            handle = adapter.submit(packet)
+            result = adapter.poll(packet, handle)
+            self.assertIsNotNone(result)
+            assert result is not None
+            self.assertEqual("REVIEW_ONLY", result.disposition)
+            self.assertEqual("cursor/test", result.resource["branch"])
+            self.assertEqual("1.25", result.actual_cost_usd)
+            ledger = json.loads((store / "usage/ledger.json").read_text(encoding="utf-8"))
+            self.assertEqual("1.250000", ledger["settled_usd"])
+            self.assertEqual({}, ledger["reservations"])
+            self.assertEqual("PERSISTENT_CONTROLLER", result.result["dispatch_origin"])
 
 
 if __name__ == "__main__":

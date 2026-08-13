@@ -19,6 +19,8 @@ FILES = (
     "src/aggie_analytics/assistive_plane/__init__.py",
     "src/aggie_analytics/assistive_plane/contracts.py",
     "src/aggie_analytics/assistive_plane/controller_state.py",
+    "src/aggie_analytics/assistive_plane/cpu_worker_backend.py",
+    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
     "src/aggie_analytics/assistive_plane/orchestration.py",
     "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
     "src/aggie_analytics/assistive_plane/service_runtime.py",

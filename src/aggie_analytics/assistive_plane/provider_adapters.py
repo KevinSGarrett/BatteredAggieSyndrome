@@ -413,23 +413,31 @@ class GovernedCursorAdapter:
         job_id = self._job_identity(packet)
         agent_id = cursor_agent_identity(job_id)
         reservation = Decimal(str(packet["max_reservation_usd"]))
-        self.ledger.reserve(job_id, reservation)
+        settled_amount = self.ledger.settled_amount(job_id)
+        if settled_amount is not None:
+            response = {
+                "idempotent_settled_recovery": True,
+                "settled_usd": format(settled_amount, "f"),
+            }
+        else:
+            self.ledger.reserve(job_id, reservation)
         payload = backend.build_create_payload(
             prompt=str(packet["prompt"]),
             repository_url=str(packet["repository_url"]),
             starting_ref=str(packet["starting_ref"]),
             agent_id=agent_id,
         )
-        try:
-            response = self.client.request("POST", "/agents", payload)
-        except CursorApiError as exc:
-            if exc.status != 409 or exc.code != "agent_id_conflict":
-                self.ledger.release(job_id)
-                raise
-            response = {
-                "agent": self.client.request("GET", f"/agents/{agent_id}"),
-                "idempotent_conflict_recovery": True,
-            }
+        if settled_amount is None:
+            try:
+                response = self.client.request("POST", "/agents", payload)
+            except CursorApiError as exc:
+                if exc.status != 409 or exc.code != "agent_id_conflict":
+                    self.ledger.release(job_id)
+                    raise
+                response = {
+                    "agent": self.client.request("GET", f"/agents/{agent_id}"),
+                    "idempotent_conflict_recovery": True,
+                }
         evidence = {
             "schema_version": 1,
             "artifact_type": "CURSOR_CONTROLLER_ROUTED_SUBMISSION",
@@ -447,6 +455,7 @@ class GovernedCursorAdapter:
             "response": response,
             "dispatch_origin": "PERSISTENT_CONTROLLER",
             "candidate_only": True,
+            "idempotent_settled_recovery": settled_amount is not None,
         }
         path, digest = write_content_addressed_json(self.store_root, "controller_requests", evidence)
         return {
@@ -454,7 +463,8 @@ class GovernedCursorAdapter:
             "agent_id": agent_id,
             "request_path": str(path),
             "request_sha256": digest,
-            "provider_calls": 1,
+            "provider_calls": 0 if settled_amount is not None else 1,
+            "idempotent_settled_recovery": settled_amount is not None,
         }
 
     def poll(self, packet: dict[str, Any], handle: dict[str, Any]) -> ProviderAdapterResult | None:

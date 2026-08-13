@@ -1228,6 +1228,23 @@ class ControllerState:
         finally:
             connection.close()
 
+    def provider_last_dispatch_times(self, providers: set[str]) -> dict[str, str | None]:
+        """Return durable recency used to prevent a busy provider from starving peers."""
+        if not providers:
+            return {}
+        connection = self.connect()
+        try:
+            placeholders = ",".join("?" for _ in providers)
+            rows = connection.execute(
+                f"SELECT provider,MAX(started_at) AS last_started_at FROM dispatch_attempts "
+                f"WHERE provider IN ({placeholders}) GROUP BY provider",
+                tuple(sorted(providers)),
+            ).fetchall()
+            observed = {str(row["provider"]): str(row["last_started_at"]) for row in rows}
+            return {provider: observed.get(provider) for provider in providers}
+        finally:
+            connection.close()
+
     def inflight_provider_runs(self, provider: str) -> list[dict[str, Any]]:
         connection = self.connect()
         try:

@@ -8,6 +8,7 @@ from contextlib import closing
 from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from types import SimpleNamespace
 
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.orchestration import (
@@ -262,6 +263,28 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
         self.assertEqual("IMMUTABLE_ACTIVE_WORK_UNIT_IDENTITY_CONFLICT", report["finding"])
         self.assertEqual("INVENTORY_WORK_UNIT_REVISION_BLOCKED", report["dispatch_engine_state"])
         self.assertEqual(0, report["provider_calls"])
+
+    def test_provider_order_interleaves_busy_queue_and_prioritizes_starved_route(self) -> None:
+        eligible = [
+            SimpleNamespace(provider="ollama_local", work_unit_id=f"BGE-{index}")
+            for index in range(4)
+        ] + [
+            SimpleNamespace(provider="openai_direct", work_unit_id="OPENAI-1"),
+            SimpleNamespace(provider="remote_cpu_worker", work_unit_id="CPU-1"),
+        ]
+        ordered = InventoryScheduler._fair_provider_order(
+            eligible,
+            {
+                "ollama_local": "2026-08-13T18:08:00Z",
+                "openai_direct": "2026-08-13T07:20:00Z",
+                "remote_cpu_worker": "2026-08-13T18:07:00Z",
+            },
+        )
+        self.assertEqual(
+            ["openai_direct", "remote_cpu_worker", "ollama_local"],
+            [item.provider for item in ordered[:3]],
+        )
+        self.assertEqual(4, sum(item.provider == "ollama_local" for item in ordered))
 
 
 if __name__ == "__main__":

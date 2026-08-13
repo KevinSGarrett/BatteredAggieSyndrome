@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Iterator
 
 
-SCHEMA_VERSION = 6
+SCHEMA_VERSION = 7
 PRE_ROUTING_DISPOSITIONS = frozenset(
     {
         "ROUTED_TO_ASSISTIVE_PLANE",
@@ -402,6 +402,52 @@ class ControllerState:
                     disposition TEXT NOT NULL,
                     evidence_sha256 TEXT NOT NULL,
                     review_seconds REAL,
+                    recorded_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS useful_work_evidence (
+                    useful_work_id TEXT PRIMARY KEY,
+                    work_unit_id TEXT NOT NULL REFERENCES work_units(work_unit_id),
+                    attempt_id TEXT NOT NULL UNIQUE REFERENCES dispatch_attempts(attempt_id),
+                    bas_decision_unit TEXT NOT NULL,
+                    downstream_consumer TEXT NOT NULL,
+                    delegation_preference_reason TEXT NOT NULL,
+                    input_documents INTEGER NOT NULL CHECK (input_documents >= 0),
+                    input_bytes INTEGER NOT NULL CHECK (input_bytes >= 0),
+                    input_records INTEGER NOT NULL CHECK (input_records >= 0),
+                    candidate_count INTEGER NOT NULL CHECK (candidate_count >= 0),
+                    provider TEXT NOT NULL,
+                    model TEXT,
+                    task_format TEXT NOT NULL,
+                    route_identity TEXT NOT NULL,
+                    wall_seconds REAL NOT NULL CHECK (wall_seconds >= 0),
+                    compute_json TEXT NOT NULL,
+                    direct_baseline_seconds REAL,
+                    orchestration_seconds REAL NOT NULL CHECK (orchestration_seconds >= 0),
+                    review_seconds REAL NOT NULL CHECK (review_seconds >= 0),
+                    disposition TEXT NOT NULL,
+                    validated INTEGER NOT NULL CHECK (validated IN (0,1)),
+                    reviewed INTEGER NOT NULL CHECK (reviewed IN (0,1)),
+                    downstream_consumed INTEGER NOT NULL CHECK (downstream_consumed IN (0,1)),
+                    changed_project_artifact INTEGER NOT NULL CHECK (changed_project_artifact IN (0,1)),
+                    consumed_artifact_identity TEXT,
+                    net_time_saved_seconds REAL NOT NULL,
+                    duplicated_by_codex INTEGER NOT NULL CHECK (duplicated_by_codex IN (0,1)),
+                    accepted_useful_offload INTEGER NOT NULL CHECK (accepted_useful_offload IN (0,1)),
+                    evidence_sha256 TEXT NOT NULL,
+                    recorded_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS downstream_review_dispositions (
+                    downstream_review_id TEXT PRIMARY KEY,
+                    attempt_id TEXT NOT NULL UNIQUE REFERENCES dispatch_attempts(attempt_id),
+                    disposition TEXT NOT NULL CHECK (disposition IN ('ACCEPTED','MODIFIED','REJECTED','UNUSED')),
+                    downstream_consumer TEXT NOT NULL,
+                    consumed_artifact_identity TEXT,
+                    changed_project_artifact INTEGER NOT NULL CHECK (changed_project_artifact IN (0,1)),
+                    net_time_saved_seconds REAL NOT NULL,
+                    duplicated_by_codex INTEGER NOT NULL CHECK (duplicated_by_codex IN (0,1)),
+                    review_seconds REAL NOT NULL CHECK (review_seconds >= 0),
+                    reason TEXT NOT NULL,
+                    evidence_sha256 TEXT NOT NULL,
                     recorded_at TEXT NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS cleanup_actions (
@@ -1576,6 +1622,7 @@ class ControllerState:
         review_seconds: float = 0.0,
         bytes_removed: int = 0,
         resource: dict[str, Any] | None = None,
+        useful_work: dict[str, Any] | None = None,
         now: datetime | None = None,
     ) -> None:
         for value, finding in (
@@ -1603,6 +1650,76 @@ class ControllerState:
                 "INSERT INTO reviews(review_id,work_unit_id,attempt_id,reviewer,disposition,evidence_sha256,review_seconds,recorded_at) "
                 "VALUES(?,?,?,?,?,?,?,?)",
                 (review_sha256, work_unit_id, attempt_id, reviewer, disposition, review_sha256, review_seconds, stamp),
+            )
+            substance = dict(useful_work or {})
+            downstream_consumed = bool(substance.get("downstream_consumed", False))
+            changed_project_artifact = bool(substance.get("changed_project_artifact", False))
+            duplicated_by_codex = bool(substance.get("duplicated_by_codex", False))
+            accepted_useful = (
+                validation_result == "PASS"
+                and disposition in {"ACCEPTED", "MODIFIED"}
+                and downstream_consumed
+                and changed_project_artifact
+                and not duplicated_by_codex
+                and bool(substance.get("consumed_artifact_identity"))
+            )
+            evidence_payload = {
+                "work_unit_id": work_unit_id,
+                "attempt_id": attempt_id,
+                "bas_decision_unit": str(substance.get("bas_decision_unit", "UNSPECIFIED_BAS_DECISION_UNIT")),
+                "downstream_consumer": str(substance.get("downstream_consumer", "DURABLE_REVIEW_QUEUE_ONLY")),
+                "delegation_preference_reason": str(
+                    substance.get("delegation_preference_reason", "PROVIDER_ROUTE_SELECTED_BY_GOVERNED_ROUTER")
+                ),
+                "input_documents": max(0, int(substance.get("input_documents", 0))),
+                "input_bytes": max(0, int(substance.get("input_bytes", 0))),
+                "input_records": max(0, int(substance.get("input_records", 0))),
+                "candidate_count": max(0, int(substance.get("candidate_count", 0))),
+                "provider": str(substance.get("provider", "UNKNOWN_PROVIDER")),
+                "model": substance.get("model"),
+                "task_format": str(substance.get("task_format", "UNKNOWN_TASK_FORMAT")),
+                "route_identity": str(substance.get("route_identity", "UNKNOWN_ROUTE_IDENTITY")),
+                "wall_seconds": max(0.0, float(substance.get("wall_seconds", 0.0))),
+                "compute": dict(substance.get("compute", resource or {})),
+                "direct_baseline_seconds": substance.get("direct_baseline_seconds"),
+                "orchestration_seconds": max(0.0, float(substance.get("orchestration_seconds", 0.0))),
+                "review_seconds": max(0.0, float(review_seconds)),
+                "disposition": disposition,
+                "validated": validation_result == "PASS",
+                "reviewed": True,
+                "downstream_consumed": downstream_consumed,
+                "changed_project_artifact": changed_project_artifact,
+                "consumed_artifact_identity": substance.get("consumed_artifact_identity"),
+                "net_time_saved_seconds": float(substance.get("net_time_saved_seconds", 0.0)),
+                "duplicated_by_codex": duplicated_by_codex,
+                "accepted_useful_offload": accepted_useful,
+            }
+            useful_sha256 = hashlib.sha256(
+                json.dumps(evidence_payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+            ).hexdigest()
+            baseline = evidence_payload["direct_baseline_seconds"]
+            connection.execute(
+                "INSERT INTO useful_work_evidence("
+                "useful_work_id,work_unit_id,attempt_id,bas_decision_unit,downstream_consumer,"
+                "delegation_preference_reason,input_documents,input_bytes,input_records,candidate_count,"
+                "provider,model,task_format,route_identity,wall_seconds,compute_json,direct_baseline_seconds,"
+                "orchestration_seconds,review_seconds,disposition,validated,reviewed,downstream_consumed,"
+                "changed_project_artifact,consumed_artifact_identity,net_time_saved_seconds,duplicated_by_codex,"
+                "accepted_useful_offload,evidence_sha256,recorded_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                (
+                    useful_sha256, work_unit_id, attempt_id, evidence_payload["bas_decision_unit"],
+                    evidence_payload["downstream_consumer"], evidence_payload["delegation_preference_reason"],
+                    evidence_payload["input_documents"], evidence_payload["input_bytes"],
+                    evidence_payload["input_records"], evidence_payload["candidate_count"],
+                    evidence_payload["provider"], evidence_payload["model"], evidence_payload["task_format"],
+                    evidence_payload["route_identity"], evidence_payload["wall_seconds"],
+                    json.dumps(evidence_payload["compute"], sort_keys=True, separators=(",", ":")),
+                    None if baseline is None else max(0.0, float(baseline)),
+                    evidence_payload["orchestration_seconds"], evidence_payload["review_seconds"], disposition,
+                    int(evidence_payload["validated"]), 1, int(downstream_consumed), int(changed_project_artifact),
+                    evidence_payload["consumed_artifact_identity"], evidence_payload["net_time_saved_seconds"],
+                    int(duplicated_by_codex), int(accepted_useful), useful_sha256, stamp,
+                ),
             )
             self._transition_in_connection(
                 connection, work_unit_id=work_unit_id, expected_state="REVIEWED", new_state="SETTLED",
@@ -1709,6 +1826,55 @@ class ControllerState:
                     ),
                 )
 
+    def record_downstream_review_disposition(
+        self,
+        *,
+        attempt_id: str,
+        disposition: str,
+        downstream_consumer: str,
+        reason: str,
+        consumed_artifact_identity: str | None = None,
+        changed_project_artifact: bool = False,
+        net_time_saved_seconds: float = 0.0,
+        duplicated_by_codex: bool = False,
+        review_seconds: float = 0.0,
+        now: datetime | None = None,
+    ) -> str:
+        if disposition not in {"ACCEPTED", "MODIFIED", "REJECTED", "UNUSED"}:
+            raise ValueError("DOWNSTREAM_REVIEW_DISPOSITION_INVALID")
+        if disposition in {"ACCEPTED", "MODIFIED"} and (
+            not changed_project_artifact or not consumed_artifact_identity or duplicated_by_codex
+        ):
+            raise ValueError("DOWNSTREAM_ACCEPTANCE_CONSUMPTION_EVIDENCE_INCOMPLETE")
+        if consumed_artifact_identity is not None:
+            self._validate_sha256(consumed_artifact_identity, "CONSUMED_ARTIFACT_IDENTITY_INVALID")
+        payload = {
+            "attempt_id": attempt_id,
+            "disposition": disposition,
+            "downstream_consumer": downstream_consumer,
+            "consumed_artifact_identity": consumed_artifact_identity,
+            "changed_project_artifact": changed_project_artifact,
+            "net_time_saved_seconds": float(net_time_saved_seconds),
+            "duplicated_by_codex": duplicated_by_codex,
+            "review_seconds": max(0.0, float(review_seconds)),
+            "reason": reason,
+        }
+        digest = hashlib.sha256(
+            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        with self.transaction() as connection:
+            connection.execute(
+                "INSERT INTO downstream_review_dispositions("
+                "downstream_review_id,attempt_id,disposition,downstream_consumer,consumed_artifact_identity,"
+                "changed_project_artifact,net_time_saved_seconds,duplicated_by_codex,review_seconds,reason,"
+                "evidence_sha256,recorded_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+                (
+                    digest, attempt_id, disposition, downstream_consumer, consumed_artifact_identity,
+                    int(changed_project_artifact), float(net_time_saved_seconds), int(duplicated_by_codex),
+                    max(0.0, float(review_seconds)), reason, digest, rfc3339(now or utc_now()),
+                ),
+            )
+        return digest
     def status(self) -> dict[str, Any]:
         connection = self.connect()
         try:
@@ -1748,6 +1914,34 @@ class ControllerState:
                     for row in connection.execute("SELECT disposition,COUNT(*) AS count FROM reviews GROUP BY disposition")
                 }
                 if "reviews" in tables
+                else {}
+            )
+            useful_work_summary = (
+                dict(
+                    connection.execute(
+                        "SELECT COUNT(*) AS raw_activity,"
+                        "COALESCE(SUM(validated),0) AS validated_candidates,"
+                        "COALESCE(SUM(reviewed),0) AS reviewed_outputs,"
+                        "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') THEN 1 ELSE 0 END),0) AS downstream_consumed_outputs,"
+                        "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') AND u.validated=1 "
+                        "AND d.changed_project_artifact=1 AND d.consumed_artifact_identity IS NOT NULL "
+                        "AND d.duplicated_by_codex=0 THEN 1 ELSE 0 END),0) AS accepted_useful_outputs,"
+                        "COALESCE(SUM(d.net_time_saved_seconds),0.0) AS measured_net_time_saved_seconds,"
+                        "COALESCE(SUM(d.duplicated_by_codex),0) AS duplicated_by_codex "
+                        "FROM useful_work_evidence u LEFT JOIN downstream_review_dispositions d ON d.attempt_id=u.attempt_id"
+                    ).fetchone()
+                )
+                if "useful_work_evidence" in tables
+                else {}
+            )
+            downstream_review_summary = (
+                {
+                    row["disposition"]: int(row["count"])
+                    for row in connection.execute(
+                        "SELECT disposition,COUNT(*) AS count FROM downstream_review_dispositions GROUP BY disposition"
+                    )
+                }
+                if "downstream_review_dispositions" in tables
                 else {}
             )
             pre_routing_counts = (
@@ -1806,6 +2000,8 @@ class ControllerState:
                 "dispatch_attempts": attempts,
                 "closed_dispatch_attempts": closed_attempts,
                 "review_dispositions": review_counts,
+                "useful_work_summary": useful_work_summary,
+                "downstream_review_dispositions": downstream_review_summary,
                 "pre_routing_dispositions": pre_routing_counts,
                 "unjustified_direct_execution_count": pre_routing_counts.get(
                     "UNJUSTIFIED_DIRECT_EXECUTION", 0
@@ -1862,6 +2058,30 @@ class ControllerState:
                     "closed_effort_points": int(row["closed_effort"] or 0),
                     "review_dispositions": dispositions,
                 }
+                useful = connection.execute(
+                    "SELECT COUNT(*) AS raw_activity,COALESCE(SUM(validated),0) AS validated_candidates,"
+                    "COALESCE(SUM(reviewed),0) AS reviewed_outputs,"
+                    "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') THEN 1 ELSE 0 END),0) AS downstream_consumed_outputs,"
+                    "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') AND u.validated=1 "
+                    "AND d.changed_project_artifact=1 AND d.consumed_artifact_identity IS NOT NULL "
+                    "AND d.duplicated_by_codex=0 THEN 1 ELSE 0 END),0) AS accepted_useful_outputs,"
+                    "COALESCE(SUM(d.net_time_saved_seconds),0.0) AS measured_net_time_saved_seconds,"
+                    "COALESCE(SUM(d.duplicated_by_codex),0) AS duplicated_by_codex "
+                    "FROM useful_work_evidence u JOIN dispatch_attempts a ON a.attempt_id=u.attempt_id "
+                    "LEFT JOIN downstream_review_dispositions d ON d.attempt_id=u.attempt_id "
+                    "WHERE u.provider=?" + (" AND a.started_at>=?" if parameters else ""),
+                    (provider, *parameters),
+                ).fetchone()
+                result[provider]["useful_work"] = dict(useful)
+                pending = connection.execute(
+                    "SELECT COUNT(*) FROM reviews r JOIN dispatch_attempts a ON a.attempt_id=r.attempt_id "
+                    "JOIN provider_runs p ON p.attempt_id=a.attempt_id "
+                    "WHERE p.provider=? AND r.disposition='REVIEW_ONLY' AND NOT EXISTS ("
+                    "SELECT 1 FROM downstream_review_dispositions d WHERE d.attempt_id=a.attempt_id)" +
+                    (" AND a.started_at>=?" if parameters else ""),
+                    (provider, *parameters),
+                ).fetchone()[0]
+                result[provider]["pending_downstream_review"] = int(pending)
             return result
         finally:
             connection.close()

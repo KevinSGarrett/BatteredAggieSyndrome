@@ -121,6 +121,57 @@ class InventoryScheduler:
         self._adapters = adapters
 
     @staticmethod
+    def _useful_work_evidence(
+        *,
+        packet: dict[str, Any],
+        provider: str,
+        route_identity: str,
+        wall_seconds: float,
+        compute: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Build fail-closed workload-substance evidence for one real dispatch."""
+        payload = packet.get("payload", {})
+        input_records = 0
+        candidate_count = 0
+        if isinstance(payload, dict):
+            if isinstance(payload.get("lines"), list):
+                input_records = len(payload["lines"])
+            elif isinstance(payload.get("records"), list):
+                input_records = len(payload["records"])
+        if isinstance(packet.get("candidates"), list):
+            candidate_count = len(packet["candidates"])
+        declared_metrics = packet.get("input_metrics") if isinstance(packet.get("input_metrics"), dict) else {}
+        input_documents = max(0, int(declared_metrics.get("documents", len(packet.get("source_hashes", [])))))
+        input_bytes = max(0, int(declared_metrics.get("bytes", len(canonical_json_bytes(packet)))))
+        input_records = max(input_records, max(0, int(declared_metrics.get("records", 0))))
+        job = packet.get("job") if isinstance(packet.get("job"), dict) else {}
+        model = packet.get("model") or job.get("model")
+        return {
+            "bas_decision_unit": str(packet.get("jira_unit", "UNSPECIFIED_BAS_DECISION_UNIT")),
+            "downstream_consumer": str(packet.get("downstream_consumer", "DURABLE_REVIEW_QUEUE_ONLY")),
+            "delegation_preference_reason": str(
+                packet.get("delegation_preference_reason", "GOVERNED_ROUTE_SELECTED_FOR_BOUNDED_CANDIDATE_WORK")
+            ),
+            "input_documents": input_documents,
+            "input_bytes": input_bytes,
+            "input_records": input_records,
+            "candidate_count": candidate_count,
+            "provider": provider,
+            "model": model,
+            "task_format": str(packet.get("task_format", job.get("task_name", "UNKNOWN_TASK_FORMAT"))),
+            "route_identity": route_identity,
+            "wall_seconds": max(0.0, wall_seconds),
+            "compute": compute,
+            "direct_baseline_seconds": None,
+            "orchestration_seconds": 0.0,
+            "downstream_consumed": False,
+            "changed_project_artifact": False,
+            "consumed_artifact_identity": None,
+            "net_time_saved_seconds": 0.0,
+            "duplicated_by_codex": False,
+        }
+
+    @staticmethod
     def _fair_provider_order(
         eligible: list[Any], provider_recency: dict[str, str | None]
     ) -> list[Any]:
@@ -505,6 +556,18 @@ class InventoryScheduler:
                         "provider_calls": int(resource.get("provider_calls", 1)),
                         "actual_cost_usd_exact": result.actual_cost_usd,
                     },
+                    useful_work=self._useful_work_evidence(
+                        packet=(
+                            json.loads(Path(str(resource["packet_path"])).read_text(encoding="utf-8"))
+                            if resource.get("packet_path") else {}
+                        ),
+                        provider="cursor",
+                        route_identity=str(inflight["route_identity"]),
+                        wall_seconds=max(
+                            0.0, (completed - parse_rfc3339(str(inflight["started_at"]))).total_seconds()
+                        ),
+                        compute={**result.resource, "provider_calls": int(resource.get("provider_calls", 1))},
+                    ),
                     actor=self.config.owner_id,
                     now=completed,
                 )
@@ -734,6 +797,13 @@ class InventoryScheduler:
                 settlement_reason="AUTHORITATIVE_PROVIDER_LEDGER_RECONCILED",
                 cleanup_action="NO_RECONSTRUCTIBLE_TEMP_CREATED",
                 resource={**result.resource, "actual_cost_usd_exact": result.actual_cost_usd, "remote_identity": result.remote_identity},
+                useful_work=self._useful_work_evidence(
+                    packet=packet,
+                    provider=str(decision.provider),
+                    route_identity=route_identity,
+                    wall_seconds=max(0.0, (completed - moment).total_seconds()),
+                    compute={**result.resource, "actual_cost_usd_exact": result.actual_cost_usd},
+                ),
                 actor=self.config.owner_id,
                 now=completed,
             )
@@ -862,8 +932,8 @@ class InventoryScheduler:
             review = {
                 "work_unit_id": decision.work_unit_id,
                 "attempt_id": attempt_id,
-                "disposition": "ACCEPTED",
-                "reason": "BYTE_VERIFIED_DETERMINISTIC_CANDIDATE_UTILITY_ACCEPTED",
+                "disposition": "REVIEW_ONLY",
+                "reason": "BYTE_VERIFIED_RESULT_AWAITS_VERIFIED_DOWNSTREAM_CONSUMPTION",
                 "validation_sha256": validation_sha256,
                 "candidate_only": True,
             }
@@ -891,11 +961,18 @@ class InventoryScheduler:
                 validator="CPU_WORKER_EXACT_LOCAL_REPLAY",
                 validation_result="PASS",
                 reviewer="DETERMINISTIC_CANDIDATE_UTILITY_GATE",
-                disposition="ACCEPTED",
+                disposition="REVIEW_ONLY",
                 actual_cost_usd="0.000000",
                 settlement_reason="NONBILLABLE_CPU_RESOURCE_SETTLED",
                 cleanup_action="NO_RECONSTRUCTIBLE_TEMP_CREATED",
                 resource={"provider_calls": 1, "task": packet["task"]},
+                useful_work=self._useful_work_evidence(
+                    packet=packet,
+                    provider=str(decision.provider),
+                    route_identity=route_identity,
+                    wall_seconds=max(0.0, (completed - moment).total_seconds()),
+                    compute={"provider_calls": 1, "task": packet["task"]},
+                ),
                 actor=self.config.owner_id,
                 now=completed,
             )
@@ -906,7 +983,7 @@ class InventoryScheduler:
                 "provider_run_id": provider_run_id,
                 "result_sha256": result_sha256,
                 "artifact_path": str(artifact_path),
-                "review_disposition": "ACCEPTED",
+                "review_disposition": "REVIEW_ONLY",
                 "provider_call_attempted": True,
             }
         except Exception as exc:
@@ -1135,13 +1212,68 @@ class InventoryScheduler:
                 "effort_points": units[decision.work_unit_id].pre_routing_effort_points,
                 "reason": reason,
             })
+        classifications: dict[str, dict[str, Any]] = {}
+        for outcome in outcomes:
+            finding = str(outcome.get("finding", ""))
+            if "BudgetRejected" in finding or "BUDGET" in finding.upper():
+                category = "BUDGET_DEFERRED"
+            elif outcome.get("failed"):
+                category = "INVALID_STALE"
+            else:
+                category = "DISPATCHED"
+            classifications[str(outcome["work_unit_id"])] = {
+                "category": category,
+                "provider": outcome.get("provider"),
+                "reason": finding or "CONTROLLER_DISPATCH_RECORDED",
+            }
+        for decision in eligible:
+            if decision.work_unit_id in classifications:
+                continue
+            state = current_states.get(decision.work_unit_id)
+            if state == "DISPATCHED":
+                category, reason = "LEASED_IN_FLIGHT", "DURABLE_PROVIDER_RUN_IN_FLIGHT"
+            elif state == "RETRY_WAIT":
+                category, reason = "PROVIDER_CAPACITY_DEFERRED", "BOUNDED_RETRY_WAIT"
+            else:
+                idle = next(
+                    (item for item in idle_units if item["work_unit_id"] == decision.work_unit_id),
+                    {"reason": "ELIGIBLE_UNIT_MISSING_SCHEDULER_DISPOSITION"},
+                )
+                reason = str(idle["reason"])
+                if reason in {"BOUNDED_DISPATCH_CAPACITY_DEFERRED", "SCHEDULER_CYCLE_INTERVAL_NOT_DUE"}:
+                    category = "PROVIDER_CAPACITY_DEFERRED"
+                elif reason == "EXECUTION_PACKET_NOT_MATERIALIZED":
+                    category = "INVALID_STALE"
+                elif "ADAPTER_NOT" in reason or "NOT_CONFIGURED" in reason:
+                    category = "SCHEDULER_DEFECT"
+                else:
+                    category = "SCHEDULER_DEFECT"
+            classifications[decision.work_unit_id] = {
+                "category": category,
+                "provider": decision.provider,
+                "reason": reason,
+            }
+        classification_counts: dict[str, int] = {
+            category: 0
+            for category in (
+                "DISPATCHED", "LEASED_IN_FLIGHT", "AWAITING_REVIEW", "PROVIDER_CAPACITY_DEFERRED",
+                "BUDGET_DEFERRED", "DEPENDENCY_BLOCKED", "INVALID_STALE", "SCHEDULER_DEFECT"
+            )
+        }
+        for item in classifications.values():
+            classification_counts[item["category"]] = classification_counts.get(item["category"], 0) + 1
+        unexplained_idle_units = [
+            {"work_unit_id": work_unit_id, **item}
+            for work_unit_id, item in classifications.items()
+            if item["category"] in {"INVALID_STALE", "SCHEDULER_DEFECT"}
+        ]
         cycle_seed = f"{inventory_sha256}:{observed_at}".encode("utf-8")
         cycle_id = hashlib.sha256(cycle_seed).hexdigest()
         report = {
             "schema_version": 1,
             "artifact_type": "UNIFIED_ASSISTIVE_SCHEDULER_EVALUATION",
             "observed_at": observed_at,
-            "result": "FAIL" if failures and not successful_dispatches else "INCOMPLETE" if failures or idle_units else "PASS",
+            "result": "FAIL" if unexplained_idle_units else "INCOMPLETE" if failures or idle_units else "PASS",
             "inventory_path": str(self.config.inventory_current_path),
             "inventory_sha256": inventory_sha256,
             "inventory_age_seconds": age_seconds,
@@ -1156,13 +1288,16 @@ class InventoryScheduler:
                 role == "QUALIFICATION_RECORD"
                 for role in payload.get("work_unit_roles", {}).values()
             ),
-            "eligible_effort_points": sum(item["effort_points"] for item in idle_units),
+            "eligible_effort_points": sum(units[item.work_unit_id].pre_routing_effort_points for item in eligible),
             "dispatched_units": len(dispatched),
             "provider_calls": provider_calls,
             "dispatched": dispatched,
             "cursor_polls": cursor_polls,
             "failures": failures,
             "idle_units": idle_units,
+            "eligible_unit_classifications": classifications,
+            "eligible_unit_classification_counts": classification_counts,
+            "unexplained_idle_units": unexplained_idle_units,
             "cycle_due": cycle_due,
             "cycle_recorded": cycle_due,
             "cycle_id": cycle_id if cycle_due else None,

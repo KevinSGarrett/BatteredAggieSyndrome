@@ -158,6 +158,8 @@ class ReadOnlyWatchdog:
             latest_scheduler_dispatched = 0
             latest_scheduler_provider_calls = 0
             scheduler_idle = 0
+            scheduler_unexplained_idle = 0
+            scheduler_classification_counts: dict[str, int] = {}
             if not self.operational_audit_enabled:
                 pass
             elif not self.scheduler_report_path.is_file():
@@ -170,13 +172,23 @@ class ReadOnlyWatchdog:
                     latest_scheduler_dispatched = int(scheduler_report.get("dispatched_units", 0))
                     latest_scheduler_provider_calls = int(scheduler_report.get("provider_calls", 0))
                     scheduler_idle = len(scheduler_report.get("idle_units", []))
+                    scheduler_unexplained_idle = len(
+                        scheduler_report.get("unexplained_idle_units", [])
+                    )
+                    scheduler_classification_counts = {
+                        str(key): int(value)
+                        for key, value in scheduler_report.get(
+                            "eligible_unit_classification_counts", {}
+                        ).items()
+                    }
+                    eligible_units = int(scheduler_report.get("eligible_units", eligible_units))
                     if scheduler_age > self.evidence_max_age_seconds:
                         operational_findings.append("SCHEDULER_COMPLETENESS_EVIDENCE_STALE")
                     if scheduler_report.get("result") in {"FAIL", "BLOCKED"}:
                         operational_findings.append("SCHEDULER_EVALUATION_FAILED")
                     if latest_scheduler_provider_calls > latest_scheduler_dispatched:
                         operational_findings.append("SCHEDULER_PROVIDER_CALL_DISPATCH_MISMATCH")
-                    if scheduler_idle:
+                    if scheduler_unexplained_idle:
                         operational_findings.append("ELIGIBLE_UNITS_IDLING")
                     if scheduler_report.get("operational_completion") not in {"INCOMPLETE", None}:
                         operational_findings.append("OPERATIONAL_CLAIM_EXCEEDS_EVIDENCE")
@@ -296,6 +308,37 @@ class ReadOnlyWatchdog:
                 str(row[0])
                 for row in connection.execute("SELECT name FROM sqlite_master WHERE type='table'")
             }
+            useful_work_summary: dict[str, object] = {
+                "raw_provider_activity": 0,
+                "validated_candidate_output": 0,
+                "reviewed_output": 0,
+                "downstream_consumed_output": 0,
+                "accepted_useful_offload": 0,
+                "measured_net_time_saved_seconds": 0.0,
+                "duplicated_by_codex": 0,
+            }
+            if "useful_work_evidence" in table_names:
+                useful_row = connection.execute(
+                    "SELECT COUNT(*) AS raw_provider_activity,"
+                    "COALESCE(SUM(validated),0) AS validated_candidate_output,"
+                    "COALESCE(SUM(reviewed),0) AS reviewed_output,"
+                    "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') THEN 1 ELSE 0 END),0) AS downstream_consumed_output,"
+                    "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') AND u.validated=1 "
+                    "AND d.changed_project_artifact=1 AND d.consumed_artifact_identity IS NOT NULL "
+                    "AND d.duplicated_by_codex=0 THEN 1 ELSE 0 END),0) AS accepted_useful_offload,"
+                    "COALESCE(SUM(d.net_time_saved_seconds),0.0) AS measured_net_time_saved_seconds,"
+                    "COALESCE(SUM(d.duplicated_by_codex),0) AS duplicated_by_codex "
+                    "FROM useful_work_evidence u LEFT JOIN downstream_review_dispositions d ON d.attempt_id=u.attempt_id"
+                ).fetchone()
+                useful_work_summary = dict(useful_row)
+                invalid_useful = connection.execute(
+                    "SELECT COUNT(*) FROM downstream_review_dispositions d "
+                    "LEFT JOIN useful_work_evidence u ON u.attempt_id=d.attempt_id "
+                    "WHERE d.disposition IN ('ACCEPTED','MODIFIED') AND (u.validated<>1 OR u.reviewed<>1 OR "
+                    "d.changed_project_artifact<>1 OR d.consumed_artifact_identity IS NULL OR d.duplicated_by_codex=1)"
+                ).fetchone()[0]
+                if invalid_useful:
+                    operational_findings.append("USEFUL_OFFLOAD_CLAIM_EXCEEDS_CONSUMPTION_EVIDENCE")
             unjustified_direct_execution = (
                 connection.execute(
                     "SELECT COUNT(*) FROM pre_routing_decisions "
@@ -348,6 +391,9 @@ class ReadOnlyWatchdog:
                 ),
                 "release_evidence_started_at": release_started_at,
                 "scheduler_idle_units": scheduler_idle,
+                "scheduler_unexplained_idle_units": scheduler_unexplained_idle,
+                "eligible_unit_classification_counts": scheduler_classification_counts,
+                "useful_work_summary": useful_work_summary,
                 "abandoned_work_leases": int(expired_leases),
                 "unreconciled_inflight_provider_attempts": int(inflight_without_lease),
                 "closed_units_missing_evidence": int(closed_without_evidence),

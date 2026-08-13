@@ -120,7 +120,7 @@ def main() -> int:
         findings.append("CURSOR_RELEASE_STAGE_DRIFT")
     routes = json.loads((ROOT / "configs/assistive_route_readiness.json").read_text(encoding="utf-8"))
     rejected = [item for item in routes["routes"] if item["state"] == "NOT_READY"]
-    if len(rejected) != 4:
+    if len(rejected) != 5:
         findings.append("EXACT_REJECTED_LOCAL_ROUTE_COUNT_INVALID")
     if routes.get("human_status_override_allowed") is not False:
         findings.append("HUMAN_STATUS_CAN_OVERRIDE_EMPIRICAL_REJECTION")
@@ -129,6 +129,7 @@ def main() -> int:
         ("qwen2.5:7b-instruct", "evidence_critical_local_candidate_10_packet", "BAT-562-local-qwen-10-packet-v2"),
         ("qwen3-vl:8b-instruct-q4_K_M", "evidence_critical_local_candidate_10_packet", "BAT-562-local-qwen-10-packet-v3-qwen3vl8b"),
         ("qwen2.5-coder:7b-instruct-q4_K_M", "bounded_code_review_test_generation_parser_scaffolding", "local-coder-shadow-v1"),
+        ("qwen2.5-coder:7b-instruct-q4_K_M", "bounded_code_review_test_generation_parser_scaffolding", "local-coder-useful-work-v2"),
     }
     rejected_identities = {
         (item["resolved_model"], item["task_format"], item["prompt_version"])

@@ -1160,8 +1160,9 @@ class RuntimeInventoryRefresher:
             observed_units = int(summary.get("closed_runs", 0))
             observed_effort = int(summary.get("closed_effort_points", 0))
             review_counts = summary.get("review_dispositions", {})
-            observed_accepted = int(review_counts.get("ACCEPTED", 0)) + int(review_counts.get("MODIFIED", 0))
-            pending_review = 0
+            useful = summary.get("useful_work", {})
+            observed_accepted = int(useful.get("accepted_useful_outputs", 0))
+            pending_review = int(summary.get("pending_downstream_review", review_counts.get("REVIEW_ONLY", 0)))
             semantic = external.get(evidence_key, {})
             manual_or_external_units = int(
                 semantic.get("unique_jobs", semantic.get("requests", semantic.get("settled_calls", 0)))
@@ -1608,6 +1609,7 @@ class RuntimeInventoryRefresher:
             queue_root is None
             or not cpu.get("unmet")
             or int(cpu.get("active_execution_packets", 0)) > 0
+            or int(cpu.get("pending_review_results", 0)) > 0
         ):
             return []
         historical_root = self.config.manifests_root.resolve(strict=False)
@@ -1622,7 +1624,9 @@ class RuntimeInventoryRefresher:
             (path for path in candidates if path.name.startswith("snap_")),
             key=lambda path: (-path.stat().st_mtime_ns, path.as_posix()),
         )
-        created: list[dict[str, str]] = []
+        batch_lines: list[str] = []
+        batch_sources: list[tuple[Path, str, int]] = []
+        batch_bytes = 0
         for source in candidates:
             raw = source.read_bytes()
             if not 0 < len(raw) <= MAX_DISCOVERED_MANIFEST_BYTES:
@@ -1631,45 +1635,59 @@ class RuntimeInventoryRefresher:
             if not isinstance(value, dict):
                 continue
             source_sha256 = hashlib.sha256(raw).hexdigest()
-            packet = {
-                "schema_version": 1,
-                "provider": "remote_cpu_worker",
-                "task": "CANONICAL_JSON",
-                "task_format": CPU_MANIFEST_TASK_FORMAT,
-                "jira_unit": "BAT-563",
-                "schema_sha256": CPU_MANIFEST_SCHEMA_SHA256,
-                "source_hashes": [source_sha256],
-                "dependencies": [],
-                "pre_routing_effort_points": 1,
-                "scope": (
-                    "Controller-routed deterministic canonicalization and hash verification of live "
-                    f"historical evidence {source.relative_to(historical_root).as_posix()}"
-                ),
-                "payload": {"value": value},
-                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
-            }
-            data = canonical_json_bytes(packet) + b"\n"
-            digest = hashlib.sha256(data).hexdigest()
-            work_unit_id = "AUTO-CPU-MANIFEST-" + digest[:20]
-            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
-                continue
-            destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
-            if destination.exists() and destination.read_bytes() != data:
-                raise RuntimeError("CONTINUOUS_CPU_PACKET_COLLISION")
-            if not destination.exists():
-                _atomic_write(destination, data)
-            created.append(
-                {
-                    "provider": "remote_cpu_worker",
-                    "source_relative_path": source.relative_to(historical_root).as_posix(),
-                    "source_sha256": source_sha256,
-                    "packet_path": str(destination),
-                    "packet_sha256": digest,
-                }
-            )
-            if len(created) >= 2:
+            line = json.dumps(value, sort_keys=True, separators=(",", ":"))
+            if batch_lines and batch_bytes + len(line.encode("utf-8")) > MAX_DISCOVERED_MANIFEST_BYTES:
                 break
-        return created
+            batch_lines.append(line)
+            batch_sources.append((source, source_sha256, len(raw)))
+            batch_bytes += len(raw)
+            if len(batch_lines) >= MAX_RECORDS:
+                break
+        if not batch_lines:
+            return []
+        packet = {
+            "schema_version": 1,
+            "provider": "remote_cpu_worker",
+            "task": "LINE_HASH_MANIFEST",
+            "task_format": CPU_LINE_HASH_TASK_FORMAT,
+            "jira_unit": "BAT-563",
+            "schema_sha256": CPU_LINE_HASH_SCHEMA_SHA256,
+            "source_hashes": [item[1] for item in batch_sources],
+            "dependencies": [],
+            "pre_routing_effort_points": 3 if len(batch_lines) < 128 else 5,
+            "scope": (
+                "Controller-routed bounded historical-manifest hashing and replay-verification tranche "
+                f"covering {len(batch_lines)} immutable captures and {batch_bytes} source bytes."
+            ),
+            "downstream_consumer": "HISTORICAL_MANIFEST_PROVENANCE_AND_REPLAY_VALIDATION",
+            "delegation_preference_reason": "BOUNDED_FIXED_FUNCTION_REMOTE_CPU_BATCH_AVOIDS_COORDINATOR_SERIAL_HASHING",
+            "input_metrics": {
+                "documents": len(batch_lines),
+                "records": len(batch_lines),
+                "bytes": batch_bytes,
+            },
+            "payload": {"lines": batch_lines},
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        data = canonical_json_bytes(packet) + b"\n"
+        digest = hashlib.sha256(data).hexdigest()
+        work_unit_id = "AUTO-CPU-LINE-HASH-" + digest[:20]
+        if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
+            return []
+        destination = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+        if destination.exists() and destination.read_bytes() != data:
+            raise RuntimeError("CONTINUOUS_CPU_PACKET_COLLISION")
+        if not destination.exists():
+            _atomic_write(destination, data)
+        return [{
+            "provider": "remote_cpu_worker",
+            "source_relative_path": "BATCH:" + ",".join(
+                item[0].relative_to(historical_root).as_posix() for item in batch_sources[:8]
+            ),
+            "source_sha256": hashlib.sha256("".join(item[1] for item in batch_sources).encode()).hexdigest(),
+            "packet_path": str(destination),
+            "packet_sha256": digest,
+        }]
 
     def _materialize_continuous_bge_work(
         self,
@@ -1682,6 +1700,7 @@ class RuntimeInventoryRefresher:
             queue_root is None
             or not local.get("unmet")
             or int(local.get("active_execution_packets", 0)) > 0
+            or int(local.get("pending_review_results", 0)) > 0
         ):
             return []
         source_root = data_root / "reconciliation" / "historical_expansion"

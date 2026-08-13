@@ -65,6 +65,7 @@ FILES = (
     "tools/activate_unified_assistive_release.py",
     "tools/switch_unified_assistive_services.ps1",
     "tools/materialize_unified_assistive_inventory.py",
+    "tools/reconcile_assistive_review_backlog.py",
 )
 GENERATED_RELEASE_FILES = {
     "src/aggie_analytics/assistive_plane/__init__.py": (

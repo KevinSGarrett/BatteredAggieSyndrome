@@ -4,6 +4,7 @@ import hashlib
 import json
 import tempfile
 import unittest
+from contextlib import closing
 from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -93,9 +94,22 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
         self.assertEqual(1, status["scheduler_cycles"])
         self.assertEqual(0, status["scheduler_dispatched_units"])
         self.assertEqual(1, status["active_idle_intervals"])
+        with closing(self.state.connect()) as connection:
+            first_idle_id = connection.execute(
+                "SELECT idle_id FROM idle_intervals WHERE work_unit_id=? AND resolved_at IS NULL",
+                ("UNIT-1",),
+            ).fetchone()["idle_id"]
         second = self.scheduler().evaluate(now=self.now + timedelta(minutes=5))
         self.assertFalse(second["cycle_due"])
         self.assertEqual(1, self.state.status()["scheduler_cycles"])
+        with closing(self.state.connect()) as connection:
+            rows = connection.execute(
+                "SELECT idle_id,resolved_at FROM idle_intervals WHERE work_unit_id=?",
+                ("UNIT-1",),
+            ).fetchall()
+        self.assertEqual(1, len(rows))
+        self.assertEqual(first_idle_id, rows[0]["idle_id"])
+        self.assertIsNone(rows[0]["resolved_at"])
 
     def test_nonrouteable_inventory_records_no_change_with_zero_calls(self) -> None:
         self.write_inventory(RoutingDisposition.CODEX_DETERMINISTIC)
@@ -110,7 +124,7 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
     def test_resolved_idle_interval_can_reopen_without_primary_key_collision(self) -> None:
         self.write_inventory(RoutingDisposition.DIRECT_OPENAI)
         self.scheduler().evaluate(now=self.now)
-        with self.state.connect() as connection:
+        with closing(self.state.connect()) as connection:
             first_idle = connection.execute(
                 "SELECT idle_id,resolved_at FROM idle_intervals WHERE work_unit_id=? ORDER BY opened_at ASC",
                 ("UNIT-1",),
@@ -120,7 +134,7 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
 
         self.write_inventory(RoutingDisposition.CODEX_DETERMINISTIC)
         self.scheduler().evaluate(now=self.now + timedelta(minutes=1))
-        with self.state.connect() as connection:
+        with closing(self.state.connect()) as connection:
             resolved_first = connection.execute(
                 "SELECT idle_id,resolved_at FROM idle_intervals WHERE work_unit_id=? ORDER BY opened_at ASC",
                 ("UNIT-1",),
@@ -131,7 +145,7 @@ class UnifiedInventorySchedulerTests(unittest.TestCase):
         reopened = self.scheduler().evaluate(now=self.now + timedelta(minutes=2))
         self.assertEqual("INCOMPLETE", reopened["result"])
         self.assertEqual(0, reopened["provider_calls"])
-        with self.state.connect() as connection:
+        with closing(self.state.connect()) as connection:
             rows = connection.execute(
                 "SELECT idle_id,resolved_at FROM idle_intervals WHERE work_unit_id=? ORDER BY opened_at ASC",
                 ("UNIT-1",),

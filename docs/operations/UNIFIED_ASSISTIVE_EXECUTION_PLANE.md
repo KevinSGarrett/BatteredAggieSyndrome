@@ -47,7 +47,7 @@ Provider campaign accounting uses distinct base units and frozen effort, not raw
 
 Current capability checkpoint:
 
-- Cursor authentication, repository catalog, and exact `gpt-5.3-codex` catalog presence are verified without exposing the token. The separate USD 200 cap and USD 20 initial stage authorize two serial safety pilots; zero qualifying real agents have executed.
+- Cursor authentication, repository catalog, and exact `gpt-5.3-codex` catalog presence are verified without exposing the token. The separate USD 200 cap and USD 20 initial stage authorize two serial safety pilots. Pilot 1 executed as one real candidate-only agent on exact main, used 589,155 tokens across two runs, settled USD 0.26948065, and was accepted only after Codex review edits and Windows-local validation; pilot 2 remains a hard serial dependency, so Cursor is not operational.
 - The exact evaluated `qwen2.5:7b-instruct` and `qwen3-vl:8b-instruct-q4_K_M` evidence-critical routes are rejected. New coder and embedding identities require separate shadow qualification.
 - The controller laptop and expected Tailscale worker are online. The historical CPU prototype is disabled; the corrected private-HTTPS/signing/least-privilege route remains blocked pending deployment and live qualification.
 - OpenRouter has a separate USD 25 cap and USD 5 initial stage for capability and bounded real-work pilots. It is authorized but has no qualifying paid real work yet. Direct OpenAI retains its independent governed budget and candidate-only operation.

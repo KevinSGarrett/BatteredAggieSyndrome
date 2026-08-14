@@ -397,6 +397,29 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
             0.0,
             watchdog["useful_work_summary"]["measured_net_time_saved_seconds"],
         )
+        self.assertNotIn(
+            "USEFUL_OFFLOAD_CLAIM_EXCEEDS_CONSUMPTION_EVIDENCE",
+            watchdog["operational_findings"],
+        )
+
+        # The exclusion is scoped to an explicitly nonauthoritative candidate
+        # queue.  The same zero-change disposition against a real consumer is
+        # still an invalid useful-work claim and must fail the independent audit.
+        with self.state.transaction() as connection:
+            connection.execute(
+                "UPDATE downstream_review_dispositions SET "
+                "downstream_consumer='REAL_DOWNSTREAM_TEST_CONSUMER',"
+                "changed_project_artifact=0,net_time_saved_seconds=0 "
+                "WHERE attempt_id=?",
+                (self.attempt_id,),
+            )
+        invalid_watchdog = ReadOnlyWatchdog(self.state.database).inspect(
+            now=datetime(2026, 8, 14, 1, 2, tzinfo=timezone.utc)
+        )
+        self.assertIn(
+            "USEFUL_OFFLOAD_CLAIM_EXCEEDS_CONSUMPTION_EVIDENCE",
+            invalid_watchdog["operational_findings"],
+        )
 
     def test_invalid_candidate_contract_result_is_isolated_and_remains_pending(
         self,

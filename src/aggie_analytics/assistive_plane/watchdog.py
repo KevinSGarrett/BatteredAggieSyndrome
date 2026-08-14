@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .controller_state import parse_rfc3339
+from .controller_state import CANDIDATE_REVIEW_QUEUE_CONSUMERS, parse_rfc3339
 from .orchestration import ATOMIC_EXECUTABLE, load_inventory, validate_work_unit_roles
 
 
@@ -348,11 +348,15 @@ class ReadOnlyWatchdog:
                     "FROM useful_work_evidence u LEFT JOIN downstream_review_dispositions d ON d.attempt_id=u.attempt_id"
                 ).fetchone()
                 useful_work_summary = dict(useful_row)
+                candidate_placeholders = ",".join("?" for _ in CANDIDATE_REVIEW_QUEUE_CONSUMERS)
                 invalid_useful = connection.execute(
                     "SELECT COUNT(*) FROM downstream_review_dispositions d "
                     "LEFT JOIN useful_work_evidence u ON u.attempt_id=d.attempt_id "
-                    "WHERE d.disposition IN ('ACCEPTED','MODIFIED') AND (u.validated<>1 OR u.reviewed<>1 OR "
-                    "d.changed_project_artifact<>1 OR d.consumed_artifact_identity IS NULL OR d.duplicated_by_codex=1)"
+                    "WHERE d.disposition IN ('ACCEPTED','MODIFIED') "
+                    f"AND COALESCE(d.downstream_consumer,'') NOT IN ({candidate_placeholders}) "
+                    "AND (u.validated<>1 OR u.reviewed<>1 OR "
+                    "d.changed_project_artifact<>1 OR d.consumed_artifact_identity IS NULL OR d.duplicated_by_codex=1)",
+                    tuple(sorted(CANDIDATE_REVIEW_QUEUE_CONSUMERS)),
                 ).fetchone()[0]
                 if invalid_useful:
                     operational_findings.append("USEFUL_OFFLOAD_CLAIM_EXCEEDS_CONSUMPTION_EVIDENCE")

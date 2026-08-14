@@ -1,25 +1,25 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-INVENTORY-COMPLETION-FRESHNESS-V1",
+  "work_unit_id": "BAT-560-WATCHDOG-USEFUL-CLAIM-SCOPE-V1",
   "jira_identity": "BAT-560",
-  "decision_sha256": "58cf6d1a616179e62acc2e04d3935a863926eb21ce2a387ee88918da858a474b",
+  "decision_sha256": "62a6d1bff6da5fd55905b31a92b3661152a28e43610b7cf659126605905d2321",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "LIVE_INVENTORY_POINTER_FRESHNESS_RECORDS_SCAN_START_INSTEAD_OF_SUCCESSFUL_PUBLICATION",
-  "source_commit": "6218f60d24ec54abd9aed553562cdbe478618ebd",
+  "reason_code": "WATCHDOG_FALSELY_FLAGS_ZERO_CREDIT_CANDIDATE_REVIEW_QUEUE_AS_USEFUL_OFFLOAD_CLAIM",
+  "source_commit": "36b69535674aa645e5445ee0e976f2f5bcbc37f9",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "missing_autonomous_capability": "A successfully published live inventory must remain fresh for the full five-minute source-scan boundary instead of spending most of that boundary inside the scan that produced it.",
-  "observed_failure": "The exact-main controller began the successful inventory refresh at 2026-08-14T14:51:04.052357Z but published its pointer at 2026-08-14T14:55:04.0401264Z, 239.988 seconds later, while preserving the scan-start timestamp as refreshed_at. The normal scheduler wait can therefore make the pointer stale before the next successful publication.",
-  "repair_evidence_sha256": "32a3d30e689003c3198fd4d0c4a64fef9fcc399a1e72a7abd187ce38aeb40839",
+  "missing_autonomous_capability": "The independent auditor must distinguish nonauthoritative candidate-review admission from a claimed downstream-consumed useful result while continuing to fail on invalid real-consumer claims.",
+  "observed_failure": "The deployed watchdog reported USEFUL_OFFLOAD_CLAIM_EXCEEDS_CONSUMPTION_EVIDENCE for 486 candidate-review rows that explicitly recorded zero useful credit; the same invalid-claim predicate restricted to real downstream consumers returned zero rows.",
+  "repair_evidence_sha256": "e1bcc1ac7ea679bfd14148048da40f08b34a954d10b760d2e4e53e9f4e379181",
   "allowed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "tests/test_unified_runtime_inventory_dispatch.py"
+    "src/aggie_analytics/assistive_plane/watchdog.py",
+    "tests/test_assistive_downstream_review.py"
   ]
 }

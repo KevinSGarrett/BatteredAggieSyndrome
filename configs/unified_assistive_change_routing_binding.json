@@ -1,25 +1,25 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-LIVE-SERVICE-STABLE-LAUNCHER-CAPTURE-REPAIR",
+  "work_unit_id": "BAT-560-CURSOR-IMPLEMENTATION-CANDIDATE-CONSUMPTION-REPAIR",
   "jira_identity": "BAT-560",
-  "decision_sha256": "5d4e59c2e55c8fde707bab1499d08abcde1e6ca7b6e405ded450ee8d828b8320",
+  "decision_sha256": "6ab5a6d8de812de5677b5bee8c6af877ab62b95e490cd08dec989cf806b451d4",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "LIVE_SERVICE_AUDITOR_MUST_VALIDATE_STABLE_LAUNCHER_AND_ATOMIC_RELEASE_POINTER_INSTEAD_OF_OBSOLETE_DIRECT_RELEASE_TASK_ARGUMENTS",
-  "source_commit": "2c5dfe7b3b82275cfbf8f7bc4bd3971f28374e05",
+  "reason_code": "CURSOR_IMPLEMENTATION_PROMPT_FORBIDS_COMMIT_PUSH_SO_COMPLETED_EDITS_HAVE_NO_FETCHABLE_BRANCH_AND_CANNOT_BE_CONSUMED",
+  "source_commit": "56dbb6e488a617ad7be3185d6c9707f73dac06fa",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "missing_autonomous_capability": "The independent live-service capture must derive deployed release identity from the stable launcher and immutable atomic release pointer while reporting structural service health separately from operational completeness.",
-  "observed_failure": "After the verified stable-launcher deployment of 2c5dfe7b, the capture tool falsely reported missing task build arguments, a missing release manifest, and build disagreement because it still treated each task working directory as a direct immutable release root.",
-  "repair_evidence_sha256": "b3e439123b4a0b443a052ee4725ad5ad1606a4b2ab878446bcd2b7b18f3899e5",
+  "missing_autonomous_capability": "A completed Cursor implementation must leave a committed and pushed isolated candidate branch that the persistent controller can fetch, validate, review, consume, settle, and clean without mutating current main.",
+  "observed_failure": "Two real controller-routed implementation agents reported completed file edits but explicitly performed no commit or push because the generated prompt said not to write the current branch. The resulting remote branch did not exist, so exact branch validation rejected both paid candidates and useful offload remained zero.",
+  "repair_evidence_sha256": "a9aa5ebcd98cb2b71be653e65671f11b9fece67d906b4905cd6f1250f624ca4d",
   "allowed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/live_service.py",
-    "tests/test_unified_live_service.py"
+    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
+    "tests/test_unified_runtime_inventory_dispatch.py"
   ]
 }

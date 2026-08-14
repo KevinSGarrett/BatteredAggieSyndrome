@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-P0-CURSOR-IMPLEMENTATION-ROUTE",
+  "work_unit_id": "BAT-560-P0-OPENAI-CROSS-PROVIDER-QA-FEED",
   "jira_identity": "BAT-560",
-  "decision_sha256": "d74ea48262920051f598b5a58afc89bac8d6fb100af7dd6b28a781cba108c9d0",
+  "decision_sha256": "a1c8345a7fb34c75b9e7745f902880ce7f869adc5662de930f709466a4d871fb",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "PERSISTENT_CURSOR_ROUTE_CAN_REVIEW_BUT_CANNOT_IMPLEMENT_BOUNDED_REPOSITORY_UNITS",
-  "source_commit": "af2b934b5c769e9f75459f3193d70f22f828d4c0",
+  "reason_code": "OPENAI_DIRECT_CAMPAIGN_UNMET_WITH_COMPLETE_SOURCE_SCANS_BUT_ZERO_EXECUTABLE_PACKETS",
+  "source_commit": "440ebc29a51d801beb7c70da9344f99e4d08a4e0",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "restored_capabilities": [
-    "review_to_bounded_cursor_implementation_packet_generation",
-    "exact_base_branch_diff_and_allowed_path_candidate_validation",
-    "transient_cursor_submission_retry_with_bounded_backoff",
-    "terminal_unit_scoped_quarantine_for_invalid_candidate_branches",
-    "candidate_only_no_canonical_or_protected_authority"
+    "bounded_content_addressed_non_openai_candidate_result_discovery",
+    "self_loop_and_invalid_authority_rejection",
+    "one_candidate_only_openai_qa_identity_per_immutable_source_result",
+    "bounded_per_provider_fairness_and_terminal_identity_suppression",
+    "provider_result_queue_watermark_and_freshness_evidence"
   ],
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,

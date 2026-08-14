@@ -111,6 +111,16 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
         write_json(path, manifest)
         return path
 
+    def add_inflated_legacy_reconciliation(self, season: int) -> Path:
+        path = self.add_reconciliation(season)
+        item = json.loads(path.read_text(encoding="utf-8"))
+        item["identity_core"]["population"]["unresolved_legacy_observations"] = 1000
+        identity = hashlib.sha256(coverage.canonical_json(item["identity_core"])).hexdigest()
+        item["dataset_identity"] = identity
+        inflated = path.parents[1] / identity / "run_manifest.json"
+        write_json(inflated, item)
+        return inflated
+
     def test_graph_exhaustion_with_failures_is_not_capture_complete(self) -> None:
         self.add_discovery(2024, failures=0)
         self.add_discovery(2025, failures=2)
@@ -182,6 +192,14 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "content identity mismatch"):
             coverage.select_strongest_reconciliation(self.data_root, 2022)
+
+    def test_reconciliation_selection_penalizes_spurious_legacy_duplicates(self) -> None:
+        correct = self.add_reconciliation(2018)
+        self.add_inflated_legacy_reconciliation(2018)
+
+        selected, _ = coverage.select_strongest_reconciliation(self.data_root, 2018)
+
+        self.assertEqual(selected, correct)
 
 
 if __name__ == "__main__":

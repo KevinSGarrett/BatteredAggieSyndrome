@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+import urllib.error
 from decimal import Decimal
 from pathlib import Path
 
@@ -489,6 +490,150 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
             )
             self.assertEqual([], result.resource["changed_paths"])
             self.assertIsNone(result.resource["candidate_validation_path"])
+
+    def test_cursor_terminal_implementation_without_remote_branch_is_rejected_and_settled(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "release"
+            (root / "configs").mkdir(parents=True)
+            policy = json.loads(
+                (
+                    Path(__file__).resolve().parents[1]
+                    / "configs/unified_assistive_policy.json"
+                ).read_text(encoding="utf-8")
+            )
+            (root / "configs/unified_assistive_policy.json").write_text(
+                json.dumps(policy), encoding="utf-8"
+            )
+
+            class FakeCursorClient:
+                def request(self, method: str, path: str, payload=None):
+                    if method == "POST" and path == "/agents":
+                        return {"agent": {"status": "RUNNING"}}
+                    if path.endswith("/usage"):
+                        return {"cost": {"chargedCents": 50}, "tokens": 321}
+                    if "/runs/" in path:
+                        return {
+                            "status": "FINISHED",
+                            "git": {"branchName": "cursor/no-remote-branch"},
+                        }
+                    if path.startswith("/agents/"):
+                        return {"latestRunId": "run-no-remote-branch"}
+                    raise AssertionError((method, path, payload))
+
+            def missing_branch(_packet, branch):
+                raise urllib.error.HTTPError(
+                    f"https://api.github.com/compare/{branch}",
+                    404,
+                    "Not Found",
+                    {},
+                    None,
+                )
+
+            store = Path(temporary) / "cursor-store"
+            adapter = GovernedCursorAdapter(
+                root,
+                client=FakeCursorClient(),
+                store_root=store,
+                branch_inspector=missing_branch,
+            )
+            packet = {
+                "provider": "cursor",
+                "task_format": CURSOR_IMPLEMENTATION_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-129",
+                "schema_sha256": "a" * 64,
+                "prompt": "Implement only the admitted artifact.",
+                "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                "starting_ref": "b" * 40,
+                "base_commit": "b" * 40,
+                "model": "gpt-5.3-codex",
+                "reasoning": "medium",
+                "max_reservation_usd": "2.00",
+                "allowed_paths": ["artifacts/operations/gate.json"],
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+
+            result = adapter.poll(packet, adapter.submit(packet))
+
+            self.assertIsNotNone(result)
+            assert result is not None
+            self.assertEqual("REJECTED", result.disposition)
+            self.assertEqual(
+                ("CURSOR_IMPLEMENTATION_REMOTE_BRANCH_NOT_FOUND",),
+                result.validation_errors,
+            )
+            self.assertEqual([], result.resource["changed_paths"])
+            self.assertIsNone(result.resource["candidate_validation_path"])
+            ledger = json.loads((store / "usage/ledger.json").read_text(encoding="utf-8"))
+            self.assertEqual("0.500000", ledger["settled_usd"])
+            self.assertEqual({}, ledger["reservations"])
+
+    def test_cursor_candidate_branch_non_404_http_failure_remains_retryable(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "release"
+            (root / "configs").mkdir(parents=True)
+            policy = json.loads(
+                (
+                    Path(__file__).resolve().parents[1]
+                    / "configs/unified_assistive_policy.json"
+                ).read_text(encoding="utf-8")
+            )
+            (root / "configs/unified_assistive_policy.json").write_text(
+                json.dumps(policy), encoding="utf-8"
+            )
+
+            class FakeCursorClient:
+                def request(self, method: str, path: str, payload=None):
+                    if method == "POST" and path == "/agents":
+                        return {"agent": {"status": "RUNNING"}}
+                    if path.endswith("/usage"):
+                        return {"cost": {"chargedCents": 50}, "tokens": 321}
+                    if "/runs/" in path:
+                        return {
+                            "status": "FINISHED",
+                            "git": {"branchName": "cursor/transient-failure"},
+                        }
+                    if path.startswith("/agents/"):
+                        return {"latestRunId": "run-transient-failure"}
+                    raise AssertionError((method, path, payload))
+
+            def unavailable(_packet, branch):
+                raise urllib.error.HTTPError(
+                    f"https://api.github.com/compare/{branch}",
+                    503,
+                    "Service Unavailable",
+                    {},
+                    None,
+                )
+
+            adapter = GovernedCursorAdapter(
+                root,
+                client=FakeCursorClient(),
+                store_root=Path(temporary) / "cursor-store",
+                branch_inspector=unavailable,
+            )
+            packet = {
+                "provider": "cursor",
+                "task_format": CURSOR_IMPLEMENTATION_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-129",
+                "schema_sha256": "a" * 64,
+                "prompt": "Implement only the admitted artifact.",
+                "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                "starting_ref": "b" * 40,
+                "base_commit": "b" * 40,
+                "model": "gpt-5.3-codex",
+                "reasoning": "medium",
+                "max_reservation_usd": "2.00",
+                "allowed_paths": ["artifacts/operations/gate.json"],
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+
+            handle = adapter.submit(packet)
+            with self.assertRaises(urllib.error.HTTPError) as context:
+                adapter.poll(packet, handle)
+            self.assertEqual(503, context.exception.code)
+            context.exception.close()
 
     def test_cursor_adapter_recovers_settled_job_without_duplicate_post(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

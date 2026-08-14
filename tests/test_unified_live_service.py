@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import importlib.util
+import shutil
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -23,8 +25,6 @@ class UnifiedLiveServiceTests(unittest.TestCase):
         files = {"worker.py": {"bytes": 0, "sha256": ""}}
         (self.release / "worker.py").parent.mkdir(parents=True)
         (self.release / "worker.py").write_text("x\n", encoding="utf-8")
-        import hashlib
-
         files["worker.py"]["bytes"] = (self.release / "worker.py").stat().st_size
         files["worker.py"]["sha256"] = hashlib.sha256((self.release / "worker.py").read_bytes()).hexdigest()
         (self.release / "RELEASE_MANIFEST.json").write_text(
@@ -76,6 +76,111 @@ class UnifiedLiveServiceTests(unittest.TestCase):
             {"task_name": "BAS-UnifiedAssistiveController", **common},
             {"task_name": "BAS-UnifiedAssistiveWatchdog", **common},
         ]
+
+    def stable_launcher_tasks(self) -> list[dict[str, object]]:
+        commit = "a" * 40
+        release = self.runtime / "releases" / commit
+        shutil.copytree(self.release, release)
+        release_launcher = release / "tools/launch_unified_assistive_service.py"
+        release_launcher.parent.mkdir(parents=True)
+        release_launcher.write_text("# stable launcher fixture\n", encoding="utf-8")
+        manifest_path = release / "RELEASE_MANIFEST.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["files"]["tools/launch_unified_assistive_service.py"] = {
+            "bytes": release_launcher.stat().st_size,
+            "sha256": hashlib.sha256(release_launcher.read_bytes()).hexdigest(),
+        }
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+        launcher = self.runtime / "launcher/launch_unified_assistive_service.py"
+        launcher.parent.mkdir(parents=True)
+        shutil.copy2(release_launcher, launcher)
+        pointer = {
+            "schema_version": 1,
+            "artifact_type": "UNIFIED_ASSISTIVE_RELEASE_POINTER",
+            "build_commit": commit,
+            "release_root": str(release),
+            "release_manifest_sha256": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+            "source_tree_sha256": "b" * 64,
+        }
+        pointer_path = self.runtime / "deployment/current-release.json"
+        pointer_path.parent.mkdir(parents=True)
+        pointer_path.write_text(json.dumps(pointer), encoding="utf-8")
+        common = {
+            "state": "Running",
+            "enabled": True,
+            "principal": "NT AUTHORITY\\LOCAL SERVICE",
+            "run_level": "Limited",
+            "logon_type": "ServiceAccount",
+            "trigger_types": ["MSFT_TaskBootTrigger"],
+            "execute": "python.exe",
+            "working_directory": str(launcher.parent),
+            "last_task_result": 267009,
+        }
+        return [
+            {
+                "task_name": "BAS-UnifiedAssistiveController",
+                "arguments": (
+                    f'-B "{launcher}" --role controller '
+                    f'--runtime-root "{self.runtime}"'
+                ),
+                **common,
+            },
+            {
+                "task_name": "BAS-UnifiedAssistiveWatchdog",
+                "arguments": (
+                    f'-B "{launcher}" --role watchdog '
+                    f'--runtime-root "{self.runtime}"'
+                ),
+                **common,
+            },
+        ]
+
+    def test_stable_launcher_release_pointer_deployment_passes(self) -> None:
+        report = evaluate_live_service(
+            runtime_root=self.runtime,
+            tasks=self.stable_launcher_tasks(),
+            now=self.now,
+        )
+
+        self.assertEqual("PASS", report["result"], report)
+        self.assertEqual(
+            "STABLE_LAUNCHER_RELEASE_POINTER",
+            report["release"]["deployment_mode"],
+        )
+        self.assertEqual("a" * 40, report["release"]["build_commit"])
+        self.assertNotIn(
+            "SERVICE_TASK_BUILD_COMMIT_MISSING:BAS-UnifiedAssistiveController",
+            report["findings"],
+        )
+
+    def test_stable_launcher_pointer_manifest_mismatch_fails(self) -> None:
+        tasks = self.stable_launcher_tasks()
+        pointer_path = self.runtime / "deployment/current-release.json"
+        pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+        pointer["release_manifest_sha256"] = "c" * 64
+        pointer_path.write_text(json.dumps(pointer), encoding="utf-8")
+
+        report = evaluate_live_service(runtime_root=self.runtime, tasks=tasks, now=self.now)
+
+        self.assertEqual("FAIL", report["result"])
+        self.assertIn(
+            "SERVICE_RELEASE_POINTER_MANIFEST_HASH_MISMATCH",
+            report["findings"],
+        )
+
+    def test_stable_launcher_role_argument_mismatch_fails(self) -> None:
+        tasks = self.stable_launcher_tasks()
+        tasks[1]["arguments"] = str(tasks[1]["arguments"]).replace(
+            "--role watchdog", "--role controller"
+        )
+
+        report = evaluate_live_service(runtime_root=self.runtime, tasks=tasks, now=self.now)
+
+        self.assertEqual("FAIL", report["result"])
+        self.assertIn(
+            "SERVICE_TASK_STABLE_LAUNCHER_ARGUMENTS_INVALID:BAS-UnifiedAssistiveWatchdog",
+            report["findings"],
+        )
 
     def test_healthy_service_shell_is_not_operational_scheduler(self) -> None:
         report = evaluate_live_service(runtime_root=self.runtime, tasks=self.tasks(), now=self.now)

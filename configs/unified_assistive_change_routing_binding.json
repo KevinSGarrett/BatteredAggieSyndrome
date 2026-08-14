@@ -1,25 +1,25 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-CURSOR-TERMINAL-BRANCH-UNAVAILABLE-REPAIR",
+  "work_unit_id": "BAT-560-LIVE-SERVICE-STABLE-LAUNCHER-CAPTURE-REPAIR",
   "jira_identity": "BAT-560",
-  "decision_sha256": "2b0df1411031a0bcb8154d3b1693695afd41e4dd87c8b0eca0770c9ff55f85b4",
+  "decision_sha256": "5d4e59c2e55c8fde707bab1499d08abcde1e6ca7b6e405ded450ee8d828b8320",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "TERMINAL_CURSOR_IMPLEMENTATION_WITHOUT_REMOTE_BRANCH_MUST_SETTLE_AS_UNIT_SCOPED_REJECTION_NOT_RETRY_FOREVER",
-  "source_commit": "c50d9bda8cd3c8bb36cd7dda599d9f93bf768db5",
+  "reason_code": "LIVE_SERVICE_AUDITOR_MUST_VALIDATE_STABLE_LAUNCHER_AND_ATOMIC_RELEASE_POINTER_INSTEAD_OF_OBSOLETE_DIRECT_RELEASE_TASK_ARGUMENTS",
+  "source_commit": "2c5dfe7b3b82275cfbf8f7bc4bd3971f28374e05",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "missing_autonomous_capability": "A terminal controller-routed Cursor implementation with no remotely published candidate branch must reach a durable reviewed, settled, cleaned terminal disposition without manual polling, duplicate submission, or an indefinitely heartbeated lease.",
-  "observed_failure": "The BAT-479 implementation agent reached terminal branch inspection, but the GitHub compare endpoint returned HTTP 404 because no remote branch existed. The scheduler treated every poll as retryable and kept the unit DISPATCHED indefinitely.",
-  "repair_evidence_sha256": "473dd5de72a09337dffe24d6f4abadbb839be638019d34a28dfa32949ca82555",
+  "missing_autonomous_capability": "The independent live-service capture must derive deployed release identity from the stable launcher and immutable atomic release pointer while reporting structural service health separately from operational completeness.",
+  "observed_failure": "After the verified stable-launcher deployment of 2c5dfe7b, the capture tool falsely reported missing task build arguments, a missing release manifest, and build disagreement because it still treated each task working directory as a direct immutable release root.",
+  "repair_evidence_sha256": "b3e439123b4a0b443a052ee4725ad5ad1606a4b2ab878446bcd2b7b18f3899e5",
   "allowed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/provider_adapters.py",
-    "tests/test_unified_provider_adapters.py"
+    "src/aggie_analytics/assistive_plane/live_service.py",
+    "tests/test_unified_live_service.py"
   ]
 }

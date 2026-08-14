@@ -52,6 +52,16 @@ class CodexUsageInterlockTests(unittest.TestCase):
         )
         self.assertIs(policy["epistemic_boundary"]["billing_motive_claim_allowed"], False)
 
+    def test_bootstrap_allowlist_admits_only_the_exact_service_switcher_path(self) -> None:
+        policy = json.loads(
+            (ROOT / "instructions/policies/assistive_execution_interlock.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        allowed = policy["bootstrap_allowed_paths"]
+        self.assertIn("tools/switch_unified_assistive_services.ps1", allowed)
+        self.assertNotIn("tools/", allowed)
+
     @staticmethod
     def _routed_project_fixture() -> tuple[dict, dict, dict]:
         policy = json.loads(

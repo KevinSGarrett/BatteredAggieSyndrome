@@ -93,8 +93,16 @@ if ($PSCmdlet.ShouldProcess($release, 'Activate verified release and restart exi
     } catch {
         if ($previousPointer) {
             $rollback = Join-Path (Split-Path -Parent $pointerPath) ('.current-release-' + [guid]::NewGuid().ToString('N') + '.tmp')
+            $failedPointerBackup = Join-Path (Split-Path -Parent $pointerPath) ('failed-current-release-' + [guid]::NewGuid().ToString('N') + '.json')
             [System.IO.File]::WriteAllBytes($rollback, $previousPointer)
-            [System.IO.File]::Replace($rollback, $pointerPath, $null)
+            [System.IO.File]::Replace($rollback, $pointerPath, $failedPointerBackup)
+            $restoredPointer = [System.IO.File]::ReadAllBytes($pointerPath)
+            if (
+                [System.Convert]::ToBase64String($restoredPointer) -ne
+                [System.Convert]::ToBase64String($previousPointer)
+            ) {
+                throw 'RELEASE_POINTER_ROLLBACK_VERIFICATION_FAILED'
+            }
         }
         Start-ScheduledTask -TaskName $ControllerTaskName -ErrorAction SilentlyContinue
         Start-ScheduledTask -TaskName $WatchdogTaskName -ErrorAction SilentlyContinue

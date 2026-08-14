@@ -53,6 +53,7 @@
     "tests/test_unified_",
     "tools/activate_codex_usage_interlock.py",
     "tools/build_unified_assistive_release.py",
+    "tools/switch_unified_assistive_services.ps1",
     "tools/validate_autonomous_controls.py",
     "tools/validate_codex_usage_interlock.py",
     "tools/validate_unified_"

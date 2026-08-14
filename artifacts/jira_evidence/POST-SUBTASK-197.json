@@ -473,9 +473,69 @@
     },
     "authority": "CANDIDATE_ONLY_DOMAIN_INDEPENDENT_COVERAGE_NO_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
   },
+  "historical_spine_2010_legacy_reconciliation_checkpoint": {
+    "recorded_at_utc": "2026-08-14T20:37:49Z",
+    "discovery": {
+      "identity": "585b753325dc15cd2662f2d74b34a586d000be3c7d54df6abb9321d53ff195aa",
+      "manifest_sha256": "088a863b8f04c143205d7daeba6b35673846c824e57993fee37ec232beb07d3f",
+      "state": "COMPLETE_GRAPH_EXHAUSTED",
+      "discovered_team_seasons": 451,
+      "captured_team_pages": 207,
+      "failed_team_pages": 244,
+      "legacy_schedule_records": 2388,
+      "remaining_queue": 0
+    },
+    "negative_schema_finding": {
+      "superseded_dataset_identity": "a225ee1551902247d5e90e5fc3f38c925b8e408821165f4536ed2b9c548e5244",
+      "superseded_manifest_sha256": "dd9106441bfc69ddf3c91e54b9555bcb125240de2a0c87e06fc6588fd8b55436",
+      "finding": "The first 2010 build wrote schema-free Parquet payloads when the modern contest collection was empty; independent validation failed before admission.",
+      "disposition": "PRESERVED_SUPERSEDED_NOT_VALIDATED_NOT_SELECTED_NO_CANONICAL_OR_TRAINING_WRITE"
+    },
+    "corrected_reconciliation": {
+      "dataset_identity": "bdc2affc0b544725404370b988be3365d3cf32dae39193655469fe53ad491c72",
+      "manifest_sha256": "6e5c3702bc4c9c4180ae2b70761dc4f844ef38b6145418cc1ec057e9305b933b",
+      "canonical_outcome_games": 499,
+      "parsed_team_pages": 200,
+      "page_parse_failures": 7,
+      "legacy_schedule_observations": 2326,
+      "reconciled_legacy_games": 166,
+      "reconciled_team_seasons": 87,
+      "unresolved_legacy_observations": 1994,
+      "reconciled_modern_contests": 0,
+      "fabricated_contest_ids": 0,
+      "name_only_promotions": 0
+    },
+    "independent_validation": {
+      "checks": 59,
+      "failures": 0,
+      "report_sha256": "6bea759422d050a29cb3e6a2ad8ee2eb8a982257c6b0e5ac4d1a4ac57617f525",
+      "byte_identical_rebuild": true
+    },
+    "coverage_matrix": {
+      "schema_version": "1.4.0",
+      "matrix_identity": "fe4679825967ee8a088440b26891011af6e9fc744fe7298769369acbdac11eed",
+      "manifest_sha256": "78aeab982ba4352ba01e9c215c105e0ef423e3082055a4667300a7dc6243e422",
+      "row_count": 47
+    },
+    "validation": {
+      "targeted": "15_PASS",
+      "full_suite": "892_PASS_4_SKIP_120_SUBTESTS_PASS",
+      "ruff": "PASS"
+    },
+    "cleanup": {
+      "reconstructible_rebuild_files_removed": 9,
+      "bytes_recovered": 1275544
+    },
+    "versioned_artifacts": {
+      "src/aggie_analytics/data/ncaa_contest_reconciliation.py": "89c30127b714ec8db35fdc5149fd1005dd8fed025e3c3cad8a18983ce1287e98",
+      "tools/validate_ncaa_contest_reconciliation.py": "540f2817a71151a4d87b0ff06dce24ef581af1e12282991a7c8e105fadc8d67f",
+      "tests/test_ncaa_contest_reconciliation.py": "0eaa02851ae37ced58acdf328620a15da61fe3c0707d7920c3b8d4ca876a2a4d"
+    },
+    "authority": "CANDIDATE_REFERENCE_ONLY_RECIPROCAL_EXACT_LEGACY_EVIDENCE_NO_CONTEST_ID_FABRICATION_NO_NAME_ONLY_PROMOTION_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "next_actions": [
-    "Complete the active 2010-2013 official team-season discovery runs, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
-    "Reconcile completed 2010-2013 discovery artifacts to canonical games and teams using reciprocal exact evidence without name-only promotion or invented contest IDs.",
+    "Complete the active 2011-2013 official team-season discovery runs, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
+    "Reconcile completed 2011-2013 discovery artifacts to canonical games and teams using reciprocal exact evidence without name-only promotion or invented contest IDs.",
     "Continue 2022 official contest acquisition in resumable bounded tranches and independently gate every endpoint/domain failure.",
     "Expand autonomously to the maximum quality-supported national population with independent domain gates."
   ],

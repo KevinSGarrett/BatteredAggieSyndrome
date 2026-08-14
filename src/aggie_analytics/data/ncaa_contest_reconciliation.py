@@ -73,6 +73,91 @@ def _write_parquet_atomic(frame: Any, path: Path) -> None:
         temporary.unlink(missing_ok=True)
 
 
+def _payload_schema(pl: Any, name: str) -> dict[str, Any]:
+    """Return the stable public schema for every reconciliation payload."""
+
+    schemas = {
+        "contest_mappings.parquet": {
+            "classification": pl.String, "season": pl.Int64, "ncaa_contest_id": pl.String,
+            "canonical_game_id": pl.String, "season_type": pl.String, "week": pl.Int64,
+            "canonical_start_utc": pl.String, "canonical_home_team_id": pl.String,
+            "canonical_away_team_id": pl.String, "canonical_home_points": pl.Int64,
+            "canonical_away_points": pl.Int64, "source_schedule_observation_count": pl.Int64,
+            "source_team_season_page_count": pl.Int64, "source_team_season_ids": pl.String,
+            "source_page_raw_sha256s": pl.String, "mapping_method": pl.String,
+            "name_only_promotion": pl.Boolean, "historical_pit_eligible": pl.Boolean,
+            "training_eligible": pl.Boolean, "protected_eligible": pl.Boolean,
+        },
+        "legacy_schedule_mappings.parquet": {
+            "classification": pl.String, "season": pl.Int64,
+            "legacy_schedule_pair_identity": pl.String, "ncaa_contest_id": pl.String,
+            "canonical_game_id": pl.String, "season_type": pl.String, "week": pl.Int64,
+            "canonical_start_utc": pl.String, "canonical_home_team_id": pl.String,
+            "canonical_away_team_id": pl.String, "canonical_home_points": pl.Int64,
+            "canonical_away_points": pl.Int64, "source_schedule_observation_count": pl.Int64,
+            "source_team_season_page_count": pl.Int64, "source_team_season_ids": pl.String,
+            "source_page_raw_sha256s": pl.String, "mapping_method": pl.String,
+            "contest_id_fabricated": pl.Boolean, "name_only_promotion": pl.Boolean,
+            "historical_pit_eligible": pl.Boolean, "training_eligible": pl.Boolean,
+            "protected_eligible": pl.Boolean,
+        },
+        "team_season_mappings.parquet": {
+            "classification": pl.String, "season": pl.Int64, "source_team_season_id": pl.String,
+            "source_team_org_id": pl.String, "source_team_name": pl.String,
+            "source_page_raw_sha256": pl.String, "canonical_team_id": pl.String,
+            "supporting_contest_count": pl.Int64, "supporting_ncaa_contest_ids": pl.String,
+            "supporting_legacy_game_count": pl.Int64, "supporting_legacy_game_ids": pl.String,
+            "mapping_method": pl.String, "name_only_promotion": pl.Boolean,
+        },
+        "unresolved_contests.parquet": {
+            "classification": pl.String, "season": pl.Int64, "ncaa_contest_id": pl.String,
+            "reason": pl.String, "source_schedule_observation_count": pl.Int64,
+            "candidate_canonical_game_ids": pl.String, "source_team_season_ids": pl.String,
+        },
+        "unresolved_legacy_schedule_observations.parquet": {
+            "classification": pl.String, "season": pl.Int64,
+            "legacy_source_row_identity": pl.String, "source_team_season_id": pl.String,
+            "opponent_team_season_id": pl.String, "reason": pl.String,
+            "candidate_canonical_game_ids": pl.String,
+        },
+        "source_schedule_observations.parquet": {
+            "contest_id": pl.String, "source_team_season_id": pl.String,
+            "source_team_org_id": pl.String, "source_team_name": pl.String,
+            "source_team_name_normalized": pl.String, "opponent_team_season_id": pl.String,
+            "opponent_team_name": pl.String, "opponent_team_name_normalized": pl.String,
+            "source_schedule_date": pl.String, "source_team_is_away": pl.Boolean,
+            "source_result": pl.String, "source_team_points": pl.Int64,
+            "opponent_points": pl.Int64, "source_page_raw_sha256": pl.String,
+            "candidate_canonical_game_ids": pl.String, "candidate_count": pl.Int64,
+            "candidate_source_team_id": pl.String, "candidate_opponent_team_id": pl.String,
+            "participant_aliases_uniquely_resolved": pl.Boolean,
+        },
+        "legacy_source_schedule_observations.parquet": {
+            "legacy_source_row_identity": pl.String, "source_row_sha256": pl.String,
+            "contest_id": pl.String, "source_team_season_id": pl.String,
+            "source_team_org_id": pl.String, "source_team_name": pl.String,
+            "source_team_name_normalized": pl.String, "opponent_team_season_id": pl.String,
+            "opponent_team_name": pl.String, "opponent_team_name_normalized": pl.String,
+            "source_schedule_date": pl.String, "source_team_is_away": pl.Boolean,
+            "source_result": pl.String, "source_result_was_explicit": pl.Boolean,
+            "source_team_points": pl.Int64, "opponent_points": pl.Int64,
+            "source_page_raw_sha256": pl.String, "candidate_canonical_game_ids": pl.String,
+            "candidate_count": pl.Int64, "candidate_source_team_id": pl.String,
+            "candidate_opponent_team_id": pl.String,
+            "participant_aliases_uniquely_resolved": pl.Boolean,
+        },
+        "page_parse_failures.parquet": {
+            "source_team_season_id": pl.String, "source_page_raw_sha256": pl.String,
+            "reason": pl.String,
+        },
+    }
+    return schemas[name]
+
+
+def _payload_frame(pl: Any, name: str, records: list[dict[str, Any]]) -> Any:
+    return pl.DataFrame(records, schema=_payload_schema(pl, name), infer_schema_length=None)
+
+
 def normalize_team_name(value: str) -> str:
     folded = unicodedata.normalize("NFKD", html.unescape(value)).encode("ascii", "ignore").decode("ascii")
     folded = folded.lower().replace("&", " and ")
@@ -598,7 +683,7 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
     payloads: list[dict[str, Any]] = []
     for name, records in payload_specs:
         path = feature_root / name
-        _write_parquet_atomic(pl.DataFrame(records, infer_schema_length=None), path)
+        _write_parquet_atomic(_payload_frame(pl, name, records), path)
         payloads.append({"name": name, "rows": len(records), "bytes": path.stat().st_size, "sha256": sha256_file(path)})
     reason_counts: dict[str, int] = defaultdict(int)
     for row in unresolved:

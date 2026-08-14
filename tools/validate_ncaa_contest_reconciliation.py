@@ -39,9 +39,13 @@ def main() -> int:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     artifact_root = data_root / "canonical/ncaa_contest_reconciliation/sha256" / args.dataset_identity
     mappings = pl.read_parquet(artifact_root / "contest_mappings.parquet")
+    legacy_mappings = pl.read_parquet(artifact_root / "legacy_schedule_mappings.parquet")
     team_mappings = pl.read_parquet(artifact_root / "team_season_mappings.parquet")
     unresolved = pl.read_parquet(artifact_root / "unresolved_contests.parquet")
+    unresolved_legacy = pl.read_parquet(artifact_root / "unresolved_legacy_schedule_observations.parquet")
     observations = pl.read_parquet(artifact_root / "source_schedule_observations.parquet")
+    legacy_observations = pl.read_parquet(artifact_root / "legacy_source_schedule_observations.parquet")
+    page_failures = pl.read_parquet(artifact_root / "page_parse_failures.parquet")
     checks: list[dict[str, object]] = []
 
     def check(name: str, passed: bool, detail: object = None) -> None:
@@ -54,18 +58,89 @@ def main() -> int:
     check("mapping_population", mappings.height == population["reconciled_contests"])
     check("unresolved_population", unresolved.height == population["unresolved_contests"])
     check("observation_population", observations.height == population["scored_schedule_observations"])
+    check("legacy_mapping_population", legacy_mappings.height == population["reconciled_legacy_games"])
+    check(
+        "unresolved_legacy_population",
+        unresolved_legacy.height == population["unresolved_legacy_observations"],
+    )
+    check(
+        "legacy_observation_population",
+        legacy_observations.height == population["legacy_schedule_observations"],
+    )
+    check("page_failure_population", page_failures.height == population["page_parse_failures"])
     check("team_mapping_population", team_mappings.height == population["reconciled_team_seasons"])
     check("unique_ncaa_contest", mappings["ncaa_contest_id"].n_unique() == mappings.height)
     check("unique_canonical_game", mappings["canonical_game_id"].n_unique() == mappings.height)
-    check("two_sided_observations", mappings["source_schedule_observation_count"].min() >= 2)
-    check("two_distinct_source_pages", mappings["source_team_season_page_count"].min() >= 2)
-    check("mapping_method", mappings["mapping_method"].unique().to_list() == ["TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT"])
-    check("no_name_only_promotion", not mappings["name_only_promotion"].any() and not team_mappings["name_only_promotion"].any())
-    check("historical_pit_closed", not mappings["historical_pit_eligible"].any())
-    check("training_closed", not mappings["training_eligible"].any())
-    check("protected_closed", not mappings["protected_eligible"].any())
+    check(
+        "two_sided_observations",
+        mappings.height == 0 or mappings["source_schedule_observation_count"].min() >= 2,
+    )
+    check(
+        "two_distinct_source_pages",
+        mappings.height == 0 or mappings["source_team_season_page_count"].min() >= 2,
+    )
+    check(
+        "mapping_method",
+        mappings.height == 0
+        or mappings["mapping_method"].unique().to_list() == ["TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT"],
+    )
+    check("unique_legacy_pair", legacy_mappings["legacy_schedule_pair_identity"].n_unique() == legacy_mappings.height)
+    check("unique_legacy_canonical_game", legacy_mappings["canonical_game_id"].n_unique() == legacy_mappings.height)
+    check(
+        "modern_legacy_canonical_disjoint",
+        set(mappings["canonical_game_id"].to_list()).isdisjoint(legacy_mappings["canonical_game_id"].to_list()),
+    )
+    check(
+        "legacy_two_sided_observations",
+        legacy_mappings.height == 0 or legacy_mappings["source_schedule_observation_count"].min() >= 2,
+    )
+    check(
+        "legacy_two_distinct_source_pages",
+        legacy_mappings.height == 0 or legacy_mappings["source_team_season_page_count"].min() >= 2,
+    )
+    check(
+        "legacy_mapping_method",
+        legacy_mappings.height == 0
+        or legacy_mappings["mapping_method"].unique().to_list()
+        == ["TWO_SIDED_LEGACY_TEAM_LINK_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT"],
+    )
+    check(
+        "legacy_contest_id_not_fabricated",
+        legacy_mappings.height == 0
+        or (legacy_mappings["ncaa_contest_id"].null_count() == legacy_mappings.height
+            and not legacy_mappings["contest_id_fabricated"].any()),
+    )
+    check(
+        "no_name_only_promotion",
+        not mappings["name_only_promotion"].any()
+        and not legacy_mappings["name_only_promotion"].any()
+        and not team_mappings["name_only_promotion"].any(),
+    )
+    check(
+        "historical_pit_closed",
+        not mappings["historical_pit_eligible"].any() and not legacy_mappings["historical_pit_eligible"].any(),
+    )
+    check(
+        "training_closed",
+        not mappings["training_eligible"].any() and not legacy_mappings["training_eligible"].any(),
+    )
+    check(
+        "protected_closed",
+        not mappings["protected_eligible"].any() and not legacy_mappings["protected_eligible"].any(),
+    )
     check("unresolved_reasons_nonempty", unresolved["reason"].null_count() == 0)
-    check("unresolved_candidate_only", unresolved["classification"].unique().to_list() == ["CANDIDATE_ONLY_UNRESOLVED_PRESERVED"])
+    check(
+        "unresolved_candidate_only",
+        unresolved.height == 0
+        or unresolved["classification"].unique().to_list() == ["CANDIDATE_ONLY_UNRESOLVED_PRESERVED"],
+    )
+    check("unresolved_legacy_reasons_nonempty", unresolved_legacy["reason"].null_count() == 0)
+    check(
+        "unresolved_legacy_candidate_only",
+        unresolved_legacy.height == 0
+        or unresolved_legacy["classification"].unique().to_list()
+        == ["CANDIDATE_ONLY_UNRESOLVED_PRESERVED"],
+    )
     check("canonical_registry_write_closed", manifest["authority"]["canonical_registry_write"] is False)
     check("production_closed", manifest["authority"]["production_eligible"] is False)
     for payload in manifest["payloads"]:

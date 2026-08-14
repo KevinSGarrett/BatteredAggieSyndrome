@@ -4,7 +4,8 @@ param(
     [string]$RuntimeRoot = 'C:\BatteredAggieSyndrome.data\assistive\orchestrator-v3',
     [string]$ControllerTaskName = 'BAS-UnifiedAssistiveController',
     [string]$WatchdogTaskName = 'BAS-UnifiedAssistiveWatchdog',
-    [string]$PythonExecutable = ''
+    [string]$PythonExecutable = '',
+    [ValidateRange(45, 300)][int]$GracefulStopTimeoutSeconds = 90
 )
 
 $ErrorActionPreference = 'Stop'
@@ -63,7 +64,11 @@ if ($PSCmdlet.ShouldProcess($release, 'Activate verified release and restart exi
         $acknowledgements[$role] = Join-Path $controlRoot ('acknowledged\' + $role + '\sha256\' + $requestHash + '\request.json')
     }
     try {
-        $deadline = (Get-Date).AddSeconds(45)
+        # A controller may be finishing a bounded provider poll when it receives
+        # the stop request.  Keep the stop cooperative and non-elevated, but allow
+        # one complete bounded poll plus Task Scheduler state propagation before
+        # treating it as a failed switch.
+        $deadline = (Get-Date).AddSeconds($GracefulStopTimeoutSeconds)
         foreach ($name in @($ControllerTaskName, $WatchdogTaskName)) {
             while ((Get-ScheduledTask -TaskName $name -ErrorAction Stop).State -eq 'Running') {
                 if ((Get-Date) -ge $deadline) { throw "GRACEFUL_SERVICE_STOP_TIMEOUT:$name" }

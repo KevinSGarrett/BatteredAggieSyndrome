@@ -450,6 +450,84 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(["ollama_local"], demand["empirically_suspended"])
         self.assertEqual([], demand["unmet_without_packets"])
 
+    def test_operational_demand_keeps_remote_provider_admitted_after_zero_value_saturation(
+        self,
+    ) -> None:
+        policy = self.root / "policy.json"
+        readiness = self.root / "readiness.json"
+        materializer = self.root / "materializer.py"
+        assistive = self.root / "external/assistive"
+        assistive.mkdir(parents=True)
+        policy.write_text(
+            json.dumps(
+                {
+                    "execution_minimums": {
+                        "openrouter": {
+                            "new_controller_routed_units": 20,
+                            "effort_points": 60,
+                            "accepted_useful": 12,
+                        }
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        readiness.write_text("{}", encoding="utf-8")
+        materializer.write_text("# test fixture\n", encoding="utf-8")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                semantic_materializer_path=materializer,
+                semantic_policy_path=policy,
+                semantic_readiness_path=readiness,
+                external_assistive_root=assistive,
+            ),
+        )
+        lifetime = {
+            "openrouter": {
+                "closed_runs": 447,
+                "closed_effort_points": 1377,
+                "pending_downstream_review": 0,
+                "useful_work": {"accepted_useful_outputs": 0},
+            }
+        }
+        current_release = {
+            "openrouter": {
+                "closed_runs": 0,
+                "closed_effort_points": 0,
+                "pending_downstream_review": 0,
+                "review_dispositions": {},
+            }
+        }
+        with patch.object(
+            self.state,
+            "provider_run_summary",
+            side_effect=[lifetime, current_release],
+        ):
+            demand = refresher._operational_demand(
+                {"external_evidence": {}},
+                [],
+                {},
+            )
+
+        openrouter = demand["providers"]["openrouter"]
+        self.assertTrue(openrouter["unmet"])
+        self.assertFalse(openrouter["admission_suspended"])
+        self.assertEqual(
+            "FAILED_SATURATED_BELOW_ACCEPTANCE_TARGET",
+            openrouter["useful_work_gate_state"],
+        )
+        self.assertEqual(
+            "CONTINUE_ADMISSION_AND_REMEDIATE_DOWNSTREAM_CONSUMPTION",
+            openrouter["useful_work_remediation"],
+        )
+        self.assertEqual([], demand["empirically_suspended"])
+        self.assertEqual(["openrouter"], demand["unmet_without_packets"])
+
     def test_operational_demand_keeps_route_active_while_review_is_pending(self) -> None:
         policy = self.root / "policy.json"
         readiness = self.root / "readiness.json"

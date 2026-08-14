@@ -1,26 +1,27 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-USEFUL-WORK-SATURATION-GATE",
+  "work_unit_id": "BAT-560-USEFUL-WORK-SATURATION-SCOPE-CORRECTION",
   "jira_identity": "BAT-560",
-  "decision_sha256": "8bf89427d399448480249f113f7968159cae8f0a9c384afaff0a48af581a8580",
+  "decision_sha256": "cd393c0dbb9f87071ae74798e81d5c48ea81a4a2c34c101de7d6003e4f44d737",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "BGE_ROUTE_EXCEEDED_VOLUME_AND_EFFORT_GATES_WITH_ZERO_ACCEPTED_USEFUL_OUTPUTS_AND_NO_NOVEL_PACKET_IDENTITIES",
-  "source_commit": "ce2b56c8ebc70e381f393f97a3b335489899031c",
+  "reason_code": "REPAIR_PROVIDER_ADMISSION_SCOPE_AND_GRACEFUL_SWITCH_TIMEOUT_WITHOUT_PERFORMING_ORDINARY_BAS_WORK",
+  "source_commit": "4bfbb387a84d8aad8621cffab329de171763d0fd",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "missing_autonomous_capability": "Campaign demand could classify an empirically saturated zero-value route as starved and pressure the producer to emit redundant packets instead of suspending the exact route and preserving the negative useful-work result.",
-  "observed_failure": "ollama_local: 525 closed units, 1054 effort points, 0 accepted useful outputs, 525 downstream UNUSED dispositions, and no remaining nonduplicate packet identity.",
-  "repair_evidence_sha256": "1beac8d7a3f3e57c0a91c8ee75d090b720caf9e1cb7746f80e7e769a3d7051ee",
+  "missing_autonomous_capability": "Useful-work saturation must suspend only an exact empirically exhausted route while keeping admitted remote providers available to produce and consume new useful work; release switching must allow one bounded provider poll plus Task Scheduler state propagation.",
+  "observed_failure": "Release 4bfbb387 suspended Cursor, OpenAI, OpenRouter, and ollama_local together, and the 45-second graceful stop window timed out twice even though both application acknowledgements were eventually preserved.",
+  "repair_evidence_sha256": "dce269c47d600ca18f0bc6c5c7057d8e1e2d336e0423b1905596621da9cb79cf",
   "allowed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
     "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "src/aggie_analytics/assistive_plane/watchdog.py",
-    "tests/test_unified_runtime_inventory_dispatch.py"
+    "tests/test_unified_controller_service.py",
+    "tests/test_unified_runtime_inventory_dispatch.py",
+    "tools/switch_unified_assistive_services.ps1"
   ]
 }

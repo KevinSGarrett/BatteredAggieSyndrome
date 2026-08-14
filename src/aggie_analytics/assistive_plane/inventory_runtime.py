@@ -3150,6 +3150,7 @@ class RuntimeInventoryRefresher:
         }
 
     def refresh(self, *, now: datetime | None = None) -> dict[str, Any]:
+        explicit_time = now is not None
         moment = now or datetime.now(timezone.utc)
         self._jira_ready_cache = None
         base, base_sha256 = self._load_current_snapshot()
@@ -3497,6 +3498,12 @@ class RuntimeInventoryRefresher:
                     raise RuntimeError("RUNTIME_INVENTORY_SNAPSHOT_COLLISION")
             else:
                 _atomic_write(snapshot_path, data)
+        # ``moment`` binds the semantic scan and its immutable snapshot.  A
+        # live refresh can take minutes, however, so freshness must begin when
+        # the complete scan has actually succeeded and is ready to publish.
+        # Explicit test/replay time remains deterministic and represents both
+        # boundaries because no real elapsed-time assertion is being made.
+        publication_time = moment if explicit_time else datetime.now(timezone.utc)
         pointer = {
             "schema_version": 2,
             "artifact_type": "UNIFIED_ASSISTIVE_INVENTORY_POINTER",
@@ -3504,7 +3511,7 @@ class RuntimeInventoryRefresher:
             "snapshot_sha256": snapshot_sha256,
             "inventory_identity": validation["inventory_identity"],
             "runtime_material_identity": material_identity,
-            "refreshed_at": rfc3339(moment),
+            "refreshed_at": rfc3339(publication_time),
         }
         _atomic_write(self.config.current_path, canonical_json_bytes(pointer) + b"\n")
         return {

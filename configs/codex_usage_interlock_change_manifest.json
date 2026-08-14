@@ -1,21 +1,21 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "d11c55a8f58fbd7deac2ce95beba8b9837ab7122eb1014f479d23887b5ec5de7",
-  "work_unit_id": "BAT-560-USEFUL-WORK-SATURATION-SCOPE-CORRECTION",
+  "manifest_identity": "346d78c33f81105ed4993ce8770cfaf1b8b6fe41e1946655540e7814b6941c1e",
+  "work_unit_id": "BAT-560-CANDIDATE-REVIEW-ACCOUNTING-CORRECTION",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "4bfbb387a84d8aad8621cffab329de171763d0fd",
-  "pre_routing_decision_sha256": "cd393c0dbb9f87071ae74798e81d5c48ea81a4a2c34c101de7d6003e4f44d737",
+  "base_commit": "5ca09953a51a177900c877dd1e70703801bb29d4",
+  "pre_routing_decision_sha256": "611b5ea46032ef12e0d0306a5b7357cbecdb2e478a090c0c473c898b7e88d29a",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "tests/test_unified_controller_service.py",
-    "tests/test_unified_runtime_inventory_dispatch.py",
-    "tools/switch_unified_assistive_services.ps1"
+    "src/aggie_analytics/assistive_plane/controller_state.py",
+    "src/aggie_analytics/assistive_plane/review_runtime.py",
+    "src/aggie_analytics/assistive_plane/watchdog.py",
+    "tests/test_assistive_downstream_review.py"
   ]
 }

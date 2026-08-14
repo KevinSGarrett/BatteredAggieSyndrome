@@ -4,6 +4,7 @@ import hashlib
 import json
 import tempfile
 import unittest
+from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -12,6 +13,7 @@ from aggie_analytics.assistive_plane.review_runtime import (
     DownstreamReviewConfig,
     DownstreamReviewConsumer,
 )
+from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog
 
 
 class AssistiveDownstreamReviewTests(unittest.TestCase):
@@ -97,6 +99,48 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
                     "REVIEW_ONLY",
                     "2" * 64,
                     0.0,
+                    stamp,
+                ),
+            )
+            connection.execute(
+                "INSERT INTO useful_work_evidence("
+                "useful_work_id,work_unit_id,attempt_id,bas_decision_unit,downstream_consumer,"
+                "delegation_preference_reason,input_documents,input_bytes,input_records,candidate_count,"
+                "provider,model,task_format,route_identity,wall_seconds,compute_json,direct_baseline_seconds,"
+                "orchestration_seconds,review_seconds,disposition,validated,reviewed,downstream_consumed,"
+                "changed_project_artifact,consumed_artifact_identity,net_time_saved_seconds,duplicated_by_codex,"
+                "accepted_useful_offload,evidence_sha256,recorded_at) "
+                "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                (
+                    "0" * 64,
+                    self.work_unit_id,
+                    self.attempt_id,
+                    "TEST_CANDIDATE_REVIEW_ACCOUNTING",
+                    "DURABLE_REVIEW_QUEUE_ONLY",
+                    "GOVERNED_PROVIDER_CANDIDATE_REVIEW",
+                    1,
+                    self.result_path.stat().st_size,
+                    1,
+                    1,
+                    "cursor",
+                    "gpt-5.3-codex",
+                    "governed_cursor_repository_review_v1",
+                    "c" * 64,
+                    1.0,
+                    "{}",
+                    None,
+                    0.1,
+                    0.0,
+                    "REVIEW_ONLY",
+                    1,
+                    1,
+                    0,
+                    0,
+                    None,
+                    0.0,
+                    0,
+                    0,
+                    "0" * 64,
                     stamp,
                 ),
             )
@@ -255,6 +299,19 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
             1, self.state.provider_run_summary()["cursor"]["pending_downstream_review"]
         )
 
+    def test_candidate_like_consumer_name_cannot_bypass_consumption_evidence(self) -> None:
+        with self.assertRaisesRegex(
+            ValueError, "DOWNSTREAM_ACCEPTANCE_CONSUMPTION_EVIDENCE_INCOMPLETE"
+        ):
+            self.state.record_downstream_review_disposition(
+                attempt_id=self.attempt_id,
+                disposition="ACCEPTED",
+                downstream_consumer="UNREGISTERED_CANDIDATE_REVIEW_QUEUE",
+                reason="UNTRUSTED_CONSUMER_MUST_FAIL_CLOSED",
+                consumed_artifact_identity="3" * 64,
+                changed_project_artifact=False,
+            )
+
     def test_matching_candidate_contract_routes_result_without_useful_credit(
         self,
     ) -> None:
@@ -268,6 +325,7 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
         self.assertEqual(0, report["deferred"])
         self.assertEqual([], report["failures"])
         self.assertTrue(report["applied"][0]["candidate_review_queue_only"])
+        self.assertEqual("REVIEW_ONLY", report["applied"][0]["disposition"])
         self.assertFalse(report["applied"][0]["accepted_useful_offload_credit"])
         decision = json.loads(
             Path(report["applied"][0]["decision_path"]).read_text(encoding="utf-8")
@@ -277,6 +335,7 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
             decision["authority"],
         )
         self.assertEqual(0, decision["net_time_saved_seconds"])
+        self.assertFalse(decision["changed_project_artifact"])
         self.assertEqual(
             0, self.state.provider_run_summary()["cursor"]["pending_downstream_review"]
         )
@@ -285,6 +344,58 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
             self.state.provider_run_summary()["cursor"]["useful_work"][
                 "accepted_useful_outputs"
             ],
+        )
+        self.assertEqual(
+            0,
+            self.state.provider_run_summary()["cursor"]["useful_work"][
+                "downstream_consumed_outputs"
+            ],
+        )
+        self.assertEqual(
+            1,
+            self.state.provider_run_summary()["cursor"]["useful_work"][
+                "candidate_review_queue_outputs"
+            ],
+        )
+        self.assertEqual(
+            {"ACCEPTED": 1},
+            self.state.status()["downstream_review_dispositions"],
+        )
+        self.assertEqual(1, len(self.state.cursor_review_candidates(limit=8)))
+        with closing(self.state.connect()) as connection:
+            disposition = connection.execute(
+                "SELECT changed_project_artifact,net_time_saved_seconds "
+                "FROM downstream_review_dispositions WHERE attempt_id=?",
+                (self.attempt_id,),
+            ).fetchone()
+        self.assertEqual(0, disposition["changed_project_artifact"])
+        self.assertEqual(0.0, disposition["net_time_saved_seconds"])
+
+        # Historical pre-correction candidate-queue rows claimed a changed artifact.
+        # Even if such a row also claimed positive savings, its exact queue identity
+        # must keep it out of consumed/useful/savings credit while preserving the
+        # candidate needed by the replenishing Cursor implementation producer.
+        with self.state.transaction() as connection:
+            connection.execute(
+                "UPDATE downstream_review_dispositions SET "
+                "changed_project_artifact=1,net_time_saved_seconds=45.0 "
+                "WHERE attempt_id=?",
+                (self.attempt_id,),
+            )
+        useful = self.state.provider_run_summary()["cursor"]["useful_work"]
+        self.assertEqual(0, useful["downstream_consumed_outputs"])
+        self.assertEqual(1, useful["candidate_review_queue_outputs"])
+        self.assertEqual(0, useful["accepted_useful_outputs"])
+        self.assertEqual(0.0, useful["measured_net_time_saved_seconds"])
+        watchdog = ReadOnlyWatchdog(self.state.database).inspect(
+            now=datetime(2026, 8, 14, 1, 1, tzinfo=timezone.utc)
+        )
+        self.assertEqual(0, watchdog["useful_work_summary"]["downstream_consumed_output"])
+        self.assertEqual(1, watchdog["useful_work_summary"]["candidate_review_queue_output"])
+        self.assertEqual(0, watchdog["useful_work_summary"]["accepted_useful_offload"])
+        self.assertEqual(
+            0.0,
+            watchdog["useful_work_summary"]["measured_net_time_saved_seconds"],
         )
 
     def test_invalid_candidate_contract_result_is_isolated_and_remains_pending(

@@ -322,6 +322,7 @@ class ReadOnlyWatchdog:
                 "validated_candidate_output": 0,
                 "reviewed_output": 0,
                 "downstream_consumed_output": 0,
+                "candidate_review_queue_output": 0,
                 "accepted_useful_offload": 0,
                 "measured_net_time_saved_seconds": 0.0,
                 "duplicated_by_codex": 0,
@@ -331,12 +332,18 @@ class ReadOnlyWatchdog:
                     "SELECT COUNT(*) AS raw_provider_activity,"
                     "COALESCE(SUM(validated),0) AS validated_candidate_output,"
                     "COALESCE(SUM(reviewed),0) AS reviewed_output,"
-                    "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') THEN 1 ELSE 0 END),0) AS downstream_consumed_output,"
+                    "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') "
+                    "AND d.downstream_consumer NOT LIKE '%CANDIDATE%REVIEW_QUEUE%' THEN 1 ELSE 0 END),0) AS downstream_consumed_output,"
+                    "COALESCE(SUM(CASE WHEN d.downstream_consumer LIKE '%CANDIDATE%REVIEW_QUEUE%' "
+                    "THEN 1 ELSE 0 END),0) AS candidate_review_queue_output,"
                     "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') AND u.validated=1 "
                     "AND d.changed_project_artifact=1 AND d.consumed_artifact_identity IS NOT NULL "
+                    "AND d.downstream_consumer NOT LIKE '%CANDIDATE%REVIEW_QUEUE%' "
                     "AND d.duplicated_by_codex=0 AND d.net_time_saved_seconds>0 "
                     "THEN 1 ELSE 0 END),0) AS accepted_useful_offload,"
-                    "COALESCE(SUM(d.net_time_saved_seconds),0.0) AS measured_net_time_saved_seconds,"
+                    "COALESCE(SUM(CASE WHEN d.downstream_consumer NOT LIKE "
+                    "'%CANDIDATE%REVIEW_QUEUE%' THEN d.net_time_saved_seconds ELSE 0 END),0.0) "
+                    "AS measured_net_time_saved_seconds,"
                     "COALESCE(SUM(d.duplicated_by_codex),0) AS duplicated_by_codex "
                     "FROM useful_work_evidence u LEFT JOIN downstream_review_dispositions d ON d.attempt_id=u.attempt_id"
                 ).fetchone()

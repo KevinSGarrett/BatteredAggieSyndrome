@@ -103,6 +103,12 @@ BGE_PROMPT_VERSION = "embedding-shadow-v1"
 BGE_SCHEMA_VERSION = "1"
 BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c"
 BGE_DOWNSTREAM_CONSUMER_VERSION = "bge-reconciliation-review-routing-v1"
+# Only the exact local retrieval route has completed a saturated, zero-useful-value
+# campaign with no remaining nonduplicate packet population.  Remote semantic and
+# repository providers must remain admitted so that the producer can generate new
+# real work and repair downstream consumption instead of turning a measurement
+# failure into a global provider shutdown.
+USEFUL_WORK_SATURATION_SUSPEND_PROVIDERS = frozenset({"ollama_local"})
 READY_WORK_UNIT_FIELDS = frozenset(ReadyWorkUnit.__dataclass_fields__)
 ROUTE_DECISION_FIELDS = frozenset(RouteDecision.__dataclass_fields__)
 
@@ -1478,6 +1484,10 @@ class RuntimeInventoryRefresher:
                 and active_packets.get(provider, 0) == 0
                 and pending_review == 0
             )
+            admission_suspended = (
+                useful_work_gate_failed
+                and provider in USEFUL_WORK_SATURATION_SUSPEND_PROVIDERS
+            )
             if required_accepted == 0:
                 useful_work_gate_state = "NOT_APPLICABLE"
             elif deficits["accepted_useful"] == 0:
@@ -1504,7 +1514,14 @@ class RuntimeInventoryRefresher:
                 "pending_review_results": pending_review,
                 "deficits": deficits,
                 "unmet": unmet,
-                "admission_suspended": useful_work_gate_failed,
+                "admission_suspended": admission_suspended,
+                "useful_work_remediation": (
+                    "SUSPEND_EXACT_ROUTE"
+                    if admission_suspended
+                    else "CONTINUE_ADMISSION_AND_REMEDIATE_DOWNSTREAM_CONSUMPTION"
+                    if useful_work_gate_failed
+                    else None
+                ),
                 "useful_work_gate_state": useful_work_gate_state,
             }
         return {

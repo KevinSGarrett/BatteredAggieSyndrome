@@ -743,6 +743,74 @@
     },
     "authority": "CANDIDATE_REFERENCE_ONLY_PARTIAL_SEASON_DOMAIN_COVERAGE_NO_CANONICAL_REGISTRY_WRITE_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
   },
+  "reconciliation_immutability_and_exact_main_checkpoint": {
+    "recorded_at_utc": "2026-08-14T23:15:00Z",
+    "merged_parser_checkpoint": {
+      "pull_request": 378,
+      "merge_commit": "607c5405a28878f72624dc71520ac23c53d6bd82",
+      "hosted_windows_linux_security_checks": "PASS",
+      "live_jira_merge_comment_id": "14156"
+    },
+    "exact_main_datasets": {
+      "2011": {
+        "dataset_identity": "4233b4c951e9429aacf2b15f989de344369d4fd8646e7cb1c8881430d523ad71",
+        "manifest_sha256": "3e3a207652883181402f28291b30ae6199fe1b4b2a84a484731e4afbc3b6bccd",
+        "validation_report_sha256": "1da7069044c812d7609000c1c58bac6a05fd079e2526030730f735f9ec15584e",
+        "validation_checks": 59,
+        "validation_failures": 0
+      },
+      "2013": {
+        "dataset_identity": "cfb5b0da170bf8cd8e24d0aed92444119d15d8275464cf2f5278f4924036815d",
+        "manifest_sha256": "243222049d23681423534d3fe694c5fe493ba627f55847656753d639d74c0c83",
+        "validation_report_sha256": "3557fc6608eda1864b03f49db4ff97d6894fa97780c0d68f8273a79f9399f66d",
+        "validation_checks": 59,
+        "validation_failures": 0
+      }
+    },
+    "coverage_matrix": {
+      "identity": "6ef3bad21d5803de836a8960d74acb2dad930bfb56f1b5652ac11c2946fd032f",
+      "sha256": "b48b2162be24464369b6c9ccdd09d45e1d60f2243a5b2812f504b5be51e0411b",
+      "rows": 49
+    },
+    "retraining_admission": {
+      "decision_identity": "2d21ae724cc764806e4f93f9c5d88840b8d0d6f9fe1429eeb1345778618f5ae6",
+      "request_sha256": "1945c2b04abc39b4ef94312eadfa2884148cb72d291d33fc10934c5a02650990",
+      "decision_file_sha256": "399d398b039b8ceb4339a0490298eaa70f5a688ccaf490e65815e348a6736035",
+      "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "full_ladder_required": false,
+      "protected_promotion_authority": false,
+      "live_jira_comment_id": "14157"
+    },
+    "immutable_replay_control": {
+      "candidate_dataset_identity": "78c53f17c0781c5fb8558adcc2976b255901565937e8393b9d2cd86d1ec731af",
+      "manifest_sha256": "8476f9aa80ad5a929d918d58277bff53588d7a7751cde185c47a2894136130e3",
+      "live_jira_comment_id": "14158",
+      "identical_replay_hash_drift": 0,
+      "identical_replay_mtime_drift": 0,
+      "different_issued_at_collision_rejected": true,
+      "post_collision_hash_drift": 0,
+      "post_collision_mtime_drift": 0,
+      "validation_checks": 59,
+      "validation_failures": 0,
+      "validation_report_sha256": "174b569aa81c1a2835ef5c6d1f2f0fb1318d7cae5be8acdb7c04ccc75d036fb1"
+    },
+    "implementation_validation": {
+      "targeted": "9_PASS",
+      "full_pytest": "898_PASS_4_SKIP_120_SUBTESTS_PASS",
+      "warning_strict_unittest": "896_PASS_4_SKIP",
+      "strict_repository": "PASS",
+      "interlock_static": "PASS",
+      "ruff": "PASS"
+    },
+    "cleanup": {
+      "reconstructible_validation_root": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-554\\immutable-replay-2013-78c53f17",
+      "state": "PENDING_SAFE_CLEANUP_RETRY",
+      "finding": "The rebuild is byte-identical and reconstructible; the host execution policy denied the exact-path recursive cleanup command, so no bypass or false deletion claim was made."
+    },
+    "authority": "CANDIDATE_ONLY_IMMUTABLE_REPLAY_NO_TRAINING_PROTECTED_PRODUCTION_OR_COMPLETENESS_PROMOTION"
+  },
   "next_actions": [
     "Complete the active 2012 official team-season discovery run without interruption, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
     "Investigate the preserved 2013 unresolved population by exact reason without weakening reciprocal evidence or alias gates; keep 2012 reconciliation dependent on its still-active acquisition.",

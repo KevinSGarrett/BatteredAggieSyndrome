@@ -67,19 +67,27 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _write_parquet_atomic(frame: Any, path: Path) -> None:
+def _write_bytes_immutable(payload: bytes, path: Path, *, artifact: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        if path.read_bytes() != payload:
+            raise ValueError(f"immutable {artifact} collision: {path}")
+        return
     temporary = path.with_name(path.name + f".tmp-{os.getpid()}")
     try:
-        buffer = io.BytesIO()
-        frame.write_parquet(buffer, compression="zstd", statistics=True)
         with temporary.open("wb") as handle:
-            handle.write(buffer.getvalue())
+            handle.write(payload)
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)
+
+
+def _write_parquet_immutable(frame: Any, path: Path) -> None:
+    buffer = io.BytesIO()
+    frame.write_parquet(buffer, compression="zstd", statistics=True)
+    _write_bytes_immutable(buffer.getvalue(), path, artifact="reconciliation payload")
 
 
 def _payload_schema(pl: Any, name: str) -> dict[str, Any]:
@@ -710,7 +718,7 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
     payloads: list[dict[str, Any]] = []
     for name, records in payload_specs:
         path = feature_root / name
-        _write_parquet_atomic(_payload_frame(pl, name, records), path)
+        _write_parquet_immutable(_payload_frame(pl, name, records), path)
         payloads.append({"name": name, "rows": len(records), "bytes": path.stat().st_size, "sha256": sha256_file(path)})
     reason_counts: dict[str, int] = defaultdict(int)
     for row in unresolved:
@@ -742,8 +750,11 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
         },
     }
     manifest_path = output_data_root / "manifests/ncaa_contest_reconciliation" / "sha256" / dataset_identity / "run_manifest.json"
-    manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_bytes(canonical_json_bytes(manifest) + b"\n")
+    _write_bytes_immutable(
+        canonical_json_bytes(manifest) + b"\n",
+        manifest_path,
+        artifact="reconciliation manifest",
+    )
     return {
         "dataset_identity": dataset_identity,
         "manifest_path": str(manifest_path),

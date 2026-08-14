@@ -210,6 +210,41 @@ class NcaaContestReconciliationTests(unittest.TestCase):
             self.assertFalse(mapping["contest_id_fabricated"])
             self.assertEqual(mapping["canonical_game_id"], "game_2011_tcu_baylor")
 
+            manifest_path = Path(result["manifest_path"])
+            manifest_before = manifest_path.read_bytes()
+            payload_before = {
+                path.name: path.read_bytes()
+                for path in artifact_root.glob("*.parquet")
+            }
+            replay = reconcile(
+                input_data_root=data_root,
+                output_data_root=data_root,
+                repo_root=ROOT,
+                contract_path=contract_path,
+                issued_at_utc="2026-08-14T00:00:00Z",
+            )
+            self.assertEqual(result["dataset_identity"], replay["dataset_identity"])
+            self.assertEqual(manifest_before, manifest_path.read_bytes())
+            self.assertEqual(
+                payload_before,
+                {path.name: path.read_bytes() for path in artifact_root.glob("*.parquet")},
+            )
+            with self.assertRaisesRegex(
+                ValueError, "immutable reconciliation manifest collision"
+            ):
+                reconcile(
+                    input_data_root=data_root,
+                    output_data_root=data_root,
+                    repo_root=ROOT,
+                    contract_path=contract_path,
+                    issued_at_utc="2026-08-14T00:00:01Z",
+                )
+            self.assertEqual(manifest_before, manifest_path.read_bytes())
+            self.assertEqual(
+                payload_before,
+                {path.name: path.read_bytes() for path in artifact_root.glob("*.parquet")},
+            )
+
             with patch(
                 "sys.argv",
                 [

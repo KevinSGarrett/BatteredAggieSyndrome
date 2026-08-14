@@ -215,6 +215,7 @@ artifacts/source_governance/tier1_rights_decisions.csv
 configs/acceptance_registry.json
 configs/action_derived_play_summary_contract.json
 configs/architecture_registry.json
+configs/assistive_downstream_adoptions.json
 configs/assistive_provider_registry.json
 configs/assistive_route_readiness.json
 configs/backlog_policy.json
@@ -3033,6 +3034,7 @@ src/aggie_analytics/assistive_plane/openrouter_backend.py
 src/aggie_analytics/assistive_plane/orchestration.py
 src/aggie_analytics/assistive_plane/provider_adapters.py
 src/aggie_analytics/assistive_plane/redaction.py
+src/aggie_analytics/assistive_plane/review_runtime.py
 src/aggie_analytics/assistive_plane/scheduler_runtime.py
 src/aggie_analytics/assistive_plane/schemas.py
 src/aggie_analytics/assistive_plane/service_runtime.py
@@ -3216,6 +3218,7 @@ tests/test_advanced_challenger_full.py
 tests/test_architecture.py
 tests/test_artifact_manifest.py
 tests/test_artifact_policy_full.py
+tests/test_assistive_downstream_review.py
 tests/test_autonomous_control_tools.py
 tests/test_backlog_governance.py
 tests/test_bas_science_governance.py

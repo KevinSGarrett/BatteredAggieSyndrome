@@ -48,9 +48,11 @@
     "src/aggie_analytics/assistive_plane/",
     "src/aggie_analytics/openai_assist/",
     "tests/test_codex_usage_interlock.py",
+    "tests/test_assistive_downstream_review.py",
     "tests/test_instructions_pack.py",
     "tests/test_unified_",
     "tools/activate_codex_usage_interlock.py",
+    "tools/build_unified_assistive_release.py",
     "tools/validate_autonomous_controls.py",
     "tools/validate_codex_usage_interlock.py",
     "tools/validate_unified_"

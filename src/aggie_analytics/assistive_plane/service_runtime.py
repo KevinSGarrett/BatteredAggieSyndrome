@@ -211,6 +211,9 @@ class ControllerService:
                 max_dispatch_per_cycle=config.max_dispatch_per_cycle,
                 release_root=release_root,
                 openai_enabled=config.openai_enabled,
+                downstream_adoption_registry_path=(
+                    release_root / "configs" / "assistive_downstream_adoptions.json"
+                ),
             ),
         )
 

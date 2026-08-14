@@ -2088,6 +2088,46 @@ class ControllerState:
         finally:
             connection.close()
 
+    def pending_downstream_reviews(
+        self,
+        *,
+        limit: int = 16,
+        result_artifact_sha256s: set[str] | None = None,
+    ) -> list[dict[str, Any]]:
+        """Return a bounded identity-complete review queue without mutating it."""
+        if limit <= 0:
+            raise ValueError("PENDING_DOWNSTREAM_REVIEW_BOUND_INVALID")
+        if result_artifact_sha256s is not None:
+            if not result_artifact_sha256s:
+                return []
+            for digest in result_artifact_sha256s:
+                self._validate_sha256(digest, "PENDING_DOWNSTREAM_REVIEW_RESULT_HASH_INVALID")
+        connection = self.connect()
+        try:
+            hashes = sorted(result_artifact_sha256s or ())
+            artifact_filter = (
+                "AND e.sha256 IN (" + ",".join("?" for _ in hashes) + ") "
+                if hashes
+                else ""
+            )
+            query = (
+                "SELECT a.attempt_id,a.work_unit_id,p.provider,r.disposition AS source_disposition,"
+                "r.evidence_sha256 AS source_review_sha256,r.recorded_at AS review_recorded_at,"
+                "e.path AS result_artifact_path,e.sha256 AS result_artifact_sha256 "
+                "FROM reviews r JOIN dispatch_attempts a ON a.attempt_id=r.attempt_id "
+                "JOIN provider_runs p ON p.attempt_id=a.attempt_id "
+                "JOIN execution_artifacts e ON e.attempt_id=a.attempt_id "
+                "AND e.artifact_type='PROVIDER_REQUEST_RESPONSE' "
+                "WHERE r.disposition IN ('REVIEW_ONLY','ACCEPTED','MODIFIED') AND NOT EXISTS ("
+                "SELECT 1 FROM downstream_review_dispositions d WHERE d.attempt_id=a.attempt_id) "
+                + artifact_filter
+                + "ORDER BY r.recorded_at,a.attempt_id LIMIT ?"
+            )
+            rows = connection.execute(query, (*hashes, limit)).fetchall()
+            return [dict(row) for row in rows]
+        finally:
+            connection.close()
+
     def append_event(self, event_type: str, payload: dict[str, Any], *, now: datetime | None = None) -> None:
         with self.transaction() as connection:
             connection.execute(

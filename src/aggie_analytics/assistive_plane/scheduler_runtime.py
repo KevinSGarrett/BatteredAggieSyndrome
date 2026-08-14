@@ -32,6 +32,7 @@ from .provider_adapters import (
     GovernedOpenRouterAdapter,
     ProviderAdapterResult,
 )
+from .review_runtime import DownstreamReviewConfig, DownstreamReviewConsumer
 
 
 ROUTABLE_DISPOSITIONS = frozenset(
@@ -93,6 +94,7 @@ class SchedulerConfig:
     bge_endpoint: str = OLLAMA_LOOPBACK_ENDPOINT
     openai_enabled: bool = True
     openrouter_enabled: bool = True
+    downstream_adoption_registry_path: Path | None = None
 
     def validate(self) -> None:
         if self.inventory_max_age_seconds <= 0:
@@ -108,6 +110,11 @@ class SchedulerConfig:
         )
         if any(value is not None for value in cpu_fields) and not all(value is not None for value in cpu_fields):
             raise ValueError("SCHEDULER_CPU_WORKER_CONFIG_INCOMPLETE")
+        if (
+            self.downstream_adoption_registry_path is not None
+            and not self.downstream_adoption_registry_path.is_absolute()
+        ):
+            raise ValueError("SCHEDULER_DOWNSTREAM_ADOPTION_REGISTRY_NOT_ABSOLUTE")
 
 
 class InventoryScheduler:
@@ -124,6 +131,20 @@ class InventoryScheduler:
         self.state = state
         self.config = config
         self._adapters = adapters
+        self._review_consumer = (
+            DownstreamReviewConsumer(
+                state,
+                DownstreamReviewConfig(
+                    registry_path=config.downstream_adoption_registry_path,
+                    evidence_root=config.evidence_root,
+                    releases_root=(
+                        config.release_root.parent if config.release_root is not None else None
+                    ),
+                ),
+            )
+            if config.downstream_adoption_registry_path is not None
+            else None
+        )
 
     @staticmethod
     def _useful_work_evidence(
@@ -1161,6 +1182,11 @@ class InventoryScheduler:
     def evaluate(self, *, now: datetime | None = None) -> dict[str, Any]:
         moment = now or datetime.now(timezone.utc)
         observed_at = rfc3339(moment)
+        downstream_reviews = (
+            self._review_consumer.process(now=moment)
+            if self._review_consumer is not None
+            else {"result": "DISABLED", "processed": 0, "deferred": 0}
+        )
         try:
             payload, inventory, inventory_sha256, age_seconds = self._load(moment)
         except (OSError, KeyError, ValueError, json.JSONDecodeError) as exc:
@@ -1466,6 +1492,7 @@ class InventoryScheduler:
                 if dispatched else "INVENTORY_SCHEDULER_ACTIVE_PROVIDER_DISPATCH_PENDING"
             ),
             "operational_completion": "INCOMPLETE",
+            "downstream_reviews": downstream_reviews,
         }
         _, evidence_sha256 = content_addressed_write(
             self.config.evidence_root, "scheduler-evaluations", report, current_name="scheduler-evaluation.json"

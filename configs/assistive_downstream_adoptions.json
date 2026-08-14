@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "artifact_type": "ASSISTIVE_DOWNSTREAM_ADOPTION_REGISTRY",
+  "authority": "CODEX_FINAL_INTEGRATION_ONLY",
+  "default_disposition": "PENDING_NO_REGISTERED_CONSUMER",
+  "entries": [
+    {
+      "provider": "cursor",
+      "work_unit_id": "AUTO-CURSOR-5ef13a47a63bf9831995",
+      "attempt_id": "0b0079e785b961874b68a2927ea02aa580b04e01571c365858555b568d4c4c63",
+      "result_artifact_sha256": "49f4425767231f317bfe836b1c93725d45429bcc069975a58985edc4c4b777bf",
+      "disposition": "MODIFIED",
+      "downstream_consumer": "MERGED_P0_AUTONOMOUS_PRODUCER_REPAIR",
+      "consumed_artifact_identity": "1751530294f006d1e6b620972e22d44a76f7632049e23332586a2d38dd697397",
+      "merged_commit": "e94f9b10828837718185042c29e8b8fd1621eb34",
+      "changed_project_artifact": true,
+      "net_time_saved_seconds": 0.0,
+      "duplicated_by_codex": false,
+      "review_seconds": 0.0,
+      "reason": "EXACT_CURSOR_DUPLICATE_CAPACITY_FINDING_WAS_REVIEWED_MODIFIED_AND_MERGED_WITHOUT_A_MEASURED_DIRECT_BASELINE"
+    },
+    {
+      "provider": "cursor",
+      "work_unit_id": "AUTO-CURSOR-30076144ad016b5b6719",
+      "attempt_id": "27a74383a9fcaf8bf4aa37d3efd1caaa8e2b1bbecff569662be653cdc08f9453",
+      "result_artifact_sha256": "9937d6bd9eb075e9b0231fcd6c30867bcf59654323d4d41283802c29424c7bd3",
+      "disposition": "MODIFIED",
+      "downstream_consumer": "MERGED_P0_USEFUL_WORK_PRODUCER_REPAIR",
+      "consumed_artifact_identity": "d1d77b089ed81c770a1ed0ded64b22202c7cac5868357ab5fd3341071d59372f",
+      "merged_commit": "5b5a7716af620b1c2178f1a12b2309bf850fb111",
+      "changed_project_artifact": true,
+      "net_time_saved_seconds": 0.0,
+      "duplicated_by_codex": false,
+      "review_seconds": 0.0,
+      "reason": "EXACT_CURSOR_DISCOVERY_ISOLATION_AND_BOUNDED_SCAN_FINDINGS_WERE_REVIEWED_MODIFIED_AND_MERGED_WITHOUT_A_MEASURED_DIRECT_BASELINE"
+    }
+  ]
+}

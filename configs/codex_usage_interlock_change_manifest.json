@@ -1,20 +1,29 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "c699e848f3438157ca10a45725d33d615eeb8e07520b3abe59b97d4e82dd9845",
-  "work_unit_id": "BAT-560-P0-USEFUL-WORK-PRODUCER-REPAIR",
+  "manifest_identity": "d364685f8da145d1e5b53305381f6dbfaa0f669751d985022821cd4f8be5a3ef",
+  "work_unit_id": "BAT-560-P0-DOWNSTREAM-REVIEW-CONSUMER",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "e94f9b10828837718185042c29e8b8fd1621eb34",
-  "pre_routing_decision_sha256": "83891f889c5c16b392c8db8fdea51463ffcc8aa4bf57ed9f03ad5c18660cd3f9",
-  "missing_capability": "USEFUL_WORK_DISCOVERY_PACKET_ISOLATION_ROUTE_BINDING_AND_RELEASE_STABLE_DEMAND",
+  "base_commit": "5b5a7716af620b1c2178f1a12b2309bf850fb111",
+  "pre_routing_decision_sha256": "833a71cb8c4f3c3ae354ca587ccee7a20d8b97de05b5ad52059cc8aa6f0afd24",
+  "missing_capability": "AUTONOMOUS_EXACT_DOWNSTREAM_REVIEW_CONSUMPTION_WITHOUT_FALSE_USEFUL_WORK_CREDIT",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
+    "configs/assistive_downstream_adoptions.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "instructions/policies/assistive_execution_interlock.json",
+    "instructions/FILE_HASHES.sha256",
+    "instructions/manifest.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "tests/test_unified_runtime_inventory_dispatch.py"
+    "provenance/CURRENT_TREE.txt",
+    "src/aggie_analytics/assistive_plane/controller_state.py",
+    "src/aggie_analytics/assistive_plane/review_runtime.py",
+    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
+    "src/aggie_analytics/assistive_plane/service_runtime.py",
+    "tests/test_assistive_downstream_review.py",
+    "tools/build_unified_assistive_release.py"
   ]
 }

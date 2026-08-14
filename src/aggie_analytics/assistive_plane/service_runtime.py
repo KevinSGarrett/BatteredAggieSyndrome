@@ -13,7 +13,11 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .controller_state import ControllerState, LeaderLock, rfc3339
-from .inventory_runtime import RuntimeInventoryConfig, RuntimeInventoryRefresher
+from .inventory_runtime import (
+    BGE_DOWNSTREAM_CONSUMER_VERSION,
+    RuntimeInventoryConfig,
+    RuntimeInventoryRefresher,
+)
 from .scheduler_runtime import InventoryScheduler, SchedulerConfig
 from .watchdog import ReadOnlyWatchdog
 
@@ -193,6 +197,7 @@ class ControllerService:
                 external_assistive_root=config.runtime_root.parent,
                 continuous_source_root=data_root / "runtime",
                 project_root=Path(r"C:\BatteredAggieSyndrome") if os.name == "nt" else None,
+                bge_downstream_consumer_contract_version=BGE_DOWNSTREAM_CONSUMER_VERSION,
                 refresh_max_age_seconds=config.inventory_refresh_max_age_seconds,
             ),
         )

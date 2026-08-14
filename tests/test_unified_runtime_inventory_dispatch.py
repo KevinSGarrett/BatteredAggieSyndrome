@@ -13,6 +13,7 @@ from aggie_analytics.assistive_plane.contracts import canonical_json_bytes, sha2
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerClient, execute_cpu_request
 from aggie_analytics.assistive_plane.inventory_runtime import (
+    BGE_DOWNSTREAM_CONSUMER_VERSION,
     CURSOR_SCHEMA_SHA256,
     CURSOR_TASK_FORMAT,
     CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
@@ -2214,6 +2215,7 @@ def cpu_worker_semantic_evidence(root: Path):
             "jira_unit": "BAT-562", "schema_sha256": "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c",
             "source_hashes": ["4" * 64],
             "query": "Texas A&M", "candidates": [{"candidate_id": "a", "text": "Texas A&M Aggies"}],
+            "downstream_consumer_contract_version": BGE_DOWNSTREAM_CONSUMER_VERSION,
             "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
         }
         openai_packet = {
@@ -2236,10 +2238,29 @@ def cpu_worker_semantic_evidence(root: Path):
                 self.provider, self.cost = provider, cost
 
             def run(self, _packet: dict[str, object]) -> ProviderAdapterResult:
+                if self.provider == "ollama_local":
+                    result = {
+                        "schema_version": 1,
+                        "artifact_type": "BGE_M3_CANDIDATE_RETRIEVAL",
+                        "query_sha256": hashlib.sha256(b"Texas A&M").hexdigest(),
+                        "rankings": [{"candidate_id": "a", "score": 0.987}],
+                        "model": "bge-m3:latest",
+                        "model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+                        "task_format": "embedding_dedup_semantic_candidate_retrieval",
+                        "authority": "CANDIDATE_ONLY",
+                        "canonical_writes": 0,
+                        "protected_decisions": 0,
+                    }
+                else:
+                    result = {
+                        "authority": "CANDIDATE_ONLY",
+                        "canonical_writes": 0,
+                        "protected_decisions": 0,
+                        "provider": self.provider,
+                    }
                 return ProviderAdapterResult(
                     remote_identity=f"{self.provider}-run",
-                    result={"authority": "CANDIDATE_ONLY", "canonical_writes": 0,
-                            "protected_decisions": 0, "provider": self.provider},
+                    result=result,
                     disposition="REVIEW_ONLY", validation_errors=(), actual_cost_usd=self.cost,
                     resource={"tokens": 17},
                 )
@@ -2248,6 +2269,7 @@ def cpu_worker_semantic_evidence(root: Path):
             inventory_current_path=self.current, evidence_root=self.root / "runtime/evidence",
             inventory_max_age_seconds=300, cycle_interval_seconds=3600,
             owner_id="provider-controller-test", max_dispatch_per_cycle=2,
+            downstream_artifact_root=self.root / "reconciliation/assistive_consumed",
         ), adapters={
             "ollama_local": FakeAdapter("ollama_local", "0.000000"),
             "openai_direct": FakeAdapter("openai_direct", "0.000321"),
@@ -2264,6 +2286,20 @@ def cpu_worker_semantic_evidence(root: Path):
             self.assertTrue(all(row["status"] == "SETTLED" for row in rows))
             openai = next(row for row in rows if row["provider"] == "openai_direct")
             self.assertEqual("0.000321", json.loads(openai["resource_json"])["actual_cost_usd_exact"])
+            downstream = connection.execute(
+                "SELECT disposition,downstream_consumer,changed_project_artifact,"
+                "net_time_saved_seconds FROM downstream_review_dispositions"
+            ).fetchall()
+            self.assertEqual(1, len(downstream))
+            self.assertEqual("UNUSED", downstream[0]["disposition"])
+            self.assertEqual("BGE_RECONCILIATION_REVIEW_ROUTING", downstream[0]["downstream_consumer"])
+            self.assertEqual(0, downstream[0]["changed_project_artifact"])
+            self.assertEqual(0.0, downstream[0]["net_time_saved_seconds"])
+        artifacts = list(
+            (self.root / "reconciliation/assistive_consumed/bge-reconciliation-review-routing/sha256")
+            .rglob("report.json")
+        )
+        self.assertEqual(1, len(artifacts))
 
     def test_openrouter_provider_packet_requires_exact_identity_and_positive_budget_evidence(self) -> None:
         provider_root = self.root / "provider_work/requests"

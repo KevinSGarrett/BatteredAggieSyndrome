@@ -19,8 +19,28 @@
     "Return exact commands, exit codes, artifacts, hashes, input identities, acceptance-matrix results, negative findings, and remaining blockers; narrative completion is insufficient."
   ],
   "allowed_modification_paths": [
+    "src/aggie_analytics/operations/drift_alerts.py",
+    "src/aggie_analytics/operations/__init__.py",
+    "tests/test_operations_drift_alerts.py",
+    "tools/build_drift_alert_validation.py",
+    "tools/validate_drift_alerts.py",
+    "docs/operations/OBSERVABILITY.md",
     "artifacts/operations/drift_alert_validation.json",
-    "artifacts/jira_evidence/POST-SUBTASK-128.json"
+    "artifacts/jira_evidence/POST-SUBTASK-128.json",
+    "jira/records/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.json",
+    "jira/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.md",
+    "jira/ai/work_packets/POST-SUBTASK-128.md",
+    "jira/sources/issue_source_manifests/POST-SUBTASK-128.json",
+    "jira/index/",
+    "jira/import/",
+    "jira/sources/SOURCE_ANCHOR_INDEX.csv",
+    "jira/sources/issue_source_manifests/",
+    "jira/validation/",
+    "configs/codex_usage_interlock_change_manifest.json",
+    "configs/unified_assistive_change_routing_binding.json",
+    "provenance/CURRENT_TREE.txt",
+    "provenance/PROJECT_FILE_HASHES.sha256",
+    "provenance/PROJECT_FILE_MANIFEST.csv"
   ],
   "blocked_reason": "",
   "blocks": [
@@ -77,7 +97,7 @@
   "end_to_end_validation": "Validate that `artifacts/operations/drift_alert_validation.json` can be parsed and consumed by `POST-SUBTASK-129` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-128.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "OPERATIONS",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -99,7 +119,16 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
     "docs/operations/OBSERVABILITY.md"
   ],
-  "files_expected_to_be_touched": [],
+  "files_expected_to_be_touched": [
+    "src/aggie_analytics/operations/drift_alerts.py",
+    "src/aggie_analytics/operations/__init__.py",
+    "tests/test_operations_drift_alerts.py",
+    "tools/build_drift_alert_validation.py",
+    "tools/validate_drift_alerts.py",
+    "docs/operations/OBSERVABILITY.md",
+    "artifacts/operations/drift_alert_validation.json",
+    "artifacts/jira_evidence/POST-SUBTASK-128.json"
+  ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
     "docs/final/CODEX_HANDOFF.md",
@@ -146,11 +175,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24618",
-    "jira_updated_at": "2026-08-12T18:26:10.270-0500",
-    "last_synced_at": "2026-08-13T12:02:20.873278+00:00",
+    "jira_updated_at": "2026-08-14T01:47:14.270-0500",
+    "last_synced_at": "2026-08-14T06:47:14.270000+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -208,7 +237,7 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
     "docs/operations/OBSERVABILITY.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -220,6 +249,18 @@
     "Scientific/model evidence with dataset/matrix/split/model/calibrator identities, sample size, metrics/uncertainty, precommitment, failed/null results, and protected-evaluation status."
   ],
   "required_tests": [
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "All twelve drift classes, threshold provenance, scoped effects, deterministic deduplication, acknowledgement, evidence-backed escalation, resolution-after-evidence-change, terms metadata nonblocking behavior, and mutation rejection pass.",
+      "path": "tests/test_operations_drift_alerts.py",
+      "validation_class": "OPERATIONS"
+    },
+    {
+      "classification": "EXISTING_AUTOMATED_TEST",
+      "expectation": "The content-addressed validation artifact and downstream POST-SUBTASK-129 interface reject stale, mutated, incomplete, or policy-incompatible evidence.",
+      "path": "tools/validate_drift_alerts.py",
+      "validation_class": "INTEGRATION"
+    },
     {
       "classification": "EXISTING_AUTOMATED_TEST",
       "expectation": "Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.",
@@ -341,7 +382,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-043: Structured observability, alerts, drift, and incident response.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-128.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 
@@ -410,7 +451,14 @@ Execute the atomic 2 of 3 step in Story POST-STORY-043 (Structured observability
 
 ## Files Expected To Be Modified
 
-- None.
+- src/aggie_analytics/operations/drift_alerts.py
+- src/aggie_analytics/operations/__init__.py
+- tests/test_operations_drift_alerts.py
+- tools/build_drift_alert_validation.py
+- tools/validate_drift_alerts.py
+- docs/operations/OBSERVABILITY.md
+- artifacts/operations/drift_alert_validation.json
+- artifacts/jira_evidence/POST-SUBTASK-128.json
 
 ## Components Expected To Be Touched
 
@@ -465,6 +513,8 @@ Execute the atomic 2 of 3 step in Story POST-STORY-043 (Structured observability
 
 ## Required Tests / Validation
 
+- **EXISTING_AUTOMATED_TEST** / `OPERATIONS` — `tests/test_operations_drift_alerts.py` — All twelve drift classes, threshold provenance, scoped effects, deterministic deduplication, acknowledgement, evidence-backed escalation, resolution-after-evidence-change, terms metadata nonblocking behavior, and mutation rejection pass.
+- **EXISTING_AUTOMATED_TEST** / `INTEGRATION` — `tools/validate_drift_alerts.py` — The content-addressed validation artifact and downstream POST-SUBTASK-129 interface reject stale, mutated, incomplete, or policy-incompatible evidence.
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tests/test_w23_operations.py` — Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.
 - **EXISTING_AUTOMATED_TEST** / `REGRESSION` — `tools/validate_w23_operations.py` — Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.
 - **PUBLICATION_BOUNDARY_REVIEW** / `PUBLICATION_BOUNDARY_REVIEW` — `MANUAL` — Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.

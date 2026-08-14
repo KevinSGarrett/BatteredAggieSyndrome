@@ -1,0 +1,721 @@
+{
+  "acceptance": {
+    "acknowledgement_and_evidence_backed_escalation": true,
+    "all_twelve_classes_exercised": true,
+    "deterministic_identity_and_deduplication": true,
+    "downstream_parse_contract_present": true,
+    "resolution_requires_changed_evidence": true,
+    "terms_metadata_nonblocking": true,
+    "threshold_provenance_enforced": true
+  },
+  "artifact_identity": "41d26ee3df48f653bf8ebe63ff2f63ef76b99586e3b3ffd43642d8b82d41a400",
+  "artifact_type": "DRIFT_ALERT_VALIDATION",
+  "baseline_self_check": {
+    "active_baseline_path": "artifacts/source_governance/source_drift_baseline.json",
+    "baseline_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+    "disposition": "PINNED_BASELINE_INTERNALLY_CONSISTENT_NO_LIVE_REFRESH_CLAIM",
+    "endpoint_count": 14,
+    "private_research_terms_blockers": 0,
+    "source_count": 2
+  },
+  "controller_routing": {
+    "dispatch_origin": "PERSISTENT_CONTROLLER",
+    "final_disposition": "CODEX_REVIEW_MODIFIED",
+    "model": "gpt-5.3-codex",
+    "provider": "cursor",
+    "provider_disposition": "REVIEW_ONLY",
+    "provider_request_sha256": "68a9a212734ccece0cfd64bc3a3bc869f4552c9ca2b8a90bf37b8228a56b28d6",
+    "provider_result_sha256": "6a82bd84c4827f486f9b880af855973bd2fac0f71669a07023eb8b50f8ca0286",
+    "provider_review_sha256": "dd9f5edd3988c05bea37b5afbd4892411d1bfa6fd29965b43d3dac4ee446ecc3",
+    "task_format": "governed_cursor_repository_review_v1",
+    "work_unit_id": "AUTO-CURSOR-3986af3d17e9a3b6ff26"
+  },
+  "created_at_utc": "2026-08-14T06:30:00+00:00",
+  "detector_contract": {
+    "class_results": [
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "API",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "531601679f62ba152a90ba56db1e288edf69acea3f1f761179f4856401630818",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "56e1220cd3b4876df0d6be22c84f02de9fb5766764b526f708ff82551b530a97",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "64ea6b776f8ed48042079ba06c2b9bdfc44297ed61ae5c1181402c94277118b8",
+            "observation_identity": "fad5ba72666b2b7fd2f47c17c74be956b3f25fca917901a86f716aa22e79d478",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "a99594f870931a621e64a30eaa1a13a2b86a69745bb038a7dd5105ae1f63ab06"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "50b684bb7e1e33c930fbcb9a513b0a608c467a0ee536b1dfeb550312836378d2",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "API",
+            "rule_id": "bat478-api-identity-v1",
+            "rule_identity": "f8da0a7caed902a8ecbd6447bb6bf07563e0af5407d2e97949ea223202c9c175",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/api",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "CONCEPT",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "3ed1d62f605fed6de7f6b94c7de6200931708d275843bb3675ac302f769e5517",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "8cdc437c4e63dd6f430cbb1f161584d1ddf67f7c1a8f982449041001138c9fc1",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "6501872ae6510eb38eaf101e52e56df7ac2f8230326160f3d2c653616a652b75",
+            "observation_identity": "8f6ac7a4f54b67f2bfa9dc2ec623ac271a06bafdf56ad552c3c474614e56f7d2",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "182e3662eee05f2120a9f8cc1739d99116ba71e8303db510a8c2e93d251682a4"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "f27ff157c7a3ed7eae953c2ef8837dc30333169e7375d432487743b6ad28db4a",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "CONCEPT",
+            "rule_id": "bat478-concept-identity-v1",
+            "rule_identity": "6ff85aa869d597dbe7fefed035b2523f7903382296b60806e3e7ea5318d6d4fb",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/concept",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "DATA",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "bb0bcf2fcaa4382290dbf390db4fa954096e8f203fe607f695bbeba2d41685e3",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "a58e81f15c41f185cc2fa25a5640858d75fa2013c4957035d3f7b65861e144b3",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "f30acfc8b4d13f63e9891b0b62ef3214d18b18ec7c25171aefb535f98212633b",
+            "observation_identity": "41f2a94629c288704601601efbc1a1b57b2d6072a59fab0e2ca041b8b7066988",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "aefb251a5de063f86bdaf422f9bb9ec38452654d4b8336825ee83b7f60d99239"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "76b7b3017795fe2501bd8d4b1f15b375cf2d52372db65e240190432a73732c61",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "DATA",
+            "rule_id": "bat478-data-identity-v1",
+            "rule_identity": "33f10a7baf4ef7ba1f1eedb622895f6da6241a9ef28ea4dd4c558b9726183071",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/data",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "ENTITY",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "b79e53234540d0e2baab0f72d2c7c09605610fc61a7c1bf15398a9520feccacc",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "1bb92e09dde7911eef43319a8a30e3a06d26c06acb3e153483cc29588c46eb3e",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "2049ee78ae0878344c500a14a63e31c9540315bb90958b5eba81d877c3b3c0bb",
+            "observation_identity": "203d7a0c4d7491312fd675ee8a09607a0982a05e68022d100afc1bfc3e293828",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "b1f59841a938e20b91f93f49844be915ef31da63f690a89083144e15ee8a6a32"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "f3f2317a085d5d20eb3add76b41fc42c779d303a4dee834541fe7add5b928c9e",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "ENTITY",
+            "rule_id": "bat478-entity-identity-v1",
+            "rule_identity": "4245f5c51d2823258dd1075f1abbd1aa33277bd5d499d0696b59622e16c089d5",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/entity",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "FEATURE",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "5511d5e341fea856c765fc040b8f2e0645645fd9be7023d57311fcf8e5d0b89d",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "bbbab5494f576517b832ba942a856dabc9c511d21b48930592b62d98ef26eb5c",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "a095d957f5cfcc256f94250af7d70a9772981a293ad54e99e7219efbf9a5b334",
+            "observation_identity": "96c8a221a96a218d5982d6d4fa03aa7dbfa3daac9b7c36ef64425373d6459075",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "8bc3a290c9f9ccb5d55e9437a7dceb630a1865bb54722fb3be68107ef91264e2"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "6a6512e7df485c7ff55f0fdf3e127ecc5089fb551949d81678cfceb0904a07ac",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "FEATURE",
+            "rule_id": "bat478-feature-identity-v1",
+            "rule_identity": "d4e6fd69797bd74f4d006bb6ce2eaa31229418036a27ae3e9228ff05b886babc",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/feature",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "FRESHNESS",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "76c02d61747cf2eb46641cd9d016088f22dc4f7dac14a35fa7026ccdca5c23c9",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "3df31ed45eceb8750b1b4c040c5db31983b757799096207b5bab48c2ab4c6441",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "eb4225f1e65363631e1af3640e69bcbb7d7fb9355f22dd0785fb4088cf9d2653",
+            "observation_identity": "a00ea24d8547a11fd559223d1f6229a944080a1063bdec29426789f149c5b8e6",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "5d772e3a241f0d61a1c822540848c0e56601ebf7a296924054de0f39ef8b4081"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "19f4ef882b18adb70a82ff90162825157d82e5ba5468249b454824aee431188d",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "FRESHNESS",
+            "rule_id": "bat478-freshness-identity-v1",
+            "rule_identity": "de8a130e29dc06233fe157ee025eeae1a8ed8ddfc8caa9878f34d9947a4b1224",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/freshness",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "GOVERNANCE",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "2f07d4a35ff761d69c74411a3f49abedce04c98f5ddc8ca7f89226958895f888",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "e03f9be05e7ed6c2ad80c7792fce4381e232b20909e9ad1cc81e5b897d290a51",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "e623e57d9ded2d74d7cacaed395dd6b9495df8018f6bf5c986d3a1d5c69ddaec",
+            "observation_identity": "179f9952754c5629f570e41b76f3f276190fe3d4a3721746be8357d6a234ffd3",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "9a4bf302dfefcd76cc363470dc6cc6709af7cb704f6aa59eeec3fc76db86d65a"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "5a6b1ed4e37f8b086731dffe854043d09a6e439c9939f13651f4b08919f51cd0",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "GOVERNANCE",
+            "rule_id": "bat478-governance-identity-v1",
+            "rule_identity": "59c606cca017790df8da8768905dd5dd9e278e92cc546b9c4f754a6e7b54b477",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/governance",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "MODEL",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "9cea382a4566bae0aa7479b22a75a766471c4730c66cf604093989fffdb3eaac",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "1b6939332cea843ee1f40cea6f711c08dd79271739dbe4c05247d5e4523f1bfd",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "5e71dd8fd2c84b0d40d5f8cbe247a666a741bf000f438b53b6990c555124192d",
+            "observation_identity": "fe6246d6ad450eef5a411284835a8e795d68e2da1eed855e90b25f6e0d31a957",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "c87ef620ebc4efdf0e9bf4e43bfa70abc30256efeb87e516d2ddf7cbdbf8333b"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "60fc765cfbfa87b7e48e11264c131c6f33692344fdeb3a950f97fe9c56025c5d",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "MODEL",
+            "rule_id": "bat478-model-identity-v1",
+            "rule_identity": "c8893e823962372936da12169bcbfac4d30c4b3f999d393b56d12049e343074e",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/model",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "SCHEMA",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "f34537f580c4c8b9cd9fcdde5673062788092fbd057494bc7ac57d821aecccff",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "3ac1265d690975b22a800fb65780d908eafc99e708eb8183b8f4633d6b6c5d2c",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "b64b43dfbfe97df75456239319aeb94555a7e1bbab5e5d518fc16fda9c7bfb58",
+            "observation_identity": "569b5e77619bbf2097c1a27d077d91367686bf7830201ba2ae41a42f72b4d52c",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "3944579ea0911b055d906b93e45721a31683fa7e0c094ae570a95fcb331c83fd"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "22b75cdd3bc197ce24798dfbf6511d9e11f51081d2c38bd569f272bb32c4df75",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "SCHEMA",
+            "rule_id": "bat478-schema-identity-v1",
+            "rule_identity": "01caaf4b5ffb096fdf8bd4c5a6c2fd31f7717d013289bc3f6817069e63e21ece",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/schema",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "SECURITY",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "1ba3701081239b7d600313b4c92de603036f2966c26fae115620fb8658882ff8",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "abcb61dcf6e18e0cc43018c4323b6c6b14d115bb8db7b1c18b4f21ebe840c855",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "61322b64fa36b1e43c448b1240d1e025e15adcf3632f036ab059abc14133b017",
+            "observation_identity": "6679313021668c771db23f9126f0107030858bafda6c4539f764f4cdb9570d61",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "7b844338e1e5fdb2482f568f37763ef5b840ab37fb60042b80f25e68025ac4d1"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "3edd7ba76586bb1840590177b335b3197fd512e8ba265209ad61233b0515c04b",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "SECURITY",
+            "rule_id": "bat478-security-identity-v1",
+            "rule_identity": "d1959d951cdfb54a0460e0e187b70a969948f1f9588ad7dcf1c5acfc045ec7cd",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/security",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "SOURCE",
+        "evaluation": {
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "dedup_identity": "4cc35ef24885e164f82fcf2264d89c418d9ecd7bb19f3faa81e819ae3e12ce7f",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "8b13907a9a80547bf9c94cb26f36c6cddbc6ebd18cbfc73fe35693598128c6cc",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "dd5769feda038e54d677911ce234fe9bcbef4721b7ec94d7b3fb1b7192e86f8e",
+            "observation_identity": "b327ce80e45f71c6f2f46caad8feaf4d93f0442555f56e95b16e34029c40daa0",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "d444b1f6d4ab31f514136eceb3c0ededaa5d9724c0858630ed2f2676af39b50f"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "939e6cade1764a3c877bc7f29c6d7d10b8073a6a51cfc27d5f7aa4cf57665b18",
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "drift_class": "SOURCE",
+            "rule_id": "bat478-source-identity-v1",
+            "rule_identity": "b85f6244ec37f75dff75e0318036f927ac86b4ff10efb603e72f398dbe85d3d8",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/source",
+            "severity": "HIGH",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "HIGH",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      },
+      {
+        "disposition": "PASS_DETECTED_AND_SCOPED",
+        "drift_class": "TERMS_METADATA",
+        "evaluation": {
+          "blocking_effect": "METADATA_ONLY_NONBLOCKING",
+          "dedup_identity": "aff920f2d3a0424cd95b97a16f6bd42722dce17274fdc828641a24a7e9f09256",
+          "delta": null,
+          "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+          "evaluation_identity": "86d310a88635f3c8c0033d6fd67f4c0e70d9f8d20bb4f88824421eec3f6181ec",
+          "evaluation_type": "DRIFT_EVALUATION",
+          "observation": {
+            "evidence_sha256": "3cbc4dd395c2a4cd4314d290e0ac5a86207639ad359b1b1c3fca02e14f900a57",
+            "observation_identity": "8ac071659a81732ccb7e9f845310cc99d6731ad1e8b33ebfbbd35a68185b6f1b",
+            "observed_at_utc": "2026-08-14T06:30:00+00:00",
+            "value": "f3ac9c03a11df785c8475e7a40c8c1c0b8b5c3a60a970f2993e69ec132df9109"
+          },
+          "rule": {
+            "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+            "baseline_value": "d3ce39674e2229915c34c75717853b69cc6d1097ce0905cf018003542ab02c4f",
+            "blocking_effect": "METADATA_ONLY_NONBLOCKING",
+            "drift_class": "TERMS_METADATA",
+            "rule_id": "bat478-terms_metadata-identity-v1",
+            "rule_identity": "e6f1aa90a54ea807a7cc20f4428a4ea219b62f61a1d7b8a8dc89524a21e36da4",
+            "rule_kind": "EXACT_IDENTITY",
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "scope_id": "fixture/terms_metadata",
+            "severity": "WARNING",
+            "threshold": null,
+            "threshold_source_sha256": null
+          },
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "severity": "WARNING",
+          "status": "DRIFT"
+        },
+        "fixture_type": "DETERMINISTIC_CONTRACT_MUTATION_NOT_LIVE_PROVIDER_DRIFT"
+      }
+    ],
+    "freshness_threshold": {
+      "evaluation": {
+        "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+        "dedup_identity": "baa7db2af3c42486bcedf37f5818c829b2de829db875d65edbcae2ef844f642f",
+        "delta": 1801.0,
+        "evaluated_at_utc": "2026-08-14T06:30:01+00:00",
+        "evaluation_identity": "2d83babe9d44106054874f301ca157c8c9781638ba8b72a04542e8e710b68437",
+        "evaluation_type": "DRIFT_EVALUATION",
+        "observation": {
+          "evidence_sha256": "5a8b31690cd86f016d32f7f53595840cb864527bed520afb5fc5158eb9410b01",
+          "observation_identity": "0ce8d3c8df4fe9074d35810902ebcba501142be1a56590f17425db6649368625",
+          "observed_at_utc": "2026-08-14T06:30:00+00:00",
+          "value": "2026-08-14T06:00:00+00:00"
+        },
+        "rule": {
+          "baseline_evidence_sha256": "2a9417bb69d2042f0b0a088ea0ec75f9250e7b142c49a333bf1c1794d61ced45",
+          "baseline_value": "2026-08-14T06:00:00+00:00",
+          "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+          "drift_class": "FRESHNESS",
+          "rule_id": "bat478-freshness-existing-contract-v1",
+          "rule_identity": "6e43c0f2fb50e32d73796dc255483fc87bb4d7a1fa4c61a7a758aa54424e68c5",
+          "rule_kind": "MAX_AGE_SECONDS",
+          "schema_version": "aggie.operations.drift-alerts.v1",
+          "scope_id": "fixture/freshness-existing-contract",
+          "severity": "HIGH",
+          "threshold": 900.0,
+          "threshold_source_sha256": "2a9417bb69d2042f0b0a088ea0ec75f9250e7b142c49a333bf1c1794d61ced45"
+        },
+        "schema_version": "aggie.operations.drift-alerts.v1",
+        "severity": "HIGH",
+        "status": "DRIFT"
+      },
+      "seconds": 900,
+      "source_path": "src/aggie_analytics/operations/observability.py",
+      "source_sha256": "2a9417bb69d2042f0b0a088ea0ec75f9250e7b142c49a333bf1c1794d61ced45"
+    },
+    "implemented_classes": [
+      "API",
+      "CONCEPT",
+      "DATA",
+      "ENTITY",
+      "FEATURE",
+      "FRESHNESS",
+      "GOVERNANCE",
+      "MODEL",
+      "SCHEMA",
+      "SECURITY",
+      "SOURCE",
+      "TERMS_METADATA"
+    ],
+    "threshold_policy": "THRESHOLDS_MUST_BE_POSITIVE_AND_BIND_A_VERSIONED_EVIDENCE_SHA256; NO_RUNTIME_DEFAULT_MAY_BE_INVENTED_TO_FORCE_AN_ALERT_OR_PASS"
+  },
+  "downstream_consumer": "POST-SUBTASK-129",
+  "eligibility": "IMPLEMENTED_VALIDATED_CONTROL_CANDIDATE_NOT_SUSTAINED_OPERATION",
+  "inputs": [
+    {
+      "bytes": 3065,
+      "path": "configs/source_drift_registry.json",
+      "sha256": "0623fbe685e40d144f5d9a4528dbb27e0a106edad2a7f087f939eb20ded18515"
+    },
+    {
+      "bytes": 28628,
+      "path": "artifacts/source_governance/source_drift_baseline.json",
+      "sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50"
+    },
+    {
+      "bytes": 15934,
+      "path": "src/aggie_analytics/operations/observability.py",
+      "sha256": "2a9417bb69d2042f0b0a088ea0ec75f9250e7b142c49a333bf1c1794d61ced45"
+    },
+    {
+      "bytes": 10373,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-024.json",
+      "sha256": "416a1ce70da87e9938aaa6f38da185d55e5d7e1f5a25b16b7c8775e01aa50bed"
+    },
+    {
+      "bytes": 8134,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-126.json",
+      "sha256": "abc8f696bd1895ad946e97949d97a6bbb2ccfadd706cd46848700fff06d49d80"
+    },
+    {
+      "bytes": 4986,
+      "path": "artifacts/jira_evidence/POST-SUBTASK-127.json",
+      "sha256": "7686f1d4e76a68cfe0f9ed687987f4bd239fae76fe5e1384935f7a4b60ceaf16"
+    },
+    {
+      "bytes": 21703,
+      "path": "jira/records/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.json",
+      "sha256": "2b54708ff20ae051fb77597ce230e99e3f349c50a934f741a9d0142b9867ee07"
+    }
+  ],
+  "issue_identity": {
+    "jira_key": "BAT-478",
+    "local_id": "POST-SUBTASK-128"
+  },
+  "lifecycle_contract": {
+    "deduplication": "RULE_IDENTITY_PLUS_DRIFT_CLASS_PLUS_AFFECTED_SCOPE",
+    "ledger_snapshot": {
+      "artifact_type": "DRIFT_ALERT_LEDGER_SNAPSHOT",
+      "records": [
+        {
+          "alert_id": "9bfdb2ea43b9c773d68f632e1d096594cb195b9bbf89374aa74b84af2ab8b765",
+          "current_severity": "HIGH",
+          "latest_evaluation": {
+            "blocking_effect": "METADATA_ONLY_NONBLOCKING",
+            "dedup_identity": "9bfdb2ea43b9c773d68f632e1d096594cb195b9bbf89374aa74b84af2ab8b765",
+            "delta": null,
+            "evaluated_at_utc": "2026-08-14T06:34:01+00:00",
+            "evaluation_identity": "d008ac38dffe0a5cf17cd4a62cd7385d773be2a3ebc27e9c3e895831b988d9c8",
+            "evaluation_type": "DRIFT_EVALUATION",
+            "observation": {
+              "evidence_sha256": "4ff6fd21b01a34f7ef0b07b6c8e863976ddc6c126d35dc04c2a0fa5a191cdbfe",
+              "observation_identity": "3ec49f43b094cd7462c69d7d2e87941747e9d5bb1c94500f25f4c2856d609db5",
+              "observed_at_utc": "2026-08-14T06:34:00+00:00",
+              "value": "375077cc99a46509a85bf8fc496bbd4649372d8ddb6765af87e173dcdfebf417"
+            },
+            "rule": {
+              "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+              "baseline_value": "375077cc99a46509a85bf8fc496bbd4649372d8ddb6765af87e173dcdfebf417",
+              "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+              "drift_class": "SCHEMA",
+              "rule_id": "bat478-schema-lifecycle-v1",
+              "rule_identity": "bc9a896af0a0402e0b7df861ad967db1d9f97a8648e34ec1b74ef1a46db49d79",
+              "rule_kind": "EXACT_IDENTITY",
+              "schema_version": "aggie.operations.drift-alerts.v1",
+              "scope_id": "fixture/schema-lifecycle",
+              "severity": "WARNING",
+              "threshold": null,
+              "threshold_source_sha256": null
+            },
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "severity": "INFO",
+            "status": "NO_DRIFT"
+          },
+          "opening_evaluation": {
+            "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+            "dedup_identity": "9bfdb2ea43b9c773d68f632e1d096594cb195b9bbf89374aa74b84af2ab8b765",
+            "delta": null,
+            "evaluated_at_utc": "2026-08-14T06:31:01+00:00",
+            "evaluation_identity": "a1ecf2e0c92b05ec1f7d052fa9aaa21bf4cf9f26079ba80b944eb2e96fa900fc",
+            "evaluation_type": "DRIFT_EVALUATION",
+            "observation": {
+              "evidence_sha256": "7ecb80f9fdbcab4d39f3e34c9107caf19d824b189eadcacd61364fe9a9b6cb03",
+              "observation_identity": "0b86b91aefc8ff2673514b54c69f7eec8c48745a6a9257ac1f40ad90fe164c8a",
+              "observed_at_utc": "2026-08-14T06:31:00+00:00",
+              "value": "d37885524b80766745abeec5f7c59f358a98c9fa3cb5db562ca98f858f4a0ec3"
+            },
+            "rule": {
+              "baseline_evidence_sha256": "cd8cdb57c255ad84b4ec99403e685b4d1efbccd031f4fc64917bec3a75e4ea50",
+              "baseline_value": "375077cc99a46509a85bf8fc496bbd4649372d8ddb6765af87e173dcdfebf417",
+              "blocking_effect": "QUARANTINE_AFFECTED_SCOPE",
+              "drift_class": "SCHEMA",
+              "rule_id": "bat478-schema-lifecycle-v1",
+              "rule_identity": "bc9a896af0a0402e0b7df861ad967db1d9f97a8648e34ec1b74ef1a46db49d79",
+              "rule_kind": "EXACT_IDENTITY",
+              "schema_version": "aggie.operations.drift-alerts.v1",
+              "scope_id": "fixture/schema-lifecycle",
+              "severity": "WARNING",
+              "threshold": null,
+              "threshold_source_sha256": null
+            },
+            "schema_version": "aggie.operations.drift-alerts.v1",
+            "severity": "WARNING",
+            "status": "DRIFT"
+          },
+          "rule_identity": "bc9a896af0a0402e0b7df861ad967db1d9f97a8648e34ec1b74ef1a46db49d79",
+          "scope_id": "fixture/schema-lifecycle",
+          "status": "RESOLVED",
+          "transitions": [
+            {
+              "actor_id": "detector",
+              "details": {
+                "evaluation_identity": "a1ecf2e0c92b05ec1f7d052fa9aaa21bf4cf9f26079ba80b944eb2e96fa900fc"
+              },
+              "evidence_sha256": "7ecb80f9fdbcab4d39f3e34c9107caf19d824b189eadcacd61364fe9a9b6cb03",
+              "occurred_at_utc": "2026-08-14T06:31:01+00:00",
+              "previous_transition_identity": null,
+              "transition_identity": "785df841abe25c27c15b03a7c669c869a11ada30aa00f6f85f94241fc685d4dc",
+              "transition_type": "OPENED"
+            },
+            {
+              "actor_id": "bat478-fixture-operator",
+              "details": {},
+              "evidence_sha256": "03b6c425745ffca13270605eff550600ed0a2b700a91ba89bb14a88c889d63fa",
+              "occurred_at_utc": "2026-08-14T06:32:00+00:00",
+              "previous_transition_identity": "785df841abe25c27c15b03a7c669c869a11ada30aa00f6f85f94241fc685d4dc",
+              "transition_identity": "0873f876d48a21b96900f20080615dd2964c8a746c5022816dae8f8d7faf524a",
+              "transition_type": "ACKNOWLEDGED"
+            },
+            {
+              "actor_id": "bat478-fixture-policy",
+              "details": {
+                "escalation_rule_id": "bat478-fixture-escalation-v1",
+                "from_severity": "WARNING",
+                "to_severity": "HIGH"
+              },
+              "evidence_sha256": "0bb5002d4db16f1fc5fd51410a9a020fb158e4f54d1f6e151af20371bbdcb1ff",
+              "occurred_at_utc": "2026-08-14T06:33:00+00:00",
+              "previous_transition_identity": "0873f876d48a21b96900f20080615dd2964c8a746c5022816dae8f8d7faf524a",
+              "transition_identity": "0abeb7e1c9ab7e26c6c757b1ac281b08a9df8e879604729bd0dc59541882390c",
+              "transition_type": "ESCALATED"
+            },
+            {
+              "actor_id": "bat478-fixture-operator",
+              "details": {
+                "clearing_evaluation_identity": "d008ac38dffe0a5cf17cd4a62cd7385d773be2a3ebc27e9c3e895831b988d9c8"
+              },
+              "evidence_sha256": "e1a87bf1540d246e24f8b4db7bccb9b323e852c3a7e3c215f1722c03d42b0c6e",
+              "occurred_at_utc": "2026-08-14T06:35:00+00:00",
+              "previous_transition_identity": "0abeb7e1c9ab7e26c6c757b1ac281b08a9df8e879604729bd0dc59541882390c",
+              "transition_identity": "2200ba7d68f4f4abdb509c206a4665b5be51cef9db109cff6dfdb4349292f8d9",
+              "transition_type": "RESOLVED"
+            }
+          ]
+        }
+      ],
+      "schema_version": "aggie.operations.drift-alerts.v1",
+      "snapshot_identity": "89429070495b97999e4a1cd98ceff200f66fd1dd81c063d0c6c192c4228240f5"
+    },
+    "required_transitions": [
+      "OPENED",
+      "ACKNOWLEDGED",
+      "ESCALATED",
+      "RESOLVED"
+    ],
+    "resolution_policy": "NO_DRIFT_CLEARING_EVALUATION_WITH_CHANGED_EVIDENCE_REQUIRED"
+  },
+  "negative_findings": [
+    "No live post-baseline provider refresh was performed by this deterministic validation artifact; it does not claim a perpetual zero-drift state.",
+    "The controller-routed Cursor result was REVIEW_ONLY and made no code changes; Codex integrated and modified the reviewed finding under the routed adoption interlock.",
+    "This control does not establish sustained monitoring, final historical completeness, production model readiness, protected performance, A&M lift, BAS, or Aggie Excess."
+  ],
+  "producer": {
+    "command": "python -B tools/build_drift_alert_validation.py --repo-root .",
+    "git_base_commit": "c434d125bff0612d41096626aa4c73499c5bfe74",
+    "tool_path": "tools/build_drift_alert_validation.py"
+  },
+  "schema_version": "1.0.0",
+  "scientific_and_security_boundary": {
+    "credential_values_included": false,
+    "fabricated_metrics": false,
+    "fabricated_thresholds": false,
+    "production_readiness_claimed": false,
+    "protected_results_inspected": false,
+    "raw_third_party_payloads_included": false
+  },
+  "scope_and_policy": {
+    "raw_third_party_publication": "DISABLED_WITHOUT_SEPARATE_FUTURE_REVIEW",
+    "technical_or_quality_drift": "QUARANTINE_OR_BLOCK_ONLY_THE_AFFECTED_SCOPE_DECLARED_BY_THE_VERSIONED_RULE",
+    "terms_or_rights_drift": "METADATA_ONLY_NONBLOCKING_FOR_PRIVATE_RESEARCH",
+    "unrelated_domains_globally_blocked": false
+  }
+}

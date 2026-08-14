@@ -22,6 +22,7 @@ from acquire_ncaa_official_gamebooks import (  # noqa: E402
     canonical_json_bytes,
     inspect_ncaa_html,
     inspect_ncaa_team_page,
+    load_reconciled_contests,
     load_optional_dotenv_value,
     sha256_file,
     stable_hash,
@@ -81,6 +82,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--rebuild-root", type=Path, required=True)
     result.add_argument("--env-file", type=Path)
     result.add_argument("--discovery-manifest", type=Path)
+    result.add_argument("--reconciliation-manifest", type=Path)
     return result
 
 
@@ -91,8 +93,10 @@ def main() -> int:
     contract_path = args.contract.resolve()
     gate_path = args.gate.resolve()
     rebuild_root = args.rebuild_root.resolve()
-    if repo_root not in contract_path.parents or repo_root not in gate_path.parents:
-        raise ValueError("contract and gate must be versioned in the repository")
+    if repo_root not in contract_path.parents:
+        raise ValueError("contract must be versioned in the repository")
+    if repo_root not in gate_path.parents and data_root not in gate_path.parents:
+        raise ValueError("gate must be in the repository or configured external data root")
     if rebuild_root.exists():
         raise ValueError(f"rebuild root already exists: {rebuild_root}")
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
@@ -159,7 +163,17 @@ def main() -> int:
             f"schema_{row['contest_id']}_{row['endpoint_id']}",
             profile["schema_fields"] == row["schema_fields"],
         )
-        check(f"canonical_unpromoted_{row['contest_id']}_{row['endpoint_id']}", row["canonical_game_id"] is None)
+        if args.reconciliation_manifest:
+            check(
+                f"canonical_candidate_bound_{row['contest_id']}_{row['endpoint_id']}",
+                isinstance(row["canonical_game_id"], str) and bool(row["canonical_game_id"]),
+            )
+            check(
+                f"mapping_method_{row['contest_id']}_{row['endpoint_id']}",
+                row.get("mapping_method") == "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT",
+            )
+        else:
+            check(f"canonical_unpromoted_{row['contest_id']}_{row['endpoint_id']}", row["canonical_game_id"] is None)
         destination = rebuild_root / row["raw_relative_path"]
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(raw_path, destination)
@@ -170,6 +184,12 @@ def main() -> int:
         payload_profiles.append(profile)
         for normalized in row.get("normalization", []):
             domain = normalized["domain"]
+            if normalized["state"] == "PARSER_RUNTIME_UNAVAILABLE":
+                check(
+                    f"parser_runtime_unavailable_preserved_{row['contest_id']}_{domain}",
+                    int(normalized["row_count"]) == 0 and "payload_relative_path" not in normalized,
+                )
+                continue
             normalized_path = data_root / normalized["payload_relative_path"]
             check(f"normalized_exists_{row['contest_id']}_{domain}", normalized_path.is_file())
             check(
@@ -213,11 +233,51 @@ def main() -> int:
 
     check("normalized_domain_counts", normalized_domain_counts == manifest["normalized_domain_counts"])
     check("normalized_row_counts", normalized_row_counts == manifest["normalized_row_counts"])
-    check("all_contract_domains_nonempty", set(normalized_domain_counts) == set(contract["domain_grain"]))
+    if args.reconciliation_manifest:
+        check(
+            "partial_domains_do_not_globally_block",
+            set(normalized_domain_counts).issubset(set(contract["domain_grain"])),
+        )
+    else:
+        check("all_contract_domains_nonempty", set(normalized_domain_counts) == set(contract["domain_grain"]))
     check(
         "gate_normalized_domain_counts",
         gate["bounded_population"]["normalized_domain_counts"] == manifest["normalized_domain_counts"],
     )
+
+    reconciliation_summary: dict[str, Any] | None = None
+    if args.reconciliation_manifest:
+        reconciliation_path = args.reconciliation_manifest.resolve()
+        selected, evidence = load_reconciled_contests(reconciliation_path, data_root)
+        selected_by_contest = {row["contest_id"]: row for row in selected}
+        gate_selection = gate["bounded_population"].get("selection_evidence", {})
+        manifest_selection = manifest.get("selection_evidence", {})
+        check("reconciliation_selection_gate_binding", gate_selection == manifest_selection)
+        check(
+            "reconciliation_dataset_binding",
+            manifest_selection.get("dataset_identity") == evidence["dataset_identity"],
+        )
+        check(
+            "reconciliation_manifest_hash",
+            manifest_selection.get("manifest_sha256") == evidence["manifest_sha256"],
+        )
+        for row in manifest["captures"]:
+            source = selected_by_contest.get(row["contest_id"])
+            check(f"reconciliation_contest_member_{row['contest_id']}", source is not None)
+            check(
+                f"reconciliation_game_binding_{row['contest_id']}",
+                source is not None and row["canonical_game_id"] == source["canonical_game_id"],
+            )
+            check(
+                f"reconciliation_identity_binding_{row['contest_id']}",
+                row.get("reconciliation_dataset_identity") == evidence["dataset_identity"],
+            )
+        reconciliation_summary = {
+            "dataset_identity": evidence["dataset_identity"],
+            "manifest_sha256": evidence["manifest_sha256"],
+            "available_contests": len(selected),
+            "selected_contests": len({row["contest_id"] for row in manifest["captures"]}),
+        }
 
     discovery_summary: dict[str, Any] | None = None
     if args.discovery_manifest:
@@ -432,8 +492,8 @@ def main() -> int:
         ),
     ]
     checks.extend(mutations)
-    report = {
-        "schema_version": "1.0.0",
+    report_core = {
+        "schema_version": "1.1.0",
         "artifact_type": "NCAA_OFFICIAL_GAMEBOOK_VALIDATION_REPORT",
         "decision_unit": "POST-SUBTASK-197",
         "jira_key": "BAT-554",
@@ -451,11 +511,22 @@ def main() -> int:
         "mutation_control_count": len(mutations),
         "configured_secret_values_checked_without_logging": checked_secret_count,
         "discovery": discovery_summary,
+        "reconciliation": reconciliation_summary,
         "checks": checks,
     }
-    report_root = data_root / "validation" / "POST-SUBTASK-197"
-    report_path = report_root / "ncaa_official_gamebook_validation.json"
-    write_json(report_path, report)
+    validation_identity = stable_hash(report_core)
+    report = {**report_core, "validation_identity": validation_identity}
+    report_path = (
+        data_root
+        / "validation"
+        / "POST-SUBTASK-197"
+        / "ncaa-official-gamebooks"
+        / manifest["acquisition_identity"]
+        / "runs"
+        / validation_identity
+        / "report.json"
+    )
+    write_immutable_json(report_path, report)
     print(
         json.dumps(
             {
@@ -468,6 +539,7 @@ def main() -> int:
                 "report_sha256": sha256_file(report_path),
                 "rebuild_root": str(rebuild_root),
                 "discovery": discovery_summary,
+                "reconciliation": reconciliation_summary,
             },
             indent=2,
             sort_keys=True,

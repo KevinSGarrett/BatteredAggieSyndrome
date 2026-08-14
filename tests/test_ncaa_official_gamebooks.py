@@ -25,6 +25,7 @@ from acquire_ncaa_official_gamebooks import (  # noqa: E402
     inspect_ncaa_html,
     inspect_ncaa_team_page,
     load_optional_dotenv_value,
+    load_reconciled_contests,
     main,
     normalize_ncaa_capture,
     request_for,
@@ -394,6 +395,101 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
         self.assertNotIn("key", first.source_uri.lower())
         self.assertNotIn("token", first.source_uri.lower())
 
+    def test_reconciled_contest_manifest_drives_candidate_only_selection(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data_root = Path(directory)
+            core = {
+                "season": 2022,
+                "mapping_records": [
+                    {
+                        "ncaa_contest_id": "2276460",
+                        "canonical_game_id": "game_1",
+                        "canonical_home_team_id": "team_home",
+                        "canonical_away_team_id": "team_away",
+                        "canonical_start_utc": "2022-08-28T02:00:00Z",
+                        "season": 2022,
+                        "season_type": "regular",
+                        "mapping_method": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT",
+                        "name_only_promotion": False,
+                        "historical_pit_eligible": False,
+                        "training_eligible": False,
+                        "protected_eligible": False,
+                    }
+                ],
+            }
+            identity = __import__("hashlib").sha256(
+                json.dumps(core, sort_keys=True, separators=(",", ":")).encode("utf-8")
+            ).hexdigest()
+            manifest = {
+                "dataset_identity": identity,
+                "identity_core": core,
+                "authority": {
+                    "canonical_registry_write": False,
+                    "historical_pit_eligible": False,
+                    "training_eligible": False,
+                    "protected_evaluation_eligible": False,
+                    "production_eligible": False,
+                },
+            }
+            path = data_root / "manifests/ncaa_contest_reconciliation/sha256" / identity / "run_manifest.json"
+            path.parent.mkdir(parents=True)
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+
+            contests, evidence = load_reconciled_contests(path, data_root)
+
+            self.assertEqual("2276460", contests[0]["contest_id"])
+            self.assertEqual("game_1", contests[0]["canonical_game_id"])
+            self.assertEqual("EXACT_TWO_SIDED_CONTEXT_RECONCILED_CANDIDATE_ONLY", contests[0]["identity_state"])
+            self.assertEqual(identity, evidence["dataset_identity"])
+            self.assertIn("NO_PIT_TRAINING_PROTECTED", evidence["authority"])
+
+    def test_reconciled_contest_manifest_rejects_name_only_promotion(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data_root = Path(directory)
+            core = {
+                "season": 2022,
+                "mapping_records": [
+                    {
+                        "ncaa_contest_id": "1",
+                        "canonical_game_id": "game_1",
+                        "canonical_home_team_id": "home",
+                        "canonical_away_team_id": "away",
+                        "canonical_start_utc": "2022-01-01T00:00:00Z",
+                        "season": 2022,
+                        "season_type": "regular",
+                        "mapping_method": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT",
+                        "name_only_promotion": True,
+                        "historical_pit_eligible": False,
+                        "training_eligible": False,
+                        "protected_eligible": False,
+                    }
+                ],
+            }
+            identity = __import__("hashlib").sha256(
+                json.dumps(core, sort_keys=True, separators=(",", ":")).encode("utf-8")
+            ).hexdigest()
+            path = data_root / "manifests/ncaa_contest_reconciliation/sha256" / identity / "run_manifest.json"
+            path.parent.mkdir(parents=True)
+            path.write_text(
+                json.dumps(
+                    {
+                        "dataset_identity": identity,
+                        "identity_core": core,
+                        "authority": {
+                            "canonical_registry_write": False,
+                            "historical_pit_eligible": False,
+                            "training_eligible": False,
+                            "protected_evaluation_eligible": False,
+                            "production_eligible": False,
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(ValueError, "name-only"):
+                load_reconciled_contests(path, data_root)
+
     def test_dotenv_loader_returns_only_requested_value_and_rejects_duplicates(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / ".env"
@@ -477,6 +573,10 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
             "captured_count": 1,
             "technical_failure_count": 1,
             "domain_capture_counts": {"play_by_play": 1},
+            "selection_evidence": {
+                "source": "RECONCILED_CONTEST_CANDIDATES",
+                "dataset_identity": "c" * 64,
+            },
             "captures": [
                 {"state": "CAPTURED", "contest_id": "5362283", "endpoint_id": "play_by_play"},
                 {"state": "TECHNICALLY_UNAVAILABLE", "contest_id": "5362283", "endpoint_id": "officials"},
@@ -493,6 +593,10 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
         self.assertFalse(gate["pit_gate"]["historical_pit_eligible"])
         self.assertFalse(gate["scale_out_gate"]["automatic_national_scale_out_enabled"])
         self.assertIn("officials", gate["bounded_population"]["missing_domains"])
+        self.assertEqual(
+            "c" * 64,
+            gate["bounded_population"]["selection_evidence"]["dataset_identity"],
+        )
 
     @unittest.skipUnless(importlib.util.find_spec("sportsdataverse"), "pinned parser runtime is optional")
     def test_pinned_parsers_normalize_every_domain_without_identity_or_pit_promotion(self) -> None:

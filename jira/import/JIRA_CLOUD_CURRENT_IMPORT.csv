@@ -31733,7 +31733,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",To Do,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,READY,PRODUCTION_READY,PLANNED,POST_W25,false,PROTECTED_GATE
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",In Progress,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,IN_PROGRESS,PRODUCTION_READY,PARTIAL,POST_W25,false,PROTECTED_GATE
 Sub-task,BAT-480,100434,"[POST-SUBTASK-130] Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata",100094,"Local ID: POST-SUBTASK-130
 
 Objective

@@ -3,6 +3,29 @@
   "artifact_type": "ASSISTIVE_DOWNSTREAM_ADOPTION_REGISTRY",
   "authority": "CODEX_FINAL_INTEGRATION_ONLY",
   "default_disposition": "PENDING_NO_REGISTERED_CONSUMER",
+  "candidate_contracts": [
+    {
+      "provider": "cursor",
+      "task_category": "governed_cursor_repository_review_v1",
+      "contract_version": "candidate-review-routing-v1",
+      "downstream_consumer": "CURSOR_CANDIDATE_CODE_REVIEW_QUEUE",
+      "authority": "CANDIDATE_REVIEW_QUEUE_ONLY"
+    },
+    {
+      "provider": "openai_direct",
+      "task_category": "governed_openai_candidate_v1",
+      "contract_version": "candidate-review-routing-v1",
+      "downstream_consumer": "OPENAI_EVIDENCE_CANDIDATE_REVIEW_QUEUE",
+      "authority": "CANDIDATE_REVIEW_QUEUE_ONLY"
+    },
+    {
+      "provider": "openrouter",
+      "task_category": "governed_openrouter_candidate_v1",
+      "contract_version": "candidate-review-routing-v1",
+      "downstream_consumer": "OPENROUTER_REASONING_CANDIDATE_REVIEW_QUEUE",
+      "authority": "CANDIDATE_REVIEW_QUEUE_ONLY"
+    }
+  ],
   "entries": [
     {
       "provider": "cursor",

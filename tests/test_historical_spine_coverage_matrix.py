@@ -46,6 +46,7 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
             "team_failure_count": failures,
             "discovered_team_season_ids": ["1", "2"],
             "discovered_contest_ids": ["10", "11", "12"],
+            "legacy_schedule_record_count": 0,
             "remaining_queue": [str(100 + index) for index in range(remaining)],
         }
         identity = hashlib.sha256(coverage.canonical_json(core)).hexdigest()
@@ -78,6 +79,9 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
                 "reconciled_team_seasons": 12,
                 "scored_schedule_observations": 52,
                 "unresolved_contests": 9,
+                "legacy_schedule_observations": 10,
+                "reconciled_legacy_games": 4,
+                "unresolved_legacy_observations": 2,
             },
             "inputs": {
                 "discovery_manifest": {"sha256": "d" * 64},
@@ -113,7 +117,7 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
 
         payload = coverage.build_matrix(self.data_root)
 
-        self.assertEqual(payload["schema_version"], "1.2.0")
+        self.assertEqual(payload["schema_version"], "1.3.0")
         self.assertEqual(payload["discovery_summary"]["capture_complete_seasons"], [2024])
         self.assertEqual(
             payload["discovery_summary"]["graph_exhausted_with_quarantined_failures"],
@@ -163,6 +167,8 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
         )
         self.assertEqual(payload["discovery_summary"]["reconciled_seasons"], [2022])
         self.assertEqual(row["reconciled_contests"], 21)
+        self.assertEqual(row["reconciled_legacy_games"], 4)
+        self.assertEqual(row["canonical_games"], 25)
         self.assertEqual(row["unresolved_contests"], 9)
         self.assertEqual(row["eligibility_tiers"], [])
         self.assertFalse(row["authority"]["training_eligible"])

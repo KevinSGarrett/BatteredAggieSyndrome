@@ -18,6 +18,7 @@ OWNER_RE = re.compile(
     re.DOTALL,
 )
 ROW_RE = re.compile(r'<tr class="underline_rows">(.*?)</tr>', re.DOTALL)
+ANY_ROW_RE = re.compile(r'<tr\b[^>]*>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
 DATE_RE = re.compile(r'<td>\s*(\d{2}/\d{2}/\d{4})\s*</td>', re.DOTALL)
 OPPONENT_RE = re.compile(
     r'([@]?)\s*<a href="/teams/(\d+)"><img[^>]*alt="([^"]+)"',
@@ -25,6 +26,10 @@ OPPONENT_RE = re.compile(
 )
 CONTEST_RE = re.compile(
     r'href="/contests/(\d+)/box_score">\s*([WLT])\s*(\d+)\s*-\s*(\d+)',
+    re.DOTALL | re.IGNORECASE,
+)
+LEGACY_OPPONENT_RE = re.compile(
+    r'<a\b[^>]*href=["\']/teams/(\d+)["\'][^>]*>(.*?)</a>',
     re.DOTALL | re.IGNORECASE,
 )
 
@@ -75,6 +80,10 @@ def normalize_team_name(value: str) -> str:
     return " ".join(expansions.get(token, token) for token in re.sub(r"[^a-z0-9]+", " ", folded).split())
 
 
+def _fragment_text(value: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"(?s)<[^>]+>", " ", value))).strip()
+
+
 def parse_team_page(payload: str, *, team_season_id: str, raw_sha256: str) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
     owner = OWNER_RE.search(payload)
     if owner is None:
@@ -111,6 +120,67 @@ def parse_team_page(payload: str, *, team_season_id: str, raw_sha256: str) -> tu
         "source_team_name": owner_name,
         "source_team_name_normalized": normalize_team_name(owner_name),
         "scored_schedule_rows": len(rows),
+        "source_page_raw_sha256": raw_sha256,
+    }, rows
+
+
+def parse_legacy_team_page(
+    payload: str, *, team_season_id: str, raw_sha256: str
+) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+    """Parse pre-contest-link NCAA schedule rows without inventing contest IDs."""
+
+    owner = OWNER_RE.search(payload)
+    if owner is None:
+        return None, []
+    owner_name, owner_org_id = owner.groups()
+    rows: list[dict[str, Any]] = []
+    for block in ANY_ROW_RE.findall(payload):
+        observed_date = re.search(r"\b(\d{2}/\d{2}/\d{4})\b", block)
+        opponent = LEGACY_OPPONENT_RE.search(block)
+        row_text = _fragment_text(block)
+        score = re.search(r"\b(?:(W|L|T)\s+)?(\d+)\s*-\s*(\d+)\b", row_text, re.IGNORECASE)
+        if observed_date is None or opponent is None or score is None:
+            continue
+        opponent_team_season_id, opponent_fragment = opponent.groups()
+        opponent_label = _fragment_text(opponent_fragment)
+        source_team_is_away = opponent_label.startswith("@")
+        opponent_name = opponent_label[1:].strip() if source_team_is_away else opponent_label
+        if not opponent_name:
+            continue
+        source_points = int(score.group(2))
+        opponent_points = int(score.group(3))
+        explicit_result = score.group(1).upper() if score.group(1) else None
+        inferred_result = "W" if source_points > opponent_points else "L" if source_points < opponent_points else "T"
+        source_row_sha256 = hashlib.sha256(block.encode("utf-8")).hexdigest()
+        rows.append({
+            "legacy_source_row_identity": stable_hash({
+                "source_team_season_id": team_season_id,
+                "source_page_raw_sha256": raw_sha256,
+                "source_row_sha256": source_row_sha256,
+            }),
+            "source_row_sha256": source_row_sha256,
+            "contest_id": None,
+            "source_team_season_id": team_season_id,
+            "source_team_org_id": owner_org_id,
+            "source_team_name": owner_name,
+            "source_team_name_normalized": normalize_team_name(owner_name),
+            "opponent_team_season_id": opponent_team_season_id,
+            "opponent_team_name": opponent_name,
+            "opponent_team_name_normalized": normalize_team_name(opponent_name),
+            "source_schedule_date": datetime.strptime(observed_date.group(1), "%m/%d/%Y").date().isoformat(),
+            "source_team_is_away": source_team_is_away,
+            "source_result": explicit_result or inferred_result,
+            "source_result_was_explicit": explicit_result is not None,
+            "source_team_points": source_points,
+            "opponent_points": opponent_points,
+            "source_page_raw_sha256": raw_sha256,
+        })
+    return {
+        "source_team_season_id": team_season_id,
+        "source_team_org_id": owner_org_id,
+        "source_team_name": owner_name,
+        "source_team_name_normalized": normalize_team_name(owner_name),
+        "legacy_scored_schedule_rows": len(rows),
         "source_page_raw_sha256": raw_sha256,
     }, rows
 
@@ -207,13 +277,15 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
     outcomes = _outcomes(paths["outcome_targets"], season)
     outcome_by_id = {row["target_game_id"]: row for row in outcomes}
     observations: list[dict[str, Any]] = []
+    legacy_observations: list[dict[str, Any]] = []
     page_summaries: list[dict[str, Any]] = []
     page_failures: list[dict[str, Any]] = []
     for capture in sorted(discovery["captures"], key=lambda row: row["team_season_id"]):
         raw_path = input_data_root / capture["raw_relative_path"]
         _verify(raw_path, capture["raw_sha256"])
+        raw_text = raw_path.read_text(encoding="utf-8", errors="replace")
         page, rows = parse_team_page(
-            raw_path.read_text(encoding="utf-8", errors="replace"),
+            raw_text,
             team_season_id=capture["team_season_id"],
             raw_sha256=capture["raw_sha256"],
         )
@@ -226,6 +298,12 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
             continue
         page_summaries.append(page)
         observations.extend(rows)
+        _, legacy_rows = parse_legacy_team_page(
+            raw_text,
+            team_season_id=capture["team_season_id"],
+            raw_sha256=capture["raw_sha256"],
+        )
+        legacy_observations.extend(legacy_rows)
 
     maximum_date_delta = int(contract["admission"]["maximum_source_date_to_utc_date_delta_days"])
     by_contest: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -304,10 +382,111 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
                 "source_team_season_ids": ";".join(sorted({row["source_team_season_id"] for row in rows}, key=int)),
             })
 
+    legacy_enriched: list[dict[str, Any]] = []
+    legacy_by_candidate: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for observation in legacy_observations:
+        candidates, source_team_id, opponent_team_id = _candidate_games(
+            observation, alias_index, outcomes, maximum_date_delta
+        )
+        row = {
+            **observation,
+            "candidate_canonical_game_ids": ";".join(candidates),
+            "candidate_count": len(candidates),
+            "candidate_source_team_id": source_team_id,
+            "candidate_opponent_team_id": opponent_team_id,
+            "participant_aliases_uniquely_resolved": source_team_id is not None and opponent_team_id is not None,
+        }
+        legacy_enriched.append(row)
+        if len(candidates) == 1:
+            legacy_by_candidate[candidates[0]].append(row)
+
+    legacy_mappings: list[dict[str, Any]] = []
+    accepted_legacy_rows: set[str] = set()
+    accepted_modern_games = {row["canonical_game_id"] for row in mappings}
+    for candidate in sorted(legacy_by_candidate):
+        if candidate in accepted_modern_games:
+            continue
+        rows = legacy_by_candidate[candidate]
+        game = outcome_by_id[candidate]
+        mirrored_pairs: list[tuple[dict[str, Any], dict[str, Any]]] = []
+        for left in rows:
+            for right in rows:
+                if left["legacy_source_row_identity"] >= right["legacy_source_row_identity"]:
+                    continue
+                if (
+                    left["source_team_season_id"] == right["opponent_team_season_id"]
+                    and right["source_team_season_id"] == left["opponent_team_season_id"]
+                    and left["source_schedule_date"] == right["source_schedule_date"]
+                    and left["source_team_points"] == right["opponent_points"]
+                    and left["opponent_points"] == right["source_team_points"]
+                ):
+                    mirrored_pairs.append((left, right))
+        owner_ids = {row["candidate_source_team_id"] for row in rows}
+        if len(mirrored_pairs) != 1 or owner_ids != {game["home_team_id"], game["away_team_id"]}:
+            continue
+        left, right = mirrored_pairs[0]
+        pair_identity = stable_hash({
+            "canonical_game_id": candidate,
+            "source_rows": sorted([left["legacy_source_row_identity"], right["legacy_source_row_identity"]]),
+        })
+        accepted_legacy_rows.update([left["legacy_source_row_identity"], right["legacy_source_row_identity"]])
+        legacy_mappings.append({
+            "classification": contract["classification"],
+            "season": season,
+            "legacy_schedule_pair_identity": pair_identity,
+            "ncaa_contest_id": None,
+            "canonical_game_id": candidate,
+            "season_type": game["season_type"],
+            "week": game["week"],
+            "canonical_start_utc": game["start_utc"],
+            "canonical_home_team_id": game["home_team_id"],
+            "canonical_away_team_id": game["away_team_id"],
+            "canonical_home_points": game["home_points"],
+            "canonical_away_points": game["away_points"],
+            "source_schedule_observation_count": 2,
+            "source_team_season_page_count": 2,
+            "source_team_season_ids": ";".join(sorted({left["source_team_season_id"], right["source_team_season_id"]}, key=int)),
+            "source_page_raw_sha256s": ";".join(sorted({left["source_page_raw_sha256"], right["source_page_raw_sha256"]})),
+            "mapping_method": "TWO_SIDED_LEGACY_TEAM_LINK_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT",
+            "contest_id_fabricated": False,
+            "name_only_promotion": False,
+            "historical_pit_eligible": False,
+            "training_eligible": False,
+            "protected_eligible": False,
+        })
+
+    unresolved_legacy: list[dict[str, Any]] = []
+    for row in legacy_enriched:
+        if row["legacy_source_row_identity"] in accepted_legacy_rows:
+            continue
+        if not row["participant_aliases_uniquely_resolved"]:
+            reason = "PARTICIPANT_ALIAS_NOT_UNIQUELY_RESOLVED"
+        elif row["candidate_count"] == 0:
+            reason = "NO_EXACT_CANONICAL_PARTICIPANT_DATE_SCORE_MATCH"
+        elif row["candidate_count"] > 1:
+            reason = "CONFLICTING_CANONICAL_CANDIDATES"
+        elif row["candidate_canonical_game_ids"] in accepted_modern_games:
+            reason = "DUPLICATE_OF_ACCEPTED_MODERN_CONTEST_MAPPING"
+        else:
+            reason = "INSUFFICIENT_RECIPROCAL_TWO_SIDED_LEGACY_SOURCE_EVIDENCE"
+        unresolved_legacy.append({
+            "classification": "CANDIDATE_ONLY_UNRESOLVED_PRESERVED",
+            "season": season,
+            "legacy_source_row_identity": row["legacy_source_row_identity"],
+            "source_team_season_id": row["source_team_season_id"],
+            "opponent_team_season_id": row["opponent_team_season_id"],
+            "reason": reason,
+            "candidate_canonical_game_ids": row["candidate_canonical_game_ids"],
+        })
+
     if len({row["ncaa_contest_id"] for row in mappings}) != len(mappings):
         raise ValueError("NCAA contest mapping is not unique")
     if len({row["canonical_game_id"] for row in mappings}) != len(mappings):
         raise ValueError("canonical game mapping is not one-to-one")
+    if len({row["canonical_game_id"] for row in legacy_mappings}) != len(legacy_mappings):
+        raise ValueError("legacy canonical game mapping is not one-to-one")
+    if accepted_modern_games & {row["canonical_game_id"] for row in legacy_mappings}:
+        raise ValueError("canonical game mapped through both modern and legacy NCAA evidence")
 
     team_support: dict[str, dict[str, Any]] = {}
     accepted_contests = {row["ncaa_contest_id"] for row in mappings}
@@ -327,17 +506,46 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
         })
         support["canonical_team_ids"].add(row["candidate_source_team_id"])
         support["supporting_ncaa_contest_ids"].add(row["contest_id"])
+    accepted_legacy_games = {row["canonical_game_id"] for row in legacy_mappings}
+    for row in legacy_enriched:
+        candidates = [value for value in row["candidate_canonical_game_ids"].split(";") if value]
+        if len(candidates) != 1 or candidates[0] not in accepted_legacy_games or row["candidate_source_team_id"] is None:
+            continue
+        key = row["source_team_season_id"]
+        support = team_support.setdefault(key, {
+            "classification": contract["classification"],
+            "season": season,
+            "source_team_season_id": key,
+            "source_team_org_id": row["source_team_org_id"],
+            "source_team_name": row["source_team_name"],
+            "canonical_team_ids": set(),
+            "supporting_ncaa_contest_ids": set(),
+            "supporting_legacy_game_ids": set(),
+            "source_page_raw_sha256": row["source_page_raw_sha256"],
+        })
+        support.setdefault("supporting_legacy_game_ids", set()).add(candidates[0])
+        support["canonical_team_ids"].add(row["candidate_source_team_id"])
     team_mappings: list[dict[str, Any]] = []
     for key in sorted(team_support, key=int):
         row = team_support[key]
         if len(row["canonical_team_ids"]) != 1:
             continue
         team_mappings.append({
-            **{name: value for name, value in row.items() if name not in {"canonical_team_ids", "supporting_ncaa_contest_ids"}},
+            **{
+                name: value
+                for name, value in row.items()
+                if name not in {
+                    "canonical_team_ids",
+                    "supporting_ncaa_contest_ids",
+                    "supporting_legacy_game_ids",
+                }
+            },
             "canonical_team_id": next(iter(row["canonical_team_ids"])),
             "supporting_contest_count": len(row["supporting_ncaa_contest_ids"]),
             "supporting_ncaa_contest_ids": ";".join(sorted(row["supporting_ncaa_contest_ids"], key=int)),
-            "mapping_method": "CONSISTENT_ACCEPTED_TWO_SIDED_CONTEST_CONTEXT",
+            "supporting_legacy_game_count": len(row.get("supporting_legacy_game_ids", set())),
+            "supporting_legacy_game_ids": ";".join(sorted(row.get("supporting_legacy_game_ids", set()))),
+            "mapping_method": "CONSISTENT_ACCEPTED_TWO_SIDED_CONTEST_OR_LEGACY_SCHEDULE_CONTEXT",
             "name_only_promotion": False,
         })
 
@@ -360,11 +568,16 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
             "canonical_outcome_games": len(outcomes),
             "reconciled_contests": len(mappings),
             "unresolved_contests": len(unresolved),
+            "legacy_schedule_observations": len(legacy_enriched),
+            "reconciled_legacy_games": len(legacy_mappings),
+            "unresolved_legacy_observations": len(unresolved_legacy),
             "reconciled_team_seasons": len(team_mappings),
         },
         "mapping_records": mappings,
+        "legacy_mapping_records": legacy_mappings,
         "team_mapping_records": team_mappings,
         "unresolved_records": unresolved,
+        "unresolved_legacy_records": unresolved_legacy,
         "page_parse_failures": page_failures,
     }
     dataset_identity = stable_hash(identity_core)
@@ -372,9 +585,12 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
     feature_root.mkdir(parents=True, exist_ok=True)
     payload_specs = [
         ("contest_mappings.parquet", mappings),
+        ("legacy_schedule_mappings.parquet", legacy_mappings),
         ("team_season_mappings.parquet", team_mappings),
         ("unresolved_contests.parquet", unresolved),
+        ("unresolved_legacy_schedule_observations.parquet", unresolved_legacy),
         ("source_schedule_observations.parquet", enriched),
+        ("legacy_source_schedule_observations.parquet", legacy_enriched),
         ("page_parse_failures.parquet", page_failures),
     ]
     payloads: list[dict[str, Any]] = []
@@ -385,6 +601,9 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
     reason_counts: dict[str, int] = defaultdict(int)
     for row in unresolved:
         reason_counts[row["reason"]] += 1
+    legacy_reason_counts: dict[str, int] = defaultdict(int)
+    for row in unresolved_legacy:
+        legacy_reason_counts[row["reason"]] += 1
     manifest = {
         "schema_version": contract["schema_version"],
         "artifact_type": "NCAA_OFFICIAL_CONTEST_CANONICAL_RECONCILIATION",
@@ -395,6 +614,7 @@ def reconcile(*, input_data_root: Path, output_data_root: Path, repo_root: Path,
         "jira_key": contract["jira_key"],
         "identity_core": identity_core,
         "unresolved_reason_counts": dict(sorted(reason_counts.items())),
+        "unresolved_legacy_reason_counts": dict(sorted(legacy_reason_counts.items())),
         "payloads": payloads,
         "authority": contract["authority"],
         "nonclaims": {

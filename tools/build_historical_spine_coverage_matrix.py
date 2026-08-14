@@ -49,6 +49,7 @@ def select_strongest_discovery(data_root: Path, season: int) -> tuple[Path, dict
             raise ValueError(f"discovery content identity mismatch: {path}")
         rank = (
             len(item.get("discovered_contest_ids", [])),
+            int(item.get("legacy_schedule_record_count", 0)),
             int(item.get("team_page_capture_count", 0)),
             len(item.get("discovered_team_season_ids", [])),
             int(item.get("state") == "COMPLETE_GRAPH_EXHAUSTED"),
@@ -79,7 +80,7 @@ def select_strongest_reconciliation(data_root: Path, season: int) -> tuple[Path,
             continue
         population = identity_core.get("population", {})
         rank = (
-            int(population.get("reconciled_contests", 0)),
+            int(population.get("reconciled_contests", 0)) + int(population.get("reconciled_legacy_games", 0)),
             int(population.get("captured_team_pages", 0)),
             int(population.get("discovered_contests", 0)),
             -int(population.get("unresolved_contests", 0)),
@@ -165,6 +166,7 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
                 "team_pages": item["team_page_capture_count"],
                 "discovered_team_seasons": len(item["discovered_team_season_ids"]),
                 "discovered_contest_ids": len(item["discovered_contest_ids"]),
+                "legacy_schedule_records": int(item.get("legacy_schedule_record_count", 0)),
                 "team_failure_count": failure_count,
                 "remaining_queue": remaining_count,
                 "missingness": missingness,
@@ -182,8 +184,11 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
                 core = reconciliation_item["identity_core"]
                 population = core["population"]
                 unresolved_reasons = reconciliation_item.get("unresolved_reason_counts", {})
+                unresolved_legacy_reasons = reconciliation_item.get("unresolved_legacy_reason_counts", {})
                 resolved = int(population["reconciled_contests"])
                 unresolved = int(population["unresolved_contests"])
+                legacy_resolved = int(population.get("reconciled_legacy_games", 0))
+                legacy_unresolved = int(population.get("unresolved_legacy_observations", 0))
                 parse_failures = int(population["page_parse_failures"])
                 rows.append({
                     "season": season,
@@ -191,9 +196,9 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
                     "source": "NCAA_OFFICIAL_STATS_PLUS_CANONICAL_OUTCOME_REFERENCE",
                     "endpoint": "TEAM_SEASON_SCHEDULE_TO_CANONICAL_GAME_RECONCILIATION",
                     "domain": "CANONICAL_CONTEST_RECONCILIATION",
-                    "grain": "NCAA_CONTEST_TO_CANONICAL_GAME",
+                    "grain": "NCAA_CONTEST_OR_RECIPROCAL_LEGACY_SCHEDULE_PAIR_TO_CANONICAL_GAME",
                     "schema_version": reconciliation_item["schema_version"],
-                    "canonical_games": resolved,
+                    "canonical_games": resolved + legacy_resolved,
                     "canonical_teams": int(population["reconciled_team_seasons"]),
                     "discovered_contest_ids": int(population["discovered_contests"]),
                     "captured_team_pages": int(population["captured_team_pages"]),
@@ -202,12 +207,16 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
                     "scored_schedule_observations": int(population["scored_schedule_observations"]),
                     "reconciled_contests": resolved,
                     "unresolved_contests": unresolved,
+                    "legacy_schedule_observations": int(population.get("legacy_schedule_observations", 0)),
+                    "reconciled_legacy_games": legacy_resolved,
+                    "unresolved_legacy_observations": legacy_unresolved,
                     "unresolved_reason_counts": unresolved_reasons,
+                    "unresolved_legacy_reason_counts": unresolved_legacy_reasons,
                     "missingness": (
-                        f"{unresolved} discovered contests remain unresolved and {parse_failures} captured "
+                        f"{unresolved} discovered contests and {legacy_unresolved} legacy schedule observations remain unresolved; {parse_failures} captured "
                         "team-season pages failed deterministic parsing; all reasons remain explicit."
                     ),
-                    "reconciliation_quality": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT_NO_NAME_ONLY_PROMOTION",
+                    "reconciliation_quality": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT_WITH_RECIPROCAL_LEGACY_TEAM_LINKS_NO_NAME_ONLY_PROMOTION_NO_CONTEST_ID_FABRICATION",
                     "capture_identity": core["inputs"]["discovery_manifest"]["sha256"],
                     "reconciliation_identity": reconciliation_item["dataset_identity"],
                     "provenance_identity": sha256_file(reconciliation_path),
@@ -279,7 +288,7 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
     not_started_discovery_seasons = sorted(set(DISCOVERY_SEASONS) - set(discoveries))
     reconciled_seasons = sorted(reconciliations)
     payload = {
-        "schema_version": "1.2.0",
+        "schema_version": "1.3.0",
         "artifact_type": "HISTORICAL_SPINE_COVERAGE_AND_ELIGIBILITY_MATRIX",
         "classification": "MIXED_DOMAIN_TIERED_ELIGIBILITY",
         "rows": rows,

@@ -205,6 +205,67 @@
     "active_scale_tranche": "2022_CONTEST_OFFSETS_0_THROUGH_4_ALL_SIX_ENDPOINTS",
     "authority": "CANDIDATE_ONLY_NO_CANONICAL_WRITE_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "reconciled_contest_2022_tranche_0000_0004": {
+    "recorded_at_utc": "2026-08-14T18:13:41Z",
+    "season": 2022,
+    "contest_offset": 0,
+    "selected_reconciled_contests": 5,
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "acquisition_identity": "60ec33048ab7fb7899761f5454b00e7f4958de1ad5543365ccb4182d5e5232a9",
+    "manifest_sha256": "2205840c1d3a962c72865fe5ac50c6425db4147a29d598a606684d6830ad62ba",
+    "gate_sha256": "82c5497e6c532180f50312aeef9ac77780903918f16b6fc72d5a3f57904e5833",
+    "requests": 30,
+    "captures": 30,
+    "technical_failures": 0,
+    "domain_rows": {
+      "attendance": 5,
+      "drives": 131,
+      "linescore_game_info": 40,
+      "officials": 5,
+      "play_by_play": 1119,
+      "player_stats": 189,
+      "team_stats_by_period": 600,
+      "venue": 5
+    },
+    "normalized_rows": 2094,
+    "validation": {
+      "result": "PASS",
+      "checks": 774,
+      "mutation_controls": 6,
+      "validation_identity": "581cd7574903d82fc0967d264dc54da28025047fa3f655e9b199800e6c3d3fb7",
+      "report_sha256": "65250eae12cec1a0857d9d44dfc2d3930f2de00a1694e1fccb0b3508326e6e05"
+    },
+    "cleanup": {
+      "reconstructible_files_removed": 72,
+      "bytes_recovered": 4304708
+    },
+    "authority": "CANDIDATE_ONLY_NO_CANONICAL_WRITE_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
+  "legacy_schedule_reconciliation_implementation": {
+    "recorded_at_utc": "2026-08-14T18:07:59Z",
+    "source_finding": "NCAA official team-season pages for 2010-2012 expose source-linked legacy schedule/result rows without modern contest IDs.",
+    "implementation": "Deterministic two-sided reconciliation now requires reciprocal NCAA team-season links, exact participant aliases, date, oriented score, and a unique canonical outcome match. It never invents a contest ID and never permits name-only promotion.",
+    "coverage_matrix_schema_version": "1.3.0",
+    "real_capture_smoke": {
+      "recent_team_pages": 100,
+      "owner_headers_parsed": 100,
+      "legacy_schedule_rows": 1215,
+      "invented_contest_ids": 0
+    },
+    "validation": {
+      "targeted_tests": "12_PASS",
+      "full_suite": "885_PASS_4_SKIP",
+      "ruff": "PASS",
+      "diff_check": "PASS"
+    },
+    "versioned_artifacts": {
+      "src/aggie_analytics/data/ncaa_contest_reconciliation.py": "6fc00c552efc1af3b1cf1d91da701afe0101842c4f634041db8e03b73c18fc95",
+      "tools/build_historical_spine_coverage_matrix.py": "a329c93817e6506485c1e7534965eefaf96b717f0a613ec88b16965d0785d112",
+      "tests/test_ncaa_contest_reconciliation.py": "d8d4c88604201f0d7292e684ae276dfd4c2a6a1d2d156d1bb2ab6f313599fcbd",
+      "tests/test_historical_spine_coverage_matrix.py": "3d902ab365f7c3ad4cff5f012ff4a7d8ed90f918b02735020800fe5b9137ed5c"
+    },
+    "authority": "CANDIDATE_ONLY_NO_CONTEST_ID_FABRICATION_NO_NAME_ONLY_PROMOTION_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "next_actions": [
     "Repeat graph-exhausted official team-season discovery for 2010-2023 and 2025, preserving independent season failures and coverage.",
     "Reconcile the 2024 discovered NCAA contest IDs to canonical games and teams without name-only promotion.",

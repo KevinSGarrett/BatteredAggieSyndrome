@@ -5,6 +5,7 @@ import sys
 import json
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 try:
     import polars as pl
@@ -21,6 +22,7 @@ from aggie_analytics.data.ncaa_contest_reconciliation import (  # noqa: E402
     reconcile,
     sha256_file,
 )
+from tools.validate_ncaa_contest_reconciliation import main as validate_reconciliation  # noqa: E402
 
 
 class NcaaContestReconciliationTests(unittest.TestCase):
@@ -129,7 +131,7 @@ class NcaaContestReconciliationTests(unittest.TestCase):
                 "contract_id": "test-legacy-reconciliation",
                 "decision_unit": "POST-SUBTASK-197",
                 "jira_key": "BAT-554",
-                "classification": "CANDIDATE_ONLY",
+                "classification": "CANDIDATE_ONLY_DETERMINISTIC_TWO_SIDED_CONTEXT_RECONCILIATION",
                 "source_contract": {
                     "season": 2011,
                     "discovery_manifest": "discovery.json",
@@ -141,6 +143,7 @@ class NcaaContestReconciliationTests(unittest.TestCase):
                 },
                 "admission": {"maximum_source_date_to_utc_date_delta_days": 1},
                 "authority": {
+                    "canonical_registry_write": False,
                     "historical_pit_eligible": False,
                     "training_eligible": False,
                     "protected_evaluation_eligible": False,
@@ -161,10 +164,35 @@ class NcaaContestReconciliationTests(unittest.TestCase):
             self.assertEqual(result["population"]["reconciled_contests"], 0)
             self.assertEqual(result["population"]["reconciled_legacy_games"], 1)
             self.assertEqual(result["population"]["unresolved_legacy_observations"], 0)
-            mapping = pl.read_parquet(Path(result["feature_root"]) / "legacy_schedule_mappings.parquet").to_dicts()[0]
+            artifact_root = Path(result["feature_root"])
+            modern = pl.read_parquet(artifact_root / "contest_mappings.parquet")
+            unresolved = pl.read_parquet(artifact_root / "unresolved_contests.parquet")
+            observations = pl.read_parquet(artifact_root / "source_schedule_observations.parquet")
+            self.assertEqual(modern.height, 0)
+            self.assertIn("ncaa_contest_id", modern.columns)
+            self.assertEqual(modern.schema["ncaa_contest_id"], pl.String)
+            self.assertEqual(unresolved.height, 0)
+            self.assertIn("reason", unresolved.columns)
+            self.assertEqual(observations.height, 0)
+            self.assertIn("contest_id", observations.columns)
+
+            mapping = pl.read_parquet(artifact_root / "legacy_schedule_mappings.parquet").to_dicts()[0]
             self.assertIsNone(mapping["ncaa_contest_id"])
             self.assertFalse(mapping["contest_id_fabricated"])
             self.assertEqual(mapping["canonical_game_id"], "game_2011_tcu_baylor")
+
+            with patch(
+                "sys.argv",
+                [
+                    "validate_ncaa_contest_reconciliation.py",
+                    "--data-root", str(data_root),
+                    "--rebuild-root", str(data_root / "rebuild"),
+                    "--repo-root", str(ROOT),
+                    "--contract", str(contract_path),
+                    "--dataset-identity", result["dataset_identity"],
+                ],
+            ):
+                self.assertEqual(validate_reconciliation(), 0)
 
 
 if __name__ == "__main__":

@@ -1,18 +1,19 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-P0-RUNTIME-PRODUCER-AND-PROVIDER-REPAIR",
+  "work_unit_id": "BAT-560-P0-RUNTIME-PROOF-REPAIR",
   "jira_identity": "BAT-560",
-  "decision_sha256": "e6ca5b861da15033e1a645e57747e15aff359c3c427f06fa8ed54d7825f20b0a",
+  "decision_sha256": "567a00ee8288cd1f5e681274356dbeb894ddbedf9f082040ac2a977e2e7c5fc2",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
   "reason_code": "P0_AUTONOMOUS_WORK_PRODUCER_FAILED_WITH_DELEGABLE_WORK_PRESENT",
-  "source_commit": "c7e73ef6cf7dc9bc4d01bb1ede097a4c2509b602",
+  "source_commit": "f8e1d552276fcc8b0ecb56e825e93ae3bad50756",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "restored_capabilities": [
-    "cursor_released_stage_budget_admission",
-    "registry_bound_openai_candidate_destinations",
-    "source_defined_cpu_manifest_tranche_replenishment",
-    "runtime_policy_budget_evidence_binding"
+    "first_cycle_exact_deployed_release_packet_binding",
+    "cursor_poll_completion_classification",
+    "duplicate_packet_capacity_suppression",
+    "openai_structured_output_completion_capacity",
+    "substantive_cpu_tranche_priority"
   ],
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,

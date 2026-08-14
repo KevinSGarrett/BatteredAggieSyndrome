@@ -740,14 +740,15 @@ class RuntimeInventoryRefresher:
         if root_value is None or not root_value.exists():
             return []
         root = root_value.resolve(strict=True)
-        candidates = (
-            sorted(
-                (path for path in root.rglob("*.json") if 0 < path.stat().st_size <= MAX_PROVIDER_WORK_BYTES),
-                key=lambda path: path.relative_to(root).as_posix(),
+        if candidates_override is None:
+            candidates, scan_capped = _bounded_json_scan(
+                root,
+                limit=MAX_PROVIDER_WORK_SCAN_UNITS,
             )
-            if candidates_override is None
-            else candidates_override
-        )
+            if scan_capped:
+                raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_SCAN_BOUND_EXCEEDED")
+        else:
+            candidates = candidates_override
         if len(candidates) > MAX_PROVIDER_WORK_SCAN_UNITS:
             raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_SCAN_BOUND_EXCEEDED")
         candidate_records: list[tuple[Path, bytes, str, bool]] = []
@@ -756,6 +757,8 @@ class RuntimeInventoryRefresher:
             resolved = source.resolve(strict=True)
             if root not in resolved.parents:
                 raise RuntimeError("RUNTIME_INVENTORY_PROVIDER_WORK_OUTSIDE_ALLOWLIST")
+            if not 0 < resolved.stat().st_size <= MAX_PROVIDER_WORK_BYTES:
+                raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_SIZE_INVALID")
             raw = resolved.read_bytes()
             source_sha256 = hashlib.sha256(raw).hexdigest()
             content_addressed = self._valid_sha256(resolved.stem)
@@ -1027,18 +1030,19 @@ class RuntimeInventoryRefresher:
             }
             self._provider_packet_findings.append(finding)
             self.state.append_event("PROVIDER_PACKET_CAPACITY_DEFERRED", finding, now=moment)
-        discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
+        discovered_by_work_unit: dict[
+            str, tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]
+        ] = {}
         for source in candidates:
             try:
                 if not 0 < source.stat().st_size <= MAX_PROVIDER_WORK_BYTES:
                     raise ValueError("RUNTIME_INVENTORY_PROVIDER_PACKET_SIZE_INVALID")
-                discovered.extend(
-                    self._discover_provider_work_batch(
-                        snapshot,
-                        moment,
-                        candidates_override=[source],
-                    )
-                )
+                for entry in self._discover_provider_work_batch(
+                    snapshot,
+                    moment,
+                    candidates_override=[source],
+                ):
+                    discovered_by_work_unit.setdefault(entry[0].work_unit_id, entry)
             except (OSError, KeyError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
                 try:
                     raw = source.read_bytes()
@@ -1109,17 +1113,18 @@ class RuntimeInventoryRefresher:
                     finding["disposition"] = "PACKET_QUARANTINED_SOURCE_REMOVAL_PENDING"
                 self._provider_packet_findings.append(finding)
                 self.state.append_event("PROVIDER_PACKET_QUARANTINED", finding, now=moment)
+        discovered = list(discovered_by_work_unit.values())
         if len(discovered) > MAX_PROVIDER_WORK_UNITS:
-            admitted = discovered[:MAX_PROVIDER_WORK_UNITS]
-            deferred = len(discovered) - len(admitted)
             finding = {
-                "finding": f"RUNTIME_INVENTORY_PROVIDER_ACTIVE_CAPACITY_DEFERRED:{deferred}",
+                "finding": "RUNTIME_INVENTORY_PROVIDER_WORK_ACTIVE_CAPACITY_DEFERRED",
                 "observed_at": rfc3339(moment),
-                "disposition": "EXCESS_VALID_PACKETS_REMAIN_QUEUED_UNRELATED_PACKETS_CONTINUE",
+                "disposition": "DISTINCT_EXCESS_PACKETS_REMAIN_QUEUED_DUPLICATES_DO_NOT_CONSUME_CAPACITY",
+                "distinct_active_units": len(discovered),
+                "admitted_units": MAX_PROVIDER_WORK_UNITS,
             }
             self._provider_packet_findings.append(finding)
             self.state.append_event("PROVIDER_PACKET_CAPACITY_DEFERRED", finding, now=moment)
-            return admitted
+            discovered = discovered[:MAX_PROVIDER_WORK_UNITS]
         return discovered
 
     @staticmethod
@@ -1661,7 +1666,18 @@ class RuntimeInventoryRefresher:
             source_sha256 = hashlib.sha256(raw).hexdigest()
             line = json.dumps(value, sort_keys=True, separators=(",", ":"))
             tranches.setdefault(dataset, []).append((source, source_sha256, len(raw), line))
-        for dataset in sorted(tranches):
+        # Prefer the largest natural source-defined tranche. Tiny datasets remain
+        # eligible, but they must not crowd out the substantive historical batch
+        # that can actually displace coordinator work.
+        ordered_datasets = sorted(
+            tranches,
+            key=lambda dataset: (
+                -len(tranches[dataset]),
+                -sum(item[2] for item in tranches[dataset]),
+                dataset,
+            ),
+        )
+        for dataset in ordered_datasets:
             records = sorted(tranches[dataset], key=lambda item: item[0].as_posix())
             batches: list[list[tuple[Path, str, int, str]]] = []
             current: list[tuple[Path, str, int, str]] = []
@@ -1947,7 +1963,7 @@ class RuntimeInventoryRefresher:
                     "reasoning_effort": reasoning_effort,
                     "allocation": allocation,
                     "destination": "QUARANTINE",
-                    "max_output_tokens": 1200,
+                    "max_output_tokens": 4096,
                     "priority": "NORMAL",
                     "release_reason": None,
                     "admission_review_id": None,
@@ -2052,7 +2068,7 @@ class RuntimeInventoryRefresher:
                 prompt = (
                     instruction
                     + f" Return task_id exactly {task_name}, source_capture_sha256 exactly "
-                    + f"{source_capture_sha256}, and disposition REVIEW. Every SUPPORTED fact must cite exactly "
+                    + f"{source_capture_sha256}, and disposition {destination}. Every SUPPORTED fact must cite exactly "
                     + f"source_capture_sha256 {source_capture_sha256}, locator evidence:1, and excerpt_sha256 "
                     + f"{excerpt_sha256}. Use UNKNOWN or NOT_PRESENT with no evidence when the artifact does not "
                     + "state the fact. This output is candidate-only and cannot alter canonical data, PIT state, "
@@ -2082,7 +2098,7 @@ class RuntimeInventoryRefresher:
                         "reasoning_effort": reasoning_effort,
                         "allocation": allocation,
                         "destination": destination,
-                        "max_output_tokens": 1200,
+                        "max_output_tokens": 4096,
                         "priority": "NORMAL",
                         "release_reason": None,
                         "admission_review_id": None,
@@ -2362,6 +2378,24 @@ class RuntimeInventoryRefresher:
         live_external_evidence = self._live_external_evidence(base)
         base = {**base, "external_evidence": live_external_evidence}
         deployed_release = self._deployed_release()
+        if deployed_release is not None:
+            # Bind every producer and admission check to the release that is
+            # executing this refresh. Waiting until final snapshot assembly
+            # allows the first post-deploy cycle to emit packets for stale main.
+            deployed_commit = deployed_release["build_commit"]
+            base = {
+                **base,
+                "deployed_release": deployed_release,
+                "git": {
+                    "origin_main": deployed_commit,
+                    "head": deployed_commit,
+                    "deployed_head": deployed_commit,
+                    "merged_main_identity_at_release_build": deployed_commit,
+                    "status_porcelain_sha256": hashlib.sha256(b"").hexdigest(),
+                    "status_evidence": "IMMUTABLE_RELEASE_TREE_NO_WORKTREE_MUTATION_SURFACE",
+                    "evidence_scope": deployed_release["evidence_scope"],
+                },
+            }
         if not self._cpu_qualified(base):
             raise RuntimeError("RUNTIME_INVENTORY_CPU_QUALIFICATION_NOT_ESTABLISHED")
 

@@ -1,23 +1,21 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "f3cec6da7929740b9cb01aa2613510743bc8e195d17a5c2a6d0f5c420c8b9e6b",
-  "work_unit_id": "BAT-560-P0-RUNTIME-PRODUCER-AND-PROVIDER-REPAIR",
+  "manifest_identity": "f7f5aff396d37d3ea85cc7d0e4fc021ae6539a16309df85b20673ae728c2bede",
+  "work_unit_id": "BAT-560-P0-RUNTIME-PROOF-REPAIR",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "c7e73ef6cf7dc9bc4d01bb1ede097a4c2509b602",
-  "pre_routing_decision_sha256": "e6ca5b861da15033e1a645e57747e15aff359c3c427f06fa8ed54d7825f20b0a",
-  "missing_capability": "RUNTIME_PROVIDER_ADMISSION_AND_SELF_REPLENISHING_SUBSTANTIVE_WORK",
+  "base_commit": "f8e1d552276fcc8b0ecb56e825e93ae3bad50756",
+  "pre_routing_decision_sha256": "567a00ee8288cd1f5e681274356dbeb894ddbedf9f082040ac2a977e2e7c5fc2",
+  "missing_capability": "DEPLOYED_RUNTIME_IDENTITY_CLASSIFICATION_OUTPUT_AND_USEFUL_WORK_CORRECTNESS",
   "changed_paths": [
-    "configs/assistive_provider_registry.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "configs/unified_assistive_policy.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
     "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "tests/test_unified_runtime_inventory_dispatch.py",
-    "tools/validate_unified_assistive_plane.py"
+    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
+    "tests/test_unified_runtime_inventory_dispatch.py"
   ]
 }

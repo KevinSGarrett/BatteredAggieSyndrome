@@ -3188,6 +3188,14 @@ class RuntimeInventoryRefresher:
             packet_identity = str(reference.get("packet_sha256", ""))
             if not self._valid_sha256(packet_identity):
                 continue
+            # A source transition preserves prior-release packets so an in-flight
+            # provider run can be polled and reconciled without duplicate paid
+            # execution.  Its immutable pre-routing decision already belongs to
+            # that prior release, however, and must never be rewritten using the
+            # current release's route-identity policy.  Only a freshly generated
+            # exact-current-base packet receives a new pre-routing decision.
+            if reference.get("source_commit") != release_commit:
+                continue
             route_identity = sha256_value(
                 {
                     "provider": provider,

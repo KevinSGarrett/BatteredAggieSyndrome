@@ -20,12 +20,21 @@ OWNER_RE = re.compile(
 ROW_RE = re.compile(r'<tr class="underline_rows">(.*?)</tr>', re.DOTALL)
 ANY_ROW_RE = re.compile(r'<tr\b[^>]*>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
 DATE_RE = re.compile(r'<td>\s*(\d{2}/\d{2}/\d{4})\s*</td>', re.DOTALL)
+FLEXIBLE_DATE_RE = re.compile(
+    r'<td\b[^>]*>\s*(\d{2}/\d{2}/\d{4})\s*</td>',
+    re.DOTALL | re.IGNORECASE,
+)
 OPPONENT_RE = re.compile(
     r'([@]?)\s*<a href="/teams/(\d+)"><img[^>]*alt="([^"]+)"',
     re.DOTALL,
 )
 CONTEST_RE = re.compile(
     r'href="/contests/(\d+)/box_score">\s*([WLT])\s*(\d+)\s*-\s*(\d+)',
+    re.DOTALL | re.IGNORECASE,
+)
+FLEXIBLE_CONTEST_RE = re.compile(
+    r'<a\b[^>]*href=["\']/contests/(\d+)/box_score["\'][^>]*>'
+    r'\s*([WLT])\s*(\d+)\s*-\s*(\d+)',
     re.DOTALL | re.IGNORECASE,
 )
 LEGACY_OPPONENT_RE = re.compile(
@@ -169,19 +178,37 @@ def _fragment_text(value: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"(?s)<[^>]+>", " ", value))).strip()
 
 
+def _modern_opponent(block: str) -> tuple[str, str, str] | None:
+    logo_link = OPPONENT_RE.search(block)
+    if logo_link is not None:
+        return logo_link.groups()
+    text_link = LEGACY_OPPONENT_RE.search(block)
+    if text_link is None:
+        return None
+    opponent_team_season_id, opponent_fragment = text_link.groups()
+    opponent_label = _fragment_text(opponent_fragment)
+    source_team_is_away = opponent_label.startswith("@")
+    opponent_name = (
+        opponent_label[1:].strip() if source_team_is_away else opponent_label
+    )
+    if not opponent_name:
+        return None
+    return "@" if source_team_is_away else "", opponent_team_season_id, opponent_name
+
+
 def parse_team_page(payload: str, *, team_season_id: str, raw_sha256: str) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
     owner = OWNER_RE.search(payload)
     if owner is None:
         return None, []
     owner_name, owner_org_id = owner.groups()
     rows: list[dict[str, Any]] = []
-    for block in ROW_RE.findall(payload):
-        observed_date = DATE_RE.search(block)
-        opponent = OPPONENT_RE.search(block)
-        contest = CONTEST_RE.search(block)
+    for block in ANY_ROW_RE.findall(payload):
+        observed_date = FLEXIBLE_DATE_RE.search(block)
+        opponent = _modern_opponent(block)
+        contest = FLEXIBLE_CONTEST_RE.search(block)
         if observed_date is None or opponent is None or contest is None:
             continue
-        away_marker, opponent_team_season_id, opponent_name = opponent.groups()
+        away_marker, opponent_team_season_id, opponent_name = opponent
         contest_id, result, owner_points, opponent_points = contest.groups()
         rows.append({
             "contest_id": contest_id,

@@ -676,9 +676,76 @@
     },
     "authority": "CANDIDATE_ONLY_PARTIAL_COVERAGE_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
   },
+  "historical_spine_2011_2013_reconciliation_checkpoint": {
+    "recorded_at_utc": "2026-08-14T23:00:00Z",
+    "live_jira_comment_id": "14154",
+    "prechange_recovery": {
+      "path": "C:\\BatteredAggieSyndrome.data\\backups\\BAT-554-reconciliation-20260814T224609Z",
+      "manifest_sha256": "d43dd48958b05891b6fe379d8498aa17ba082633617127893e129aa8f1b5daef",
+      "hash_verification": "PASS",
+      "repository_bundle_verification": "PASS"
+    },
+    "season_2011": {
+      "discovery_identity": "fb3ad5a2aa08606a5a263e19267e7aa341a87eef7f86c2998f59c77b67f58fac",
+      "dataset_identity": "05f7f7108f30769cda1f3754eb94b269d326bb9ef09941e2761c8cdb2d2cfc0c",
+      "manifest_sha256": "46cf32026c1571b8bb0c1830048c58a1a1dd6886f010290e6abdb9120a2bb3eb",
+      "captured_team_pages": 307,
+      "page_parse_failures": 6,
+      "canonical_outcome_games": 812,
+      "legacy_schedule_observations": 3329,
+      "reconciled_legacy_games": 279,
+      "reconciled_team_seasons": 96,
+      "unresolved_legacy_observations": 2771,
+      "fabricated_contest_ids": 0,
+      "name_only_promotions": 0,
+      "validation_checks": 59,
+      "validation_failures": 0,
+      "validation_report_sha256": "4e58136afa780f25bbd61af15f595720707f00517f8cf26fb9ca78cd4a35a870"
+    },
+    "season_2013": {
+      "discovery_identity": "9593ac9ce6de94d90a85c1c7d360c2d0919c3b284d5d7ec9ff85cc3f7a0cef04",
+      "initial_negative_dataset_identity": "6347462e963884d4bc03586e328204f1cae83410b92a661cc85240c02f78b33c",
+      "initial_negative_finding": "The first reconciliation preserved all 2,189 discovered contest identities as unresolved because the parser accepted only the newer underline-row and logo-link schedule markup.",
+      "corrected_dataset_identity": "cfb5b0da170bf8cd8e24d0aed92444119d15d8275464cf2f5278f4924036815d",
+      "corrected_manifest_sha256": "243222049d23681423534d3fe694c5fe493ba627f55847656753d639d74c0c83",
+      "captured_team_pages": 244,
+      "page_parse_failures": 5,
+      "canonical_outcome_games": 848,
+      "scored_schedule_observations": 2707,
+      "reconciled_contests": 223,
+      "reconciled_team_seasons": 83,
+      "unresolved_contests": 1966,
+      "unresolved_reason_counts": {
+        "INSUFFICIENT_TWO_SIDED_SOURCE_EVIDENCE": 307,
+        "NO_COMPLETED_SCORE_OBSERVATION": 73,
+        "NO_EXACT_CANONICAL_PARTICIPANT_DATE_SCORE_MATCH": 298,
+        "PARTICIPANT_ALIAS_NOT_UNIQUELY_RESOLVED": 1288
+      },
+      "name_only_promotions": 0,
+      "validation_checks": 59,
+      "validation_failures": 0,
+      "validation_report_sha256": "3557fc6608eda1864b03f49db4ff97d6894fa97780c0d68f8273a79f9399f66d"
+    },
+    "coverage_matrix": {
+      "identity": "50ec56260c99adcb16d6fea69cfcb16c390b8cfa1ce4184cef1c4c95686ca8ca",
+      "sha256": "4ce592f1ebb1fb03fdfe15bcd07b4c10a429e57680e55be82fee41351c5a2fdc",
+      "rows": 49
+    },
+    "implementation_validation": {
+      "targeted": "18_PASS",
+      "full_pytest": "898_PASS_4_SKIP_120_SUBTESTS_PASS",
+      "warning_strict_unittest": "896_PASS_4_SKIP",
+      "strict_repository": "PASS",
+      "jira_live_strict": "PASS_ZERO_FINDINGS",
+      "jira_second_pass": "PASS_515_ISSUES_ZERO_ERRORS",
+      "ruff": "PASS",
+      "local_import_isolation": "The first broad local invocation inherited the editable authoritative-root package and exercised the pre-change parser; the exact worktree src path was then pinned through PYTHONPATH and both complete suites passed. Hosted clean-checkout validation remains required before merge."
+    },
+    "authority": "CANDIDATE_REFERENCE_ONLY_PARTIAL_SEASON_DOMAIN_COVERAGE_NO_CANONICAL_REGISTRY_WRITE_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
+  },
   "next_actions": [
     "Complete the active 2012 official team-season discovery run without interruption, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
-    "Reconcile completed 2011-2013 discovery artifacts to canonical games and teams using reciprocal exact evidence without name-only promotion or invented contest IDs; keep 2012 dependent on its still-active acquisition.",
+    "Investigate the preserved 2013 unresolved population by exact reason without weakening reciprocal evidence or alias gates; keep 2012 reconciliation dependent on its still-active acquisition.",
     "Continue 2022 official contest acquisition in resumable bounded tranches and independently gate every endpoint/domain failure.",
     "Expand autonomously to the maximum quality-supported national population with independent domain gates."
   ],

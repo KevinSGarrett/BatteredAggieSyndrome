@@ -1,28 +1,20 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "fda5e49558699ca1d43219b7f5ec07283a2e2c46cb6bcff2851ddbc933734d99",
-  "work_unit_id": "BAT-554-PARTIAL-DISCOVERY-VALIDATION-V1",
+  "manifest_identity": "f7445fd1e22a8f5c10ec642047428fd6f597711e967888384ef44edb39aa8b61",
+  "work_unit_id": "BAT-554-2011-2013-CONTEST-RECONCILIATION-V1",
   "jira_identity": "BAT-554",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "41bda82fc509744109feb491c9bd128faba37be5",
-  "pre_routing_decision_sha256": "c97c649d5e20183554ec61b8ba979a1d8f466c8ef225617118e04a68c4d39256",
+  "base_commit": "1319b37fc6c0114d32426377118b5fd66262f126",
+  "pre_routing_decision_sha256": "54a27c957a44e0e7664feb7fc563ee4a0a5391477ca38168d8ab877ffba52594",
   "changed_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-197.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "instructions/FILE_HASHES.sha256",
-    "instructions/manifest.json",
-    "instructions/policies/assistive_execution_interlock.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "tests/test_codex_usage_interlock.py",
-    "tests/test_ncaa_official_discovery_validation.py",
-    "tests/test_repo_integrity_tools.py",
-    "tools/repo_integrity.py",
-    "tools/validate_codex_usage_interlock.py",
-    "tools/validate_ncaa_official_discovery.py",
-    "tools/validate_ncaa_official_gamebooks.py"
+    "src/aggie_analytics/data/ncaa_contest_reconciliation.py",
+    "tests/test_ncaa_contest_reconciliation.py"
   ]
 }

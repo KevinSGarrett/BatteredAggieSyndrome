@@ -317,7 +317,7 @@
     "validation": {
       "targeted_tests": "14_PASS",
       "full_suite": "887_PASS_4_SKIP",
-      "ruff": "PASS"
+      "ruff": "COVERAGE_BUILDER_AND_TEST_PASS"
     },
     "versioned_artifacts": {
       "src/aggie_analytics/data/ncaa_contest_reconciliation.py": "6bfbe736ece7902b9823663b7aeae995e090d507d9b6c77e069359efa74c0cff",
@@ -441,30 +441,84 @@
     },
     "authority": "CANDIDATE_ONLY_VALIDATED_DOMAIN_EVIDENCE_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
-  "official_acquisition_coverage_rollup_checkpoint": {
-    "recorded_at_utc": "2026-08-14T19:34:04Z",
-    "schema_version": "1.4.0",
-    "matrix_identity": "199cf8bf25ab38a49c1bf5af5543f289ef9365b78d13fcb78e69e05de4eca0dc",
-    "matrix_sha256": "b9ba670483eee4b7dc22715526e5e1d2ca97626ab95397a18aa19b569599623e",
-    "season": 2022,
-    "official_contests": 20,
-    "unique_endpoint_requests": 120,
-    "captured_endpoint_requests": 114,
-    "technical_failures": 6,
-    "normalized_rows": 7917,
+  "reconciled_contest_2022_tranche_0020_0024": {
+    "recorded_at_utc": "2026-08-14T21:26:40Z",
+    "selected_reconciled_contests": 5,
+    "contest_ids": [
+      "2276560",
+      "2276563",
+      "2276570",
+      "2276575",
+      "2276576"
+    ],
+    "acquisition_identity": "99775b09970e3ff586c8826cd1b42a9483a4126d285b8d27615a6f9016e6b835",
+    "manifest_sha256": "4cd11c8db6f3a185a8b2c225e390d0a6d0973fc89be25568028afedc5940512b",
+    "requests": 30,
+    "captures": 28,
+    "technical_failures": 2,
+    "technical_failure_scope": [
+      "2276575/play_by_play HTTP_403 then RATE_LIMITED then SERVER_ERROR across bounded route attempts",
+      "2276575/team_stats HTTP_403 then RATE_LIMITED then SERVER_ERROR across bounded route attempts"
+    ],
+    "normalized_rows": 1742,
     "domain_contest_counts": {
-      "attendance": 20,
-      "drives": 20,
-      "linescore_game_info": 20,
-      "officials": 19,
-      "play_by_play": 20,
-      "player_stats": 18,
-      "team_stats_by_period": 17,
-      "venue": 20
+      "attendance": 5,
+      "drives": 5,
+      "linescore_game_info": 5,
+      "officials": 5,
+      "play_by_play": 4,
+      "player_stats": 5,
+      "team_stats_by_period": 4,
+      "venue": 5
+    },
+    "validation": {
+      "result": "PASS",
+      "checks": 738,
+      "mutation_controls": 6,
+      "validation_identity": "46915198662f8c90d1f86e14523729cb8ae7cbf6fcdffd5c42b0ed394d2af03a",
+      "report_sha256": "a17a42efb693c42c89df13e993c52838ee2a726a6921bf715815314c8cebfbd1"
+    },
+    "cleanup": {
+      "reconstructible_rebuild_state": "PENDING_SAFE_CLEANUP_RETRY",
+      "finding": "The validation rebuild is byte-identical and reconstructible; the first bounded cleanup command was denied by the host execution policy, so no deletion was bypassed or falsely claimed."
+    },
+    "integration_recovery_checkpoint": {
+      "path": "C:\\BatteredAggieSyndrome.data\\backups\\BAT-554-INTEGRATION-20260814T214047Z",
+      "recorded_head": "bcdea020744fc49b2d3491126bce0a51bbf02743",
+      "working_tree_patch_sha256": "5e744f3e7a471c4551cf8474231873f58e10017a5130472ae89f6917efb018f8",
+      "repository_bundle_sha256": "661f011c4d4c86a535c209dabcfbc6cd346313b40d53cb11b273d58e0c242d5d",
+      "credential_payloads_copied": false,
+      "verification": "PASS"
+    },
+    "authority": "CANDIDATE_ONLY_PARTIAL_DOMAINS_PRESERVED_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
+  "official_acquisition_coverage_rollup_checkpoint": {
+    "recorded_at_utc": "2026-08-14T21:27:08Z",
+    "schema_version": "1.4.0",
+    "matrix_identity": "66e2d24ee3011730c2d332cd4f40e73b634f686c8436f84a747477ebc5fd343a",
+    "matrix_sha256": "4d0d76602fb6a35ee72c5ca67b796a4e31b05f2c03c069b15ca6c9a87504377d",
+    "season": 2022,
+    "official_contests": 25,
+    "unique_endpoint_requests": 150,
+    "captured_endpoint_requests": 142,
+    "technical_failures": 8,
+    "normalized_rows": 9659,
+    "domain_contest_counts": {
+      "attendance": 25,
+      "drives": 25,
+      "linescore_game_info": 25,
+      "officials": 24,
+      "play_by_play": 24,
+      "player_stats": 23,
+      "team_stats_by_period": 21,
+      "venue": 25
     },
     "implementation_validation": {
-      "targeted": "28_PASS_1_SKIP_11_SUBTESTS_PASS",
+      "targeted": "42_PASS_1_SKIP_17_SUBTESTS_PASS",
       "full_suite": "892_PASS_4_SKIP_120_SUBTESTS_PASS",
+      "unittest": "890_PASS_4_SKIP",
+      "w25_final": "PASS",
+      "jira_live_strict": "PASS_ZERO_FINDINGS",
       "ruff": "PASS"
     },
     "versioned_artifacts": {
@@ -504,6 +558,19 @@
       "reconciled_modern_contests": 0,
       "fabricated_contest_ids": 0,
       "name_only_promotions": 0
+    },
+    "unresolved_population_audit": {
+      "verified_cross_season_ncaa_organization_identities": 205,
+      "cross_season_identity_conflicts": 0,
+      "reciprocal_exact_games_with_verified_alias_candidates": 166,
+      "reciprocal_exact_games_with_stable_ncaa_organization_candidates": 166,
+      "additional_safe_games_found": 0,
+      "unresolved_reason_counts": {
+        "INSUFFICIENT_RECIPROCAL_TWO_SIDED_LEGACY_SOURCE_EVIDENCE": 198,
+        "NO_EXACT_CANONICAL_PARTICIPANT_DATE_SCORE_MATCH": 688,
+        "PARTICIPANT_ALIAS_NOT_UNIQUELY_RESOLVED": 1108
+      },
+      "disposition": "PRESERVE_UNRESOLVED_REMAINDER_NO_IDENTITY_GATE_RELAXATION"
     },
     "independent_validation": {
       "checks": 59,

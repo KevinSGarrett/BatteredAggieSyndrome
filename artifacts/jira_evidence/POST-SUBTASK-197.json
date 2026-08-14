@@ -357,10 +357,41 @@
     },
     "authority": "CANDIDATE_ONLY_PARTIAL_DOMAINS_PRESERVED_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "historical_spine_retraining_admission_checkpoint": {
+    "recorded_at_utc": "2026-08-14T18:56:51Z",
+    "policy_id": "evidence-based-retraining-admission-v1",
+    "request_path": "C:\\BatteredAggieSyndrome.data\\manifests\\retraining_admission\\requests\\historical-spine-reconciliation-2014-2025-12d92605.json",
+    "request_sha256": "7612f3216c19f92195fb0d42e1b9acf799d84222e177de3ff12984024fdb2e5b",
+    "decision_identity": "4037a789ca92ce4757e75dc2429f17acc7ebcd05f2b666eb081e8e5b9816f65d",
+    "decision_path": "C:\\BatteredAggieSyndrome.data\\manifests\\retraining_admission\\sha256\\4037a789ca92ce4757e75dc2429f17acc7ebcd05f2b666eb081e8e5b9816f65d\\decision.json",
+    "decision_file_sha256": "642b6dae953a32d653ba1ded7ece1e8f6f98d95708242ace94b683f44ce3cd8e",
+    "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+    "full_ladder_required": false,
+    "protected_promotion_authority": false,
+    "observed_training_population_delta": {
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "pit_safe_feature_families_added": 0,
+      "canonical_rows_changed": 0,
+      "targets_or_splits_changed": false
+    },
+    "candidate_reconciliation_delta": {
+      "seasons_added": [2014, 2015, 2016, 2017, 2018, 2019, 2021, 2024, 2025],
+      "exact_game_mappings_added": 8747,
+      "coverage_matrix_identity": "12d92605aebe791016d59122177bdd371a78244db2cb79aa8c695ced945ddb64",
+      "coverage_matrix_sha256": "1a92bcdc8cbc298111e4a8b18cddb8e811922aec5cabb93b7318587ac2214844"
+    },
+    "focused_replay": {
+      "tests": "26_PASS_4_SUBTESTS_PASS",
+      "coverage_rebuild": "BYTE_IDENTICAL_IDENTITY_AND_SHA256",
+      "live_jira_comment_id": "14142"
+    },
+    "authority": "PRELIMINARY_UNPROTECTED_CANDIDATE_ONLY_NO_FULL_RETRAINING_NO_PROTECTED_PROMOTION"
+  },
   "next_actions": [
-    "Repeat graph-exhausted official team-season discovery for 2010-2023 and 2025, preserving independent season failures and coverage.",
-    "Reconcile the 2024 discovered NCAA contest IDs to canonical games and teams without name-only promotion.",
-    "Acquire and domain-gate the maximum quality-supported official contest population using resumable bounded tranches.",
+    "Complete the active 2010-2013 official team-season discovery runs, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
+    "Reconcile completed 2010-2013 discovery artifacts to canonical games and teams using reciprocal exact evidence without name-only promotion or invented contest IDs.",
+    "Continue 2022 official contest acquisition in resumable bounded tranches and independently gate every endpoint/domain failure.",
     "Expand autonomously to the maximum quality-supported national population with independent domain gates."
   ],
   "scientific_nonclaims": {

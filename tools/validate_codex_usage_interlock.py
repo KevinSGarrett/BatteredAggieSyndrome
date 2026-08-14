@@ -1,6 +1,6 @@
-from __future__ import annotations
-
 """Fail-closed validator for direct-Codex work and independent pipeline proof."""
+
+from __future__ import annotations
 
 import argparse
 import hashlib
@@ -69,6 +69,122 @@ def _canonical_identity(payload: dict[str, Any]) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
+def _valid_sha256(value: Any) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == 64
+        and all(character in "0123456789abcdef" for character in value)
+    )
+
+
+def _validate_change_binding(
+    policy: dict[str, Any],
+    manifest: dict[str, Any],
+    binding: dict[str, Any],
+    findings: list[str],
+) -> None:
+    work_class = binding.get("class")
+    if manifest.get("work_class") != work_class:
+        findings.append("CHANGE_MANIFEST_BINDING_CLASS_MISMATCH")
+    if manifest.get("ordinary_project_work_authorized") is not False:
+        findings.append("CHANGE_MANIFEST_AUTHORIZES_ORDINARY_DIRECT_WORK")
+    if binding.get("ordinary_project_work_authorized") is not False:
+        findings.append("CHANGE_BINDING_AUTHORIZES_ORDINARY_DIRECT_WORK")
+    if manifest.get("pre_routing_decision_sha256") != binding.get("decision_sha256"):
+        findings.append("CHANGE_MANIFEST_BINDING_IDENTITY_MISMATCH")
+    if not _valid_sha256(binding.get("decision_sha256")):
+        findings.append("CHANGE_BINDING_DECISION_IDENTITY_INVALID")
+
+    changed = manifest.get("changed_paths", [])
+    if not isinstance(changed, list) or not changed:
+        findings.append("CHANGE_MANIFEST_PATHS_MISSING")
+        changed = []
+    for path in changed:
+        if not isinstance(path, str) or not _safe_relative(path):
+            findings.append(f"CHANGE_MANIFEST_PATH_INVALID:{path}")
+    if len(changed) != len(set(changed)):
+        findings.append("CHANGE_MANIFEST_DUPLICATE_PATH")
+    if manifest.get("work_unit_id") != binding.get("work_unit_id"):
+        findings.append("CHANGE_MANIFEST_BINDING_WORK_UNIT_MISMATCH")
+    if manifest.get("jira_identity") != binding.get("jira_identity"):
+        findings.append("CHANGE_MANIFEST_BINDING_JIRA_IDENTITY_MISMATCH")
+    if manifest.get("base_commit") != binding.get("source_commit"):
+        findings.append("CHANGE_MANIFEST_BINDING_SOURCE_COMMIT_MISMATCH")
+
+    if work_class == "PIPELINE_BOOTSTRAP_REPAIR":
+        if binding.get("disposition") != "EMERGENCY_PIPELINE_REPAIR":
+            findings.append("BOOTSTRAP_REPAIR_DISPOSITION_INVALID")
+        allowed = policy.get("bootstrap_allowed_paths", [])
+        for path in changed:
+            if isinstance(path, str) and _safe_relative(path) and not _matches_prefix(path, allowed):
+                findings.append(f"NON_BOOTSTRAP_PATH_WHILE_INTERLOCK_CLOSED:{path}")
+        return
+
+    if work_class != "PROJECT_WORK":
+        findings.append(f"UNSUPPORTED_CHANGE_BINDING_CLASS:{work_class}")
+        return
+
+    adoption_policy = policy.get("routed_project_adoption", {})
+    adoption = binding.get("routed_project_adoption", {})
+    if not isinstance(adoption, dict):
+        findings.append("ROUTED_PROJECT_ADOPTION_EVIDENCE_MISSING")
+        return
+    if binding.get("disposition") != "ROUTED_TO_ASSISTIVE_PLANE":
+        findings.append("PROJECT_WORK_NOT_ROUTED_TO_ASSISTIVE_PLANE")
+    if adoption.get("dispatch_origin") != adoption_policy.get("required_dispatch_origin"):
+        findings.append("PROJECT_WORK_NOT_PERSISTENT_CONTROLLER_ROUTED")
+    if adoption.get("manual_or_session_initiated") is not False:
+        findings.append("PROJECT_WORK_MANUAL_DISPATCH_FORBIDDEN")
+    if adoption.get("unjustified_direct_execution") is not False:
+        findings.append("PROJECT_WORK_UNJUSTIFIED_DIRECT_EXECUTION")
+    if adoption.get("provider_result_disposition") not in adoption_policy.get(
+        "permitted_provider_result_dispositions", []
+    ):
+        findings.append("PROJECT_WORK_PROVIDER_RESULT_DISPOSITION_INVALID")
+    if adoption.get("final_disposition") not in adoption_policy.get(
+        "permitted_final_dispositions", []
+    ):
+        findings.append("PROJECT_WORK_FINAL_DISPOSITION_INVALID")
+    if (
+        adoption.get("provider_result_disposition") == "REVIEW_ONLY"
+        and adoption.get("final_disposition") != "CODEX_REVIEW_MODIFIED"
+    ):
+        findings.append("REVIEW_ONLY_RESULT_REQUIRES_EXPLICIT_CODEX_MODIFICATION_DISPOSITION")
+    for field in adoption_policy.get("required_sha256_fields", []):
+        if not _valid_sha256(adoption.get(field)):
+            findings.append(f"PROJECT_WORK_EVIDENCE_IDENTITY_INVALID:{field}")
+    for field in adoption_policy.get("required_route_fields", []):
+        if not isinstance(adoption.get(field), str) or not adoption.get(field):
+            findings.append(f"PROJECT_WORK_ROUTE_FIELD_MISSING:{field}")
+    if not isinstance(adoption.get("downstream_consumer"), str) or not adoption.get(
+        "downstream_consumer"
+    ):
+        findings.append("PROJECT_WORK_DOWNSTREAM_CONSUMER_MISSING")
+    if not isinstance(adoption.get("cleanup_contract"), str) or not adoption.get(
+        "cleanup_contract"
+    ):
+        findings.append("PROJECT_WORK_CLEANUP_CONTRACT_MISSING")
+    if not isinstance(adoption.get("codex_modifications"), list) or not adoption.get(
+        "codex_modifications"
+    ):
+        findings.append("PROJECT_WORK_CODEX_MODIFICATION_SCOPE_MISSING")
+
+    allowed_paths = binding.get("allowed_paths", [])
+    if not isinstance(allowed_paths, list) or not allowed_paths:
+        findings.append("PROJECT_WORK_ALLOWED_PATHS_MISSING")
+        allowed_paths = []
+    for path in allowed_paths:
+        if not isinstance(path, str) or not _safe_relative(path):
+            findings.append(f"PROJECT_WORK_ALLOWED_PATH_INVALID:{path}")
+    if len(allowed_paths) != len(set(allowed_paths)):
+        findings.append("PROJECT_WORK_ALLOWED_PATH_DUPLICATE")
+    unlisted = sorted(set(changed) - set(allowed_paths))
+    if unlisted:
+        findings.append("PROJECT_WORK_PATH_OUTSIDE_ROUTED_ALLOWLIST:" + ",".join(unlisted))
+    if sorted(allowed_paths) != sorted(changed):
+        findings.append("PROJECT_WORK_ROUTED_ALLOWLIST_NOT_EXACT_CHANGE_SET")
+
+
 def _git(*args: str) -> str:
     completed = subprocess.run(
         ["git", *args], cwd=ROOT, check=False, capture_output=True, text=True
@@ -104,7 +220,7 @@ def _validate_static(findings: list[str]) -> tuple[dict[str, Any], dict[str, Any
     manifest = _load_json(CHANGE_MANIFEST_PATH, findings)
     binding = _load_json(BINDING_PATH, findings)
 
-    if policy.get("schema_version") != 2 or policy.get("version") != "3.0.0":
+    if policy.get("schema_version") != 2 or policy.get("version") != "3.1.0":
         findings.append("INTERLOCK_POLICY_IDENTITY_INVALID")
     if policy.get("runtime_state") != "NOT_OPERATIONAL":
         findings.append("INTERLOCK_SELF_PROMOTION_FORBIDDEN")
@@ -128,6 +244,38 @@ def _validate_static(findings: list[str]) -> tuple[dict[str, Any], dict[str, Any
     }
     if not required_unlock.issubset(set(policy.get("unlock_requires", []))):
         findings.append("INTERLOCK_UNLOCK_REQUIREMENTS_INCOMPLETE")
+    adoption_policy = policy.get("routed_project_adoption", {})
+    if adoption_policy.get("required_dispatch_origin") != "PERSISTENT_CONTROLLER":
+        findings.append("ROUTED_PROJECT_POLICY_DISPATCH_ORIGIN_INVALID")
+    if adoption_policy.get("manual_dispatch_allowed") is not False:
+        findings.append("ROUTED_PROJECT_POLICY_MANUAL_DISPATCH_MUST_BE_FALSE")
+    if adoption_policy.get("unjustified_direct_execution_allowed") is not False:
+        findings.append("ROUTED_PROJECT_POLICY_DIRECT_EXECUTION_MUST_BE_FALSE")
+    if set(adoption_policy.get("permitted_provider_result_dispositions", [])) != {
+        "ACCEPTED",
+        "REVIEW_ONLY",
+    }:
+        findings.append("ROUTED_PROJECT_POLICY_PROVIDER_DISPOSITIONS_INVALID")
+    if set(adoption_policy.get("permitted_final_dispositions", [])) != {
+        "ACCEPTED",
+        "CODEX_REVIEW_MODIFIED",
+    }:
+        findings.append("ROUTED_PROJECT_POLICY_FINAL_DISPOSITIONS_INVALID")
+    if set(adoption_policy.get("required_sha256_fields", [])) != {
+        "provider_request_sha256",
+        "provider_result_sha256",
+        "provider_review_sha256",
+        "route_identity",
+        "schema_identity",
+        "policy_identity",
+    }:
+        findings.append("ROUTED_PROJECT_POLICY_EVIDENCE_IDENTITIES_INCOMPLETE")
+    if set(adoption_policy.get("required_route_fields", [])) != {
+        "provider",
+        "model",
+        "task_format",
+    }:
+        findings.append("ROUTED_PROJECT_POLICY_ROUTE_FIELDS_INCOMPLETE")
     epistemic = policy.get("epistemic_boundary", {})
     if epistemic.get("billing_motive_claim_allowed") is not False:
         findings.append("HIDDEN_BILLING_MOTIVE_CLAIM_MUST_REMAIN_FORBIDDEN")
@@ -147,33 +295,12 @@ def _validate_static(findings: list[str]) -> tuple[dict[str, Any], dict[str, Any
     if "assistive_operational_state: NOT_OPERATIONAL" not in state:
         findings.append("CURRENT_STATE_MUST_REMAIN_NOT_OPERATIONAL")
 
-    if binding.get("class") != "PIPELINE_BOOTSTRAP_REPAIR":
-        findings.append("CHANGE_BINDING_NOT_BOOTSTRAP_REPAIR")
-    if binding.get("ordinary_project_work_authorized") is not False:
-        findings.append("CHANGE_BINDING_AUTHORIZES_ORDINARY_PROJECT_WORK")
-    if manifest.get("work_class") != "PIPELINE_BOOTSTRAP_REPAIR":
-        findings.append("CHANGE_MANIFEST_NOT_BOOTSTRAP_REPAIR")
-    if manifest.get("ordinary_project_work_authorized") is not False:
-        findings.append("CHANGE_MANIFEST_AUTHORIZES_ORDINARY_PROJECT_WORK")
-    if manifest.get("pre_routing_decision_sha256") != binding.get("decision_sha256"):
-        findings.append("CHANGE_MANIFEST_BINDING_IDENTITY_MISMATCH")
     expected_manifest_identity = _canonical_identity(manifest)
     if manifest.get("manifest_identity") != expected_manifest_identity:
         findings.append(
             f"CHANGE_MANIFEST_IDENTITY_MISMATCH:{manifest.get('manifest_identity')}!={expected_manifest_identity}"
         )
-    changed = manifest.get("changed_paths", [])
-    if not isinstance(changed, list) or not changed:
-        findings.append("CHANGE_MANIFEST_PATHS_MISSING")
-        changed = []
-    allowed = policy.get("bootstrap_allowed_paths", [])
-    for path in changed:
-        if not isinstance(path, str) or not _safe_relative(path):
-            findings.append(f"CHANGE_MANIFEST_PATH_INVALID:{path}")
-        elif not _matches_prefix(path, allowed):
-            findings.append(f"NON_BOOTSTRAP_PATH_WHILE_INTERLOCK_CLOSED:{path}")
-    if len(changed) != len(set(changed)):
-        findings.append("CHANGE_MANIFEST_DUPLICATE_PATH")
+    _validate_change_binding(policy, manifest, binding, findings)
     return policy, manifest
 
 

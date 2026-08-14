@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "policy_id": "BAS-FORT-KNOX-ASSISTIVE-EXECUTION-INTERLOCK",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "canonical_human_document": "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
   "precedence": "P0_ACTIVE_EXECUTION_INTERLOCK",
   "runtime_state": "NOT_OPERATIONAL",
@@ -57,6 +57,36 @@
     "tools/validate_codex_usage_interlock.py",
     "tools/validate_unified_"
   ],
+  "routed_project_adoption": {
+    "required_dispatch_origin": "PERSISTENT_CONTROLLER",
+    "manual_dispatch_allowed": false,
+    "unjustified_direct_execution_allowed": false,
+    "permitted_provider_result_dispositions": [
+      "ACCEPTED",
+      "REVIEW_ONLY"
+    ],
+    "permitted_final_dispositions": [
+      "ACCEPTED",
+      "CODEX_REVIEW_MODIFIED"
+    ],
+    "required_sha256_fields": [
+      "provider_request_sha256",
+      "provider_result_sha256",
+      "provider_review_sha256",
+      "route_identity",
+      "schema_identity",
+      "policy_identity"
+    ],
+    "required_route_fields": [
+      "provider",
+      "model",
+      "task_format"
+    ],
+    "require_exact_changed_path_allowlist": true,
+    "require_controller_routed_pre_routing_decision": true,
+    "require_downstream_consumer": true,
+    "require_cleanup_contract": true
+  },
   "independent_proof": {
     "black_box_minimum_seconds": 7200,
     "probation_minimum_seconds": 86400,

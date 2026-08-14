@@ -17,7 +17,7 @@
     "artifacts/operations/drift_incident_game_day.json",
     "artifacts/jira_evidence/POST-SUBTASK-129.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-128",
+  "blocked_reason": "",
   "blocks": [
     "POST-STORY-044",
     "POST-SUBTASK-130",
@@ -212,7 +212,7 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
     "docs/operations/OBSERVABILITY.md"
   ],
-  "ready": false,
+  "ready": true,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -335,7 +335,7 @@
     "POST-SUBTASK-132"
   ],
   "traceability_resolution": "INHERITED_DOMAIN_GATE",
-  "unblock_condition": "Complete and verify all hard dependencies at required maturity/evidence.",
+  "unblock_condition": "",
   "validation_classes": [
     "CHRONOLOGICAL_REPLAY",
     "END_TO_END",
@@ -348,5 +348,5 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-043: Structured observability, alerts, drift, and incident response.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-129.md",
-  "workflow_state": "BLOCKED"
+  "workflow_state": "READY"
 }

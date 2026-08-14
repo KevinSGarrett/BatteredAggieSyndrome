@@ -31629,7 +31629,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.json",In Progress,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-128,operations-security,POST-SUBTASK-128,HANDOFF-012,PHASE-4,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.json",Done,Medium,actionable;core-release;operations;post-wave;subtask;local-id-post-subtask-128,operations-security,POST-SUBTASK-128,HANDOFF-012,PHASE-4,DONE,EMPIRICALLY_VALIDATED,VERIFIED,POST_W25,false,OPERATIONS,ATOMIC_EXECUTION
 Sub-task,BAT-479,100433,"[POST-SUBTASK-129] Run outage, schema, stale forecast, disk, corrupt artifact, model, security, and governance-conflict game days through incident/rollback/substitution runbooks",100093,"Local ID: POST-SUBTASK-129
 
 Objective
@@ -31733,7 +31733,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-132
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",To Do,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,BLOCKED,PRODUCTION_READY,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json",To Do,Medium,actionable;core-release;operations;post-wave;protected-gate;subtask;local-id-post-subtask-129,operations-security,POST-SUBTASK-129,HANDOFF-012,PHASE-4,READY,PRODUCTION_READY,PLANNED,POST_W25,false,PROTECTED_GATE,ATOMIC_EXECUTION
 Sub-task,BAT-480,100434,"[POST-SUBTASK-130] Finalize authority/retention/frequency/encryption/access/rights/deletion rules for raw, curated, model, forecast, log, evidence, and Jira metadata",100094,"Local ID: POST-SUBTASK-130
 
 Objective

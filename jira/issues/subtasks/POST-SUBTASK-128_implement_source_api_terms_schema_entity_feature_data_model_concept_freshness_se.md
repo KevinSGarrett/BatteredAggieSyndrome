@@ -97,7 +97,7 @@
   "end_to_end_validation": "Validate that `artifacts/operations/drift_alert_validation.json` can be parsed and consumed by `POST-SUBTASK-129` using only documented identities and interfaces; the consumer must reject missing, stale, schema-incompatible, technically or quality-ineligible, or provenance-incomplete input without manual repair.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-128.json",
-  "evidence_state": "PARTIAL",
+  "evidence_state": "VERIFIED",
   "execution_lane": "OPERATIONS",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED",
@@ -175,11 +175,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24618",
-    "jira_updated_at": "2026-08-14T01:47:14.270-0500",
-    "last_synced_at": "2026-08-14T06:47:14.270000+00:00",
+    "jira_updated_at": "2026-08-14T02:09:01.491-0500",
+    "last_synced_at": "2026-08-14T07:09:01.491000+00:00",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "In Progress"
+    "status_raw": "Done"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -382,7 +382,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-043: Structured observability, alerts, drift, and incident response.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-128.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "DONE"
 }
 ```
 

@@ -32,6 +32,213 @@ def discovery_manifest_core(item: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def acquisition_manifest_core(item: dict[str, Any]) -> dict[str, Any]:
+    """Return the immutable identity payload used by NCAA acquisition manifests."""
+    return {
+        key: value
+        for key, value in item.items()
+        if key not in {"acquisition_identity", "issued_at_utc", "credentials_logged_or_persisted"}
+    }
+
+
+def validation_report_core(item: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in item.items() if key != "validation_identity"}
+
+
+def select_pass_validation(
+    data_root: Path,
+    acquisition_identity: str,
+    manifest_sha256: str,
+) -> tuple[Path, dict[str, Any]] | None:
+    root = (
+        data_root
+        / "validation/POST-SUBTASK-197/ncaa-official-gamebooks"
+        / acquisition_identity
+        / "runs"
+    )
+    candidates: list[tuple[tuple[int, int, str, str], Path, dict[str, Any]]] = []
+    for path in sorted(root.glob("*/report.json")):
+        item = json.loads(path.read_text(encoding="utf-8"))
+        identity = str(item.get("validation_identity", ""))
+        if identity != path.parent.name:
+            raise ValueError(f"validation identity/path mismatch: {path}")
+        if identity != hashlib.sha256(canonical_json(validation_report_core(item))).hexdigest():
+            raise ValueError(f"validation content identity mismatch: {path}")
+        if str(item.get("acquisition_identity")) != acquisition_identity:
+            raise ValueError(f"validation acquisition identity mismatch: {path}")
+        if str(item.get("manifest_sha256")) != manifest_sha256:
+            raise ValueError(f"validation manifest hash mismatch: {path}")
+        if item.get("result") != "PASS":
+            continue
+        rank = (
+            int(item.get("check_count", 0)),
+            int(item.get("mutation_control_count", 0)),
+            str(item.get("validated_at_utc", "")),
+            identity,
+        )
+        candidates.append((rank, path, item))
+    if not candidates:
+        return None
+    _, path, item = max(candidates, key=lambda row: row[0])
+    return path, item
+
+
+def validated_acquisition_manifests(
+    data_root: Path,
+    season: int,
+    reconciliation_identity: str,
+) -> list[tuple[Path, dict[str, Any], Path, dict[str, Any]]]:
+    root = data_root / "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/sha256"
+    selected: list[tuple[Path, dict[str, Any], Path, dict[str, Any]]] = []
+    for path in sorted(root.glob("*/ncaa_official_gamebook_acquisition_manifest.json")):
+        item = json.loads(path.read_text(encoding="utf-8"))
+        selection = item.get("selection_evidence", {})
+        if (
+            item.get("artifact_type") != "NCAA_OFFICIAL_GAMEBOOK_ACQUISITION_MANIFEST"
+            or int(selection.get("season", -1)) != season
+            or str(selection.get("dataset_identity", "")) != reconciliation_identity
+        ):
+            continue
+        identity = str(item.get("acquisition_identity", ""))
+        if identity != path.parent.name:
+            raise ValueError(f"acquisition identity/path mismatch: {path}")
+        if identity != hashlib.sha256(canonical_json(acquisition_manifest_core(item))).hexdigest():
+            raise ValueError(f"acquisition content identity mismatch: {path}")
+        manifest_sha = sha256_file(path)
+        validation = select_pass_validation(data_root, identity, manifest_sha)
+        if validation is None:
+            continue
+        validation_path, validation_item = validation
+        selected.append((path, item, validation_path, validation_item))
+    return selected
+
+
+def build_official_acquisition_rollup(
+    data_root: Path,
+    season: int,
+    reconciliation_identity: str,
+) -> dict[str, Any] | None:
+    manifests = validated_acquisition_manifests(data_root, season, reconciliation_identity)
+    if not manifests:
+        return None
+    best_by_request: dict[tuple[str, str], tuple[tuple[int, int, int, int, str], dict[str, Any]]] = {}
+    observed_request_count = 0
+    evidence: list[dict[str, Any]] = []
+    for manifest_path, manifest, validation_path, validation in manifests:
+        observed_request_count += int(manifest["request_count"])
+        evidence.append({
+            "acquisition_identity": manifest["acquisition_identity"],
+            "manifest_sha256": sha256_file(manifest_path),
+            "validation_identity": validation["validation_identity"],
+            "validation_report_sha256": sha256_file(validation_path),
+            "check_count": int(validation["check_count"]),
+            "mutation_control_count": int(validation["mutation_control_count"]),
+        })
+        for request in manifest["captures"]:
+            key = (str(request["contest_id"]), str(request["endpoint_id"]))
+            parsed = [
+                row for row in request.get("normalization", [])
+                if row.get("state") == "PARSED_CANDIDATE"
+            ]
+            rank = (
+                int(request.get("state") == "CAPTURED"),
+                len(parsed),
+                sum(int(row.get("row_count", 0)) for row in parsed),
+                int(request.get("raw_bytes", 0)),
+                str(request.get("request_identity_sha256", "")),
+            )
+            if key not in best_by_request or rank > best_by_request[key][0]:
+                best_by_request[key] = (rank, request)
+    selected_requests = [best_by_request[key][1] for key in sorted(best_by_request)]
+    captured = [row for row in selected_requests if row.get("state") == "CAPTURED"]
+    failed = [row for row in selected_requests if row.get("state") != "CAPTURED"]
+    domain_capture_counts: dict[str, int] = {}
+    normalized_row_counts: dict[str, int] = {}
+    domain_contests: dict[str, set[str]] = {}
+    for request in captured:
+        for normalized in request.get("normalization", []):
+            if normalized.get("state") != "PARSED_CANDIDATE":
+                continue
+            domain = str(normalized["domain"])
+            domain_capture_counts[domain] = domain_capture_counts.get(domain, 0) + 1
+            normalized_row_counts[domain] = normalized_row_counts.get(domain, 0) + int(normalized["row_count"])
+            domain_contests.setdefault(domain, set()).add(str(request["contest_id"]))
+    unresolved_endpoint_requests = [
+        {
+            "contest_id": str(request["contest_id"]),
+            "endpoint_id": str(request["endpoint_id"]),
+            "attempt_conditions": [str(row.get("condition", "UNKNOWN")) for row in request.get("attempts", [])],
+        }
+        for request in failed
+    ]
+    evidence.sort(key=lambda row: (row["acquisition_identity"], row["validation_identity"]))
+    rollup_core = {
+        "season": season,
+        "reconciliation_identity": reconciliation_identity,
+        "evidence": evidence,
+        "selected_requests": [
+            {
+                "contest_id": str(row["contest_id"]),
+                "endpoint_id": str(row["endpoint_id"]),
+                "state": str(row["state"]),
+                "request_identity_sha256": str(row.get("request_identity_sha256", "")),
+                "raw_sha256": row.get("raw_sha256"),
+                "normalization_identities": sorted(
+                    str(item["normalization_identity"])
+                    for item in row.get("normalization", [])
+                    if item.get("state") == "PARSED_CANDIDATE"
+                ),
+            }
+            for row in selected_requests
+        ],
+    }
+    rollup_identity = hashlib.sha256(canonical_json(rollup_core)).hexdigest()
+    contests = sorted({str(row["contest_id"]) for row in selected_requests})
+    canonical_games = sorted({str(row["canonical_game_id"]) for row in selected_requests})
+    return {
+        "season": season,
+        "season_type": "REGULAR_AND_POSTSEASON_COMBINED",
+        "source": "NCAA_OFFICIAL_STATS",
+        "endpoint": "RECONCILED_CONTEST_GAMEBOOK_ENDPOINTS",
+        "domain": "OFFICIAL_GAMEBOOK_EQUIVALENT_ACQUISITION",
+        "grain": "CANONICAL_GAME_ENDPOINT_AND_NORMALIZED_DOMAIN",
+        "schema_version": "BAT-554-NCAA-OFFICIAL-ACQUISITION-ROLLUP-V1",
+        "canonical_games": len(canonical_games),
+        "canonical_teams": None,
+        "official_contests": len(contests),
+        "unique_endpoint_requests": len(selected_requests),
+        "captured_endpoint_requests": len(captured),
+        "unresolved_endpoint_requests": unresolved_endpoint_requests,
+        "technical_failure_count": len(failed),
+        "source_request_observations": observed_request_count,
+        "duplicate_request_observations": observed_request_count - len(selected_requests),
+        "validated_manifest_count": len(manifests),
+        "validation_check_count": sum(int(row[3]["check_count"]) for row in manifests),
+        "mutation_control_count": sum(int(row[3]["mutation_control_count"]) for row in manifests),
+        "domain_capture_counts": dict(sorted(domain_capture_counts.items())),
+        "domain_contest_counts": {key: len(value) for key, value in sorted(domain_contests.items())},
+        "normalized_row_counts": dict(sorted(normalized_row_counts.items())),
+        "normalized_rows": sum(normalized_row_counts.values()),
+        "total_raw_bytes": sum(int(row.get("raw_bytes", 0)) for row in captured),
+        "missingness": (
+            f"{len(failed)} of {len(selected_requests)} unique contest-endpoint requests remain technically unavailable; "
+            "each failed endpoint is preserved independently and does not invalidate other game domains."
+        ),
+        "reconciliation_quality": "EXACT_RECONCILIATION_DATASET_BOUND_NO_NAME_ONLY_PROMOTION",
+        "capture_identity": rollup_identity,
+        "provenance_identity": hashlib.sha256(canonical_json(evidence)).hexdigest(),
+        "known_at_pit_eligibility": "CANDIDATE_ONLY_NOT_ADMITTED",
+        "eligibility_tiers": [],
+        "coverage_state": "PARTIAL_VALIDATED_OFFICIAL_DOMAIN_ACQUISITION",
+        "authority": {
+            "historical_pit_eligible": False,
+            "training_eligible": False,
+            "protected_evaluation_eligible": False,
+            "production_eligible": False,
+        },
+    }
+
+
 def select_strongest_discovery(data_root: Path, season: int) -> tuple[Path, dict[str, Any]]:
     root = (
         data_root
@@ -226,6 +433,13 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
                     "authority": reconciliation_item["authority"],
                     "coverage_state": "PARTIAL_RECONCILIATION_WITH_EXPLICIT_UNRESOLVED_REMAINDER",
                 })
+                acquisition_rollup = build_official_acquisition_rollup(
+                    data_root,
+                    season,
+                    reconciliation_item["dataset_identity"],
+                )
+                if acquisition_rollup:
+                    rows.append(acquisition_rollup)
         else:
             rows.append({
                 "season": season,
@@ -289,7 +503,7 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
     not_started_discovery_seasons = sorted(set(DISCOVERY_SEASONS) - set(discoveries))
     reconciled_seasons = sorted(reconciliations)
     payload = {
-        "schema_version": "1.3.0",
+        "schema_version": "1.4.0",
         "artifact_type": "HISTORICAL_SPINE_COVERAGE_AND_ELIGIBILITY_MATRIX",
         "classification": "MIXED_DOMAIN_TIERED_ELIGIBILITY",
         "rows": rows,
@@ -309,7 +523,7 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
             f"NCAA discovery remains bounded/partial for seasons {partial_discovery_seasons}.",
             f"NCAA discovery has not started for seasons {not_started_discovery_seasons}.",
             f"NCAA-to-canonical contest reconciliation artifacts are present only for seasons {reconciled_seasons}; every unresolved contest remains candidate-only.",
-            "Only one bounded 2024 contest has validated all eight parser-domain groups; this is not population coverage.",
+            "Validated official gamebook-equivalent acquisition rows remain partial, endpoint-specific candidate evidence and do not establish population completeness.",
             "No NCAA gamebook row currently has preliminary-training, protected, champion, or production authority.",
         ],
     }

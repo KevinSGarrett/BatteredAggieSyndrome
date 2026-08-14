@@ -408,6 +408,86 @@ def request_for(contract: Mapping[str, Any], contest: Mapping[str, Any], endpoin
     )
 
 
+def load_reconciled_contests(
+    manifest_path: Path, data_root: Path
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Load exact candidate mappings without granting canonical or PIT authority."""
+    manifest_path = manifest_path.resolve()
+    data_root = data_root.resolve()
+    if data_root != manifest_path and data_root not in manifest_path.parents:
+        raise ValueError("reconciliation manifest is outside the configured external data root")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    identity = str(manifest.get("dataset_identity", ""))
+    core = manifest.get("identity_core")
+    if not identity or not isinstance(core, dict):
+        raise ValueError("reconciliation manifest identity core is missing")
+    if manifest_path.parent.name != identity:
+        raise ValueError("reconciliation manifest identity/path mismatch")
+    if stable_hash(core) != identity:
+        raise ValueError("reconciliation manifest content identity mismatch")
+    authority = manifest.get("authority", {})
+    for field in (
+        "canonical_registry_write",
+        "historical_pit_eligible",
+        "training_eligible",
+        "protected_evaluation_eligible",
+        "production_eligible",
+    ):
+        if authority.get(field) is not False:
+            raise ValueError(f"reconciliation authority must remain false: {field}")
+    mappings = core.get("mapping_records")
+    if not isinstance(mappings, list) or not mappings:
+        raise ValueError("reconciliation manifest has no mapping records")
+    contests: list[dict[str, Any]] = []
+    contest_ids: set[str] = set()
+    canonical_game_ids: set[str] = set()
+    for mapping in mappings:
+        contest_id = str(mapping.get("ncaa_contest_id", ""))
+        canonical_game_id = str(mapping.get("canonical_game_id", ""))
+        if not contest_id.isdigit() or not canonical_game_id:
+            raise ValueError("reconciliation mapping identity is incomplete")
+        if mapping.get("mapping_method") != "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT":
+            raise ValueError("reconciliation mapping method is not admitted")
+        if mapping.get("name_only_promotion") is not False:
+            raise ValueError("name-only reconciliation promotion is forbidden")
+        for field in ("historical_pit_eligible", "training_eligible", "protected_eligible"):
+            if mapping.get(field) is not False:
+                raise ValueError(f"reconciliation mapping authority must remain false: {field}")
+        if contest_id in contest_ids or canonical_game_id in canonical_game_ids:
+            raise ValueError("reconciliation mappings must be one-to-one for acquisition")
+        contest_ids.add(contest_id)
+        canonical_game_ids.add(canonical_game_id)
+        start = str(mapping.get("canonical_start_utc", ""))
+        if len(start) < 10:
+            raise ValueError("reconciliation mapping start time is missing")
+        contests.append(
+            {
+                "contest_id": contest_id,
+                "season": int(mapping["season"]),
+                "season_type": mapping["season_type"],
+                "observed_matchup": (
+                    f"{mapping['canonical_away_team_id']} at {mapping['canonical_home_team_id']}"
+                ),
+                "observed_game_date": start[:10],
+                "canonical_game_id": canonical_game_id,
+                "identity_state": "EXACT_TWO_SIDED_CONTEXT_RECONCILED_CANDIDATE_ONLY",
+                "mapping_method": mapping["mapping_method"],
+                "reconciliation_dataset_identity": identity,
+            }
+        )
+    contests.sort(key=lambda row: int(row["contest_id"]))
+    evidence = {
+        "source": "RECONCILED_CONTEST_CANDIDATES",
+        "dataset_identity": identity,
+        "manifest_relative_path": manifest_path.relative_to(data_root).as_posix(),
+        "manifest_sha256": sha256_file(manifest_path),
+        "season": int(core["season"]),
+        "available_contest_count": len(contests),
+        "authority": "CANDIDATE_ONLY_NO_CANONICAL_WRITE_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY",
+    }
+    return contests, evidence
+
+
 def _safe_headers(headers: Mapping[str, str]) -> dict[str, str]:
     return {key: value for key, value in headers.items() if key.lower() in SAFE_RESPONSE_HEADERS}
 
@@ -1387,6 +1467,7 @@ def acquisition_core(
     contract_sha256: str,
     captures: list[dict[str, Any]],
     route_states: list[dict[str, Any]],
+    selection_evidence: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     captured = [row for row in captures if row["state"] == "CAPTURED"]
     failures = [row for row in captures if row["state"] != "CAPTURED"]
@@ -1402,7 +1483,7 @@ def acquisition_core(
                 normalized_domain_counts[domain] = normalized_domain_counts.get(domain, 0) + 1
                 normalized_row_counts[domain] = normalized_row_counts.get(domain, 0) + int(normalized["row_count"])
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "artifact_type": "NCAA_OFFICIAL_GAMEBOOK_ACQUISITION_MANIFEST",
         "decision_unit": contract["decision_unit"],
         "jira_key": contract["jira_key"],
@@ -1411,6 +1492,7 @@ def acquisition_core(
         "contract_sha256": contract_sha256,
         "pinned_source": contract["source"],
         "route_states": route_states,
+        "selection_evidence": dict(selection_evidence or {"source": "CONTRACT_SEED_CONTESTS"}),
         "captures": captures,
         "request_count": len(captures),
         "captured_count": len(captured),
@@ -1463,6 +1545,7 @@ def build_gate(
             "domain_capture_counts": manifest["domain_capture_counts"],
             "normalized_domain_counts": manifest.get("normalized_domain_counts", {}),
             "normalized_row_counts": manifest.get("normalized_row_counts", {}),
+            "selection_evidence": manifest.get("selection_evidence", {}),
         },
         "identity_gate": {
             "official_contest_ids_pinned": bool(contest_ids),
@@ -1532,7 +1615,10 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--runtime-root", type=Path)
     result.add_argument("--gate-output", type=Path)
     result.add_argument("--discovery-manifest", type=Path)
+    result.add_argument("--reconciliation-manifest", type=Path)
     result.add_argument("--contest-id", action="append", default=[])
+    result.add_argument("--contest-offset", type=int, default=0)
+    result.add_argument("--maximum-contests", type=int)
     result.add_argument("--endpoint-id", action="append", default=[])
     result.add_argument("--route-id", action="append", default=[])
     result.add_argument("--maximum-requests", type=int)
@@ -1554,6 +1640,8 @@ def main() -> int:
     if (
         args.maximum_attempts < 1
         or (args.maximum_requests is not None and args.maximum_requests < 1)
+        or args.contest_offset < 0
+        or (args.maximum_contests is not None and args.maximum_contests < 1)
         or (args.maximum_discovery_teams is not None and args.maximum_discovery_teams < 1)
     ):
         raise ValueError("attempt and request limits must be positive")
@@ -1646,9 +1734,27 @@ def main() -> int:
             return 0 if all(row["discovered_contest_count"] > 0 for row in discovery_results) else 2
     elif args.discovery_only:
         raise ValueError("--discovery-only requires at least one --discover-season")
+    selection_evidence: dict[str, Any] = {"source": "CONTRACT_SEED_CONTESTS"}
+    source_contests = list(contract["seed_contests"])
+    if args.reconciliation_manifest:
+        source_contests, selection_evidence = load_reconciled_contests(
+            args.reconciliation_manifest, data_root
+        )
     selected_contests = [
-        row for row in contract["seed_contests"] if not args.contest_id or str(row["contest_id"]) in args.contest_id
+        row for row in source_contests if not args.contest_id or str(row["contest_id"]) in args.contest_id
     ]
+    selected_contests = selected_contests[args.contest_offset :]
+    if args.maximum_contests is not None:
+        selected_contests = selected_contests[: args.maximum_contests]
+    selection_evidence = {
+        **selection_evidence,
+        "contest_offset": args.contest_offset,
+        "maximum_contests": args.maximum_contests,
+        "selected_contest_count": len(selected_contests),
+        "selected_contest_ids_identity": stable_hash(
+            [str(row["contest_id"]) for row in selected_contests]
+        ),
+    }
     selected_endpoints = [
         row for row in contract["endpoints"] if not args.endpoint_id or row["endpoint_id"] in args.endpoint_id
     ]
@@ -1659,7 +1765,7 @@ def main() -> int:
         work = work[: args.maximum_requests]
     captures: list[dict[str, Any]] = []
     route_state_map: dict[str, dict[str, Any]] = {}
-    for contest, endpoint in work:
+    for work_index, (contest, endpoint) in enumerate(work, start=1):
         contest_id = str(contest["contest_id"])
         endpoint_id = endpoint["endpoint_id"]
         request = request_for(contract, contest, endpoint)
@@ -1704,6 +1810,8 @@ def main() -> int:
                 "observed_game_date": contest["observed_game_date"],
                 "canonical_game_id": contest["canonical_game_id"],
                 "identity_state": contest["identity_state"],
+                "mapping_method": contest.get("mapping_method"),
+                "reconciliation_dataset_identity": contest.get("reconciliation_dataset_identity"),
                 "endpoint_id": endpoint_id,
                 "domains": list(endpoint["domains"]),
                 "domain_grains": {domain: contract["domain_grain"][domain] for domain in endpoint["domains"]},
@@ -1711,12 +1819,31 @@ def main() -> int:
                 "retrieved_at_utc": result.get("capture_retrieved_at_utc", iso_utc(retrieved_at)),
             }
         )
+        print(
+            json.dumps(
+                {
+                    "event": "NCAA_RECONCILED_CONTEST_ACQUISITION_PROGRESS",
+                    "completed_requests": work_index,
+                    "total_requests": len(work),
+                    "contest_id": contest_id,
+                    "endpoint_id": endpoint_id,
+                    "state": result["state"],
+                    "route_id": result.get("route_id"),
+                    "normalization_states": sorted(
+                        {row["state"] for row in normalization}
+                    ),
+                },
+                sort_keys=True,
+            ),
+            flush=True,
+        )
     captures.sort(key=lambda row: (int(row["contest_id"]), row["endpoint_id"]))
     core = acquisition_core(
         contract=contract,
         contract_sha256=sha256_file(contract_path),
         captures=captures,
         route_states=[route_state_map[key] for key in sorted(route_state_map)],
+        selection_evidence=selection_evidence,
     )
     identity = stable_hash(core)
     manifest = {
@@ -1762,9 +1889,12 @@ def main() -> int:
     )
     if args.gate_output:
         gate_path = args.gate_output.resolve()
-        if repo_root not in gate_path.parents:
-            raise ValueError("gate output must be versioned in the repository")
-        write_json(gate_path, gate)
+        if repo_root not in gate_path.parents and data_root not in gate_path.parents:
+            raise ValueError("gate output must be in the repository or configured external data root")
+        if data_root in gate_path.parents:
+            write_immutable_json(gate_path, gate)
+        else:
+            write_json(gate_path, gate)
     print(
         json.dumps(
             {
@@ -1772,6 +1902,7 @@ def main() -> int:
                 "acquisition_identity": identity,
                 "manifest_path": str(manifest_path),
                 "manifest_sha256": manifest_sha256,
+                "gate_path": str(gate_path) if args.gate_output else None,
                 "request_count": core["request_count"],
                 "captured_count": core["captured_count"],
                 "technical_failure_count": core["technical_failure_count"],

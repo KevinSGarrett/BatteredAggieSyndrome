@@ -167,6 +167,44 @@
     "active_discovery_seasons": [2010, 2011, 2012, 2013],
     "authority": "CANDIDATE_REFERENCE_ONLY_NO_NAME_ONLY_PROMOTION_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "reconciled_contest_acquisition_pilot": {
+    "recorded_at_utc": "2026-08-14T17:51:47Z",
+    "season": 2022,
+    "contest_id": "2276460",
+    "canonical_game_id": "game_9242f1ca4cb952e7946a6e8e87cd9c9c",
+    "mapping_method": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT",
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "acquisition_identity": "aa07aaae4ba465840d7dbb742262089de31f3df6ae51549a1878e1c52fe62e2c",
+    "manifest_sha256": "5aca94c5b3a283a368062663b81ed67ef80575ba3b378e7adde102932f52d0fd",
+    "gate_sha256": "3750ed2c8b7829356208d7cfed5d6e8e0e4427b2f5951dd9b949cb8748d949c2",
+    "raw_bytes": 36768,
+    "captured_endpoints": ["box_score"],
+    "normalized_domains": {
+      "attendance": 1,
+      "linescore_game_info": 1,
+      "venue": 1
+    },
+    "normalized_rows": {
+      "attendance": 1,
+      "linescore_game_info": 8,
+      "venue": 1
+    },
+    "validation": {
+      "result": "PASS",
+      "checks": 85,
+      "mutation_controls": 6,
+      "validation_identity": "c2ad9f4c401a78a75d67763406a2ee2fe6d98509e6aab04243f5c2a297cc0ba8",
+      "report_sha256": "777f42ab4803fc851500ba8f9b5c5667f7ff1c015c801b98e5e4d5d0fef0eacb"
+    },
+    "storage_correction": "VALIDATION_REPORTS_NOW_CONTENT_ADDRESSED_BY_ACQUISITION_AND_VALIDATION_IDENTITY_AFTER_MUTABLE_LEGACY_REPORT_PATH_WAS_FOUND",
+    "cleanup": {
+      "reconstructible_rebuilds_removed": 4,
+      "cache_directories_removed": 2,
+      "bytes_recovered": 404105
+    },
+    "active_scale_tranche": "2022_CONTEST_OFFSETS_0_THROUGH_4_ALL_SIX_ENDPOINTS",
+    "authority": "CANDIDATE_ONLY_NO_CANONICAL_WRITE_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "next_actions": [
     "Repeat graph-exhausted official team-season discovery for 2010-2023 and 2025, preserving independent season failures and coverage.",
     "Reconcile the 2024 discovered NCAA contest IDs to canonical games and teams without name-only promotion.",

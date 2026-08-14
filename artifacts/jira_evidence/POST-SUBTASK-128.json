@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_manifest_type": "jira_issue_candidate_evidence",
+  "created_at_utc": "2026-08-14T06:30:00Z",
+  "updated_at_utc": "2026-08-14T06:40:00Z",
+  "jira_key": "BAT-478",
+  "local_issue_id": "POST-SUBTASK-128",
+  "workflow_state": "IN_PROGRESS",
+  "evidence_state": "CANDIDATE_VALIDATED",
+  "observable_outcome": "The routed BAT-478 candidate now has an executable deterministic contract for all twelve required drift classes plus scoped severity, stable deduplication, acknowledgement, evidence-backed escalation, and resolution only after changed clearing evidence. Local focused validation passes; hosted integration and exact-main replay remain pending.",
+  "outputs": [
+    {
+      "path": "artifacts/operations/drift_alert_validation.json",
+      "bytes": 36236,
+      "sha256": "a4b2f6f3b73e8078dc5edb2271307fe5c41bef1e09c7df7ec9eaf7a2861750ad",
+      "schema_version": "1.0.0",
+      "artifact_identity": "8d3c3cbe54f5ff358a5ee1cb64e0e0f78fe98b052c1d680dae84c339e9f4e597",
+      "maturity": "IMPLEMENTED_VALIDATED_CONTROL_CANDIDATE",
+      "eligibility": "NOT_SUSTAINED_OPERATION"
+    }
+  ],
+  "input_identities": {
+    "git_base_commit": "1795c14837913328392550c38e44f7dbcc81cca5",
+    "post_subtask_024_sha256": "416a1ce70da87e9938aaa6f38da185d55e5d7e1f5a25b16b7c8775e01aa50bed",
+    "post_subtask_126_sha256": "abc8f696bd1895ad946e97949d97a6bbb2ccfadd706cd46848700fff06d49d80",
+    "post_subtask_127_sha256": "7686f1d4e76a68cfe0f9ed687987f4bd239fae76fe5e1384935f7a4b60ceaf16",
+    "canonical_issue_record_sha256": "e0164cdc4b650ccb694ee92543e9cc9b17a88cacee24e64dda0a3649d839a7c7",
+    "drift_alert_module_sha256": "904bb8da2bd2b57f458f6d6af218082b5af3d04a2fc82cd6755ab5cdcfedd0bc",
+    "drift_alert_test_sha256": "b860d4e3ccf2ad9b562e52d8f93179200c328f392098a4ab387fc1995e404c48",
+    "artifact_builder_sha256": "021db899f350b20fe1f2b2c9709c0e84ce2b22fa3b8baaef8fdf41eb136964da",
+    "artifact_validator_sha256": "cd700656a90b02cda0f2d091adda200f2b3662ba53552139377d78d2e8786a35"
+  },
+  "controller_routing": {
+    "work_unit_id": "AUTO-CURSOR-3986af3d17e9a3b6ff26",
+    "pre_routing_decision_sha256": "7cf5d259bebf117e6f564b9cc102423b99868b654286bb64ce5802ef4c41a1cd",
+    "dispatch_origin": "PERSISTENT_CONTROLLER",
+    "manual_or_session_initiated": false,
+    "provider": "cursor",
+    "model": "gpt-5.3-codex",
+    "task_format": "governed_cursor_repository_review_v1",
+    "provider_request_sha256": "68a9a212734ccece0cfd64bc3a3bc869f4552c9ca2b8a90bf37b8228a56b28d6",
+    "provider_result_sha256": "6a82bd84c4827f486f9b880af855973bd2fac0f71669a07023eb8b50f8ca0286",
+    "provider_review_sha256": "dd9f5edd3988c05bea37b5afbd4892411d1bfa6fd29965b43d3dac4ee446ecc3",
+    "provider_disposition": "REVIEW_ONLY",
+    "final_disposition": "CODEX_REVIEW_MODIFIED",
+    "provider_changed_paths": [],
+    "codex_modification": "Expanded the stale artifact-only path contract and implemented the executable lifecycle the routed review proved was absent."
+  },
+  "acceptance_matrix": [
+    {
+      "criterion": "Versioned baselines and evidence-derived thresholds identify affected scope, block unsafe downstream training/publication, and route alerts without claiming resolution until evidence changes.",
+      "disposition": "PASS_LOCAL_CANDIDATE",
+      "observable_result": "Rules bind baseline and threshold evidence hashes, scope effects to the affected domain, preserve terms metadata as nonblocking, and require a new no-drift observation before resolution.",
+      "evidence_path": "artifacts/operations/drift_alert_validation.json",
+      "evidence_sha256": "a4b2f6f3b73e8078dc5edb2271307fe5c41bef1e09c7df7ec9eaf7a2861750ad"
+    },
+    {
+      "criterion": "The declared output artifacts/operations/drift_alert_validation.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
+      "disposition": "PASS_LOCAL_CANDIDATE",
+      "observable_result": "The reproducible builder produced artifact identity 8d3c3cbe54f5ff358a5ee1cb64e0e0f78fe98b052c1d680dae84c339e9f4e597 and the independent consumer validator accepted it.",
+      "evidence_path": "artifacts/operations/drift_alert_validation.json",
+      "evidence_sha256": "a4b2f6f3b73e8078dc5edb2271307fe5c41bef1e09c7df7ec9eaf7a2861750ad"
+    },
+    {
+      "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
+      "disposition": "PASS_LOCAL_CANDIDATE",
+      "observable_result": "The artifact labels mutations as deterministic contract fixtures, binds the one freshness threshold to the existing observability contract, preserves the absence of a live refresh, and explicitly denies scientific or sustained-operation claims.",
+      "evidence_path": "artifacts/operations/drift_alert_validation.json",
+      "evidence_sha256": "a4b2f6f3b73e8078dc5edb2271307fe5c41bef1e09c7df7ec9eaf7a2861750ad"
+    }
+  ],
+  "validation": {
+    "focused_pytest": {
+      "command": "$env:PYTHONPATH=(Resolve-Path -LiteralPath 'src').Path; python -B -m pytest -q tests/test_operations_drift_alerts.py tests/test_w23_operations.py",
+      "exit_code": 0,
+      "result": "PASS_23_TESTS_1_SKIPPED_12_SUBTESTS"
+    },
+    "artifact_consumer": {
+      "command": "python -B tools/validate_drift_alerts.py --repo-root .",
+      "exit_code": 0,
+      "result": "PASS_12_CLASSES_IDENTITY_AND_MUTATION_GATES"
+    },
+    "w23_regression": {
+      "command": "python -B tools/validate_w23_operations.py --repo-root . --allow-target-benchmark-pending",
+      "exit_code": 0,
+      "result": "IMPLEMENTATION_PASS_AC038_TARGET_HARDWARE_REMAINS_BLOCKED"
+    },
+    "ruff": {
+      "command": "python -m ruff check src/aggie_analytics/operations/drift_alerts.py tests/test_operations_drift_alerts.py tools/build_drift_alert_validation.py tools/validate_drift_alerts.py",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "full_pytest": "PASS_850_TESTS_4_SKIPPED_120_SUBTESTS",
+    "full_unittest": "PASS_848_TESTS_4_SKIPPED",
+    "hosted_checks": "PENDING_PR",
+    "exact_main_replay": "PENDING_MERGE"
+  },
+  "negative_findings": [
+    "No live provider refresh was performed in this bounded contract-validation unit, so no current zero-drift claim is made.",
+    "The Cursor result was REVIEW_ONLY and had zero changed paths; all integrated changes remain explicitly CODEX_REVIEW_MODIFIED.",
+    "AC-038 and THR-011/012 remain unresolved and are not waived by the W23 regression pass.",
+    "Sustained unified-assistive operation and useful accepted offload remain unproven."
+  ],
+  "scientific_and_security_boundary": {
+    "credential_values_included": false,
+    "restricted_payloads_included": false,
+    "dataset_split_model_or_metric_produced": false,
+    "protected_results_inspected": false,
+    "historical_completeness_claimed": false,
+    "production_readiness_claimed": false,
+    "tamu_lift_bas_or_aggie_excess_claimed": false
+  },
+  "downstream_evaluation": {
+    "consumer": "POST-SUBTASK-129",
+    "decision": "HOLD_UNTIL_HOSTED_INTEGRATION_AND_EXACT_MAIN_REPLAY",
+    "post_subtask_129_ready": false,
+    "silent_unlock_allowed": false
+  },
+  "completion": {
+    "achieved_maturity": "IMPLEMENTED_VALIDATED_CONTROL_CANDIDATE",
+    "issue_disposition": "IN_PROGRESS",
+    "remaining_issue_scope_blockers": [
+      "FULL_SUITE_PENDING",
+      "HOSTED_REQUIRED_CHECKS_PENDING",
+      "EXACT_MAIN_REPLAY_PENDING"
+    ],
+    "completion_claim": "BAT-478 has a locally validated implementation candidate. It is not Done and does not establish live drift-free operation or any scientific result."
+  }
+}

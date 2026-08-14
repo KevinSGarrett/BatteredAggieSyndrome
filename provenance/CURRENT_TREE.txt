@@ -107,6 +107,7 @@ artifacts/jira_evidence/POST-SUBTASK-124.json
 artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-126.json
 artifacts/jira_evidence/POST-SUBTASK-127.json
+artifacts/jira_evidence/POST-SUBTASK-128.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
 artifacts/jira_evidence/POST-SUBTASK-161.json
 artifacts/jira_evidence/POST-SUBTASK-162.json
@@ -165,6 +166,7 @@ artifacts/openai_assist/quarantine_schema_pilot.json
 artifacts/openai_assist/router_rebalance.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/ci_security_gate.json
+artifacts/operations/drift_alert_validation.json
 artifacts/operations/observability_contract_test.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
@@ -3150,6 +3152,7 @@ src/aggie_analytics/operations/__init__.py
 src/aggie_analytics/operations/backup.py
 src/aggie_analytics/operations/benchmark.py
 src/aggie_analytics/operations/cleanup.py
+src/aggie_analytics/operations/drift_alerts.py
 src/aggie_analytics/operations/environment.py
 src/aggie_analytics/operations/observability.py
 src/aggie_analytics/operations/retention.py
@@ -3287,6 +3290,7 @@ tests/test_open_source_properties.py
 tests/test_openai_assist.py
 tests/test_openrouter_assist.py
 tests/test_openrouter_campaign_summary.py
+tests/test_operations_drift_alerts.py
 tests/test_package_scaffold.py
 tests/test_people_registry.py
 tests/test_player_intelligence_governance.py
@@ -3360,6 +3364,7 @@ tools/backup_state.py
 tools/bootstrap_readiness.py
 tools/build_action_derived_play_summary.py
 tools/build_artifact_record.py
+tools/build_drift_alert_validation.py
 tools/build_evaluation_exposure_ledger.py
 tools/build_historical_advanced_game_snapshot.py
 tools/build_historical_game_outcome_spine.py
@@ -3492,6 +3497,7 @@ tools/validate_context_intelligence.py
 tools/validate_cpu_worker_readiness.py
 tools/validate_data_research.py
 tools/validate_dependency_policy.py
+tools/validate_drift_alerts.py
 tools/validate_entities.py
 tools/validate_expanded_event_chronology_preliminary.py
 tools/validate_experimentation.py

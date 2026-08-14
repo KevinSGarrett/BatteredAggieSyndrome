@@ -31583,6 +31583,8 @@ Definition of Done
 7. The output set `artifacts/operations/drift_alert_validation.json` is demonstrably consumable by POST-SUBTASK-129 without manual reconstruction or undocumented state.
 
 Required Tests / Validation
+- EXISTING_AUTOMATED_TEST / OPERATIONS: tests/test_operations_drift_alerts.py — All twelve drift classes, threshold provenance, scoped effects, deterministic deduplication, acknowledgement, evidence-backed escalation, resolution-after-evidence-change, terms metadata nonblocking behavior, and mutation rejection pass.
+- EXISTING_AUTOMATED_TEST / INTEGRATION: tools/validate_drift_alerts.py — The content-addressed validation artifact and downstream POST-SUBTASK-129 interface reject stale, mutated, incomplete, or policy-incompatible evidence.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w23_operations.py — Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_w23_operations.py — Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.
 - PUBLICATION_BOUNDARY_REVIEW / PUBLICATION_BOUNDARY_REVIEW: MANUAL — Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.

@@ -78,8 +78,28 @@ Execute the atomic 2 of 3 step in Story POST-STORY-043 (Structured observability
 
 ## Files I may modify or create
 
+- src/aggie_analytics/operations/drift_alerts.py
+- src/aggie_analytics/operations/__init__.py
+- tests/test_operations_drift_alerts.py
+- tools/build_drift_alert_validation.py
+- tools/validate_drift_alerts.py
+- docs/operations/OBSERVABILITY.md
 - artifacts/operations/drift_alert_validation.json
 - artifacts/jira_evidence/POST-SUBTASK-128.json
+- jira/records/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.json
+- jira/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.md
+- jira/ai/work_packets/POST-SUBTASK-128.md
+- jira/sources/issue_source_manifests/POST-SUBTASK-128.json
+- jira/index/
+- jira/import/
+- jira/sources/SOURCE_ANCHOR_INDEX.csv
+- jira/sources/issue_source_manifests/
+- jira/validation/
+- configs/codex_usage_interlock_change_manifest.json
+- configs/unified_assistive_change_routing_binding.json
+- provenance/CURRENT_TREE.txt
+- provenance/PROJECT_FILE_HASHES.sha256
+- provenance/PROJECT_FILE_MANIFEST.csv
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -113,6 +133,8 @@ Produce and validate these outputs within this atomic work unit:
 
 ## Tests / validation
 
+- EXISTING_AUTOMATED_TEST / OPERATIONS: tests/test_operations_drift_alerts.py — All twelve drift classes, threshold provenance, scoped effects, deterministic deduplication, acknowledgement, evidence-backed escalation, resolution-after-evidence-change, terms metadata nonblocking behavior, and mutation rejection pass.
+- EXISTING_AUTOMATED_TEST / INTEGRATION: tools/validate_drift_alerts.py — The content-addressed validation artifact and downstream POST-SUBTASK-129 interface reject stale, mutated, incomplete, or policy-incompatible evidence.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tests/test_w23_operations.py — Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.
 - EXISTING_AUTOMATED_TEST / REGRESSION: tools/validate_w23_operations.py — Run as a regression check after completing POST-SUBTASK-128; retain command, exit code, and relevant output.
 - PUBLICATION_BOUNDARY_REVIEW / PUBLICATION_BOUNDARY_REVIEW: MANUAL — Verify license/terms/redistribution metadata is preserved without blocking private acquisition or training, and that raw third-party publication remains disabled.

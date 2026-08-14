@@ -1,25 +1,20 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "0a92d4275ddb4ff94cbdc2c95e30d4220029007867df81fa359722def2cfb455",
-  "work_unit_id": "BAT-560-P0-CURSOR-IMPLEMENTATION-ROUTE",
+  "manifest_identity": "537864c92efaaa941fc0b72e5dd6a89116c208d74023fb2cfd4d262e56959b79",
+  "work_unit_id": "BAT-560-P0-OPENAI-CROSS-PROVIDER-QA-FEED",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "af2b934b5c769e9f75459f3193d70f22f828d4c0",
-  "pre_routing_decision_sha256": "d74ea48262920051f598b5a58afc89bac8d6fb100af7dd6b28a781cba108c9d0",
-  "missing_capability": "PERSISTENT_CURSOR_ROUTE_CAN_REVIEW_BUT_CANNOT_IMPLEMENT_BOUNDED_REPOSITORY_UNITS",
+  "base_commit": "440ebc29a51d801beb7c70da9344f99e4d08a4e0",
+  "pre_routing_decision_sha256": "a1c8345a7fb34c75b9e7745f902880ce7f869adc5662de930f709466a4d871fb",
+  "missing_capability": "OPENAI_DIRECT_CAMPAIGN_UNMET_WITH_COMPLETE_SOURCE_SCANS_BUT_ZERO_EXECUTABLE_PACKETS",
   "changed_paths": [
-    "configs/assistive_downstream_adoptions.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/controller_state.py",
     "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "src/aggie_analytics/assistive_plane/provider_adapters.py",
-    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
-    "tests/test_unified_provider_adapters.py",
     "tests/test_unified_runtime_inventory_dispatch.py"
   ]
 }

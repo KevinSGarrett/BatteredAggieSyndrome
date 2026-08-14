@@ -32,6 +32,7 @@ MAX_PROVIDER_WORK_UNITS = 64
 MAX_PROVIDER_WORK_SCAN_UNITS = 4096
 MAX_PROVIDER_WORK_FILE_VISITS = 65536
 MAX_HISTORICAL_MANIFEST_SCAN_UNITS = 65536
+MAX_OPENAI_CROSS_PROVIDER_QA_RESULTS_PER_PROVIDER = 16
 DISCOVERY_NAMES = frozenset({"run.json", "progress.json"})
 DYNAMIC_PREFIXES = (
     "AUTO-CPU-MANIFEST-",
@@ -2226,6 +2227,194 @@ class RuntimeInventoryRefresher:
                 break
         return created
 
+    def _materialize_openai_cross_provider_qa(
+        self,
+        *,
+        queue_root: Path,
+        schema_relative: str,
+        schema_sha256: str,
+        limit: int,
+    ) -> list[dict[str, str]]:
+        """Create bounded independent QA from immutable non-OpenAI candidates."""
+        if limit <= 0:
+            return []
+        result_root = self.config.packet_root / "evidence" / "provider-results"
+        if not result_root.is_dir():
+            return []
+        resolved_result_root = result_root.resolve(strict=True)
+        task_name = "assistive_model_evaluation"
+        task_definition = self._openai_task_definition(task_name)
+        jira_unit = str(task_definition.get("jira_unit", ""))
+        model = "gpt-5.6-luna"
+        allowed_models = task_definition.get("allowed_models", [])
+        allocation = str(task_definition.get("allocation_by_model", {}).get(model, ""))
+        destination_name = str(task_definition.get("candidate_destination", ""))
+        if (
+            not jira_unit
+            or model not in allowed_models
+            or not allocation
+            or destination_name not in {"CANDIDATE", "REVIEW", "QUARANTINE"}
+        ):
+            raise ValueError("RUNTIME_INVENTORY_OPENAI_CROSS_PROVIDER_TASK_BINDING_INVALID")
+
+        scanned, _ = _bounded_json_scan(
+            resolved_result_root, limit=MAX_PROVIDER_WORK_SCAN_UNITS
+        )
+        allowed_providers = {
+            "cursor": 0,
+            "openrouter": 1,
+            "ollama_local": 2,
+            "remote_cpu_worker": 3,
+        }
+        by_provider: dict[str, list[tuple[int, Path, dict[str, Any], bytes, str]]] = {
+            provider: [] for provider in allowed_providers
+        }
+        for source in scanned:
+            try:
+                modified_ns = source.stat().st_mtime_ns
+                raw = source.read_bytes()
+                if not 0 < len(raw) <= 12000:
+                    continue
+                source_capture_sha256 = hashlib.sha256(raw).hexdigest()
+                relative_parts = source.relative_to(resolved_result_root).parts
+                if (
+                    len(relative_parts) != 3
+                    or relative_parts[0] != "sha256"
+                    or relative_parts[1] != source_capture_sha256
+                    or relative_parts[2] != "report.json"
+                ):
+                    continue
+                value = json.loads(raw)
+            except (OSError, ValueError, json.JSONDecodeError):
+                continue
+            if not isinstance(value, dict):
+                continue
+            provider = str(value.get("provider", ""))
+            validation_errors = value.get("validation_errors")
+            candidate = value.get("result")
+            if (
+                provider not in allowed_providers
+                or value.get("schema_version") != 1
+                or value.get("artifact_type") != "GOVERNED_PROVIDER_CANDIDATE_RESULT"
+                or value.get("authority") != "CANDIDATE_ONLY"
+                or value.get("disposition") != "REVIEW_ONLY"
+                or validation_errors != []
+                or not isinstance(value.get("work_unit_id"), str)
+                or not value["work_unit_id"]
+                or not isinstance(candidate, dict)
+                or candidate.get("authority") != "CANDIDATE_ONLY"
+                or candidate.get("canonical_writes") != 0
+                or candidate.get("protected_decisions") != 0
+            ):
+                continue
+            by_provider[provider].append(
+                (modified_ns, source, value, raw, source_capture_sha256)
+            )
+
+        bounded_candidates: list[tuple[int, int, Path, dict[str, Any], bytes, str]] = []
+        for provider, priority in allowed_providers.items():
+            newest = sorted(
+                by_provider[provider], key=lambda item: (-item[0], item[1].as_posix())
+            )[:MAX_OPENAI_CROSS_PROVIDER_QA_RESULTS_PER_PROVIDER]
+            bounded_candidates.extend(
+                (priority, *item) for item in newest
+            )
+        bounded_candidates.sort(key=lambda item: (item[0], -item[1], item[2].as_posix()))
+
+        created: list[dict[str, str]] = []
+        selected_providers: set[str] = set()
+        seen_source_hashes: set[str] = set()
+        for _priority, _modified_ns, source, value, _raw, source_capture_sha256 in bounded_candidates:
+            provider = str(value["provider"])
+            if provider in selected_providers or source_capture_sha256 in seen_source_hashes:
+                continue
+            seen_source_hashes.add(source_capture_sha256)
+            excerpt_value = {
+                "artifact_type": value["artifact_type"],
+                "authority": value["authority"],
+                "candidate_result": value["result"],
+                "provider": provider,
+                "source_disposition": value["disposition"],
+                "source_work_unit_id": value["work_unit_id"],
+            }
+            excerpt = json.dumps(excerpt_value, sort_keys=True, separators=(",", ":"))
+            if not 0 < len(excerpt) <= 12000:
+                continue
+            excerpt_sha256 = hashlib.sha256(excerpt.encode("utf-8")).hexdigest()
+            prompt = (
+                "Independently assess only the supplied validated candidate result from another governed "
+                f"assistive route ({provider}). Do not accept it, invent facts, repeat provider confidence as "
+                "evidence, or authorize canonical/PIT/training/protected/forecast/merge/publication changes. "
+                f"Return task_id exactly {task_name}, source_capture_sha256 exactly "
+                f"{source_capture_sha256}, and disposition {destination_name}. Return candidate-only facts for "
+                "source_provider, candidate_disposition, evidence_quality, and deterministic_follow_up. Every "
+                f"SUPPORTED fact must cite exactly source_capture_sha256 {source_capture_sha256}, locator "
+                f"evidence:1, and excerpt_sha256 {excerpt_sha256}. Use UNKNOWN or NOT_PRESENT with no evidence "
+                "when the candidate does not support a conclusion. Preserve conflicts and limitations."
+            )
+            packet = {
+                "schema_version": 1,
+                "provider": "openai_direct",
+                "task_format": "governed_openai_candidate_v1",
+                "jira_unit": jira_unit,
+                "schema_sha256": schema_sha256,
+                "source_hashes": [source_capture_sha256, excerpt_sha256],
+                "dependencies": [],
+                "pre_routing_effort_points": 3,
+                "scope": (
+                    "Candidate-only independent QA of "
+                    f"{provider} result {value['work_unit_id']}"
+                ),
+                "job": {
+                    "task_name": task_name,
+                    "jira_unit": jira_unit,
+                    "source_url": source.resolve().as_uri(),
+                    "source_capture_sha256": source_capture_sha256,
+                    "source_excerpt": excerpt,
+                    "prompt": prompt,
+                    "prompt_version": "continuous-cross-provider-candidate-qa-v1",
+                    "schema_path": schema_relative,
+                    "schema_version": "1",
+                    "model": model,
+                    "reasoning_effort": "low",
+                    "allocation": allocation,
+                    "destination": destination_name,
+                    "max_output_tokens": 1600,
+                    "priority": "NORMAL",
+                    "release_reason": None,
+                    "admission_review_id": None,
+                    "source_image_path": None,
+                    "source_image_mime_type": None,
+                    "source_image_detail": None,
+                },
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            data = canonical_json_bytes(packet) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            work_unit_id = "AUTO-OAI-" + digest[:20]
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
+                continue
+            packet_path = queue_root / "continuous" / "sha256" / digest[:2] / f"{digest}.json"
+            if packet_path.exists() and packet_path.read_bytes() != data:
+                raise RuntimeError("CONTINUOUS_OPENAI_CROSS_PROVIDER_PACKET_COLLISION")
+            if not packet_path.exists():
+                _atomic_write(packet_path, data)
+            created.append(
+                {
+                    "provider": "openai_direct",
+                    "source_relative_path": source.relative_to(
+                        resolved_result_root
+                    ).as_posix(),
+                    "source_sha256": source_capture_sha256,
+                    "packet_path": str(packet_path),
+                    "packet_sha256": digest,
+                }
+            )
+            selected_providers.add(provider)
+            if len(created) >= limit:
+                break
+        return created
+
     def _materialize_continuous_openai_work(
         self,
         demand: dict[str, Any],
@@ -2612,6 +2801,15 @@ class RuntimeInventoryRefresher:
             )
             if len(created) >= 2:
                 break
+        if len(created) < 2:
+            created.extend(
+                self._materialize_openai_cross_provider_qa(
+                    queue_root=queue_root,
+                    schema_relative=schema_relative,
+                    schema_sha256=schema_sha256,
+                    limit=2 - len(created),
+                )
+            )
         return created
 
     def _producer_watermarks(self, moment: datetime) -> dict[str, Any]:
@@ -2638,6 +2836,12 @@ class RuntimeInventoryRefresher:
             "provider_review_queue": (
                 self.config.packet_root / "evidence/review-queue",
                 None,
+                MAX_PROVIDER_WORK_SCAN_UNITS,
+                False,
+            ),
+            "provider_result_queue": (
+                self.config.packet_root / "evidence/provider-results",
+                frozenset({"report.json"}),
                 MAX_PROVIDER_WORK_SCAN_UNITS,
                 False,
             ),

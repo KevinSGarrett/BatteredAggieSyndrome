@@ -1465,6 +1465,196 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual("CANDIDATE", packet["job"]["destination"])
         self.assertIn("PRELIMINARY_UNPROTECTED_FEATURE_RESULT", packet["job"]["source_excerpt"])
 
+    def test_valid_cross_provider_result_replenishes_openai_once_by_content_identity(self) -> None:
+        build_commit = "a" * 40
+        release = self.root / "releases" / build_commit
+        schema_path = release / "schemas/openai/assistive_candidate.schema.json"
+        schema_path.parent.mkdir(parents=True)
+        schema_value = {"type": "object"}
+        schema_path.write_text(json.dumps(schema_value), encoding="utf-8")
+        registry = release / "configs/openai_task_registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "tasks": {
+                        "assistive_model_evaluation": {
+                            "jira_unit": "POST-SUBTASK-161",
+                            "candidate_destination": "CANDIDATE",
+                            "allowed_models": ["gpt-5.6-luna"],
+                            "allocation_by_model": {"gpt-5.6-luna": "CROSS_MODEL_QA"},
+                        },
+                        "gamebook_schema_mapping": {
+                            "jira_unit": "POST-SUBTASK-168",
+                            "candidate_destination": "REVIEW",
+                            "allowed_models": ["gpt-5.6-terra"],
+                            "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
+                        },
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        provider_result = {
+            "schema_version": 1,
+            "artifact_type": "GOVERNED_PROVIDER_CANDIDATE_RESULT",
+            "provider": "openrouter",
+            "work_unit_id": "AUTO-OR-real-bas-work",
+            "attempt_id": "attempt-1",
+            "remote_identity": "generation-1",
+            "authority": "CANDIDATE_ONLY",
+            "disposition": "REVIEW_ONLY",
+            "validation_errors": [],
+            "actual_cost_usd": "0.001",
+            "resource": {"provider_calls": 1},
+            "result": {
+                "authority": "CANDIDATE_ONLY",
+                "canonical_writes": 0,
+                "protected_decisions": 0,
+                "candidate": "review this evidence-backed reconciliation ranking",
+            },
+        }
+        report_data = canonical_json_bytes(provider_result) + b"\n"
+        report_sha256 = hashlib.sha256(report_data).hexdigest()
+        report = (
+            self.root
+            / "orchestrator/evidence/provider-results/sha256"
+            / report_sha256
+            / "report.json"
+        )
+        report.parent.mkdir(parents=True)
+        report.write_bytes(report_data)
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=self.root / "provider-work/requests",
+                release_root=release,
+                build_commit=build_commit,
+                openai_task_registry_path=registry,
+            ),
+        )
+        demand = {
+            "providers": {
+                "openai_direct": {"unmet": True, "active_execution_packets": 0}
+            }
+        }
+
+        first = refresher._materialize_continuous_openai_work(demand)
+        second = refresher._materialize_continuous_openai_work(demand)
+
+        self.assertEqual(1, len(first))
+        self.assertEqual(first, second)
+        packet = json.loads(Path(first[0]["packet_path"]).read_text(encoding="utf-8"))
+        self.assertEqual("assistive_model_evaluation", packet["job"]["task_name"])
+        self.assertEqual("continuous-cross-provider-candidate-qa-v1", packet["job"]["prompt_version"])
+        self.assertEqual(report_sha256, packet["job"]["source_capture_sha256"])
+        self.assertEqual("gpt-5.6-luna", packet["job"]["model"])
+        self.assertEqual("low", packet["job"]["reasoning_effort"])
+        self.assertEqual("CANDIDATE", packet["job"]["destination"])
+        self.assertEqual(
+            "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES", packet["authority"]
+        )
+        self.assertNotIn("remote_identity", packet["job"]["source_excerpt"])
+        work_unit_id = "AUTO-OAI-" + first[0]["packet_sha256"][:20]
+        with patch.object(
+            self.state,
+            "work_unit_states",
+            side_effect=lambda identities: {
+                identity: "CLOSED" for identity in identities if identity == work_unit_id
+            },
+        ):
+            self.assertEqual([], refresher._materialize_continuous_openai_work(demand))
+        watermarks = refresher._producer_watermarks(self.now)
+        self.assertEqual(
+            1,
+            watermarks["sources"]["provider_result_queue"]["eligible_file_count"],
+        )
+        self.assertEqual(
+            "PASS", watermarks["sources"]["provider_result_queue"]["scan_status"]
+        )
+
+    def test_cross_provider_openai_feed_rejects_self_loops_and_invalid_authority(self) -> None:
+        build_commit = "a" * 40
+        release = self.root / "releases" / build_commit
+        schema = release / "schemas/openai/assistive_candidate.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema.write_text(json.dumps({"type": "object"}), encoding="utf-8")
+        registry = release / "configs/openai_task_registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "tasks": {
+                        "assistive_model_evaluation": {
+                            "jira_unit": "POST-SUBTASK-161",
+                            "candidate_destination": "CANDIDATE",
+                            "allowed_models": ["gpt-5.6-luna"],
+                            "allocation_by_model": {"gpt-5.6-luna": "CROSS_MODEL_QA"},
+                        },
+                        "gamebook_schema_mapping": {
+                            "jira_unit": "POST-SUBTASK-168",
+                            "candidate_destination": "REVIEW",
+                            "allowed_models": ["gpt-5.6-terra"],
+                            "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
+                        },
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        result_root = self.root / "orchestrator/evidence/provider-results/sha256"
+        for provider, authority, validation_errors in (
+            ("openai_direct", "CANDIDATE_ONLY", []),
+            ("openrouter", "CANONICAL", []),
+            ("cursor", "CANDIDATE_ONLY", ["INVALID_RESULT"]),
+        ):
+            value = {
+                "schema_version": 1,
+                "artifact_type": "GOVERNED_PROVIDER_CANDIDATE_RESULT",
+                "provider": provider,
+                "work_unit_id": f"unit-{provider}",
+                "authority": authority,
+                "disposition": "REVIEW_ONLY",
+                "validation_errors": validation_errors,
+                "result": {
+                    "authority": "CANDIDATE_ONLY",
+                    "canonical_writes": 0,
+                    "protected_decisions": 0,
+                },
+            }
+            data = canonical_json_bytes(value) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            path = result_root / digest / "report.json"
+            path.parent.mkdir(parents=True)
+            path.write_bytes(data)
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=self.root / "provider-work/requests",
+                release_root=release,
+                build_commit=build_commit,
+                openai_task_registry_path=registry,
+            ),
+        )
+        packets = refresher._materialize_continuous_openai_work(
+            {
+                "providers": {
+                    "openai_direct": {"unmet": True, "active_execution_packets": 0}
+                }
+            }
+        )
+        self.assertEqual([], packets)
+
     def test_one_continuous_producer_failure_does_not_block_other_producers(self) -> None:
         cursor_packet = {
             "provider": "cursor",

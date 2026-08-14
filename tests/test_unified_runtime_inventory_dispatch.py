@@ -28,7 +28,12 @@ from aggie_analytics.assistive_plane.inventory_runtime import (
     RuntimeInventoryConfig,
     RuntimeInventoryRefresher,
 )
-from aggie_analytics.assistive_plane.orchestration import CAMPAIGN_OWNER, validate_work_unit_roles, ReadyWorkUnit
+from aggie_analytics.assistive_plane.orchestration import (
+    ATOMIC_EXECUTABLE,
+    CAMPAIGN_OWNER,
+    ReadyWorkUnit,
+    validate_work_unit_roles,
+)
 from aggie_analytics.assistive_plane.provider_adapters import ProviderAdapterResult
 from aggie_analytics.assistive_plane.scheduler_runtime import (
     InventoryScheduler,
@@ -2273,6 +2278,104 @@ def cpu_worker_semantic_evidence(root: Path):
                 prior=supersessions,
                 observed_at="2026-08-14T08:00:00Z",
             ),
+        )
+
+    def test_prior_release_packet_does_not_rewrite_immutable_pre_routing_decision(self) -> None:
+        current_commit = "a" * 40
+        prior_commit = "8" * 40
+        packet = {
+            "schema_version": 1,
+            "provider": "openrouter",
+            "task_format": OPENROUTER_TASK_FORMAT,
+            "jira_unit": "BAT-560",
+            "schema_sha256": "1" * 64,
+            "base_commit": prior_commit,
+            "scope": "Prior-release packet retained only for durable reconciliation",
+        }
+        packet_bytes = canonical_json_bytes(packet) + b"\n"
+        packet_sha256 = hashlib.sha256(packet_bytes).hexdigest()
+        packet_path = self.root / "prior-release-packet.json"
+        packet_path.write_bytes(packet_bytes)
+        work_unit_id = "AUTO-OR-" + packet_sha256[:20]
+        unit = {
+            "work_unit_id": work_unit_id,
+            "jira_unit": "BAT-560",
+            "task_format": OPENROUTER_TASK_FORMAT,
+            "schema_sha256": "1" * 64,
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            "source_hashes": [packet_sha256],
+            "dependencies": [],
+            "pre_routing_effort_points": 3,
+            "scope": packet["scope"],
+        }
+        unit["identity"] = hashlib.sha256(
+            canonical_json_bytes({key: value for key, value in unit.items() if key != "identity"})
+        ).hexdigest()
+        base = json.loads(self.current.read_text(encoding="utf-8"))
+        base["work_units"].append(unit)
+        base["work_unit_roles"][work_unit_id] = ATOMIC_EXECUTABLE
+        base["route_decisions"].append(
+            {
+                "work_unit_id": work_unit_id,
+                "work_unit_identity": unit["identity"],
+                "disposition": "OPENROUTER",
+                "provider": "openrouter",
+                "model": "qwen/qwen3-coder-next",
+                "reason": "EXACT_ROUTE_READY_AND_GRANULAR_PACKET_MATERIALIZED",
+                "decided_at": self.now.isoformat().replace("+00:00", "Z"),
+            }
+        )
+        base["execution_packets"] = {
+            work_unit_id: {
+                "packet_path": str(packet_path),
+                "packet_sha256": packet_sha256,
+                "source_commit": prior_commit,
+            }
+        }
+        role_units = [
+            ReadyWorkUnit(**{key: value for key, value in item.items() if key != "identity"})
+            for item in base["work_units"]
+        ]
+        base["work_unit_role_validation"] = validate_work_unit_roles(
+            role_units, base["work_unit_roles"]
+        )
+        self.current.write_bytes(canonical_json_bytes(base) + b"\n")
+        existing_decision = self.state.record_pre_routing_decision(
+            decision={
+                "work_unit_id": work_unit_id,
+                "jira_identity": "BAT-560",
+                "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
+                "source_commit": prior_commit,
+                "task_category": OPENROUTER_TASK_FORMAT,
+                "effort_points": 3,
+                "candidate_routes": ["openrouter"],
+                "selected_route": "openrouter",
+                "route_identity": sha256_value({"legacy_route_identity": packet_sha256}),
+                "budget_admission": "PROVIDER_BUDGET_ADMITTED",
+                "packet_identity": packet_sha256,
+                "lease_identity": None,
+                "disposition": "ROUTED_TO_ASSISTIVE_PLANE",
+                "reason_code": "EXACT_ROUTE_READY_AND_GRANULAR_PACKET_MATERIALIZED",
+                "evidence_sha256": unit["identity"],
+                "discovered_at": self.now.isoformat().replace("+00:00", "Z"),
+            },
+            now=self.now,
+        )
+
+        refreshed = self.refresher.refresh(now=self.now + timedelta(minutes=1))
+
+        self.assertEqual("PASS", refreshed["result"])
+        with self.state.transaction() as connection:
+            decisions = connection.execute(
+                "SELECT decision_sha256 FROM pre_routing_decisions WHERE work_unit_id=?",
+                (work_unit_id,),
+            ).fetchall()
+        self.assertEqual([existing_decision], [row["decision_sha256"] for row in decisions])
+        snapshot = json.loads(Path(refreshed["snapshot_path"]).read_text(encoding="utf-8"))
+        self.assertEqual(current_commit, snapshot["git"]["head"])
+        self.assertEqual(
+            prior_commit,
+            snapshot["execution_packets"][work_unit_id]["source_commit"],
         )
 
     def test_prior_release_review_debt_does_not_suppress_current_release_generation(self) -> None:

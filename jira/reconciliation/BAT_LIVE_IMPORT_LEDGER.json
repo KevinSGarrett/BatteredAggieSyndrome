@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-14T23:27:01.183362+00:00"
+      "verified_at": "2026-08-14T23:44:37.095305+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-14T23:27:01.362544+00:00"
+      "verified_at": "2026-08-14T23:44:37.294720+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-14T23:27:01.808233+00:00"
+      "verified_at": "2026-08-14T23:44:37.472380+00:00"
     }
   ],
   "backup": {
@@ -31,23 +31,11 @@
     "id": "134"
   },
   "canonical_spec_sync": {
-    "backup": {
-      "bytes": 779,
-      "issue_count": 1,
-      "path": "reconciliation/jira/canonical-spec-sync/20260814T232713Z/pre-update.json",
-      "sha256": "cd7001fbdb41fb39cd840cbff468f5d6043ce4794f16665fb462a81ac3fcb749",
-      "storage_root": "EXTERNAL_DATA_ROOT"
-    },
-    "changed_issues": 1,
-    "completed_at": "2026-08-14T23:27:14.200365+00:00",
-    "completed_local_ids": [
-      "POST-SUBTASK-129"
-    ],
-    "errors": [],
-    "started_at": "2026-08-14T23:27:13.643196+00:00",
-    "status": "COMPLETE"
+    "changed_issues": 0,
+    "status": "EXACT_NO_UPDATES_REQUIRED",
+    "verified_at": "2026-08-14T23:44:48.470245+00:00"
   },
-  "completed_at": "2026-08-14T23:28:16.149923+00:00",
+  "completed_at": "2026-08-14T23:45:37.882001+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -55,8 +43,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-14T23:27:22.838948+00:00",
-    "verified_at": "2026-08-14T23:27:24.720388+00:00",
+    "updated_at": "2026-08-14T23:44:54.128399+00:00",
+    "verified_at": "2026-08-14T23:44:55.834784+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -977,7 +965,7 @@
     "missing_canonical_links": 12,
     "preserved_auxiliary_links": 4,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-14T23:27:42.185603+00:00"
+    "verified_at": "2026-08-14T23:45:09.247220+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2179,9 +2167,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814"
+          "C:\\BatteredAggieSyndrome"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2191,9 +2179,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814"
+          "C:\\BatteredAggieSyndrome"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2203,7 +2191,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2213,9 +2201,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814"
+          "C:\\BatteredAggieSyndrome"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2225,9 +2213,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-jira-live-reconciliation-20260814"
+          "C:\\BatteredAggieSyndrome"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2348,6 +2336,10 @@
     {
       "finding": "Live Jira verification failed: POST-SUBTASK-202: status In Progress != To Do; POST-SUBTASK-203: status Done != To Do; POST-SUBTASK-204: status Done != To Do",
       "recorded_at": "2026-08-12T23:20:58.503190+00:00"
+    },
+    {
+      "finding": "Live reconciliation failed:\n\nTraceback (most recent call last):\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\reconcile_jira_export.py\", line 206, in main\n    rebuild_derivatives(write_manifest=False)\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\second_pass_hardening.py\", line 2070, in rebuild_derivatives\n    regenerate_import_derivatives(records)\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\second_pass_hardening.py\", line 1201, in regenerate_import_derivatives\n    jsonl_dump(JIRA_ROOT / \"import\" / \"JIRA_API_CREATE_PAYLOADS.jsonl\", create_payloads)\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\second_pass_hardening.py\", line 168, in jsonl_dump\n    with path.open(\"w\", encoding=\"utf-8\", newline=\"\\n\") as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\pathlib.py\", line 1044, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: [Errno 22] Invalid argument: 'C:\\\\BatteredAggieSyndrome\\\\jira\\\\import\\\\JIRA_API_CREATE_PAYLOADS.jsonl'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\reconcile_jira_export.py\", line 244, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\reconcile_jira_export.py\", line 214, in main\n    path.write_bytes(data)\n  File \"C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\pathlib.py\", line 1067, in write_bytes\n    with self.open(mode='wb') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\pathlib.py\", line 1044, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: [Errno 22] Invalid argument: 'C:\\\\BatteredAggieSyndrome\\\\jira\\\\records\\\\issues\\\\stories\\\\POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.json'\n",
+      "recorded_at": "2026-08-14T23:41:42.674225+00:00"
     }
   ],
   "permission_remediation": {
@@ -2384,13 +2376,13 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 9,
+      "changes": 0,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
       "rows": 515
     },
     "live": {
-      "changed_issues": 9,
+      "changed_issues": 0,
       "conflict_count": 0,
       "result": "PASS",
       "rows": 515,
@@ -2440,7 +2432,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-14T23:28:16.149923+00:00",
+  "updated_at": "2026-08-14T23:45:37.882001+00:00",
   "verification": {
     "actual_expected_link_count": 1191,
     "board": {
@@ -2504,6 +2496,6 @@
       "To Do": 420
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-14T23:27:42.185603+00:00"
+    "verified_at": "2026-08-14T23:45:09.247220+00:00"
   }
 }

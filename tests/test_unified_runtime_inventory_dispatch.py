@@ -761,6 +761,7 @@ def cpu_worker_semantic_evidence(root: Path):
                     "tasks": {
                         "quarantine_schema_classification": {
                             "jira_unit": "POST-SUBTASK-164",
+                            "candidate_destination": "QUARANTINE",
                             "allowed_models": ["gpt-5.6-luna", "gpt-5.6-terra"],
                             "allocation_by_model": {
                                 "gpt-5.6-luna": "LUNA_HARD_VOLUME",
@@ -769,16 +770,19 @@ def cpu_worker_semantic_evidence(root: Path):
                         },
                         "gamebook_schema_mapping": {
                             "jira_unit": "POST-SUBTASK-168",
+                            "candidate_destination": "REVIEW",
                             "allowed_models": ["gpt-5.6-terra"],
                             "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
                         },
                         "entity_review": {
                             "jira_unit": "POST-SUBTASK-163",
+                            "candidate_destination": "REVIEW",
                             "allowed_models": ["gpt-5.6-terra"],
                             "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
                         },
                         "assistive_model_evaluation": {
                             "jira_unit": "POST-SUBTASK-161",
+                            "candidate_destination": "CANDIDATE",
                             "allowed_models": ["gpt-5.6-luna"],
                             "allocation_by_model": {"gpt-5.6-luna": "CROSS_MODEL_QA"},
                         },
@@ -860,6 +864,81 @@ def cpu_worker_semantic_evidence(root: Path):
             },
         )
 
+    def test_cpu_manifest_producer_replenishes_by_dataset_after_terminal_tranche(self) -> None:
+        for dataset, suffix in (("alpha_dataset", "a"), ("beta_dataset", "b")):
+            (self.manifests / f"snap_{suffix}.json").write_text(
+                json.dumps(
+                    {
+                        "dataset": dataset,
+                        "snapshot_id": f"snap_{suffix}",
+                        "source_id": "SRC-TEST",
+                        "raw_sha256": suffix * 64,
+                        "retrieved_at": "2026-08-13T02:00:00Z",
+                    }
+                ),
+                encoding="utf-8",
+            )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=self.root / "provider-work/requests",
+            ),
+        )
+        demand = {
+            "providers": {
+                "remote_cpu_worker": {
+                    "unmet": True,
+                    "active_execution_packets": 0,
+                    "pending_review_results": 0,
+                }
+            }
+        }
+        first = refresher._materialize_continuous_cpu_work({}, demand)
+        self.assertEqual(1, len(first))
+        first_packet = json.loads(Path(first[0]["packet_path"]).read_text(encoding="utf-8"))
+        self.assertEqual("alpha_dataset", first_packet["source_defined_tranche"]["dataset"])
+        first_work_unit = "AUTO-CPU-LINE-HASH-" + first[0]["packet_sha256"][:20]
+
+        def terminal_first(work_unit_ids: set[str]) -> dict[str, str]:
+            return {item: "CLOSED" for item in work_unit_ids if item == first_work_unit}
+
+        with patch.object(self.state, "work_unit_states", side_effect=terminal_first):
+            second = refresher._materialize_continuous_cpu_work({}, demand)
+        self.assertEqual(1, len(second))
+        second_packet = json.loads(Path(second[0]["packet_path"]).read_text(encoding="utf-8"))
+        self.assertEqual("beta_dataset", second_packet["source_defined_tranche"]["dataset"])
+
+    def test_cursor_readiness_uses_released_budget_stage_from_live_policy(self) -> None:
+        packet = {
+            "provider": "cursor",
+            "task_format": CURSOR_TASK_FORMAT,
+            "model": "gpt-5.3-codex",
+            "reasoning": "medium",
+        }
+        evidence = {
+            "present": True,
+            "unique_jobs": 10,
+            "manifest_sha256": "a" * 64,
+            "settled_usd": "25.00",
+            "budget_hard_limit_usd": "200.00",
+            "budget_released_stage_usd": "60.00",
+        }
+        self.assertIsNotNone(
+            RuntimeInventoryRefresher._provider_readiness(
+                {"external_evidence": {"cursor": evidence}}, packet
+            )
+        )
+        evidence["budget_released_stage_usd"] = "20.00"
+        self.assertIsNone(
+            RuntimeInventoryRefresher._provider_readiness(
+                {"external_evidence": {"cursor": evidence}}, packet
+            )
+        )
+
     def test_live_manifests_replenish_bge_and_openai_gamebook_work(self) -> None:
         for index in range(3):
             (self.manifests / f"snap_live_{index}.json").write_text(
@@ -915,6 +994,7 @@ def cpu_worker_semantic_evidence(root: Path):
                     "tasks": {
                         "gamebook_schema_mapping": {
                             "jira_unit": "POST-SUBTASK-168",
+                            "candidate_destination": "REVIEW",
                             "allowed_models": ["gpt-5.6-terra"],
                             "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
                         }
@@ -995,11 +1075,13 @@ def cpu_worker_semantic_evidence(root: Path):
                     "tasks": {
                         "assistive_model_evaluation": {
                             "jira_unit": "POST-SUBTASK-161",
+                            "candidate_destination": "CANDIDATE",
                             "allowed_models": ["gpt-5.6-luna"],
                             "allocation_by_model": {"gpt-5.6-luna": "CROSS_MODEL_QA"},
                         },
                         "gamebook_schema_mapping": {
                             "jira_unit": "POST-SUBTASK-168",
+                            "candidate_destination": "REVIEW",
                             "allowed_models": ["gpt-5.6-terra"],
                             "allocation_by_model": {"gpt-5.6-terra": "TERRA_COMPLEX"},
                         },
@@ -1028,7 +1110,7 @@ def cpu_worker_semantic_evidence(root: Path):
         packet = json.loads(Path(packets[0]["packet_path"]).read_text(encoding="utf-8"))
         self.assertEqual("assistive_model_evaluation", packet["job"]["task_name"])
         self.assertEqual("gpt-5.6-luna", packet["job"]["model"])
-        self.assertEqual("REVIEW", packet["job"]["destination"])
+        self.assertEqual("CANDIDATE", packet["job"]["destination"])
         self.assertIn("PRELIMINARY_UNPROTECTED_FEATURE_RESULT", packet["job"]["source_excerpt"])
 
     def test_one_continuous_producer_failure_does_not_block_other_producers(self) -> None:

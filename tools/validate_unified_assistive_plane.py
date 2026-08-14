@@ -125,7 +125,7 @@ def main() -> int:
         findings.append("OPENROUTER_RELEASE_STAGE_DRIFT")
     if policy["budgets"]["cursor"]["hard_limit_usd"] != "200.00":
         findings.append("CURSOR_BUDGET_AUTHORITY_DRIFT")
-    if policy["budgets"]["cursor"].get("released_stage_usd") != "20.00":
+    if policy["budgets"]["cursor"].get("released_stage_usd") != "60.00":
         findings.append("CURSOR_RELEASE_STAGE_DRIFT")
     routes = json.loads((ROOT / "configs/assistive_route_readiness.json").read_text(encoding="utf-8"))
     rejected = [item for item in routes["routes"] if item["state"] == "NOT_READY"]

@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "policy_id": "BAS-FORT-KNOX-ASSISTIVE-EXECUTION-INTERLOCK",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "canonical_human_document": "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
   "precedence": "P0_ACTIVE_EXECUTION_INTERLOCK",
   "runtime_state": "NOT_OPERATIONAL",
@@ -88,6 +88,15 @@
     "require_controller_routed_pre_routing_decision": true,
     "require_downstream_consumer": true,
     "require_cleanup_contract": true
+  },
+  "scoped_user_reservation": {
+    "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
+    "required_scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
+    "required_duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
+    "require_instruction_text_and_sha256": true,
+    "require_accepted_risk": true,
+    "require_exact_changed_path_allowlist": true,
+    "does_not_promote_pipeline_state": true
   },
   "independent_proof": {
     "black_box_minimum_seconds": 7200,

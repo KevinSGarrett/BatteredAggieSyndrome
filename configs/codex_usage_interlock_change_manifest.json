@@ -1,19 +1,28 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "34af0e3816c93cf8ad85614f885d45be9d741c435ba1c9ab12c5c65bc0e47165",
-  "work_unit_id": "BAT-560-SERVICE-ACK-VISIBILITY-GRACE-V1",
-  "jira_identity": "BAT-560",
-  "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
+  "manifest_identity": "fda5e49558699ca1d43219b7f5ec07283a2e2c46cb6bcff2851ddbc933734d99",
+  "work_unit_id": "BAT-554-PARTIAL-DISCOVERY-VALIDATION-V1",
+  "jira_identity": "BAT-554",
+  "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "a403cf434b726acb1e7e43dfd82de60343d610d8",
-  "pre_routing_decision_sha256": "7cdcc7d5145aebc8eb2b6eff7f054569bc01e984b2945a80ed91b1eeda0a789f",
+  "base_commit": "41bda82fc509744109feb491c9bd128faba37be5",
+  "pre_routing_decision_sha256": "c97c649d5e20183554ec61b8ba979a1d8f466c8ef225617118e04a68c4d39256",
   "changed_paths": [
+    "artifacts/jira_evidence/POST-SUBTASK-197.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "instructions/FILE_HASHES.sha256",
+    "instructions/manifest.json",
+    "instructions/policies/assistive_execution_interlock.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "tests/test_unified_controller_service.py",
-    "tools/switch_unified_assistive_services.ps1"
+    "tests/test_codex_usage_interlock.py",
+    "tests/test_ncaa_official_discovery_validation.py",
+    "tests/test_repo_integrity_tools.py",
+    "tools/repo_integrity.py",
+    "tools/validate_codex_usage_interlock.py",
+    "tools/validate_ncaa_official_discovery.py",
+    "tools/validate_ncaa_official_gamebooks.py"
   ]
 }

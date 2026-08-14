@@ -600,9 +600,85 @@
     },
     "authority": "CANDIDATE_REFERENCE_ONLY_RECIPROCAL_EXACT_LEGACY_EVIDENCE_NO_CONTEST_ID_FABRICATION_NO_NAME_ONLY_PROMOTION_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "partial_discovery_validation_checkpoint": {
+    "recorded_at_utc": "2026-08-14T22:15:00Z",
+    "finding": "The discovery validators incorrectly required zero failed team pages and equated the captured population with the full visited population. That rejected honest graph-exhausted seasons whose failed source pages were explicitly preserved.",
+    "corrected_contract": {
+      "graph_exhaustion_requires_empty_remaining_queue": true,
+      "discovered_population_equals_capture_union_failure": true,
+      "capture_and_failure_identities_are_unique_and_disjoint": true,
+      "failed_team_source_identity_and_route_attempts_are_validated": true,
+      "failures_remain_quarantined_and_reduce_coverage": true,
+      "zero_failure_completeness_is_not_fabricated": true
+    },
+    "season_results": {
+      "2011": {
+        "discovery_identity": "fb3ad5a2aa08606a5a263e19267e7aa341a87eef7f86c2998f59c77b67f58fac",
+        "manifest_sha256": "94e90953a215a294997998859f07fa0fe1c802aad78790f79644f817d78883a3",
+        "state": "COMPLETE_GRAPH_EXHAUSTED",
+        "captured_team_pages": 307,
+        "quarantined_failed_team_pages": 316,
+        "discovered_team_seasons": 623,
+        "discovered_contests": 0,
+        "legacy_schedule_records": 3383,
+        "remaining_queue": 0,
+        "coverage_disposition": "GRAPH_EXHAUSTED_WITH_QUARANTINED_FAILURES",
+        "validation_identity": "33f91de35865163ad3a59e8072b5fbf861a0a6c2963c1a3ae33be6f7e5de6929",
+        "validation_report_sha256": "4040f8df0a822da8690a2307507ee80b7fbd232e40d14de3663355b1a8d932cb",
+        "validation_checks": 17006,
+        "validation_result": "PASS"
+      },
+      "2013": {
+        "discovery_identity": "9593ac9ce6de94d90a85c1c7d360c2d0919c3b284d5d7ec9ff85cc3f7a0cef04",
+        "manifest_sha256": "a0edb5ba41473c23ddac6460ecef6b5d51dfe56723e604a371c45ff646b15f13",
+        "state": "COMPLETE_GRAPH_EXHAUSTED",
+        "captured_team_pages": 244,
+        "quarantined_failed_team_pages": 350,
+        "discovered_team_seasons": 594,
+        "discovered_contests": 2189,
+        "legacy_schedule_records": 0,
+        "remaining_queue": 0,
+        "coverage_disposition": "GRAPH_EXHAUSTED_WITH_QUARANTINED_FAILURES",
+        "validation_identity": "fdb37951ce1b3bef2a4854097b9770472e14b885e383512c1d8e4d6f73d586bc",
+        "validation_report_sha256": "87669fe0f2ce6a184e5e77567d3a52799c7f4dcd21d4fe95c5393b4405c085f5",
+        "validation_checks": 6247,
+        "validation_result": "PASS"
+      }
+    },
+    "versioned_artifacts": {
+      "tools/validate_ncaa_official_discovery.py": "d7361c20f93bea0fac9ea635b8b2974bd485710b814884cdca7ca3e33de11acb",
+      "tools/validate_ncaa_official_gamebooks.py": "d67f8aa687cebc5b86343d1848ec9ee62d8b7381d5842db8761f1af33aca7a54",
+      "tests/test_ncaa_official_discovery_validation.py": "06d89ddf7f417f1d1b84b4ce3fe2f5734eb4ecd99c6eae63befbcfd681a44d15"
+    },
+    "validation": {
+      "targeted": "25_PASS_1_SKIP_17_SUBTESTS_PASS",
+      "control_and_domain_regression": "43_PASS_1_SKIP_17_SUBTESTS_PASS",
+      "full_pytest": "897_PASS_4_SKIP_120_SUBTESTS_PASS",
+      "warning_strict_unittest": "895_PASS_4_SKIP",
+      "ruff": "PASS"
+    },
+    "user_reservation_control": {
+      "policy_version": "3.2.0",
+      "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
+      "work_unit_id": "BAT-554-PARTIAL-DISCOVERY-VALIDATION-V1",
+      "decision_sha256": "c97c649d5e20183554ec61b8ba979a1d8f466c8ef225617118e04a68c4d39256",
+      "exact_changed_path_binding": true,
+      "assistive_pipeline_promoted": false,
+      "assistive_pipeline_work_resumed": false
+    },
+    "cleanup": {
+      "reconstructible_rebuild_roots": [
+        "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-554\\validation-rebuild-2011-partial-v2",
+        "C:\\BatteredAggieSyndrome.data\\runtime\\BAT-554\\validation-rebuild-2013-partial-v2"
+      ],
+      "state": "PENDING_SAFE_CLEANUP_RETRY",
+      "finding": "Both byte-identical rebuild roots are reconstructible. Exact-path PowerShell cleanup was denied by the host execution policy; no deletion bypass or false cleanup claim was made."
+    },
+    "authority": "CANDIDATE_ONLY_PARTIAL_COVERAGE_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
+  },
   "next_actions": [
-    "Complete the active 2011-2013 official team-season discovery runs, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
-    "Reconcile completed 2011-2013 discovery artifacts to canonical games and teams using reciprocal exact evidence without name-only promotion or invented contest IDs.",
+    "Complete the active 2012 official team-season discovery run without interruption, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
+    "Reconcile completed 2011-2013 discovery artifacts to canonical games and teams using reciprocal exact evidence without name-only promotion or invented contest IDs; keep 2012 dependent on its still-active acquisition.",
     "Continue 2022 official contest acquisition in resumable bounded tranches and independently gate every endpoint/domain failure.",
     "Expand autonomously to the maximum quality-supported national population with independent domain gates."
   ],

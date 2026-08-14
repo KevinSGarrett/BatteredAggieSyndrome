@@ -3,8 +3,8 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
-import os
 import re
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import Iterable
@@ -31,16 +31,54 @@ def sha256_file(path: Path) -> str:
 
 
 def load_policy(repo_root: Path) -> dict:
-    return json.loads((repo_root / "configs/repository_policy.json").read_text(encoding="utf-8"))
+    return json.loads(
+        (repo_root / "configs/repository_policy.json").read_text(encoding="utf-8")
+    )
+
+
+def _git_visible_files(repo_root: Path) -> list[Path] | None:
+    """Return tracked and non-ignored untracked files for a real Git worktree."""
+
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repo_root),
+            "ls-files",
+            "--cached",
+            "--others",
+            "--exclude-standard",
+            "-z",
+        ],
+        check=False,
+        capture_output=True,
+    )
+    if completed.returncode != 0:
+        return None
+    paths: list[Path] = []
+    for raw in completed.stdout.split(b"\0"):
+        if not raw:
+            continue
+        relative = raw.decode("utf-8", "surrogateescape")
+        path = repo_root / Path(*PurePosixPath(relative).parts)
+        if path.is_file():
+            paths.append(path)
+    return paths
 
 
 def iter_repo_files(repo_root: Path) -> list[Path]:
+    git_visible = _git_visible_files(repo_root)
+    if git_visible is not None:
+        return sorted(git_visible, key=lambda p: p.relative_to(repo_root).as_posix())
     return sorted(
         (
             p
             for p in repo_root.rglob("*")
             if p.is_file()
-            and not any(part in INTRINSIC_VCS_METADATA for part in p.relative_to(repo_root).parts)
+            and not any(
+                part in INTRINSIC_VCS_METADATA
+                for part in p.relative_to(repo_root).parts
+            )
         ),
         key=lambda p: p.relative_to(repo_root).as_posix(),
     )
@@ -69,20 +107,47 @@ def scan_forbidden(repo_root: Path, policy: dict | None = None) -> list[Finding]
     max_bytes = int(policy["max_repository_file_bytes"])
     findings: list[Finding] = []
 
-    for path in repo_root.rglob("*"):
-        if any(part in INTRINSIC_VCS_METADATA for part in path.relative_to(repo_root).parts):
+    git_visible = _git_visible_files(repo_root)
+    candidates = git_visible if git_visible is not None else repo_root.rglob("*")
+    reported_directories: set[str] = set()
+    for path in candidates:
+        if any(
+            part in INTRINSIC_VCS_METADATA for part in path.relative_to(repo_root).parts
+        ):
             continue
         rel = posix_rel(repo_root, path)
-        if any(part in forbidden_dirs for part in path.relative_to(repo_root).parts):
-            findings.append(Finding("forbidden_directory", rel, "forbidden directory component"))
+        forbidden_parts = [
+            part for part in path.relative_to(repo_root).parts if part in forbidden_dirs
+        ]
+        if forbidden_parts:
+            forbidden_rel = PurePosixPath(
+                *path.relative_to(repo_root).parts[
+                    : path.relative_to(repo_root).parts.index(forbidden_parts[0]) + 1
+                ]
+            ).as_posix()
+            if forbidden_rel not in reported_directories:
+                findings.append(
+                    Finding(
+                        "forbidden_directory",
+                        forbidden_rel,
+                        "forbidden directory component",
+                    )
+                )
+                reported_directories.add(forbidden_rel)
             continue
         if path.is_file():
             if path.name in forbidden_files:
-                findings.append(Finding("forbidden_file", rel, "forbidden exact filename"))
+                findings.append(
+                    Finding("forbidden_file", rel, "forbidden exact filename")
+                )
             if path.suffix.lower() in forbidden_exts:
-                findings.append(Finding("forbidden_extension", rel, path.suffix.lower()))
+                findings.append(
+                    Finding("forbidden_extension", rel, path.suffix.lower())
+                )
             if path.stat().st_size > max_bytes:
-                findings.append(Finding("oversized_file", rel, str(path.stat().st_size)))
+                findings.append(
+                    Finding("oversized_file", rel, str(path.stat().st_size))
+                )
     return findings
 
 
@@ -92,16 +157,44 @@ def scan_secrets(repo_root: Path) -> list[Finding]:
         ("aws_access_key", re.compile(r"AKIA[0-9A-Z]{16}")),
         ("github_token", re.compile(r"gh[pousr]_[A-Za-z0-9_]{20,}")),
         ("openai_style_key", re.compile(r"sk-[A-Za-z0-9_-]{20,}")),
-        ("private_key", re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")),
+        (
+            "private_key",
+            re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
+        ),
     ]
     generic_assignment = re.compile(
         r"(?i)(?:api[_-]?key|token|secret|password)\s*[:=]\s*[\"']?([A-Za-z0-9_./+=-]{16,})"
     )
-    text_exts = {".py", ".ps1", ".md", ".txt", ".toml", ".yaml", ".yml", ".json", ".ini", ".cfg", ".env", ".example", ".csv"}
-    placeholders = ("OPTIONAL_LOCAL_SECRET", "LOCAL_PATH_OUTSIDE_REPOSITORY", "CHANGEME", "PLACEHOLDER", "YOUR_")
+    text_exts = {
+        ".py",
+        ".ps1",
+        ".md",
+        ".txt",
+        ".toml",
+        ".yaml",
+        ".yml",
+        ".json",
+        ".ini",
+        ".cfg",
+        ".env",
+        ".example",
+        ".csv",
+    }
+    placeholders = (
+        "OPTIONAL_LOCAL_SECRET",
+        "LOCAL_PATH_OUTSIDE_REPOSITORY",
+        "CHANGEME",
+        "PLACEHOLDER",
+        "YOUR_",
+    )
 
     for path in iter_repo_files(repo_root):
-        if path.suffix.lower() not in text_exts and path.name not in {".env.example", ".gitignore", ".gitattributes", ".editorconfig"}:
+        if path.suffix.lower() not in text_exts and path.name not in {
+            ".env.example",
+            ".gitignore",
+            ".gitattributes",
+            ".editorconfig",
+        }:
             continue
         try:
             text = path.read_text(encoding="utf-8")
@@ -115,18 +208,30 @@ def scan_secrets(repo_root: Path) -> list[Finding]:
             for m in generic_assignment.finditer(text):
                 value = m.group(1)
                 if not any(x in value.upper() for x in placeholders):
-                    findings.append(Finding("generic_secret_assignment", rel, "credential-like assignment"))
+                    findings.append(
+                        Finding(
+                            "generic_secret_assignment",
+                            rel,
+                            "credential-like assignment",
+                        )
+                    )
     return findings
 
 
 def generate_current_tree(repo_root: Path) -> None:
     tree_path = repo_root / TREE_NAME
-    rels = [posix_rel(repo_root, p) for p in iter_repo_files(repo_root) if posix_rel(repo_root, p) != TREE_NAME]
+    rels = [
+        posix_rel(repo_root, p)
+        for p in iter_repo_files(repo_root)
+        if posix_rel(repo_root, p) != TREE_NAME
+    ]
     tree_path.parent.mkdir(parents=True, exist_ok=True)
     tree_path.write_text("\n".join(rels) + "\n", encoding="utf-8", newline="\n")
 
 
-def manifest_rows(repo_root: Path, policy: dict | None = None) -> list[dict[str, str | int]]:
+def manifest_rows(
+    repo_root: Path, policy: dict | None = None
+) -> list[dict[str, str | int]]:
     policy = policy or load_policy(repo_root)
     excluded = set(policy["manifest_exclude"])
     rows = []
@@ -134,7 +239,9 @@ def manifest_rows(repo_root: Path, policy: dict | None = None) -> list[dict[str,
         rel = posix_rel(repo_root, path)
         if rel in excluded:
             continue
-        rows.append({"path": rel, "bytes": path.stat().st_size, "sha256": sha256_file(path)})
+        rows.append(
+            {"path": rel, "bytes": path.stat().st_size, "sha256": sha256_file(path)}
+        )
     return rows
 
 
@@ -152,11 +259,16 @@ def write_manifest(repo_root: Path) -> tuple[list[dict[str, str | int]], str]:
     hash_path = repo_root / HASHES_NAME
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     with manifest_path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=["path", "bytes", "sha256"], lineterminator="\n")
+        writer = csv.DictWriter(
+            fh, fieldnames=["path", "bytes", "sha256"], lineterminator="\n"
+        )
         writer.writeheader()
         writer.writerows(rows)
     hash_path.write_text(
-        "".join(f'{row["sha256"]}  {row["path"]}\n' for row in sorted(rows, key=lambda r: str(r["path"]))),
+        "".join(
+            f'{row["sha256"]}  {row["path"]}\n'
+            for row in sorted(rows, key=lambda r: str(r["path"]))
+        ),
         encoding="utf-8",
         newline="\n",
     )
@@ -182,20 +294,34 @@ def validate_manifest(repo_root: Path) -> list[Finding]:
             continue
         actual_size = path.stat().st_size
         if actual_size != int(row["bytes"]):
-            findings.append(Finding("manifest_size", rel, f'{actual_size} != {row["bytes"]}'))
+            findings.append(
+                Finding("manifest_size", rel, f'{actual_size} != {row["bytes"]}')
+            )
         actual_hash = sha256_file(path)
         if actual_hash != row["sha256"]:
-            findings.append(Finding("manifest_hash", rel, f'{actual_hash} != {row["sha256"]}'))
+            findings.append(
+                Finding("manifest_hash", rel, f'{actual_hash} != {row["sha256"]}')
+            )
     policy = load_policy(repo_root)
-    expected = {posix_rel(repo_root, p) for p in iter_repo_files(repo_root)} - set(policy["manifest_exclude"])
+    expected = {posix_rel(repo_root, p) for p in iter_repo_files(repo_root)} - set(
+        policy["manifest_exclude"]
+    )
     missing_from_manifest = expected - seen
     extra = seen - expected
-    findings.extend(Finding("manifest_coverage", p, "file not represented") for p in sorted(missing_from_manifest))
-    findings.extend(Finding("manifest_extra", p, "manifest path not in expected set") for p in sorted(extra))
+    findings.extend(
+        Finding("manifest_coverage", p, "file not represented")
+        for p in sorted(missing_from_manifest)
+    )
+    findings.extend(
+        Finding("manifest_extra", p, "manifest path not in expected set")
+        for p in sorted(extra)
+    )
     return findings
 
 
-def validate_required_structure(repo_root: Path, policy: dict | None = None) -> list[Finding]:
+def validate_required_structure(
+    repo_root: Path, policy: dict | None = None
+) -> list[Finding]:
     policy = policy or load_policy(repo_root)
     findings: list[Finding] = []
     for rel in policy["required_root_files"]:
@@ -203,5 +329,7 @@ def validate_required_structure(repo_root: Path, policy: dict | None = None) -> 
             findings.append(Finding("required_file_missing", rel, "required root file"))
     for rel in policy["required_root_directories"]:
         if not (repo_root / rel).is_dir():
-            findings.append(Finding("required_directory_missing", rel, "required root directory"))
+            findings.append(
+                Finding("required_directory_missing", rel, "required root directory")
+            )
     return findings

@@ -74,6 +74,7 @@ class ReadOnlyWatchdog:
             eligible_units = 0
             unmet_without_packets: list[str] = []
             unmet_pending_review: list[str] = []
+            empirically_suspended: list[str] = []
             if not self.operational_audit_enabled:
                 pass
             elif not self.inventory_path.is_file():
@@ -131,6 +132,14 @@ class ReadOnlyWatchdog:
                             operational_findings.append(
                                 "CAMPAIGN_REVIEW_BACKLOG_REQUIRES_DISPOSITION:"
                                 + ",".join(sorted(unmet_pending_review))
+                            )
+                        empirically_suspended = [
+                            str(item) for item in demand.get("empirically_suspended", [])
+                        ]
+                        if empirically_suspended:
+                            operational_findings.append(
+                                "CAMPAIGN_USEFUL_WORK_GATE_FAILED:"
+                                + ",".join(sorted(empirically_suspended))
                             )
                     watermarks = snapshot.get("producer_watermarks")
                     if not isinstance(watermarks, dict):
@@ -379,6 +388,7 @@ class ReadOnlyWatchdog:
                 "eligible_units": eligible_units,
                 "unmet_campaigns_without_packets": unmet_without_packets,
                 "unmet_campaigns_pending_review": unmet_pending_review,
+                "empirically_suspended_campaigns": empirically_suspended,
                 "scheduler_evidence_age_seconds": scheduler_age,
                 "scheduler_dispatched_units": scheduler_dispatched,
                 "scheduler_provider_calls": scheduler_provider_calls,

@@ -742,6 +742,126 @@ class RuntimeInventoryRefresher:
         return identities.pop()
 
     @classmethod
+    def _execution_packet_revision_metadata(
+        cls,
+        reference: dict[str, Any],
+        release_commit: str,
+    ) -> dict[str, Any]:
+        """Bind an execution reference to the exact repository revision it was built for."""
+        if not isinstance(reference, dict):
+            raise ValueError("RUNTIME_INVENTORY_EXECUTION_REFERENCE_INVALID")
+        packet_path = Path(str(reference.get("packet_path", "")))
+        packet_sha256 = str(reference.get("packet_sha256", ""))
+        if not packet_path.is_file() or not cls._valid_sha256(packet_sha256):
+            raise RuntimeError("RUNTIME_INVENTORY_EXECUTION_PACKET_REFERENCE_INVALID")
+        raw = packet_path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != packet_sha256:
+            raise RuntimeError("RUNTIME_INVENTORY_EXECUTION_PACKET_HASH_MISMATCH")
+        packet = json.loads(raw)
+        if not isinstance(packet, dict):
+            raise ValueError("RUNTIME_INVENTORY_EXECUTION_PACKET_NOT_OBJECT")
+        packet_base = packet.get("base_commit")
+        preserved_source_commit = reference.get("source_commit")
+        if packet_base is not None:
+            if not cls._valid_commit(packet_base):
+                raise ValueError("RUNTIME_INVENTORY_EXECUTION_PACKET_BASE_COMMIT_INVALID")
+            source_commit = str(packet_base)
+            if preserved_source_commit is not None and preserved_source_commit != source_commit:
+                raise RuntimeError("RUNTIME_INVENTORY_EXECUTION_SOURCE_COMMIT_CONFLICT")
+        elif preserved_source_commit is not None:
+            if not cls._valid_commit(preserved_source_commit):
+                raise ValueError("RUNTIME_INVENTORY_EXECUTION_SOURCE_COMMIT_INVALID")
+            source_commit = str(preserved_source_commit)
+        else:
+            source_commit = release_commit
+        source_jira_unit = packet.get("source_jira_unit")
+        family_material: dict[str, Any] = {
+            "provider": packet.get("provider", "remote_cpu_worker"),
+            "task_format": packet.get("task_format"),
+            "jira_unit": source_jira_unit or packet.get("jira_unit"),
+        }
+        if source_jira_unit is None:
+            family_material["scope"] = packet.get("scope")
+        elif packet.get("task_format") == CURSOR_IMPLEMENTATION_TASK_FORMAT:
+            family_material["allowed_paths"] = packet.get("allowed_paths")
+            family_material["required_tests"] = packet.get("required_tests")
+        return {
+            **reference,
+            "source_commit": source_commit,
+            "revision_family_identity": sha256_value(family_material),
+        }
+
+    @classmethod
+    def _derive_revision_supersessions(
+        cls,
+        *,
+        execution_packets: dict[str, dict[str, Any]],
+        execution_states: dict[str, str],
+        release_commit: str,
+        prior: list[dict[str, Any]],
+        observed_at: str,
+    ) -> list[dict[str, Any]]:
+        """Preserve immutable old-base -> current-base replacement evidence."""
+        records = {
+            str(item.get("supersession_identity")): item
+            for item in prior
+            if isinstance(item, dict) and cls._valid_sha256(item.get("supersession_identity"))
+        }
+        by_family: dict[str, list[tuple[str, dict[str, Any]]]] = {}
+        for work_unit_id, reference in execution_packets.items():
+            family = str(reference.get("revision_family_identity", ""))
+            if cls._valid_sha256(family):
+                by_family.setdefault(family, []).append((work_unit_id, reference))
+        for family, entries in by_family.items():
+            current = [
+                item for item in entries
+                if item[1].get("source_commit") == release_commit
+            ]
+            prior_entries = [
+                item for item in entries
+                if item[1].get("source_commit") != release_commit
+                and execution_states.get(item[0]) in TERMINAL_STATES
+            ]
+            for old_id, old_reference in prior_entries:
+                for new_id, new_reference in current:
+                    if old_id == new_id:
+                        continue
+                    material = {
+                        "revision_family_identity": family,
+                        "superseded_work_unit_id": old_id,
+                        "superseding_work_unit_id": new_id,
+                        "superseded_packet_sha256": old_reference.get("packet_sha256"),
+                        "superseding_packet_sha256": new_reference.get("packet_sha256"),
+                        "superseded_source_commit": old_reference.get("source_commit"),
+                        "superseding_source_commit": release_commit,
+                        "reason": "SOURCE_COMMIT_TRANSITION_REQUIRES_FRESH_PROVIDER_DISPATCH",
+                    }
+                    identity = sha256_value(material)
+                    records.setdefault(
+                        identity,
+                        {
+                            **material,
+                            "supersession_identity": identity,
+                            "recorded_at": observed_at,
+                        },
+                    )
+        return [records[key] for key in sorted(records)]
+
+    @classmethod
+    def _cursor_review_matches_release(
+        cls,
+        packet: object,
+        release_commit: str,
+    ) -> bool:
+        return bool(
+            isinstance(packet, dict)
+            and packet.get("task_format") == CURSOR_TASK_FORMAT
+            and isinstance(packet.get("source_jira_unit"), str)
+            and packet.get("base_commit") == release_commit
+            and packet.get("starting_ref") == release_commit
+        )
+
+    @classmethod
     def _provider_readiness(cls, snapshot: dict[str, Any], packet: dict[str, Any]) -> str | None:
         provider = packet.get("provider")
         if provider == "remote_cpu_worker":
@@ -1330,16 +1450,20 @@ class RuntimeInventoryRefresher:
             summary = controller.get(provider, {})
             observed_units = int(summary.get("closed_runs", 0))
             observed_effort = int(summary.get("closed_effort_points", 0))
-            review_counts = summary.get("review_dispositions", {})
             useful = summary.get("useful_work", {})
             observed_accepted = int(useful.get("accepted_useful_outputs", 0))
-            pending_review = int(summary.get("pending_downstream_review", review_counts.get("REVIEW_ONLY", 0)))
+            release_summary = current_release.get(provider, {})
+            pending_review = int(
+                release_summary.get(
+                    "pending_downstream_review",
+                    release_summary.get("review_dispositions", {}).get("REVIEW_ONLY", 0),
+                )
+            )
             semantic = external.get(evidence_key, {})
             manual_or_external_units = int(
                 semantic.get("unique_jobs", semantic.get("requests", semantic.get("settled_calls", 0)))
             )
             controller_routed_units = int(summary.get("closed_runs", 0))
-            release_summary = current_release.get(provider, {})
             deficits = {
                 "units": max(0, required_units - observed_units),
                 "effort_points": max(0, required_effort - observed_effort),
@@ -1837,11 +1961,7 @@ class RuntimeInventoryRefresher:
             if review_packet_sha256 != resource.get("packet_sha256"):
                 continue
             review_packet = json.loads(review_packet_raw)
-            if (
-                not isinstance(review_packet, dict)
-                or review_packet.get("task_format") != CURSOR_TASK_FORMAT
-                or not isinstance(review_packet.get("source_jira_unit"), str)
-            ):
+            if not self._cursor_review_matches_release(review_packet, release_commit):
                 continue
             source_jira_unit = str(review_packet["source_jira_unit"])
             if source_jira_unit in seen_source_jira_units:
@@ -3010,6 +3130,12 @@ class RuntimeInventoryRefresher:
             execution_packets.setdefault(unit.work_unit_id, packet)
             work_unit_roles.setdefault(unit.work_unit_id, ATOMIC_EXECUTABLE)
 
+        release_commit = self._snapshot_release_commit(base)
+        execution_packets = {
+            work_unit_id: self._execution_packet_revision_metadata(reference, release_commit)
+            for work_unit_id, reference in execution_packets.items()
+        }
+
         status = self.state.work_unit_states(set(prior_units))
         for work_unit_id, current_state in status.items():
             if current_state == "CLOSED" and prior_decisions[work_unit_id]["disposition"] != RoutingDisposition.COMPLETED.value:
@@ -3033,7 +3159,13 @@ class RuntimeInventoryRefresher:
         work_units = static_units + [prior_units[key] for key in sorted(prior_units)]
         route_decisions = static_decisions + [prior_decisions[key] for key in sorted(prior_decisions)]
         unit_by_id = {str(item["work_unit_id"]): item for item in work_units}
-        release_commit = self._snapshot_release_commit(base)
+        revision_supersessions = self._derive_revision_supersessions(
+            execution_packets=execution_packets,
+            execution_states=status,
+            release_commit=release_commit,
+            prior=list(base.get("revision_supersessions", [])),
+            observed_at=rfc3339(moment),
+        )
         for decision in route_decisions:
             work_unit_id = str(decision.get("work_unit_id", ""))
             provider = decision.get("provider")
@@ -3063,6 +3195,7 @@ class RuntimeInventoryRefresher:
                     "task_format": unit.get("task_format"),
                     "schema_sha256": unit.get("schema_sha256"),
                     "packet_sha256": packet_identity,
+                    "source_commit": reference.get("source_commit"),
                 }
             )
             self.state.record_pre_routing_decision(
@@ -3070,7 +3203,7 @@ class RuntimeInventoryRefresher:
                     "work_unit_id": work_unit_id,
                     "jira_identity": unit.get("jira_unit"),
                     "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
-                    "source_commit": release_commit,
+                    "source_commit": str(reference["source_commit"]),
                     "task_category": unit.get("task_format"),
                     "effort_points": int(unit.get("pre_routing_effort_points", 1)),
                     "candidate_routes": [str(provider)],
@@ -3177,10 +3310,11 @@ class RuntimeInventoryRefresher:
                 "external_evidence": live_external_evidence,
                 "operational_demand": operational_demand,
                 "producer_watermarks": producer_watermarks,
+                "revision_supersessions": revision_supersessions,
             }
         )
         snapshot = {
-            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "work_unit_roles", "work_unit_role_validation", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings", "continuous_packets", "operational_demand", "producer_watermarks", "git", "deployed_release"}},
+            **{key: value for key, value in base.items() if key not in {"generated_at", "validation", "work_units", "work_unit_roles", "work_unit_role_validation", "route_decisions", "execution_packets", "runtime_material_identity", "provider_work_findings", "continuous_packets", "operational_demand", "producer_watermarks", "revision_supersessions", "git", "deployed_release"}},
             "schema_version": 2,
             "artifact_type": "UNIFIED_ASSISTIVE_RUNTIME_INVENTORY",
             "generated_at": rfc3339(moment),
@@ -3196,6 +3330,7 @@ class RuntimeInventoryRefresher:
             "continuous_packets": continuous_packets,
             "operational_demand": operational_demand,
             "producer_watermarks": producer_watermarks,
+            "revision_supersessions": revision_supersessions,
             "git": (
                 {
                     "deployed_head": deployed_release["build_commit"],

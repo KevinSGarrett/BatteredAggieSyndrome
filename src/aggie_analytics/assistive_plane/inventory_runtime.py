@@ -30,6 +30,7 @@ MAX_DISCOVERED_UNITS = 64
 MAX_PROVIDER_WORK_BYTES = 2 * 1024 * 1024
 MAX_PROVIDER_WORK_UNITS = 64
 MAX_PROVIDER_WORK_SCAN_UNITS = 4096
+MAX_PROVIDER_WORK_FILE_VISITS = 65536
 MAX_HISTORICAL_MANIFEST_SCAN_UNITS = 65536
 DISCOVERY_NAMES = frozenset({"run.json", "progress.json"})
 DYNAMIC_PREFIXES = (
@@ -288,6 +289,61 @@ def _bounded_top_level_json_scan(
     return files, capped
 
 
+def _bounded_distinct_json_scan(
+    root: Path,
+    *,
+    limit: int,
+    file_visit_limit: int,
+) -> tuple[list[Path], bool, int]:
+    """Bound traversal by visited files while duplicate bytes consume one slot."""
+    if limit <= 0 or file_visit_limit < limit:
+        raise ValueError("BOUNDED_DISTINCT_JSON_SCAN_LIMIT_INVALID")
+    resolved_root = root.resolve(strict=True)
+    directories = [resolved_root]
+    selected: list[Path] = []
+    seen_digests: set[str] = set()
+    visited_files = 0
+    visited_directories = 0
+    directory_limit = max(1024, file_visit_limit * 2)
+    capped = False
+    while directories and len(selected) < limit and visited_files < file_visit_limit:
+        current = directories.pop()
+        visited_directories += 1
+        if visited_directories > directory_limit:
+            capped = True
+            break
+        entries = sorted(os.scandir(current), key=lambda entry: entry.name, reverse=True)
+        for index, entry in enumerate(entries):
+            try:
+                candidate = current / entry.name
+                if entry.is_dir(follow_symlinks=False):
+                    directories.append(candidate)
+                    continue
+                if not entry.is_file(follow_symlinks=False) or not entry.name.endswith(".json"):
+                    continue
+                visited_files += 1
+                size = entry.stat(follow_symlinks=False).st_size
+                if 0 < size <= MAX_PROVIDER_WORK_BYTES:
+                    digest = hashlib.sha256(candidate.read_bytes()).hexdigest()
+                else:
+                    digest = "PATH:" + candidate.relative_to(resolved_root).as_posix()
+                if digest not in seen_digests:
+                    seen_digests.add(digest)
+                    selected.append(candidate)
+                if len(selected) >= limit or visited_files >= file_visit_limit:
+                    capped = bool(directories) or index < len(entries) - 1
+                    break
+            except OSError:
+                continue
+    if directories:
+        capped = True
+    return (
+        sorted(selected, key=lambda path: path.relative_to(resolved_root).as_posix()),
+        capped,
+        visited_files,
+    )
+
+
 @dataclass(frozen=True)
 class RuntimeInventoryConfig:
     current_path: Path
@@ -542,26 +598,42 @@ class RuntimeInventoryRefresher:
 
     def _discover(self, moment: datetime) -> list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]]:
         root = self.config.manifests_root.resolve(strict=True)
-        candidates = sorted(
-            (
-                path
-                for path in root.rglob("*.json")
-                if path.name in DISCOVERY_NAMES and 0 < path.stat().st_size <= MAX_DISCOVERED_MANIFEST_BYTES
-            ),
-            key=lambda path: path.relative_to(root).as_posix(),
+        candidates, scan_capped = _bounded_json_scan(
+            root,
+            limit=MAX_PROVIDER_WORK_SCAN_UNITS,
+            allowed_names=DISCOVERY_NAMES,
         )
-        if len(candidates) > MAX_DISCOVERED_UNITS:
-            raise RuntimeError("RUNTIME_INVENTORY_DISCOVERY_BOUND_EXCEEDED")
         discovered: list[tuple[ReadyWorkUnit, RouteDecision, dict[str, Any]]] = []
         now = rfc3339(moment)
+        if scan_capped:
+            finding = {
+                "finding": "RUNTIME_INVENTORY_SEMANTIC_DISCOVERY_SCAN_CAPACITY_DEFERRED",
+                "observed_at": now,
+                "disposition": "BOUNDED_SCAN_CONTINUES_WITH_PER_FILE_ISOLATION",
+            }
+            self.state.append_event("SEMANTIC_DISCOVERY_CAPACITY_DEFERRED", finding, now=moment)
         for source in candidates:
-            resolved = source.resolve(strict=True)
-            if root not in resolved.parents:
-                raise RuntimeError("RUNTIME_INVENTORY_SOURCE_OUTSIDE_ALLOWLIST")
-            raw = resolved.read_bytes()
-            source_sha256 = hashlib.sha256(raw).hexdigest()
-            value = json.loads(raw)
-            relative = resolved.relative_to(root).as_posix()
+            try:
+                resolved = source.resolve(strict=True)
+                if root not in resolved.parents:
+                    raise RuntimeError("RUNTIME_INVENTORY_SOURCE_OUTSIDE_ALLOWLIST")
+                if not 0 < resolved.stat().st_size <= MAX_DISCOVERED_MANIFEST_BYTES:
+                    raise ValueError("RUNTIME_INVENTORY_DISCOVERY_SOURCE_SIZE_INVALID")
+                raw = resolved.read_bytes()
+                source_sha256 = hashlib.sha256(raw).hexdigest()
+                value = json.loads(raw)
+                if not isinstance(value, dict):
+                    raise ValueError("RUNTIME_INVENTORY_DISCOVERY_SOURCE_NOT_OBJECT")
+                relative = resolved.relative_to(root).as_posix()
+            except (OSError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
+                finding = {
+                    "finding": type(exc).__name__ + ":" + str(exc)[:240],
+                    "observed_at": now,
+                    "source_relative_path": source.relative_to(root).as_posix(),
+                    "disposition": "SOURCE_ISOLATED_UNRELATED_DISCOVERY_CONTINUES",
+                }
+                self.state.append_event("SEMANTIC_DISCOVERY_SOURCE_ISOLATED", finding, now=moment)
+                continue
             packet = {
                 "schema_version": 1,
                 "artifact_type": "CPU_WORKER_CANONICAL_MANIFEST_PACKET",
@@ -599,7 +671,23 @@ class RuntimeInventoryRefresher:
             discovered.append(
                 (unit, decision, {"packet_path": str(packet_path), "packet_sha256": packet_sha256})
             )
-        return discovered
+        states = self.state.work_unit_states({unit.work_unit_id for unit, _, _ in discovered})
+        active = [
+            entry
+            for entry in discovered
+            if states.get(entry[0].work_unit_id) not in TERMINAL_STATES
+        ]
+        if len(active) > MAX_DISCOVERED_UNITS:
+            finding = {
+                "finding": "RUNTIME_INVENTORY_SEMANTIC_DISCOVERY_ACTIVE_CAPACITY_DEFERRED",
+                "observed_at": now,
+                "active_units": len(active),
+                "admitted_units": MAX_DISCOVERED_UNITS,
+                "disposition": "EXCESS_ACTIVE_UNITS_REMAIN_DISCOVERABLE",
+            }
+            self.state.append_event("SEMANTIC_DISCOVERY_CAPACITY_DEFERRED", finding, now=moment)
+            active = active[:MAX_DISCOVERED_UNITS]
+        return active
 
     @staticmethod
     def _valid_sha256(value: object) -> bool:
@@ -1018,15 +1106,18 @@ class RuntimeInventoryRefresher:
         if root_value is None or not root_value.exists():
             return []
         root = root_value.resolve(strict=True)
-        candidates, scan_capped = _bounded_json_scan(
+        candidates, scan_capped, visited_files = _bounded_distinct_json_scan(
             root,
             limit=MAX_PROVIDER_WORK_SCAN_UNITS,
+            file_visit_limit=MAX_PROVIDER_WORK_FILE_VISITS,
         )
         if scan_capped:
             finding = {
                 "finding": "RUNTIME_INVENTORY_PROVIDER_WORK_SCAN_CAPACITY_DEFERRED",
                 "observed_at": rfc3339(moment),
                 "disposition": "EXCESS_PACKETS_REMAIN_QUEUED_UNRELATED_PACKETS_CONTINUE",
+                "visited_files": visited_files,
+                "distinct_candidates": len(candidates),
             }
             self._provider_packet_findings.append(finding)
             self.state.append_event("PROVIDER_PACKET_CAPACITY_DEFERRED", finding, now=moment)
@@ -1144,7 +1235,8 @@ class RuntimeInventoryRefresher:
         policy = _verified_json(policy_path)
         minimums = policy.get("execution_minimums", {})
         external = snapshot.get("external_evidence", {})
-        controller = self.state.provider_run_summary(current_release_only=True)
+        controller = self.state.provider_run_summary(current_release_only=False)
+        current_release = self.state.provider_run_summary(current_release_only=True)
         provider_map = {
             "cursor": ("cursor", "cursor"),
             "openrouter": ("openrouter", "openrouter"),
@@ -1196,6 +1288,7 @@ class RuntimeInventoryRefresher:
                 semantic.get("unique_jobs", semantic.get("requests", semantic.get("settled_calls", 0)))
             )
             controller_routed_units = int(summary.get("closed_runs", 0))
+            release_summary = current_release.get(provider, {})
             deficits = {
                 "units": max(0, required_units - observed_units),
                 "effort_points": max(0, required_effort - observed_effort),
@@ -1211,6 +1304,10 @@ class RuntimeInventoryRefresher:
                 "observed_effort_points": observed_effort,
                 "observed_accepted_useful": observed_accepted,
                 "controller_routed_units": controller_routed_units,
+                "current_release_closed_units": int(release_summary.get("closed_runs", 0)),
+                "current_release_effort_points": int(
+                    release_summary.get("closed_effort_points", 0)
+                ),
                 "manual_or_external_units": manual_or_external_units,
                 "active_execution_packets": active_packets.get(provider, 0),
                 "pending_review_results": pending_review,
@@ -1435,6 +1532,34 @@ class RuntimeInventoryRefresher:
                     sort_keys=True,
                     separators=(",", ":"),
                 )
+                if task_id == "reconciliation_ranking":
+                    reconciliation = value.get("reconciliation")
+                    reason_counts = (
+                        reconciliation.get("unresolved_reason_counts")
+                        if isinstance(reconciliation, dict)
+                        else value.get("unresolved_reason_counts")
+                    )
+                    if not isinstance(reason_counts, dict) or not reason_counts:
+                        continue
+                    candidate_ids = sorted(
+                        str(candidate_id)
+                        for candidate_id in reason_counts
+                        if str(candidate_id)
+                    )
+                    if not candidate_ids:
+                        continue
+                    evidence_value = json.loads(evidence)
+                    evidence_value["reconciliation_candidate_binding_v1"] = {
+                        "candidate_ids": candidate_ids
+                    }
+                    evidence_value["instruction"] += (
+                        " candidate_ids must be selected only from the supplied binding."
+                    )
+                    evidence = json.dumps(
+                        evidence_value,
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    )
                 if len(evidence) > 12000:
                     continue
                 source_hashes = [source_sha256]

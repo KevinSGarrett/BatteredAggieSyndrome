@@ -170,6 +170,27 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         refreshed_pointer = json.loads(self.current.read_text(encoding="utf-8"))
         self.assertNotEqual(pointer["refreshed_at"], refreshed_pointer["refreshed_at"])
 
+    def test_semantic_discovery_isolates_one_malformed_source(self) -> None:
+        malformed = self.manifests / "quarantine/c/run.json"
+        malformed.parent.mkdir(parents=True)
+        malformed.write_text('{"season":', encoding="utf-8")
+
+        discovered = self.refresher._discover(self.now)
+
+        self.assertEqual(2, len(discovered))
+        with self.state.transaction() as connection:
+            isolated = connection.execute(
+                "SELECT COUNT(*) FROM controller_events WHERE event_type=?",
+                ("SEMANTIC_DISCOVERY_SOURCE_ISOLATED",),
+            ).fetchone()[0]
+        self.assertEqual(1, isolated)
+
+    def test_semantic_discovery_does_not_use_unbounded_rglob(self) -> None:
+        with patch.object(Path, "rglob", side_effect=AssertionError("unbounded traversal")):
+            discovered = self.refresher._discover(self.now)
+
+        self.assertEqual(2, len(discovered))
+
     def test_refresh_reloads_external_semantics_and_versions_material_transition(self) -> None:
         semantic_module = self.root / "semantic_materializer.py"
         semantic_module.write_text(
@@ -281,6 +302,58 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(20, demand["providers"]["openrouter"]["deficits"]["units"])
         self.assertEqual(12, demand["providers"]["openrouter"]["deficits"]["accepted_useful"])
 
+    def test_operational_campaign_demand_survives_release_rotation(self) -> None:
+        policy = self.root / "policy.json"
+        readiness = self.root / "readiness.json"
+        materializer = self.root / "materializer.py"
+        assistive = self.root / "external/assistive"
+        assistive.mkdir(parents=True)
+        policy.write_text(
+            json.dumps(
+                {
+                    "execution_minimums": {
+                        "cursor": {"units": 10, "effort_points": 40, "accepted_useful": 0}
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        readiness.write_text("{}", encoding="utf-8")
+        materializer.write_text("# test fixture\n", encoding="utf-8")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                semantic_materializer_path=materializer,
+                semantic_policy_path=policy,
+                semantic_readiness_path=readiness,
+                external_assistive_root=assistive,
+            ),
+        )
+
+        def provider_summary(*, current_release_only: bool = False) -> dict[str, object]:
+            return {
+                "cursor": {
+                    "closed_runs": 0 if current_release_only else 10,
+                    "closed_effort_points": 0 if current_release_only else 40,
+                    "review_dispositions": {},
+                    "useful_work": {"accepted_useful_outputs": 0},
+                    "pending_downstream_review": 0,
+                }
+            }
+
+        with patch.object(self.state, "provider_run_summary", side_effect=provider_summary):
+            demand = refresher._operational_demand({"external_evidence": {}}, [], {})
+
+        cursor = demand["providers"]["cursor"]
+        self.assertFalse(cursor["unmet"])
+        self.assertEqual(10, cursor["observed_units"])
+        self.assertEqual(0, cursor["current_release_closed_units"])
+        self.assertEqual([], demand["unmet_without_packets"])
+
     def test_watchdog_fails_when_campaign_debt_has_no_execution_packets(self) -> None:
         now = self.now
         self.state.acquire_leader("watchdog-test", "a" * 40, ttl_seconds=300, now=now)
@@ -357,7 +430,18 @@ def cpu_worker_semantic_evidence(root: Path):
         reconciliation = self.root / "reconciliation/historical_expansion/checkpoint.json"
         reconciliation.parent.mkdir(parents=True)
         reconciliation.write_text(
-            json.dumps({"artifact_type": "RECONCILIATION_CHECKPOINT", "unresolved": 2907}),
+            json.dumps(
+                {
+                    "artifact_type": "RECONCILIATION_CHECKPOINT",
+                    "unresolved": 2907,
+                    "reconciliation": {
+                        "unresolved_reason_counts": {
+                            "contest_mismatch": 5,
+                            "missing_team_id": 12,
+                        }
+                    },
+                }
+            ),
             encoding="utf-8",
         )
         feature = self.root / "reconciliation/feature_engineering/candidate.json"
@@ -459,6 +543,14 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual("POST-SUBTASK-199", jira_by_task["independent_review"])
         self.assertEqual("POST-SUBTASK-200", jira_by_task["schema_drift_review"])
         self.assertEqual("POST-SUBTASK-200", jira_by_task["reconciliation_ranking"])
+        reconciliation_packet = next(
+            packet for packet in packets if packet["task_id"] == "reconciliation_ranking"
+        )
+        reconciliation_evidence = json.loads(reconciliation_packet["evidence_excerpts"][0])
+        self.assertEqual(
+            ["contest_mismatch", "missing_team_id"],
+            reconciliation_evidence["reconciliation_candidate_binding_v1"]["candidate_ids"],
+        )
         discovered = refresher._discover_provider_work(snapshot, self.now)
         self.assertEqual(3, len(discovered))
         self.assertTrue(all(item[1].disposition.value == "OPENROUTER" for item in discovered))
@@ -1557,6 +1649,56 @@ def cpu_worker_semantic_evidence(root: Path):
         )
         self.assertEqual(1, len(discovered))
         self.assertTrue(discovered[0][0].work_unit_id.startswith("AUTO-CPU-LINE-HASH-"))
+
+    def test_duplicate_packet_flood_does_not_hide_a_later_distinct_packet(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        packet = {
+            "schema_version": 1,
+            "provider": "remote_cpu_worker",
+            "task": "LINE_HASH_MANIFEST",
+            "task_format": CPU_LINE_HASH_TASK_FORMAT,
+            "jira_unit": "BAT-563",
+            "schema_sha256": CPU_LINE_HASH_SCHEMA_SHA256,
+            "source_hashes": ["5" * 64],
+            "dependencies": [],
+            "pre_routing_effort_points": 3,
+            "scope": "One real bounded historical manifest tranche",
+            "payload": {"lines": ["season=2022", "status=complete"]},
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        duplicate_data = canonical_json_bytes(packet) + b"\n"
+        (provider_root / "z-duplicate.json").write_bytes(duplicate_data)
+        (provider_root / "y-duplicate.json").write_bytes(duplicate_data)
+        distinct_packet = {
+            **packet,
+            "source_hashes": ["6" * 64],
+            "payload": {"lines": ["season=2023", "status=complete"]},
+        }
+        (provider_root / "a-distinct.json").write_bytes(
+            canonical_json_bytes(distinct_packet) + b"\n"
+        )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+
+        with patch(
+            "aggie_analytics.assistive_plane.inventory_runtime.MAX_PROVIDER_WORK_SCAN_UNITS",
+            2,
+        ):
+            discovered = refresher._discover_provider_work(
+                json.loads(self.current.read_text(encoding="utf-8")), self.now
+            )
+
+        self.assertEqual(2, len(discovered))
+        self.assertEqual(2, len({item[0].identity for item in discovered}))
 
     def test_stale_cursor_packet_is_terminalized_and_replaced_for_current_release(self) -> None:
         provider_root = self.root / "provider_work/requests"

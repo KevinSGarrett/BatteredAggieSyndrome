@@ -1,21 +1,20 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "f7f5aff396d37d3ea85cc7d0e4fc021ae6539a16309df85b20673ae728c2bede",
-  "work_unit_id": "BAT-560-P0-RUNTIME-PROOF-REPAIR",
+  "manifest_identity": "c699e848f3438157ca10a45725d33d615eeb8e07520b3abe59b97d4e82dd9845",
+  "work_unit_id": "BAT-560-P0-USEFUL-WORK-PRODUCER-REPAIR",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "f8e1d552276fcc8b0ecb56e825e93ae3bad50756",
-  "pre_routing_decision_sha256": "567a00ee8288cd1f5e681274356dbeb894ddbedf9f082040ac2a977e2e7c5fc2",
-  "missing_capability": "DEPLOYED_RUNTIME_IDENTITY_CLASSIFICATION_OUTPUT_AND_USEFUL_WORK_CORRECTNESS",
+  "base_commit": "e94f9b10828837718185042c29e8b8fd1621eb34",
+  "pre_routing_decision_sha256": "83891f889c5c16b392c8db8fdea51463ffcc8aa4bf57ed9f03ad5c18660cd3f9",
+  "missing_capability": "USEFUL_WORK_DISCOVERY_PACKET_ISOLATION_ROUTE_BINDING_AND_RELEASE_STABLE_DEMAND",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
     "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
     "tests/test_unified_runtime_inventory_dispatch.py"
   ]
 }

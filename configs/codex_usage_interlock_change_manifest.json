@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "2546063a20e5c842cc2ea20f318d8a00fc12a8619002570c1ca73296a7a24fdd",
-  "work_unit_id": "BAT-560-SERVICE-ACK-RACE-V1",
+  "manifest_identity": "34af0e3816c93cf8ad85614f885d45be9d741c435ba1c9ab12c5c65bc0e47165",
+  "work_unit_id": "BAT-560-SERVICE-ACK-VISIBILITY-GRACE-V1",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "aeb54d062ef23af2f75589275702f84ef283601e",
-  "pre_routing_decision_sha256": "e1368a920c4927253dea79763a4d8f9f6fd54cc8245e7cc4dd36a43f27709cf6",
+  "base_commit": "a403cf434b726acb1e7e43dfd82de60343d610d8",
+  "pre_routing_decision_sha256": "7cdcc7d5145aebc8eb2b6eff7f054569bc01e984b2945a80ed91b1eeda0a789f",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",

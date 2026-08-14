@@ -9,6 +9,15 @@ from .environment import (
 from .backup import create_backup, restore_backup, verify_backup
 from .benchmark import run_benchmark, TargetProfile
 from .cleanup import UnsafeRecursiveDelete, safe_remove_tree, validate_recursive_delete_target
+from .drift_alerts import (
+    AlertLedger,
+    DRIFT_CLASSES,
+    DriftObservation,
+    DriftRule,
+    evaluate_drift,
+    validate_alert_snapshot,
+    validate_drift_evaluation,
+)
 
 __all__ = [
     "JsonlEventSink", "MetricRegistry", "sanitize_metadata",
@@ -17,4 +26,6 @@ __all__ = [
     "create_backup", "restore_backup", "verify_backup",
     "run_benchmark", "TargetProfile",
     "UnsafeRecursiveDelete", "safe_remove_tree", "validate_recursive_delete_target",
+    "AlertLedger", "DRIFT_CLASSES", "DriftObservation", "DriftRule",
+    "evaluate_drift", "validate_alert_snapshot", "validate_drift_evaluation",
 ]

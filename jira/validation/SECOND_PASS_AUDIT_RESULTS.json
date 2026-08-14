@@ -18,7 +18,7 @@
   "invalid_traceability_gate_count": 0,
   "issue_count": 515,
   "master_prompt_compliance_section_count": 68,
-  "ready_count": 1,
+  "ready_count": 0,
   "registry_coverage": {
     "acceptance_control_ids": {
       "mapped": 234,
@@ -52,7 +52,7 @@
     "CALIBRATION": 39,
     "CHRONOLOGICAL_REPLAY": 65,
     "END_TO_END": 242,
-    "EXISTING_AUTOMATED_TEST": 1187,
+    "EXISTING_AUTOMATED_TEST": 1189,
     "INTEGRATION": 44,
     "MANUAL": 7,
     "NEW_AUTOMATED_TEST_REQUIRED": 79,

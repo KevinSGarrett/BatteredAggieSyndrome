@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-P0-USEFUL-WORK-PRODUCER-REPAIR",
+  "work_unit_id": "BAT-560-P0-DOWNSTREAM-REVIEW-CONSUMER",
   "jira_identity": "BAT-560",
-  "decision_sha256": "83891f889c5c16b392c8db8fdea51463ffcc8aa4bf57ed9f03ad5c18660cd3f9",
+  "decision_sha256": "833a71cb8c4f3c3ae354ca587ccee7a20d8b97de05b5ad52059cc8aa6f0afd24",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
   "reason_code": "P0_AUTONOMOUS_WORK_PRODUCER_FAILED_WITH_DELEGABLE_WORK_PRESENT",
-  "source_commit": "e94f9b10828837718185042c29e8b8fd1621eb34",
+  "source_commit": "5b5a7716af620b1c2178f1a12b2309bf850fb111",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "restored_capabilities": [
-    "bounded_isolated_semantic_discovery",
-    "duplicate_flood_resistant_provider_packet_scan",
-    "deterministically_bound_reconciliation_candidates",
-    "release_stable_campaign_demand_accounting"
+    "exact_result_to_merged_artifact_adoption_binding",
+    "autonomous_registered_downstream_review_consumption",
+    "unregistered_candidate_fail_closed_deferral",
+    "zero_unmeasured_time_savings_credit"
   ],
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,

@@ -832,7 +832,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "machine-policy:assistive_execution_interlock",
-      "sha256": "daadfdc1dc8d91560958712180f8749c0a4f44c03adb2e321c205245d5e62cd8"
+      "sha256": "c87a3b9f21afd8d301e140a45b785bd120b1a406182659a5f571306721843f06"
     },
     {
       "path": "instructions/policies/blocker_taxonomy.json",

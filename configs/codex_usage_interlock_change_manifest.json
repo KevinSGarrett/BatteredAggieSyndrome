@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "803b7eefa8b8c2b9b8328e10aa85a7df30b4fd6dc9a4c7fabd47b9c0a993c493",
-  "work_unit_id": "BAT-560-P0-BGE-CONTINUOUS-CONSUMER",
+  "manifest_identity": "ca2df32d4f900286c7f345a02912b30e9414e5c025c00a8ec87e8883b5babb37",
+  "work_unit_id": "BAT-560-P0-DOWNSTREAM-REVIEW-CONSUMERS",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "3ee0b185d59112a84b0d73db17cccbc4499eb094",
-  "pre_routing_decision_sha256": "b465cc2cd4816052c38196865e2cdb008f6124752639ab36c0b275da3100ab00",
-  "missing_capability": "CONTINUOUS_BGE_WORK_PRODUCTION_AND_REAL_CANDIDATE_REVIEW_CONSUMPTION",
+  "base_commit": "c1a4a4e204df989f917d3338cead1b2abeb75143",
+  "pre_routing_decision_sha256": "31895bd2677547eec192acd09c6deec94970f7cd756df161b1d29a37a8fadad0",
+  "missing_capability": "CONTINUOUS_EXACT_CANDIDATE_REVIEW_QUEUE_ROUTING_FOR_VALIDATED_PROVIDER_RESULTS",
   "changed_paths": [
+    "configs/assistive_downstream_adoptions.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
-    "src/aggie_analytics/assistive_plane/service_runtime.py",
-    "tests/test_unified_runtime_inventory_dispatch.py"
+    "src/aggie_analytics/assistive_plane/controller_state.py",
+    "src/aggie_analytics/assistive_plane/review_runtime.py",
+    "tests/test_assistive_downstream_review.py"
   ]
 }

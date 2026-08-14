@@ -47,12 +47,30 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
             connection.execute(
                 "INSERT INTO dispatch_attempts(attempt_id,work_unit_id,provider,route_identity,state,started_at,completed_at) "
                 "VALUES(?,?,?,?,?,?,?)",
-                (self.attempt_id, self.work_unit_id, "cursor", "c" * 64, "CLOSED", stamp, stamp),
+                (
+                    self.attempt_id,
+                    self.work_unit_id,
+                    "cursor",
+                    "c" * 64,
+                    "CLOSED",
+                    stamp,
+                    stamp,
+                ),
             )
             connection.execute(
                 "INSERT INTO provider_runs(provider_run_id,attempt_id,provider,remote_identity,request_sha256,status,resource_json,started_at,completed_at) "
                 "VALUES(?,?,?,?,?,?,?,?,?)",
-                ("d" * 64, self.attempt_id, "cursor", "agent:run", "e" * 64, "SETTLED", "{}", stamp, stamp),
+                (
+                    "d" * 64,
+                    self.attempt_id,
+                    "cursor",
+                    "agent:run",
+                    "e" * 64,
+                    "SETTLED",
+                    "{}",
+                    stamp,
+                    stamp,
+                ),
             )
             connection.execute(
                 "INSERT INTO execution_artifacts(artifact_id,work_unit_id,attempt_id,artifact_type,path,sha256,bytes,recorded_at) "
@@ -71,13 +89,24 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
             connection.execute(
                 "INSERT INTO reviews(review_id,work_unit_id,attempt_id,reviewer,disposition,evidence_sha256,review_seconds,recorded_at) "
                 "VALUES(?,?,?,?,?,?,?,?)",
-                ("1" * 64, self.work_unit_id, self.attempt_id, "DURABLE_QUEUE", "REVIEW_ONLY", "2" * 64, 0.0, stamp),
+                (
+                    "1" * 64,
+                    self.work_unit_id,
+                    self.attempt_id,
+                    "DURABLE_QUEUE",
+                    "REVIEW_ONLY",
+                    "2" * 64,
+                    0.0,
+                    stamp,
+                ),
             )
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
 
-    def _registry(self, *, include: bool = True) -> Path:
+    def _registry(
+        self, *, include: bool = True, include_candidate_contract: bool = False
+    ) -> Path:
         entries = []
         if include:
             entries.append(
@@ -105,6 +134,19 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
                     "artifact_type": "ASSISTIVE_DOWNSTREAM_ADOPTION_REGISTRY",
                     "authority": "CODEX_FINAL_INTEGRATION_ONLY",
                     "default_disposition": "PENDING_NO_REGISTERED_CONSUMER",
+                    "candidate_contracts": (
+                        [
+                            {
+                                "provider": "cursor",
+                                "task_category": "governed_cursor_repository_review_v1",
+                                "contract_version": "candidate-review-routing-v1",
+                                "downstream_consumer": "CURSOR_CANDIDATE_CODE_REVIEW_QUEUE",
+                                "authority": "CANDIDATE_REVIEW_QUEUE_ONLY",
+                            }
+                        ]
+                        if include_candidate_contract
+                        else []
+                    ),
                     "entries": entries,
                 }
             ),
@@ -112,25 +154,78 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
         )
         return registry
 
-    def _consumer(self, *, include: bool = True) -> DownstreamReviewConsumer:
+    def _consumer(
+        self, *, include: bool = True, include_candidate_contract: bool = False
+    ) -> DownstreamReviewConsumer:
         release = self.root / "releases" / ("4" * 40)
         release.mkdir(parents=True, exist_ok=True)
         (release / "RELEASE_MANIFEST.json").write_text(
-            json.dumps(
-                {"build_commit": "4" * 40, "source_tree_sha256": "3" * 64}
-            ),
+            json.dumps({"build_commit": "4" * 40, "source_tree_sha256": "3" * 64}),
             encoding="utf-8",
         )
         return DownstreamReviewConsumer(
             self.state,
             DownstreamReviewConfig(
-                registry_path=self._registry(include=include),
+                registry_path=self._registry(
+                    include=include,
+                    include_candidate_contract=include_candidate_contract,
+                ),
                 evidence_root=self.evidence,
                 releases_root=self.root / "releases",
             ),
         )
 
-    def test_exact_registered_result_is_consumed_without_time_savings_credit(self) -> None:
+    def _prepare_valid_candidate_contract_result(self) -> None:
+        payload = {
+            "schema_version": 1,
+            "artifact_type": "GOVERNED_PROVIDER_CANDIDATE_RESULT",
+            "authority": "CANDIDATE_ONLY",
+            "provider": "cursor",
+            "work_unit_id": self.work_unit_id,
+            "attempt_id": self.attempt_id,
+            "disposition": "REVIEW_ONLY",
+            "validation_errors": [],
+            "result": {
+                "authority": "CANDIDATE_ONLY",
+                "canonical_writes": 0,
+                "protected_decisions": 0,
+                "findings": ["bounded discovery defect"],
+            },
+        }
+        self.result_path.write_text(
+            json.dumps(payload, sort_keys=True), encoding="utf-8"
+        )
+        self.result_sha256 = hashlib.sha256(self.result_path.read_bytes()).hexdigest()
+        with self.state.transaction() as connection:
+            connection.execute(
+                "UPDATE execution_artifacts SET sha256=?,bytes=? WHERE attempt_id=?",
+                (self.result_sha256, self.result_path.stat().st_size, self.attempt_id),
+            )
+        self.state.record_pre_routing_decision(
+            decision={
+                "work_unit_id": self.work_unit_id,
+                "jira_identity": "BAT-560",
+                "repository_identity": "repo:test",
+                "source_commit": "5" * 40,
+                "task_category": "governed_cursor_repository_review_v1",
+                "effort_points": 5,
+                "candidate_routes": ["cursor"],
+                "selected_route": "cursor",
+                "route_identity": "6" * 64,
+                "budget_admission": "ADMITTED",
+                "packet_identity": "7" * 64,
+                "lease_identity": "8" * 64,
+                "disposition": "ROUTED_TO_ASSISTIVE_PLANE",
+                "reason_code": "TEST_CANDIDATE_ROUTE",
+                "evidence_sha256": "9" * 64,
+                "discovered_at": "2026-08-14T00:00:00Z",
+            },
+            now=datetime(2026, 8, 14, tzinfo=timezone.utc),
+        )
+
+    def test_exact_registered_result_is_consumed_without_time_savings_credit(
+        self,
+    ) -> None:
         report = self._consumer().process(
             now=datetime(2026, 8, 14, 1, tzinfo=timezone.utc)
         )
@@ -156,16 +251,85 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
             "PENDING_NO_REGISTERED_DOWNSTREAM_CONSUMER",
             report["deferred_candidates"][0]["reason"],
         )
-        self.assertEqual(1, self.state.provider_run_summary()["cursor"]["pending_downstream_review"])
+        self.assertEqual(
+            1, self.state.provider_run_summary()["cursor"]["pending_downstream_review"]
+        )
+
+    def test_matching_candidate_contract_routes_result_without_useful_credit(
+        self,
+    ) -> None:
+        self._prepare_valid_candidate_contract_result()
+
+        report = self._consumer(include=False, include_candidate_contract=True).process(
+            now=datetime(2026, 8, 14, 1, tzinfo=timezone.utc)
+        )
+
+        self.assertEqual(1, report["processed"])
+        self.assertEqual(0, report["deferred"])
+        self.assertEqual([], report["failures"])
+        self.assertTrue(report["applied"][0]["candidate_review_queue_only"])
+        self.assertFalse(report["applied"][0]["accepted_useful_offload_credit"])
+        decision = json.loads(
+            Path(report["applied"][0]["decision_path"]).read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            "CANDIDATE_REVIEW_QUEUE_ONLY_NO_FACTUAL_CANONICAL_OR_PROTECTED_ACCEPTANCE",
+            decision["authority"],
+        )
+        self.assertEqual(0, decision["net_time_saved_seconds"])
+        self.assertEqual(
+            0, self.state.provider_run_summary()["cursor"]["pending_downstream_review"]
+        )
+        self.assertEqual(
+            0,
+            self.state.provider_run_summary()["cursor"]["useful_work"][
+                "accepted_useful_outputs"
+            ],
+        )
+
+    def test_invalid_candidate_contract_result_is_isolated_and_remains_pending(
+        self,
+    ) -> None:
+        self._prepare_valid_candidate_contract_result()
+        payload = json.loads(self.result_path.read_text(encoding="utf-8"))
+        payload["result"]["canonical_writes"] = 1
+        self.result_path.write_text(
+            json.dumps(payload, sort_keys=True), encoding="utf-8"
+        )
+        self.result_sha256 = hashlib.sha256(self.result_path.read_bytes()).hexdigest()
+        with self.state.transaction() as connection:
+            connection.execute(
+                "UPDATE execution_artifacts SET sha256=?,bytes=? WHERE attempt_id=?",
+                (self.result_sha256, self.result_path.stat().st_size, self.attempt_id),
+            )
+
+        report = self._consumer(include=False, include_candidate_contract=True).process(
+            now=datetime(2026, 8, 14, 1, tzinfo=timezone.utc)
+        )
+
+        self.assertEqual(0, report["processed"])
+        self.assertEqual(1, report["deferred"])
+        self.assertEqual(1, len(report["failures"]))
+        self.assertIn(
+            "DOWNSTREAM_CANDIDATE_RESULT_AUTHORITY_INVALID",
+            report["failures"][0]["finding"],
+        )
+        self.assertEqual(
+            1, self.state.provider_run_summary()["cursor"]["pending_downstream_review"]
+        )
 
     def test_tampered_result_fails_closed_without_disposition(self) -> None:
         consumer = self._consumer()
         self.result_path.write_text("tampered", encoding="utf-8")
 
-        with self.assertRaisesRegex(RuntimeError, "DOWNSTREAM_REVIEW_RESULT_HASH_MISMATCH"):
+        with self.assertRaisesRegex(
+            RuntimeError, "DOWNSTREAM_REVIEW_RESULT_HASH_MISMATCH"
+        ):
             consumer.process()
 
-        self.assertEqual(1, self.state.provider_run_summary()["cursor"]["pending_downstream_review"])
+        self.assertEqual(
+            1, self.state.provider_run_summary()["cursor"]["pending_downstream_review"]
+        )
 
     def test_consumed_release_identity_mismatch_fails_closed(self) -> None:
         consumer = self._consumer()
@@ -180,7 +344,9 @@ class AssistiveDownstreamReviewTests(unittest.TestCase):
         ):
             consumer.process()
 
-        self.assertEqual(1, self.state.provider_run_summary()["cursor"]["pending_downstream_review"])
+        self.assertEqual(
+            1, self.state.provider_run_summary()["cursor"]["pending_downstream_review"]
+        )
 
 
 if __name__ == "__main__":

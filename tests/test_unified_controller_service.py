@@ -418,7 +418,13 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertIn("Start-ScheduledTask", switcher)
         self.assertIn("task_registration_performed = $false", switcher)
         self.assertIn("rollback_available = [bool]$previousPointer", switcher)
-        self.assertIn("[System.IO.File]::Replace($rollback, $pointerPath, $null)", switcher)
+        self.assertIn("$failedPointerBackup = Join-Path", switcher)
+        self.assertIn(
+            "[System.IO.File]::Replace($rollback, $pointerPath, $failedPointerBackup)",
+            switcher,
+        )
+        self.assertNotIn("[System.IO.File]::Replace($rollback, $pointerPath, $null)", switcher)
+        self.assertIn("RELEASE_POINTER_ROLLBACK_VERIFICATION_FAILED", switcher)
         self.assertNotIn("Register-ScheduledTask", switcher)
         self.assertNotIn("Stop-ScheduledTask", switcher)
         self.assertNotIn("Start-Process", switcher)

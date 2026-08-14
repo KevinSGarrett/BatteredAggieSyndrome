@@ -17,7 +17,8 @@
     "Undispatched inventory revisions are preserved and may be superseded append-only; active or externally consequential identity changes fail closed without terminating the controller.",
     "Inventory derivation semantically validates exact local-model, CPU-worker, Cursor, usage, review, and dispatch-origin evidence instead of treating directory hashes as readiness.",
     "The persistent scheduler discovers granular BAS units and durably leases, dispatches, validates, reviews, settles, cleans, closes or requeues them without an active Codex turn.",
-    "The independent watchdog reports process health separately and fails operational completeness on stale inventory, idle admitted work, zero dispatch, reconciliation gaps, abandoned leases, or unsupported claims."
+    "The independent watchdog reports process health separately and fails operational completeness on stale inventory, idle admitted work, zero dispatch, reconciliation gaps, abandoned leases, or unsupported claims.",
+    "The fail-closed direct-Codex interlock rejects ordinary PROJECT_WORK until an independent two-hour no-Codex black-box test, 24-hour probation, and seven-day soak pass with zero unjustified bypass, positive downstream-consumed useful offload, positive measured savings, and exact-main deployment identity."
   ],
   "adr_ids": [],
   "ai_context_notes": [
@@ -33,6 +34,13 @@
     "configs/unified_assistive_ready_work.json",
     "configs/unified_assistive_operational_claims.json",
     "configs/unified_assistive_acceptance_ownership.json",
+    "configs/codex_usage_interlock_change_manifest.json",
+    "configs/unified_assistive_change_routing_binding.json",
+    "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
+    "instructions/policies/assistive_execution_interlock.json",
+    "tools/activate_codex_usage_interlock.py",
+    "tools/validate_codex_usage_interlock.py",
+    "tests/test_codex_usage_interlock.py",
     "src/aggie_analytics/assistive_plane",
     "tools/adopt_unified_enforcement_package.py",
     "tools/validate_unified_acceptance_ownership.py",
@@ -93,14 +101,15 @@
     "orchestration"
   ],
   "content_contract_version": "2.0",
-  "critical_path": false,
+  "critical_path": true,
   "definition_of_done": [
     "Every acceptance criterion has a PASS, FAIL, or BLOCKED evidence row and negative findings remain preserved.",
     "Every output is content-hashed with source/data/code/config/model/runtime identities and an explicit candidate/review/quarantine/rejected disposition.",
     "OpenAI remains optional, store:false, external-storage-only, candidate-only, and unable to alter canonical or protected truth directly.",
     "Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.",
     "Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.",
-    "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone."
+    "No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.",
+    "Independent immutable evidence passes the two-hour black-box, 24-hour probation, and seven-day soak gates with no manual packet replenishment, no unjustified direct execution, positive downstream-consumed useful offload, positive measured savings, and exact merged-main deployment identity."
   ],
   "dependencies": [
     "POST-SUBTASK-160",
@@ -138,6 +147,13 @@
     "configs/unified_assistive_ready_work.json",
     "configs/unified_assistive_operational_claims.json",
     "configs/unified_assistive_acceptance_ownership.json",
+    "configs/codex_usage_interlock_change_manifest.json",
+    "configs/unified_assistive_change_routing_binding.json",
+    "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
+    "instructions/policies/assistive_execution_interlock.json",
+    "tools/activate_codex_usage_interlock.py",
+    "tools/validate_codex_usage_interlock.py",
+    "tests/test_codex_usage_interlock.py",
     "src/aggie_analytics/assistive_plane",
     "tools/adopt_unified_enforcement_package.py",
     "tools/validate_unified_acceptance_ownership.py",
@@ -206,7 +222,7 @@
     "Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.",
     "Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.",
     "Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.",
-    "Blocking historical expansion or deterministic/local work when the optional provider is unavailable."
+    "Treating ordinary delegable PROJECT_WORK as authorized direct-Codex fallback merely because a provider, packet, inventory, adapter, or budget stage is unavailable; only bounded pipeline repair, authority-only, and fixed deterministic operations remain directly eligible while the interlock is closed."
   ],
   "owner_wave": "POST_W25",
   "parent_id": "POST-STORY-058",
@@ -281,7 +297,7 @@
   ],
   "risk_ids": [],
   "schema_version": 2,
-  "scope": "Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, and cleanup.",
+  "scope": "Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, fail-closed direct-Codex work interlock, immutable pre-routing and changed-path binding, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, independent no-Codex black-box proof, probation, soak, and cleanup.",
   "source_ids": [
     "UNIFIED-ASSISTIVE-EXECUTION-PLAN"
   ],
@@ -319,7 +335,7 @@ The mandatory OpenAI assistive-plane contract requires an executable, independen
 
 ## Scope
 
-Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, and cleanup.
+Preserve the merged provider-neutral foundation, then implement and deploy the persistent OS-supervised controller, SQLite WAL state machine, independent read-only watchdog, fail-closed direct-Codex work interlock, immutable pre-routing and changed-path binding, 204-row ownership/evidence evaluator, live inventory, budgets, retries, reconciliation, control CLI/API, backup, rollback, independent no-Codex black-box proof, probation, soak, and cleanup.
 
 ### Explicit In Scope
 
@@ -332,7 +348,7 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - Any direct model write to canonical data, PIT state, labels, protected evaluation, promotion, forecasts, BAS, Aggie Excess, or publication state.
 - Scattered OpenAI API calls, hosted-Evals dependence, prompt ingestion of secrets or whole data lakes, or bypass of the USD 100 ledger hard stop.
 - Changing protected requirements, judging rules, split seals, or scientific acceptance thresholds merely to obtain a passing result.
-- Blocking historical expansion or deterministic/local work when the optional provider is unavailable.
+- Treating ordinary delegable PROJECT_WORK as authorized direct-Codex fallback merely because a provider, packet, inventory, adapter, or budget stage is unavailable; only bounded pipeline repair, authority-only, and fixed deterministic operations remain directly eligible while the interlock is closed.
 
 ## Prerequisites
 
@@ -365,6 +381,13 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 - configs/unified_assistive_ready_work.json
 - configs/unified_assistive_operational_claims.json
 - configs/unified_assistive_acceptance_ownership.json
+- configs/codex_usage_interlock_change_manifest.json
+- configs/unified_assistive_change_routing_binding.json
+- instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md
+- instructions/policies/assistive_execution_interlock.json
+- tools/activate_codex_usage_interlock.py
+- tools/validate_codex_usage_interlock.py
+- tests/test_codex_usage_interlock.py
 - src/aggie_analytics/assistive_plane
 - tools/adopt_unified_enforcement_package.py
 - tools/validate_unified_acceptance_ownership.py
@@ -438,6 +461,7 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 9. Inventory derivation semantically validates exact local-model, CPU-worker, Cursor, usage, review, and dispatch-origin evidence instead of treating directory hashes as readiness.
 10. The persistent scheduler discovers granular BAS units and durably leases, dispatches, validates, reviews, settles, cleans, closes or requeues them without an active Codex turn.
 11. The independent watchdog reports process health separately and fails operational completeness on stale inventory, idle admitted work, zero dispatch, reconciliation gaps, abandoned leases, or unsupported claims.
+12. The fail-closed direct-Codex interlock rejects ordinary PROJECT_WORK until an independent two-hour no-Codex black-box test, 24-hour probation, and seven-day soak pass with zero unjustified bypass, positive downstream-consumed useful offload, positive measured savings, and exact-main deployment identity.
 
 ## Definition of Done
 
@@ -447,6 +471,7 @@ Preserve the merged provider-neutral foundation, then implement and deploy the p
 4. Budget reservations, actual tokens/cost, remaining allocation, cleanup, and unresolved review items are reported without exposing credentials.
 5. Repository, provenance, Jira second-pass, secret, PIT/leakage/identity where applicable, and relevant automated tests pass.
 6. No historical-completeness, production-readiness, protected-performance, A&M-lift, BAS, Aggie Excess, or scientific-result claim is made from this work alone.
+7. Independent immutable evidence passes the two-hour black-box, 24-hour probation, and seven-day soak gates with no manual packet replenishment, no unjustified direct execution, positive downstream-consumed useful offload, positive measured savings, and exact merged-main deployment identity.
 
 ## Required Tests / Validation
 

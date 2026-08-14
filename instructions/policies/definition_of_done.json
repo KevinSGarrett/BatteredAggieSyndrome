@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "policy_id": "BAS-DEFINITION-OF-DONE",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "canonical_human_document": "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md",
   "core_checks": [
     {
@@ -78,6 +78,11 @@
       "id": "DOD-015",
       "requirement": "Rollback/recovery implications are understood for behavior, schema, data, model, or operations changes.",
       "mandatory": true
+    },
+    {
+      "id": "DOD-016",
+      "requirement": "Every material unit has immutable pre-routing evidence; while the assistive plane is not independently proven operational, direct Codex PROJECT_WORK is absent and only bounded pipeline-bootstrap or retained-authority work occurred.",
+      "mandatory": true
     }
   ],
   "conditional_checks": {
@@ -98,6 +103,9 @@
     ],
     "operations_or_release": [
       "Observability, backup/restore, freshness, resource benchmark, rollback, and release checklist are satisfied."
+    ],
+    "assistive_execution": [
+      "The independent two-hour black-box, 24-hour probation, and seven-day sustained-operation evidence pass; useful downstream-consumed offload and measured net savings are positive; no unjustified Codex fallback or manual packet replenishment occurred."
     ]
   },
   "done_never_means": [

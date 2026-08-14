@@ -4,6 +4,23 @@ Testing must be proportional during implementation and comprehensive at the corr
 
 Machine companions: `policies/test_tiers.json` and `policies/definition_of_done.json`.
 
+## P0 assistive-execution conditional Definition of Done
+
+While `instructions/policies/assistive_execution_interlock.json` reports
+`NOT_OPERATIONAL`, ordinary delegable project work is not Done and may not be
+integrated through direct Codex execution. Every material change must have an
+immutable pre-routing decision and complete changed-path binding. The unified
+assistive plane is not Done until the independent two-hour no-Codex black-box
+test, 24-hour probation, and seven-day sustained-operation gates pass with
+zero unjustified direct execution, zero manual packet replenishment, exact-main
+deployment identity, positive downstream-consumed useful offload, positive
+measured net time saved, and an independent auditor result of `PASS`.
+
+Structural validators, provider calls, manual campaigns, elapsed time, merged
+component PRs, or controller self-report cannot satisfy this conditional gate.
+The full contract is in
+`instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md`.
+
 ## Progressive testing tiers
 
 ### Tier 1 — edit feedback

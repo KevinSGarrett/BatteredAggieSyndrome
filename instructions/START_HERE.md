@@ -1,6 +1,6 @@
 # START HERE — Battered Aggie Syndrome Autonomous Codex Control System
 
-**Instruction-pack version:** `2.0.0`  
+**Instruction-pack version:** `3.0.0`
 **Canonical repository:** `C:\BatteredAggieSyndrome`  
 **Approved worktree root:** `C:\BatteredAggieSyndrome.data\worktrees`
 **GitHub repository:** `KevinSGarrett/BatteredAggieSyndrome`  
@@ -8,6 +8,16 @@
 **Program state:** the exactly-25-wave planning and starter-build program is complete. W25 is terminal. **There is no Wave 26.**
 
 This is the single operational entrypoint for an autonomous Codex implementation session. It does not replace the repository’s requirements, ADRs, acceptance controls, schemas, protected evaluation rules, or final W25 handoff. It defines how an agent must navigate, select, implement, test, integrate, record, and continue work without drifting or destroying state.
+
+## P0 read-first interlock
+
+Read [25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md](25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md)
+immediately after `AGENTS.md` and before selecting or performing material work.
+While its runtime state is `NOT_OPERATIONAL`, ordinary delegable BAS work is
+closed to direct Codex execution. Only narrowly identified pipeline-bootstrap
+repair and retained authority-only actions may proceed, each with immutable
+pre-routing evidence. This is a machine-enforced campaign gate, not a narrative
+preference.
 
 The required operating cycle is:
 
@@ -83,10 +93,11 @@ Fetching does not authorize reset, merge, rebase, deletion, push, publication, o
 Read only:
 
 1. `AGENTS.md`;
-2. this file;
-3. `governance/CURRENT_STATE.yaml`;
-4. the active Jira issue, branch/worktree, PR, task packet, and handoff, if any;
-5. the current blocker record, if the active unit is blocked.
+2. [25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md](25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md);
+3. this file;
+4. `governance/CURRENT_STATE.yaml`;
+5. the active Jira issue, branch/worktree, PR, task packet, and handoff, if any;
+6. the current blocker record, if the active unit is blocked.
 
 On first hydration, after material context loss, or when project state is disputed, also read:
 
@@ -217,6 +228,7 @@ A task blocker does not automatically block the project. Record it and select in
 | Packaging/integrity/installation | [21_PACKAGING_INTEGRITY_AND_INSTALLATION.md](21_PACKAGING_INTEGRITY_AND_INSTALLATION.md) | export or hydrate pack |
 | Prompt compliance ledger | [22_MASTER_PROMPT_COMPLIANCE_LEDGER.md](22_MASTER_PROMPT_COMPLIANCE_LEDGER.md) | audit/review only |
 | First activation and next-session launch | [23_ACTIVATION_AND_NEXT_SESSION.md](23_ACTIVATION_AND_NEXT_SESSION.md) | first use on Windows/live systems |
+| Fail-closed assistive execution and no-Codex proof | [25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md](25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md) | always, before every material work unit |
 
 The machine-readable read tiers are in `policies/read_budget.json`; the file-by-file authority and trigger map is in `manifest.json`.
 

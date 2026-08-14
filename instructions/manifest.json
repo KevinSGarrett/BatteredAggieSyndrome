@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "instruction_pack_version": "2.0.0",
-  "artifact_version": "2.0.0",
-  "release_date": "2026-08-08",
+  "instruction_pack_version": "3.0.0",
+  "artifact_version": "3.0.0",
+  "release_date": "2026-08-13",
   "project": "Battered Aggie Syndrome / Aggie Analytics Engine",
   "canonical_repository_windows": "C:\\BatteredAggieSyndrome",
   "entrypoint": "instructions/START_HERE.md",
@@ -234,9 +234,9 @@
         "instructions/policies/test_tiers.json",
         "instructions/policies/definition_of_done.json"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "canonical_topic": "human-policy:12_ci_testing_evidence_and_definition_of_done",
-      "sha256": "718ed32708ef70a1bcab595b53ac8a2da12dc9ec887a2029ac3c825df3779f00"
+      "sha256": "cef4c8fff48ab7c41c39a52b1bd5c36d609d656ed43b531de990b76fe3bd6925"
     },
     {
       "path": "instructions/13_SECURITY_SECRETS_DATA_RIGHTS_AND_DEPENDENCIES.md",
@@ -381,9 +381,9 @@
       "dependencies": [
         "instructions/policies/instruction_change_policy.json"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "canonical_topic": "human-policy:20_instruction_maintenance_and_change_control",
-      "sha256": "909dc84432aaecca7e8ddd1cf48c98eddcb78fa890da5b7e3c5e40dce2a23ce1"
+      "sha256": "6549f7bc3e955608365f4c95b966ad1742abc46ff25a34bb19b27415593cc31c"
     },
     {
       "path": "instructions/21_PACKAGING_INTEGRITY_AND_INSTALLATION.md",
@@ -460,6 +460,26 @@
       "sha256": "b4ba61ad7bc68a6a9efe49160508000f3c03fc5fb2b22a15ce845ae427ce2884"
     },
     {
+      "path": "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
+      "purpose": "P0 fail-closed direct-Codex work interlock and independent no-Codex operational proof contract.",
+      "authority": "P0_ACTIVE_EXECUTION_INTERLOCK",
+      "read_tier": "ALWAYS",
+      "when_to_read": "Immediately after AGENTS.md and before selecting or performing any material work while the assistive plane is not operational.",
+      "agent_roles": [
+        "all autonomous agents",
+        "implementation agent",
+        "integration agent",
+        "audit agent"
+      ],
+      "dependencies": [
+        "instructions/policies/assistive_execution_interlock.json",
+        "tools/validate_codex_usage_interlock.py"
+      ],
+      "version": "3.0.0",
+      "canonical_topic": "human-policy:25_fort_knox_assistive_execution_interlock",
+      "sha256": "fd7d16599410641bfde3ede2170ffd7e8a98f81561fc7e4ca58735d3e81628a0"
+    },
+    {
       "path": "instructions/CHANGELOG.md",
       "purpose": "Instruction-system version history and material policy/control changes.",
       "authority": "CANONICAL_HUMAN_POLICY",
@@ -473,9 +493,9 @@
       "dependencies": [
         "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "canonical_topic": "human-policy:changelog",
-      "sha256": "4c672ce24e1989cf26431cc647c9f43c33d4ee53bd30b9b33083536f8538b73d"
+      "sha256": "b0ddb3cf85cb7a52f878d4f8d8d798041e891fa2ae1d1bed76e6677fcd102545"
     },
     {
       "path": "instructions/FILE_HASHES.sha256",
@@ -488,7 +508,7 @@
         "validation tool"
       ],
       "dependencies": [],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "canonical_topic": "instruction-hash-ledger",
       "sha256": null
     },
@@ -505,9 +525,9 @@
         "AGENTS.md",
         "governance/CURRENT_STATE.yaml"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "canonical_topic": "autonomous-entrypoint",
-      "sha256": "4bf7e9e4fbf364136f5b36a61a95ab2a213c807a46a0dc6b746eca0ea4c5d57b"
+      "sha256": "2bc68c6b4dc6216888de093cdb47df21c5f8e14dd3c8da7f5e2a76c18af86c08"
     },
     {
       "path": "instructions/audit/EXTERNAL_INTEGRATION_AUDIT.md",
@@ -797,6 +817,24 @@
       "sha256": "0a675f145a2a03febd4c796230b7adf064246b7749ed8843744d16c7df3f1c75"
     },
     {
+      "path": "instructions/policies/assistive_execution_interlock.json",
+      "purpose": "Machine-readable fail-closed work classification, path admission, independent proof, and epistemic-boundary contract.",
+      "authority": "P0_CANONICAL_MACHINE_POLICY",
+      "read_tier": "ALWAYS",
+      "when_to_read": "Loaded before material work classification, commit admission, CI, deployment, runtime completeness, and handoff.",
+      "agent_roles": [
+        "all autonomous agents",
+        "validation tool",
+        "independent audit agent"
+      ],
+      "dependencies": [
+        "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md"
+      ],
+      "version": "3.0.0",
+      "canonical_topic": "machine-policy:assistive_execution_interlock",
+      "sha256": "daadfdc1dc8d91560958712180f8749c0a4f44c03adb2e321c205245d5e62cd8"
+    },
+    {
       "path": "instructions/policies/blocker_taxonomy.json",
       "purpose": "Machine-readable deterministic companion for 17_BLOCKERS_LOOPS_OVERENGINEERING_AND_RECOVERY.md.",
       "authority": "CANONICAL_MACHINE_POLICY",
@@ -826,9 +864,9 @@
       "dependencies": [
         "instructions/12_CI_TESTING_EVIDENCE_AND_DEFINITION_OF_DONE.md"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "canonical_topic": "machine-policy:definition_of_done",
-      "sha256": "471dce2c6c23976a871d9cb86e3e396d70a11bd5b69e3ffca280b8800c13cde5"
+      "sha256": "5120788b725e6d0823b8b95e9b3449f1ef0c3c8d2e5f2a227484323b3768c0c8"
     },
     {
       "path": "instructions/policies/git_policy.json",
@@ -894,9 +932,9 @@
       "dependencies": [
         "instructions/20_INSTRUCTION_MAINTENANCE_AND_CHANGE_CONTROL.md"
       ],
-      "version": "2.0.0",
+      "version": "3.0.0",
       "canonical_topic": "machine-policy:instruction_manifest.schema",
-      "sha256": "d662c8ccaccf1a5938d6de0f02c309a116c7aa5015b29967c78b73c25c61fea6"
+      "sha256": "609edc842a31644394b3abaa54a499261330a2633c7188ebb0d5ce2e1952f57b"
     },
     {
       "path": "instructions/policies/jira_operating_policy.json",
@@ -1671,6 +1709,8 @@
     "compliance_and_validation": [
       "instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md",
       "instructions/24_FINAL_VALIDATION_REPORT.md",
+      "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
+      "instructions/policies/assistive_execution_interlock.json",
       "instructions/catalogs/master_prompt_atomic_requirements.json"
     ],
     "templates_runbooks_machine_policies": [

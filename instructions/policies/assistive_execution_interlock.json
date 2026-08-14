@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-FORT-KNOX-ASSISTIVE-EXECUTION-INTERLOCK",
+  "version": "3.0.0",
+  "canonical_human_document": "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
+  "precedence": "P0_ACTIVE_EXECUTION_INTERLOCK",
+  "runtime_state": "NOT_OPERATIONAL",
+  "codex_project_work_allowed": false,
+  "allowed_direct_classes": [
+    "PIPELINE_BOOTSTRAP_REPAIR",
+    "CODEX_AUTHORITY_ONLY",
+    "DETERMINISTIC_LOCAL_TOOL_REQUIRED"
+  ],
+  "forbidden_disposition": "UNJUSTIFIED_DIRECT_EXECUTION",
+  "ordinary_project_work_class": "PROJECT_WORK",
+  "empty_queue_authorizes_fallback": false,
+  "provider_failure_authorizes_fallback": false,
+  "self_promotion_allowed": false,
+  "unlock_requires": [
+    "INDEPENDENT_TWO_HOUR_BLACK_BOX_PASS",
+    "TWENTY_FOUR_HOUR_PROBATION_PASS",
+    "SEVEN_DAY_SUSTAINED_OPERATION_PASS",
+    "ZERO_UNJUSTIFIED_DIRECT_EXECUTION",
+    "ZERO_MANUAL_PACKET_REPLENISHMENT_DURING_PROOF",
+    "POSITIVE_DOWNSTREAM_CONSUMED_USEFUL_OFFLOAD",
+    "POSITIVE_MEASURED_NET_TIME_SAVED",
+    "EXACT_MAIN_DEPLOYMENT_IDENTITY_MATCH",
+    "INDEPENDENT_AUDITOR_PASS"
+  ],
+  "bootstrap_allowed_paths": [
+    ".codex/",
+    ".githooks/",
+    ".github/",
+    "AGENTS.md",
+    "configs/assistive_",
+    "configs/codex_usage_interlock_change_manifest.json",
+    "configs/openai_",
+    "configs/openrouter_",
+    "configs/unified_assistive_",
+    "governance/CURRENT_STATE.yaml",
+    "instructions/",
+    "jira/",
+    "provenance/CURRENT_TREE.txt",
+    "provenance/PROJECT_FILE_HASHES.sha256",
+    "provenance/PROJECT_FILE_MANIFEST.csv",
+    "schemas/assistive/",
+    "schemas/openai/",
+    "src/aggie_analytics/assistive_plane/",
+    "src/aggie_analytics/openai_assist/",
+    "tests/test_codex_usage_interlock.py",
+    "tests/test_instructions_pack.py",
+    "tests/test_unified_",
+    "tools/activate_codex_usage_interlock.py",
+    "tools/validate_autonomous_controls.py",
+    "tools/validate_codex_usage_interlock.py",
+    "tools/validate_unified_"
+  ],
+  "independent_proof": {
+    "black_box_minimum_seconds": 7200,
+    "probation_minimum_seconds": 86400,
+    "soak_minimum_consecutive_days": 7,
+    "manual_codex_intervention_allowed": false,
+    "manual_packet_replenishment_allowed": false,
+    "unjustified_direct_execution_allowed": false
+  },
+  "epistemic_boundary": {
+    "can_prove": "PROJECT_PIPELINE_AUTONOMOUS_BEHAVIOR_AND_CODEX_BYPASS_EVENTS",
+    "cannot_prove": "PRIVATE_COMPANY_INTENT_HIDDEN_BILLING_INCENTIVES_OR_INTERNAL_PRODUCT_POLICY",
+    "billing_motive_claim_allowed": false
+  }
+}

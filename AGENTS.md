@@ -1,3 +1,19 @@
+## P0 fail-closed assistive-execution interlock
+
+Before any material work, read `instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md`.
+Until its independent black-box, probation, and sustained-operation evidence all
+pass, Codex may perform only `PIPELINE_BOOTSTRAP_REPAIR`, final-authority,
+credential/security, Git integration, or irreducibly deterministic local work.
+Ordinary delegable BAS project work is fail-closed. An empty queue, malformed
+packet, provider failure, or direct-execution convenience is never permission
+for Codex fallback. Every material change must carry an immutable routing
+decision and pass `tools/validate_codex_usage_interlock.py`; an
+`UNJUSTIFIED_DIRECT_EXECUTION` finding is a hard failure.
+
+This interlock can prove whether this repository's pipeline operates without a
+Codex turn. It cannot infer private product intent or billing motive from local
+evidence, and no result may claim otherwise.
+
 # AGENTS.md — Final Operating Contract
 
 Project: **Aggie Analytics Engine**  

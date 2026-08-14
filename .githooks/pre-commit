@@ -1,0 +1,2 @@
+#!/bin/sh
+exec python -B tools/validate_codex_usage_interlock.py --mode pre-commit

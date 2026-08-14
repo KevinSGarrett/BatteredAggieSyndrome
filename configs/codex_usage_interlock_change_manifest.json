@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "4dd823432ea8b7e8ebf2c6e2321851fd18a6da2979e5d812de276a77840a9d06",
-  "work_unit_id": "BAT-560-CURSOR-IMPLEMENTATION-CANDIDATE-CONSUMPTION-REPAIR",
+  "manifest_identity": "9968bbca8a2e3e3759c19887107edb98d9756cb8b9b31b09b1c63ca05b71bd59",
+  "work_unit_id": "BAT-560-CURSOR-REVIEW-CAPACITY-ISOLATION-REPAIR",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "56dbb6e488a617ad7be3185d6c9707f73dac06fa",
-  "pre_routing_decision_sha256": "6ab5a6d8de812de5677b5bee8c6af877ab62b95e490cd08dec989cf806b451d4",
+  "base_commit": "4c74cdfcc38d827f2af33f9501056f6a60b67ca3",
+  "pre_routing_decision_sha256": "5bf8aa93ac29a3bac46207a49bd94ef5a88771e9492d49f6c65fc2c4acab6566",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",

@@ -108,6 +108,7 @@ artifacts/jira_evidence/POST-SUBTASK-125.json
 artifacts/jira_evidence/POST-SUBTASK-126.json
 artifacts/jira_evidence/POST-SUBTASK-127.json
 artifacts/jira_evidence/POST-SUBTASK-128.json
+artifacts/jira_evidence/POST-SUBTASK-129.json
 artifacts/jira_evidence/POST-SUBTASK-160.json
 artifacts/jira_evidence/POST-SUBTASK-161.json
 artifacts/jira_evidence/POST-SUBTASK-162.json
@@ -167,6 +168,7 @@ artifacts/openai_assist/router_rebalance.json
 artifacts/operations/ci_pipeline_validation.json
 artifacts/operations/ci_security_gate.json
 artifacts/operations/drift_alert_validation.json
+artifacts/operations/drift_incident_game_day.json
 artifacts/operations/observability_contract_test.json
 artifacts/operations/security_supply_chain_report.json
 artifacts/pit/asof_state_manifest.json
@@ -3233,6 +3235,7 @@ tests/test_core_registry.py
 tests/test_cpu_worker_backend.py
 tests/test_cursor_review_disposition.py
 tests/test_data_research.py
+tests/test_drift_incident_game_day.py
 tests/test_entity_governance.py
 tests/test_evaluation_exposure.py
 tests/test_expanded_event_chronology.py

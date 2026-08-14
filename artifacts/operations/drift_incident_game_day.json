@@ -1,0 +1,204 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "DRIFT_INCIDENT_GAME_DAY_CONTRACT_FIXTURE",
+  "artifact_identity": "f5c6c9eaa40bf02a44c4ca3fcdd956a17f34919e319949a4eaedbc44ca62b3d9",
+  "identity_scope": "SHA256(BAT-479|base_commit|drift-incident-game-day-contract-v2); not a self-hash or live-run identity",
+  "created_at_utc": "2026-08-14T15:49:00Z",
+  "reviewed_at_utc": "2026-08-14T16:20:00Z",
+  "issue_identity": {
+    "jira_key": "BAT-479",
+    "local_id": "POST-SUBTASK-129"
+  },
+  "maturity": "FUNCTIONAL_STARTER",
+  "eligibility": "DETERMINISTIC_CONTRACT_AND_NEGATIVE_TESTS_ONLY",
+  "live_incident_execution_completed": false,
+  "producer": {
+    "dispatch_origin": "PERSISTENT_CONTROLLER",
+    "work_unit_id": "AUTO-CURSOR-395ee82c545652101c73",
+    "pre_routing_decision_sha256": "06499a3bd8ce18182108a0e69b859269817ade127f12f68142044541cd5720fb",
+    "packet_sha256": "395ee82c545652101c73d5bc06fa6bc6aac24ffe35eb131cfdd6136ac280039d",
+    "provider": "cursor",
+    "model": "gpt-5.3-codex",
+    "reasoning_effort": "medium",
+    "agent_id": "bc-24178391-d8dd-51fc-9649-882beccd00b1",
+    "run_id": "run-72e3c7f6-9aae-402b-b068-797e7e09c463",
+    "provider_result_sha256": "e9938ad1bb101995bd28500fcc8266fd6526789d3627f68ad0dfc8a722c72517",
+    "provider_review_sha256": "ab7d12d47271a5d3337b8311110a651ed521c4ad3643e7ebc55699e567e700e4",
+    "candidate_validation_sha256": "2e57ca36aa1695c1f8f566246db33f0721f8d360defbb884f1cb1334de5821ba",
+    "base_commit": "36b69535674aa645e5445ee0e976f2f5bcbc37f9",
+    "candidate_commit": "1bfb5f4cb5509dc5ce0ed28fa37c3e6927605cf3",
+    "retained_authority_disposition": "CODEX_REVIEW_MODIFIED"
+  },
+  "prerequisite_evidence": [
+    {
+      "issue_id": "POST-SUBTASK-024",
+      "artifact_path": "artifacts/jira_evidence/POST-SUBTASK-024.json",
+      "sha256": "416a1ce70da87e9938aaa6f38da185d55e5d7e1f5a25b16b7c8775e01aa50bed",
+      "status": "VERIFIED_AT_PROVIDER_BASE"
+    },
+    {
+      "issue_id": "POST-SUBTASK-126",
+      "artifact_path": "artifacts/jira_evidence/POST-SUBTASK-126.json",
+      "sha256": "abc8f696bd1895ad946e97949d97a6bbb2ccfadd706cd46848700fff06d49d80",
+      "status": "VERIFIED_AT_PROVIDER_BASE"
+    },
+    {
+      "issue_id": "POST-SUBTASK-127",
+      "artifact_path": "artifacts/jira_evidence/POST-SUBTASK-127.json",
+      "sha256": "7686f1d4e76a68cfe0f9ed687987f4bd239fae76fe5e1384935f7a4b60ceaf16",
+      "status": "VERIFIED_AT_PROVIDER_BASE"
+    },
+    {
+      "issue_id": "POST-SUBTASK-128",
+      "artifact_path": "artifacts/jira_evidence/POST-SUBTASK-128.json",
+      "sha256": "af968e95420f3c475b4a8fb8a203607d4b4f2d44cd6f703d33f9e91d7e7db294",
+      "status": "VERIFIED_AT_PROVIDER_BASE"
+    }
+  ],
+  "observability_contract": {
+    "required_identity_fields": [
+      "run_id",
+      "stage_id",
+      "source_id",
+      "snapshot_id",
+      "entity_id",
+      "feature_id",
+      "model_id",
+      "product_id"
+    ],
+    "expected_missingness_separate_from_defect_missingness": true,
+    "credential_values_forbidden": true,
+    "restricted_payload_serialization_forbidden": true,
+    "affected_scope_only_quarantine": true,
+    "resolution_requires_changed_evidence": true
+  },
+  "source_substitution_policy": {
+    "private_research_acquisition": "PUBLIC_FACTUAL_DATA_ACQUISITION_ALLOWED",
+    "licensing_or_redistribution_ambiguity": "RECORD_AS_METADATA_NOT_A_PRIVATE_ACQUISITION_BLOCKER",
+    "blocking_gates": [
+      "resource_access_requires_unsupplied_credentials",
+      "private_personal_information",
+      "malware_or_unsafe_payload",
+      "corrupt_or_fabricated_record",
+      "pit_or_target_leakage",
+      "incompatible_schema",
+      "coverage_or_reconciliation_failure_FOR_AFFECTED_SCOPE_ONLY"
+    ]
+  },
+  "incident_contract_fixtures": [
+    {
+      "scenario_id": "outage",
+      "trigger": "source endpoint timeout",
+      "required_containment": "DEGRADE_AFFECTED_SOURCE_SCOPE",
+      "required_recovery": "RESUMABLE_RETRY_OR_EQUIVALENT_PUBLIC_ROUTE",
+      "substitution_gates": ["access", "safety", "pit", "schema", "coverage", "provenance"]
+    },
+    {
+      "scenario_id": "schema",
+      "trigger": "breaking source schema mutation",
+      "required_containment": "QUARANTINE_AFFECTED_ENDPOINT_SCHEMA_VERSION",
+      "required_recovery": "VERSIONED_MAPPING_AND_REPLAY",
+      "substitution_gates": ["access", "safety", "pit", "schema", "coverage", "provenance"]
+    },
+    {
+      "scenario_id": "stale_forecast",
+      "trigger": "forecast freshness breach",
+      "required_containment": "BLOCK_AFFECTED_FORECAST_PUBLICATION",
+      "required_recovery": "REPLAY_FROM_VERIFIED_KNOWN_AT_CAPTURE",
+      "substitution_gates": ["access", "safety", "pit", "schema", "coverage", "provenance"]
+    },
+    {
+      "scenario_id": "disk",
+      "trigger": "runtime disk-space admission failure",
+      "required_containment": "THROTTLE_WRITES_AND_PRESERVE_AUTHORITATIVE_DATA",
+      "required_recovery": "CONTROLLED_RECONSTRUCTIBLE_CLEANUP_AND_REPLAY",
+      "substitution_gates": ["access", "safety", "pit", "schema", "coverage", "provenance"]
+    },
+    {
+      "scenario_id": "corrupt_artifact",
+      "trigger": "content hash mismatch",
+      "required_containment": "REJECT_CORRUPT_IDENTITY",
+      "required_recovery": "RESTORE_LAST_VERIFIED_IMMUTABLE_CAPTURE",
+      "substitution_gates": ["access", "safety", "pit", "schema", "coverage", "provenance"]
+    },
+    {
+      "scenario_id": "model",
+      "trigger": "model artifact or lineage mismatch",
+      "required_containment": "REJECT_CANDIDATE_WITHOUT_CHAMPION_MUTATION",
+      "required_recovery": "RETAIN_VERIFIED_REFERENCE_AND_REBUILD_CANDIDATE",
+      "substitution_gates": ["access", "safety", "pit", "schema", "coverage", "provenance"]
+    },
+    {
+      "scenario_id": "security",
+      "trigger": "credential or prohibited private-data pattern",
+      "required_containment": "REDACT_AND_QUARANTINE_EXACT_PAYLOAD",
+      "required_recovery": "ROTATE_IF_EXPOSED_AND_REPLAY_REDACTED_INPUT",
+      "substitution_gates": ["access", "safety", "pit", "schema", "coverage", "provenance"]
+    },
+    {
+      "scenario_id": "governance_conflict",
+      "trigger": "immutable provenance identity or PIT policy conflict",
+      "required_containment": "BLOCK_AFFECTED_SCOPE_WITHOUT_GLOBAL_SOURCE_BLOCK",
+      "required_recovery": "VERSIONED_DECISION_AND_RECONCILED_CAPTURE_IDENTITY",
+      "substitution_gates": ["access", "safety", "pit", "schema", "coverage", "provenance"]
+    }
+  ],
+  "negative_tests": {
+    "future_record_rejected": true,
+    "same_game_outcome_rejected": true,
+    "postgame_record_rejected": true,
+    "credential_value_persistence_rejected": true,
+    "restricted_payload_persistence_rejected": true,
+    "rights_metadata_as_private_acquisition_blocker_rejected": true,
+    "unaffected_scope_global_block_rejected": true,
+    "file_creation_as_completion_rejected": true
+  },
+  "acceptance_evidence_matrix": [
+    {
+      "criterion": "Contract fixture defines incident identity, timing, missingness, redaction, and affected-scope containment semantics.",
+      "disposition": "PASS",
+      "evidence_location": "artifacts/operations/drift_incident_game_day.json#observability_contract"
+    },
+    {
+      "criterion": "All eight required incident classes have deterministic containment, recovery, and substitution-gate contracts.",
+      "disposition": "PASS",
+      "evidence_location": "artifacts/operations/drift_incident_game_day.json#incident_contract_fixtures"
+    },
+    {
+      "criterion": "Representative live game-day incidents have executed with immutable run, alert, rollback, and replay evidence.",
+      "disposition": "BLOCKED",
+      "evidence_location": null,
+      "blocker": "NO_LIVE_INCIDENT_EXECUTION_EVIDENCE"
+    },
+    {
+      "criterion": "Story and downstream gates may close from this artifact.",
+      "disposition": "BLOCKED",
+      "evidence_location": null,
+      "blocker": "FUNCTIONAL_STARTER_DOES_NOT_SATISFY_END_TO_END_OPERATIONAL_GATE"
+    }
+  ],
+  "downstream_gate_decision": {
+    "consumer": "POST-STORY-043",
+    "decision": "BLOCKED_PARTIAL_FUNCTIONAL_STARTER",
+    "downstream_issues": ["POST-STORY-044", "POST-SUBTASK-130", "POST-SUBTASK-131", "POST-SUBTASK-132"],
+    "silent_unlock_allowed": false
+  },
+  "useful_work_accounting": {
+    "provider_result_reviewed": true,
+    "provider_result_modified": true,
+    "downstream_project_artifact_changed": true,
+    "direct_baseline_seconds": null,
+    "measured_net_time_saved_seconds": 0.0,
+    "accepted_useful_offload_credit": 0,
+    "reason": "No measured direct baseline or review-time savings evidence exists; adoption does not manufacture useful-offload credit."
+  },
+  "honesty_boundary": {
+    "synthetic_fixture_is_live_incident_evidence": false,
+    "production_ready_claimed": false,
+    "target_hardware_evidence_claimed": false,
+    "sustained_autonomous_operation_claimed": false,
+    "protected_result_unsealed": false,
+    "historical_completeness_claimed": false,
+    "tamu_lift_bas_or_aggie_excess_claimed": false
+  }
+}

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import sqlite3
 import subprocess
@@ -186,6 +187,106 @@ class UnifiedControllerStateTests(unittest.TestCase):
         missing_both = watchdog.inspect(now=self.now + timedelta(seconds=1))
         self.assertIn("CLOSED_UNIT_RECONCILIATION_IDENTITY_MISMATCH", missing_both["findings"])
         self.assertEqual(1, missing_both["closed_unit_reconciliation_identity_mismatches"])
+
+    def test_candidate_settlement_preserves_dispatch_packet_provenance(self) -> None:
+        self.register()
+        self.assertTrue(
+            self.state.claim_dispatch(
+                work_unit_id="UNIT-1",
+                dependencies=(),
+                lease_id="lease-1",
+                attempt_id="attempt-1",
+                owner_id="owner-a",
+                provider="cursor",
+                route_identity="b" * 64,
+                readiness_evidence_sha256="c" * 64,
+                now=self.now,
+            )
+        )
+        request = Path(self.temp.name) / "request.json"
+        request.write_text('{"request":1}', encoding="utf-8")
+        self.state.record_dispatch(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-1",
+            provider_run_id="run-1",
+            provider="cursor",
+            remote_identity="cursor-agent",
+            request_sha256="d" * 64,
+            request_artifact_path=request,
+            actor="owner-a",
+            resource={
+                "packet_path": "C:/immutable/packet.json",
+                "packet_sha256": "e" * 64,
+                "handle": {"agent_id": "cursor-agent"},
+            },
+            now=self.now,
+        )
+        result = Path(self.temp.name) / "result.json"
+        result.write_text('{"result":1}', encoding="utf-8")
+        self.state.record_result_and_artifact(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-1",
+            provider_run_id="run-1",
+            result_sha256="f" * 64,
+            artifact_path=result,
+            actor="owner-a",
+            now=self.now,
+        )
+        with self.assertRaisesRegex(
+            RuntimeError, "PROVIDER_SETTLEMENT_PACKET_PROVENANCE_CONFLICT"
+        ):
+            self.state.complete_candidate_work(
+                work_unit_id="UNIT-1",
+                attempt_id="attempt-1",
+                lease_id="lease-1",
+                validation_sha256="4" * 64,
+                review_sha256="5" * 64,
+                cleanup_sha256="6" * 64,
+                validator="TEST_VALIDATOR",
+                validation_result="PASS",
+                reviewer="TEST_REVIEWER",
+                disposition="REVIEW_ONLY",
+                actual_cost_usd="0.25",
+                settlement_reason="TEST_SETTLEMENT",
+                cleanup_action="TEST_CLEANUP",
+                actor="owner-a",
+                resource={"packet_sha256": "9" * 64},
+                now=self.now,
+            )
+        self.assertEqual(
+            "RESULT_RECEIVED", self.state.work_unit_states({"UNIT-1"})["UNIT-1"]
+        )
+        self.state.complete_candidate_work(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-1",
+            lease_id="lease-1",
+            validation_sha256="1" * 64,
+            review_sha256="2" * 64,
+            cleanup_sha256="3" * 64,
+            validator="TEST_VALIDATOR",
+            validation_result="PASS",
+            reviewer="TEST_REVIEWER",
+            disposition="REVIEW_ONLY",
+            actual_cost_usd="0.25",
+            settlement_reason="TEST_SETTLEMENT",
+            cleanup_action="TEST_CLEANUP",
+            actor="owner-a",
+            resource={"run_id": "cursor-run", "actual_cost_usd_exact": "0.25"},
+            now=self.now,
+        )
+        connection = self.state.connect()
+        try:
+            resource = json.loads(
+                connection.execute(
+                    "SELECT resource_json FROM provider_runs WHERE attempt_id='attempt-1'"
+                ).fetchone()[0]
+            )
+        finally:
+            connection.close()
+        self.assertEqual("C:/immutable/packet.json", resource["packet_path"])
+        self.assertEqual("e" * 64, resource["packet_sha256"])
+        self.assertEqual("cursor-agent", resource["handle"]["agent_id"])
+        self.assertEqual("cursor-run", resource["run_id"])
 
     def test_single_database_leader_fails_closed(self) -> None:
         self.state.acquire_leader("owner-a", "b" * 40, now=self.now)

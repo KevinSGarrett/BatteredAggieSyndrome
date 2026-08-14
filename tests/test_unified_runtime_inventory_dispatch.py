@@ -1019,22 +1019,41 @@ def cpu_worker_semantic_evidence(root: Path):
             encoding="utf-8",
         )
         queue = self.root / "provider-work/requests"
-        review_packet = self.root / "review-packet.json"
-        review_packet.write_bytes(
+        review_packet_raw = canonical_json_bytes(
+            {
+                "schema_version": 1,
+                "provider": "cursor",
+                "task_format": CURSOR_TASK_FORMAT,
+                "source_jira_unit": "BAT-900",
+                "base_commit": "a" * 40,
+                "starting_ref": "a" * 40,
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+        ) + b"\n"
+        review_packet_sha256 = hashlib.sha256(review_packet_raw).hexdigest()
+        review_packet = (
+            self.root
+            / "orchestrator/provider-packets/sha256"
+            / review_packet_sha256
+            / "packet.json"
+        )
+        review_packet.parent.mkdir(parents=True)
+        review_packet.write_bytes(review_packet_raw)
+        request = self.root / "review-request.json"
+        request.write_bytes(
             canonical_json_bytes(
                 {
                     "schema_version": 1,
+                    "artifact_type": "GOVERNED_CURSOR_DISPATCH_REQUEST",
+                    "work_unit_id": "AUTO-CURSOR-REVIEW",
+                    "attempt_id": "b" * 64,
                     "provider": "cursor",
-                    "task_format": CURSOR_TASK_FORMAT,
-                    "source_jira_unit": "BAT-900",
-                    "base_commit": "a" * 40,
-                    "starting_ref": "a" * 40,
-                    "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+                    "packet_sha256": review_packet_sha256,
+                    "authority": "CANDIDATE_ONLY",
                 }
             )
-            + b"\n"
         )
-        review_packet_sha256 = hashlib.sha256(review_packet.read_bytes()).hexdigest()
+        request_sha256 = hashlib.sha256(request.read_bytes()).hexdigest()
         result = self.root / "review-result.json"
         result.write_bytes(
             canonical_json_bytes(
@@ -1077,14 +1096,9 @@ def cpu_worker_semantic_evidence(root: Path):
                     "b" * 64,
                     "cursor",
                     "agent:run",
-                    "e" * 64,
+                    request_sha256,
                     "SETTLED",
-                    json.dumps(
-                        {
-                            "packet_path": str(review_packet),
-                            "packet_sha256": review_packet_sha256,
-                        }
-                    ),
+                    json.dumps({"agent_id": "settled-agent", "run_id": "settled-run"}),
                     stamp,
                     stamp,
                 ),
@@ -1103,6 +1117,19 @@ def cpu_worker_semantic_evidence(root: Path):
                 ),
             )
             connection.execute(
+                "INSERT INTO execution_artifacts(artifact_id,work_unit_id,attempt_id,artifact_type,path,sha256,bytes,recorded_at) VALUES(?,?,?,?,?,?,?,?)",
+                (
+                    request_sha256,
+                    "AUTO-CURSOR-REVIEW",
+                    "b" * 64,
+                    "PROVIDER_REQUEST_ENVELOPE",
+                    str(request),
+                    request_sha256,
+                    request.stat().st_size,
+                    stamp,
+                ),
+            )
+            connection.execute(
                 "INSERT INTO reviews(review_id,work_unit_id,attempt_id,reviewer,disposition,evidence_sha256,review_seconds,recorded_at) VALUES(?,?,?,?,?,?,?,?)",
                 (
                     "1" * 64,
@@ -1115,6 +1142,27 @@ def cpu_worker_semantic_evidence(root: Path):
                     stamp,
                 ),
             )
+        self.state.record_pre_routing_decision(
+            decision={
+                "work_unit_id": "AUTO-CURSOR-REVIEW",
+                "jira_identity": "BAT-900",
+                "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
+                "source_commit": "a" * 40,
+                "task_category": "PROJECT_WORK",
+                "effort_points": 5,
+                "candidate_routes": ["cursor"],
+                "selected_route": "cursor",
+                "route_identity": "c" * 64,
+                "budget_admission": "ADMITTED",
+                "packet_identity": review_packet_sha256,
+                "lease_identity": "lease-review",
+                "disposition": "ROUTED_TO_ASSISTIVE_PLANE",
+                "reason_code": "EXACT_ROUTE_READY_AND_GRANULAR_PACKET_MATERIALIZED",
+                "evidence_sha256": "4" * 64,
+                "discovered_at": stamp,
+            },
+            now=self.now,
+        )
         self.state.record_downstream_review_disposition(
             attempt_id="b" * 64,
             disposition="ACCEPTED",
@@ -1137,6 +1185,10 @@ def cpu_worker_semantic_evidence(root: Path):
         )
 
         review_candidates = self.state.cursor_review_candidates(limit=32)
+        self.assertNotIn("packet_path", review_candidates[0]["resource"])
+        self.assertEqual(
+            review_packet_sha256, review_candidates[0]["routed_packet_sha256"]
+        )
         with patch.object(
             self.state,
             "cursor_review_candidates",
@@ -1158,6 +1210,16 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(["tests/test_gate.py"], packet["required_tests"])
         self.assertEqual(["AUTO-CURSOR-REVIEW"], packet["dependencies"])
         self.assertEqual(result_sha256, packet["source_review_result_sha256"])
+
+        mismatched_candidate = dict(review_candidates[0])
+        mismatched_candidate["routed_packet_sha256"] = "9" * 64
+        self.assertIsNone(
+            refresher._load_routed_cursor_review_packet(mismatched_candidate)
+        )
+        request.write_text("{}", encoding="utf-8")
+        self.assertIsNone(
+            refresher._load_routed_cursor_review_packet(review_candidates[0])
+        )
 
     def test_cursor_packet_survives_submit_poll_and_restart_safe_completion(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))

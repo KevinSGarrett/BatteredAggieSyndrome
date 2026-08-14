@@ -1734,9 +1734,35 @@ class ControllerState:
                 reason=settlement_reason, actor=actor, stamp=stamp,
             )
             actual_cost_cents = int((Decimal(actual_cost_usd) * Decimal(100)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+            provider_run = connection.execute(
+                "SELECT resource_json FROM provider_runs WHERE attempt_id=?",
+                (attempt_id,),
+            ).fetchone()
+            if provider_run is None:
+                raise RuntimeError("PROVIDER_RUN_MISSING_DURING_SETTLEMENT")
+            dispatch_resource = json.loads(str(provider_run["resource_json"]))
+            if not isinstance(dispatch_resource, dict):
+                raise RuntimeError("PROVIDER_DISPATCH_RESOURCE_INVALID")
+            settlement_resource = dict(resource or {})
+            for immutable_key in ("packet_path", "packet_sha256"):
+                dispatch_value = dispatch_resource.get(immutable_key)
+                settlement_value = settlement_resource.get(immutable_key)
+                if (
+                    dispatch_value is not None
+                    and settlement_value is not None
+                    and settlement_value != dispatch_value
+                ):
+                    raise RuntimeError(
+                        "PROVIDER_SETTLEMENT_PACKET_PROVENANCE_CONFLICT"
+                    )
+            settled_resource = {**dispatch_resource, **settlement_resource}
             connection.execute(
                 "UPDATE provider_runs SET status='SETTLED',actual_cost_cents=?,resource_json=? WHERE attempt_id=?",
-                (actual_cost_cents, json.dumps(resource or {}, sort_keys=True), attempt_id),
+                (
+                    actual_cost_cents,
+                    json.dumps(settled_resource, sort_keys=True),
+                    attempt_id,
+                ),
             )
             self._transition_in_connection(
                 connection, work_unit_id=work_unit_id, expected_state="SETTLED", new_state="CLEANED",
@@ -2171,12 +2197,19 @@ class ControllerState:
             rows = connection.execute(
                 "SELECT a.work_unit_id,a.attempt_id,p.resource_json,"
                 "e.path AS result_artifact_path,e.sha256 AS result_artifact_sha256,"
+                "q.path AS request_artifact_path,q.sha256 AS request_artifact_sha256,"
+                "(SELECT pr.packet_identity FROM pre_routing_decisions pr "
+                "WHERE pr.work_unit_id=a.work_unit_id "
+                "ORDER BY pr.recorded_at DESC,pr.decision_sha256 DESC LIMIT 1) "
+                "AS routed_packet_sha256,"
                 "d.evidence_sha256 AS downstream_disposition_sha256,d.recorded_at "
                 "FROM downstream_review_dispositions d "
                 "JOIN dispatch_attempts a ON a.attempt_id=d.attempt_id "
                 "JOIN provider_runs p ON p.attempt_id=a.attempt_id AND p.provider='cursor' "
                 "JOIN execution_artifacts e ON e.attempt_id=a.attempt_id "
                 "AND e.artifact_type='PROVIDER_REQUEST_RESPONSE' "
+                "LEFT JOIN execution_artifacts q ON q.attempt_id=a.attempt_id "
+                "AND q.artifact_type='PROVIDER_REQUEST_ENVELOPE' "
                 "WHERE d.downstream_consumer='CURSOR_CANDIDATE_CODE_REVIEW_QUEUE' "
                 "AND d.disposition IN ('ACCEPTED','MODIFIED') "
                 "ORDER BY d.recorded_at DESC,a.attempt_id DESC LIMIT ?",

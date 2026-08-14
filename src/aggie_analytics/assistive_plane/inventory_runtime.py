@@ -867,6 +867,56 @@ class RuntimeInventoryRefresher:
             and packet.get("starting_ref") == release_commit
         )
 
+    def _load_routed_cursor_review_packet(
+        self,
+        candidate: dict[str, Any],
+    ) -> tuple[dict[str, Any], str] | None:
+        """Load a review packet only through its immutable routing chain."""
+        packet_sha256 = candidate.get("routed_packet_sha256")
+        request_artifact_sha256 = candidate.get("request_artifact_sha256")
+        if not self._valid_sha256(packet_sha256) or not self._valid_sha256(
+            request_artifact_sha256
+        ):
+            return None
+        request_path = Path(str(candidate.get("request_artifact_path", "")))
+        if not request_path.is_file():
+            return None
+        request_raw = request_path.read_bytes()
+        if hashlib.sha256(request_raw).hexdigest() != request_artifact_sha256:
+            return None
+        try:
+            request = json.loads(request_raw)
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return None
+        if not isinstance(request, dict) or any(
+            (
+                request.get("artifact_type") != "GOVERNED_CURSOR_DISPATCH_REQUEST",
+                request.get("provider") != "cursor",
+                request.get("authority") != "CANDIDATE_ONLY",
+                request.get("work_unit_id") != candidate.get("work_unit_id"),
+                request.get("attempt_id") != candidate.get("attempt_id"),
+                request.get("packet_sha256") != packet_sha256,
+            )
+        ):
+            return None
+        packet_path = (
+            self.config.packet_root
+            / "provider-packets"
+            / "sha256"
+            / str(packet_sha256)
+            / "packet.json"
+        )
+        if not packet_path.is_file():
+            return None
+        packet_raw = packet_path.read_bytes()
+        if hashlib.sha256(packet_raw).hexdigest() != packet_sha256:
+            return None
+        try:
+            packet = json.loads(packet_raw)
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return None
+        return (packet, str(packet_sha256)) if isinstance(packet, dict) else None
+
     @classmethod
     def _provider_readiness(cls, snapshot: dict[str, Any], packet: dict[str, Any]) -> str | None:
         provider = packet.get("provider")
@@ -1993,17 +2043,10 @@ class RuntimeInventoryRefresher:
         created: list[dict[str, str]] = []
         seen_source_jira_units: set[str] = set()
         for candidate in self.state.cursor_review_candidates(limit=32):
-            resource = candidate.get("resource")
-            if not isinstance(resource, dict):
+            routed_packet = self._load_routed_cursor_review_packet(candidate)
+            if routed_packet is None:
                 continue
-            review_packet_path = Path(str(resource.get("packet_path", "")))
-            if not review_packet_path.is_file():
-                continue
-            review_packet_raw = review_packet_path.read_bytes()
-            review_packet_sha256 = hashlib.sha256(review_packet_raw).hexdigest()
-            if review_packet_sha256 != resource.get("packet_sha256"):
-                continue
-            review_packet = json.loads(review_packet_raw)
+            review_packet, review_packet_sha256 = routed_packet
             if not self._cursor_review_matches_release(review_packet, release_commit):
                 continue
             source_jira_unit = str(review_packet["source_jira_unit"])

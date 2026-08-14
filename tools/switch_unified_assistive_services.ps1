@@ -76,8 +76,16 @@ if ($PSCmdlet.ShouldProcess($release, 'Activate verified release and restart exi
             }
         }
         foreach ($role in @('controller', 'watchdog')) {
-            if (-not (Test-Path -LiteralPath $acknowledgements[$role] -PathType Leaf)) {
-                throw "SERVICE_STOP_ACKNOWLEDGEMENT_MISSING:$role"
+            # Task Scheduler can publish the terminal task state a few seconds
+            # before the service's atomic acknowledgement rename is visible.
+            # Keep the acknowledgement inside the original bounded deadline;
+            # otherwise a successful cooperative stop can be misclassified and
+            # roll the release pointer back after the process already exited.
+            while (-not (Test-Path -LiteralPath $acknowledgements[$role] -PathType Leaf)) {
+                if ((Get-Date) -ge $deadline) {
+                    throw "SERVICE_STOP_ACKNOWLEDGEMENT_MISSING:$role"
+                }
+                Start-Sleep -Milliseconds 250
             }
         }
         $statusJson = & $python -B (Join-Path $release 'tools\run_unified_assistive_controller.py') status --runtime-root $RuntimeRoot

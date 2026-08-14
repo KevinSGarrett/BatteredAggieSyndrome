@@ -451,6 +451,11 @@ class UnifiedReleaseTests(unittest.TestCase):
         self.assertNotIn("RunAs", switcher)
         self.assertIn("UNIFIED_ASSISTIVE_SERVICE_STOP_REQUEST", switcher)
         self.assertIn("SERVICE_STOP_ACKNOWLEDGEMENT_MISSING", switcher)
+        self.assertIn(
+            "while (-not (Test-Path -LiteralPath $acknowledgements[$role] -PathType Leaf))",
+            switcher,
+        )
+        self.assertIn("if ((Get-Date) -ge $deadline)", switcher)
         self.assertIn("POST_STOP_CONTROLLER_LEADER_REMAINS", switcher)
         self.assertIn("$GracefulStopTimeoutSeconds = 90", switcher)
         self.assertIn("AddSeconds($GracefulStopTimeoutSeconds)", switcher)

@@ -5,7 +5,8 @@ param(
     [string]$ControllerTaskName = 'BAS-UnifiedAssistiveController',
     [string]$WatchdogTaskName = 'BAS-UnifiedAssistiveWatchdog',
     [string]$PythonExecutable = '',
-    [ValidateRange(45, 300)][int]$GracefulStopTimeoutSeconds = 90
+    [ValidateRange(45, 300)][int]$GracefulStopTimeoutSeconds = 90,
+    [ValidateRange(5, 60)][int]$AcknowledgementVisibilityTimeoutSeconds = 30
 )
 
 $ErrorActionPreference = 'Stop'
@@ -75,14 +76,16 @@ if ($PSCmdlet.ShouldProcess($release, 'Activate verified release and restart exi
                 Start-Sleep -Milliseconds 250
             }
         }
+        $acknowledgementDeadline = (Get-Date).AddSeconds($AcknowledgementVisibilityTimeoutSeconds)
         foreach ($role in @('controller', 'watchdog')) {
             # Task Scheduler can publish the terminal task state a few seconds
             # before the service's atomic acknowledgement rename is visible.
-            # Keep the acknowledgement inside the original bounded deadline;
-            # otherwise a successful cooperative stop can be misclassified and
-            # roll the release pointer back after the process already exited.
+            # The controller still has the original bounded stop deadline. Once
+            # both tasks are terminal, allow only this separate bounded
+            # filesystem-visibility grace so a successful cooperative stop is
+            # not misclassified after the process already exited.
             while (-not (Test-Path -LiteralPath $acknowledgements[$role] -PathType Leaf)) {
-                if ((Get-Date) -ge $deadline) {
+                if ((Get-Date) -ge $acknowledgementDeadline) {
                     throw "SERVICE_STOP_ACKNOWLEDGEMENT_MISSING:$role"
                 }
                 Start-Sleep -Milliseconds 250

@@ -455,7 +455,12 @@ class UnifiedReleaseTests(unittest.TestCase):
             "while (-not (Test-Path -LiteralPath $acknowledgements[$role] -PathType Leaf))",
             switcher,
         )
-        self.assertIn("if ((Get-Date) -ge $deadline)", switcher)
+        self.assertIn("$AcknowledgementVisibilityTimeoutSeconds = 30", switcher)
+        self.assertIn(
+            "$acknowledgementDeadline = (Get-Date).AddSeconds($AcknowledgementVisibilityTimeoutSeconds)",
+            switcher,
+        )
+        self.assertIn("if ((Get-Date) -ge $acknowledgementDeadline)", switcher)
         self.assertIn("POST_STOP_CONTROLLER_LEADER_REMAINS", switcher)
         self.assertIn("$GracefulStopTimeoutSeconds = 90", switcher)
         self.assertIn("AddSeconds($GracefulStopTimeoutSeconds)", switcher)

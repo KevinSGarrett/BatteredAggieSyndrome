@@ -27,6 +27,14 @@ PRE_ROUTING_DISPOSITIONS = frozenset(
         "UNJUSTIFIED_DIRECT_EXECUTION",
     }
 )
+CANDIDATE_REVIEW_QUEUE_CONSUMERS = frozenset(
+    {
+        "CURSOR_CANDIDATE_CODE_REVIEW_QUEUE",
+        "CURSOR_IMPLEMENTATION_CANDIDATE_REVIEW_QUEUE",
+        "OPENAI_EVIDENCE_CANDIDATE_REVIEW_QUEUE",
+        "OPENROUTER_REASONING_CANDIDATE_REVIEW_QUEUE",
+    }
+)
 ALLOWED_STATES = {
     "DISCOVERED",
     "ELIGIBLE",
@@ -1842,8 +1850,13 @@ class ControllerState:
     ) -> str:
         if disposition not in {"ACCEPTED", "MODIFIED", "REJECTED", "UNUSED"}:
             raise ValueError("DOWNSTREAM_REVIEW_DISPOSITION_INVALID")
+        candidate_review_queue_only = (
+            downstream_consumer in CANDIDATE_REVIEW_QUEUE_CONSUMERS
+        )
         if disposition in {"ACCEPTED", "MODIFIED"} and (
-            not changed_project_artifact or not consumed_artifact_identity or duplicated_by_codex
+            not consumed_artifact_identity
+            or duplicated_by_codex
+            or (not changed_project_artifact and not candidate_review_queue_only)
         ):
             raise ValueError("DOWNSTREAM_ACCEPTANCE_CONSUMPTION_EVIDENCE_INCOMPLETE")
         if consumed_artifact_identity is not None:
@@ -1922,12 +1935,18 @@ class ControllerState:
                         "SELECT COUNT(*) AS raw_activity,"
                         "COALESCE(SUM(validated),0) AS validated_candidates,"
                         "COALESCE(SUM(reviewed),0) AS reviewed_outputs,"
-                        "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') THEN 1 ELSE 0 END),0) AS downstream_consumed_outputs,"
+                        "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') "
+                        "AND d.downstream_consumer NOT LIKE '%CANDIDATE%REVIEW_QUEUE%' THEN 1 ELSE 0 END),0) AS downstream_consumed_outputs,"
+                        "COALESCE(SUM(CASE WHEN d.downstream_consumer LIKE '%CANDIDATE%REVIEW_QUEUE%' "
+                        "THEN 1 ELSE 0 END),0) AS candidate_review_queue_outputs,"
                         "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') AND u.validated=1 "
                         "AND d.changed_project_artifact=1 AND d.consumed_artifact_identity IS NOT NULL "
+                        "AND d.downstream_consumer NOT LIKE '%CANDIDATE%REVIEW_QUEUE%' "
                         "AND d.duplicated_by_codex=0 AND d.net_time_saved_seconds>0 "
                         "THEN 1 ELSE 0 END),0) AS accepted_useful_outputs,"
-                        "COALESCE(SUM(d.net_time_saved_seconds),0.0) AS measured_net_time_saved_seconds,"
+                        "COALESCE(SUM(CASE WHEN d.downstream_consumer NOT LIKE "
+                        "'%CANDIDATE%REVIEW_QUEUE%' THEN d.net_time_saved_seconds ELSE 0 END),0.0) "
+                        "AS measured_net_time_saved_seconds,"
                         "COALESCE(SUM(d.duplicated_by_codex),0) AS duplicated_by_codex "
                         "FROM useful_work_evidence u LEFT JOIN downstream_review_dispositions d ON d.attempt_id=u.attempt_id"
                     ).fetchone()
@@ -2062,12 +2081,18 @@ class ControllerState:
                 useful = connection.execute(
                     "SELECT COUNT(*) AS raw_activity,COALESCE(SUM(validated),0) AS validated_candidates,"
                     "COALESCE(SUM(reviewed),0) AS reviewed_outputs,"
-                    "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') THEN 1 ELSE 0 END),0) AS downstream_consumed_outputs,"
+                    "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') "
+                    "AND d.downstream_consumer NOT LIKE '%CANDIDATE%REVIEW_QUEUE%' THEN 1 ELSE 0 END),0) AS downstream_consumed_outputs,"
+                    "COALESCE(SUM(CASE WHEN d.downstream_consumer LIKE '%CANDIDATE%REVIEW_QUEUE%' "
+                    "THEN 1 ELSE 0 END),0) AS candidate_review_queue_outputs,"
                     "COALESCE(SUM(CASE WHEN d.disposition IN ('ACCEPTED','MODIFIED') AND u.validated=1 "
                     "AND d.changed_project_artifact=1 AND d.consumed_artifact_identity IS NOT NULL "
+                    "AND d.downstream_consumer NOT LIKE '%CANDIDATE%REVIEW_QUEUE%' "
                     "AND d.duplicated_by_codex=0 AND d.net_time_saved_seconds>0 "
                     "THEN 1 ELSE 0 END),0) AS accepted_useful_outputs,"
-                    "COALESCE(SUM(d.net_time_saved_seconds),0.0) AS measured_net_time_saved_seconds,"
+                    "COALESCE(SUM(CASE WHEN d.downstream_consumer NOT LIKE "
+                    "'%CANDIDATE%REVIEW_QUEUE%' THEN d.net_time_saved_seconds ELSE 0 END),0.0) "
+                    "AS measured_net_time_saved_seconds,"
                     "COALESCE(SUM(d.duplicated_by_codex),0) AS duplicated_by_codex "
                     "FROM useful_work_evidence u JOIN dispatch_attempts a ON a.attempt_id=u.attempt_id "
                     "LEFT JOIN downstream_review_dispositions d ON d.attempt_id=u.attempt_id "

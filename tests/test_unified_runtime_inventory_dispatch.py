@@ -1210,6 +1210,13 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(["tests/test_gate.py"], packet["required_tests"])
         self.assertEqual(["AUTO-CURSOR-REVIEW"], packet["dependencies"])
         self.assertEqual(result_sha256, packet["source_review_result_sha256"])
+        self.assertEqual("2.00", packet["max_reservation_usd"])
+        self.assertIn(
+            "Commit and push the candidate changes to the generated isolated Cursor branch",
+            packet["prompt"],
+        )
+        self.assertIn("Do not mutate the base/current-main branch", packet["prompt"])
+        self.assertNotIn("do not write the current branch", packet["prompt"].lower())
 
         mismatched_candidate = dict(review_candidates[0])
         mismatched_candidate["routed_packet_sha256"] = "9" * 64
@@ -1220,6 +1227,65 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertIsNone(
             refresher._load_routed_cursor_review_packet(review_candidates[0])
         )
+
+    def test_ready_cursor_implementation_preempts_additional_read_only_review(
+        self,
+    ) -> None:
+        release_commit = "a" * 40
+        release = self.root / "releases" / release_commit
+        release.mkdir(parents=True)
+        queue = self.root / "provider-work/requests"
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=queue,
+                release_root=release,
+                build_commit=release_commit,
+            ),
+        )
+        implementation = [
+            {
+                "provider": "cursor",
+                "source_relative_path": "jira/records/issues/tasks/TASK-900.json",
+                "source_sha256": "b" * 64,
+                "packet_path": str(queue / "implementation.json"),
+                "packet_sha256": "c" * 64,
+            }
+        ]
+        demand = {
+            "providers": {
+                "cursor": {
+                    "unmet": True,
+                    "admission_suspended": False,
+                    "active_execution_packets": 0,
+                    "pending_review_results": 0,
+                }
+            }
+        }
+        snapshot = {
+            "git": {"head": release_commit, "origin_main": release_commit}
+        }
+        with patch.object(
+            refresher,
+            "_materialize_cursor_implementation_work",
+            return_value=implementation,
+        ) as materialize, patch.object(
+            refresher,
+            "_jira_ready_records",
+        ) as ready_records:
+            created = refresher._materialize_continuous_cursor_work(snapshot, demand)
+
+        self.assertEqual(implementation, created)
+        materialize.assert_called_once_with(
+            snapshot=snapshot,
+            release_commit=release_commit,
+            limit=1,
+        )
+        ready_records.assert_not_called()
 
     def test_cursor_packet_survives_submit_poll_and_restart_safe_completion(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))

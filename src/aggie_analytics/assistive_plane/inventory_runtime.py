@@ -1917,6 +1917,13 @@ class RuntimeInventoryRefresher:
             release_commit=release_commit,
             limit=1,
         )
+        # A reviewed implementation candidate is the only Cursor work that can
+        # directly produce a consumable repository artifact.  Do not spend the
+        # second concurrency/budget slot on another read-only review while an
+        # implementation packet is ready; that behavior previously exhausted
+        # the released stage while leaving useful offload at zero.
+        if created:
+            return created
         review_targets: list[tuple[Path, str, str | None, str | None]] = []
         if self.config.project_root is not None:
             project_root = self.config.project_root.resolve(strict=True)
@@ -2128,7 +2135,7 @@ class RuntimeInventoryRefresher:
                 "fast": False,
                 "work_on_current_branch": False,
                 "auto_create_pr": False,
-                "max_reservation_usd": "4.00",
+                "max_reservation_usd": "2.00",
                 "allowed_paths": allowed_paths,
                 "required_tests": required_tests,
                 "prompt": (
@@ -2137,9 +2144,13 @@ class RuntimeInventoryRefresher:
                     f"{json.dumps(allowed_paths, separators=(',', ':'))}. Run the applicable "
                     f"tests from {json.dumps(required_tests, separators=(',', ':'))}. Preserve "
                     "negative findings and do not weaken PIT, leakage, security, provenance, or "
-                    "protected controls. Do not read .env or credentials. Do not create a PR and "
-                    "do not write the current branch. The result is candidate-only and requires "
-                    "independent diff/path/test review. The prior candidate review follows:\n"
+                    "protected controls. Do not read .env or credentials. The result is "
+                    "candidate-only and requires independent diff/path/test review. Commit and "
+                    "push the candidate changes "
+                    "to the generated isolated Cursor branch so the controller can fetch and "
+                    "validate the complete diff. Do not mutate the base/current-main branch, "
+                    "do not open a PR, and do not leave the candidate only as uncommitted "
+                    "workspace changes. The prior candidate review follows:\n"
                     + bounded_review
                 ),
                 "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",

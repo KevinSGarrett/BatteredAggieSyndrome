@@ -98,7 +98,7 @@ def evaluate_live_service(
     tasks: list[dict[str, Any]],
     now: datetime | None = None,
     heartbeat_max_age_seconds: int = 90,
-    watchdog_max_age_seconds: int = 600,
+    watchdog_max_age_seconds: int = 300,
 ) -> dict[str, Any]:
     moment = now or datetime.now(timezone.utc)
     findings: list[str] = []

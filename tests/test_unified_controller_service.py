@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import inspect
 import io
 import json
 import os
@@ -16,6 +17,7 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 from aggie_analytics.assistive_plane.controller_state import ControllerState, LeaderLock
+from aggie_analytics.assistive_plane.live_service import evaluate_live_service
 from aggie_analytics.assistive_plane.service_runtime import (
     ControllerService,
     ControllerServiceConfig,
@@ -113,6 +115,24 @@ class UnifiedControllerServiceTests(unittest.TestCase):
         self.assertEqual("FAIL", report["result"])
         self.assertIn("CONTROLLER_LEADER_MISSING", report["findings"])
         self.assertEqual("INCOMPLETE", report["overall_operational_completion"])
+
+    def test_watchdog_default_and_cycle_wait_preserve_five_minute_freshness(self) -> None:
+        config = WatchdogServiceConfig(runtime_root=self.runtime, build_commit=self.commit)
+        self.assertEqual(240.0, config.interval_seconds)
+        self.assertEqual(
+            300,
+            inspect.signature(evaluate_live_service)
+            .parameters["watchdog_max_age_seconds"]
+            .default,
+        )
+        self.assertEqual(
+            139.0,
+            WatchdogService._remaining_cycle_wait(240.0, 100.0, 201.0),
+        )
+        self.assertEqual(
+            0.0,
+            WatchdogService._remaining_cycle_wait(240.0, 100.0, 350.0),
+        )
 
     def test_watchdog_acknowledges_stop_request_without_waiting_full_interval(self) -> None:
         request = {

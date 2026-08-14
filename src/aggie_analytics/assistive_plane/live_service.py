@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -11,6 +12,7 @@ from .controller_state import ControllerState, parse_rfc3339, rfc3339
 
 CONTROLLER_TASK = "BAS-UnifiedAssistiveController"
 WATCHDOG_TASK = "BAS-UnifiedAssistiveWatchdog"
+COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
 def sha256_file(path: Path) -> str:
@@ -53,6 +55,43 @@ def validate_release(release_root: Path) -> dict[str, Any]:
     }
 
 
+def validate_release_pointer(runtime_root: Path) -> dict[str, Any]:
+    pointer_path = runtime_root / "deployment/current-release.json"
+    pointer = _load_json(pointer_path)
+    if (
+        pointer.get("schema_version") != 1
+        or pointer.get("artifact_type") != "UNIFIED_ASSISTIVE_RELEASE_POINTER"
+    ):
+        raise ValueError("SERVICE_RELEASE_POINTER_SCHEMA_INVALID")
+    build_commit = pointer.get("build_commit")
+    if not isinstance(build_commit, str) or not COMMIT_RE.fullmatch(build_commit):
+        raise ValueError("SERVICE_RELEASE_POINTER_BUILD_INVALID")
+    expected_release = (runtime_root / "releases" / build_commit).resolve(strict=True)
+    configured_release = pointer.get("release_root")
+    if (
+        not isinstance(configured_release, str)
+        or Path(configured_release).resolve(strict=True) != expected_release
+    ):
+        raise ValueError("SERVICE_RELEASE_POINTER_PATH_INVALID")
+    release = validate_release(expected_release)
+    if sha256_file(expected_release / "RELEASE_MANIFEST.json") != pointer.get(
+        "release_manifest_sha256"
+    ):
+        raise ValueError("SERVICE_RELEASE_POINTER_MANIFEST_HASH_MISMATCH")
+    if release.get("source_tree_sha256") != pointer.get("source_tree_sha256"):
+        raise ValueError("SERVICE_RELEASE_POINTER_SOURCE_TREE_MISMATCH")
+    return {
+        **release,
+        "deployment_mode": "STABLE_LAUNCHER_RELEASE_POINTER",
+        "pointer_path": str(pointer_path),
+        "pointer_sha256": sha256_file(pointer_path),
+    }
+
+
+def _same_path(left: Path, right: Path) -> bool:
+    return str(left.resolve()).casefold() == str(right.resolve()).casefold()
+
+
 def evaluate_live_service(
     *,
     runtime_root: Path,
@@ -68,6 +107,16 @@ def evaluate_live_service(
         findings.append("SERVICE_TASK_POPULATION_MISMATCH")
     task_builds: set[str] = set()
     release_roots: set[Path] = set()
+    launcher_root = runtime_root / "launcher"
+    launcher_path = launcher_root / "launch_unified_assistive_service.py"
+    stable_mode_flags = [
+        _same_path(Path(str(task.get("working_directory", ""))), launcher_root)
+        or str(launcher_path) in str(task.get("arguments", ""))
+        for task in tasks
+    ]
+    stable_launcher_mode = bool(stable_mode_flags) and any(stable_mode_flags)
+    if stable_launcher_mode and not all(stable_mode_flags):
+        findings.append("SERVICE_TASK_DEPLOYMENT_MODE_DISAGREEMENT")
     for name in (CONTROLLER_TASK, WATCHDOG_TASK):
         task = by_name.get(name)
         if task is None:
@@ -86,17 +135,37 @@ def evaluate_live_service(
             findings.append(f"SERVICE_TASK_STARTUP_TRIGGER_MISSING:{name}")
         arguments = str(task.get("arguments", ""))
         working_directory = Path(str(task.get("working_directory", "")))
-        release_roots.add(working_directory)
-        tokens = arguments.split()
-        if "--build-commit" not in tokens:
-            findings.append(f"SERVICE_TASK_BUILD_COMMIT_MISSING:{name}")
+        if stable_launcher_mode:
+            role = "controller" if name == CONTROLLER_TASK else "watchdog"
+            expected_arguments = (
+                f'-B "{launcher_path}" --role {role} '
+                f'--runtime-root "{runtime_root}"'
+            )
+            if not _same_path(working_directory, launcher_root):
+                findings.append(f"SERVICE_TASK_STABLE_WORKING_DIRECTORY_INVALID:{name}")
+            if arguments.strip() != expected_arguments:
+                findings.append(f"SERVICE_TASK_STABLE_LAUNCHER_ARGUMENTS_INVALID:{name}")
         else:
-            index = tokens.index("--build-commit")
-            if index + 1 >= len(tokens):
+            release_roots.add(working_directory)
+            tokens = arguments.split()
+            if "--build-commit" not in tokens:
                 findings.append(f"SERVICE_TASK_BUILD_COMMIT_MISSING:{name}")
             else:
-                task_builds.add(tokens[index + 1].strip('"'))
-    if len(release_roots) != 1:
+                index = tokens.index("--build-commit")
+                if index + 1 >= len(tokens):
+                    findings.append(f"SERVICE_TASK_BUILD_COMMIT_MISSING:{name}")
+                else:
+                    task_builds.add(tokens[index + 1].strip('"'))
+    if stable_launcher_mode:
+        try:
+            release = validate_release_pointer(runtime_root)
+            if not launcher_path.is_file():
+                findings.append("SERVICE_STABLE_LAUNCHER_MISSING")
+            task_builds.add(str(release["build_commit"]))
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            release = {"valid": False, "findings": [str(exc)], "build_commit": None}
+        findings.extend(release["findings"])
+    elif len(release_roots) != 1:
         findings.append("SERVICE_TASK_RELEASE_ROOT_DISAGREEMENT")
         release = {"valid": False, "findings": ["SERVICE_RELEASE_ROOT_NOT_UNIQUE"], "build_commit": None}
     else:

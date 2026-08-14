@@ -1,41 +1,33 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-554-PARTIAL-DISCOVERY-VALIDATION-V1",
+  "work_unit_id": "BAT-554-2011-2013-CONTEST-RECONCILIATION-V1",
   "jira_identity": "BAT-554",
-  "decision_sha256": "c97c649d5e20183554ec61b8ba979a1d8f466c8ef225617118e04a68c4d39256",
+  "decision_sha256": "54a27c957a44e0e7664feb7fc563ee4a0a5391477ca38168d8ab877ffba52594",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_SUPERSEDED_ASSISTIVE_PIPELINE_WORK_AND_RESERVED_BAS_PROJECT_EXECUTION_FOR_CODEX",
-  "source_commit": "41bda82fc509744109feb491c9bd128faba37be5",
+  "source_commit": "1319b37fc6c0114d32426377118b5fd66262f126",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "observed_conflict": "The active machine interlock lacked the scoped user-waiver path explicitly permitted by its human contract, while the user later directed Codex to stop pipeline work and work only on the Battered Aggie Syndrome project.",
-  "resolution": "Bind this exact BAT-554 change set to the later user instruction without promoting the assistive pipeline or weakening exact-path validation.",
+  "observed_conflict": "The active machine interlock requires an exact material-change routing decision while the user later directed Codex to stop pipeline work and work only on the Battered Aggie Syndrome project.",
+  "resolution": "Bind the exact BAT-554 2011-2013 reconciliation and parser-drift correction change set to the continuing user reservation without promoting the abandoned assistive pipeline or weakening exact-path validation.",
   "user_explicit_waiver": {
     "instruction_text": "I WANT YOU TO JUST COMPLETLY MOVE AWAY FROM BUILDING THIS PIPELINE AND ONLY WORK ON THE BATTERERD AGGIE SYNDROME PROJECT",
     "instruction_sha256": "e3b5efca5a46134bf5f77b233d97cfb04f85c78b0c5b320357e2858a19e2274e",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
-    "accepted_risk": "The abandoned assistive pipeline is not used for this BAS work unit; exact changed paths, validation, Git integration, and Jira evidence remain mandatory.",
-    "work_unit_id": "BAT-554-PARTIAL-DISCOVERY-VALIDATION-V1"
+    "accepted_risk": "The abandoned assistive pipeline is not used for this BAS work unit; exact changed paths, deterministic validation, immutable external artifacts, Git integration, and Jira evidence remain mandatory.",
+    "work_unit_id": "BAT-554-2011-2013-CONTEST-RECONCILIATION-V1"
   },
   "allowed_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-197.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "instructions/FILE_HASHES.sha256",
-    "instructions/manifest.json",
-    "instructions/policies/assistive_execution_interlock.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "tests/test_codex_usage_interlock.py",
-    "tests/test_ncaa_official_discovery_validation.py",
-    "tests/test_repo_integrity_tools.py",
-    "tools/repo_integrity.py",
-    "tools/validate_codex_usage_interlock.py",
-    "tools/validate_ncaa_official_discovery.py",
-    "tools/validate_ncaa_official_gamebooks.py"
+    "src/aggie_analytics/data/ncaa_contest_reconciliation.py",
+    "tests/test_ncaa_contest_reconciliation.py"
   ]
 }

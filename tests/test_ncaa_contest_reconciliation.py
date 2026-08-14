@@ -49,6 +49,35 @@ class NcaaContestReconciliationTests(unittest.TestCase):
         self.assertEqual(rows[0]["opponent_points"], 10)
         self.assertTrue(rows[0]["source_team_is_away"])
 
+    def test_team_page_parser_accepts_classless_text_link_schedule_rows(self) -> None:
+        payload = """
+        <div class="card-header"><img alt="Benedict" src="https://x/All_Logos/sm//55.gif"></div>
+        <table><tbody>
+        <tr>
+          <td class="smtext">09/07/2013</td>
+          <td class="smtext"><a href="/teams/62414">@ Central St. (OH)</a></td>
+          <td class="smtext"><a target="TEAM_WIN" class="skipMask" href="/contests/689047/box_score">W 42 - 9</a></td>
+        </tr>
+        <tr>
+          <td class="smtext">09/14/2013</td>
+          <td class="smtext"><a href="/teams/62346">Virginia St.<br>@ East Rutherford, NJ</a></td>
+          <td class="smtext"><a href="/contests/689593/box_score">W 30 - 14</a></td>
+        </tr>
+        </tbody></table>
+        """
+        page, rows = parse_team_page(
+            payload, team_season_id="62275", raw_sha256="e" * 64
+        )
+        self.assertIsNotNone(page)
+        self.assertEqual(page["source_team_org_id"], "55")
+        self.assertEqual(page["scored_schedule_rows"], 2)
+        self.assertEqual([row["contest_id"] for row in rows], ["689047", "689593"])
+        self.assertEqual(rows[0]["opponent_team_season_id"], "62414")
+        self.assertEqual(rows[0]["opponent_team_name"], "Central St. (OH)")
+        self.assertTrue(rows[0]["source_team_is_away"])
+        self.assertEqual(rows[1]["opponent_team_name"], "Virginia St. @ East Rutherford, NJ")
+        self.assertFalse(rows[1]["source_team_is_away"])
+
     def test_unrecognized_owner_fails_closed(self) -> None:
         page, rows = parse_team_page("<html>challenge</html>", team_season_id="1", raw_sha256="b" * 64)
         self.assertIsNone(page)

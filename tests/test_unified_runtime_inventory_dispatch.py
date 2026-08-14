@@ -754,6 +754,8 @@ def cpu_worker_semantic_evidence(root: Path):
                     "provider": "cursor",
                     "task_format": CURSOR_TASK_FORMAT,
                     "source_jira_unit": "BAT-900",
+                    "base_commit": "a" * 40,
+                    "starting_ref": "a" * 40,
                     "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
                 }
             )
@@ -2206,6 +2208,158 @@ def cpu_worker_semantic_evidence(root: Path):
         )
         self.assertEqual(1, len(admitted))
         self.assertTrue(admitted[0][0].work_unit_id.startswith("AUTO-CURSOR-"))
+
+    def test_execution_packet_revision_identity_binds_source_commit_and_supersession(self) -> None:
+        packet_root = self.root / "packets"
+        packet_root.mkdir()
+        old_commit = "8" * 40
+        current_commit = "9" * 40
+
+        def reference(commit: str, scope: str) -> tuple[str, dict[str, object]]:
+            packet = {
+                "schema_version": 1,
+                "provider": "cursor",
+                "task_format": CURSOR_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-202",
+                "source_jira_unit": "BAT-479",
+                "base_commit": commit,
+                "starting_ref": commit,
+                "scope": scope,
+            }
+            data = canonical_json_bytes(packet) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            path = packet_root / f"{digest}.json"
+            path.write_bytes(data)
+            work_unit_id = "AUTO-CURSOR-" + digest[:20]
+            metadata = RuntimeInventoryRefresher._execution_packet_revision_metadata(
+                {"packet_path": str(path), "packet_sha256": digest},
+                current_commit,
+            )
+            return work_unit_id, metadata
+
+        old_id, old_reference = reference(old_commit, "review before main transition")
+        new_id, new_reference = reference(current_commit, "review after main transition")
+        duplicate_id, duplicate_reference = reference(
+            current_commit, "review after main transition"
+        )
+
+        self.assertEqual(old_commit, old_reference["source_commit"])
+        self.assertEqual(current_commit, new_reference["source_commit"])
+        self.assertEqual(new_id, duplicate_id)
+        self.assertEqual(new_reference, duplicate_reference)
+        self.assertEqual(
+            old_reference["revision_family_identity"],
+            new_reference["revision_family_identity"],
+        )
+
+        supersessions = RuntimeInventoryRefresher._derive_revision_supersessions(
+            execution_packets={old_id: old_reference, new_id: new_reference},
+            execution_states={old_id: "CLOSED"},
+            release_commit=current_commit,
+            prior=[],
+            observed_at="2026-08-14T07:31:30Z",
+        )
+        self.assertEqual(1, len(supersessions))
+        self.assertEqual(old_id, supersessions[0]["superseded_work_unit_id"])
+        self.assertEqual(new_id, supersessions[0]["superseding_work_unit_id"])
+        self.assertEqual(old_commit, supersessions[0]["superseded_source_commit"])
+        self.assertEqual(current_commit, supersessions[0]["superseding_source_commit"])
+        self.assertEqual(
+            supersessions,
+            RuntimeInventoryRefresher._derive_revision_supersessions(
+                execution_packets={old_id: old_reference, new_id: new_reference},
+                execution_states={old_id: "CLOSED"},
+                release_commit=current_commit,
+                prior=supersessions,
+                observed_at="2026-08-14T08:00:00Z",
+            ),
+        )
+
+    def test_prior_release_review_debt_does_not_suppress_current_release_generation(self) -> None:
+        policy_path = self.root / "policy.json"
+        readiness_path = self.root / "readiness.json"
+        materializer_path = self.root / "materializer.py"
+        external_assistive_root = self.root / "external/assistive"
+        external_assistive_root.mkdir(parents=True)
+        readiness_path.write_text("{}", encoding="utf-8")
+        materializer_path.write_text("# test fixture\n", encoding="utf-8")
+        policy_path.write_text(
+            json.dumps(
+                {
+                    "execution_minimums": {
+                        "cursor": {
+                            "new_controller_routed_units": 10,
+                            "effort_points": 40,
+                            "accepted_useful": 6,
+                        }
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                semantic_materializer_path=materializer_path,
+                semantic_policy_path=policy_path,
+                semantic_readiness_path=readiness_path,
+                external_assistive_root=external_assistive_root,
+            ),
+        )
+        lifetime = {
+            "cursor": {
+                "closed_runs": 1,
+                "closed_effort_points": 5,
+                "pending_downstream_review": 1,
+                "useful_work": {"accepted_useful_outputs": 0},
+            }
+        }
+        current_release = {
+            "cursor": {
+                "closed_runs": 0,
+                "closed_effort_points": 0,
+                "pending_downstream_review": 0,
+                "review_dispositions": {},
+            }
+        }
+        with patch.object(
+            self.state,
+            "provider_run_summary",
+            side_effect=[lifetime, current_release],
+        ):
+            demand = refresher._operational_demand(
+                {"external_evidence": {"cursor": {"unique_jobs": 1}}},
+                [],
+                {},
+            )
+        self.assertEqual(0, demand["providers"]["cursor"]["pending_review_results"])
+        self.assertIn("cursor", demand["unmet_without_packets"])
+
+    def test_stale_cursor_review_cannot_authorize_current_release_implementation(self) -> None:
+        old_commit = "8" * 40
+        current_commit = "9" * 40
+        review = {
+            "task_format": CURSOR_TASK_FORMAT,
+            "source_jira_unit": "BAT-479",
+            "base_commit": old_commit,
+            "starting_ref": old_commit,
+        }
+        self.assertFalse(
+            RuntimeInventoryRefresher._cursor_review_matches_release(
+                review, current_commit
+            )
+        )
+        review["base_commit"] = current_commit
+        review["starting_ref"] = current_commit
+        self.assertTrue(
+            RuntimeInventoryRefresher._cursor_review_matches_release(
+                review, current_commit
+            )
+        )
 
     def test_selected_cpu_manifest_packet_requires_exact_qualification_and_is_routable(self) -> None:
         provider_root = self.root / "provider_work/requests"

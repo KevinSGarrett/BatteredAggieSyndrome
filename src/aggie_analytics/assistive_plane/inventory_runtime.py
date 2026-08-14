@@ -1979,6 +1979,7 @@ class RuntimeInventoryRefresher:
                 "schema_version": 1,
                 "provider": "cursor",
                 "task_format": CURSOR_TASK_FORMAT,
+                "producer_policy_version": "cursor-continuous-work-v2",
                 "jira_unit": "POST-SUBTASK-202",
                 "schema_sha256": CURSOR_SCHEMA_SHA256,
                 "source_hashes": [source_sha256, sha256_value({"release_commit": release_commit})],
@@ -2026,7 +2027,12 @@ class RuntimeInventoryRefresher:
                     "packet_sha256": digest,
                 }
             )
-            if len(created) >= 2:
+            # Preserve Jira-ready ordering and admit one Cursor reservation at
+            # a time.  Emitting a second generic review in the same refresh can
+            # consume the remaining released-stage capacity first (work-unit
+            # ordering is independent of value), terminalizing the Jira packet
+            # before the first reservation settles.
+            if len(created) >= 1:
                 break
         return created
 

@@ -879,6 +879,12 @@ def cpu_worker_semantic_evidence(root: Path):
         build_commit = "a" * 40
         release = self.root / "releases" / build_commit
         release.mkdir(parents=True)
+        fixed_review_source = (
+            release
+            / "src/aggie_analytics/assistive_plane/inventory_runtime.py"
+        )
+        fixed_review_source.parent.mkdir(parents=True)
+        fixed_review_source.write_text("# fixed review target\n", encoding="utf-8")
         registry = self.root / "openrouter-task-registry.json"
         registry.write_text(
             json.dumps(
@@ -950,6 +956,14 @@ def cpu_worker_semantic_evidence(root: Path):
             for item in [*openrouter, *cursor]
         ]
         self.assertTrue(all(packet["source_jira_unit"] == "BAT-900" for packet in packets))
+        cursor_packet = json.loads(
+            Path(cursor[0]["packet_path"]).read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            "cursor-continuous-work-v2",
+            cursor_packet["producer_policy_version"],
+        )
+        self.assertEqual("BAT-900", cursor_packet["source_jira_unit"])
         discovered = refresher._discover_provider_work(snapshot, self.now)
         self.assertEqual({"BAT-900"}, {unit.jira_unit for unit, _, _ in discovered})
         self.assertEqual({"OPENROUTER", "CURSOR"}, {decision.disposition.value for _, decision, _ in discovered})
@@ -1519,7 +1533,7 @@ def cpu_worker_semantic_evidence(root: Path):
         cpu = refresher._materialize_continuous_cpu_work({}, demand)
         bge = refresher._materialize_continuous_bge_work(demand)
         openai = refresher._materialize_continuous_openai_work(demand)
-        self.assertEqual(2, len(cursor))
+        self.assertEqual(1, len(cursor))
         self.assertEqual(1, len(cpu))
         self.assertEqual(2, len(bge))
         self.assertEqual(2, len(openai))

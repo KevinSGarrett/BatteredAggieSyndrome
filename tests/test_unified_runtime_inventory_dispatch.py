@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import tempfile
 import unittest
@@ -1002,6 +1003,85 @@ def cpu_worker_semantic_evidence(root: Path):
         refresher._jira_ready_cache = None
         self.assertEqual([], refresher._jira_ready_records())
 
+    def test_jira_ready_scan_rejects_undeclared_new_test_mutation(self) -> None:
+        project = self.root / "project"
+        issue = project / "jira/records/issues/tasks/TASK-901_unsatisfiable.json"
+        issue.parent.mkdir(parents=True)
+        issue.write_text(
+            json.dumps(
+                {
+                    "local_id": "TASK-901",
+                    "jira_key": "BAT-901",
+                    "priority": "P1",
+                    "ready": True,
+                    "workflow_state": "READY",
+                    "execution_mode": "ATOMIC_EXECUTION",
+                    "blocked_reason": "",
+                    "acceptance_criteria": ["new behavior has a direct test"],
+                    "allowed_modification_paths": ["artifacts/gate.json"],
+                    "required_tests": [
+                        {
+                            "classification": "NEW_AUTOMATED_TEST_REQUIRED",
+                            "path": "NEW_TEST_REQUIRED::TASK-901",
+                        }
+                    ],
+                    "operational_jira": {"status_raw": "To Do"},
+                }
+            ),
+            encoding="utf-8",
+        )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                project_root=project,
+            ),
+        )
+        self.assertEqual([], refresher._jira_ready_records())
+        payload = json.loads(issue.read_text(encoding="utf-8"))
+        payload["allowed_modification_paths"].append("tests/test_task_901.py")
+        payload["required_tests"][0]["path"] = "tests/test_task_901.py"
+        issue.write_text(json.dumps(payload), encoding="utf-8")
+        refresher._jira_ready_cache = None
+        admitted = refresher._jira_ready_records()
+        self.assertEqual("BAT-901", admitted[0][1]["jira_key"])
+
+    def test_second_pass_declared_new_test_replaces_unexecutable_sentinel(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        path = root / "jira" / "tools" / "second_pass_hardening.py"
+        spec = importlib.util.spec_from_file_location("jira_second_pass_contract", path)
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader if spec else None)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        task = {
+            "title": "Run incident game day",
+            "checks": [],
+            "external_blocker": "",
+            "domain": "operations",
+            "position": 1,
+            "task_ids": ["POST-SUBTASK-129"],
+            "lane": "",
+            "files": ["artifacts/operations/drift_incident_game_day.json"],
+            "outputs": ["artifacts/operations/drift_incident_game_day.json"],
+            "local_id": "POST-SUBTASK-129",
+            "new_test_modification_path": "tests/test_drift_incident_game_day.py",
+        }
+        required = module.validation_profile(task, [], root)
+        new_tests = [
+            item
+            for item in required
+            if item["classification"] == "NEW_AUTOMATED_TEST_REQUIRED"
+        ]
+        self.assertEqual(
+            ["tests/test_drift_incident_game_day.py"],
+            [item["path"] for item in new_tests],
+        )
+
     def test_reviewed_cursor_jira_unit_materializes_bounded_implementation_packet(
         self,
     ) -> None:
@@ -1503,6 +1583,29 @@ def cpu_worker_semantic_evidence(root: Path):
             target = release / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(f"# {relative}\n", encoding="utf-8")
+        project = self.root / "project"
+        jira_record = project / "jira/records/issues/tasks/TASK-900_ready.json"
+        jira_record.parent.mkdir(parents=True)
+        jira_record.write_text(
+            json.dumps(
+                {
+                    "local_id": "TASK-900",
+                    "jira_key": "BAT-900",
+                    "priority": "P1",
+                    "ready": True,
+                    "workflow_state": "READY",
+                    "execution_mode": "ATOMIC_EXECUTION",
+                    "blocked_reason": "",
+                    "objective": "Review a bounded executable repository unit",
+                    "scope": "Modify only the declared artifact",
+                    "acceptance_criteria": ["bounded result is independently reviewed"],
+                    "allowed_modification_paths": ["artifacts/gate.json"],
+                    "required_tests": [{"path": "tests/test_gate.py"}],
+                    "operational_jira": {"status_raw": "To Do"},
+                }
+            ),
+            encoding="utf-8",
+        )
         queue = self.root / "provider-work/requests"
         refresher = RuntimeInventoryRefresher(
             self.state,
@@ -1517,6 +1620,7 @@ def cpu_worker_semantic_evidence(root: Path):
                 openai_task_registry_path=openai_task_registry,
                 continuous_source_root=source_root,
                 bge_downstream_consumer_contract_version="test-semantic-review-routing-v1",
+                project_root=project,
             ),
         )
         demand = {
@@ -2515,6 +2619,29 @@ def cpu_worker_semantic_evidence(root: Path):
         review_source = release_root / "src/aggie_analytics/assistive_plane/inventory_runtime.py"
         review_source.parent.mkdir(parents=True)
         review_source.write_text("# current release review target\n", encoding="utf-8")
+        project = self.root / "project"
+        jira_record = project / "jira/records/issues/tasks/TASK-900_ready.json"
+        jira_record.parent.mkdir(parents=True)
+        jira_record.write_text(
+            json.dumps(
+                {
+                    "local_id": "TASK-900",
+                    "jira_key": "BAT-900",
+                    "priority": "P1",
+                    "ready": True,
+                    "workflow_state": "READY",
+                    "execution_mode": "ATOMIC_EXECUTION",
+                    "blocked_reason": "",
+                    "objective": "Review current release after stale packet isolation",
+                    "scope": "Modify only the declared artifact",
+                    "acceptance_criteria": ["current release is reviewed"],
+                    "allowed_modification_paths": ["artifacts/gate.json"],
+                    "required_tests": [{"path": "tests/test_gate.py"}],
+                    "operational_jira": {"status_raw": "To Do"},
+                }
+            ),
+            encoding="utf-8",
+        )
         policy_path = self.root / "policy.json"
         policy_path.write_text(
             json.dumps(
@@ -2586,6 +2713,7 @@ def cpu_worker_semantic_evidence(root: Path):
                 semantic_policy_path=policy_path,
                 semantic_readiness_path=readiness_path,
                 external_assistive_root=external_assistive_root,
+                project_root=project,
             ),
         )
         snapshot = {

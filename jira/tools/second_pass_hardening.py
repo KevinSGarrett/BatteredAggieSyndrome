@@ -401,7 +401,9 @@ def validation_profile(task: dict[str, Any], current_tests: list[dict[str, Any]]
     # A new automated test is required only when executable behavior is added or changed and manual/benchmark-only evidence cannot prove it.
     needs_new_automated = implementation and not publication_metadata and not (benchmark and not task.get("files")) and not documentary
     if needs_new_automated:
-        classes.append(("NEW_AUTOMATED_TEST_REQUIRED", f"NEW_TEST_REQUIRED::{task['local_id']}", "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test."))
+        declared_new_test = str(task.get("new_test_modification_path", "")).strip()
+        new_test_path = declared_new_test or f"NEW_TEST_REQUIRED::{task['local_id']}"
+        classes.append(("NEW_AUTOMATED_TEST_REQUIRED", new_test_path, "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test."))
 
     generated = [
         {"classification": classification, "validation_class": classification, "path": path, "expectation": expectation}
@@ -691,6 +693,9 @@ def apply_hardening(records: list[dict[str, Any]], maps: dict[str, Any]) -> None
         record["files_expected_to_be_read"] = unique(record.get("files_to_inspect", []))
         record["read_only_context_paths"] = unique(record.get("protected_files_and_interfaces", []) + record.get("files_to_inspect", []))
         allowed = list(record.get("files_expected_to_be_touched", []))
+        declared_new_test = str(record.get("new_test_modification_path", "")).strip()
+        if declared_new_test:
+            allowed.append(declared_new_test)
         if actionable and record.get("issue_type") == "Subtask":
             allowed.extend(record.get("expected_outputs", []))
         if evidence_manifest:

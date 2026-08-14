@@ -67,7 +67,7 @@
   "budgets": {
     "openai": {"hard_limit_usd": "100.00", "authorization_id": "USER-OPENAI-100-2026-08"},
     "openrouter": {"hard_limit_usd": "25.00", "released_stage_usd": "5.00", "authorization_id": "USER-OPENROUTER-25-2026-08-12", "stages_usd": ["5.00", "15.00", "25.00"], "nontransferable": true},
-    "cursor": {"hard_limit_usd": "200.00", "released_stage_usd": "60.00", "authorization_id": "USER-CURSOR-200-2026-08-12", "stages_usd": ["20.00", "60.00", "200.00"], "nontransferable": true},
+    "cursor": {"hard_limit_usd": "200.00", "released_stage_usd": "200.00", "authorization_id": "USER-CURSOR-200-2026-08-12", "stages_usd": ["20.00", "60.00", "200.00"], "nontransferable": true},
     "local_qwen": {"hard_limit_usd": "0.00", "authorization_id": "LOCAL_COMPUTE_ONLY"},
     "remote_cpu_worker": {"hard_limit_usd": "0.00", "authorization_id": "PRIVATE_DETERMINISTIC_WORKER_ONLY"}
   },

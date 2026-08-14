@@ -593,6 +593,23 @@ class RuntimeInventoryRefresher:
             if not isinstance(record, dict):
                 continue
             live_status = str(record.get("operational_jira", {}).get("status_raw", "")).upper()
+            allowed_modification_paths = {
+                str(value)
+                for value in record.get("allowed_modification_paths", [])
+                if isinstance(value, str)
+            }
+            declared_new_tests = [
+                str(test.get("path", ""))
+                for test in record.get("required_tests", [])
+                if isinstance(test, dict)
+                and test.get("classification") == "NEW_AUTOMATED_TEST_REQUIRED"
+            ]
+            new_test_contract_satisfied = all(
+                _safe_cursor_repository_path(path)
+                and path in allowed_modification_paths
+                and not path.startswith("NEW_TEST_REQUIRED::")
+                for path in declared_new_tests
+            )
             if (
                 record.get("ready") is not True
                 or record.get("workflow_state") != "READY"
@@ -602,6 +619,7 @@ class RuntimeInventoryRefresher:
                 or not record.get("jira_key")
                 or not record.get("local_id")
                 or not record.get("acceptance_criteria")
+                or not new_test_contract_satisfied
                 or not (
                     record.get("allowed_modification_paths")
                     or record.get("files_expected_to_be_touched")
@@ -1952,24 +1970,12 @@ class RuntimeInventoryRefresher:
                     f"and any evidence-backed blocker. Jira contract: {compact_contract}"
                 )
                 review_targets.append((source, focus, str(record["jira_key"]), relative))
-        fixed_review_targets = (
-            ("src/aggie_analytics/assistive_plane/inventory_runtime.py", "bounded semantic work discovery, duplicate suppression, and per-packet isolation"),
-            ("src/aggie_analytics/assistive_plane/scheduler_runtime.py", "durable provider lifecycle, restart recovery, and no duplicate submission"),
-            ("src/aggie_analytics/assistive_plane/controller_state.py", "atomic state transitions, leases, settlements, and reconciliation"),
-            ("src/aggie_analytics/assistive_plane/watchdog.py", "independent operational completeness and starvation detection"),
-            ("src/aggie_analytics/assistive_plane/provider_adapters.py", "exact route identity, candidate-only authority, and usage settlement"),
-            ("src/aggie_analytics/assistive_plane/service_runtime.py", "unattended refresh and dispatch cadence"),
-            ("src/aggie_analytics/assistive_plane/cursor_backend.py", "Cursor idempotency, branch isolation, and budget lifecycle"),
-            ("src/aggie_analytics/assistive_plane/orchestration.py", "routing identity immutability and workload accounting"),
-            ("src/aggie_analytics/assistive_plane/budget.py", "reservation hard stops and settlement consistency"),
-            ("src/aggie_analytics/assistive_plane/cpu_worker_backend.py", "signed request identity, replay, and bounded deterministic authority"),
-            ("tools/run_unified_assistive_controller.py", "deployment configuration and fail-closed defaults"),
-            ("tools/materialize_unified_assistive_inventory.py", "semantic evidence interpretation and route disposition integrity"),
-        )
-        review_targets.extend(
-            (release_root / relative, focus, None, relative)
-            for relative, focus in fixed_review_targets
-        )
+        # Cursor review is useful only when it has a concrete executable Jira
+        # consumer. Generic rotating source reviews accumulated paid activity
+        # but never produced a downstream-consumed artifact, eventually
+        # exhausting the released stage before an implementation could run.
+        # Keep those files discoverable through concrete Jira contracts; do
+        # not manufacture an unconsumed review solely to keep Cursor active.
         for source, focus, source_jira_unit, relative_override in review_targets:
             if not source.is_file():
                 continue

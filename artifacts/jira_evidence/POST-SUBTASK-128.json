@@ -2,29 +2,33 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_candidate_evidence",
   "created_at_utc": "2026-08-14T06:30:00Z",
-  "updated_at_utc": "2026-08-14T06:51:30Z",
+  "updated_at_utc": "2026-08-14T07:11:04Z",
   "jira_key": "BAT-478",
   "local_issue_id": "POST-SUBTASK-128",
-  "workflow_state": "IN_PROGRESS",
-  "evidence_state": "CANDIDATE_VALIDATED",
-  "observable_outcome": "The routed BAT-478 candidate now has an executable deterministic contract for all twelve required drift classes plus scoped severity, stable deduplication, acknowledgement, evidence-backed escalation, and resolution only after changed clearing evidence. Local focused validation passes; hosted integration and exact-main replay remain pending.",
+  "workflow_state": "DONE",
+  "evidence_state": "VERIFIED",
+  "observable_outcome": "The routed BAT-478 implementation is merged at exact main commit 836432a010e996507e00ad51690c35e6c0f59ae5 and independently replayed there. All twelve required drift classes, scoped severity, stable deduplication, acknowledgement, evidence-backed escalation, and changed-evidence resolution passed their applicable local, hosted, Jira, provenance, security, and full-suite gates.",
   "outputs": [
     {
       "path": "artifacts/operations/drift_alert_validation.json",
       "bytes": 36236,
-      "sha256": "65d7f118c0fccc0b366ab966c153e43f088a4aa74561d265d56510a0bcf4d4ae",
+      "sha256": "4d77e6564c8e488a5edec85ab02d9efc0876a1c36b61bd5fe1f0dcf216720474",
       "schema_version": "1.0.0",
-      "artifact_identity": "41d26ee3df48f653bf8ebe63ff2f63ef76b99586e3b3ffd43642d8b82d41a400",
-      "maturity": "IMPLEMENTED_VALIDATED_CONTROL_CANDIDATE",
+      "artifact_identity": "af58f13528a3348fd64d74f9b590c6361b798829200375c9d073942423c01587",
+      "maturity": "EMPIRICALLY_VALIDATED_CONTROL",
       "eligibility": "NOT_SUSTAINED_OPERATION"
     }
   ],
   "input_identities": {
     "git_base_commit": "1795c14837913328392550c38e44f7dbcc81cca5",
+    "merged_main_commit": "836432a010e996507e00ad51690c35e6c0f59ae5",
+    "integrated_pull_request": 347,
+    "superseded_pull_request": 346,
+    "live_jira_completion_comment_id": "14123",
     "post_subtask_024_sha256": "416a1ce70da87e9938aaa6f38da185d55e5d7e1f5a25b16b7c8775e01aa50bed",
     "post_subtask_126_sha256": "abc8f696bd1895ad946e97949d97a6bbb2ccfadd706cd46848700fff06d49d80",
     "post_subtask_127_sha256": "7686f1d4e76a68cfe0f9ed687987f4bd239fae76fe5e1384935f7a4b60ceaf16",
-    "canonical_issue_record_sha256": "2b54708ff20ae051fb77597ce230e99e3f349c50a934f741a9d0142b9867ee07",
+    "canonical_issue_record_sha256": "7b89be6e220fdcc7b624b5525a4ea91e9b21afed37e02706ef8afa10d2d822cb",
     "drift_alert_module_sha256": "904bb8da2bd2b57f458f6d6af218082b5af3d04a2fc82cd6755ab5cdcfedd0bc",
     "drift_alert_test_sha256": "b860d4e3ccf2ad9b562e52d8f93179200c328f392098a4ab387fc1995e404c48",
     "artifact_builder_sha256": "021db899f350b20fe1f2b2c9709c0e84ce2b22fa3b8baaef8fdf41eb136964da",
@@ -49,24 +53,24 @@
   "acceptance_matrix": [
     {
       "criterion": "Versioned baselines and evidence-derived thresholds identify affected scope, block unsafe downstream training/publication, and route alerts without claiming resolution until evidence changes.",
-      "disposition": "PASS_LOCAL_CANDIDATE",
+      "disposition": "PASS_EXACT_MAIN",
       "observable_result": "Rules bind baseline and threshold evidence hashes, scope effects to the affected domain, preserve terms metadata as nonblocking, and require a new no-drift observation before resolution.",
       "evidence_path": "artifacts/operations/drift_alert_validation.json",
-      "evidence_sha256": "65d7f118c0fccc0b366ab966c153e43f088a4aa74561d265d56510a0bcf4d4ae"
+      "evidence_sha256": "4d77e6564c8e488a5edec85ab02d9efc0876a1c36b61bd5fe1f0dcf216720474"
     },
     {
       "criterion": "The declared output artifacts/operations/drift_alert_validation.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
-      "disposition": "PASS_LOCAL_CANDIDATE",
-      "observable_result": "The reproducible builder produced artifact identity 41d26ee3df48f653bf8ebe63ff2f63ef76b99586e3b3ffd43642d8b82d41a400 and the independent consumer validator accepted it.",
+      "disposition": "PASS_EXACT_MAIN",
+      "observable_result": "The reproducible builder produced artifact identity af58f13528a3348fd64d74f9b590c6361b798829200375c9d073942423c01587 and the independent consumer validator accepted it.",
       "evidence_path": "artifacts/operations/drift_alert_validation.json",
-      "evidence_sha256": "65d7f118c0fccc0b366ab966c153e43f088a4aa74561d265d56510a0bcf4d4ae"
+      "evidence_sha256": "4d77e6564c8e488a5edec85ab02d9efc0876a1c36b61bd5fe1f0dcf216720474"
     },
     {
       "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
-      "disposition": "PASS_LOCAL_CANDIDATE",
+      "disposition": "PASS_EXACT_MAIN",
       "observable_result": "The artifact labels mutations as deterministic contract fixtures, binds the one freshness threshold to the existing observability contract, preserves the absence of a live refresh, and explicitly denies scientific or sustained-operation claims.",
       "evidence_path": "artifacts/operations/drift_alert_validation.json",
-      "evidence_sha256": "65d7f118c0fccc0b366ab966c153e43f088a4aa74561d265d56510a0bcf4d4ae"
+      "evidence_sha256": "4d77e6564c8e488a5edec85ab02d9efc0876a1c36b61bd5fe1f0dcf216720474"
     }
   ],
   "validation": {
@@ -92,8 +96,8 @@
     },
     "full_pytest": "PASS_850_TESTS_4_SKIPPED_120_SUBTESTS",
     "full_unittest": "PASS_848_TESTS_4_SKIPPED",
-    "hosted_checks": "PENDING_FOLLOW_UP_PUSH",
-    "exact_main_replay": "PENDING_MERGE"
+    "hosted_checks": "PASS_PR_347_UBUNTU_WINDOWS_PRODUCT_SECURITY_DEPENDENCY_CODEQL",
+    "exact_main_replay": "PASS_836432a010e996507e00ad51690c35e6c0f59ae5"
   },
   "negative_findings": [
     "No live provider refresh was performed in this bounded contract-validation unit, so no current zero-drift claim is made.",
@@ -112,17 +116,14 @@
   },
   "downstream_evaluation": {
     "consumer": "POST-SUBTASK-129",
-    "decision": "HOLD_UNTIL_HOSTED_INTEGRATION_AND_EXACT_MAIN_REPLAY",
-    "post_subtask_129_ready": false,
+    "decision": "DEPENDENCY_RELEASED_AFTER_HOSTED_AND_EXACT_MAIN_PASS",
+    "post_subtask_129_ready": true,
     "silent_unlock_allowed": false
   },
   "completion": {
-    "achieved_maturity": "IMPLEMENTED_VALIDATED_CONTROL_CANDIDATE",
-    "issue_disposition": "IN_PROGRESS",
-    "remaining_issue_scope_blockers": [
-      "HOSTED_REQUIRED_CHECKS_PENDING",
-      "EXACT_MAIN_REPLAY_PENDING"
-    ],
-    "completion_claim": "BAT-478 has a locally validated implementation candidate. It is not Done and does not establish live drift-free operation or any scientific result."
+    "achieved_maturity": "EMPIRICALLY_VALIDATED",
+    "issue_disposition": "DONE",
+    "remaining_issue_scope_blockers": [],
+    "completion_claim": "BAT-478 is complete at its issue scope after hosted validation and exact-main replay. It does not establish live drift-free operation, sustained unified-assistive operation, or any scientific result."
   }
 }

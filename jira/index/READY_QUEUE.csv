@@ -1,1 +1,2 @@
-
+rank,local_id,summary,priority,critical_path,dependency_unlock_count,execution_lane,execution_mode,component,parent,dependencies,source_refs,canonical_record
+1,POST-SUBTASK-129,"[POST-SUBTASK-129] Run outage, schema, stale forecast, disk, corrupt artifact, model, security, and governance-conflict game days through incident/rollback/substitution runbooks",P2,false,4,PROTECTED_GATE,ATOMIC_EXECUTION,operations-security,POST-STORY-043,POST-SUBTASK-024;POST-SUBTASK-126;POST-SUBTASK-127;POST-SUBTASK-128,SRCREF-02092;SRCREF-02093;SRCREF-02094;SRCREF-02095;SRCREF-02096;SRCREF-02097;SRCREF-02098;SRCREF-02001,jira/records/issues/subtasks/POST-SUBTASK-129_run_outage_schema_stale_forecast_disk_corrupt_artifact_model_security_and_govern.json

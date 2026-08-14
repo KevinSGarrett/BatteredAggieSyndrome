@@ -4,6 +4,7 @@
 .editorconfig
 .env.example
 .gitattributes
+.githooks/pre-commit
 .github/CODEOWNERS
 .github/ISSUE_TEMPLATE/bug_report.yml
 .github/ISSUE_TEMPLATE/config.yml
@@ -219,6 +220,7 @@ configs/assistive_route_readiness.json
 configs/backlog_policy.json
 configs/bas_science_registry.json
 configs/cfbd_post2022_roster_acquisition.json
+configs/codex_usage_interlock_change_manifest.json
 configs/context_intelligence_registry.json
 configs/cpu_worker_qualification.json
 configs/elo_challenger_research_contract.json
@@ -841,6 +843,7 @@ instructions/21_PACKAGING_INTEGRITY_AND_INSTALLATION.md
 instructions/22_MASTER_PROMPT_COMPLIANCE_LEDGER.md
 instructions/23_ACTIVATION_AND_NEXT_SESSION.md
 instructions/24_FINAL_VALIDATION_REPORT.md
+instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md
 instructions/CHANGELOG.md
 instructions/FILE_HASHES.sha256
 instructions/START_HERE.md
@@ -860,6 +863,7 @@ instructions/catalogs/protected_path_catalog.json
 instructions/catalogs/repository_navigation.json
 instructions/catalogs/validation_command_catalog.json
 instructions/manifest.json
+instructions/policies/assistive_execution_interlock.json
 instructions/policies/autonomy_permissions.json
 instructions/policies/blocker_taxonomy.json
 instructions/policies/definition_of_done.json
@@ -3216,6 +3220,7 @@ tests/test_autonomous_control_tools.py
 tests/test_backlog_governance.py
 tests/test_bas_science_governance.py
 tests/test_cfbd_historical_acquisition.py
+tests/test_codex_usage_interlock.py
 tests/test_context_intelligence_governance.py
 tests/test_core_registry.py
 tests/test_cpu_worker_backend.py
@@ -3343,6 +3348,7 @@ tools/acquire_ncaa_official_gamebooks.py
 tools/acquire_noaa_isd_observed_coverage_pilot.py
 tools/acquire_sec_tamu_availability.py
 tools/acquire_sportsdataverse_rosters.py
+tools/activate_codex_usage_interlock.py
 tools/activate_unified_assistive_release.py
 tools/adopt_unified_enforcement_package.py
 tools/apply_private_research_acquisition_policy.py
@@ -3478,6 +3484,7 @@ tools/validate_architecture.py
 tools/validate_autonomous_controls.py
 tools/validate_backlog.py
 tools/validate_bas_science.py
+tools/validate_codex_usage_interlock.py
 tools/validate_context_intelligence.py
 tools/validate_cpu_worker_readiness.py
 tools/validate_data_research.py

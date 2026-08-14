@@ -170,8 +170,8 @@ def _validate_policies(repo: Path, findings: list[str]) -> None:
     if atomic.get("section_count") != 56 or atomic.get("atomic_requirement_count") != len(requirements):
         findings.append("compliance:atomic_counts")
     dod = _load_json(policy_root / "definition_of_done.json", findings)
-    if len(dod.get("core_checks", [])) != 15:
-        findings.append("policy:dod_core_checks_not_15")
+    if len(dod.get("core_checks", [])) != 16:
+        findings.append("policy:dod_core_checks_not_16")
     task_selection = _load_json(policy_root / "task_selection_policy.json", findings)
     if task_selection.get("priority_order") != ["P0", "P1", "P2", "P3"]:
         findings.append("policy:task_priority_order")

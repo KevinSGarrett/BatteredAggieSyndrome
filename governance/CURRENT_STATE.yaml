@@ -3,6 +3,13 @@ current_wave: W25
 wave: W25
 status: COMPLETE_FINAL_HANDOFF_WITH_TARGET_HARDWARE_VALIDATION_GAP
 project_version: 0.25.0-w25-final-handoff
+assistive_execution_interlock: FORT_KNOX_FAIL_CLOSED_V3
+assistive_operational_state: NOT_OPERATIONAL
+codex_direct_project_work_allowed: false
+codex_direct_work_scope: PIPELINE_BOOTSTRAP_REPAIR_OR_RETAINED_AUTHORITY_ONLY
+independent_black_box_passed: false
+assistive_probation_passed: false
+assistive_seven_day_soak_passed: false
 parent_wave: W24
 next_wave: CODEX_IMPLEMENTATION_HANDOFF
 wave_program_complete: true

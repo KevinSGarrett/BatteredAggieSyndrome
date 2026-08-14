@@ -6,11 +6,13 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
 from aggie_analytics.assistive_plane.bypass import find_direct_endpoint_bypasses
 from aggie_analytics.assistive_plane.cursor_backend import CursorRunPolicy
 from aggie_analytics.assistive_plane.ollama_backend import OllamaRoutePolicy
+from tools.validate_codex_usage_interlock import validate as validate_codex_usage_interlock
 
 
 REQUIRED_FILES = [
@@ -21,6 +23,7 @@ REQUIRED_FILES = [
     "configs/unified_assistive_ready_work.json",
     "configs/unified_assistive_acceptance_ownership.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "configs/codex_usage_interlock_change_manifest.json",
     "governance/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
@@ -47,6 +50,8 @@ REQUIRED_FILES = [
     "tools/refresh_cpu_worker_readiness.py",
     "tools/validate_cpu_worker_readiness.py",
     "tools/validate_unified_assistive_completeness.py",
+    "tools/validate_codex_usage_interlock.py",
+    "tools/activate_codex_usage_interlock.py",
     "tools/adopt_unified_enforcement_package.py",
     "tools/validate_unified_acceptance_ownership.py",
     "tools/run_unified_assistive_controller.py",
@@ -58,6 +63,10 @@ REQUIRED_FILES = [
 
 def main() -> int:
     findings: list[str] = []
+    interlock_report = validate_codex_usage_interlock("static", ROOT)
+    findings.extend(
+        f"CODEX_USAGE_INTERLOCK:{finding}" for finding in interlock_report["findings"]
+    )
     for relative in REQUIRED_FILES:
         if not (ROOT / relative).is_file():
             findings.append(f"REQUIRED_FILE_MISSING:{relative}")

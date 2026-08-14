@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-CONTINUOUS-OFFLOAD-REPAIR",
+  "work_unit_id": "BAT-560-P0-SUBSTANTIVE-PRODUCER-REPAIR",
   "jira_identity": "BAT-560",
-  "decision_sha256": "92a6e4a61588672e28ddf4b91576131d7fd29b2ea6a5a956d0558bc29dbc2db7",
+  "decision_sha256": "9dd9fc039ca4a0b3098206e9694dd8fe5f89435a48aca453dbd984d84a382a34",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "PERSISTENT_REAL_WORK_PRODUCER_AND_PROVIDER_SCHEDULER_ROUTES_MISSING",
-  "source_commit": "9745f04e40fb8cb5af0c6353a5ad0f5630c01b60",
+  "reason_code": "P0_AUTONOMOUS_WORK_PRODUCER_FAILED_WITH_DELEGABLE_WORK_PRESENT",
+  "source_commit": "9692454b0960105313bc19f1d39664048c37082e",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "restored_capabilities": [
     "persistent_semantic_work_discovery",
@@ -14,7 +14,10 @@
     "cursor_persistent_scheduler_adapter",
     "openrouter_per_packet_failure_isolation",
     "provider_starvation_incidents",
-    "independent_operational_completeness_failures"
+    "independent_operational_completeness_failures",
+    "fail_closed_codex_project_work_interlock",
+    "independent_no_codex_black_box_release_gate",
+    "content_addressed_change_path_binding"
   ],
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,

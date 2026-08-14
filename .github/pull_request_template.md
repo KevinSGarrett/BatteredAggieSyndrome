@@ -1,5 +1,17 @@
 ## Purpose
 
+## Fail-closed assistive routing evidence
+
+- Work-unit/Jira identity:
+- Work class:
+- `PRE_ROUTING_DECISION` SHA-256:
+- Changed-path manifest identity:
+- Controller/provider result and review identities, or exact permitted exclusion:
+- Codex-authored modifications:
+- Settlement and cleanup evidence:
+- [ ] No `UNJUSTIFIED_DIRECT_EXECUTION`
+- [ ] `python -B tools/validate_codex_usage_interlock.py --mode ci`
+
 ## Requirements / ADRs
 - REQ-
 - ADR-

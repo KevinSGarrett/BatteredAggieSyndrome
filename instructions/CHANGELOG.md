@@ -1,5 +1,30 @@
 # Instruction Pack Changelog
 
+## 3.0.0 — 2026-08-13
+
+Fail-closed assistive-execution release prompted by repeated finite-queue
+exhaustion, provider starvation, and silent direct-Codex fallback.
+
+### Added
+
+- always-read Fort Knox assistive-execution interlock and machine companion;
+- immutable material-change routing/changed-path binding;
+- local pre-commit and hosted-CI enforcement;
+- independent two-hour no-Codex black-box, 24-hour probation, and seven-day
+  sustained-operation release gates;
+- downstream-consumed useful-work and positive measured-savings requirements;
+- explicit boundary between observable project behavior and unobservable
+  company intent or billing motive.
+
+### Changed
+
+- ordinary delegable BAS work now fails closed while the assistive plane is
+  `NOT_OPERATIONAL`;
+- the Definition of Done now requires independent runtime evidence and zero
+  unjustified direct execution;
+- the entrypoint and root agent contract require the interlock before material
+  work selection.
+
 ## 2.0.0 — 2026-08-08
 
 Complete rebuild after the user correctly identified that v1 did not demonstrate full master-prompt coverage.

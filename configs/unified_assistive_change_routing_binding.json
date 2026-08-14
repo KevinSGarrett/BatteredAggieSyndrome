@@ -1,27 +1,27 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-CANDIDATE-REVIEW-ACCOUNTING-CORRECTION",
+  "work_unit_id": "BAT-560-CURSOR-REVIEW-PROVENANCE-PRESERVATION",
   "jira_identity": "BAT-560",
-  "decision_sha256": "611b5ea46032ef12e0d0306a5b7357cbecdb2e478a090c0c473c898b7e88d29a",
+  "decision_sha256": "f0514268560bbe8afd7a4bd4759b636694bdb688c266e7549eb7a9c825a019f2",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "REPAIR_CANDIDATE_REVIEW_ACCOUNTING_WITHOUT_PERFORMING_ORDINARY_BAS_WORK",
-  "source_commit": "5ca09953a51a177900c877dd1e70703801bb29d4",
+  "reason_code": "REPAIR_CURSOR_REVIEW_TO_IMPLEMENTATION_PROVENANCE_LOSS_WITHOUT_PERFORMING_ORDINARY_BAS_WORK",
+  "source_commit": "2d55adba08758234f992fdb8e96dadefcb6b8b04",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "missing_autonomous_capability": "Candidate-review queue routing must remain available to the self-replenishing producer while accounting separately from downstream-consumed useful offload and measured savings.",
-  "observed_failure": "Candidate-only Cursor, OpenAI, and OpenRouter results were recorded as ACCEPTED with changed_project_artifact=true, inflating downstream-consumed output even though the result remained nonauthoritative and unconsumed by a real BAS workflow.",
-  "repair_evidence_sha256": "98b0f92f3296fe24db0808cd67866e79f3c0a249ff6f63c6d88fd4b07925ce7d",
+  "missing_autonomous_capability": "An accepted controller-routed Cursor review must retain immutable request-packet provenance through settlement so the persistent producer can autonomously generate its bounded implementation successor exactly once.",
+  "observed_failure": "Provider settlement replaced resource_json and discarded packet_path and packet_sha256; cursor_review_candidates therefore could not bind the accepted BAT-479 review to its immutable routed packet and no implementation successor was generated.",
+  "repair_evidence_sha256": "d372d04506751bdb8f521a3c64baf4cbc0830279ef70af187d20cf4c80d7149e",
   "allowed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
     "src/aggie_analytics/assistive_plane/controller_state.py",
-    "src/aggie_analytics/assistive_plane/review_runtime.py",
-    "src/aggie_analytics/assistive_plane/watchdog.py",
-    "tests/test_assistive_downstream_review.py"
+    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
+    "tests/test_unified_controller_state.py",
+    "tests/test_unified_runtime_inventory_dispatch.py"
   ]
 }

@@ -1,21 +1,19 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "d702af04919e60214c05f7ac162da8d870330079385c06eb01c21274b68cb486",
-  "work_unit_id": "AUTO-CURSOR-395ee82c545652101c73",
-  "jira_identity": "BAT-479",
-  "work_class": "PROJECT_WORK",
+  "manifest_identity": "2546063a20e5c842cc2ea20f318d8a00fc12a8619002570c1ca73296a7a24fdd",
+  "work_unit_id": "BAT-560-SERVICE-ACK-RACE-V1",
+  "jira_identity": "BAT-560",
+  "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "da8f0aa75dfd385b354da82e82d302b5419a1fe2",
-  "pre_routing_decision_sha256": "06499a3bd8ce18182108a0e69b859269817ade127f12f68142044541cd5720fb",
+  "base_commit": "aeb54d062ef23af2f75589275702f84ef283601e",
+  "pre_routing_decision_sha256": "e1368a920c4927253dea79763a4d8f9f6fd54cc8245e7cc4dd36a43f27709cf6",
   "changed_paths": [
-    "artifacts/jira_evidence/POST-SUBTASK-129.json",
-    "artifacts/operations/drift_incident_game_day.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "tests/test_drift_incident_game_day.py"
+    "tests/test_unified_controller_service.py",
+    "tools/switch_unified_assistive_services.ps1"
   ]
 }

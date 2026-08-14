@@ -437,7 +437,10 @@ class ControllerService:
 class WatchdogServiceConfig:
     runtime_root: Path
     build_commit: str
-    interval_seconds: float = 300.0
+    # Keep report production below the five-minute evidence-freshness bound.
+    # The interval is a start-to-start cadence, not an additional sleep after
+    # the (potentially expensive) full operational audit.
+    interval_seconds: float = 240.0
     heartbeat_max_age_seconds: int = 90
 
     def validate(self) -> None:
@@ -461,6 +464,14 @@ class WatchdogService:
             expected_build_commit=config.build_commit,
         )
 
+    @staticmethod
+    def _remaining_cycle_wait(
+        interval_seconds: float,
+        cycle_started: float,
+        cycle_completed: float,
+    ) -> float:
+        return max(0.0, interval_seconds - max(0.0, cycle_completed - cycle_started))
+
     def run(
         self,
         stop_event: threading.Event,
@@ -476,6 +487,7 @@ class WatchdogService:
                 if consume_service_stop_request(self.config.runtime_root, "watchdog", self.config.build_commit):
                     stop_event.set()
                     break
+                cycle_started = time.monotonic()
                 last = self.watchdog.inspect()
                 last.update(
                     {
@@ -494,7 +506,11 @@ class WatchdogService:
                     on_report(last)
                 if maximum_runtime_seconds is not None and time.monotonic() - started >= maximum_runtime_seconds:
                     break
-                wait_timeout = self.config.interval_seconds
+                wait_timeout = self._remaining_cycle_wait(
+                    self.config.interval_seconds,
+                    cycle_started,
+                    time.monotonic(),
+                )
                 if maximum_runtime_seconds is not None:
                     remaining_runtime = maximum_runtime_seconds - (time.monotonic() - started)
                     if remaining_runtime <= 0:

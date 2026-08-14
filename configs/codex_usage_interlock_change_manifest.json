@@ -1,19 +1,24 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "f32c423e76e2e5a5119ff3a6b8600106e04e1965253a3733b8a1425f11f9fce8",
-  "work_unit_id": "BAT-560-CURSOR-COMPARE-HEAD-REPAIR",
+  "manifest_identity": "5925ad9e2e844f7f7ae881a80f5525ef88fd043f4f05c301496956ac85260bc5",
+  "work_unit_id": "BAT-560-WATCHDOG-FRESHNESS-CADENCE-V3",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "b8d4d385c28874102b6e25aef133d71a3cbbab48",
-  "pre_routing_decision_sha256": "ed69fc4e397330137e6126ef84467401d05b6fa229331863fc867f68e4d56424",
+  "base_commit": "ca3ea6237754a607f14a2e31b41d8a6dd87472b3",
+  "pre_routing_decision_sha256": "27694171a6b74666d520b183877491025b2c1b52b29c1c67aa5fa05c8c728c3d",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "instructions/FILE_HASHES.sha256",
+    "instructions/manifest.json",
+    "instructions/policies/assistive_execution_interlock.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/provider_adapters.py",
-    "tests/test_unified_provider_adapters.py"
+    "src/aggie_analytics/assistive_plane/live_service.py",
+    "src/aggie_analytics/assistive_plane/service_runtime.py",
+    "tests/test_unified_controller_service.py",
+    "tools/run_unified_assistive_watchdog.py"
   ]
 }

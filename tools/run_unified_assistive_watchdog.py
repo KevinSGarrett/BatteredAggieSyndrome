@@ -41,7 +41,7 @@ def main() -> int:
         type=Path,
     )
     parser.add_argument("--heartbeat-max-age-seconds", type=int, default=90)
-    parser.add_argument("--interval-seconds", type=float, default=300.0)
+    parser.add_argument("--interval-seconds", type=float, default=240.0)
     parser.add_argument("--maximum-runtime-seconds", type=float)
     parser.add_argument("--build-commit")
     args = parser.parse_args()

@@ -195,6 +195,26 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
         refreshed_pointer = json.loads(self.current.read_text(encoding="utf-8"))
         self.assertNotEqual(pointer["refreshed_at"], refreshed_pointer["refreshed_at"])
 
+    def test_live_refresh_stamps_pointer_at_successful_publication_completion(self) -> None:
+        completed_at = self.now + timedelta(minutes=4)
+        with patch(
+            "aggie_analytics.assistive_plane.inventory_runtime.datetime"
+        ) as runtime_datetime:
+            runtime_datetime.now.side_effect = [self.now, completed_at]
+            report = self.refresher.refresh()
+
+        pointer = json.loads(self.current.read_text(encoding="utf-8"))
+        snapshot = json.loads(Path(pointer["snapshot_path"]).read_text(encoding="utf-8"))
+        self.assertEqual(
+            self.now.isoformat().replace("+00:00", "Z"),
+            snapshot["generated_at"],
+        )
+        self.assertEqual(
+            completed_at.isoformat().replace("+00:00", "Z"),
+            pointer["refreshed_at"],
+        )
+        self.assertEqual(pointer["refreshed_at"], report["refreshed_at"])
+
     def test_semantic_discovery_isolates_one_malformed_source(self) -> None:
         malformed = self.manifests / "quarantine/c/run.json"
         malformed.parent.mkdir(parents=True)

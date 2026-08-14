@@ -388,6 +388,91 @@
     },
     "authority": "PRELIMINARY_UNPROTECTED_CANDIDATE_ONLY_NO_FULL_RETRAINING_NO_PROTECTED_PROMOTION"
   },
+  "reconciled_contest_2022_tranche_0010_0014": {
+    "recorded_at_utc": "2026-08-14T19:12:17Z",
+    "selected_reconciled_contests": 5,
+    "acquisition_identity": "ae80f2a210606bbb721cb584e8f053a38a6562062315dec13acb332eeb5215c6",
+    "manifest_sha256": "c0a744eb8842a933bba494ea33f9b9df1424874b0d875728b609e8ea2397b86f",
+    "requests": 30,
+    "captures": 27,
+    "technical_failures": 3,
+    "technical_failure_scope": [
+      "2276533/team_stats SERVER_ERROR then CONTENT_TOO_SMALL",
+      "2276539/officials CONTENT_TOO_SMALL",
+      "2276541/individual_stats SERVER_ERROR twice"
+    ],
+    "normalized_rows": 1974,
+    "validation": {
+      "checks": 720,
+      "mutation_controls": 6,
+      "validation_identity": "0aae53cfc3f478209523b02b30b3a03db4891e8c740745237a10e01c439214c1",
+      "report_sha256": "3dc1428912fec7fa02fc6d6f331b031b3b1b3da94de633b1e7159a276e819094"
+    },
+    "cleanup": {
+      "reconstructible_files_removed": 66,
+      "bytes_recovered": 4068660
+    },
+    "authority": "CANDIDATE_ONLY_PARTIAL_DOMAINS_PRESERVED_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
+  "reconciled_contest_2022_tranche_0015_0019": {
+    "recorded_at_utc": "2026-08-14T19:33:51Z",
+    "selected_reconciled_contests": 5,
+    "acquisition_identity": "0fba9fdf4a9c9a41de8919977d05680f0a98751af82cf1a9fe01b8293f79befa",
+    "manifest_sha256": "a1afb108791c8b3fcc7c061bc97035ec0d00f4c5058ac6c0bbb3e69b73618224",
+    "requests": 30,
+    "captures": 30,
+    "technical_failures": 0,
+    "normalized_rows": 2003,
+    "validation": {
+      "checks": 774,
+      "mutation_controls": 6,
+      "validation_identity": "cfcce5e0fc452b28ca52865af3473eff8207162ca9aab37a8e4c9bf117bbd0d0",
+      "report_sha256": "33c5895e9d07a36b634b0d67a1ee0e278d7984621ef2aab677e5d095c162122c"
+    },
+    "parser_runtime_recovery": {
+      "negative_acquisition_identity": "fe9de9d2753fe7a62d7fecd72a2a17ead38e995c59b78499ae5a16b9f585d4d1",
+      "negative_finding": "The first completed retry preserved all 30 immutable raw captures but correctly emitted PARSER_RUNTIME_UNAVAILABLE and zero normalized rows under an interpreter without the pinned parser.",
+      "disposition": "PRESERVED_UNVALIDATED_NOT_ADMITTED",
+      "recovery": "Replayed the immutable request cache in an external isolated SportsDataverse 0.0.75 parser environment; no raw endpoint was redownloaded for normalization."
+    },
+    "cleanup": {
+      "reconstructible_rebuild_files_removed": 72,
+      "bytes_recovered": 4139315
+    },
+    "authority": "CANDIDATE_ONLY_VALIDATED_DOMAIN_EVIDENCE_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
+  "official_acquisition_coverage_rollup_checkpoint": {
+    "recorded_at_utc": "2026-08-14T19:34:04Z",
+    "schema_version": "1.4.0",
+    "matrix_identity": "199cf8bf25ab38a49c1bf5af5543f289ef9365b78d13fcb78e69e05de4eca0dc",
+    "matrix_sha256": "b9ba670483eee4b7dc22715526e5e1d2ca97626ab95397a18aa19b569599623e",
+    "season": 2022,
+    "official_contests": 20,
+    "unique_endpoint_requests": 120,
+    "captured_endpoint_requests": 114,
+    "technical_failures": 6,
+    "normalized_rows": 7917,
+    "domain_contest_counts": {
+      "attendance": 20,
+      "drives": 20,
+      "linescore_game_info": 20,
+      "officials": 19,
+      "play_by_play": 20,
+      "player_stats": 18,
+      "team_stats_by_period": 17,
+      "venue": 20
+    },
+    "implementation_validation": {
+      "targeted": "28_PASS_1_SKIP_11_SUBTESTS_PASS",
+      "full_suite": "892_PASS_4_SKIP_120_SUBTESTS_PASS",
+      "ruff": "PASS"
+    },
+    "versioned_artifacts": {
+      "tools/build_historical_spine_coverage_matrix.py": "f76d774d2324339a3216ae21ba1190f7bb557c7faf9167ab967c5abb76df707c",
+      "tests/test_historical_spine_coverage_matrix.py": "b51d535e86f5d4e8d1ac6f52ede32d1a3a1f1b6bb88b73244daa0537c1996f20"
+    },
+    "authority": "CANDIDATE_ONLY_DOMAIN_INDEPENDENT_COVERAGE_NO_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
+  },
   "next_actions": [
     "Complete the active 2010-2013 official team-season discovery runs, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
     "Reconcile completed 2010-2013 discovery artifacts to canonical games and teams using reciprocal exact evidence without name-only promotion or invented contest IDs.",

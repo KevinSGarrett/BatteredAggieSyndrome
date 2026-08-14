@@ -121,13 +121,100 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
         write_json(inflated, item)
         return inflated
 
+    def add_acquisition(
+        self,
+        season: int,
+        reconciliation_identity: str,
+        captures: list[dict],
+        *,
+        validated: bool = True,
+    ) -> Path:
+        core = {
+            "schema_version": "1.1.0",
+            "artifact_type": "NCAA_OFFICIAL_GAMEBOOK_ACQUISITION_MANIFEST",
+            "selection_evidence": {
+                "season": season,
+                "dataset_identity": reconciliation_identity,
+                "source": "RECONCILED_CONTEST_CANDIDATES",
+            },
+            "captures": captures,
+            "request_count": len(captures),
+            "captured_count": sum(row["state"] == "CAPTURED" for row in captures),
+            "technical_failure_count": sum(row["state"] != "CAPTURED" for row in captures),
+        }
+        identity = hashlib.sha256(coverage.canonical_json(core)).hexdigest()
+        manifest = {
+            **core,
+            "acquisition_identity": identity,
+            "issued_at_utc": "2026-08-14T00:00:00Z",
+            "credentials_logged_or_persisted": False,
+        }
+        path = (
+            self.data_root
+            / "manifests/acquisition/BAT-554-NCAA-OFFICIAL-BOUNDED-V1/sha256"
+            / identity
+            / "ncaa_official_gamebook_acquisition_manifest.json"
+        )
+        write_json(path, manifest)
+        if validated:
+            report_core = {
+                "schema_version": "1.1.0",
+                "artifact_type": "NCAA_OFFICIAL_GAMEBOOK_VALIDATION_REPORT",
+                "validated_at_utc": "2026-08-14T00:01:00Z",
+                "result": "PASS",
+                "acquisition_identity": identity,
+                "manifest_sha256": coverage.sha256_file(path),
+                "check_count": len(captures) * 10,
+                "mutation_control_count": 6,
+            }
+            validation_identity = hashlib.sha256(coverage.canonical_json(report_core)).hexdigest()
+            report = {**report_core, "validation_identity": validation_identity}
+            report_path = (
+                self.data_root
+                / "validation/POST-SUBTASK-197/ncaa-official-gamebooks"
+                / identity
+                / "runs"
+                / validation_identity
+                / "report.json"
+            )
+            write_json(report_path, report)
+        return path
+
+    @staticmethod
+    def capture(
+        contest_id: str,
+        endpoint_id: str,
+        *,
+        state: str,
+        domain: str | None = None,
+        rows: int = 0,
+    ) -> dict:
+        value = {
+            "contest_id": contest_id,
+            "canonical_game_id": f"game_{contest_id}",
+            "endpoint_id": endpoint_id,
+            "state": state,
+            "request_identity_sha256": hashlib.sha256(f"{contest_id}:{endpoint_id}:{state}".encode()).hexdigest(),
+            "attempts": [{"attempt": 1, "condition": "SUCCESS" if state == "CAPTURED" else "SERVER_ERROR"}],
+            "raw_bytes": 100 if state == "CAPTURED" else 0,
+            "normalization": [],
+        }
+        if domain:
+            value["normalization"] = [{
+                "state": "PARSED_CANDIDATE",
+                "domain": domain,
+                "row_count": rows,
+                "normalization_identity": hashlib.sha256(f"{contest_id}:{domain}:{rows}".encode()).hexdigest(),
+            }]
+        return value
+
     def test_graph_exhaustion_with_failures_is_not_capture_complete(self) -> None:
         self.add_discovery(2024, failures=0)
         self.add_discovery(2025, failures=2)
 
         payload = coverage.build_matrix(self.data_root)
 
-        self.assertEqual(payload["schema_version"], "1.3.0")
+        self.assertEqual(payload["schema_version"], "1.4.0")
         self.assertEqual(payload["discovery_summary"]["capture_complete_seasons"], [2024])
         self.assertEqual(
             payload["discovery_summary"]["graph_exhausted_with_quarantined_failures"],
@@ -200,6 +287,68 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
         selected, _ = coverage.select_strongest_reconciliation(self.data_root, 2018)
 
         self.assertEqual(selected, correct)
+
+    def test_validated_acquisitions_roll_up_unique_endpoint_work(self) -> None:
+        self.add_discovery(2022, failures=0)
+        reconciliation_path = self.add_reconciliation(2022)
+        reconciliation_identity = reconciliation_path.parent.name
+        self.add_acquisition(
+            2022,
+            reconciliation_identity,
+            [
+                self.capture("10", "box_score", state="CAPTURED", domain="attendance", rows=1),
+                self.capture("10", "play_by_play", state="TECHNICALLY_UNAVAILABLE"),
+            ],
+        )
+        self.add_acquisition(
+            2022,
+            reconciliation_identity,
+            [self.capture("10", "play_by_play", state="CAPTURED", domain="play_by_play", rows=4)],
+        )
+
+        payload = coverage.build_matrix(self.data_root)
+        row = next(
+            item
+            for item in payload["rows"]
+            if item["season"] == 2022 and item["domain"] == "OFFICIAL_GAMEBOOK_EQUIVALENT_ACQUISITION"
+        )
+
+        self.assertEqual(row["unique_endpoint_requests"], 2)
+        self.assertEqual(row["captured_endpoint_requests"], 2)
+        self.assertEqual(row["technical_failure_count"], 0)
+        self.assertEqual(row["source_request_observations"], 3)
+        self.assertEqual(row["duplicate_request_observations"], 1)
+        self.assertEqual(row["normalized_rows"], 5)
+        self.assertEqual(row["domain_contest_counts"], {"attendance": 1, "play_by_play": 1})
+        self.assertFalse(row["authority"]["training_eligible"])
+        self.assertEqual(row["eligibility_tiers"], [])
+
+    def test_unvalidated_acquisition_is_not_admitted_to_rollup(self) -> None:
+        self.add_discovery(2022, failures=0)
+        reconciliation_path = self.add_reconciliation(2022)
+        self.add_acquisition(
+            2022,
+            reconciliation_path.parent.name,
+            [self.capture("10", "box_score", state="CAPTURED", domain="attendance", rows=1)],
+            validated=False,
+        )
+
+        payload = coverage.build_matrix(self.data_root)
+
+        self.assertFalse(any(item["domain"] == "OFFICIAL_GAMEBOOK_EQUIVALENT_ACQUISITION" for item in payload["rows"]))
+
+    def test_tampered_validated_acquisition_fails_closed(self) -> None:
+        path = self.add_acquisition(
+            2022,
+            "r" * 64,
+            [self.capture("10", "box_score", state="CAPTURED", domain="attendance", rows=1)],
+        )
+        item = json.loads(path.read_text(encoding="utf-8"))
+        item["captured_count"] = 99
+        write_json(path, item)
+
+        with self.assertRaisesRegex(ValueError, "acquisition content identity mismatch"):
+            coverage.validated_acquisition_manifests(self.data_root, 2022, "r" * 64)
 
 
 if __name__ == "__main__":

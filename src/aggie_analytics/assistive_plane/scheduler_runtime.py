@@ -14,6 +14,7 @@ from .contracts import sha256_value
 from .controller_state import ControllerState, TERMINAL_STATES, parse_rfc3339, rfc3339
 from .cpu_worker_backend import CpuWorkerClient, CpuWorkerEndpoint, CpuWorkerJob
 from .inventory_runtime import (
+    BGE_DOWNSTREAM_CONSUMER_VERSION,
     CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
     cpu_qualification_evidence_sha256,
 )
@@ -311,6 +312,117 @@ class InventoryScheduler:
             "disposition_sha256": disposition_sha256,
             "records": len(line_hashes),
             "review_seconds": review_seconds,
+            "measured_net_time_saved_seconds": 0.0,
+        }
+
+    def _consume_bge_review_routing_result(
+        self,
+        *,
+        packet: dict[str, Any],
+        response: dict[str, Any],
+        work_unit_id: str,
+        attempt_id: str,
+        validation_sha256: str,
+    ) -> dict[str, Any] | None:
+        """Consume exact BGE rankings into a candidate-only review-routing artifact.
+
+        This closes the scheduler's missing-consumer loop without pretending an
+        embedding ranking is an accepted factual result or measured time saving.
+        """
+        root = self.config.downstream_artifact_root
+        if root is None or packet.get("task_format") != "embedding_dedup_semantic_candidate_retrieval":
+            return None
+        if packet.get("downstream_consumer_contract_version") != BGE_DOWNSTREAM_CONSUMER_VERSION:
+            raise RuntimeError("BGE_DOWNSTREAM_CONSUMER_CONTRACT_MISMATCH")
+        candidates = packet.get("candidates")
+        rankings = response.get("rankings")
+        if not isinstance(candidates, list) or not isinstance(rankings, list):
+            raise RuntimeError("BGE_DOWNSTREAM_RANKINGS_INVALID")
+        candidate_ids = [item.get("candidate_id") for item in candidates if isinstance(item, dict)]
+        ranked_ids = [item.get("candidate_id") for item in rankings if isinstance(item, dict)]
+        scores = [item.get("score") for item in rankings if isinstance(item, dict)]
+        query = packet.get("query")
+        if (
+            len(candidate_ids) != len(candidates)
+            or len(ranked_ids) != len(rankings)
+            or not all(isinstance(candidate_id, str) and candidate_id for candidate_id in candidate_ids)
+            or not all(isinstance(candidate_id, str) and candidate_id for candidate_id in ranked_ids)
+            or len(set(candidate_ids)) != len(candidate_ids)
+            or sorted(candidate_ids) != sorted(ranked_ids)
+            or len(set(ranked_ids)) != len(ranked_ids)
+            or not all(
+                isinstance(score, (int, float))
+                and not isinstance(score, bool)
+                and -1.000001 <= score <= 1.000001
+                for score in scores
+            )
+            or scores != sorted(scores, reverse=True)
+            or not isinstance(query, str)
+            or response.get("query_sha256") != hashlib.sha256(query.encode("utf-8")).hexdigest()
+            or response.get("artifact_type") != "BGE_M3_CANDIDATE_RETRIEVAL"
+            or response.get("task_format") != packet.get("task_format")
+            or response.get("model") != packet.get("model")
+            or response.get("model_digest") != packet.get("model_digest")
+            or response.get("authority") != "CANDIDATE_ONLY"
+            or response.get("canonical_writes") != 0
+            or response.get("protected_decisions") != 0
+        ):
+            raise RuntimeError("BGE_DOWNSTREAM_RANKING_EVIDENCE_INVALID")
+        started = time.perf_counter()
+        artifact = {
+            "artifact_type": "BGE_RECONCILIATION_REVIEW_ROUTING",
+            "schema_version": 1,
+            "consumer_contract_version": BGE_DOWNSTREAM_CONSUMER_VERSION,
+            "work_unit_id": work_unit_id,
+            "attempt_id": attempt_id,
+            "jira_unit": str(packet.get("jira_unit", "BAT-562")),
+            "source_hashes": list(packet.get("source_hashes", [])),
+            "query_sha256": response.get("query_sha256"),
+            "rankings": rankings,
+            "model": response.get("model"),
+            "model_digest": response.get("model_digest"),
+            "validation_sha256": validation_sha256,
+            "authority": "CANDIDATE_REVIEW_ROUTING_ONLY_NO_IDENTITY_MERGE",
+        }
+        expected_identity = hashlib.sha256(canonical_json_bytes(artifact)).hexdigest()
+        expected_path = root / "bge-reconciliation-review-routing" / "sha256" / expected_identity / "report.json"
+        created_new_artifact = not expected_path.exists()
+        artifact_path, artifact_sha256 = content_addressed_write(
+            root,
+            "bge-reconciliation-review-routing",
+            artifact,
+            current_name=f"{work_unit_id}.json",
+        )
+        review_seconds = max(0.0, time.perf_counter() - started)
+        # Materializing a candidate review-routing artifact is not itself a
+        # downstream adoption decision.  Keep the durable downstream
+        # disposition UNUSED until an independent consumer accepts, modifies,
+        # or rejects the ranking; this deliberately earns zero useful-offload
+        # credit even when a new review artifact was created.
+        disposition = "UNUSED"
+        disposition_sha256 = self.state.record_downstream_review_disposition(
+            attempt_id=attempt_id,
+            disposition=disposition,
+            downstream_consumer="BGE_RECONCILIATION_REVIEW_ROUTING",
+            reason=(
+                "VALIDATED_RANKING_MATERIALIZED_FOR_DETERMINISTIC_REVIEW_ROUTING"
+                if created_new_artifact
+                else "IDENTICAL_REVIEW_ROUTING_ARTIFACT_ALREADY_EXISTED"
+            ),
+            consumed_artifact_identity=artifact_sha256,
+            changed_project_artifact=False,
+            net_time_saved_seconds=0.0,
+            duplicated_by_codex=False,
+            review_seconds=review_seconds,
+        )
+        return {
+            "disposition": disposition,
+            "artifact_path": str(artifact_path),
+            "artifact_sha256": artifact_sha256,
+            "disposition_sha256": disposition_sha256,
+            "candidate_count": len(rankings),
+            "review_seconds": review_seconds,
+            "accepted_useful_offload_credit": False,
             "measured_net_time_saved_seconds": 0.0,
         }
 
@@ -950,6 +1062,35 @@ class InventoryScheduler:
                 actor=self.config.owner_id,
                 now=completed,
             )
+            downstream_consumption = None
+            if decision.provider == "ollama_local":
+                try:
+                    downstream_consumption = self._consume_bge_review_routing_result(
+                        packet=packet,
+                        response=result.result,
+                        work_unit_id=decision.work_unit_id,
+                        attempt_id=attempt_id,
+                        validation_sha256=validation_sha256,
+                    )
+                except Exception as consumer_error:
+                    finding = type(consumer_error).__name__ + ":" + str(consumer_error)[:240]
+                    disposition_sha256 = self.state.record_downstream_review_disposition(
+                        attempt_id=attempt_id,
+                        disposition="REJECTED",
+                        downstream_consumer="BGE_RECONCILIATION_REVIEW_ROUTING",
+                        reason=finding,
+                        changed_project_artifact=False,
+                        net_time_saved_seconds=0.0,
+                        duplicated_by_codex=False,
+                        review_seconds=0.0,
+                    )
+                    downstream_consumption = {
+                        "disposition": "REJECTED",
+                        "finding": finding,
+                        "disposition_sha256": disposition_sha256,
+                        "accepted_useful_offload_credit": False,
+                        "measured_net_time_saved_seconds": 0.0,
+                    }
             return {
                 "work_unit_id": decision.work_unit_id,
                 "provider": decision.provider,
@@ -958,9 +1099,14 @@ class InventoryScheduler:
                 "result_sha256": result_sha256,
                 "artifact_path": str(artifact_path),
                 "artifact_sha256": artifact_sha256,
-                "review_disposition": review_disposition,
+                "review_disposition": (
+                    downstream_consumption.get("disposition", review_disposition)
+                    if downstream_consumption
+                    else review_disposition
+                ),
                 "actual_cost_usd": result.actual_cost_usd,
                 "provider_call_attempted": provider_call_attempted,
+                "downstream_consumption": downstream_consumption,
             }
         except Exception as exc:
             retryable_names = {"APIConnectionError", "APITimeoutError", "TimeoutError", "URLError"}

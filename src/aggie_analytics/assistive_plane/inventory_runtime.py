@@ -80,6 +80,7 @@ BGE_POLICY_VERSION = "unified-assistive-execution-plane-v2-operational-correctio
 BGE_PROMPT_VERSION = "embedding-shadow-v1"
 BGE_SCHEMA_VERSION = "1"
 BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c"
+BGE_DOWNSTREAM_CONSUMER_VERSION = "bge-reconciliation-review-routing-v1"
 READY_WORK_UNIT_FIELDS = frozenset(ReadyWorkUnit.__dataclass_fields__)
 ROUTE_DECISION_FIELDS = frozenset(RouteDecision.__dataclass_fields__)
 

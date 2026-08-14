@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-P0-INTERLOCK-CLEAN-TREE-SEMANTICS",
+  "work_unit_id": "BAT-560-P0-BGE-CONTINUOUS-CONSUMER",
   "jira_identity": "BAT-560",
-  "decision_sha256": "d0341ea7fad6a643bf4421bda9a375902b03dec32597fc85ef1835f9445fa039",
+  "decision_sha256": "b465cc2cd4816052c38196865e2cdb008f6124752639ab36c0b275da3100ab00",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "INTERLOCK_CLEAN_TREE_FALSE_FAILURE_AND_ABSENT_PROOF_IDENTITY_MISREPORT",
-  "source_commit": "aaf4be0bdd97c44be01769909963340b69e25f3b",
+  "reason_code": "CONTINUOUS_BGE_PRODUCER_DISABLED_AND_DOWNSTREAM_CONSUMER_MISSING",
+  "source_commit": "3ee0b185d59112a84b0d73db17cccbc4499eb094",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "restored_capabilities": [
-    "clean_tree_precommit_static_integrity_validation",
-    "staged_change_exact_manifest_binding",
-    "absent_black_box_proof_without_false_identity_mismatch",
-    "runtime_release_gate_remains_fail_closed"
+    "continuous_bge_packet_production_with_exact_consumer_contract",
+    "validated_candidate_only_bge_review_routing_artifact",
+    "rejected_invalid_bge_consumer_results_without_false_useful_credit",
+    "runtime_local_model_starvation_repair"
   ],
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,

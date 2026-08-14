@@ -2,12 +2,25 @@ from __future__ import annotations
 
 import unittest
 import sys
+import json
+import tempfile
 from pathlib import Path
+
+try:
+    import polars as pl
+except ImportError:  # pragma: no cover - exercised by the minimal hosted test environment
+    pl = None
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aggie_analytics.data.ncaa_contest_reconciliation import normalize_team_name, parse_team_page
+from aggie_analytics.data.ncaa_contest_reconciliation import (  # noqa: E402
+    normalize_team_name,
+    parse_legacy_team_page,
+    parse_team_page,
+    reconcile,
+    sha256_file,
+)
 
 
 class NcaaContestReconciliationTests(unittest.TestCase):
@@ -38,6 +51,110 @@ class NcaaContestReconciliationTests(unittest.TestCase):
         page, rows = parse_team_page("<html>challenge</html>", team_season_id="1", raw_sha256="b" * 64)
         self.assertIsNone(page)
         self.assertEqual(rows, [])
+
+    def test_legacy_parser_preserves_team_link_and_does_not_invent_contest_id(self) -> None:
+        payload = """
+        <div class="card-header"><img class="logo_image" alt="TCU" src="https://x/All_Logos/sm//698.gif"> TCU Horned Frogs</div>
+        <tr><td class="smtext">09/02/2011</td><td><a href="/teams/137690">@ Baylor</a></td><td>48 - 50</td></tr>
+        """
+        page, rows = parse_legacy_team_page(payload, team_season_id="137844", raw_sha256="c" * 64)
+        self.assertIsNotNone(page)
+        self.assertEqual(len(rows), 1)
+        self.assertIsNone(rows[0]["contest_id"])
+        self.assertEqual(rows[0]["opponent_team_season_id"], "137690")
+        self.assertEqual(rows[0]["source_team_points"], 48)
+        self.assertEqual(rows[0]["opponent_points"], 50)
+        self.assertTrue(rows[0]["source_team_is_away"])
+        self.assertFalse(rows[0]["source_result_was_explicit"])
+        self.assertEqual(rows[0]["source_result"], "L")
+
+    @unittest.skipIf(pl is None, "optional data-engineering dependency polars is not installed")
+    def test_two_sided_legacy_rows_reconcile_without_contest_id(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            data_root = Path(temporary)
+            raw_root = data_root / "raw"
+            raw_root.mkdir()
+            tcu = raw_root / "tcu.html"
+            baylor = raw_root / "baylor.html"
+            tcu.write_text(
+                '<div class="card-header"><img alt="TCU" src="x/All_Logos/sm//698.gif"></div>'
+                '<tr><td>09/02/2011</td><td><a href="/teams/137690">@ Baylor</a></td><td>48 - 50</td></tr>',
+                encoding="utf-8",
+            )
+            baylor.write_text(
+                '<div class="card-header"><img alt="Baylor" src="x/All_Logos/sm//239.gif"></div>'
+                '<tr><td>09/02/2011</td><td><a href="/teams/137844">TCU</a></td><td>50 - 48</td></tr>',
+                encoding="utf-8",
+            )
+            discovery = {
+                "season": 2011,
+                "state": "COMPLETE_GRAPH_EXHAUSTED",
+                "discovered_contest_ids": [],
+                "captures": [
+                    {"team_season_id": "137844", "raw_relative_path": "raw/tcu.html", "raw_sha256": sha256_file(tcu)},
+                    {"team_season_id": "137690", "raw_relative_path": "raw/baylor.html", "raw_sha256": sha256_file(baylor)},
+                ],
+            }
+            discovery_path = data_root / "discovery.json"
+            discovery_path.write_text(json.dumps(discovery), encoding="utf-8")
+            registry_path = data_root / "registry.csv"
+            pl.DataFrame([
+                {"record_type": "ALIAS", "entity_type": "team", "resolution_state": "AUTO_ACCEPTED_VERIFIED", "canonical_id": "team_tcu", "alias": "TCU"},
+                {"record_type": "ALIAS", "entity_type": "team", "resolution_state": "AUTO_ACCEPTED_VERIFIED", "canonical_id": "team_baylor", "alias": "Baylor"},
+            ]).write_csv(registry_path)
+            outcomes_path = data_root / "outcomes.parquet"
+            pl.DataFrame([{
+                "target_game_id": "game_2011_tcu_baylor",
+                "season": 2011,
+                "season_type": "regular",
+                "week": 1,
+                "start_utc": "2011-09-02T23:00:00Z",
+                "home_team_id": "team_baylor",
+                "away_team_id": "team_tcu",
+                "home_points": 50,
+                "away_points": 48,
+            }]).write_parquet(outcomes_path)
+            contract = {
+                "schema_version": "2.0.0",
+                "contract_id": "test-legacy-reconciliation",
+                "decision_unit": "POST-SUBTASK-197",
+                "jira_key": "BAT-554",
+                "classification": "CANDIDATE_ONLY",
+                "source_contract": {
+                    "season": 2011,
+                    "discovery_manifest": "discovery.json",
+                    "discovery_manifest_sha256": sha256_file(discovery_path),
+                    "canonical_registry": "registry.csv",
+                    "canonical_registry_sha256": sha256_file(registry_path),
+                    "outcome_targets": "outcomes.parquet",
+                    "outcome_targets_sha256": sha256_file(outcomes_path),
+                },
+                "admission": {"maximum_source_date_to_utc_date_delta_days": 1},
+                "authority": {
+                    "historical_pit_eligible": False,
+                    "training_eligible": False,
+                    "protected_evaluation_eligible": False,
+                    "production_eligible": False,
+                },
+            }
+            contract_path = data_root / "contract.json"
+            contract_path.write_text(json.dumps(contract), encoding="utf-8")
+
+            result = reconcile(
+                input_data_root=data_root,
+                output_data_root=data_root,
+                repo_root=ROOT,
+                contract_path=contract_path,
+                issued_at_utc="2026-08-14T00:00:00Z",
+            )
+
+            self.assertEqual(result["population"]["reconciled_contests"], 0)
+            self.assertEqual(result["population"]["reconciled_legacy_games"], 1)
+            self.assertEqual(result["population"]["unresolved_legacy_observations"], 0)
+            mapping = pl.read_parquet(Path(result["feature_root"]) / "legacy_schedule_mappings.parquet").to_dicts()[0]
+            self.assertIsNone(mapping["ncaa_contest_id"])
+            self.assertFalse(mapping["contest_id_fabricated"])
+            self.assertEqual(mapping["canonical_game_id"], "game_2011_tcu_baylor")
 
 
 if __name__ == "__main__":

@@ -83,7 +83,7 @@
   "end_to_end_validation": "Unsafe changes are visible, attributable, blocked at the correct boundary, and recover through exact runbooks without exposing secrets or corrupting evidence. The gate decision must explicitly reevaluate downstream issues: POST-STORY-044, POST-SUBTASK-130, POST-SUBTASK-131, POST-SUBTASK-132.",
   "epic_id": "POST-EPIC-014",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-129.json",
-  "evidence_state": "PLANNED",
+  "evidence_state": "PARTIAL",
   "execution_lane": "PROTECTED_GATE",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "PRODUCTION_READY",
@@ -157,11 +157,11 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24619",
-    "jira_updated_at": "2026-08-09T23:24:12.708-0500",
-    "last_synced_at": "2026-08-11T07:44:24.297472+00:00",
-    "source_export": "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-523-tamu-availability-pages\\jira\\reconciliation\\BAT_JIRA_EXPORT.csv",
+    "jira_updated_at": "2026-08-14T18:27:11.585-0500",
+    "last_synced_at": "2026-08-14T23:27:42.736959+00:00",
+    "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
-    "status_raw": "To Do"
+    "status_raw": "In Progress"
   },
   "out_of_scope": [
     "Unrelated refactors, dependency upgrades, or architecture changes outside this atomic work unit.",
@@ -222,7 +222,7 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
     "docs/operations/OBSERVABILITY.md"
   ],
-  "ready": true,
+  "ready": false,
   "record_revision": "2.0",
   "related_to": [],
   "required_evidence": [
@@ -358,7 +358,7 @@
   ],
   "why_this_exists": "This is an independently executable and verifiable work unit required by Story POST-STORY-043: Structured observability, alerts, drift, and incident response.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-129.md",
-  "workflow_state": "READY"
+  "workflow_state": "IN_PROGRESS"
 }
 ```
 

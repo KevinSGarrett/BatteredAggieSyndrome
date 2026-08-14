@@ -1,25 +1,25 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-554-2011-2013-CONTEST-RECONCILIATION-V1",
+  "work_unit_id": "BAT-554-IMMUTABLE-RECONCILIATION-OUTPUT-V1",
   "jira_identity": "BAT-554",
-  "decision_sha256": "54a27c957a44e0e7664feb7fc563ee4a0a5391477ca38168d8ab877ffba52594",
+  "decision_sha256": "9ab889eabcdcde340fb44fe27d1db58e538f87782787d0405649d62909f34936",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
   "reason_code": "USER_SUPERSEDED_ASSISTIVE_PIPELINE_WORK_AND_RESERVED_BAS_PROJECT_EXECUTION_FOR_CODEX",
-  "source_commit": "1319b37fc6c0114d32426377118b5fd66262f126",
+  "source_commit": "607c5405a28878f72624dc71520ac23c53d6bd82",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
   "observed_conflict": "The active machine interlock requires an exact material-change routing decision while the user later directed Codex to stop pipeline work and work only on the Battered Aggie Syndrome project.",
-  "resolution": "Bind the exact BAT-554 2011-2013 reconciliation and parser-drift correction change set to the continuing user reservation without promoting the abandoned assistive pipeline or weakening exact-path validation.",
+  "resolution": "Bind the exact BAT-554 immutable reconciliation-output correction to the continuing user reservation without promoting the abandoned assistive pipeline or weakening exact-path validation.",
   "user_explicit_waiver": {
     "instruction_text": "I WANT YOU TO JUST COMPLETLY MOVE AWAY FROM BUILDING THIS PIPELINE AND ONLY WORK ON THE BATTERERD AGGIE SYNDROME PROJECT",
     "instruction_sha256": "e3b5efca5a46134bf5f77b233d97cfb04f85c78b0c5b320357e2858a19e2274e",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
-    "accepted_risk": "The abandoned assistive pipeline is not used for this BAS work unit; exact changed paths, deterministic validation, immutable external artifacts, Git integration, and Jira evidence remain mandatory.",
-    "work_unit_id": "BAT-554-2011-2013-CONTEST-RECONCILIATION-V1"
+    "accepted_risk": "The abandoned assistive pipeline is not used for this BAS work unit; exact changed paths, immutable external replay validation, Git integration, and Jira evidence remain mandatory.",
+    "work_unit_id": "BAT-554-IMMUTABLE-RECONCILIATION-OUTPUT-V1"
   },
   "allowed_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-197.json",

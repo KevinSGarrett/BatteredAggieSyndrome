@@ -705,6 +705,14 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(1, adapter.submits)
         self.assertEqual(1, adapter.polls)
         self.assertEqual("RESULT_REVIEW_QUEUED", second["cursor_polls"][0]["state"])
+        self.assertEqual(
+            "AWAITING_REVIEW",
+            second["eligible_unit_classifications"][str(inflight[0]["work_unit_id"])]["category"],
+        )
+        self.assertNotIn(
+            str(inflight[0]["work_unit_id"]),
+            {item["work_unit_id"] for item in second["unexplained_idle_units"]},
+        )
         self.assertEqual([], self.state.inflight_provider_runs("cursor"))
         states = self.state.work_unit_states({str(inflight[0]["work_unit_id"])})
         self.assertEqual("CLOSED", states[str(inflight[0]["work_unit_id"])] )
@@ -863,6 +871,70 @@ def cpu_worker_semantic_evidence(root: Path):
                 if packet["provider"] == "openai_direct"
             },
         )
+        self.assertTrue(
+            all(
+                packet["job"]["max_output_tokens"] >= 2400
+                for packet in packets
+                if packet["provider"] == "openai_direct"
+            )
+        )
+        self.assertTrue(
+            all(
+                f'disposition {packet["job"]["destination"]}' in packet["job"]["prompt"]
+                for packet in packets
+                if packet["provider"] == "openai_direct"
+            )
+        )
+
+    def test_cpu_manifest_producer_prioritizes_largest_natural_tranche(self) -> None:
+        for index in range(5):
+            (self.manifests / f"snap_large_{index}.json").write_text(
+                json.dumps(
+                    {
+                        "dataset": "large_historical_dataset",
+                        "snapshot_id": f"snap_large_{index}",
+                        "raw_sha256": str(index + 1) * 64,
+                    }
+                ),
+                encoding="utf-8",
+            )
+        (self.manifests / "snap_small.json").write_text(
+            json.dumps(
+                {
+                    "dataset": "a_small_dataset",
+                    "snapshot_id": "snap_small",
+                    "raw_sha256": "f" * 64,
+                }
+            ),
+            encoding="utf-8",
+        )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=self.root / "provider-work/requests",
+            ),
+        )
+        packet_record = refresher._materialize_continuous_cpu_work(
+            {},
+            {
+                "providers": {
+                    "remote_cpu_worker": {
+                        "unmet": True,
+                        "active_execution_packets": 0,
+                        "pending_review_results": 0,
+                    }
+                }
+            },
+        )[0]
+        packet = json.loads(Path(packet_record["packet_path"]).read_text(encoding="utf-8"))
+        self.assertEqual(
+            "large_historical_dataset", packet["source_defined_tranche"]["dataset"]
+        )
+        self.assertEqual(5, packet["input_metrics"]["records"])
 
     def test_cpu_manifest_producer_replenishes_by_dataset_after_terminal_tranche(self) -> None:
         for dataset, suffix in (("alpha_dataset", "a"), ("beta_dataset", "b")):
@@ -1178,8 +1250,20 @@ def cpu_worker_semantic_evidence(root: Path):
                 build_commit=build_commit,
             ),
         )
-        report = refresher.refresh(now=self.now)
+        observed_compiler_commits: list[str] = []
+
+        def capture_cursor_snapshot(snapshot, _demand):
+            observed_compiler_commits.append(refresher._snapshot_release_commit(snapshot))
+            return []
+
+        with patch.object(
+            refresher,
+            "_materialize_continuous_cursor_work",
+            side_effect=capture_cursor_snapshot,
+        ):
+            report = refresher.refresh(now=self.now)
         snapshot = json.loads(Path(report["snapshot_path"]).read_text(encoding="utf-8"))
+        self.assertEqual([build_commit], observed_compiler_commits)
         self.assertEqual(build_commit, snapshot["git"]["deployed_head"])
         self.assertEqual(build_commit, snapshot["git"]["merged_main_identity_at_release_build"])
         self.assertEqual(hashlib.sha256(b"").hexdigest(), snapshot["git"]["status_porcelain_sha256"])
@@ -1437,6 +1521,42 @@ def cpu_worker_semantic_evidence(root: Path):
         )
         self.assertFalse((provider_root / "invalid.json").exists())
         self.assertTrue(Path(snapshot["provider_work_findings"][0]["quarantine_path"]).is_file())
+
+    def test_byte_identical_provider_packets_share_one_active_capacity_slot(self) -> None:
+        provider_root = self.root / "provider_work/requests"
+        provider_root.mkdir(parents=True)
+        packet = {
+            "schema_version": 1,
+            "provider": "remote_cpu_worker",
+            "task": "LINE_HASH_MANIFEST",
+            "task_format": CPU_LINE_HASH_TASK_FORMAT,
+            "jira_unit": "BAT-563",
+            "schema_sha256": CPU_LINE_HASH_SCHEMA_SHA256,
+            "source_hashes": ["5" * 64],
+            "dependencies": [],
+            "pre_routing_effort_points": 3,
+            "scope": "One real bounded historical manifest tranche",
+            "payload": {"lines": ["season=2022", "status=complete"]},
+            "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+        }
+        data = canonical_json_bytes(packet) + b"\n"
+        (provider_root / "duplicate-a.json").write_bytes(data)
+        (provider_root / "duplicate-b.json").write_bytes(data)
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=provider_root,
+            ),
+        )
+        discovered = refresher._discover_provider_work(
+            json.loads(self.current.read_text(encoding="utf-8")), self.now
+        )
+        self.assertEqual(1, len(discovered))
+        self.assertTrue(discovered[0][0].work_unit_id.startswith("AUTO-CPU-LINE-HASH-"))
 
     def test_stale_cursor_packet_is_terminalized_and_replaced_for_current_release(self) -> None:
         provider_root = self.root / "provider_work/requests"

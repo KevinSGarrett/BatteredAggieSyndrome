@@ -1369,6 +1369,22 @@ class InventoryScheduler:
                 "provider": outcome.get("provider"),
                 "reason": finding or "CONTROLLER_DISPATCH_RECORDED",
             }
+        for poll in cursor_polls:
+            state = str(poll.get("state", ""))
+            if state == "RESULT_REVIEW_QUEUED":
+                category = "AWAITING_REVIEW"
+                reason = "CURSOR_RESULT_DURABLY_QUEUED_FOR_REVIEW"
+            elif state == "POLL_PENDING":
+                category = "LEASED_IN_FLIGHT"
+                reason = "CURSOR_PROVIDER_RUN_POLL_PENDING"
+            else:
+                category = "PROVIDER_CAPACITY_DEFERRED"
+                reason = str(poll.get("finding") or "CURSOR_POLL_RETRY_PENDING")
+            classifications[str(poll["work_unit_id"])] = {
+                "category": category,
+                "provider": "cursor",
+                "reason": reason,
+            }
         for decision in eligible:
             if decision.work_unit_id in classifications:
                 continue

@@ -8,7 +8,7 @@
     "terms_metadata_nonblocking": true,
     "threshold_provenance_enforced": true
   },
-  "artifact_identity": "8d3c3cbe54f5ff358a5ee1cb64e0e0f78fe98b052c1d680dae84c339e9f4e597",
+  "artifact_identity": "41d26ee3df48f653bf8ebe63ff2f63ef76b99586e3b3ffd43642d8b82d41a400",
   "artifact_type": "DRIFT_ALERT_VALIDATION",
   "baseline_self_check": {
     "active_baseline_path": "artifacts/source_governance/source_drift_baseline.json",
@@ -552,9 +552,9 @@
       "sha256": "7686f1d4e76a68cfe0f9ed687987f4bd239fae76fe5e1384935f7a4b60ceaf16"
     },
     {
-      "bytes": 21690,
+      "bytes": 21703,
       "path": "jira/records/issues/subtasks/POST-SUBTASK-128_implement_source_api_terms_schema_entity_feature_data_model_concept_freshness_se.json",
-      "sha256": "e0164cdc4b650ccb694ee92543e9cc9b17a88cacee24e64dda0a3649d839a7c7"
+      "sha256": "2b54708ff20ae051fb77597ce230e99e3f349c50a934f741a9d0142b9867ee07"
     }
   ],
   "issue_identity": {
@@ -700,7 +700,7 @@
   ],
   "producer": {
     "command": "python -B tools/build_drift_alert_validation.py --repo-root .",
-    "git_base_commit": "1795c14837913328392550c38e44f7dbcc81cca5",
+    "git_base_commit": "c434d125bff0612d41096626aa4c73499c5bfe74",
     "tool_path": "tools/build_drift_alert_validation.py"
   },
   "schema_version": "1.0.0",

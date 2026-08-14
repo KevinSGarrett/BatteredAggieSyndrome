@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "evidence_manifest_type": "jira_issue_candidate_evidence",
   "created_at_utc": "2026-08-14T06:30:00Z",
-  "updated_at_utc": "2026-08-14T06:40:00Z",
+  "updated_at_utc": "2026-08-14T06:51:30Z",
   "jira_key": "BAT-478",
   "local_issue_id": "POST-SUBTASK-128",
   "workflow_state": "IN_PROGRESS",
@@ -12,9 +12,9 @@
     {
       "path": "artifacts/operations/drift_alert_validation.json",
       "bytes": 36236,
-      "sha256": "a4b2f6f3b73e8078dc5edb2271307fe5c41bef1e09c7df7ec9eaf7a2861750ad",
+      "sha256": "65d7f118c0fccc0b366ab966c153e43f088a4aa74561d265d56510a0bcf4d4ae",
       "schema_version": "1.0.0",
-      "artifact_identity": "8d3c3cbe54f5ff358a5ee1cb64e0e0f78fe98b052c1d680dae84c339e9f4e597",
+      "artifact_identity": "41d26ee3df48f653bf8ebe63ff2f63ef76b99586e3b3ffd43642d8b82d41a400",
       "maturity": "IMPLEMENTED_VALIDATED_CONTROL_CANDIDATE",
       "eligibility": "NOT_SUSTAINED_OPERATION"
     }
@@ -24,7 +24,7 @@
     "post_subtask_024_sha256": "416a1ce70da87e9938aaa6f38da185d55e5d7e1f5a25b16b7c8775e01aa50bed",
     "post_subtask_126_sha256": "abc8f696bd1895ad946e97949d97a6bbb2ccfadd706cd46848700fff06d49d80",
     "post_subtask_127_sha256": "7686f1d4e76a68cfe0f9ed687987f4bd239fae76fe5e1384935f7a4b60ceaf16",
-    "canonical_issue_record_sha256": "e0164cdc4b650ccb694ee92543e9cc9b17a88cacee24e64dda0a3649d839a7c7",
+    "canonical_issue_record_sha256": "2b54708ff20ae051fb77597ce230e99e3f349c50a934f741a9d0142b9867ee07",
     "drift_alert_module_sha256": "904bb8da2bd2b57f458f6d6af218082b5af3d04a2fc82cd6755ab5cdcfedd0bc",
     "drift_alert_test_sha256": "b860d4e3ccf2ad9b562e52d8f93179200c328f392098a4ab387fc1995e404c48",
     "artifact_builder_sha256": "021db899f350b20fe1f2b2c9709c0e84ce2b22fa3b8baaef8fdf41eb136964da",
@@ -52,21 +52,21 @@
       "disposition": "PASS_LOCAL_CANDIDATE",
       "observable_result": "Rules bind baseline and threshold evidence hashes, scope effects to the affected domain, preserve terms metadata as nonblocking, and require a new no-drift observation before resolution.",
       "evidence_path": "artifacts/operations/drift_alert_validation.json",
-      "evidence_sha256": "a4b2f6f3b73e8078dc5edb2271307fe5c41bef1e09c7df7ec9eaf7a2861750ad"
+      "evidence_sha256": "65d7f118c0fccc0b366ab966c153e43f088a4aa74561d265d56510a0bcf4d4ae"
     },
     {
       "criterion": "The declared output artifacts/operations/drift_alert_validation.json is produced with deterministic identity, provenance, and validation metadata appropriate to this work.",
       "disposition": "PASS_LOCAL_CANDIDATE",
-      "observable_result": "The reproducible builder produced artifact identity 8d3c3cbe54f5ff358a5ee1cb64e0e0f78fe98b052c1d680dae84c339e9f4e597 and the independent consumer validator accepted it.",
+      "observable_result": "The reproducible builder produced artifact identity 41d26ee3df48f653bf8ebe63ff2f63ef76b99586e3b3ffd43642d8b82d41a400 and the independent consumer validator accepted it.",
       "evidence_path": "artifacts/operations/drift_alert_validation.json",
-      "evidence_sha256": "a4b2f6f3b73e8078dc5edb2271307fe5c41bef1e09c7df7ec9eaf7a2861750ad"
+      "evidence_sha256": "65d7f118c0fccc0b366ab966c153e43f088a4aa74561d265d56510a0bcf4d4ae"
     },
     {
       "criterion": "The work does not fabricate source availability, empirical results, thresholds, model performance, operational readiness, or completion evidence.",
       "disposition": "PASS_LOCAL_CANDIDATE",
       "observable_result": "The artifact labels mutations as deterministic contract fixtures, binds the one freshness threshold to the existing observability contract, preserves the absence of a live refresh, and explicitly denies scientific or sustained-operation claims.",
       "evidence_path": "artifacts/operations/drift_alert_validation.json",
-      "evidence_sha256": "a4b2f6f3b73e8078dc5edb2271307fe5c41bef1e09c7df7ec9eaf7a2861750ad"
+      "evidence_sha256": "65d7f118c0fccc0b366ab966c153e43f088a4aa74561d265d56510a0bcf4d4ae"
     }
   ],
   "validation": {
@@ -92,7 +92,7 @@
     },
     "full_pytest": "PASS_850_TESTS_4_SKIPPED_120_SUBTESTS",
     "full_unittest": "PASS_848_TESTS_4_SKIPPED",
-    "hosted_checks": "PENDING_PR",
+    "hosted_checks": "PENDING_FOLLOW_UP_PUSH",
     "exact_main_replay": "PENDING_MERGE"
   },
   "negative_findings": [
@@ -120,7 +120,6 @@
     "achieved_maturity": "IMPLEMENTED_VALIDATED_CONTROL_CANDIDATE",
     "issue_disposition": "IN_PROGRESS",
     "remaining_issue_scope_blockers": [
-      "FULL_SUITE_PENDING",
       "HOSTED_REQUIRED_CHECKS_PENDING",
       "EXACT_MAIN_REPLAY_PENDING"
     ],

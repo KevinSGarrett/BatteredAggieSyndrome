@@ -1,20 +1,23 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "537864c92efaaa941fc0b72e5dd6a89116c208d74023fb2cfd4d262e56959b79",
-  "work_unit_id": "BAT-560-P0-OPENAI-CROSS-PROVIDER-QA-FEED",
+  "manifest_identity": "755947a221f06cc49fbd689a0d22fc3537d6ed4baa07d0c410eed65613d91c0e",
+  "work_unit_id": "BAT-560-P0-ROUTED-PROJECT-ADOPTION-GATE",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "440ebc29a51d801beb7c70da9344f99e4d08a4e0",
-  "pre_routing_decision_sha256": "a1c8345a7fb34c75b9e7745f902880ce7f869adc5662de930f709466a4d871fb",
-  "missing_capability": "OPENAI_DIRECT_CAMPAIGN_UNMET_WITH_COMPLETE_SOURCE_SCANS_BUT_ZERO_EXECUTABLE_PACKETS",
+  "base_commit": "5843dbde6b3251c3ce335cce038ba8c94192a374",
+  "pre_routing_decision_sha256": "4b26543a521da05d57756048ce5de2e2540f06ae06e154323179f3ab38f780f9",
+  "missing_capability": "FAIL_CLOSED_CONSUMPTION_OF_CONTROLLER_ROUTED_PROVIDER_RESULTS_WITHOUT_DIRECT_CODEX_FALLBACK",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "instructions/FILE_HASHES.sha256",
+    "instructions/manifest.json",
+    "instructions/policies/assistive_execution_interlock.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "tests/test_unified_runtime_inventory_dispatch.py"
+    "tests/test_codex_usage_interlock.py",
+    "tools/validate_codex_usage_interlock.py"
   ]
 }

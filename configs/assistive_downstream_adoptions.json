@@ -12,6 +12,13 @@
       "authority": "CANDIDATE_REVIEW_QUEUE_ONLY"
     },
     {
+      "provider": "cursor",
+      "task_category": "governed_cursor_repository_implementation_v1",
+      "contract_version": "candidate-review-routing-v1",
+      "downstream_consumer": "CURSOR_IMPLEMENTATION_CANDIDATE_REVIEW_QUEUE",
+      "authority": "CANDIDATE_REVIEW_QUEUE_ONLY"
+    },
+    {
       "provider": "openai_direct",
       "task_category": "governed_openai_candidate_v1",
       "contract_version": "candidate-review-routing-v1",

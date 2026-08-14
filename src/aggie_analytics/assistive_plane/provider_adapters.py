@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 import os
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 from decimal import Decimal
@@ -37,6 +38,154 @@ BGE_SCHEMA_VERSION = "1"
 BGE_SCHEMA_SHA256 = "fd5ed573e9990a40674b28032a2b4fb63659c62423479c554188149826ea362c"
 OPENROUTER_TASK_FORMAT = "governed_openrouter_candidate_v1"
 CURSOR_TASK_FORMAT = "governed_cursor_repository_review_v1"
+CURSOR_IMPLEMENTATION_TASK_FORMAT = "governed_cursor_repository_implementation_v1"
+CURSOR_TASK_FORMATS = frozenset(
+    {CURSOR_TASK_FORMAT, CURSOR_IMPLEMENTATION_TASK_FORMAT}
+)
+MAX_CURSOR_CHANGED_FILES = 32
+MAX_CURSOR_DIFF_BYTES = 2 * 1024 * 1024
+
+
+class CursorCandidateValidationError(RuntimeError):
+    """Terminal, unit-scoped rejection of a Cursor candidate branch."""
+
+
+def _safe_cursor_repository_path(path: object) -> bool:
+    if not isinstance(path, str) or not path or "\\" in path or path.startswith("/"):
+        return False
+    parts = path.split("/")
+    name = parts[-1].lower()
+    return (
+        ".." not in parts
+        and parts[0].lower() != ".git"
+        and name != ".env"
+        and not name.startswith(".env.")
+        and not name.endswith((".pem", ".p12", ".pfx"))
+    )
+
+
+def _cursor_branch(run: dict[str, Any]) -> str | None:
+    git = run.get("git")
+    if not isinstance(git, dict):
+        return None
+    branch = git.get("branchName")
+    if isinstance(branch, str) and branch:
+        return branch
+    branches = git.get("branches")
+    if not isinstance(branches, list) or len(branches) != 1:
+        return None
+    item = branches[0]
+    if not isinstance(item, dict) or not isinstance(item.get("branch"), str):
+        return None
+    return str(item["branch"])
+
+
+def inspect_cursor_candidate_branch(
+    packet: dict[str, Any], branch: str
+) -> dict[str, Any]:
+    repository_url = str(packet.get("repository_url", ""))
+    expected = "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git"
+    if repository_url != expected:
+        raise CursorCandidateValidationError(
+            "CURSOR_IMPLEMENTATION_REPOSITORY_NOT_ADMITTED"
+        )
+    allowed_paths = packet.get("allowed_paths")
+    if (
+        not isinstance(allowed_paths, list)
+        or not allowed_paths
+        or any(not _safe_cursor_repository_path(path) for path in allowed_paths)
+    ):
+        raise CursorCandidateValidationError(
+            "CURSOR_IMPLEMENTATION_ALLOWED_PATHS_INVALID"
+        )
+    base_commit = str(packet.get("base_commit", ""))
+    encoded_branch = urllib.parse.quote(branch, safe="")
+    endpoint = (
+        "https://api.github.com/repos/KevinSGarrett/BatteredAggieSyndrome/compare/"
+        f"{base_commit}...{encoded_branch}"
+    )
+    request = urllib.request.Request(
+        endpoint,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "BAS-UnifiedAssistiveController/1",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        comparison = json.loads(response.read().decode("utf-8"))
+    files = comparison.get("files")
+    if (
+        not isinstance(files, list)
+        or not files
+        or len(files) > MAX_CURSOR_CHANGED_FILES
+        or len(files) >= 300
+    ):
+        raise CursorCandidateValidationError(
+            "CURSOR_IMPLEMENTATION_CHANGED_FILE_SET_INVALID"
+        )
+    merge_base = comparison.get("merge_base_commit")
+    if not isinstance(merge_base, dict) or merge_base.get("sha") != base_commit:
+        raise CursorCandidateValidationError(
+            "CURSOR_IMPLEMENTATION_BASE_COMMIT_MISMATCH"
+        )
+    changed_paths = sorted(
+        str(item.get("filename")) for item in files if isinstance(item, dict)
+    )
+    if len(changed_paths) != len(files) or any(
+        not _safe_cursor_repository_path(path) for path in changed_paths
+    ):
+        raise CursorCandidateValidationError(
+            "CURSOR_IMPLEMENTATION_CHANGED_PATH_INVALID"
+        )
+
+    def allowed(path: str) -> bool:
+        return any(
+            path == permitted
+            or (permitted.endswith("/") and path.startswith(permitted))
+            for permitted in allowed_paths
+        )
+
+    unauthorized = [path for path in changed_paths if not allowed(path)]
+    if unauthorized:
+        raise CursorCandidateValidationError(
+            "CURSOR_IMPLEMENTATION_PATH_NOT_ALLOWED:" + ",".join(unauthorized)
+        )
+    diff_request = urllib.request.Request(
+        endpoint,
+        headers={
+            "Accept": "application/vnd.github.v3.diff",
+            "User-Agent": "BAS-UnifiedAssistiveController/1",
+        },
+    )
+    with urllib.request.urlopen(diff_request, timeout=30) as response:
+        diff = response.read(MAX_CURSOR_DIFF_BYTES + 1)
+    if not diff or len(diff) > MAX_CURSOR_DIFF_BYTES:
+        raise CursorCandidateValidationError(
+            "CURSOR_IMPLEMENTATION_DIFF_SIZE_INVALID"
+        )
+    head = comparison.get("head_commit")
+    if not isinstance(head, dict) or not isinstance(head.get("sha"), str):
+        raise CursorCandidateValidationError(
+            "CURSOR_IMPLEMENTATION_HEAD_COMMIT_MISSING"
+        )
+    return {
+        "schema_version": 1,
+        "artifact_type": "CURSOR_CANDIDATE_BRANCH_VALIDATION",
+        "authority": "CANDIDATE_ONLY",
+        "repository_url": repository_url,
+        "base_commit": base_commit,
+        "head_commit": str(head["sha"]),
+        "branch": branch,
+        "changed_paths": changed_paths,
+        "allowed_paths": sorted(allowed_paths),
+        "diff_sha256": hashlib.sha256(diff).hexdigest(),
+        "diff_bytes": len(diff),
+        "diff_text": diff.decode("utf-8", errors="replace"),
+        "comparison_url": str(comparison.get("html_url", "")),
+        "canonical_writes": 0,
+        "protected_decisions": 0,
+    }
 
 
 class _CountingBackend:
@@ -371,6 +520,7 @@ class GovernedCursorAdapter:
         *,
         client: CursorCloudClient | None = None,
         store_root: Path = Path(r"C:\BatteredAggieSyndrome.data\assistive\cursor"),
+        branch_inspector: Callable[[dict[str, Any], str], dict[str, Any]] | None = None,
     ) -> None:
         self.root = root.resolve()
         self.store_root = store_root
@@ -385,6 +535,7 @@ class GovernedCursorAdapter:
             os.environ.get("AGGIE_AUTHORITATIVE_ENV_PATH", r"C:\BatteredAggieSyndrome\.env")
         )
         self.client = client or CursorCloudClient(env_path)
+        self.branch_inspector = branch_inspector or inspect_cursor_candidate_branch
 
     @staticmethod
     def _job_identity(packet: dict[str, Any]) -> str:
@@ -403,7 +554,10 @@ class GovernedCursorAdapter:
         )
 
     def submit(self, packet: dict[str, Any]) -> dict[str, Any]:
-        if packet.get("provider") != "cursor" or packet.get("task_format") != CURSOR_TASK_FORMAT:
+        if (
+            packet.get("provider") != "cursor"
+            or packet.get("task_format") not in CURSOR_TASK_FORMATS
+        ):
             raise RuntimeError("CURSOR_TASK_FORMAT_NOT_ADMITTED")
         if packet.get("authority") != "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES":
             raise RuntimeError("CURSOR_PACKET_AUTHORITY_INVALID")
@@ -487,6 +641,69 @@ class GovernedCursorAdapter:
             raise RuntimeError("CURSOR_TERMINAL_USAGE_COST_MISSING")
         actual = Decimal(str(charged_cents)) / Decimal("100")
         self.ledger.settle(job_id, actual)
+        branch = _cursor_branch(run)
+        candidate_validation: dict[str, Any] | None = None
+        candidate_validation_path: Path | None = None
+        candidate_validation_sha256: str | None = None
+        validation_errors: list[str] = []
+        if (
+            packet.get("task_format") == CURSOR_IMPLEMENTATION_TASK_FORMAT
+            and status == "FINISHED"
+        ):
+            if branch is None:
+                validation_errors.append("CURSOR_IMPLEMENTATION_BRANCH_MISSING")
+            else:
+                try:
+                    candidate_validation = self.branch_inspector(packet, branch)
+                except CursorCandidateValidationError as exc:
+                    validation_errors.append(str(exc))
+                if candidate_validation is not None:
+                    changed_paths = candidate_validation.get("changed_paths")
+                    allowed_paths = packet.get("allowed_paths")
+
+                    def permitted(path: str) -> bool:
+                        return isinstance(allowed_paths, list) and any(
+                            path == allowed
+                            or (
+                                isinstance(allowed, str)
+                                and allowed.endswith("/")
+                                and path.startswith(allowed)
+                            )
+                            for allowed in allowed_paths
+                        )
+
+                    if (
+                        candidate_validation.get("authority") != "CANDIDATE_ONLY"
+                        or candidate_validation.get("base_commit")
+                        != packet.get("base_commit")
+                        or candidate_validation.get("canonical_writes") != 0
+                        or candidate_validation.get("protected_decisions") != 0
+                        or not isinstance(changed_paths, list)
+                        or not changed_paths
+                        or any(
+                            not isinstance(path, str) or not permitted(path)
+                            for path in changed_paths
+                        )
+                        or not isinstance(candidate_validation.get("head_commit"), str)
+                        or len(str(candidate_validation.get("head_commit"))) != 40
+                        or not isinstance(candidate_validation.get("diff_sha256"), str)
+                        or len(str(candidate_validation.get("diff_sha256"))) != 64
+                        or int(candidate_validation.get("diff_bytes", 0)) <= 0
+                    ):
+                        validation_errors.append(
+                            "CURSOR_IMPLEMENTATION_VALIDATION_AUTHORITY_INVALID"
+                        )
+                        candidate_validation = None
+                if candidate_validation is not None:
+                    candidate_validation_path, candidate_validation_sha256 = (
+                        write_content_addressed_json(
+                            self.store_root,
+                            "candidate_branch_validations",
+                            candidate_validation,
+                        )
+                    )
+        if status != "FINISHED":
+            validation_errors.append(f"CURSOR_RUN_{status}")
         result = {
             "schema_version": 1,
             "artifact_type": "CURSOR_CONTROLLER_ROUTED_CANDIDATE_RESULT",
@@ -502,21 +719,34 @@ class GovernedCursorAdapter:
             "authority": "CANDIDATE_ONLY",
             "canonical_writes": 0,
             "protected_decisions": 0,
+            "candidate_validation_path": (
+                str(candidate_validation_path) if candidate_validation_path else None
+            ),
+            "candidate_validation_sha256": candidate_validation_sha256,
         }
         path, digest = write_content_addressed_json(self.store_root, "controller_results", result)
-        disposition = "REVIEW_ONLY" if status == "FINISHED" else "REJECTED"
+        disposition = "REVIEW_ONLY" if not validation_errors else "REJECTED"
         return ProviderAdapterResult(
             remote_identity=f"{agent_id}:{run_id}",
             result={**result, "artifact_path": str(path), "artifact_sha256": digest},
             disposition=disposition,
-            validation_errors=() if status == "FINISHED" else (f"CURSOR_RUN_{status}",),
+            validation_errors=tuple(validation_errors),
             actual_cost_usd=format(actual, "f"),
             resource={
                 "provider_calls": 0,
                 "agent_id": agent_id,
                 "run_id": run_id,
                 "job_id": job_id,
-                "branch": run.get("git", {}).get("branchName") if isinstance(run.get("git"), dict) else None,
+                "branch": branch,
+                "candidate_validation_path": (
+                    str(candidate_validation_path) if candidate_validation_path else None
+                ),
+                "candidate_validation_sha256": candidate_validation_sha256,
+                "changed_paths": (
+                    candidate_validation.get("changed_paths", [])
+                    if candidate_validation
+                    else []
+                ),
                 "model": packet["model"],
                 "reasoning": packet["reasoning"],
             },

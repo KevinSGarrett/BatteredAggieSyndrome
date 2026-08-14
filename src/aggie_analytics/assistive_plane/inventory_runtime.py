@@ -73,9 +73,30 @@ CURSOR_TASK_FORMAT = "governed_cursor_repository_review_v1"
 CURSOR_SCHEMA_SHA256 = hashlib.sha256(
     b"governed_cursor_repository_review_v1:exact-base;candidate-only;no-pr;no-authority"
 ).hexdigest()
+CURSOR_IMPLEMENTATION_TASK_FORMAT = "governed_cursor_repository_implementation_v1"
+CURSOR_IMPLEMENTATION_SCHEMA_SHA256 = hashlib.sha256(
+    b"governed_cursor_repository_implementation_v1:exact-base;candidate-only;allowed-paths;no-pr;no-authority"
+).hexdigest()
+CURSOR_TASK_FORMATS = frozenset(
+    {CURSOR_TASK_FORMAT, CURSOR_IMPLEMENTATION_TASK_FORMAT}
+)
 BGE_MODEL = "bge-m3:latest"
 BGE_MODEL_DIGEST = "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab"
 BGE_TASK_FORMAT = "embedding_dedup_semantic_candidate_retrieval"
+
+
+def _safe_cursor_repository_path(path: object) -> bool:
+    if not isinstance(path, str) or not path or "\\" in path or path.startswith("/"):
+        return False
+    parts = path.split("/")
+    name = parts[-1].lower()
+    return (
+        ".." not in parts
+        and parts[0].lower() != ".git"
+        and name != ".env"
+        and not name.startswith(".env.")
+        and not name.endswith((".pem", ".p12", ".pfx"))
+    )
 BGE_POLICY_VERSION = "unified-assistive-execution-plane-v2-operational-correction"
 BGE_PROMPT_VERSION = "embedding-shadow-v1"
 BGE_SCHEMA_VERSION = "1"
@@ -136,7 +157,7 @@ def _dynamic_work_unit_id(packet: dict[str, Any], packet_sha256: str) -> str | N
         prefix = "AUTO-OR-"
     elif provider == "ollama_local" and task_format == BGE_TASK_FORMAT:
         prefix = "AUTO-BGE-"
-    elif provider == "cursor" and task_format == CURSOR_TASK_FORMAT:
+    elif provider == "cursor" and task_format in CURSOR_TASK_FORMATS:
         prefix = "AUTO-CURSOR-"
     elif provider == "remote_cpu_worker":
         route = CPU_EXACT_ROUTES.get(str(packet.get("task", "")))
@@ -788,7 +809,7 @@ class RuntimeInventoryRefresher:
                         "budget_remaining_usd": format(remaining_usd, "f"),
                     }
                 )
-        if provider == "cursor" and packet.get("task_format") == CURSOR_TASK_FORMAT:
+        if provider == "cursor" and packet.get("task_format") in CURSOR_TASK_FORMATS:
             evidence = snapshot.get("external_evidence", {}).get("cursor", {})
             digest = evidence.get("manifest_sha256")
             try:
@@ -950,11 +971,17 @@ class RuntimeInventoryRefresher:
                 prefix = "AUTO-BGE-"
                 disposition = RoutingDisposition.LOCAL_QWEN
                 model = packet.get("model")
-            elif provider == "cursor" and task_format == CURSOR_TASK_FORMAT:
+            elif provider == "cursor" and task_format in CURSOR_TASK_FORMATS:
                 expected_base_commit = self._snapshot_release_commit(snapshot)
+                implementation = task_format == CURSOR_IMPLEMENTATION_TASK_FORMAT
+                expected_schema = (
+                    CURSOR_IMPLEMENTATION_SCHEMA_SHA256
+                    if implementation
+                    else CURSOR_SCHEMA_SHA256
+                )
                 if (
                     packet.get("jira_unit") != "POST-SUBTASK-202"
-                    or packet.get("schema_sha256") != CURSOR_SCHEMA_SHA256
+                    or packet.get("schema_sha256") != expected_schema
                     or packet.get("model") != "gpt-5.3-codex"
                     or packet.get("reasoning") not in {"low", "medium"}
                     or packet.get("base_commit") != expected_base_commit
@@ -969,6 +996,28 @@ class RuntimeInventoryRefresher:
                     or Decimal(str(packet.get("max_reservation_usd", "0"))) <= 0
                 ):
                     raise ValueError("RUNTIME_INVENTORY_CURSOR_PACKET_INVALID")
+                if implementation:
+                    allowed_paths = packet.get("allowed_paths")
+                    required_tests = packet.get("required_tests")
+                    if (
+                        not isinstance(packet.get("source_jira_unit"), str)
+                        or not isinstance(packet.get("source_review_work_unit_id"), str)
+                        or not self._valid_sha256(packet.get("source_review_result_sha256"))
+                        or not self._valid_sha256(
+                            packet.get("source_review_disposition_sha256")
+                        )
+                        or not isinstance(allowed_paths, list)
+                        or not allowed_paths
+                        or any(not _safe_cursor_repository_path(path) for path in allowed_paths)
+                        or not isinstance(required_tests, list)
+                        or any(
+                            not isinstance(path, str) or not path
+                            for path in required_tests
+                        )
+                    ):
+                        raise ValueError(
+                            "RUNTIME_INVENTORY_CURSOR_IMPLEMENTATION_PACKET_INVALID"
+                        )
                 prefix = "AUTO-CURSOR-"
                 disposition = RoutingDisposition.CURSOR
                 model = packet.get("model")
@@ -1645,6 +1694,11 @@ class RuntimeInventoryRefresher:
         release_root = self.config.release_root
         if release_root is None:
             return []
+        created = self._materialize_cursor_implementation_work(
+            snapshot=snapshot,
+            release_commit=release_commit,
+            limit=1,
+        )
         review_targets: list[tuple[Path, str, str | None, str | None]] = []
         if self.config.project_root is not None:
             project_root = self.config.project_root.resolve(strict=True)
@@ -1691,7 +1745,6 @@ class RuntimeInventoryRefresher:
             (release_root / relative, focus, None, relative)
             for relative, focus in fixed_review_targets
         )
-        created: list[dict[str, str]] = []
         for source, focus, source_jira_unit, relative_override in review_targets:
             if not source.is_file():
                 continue
@@ -1749,6 +1802,169 @@ class RuntimeInventoryRefresher:
                 }
             )
             if len(created) >= 2:
+                break
+        return created
+
+    def _materialize_cursor_implementation_work(
+        self,
+        *,
+        snapshot: dict[str, Any],
+        release_commit: str,
+        limit: int = 1,
+    ) -> list[dict[str, str]]:
+        queue_root = self.config.provider_work_root
+        project_root = self.config.project_root
+        if queue_root is None or project_root is None or limit <= 0:
+            return []
+        ready = {
+            str(record["jira_key"]): (source, record, source_sha256)
+            for source, record, source_sha256 in self._jira_ready_records(
+                limit=MAX_PROVIDER_WORK_UNITS
+            )
+        }
+        created: list[dict[str, str]] = []
+        seen_source_jira_units: set[str] = set()
+        for candidate in self.state.cursor_review_candidates(limit=32):
+            resource = candidate.get("resource")
+            if not isinstance(resource, dict):
+                continue
+            review_packet_path = Path(str(resource.get("packet_path", "")))
+            if not review_packet_path.is_file():
+                continue
+            review_packet_raw = review_packet_path.read_bytes()
+            review_packet_sha256 = hashlib.sha256(review_packet_raw).hexdigest()
+            if review_packet_sha256 != resource.get("packet_sha256"):
+                continue
+            review_packet = json.loads(review_packet_raw)
+            if (
+                not isinstance(review_packet, dict)
+                or review_packet.get("task_format") != CURSOR_TASK_FORMAT
+                or not isinstance(review_packet.get("source_jira_unit"), str)
+            ):
+                continue
+            source_jira_unit = str(review_packet["source_jira_unit"])
+            if source_jira_unit in seen_source_jira_units:
+                continue
+            seen_source_jira_units.add(source_jira_unit)
+            ready_record = ready.get(source_jira_unit)
+            if ready_record is None:
+                continue
+            source, record, source_sha256 = ready_record
+            result_path = Path(str(candidate["result_artifact_path"]))
+            if not result_path.is_file():
+                continue
+            result_raw = result_path.read_bytes()
+            result_sha256 = hashlib.sha256(result_raw).hexdigest()
+            if result_sha256 != candidate["result_artifact_sha256"]:
+                continue
+            result_payload = json.loads(result_raw)
+            cursor_result = result_payload.get("result")
+            run = cursor_result.get("run") if isinstance(cursor_result, dict) else None
+            review_text = run.get("result") if isinstance(run, dict) else None
+            if (
+                result_payload.get("provider") != "cursor"
+                or result_payload.get("authority") != "CANDIDATE_ONLY"
+                or result_payload.get("validation_errors") != []
+                or not isinstance(review_text, str)
+                or not review_text.strip()
+            ):
+                continue
+            allowed_paths = sorted(
+                {
+                    str(path)
+                    for path in record.get("allowed_modification_paths", [])
+                    if _safe_cursor_repository_path(path)
+                }
+            )
+            if not allowed_paths:
+                continue
+            required_tests = sorted(
+                {
+                    str(item.get("path"))
+                    for item in record.get("required_tests", [])
+                    if isinstance(item, dict)
+                    and isinstance(item.get("path"), str)
+                    and item.get("path") not in {"MANUAL", "ISSUE_COMPLETION_MANIFEST"}
+                }
+            )
+            bounded_review = review_text.strip()[:12000]
+            packet: dict[str, Any] = {
+                "schema_version": 1,
+                "provider": "cursor",
+                "task_format": CURSOR_IMPLEMENTATION_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-202",
+                "source_jira_unit": source_jira_unit,
+                "source_review_work_unit_id": str(candidate["work_unit_id"]),
+                "source_review_attempt_id": str(candidate["attempt_id"]),
+                "source_review_result_sha256": result_sha256,
+                "source_review_disposition_sha256": str(
+                    candidate["downstream_disposition_sha256"]
+                ),
+                "schema_sha256": CURSOR_IMPLEMENTATION_SCHEMA_SHA256,
+                "source_hashes": [
+                    source_sha256,
+                    review_packet_sha256,
+                    result_sha256,
+                    str(candidate["downstream_disposition_sha256"]),
+                ],
+                "dependencies": [str(candidate["work_unit_id"])],
+                "pre_routing_effort_points": 5,
+                "scope": (
+                    f"Controller-routed candidate implementation of {record['local_id']} "
+                    f"after validated Cursor review {candidate['attempt_id']}"
+                ),
+                "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                "starting_ref": release_commit,
+                "base_commit": release_commit,
+                "model": "gpt-5.3-codex",
+                "reasoning": "medium",
+                "fast": False,
+                "work_on_current_branch": False,
+                "auto_create_pr": False,
+                "max_reservation_usd": "4.00",
+                "allowed_paths": allowed_paths,
+                "required_tests": required_tests,
+                "prompt": (
+                    f"Implement the bounded Jira unit {record['local_id']} ({source_jira_unit}) "
+                    f"at exact base {release_commit}. Modify only these exact paths: "
+                    f"{json.dumps(allowed_paths, separators=(',', ':'))}. Run the applicable "
+                    f"tests from {json.dumps(required_tests, separators=(',', ':'))}. Preserve "
+                    "negative findings and do not weaken PIT, leakage, security, provenance, or "
+                    "protected controls. Do not read .env or credentials. Do not create a PR and "
+                    "do not write the current branch. The result is candidate-only and requires "
+                    "independent diff/path/test review. The prior candidate review follows:\n"
+                    + bounded_review
+                ),
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            data = canonical_json_bytes(packet) + b"\n"
+            digest = hashlib.sha256(data).hexdigest()
+            work_unit_id = "AUTO-CURSOR-" + digest[:20]
+            if self.state.work_unit_states({work_unit_id}).get(work_unit_id) in TERMINAL_STATES:
+                continue
+            destination = (
+                queue_root
+                / "continuous"
+                / "sha256"
+                / digest[:2]
+                / f"{digest}.json"
+            )
+            if destination.exists() and destination.read_bytes() != data:
+                raise RuntimeError("CONTINUOUS_CURSOR_IMPLEMENTATION_PACKET_COLLISION")
+            if not destination.exists():
+                _atomic_write(destination, data)
+            created.append(
+                {
+                    "provider": "cursor",
+                    "source_relative_path": source.relative_to(
+                        project_root.resolve(strict=True)
+                    ).as_posix(),
+                    "source_sha256": source_sha256,
+                    "packet_path": str(destination),
+                    "packet_sha256": digest,
+                }
+            )
+            if len(created) >= limit:
                 break
         return created
 

@@ -21,7 +21,8 @@
   ],
   "allowed_modification_paths": [
     "artifacts/operations/drift_incident_game_day.json",
-    "artifacts/jira_evidence/POST-SUBTASK-129.json"
+    "artifacts/jira_evidence/POST-SUBTASK-129.json",
+    "tests/test_drift_incident_game_day.py"
   ],
   "blocked_reason": "",
   "blocks": [
@@ -104,7 +105,9 @@
     "docs/operations/BACKUP_RESTORE_RETENTION_RUNBOOK.md",
     "docs/operations/OBSERVABILITY.md"
   ],
-  "files_expected_to_be_touched": [],
+  "files_expected_to_be_touched": [
+    "tests/test_drift_incident_game_day.py"
+  ],
   "files_to_inspect": [
     "governance/DO_NOT_DRIFT.md",
     "docs/final/CODEX_HANDOFF.md",
@@ -149,6 +152,7 @@
   "last_content_audit": "2026-08-09",
   "local_id": "POST-SUBTASK-129",
   "maturity_before": "FUNCTIONAL_STARTER",
+  "new_test_modification_path": "tests/test_drift_incident_game_day.py",
   "objective": "Run outage, schema, stale forecast, disk, corrupt artifact, model, security, and governance-conflict game days through incident/rollback/substitution runbooks",
   "operational_jira": {
     "assignee": "",
@@ -283,7 +287,7 @@
     {
       "classification": "NEW_AUTOMATED_TEST_REQUIRED",
       "expectation": "Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.",
-      "path": "NEW_TEST_REQUIRED::POST-SUBTASK-129",
+      "path": "tests/test_drift_incident_game_day.py",
       "validation_class": "NEW_AUTOMATED_TEST_REQUIRED"
     }
   ],
@@ -431,7 +435,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-043 (Structured observability
 
 ## Files Expected To Be Modified
 
-- None.
+- tests/test_drift_incident_game_day.py
 
 ## Components Expected To Be Touched
 
@@ -495,7 +499,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-043 (Structured observability
 - **OPERATIONS** / `OPERATIONS` — `artifacts/operations/drift_incident_game_day.json` — Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.
 - **END_TO_END** / `END_TO_END` — `artifacts/operations/drift_incident_game_day.json` — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - **REPRODUCIBILITY** / `REPRODUCIBILITY` — `ISSUE_COMPLETION_MANIFEST` — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `NEW_TEST_REQUIRED::POST-SUBTASK-129` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- **NEW_AUTOMATED_TEST_REQUIRED** / `NEW_AUTOMATED_TEST_REQUIRED` — `tests/test_drift_incident_game_day.py` — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Required Evidence
 

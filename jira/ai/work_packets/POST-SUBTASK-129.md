@@ -84,6 +84,7 @@ Execute the atomic 3 of 3 step in Story POST-STORY-043 (Structured observability
 
 - artifacts/operations/drift_incident_game_day.json
 - artifacts/jira_evidence/POST-SUBTASK-129.json
+- tests/test_drift_incident_game_day.py
 
 No path outside this list is authorized. A necessary undeclared edit requires a controlled specification update before mutation.
 
@@ -126,7 +127,7 @@ Produce and validate these outputs within this atomic work unit:
 - OPERATIONS / OPERATIONS: artifacts/operations/drift_incident_game_day.json — Exercise the operating/failure/rollback or recovery path and retain timestamps, identifiers, alerts, and operator decisions.
 - END_TO_END / END_TO_END: artifacts/operations/drift_incident_game_day.json — Evaluate the complete Story contract from prerequisite evidence through downstream-consumable gate output; unresolved blockers remain blocking.
 - REPRODUCIBILITY / REPRODUCIBILITY: ISSUE_COMPLETION_MANIFEST — Record exact source/data/code/config/tool/runtime identities and content hashes needed to reproduce or audit the result.
-- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: NEW_TEST_REQUIRED::POST-SUBTASK-129 — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
+- NEW_AUTOMATED_TEST_REQUIRED / NEW_AUTOMATED_TEST_REQUIRED: tests/test_drift_incident_game_day.py — Add the smallest deterministic unit/integration/E2E test that directly proves at least one issue-specific acceptance condition not already covered by an existing test.
 
 ## Evidence to return
 

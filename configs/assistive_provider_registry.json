@@ -20,7 +20,7 @@
       "authority": "PATCH_OR_REVIEW_CANDIDATE_ONLY",
       "budget_ledger": "C:\\BatteredAggieSyndrome.data\\assistive\\cursor\\usage\\ledger.json",
       "policy": "configs/unified_assistive_policy.json",
-      "paid_authority": {"hard_limit_usd": "200.00", "released_stage_usd": "60.00", "authorization_id": "USER-CURSOR-200-2026-08-12"}
+      "paid_authority": {"hard_limit_usd": "200.00", "released_stage_usd": "200.00", "authorization_id": "USER-CURSOR-200-2026-08-12"}
     },
     "local_qwen": {
       "adapter": "aggie_analytics.assistive_plane.ollama_backend.OllamaRoutePolicy",

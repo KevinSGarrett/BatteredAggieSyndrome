@@ -1,19 +1,21 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "111d57b5647ce19e13e2bea7a9fc4c51c3f6f053c4c987cef646f4e201eaf783",
-  "work_unit_id": "BAT-560-WATCHDOG-USEFUL-CLAIM-SCOPE-V1",
-  "jira_identity": "BAT-560",
-  "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
+  "manifest_identity": "d702af04919e60214c05f7ac162da8d870330079385c06eb01c21274b68cb486",
+  "work_unit_id": "AUTO-CURSOR-395ee82c545652101c73",
+  "jira_identity": "BAT-479",
+  "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "36b69535674aa645e5445ee0e976f2f5bcbc37f9",
-  "pre_routing_decision_sha256": "62a6d1bff6da5fd55905b31a92b3661152a28e43610b7cf659126605905d2321",
+  "base_commit": "da8f0aa75dfd385b354da82e82d302b5419a1fe2",
+  "pre_routing_decision_sha256": "06499a3bd8ce18182108a0e69b859269817ade127f12f68142044541cd5720fb",
   "changed_paths": [
+    "artifacts/jira_evidence/POST-SUBTASK-129.json",
+    "artifacts/operations/drift_incident_game_day.json",
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
+    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/watchdog.py",
-    "tests/test_assistive_downstream_review.py"
+    "tests/test_drift_incident_game_day.py"
   ]
 }

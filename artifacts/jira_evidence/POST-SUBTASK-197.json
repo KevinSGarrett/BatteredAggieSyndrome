@@ -127,6 +127,46 @@
     },
     "authority": "CANDIDATE_REFERENCE_ONLY_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
   },
+  "historical_spine_2022_checkpoint": {
+    "recorded_at_utc": "2026-08-14T17:32:47Z",
+    "discovery": {
+      "state": "COMPLETE_GRAPH_EXHAUSTED",
+      "team_page_capture_count": 656,
+      "discovered_contest_count": 3689,
+      "team_failure_count": 0,
+      "remaining_queue_count": 0,
+      "discovery_identity": "0acc36a367879af7e7451164fdff2c8b21946479e6478d6283f1337992ad33f1",
+      "manifest_sha256": "701d100830cc2b38dbf9a718a5c51d605678cf51980abf94e648496c2a9a8444"
+    },
+    "reconciliation": {
+      "dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+      "manifest_sha256": "281109c4aa1332c2b1e09fd6921c5fb957d86e7c7425dce54daa345f073140ab",
+      "captured_team_pages": 656,
+      "parsed_team_pages": 648,
+      "page_parse_failures": 8,
+      "discovered_contests": 3689,
+      "reconciled_contests": 761,
+      "reconciled_team_seasons": 191,
+      "scored_schedule_observations": 7162,
+      "unresolved_contests": 2928,
+      "unresolved_reason_counts": {
+        "NO_COMPLETED_SCORE_OBSERVATION": 69,
+        "NO_EXACT_CANONICAL_PARTICIPANT_DATE_SCORE_MATCH": 391,
+        "PARTICIPANT_ALIAS_NOT_UNIQUELY_RESOLVED": 2468
+      },
+      "validation_checks": 37,
+      "validation_failures": 0,
+      "validation_report_sha256": "376bd2a9aebceb0547b4cdc6485e2e2f950046f49ca47a8495aef5d5023ac69a"
+    },
+    "coverage_matrix": {
+      "matrix_identity": "33020321ab0ac66b3775f078939a11ab6f0a6c43dcaa171670263be279304800",
+      "manifest_sha256": "1795c17639aea0f76d0ed5b2903d534066d25a0da59f613dfd02b79dc9e9c318",
+      "schema_version": "1.2.0",
+      "reconciled_seasons": [2020, 2022, 2023]
+    },
+    "active_discovery_seasons": [2010, 2011, 2012, 2013],
+    "authority": "CANDIDATE_REFERENCE_ONLY_NO_NAME_ONLY_PROMOTION_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "next_actions": [
     "Repeat graph-exhausted official team-season discovery for 2010-2023 and 2025, preserving independent season failures and coverage.",
     "Reconcile the 2024 discovered NCAA contest IDs to canonical games and teams without name-only promotion.",

@@ -66,13 +66,54 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
         write_json(path, manifest)
         return path
 
+    def add_reconciliation(self, season: int) -> Path:
+        identity_core = {
+            "season": season,
+            "population": {
+                "captured_team_pages": 20,
+                "parsed_team_pages": 19,
+                "page_parse_failures": 1,
+                "discovered_contests": 30,
+                "reconciled_contests": 21,
+                "reconciled_team_seasons": 12,
+                "scored_schedule_observations": 52,
+                "unresolved_contests": 9,
+            },
+            "inputs": {
+                "discovery_manifest": {"sha256": "d" * 64},
+            },
+        }
+        identity = hashlib.sha256(coverage.canonical_json(identity_core)).hexdigest()
+        manifest = {
+            "schema_version": "2.0.0",
+            "dataset_identity": identity,
+            "identity_core": identity_core,
+            "unresolved_reason_counts": {
+                "PARTICIPANT_ALIAS_NOT_UNIQUELY_RESOLVED": 9,
+            },
+            "authority": {
+                "historical_pit_eligible": False,
+                "training_eligible": False,
+                "protected_evaluation_eligible": False,
+                "production_eligible": False,
+            },
+        }
+        path = (
+            self.data_root
+            / "manifests/ncaa_contest_reconciliation/sha256"
+            / identity
+            / "run_manifest.json"
+        )
+        write_json(path, manifest)
+        return path
+
     def test_graph_exhaustion_with_failures_is_not_capture_complete(self) -> None:
         self.add_discovery(2024, failures=0)
         self.add_discovery(2025, failures=2)
 
         payload = coverage.build_matrix(self.data_root)
 
-        self.assertEqual(payload["schema_version"], "1.1.0")
+        self.assertEqual(payload["schema_version"], "1.2.0")
         self.assertEqual(payload["discovery_summary"]["capture_complete_seasons"], [2024])
         self.assertEqual(
             payload["discovery_summary"]["graph_exhausted_with_quarantined_failures"],
@@ -109,6 +150,32 @@ class HistoricalSpineCoverageMatrixTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "content identity mismatch"):
             coverage.select_strongest_discovery(self.data_root, 2024)
+
+    def test_reconciliation_is_independent_candidate_only_domain(self) -> None:
+        self.add_discovery(2022, failures=0)
+        self.add_reconciliation(2022)
+
+        payload = coverage.build_matrix(self.data_root)
+        row = next(
+            item
+            for item in payload["rows"]
+            if item["season"] == 2022 and item["domain"] == "CANONICAL_CONTEST_RECONCILIATION"
+        )
+        self.assertEqual(payload["discovery_summary"]["reconciled_seasons"], [2022])
+        self.assertEqual(row["reconciled_contests"], 21)
+        self.assertEqual(row["unresolved_contests"], 9)
+        self.assertEqual(row["eligibility_tiers"], [])
+        self.assertFalse(row["authority"]["training_eligible"])
+        self.assertIn("NO_NAME_ONLY_PROMOTION", row["reconciliation_quality"])
+
+    def test_tampered_reconciliation_manifest_fails_closed(self) -> None:
+        path = self.add_reconciliation(2022)
+        item = json.loads(path.read_text(encoding="utf-8"))
+        item["identity_core"]["population"]["reconciled_contests"] += 1
+        write_json(path, item)
+
+        with self.assertRaisesRegex(ValueError, "content identity mismatch"):
+            coverage.select_strongest_reconciliation(self.data_root, 2022)
 
 
 if __name__ == "__main__":

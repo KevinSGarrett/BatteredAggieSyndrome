@@ -68,6 +68,136 @@ def expect_rejection(name: str, operation: Callable[[], Any]) -> dict[str, Any]:
     raise AssertionError(f"mutation control did not reject: {name}")
 
 
+def validate_discovery_population(
+    *,
+    discovery: dict[str, Any],
+    contract: dict[str, Any],
+    check: Callable[[str, bool, Any], None],
+    prefix: str = "",
+) -> tuple[list[str], list[str]]:
+    """Validate successful and failed team pages as one honest population."""
+
+    captures = discovery["captures"]
+    failures = discovery["failures"]
+    captured_team_ids = [str(row["team_season_id"]) for row in captures]
+    failed_team_ids = [str(row["team_season_id"]) for row in failures]
+    discovered_team_ids = [
+        str(team_season_id)
+        for team_season_id in discovery["discovered_team_season_ids"]
+    ]
+
+    check(
+        f"{prefix}failure_conservation",
+        discovery["team_failure_count"] == len(failures),
+        discovery["team_failure_count"],
+    )
+    check(
+        f"{prefix}capture_conservation",
+        discovery["team_page_capture_count"] == len(captures),
+        discovery["team_page_capture_count"],
+    )
+    check(
+        f"{prefix}team_ids_unique",
+        len(discovered_team_ids) == len(set(discovered_team_ids)),
+        len(discovered_team_ids),
+    )
+    check(
+        f"{prefix}capture_ids_unique",
+        len(captured_team_ids) == len(set(captured_team_ids)),
+        len(captured_team_ids),
+    )
+    check(
+        f"{prefix}failure_ids_unique",
+        len(failed_team_ids) == len(set(failed_team_ids)),
+        len(failed_team_ids),
+    )
+    check(
+        f"{prefix}capture_failure_disjoint",
+        set(captured_team_ids).isdisjoint(failed_team_ids),
+    )
+    check(
+        f"{prefix}team_population_conservation",
+        set(discovered_team_ids) == set(captured_team_ids) | set(failed_team_ids),
+        {
+            "discovered": len(discovered_team_ids),
+            "captured": len(captured_team_ids),
+            "failed": len(failed_team_ids),
+        },
+    )
+
+    expected_host = contract["source"]["official_host"]
+    path_template = contract["discovery"]["path_template"]
+    for row in failures:
+        suffix = str(row["team_season_id"])
+        check(f"{prefix}failure_team_id_numeric_{suffix}", suffix.isdigit())
+        expected_uri = f"https://{expected_host}" + path_template.format(
+            team_season_id=suffix
+        )
+        validate_official_uri(str(row["source_uri"]))
+        check(
+            f"{prefix}failure_source_binding_{suffix}",
+            row["source_uri"] == expected_uri,
+            row["source_uri"],
+        )
+        condition = row.get("condition")
+        check(
+            f"{prefix}failure_condition_{suffix}",
+            isinstance(condition, str) and bool(condition.strip()),
+            condition,
+        )
+        status_code = row.get("status_code")
+        check(
+            f"{prefix}failure_status_{suffix}",
+            status_code is None
+            or (
+                isinstance(status_code, int)
+                and not isinstance(status_code, bool)
+                and 100 <= status_code <= 599
+            ),
+            status_code,
+        )
+        attempts = row.get("attempts")
+        if attempts is not None:
+            check(
+                f"{prefix}failure_attempts_present_{suffix}",
+                isinstance(attempts, list) and bool(attempts),
+            )
+            for index, attempt in enumerate(attempts):
+                route_id = attempt.get("route_id")
+                attempt_condition = attempt.get("condition")
+                attempt_status = attempt.get("status_code")
+                check(
+                    f"{prefix}failure_attempt_route_{suffix}_{index}",
+                    isinstance(route_id, str) and bool(route_id.strip()),
+                    route_id,
+                )
+                check(
+                    f"{prefix}failure_attempt_condition_{suffix}_{index}",
+                    isinstance(attempt_condition, str)
+                    and bool(attempt_condition.strip()),
+                    attempt_condition,
+                )
+                check(
+                    f"{prefix}failure_attempt_status_{suffix}_{index}",
+                    attempt_status is None
+                    or (
+                        isinstance(attempt_status, int)
+                        and not isinstance(attempt_status, bool)
+                        and 100 <= attempt_status <= 599
+                    ),
+                    attempt_status,
+                )
+    check(
+        f"{prefix}failures_preserved_as_quarantine",
+        True,
+        {
+            "failed_team_pages": len(failures),
+            "coverage_complete": not failures,
+        },
+    )
+    return captured_team_ids, failed_team_ids
+
+
 def validate_discovery(
     *,
     repo_root: Path,
@@ -126,20 +256,11 @@ def validate_discovery(
     )
     check("graph_exhausted", discovery["state"] == "COMPLETE_GRAPH_EXHAUSTED")
     check("queue_empty", discovery["remaining_queue"] == [])
-    check("no_unresolved_failures", discovery["failures"] == [])
-    check(
-        "failure_conservation",
-        discovery["team_failure_count"] == len(discovery["failures"]),
+    validate_discovery_population(
+        discovery=discovery,
+        contract=contract,
+        check=check,
     )
-    check(
-        "capture_conservation",
-        discovery["team_page_capture_count"] == len(discovery["captures"]),
-    )
-    captured_team_ids = [row["team_season_id"] for row in discovery["captures"]]
-    discovered_team_ids = discovery["discovered_team_season_ids"]
-    check("team_ids_unique", len(discovered_team_ids) == len(set(discovered_team_ids)))
-    check("capture_ids_unique", len(captured_team_ids) == len(set(captured_team_ids)))
-    check("capture_population", set(captured_team_ids) == set(discovered_team_ids))
     discovered_contests = discovery["discovered_contest_ids"]
     check(
         "contest_ids_unique", len(discovered_contests) == len(set(discovered_contests))
@@ -198,8 +319,7 @@ def validate_discovery(
                 )
                 check(
                     f"legacy_candidate_only_{legacy_suffix}",
-                    legacy["reconciliation_state"]
-                    == "SOURCE_LINKED_CANDIDATE_ONLY",
+                    legacy["reconciliation_state"] == "SOURCE_LINKED_CANDIDATE_ONLY",
                 )
             replay_legacy_schedule_count += profile["legacy_schedule_record_count"]
         selected_team = profile["season_options"].get(target_season_label)
@@ -285,7 +405,7 @@ def validate_discovery(
     ]
     checks.extend(mutations)
     report_core = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "artifact_type": "NCAA_OFFICIAL_DISCOVERY_VALIDATION_REPORT",
         "decision_unit": contract["decision_unit"],
         "jira_key": contract["jira_key"],
@@ -301,6 +421,11 @@ def validate_discovery(
         ),
         "team_failure_count": discovery["team_failure_count"],
         "remaining_queue_count": len(discovery["remaining_queue"]),
+        "coverage_disposition": (
+            "GRAPH_EXHAUSTED_CAPTURE_COMPLETE"
+            if not discovery["failures"]
+            else "GRAPH_EXHAUSTED_WITH_QUARANTINED_FAILURES"
+        ),
         "check_count": len(checks),
         "mutation_control_count": len(mutations),
         "configured_secret_values_checked_without_logging": checked_secret_count,

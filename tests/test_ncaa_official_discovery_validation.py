@@ -70,12 +70,123 @@ class NcaaOfficialDiscoveryValidationTests(unittest.TestCase):
                     env_file=None,
                 )
 
+    def test_graph_exhaustion_with_failures_passes_as_partial_coverage(self) -> None:
+        contract_path = ROOT / "configs" / "ncaa_official_gamebook_contract.json"
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        seed_team_id = str(contract["discovery"]["seed_team_season_ids"]["2024"])
+        failed_team_id = "589036"
+        filler = "<div>NCAA official team statistics</div>" * 40
+        body = (
+            "<html><body>NCAA<table><tr><td>"
+            f"<a href='/teams/{seed_team_id}'>Self</a>"
+            f"<a href='/teams/{failed_team_id}'>Opponent</a>"
+            "<a href='/contests/5362283/box_score'>Game</a>"
+            f"</td></tr></table>{filler}</body></html>"
+        ).encode("utf-8")
+
+        class PartialBrowser:
+            def fetch(self, uri):
+                if uri.endswith(f"/{failed_team_id}"):
+                    return FetchResponse(body=b"gateway timeout", status_code=504)
+                return FetchResponse(body=body, status_code=200)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data_root = root / "data"
+            data_root.mkdir()
+            result = discover_season(
+                season=2024,
+                contract=contract,
+                store=RawSnapshotStore(data_root),
+                browser=PartialBrowser(),
+                retrieved_at=datetime(2026, 8, 14, tzinfo=timezone.utc),
+                maximum_teams=10,
+            )
+            report, _ = validate_discovery(
+                repo_root=ROOT,
+                data_root=data_root,
+                contract_path=contract_path,
+                discovery_path=Path(result["manifest_path"]),
+                rebuild_root=root / "rebuild",
+                env_file=None,
+            )
+
+            self.assertEqual("PASS", report["result"])
+            self.assertEqual(1, report["team_page_capture_count"])
+            self.assertEqual(1, report["team_failure_count"])
+            self.assertEqual(
+                "GRAPH_EXHAUSTED_WITH_QUARANTINED_FAILURES",
+                report["coverage_disposition"],
+            )
+
+    def test_failure_source_identity_mismatch_fails_closed(self) -> None:
+        contract_path = ROOT / "configs" / "ncaa_official_gamebook_contract.json"
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        seed_team_id = str(contract["discovery"]["seed_team_season_ids"]["2024"])
+        failed_team_id = "589036"
+        filler = "<div>NCAA official team statistics</div>" * 40
+        body = (
+            "<html><body>NCAA<table><tr><td>"
+            f"<a href='/teams/{seed_team_id}'>Self</a>"
+            f"<a href='/teams/{failed_team_id}'>Opponent</a>"
+            "<a href='/contests/5362283/box_score'>Game</a>"
+            f"</td></tr></table>{filler}</body></html>"
+        ).encode("utf-8")
+
+        class PartialBrowser:
+            def fetch(self, uri):
+                if uri.endswith(f"/{failed_team_id}"):
+                    return FetchResponse(body=b"gateway timeout", status_code=504)
+                return FetchResponse(body=body, status_code=200)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data_root = root / "data"
+            data_root.mkdir()
+            result = discover_season(
+                season=2024,
+                contract=contract,
+                store=RawSnapshotStore(data_root),
+                browser=PartialBrowser(),
+                retrieved_at=datetime(2026, 8, 14, tzinfo=timezone.utc),
+                maximum_teams=10,
+            )
+            manifest_path = Path(result["manifest_path"])
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["failures"][0]["source_uri"] = (
+                f"https://stats.ncaa.org/teams/{seed_team_id}"
+            )
+            core = discovery_manifest_core(manifest)
+            identity = stable_hash(core)
+            manifest["discovery_identity"] = identity
+            mutated_path = (
+                data_root
+                / "manifests"
+                / "mutation_control"
+                / "sha256"
+                / identity
+                / "ncaa_team_graph_discovery_manifest.json"
+            )
+            mutated_path.parent.mkdir(parents=True)
+            mutated_path.write_text(
+                json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+            with self.assertRaisesRegex(AssertionError, "failure_source_binding"):
+                validate_discovery(
+                    repo_root=ROOT,
+                    data_root=data_root,
+                    contract_path=contract_path,
+                    discovery_path=mutated_path,
+                    rebuild_root=root / "rebuild",
+                    env_file=None,
+                )
+
     def test_legacy_schedule_manifest_replays_candidate_only_evidence(self) -> None:
         contract_path = ROOT / "configs" / "ncaa_official_gamebook_contract.json"
         contract = json.loads(contract_path.read_text(encoding="utf-8"))
-        seed_team_season_id = str(
-            contract["discovery"]["seed_team_season_ids"]["2010"]
-        )
+        seed_team_season_id = str(contract["discovery"]["seed_team_season_ids"]["2010"])
         filler = "<div>NCAA official team statistics</div>" * 40
         body = (
             "<html><body>NCAA<table>"
@@ -115,9 +226,9 @@ class NcaaOfficialDiscoveryValidationTests(unittest.TestCase):
             promoted = json.loads(
                 Path(result["manifest_path"]).read_text(encoding="utf-8")
             )
-            promoted["captures"][0]["legacy_schedule_records"][0][
-                "contest_id"
-            ] = "fabricated-contest"
+            promoted["captures"][0]["legacy_schedule_records"][0]["contest_id"] = (
+                "fabricated-contest"
+            )
             promoted_core = discovery_manifest_core(promoted)
             promoted_identity = stable_hash(promoted_core)
             promoted["discovery_identity"] = promoted_identity

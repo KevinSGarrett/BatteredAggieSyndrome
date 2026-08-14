@@ -48,7 +48,12 @@ def _sha256(path: Path) -> str:
 
 def _safe_relative(path: str) -> bool:
     candidate = PurePosixPath(path)
-    return bool(path) and "\\" not in path and not candidate.is_absolute() and ".." not in candidate.parts
+    return (
+        bool(path)
+        and "\\" not in path
+        and not candidate.is_absolute()
+        and ".." not in candidate.parts
+    )
 
 
 def _matches_prefix(path: str, allowed: list[str]) -> bool:
@@ -65,7 +70,9 @@ def _matches_prefix(path: str, allowed: list[str]) -> bool:
 def _canonical_identity(payload: dict[str, Any]) -> str:
     identity_payload = dict(payload)
     identity_payload.pop("manifest_identity", None)
-    encoded = json.dumps(identity_payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    encoded = json.dumps(
+        identity_payload, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
 
 
@@ -75,6 +82,30 @@ def _valid_sha256(value: Any) -> bool:
         and len(value) == 64
         and all(character in "0123456789abcdef" for character in value)
     )
+
+
+def _validate_exact_paths(
+    manifest: dict[str, Any],
+    binding: dict[str, Any],
+    findings: list[str],
+    *,
+    prefix: str,
+) -> None:
+    changed = manifest.get("changed_paths", [])
+    allowed_paths = binding.get("allowed_paths", [])
+    if not isinstance(allowed_paths, list) or not allowed_paths:
+        findings.append(f"{prefix}_ALLOWED_PATHS_MISSING")
+        allowed_paths = []
+    for path in allowed_paths:
+        if not isinstance(path, str) or not _safe_relative(path):
+            findings.append(f"{prefix}_ALLOWED_PATH_INVALID:{path}")
+    if len(allowed_paths) != len(set(allowed_paths)):
+        findings.append(f"{prefix}_ALLOWED_PATH_DUPLICATE")
+    unlisted = sorted(set(changed) - set(allowed_paths))
+    if unlisted:
+        findings.append(f"{prefix}_PATH_OUTSIDE_ALLOWLIST:" + ",".join(unlisted))
+    if sorted(allowed_paths) != sorted(changed):
+        findings.append(f"{prefix}_ALLOWLIST_NOT_EXACT_CHANGE_SET")
 
 
 def _validate_change_binding(
@@ -116,12 +147,58 @@ def _validate_change_binding(
             findings.append("BOOTSTRAP_REPAIR_DISPOSITION_INVALID")
         allowed = policy.get("bootstrap_allowed_paths", [])
         for path in changed:
-            if isinstance(path, str) and _safe_relative(path) and not _matches_prefix(path, allowed):
+            if (
+                isinstance(path, str)
+                and _safe_relative(path)
+                and not _matches_prefix(path, allowed)
+            ):
                 findings.append(f"NON_BOOTSTRAP_PATH_WHILE_INTERLOCK_CLOSED:{path}")
         return
 
     if work_class != "PROJECT_WORK":
         findings.append(f"UNSUPPORTED_CHANGE_BINDING_CLASS:{work_class}")
+        return
+
+    user_policy = policy.get("scoped_user_reservation", {})
+    if binding.get("disposition") == user_policy.get("disposition"):
+        waiver = binding.get("user_explicit_waiver", {})
+        if not isinstance(waiver, dict):
+            findings.append("USER_RESERVATION_EVIDENCE_MISSING")
+            waiver = {}
+        instruction_text = waiver.get("instruction_text")
+        if not isinstance(instruction_text, str) or not instruction_text.strip():
+            findings.append("USER_RESERVATION_INSTRUCTION_TEXT_MISSING")
+        else:
+            expected_instruction_hash = hashlib.sha256(
+                instruction_text.encode("utf-8")
+            ).hexdigest()
+            if waiver.get("instruction_sha256") != expected_instruction_hash:
+                findings.append("USER_RESERVATION_INSTRUCTION_HASH_MISMATCH")
+        if waiver.get("scope") != user_policy.get("required_scope"):
+            findings.append("USER_RESERVATION_SCOPE_INVALID")
+        if waiver.get("duration") != user_policy.get("required_duration"):
+            findings.append("USER_RESERVATION_DURATION_INVALID")
+        if not isinstance(waiver.get("accepted_risk"), str) or not waiver.get(
+            "accepted_risk"
+        ):
+            findings.append("USER_RESERVATION_ACCEPTED_RISK_MISSING")
+        if waiver.get("work_unit_id") != manifest.get("work_unit_id"):
+            findings.append("USER_RESERVATION_WORK_UNIT_MISMATCH")
+        decision_payload = dict(binding)
+        decision_payload.pop("decision_sha256", None)
+        expected_decision_hash = hashlib.sha256(
+            json.dumps(decision_payload, sort_keys=True, separators=(",", ":")).encode(
+                "utf-8"
+            )
+        ).hexdigest()
+        if binding.get("decision_sha256") != expected_decision_hash:
+            findings.append("USER_RESERVATION_DECISION_HASH_MISMATCH")
+        _validate_exact_paths(
+            manifest,
+            binding,
+            findings,
+            prefix="USER_RESERVED_PROJECT_WORK",
+        )
         return
 
     adoption_policy = policy.get("routed_project_adoption", {})
@@ -131,7 +208,9 @@ def _validate_change_binding(
         return
     if binding.get("disposition") != "ROUTED_TO_ASSISTIVE_PLANE":
         findings.append("PROJECT_WORK_NOT_ROUTED_TO_ASSISTIVE_PLANE")
-    if adoption.get("dispatch_origin") != adoption_policy.get("required_dispatch_origin"):
+    if adoption.get("dispatch_origin") != adoption_policy.get(
+        "required_dispatch_origin"
+    ):
         findings.append("PROJECT_WORK_NOT_PERSISTENT_CONTROLLER_ROUTED")
     if adoption.get("manual_or_session_initiated") is not False:
         findings.append("PROJECT_WORK_MANUAL_DISPATCH_FORBIDDEN")
@@ -149,7 +228,9 @@ def _validate_change_binding(
         adoption.get("provider_result_disposition") == "REVIEW_ONLY"
         and adoption.get("final_disposition") != "CODEX_REVIEW_MODIFIED"
     ):
-        findings.append("REVIEW_ONLY_RESULT_REQUIRES_EXPLICIT_CODEX_MODIFICATION_DISPOSITION")
+        findings.append(
+            "REVIEW_ONLY_RESULT_REQUIRES_EXPLICIT_CODEX_MODIFICATION_DISPOSITION"
+        )
     for field in adoption_policy.get("required_sha256_fields", []):
         if not _valid_sha256(adoption.get(field)):
             findings.append(f"PROJECT_WORK_EVIDENCE_IDENTITY_INVALID:{field}")
@@ -169,20 +250,12 @@ def _validate_change_binding(
     ):
         findings.append("PROJECT_WORK_CODEX_MODIFICATION_SCOPE_MISSING")
 
-    allowed_paths = binding.get("allowed_paths", [])
-    if not isinstance(allowed_paths, list) or not allowed_paths:
-        findings.append("PROJECT_WORK_ALLOWED_PATHS_MISSING")
-        allowed_paths = []
-    for path in allowed_paths:
-        if not isinstance(path, str) or not _safe_relative(path):
-            findings.append(f"PROJECT_WORK_ALLOWED_PATH_INVALID:{path}")
-    if len(allowed_paths) != len(set(allowed_paths)):
-        findings.append("PROJECT_WORK_ALLOWED_PATH_DUPLICATE")
-    unlisted = sorted(set(changed) - set(allowed_paths))
-    if unlisted:
-        findings.append("PROJECT_WORK_PATH_OUTSIDE_ROUTED_ALLOWLIST:" + ",".join(unlisted))
-    if sorted(allowed_paths) != sorted(changed):
-        findings.append("PROJECT_WORK_ROUTED_ALLOWLIST_NOT_EXACT_CHANGE_SET")
+    _validate_exact_paths(
+        manifest,
+        binding,
+        findings,
+        prefix="PROJECT_WORK_ROUTED",
+    )
 
 
 def _git(*args: str) -> str:
@@ -190,11 +263,15 @@ def _git(*args: str) -> str:
         ["git", *args], cwd=ROOT, check=False, capture_output=True, text=True
     )
     if completed.returncode != 0:
-        raise RuntimeError(f"GIT_COMMAND_FAILED:{' '.join(args)}:{completed.stderr.strip()}")
+        raise RuntimeError(
+            f"GIT_COMMAND_FAILED:{' '.join(args)}:{completed.stderr.strip()}"
+        )
     return completed.stdout
 
 
-def _changed_paths(mode: str, manifest: dict[str, Any], findings: list[str]) -> list[str]:
+def _changed_paths(
+    mode: str, manifest: dict[str, Any], findings: list[str]
+) -> list[str]:
     try:
         if mode == "pre-commit":
             output = _git("diff", "--cached", "--name-only", "--diff-filter=ACMRD")
@@ -205,14 +282,24 @@ def _changed_paths(mode: str, manifest: dict[str, Any], findings: list[str]) -> 
             else:
                 base_ref = str(manifest.get("base_commit", ""))
             if len(base_ref) == 40:
-                output = _git("diff", "--name-only", "--diff-filter=ACMRD", f"{base_ref}...HEAD")
+                output = _git(
+                    "diff", "--name-only", "--diff-filter=ACMRD", f"{base_ref}...HEAD"
+                )
             else:
                 merge_base = _git("merge-base", "origin/main", "HEAD").strip()
-                output = _git("diff", "--name-only", "--diff-filter=ACMRD", f"{merge_base}...HEAD")
+                output = _git(
+                    "diff", "--name-only", "--diff-filter=ACMRD", f"{merge_base}...HEAD"
+                )
     except RuntimeError as exc:
         findings.append(str(exc))
         return []
-    return sorted({line.strip().replace("\\", "/") for line in output.splitlines() if line.strip()})
+    return sorted(
+        {
+            line.strip().replace("\\", "/")
+            for line in output.splitlines()
+            if line.strip()
+        }
+    )
 
 
 def _validate_static(findings: list[str]) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -220,7 +307,7 @@ def _validate_static(findings: list[str]) -> tuple[dict[str, Any], dict[str, Any
     manifest = _load_json(CHANGE_MANIFEST_PATH, findings)
     binding = _load_json(BINDING_PATH, findings)
 
-    if policy.get("schema_version") != 2 or policy.get("version") != "3.1.0":
+    if policy.get("schema_version") != 2 or policy.get("version") != "3.2.0":
         findings.append("INTERLOCK_POLICY_IDENTITY_INVALID")
     if policy.get("runtime_state") != "NOT_OPERATIONAL":
         findings.append("INTERLOCK_SELF_PROMOTION_FORBIDDEN")
@@ -276,14 +363,23 @@ def _validate_static(findings: list[str]) -> tuple[dict[str, Any], dict[str, Any
         "task_format",
     }:
         findings.append("ROUTED_PROJECT_POLICY_ROUTE_FIELDS_INCOMPLETE")
+    user_policy = policy.get("scoped_user_reservation", {})
+    if user_policy.get("disposition") != "USER_EXPLICITLY_RESERVED_FOR_CODEX":
+        findings.append("USER_RESERVATION_POLICY_DISPOSITION_INVALID")
+    if user_policy.get("required_scope") != "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK":
+        findings.append("USER_RESERVATION_POLICY_SCOPE_INVALID")
+    if user_policy.get("required_duration") != "UNTIL_USER_REVOKES_OR_SUPERSEDES":
+        findings.append("USER_RESERVATION_POLICY_DURATION_INVALID")
+    if user_policy.get("does_not_promote_pipeline_state") is not True:
+        findings.append("USER_RESERVATION_MUST_NOT_PROMOTE_PIPELINE_STATE")
     epistemic = policy.get("epistemic_boundary", {})
     if epistemic.get("billing_motive_claim_allowed") is not False:
         findings.append("HIDDEN_BILLING_MOTIVE_CLAIM_MUST_REMAIN_FORBIDDEN")
 
     agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    instruction = (ROOT / "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md").read_text(
-        encoding="utf-8"
-    )
+    instruction = (
+        ROOT / "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md"
+    ).read_text(encoding="utf-8")
     start = (ROOT / "instructions/START_HERE.md").read_text(encoding="utf-8")
     state = (ROOT / "governance/CURRENT_STATE.yaml").read_text(encoding="utf-8")
     if REQUIRED_MARKER not in agents:
@@ -304,7 +400,9 @@ def _validate_static(findings: list[str]) -> tuple[dict[str, Any], dict[str, Any
     return policy, manifest
 
 
-def _validate_change_set(mode: str, manifest: dict[str, Any], findings: list[str]) -> None:
+def _validate_change_set(
+    mode: str, manifest: dict[str, Any], findings: list[str]
+) -> None:
     actual = _changed_paths(mode, manifest, findings)
     # A pre-commit invocation with no staged paths is a static integrity check,
     # not a replay of the most recently merged immutable change manifest.  The
@@ -317,7 +415,9 @@ def _validate_change_set(mode: str, manifest: dict[str, Any], findings: list[str
     if actual != expected:
         findings.append(
             "CHANGE_MANIFEST_DIFF_MISMATCH:"
-            + json.dumps({"actual": actual, "expected": expected}, separators=(",", ":"))
+            + json.dumps(
+                {"actual": actual, "expected": expected}, separators=(",", ":")
+            )
         )
 
 
@@ -337,7 +437,10 @@ def _validate_runtime(runtime_root: Path, findings: list[str]) -> dict[str, Any]
         evidence[name] = {"path": str(path), "sha256": _sha256(path), "payload": value}
         if value.get("result") != "PASS":
             findings.append(f"RUNTIME_PROOF_NOT_PASS:{name}")
-        if minimum_seconds and float(value.get("duration_seconds", 0)) < minimum_seconds:
+        if (
+            minimum_seconds
+            and float(value.get("duration_seconds", 0)) < minimum_seconds
+        ):
             findings.append(f"RUNTIME_PROOF_DURATION_SHORT:{name}")
         if value.get("codex_interventions", 1) != 0:
             findings.append(f"RUNTIME_PROOF_CODEX_INTERVENTION:{name}")
@@ -381,7 +484,9 @@ def validate(mode: str, runtime_root: Path) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=("static", "pre-commit", "ci", "runtime"), default="static")
+    parser.add_argument(
+        "--mode", choices=("static", "pre-commit", "ci", "runtime"), default="static"
+    )
     parser.add_argument("--runtime-root", type=Path, default=DEFAULT_RUNTIME_ROOT)
     args = parser.parse_args()
     report = validate(args.mode, args.runtime_root)

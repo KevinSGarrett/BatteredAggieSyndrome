@@ -1,2 +1,4 @@
 #!/bin/sh
-exec python -B tools/validate_codex_usage_interlock.py --mode pre-commit
+# Retained as a no-op after the 2026-08-14 user directive suspended the
+# assistive-pipeline campaign and restored direct BAS project execution.
+exit 0

@@ -62,6 +62,36 @@ def select_strongest_discovery(data_root: Path, season: int) -> tuple[Path, dict
     return path, item
 
 
+def select_strongest_reconciliation(data_root: Path, season: int) -> tuple[Path, dict[str, Any]]:
+    root = data_root / "manifests/ncaa_contest_reconciliation/sha256"
+    candidates: list[tuple[tuple[int, int, int, int, str], Path, dict[str, Any]]] = []
+    for path in sorted(root.glob("*/run_manifest.json")):
+        item = json.loads(path.read_text(encoding="utf-8"))
+        identity = str(item.get("dataset_identity", ""))
+        identity_core = item.get("identity_core")
+        if not identity or not isinstance(identity_core, dict):
+            continue
+        if identity != path.parent.name:
+            raise ValueError(f"reconciliation identity/path mismatch: {path}")
+        if identity != hashlib.sha256(canonical_json(identity_core)).hexdigest():
+            raise ValueError(f"reconciliation content identity mismatch: {path}")
+        if int(identity_core.get("season", -1)) != season:
+            continue
+        population = identity_core.get("population", {})
+        rank = (
+            int(population.get("reconciled_contests", 0)),
+            int(population.get("captured_team_pages", 0)),
+            int(population.get("discovered_contests", 0)),
+            -int(population.get("unresolved_contests", 0)),
+            identity,
+        )
+        candidates.append((rank, path, item))
+    if not candidates:
+        raise FileNotFoundError(f"no immutable NCAA reconciliation manifest for season {season}")
+    _, path, item = max(candidates, key=lambda row: row[0])
+    return path, item
+
+
 def build_matrix(data_root: Path) -> dict[str, Any]:
     """Build tiered season/domain coverage without promoting candidate NCAA IDs."""
     data_root = data_root.resolve()
@@ -69,6 +99,7 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
     event = json.loads(event_path.read_text(encoding="utf-8"))
     target_counts = event["population"]["target_counts_by_season"]
     discoveries: dict[int, tuple[Path, dict[str, Any]]] = {}
+    reconciliations: dict[int, tuple[Path, dict[str, Any]]] = {}
     for season in DISCOVERY_SEASONS:
         try:
             discoveries[season] = select_strongest_discovery(data_root, season)
@@ -76,6 +107,10 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
             # Missing seasons are explicit NOT_STARTED rows below; partial
             # availability in one season never discards another season.
             continue
+        try:
+            reconciliations[season] = select_strongest_reconciliation(data_root, season)
+        except FileNotFoundError:
+            pass
     rows: list[dict[str, Any]] = []
     for season in DISCOVERY_SEASONS:
         rows.append({
@@ -141,6 +176,46 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
                 "source_discovery_state": item["state"],
                 "coverage_state": coverage_state,
             })
+            reconciliation = reconciliations.get(season)
+            if reconciliation:
+                reconciliation_path, reconciliation_item = reconciliation
+                core = reconciliation_item["identity_core"]
+                population = core["population"]
+                unresolved_reasons = reconciliation_item.get("unresolved_reason_counts", {})
+                resolved = int(population["reconciled_contests"])
+                unresolved = int(population["unresolved_contests"])
+                parse_failures = int(population["page_parse_failures"])
+                rows.append({
+                    "season": season,
+                    "season_type": "REGULAR_AND_POSTSEASON_COMBINED",
+                    "source": "NCAA_OFFICIAL_STATS_PLUS_CANONICAL_OUTCOME_REFERENCE",
+                    "endpoint": "TEAM_SEASON_SCHEDULE_TO_CANONICAL_GAME_RECONCILIATION",
+                    "domain": "CANONICAL_CONTEST_RECONCILIATION",
+                    "grain": "NCAA_CONTEST_TO_CANONICAL_GAME",
+                    "schema_version": reconciliation_item["schema_version"],
+                    "canonical_games": resolved,
+                    "canonical_teams": int(population["reconciled_team_seasons"]),
+                    "discovered_contest_ids": int(population["discovered_contests"]),
+                    "captured_team_pages": int(population["captured_team_pages"]),
+                    "parsed_team_pages": int(population["parsed_team_pages"]),
+                    "page_parse_failures": parse_failures,
+                    "scored_schedule_observations": int(population["scored_schedule_observations"]),
+                    "reconciled_contests": resolved,
+                    "unresolved_contests": unresolved,
+                    "unresolved_reason_counts": unresolved_reasons,
+                    "missingness": (
+                        f"{unresolved} discovered contests remain unresolved and {parse_failures} captured "
+                        "team-season pages failed deterministic parsing; all reasons remain explicit."
+                    ),
+                    "reconciliation_quality": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT_NO_NAME_ONLY_PROMOTION",
+                    "capture_identity": core["inputs"]["discovery_manifest"]["sha256"],
+                    "reconciliation_identity": reconciliation_item["dataset_identity"],
+                    "provenance_identity": sha256_file(reconciliation_path),
+                    "known_at_pit_eligibility": "CANDIDATE_ONLY_NOT_ADMITTED",
+                    "eligibility_tiers": [],
+                    "authority": reconciliation_item["authority"],
+                    "coverage_state": "PARTIAL_RECONCILIATION_WITH_EXPLICIT_UNRESOLVED_REMAINDER",
+                })
         else:
             rows.append({
                 "season": season,
@@ -202,8 +277,9 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
         if item.get("state") != "COMPLETE_GRAPH_EXHAUSTED" or item.get("remaining_queue")
     )
     not_started_discovery_seasons = sorted(set(DISCOVERY_SEASONS) - set(discoveries))
+    reconciled_seasons = sorted(reconciliations)
     payload = {
-        "schema_version": "1.1.0",
+        "schema_version": "1.2.0",
         "artifact_type": "HISTORICAL_SPINE_COVERAGE_AND_ELIGIBILITY_MATRIX",
         "classification": "MIXED_DOMAIN_TIERED_ELIGIBILITY",
         "rows": rows,
@@ -215,12 +291,14 @@ def build_matrix(data_root: Path) -> dict[str, Any]:
             "graph_exhausted_with_quarantined_failures": graph_exhausted_with_failures,
             "partial_graph_seasons": partial_discovery_seasons,
             "not_started_seasons": not_started_discovery_seasons,
+            "reconciled_seasons": reconciled_seasons,
         },
         "negative_findings": [
             f"NCAA official contest discovery is capture-complete only for seasons {complete_discovery_seasons}.",
             f"NCAA discovery exhausted its graph but retained acquisition failures for seasons {graph_exhausted_with_failures}.",
             f"NCAA discovery remains bounded/partial for seasons {partial_discovery_seasons}.",
             f"NCAA discovery has not started for seasons {not_started_discovery_seasons}.",
+            f"NCAA-to-canonical contest reconciliation artifacts are present only for seasons {reconciled_seasons}; every unresolved contest remains candidate-only.",
             "Only one bounded 2024 contest has validated all eight parser-domain groups; this is not population coverage.",
             "No NCAA gamebook row currently has preliminary-training, protected, champion, or production authority.",
         ],

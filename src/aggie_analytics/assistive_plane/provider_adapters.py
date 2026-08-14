@@ -165,8 +165,17 @@ def inspect_cursor_candidate_branch(
         raise CursorCandidateValidationError(
             "CURSOR_IMPLEMENTATION_DIFF_SIZE_INVALID"
         )
-    head = comparison.get("head_commit")
-    if not isinstance(head, dict) or not isinstance(head.get("sha"), str):
+    # GitHub's compare response exposes the resolved head as the final entry in
+    # ``commits``; it does not define a top-level ``head_commit`` field.  The
+    # prior lookup therefore rejected every real Cursor implementation branch
+    # after it had already passed merge-base, path, and diff validation.
+    commits = comparison.get("commits")
+    head = commits[-1] if isinstance(commits, list) and commits else None
+    if (
+        not isinstance(head, dict)
+        or not isinstance(head.get("sha"), str)
+        or len(str(head["sha"])) != 40
+    ):
         raise CursorCandidateValidationError(
             "CURSOR_IMPLEMENTATION_HEAD_COMMIT_MISSING"
         )

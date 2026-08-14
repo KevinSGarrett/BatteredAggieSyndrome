@@ -5,7 +5,9 @@ import tempfile
 import unittest
 import urllib.error
 from decimal import Decimal
+from io import BytesIO
 from pathlib import Path
+from unittest import mock
 
 from aggie_analytics.assistive_plane.provider_adapters import (
     BGE_MODEL_DIGEST,
@@ -20,12 +22,66 @@ from aggie_analytics.assistive_plane.provider_adapters import (
     GovernedCursorAdapter,
     GovernedOpenRouterAdapter,
     OPENROUTER_TASK_FORMAT,
+    CursorCandidateValidationError,
+    inspect_cursor_candidate_branch,
 )
 from aggie_analytics.assistive_plane.backend import FakeBackend, PermanentBackendError
 from aggie_analytics.assistive_plane.contracts import sha256_value
 
 
 class UnifiedProviderAdapterTests(unittest.TestCase):
+    def test_cursor_branch_inspector_uses_last_compare_commit_as_resolved_head(self) -> None:
+        comparison = {
+            "html_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome/compare/base...branch",
+            "merge_base_commit": {"sha": "b" * 40},
+            "commits": [{"sha": "c" * 40}],
+            "files": [{"filename": "artifacts/operations/gate.json"}],
+        }
+        with mock.patch(
+            "aggie_analytics.assistive_plane.provider_adapters.urllib.request.urlopen",
+            side_effect=[
+                BytesIO(json.dumps(comparison).encode("utf-8")),
+                BytesIO(b"bounded diff"),
+            ],
+        ):
+            result = inspect_cursor_candidate_branch(
+                {
+                    "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                    "base_commit": "b" * 40,
+                    "allowed_paths": ["artifacts/operations/gate.json"],
+                },
+                "cursor/implementation-test",
+            )
+
+        self.assertEqual("c" * 40, result["head_commit"])
+        self.assertEqual(["artifacts/operations/gate.json"], result["changed_paths"])
+
+    def test_cursor_branch_inspector_rejects_compare_without_resolved_commit(self) -> None:
+        comparison = {
+            "merge_base_commit": {"sha": "b" * 40},
+            "commits": [],
+            "files": [{"filename": "artifacts/operations/gate.json"}],
+        }
+        with mock.patch(
+            "aggie_analytics.assistive_plane.provider_adapters.urllib.request.urlopen",
+            side_effect=[
+                BytesIO(json.dumps(comparison).encode("utf-8")),
+                BytesIO(b"bounded diff"),
+            ],
+        ):
+            with self.assertRaisesRegex(
+                CursorCandidateValidationError,
+                "CURSOR_IMPLEMENTATION_HEAD_COMMIT_MISSING",
+            ):
+                inspect_cursor_candidate_branch(
+                    {
+                        "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                        "base_commit": "b" * 40,
+                        "allowed_paths": ["artifacts/operations/gate.json"],
+                    },
+                    "cursor/implementation-test",
+                )
+
     def packet(self) -> dict[str, object]:
         return {
             "task_format": BGE_TASK_FORMAT,

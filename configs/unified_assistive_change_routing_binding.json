@@ -1,30 +1,25 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-560-CURSOR-LIFECYCLE-CAPACITY-RECOVERY",
+  "work_unit_id": "BAT-560-CURSOR-COMPARE-HEAD-REPAIR",
   "jira_identity": "BAT-560",
-  "decision_sha256": "256b7925a339289f8766ef610eaeca5d84918562148b3d977b170bfe2fe4213a",
+  "decision_sha256": "ed69fc4e397330137e6126ef84467401d05b6fa229331863fc867f68e4d56424",
   "disposition": "EMERGENCY_PIPELINE_REPAIR",
-  "reason_code": "CURSOR_TERMINAL_AGENTS_REMAINED_ACTIVE_CAUSING_HTTP_429_AND_TERMINAL_RETRY_EXHAUSTION",
-  "source_commit": "bf54c285d7a18e0153c4c32253cf740c7c524b3c",
+  "reason_code": "GITHUB_COMPARE_RESPONSE_HAS_NO_HEAD_COMMIT_FIELD_CONTROLLER_REJECTED_VALID_CANDIDATE",
+  "source_commit": "b8d4d385c28874102b6e25aef133d71a3cbbab48",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
-  "missing_autonomous_capability": "Terminal Cursor agents must be preserved then archived automatically, and exhausted unbilled create-429 work must have a narrowly evidence-gated recovery path after capacity is restored.",
-  "observed_failure": "All 160 Cursor agents remained lifecycle ACTIVE after their latest runs finished and local settlement/review completed. The persistent controller then exhausted three bounded BAT-479 create attempts with HTTP 429 and terminally failed that work unit.",
-  "repair_evidence_sha256": "ca367f6b8371526da51221bf3921877d4c807a4a17645b9ff6a0381f461e6008",
+  "missing_autonomous_capability": "The controller must resolve the exact candidate head from GitHub's documented compare response and must not reject a valid allowed-path branch because it expects a nonexistent field.",
+  "observed_failure": "Controller-routed Cursor implementation AUTO-CURSOR-1abd91aa1fb2f81d17c9 created and pushed commit 9611105d9a436712ecec8ebb2f962663aac5fd80, but branch validation rejected it as CURSOR_IMPLEMENTATION_HEAD_COMMIT_MISSING even though the compare response contained that head as its final commits entry.",
+  "repair_evidence_sha256": "37a5dadc301820fc1ae3d0d041e19cad160dce940629f81898aedcb6935b33fe",
   "allowed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/controller_state.py",
-    "src/aggie_analytics/assistive_plane/cursor_capacity_recovery.py",
     "src/aggie_analytics/assistive_plane/provider_adapters.py",
-    "tests/test_unified_controller_state.py",
-    "tests/test_unified_provider_adapters.py",
-    "tools/build_unified_assistive_release.py"
+    "tests/test_unified_provider_adapters.py"
   ]
 }

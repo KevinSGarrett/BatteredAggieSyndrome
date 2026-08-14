@@ -1,24 +1,19 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "6758a4e4683e9d09da6e5408d9fe0709fca18264dac39a665b49bbbc63dcf705",
-  "work_unit_id": "BAT-560-CURSOR-LIFECYCLE-CAPACITY-RECOVERY",
+  "manifest_identity": "f32c423e76e2e5a5119ff3a6b8600106e04e1965253a3733b8a1425f11f9fce8",
+  "work_unit_id": "BAT-560-CURSOR-COMPARE-HEAD-REPAIR",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "bf54c285d7a18e0153c4c32253cf740c7c524b3c",
-  "pre_routing_decision_sha256": "256b7925a339289f8766ef610eaeca5d84918562148b3d977b170bfe2fe4213a",
+  "base_commit": "b8d4d385c28874102b6e25aef133d71a3cbbab48",
+  "pre_routing_decision_sha256": "ed69fc4e397330137e6126ef84467401d05b6fa229331863fc867f68e4d56424",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/controller_state.py",
-    "src/aggie_analytics/assistive_plane/cursor_capacity_recovery.py",
     "src/aggie_analytics/assistive_plane/provider_adapters.py",
-    "tests/test_unified_controller_state.py",
-    "tests/test_unified_provider_adapters.py",
-    "tools/build_unified_assistive_release.py"
+    "tests/test_unified_provider_adapters.py"
   ]
 }

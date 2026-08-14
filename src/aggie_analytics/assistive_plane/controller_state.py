@@ -2137,6 +2137,35 @@ class ControllerState:
         finally:
             connection.close()
 
+    def cursor_review_candidates(self, *, limit: int = 16) -> list[dict[str, Any]]:
+        """Return bounded reviewed Cursor results eligible for implementation follow-up."""
+        if limit <= 0:
+            raise ValueError("CURSOR_REVIEW_CANDIDATE_BOUND_INVALID")
+        connection = self.connect()
+        try:
+            rows = connection.execute(
+                "SELECT a.work_unit_id,a.attempt_id,p.resource_json,"
+                "e.path AS result_artifact_path,e.sha256 AS result_artifact_sha256,"
+                "d.evidence_sha256 AS downstream_disposition_sha256,d.recorded_at "
+                "FROM downstream_review_dispositions d "
+                "JOIN dispatch_attempts a ON a.attempt_id=d.attempt_id "
+                "JOIN provider_runs p ON p.attempt_id=a.attempt_id AND p.provider='cursor' "
+                "JOIN execution_artifacts e ON e.attempt_id=a.attempt_id "
+                "AND e.artifact_type='PROVIDER_REQUEST_RESPONSE' "
+                "WHERE d.downstream_consumer='CURSOR_CANDIDATE_CODE_REVIEW_QUEUE' "
+                "AND d.disposition IN ('ACCEPTED','MODIFIED') "
+                "ORDER BY d.recorded_at DESC,a.attempt_id DESC LIMIT ?",
+                (limit,),
+            ).fetchall()
+            values: list[dict[str, Any]] = []
+            for row in rows:
+                value = dict(row)
+                value["resource"] = json.loads(str(value.pop("resource_json")))
+                values.append(value)
+            return values
+        finally:
+            connection.close()
+
     def append_event(self, event_type: str, payload: dict[str, Any], *, now: datetime | None = None) -> None:
         with self.transaction() as connection:
             connection.execute(

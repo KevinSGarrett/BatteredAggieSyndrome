@@ -14,6 +14,7 @@ from aggie_analytics.assistive_plane.provider_adapters import (
     BGE_SCHEMA_VERSION,
     BGE_TASK_FORMAT,
     BgeM3CandidateAdapter,
+    CURSOR_IMPLEMENTATION_TASK_FORMAT,
     CURSOR_TASK_FORMAT,
     GovernedCursorAdapter,
     GovernedOpenRouterAdapter,
@@ -317,6 +318,177 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
             self.assertEqual("1.250000", ledger["settled_usd"])
             self.assertEqual({}, ledger["reservations"])
             self.assertEqual("PERSISTENT_CONTROLLER", result.result["dispatch_origin"])
+
+    def test_cursor_implementation_result_requires_exact_allowed_path_validation(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "release"
+            (root / "configs").mkdir(parents=True)
+            policy = json.loads(
+                (
+                    Path(__file__).resolve().parents[1]
+                    / "configs/unified_assistive_policy.json"
+                ).read_text(encoding="utf-8")
+            )
+            (root / "configs/unified_assistive_policy.json").write_text(
+                json.dumps(policy), encoding="utf-8"
+            )
+
+            class FakeCursorClient:
+                def request(self, method: str, path: str, payload=None):
+                    if method == "POST" and path == "/agents":
+                        return {"agent": {"status": "RUNNING"}}
+                    if path.endswith("/usage"):
+                        return {"cost": {"chargedCents": 75}, "tokens": 4321}
+                    if "/runs/" in path:
+                        return {
+                            "status": "FINISHED",
+                            "git": {
+                                "branches": [
+                                    {
+                                        "branch": "cursor/implementation-test",
+                                        "repoUrl": "github.com/KevinSGarrett/BatteredAggieSyndrome",
+                                    }
+                                ]
+                            },
+                        }
+                    if path.startswith("/agents/"):
+                        return {"latestRunId": "run-implementation", "status": "FINISHED"}
+                    raise AssertionError((method, path, payload))
+
+            def inspect(_packet, branch):
+                return {
+                    "schema_version": 1,
+                    "artifact_type": "CURSOR_CANDIDATE_BRANCH_VALIDATION",
+                    "authority": "CANDIDATE_ONLY",
+                    "base_commit": "b" * 40,
+                    "head_commit": "c" * 40,
+                    "branch": branch,
+                    "changed_paths": ["artifacts/operations/gate.json"],
+                    "allowed_paths": ["artifacts/operations/gate.json"],
+                    "diff_sha256": "d" * 64,
+                    "diff_bytes": 100,
+                    "diff_text": "bounded diff",
+                    "canonical_writes": 0,
+                    "protected_decisions": 0,
+                }
+
+            adapter = GovernedCursorAdapter(
+                root,
+                client=FakeCursorClient(),
+                store_root=Path(temporary) / "cursor-store",
+                branch_inspector=inspect,
+            )
+            packet = {
+                "provider": "cursor",
+                "task_format": CURSOR_IMPLEMENTATION_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-202",
+                "schema_sha256": "a" * 64,
+                "prompt": "Implement only the admitted artifact.",
+                "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                "starting_ref": "b" * 40,
+                "base_commit": "b" * 40,
+                "model": "gpt-5.3-codex",
+                "reasoning": "medium",
+                "max_reservation_usd": "2.00",
+                "allowed_paths": ["artifacts/operations/gate.json"],
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            handle = adapter.submit(packet)
+            result = adapter.poll(packet, handle)
+
+            self.assertIsNotNone(result)
+            assert result is not None
+            self.assertEqual("cursor/implementation-test", result.resource["branch"])
+            self.assertEqual(
+                ["artifacts/operations/gate.json"], result.resource["changed_paths"]
+            )
+            validation_path = Path(result.resource["candidate_validation_path"])
+            self.assertTrue(validation_path.is_file())
+            self.assertEqual(
+                "d" * 64,
+                json.loads(validation_path.read_text(encoding="utf-8"))["diff_sha256"],
+            )
+
+    def test_cursor_implementation_result_rejects_out_of_scope_path(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "release"
+            (root / "configs").mkdir(parents=True)
+            policy = json.loads(
+                (
+                    Path(__file__).resolve().parents[1]
+                    / "configs/unified_assistive_policy.json"
+                ).read_text(encoding="utf-8")
+            )
+            (root / "configs/unified_assistive_policy.json").write_text(
+                json.dumps(policy), encoding="utf-8"
+            )
+
+            class FakeCursorClient:
+                def request(self, method: str, path: str, payload=None):
+                    if method == "POST" and path == "/agents":
+                        return {"agent": {"status": "RUNNING"}}
+                    if path.endswith("/usage"):
+                        return {"cost": {"chargedCents": 25}, "tokens": 123}
+                    if "/runs/" in path:
+                        return {
+                            "status": "FINISHED",
+                            "git": {"branchName": "cursor/out-of-scope-test"},
+                        }
+                    if path.startswith("/agents/"):
+                        return {"latestRunId": "run-out-of-scope"}
+                    raise AssertionError((method, path, payload))
+
+            def inspect(_packet, branch):
+                return {
+                    "schema_version": 1,
+                    "artifact_type": "CURSOR_CANDIDATE_BRANCH_VALIDATION",
+                    "authority": "CANDIDATE_ONLY",
+                    "base_commit": "b" * 40,
+                    "head_commit": "c" * 40,
+                    "branch": branch,
+                    "changed_paths": [".env"],
+                    "allowed_paths": ["artifacts/operations/gate.json"],
+                    "diff_sha256": "d" * 64,
+                    "diff_bytes": 10,
+                    "diff_text": "forbidden candidate diff",
+                    "canonical_writes": 0,
+                    "protected_decisions": 0,
+                }
+
+            adapter = GovernedCursorAdapter(
+                root,
+                client=FakeCursorClient(),
+                store_root=Path(temporary) / "cursor-store",
+                branch_inspector=inspect,
+            )
+            packet = {
+                "provider": "cursor",
+                "task_format": CURSOR_IMPLEMENTATION_TASK_FORMAT,
+                "jira_unit": "POST-SUBTASK-202",
+                "schema_sha256": "a" * 64,
+                "prompt": "Implement only the admitted artifact.",
+                "repository_url": "https://github.com/KevinSGarrett/BatteredAggieSyndrome.git",
+                "starting_ref": "b" * 40,
+                "base_commit": "b" * 40,
+                "model": "gpt-5.3-codex",
+                "reasoning": "medium",
+                "max_reservation_usd": "2.00",
+                "allowed_paths": ["artifacts/operations/gate.json"],
+                "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+            }
+            result = adapter.poll(packet, adapter.submit(packet))
+
+            self.assertIsNotNone(result)
+            assert result is not None
+            self.assertEqual("REJECTED", result.disposition)
+            self.assertEqual(
+                ("CURSOR_IMPLEMENTATION_VALIDATION_AUTHORITY_INVALID",),
+                result.validation_errors,
+            )
+            self.assertEqual([], result.resource["changed_paths"])
+            self.assertIsNone(result.resource["candidate_validation_path"])
 
     def test_cursor_adapter_recovers_settled_job_without_duplicate_post(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

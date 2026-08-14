@@ -12,8 +12,11 @@ from unittest.mock import patch
 from aggie_analytics.assistive_plane.contracts import canonical_json_bytes, sha256_value
 from aggie_analytics.assistive_plane.controller_state import ControllerState
 from aggie_analytics.assistive_plane.cpu_worker_backend import CpuWorkerClient, execute_cpu_request
+from aggie_analytics.assistive_plane.cursor_backend import CursorApiError
 from aggie_analytics.assistive_plane.inventory_runtime import (
     BGE_DOWNSTREAM_CONSUMER_VERSION,
+    CURSOR_IMPLEMENTATION_SCHEMA_SHA256,
+    CURSOR_IMPLEMENTATION_TASK_FORMAT,
     CURSOR_SCHEMA_SHA256,
     CURSOR_TASK_FORMAT,
     CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
@@ -27,7 +30,11 @@ from aggie_analytics.assistive_plane.inventory_runtime import (
 )
 from aggie_analytics.assistive_plane.orchestration import CAMPAIGN_OWNER, validate_work_unit_roles, ReadyWorkUnit
 from aggie_analytics.assistive_plane.provider_adapters import ProviderAdapterResult
-from aggie_analytics.assistive_plane.scheduler_runtime import InventoryScheduler, SchedulerConfig
+from aggie_analytics.assistive_plane.scheduler_runtime import (
+    InventoryScheduler,
+    SchedulerConfig,
+    cursor_submission_retry_policy,
+)
 from aggie_analytics.assistive_plane.watchdog import ReadOnlyWatchdog
 
 
@@ -118,6 +125,17 @@ class UnifiedRuntimeInventoryDispatchTests(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
+
+    def test_cursor_rate_limit_is_bounded_retry_not_terminal_global_failure(self) -> None:
+        self.assertEqual(
+            (True, 300), cursor_submission_retry_policy(CursorApiError(429), 1)
+        )
+        self.assertEqual(
+            (False, 300), cursor_submission_retry_policy(CursorApiError(429), 3)
+        )
+        self.assertEqual(
+            (False, 60), cursor_submission_retry_policy(CursorApiError(400), 1)
+        )
 
     def test_schema_valid_semantic_candidate_is_not_auto_accepted_as_useful(self) -> None:
         result = ProviderAdapterResult(
@@ -696,6 +714,175 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(first, refresher._jira_ready_records())
         refresher._jira_ready_cache = None
         self.assertEqual([], refresher._jira_ready_records())
+
+    def test_reviewed_cursor_jira_unit_materializes_bounded_implementation_packet(
+        self,
+    ) -> None:
+        project = self.root / "project"
+        issue = project / "jira/records/issues/tasks/TASK-900_ready.json"
+        issue.parent.mkdir(parents=True)
+        issue.write_text(
+            json.dumps(
+                {
+                    "local_id": "TASK-900",
+                    "jira_key": "BAT-900",
+                    "priority": "P1",
+                    "ready": True,
+                    "workflow_state": "READY",
+                    "execution_mode": "ATOMIC_EXECUTION",
+                    "blocked_reason": "",
+                    "objective": "Materialize the bounded gate evidence",
+                    "scope": "Update only the admitted artifact",
+                    "allowed_modification_paths": ["artifacts/gate.json"],
+                    "required_tests": [
+                        {"path": "tests/test_gate.py"},
+                        {"path": "MANUAL"},
+                    ],
+                    "acceptance_criteria": ["gate is deterministic"],
+                    "expected_outputs": ["artifacts/gate.json"],
+                    "operational_jira": {"status_raw": "To Do"},
+                }
+            ),
+            encoding="utf-8",
+        )
+        queue = self.root / "provider-work/requests"
+        review_packet = self.root / "review-packet.json"
+        review_packet.write_bytes(
+            canonical_json_bytes(
+                {
+                    "schema_version": 1,
+                    "provider": "cursor",
+                    "task_format": CURSOR_TASK_FORMAT,
+                    "source_jira_unit": "BAT-900",
+                    "authority": "CANDIDATE_ONLY_NO_CANONICAL_OR_PROTECTED_WRITES",
+                }
+            )
+            + b"\n"
+        )
+        review_packet_sha256 = hashlib.sha256(review_packet.read_bytes()).hexdigest()
+        result = self.root / "review-result.json"
+        result.write_bytes(
+            canonical_json_bytes(
+                {
+                    "schema_version": 1,
+                    "artifact_type": "GOVERNED_PROVIDER_CANDIDATE_RESULT",
+                    "provider": "cursor",
+                    "work_unit_id": "AUTO-CURSOR-REVIEW",
+                    "attempt_id": "b" * 64,
+                    "authority": "CANDIDATE_ONLY",
+                    "disposition": "REVIEW_ONLY",
+                    "validation_errors": [],
+                    "result": {
+                        "authority": "CANDIDATE_ONLY",
+                        "canonical_writes": 0,
+                        "protected_decisions": 0,
+                        "run": {
+                            "result": "Implement the exact admitted artifact and preserve negative findings."
+                        },
+                    },
+                }
+            )
+            + b"\n"
+        )
+        result_sha256 = hashlib.sha256(result.read_bytes()).hexdigest()
+        stamp = self.now.isoformat().replace("+00:00", "Z")
+        with self.state.transaction() as connection:
+            connection.execute(
+                "INSERT INTO work_units(work_unit_id,identity_sha256,jira_identity,effort_points,current_state,created_at,updated_at) VALUES(?,?,?,?,?,?,?)",
+                ("AUTO-CURSOR-REVIEW", "a" * 64, "BAT-900", 5, "CLOSED", stamp, stamp),
+            )
+            connection.execute(
+                "INSERT INTO dispatch_attempts(attempt_id,work_unit_id,provider,route_identity,state,started_at,completed_at) VALUES(?,?,?,?,?,?,?)",
+                ("b" * 64, "AUTO-CURSOR-REVIEW", "cursor", "c" * 64, "CLOSED", stamp, stamp),
+            )
+            connection.execute(
+                "INSERT INTO provider_runs(provider_run_id,attempt_id,provider,remote_identity,request_sha256,status,resource_json,started_at,completed_at) VALUES(?,?,?,?,?,?,?,?,?)",
+                (
+                    "d" * 64,
+                    "b" * 64,
+                    "cursor",
+                    "agent:run",
+                    "e" * 64,
+                    "SETTLED",
+                    json.dumps(
+                        {
+                            "packet_path": str(review_packet),
+                            "packet_sha256": review_packet_sha256,
+                        }
+                    ),
+                    stamp,
+                    stamp,
+                ),
+            )
+            connection.execute(
+                "INSERT INTO execution_artifacts(artifact_id,work_unit_id,attempt_id,artifact_type,path,sha256,bytes,recorded_at) VALUES(?,?,?,?,?,?,?,?)",
+                (
+                    "f" * 64,
+                    "AUTO-CURSOR-REVIEW",
+                    "b" * 64,
+                    "PROVIDER_REQUEST_RESPONSE",
+                    str(result),
+                    result_sha256,
+                    result.stat().st_size,
+                    stamp,
+                ),
+            )
+            connection.execute(
+                "INSERT INTO reviews(review_id,work_unit_id,attempt_id,reviewer,disposition,evidence_sha256,review_seconds,recorded_at) VALUES(?,?,?,?,?,?,?,?)",
+                (
+                    "1" * 64,
+                    "AUTO-CURSOR-REVIEW",
+                    "b" * 64,
+                    "DURABLE_QUEUE",
+                    "REVIEW_ONLY",
+                    "2" * 64,
+                    0.0,
+                    stamp,
+                ),
+            )
+        self.state.record_downstream_review_disposition(
+            attempt_id="b" * 64,
+            disposition="ACCEPTED",
+            downstream_consumer="CURSOR_CANDIDATE_CODE_REVIEW_QUEUE",
+            reason="VALIDATED_CANDIDATE_REVIEW",
+            consumed_artifact_identity="3" * 64,
+            changed_project_artifact=True,
+            now=self.now,
+        )
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                provider_work_root=queue,
+                project_root=project,
+            ),
+        )
+
+        review_candidates = self.state.cursor_review_candidates(limit=32)
+        with patch.object(
+            self.state,
+            "cursor_review_candidates",
+            return_value=review_candidates + review_candidates,
+        ):
+            created = refresher._materialize_cursor_implementation_work(
+                snapshot={"git": {"head": "a" * 40, "origin_main": "a" * 40}},
+                release_commit="a" * 40,
+                limit=2,
+            )
+
+        self.assertEqual(1, len(created))
+        packet = json.loads(
+            Path(created[0]["packet_path"]).read_text(encoding="utf-8")
+        )
+        self.assertEqual(CURSOR_IMPLEMENTATION_TASK_FORMAT, packet["task_format"])
+        self.assertEqual(CURSOR_IMPLEMENTATION_SCHEMA_SHA256, packet["schema_sha256"])
+        self.assertEqual(["artifacts/gate.json"], packet["allowed_paths"])
+        self.assertEqual(["tests/test_gate.py"], packet["required_tests"])
+        self.assertEqual(["AUTO-CURSOR-REVIEW"], packet["dependencies"])
+        self.assertEqual(result_sha256, packet["source_review_result_sha256"])
 
     def test_cursor_packet_survives_submit_poll_and_restart_safe_completion(self) -> None:
         current_payload = json.loads(self.current.read_text(encoding="utf-8"))

@@ -13,9 +13,11 @@ from typing import Any
 from .contracts import sha256_value
 from .controller_state import ControllerState, TERMINAL_STATES, parse_rfc3339, rfc3339
 from .cpu_worker_backend import CpuWorkerClient, CpuWorkerEndpoint, CpuWorkerJob
+from .cursor_backend import CursorApiError
 from .inventory_runtime import (
     BGE_DOWNSTREAM_CONSUMER_VERSION,
     CPU_LINE_HASH_DOWNSTREAM_CONSUMER_VERSION,
+    CURSOR_IMPLEMENTATION_TASK_FORMAT,
     cpu_qualification_evidence_sha256,
 )
 from .ollama_backend import OLLAMA_LOOPBACK_ENDPOINT
@@ -45,6 +47,33 @@ ROUTABLE_DISPOSITIONS = frozenset(
         RoutingDisposition.REMOTE_CPU_WORKER,
     }
 )
+
+
+def cursor_submission_retry_policy(
+    error: Exception, attempt_number: int
+) -> tuple[bool, int]:
+    retryable_names = {
+        "APIConnectionError",
+        "APITimeoutError",
+        "TimeoutError",
+        "URLError",
+    }
+    cursor_retryable = isinstance(error, CursorApiError) and error.status in {
+        408,
+        409,
+        425,
+        429,
+        500,
+        502,
+        503,
+        504,
+    }
+    retryable = attempt_number < 3 and (
+        cursor_retryable
+        or isinstance(error, (OSError, TimeoutError))
+        or error.__class__.__name__ in retryable_names
+    )
+    return retryable, 300 if cursor_retryable else 60
 
 
 def canonical_json_bytes(value: dict[str, Any]) -> bytes:
@@ -656,9 +685,8 @@ class InventoryScheduler:
             }
         except Exception as exc:
             attempt_number = self.state.dispatch_attempt_count(decision.work_unit_id)
-            retryable_names = {"APIConnectionError", "APITimeoutError", "TimeoutError", "URLError"}
-            retryable = attempt_number < 3 and (
-                isinstance(exc, (OSError, TimeoutError)) or exc.__class__.__name__ in retryable_names
+            retryable, retry_delay_seconds = cursor_submission_retry_policy(
+                exc, attempt_number
             )
             self.state.record_dispatch_failure(
                 work_unit_id=decision.work_unit_id,
@@ -667,6 +695,7 @@ class InventoryScheduler:
                 error_code=type(exc).__name__ + ":" + str(exc)[:240],
                 actor=self.config.owner_id,
                 retryable=retryable,
+                retry_delay_seconds=retry_delay_seconds,
                 now=moment,
             )
             return {
@@ -755,7 +784,26 @@ class InventoryScheduler:
                     "dispatch_origin": "PERSISTENT_CONTROLLER",
                     "canonical_writes": 0,
                     "protected_decisions": 0,
+                    "task_format": packet.get("task_format"),
+                    "candidate_validation_sha256": result.resource.get(
+                        "candidate_validation_sha256"
+                    ),
+                    "changed_paths": list(result.resource.get("changed_paths", [])),
                 }
+                if (
+                    packet.get("task_format") == CURSOR_IMPLEMENTATION_TASK_FORMAT
+                    and not result.validation_errors
+                    and (
+                        not isinstance(
+                            validation["candidate_validation_sha256"], str
+                        )
+                        or len(validation["candidate_validation_sha256"]) != 64
+                        or not validation["changed_paths"]
+                    )
+                ):
+                    raise RuntimeError(
+                        "CURSOR_IMPLEMENTATION_CANDIDATE_VALIDATION_MISSING"
+                    )
                 review_disposition, review_reason = self._candidate_review_disposition(
                     "cursor", result
                 )

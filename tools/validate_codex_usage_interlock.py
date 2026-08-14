@@ -179,6 +179,13 @@ def _validate_static(findings: list[str]) -> tuple[dict[str, Any], dict[str, Any
 
 def _validate_change_set(mode: str, manifest: dict[str, Any], findings: list[str]) -> None:
     actual = _changed_paths(mode, manifest, findings)
+    # A pre-commit invocation with no staged paths is a static integrity check,
+    # not a replay of the most recently merged immutable change manifest.  The
+    # hook is also invoked explicitly during clean-tree validation and must not
+    # manufacture a mismatch from historical evidence.  Any staged path keeps
+    # the exact fail-closed equality check below.
+    if mode == "pre-commit" and not actual:
+        return
     expected = sorted(manifest.get("changed_paths", []))
     if actual != expected:
         findings.append(
@@ -216,7 +223,10 @@ def _validate_runtime(runtime_root: Path, findings: list[str]) -> dict[str, Any]
         findings.append("BLACK_BOX_NO_DOWNSTREAM_CONSUMED_USEFUL_OUTPUT")
     if float(black_box.get("measured_net_time_saved_seconds", 0)) <= 0:
         findings.append("BLACK_BOX_NO_POSITIVE_MEASURED_SAVINGS")
-    if black_box.get("exact_main_deployed_identity_match") is not True:
+    # Absence of the black-box proof is already a hard failure above.  Do not
+    # misreport that absence as a positive identity mismatch; only evidence
+    # that actually exists can assert or falsify the identity binding.
+    if black_box and black_box.get("exact_main_deployed_identity_match") is not True:
         findings.append("BLACK_BOX_EXACT_MAIN_DEPLOYMENT_MISMATCH")
     return evidence
 

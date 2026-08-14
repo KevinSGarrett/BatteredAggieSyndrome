@@ -1,29 +1,20 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "d364685f8da145d1e5b53305381f6dbfaa0f669751d985022821cd4f8be5a3ef",
-  "work_unit_id": "BAT-560-P0-DOWNSTREAM-REVIEW-CONSUMER",
+  "manifest_identity": "ab17ebc4c3fd848d18325dcfe7d71369da15fc30f4120b470624c74dfbcce81c",
+  "work_unit_id": "BAT-560-P0-INTERLOCK-CLEAN-TREE-SEMANTICS",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "5b5a7716af620b1c2178f1a12b2309bf850fb111",
-  "pre_routing_decision_sha256": "833a71cb8c4f3c3ae354ca587ccee7a20d8b97de05b5ad52059cc8aa6f0afd24",
-  "missing_capability": "AUTONOMOUS_EXACT_DOWNSTREAM_REVIEW_CONSUMPTION_WITHOUT_FALSE_USEFUL_WORK_CREDIT",
+  "base_commit": "aaf4be0bdd97c44be01769909963340b69e25f3b",
+  "pre_routing_decision_sha256": "d0341ea7fad6a643bf4421bda9a375902b03dec32597fc85ef1835f9445fa039",
+  "missing_capability": "CLEAN_TREE_PRECOMMIT_VALIDATION_AND_ACCURATE_ABSENT_PROOF_REPORTING",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/assistive_downstream_adoptions.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "instructions/policies/assistive_execution_interlock.json",
-    "instructions/FILE_HASHES.sha256",
-    "instructions/manifest.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "provenance/CURRENT_TREE.txt",
-    "src/aggie_analytics/assistive_plane/controller_state.py",
-    "src/aggie_analytics/assistive_plane/review_runtime.py",
-    "src/aggie_analytics/assistive_plane/scheduler_runtime.py",
-    "src/aggie_analytics/assistive_plane/service_runtime.py",
-    "tests/test_assistive_downstream_review.py",
-    "tools/build_unified_assistive_release.py"
+    "tests/test_codex_usage_interlock.py",
+    "tools/validate_codex_usage_interlock.py"
   ]
 }

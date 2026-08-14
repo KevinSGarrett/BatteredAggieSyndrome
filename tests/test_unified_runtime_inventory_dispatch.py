@@ -378,6 +378,146 @@ def cpu_worker_semantic_evidence(root: Path):
         self.assertEqual(0, cursor["current_release_closed_units"])
         self.assertEqual([], demand["unmet_without_packets"])
 
+    def test_operational_demand_suspends_saturated_zero_value_route(self) -> None:
+        policy = self.root / "policy.json"
+        readiness = self.root / "readiness.json"
+        materializer = self.root / "materializer.py"
+        assistive = self.root / "external/assistive"
+        assistive.mkdir(parents=True)
+        policy.write_text(
+            json.dumps(
+                {
+                    "execution_minimums": {
+                        "local_models_post_qualification": {
+                            "units": 50,
+                            "effort_points": 150,
+                            "accepted_useful": 30,
+                        }
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        readiness.write_text("{}", encoding="utf-8")
+        materializer.write_text("# test fixture\n", encoding="utf-8")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                semantic_materializer_path=materializer,
+                semantic_policy_path=policy,
+                semantic_readiness_path=readiness,
+                external_assistive_root=assistive,
+            ),
+        )
+        lifetime = {
+            "ollama_local": {
+                "closed_runs": 525,
+                "closed_effort_points": 1054,
+                "pending_downstream_review": 0,
+                "useful_work": {"accepted_useful_outputs": 0},
+            }
+        }
+        current_release = {
+            "ollama_local": {
+                "closed_runs": 0,
+                "closed_effort_points": 0,
+                "pending_downstream_review": 0,
+                "review_dispositions": {},
+            }
+        }
+        with patch.object(
+            self.state,
+            "provider_run_summary",
+            side_effect=[lifetime, current_release],
+        ):
+            demand = refresher._operational_demand(
+                {"external_evidence": {}},
+                [],
+                {},
+            )
+
+        local = demand["providers"]["ollama_local"]
+        self.assertTrue(local["unmet"])
+        self.assertTrue(local["admission_suspended"])
+        self.assertEqual(
+            "FAILED_SATURATED_BELOW_ACCEPTANCE_TARGET",
+            local["useful_work_gate_state"],
+        )
+        self.assertEqual(["ollama_local"], demand["empirically_suspended"])
+        self.assertEqual([], demand["unmet_without_packets"])
+
+    def test_operational_demand_keeps_route_active_while_review_is_pending(self) -> None:
+        policy = self.root / "policy.json"
+        readiness = self.root / "readiness.json"
+        materializer = self.root / "materializer.py"
+        assistive = self.root / "external/assistive"
+        assistive.mkdir(parents=True)
+        policy.write_text(
+            json.dumps(
+                {
+                    "execution_minimums": {
+                        "local_models_post_qualification": {
+                            "units": 50,
+                            "effort_points": 150,
+                            "accepted_useful": 30,
+                        }
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+        readiness.write_text("{}", encoding="utf-8")
+        materializer.write_text("# test fixture\n", encoding="utf-8")
+        refresher = RuntimeInventoryRefresher(
+            self.state,
+            RuntimeInventoryConfig(
+                current_path=self.current,
+                snapshot_root=self.root / "inventory/runtime",
+                packet_root=self.root / "orchestrator",
+                manifests_root=self.manifests,
+                semantic_materializer_path=materializer,
+                semantic_policy_path=policy,
+                semantic_readiness_path=readiness,
+                external_assistive_root=assistive,
+            ),
+        )
+        lifetime = {
+            "ollama_local": {
+                "closed_runs": 525,
+                "closed_effort_points": 1054,
+                "pending_downstream_review": 0,
+                "useful_work": {"accepted_useful_outputs": 0},
+            }
+        }
+        current_release = {
+            "ollama_local": {
+                "closed_runs": 0,
+                "closed_effort_points": 0,
+                "pending_downstream_review": 1,
+                "review_dispositions": {"REVIEW_ONLY": 1},
+            }
+        }
+        with patch.object(
+            self.state,
+            "provider_run_summary",
+            side_effect=[lifetime, current_release],
+        ):
+            demand = refresher._operational_demand(
+                {"external_evidence": {}},
+                [],
+                {},
+            )
+
+        local = demand["providers"]["ollama_local"]
+        self.assertFalse(local["admission_suspended"])
+        self.assertEqual("EVALUATION_ACTIVE", local["useful_work_gate_state"])
+        self.assertEqual([], demand["empirically_suspended"])
+        self.assertEqual(["ollama_local"], demand["unmet_pending_review"])
+
     def test_watchdog_fails_when_campaign_debt_has_no_execution_packets(self) -> None:
         now = self.now
         self.state.acquire_leader("watchdog-test", "a" * 40, ttl_seconds=300, now=now)
@@ -423,6 +563,56 @@ def cpu_worker_semantic_evidence(root: Path):
             report["operational_findings"],
         )
         self.assertEqual(["openrouter"], report["unmet_campaigns_without_packets"])
+
+    def test_watchdog_reports_empirically_suspended_useful_work_route(self) -> None:
+        now = self.now
+        self.state.acquire_leader("watchdog-test", "a" * 40, ttl_seconds=300, now=now)
+        inventory = self.root / "inventory-current.json"
+        inventory.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "artifact_type": "UNIFIED_ASSISTIVE_RUNTIME_INVENTORY",
+                    "generated_at": now.isoformat().replace("+00:00", "Z"),
+                    "route_decisions": [],
+                    "operational_demand": {
+                        "enabled": True,
+                        "unmet_without_packets": [],
+                        "empirically_suspended": ["ollama_local"],
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        scheduler = self.root / "scheduler.json"
+        scheduler.write_text(
+            json.dumps(
+                {
+                    "observed_at": now.isoformat().replace("+00:00", "Z"),
+                    "result": "PASS",
+                    "dispatched_units": 0,
+                    "provider_calls": 0,
+                    "idle_units": [],
+                    "operational_completion": "INCOMPLETE",
+                }
+            ),
+            encoding="utf-8",
+        )
+        report = ReadOnlyWatchdog(
+            self.state.database,
+            inventory_path=inventory,
+            scheduler_report_path=scheduler,
+            expected_build_commit="a" * 40,
+        ).inspect(now=now)
+        self.assertEqual("FAIL", report["operational_result"])
+        self.assertIn(
+            "CAMPAIGN_USEFUL_WORK_GATE_FAILED:ollama_local",
+            report["operational_findings"],
+        )
+        self.assertEqual(
+            ["ollama_local"],
+            report["empirically_suspended_campaigns"],
+        )
 
     def test_continuous_compiler_materializes_live_historical_openrouter_work(self) -> None:
         policy = self.root / "policy.json"
@@ -1158,6 +1348,17 @@ def cpu_worker_semantic_evidence(root: Path):
                 if packet["provider"] == "openai_direct"
             },
         )
+        for provider_demand in demand["providers"].values():
+            provider_demand["admission_suspended"] = True
+        self.assertEqual(
+            [],
+            refresher._materialize_continuous_cursor_work(
+                {"git": {"head": build_commit, "origin_main": build_commit}}, demand
+            ),
+        )
+        self.assertEqual([], refresher._materialize_continuous_cpu_work({}, demand))
+        self.assertEqual([], refresher._materialize_continuous_bge_work(demand))
+        self.assertEqual([], refresher._materialize_continuous_openai_work(demand))
         self.assertTrue(
             all(
                 packet["job"]["max_output_tokens"] >= 2400

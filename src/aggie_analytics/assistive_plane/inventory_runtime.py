@@ -1470,6 +1470,22 @@ class RuntimeInventoryRefresher:
                 "accepted_useful": max(0, required_accepted - observed_accepted),
             }
             unmet = any(deficits.values())
+            useful_work_gate_failed = (
+                required_accepted > 0
+                and deficits["accepted_useful"] > 0
+                and deficits["units"] == 0
+                and deficits["effort_points"] == 0
+                and active_packets.get(provider, 0) == 0
+                and pending_review == 0
+            )
+            if required_accepted == 0:
+                useful_work_gate_state = "NOT_APPLICABLE"
+            elif deficits["accepted_useful"] == 0:
+                useful_work_gate_state = "PASS"
+            elif useful_work_gate_failed:
+                useful_work_gate_state = "FAILED_SATURATED_BELOW_ACCEPTANCE_TARGET"
+            else:
+                useful_work_gate_state = "EVALUATION_ACTIVE"
             providers[provider] = {
                 "policy_key": policy_key,
                 "required_units": required_units,
@@ -1488,6 +1504,8 @@ class RuntimeInventoryRefresher:
                 "pending_review_results": pending_review,
                 "deficits": deficits,
                 "unmet": unmet,
+                "admission_suspended": useful_work_gate_failed,
+                "useful_work_gate_state": useful_work_gate_state,
             }
         return {
             "enabled": True,
@@ -1499,6 +1517,7 @@ class RuntimeInventoryRefresher:
                 if item["unmet"]
                 and item["active_execution_packets"] == 0
                 and item["pending_review_results"] == 0
+                and not item["admission_suspended"]
             ),
             "unmet_pending_review": sorted(
                 provider
@@ -1506,6 +1525,11 @@ class RuntimeInventoryRefresher:
                 if item["unmet"]
                 and item["active_execution_packets"] == 0
                 and item["pending_review_results"] > 0
+            ),
+            "empirically_suspended": sorted(
+                provider
+                for provider, item in providers.items()
+                if item["admission_suspended"]
             ),
         }
 
@@ -1522,6 +1546,7 @@ class RuntimeInventoryRefresher:
         openrouter = demand.get("providers", {}).get("openrouter", {})
         if (
             not openrouter.get("unmet")
+            or openrouter.get("admission_suspended")
             or int(openrouter.get("active_execution_packets", 0)) > 0
             or int(openrouter.get("pending_review_results", 0)) >= 6
         ):
@@ -1811,6 +1836,7 @@ class RuntimeInventoryRefresher:
         cursor = demand.get("providers", {}).get("cursor", {})
         if (
             not cursor.get("unmet")
+            or cursor.get("admission_suspended")
             or int(cursor.get("active_execution_packets", 0)) > 0
             or int(cursor.get("pending_review_results", 0)) > 0
         ):
@@ -2099,6 +2125,7 @@ class RuntimeInventoryRefresher:
         if (
             queue_root is None
             or not cpu.get("unmet")
+            or cpu.get("admission_suspended")
             or int(cpu.get("active_execution_packets", 0)) > 0
             or int(cpu.get("pending_review_results", 0)) > 0
         ):
@@ -2226,6 +2253,7 @@ class RuntimeInventoryRefresher:
             queue_root is None
             or self.config.bge_downstream_consumer_contract_version is None
             or not local.get("unmet")
+            or local.get("admission_suspended")
             or int(local.get("active_execution_packets", 0)) > 0
             or int(local.get("pending_review_results", 0)) > 0
         ):
@@ -2547,6 +2575,7 @@ class RuntimeInventoryRefresher:
             queue_root is None
             or release_root is None
             or not openai.get("unmet")
+            or openai.get("admission_suspended")
             or int(openai.get("active_execution_packets", 0)) > 0
         ):
             return []
@@ -3242,6 +3271,16 @@ class RuntimeInventoryRefresher:
                 condition_id=condition_id,
                 finding="P0_PROVIDER_STARVATION:" + str(provider),
                 threshold_seconds=1800,
+                evidence_sha256=demand_evidence_sha256,
+                now=moment,
+            )
+        for provider in operational_demand.get("empirically_suspended", []):
+            condition_id = "USEFUL_WORK_GATE_FAILED:" + str(provider)
+            active_conditions.add(condition_id)
+            self.state.observe_operational_condition(
+                condition_id=condition_id,
+                finding="P0_PROVIDER_USEFUL_WORK_GATE_FAILED:" + str(provider),
+                threshold_seconds=0,
                 evidence_sha256=demand_evidence_sha256,
                 now=moment,
             )

@@ -739,6 +739,39 @@ class GovernedCursorAdapter:
             ),
             "candidate_validation_sha256": candidate_validation_sha256,
         }
+        terminal_capture_path, terminal_capture_sha256 = write_content_addressed_json(
+            self.store_root,
+            "controller_terminal_captures",
+            result,
+        )
+        archive_response = self.client.request(
+            "POST", f"/agents/{agent_id}/archive", {}
+        )
+        archived_agent_id = str(archive_response.get("id", ""))
+        if archived_agent_id != agent_id:
+            raise RuntimeError("CURSOR_TERMINAL_ARCHIVE_IDENTITY_MISMATCH")
+        lifecycle_cleanup = {
+            "schema_version": 1,
+            "artifact_type": "CURSOR_TERMINAL_AGENT_LIFECYCLE_CLEANUP",
+            "agent_id": agent_id,
+            "run_id": run_id,
+            "terminal_status": status,
+            "terminal_capture_path": str(terminal_capture_path),
+            "terminal_capture_sha256": terminal_capture_sha256,
+            "operation": "REVERSIBLE_ARCHIVE_NO_DELETE",
+            "archive_response_id": archived_agent_id,
+        }
+        lifecycle_cleanup_path, lifecycle_cleanup_sha256 = (
+            write_content_addressed_json(
+                self.store_root,
+                "lifecycle_cleanup/archive_events",
+                lifecycle_cleanup,
+            )
+        )
+        result["terminal_capture_path"] = str(terminal_capture_path)
+        result["terminal_capture_sha256"] = terminal_capture_sha256
+        result["lifecycle_cleanup_path"] = str(lifecycle_cleanup_path)
+        result["lifecycle_cleanup_sha256"] = lifecycle_cleanup_sha256
         path, digest = write_content_addressed_json(self.store_root, "controller_results", result)
         disposition = "REVIEW_ONLY" if not validation_errors else "REJECTED"
         return ProviderAdapterResult(
@@ -764,5 +797,9 @@ class GovernedCursorAdapter:
                 ),
                 "model": packet["model"],
                 "reasoning": packet["reasoning"],
+                "terminal_capture_sha256": terminal_capture_sha256,
+                "lifecycle_cleanup_path": str(lifecycle_cleanup_path),
+                "lifecycle_cleanup_sha256": lifecycle_cleanup_sha256,
+                "agent_lifecycle_disposition": "ARCHIVED_TERMINAL_RECOVERABLE",
             },
         )

@@ -288,6 +288,108 @@ class UnifiedControllerStateTests(unittest.TestCase):
         self.assertEqual("cursor-agent", resource["handle"]["agent_id"])
         self.assertEqual("cursor-run", resource["run_id"])
 
+    def test_cursor_capacity_recovery_requeues_only_unbilled_terminal_create_failure(
+        self,
+    ) -> None:
+        self.register()
+        self.assertTrue(
+            self.state.claim_dispatch(
+                work_unit_id="UNIT-1",
+                dependencies=(),
+                lease_id="lease-capacity",
+                attempt_id="attempt-capacity",
+                owner_id="owner-a",
+                provider="cursor",
+                route_identity="b" * 64,
+                readiness_evidence_sha256="c" * 64,
+                now=self.now,
+            )
+        )
+        self.state.record_dispatch_failure(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-capacity",
+            lease_id="lease-capacity",
+            error_code="CursorApiError:CURSOR_API_ERROR:HTTP_429",
+            actor="owner-a",
+            retryable=False,
+            now=self.now,
+        )
+
+        retry_id = self.state.recover_cursor_capacity_failure(
+            work_unit_id="UNIT-1",
+            recovery_evidence_sha256="d" * 64,
+            actor="operator",
+            now=self.now + timedelta(minutes=1),
+        )
+
+        self.assertEqual("RETRY_WAIT", self.state.work_unit_states({"UNIT-1"})["UNIT-1"])
+        connection = self.state.connect()
+        try:
+            retry = connection.execute(
+                "SELECT reason,eligible_at FROM retry_records WHERE retry_id=?",
+                (retry_id,),
+            ).fetchone()
+            event = connection.execute(
+                "SELECT payload_json FROM controller_events "
+                "WHERE event_type='CURSOR_CAPACITY_FAILURE_RECOVERED'"
+            ).fetchone()
+        finally:
+            connection.close()
+        self.assertEqual("OPERATOR_VERIFIED_CURSOR_CAPACITY_RECOVERY", retry["reason"])
+        self.assertEqual(
+            (self.now + timedelta(minutes=1)).isoformat().replace("+00:00", "Z"),
+            retry["eligible_at"],
+        )
+        self.assertEqual("d" * 64, json.loads(event["payload_json"])["recovery_evidence_sha256"])
+
+    def test_cursor_capacity_recovery_rejects_failure_with_provider_run(self) -> None:
+        self.register()
+        self.assertTrue(
+            self.state.claim_dispatch(
+                work_unit_id="UNIT-1",
+                dependencies=(),
+                lease_id="lease-capacity",
+                attempt_id="attempt-capacity",
+                owner_id="owner-a",
+                provider="cursor",
+                route_identity="b" * 64,
+                readiness_evidence_sha256="c" * 64,
+                now=self.now,
+            )
+        )
+        request = Path(self.temp.name) / "request-capacity.json"
+        request.write_text('{"request":1}', encoding="utf-8")
+        self.state.record_dispatch(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-capacity",
+            provider_run_id="run-capacity",
+            provider="cursor",
+            remote_identity="cursor-agent",
+            request_sha256="d" * 64,
+            request_artifact_path=request,
+            actor="owner-a",
+            now=self.now,
+        )
+        self.state.record_dispatch_failure(
+            work_unit_id="UNIT-1",
+            attempt_id="attempt-capacity",
+            lease_id="lease-capacity",
+            error_code="CursorApiError:CURSOR_API_ERROR:HTTP_429",
+            actor="owner-a",
+            retryable=False,
+            now=self.now,
+        )
+
+        with self.assertRaisesRegex(
+            RuntimeError, "CURSOR_CAPACITY_RECOVERY_PROVIDER_RUN_ALREADY_EXISTS"
+        ):
+            self.state.recover_cursor_capacity_failure(
+                work_unit_id="UNIT-1",
+                recovery_evidence_sha256="e" * 64,
+                actor="operator",
+                now=self.now + timedelta(minutes=1),
+            )
+
     def test_single_database_leader_fails_closed(self) -> None:
         self.state.acquire_leader("owner-a", "b" * 40, now=self.now)
         with self.assertRaisesRegex(RuntimeError, "CONTROLLER_DATABASE_LEADER_ACTIVE"):

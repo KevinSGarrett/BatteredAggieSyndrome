@@ -281,6 +281,8 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
 
                 def request(self, method: str, path: str, payload=None):
                     self.calls.append((method, path))
+                    if method == "POST" and path.endswith("/archive"):
+                        return {"id": path.split("/")[2]}
                     if method == "POST" and path == "/agents":
                         return {"agent": {"status": "RUNNING"}}
                     if path.startswith("/agents/") and path.endswith("/usage"):
@@ -319,6 +321,11 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
             self.assertEqual("1.250000", ledger["settled_usd"])
             self.assertEqual({}, ledger["reservations"])
             self.assertEqual("PERSISTENT_CONTROLLER", result.result["dispatch_origin"])
+            self.assertEqual(
+                "ARCHIVED_TERMINAL_RECOVERABLE",
+                result.resource["agent_lifecycle_disposition"],
+            )
+            self.assertTrue(Path(result.resource["lifecycle_cleanup_path"]).is_file())
 
     def test_cursor_implementation_result_requires_exact_allowed_path_validation(
         self,
@@ -338,6 +345,8 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
 
             class FakeCursorClient:
                 def request(self, method: str, path: str, payload=None):
+                    if method == "POST" and path.endswith("/archive"):
+                        return {"id": path.split("/")[2]}
                     if method == "POST" and path == "/agents":
                         return {"agent": {"status": "RUNNING"}}
                     if path.endswith("/usage"):
@@ -428,6 +437,8 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
 
             class FakeCursorClient:
                 def request(self, method: str, path: str, payload=None):
+                    if method == "POST" and path.endswith("/archive"):
+                        return {"id": path.split("/")[2]}
                     if method == "POST" and path == "/agents":
                         return {"agent": {"status": "RUNNING"}}
                     if path.endswith("/usage"):
@@ -509,6 +520,8 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
 
             class FakeCursorClient:
                 def request(self, method: str, path: str, payload=None):
+                    if method == "POST" and path.endswith("/archive"):
+                        return {"id": path.split("/")[2]}
                     if method == "POST" and path == "/agents":
                         return {"agent": {"status": "RUNNING"}}
                     if path.endswith("/usage"):
@@ -585,6 +598,8 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
 
             class FakeCursorClient:
                 def request(self, method: str, path: str, payload=None):
+                    if method == "POST" and path.endswith("/archive"):
+                        return {"id": path.split("/")[2]}
                     if method == "POST" and path == "/agents":
                         return {"agent": {"status": "RUNNING"}}
                     if path.endswith("/usage"):
@@ -652,6 +667,8 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
 
                 def request(self, method: str, path: str, payload=None):
                     self.calls.append((method, path))
+                    if method == "POST" and path.endswith("/archive"):
+                        return {"id": path.split("/")[2]}
                     if method == "POST":
                         raise AssertionError("settled recovery must not submit a duplicate agent")
                     if path.endswith("/usage"):
@@ -684,7 +701,12 @@ class UnifiedProviderAdapterTests(unittest.TestCase):
             self.assertIsNotNone(result)
             assert result is not None
             self.assertEqual("cursor/recovered", result.resource["branch"])
-            self.assertFalse(any(method == "POST" for method, _ in client.calls))
+            self.assertFalse(
+                any(method == "POST" and path == "/agents" for method, path in client.calls)
+            )
+            self.assertTrue(
+                any(method == "POST" and path.endswith("/archive") for method, path in client.calls)
+            )
 
 
 if __name__ == "__main__":

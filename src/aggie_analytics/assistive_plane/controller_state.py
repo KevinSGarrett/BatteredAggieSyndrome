@@ -64,6 +64,7 @@ TERMINAL_STATES = {
     "CLOSED", "ACCEPTED", "MODIFIED", "REVIEW_ONLY", "QUARANTINED", "REJECTED",
     "FAILED", "CANCELLED", "DEAD_LETTER",
 }
+CURSOR_CAPACITY_RECOVERABLE_ERROR = "CursorApiError:CURSOR_API_ERROR:HTTP_429"
 
 
 def utc_now() -> datetime:
@@ -1859,6 +1860,105 @@ class ControllerState:
                         stamp,
                     ),
                 )
+
+    def recover_cursor_capacity_failure(
+        self,
+        *,
+        work_unit_id: str,
+        recovery_evidence_sha256: str,
+        actor: str,
+        now: datetime | None = None,
+    ) -> str:
+        """Requeue only an unbilled terminal Cursor-create 429 after verified recovery."""
+
+        self._validate_sha256(
+            recovery_evidence_sha256,
+            "CURSOR_CAPACITY_RECOVERY_EVIDENCE_INVALID",
+        )
+        if not actor.strip():
+            raise ValueError("CURSOR_CAPACITY_RECOVERY_ACTOR_REQUIRED")
+        stamp = rfc3339(now or utc_now())
+        with self.transaction() as connection:
+            unit = connection.execute(
+                "SELECT current_state FROM work_units WHERE work_unit_id=?",
+                (work_unit_id,),
+            ).fetchone()
+            if unit is None:
+                raise KeyError(work_unit_id)
+            if unit["current_state"] != "FAILED":
+                raise RuntimeError("CURSOR_CAPACITY_RECOVERY_UNIT_NOT_FAILED")
+            attempt = connection.execute(
+                "SELECT attempt_id,provider,state,error_code FROM dispatch_attempts "
+                "WHERE work_unit_id=? ORDER BY started_at DESC,attempt_id DESC LIMIT 1",
+                (work_unit_id,),
+            ).fetchone()
+            if (
+                attempt is None
+                or attempt["provider"] != "cursor"
+                or attempt["state"] != "FAILED"
+                or attempt["error_code"] != CURSOR_CAPACITY_RECOVERABLE_ERROR
+            ):
+                raise RuntimeError("CURSOR_CAPACITY_RECOVERY_LATEST_ATTEMPT_INELIGIBLE")
+            provider_run = connection.execute(
+                "SELECT 1 FROM provider_runs WHERE attempt_id=? LIMIT 1",
+                (attempt["attempt_id"],),
+            ).fetchone()
+            if provider_run is not None:
+                raise RuntimeError("CURSOR_CAPACITY_RECOVERY_PROVIDER_RUN_ALREADY_EXISTS")
+            unsafe_lease = connection.execute(
+                "SELECT 1 FROM work_leases WHERE work_unit_id=? AND status!='CLOSED' LIMIT 1",
+                (work_unit_id,),
+            ).fetchone()
+            if unsafe_lease is not None:
+                raise RuntimeError("CURSOR_CAPACITY_RECOVERY_LEASE_NOT_CLOSED")
+            retry_id = hashlib.sha256(
+                (
+                    f"{work_unit_id}:{attempt['attempt_id']}:"
+                    f"{recovery_evidence_sha256}:cursor-capacity-recovery"
+                ).encode()
+            ).hexdigest()
+            self._transition_in_connection(
+                connection,
+                work_unit_id=work_unit_id,
+                expected_state="FAILED",
+                new_state="RETRY_WAIT",
+                reason="OPERATOR_VERIFIED_CURSOR_CAPACITY_RECOVERY",
+                actor=actor,
+                stamp=stamp,
+                evidence_sha256=recovery_evidence_sha256,
+            )
+            connection.execute(
+                "INSERT INTO retry_records("
+                "retry_id,work_unit_id,prior_attempt_id,reason,eligible_at,created_at"
+                ") VALUES(?,?,?,?,?,?)",
+                (
+                    retry_id,
+                    work_unit_id,
+                    attempt["attempt_id"],
+                    "OPERATOR_VERIFIED_CURSOR_CAPACITY_RECOVERY",
+                    stamp,
+                    stamp,
+                ),
+            )
+            connection.execute(
+                "INSERT INTO controller_events(event_type,payload_json,occurred_at) "
+                "VALUES(?,?,?)",
+                (
+                    "CURSOR_CAPACITY_FAILURE_RECOVERED",
+                    json.dumps(
+                        {
+                            "work_unit_id": work_unit_id,
+                            "prior_attempt_id": attempt["attempt_id"],
+                            "recovery_evidence_sha256": recovery_evidence_sha256,
+                            "retry_id": retry_id,
+                        },
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    stamp,
+                ),
+            )
+            return retry_id
 
     def record_downstream_review_disposition(
         self,

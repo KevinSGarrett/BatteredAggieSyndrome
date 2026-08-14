@@ -1,21 +1,19 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "2af2febf1a5cafc5d91dd9c0397d6d268f28009b0e0adebf52a1faae8da2fa10",
-  "work_unit_id": "BAT-560-CURSOR-REVIEW-PROVENANCE-PRESERVATION",
+  "manifest_identity": "319c75d5e51bf971ca9cbde9c543fbe5801e19e58c2af6cb82f27c645618fba5",
+  "work_unit_id": "BAT-560-CURSOR-TERMINAL-BRANCH-UNAVAILABLE-REPAIR",
   "jira_identity": "BAT-560",
   "work_class": "PIPELINE_BOOTSTRAP_REPAIR",
   "ordinary_project_work_authorized": false,
-  "base_commit": "2d55adba08758234f992fdb8e96dadefcb6b8b04",
-  "pre_routing_decision_sha256": "f0514268560bbe8afd7a4bd4759b636694bdb688c266e7549eb7a9c825a019f2",
+  "base_commit": "c50d9bda8cd3c8bb36cd7dda599d9f93bf768db5",
+  "pre_routing_decision_sha256": "2b0df1411031a0bcb8154d3b1693695afd41e4dd87c8b0eca0770c9ff55f85b4",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "src/aggie_analytics/assistive_plane/controller_state.py",
-    "src/aggie_analytics/assistive_plane/inventory_runtime.py",
-    "tests/test_unified_controller_state.py",
-    "tests/test_unified_runtime_inventory_dispatch.py"
+    "src/aggie_analytics/assistive_plane/provider_adapters.py",
+    "tests/test_unified_provider_adapters.py"
   ]
 }

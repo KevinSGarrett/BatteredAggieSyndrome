@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 import os
+import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
@@ -657,6 +658,20 @@ class GovernedCursorAdapter:
                     candidate_validation = self.branch_inspector(packet, branch)
                 except CursorCandidateValidationError as exc:
                     validation_errors.append(str(exc))
+                except urllib.error.HTTPError as exc:
+                    # A terminal Cursor run can report a branch name while no
+                    # corresponding remote ref exists.  GitHub represents that
+                    # no-candidate outcome as a compare 404.  Retrying it forever
+                    # keeps the paid run leased and prevents settlement, so close
+                    # only this unit as rejected.  Other HTTP failures remain
+                    # retryable at the scheduler boundary.
+                    if exc.code != 404:
+                        exc.close()
+                        raise
+                    validation_errors.append(
+                        "CURSOR_IMPLEMENTATION_REMOTE_BRANCH_NOT_FOUND"
+                    )
+                    exc.close()
                 if candidate_validation is not None:
                     changed_paths = candidate_validation.get("changed_paths")
                     allowed_paths = packet.get("allowed_paths")

@@ -68,6 +68,16 @@ class NcaaContestReconciliationTests(unittest.TestCase):
         self.assertFalse(rows[0]["source_result_was_explicit"])
         self.assertEqual(rows[0]["source_result"], "L")
 
+    def test_legacy_parser_excludes_modern_contest_rows(self) -> None:
+        payload = """
+        <div class="card-header"><img class="logo_image" alt="Texas A&amp;M" src="https://x/All_Logos/sm//697.gif"></div>
+        <tr class="underline_rows"><td>09/02/2023</td><td><a href="/teams/557111">@ New Mexico</a></td>
+        <td><a href="/contests/1234567/box_score">W 52 - 10</a></td></tr>
+        """
+        page, rows = parse_legacy_team_page(payload, team_season_id="557999", raw_sha256="d" * 64)
+        self.assertIsNotNone(page)
+        self.assertEqual(rows, [])
+
     @unittest.skipIf(pl is None, "optional data-engineering dependency polars is not installed")
     def test_two_sided_legacy_rows_reconcile_without_contest_id(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

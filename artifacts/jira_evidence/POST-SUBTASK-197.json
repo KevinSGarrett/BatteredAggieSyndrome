@@ -266,6 +266,97 @@
     },
     "authority": "CANDIDATE_ONLY_NO_CONTEST_ID_FABRICATION_NO_NAME_ONLY_PROMOTION_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "modern_legacy_schema_correction_and_national_reconciliation_checkpoint": {
+    "recorded_at_utc": "2026-08-14T18:44:27Z",
+    "negative_finding": {
+      "superseded_2018_dataset_identity": "37e04ce6f8f796bfe6ffb3f14478777d743acdd80b0b690f673a94adb8bdcdd2",
+      "finding": "The first season-wide replay proved that modern contest rows also matched the permissive legacy row parser, creating 7120 duplicate legacy candidates.",
+      "disposition": "PRESERVED_SUPERSEDED_NOT_SELECTED_NO_CANONICAL_OR_TRAINING_WRITE"
+    },
+    "correction": "Legacy parsing now categorically excludes rows containing modern contest links, and strongest-artifact selection penalizes spurious unresolved legacy observations.",
+    "corrected_2018": {
+      "dataset_identity": "024f48d1223579d5a1e3ab9f00b4e67d2d5c1e13ea079828f0fe31b0ef7d0f4d",
+      "manifest_sha256": "3b106178e36fcf952f13e6551121107e4e452a67e60351c2c3a875d42da0f864",
+      "reconciled_contests": 745,
+      "legacy_schedule_observations": 0,
+      "validation_checks": 46,
+      "validation_failures": 0,
+      "validation_report_sha256": "9a18dcab3cf9eb9f2206975d8783084d3cb3aeb489e836597c176fc3e6ac2fa1"
+    },
+    "new_season_reconciliation_identities": {
+      "2014": "130575032ae013e56d16ed12c47b46ffd0c9772a48426a5582f97c40b1525a2d",
+      "2015": "c65151377ea5f2e05eba094af18fd5a5e9c3aed6ad7e631dd9df40ce6b56aed5",
+      "2016": "75b89d654673cf1f672663018ca847d717d9235862eaeaa0775c3fde442f669d",
+      "2017": "4a8acc03d77425ee8523017c31bdfc37142b656ee31492d5d99ff0db86ad0900",
+      "2018": "024f48d1223579d5a1e3ab9f00b4e67d2d5c1e13ea079828f0fe31b0ef7d0f4d",
+      "2019": "605bf7fdb4e24842c462b0372c0fd86b5737ee3bb06f9499205960fdd8856b4c",
+      "2021": "8aa547b9f05c2cc69b6b2dd12b1cc5e557b050fdc703828a168932770e9b4236",
+      "2024": "8ed888486772729c4cc678686d1bf4c9a8d8ced8a39d13d44fd6521254634891",
+      "2025": "a3be25da229fc9ca6f93cf82d268fc0d05986471491abc2b92611625780735ad"
+    },
+    "independent_rebuild_validation": {
+      "seasons": 9,
+      "checks_per_season": 46,
+      "total_checks": 414,
+      "failures": 0,
+      "reconstructible_rebuild_files_removed": 81,
+      "reconstructible_bytes_removed": 16149781
+    },
+    "coverage_matrix": {
+      "schema_version": "1.3.0",
+      "matrix_identity": "12d92605aebe791016d59122177bdd371a78244db2cb79aa8c695ced945ddb64",
+      "manifest_sha256": "1a92bcdc8cbc298111e4a8b18cddb8e811922aec5cabb93b7318587ac2214844",
+      "reconciled_seasons": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+      "captured_team_pages": 7205,
+      "page_parse_failures": 124,
+      "reconciled_contests": 8747,
+      "unresolved_contests": 32091,
+      "reconciled_legacy_games": 0,
+      "unresolved_legacy_observations": 4
+    },
+    "validation": {
+      "targeted_tests": "14_PASS",
+      "full_suite": "887_PASS_4_SKIP",
+      "ruff": "PASS"
+    },
+    "versioned_artifacts": {
+      "src/aggie_analytics/data/ncaa_contest_reconciliation.py": "6bfbe736ece7902b9823663b7aeae995e090d507d9b6c77e069359efa74c0cff",
+      "tools/build_historical_spine_coverage_matrix.py": "690f041cb4e3c7bca19bad9882ac91c111be5fde6e4f4e092b77f806146eb56d",
+      "tests/test_ncaa_contest_reconciliation.py": "3b75fb5631839347515253f9f5f22b2205cbbac1688cf90907073f8b8c4a4884",
+      "tests/test_historical_spine_coverage_matrix.py": "2ce66718b422a2b3b187cbb62b6aba0d1a6e1b00bd35661e8c3dd966fa679a84"
+    },
+    "authority": "CANDIDATE_REFERENCE_ONLY_NO_NAME_ONLY_PROMOTION_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
+  "reconciled_contest_2022_tranche_0005_0009": {
+    "recorded_at_utc": "2026-08-14T18:44:27Z",
+    "selected_reconciled_contests": 5,
+    "acquisition_identity": "b374b508037da3527c638afdba299ca867d9e2f91c41a949cf8efd4bd0f5f744",
+    "manifest_sha256": "30b53029548158aa6851bad849bd59f210de4d3e155f501d5ebd888c9985a898",
+    "requests": 30,
+    "captures": 27,
+    "technical_failures": 3,
+    "technical_failure_scope": [
+      "2276467/team_stats CONTENT_TOO_SMALL",
+      "2276471/team_stats CONTENT_TOO_SMALL",
+      "2276474/individual_stats CONTENT_TOO_SMALL"
+    ],
+    "normalized_rows": 1846,
+    "validation": {
+      "checks": 720,
+      "mutation_controls": 6,
+      "validation_identity": "77566f1652b5498dc68caa40d4372768b97bedf254bab66374495e795de764e2",
+      "report_sha256": "f5162a1709947a1f38a50605b72bc1db0e6db504cc1989e3ba2983edc98f7a8b"
+    },
+    "route_recovery_findings": [
+      "Scrapfly returned RATE_LIMITED for both missing team-stat endpoints on two bounded attempts.",
+      "Direct HTTP also failed both missing team-stat endpoints; the failures remain domain-local and do not invalidate 27 accepted captures."
+    ],
+    "cleanup": {
+      "reconstructible_files_removed": 66,
+      "bytes_recovered": 3920199
+    },
+    "authority": "CANDIDATE_ONLY_PARTIAL_DOMAINS_PRESERVED_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "next_actions": [
     "Repeat graph-exhausted official team-season discovery for 2010-2023 and 2025, preserving independent season failures and coverage.",
     "Reconcile the 2024 discovered NCAA contest IDs to canonical games and teams without name-only promotion.",

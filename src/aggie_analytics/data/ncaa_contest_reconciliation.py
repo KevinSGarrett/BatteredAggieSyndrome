@@ -135,6 +135,8 @@ def parse_legacy_team_page(
     owner_name, owner_org_id = owner.groups()
     rows: list[dict[str, Any]] = []
     for block in ANY_ROW_RE.findall(payload):
+        if re.search(r"/contests/\d+/box_score", block, re.IGNORECASE):
+            continue
         observed_date = re.search(r"\b(\d{2}/\d{2}/\d{4})\b", block)
         opponent = LEGACY_OPPONENT_RE.search(block)
         row_text = _fragment_text(block)

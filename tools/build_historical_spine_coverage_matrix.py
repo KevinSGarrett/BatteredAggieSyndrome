@@ -65,7 +65,7 @@ def select_strongest_discovery(data_root: Path, season: int) -> tuple[Path, dict
 
 def select_strongest_reconciliation(data_root: Path, season: int) -> tuple[Path, dict[str, Any]]:
     root = data_root / "manifests/ncaa_contest_reconciliation/sha256"
-    candidates: list[tuple[tuple[int, int, int, int, str], Path, dict[str, Any]]] = []
+    candidates: list[tuple[tuple[int, int, int, int, int, str], Path, dict[str, Any]]] = []
     for path in sorted(root.glob("*/run_manifest.json")):
         item = json.loads(path.read_text(encoding="utf-8"))
         identity = str(item.get("dataset_identity", ""))
@@ -84,6 +84,7 @@ def select_strongest_reconciliation(data_root: Path, season: int) -> tuple[Path,
             int(population.get("captured_team_pages", 0)),
             int(population.get("discovered_contests", 0)),
             -int(population.get("unresolved_contests", 0)),
+            -int(population.get("unresolved_legacy_observations", 0)),
             identity,
         )
         candidates.append((rank, path, item))

@@ -25,13 +25,15 @@
   ],
   "ai_context_notes": [
     "Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.",
-    "No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance."
+    "No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.",
+    "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",
     "configs/historical_game_outcome_spine_expansion_contract.json",
     "configs/ncaa_contest_outcome_reference_adapter_contract.json",
     "configs/ncaa_contest_reconciliation_expansion_policy.json",
+    "configs/feature_source_research_program.json",
     "artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json",
     "artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json",
     "artifacts/jira_evidence/POST-SUBTASK-197.json",
@@ -102,7 +104,7 @@
   "end_to_end_validation": "Rebuild discovery from pinned source routes; refetch a bounded deterministic sample through each admitted transport; parse every official contest domain; reconcile to canonical games/teams; compare counts, hashes, schemas, missingness, conflicts, chronology, PIT state, and protected exclusions; reproduce all admitted payloads byte-identically; reject unsafe mutations; and remove reconstructible rebuild and browser/proxy temporary artifacts.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-197.json",
-  "evidence_state": "ACTIVE_EMPIRICAL_CHECKPOINT_2010_2025_DISCOVERY_RECONCILIATION_PRESENT_PARTIAL_DOMAIN_CANDIDATE_ONLY",
+  "evidence_state": "PARTIAL",
   "execution_lane": "DATA_MATERIALIZATION",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY",
@@ -111,6 +113,7 @@
     "configs/historical_game_outcome_spine_expansion_contract.json",
     "configs/ncaa_contest_outcome_reference_adapter_contract.json",
     "configs/ncaa_contest_reconciliation_expansion_policy.json",
+    "configs/feature_source_research_program.json",
     "artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json",
     "artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json",
     "artifacts/jira_evidence/POST-SUBTASK-197.json",
@@ -203,7 +206,7 @@
     "partial-domain-admission",
     "local-id-post-subtask-197"
   ],
-  "last_content_audit": "2026-08-11",
+  "last_content_audit": "2026-08-15",
   "local_id": "POST-SUBTASK-197",
   "maturity_before": "SOURCE_ROUTE_AND_PARSER_CONTRACT_VERIFIED_NO_NATIONAL_OFFICIAL_POPULATION",
   "objective": "Acquire and independently gate the maximum quality-supported national NCAA official football gamebook-equivalent evidence without discarding partial domains or broadening protected authority.",
@@ -248,7 +251,7 @@
     "src/aggie_analytics/entities/contracts.py"
   ],
   "ready": false,
-  "record_revision": "1.3",
+  "record_revision": "1.4",
   "related_to": [
     "POST-SUBTASK-162",
     "POST-SUBTASK-178",
@@ -447,6 +450,7 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 - configs/historical_game_outcome_spine_expansion_contract.json
 - configs/ncaa_contest_outcome_reference_adapter_contract.json
 - configs/ncaa_contest_reconciliation_expansion_policy.json
+- configs/feature_source_research_program.json
 - artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 - artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
 - artifacts/jira_evidence/POST-SUBTASK-197.json
@@ -582,3 +586,4 @@ Rebuild discovery from pinned source routes; refetch a bounded deterministic sam
 
 - Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.
 - No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.
+- Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.

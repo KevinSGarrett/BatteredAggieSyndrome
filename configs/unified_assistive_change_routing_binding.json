@@ -1,25 +1,25 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-554-2022-OFFICIAL-OFFSETS-355-554",
+  "work_unit_id": "BAT-554-2022-OFFICIAL-OFFSETS-555-760",
   "jira_identity": "BAT-554",
-  "decision_sha256": "4476441c3f52a29d0af7c0792a9e90530f398fde84edca0ca57df5e5d026e4fa",
+  "decision_sha256": "210dd2acdd9c19ecb9e50b78737ab9fe51abe791654faa2852260c5ac329dd57",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
-  "reason_code": "ACQUIRE_VALIDATE_AND_INTEGRATE_TWO_HUNDRED_CONTEST_2022_OFFICIAL_GAMEBOOK_MILESTONE",
-  "source_commit": "f50fde95f114e8b322be0dcbf683425ed716bbf6",
+  "reason_code": "ACQUIRE_VALIDATE_AND_INTEGRATE_REMAINING_TWO_HUNDRED_SIX_CONTEST_2022_OFFICIAL_GAMEBOOK_MILESTONE",
+  "source_commit": "4ffa98e4a788af5faadcea6001cff4d3df8ad1a6",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": false,
   "observed_conflict": "The assistive plane remains not operational, while the user explicitly directed the session to stop building that pipeline and work only on the Battered Aggie Syndrome project. BAT-554 is the active material historical-acquisition lane selected by the execution-focus audit.",
-  "resolution": "Use the user's standing project reservation for one coherent two-hundred-contest BAT-554 milestone; preserve exact reconciliation identities, acquire immutable external captures through bounded concurrent batches, normalize through the pinned parser, retry only unresolved endpoints, validate each terminal manifest independently, retain candidate-only authority, and integrate one material result without a companion Jira-sync PR.",
+  "resolution": "Use the user's standing project reservation for one coherent remaining-population BAT-554 milestone; preserve exact reconciliation identities, acquire immutable external captures through bounded concurrent batches, normalize through the pinned parser, retry only unresolved endpoints, validate each terminal manifest independently, retain candidate-only authority, and integrate one material result without a companion Jira-sync PR.",
   "user_explicit_waiver": {
     "instruction_text": "I WANT YOU TO JUST COMPLETLY MOVE AWAY FROM BUILDING THIS PIPELINE AND ONLY WORK ON THE BATTERERD AGGIE SYNDROME PROJECT",
     "instruction_sha256": "e3b5efca5a46134bf5f77b233d97cfb04f85c78b0c5b320357e2858a19e2274e",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "Bulk payloads remain outside Git; protected and production authority stay closed; exact identity, provenance, PIT, leakage, cleanup, PR, hosted validation, and Jira evidence remain mandatory.",
-    "work_unit_id": "BAT-554-2022-OFFICIAL-OFFSETS-355-554"
+    "work_unit_id": "BAT-554-2022-OFFICIAL-OFFSETS-555-760"
   },
   "allowed_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-197.json",

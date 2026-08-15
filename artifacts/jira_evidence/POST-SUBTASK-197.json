@@ -1818,40 +1818,133 @@
     },
     "authority": "CANDIDATE_ONLY_PARSED_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
-  "official_acquisition_coverage_rollup_checkpoint": {
-    "recorded_at_utc": "2026-08-15T15:49:34Z",
-    "schema_version": "1.4.0",
-    "matrix_identity": "d9c19dee56baac990bf32afd7fca50ae486c064cbf26117644b812a0695133cc",
-    "matrix_sha256": "7398c8ac82e4abdea354c26becfa007e266d27e7dd6c0c281f8019c5474cfc01",
+  "reconciled_contest_2022_tranche_0205_0254": {
+    "recorded_at_utc": "2026-08-15T17:50:46Z",
     "season": 2022,
-    "official_contests": 205,
-    "unique_endpoint_requests": 1230,
-    "captured_endpoint_requests": 1155,
-    "technical_failures": 75,
-    "normalized_rows": 75695,
-    "validated_manifest_count": 361,
-    "validation_check_count": 54946,
-    "mutation_control_count": 2166,
-    "total_raw_bytes": 84568895,
+    "offset_start": 205,
+    "offset_end": 254,
+    "selected_reconciled_contests": 50,
+    "contest_identity": "7877440a5e49fcc1b343a0d34c168975e03f95a883f62efcaf4a8d1c364f9c32",
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "reconciliation_manifest_sha256": "281109c4aa1332c2b1e09fd6921c5fb957d86e7c7425dce54daa345f073140ab",
+    "pre_routing_file_sha256": "c2a367aa9fb3a72471f2f8aef467553819b72e45865b69410b1cc185474d69c7",
+    "external_checkpoint_path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\historical_expansion\\BAT-554-2022-OFFSETS-205-254-20260815T175046Z.json",
+    "external_checkpoint_sha256": "7a2c8336b52c2a3b89dbfae709d1ba1d69277c9b37dcc68ab68462cb27ddbce3",
+    "execution_shape": {
+      "coherent_material_milestone_contests": 50,
+      "resumable_batches": 10,
+      "maximum_concurrent_batches": 10,
+      "integration_prs": 1,
+      "companion_jira_sync_prs": 0
+    },
+    "first_pass": {
+      "requested": 300,
+      "captured": 268,
+      "technical_failures": 32,
+      "route": "scraperapi"
+    },
+    "bounded_recovery": {
+      "requested": 300,
+      "captured": 295,
+      "technical_failures": 5,
+      "first_pass_failures_recovered": 27,
+      "immutable_cache_captures": 268,
+      "gate_bundle_identity": "9655cb16a255783fe1bc3165a41f4cbd0b16239349d66d3af3c65e21c72d6d9f",
+      "manifest_bundle_identity": "7e2c770f0d1d206d398850a51ed897f267a04987e8184540f08cebf7e3638d0b",
+      "routes": [
+        "IMMUTABLE_REQUEST_CACHE",
+        "scraperapi"
+      ]
+    },
+    "final_technical_failure_scope": [
+      "2277442/box_score:CONTENT_TOO_SMALL",
+      "2277467/play_by_play:CONTENT_TOO_SMALL",
+      "2277486/drives:SERVER_ERROR",
+      "2277699/officials:SERVER_ERROR_CONTENT_TOO_SMALL",
+      "2277720/officials:SERVER_ERROR"
+    ],
+    "normalized_rows_added": 20167,
+    "raw_bytes_added": 21718933,
+    "domain_rows_added": {
+      "attendance": 49,
+      "drives": 1194,
+      "linescore_game_info": 404,
+      "officials": 48,
+      "play_by_play": 10470,
+      "player_stats": 1809,
+      "team_stats_by_period": 6144,
+      "venue": 49
+    },
+    "validation": {
+      "result": "PASS",
+      "passed_manifests": 10,
+      "checks": 7630,
+      "mutation_controls": 60,
+      "validation_report_bundle_identity": "a3529d097635040eec9e5efa0b485a513eaace4f8a70f456ff1326daa972e928"
+    },
+    "coverage": {
+      "matrix_identity": "daaa61fc6fd307cfa9f5d47fc0c16866dcf8f0abfe231d6d3087d877f35311e8",
+      "matrix_sha256": "e8996f31d9b94c048d926f0cbf6a1055c06b37b99f87f2daa73722b4c3b221ee",
+      "official_contests": 255,
+      "unique_endpoint_requests": 1530,
+      "captured_endpoint_requests": 1450,
+      "technical_failures": 80,
+      "normalized_rows": 95862,
+      "total_raw_bytes": 106287828
+    },
+    "retraining_admission": {
+      "request_sha256": "a84211137b9305484ad1b091e68eb84da22014ed15e5b2c2d13f2b9111419bd1",
+      "decision_identity": "98fe6ecb732ad394e27a3013f94a2eba7877f8372443ff153bd9fdd38307d555",
+      "decision_sha256": "1ca79ef39b32683ed094a5d09f42549d2e05decffe5d23a21cb73c8d47f7cf3a",
+      "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "full_ladder_required": false,
+      "protected_promotion_authority": false
+    },
+    "cleanup": {
+      "report_path": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-554\\cleanup\\BAT-554-2022-OFFICIAL-OFFSETS-205-254-20260815T175046Z.json",
+      "report_sha256": "e03e3c6370e87332fb9db3553fdc10424e4d9b1a1dfd584e456bbf667a1a2e74",
+      "reconstructible_files_removed": 708,
+      "reconstructible_bytes_removed": 41366681,
+      "authoritative_or_immutable_artifacts_removed": false
+    },
+    "authority": "CANDIDATE_ONLY_PARSED_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
+  "official_acquisition_coverage_rollup_checkpoint": {
+    "recorded_at_utc": "2026-08-15T17:50:46Z",
+    "schema_version": "1.4.0",
+    "matrix_identity": "daaa61fc6fd307cfa9f5d47fc0c16866dcf8f0abfe231d6d3087d877f35311e8",
+    "matrix_sha256": "e8996f31d9b94c048d926f0cbf6a1055c06b37b99f87f2daa73722b4c3b221ee",
+    "season": 2022,
+    "official_contests": 255,
+    "unique_endpoint_requests": 1530,
+    "captured_endpoint_requests": 1450,
+    "technical_failures": 80,
+    "normalized_rows": 95862,
+    "validated_manifest_count": 371,
+    "validation_check_count": 62576,
+    "mutation_control_count": 2226,
+    "total_raw_bytes": 106287828,
     "domain_contest_counts": {
-      "attendance": 192,
-      "drives": 191,
-      "linescore_game_info": 192,
-      "officials": 186,
-      "play_by_play": 183,
-      "player_stats": 189,
-      "team_stats_by_period": 183,
-      "venue": 192
+      "attendance": 241,
+      "drives": 240,
+      "linescore_game_info": 241,
+      "officials": 234,
+      "play_by_play": 232,
+      "player_stats": 239,
+      "team_stats_by_period": 233,
+      "venue": 241
     },
     "implementation_validation": {
-      "targeted": "47_PASS_1_SKIP_11_SUBTESTS_PASS",
-      "full_suite": "901_PASS_4_SKIP_120_SUBTESTS_PASS",
-      "unittest": "899_PASS_4_SKIP",
+      "targeted": "28_PASS_1_SKIP_11_SUBTESTS_PASS",
+      "full_suite": "909_PASS_4_SKIP_120_SUBTESTS_PASS",
+      "unittest": "907_PASS_4_SKIP",
       "w25_final": "PASS",
       "strict_repository_provenance_secret": "PASS",
       "codex_usage_interlock_static": "PASS_USER_EXPLICIT_PROJECT_RESERVATION_PIPELINE_REMAINS_NOT_OPERATIONAL",
-      "jira_local_strict": "PASS_ZERO_FINDINGS_REQUIRE_LIVE",
-      "jira_live_sync": "AUTHENTICATED_PASS_CURRENT_TRANCHE_MERGE_AND_EVIDENCE_COMMENT_PENDING",
+      "jira_local_strict": "PASS_ZERO_FINDINGS",
+      "jira_live_sync": "MERGE_AND_SINGLE_POSTMERGE_EVIDENCE_COMMENT_PENDING_NO_COMPANION_SYNC_PR",
       "ruff": "NOT_APPLICABLE_JSON_MARKDOWN_ONLY_CHANGE_FULL_REPOSITORY_BASELINE_2182_FINDINGS_PRESERVED"
     },
     "versioned_artifacts": {
@@ -1859,9 +1952,9 @@
       "tests/test_historical_spine_coverage_matrix.py": "b51d535e86f5d4e8d1ac6f52ede32d1a3a1f1b6bb88b73244daa0537c1996f20"
     },
     "retraining_admission": {
-      "request_sha256": "66e4ba84234adbf25e7566f9bf8b3288a7d56808d23e3a064417751b61eb40db",
-      "decision_identity": "a9bcaa249b47bca8e55ff0b338e142a33813ce97f44f8bb5a0ff4b44c0958a14",
-      "decision_sha256": "811fbd2f115323f6ea61dcc817dcc3da711eb5401bc3736c9f66d109dc557f85",
+      "request_sha256": "a84211137b9305484ad1b091e68eb84da22014ed15e5b2c2d13f2b9111419bd1",
+      "decision_identity": "98fe6ecb732ad394e27a3013f94a2eba7877f8372443ff153bd9fdd38307d555",
+      "decision_sha256": "1ca79ef39b32683ed094a5d09f42549d2e05decffe5d23a21cb73c8d47f7cf3a",
       "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
       "eligible_seasons_added": 0,
       "eligible_games_added": 0,

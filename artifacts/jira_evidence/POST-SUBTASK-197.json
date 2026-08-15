@@ -713,30 +713,165 @@
     },
     "authority": "CANDIDATE_ONLY_PARSED_PARTIAL_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "reconciled_contest_2022_tranche_0035_0039": {
+    "recorded_at_utc": "2026-08-15T03:12:00Z",
+    "selected_reconciled_contests": 5,
+    "contest_ids": [
+      "2276614",
+      "2276616",
+      "2276668",
+      "2276681",
+      "2276690"
+    ],
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "raw_capture_manifests": [
+      {
+        "contest_offset": 35,
+        "acquisition_identity": "b6a1e15488345451ebd2812dc80cebd51b79b076704b53f7b87de9433a79e20b",
+        "manifest_sha256": "be0f3b9a615704595505813c05b3d10426b8453a62898dbec9f721e562f072b1",
+        "gate_sha256": "e8e6aea888e01404a9a94c2f0c704fa7f32a5215e8bc11d33d49eb46c4d33920",
+        "validation_identity": "2fd20c17a057c563e1469313ddb24fc459c91dd9a79415625835099e279828af",
+        "validation_report_sha256": "ab72e669d2204f35e2b86e1e3b3d805b2f69d8c31309da5f4b9a323d9d125b49",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 36,
+        "acquisition_identity": "831e0b2215d39cc99e0ebce70e3888bdad14bfdce06f78e99265290f5a066af7",
+        "manifest_sha256": "f27b2c2edb7fae0c70ea9ef2afa51d34047594d9a72d8407e75dddd53415b69a",
+        "gate_sha256": "1be71b85731c093b3f6bd0d1887cf9b1d7080a5a8607be4a36f634a37ade9479",
+        "validation_identity": "3c4e7ecf5f6b0d1feb7dd74c75b3d24439db6caf3bd572147d5376ef8bd1bfcd",
+        "validation_report_sha256": "7f6b18aa0c67706ceaac7c15716c9513bd3d288433f464328a08e152a5b7fcd1",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 37,
+        "acquisition_identity": "012a6fefe202bde9b200df6691cf0a6a8ddad20a94a2153eb1ae982e27f9984d",
+        "manifest_sha256": "fbf062529b6575bfb5b46740f025034b8f24780e2787fe7d51f75d61951225e1",
+        "gate_sha256": "d59f20b523a0ba9fbc685e9bc31c93a7d3d46f104473ddb18daaba16207f74b3",
+        "validation_identity": "d01e097b3d93b81e8e22f29c1bf9d4e6475735f873c3dca5403ee57c0d28c64b",
+        "validation_report_sha256": "013bd505a31eabdeb2492552693f8be85365c24f6ffc6ea3d6aeaac6074552df",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 38,
+        "acquisition_identity": "2d8feaa89eadcf350970b8871749f83e7b547698c7fd7f3da16018d4ff0ac27c",
+        "manifest_sha256": "287a688e1eff2a6b911064baaf4ef788850777f900af3e87b7e50c90fc79124c",
+        "gate_sha256": "6f8bda15a964739e8d6b716c0d8168df83c0b28efa5f9fc50665ff7237d43e58",
+        "validation_identity": "0ce706ed521b61411c46e1fd7c8122ad97b88ad344d7539eb33ae5a68d41616f",
+        "validation_report_sha256": "b056c11e831273d5c7b74dca4873a4f87148d29be4fa237ad93fadf5beb271d2",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 39,
+        "acquisition_identity": "f032e48c4db93afeef05f78e70116af535ae91b05976c98b84de695cb5d47f19",
+        "manifest_sha256": "cb32bcfd6e894a10d8a8a9cf8290cc3604152abbcdfd267f2bb97ff63b8b52b8",
+        "gate_sha256": "633d01d3e312358435b2aa251bd2386689a8bc3a94071f220929e25a7946c995",
+        "validation_identity": "8d1c6c6787dd228db94f1955500461b3511c46404320769c0febb18cdad405f2",
+        "validation_report_sha256": "80e9cb590cce2e51986f306215d32dc481df569a16e0af1c8f8e72a114319333",
+        "validation_checks": 107
+      }
+    ],
+    "parser_replay_manifests": [
+      {
+        "contest_offset": 35,
+        "acquisition_identity": "144db3f391970a8cc533a52d2e377d7a1ade985f818233240eb065f50acb318c",
+        "manifest_sha256": "d0061d1e5df79079bb576f28c682d7f629991871d07c66d90c6bcc9a60331b60",
+        "gate_sha256": "3fde0840bf76ca2fe9f49023657e47cd2cdc4d23f69b152b2a7c6d78b4250039",
+        "validation_identity": "1800c6d8cdcc1389947c949583eaf6f3c3aa001073c84a50cc9fd0886af8cb75",
+        "validation_report_sha256": "16a32a46dde0195427c23bc652e3a2a4c6a4c09e65cccd10be9c666787dd0c34",
+        "validation_checks": 190,
+        "normalized_rows": 394
+      },
+      {
+        "contest_offset": 36,
+        "acquisition_identity": "a4d9876f7789e156cdeaec5e67c44e1c54f99a22a3bfa52a1187ce2762687c0c",
+        "manifest_sha256": "7d451860b5dab5203ad26f95f5f5792cd21af9c513aad3667a6ec1d32fa58928",
+        "gate_sha256": "f960427628236073a498d6a843937eac00040bd8bfea7929570098080cacebd2",
+        "validation_identity": "b60399f781450839db29e5220d5200aa6eee7c4b81fb1093011fc127e84a967c",
+        "validation_report_sha256": "f4942d829b80300cc78b9f2eb093300f6e272f78efca81026ec4c4198cde86fd",
+        "validation_checks": 190,
+        "normalized_rows": 395
+      },
+      {
+        "contest_offset": 37,
+        "acquisition_identity": "f6cd512aa8fa9a448235f3df5ef53f750bcb0f8db82a9f63f251fe7a117812a6",
+        "manifest_sha256": "bcd8f1e0a2ccd04ee74a93745fe0a2e39db2aa10b467463279293c200191c707",
+        "gate_sha256": "1fbb098b65a9dc9f0e9a80eabebec4260d4e3675b9cda9f10e28c136be0227c9",
+        "validation_identity": "607a2b3741c8a2f75d160f583a23890290bae6dce3101943278337b3eeb7dbdd",
+        "validation_report_sha256": "7add21849d06ad5b058bb75576a8173bbf006c497ae0b6d04a84c45f7df01abe",
+        "validation_checks": 190,
+        "normalized_rows": 414
+      },
+      {
+        "contest_offset": 38,
+        "acquisition_identity": "92cbb868a731b463ca4015bbcfaa722d0c0e32afea2bc769b09d9e840a590e60",
+        "manifest_sha256": "9454639673f81f18e594a5d4e78837391bd5f5d91bd7504330c660aeb692b3b3",
+        "gate_sha256": "e7626bf1fa2dbb7458cfd2f3e5d6d6c4818852b11c786a6e49c4f4f73603667c",
+        "validation_identity": "e6b411dfff513eacff0f6cbce07593b10ff68caa86cd821a15b94e3290be191a",
+        "validation_report_sha256": "959d0cd418c998e9c3e7db46c65e7d59ab8286e46245ca593dc90747c045303a",
+        "validation_checks": 190,
+        "normalized_rows": 472
+      },
+      {
+        "contest_offset": 39,
+        "acquisition_identity": "ff63c58ea5486529896ea635b04eb63a2ecc280a2c12f64d50000dd5e1d4727a",
+        "manifest_sha256": "f752e2cadaaeb3c7299c277a61d5234df191a67950f01d18458e956659426883",
+        "gate_sha256": "41fb09baf551d2f7b7cba2cbcbad87e7ef5237cd069144d09a26f4c06e894fef",
+        "validation_identity": "b0aff8010af2c6b2cba4704242e12b5286fad81dd8b07a0fe10bf28ca0012e8b",
+        "validation_report_sha256": "3b3f6c17dacfbf39546009d8ddcc98ae33b84f9aae147a40957aaff87716cb56",
+        "validation_checks": 149,
+        "normalized_rows": 420
+      }
+    ],
+    "requests": 30,
+    "captures": 29,
+    "technical_failures": 1,
+    "technical_failure_scope": [
+      "2276690/box_score CONTENT_TOO_SMALL"
+    ],
+    "raw_bytes": 2214419,
+    "normalized_rows": 2095,
+    "parser_runtime": "PINNED_SPORTSDATAVERSE_0_0_75_ISOLATED_ENVIRONMENT_IMMUTABLE_CACHE_REPLAY",
+    "validation": {
+      "result": "PASS",
+      "raw_capture_checks": 579,
+      "parser_replay_checks": 909,
+      "total_checks": 1488,
+      "mutation_controls": 60
+    },
+    "cleanup": {
+      "report_path": "C:\\BatteredAggieSyndrome.data\\validation\\cleanup_reports\\BAT-554-2022-OFFSETS-35-39-20260815T031143Z.json",
+      "report_sha256": "7f4f99fc2fa386914db544dc294b1b87802f59cfc6c7511e73b4fd6c8e7f354d",
+      "reconstructible_rebuild_and_scratch_files_removed": 116,
+      "reconstructible_payload_bytes_removed": 6580773,
+      "authoritative_or_immutable_artifacts_removed": false
+    },
+    "authority": "CANDIDATE_ONLY_PARSED_PARTIAL_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "official_acquisition_coverage_rollup_checkpoint": {
-    "recorded_at_utc": "2026-08-15T02:35:00Z",
+    "recorded_at_utc": "2026-08-15T03:12:00Z",
     "schema_version": "1.4.0",
-    "matrix_identity": "8049efe1058b6856d3d6fbbd54c39fc7006db16145163a74f1a9bc48306f1cbc",
-    "matrix_sha256": "4235f1d0b6858bba7a8c14644c41410e5b6cb2230f917412cec43538fcf9418b",
+    "matrix_identity": "dc8c85e2f6be424c349c99c144ecc8b734c70a45371b04dc55a237cf05cf8b96",
+    "matrix_sha256": "9cca9bd11287789a2fde1a8a1b7ebdced0cb68b75773f7b0653c11494fa7bc4f",
     "season": 2022,
-    "official_contests": 35,
-    "unique_endpoint_requests": 210,
-    "captured_endpoint_requests": 198,
-    "technical_failures": 12,
-    "normalized_rows": 11411,
-    "validated_manifest_count": 22,
-    "validation_check_count": 5878,
-    "mutation_control_count": 132,
-    "total_raw_bytes": 14498581,
+    "official_contests": 40,
+    "unique_endpoint_requests": 240,
+    "captured_endpoint_requests": 227,
+    "technical_failures": 13,
+    "normalized_rows": 13506,
+    "validated_manifest_count": 32,
+    "validation_check_count": 7366,
+    "mutation_control_count": 192,
+    "total_raw_bytes": 16713000,
     "domain_contest_counts": {
-      "attendance": 29,
-      "drives": 29,
-      "linescore_game_info": 29,
-      "officials": 29,
-      "play_by_play": 28,
-      "player_stats": 28,
-      "team_stats_by_period": 26,
-      "venue": 29
+      "attendance": 33,
+      "drives": 34,
+      "linescore_game_info": 33,
+      "officials": 34,
+      "play_by_play": 33,
+      "player_stats": 33,
+      "team_stats_by_period": 31,
+      "venue": 33
     },
     "implementation_validation": {
       "targeted": "37_PASS_1_SKIP_11_SUBTESTS_PASS",
@@ -752,9 +887,9 @@
       "tests/test_historical_spine_coverage_matrix.py": "b51d535e86f5d4e8d1ac6f52ede32d1a3a1f1b6bb88b73244daa0537c1996f20"
     },
     "retraining_admission": {
-      "request_sha256": "253f276bc335d2d3f3278f2cf5be112391180fbd36945374f630698f5bf9f491",
-      "decision_identity": "24d40d7cac6a826c36d4777b856953e4e5105c00a876881119fec4e9ac1c57f5",
-      "decision_sha256": "4f178496cc487b340d5aa848aa543edd35b067f66b0dcc055181dcdf32647fc0",
+      "request_sha256": "c6d1b31a446e2c1fb7173ce4b01229e5e40f203ed7b3bac2d8a5a6db08765e5c",
+      "decision_identity": "58842ff69ae8ca7072364873ed5c0db36d06589ff11d3fdd285c298d915f47b7",
+      "decision_sha256": "248c65f7b3ad07cca07328e604deb19d7b7b3397b594570cc0af492e780fa05c",
       "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
       "eligible_seasons_added": 0,
       "eligible_games_added": 0,

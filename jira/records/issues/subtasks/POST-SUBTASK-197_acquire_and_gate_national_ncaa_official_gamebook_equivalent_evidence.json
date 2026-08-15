@@ -21,7 +21,7 @@
     "Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.",
     "No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.",
     "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.",
-    "The current 2022 checkpoint covers 145 exact reconciled contests and 870 endpoint identities; 808 are captured, 62 remain technical failures, and 52,379 parsed rows remain candidate-only under coverage identity 26a10852f462bb73a4d49e591d244b4558d20cbbba33ffd821bcce8abca242dd."
+    "The current 2022 checkpoint covers 165 exact reconciled contests and 990 endpoint identities; 918 are captured, 72 remain technical failures, and 59,538 parsed rows remain candidate-only under coverage identity ffc634a630d94269eb3723feb8b70e387225f94a4e17db5bb4dc295066d53786."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",

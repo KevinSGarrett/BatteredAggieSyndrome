@@ -22,7 +22,7 @@
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-199.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "USER_SCOPE_OVERRIDE_BAS_ONLY: assistive-plane execution is paused; preserve existing evidence and do not resume without a later explicit user instruction.",
   "blocks": [
     "POST-SUBTASK-200",
     "POST-SUBTASK-205"
@@ -127,7 +127,7 @@
     "budget-isolated",
     "subtask"
   ],
-  "last_content_audit": "2026-08-12",
+  "last_content_audit": "2026-08-15",
   "local_id": "POST-SUBTASK-199",
   "maturity_before": "NOT_STARTED",
   "objective": "Run the bounded Qwen patch-only capability and cross-family quality pilot after separate paid OpenRouter authorization",
@@ -243,7 +243,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-199.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "BLOCKED"
 }
 ```
 

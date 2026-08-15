@@ -42,7 +42,7 @@
     "docs/architecture/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md",
     "docs/operations/UNIFIED_ASSISTIVE_EXECUTION_PLANE.md"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-201",
+  "blocked_reason": "USER_SCOPE_OVERRIDE_BAS_ONLY: assistive-plane execution is paused; preserve existing evidence and do not resume without a later explicit user instruction.",
   "blocks": [
     "POST-SUBTASK-205"
   ],
@@ -153,19 +153,6 @@
   ],
   "issue_type": "Subtask",
   "jira_key": "BAT-563",
-  "jira_operational_status_policy": {
-    "clear_when": "Clear or revise when the CPU-worker campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
-    "evidence_refs": [
-      "BAT-560",
-      "BAT-563",
-      "POST-SUBTASK-201",
-      "POST-SUBTASK-204"
-    ],
-    "mode": "EXPLICIT_ACTIVE_EXECUTION",
-    "rationale": "Qualified fixed-function CPU routes are serving real campaign units while unattended BAT-560 deployment and campaign-level completion remain logically incomplete.",
-    "schema_version": 1,
-    "target_status": "In Progress"
-  },
   "labels": [
     "actionable",
     "post-wave",
@@ -173,7 +160,7 @@
     "candidate-only",
     "subtask"
   ],
-  "last_content_audit": "2026-08-13",
+  "last_content_audit": "2026-08-15",
   "local_id": "POST-SUBTASK-204",
   "maturity_before": "NOT_STARTED",
   "objective": "Qualify the private Tailscale CPU worker for deterministic tranches and embedding or deduplication assistance",

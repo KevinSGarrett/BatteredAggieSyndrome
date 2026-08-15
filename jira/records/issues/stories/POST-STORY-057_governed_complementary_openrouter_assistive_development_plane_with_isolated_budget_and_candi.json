@@ -14,7 +14,7 @@
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-STORY-057.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "USER_SCOPE_OVERRIDE_BAS_ONLY: assistive-plane execution is paused; preserve existing evidence and do not resume without a later explicit user instruction.",
   "blocks": [],
   "canonical_record": "jira/records/issues/stories/POST-STORY-057_governed_complementary_openrouter_assistive_development_plane_with_isolated_budget_and_candi.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -111,7 +111,7 @@
     "budget-isolated",
     "aggregate-gate"
   ],
-  "last_content_audit": "2026-08-12",
+  "last_content_audit": "2026-08-15",
   "local_id": "POST-STORY-057",
   "maturity_before": "NOT_STARTED",
   "objective": "Governed complementary OpenRouter assistive development plane with isolated budget and candidate-only authority",
@@ -231,5 +231,5 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-STORY-057.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "BACKLOG"
 }

@@ -35509,7 +35509,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-168
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json",In Progress,Highest,actionable;openai-assist;post-wave;subtask;continuous-operations;candidate-assistance;terra-sol-comparison;local-id-post-subtask-168,data-sources,POST-SUBTASK-168,OPENAI-ASSIST-PLAN,PHASE-1,IN_PROGRESS,OPERATING,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-168_operate_continuing_governed_openai_candidate_assistance_on_dependency_ready_real_project_wor.json",To Do,Highest,actionable;openai-assist;post-wave;subtask;continuous-operations;candidate-assistance;terra-sol-comparison;local-id-post-subtask-168,data-sources,POST-SUBTASK-168,OPENAI-ASSIST-PLAN,PHASE-1,BLOCKED,OPERATING,PLANNED,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-526,100477,[POST-SUBTASK-169] Execute scoped PRELIMINARY_UNPROTECTED baseline pipeline without opening protected promotion,100075,"Local ID: POST-SUBTASK-169
 
 Objective
@@ -37664,7 +37664,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-198
 
-Canonical Record: jira/records/issues/stories/POST-STORY-057_governed_complementary_openrouter_assistive_development_plane_with_isolated_budget_and_candi.json",In Progress,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;aggregate-gate;local-id-post-story-057,operations-security,POST-STORY-057,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
+Canonical Record: jira/records/issues/stories/POST-STORY-057_governed_complementary_openrouter_assistive_development_plane_with_isolated_budget_and_candi.json",To Do,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;aggregate-gate;local-id-post-story-057,operations-security,POST-STORY-057,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,BLOCKED,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
 Sub-task,BAT-556,100507,"[POST-SUBTASK-198] Implement the non-billable provider-neutral OpenRouter foundation, USD 0 hard stop, privacy controls, storage, schemas, and worker isolation",100506,"Local ID: POST-SUBTASK-198
 
 Objective
@@ -37796,7 +37796,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-199
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.json",In Progress,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-199,operations-security,POST-SUBTASK-199,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-199_run_the_bounded_qwen_patch_only_capability_and_cross_family_quality_pilot_after_separate_pai.json",To Do,Highest,actionable;post-wave;openrouter-assist;candidate-only;budget-isolated;subtask;local-id-post-subtask-199,operations-security,POST-SUBTASK-199,OPENROUTER-ASSISTIVE-PLANE-PLAN,PHASE-1,BLOCKED,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,ATOMIC_EXECUTION
 Sub-task,BAT-558,100509,"[POST-SUBTASK-200] Operate empirically admitted OpenRouter assistive routes with independent usage, provenance, cleanup, and handoff evidence",100506,"Local ID: POST-SUBTASK-200
 
 Objective
@@ -37931,7 +37931,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-201
 
-Canonical Record: jira/records/issues/stories/POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.json",In Progress,Highest,actionable;post-wave;unified-assistive;candidate-only;aggregate-gate;local-id-post-story-058,operations-security,POST-STORY-058,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,IN_PROGRESS,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
+Canonical Record: jira/records/issues/stories/POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;aggregate-gate;local-id-post-story-058,operations-security,POST-STORY-058,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BACKLOG,EMPIRICALLY_VALIDATED,PARTIAL,POST_W25,false,RESEARCH_LANE,AGGREGATE_GATE
 Sub-task,BAT-560,100511,"[POST-SUBTASK-201] Implement the unified ready-work inventory, routing, readiness, budget, provenance, bypass, utilization, and completeness foundation",100510,"Local ID: POST-SUBTASK-201
 
 Objective
@@ -38006,7 +38006,7 @@ Source References
 
 Governance Traceability Gate: POST-SUBTASK-201
 
-Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json",In Progress,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-201,operations-security,POST-SUBTASK-201,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,IN_PROGRESS,INTEGRATED,PARTIAL,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
+Canonical Record: jira/records/issues/subtasks/POST-SUBTASK-201_implement_the_unified_ready_work_inventory_routing_readiness_budget_provenance_bypass_utiliz.json",To Do,Highest,actionable;post-wave;unified-assistive;candidate-only;subtask;local-id-post-subtask-201,operations-security,POST-SUBTASK-201,UNIFIED-ASSISTIVE-EXECUTION-PLAN,PHASE-1,BLOCKED,INTEGRATED,PARTIAL,POST_W25,true,SHARED_CONTRACT,ATOMIC_EXECUTION
 Sub-task,BAT-561,100512,"[POST-SUBTASK-202] Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration",100510,"Local ID: POST-SUBTASK-202
 
 Objective

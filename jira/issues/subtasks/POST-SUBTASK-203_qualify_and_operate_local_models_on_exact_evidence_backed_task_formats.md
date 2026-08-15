@@ -24,7 +24,7 @@
     "configs/assistive_route_readiness.json",
     "artifacts/jira_evidence/POST-SUBTASK-203.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-201",
+  "blocked_reason": "USER_SCOPE_OVERRIDE_BAS_ONLY: assistive-plane execution is paused; preserve existing evidence and do not resume without a later explicit user instruction.",
   "blocks": [
     "POST-SUBTASK-205"
   ],
@@ -122,19 +122,6 @@
   ],
   "issue_type": "Subtask",
   "jira_key": "BAT-562",
-  "jira_operational_status_policy": {
-    "clear_when": "Clear or revise when the local-model campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
-    "evidence_refs": [
-      "BAT-560",
-      "BAT-562",
-      "POST-SUBTASK-201",
-      "POST-SUBTASK-203"
-    ],
-    "mode": "EXPLICIT_ACTIVE_EXECUTION",
-    "rationale": "Exact rejected Qwen routes remain rejected while separately keyed bge-m3 and local-model campaign work is actively executing under the incomplete BAT-560 controller foundation.",
-    "schema_version": 1,
-    "target_status": "In Progress"
-  },
   "labels": [
     "actionable",
     "post-wave",
@@ -142,7 +129,7 @@
     "candidate-only",
     "subtask"
   ],
-  "last_content_audit": "2026-08-13",
+  "last_content_audit": "2026-08-15",
   "local_id": "POST-SUBTASK-203",
   "maturity_before": "NOT_STARTED",
   "objective": "Qualify and operate local models on exact evidence-backed task formats",

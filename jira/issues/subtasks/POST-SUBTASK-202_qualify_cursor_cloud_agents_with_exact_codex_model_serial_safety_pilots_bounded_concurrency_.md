@@ -21,7 +21,7 @@
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-202.json"
   ],
-  "blocked_reason": "UNSATISFIED_HARD_DEPENDENCIES: POST-SUBTASK-201",
+  "blocked_reason": "USER_SCOPE_OVERRIDE_BAS_ONLY: assistive-plane execution is paused; preserve existing evidence and do not resume without a later explicit user instruction.",
   "blocks": [
     "POST-SUBTASK-205"
   ],
@@ -117,19 +117,6 @@
   ],
   "issue_type": "Subtask",
   "jira_key": "BAT-561",
-  "jira_operational_status_policy": {
-    "clear_when": "Clear or revise when the Cursor campaign stops, completes, is cancelled, or no longer has verified active execution evidence.",
-    "evidence_refs": [
-      "BAT-560",
-      "BAT-561",
-      "POST-SUBTASK-201",
-      "POST-SUBTASK-202"
-    ],
-    "mode": "EXPLICIT_ACTIVE_EXECUTION",
-    "rationale": "Real Cursor campaign units are actively executing and being reviewed while the shared BAT-560 operational dependency remains logically incomplete.",
-    "schema_version": 1,
-    "target_status": "In Progress"
-  },
   "labels": [
     "actionable",
     "post-wave",
@@ -137,7 +124,7 @@
     "candidate-only",
     "subtask"
   ],
-  "last_content_audit": "2026-08-13",
+  "last_content_audit": "2026-08-15",
   "local_id": "POST-SUBTASK-202",
   "maturity_before": "NOT_STARTED",
   "objective": "Qualify Cursor Cloud Agents with exact Codex model, serial safety pilots, bounded concurrency, and reviewed candidate integration",

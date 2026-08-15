@@ -31,7 +31,7 @@
     "tests/test_openai_assist.py",
     "artifacts/jira_evidence/POST-SUBTASK-168.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "USER_SCOPE_OVERRIDE_BAS_ONLY: assistive-plane execution is paused; preserve existing evidence and do not resume without a later explicit user instruction.",
   "blocks": [
     "POST-STORY-056",
     "POST-SUBTASK-175",
@@ -150,7 +150,7 @@
     "candidate-assistance",
     "terra-sol-comparison"
   ],
-  "last_content_audit": "2026-08-10",
+  "last_content_audit": "2026-08-15",
   "local_id": "POST-SUBTASK-168",
   "maturity_before": "NOT_STARTED",
   "objective": "Operate continuing governed OpenAI candidate assistance on dependency-ready real project work",
@@ -266,5 +266,5 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-SUBTASK-168.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "BLOCKED"
 }

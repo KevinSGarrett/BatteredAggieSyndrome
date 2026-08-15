@@ -33,7 +33,7 @@ Provide one complementary OpenRouter backend behind a provider-neutral boundary 
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
+- Workflow: `BACKLOG`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`

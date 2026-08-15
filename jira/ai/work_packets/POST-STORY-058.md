@@ -33,7 +33,7 @@ Operate the mandatory provider-neutral controller, independent watchdog, 204-row
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
+- Workflow: `BACKLOG`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`

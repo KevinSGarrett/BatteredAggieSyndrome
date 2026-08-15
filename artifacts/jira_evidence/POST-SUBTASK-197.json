@@ -811,9 +811,84 @@
     },
     "authority": "CANDIDATE_ONLY_IMMUTABLE_REPLAY_NO_TRAINING_PROTECTED_PRODUCTION_OR_COMPLETENESS_PROMOTION"
   },
+  "historical_spine_2012_graph_exhausted_reconciliation_checkpoint": {
+    "recorded_at_utc": "2026-08-15T01:00:00Z",
+    "discovery": {
+      "identity": "2735890e4aa41e8c25468a928876c7a91d237786f4b6aedea9ff1ef15770547a",
+      "manifest_sha256": "c0e7cce35f5cd1580321ce9ac8657560c4d76406b6dc1483a3612cb8a4100bf7",
+      "state": "COMPLETE_GRAPH_EXHAUSTED",
+      "visited_team_season_ids": 633,
+      "captured_team_pages": 424,
+      "acquisition_failures_quarantined": 209,
+      "modern_contest_ids": 6,
+      "legacy_schedule_records": 4549,
+      "remaining_queue": 0,
+      "validation_identity": "fa16db358cc52bdbfb2e8c21b9f09ea495799c03f75f34bb62a8a6f5b1a0c2e8",
+      "validation_checks": 21286,
+      "mutation_controls": 4,
+      "validation_failures": 0,
+      "validation_report_sha256": "857fbe9ed3796e401eaff9f743a8c2600f3771d21f7943a7925e5b046899b31f"
+    },
+    "reconciliation": {
+      "dataset_identity": "0c5d03ad514fd2ee7b10681b1618ef854b6a33c5575702607201f2dcf5e8831a",
+      "manifest_sha256": "acaf5fdf427851c799afc1f0fff277ce487fa927e4ec55ad9845ecf29dc0cc3e",
+      "resolved_contract_identity": "73ef94b628b50b2d3eacc2fc8983dcc7d13c750e20dc4121fe144298bf92e1d3",
+      "resolved_contract_sha256": "4b28bab28e48192a39dd1743fd13cf934a9f31e8c93167294b40ab75c6d52d12",
+      "canonical_outcome_games": 840,
+      "captured_team_pages": 424,
+      "parsed_team_pages": 414,
+      "page_parse_failures": 10,
+      "reconciled_modern_contests": 2,
+      "unresolved_modern_contests": 4,
+      "legacy_schedule_observations": 4568,
+      "reconciled_legacy_games": 437,
+      "unresolved_legacy_observations": 3694,
+      "reconciled_canonical_games_total": 439,
+      "reconciled_team_seasons": 129,
+      "name_only_promotions": 0,
+      "fabricated_contest_ids": 0,
+      "validation_checks": 59,
+      "validation_failures": 0,
+      "validation_report_sha256": "f4da70c92485a2c7a2abaea864bf03d6376305076d94d8d324654cc47a7ac7a2"
+    },
+    "coverage_matrix": {
+      "identity": "b6fc6a38fdfed13294e668fbc38859bb47be44ea7ce9e66af77d89a2d8b4da47",
+      "sha256": "b2e5b0b01bc36b333884e72e7aeba381da6cf557b3af244eaa7b21672c481482",
+      "rows": 50,
+      "reconciled_seasons": "2010-2025",
+      "not_started_seasons": [],
+      "partial_graph_seasons": []
+    },
+    "retraining_admission": {
+      "decision_identity": "d9876c887b77ba22063c42b6454a0f11878ac01fbf417c3b551285f76c14d7d9",
+      "request_sha256": "064d88083876cd783d68a2a26a842e7e4cd54e1153fd1b99c3a672cd0eb0ff3a",
+      "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "full_ladder_required": false,
+      "protected_promotion_authority": false
+    },
+    "cleanup": {
+      "discovery_rebuild_root": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-554\\discovery-rebuilds\\2012-2735890e-20260815T005500Z",
+      "discovery_rebuild_files": 425,
+      "discovery_rebuild_bytes": 18952439,
+      "reconciliation_rebuild_root": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-554\\r12-0c5d",
+      "reconciliation_rebuild_files": 9,
+      "reconciliation_rebuild_bytes": 2443223,
+      "reconstructible_bytes_pending_cleanup": 21395662,
+      "state": "PENDING_SAFE_CLEANUP_RETRY",
+      "finding": "Both roots are validated reconstructible rebuilds. The host policy rejected the verified exact-path recursive cleanup command before deletion, so no bypass or false deletion claim is made."
+    },
+    "live_jira": {
+      "synchronization_state": "PENDING_AUTHENTICATION_REPAIR",
+      "last_safe_retry_result": "HTTP_401",
+      "credential_values_exposed": false
+    },
+    "authority": "CANDIDATE_REFERENCE_ONLY_PARTIAL_OFFICIAL_DOMAIN_COVERAGE_NO_CANONICAL_REGISTRY_WRITE_NO_PIT_TRAINING_PROTECTED_PRODUCTION_OR_COMPLETENESS_PROMOTION"
+  },
   "next_actions": [
-    "Complete the active 2012 official team-season discovery run without interruption, preserving legacy schedule observations, independent season failures, and graph exhaustion state.",
-    "Investigate the preserved 2013 unresolved population by exact reason without weakening reciprocal evidence or alias gates; keep 2012 reconciliation dependent on its still-active acquisition.",
+    "Investigate the preserved 2012 and 2013 unresolved populations by exact reason without weakening reciprocal evidence, alias, chronology, or score-context gates.",
+    "Attach independently useful official domains to the reconciled 2010-2025 outcome spine while retaining separate season, endpoint, domain, grain, missingness, schema, provenance, and PIT eligibility.",
     "Continue 2022 official contest acquisition in resumable bounded tranches and independently gate every endpoint/domain failure.",
     "Expand autonomously to the maximum quality-supported national population with independent domain gates."
   ],

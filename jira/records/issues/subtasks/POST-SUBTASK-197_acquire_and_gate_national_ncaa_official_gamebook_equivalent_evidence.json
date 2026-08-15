@@ -96,7 +96,7 @@
   "end_to_end_validation": "Rebuild discovery from pinned source routes; refetch a bounded deterministic sample through each admitted transport; parse every official contest domain; reconcile to canonical games/teams; compare counts, hashes, schemas, missingness, conflicts, chronology, PIT state, and protected exclusions; reproduce all admitted payloads byte-identically; reject unsafe mutations; and remove reconstructible rebuild and browser/proxy temporary artifacts.",
   "epic_id": "POST-EPIC-004",
   "evidence_manifest_path": "artifacts/jira_evidence/POST-SUBTASK-197.json",
-  "evidence_state": "ACTIVE_EMPIRICAL_CHECKPOINT_2020_RECONCILED_2018_2019_2021_DISCOVERY_RUNNING",
+  "evidence_state": "ACTIVE_EMPIRICAL_CHECKPOINT_2010_2025_DISCOVERY_RECONCILIATION_PRESENT_PARTIAL_DOMAIN_CANDIDATE_ONLY",
   "execution_lane": "DATA_MATERIALIZATION",
   "execution_mode": "ATOMIC_EXECUTION",
   "expected_maturity_after_completion": "EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY",
@@ -242,7 +242,7 @@
     "src/aggie_analytics/entities/contracts.py"
   ],
   "ready": false,
-  "record_revision": "1.2",
+  "record_revision": "1.3",
   "related_to": [
     "POST-SUBTASK-162",
     "POST-SUBTASK-178",

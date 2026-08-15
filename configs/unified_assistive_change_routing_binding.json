@@ -1,25 +1,25 @@
 {
   "schema_version": 1,
   "artifact_type": "MATERIAL_CHANGE_PRE_ROUTING_BINDING",
-  "work_unit_id": "BAT-554-FULL-LIVE-JIRA-RECONCILIATION-20260815T101209Z",
+  "work_unit_id": "BAT-554-POST-MERGE-JIRA-SYNC-20260815T102225Z",
   "jira_identity": "BAT-554",
-  "decision_sha256": "e0492c51d833f803e9b466fceb092f51d6c4ba37a4cec640af886c79a8ab8eb3",
+  "decision_sha256": "631fb1a84220c2fca7a376190e293210d88467e3a6ee14ef71fd65e165819527",
   "disposition": "USER_EXPLICITLY_RESERVED_FOR_CODEX",
-  "reason_code": "USER_REQUESTED_COMPLETE_LIVE_JIRA_BOARD_RECONCILIATION_AFTER_CREDENTIAL_RESTORATION",
-  "source_commit": "7cc285e804273a88c2eda038206238eeded8db22",
+  "reason_code": "BIND_PR_397_MERGE_AND_FINAL_BOARD_RECONCILIATION_EVIDENCE",
+  "source_commit": "fbe5fbcbff3bd5fb00ccb8c209c1eef167540255",
   "repository_identity": "KevinSGarrett/BatteredAggieSyndrome",
   "class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
   "canonical_or_protected_authority": true,
-  "observed_conflict": "The Jira credential was replaced after the last exact-main synchronization evidence, so live authentication and the complete canonical issue/link population required re-verification.",
-  "resolution": "Use the user's standing project reservation for this bounded Jira/Git authority unit; authenticate without exposing credentials; reconcile all 515 canonical and three auxiliary issues plus 1191 links; preserve truthful workflow states; and integrate only generated synchronization evidence.",
+  "observed_conflict": "PR #397 merged the complete live-board audit while its exact merge identity and Jira evidence comment 14169 were not yet reflected in the local canonical mirror.",
+  "resolution": "Use the user's standing project reservation for this bounded post-merge Jira/Git authority unit; reconcile all canonical issues and links after comment 14169; preserve truthful workflow states; and integrate only exact generated synchronization evidence.",
   "user_explicit_waiver": {
     "instruction_text": "I WANT YOU TO JUST COMPLETLY MOVE AWAY FROM BUILDING THIS PIPELINE AND ONLY WORK ON THE BATTERERD AGGIE SYNDROME PROJECT",
     "instruction_sha256": "e3b5efca5a46134bf5f77b233d97cfb04f85c78b0c5b320357e2858a19e2274e",
     "scope": "ALL_BATTERED_AGGIE_SYNDROME_PROJECT_WORK",
     "duration": "UNTIL_USER_REVOKES_OR_SUPERSEDES",
     "accepted_risk": "This Jira/Git authority checkpoint bypasses the abandoned assistive pipeline under the user's explicit reservation; live writes require verified credentials, idempotent full-board reconciliation, exact issue/link checks, local validation, PR integration, and branch cleanup.",
-    "work_unit_id": "BAT-554-FULL-LIVE-JIRA-RECONCILIATION-20260815T101209Z"
+    "work_unit_id": "BAT-554-POST-MERGE-JIRA-SYNC-20260815T102225Z"
   },
   "allowed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
@@ -31,12 +31,12 @@
     "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
     "jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.json",
-    "jira/snapshots/20260815T100902Z/STATE.json",
     "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
     "jira/validation/JIRA_FILE_HASHES.sha256",
     "jira/validation/JIRA_FILE_MANIFEST.csv",
+    "jira/validation/NON_JIRA_SCOPE_DIFF.csv",
+    "jira/validation/NON_JIRA_SCOPE_DIFF.json",
     "jira/validation/SECOND_PASS_AUDIT.json",
-    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv"
   ]

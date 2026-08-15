@@ -512,6 +512,14 @@ ADDED,src/aggie_analytics/features/returning_production.py
 ADDED,src/aggie_analytics/features/schedule_stress.py
 ADDED,src/aggie_analytics/features/sustainability.py
 ADDED,src/aggie_analytics/features/weather_station_matching.py
+ADDED,src/aggie_analytics/modeling/__pycache__/__init__.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/coherence.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/contracts.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/forecast.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/play_drive_augmented.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/runtime.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/simulation.cpython-311.pyc
+ADDED,src/aggie_analytics/modeling/__pycache__/uncertainty.cpython-311.pyc
 ADDED,src/aggie_analytics/modeling/play_drive_augmented.py
 ADDED,src/aggie_analytics/modeling/play_enrichment_augmented.py
 ADDED,src/aggie_analytics/modeling/possession_pace_augmented.py
@@ -643,6 +651,7 @@ ADDED,tests/test_unified_runtime_inventory_dispatch.py
 ADDED,tests/test_useful_work_accounting.py
 ADDED,tests/test_wmt_provider_timestamp_pit.py
 ADDED,tests/test_wmt_tamu_specialization_feature_pit.py
+ADDED,tools/__pycache__/run_preliminary_unprotected_baselines.cpython-311.pyc
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py

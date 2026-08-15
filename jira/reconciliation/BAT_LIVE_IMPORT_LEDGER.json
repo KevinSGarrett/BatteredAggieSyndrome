@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-15T10:21:01.840517+00:00"
+      "verified_at": "2026-08-15T11:09:09.584667+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-15T10:21:02.006285+00:00"
+      "verified_at": "2026-08-15T11:09:09.754050+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-15T10:21:02.210336+00:00"
+      "verified_at": "2026-08-15T11:09:10.021181+00:00"
     }
   ],
   "backup": {
@@ -33,9 +33,9 @@
   "canonical_spec_sync": {
     "changed_issues": 0,
     "status": "EXACT_NO_UPDATES_REQUIRED",
-    "verified_at": "2026-08-15T10:21:14.199211+00:00"
+    "verified_at": "2026-08-15T11:09:19.931860+00:00"
   },
-  "completed_at": "2026-08-15T10:22:12.781869+00:00",
+  "completed_at": "2026-08-15T11:10:19.985114+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -43,8 +43,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-15T10:21:20.050494+00:00",
-    "verified_at": "2026-08-15T10:21:21.790813+00:00",
+    "updated_at": "2026-08-15T11:09:25.441863+00:00",
+    "verified_at": "2026-08-15T11:09:27.180328+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -965,7 +965,7 @@
     "missing_canonical_links": 12,
     "preserved_auxiliary_links": 4,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-15T10:21:34.930975+00:00"
+    "verified_at": "2026-08-15T11:09:40.800811+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2167,9 +2167,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2179,9 +2179,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2191,7 +2191,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2201,9 +2201,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2213,9 +2213,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-JIRA-FULL-RECONCILIATION-20260815"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2349,7 +2349,7 @@
   "operational_status_reconciliation": {
     "changed_count": 0,
     "changes": [],
-    "completed_at": "2026-08-15T10:21:18.064283+00:00",
+    "completed_at": "2026-08-15T11:09:23.638496+00:00",
     "inspected_non_done_issues": 430,
     "status": "COMPLETE"
   },
@@ -2443,7 +2443,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-15T10:22:12.781869+00:00",
+  "updated_at": "2026-08-15T11:10:19.985114+00:00",
   "verification": {
     "actual_expected_link_count": 1191,
     "board": {
@@ -2507,6 +2507,6 @@
       "To Do": 428
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-15T10:21:34.930975+00:00"
+    "verified_at": "2026-08-15T11:09:40.800811+00:00"
   }
 }

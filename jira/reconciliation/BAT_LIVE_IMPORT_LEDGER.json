@@ -5,19 +5,19 @@
       "jira_key": "BAT-510",
       "local_id": "POST-TASK-STORAGE-CLEANUP-001",
       "updated_fields": [],
-      "verified_at": "2026-08-14T23:44:37.095305+00:00"
+      "verified_at": "2026-08-15T04:16:42.302372+00:00"
     },
     {
       "jira_key": "BAT-511",
       "local_id": "POST-TASK-REPO-REVIEW-001",
       "updated_fields": [],
-      "verified_at": "2026-08-14T23:44:37.294720+00:00"
+      "verified_at": "2026-08-15T04:16:42.526752+00:00"
     },
     {
       "jira_key": "BAT-523",
       "local_id": "POST-TASK-HISTORICAL-KNOWN-AT-RECOVERY-001",
       "updated_fields": [],
-      "verified_at": "2026-08-14T23:44:37.472380+00:00"
+      "verified_at": "2026-08-15T04:16:42.743459+00:00"
     }
   ],
   "backup": {
@@ -33,9 +33,9 @@
   "canonical_spec_sync": {
     "changed_issues": 0,
     "status": "EXACT_NO_UPDATES_REQUIRED",
-    "verified_at": "2026-08-14T23:44:48.470245+00:00"
+    "verified_at": "2026-08-15T04:16:54.555234+00:00"
   },
-  "completed_at": "2026-08-14T23:45:37.882001+00:00",
+  "completed_at": "2026-08-15T04:18:04.515727+00:00",
   "completion_assurance": {
     "errors": [],
     "policy": "jira\\project\\HISTORICAL_COMPLETION_ASSURANCE_POLICY.json",
@@ -43,8 +43,8 @@
     "status": "COMPLETE_VERIFIED",
     "target_evidence_state": "PARTIAL",
     "target_status": "To Do",
-    "updated_at": "2026-08-14T23:44:54.128399+00:00",
-    "verified_at": "2026-08-14T23:44:55.834784+00:00",
+    "updated_at": "2026-08-15T04:17:06.478112+00:00",
+    "verified_at": "2026-08-15T04:17:08.312378+00:00",
     "verified_count": 221
   },
   "completion_assurance_backup": {
@@ -965,7 +965,7 @@
     "missing_canonical_links": 12,
     "preserved_auxiliary_links": 4,
     "status": "CORRECT_DIRECTION_RECREATED_VERIFIED",
-    "verified_at": "2026-08-14T23:45:09.247220+00:00"
+    "verified_at": "2026-08-15T04:17:23.040458+00:00"
   },
   "link_errors": [],
   "links_completed": [
@@ -2167,21 +2167,21 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_jira_pack.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814\\jira\\tools\\validate_jira_pack.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 253,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 99,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 515\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 76,\n      \"ATOMIC_EXECUTION\": 177,\n      \"HISTORICAL_REFERENCE\": 262\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 515,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 0,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2121\n    },\n    \"subtask_count\": 183,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 242,\n      \"EXISTING_AUTOMATED_TEST\": 1189,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 79,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 252,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-14\",\n    \"work_packet_count\": 253\n  }\n}\n"
+        "stdout": "{\n  \"errors\": [],\n  \"manifest_errors\": [],\n  \"result\": \"PASS\",\n  \"strict\": {\n    \"actionable_count\": 253,\n    \"blank_e2e_count\": 0,\n    \"blocked_count\": 102,\n    \"deferred_count\": 37,\n    \"derivative_result_counts\": {\n      \"PASS\": 515\n    },\n    \"error_count\": 0,\n    \"errors\": [],\n    \"execution_mode_counts\": {\n      \"AGGREGATE_GATE\": 76,\n      \"ATOMIC_EXECUTION\": 177,\n      \"HISTORICAL_REFERENCE\": 262\n    },\n    \"forced_new_automated_on_publication_boundary_count\": 0,\n    \"generic_scope_count\": 0,\n    \"invalid_traceability_gate_count\": 0,\n    \"issue_count\": 515,\n    \"master_prompt_compliance_section_count\": 68,\n    \"ready_count\": 0,\n    \"registry_coverage\": {\n      \"acceptance_control_ids\": {\n        \"mapped\": 234,\n        \"total\": 234\n      },\n      \"adr_ids\": {\n        \"mapped\": 349,\n        \"total\": 349\n      },\n      \"gap_ids\": {\n        \"mapped\": 14,\n        \"total\": 14\n      },\n      \"requirement_ids\": {\n        \"mapped\": 745,\n        \"total\": 745\n      },\n      \"risk_ids\": {\n        \"mapped\": 310,\n        \"total\": 310\n      }\n    },\n    \"result\": \"PASS\",\n    \"scope_equals_objective_count\": 0,\n    \"source_anchor_result_counts\": {\n      \"PASS\": 2121\n    },\n    \"subtask_count\": 183,\n    \"test_class_counts\": {\n      \"BENCHMARK\": 24,\n      \"CALIBRATION\": 39,\n      \"CHRONOLOGICAL_REPLAY\": 65,\n      \"END_TO_END\": 242,\n      \"EXISTING_AUTOMATED_TEST\": 1189,\n      \"INTEGRATION\": 44,\n      \"MANUAL\": 7,\n      \"NEW_AUTOMATED_TEST_REQUIRED\": 79,\n      \"OPERATIONS\": 42,\n      \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n      \"REPRODUCIBILITY\": 252,\n      \"SCIENTIFIC\": 124,\n      \"SECURITY\": 30,\n      \"STATIC_VALIDATION\": 31\n    },\n    \"validated_at\": \"2026-08-15\",\n    \"work_packet_count\": 253\n  }\n}\n"
       },
       {
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_source_refs.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814\\jira\\tools\\validate_source_refs.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2191,7 +2191,7 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_dependencies.py"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814\\jira\\tools\\validate_dependencies.py"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2201,9 +2201,9 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_import_files.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814\\jira\\tools\\validate_import_files.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814"
         ],
         "returncode": 0,
         "stderr": "",
@@ -2213,13 +2213,13 @@
         "command": [
           "C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
           "-B",
-          "C:\\BatteredAggieSyndrome\\jira\\tools\\validate_second_pass.py",
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814\\jira\\tools\\validate_second_pass.py",
           "--repo-root",
-          "C:\\BatteredAggieSyndrome"
+          "C:\\BatteredAggieSyndrome.data\\worktrees\\BAT-559-full-live-jira-resync-20260814"
         ],
         "returncode": 0,
         "stderr": "",
-        "stdout": "{\n  \"actionable_count\": 253,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 99,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 515\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 76,\n    \"ATOMIC_EXECUTION\": 177,\n    \"HISTORICAL_REFERENCE\": 262\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 515,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 0,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2121\n  },\n  \"subtask_count\": 183,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 242,\n    \"EXISTING_AUTOMATED_TEST\": 1189,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 79,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 252,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-14\",\n  \"work_packet_count\": 253\n}\n"
+        "stdout": "{\n  \"actionable_count\": 253,\n  \"blank_e2e_count\": 0,\n  \"blocked_count\": 102,\n  \"deferred_count\": 37,\n  \"derivative_result_counts\": {\n    \"PASS\": 515\n  },\n  \"error_count\": 0,\n  \"errors\": [],\n  \"execution_mode_counts\": {\n    \"AGGREGATE_GATE\": 76,\n    \"ATOMIC_EXECUTION\": 177,\n    \"HISTORICAL_REFERENCE\": 262\n  },\n  \"forced_new_automated_on_publication_boundary_count\": 0,\n  \"generic_scope_count\": 0,\n  \"invalid_traceability_gate_count\": 0,\n  \"issue_count\": 515,\n  \"master_prompt_compliance_section_count\": 68,\n  \"ready_count\": 0,\n  \"registry_coverage\": {\n    \"acceptance_control_ids\": {\n      \"mapped\": 234,\n      \"total\": 234\n    },\n    \"adr_ids\": {\n      \"mapped\": 349,\n      \"total\": 349\n    },\n    \"gap_ids\": {\n      \"mapped\": 14,\n      \"total\": 14\n    },\n    \"requirement_ids\": {\n      \"mapped\": 745,\n      \"total\": 745\n    },\n    \"risk_ids\": {\n      \"mapped\": 310,\n      \"total\": 310\n    }\n  },\n  \"result\": \"PASS\",\n  \"scope_equals_objective_count\": 0,\n  \"source_anchor_result_counts\": {\n    \"PASS\": 2121\n  },\n  \"subtask_count\": 183,\n  \"test_class_counts\": {\n    \"BENCHMARK\": 24,\n    \"CALIBRATION\": 39,\n    \"CHRONOLOGICAL_REPLAY\": 65,\n    \"END_TO_END\": 242,\n    \"EXISTING_AUTOMATED_TEST\": 1189,\n    \"INTEGRATION\": 44,\n    \"MANUAL\": 7,\n    \"NEW_AUTOMATED_TEST_REQUIRED\": 79,\n    \"OPERATIONS\": 42,\n    \"PUBLICATION_BOUNDARY_REVIEW\": 7,\n    \"REPRODUCIBILITY\": 252,\n    \"SCIENTIFIC\": 124,\n    \"SECURITY\": 30,\n    \"STATIC_VALIDATION\": 31\n  },\n  \"validated_at\": \"2026-08-15\",\n  \"work_packet_count\": 253\n}\n"
       }
     ],
     "result": "PASS"
@@ -2340,8 +2340,68 @@
     {
       "finding": "Live reconciliation failed:\n\nTraceback (most recent call last):\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\reconcile_jira_export.py\", line 206, in main\n    rebuild_derivatives(write_manifest=False)\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\second_pass_hardening.py\", line 2070, in rebuild_derivatives\n    regenerate_import_derivatives(records)\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\second_pass_hardening.py\", line 1201, in regenerate_import_derivatives\n    jsonl_dump(JIRA_ROOT / \"import\" / \"JIRA_API_CREATE_PAYLOADS.jsonl\", create_payloads)\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\second_pass_hardening.py\", line 168, in jsonl_dump\n    with path.open(\"w\", encoding=\"utf-8\", newline=\"\\n\") as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\pathlib.py\", line 1044, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: [Errno 22] Invalid argument: 'C:\\\\BatteredAggieSyndrome\\\\jira\\\\import\\\\JIRA_API_CREATE_PAYLOADS.jsonl'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\reconcile_jira_export.py\", line 244, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"C:\\BatteredAggieSyndrome\\jira\\tools\\reconcile_jira_export.py\", line 214, in main\n    path.write_bytes(data)\n  File \"C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\pathlib.py\", line 1067, in write_bytes\n    with self.open(mode='wb') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\kevin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\pathlib.py\", line 1044, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: [Errno 22] Invalid argument: 'C:\\\\BatteredAggieSyndrome\\\\jira\\\\records\\\\issues\\\\stories\\\\POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.json'\n",
       "recorded_at": "2026-08-14T23:41:42.674225+00:00"
+    },
+    {
+      "finding": "Live Jira verification failed: POST-SUBTASK-168: status In Progress != To Do; POST-STORY-057: status In Progress != To Do; POST-SUBTASK-199: status In Progress != To Do; POST-STORY-058: status In Progress != To Do; POST-SUBTASK-201: status In Progress != To Do; POST-SUBTASK-202: status In Progress != To Do; POST-SUBTASK-203: status In Progress != To Do; POST-SUBTASK-204: status In Progress != To Do",
+      "recorded_at": "2026-08-15T04:14:58.445250+00:00"
     }
   ],
+  "operational_status_reconciliation": {
+    "changed_count": 8,
+    "changes": [
+      {
+        "from": "In Progress",
+        "jira_key": "BAT-525",
+        "local_id": "POST-SUBTASK-168",
+        "to": "To Do"
+      },
+      {
+        "from": "In Progress",
+        "jira_key": "BAT-555",
+        "local_id": "POST-STORY-057",
+        "to": "To Do"
+      },
+      {
+        "from": "In Progress",
+        "jira_key": "BAT-557",
+        "local_id": "POST-SUBTASK-199",
+        "to": "To Do"
+      },
+      {
+        "from": "In Progress",
+        "jira_key": "BAT-559",
+        "local_id": "POST-STORY-058",
+        "to": "To Do"
+      },
+      {
+        "from": "In Progress",
+        "jira_key": "BAT-560",
+        "local_id": "POST-SUBTASK-201",
+        "to": "To Do"
+      },
+      {
+        "from": "In Progress",
+        "jira_key": "BAT-561",
+        "local_id": "POST-SUBTASK-202",
+        "to": "To Do"
+      },
+      {
+        "from": "In Progress",
+        "jira_key": "BAT-562",
+        "local_id": "POST-SUBTASK-203",
+        "to": "To Do"
+      },
+      {
+        "from": "In Progress",
+        "jira_key": "BAT-563",
+        "local_id": "POST-SUBTASK-204",
+        "to": "To Do"
+      }
+    ],
+    "completed_at": "2026-08-15T04:17:04.456138+00:00",
+    "inspected_non_done_issues": 430,
+    "status": "COMPLETE"
+  },
   "permission_remediation": {
     "account_id": "63d5db4d28cddcc7076faad6",
     "backup": {
@@ -2376,13 +2436,13 @@
   },
   "reconciliation": {
     "dry_run": {
-      "changes": 0,
+      "changes": 9,
       "conflicts": [],
       "result": "DRY_RUN_PASS",
       "rows": 515
     },
     "live": {
-      "changed_issues": 0,
+      "changed_issues": 9,
       "conflict_count": 0,
       "result": "PASS",
       "rows": 515,
@@ -2432,7 +2492,7 @@
     "started_at": "2026-08-10T04:18:44.450354+00:00",
     "status": "EXACT_REVERSED_DUPLICATES_REMOVED_VERIFIED"
   },
-  "updated_at": "2026-08-14T23:45:37.882001+00:00",
+  "updated_at": "2026-08-15T04:18:04.515727+00:00",
   "verification": {
     "actual_expected_link_count": 1191,
     "board": {
@@ -2492,10 +2552,10 @@
     "schema_version": 1,
     "status_counts": {
       "Done": 85,
-      "In Progress": 10,
-      "To Do": 420
+      "In Progress": 2,
+      "To Do": 428
     },
     "unexpected_link_count": 0,
-    "verified_at": "2026-08-14T23:45:09.247220+00:00"
+    "verified_at": "2026-08-15T04:17:23.040458+00:00"
   }
 }

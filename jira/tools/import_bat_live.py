@@ -1357,29 +1357,64 @@ def synchronize_canonical_spec_fields(
     write_json_atomic(LEDGER_PATH, ledger)
 
 
-def transition_declared_active_statuses(
+def reconcile_non_done_operational_statuses(
     client: JiraClient,
+    ledger: dict[str, Any],
     rows: list[dict[str, str]],
     key_map: dict[str, str],
     operational_status_policies: dict[str, dict[str, Any]],
+    local_field_id: str,
 ) -> None:
     completion_policy = load_completion_policy()
-    active_rows = [
-        (row, expected_operational_status(row, operational_status_policies, completion_policy))
-        for row in rows
-        if expected_operational_status(row, operational_status_policies, completion_policy)
-        not in {"To Do", "Done"}
-    ]
-    for row, target_status in active_rows:
+    allowed_ids = {row["Local Issue ID"] for row in rows}
+    mapped, issues = map_existing_issues(
+        client,
+        local_field_id,
+        allowed_ids,
+        ["summary", "status", local_field_id],
+    )
+    if mapped != key_map:
+        raise RuntimeError("Operational-status reconciliation key map differs from the canonical key map")
+    live_by_key = {issue["key"]: issue for issue in issues}
+    changes: list[dict[str, str]] = []
+    for row in rows:
+        target_status = expected_operational_status(
+            row, operational_status_policies, completion_policy
+        )
+        # Historical/verified Done transitions have their own guarded bulk path.
+        if target_status == "Done":
+            continue
         key = key_map[row["Local Issue ID"]]
-        issue = client.get(f"/rest/api/3/issue/{key}?fields=status")
-        if issue["fields"]["status"]["name"] == target_status:
+        issue = live_by_key[key]
+        current_status = issue["fields"]["status"]["name"]
+        if current_status == target_status:
             continue
         transitions = client.get(f"/rest/api/3/issue/{key}/transitions").get("transitions", [])
         transition = next((item for item in transitions if item.get("to", {}).get("name") == target_status), None)
         if transition is None:
             raise RuntimeError(f"No transition to {target_status} is available for {key}")
         client.post(f"/rest/api/3/issue/{key}/transitions", {"transition": {"id": str(transition["id"])}})
+        changes.append(
+            {
+                "local_id": row["Local Issue ID"],
+                "jira_key": key,
+                "from": current_status,
+                "to": target_status,
+            }
+        )
+    ledger["operational_status_reconciliation"] = {
+        "status": "COMPLETE",
+        "inspected_non_done_issues": sum(
+            expected_operational_status(row, operational_status_policies, completion_policy) != "Done"
+            for row in rows
+        ),
+        "changed_count": len(changes),
+        "changes": changes,
+        "completed_at": utc_now(),
+    }
+    ledger["updated_at"] = utc_now()
+    write_json_atomic(LEDGER_PATH, ledger)
+    print(f"OPERATIONAL STATUS RECONCILIATION: changed={len(changes)}", flush=True)
 
 
 def poll_bulk_task(client: JiraClient, task_id: str) -> None:
@@ -2328,7 +2363,14 @@ def main() -> int:
     synchronize_canonical_spec_fields(client, ledger, rows, payloads, key_map, fields, components)
     make_completion_assurance_backup(client, ledger, fields)
     transition_historical_done(client, ledger, rows, key_map, fields["Local Issue ID"])
-    transition_declared_active_statuses(client, rows, key_map, operational_status_policies)
+    reconcile_non_done_operational_statuses(
+        client,
+        ledger,
+        rows,
+        key_map,
+        operational_status_policies,
+        fields["Local Issue ID"],
+    )
     enforce_completion_assurance_policy(client, ledger, key_map, fields)
     remediate_reversed_importer_links(client, ledger, link_payloads, key_map, fields["Local Issue ID"])
     create_links(client, ledger, link_payloads, key_map, fields["Local Issue ID"])

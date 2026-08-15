@@ -848,30 +848,186 @@
     },
     "authority": "CANDIDATE_ONLY_PARSED_PARTIAL_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "reconciled_contest_2022_tranche_0040_0044": {
+    "recorded_at_utc": "2026-08-15T04:48:00Z",
+    "selected_reconciled_contests": 5,
+    "contest_ids": [
+      "2276692",
+      "2276693",
+      "2276694",
+      "2276695",
+      "2276699"
+    ],
+    "canonical_game_ids": [
+      "game_260e04e905fe504eba9a655a4466db63",
+      "game_90fef06ec2d25cc19a91a7b723c3bf4a",
+      "game_4bae2175d3cc55f28adb2b66b0b77fb0",
+      "game_5c328aad76cb5c568e4d6bce29b41125",
+      "game_3f385055cd5b5ff0b57ffe5119894ebd"
+    ],
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "reconciliation_manifest_sha256": "281109c4aa1332c2b1e09fd6921c5fb957d86e7c7425dce54daa345f073140ab",
+    "raw_capture_manifests": [
+      {
+        "contest_offset": 40,
+        "acquisition_identity": "a6d354fd5faafe6c4e4f99e3641a7a18c576fcfacf1bb40a5a5fae02d9ecf42a",
+        "manifest_sha256": "98264ede1da4cc16be260943dd23d3fc6b38b61f4fe7f4e8fda50cb76b276bbe",
+        "gate_sha256": "576a024382334548f17812ddb93282e43e0f0057f217571906a5a0fd6c41f6c0",
+        "validation_identity": "daab4a41adec4229a95b09cc39d4ebecaa20c47ab3fa05e804568080c8aa93c6",
+        "validation_report_sha256": "dcb7a4ce108a7fb6c802963921c024959d09d813244e1cd671c99a86ed188774",
+        "validation_checks": 98
+      },
+      {
+        "contest_offset": 41,
+        "acquisition_identity": "efcec7c3c341e9f8398ac7d4d8598f9b5d36a6545765fb4ebc8cd976ad33b437",
+        "manifest_sha256": "c1c179d3839b45c45082be82686f464c896e3d64fcd0f3f36cea5ccf1038e17b",
+        "gate_sha256": "da69424fe795247c264349cce7984b79aa681800d14b70afaee561e873aa898c",
+        "validation_identity": "283607fedec125f0aa3317e72172f3bc2c8a89db61b4fec81999dced6778c323",
+        "validation_report_sha256": "cfdf92fa3f680620cea435735cc864e05a6ec5e94f515ed13f9ed2453b6258e2",
+        "validation_checks": 109
+      },
+      {
+        "contest_offset": 42,
+        "acquisition_identity": "61d932d2f98710fc0e6d116e09997eed9df816d780c24f9dffa03656b14328ba",
+        "manifest_sha256": "973b2146642c31434b370ab2fb7d6444e70d7d1406cd4c5eb75745e28dd11192",
+        "gate_sha256": "cf4d5f24cb4b629741ae8c78c4b09bf8eed1e8b85ecb813b25c3a4767e8d067f",
+        "validation_identity": "c5d2789f02a72904d3ea3ced670196666a9bd05b8776537a75af5e9f33364168",
+        "validation_report_sha256": "b0e8a9b3a92242792d1830ce05e4dd892d6caf06204ffe07fdac8f699fbe22ea",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 43,
+        "acquisition_identity": "21c88aeea0f19531de3916739d3363c491dbe96b355bea5755cd6ff7a9895c5a",
+        "manifest_sha256": "137265ae3f754835cbc6e3d15ef86850828e7b322b5526f15a4cb20a9545372e",
+        "gate_sha256": "38659b233121d274309649aaeb3035415a127d19dbfaf6198fdbb8477a8c8698",
+        "validation_identity": "2d22ff2c4bd872cba0231899c3a8be3d58011cc69419dc680653c1c548697dd6",
+        "validation_report_sha256": "815999f6f84791d9bdc2f3eb75b975e9dc763d45462a7aeffe85a94d2b219baa",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 44,
+        "acquisition_identity": "1fe7b35a0b188125755124dd8ee80573bad740c35a0c6b583af19a34df71c9aa",
+        "manifest_sha256": "e146306118b6b1be19aabd660aeb48dd455acfd49eef3dd2b395869bc95c5e28",
+        "gate_sha256": "6b888197424608405a3ee65ebd787779bc4426fb813b2ef3cf264d483a6552b6",
+        "validation_identity": "b029eca5093e6efd45f4b1bea80a4a0fdf0c038d27cec871dd206e77009dfe19",
+        "validation_report_sha256": "e39d9fa1e398350a24a87ae5ed12cb7ef100d21d9bdde34e90d683b53b531a8b",
+        "validation_checks": 118
+      }
+    ],
+    "parser_replay_manifests": [
+      {
+        "contest_offset": 40,
+        "acquisition_identity": "bba497006e04b694f6724ee3b50992272e03102b250be4e22d6717355ccc9178",
+        "manifest_sha256": "7d986bb12e30b3d058245f9d9e30179b615b7a2842c01961a6131c81336eb7b9",
+        "gate_sha256": "85463fbe15f4e3bd095ed43a80f8121ed853895758df7f222cf82b69b2710d61",
+        "validation_identity": "1b6a231308e8a5d0914d7606a9f296ecd34e123a6cc31140ce1760930e3dd4c7",
+        "validation_report_sha256": "2fa0314901e43278f94e5b671bd0aff9777c96d579336bd29e0b8127991eccdb",
+        "validation_checks": 128,
+        "normalized_rows": 391
+      },
+      {
+        "contest_offset": 41,
+        "acquisition_identity": "edafda9f8c9319099820b07ec794db22db569b5f5538315f746ca83f73340ea2",
+        "manifest_sha256": "ce6a03f53654a7dbb1b8e7326331acc81f07e3f1d5e6d0066686793b2373dc83",
+        "gate_sha256": "a883b2e0c316155c5c0f2cf6318585a3c1330b6dfdb6f4c1470bdcd95cf46fe8",
+        "validation_identity": "5ed87ffc074231f51f2dacf7c8e0668ca3da6da93d7732842e194ee88bd95496",
+        "validation_report_sha256": "0100df9158f082f599ad38e7b6f369d42d4ec748eec6ea58c90b85a87bb5defe",
+        "validation_checks": 169,
+        "normalized_rows": 196
+      },
+      {
+        "contest_offset": 42,
+        "acquisition_identity": "a475df7294745af754f35ca3de7a9d5b8d6739597aae91d60ba6cca7138d1657",
+        "manifest_sha256": "97768fe78cc3f8b4e72ff6e795aeb0987a2b8a68cf1eb64b6c3fb617a826a728",
+        "gate_sha256": "8195f4efaf52d0c3c79b381a186df2e5eb3c3d6b7851039dec10113eb4573e74",
+        "validation_identity": "ddb003451f1be1f0edee06814844e42a716bc0bd3681d2e18abfabd92dcf3e61",
+        "validation_report_sha256": "5414ec342a4d398c1ced26136933c136537d9a968c1cccad99c7ff56d62b632a",
+        "validation_checks": 190,
+        "normalized_rows": 478
+      },
+      {
+        "contest_offset": 43,
+        "acquisition_identity": "3b53b39b760c286b4841ce39c8f11d71c2aee7240205e8601f2a92a965c2532a",
+        "manifest_sha256": "0baf65ae393b2300e38572c29be19950835792be1aa4bd2fbea81fdfe6ab55c3",
+        "gate_sha256": "5ca3c8e56fa665c3d802cc06d676374787ab2730870a79f4a73f7e4659635d21",
+        "validation_identity": "979ca9e474c424dc780bc93067d52052049fa749fe80f1492efb9981b8104506",
+        "validation_report_sha256": "e046d8a9fed0507ecee190eb2bc7ab9394035644aa02b3defeafc55b120ac783",
+        "validation_checks": 190,
+        "normalized_rows": 436
+      },
+      {
+        "contest_offset": 44,
+        "acquisition_identity": "e880dbcd802ca6b2b0a0209981bfca9092c333f64b906bcf89badd2baa2242c0",
+        "manifest_sha256": "5645200ee198ef693716566835f76f99a3ccfd4657146d046435be5d9e9649ba",
+        "gate_sha256": "ea672747a457d79e1c1321a1186670f91dfe4a446f5f18e5e3e2d7fb6e9afce4",
+        "validation_identity": "9258531b3e6254be2f3df85dba7023c04b3a749d1a6b66a4530592acd1c4d810",
+        "validation_report_sha256": "e699721e44524e1d95ff17e8f3261e45947342d968674f64172e30dbda29c6ac",
+        "validation_checks": 190,
+        "normalized_rows": 420
+      }
+    ],
+    "requests": 30,
+    "captures": 27,
+    "technical_failures": 3,
+    "technical_failure_scope": [
+      "2276692/box_score SERVER_ERROR_THEN_CONTENT_TOO_SMALL",
+      "2276692/officials CONTENT_TOO_SMALL",
+      "2276693/play_by_play CONTENT_TOO_SMALL"
+    ],
+    "raw_bytes": 2100962,
+    "normalized_rows": 1921,
+    "parser_runtime": "PINNED_SPORTSDATAVERSE_0_0_75_ISOLATED_ENVIRONMENT_IMMUTABLE_CACHE_REPLAY",
+    "validation": {
+      "result": "PASS",
+      "raw_capture_checks": 561,
+      "parser_replay_checks": 867,
+      "total_checks": 1428,
+      "mutation_controls": 60
+    },
+    "retraining_admission": {
+      "request_sha256": "3daf759118284a8442a9fcab0b75f8e347757bcd1537b7e3346d483074edff58",
+      "decision_identity": "11d2ff9fa4908832ee57e4809356b33f3c478b01c3ad753405ea283390bae285",
+      "decision_sha256": "47ab2955da61deab3cc40cff94deab8a2f7920481925d9ec0759772abe29e510",
+      "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "full_ladder_required": false,
+      "protected_promotion_authority": false
+    },
+    "cleanup": {
+      "report_path": "C:\\BatteredAggieSyndrome.data\\validation\\cleanup_reports\\BAT-554-2022-OFFSETS-40-44-20260815T044800Z.json",
+      "report_sha256": "65a1783e2f275874ad5f8c007e17bddddf1951a5f035b0cfc13b6407c0d874b3",
+      "reconstructible_runtime_files_removed": 120,
+      "reconstructible_runtime_bytes_removed": 6096800,
+      "state": "PASS_VERIFIED_RECONSTRUCTIBLE_RUNTIME_REMOVED",
+      "authoritative_or_immutable_artifacts_removed": false
+    },
+    "authority": "CANDIDATE_ONLY_PARSED_PARTIAL_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "official_acquisition_coverage_rollup_checkpoint": {
-    "recorded_at_utc": "2026-08-15T03:12:00Z",
+    "recorded_at_utc": "2026-08-15T04:48:00Z",
     "schema_version": "1.4.0",
-    "matrix_identity": "dc8c85e2f6be424c349c99c144ecc8b734c70a45371b04dc55a237cf05cf8b96",
-    "matrix_sha256": "9cca9bd11287789a2fde1a8a1b7ebdced0cb68b75773f7b0653c11494fa7bc4f",
+    "matrix_identity": "c5c68d4deb13fdcff34199a125cdcf04165b1929a2b810f282aaafb85a66f16b",
+    "matrix_sha256": "8290cceae07ae4b3978c8c4b6fe8893363ece01a43554f90f6c8c3ac0d8991a4",
     "season": 2022,
-    "official_contests": 40,
-    "unique_endpoint_requests": 240,
-    "captured_endpoint_requests": 227,
-    "technical_failures": 13,
-    "normalized_rows": 13506,
-    "validated_manifest_count": 32,
-    "validation_check_count": 7366,
-    "mutation_control_count": 192,
-    "total_raw_bytes": 16713000,
+    "official_contests": 45,
+    "unique_endpoint_requests": 270,
+    "captured_endpoint_requests": 254,
+    "technical_failures": 16,
+    "normalized_rows": 15427,
+    "validated_manifest_count": 42,
+    "validation_check_count": 8794,
+    "mutation_control_count": 252,
+    "total_raw_bytes": 18813962,
     "domain_contest_counts": {
-      "attendance": 33,
-      "drives": 34,
-      "linescore_game_info": 33,
-      "officials": 34,
-      "play_by_play": 33,
-      "player_stats": 33,
-      "team_stats_by_period": 31,
-      "venue": 33
+      "attendance": 37,
+      "drives": 39,
+      "linescore_game_info": 37,
+      "officials": 38,
+      "play_by_play": 37,
+      "player_stats": 38,
+      "team_stats_by_period": 36,
+      "venue": 37
     },
     "implementation_validation": {
       "targeted": "37_PASS_1_SKIP_11_SUBTESTS_PASS",
@@ -887,9 +1043,9 @@
       "tests/test_historical_spine_coverage_matrix.py": "b51d535e86f5d4e8d1ac6f52ede32d1a3a1f1b6bb88b73244daa0537c1996f20"
     },
     "retraining_admission": {
-      "request_sha256": "c6d1b31a446e2c1fb7173ce4b01229e5e40f203ed7b3bac2d8a5a6db08765e5c",
-      "decision_identity": "58842ff69ae8ca7072364873ed5c0db36d06589ff11d3fdd285c298d915f47b7",
-      "decision_sha256": "248c65f7b3ad07cca07328e604deb19d7b7b3397b594570cc0af492e780fa05c",
+      "request_sha256": "3daf759118284a8442a9fcab0b75f8e347757bcd1537b7e3346d483074edff58",
+      "decision_identity": "11d2ff9fa4908832ee57e4809356b33f3c478b01c3ad753405ea283390bae285",
+      "decision_sha256": "47ab2955da61deab3cc40cff94deab8a2f7920481925d9ec0759772abe29e510",
       "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
       "eligible_seasons_added": 0,
       "eligible_games_added": 0,

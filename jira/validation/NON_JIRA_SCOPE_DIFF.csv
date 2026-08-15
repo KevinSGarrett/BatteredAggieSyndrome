@@ -431,6 +431,7 @@ ADDED,schemas/openai/assistive_candidate.schema.json
 ADDED,schemas/openai/assistive_evaluation.schema.json
 ADDED,schemas/openai/depth_chart_noncoverage_visual.schema.json
 ADDED,scripts/audit_control_plane.ps1
+ADDED,src/aggie_analytics/__pycache__/__init__.cpython-311.pyc
 ADDED,src/aggie_analytics/assistive_plane/__init__.py
 ADDED,src/aggie_analytics/assistive_plane/backend.py
 ADDED,src/aggie_analytics/assistive_plane/budget.py
@@ -499,6 +500,13 @@ ADDED,src/aggie_analytics/openai_assist/policy.py
 ADDED,src/aggie_analytics/openai_assist/redaction.py
 ADDED,src/aggie_analytics/openai_assist/schemas.py
 ADDED,src/aggie_analytics/openai_assist/storage.py
+ADDED,src/aggie_analytics/operations/__pycache__/__init__.cpython-311.pyc
+ADDED,src/aggie_analytics/operations/__pycache__/backup.cpython-311.pyc
+ADDED,src/aggie_analytics/operations/__pycache__/benchmark.cpython-311.pyc
+ADDED,src/aggie_analytics/operations/__pycache__/cleanup.cpython-311.pyc
+ADDED,src/aggie_analytics/operations/__pycache__/drift_alerts.cpython-311.pyc
+ADDED,src/aggie_analytics/operations/__pycache__/environment.cpython-311.pyc
+ADDED,src/aggie_analytics/operations/__pycache__/observability.cpython-311.pyc
 ADDED,src/aggie_analytics/operations/cleanup.py
 ADDED,src/aggie_analytics/operations/drift_alerts.py
 ADDED,src/aggie_analytics/temporal/advanced_game_snapshot.py
@@ -518,6 +526,7 @@ ADDED,src/aggie_analytics/temporal/wmt_provider_timestamp_pit.py
 ADDED,src/aggie_analytics/temporal/wmt_tamu_specialization_feature_pit.py
 ADDED,src/aggie_analytics/validation/evaluation_exposure.py
 ADDED,src/aggie_analytics/validation/retraining_admission.py
+ADDED,tests/__pycache__/test_ncaa_official_gamebooks.cpython-311-pytest-9.1.1.pyc
 ADDED,tests/test_acquisition_resilience.py
 ADDED,tests/test_action_play_summary.py
 ADDED,tests/test_assistive_downstream_review.py
@@ -607,6 +616,9 @@ ADDED,tests/test_unified_runtime_inventory_dispatch.py
 ADDED,tests/test_useful_work_accounting.py
 ADDED,tests/test_wmt_provider_timestamp_pit.py
 ADDED,tests/test_wmt_tamu_specialization_feature_pit.py
+ADDED,tools/__pycache__/__init__.cpython-311.pyc
+ADDED,tools/__pycache__/acquire_ncaa_official_gamebooks.cpython-311.pyc
+ADDED,tools/__pycache__/repo_integrity.cpython-311.pyc
 ADDED,tools/acquire_cfbd_historical.py
 ADDED,tools/acquire_ncaa_official_gamebooks.py
 ADDED,tools/acquire_noaa_isd_observed_coverage_pilot.py

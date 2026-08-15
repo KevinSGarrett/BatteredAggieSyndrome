@@ -492,17 +492,104 @@
     },
     "authority": "CANDIDATE_ONLY_PARTIAL_DOMAINS_PRESERVED_NO_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "reconciled_contest_2022_tranche_0025_0029": {
+    "recorded_at_utc": "2026-08-15T01:37:36Z",
+    "selected_reconciled_contests": 5,
+    "contest_ids": [
+      "2276577",
+      "2276581",
+      "2276583",
+      "2276584",
+      "2276594"
+    ],
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "slice_manifests": [
+      {
+        "contest_offset": 25,
+        "acquisition_identity": "d7cf997e0ecc189ee2c33136602bcb4456e770cf862deb2bfaf30a983f269110",
+        "manifest_sha256": "b8da319f52dac7800b6579abe8cd39ccbf176a5bad056fafb7611c7838155990",
+        "gate_sha256": "a25858f01933e85732355b518f463658795937babb8e32aca0d1e3228f6ea53f",
+        "validation_identity": "2d40e9252c2dd16824461cf32509f3400b0134c77ffcf7f24d34713010b49f1a",
+        "validation_report_sha256": "d0089135f12d357dff9f4559c5bca8e88c1a7ebb9f071db7b36c08b2c09f1711",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 26,
+        "acquisition_identity": "4c08372839af9921f2a01c0792191a8243020a2d6088f61bcd9ce3ee3569d3b7",
+        "manifest_sha256": "73c7b948492e895c0f00dfae934e989a0aecb857ab6c5642b5d75e89f020ea88",
+        "gate_sha256": "4c0075490add46619bc684e499f0420d2615c9624f61d6aa3f93d1367254943e",
+        "validation_identity": "0f6759f5d9db6b0c7feeec1c8740551f4916e8cea4f7ea8429b140692ec1116c",
+        "validation_report_sha256": "1edcf2a920b93d5636aee56bf78d8044c9b7dab546c8aa996e81440fdc36c5bb",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 27,
+        "acquisition_identity": "58b1fc8a996376783c600a8a96225a3fbac322d8130538e91ceda1de38d0570e",
+        "manifest_sha256": "0948bf2b56b750e25555833cc9e70ed8107b12ad549d48865d1bc05a8ac2b329",
+        "gate_sha256": "9a40843a008a2123a88de2137394fd9555226d8781e9f3fedb2631d57d103951",
+        "validation_identity": "4d9dabe2fd817470abd51c20b5438100c18a420cc59fd3f5000bb96e0e7721df",
+        "validation_report_sha256": "7d32fa17642e954f232a914fe38a376a653cdffc049fee92fd2b83154230df53",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 28,
+        "acquisition_identity": "632f64bf3310bd7ff383481ddf1f2e519fae37198fdc3143db827fe023fb0c33",
+        "manifest_sha256": "e4386ad0f34bd1c056fce32d41791a1551642b6642d14c0bb9bd1b64e5e21bd9",
+        "gate_sha256": "829668267f23de82b35a424e0bb9a265081dd5cfa4278c1558f213186e0511d9",
+        "validation_identity": "553dc149c690a3c22c706633308489124fdbfa350b74d705e1dbf92a1fd0f53c",
+        "validation_report_sha256": "72566605e2dd340136f8bcc82e305908a86c67247cb41b47a2f65e80d47bda31",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 29,
+        "acquisition_identity": "cf641e9c51f11e56a7c6e9ad48a7f565506131f67ca691b6a03d3a8e641ea18e",
+        "manifest_sha256": "58c3e125666139eee34ff4664aeb0af25a04c7afddde7b64b6e8205987fc794e",
+        "gate_sha256": "dd7fe582e38681943266d4787b86818a347c15ad29f630987c54ab50d3810752",
+        "validation_identity": "a3c8e0b5f64e9a762d9d52cd36d1fd155246d03772cd7e6e94334716aaf6830e",
+        "validation_report_sha256": "2d0f018e0f56ff5f7b7e0b1ade41536a13c0165822e894ed38608bcf4fae017d",
+        "validation_checks": 109
+      }
+    ],
+    "requests": 30,
+    "captures": 29,
+    "technical_failures": 1,
+    "technical_failure_scope": [
+      "2276594/drives SERVER_ERROR on both bounded ScraperAPI attempts"
+    ],
+    "raw_bytes": 2190600,
+    "normalized_rows": 0,
+    "parser_runtime_finding": "All five slices preserved explicit PARSER_RUNTIME_UNAVAILABLE results under the base interpreter. No absent field was invented, zero-filled, or promoted; prior parsed populations remain authoritative only for their exact identities.",
+    "validation": {
+      "result": "PASS",
+      "checks": 581,
+      "mutation_controls": 30
+    },
+    "timeout_recovery": "One-contest, six-endpoint slices produced terminal manifests within the host command bound and supersede the two incomplete multi-contest attempts only as execution strategy; their immutable raw captures remain reusable provenance.",
+    "cleanup": {
+      "report_path": "C:\\BatteredAggieSyndrome.data\\validation\\cleanup_reports\\BAT-554-2022-OFFSETS-25-29-20260815T014826Z.json",
+      "report_sha256": "c03b37780c9f68628a270dd2cf2f337a2ac0e3413e15fcb204348626d0be44e0",
+      "reconstructible_rebuild_files_removed": 39,
+      "reconstructible_payload_bytes_removed": 2291260,
+      "measured_free_disk_delta_bytes": 2392064,
+      "authoritative_or_immutable_artifacts_removed": false
+    },
+    "authority": "CANDIDATE_ONLY_PARTIAL_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "official_acquisition_coverage_rollup_checkpoint": {
-    "recorded_at_utc": "2026-08-14T21:27:08Z",
+    "recorded_at_utc": "2026-08-15T01:38:12Z",
     "schema_version": "1.4.0",
-    "matrix_identity": "66e2d24ee3011730c2d332cd4f40e73b634f686c8436f84a747477ebc5fd343a",
-    "matrix_sha256": "4d0d76602fb6a35ee72c5ca67b796a4e31b05f2c03c069b15ca6c9a87504377d",
+    "matrix_identity": "4268c618ee55b2b9667c1e254eab47c6aff8b5b9a5a89923bbcd06d52345c150",
+    "matrix_sha256": "b2f7f27be1183be431a0564426b95fc9843dc10ec9122bcd80e83a84d309bdae",
     "season": 2022,
-    "official_contests": 25,
-    "unique_endpoint_requests": 150,
-    "captured_endpoint_requests": 142,
-    "technical_failures": 8,
+    "official_contests": 30,
+    "unique_endpoint_requests": 180,
+    "captured_endpoint_requests": 171,
+    "technical_failures": 9,
     "normalized_rows": 9659,
+    "validated_manifest_count": 12,
+    "validation_check_count": 4450,
+    "mutation_control_count": 72,
+    "total_raw_bytes": 12516917,
     "domain_contest_counts": {
       "attendance": 25,
       "drives": 25,
@@ -524,6 +611,16 @@
     "versioned_artifacts": {
       "tools/build_historical_spine_coverage_matrix.py": "f76d774d2324339a3216ae21ba1190f7bb557c7faf9167ab967c5abb76df707c",
       "tests/test_historical_spine_coverage_matrix.py": "b51d535e86f5d4e8d1ac6f52ede32d1a3a1f1b6bb88b73244daa0537c1996f20"
+    },
+    "retraining_admission": {
+      "request_sha256": "aa669a6c625ceb72c038949f4586cc882b2b8a162210ae6dc51a7447b925b3eb",
+      "decision_identity": "28fbab5d10fd5b2684d1c3e3c4712f976b6f010006d4ac8976a25486b00ddcc0",
+      "decision_sha256": "131e0aab5fe19f1ef635cd228d72d1b1c143a99d4e1284c806cdf7b9df522c2c",
+      "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "full_ladder_required": false,
+      "protected_promotion_authority": false
     },
     "authority": "CANDIDATE_ONLY_DOMAIN_INDEPENDENT_COVERAGE_NO_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
   },

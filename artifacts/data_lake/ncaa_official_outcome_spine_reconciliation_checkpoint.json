@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "decision_unit": "POST-SUBTASK-197",
   "jira_key": "BAT-554",
-  "recorded_at_utc": "2026-08-13T10:15:00Z",
+  "recorded_at_utc": "2026-08-15T01:38:12Z",
   "classification": "HISTORICAL_OUTCOME_REFERENCE_AND_NCAA_RECONCILIATION_CANDIDATE_ONLY",
   "historical_outcome_spine": {
     "dataset_identity": "cc808f4ececfc98c79940bf04c4794294281c5fbeeb4e9ad2d09b98f0c860f69",
@@ -80,34 +80,36 @@
     "validation_report_sha256": "f4da70c92485a2c7a2abaea864bf03d6376305076d94d8d324654cc47a7ac7a2",
     "validation_check_count": 59,
     "validation_failure_count": 0,
-    "coverage_matrix_identity": "b6fc6a38fdfed13294e668fbc38859bb47be44ea7ce9e66af77d89a2d8b4da47",
-    "coverage_matrix_sha256": "b2e5b0b01bc36b333884e72e7aeba381da6cf557b3af244eaa7b21672c481482",
-    "retraining_decision_identity": "d9876c887b77ba22063c42b6454a0f11878ac01fbf417c3b551285f76c14d7d9",
+    "coverage_matrix_identity": "4268c618ee55b2b9667c1e254eab47c6aff8b5b9a5a89923bbcd06d52345c150",
+    "coverage_matrix_sha256": "b2f7f27be1183be431a0564426b95fc9843dc10ec9122bcd80e83a84d309bdae",
+    "retraining_decision_identity": "28fbab5d10fd5b2684d1c3e3c4712f976b6f010006d4ac8976a25486b00ddcc0",
     "retraining_action": "FOCUSED_INTEGRATION_REPLAY_ONLY"
   },
-  "active_independent_discovery": [
-    {
-      "season": 2018,
-      "state": "RUNNING",
-      "last_observed_teams_visited": 250,
-      "last_observed_contests": 1612,
-      "last_observed_failures": 3
-    },
-    {
-      "season": 2019,
-      "state": "RUNNING",
-      "last_observed_teams_visited": 250,
-      "last_observed_contests": 1666,
-      "last_observed_failures": 1
-    },
-    {
-      "season": 2021,
-      "state": "RUNNING",
-      "last_observed_teams_visited": 475,
-      "last_observed_contests": 2848,
-      "last_observed_failures": 2
-    }
-  ],
+  "ncaa_2022_official_acquisition": {
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "coverage_matrix_identity": "4268c618ee55b2b9667c1e254eab47c6aff8b5b9a5a89923bbcd06d52345c150",
+    "coverage_matrix_sha256": "b2f7f27be1183be431a0564426b95fc9843dc10ec9122bcd80e83a84d309bdae",
+    "official_contests": 30,
+    "unique_endpoint_requests": 180,
+    "captured_endpoint_requests": 171,
+    "technical_failure_count": 9,
+    "normalized_rows": 9659,
+    "validated_manifest_count": 12,
+    "validation_check_count": 4450,
+    "mutation_control_count": 72,
+    "retraining_decision_identity": "28fbab5d10fd5b2684d1c3e3c4712f976b6f010006d4ac8976a25486b00ddcc0",
+    "retraining_action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+    "authority": "CANDIDATE_ONLY_PARTIAL_DOMAIN_EVIDENCE_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
+  },
+  "active_independent_discovery": [],
+  "discovery_program_checkpoint": {
+    "seasons_with_discovery_and_reconciliation_manifests": "2010-2025",
+    "not_started_seasons": [],
+    "partial_graph_seasons": [],
+    "capture_complete_seasons": "2018-2025",
+    "graph_exhausted_with_quarantined_failures": "2010-2017",
+    "state": "NO_ACTIVE_DISCOVERY_PROCESS_CURRENT_MATRIX_BOUND"
+  },
   "authority": {
     "outcome_reference_candidate": true,
     "schema_adapter_candidate": true,
@@ -122,6 +124,8 @@
     "One 2024 source schedule lacks final scores and remains schedule-only rather than being fabricated as a 0-0 outcome.",
     "Four NCAA contest aliases describe two canonical 2020 games; every duplicate source alias is quarantined rather than arbitrarily promoted.",
     "The 2020 official NCAA reconciliation remains partial: 403 of 889 considered contest identities are unresolved.",
+    "The 2022 official acquisition remains partial: 9 of 180 unique contest-endpoint requests are technically unavailable, including the newly preserved 2276594/drives failure.",
+    "The five newly acquired 2022 contests were captured under a base interpreter without the optional parser runtime; they add zero normalized rows and no downstream eligibility.",
     "The expanded outcome spine does not replace or broaden the separately accepted 2010-2022 historical-known-at replay identity.",
     "Inspected 2024-2025 evidence is development/unprotected and is not untouched protected evidence."
   ],

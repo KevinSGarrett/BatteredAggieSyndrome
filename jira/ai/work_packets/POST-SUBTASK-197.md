@@ -42,7 +42,7 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 - Execution lane: `DATA_MATERIALIZATION`
 - Execution mode: `ATOMIC_EXECUTION`
 - Maturity before → after: `SOURCE_ROUTE_AND_PARSER_CONTRACT_VERIFIED_NO_NATIONAL_OFFICIAL_POPULATION` → `EMPIRICALLY_VALIDATED_DOMAIN_GATED_CANDIDATE_ONLY`
-- Evidence state: `ACTIVE_EMPIRICAL_CHECKPOINT_2010_2025_DISCOVERY_RECONCILIATION_PRESENT_PARTIAL_DOMAIN_CANDIDATE_ONLY`
+- Evidence state: `PARTIAL`
 - Governance traceability gate: `POST-SUBTASK-069`
 
 ## Read first
@@ -68,6 +68,7 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 - configs/historical_game_outcome_spine_expansion_contract.json
 - configs/ncaa_contest_outcome_reference_adapter_contract.json
 - configs/ncaa_contest_reconciliation_expansion_policy.json
+- configs/feature_source_research_program.json
 - artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 - artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
 - artifacts/jira_evidence/POST-SUBTASK-197.json
@@ -118,6 +119,7 @@ Produce and validate these outputs within this atomic work unit:
 - configs/historical_game_outcome_spine_expansion_contract.json
 - configs/ncaa_contest_outcome_reference_adapter_contract.json
 - configs/ncaa_contest_reconciliation_expansion_policy.json
+- configs/feature_source_research_program.json
 - artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 - artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
 - artifacts/jira_evidence/POST-SUBTASK-197.json

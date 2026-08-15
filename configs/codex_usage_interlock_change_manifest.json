@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "b8661f6775f6081ab525eff42bd21473d125fbf27248753b8671d888ce898807",
-  "work_unit_id": "BAT-554-FULL-LIVE-JIRA-RECONCILIATION-20260815T101209Z",
+  "manifest_identity": "2b78fb9a3ba2700bd962c877d44d068d4f24bc83e268102157d05b9d5e03b645",
+  "work_unit_id": "BAT-554-POST-MERGE-JIRA-SYNC-20260815T102225Z",
   "jira_identity": "BAT-554",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "7cc285e804273a88c2eda038206238eeded8db22",
-  "pre_routing_decision_sha256": "e0492c51d833f803e9b466fceb092f51d6c4ba37a4cec640af886c79a8ab8eb3",
+  "base_commit": "fbe5fbcbff3bd5fb00ccb8c209c1eef167540255",
+  "pre_routing_decision_sha256": "631fb1a84220c2fca7a376190e293210d88467e3a6ee14ef71fd65e165819527",
   "changed_paths": [
     "configs/codex_usage_interlock_change_manifest.json",
     "configs/unified_assistive_change_routing_binding.json",
@@ -18,12 +18,12 @@
     "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "jira/reconciliation/BAT_LIVE_IMPORT_LEDGER.json",
     "jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.json",
-    "jira/snapshots/20260815T100902Z/STATE.json",
     "jira/validation/BAT_LIVE_IMPORT_VERIFICATION.json",
     "jira/validation/JIRA_FILE_HASHES.sha256",
     "jira/validation/JIRA_FILE_MANIFEST.csv",
+    "jira/validation/NON_JIRA_SCOPE_DIFF.csv",
+    "jira/validation/NON_JIRA_SCOPE_DIFF.json",
     "jira/validation/SECOND_PASS_AUDIT.json",
-    "provenance/CURRENT_TREE.txt",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv"
   ]

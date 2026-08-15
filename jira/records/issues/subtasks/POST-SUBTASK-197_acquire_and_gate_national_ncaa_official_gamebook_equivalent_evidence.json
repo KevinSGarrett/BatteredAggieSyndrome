@@ -20,7 +20,8 @@
   "ai_context_notes": [
     "Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.",
     "No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.",
-    "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass."
+    "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.",
+    "The current 2022 checkpoint covers 35 exact reconciled contests and 210 endpoint identities; 198 are captured, 12 remain technical failures, and 11,411 parsed rows remain candidate-only under coverage identity 8049efe1058b6856d3d6fbbd54c39fc7006db16145163a74f1a9bc48306f1cbc."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",
@@ -245,7 +246,7 @@
     "src/aggie_analytics/entities/contracts.py"
   ],
   "ready": false,
-  "record_revision": "1.4",
+  "record_revision": "1.5",
   "related_to": [
     "POST-SUBTASK-162",
     "POST-SUBTASK-178",

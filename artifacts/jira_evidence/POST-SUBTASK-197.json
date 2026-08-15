@@ -575,37 +575,176 @@
     },
     "authority": "CANDIDATE_ONLY_PARTIAL_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "reconciled_contest_2022_tranche_0030_0034": {
+    "recorded_at_utc": "2026-08-15T02:35:00Z",
+    "selected_reconciled_contests": 5,
+    "contest_ids": [
+      "2276595",
+      "2276600",
+      "2276601",
+      "2276602",
+      "2276605"
+    ],
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "raw_capture_manifests": [
+      {
+        "contest_offset": 30,
+        "acquisition_identity": "222a9f65b961729148fa09ec8ad6f82f3bb754c51ece4d71cd4ae35ab1816c62",
+        "manifest_sha256": "eebe82aace4e3002492f45f2ae4f1ade9fa2d8c7bb3074cac25f12921ce69efe",
+        "gate_sha256": "8efca00186d425e0c47ede40114a7985967c86b2216ce64548fd2d87457a2a17",
+        "validation_identity": "9921e21cac0c175b8669a6c014c5c598c5db4c2bea72a80429b759ce96f5b7a1",
+        "validation_report_sha256": "35c1c93837737b4ff7fbffec4129cbdd1e1abca11a23cfd28866e62991f41941",
+        "validation_checks": 109
+      },
+      {
+        "contest_offset": 31,
+        "acquisition_identity": "d9d1225b794a78614f4ad3cca26fd3c0b3e93c270512c3b5aa69d7d13315b556",
+        "manifest_sha256": "4438255816bb2ee7f8246d18450ac7a91ed39baee905cfebdab416244f0e53b4",
+        "gate_sha256": "e66f76bda6420cc7b0e9de16ac52e5df853ab6ebbe3f36ef0f532ef5dae4b239",
+        "validation_identity": "8c53d5b65ba79fc6c44943f8e33afa3debd2fdf4c991e3394a430812da41e77a",
+        "validation_report_sha256": "dd0ead9d48ad8acdeb7ece5798525a58c19be07ca755719bb5ceb9186465974a",
+        "validation_checks": 98
+      },
+      {
+        "contest_offset": 32,
+        "acquisition_identity": "bb61ee39472d696ff2b8c0f365e7ac96351480a4d62c3390a2ec2c59be461834",
+        "manifest_sha256": "38338e312ee04a2e73ce9c238e4ca7faa8f59c16f553e6a4132bd31ffb06254f",
+        "gate_sha256": "a00cf5dde97f7a83fb40b7c5b96956ea8fe5f70dd3c49a0853614b9e1e5ec76c",
+        "validation_identity": "7ed41ab3515a9c951507dd32090619ac5e79b32a6e3886779b884fe077e0f80e",
+        "validation_report_sha256": "8151929325be8ccbcaf579d9987e86da0b30b3a71e7a612264f7d8273d9978d5",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 33,
+        "acquisition_identity": "c0c0f9e4f2f021a94de010906cc846e342aff2b55d5ff600063a7d7ac5c816c2",
+        "manifest_sha256": "6adbf84bd3fc056cc5e0cd8427e83193a9b1a0e4066d96ac97f9f1b5151e564c",
+        "gate_sha256": "aa09f7eb1627dbbcb0c96edd0acbde6f74fcf27f28788ca5305158dfa45d5eb2",
+        "validation_identity": "00f1f9b72d7d18d0616781a1284a5b702379f59cd07e6ad8eb5ed5543175e936",
+        "validation_report_sha256": "f5a385b718ca7bbc26a9d2b5b15109d8dfc171c15db8e96ba39da25f9cd6163a",
+        "validation_checks": 118
+      },
+      {
+        "contest_offset": 34,
+        "acquisition_identity": "0015aaff920d6d75f3041e45afb3b50fc9317e3212ad6f6326a7da148b2d611d",
+        "manifest_sha256": "388d83e965d7c7f6c2d9a9b1809e1d027375c1fa85a990965959b83cee6dede5",
+        "gate_sha256": "03bb1c4d0cb15f0aaa2e23f27b5df4ac596a0026a43f43b8bb7b3bc4385ef356",
+        "validation_identity": "d62630c878b98362506e182d3852417632bd5da917a2634ebcb8eab9eaa910bf",
+        "validation_report_sha256": "b4e8d6668f542571e4aa274360fbc9e5578b61a1e5c3f9dfceff163e091dbc8a",
+        "validation_checks": 118
+      }
+    ],
+    "parser_replay_manifests": [
+      {
+        "contest_offset": 30,
+        "acquisition_identity": "88002ab3b5fa89cadf6dee00ad1c77ba4662b02fcb84f230f2f7f690c55d856c",
+        "manifest_sha256": "c0a300c506715c6e576d0574ef68bd867a460c1813937bddeda2270f72e57c34",
+        "gate_sha256": "55f340f38a6ca43c5fd07cf618454ec8511d42249ccd4fc9480f312c96518cff",
+        "validation_identity": "de4d7f45a661f83b3af6b65c093dc6834c49bb82749093cca59a564f237573c5",
+        "validation_report_sha256": "246381d56f61ffe557821accf84e9320740dfab4097fca866a97e2eeced40cf2",
+        "validation_checks": 169,
+        "normalized_rows": 196
+      },
+      {
+        "contest_offset": 31,
+        "acquisition_identity": "3198da0fd67bdcbfdbc33fcf6dd7e94332990cb6e9ac2d0bd6058a71b88ce46b",
+        "manifest_sha256": "0050dec291b1be267b13af6407cb411144a9a1b751242282f3f2a0e81cd90dd2",
+        "gate_sha256": "15da1cc385cede5afe2f28c50187819de8b057da77e79173cb94f647d6e52d47",
+        "validation_identity": "7ae665267ab41e7bc01f015185090f2f017d2acf33859276da8aeb29bb57c929",
+        "validation_report_sha256": "6de59a4125b42efaf6e061924f37378ddb8ba523ab222a1d4de7c402a7420f32",
+        "validation_checks": 128,
+        "normalized_rows": 361
+      },
+      {
+        "contest_offset": 32,
+        "acquisition_identity": "a78c9817e704d8d66ab26d9a4dd5eba4e368fdf6969df3c47dbd878f40e70166",
+        "manifest_sha256": "931399bc52c76f9271be1484874ee878572d0a0fda9ca743c36ac49707640d05",
+        "gate_sha256": "a7296e5ce094100ebef3b39b64dc14cea4e8c04d833dfd1d17799ad0870132e6",
+        "validation_identity": "e20ffde3d8419ff4a2900706b56e168eab42e41114c78fd0d8c696992ff10b54",
+        "validation_report_sha256": "e7cd8a6723a1ff9e525e1ac00b6d5d83a610d03e5d4ada74f0c175d80b76b327",
+        "validation_checks": 190,
+        "normalized_rows": 390
+      },
+      {
+        "contest_offset": 33,
+        "acquisition_identity": "16b1618b1b6212c3eb35ca379e0d19d313640b5db750e37f9ba58e17a7a7af20",
+        "manifest_sha256": "45663f9cd9a36396ee2eab21ad44a35621d1afbe52df009bba1afdfc193628b9",
+        "gate_sha256": "0f447868d0076dbc026d42843a5be62ad090f3d6f06fe0d8f4b9df8696f3a3dc",
+        "validation_identity": "3d160e53b7da2121657b76831c314a9694ed2de2793e729afbee65a2c36f1290",
+        "validation_report_sha256": "79fb8520f691989ae1c523a40b5ee9826c926270f99d7cbc6ecf4468788c4ef7",
+        "validation_checks": 190,
+        "normalized_rows": 405
+      },
+      {
+        "contest_offset": 34,
+        "acquisition_identity": "210e28e86903303d66be2ed10b54546ae381097ed2e2df6189a4e49a2e66be71",
+        "manifest_sha256": "b0f0f86a82f8c22dea59389be4000f93fcf0befeed656003f7dc903d54ece3fc",
+        "gate_sha256": "0ab061ac593987153a0f0160a043d612995bb89b10cee1ba934517f819b01c5e",
+        "validation_identity": "f0e7107a462a708ace1a8e4a468c7774d56c9e4d9c83de002ad0f4915504d696",
+        "validation_report_sha256": "5a5721a56c73f3dab3e6bc81ef11737108899b8b645b83dddca865bd90c56b49",
+        "validation_checks": 190,
+        "normalized_rows": 400
+      }
+    ],
+    "requests": 30,
+    "captures": 27,
+    "technical_failures": 3,
+    "technical_failure_scope": [
+      "2276595/play_by_play CONTENT_TOO_SMALL",
+      "2276600/box_score CONTENT_TOO_SMALL",
+      "2276600/drives CONTENT_TOO_SMALL"
+    ],
+    "raw_bytes": 1981664,
+    "normalized_rows": 1752,
+    "parser_runtime": "PINNED_SPORTSDATAVERSE_0_0_75_ISOLATED_ENVIRONMENT_IMMUTABLE_CACHE_REPLAY",
+    "validation": {
+      "result": "PASS",
+      "raw_capture_checks": 561,
+      "parser_replay_checks": 867,
+      "total_checks": 1428,
+      "mutation_controls": 60
+    },
+    "timeout_recovery": "The first all-route offset-30 attempt exceeded the 120-second host command ceiling before publishing a terminal manifest. ScraperAPI-only one-contest acquisition completed all five identities; parser replay then used immutable request-cache hits only.",
+    "cleanup": {
+      "report_path": "C:\\BatteredAggieSyndrome.data\\validation\\cleanup_reports\\BAT-554-2022-OFFSETS-30-34-20260815T023436Z.json",
+      "report_sha256": "fef12a0bfb79e63d1953f428e7cb49c3506016b2784062fd21a5e2f4ed820969",
+      "reconstructible_rebuild_and_runtime_files_removed": 111,
+      "reconstructible_payload_bytes_removed": 5695552,
+      "authoritative_or_immutable_artifacts_removed": false
+    },
+    "authority": "CANDIDATE_ONLY_PARSED_PARTIAL_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "official_acquisition_coverage_rollup_checkpoint": {
-    "recorded_at_utc": "2026-08-15T01:38:12Z",
+    "recorded_at_utc": "2026-08-15T02:35:00Z",
     "schema_version": "1.4.0",
-    "matrix_identity": "4268c618ee55b2b9667c1e254eab47c6aff8b5b9a5a89923bbcd06d52345c150",
-    "matrix_sha256": "b2f7f27be1183be431a0564426b95fc9843dc10ec9122bcd80e83a84d309bdae",
+    "matrix_identity": "8049efe1058b6856d3d6fbbd54c39fc7006db16145163a74f1a9bc48306f1cbc",
+    "matrix_sha256": "4235f1d0b6858bba7a8c14644c41410e5b6cb2230f917412cec43538fcf9418b",
     "season": 2022,
-    "official_contests": 30,
-    "unique_endpoint_requests": 180,
-    "captured_endpoint_requests": 171,
-    "technical_failures": 9,
-    "normalized_rows": 9659,
-    "validated_manifest_count": 12,
-    "validation_check_count": 4450,
-    "mutation_control_count": 72,
-    "total_raw_bytes": 12516917,
+    "official_contests": 35,
+    "unique_endpoint_requests": 210,
+    "captured_endpoint_requests": 198,
+    "technical_failures": 12,
+    "normalized_rows": 11411,
+    "validated_manifest_count": 22,
+    "validation_check_count": 5878,
+    "mutation_control_count": 132,
+    "total_raw_bytes": 14498581,
     "domain_contest_counts": {
-      "attendance": 25,
-      "drives": 25,
-      "linescore_game_info": 25,
-      "officials": 24,
-      "play_by_play": 24,
-      "player_stats": 23,
-      "team_stats_by_period": 21,
-      "venue": 25
+      "attendance": 29,
+      "drives": 29,
+      "linescore_game_info": 29,
+      "officials": 29,
+      "play_by_play": 28,
+      "player_stats": 28,
+      "team_stats_by_period": 26,
+      "venue": 29
     },
     "implementation_validation": {
-      "targeted": "42_PASS_1_SKIP_17_SUBTESTS_PASS",
-      "full_suite": "892_PASS_4_SKIP_120_SUBTESTS_PASS",
-      "unittest": "890_PASS_4_SKIP",
+      "targeted": "37_PASS_1_SKIP_11_SUBTESTS_PASS",
+      "full_suite": "898_PASS_4_SKIP_120_SUBTESTS_PASS",
+      "unittest": "896_PASS_4_SKIP",
       "w25_final": "PASS",
-      "jira_live_strict": "PASS_ZERO_FINDINGS",
+      "jira_local_strict": "PASS_515_ISSUES_ZERO_FINDINGS",
+      "jira_live_sync": "HTTP_401_NOT_SYNCHRONIZED",
       "ruff": "PASS"
     },
     "versioned_artifacts": {
@@ -613,9 +752,9 @@
       "tests/test_historical_spine_coverage_matrix.py": "b51d535e86f5d4e8d1ac6f52ede32d1a3a1f1b6bb88b73244daa0537c1996f20"
     },
     "retraining_admission": {
-      "request_sha256": "aa669a6c625ceb72c038949f4586cc882b2b8a162210ae6dc51a7447b925b3eb",
-      "decision_identity": "28fbab5d10fd5b2684d1c3e3c4712f976b6f010006d4ac8976a25486b00ddcc0",
-      "decision_sha256": "131e0aab5fe19f1ef635cd228d72d1b1c143a99d4e1284c806cdf7b9df522c2c",
+      "request_sha256": "253f276bc335d2d3f3278f2cf5be112391180fbd36945374f630698f5bf9f491",
+      "decision_identity": "24d40d7cac6a826c36d4777b856953e4e5105c00a876881119fec4e9ac1c57f5",
+      "decision_sha256": "4f178496cc487b340d5aa848aa543edd35b067f66b0dcc055181dcdf32647fc0",
       "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
       "eligible_seasons_added": 0,
       "eligible_games_added": 0,

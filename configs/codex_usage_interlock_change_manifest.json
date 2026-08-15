@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "a579c8a361ff79ca057a03bb1547b2290d45c3d7fd622bb7b50c2526a850e07f",
-  "work_unit_id": "BAT-554-2022-OFFICIAL-OFFSETS-205-254",
+  "manifest_identity": "32708f0bce7a21cebe44c966f1f768f8dde95040230bbce4baaef7a3e58c9d28",
+  "work_unit_id": "BAT-554-2022-OFFICIAL-OFFSETS-255-354",
   "jira_identity": "BAT-554",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "c1fda124ae00238a4d077e30ba1b3a5624d94593",
-  "pre_routing_decision_sha256": "e6eb5f766721efba9cc0eaeeb32df31f9f105ee65aae55b2cee35f7ef16aa27a",
+  "base_commit": "1b34a7f1ae8af5db4c4529f86e84bc0ebcd277e3",
+  "pre_routing_decision_sha256": "850c9683d2deee67f4f1fd0ac64b09452e1c0c2f52c3b68dd9d7939e103e204d",
   "changed_paths": [
     "artifacts/jira_evidence/POST-SUBTASK-197.json",
     "configs/codex_usage_interlock_change_manifest.json",

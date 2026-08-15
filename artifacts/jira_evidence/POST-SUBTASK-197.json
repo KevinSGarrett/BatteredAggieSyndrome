@@ -2000,32 +2000,32 @@
     "authority": "CANDIDATE_ONLY_PARSED_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
   "official_acquisition_coverage_rollup_checkpoint": {
-    "recorded_at_utc": "2026-08-15T19:09:17Z",
+    "recorded_at_utc": "2026-08-15T21:05:49Z",
     "schema_version": "1.4.0",
-    "matrix_identity": "2007ba754411b7331fe00ee5aa85f750e2859911bcfd08faac9b6b39d91a40a9",
-    "matrix_sha256": "6d6e7ae43988c386e9cc88b476c3a2d79a4e2ea884d0da1fa5bd33ce3b2127c3",
+    "matrix_identity": "77d9326699d314da5af2578828bc07b7685cc7a65b44b21846399b2fe28b8b68",
+    "matrix_sha256": "1f4d1fc95d88103891dedbdda0b99a3062399ea7fa1637076a302bf5ebbf4337",
     "season": 2022,
-    "official_contests": 355,
-    "unique_endpoint_requests": 2130,
-    "captured_endpoint_requests": 2036,
-    "technical_failures": 94,
-    "normalized_rows": 135628,
-    "validated_manifest_count": 381,
-    "validation_check_count": 77324,
-    "mutation_control_count": 2286,
-    "total_raw_bytes": 148986462,
+    "official_contests": 555,
+    "unique_endpoint_requests": 3330,
+    "captured_endpoint_requests": 3201,
+    "technical_failures": 129,
+    "normalized_rows": 215412,
+    "validated_manifest_count": 401,
+    "validation_check_count": 106694,
+    "mutation_control_count": 2406,
+    "total_raw_bytes": 234353432,
     "domain_contest_counts": {
-      "attendance": 339,
-      "drives": 338,
-      "linescore_game_info": 339,
-      "officials": 331,
-      "play_by_play": 329,
-      "player_stats": 337,
-      "team_stats_by_period": 331,
-      "venue": 339
+      "attendance": 535,
+      "drives": 532,
+      "linescore_game_info": 535,
+      "officials": 521,
+      "play_by_play": 525,
+      "player_stats": 534,
+      "team_stats_by_period": 523,
+      "venue": 535
     },
     "implementation_validation": {
-      "targeted": "34_PASS_1_SKIP_17_SUBTESTS_PASS",
+      "targeted": "28_PASS_1_SKIP_11_SUBTESTS_PASS",
       "full_suite": "909_PASS_4_SKIP_120_SUBTESTS_PASS",
       "unittest": "907_PASS_4_SKIP",
       "w25_final": "PASS",
@@ -2033,7 +2033,7 @@
       "strict_repository_provenance_secret": "PASS",
       "codex_usage_interlock_static": "PASS_USER_EXPLICIT_PROJECT_RESERVATION_PIPELINE_REMAINS_NOT_OPERATIONAL",
       "jira_local_strict": "PASS_ZERO_FINDINGS",
-      "jira_live_sync": "MERGE_AND_SINGLE_POSTMERGE_EVIDENCE_COMMENT_PENDING_NO_COMPANION_SYNC_PR",
+      "jira_live_sync": "PREMERGE_FULL_BOARD_VERIFY_PASS_515_CANONICAL_518_LIVE_ZERO_DISCREPANCIES;_MERGE_AND_SINGLE_POSTMERGE_EVIDENCE_COMMENT_PENDING_NO_COMPANION_SYNC_PR",
       "ruff": "NOT_APPLICABLE_JSON_MARKDOWN_ONLY_CHANGE_FULL_REPOSITORY_BASELINE_2182_FINDINGS_PRESERVED"
     },
     "versioned_artifacts": {
@@ -2041,9 +2041,9 @@
       "tests/test_historical_spine_coverage_matrix.py": "b51d535e86f5d4e8d1ac6f52ede32d1a3a1f1b6bb88b73244daa0537c1996f20"
     },
     "retraining_admission": {
-      "request_sha256": "e9448a8f522b5108946f0a579980b205707519fd0ac70ae218bd921f91a97f13",
-      "decision_identity": "654f24c25585b57ca738b7a5b3568bc1abc61371559a53e0b2a7deab09b6f1be",
-      "decision_sha256": "05519e2c2bbbee145c83f3fb20e998fc7b9d6cc7320ca84e5dfb08a4a73bf7d8",
+      "request_sha256": "77ae2f86d5aed302bbd845515878c4bcac2405602f8fa44d4f547b359cb9482b",
+      "decision_identity": "df48fbed803d100c7bc4a1b532b6357c93d4205456572daa23b6f994a6475292",
+      "decision_sha256": "6205173f7a5bd7cb3eb421b9f739d56a2fa848a9f8787a2ccb9ac9a720f4d867",
       "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
       "eligible_seasons_added": 0,
       "eligible_games_added": 0,
@@ -2051,6 +2051,85 @@
       "protected_promotion_authority": false
     },
     "authority": "CANDIDATE_ONLY_DOMAIN_INDEPENDENT_COVERAGE_NO_TRAINING_PROTECTED_OR_PRODUCTION_PROMOTION"
+  },
+  "reconciled_contest_2022_tranche_0355_0554": {
+    "recorded_at_utc": "2026-08-15T21:05:49Z",
+    "season": 2022,
+    "offset_start": 355,
+    "offset_end": 554,
+    "selected_reconciled_contests": 200,
+    "selection_identity": "e3302b4eac0ccd48ab911e6e88aa97d45779040a64e6cb729958ebe9672df819",
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "reconciliation_manifest_sha256": "281109c4aa1332c2b1e09fd6921c5fb957d86e7c7425dce54daa345f073140ab",
+    "pre_routing_file_sha256": "801d0e063bba317d7150743670810509047c68b8fb47fa66d930d2b33f4d513d",
+    "external_checkpoint_path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\historical_expansion\\BAT-554-2022-OFFSETS-355-554-20260815T210549Z.md",
+    "external_checkpoint_sha256": "c29423cbe43f6c8c1e6b9108d664570281f1cd5b8c15952e2d1a0e6d88701bd2",
+    "execution_shape": {
+      "coherent_material_milestone_contests": 200,
+      "resumable_batches": 20,
+      "maximum_concurrent_batches": 10,
+      "integration_prs": 1,
+      "companion_jira_sync_prs": 0
+    },
+    "first_pinned_pass": {
+      "requested": 1200,
+      "captured": 909,
+      "technical_failures": 291,
+      "normalized_rows": 63550
+    },
+    "bounded_recovery": {
+      "requested": 1200,
+      "captured": 1165,
+      "technical_failures": 35,
+      "first_pass_failures_recovered": 256,
+      "normalized_rows": 79784,
+      "raw_bytes": 85366970,
+      "gate_sha_bundle": "89c0df5e0cbac17fa2ff8479b431e52498b275c082127ffa6062c0f35f12e00a"
+    },
+    "domain_rows_added": {
+      "attendance": 196,
+      "drives": 4789,
+      "linescore_game_info": 1608,
+      "officials": 190,
+      "play_by_play": 42369,
+      "player_stats": 6892,
+      "team_stats_by_period": 23544,
+      "venue": 196
+    },
+    "validation": {
+      "result": "PASS",
+      "passed_manifests": 20,
+      "checks": 29370,
+      "mutation_controls": 120
+    },
+    "coverage": {
+      "matrix_identity": "77d9326699d314da5af2578828bc07b7685cc7a65b44b21846399b2fe28b8b68",
+      "matrix_sha256": "1f4d1fc95d88103891dedbdda0b99a3062399ea7fa1637076a302bf5ebbf4337",
+      "official_contests": 555,
+      "unique_endpoint_requests": 3330,
+      "captured_endpoint_requests": 3201,
+      "technical_failures": 129,
+      "normalized_rows": 215412,
+      "total_raw_bytes": 234353432
+    },
+    "retraining_admission": {
+      "request_sha256": "77ae2f86d5aed302bbd845515878c4bcac2405602f8fa44d4f547b359cb9482b",
+      "decision_identity": "df48fbed803d100c7bc4a1b532b6357c93d4205456572daa23b6f994a6475292",
+      "decision_sha256": "6205173f7a5bd7cb3eb421b9f739d56a2fa848a9f8787a2ccb9ac9a720f4d867",
+      "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "full_ladder_required": false,
+      "protected_promotion_authority": false
+    },
+    "cleanup": {
+      "verified_reconstructible_files": 2762,
+      "verified_reconstructible_bytes": 164054139,
+      "bytes_removed": 0,
+      "state": "PENDING_LOCAL_EXECUTION_POLICY_REJECTED_RECURSIVE_REMOVAL",
+      "authoritative_or_immutable_artifacts_removed": false
+    },
+    "authority": "CANDIDATE_ONLY_PARSED_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
   "historical_spine_2010_legacy_reconciliation_checkpoint": {
     "recorded_at_utc": "2026-08-14T20:37:49Z",

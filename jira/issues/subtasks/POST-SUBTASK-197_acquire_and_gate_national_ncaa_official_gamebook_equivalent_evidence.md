@@ -27,7 +27,7 @@
     "Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.",
     "No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.",
     "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.",
-    "The current 2022 checkpoint covers 355 exact reconciled contests and 2,130 endpoint identities; 2,036 are captured, 94 remain technical failures, and 135,628 parsed rows remain candidate-only under coverage identity 2007ba754411b7331fe00ee5aa85f750e2859911bcfd08faac9b6b39d91a40a9."
+    "The current 2022 checkpoint covers 555 exact reconciled contests and 3,330 endpoint identities; 3,201 are captured, 129 remain technical failures, and 215,412 parsed rows remain candidate-only under coverage identity 77d9326699d314da5af2578828bc07b7685cc7a65b44b21846399b2fe28b8b68."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",
@@ -588,4 +588,4 @@ Rebuild discovery from pinned source routes; refetch a bounded deterministic sam
 - Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.
 - No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.
 - Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.
-- The current 2022 checkpoint covers 355 exact reconciled contests and 2,130 endpoint identities; 2,036 are captured, 94 remain technical failures, and 135,628 parsed rows remain candidate-only under coverage identity 2007ba754411b7331fe00ee5aa85f750e2859911bcfd08faac9b6b39d91a40a9.
+- The current 2022 checkpoint covers 555 exact reconciled contests and 3,330 endpoint identities; 3,201 are captured, 129 remain technical failures, and 215,412 parsed rows remain candidate-only under coverage identity 77d9326699d314da5af2578828bc07b7685cc7a65b44b21846399b2fe28b8b68.

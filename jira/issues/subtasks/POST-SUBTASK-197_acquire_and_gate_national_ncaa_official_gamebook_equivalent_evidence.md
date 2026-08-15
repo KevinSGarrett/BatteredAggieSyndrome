@@ -27,7 +27,7 @@
     "Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.",
     "No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.",
     "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.",
-    "The current 2022 checkpoint covers 85 exact reconciled contests and 510 endpoint identities; 466 are captured, 44 remain technical failures, and 29,784 parsed rows remain candidate-only under coverage identity 0448a3273a378117de5d620467a8524fdbb452d3308345b349f80773dfc3902d."
+    "The current 2022 checkpoint covers 105 exact reconciled contests and 630 endpoint identities; 575 are captured, 55 remain technical failures, and 36,604 parsed rows remain candidate-only under coverage identity 9d244a3a3dd4c1cbeab14bad77c9ff0befc3e81916c728d26538a9d8f155ee59."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",
@@ -252,7 +252,7 @@
     "src/aggie_analytics/entities/contracts.py"
   ],
   "ready": false,
-  "record_revision": "1.9",
+  "record_revision": "2.0",
   "related_to": [
     "POST-SUBTASK-162",
     "POST-SUBTASK-178",
@@ -588,4 +588,4 @@ Rebuild discovery from pinned source routes; refetch a bounded deterministic sam
 - Use deterministic discovery, transport, parsing, reconciliation, and validation first. Governed OpenAI assistance is eligible only for bounded candidate extraction or schema interpretation when source evidence exists and deterministic parsing is insufficient.
 - No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.
 - Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.
-- The current 2022 checkpoint covers 85 exact reconciled contests and 510 endpoint identities; 466 are captured, 44 remain technical failures, and 29,784 parsed rows remain candidate-only under coverage identity 0448a3273a378117de5d620467a8524fdbb452d3308345b349f80773dfc3902d.
+- The current 2022 checkpoint covers 105 exact reconciled contests and 630 endpoint identities; 575 are captured, 55 remain technical failures, and 36,604 parsed rows remain candidate-only under coverage identity 9d244a3a3dd4c1cbeab14bad77c9ff0befc3e81916c728d26538a9d8f155ee59.

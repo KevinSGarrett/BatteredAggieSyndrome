@@ -2131,6 +2131,93 @@
     },
     "authority": "CANDIDATE_ONLY_PARSED_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
+  "reconciled_contest_2022_tranche_0555_0760": {
+    "recorded_at_utc": "2026-08-15T22:57:40Z",
+    "season": 2022,
+    "offset_start": 555,
+    "offset_end": 760,
+    "selected_reconciled_contests": 206,
+    "selection_identity": "e5fceb7d24b5e1a120d298b8a58e95bac8bab0ea9e7398fc3a8e0caacacb3b99",
+    "reconciliation_dataset_identity": "fd64d27179058f18239d082e55d17a7c9dfcec0a423fcbdc9938f318869af606",
+    "reconciliation_manifest_sha256": "281109c4aa1332c2b1e09fd6921c5fb957d86e7c7425dce54daa345f073140ab",
+    "pre_routing_file_sha256": "3f2f69a92283372d6758da3938eb746097257d8a00e3f421b84b453cc5b5a1a2",
+    "external_checkpoint_path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\historical_expansion\\BAT-554-2022-OFFSETS-555-760-20260815T225740Z.md",
+    "external_checkpoint_sha256": "e3967dda56dad53611d9ec9f5cb9663e607919c6ea5f277e6cffa037b83071a1",
+    "execution_shape": {
+      "coherent_material_milestone_contests": 206,
+      "resumable_batches": 21,
+      "initial_cache_build_maximum_concurrent_batches": 21,
+      "bounded_recovery_maximum_concurrent_batches": 10,
+      "integration_prs": 1,
+      "companion_jira_sync_prs": 0
+    },
+    "first_pinned_pass": {
+      "requested": 1236,
+      "captured": 903,
+      "technical_failures": 333,
+      "normalized_rows": 61254,
+      "gate_sha_bundle": "440ac20db935f2971c952bf00fc00897a5f9f740ea6a8f024c8ff8e2d0a54e3e"
+    },
+    "bounded_recovery": {
+      "requested": 1236,
+      "captured": 1193,
+      "technical_failures": 43,
+      "capture_rate_percent": 96.5210,
+      "first_pass_failures_recovered": 290,
+      "normalized_rows": 81162,
+      "raw_bytes": 87202728,
+      "gate_sha_bundle": "108bb3e23a1c0c3eeec09e16ffe63c2618418dc00a5beff47cb7c59cc570cac6"
+    },
+    "domain_rows_added": {
+      "attendance": 196,
+      "drives": 4772,
+      "linescore_game_info": 1594,
+      "officials": 206,
+      "play_by_play": 42578,
+      "player_stats": 7068,
+      "team_stats_by_period": 24552,
+      "venue": 196
+    },
+    "validation": {
+      "result": "PASS",
+      "passed_manifests": 21,
+      "checks": 30026,
+      "mutation_controls": 126,
+      "validation_bundle_sha256": "080a09ad2a9ce9c78eaf9db745ec6f940d4371d5f70091f08cbef990f46644fb"
+    },
+    "coverage": {
+      "matrix_identity": "07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f",
+      "matrix_sha256": "7914f1a26d999403219ee2f15148a349da7353c0e12dadeda80e1032d6c40bae",
+      "official_contests": 761,
+      "unique_endpoint_requests": 4566,
+      "captured_endpoint_requests": 4394,
+      "technical_failures": 172,
+      "normalized_rows": 296574,
+      "total_raw_bytes": 321556160,
+      "validated_manifests": 422,
+      "validation_checks": 136720
+    },
+    "retraining_admission": {
+      "request_sha256": "10e52e4f3409810b87ea9f6168fd5a20de63ce3e1d1e441daeeb670c75336c6a",
+      "decision_identity": "7d179b253cf2116331161692a6249ce66223b217352cb19cf769a9d99399aa73",
+      "decision_sha256": "767def20e5058bd0512ff1981eb717cf9486b8e44c8f1fe9a29a69e693e3323d",
+      "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
+      "eligible_seasons_added": 0,
+      "eligible_games_added": 0,
+      "full_ladder_required": false,
+      "protected_promotion_authority": false
+    },
+    "cleanup": {
+      "verified_validation_rebuild_files": 2820,
+      "verified_validation_rebuild_bytes": 166648253,
+      "verified_runtime_files": 124,
+      "verified_runtime_bytes": 698799,
+      "bytes_removed": 0,
+      "state": "DELETE_RECONSTRUCTIBLE_PENDING_HOST_POLICY",
+      "authoritative_or_immutable_artifacts_removed": false
+    },
+    "authority": "CANDIDATE_ONLY_COMPLETE_EXACT_RECONCILED_2022_CONTEST_POPULATION_WITH_PARTIAL_ENDPOINT_COVERAGE_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
+  },
   "historical_spine_2010_legacy_reconciliation_checkpoint": {
     "recorded_at_utc": "2026-08-14T20:37:49Z",
     "discovery": {
@@ -2493,7 +2580,8 @@
   "next_actions": [
     "Investigate the preserved 2012 and 2013 unresolved populations by exact reason without weakening reciprocal evidence, alias, chronology, or score-context gates.",
     "Attach independently useful official domains to the reconciled 2010-2025 outcome spine while retaining separate season, endpoint, domain, grain, missingness, schema, provenance, and PIT eligibility.",
-    "Continue 2022 official contest acquisition in resumable bounded tranches and independently gate every endpoint/domain failure.",
+    "Preserve the complete exact-reconciled 2022 official contest candidate population and independently remediate its 172 endpoint failures without weakening domain gates.",
+    "Prioritize the next coherent official acquisition population by independently verified season reconciliation and downstream historical-spine value.",
     "Expand autonomously to the maximum quality-supported national population with independent domain gates."
   ],
   "scientific_nonclaims": {

@@ -21,7 +21,7 @@
   "allowed_modification_paths": [
     "artifacts/jira_evidence/POST-STORY-058.json"
   ],
-  "blocked_reason": "",
+  "blocked_reason": "USER_SCOPE_OVERRIDE_BAS_ONLY: assistive-plane execution is paused; preserve existing evidence and do not resume without a later explicit user instruction.",
   "blocks": [],
   "canonical_record": "jira/records/issues/stories/POST-STORY-058_operate_one_unified_assistive_execution_plane_across_deterministic_openai_openrouter_cursor_.json",
   "canonical_source_role": "AUTHORITATIVE_LOCAL_SPECIFICATION",
@@ -118,7 +118,7 @@
     "candidate-only",
     "aggregate-gate"
   ],
-  "last_content_audit": "2026-08-13",
+  "last_content_audit": "2026-08-15",
   "local_id": "POST-STORY-058",
   "maturity_before": "NOT_STARTED",
   "objective": "Operate one unified assistive execution plane across deterministic, OpenAI, OpenRouter, Cursor, local Qwen, and private CPU worker routes",
@@ -238,7 +238,7 @@
   ],
   "why_this_exists": "The mandatory OpenAI assistive-plane contract requires an executable, independently evidenced work unit rather than an untracked direct API call.",
   "work_packet_path": "jira/ai/work_packets/POST-STORY-058.md",
-  "workflow_state": "IN_PROGRESS"
+  "workflow_state": "BACKLOG"
 }
 ```
 

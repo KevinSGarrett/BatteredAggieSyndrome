@@ -33,7 +33,7 @@ After explicit paid authority, compare deterministic-only work with a pinned Qwe
 
 ## Current gate state
 
-- Workflow: `IN_PROGRESS`
+- Workflow: `BLOCKED`
 - Ready: `false`
 - Priority: `P0`
 - Critical path: `false`

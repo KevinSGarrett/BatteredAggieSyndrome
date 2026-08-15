@@ -57,9 +57,9 @@
   "schema_version": 1,
   "status_counts": {
     "Done": 85,
-    "In Progress": 2,
-    "To Do": 428
+    "In Progress": 1,
+    "To Do": 429
   },
   "unexpected_link_count": 0,
-  "verified_at": "2026-08-15T16:04:50.532619+00:00"
+  "verified_at": "2026-08-15T16:30:09.733350+00:00"
 }

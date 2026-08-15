@@ -10,6 +10,46 @@ from jira.tools import import_bat_live
 
 
 class JiraOperationalStatusPolicyTests(unittest.TestCase):
+    def test_read_only_live_verification_does_not_persist_repository_evidence(self) -> None:
+        rows = [{"Local Issue ID": "TASK-001"}]
+        payloads: list[dict[str, object]] = []
+        links: list[dict[str, str]] = []
+        link_payloads: list[dict[str, object]] = []
+        ledger = {
+            "custom_fields": {"Local Issue ID": "customfield_1"},
+            "components": {"Data": "10001"},
+            "issues": {"TASK-001": "BAT-1"},
+        }
+
+        class FakeClient:
+            def __init__(self, *_args: object) -> None:
+                pass
+
+            def get(self, path: str) -> dict[str, object]:
+                if path == "/rest/api/3/myself":
+                    return {"emailAddress": import_bat_live.EMAIL, "active": True}
+                return {"id": import_bat_live.PROJECT_ID, "key": import_bat_live.PROJECT_KEY}
+
+        verification = {"result": "PASS", "issue_count": 1}
+        with (
+            patch.object(import_bat_live, "load_auxiliary_issues", return_value=[]),
+            patch.object(import_bat_live, "load_inputs", return_value=(rows, payloads, links, link_payloads)),
+            patch.object(import_bat_live, "load_operational_status_policies", return_value={}),
+            patch.object(import_bat_live, "validate_inputs", return_value={"result": "PASS", "issues": 1, "links": 0}),
+            patch.object(import_bat_live, "authoritative_env_path", return_value=Path("ignored")),
+            patch.object(import_bat_live, "read_env_token", return_value="nonempty-test-token"),
+            patch.object(import_bat_live, "JiraClient", FakeClient),
+            patch.object(import_bat_live, "load_json", return_value=ledger),
+            patch.object(import_bat_live, "verify_live", return_value=(verification, [])) as verify,
+            patch.object(import_bat_live, "write_json_atomic") as persist,
+            patch("sys.argv", ["import_bat_live.py", "--verify-live"]),
+        ):
+            self.assertEqual(0, import_bat_live.main())
+
+        verify.assert_called_once()
+        self.assertFalse(verify.call_args.kwargs["persist"])
+        persist.assert_not_called()
+
     def _write_record(self, root: Path, *, target_status: str = "In Progress") -> None:
         payload = {
             "local_id": "POST-SUBTASK-202",

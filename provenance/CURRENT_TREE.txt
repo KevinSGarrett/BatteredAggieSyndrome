@@ -872,6 +872,7 @@ instructions/policies/assistive_execution_interlock.json
 instructions/policies/autonomy_permissions.json
 instructions/policies/blocker_taxonomy.json
 instructions/policies/definition_of_done.json
+instructions/policies/execution_focus_policy.json
 instructions/policies/git_policy.json
 instructions/policies/github_enforcement.json
 instructions/policies/instruction_change_policy.json
@@ -3240,6 +3241,7 @@ tests/test_data_research.py
 tests/test_drift_incident_game_day.py
 tests/test_entity_governance.py
 tests/test_evaluation_exposure.py
+tests/test_execution_focus.py
 tests/test_expanded_event_chronology.py
 tests/test_experiment_store_full.py
 tests/test_experimentation_governance.py
@@ -3505,6 +3507,7 @@ tools/validate_data_research.py
 tools/validate_dependency_policy.py
 tools/validate_drift_alerts.py
 tools/validate_entities.py
+tools/validate_execution_focus.py
 tools/validate_expanded_event_chronology_preliminary.py
 tools/validate_experimentation.py
 tools/validate_external_storage_policy.py

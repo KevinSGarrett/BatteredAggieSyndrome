@@ -106,6 +106,33 @@ The following do not count by themselves:
 
 Housekeeping is legitimate only when it directly unblocks implementation, validation, integration, security, or recovery.
 
+## 4.1 Material-milestone interlock
+
+The machine policy is `policies/execution_focus_policy.json`; run
+`python -B tools/validate_execution_focus.py --repo-root .` at PR readiness.
+
+- After the policy baseline, every integrated commit is classified exactly once in
+  its subject as `[material]` or `[process]`.
+- `[material]` means the change creates a downstream-consumable project result:
+  working behavior, acquired/normalized/validated data, a feature, a model or
+  forecast artifact, or a defect correction that enables one of those outcomes.
+- `[process]` means synchronization, evidence binding, documentation-only
+  governance, cleanup, or validation-only activity. Process work is legitimate,
+  but two consecutive process-only integrated commits are a hard failure.
+- Use one PR for a coherent material milestone, including its directly required
+  tests, evidence, and canonical status change. Do not open a companion Jira-sync-only PR.
+- A live Jira comment or operational-status update does not require tracked mirror
+  regeneration. When canonical specification, logical status, parent/dependency
+  links, and repository behavior are unchanged, use the importer's read-only live
+  verification mode and leave the worktree clean.
+- Size acquisition and processing tranches from observed throughput, failure
+  isolation, resumability, provider limits, disk headroom, validation cost, and a
+  natural season/domain boundary. Micro-tranches are not the default.
+- Run focused checks during implementation and the full required suite at coherent
+  PR readiness or material integration boundaries, not after every micro-checkpoint.
+- Handoffs lead with material delta and its downstream consumer. Process activity
+  is reported separately and never substituted for material progress.
+
 ## 5. Progress checkpoint
 
 At a meaningful checkpoint, update only durable state needed for another session to continue:

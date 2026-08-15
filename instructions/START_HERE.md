@@ -23,6 +23,12 @@ The required operating cycle is:
 
 > **UNDERSTAND → SELECT → IMPLEMENT → TEST → REVIEW → INTEGRATE → RECORD → CONTINUE**
 
+The material-milestone interlock in
+[06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md](06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md)
+is mandatory. It prevents consecutive process-only integrations, companion
+Jira-sync-only PRs, and micro-tranche/full-suite churn from replacing project
+outcomes.
+
 Claiming, planning, validation, and cleanup are gates inside that cycle; they do not create additional project “waves.”
 
 ## 1. What this system is designed to prevent

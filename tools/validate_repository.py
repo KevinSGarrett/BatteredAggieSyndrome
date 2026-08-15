@@ -100,6 +100,12 @@ def main() -> int:
         for detail in validate_openrouter_assist(root):
             findings.append(type("F", (), {"kind":"openrouter_assist", "path":str(openrouter_assist_policy.relative_to(root)), "detail":detail})())
 
+    execution_focus_policy = root / "instructions/policies/execution_focus_policy.json"
+    if execution_focus_policy.exists():
+        from tools.validate_execution_focus import validate as validate_execution_focus
+        for detail in validate_execution_focus(root):
+            findings.append(type("F", (), {"kind":"execution_focus", "path":str(execution_focus_policy.relative_to(root)), "detail":detail})())
+
     # Lightweight governance integrity checks.
     req_path = root / "governance/REQUIREMENTS_INDEX.csv"
     trace_path = root / "governance/REQUIREMENTS_TRACEABILITY.csv"

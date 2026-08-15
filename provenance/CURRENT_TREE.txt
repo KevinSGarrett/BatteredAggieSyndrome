@@ -2275,6 +2275,7 @@ jira/records/issues/tasks/TASK-199_refresh_official_availability_weather_rules_v
 jira/records/issues/tasks/TASK-200_audit_transfer_recruiting_upstream_rights_and_snapshot_semantics.json
 jira/records/issues/tasks/TASK-201_resolve_officiating_assignment_gap_fallback_policy_before_feature_experiments.json
 jira/snapshots/2026-08-08_initial/STATE.json
+jira/snapshots/20260815T073551Z/STATE.json
 jira/snapshots/BAT_ADMIN_ROLE_PRE_REMEDIATION_20260809T044647Z.json
 jira/snapshots/BAT_ADMIN_ROLE_PRE_REMEDIATION_20260809T044959Z.json
 jira/snapshots/BAT_HISTORICAL_DONE_PRE_REVIEW_20260809T054005Z.json

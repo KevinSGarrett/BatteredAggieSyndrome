@@ -711,6 +711,22 @@
       "reconstructible_payload_bytes_removed": 5695552,
       "authoritative_or_immutable_artifacts_removed": false
     },
+    "git_integration": {
+      "pull_request": 405,
+      "merge_commit": "417aa3deafdaf4b1b5e61bc591dcdfa5958f8486",
+      "hosted_checks": "PASS_WINDOWS_LINUX_CORE_PRODUCT_SECURITY_DEPENDENCY_REVIEW_CODEQL",
+      "post_merge_pre_routing_decision_sha256": "b044ddc80027483a5f478a36e889639e8acce7842297778c9f86bf92f42439db",
+      "post_merge_pre_routing_file_sha256": "cb47fb134d76d0a6428332f0b5fc0f640c30635f0d5435e86035a1df5b2b67a6"
+    },
+    "live_jira": {
+      "issue_key": "BAT-554",
+      "status": "In Progress",
+      "evidence_state": "PARTIAL",
+      "comment_id": "14175",
+      "comment_created_at": "2026-08-15T08:56:58.368-05:00",
+      "complete_board_reconciliation_path": "C:\\BatteredAggieSyndrome.data\\reconciliation\\jira\\BAT-554-OFFSETS-145-164-POST-MERGE-JIRA-20260815T135852Z.json",
+      "complete_board_reconciliation_sha256": "c7286261b67dbf836dfba3c2d02ce007e9189feb7235b181a15360572f756d65"
+    },
     "authority": "CANDIDATE_ONLY_PARSED_PARTIAL_DOMAINS_PRESERVED_NO_CANONICAL_PIT_TRAINING_PROTECTED_OR_PRODUCTION_AUTHORITY"
   },
   "reconciled_contest_2022_tranche_0035_0039": {
@@ -1645,7 +1661,7 @@
       "strict_repository_provenance_secret": "PASS",
       "codex_usage_interlock_static": "PASS_USER_EXPLICIT_PROJECT_RESERVATION_PIPELINE_REMAINS_NOT_OPERATIONAL",
       "jira_local_strict": "PASS_515_ISSUES_2121_SOURCE_REFS_ZERO_FINDINGS",
-      "jira_live_sync": "PENDING_PROTECTED_PR_MERGE_AND_EXACT_MERGE_COMMENT",
+      "jira_live_sync": "PASS_PR_405_MERGE_417AA3DEAFDAF4B1B5E61BC591DCDFA5958F8486_COMMENT_14175_FULL_BOARD_518_LIVE_ISSUES_515_CANONICAL_ISSUES_1191_LINKS_ZERO_CONFLICTS",
       "ruff": "NOT_APPLICABLE_JSON_MARKDOWN_ONLY_CHANGE_FULL_REPOSITORY_BASELINE_2182_FINDINGS_PRESERVED"
     },
     "versioned_artifacts": {

@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "policy_id": "BAS-EXECUTION-FOCUS-V1",
+  "version": "1.0.0",
+  "canonical_human_document": "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md",
+  "effective_from_commit": "18a9635b66074fe3a7a00dc621be8dfb46bb2ecc",
+  "purpose": "Keep implementation centered on coherent, downstream-consumable BAS milestones and prevent synchronization, bookkeeping, housekeeping, or validation activity from becoming the primary output.",
+  "commit_classification": {
+    "required_after_effective_commit": true,
+    "material_marker": "[material]",
+    "process_marker": "[process]",
+    "max_consecutive_process_only_commits": 1,
+    "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",
+    "process_definition": "Synchronization, evidence binding, bookkeeping, documentation-only governance, cleanup, or validation-only work that does not itself create a downstream-consumable project result."
+  },
+  "integration": {
+    "one_pr_per_coherent_milestone": true,
+    "companion_jira_sync_only_pr_allowed": false,
+    "live_comment_or_operational_status_requires_tracked_mirror_change": false,
+    "tracked_jira_regeneration_required_only_for": [
+      "canonical_specification_change",
+      "canonical_logical_status_change",
+      "dependency_or_parent_link_change",
+      "repository_behavior_or_validator_contract_change"
+    ],
+    "read_only_live_verification_is_default_when_no_canonical_change": true
+  },
+  "execution": {
+    "primary_material_lane_limit": 1,
+    "default_to_micro_tranches": false,
+    "batch_selection_inputs": [
+      "observed_throughput",
+      "failure_isolation",
+      "resumability",
+      "provider_request_limits",
+      "disk_headroom",
+      "validation_cost",
+      "natural_season_or_domain_boundary"
+    ],
+    "full_suite_at_micro_checkpoint": false,
+    "full_suite_at_pr_readiness_or_material_integration": true,
+    "housekeeping_requires_direct_unblock_or_safety_reason": true,
+    "new_jira_issue_requires_distinct_independent_definition_of_done": true
+  },
+  "reporting": {
+    "material_delta_first": true,
+    "required_material_measures": [
+      "downstream_behavior_or_consumer",
+      "records_games_seasons_or_domains",
+      "accepted_artifact_identity",
+      "quality_or_validation_result",
+      "remaining_completion_boundary"
+    ],
+    "partial_progress_must_not_be_reported_as_issue_done": true,
+    "process_activity_must_not_be_reported_as_material_progress": true
+  }
+}

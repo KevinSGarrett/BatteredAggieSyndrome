@@ -2030,6 +2030,8 @@ def verify_live(
     component_ids: dict[str, str],
     key_map: dict[str, str],
     operational_status_policies: dict[str, dict[str, Any]],
+    *,
+    persist: bool = True,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     completion_policy = load_completion_policy()
     completion_override_ids = set(completion_policy.get("local_issue_ids", []))
@@ -2136,7 +2138,8 @@ def verify_live(
         "completion_assurance_policy_count": len(completion_override_ids),
         "discrepancies": discrepancies,
     }
-    write_json_atomic(VERIFY_PATH, verification)
+    if persist:
+        write_json_atomic(VERIFY_PATH, verification)
     if discrepancies:
         raise RuntimeError("Live Jira verification failed: " + "; ".join(discrepancies[:30]))
     return verification, issues
@@ -2301,7 +2304,13 @@ def rebuild_manifest() -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Idempotently import the canonical BAS Jira pack into live BAT Jira Cloud.")
-    parser.add_argument("--execute", action="store_true", help="Perform the authorized production writes.")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--execute", action="store_true", help="Perform the authorized production writes.")
+    mode.add_argument(
+        "--verify-live",
+        action="store_true",
+        help="Verify the complete live board read-only and write no repository files.",
+    )
     args = parser.parse_args()
     auxiliary = load_auxiliary_issues()
     rows, payloads, links, link_payloads = load_inputs()
@@ -2321,7 +2330,7 @@ def main() -> int:
         f"links={preflight['links']} auxiliary={len(auxiliary)}",
         flush=True,
     )
-    if not args.execute:
+    if not args.execute and not args.verify_live:
         print(json.dumps(preflight, indent=2, sort_keys=True))
         return 0
 
@@ -2333,6 +2342,30 @@ def main() -> int:
     project = client.get(f"/rest/api/3/project/{PROJECT_KEY}?expand=issueTypes")
     if str(project.get("id")) != PROJECT_ID or project.get("key") != PROJECT_KEY:
         raise RuntimeError(f"Destination identity mismatch: {project}")
+
+    if args.verify_live:
+        ledger = load_json(LEDGER_PATH, {})
+        fields = ledger.get("custom_fields", {})
+        components = ledger.get("components", {})
+        key_map = ledger.get("issues", {})
+        if not fields or not components or len(key_map) != len(rows):
+            raise RuntimeError(
+                "Read-only verification requires a complete verified live-import ledger; "
+                "run --execute only when canonical Jira state genuinely requires synchronization."
+            )
+        verification, _ = verify_live(
+            client,
+            rows,
+            payloads,
+            link_payloads,
+            fields,
+            components,
+            key_map,
+            operational_status_policies,
+            persist=False,
+        )
+        print(json.dumps(verification, indent=2, sort_keys=True))
+        return 0
 
     ledger = load_json(
         LEDGER_PATH,
@@ -2421,13 +2454,14 @@ if __name__ == "__main__":
     try:
         raise SystemExit(main())
     except Exception as exc:
-        try:
-            ledger = load_json(LEDGER_PATH, {})
-            ledger["status"] = "FAILED_RESUMABLE"
-            ledger["last_error"] = str(exc)
-            ledger["updated_at"] = utc_now()
-            write_json_atomic(LEDGER_PATH, ledger)
-        except Exception:
-            pass
+        if "--verify-live" not in sys.argv:
+            try:
+                ledger = load_json(LEDGER_PATH, {})
+                ledger["status"] = "FAILED_RESUMABLE"
+                ledger["last_error"] = str(exc)
+                ledger["updated_at"] = utc_now()
+                write_json_atomic(LEDGER_PATH, ledger)
+            except Exception:
+                pass
         print(f"ERROR: {exc}", file=sys.stderr, flush=True)
         raise

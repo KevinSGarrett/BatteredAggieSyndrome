@@ -123,7 +123,7 @@
       ],
       "version": "2.0.0",
       "canonical_topic": "human-policy:06_task_execution_and_meaningful_progress",
-      "sha256": "21c98f713496707050c68e8712f8b0511c1d6dd9e26ceadebad952a294d93434"
+      "sha256": "85b691440e079dbfad9f43e85e631dc970e3da2701c4bbd14665d87a98309027"
     },
     {
       "path": "instructions/07_JIRA_OPERATING_CONTRACT.md",
@@ -527,7 +527,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "autonomous-entrypoint",
-      "sha256": "2bc68c6b4dc6216888de093cdb47df21c5f8e14dd3c8da7f5e2a76c18af86c08"
+      "sha256": "64c278adc89cbf5c6efbc37e267800bf573e340c872954a8ae75556a0af7cd7e"
     },
     {
       "path": "instructions/audit/EXTERNAL_INTEGRATION_AUDIT.md",
@@ -867,6 +867,24 @@
       "version": "3.0.0",
       "canonical_topic": "machine-policy:definition_of_done",
       "sha256": "5120788b725e6d0823b8b95e9b3449f1ef0c3c8d2e5f2a227484323b3768c0c8"
+    },
+    {
+      "path": "instructions/policies/execution_focus_policy.json",
+      "purpose": "Machine-readable material-milestone, process-only integration, Jira verification, and anti-churn contract.",
+      "authority": "CANONICAL_MACHINE_POLICY",
+      "read_tier": "MACHINE_OR_TASK_APPLICABLE",
+      "when_to_read": "Loaded at task selection, commit classification, PR readiness, repository validation, and progress reporting.",
+      "agent_roles": [
+        "autonomous agent",
+        "validation tool",
+        "integration agent"
+      ],
+      "dependencies": [
+        "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
+      ],
+      "version": "1.0.0",
+      "canonical_topic": "machine-policy:execution_focus",
+      "sha256": "9c7eef246f29d7a856205215cf71de055c4af0600af7af064a1bdc02ffbb225e"
     },
     {
       "path": "instructions/policies/git_policy.json",

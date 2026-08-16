@@ -37566,6 +37566,7 @@ Definition of Done
 Required Tests / Validation
 - NEW_AUTOMATED_TEST_REQUIRED / SOURCE_SCHEMA_AND_NEGATIVE_PATHS: tests/test_ncaa_official_gamebooks.py — Deterministic parser fixtures cover every NCAA contest tab, missing tabs, schema drift, malformed HTML, anti-bot/interstitial payload rejection, and no-fabrication behavior.
 - END_TO_END / REAL_DATA_REPRODUCIBILITY: artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json — A bounded real official-contest sample is fetched, hashed, parsed, reconciled, domain-gated, rebuilt byte-identically, and rejected under unsafe identity/PIT/provenance mutations.
+- END_TO_END / OFFICIAL_OUTCOME_CROSS_SOURCE_RECONCILIATION: tests/test_ncaa_official_outcome_crosscheck.py — Every exact 2022-2023 mapping is partitioned into official-score agreement, preserved conflict, or explicit missing/invalid linescore; normalized payload hashes and identities are verified; the artifact rebuilds byte-identically and fails closed under authority, rollup, and mapping-method mutations.
 
 Required Evidence
 - Pinned upstream parser/repository identity and exact source-route capability probes.

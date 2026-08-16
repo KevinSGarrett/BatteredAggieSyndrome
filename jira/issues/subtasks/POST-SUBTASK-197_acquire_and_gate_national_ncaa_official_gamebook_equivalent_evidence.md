@@ -28,13 +28,16 @@
     "No model may invent records, publication times, identities, statistics, completeness, or canonical acceptance.",
     "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.",
     "The complete exact-reconciled 2022 candidate population covers 761 contests and 4,566 endpoint identities; 4,394 are captured, 172 remain technical failures, and 296,574 parsed rows remain candidate-only under coverage identity 07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f.",
-    "The complete exact-reconciled 2023 decision population covers 775 contests and all 4,650 endpoint identities; 1,795 official captures produced 155,038 normalized candidate rows across eight independently gated domains, 2,855 endpoint failures remain explicit after ScraperAPI allowance exhaustion, Scrapfly HTTP 429, and direct NCAA HTTP 403, and no canonical, PIT, training, protected, production, or completeness authority was granted."
+    "The complete exact-reconciled 2023 decision population covers 775 contests and all 4,650 endpoint identities; 1,795 official captures produced 155,038 normalized candidate rows across eight independently gated domains, 2,855 endpoint failures remain explicit after ScraperAPI allowance exhaustion, Scrapfly HTTP 429, and direct NCAA HTTP 403, and no canonical, PIT, training, protected, production, or completeness authority was granted.",
+    "The deterministic 2022-2023 official outcome cross-check compared 1,044 validated NCAA linescores against 1,536 exact mappings: 1,043 agree, 492 mappings lack validated linescores, and NCAA contest 2276794 is quarantined because the bound canonical record reverses the Florida State 24-LSU 23 score orientation."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",
     "configs/historical_game_outcome_spine_expansion_contract.json",
     "configs/ncaa_contest_outcome_reference_adapter_contract.json",
     "configs/ncaa_contest_reconciliation_expansion_policy.json",
+    "configs/ncaa_official_outcome_crosscheck_contract.json",
+    "configs/ncaa_official_outcome_crosscheck_retraining_request.json",
     "configs/feature_source_research_program.json",
     "artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json",
     "artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json",
@@ -44,17 +47,21 @@
     "src/aggie_analytics/data/historical_game_outcome_spine_expansion_support.py",
     "src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py",
     "src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py",
+    "src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py",
     "tools/acquire_ncaa_official_gamebooks.py",
     "tools/build_historical_game_outcome_spine_expansion.py",
     "tools/build_ncaa_contest_outcome_reference_adapter.py",
     "tools/build_ncaa_contest_reconciliation_expansion.py",
+    "tools/build_ncaa_official_outcome_crosscheck.py",
     "tools/validate_historical_game_outcome_spine_expansion.py",
     "tools/validate_ncaa_contest_outcome_reference_adapter.py",
     "tools/validate_ncaa_contest_reconciliation.py",
+    "tools/validate_ncaa_official_outcome_crosscheck.py",
     "tools/validate_ncaa_official_gamebooks.py",
     "tests/test_historical_game_outcome_spine_expansion.py",
     "tests/test_ncaa_contest_outcome_reference_adapter.py",
     "tests/test_ncaa_contest_reconciliation_expansion.py",
+    "tests/test_ncaa_official_outcome_crosscheck.py",
     "tests/test_ncaa_official_gamebooks.py"
   ],
   "blocked_reason": "",
@@ -115,6 +122,8 @@
     "configs/historical_game_outcome_spine_expansion_contract.json",
     "configs/ncaa_contest_outcome_reference_adapter_contract.json",
     "configs/ncaa_contest_reconciliation_expansion_policy.json",
+    "configs/ncaa_official_outcome_crosscheck_contract.json",
+    "configs/ncaa_official_outcome_crosscheck_retraining_request.json",
     "configs/feature_source_research_program.json",
     "artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json",
     "artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json",
@@ -123,17 +132,21 @@
     "src/aggie_analytics/data/historical_game_outcome_spine_expansion.py",
     "src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py",
     "src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py",
+    "src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py",
     "tools/acquire_ncaa_official_gamebooks.py",
     "tools/build_historical_game_outcome_spine_expansion.py",
     "tools/build_ncaa_contest_outcome_reference_adapter.py",
     "tools/build_ncaa_contest_reconciliation_expansion.py",
+    "tools/build_ncaa_official_outcome_crosscheck.py",
     "tools/validate_ncaa_official_gamebooks.py",
     "tools/validate_historical_game_outcome_spine_expansion.py",
     "tools/validate_ncaa_contest_outcome_reference_adapter.py",
     "tools/validate_ncaa_contest_reconciliation.py",
+    "tools/validate_ncaa_official_outcome_crosscheck.py",
     "tests/test_historical_game_outcome_spine_expansion.py",
     "tests/test_ncaa_contest_outcome_reference_adapter.py",
     "tests/test_ncaa_contest_reconciliation_expansion.py",
+    "tests/test_ncaa_official_outcome_crosscheck.py",
     "tests/test_ncaa_official_gamebooks.py"
   ],
   "files_expected_to_be_read": [
@@ -215,8 +228,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24947",
-    "jira_updated_at": "2026-08-15T11:02:44.756-0500",
-    "last_synced_at": "2026-08-15T16:04:52.600268+00:00",
+    "jira_updated_at": "2026-08-15T18:13:44.524-0500",
+    "last_synced_at": "2026-08-16T01:45:05.122909+00:00",
     "resolution": "",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
@@ -279,6 +292,12 @@
       "expectation": "A bounded real official-contest sample is fetched, hashed, parsed, reconciled, domain-gated, rebuilt byte-identically, and rejected under unsafe identity/PIT/provenance mutations.",
       "path": "artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json",
       "validation_class": "REAL_DATA_REPRODUCIBILITY"
+    },
+    {
+      "classification": "END_TO_END",
+      "expectation": "Every exact 2022-2023 mapping is partitioned into official-score agreement, preserved conflict, or explicit missing/invalid linescore; normalized payload hashes and identities are verified; the artifact rebuilds byte-identically and fails closed under authority, rollup, and mapping-method mutations.",
+      "path": "tests/test_ncaa_official_outcome_crosscheck.py",
+      "validation_class": "OFFICIAL_OUTCOME_CROSS_SOURCE_RECONCILIATION"
     }
   ],
   "requirement_ids": [
@@ -343,6 +362,7 @@
   "traceability_resolution": "DIRECT_PLUS_INHERITED_DOMAIN_GATE",
   "unblock_condition": "Source-route capability and contest identity discovery are executable now; partial route/domain failures do not globally block independent valid acquisition.",
   "validation_classes": [
+    "OFFICIAL_OUTCOME_CROSS_SOURCE_RECONCILIATION",
     "REAL_DATA_REPRODUCIBILITY",
     "SOURCE_SCHEMA_AND_NEGATIVE_PATHS"
   ],
@@ -452,6 +472,8 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 - configs/historical_game_outcome_spine_expansion_contract.json
 - configs/ncaa_contest_outcome_reference_adapter_contract.json
 - configs/ncaa_contest_reconciliation_expansion_policy.json
+- configs/ncaa_official_outcome_crosscheck_contract.json
+- configs/ncaa_official_outcome_crosscheck_retraining_request.json
 - configs/feature_source_research_program.json
 - artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json
 - artifacts/data_lake/ncaa_official_outcome_spine_reconciliation_checkpoint.json
@@ -460,17 +482,21 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 - src/aggie_analytics/data/historical_game_outcome_spine_expansion.py
 - src/aggie_analytics/data/ncaa_contest_outcome_reference_adapter.py
 - src/aggie_analytics/data/ncaa_contest_reconciliation_expansion.py
+- src/aggie_analytics/data/ncaa_official_outcome_crosscheck.py
 - tools/acquire_ncaa_official_gamebooks.py
 - tools/build_historical_game_outcome_spine_expansion.py
 - tools/build_ncaa_contest_outcome_reference_adapter.py
 - tools/build_ncaa_contest_reconciliation_expansion.py
+- tools/build_ncaa_official_outcome_crosscheck.py
 - tools/validate_ncaa_official_gamebooks.py
 - tools/validate_historical_game_outcome_spine_expansion.py
 - tools/validate_ncaa_contest_outcome_reference_adapter.py
 - tools/validate_ncaa_contest_reconciliation.py
+- tools/validate_ncaa_official_outcome_crosscheck.py
 - tests/test_historical_game_outcome_spine_expansion.py
 - tests/test_ncaa_contest_outcome_reference_adapter.py
 - tests/test_ncaa_contest_reconciliation_expansion.py
+- tests/test_ncaa_official_outcome_crosscheck.py
 - tests/test_ncaa_official_gamebooks.py
 
 ## Direct Requirements
@@ -514,6 +540,7 @@ Discover, acquire, normalize, reconcile, validate, and independently domain-gate
 
 - **NEW_AUTOMATED_TEST_REQUIRED** / `SOURCE_SCHEMA_AND_NEGATIVE_PATHS` — `tests/test_ncaa_official_gamebooks.py` — Deterministic parser fixtures cover every NCAA contest tab, missing tabs, schema drift, malformed HTML, anti-bot/interstitial payload rejection, and no-fabrication behavior.
 - **END_TO_END** / `REAL_DATA_REPRODUCIBILITY` — `artifacts/data_lake/ncaa_official_gamebook_acquisition_gate.json` — A bounded real official-contest sample is fetched, hashed, parsed, reconciled, domain-gated, rebuilt byte-identically, and rejected under unsafe identity/PIT/provenance mutations.
+- **END_TO_END** / `OFFICIAL_OUTCOME_CROSS_SOURCE_RECONCILIATION` — `tests/test_ncaa_official_outcome_crosscheck.py` — Every exact 2022-2023 mapping is partitioned into official-score agreement, preserved conflict, or explicit missing/invalid linescore; normalized payload hashes and identities are verified; the artifact rebuilds byte-identically and fails closed under authority, rollup, and mapping-method mutations.
 
 ## Required Evidence
 
@@ -591,3 +618,4 @@ Rebuild discovery from pinned source routes; refetch a bounded deterministic sam
 - Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.
 - The complete exact-reconciled 2022 candidate population covers 761 contests and 4,566 endpoint identities; 4,394 are captured, 172 remain technical failures, and 296,574 parsed rows remain candidate-only under coverage identity 07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f.
 - The complete exact-reconciled 2023 decision population covers 775 contests and all 4,650 endpoint identities; 1,795 official captures produced 155,038 normalized candidate rows across eight independently gated domains, 2,855 endpoint failures remain explicit after ScraperAPI allowance exhaustion, Scrapfly HTTP 429, and direct NCAA HTTP 403, and no canonical, PIT, training, protected, production, or completeness authority was granted.
+- The deterministic 2022-2023 official outcome cross-check compared 1,044 validated NCAA linescores against 1,536 exact mappings: 1,043 agree, 492 mappings lack validated linescores, and NCAA contest 2276794 is quarantined because the bound canonical record reverses the Florida State 24-LSU 23 score orientation.

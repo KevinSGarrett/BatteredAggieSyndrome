@@ -72,6 +72,16 @@ def main() -> int:
         and row["official_away_points"] == row["canonical_away_points"]
         for row in comparisons if row["status"] == "AGREEMENT"
     ))
+    check("team_identity_resolution", all(
+        row.get("team_identity_resolution_method") == "EXACT_CONTEXT_RECONCILED_SOURCE_TEAM_LABEL"
+        and row.get("source_side_alignment") in {"DIRECT", "REVERSED_SOURCE_ORIENTATION"}
+        for row in comparisons if row["status"] in {"AGREEMENT", "CONFLICT_FINAL_SCORE"}
+    ))
+    check("source_orientation_preserved", all(
+        row.get("source_reported_home_points") is not None
+        and row.get("source_reported_away_points") is not None
+        for row in comparisons if row["status"] in {"AGREEMENT", "CONFLICT_FINAL_SCORE"}
+    ))
     check("conflict_semantics", all(
         (row["official_home_points"], row["official_away_points"])
         != (row["canonical_home_points"], row["canonical_away_points"])
@@ -79,7 +89,9 @@ def main() -> int:
     ))
     check("missing_semantics", all(
         row["official_home_points"] is None and row["official_away_points"] is None
-        for row in comparisons if row["status"] in {"MISSING_OFFICIAL_LINESCORE", "INVALID_OFFICIAL_LINESCORE"}
+        for row in comparisons if row["status"] in {
+            "MISSING_OFFICIAL_LINESCORE", "INVALID_OFFICIAL_LINESCORE", "INVALID_OFFICIAL_TEAM_IDENTITY"
+        }
     ))
     check("no_name_only_promotion", all(row["name_only_promotion"] is False for row in comparisons))
     for field in ("historical_pit_eligible", "training_eligible", "protected_evaluation_eligible", "production_eligible"):

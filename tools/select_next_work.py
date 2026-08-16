@@ -1,6 +1,6 @@
-from __future__ import annotations
+"""Select resumable and dependency-ready Jira work from canonical records."""
 
-"""Select dependency-ready Jira work deterministically from canonical records."""
+from __future__ import annotations
 
 import argparse
 import json
@@ -34,14 +34,15 @@ def select(repo_root: Path) -> list[dict[str, Any]]:
     for record in records.values():
         if record.get("execution_mode") != "ATOMIC_EXECUTION":
             continue
-        if record.get("workflow_state") != "READY" or record.get("ready") is not True:
-            continue
         dependencies = [str(value) for value in record.get("dependencies", [])]
         if any(records.get(dep, {}).get("workflow_state") != "DONE" for dep in dependencies):
             continue
         operational = record.get("operational_jira", {}) or {}
         status = operational.get("status_raw", "")
-        if status not in {"", "To Do"}:
+        workflow_state = str(record.get("workflow_state", ""))
+        resumable = workflow_state == "IN_PROGRESS" and status == "In Progress"
+        ready = workflow_state == "READY" and record.get("ready") is True and status in {"", "To Do"}
+        if not (resumable or ready):
             continue
         selected.append({
             "local_id": record.get("local_id"),
@@ -53,8 +54,16 @@ def select(repo_root: Path) -> list[dict[str, Any]]:
             "dependencies": dependencies,
             "record_path": record.get("_record_path"),
             "work_packet_path": record.get("work_packet_path", ""),
+            "selection_class": "RESUME_IN_PROGRESS" if resumable else "READY_NEW_WORK",
         })
-    selected.sort(key=lambda item: (PRIORITY.get(str(item["priority"]), 8), not item["critical_path"], str(item["local_id"])))
+    selected.sort(
+        key=lambda item: (
+            item["selection_class"] != "RESUME_IN_PROGRESS",
+            PRIORITY.get(str(item["priority"]), 8),
+            not item["critical_path"],
+            str(item["local_id"]),
+        )
+    )
     return selected
 
 
@@ -68,11 +77,14 @@ def main() -> int:
     if args.format == "json":
         print(json.dumps({"count": len(items), "items": items}, indent=2, sort_keys=True))
     else:
-        print("# Dependency-ready Jira work\n")
+        print("# Resumable and dependency-ready Jira work\n")
         if not items:
             print("No dependency-ready atomic work is currently available.")
         for index, item in enumerate(items, 1):
-            print(f"{index}. **{item['jira_key']} / {item['local_id']}** — {item['priority']} — {item['objective']}")
+            print(
+                f"{index}. **{item['jira_key']} / {item['local_id']}** — "
+                f"{item['selection_class']} — {item['priority']} — {item['objective']}"
+            )
             print(f"   - Record: `{item['record_path']}`")
             print(f"   - Work packet: `{item['work_packet_path']}`")
     return 0

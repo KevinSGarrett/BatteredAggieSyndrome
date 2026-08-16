@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import hashlib
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -52,9 +53,46 @@ class AutonomousControlToolTests(unittest.TestCase):
 
     def test_selector_returns_only_dependency_ready_atomic_work(self):
         items = select(ROOT)
+        self.assertEqual(items[0]["jira_key"], "BAT-554")
+        self.assertEqual(items[0]["selection_class"], "RESUME_IN_PROGRESS")
         for item in items:
             self.assertTrue(item["local_id"].startswith("POST-SUBTASK-"))
             self.assertIn(item["priority"], {"P0", "P1", "P2", "P3"})
+
+    def test_selector_resumes_valid_in_progress_before_new_ready_work(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            records = root / "jira/records/issues/subtasks"
+            records.mkdir(parents=True)
+            fixtures = [
+                {
+                    "local_id": "POST-SUBTASK-001",
+                    "jira_key": "BAT-1",
+                    "execution_mode": "ATOMIC_EXECUTION",
+                    "workflow_state": "IN_PROGRESS",
+                    "ready": False,
+                    "priority": "P0",
+                    "critical_path": True,
+                    "dependencies": [],
+                    "operational_jira": {"status_raw": "In Progress"},
+                },
+                {
+                    "local_id": "POST-SUBTASK-002",
+                    "jira_key": "BAT-2",
+                    "execution_mode": "ATOMIC_EXECUTION",
+                    "workflow_state": "READY",
+                    "ready": True,
+                    "priority": "P0",
+                    "critical_path": True,
+                    "dependencies": [],
+                    "operational_jira": {"status_raw": "To Do"},
+                },
+            ]
+            for index, fixture in enumerate(fixtures):
+                (records / f"fixture-{index}.json").write_text(json.dumps(fixture), encoding="utf-8")
+            items = select(root)
+            self.assertEqual([item["jira_key"] for item in items], ["BAT-1", "BAT-2"])
+            self.assertEqual(items[0]["selection_class"], "RESUME_IN_PROGRESS")
 
 
 if __name__ == "__main__":

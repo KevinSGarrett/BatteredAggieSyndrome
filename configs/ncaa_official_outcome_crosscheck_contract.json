@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.0.0",
-  "contract_id": "BAT-554-NCAA-OFFICIAL-OUTCOME-CROSSCHECK-2022-2023-V1",
+  "schema_version": "1.1.0",
+  "contract_id": "BAT-554-NCAA-OFFICIAL-OUTCOME-CROSSCHECK-2022-2023-V2",
   "decision_unit": "POST-SUBTASK-197",
   "jira_key": "BAT-554",
   "classification": "CANDIDATE_ONLY_OFFICIAL_POSTGAME_OUTCOME_CROSSCHECK",
@@ -26,7 +26,11 @@
     "required_mapping_method": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT",
     "name_only_promotion_allowed": false,
     "contest_id_inference_allowed": false,
-    "team_identity_inference_allowed": false
+    "team_identity_inference_allowed": false,
+    "score_comparison_grain": "canonical_team_identity",
+    "team_label_binding_source": "reconciliation_identity_core.team_mapping_records",
+    "required_team_mapping_method": "CONSISTENT_ACCEPTED_TWO_SIDED_CONTEST_CONTEXT",
+    "source_home_away_orientation_is_authoritative": false
   },
   "score_rules": {
     "endpoint_id": "box_score",

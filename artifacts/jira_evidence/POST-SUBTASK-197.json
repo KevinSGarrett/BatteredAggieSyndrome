@@ -2669,36 +2669,36 @@
     "authority": "CANDIDATE_ONLY_PARTIAL_OFFICIAL_DOMAIN_COVERAGE_NO_CANONICAL_PIT_TRAINING_PROTECTED_PRODUCTION_OR_HISTORICAL_COMPLETENESS_PROMOTION"
   },
   "official_outcome_crosscheck_2022_2023_checkpoint": {
-    "recorded_at_utc": "2026-08-16T03:00:00Z",
-    "dataset_identity": "ac45b2fca510d92f9f1d651296c19250442da8573be1ee5056bd1fc66bac34a3",
-    "manifest_sha256": "0f5da632beb8152b8b55e5d1760cd88fd2c82d860b3d8467233f381799e142e3",
+    "recorded_at_utc": "2026-08-16T02:24:42Z",
+    "dataset_identity": "783f24eb89e0adbb5397cf0c799e4785af8adc31c0f7dfad556cae074ba82b2a",
+    "manifest_sha256": "442458aefd3d3eec8aef0d887e4e4978af44c62bda35096f5ddd8455abe789e7",
     "mapping_rows": 1536,
     "valid_official_comparisons": 1044,
-    "agreements": 1043,
-    "conflicts": 1,
+    "agreements": 1044,
+    "conflicts": 0,
     "missing_official_linescores": 492,
     "by_season": {
-      "2022": {"mapping_rows": 761, "agreements": 730, "conflicts": 1, "missing": 30},
+      "2022": {"mapping_rows": 761, "agreements": 731, "conflicts": 0, "missing": 30},
       "2023": {"mapping_rows": 775, "agreements": 313, "conflicts": 0, "missing": 462}
     },
-    "preserved_conflict": {
+    "corrected_orientation_finding": {
       "ncaa_contest_id": "2276794",
       "canonical_game_id": "game_ec817315eece552e8b5d2bede5aaeb60",
-      "official_result": "Florida State 24, LSU 23",
-      "bound_canonical_orientation": "LSU 24, Florida State 23",
-      "disposition": "QUARANTINED_CONSEQUENTIAL_SCORE_ORIENTATION_CONFLICT_PENDING_SOURCE_LINEAGE_CORRECTION_NO_SILENT_OVERWRITE"
+      "team_bound_result": "Florida State 24, LSU 23 in both NCAA and canonical evidence",
+      "source_orientation": "NCAA reports Florida State as away and LSU as home; canonical source reports Florida State as home and LSU as away for the neutral-site game",
+      "disposition": "CORRECTED_FALSE_POSITIONAL_CONFLICT_COMPARE_BY_EXACT_CONTEXT_RECONCILED_TEAM_IDENTITY"
     },
     "validation": {
-      "identity": "72409b8eea38a00f518c01841bb252752a9dc9e9cd46b47b3191f46ce848519f",
-      "report_sha256": "62dfe97a69012e754a4b0c22efd6751b0a2e71b40f6734c05c4484e2307aa5df",
-      "checks": 43,
+      "identity": "3ba5cc9c89b360aa664d048ee5c143335e7db36ed55b81cd3d90ed77531991a0",
+      "report_sha256": "1e7496a332aa871f9bd65ddd5844d40b35a81c0ffc2a12e0863ca7f52dcaff44",
+      "checks": 45,
       "mutation_controls": 3,
       "failures": 0,
       "byte_identical_rebuild": "PASS"
     },
     "retraining_admission": {
-      "decision_identity": "619b05f53a62de8e9a99431a8f093c9fe867b660dc85472b31d33bd1370d2d30",
-      "decision_sha256": "7ebb0b5b383799188342926a0ea18e00245ebf9a73cd2fc2d2ba93654739888c",
+      "decision_identity": "6db19c3423fbc545cd8303381ed8117ab71314a33810c96eab957eefcb6f5b97",
+      "decision_sha256": "cb920996e59e4e1965b124163033947a422b0ac4e1b303278a4bdce5c50bc253",
       "action": "FOCUSED_INTEGRATION_REPLAY_ONLY",
       "eligible_seasons_added": 0,
       "eligible_games_added": 0,
@@ -2706,16 +2706,18 @@
       "protected_promotion_authority": false
     },
     "cleanup": {
-      "reconstructible_rebuild_root": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-554\\xo-ac45-rebuild",
+      "reconstructible_rebuild_root": "C:\\BatteredAggieSyndrome.data\\validation\\BAT-554\\xo-783f-rebuild-20260816T050000Z",
       "reconstructible_files": 6,
-      "reconstructible_bytes": 1690812,
+      "reconstructible_bytes": 1971629,
       "state": "PENDING_HOST_POLICY_ALLOWED_EXACT_PATH_CLEANUP",
-      "finding": "The rebuild is byte-identical and reconstructible. The host execution policy rejected the verified exact-path recursive cleanup operation, so no bypass or false deletion claim is made."
+      "finding": "The rebuild is byte-identical and reconstructible. The host execution policy rejected the verified exact-path recursive cleanup operation, so no bypass or false deletion claim is made.",
+      "rejected_intermediate_dataset_identity": "70f7b4ad2c2d68f001ff4dcbca77e48077f9329aac09a9cd7ee1b3af3970b8a1",
+      "rejected_intermediate_disposition": "RECONSTRUCTIBLE_NOT_ADOPTED_PENDING_HOST_POLICY_ALLOWED_EXACT_PATH_CLEANUP"
     },
     "authority": "OFFICIAL_POSTGAME_CROSSCHECK_CANDIDATE_ONLY_NO_CANONICAL_OUTCOME_MUTATION_NO_PIT_TRAINING_PROTECTED_PRODUCTION_OR_COMPLETENESS_PROMOTION"
   },
   "next_actions": [
-    "Trace and correct the quarantined Florida State-LSU 2022 score-orientation conflict through the canonical source lineage before any affected downstream population is admitted.",
+    "Preserve the corrected team-identity score comparison and apply the same source-orientation-safe rule to future official seasons.",
     "Investigate the preserved 2012 and 2013 unresolved populations by exact reason without weakening reciprocal evidence, alias, chronology, or score-context gates.",
     "Attach independently useful official domains to the reconciled 2010-2025 outcome spine while retaining separate season, endpoint, domain, grain, missingness, schema, provenance, and PIT eligibility.",
     "Preserve the complete exact-reconciled 2022 official contest candidate population and independently remediate its 172 endpoint failures without weakening domain gates.",

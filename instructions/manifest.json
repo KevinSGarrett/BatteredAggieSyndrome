@@ -123,7 +123,7 @@
       ],
       "version": "2.0.0",
       "canonical_topic": "human-policy:06_task_execution_and_meaningful_progress",
-      "sha256": "85b691440e079dbfad9f43e85e631dc970e3da2701c4bbd14665d87a98309027"
+      "sha256": "6f9219c9662042d7f32f9f1bb519caf93416f4c13e9730cbdec0351388713132"
     },
     {
       "path": "instructions/07_JIRA_OPERATING_CONTRACT.md",
@@ -495,7 +495,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "human-policy:changelog",
-      "sha256": "2d48f78da4dda6db4c7ccdbc71b4ab2cea79d73851cc151b7419b57f1d629edb"
+      "sha256": "fb1f6f339a2bf9081de68949d470c96c39465a13ceb89145220f8326517f486a"
     },
     {
       "path": "instructions/FILE_HASHES.sha256",
@@ -884,7 +884,7 @@
       ],
       "version": "1.0.0",
       "canonical_topic": "machine-policy:execution_focus",
-      "sha256": "9c7eef246f29d7a856205215cf71de055c4af0600af7af064a1bdc02ffbb225e"
+      "sha256": "f1a59f2151e64491627c05335f1b02415f1788329528950bb7a7008b55a4853f"
     },
     {
       "path": "instructions/policies/git_policy.json",

@@ -16,9 +16,9 @@ POLICY_PATH = ROOT / "instructions" / "policies" / "execution_focus_policy.json"
 INSTRUCTION_PATH = ROOT / "instructions" / "06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md"
 
 
-def _git_subjects(root: Path, revision_range: str) -> list[str]:
+def _git_commits(root: Path, revision_range: str) -> list[tuple[str, str]]:
     completed = subprocess.run(
-        ["git", "log", "--format=%s", revision_range],
+        ["git", "log", "--format=%H%x00%s", revision_range],
         cwd=root,
         check=False,
         capture_output=True,
@@ -27,7 +27,15 @@ def _git_subjects(root: Path, revision_range: str) -> list[str]:
     )
     if completed.returncode != 0:
         raise RuntimeError(completed.stderr.strip() or "git log failed")
-    return [line.strip() for line in completed.stdout.splitlines() if line.strip()]
+    commits: list[tuple[str, str]] = []
+    for line in completed.stdout.splitlines():
+        if not line.strip():
+            continue
+        commit_sha, separator, subject = line.partition("\x00")
+        if not separator:
+            raise RuntimeError("git log returned an invalid commit record")
+        commits.append((commit_sha, subject.strip()))
+    return commits
 
 
 def _git_is_shallow(root: Path) -> bool:
@@ -55,6 +63,34 @@ def _validate_policy(policy: dict[str, Any]) -> list[str]:
         findings.append("PROCESS_MARKER_INVALID")
     if classification.get("max_consecutive_process_only_commits") != 1:
         findings.append("PROCESS_ONLY_COMMIT_LIMIT_INVALID")
+    corrections = classification.get("historical_integration_corrections", [])
+    if not isinstance(corrections, list):
+        findings.append("COMMIT_CLASSIFICATION_CORRECTIONS_INVALID")
+        corrections = []
+    correction_shas: set[str] = set()
+    for correction in corrections:
+        if not isinstance(correction, dict):
+            findings.append("COMMIT_CLASSIFICATION_CORRECTION_INVALID")
+            continue
+        commit_sha = correction.get("commit_sha")
+        head_sha = correction.get("head_sha")
+        if not isinstance(commit_sha, str) or not re.fullmatch(r"[0-9a-f]{40}", commit_sha):
+            findings.append("COMMIT_CLASSIFICATION_CORRECTION_SHA_INVALID")
+        elif commit_sha in correction_shas:
+            findings.append(f"COMMIT_CLASSIFICATION_CORRECTION_DUPLICATE:{commit_sha}")
+        else:
+            correction_shas.add(commit_sha)
+        if not isinstance(head_sha, str) or not re.fullmatch(r"[0-9a-f]{40}", head_sha):
+            findings.append("COMMIT_CLASSIFICATION_CORRECTION_HEAD_SHA_INVALID")
+        if correction.get("classification") not in {
+            classification.get("material_marker"),
+            classification.get("process_marker"),
+        }:
+            findings.append("COMMIT_CLASSIFICATION_CORRECTION_MARKER_INVALID")
+        if not isinstance(correction.get("pull_request"), int) or correction["pull_request"] < 1:
+            findings.append("COMMIT_CLASSIFICATION_CORRECTION_PR_INVALID")
+        if not isinstance(correction.get("reason"), str) or not correction["reason"].strip():
+            findings.append("COMMIT_CLASSIFICATION_CORRECTION_REASON_MISSING")
 
     integration = policy.get("integration", {})
     required_false = (
@@ -101,7 +137,7 @@ def _validate_history(root: Path, policy: dict[str, Any]) -> list[str]:
     process = classification["process_marker"].casefold()
     shallow_mode = False
     try:
-        subjects = list(reversed(_git_subjects(root, f"{baseline}..HEAD")))
+        commits = list(reversed(_git_commits(root, f"{baseline}..HEAD")))
     except RuntimeError as exc:
         if not _git_is_shallow(root):
             return [f"EXECUTION_FOCUS_HISTORY_UNAVAILABLE:{exc}"]
@@ -110,13 +146,20 @@ def _validate_history(root: Path, policy: dict[str, Any]) -> list[str]:
         # protected by this validator, so validate the reachable commit there;
         # normal/full clones retain complete baseline-to-HEAD streak validation.
         try:
-            subjects = list(reversed(_git_subjects(root, "HEAD")))
+            commits = list(reversed(_git_commits(root, "HEAD")))
         except RuntimeError as shallow_exc:
             return [f"EXECUTION_FOCUS_SHALLOW_HISTORY_UNAVAILABLE:{shallow_exc}"]
 
     process_run = 0
     limit = int(classification["max_consecutive_process_only_commits"])
-    for subject in subjects:
+    corrections = {
+        row["commit_sha"]: row["classification"].casefold()
+        for row in classification.get("historical_integration_corrections", [])
+        if isinstance(row, dict)
+        and isinstance(row.get("commit_sha"), str)
+        and isinstance(row.get("classification"), str)
+    }
+    for commit_sha, subject in commits:
         if (shallow_mode or os.environ.get("GITHUB_EVENT_NAME") == "pull_request") and re.fullmatch(
             r"Merge [0-9a-f]{40} into [0-9a-f]{40}", subject
         ):
@@ -125,6 +168,9 @@ def _validate_history(root: Path, policy: dict[str, Any]) -> list[str]:
             # the synthetic test merge is not an integration authored by BAS.
             continue
         lowered = subject.casefold()
+        corrected = corrections.get(commit_sha)
+        if corrected is not None:
+            lowered = f"{lowered} {corrected}"
         has_material = material in lowered
         has_process = process in lowered
         if has_material == has_process:

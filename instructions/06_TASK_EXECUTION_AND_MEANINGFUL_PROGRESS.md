@@ -113,6 +113,10 @@ The machine policy is `policies/execution_focus_policy.json`; run
 
 - After the policy baseline, every integrated commit is classified exactly once in
   its subject as `[material]` or `[process]`.
+- If an immutable squash commit accidentally omits its reviewed head's marker,
+  repair it only through an exact commit-SHA, PR, head-SHA, classification, and
+  reason record in the machine policy. The exception applies to no other commit
+  and is not permission to rewrite history or accept future unclassified commits.
 - `[material]` means the change creates a downstream-consumable project result:
   working behavior, acquired/normalized/validated data, a feature, a model or
   forecast artifact, or a defect correction that enables one of those outcomes.

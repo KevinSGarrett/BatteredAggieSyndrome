@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "policy_id": "BAS-EXECUTION-FOCUS-V1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "canonical_human_document": "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md",
   "effective_from_commit": "18a9635b66074fe3a7a00dc621be8dfb46bb2ecc",
   "purpose": "Keep implementation centered on coherent, downstream-consumable BAS milestones and prevent synchronization, bookkeeping, housekeeping, or validation activity from becoming the primary output.",
@@ -10,6 +10,15 @@
     "material_marker": "[material]",
     "process_marker": "[process]",
     "max_consecutive_process_only_commits": 1,
+    "historical_integration_corrections": [
+      {
+        "commit_sha": "4a30bc1ae2a253315d273edff08f292ead3f9440",
+        "pull_request": 418,
+        "head_sha": "06fac19a602bab4eceb50b539f2e105ab99e4580",
+        "classification": "[material]",
+        "reason": "The reviewed PR head was classified as material, but the GitHub squash subject supplied during merge omitted the marker. This immutable exact-commit correction preserves history without weakening classification for any other commit."
+      }
+    ],
     "material_definition": "A coherent change that creates or improves working project behavior, acquired/normalized/validated data, a feature, model, forecast, defect correction, or another downstream-consumable artifact.",
     "process_definition": "Synchronization, evidence binding, bookkeeping, documentation-only governance, cleanup, or validation-only work that does not itself create a downstream-consumable project result."
   },

@@ -1,5 +1,12 @@
 # Instruction Pack Changelog
 
+## 3.2.1 — 2026-08-16
+
+Added an exact-SHA historical classification-correction record for PR #418's
+immutable squash commit after its reviewed material head was merged with a
+subject that accidentally omitted `[material]`. Future unclassified commits
+remain fail-closed.
+
 ## 3.2.0 — 2026-08-16
 
 Aligned the human interlock with the existing machine-readable scoped user

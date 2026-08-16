@@ -1,30 +1,24 @@
 {
   "schema_version": 1,
   "artifact_type": "CODEX_USAGE_INTERLOCK_CHANGE_MANIFEST",
-  "manifest_identity": "80a9b3bf4a9c22fd991a37587e2b559a4313725ee33a5ba6fb67fddce4ca8d7d",
-  "work_unit_id": "BAT-554-2023-OFFICIAL-COMPLETE-EXACT-POPULATION",
+  "manifest_identity": "617533b57e293f6f8652197b5e046955bf11728ba3a6e535e04b5bff8fbef40d",
+  "work_unit_id": "BAT-554-PR418-INTEGRATION-CLASSIFICATION-REPAIR",
   "jira_identity": "BAT-554",
   "work_class": "PROJECT_WORK",
   "ordinary_project_work_authorized": false,
-  "base_commit": "d59e933059bfdeae8dc644171ba17316137dc37f",
-  "pre_routing_decision_sha256": "b4f486bc1c70f298f68df270dc252b1d3cb0a33a90debab8722695d9bbd3d87f",
+  "base_commit": "4a30bc1ae2a253315d273edff08f292ead3f9440",
+  "pre_routing_decision_sha256": "a13f1b9574645b898fbac22211d28108171546eac74be05925fad10c1fbd548b",
   "changed_paths": [
-    "artifacts/jira_evidence/POST-SUBTASK-197.json",
     "configs/codex_usage_interlock_change_manifest.json",
-    "configs/ncaa_official_gamebook_contract.json",
     "configs/unified_assistive_change_routing_binding.json",
-    "instructions/25_FORT_KNOX_ASSISTIVE_EXECUTION_INTERLOCK.md",
+    "instructions/06_TASK_EXECUTION_AND_MEANINGFUL_PROGRESS.md",
     "instructions/CHANGELOG.md",
     "instructions/FILE_HASHES.sha256",
     "instructions/manifest.json",
-    "jira/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.md",
-    "jira/records/issues/subtasks/POST-SUBTASK-197_acquire_and_gate_national_ncaa_official_gamebook_equivalent_evidence.json",
-    "jira/validation/JIRA_FILE_HASHES.sha256",
-    "jira/validation/JIRA_FILE_MANIFEST.csv",
-    "jira/validation/SECOND_PASS_AUDIT_RESULTS.json",
+    "instructions/policies/execution_focus_policy.json",
     "provenance/PROJECT_FILE_HASHES.sha256",
     "provenance/PROJECT_FILE_MANIFEST.csv",
-    "tests/test_ncaa_official_gamebooks.py",
-    "tools/acquire_ncaa_official_gamebooks.py"
+    "tests/test_execution_focus.py",
+    "tools/validate_execution_focus.py"
   ]
 }

@@ -27,6 +27,7 @@ def mapping() -> dict[str, object]:
         "canonical_away_points": 20,
         "mapping_method": "TWO_SIDED_EXACT_PARTICIPANTS_DATE_SCORE_CONTEXT",
         "name_only_promotion": False,
+        "source_team_season_ids": "source-home;source-away",
     }
 
 
@@ -46,6 +47,25 @@ def payload(home: int = 24, away: int = 20) -> dict[str, object]:
     }
 
 
+def team_mappings() -> dict[str, dict[str, object]]:
+    return {
+        "source-home": {
+            "source_team_season_id": "source-home",
+            "source_team_name": "Home",
+            "canonical_team_id": "home-1",
+            "mapping_method": "CONSISTENT_ACCEPTED_TWO_SIDED_CONTEST_CONTEXT",
+            "name_only_promotion": False,
+        },
+        "source-away": {
+            "source_team_season_id": "source-away",
+            "source_team_name": "Away",
+            "canonical_team_id": "away-1",
+            "mapping_method": "CONSISTENT_ACCEPTED_TWO_SIDED_CONTEST_CONTEXT",
+            "name_only_promotion": False,
+        },
+    }
+
+
 class NcaaOfficialOutcomeCrosscheckTests(unittest.TestCase):
     def test_contract_keeps_all_non_postgame_authority_closed(self) -> None:
         contract = json.loads((ROOT / "configs/ncaa_official_outcome_crosscheck_contract.json").read_text(encoding="utf-8"))
@@ -57,18 +77,43 @@ class NcaaOfficialOutcomeCrosscheckTests(unittest.TestCase):
             _validate_authority(changed)
 
     def test_comparison_partitions_agreement_conflict_and_missing(self) -> None:
-        agreed = compare_mapping(mapping(), payload())
+        agreed = compare_mapping(mapping(), payload(), team_mappings())
         self.assertEqual(agreed["status"], "AGREEMENT")
-        conflict = compare_mapping(mapping(), payload(home=23, away=24))
+        conflict = compare_mapping(mapping(), payload(home=23, away=24), team_mappings())
         self.assertEqual(conflict["status"], "CONFLICT_FINAL_SCORE")
-        missing = compare_mapping(mapping(), None)
+        missing = compare_mapping(mapping(), None, team_mappings())
         self.assertEqual(missing["status"], "MISSING_OFFICIAL_LINESCORE")
         self.assertIsNone(missing["official_home_points"])
+
+    def test_source_side_reversal_is_compared_by_exact_team_identity(self) -> None:
+        reversed_payload = payload(home=20, away=24)
+        reversed_payload["payload"]["records"][0]["team"] = "Home"
+        reversed_payload["payload"]["records"][1]["team"] = "Away"
+        result = compare_mapping(mapping(), reversed_payload, team_mappings())
+        self.assertEqual(result["status"], "AGREEMENT")
+        self.assertEqual(result["source_side_alignment"], "REVERSED_SOURCE_ORIENTATION")
+        self.assertEqual(result["official_home_points"], 24)
+        self.assertEqual(result["official_away_points"], 20)
+
+    def test_unbound_source_label_fails_closed(self) -> None:
+        bundle = payload()
+        bundle["payload"]["records"][0]["team"] = "Unknown"
+        result = compare_mapping(mapping(), bundle, team_mappings())
+        self.assertEqual(result["status"], "INVALID_OFFICIAL_TEAM_IDENTITY")
+        self.assertIsNone(result["official_home_points"])
+
+    def test_html_entity_difference_is_deterministically_normalized(self) -> None:
+        mappings = team_mappings()
+        mappings["source-home"]["source_team_name"] = "Texas A&amp;M"
+        bundle = payload()
+        bundle["payload"]["records"][1]["team"] = "Texas A&M"
+        result = compare_mapping(mapping(), bundle, mappings)
+        self.assertEqual(result["status"], "AGREEMENT")
 
     def test_invalid_period_sum_is_not_promoted(self) -> None:
         bundle = payload()
         bundle["payload"]["records"][0]["points"] = 19
-        result = compare_mapping(mapping(), bundle)
+        result = compare_mapping(mapping(), bundle, team_mappings())
         self.assertEqual(result["status"], "INVALID_OFFICIAL_LINESCORE")
         self.assertFalse(result["training_eligible"])
 

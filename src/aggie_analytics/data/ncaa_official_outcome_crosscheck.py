@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 import hashlib
+import html
 import json
 import os
 from pathlib import Path
@@ -51,6 +52,10 @@ def _write_immutable(path: Path, payload: bytes) -> None:
 
 def _jsonl_bytes(rows: Iterable[Mapping[str, Any]]) -> bytes:
     return b"".join(canonical_json_bytes(dict(row)) + b"\n" for row in rows)
+
+
+def _normalized_team_label(value: object) -> str:
+    return " ".join(html.unescape(str(value)).strip().casefold().split())
 
 
 def _validated_acquisition_manifests(
@@ -197,7 +202,11 @@ def _verified_linescore_payload(data_root: Path, request: Mapping[str, Any]) -> 
     return {"payload": payload, "evidence": evidence}
 
 
-def compare_mapping(mapping: Mapping[str, Any], payload_bundle: Mapping[str, Any] | None) -> dict[str, Any]:
+def compare_mapping(
+    mapping: Mapping[str, Any],
+    payload_bundle: Mapping[str, Any] | None,
+    team_mappings: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
     base = {
         "season": int(mapping["season"]),
         "season_type": str(mapping["season_type"]),
@@ -244,18 +253,75 @@ def compare_mapping(mapping: Mapping[str, Any], payload_bundle: Mapping[str, Any
         return {**base, "status": "INVALID_OFFICIAL_LINESCORE", "official_home_points": None, "official_away_points": None}
     away_points, away_label = parsed["away"]
     home_points, home_label = parsed["home"]
+    source_team_season_ids = {
+        value for value in str(mapping.get("source_team_season_ids", "")).split(";") if value
+    }
+    participant_mappings = [team_mappings[value] for value in sorted(source_team_season_ids) if value in team_mappings]
+    label_to_team_ids: dict[str, set[str]] = {}
+    valid_identity = len(source_team_season_ids) == 2 and len(participant_mappings) == 2
+    for participant in participant_mappings:
+        label = _normalized_team_label(participant.get("source_team_name"))
+        canonical_team_id = str(participant.get("canonical_team_id", ""))
+        if (
+            not label
+            or not canonical_team_id
+            or participant.get("name_only_promotion") is not False
+            or participant.get("mapping_method") != "CONSISTENT_ACCEPTED_TWO_SIDED_CONTEST_CONTEXT"
+        ):
+            valid_identity = False
+        label_to_team_ids.setdefault(label, set()).add(canonical_team_id)
+    resolved: dict[str, str] = {}
+    for side, label in (("away", away_label), ("home", home_label)):
+        candidates = label_to_team_ids.get(_normalized_team_label(label), set())
+        if len(candidates) != 1:
+            valid_identity = False
+        else:
+            resolved[side] = next(iter(candidates))
+    canonical_participants = {base["canonical_home_team_id"], base["canonical_away_team_id"]}
+    if not valid_identity or set(resolved.values()) != canonical_participants:
+        return {
+            **base,
+            "status": "INVALID_OFFICIAL_TEAM_IDENTITY",
+            "official_home_points": None,
+            "official_away_points": None,
+            "source_reported_home_points": home_points,
+            "source_reported_away_points": away_points,
+            "source_reported_home_team_label": home_label,
+            "source_reported_away_team_label": away_label,
+        }
+    points_by_team = {resolved["home"]: home_points, resolved["away"]: away_points}
+    official_home_points = points_by_team[base["canonical_home_team_id"]]
+    official_away_points = points_by_team[base["canonical_away_team_id"]]
+    side_alignment = (
+        "DIRECT"
+        if resolved["home"] == base["canonical_home_team_id"]
+        else "REVERSED_SOURCE_ORIENTATION"
+    )
     status = (
         "AGREEMENT"
-        if (home_points, away_points) == (base["canonical_home_points"], base["canonical_away_points"])
+        if (official_home_points, official_away_points)
+        == (base["canonical_home_points"], base["canonical_away_points"])
         else "CONFLICT_FINAL_SCORE"
     )
     return {
         **base,
         "status": status,
-        "official_home_points": home_points,
-        "official_away_points": away_points,
-        "official_home_team_label": home_label,
-        "official_away_team_label": away_label,
+        "official_home_points": official_home_points,
+        "official_away_points": official_away_points,
+        "official_home_team_label": next(
+            label for side, label in (("home", home_label), ("away", away_label))
+            if resolved[side] == base["canonical_home_team_id"]
+        ),
+        "official_away_team_label": next(
+            label for side, label in (("home", home_label), ("away", away_label))
+            if resolved[side] == base["canonical_away_team_id"]
+        ),
+        "source_reported_home_points": home_points,
+        "source_reported_away_points": away_points,
+        "source_reported_home_team_label": home_label,
+        "source_reported_away_team_label": away_label,
+        "source_side_alignment": side_alignment,
+        "team_identity_resolution_method": "EXACT_CONTEXT_RECONCILED_SOURCE_TEAM_LABEL",
         "normalization_identity": payload["normalization_identity"],
         "normalized_payload_sha256": payload_bundle["evidence"]["payload_sha256"],
         "source_raw_sha256": payload["source_raw_sha256"],
@@ -289,6 +355,7 @@ def build_crosscheck(
         reconciliation = json.loads(reconciliation_path.read_text(encoding="utf-8"))
         core = reconciliation.get("identity_core", {})
         mappings = core.get("mapping_records", [])
+        team_mapping_records = core.get("team_mapping_records", [])
         if (
             reconciliation.get("dataset_identity") != identity
             or stable_hash(core) != identity
@@ -296,6 +363,11 @@ def build_crosscheck(
             or len(mappings) != int(season_config["expected_mapping_count"])
         ):
             raise ValueError(f"season {season} reconciliation identity or population drift")
+        team_mappings = {
+            str(row["source_team_season_id"]): row for row in team_mapping_records
+        }
+        if len(team_mappings) != len(team_mapping_records):
+            raise ValueError(f"season {season} duplicate team-season mapping identity")
         if any(
             mapping.get("mapping_method") != required_method
             or mapping.get("name_only_promotion") is not False
@@ -322,7 +394,13 @@ def build_crosscheck(
             raise ValueError(f"season {season} linescore population drift")
         for mapping in sorted(mappings, key=lambda row: str(row["ncaa_contest_id"])):
             request = linescore_requests.get(str(mapping["ncaa_contest_id"]))
-            rows.append(compare_mapping(mapping, _verified_linescore_payload(data_root, request) if request else None))
+            rows.append(
+                compare_mapping(
+                    mapping,
+                    _verified_linescore_payload(data_root, request) if request else None,
+                    team_mappings,
+                )
+            )
         sources.append(
             {
                 "season": season,
@@ -332,6 +410,8 @@ def build_crosscheck(
                 "validated_acquisition_evidence_identity": stable_hash(evidence),
                 "validated_acquisition_manifest_count": len(evidence),
                 "mapping_count": len(mappings),
+                "team_mapping_count": len(team_mapping_records),
+                "team_mapping_record_sha256": stable_hash(team_mapping_records),
                 "linescore_contest_count": len(linescore_requests),
             }
         )

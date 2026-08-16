@@ -29,7 +29,7 @@
     "Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.",
     "The complete exact-reconciled 2022 candidate population covers 761 contests and 4,566 endpoint identities; 4,394 are captured, 172 remain technical failures, and 296,574 parsed rows remain candidate-only under coverage identity 07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f.",
     "The complete exact-reconciled 2023 decision population covers 775 contests and all 4,650 endpoint identities; 1,795 official captures produced 155,038 normalized candidate rows across eight independently gated domains, 2,855 endpoint failures remain explicit after ScraperAPI allowance exhaustion, Scrapfly HTTP 429, and direct NCAA HTTP 403, and no canonical, PIT, training, protected, production, or completeness authority was granted.",
-    "The deterministic 2022-2023 official outcome cross-check compared 1,044 validated NCAA linescores against 1,536 exact mappings: 1,043 agree, 492 mappings lack validated linescores, and NCAA contest 2276794 is quarantined because the bound canonical record reverses the Florida State 24-LSU 23 score orientation."
+    "The corrected deterministic 2022-2023 official outcome cross-check compares 1,044 validated NCAA linescores against 1,536 exact mappings by context-reconciled team identity: all 1,044 available finals agree and 492 mappings lack validated linescores. NCAA contest 2276794 preserves opposite neutral-site side labels while both sources agree on Florida State 24, LSU 23."
   ],
   "allowed_modification_paths": [
     "configs/ncaa_official_gamebook_contract.json",
@@ -228,8 +228,8 @@
   "operational_jira": {
     "assignee": "",
     "jira_issue_id": "24947",
-    "jira_updated_at": "2026-08-15T18:13:44.524-0500",
-    "last_synced_at": "2026-08-16T01:45:05.122909+00:00",
+    "jira_updated_at": "2026-08-15T21:13:52.330-0500",
+    "last_synced_at": "2026-08-16T02:14:17.379486+00:00",
     "resolution": "",
     "source_export": "jira/reconciliation/BAT_JIRA_EXPORT.csv",
     "sprint": "",
@@ -618,4 +618,4 @@ Rebuild discovery from pinned source routes; refetch a bounded deterministic sam
 - Current empirical detail is preserved in artifacts/jira_evidence/POST-SUBTASK-197.json; the canonical Jira Evidence State remains the live-compatible PARTIAL option until the full population and acceptance contract pass.
 - The complete exact-reconciled 2022 candidate population covers 761 contests and 4,566 endpoint identities; 4,394 are captured, 172 remain technical failures, and 296,574 parsed rows remain candidate-only under coverage identity 07ea093f0134de6551b6c6c00b395e86aa3404a3cf292af8809986616802683f.
 - The complete exact-reconciled 2023 decision population covers 775 contests and all 4,650 endpoint identities; 1,795 official captures produced 155,038 normalized candidate rows across eight independently gated domains, 2,855 endpoint failures remain explicit after ScraperAPI allowance exhaustion, Scrapfly HTTP 429, and direct NCAA HTTP 403, and no canonical, PIT, training, protected, production, or completeness authority was granted.
-- The deterministic 2022-2023 official outcome cross-check compared 1,044 validated NCAA linescores against 1,536 exact mappings: 1,043 agree, 492 mappings lack validated linescores, and NCAA contest 2276794 is quarantined because the bound canonical record reverses the Florida State 24-LSU 23 score orientation.
+- The corrected deterministic 2022-2023 official outcome cross-check compares 1,044 validated NCAA linescores against 1,536 exact mappings by context-reconciled team identity: all 1,044 available finals agree and 492 mappings lack validated linescores. NCAA contest 2276794 preserves opposite neutral-site side labels while both sources agree on Florida State 24, LSU 23.

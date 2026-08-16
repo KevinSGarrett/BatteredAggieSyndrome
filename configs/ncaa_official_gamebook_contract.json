@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "decision_unit": "POST-SUBTASK-197",
   "jira_key": "BAT-554",
   "classification": "NATIONAL_NCAA_OFFICIAL_GAMEBOOK_EQUIVALENT_CANDIDATE_ONLY",
@@ -18,7 +18,7 @@
     ]
   },
   "transport": {
-    "route_order": ["direct_http", "local_patchright_chrome", "scrapfly", "scraperapi"],
+    "route_order": ["direct_http", "local_patchright_chrome", "scrapfly", "scraperapi_async", "scraperapi"],
     "direct_http": {"enabled": true},
     "local_patchright_chrome": {
       "enabled": true,
@@ -48,6 +48,15 @@
       "api_url": "https://api.scraperapi.com/",
       "render": true,
       "country_code": "us"
+    },
+    "scraperapi_async": {
+      "enabled_when_nonempty": true,
+      "credential_environment_variable": "SCRAPERAPI_API_TOKEN",
+      "api_url": "https://async.scraperapi.com/jobs",
+      "render": true,
+      "country_code": "us",
+      "poll_interval_seconds": 2,
+      "maximum_poll_seconds": 600
     }
   },
   "content_validation": {

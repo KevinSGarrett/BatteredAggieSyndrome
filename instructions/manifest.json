@@ -477,7 +477,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "human-policy:25_fort_knox_assistive_execution_interlock",
-      "sha256": "fd7d16599410641bfde3ede2170ffd7e8a98f81561fc7e4ca58735d3e81628a0"
+      "sha256": "b3c0b88764a557b07fcf53075dfd0c93b4995952fb2b37b9a9827887f2ff146f"
     },
     {
       "path": "instructions/CHANGELOG.md",
@@ -495,7 +495,7 @@
       ],
       "version": "3.0.0",
       "canonical_topic": "human-policy:changelog",
-      "sha256": "b0ddb3cf85cb7a52f878d4f8d8d798041e891fa2ae1d1bed76e6677fcd102545"
+      "sha256": "2d48f78da4dda6db4c7ccdbc71b4ab2cea79d73851cc151b7419b57f1d629edb"
     },
     {
       "path": "instructions/FILE_HASHES.sha256",

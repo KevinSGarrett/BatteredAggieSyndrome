@@ -15,6 +15,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 from acquire_ncaa_official_gamebooks import (  # noqa: E402
     DirectHTTPTransport,
     ScrapflyTransport,
+    ScraperAPIAccountCapacity,
+    ScraperAPIAsyncTransport,
     ScraperAPITransport,
     ValidatingTransport,
     acquire_one,
@@ -29,6 +31,7 @@ from acquire_ncaa_official_gamebooks import (  # noqa: E402
     main,
     normalize_ncaa_capture,
     request_for,
+    scraperapi_account_capacity,
     validate_official_uri,
 )
 from aggie_analytics.data.adapters import AcquisitionFailure, FetchResponse  # noqa: E402
@@ -504,13 +507,208 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
         direct = DirectHTTPTransport()
         scrapfly = ScrapflyTransport("scrapfly-secret")
         scraperapi = ScraperAPITransport("scraperapi-secret")
+        scraperapi_async = ScraperAPIAsyncTransport("scraperapi-async-secret")
         self.assertNotIn("secret", repr(scrapfly))
         self.assertNotIn("secret", repr(scraperapi))
+        self.assertNotIn("secret", repr(scraperapi_async))
         self.assertNotIn("token", repr(direct).lower())
         with self.assertRaises(ValueError):
             ScrapflyTransport("")
         with self.assertRaises(ValueError):
             ScraperAPITransport("")
+        with self.assertRaises(ValueError):
+            ScraperAPIAsyncTransport("")
+
+    def test_scraperapi_async_transport_returns_finished_rendered_body(self) -> None:
+        body = self.fixture("drives", "Drives")
+
+        class Response:
+            def __init__(self, payload: object) -> None:
+                self.status = 200
+                self.headers = {"content-type": "application/json"}
+                self.payload = json.dumps(payload).encode("utf-8")
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self) -> bytes:
+                return self.payload
+
+        submit = Response(
+            {
+                "id": "3db8a53c-e7e3-4a3a-995b-cb145c540c9b",
+                "status": "running",
+                "statusUrl": "https://async.scraperapi.com/jobs/3db8a53c-e7e3-4a3a-995b-cb145c540c9b",
+            }
+        )
+        finished = Response(
+            {
+                "status": "finished",
+                "response": {
+                    "statusCode": 200,
+                    "headers": {"content-type": "text/html", "authorization": "not-safe"},
+                    "body": body.decode("utf-8"),
+                },
+            }
+        )
+        transport = ScraperAPIAsyncTransport(
+            "secret", poll_interval_seconds=0, maximum_poll_seconds=1
+        )
+        contest = {**self.contract["seed_contests"][0], "contest_id": "5362283"}
+        endpoint = next(row for row in self.contract["endpoints"] if row["endpoint_id"] == "drives")
+        request = request_for(self.contract, contest, endpoint)
+        available = ScraperAPIAccountCapacity(state="AVAILABLE")
+        with patch(
+            "acquire_ncaa_official_gamebooks.scraperapi_account_capacity",
+            return_value=available,
+        ), patch("urllib.request.urlopen", side_effect=[submit, finished]) as mocked:
+            response = transport(request)
+        self.assertEqual(body, response.body)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual({"content-type": "text/html"}, response.headers)
+        submitted = json.loads(mocked.call_args_list[0].args[0].data)
+        self.assertTrue(submitted["apiParams"]["render"])
+        self.assertEqual(request.identity_sha256, submitted["meta"]["request_identity"])
+        self.assertNotIn("secret", json.dumps(response.headers))
+
+    def test_scraperapi_async_transport_rejects_untrusted_status_url(self) -> None:
+        class Response:
+            status = 200
+            headers = {"content-type": "application/json"}
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self) -> bytes:
+                return json.dumps(
+                    {
+                        "status": "running",
+                        "statusUrl": "https://example.com/jobs/3db8a53c-e7e3-4a3a-995b-cb145c540c9b",
+                    }
+                ).encode("utf-8")
+
+        transport = ScraperAPIAsyncTransport("secret")
+        contest = {**self.contract["seed_contests"][0], "contest_id": "5362283"}
+        endpoint = next(row for row in self.contract["endpoints"] if row["endpoint_id"] == "drives")
+        available = ScraperAPIAccountCapacity(state="AVAILABLE")
+        with patch(
+            "acquire_ncaa_official_gamebooks.scraperapi_account_capacity",
+            return_value=available,
+        ), patch("urllib.request.urlopen", return_value=Response()):
+            with self.assertRaisesRegex(AcquisitionFailure, "unsafe status URL"):
+                transport(request_for(self.contract, contest, endpoint))
+
+    def test_scraperapi_exhausted_account_fails_before_submit(self) -> None:
+        exhausted = ScraperAPIAccountCapacity(
+            state="EXHAUSTED",
+            request_limit=100000,
+            request_count=100270,
+            credits_left=0,
+            concurrency_limit=20,
+            pay_as_you_go_enabled=False,
+            auto_upgrade_enabled=False,
+        )
+        transport = ScraperAPIAsyncTransport("secret")
+        contest = {**self.contract["seed_contests"][0], "contest_id": "5362283"}
+        endpoint = next(
+            row for row in self.contract["endpoints"] if row["endpoint_id"] == "drives"
+        )
+        with patch(
+            "acquire_ncaa_official_gamebooks.scraperapi_account_capacity",
+            return_value=exhausted,
+        ), patch("urllib.request.urlopen") as mocked:
+            with self.assertRaisesRegex(AcquisitionFailure, "allowance is exhausted") as raised:
+                transport(request_for(self.contract, contest, endpoint))
+        self.assertEqual("RATE_LIMITED", raised.exception.condition)
+        mocked.assert_not_called()
+
+    def test_scraperapi_capacity_retains_only_nonsecret_admission_fields(self) -> None:
+        class Response:
+            status = 200
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self) -> bytes:
+                return json.dumps(
+                    {
+                        "requestLimit": 100000,
+                        "requestCount": 100270,
+                        "creditsLeft": 0,
+                        "concurrencyLimit": 20,
+                        "payAsYouGoEnabled": False,
+                        "autoUpgradeEnabled": False,
+                        "privateAccountField": "must-not-be-retained",
+                    }
+                ).encode("utf-8")
+
+        scraperapi_account_capacity.cache_clear()
+        try:
+            with patch("urllib.request.urlopen", return_value=Response()):
+                capacity = scraperapi_account_capacity("scraperapi-secret")
+        finally:
+            scraperapi_account_capacity.cache_clear()
+        self.assertTrue(capacity.exhausted)
+        self.assertEqual(20, capacity.concurrency_limit)
+        self.assertNotIn("secret", repr(capacity))
+        self.assertNotIn("privateAccountField", repr(capacity))
+
+    def test_scraperapi_capacity_rejects_string_boolean_flags(self) -> None:
+        class Response:
+            status = 200
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self) -> bytes:
+                return json.dumps(
+                    {
+                        "requestLimit": 100000,
+                        "requestCount": 100270,
+                        "creditsLeft": 0,
+                        "concurrencyLimit": 20,
+                        "payAsYouGoEnabled": "false",
+                        "autoUpgradeEnabled": "false",
+                    }
+                ).encode("utf-8")
+
+        scraperapi_account_capacity.cache_clear()
+        try:
+            with patch("urllib.request.urlopen", return_value=Response()):
+                capacity = scraperapi_account_capacity("scraperapi-secret")
+        finally:
+            scraperapi_account_capacity.cache_clear()
+        self.assertEqual("UNKNOWN", capacity.state)
+        self.assertFalse(capacity.exhausted)
+
+    def test_route_builder_admits_async_scraperapi_with_nonempty_credential(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            env_file = root / ".env"
+            env_file.write_text("SCRAPERAPI_API_TOKEN=configured\n", encoding="utf-8")
+            routes, states = build_routes(
+                contract=self.contract,
+                env_file=env_file,
+                runtime_root=root,
+                contest_id="5362283",
+                endpoint_id="box_score",
+            )
+        route_ids = [route_id for route_id, _ in routes]
+        state_by_id = {row["route_id"]: row for row in states}
+        self.assertIn("scraperapi_async", route_ids)
+        self.assertEqual("CONFIGURED_NONEMPTY", state_by_id["scraperapi_async"]["credential_state"])
 
     def test_route_builder_skips_empty_proxy_credentials_without_blocking_local_routes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -529,8 +727,10 @@ class NcaaOfficialGamebookTests(unittest.TestCase):
             self.assertIn("direct_http", route_ids)
             self.assertNotIn("scrapfly", route_ids)
             self.assertNotIn("scraperapi", route_ids)
+            self.assertNotIn("scraperapi_async", route_ids)
             self.assertEqual("EMPTY_OR_ABSENT", state_by_id["scrapfly"]["credential_state"])
             self.assertEqual("EMPTY_OR_ABSENT", state_by_id["scraperapi"]["credential_state"])
+            self.assertEqual("EMPTY_OR_ABSENT", state_by_id["scraperapi_async"]["credential_state"])
 
     def test_immutable_capture_caches_same_request_without_refetch(self) -> None:
         contest = self.contract["seed_contests"][0]
